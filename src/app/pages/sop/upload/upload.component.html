@@ -1,0 +1,63 @@
+
+<div class="row"  *ngIf="document;else rstArea">
+  <div class="col-12">
+    <div class="card card-body">
+      <div class="doc-container">
+        <h6>UPLOAD YOUR STATEMENT OF PURPOSE</h6>
+        <hr />
+        <div class="_container">
+          <p-editor [style]="{'height':'320px'}" [spellcheck]="false" [(ngModel)]="document" uniEditor class="w-full">
+            <ng-template pTemplate="header">
+            </ng-template>
+          </p-editor>
+        </div>
+        <div class="_footer_part">
+          <div>CHARACTERS: <span>{{characters}}</span></div>
+          <div>SENTENCES: <span>{{sentences}}</span></div>
+          <div>WORDS: <span>{{words}}</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-12 text-end">
+    <button class="btn btn-primary" (click)="continue()">
+      CONTINUE <span class="btn-label"><i class="pi pi-arrow-right"></i></span>
+    </button>
+  </div>
+</div>
+<ng-template #rstArea>
+  <div class="card card-body">
+    <div class="sop-container">
+      <div class=" d-flex justify-content-between align-items-center">
+        <h6 class="mb-0">UPLOAD YOUR STATEMENT OF PURPOSE</h6>
+        <div class="btn no-cursor btn-primary m-0">How to use?&nbsp;&nbsp;&nbsp;&nbsp;<button id="watch">
+          <span class="align-middle bg-green">
+            <svg  xmlns="http://www.w3.org/2000/svg" style="min-width: 15px; min-height: 15px" width="15" height="15" fill="currentColor" class="bi bi-play-fill" viewBox="0 0 17  17">
+              <path d="m11.596 8.697-6.363 3.692c-.54.313-1.233-.066-1.233-.697V4.308c0-.63.692-1.01 1.233-.696l6.363 3.692a.802.802 0 0 1 0 1.393z"/>
+            </svg>
+          </span>&nbsp;
+          <span class="align-middle">Watch Now</span></button>
+        </div>
+      </div>
+      <hr />
+      <div class="containerr">
+        <input
+                type="file"
+                #fileDropRef
+                id="fileDropRef"
+                (change)="onFileChange($event)"
+        />
+        <img
+                src="../../../assets/images/sop/Group 362.png"
+                style="height: 50px"
+        />
+        <h6 class="upload_h">UPLOAD YOUR SOP DATA</h6>
+        <h3>Drag and drop here or Upload File</h3>
+        <h3>(.docx)</h3>
+      </div>
+      <div class="container_footer">
+        <p>PLEASE READ OUR <span>COMMUNITY GUIDELINES </span>BEFORE UPLOADING.</p>
+      </div>
+    </div>
+  </div>
+</ng-template>

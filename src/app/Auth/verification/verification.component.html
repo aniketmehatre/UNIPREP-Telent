@@ -1,0 +1,91 @@
+<div class="bg-image">
+  <div class="formdiv">
+    <form [formGroup]="otpForm" (ngSubmit)="onSubmit()">
+      <h5 class="login-heading mt-3 mb-2">Enter your OTP</h5>
+      <label class="signup mb-3"
+        >We have sent you one time password to your E-mail address for
+        verification</label
+      >
+      <div style="text-align-last: center">
+        <input
+          class="col form-control"
+          [ngClass]="{
+            'is-invalid': submitted && f.otp1.errors
+          }"
+          formControlName="otp1"
+          type="text"
+          maxlength="1"
+        />
+        <input
+          class="col form-control"
+          formControlName="otp2"
+          type="text"
+          maxlength="1"
+          [ngClass]="{
+            'is-invalid': submitted && f.otp2.errors
+          }"
+        />
+        <input
+          class="col form-control"
+          formControlName="otp3"
+          type="text"
+          maxlength="1"
+          [ngClass]="{
+            'is-invalid': submitted && f.otp3.errors
+          }"
+        />
+        <input
+          class="col form-control"
+          formControlName="otp4"
+          type="text"
+          maxlength="1"
+          [ngClass]="{
+            'is-invalid': submitted && f.otp4.errors
+          }"
+        />
+        <div
+          *ngIf="
+            submitted &&
+            f.otp1.errors &&
+            f.otp2.errors &&
+            f.otp3.errors &&
+            f.otp4.errors
+          "
+          class="invalid-feedback"
+        >
+          <div
+            *ngIf="
+              f.otp1.errors.required &&
+              f.otp2.errors.required &&
+              f.otp3.errors.required &&
+              f.otp4.errors.required
+            "
+          >
+            OTP is required
+          </div>
+        </div>
+      </div>
+      <br />
+      <div class="d-grid">
+        <button
+          class="p-1 btn btn-primary btn-login text-uppercase fw-bold m-0"
+          type="submit"
+        >
+          Next
+        </button>
+      </div>
+      <label class="resend_label"
+        >Didn't receive the email?
+        <span class="font-primarycolor"
+          ><a (click)="resend()">Click to resend.</a></span
+        ></label
+      >
+      <div class="footer-part">
+        <a href="/login"
+          ><span><i class="pi pi-chevron-left"></i></span></a
+        ><br />
+        <label>Back to Sign In</label>
+      </div>
+    </form>
+  </div>
+</div>

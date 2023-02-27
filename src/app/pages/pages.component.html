@@ -1,0 +1,30 @@
+<section>
+    <div id="sidenav" [ngClass]="sidebarClass">
+        <uni-sidenav>
+            <ng-template #appTitle>
+                <img src="../../assets/images/SOP-CHECKER.PNG">
+            </ng-template>
+        </uni-sidenav>
+    </div>
+    <div id="page" (scroll)="onWindowScroll($event)">
+        <uni-header [ngClass]="{'sticky': stickHeader}" [expandicon]="expandicon" (togleSidebar)="togleSidebar()">
+        </uni-header>
+        <div id="page-container">
+            <router-outlet></router-outlet>
+        </div>
+        <footer [ngClass]="{'alignleft': !!sidebarClass}">
+            <div>
+                <a>2022 &#169; All rights reserved by UNIABROAD | UOEC Consultants Pvt Ltd.</a>
+            </div>
+            <div>
+                <ul>
+                    <li>TERMS AND CONDTIONS<span>|</span></li> 
+                    <li>PRIVACY POLICY<span>|</span></li>
+                    <li>ABOUT US<span>|</span></li>
+                    <li>CONTACT US</li>
+                </ul>
+            </div>
+        </footer>
+
+    </div>
+</section>

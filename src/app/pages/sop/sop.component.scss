@@ -1,0 +1,52 @@
+.sop-icon {
+  margin: 2px 0px 0px 10px;
+  float: left;
+  img {
+    height: 20px;
+  }
+}
+
+@mixin navbg($num) {
+  background-image: url("/assets/images/#{$num}.png");
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  background-position: center;
+  &.active {
+    background-image: url("/assets/images/#{$num}a.png");
+  }
+}
+
+#sop-nav {
+  padding: 0px;
+  display: flex;
+  list-style: none;
+  max-width: 1075px;
+  li {
+    flex: 1;
+    height: 70px;
+    &:nth-child(1) {
+      @include navbg(1);
+      z-index: 5;
+    }
+    &:nth-child(2) {
+      @include navbg(2);
+      margin-left: -25px;
+      z-index: 4;
+    }
+    &:nth-child(3) {
+      @include navbg(3);
+      margin-left: -25px;
+      z-index: 3;
+    }
+    &:nth-child(4) {
+      @include navbg(4);
+      margin-left: -25px;
+      z-index: 2;
+    }
+    &:nth-child(5) {
+      @include navbg(5);
+      margin-left: -25px;
+      z-index: 1;
+    }
+  }
+}

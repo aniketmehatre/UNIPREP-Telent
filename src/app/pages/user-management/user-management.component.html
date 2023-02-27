@@ -1,0 +1,259 @@
+<div class="container-fluid custom_container">
+  <div class="row">
+    <div class="col-8">
+      <div class="fillercard shadow p-0 mb-0 bg-body rounded">
+        <div class="container">
+          <div class="row">
+            <p class="text-left mt-3">FILTERS</p>
+            <div class="col-4 mt-3">
+              <label class="form-label label label">USER ROLE</label>
+              <select class="form-select" aria-label="Default select example">
+                <option selected></option>
+                <option value="1">One</option>
+                <option value="2">Two</option>
+                <option value="3">Three</option>
+              </select>
+            </div>
+            <div class="col-4 mt-3">
+              <label class="form-label label label">PLAN</label>
+              <select class="form-select" aria-label="Default select example">
+                <option selected></option>
+                <option value="1">One</option>
+                <option value="2">Two</option>
+                <option value="3">Three</option>
+              </select>
+            </div>
+            <div class="col-4 mt-3">
+              <label class="form-label label label">STATUS</label>
+              <select class="form-select" aria-label="Default select example">
+                <option selected></option>
+                <option value="1">One</option>
+                <option value="2">Two</option>
+                <option value="3">Three</option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="mt-5 tablecard shadow p-0 mb-5 bg-body rounded">
+        <div class="row mt-3">
+
+              <div class="col-sm-1">
+                <label class="form-label label label2">SHOW</label>
+              </div>
+              <div class="col-sm-3">
+                <div class="drop mr-2">
+                    <select class="form-select" aria-label="Default select example">
+                        <option selected></option>
+                        <option value="1">One</option>
+                        <option value="2">Two</option>
+                        <option value="3">Three</option>
+                      </select>
+                      
+                </div>
+                <span>entries</span>
+              </div>
+             
+          <div class="col-sm-7">
+            <form>
+                <div class="search">
+                    <input
+                    type="text"
+                    class="form-control"
+                    placeholder="search"
+                  />
+
+                </div>
+              
+            </form>
+           
+          </div>
+          
+        </div>
+
+        <div class="row">
+          <div class="col-12 mt-3">
+            <table class="table table-bordered">
+              <thead style="background-color: #9bc3296e;">
+                
+                  <!-- <th scope="col">#</th> -->
+                  <th scope="col">USER</th>
+                  <th scope="col">EMAIL</th>
+                  <th scope="col">ROLE</th>
+                  <th scope="col">PLAN</th>
+                  <th scope="col">CHECK'S</th>
+                  <th scope="col">STATUS</th>
+                  <th scope="col">ACTION</th>
+    
+              </thead>
+              <tbody>
+                <tr>
+                  <!-- <th scope="row">1</th> -->
+                  <!-- <td>Mark</td> -->
+                  <td>Otto</td>
+                  <td>@mdo</td>
+                  <td>Mark</td>
+                  <td>Otto</td>
+                  <td>@mdo</td>
+                  <td>Mark</td>
+                  <td>
+                    <div class="btn-group">
+                      <a
+                        type="button"
+                        data-bs-toggle="dropdown"
+                        aria-expanded="false"
+                      >
+                        <i class="bi bi-three-dots-vertical"></i>
+                      </a>
+                      <ul class="dropdown-menu">
+                        <li>
+                          <a class="dropdown-item" href="#"
+                            ><i class="bi bi-check2-square label"></i>DETAILS</a
+                          >
+                        </li>
+                        <li>
+                          <a class="dropdown-item"  data-bs-toggle="modal" data-bs-target="#exampleModal"
+                            ><i class="bi bi-pencil-square label"></i>EDIT</a
+                          >
+                        </li>
+                        <li>
+                          <a class="dropdown-item" href="#"
+                            ><i class="bi bi-trash3 label"></i>DELETED</a
+                          >
+                        </li>
+                      </ul>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-4">
+      <div class="tablecard">
+        <p class="text-center mt-3">ADD NEW USER</p>
+        <div class="container">
+          <div class="mb-3">
+            <label class="form-label label">FULL NAME</label>
+            <input type="email" class="form-control" placeholder="FULL NAME" />
+          </div>
+          <div class="mb-3">
+            <label class="form-label label">USERNAME</label>
+            <input type="email" class="form-control" placeholder="USERNAME" />
+          </div>
+          <div class="mb-3">
+            <label class="form-label label">Email</label>
+            <input
+              type="email"
+              class="form-control"
+              Id=""
+              placeholder="Email"
+            />
+          </div>
+          <div class="mb-3">
+            <label class="form-label label">COMPANY</label>
+            <input
+              type="email"
+              class="form-control"
+              Id=""
+              placeholder="COMPANY"
+            />
+          </div>
+          <div class="mb-3">
+            <label class="form-label label">COUNTRY</label>
+            <input
+              type="email"
+              class="form-control"
+              Id=""
+              placeholder="COUNTRY"
+            />
+          </div>
+          <div class="mb-3">
+            <label class="form-label label">USER ROLE</label>
+            <select
+              class="form-select form-select-sm"
+              aria-label=".form-select-sm example"
+            >
+              <option selected>Open this select menu</option>
+              <option value="1">One</option>
+              <option value="2">Two</option>
+              <option value="3">Three</option>
+            </select>
+          </div>
+          <div class="mb-3">
+            <label class="form-label label">PLAN</label>
+            <select
+              class="form-select form-select-sm"
+              aria-label=".form-select-sm example"
+            >
+              <option selected>Open this select menu</option>
+              <option value="1">One</option>
+              <option value="2">Two</option>
+              <option value="3">Three</option>
+            </select>
+          </div>
+          <div class="row mb-3">
+            <div class="col-2" style="margin: 5px;">
+              <button type="button" class="btn btn-primary btn-sm btncolor">
+                ADD
+              </button>
+            </div>
+            <div class="col-3">
+              <button type="button" class="btn btn btn-outline-dark btn-sm">
+                CANCEL
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Button trigger modal -->
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal">
+
+<div class="modal-dialog">
+  <div class="cardedit">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+     
+      <div class="modal-body">
+      
+        
+            <div class="row">
+         
+              <div class="col-sm-4">
+                <img class="img" src="assets/images/img2.jpg" />
+              </div>
+              <div class="col-sm-4">
+                <div class="titledis">
+                  <strong>NAOMI LAWRENCE</strong><br />
+                  <label>nikunj@gmail.com</label>
+                </div>
+                
+              </div>
+              <div class="col-sm-4">
+                <div class="titledis1">
+                 <button routerLink="../profile" data-bs-dismiss="modal"    type="button" class="btn btn-sm btncolor mr-2">EDIT</button>
+                  
+                <button type="button" class="btn btn-outline-dark btn-sm">DELETE</button>
+                </div>
+
+              </div>
+          
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+<!-- Button trigger modal -->
+
+  
+  

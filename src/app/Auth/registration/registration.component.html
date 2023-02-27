@@ -1,0 +1,336 @@
+<div class="container-fluid ps-md-0">
+  <div class="row g-0">
+    <div class="col-md-8 col-lg-4">
+      <div class="login d-flex align-items-center">
+        <div class="container">
+          <div class="row">
+            <div class="col-md-9 col-lg-8 mx-custom">
+              <img class="logo" src="../../../assets/images/SOP-CHECKER.PNG" />
+              <h5 class="login-heading mt-3 mb-3">
+                Welcome ! Please Register your<br /><u
+                  ><span class="font-primarycolor">account.</span></u
+                >
+              </h5>
+              <label class="signup"
+                >Already Have An Account ?<span
+                  ><a class="font-primarycolor" href="/login"> Sign In</a></span
+                ></label
+              >
+              <form [formGroup]="registrationForm" (ngSubmit)="onSubmit()">
+                <div class="row g-3">
+                  <div class="col">
+                    <label for="firstname">First Name</label>
+                    <div class="p-inputgroup">
+                      <div class="p-inputgroup-addon">
+                        <i class="pi pi-user"></i>
+                      </div>
+                      <input
+                        type="text"
+                        class="border-0"
+                        pInputText
+                        formControlName="firstName"
+                        [ngClass]="{
+                          'is-invalid': submitted && f.firstName.errors
+                        }"
+                      />
+                    </div>
+                    <div
+                      *ngIf="submitted && f.firstName.errors"
+                      class="invalid-feedback"
+                    >
+                      <div *ngIf="f.firstName.errors.required">
+                        First Name is required
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col">
+                    <label for="lastname">Last Name</label>
+                    <div class="p-inputgroup">
+                      <div class="p-inputgroup-addon">
+                        <i class="pi pi-user"></i>
+                      </div>
+                      <input
+                        type="text"
+                        class="border-0"
+                        formControlName="lastName"
+                        pInputText
+                        [ngClass]="{
+                          'is-invalid': submitted && f.lastName.errors
+                        }"
+                      />
+                    </div>
+                    <div
+                      *ngIf="submitted && f.lastName.errors"
+                      class="invalid-feedback"
+                    >
+                      <div *ngIf="f.lastName.errors.required">
+                        Last Name is required
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="row g-3">
+                  <div class="col">
+                    <label for="emailAddress">Email Address</label>
+                    <div class="p-inputgroup">
+                      <div class="p-inputgroup-addon">
+                        <i class="pi pi-envelope"></i>
+                      </div>
+                      <input
+                        type="text"
+                        pInputText
+                        class="border-0 w-full"
+                        formControlName="emailAddress"
+                        [ngClass]="{
+                          'is-invalid': submitted && f.emailAddress.errors
+                        }"
+                      />
+                    </div>
+                    <div
+                      *ngIf="submitted && f.emailAddress.errors"
+                      class="invalid-feedback"
+                    >
+                      <div *ngIf="f.emailAddress.errors.required">
+                        Email Address is required
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="row g-3">
+                  <div class="col-6">
+                    <label for="location">Location</label>
+                    <div class="p-inputgroup">
+                      <div class="p-inputgroup-addon">
+                        <i class="pi pi-map-marker"></i>
+                      </div>
+                      <p-dropdown formControlName="location" [options]="locationList" optionLabel="district"></p-dropdown>
+
+                    </div>
+                    <div
+                      *ngIf="submitted && f.location.errors"
+                      class="invalid-feedback"
+                    >
+                      <div *ngIf="f.location.errors.required">
+                        Location is required
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-6">
+                    <label for="contact">Contact Number</label>
+                    <div class="p-inputgroup">
+                      <div class="p-inputgroup-addon">
+                        <i class="pi pi-mobile"></i>
+                      </div>
+                      <input
+                        type="number"
+                        class="border-0"
+                        pInputText
+                        formControlName="contactNumber"
+                        [ngClass]="{
+                          'is-invalid': submitted && f.contactNumber.errors
+                        }"
+                      />
+                    </div>
+                    <div
+                      *ngIf="submitted && f.contactNumber.errors"
+                      class="invalid-feedback"
+                    >
+                      <div *ngIf="f.contactNumber.errors.required">
+                        Contact Number is required
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="row g-3">
+                  <div class="col">
+                    <label for="floatingPassword">Password</label>
+                    <div class="p-inputgroup">
+                      <div class="p-inputgroup-addon">
+                        <i class="pi pi-lock"></i>
+                      </div>
+                      <input
+                        type="password"
+                        pInputText
+                        class="border-0"
+                        formControlName="password"
+                        [ngClass]="{
+                          'is-invalid': submitted && f.password.errors
+                        }"
+                      />
+                    </div>
+                    <div
+                      *ngIf="submitted && f.password.errors"
+                      class="invalid-feedback"
+                    >
+                      <div *ngIf="f.password.errors.required">
+                        Password is required
+                      </div>
+                      <div *ngIf="f.password.errors.minlength">
+                        Password must be at least 8 characters
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col">
+                    <label for="floatingPassword">Confirm Password</label>
+                    <div class="p-inputgroup">
+                      <div class="p-inputgroup-addon">
+                        <i class="pi pi-lock"></i>
+                      </div>
+                      <input
+                        type="password"
+                        pInputText
+                        class="border-0"
+                        formControlName="confirmPassword"
+                        [ngClass]="{
+                          'is-invalid': submitted && f.confirmPassword.errors
+                        }"
+                      />
+                    </div>
+                    <div
+                      *ngIf="submitted && f.confirmPassword.errors"
+                      class="invalid-feedback"
+                    >
+                      <div
+                        style="width: 120%"
+                        *ngIf="f.confirmPassword.hasError('matching')"
+                      >
+                        Password and confirm not match
+                      </div>
+                      <div *ngIf="f.confirmPassword.errors.required">
+                        Confirm Password is required
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <br />
+                <div class="form-check mb-3">
+                  <input
+                    class="form-check-input"
+                    class="input_checkbox"
+                    type="checkbox"
+                    id="terms" formControlName="terms"
+                  />
+                  <label class="form-check-label agree" for="terms">
+                    I agree to the
+                    <a class="font-primarycolor" (click)="openTermsPopup()">
+                      terms and Conditions</a
+                    >.
+                  </label>
+                </div>
+                <br />
+                <div class="d-grid">
+                  <button
+                    class="pt-3 pb-3 btn btn-primary btn-login text-uppercase fw-bold m-0"
+                    type="submit"
+                  >
+                    Sign Up
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="d-none d-md-flex col-md-4 col-lg-8 bg-image"></div>
+  </div>
+</div>
+<div
+  class="modal modal-bg"
+  tabindex="-1"
+  role="dialog"
+  [ngStyle]="{ display: displayTerms }"
+>
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <a (click)="closeTermsPopup()">
+          <span aria-hidden="true"
+            ><img src="../../../assets/images/sop/close.png"
+          /></span>
+        </a>
+      </div>
+
+      <div class="modal-body">
+        <div class="row">
+          <div class="card _terms">
+            <div class="card-body mt-2">
+              <h4 class="card-title">Terms & Conditions</h4>
+              <p class="card-text terms_p">Last update: 1 November 2022</p>
+              <hr />
+              <div style="font-size: 0.9rem">
+                <p>
+                  <b>Welcome to Project</b><br />
+                  Quisque est nisi, eleifend tristique congue non, sagittis quis
+                  justo. In blandit hendrerit magna, sit amet ullamcorper
+                  sapien. Suspendisse potenti. Vivamus eu lacus ut nulla dapibus
+                  malesuada nec et libero. Ut ultrices risus id eleifend
+                  sagittis.
+                </p>
+                <br />
+                <p>
+                  <b>1. What are Terms and Conditions</b><br />
+                  Sed non dui aliquam, ullamcorper est non, aliquet mauris.
+                  Quisque lacus ligula, dapibus nec dignissim non, tincidunt vel
+                  quam. Etiam porttitor iaculis odio. Cras sagittis nunc lectus,
+                  in condimentum ligula ornare at. Etiam sagittis malesuada
+                  nisl. Duis volutpat ligula ante. Sed cursus, tortor a
+                  pellentesque pulvinar, lorem ipsum gravida elit, id posuere
+                  elit neque in est. Mauris ex justo, tincidunt at suscipit
+                  quis, pretium a mi. Quisque consequat nisl nulla, dignissim
+                  gravida ipsum ultrices et. Morbi pharetra non massa at cursus.
+                  Vivamus convallis dui eu nisl blandit, vel convallis nisi
+                  dapibus.
+                </p>
+                <br />
+                <p>
+                  <b>A. What to include in a Terms and Conditions</b><br />
+                  tiam rhoncus quis eros eget fringilla. Etiam malesuada enim
+                  laoreet nibh euismod, eu finibus elit finibus. Duis ornare
+                  tempus purus. Nam at leo quis tortor congue dignissim. Sed non
+                  varius erat. Nulla vel nibh eu risus cursus vulputate nec ac
+                  elit.
+                </p>
+                <br />
+                <p>
+                  <b>B. Is a Terms and Conditions required?</b><br />
+                  roin efficitur vestibulum molestie. Nam urna justo, ornare
+                  commodo sem eget, pretium lobortis nisi. Curabitur ac felis
+                  pharetra nunc molestie semper quis eu mauris. Aliquam mollis,
+                  arcu in blandit cursus, lacus est aliquam dui, vitae suscipit
+                  orci massa.
+                </p>
+                <p>
+                  <b>2. What are Terms and Conditions</b><br />
+                  Sed non dui aliquam, ullamcorper est non, aliquet mauris.
+                  Quisque lacus ligula, dapibus nec dignissim non, tincidunt vel
+                  quam. Etiam porttitor iaculis odio. Cras sagittis nunc lectus,
+                  in condimentum ligula ornare at. Etiam sagittis malesuada
+                  nisl. Duis volutpat ligula ante. Sed cursus, tortor a
+                  pellentesque pulvinar, lorem ipsum gravida elit, id posuere
+                  elit neque in est. Mauris ex justo, tincidunt at suscipit
+                  quis, pretium a mi. Quisque consequat nisl nulla, dignissim
+                  gravida ipsum ultrices et. Morbi pharetra non massa at cursus.
+                  Vivamus convallis dui eu nisl blandit, vel convallis nisi
+                  dapibus.
+                </p>
+                <br />
+                <p>
+                  <b>3. Is a Terms and Conditions required?</b><br />
+                  roin efficitur vestibulum molestie. Nam urna justo, ornare
+                  commodo sem eget, pretium lobortis nisi. Curabitur ac felis
+                  pharetra nunc molestie semper quis eu mauris. Aliquam mollis,
+                  arcu in blandit cursus, lacus est aliquam dui, vitae suscipit
+                  orci massa.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

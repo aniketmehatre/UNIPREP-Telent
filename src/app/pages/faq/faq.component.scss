@@ -1,0 +1,15 @@
+.menulist {
+  list-style: none;
+  li {
+    cursor: pointer;
+    &.active {
+      color: #9bc329;
+    }
+    margin-bottom: 15px;
+    &:last-child {
+      margin-bottom: 0px;
+    }
+  }
+  position: sticky;
+  top: 80px;
+}

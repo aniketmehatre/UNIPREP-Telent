@@ -1,0 +1,53 @@
+.nav-link {
+  text-decoration: none;
+  color: #343a40;
+  &.active {
+    color: #9bc329;
+    font-weight: bold;
+  }
+}
+.card {
+  h5 {
+    color: #9bc329;
+    font-weight: bold;
+  }
+  p {
+    max-height: 500px;
+    overflow-y: auto;
+    &::-webkit-scrollbar {
+      width: 10px;
+      height: 8px;
+      border-radius: 5px;
+    }
+
+    /* Track */
+    &::-webkit-scrollbar-track {
+      background: #f1f1f1;
+    }
+
+    /* Handle */
+    &::-webkit-scrollbar-thumb {
+      background: #888;
+      border-radius: 5px;
+    }
+
+    /* Handle on hover */
+    &::-webkit-scrollbar-thumb:hover {
+      background: #555;
+    }
+  }
+}
+
+.lnk {
+  color: #9bc329;
+  font-weight: 700;
+  cursor: pointer;
+  i {
+    transition: all .3s ease-in-out;
+  }
+  &:hover {
+    i {
+      margin-left: 3px;
+    }
+  }
+}

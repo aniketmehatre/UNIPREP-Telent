@@ -1,0 +1,72 @@
+<!-- 
+<ul class="menu-items">
+  <ng-container *ngFor="let menu of menus;let index = index">
+    <ng-container *ngIf="menu.header == true; else list">
+      <ng-container *ngTemplateOutlet="header; context: {$implicit: menu}"></ng-container>
+    </ng-container>
+    <ng-template #list>
+      <li [ngClass]="activeMenuIndex == index ? 'menu-item active': 'menu-item'" (click)="toggleMenu(index, menu)">
+        <a>
+            <i *ngIf="menu.icon" [ngClass]="menu.icon | icon:'menu-icon'"></i>
+            <span class="menu-title">{{menu.title}}</span>
+        </a>
+        <ng-container *ngIf="activeMenuIndex == index" @accordion>
+          <ul class="menu-items" *ngFor="let submenu of menu.children || []">
+            <ng-container *ngIf="submenu.header == true; else list">
+              <ng-container *ngTemplateOutlet="header; context: {$implicit: menu}"></ng-container>
+            </ng-container>
+            <ng-template #list>
+              <li class="meni-item">
+                <a>
+                    <i *ngIf="submenu.icon" [ngClass]="submenu.icon | icon:'menu-icon'"></i>
+                    <span class="menu-title">{{submenu.title}}</span>
+                </a>
+            </li>
+            </ng-template>
+          </ul>
+        </ng-container>
+    </li>
+    </ng-template>
+  </ng-container>
+</ul>
+
+<ng-template #header let-menu>
+  <li class="'menu-item">
+    <a class="header">
+        {{menu.title}}
+    </a>
+  </li>
+</ng-template>
+
+ -->
+
+<div class="app-title">
+  <ng-container *ngTemplateOutlet="appTitle || defaultTitle"></ng-container>
+  <br/><br/>
+</div>
+
+<ng-template #defaultTitle>
+  <img src="../../../../assets/images/uniabroad.jpeg">
+  <br/><br/>
+</ng-template>
+<div class="footer"></div>
+<!--<uni-side-menu [menus]="menus"></uni-side-menu>-->
+<ul id="menu-items">
+  <li [ngClass]="{'menu-item': true, 'active': item.active, 'overlap': isOverlap}" *ngFor="let item of menus">
+    <ng-container *ngIf="item.header; else menu">
+      <div class="system-main__apps header">
+        <span class="system-main__icon"><i [class]="item.icon"></i></span>
+        <span class="system-main__name" > {{ item.title }} </span>
+      </div>
+    </ng-container>
+    <ng-template #menu>
+      <div class="system-main__apps" (click)="onexpand(item)">
+        <span class="system-main__icon"><i [class]="item.icon"></i></span>
+        <span class="system-main__name" > {{ item.title }} </span>
+      </div>
+    </ng-template>
+    <ul @accordion *ngIf="item.children && item.expanded">
+      <uni-sidenav></uni-sidenav>
+    </ul>
+  </li>
+</ul>

@@ -1,0 +1,37 @@
+@import "../../../assets/buttons";
+@import "../../../assets/cards";
+
+.card-body-main span{
+    margin:0.4rem 0 0 0 !important;
+    font-weight: 800;
+}
+
+.card-main {
+    border-radius: 5px !important;
+}
+.nowrap{
+    white-space: nowrap;
+}
+.feature-card {
+    background-color: #F6F6F6;
+    div.bold {
+        margin-bottom: 8px;
+    }
+    p {
+        font-size: .8rem;
+    }
+    &:hover {
+        background-color: #FBFFF2;
+        box-shadow: 0 .125rem .25rem rgba(0,0,0,.075)!important;
+        .sop-play {
+            background-color: #001631;
+        }
+    }
+}
+.sop-play {
+    background-color: #9B9B9B;
+    color: #ffffff;
+    padding: 10px 15px;
+    border-radius: 10px;
+    cursor: pointer;
+}

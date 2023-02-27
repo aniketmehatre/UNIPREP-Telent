@@ -1,0 +1,21 @@
+<div class="card">
+    <div class="card-body">
+        <div class="mb-4">
+            <div class="d-flex"><h4 class="sop-border sop-header">Statement Of Purpose Sample</h4></div>
+        </div>
+        <div class="row">
+            <div class="col-md-4 mt-3" *ngFor=" let sample of getsopsmplData">
+                <div  routerLink="../subcategory/{{sample.url}}" class="card shadow bg-body rounded">
+                    <div class="card-body">
+                        <div class="cdr">
+                            <strong>{{sample.name}}</strong>
+                            <i class="pi pi-arrow-right"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br>
+    </div>
+</div>
+

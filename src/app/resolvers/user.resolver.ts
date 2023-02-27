@@ -1,0 +1,19 @@
+import { Injectable } from '@angular/core';
+import {
+  Resolve, RouterStateSnapshot, ActivatedRouteSnapshot
+} from '@angular/router';
+import { Observable, of } from 'rxjs';
+import {AuthService} from "../Auth/auth.service";
+import {User} from "../@Models/user.model";
+
+@Injectable({
+  providedIn: 'root'
+})
+export class UserResolver implements Resolve<User> {
+  constructor(
+    private authService: AuthService
+  ) {}
+  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<User> {
+    return this.authService.getMe();
+  }
+}
