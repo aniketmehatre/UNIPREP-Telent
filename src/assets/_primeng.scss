@@ -154,6 +154,13 @@ p-accordion {
     background-color: transparent;
     border-right: 1px solid #9bc329;
   }
+
+  .p-inputgroup-addon-new {
+    border-width: 0px;
+    background-color: transparent;
+    border-right: 0px solid #9bc329;
+  }
+
   .p-dropdown-trigger, .p-multiselect-trigger {
     border-left: 1px solid #9bc329;
   }
@@ -167,6 +174,7 @@ p-accordion {
     }
   }
 }
+
 p-dropdown {
   display: flex;
   align-items: center;

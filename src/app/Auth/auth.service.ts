@@ -24,8 +24,11 @@ export class AuthService {
 
   getMe(): Observable<User> {
     // return of(Object.create({}));
-    return this.http.get<User>(`${environment.ApiUrl}/userdata`).pipe(
-        tap((response) => this.user = response),
+    return this.http.get<User>(`${environment.ApiUrl}/getuserdetails`).pipe(
+        tap((response) => {
+          this.user = response;
+          console.log(this.user);
+        }),
         catchError(() => {
           // this.storage.clear();
           this.router.navigateByUrl('/login');
@@ -61,15 +64,29 @@ export class AuthService {
     return this.http.post<{message:string}>(environment.ApiUrl+'/register', val,{'headers': headers});
 
   }
+
+  sendEmailOTP(data:any): Observable<{message:string}>{
+    const headers= new HttpHeaders()
+    .set('Accept', "application/json")
+    return this.http.post<{message:string}>(environment.ApiUrl+'/sendotp', data,{'headers': headers});
+  }
+  
+  validateEmailOTP(data:any): Observable<{message:string}>{
+    const headers= new HttpHeaders()
+    .set('Accept', "application/json")
+    return this.http.post<{message:string}>(environment.ApiUrl+'/validateemailotp', data,{'headers': headers});
+  }
+
   getOTP(val:any){
     const headers = new HttpHeaders().set("Accept", "application/json");
-    return this.http.post<any>(environment.ApiUrl + "/getotp", val, {
+    return this.http.post<any>(environment.ApiUrl + "/sendrecoveryemail", val, {
       headers: headers,
     });
   }
+
   setPassword(val:any){
     const headers= new HttpHeaders()
     .set('Accept', "application/json")
-    return this.http.post<any>(environment.ApiUrl+'/setpassword', val,{'headers': headers});
+    return this.http.post<any>(environment.ApiUrl+'/resetpassword', val,{'headers': headers});
   }
 }

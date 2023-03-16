@@ -1,4 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
+import { DashboardService } from "./dashboard.service";
+
+export interface getDashboardCount {
+  "success": boolean,
+  "registereduser": number,
+  "popularquestioncount": number,
+  "totalquestioncount": number
+  "recentlyaddedquestion": number,
+  "personalisedquestioncount": number
+}
 
 @Component({
   selector: 'uni-dashboard',
@@ -6,7 +16,9 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit {
-
+  dashboardCount: any = [];
+  readProgressionPercentage: any;
+  readQuizProgressionPercentage: any;
   columns = ['', '', '', '', '', '', ''];
   text = `
 Customer Experience: Create Connected CX by automating and optimizing routine Customer engagements. Adopt Omni Channel CRM to engage with your customers in a more personalized manner.
@@ -17,7 +29,9 @@ How SWOT helps to overcome this?
 This University was named after Late Dr.C.N.Annadurai, former Chief Minister of Tamil Nadu. It offers higher education in Engineering, Technology, Architecture and Applied Sciences relevant to the current and projected needs of the society. Besides promoting research and disseminating knowledge gained therefrom, it fosters cooperation between the academic and industrial communities.
 To disseminate high quality technical education to the rural mass with an Endeavour to transform them as a responsible citizen. Enriching the standard through high quality infrastructure and efficient teaching faculty. Encouraging research activities, development and teaching programmes on par with international standards. To mould the students who can facilitate the search of humanity for the knowledge.
 `;
-  constructor() { }
+  constructor(private dashboardService: DashboardService) {
+  }
+
 
   response = {
     "status": true,
@@ -126,7 +140,50 @@ To disseminate high quality technical education to the rural mass with an Endeav
   };
 
   ngOnInit(): void {
-  
+    this.loadDashboardData();
+    this.loadReadProgression();
+    this.loadQuizProgression();
+  }
+
+  loadDashboardData() {
+    this.dashboardService.getDashboardCounts().subscribe((res: any) => {
+      if (res.status === 404) {
+
+        return;
+      }
+      this.dashboardCount = res;
+      console.log('res', res);
+    }, err => {
+      console.log('err', err);
+
+    });
+  }
+  loadReadProgression() {
+    this.dashboardService.getReadProgression({ countryId: 2 }).subscribe((res: any) => {
+      if (res.status === 404) {
+
+        return;
+      }
+      this.readProgressionPercentage = Math.round(res.readpercentage);
+      console.log('this.readProgressionPercentage', this.readProgressionPercentage);
+    }, err => {
+      console.log('err', err);
+
+    });
+  }
+
+  loadQuizProgression() {
+    this.dashboardService.getQuizProgression({ countryId: 1 }).subscribe((res: any) => {
+      if (res.status === 404) {
+
+        return;
+      }
+      this.readQuizProgressionPercentage = res.quizpercentage;
+      console.log('res', res);
+    }, err => {
+      console.log('err', err);
+
+    });
   }
 
   select(event: any) {

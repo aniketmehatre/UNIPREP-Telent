@@ -61,14 +61,34 @@ export class SidenavComponent{
     //   ]
     // },
     {
-      title: 'SOP Checker',
-      url: '/pages/sop',
+      title: 'Pre Application',
+      url: '',
       icon: 'pi pi-search',
     },
     {
-      title: 'SOP Sample',
-      url: '/pages/sample-sop',
+      title: 'Post Application',
+      url: '',
       icon: 'pi pi-file-pdf',
+    },
+    {
+      title: 'Post Admission',
+      url: '',
+      icon: 'pi pi-file-pdf',
+    },
+    {
+      title: 'Career Hub',
+      url: '',
+      icon: 'pi pi-search',
+    },
+    {
+      title: 'University',
+      url: '',
+      icon: 'pi pi-search',
+    },
+    {
+      title: 'Life at UK',
+      url: '',
+      icon: 'pi pi-search',
     },
     {
       title: 'Subscription',

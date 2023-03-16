@@ -1,12 +1,25 @@
-<div class="container-fluid ps-md-0">
-  <div class="row g-0">
-    <div class="col-md-8 col-lg-4">
-      <div class="login d-flex align-items-center">
+<div class="container-fluid">
+  <div class="row p-4">
+    <div class="col-md-6 col-lg-6 align-content-center">
+      <div class="row">
+        <img class="small-image text-left" src="../../../assets/images/uniboard.png">
+         <h4>Welcome to UNIPREP</h4>
+       <p>Live resolution to personal questions.</p>
+         <p><span class="font-primarycolor">30,000+ questions on every topics concerning education abroad<br>
+         answered by alumni of international universities.</span></p>
+       <div class="row justify-content-center">
+        <img class="bg-image text-center" src="../../../assets/images/Uniprep_Icons_image.png">
+       </div>
+       <p><strong>Note:</strong> You are welcomed for the selected country of your choice</p>
+     </div>
+    </div>
+    <div class="col-md-6 col-lg-6">
+      <div class="login d-flex align-items-center text-right">
         <div class="container">
           <div class="row">
             <div class="col-md-9 col-lg-8 mx-auto">
-              <img class="logo" src="../../../assets/images/SOP-CHECKER.PNG">
-              <h5 class="login-heading mt-3 mb-3">Welcome Back ! Please login<br><u>to your <span class="font-primarycolor">account.</span></u></h5>
+              <!-- <img class="logo" src="../../../assets/images/SOP-CHECKER.PNG"> -->
+              <h3 class="login-heading mt-3 mb-3"> <u>Welcome Back </u>! Please login to your <span class="font-primarycolor">account.</span></h3>
               <label class="signup">Don't have an account ?<span ><a class="font-primarycolor" href="/register"> Sign up here</a></span></label>
               <br><br>
               <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
@@ -76,6 +89,6 @@
         </div>
       </div>
     </div>
-    <div class="d-none d-md-flex col-md-4 col-lg-8 bg-image"></div>
+    
   </div>
 </div>

@@ -8,6 +8,10 @@ import {FormsModule} from "@angular/forms";
 import {InputTextareaModule} from "primeng/inputtextarea";
 import {SharedDirectives} from "../../@shared/directives/common-d";
 import {EditorModule} from 'primeng/editor';
+import {InputTextModule} from "primeng/inputtext";
+import {ButtonModule} from "primeng/button";
+import {RippleModule} from "primeng/ripple";
+import {CardModule} from 'primeng/card';
 
 @NgModule({
   declarations: [DashboardComponent],
@@ -18,7 +22,11 @@ import {EditorModule} from 'primeng/editor';
     FormsModule,
     InputTextareaModule,
     SharedDirectives,
-    EditorModule
+    EditorModule,
+    InputTextModule,
+    ButtonModule,
+    RippleModule,
+    CardModule
   ],
 })
 export class DashboardModule { }

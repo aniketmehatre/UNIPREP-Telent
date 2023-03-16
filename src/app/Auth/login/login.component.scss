@@ -11,8 +11,14 @@
 .logo{
   height: 70px;
 }
+
+.small-image{
+  height: 25%;
+  width: 25%;
+  text-align: left;
+}
 .signup{
-  font-size: small;
+  font-size: medium;
   color: rgba(0, 0, 0, 0.378);
 }
 form {
@@ -32,9 +38,11 @@ form {
   }
 }
 .bg-image {
-  background-image: url("../../../assets/images/Cover.png");
   background-size: cover;
   background-position: center;
+  display: flex;
+  align-items: center;
+  width: 70%;
 }
 
 .login-heading {
@@ -54,4 +62,7 @@ form {
 a {
   text-decoration: none;
   cursor: pointer;
+}
+.posAbs{
+  position: absolute !important;
 }

@@ -37,7 +37,19 @@ export class VerificationComponent implements OnInit {
       return;
     }
     let _otp=this.otpForm.value.otp1+this.otpForm.value.otp2+this.otpForm.value.otp3+this.otpForm.value.otp4;
-    this.router.navigate(["/setpassword",_otp,this.route.snapshot.paramMap.get("email")]);
+
+    const data = {
+      otp: _otp,
+      email: this.route.snapshot.paramMap.get("email"),
+    };
+    this.service.validateEmailOTP(data).subscribe(
+        (res: any) => {
+          this.router.navigate(["/setpassword",_otp,this.route.snapshot.paramMap.get("email")]);
+        },
+        (error: any) => {
+          console.log(error);
+        }
+    );
   }
   resend(){
     let val = {

@@ -18,6 +18,7 @@ import {NGX_LOCAL_STORAGE_CONFIG, NgxLocalstorageConfiguration} from "ngx-locals
 import {ToastModule} from "primeng/toast";
 import {JwtModule} from "@auth0/angular-jwt";
 import { NgxUiLoaderModule } from "ngx-ui-loader";
+import { CountdownModule } from 'ngx-countdown';
 const reducers = {
   pageSelector: pagesReducer
 }
@@ -53,7 +54,8 @@ export function tokenGetter() {
         disallowedRoutes: [],
       },
     }),
-    NgxUiLoaderModule
+    NgxUiLoaderModule,
+    CountdownModule
   ],
   providers: [
     DatePipe,

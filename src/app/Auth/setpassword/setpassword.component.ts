@@ -47,13 +47,14 @@ export class SetpasswordComponent implements OnInit {
     }
     let val = {
       email: this.route.snapshot.paramMap.get("email"),
-      otp: this.route.snapshot.paramMap.get("otp"),
+      password_confirmation: this.setpasswordForm.value.password,
       password: this.setpasswordForm.value.password,
     };
     this.service.setPassword(val).subscribe(
       (res: any) => {
         this.toastr.add({severity:'success', summary: 'Success', detail: "Password Reset for your " + val.email});
         this.isNotSuccess = false;
+        setTimeout(() => { this.router.navigate(["/login"]) }, 2000)
       },
       (error: any) => {
         

@@ -16,4 +16,10 @@ export class LocationService {
       headers: headers,
     });
   }
+  getProgramLevel(){
+    const headers = new HttpHeaders().set("Accept", "application/json");
+    return this.http.get<LocationData>(environment.ApiUrl + "/programlevel", {
+      headers: headers,
+    });
+  }
 }
