@@ -12,6 +12,7 @@ import {InputTextModule} from "primeng/inputtext";
 import {ButtonModule} from "primeng/button";
 import {RippleModule} from "primeng/ripple";
 import {CardModule} from 'primeng/card';
+import {CarouselModule} from 'primeng/carousel';
 
 @NgModule({
   declarations: [DashboardComponent],
@@ -26,7 +27,8 @@ import {CardModule} from 'primeng/card';
     InputTextModule,
     ButtonModule,
     RippleModule,
-    CardModule
+    CardModule,
+    CarouselModule
   ],
 })
 export class DashboardModule { }

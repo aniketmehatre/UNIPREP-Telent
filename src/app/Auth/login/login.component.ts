@@ -20,7 +20,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   submitted = false;
   constructor(
       private service: AuthService, private formBuilder: FormBuilder,private route:Router,
-      private toastr: MessageService
+      private toast: MessageService
   ) {}
 
   ngOnDestroy() {
@@ -30,14 +30,14 @@ export class LoginComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.loginForm = this.formBuilder.group({
       email: ["vivekbm119@gmail.com", [Validators.required, Validators.email]],
-      password: ["12345678", [Validators.required]],
+      password: ["12341234", [Validators.required]],
     });
     this.subs.sink = this.service.selectloggedIn$().subscribe(loggedIn => {
       if (!loggedIn) {
         return
       }
       this.subs.sink = this.service.selectMessage$().subscribe(message => {
-        this.toastr.add({severity: 'success', summary: 'Success', detail: message});
+        this.toast.add({severity: 'success', summary: 'Success', detail: message});
       });
       this.route.navigate(['/pages/dashboard']);
     });

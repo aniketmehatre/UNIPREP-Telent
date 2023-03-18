@@ -22,7 +22,7 @@ export class HeaderComponent implements OnInit {
   @ViewChild('cd', { static: false }) private countdown!: CountdownComponent;
   config: any;
   ngOnInit(): void {
-    this.config = {leftTime: 10000, format: "HH:mm"};
+    this.config = {leftTime: 10000, format: "HH:mm:ss"};
     if(this.countdown){
       this.countdown.begin();
     }

@@ -16,11 +16,12 @@
     <h4>Dashboard</h4>
 </div>
 <div class="card rounded shadow-sm mt-3">
-    <div class="card-header p-3"><strong>SELECTED COUNTRY</strong> <span class="text-lowercase"
-            [ngStyle]="{'margin-left':'3%'}"> You have currently selected United Kingdom. If information about UK
-            is interesting, check other countries as well</span>.
-    </div>
-    <div class="card-body">
+    <!--    <div class="card-header p-3"> <span class="text-lowercase"-->
+    <!--            [ngStyle]="{'margin-left':'3%'}"> You have currently selected United Kingdom. If information about UK-->
+    <!--            is interesting, check other countries as well</span>.-->
+    <!--    </div>-->
+    <div class="card-body text-center">
+        <h5><strong>SELECTED COUNTRY</strong></h5>
         <div class="row mb-0">
             <!-- <div class="col-md-2 p-3">
                 <div class="row justify-content-center">
@@ -129,64 +130,224 @@
         </div>
 
     </div>
+    <div class="row mb-0 justify-content-center text-center">
+        <div class="badge bg-dark text-wrap bottom-text"
+             style="">
+            You have currently selected United Kingdom. If information about UK is interesting, check other countries as
+            well.
+        </div>
+    </div>
 </div>
 <div class="card rounded shadow-sm mt-3">
-    <div class="card-header p-3"><strong>WELCOME TO UNITED KINGDOM</strong></div>
-    <div class="card-body">
-        <div class="row mb-0 mt-5 mb-5 justify-content-center">
-            <div class="row d-flex justify-content-center mt-100">
-                <div class="col-md-3">
+    <div class="row">
+        <div class="col-md-4 col-lg-4 p-4">
+            <h5><strong>WELCOME TO UNITED KINGDOM</strong></h5>
+            <p>UNIPREP UK information and content in reviewed and accredited by the following entities.</p>
+        </div>
+        <div class="col-md-8 col-lg-8 p-4">
+            <p-carousel [value]="cars" [numVisible]="1" [numScroll]="1" [responsiveOptions]="responsiveOptions">
+                <ng-template let-car pTemplate="item">
+                    <img src="{{car.image}}" alt="{{car.code}}">
+                </ng-template>
+            </p-carousel>
+        </div>
+    </div>
 
-                </div>
-                <div class="col-md-3">
-                    <div class="progress" [attr.data-percentage]="readProgressionPercentage">
-                        <span class="progress-left">
-                            <span class="progress-bar"></span>
-                        </span>
-                        <span class="progress-right">
-                            <span class="progress-bar"></span>
-                        </span>
-                        <div class="progress-value">
-                            <div>
-                                {{readProgressionPercentage}}%<br>
-                                <span>READ</span>
-                            </div>
-                        </div>
-                    </div>
-                    
-                </div>
-                <div class="col-md-3">
-                    <div class="progress" [attr.data-percentage]="readQuizProgressionPercentage">
-                        <span class="progress-left">
-                            <span class="progress-bar"></span>
-                        </span>
-                        <span class="progress-right">
-                            <span class="progress-bar"></span>
-                        </span>
-                        <div class="progress-value">
-                            <div>
-                                {{readQuizProgressionPercentage}}%<br>
-                                <span>READ</span>
+    <div class="row">
+        <div class="col-md-3 col-lg-3 p-4 d-flex">
+            <div class="bg-light shadow-lg rounded p-4">
+                <div class="row d-flex">
+                    <div class="col-md-12 col-lg-12 d-flex justify-content-center">
+                        <div class="card-body rounded text-center d-flex align-content-center quiz-card bg-secondary
+                         h-100 ">
+                            <div class="row d-flex">
+                                <iframe class="p-0 m-0" width="250" height="70"
+                                        src="https://www.youtube.com/embed/uRyvNKRkwbs" title="YouTube video player"
+                                        frameborder="0"
+                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope;
+                                         picture-in-picture; web-share"
+                                        allowfullscreen></iframe>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-3">
-                    
-                </div>
+                <h6><strong>How to use uniprep? (DEMO)</strong></h6>
             </div>
         </div>
-        <button pButton type="button" label="Share" icon="pi pi-comment" iconPos="right"
-            class="p-button-raised p-button-rounded float-right"></button>
+        <div class="col-md-3 col-lg-3 p-4 d-flex">
+            <div class="bg-light shadow-lg rounded p-4">
+                <div class="row">
+                    <div class="col-md-6 col-lg-6 d-flex justify-content-center">
+                        <div class="card-body rounded text-center d-flex align-content-center reading-card">
+                            <div class="row d-flex align-content-center">
+                                <i class="pi pi-book"></i>
+                                <br>
+                                <span>Start Reading</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-6">
+                        <div class="progress" [attr.data-percentage]="readProgressionPercentage">
+                        <span class="progress-left">
+                            <span class="progress-bar"></span>
+                        </span>
+                            <span class="progress-right">
+                            <span class="progress-bar"></span>
+                        </span>
+                            <div class="progress-value">
+                                <div>
+                                    {{readProgressionPercentage}}%<br>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <h6><strong>Reading</strong></h6>
+                <div style="text-transform: none">Expand your horizons through reading</div>
+            </div>
+        </div>
+        <div class="col-md-3 col-lg-3 p-4 d-flex">
+            <div class="bg-light shadow-lg rounded p-4">
+                <div class="row">
+                    <div class="col-md-6 col-lg-6 d-flex justify-content-center">
+                        <div class="card-body rounded text-center d-flex align-content-center quiz-card">
+                            <div class="row d-flex align-content-center">
+                                <i class="pi pi-info-circle"></i>
+                                <br>
+                                <span>Start Quiz</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-6">
+                        <div class="progress" [attr.data-percentage]="readQuizProgressionPercentage">
+                        <span class="progress-left">
+                            <span class="progress-bar"></span>
+                        </span>
+                            <span class="progress-right">
+                            <span class="progress-bar"></span>
+                        </span>
+                            <div class="progress-value">
+                                <div>
+                                    {{readQuizProgressionPercentage}}%<br>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <h6><strong>Quiz</strong></h6>
+                <div style="text-transform: none">Test your global knowledge</div>
+            </div>
+        </div>
+        <div class="col-md-3 col-lg-3 p-4 d-flex">
+            <div class="bg-light shadow-lg rounded p-4">
+                <div class="row">
+                    <div class="col-md-6 col-lg-6 d-flex justify-content-center">
+                        <div class="card-body rounded text-center d-flex align-content-center quiz-card bg-secondary">
+                            <div class="row d-flex align-content-center">
+                                <i class="pi pi-info-circle"></i>
+                                <br>
+                                <span>certificate</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-6 text-center">
+                        <br>
+                        <br>
+                        <button pButton type="button" label="Share" icon="pi pi-share-alt" iconPos="right"
+                                style="bottom: 0; left: 0;"
+                                class="p-button-raised p-button-rounded float-right"></button>
+                    </div>
+                </div>
+                <h6><strong>Unlock Certificate</strong></h6>
+                <div style="text-transform: none;">Complete the final 10% to unlock the certificate.</div>
+            </div>
+        </div>
     </div>
+
+    <div class="row">
+        <div class="col-md-2 col-lg-2 p-4">
+            <div class="card shadow btn-primary p-2 rounded">
+                <span class="pi pi-comments" style="color: white;"></span>
+                <p class="tiny-text">Ask your personalized Questions</p>
+                <span class="small-text pt-2">{{dashboardCount.personalisedquestioncount}}</span>
+            </div>
+        </div>
+        <div class="col-md-2 col-lg-2 p-4">
+            <div class="card-body bg-light">
+                <span class="pi pi-comments" style="color: white;"></span>
+                <p class="tiny-text">Ask your personalized Questions</p>
+                <span class="small-text text-black">{{dashboardCount.recentlyaddedquestion}}</span>
+            </div>
+        </div>
+        <div class="col-md-2 col-lg-2 p-4">
+            <div class="card-body bg-light">
+            </div>
+        </div>
+        <div class="col-md-2 col-lg-2 p-4">
+            <div class="card-body bg-light">
+            </div>
+        </div>
+        <div class="col-md-2 col-lg-2 p-4">
+            <div class="card-body bg-light">
+            </div>
+        </div>
+    </div>
+<!--    <div class="card-header p-3"></div>-->
+<!--    <div class="card-body">-->
+<!--        <div class="row mb-0 mt-5 mb-5 justify-content-center">-->
+<!--            <div class="row d-flex justify-content-center mt-100">-->
+<!--                <div class="col-md-3">-->
+
+<!--                </div>-->
+<!--                <div class="col-md-3">-->
+<!--                    <div class="progress" [attr.data-percentage]="readProgressionPercentage">-->
+<!--                        <span class="progress-left">-->
+<!--                            <span class="progress-bar"></span>-->
+<!--                        </span>-->
+<!--                        <span class="progress-right">-->
+<!--                            <span class="progress-bar"></span>-->
+<!--                        </span>-->
+<!--                        <div class="progress-value">-->
+<!--                            <div>-->
+<!--                                {{readProgressionPercentage}}%<br>-->
+<!--                                <span>READ</span>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+
+<!--                </div>-->
+<!--                <div class="col-md-3">-->
+<!--                    <div class="progress" [attr.data-percentage]="readQuizProgressionPercentage">-->
+<!--                        <span class="progress-left">-->
+<!--                            <span class="progress-bar"></span>-->
+<!--                        </span>-->
+<!--                        <span class="progress-right">-->
+<!--                            <span class="progress-bar"></span>-->
+<!--                        </span>-->
+<!--                        <div class="progress-value">-->
+<!--                            <div>-->
+<!--                                {{readQuizProgressionPercentage}}%<br>-->
+<!--                                <span>READ</span>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--                <div class="col-md-3">-->
+
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--        <button pButton type="button" label="Share" icon="pi pi-comment" iconPos="right"-->
+<!--                class="p-button-raised p-button-rounded float-right"></button>-->
+<!--    </div>-->
 </div>
 <div class="row mt-4">
     <div class="col p-3">
         <div class="card-base">
             <div class="card-icon">
                 <a href="#" title="Widgets" id="widgetCardIcon" class="imagecard"><span
-                            class="pi pi-comments" style="color: #9BC32A;"></span></a>
-                    <div class="card-data widgetCardData">
+                        class="pi pi-comments" style="color: #9BC32A;"></span></a>
+                <div class="card-data widgetCardData">
                     <div class="box-title" style="color: white;">Ask your Personalized Questions,</div>
                     <div class="card-block">Let's Chat</div>
                     <div class="row">

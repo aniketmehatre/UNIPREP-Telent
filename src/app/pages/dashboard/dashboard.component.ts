@@ -19,7 +19,36 @@ export class DashboardComponent implements OnInit {
   dashboardCount: any = [];
   readProgressionPercentage: any;
   readQuizProgressionPercentage: any;
+  responsiveOptions: any;
   columns = ['', '', '', '', '', '', ''];
+
+
+
+  cars: any[] = [
+    {
+      "id": "1000",
+      "code": "f230fh0g3",
+      "name": "Bamboo Watch",
+      "description": "Product Description",
+      "image": "../../../assets/images/5.png",
+      "price": 65,
+      "category": "Accessories",
+      "quantity": 24,
+      "inventoryStatus": "INSTOCK",
+      "rating": 5
+    },
+    {
+      "id": "1001",
+      "code": "nvklal433",
+      "name": "Black Watch",
+      "description": "Product Description",
+      "image": "../../../assets/images/5a.png",
+      "price": 72,
+      "category": "Accessories",
+      "quantity": 61,
+      "inventoryStatus": "INSTOCK",
+      "rating": 4
+    },];
   text = `
 Customer Experience: Create Connected CX by automating and optimizing routine Customer engagements. Adopt Omni Channel CRM to engage with your customers in a more personalized manner.
 Employee Experience:  Empower your employees with Collaboration tools, Intuitive Design, Unified Desktop, Learning &amp; Knowledge management, Productivity Tools
@@ -30,6 +59,23 @@ This University was named after Late Dr.C.N.Annadurai, former Chief Minister of 
 To disseminate high quality technical education to the rural mass with an Endeavour to transform them as a responsible citizen. Enriching the standard through high quality infrastructure and efficient teaching faculty. Encouraging research activities, development and teaching programmes on par with international standards. To mould the students who can facilitate the search of humanity for the knowledge.
 `;
   constructor(private dashboardService: DashboardService) {
+    this.responsiveOptions = [
+      {
+        breakpoint: '1024px',
+        numVisible: 3,
+        numScroll: 3
+      },
+      {
+        breakpoint: '768px',
+        numVisible: 2,
+        numScroll: 2
+      },
+      {
+        breakpoint: '560px',
+        numVisible: 1,
+        numScroll: 1
+      }
+    ];
   }
 
 
