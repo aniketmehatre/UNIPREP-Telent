@@ -29,6 +29,10 @@ nav {
   .right-panel {
     display: flex;
     align-items: center;
+    flex-direction: row;
+  }
+  p-avatar{
+    padding-right: 20px;
   }
 }
 
@@ -36,14 +40,14 @@ nav {
   border: 2px solid red;
   position: absolute;
   top: 0;
+  padding-right: 20px;
   right: 0;
 }
 
 .count-down {
-  background-color: #9BC32A;
   border-radius: 20%;
-  padding: 10px;
-  color: white;
+  padding: 8px;
+  color: black;
   font-weight: bold;
 }
 
@@ -54,4 +58,69 @@ nav {
   background-color: rgba(224, 246, 149, 0.9);
   color: gray;
   border-radius: 8px;
+}
+.img-icon {
+  height: 18%;
+  width: 18%;
+  margin: 5px;
+}
+.subscribe_button {
+  padding-right: 15px;
+  margin-right: 5px;
+  margin-left: 5px;
+}
+.timer_button {
+  padding-right: 15px;
+  margin-right: 5px;
+  margin-left: 5px;
+}
+
+form {
+  input{
+      display:inline-block;
+      width:40px;
+      height:40px;
+      text-align:center;
+      margin-right: 10px;
+      color: #9bc329;
+    }
+label {
+  font-size: 0.8rem;
+  color: black;
+}
+
+:focus {
+  border-color: #9bc329 !important;
+  // background-color: #fff !important;
+  box-shadow: 0 0 0 0.25rem rgb(13 110 253 / 0%) !important;
+}
+.signup {
+  font-size: small;
+  color: black;
+}
+}
+form {
+  background-color: white;
+  border-radius: 1rem;
+  width: 105px;
+}
+.custom-style {
+  font-size: 18px;
+  .item {
+    padding-left: 4px;
+    padding: 5px;
+    margin: 5px;
+    border: 1px solid #9bc329 !important;
+    border-radius: 3px;
+    &:nth-child(1) {
+      border: 1px solid #eee;
+    }
+    &:nth-child(2) {
+
+      border: 1px solid #eee;
+    }
+    &:nth-child(3) {
+      border: 1px solid #eee;
+    }
+  }
 }

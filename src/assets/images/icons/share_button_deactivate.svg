@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 128 41">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: url(#linear-gradient-2);
+      }
+
+      .cls-2, .cls-3 {
+        fill: #fff;
+      }
+
+      .cls-4, .cls-3 {
+        isolation: isolate;
+      }
+
+      .cls-5 {
+        fill: url(#linear-gradient);
+      }
+
+      .cls-3 {
+        font-family: Poppins-Medium, Poppins;
+        font-size: 11px;
+        font-weight: 500;
+      }
+    </style>
+    <linearGradient id="linear-gradient" x1="-2103.21" y1="3843.71" x2="-2103.21" y2="3842.71" gradientTransform="translate(269275.5 157592) scale(128 -41)" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#868686"/>
+      <stop offset="1" stop-color="#d5d5d5"/>
+    </linearGradient>
+    <linearGradient id="linear-gradient-2" x1="-2058.41" y1="4059.95" x2="-2058.41" y2="4058.95" gradientTransform="translate(23098.64 50152.02) scale(11.17 -12.35)" xlink:href="#linear-gradient"/>
+  </defs>
+  <g id="Group_6445" data-name="Group 6445">
+    <path id="Rectangle_238-2" data-name="Rectangle 238-2" class="cls-5" d="m20.5,0h87c11.32,0,20.5,9.18,20.5,20.5h0c0,11.32-9.18,20.5-20.5,20.5H20.5C9.18,41,0,31.82,0,20.5h0C0,9.18,9.18,0,20.5,0Z"/>
+    <g id="share_" data-name="share " class="cls-4">
+      <text class="cls-3" transform="translate(33.18 24)"><tspan x="0" y="0">SHARE</tspan></text>
+    </g>
+    <path id="Path_8497-2" data-name="Path 8497-2" class="cls-2" d="m100.75,33.83c-7.19,0-13.01-5.83-13.01-13.01s5.83-13.01,13.01-13.01,13.01,5.83,13.01,13.01h0c0,7.19-5.83,13.01-13.01,13.01Z"/>
+    <path id="share_FILL0_wght400_GRAD0_opsz48" data-name="share FILL0 wght400 GRAD0 opsz48" class="cls-1" d="m103.22,27.03c-.96.02-1.74-.75-1.76-1.7,0-.1,0-.21.02-.31.01-.09.04-.18.07-.27l-4.67-2.71c-.16.18-.35.32-.57.42-.22.11-.45.16-.69.16-.97,0-1.76-.78-1.77-1.75,0-.97.78-1.76,1.75-1.77.24,0,.47.05.69.14.22.09.42.23.59.4l4.67-2.68c-.03-.08-.06-.16-.07-.24-.02-.09-.02-.18-.02-.26,0-.97.79-1.76,1.76-1.76.97,0,1.76.79,1.76,1.76,0,.97-.79,1.76-1.76,1.76h0c-.23,0-.47-.04-.69-.12-.22-.08-.41-.21-.56-.38l-4.67,2.59c.02.09.04.19.05.29.01.09.02.18.02.27,0,.08,0,.15-.02.23-.02.08-.03.16-.05.24l4.67,2.65c.16-.15.34-.26.54-.35.23-.09.47-.14.71-.13.97-.02,1.78.75,1.8,1.72.02.97-.75,1.78-1.72,1.8-.03,0-.06,0-.08,0h0Zm0-9.75c.45,0,.81-.38.8-.83,0-.45-.38-.81-.83-.8-.45,0-.81.38-.8.83,0,.21.09.41.24.56.16.16.37.25.6.24h0Zm-7.6,4.41c.45,0,.81-.38.8-.83,0-.45-.38-.81-.83-.8-.45,0-.81.38-.8.83,0,.21.09.41.24.56.16.16.37.25.59.24Zm7.61,4.41c.45,0,.81-.38.8-.83,0-.45-.38-.81-.83-.8-.45,0-.81.38-.8.83,0,.21.09.41.24.56.16.16.37.25.59.24h0Z"/>
+  </g>
+</svg>

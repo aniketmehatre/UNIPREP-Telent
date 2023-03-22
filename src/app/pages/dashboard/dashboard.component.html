@@ -3,16 +3,23 @@
 <!--  </ng-template>-->
 <!--</p-editor>-->
 <!--<br>-->
-<div class="rounded card card-body shadow-sm">
+<div class="rounded card card-body shadow-sm search-dropdown">
     <div class="col-12 md:col-4">
         <div class="p-inputgroup">
-            <button type="button" pButton pRipple icon="pi pi-search" class="btn-primary"></button>
-            <input type="text" pInputText placeholder="ENTER YOUR KEY WORDS HERE">
-            <button class="btn-primary" type="button" pButton pRipple label="Search"></button>
+            <img class="search-icon m-2 pr-2 border-end" src="/assets/images/icons/search_icon.svg" />
+            <input type="text" pInputText placeholder="ENTER YOUR KEY WORDS HERE" #searchInput (input)="onSearchChange(searchInput.value)">
+            <button class="btn-primary" type="button" (click)="searchKeyWord(searchInput)" pButton pRipple
+                label="Search"></button>
         </div>
+        <ul class="list-group list-group-flush" *ngIf="isSearchResultFound">
+            <!-- results of ngFor is passed to appFilter with argument searchText -->
+            <li class="list-group-item" *ngFor="let c of searchResult">
+                <span class="pr-4">{{c.question}}</span>
+            </li>
+        </ul>
     </div>
 </div>
-<div class="row pt-1">
+<div class="row pt-1" style="margin-top: 7%;">
     <h4>Dashboard</h4>
 </div>
 <div class="card rounded shadow-sm mt-3">
@@ -131,42 +138,39 @@
 
     </div>
     <div class="row mb-0 justify-content-center text-center">
-        <div class="badge bg-dark text-wrap bottom-text"
-             style="">
+        <div class="badge bg-dark text-wrap bottom-text" style="">
             You have currently selected United Kingdom. If information about UK is interesting, check other countries as
             well.
         </div>
     </div>
 </div>
-<div class="card rounded shadow-sm mt-3">
-    <div class="row">
-        <div class="col-md-4 col-lg-4 p-4">
-            <h5><strong>WELCOME TO UNITED KINGDOM</strong></h5>
-            <p>UNIPREP UK information and content in reviewed and accredited by the following entities.</p>
-        </div>
-        <div class="col-md-8 col-lg-8 p-4">
-            <p-carousel [value]="cars" [numVisible]="1" [numScroll]="1" [responsiveOptions]="responsiveOptions">
-                <ng-template let-car pTemplate="item">
-                    <img src="{{car.image}}" alt="{{car.code}}">
-                </ng-template>
-            </p-carousel>
-        </div>
+<div class="row">
+    <div class="col-md-4 col-lg-4 p-4">
+        <h3><strong>WELCOME TO UNITED KINGDOM</strong></h3>
+        <h5>UNIPREP UK information and content in reviewed and accredited by the following entities.</h5>
     </div>
-
+    <div class="col-md-8 col-lg-8 p-4 shadow rounded p-4 bg-white">
+        <p-carousel [value]="university" [numVisible]="3" [showIndicators]="false" [numScroll]="1"
+            [responsiveOptions]="responsiveOptions">
+            <ng-template let-uni pTemplate="item">
+                <img class="carousel" src="{{uni.image}}" alt="{{uni.image}}">
+            </ng-template>
+        </p-carousel>
+    </div>
+</div>
+<div class="mt-2">
     <div class="row">
-        <div class="col-md-3 col-lg-3 p-4 d-flex">
-            <div class="bg-light shadow-lg rounded p-4">
+        <div class="col-md-3 col-lg-3 p-3 d-flex">
+            <div class="shadow bg-white rounded-lg p-4">
                 <div class="row d-flex">
                     <div class="col-md-12 col-lg-12 d-flex justify-content-center">
                         <div class="card-body rounded text-center d-flex align-content-center quiz-card bg-secondary
                          h-100 ">
                             <div class="row d-flex">
                                 <iframe class="p-0 m-0" width="250" height="70"
-                                        src="https://www.youtube.com/embed/uRyvNKRkwbs" title="YouTube video player"
-                                        frameborder="0"
-                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope;
-                                         picture-in-picture; web-share"
-                                        allowfullscreen></iframe>
+                                    src="https://www.youtube.com/embed/uRyvNKRkwbs" title="YouTube video player"
+                                    frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope;
+                                         picture-in-picture; web-share" allowfullscreen></iframe>
                             </div>
                         </div>
                     </div>
@@ -174,26 +178,21 @@
                 <h6><strong>How to use uniprep? (DEMO)</strong></h6>
             </div>
         </div>
-        <div class="col-md-3 col-lg-3 p-4 d-flex">
-            <div class="bg-light shadow-lg rounded p-4">
+        <div class="col-md-3 col-lg-3 p-3 d-flex" (click)="openReading()">
+            <div class="shadow bg-white rounded p-4">
                 <div class="row">
                     <div class="col-md-6 col-lg-6 d-flex justify-content-center">
-                        <div class="card-body rounded text-center d-flex align-content-center reading-card">
-                            <div class="row d-flex align-content-center">
-                                <i class="pi pi-book"></i>
-                                <br>
-                                <span>Start Reading</span>
-                            </div>
-                        </div>
+                        <img class="reading-quiz" src="/assets/images/icons/start_reading.svg" />
+
                     </div>
                     <div class="col-md-6 col-lg-6">
                         <div class="progress" [attr.data-percentage]="readProgressionPercentage">
-                        <span class="progress-left">
-                            <span class="progress-bar"></span>
-                        </span>
+                            <span class="progress-left">
+                                <span class="progress-bar"></span>
+                            </span>
                             <span class="progress-right">
-                            <span class="progress-bar"></span>
-                        </span>
+                                <span class="progress-bar"></span>
+                            </span>
                             <div class="progress-value">
                                 <div>
                                     {{readProgressionPercentage}}%<br>
@@ -206,26 +205,21 @@
                 <div style="text-transform: none">Expand your horizons through reading</div>
             </div>
         </div>
-        <div class="col-md-3 col-lg-3 p-4 d-flex">
-            <div class="bg-light shadow-lg rounded p-4">
+        <div class="col-md-3 col-lg-3 p-3 d-flex">
+            <div class="shadow bg-white rounded p-4">
                 <div class="row">
                     <div class="col-md-6 col-lg-6 d-flex justify-content-center">
-                        <div class="card-body rounded text-center d-flex align-content-center quiz-card">
-                            <div class="row d-flex align-content-center">
-                                <i class="pi pi-info-circle"></i>
-                                <br>
-                                <span>Start Quiz</span>
-                            </div>
-                        </div>
+                        <img class="reading-quiz" src="/assets/images/icons/start_quiz.svg" />
+
                     </div>
                     <div class="col-md-6 col-lg-6">
                         <div class="progress" [attr.data-percentage]="readQuizProgressionPercentage">
-                        <span class="progress-left">
-                            <span class="progress-bar"></span>
-                        </span>
+                            <span class="progress-left">
+                                <span class="progress-bar"></span>
+                            </span>
                             <span class="progress-right">
-                            <span class="progress-bar"></span>
-                        </span>
+                                <span class="progress-bar"></span>
+                            </span>
                             <div class="progress-value">
                                 <div>
                                     {{readQuizProgressionPercentage}}%<br>
@@ -238,24 +232,18 @@
                 <div style="text-transform: none">Test your global knowledge</div>
             </div>
         </div>
-        <div class="col-md-3 col-lg-3 p-4 d-flex">
-            <div class="bg-light shadow-lg rounded p-4">
+        <div class="col-md-3 col-lg-3 p-3 d-flex">
+            <div class="shadow bg-white rounded p-4">
                 <div class="row">
                     <div class="col-md-6 col-lg-6 d-flex justify-content-center">
-                        <div class="card-body rounded text-center d-flex align-content-center quiz-card bg-secondary">
-                            <div class="row d-flex align-content-center">
-                                <i class="pi pi-info-circle"></i>
-                                <br>
-                                <span>certificate</span>
-                            </div>
-                        </div>
+                        <img class="reading-quiz" src="/assets/images/icons/cert_deactivate.svg" />
                     </div>
                     <div class="col-md-6 col-lg-6 text-center">
                         <br>
-                        <br>
-                        <button pButton type="button" label="Share" icon="pi pi-share-alt" iconPos="right"
+                        <!-- <button pButton type="button" label="Share" icon="pi pi-share-alt" iconPos="right"
                                 style="bottom: 0; left: 0;"
-                                class="p-button-raised p-button-rounded float-right"></button>
+                                class="p-button-raised p-button-rounded float-right"></button> -->
+                        <img class="reading-quiz" src="/assets/images/icons/share_button_deactivate.svg" />
                     </div>
                 </div>
                 <h6><strong>Unlock Certificate</strong></h6>
@@ -265,187 +253,186 @@
     </div>
 
     <div class="row">
-        <div class="col-md-2 col-lg-2 p-4">
-            <div class="card shadow btn-primary p-2 rounded">
-                <span class="pi pi-comments" style="color: white;"></span>
-                <p class="tiny-text">Ask your personalized Questions</p>
-                <span class="small-text pt-2">{{dashboardCount.personalisedquestioncount}}</span>
+        <div class="col-md-2 col-lg-2 p-2">
+            <div class="selected-box d-flex flex-column">
+                <!--                <span class="pi pi-comments" style="color: #a5c54e; font-size: 2rem"></span>-->
+                <img class="img-icon" src="/assets/images/icons/Uniprep_Icons_Most_Popular_Questions.svg" />
+                <span class="tiny-text text-dark  pt-2">Ask your personalized<br>Questions</span>
+
+                <div class="row pt-2 mb-0 pb-0">
+                    <div class="col-6 text-start">
+                        <span style="color: #a5c54e;">{{dashboardCount.personalisedquestioncount}}</span>
+                    </div>
+                    <div class="col-6">
+                        <p class="p-0 m-0 text-start" style="color: black; font-size: 0.8rem;">Added in last 30 days</p>
+                    </div>
+                </div>
             </div>
         </div>
-        <div class="col-md-2 col-lg-2 p-4">
-            <div class="card-body bg-light">
-                <span class="pi pi-comments" style="color: white;"></span>
-                <p class="tiny-text">Ask your personalized Questions</p>
-                <span class="small-text text-black">{{dashboardCount.recentlyaddedquestion}}</span>
+        <div class="col-md-2 col-lg-2 p-2">
+            <div class="card-body bg-light un-selected-box d-flex flex-column">
+                <img class="img-icon" src="/assets/images/icons/Uniprep_Icons_Recently_Added_Questions.svg" />
+                <span class="tiny-text text-dark pt-2">Recently Added <br>Questions</span>
+
+                <div class="row pt-2 mb-0 pb-0">
+                    <div class="col-6 text-start">
+                        <span style="color: #a5c54e;">{{dashboardCount.recentlyaddedquestion}}</span>
+                    </div>
+                    <div class="col-6">
+                        <p class="p-0 m-0 text-start" style="color: black; font-size: 0.8rem;">Added in last 30 days</p>
+                    </div>
+                </div>
             </div>
         </div>
-        <div class="col-md-2 col-lg-2 p-4">
-            <div class="card-body bg-light">
+        <div class="col-md-2 col-lg-2 p-2">
+            <div class="card-body bg-light un-selected-box d-flex flex-column">
+                <img class="img-icon" src="/assets/images/icons/UniprepIcons_Total_Questions_Asked.svg" />
+                <span class="tiny-text text-dark pt-2">Total Questions <br>Answered</span>
+
+                <div class="row pt-2 mb-0 pb-0">
+                    <div class="col-6 text-start">
+                        <span style="color: #a5c54e;">{{dashboardCount.totalquestioncount}}</span>
+                    </div>
+                    <div class="col-6">
+                        <p class="p-0 m-0 text-start" style="color: black; font-size: 0.8rem;">Questions Answered</p>
+                    </div>
+                </div>
             </div>
         </div>
-        <div class="col-md-2 col-lg-2 p-4">
-            <div class="card-body bg-light">
+        <div class="col-md-2 col-lg-2 p-2">
+            <div class="card-body bg-light un-selected-box d-flex flex-column">
+                <img class="img-icon" src="/assets/images/icons/Uniprep_Icons_recently_added question.svg" />
+                <span class="tiny-text text-dark pt-2">Most Popular <br>Questions</span>
+
+                <div class="row pt-2 mb-0 pb-0">
+                    <div class="col-6 text-start">
+                        <span style="color: #a5c54e;">{{dashboardCount.popularquestioncount}}</span>
+                    </div>
+                    <div class="col-6">
+                        <p class="p-0 m-0 text-start" style="color: black; font-size: 0.8rem;">Questions Answered</p>
+                    </div>
+                </div>
             </div>
         </div>
-        <div class="col-md-2 col-lg-2 p-4">
-            <div class="card-body bg-light">
+        <div class="col-md-2 col-lg-2 p-2">
+            <div class="card-body bg-light un-selected-box d-flex flex-column">
+                <img class="img-icon" src="/assets/images/icons/Uniprep_Icons_Registered_Students_icon.svg" />
+                <span class="tiny-text text-dark pt-2">Number of Registered <br>Students</span>
+
+                <div class="row pt-2 mb-0 pb-0">
+                    <div class="col-6 text-start">
+                        <span style="color: #a5c54e;">{{dashboardCount.registereduser}}</span>
+                    </div>
+                    <div class="col-6">
+                        <p class="p-0 m-0 text-start" style="color: black; font-size: 0.8rem;">Active<br> users</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-2 col-lg-2 p-2">
+            <div class="card-body bg-light un-selected-box d-flex flex-column">
+                <img class="img-icon" src="/assets/images/icons/Uniprep_Icons_Most_Popular_Questions.svg" />
+                <span class="tiny-text text-dark pt-2">Certificate <br>Granted</span>
+
+                <div class="row pt-2 mb-0 pb-0">
+                    <div class="col-6 text-start">
+                        <span style="color: #a5c54e;">{{dashboardCount.certificate_granted}}</span>
+                    </div>
+                    <div class="col-6">
+                        <p class="p-0 m-0 text-start" style="color: black; font-size: 0.8rem;">Added in last 30 days</p>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-<!--    <div class="card-header p-3"></div>-->
-<!--    <div class="card-body">-->
-<!--        <div class="row mb-0 mt-5 mb-5 justify-content-center">-->
-<!--            <div class="row d-flex justify-content-center mt-100">-->
-<!--                <div class="col-md-3">-->
-
-<!--                </div>-->
-<!--                <div class="col-md-3">-->
-<!--                    <div class="progress" [attr.data-percentage]="readProgressionPercentage">-->
-<!--                        <span class="progress-left">-->
-<!--                            <span class="progress-bar"></span>-->
-<!--                        </span>-->
-<!--                        <span class="progress-right">-->
-<!--                            <span class="progress-bar"></span>-->
-<!--                        </span>-->
-<!--                        <div class="progress-value">-->
-<!--                            <div>-->
-<!--                                {{readProgressionPercentage}}%<br>-->
-<!--                                <span>READ</span>-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                    </div>-->
-
-<!--                </div>-->
-<!--                <div class="col-md-3">-->
-<!--                    <div class="progress" [attr.data-percentage]="readQuizProgressionPercentage">-->
-<!--                        <span class="progress-left">-->
-<!--                            <span class="progress-bar"></span>-->
-<!--                        </span>-->
-<!--                        <span class="progress-right">-->
-<!--                            <span class="progress-bar"></span>-->
-<!--                        </span>-->
-<!--                        <div class="progress-value">-->
-<!--                            <div>-->
-<!--                                {{readQuizProgressionPercentage}}%<br>-->
-<!--                                <span>READ</span>-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--                <div class="col-md-3">-->
-
-<!--                </div>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--        <button pButton type="button" label="Share" icon="pi pi-comment" iconPos="right"-->
-<!--                class="p-button-raised p-button-rounded float-right"></button>-->
-<!--    </div>-->
 </div>
-<div class="row mt-4">
-    <div class="col p-3">
-        <div class="card-base">
-            <div class="card-icon">
-                <a href="#" title="Widgets" id="widgetCardIcon" class="imagecard"><span
-                        class="pi pi-comments" style="color: #9BC32A;"></span></a>
-                <div class="card-data widgetCardData">
-                    <div class="box-title" style="color: white;">Ask your Personalized Questions,</div>
-                    <div class="card-block">Let's Chat</div>
-                    <div class="row">
-                        <div class="col text-left">
-                            <span class="small-text">{{dashboardCount.personalisedquestioncount}}</span>
-                        </div>
-                        <div class="col text-right">
-                            <span class="tiny-text">USERS CURRENTLY</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="space"></div>
-        </div>
-    </div>
-    <div class="col p-3">
-        <div class="card-base">
-            <div class="card-icon">
-                <a href="#" title="Widgets" class="imagecard widgetCardIconOthers"><span
-                        class="pi pi-comments"></span></a>
-                <div class="card-data-new widgetCardData">
-                    <div class="box-title" style="color: black;">Recently Added Question,</div>
-                    <!-- <div class="card-block">Let's Chat</div> -->
-                    <div class="row">
-                        <div class="col text-left">
-                            <span class="small-text text-black">{{dashboardCount.recentlyaddedquestion}}</span>
-                        </div>
-                        <div class="col text-right">
-                            <span class="tiny-text">USERS CURRENTLY</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="space"></div>
-        </div>
-    </div>
-    <div class="col p-3">
-        <div class="card-base">
-            <div class="card-icon">
-                <a href="#" title="Widgets" class="imagecard widgetCardIconOthers"><span
-                        class="pi pi-comments"></span></a>
-                <div class="card-data widgetCardData">
-                    <div class="box-title" style="color: black;">Total Questions Answered,</div>
-                    <!-- <div class="card-block">Let's Chat</div> -->
-                    <div class="row">
-                        <div class="col text-left">
-                            <span class="small-text text-black">{{dashboardCount.totalquestioncount}}</span>
-                        </div>
-                        <div class="col text-right">
-                            <span class="tiny-text">USERS CURRENTLY</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="space"></div>
-        </div>
-    </div>
-    <div class="col p-3">
-        <div class="card-base">
-            <div class="card-icon">
-                <a href="#" title="Widgets" class="imagecard widgetCardIconOthers"><span
-                        class="pi pi-comments"></span></a>
-                <div class="card-data widgetCardData">
-                    <div class="box-title" style="color: black;">Most Popular Questions,</div>
-                    <!-- <div class="card-block">Let's Chat</div> -->
-                    <div class="row">
-                        <div class="col text-left">
-                            <span class="small-text text-black">{{dashboardCount.popularquestioncount}}</span>
-                        </div>
-                        <div class="col text-right">
-                            <span class="tiny-text">USERS CURRENTLY</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="space"></div>
-        </div>
-    </div>
-    <div class="col p-3">
-        <div class="card-base">
-            <div class="card-icon">
-                <a href="#" title="Widgets" class="imagecard widgetCardIconOthers"><span
-                        class="pi pi-comments"></span></a>
-                <div class="card-data widgetCardData">
-                    <div class="box-title" style="color: black;">Number of Registered,</div>
-                    <!-- <div class="card-block">Let's Chat</div> -->
-                    <div class="row">
-                        <div class="col text-left">
-                            <span class="small-text text-black">{{dashboardCount.registereduser}}</span>
-                        </div>
-                        <div class="col text-right">
-                            <span class="tiny-text">USERS CURRENTLY</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="space"></div>
-        </div>
-    </div>
 
+<div class="modal modal-bg" tabindex="-1" role="dialog" [ngStyle]="{ display: continueReading }">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <a (click)="closeReading()">
+                    <span aria-hidden="true"><img src="../../../assets/images/sop/close.png" /></span>
+                </a>
+            </div>
+
+            <div class="modal-body">
+                <div class="row">
+                    <div class="card _terms">
+                        <div class="card-body mt-2">
+                            <h4 class="card-title">Terms & Conditions</h4>
+                            <p class="card-text terms_p">Last update: 1 November 2022</p>
+                            <hr />
+                            <div style="font-size: 0.9rem">
+                                <p>
+                                    <b>Welcome to Project</b><br />
+                                    Quisque est nisi, eleifend tristique congue non, sagittis quis
+                                    justo. In blandit hendrerit magna, sit amet ullamcorper
+                                    sapien. Suspendisse potenti. Vivamus eu lacus ut nulla dapibus
+                                    malesuada nec et libero. Ut ultrices risus id eleifend
+                                    sagittis.
+                                </p>
+                                <br />
+                                <p>
+                                    <b>1. What are Terms and Conditions</b><br />
+                                    Sed non dui aliquam, ullamcorper est non, aliquet mauris.
+                                    Quisque lacus ligula, dapibus nec dignissim non, tincidunt vel
+                                    quam. Etiam porttitor iaculis odio. Cras sagittis nunc lectus,
+                                    in condimentum ligula ornare at. Etiam sagittis malesuada
+                                    nisl. Duis volutpat ligula ante. Sed cursus, tortor a
+                                    pellentesque pulvinar, lorem ipsum gravida elit, id posuere
+                                    elit neque in est. Mauris ex justo, tincidunt at suscipit
+                                    quis, pretium a mi. Quisque consequat nisl nulla, dignissim
+                                    gravida ipsum ultrices et. Morbi pharetra non massa at cursus.
+                                    Vivamus convallis dui eu nisl blandit, vel convallis nisi
+                                    dapibus.
+                                </p>
+                                <br />
+                                <p>
+                                    <b>A. What to include in a Terms and Conditions</b><br />
+                                    tiam rhoncus quis eros eget fringilla. Etiam malesuada enim
+                                    laoreet nibh euismod, eu finibus elit finibus. Duis ornare
+                                    tempus purus. Nam at leo quis tortor congue dignissim. Sed non
+                                    varius erat. Nulla vel nibh eu risus cursus vulputate nec ac
+                                    elit.
+                                </p>
+                                <br />
+                                <p>
+                                    <b>B. Is a Terms and Conditions required?</b><br />
+                                    roin efficitur vestibulum molestie. Nam urna justo, ornare
+                                    commodo sem eget, pretium lobortis nisi. Curabitur ac felis
+                                    pharetra nunc molestie semper quis eu mauris. Aliquam mollis,
+                                    arcu in blandit cursus, lacus est aliquam dui, vitae suscipit
+                                    orci massa.
+                                </p>
+                                <p>
+                                    <b>2. What are Terms and Conditions</b><br />
+                                    Sed non dui aliquam, ullamcorper est non, aliquet mauris.
+                                    Quisque lacus ligula, dapibus nec dignissim non, tincidunt vel
+                                    quam. Etiam porttitor iaculis odio. Cras sagittis nunc lectus,
+                                    in condimentum ligula ornare at. Etiam sagittis malesuada
+                                    nisl. Duis volutpat ligula ante. Sed cursus, tortor a
+                                    pellentesque pulvinar, lorem ipsum gravida elit, id posuere
+                                    elit neque in est. Mauris ex justo, tincidunt at suscipit
+                                    quis, pretium a mi. Quisque consequat nisl nulla, dignissim
+                                    gravida ipsum ultrices et. Morbi pharetra non massa at cursus.
+                                    Vivamus convallis dui eu nisl blandit, vel convallis nisi
+                                    dapibus.
+                                </p>
+                                <br />
+                                <p>
+                                    <b>3. Is a Terms and Conditions required?</b><br />
+                                    roin efficitur vestibulum molestie. Nam urna justo, ornare
+                                    commodo sem eget, pretium lobortis nisi. Curabitur ac felis
+                                    pharetra nunc molestie semper quis eu mauris. Aliquam mollis,
+                                    arcu in blandit cursus, lacus est aliquam dui, vitae suscipit
+                                    orci massa.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

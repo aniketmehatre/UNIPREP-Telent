@@ -9,7 +9,7 @@ import {
   ViewEncapsulation,
 } from "@angular/core";
 import { MenuItem } from "primeng/api";
-import { CountdownComponent } from 'ngx-countdown';
+import { CountdownComponent, CountdownConfig } from 'ngx-countdown';
 
 @Component({
   selector: "uni-header",
@@ -20,12 +20,23 @@ import { CountdownComponent } from 'ngx-countdown';
 })
 export class HeaderComponent implements OnInit {
   @ViewChild('cd', { static: false }) private countdown!: CountdownComponent;
-  config: any;
+  config: CountdownConfig = {};
   ngOnInit(): void {
-    this.config = {leftTime: 10000, format: "HH:mm:ss"};
-    if(this.countdown){
-      this.countdown.begin();
-    }
+    // this.config = {leftTime: 10000, format: "HH:mm:ss"};
+    // if(this.countdown){
+    //   this.countdown.begin();
+    // }
+
+    this.config = {
+      leftTime: 300,
+      format: 'HH:mm:ss',
+      prettyText: (text) => {
+        return text
+          .split(':')
+          .map((v) => `<span class="item">${v}</span>`)
+          .join('');
+      },
+    };
   }
   handleEvent(event: any){
 
@@ -40,5 +51,11 @@ export class HeaderComponent implements OnInit {
 
   onfinish(){
 
+  }
+
+  numericOnly(event: any): boolean {
+    let pattern = /^([0-9])$/;
+    let result = pattern.test(event.key);
+    return result;
   }
 }
