@@ -6,10 +6,11 @@
 <div class="rounded card card-body shadow-sm search-dropdown">
     <div class="col-12 md:col-4">
         <div class="p-inputgroup">
-            <img class="search-icon m-2 pr-2 border-end" src="/assets/images/icons/search_icon.svg" />
-            <input type="text" pInputText placeholder="ENTER YOUR KEY WORDS HERE" #searchInput (input)="onSearchChange(searchInput.value)">
+            <img class="search-icon m-2 pr-2 border-end" src="/assets/images/icons/search_icon.svg"/>
+            <input type="text" pInputText placeholder="ENTER YOUR KEY WORDS HERE" #searchInput
+                   (input)="onSearchChange(searchInput.value)">
             <button class="btn-primary" type="button" (click)="searchKeyWord(searchInput)" pButton pRipple
-                label="Search"></button>
+                    label="Search"></button>
         </div>
         <ul class="list-group list-group-flush" *ngIf="isSearchResultFound">
             <!-- results of ngFor is passed to appFilter with argument searchText -->
@@ -29,7 +30,14 @@
     <!--    </div>-->
     <div class="card-body text-center">
         <h5><strong>SELECTED COUNTRY</strong></h5>
-        <div class="row mb-0">
+        <div class="row mb-0 justify-content-center">
+            <div class="col-md-1 p-4" *ngFor="let v of countryLists">
+                <div class="row justify-content-center {{ selectedCountryId == v.id ? 'country-border pr-4 pl-4' : ''}}">
+                    <img width="{{ selectedCountryId == v.id ? '300px' : '100px'}}"
+                         class="{{ selectedCountryId == v.id ? 'p-2' : 'p-4'}}" src="{{v.flag}}" alt="country">
+                    <p class="text-center text-sm text-capitalize {{ selectedCountryId == v.id ? 'country-text' : 'country-text-small'}}">{{v.country}}</p>
+                </div>
+            </div>
             <!-- <div class="col-md-2 p-3">
                 <div class="row justify-content-center">
                     <img class="logo" src="../../../assets/images/india-flag.png" alt="country">
@@ -145,13 +153,13 @@
     </div>
 </div>
 <div class="row">
-    <div class="col-md-4 col-lg-4 p-4">
+    <div class="col-md-5 col-lg-5 p-4">
         <h3><strong>WELCOME TO UNITED KINGDOM</strong></h3>
         <h5>UNIPREP UK information and content in reviewed and accredited by the following entities.</h5>
     </div>
-    <div class="col-md-8 col-lg-8 p-4 shadow rounded p-4 bg-white">
+    <div class="col-md-7 col-lg-7 p-4 shadow rounded p-4 bg-white">
         <p-carousel [value]="university" [numVisible]="3" [showIndicators]="false" [numScroll]="1"
-            [responsiveOptions]="responsiveOptions">
+                    [responsiveOptions]="responsiveOptions">
             <ng-template let-uni pTemplate="item">
                 <img class="carousel" src="{{uni.image}}" alt="{{uni.image}}">
             </ng-template>
@@ -163,16 +171,8 @@
         <div class="col-md-3 col-lg-3 p-3 d-flex">
             <div class="shadow bg-white rounded-lg p-4">
                 <div class="row d-flex">
-                    <div class="col-md-12 col-lg-12 d-flex justify-content-center">
-                        <div class="card-body rounded text-center d-flex align-content-center quiz-card bg-secondary
-                         h-100 ">
-                            <div class="row d-flex">
-                                <iframe class="p-0 m-0" width="250" height="70"
-                                    src="https://www.youtube.com/embed/uRyvNKRkwbs" title="YouTube video player"
-                                    frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope;
-                                         picture-in-picture; web-share" allowfullscreen></iframe>
-                            </div>
-                        </div>
+                    <div class="col-md-12 col-lg-12 justify-content-center">
+                        <img class="w-100" src="/assets/images/icons/tutorial_link.svg"/>
                     </div>
                 </div>
                 <h6><strong>How to use uniprep? (DEMO)</strong></h6>
@@ -182,7 +182,7 @@
             <div class="shadow bg-white rounded p-4">
                 <div class="row">
                     <div class="col-md-6 col-lg-6 d-flex justify-content-center">
-                        <img class="reading-quiz" src="/assets/images/icons/start_reading.svg" />
+                        <img class="reading-quiz" src="/assets/images/icons/start_reading.svg"/>
 
                     </div>
                     <div class="col-md-6 col-lg-6">
@@ -205,11 +205,11 @@
                 <div style="text-transform: none">Expand your horizons through reading</div>
             </div>
         </div>
-        <div class="col-md-3 col-lg-3 p-3 d-flex">
+        <div class="col-md-3 col-lg-3 p-3 d-flex" (click)="openQuiz()">
             <div class="shadow bg-white rounded p-4">
                 <div class="row">
                     <div class="col-md-6 col-lg-6 d-flex justify-content-center">
-                        <img class="reading-quiz" src="/assets/images/icons/start_quiz.svg" />
+                        <img class="reading-quiz" src="/assets/images/icons/start_quiz.svg"/>
 
                     </div>
                     <div class="col-md-6 col-lg-6">
@@ -235,15 +235,16 @@
         <div class="col-md-3 col-lg-3 p-3 d-flex">
             <div class="shadow bg-white rounded p-4">
                 <div class="row">
-                    <div class="col-md-6 col-lg-6 d-flex justify-content-center">
-                        <img class="reading-quiz" src="/assets/images/icons/cert_deactivate.svg" />
+                    <div class="col-md-7 col-lg-7 d-flex justify-content-center">
+                        <img class="reading-quiz" src="/assets/images/icons/cert_deactivate.svg"/>
                     </div>
-                    <div class="col-md-6 col-lg-6 text-center">
+                    <div class="col-md-5 col-lg-5 text-center">
                         <br>
                         <!-- <button pButton type="button" label="Share" icon="pi pi-share-alt" iconPos="right"
                                 style="bottom: 0; left: 0;"
                                 class="p-button-raised p-button-rounded float-right"></button> -->
-                        <img class="reading-quiz" src="/assets/images/icons/share_button_deactivate.svg" />
+                        <img class="share-button-deactivate p-0 m-0"
+                             src="/assets/images/icons/share_button_deactivate.svg"/>
                     </div>
                 </div>
                 <h6><strong>Unlock Certificate</strong></h6>
@@ -256,7 +257,7 @@
         <div class="col-md-2 col-lg-2 p-2">
             <div class="selected-box d-flex flex-column">
                 <!--                <span class="pi pi-comments" style="color: #a5c54e; font-size: 2rem"></span>-->
-                <img class="img-icon" src="/assets/images/icons/Uniprep_Icons_Most_Popular_Questions.svg" />
+                <img class="img-icon" src="/assets/images/icons/online_chat_icon.svg"/>
                 <span class="tiny-text text-dark  pt-2">Ask your personalized<br>Questions</span>
 
                 <div class="row pt-2 mb-0 pb-0">
@@ -271,7 +272,7 @@
         </div>
         <div class="col-md-2 col-lg-2 p-2">
             <div class="card-body bg-light un-selected-box d-flex flex-column">
-                <img class="img-icon" src="/assets/images/icons/Uniprep_Icons_Recently_Added_Questions.svg" />
+                <img class="img-icon" src="/assets/images/icons/Uniprep_Icons_Recently_Added_Questions.svg"/>
                 <span class="tiny-text text-dark pt-2">Recently Added <br>Questions</span>
 
                 <div class="row pt-2 mb-0 pb-0">
@@ -286,7 +287,7 @@
         </div>
         <div class="col-md-2 col-lg-2 p-2">
             <div class="card-body bg-light un-selected-box d-flex flex-column">
-                <img class="img-icon" src="/assets/images/icons/UniprepIcons_Total_Questions_Asked.svg" />
+                <img class="img-icon" src="/assets/images/icons/UniprepIcons_Total_Questions_Asked.svg"/>
                 <span class="tiny-text text-dark pt-2">Total Questions <br>Answered</span>
 
                 <div class="row pt-2 mb-0 pb-0">
@@ -301,7 +302,7 @@
         </div>
         <div class="col-md-2 col-lg-2 p-2">
             <div class="card-body bg-light un-selected-box d-flex flex-column">
-                <img class="img-icon" src="/assets/images/icons/Uniprep_Icons_recently_added question.svg" />
+                <img class="img-icon" src="/assets/images/icons/Uniprep_Icons_recently_added question.svg"/>
                 <span class="tiny-text text-dark pt-2">Most Popular <br>Questions</span>
 
                 <div class="row pt-2 mb-0 pb-0">
@@ -316,7 +317,7 @@
         </div>
         <div class="col-md-2 col-lg-2 p-2">
             <div class="card-body bg-light un-selected-box d-flex flex-column">
-                <img class="img-icon" src="/assets/images/icons/Uniprep_Icons_Registered_Students_icon.svg" />
+                <img class="img-icon" src="/assets/images/icons/Uniprep_Icons_Registered_Students_icon.svg"/>
                 <span class="tiny-text text-dark pt-2">Number of Registered <br>Students</span>
 
                 <div class="row pt-2 mb-0 pb-0">
@@ -331,7 +332,7 @@
         </div>
         <div class="col-md-2 col-lg-2 p-2">
             <div class="card-body bg-light un-selected-box d-flex flex-column">
-                <img class="img-icon" src="/assets/images/icons/Uniprep_Icons_Most_Popular_Questions.svg" />
+                <img class="img-icon" src="/assets/images/icons/certificate_granted_Icon.svg"/>
                 <span class="tiny-text text-dark pt-2">Certificate <br>Granted</span>
 
                 <div class="row pt-2 mb-0 pb-0">
@@ -351,8 +352,8 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <a (click)="closeReading()">
-                    <span aria-hidden="true"><img src="../../../assets/images/sop/close.png" /></span>
+                <a (click)="closeReading()" class="close">
+                    <span aria-hidden="true"><img src="/assets/images/icons/close_button.svg"/></span>
                 </a>
             </div>
 
@@ -360,74 +361,103 @@
                 <div class="row">
                     <div class="card _terms">
                         <div class="card-body mt-2">
-                            <h4 class="card-title">Terms & Conditions</h4>
-                            <p class="card-text terms_p">Last update: 1 November 2022</p>
-                            <hr />
-                            <div style="font-size: 0.9rem">
-                                <p>
-                                    <b>Welcome to Project</b><br />
-                                    Quisque est nisi, eleifend tristique congue non, sagittis quis
-                                    justo. In blandit hendrerit magna, sit amet ullamcorper
-                                    sapien. Suspendisse potenti. Vivamus eu lacus ut nulla dapibus
-                                    malesuada nec et libero. Ut ultrices risus id eleifend
-                                    sagittis.
-                                </p>
-                                <br />
-                                <p>
-                                    <b>1. What are Terms and Conditions</b><br />
-                                    Sed non dui aliquam, ullamcorper est non, aliquet mauris.
-                                    Quisque lacus ligula, dapibus nec dignissim non, tincidunt vel
-                                    quam. Etiam porttitor iaculis odio. Cras sagittis nunc lectus,
-                                    in condimentum ligula ornare at. Etiam sagittis malesuada
-                                    nisl. Duis volutpat ligula ante. Sed cursus, tortor a
-                                    pellentesque pulvinar, lorem ipsum gravida elit, id posuere
-                                    elit neque in est. Mauris ex justo, tincidunt at suscipit
-                                    quis, pretium a mi. Quisque consequat nisl nulla, dignissim
-                                    gravida ipsum ultrices et. Morbi pharetra non massa at cursus.
-                                    Vivamus convallis dui eu nisl blandit, vel convallis nisi
-                                    dapibus.
-                                </p>
-                                <br />
-                                <p>
-                                    <b>A. What to include in a Terms and Conditions</b><br />
-                                    tiam rhoncus quis eros eget fringilla. Etiam malesuada enim
-                                    laoreet nibh euismod, eu finibus elit finibus. Duis ornare
-                                    tempus purus. Nam at leo quis tortor congue dignissim. Sed non
-                                    varius erat. Nulla vel nibh eu risus cursus vulputate nec ac
-                                    elit.
-                                </p>
-                                <br />
-                                <p>
-                                    <b>B. Is a Terms and Conditions required?</b><br />
-                                    roin efficitur vestibulum molestie. Nam urna justo, ornare
-                                    commodo sem eget, pretium lobortis nisi. Curabitur ac felis
-                                    pharetra nunc molestie semper quis eu mauris. Aliquam mollis,
-                                    arcu in blandit cursus, lacus est aliquam dui, vitae suscipit
-                                    orci massa.
-                                </p>
-                                <p>
-                                    <b>2. What are Terms and Conditions</b><br />
-                                    Sed non dui aliquam, ullamcorper est non, aliquet mauris.
-                                    Quisque lacus ligula, dapibus nec dignissim non, tincidunt vel
-                                    quam. Etiam porttitor iaculis odio. Cras sagittis nunc lectus,
-                                    in condimentum ligula ornare at. Etiam sagittis malesuada
-                                    nisl. Duis volutpat ligula ante. Sed cursus, tortor a
-                                    pellentesque pulvinar, lorem ipsum gravida elit, id posuere
-                                    elit neque in est. Mauris ex justo, tincidunt at suscipit
-                                    quis, pretium a mi. Quisque consequat nisl nulla, dignissim
-                                    gravida ipsum ultrices et. Morbi pharetra non massa at cursus.
-                                    Vivamus convallis dui eu nisl blandit, vel convallis nisi
-                                    dapibus.
-                                </p>
-                                <br />
-                                <p>
-                                    <b>3. Is a Terms and Conditions required?</b><br />
-                                    roin efficitur vestibulum molestie. Nam urna justo, ornare
-                                    commodo sem eget, pretium lobortis nisi. Curabitur ac felis
-                                    pharetra nunc molestie semper quis eu mauris. Aliquam mollis,
-                                    arcu in blandit cursus, lacus est aliquam dui, vitae suscipit
-                                    orci massa.
-                                </p>
+                            <h4 class="card-title">CONTINUE READING</h4>
+                            <div class="row">
+                                <div class="col-md-6 col-lg-6 p-2" *ngFor="let readPro of readingProgressings">
+                                    <div class="modal-selected-box d-flex flex-column">
+                                        <p>{{readPro.module_name}}</p>
+                                        <div class="row">
+                                            <div class="col-md-6 col-lg-6">
+                                                <div class="progress1" [attr.data-percentage]="readPro.progression">
+                                                    <span class="progress1-left">
+                                                        <span class="progress1-bar"></span>
+                                                    </span>
+                                                    <span class="progress1-right">
+                                                        <span class="progress1-bar"></span>
+                                                    </span>
+                                                    <div class="progress1-value">
+                                                        <div>
+                                                            {{readPro.progression}}%<br>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6 col-lg-6 d-flex justify-content-center
+                                            align-items-center text-sm text-center">
+                                                <div class="row">
+                                                    <div *ngIf="readPro.progression_status == 'Pending'">
+                                                        <button class="btn btn-dark btn-sm text-sm w-100">
+                                                            Read Now
+                                                        </button>
+                                                        {{readPro.progression_status}}
+                                                    </div>
+                                                    <div *ngIf="readPro.progression_status == 'Complete'">
+                                                        {{readPro.progression_status}}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal modal-bg" tabindex="-1" role="dialog" [ngStyle]="{ display: continueQuiz }">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <a (click)="closeQuiz()" class="close">
+                    <span aria-hidden="true"><img src="/assets/images/icons/close_button.svg"/></span>
+                </a>
+            </div>
+
+            <div class="modal-body">
+                <div class="row">
+                    <div class="card _terms">
+                        <div class="card-body mt-2">
+                            <h4 class="card-title">CONTINUE QUIZ</h4>
+                            <div class="row">
+                                <div class="col-md-6 col-lg-6 p-2" *ngFor="let quiz of quizProgressings">
+                                    <div class="modal-selected-box d-flex flex-column">
+                                        <p>{{quiz.module_name}}</p>
+                                        <div class="row">
+                                            <div class="col-md-6 col-lg-6">
+                                                <div class="progress1" [attr.data-percentage]="quiz.progression">
+                                                    <span class="progress1-left">
+                                                        <span class="progress1-bar"></span>
+                                                    </span>
+                                                    <span class="progress1-right">
+                                                        <span class="progress1-bar"></span>
+                                                    </span>
+                                                    <div class="progress1-value">
+                                                        <div>
+                                                            {{quiz.progression}}%<br>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6 col-lg-6 d-flex justify-content-center
+                                            align-items-center text-sm text-center">
+                                                <div class="row">
+                                                    <div *ngIf="quiz.progression_status == 'Pending'">
+                                                        <button class="btn btn-dark btn-sm text-sm w-100">
+                                                            Read Now
+                                                        </button>
+                                                        {{quiz.progression_status}}
+                                                    </div>
+                                                    <div *ngIf="quiz.progression_status == 'Complete'">
+                                                        {{quiz.progression_status}}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>

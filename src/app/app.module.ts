@@ -19,6 +19,7 @@ import {ToastModule} from "primeng/toast";
 import {JwtModule} from "@auth0/angular-jwt";
 import { NgxUiLoaderModule } from "ngx-ui-loader";
 import { CountdownModule } from 'ngx-countdown';
+
 const reducers = {
   pageSelector: pagesReducer
 }

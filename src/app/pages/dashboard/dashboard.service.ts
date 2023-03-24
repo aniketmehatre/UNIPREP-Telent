@@ -41,4 +41,18 @@ export class DashboardService {
         return this.http.post<any>(environment.ApiUrl + "/searchkeyword", val, {headers: headers});
     }
 
+    getModuleReadProgression(val: any) {
+        const headers = new HttpHeaders().set("Accept", "application/json");
+        return this.http.post<any>(environment.ApiUrl + "/getmodulereadprogression", val, {headers: headers});
+    }
+
+    getModuleQuizProgression(val: any) {
+        const headers = new HttpHeaders().set("Accept", "application/json");
+        return this.http.post<any>(environment.ApiUrl + "/getmodulequizprogression", val, {headers: headers});
+    }
+    countryList() {
+        const headers = new HttpHeaders().set("Accept", "application/json");
+        return this.http.get(environment.ApiUrl + "/country", {headers: headers});
+    }
+
 }

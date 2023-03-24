@@ -1,5 +1,4 @@
 import {NgModule} from '@angular/core';
-import { CommonModule } from '@angular/common';
 
 import { DashboardRoutingModule } from './dashboard-routing.module';
 import {DashboardComponent} from "./dashboard.component";
@@ -13,6 +12,7 @@ import {ButtonModule} from "primeng/button";
 import {RippleModule} from "primeng/ripple";
 import {CardModule} from 'primeng/card';
 import {CarouselModule} from 'primeng/carousel';
+import { CommonModule } from '@angular/common'
 
 @NgModule({
   declarations: [DashboardComponent],
