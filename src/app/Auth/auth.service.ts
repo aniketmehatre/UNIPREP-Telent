@@ -95,6 +95,20 @@ export class AuthService {
     });
   }
 
+  getSmsOTP(val:any){
+    const headers = new HttpHeaders().set("Accept", "application/json");
+    return this.http.post<any>(environment.ApiUrl + "/requestsmsotp", val, {
+      headers: headers,
+    });
+  }
+
+  verifySmsOTP(val:any){
+    const headers = new HttpHeaders().set("Accept", "application/json");
+    return this.http.post<any>(environment.ApiUrl + "/validatesmsotp", val, {
+      headers: headers,
+    });
+  }
+
   setPassword(val:any){
     const headers= new HttpHeaders()
     .set('Accept', "application/json")

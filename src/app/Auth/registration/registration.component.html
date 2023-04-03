@@ -181,44 +181,49 @@
                     >
                     <div style="text-align-last: center">
                       <input
-                        class="col form-control"
-                        [ngClass]="{
+                              (keypress)="numericOnly($event)"
+                              (keyup)="focusNextInput($event, 1)"
+                              [ngClass]="{
                           'is-invalid': submitted && f.otp1.errors
                         }"
-                        formControlName="otp1"
-                        autofocus
-                        (keypress)="numericOnly($event)"
-                        type="text"
-                        maxlength="1"
+                              autofocus
+                              class="col form-control"
+                              formControlName="otp1"
+                              maxlength="1"
+                              type="text"
                       />
                       <input
-                        class="col form-control"
-                        formControlName="otp2"
-                        type="text"
-                        #otp2
-                        maxlength="1"
-                        [ngClass]="{
+                              #otp2
+                              (keyup)="focusNextInput($event, 2)"
+                              [ngClass]="{
                           'is-invalid': submitted && f.otp2.errors
                         }"
+                              class="col form-control"
+                              formControlName="otp2"
+                              maxlength="1"
+                              type="text"
                       />
                       <input
-                        class="col form-control"
-                        formControlName="otp3"
-                        type="text"
-                        #otp3
-                        maxlength="1"
-                        [ngClass]="{
+                              class="col form-control"
+                              formControlName="otp3"
+                              (keyup)="focusNextInput($event, 3)"
+                              type="text"
+                              #otp3
+                              maxlength="1"
+                              [ngClass]="{
                           'is-invalid': submitted && f.otp3.errors
                         }"
                       />
                       <input
-                        class="col form-control"
-                        formControlName="otp4"
-                        type="text"
-                        maxlength="1"
-                        [ngClass]="{
+                              [ngClass]="{
                           'is-invalid': submitted && f.otp4.errors
                         }"
+                              class="col form-control"
+                              #otp4
+                              formControlName="otp4"
+                              (keyup)="focusNextInput($event, 4)"
+                              maxlength="1"
+                              type="text"
                       />
                       <div
                         *ngIf="
@@ -251,20 +256,20 @@
                         VERIFY OTP
                       </button>
                     </div>
-                    <label class="resend_label"
-                      >Didn't receive the Mobile OTP?
-                      <span class="font-primarycolor"
-                        ><a (click)="resendMobileOTP()"
-                          >Click to resend.</a
-                        ></span
-                      ></label
-                    >
-                    <div class="footer-part">
-                      <a href="login"
-                        ><span><i class="pi pi-chevron-left"></i></span></a
-                      ><br />
-                      <label>Back to Sign In</label>
-                    </div>
+                    <!--                    <label class="resend_label"-->
+                    <!--                      >Didn't receive the Mobile OTP?-->
+                    <!--                      <span class="font-primarycolor"-->
+                    <!--                        ><a (click)="resendMobileOTP()"-->
+                    <!--                          >Click to resend.</a-->
+                    <!--                        ></span-->
+                    <!--                      ></label-->
+                    <!--                    >-->
+                    <!--                    <div class="footer-part">-->
+                    <!--                      <a href="login"-->
+                    <!--                        ><span><i class="pi pi-chevron-left"></i></span></a-->
+                    <!--                      ><br />-->
+                    <!--                      <label>Back to Sign In</label>-->
+                    <!--                    </div>-->
                   </form>
                 </div>
                 <div class="row g-3" *ngIf="!isEmailOTPSend && isMobileOTPValidated && !isRemainingFieldVisible">
@@ -299,6 +304,7 @@
                           'is-invalid': submitted && f.otp5.errors
                         }"
                         formControlName="otp5"
+                        (keyup)="focusNextEmailInput($event, 1)"
                         (keypress)="numericOnly($event)"
                         type="text"
                         maxlength="1"
@@ -361,20 +367,20 @@
                         VERIFY OTP
                       </button>
                     </div>
-                    <label class="resend_label"
-                      >Didn't receive the Email OTP?
-                      <span class="font-primarycolor"
-                        ><a (click)="resendEmailOTP()"
-                          >Click to resend.</a
-                        ></span
-                      ></label
-                    >
-                    <div class="footer-part">
-                      <a href="login"
-                        ><span><i class="pi pi-chevron-left"></i></span></a
-                      ><br />
-                      <label>Back to Sign In</label>
-                    </div>
+                    <!--                    <label class="resend_label"-->
+                    <!--                      >Didn't receive the Email OTP?-->
+                    <!--                      <span class="font-primarycolor"-->
+                    <!--                        ><a (click)="resendEmailOTP()"-->
+                    <!--                          >Click to resend.</a-->
+                    <!--                        ></span-->
+                    <!--                      ></label-->
+                    <!--                    >-->
+                    <!--                    <div class="footer-part">-->
+                    <!--                      <a href="login"-->
+                    <!--                        ><span><i class="pi pi-chevron-left"></i></span></a-->
+                    <!--                      ><br />-->
+                    <!--                      <label>Back to Sign In</label>-->
+                    <!--                    </div>-->
                   </form>
                 </div>
                 <div *ngIf="isRemainingFieldVisible">
@@ -562,7 +568,7 @@
                   </div>
 
                   <div class="col">
-                    <label for="confirmConfirmPassword">Confirm Password</label>
+                    <label for="confirmPassword">Confirm Password</label>
                     <div class="p-inputgroup">
                       <div class="p-inputgroup-addon">
                         <i class="pi pi-lock"></i>

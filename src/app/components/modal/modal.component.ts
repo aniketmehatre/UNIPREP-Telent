@@ -82,8 +82,8 @@ export class ModalComponent implements OnInit {
     }
 
     reportAction() {
-        console.log('coming')
-        //this.isModalVisible = 'block';
+        //console.log('coming')
+        this.isModalVisible = 'block';
     }
 
 }
