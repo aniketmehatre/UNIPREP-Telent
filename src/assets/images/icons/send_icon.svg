@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="45" height="45" viewBox="0 0 75 75">
+  <defs>
+    <linearGradient id="linear-gradient" x1="0.5" x2="0.5" y2="1" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#b5e331"/>
+      <stop offset="1" stop-color="#9bc329"/>
+    </linearGradient>
+    <filter id="Ellipse_66" x="0" y="0" width="75" height="75" filterUnits="userSpaceOnUse">
+      <feOffset dy="3" input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="3" result="blur"/>
+      <feFlood flood-opacity="0.161"/>
+      <feComposite operator="in" in2="blur"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+  </defs>
+  <g id="Group_6639" data-name="Group 6639" transform="translate(9 6)">
+    <g transform="matrix(1, 0, 0, 1, -9, -6)" filter="url(#Ellipse_66)">
+      <circle id="Ellipse_66-2" data-name="Ellipse 66" cx="28.5" cy="28.5" r="28.5" transform="translate(9 6)" fill="url(#linear-gradient)"/>
+    </g>
+    <g id="paper-plane" transform="translate(15.675 15.674)">
+      <path id="Path_49" data-name="Path 49" d="M25.448.374a.74.74,0,0,0-.815-.153L.445,10.821a.748.748,0,0,0-.443.64.734.734,0,0,0,.372.679l8.433,4.783,5.007,8.52a.745.745,0,0,0,.635.367h.044a.74.74,0,0,0,.635-.443L25.607,1.19A.73.73,0,0,0,25.448.374ZM21.6,3.16,9.223,15.456,2.388,11.582ZM14.35,23.44,10.273,16.5,22.723,4.128Z" transform="translate(0 -0.16)" fill="#fff"/>
+    </g>
+  </g>
+</svg>

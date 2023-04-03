@@ -3,7 +3,8 @@
     <div class="col-md-6 col-lg-6 align-content-center">
       <div class="row">
          <img class="small-image text-left" src="../../../assets/images/uniboard.png">
-          <h4>Welcome to UNIPREP</h4>
+
+          <h4 class="pt-2">Welcome to UNIPREP</h4>
         <p>Live resolution to personal questions.</p>
           <p><span class="font-primarycolor">30,000+ questions on every topics concerning education abroad<br>
           answered by alumni of international universities.</span></p>
@@ -93,6 +94,7 @@
                         id="contactNumber"
                         formControlName="contactNumber"
                         placeholder="Contact Number"
+                        [readonly]="isMobileOTPSend"
                         [ngClass]="{
                           'is-invalid': submitted && f.contactNumber.errors
                         }"
@@ -127,6 +129,7 @@
                         pInputText
                         class="border-0 w-full"
                         id="emailAddress"
+                        [readonly]="isEmailOTPSend"
                         formControlName="emailAddress"
                         [ngClass]="{
                           'is-invalid': submitted && f.emailAddress.errors
@@ -154,13 +157,13 @@
                 <div class="row g-3" *ngIf="!isMobileOTPSend">
                   <div class="col">
                     <br />
-                    <div class="d-grid">
+                    <div class="text-center">
                       <button
-                        class="pt-3 pb-3 btn btn-primary btn-login text-uppercase fw-bold m-0"
+                        class="pt-2 pb-2 btn btn-primary btn-login text-uppercase fw-bold m-0 w-50"
                         type="button"
                         (click)="sendMobileOTP()"
                       >
-                        Send OTP
+                        SEND OTP
                       </button>
                     </div>
                   </div>
@@ -183,6 +186,7 @@
                           'is-invalid': submitted && f.otp1.errors
                         }"
                         formControlName="otp1"
+                        autofocus
                         (keypress)="numericOnly($event)"
                         type="text"
                         maxlength="1"
@@ -191,6 +195,7 @@
                         class="col form-control"
                         formControlName="otp2"
                         type="text"
+                        #otp2
                         maxlength="1"
                         [ngClass]="{
                           'is-invalid': submitted && f.otp2.errors
@@ -200,6 +205,7 @@
                         class="col form-control"
                         formControlName="otp3"
                         type="text"
+                        #otp3
                         maxlength="1"
                         [ngClass]="{
                           'is-invalid': submitted && f.otp3.errors
@@ -237,12 +243,12 @@
                       </div>
                     </div>
                     <br />
-                    <div class="d-grid">
+                    <div class="text-center">
                       <button
-                        class="pt-3 pb-3 btn btn-primary btn-login text-uppercase fw-bold m-0"
+                        class="pt-2 pb-2 btn btn-primary btn-login text-uppercase fw-bold m-0 w-50"
                         type="submit"
                       >
-                        Validate Mobile OTP
+                        VERIFY OTP
                       </button>
                     </div>
                     <label class="resend_label"
@@ -264,13 +270,13 @@
                 <div class="row g-3" *ngIf="!isEmailOTPSend && isMobileOTPValidated && !isRemainingFieldVisible">
                   <div class="col">
                     <br />
-                    <div class="d-grid">
+                    <div class="text-center">
                       <button
-                        class="pt-3 pb-3 btn btn-primary btn-login text-uppercase fw-bold m-0"
+                        class="pt-2 pb-2 btn btn-primary btn-login text-uppercase fw-bold m-0 w-50"
                         type="button"
                         (click)="sendEmailOTP()"
                       >
-                        Send Email OTP
+                        SEND OTP
                       </button>
                     </div>
                   </div>
@@ -347,12 +353,12 @@
                       </div>
                     </div>
                     <br />
-                    <div class="d-grid">
+                    <div class="text-center">
                       <button
-                        class="pt-3 pb-3 btn btn-primary btn-login text-uppercase fw-bold m-0"
+                        class="pt-2 pb-2 btn btn-primary btn-login text-uppercase fw-bold m-0 w-50"
                         type="submit"
                       >
-                        Validate Email OTP
+                        VERIFY OTP
                       </button>
                     </div>
                     <label class="resend_label"
@@ -431,8 +437,10 @@
                       </div>
                       <p-dropdown
                         formControlName="intakeYear"
+                        #intakeYear
                         [options]="intakeYearLooking"
                         [autoDisplayFirst]="false"
+                        (onChange)="yearChange($event)"
                         optionLabel="value"
                       ></p-dropdown>
                     </div>

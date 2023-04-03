@@ -5,17 +5,19 @@ export interface AuthState {
     loading: boolean;
     message: string;
     loggedIn: boolean;
+    data: any;
 }
 
 export const initialState: AuthState = {
     loading: false,
     message: '',
-    loggedIn: false
+    loggedIn: false,
+    data: '',
 }
 
 export const authReducer = createReducer(
     initialState,
-    on(login, (state: AuthState) => ({...state, loading: true, message: '', loggedIn: false})),
-    on(loginSuccess, (state: AuthState, payload) => ({...state, loading: false, message: 'Login Success', loggedIn: true})),
-    on(loginFailure, (state: AuthState) => ({...state, loading: false, message: '', loggedIn: false}))
+    on(login, (state: AuthState) => ({...state, loading: true, message: '', loggedIn: false, data: ''})),
+    on(loginSuccess, (state: AuthState, payload) => ({...state, loading: false, message: 'Login Success', loggedIn: true, data: payload})),
+    on(loginFailure, (state: AuthState) => ({...state, loading: false, message: '', loggedIn: false, data: ''}))
 );

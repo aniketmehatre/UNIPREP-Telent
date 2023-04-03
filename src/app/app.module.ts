@@ -19,7 +19,15 @@ import {ToastModule} from "primeng/toast";
 import {JwtModule} from "@auth0/angular-jwt";
 import { NgxUiLoaderModule } from "ngx-ui-loader";
 import { CountdownModule } from 'ngx-countdown';
+import { ModalComponent } from './components/modal/modal.component';
+import { ModalService } from './components/modal/modal.service';
+import {AvatarModule} from 'primeng/avatar';
+import { DropdownModule } from 'primeng/dropdown';
+import {ButtonModule} from 'primeng/button';
 
+import {ScrollToBottomDirective} from "./components/modal/scroll-to-bottom.directive";
+import {InputTextModule} from "primeng/inputtext";
+import {ReactiveFormsModule} from "@angular/forms";
 const reducers = {
   pageSelector: pagesReducer
 }
@@ -35,29 +43,34 @@ export function tokenGetter() {
 
 @NgModule({
   declarations: [
-    AppComponent,
+    AppComponent, ModalComponent, ScrollToBottomDirective
   ],
-  imports: [
-    BrowserModule,
-    BrowserAnimationsModule,
-    AppRoutingModule,
-    PagesModule,
-    StoreModule.forRoot(reducers, {}),
-    AuthModule,
-    HttpClientModule,
-      ToastModule,
-    StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
-    EffectsModule.forRoot([]),
-    JwtModule.forRoot({
-      config: {
-        tokenGetter: tokenGetter,
-        allowedDomains: [environment.domain],
-        disallowedRoutes: [],
-      },
-    }),
-    NgxUiLoaderModule,
-    CountdownModule
-  ],
+    imports: [
+        BrowserModule,
+        BrowserAnimationsModule,
+        AppRoutingModule,
+        PagesModule,
+        StoreModule.forRoot(reducers, {}),
+        AuthModule,
+        HttpClientModule,
+        ToastModule,
+        StoreDevtoolsModule.instrument({maxAge: 25, logOnly: environment.production}),
+        EffectsModule.forRoot([]),
+        JwtModule.forRoot({
+            config: {
+                tokenGetter: tokenGetter,
+                allowedDomains: [environment.domain],
+                disallowedRoutes: [],
+            },
+        }),
+        NgxUiLoaderModule,
+        CountdownModule,
+        AvatarModule,
+        DropdownModule,
+        ButtonModule,
+        InputTextModule,
+        ReactiveFormsModule
+    ],
   providers: [
     DatePipe,
     AuthService,
@@ -69,8 +82,10 @@ export function tokenGetter() {
     {
       provide: NGX_LOCAL_STORAGE_CONFIG,
       useValue: ngxLocalstorageConfiguration
-    }
+    },
+    ModalService
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [ModalComponent]
 })
 export class AppModule { }

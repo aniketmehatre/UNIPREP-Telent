@@ -17,14 +17,17 @@
       <div class="login d-flex align-items-center text-right">
         <div class="container">
           <div class="row">
-            <div class="col-md-9 col-lg-8 mx-auto">
+            <div class="col-md-9 col-lg-8">
               <!-- <img class="logo" src="../../../assets/images/SOP-CHECKER.PNG"> -->
-              <h3 class="login-heading mt-3 mb-3"> <u>Welcome Back </u>! Please login to your <span class="font-primarycolor">account.</span></h3>
-              <label class="signup">Don't have an account ?<span ><a class="font-primarycolor" href="register"> Sign up here</a></span></label>
+              <h3 class="login-heading mt-3 mb-3"> <u>Welcome Back ,</u> Please login to your <span class="font-primarycolor">account.</span></h3>
+              <label class="signup">Don't have an account?<span ><a class="font-primarycolor" href="register"> Sign up here</a></span></label>
               <br><br>
               <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
                 <label for="floatingInput">Email address</label>
                 <div class="p-inputgroup">
+                  <div class="p-inputgroup-addon">
+                    <img class="bg-image text-center" src="../../../assets/images/icons/Uniprep_Icons_email.png">
+                  </div>
                   <input
                     type="email"
                     pInputText
@@ -46,6 +49,9 @@
                 <br>
                 <label for="floatingPassword">Password</label>
                 <div class="p-inputgroup">
+                  <div class="p-inputgroup-addon">
+                    <i class="pi pi-lock gray-50" style="opacity: 0.7;"></i>
+                  </div>
                   <input
                     type="password"
                     class="border-0"

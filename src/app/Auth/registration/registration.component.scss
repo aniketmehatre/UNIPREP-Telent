@@ -1,21 +1,26 @@
 @import "../../../assets/buttons";
+
 .login {
   min-height: 90vh;
   margin-top: 3.9rem;
 }
 
-.container-fluid{
+.container-fluid {
   padding-right: 0 !important;
 }
+
 .btn {
   font-size: smaller !important;
 }
+
 .logo {
   height: 70px;
 }
+
 .modal-dialog {
   max-width: 90% !important;
 }
+
 .modal-header {
   align-self: self-end;
   background-color: #9bc329;
@@ -24,13 +29,16 @@
   height: 100px;
   margin: -23px -39px 0 0;
   z-index: 999;
+
   a {
     padding: 8px 0px 0px 6px;
   }
+
   img {
     height: 30px;
   }
 }
+
 .title_p {
   font-size: smaller !important;
   padding: 0.9rem 0.9rem 0rem 0.9rem;
@@ -45,6 +53,7 @@
   color: #9bc329;
   border-radius: 5px;
   box-shadow: rgb(0 0 0 / 15%) 0px 3px 8px;
+
   hr {
     border: none;
     border-top: 2px dotted #222020;
@@ -54,11 +63,13 @@
     width: 100%;
   }
 }
+
 ._menu {
   width: 18rem;
   margin-left: 3rem;
   margin-right: 3rem;
   height: 70%;
+
   a {
     width: 95%;
     height: 40px;
@@ -66,9 +77,11 @@
     padding-top: 10px;
   }
 }
+
 .card {
   border-color: rgba(0, 0, 0, 0.127);
 }
+
 .terms_p {
   font-size: small;
   color: white;
@@ -77,13 +90,16 @@
   border-radius: 2px;
   padding-left: 1rem;
 }
+
 ._terms {
   min-height: 500px;
 }
-.modal-body{
+
+.modal-body {
   position: absolute;
-  padding:0 !important;
+  padding: 0 !important;
 }
+
 .modal-content {
   min-height: 600px;
   background-color: #dbdbdb !important;
@@ -91,6 +107,7 @@
   border-color: #9bc329;
   overflow-y: scroll;
 }
+
 .modal-bg {
   background-color: rgba(0, 0, 0, 0.35);
 }
@@ -100,51 +117,63 @@
   color: rgba(0, 0, 0, 0.378);
   margin-bottom: 4%;
 }
+
 .invalid-feedback {
   display: block !important;
 }
+
 .input_checkbox {
   height: auto !important;
   padding: 0 !important;
 }
+
 .input-group-text {
   background: white !important;
   border-right: 1px solid #9bc329 !important;
+
   i {
     font-size: 0.7rem;
     color: rgba(0, 0, 0, 0.378);
   }
 }
+
 .input_field {
   height: 2.2rem !important;
   padding: 0 0 0 10px !important;
 }
+
 .mx-custom {
   margin: -109px 0px 0px 30px;
   width: 80%;
 }
+
 .agree {
   padding: 0px 0px 0px 5px;
   vertical-align: text-bottom;
   font-size: 0.9rem !important;
 }
+
 ::ng-deep
-  .ng-dropdown-panel
-  .ng-dropdown-panel-items
-  .ng-option.ng-option-marked {
+.ng-dropdown-panel
+.ng-dropdown-panel-items
+.ng-option.ng-option-marked {
   background-color: #9bc32a38;
 }
+
 ::ng-deep .ng-select .ng-select-container {
   background-color: unset !important;
   border: none !important;
   box-shadow: none !important;
+
   :hover {
     box-shadow: none !important;
   }
 }
+
 ::ng-deep .ng-dropdown-panel {
   min-width: 250px !important;
 }
+
 form {
   label {
     font-size: 0.8rem;
@@ -157,6 +186,7 @@ form {
     box-shadow: 0 0 0 0.25rem rgb(13 110 253 / 0%) !important;
   }
 }
+
 .bg-image {
   background-size: cover;
   background-position: center;
@@ -164,7 +194,8 @@ form {
   align-items: center;
   width: 80%;
 }
-.small-image{
+
+.small-image {
   height: 25%;
   width: 25%;
   text-align: left;
@@ -173,31 +204,38 @@ form {
 .login-heading {
   font-weight: 300;
 }
+
 .text-left {
   float: right;
+
   a {
     color: rgba(0, 0, 0, 0.378);
   }
 }
+
 .btn-login {
   font-size: 0.9rem;
   letter-spacing: 0.05rem;
   padding: 0.75rem 1rem;
+  border-radius: 10px !important;
 }
+
 a {
   text-decoration: none;
   cursor: pointer;
 }
 
-.box-shadow{
+.box-shadow {
   box-shadow: 10px 10px;
 }
+
 .bg-image {
   background-size: cover;
   background-position: center;
   display: flex;
   align-items: center;
   width: 70%;
+
   form {
     background-color: white;
     width: 380px;
@@ -205,6 +243,7 @@ a {
     margin-left: 60px;
     padding: 2rem;
   }
+
   .formdiv {
     height: 100vh;
     width: 100vh;
@@ -213,14 +252,15 @@ a {
 }
 
 .formOTP {
-    input{
-        display:inline-block;
-        width:40px;
-        height:40px;
-        text-align:center;
-        margin-right: 10px;
-        color: #9bc329;
-      }
+  input {
+    display: inline-block;
+    width: 40px;
+    height: 40px;
+    text-align: center;
+    margin-right: 10px;
+    color: #9bc329;
+  }
+
   label {
     font-size: 0.8rem;
     color: black;
@@ -231,40 +271,53 @@ a {
     // background-color: #fff !important;
     box-shadow: 0 0 0 0.25rem rgb(13 110 253 / 0%) !important;
   }
+
   .signup {
     font-size: small;
     color: black;
   }
 }
+
 .input-group-text {
   background: white !important;
   border-right: 1px solid #9bc329 !important;
+
   i {
     font-size: 0.7rem;
     color: rgba(0, 0, 0, 0.378);
   }
 }
+
 .footer-part {
   text-align-last: center;
   margin-top: 3rem;
-  span{
+
+  span {
     background-color: #9bc329;
     padding: 1px 2px 3px 6px;
     border-radius: 50%;
     color: white;
   }
-  i{
+
+  i {
     font-size: 0.5rem;
     font-weight: 900;
     vertical-align: middle;
     margin-right: 4px;
   }
 }
-.resend_label{
-    margin-left: 50px;
-    margin-top: 10px;
+
+.resend_label {
+  margin-left: 50px;
+  margin-top: 10px;
 }
+
 a {
-    text-decoration: none;
-    cursor: pointer;
-  }
+  text-decoration: none;
+  cursor: pointer;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  display: none;
+}

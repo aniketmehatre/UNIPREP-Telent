@@ -1,0 +1,142 @@
+<div class="modal">
+    <div class="modal-overlay" (click)="close($event)"></div>
+    <div class="modal--modal-content">
+        <div class="modal--modal-header">
+            <div class="row justify-content-center align-items-center">
+                <div class="col-md-6">
+                    <div class="row justify-content-center align-items-center">
+                        <div class="col-md-2">
+                            <p>
+                                <p-avatar (click)="togleSidebar.emit()" label="" class="mt-2">
+                                    U
+                                </p-avatar>
+                            </p>
+
+                        </div>
+                        <div class="col-md-10">
+                            <p>UNIPREP</p>
+                            <span>Live Chat</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <p class="text-white" (click)="reportAction()">Report</p>
+                </div>
+                <div class="col-md-3">
+                    <p class="text-white">Question credits</p>
+                </div>
+                <div class="col-md-1">
+
+                </div>
+            </div>
+        </div>
+        <section class="message-area">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="chat-area">
+
+                            <!-- chatbox -->
+                            <div class="chatbox">
+                                <div class="modal-dialog-scrollable">
+                                    <div class="modal-content">
+                                        <div class="modal-body" #scrollMe [scrollTop]="scrollMe.scrollHeight">
+                                            <div class="msg-body">
+                                                <ul>
+                                                    <div *ngFor="let v of details">
+                                                        <li class="sender">
+                                                            <p>{{v.admin_message}}<br>
+                                                                <span class="time">{{v.updated_at | date:"HH:mm"}}</span>
+                                                            </p>
+                                                        </li>
+                                                        <li class="repaly">
+                                                            <p>{{v.message}}<br><span
+                                                                    class="time">{{v.created_at | date:"HH:mm"}}</span>
+                                                            </p>
+                                                        </li>
+                                                    </div>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <div class="send-box">
+                                            <!--                                            <form action="">-->
+                                            <!--                                                <input type="text" class="form-control w-100" aria-label="message…"-->
+                                            <!--                                                       #message-->
+                                            <!--                                                       placeholder="Write message…">-->
+
+                                            <!--                                                <button pButton type="button" (click)="sendMsg(message)"-->
+                                            <!--                                                        class="round-button text-right"><i class="pi pi-send"-->
+                                            <!--                                                                                           aria-hidden="true"></i>-->
+                                            <!--                                                </button>-->
+
+                                            <!--                                            </form>-->
+                                            <form action="">
+                                                <div class="p-inputgroup">
+
+                                                    <input
+                                                            type="email"
+                                                            pInputText
+                                                            class="border-0 w-full bg-light"
+                                                            id="emailAddress"
+                                                            #message
+                                                            formControlName="emailAddress"
+                                                    />
+                                                    <div class="">
+                        <span>
+                          <img class="bg-image text-center" (click)="sendMsg(message)"
+                                                           src="../../../assets/images/icons/send_icon.svg">
+<!--                                                                            <button pButton type="button"-->
+<!--                                                                                    (click)="sendMsg(message)"-->
+<!--                                                                                    class="round-button text-right"><i-->
+<!--                                                                                    class="pi pi-send"-->
+<!--                                                                                    aria-hidden="true"></i>-->
+<!--                                                                            </button>-->
+
+                        </span>
+
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <a class="modal--close-btn-min" (click)="close($event)">-</a>
+        <a class="modal--close-btn" (click)="close($event)">X</a>
+    </div>
+</div>
+
+<div class="modal modal-bg" tabindex="-1" role="dialog" [ngStyle]="{ display: isModalVisible }">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <a class="close">
+                    <span aria-hidden="true"><img src="/assets/images/icons/close_button.svg"/></span>
+                </a>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="card _terms">
+                        <div class="card-body mt-2">
+                            <div class="row">
+                                <label for="Issue">Issue Type</label>
+                                <div class="p-inputgroup">
+                                    <p-dropdown
+                                            id="issueType"
+                                            [options]="issueType"
+                                            optionLabel="name"
+                                    ></p-dropdown>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

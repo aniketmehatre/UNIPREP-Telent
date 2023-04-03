@@ -13,7 +13,7 @@ import {map} from "rxjs/operators";
 
 export interface SideMenu {
   title: string;
-  icon: string;
+  image: string;
   url: string;
   expanded?: boolean;
   header?: boolean;
@@ -36,85 +36,85 @@ export class SidenavComponent{
     {
       title: 'Dashboard',
       url: '/pages/dashboard',
-      icon: 'pi pi-home',
+      image: './../../../../assets/images/menus/Uniprep_Icons_Dashboard_Grey.svg',
     },
     // {
     //   title: 'Components',
     //   url: '',
-    //   icon: 'pi pi-chart-bar',
+    //   image: 'pi pi-chart-bar',
     //   children: [
     //     {
     //       title: 'Button',
     //       url: '/pages/button',
-    //       icon: ''
+    //       image: ''
     //     },
     //     {
     //       title: 'Cards',
     //       url: '/pages/cards',
-    //       icon: ''
+    //       image: ''
     //     },
     //     {
     //       title: 'Popup',
     //       url: '/pages/popups',
-    //       icon: ''
+    //       image: ''
     //     }
     //   ]
     // },
     {
       title: 'Pre Application',
       url: '',
-      icon: 'pi pi-search',
+      image: './../../../../assets/images/menus/Uniprep_Icons_Preapplication_Grey.svg',
     },
     {
       title: 'Post Application',
       url: '',
-      icon: 'pi pi-file-pdf',
+      image: './../../../../assets/images/menus/Uniprep_Icons_Post_Application_Grey.svg',
     },
     {
       title: 'Post Admission',
       url: '',
-      icon: 'pi pi-file-pdf',
+      image: './../../../../assets/images/menus/Uniprep_Icons_Post_Admission_Grey.svg',
     },
     {
       title: 'Career Hub',
       url: '',
-      icon: 'pi pi-search',
+      image: './../../../../assets/images/menus/Uniprep_Icons_Career_Hub_Grey.svg',
     },
     {
       title: 'University',
       url: '',
-      icon: 'pi pi-search',
+      image: './../../../../assets/images/menus/Uniprep_Icons_University_Grey.svg',
     },
     {
       title: 'Life at UK',
       url: '',
-      icon: 'pi pi-search',
+      image: './../../../../assets/images/menus/Uniprep_Icons_Life_at_UK_Grey.svg',
     },
     {
       title: 'Subscription',
       url: '/pages/subscriptions',
-      icon: 'pi pi-search',
+      image: './../../../../assets/images/menus/Uniprep_Icons_Subscription_Grey.svg',
     },
     {
       title: 'FAQ',
       url: '/pages/faq',
-      icon: 'pi pi-comments',
+      image: './../../../../assets/images/menus/Uniprep_Icons_FAQ_Grey.svg',
     },
     {
       title: 'Help & Support',
       url: '/pages/help',
-      icon: 'pi pi-briefcase',
+      image: './../../../../assets/images/menus/Uniprep_Icons_Help_&_Support_Grey.svg',
     }
     //,
     // {
     //   title: 'USER MANAGER',
     //   url: '/pages/usermanagement',
-    //   icon: 'pi pi-briefcase',
+    //   image: 'pi pi-briefcase',
     // },
     // {
     //   title: 'SUBCRIPTION MANAGER',
     //   url: '/pages/subscriptionmanagement',
-    //   icon: 'pi pi-briefcase',
+    //   image: 'pi pi-briefcase',
     // }
   ];
 

@@ -2,24 +2,29 @@
     <div class="left-panel">
     </div>
     <div class="right-panel">
-        <span class="subscribe_button"><strong></strong> <img width="50px" class="subscribe_button"
+        <span class="subscribe_button"><strong>TIME LEFT</strong> <img width="50px" class="subscribe_button"
                 src="/assets/images/icons/timer_clock.svg" alt="chat with notification" />
-            <countdown #cd [config]="config" (event)="handleEvent($event)" class="custom-style"></countdown>
+            <countdown *ngIf="config" [config]="config" (event)="handleEvent($event)" class="custom-style"></countdown>
         </span>
-        <img width="100px" class="subscribe_button" src="/assets/images/icons/report.svg" alt="reports" />
-        <img width="120px" class="subscribe_button" src="/assets/images/icons/subscribe_now.svg"
-            alt="chat with notification" />
-
+        <img width="140px" class="subscribe_button" src="/assets/images/icons/subscribe_now.svg"
+             alt="chat with notification" />
+        <img width="125px" class="subscribe_button" src="/assets/images/icons/report.svg" alt="reports" />
         <p-avatar (click)="togleSidebar.emit()" label="" class="ml-2 mr-2 mt-2">
             <img class="img-icon" src="/assets/images/icons/tip_with_notification.svg" alt="chat with notification" />
         </p-avatar>
-        <p-avatar (click)="togleSidebar.emit()" label="" class="ml-2 mr-2 mt-2">
+        <p-avatar (click)="togleSidebar.emit()" label="" class="ml-2 mr-2 mt-2"
+            (click)="openModal($event)">
             <img class="img-icon" src="/assets/images/icons/chat_with_notification.svg" alt="chat with notification" />
         </p-avatar>
         <p-avatar (click)="togleSidebar.emit()" label="" class="ml-2 mr-2 mt-2">
             <img class="img-icon" src="/assets/images/icons/notification_with_notofication.svg"
                 alt="notification with notification" /></p-avatar>
-        <p-avatar (click)="togleSidebar.emit()" label="P"></p-avatar>
-        Vivu
+        <p-avatar (click)="togleSidebar.emit()" label="{{firstChar}}"></p-avatar><span>{{userName}}</span>
+        <div class="dropdown">
+            <i class="pi pi-angle-down text-primary dropbtn"></i>
+            <div class="dropdown-content"  style="right: 0; left: auto;">
+                <a (click)="logout()">Logout</a>
+            </div>
+        </div>
     </div>
 </nav>

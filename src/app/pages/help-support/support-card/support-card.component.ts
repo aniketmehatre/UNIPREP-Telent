@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {HelpServiceService} from "../help-service.service";
+import {MessageService} from "primeng/api";
 
 @Component({
   selector: 'uni-support-card',
@@ -7,9 +9,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SupportCardComponent implements OnInit {
 
-  constructor() { }
-
+  constructor(private helpServiceService: HelpServiceService, private toast: MessageService) { }
+  helpCategoryData: any;
   ngOnInit(): void {
+
+    this.helpServiceService.getHelpSupportCategoryList().subscribe((res: any) => {
+      if (res.status === 404) {
+        return;
+      }
+      this.helpCategoryData = res.helpcategories;
+    }, err => {
+      console.log('err', err);
+      this.toast.add({severity: 'info', summary: 'Alert', detail: err});
+    });
   }
 
 }

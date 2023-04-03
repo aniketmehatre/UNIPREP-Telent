@@ -8,3 +8,4 @@ const featureSelect = createFeatureSelector<AuthState>(authFeatureKey);
 export const selectLoading$ = createSelector(featureSelect, (state: AuthState) => state.loading);
 export const selectMessage$ = createSelector(featureSelect, (state: AuthState) => state.message);
 export const selectloggedIn$ = createSelector(featureSelect, (state: AuthState) => state.loggedIn);
+export const loginData$ = createSelector(featureSelect, (state: AuthState) => state.data);

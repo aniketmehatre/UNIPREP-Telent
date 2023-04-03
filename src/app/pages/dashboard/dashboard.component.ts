@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { DashboardService } from "./dashboard.service";
+import {Component, OnInit} from '@angular/core';
+import {DashboardService} from "./dashboard.service";
+import {AuthService} from "../../Auth/auth.service";
+import {SubSink} from "subsink";
 
 export interface getDashboardCount {
     "success": boolean,
@@ -20,6 +22,7 @@ export class DashboardComponent implements OnInit {
     readProgressionPercentage: any;
     readQuizProgressionPercentage: any;
     responsiveOptions: any;
+    selectedCountryName: any;
     readingProgressings: any = [];
     countryLists: any = [];
     quizProgressings: any = [];
@@ -28,7 +31,7 @@ export class DashboardComponent implements OnInit {
     isSearchResultFound: boolean = false;
 
     searchResult: any;
-
+    private subs = new SubSink();
     university: any[] = [
         {
             "image": "../../../assets/images/icons/university1.svg",
@@ -40,17 +43,8 @@ export class DashboardComponent implements OnInit {
             "image": "../../../assets/images/icons/university3.svg",
         }
     ];
-//     text = `
-// Customer Experience: Create Connected CX by automating and optimizing routine Customer engagements. Adopt Omni Channel CRM to engage with your customers in a more personalized manner.
-// Employee Experience:  Empower your employees with Collaboration tools, Intuitive Design, Unified Desktop, Learning &amp; Knowledge management, Productivity Tools
-// SWOT PUBA Engine is capable of identifying historical behavior with set of actions performed by the users and help in quick deduction of suspicious behavior in privileged sessions.
-// Common root user credentials such as UNIX servers (wasadmin/oracle) are generally shared by different departments in a firm. This poses a hindrance in tracking individual user activity.
-// How SWOT helps to overcome this?
-// This University was named after Late Dr.C.N.Annadurai, former Chief Minister of Tamil Nadu. It offers higher education in Engineering, Technology, Architecture and Applied Sciences relevant to the current and projected needs of the society. Besides promoting research and disseminating knowledge gained therefrom, it fosters cooperation between the academic and industrial communities.
-// To disseminate high quality technical education to the rural mass with an Endeavour to transform them as a responsible citizen. Enriching the standard through high quality infrastructure and efficient teaching faculty. Encouraging research activities, development and teaching programmes on par with international standards. To mould the students who can facilitate the search of humanity for the knowledge.
-// `;
 
-    constructor(private dashboardService: DashboardService) {
+    constructor(private dashboardService: DashboardService, private service: AuthService) {
         this.responsiveOptions = [
             {
                 breakpoint: '1024px',
@@ -70,121 +64,21 @@ export class DashboardComponent implements OnInit {
         ];
     }
 
-
-    response = {
-        "status": true,
-        "response": {
-            "result": true,
-            "errors": [
-                {
-                    "id": "e837180868",
-                    "offset": 355,
-                    "length": 4,
-                    "description": {
-                        "en": "Possible spelling mistake found."
-                    },
-                    "bad": "PUBA",
-                    "better": [
-                        "PUB",
-                        "CUBA",
-                        "PUBS",
-                        "PBA",
-                        "TUBA",
-                        "PUPA",
-                        "PUMA"
-                    ],
-                    "type": "spelling"
-                },
-                {
-                    "id": "e1756834020",
-                    "offset": 404,
-                    "length": 8,
-                    "description": {
-                        "en": "Possible spelling mistake. ‘behavior’ is American English."
-                    },
-                    "bad": "behavior",
-                    "better": [
-                        "behaviour"
-                    ],
-                    "type": "spelling"
-                },
-                {
-                    "id": "e1669055214",
-                    "offset": 498,
-                    "length": 8,
-                    "description": {
-                        "en": "Possible spelling mistake. ‘behavior’ is American English."
-                    },
-                    "bad": "behavior",
-                    "better": [
-                        "behaviour"
-                    ],
-                    "type": "spelling"
-                },
-                {
-                    "id": "e69373407",
-                    "offset": 583,
-                    "length": 8,
-                    "description": {
-                        "en": "Possible spelling mistake found."
-                    },
-                    "bad": "wasadmin",
-                    "better": [
-                        "was admin"
-                    ],
-                    "type": "spelling"
-                },
-                {
-                    "id": "e1522023545",
-                    "offset": 793,
-                    "length": 1,
-                    "description": {
-                        "en": "Add a space between sentences."
-                    },
-                    "bad": "C",
-                    "better": [
-                        " C"
-                    ],
-                    "type": "whitespace"
-                },
-                {
-                    "id": "e1514863829",
-                    "offset": 797,
-                    "length": 9,
-                    "description": {
-                        "en": "Add a space between sentences."
-                    },
-                    "bad": "Annadurai",
-                    "better": [
-                        " Annadurai"
-                    ],
-                    "type": "whitespace"
-                },
-                {
-                    "id": "e515588429",
-                    "offset": 994,
-                    "length": 8,
-                    "description": {
-                        "en": "Use a comma after introductory words"
-                    },
-                    "bad": "Besides ",
-                    "better": [
-                        "Besides, "
-                    ],
-                    "type": "typography"
-                }
-            ]
-        }
-    };
     selectedCountryId: any;
+
     ngOnInit(): void {
         this.loadDashboardData();
         this.loadReadProgression();
         this.loadQuizProgression();
         this.modalReadingProgressing();
         this.modalQuizProgressing();
-        this.countryListData();
-        this.selectedCountryId = 2;
+        this.subs.sink = this.service.getMe().subscribe(data => {
+            console.log(data)
+            this.selectedCountryId = data.userdetails[0].interested_country_id;
+            this.countryListData(this.selectedCountryId);
+        });
+
+        //this.selectedCountryId = 2;
     }
 
     loadDashboardData() {
@@ -194,46 +88,28 @@ export class DashboardComponent implements OnInit {
                 return;
             }
             this.dashboardCount = res;
-            console.log('res', res);
         }, err => {
             console.log('err', err);
 
         });
     }
 
-    loadReadProgression() {
-        this.dashboardService.getReadProgression({ countryId: 2 }).subscribe((res: any) => {
+    loadReadProgression(countryId = 0) {
+        this.dashboardService.getReadProgression({countryId: countryId}).subscribe((res: any) => {
             if (res.status === 404) {
 
                 return;
             }
             this.readProgressionPercentage = Math.round(res.readpercentage);
-            console.log('this.readProgressionPercentage', this.readProgressionPercentage);
         }, err => {
             console.log('err', err);
 
         });
     }
 
-    countryListData() {
-        this.dashboardService.countryList().subscribe((res: any) => {
+    loadQuizProgression(countryId = 0) {
+        this.dashboardService.getQuizProgression({countryId: countryId}).subscribe((res: any) => {
             if (res.status === 404) {
-
-                return;
-            }
-            this.countryLists = res;
-            console.log('this.readProgressionPercentage', this.readProgressionPercentage);
-        }, err => {
-            console.log('err', err);
-
-        });
-    }
-
-    loadQuizProgression() {
-        this.dashboardService.getQuizProgression({ countryId: 1 }).subscribe((res: any) => {
-            if (res.status === 404) {
-
-                return;
                 return;
             }
             this.readQuizProgressionPercentage = res.quizpercentage;
@@ -242,6 +118,24 @@ export class DashboardComponent implements OnInit {
 
         });
     }
+
+    countryListData(selectedCountryId: number) {
+        this.dashboardService.countryList().subscribe((res: any) => {
+            if (res.status === 404) {
+                return;
+            }
+            this.countryLists = res;
+            this.countryLists.forEach((element:any) => {
+                if (element.id == selectedCountryId){
+                    this.selectedCountryName = element.country;
+                }
+            });
+        }, err => {
+            console.log('err', err);
+
+        });
+    }
+
 
     select(event: any) {
         console.log(event)
@@ -252,8 +146,6 @@ export class DashboardComponent implements OnInit {
     }
 
     searchKeyWord(searchInput: any) {
-
-
         const data = {
             countryId: 2,
             searchtag: searchInput.value
@@ -264,7 +156,6 @@ export class DashboardComponent implements OnInit {
             }
             this.isSearchResultFound = true;
             this.searchResult = res.questions;
-            console.log('res', res.questions);
         }, err => {
             console.log('err', err);
 
@@ -272,34 +163,32 @@ export class DashboardComponent implements OnInit {
     }
 
 
-    modalReadingProgressing() {
+    modalReadingProgressing(countryId = 0) {
         let v = 'reading';
         const data = {
-            countryId: 2,
+            countryId: countryId,
         }
         this.dashboardService.getModuleReadProgression(data).subscribe((res: any) => {
             if (res.status === 404) {
                 return;
             }
             this.readingProgressings = res.module;
-            console.log('res', res.module);
         }, err => {
             console.log('err', err);
 
         });
     }
 
-    modalQuizProgressing() {
+    modalQuizProgressing(countryId = 0) {
         let v = 'reading';
         const data = {
-            countryId: 2,
+            countryId: countryId,
         }
         this.dashboardService.getModuleQuizProgression(data).subscribe((res: any) => {
             if (res.status === 404) {
                 return;
             }
             this.quizProgressings = res.module;
-            console.log('res', res.module);
         }, err => {
             console.log('err', err);
 
@@ -323,4 +212,17 @@ export class DashboardComponent implements OnInit {
         this.continueQuiz = "block";
     }
 
+
+    selectCountry(selectedId: any) {
+        this.countryLists.forEach((element:any) => {
+            if (element.id === selectedId){
+                this.selectedCountryName = element.country;
+            }
+        });
+        this.selectedCountryId = selectedId;
+        this.modalQuizProgressing(selectedId);
+        this.modalReadingProgressing(selectedId);
+        this.loadReadProgression(selectedId);
+        this.loadQuizProgression(selectedId);
+    }
 }

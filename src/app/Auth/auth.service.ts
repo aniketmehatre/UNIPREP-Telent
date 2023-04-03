@@ -8,7 +8,7 @@ import {LoginRequest} from "../@Models/auth.model";
 import {Store} from "@ngrx/store";
 import {AuthState} from "./store/reducer";
 import {login} from "./store/actions";
-import {selectLoading$, selectloggedIn$, selectMessage$} from "./store/selectors";
+import {loginData$, selectLoading$, selectloggedIn$, selectMessage$} from "./store/selectors";
 import {Router} from "@angular/router";
 @Injectable({
   providedIn: "root",
@@ -22,12 +22,11 @@ export class AuthService {
       private router: Router
   ) {}
 
-  getMe(): Observable<User> {
+  getMe(): Observable<any> {
     // return of(Object.create({}));
-    return this.http.get<User>(`${environment.ApiUrl}/getuserdetails`).pipe(
+    return this.http.get<any>(`${environment.ApiUrl}/getuserdetails`).pipe(
         tap((response) => {
           this.user = response;
-          console.log(this.user);
         }),
         catchError(() => {
           // this.storage.clear();
@@ -37,7 +36,7 @@ export class AuthService {
     );
   }
   login(data: LoginRequest) {
-    this.store.dispatch(login(data));
+    this.store.dispatch(login(data)); // action dispatch
   }
   selectLoading$() {
     return this.store.select(selectLoading$);
@@ -49,15 +48,27 @@ export class AuthService {
     return this.store.select(selectloggedIn$);
   }
 
+  selectLogInData$() {
+    return this.store.select(loginData$);
+  }
+  logout() {
+    const headers = new HttpHeaders().set("Accept", "application/json");
+    return this.http.get<any>(environment.ApiUrl + "/logout", {
+      headers: headers,
+    });
+  }
   getToken() {
     return of('123');
   }
+  
   isAuthenticated(val:any):Observable<UserData>{
     const headers = new HttpHeaders().set("Accept", "application/json");
     return this.http.post<UserData>(environment.ApiUrl + "/login", val, {
       headers: headers,
     });
   }
+
+
   Registraion(val:any): Observable<{message:string}>{
     const headers= new HttpHeaders()
     .set('Accept', "application/json")

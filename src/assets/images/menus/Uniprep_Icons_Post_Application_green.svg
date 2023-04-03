@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 18.5 25">
+  <defs>
+    <style>
+      .cls-1 {
+        isolation: isolate;
+      }
+
+      .cls-2 {
+        stroke: #9cc32a;
+        stroke-miterlimit: 10;
+        stroke-width: .75px;
+      }
+
+      .cls-2, .cls-3 {
+        fill: none;
+      }
+    </style>
+  </defs>
+  <rect class="cls-3" x="-2.68" y=".61" width="24.09" height="24.09"/>
+  <g id="g5788" class="cls-1">
+    <g id="g5794">
+      <path id="path5796" class="cls-2" d="m16.53,5.11v-1.89c0-.21-.17-.38-.38-.38h-4.9"/>
+    </g>
+    <g id="g5798">
+      <path id="path5800" class="cls-2" d="m1.07,13.03v9.43c0,.21.17.38.38.38h11.38c.2,0,.39-.08.53-.22l2.95-2.95c.14-.14.22-.33.22-.53V6.62"/>
+    </g>
+    <g id="g5802">
+      <path id="path5804" class="cls-2" d="m13.14,22.63v-2.8c0-.21.17-.38.38-.38h2.82"/>
+    </g>
+    <g id="g5806">
+      <path id="path5808" class="cls-2" d="m3.71,5.49v-.75c0-.42.34-.75.75-.75s.75.34.75.75v1.51c0,.83-.68,1.51-1.51,1.51h0c-.83,0-1.51-.68-1.51-1.51h0v-3.77c0-.83.68-1.51,1.51-1.51h0c.83,0,1.51.68,1.51,1.51h0"/>
+    </g>
+    <g id="g5810">
+      <path id="path5812" class="cls-2" d="m3.71,2.47h7.17c.21,0,.38.17.38.38v9.81c0,.21-.17.38-.38.38H1.07c-.21,0-.38-.17-.38-.38V2.85c0-.21.17-.38.38-.38h1.13"/>
+    </g>
+    <g id="g5814">
+      <path id="path5816" class="cls-2" d="m2.58,22.84v1.13c0,.21.17.38.38.38h14.71c.21,0,.38-.17.38-.38h0V4.74c0-.21-.17-.38-.38-.38h-1.13"/>
+    </g>
+    <g id="g5818">
+      <path id="path5820" class="cls-2" d="m7.1,5.87h1.89"/>
+    </g>
+    <g id="g5822">
+      <path id="path5824" class="cls-2" d="m7.1,7.75h1.89"/>
+    </g>
+    <g id="g5826">
+      <path id="path5828" class="cls-2" d="m2.96,9.64h6.03"/>
+    </g>
+    <g id="g5830">
+      <path id="path5832" class="cls-2" d="m13.52,9.64h.75"/>
+    </g>
+    <g id="g5834">
+      <path id="path5836" class="cls-2" d="m13.52,5.87h.75"/>
+    </g>
+    <g id="g5838">
+      <path id="path5840" class="cls-2" d="m13.52,7.75h.75"/>
+    </g>
+    <g id="g5842">
+      <path id="path5844" class="cls-2" d="m13.52,11.52h.75"/>
+    </g>
+    <g id="g5846">
+      <path id="path5848" class="cls-2" d="m3.33,14.92h.75"/>
+    </g>
+    <g id="g5850">
+      <path id="path5852" class="cls-2" d="m3.33,18.69h.75"/>
+    </g>
+    <g id="g5854">
+      <path id="path5856" class="cls-2" d="m3.33,16.8h.75"/>
+    </g>
+    <g id="g5858">
+      <path id="path5860" class="cls-2" d="m5.97,14.92h8.3"/>
+    </g>
+    <g id="g5862">
+      <path id="path5864" class="cls-2" d="m5.97,18.69h5.28"/>
+    </g>
+    <g id="g5866">
+      <path id="path5868" class="cls-2" d="m5.97,16.8h8.3"/>
+    </g>
+  </g>
+</svg>

@@ -197,9 +197,12 @@ export class RegistrationComponent implements OnInit {
   }
 
   sendMobileOTP() {
-    console.log('send otp')
-    this.isMobileOTPSend = true;
-    this.registrationForm.controls['contactNumber'].readonly = true;
+    console.log(this.registrationForm.value)
+    if(this.registrationForm.value.fullName != null && this.registrationForm.value.contactNumber){
+      this.isMobileOTPSend = true;
+    }else{
+      this.toastr.add({severity: 'info', summary: 'Info', detail: 'Enter Above Filed'});
+    }
   }
 
   onValidateMobileOTP() {
@@ -214,7 +217,8 @@ export class RegistrationComponent implements OnInit {
     return result;
   }
   sendEmailOTP() {
-
+    this.isEmailOTPSend = true;
+    return;
     var data = {
       name: this.registrationForm.value.fullName,
       email: this.registrationForm.value.emailAddress,
@@ -236,7 +240,10 @@ export class RegistrationComponent implements OnInit {
   }
 
   onValidateEmailOTP() {
+    this.isRemainingFieldVisible = true;
+    this.isEmailOTPValidated = true;
 
+    return;
     if (this.emailOTPForm.invalid) {
       this.toastr.add({ severity: 'error', summary: 'Alert!!!', detail: "Enter Valid OTP" });
       return;
@@ -255,6 +262,7 @@ export class RegistrationComponent implements OnInit {
         this.isRemainingFieldVisible = true;
       },
       (error) => {
+        this.isEmailOTPValidated = true;
         this.isRemainingFieldVisible = false;
         const message = error.error.message;
         this.toastr.add({ severity: 'error', summary: 'Failed', detail: "Invalid OTP" });
@@ -263,6 +271,28 @@ export class RegistrationComponent implements OnInit {
 
     // this.isMobileOTPValidated = true;
     // this.isEmailOTPSend = true;
+  }
+
+  rest: any;
+  yearChange(event: any){
+   // console.log(event.value.value)
+    const month = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+
+    const d = new Date();
+    // const rest = month.slice(d.getMonth())
+    this.intakeMonthLooking = [
+      { label: "1", value: "January" },
+      { label: "2", value: "February" },
+      { label: "3", value: "March" },
+      { label: "4", value: "April" },
+      { label: "5", value: "May" },
+      { label: "6", value: "June" },
+      { label: "7", value: "July" },
+      { label: "8", value: "August" },
+      { label: "9", value: "September" },
+      { label: "10", value: "October" },
+      { label: "11", value: "November" },
+      { label: "12", value: "December" },];
   }
 
 

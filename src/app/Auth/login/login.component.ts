@@ -29,8 +29,8 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.loginForm = this.formBuilder.group({
-      email: ["vivekbm119@gmail.com", [Validators.required, Validators.email]],
-      password: ["12341234", [Validators.required]],
+      email: ["vaisagh@uniabroad.co.in", [Validators.required, Validators.email]],
+      password: ["12345678", [Validators.required]],
     });
     this.subs.sink = this.service.selectloggedIn$().subscribe(loggedIn => {
       if (!loggedIn) {
@@ -42,9 +42,11 @@ export class LoginComponent implements OnInit, OnDestroy {
       this.route.navigate(['/pages/dashboard']);
     });
   }
+
   get f() {
     return this.loginForm.controls;
   }
+
   onSubmit() {
     this.submitted = true;
     if (this.loginForm.invalid) {
