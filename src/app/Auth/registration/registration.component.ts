@@ -1,10 +1,10 @@
-import { Component, OnInit } from "@angular/core";
-import { FormBuilder, FormGroup, Validators } from "@angular/forms";
-import { ActivatedRoute, Router } from "@angular/router";
-import { matchValidator } from "src/app/@Supports/matchvalidator";
-import { LocationService } from "src/app/location.service";
-import { AuthService } from "../auth.service";
-import { MessageService } from "primeng/api";
+import {Component, ElementRef, OnInit, ViewChild} from "@angular/core";
+import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {Router} from "@angular/router";
+import {matchValidator} from "src/app/@Supports/matchvalidator";
+import {LocationService} from "src/app/location.service";
+import {AuthService} from "../auth.service";
+import {MessageService} from "primeng/api";
 
 @Component({
   selector: "app-registration",
@@ -12,6 +12,17 @@ import { MessageService } from "primeng/api";
   styleUrls: ["./registration.component.scss"],
 })
 export class RegistrationComponent implements OnInit {
+
+  @ViewChild('otp1') otp1!: ElementRef;
+  @ViewChild('otp2') otp2!: ElementRef;
+  @ViewChild('otp3') otp3!: ElementRef;
+  @ViewChild('otp4') otp4!: ElementRef;
+
+
+  @ViewChild('otp5') otp5!: ElementRef;
+  @ViewChild('otp6') otp6!: ElementRef;
+  @ViewChild('otp7') otp7!: ElementRef;
+  @ViewChild('otp8') otp8!: ElementRef;
   public registrationForm: any = FormGroup;
   intakeMonthLooking: any;
   genderList: any;
@@ -143,7 +154,6 @@ export class RegistrationComponent implements OnInit {
   }
 
   onSubmit() {
-
     this.submitted = true;
     if (this.registrationForm.value.terms == false) {
       this.toastr.add({ severity: 'error', summary: 'Alert!!!', detail: "Please agree Terms and Condition before Signup" });
@@ -170,12 +180,13 @@ export class RegistrationComponent implements OnInit {
       usertype_id: 1,
     };
 
-    
     this.service.Registraion(data).subscribe(
-      (res) => {
-        this.toastr.add({ severity: 'success', summary: 'Success', detail: "User Registered" });
-        setTimeout(() => { this.router.navigate(["/login"]) }, 2000)
-      },
+        (_) => {
+          this.toastr.add({severity: 'success', summary: 'Success', detail: "User Registered"});
+          setTimeout(() => {
+            this.router.navigate(["/login"])
+          }, 2000)
+        },
       (error) => {
         const message = error.error.message;
         this.toastr.add({ severity: 'error', summary: 'Failed', detail: error.error.message });
@@ -184,7 +195,6 @@ export class RegistrationComponent implements OnInit {
     );
   }
 
-
   openTermsPopup() {
     this.displayTerms = "block";
   }
@@ -192,38 +202,81 @@ export class RegistrationComponent implements OnInit {
     this.displayTerms = "none";
   }
 
-  resendMobileOTP() {
-    console.log('resend send otp')
-  }
-
   sendMobileOTP() {
-    console.log(this.registrationForm.value)
-    if(this.registrationForm.value.fullName != null && this.registrationForm.value.contactNumber){
-      this.isMobileOTPSend = true;
-    }else{
+    // if (this.otpForm.invalid) {
+    //   return;
+    // }
+    let val = {
+      phone: this.registrationForm.value.contactNumber,
+    };
+    if (this.registrationForm.value.fullName != null && this.registrationForm.value.contactNumber) {
+      this.service.getSmsOTP(val).subscribe(
+          (res: any) => {
+            this.isMobileOTPSend = true;
+            this.toastr.add({
+              severity: "success",
+              summary: "Success",
+              detail: "OTP Generated and Sent to " + val.phone,
+            });
+          },
+          (error: any) => {
+            this.isMobileOTPSend = false;
+            console.log(error);
+          }
+      );
+    } else {
       this.toastr.add({severity: 'info', summary: 'Info', detail: 'Enter Above Filed'});
     }
+    // console.log(this.registrationForm.value)
+    // if (this.registrationForm.value.fullName != null && this.registrationForm.value.contactNumber) {
+    //   this.isMobileOTPSend = true;
+    // } else {
+    //   this.toastr.add({severity: 'info', summary: 'Info', detail: 'Enter Above Filed'});
+    // }
   }
 
   onValidateMobileOTP() {
-    console.log('validate OTP');
-    this.isMobileOTPValidated = true;
+    if (this.otpForm.invalid) {
+      return;
+    }
+    let _otp =
+        this.otpForm.value.otp1 +
+        this.otpForm.value.otp2 +
+        this.otpForm.value.otp3 +
+        this.otpForm.value.otp4;
+    if (!this.isMobileOTPValidated) {
+      let val = {
+        phone: this.registrationForm.value.contactNumber,
+        otp: _otp,
+      };
+      this.service.verifySmsOTP(val).subscribe(
+          (res: any) => {
+            this.isMobileOTPValidated = true;
+            this.otpForm.reset();
+            this.toastr.add({
+              severity: "success",
+              summary: "Success",
+              detail: "OTP Verified Successfully",
+            });
+          },
+          (error: any) => {
+            this.isMobileOTPValidated = false;
+            console.log(error);
+          }
+      );
+    }
   }
-
 
   numericOnly(event: any): boolean {
     let pattern = /^([0-9])$/;
-    let result = pattern.test(event.key);
-    return result;
+    return pattern.test(event.key);
   }
   sendEmailOTP() {
-    this.isEmailOTPSend = true;
-    return;
-    var data = {
+    let data = {
       name: this.registrationForm.value.fullName,
       email: this.registrationForm.value.emailAddress,
     };
-    
+
     this.service.sendEmailOTP(data).subscribe(
       (res) => {
         console.log(res)
@@ -245,35 +298,32 @@ export class RegistrationComponent implements OnInit {
 
     return;
     if (this.emailOTPForm.invalid) {
-      this.toastr.add({ severity: 'error', summary: 'Alert!!!', detail: "Enter Valid OTP" });
+      this.toastr.add({severity: 'error', summary: 'Alert!!!', detail: "Enter Valid OTP"});
       return;
     }
 
-    const otp = this.emailOTPForm.value.otp5+this.emailOTPForm.value.otp6+this.emailOTPForm.value.otp7+this.emailOTPForm.value.otp8;
-
+    const otp = this.emailOTPForm.value.otp5 + this.emailOTPForm.value.otp6 +
+        this.emailOTPForm.value.otp7 + this.emailOTPForm.value.otp8;
     var data = {
       otp: otp,
       email: this.registrationForm.value.emailAddress,
     };
     this.isRemainingFieldVisible = true;
     this.service.validateEmailOTP(data).subscribe(
-      (res) => {
-        console.log(res)
-        this.isRemainingFieldVisible = true;
-      },
-      (error) => {
-        this.isEmailOTPValidated = true;
-        this.isRemainingFieldVisible = false;
-        const message = error.error.message;
-        this.toastr.add({ severity: 'error', summary: 'Failed', detail: "Invalid OTP" });
-      }
+        (res) => {
+          console.log(res)
+          this.isRemainingFieldVisible = true;
+        },
+        (error) => {
+          this.isEmailOTPValidated = true;
+          this.isRemainingFieldVisible = false;
+          const message = error.error.message;
+          this.toastr.add({severity: 'error', summary: 'Failed', detail: "Invalid OTP"});
+        }
     );
-
     // this.isMobileOTPValidated = true;
     // this.isEmailOTPSend = true;
   }
-
-  rest: any;
   yearChange(event: any){
    // console.log(event.value.value)
     const month = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
@@ -281,23 +331,78 @@ export class RegistrationComponent implements OnInit {
     const d = new Date();
     // const rest = month.slice(d.getMonth())
     this.intakeMonthLooking = [
-      { label: "1", value: "January" },
-      { label: "2", value: "February" },
-      { label: "3", value: "March" },
-      { label: "4", value: "April" },
-      { label: "5", value: "May" },
-      { label: "6", value: "June" },
-      { label: "7", value: "July" },
-      { label: "8", value: "August" },
-      { label: "9", value: "September" },
-      { label: "10", value: "October" },
-      { label: "11", value: "November" },
-      { label: "12", value: "December" },];
+      {label: "1", value: "January"},
+      {label: "2", value: "February"},
+      {label: "3", value: "March"},
+      {label: "4", value: "April"},
+      {label: "5", value: "May"},
+      {label: "6", value: "June"},
+      {label: "7", value: "July"},
+      {label: "8", value: "August"},
+      {label: "9", value: "September"},
+      {label: "10", value: "October"},
+      {label: "11", value: "November"},
+      {label: "12", value: "December"},];
   }
 
+  focusNextInput(event: any, num: number) {
+    const code = (event.code || '').toLowerCase();
 
-  resendEmailOTP() {
+    if (code.includes('backspace')) {
+      switch (num) {
+        case 2:
+          this.otp1.nativeElement.focus();
+          break;
+        case 3:
+          this.otp2.nativeElement.focus();
+          break;
+        case 4:
+          this.otp3.nativeElement.focus();
+          break;
+      }
+    } else if (code.includes('digit')) {
+      switch (num) {
+        case 1:
+          this.otp2.nativeElement.focus();
+          break;
+        case 2:
+          this.otp3.nativeElement.focus();
+          break;
+        case 3:
+          this.otp4.nativeElement.focus();
+          break;
+      }
+    }
+  }
 
+  focusNextEmailInput(event: any, num: number) {
+    const code = (event.code || '').toLowerCase();
+
+    if (code.includes('backspace')) {
+      switch (num) {
+        case 2:
+          this.otp5.nativeElement.focus();
+          break;
+        case 3:
+          this.otp6.nativeElement.focus();
+          break;
+        case 4:
+          this.otp7.nativeElement.focus();
+          break;
+      }
+    } else if (code.includes('digit')) {
+      switch (num) {
+        case 1:
+          this.otp6.nativeElement.focus();
+          break;
+        case 2:
+          this.otp7.nativeElement.focus();
+          break;
+        case 3:
+          this.otp8.nativeElement.focus();
+          break;
+      }
+    }
   }
 
 }
