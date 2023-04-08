@@ -1,20 +1,4 @@
-<div class="rounded card card-body shadow-sm search-dropdown">
-    <div class="col-12 md:col-4">
-        <div class="p-inputgroup">
-            <img class="search-icon m-2 pr-2 border-end" src="/assets/images/icons/search_icon.svg" />
-            <input type="text" pInputText placeholder="ENTER YOUR KEY WORDS HERE" #searchInput
-                (input)="onSearchChange(searchInput.value)">
-            <button class="btn-primary" type="button" (click)="searchKeyWord(searchInput)" pButton pRipple
-                label="Search"></button>
-        </div>
-        <ul class="list-group list-group-flush" *ngIf="isSearchResultFound">
-            <li class="list-group-item" *ngFor="let c of searchResult">
-                <span class="pr-4">{{c.question}}</span>
-            </li>
-        </ul>
-    </div>
-</div>
-<div class="row pt-1" style="margin-top: 7%;">
+<div class="row pt-3" >
     <h4>Dashboard</h4>
 </div>
 <div class="card rounded shadow-sm mt-3">
@@ -129,109 +113,12 @@
                     </div>
                     <div class="col-md-5 col-lg-5 text-center">
                         <br>
-                        <!-- <button pButton type="button" label="Share" icon="pi pi-share-alt" iconPos="right"
-                                style="bottom: 0; left: 0;"
-                                class="p-button-raised p-button-rounded float-right"></button> -->
                         <img class="share-button-deactivate p-0 m-0"
                             src="/assets/images/icons/share_button_deactivate.svg" />
                     </div>
                 </div>
                 <h6><strong>Unlock Certificate</strong></h6>
                 <div style="text-transform: none;">Complete the final 10% to unlock the certificate.</div>
-            </div>
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="col-md-2 col-lg-2 p-2">
-            <div class="selected-box d-flex flex-column">
-                <!--                <span class="pi pi-comments" style="color: #a5c54e; font-size: 2rem"></span>-->
-                <img class="img-icon" src="/assets/images/icons/online_chat_icon.svg" />
-                <span class="tiny-text text-dark  pt-2">Ask your personalized<br>Questions</span>
-
-                <div class="row pt-2 mb-0 pb-0">
-                    <div class="col-6 text-start">
-                        <span style="color: #a5c54e;">{{dashboardCount.personalisedquestioncount}}</span>
-                    </div>
-                    <div class="col-6">
-                        <p class="p-0 m-0 text-start" style="color: black; font-size: 0.8rem;">Questions <br>Answered</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-2 col-lg-2 p-2">
-            <div class="card-body bg-light un-selected-box d-flex flex-column">
-                <img class="img-icon" src="/assets/images/icons/Uniprep_Icons_Recently_Added_Questions.svg" />
-                <span class="tiny-text text-dark pt-2">Recently Added <br>Questions</span>
-
-                <div class="row pt-2 mb-0 pb-0">
-                    <div class="col-6 text-start">
-                        <span style="color: #a5c54e;">{{dashboardCount.recentlyaddedquestion}}</span>
-                    </div>
-                    <div class="col-6">
-                        <p class="p-0 m-0 text-start" style="color: black; font-size: 0.8rem;">Added in last 30 days</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-2 col-lg-2 p-2">
-            <div class="card-body bg-light un-selected-box d-flex flex-column">
-                <img class="img-icon" src="/assets/images/icons/UniprepIcons_Total_Questions_Asked.svg" />
-                <span class="tiny-text text-dark pt-2">Total Questions <br>Answered</span>
-
-                <div class="row pt-2 mb-0 pb-0">
-                    <div class="col-6 text-start">
-                        <span style="color: #a5c54e;">{{dashboardCount.totalquestioncount}}</span>
-                    </div>
-                    <div class="col-6">
-                        <p class="p-0 m-0 text-start" style="color: black; font-size: 0.8rem;">Questions Answered</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-2 col-lg-2 p-2">
-            <div class="card-body bg-light un-selected-box d-flex flex-column">
-                <img class="img-icon" src="/assets/images/icons/Uniprep_Icons_recently_added question.svg" />
-                <span class="tiny-text text-dark pt-2">Most Popular <br>Questions</span>
-
-                <div class="row pt-2 mb-0 pb-0">
-                    <div class="col-6 text-start">
-                        <span style="color: #a5c54e;">{{dashboardCount.popularquestioncount}}</span>
-                    </div>
-                    <div class="col-6">
-                        <p class="p-0 m-0 text-start text-left" style="color: black; font-size: 0.8rem;">Questions Answered</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-2 col-lg-2 p-2">
-            <div class="card-body bg-light un-selected-box d-flex flex-column">
-                <img class="img-icon" src="/assets/images/icons/Uniprep_Icons_Registered_Students_icon.svg" />
-                <span class="tiny-text text-dark pt-2">Number of Registered <br>Students</span>
-
-                <div class="row pt-2 mb-0 pb-0">
-                    <div class="col-6 text-start">
-                        <span style="color: #a5c54e;">{{dashboardCount.registereduser}}</span>
-                    </div>
-                    <div class="col-6">
-                        <p class="p-0 m-0 text-start" style="color: black; font-size: 0.8rem;">Active<br> users</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-2 col-lg-2 p-2">
-            <div class="card-body bg-light un-selected-box d-flex flex-column shadow">
-                <img class="img-icon" src="/assets/images/icons/certificate_granted_Icon.svg" />
-                <span class="tiny-text text-dark pt-2">Certificate <br>Granted</span>
-
-                <div class="row pt-2 mb-0 pb-0">
-                    <div class="col-6 text-start">
-                        <span style="color: #a5c54e;">{{dashboardCount.certificate_granted}}</span>
-                    </div>
-                    <div class="col-6">
-                        <p class="p-0 m-0 text-start" style="color: black; font-size: 0.8rem;">Added in last 30 days</p>
-                    </div>
-                </div>
             </div>
         </div>
     </div>

@@ -1,9 +1,8 @@
 import { ErrorHandler, Injectable } from '@angular/core';
 import { environment } from '../environments/environment';
 import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams } from '@angular/common/http';
-import { Observable, throwError } from 'rxjs';
-import { catchError, retry } from 'rxjs/operators';
 import{LocationData} from './@Models/location.model'
+import {UniPrepModuleModel} from "./@Models/UniPrepModule.model";
 @Injectable({
   providedIn: "root",
 })
@@ -18,7 +17,14 @@ export class LocationService {
   }
   getProgramLevel(){
     const headers = new HttpHeaders().set("Accept", "application/json");
-    return this.http.get<LocationData>(environment.ApiUrl + "/programlevel", {
+    return this.http.get<any>(environment.ApiUrl + "/programlevel", {
+      headers: headers,
+    });
+  }
+
+  getUniPerpModuleList(){
+    const headers = new HttpHeaders().set("Accept", "application/json");
+    return this.http.get<any>(environment.ApiUrl + "/uniprepmodule", {
       headers: headers,
     });
   }

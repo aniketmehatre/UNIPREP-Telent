@@ -1,0 +1,52 @@
+.selected-box {
+  background: #daeca5;
+  color: black;
+  font-size: 1.2rem;
+  font-weight: bold;
+  display: flex;
+  padding: 10px;
+  border: 1px solid #daeca5;
+  border-radius: 8px;
+  box-shadow: 1px 2px 5px 0 rgba(0, 0, 0, 0.16),
+  0 2px 10px 0 rgba(0, 0, 0, 0.12);
+}
+.modal-selected-box {
+  background: #daeca5;
+  color: black;
+  font-size: 0.8rem;
+  font-weight: bold;
+  display: flex;
+  padding: 10px;
+  border: 1px solid #F8AE4D;
+  border-radius: 8px;
+  box-shadow: 1px 2px 5px 0 rgba(0, 0, 0, 0.16),
+  0 2px 10px 0 rgba(0, 0, 0, 0.12);
+}
+.modal-selected-box-quiz {
+  background: #ffefc9;
+  color: black;
+  font-size: 0.8rem;
+  font-weight: bold;
+  display: flex;
+  padding: 10px;
+  border: 1px solid #ffefc9;
+  border-radius: 8px;
+  box-shadow: 1px 2px 5px 0 rgba(0, 0, 0, 0.16),
+  0 2px 10px 0 rgba(0, 0, 0, 0.12);
+}
+
+.un-selected-box {
+  color: black;
+  font-size: 1.2rem;
+  font-weight: bold;
+  display: flex;
+  padding: 10px;
+  border: 1px solid #daeca5;
+  border-radius: 8px;
+  box-shadow: 1px 2px 5px 0 rgba(215, 142, 142, 0.16),
+  0 2px 10px 0 rgba(0, 0, 0, 0.12);
+}
+.tiny-text {
+  font-size: 0.9rem;
+  color: white;
+}

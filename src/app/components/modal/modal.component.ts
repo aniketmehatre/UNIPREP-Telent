@@ -2,11 +2,13 @@ import {AfterViewInit, Component, EventEmitter, OnInit, Output, ViewChild} from 
 import {ModalService} from "./modal.service";
 import {ScrollToBottomDirective} from "./scroll-to-bottom.directive";
 import {MessageService} from "primeng/api";
+import {SubSink} from "subsink";
+import {AuthService} from "../../Auth/auth.service";
 
 @Component({
     selector: "app-modal",
     templateUrl: "./modal.component.html",
-    styleUrls: ["./modal.component.css"],
+    styleUrls: ["./modal.component.scss"],
 })
 export class ModalComponent implements OnInit {
 
@@ -15,6 +17,7 @@ export class ModalComponent implements OnInit {
     @Output() togleSidebar = new EventEmitter();
     @ViewChild(ScrollToBottomDirective) scrollMe!: ScrollToBottomDirective;
     details: any [] = [];
+    private subs = new SubSink();
 
     title = 'socketrv';
     content = '';
@@ -22,14 +25,23 @@ export class ModalComponent implements OnInit {
     sent: any [] = [];
     isModalVisible: any = 'none';
     issueType: any [] = [];
+    questionLeft = '';
+    textareaValue = '';
+    isReportChanged: boolean = false
 
-    constructor(private modalService: ModalService, private toast: MessageService) {
+
+    visible: boolean = true;
+
+    showDialog() {
+        this.visible = true;
+    }
+    constructor(private modalService: ModalService, private toast: MessageService,
+                private service: AuthService) {
         // WebsocketService.messages.subscribe(msg => {
         //     this.received.push(msg);
         //     console.log("Response from websocket: " + msg);
         // });
         this.issueType = [
-            {label: 'Select your category', name: 'Select your category'},
             {label: 'Response delayed', name: 'Response delayed'},
             {label: 'Unsatisfactory answer', name: 'Unsatisfactory answer'},
             {label: 'Others', name: 'Others'},
@@ -37,6 +49,14 @@ export class ModalComponent implements OnInit {
     }
 
     ngOnInit() {
+        this.questionLeft = '0';
+        //this.questionLeft =
+        this.subs.sink = this.service.selectLogInData$().subscribe(data => {
+            if (data) {
+                console.log(data)
+                 this.questionLeft = '0';
+            }
+        });
         this.init();
     }
 
@@ -81,9 +101,12 @@ export class ModalComponent implements OnInit {
         this.closeModal.emit(event);
     }
 
-    reportAction() {
-        console.log('coming')
-        //this.isModalVisible = 'block';
+    issueTypeOnChange(event: any){
+        console.log(event.selected)
+        this.isReportChanged = true
+    }
+    reportAction(){
+        this.isModalVisible = 'block';
     }
 
 }

@@ -1,5 +1,4 @@
 import {
-    ChangeDetectionStrategy,
     Component,
     EventEmitter,
     Input,
@@ -15,6 +14,7 @@ import {ModalService} from "src/app/components/modal/modal.service";
 import {AuthService} from "../../../Auth/auth.service";
 import {SubSink} from "subsink";
 import {Router} from "@angular/router";
+import {LocationService} from "../../../location.service";
 
 const KEY = 'time'
 let DEFAULT = 0
@@ -36,9 +36,11 @@ export class HeaderComponent implements OnInit, OnDestroy {
     private subs = new SubSink();
     userName: any;
     firstChar: any;
+    issueType: any [] = [];
+    moduleList: any [] = [];
 
     constructor(
-        private modalService: ModalService, private router: Router,
+        private modalService: ModalService, private router: Router, private locationService: LocationService,
         private viewContainerRef: ViewContainerRef,
         private service: AuthService,
         private toast: MessageService
@@ -47,13 +49,22 @@ export class HeaderComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
+        this.getModuleList();
+        // issue type
+        this.issueType = [
+            {label: 'Response delayed', name: 'Response delayed'},
+            {label: 'Unsatisfactory answer', name: 'Unsatisfactory answer'},
+            {label: 'Others', name: 'Others'},
+        ];
+
         this.subs.sink = this.service.selectLogInData$().subscribe(data => {
             if (data) {
+                localStorage.setItem('question_left', data.questions_left);
                 localStorage.setItem(KEY, `${data.time_left * 60}`);
             }
         });
 
-        if (localStorage.getItem(KEY)){
+        if (localStorage.getItem(KEY)) {
             this.config = {
                 leftTime: Number(localStorage.getItem(KEY)),
                 format: 'HH:mm:ss',
@@ -66,7 +77,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
                 },
             };
         }
-        // this.config = {...this.config, leftTime: value, notify: 0};
 
         this.subs.sink = this.service.getMe().subscribe(data => {
             this.userName = data.userdetails[0].name.toString();
@@ -97,6 +107,12 @@ export class HeaderComponent implements OnInit, OnDestroy {
             window.sessionStorage.clear();
             localStorage.clear();
             this.router.navigateByUrl('/login');
+        });
+    }
+
+    getModuleList(){
+        this.subs.sink = this.locationService.getUniPerpModuleList().subscribe(data => {
+            this.moduleList = data.modules;
         });
     }
 }

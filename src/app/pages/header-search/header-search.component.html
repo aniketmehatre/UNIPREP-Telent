@@ -1,0 +1,16 @@
+<div class="rounded card card-body shadow-sm search-dropdown">
+    <div class="col-12 md:col-4">
+        <div class="p-inputgroup">
+            <img class="search-icon m-2 pr-2 border-end" src="/assets/images/icons/search_icon.svg" />
+            <input type="text" pInputText placeholder="ENTER YOUR KEY WORDS HERE" #searchInput
+                   (input)="onSearchChange(searchInput.value)">
+            <button class="btn-primary" type="button" (click)="searchKeyWord(searchInput)" pButton pRipple
+                    label="Search"></button>
+        </div>
+        <ul class="list-group list-group-flush" *ngIf="isSearchResultFound">
+            <li class="list-group-item" *ngFor="let c of searchResult">
+                <span class="pr-4">{{c.question}}</span>
+            </li>
+        </ul>
+    </div>
+</div>

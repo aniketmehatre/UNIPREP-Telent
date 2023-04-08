@@ -28,6 +28,9 @@ import {ButtonModule} from 'primeng/button';
 import {ScrollToBottomDirective} from "./components/modal/scroll-to-bottom.directive";
 import {InputTextModule} from "primeng/inputtext";
 import {ReactiveFormsModule} from "@angular/forms";
+import {InputTextareaModule} from "primeng/inputtextarea";
+import {OverlayPanelModule} from "primeng/overlaypanel";
+import {DialogModule} from "primeng/dialog";
 const reducers = {
   pageSelector: pagesReducer
 }
@@ -69,7 +72,10 @@ export function tokenGetter() {
         DropdownModule,
         ButtonModule,
         InputTextModule,
-        ReactiveFormsModule
+        ReactiveFormsModule,
+        InputTextareaModule,
+        OverlayPanelModule,
+        DialogModule
     ],
   providers: [
     DatePipe,

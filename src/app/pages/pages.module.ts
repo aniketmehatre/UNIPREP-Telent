@@ -15,6 +15,11 @@ import { HelpSupportComponent } from './help-support/help-support.component';
 import { UserManagementComponent } from './user-management/user-management.component';
 import { EditprofileComponent } from './user-management/editprofile/editprofile.component';
 import { SubcriptionManagerComponent } from './subcription-manager/subcription-manager.component';
+import { FooterStatusBoxComponent } from './footer-status-box/footer-status-box.component';
+import { HeaderSearchComponent } from './header-search/header-search.component';
+import {ButtonModule} from "primeng/button";
+import {InputTextModule} from "primeng/inputtext";
+import {RippleModule} from "primeng/ripple";
 @NgModule({
     declarations: [
         PagesComponent,
@@ -26,6 +31,12 @@ import { SubcriptionManagerComponent } from './subcription-manager/subcription-m
         UserManagementComponent,
         EditprofileComponent,
         SubcriptionManagerComponent,
+        FooterStatusBoxComponent,
+        HeaderSearchComponent,
+    ],
+    exports: [
+        FooterStatusBoxComponent,
+        HeaderSearchComponent
     ],
     imports: [
         CommonModule,
@@ -33,6 +44,9 @@ import { SubcriptionManagerComponent } from './subcription-manager/subcription-m
         ThemeModule,
         StoreModule.forFeature(pagesFeatureKey, pagesReducer),
         TableModule,
+        ButtonModule,
+        InputTextModule,
+        RippleModule,
     ]
 })
 export class PagesModule { }

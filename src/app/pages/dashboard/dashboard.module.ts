@@ -13,22 +13,25 @@ import {RippleModule} from "primeng/ripple";
 import {CardModule} from 'primeng/card';
 import {CarouselModule} from 'primeng/carousel';
 import { CommonModule } from '@angular/common'
+import {PagesModule} from "../pages.module";
+import {FooterStatusBoxComponent} from "../footer-status-box/footer-status-box.component";
 
 @NgModule({
   declarations: [DashboardComponent],
-  imports: [
-    CommonModule,
-    DashboardRoutingModule,
-    TableModule,
-    FormsModule,
-    InputTextareaModule,
-    SharedDirectives,
-    EditorModule,
-    InputTextModule,
-    ButtonModule,
-    RippleModule,
-    CardModule,
-    CarouselModule
-  ],
+    imports: [
+        CommonModule,
+        DashboardRoutingModule,
+        TableModule,
+        FormsModule,
+        InputTextareaModule,
+        SharedDirectives,
+        EditorModule,
+        InputTextModule,
+        ButtonModule,
+        RippleModule,
+        CardModule,
+        CarouselModule,
+        PagesModule,
+    ],
 })
 export class DashboardModule { }

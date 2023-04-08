@@ -24,9 +24,6 @@
   width: 15%;
 }
 
-.search-icon {
-  width: 3%;
-}
 
 .reading-quiz {
   height: 90%;
@@ -397,63 +394,11 @@ Due to the split circle of progress-left and progress right, we must use the ani
   bottom: 0;
 }
 
-.selected-box {
-  background: #daeca5;
-  color: black;
-  font-size: 1.2rem;
-  font-weight: bold;
-  display: flex;
-  padding: 10px;
-  border: 1px solid #daeca5;
-  border-radius: 8px;
-  box-shadow: 1px 2px 5px 0 rgba(0, 0, 0, 0.16),
-    0 2px 10px 0 rgba(0, 0, 0, 0.12);
-}
-.modal-selected-box {
-  background: #daeca5;
-  color: black;
-  font-size: 0.8rem;
-  font-weight: bold;
-  display: flex;
-  padding: 10px;
-  border: 1px solid #daeca5;
-  border-radius: 8px;
-  box-shadow: 1px 2px 5px 0 rgba(0, 0, 0, 0.16),
-    0 2px 10px 0 rgba(0, 0, 0, 0.12);
-}
-.modal-selected-box-quiz {
-  background: #ffefc9;
-  color: black;
-  font-size: 0.8rem;
-  font-weight: bold;
-  display: flex;
-  padding: 10px;
-  border: 1px solid #ffefc9;
-  border-radius: 8px;
-  box-shadow: 1px 2px 5px 0 rgba(0, 0, 0, 0.16),
-    0 2px 10px 0 rgba(0, 0, 0, 0.12);
-}
-
-.un-selected-box {
-  color: black;
-  font-size: 1.2rem;
-  font-weight: bold;
-  display: flex;
-  padding: 10px;
-  border: 1px solid #daeca5;
-  border-radius: 8px;
-  box-shadow: 1px 2px 5px 0 rgba(0, 0, 0, 0.16),
-    0 2px 10px 0 rgba(0, 0, 0, 0.12);
-}
 
 .list-group {
   z-index: 999;
 }
-.search-dropdown {
-  position: absolute;
-  z-index: 900;
-  width: 100%;
-}
+
 
 // small progress
 $borderWidth: 10px;

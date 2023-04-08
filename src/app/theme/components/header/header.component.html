@@ -2,29 +2,87 @@
     <div class="left-panel">
     </div>
     <div class="right-panel">
-        <span class="subscribe_button"><strong>TIME LEFT</strong> <img width="50px" class="subscribe_button"
-                src="/assets/images/icons/timer_clock.svg" alt="chat with notification" />
-            <countdown *ngIf="config" [config]="config" (event)="handleEvent($event)" class="custom-style"></countdown>
+        <span class="subscribe_button"><strong>TIME LEFT</strong> <img alt="chat with notification"
+                                                                       class="subscribe_button"
+                                                                       src="/assets/images/icons/timer_clock.svg"
+                                                                       width="50px"/>
+            <countdown (event)="handleEvent($event)" *ngIf="config" [config]="config" class="custom-style"></countdown>
         </span>
-        <img width="140px" class="subscribe_button" src="/assets/images/icons/subscribe_now.svg"
-             alt="chat with notification" />
-        <img width="125px" class="subscribe_button" src="/assets/images/icons/report.svg" alt="reports" />
-        <p-avatar (click)="togleSidebar.emit()" label="" class="ml-2 mr-2 mt-2">
-            <img class="img-icon" src="/assets/images/icons/tip_with_notification.svg" alt="chat with notification" />
+        <img alt="chat with notification" class="subscribe_button" src="/assets/images/icons/subscribe_now.svg"
+             width="140px"/>
+        <img (click)="op.toggle($event)" alt="reports" class="subscribe_button" src="/assets/images/icons/report.svg"
+             width="125px"/>
+        <p-overlayPanel #op>
+            <ng-template pTemplate="content">
+                <div class="row">
+                    <label class="text-left">Modules</label>
+                    <span style="width: 100% !important">
+                    <p-dropdown  [options]="moduleList"
+                            [style]="{'minWidth':'100%'}"
+                            class="w-100"
+                            id="moduleList"
+                            optionLabel="module_name"
+                            style="width: 100% !important;"
+                    ></p-dropdown>
+                </span>
+                    <label class="text-left">Categories</label>
+                    <span style="width: 100%">
+                    <p-dropdown
+                            [style]="{'minWidth':'100%'}"
+                            class="w-100"
+                            id="issueType"
+                            optionLabel="name"
+                            style="width: 100% !important;"
+                    ></p-dropdown>
+                </span>
+                    <label class="text-left">Question Number</label>
+                    <span style="width: 100%">
+                    <p-dropdown
+                            [style]="{'minWidth':'100%'}"
+                            class="w-100"
+                            id="issueType"
+                            optionLabel="name"
+                            style="width: 100% !important;"
+                    ></p-dropdown>
+                </span>
+                    <label class="text-left">Issue Type</label>
+                    <span style="width: 100%">
+                    <p-dropdown  [options]="issueType"
+                            [style]="{'minWidth':'100%'}"
+                            class="w-100"
+                            id="issueType"
+                            optionLabel="name"
+                            style="width: 100% !important;"
+                    ></p-dropdown>
+                </span>
+                    <label class="text-left">Add Command</label>
+                    <textarea pInputTextarea></textarea>
+                    <button class="btn btn-primary btn-login p-2 m-2">
+                        Submit
+                    </button>
+
+                </div>
+            </ng-template>
+        </p-overlayPanel>
+        <!--        <p-button (click)="op.toggle($event)" icon="pi pi-image" label="Show"></p-button>-->
+        <p-avatar (click)="togleSidebar.emit()" class="ml-2 mr-2 mt-2" label="">
+            <img alt="chat with notification" class="img-icon" src="/assets/images/icons/tip_with_notification.svg"/>
         </p-avatar>
-        <p-avatar (click)="togleSidebar.emit()" label="" class="ml-2 mr-2 mt-2"
-            (click)="openModal($event)">
-            <img class="img-icon" src="/assets/images/icons/chat_with_notification.svg" alt="chat with notification" />
+        <p-avatar (click)="togleSidebar.emit()" (click)="openModal($event)" class="ml-2 mr-2 mt-2"
+                  label="">
+            <img alt="chat with notification" class="img-icon" src="/assets/images/icons/chat_with_notification.svg"/>
         </p-avatar>
-        <p-avatar (click)="togleSidebar.emit()" label="" class="ml-2 mr-2 mt-2">
-            <img class="img-icon" src="/assets/images/icons/notification_with_notofication.svg"
-                alt="notification with notification" /></p-avatar>
-        <p-avatar (click)="togleSidebar.emit()" label="{{firstChar}}"></p-avatar><span>{{userName}}</span>
+        <p-avatar (click)="togleSidebar.emit()" class="ml-2 mr-2 mt-2" label="">
+            <img alt="notification with notification" class="img-icon"
+                 src="/assets/images/icons/notification_with_notofication.svg"/></p-avatar>
+        <p-avatar (click)="togleSidebar.emit()" label="{{firstChar}}"></p-avatar>
+        <span>{{userName}}</span>
         <div class="dropdown">
             <i class="pi pi-angle-down text-primary dropbtn"></i>
-            <div class="dropdown-content"  style="right: 0; left: auto;">
+            <div class="dropdown-content" style="right: 0; left: auto;">
                 <a (click)="logout()">Logout</a>
             </div>
+
         </div>
     </div>
 </nav>

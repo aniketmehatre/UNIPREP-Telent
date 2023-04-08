@@ -11,12 +11,14 @@ import { CountdownModule } from 'ngx-countdown';
 import { ButtonModule } from "primeng/button";
 import {FormsModule} from "@angular/forms";
 import {DropdownModule} from "primeng/dropdown";
+import {InputTextareaModule} from "primeng/inputtextarea";
+import {OverlayPanelModule} from "primeng/overlaypanel";
 
 @NgModule({
   declarations: [HeaderComponent, SidenavComponent, SideMenuComponent],
     imports: [
         CommonModule, PipesModule, BreadcrumbModule,
-        AvatarModule, CountdownModule, ButtonModule, FormsModule, DropdownModule
+        AvatarModule, CountdownModule, ButtonModule, FormsModule, DropdownModule, InputTextareaModule, OverlayPanelModule
     ],
   exports: [HeaderComponent, SidenavComponent, CountdownComponent]
 })
