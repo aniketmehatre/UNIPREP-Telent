@@ -62,17 +62,17 @@ export class SidenavComponent{
     // },
     {
       title: 'Pre Application',
-      url: '',
+      url: '/pages/pre-application',
       image: './../../../../assets/images/menus/Uniprep_Icons_Preapplication_Grey.svg',
     },
     {
       title: 'Post Application',
-      url: '',
+      url: '/pages/post-application',
       image: './../../../../assets/images/menus/Uniprep_Icons_Post_Application_Grey.svg',
     },
     {
       title: 'Post Admission',
-      url: '',
+      url: '/pages/post-admission',
       image: './../../../../assets/images/menus/Uniprep_Icons_Post_Admission_Grey.svg',
     },
     {

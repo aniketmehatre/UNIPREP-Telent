@@ -1,0 +1,19 @@
+<div class="card rounded shadow-sm mt-3">
+    <div class="card-body text-center">
+        <h5><strong>SELECTED COUNTRY</strong></h5>
+        <div class="row mb-0 justify-content-center">
+            <div class="col-md-2" *ngFor="let sub of submodules$ | async">
+                <div class="row justify-content-center {{ selectedSubModule == sub.id ? 'post-admission-border pr-4 pl-4' : ''}}"
+                     (click)="onSubModuleClick(sub.id)">
+                    <img width="{{ selectedSubModule == sub.id ? '100px' : '100px'}}" alt="{{sub.submodule_name}}"
+                         style="{{ selectedSubModule == sub.id ? 'padding: 10%' : 'padding: 10%;'}}" src="http://40.80.95.32/uniprepapi/storage/app/public/submoduleicons/CareerProspects.svg"
+                         alt="{{sub.submodule_name}}">
+                    <p
+                            class="text-center text-sm text-capitalize {{ selectedSubModule == sub.id ? 'post-admission-text' : 'post-admission-text-small'}}">
+                        {{sub.submodule_name}}</p>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,12 @@
+.pre-application-text {
+    color: #9bc32a;
+  }
+  .pre-application-text-small {
+    color: black;
+    font-size: 0.8rem;
+  }
+  .pre-application-border {
+    border: 2px solid #9bc32a;
+    border-radius: 5%;
+  }
+  

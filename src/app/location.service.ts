@@ -21,10 +21,15 @@ export class LocationService {
       headers: headers,
     });
   }
-
   getUniPerpModuleList(){
     const headers = new HttpHeaders().set("Accept", "application/json");
-    return this.http.get<any>(environment.ApiUrl + "/uniprepmodule", {
+    return this.http.post<any>(environment.ApiUrl + "/modulecountry", {countryId:2},{
+      headers: headers,
+    });
+  }
+  getReportOptionList(){
+    const headers = new HttpHeaders().set("Accept", "application/json");
+    return this.http.get<any>(environment.ApiUrl + "/reportoption",{
       headers: headers,
     });
   }

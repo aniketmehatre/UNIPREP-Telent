@@ -36,8 +36,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
     private subs = new SubSink();
     userName: any;
     firstChar: any;
-    issueType: any [] = [];
     moduleList: any [] = [];
+    reportOptionList: any [] = [];
 
     constructor(
         private modalService: ModalService, private router: Router, private locationService: LocationService,
@@ -50,12 +50,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
     ngOnInit() {
         this.getModuleList();
-        // issue type
-        this.issueType = [
-            {label: 'Response delayed', name: 'Response delayed'},
-            {label: 'Unsatisfactory answer', name: 'Unsatisfactory answer'},
-            {label: 'Others', name: 'Others'},
-        ];
+        this.getReportOption();
 
         this.subs.sink = this.service.selectLogInData$().subscribe(data => {
             if (data) {
@@ -114,5 +109,27 @@ export class HeaderComponent implements OnInit, OnDestroy {
         this.subs.sink = this.locationService.getUniPerpModuleList().subscribe(data => {
             this.moduleList = data.modules;
         });
+    }
+
+    getReportOption(){
+        this.subs.sink = this.locationService.getReportOptionList().subscribe(data => {
+            this.reportOptionList = data.reportOptions;
+        });
+    }
+
+    onChangeModuleList(event: any){
+
+    }
+
+    onChangeSubModuleList(event: any){
+
+    }
+
+    onChangeQuestionIdList(event: any){
+
+    }
+
+    onChangeIssueTypeList(event: any){
+
     }
 }

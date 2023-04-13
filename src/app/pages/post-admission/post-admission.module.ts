@@ -1,0 +1,26 @@
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+
+import { PostAdmissionRoutingModule } from './post-admission-routing.module';
+import { PostAdmissionComponent } from './post-admission.component';
+import { ListSubModulesComponent } from './list-sub-modules/list-sub-modules.component';
+import {StoreModule} from "@ngrx/store";
+import {EffectsModule} from "@ngrx/effects";
+import {PostAdmissionReducer} from "./store/post-admission.reducer";
+import {postAdmissionFeatureKey} from "./store/post-admission.selectors";
+import {PostAdmissionEffects} from "./store/post-admission.effects";
+
+
+@NgModule({
+  declarations: [
+    PostAdmissionComponent,
+    ListSubModulesComponent
+  ],
+  imports: [
+    CommonModule,
+    PostAdmissionRoutingModule,
+    StoreModule.forFeature(postAdmissionFeatureKey, PostAdmissionReducer),
+    EffectsModule.forFeature([PostAdmissionEffects]),
+  ]
+})
+export class PostAdmissionModule { }

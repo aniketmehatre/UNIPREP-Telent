@@ -1,53 +1,53 @@
-<div [ngStyle]="{ display: isModalVisible }" class="trigger">
-    <div class="popup">
-        <div class="inner">
-            <div class="row justify-content-center align-items-center text-center">
-                <label class="text-left">Issue Type</label>
-                <span style="width: 100%">
-                    <p-dropdown (onChange)="issueTypeOnChange($event)" [options]="issueType"
-                                [style]="{'minWidth':'100%'}"
-                                class="w-100"
-                                id="issueType"
-                                optionLabel="name"
-                                style="width: 100% !important;"
-                    ></p-dropdown>
-                </span>
-                <label>Add Command</label>
-                <textarea pInputTextarea></textarea>
-                <button class="btn btn-primary btn-login p-2 m-2">
-                    Submit
-                </button>
-            </div>
-        </div>
-    </div>
-</div>
-
-<p-dialog class="bg-light" [maximizable]="true" [(visible)]="visible" [style]="{ width: '50vw' }" header="Header">
+<p-dialog class="bg-light" [maximizable]="false" [(visible)]="visible" [draggable]="false" [style]="{ width: '50vw' }"
+          header="Header">
     <ng-template pTemplate="header" class="p-0 m-0">
-        <div class="row justify-content-center align-items-center d-flex">
-            <div class="col-md-6">
-                <div class="row justify-content-center align-items-center">
-                    <div class="col-md-2">
-                        <p>
-                            <p-avatar (click)="togleSidebar.emit()" label="" class="mt-2">
-                                U
-                            </p-avatar>
-                        </p>
+        <div class="row justify-content-center align-items-center d-flex w-100 mb-1 mt-1">
+            <div class="col-md-5">
+                <div class="row justify-content-center align-items-center mb-0 mt-0">
+                    <div class="col-md-2 text-center">
+                        <div class="circle">
+                           <img class="small-image" src="../../../assets/images/uniboard.png"/>
+                        </div>
                     </div>
-                    <div class="col-md-10">
-                        <p>UNIPREP</p>
+                    <div class="col-md-10 text-white">
+                        <p><strong>UNIPREP</strong></p>
                         <span>Live Chat</span>
                     </div>
                 </div>
             </div>
             <div class="col-md-2">
-                <p class="text-white" (click)="reportAction()">Report</p>
+                <!--                <p class="text-white" (click)="reportAction()">Report</p>   -->
+                <p-overlayPanel #op [style]="{ width: '20vw' }">
+                    <ng-template pTemplate="content">
+                        <div class="row d-flex w-100">
+                            <div class="flex flex-column gap-2">
+                                <label htmlFor="Issue Type">Issue Type</label>
+                                <p-dropdown (onChange)="issueTypeOnChange($event)" [options]="issueType"
+                                            [style]="{'minWidth':'100%'}"
+                                            id="issueType"
+                                            optionLabel="reportoption_name"
+                                            style="width: 100% !important;"
+                                ></p-dropdown>
+                            </div>
+                            <div class="flex flex-column gap-2">
+                                <label>Add Command</label>
+                                <textarea pInputTextarea id="command" [(ngModel)]="comment"></textarea>
+                            </div>
+                            <div class="col-md-12">
+                                <button class="btn btn-primary btn-login p-2 m-2" (click)="reportSubmit(op)">
+                                    Submit
+                                </button>
+                            </div>
+                        </div>
+                    </ng-template>
+                </p-overlayPanel>
+                <p (click)="op.toggle($event)" class="text-white">Report</p>
             </div>
-            <div class="col-md-2">
+            <div class="col-md-3">
                 <p class="text-white">Question credits</p>
             </div>
             <div class="col-md-2">
-                <div class="circle">{{this.questionLeft+ ''}}/3</div>
+                <div class="circle">{{this.questionLeft + ''}}/3</div>
             </div>
         </div>
     </ng-template>

@@ -13,6 +13,9 @@ const routes: Routes = [
     children: [
       { path: 'dashboard', loadChildren: () => import('./dashboard/dashboard.module').then(m => m.DashboardModule)  },
       { path: 'sop', loadChildren: () => import('./sop/sop.module').then(m => m.SopModule)  },
+      { path: 'pre-application', loadChildren: () => import('./pre-application/pre-application.module').then(m => m.PreApplicationModule)  },
+      { path: 'post-application', loadChildren: () => import('./post-application/post-application.module').then(m => m.PostApplicationModule)  },
+      { path: 'post-admission', loadChildren: () => import('./post-admission/post-admission.module').then(m => m.PostAdmissionModule)  },
       { path: 'subscriptions', loadChildren: () => import('./subscription/subscription.module').then(m => m.SubscriptionModule)  },
       { path: 'sample-sop', loadChildren: () => import('./sop-sample/sop-sample.module').then(m => m.SopSampleModule)  },
       { path: 'faq', loadChildren: () => import('./faq/faq.module').then(m => m.FaqModule)  },

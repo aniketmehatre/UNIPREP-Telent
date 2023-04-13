@@ -26,3 +26,10 @@
   margin: 0 !important;
   background: #9bc329 !important;
 }
+.p-dropdown-panel {
+  left: 0 !important;
+  max-width: 100% !important;
+}
+.p-autocomplete-panel .p-autocomplete-items .p-autocomplete-item {
+  white-space: inherit;
+}

@@ -17,10 +17,10 @@
                 <div class="row">
                     <label class="text-left">Modules</label>
                     <span style="width: 100% !important">
-                    <p-dropdown  [options]="moduleList"
+                    <p-dropdown  [options]="moduleList" (onChange)="onChangeModuleList($event)"
                             [style]="{'minWidth':'100%'}"
                             class="w-100"
-                            id="moduleList"
+                            id="moduleId"
                             optionLabel="module_name"
                             style="width: 100% !important;"
                     ></p-dropdown>
@@ -28,9 +28,9 @@
                     <label class="text-left">Categories</label>
                     <span style="width: 100%">
                     <p-dropdown
-                            [style]="{'minWidth':'100%'}"
+                            [style]="{'minWidth':'100%'}" (onChange)="onChangeSubModuleList($event)"
                             class="w-100"
-                            id="issueType"
+                            id="submoduleId"
                             optionLabel="name"
                             style="width: 100% !important;"
                     ></p-dropdown>
@@ -38,25 +38,25 @@
                     <label class="text-left">Question Number</label>
                     <span style="width: 100%">
                     <p-dropdown
-                            [style]="{'minWidth':'100%'}"
+                            [style]="{'minWidth':'100%'}" (onChange)="onChangeQuestionIdList($event)"
                             class="w-100"
-                            id="issueType"
+                            id="questionId"
                             optionLabel="name"
                             style="width: 100% !important;"
                     ></p-dropdown>
                 </span>
                     <label class="text-left">Issue Type</label>
                     <span style="width: 100%">
-                    <p-dropdown  [options]="issueType"
+                    <p-dropdown  [options]="reportOptionList" (onChange)="onChangeIssueTypeList($event)"
                             [style]="{'minWidth':'100%'}"
                             class="w-100"
-                            id="issueType"
-                            optionLabel="name"
+                            id="reportOption"
+                            optionLabel="reportoption_name"
                             style="width: 100% !important;"
                     ></p-dropdown>
                 </span>
                     <label class="text-left">Add Command</label>
-                    <textarea pInputTextarea></textarea>
+                    <textarea pInputTextarea id="comment"></textarea>
                     <button class="btn btn-primary btn-login p-2 m-2">
                         Submit
                     </button>

@@ -1,15 +1,33 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {PreAppService} from "../pre-app.service";
+import {Observable} from "rxjs";
+import {SubModuleList} from "../../../@Models/pre-application.model";
 
 @Component({
-  selector: 'uni-list-modules',
-  templateUrl: './list-modules.component.html',
-  styleUrls: ['./list-modules.component.scss']
+    selector: 'uni-list-modules',
+    templateUrl: './list-modules.component.html',
+    styleUrls: ['./list-modules.component.scss']
 })
 export class ListModulesComponent implements OnInit {
+    subModules$!: Observable<SubModuleList[]>;
+    selectedSubModule: any;
+    subModuleList: any[] = [];
 
-  constructor() { }
+    constructor(private preAppService: PreAppService) {
+    }
 
-  ngOnInit(): void {
-  }
+    ngOnInit(): void {
+        this.subModules$ = this.preAppService.subModuleList$();
+        console.log(this.subModules$)
+        this.preAppService.loadSubModules();
+    }
 
+    onSubModuleClick(id: any) {
+        this.subModuleList.forEach((element: any) => {
+            if (element.id === id) {
+                this.selectedSubModule = element.country;
+            }
+        });
+        this.selectedSubModule = id;
+    }
 }

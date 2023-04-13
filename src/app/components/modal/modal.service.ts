@@ -2,9 +2,8 @@ import {ComponentFactoryResolver, Injectable, ViewContainerRef} from "@angular/c
 import {ModalComponent} from "./modal.component";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {environment} from "@env/environment";
-import {Observable, Observer, Subject} from 'rxjs';
+import {Observable, Observer} from 'rxjs';
 import {AnonymousSubject} from 'rxjs/internal/Subject';
-import {map} from 'rxjs/operators';
 
 export interface Message {
     source: string;
@@ -15,6 +14,7 @@ export interface Message {
 export class ModalService {
     private rootViewContainer!: ViewContainerRef;
     private subject!: AnonymousSubject<MessageEvent>;
+
     //public messages: Subject<Message>;
 
     constructor(private factoryResolver: ComponentFactoryResolver, private http: HttpClient) {
@@ -89,4 +89,14 @@ export class ModalService {
         return this.http.post<any>(environment.ApiUrl + "/getchathistory", null, {headers: headers});
     }
 
+    getChatReportOptions() {
+        const headers = new HttpHeaders().set("Accept", "application/json");
+        return this.http.get<any>(environment.ApiUrl + "/chatreportoptions", {
+            headers: headers,
+        });
+    }
+    postReportChat(data: any) {
+        const headers = new HttpHeaders().set("Accept", "application/json");
+        return this.http.post<any>(environment.ApiUrl + "/reportchat", data, {headers: headers});
+    }
 }
