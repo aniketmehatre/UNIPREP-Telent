@@ -1,12 +1,27 @@
-.pre-application-text {
+.post-application-text {
     color: #9bc32a;
-  }
-  .pre-application-text-small {
+}
+
+.post-application-text-small {
     color: black;
     font-size: 0.8rem;
-  }
-  .pre-application-border {
+}
+
+.post-application-border {
     border: 2px solid #9bc32a;
     border-radius: 5%;
-  }
-  
+}
+
+.bottom-text {
+    width: auto;
+    font-size: 1rem;
+    font-weight: normal;
+}
+.badge {
+    border-radius: 0 0 10% 10% !important;
+}
+
+.small-icon{
+    width: 10%;
+    margin-bottom: 10%;
+}

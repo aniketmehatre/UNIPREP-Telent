@@ -5,7 +5,7 @@
             <div class="col-md-2 d-flex h-100" *ngFor="let sub of subModules$ | async">
                 <div class="row justify-content-center {{ selectedSubModule == sub.id ? 'pre-application-border pr-4 pl-4' : ''}}"
                     (click)="onSubModuleClick(sub.id)">
-                    <img width="{{ selectedSubModule == sub.id ? '100px' : '100px'}}" alt="{{sub.submodule_name}}"
+                    <img width="{{ selectedSubModule == sub.id ? '100px' : '100px'}}"
                         style="{{ selectedSubModule == sub.id ? 'padding: 10%' : 'padding: 10%;'}}" src="{{sub.icon}}"
                         alt="{{sub.submodule_name}}">
                     <p

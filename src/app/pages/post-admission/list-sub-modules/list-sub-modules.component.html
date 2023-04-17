@@ -5,7 +5,7 @@
             <div class="col-md-2" *ngFor="let sub of submodules$ | async">
                 <div class="row justify-content-center {{ selectedSubModule == sub.id ? 'post-admission-border pr-4 pl-4' : ''}}"
                      (click)="onSubModuleClick(sub.id)">
-                    <img width="{{ selectedSubModule == sub.id ? '100px' : '100px'}}" alt="{{sub.submodule_name}}"
+                    <img width="{{ selectedSubModule == sub.id ? '100px' : '100px'}}"
                          style="{{ selectedSubModule == sub.id ? 'padding: 10%' : 'padding: 10%;'}}" src="http://40.80.95.32/uniprepapi/storage/app/public/submoduleicons/CareerProspects.svg"
                          alt="{{sub.submodule_name}}">
                     <p

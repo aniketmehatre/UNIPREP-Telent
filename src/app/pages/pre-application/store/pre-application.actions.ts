@@ -1,5 +1,5 @@
 import {createAction} from "@ngrx/store";
-import {PreApplicationModel, SubModuleList} from "../../../@Models/pre-application.model";
+import {SubModuleList} from "../../../@Models/pre-application.model";
 
 
 export const loadSubModules = createAction('[PRE Application] load Sub modules');
