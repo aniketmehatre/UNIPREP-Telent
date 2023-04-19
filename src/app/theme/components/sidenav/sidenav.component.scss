@@ -20,7 +20,7 @@
                 opacity: 0.6 !important;
                 text-transform: uppercase;
             }
-            font-weight: 700;
+            font-weight: 600;
             color: #67748e;
             padding: 0.5rem 0.5rem 0.5rem 0.5rem;
             display: flex;
@@ -30,9 +30,9 @@
                 font-size: 0.9rem;
                 //padding: 10px;
                 border-radius: 0.5rem;
-                margin-right: 1.4rem !important;
-                width: 30px;
-                height: 30px;
+                width: 25px;
+                height: 25px;
+                margin: 8px 12px;
             }
         }
         &.active {
@@ -46,7 +46,7 @@
             }
             .menu-item.active {
                 .system-main__name {
-                    font-weight: bold;
+                    font-weight: 600;
                 }
             }
         }

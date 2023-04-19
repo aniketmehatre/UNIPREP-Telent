@@ -1,9 +1,9 @@
-<div class="row pt-3" >
+<div class="row pt-0" >
     <h4>Dashboard</h4>
 </div>
 <div class="card rounded shadow-sm mt-3">
     <div class="card-body text-center">
-        <h5><strong>SELECTED COUNTRY</strong></h5>
+        <h5>SELECTED COUNTRY</h5>
         <div class="row mb-0 justify-content-center">
             <div class="col" *ngFor="let v of countryLists">
                 <div class="row justify-content-center {{ selectedCountryId == v.id ? 'country-border pr-4 pl-4' : ''}}"
@@ -27,8 +27,8 @@
 </div>
 <div class="row align-items-center">
     <div class="col-md-5 col-lg-5 p-4">
-        <h3><strong>WELCOME TO {{selectedCountryName}}</strong></h3>
-        <h5>UNIPREP {{selectedCountryName}} information and content in reviewed and accredited by the following entities.</h5>
+        <h3 class="fw-semibold">WELCOME TO {{selectedCountryName}}</h3>
+        <h5 class="fw-normal">UNIPREP {{selectedCountryName}} information and content in reviewed and accredited by the following entities.</h5>
     </div>
     <div class="col-md-7 col-lg-7 p-3 shadow rounded bg-white card-round">
         <p-carousel [value]="university" [numVisible]="3" [showIndicators]="false" [numScroll]="1"
@@ -48,7 +48,7 @@
                         <img class="w-100" src="/assets/images/icons/tutorial_link.svg" />
                     </div>
                 </div>
-                <h6><strong>How to use uniprep? (DEMO)</strong></h6>
+                <h6>How to use uniprep? (DEMO)</h6>
             </div>
         </div>
         <div class="col-md-3 col-lg-3 p-3 d-flex" (click)="openReading()">
@@ -74,7 +74,7 @@
                         </div>
                     </div>
                 </div>
-                <h6><strong>Reading</strong></h6>
+                <h6>Reading</h6>
                 <div style="text-transform: none">Expand your horizons through reading</div>
             </div>
         </div>
@@ -101,7 +101,7 @@
                         </div>
                     </div>
                 </div>
-                <h6><strong>Quiz</strong></h6>
+                <h6>Quiz</h6>
                 <div style="text-transform: none">Test your global knowledge</div>
             </div>
         </div>
@@ -117,7 +117,7 @@
                             src="/assets/images/icons/share_button_deactivate.svg" />
                     </div>
                 </div>
-                <h6><strong>Unlock Certificate</strong></h6>
+                <h6>Unlock Certificate</h6>
                 <div style="text-transform: none;">Complete the final 10% to unlock the certificate.</div>
             </div>
         </div>
