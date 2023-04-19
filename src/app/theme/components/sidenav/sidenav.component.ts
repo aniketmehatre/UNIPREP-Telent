@@ -77,7 +77,7 @@ export class SidenavComponent{
     },
     {
       title: 'Career Hub',
-      url: '',
+      url: '/pages/career-hub',
       image: './../../../../assets/images/menus/Uniprep_Icons_Career_Hub_Grey.svg',
     },
     {

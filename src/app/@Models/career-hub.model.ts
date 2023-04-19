@@ -1,4 +1,4 @@
-export interface PostApplicationModel {
+export interface CareerHubModel {
     status: string,
     submodulecount: SubModuleList[]
 }

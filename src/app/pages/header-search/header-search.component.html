@@ -4,7 +4,7 @@
             <img class="search-icon m-2 pr-2 border-end" src="/assets/images/icons/search_icon.svg" />
             <input type="text" pInputText placeholder="ENTER YOUR KEY WORDS HERE" #searchInput
                    (input)="onSearchChange(searchInput.value)">
-            <button class="btn-primary" type="button" (click)="searchKeyWord(searchInput)" pButton pRipple
+            <button pButton pRipple class="p-button-primary btn-primary text-dark" type="button" (click)="searchKeyWord(searchInput)"
                     label="Search"></button>
         </div>
         <ul class="list-group list-group-flush" *ngIf="isSearchResultFound">

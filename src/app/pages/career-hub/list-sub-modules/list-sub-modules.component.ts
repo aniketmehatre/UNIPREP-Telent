@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import {Observable} from "rxjs";
-import {SubModuleList} from "../../../@Models/post-application.model";
-import {PostApplicationService} from "../post-application.service";
+import { Observable } from 'rxjs';
+import { CareerHubService } from '../career-hub.service';
+import { SubModuleList } from 'src/app/@Models/career-hub.model';
 
 @Component({
   selector: 'app-list-sub-modules',
@@ -13,13 +13,13 @@ export class ListSubModulesComponent implements OnInit {
   selectedSubModule: any;
   subModuleList: any[] = [];
 
-  constructor(private postApplicationService: PostApplicationService) {
+  constructor(private careerHubService: CareerHubService) {
   }
 
   ngOnInit(): void {
-    this.subModules$ = this.postApplicationService.subModuleList$();
+    this.subModules$ = this.careerHubService.subModuleList$();
     let countryId = 2;
-    this.postApplicationService.loadSubModules(countryId);
+    this.careerHubService.loadSubModules(countryId);
   }
 
   onSubModuleClick(id: any) {

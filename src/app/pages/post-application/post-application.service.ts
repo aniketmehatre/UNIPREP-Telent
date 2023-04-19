@@ -11,8 +11,8 @@ export class PostApplicationService {
 
   constructor(private store: Store<PostApplicationState>) { }
 
-  loadSubModules() {
-    this.store.dispatch(loadSubModules());
+  loadSubModules(countryId: number) {
+    this.store.dispatch(loadSubModules({countryId}));
   }
   subModuleList$() {
     return this.store.select(selectSubModule$);

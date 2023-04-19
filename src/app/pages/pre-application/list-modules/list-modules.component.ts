@@ -18,8 +18,8 @@ export class ListModulesComponent implements OnInit {
 
     ngOnInit(): void {
         this.subModules$ = this.preAppService.subModuleList$();
-        console.log(this.subModules$)
-        this.preAppService.loadSubModules();
+        let countryId = 2
+        this.preAppService.loadSubModules(countryId);
     }
 
     onSubModuleClick(id: any) {

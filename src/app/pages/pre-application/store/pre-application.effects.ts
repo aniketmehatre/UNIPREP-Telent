@@ -15,9 +15,9 @@ import {PreApplicationService} from "./pre-application.service";
 
     loadSubModules = createEffect(() => this.actions$.pipe(
         ofType(loadSubModules),
-        switchMap((payload) => this.preApplicationService.loadSubModules().pipe(
+        switchMap((payload) => this.preApplicationService.loadSubModules(payload.countryId).pipe(
             map(response => {
-                return loadSubModulesSuccess({submodules: response.submodules})
+                return loadSubModulesSuccess({submodules: response.submodulecount})
             })
         ))
     ));

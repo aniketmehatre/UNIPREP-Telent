@@ -10,7 +10,10 @@ export class PostAdmissionService {
     constructor(private http: HttpClient) {
     }
 
-    loadSubModules(): Observable<PostAdmissionModel> {
-        return this.http.get<PostAdmissionModel>(environment.ApiUrl + "/postadmissionsubmodule");
+    loadSubModules(countryId: number): Observable<PostAdmissionModel> {
+        let data = {
+            countryId: countryId
+        }
+        return this.http.post<PostAdmissionModel>(environment.ApiUrl + "/getpostadmissionsubmoduleqcount", data);
     }
 }
