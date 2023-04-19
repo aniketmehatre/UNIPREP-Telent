@@ -36,7 +36,7 @@ export class SidenavComponent{
     {
       title: 'Dashboard',
       url: '/pages/dashboard',
-      image: './../../../../assets/images/menus/Uniprep_Icons_Dashboard_Grey.svg',
+      image: 'fa-solid fa-house',
     },
     // {
     //   title: 'Components',
@@ -63,47 +63,47 @@ export class SidenavComponent{
     {
       title: 'Pre Application',
       url: '/pages/pre-application',
-      image: './../../../../assets/images/menus/Uniprep_Icons_Preapplication_Grey.svg',
+      image: 'fa-solid fa-file-import',
     },
     {
       title: 'Post Application',
       url: '/pages/post-application',
-      image: './../../../../assets/images/menus/Uniprep_Icons_Post_Application_Grey.svg',
+      image: 'fa-solid fa-file-export',
     },
     {
       title: 'Post Admission',
       url: '/pages/post-admission',
-      image: './../../../../assets/images/menus/Uniprep_Icons_Post_Admission_Grey.svg',
+      image: 'fa-solid fa-ticket',
     },
     {
       title: 'Career Hub',
       url: '/pages/career-hub',
-      image: './../../../../assets/images/menus/Uniprep_Icons_Career_Hub_Grey.svg',
+      image: 'fa-solid fa-briefcase',
     },
     {
       title: 'University',
       url: '',
-      image: './../../../../assets/images/menus/Uniprep_Icons_University_Grey.svg',
+      image: 'fa-solid fa-building-columns',
     },
     {
       title: 'Life at UK',
       url: '',
-      image: './../../../../assets/images/menus/Uniprep_Icons_Life_at_UK_Grey.svg',
+      image: 'fa-solid fa-tower-observation',
     },
     {
       title: 'Subscription',
       url: '/pages/subscriptions',
-      image: './../../../../assets/images/menus/Uniprep_Icons_Subscription_Grey.svg',
+      image: 'fa-solid fa-crown',
     },
     {
       title: 'FAQ',
       url: '/pages/faq',
-      image: './../../../../assets/images/menus/Uniprep_Icons_FAQ_Grey.svg',
+      image: 'fa-solid fa-comments',
     },
     {
       title: 'Help & Support',
       url: '/pages/help',
-      image: './../../../../assets/images/menus/Uniprep_Icons_Help_&_Support_Grey.svg',
+      image: 'fa-solid fa-phone-volume',
     }
     //,
     // {

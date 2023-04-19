@@ -13,15 +13,20 @@
         color: #222b45;
         cursor: pointer;
         .system-main__apps {
-            font-size: 0.9rem;
+            font-size:1rem;
+            margin: 5px 10px;
+            .system-main__icon
+            {
+                padding: 5px 10px;
+            }
             &.header {
                 font-weight: 700;
                 color: #344767;
                 opacity: 0.6 !important;
                 text-transform: uppercase;
             }
-            font-weight: 700;
-            color: #67748e;
+            font-weight: 600;
+            color: #001631;
             padding: 0.5rem 0.5rem 0.5rem 0.5rem;
             display: flex;
             text-decoration: none;
@@ -30,23 +35,30 @@
                 font-size: 0.9rem;
                 //padding: 10px;
                 border-radius: 0.5rem;
-                margin-right: 1.4rem !important;
-                width: 30px;
-                height: 30px;
+                width: 25px;
+                height: 25px;
+                margin: 4px 12px;
+            }
+            &:hover
+            {
+                color: #001631;
+                background-color: #e2ecc7;
+                border-radius:10px;
             }
         }
         &.active {
             .system-main__apps {
-                color: #9BC32A;
+                color: #fff;
+                background-color: #9bc329;
+                border-radius: 10px 10px;
             }
-            background-color: #E3EEC3;
-            border-right: 7px solid #9BC32A;
+            background-color: transparent;
             .system-main__icon .pi {
-                color: #9BC32A;
+                color: #9bc329;
             }
             .menu-item.active {
                 .system-main__name {
-                    font-weight: bold;
+                    font-weight: 600;
                 }
             }
         }

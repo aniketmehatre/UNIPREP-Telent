@@ -5,9 +5,47 @@
 @import './assets/primeng';
 @import './assets/buttons';
 
+html,
+body {
+  font-family: "Poppins", sans-serif;
+}
+p {margin-bottom: 1rem;}
+
+h1, h2, h3, h4, h5 {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 600;
+  line-height: 1.3;
+}
+.card
+{
+  border-radius: 15px !important;
+}
+.btn
+{
+  border-radius:5px !important;
+  font-weight:600 !important;
+}
+.btn-secondary {
+  color: #fff;
+  background-color: #fda082;
+  border-color: #fda082;
+  &:hover
+  {
+    color: #fff;
+    background-color: #f18d6d;
+    border-color: #f18d6d;
+  }
+  &:focus
+  {
+    color: #fff;
+    background-color: #f18d6d;
+    border-color: #f18d6d;
+    box-shadow: 0 0 0 0.25rem rgb(241 141 109 / 50%);
+  }
+}
 .p-overlaypanel .p-overlaypanel-content {
   padding: 1.25rem;
-  width: 80vh;
+  width: 40vh;
 }
 .p-dropdown-panel{
   margin-top: 20%;
@@ -32,4 +70,20 @@
 }
 .p-autocomplete-panel .p-autocomplete-items .p-autocomplete-item {
   white-space: inherit;
+}
+.select-title
+{
+  background: #000;
+  width: 65%;
+  margin: auto;
+  color: #fff;
+  padding: 15px 10px;
+  border-radius: 0px 0px 10px 10px;
+  .questiontooltip
+  {
+    position: absolute;
+    top: 5px;
+    color:#9bc329;
+    margin-left: 5px;
+  }
 }

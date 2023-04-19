@@ -320,10 +320,13 @@ $howManySteps: 100; //this needs to be even.
 
 .country-text {
   color: #9bc32a;
+  font-weight: 600;
+  font-size: 1.2rem;
 }
 .country-text-small {
-  color: black;
-  font-size: 0.8rem;
+  color: #001631;
+  font-size: 1rem;
+  font-weight:500;
 }
 .country-border {
   border: 2px solid #9bc32a;
@@ -371,9 +374,10 @@ Due to the split circle of progress-left and progress right, we must use the ani
 
 .bottom-text {
   width: auto;
-  font-size: 0.8rem;
+  font-size: 0.9rem;
   font-weight: normal;
-  padding: 5px 5px 5px 5px;
+  padding: 15px 30px;
+  border-radius: 10px 10px 0px 0px;
 }
 
 .quiz-card {

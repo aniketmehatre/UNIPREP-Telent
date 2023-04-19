@@ -1,11 +1,23 @@
 .search-dropdown {
-  position: absolute;
-  z-index: 900;
   width: 100%;
 }
 
 .search-icon {
-  width: 3%;
+  justify-content: center;
+  align-items: center;
+  vertical-align: middle;
+  display: flex;
+  font-size: 2rem;
+  color: #9bc329;
+  border-right: 1px solid #9bc329;
+  padding: 10px;
+}
+
+.p-inputgroup
+{
+  padding:0px;
+  background: #fff;
+  border-radius: 10px;
 }
 
 btn-primary{
