@@ -6,7 +6,7 @@ import {PostApplicationService} from "../post-application.service";
 @Component({
   selector: 'app-list-sub-modules',
   templateUrl: './list-sub-modules.component.html',
-  styleUrls: ['./list-sub-modules.component.css']
+  styleUrls: ['./list-sub-modules.component.scss']
 })
 export class ListSubModulesComponent implements OnInit {
   subModules$!: Observable<SubModuleList[]>;
