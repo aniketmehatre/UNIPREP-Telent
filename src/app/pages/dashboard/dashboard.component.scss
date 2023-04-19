@@ -118,11 +118,13 @@
 }
 .carousel {
   height: 100%;
-  width: 100%;
+  width: 200px;
   padding: 3px;
   background-repeat: no-repeat;
   background-size: contain;
   background-position: center;
+  aspect-ratio: 16/9;
+  margin: auto;
 }
 
 .border-primary {

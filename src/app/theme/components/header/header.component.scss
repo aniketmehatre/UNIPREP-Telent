@@ -199,3 +199,30 @@ form {
 .dropdown:hover .dropbtn {
   color: dodgerblue;
 }
+.report
+{
+  .report-label 
+  {
+    font-size:0.8rem;
+    font-weight:600;
+  }
+  .report-modal
+  {
+    .p-element
+    {
+      .p-dropdown
+      {
+        width:100%;
+        margin-bottom: 15px;
+      }
+    }
+    .p-dropdown-panel
+    {
+      margin-top:0;
+    }
+    .p-inputtextarea {
+      width:100%;
+      margin-bottom:15px;
+    }
+  }
+}
