@@ -3,17 +3,18 @@
     </div>
     <div class="right-panel">
         <span class="subscribe_button" role="button"><strong>TIME LEFT</strong>
-            <img alt="chat with notification" class="subscribe_button" src="/assets/images/icons/timer_clock.svg" width="50px"/>
+            <img alt="chat with notification" class="subscribe_button" src="/uniprep-assets/images/icons/timer_clock.svg" width="50px"/>
             <countdown (event)="handleEvent($event)" *ngIf="config" [config]="config" class="custom-style"></countdown>
         </span>
         <button class="btn btn-primary mx-2" alt="chat with notification">Subscribe Now</button>
         <button class="btn btn-secondary subscribe_button mx-2 me-4" (click)="op.toggle($event)" alt="reports" alt="chat with notification"><i class="fa-solid fa-file"></i> Report</button>
         <p-overlayPanel #op>
             <ng-template pTemplate="content">
-                <div class="row">
-                    <label class="text-left">Modules</label>
-                    <span style="width: 100% !important">
-                    <p-dropdown  [options]="moduleList" (onChange)="onChangeModuleList($event)"
+                <div class="container px-0">
+                <div class="row report">
+                    <p class="report-label text-left mb-0">Modules</p>
+                    <span class="report-modal">
+                    <p-dropdown style="width:100%;"  [options]="moduleList" (onChange)="onChangeModuleList($event)"
                             [style]="{'minWidth':'100%'}"
                             class="w-100"
                             id="moduleId"
@@ -21,8 +22,8 @@
                             style="width: 100% !important;"
                     ></p-dropdown>
                 </span>
-                    <label class="text-left">Categories</label>
-                    <span style="width: 100%">
+                    <p class="report-label text-left mb-0">Categories</p>
+                    <span class="report-modal">
                     <p-dropdown
                             [style]="{'minWidth':'100%'}" (onChange)="onChangeSubModuleList($event)"
                             class="w-100"
@@ -31,8 +32,8 @@
                             style="width: 100% !important;"
                     ></p-dropdown>
                 </span>
-                    <label class="text-left">Question Number</label>
-                    <span style="width: 100%">
+                    <p class="report-label text-left mb-0">Question Number</p>
+                    <span class="report-modal">
                     <p-dropdown
                             [style]="{'minWidth':'100%'}" (onChange)="onChangeQuestionIdList($event)"
                             class="w-100"
@@ -41,8 +42,8 @@
                             style="width: 100% !important;"
                     ></p-dropdown>
                 </span>
-                    <label class="text-left">Issue Type</label>
-                    <span style="width: 100%">
+                    <p class="report-label text-left mb-0">Issue Type</p>
+                    <span class="report-modal">
                     <p-dropdown  [options]="reportOptionList" (onChange)="onChangeIssueTypeList($event)"
                             [style]="{'minWidth':'100%'}"
                             class="w-100"
@@ -51,13 +52,18 @@
                             style="width: 100% !important;"
                     ></p-dropdown>
                 </span>
-                    <label class="text-left">Add Command</label>
+                <p class="report-labeltext-left mb-0">Add Command</p>
+                <span class="report-modal">
                     <textarea pInputTextarea id="comment"></textarea>
-                    <button class="btn btn-primary btn-login p-2 m-2">
+                </span>
+                <span>
+                    <button class="btn btn-primary w-100 m-0">
                         Submit
                     </button>
-
+                </span>
+                    
                 </div>
+            </div>
             </ng-template>
         </p-overlayPanel>
         <!--        <p-button (click)="op.toggle($event)" icon="pi pi-image" label="Show"></p-button>-->

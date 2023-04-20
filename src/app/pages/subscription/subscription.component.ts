@@ -13,11 +13,11 @@ export class SubscriptionComponent implements OnInit {
   stage = 1;
   cards: any[] = [
     {
-      img: "assets/icons/mastercard.png",
+      img: "uniprep-assets/icons/mastercard.png",
       name: "Master card",
     },
     {
-      img: "assets/icons/visacard.png",
+      img: "uniprep-assets/icons/visacard.png",
       name: "Visa card",
     },
   ];

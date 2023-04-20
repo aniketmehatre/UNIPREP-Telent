@@ -46,7 +46,7 @@
 </div>
 
 <ng-template #defaultTitle>
-  <img src="../../../../assets/images/uniabroad.jpeg">
+  <img src="../../../../uniprep-assets/images/uniabroad.jpeg">
   <br /><br />
 </ng-template>
 <div class="footer"></div>
@@ -56,7 +56,7 @@
   <li [ngClass]="{'menu-item': true, 'active': item.active, 'overlap': isOverlap}" *ngFor="let item of menus">
     <ng-container *ngIf="item.header; else menu">
       <div class="system-main__apps header">
-        <span class="system-main__icon"><img src="./../../../../assets/images/icons/tip_with_notification.svg" /></span>
+        <span class="system-main__icon"><img src="./../../../../uniprep-assets/images/icons/tip_with_notification.svg" /></span>
         <span class="system-main__name"> {{ item.title }} </span>
       </div>
     </ng-container>

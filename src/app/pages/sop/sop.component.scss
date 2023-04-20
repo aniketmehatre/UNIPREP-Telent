@@ -7,12 +7,12 @@
 }
 
 @mixin navbg($num) {
-  background-image: url("/assets/images/#{$num}.png");
+  background-image: url("/uniprep-assets/images/#{$num}.png");
   background-size: 100% 100%;
   background-repeat: no-repeat;
   background-position: center;
   &.active {
-    background-image: url("/assets/images/#{$num}a.png");
+    background-image: url("/uniprep-assets/images/#{$num}a.png");
   }
 }
 

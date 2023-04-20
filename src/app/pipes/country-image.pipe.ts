@@ -6,7 +6,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 export class CountryImagePipe implements PipeTransform {
 
   transform(name: string): string {
-    return "assets/icons/" + name.replace(/\s/g, "").trim() + ".png";
+    return "uniprep-assets/icons/" + name.replace(/\s/g, "").trim() + ".png";
   }
 
 }

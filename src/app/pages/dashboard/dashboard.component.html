@@ -28,13 +28,13 @@
             </div>
         </div>
     </div>
-    <div class="row align-items-center">
+    <div class="row align-items-center pt-4 pb-4">
         <div class="col-md-5 col-lg-5 p-4">
             <h3 class="fw-semibold">WELCOME TO {{selectedCountryName}}</h3>
             <h5 class="fw-normal">UNIPREP {{selectedCountryName}} information and content in reviewed and accredited by the following entities.</h5>
         </div>
         <div class="col-md-7 col-lg-7 p-3 shadow rounded bg-white card-round">
-            <p-carousel [value]="university" [numVisible]="3" [showIndicators]="false" [numScroll]="1"
+            <p-carousel class="text-center" [value]="university" [numVisible]="3" [showIndicators]="false" [numScroll]="1"
                 [responsiveOptions]="responsiveOptions">
                 <ng-template let-uni pTemplate="item">
                     <img class="carousel" src="{{uni.image}}" alt="{{uni.image}}">
@@ -47,7 +47,7 @@
             <div class="shadow bg-white rounded p-3 card-round">
                 <div class="row d-flex">
                     <div class="col-md-12 col-lg-12 justify-content-center">
-                        <img class="w-100" src="/assets/images/icons/tutorial_link.svg" />
+                        <img class="w-100" src="/uniprep-assets/images/icons/tutorial_link.svg" />
                     </div>
                 </div>
                 <h6>How to use uniprep? (DEMO)</h6>
@@ -57,7 +57,7 @@
             <div class="shadow bg-white rounded p-3 card-round">
                 <div class="row">
                     <div class="col-md-6 col-lg-6 d-flex justify-content-center">
-                        <img class="reading-quiz" src="/assets/images/icons/start_reading.svg" />
+                        <img class="reading-quiz" src="/uniprep-assets/images/icons/start_reading.svg" />
 
                     </div>
                     <div class="col-md-6 col-lg-6">
@@ -84,7 +84,7 @@
             <div class="shadow bg-white rounded p-3 card-round">
                 <div class="row">
                     <div class="col-md-6 col-lg-6 d-flex justify-content-center">
-                        <img class="reading-quiz" src="/assets/images/icons/start_quiz.svg" />
+                        <img class="reading-quiz" src="/uniprep-assets/images/icons/start_quiz.svg" />
 
                     </div>
                     <div class="col-md-6 col-lg-6">
@@ -111,12 +111,12 @@
             <div class="shadow bg-white rounded p-3 card-round">
                 <div class="row">
                     <div class="col-md-7 col-lg-7 d-flex justify-content-center">
-                        <img class="reading-quiz" src="/assets/images/icons/cert_deactivate.svg" />
+                        <img class="reading-quiz" src="/uniprep-assets/images/icons/cert_deactivate.svg" />
                     </div>
                     <div class="col-md-5 col-lg-5 text-center">
                         <br>
                         <img class="share-button-deactivate p-0 m-0"
-                            src="/assets/images/icons/share_button_deactivate.svg" />
+                            src="/uniprep-assets/images/icons/share_button_deactivate.svg" />
                     </div>
                 </div>
                 <h6>Unlock Certificate</h6>
@@ -131,7 +131,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <a (click)="closeReading()" class="close">
-                    <span aria-hidden="true"><img src="/assets/images/icons/close_button.svg" /></span>
+                    <span aria-hidden="true"><img src="/uniprep-assets/images/icons/close_button.svg" /></span>
                 </a>
             </div>
 
@@ -191,7 +191,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <a (click)="closeQuiz()" class="close">
-                    <span aria-hidden="true"><img src="/assets/images/icons/close_button.svg" /></span>
+                    <span aria-hidden="true"><img src="/uniprep-assets/images/icons/close_button.svg" /></span>
                 </a>
             </div>
             <div class="modal-body">

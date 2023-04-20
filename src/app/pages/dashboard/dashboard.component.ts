@@ -34,13 +34,13 @@ export class DashboardComponent implements OnInit {
     private subs = new SubSink();
     university: any[] = [
         {
-            "image": "../../../assets/images/icons/university1.svg",
+            "image": "../../../uniprep-assets/images/icons/university1.svg",
         },
         {
-            "image": "../../../assets/images/icons/university2.svg",
+            "image": "../../../uniprep-assets/images/icons/university2.svg",
         },
         {
-            "image": "../../../assets/images/icons/university3.svg",
+            "image": "../../../uniprep-assets/images/icons/university3.svg",
         }
     ];
 
