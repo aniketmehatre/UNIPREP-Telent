@@ -10,7 +10,10 @@ export class PreApplicationService {
     constructor(private http: HttpClient) {
     }
 
-    loadSubModules(): Observable<PreApplicationModel> {
-        return this.http.get<PreApplicationModel>(environment.ApiUrl + "/preapplicationsubmodule");
+    loadSubModules(countryId: number): Observable<PreApplicationModel> {
+        let data = {
+            countryId: countryId
+        }
+        return this.http.post<PreApplicationModel>(environment.ApiUrl + "/getpreapplicationsubmoduleqcount", data);
     }
 }

@@ -77,7 +77,7 @@ export class SidenavComponent{
     },
     {
       title: 'Career Hub',
-      url: '',
+      url: '/pages/career-hub',
       image: 'fa-solid fa-briefcase',
     },
     {

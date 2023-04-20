@@ -1,18 +1,18 @@
 import {Injectable} from "@angular/core";
 import {Actions, createEffect, ofType} from "@ngrx/effects";
-import {PostApplicationService} from "./post-application.service";
 import {switchMap} from "rxjs";
 import {map} from "rxjs/operators";
-import {loadSubModules, loadSubModulesSuccess} from "./post-application.actions";
+import { loadSubModules, loadSubModulesSuccess } from "./career-hub.actions";
+import { CareerHubService } from "./career-hub.service";
 
 @Injectable()
-export class PostApplicationEffects {
-    constructor(private actions$: Actions, private postApplicationService: PostApplicationService) {
+export class CareerHubEffects {
+    constructor(private actions$: Actions, private careerHubService: CareerHubService) {
     }
 
     loadSubModules$ = createEffect(() => this.actions$.pipe(
         ofType(loadSubModules),
-        switchMap((payload) => this.postApplicationService.loadSubModules(payload.countryId).pipe(
+        switchMap((payload) => this.careerHubService.loadSubModules(payload.countryId).pipe(
             map(response => {
                 return loadSubModulesSuccess({submodules: response.submodulecount})
             })

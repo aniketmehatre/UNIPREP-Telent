@@ -13,8 +13,8 @@ export class PostAdmissionService {
     constructor(private store: Store<PostAdmissionState>) {
     }
 
-    loadSubModules() {
-        this.store.dispatch(loadSubModules());
+    loadSubModules(countryId: number) {
+        this.store.dispatch(loadSubModules({countryId}));
     }
 
     subModuleList$() {

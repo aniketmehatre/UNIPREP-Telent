@@ -1,4 +1,4 @@
-.post-application-text {
+.c-text {
     color: #9bc32a;
 }
 
@@ -23,10 +23,5 @@
 
 .small-icon{
     width: 10%;
-    margin-bottom: 10%;
-}
-.selectimage
-{
-    aspect-ratio: 1/1;
-    width: 200px;
+    margin-bottom: 10px;
 }

@@ -1,13 +1,18 @@
-.pre-application-text {
-  color: #9bc32a;
-}
 .pre-application-text-small {
   color: black;
   font-size: 0.8rem;
+  padding-left: 10px;
+  padding-right: 10px;
 }
 .pre-application-border {
   border: 2px solid #9bc32a;
   border-radius: 5%;
+  font-size: 0.8rem;
+}
+.unselected-border {
+  border: 2px solid #efb875;
+  border-radius: 5px;
+  font-size: 0.8rem;
 }
 .selectimage
 {

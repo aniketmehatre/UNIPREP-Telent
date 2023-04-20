@@ -1,7 +1,16 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { ListSubModulesComponent } from './list-sub-modules/list-sub-modules.component';
 
-const routes: Routes = [];
+const routes: Routes = [{
+  path: '', component: ListSubModulesComponent,
+  children: [
+    {
+      path: 'sub-modules', component: ListSubModulesComponent,
+    },
+    { path: '', redirectTo: 'sub-modules', pathMatch: 'full' }
+  ]
+},];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],

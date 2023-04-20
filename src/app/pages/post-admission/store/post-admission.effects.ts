@@ -15,9 +15,9 @@ import {PostAdmissionService} from "./post-admission.service";
 
     loadSubModules = createEffect(() => this.actions$.pipe(
         ofType(loadSubModules),
-        switchMap((payload) => this.postAdmissionService.loadSubModules().pipe(
+        switchMap((payload) => this.postAdmissionService.loadSubModules(payload.countryId).pipe(
             map(response => {
-                return loadSubModulesSuccess({submodules: response.submodules})
+                return loadSubModulesSuccess({submodules: response.submodulecount})
             })
         ))
     ));

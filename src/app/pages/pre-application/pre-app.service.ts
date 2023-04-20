@@ -11,8 +11,8 @@ export class PreAppService {
 
   constructor(private store: Store<PreApplicationState>) { }
 
-  loadSubModules() {
-    this.store.dispatch(loadSubModules());
+  loadSubModules(countryId: number) {
+    this.store.dispatch(loadSubModules({countryId}));
   }
   subModuleList$() {
     return this.store.select(selectSubModule$);

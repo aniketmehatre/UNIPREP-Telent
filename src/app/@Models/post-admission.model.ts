@@ -1,6 +1,6 @@
 export interface PostAdmissionModel {
     status: string,
-    submodules: SubModuleList[]
+    submodulecount: SubModuleList[]
 }
 
 export interface SubModuleList{
@@ -9,5 +9,6 @@ export interface SubModuleList{
     icon: string,
     status: number,
     created_at?: any,
-    updated_at?: any
+    updated_at?: any,
+    questioncount: any
 }
