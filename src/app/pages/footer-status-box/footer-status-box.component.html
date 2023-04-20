@@ -1,93 +1,74 @@
-<div class="container-fluid">
+<div class="container-fluid mb-5">
 <div class="row pb-2 mb-2">
     <div class="col-md-2 col-lg-2 p-2 d-flex align-items-stretch">
-        <div class="selected-box d-flex flex-column">
-            <!--                <span class="pi pi-comments" style="color: #a5c54e; font-size: 2rem"></span>-->
-            <img class="img-icon" src="/uniprep-assets/images/icons/online_chat_icon.svg" />
-            <span class="tiny-text text-dark pt-2">Ask your personalized<br>Questions</span>
-
-            <div class="row pt-2 mb-0 pb-0">
-                <div class="col-6 text-start">
-                    <span style="color: #a5c54e;">{{dashboardCount.personalisedquestioncount}}</span>
-                </div>
-                <div class="col-6">
-                    <p class="p-0 m-0 text-start" style="color: black; font-size: 0.8rem;">Questions <br>Answered</p>
-                </div>
+        <div class="card footer-card w-100" role="button">
+            <div class="card-body">
+            <div><i class="h4 fa-solid fa-message"></i></div>
+            <p class="mb-2 fw-medium">Ask your personalized<br>Questions</p>
+            <div class="d-flex  align-items-center justify-content-between">
+                <h4 class="mb-0">{{dashboardCount.personalisedquestioncount}}</h4>
+                <p class="p-0 m-0 text-end text-small fw-medium">Questions<br>Answered</p>
+            </div>
             </div>
         </div>
     </div>
     <div class="col-md-2 col-lg-2 p-2 d-flex align-items-stretch">
-        <div class="card-body bg-light un-selected-box d-flex flex-column">
-            <img class="img-icon" src="/uniprep-assets/images/icons/Uniprep_Icons_Recently_Added_Questions.svg" />
-            <span class="tiny-text text-dark pt-2">Recently Added <br>Questions</span>
-
-            <div class="row pt-2 mb-0 pb-0">
-                <div class="col-6 text-start">
-                    <span style="color: #a5c54e;">{{dashboardCount.recentlyaddedquestion}}</span>
-                </div>
-                <div class="col-6">
-                    <p class="p-0 m-0 text-start" style="color: black; font-size: 0.8rem;">Added in last 30 days</p>
-                </div>
+        <div class="card footer-card w-100" role="button">
+            <div class="card-body">
+            <div><i class="h4 fa-solid fa-question"></i></div>
+            <p class="mb-2 fw-medium">Recently Added<br>Questions</p>
+            <div class="d-flex  align-items-center justify-content-between">
+                <h4 class="mb-0">{{dashboardCount.recentlyaddedquestion}}</h4>
+                <p class="p-0 m-0 text-end text-small fw-medium">Added in last<br>30 days</p>
+            </div>
             </div>
         </div>
     </div>
     <div class="col-md-2 col-lg-2 p-2 d-flex align-items-stretch">
-        <div class="card-body bg-light un-selected-box d-flex flex-column">
-            <img class="img-icon" src="/uniprep-assets/images/icons/UniprepIcons_Total_Questions_Asked.svg" />
-            <span class="tiny-text text-dark pt-2">Total Questions <br>Answered</span>
-
-            <div class="row pt-2 mb-0 pb-0">
-                <div class="col-6 text-start">
-                    <span style="color: #a5c54e;">{{dashboardCount.totalquestioncount}}</span>
-                </div>
-                <div class="col-6">
-                    <p class="p-0 m-0 text-start" style="color: black; font-size: 0.8rem;">Questions Answered</p>
-                </div>
+        <div class="card footer-card w-100" role="button">
+            <div class="card-body">
+            <div><i class="h4 fa-solid fa-circle-check"></i></div>
+            <p class="mb-2 fw-medium">Total Questions<br>Questions</p>
+            <div class="d-flex  align-items-center justify-content-between">
+                <h4 class="mb-0">{{dashboardCount.totalquestioncount}}</h4>
+                <p class="p-0 m-0 text-end text-small fw-medium">Questions<br>Answered</p>
+            </div>
             </div>
         </div>
     </div>
     <div class="col-md-2 col-lg-2 p-2 d-flex align-items-stretch">
-        <div class="card-body bg-light un-selected-box d-flex flex-column">
-            <img class="img-icon" src="/uniprep-assets/images/icons/Uniprep_Icons_recently_added question.svg" />
-            <span class="tiny-text text-dark pt-2">Most Popular <br>Questions</span>
-
-            <div class="row pt-2 mb-0 pb-0">
-                <div class="col-6 text-start">
-                    <span style="color: #a5c54e;">{{dashboardCount.popularquestioncount}}</span>
-                </div>
-                <div class="col-6">
-                    <p class="p-0 m-0 text-start text-left" style="color: black; font-size: 0.8rem;">Questions Answered</p>
-                </div>
+        <div class="card footer-card w-100" role="button">
+            <div class="card-body">
+            <div><i class="h4 fa-solid fa-circle-question"></i></div>
+            <p class="mb-2 fw-medium">Most Popular <br>Questions</p>
+            <div class="d-flex  align-items-center justify-content-between">
+                <h4 class="mb-0">{{dashboardCount.popularquestioncount}}</h4>
+                <p class="p-0 m-0 text-end text-small fw-medium">Questions<br>Answered</p>
+            </div>
             </div>
         </div>
     </div>
     <div class="col-md-2 col-lg-2 p-2 d-flex align-items-stretch">
-        <div class="card-body bg-light un-selected-box d-flex flex-column">
-            <img class="img-icon" src="/uniprep-assets/images/icons/Uniprep_Icons_Registered_Students_icon.svg" />
-            <span class="tiny-text text-dark pt-2">Number of Registered <br>Students</span>
-
-            <div class="row pt-2 mb-0 pb-0">
-                <div class="col-6 text-start">
-                    <span style="color: #a5c54e;">{{dashboardCount.registereduser}}</span>
-                </div>
-                <div class="col-6">
-                    <p class="p-0 m-0 text-start" style="color: black; font-size: 0.8rem;">Active<br> users</p>
-                </div>
+        <div class="card footer-card w-100" role="button">
+            <div class="card-body">
+            <div><i class="h4 fa-solid fa-graduation-cap"></i></div>
+            <p class="mb-2 fw-medium">Number of Registered <br>Students</p>
+            <div class="d-flex  align-items-center justify-content-between">
+                <h4 class="mb-0">{{dashboardCount.registereduser}}</h4>
+                <p class="p-0 m-0 text-end text-small fw-medium">Active<br>Users</p>
+            </div>
             </div>
         </div>
     </div>
     <div class="col-md-2 col-lg-2 p-2 d-flex align-items-stretch">
-        <div class="card-body bg-light un-selected-box d-flex flex-column shadow">
-            <img class="img-icon" src="/uniprep-assets/images/icons/certificate_granted_Icon.svg" />
-            <span class="tiny-text text-dark pt-2">Certificate <br>Granted</span>
-
-            <div class="row pt-2 mb-0 pb-0">
-                <div class="col-6 text-start">
-                    <span style="color: #a5c54e;">{{dashboardCount.certificate_granted}}</span>
-                </div>
-                <div class="col-6">
-                    <p class="p-0 m-0 text-start" style="color: black; font-size: 0.8rem;">Added in last 30 days</p>
-                </div>
+        <div class="card footer-card w-100" role="button">
+            <div class="card-body">
+            <div><i class="h4 fa-solid fa-user-graduate"></i></div>
+            <p class="mb-2 fw-medium">Certificate <br>Granted</p>
+            <div class="d-flex align-items-center justify-content-between">
+                <h4 class="mb-0">{{dashboardCount.certificate_granted}}</h4>
+                <p class="p-0 m-0 text-end text-small fw-medium">Added in last<br>30 days</p>
+            </div>
             </div>
         </div>
     </div>

@@ -9,6 +9,8 @@
   border-radius: 8px;
   box-shadow: 1px 2px 5px 0 rgba(0, 0, 0, 0.16),
   0 2px 10px 0 rgba(0, 0, 0, 0.12);
+  width:100%;
+  
 }
 .modal-selected-box {
   background: #daeca5;
@@ -49,4 +51,18 @@
 .tiny-text {
   font-size: 0.9rem;
   color: white;
+}
+
+.footer-card
+{
+  border:2px solid #efb875;
+  svg
+  {
+    color:#9bc329;
+  }
+  &:hover
+  {
+    background-color:#daeca5;
+    border:2px solid #9bc329;
+  }
 }

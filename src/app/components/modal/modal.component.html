@@ -1,10 +1,10 @@
-<p-dialog class="bg-light uniprepchat"  [maximizable]="false" [(visible)]="visible" [draggable]="false" [style]="{ width: '50vw' }"
+<p-dialog class="bg-light uniprepchat"  [maximizable]="false" [(visible)]="visible" [draggable]="false" [style]="{ width: '40vw' }"
           header="Header">
     <ng-template pTemplate="header" class="p-0 m-0">
-        <div class="container-fluid py-2">
+        <div class="container-fluid py-2 px-2">
         <div class="d-flex align-items-center justify-content-between">
-            <div class="d-flex">
-                <div class="circle chat-avatar px-1">
+            <div class="d-flex d-flex align-items-center">
+                <div class="circle me-2 chat-avatar px-1">
                     <img class="small-image" src="../../../uniprep-assets/images/uniboard.png"/>
                 </div>
                 <div>
@@ -15,27 +15,29 @@
             <div class="d-flex align-items-center">
                 <div>
                     <h5 (click)="op.toggle($event)" role="button" class="text-white px-4">Report</h5>
-                            <p-overlayPanel #op [style]="{ width: '20vw' }">
+                            <p-overlayPanel class="m-0" #op>
                                 <ng-template pTemplate="content">
-                                    <div class="row d-flex w-100">
-                                        <div class="flex flex-column gap-2">
-                                            <label htmlFor="Issue Type">Issue Type</label>
-                                            <p-dropdown (onChange)="issueTypeOnChange($event)" [options]="issueType"
+                                    <div class="container-fluid px-0">
+                                    <div class="row report d-flex m-0 w-100">
+                                        <div class="flex flex-column gap-2 mb-2">
+                                            <p class="report-label text-left mb-0">Issue Type</p>
+                                            <p-dropdown class="chatreportbox" (onChange)="issueTypeOnChange($event)" [options]="issueType"
                                                         [style]="{'minWidth':'100%'}"
                                                         id="issueType"
                                                         optionLabel="reportoption_name"
                                                         style="width: 100% !important;"
                                             ></p-dropdown>
                                         </div>
-                                        <div class="flex flex-column gap-2">
-                                            <label>Add Command</label>
-                                            <textarea pInputTextarea id="command" [(ngModel)]="comment"></textarea>
+                                        <div class="flex flex-column gap-2 mb-2">
+                                            <p class="report-label text-left mb-0">Add Comment</p>
+                                            <textarea  class="w-100" pInputTextarea id="command" [(ngModel)]="comment"></textarea>
                                         </div>
                                         <div class="col-md-12">
-                                            <button class="btn btn-primary btn-login p-2 m-2" (click)="reportSubmit(op)">
+                                            <button class="btn btn-primary btn-login m-0" (click)="reportSubmit(op)">
                                                 Submit
                                             </button>
                                         </div>
+                                    </div>
                                     </div>
                                 </ng-template>
                             </p-overlayPanel>
@@ -62,7 +64,7 @@
                                             <span class="time">{{v.updated_at | date:"HH:mm"}}</span>
                                         </p>
                                     </li>
-                                    <li class="repaly">
+                                    <li class="reply">
                                         <p>{{v.message}}<br><span
                                                 class="time">{{v.created_at | date:"HH:mm"}}</span>
                                         </p>
@@ -78,7 +80,7 @@
 
     <ng-template pTemplate="footer">
         <form action="" class=" bg-light">
-            <div class="p-inputgroup  bg-light">
+            <div class="p-inputgroup  d-flex align-items-center bg-light">
                 <input
                     #message
                     class="border-0 w-full bg-light"
@@ -86,7 +88,7 @@
                     placeholder="Type your message"
                     type="text"
                 />
-                <div class="">
+                <div class="" role="button">
                     <span>
                       <img (click)="sendMsg(message)" alt="uni_send_icon"
                            class="bg-image text-center" src="../../../uniprep-assets/images/icons/send_icon.svg">

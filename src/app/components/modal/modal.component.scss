@@ -316,10 +316,11 @@ a.add {
 .msg-body {
   ul {
     overflow: hidden;
+    padding: 20px;
 
     li {
       list-style: none;
-      margin: 15px 0;
+      margin: 8px 0;
     }
 
     li.sender {
@@ -328,31 +329,28 @@ a.add {
       position: relative;
       float: right;
 
-      &:before {
-        display: block;
-        clear: both;
-        content: "";
-        position: absolute;
-        top: -6px;
-        left: -7px;
-        width: 0;
-        height: 0;
-        border-style: solid;
-        border-color: $border-color_2;
-        -webkit-transform: rotate(-37deg);
-        -ms-transform: rotate(-37deg);
-        transform: rotate(-37deg);
+      &::before
+      {
+      content: '';
+      display: block;
+      position: absolute;
+      top: 0;
+      left: -0.4rem;
+      width: 1rem;
+      height: 1rem;
+      transform: scaleX(0.8) skew(45deg);
+      background: #fff;
       }
 
       p {
-        color: $color_6;
-        font-size: 14px;
-        line-height: 1.5;
-        font-weight: 400;
-        padding: 15px;
-        background: white;
+        color: #001631;
+        font-size: 1rem;
+        font-weight: 500;
+        padding: 6px 20px;
+        background: #fff;
         display: inline-block;
-        margin-bottom: 0;
+        border-radius: 0px 10px 10px 10px;
+        max-width: 40vh;
 
         b {
           display: block;
@@ -364,39 +362,36 @@ a.add {
       }
     }
 
-    li.repaly {
-      display: block;
+    li.reply {
+      display: flex;
       width: 100%;
+      justify-content: end;
       text-align: right;
       position: relative;
-
-      &:before {
-        display: block;
-        clear: both;
+      &::before
+      {
         content: "";
+        display: block;
         position: absolute;
-        bottom: 15px;
-        right: -7px;
-        width: 0;
-        height: 0;
-        border-style: solid;
-        border-color: $border-color_3;
-        -webkit-transform: rotate(37deg);
-        -ms-transform: rotate(37deg);
-        transform: rotate(37deg);
+        top: 0;
+        width: 1rem;
+        height: 1rem;
+        right: -0.3rem;
+        z-index: 0;
+        left: auto;
+        transform: skew(130deg);
+        background: #daf395;
       }
-
       p {
-        color: $color_6;
+        color: #001631;
         font-size: 14px;
-        line-height: 1.5;
-        font-weight: 400;
-        padding: 15px;
+        font-weight: 500;
+        padding: 6px 20px;
         background: #daf395;
         display: inline-block;
-        border-radius: 3px;
-        margin-bottom: 0;
-
+        border-radius: 10px 0px 10px 10px;
+        position:relative;
+        max-width: 40vh;
         b {
           display: block;
           color: $color_7;
@@ -429,14 +424,14 @@ a.add {
 
 .time {
   display: block;
-  color: $color_6;
+  color: #889A74;
   font-size: 10px;
   line-height: 1.5;
   font-weight: 400;
   float: right;
 }
 
-li.repaly {
+li.reply {
   .time {
     margin-left: 5px;
   }
@@ -718,7 +713,7 @@ button {
         }
       }
 
-      li.repaly {
+      li.reply {
         p {
           font-size: 13px;
           padding: 8px;

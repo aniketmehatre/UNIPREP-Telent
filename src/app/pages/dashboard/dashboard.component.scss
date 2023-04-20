@@ -1,4 +1,4 @@
-@import "../../../uniprep-assets/buttons";
+// @import "../../../uniprep-assets/buttons";
 @import "../../../uniprep-assets/cards";
 
 .card-body-main span {
@@ -76,6 +76,11 @@
 }
 .card {
   border-color: rgba(0, 0, 0, 0.127);
+}
+.homecardbtn
+{
+  width:130px;
+  height:130px;
 }
 .terms_p {
   font-size: small;
@@ -323,16 +328,17 @@ $howManySteps: 100; //this needs to be even.
 .country-text {
   color: #9bc32a;
   font-weight: 600;
-  font-size: 1.2rem;
+  font-size: 1rem;
 }
 .country-text-small {
   color: #001631;
-  font-size: 1rem;
+  font-size: 0.85rem;
   font-weight:500;
 }
 .country-border {
   border: 2px solid #9bc32a;
   border-radius: 5%;
+  background: #f6ffda;
 }
 
 /* This for loop creates the necessary css animation names 

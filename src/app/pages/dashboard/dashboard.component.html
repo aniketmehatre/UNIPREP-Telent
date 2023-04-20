@@ -3,9 +3,10 @@
         <h4 class="mb-0">Dashboard</h4>
     </div>
     <div class="row">
-        <div class="card rounded shadow-sm mt-3">
+        <div class="card rounded mt-3">
             <div class="card-body text-center">
                 <h5>SELECTED COUNTRY</h5>
+                <div class="container-fluid">
                 <div class="row mb-0 justify-content-center">
                     <div class="col" role="button" *ngFor="let v of countryLists">
                         <div class="row justify-content-center {{ selectedCountryId == v.id ? 'country-border pr-4 pl-4' : ''}}"
@@ -19,21 +20,21 @@
         
                     </div>
                 </div>
+                </div>
             </div>
             <div class="row mb-0 justify-content-center text-center">
-                <div class="badge bg-dark text-wrap bottom-text" style="">
-                    You have currently selected United Kingdom. If information about UK is interesting, check other countries as
-                    well.
+                <div class="badge bg-dark text-wrap bottom-text text-capitalize" style="">
+                    You have currently selected {{selectedCountryName}}. If information about {{selectedCountryName}} is interesting, check other countries as well.
                 </div>
             </div>
         </div>
     </div>
     <div class="row align-items-center pt-4 pb-4">
         <div class="col-md-5 col-lg-5 p-4">
-            <h3 class="fw-semibold">WELCOME TO {{selectedCountryName}}</h3>
+            <h3 class="fw-semibold text-uppercase">WELCOME TO {{selectedCountryName}}</h3>
             <h5 class="fw-normal">UNIPREP {{selectedCountryName}} information and content in reviewed and accredited by the following entities.</h5>
         </div>
-        <div class="col-md-7 col-lg-7 p-3 shadow rounded bg-white card-round">
+        <div class="col-md-7 col-lg-7 p-3 rounded bg-white card-round">
             <p-carousel class="text-center" [value]="university" [numVisible]="3" [showIndicators]="false" [numScroll]="1"
                 [responsiveOptions]="responsiveOptions">
                 <ng-template let-uni pTemplate="item">
@@ -44,23 +45,24 @@
     </div>
     <div class="row">
         <div class="col-md-3 col-lg-3 p-3 d-flex">
-            <div class="shadow bg-white rounded p-3 card-round">
+            <div class="w-100 bg-white rounded p-3 card">
                 <div class="row d-flex">
                     <div class="col-md-12 col-lg-12 justify-content-center">
-                        <img class="w-100" src="/uniprep-assets/images/icons/tutorial_link.svg" />
+                        <iframe width="100%" height="100%" src="https://www.youtube.com/embed/f1c4bXesTfk?controls=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
                     </div>
                 </div>
-                <h6>How to use uniprep? (DEMO)</h6>
+                <h5 class="mb-1">How to use uniprep? (DEMO)</h5>
             </div>
         </div>
-        <div class="col-md-3 col-lg-3 p-3 d-flex" (click)="openReading()">
-            <div class="shadow bg-white rounded p-3 card-round">
+        <div class="col-md-3 col-lg-3 p-3 d-flex">
+            <div class="justify-content-center bg-white w-100 rounded p-3 card">
                 <div class="row">
-                    <div class="col-md-6 col-lg-6 d-flex justify-content-center">
-                        <img class="reading-quiz" src="/uniprep-assets/images/icons/start_reading.svg" />
-
+                    <div class="col-md-6 col-lg-6 d-flex">
+                        <button class="btn btn-primary homecardbtn m-0 px-4 py-3" (click)="openReading()">
+                            <i class="fa-regular h3 fa-paste"></i><h5 class="mb-0">Start<br>Reading</h5>
+                        </button>
                     </div>
-                    <div class="col-md-6 col-lg-6">
+                    <div class="col-md-6 col-lg-6  d-flex align-items-center">
                         <div class="progress" [attr.data-percentage]="readProgressionPercentage">
                             <span class="progress-left">
                                 <span class="progress-bar"></span>
@@ -76,18 +78,19 @@
                         </div>
                     </div>
                 </div>
-                <h6>Reading</h6>
-                <div style="text-transform: none">Expand your horizons through reading</div>
+                <h5 class="mb-1">Reading</h5>
+                <p class="mb-0">Expand your horizons through reading</p>
             </div>
         </div>
-        <div class="col-md-3 col-lg-3 p-3 d-flex" (click)="openQuiz()">
-            <div class="shadow bg-white rounded p-3 card-round">
+        <div class="col-md-3 col-lg-3 p-3 d-flex">
+            <div class="w-100 justify-content-center bg-white rounded p-3 card">
                 <div class="row">
-                    <div class="col-md-6 col-lg-6 d-flex justify-content-center">
-                        <img class="reading-quiz" src="/uniprep-assets/images/icons/start_quiz.svg" />
-
+                    <div class="col-md-6 col-lg-6 d-flex">
+                        <button class="btn btn-secondary m-0 px-4 py-3 homecardbtn" (click)="openQuiz()">
+                            <i class="fa-regular h3 fa-lightbulb"></i><h5 class="mb-0">Start<br>Quiz</h5>
+                        </button>
                     </div>
-                    <div class="col-md-6 col-lg-6">
+                    <div class="col-md-6 col-lg-6  d-flex align-items-center">
                         <div class="progress" [attr.data-percentage]="readQuizProgressionPercentage">
                             <span class="progress-left">
                                 <span class="progress-bar"></span>
@@ -103,12 +106,12 @@
                         </div>
                     </div>
                 </div>
-                <h6>Quiz</h6>
-                <div style="text-transform: none">Test your global knowledge</div>
+                <h5 class="mb-1">Quiz</h5>
+                <p class="mb-0">Test your global knowledge</p>
             </div>
         </div>
-        <div class="col-md-3 col-lg-3 p-3 d-flex">
-            <div class="shadow bg-white rounded p-3 card-round">
+        <div class="col-md-3 col-lg-3 p-3 d-flex" role="button" >
+            <div class="bg-white rounded p-3 card">
                 <div class="row">
                     <div class="col-md-7 col-lg-7 d-flex justify-content-center">
                         <img class="reading-quiz" src="/uniprep-assets/images/icons/cert_deactivate.svg" />
@@ -119,8 +122,8 @@
                             src="/uniprep-assets/images/icons/share_button_deactivate.svg" />
                     </div>
                 </div>
-                <h6>Unlock Certificate</h6>
-                <div style="text-transform: none;">Complete the final 10% to unlock the certificate.</div>
+                <h5 class="mb-1">Unlock Certificate</h5>
+                <p class="mb-0">Complete the final 10% to unlock the certificate.</p>
             </div>
         </div>
     </div>
@@ -130,7 +133,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <a (click)="closeReading()" class="close">
+                <a (click)="closeReading()" class="close" role="button">
                     <span aria-hidden="true"><img src="/uniprep-assets/images/icons/close_button.svg" /></span>
                 </a>
             </div>
@@ -190,7 +193,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <a (click)="closeQuiz()" class="close">
+                <a (click)="closeQuiz()" class="close"  role="button">
                     <span aria-hidden="true"><img src="/uniprep-assets/images/icons/close_button.svg" /></span>
                 </a>
             </div>
