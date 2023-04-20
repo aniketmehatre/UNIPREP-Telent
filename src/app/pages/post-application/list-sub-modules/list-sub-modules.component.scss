@@ -1,32 +1,28 @@
-.post-application-text {
-    color: #9bc32a;
-}
-
-.post-application-text-small {
+.application-text-small {
     color: black;
     font-size: 0.8rem;
+    padding-left: 10px;
+    padding-right: 10px;
 }
-
-.post-application-border {
+.application-border {
     border: 2px solid #9bc32a;
     border-radius: 5%;
+    font-size: 0.8rem;
 }
-
-.bottom-text {
-    width: auto;
-    font-size: 1.2rem;
-    font-weight: normal;
+.unselected-border {
+    border: 2px solid #efb875;
+    border-radius: 5px;
+    font-size: 0.8rem;
 }
-.badge {
-    border-radius: 0 0 10% 10% !important;
+.selected-border {
+    background-color: #9bc32a;
+    border: 0;
 }
-
-.small-icon{
-    width: 10%;
-    margin-bottom: 10%;
-}
-.selectimage
-{
+.selectimage {
     aspect-ratio: 1/1;
     width: 200px;
+}
+
+.application-text {
+    font-size: 0.8rem;
 }
