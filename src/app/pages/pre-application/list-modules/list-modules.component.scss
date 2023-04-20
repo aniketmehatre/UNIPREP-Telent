@@ -14,8 +14,15 @@
   border-radius: 5px;
   font-size: 0.8rem;
 }
-.selectimage
-{
+.selected-border {
+  background-color: #9bc32a;
+  border: 0;
+}
+.selectimage {
   aspect-ratio: 1/1;
   width: 200px;
+}
+
+.pre-application-text {
+  font-size: 0.8rem;
 }
