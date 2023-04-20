@@ -596,8 +596,11 @@ button {
   padding: 7px;
   background: #fff;
   border: 3px solid #9bc329;
-  color: $color_10;
+  color: black;
   text-align: center;
+  align-items: center;
+  justify-content: center;
+  display: flex;
 }
 
 .btn-primary {
@@ -729,6 +732,6 @@ button {
 }
 
 .small-image {
-  height: 100%;
+  height: auto;
   width: 100%;
 }
