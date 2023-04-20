@@ -1,5 +1,5 @@
 <ng-container [ngSwitch]="stage">
-    <ng-container *ngSwitchCase="1">
+    <!-- <ng-container *ngSwitchCase="1">
         <div class="card card-body">
             <div class="d-flex justify-content-between">
                 <h3 class="sop-border sop-header">Pricing & Plans For <br> Statement Of Purpose</h3>
@@ -83,7 +83,69 @@
                 </div>
             </div>
         </div>
+    </ng-container> -->
+        
+    <!-- create new one -->
+    <ng-container *ngSwitchCase="1">
+        <div class="card card-body">
+            <div class="d-flex justify-content-between">
+                <h3 class="sop-border sop-header">SUBSCRIPTION</h3>
+                <!-- <span>Fast, Secure</span> -->
+            </div>
+            <!-- <p>UNIABROAD offering most flexible billing solutions to execute efficiency & reliability. Improve your contents value by using this Plagiarism checker. Trusted by millions of people!</p> -->
+            <div class="price-card-list">
+                <div class="price-card basicImg">
+                    <br><br>
+                    <div class="header">
+                        <h4>{{planname[0]}}</h4>
+                        <p>{{ totalcheck[0] }} check</p>
+                    </div>
+
+                    <div class="pricedetails">
+                        <div class="fs"><span class="fs2">INR₹</span>&nbsp;&nbsp;<span class="fs3">{{ planprice[0]}}</span><span class="fs2">.00</span></div>
+                        <div>Per Month</div>
+                        <br><br>
+                        <div>
+                            <button (click)="buynow(planprice[0],planname[0],totalcheck[0],subscriptionid[0])" class="buynow pointer"><span>BUY NOW</span></button>
+                        </div>
+                    </div>
+                </div>
+                <div class="price-card standardImg">
+                    <br><br>
+                    <div class="header">
+                        <h4>{{planname[1]}}</h4>
+                        <p>{{ totalcheck[1] }} check</p>
+                    </div>
+
+                    <div class="pricedetails">
+                        <div class="fs"><span class="fs2">INR₹</span>&nbsp;&nbsp;<span class="fs3">{{planprice[1] }}</span><span class="fs2">.00</span></div>
+                        <div>Per Month</div>
+                        <br><br>
+                        <div>
+                            <button  (click)="buynow(planprice[1],planname[1],totalcheck[1],subscriptionid[1])" class="buynow pointer"><span>BUY NOW</span></button>
+                        </div>
+                    </div>
+                </div>
+                <div class="price-card unlimitedImg">
+                    <br><br>
+                    <div class="header">
+                        <h4>{{planname[2]}}</h4>
+                        <p>{{ totalcheck[2] }} check</p>
+                    </div>
+
+                    <div class="pricedetails">
+                        <div class="fs"><span class="fs2">INR₹</span>&nbsp;&nbsp;<span class="fs3">{{ planprice[2] }}</span><span class="fs2">.00</span></div>
+                        <div>Per Month</div>
+                        <br><br>
+                        <div>
+                            <button  (click)="buynow(planprice[2],planname[2],totalcheck[2],subscriptionid[2])"  class="buynow pointer"><span>BUY NOW</span></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </ng-container>
+
     <ng-container *ngSwitchCase="2">
         <div class="card bg-app text-white radius-top card-body">
             <div class="row">
