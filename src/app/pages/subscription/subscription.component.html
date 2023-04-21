@@ -1,12 +1,12 @@
 <ng-container [ngSwitch]="stage">
     <!-- <ng-container *ngSwitchCase="1">
-        <div class="card card-body">
-            <div class="d-flex justify-content-between">
+        <div class="card card-body"> -->
+            <!-- <div class="d-flex justify-content-between">
                 <h3 class="sop-border sop-header">Pricing & Plans For <br> Statement Of Purpose</h3>
                 <span>Fast, Secure</span>
-            </div>
-            <p>UNIABROAD offering most flexible billing solutions to execute efficiency & reliability. Improve your contents value by using this Plagiarism checker. Trusted by millions of people!</p>
-            <div class="price-card-list">
+            </div> -->
+            <!-- <p>UNIABROAD offering most flexible billing solutions to execute efficiency & reliability. Improve your contents value by using this Plagiarism checker. Trusted by millions of people!</p> -->
+            <!-- <div class="price-card-list">
                 <div class="price-card basicImg">
                     <br><br>
                     <div class="header">
@@ -55,11 +55,11 @@
                         </div>
                     </div>
                 </div>
-            </div>
-            <br>
+            </div> -->
+            <!-- <br>
             <h3 class="sop-border sop-header sop-border-center m-auto fit-content text-center">Here, What Are You Getting!</h3>
-            <br>
-            <div class="row">
+            <br> -->
+            <!-- <div class="row">
                 <div class="col-md-4">
                     <div class="card text-center hover-bg shadow-sm card-body bold">WORD COUNT</div>
                 </div>
@@ -70,8 +70,8 @@
                     <div class="card text-center hover-bg shadow-sm card-body bold">PLAGIARISM CHECKER</div>
                 </div>
             </div>
-            <br>
-            <div class="row">
+            <br> -->
+            <!-- <div class="row">
                 <div class="col-md-4">
                     <div class="card text-center hover-bg shadow-sm card-body bold">SOP SAMPLES</div>
                 </div>
@@ -81,70 +81,55 @@
                 <div class="col-md-4">
                     <div class="card text-center hover-bg shadow-sm card-body bold">SOP CHECK LIMIT</div>
                 </div>
-            </div>
-        </div>
+            </div> -->
+        <!-- </div>
     </ng-container> -->
         
     <!-- create new one -->
-    <ng-container *ngSwitchCase="1">
+    <!-- <ng-container *ngSwitchCase="1"> -->
         <div class="card card-body">
             <div class="d-flex justify-content-between">
-                <h3 class="sop-border sop-header">SUBSCRIPTION</h3>
-                <!-- <span>Fast, Secure</span> -->
+                <h3 class=" sop-header">SUBSCRIPTION</h3>
+                <span><b> Fast, Secure <br>
+                and Affordable</b><br>
+        </span>
             </div>
-            <!-- <p>UNIABROAD offering most flexible billing solutions to execute efficiency & reliability. Improve your contents value by using this Plagiarism checker. Trusted by millions of people!</p> -->
-            <div class="price-card-list">
-                <div class="price-card basicImg">
-                    <br><br>
-                    <div class="header">
-                        <h4>{{planname[0]}}</h4>
-                        <p>{{ totalcheck[0] }} check</p>
-                    </div>
-
-                    <div class="pricedetails">
-                        <div class="fs"><span class="fs2">INR₹</span>&nbsp;&nbsp;<span class="fs3">{{ planprice[0]}}</span><span class="fs2">.00</span></div>
-                        <div>Per Month</div>
-                        <br><br>
-                        <div>
-                            <button (click)="buynow(planprice[0],planname[0],totalcheck[0],subscriptionid[0])" class="buynow pointer"><span>BUY NOW</span></button>
-                        </div>
-                    </div>
+            <div><button class="btn btn-primary mx-2 " alt="chat with notification">BUY QUESTION CREDITS</button></div>
+            <br/>
+            <div class="scards">
+                <div class="scard"  (click)="basicplan()">
+                    <div class="scardTitle"> Save 20%</div>
+                    <h3 class="scardCheck">Basic Plan</h3>
+                    <h6 class="scardCheck">1 month validity</h6>
+                    <div class="scardPrice">INR-<b>1999</b>.00</div> 
+                    <div class="scardPriceCurrent">INR-<b>999</b>.00</div>
+                    <div class="scardDiscount">United Kindom</div>
+                    <div class="scardCheck">Add other Countries at 699 INR</div>
+                    <div class="scardStart">SUBSCRIBE NOW</div>
                 </div>
-                <div class="price-card standardImg">
-                    <br><br>
-                    <div class="header">
-                        <h4>{{planname[1]}}</h4>
-                        <p>{{ totalcheck[1] }} check</p>
-                    </div>
-
-                    <div class="pricedetails">
-                        <div class="fs"><span class="fs2">INR₹</span>&nbsp;&nbsp;<span class="fs3">{{planprice[1] }}</span><span class="fs2">.00</span></div>
-                        <div>Per Month</div>
-                        <br><br>
-                        <div>
-                            <button  (click)="buynow(planprice[1],planname[1],totalcheck[1],subscriptionid[1])" class="buynow pointer"><span>BUY NOW</span></button>
-                        </div>
-                    </div>
+                <div class="scard" (click)="basicplan()">
+                    <div class="scardTitle">Save 30%</div>
+                    <h3 class="scardCheck">Standard Plan</h3>
+                    <h6 class="scardCheck">3 month validity</h6>
+                    <div class="scardPrice">INR-<b>2599</b>.00</div> 
+                    <div class="scardPriceCurrent">INR-<b>1999</b>.00</div>
+                    <div class="scardDiscount">United Kindom</div>
+                    <div class="scardCheck">Add other Countries at 699 INR</div>
+                    <div class="scardStart">SUBSCRIBE NOW</div>
                 </div>
-                <div class="price-card unlimitedImg">
-                    <br><br>
-                    <div class="header">
-                        <h4>{{planname[2]}}</h4>
-                        <p>{{ totalcheck[2] }} check</p>
-                    </div>
-
-                    <div class="pricedetails">
-                        <div class="fs"><span class="fs2">INR₹</span>&nbsp;&nbsp;<span class="fs3">{{ planprice[2] }}</span><span class="fs2">.00</span></div>
-                        <div>Per Month</div>
-                        <br><br>
-                        <div>
-                            <button  (click)="buynow(planprice[2],planname[2],totalcheck[2],subscriptionid[2])"  class="buynow pointer"><span>BUY NOW</span></button>
-                        </div>
-                    </div>
+                <div class="scard" (click)="basicplan()">
+                    <div class="scardTitle">Save 40%</div>
+                    <h3 class="scardCheck">Basic Plan</h3>
+                    <h6 class="scardCheck">1 month validity</h6>
+                    <div class="scardPrice">INR-<b>4199</b>.00</div> 
+                    <div class="scardPriceCurrent">INR-<b>2999</b>.00</div>
+                    <div class="scardDiscount">United Kindom</div>
+                    <div class="scardCheck">Add other Countries at 699 INR</div>
+                    <div class="scardStart">SUBSCRIBE NOW</div>
                 </div>
             </div>
         </div>
-    </ng-container>
+    <!-- </ng-container> -->
 
     <ng-container *ngSwitchCase="2">
         <div class="card bg-app text-white radius-top card-body">

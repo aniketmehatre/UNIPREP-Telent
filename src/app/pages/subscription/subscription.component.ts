@@ -3,6 +3,7 @@ import { AuthService } from "src/app/Auth/auth.service";
 import { SubscriptionService } from "./subscription.service";
 import { WindowRefService } from "./window-ref.service";
 import {MessageService} from "primeng/api";
+import { Router } from "@angular/router";
 
 @Component({
   selector: "uni-subscription",
@@ -25,7 +26,8 @@ export class SubscriptionComponent implements OnInit {
     private subscriptionService: SubscriptionService,
     private toastr: MessageService,
     private winRef: WindowRefService,
-    private authservice: AuthService
+    private authservice: AuthService,
+    private router:Router
   ) {}
   planname: any = [];
   planprice: any = [];
@@ -39,7 +41,7 @@ export class SubscriptionComponent implements OnInit {
   subscribername:any;
   ngOnInit(): void {
     this.subscriptionService.getSubscriptionList().subscribe(
-      (res: any) => {
+      (res: any) => {   
         res.data.forEach((plandata: any) => {
           this.planname.push(plandata?.name);
           this.planprice.push(plandata?.price);
@@ -124,5 +126,9 @@ export class SubscriptionComponent implements OnInit {
     this.selectedplanprice = planprice;
     this.noofchecks = noofcheck;
     this.selectedsubscriptionid = subscriptionid;
+  }
+  basicplan(){
+    console.log("varunnunddooo");
+    this.router.navigate(["/billing"]);
   }
 }
