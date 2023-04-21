@@ -8,6 +8,7 @@
 html,
 body {
   font-family: "Poppins", sans-serif;
+  font-size:14px;
 }
 p {margin-bottom: 1rem;}
 
@@ -16,9 +17,30 @@ h1, h2, h3, h4, h5 {
   font-weight: 600;
   line-height: 1.3;
 }
-.text-small
-{
-  font-size:0.85em;
+
+.h1,h1 {
+  margin-top: 0;
+  font-size: 2.488rem
+}
+
+.h2,h2 {
+  font-size: 2.074rem
+}
+
+.h3,h3 {
+  font-size: 1.728rem
+}
+
+.h4,h4 {
+  font-size: 1.44rem
+}
+
+.h5,h5 {
+  font-size: 1.2rem
+}
+
+.text-small,small {
+  font-size: .833rem
 }
 .fw-light {
   font-weight: 300!important
@@ -65,6 +87,7 @@ h1, h2, h3, h4, h5 {
 .btn-primary
 {
   color: #000 !important;
+  border-radius: 10px !important;
   &:hover
   {
     color: #000 !important;
@@ -76,20 +99,21 @@ h1, h2, h3, h4, h5 {
 }
 .btn-secondary {
   color: #000 !important;
-  background-color: #fda082 !important;
-  border-color: #fda082 !important;
+  background-color: #ffa53c !important;
+  border-color: #ffa53c !important;
+  border-radius: 10px !important;
   &:hover
   {
     color: #000 !important;
-    background-color: #f18d6d !important;
-    border-color: #f18d6d !important;
+    background-color: #f9951e !important;
+    border-color: #f9951e !important;
   }
   &:focus
   {
     color: #000 !important;
-    background-color: #f18d6d !important;
-    border-color: #f18d6d !important;
-    box-shadow: 0 0 0 0.25rem rgb(241 141 109 / 50%);
+    background-color: #f9951e !important;
+    border-color: #f9951e !important;
+    box-shadow: 0 0 0 0.25rem #f9951e80;
   }
 }
 .p-overlaypanel .p-overlaypanel-content {
@@ -180,6 +204,7 @@ h1, h2, h3, h4, h5 {
 .p-dropdown-panel {
   left: 0 !important;
   max-width: 100% !important;
+  top: 0 !important;
 }
 .p-autocomplete-panel .p-autocomplete-items .p-autocomplete-item {
   white-space: inherit;
@@ -732,4 +757,67 @@ h1, h2, h3, h4, h5 {
   {
     color:#fff !important;
   }
+}
+
+@media (max-width: 1399.98px)
+{
+  html,body {
+    font-size:13px;
+  }
+  #sidenav {
+    width: 210px !important;
+  }
+  .footer-card
+  {
+    .fctitle
+    {
+      height:75px;
+    }
+  }
+}
+
+@media (max-width: 1299.98px)
+{
+  html,body {
+    font-size:12px;
+  }
+  #sidenav {
+    width: 200px !important;
+  }
+  .footer-card
+  {
+    .fctitle
+    {
+      height:60px;
+    }
+  }
+}
+
+@media (max-width: 1199.98px)
+{
+  html,body {
+    font-size:12px;
+  }
+  #sidenav {
+    width: 235px;
+  }
+  .footer-card
+  {
+    .fctitle
+    {
+      height:85px;
+    }
+  }
+}
+
+@media (max-width: 991.98px)
+{
+}
+
+@media (max-width: 767.98px)
+{
+}
+
+@media (max-width: 575.98px)
+{
 }

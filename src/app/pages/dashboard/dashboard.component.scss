@@ -35,10 +35,6 @@
   width: 100%;
 }
 
-.modal-dialog {
-  max-width: 30% !important;
-}
-
 .title_p {
   font-size: smaller !important;
   padding: 0.9rem 0.9rem 0rem 0.9rem;
@@ -79,8 +75,11 @@
 }
 .homecardbtn
 {
-  width:130px;
-  height:130px;
+  padding:10px !important;
+  p
+  {
+    font-size: 14px;
+  }
 }
 .terms_p {
   font-size: small;
@@ -94,7 +93,6 @@
   min-height: 500px;
 }
 .modal-body {
-  position: absolute;
   padding: 0 !important;
 }
 .modal-header {
@@ -113,8 +111,7 @@
   position: fixed;
 }
 .modal-content {
-  min-height: 490px;
-  background-color: #dbdbdb !important;
+  background-color: #fff !important;
   overflow: hidden;
   border-color: #9bc329;
 }
@@ -781,4 +778,67 @@ Due to the split circle of progress-left and progress right, we must use the ani
   border-radius: 50%;
   transition: background-color 0.2s, color 0.2s, box-shadow 0.2s;
   margin: 0.5rem;
+}
+
+.continuecard
+{
+  border:2px solid #9bc329 !important;
+  padding:15px;
+  margin-bottom: 15px;
+  background:#daeca5;
+  .progress1
+  {
+    .progress1-value
+    {
+      div
+      {
+        background-color: #9bc329;
+      }
+    }
+  }
+  svg
+  {
+    color:#9bc329;
+  }
+  &:hover
+  {
+    background-color:#c8dd8b !important;
+    border:2px solid #9bc329 !important;
+  }
+    &:focus
+  {
+    background-color:#c8dd8b !important;
+    border:2px solid #9bc329 !important;
+  }
+}
+.continuecardq
+{
+  border:2px solid #efb875 !important;
+  padding:15px;
+  margin-bottom: 15px;
+  background:#FFEFC9;
+  .progress1
+  {
+    .progress1-value
+    {
+      div
+      {
+        background-color: #ffa337;
+      }
+    }
+  }
+  svg
+  {
+    color:#efb875;
+  }
+  &:hover
+  {
+    background-color:#f2deaf !important;
+    border:2px solid #efb875 !important;
+  }
+    &:focus
+  {
+    background-color:#f2deaf !important;
+    border:2px solid #efb875 !important;
+  }
 }

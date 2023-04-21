@@ -58,8 +58,8 @@
             <div class="justify-content-center bg-white w-100 rounded p-3 card">
                 <div class="row">
                     <div class="col-md-6 col-lg-6 d-flex">
-                        <button class="btn btn-primary homecardbtn m-0 px-4 py-3" (click)="openReading()">
-                            <i class="fa-regular h3 fa-paste"></i><h5 class="mb-0">Start<br>Reading</h5>
+                        <button class="btn w-100 btn-primary homecardbtn m-0 px-4 py-3" (click)="openReading()">
+                            <i class="fa-regular h3 fa-paste"></i><p class="mb-0">Start<br>Reading</p>
                         </button>
                     </div>
                     <div class="col-md-6 col-lg-6  d-flex align-items-center">
@@ -86,8 +86,8 @@
             <div class="w-100 justify-content-center bg-white rounded p-3 card">
                 <div class="row">
                     <div class="col-md-6 col-lg-6 d-flex">
-                        <button class="btn btn-secondary m-0 px-4 py-3 homecardbtn" (click)="openQuiz()">
-                            <i class="fa-regular h3 fa-lightbulb"></i><h5 class="mb-0">Start<br>Quiz</h5>
+                        <button class="btn w-100  btn-secondary m-0 px-4 py-3 homecardbtn" (click)="openQuiz()">
+                            <i class="fa-regular h3 fa-lightbulb"></i><p class="mb-0">Start<br>Quiz</p>
                         </button>
                     </div>
                     <div class="col-md-6 col-lg-6  d-flex align-items-center">
@@ -130,8 +130,8 @@
 </div>
 
 <div class="modal modal-bg" tabindex="-1" role="dialog" [ngStyle]="{ display: continueReading }">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
+    <div class="modal-dialog  modal-dialog-scrollable modal-dialog-centered" role="document">
+        <div class="modal-content card bg-light">
             <div class="modal-header">
                 <a (click)="closeReading()" class="close" role="button">
                     <span aria-hidden="true"><img src="/uniprep-assets/images/icons/close_button.svg" /></span>
@@ -139,43 +139,41 @@
             </div>
 
             <div class="modal-body">
-                <div class="row">
-                    <div class="card _terms">
-                        <div class="card-body mt-2">
-                            <h4 class="card-title">CONTINUE READING</h4>
-                            <div class="row pt-0 pb-0 mt-0 mb-0">
-                                <div class="col-md-6 col-lg-6 p-2" *ngFor="let readPro of readingProgressings">
-                                    <div class="modal-selected-box d-flex flex-column">
-                                        <p>{{readPro.module_name}}</p>
-                                        <div class="row pt-0 pb-0 mt-0 mb-0">
-                                            <div class="col-md-6 col-lg-6">
-                                                <div class="progress1" [attr.data-percentage]="readPro.progression">
+            <div class="container">
+                <div class="row mb-0">
+                        <div class="col-md-12">
+                            <h3 class="mb-3">Continue Reading</h3>
+                            <div class="row d-flex">
+                                <div class="col-md-6" *ngFor="let readPro of readingProgressings">
+                                    <div class="card continuecard" >
+                                        <div class="modal-selected-box d-flex flex-column">
+                                            <h5>{{readPro.module_name}}</h5>
+                                            <div class="d-flex justify-content-between">
+                                                <div>
+                                                    <div class="progress1" [attr.data-percentage]="readPro.progression">
                                                     <span class="progress1-left">
                                                         <span class="progress1-bar"></span>
                                                     </span>
                                                     <span class="progress1-right">
                                                         <span class="progress1-bar"></span>
                                                     </span>
-                                                    <div class="progress1-value">
-                                                        <div>
-                                                            {{readPro.progression}}%<br>
+                                                        <div class="progress1-value">
+                                                            <div>
+                                                                {{readPro.progression}}%<br>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                            <div class="col-md-6 col-lg-6 d-flex justify-content-center
-                                            align-items-center text-sm text-center">
-                                                <div class="row pt-0 pb-0 mt-0 mb-0">
-                                                    <div *ngIf="readPro.progression_status == 'Pending'">
+                                                <div class="d-flex align-items-center justify-content-center">
+                                                    <p class="text-center mb-0" *ngIf="readPro.progression_status == 'Pending'">
                                                         {{readPro.progression_status}}
-                                                        <button class="btn btn-dark btn-sm text-xs w-100 readnow">
+                                                        <button class="btn btn-dark">
                                                             Read Now
                                                         </button>
-
-                                                    </div>
-                                                    <div *ngIf="readPro.progression_status == 'Complete'">
+                                                    </p>
+                                                    <p class="text-center mb-0" *ngIf="readPro.progression_status == 'Complete'">
                                                         {{readPro.progression_status}}
-                                                    </div>
+                                                    </p>
                                                 </div>
                                             </div>
                                         </div>
@@ -183,57 +181,58 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
+</div>
+
 <div class="modal modal-bg" tabindex="-1" role="dialog" [ngStyle]="{ display: continueQuiz }">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
+    <div class="modal-dialog  modal-dialog-scrollable modal-dialog-centered" role="document">
+        <div class="modal-content card bg-light">
             <div class="modal-header">
-                <a (click)="closeQuiz()" class="close"  role="button">
+                <a (click)="closeQuiz()" class="close" role="button">
                     <span aria-hidden="true"><img src="/uniprep-assets/images/icons/close_button.svg" /></span>
                 </a>
             </div>
+
             <div class="modal-body">
-                <div class="row">
-                    <div class="card _terms">
-                        <div class="card-body mt-2">
-                            <h4 class="card-title">CONTINUE QUIZ</h4>
-                            <div class="row pt-0 pb-0 mt-0 mb-0">
-                                <div class="col-md-6 col-lg-6 p-2" *ngFor="let quiz of quizProgressings">
-                                    <div class="modal-selected-box-quiz d-flex flex-column">
-                                        <p>{{quiz.module_name}}</p>
-                                        <div class="row pt-0 pb-0 mt-0 mb-0">
-                                            <div class="col-md-6 col-lg-6">
-                                                <div class="progress2" [attr.data-percentage]="quiz.progression">
-                                                    <span class="progress2-left">
-                                                        <span class="progress2-bar"></span>
+            <div class="container">
+                <div class="row mb-0">
+                        <div class="col-md-12">
+                            <h3 class="mb-3">Continue Quiz</h3>
+                            <div class="row d-flex">
+                                <div class="col-md-6" *ngFor="let quiz of quizProgressings">
+                                    <div class="card continuecardq" >
+                                        <div class="modal-selected-box d-flex flex-column">
+                                            <h5>{{quiz.module_name}}</h5>
+                                            <div class="d-flex justify-content-between">
+                                                <div>
+                                                    <div class="progress1" [attr.data-percentage]="quiz.progression">
+                                                    <span class="progress1-left">
+                                                        <span class="progress1-bar"></span>
                                                     </span>
-                                                    <span class="progress2-right">
-                                                        <span class="progress2-bar"></span>
+                                                    <span class="progress1-right">
+                                                        <span class="progress1-bar"></span>
                                                     </span>
-                                                    <div class="progress2-value">
-                                                        <div>
-                                                            {{quiz.progression}}%<br>
+                                                        <div class="progress1-value">
+                                                            <div>
+                                                                {{quiz.progression}}%<br>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                            <div class="col-md-6 col-lg-6 d-flex justify-content-center
-                                            align-items-center text-sm text-center">
-                                                <div class="row pt-0 pb-0 mt-0 mb-0">
-                                                    <div *ngIf="quiz.progression_status == 'Pending'">
+                                                <div class="d-flex align-items-center justify-content-center">
+                                                    <p class="text-center mb-0" *ngIf="quiz.progression_status == 'Pending'">
                                                         {{quiz.progression_status}}
-                                                        <button class="btn btn-dark btn-sm rounded-0 text-sm w-100 readnow">
+                                                        <button class="btn btn-dark">
                                                             Read Now
                                                         </button>
-                                                    </div>
-                                                    <div *ngIf="quiz.progression_status == 'Complete'">
+                                                    </p>
+                                                    <p class="text-center mb-0" *ngIf="quiz.progression_status == 'Complete'">
                                                         {{quiz.progression_status}}
-                                                    </div>
+                                                    </p>
                                                 </div>
                                             </div>
                                         </div>
@@ -241,9 +240,9 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
                 </div>
             </div>
         </div>
     </div>
+</div>
 </div>

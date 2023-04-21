@@ -1,6 +1,8 @@
 @import "../../../uniprep-assets/buttons";
-.login {
-  min-height: 100vh;
+.loginbox {
+  top: 50%;
+  position: relative;
+  transform: translateY(-50%);
 }
 .container-fluid{
   padding-right: 0 !important;
