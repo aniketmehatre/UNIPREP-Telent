@@ -1,54 +1,53 @@
-<p-dialog class="bg-light" [maximizable]="false" [(visible)]="visible" [draggable]="false" [style]="{ width: '50vw' }"
+<p-dialog class="bg-light uniprepchat"  [maximizable]="false" [(visible)]="visible" [draggable]="false" [style]="{ width: '40vw' }"
           header="Header">
-    <ng-template pTemplate="header" class="p-0 m-0">
-        <div class="row justify-content-center align-items-center d-flex w-100 mb-1 mt-1">
-            <div class="col-md-5">
-                <div class="row justify-content-center align-items-center mb-0 mt-0">
-                    <div class="col-md-2 text-center">
-                        <div class="circle">
-                           <img class="small-image" src="../../../uniprep-assets/images/uniboard.png"/>
-                        </div>
-                    </div>
-                    <div class="col-md-10 text-white">
-                        <p><strong>UNIPREP</strong></p>
-                        <span>Live Chat</span>
-                    </div>
+    <ng-template pTemplate="header" class="p-0 m-0 chatbg">
+        <div class="container-fluid py-2 px-2">
+        <div class="d-flex align-items-center justify-content-between">
+            <div class="d-flex d-flex align-items-center">
+                <div class="circle me-2 chat-avatar px-1">
+                    <img class="small-image" src="../../../uniprep-assets/images/uniboard.png"/>
+                </div>
+                <div>
+                    <h5 class="text-white">UNIPREP</h5>
+                    <p class="text-white">Live Chat</p>
                 </div>
             </div>
-            <div class="col-md-2">
-                <!--                <p class="text-white" (click)="reportAction()">Report</p>   -->
-                <p-overlayPanel #op [style]="{ width: '20vw' }">
-                    <ng-template pTemplate="content">
-                        <div class="row d-flex w-100">
-                            <div class="flex flex-column gap-2">
-                                <label htmlFor="Issue Type">Issue Type</label>
-                                <p-dropdown (onChange)="issueTypeOnChange($event)" [options]="issueType"
-                                            [style]="{'minWidth':'100%'}"
-                                            id="issueType"
-                                            optionLabel="reportoption_name"
-                                            style="width: 100% !important;"
-                                ></p-dropdown>
-                            </div>
-                            <div class="flex flex-column gap-2">
-                                <label>Add Command</label>
-                                <textarea pInputTextarea id="command" [(ngModel)]="comment"></textarea>
-                            </div>
-                            <div class="col-md-12">
-                                <button class="btn btn-primary btn-login p-2 m-2" (click)="reportSubmit(op)">
-                                    Submit
-                                </button>
-                            </div>
-                        </div>
-                    </ng-template>
-                </p-overlayPanel>
-                <p (click)="op.toggle($event)" class="text-white">Report</p>
+            <div class="d-flex align-items-center">
+                <div>
+                    <h5 (click)="op.toggle($event)" role="button" class="text-white px-4">Report</h5>
+                            <p-overlayPanel class="m-0" #op>
+                                <ng-template pTemplate="content">
+                                    <div class="container-fluid px-0">
+                                    <div class="row report d-flex m-0 w-100">
+                                        <div class="flex flex-column gap-2 mb-2">
+                                            <p class="report-label text-left mb-0">Issue Type</p>
+                                            <p-dropdown class="chatreportbox" (onChange)="issueTypeOnChange($event)" [options]="issueType"
+                                                        [style]="{'minWidth':'100%'}"
+                                                        id="issueType"
+                                                        optionLabel="reportoption_name"
+                                                        style="width: 100% !important;"
+                                            ></p-dropdown>
+                                        </div>
+                                        <div class="flex flex-column gap-2 mb-2">
+                                            <p class="report-label text-left mb-0">Add Comment</p>
+                                            <textarea  class="w-100" pInputTextarea id="command" [(ngModel)]="comment"></textarea>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <button class="btn btn-primary btn-login m-0" (click)="reportSubmit(op)">
+                                                Submit
+                                            </button>
+                                        </div>
+                                    </div>
+                                    </div>
+                                </ng-template>
+                            </p-overlayPanel>
+                </div>
+                <div class="d-flex align-items-center">
+                    <h5 class="text-white px-2 fw-normal">Question credits</h5>
+                    <div class="circle fw-semibold text-green">{{this.questionLeft + ''}}/3</div>
+                </div>
             </div>
-            <div class="col-md-3">
-                <p class="text-white">Question credits</p>
-            </div>
-            <div class="col-md-2">
-                <div class="circle">{{this.questionLeft + ''}}/3</div>
-            </div>
+        </div>
         </div>
     </ng-template>
     <div class="chat-area">
@@ -65,7 +64,7 @@
                                             <span class="time">{{v.updated_at | date:"HH:mm"}}</span>
                                         </p>
                                     </li>
-                                    <li class="repaly">
+                                    <li class="reply">
                                         <p>{{v.message}}<br><span
                                                 class="time">{{v.created_at | date:"HH:mm"}}</span>
                                         </p>
@@ -81,7 +80,7 @@
 
     <ng-template pTemplate="footer">
         <form action="" class=" bg-light">
-            <div class="p-inputgroup  bg-light">
+            <div class="p-inputgroup  d-flex align-items-center bg-light">
                 <input
                     #message
                     class="border-0 w-full bg-light"
@@ -89,7 +88,7 @@
                     placeholder="Type your message"
                     type="text"
                 />
-                <div class="">
+                <div class="" role="button">
                     <span>
                       <img (click)="sendMsg(message)" alt="uni_send_icon"
                            class="bg-image text-center" src="../../../uniprep-assets/images/icons/send_icon.svg">

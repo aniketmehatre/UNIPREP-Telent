@@ -1,5 +1,5 @@
-@import "../../../uniprep-assets/buttons";
-@import "../../../uniprep-assets/cards";
+// @import "../../../uniprep-assets/buttons";
+// @import "../../../uniprep-assets/cards";
 
 .card-body-main span {
   margin: 0.4rem 0 0 0 !important;
@@ -33,10 +33,6 @@
 .share-button-deactivate {
   height: 100%;
   width: 100%;
-}
-
-.modal-dialog {
-  max-width: 30% !important;
 }
 
 .title_p {
@@ -77,6 +73,28 @@
 .card {
   border-color: rgba(0, 0, 0, 0.127);
 }
+.homecardbtn
+{
+  padding:10px !important;
+  color:#fff !important;
+  p
+  {
+    font-size: 14px;
+  }
+  .certificatelocked
+  {
+    color:#3b3b3b;
+  }
+}
+.certificatelock
+{
+  background-image: url(../../../uniprep-assets/images/uniprepcertificate.webp);
+  background-size: cover;
+  background-repeat: no-repeat;
+  filter: grayscale(1);
+  background-position: center;
+  border: 1px solid #343a40;
+}
 .terms_p {
   font-size: small;
   color: white;
@@ -89,7 +107,6 @@
   min-height: 500px;
 }
 .modal-body {
-  position: absolute;
   padding: 0 !important;
 }
 .modal-header {
@@ -108,8 +125,7 @@
   position: fixed;
 }
 .modal-content {
-  min-height: 490px;
-  background-color: #dbdbdb !important;
+  background-color: #fff !important;
   overflow: hidden;
   border-color: #9bc329;
 }
@@ -318,21 +334,28 @@ $howManySteps: 100; //this needs to be even.
       text-transform: uppercase;
     }
   }
+  .quizcircle
+  {
+    div {
+    background-color: #ffa337;
+    }
+  }
 }
 
 .country-text {
   color: #9bc32a;
   font-weight: 600;
-  font-size: 1.2rem;
+  font-size: 1rem;
 }
 .country-text-small {
   color: #001631;
-  font-size: 1rem;
+  font-size: 0.85rem;
   font-weight:500;
 }
 .country-border {
   border: 2px solid #9bc32a;
   border-radius: 5%;
+  background: #f6ffda;
 }
 
 /* This for loop creates the necessary css animation names 
@@ -775,4 +798,67 @@ Due to the split circle of progress-left and progress right, we must use the ani
   border-radius: 50%;
   transition: background-color 0.2s, color 0.2s, box-shadow 0.2s;
   margin: 0.5rem;
+}
+
+.continuecard
+{
+  border:2px solid #9bc329 !important;
+  padding:15px;
+  margin-bottom: 15px;
+  background:#daeca5;
+  .progress1
+  {
+    .progress1-value
+    {
+      div
+      {
+        background-color: #9bc329;
+      }
+    }
+  }
+  svg
+  {
+    color:#9bc329;
+  }
+  &:hover
+  {
+    background-color:#c8dd8b !important;
+    border:2px solid #9bc329 !important;
+  }
+    &:focus
+  {
+    background-color:#c8dd8b !important;
+    border:2px solid #9bc329 !important;
+  }
+}
+.continuecardq
+{
+  border:2px solid #efb875 !important;
+  padding:15px;
+  margin-bottom: 15px;
+  background:#FFEFC9;
+  .progress1
+  {
+    .progress1-value
+    {
+      div
+      {
+        background-color: #ffa337;
+      }
+    }
+  }
+  svg
+  {
+    color:#efb875;
+  }
+  &:hover
+  {
+    background-color:#f2deaf !important;
+    border:2px solid #efb875 !important;
+  }
+    &:focus
+  {
+    background-color:#f2deaf !important;
+    border:2px solid #efb875 !important;
+  }
 }

@@ -52,7 +52,7 @@
 <div class="footer"></div>
 <!--<uni-side-menu [menus]="menus"></uni-side-menu>-->
 <ul id="menu-items">
-  <li class="px-3"><p class="fw-semibold">Main Menu</p></li>
+  <li class="px-3"><p class="fw-semibold text-small">Main Menu</p></li>
   <li [ngClass]="{'menu-item': true, 'active': item.active, 'overlap': isOverlap}" *ngFor="let item of menus">
     <ng-container *ngIf="item.header; else menu">
       <div class="system-main__apps header">

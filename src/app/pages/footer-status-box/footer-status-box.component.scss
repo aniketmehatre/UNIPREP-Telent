@@ -9,6 +9,8 @@
   border-radius: 8px;
   box-shadow: 1px 2px 5px 0 rgba(0, 0, 0, 0.16),
   0 2px 10px 0 rgba(0, 0, 0, 0.12);
+  width:100%;
+  
 }
 .modal-selected-box {
   background: #daeca5;
@@ -49,4 +51,83 @@
 .tiny-text {
   font-size: 0.9rem;
   color: white;
+}
+
+.footer-card
+{
+  border:2px solid #efb875;
+  .fctitle
+    {
+      height:50px !important;
+    }
+  svg
+  {
+    color:#9bc329;
+  }
+  &:hover
+  {
+    background-color:#daeca5;
+    border:2px solid #9bc329;
+  }
+    &:focus
+  {
+    background-color:#daeca5;
+    border:2px solid #9bc329;
+  }
+}
+
+@media (max-width: 1499.98px)
+{
+  .footer-card
+  {
+    .fctitle
+    {
+      height:70px !important;
+    }
+  }
+}
+
+@media (max-width: 1399.98px)
+{
+  .footer-card
+  {
+    .fctitle
+    {
+      height:60px !important;
+    }
+  }
+}
+
+@media (max-width: 1299.98px)
+{
+  .footer-card
+  {
+    .fctitle
+    {
+      height:60px !important;
+    }
+  }
+}
+
+@media (max-width: 1199.98px)
+{
+  .footer-card
+  {
+    .fctitle
+    {
+      height:85px !important;
+    }
+  }
+}
+
+@media (max-width: 991.98px)
+{
+}
+
+@media (max-width: 767.98px)
+{
+}
+
+@media (max-width: 575.98px)
+{
 }

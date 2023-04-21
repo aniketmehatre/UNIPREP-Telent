@@ -3,7 +3,18 @@ nav {
   display: flex;
   justify-content: space-between;
   padding: 10px;
-
+  .btn-primary
+  {
+    padding: 10px;
+    font-size: 1rem;
+    color:#000;
+  }
+  .btn-secondary
+  {
+    padding: 10px;
+    font-size: 1rem;
+    color:#000;
+  }
   .p-breadcrumb {
     padding: 0px;
     display: inline-block;
@@ -47,7 +58,6 @@ nav {
 
 .count-down {
   border-radius: 20%;
-  padding: 8px;
   color: black;
   font-weight: bold;
 }
@@ -115,8 +125,6 @@ form {
 }
 
 .custom-style {
-  font-size: 18px;
-
   .item {
     padding-left: 4px;
     padding: 5px;
@@ -138,7 +146,6 @@ form {
     }
   }
 }
-
 .p-avatar {
   display: inline-flex;
   align-items: center;
@@ -150,9 +157,8 @@ form {
   border-radius: 10px !important;
 
 }
-
 .dropbtn {
-  color: white;
+  color: #9bc326 !important;
   padding: 16px;
   font-size: 16px;
   border: none;
