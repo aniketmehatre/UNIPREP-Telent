@@ -1,9 +1,22 @@
 <nav>
-    <div class="left-panel">
+    <div class="left-panel d-flex align-items-center">
+        <div class="d-flex me-3">
+            <label class="me-2">
+                <i class="fa-solid fa-sun"></i>
+            </label>
+            <div class="form-check form-switch">
+                <input type="checkbox" role="switch" id="darkmodeswitch" class="form-check-input">
+            </div>
+            <label class="ms-1">
+                    <i class="fa-solid fa-moon"></i>
+            </label>
+        </div>
     </div>
     <div class="right-panel">
-        <span class="subscribe_button" role="button"><strong>TIME LEFT</strong>
-            <img alt="chat with notification" class="subscribe_button" src="/uniprep-assets/images/icons/timer_clock.svg" width="50px"/>
+        <span class="subscribe_button d-flex align-items-center justify-content-center" role="button">
+            <h5 class="mb-0">Time Left</h5>
+            <!-- <img src="../../../../uniprep-assets/icons/hourglass.svg"> -->
+            <i class="px-3 fa-solid fa-hourglass-end h3 mb-0"></i>
             <countdown (event)="handleEvent($event)" *ngIf="config" [config]="config" class="custom-style"></countdown>
         </span>
         <button class="btn btn-primary mx-2" alt="chat with notification">Subscribe Now</button>
@@ -67,14 +80,15 @@
             </ng-template>
         </p-overlayPanel>
         <!--        <p-button (click)="op.toggle($event)" icon="pi pi-image" label="Show"></p-button>-->
-        <p-avatar (click)="togleSidebar.emit()" class="" label="" role="button">
+        <!-- <p-avatar (click)="togleSidebar.emit()" class="" label="" role="button">
             <i class="fa-solid fa-coins"></i>
-        </p-avatar>
+        </p-avatar> -->
         <p-avatar (click)="togleSidebar.emit()" (click)="openModal($event)" class="" label="" role="button">
             <i class="fa-solid fa-comments"></i>
         </p-avatar>
         <p-avatar (click)="togleSidebar.emit()" class="" label="" role="button">
-            <i class="fa-solid fa-bell"></i></p-avatar>
+            <i class="fa-solid fa-bell"></i>
+        </p-avatar>
         <p-avatar (click)="togleSidebar.emit()" label="{{firstChar}}"></p-avatar>
         <span>{{userName}}</span>
         <div class="dropdown">

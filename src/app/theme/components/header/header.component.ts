@@ -38,6 +38,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     firstChar: any;
     moduleList: any [] = [];
     reportOptionList: any [] = [];
+    darkModeSwitch!: HTMLInputElement;
 
     constructor(
         private modalService: ModalService, private router: Router, private locationService: LocationService,
@@ -77,7 +78,42 @@ export class HeaderComponent implements OnInit, OnDestroy {
             this.userName = data.userdetails[0].name.toString();
             this.firstChar = this.userName.charAt(0);
         });
+
+        this.darkModeSwitch = document.getElementById('darkmodeswitch') as HTMLInputElement;
+  
+    // Read the theme and checked state from the cookie and apply them to the body class and the switch
+    const theme = this.getCookie('theme');
+    if (theme === 'dark') {
+      document.body.classList.add('darkmode');
+      this.darkModeSwitch.checked = true;
+    } else {
+      document.body.classList.add('lightmode');
+      this.darkModeSwitch.checked = false;
     }
+  
+    const checked = this.getCookie('checked');
+    if (checked === 'true') {
+      this.darkModeSwitch.checked = true;
+    } else if (checked === 'false') {
+      this.darkModeSwitch.checked = false;
+    }
+  
+    // Add event listener to toggle the theme and save it in a cookie
+    this.darkModeSwitch.addEventListener('change', () => {
+      if (this.darkModeSwitch.checked) {
+        document.body.classList.remove('lightmode');
+        document.body.classList.add('darkmode');
+        this.setCookie('theme', 'dark');
+        this.setCookie('checked', 'true');
+      } else {
+        document.body.classList.remove('darkmode');
+        document.body.classList.add('lightmode');
+        this.setCookie('theme', 'light');
+        this.setCookie('checked', 'false');
+      }
+    });
+    }
+
 
     ngOnDestroy() {
         this.subs.unsubscribe();
@@ -132,4 +168,16 @@ export class HeaderComponent implements OnInit, OnDestroy {
     onChangeIssueTypeList(event: any){
 
     }
+
+    private setCookie(name: string, value: string, days: number = 365) {
+        const date = new Date();
+        date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+        const expires = `expires=${date.toUTCString()}`;
+        document.cookie = `${name}=${value};${expires};path=/`;
+      }
+    
+      private getCookie(name: string) {
+        const cookieValue = document.cookie.match(`(^|;)\\s*${name}\\s*=\\s*([^;]+)`);
+        return cookieValue ? cookieValue.pop() : '';
+      }
 }

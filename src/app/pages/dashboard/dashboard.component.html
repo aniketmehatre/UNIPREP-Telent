@@ -34,7 +34,7 @@
             <h3 class="fw-semibold text-uppercase">WELCOME TO {{selectedCountryName}}</h3>
             <h5 class="fw-normal">UNIPREP {{selectedCountryName}} information and content in reviewed and accredited by the following entities.</h5>
         </div>
-        <div class="col-md-7 col-lg-7 p-3 rounded bg-white card-round">
+        <div class="col-md-7 col-lg-7 p-3 rounded bg-white card">
             <p-carousel class="text-center" [value]="university" [numVisible]="3" [showIndicators]="false" [numScroll]="1"
                 [responsiveOptions]="responsiveOptions">
                 <ng-template let-uni pTemplate="item">
@@ -56,7 +56,7 @@
         </div>
         <div class="col-md-3 col-lg-3 p-3 d-flex">
             <div class="justify-content-center bg-white w-100 rounded p-3 card">
-                <div class="row">
+                <div class="row mb-3">
                     <div class="col-md-6 col-lg-6 d-flex">
                         <button class="btn w-100 btn-primary homecardbtn m-0 px-4 py-3" (click)="openReading()">
                             <i class="fa-regular h3 fa-paste"></i><p class="mb-0">Start<br>Reading</p>
@@ -84,7 +84,7 @@
         </div>
         <div class="col-md-3 col-lg-3 p-3 d-flex">
             <div class="w-100 justify-content-center bg-white rounded p-3 card">
-                <div class="row">
+                <div class="row mb-3">
                     <div class="col-md-6 col-lg-6 d-flex">
                         <button class="btn w-100  btn-secondary m-0 px-4 py-3 homecardbtn" (click)="openQuiz()">
                             <i class="fa-regular h3 fa-lightbulb"></i><p class="mb-0">Start<br>Quiz</p>
@@ -112,7 +112,7 @@
         </div>
         <div class="col-md-3 col-lg-3 p-3 d-flex" >
             <div class="w-100 justify-content-center bg-white rounded p-3 card">
-                <div class="row">
+                <div class="row mb-3">
                     <div class="col-md-6 col-lg-6 d-flex">
                         <button class="btn w-100 btn-secondary m-0 px-4 py-3 homecardbtn certificatelock" (click)="openQuiz()">
                             <p>&nbsp;</p>

@@ -249,10 +249,21 @@ h1, h2, h3, h4, h5 {
     margin-left: 5px;
   }
 }
-
+.form-switch .form-check-input:focus {
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3e%3ccircle r='3' fill='%239bc329'/%3e%3c/svg%3e") !important;
+}
+.form-check-input:focus {
+  border-color: #9bc329 !important;
+  outline: 0;
+  box-shadow: 0 0 0 0.25rem #9bc32952 !important;
+}
 
 .darkmode
 {
+  h1,h2,h3,h4,h5,p
+  {
+    color:#fff
+  }
   ::-webkit-scrollbar-track {
     -webkit-box-shadow: none !important;
     border-radius: 10px !important;
@@ -288,6 +299,14 @@ h1, h2, h3, h4, h5 {
     border-color: #9bc329 !important;
     outline: 0;
     box-shadow: 0 0 0 0.25rem #9bc32952 !important;
+  }
+  .custom-style .item
+  {
+    color:#fff;
+  }
+  .country-text-small
+  {
+    color:#fff !important;
   }
   .p-dialog 
   {
@@ -540,7 +559,11 @@ h1, h2, h3, h4, h5 {
   {
     background-color:#0e1013;
     color:#fff;
-      
+    .p-avatar {
+      color: #fff;
+      background-color: #2e3134;
+      border: 2px solid #5f6368;
+    }
     .nme {
       color: #ffffff;
       background-color: #2e3134;
@@ -593,7 +616,7 @@ h1, h2, h3, h4, h5 {
   .card
   {
     background-color: #202124 !important;
-    border:2px solid #17181b !important;
+    border:1px solid #17181b !important;
     color: #fff;
     .help-shadow
     {
@@ -670,7 +693,7 @@ h1, h2, h3, h4, h5 {
     }
     &:hover
     {
-      border:2px solid #17181b !important;
+      border:1px solid #17181b !important;
     }
     .bg-body
     {
