@@ -76,10 +76,24 @@
 .homecardbtn
 {
   padding:10px !important;
+  color:#fff !important;
   p
   {
     font-size: 14px;
   }
+  .certificatelocked
+  {
+    color:#3b3b3b;
+  }
+}
+.certificatelock
+{
+  background-image: url(../../../uniprep-assets/images/uniprepcertificate.webp);
+  background-size: cover;
+  background-repeat: no-repeat;
+  filter: grayscale(1);
+  background-position: center;
+  border: 1px solid #343a40;
 }
 .terms_p {
   font-size: small;
@@ -318,6 +332,12 @@ $howManySteps: 100; //this needs to be even.
       font-size: 12px;
       padding: 20px;
       text-transform: uppercase;
+    }
+  }
+  .quizcircle
+  {
+    div {
+    background-color: #ffa337;
     }
   }
 }

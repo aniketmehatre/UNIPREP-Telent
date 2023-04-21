@@ -98,7 +98,7 @@
                             <span class="progress-right">
                                 <span class="progress-bar"></span>
                             </span>
-                            <div class="progress-value">
+                            <div class="progress-value quizcircle">
                                 <div>
                                     {{readQuizProgressionPercentage}}%<br>
                                 </div>
@@ -110,16 +110,18 @@
                 <p class="mb-0">Test your global knowledge</p>
             </div>
         </div>
-        <div class="col-md-3 col-lg-3 p-3 d-flex" role="button" >
-            <div class="bg-white rounded p-3 card">
+        <div class="col-md-3 col-lg-3 p-3 d-flex" >
+            <div class="w-100 justify-content-center bg-white rounded p-3 card">
                 <div class="row">
-                    <div class="col-md-7 col-lg-7 d-flex justify-content-center">
-                        <img class="reading-quiz" src="/uniprep-assets/images/icons/cert_deactivate.svg" />
+                    <div class="col-md-6 col-lg-6 d-flex">
+                        <button class="btn w-100 btn-secondary m-0 px-4 py-3 homecardbtn certificatelock" (click)="openQuiz()">
+                            <p>&nbsp;</p>
+                            <i class="fa-solid h2 fa-unlock-keyhole certificatelocked"></i>
+                            <p>&nbsp;</p>
+                        </button>
                     </div>
-                    <div class="col-md-5 col-lg-5 text-center">
-                        <br>
-                        <img class="share-button-deactivate p-0 m-0"
-                            src="/uniprep-assets/images/icons/share_button_deactivate.svg" />
+                    <div class="col-md-6 col-lg-6 text-center d-flex justify-content-end align-items-center">
+                        <div><button class="btn btn-primary btn-lg homecardbtn" disabled>Share <i class="fa-solid fa-share-nodes"></i></button></div>
                     </div>
                 </div>
                 <h5 class="mb-1">Unlock Certificate</h5>

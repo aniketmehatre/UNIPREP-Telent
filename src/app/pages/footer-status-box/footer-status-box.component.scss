@@ -56,6 +56,10 @@
 .footer-card
 {
   border:2px solid #efb875;
+  .fctitle
+    {
+      height:50px !important;
+    }
   svg
   {
     color:#9bc329;
@@ -70,4 +74,60 @@
     background-color:#daeca5;
     border:2px solid #9bc329;
   }
+}
+
+@media (max-width: 1499.98px)
+{
+  .footer-card
+  {
+    .fctitle
+    {
+      height:70px !important;
+    }
+  }
+}
+
+@media (max-width: 1399.98px)
+{
+  .footer-card
+  {
+    .fctitle
+    {
+      height:60px !important;
+    }
+  }
+}
+
+@media (max-width: 1299.98px)
+{
+  .footer-card
+  {
+    .fctitle
+    {
+      height:60px !important;
+    }
+  }
+}
+
+@media (max-width: 1199.98px)
+{
+  .footer-card
+  {
+    .fctitle
+    {
+      height:85px !important;
+    }
+  }
+}
+
+@media (max-width: 991.98px)
+{
+}
+
+@media (max-width: 767.98px)
+{
+}
+
+@media (max-width: 575.98px)
+{
 }

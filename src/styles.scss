@@ -8,8 +8,26 @@
 html,
 body {
   font-family: "Poppins", sans-serif;
-  font-size:14px;
+  font-size:1rem;
 }
+::-webkit-scrollbar-track {
+  -webkit-box-shadow: none!important;
+  border-radius: 10px!important;
+  background-color: #fff!important
+}
+
+::-webkit-scrollbar {
+  border-radius: 10px;
+  width: 12px!important;
+  background-color: #fff!important
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: 10px!important;
+  -webkit-box-shadow: none!important;
+  background-color: #9bc329!important
+}
+
 p {margin-bottom: 1rem;}
 
 h1, h2, h3, h4, h5 {
@@ -88,6 +106,11 @@ h1, h2, h3, h4, h5 {
 {
   color: #000 !important;
   border-radius: 10px !important;
+  &:disabled
+  {
+    background-color: #343a40;
+    border-color:#343a40;
+  }
   &:hover
   {
     color: #000 !important;
@@ -204,7 +227,7 @@ h1, h2, h3, h4, h5 {
 .p-dropdown-panel {
   left: 0 !important;
   max-width: 100% !important;
-  top: 0 !important;
+  margin-top: 0 !important;
 }
 .p-autocomplete-panel .p-autocomplete-items .p-autocomplete-item {
   white-space: inherit;
@@ -759,20 +782,31 @@ h1, h2, h3, h4, h5 {
   }
 }
 
-@media (max-width: 1399.98px)
+@media (max-width: 1499.98px)
 {
   html,body {
-    font-size:13px;
+    font-size:12px;
   }
   #sidenav {
     width: 210px !important;
   }
-  .footer-card
-  {
-    .fctitle
-    {
-      height:75px;
-    }
+  footer {
+    margin-left:210px !important;
+    left:0;
+  }
+}
+
+@media (max-width: 1399.98px)
+{
+  html,body {
+    font-size:12px;
+  }
+  #sidenav {
+    width: 210px !important;
+  }
+  footer {
+    margin-left:210px !important;
+    left:0;
   }
 }
 
@@ -784,12 +818,9 @@ h1, h2, h3, h4, h5 {
   #sidenav {
     width: 200px !important;
   }
-  .footer-card
-  {
-    .fctitle
-    {
-      height:60px;
-    }
+  footer {
+    margin-left:200px !important;
+    left:0;
   }
 }
 
@@ -799,14 +830,11 @@ h1, h2, h3, h4, h5 {
     font-size:12px;
   }
   #sidenav {
-    width: 235px;
+    width: 175px !important;
   }
-  .footer-card
-  {
-    .fctitle
-    {
-      height:85px;
-    }
+  footer {
+    margin-left:175px;
+    left:0;
   }
 }
 
