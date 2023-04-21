@@ -6,6 +6,7 @@ import { PagesComponent } from './pages.component';
 import { SubcriptionManagerComponent } from './subcription-manager/subcription-manager.component';
 import { EditprofileComponent } from './user-management/editprofile/editprofile.component';
 import { UserManagementComponent } from './user-management/user-management.component';
+import { SubscribtionbillingComponent } from './subscribtionbilling/subscribtionbilling.component';
 
 const routes: Routes = [
   { 
@@ -26,6 +27,7 @@ const routes: Routes = [
       { path: 'usermanagement', component: UserManagementComponent  },
       { path: 'subscriptionmanagement', component: SubcriptionManagerComponent  },
       { path: 'profile', component: EditprofileComponent  },
+      { path: 'billing', component: SubscribtionbillingComponent },
       { path: '', redirectTo: 'dashboard', pathMatch: 'full' }
     ]
   }

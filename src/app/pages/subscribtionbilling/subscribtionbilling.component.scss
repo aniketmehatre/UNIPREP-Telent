@@ -1,0 +1,13 @@
+.sop-border:after {
+    width: 320px !important;
+    background-color: #1C1B17 !important;
+    height: 2px;
+  }
+  .dotedline {
+    border: none;
+    border-top: 1px dotted #f00;
+    color: #fff;
+    background-color: #fff;
+    height: 1px;
+    width: 100%;
+  }
