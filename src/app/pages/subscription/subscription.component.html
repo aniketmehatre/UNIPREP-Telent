@@ -1,133 +1,53 @@
 <ng-container [ngSwitch]="stage">
-    <!-- <ng-container *ngSwitchCase="1">
-        <div class="card card-body"> -->
-            <!-- <div class="d-flex justify-content-between">
-                <h3 class="sop-border sop-header">Pricing & Plans For <br> Statement Of Purpose</h3>
-                <span>Fast, Secure</span>
-            </div> -->
-            <!-- <p>UNIABROAD offering most flexible billing solutions to execute efficiency & reliability. Improve your contents value by using this Plagiarism checker. Trusted by millions of people!</p> -->
-            <!-- <div class="price-card-list">
-                <div class="price-card basicImg">
-                    <br><br>
-                    <div class="header">
-                        <h4>{{planname[0]}}</h4>
-                        <p>{{ totalcheck[0] }} check</p>
-                    </div>
-
-                    <div class="pricedetails">
-                        <div class="fs"><span class="fs2">INR₹</span>&nbsp;&nbsp;<span class="fs3">{{ planprice[0]}}</span><span class="fs2">.00</span></div>
-                        <div>Per Month</div>
-                        <br><br>
-                        <div>
-                            <button (click)="buynow(planprice[0],planname[0],totalcheck[0],subscriptionid[0])" class="buynow pointer"><span>BUY NOW</span></button>
-                        </div>
-                    </div>
-                </div>
-                <div class="price-card standardImg">
-                    <br><br>
-                    <div class="header">
-                        <h4>{{planname[1]}}</h4>
-                        <p>{{ totalcheck[1] }} check</p>
-                    </div>
-
-                    <div class="pricedetails">
-                        <div class="fs"><span class="fs2">INR₹</span>&nbsp;&nbsp;<span class="fs3">{{planprice[1] }}</span><span class="fs2">.00</span></div>
-                        <div>Per Month</div>
-                        <br><br>
-                        <div>
-                            <button  (click)="buynow(planprice[1],planname[1],totalcheck[1],subscriptionid[1])" class="buynow pointer"><span>BUY NOW</span></button>
-                        </div>
-                    </div>
-                </div>
-                <div class="price-card unlimitedImg">
-                    <br><br>
-                    <div class="header">
-                        <h4>{{planname[2]}}</h4>
-                        <p>{{ totalcheck[2] }} check</p>
-                    </div>
-
-                    <div class="pricedetails">
-                        <div class="fs"><span class="fs2">INR₹</span>&nbsp;&nbsp;<span class="fs3">{{ planprice[2] }}</span><span class="fs2">.00</span></div>
-                        <div>Per Month</div>
-                        <br><br>
-                        <div>
-                            <button  (click)="buynow(planprice[2],planname[2],totalcheck[2],subscriptionid[2])"  class="buynow pointer"><span>BUY NOW</span></button>
-                        </div>
-                    </div>
-                </div>
-            </div> -->
-            <!-- <br>
-            <h3 class="sop-border sop-header sop-border-center m-auto fit-content text-center">Here, What Are You Getting!</h3>
-            <br> -->
-            <!-- <div class="row">
-                <div class="col-md-4">
-                    <div class="card text-center hover-bg shadow-sm card-body bold">WORD COUNT</div>
-                </div>
-                <div class="col-md-4">
-                    <div class="card text-center hover-bg shadow-sm card-body bold">GRAMMAR CHECKER</div>
-                </div>
-                <div class="col-md-4">
-                    <div class="card text-center hover-bg shadow-sm card-body bold">PLAGIARISM CHECKER</div>
-                </div>
-            </div>
-            <br> -->
-            <!-- <div class="row">
-                <div class="col-md-4">
-                    <div class="card text-center hover-bg shadow-sm card-body bold">SOP SAMPLES</div>
-                </div>
-                <div class="col-md-4">
-                    <div class="card text-center hover-bg shadow-sm card-body bold">MULTILINGUAL ASSISTANCE</div>
-                </div>
-                <div class="col-md-4">
-                    <div class="card text-center hover-bg shadow-sm card-body bold">SOP CHECK LIMIT</div>
-                </div>
-            </div> -->
-        <!-- </div>
-    </ng-container> -->
-        
     <!-- create new one -->
     <!-- <ng-container *ngSwitchCase="1"> -->
-        <div class="card card-body">
+        <div class="container-fluid">
+        <div class="row">
+        <div class="card">
+        <div class="card-body">
             <div class="d-flex justify-content-between">
-                <h3 class=" sop-header">SUBSCRIPTION</h3>
-                <span><b> Fast, Secure <br>
-                and Affordable</b><br>
-        </span>
+                <h3>Subscription  <i class="questiontooltip h4 fa-solid fa-circle-question"></i></h3>
+                <h5>Fast, Secure<br>
+                and Affordable</h5>
             </div>
-            <div><button class="btn btn-primary mx-2 " alt="chat with notification">BUY QUESTION CREDITS</button></div>
-            <br/>
-            <div class="scards">
-                <div class="scard"  (click)="basicplan()">
+            <div class="text-right d-flex justify-content-end">
+                <button class="btn btn-primary mx-0 py-2 justify-content-center align-items-center d-flex" alt="chat with notification">BUY QUESTION CREDITS <i class="h4 ps-2 mb-0 fa-solid fa-circle-arrow-right"></i></button>
+            </div>
+            <div class="scards mb-5">
+                <div class="scard px-3" (click)="basicplan()">
                     <div class="scardTitle"> Save 20%</div>
-                    <h3 class="scardCheck">Basic Plan</h3>
-                    <h6 class="scardCheck">1 month validity</h6>
-                    <div class="scardPrice">INR-<b>1999</b>.00</div> 
-                    <div class="scardPriceCurrent">INR-<b>999</b>.00</div>
+                    <h3 class="scardCheck mb-2">Basic Plan</h3>
+                    <h6 class="scardCheck mb-4">1 month validity</h6>
+                    <h5 class="scardPrice mb-1">INR-<b>1999</b>.00</h5> 
+                    <h3 class="scardPriceCurrent mb-4">INR-<b>999</b>.00</h3>
                     <div class="scardDiscount">United Kindom</div>
-                    <div class="scardCheck">Add other Countries at 699 INR</div>
+                    <p class="scardCheck">Add other Countries at 699 INR</p>
                     <div class="scardStart">SUBSCRIBE NOW</div>
                 </div>
-                <div class="scard" (click)="basicplan()">
-                    <div class="scardTitle">Save 30%</div>
-                    <h3 class="scardCheck">Standard Plan</h3>
-                    <h6 class="scardCheck">3 month validity</h6>
-                    <div class="scardPrice">INR-<b>2599</b>.00</div> 
-                    <div class="scardPriceCurrent">INR-<b>1999</b>.00</div>
+                <div class="scard px-3"  (click)="basicplan()">
+                    <div class="scardTitle"> Save 30%</div>
+                    <h3 class="scardCheck mb-2">Standard Plan</h3>
+                    <h6 class="scardCheck mb-4">3 month validity</h6>
+                    <h5 class="scardPrice mb-1">INR-<b>2599</b>.00</h5> 
+                    <h3 class="scardPriceCurrent mb-4">INR-<b>1999</b>.00</h3>
                     <div class="scardDiscount">United Kindom</div>
-                    <div class="scardCheck">Add other Countries at 699 INR</div>
+                    <p class="scardCheck">Add other Countries at 699 INR</p>
                     <div class="scardStart">SUBSCRIBE NOW</div>
                 </div>
-                <div class="scard" (click)="basicplan()">
-                    <div class="scardTitle">Save 40%</div>
-                    <h3 class="scardCheck">Basic Plan</h3>
-                    <h6 class="scardCheck">1 month validity</h6>
-                    <div class="scardPrice">INR-<b>4199</b>.00</div> 
-                    <div class="scardPriceCurrent">INR-<b>2999</b>.00</div>
+                <div class="scard px-3" (click)="basicplan()">
+                    <div class="scardTitle"> Save 40%</div>
+                    <h3 class="scardCheck mb-2">Premium Plan</h3>
+                    <h6 class="scardCheck mb-4">6 month validity</h6>
+                    <h5 class="scardPrice mb-1">INR-<b>4199</b>.00</h5> 
+                    <h3 class="scardPriceCurrent mb-4">INR-<b>2999</b>.00</h3>
                     <div class="scardDiscount">United Kindom</div>
-                    <div class="scardCheck">Add other Countries at 699 INR</div>
+                    <p class="scardCheck">Add other Countries at 699 INR</p>
                     <div class="scardStart">SUBSCRIBE NOW</div>
                 </div>
             </div>
+        </div>
+        </div>
+        </div>
         </div>
     <!-- </ng-container> -->
 

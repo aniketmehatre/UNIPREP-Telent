@@ -1,28 +1,36 @@
-<div class="card card-body pt-2 mt-2">
-    <div class="d-flex"><h4 class="sop-border sop-header">How can we help?</h4></div>
-
+<div class="container-fluid">
     <div class="row">
-        <div class="col-md-4 mt-3" *ngFor="let v of helpCategoryData">
-            <div class="card shadow-sm">
-                <div class="breadcrumb">
-                    <div class="card-body">
-                        <h5>{{v.helpcategory_name}}</h5>
-                        <div class="text-muted">
-                            {{v.description}}
-                        </div>
-                        <div class="km">
-                            <span routerLink="../description">Know More
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                 class="bi bi-play-fill" viewBox="0 0 16 16">
-                              <path d="m11.596 8.697-6.363 3.692c-.54.313-1.233-.066-1.233-.697V4.308c0-.63.692-1.01 1.233-.696l6.363 3.692a.802.802 0 0 1 0 1.393z"/>
-                            </svg>
-                            </span>
+        <div class="col-md-12 px-0">
+            <div class="card">
+            <div class="card-body">
+                <div class="d-flex"><h4 class="sop-border sop-header">How can we help?</h4></div>
+                <div class="row">
+                    <div class="col-md-4 mt-3" *ngFor="let v of helpCategoryData">
+                        <div class="card shadow-sm">
+                            <div class="breadcrumb">
+                                <div class="card-body">
+                                    <h5>{{v.helpcategory_name}}</h5>
+                                    <div class="text-muted">
+                                        {{v.description}}
+                                    </div>
+                                    <div class="km">
+                                        <span routerLink="../description">Know More
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                            class="bi bi-play-fill" viewBox="0 0 16 16">
+                                        <path d="m11.596 8.697-6.363 3.692c-.54.313-1.233-.066-1.233-.697V4.308c0-.63.692-1.01 1.233-.696l6.363 3.692a.802.802 0 0 1 0 1.393z"/>
+                                        </svg>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
+            </div>
         </div>
     </div>
+</div>
 <!--    <div class="row mt-4">-->
 <!--        <div class="col-12">-->
 <!--            <p class="text-center">Can't find an answer to your question?</p>-->
@@ -31,5 +39,3 @@
 <!--            </p>-->
 <!--        </div>-->
 <!--    </div>-->
-
-</div>
