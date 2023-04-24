@@ -9,10 +9,12 @@ import {InputTextModule} from "primeng/inputtext";
 import {CheckboxModule} from "primeng/checkbox";
 import {ToastModule} from 'primeng/toast';
 import {MessageService} from "primeng/api";
+import { SubscribtionbillingComponent } from '../subscribtionbilling/subscribtionbilling.component';
 
 @NgModule({
   declarations: [
-    SubscriptionComponent
+    SubscriptionComponent,
+    SubscribtionbillingComponent
   ],
   imports: [
     CommonModule,
