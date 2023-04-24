@@ -146,14 +146,14 @@
 
             <div class="modal-body">
             <div class="container">
-                <div class="row mb-0">
+                <div class="row mb-5">
                         <div class="col-md-12">
                             <h3 class="mb-3">Continue Reading</h3>
-                            <div class="row d-flex">
-                                <div class="col-md-6" *ngFor="let readPro of readingProgressings">
+                            <div class="row gap-2 d-flex">
+                                <div class="col px-0" *ngFor="let readPro of readingProgressings">
                                     <div class="card continuecard" >
                                         <div class="modal-selected-box d-flex flex-column">
-                                            <h5>{{readPro.module_name}}</h5>
+                                            <h6 class="fw-semibold">{{readPro.module_name}}</h6>
                                             <div class="d-flex justify-content-between">
                                                 <div>
                                                     <div class="progress1" [attr.data-percentage]="readPro.progression">
@@ -171,13 +171,13 @@
                                                     </div>
                                                 </div>
                                                 <div class="d-flex align-items-center justify-content-center">
-                                                    <p class="text-center mb-0" *ngIf="readPro.progression_status == 'Pending'">
+                                                    <p class="text-center text-small mb-0" *ngIf="readPro.progression_status == 'Pending'">
                                                         {{readPro.progression_status}}
                                                         <button class="btn btn-dark">
                                                             Read Now
                                                         </button>
                                                     </p>
-                                                    <p class="text-center mb-0" *ngIf="readPro.progression_status == 'Complete'">
+                                                    <p class="text-center text-small mb-0" *ngIf="readPro.progression_status == 'Complete'">
                                                         {{readPro.progression_status}}
                                                     </p>
                                                 </div>
@@ -205,14 +205,14 @@
 
             <div class="modal-body">
             <div class="container">
-                <div class="row mb-0">
+                <div class="row mb-5">
                         <div class="col-md-12">
                             <h3 class="mb-3">Continue Quiz</h3>
-                            <div class="row d-flex">
-                                <div class="col-md-6" *ngFor="let quiz of quizProgressings">
+                            <div class="row gap-2 d-flex">
+                                <div class="col px-0" *ngFor="let quiz of quizProgressings">
                                     <div class="card continuecardq" >
                                         <div class="modal-selected-box d-flex flex-column">
-                                            <h5>{{quiz.module_name}}</h5>
+                                            <h6 class="fw-semibold">{{quiz.module_name}}</h6>
                                             <div class="d-flex justify-content-between">
                                                 <div>
                                                     <div class="progress1" [attr.data-percentage]="quiz.progression">
@@ -230,13 +230,13 @@
                                                     </div>
                                                 </div>
                                                 <div class="d-flex align-items-center justify-content-center">
-                                                    <p class="text-center mb-0" *ngIf="quiz.progression_status == 'Pending'">
+                                                    <p class="text-center text-small mb-0" *ngIf="quiz.progression_status == 'Pending'">
                                                         {{quiz.progression_status}}
                                                         <button class="btn btn-dark">
                                                             Read Now
                                                         </button>
                                                     </p>
-                                                    <p class="text-center mb-0" *ngIf="quiz.progression_status == 'Complete'">
+                                                    <p class="text-center text-small mb-0" *ngIf="quiz.progression_status == 'Complete'">
                                                         {{quiz.progression_status}}
                                                     </p>
                                                 </div>

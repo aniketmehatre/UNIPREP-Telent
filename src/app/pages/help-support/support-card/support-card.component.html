@@ -6,13 +6,13 @@
                 <div class="d-flex"><h4 class="sop-border sop-header">How can we help?</h4></div>
                 <div class="row">
                     <div class="col-md-4 mt-3" *ngFor="let v of helpCategoryData">
-                        <div class="card shadow-sm">
-                            <div class="breadcrumb">
+                        <div class="card help-shadow">
+                            <div class="breadcrumb mb-0">
                                 <div class="card-body">
                                     <h5>{{v.helpcategory_name}}</h5>
-                                    <div class="text-muted">
+                                    <p class="">
                                         {{v.description}}
-                                    </div>
+                                    </p>
                                     <div class="km">
                                         <span routerLink="../description">Know More
                                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"

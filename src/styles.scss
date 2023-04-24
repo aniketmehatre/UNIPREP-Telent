@@ -287,6 +287,17 @@ h1, h2, h3, h4, h5 {
   {
     display: inline !important;
   }
+  #menu-items {
+    .menu-item {
+        .system-main__apps 
+        {
+            &:hover
+            {
+                background-color: #2e3134 !important;
+            }
+        }
+    }
+}
   .form-switch .form-check-input:focus {
     background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3e%3ccircle r='3' fill='%23ffffff'/%3e%3c/svg%3e") !important;
   }
@@ -613,6 +624,51 @@ h1, h2, h3, h4, h5 {
       color:#fff;
     }
   }
+  .modal-content
+  {
+    background-color:#202124 !important;
+  }
+  .progress
+  {
+    .progress-value
+    {
+      background-color: #17181b !important;
+    }
+    &::after
+    {
+      border: 10px solid #2e3134 !important;
+    }
+  }
+  .progress1
+  {
+    .progress1-value
+    {
+      background-color: #17181b !important;
+    }
+    &::after
+    {
+      border: 10px solid #2e3134 !important;
+    }
+  }
+  
+  .badge 
+  {
+    background-color:#2e3134 !important;
+  }
+  .select-title
+  {
+    background-color:#2e3134;
+  }
+  .footer-card
+    {
+      background-color: #2e3134 !important;
+      border:1px solid #202124 !important;
+      &:hover
+      {
+        background-color: #2e3134 !important;
+        border:1px solid #202124 !important;
+      }
+    }
   .card
   {
     background-color: #202124 !important;
@@ -639,6 +695,16 @@ h1, h2, h3, h4, h5 {
       {
         background-color: #3c4043 !important;
         border: 1px solid #2e3134;
+      }
+    }
+    .subjectcard
+    {
+        background-color: #17181b !important;
+        border:1px solid #202124 !important;
+      &:hover
+      {
+        background-color: #2e3134 !important;
+        border:1px solid #202124 !important;
       }
     }
     .scard
