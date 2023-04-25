@@ -4,6 +4,7 @@ import {ScrollToBottomDirective} from "./scroll-to-bottom.directive";
 import {MessageService} from "primeng/api";
 import {SubSink} from "subsink";
 import {AuthService} from "../../Auth/auth.service";
+import { DataService } from "src/app/data.service";
 
 @Component({
     selector: "app-modal",
@@ -17,7 +18,7 @@ export class ModalComponent implements OnInit {
     details: any [] = [];
     private subs = new SubSink();
 
-    comment: string  = '';
+    comment: string = '';
     title = 'socketrv';
     content = '';
     received: any [] = [];
@@ -29,8 +30,14 @@ export class ModalComponent implements OnInit {
     visible: boolean = true;
     showReportSuccess: boolean = false;
     reportValueSelected: any;
+    message: any;
+
     constructor(private modalService: ModalService, private toast: MessageService,
-                private service: AuthService) {
+                private service: AuthService, private dataService: DataService) {
+        this.dataService.currentMessage.subscribe(message => {
+            this.message = message;
+            console.log('test', message)
+        });
         // WebsocketService.messages.subscribe(msg => {
         //     this.received.push(msg);
         //     console.log("Response from websocket: " + msg);
@@ -42,7 +49,16 @@ export class ModalComponent implements OnInit {
         // ];
     }
 
+    openChatWindow() {
+
+    }
+
     ngOnInit() {
+        this.dataService.currentMessage.subscribe(message => {
+            this.message = message;
+            console.log('123123 ', message)
+        })
+
         this.questionLeft = '0';
         //this.questionLeft =
         this.subs.sink = this.service.selectLogInData$().subscribe(data => {

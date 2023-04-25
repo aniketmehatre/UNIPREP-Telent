@@ -1,8 +1,10 @@
-import {AfterContentChecked, ChangeDetectorRef, Component, OnInit} from '@angular/core';
+import {AfterContentChecked, ChangeDetectorRef, Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {Observable} from "rxjs";
 import {PreAppService} from "../pre-app.service";
 import {ListQuestion} from "../../../@Models/question-list.model";
 import {MenuItem} from "primeng/api";
+import {ModalComponent} from "../../../components/modal/modal.component";
+import { DataService } from 'src/app/data.service';
 
 @Component({
     selector: 'uni-question-list',
@@ -18,8 +20,9 @@ export class QuestionListComponent implements OnInit, AfterContentChecked {
     isRecommendedLinksVisible: boolean = false;
     isRecommendedVideoVisible: boolean = false;
     responsiveOptions: any[] = [];
-
-    constructor(private preAppService: PreAppService, private changeDetector: ChangeDetectorRef,) {
+    message: string = '';
+    constructor(private preAppService: PreAppService, private changeDetector: ChangeDetectorRef,
+                private dataService: DataService) {
     }
 
     ngAfterContentChecked(): void {
@@ -27,6 +30,7 @@ export class QuestionListComponent implements OnInit, AfterContentChecked {
     }
 
     ngOnInit(): void {
+        this.dataService.currentMessage.subscribe(message => this.message = message)
         this.breadCrumb = [{label: 'Pre Application'}, {label: 'Career Prospectus'}, {label: 'Question'}];
 
         this.responsiveOptions = [
@@ -83,6 +87,10 @@ export class QuestionListComponent implements OnInit, AfterContentChecked {
 
     onClickRecommendedLinks() {
         this.isRecommendedLinksVisible = true;
+    }
+
+    onClickAsk() {
+        this.dataService.changeMessage("Hello from Second Component hi hi hihi")
     }
 
 }
