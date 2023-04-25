@@ -141,28 +141,33 @@
     }
   }
 }
+  .questiontooltip
+  {
+    position: absolute;
+    top: 5px;
+    color:#9bc329;
+    margin-left: 5px;
+  }
 .scards {
   display: flex;
   gap: 20px;
   align-items: center;
   justify-content: center;
-  height: 360px;
   @media only screen and (max-width: 565px) {
     flex-direction: column;
   }
 }
 .scard {
-  border: 1px solid #B9B9B9;
   border-radius: 15px;
-  width: 280px;
   background: #F5F5F5;
-  border: 2px solid #B9B9B9;
+  border: 1px solid #e7e7e7;
   &:hover {
     background: #FBFFF2 0% 0% no-repeat padding-box;
   }
   .scardTitle {
     width: 70%;
     margin: auto;
+    margin-bottom:20px;
     padding: 5px 0px;
     background: #9BC329;
     color: #001631;
@@ -196,13 +201,10 @@
     text-decoration: line-through;
     text-decoration-color: black;
     color: #9BC329;
-    font-size: 1.0rem;
-    font-weight: 700;
     text-align: center;
     text-overflow: ellipsis;
     overflow: hidden;
     white-space: nowrap;
-    margin: 10px 0px;
   }
   .scardDiscount {
     background:white;
@@ -217,13 +219,10 @@
   }
   .scardPriceCurrent {
     color: #001631;
-    font-size: 1.5rem;
     text-align: center;
     text-overflow: ellipsis;
     overflow: hidden;
     white-space: nowrap;
-    margin: 10px 0px;
-    font-weight: 500;
   }
   .scardCheck {
     color: #001631;
@@ -231,7 +230,6 @@
     text-overflow: ellipsis;
     overflow: hidden;
     white-space: nowrap;
-    margin-bottom: 10px;
   }
   // .btn{
   //   position: fixed;

@@ -139,6 +139,25 @@ h1, h2, h3, h4, h5 {
     box-shadow: 0 0 0 0.25rem #f9951e80;
   }
 }
+.btn-tertiary {
+  color: #000 !important;
+  background-color: #598CDF !important;
+  border-color: #598CDF !important;
+  border-radius: 10px !important;
+  &:hover
+  {
+    color: #000 !important;
+    background-color: #BADEF2 !important;
+    border-color: #BADEF2 !important;
+  }
+  &:focus
+  {
+    color: #000 !important;
+    background-color: #BADEF2 !important;
+    border-color: #BADEF2 !important;
+    box-shadow: 0 0 0 0.25rem #598CDF80;
+  }
+}
 .p-overlaypanel .p-overlaypanel-content {
   padding: 1.25rem;
   width: 40vh;
@@ -215,11 +234,76 @@ h1, h2, h3, h4, h5 {
 .btn-login {
   border-radius: 10px !important;
 }
-.p-dropdown-panel .p-dropdown-items .p-dropdown-item.p-highlight {
+.questionmodal
+{
+  .p-dialog-mask {
+    background: #00000070;
+    backdrop-filter: blur(2px);
+  }
+  .p-dialog
+  {
+    .p-dialog-header
+  {
+    background:#fff;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+  .p-dialog-footer
+  {
+    background:#fff;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+  
+  }
+  .p-breadcrumb ul li.p-breadcrumb-chevron
+  {
+    color:#9bc329 !important;
+  }
+  .p-breadcrumb
+  {
+    ul
+    {
+      justify-content: center;
+      li 
+      {
+        .p-menuitem-link .p-menuitem-text
+        {
+        color: #9bc329;
+        }
+      }
+      
+    }
+  }
+  .answersection
+{
+  .p-carousel-content {
+    overflow: visible;
+  }
+  .p-carousel-container {
+    position:relative;
+  }
+  // .p-carousel .p-carousel-content .p-carousel-prev
+  // {
+  //   position: absolute;
+  //   top: -36%;
+  //   left: 30%;
+  // }
+  // .p-carousel .p-carousel-content .p-carousel-next
+  // {
+  //   position: absolute;
+  //   top: -36%;
+  //   right: 30%;
+  // }
+}
+}
+.uniprepchat
+{
+  .p-dropdown-panel .p-dropdown-items .p-dropdown-item.p-highlight {
   color: #ffffff;
   background: #9bc329;
 }
-.p-dialog-header {
+  .p-dialog-header {
   padding: 0 !important;
   margin: 0 !important;
   background: #9bc329 !important;
@@ -232,6 +316,9 @@ h1, h2, h3, h4, h5 {
 .p-autocomplete-panel .p-autocomplete-items .p-autocomplete-item {
   white-space: inherit;
 }
+}
+
+
 .select-title
 {
   background: #1C1B17;
@@ -287,6 +374,17 @@ h1, h2, h3, h4, h5 {
   {
     display: inline !important;
   }
+  #menu-items {
+    .menu-item {
+        .system-main__apps 
+        {
+            &:hover
+            {
+                background-color: #2e3134 !important;
+            }
+        }
+    }
+}
   .form-switch .form-check-input:focus {
     background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3e%3ccircle r='3' fill='%23ffffff'/%3e%3c/svg%3e") !important;
   }
@@ -613,6 +711,51 @@ h1, h2, h3, h4, h5 {
       color:#fff;
     }
   }
+  .modal-content
+  {
+    background-color:#202124 !important;
+  }
+  .progress
+  {
+    .progress-value
+    {
+      background-color: #17181b !important;
+    }
+    &::after
+    {
+      border: 10px solid #2e3134 !important;
+    }
+  }
+  .progress1
+  {
+    .progress1-value
+    {
+      background-color: #17181b !important;
+    }
+    &::after
+    {
+      border: 10px solid #2e3134 !important;
+    }
+  }
+  
+  .badge 
+  {
+    background-color:#2e3134 !important;
+  }
+  .select-title
+  {
+    background-color:#2e3134;
+  }
+  .footer-card
+    {
+      background-color: #2e3134 !important;
+      border:1px solid #202124 !important;
+      &:hover
+      {
+        background-color: #2e3134 !important;
+        border:1px solid #202124 !important;
+      }
+    }
   .card
   {
     background-color: #202124 !important;
@@ -639,6 +782,16 @@ h1, h2, h3, h4, h5 {
       {
         background-color: #3c4043 !important;
         border: 1px solid #2e3134;
+      }
+    }
+    .subjectcard
+    {
+        background-color: #17181b !important;
+        border:1px solid #202124 !important;
+      &:hover
+      {
+        background-color: #2e3134 !important;
+        border:1px solid #202124 !important;
       }
     }
     .scard
@@ -686,10 +839,6 @@ h1, h2, h3, h4, h5 {
     .country.active
     {
       background-color:#17181b;
-    }
-    .card
-    {
-      border:1px solid #17181b !important;
     }
     &:hover
     {
@@ -767,6 +916,44 @@ h1, h2, h3, h4, h5 {
       color:#fff !important;
     }
   }
+  .questioncard {
+    background-color: #17181b !important;
+    border:1px solid #202124 !important;
+    
+    .primary-btn {
+      border: 2px solid #9bc329;
+    }
+  
+    &:focus {
+      background-color: #2e3134 !important;
+      border:1px solid #202124 !important;
+      .primary-btn
+      {
+        background-color: #fff !important;
+        border: 2px solid #9bc329;
+      }
+    }
+  
+    &:hover {
+      background-color: #2e3134 !important;
+      border:1px solid #202124 !important;
+      .primary-btn
+        {
+        background-color: #fff !important;
+        border: 2px solid #9bc329;
+        }
+    }
+  
+    .questiontext
+    {
+      min-height: -webkit-fill-available;
+    }
+  
+  }
+  .p-breadcrumb
+    {
+      background: transparent;
+    }
   .result-card
   {
     background-color: #17181b !important;
