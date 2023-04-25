@@ -1,10 +1,11 @@
-import {AfterContentChecked, ChangeDetectorRef, Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {AfterContentChecked, ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import {Observable} from "rxjs";
 import {PreAppService} from "../pre-app.service";
 import {ListQuestion} from "../../../@Models/question-list.model";
 import {MenuItem} from "primeng/api";
-import {ModalComponent} from "../../../components/modal/modal.component";
-import { DataService } from 'src/app/data.service';
+import {DataService} from 'src/app/data.service';
+import {ActivatedRoute} from "@angular/router";
+import {SubModuleList} from "../../../@Models/pre-application.model";
 
 @Component({
     selector: 'uni-question-list',
@@ -12,8 +13,10 @@ import { DataService } from 'src/app/data.service';
     styleUrls: ['./question-list.component.scss']
 })
 export class QuestionListComponent implements OnInit, AfterContentChecked {
+    subModules$!: Observable<SubModuleList[]>;
     listQuestion$!: Observable<ListQuestion[]>;
     selectedQuestion: number = 0;
+    positionNumber: number = 0;
     data: any;
     breadCrumb: MenuItem[] = [];
     isQuestionAnswerVisible: boolean = false;
@@ -21,8 +24,13 @@ export class QuestionListComponent implements OnInit, AfterContentChecked {
     isRecommendedVideoVisible: boolean = false;
     responsiveOptions: any[] = [];
     message: string = '';
+    moduleName: any;
+    subModuleId: any;
+    videoLink: any;
+    refLink: any;
+
     constructor(private preAppService: PreAppService, private changeDetector: ChangeDetectorRef,
-                private dataService: DataService) {
+                private dataService: DataService, private route: ActivatedRoute) {
     }
 
     ngAfterContentChecked(): void {
@@ -30,6 +38,18 @@ export class QuestionListComponent implements OnInit, AfterContentChecked {
     }
 
     ngOnInit(): void {
+        let countryId = 2
+        this.preAppService.loadSubModules(countryId);
+        this.subModules$ = this.preAppService.subModuleList$();
+        this.subModuleId = this.route.snapshot.paramMap.get('id');
+
+        this.subModules$.subscribe(event => {
+            event.filter(data => {
+                if (data.id == this.subModuleId) {
+                    this.moduleName = data.submodule_name;
+                }
+            })
+        })
         this.dataService.currentMessage.subscribe(message => this.message = message)
         this.breadCrumb = [{label: 'Pre Application'}, {label: 'Career Prospectus'}, {label: 'Question'}];
 
@@ -54,7 +74,7 @@ export class QuestionListComponent implements OnInit, AfterContentChecked {
         let data = {
             countryId: 2,
             moduleId: 1,
-            submoduleId: 1
+            submoduleId: this.subModuleId
         }
         this.preAppService.loadQuestionList(data);
 
@@ -65,7 +85,8 @@ export class QuestionListComponent implements OnInit, AfterContentChecked {
             this.data = event
         });
         this.selectedQuestion = id;
-        this.breadCrumb = [{ label: 'Pre Application' }, { label: 'Career Prospectus' }, { label: `Question ${id}` }];
+        this.positionNumber = id;
+        this.breadCrumb = [{label: 'Pre Application'}, {label: 'Career Prospectus'}, {label: `Question ${id}`}];
         this.isQuestionAnswerVisible = true;
 
     }
@@ -77,20 +98,37 @@ export class QuestionListComponent implements OnInit, AfterContentChecked {
         } else {
             pageNum = page.page
         }
-        this.breadCrumb = [{label: 'Pre Application'}, {label: 'Career Prospectus'}, {label: `Question ${pageNum+1}`}];
+        this.positionNumber = pageNum + 1;
+        this.breadCrumb = [{label: 'Pre Application'}, {label: 'Career Prospectus'}, {label: `Question ${pageNum + 1}`}];
 
     }
 
     onClickRecommendedVideo() {
         this.isRecommendedVideoVisible = true;
+        this.data.filter((res: any) => {
+            if (res.id == this.selectedQuestion) {
+                console.log('res 1', res)
+                this.videoLink = res.videolink
+            }
+        })
     }
 
     onClickRecommendedLinks() {
         this.isRecommendedLinksVisible = true;
+        this.data.filter((res: any) => {
+            if (res.id == this.selectedQuestion) {
+                console.log('res', res)
+                this.refLink = res.reflink
+            }
+        })
     }
 
     onClickAsk() {
         this.dataService.changeMessage("Hello from Second Component hi hi hihi")
+    }
+
+    goToHome(event: any) {
+        this.isQuestionAnswerVisible = false;
     }
 
 }

@@ -30,7 +30,7 @@ export class ListModulesComponent implements OnInit {
             }
         });
         this.selectedSubModule = id;
-        this.router.navigate(['/pages/pre-application/question-list']);
+        this.router.navigate([`/pages/pre-application/question-list/${this.selectedSubModule}`]);
 
     }
 }

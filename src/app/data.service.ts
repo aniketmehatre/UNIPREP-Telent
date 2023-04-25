@@ -11,6 +11,7 @@ export class DataService {
   constructor() { }
 
   changeMessage(message: string) {
+    console.log('data service ', message)
     this.messageSource.next(message);
   }
 

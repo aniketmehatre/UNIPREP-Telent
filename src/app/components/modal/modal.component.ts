@@ -34,7 +34,7 @@ export class ModalComponent implements OnInit {
 
     constructor(private modalService: ModalService, private toast: MessageService,
                 private service: AuthService, private dataService: DataService) {
-        this.dataService.currentMessage.subscribe(message => {
+        this.dataService.messageSource.subscribe(message => {
             this.message = message;
             console.log('test', message)
         });
@@ -54,7 +54,7 @@ export class ModalComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.dataService.currentMessage.subscribe(message => {
+        this.dataService.messageSource.subscribe(message => {
             this.message = message;
             console.log('123123 ', message)
         })
