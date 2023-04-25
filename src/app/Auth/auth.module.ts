@@ -19,6 +19,7 @@ import {authFeatureKey} from "./store/selectors";
 import {authReducer} from "./store/reducer";
 import {EffectsModule} from "@ngrx/effects";
 import {AuthEffects} from "./store/effects";
+import {CalendarModule} from "primeng/calendar";
 
 @NgModule({
   declarations: [
@@ -40,7 +41,8 @@ import {AuthEffects} from "./store/effects";
         PasswordModule,
         ToastModule,
         StoreModule.forFeature(authFeatureKey, authReducer),
-        EffectsModule.forFeature([AuthEffects])
+        EffectsModule.forFeature([AuthEffects]),
+        CalendarModule
     ],
     providers: [MessageService]
 })

@@ -112,7 +112,7 @@ export class DashboardComponent implements OnInit {
             if (res.status === 404) {
                 return;
             }
-            this.readQuizProgressionPercentage = res.quizpercentage;
+            this.readQuizProgressionPercentage = Math.round(res.quizpercentage);
         }, err => {
             console.log('err', err);
 

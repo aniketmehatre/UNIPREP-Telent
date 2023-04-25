@@ -163,8 +163,7 @@
                       <button
                         class="pt-2 pb-2 btn btn-primary btn-login text-uppercase fw-bold m-0 w-50"
                         type="button"
-                        (click)="sendMobileOTP()"
-                      >
+                        (click)="sendMobileOTP()">
                         SEND OTP
                       </button>
                     </div>
@@ -309,13 +308,16 @@
                         (keyup)="focusNextEmailInput($event, 1)"
                         (keypress)="numericOnly($event)"
                         type="text"
+                        autofocus
                         maxlength="1"
                       />
                       <input
                         class="col form-control"
                         formControlName="otp6"
+                        (keyup)="focusNextEmailInput($event, 2)"
                         type="text"
                         maxlength="1"
+                        autofocus
                         [ngClass]="{
                           'is-invalid': submitted && f.otp6.errors
                         }"
@@ -323,8 +325,10 @@
                       <input
                         class="col form-control"
                         formControlName="otp7"
+                        (keyup)="focusNextEmailInput($event, 3)"
                         type="text"
                         maxlength="1"
+                        autofocus
                         [ngClass]="{
                           'is-invalid': submitted && f.otp7.errors
                         }"
@@ -333,7 +337,7 @@
                         class="col form-control"
                         formControlName="otp8"
                         type="text"
-                        maxlength="1"
+                        maxlength="1"autofocus
                         [ngClass]="{
                           'is-invalid': submitted && f.otp8.errors
                         }"
@@ -395,9 +399,9 @@
                       </div>
                       <p-dropdown
                         formControlName="interestedCountry"
-                        [options]="locationList"
+                        [options]="countryList"
                         [autoDisplayFirst]="false"
-                        optionLabel="district"
+                        optionLabel="country"
                       ></p-dropdown>
                     </div>
                     <div
@@ -416,15 +420,25 @@
                       <div class="p-inputgroup-addon">
                         <img class="bg-image text-center" src="../../../uniprep-assets/images/icons/Uniprep_Icons_calender.png">
                       </div>
-                      <input
-                        type="number"
-                        class="border-0"
-                        pInputText
-                        formControlName="lastDegreePassingYear"
-                        [ngClass]="{
-                          'is-invalid': submitted && f.lastDegreePassingYear.errors
-                        }"
-                      />
+<!--                      <input-->
+<!--                        type="number"-->
+<!--                        class="border-0"-->
+<!--                        pInputText-->
+<!--                        formControlName="lastDegreePassingYear"-->
+<!--                        [ngClass]="{-->
+<!--                          'is-invalid': submitted && f.lastDegreePassingYear.errors-->
+<!--                        }"-->
+<!--                      />-->
+
+                      <p-calendar
+                              view="year"
+                              dateFormat="yy"
+                              inputId="pickYear"
+                              formControlName="lastDegreePassingYear"
+                              [maxDate]="dateTime"
+                              [readonlyInput]="false"
+                              placeholder="">
+                      </p-calendar>
                     </div>
                     <div
                       *ngIf="submitted && f.lastDegreePassingYear.errors"
@@ -443,14 +457,24 @@
                       <div class="p-inputgroup-addon">
                         <img class="bg-image text-center" src="../../../uniprep-assets/images/icons/Uniprep_Icons_calender.png">
                       </div>
-                      <p-dropdown
-                        formControlName="intakeYear"
-                        #intakeYear
-                        [options]="intakeYearLooking"
-                        [autoDisplayFirst]="false"
-                        (onChange)="yearChange($event)"
-                        optionLabel="value"
-                      ></p-dropdown>
+<!--                      <p-dropdown-->
+<!--                        formControlName="intakeYear"-->
+<!--                        #intakeYear-->
+<!--                        [options]="intakeYearLooking"-->
+<!--                        [autoDisplayFirst]="false"-->
+<!--                        (onChange)="yearChange($event)"-->
+<!--                        optionLabel="value"-->
+<!--                      ></p-dropdown>-->
+
+                      <p-calendar
+                              view="year"
+                              dateFormat="yy"
+                              inputId="pickYear"
+                              formControlName="intakeYear"
+                              [minDate]="dateTime"
+                              [readonlyInput]="false"
+                              placeholder="">
+                      </p-calendar>
                     </div>
                     <div
                       *ngIf="submitted && f.intakeYear.errors"
@@ -468,12 +492,23 @@
                       <div class="p-inputgroup-addon">
                         <img class="bg-image text-center" src="../../../uniprep-assets/images/icons/Uniprep_Icons_calender.png">
                       </div>
-                      <p-dropdown
-                        formControlName="intakeMonth"
-                        [options]="intakeMonthLooking"
-                        [autoDisplayFirst]="false"
-                        optionLabel="value"
-                      ></p-dropdown>
+<!--                      <p-dropdown-->
+<!--                        formControlName="intakeMonth"-->
+<!--                        [options]="intakeMonthLooking"-->
+<!--                        [autoDisplayFirst]="false"-->
+<!--                        optionLabel="value"-->
+<!--                      ></p-dropdown>-->
+
+                      <p-calendar
+                              view="month"
+                              dateFormat="mm"
+                              formControlName="intakeMonth"
+                              inputId="pickMonth"
+                              [yearNavigator]="true"
+                              [readonlyInput]="false"
+                              [minDate]="dateTime"
+                              placeholder="">
+                      </p-calendar>
                     </div>
                     <div
                       *ngIf="submitted && f.intakeMonth.errors"
