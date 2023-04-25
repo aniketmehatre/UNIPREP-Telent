@@ -3,8 +3,8 @@ import {loadQuestionListSuccess, loadSubModules, loadSubModulesSuccess} from "./
 import { SubModuleList} from "../../../@Models/pre-application.model";
 import {ListQuestion} from "../../../@Models/question-list.model";
 export interface PreApplicationState {
-    subModules?: SubModuleList[];
-    questionList?: ListQuestion[];
+    subModules?: SubModuleList[],
+    questionList?: ListQuestion[]
 }
 export const initialState: PreApplicationState = {
     subModules: [],

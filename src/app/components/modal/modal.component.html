@@ -1,27 +1,29 @@
-<p-dialog class="bg-light uniprepchat" [modal]="true"  [maximizable]="false" [(visible)]="visible" [draggable]="false" [style]="{ width: '40vw' }"
+<p-dialog class="bg-light uniprepchat" [modal]="true" [maximizable]="false" [(visible)]="visible" [draggable]="false"
+          [style]="{ width: '40vw' }"
           header="Header">
     <ng-template pTemplate="header" class="p-0 m-0 chatbg">
         <div class="container-fluid py-2 px-2">
-        <div class="d-flex align-items-center justify-content-between">
-            <div class="d-flex d-flex align-items-center">
-                <div class="circle me-2 chat-avatar px-1">
-                    <img class="small-image" src="../../../uniprep-assets/images/uniboard.png"/>
+            <div class="d-flex align-items-center justify-content-between">
+                <div class="d-flex d-flex align-items-center">
+                    <div class="circle me-2 chat-avatar px-1">
+                        <img class="small-image" src="../../../uniprep-assets/images/uniboard.png"/>
+                    </div>
+                    <div>
+                        <h5 class="text-white">UNIPREP</h5>
+                        <p class="text-white">Live Chat</p>
+                    </div>
                 </div>
-                <div>
-                    <h5 class="text-white">UNIPREP</h5>
-                    <p class="text-white">Live Chat</p>
-                </div>
-            </div>
-            <div class="d-flex align-items-center">
-                <div>
-                    <h5 (click)="op.toggle($event)" role="button" class="text-white px-4">Report</h5>
-                            <p-overlayPanel class="m-0" #op>
-                                <ng-template pTemplate="content">
-                                    <div class="container-fluid px-0">
+                <div class="d-flex align-items-center">
+                    <div>
+                        <h5 (click)="op.toggle($event)" role="button" class="text-white px-4">Report</h5>
+                        <p-overlayPanel class="m-0" #op>
+                            <ng-template pTemplate="content">
+                                <div class="container-fluid px-0">
                                     <div class="row report d-flex m-0 w-100">
                                         <div class="flex flex-column gap-2 mb-2">
                                             <p class="report-label text-left mb-0">Issue Type</p>
-                                            <p-dropdown class="chatreportbox" (onChange)="issueTypeOnChange($event)" [options]="issueType"
+                                            <p-dropdown class="chatreportbox" (onChange)="issueTypeOnChange($event)"
+                                                        [options]="issueType"
                                                         [style]="{'minWidth':'100%'}"
                                                         id="issueType"
                                                         optionLabel="reportoption_name"
@@ -30,7 +32,8 @@
                                         </div>
                                         <div class="flex flex-column gap-2 mb-2">
                                             <p class="report-label text-left mb-0">Add Comment</p>
-                                            <textarea  class="w-100" pInputTextarea id="command" [(ngModel)]="comment"></textarea>
+                                            <textarea class="w-100" pInputTextarea id="command"
+                                                      [(ngModel)]="comment"></textarea>
                                         </div>
                                         <div class="col-md-12">
                                             <button class="btn btn-primary btn-login m-0" (click)="reportSubmit(op)">
@@ -38,16 +41,16 @@
                                             </button>
                                         </div>
                                     </div>
-                                    </div>
-                                </ng-template>
-                            </p-overlayPanel>
-                </div>
-                <div class="d-flex align-items-center">
-                    <h5 class="text-white px-2 fw-normal">Question credits</h5>
-                    <div class="circle fw-semibold text-green">{{this.questionLeft + ''}}/3</div>
+                                </div>
+                            </ng-template>
+                        </p-overlayPanel>
+                    </div>
+                    <div class="d-flex align-items-center">
+                        <h5 class="text-white px-2 fw-normal">Question credits</h5>
+                        <div class="circle fw-semibold text-green">{{this.questionLeft + ''}}/3</div>
+                    </div>
                 </div>
             </div>
-        </div>
         </div>
     </ng-template>
     <div class="chat-area">
@@ -99,7 +102,8 @@
     </ng-template>
 </p-dialog>
 
-<p-dialog [modal]="true" header="Header"  [(visible)]="showReportSuccess"  [breakpoints]="{ '960px': '75vw' }" [style]="{ width: 'auto' }" [draggable]="false" [resizable]="false">
+<p-dialog [modal]="true" header="Header" [(visible)]="showReportSuccess" [breakpoints]="{ '960px': '75vw' }"
+          [style]="{ width: 'auto' }" [draggable]="false" [resizable]="false">
     <ng-template pTemplate="header">
         <span class="text-xl font-bold"></span>
     </ng-template>
@@ -109,5 +113,5 @@
     <ng-template pTemplate="footer">
         <span class="text-xl font-bold"></span>
     </ng-template>
-   <!-- <img src="../../../uniprep-assets/images/icons/report_popup.png"/> -->
+    <!-- <img src="../../../uniprep-assets/images/icons/report_popup.png"/> -->
 </p-dialog>

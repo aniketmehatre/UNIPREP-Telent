@@ -8,15 +8,22 @@ import {EffectsModule} from "@ngrx/effects";
 import {postApplicationFeatureKey} from "./store/post-applicaiton.selectors";
 import {PostApplicationReducer} from "./store/post-application.reducer";
 import {PostApplicationEffects} from "./store/post-application.effects";
+import { QuestionListComponent } from './question-list/question-list.component';
+import {DialogModule} from "primeng/dialog";
+import {BreadcrumbModule} from "primeng/breadcrumb";
+import {CarouselModule} from "primeng/carousel";
 
 @NgModule({
-  imports: [
-    CommonModule,
-    PostApplicationRoutes,
-    StoreModule.forFeature(postApplicationFeatureKey, PostApplicationReducer),
-    EffectsModule.forFeature([PostApplicationEffects]),
-  ],
-  declarations: [PostApplicationComponent, ListSubModulesComponent,
+    imports: [
+        CommonModule,
+        PostApplicationRoutes,
+        StoreModule.forFeature(postApplicationFeatureKey, PostApplicationReducer),
+        EffectsModule.forFeature([PostApplicationEffects]),
+        DialogModule,
+        BreadcrumbModule,
+        CarouselModule,
+    ],
+  declarations: [PostApplicationComponent, ListSubModulesComponent, QuestionListComponent,
   ]
 })
 export class PostApplicationModule { }

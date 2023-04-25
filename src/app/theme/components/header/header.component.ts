@@ -15,6 +15,7 @@ import {AuthService} from "../../../Auth/auth.service";
 import {SubSink} from "subsink";
 import {Router} from "@angular/router";
 import {LocationService} from "../../../location.service";
+import { DataService } from "src/app/data.service";
 
 const KEY = 'time'
 let DEFAULT = 0
@@ -44,7 +45,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
         private modalService: ModalService, private router: Router, private locationService: LocationService,
         private viewContainerRef: ViewContainerRef,
         private service: AuthService,
-        private toast: MessageService
+        private toast: MessageService,
+        private dataService: DataService
+
     ) {
 
     }
@@ -52,7 +55,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
     ngOnInit() {
         this.getModuleList();
         this.getReportOption();
-
+        this.dataService.messageSource.subscribe((message) => {
+            this.openModal(null)
+        })
         this.subs.sink = this.service.selectLogInData$().subscribe(data => {
             if (data) {
                 localStorage.setItem('question_left', data.questions_left);
