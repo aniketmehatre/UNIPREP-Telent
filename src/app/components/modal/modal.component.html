@@ -1,4 +1,4 @@
-<p-dialog class="bg-light uniprepchat"  [maximizable]="false" [(visible)]="visible" [draggable]="false" [style]="{ width: '40vw' }"
+<p-dialog class="bg-light uniprepchat" [modal]="true"  [maximizable]="false" [(visible)]="visible" [draggable]="false" [style]="{ width: '40vw' }"
           header="Header">
     <ng-template pTemplate="header" class="p-0 m-0 chatbg">
         <div class="container-fluid py-2 px-2">
@@ -99,7 +99,15 @@
     </ng-template>
 </p-dialog>
 
-<p-dialog  [(visible)]="showReportSuccess"
-          [breakpoints]="{ '960px': '75vw' }" [style]="{ width: 'auto' }" [draggable]="false" [resizable]="false">
-   <img src="../../../uniprep-assets/images/icons/report_popup.png"/>
+<p-dialog [modal]="true" header="Header"  [(visible)]="showReportSuccess"  [breakpoints]="{ '960px': '75vw' }" [style]="{ width: 'auto' }" [draggable]="false" [resizable]="false">
+    <ng-template pTemplate="header">
+        <span class="text-xl font-bold"></span>
+    </ng-template>
+    <h3 class="text-center mb-2">We have noted your feedback.<br>Our team will get back to you shortly.</h3>
+    <h4 class="text-center mb-4">Thank You</h4>
+    <h1 class="text-center"><i class="fa-solid text-green fa-thumbs-up h1" style="font-size: 5em;"></i></h1>
+    <ng-template pTemplate="footer">
+        <span class="text-xl font-bold"></span>
+    </ng-template>
+   <!-- <img src="../../../uniprep-assets/images/icons/report_popup.png"/> -->
 </p-dialog>
