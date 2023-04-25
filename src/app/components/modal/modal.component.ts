@@ -27,6 +27,7 @@ export class ModalComponent implements OnInit {
     questionLeft = '';
     isReportChanged: boolean = false
     visible: boolean = true;
+    showReportSuccess: boolean = false;
     reportValueSelected: any;
     constructor(private modalService: ModalService, private toast: MessageService,
                 private service: AuthService) {
@@ -114,7 +115,8 @@ export class ModalComponent implements OnInit {
             if (res.status === 404) {
                 return;
             }
-            event.hide()
+            //event.hide()
+            this.showReportSuccess = true;
             this.toast.add({severity: 'success', summary: 'Info', detail: res.message});
         }, err => {
             event.hide()

@@ -1,0 +1,108 @@
+.application-text-small {
+  color: black;
+  font-size: 0.8rem;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.application-border {
+  border: 2px solid #9bc32a;
+  border-radius: 5%;
+  font-size: 0.8rem;
+}
+
+.unselected-border {
+  border: 2px solid #efb875;
+  border-radius: 5px;
+  font-size: 0.8rem;
+}
+
+.selected-border {
+  background-color: #9bc32a;
+  border: 0;
+}
+
+.application-text {
+  font-size: 0.8rem;
+}
+
+.subjectcard {
+  border: 2px solid #efb875;
+  width: 100%;
+  margin: 10px 0px;
+
+  .primary-btn {
+    background-color: #9bc329 !important;
+    color: black;
+
+    &:focus {
+      background-color: #fff !important;
+      border: 2px solid #9bc329;
+    }
+
+    &:hover {
+      background-color: #fff !important;
+      border: 2px solid #9bc329;
+    }
+  }
+
+  &:focus {
+    background-color: #daeca5;
+    border: 2px solid #9bc329;
+  }
+
+  &:hover {
+    background-color: #daeca5;
+    border: 2px solid #9bc329;
+  }
+
+  .subjecttitle {
+    height: 50px;
+    font-size: 12px;
+    text-align: left;
+    align-items: left;
+    justify-content: left;
+  }
+
+}
+
+.circle {
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  padding: 7px;
+  background: #fff;
+  border: 5px solid #9bc329;
+  color: black;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+}
+.card-body{
+  cursor: pointer;
+}
+.card-box {
+  height: 300px;
+  overflow: scroll;
+}
+
+:host ::ng-deep p-carousel {
+  //On later realease of PrimeNG, this can be done programmatically with [showIndicators | showNavigators]="false"
+  .p-carousel-indicators {
+    display: none !important;
+  }
+
+  //.p-carousel-next, .p-carousel-prev {
+  //  display: none !important;
+  //}
+}
+
+.tiny-btn {
+  font-size: 10px
+}
+:host ::ng-deep p-breadcrumb {
+  .p-component{
+    border: none !important;
+  }
+}

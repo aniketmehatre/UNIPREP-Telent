@@ -32,6 +32,7 @@ import {InputTextareaModule} from "primeng/inputtextarea";
 import {OverlayPanelModule} from "primeng/overlaypanel";
 import {DialogModule} from "primeng/dialog";
 import {CardModule} from "primeng/card";
+import {TooltipModule} from "primeng/tooltip";
 const reducers = {
   pageSelector: pagesReducer
 }
@@ -78,7 +79,8 @@ export function tokenGetter() {
         OverlayPanelModule,
         DialogModule,
         CardModule,
-        FormsModule
+        FormsModule,
+        TooltipModule
     ],
   providers: [
     DatePipe,

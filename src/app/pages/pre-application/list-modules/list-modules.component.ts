@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {PreAppService} from "../pre-app.service";
 import {Observable} from "rxjs";
 import {SubModuleList} from "../../../@Models/pre-application.model";
+import {Router} from "@angular/router";
 
 @Component({
     selector: 'uni-list-modules',
@@ -13,7 +14,7 @@ export class ListModulesComponent implements OnInit {
     selectedSubModule: any;
     subModuleList: any[] = [];
 
-    constructor(private preAppService: PreAppService) {
+    constructor(private preAppService: PreAppService, private router: Router) {
     }
 
     ngOnInit(): void {
@@ -29,5 +30,7 @@ export class ListModulesComponent implements OnInit {
             }
         });
         this.selectedSubModule = id;
+        this.router.navigate(['/pages/pre-application/question-list']);
+
     }
 }

@@ -1,23 +1,18 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
-import {HelpSupportComponent} from "../help-support/help-support.component";
-import {SupportCardComponent} from "../help-support/support-card/support-card.component";
-import {SupportDescriptionComponent} from "../help-support/support-description/support-description.component";
-import {SupportQueryComponent} from "../help-support/support-query/support-query.component";
-import { ListModulesComponent } from './list-modules/list-modules.component';
+import {ListModulesComponent} from './list-modules/list-modules.component';
+import {QuestionListComponent} from "./question-list/question-list.component";
+import {PreApplicationComponent} from "./pre-application.component";
 
 const routes: Routes = [{
-    path: '', component: ListModulesComponent,
+    path: '', component: PreApplicationComponent,
     children: [
         {
             path: 'sub-modules', component: ListModulesComponent,
         },
-        // {
-        //     path: 'description', component: SupportDescriptionComponent,
-        // },
-        // {
-        //     path: 'query', component: SupportQueryComponent,
-        // },
+        {
+            path: 'question-list', component: QuestionListComponent,
+        },
         {path: '', redirectTo: 'sub-modules', pathMatch: 'full'}
     ]
 

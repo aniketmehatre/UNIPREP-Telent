@@ -1,0 +1,130 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="card rounded shadow-sm mt-3 mb-3">
+            <div class="card-body text-center pt-0">
+                <h5 class="select-title mb-3">Pre-Application <i
+                        class="questiontooltip fa-solid fa-circle-question"></i></h5>
+                <div class="row mb-0">
+                    <div class="col-md-3" *ngFor="let sub of listQuestion$ | async">
+                        <div class="row w-100 m-0 justify-content-center">
+                            <div class="card subjectcard" role="button" (click)="onSubModuleClick(sub.id)">
+                                <div class="card-body">
+                                    <div class="row justify-content-center">
+                                        <p class="mb-0 circle text-center">{{sub.id}}</p>
+                                        <p class="text-left text-capitalize subjecttitle">{{sub.question}}</p>
+                                        <button type="button" pButton class="btn w-full btn-primary primary-btn">Read
+                                            Answer
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="card flex justify-content-center">
+    <p-dialog header="Header" [(visible)]="isQuestionAnswerVisible" [style]="{ width: '60vw' }">
+        <ng-template pTemplate="header" class="p-3">
+            <span class="text-xl font-bold"></span>
+        </ng-template>
+        <div class="row text-right justify-content-right align-item-right">
+            <div class="col-8 p-2">
+                <p-breadcrumb class="max-w-full" [model]="breadCrumb"></p-breadcrumb>
+
+            </div>
+            <div class="col-2 p-2">
+                <div class="card rounded shadow-sm mt-3 mb-3">
+                    <div class="card-body text-center pt-0">
+                        <div class="card-body">
+                            <!--                            <img class="small-image text-left" src="../../../uniprep-assets/images/uniboard.png">-->
+                            <p class="mb-0">home</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-2 p-2">
+                <div class="card rounded shadow-sm mt-3 mb-3">
+                    <div class="card-body text-center pt-0">
+                        <div class="card-body">
+                            <!--                            <img class="small-image text-left" src="../../../uniprep-assets/images/uniboard.png">-->
+                            <p class="mb-0">Report</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <p-carousel [value]="data" [numVisible]="1" [numScroll]="1" [circular]="true" [page]="selectedQuestion -1"
+                    [responsiveOptions]="responsiveOptions" (onPage)="setPage($event)">
+            <ng-template ngFor let-val [ngForOf]="data" pTemplate="item" let-i="index">
+                <div class="row text-center">
+                    <div class="col-12">
+                        <div class="border-1 surface-border border-round m-2 text-left py-5 px-3">
+                            <div class="mb-3">
+                                <p>{{val.question}}</p>
+                            </div>
+                            <div>
+                                <h6>{{val.answer}}</h6>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row text-center justify-content-center align-item-center">
+                    <div class="col-3 p-2">
+                        <button type="button" pButton class="btn btn-sm w-full btn-primary tiny-btn"
+                                (click)="onClickRecommendedVideo()">
+                            Recommended Videos
+                        </button>
+                    </div>
+                    <div class="col-3 p-2">
+                        <button type="button" pButton class="btn  btn-sm w-full btn-primary tiny-btn"
+                        >
+                            Click here to ask related questions
+                        </button>
+                    </div>
+                    <div class="col-3 p-2">
+                        <button type="button" pButton class="btn btn-sm w-full btn-primary tiny-btn"
+                                (click)="onClickRecommendedLinks()">
+                            Recommended Links
+                        </button>
+                    </div>
+                </div>
+            </ng-template>
+
+        </p-carousel>
+    </p-dialog>
+</div>
+<div class="card flex justify-content-center">
+    <p-dialog header="Header" [(visible)]="isRecommendedVideoVisible" [style]="{ width: '30vw' }">
+        <ng-template pTemplate="header">
+            <span class="text-xl font-bold">Recommended Videos</span>
+        </ng-template>
+        <p>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
+            dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex
+            ea commodo
+            consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
+            pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id
+            est laborum.
+        </p>
+    </p-dialog>
+</div>
+
+<div class="card flex justify-content-center">
+    <p-dialog header="Header" [(visible)]="isRecommendedLinksVisible" [style]="{ width: '30vw' }">
+        <ng-template pTemplate="header">
+            <span class="text-xl font-bold">Recommended Videos</span>
+        </ng-template>
+        <p>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
+            dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex
+            ea commodo
+            consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
+            pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id
+            est laborum.
+        </p>
+    </p-dialog>
+</div>

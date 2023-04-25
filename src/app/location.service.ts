@@ -33,4 +33,11 @@ export class LocationService {
       headers: headers,
     });
   }
+
+  getCountry(){
+    const headers = new HttpHeaders().set("Accept", "application/json");
+    return this.http.get<any>(environment.ApiUrl + "/country",{
+      headers: headers,
+    });
+  }
 }

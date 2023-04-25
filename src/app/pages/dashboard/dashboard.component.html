@@ -73,7 +73,7 @@
                             </span>
                             <div class="progress-value">
                                 <div>
-                                    {{readProgressionPercentage}}%<br>
+                                    {{readProgressionPercentage }}%<br>
                                 </div>
                             </div>
                         </div>
@@ -165,7 +165,7 @@
                                                     </span>
                                                         <div class="progress1-value">
                                                             <div>
-                                                                {{readPro.progression}}%<br>
+                                                                {{readPro.progression | number: '1.0-0'}}%<br>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -224,7 +224,7 @@
                                                     </span>
                                                         <div class="progress1-value">
                                                             <div>
-                                                                {{quiz.progression}}%<br>
+                                                                {{quiz.progression| number: '1.0-0'}}%<br>
                                                             </div>
                                                         </div>
                                                     </div>

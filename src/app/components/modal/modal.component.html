@@ -98,3 +98,8 @@
         </form>
     </ng-template>
 </p-dialog>
+
+<p-dialog  [(visible)]="showReportSuccess"
+          [breakpoints]="{ '960px': '75vw' }" [style]="{ width: 'auto' }" [draggable]="false" [resizable]="false">
+   <img src="../../../uniprep-assets/images/icons/report_popup.png"/>
+</p-dialog>
