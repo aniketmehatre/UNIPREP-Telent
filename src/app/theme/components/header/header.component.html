@@ -17,7 +17,7 @@
             <h5 class="mb-0">Time Left</h5>
             <!-- <img src="../../../../uniprep-assets/icons/hourglass.svg"> -->
             <i class="px-3 fa-solid fa-hourglass-end h3 mb-0"></i>
-            <countdown (event)="handleEvent($event)" *ngIf="config" [config]="config" class="custom-style"></countdown>
+            <countdown  #cd (event)="handleEvent($event)" *ngIf="config" [config]="config" class="custom-style"></countdown>
         </span>
         <button class="btn btn-primary mx-2" alt="chat with notification">Subscribe Now</button>
         <button class="btn btn-secondary subscribe_button mx-2 me-4" (click)="openReportModal(op, $event)" alt="reports" alt="chat with notification"><i class="fa-solid fa-file"></i> Report</button>
@@ -118,3 +118,7 @@
         </div>
     </div>
 </nav>
+
+<p-dialog [(visible)]="visible" [style]="{ width: 'auto' }" class="p-0 m-0">
+    <img width="300" height="300" src="../../../../uniprep-assets/images/icons/exhausted.png" alt="alert for countdown end"/>
+</p-dialog>

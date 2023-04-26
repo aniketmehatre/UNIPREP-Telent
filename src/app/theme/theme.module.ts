@@ -13,12 +13,13 @@ import {FormsModule} from "@angular/forms";
 import {DropdownModule} from "primeng/dropdown";
 import {InputTextareaModule} from "primeng/inputtextarea";
 import {OverlayPanelModule} from "primeng/overlaypanel";
+import {DialogModule} from "primeng/dialog";
 
 @NgModule({
   declarations: [HeaderComponent, SidenavComponent, SideMenuComponent],
     imports: [
         CommonModule, PipesModule, BreadcrumbModule,
-        AvatarModule, CountdownModule, ButtonModule, FormsModule, DropdownModule, InputTextareaModule, OverlayPanelModule
+        AvatarModule, CountdownModule, ButtonModule, FormsModule, DropdownModule, InputTextareaModule, OverlayPanelModule, DialogModule
     ],
   exports: [HeaderComponent, SidenavComponent, CountdownComponent]
 })
