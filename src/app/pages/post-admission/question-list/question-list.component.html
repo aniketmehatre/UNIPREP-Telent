@@ -2,7 +2,7 @@
     <div class="row">
         <div class="card">
             <div class="card-body text-center pt-0 h-100">
-                <h5 class="select-title mb-3">PRE-Application  - {{moduleName}}<i
+                <h5 class="select-title mb-3">POST-Admission  - {{moduleName}}<i
                         class="questiontooltip fa-solid fa-circle-question"></i></h5>
                 <div class="row">
                     <div class="col-md-3" *ngFor="let sub of listQuestion$ | async">
@@ -28,7 +28,7 @@
 <p-dialog class="questionmodal" header="Header" [modal]="true" [(visible)]="isQuestionAnswerVisible"
           [style]="{ width: '80vw' }">
     <ng-template pTemplate="header" class="p-3">
-        <h5 class="select-title text-center mb-3">PRE-Application - {{moduleName}}<i
+        <h5 class="select-title text-center mb-3">POST-Admission - {{moduleName}}<i
                 class="questiontooltip fa-solid fa-circle-question"></i></h5>
         <span class="text-xl font-bold"></span>
     </ng-template>
@@ -107,18 +107,18 @@
     </ng-template>
     <div class="container-fluid">
         <p>
-           {{videoLink}}
+            {{videoLink}}
         </p>
     </div>
 </p-dialog>
 
 <p-dialog header="Header" [modal]="true" [(visible)]="isRecommendedLinksVisible" [style]="{ width: '30vw' }">
     <ng-template pTemplate="header">
-        <span class="text-xl font-bold">Recommended Links</span>
+        <span class="text-xl font-bold">Recommended Videos</span>
     </ng-template>
     <div class="container-fluid">
-        <a href="refLink">
+        <p>
             {{refLink}}
-        </a>
+        </p>
     </div>
 </p-dialog>

@@ -9,18 +9,28 @@ import {EffectsModule} from "@ngrx/effects";
 import {PostAdmissionReducer} from "./store/post-admission.reducer";
 import {postAdmissionFeatureKey} from "./store/post-admission.selectors";
 import {PostAdmissionEffects} from "./store/post-admission.effects";
+import { QuestionListComponent } from './question-list/question-list.component';
+import {BreadcrumbModule} from "primeng/breadcrumb";
+import {CarouselModule} from "primeng/carousel";
+import {DialogModule} from "primeng/dialog";
+import {SharedModule} from "primeng/api";
 
 
 @NgModule({
   declarations: [
     PostAdmissionComponent,
-    ListSubModulesComponent
+    ListSubModulesComponent,
+    QuestionListComponent
   ],
   imports: [
     CommonModule,
     PostAdmissionRoutingModule,
     StoreModule.forFeature(postAdmissionFeatureKey, PostAdmissionReducer),
     EffectsModule.forFeature([PostAdmissionEffects]),
+    BreadcrumbModule,
+    CarouselModule,
+    DialogModule,
+    SharedModule,
   ]
 })
 export class PostAdmissionModule { }

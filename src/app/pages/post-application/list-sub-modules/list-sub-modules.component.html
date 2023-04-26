@@ -2,18 +2,21 @@
     <div class="row">
         <div class="card mt-3 mb-3">
             <div class="card-body text-center pt-0">
-                <h5 class="select-title mb-3">Post-Application <i class="questiontooltip fa-solid fa-circle-question"></i></h5>
+                <h5 class="select-title mb-3">Post-Application <i
+                        class="questiontooltip fa-solid fa-circle-question"></i></h5>
                 <div class="row mb-0">
                     <div class="col-md-2" *ngFor="let sub of subModules$ | async">
                         <div class="row w-100 m-0 justify-content-center">
                             <div class="card subjectcard" role="button" (click)="onSubModuleClick(sub.id)">
-                            <div class="card-body">
-                            <img class="selectimage" width="{{ selectedSubModule == sub.id ? '100px' : '100px'}}"
-                                style="{{ selectedSubModule == sub.id ? 'padding: 10%' : 'padding: 10%;'}}" src="{{sub.icon}}"
-                                alt="{{sub.submodule_name}}">
-                            <h5 class="text-center text-capitalize subjecttitle">{{sub.submodule_name}}</h5>
-                            <p class="mb-0">{{sub.questioncount}} Question Answered</p>
-                            </div>
+                                <div class="card-body">
+                                    <img class="selectimage"
+                                         width="{{ selectedSubModule == sub.id ? '100px' : '100px'}}"
+                                         style="{{ selectedSubModule == sub.id ? 'padding: 10%' : 'padding: 10%;'}}"
+                                         src="{{sub.icon}}"
+                                         alt="{{sub.submodule_name}}">
+                                    <h5 class="text-center text-capitalize subjecttitle">{{sub.submodule_name}}</h5>
+                                    <p class="mb-0">{{sub.questioncount}} Question Answered</p>
+                                </div>
                             </div>
                         </div>
                     </div>

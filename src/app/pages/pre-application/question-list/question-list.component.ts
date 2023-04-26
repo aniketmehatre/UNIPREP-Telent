@@ -46,7 +46,7 @@ export class QuestionListComponent implements OnInit, AfterContentChecked {
         this.getSubmoduleName(this.countryId);
 
         this.dataService.currentMessage.subscribe(message => this.message = message)
-        this.breadCrumb = [{label: 'Pre Application'}, {label: 'Career Prospectus'}, {label: 'Question'}];
+        this.breadCrumb = [{label: 'Pre Application'}, {label: this.moduleName}, {label: 'Question'}];
 
         this.responsiveOptions = [
             {

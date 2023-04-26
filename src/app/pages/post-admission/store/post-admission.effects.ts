@@ -2,9 +2,10 @@ import {Injectable} from "@angular/core";
 
 import {switchMap} from "rxjs";
 import {map} from "rxjs/operators";
-import {loadSubModules, loadSubModulesSuccess} from "./post-admission.actions";
+import {loadQuestionList, loadSubModules, loadSubModulesSuccess} from "./post-admission.actions";
 import {Actions, createEffect, ofType} from "@ngrx/effects";
 import {PostAdmissionService} from "./post-admission.service";
+import {loadQuestionListSuccess} from "../../pre-application/store/pre-application.actions";
 
 
 @Injectable()
@@ -21,4 +22,18 @@ import {PostAdmissionService} from "./post-admission.service";
             })
         ))
     ));
+
+    loadQuestionList = createEffect(() => this.actions$.pipe(
+        ofType(loadQuestionList),
+        switchMap((payload) => this.postAdmissionService.loadQuestionList({
+            countryId: payload.countryId,
+            moduleId: payload.moduleId,
+            submoduleId: payload.submoduleId
+        }).pipe(
+            map(response => {
+                return loadQuestionListSuccess({questionList: response.questions})
+            })
+        ))
+    ));
+
 }
