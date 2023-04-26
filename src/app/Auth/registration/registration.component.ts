@@ -176,6 +176,13 @@ export class RegistrationComponent implements OnInit {
     }
 
     onSubmit() {
+        console.log(this.registrationForm.value.lastDegreePassingYear.getFullYear())
+        this.intakeMonthLooking.filter((element: any) => {
+            if(this.registrationForm.value.intakeMonth == element.value){
+                console.log(element.label)
+            }
+        });
+        return;
         this.submitted = true;
         if (this.registrationForm.value.terms == false) {
             this.toastr.add({
@@ -195,9 +202,9 @@ export class RegistrationComponent implements OnInit {
             phone: this.registrationForm.value.contactNumber,
             email: this.registrationForm.value.emailAddress,
             interested_country_id: this.registrationForm.value.interestedCountry.id,
-            last_degree_passing_year: this.registrationForm.value.lastDegreePassingYear,
-            intake_year_looking: this.registrationForm.value.intakeYear.label,
-            intake_month_looking: this.registrationForm.value.intakeMonth.label,
+            last_degree_passing_year: this.registrationForm.value.lastDegreePassingYear.getFullYear(),
+            intake_year_looking: this.registrationForm.value.intakeYear.getFullYear(),
+            intake_month_looking: this.registrationForm.value.intakeMonth.getMonth()+1,
             programlevel_id: this.registrationForm.value.programLevel.id,
             gender: this.registrationForm.value.gender.label,
             password: this.registrationForm.value.password,

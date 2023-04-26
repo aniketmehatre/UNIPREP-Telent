@@ -20,7 +20,7 @@
             <countdown (event)="handleEvent($event)" *ngIf="config" [config]="config" class="custom-style"></countdown>
         </span>
         <button class="btn btn-primary mx-2" alt="chat with notification">Subscribe Now</button>
-        <button class="btn btn-secondary subscribe_button mx-2 me-4" (click)="op.toggle($event)" alt="reports" alt="chat with notification"><i class="fa-solid fa-file"></i> Report</button>
+        <button class="btn btn-secondary subscribe_button mx-2 me-4" (click)="openReportModal(op, $event)" alt="reports" alt="chat with notification"><i class="fa-solid fa-file"></i> Report</button>
         <p-overlayPanel #op>
             <ng-template pTemplate="content">
                 <div class="container px-0">
@@ -89,13 +89,32 @@
         <p-avatar (click)="togleSidebar.emit()" class="" label="" role="button">
             <i class="fa-solid fa-bell"></i>
         </p-avatar>
-        <p-avatar (click)="togleSidebar.emit()" label="{{firstChar}}"></p-avatar>
-        <span>{{userName}}</span>
+<!--        <p-avatar (click)="togleSidebar.emit()" label="{{firstChar}}"></p-avatar>-->
+<!--        <span>{{userName}}</span>-->
+<!--        <div class="dropdown">-->
+<!--            <i class="pi pi-angle-down text-primary dropbtn"></i>-->
+<!--            <div class="dropdown-content" style="right: 0; left: auto;">-->
+<!--                <a (click)="logout()">Logout</a>-->
+<!--            </div>-->
+<!--        </div>-->
         <div class="dropdown">
-            <i class="pi pi-angle-down text-primary dropbtn"></i>
-            <div class="dropdown-content" style="right: 0; left: auto;">
-                <a (click)="logout()">Logout</a>
-            </div>
+            <button class="button" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <span class="nme">{{(firstChar || '')?.charAt(0)}}</span> {{userName}}
+            </button>
+            <ul class="dropdown-menu">
+                <li>
+                    <a class="dropdown-item pt-2 pb-2" routerLink="/profile">
+                        <div class="d-flex justify-content-top">
+                            <i class="fa-solid fa-user me-2 mt-1"></i>
+                            <div>
+                                <p class="fw-semibold mb-1">{{userName}}</p>
+                                <p class="mb-0">{{userName}}</p>
+                            </div>
+                        </div>
+                    </a>
+                </li>
+                <li><a class="dropdown-item pt-2 pb-2" (click)="logout()"><i class="fa-solid fa-power-off me-2"></i>Logout</a></li>
+            </ul>
         </div>
     </div>
 </nav>

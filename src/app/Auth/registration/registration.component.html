@@ -434,6 +434,7 @@
                               view="year"
                               dateFormat="yy"
                               inputId="pickYear"
+                              class="pt-2"
                               formControlName="lastDegreePassingYear"
                               [maxDate]="dateTime"
                               [readonlyInput]="false"
@@ -470,6 +471,7 @@
                               view="year"
                               dateFormat="yy"
                               inputId="pickYear"
+                              class="pt-2"
                               formControlName="intakeYear"
                               [minDate]="dateTime"
                               [readonlyInput]="false"
@@ -501,10 +503,11 @@
 
                       <p-calendar
                               view="month"
-                              dateFormat="mm"
+                              dateFormat="MM"
                               formControlName="intakeMonth"
                               inputId="pickMonth"
                               [yearNavigator]="true"
+                              class="pt-2"
                               [readonlyInput]="false"
                               [minDate]="dateTime"
                               placeholder="">

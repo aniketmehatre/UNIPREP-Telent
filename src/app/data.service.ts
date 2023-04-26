@@ -5,14 +5,13 @@ import {BehaviorSubject} from "rxjs";
   providedIn: 'root'
 })
 export class DataService {
-  public messageSource = new BehaviorSubject('default message');
-  currentMessage = this.messageSource.asObservable();
+  public chatTriggerSource = new BehaviorSubject('not open');
+  currentMessage = this.chatTriggerSource.asObservable();
 
   constructor() { }
 
-  changeMessage(message: string) {
-    console.log('data service ', message)
-    this.messageSource.next(message);
+  changeChatOpenStatus(message: string) {
+    this.chatTriggerSource.next(message);
   }
 
 }

@@ -28,6 +28,7 @@ export class QuestionListComponent implements OnInit, AfterContentChecked {
     subModuleId: any;
     videoLink: any;
     refLink: any;
+    countryId: any;
 
     constructor(private preAppService: PreAppService, private changeDetector: ChangeDetectorRef,
                 private dataService: DataService, private route: ActivatedRoute) {
@@ -38,18 +39,12 @@ export class QuestionListComponent implements OnInit, AfterContentChecked {
     }
 
     ngOnInit(): void {
-        let countryId = 2
-        this.preAppService.loadSubModules(countryId);
-        this.subModules$ = this.preAppService.subModuleList$();
+       this.countryId = 2
+
         this.subModuleId = this.route.snapshot.paramMap.get('id');
 
-        this.subModules$.subscribe(event => {
-            event.filter(data => {
-                if (data.id == this.subModuleId) {
-                    this.moduleName = data.submodule_name;
-                }
-            })
-        })
+        this.getSubmoduleName(this.countryId);
+
         this.dataService.currentMessage.subscribe(message => this.message = message)
         this.breadCrumb = [{label: 'Pre Application'}, {label: 'Career Prospectus'}, {label: 'Question'}];
 
@@ -80,13 +75,25 @@ export class QuestionListComponent implements OnInit, AfterContentChecked {
 
     }
 
+    getSubmoduleName(countryId: number){
+        this.preAppService.loadSubModules(countryId);
+        this.subModules$ = this.preAppService.subModuleList$();
+        this.subModules$.subscribe(event => {
+            event.filter(data => {
+                if (data.id == this.subModuleId) {
+                    this.moduleName = data.submodule_name;
+                }
+            })
+        })
+    }
+
     onSubModuleClick(id: any) {
         this.listQuestion$.subscribe(event => {
             this.data = event
         });
         this.selectedQuestion = id;
         this.positionNumber = id;
-        this.breadCrumb = [{label: 'Pre Application'}, {label: 'Career Prospectus'}, {label: `Question ${id}`}];
+        this.breadCrumb = [{label: 'Pre Application'}, {label: this.moduleName}, {label: `Question ${id}`}];
         this.isQuestionAnswerVisible = true;
 
     }
@@ -99,7 +106,7 @@ export class QuestionListComponent implements OnInit, AfterContentChecked {
             pageNum = page.page
         }
         this.positionNumber = pageNum + 1;
-        this.breadCrumb = [{label: 'Pre Application'}, {label: 'Career Prospectus'}, {label: `Question ${pageNum + 1}`}];
+        this.breadCrumb = [{label: 'Pre Application'}, {label: this.moduleName}, {label: `Question ${pageNum + 1}`}];
 
     }
 
@@ -124,7 +131,7 @@ export class QuestionListComponent implements OnInit, AfterContentChecked {
     }
 
     onClickAsk() {
-        this.dataService.changeMessage("Hello from Second Component hi hi hihi")
+        this.dataService.changeChatOpenStatus("open chat window");
     }
 
     goToHome(event: any) {

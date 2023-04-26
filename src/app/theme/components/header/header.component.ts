@@ -1,10 +1,10 @@
 import {
-    Component,
+    Component, ElementRef,
     EventEmitter,
     Input,
     OnDestroy,
     OnInit,
-    Output,
+    Output, ViewChild,
     ViewContainerRef,
     ViewEncapsulation,
 } from "@angular/core";
@@ -15,7 +15,7 @@ import {AuthService} from "../../../Auth/auth.service";
 import {SubSink} from "subsink";
 import {Router} from "@angular/router";
 import {LocationService} from "../../../location.service";
-import { DataService } from "src/app/data.service";
+import {DataService} from "src/app/data.service";
 
 const KEY = 'time'
 let DEFAULT = 0
@@ -27,6 +27,7 @@ let DEFAULT = 0
     encapsulation: ViewEncapsulation.None,
 })
 export class HeaderComponent implements OnInit, OnDestroy {
+    @ViewChild('op') op!: ElementRef<HTMLInputElement>;
     config: CountdownConfig | null = null;
     @Input() breadcrumb: MenuItem[] = [
         {label: "Categories"},
@@ -47,7 +48,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
         private service: AuthService,
         private toast: MessageService,
         private dataService: DataService
-
     ) {
 
     }
@@ -55,8 +55,11 @@ export class HeaderComponent implements OnInit, OnDestroy {
     ngOnInit() {
         this.getModuleList();
         this.getReportOption();
-        this.dataService.messageSource.subscribe((message) => {
-            this.openModal(null)
+        this.dataService.chatTriggerSource.subscribe((message) => {
+            if (message === "open chat window") {
+                this.openModal(null)
+                //this.openReportModal(this.op, event);
+            }
         })
         this.subs.sink = this.service.selectLogInData$().subscribe(data => {
             if (data) {
@@ -85,38 +88,38 @@ export class HeaderComponent implements OnInit, OnDestroy {
         });
 
         this.darkModeSwitch = document.getElementById('darkmodeswitch') as HTMLInputElement;
-  
-    // Read the theme and checked state from the cookie and apply them to the body class and the switch
-    const theme = this.getCookie('theme');
-    if (theme === 'dark') {
-      document.body.classList.add('darkmode');
-      this.darkModeSwitch.checked = true;
-    } else {
-      document.body.classList.add('lightmode');
-      this.darkModeSwitch.checked = false;
-    }
-  
-    const checked = this.getCookie('checked');
-    if (checked === 'true') {
-      this.darkModeSwitch.checked = true;
-    } else if (checked === 'false') {
-      this.darkModeSwitch.checked = false;
-    }
-  
-    // Add event listener to toggle the theme and save it in a cookie
-    this.darkModeSwitch.addEventListener('change', () => {
-      if (this.darkModeSwitch.checked) {
-        document.body.classList.remove('lightmode');
-        document.body.classList.add('darkmode');
-        this.setCookie('theme', 'dark');
-        this.setCookie('checked', 'true');
-      } else {
-        document.body.classList.remove('darkmode');
-        document.body.classList.add('lightmode');
-        this.setCookie('theme', 'light');
-        this.setCookie('checked', 'false');
-      }
-    });
+
+        // Read the theme and checked state from the cookie and apply them to the body class and the switch
+        const theme = this.getCookie('theme');
+        if (theme === 'dark') {
+            document.body.classList.add('darkmode');
+            this.darkModeSwitch.checked = true;
+        } else {
+            document.body.classList.add('lightmode');
+            this.darkModeSwitch.checked = false;
+        }
+
+        const checked = this.getCookie('checked');
+        if (checked === 'true') {
+            this.darkModeSwitch.checked = true;
+        } else if (checked === 'false') {
+            this.darkModeSwitch.checked = false;
+        }
+
+        // Add event listener to toggle the theme and save it in a cookie
+        this.darkModeSwitch.addEventListener('change', () => {
+            if (this.darkModeSwitch.checked) {
+                document.body.classList.remove('lightmode');
+                document.body.classList.add('darkmode');
+                this.setCookie('theme', 'dark');
+                this.setCookie('checked', 'true');
+            } else {
+                document.body.classList.remove('darkmode');
+                document.body.classList.add('lightmode');
+                this.setCookie('theme', 'light');
+                this.setCookie('checked', 'false');
+            }
+        });
     }
 
 
@@ -132,9 +135,13 @@ export class HeaderComponent implements OnInit, OnDestroy {
     }
 
     openModal(e: any) {
-        e.preventDefault();
+        //e.preventDefault();
         this.modalService.setRootViewContainerRef(this.viewContainerRef);
         this.modalService.addDynamicComponent();
+    }
+
+    openReportModal(op: any, event: any) {
+        op.toggle(event);
     }
 
     logout() {
@@ -146,31 +153,31 @@ export class HeaderComponent implements OnInit, OnDestroy {
         });
     }
 
-    getModuleList(){
+    getModuleList() {
         this.subs.sink = this.locationService.getUniPerpModuleList().subscribe(data => {
             this.moduleList = data.modules;
         });
     }
 
-    getReportOption(){
+    getReportOption() {
         this.subs.sink = this.locationService.getReportOptionList().subscribe(data => {
             this.reportOptionList = data.reportOptions;
         });
     }
 
-    onChangeModuleList(event: any){
+    onChangeModuleList(event: any) {
 
     }
 
-    onChangeSubModuleList(event: any){
+    onChangeSubModuleList(event: any) {
 
     }
 
-    onChangeQuestionIdList(event: any){
+    onChangeQuestionIdList(event: any) {
 
     }
 
-    onChangeIssueTypeList(event: any){
+    onChangeIssueTypeList(event: any) {
 
     }
 
@@ -179,10 +186,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
         date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
         const expires = `expires=${date.toUTCString()}`;
         document.cookie = `${name}=${value};${expires};path=/`;
-      }
-    
-      private getCookie(name: string) {
+    }
+
+    private getCookie(name: string) {
         const cookieValue = document.cookie.match(`(^|;)\\s*${name}\\s*=\\s*([^;]+)`);
         return cookieValue ? cookieValue.pop() : '';
-      }
+    }
 }

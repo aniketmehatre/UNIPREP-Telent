@@ -125,7 +125,7 @@ export class QuestionListComponent implements OnInit {
   }
 
   onClickAsk() {
-      this.dataService.changeMessage("Hello from Second Component hi hi hihi")
+      this.dataService.changeChatOpenStatus("open chat window")
   }
 
   goToHome(event: any) {

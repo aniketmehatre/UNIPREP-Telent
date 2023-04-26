@@ -11,7 +11,7 @@ export class HeaderSearchComponent implements OnInit {
     message: any
 
     constructor(private dashboardService: DashboardService, private dataService: DataService) {
-        this.dataService.messageSource.subscribe(message => {
+        this.dataService.chatTriggerSource.subscribe(message => {
             this.message = message;
         });
     }

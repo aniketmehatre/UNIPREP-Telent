@@ -4,7 +4,6 @@ import {ScrollToBottomDirective} from "./scroll-to-bottom.directive";
 import {MessageService} from "primeng/api";
 import {SubSink} from "subsink";
 import {AuthService} from "../../Auth/auth.service";
-import { DataService } from "src/app/data.service";
 
 @Component({
     selector: "app-modal",
@@ -33,11 +32,8 @@ export class ModalComponent implements OnInit {
     message: any;
 
     constructor(private modalService: ModalService, private toast: MessageService,
-                private service: AuthService, private dataService: DataService) {
-        this.dataService.messageSource.subscribe(message => {
-            this.message = message;
-            console.log('test', message)
-        });
+                private service: AuthService) {
+
         // WebsocketService.messages.subscribe(msg => {
         //     this.received.push(msg);
         //     console.log("Response from websocket: " + msg);
@@ -54,11 +50,6 @@ export class ModalComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.dataService.messageSource.subscribe(message => {
-            this.message = message;
-            console.log('123123 ', message)
-        })
-
         this.questionLeft = '0';
         //this.questionLeft =
         this.subs.sink = this.service.selectLogInData$().subscribe(data => {
