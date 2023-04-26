@@ -73,7 +73,6 @@ export class DashboardComponent implements OnInit {
         this.modalReadingProgressing();
         this.modalQuizProgressing();
         this.subs.sink = this.service.getMe().subscribe(data => {
-            console.log(data)
             this.selectedCountryId = data.userdetails[0].interested_country_id;
             this.countryListData(this.selectedCountryId);
         });

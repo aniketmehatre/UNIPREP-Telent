@@ -1,17 +1,25 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {BehaviorSubject} from "rxjs";
 
 @Injectable({
-  providedIn: 'root'
+    providedIn: 'root'
 })
 export class DataService {
-  public chatTriggerSource = new BehaviorSubject('not open');
-  currentMessage = this.chatTriggerSource.asObservable();
+    public chatTriggerSource = new BehaviorSubject('not open');
+    currentMessage = this.chatTriggerSource.asObservable();
 
-  constructor() { }
+    public countryNameSource = new BehaviorSubject('not open');
+    countryName = this.countryNameSource.asObservable();
 
-  changeChatOpenStatus(message: string) {
-    this.chatTriggerSource.next(message);
-  }
+    constructor() {
+    }
+
+    changeChatOpenStatus(message: string) {
+        this.chatTriggerSource.next(message);
+    }
+
+    changeCountryName(countryName: string) {
+        this.countryNameSource.next(countryName)
+    }
 
 }

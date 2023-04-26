@@ -176,13 +176,6 @@ export class RegistrationComponent implements OnInit {
     }
 
     onSubmit() {
-        console.log(this.registrationForm.value.lastDegreePassingYear.getFullYear())
-        this.intakeMonthLooking.filter((element: any) => {
-            if(this.registrationForm.value.intakeMonth == element.value){
-                console.log(element.label)
-            }
-        });
-        return;
         this.submitted = true;
         if (this.registrationForm.value.terms == false) {
             this.toastr.add({
