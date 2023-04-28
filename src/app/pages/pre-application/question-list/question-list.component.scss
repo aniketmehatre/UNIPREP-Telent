@@ -120,3 +120,14 @@
   border: 2px solid #9bc329;
   min-height: 50vh;
 }
+// #leftclick
+::ng-deep .p-carousel .p-carousel-content .p-carousel-next{
+  background: #9BC329;
+  border: 40px;
+  color: #fff;
+}
+::ng-deep .p-carousel .p-carousel-content .p-carousel-prev{
+  background: #9BC329;
+  border: 40px;
+  color: #fff;
+}
