@@ -97,7 +97,7 @@
 <!--                <a (click)="logout()">Logout</a>-->
 <!--            </div>-->
 <!--        </div>-->
-        <div class="dropdown">
+        <div class="dropdown profile-dropdown">
             <button class="button" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                 <span class="nme">{{(firstChar || '')?.charAt(0)}}</span> {{userName}}
             </button>
@@ -119,6 +119,12 @@
     </div>
 </nav>
 
-<p-dialog [(visible)]="visible" [style]="{ width: 'auto' }" class="p-0 m-0">
-    <img width="300" height="300" src="../../../../uniprep-assets/images/icons/exhausted.png" alt="alert for countdown end"/>
+<p-dialog [(visible)]="visible" [closable]="true" [style]="{ width: 'auto' }" class="p-0 m-0" class="timerpopup" [modal]="true" [draggable]="false" [resizable]="false">
+    <div class="px-5 pb-5 pt-3">
+        <div class="justify-content-center text-center pb-5 px-2">
+            <h5 class="text-center mb-2">Your 1 Hour Free Trial has<br>Exhausted</h5>
+            <div><img src="../../../uniprep-assets/images/icons/timerstart.png" width="auto"></div>
+            <button class="btn btn-primary text-white">Subscribe Now</button>
+        </div>
+    </div>
 </p-dialog>

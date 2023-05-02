@@ -318,6 +318,45 @@ h1, h2, h3, h4, h5 {
 }
 }
 
+.thankyoupopup
+{
+  .p-dialog-mask
+  {
+    .p-dialog
+    {
+      background-image:url(/uniprep-assets/images/icons/alert_popup.png);
+        background-size: cover;
+        background-position: bottom;
+      .p-dialog-content
+      {
+        background: transparent;
+      }
+      
+    }
+  }
+}
+
+.timerpopup
+{
+  .p-dialog-mask
+  {
+    .p-dialog
+    {
+      .p-dialog-header
+      {
+        display:auto;
+      }
+      .p-dialog-content
+      {
+        background-image:url(/uniprep-assets/images/icons/alert_popup.png);
+        background-size: cover;
+        background-position: bottom;
+        border-radius: 10px;
+      }
+      
+    }
+  }
+}
 
 .select-title
 {
@@ -373,6 +412,10 @@ h1, h2, h3, h4, h5 {
   .darkmodelogo
   {
     display: inline !important;
+  }
+  .profile-dropdown button
+  {
+    color:#fff;
   }
   #menu-items {
     .menu-item {
