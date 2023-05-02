@@ -118,5 +118,13 @@
 {
   background-color: #daeca5;
   border: 2px solid #9bc329;
-  min-height: 50vh;
+  max-height: 60vh;
+  overflow-y:auto;
+}
+
+:host  ::ng-deep .p-carousel-item{
+  max-height: 0;
+}
+:host ::ng-deep  .p-carousel-item-active{
+ max-height: 100% !important;
 }

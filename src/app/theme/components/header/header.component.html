@@ -79,60 +79,42 @@
         <p-avatar (click)="togleSidebar.emit()" class="" label="" role="button">
             <i class="fa-solid fa-bell"></i>
         </p-avatar>
-        <!--        <p-avatar (click)="togleSidebar.emit()" label="{{firstChar}}"></p-avatar>-->
-        <!--        <span>{{userName}}</span>-->
-        <!--        <div class="dropdown">-->
-        <!--            <i class="pi pi-angle-down text-primary dropbtn"></i>-->
-        <!--            <div class="dropdown-content" style="right: 0; left: auto;">-->
-        <!--                <a (click)="logout()">Logout</a>-->
-        <!--            </div>-->
-        <!--        </div>-->
-        <div class="dropdown">
-            <!--            <button class="button" type="button" data-bs-toggle="dropdown" aria-expanded="false">-->
-            <!--                <span class="nme">{{(firstChar || '')?.charAt(0)}}</span> {{userName}}-->
-            <!--            </button> -->
-            <p-avatar (click)="togleSidebar.emit()" label="{{firstChar}}" data-bs-toggle="dropdown"
-                aria-expanded="false"></p-avatar>
-            <span>{{userName}}</span>
-            <div class="dropdown">
-                <i class="pi pi-angle-down text-primary dropbtn" data-bs-toggle="dropdown" aria-expanded="false"></i>
-                <div class="dropdown-content" style="right: 0; left: auto;">
-                    <ul class="dropdown-menu">
-                        <li>
-                            <a class="dropdown-item pt-2 pb-2" routerLink="/usermanagement">
-                                <div class="d-flex justify-content-top">
-                                    <i class="fa-solid fa-user me-2 mt-1"></i>
-                                    <div>
-                                        <p class="fw-semibold mb-1">{{userName}}</p>
-                                        <p class="mb-0">{{userName}}</p>
-                                    </div>
-                                </div>
-                            </a>
-                        </li>
-                        <li><a class="dropdown-item pt-2 pb-2" (click)="logout()"><i
-                                    class="fa-solid fa-power-off me-2"></i>Logout</a></li>
-                    </ul>
-                </div>
-            </div>
-            <!--            <ul class="dropdown-menu">-->
-            <!--                <li>-->
-            <!--                    <a class="dropdown-item pt-2 pb-2" routerLink="/profile">-->
-            <!--                        <div class="d-flex justify-content-top">-->
-            <!--                            <i class="fa-solid fa-user me-2 mt-1"></i>-->
-            <!--                            <div>-->
-            <!--                                <p class="fw-semibold mb-1">{{userName}}</p>-->
-            <!--                                <p class="mb-0">{{userName}}</p>-->
-            <!--                            </div>-->
-            <!--                        </div>-->
-            <!--                    </a>-->
-            <!--                </li>-->
-            <!--                <li><a class="dropdown-item pt-2 pb-2" (click)="logout()"><i class="fa-solid fa-power-off me-2"></i>Logout</a></li>-->
-            <!--            </ul>-->
+<!--        <p-avatar (click)="togleSidebar.emit()" label="{{firstChar}}"></p-avatar>-->
+<!--        <span>{{userName}}</span>-->
+<!--        <div class="dropdown">-->
+<!--            <i class="pi pi-angle-down text-primary dropbtn"></i>-->
+<!--            <div class="dropdown-content" style="right: 0; left: auto;">-->
+<!--                <a (click)="logout()">Logout</a>-->
+<!--            </div>-->
+<!--        </div>-->
+        <div class="dropdown profile-dropdown">
+            <button class="button" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <span class="nme">{{(firstChar || '')?.charAt(0)}}</span> {{userName}}
+            </button>
+            <ul class="dropdown-menu">
+                <li>
+                    <a class="dropdown-item pt-2 pb-2" routerLink="/profile">
+                        <div class="d-flex justify-content-top">
+                            <i class="fa-solid fa-user me-2 mt-1"></i>
+                            <div>
+                                <p class="fw-semibold mb-1">{{userName}}</p>
+                                <p class="mb-0">{{userName}}</p>
+                            </div>
+                        </div>
+                    </a>
+                </li>
+                <li><a class="dropdown-item pt-2 pb-2" (click)="logout()"><i class="fa-solid fa-power-off me-2"></i>Logout</a></li>
+            </ul>
         </div>
     </div>
 </nav>
 
-<p-dialog #subEndDialog [(visible)]="visible" [style]="{ width: 'auto' }" [draggable]="false" class="p-0 m-0">
-    <img width="300" height="300" src="../../../../uniprep-assets/images/icons/exhausted.png"
-        (click)="onClickSubscribe(subEndDialog)" alt="alert for countdown end" />
+<p-dialog [(visible)]="visible" [closable]="true" [style]="{ width: 'auto' }" class="p-0 m-0" class="timerpopup" [modal]="true" [draggable]="false" [resizable]="false">
+    <div class="px-5 pb-5 pt-3">
+        <div class="justify-content-center text-center pb-5 px-2">
+            <h5 class="text-center mb-2">Your 1 Hour Free Trial has<br>Exhausted</h5>
+            <div><img src="../../../uniprep-assets/images/icons/timerstart.png" width="auto"></div>
+            <button class="btn btn-primary text-white">Subscribe Now</button>
+        </div>
+    </div>
 </p-dialog>

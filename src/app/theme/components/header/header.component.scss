@@ -124,6 +124,30 @@ form {
   width: 100%;
   text-align: left;
 }
+.profile-dropdown
+{
+  button
+  {
+    background: transparent;
+    border:none;
+    padding: 0;
+    padding-right: 15px;
+  }
+}
+.nme {
+  display: inline-block;
+  width: 3rem;
+  height: 3rem;
+  line-height: 3rem;
+  border-radius: 8px;
+  color: #001631;
+  background-color: #e3eec3;
+  border: 2px solid #e3eec3;
+  text-align: center;
+  margin-right: 10px;
+  font-weight: 700!important;
+  font-size: 1.2rem;
+}
 
 .custom-style {
   .item {
