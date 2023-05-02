@@ -8,7 +8,7 @@
                 <input type="checkbox" role="switch" id="darkmodeswitch" class="form-check-input">
             </div>
             <label class="ms-1">
-                    <i class="fa-solid fa-moon"></i>
+                <i class="fa-solid fa-moon"></i>
             </label>
         </div>
     </div>
@@ -17,66 +17,56 @@
             <h5 class="mb-0">Time Left</h5>
             <!-- <img src="../../../../uniprep-assets/icons/hourglass.svg"> -->
             <i class="px-3 fa-solid fa-hourglass-end h3 mb-0"></i>
-            <countdown  #cd (event)="handleEvent($event)" *ngIf="config" [config]="config" class="custom-style"></countdown>
+            <countdown #cd (event)="handleEvent($event)" *ngIf="config" [config]="config" class="custom-style">
+            </countdown>
         </span>
         <button class="btn btn-primary mx-2" alt="chat with notification">Subscribe Now</button>
-        <button class="btn btn-secondary subscribe_button mx-2 me-4" (click)="openReportModal(op, $event)" alt="reports" alt="chat with notification"><i class="fa-solid fa-file"></i> Report</button>
-        <p-overlayPanel #op>
+        <button class="btn btn-secondary subscribe_button mx-2 me-4" (click)="openReportModal(op, $event)" alt="reports"
+            alt="chat with notification"><i class="fa-solid fa-file"></i> Report
+        </button>
+        <p-overlayPanel #op >
             <ng-template pTemplate="content">
                 <div class="container px-0">
-                <div class="row report">
-                    <p class="report-label text-left mb-0">Modules</p>
-                    <span class="report-modal">
-                    <p-dropdown style="width:100%;"  [options]="moduleList" (onChange)="onChangeModuleList($event)"
-                            [style]="{'minWidth':'100%'}"
-                            class="w-100"
-                            id="moduleId"
-                            optionLabel="module_name"
-                            style="width: 100% !important;"
-                    ></p-dropdown>
-                </span>
-                    <p class="report-label text-left mb-0">Categories</p>
-                    <span class="report-modal">
-                    <p-dropdown
-                            [style]="{'minWidth':'100%'}" (onChange)="onChangeSubModuleList($event)"
-                            class="w-100"
-                            id="submoduleId"
-                            optionLabel="name"
-                            style="width: 100% !important;"
-                    ></p-dropdown>
-                </span>
-                    <p class="report-label text-left mb-0">Question Number</p>
-                    <span class="report-modal">
-                    <p-dropdown
-                            [style]="{'minWidth':'100%'}" (onChange)="onChangeQuestionIdList($event)"
-                            class="w-100"
-                            id="questionId"
-                            optionLabel="name"
-                            style="width: 100% !important;"
-                    ></p-dropdown>
-                </span>
-                    <p class="report-label text-left mb-0">Issue Type</p>
-                    <span class="report-modal">
-                    <p-dropdown  [options]="reportOptionList" (onChange)="onChangeIssueTypeList($event)"
-                            [style]="{'minWidth':'100%'}"
-                            class="w-100"
-                            id="reportOption"
-                            optionLabel="reportoption_name"
-                            style="width: 100% !important;"
-                    ></p-dropdown>
-                </span>
-                <p class="report-labeltext-left mb-0">Add Command</p>
-                <span class="report-modal">
-                    <textarea pInputTextarea id="comment"></textarea>
-                </span>
-                <span>
-                    <button class="btn btn-primary w-100 m-0">
-                        Submit
-                    </button>
-                </span>
-                    
+                    <form [formGroup]="reportSubmitForm" (ngSubmit)="onSubmit()">
+                    <div class="row report">
+                        <p class="report-label text-left mb-0">Modules</p>
+                        <span class="report-modal">
+                            <p-dropdown [options]="moduleList" (onChange)="onChangeModuleList($event.value.id)"
+                                        formControlName="moduleId" dataKey="id" [(ngModel)]="moduleNgModel"
+                                class="w-100" id="moduleId" optionLabel="module_name"></p-dropdown>
+                        </span>
+                        <p class="report-label text-left mb-0">Categories</p>
+                        <span class="report-modal">
+                            <p-dropdown [options]="subModuleList"  dataKey="id"
+                                        [(ngModel)]="subModuleNgModel"
+                                        formControlName="submoduleId" (onChange)="onChangeSubModuleList($event.value.id)"
+                                class="w-100" id="submoduleId" optionLabel="submodule_name"></p-dropdown>
+                        </span>
+                        <p class="report-label text-left mb-0">Question Number</p>
+                        <span class="report-modal">
+                            <p-dropdown [options]="questionList" dataKey="id" [(ngModel)]="questionIdNgModel"
+                                        formControlName="questionId" (onChange)="onChangeQuestionIdList($event)"
+                                class="w-100" id="questionId" optionLabel="id"></p-dropdown>
+                        </span>
+                        <p class="report-label text-left mb-0">Issue Type</p>
+                        <span class="report-modal">
+                            <p-dropdown [options]="reportOptionList" dataKey="id" [(ngModel)]="reportOptionNgModel"
+                                        formControlName="reportOption" (onChange)="onChangeIssueTypeList($event)"
+                                class="w-100" id="reportOption" optionLabel="reportoption_name"></p-dropdown>
+                        </span>
+                        <p class="report-labeltext-left mb-0">Add Command</p>
+                        <span class="report-modal">
+                            <textarea formControlName="comment"  pInputTextarea id="comment"></textarea>
+                        </span>
+                        <span>
+                            <button class="btn btn-primary w-100 m-0">
+                                Submit
+                            </button>
+                        </span>
+
+                    </div>
+                    </form>
                 </div>
-            </div>
             </ng-template>
         </p-overlayPanel>
         <!--        <p-button (click)="op.toggle($event)" icon="pi pi-image" label="Show"></p-button>-->
@@ -89,36 +79,60 @@
         <p-avatar (click)="togleSidebar.emit()" class="" label="" role="button">
             <i class="fa-solid fa-bell"></i>
         </p-avatar>
-<!--        <p-avatar (click)="togleSidebar.emit()" label="{{firstChar}}"></p-avatar>-->
-<!--        <span>{{userName}}</span>-->
-<!--        <div class="dropdown">-->
-<!--            <i class="pi pi-angle-down text-primary dropbtn"></i>-->
-<!--            <div class="dropdown-content" style="right: 0; left: auto;">-->
-<!--                <a (click)="logout()">Logout</a>-->
-<!--            </div>-->
-<!--        </div>-->
+        <!--        <p-avatar (click)="togleSidebar.emit()" label="{{firstChar}}"></p-avatar>-->
+        <!--        <span>{{userName}}</span>-->
+        <!--        <div class="dropdown">-->
+        <!--            <i class="pi pi-angle-down text-primary dropbtn"></i>-->
+        <!--            <div class="dropdown-content" style="right: 0; left: auto;">-->
+        <!--                <a (click)="logout()">Logout</a>-->
+        <!--            </div>-->
+        <!--        </div>-->
         <div class="dropdown">
-            <button class="button" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                <span class="nme">{{(firstChar || '')?.charAt(0)}}</span> {{userName}}
-            </button>
-            <ul class="dropdown-menu">
-                <li>
-                    <a class="dropdown-item pt-2 pb-2" routerLink="/profile">
-                        <div class="d-flex justify-content-top">
-                            <i class="fa-solid fa-user me-2 mt-1"></i>
-                            <div>
-                                <p class="fw-semibold mb-1">{{userName}}</p>
-                                <p class="mb-0">{{userName}}</p>
-                            </div>
-                        </div>
-                    </a>
-                </li>
-                <li><a class="dropdown-item pt-2 pb-2" (click)="logout()"><i class="fa-solid fa-power-off me-2"></i>Logout</a></li>
-            </ul>
+            <!--            <button class="button" type="button" data-bs-toggle="dropdown" aria-expanded="false">-->
+            <!--                <span class="nme">{{(firstChar || '')?.charAt(0)}}</span> {{userName}}-->
+            <!--            </button> -->
+            <p-avatar (click)="togleSidebar.emit()" label="{{firstChar}}" data-bs-toggle="dropdown"
+                aria-expanded="false"></p-avatar>
+            <span>{{userName}}</span>
+            <div class="dropdown">
+                <i class="pi pi-angle-down text-primary dropbtn" data-bs-toggle="dropdown" aria-expanded="false"></i>
+                <div class="dropdown-content" style="right: 0; left: auto;">
+                    <ul class="dropdown-menu">
+                        <li>
+                            <a class="dropdown-item pt-2 pb-2" routerLink="/usermanagement">
+                                <div class="d-flex justify-content-top">
+                                    <i class="fa-solid fa-user me-2 mt-1"></i>
+                                    <div>
+                                        <p class="fw-semibold mb-1">{{userName}}</p>
+                                        <p class="mb-0">{{userName}}</p>
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
+                        <li><a class="dropdown-item pt-2 pb-2" (click)="logout()"><i
+                                    class="fa-solid fa-power-off me-2"></i>Logout</a></li>
+                    </ul>
+                </div>
+            </div>
+            <!--            <ul class="dropdown-menu">-->
+            <!--                <li>-->
+            <!--                    <a class="dropdown-item pt-2 pb-2" routerLink="/profile">-->
+            <!--                        <div class="d-flex justify-content-top">-->
+            <!--                            <i class="fa-solid fa-user me-2 mt-1"></i>-->
+            <!--                            <div>-->
+            <!--                                <p class="fw-semibold mb-1">{{userName}}</p>-->
+            <!--                                <p class="mb-0">{{userName}}</p>-->
+            <!--                            </div>-->
+            <!--                        </div>-->
+            <!--                    </a>-->
+            <!--                </li>-->
+            <!--                <li><a class="dropdown-item pt-2 pb-2" (click)="logout()"><i class="fa-solid fa-power-off me-2"></i>Logout</a></li>-->
+            <!--            </ul>-->
         </div>
     </div>
 </nav>
 
-<p-dialog [(visible)]="visible" [style]="{ width: 'auto' }" class="p-0 m-0">
-    <img width="300" height="300" src="../../../../uniprep-assets/images/icons/exhausted.png" alt="alert for countdown end"/>
+<p-dialog #subEndDialog [(visible)]="visible" [style]="{ width: 'auto' }" [draggable]="false" class="p-0 m-0">
+    <img width="300" height="300" src="../../../../uniprep-assets/images/icons/exhausted.png"
+        (click)="onClickSubscribe(subEndDialog)" alt="alert for countdown end" />
 </p-dialog>

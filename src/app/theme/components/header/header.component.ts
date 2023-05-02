@@ -1,21 +1,25 @@
 import {
-    Component, ElementRef,
+    Component,
+    ElementRef,
     EventEmitter,
     Input,
     OnDestroy,
     OnInit,
-    Output, ViewChild,
+    Output,
+    ViewChild,
     ViewContainerRef,
     ViewEncapsulation,
 } from "@angular/core";
-import {MenuItem, MessageService} from "primeng/api";
-import {CountdownConfig} from 'ngx-countdown';
-import {ModalService} from "src/app/components/modal/modal.service";
-import {AuthService} from "../../../Auth/auth.service";
-import {SubSink} from "subsink";
-import {Router} from "@angular/router";
-import {LocationService} from "../../../location.service";
-import {DataService} from "src/app/data.service";
+import { MenuItem, MessageService } from "primeng/api";
+import { CountdownConfig } from 'ngx-countdown';
+import { ModalService } from "src/app/components/modal/modal.service";
+import { AuthService } from "../../../Auth/auth.service";
+import { SubSink } from "subsink";
+import { Router } from "@angular/router";
+import { LocationService } from "../../../location.service";
+import { DataService } from "src/app/data.service";
+import { FormBuilder, Validators } from '@angular/forms';
+import {FormGroup} from "@angular/forms";
 
 const KEY = 'time'
 let DEFAULT = 0
@@ -29,42 +33,58 @@ let DEFAULT = 0
 export class HeaderComponent implements OnInit, OnDestroy {
     @ViewChild('op') op!: ElementRef<HTMLInputElement>;
     config: CountdownConfig | null = null;
+    public reportSubmitForm: any = FormGroup;
     @Input() breadcrumb: MenuItem[] = [
-        {label: "Categories"},
-        {label: "Sports"},
+        { label: "Categories" },
+        { label: "Sports" },
     ];
     @Input() expandicon = "";
     @Output() togleSidebar = new EventEmitter();
     private subs = new SubSink();
     userName: any;
     firstChar: any;
-    moduleList: any [] = [];
-    reportOptionList: any [] = [];
+    moduleNgModel: string = '1';
+    subModuleNgModel: string = '1';
+    questionIdNgModel: string = '1';
+    reportOptionNgModel: string = '1';
+    selectedContryId: any;
+    selectedModuleId: any;
+    moduleList: any[] = [];
+    subModuleList: any[] = [];
+    questionList: any[] = [];
+    reportOptionList: any[] = [];
     darkModeSwitch!: HTMLInputElement;
     visible: boolean = false;
 
     constructor(
         private modalService: ModalService, private router: Router, private locationService: LocationService,
-        private viewContainerRef: ViewContainerRef,
-        private service: AuthService,
-        private toast: MessageService,
-        private dataService: DataService
+        private viewContainerRef: ViewContainerRef, private formBuilder: FormBuilder,
+        private service: AuthService, private toast: MessageService, private dataService: DataService
     ) {
-
+        this.dataService.countryIdSource.subscribe(data => {
+            this.selectedContryId = Number(data);
+            this.getModuleList();
+        })
     }
 
     ngOnInit() {
-        this.getModuleList();
+        this.reportSubmitForm = this.formBuilder.group({
+            moduleId: ["", [Validators.required]],
+            submoduleId: ["", [Validators.required]],
+            questionId: ["", [Validators.required]],
+            reportOption: ["", [Validators.required]],
+            comment: ["", []],
+        });
         this.getReportOption();
         this.dataService.chatTriggerSource.subscribe((message) => {
             if (message === "open chat window") {
                 this.openModal(null)
                 //this.openReportModal(this.op, event);
             }
-        })
+        });
         this.subs.sink = this.service.selectLogInData$().subscribe(data => {
             if (data) {
-                if(data.time_left < 0){
+                if (data.time_left < 0) {
                     this.visible = true;
                     return;
                 }
@@ -85,7 +105,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
                         .join('');
                 },
             };
-        }else{
+        } else {
             this.config = {
                 leftTime: 0,
                 format: 'HH:mm:ss',
@@ -139,7 +159,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
         });
     }
 
-
     ngOnDestroy() {
         this.subs.unsubscribe();
     }
@@ -163,7 +182,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
     logout() {
         this.subs.sink = this.service.logout().subscribe(data => {
-            this.toast.add({severity: 'success', summary: 'Success', detail: 'logged out successfully'});
+            this.toast.add({ severity: 'success', summary: 'Success', detail: 'logged out successfully' });
             window.sessionStorage.clear();
             localStorage.clear();
             this.router.navigateByUrl('/login');
@@ -173,6 +192,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
     getModuleList() {
         this.subs.sink = this.locationService.getUniPerpModuleList().subscribe(data => {
             this.moduleList = data.modules;
+            this.selectedModuleId = 1;
+
+            this.onChangeModuleList(1);
         });
     }
 
@@ -182,12 +204,32 @@ export class HeaderComponent implements OnInit, OnDestroy {
         });
     }
 
-    onChangeModuleList(event: any) {
+    onChangeModuleList(moduleId = 1) {
+        let data = {
+            moduleid: moduleId
+        }
+        this.selectedModuleId = moduleId;
+        this.locationService.getSubModuleByModule(data).subscribe(res => {
+            if (res.status == 404) {
 
+            }
+            this.subModuleList = res.submodules;
+            this.onChangeSubModuleList(res.submodules[0].id);
+        })
     }
 
-    onChangeSubModuleList(event: any) {
+    onChangeSubModuleList(subModuleId = 1) {
+        let data = {
+            moduleId: this.selectedModuleId,
+            countryId: this.selectedContryId,
+            submoduleId: subModuleId
+        }
+        this.locationService.getModuleQuestionList(data).subscribe(res => {
+            if (res.status == 404) {
 
+            }
+            this.questionList = res.questions;
+        })
     }
 
     onChangeQuestionIdList(event: any) {
@@ -209,4 +251,31 @@ export class HeaderComponent implements OnInit, OnDestroy {
         const cookieValue = document.cookie.match(`(^|;)\\s*${name}\\s*=\\s*([^;]+)`);
         return cookieValue ? cookieValue.pop() : '';
     }
+
+    onClickSubscribe(dialog: any) {
+        dialog.close();
+        this.router.navigate(['pages/subscriptions'])
+    }
+
+    onSubmit(){
+        if (this.reportSubmitForm.invalid) {
+            return;
+        }
+        let data = {
+            moduleId: this.reportSubmitForm.value.moduleId.id,
+            submoduleId: this.reportSubmitForm.value.submoduleId.id,
+            questionId: this.reportSubmitForm.value.questionId.id,
+            reportOption: this.reportSubmitForm.value.reportOption.id,
+            comment: this.reportSubmitForm.value.comment
+        }
+        console.log(data)
+
+        this.locationService.reportFaqQuestion(data).subscribe(res => {
+            if (res.status == 404) {
+
+            }
+            this.toast.add({ severity: 'success', summary: 'Success', detail: 'FAQ Report submitted successfully' });
+        })
+    }
+
 }

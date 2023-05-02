@@ -9,10 +9,14 @@ import {DataService} from "../../data.service";
 })
 export class HeaderSearchComponent implements OnInit {
     message: any
+    countryName: any
 
     constructor(private dashboardService: DashboardService, private dataService: DataService) {
         this.dataService.chatTriggerSource.subscribe(message => {
             this.message = message;
+        });
+        this.dataService.countryNameSource.subscribe(countryName => {
+            this.countryName = countryName;
         });
     }
 
@@ -28,7 +32,7 @@ export class HeaderSearchComponent implements OnInit {
 
     searchKeyWord(searchInput: any) {
         const data = {
-            countryId: 2,
+            countryId: Number(localStorage.getItem('countryId')),
             searchtag: searchInput.value
         }
         this.dashboardService.searchKeyword(data).subscribe((res: any) => {

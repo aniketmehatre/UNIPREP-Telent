@@ -2,7 +2,7 @@
     <div class="row">
         <div class="card">
             <div class="card-body text-center pt-0 h-100">
-                <h5 class="select-title mb-3">PRE-Application  - {{moduleName}}<i
+                <h5 class="select-title mb-3">PRE-Application - {{moduleName}}<i
                         class="questiontooltip fa-solid fa-circle-question"></i></h5>
                 <div class="row">
                     <div class="col-md-3" *ngFor="let sub of listQuestion$ | async">
@@ -25,7 +25,7 @@
         </div>
     </div>
 </div>
-<p-dialog class="questionmodal" header="Header" [modal]="true" [(visible)]="isQuestionAnswerVisible"
+<p-dialog class="questionmodal" header="Header" [draggable]="false" [modal]="true" [(visible)]="isQuestionAnswerVisible"
           [style]="{ width: '80vw' }">
     <ng-template pTemplate="header" class="p-3">
         <h5 class="select-title text-center mb-3">PRE-Application - {{moduleName}}<i
@@ -40,8 +40,14 @@
             <div class="col-md-2">
             </div>
             <div class="col-md-8 d-flex align-items-center justify-content-center text-center">
-                <i class="text-green h4 mx-3 mb-0 fa-solid fa-circle-chevron-left"></i><h5 class="mb-0">Question
-                Number {{positionNumber}}</h5><i class="text-green mx-3 h4 fa-solid mb-0 fa-circle-chevron-right"></i>
+                <a (click)="clickPrevious(carousel, $event)"><i
+                        class="text-green h4 mx-3 mb-0 fa-solid fa-circle-chevron-left"
+                ></i></a>
+                <h5 class="mb-0">Question
+                    Number {{positionNumber}}</h5>
+                <a (click)="clickNext(carousel, $event)"><i
+                        class="text-green mx-3 h4 fa-solid mb-0 fa-circle-chevron-right"
+                ></i></a>
             </div>
             <div class="col-md-2 gap-2 d-flex">
                 <button class="btn w-100 btn-primary homecardbtn m-0 px-2 py-2" (click)="goToHome($event)">
@@ -54,7 +60,7 @@
                 </button>
             </div>
         </div>
-        <p-carousel class="answersection" [value]="data" [numVisible]="1" [numScroll]="1" [circular]="true"
+        <p-carousel #carousel class="answersection" [value]="data" [numVisible]="1" [numScroll]="1" [circular]="true"
                     [page]="selectedQuestion -1"
                     [responsiveOptions]="responsiveOptions" (onPage)="setPage($event)">
             <ng-template ngFor let-val [ngForOf]="data" pTemplate="item" let-i="index">
@@ -107,7 +113,7 @@
     </ng-template>
     <div class="container-fluid">
         <p>
-           {{videoLink}}
+            {{videoLink}}
         </p>
     </div>
 </p-dialog>

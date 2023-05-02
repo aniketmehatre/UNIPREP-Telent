@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import {AfterContentChecked, ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import { MenuItem } from 'primeng/api';
 import { Observable } from 'rxjs';
 import { SubModuleList } from 'src/app/@Models/post-application.model';
@@ -6,13 +6,15 @@ import { ListQuestion } from 'src/app/@Models/question-list.model';
 import { PostApplicationService } from '../post-application.service';
 import { DataService } from 'src/app/data.service';
 import { ActivatedRoute } from '@angular/router';
+import {PreAppService} from "../../pre-application/pre-app.service";
+import {CareerHubService} from "../../career-hub/career-hub.service";
 
 @Component({
   selector: 'uni-question-list',
   templateUrl: './question-list.component.html',
   styleUrls: ['./question-list.component.scss']
 })
-export class QuestionListComponent implements OnInit {
+export class QuestionListComponent implements OnInit, AfterContentChecked {
     subModules$!: Observable<SubModuleList[]>;
     listQuestion$!: Observable<ListQuestion[]>;
     selectedQuestion: number = 0;
@@ -39,14 +41,14 @@ export class QuestionListComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.countryId = 2
+        this.countryId = Number(localStorage.getItem('countryId'));
 
         this.subModuleId = this.route.snapshot.paramMap.get('id');
 
         this.getSubmoduleName(this.countryId);
 
         this.dataService.currentMessage.subscribe(message => this.message = message)
-        this.breadCrumb = [{label: 'Pre Application'}, {label: this.moduleName}, {label: 'Question'}];
+        this.breadCrumb = [{label: 'POST Application'}, {label: this.moduleName}, {label: 'Question'}];
 
         this.responsiveOptions = [
             {
@@ -67,7 +69,7 @@ export class QuestionListComponent implements OnInit {
         ];
         this.listQuestion$ = this.postApplicationService.questionList$();
         let data = {
-            countryId: 2,
+            countryId: Number(localStorage.getItem('countryId')),
             moduleId: 2,
             submoduleId: this.subModuleId
         }
@@ -75,7 +77,7 @@ export class QuestionListComponent implements OnInit {
 
     }
 
-    getSubmoduleName(countryId: number){
+    getSubmoduleName(countryId: number) {
         this.postApplicationService.loadSubModules(countryId);
         this.subModules$ = this.postApplicationService.subModuleList$();
         this.subModules$.subscribe(event => {
@@ -93,7 +95,7 @@ export class QuestionListComponent implements OnInit {
         });
         this.selectedQuestion = id;
         this.positionNumber = id;
-        this.breadCrumb = [{label: 'Pre Application'}, {label: this.moduleName}, {label: `Question ${id}`}];
+        this.breadCrumb = [{label: 'POST Application'}, {label: this.moduleName}, {label: `Question ${id}`}];
         this.isQuestionAnswerVisible = true;
 
     }
@@ -106,8 +108,25 @@ export class QuestionListComponent implements OnInit {
             pageNum = page.page
         }
         this.positionNumber = pageNum + 1;
-        this.breadCrumb = [{label: 'Pre Application'}, {label: this.moduleName}, {label: `Question ${pageNum + 1}`}];
+        this.breadCrumb = [{label: 'POST Application'}, {label: this.moduleName}, {label: `Question ${pageNum + 1}`}];
+    }
 
+    clickPrevious(carousel: any, event: any) {
+        if (this.selectedQuestion < 2) {
+            this.selectedQuestion = this.data.length;
+            carousel.navBackward(event, this.selectedQuestion);
+            return;
+        }
+        carousel.navBackward(event, --this.selectedQuestion)
+    }
+
+    clickNext(carousel: any, event: any) {
+        if (this.selectedQuestion > this.data.length) {
+            this.selectedQuestion = 0;
+            carousel.navForward(event, this.selectedQuestion++)
+            return;
+        }
+        carousel.navForward(event, this.selectedQuestion++)
     }
 
     onClickRecommendedVideo() {

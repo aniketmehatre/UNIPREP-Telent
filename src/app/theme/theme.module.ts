@@ -9,7 +9,7 @@ import { AvatarModule } from 'primeng/avatar';
 import { CountdownComponent } from 'ngx-countdown';
 import { CountdownModule } from 'ngx-countdown';
 import { ButtonModule } from "primeng/button";
-import {FormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {DropdownModule} from "primeng/dropdown";
 import {InputTextareaModule} from "primeng/inputtextarea";
 import {OverlayPanelModule} from "primeng/overlaypanel";
@@ -19,7 +19,7 @@ import {DialogModule} from "primeng/dialog";
   declarations: [HeaderComponent, SidenavComponent, SideMenuComponent],
     imports: [
         CommonModule, PipesModule, BreadcrumbModule,
-        AvatarModule, CountdownModule, ButtonModule, FormsModule, DropdownModule, InputTextareaModule, OverlayPanelModule, DialogModule
+        AvatarModule, CountdownModule, ButtonModule, FormsModule, DropdownModule, InputTextareaModule, OverlayPanelModule, DialogModule, ReactiveFormsModule
     ],
   exports: [HeaderComponent, SidenavComponent, CountdownComponent]
 })

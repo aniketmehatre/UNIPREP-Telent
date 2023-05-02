@@ -3,18 +3,19 @@ nav {
   display: flex;
   justify-content: space-between;
   padding: 10px;
-  .btn-primary
-  {
+
+  .btn-primary {
     padding: 10px;
     font-size: 1rem;
-    color:#000;
+    color: #000;
   }
-  .btn-secondary
-  {
+
+  .btn-secondary {
     padding: 10px;
     font-size: 1rem;
-    color:#000;
+    color: #000;
   }
+
   .p-breadcrumb {
     padding: 0px;
     display: inline-block;
@@ -146,6 +147,7 @@ form {
     }
   }
 }
+
 .p-avatar {
   display: inline-flex;
   align-items: center;
@@ -157,6 +159,7 @@ form {
   border-radius: 10px !important;
 
 }
+
 .dropbtn {
   color: #9bc326 !important;
   padding: 16px;
@@ -205,36 +208,38 @@ form {
 .dropdown:hover .dropbtn {
   color: dodgerblue;
 }
-.report
-{
-  .report-label 
-  {
-    font-size:0.8rem;
-    font-weight:600;
+
+.report {
+  .report-label {
+    font-size: 0.8rem;
+    font-weight: 600;
   }
-  .report-modal
-  {
-    .p-element
-    {
-      .p-dropdown
-      {
-        width:100%;
+
+  .report-modal {
+    .p-element {
+      .p-dropdown {
+        width: 100%;
         margin-bottom: 15px;
       }
     }
-    .p-dropdown-panel
-    {
-      margin-top:0;
+
+    .p-dropdown-panel {
+      margin-top: 0;
     }
+
     .p-inputtextarea {
-      width:100%;
-      margin-bottom:15px;
+      width: 100%;
+      margin-bottom: 15px;
     }
   }
 }
+
 //.p-dialog-header {
 //  display: none !important;
 //}
-.p-dialog .p-dialog-content{
+.p-dialog-header {
+  padding: 0 !important;
+}
+.p-dialog-content {
   padding: 0 !important;
 }

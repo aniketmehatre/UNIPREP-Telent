@@ -1,105 +1,109 @@
 <div class="container h-100">
-  <div class="row loginbox">
-  <div class="card">
-  <div class="card-body d-flex">
+    <div class="row loginbox">
+        <div class="card">
+            <div class="card-body d-flex">
 
-    <div class="col-md-6 col-lg-6 d-flex align-items-center">
-      <div class="row">
-        <img class="small-image text-left" src="../../../uniprep-assets/images/uniboard.png">
-         <h4>Welcome to UNIPREP</h4>
-       <p>Live resolution to personal questions.</p>
-         <p><span class="font-primarycolor">30,000+ questions on every topics concerning education abroad<br>
+                <div class="col-md-6 col-lg-6 d-flex align-items-center">
+                    <div class="row">
+                        <img class="small-image text-left" src="../../../uniprep-assets/images/uniboard.png">
+                        <h4>Welcome to UNIPREP</h4>
+                        <p>Live resolution to personal questions.</p>
+                        <p><span class="font-primarycolor">30,000+ questions on every topics concerning education abroad<br>
          answered by alumni of international universities.</span></p>
-       <div class="row justify-content-center">
-        <img class="bg-image text-center" src="../../../uniprep-assets/images/Uniprep_Icons_image.png">
-       </div>
-       <p><strong>Note:</strong> You are welcomed for the selected country of your choice</p>
-     </div>
-    </div>
-    <div class="col-md-6 col-lg-6">
-      <div class="login d-flex align-items-center text-right">
-        <div class="container">
-          <div class="row">
-            <div class="col-md-12 col-lg-12">
-              <!-- <img class="logo" src="../../../uniprep-assets/images/SOP-CHECKER.PNG"> -->
-              <h3 class="login-heading mt-3 mb-3"> <u>Welcome Back ,</u> Please login to your <span class="font-primarycolor">account.</span></h3>
-              <label class="signup">Don't have an account?<span ><a class="font-primarycolor" href="register"> Sign up here</a></span></label>
-              <br><br>
-              <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-                <label for="floatingInput">Email address</label>
-                <div class="p-inputgroup">
-                  <div class="p-inputgroup-addon">
-                    <img class="bg-image text-center" src="../../../uniprep-assets/images/icons/Uniprep_Icons_email.png">
-                  </div>
-                  <input
-                    type="email"
-                    pInputText
-                    id="floatingInput"
-                    class="border-0"
-                    placeholder="name@example.com"
-                    formControlName="email"
-                    [ngClass]="{ 'is-invalid': submitted && f.email.errors }"
-                  />
+                        <div class="row justify-content-center">
+                            <img class="bg-image text-center"
+                                 src="../../../uniprep-assets/images/Uniprep_Icons_image.png">
+                        </div>
+                        <p><strong>Note:</strong> You are welcomed for the selected country of your choice</p>
+                    </div>
                 </div>
-                <div
-                        *ngIf="submitted && f.email.errors" class="text-danger"
-                >
-                  <div *ngIf="f.email.errors.required">Email is required</div>
-                  <div *ngIf="f.email.errors.email">
-                    Email must be a valid email address
-                  </div>
+                <div class="col-md-6 col-lg-6">
+                    <div class="login d-flex align-items-center text-right">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-md-12 col-lg-12">
+                                    <!-- <img class="logo" src="../../../uniprep-assets/images/SOP-CHECKER.PNG"> -->
+                                    <h3 class="login-heading mt-3 mb-3"><u>Welcome Back ,</u> Please login to your <span
+                                            class="font-primarycolor">account.</span></h3>
+                                    <label class="signup">Don't have an account?<span><a class="font-primarycolor"
+                                                                                         href="register"> Sign up here</a></span></label>
+                                    <br><br>
+                                    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+                                        <label for="floatingInput">Email address</label>
+                                        <div class="p-inputgroup">
+                                            <div class="p-inputgroup-addon">
+                                                <img class="bg-image text-center"
+                                                     src="../../../uniprep-assets/images/icons/Uniprep_Icons_email.png">
+                                            </div>
+                                            <input
+                                                    type="email"
+                                                    pInputText
+                                                    id="floatingInput"
+                                                    class="border-0"
+                                                    placeholder="name@example.com"
+                                                    formControlName="email"
+                                                    [ngClass]="{ 'is-invalid': submitted && f.email.errors }"
+                                            />
+                                        </div>
+                                        <div
+                                                *ngIf="submitted && f.email.errors" class="text-danger">
+                                            <div *ngIf="f.email.errors.required">Email is required</div>
+                                            <div *ngIf="f.email.errors.email">
+                                                Email must be a valid email address
+                                            </div>
+                                        </div>
+                                        <br>
+                                        <label for="floatingPassword">Password</label>
+                                        <div class="p-inputgroup">
+                                            <div class="p-inputgroup-addon">
+                                                <i class="pi pi-lock gray-50" style="opacity: 0.7;"></i>
+                                            </div>
+                                            <input
+                                                    type="password"
+                                                    class="border-0"
+                                                    pInputText
+                                                    id="floatingPassword"
+                                                    placeholder="Password"
+                                                    formControlName="password"
+                                                    autocomplete="Off"
+                                                    [ngClass]="{ 'is-invalid': submitted && f.password.errors }"
+                                                    id="inputPassword4"
+                                            />
+                                        </div>
+                                        <div
+                                                *ngIf="submitted && f.password.errors" class="text-danger"
+                                        >
+                                            <div *ngIf="f.password.errors.required">
+                                                Password is required
+                                            </div>
+                                        </div>
+                                        <br/>
+                                        <div class="text-left">
+                                            <a class="small" href="forgot-password">Forgot my password?</a>
+                                        </div>
+                                        <br/><br/>
+                                        <div class="d-grid">
+                                            <button
+                                                    class="pt-3 pb-3 btn btn-primary btn-login text-uppercase fw-bold m-0 text-dark"
+                                                    type="submit"
+                                            >
+                                                <strong>Sign in</strong>
+                                            </button>
+                                        </div>
+                                        <!-- <div class="form-check mb-3">
+                                            <input class="form-check-input" type="checkbox" value="" id="rememberPasswordCheck">
+                                            <label class="form-check-label" for="rememberPasswordCheck">
+                                              Remember password
+                                            </label>
+                                          </div> -->
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <br>
-                <label for="floatingPassword">Password</label>
-                <div class="p-inputgroup">
-                  <div class="p-inputgroup-addon">
-                    <i class="pi pi-lock gray-50" style="opacity: 0.7;"></i>
-                  </div>
-                  <input
-                    type="password"
-                    class="border-0"
-                    pInputText
-                    id="floatingPassword"
-                    placeholder="Password"
-                    formControlName="password"
-                    [ngClass]="{ 'is-invalid': submitted && f.password.errors }"
-                    id="inputPassword4"
-                  />
-                </div>
-                <div
-                        *ngIf="submitted && f.password.errors" class="text-danger"
-                >
-                  <div *ngIf="f.password.errors.required">
-                    Password is required
-                  </div>
-                </div>
-                <br />
-                <div class="text-left">
-                  <a class="small" href="forgot-password">Forgot my password?</a>
-                </div>
-                <br /><br />
-                <div class="d-grid">
-                  <button
-                    class="pt-3 pb-3 btn btn-primary btn-login text-uppercase fw-bold m-0 text-dark"
-                    type="submit"
-                  >
-                   <strong>Sign in</strong>
-                  </button>
-                </div>
-                <!-- <div class="form-check mb-3">
-                    <input class="form-check-input" type="checkbox" value="" id="rememberPasswordCheck">
-                    <label class="form-check-label" for="rememberPasswordCheck">
-                      Remember password
-                    </label>
-                  </div> -->
-              </form>
+
             </div>
-          </div>
         </div>
-      </div>
     </div>
-    
-  </div>
-  </div>
-  </div>
 </div>

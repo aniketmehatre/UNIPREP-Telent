@@ -19,7 +19,7 @@ export class ListModulesComponent implements OnInit {
 
     ngOnInit(): void {
         this.subModules$ = this.preAppService.subModuleList$();
-        let countryId = 2
+        let countryId = Number(localStorage.getItem('countryId'));
         this.preAppService.loadSubModules(countryId);
     }
 

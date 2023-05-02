@@ -39,7 +39,7 @@ export class QuestionListComponent implements OnInit, AfterContentChecked {
     }
 
     ngOnInit(): void {
-       this.countryId = 2
+        this.countryId = Number(localStorage.getItem('countryId'));
 
         this.subModuleId = this.route.snapshot.paramMap.get('id');
 
@@ -67,7 +67,7 @@ export class QuestionListComponent implements OnInit, AfterContentChecked {
         ];
         this.listQuestion$ = this.preAppService.questionList$();
         let data = {
-            countryId: 2,
+            countryId: Number(localStorage.getItem('countryId')),
             moduleId: 1,
             submoduleId: this.subModuleId
         }
@@ -75,7 +75,7 @@ export class QuestionListComponent implements OnInit, AfterContentChecked {
 
     }
 
-    getSubmoduleName(countryId: number){
+    getSubmoduleName(countryId: number) {
         this.preAppService.loadSubModules(countryId);
         this.subModules$ = this.preAppService.subModuleList$();
         this.subModules$.subscribe(event => {
@@ -107,7 +107,24 @@ export class QuestionListComponent implements OnInit, AfterContentChecked {
         }
         this.positionNumber = pageNum + 1;
         this.breadCrumb = [{label: 'Pre Application'}, {label: this.moduleName}, {label: `Question ${pageNum + 1}`}];
+    }
 
+    clickPrevious(carousel: any, event: any) {
+        if (this.selectedQuestion < 2) {
+            this.selectedQuestion = this.data.length;
+            carousel.navBackward(event, this.selectedQuestion);
+            return;
+        }
+        carousel.navBackward(event, --this.selectedQuestion)
+    }
+
+    clickNext(carousel: any, event: any) {
+        if (this.selectedQuestion > this.data.length) {
+            this.selectedQuestion = 0;
+            carousel.navForward(event, this.selectedQuestion++)
+            return;
+        }
+        carousel.navForward(event, this.selectedQuestion++)
     }
 
     onClickRecommendedVideo() {

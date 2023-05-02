@@ -1,18 +1,47 @@
 export interface UserData {
-  user: User;
-  token: any;
+    user: User;
+    token: any;
 }
+
 export interface User {
-  id: string;
-  email: string;
-  email_verified_at: any;
-  status: number;
-  usertype_id: number;
-  platform_id: number;
-  created_at: string;
-  updated_at: string;
-  deleted_at: any;
-  subscription_name: string;
-  location_name: string;
-  usertype_name: string;
+    id: string;
+    name: string;
+    email: string;
+    emailAddress: string;
+    fullName: string;
+    contactNumber: string;
+    interestedCountry: string;
+    lastDegreePassingYear: string;
+    intakeYear: string;
+    intakeMonth: string;
+    gender: string;
+    programLevel: string;
+    location: string;
+    email_verified_at: any;
+    status: number;
+    usertype_id: number;
+    platform_id: number;
+    created_at: string;
+    updated_at: string;
+    deleted_at: any;
+    subscription_name: string;
+    location_name: string;
+    usertype_name: string;
+
+
+    location_id: string;
+    phone: string;
+    subscription: string;
+    subscription_id: string;
+    interested_country_id: string;
+    last_degree_passing_year: string;
+    programlevel_id: string;
+    intake_year_looking: string;
+    intake_month_looking: string;
+    countries_certificate: string;
+    type: string;
+    state: string;
+    district: string;
+    programlevel: string;
+
 }

@@ -1,6 +1,6 @@
-import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
+import {AfterContentChecked, ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import {Observable} from "rxjs";
-import {SubModuleList} from "../../../@Models/post-application.model";
+import {SubModuleList} from "../../../@Models/post-admission.model";
 import {ListQuestion} from "../../../@Models/question-list.model";
 import {MenuItem} from "primeng/api";
 import {DataService} from "../../../data.service";
@@ -8,133 +8,150 @@ import {ActivatedRoute} from "@angular/router";
 import {PostAdmissionService} from "../post-admission.service";
 
 @Component({
-  selector: 'uni-question-list',
-  templateUrl: './question-list.component.html',
-  styleUrls: ['./question-list.component.scss']
+    selector: 'uni-question-list',
+    templateUrl: './question-list.component.html',
+    styleUrls: ['./question-list.component.scss']
 })
-export class QuestionListComponent implements OnInit {
-  subModules$!: Observable<SubModuleList[]>;
-  listQuestion$!: Observable<ListQuestion[]>;
-  selectedQuestion: number = 0;
-  positionNumber: number = 0;
-  data: any;
-  breadCrumb: MenuItem[] = [];
-  isQuestionAnswerVisible: boolean = false;
-  isRecommendedLinksVisible: boolean = false;
-  isRecommendedVideoVisible: boolean = false;
-  responsiveOptions: any[] = [];
-  message: string = '';
-  moduleName: any;
-  subModuleId: any;
-  videoLink: any;
-  refLink: any;
-  countryId: any;
+export class QuestionListComponent implements OnInit, AfterContentChecked {
+    subModules$!: Observable<SubModuleList[]>;
+    listQuestion$!: Observable<ListQuestion[]>;
+    selectedQuestion: number = 0;
+    positionNumber: number = 0;
+    data: any;
+    breadCrumb: MenuItem[] = [];
+    isQuestionAnswerVisible: boolean = false;
+    isRecommendedLinksVisible: boolean = false;
+    isRecommendedVideoVisible: boolean = false;
+    responsiveOptions: any[] = [];
+    message: string = '';
+    moduleName: any;
+    subModuleId: any;
+    videoLink: any;
+    refLink: any;
+    countryId: any;
 
-  constructor(private postAdmissionService: PostAdmissionService, private changeDetector: ChangeDetectorRef,
-              private dataService: DataService, private route: ActivatedRoute) {
-  }
-
-  ngAfterContentChecked(): void {
-    this.changeDetector.detectChanges();
-  }
-
-  ngOnInit(): void {
-    this.countryId = 2
-
-    this.subModuleId = this.route.snapshot.paramMap.get('id');
-
-    this.getSubmoduleName(this.countryId);
-
-    this.dataService.currentMessage.subscribe(message => this.message = message)
-    this.breadCrumb = [{label: 'Pre Application'}, {label: this.moduleName}, {label: 'Question'}];
-
-    this.responsiveOptions = [
-      {
-        breakpoint: '1199px',
-        numVisible: 1,
-        numScroll: 1
-      },
-      {
-        breakpoint: '991px',
-        numVisible: 2,
-        numScroll: 1
-      },
-      {
-        breakpoint: '767px',
-        numVisible: 1,
-        numScroll: 1
-      }
-    ];
-    this.listQuestion$ = this.postAdmissionService.questionList$();
-    let data = {
-      countryId: 2,
-      moduleId: 3,
-      submoduleId: this.subModuleId
+    constructor(private postAdmissionService: PostAdmissionService, private changeDetector: ChangeDetectorRef,
+                private dataService: DataService, private route: ActivatedRoute) {
     }
-    this.postAdmissionService.loadQuestionList(data);
 
-  }
+    ngAfterContentChecked(): void {
+        this.changeDetector.detectChanges();
+    }
 
-  getSubmoduleName(countryId: number){
-    this.postAdmissionService.loadSubModules(countryId);
-    this.subModules$ = this.postAdmissionService.subModuleList$();
-    this.subModules$.subscribe(event => {
-      event.filter(data => {
-        if (data.id == this.subModuleId) {
-          this.moduleName = data.submodule_name;
+    ngOnInit(): void {
+        this.countryId = Number(localStorage.getItem('countryId'));
+
+        this.subModuleId = this.route.snapshot.paramMap.get('id');
+
+        this.getSubmoduleName(this.countryId);
+
+        this.dataService.currentMessage.subscribe(message => this.message = message)
+        this.breadCrumb = [{label: 'POST Admission'}, {label: this.moduleName}, {label: 'Question'}];
+
+        this.responsiveOptions = [
+            {
+                breakpoint: '1199px',
+                numVisible: 1,
+                numScroll: 1
+            },
+            {
+                breakpoint: '991px',
+                numVisible: 2,
+                numScroll: 1
+            },
+            {
+                breakpoint: '767px',
+                numVisible: 1,
+                numScroll: 1
+            }
+        ];
+        this.listQuestion$ = this.postAdmissionService.questionList$();
+        let data = {
+            countryId: Number(localStorage.getItem('countryId')),
+            moduleId: 3,
+            submoduleId: this.subModuleId
         }
-      })
-    })
-  }
+        this.postAdmissionService.loadQuestionList(data);
 
-  onSubModuleClick(id: any) {
-    this.listQuestion$.subscribe(event => {
-      this.data = event
-    });
-    this.selectedQuestion = id;
-    this.positionNumber = id;
-    this.breadCrumb = [{label: 'Pre Application'}, {label: this.moduleName}, {label: `Question ${id}`}];
-    this.isQuestionAnswerVisible = true;
-
-  }
-
-  setPage(page: any) {
-    let pageNum: number = 0
-    if (page.page < 0) {
-      pageNum = this.data.length;
-    } else {
-      pageNum = page.page
     }
-    this.positionNumber = pageNum + 1;
-    this.breadCrumb = [{label: 'Pre Application'}, {label: this.moduleName}, {label: `Question ${pageNum + 1}`}];
 
-  }
+    getSubmoduleName(countryId: number) {
+        this.postAdmissionService.loadSubModules(countryId);
+        this.subModules$ = this.postAdmissionService.subModuleList$();
+        this.subModules$.subscribe(event => {
+            event.filter(data => {
+                if (data.id == this.subModuleId) {
+                    this.moduleName = data.submodule_name;
+                }
+            })
+        })
+    }
 
-  onClickRecommendedVideo() {
-    this.isRecommendedVideoVisible = true;
-    this.data.filter((res: any) => {
-      if (res.id == this.selectedQuestion) {
-        console.log('res 1', res)
-        this.videoLink = res.videolink
-      }
-    })
-  }
+    onSubModuleClick(id: any) {
+        this.listQuestion$.subscribe(event => {
+            this.data = event
+        });
+        this.selectedQuestion = id;
+        this.positionNumber = id;
+        this.breadCrumb = [{label: 'POST Admission'}, {label: this.moduleName}, {label: `Question ${id}`}];
+        this.isQuestionAnswerVisible = true;
 
-  onClickRecommendedLinks() {
-    this.isRecommendedLinksVisible = true;
-    this.data.filter((res: any) => {
-      if (res.id == this.selectedQuestion) {
-        console.log('res', res)
-        this.refLink = res.reflink
-      }
-    })
-  }
+    }
 
-  onClickAsk() {
-    this.dataService.changeChatOpenStatus("open chat window");
-  }
+    setPage(page: any) {
+        let pageNum: number = 0
+        if (page.page < 0) {
+            pageNum = this.data.length;
+        } else {
+            pageNum = page.page
+        }
+        this.positionNumber = pageNum + 1;
+        this.breadCrumb = [{label: 'POST Admission'}, {label: this.moduleName}, {label: `Question ${pageNum + 1}`}];
+    }
 
-  goToHome(event: any) {
-    this.isQuestionAnswerVisible = false;
-  }
+    clickPrevious(carousel: any, event: any) {
+        if (this.selectedQuestion < 2) {
+            this.selectedQuestion = this.data.length;
+            carousel.navBackward(event, this.selectedQuestion);
+            return;
+        }
+        carousel.navBackward(event, --this.selectedQuestion)
+    }
+
+    clickNext(carousel: any, event: any) {
+        if (this.selectedQuestion > this.data.length) {
+            this.selectedQuestion = 0;
+            carousel.navForward(event, this.selectedQuestion++)
+            return;
+        }
+        carousel.navForward(event, this.selectedQuestion++)
+    }
+
+    onClickRecommendedVideo() {
+        this.isRecommendedVideoVisible = true;
+        this.data.filter((res: any) => {
+            if (res.id == this.selectedQuestion) {
+                console.log('res 1', res)
+                this.videoLink = res.videolink
+            }
+        })
+    }
+
+    onClickRecommendedLinks() {
+        this.isRecommendedLinksVisible = true;
+        this.data.filter((res: any) => {
+            if (res.id == this.selectedQuestion) {
+                console.log('res', res)
+                this.refLink = res.reflink
+            }
+        })
+    }
+
+    onClickAsk() {
+        this.dataService.changeChatOpenStatus("open chat window");
+    }
+
+    goToHome(event: any) {
+        this.isQuestionAnswerVisible = false;
+    }
 }

@@ -23,6 +23,11 @@ import {RippleModule} from "primeng/ripple";
 import {PreApplicationModule} from './pre-application/pre-application.module';
 import {PostAdmissionModule} from "./post-admission/post-admission.module";
 import { SubscribtionbillingComponent } from './subscribtionbilling/subscribtionbilling.component';
+import {ReactiveFormsModule} from "@angular/forms";
+import {DropdownModule} from "primeng/dropdown";
+import {CalendarModule} from "primeng/calendar";
+import {InputSwitchModule} from "primeng/inputswitch";
+import {MultiSelectModule} from "primeng/multiselect";
 
 @NgModule({
     declarations: [
@@ -52,7 +57,12 @@ import { SubscribtionbillingComponent } from './subscribtionbilling/subscribtion
         InputTextModule,
         RippleModule,
         PreApplicationModule,
-        PostAdmissionModule
+        PostAdmissionModule,
+        ReactiveFormsModule,
+        DropdownModule,
+        CalendarModule,
+        InputSwitchModule,
+        MultiSelectModule
     ]
 })
 export class PagesModule {

@@ -105,7 +105,7 @@ export class SubscriptionComponent implements OnInit {
       this.subscriptionService.PaymentComplete(paymentdata).subscribe(
         (res: any) => {
           console.log("Response",res)
-          this.subscribername= this.authservice.user.email
+          //this.subscribername= this.authservice.user.email
           this.stage = 3;
         },
         (error: any) => {

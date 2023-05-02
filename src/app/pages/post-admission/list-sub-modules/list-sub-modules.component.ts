@@ -19,7 +19,7 @@ export class ListSubModulesComponent implements OnInit {
 
     ngOnInit(): void {
         this.submodules$ = this.postAdmissionService.subModuleList$();
-        let countryId = 2
+        let countryId = Number(localStorage.getItem('countryId'))
         this.postAdmissionService.loadSubModules(countryId);
     }
 

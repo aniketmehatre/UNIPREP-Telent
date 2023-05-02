@@ -4,41 +4,45 @@
     </div>
     <div class="row">
         <div class="col px-0">
-        <div class="card mt-3">
-            <div class="card-body text-center">
-                <h5>SELECTED COUNTRY</h5>
-                <div class="container-fluid">
-                <div class="row mb-0 justify-content-center">
-                    <div class="col" role="button" *ngFor="let v of countryLists">
-                        <div class="row justify-content-center {{ selectedCountryId == v.id ? 'country-border pr-4 pl-4' : ''}}"
-                            (click)="selectCountry(v.id)">
-                            <img width="{{ selectedCountryId == v.id ? '350px' : '100px'}}" style="{{ selectedCountryId == v.id ? 'transform: scale(0.75);' : 'transform: scale(0.5);'}}"
-                                class="" src="{{v.flag}}" alt="country">
-                            <p
-                                class="text-center text-sm text-capitalize {{ selectedCountryId == v.id ? 'country-text' : 'country-text-small'}}">
-                                {{v.country}}</p>
+            <div class="card mt-3">
+                <div class="card-body text-center">
+                    <h5>SELECTED COUNTRY</h5>
+                    <div class="container-fluid">
+                        <div class="row mb-0 justify-content-center">
+                            <div class="col" role="button" *ngFor="let v of countryLists">
+                                <div class="row justify-content-center {{ selectedCountryId == v.id ? 'country-border pr-4 pl-4' : ''}}"
+                                     (click)="selectCountry(v.id)">
+                                    <img width="{{ selectedCountryId == v.id ? '350px' : '100px'}}"
+                                         style="{{ selectedCountryId == v.id ? 'transform: scale(0.75);' : 'transform: scale(0.5);'}}"
+                                         class="" src="{{v.flag}}" alt="country">
+                                    <p
+                                            class="text-center text-sm text-capitalize {{ selectedCountryId == v.id ? 'country-text' : 'country-text-small'}}">
+                                        {{v.country}}</p>
+                                </div>
+
+                            </div>
                         </div>
-        
                     </div>
                 </div>
+                <div class="row mb-0 justify-content-center text-center">
+                    <div class="badge bg-dark text-wrap bottom-text text-capitalize" style="">
+                        You have currently selected {{selectedCountryName}}. If information
+                        about {{selectedCountryName}} is interesting, check other countries as well.
+                    </div>
                 </div>
             </div>
-            <div class="row mb-0 justify-content-center text-center">
-                <div class="badge bg-dark text-wrap bottom-text text-capitalize" style="">
-                    You have currently selected {{selectedCountryName}}. If information about {{selectedCountryName}} is interesting, check other countries as well.
-                </div>
-            </div>
-        </div>
         </div>
     </div>
     <div class="row align-items-center pt-4 pb-4">
         <div class="col-md-5 col-lg-5">
             <h3 class="fw-semibold text-uppercase">WELCOME TO {{selectedCountryName}}</h3>
-            <h5 class="fw-normal">UNIPREP {{selectedCountryName}} information and content in reviewed and<br>accredited by the following entities.</h5>
+            <h5 class="fw-normal">UNIPREP {{selectedCountryName}} information and content in reviewed and<br>accredited
+                by the following entities.</h5>
         </div>
         <div class="col-md-7 col-lg-7 p-3 rounded bg-white card">
-            <p-carousel class="text-center" [value]="university" [numVisible]="3" [showIndicators]="false" [numScroll]="1"
-                [responsiveOptions]="responsiveOptions">
+            <p-carousel class="text-center" [value]="university" [numVisible]="3" [showIndicators]="false"
+                        [numScroll]="1"
+                        [responsiveOptions]="responsiveOptions">
                 <ng-template let-uni pTemplate="item">
                     <img class="carousel" src="{{uni.image}}" alt="{{uni.image}}">
                 </ng-template>
@@ -49,7 +53,11 @@
         <div class="col px-0 d-flex">
             <div class="w-100 bg-white rounded card">
                 <div class="card-body">
-                    <iframe width="100%" height="150px" class="mb-2" src="https://www.youtube.com/embed/f1c4bXesTfk?controls=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                    <iframe width="100%" height="150px" class="mb-2"
+                            src="https://www.youtube.com/embed/f1c4bXesTfk?controls=0" title="YouTube video player"
+                            frameborder="0"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                            allowfullscreen></iframe>
                     <h5 class="mb-1">How to use uniprep? (DEMO)</h5>
                 </div>
             </div>
@@ -57,79 +65,84 @@
         <div class="col px-0 d-flex">
             <div class="justify-content-center bg-white w-100 card">
                 <div class="card-body">
-                <div class="row mb-3">
-                    <div class="col-md-6 col-lg-6 d-flex">
-                        <button class="btn w-100 btn-primary homecardbtn m-0 px-4 py-3" (click)="openReading()">
-                            <i class="fa-regular h3 fa-paste"></i><p class="mb-0">Start<br>Reading</p>
-                        </button>
-                    </div>
-                    <div class="col-md-6 col-lg-6  d-flex align-items-center">
-                        <div class="progress" [attr.data-percentage]="readProgressionPercentage">
+                    <div class="row mb-3">
+                        <div class="col-md-6 col-lg-6 d-flex">
+                            <button class="btn w-100 btn-primary homecardbtn m-0 px-4 py-3" (click)="openReading()">
+                                <i class="fa-regular h3 fa-paste"></i>
+                                <p class="mb-0">Start<br>Reading</p>
+                            </button>
+                        </div>
+                        <div class="col-md-6 col-lg-6  d-flex align-items-center">
+                            <div class="progress" [attr.data-percentage]="readProgressionPercentage">
                             <span class="progress-left">
                                 <span class="progress-bar"></span>
                             </span>
-                            <span class="progress-right">
+                                <span class="progress-right">
                                 <span class="progress-bar"></span>
                             </span>
-                            <div class="progress-value">
-                                <div>
-                                    {{readProgressionPercentage }}%<br>
+                                <div class="progress-value">
+                                    <div>
+                                        {{readProgressionPercentage }}%<br>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <h5 class="mb-1">Reading</h5>
-                <p class="mb-0">Expand your horizons through reading</p>
+                    <h5 class="mb-1">Reading</h5>
+                    <p class="mb-0">Expand your horizons through reading</p>
                 </div>
             </div>
         </div>
         <div class="col px-0 d-flex">
             <div class="w-100 justify-content-center bg-white card">
                 <div class="card-body">
-                <div class="row mb-3">
-                    <div class="col-md-6 col-lg-6 d-flex">
-                        <button class="btn w-100  btn-secondary m-0 px-4 py-3 homecardbtn" (click)="openQuiz()">
-                            <i class="fa-regular h3 fa-lightbulb"></i><p class="mb-0">Start<br>Quiz</p>
-                        </button>
-                    </div>
-                    <div class="col-md-6 col-lg-6  d-flex align-items-center">
-                        <div class="progress" [attr.data-percentage]="readQuizProgressionPercentage">
+                    <div class="row mb-3">
+                        <div class="col-md-6 col-lg-6 d-flex">
+                            <button class="btn w-100  btn-secondary m-0 px-4 py-3 homecardbtn" (click)="openQuiz()">
+                                <i class="fa-regular h3 fa-lightbulb"></i>
+                                <p class="mb-0">Start<br>Quiz</p>
+                            </button>
+                        </div>
+                        <div class="col-md-6 col-lg-6  d-flex align-items-center">
+                            <div class="progress" [attr.data-percentage]="readQuizProgressionPercentage">
                             <span class="progress-left">
                                 <span class="progress-bar"></span>
                             </span>
-                            <span class="progress-right">
+                                <span class="progress-right">
                                 <span class="progress-bar"></span>
                             </span>
-                            <div class="progress-value quizcircle">
-                                <div>
-                                    {{readQuizProgressionPercentage}}%<br>
+                                <div class="progress-value quizcircle">
+                                    <div>
+                                        {{readQuizProgressionPercentage}}%<br>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
+                    <h5 class="mb-1">Quiz</h5>
+                    <p class="mb-0">Test your global knowledge</p>
                 </div>
-                <h5 class="mb-1">Quiz</h5>
-                <p class="mb-0">Test your global knowledge</p>
-                </div>
-        </div>
-        </div>
-        <div class="col px-0 d-flex" >
-            <div class="w-100 justify-content-center bg-white card">
-            <div class="card-body">
-                <div class="row mb-3">
-                    <div class="col-md-6 col-lg-6 d-flex">
-                        <button class="btn w-100 btn-secondary m-0 px-4 py-3 homecardbtn certificatelock">
-                            <i class="fa-solid h2 fa-unlock-keyhole certificatelocked"></i>
-                        </button>
-                    </div>
-                    <div class="col-md-6 col-lg-6 text-center d-flex justify-content-end align-items-center">
-                        <div><button class="btn btn-primary btn-lg homecardbtn" disabled>Share <i class="fa-solid fa-share-nodes"></i></button></div>
-                    </div>
-                </div>
-                <h5 class="mb-1">Unlock Certificate</h5>
-                <p class="mb-0">Complete the final 10% to unlock the certificate.</p>
             </div>
+        </div>
+        <div class="col px-0 d-flex">
+            <div class="w-100 justify-content-center bg-white card">
+                <div class="card-body">
+                    <div class="row mb-3">
+                        <div class="col-md-6 col-lg-6 d-flex">
+                            <button class="btn w-100 btn-secondary m-0 px-4 py-3 homecardbtn certificatelock">
+                                <i class="fa-solid h2 fa-unlock-keyhole certificatelocked"></i>
+                            </button>
+                        </div>
+                        <div class="col-md-6 col-lg-6 text-center d-flex justify-content-end align-items-center">
+                            <div>
+                                <button class="btn btn-primary btn-lg homecardbtn" disabled>Share <i
+                                        class="fa-solid fa-share-nodes"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                    <h5 class="mb-1">Unlock Certificate</h5>
+                    <p class="mb-0">Complete the final 10% to unlock the certificate.</p>
+                </div>
             </div>
         </div>
     </div>
@@ -140,18 +153,18 @@
         <div class="modal-content card bg-light">
             <div class="modal-header">
                 <a (click)="closeReading()" class="close" role="button">
-                    <span aria-hidden="true"><img src="/uniprep-assets/images/icons/close_button.svg" /></span>
+                    <span aria-hidden="true"><img src="/uniprep-assets/images/icons/close_button.svg"/></span>
                 </a>
             </div>
 
             <div class="modal-body">
-            <div class="container">
-                <div class="row mb-5">
+                <div class="container">
+                    <div class="row mb-5">
                         <div class="col-md-12">
                             <h3 class="mb-3">Continue Reading</h3>
                             <div class="row gap-2 d-flex">
                                 <div class="col px-0" *ngFor="let readPro of readingProgressings">
-                                    <div class="card continuecard" >
+                                    <div class="card continuecard">
                                         <div class="modal-selected-box d-flex flex-column">
                                             <h6 class="fw-semibold">{{readPro.module_name}}</h6>
                                             <div class="d-flex justify-content-between">
@@ -160,7 +173,7 @@
                                                     <span class="progress1-left">
                                                         <span class="progress1-bar"></span>
                                                     </span>
-                                                    <span class="progress1-right">
+                                                        <span class="progress1-right">
                                                         <span class="progress1-bar"></span>
                                                     </span>
                                                         <div class="progress1-value">
@@ -171,13 +184,16 @@
                                                     </div>
                                                 </div>
                                                 <div class="d-flex align-items-center justify-content-center">
-                                                    <p class="text-center text-small mb-0" *ngIf="readPro.progression_status == 'Pending'">
+                                                    <p class="text-center text-small mb-0"
+                                                       *ngIf="readPro.progression_status == 'Pending'">
                                                         {{readPro.progression_status}}
-                                                        <button class="btn btn-dark">
+                                                        <button class="btn btn-dark"
+                                                                (click)="onClickReadProgression(readPro)">
                                                             Read Now
                                                         </button>
                                                     </p>
-                                                    <p class="text-center text-small mb-0" *ngIf="readPro.progression_status == 'Complete'">
+                                                    <p class="text-center text-small mb-0"
+                                                       *ngIf="readPro.progression_status == 'Complete'">
                                                         {{readPro.progression_status}}
                                                     </p>
                                                 </div>
@@ -187,11 +203,11 @@
                                 </div>
                             </div>
                         </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 </div>
 
 <div class="modal modal-bg" tabindex="-1" role="dialog" [ngStyle]="{ display: continueQuiz }">
@@ -199,18 +215,18 @@
         <div class="modal-content card bg-light">
             <div class="modal-header">
                 <a (click)="closeQuiz()" class="close" role="button">
-                    <span aria-hidden="true"><img src="/uniprep-assets/images/icons/close_button.svg" /></span>
+                    <span aria-hidden="true"><img src="/uniprep-assets/images/icons/close_button.svg"/></span>
                 </a>
             </div>
 
             <div class="modal-body">
-            <div class="container">
-                <div class="row mb-5">
+                <div class="container">
+                    <div class="row mb-5">
                         <div class="col-md-12">
                             <h3 class="mb-3">Continue Quiz</h3>
                             <div class="row gap-2 d-flex">
                                 <div class="col px-0" *ngFor="let quiz of quizProgressings">
-                                    <div class="card continuecardq" >
+                                    <div class="card continuecardq">
                                         <div class="modal-selected-box d-flex flex-column">
                                             <h6 class="fw-semibold">{{quiz.module_name}}</h6>
                                             <div class="d-flex justify-content-between">
@@ -219,7 +235,7 @@
                                                     <span class="progress1-left">
                                                         <span class="progress1-bar"></span>
                                                     </span>
-                                                    <span class="progress1-right">
+                                                        <span class="progress1-right">
                                                         <span class="progress1-bar"></span>
                                                     </span>
                                                         <div class="progress1-value">
@@ -230,13 +246,16 @@
                                                     </div>
                                                 </div>
                                                 <div class="d-flex align-items-center justify-content-center">
-                                                    <p class="text-center text-small mb-0" *ngIf="quiz.progression_status == 'Pending'">
+                                                    <p class="text-center text-small mb-0"
+                                                       *ngIf="quiz.progression_status == 'Pending'">
                                                         {{quiz.progression_status}}
-                                                        <button class="btn btn-dark">
+                                                        <button class="btn btn-dark"
+                                                                (click)="onClickQuizProgression(quiz)">
                                                             Read Now
                                                         </button>
                                                     </p>
-                                                    <p class="text-center text-small mb-0" *ngIf="quiz.progression_status == 'Complete'">
+                                                    <p class="text-center text-small mb-0"
+                                                       *ngIf="quiz.progression_status == 'Complete'">
                                                         {{quiz.progression_status}}
                                                     </p>
                                                 </div>
@@ -246,9 +265,9 @@
                                 </div>
                             </div>
                         </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 </div>

@@ -8,8 +8,11 @@ export class DataService {
     public chatTriggerSource = new BehaviorSubject('not open');
     currentMessage = this.chatTriggerSource.asObservable();
 
-    public countryNameSource = new BehaviorSubject('not open');
+    public countryNameSource = new BehaviorSubject('United States');
     countryName = this.countryNameSource.asObservable();
+
+    public countryIdSource = new BehaviorSubject('1');
+    countryId = this.countryIdSource.asObservable();
 
     constructor() {
     }
@@ -20,6 +23,10 @@ export class DataService {
 
     changeCountryName(countryName: string) {
         this.countryNameSource.next(countryName)
+    }
+
+    changeCountryId(countryId: string) {
+        this.countryIdSource.next(countryId)
     }
 
 }

@@ -2,6 +2,8 @@ import {Component, OnInit} from '@angular/core';
 import {DashboardService} from "./dashboard.service";
 import {AuthService} from "../../Auth/auth.service";
 import {SubSink} from "subsink";
+import {Router} from "@angular/router";
+import { DataService } from 'src/app/data.service';
 
 export interface getDashboardCount {
     "success": boolean,
@@ -44,7 +46,8 @@ export class DashboardComponent implements OnInit {
         }
     ];
 
-    constructor(private dashboardService: DashboardService, private service: AuthService) {
+    constructor(private dashboardService: DashboardService, private service: AuthService,
+                private router: Router, private dataService: DataService) {
         this.responsiveOptions = [
             {
                 breakpoint: '1024px',
@@ -124,9 +127,10 @@ export class DashboardComponent implements OnInit {
                 return;
             }
             this.countryLists = res;
-            this.countryLists.forEach((element:any) => {
-                if (element.id == selectedCountryId){
+            this.countryLists.forEach((element: any) => {
+                if (element.id == selectedCountryId) {
                     this.selectedCountryName = element.country;
+                    this.dataService.changeCountryName(element.country);
                 }
             });
         }, err => {
@@ -146,7 +150,7 @@ export class DashboardComponent implements OnInit {
 
     searchKeyWord(searchInput: any) {
         const data = {
-            countryId: 2,
+            countryId: Number(localStorage.getItem('countryId')),
             searchtag: searchInput.value
         }
         this.dashboardService.searchKeyword(data).subscribe((res: any) => {
@@ -213,15 +217,68 @@ export class DashboardComponent implements OnInit {
 
 
     selectCountry(selectedId: any) {
-        this.countryLists.forEach((element:any) => {
-            if (element.id === selectedId){
+        this.countryLists.forEach((element: any) => {
+            if (element.id === selectedId) {
                 this.selectedCountryName = element.country;
             }
         });
+        localStorage.setItem('countryId', selectedId);
         this.selectedCountryId = selectedId;
+        this.dataService.changeCountryId(selectedId);
+        this.countryListData(this.selectedCountryId);
         this.modalQuizProgressing(selectedId);
         this.modalReadingProgressing(selectedId);
         this.loadReadProgression(selectedId);
         this.loadQuizProgression(selectedId);
+    }
+
+    onClickReadProgression(data: any) {
+        let moduleName = "";
+        switch (data.module_name) {
+            case "Pre Application":
+                moduleName = "pre-application"
+                break;
+            case "Post Application":
+                moduleName = "post-application"
+                break;
+            case "Post Admission":
+                moduleName = "post-admission"
+                break;
+            case "Career Hub":
+                moduleName = "career-hub"
+                break;
+            case "University":
+                moduleName = "career-hub"
+                break;
+            case "Life at ":
+                moduleName = "career-hub"
+                break;
+        }
+        this.router.navigate([`pages/${moduleName}/`]);
+    }
+
+    onClickQuizProgression(data: any) {
+        let moduleName = "";
+        switch (data.module_name) {
+            case "Pre Application":
+                moduleName = "pre-application"
+                break;
+            case "Post Application":
+                moduleName = "post-application"
+                break;
+            case "Post Admission":
+                moduleName = "post-admission"
+                break;
+            case "Career Hub":
+                moduleName = "career-hub"
+                break;
+            case "University":
+                moduleName = "career-hub"
+                break;
+            case "Life at ":
+                moduleName = "career-hub"
+                break;
+        }
+        this.router.navigate([`pages/${moduleName}/`]);
     }
 }

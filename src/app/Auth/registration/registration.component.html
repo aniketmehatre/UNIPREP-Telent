@@ -67,7 +67,7 @@
                       </div>
                       <p-dropdown
                         formControlName="location"
-                        id="location"
+                        id="location" [filter]="true" [filterBy]="'district'"
                         [options]="locationList"
                         optionLabel="district"
                       ></p-dropdown>

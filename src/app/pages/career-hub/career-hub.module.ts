@@ -9,18 +9,26 @@ import { CareerHubReducer } from './store/career-hub.reducer';
 import { ListSubModulesComponent } from './list-sub-modules/list-sub-modules.component';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
+import { DialogModule } from 'primeng/dialog';
+import { CarouselModule } from 'primeng/carousel';
+import {QuestionListComponent} from "./question-list/question-list.component";
+import {BreadcrumbModule} from "primeng/breadcrumb";
 
 
 @NgModule({
   declarations: [
     CareerHubComponent,
-    ListSubModulesComponent
+    ListSubModulesComponent,
+    QuestionListComponent
   ],
   imports: [
     CommonModule,
     CareerHubRoutingModule,
     StoreModule.forFeature(careerHubFeatureKey, CareerHubReducer),
-    EffectsModule.forFeature([CareerHubEffects])
+    EffectsModule.forFeature([CareerHubEffects]),
+    DialogModule,
+    CarouselModule,
+    BreadcrumbModule,
   ]
 })
 export class CareerHubModule { }

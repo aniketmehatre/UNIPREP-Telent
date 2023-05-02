@@ -54,8 +54,7 @@ export class ModalComponent implements OnInit {
         //this.questionLeft =
         this.subs.sink = this.service.selectLogInData$().subscribe(data => {
             if (data) {
-                console.log(data)
-                this.questionLeft = '0';
+                this.questionLeft = data.questions_left;
             }
         });
         this.init();

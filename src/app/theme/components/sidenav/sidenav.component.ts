@@ -7,9 +7,10 @@ import {
   OnInit, Output,
   TemplateRef
 } from '@angular/core';
-import {ActivatedRoute, NavigationEnd, Router} from "@angular/router";
-import {filter} from "rxjs";
-import {map} from "rxjs/operators";
+import { ActivatedRoute, NavigationEnd, Router } from "@angular/router";
+import { filter } from "rxjs";
+import { map } from "rxjs/operators";
+import { DataService } from 'src/app/data.service';
 
 export interface SideMenu {
   title: string;
@@ -17,7 +18,7 @@ export interface SideMenu {
   url: string;
   expanded?: boolean;
   header?: boolean;
-  children?: SideMenu[]; 
+  children?: SideMenu[];
   active?: boolean;
 }
 
@@ -26,118 +27,128 @@ export interface SideMenu {
   templateUrl: './sidenav.component.html',
   styleUrls: ['./sidenav.component.scss']
 })
-export class SidenavComponent{
+export class SidenavComponent {
 
   @ContentChild('appTitle') appTitle!: TemplateRef<any>;
   @Output() active = new EventEmitter<SideMenu>;
   @Input() isOverlap = false;
 
-  @Input() menus: SideMenu[] = [
-    {
-      title: 'Dashboard',
-      url: '/pages/dashboard',
-      image: 'fa-solid fa-house',
-    },
-    // {
-    //   title: 'Components',
-    //   url: '',
-    //   image: 'pi pi-chart-bar',
-    //   children: [
-    //     {
-    //       title: 'Button',
-    //       url: '/pages/button',
-    //       image: ''
-    //     },
-    //     {
-    //       title: 'Cards',
-    //       url: '/pages/cards',
-    //       image: ''
-    //     },
-    //     {
-    //       title: 'Popup',
-    //       url: '/pages/popups',
-    //       image: ''
-    //     }
-    //   ]
-    // },
-    {
-      title: 'Pre Application',
-      url: '/pages/pre-application',
-      image: 'fa-solid fa-file-import',
-    },
-    {
-      title: 'Post Application',
-      url: '/pages/post-application',
-      image: 'fa-solid fa-file-export',
-    },
-    {
-      title: 'Post Admission',
-      url: '/pages/post-admission',
-      image: 'fa-solid fa-ticket',
-    },
-    {
-      title: 'Career Hub',
-      url: '/pages/career-hub',
-      image: 'fa-solid fa-briefcase',
-    },
-    {
-      title: 'University',
-      url: '',
-      image: 'fa-solid fa-building-columns',
-    },
-    {
-      title: 'Life at UK',
-      url: '',
-      image: 'fa-solid fa-tower-observation',
-    },
-    {
-      title: 'Subscription',
-      url: '/pages/subscriptions',
-      image: 'fa-solid fa-crown',
-    },
-    {
-      title: 'FAQ',
-      url: '/pages/faq',
-      image: 'fa-solid fa-comments',
-    },
-    {
-      title: 'Help & Support',
-      url: '/pages/help',
-      image: 'fa-solid fa-phone-volume',
-    }
-    //,
-    // {
-    //   title: 'USER MANAGER',
-    //   url: '/pages/usermanagement',
-    //   image: 'pi pi-briefcase',
-    // },
-    // {
-    //   title: 'SUBCRIPTION MANAGER',
-    //   url: '/pages/subscriptionmanagement',
-    //   image: 'pi pi-briefcase',
-    // }
-  ];
-
+  @Input() menus: SideMenu[] = [];
+  countryName: any;
   constructor(
-      private router: Router,
-      private activatedRoute: ActivatedRoute
+    private router: Router,
+    private activatedRoute: ActivatedRoute,
+    private dataService: DataService
   ) {
+    this.dataService.countryNameSource.subscribe(countryName => {
+      this.countryName = countryName;
+      this.menuList();
+    });
+    this.menuList();
     router.events
-        .pipe(
-            filter((event) => event instanceof NavigationEnd),
-            map(() => activatedRoute),
-            map((route) => {
-              while (route.firstChild) {
-                route = route.firstChild;
-              }
-              return route;
-            })
-        )
-        .subscribe({
-          next: () => {
-            this.markCurrentMenu();
+      .pipe(
+        filter((event) => event instanceof NavigationEnd),
+        map(() => activatedRoute),
+        map((route) => {
+          while (route.firstChild) {
+            route = route.firstChild;
           }
-        });
+          return route;
+        })
+      )
+      .subscribe({
+        next: () => {
+          this.markCurrentMenu();
+        }
+      });
+  }
+
+  menuList(){
+    this.menus = [
+      {
+        title: 'Dashboard',
+        url: '/pages/dashboard',
+        image: 'fa-solid fa-house',
+      },
+      // {
+      //   title: 'Components',
+      //   url: '',
+      //   image: 'pi pi-chart-bar',
+      //   children: [
+      //     {
+      //       title: 'Button',
+      //       url: '/pages/button',
+      //       image: ''
+      //     },
+      //     {
+      //       title: 'Cards',
+      //       url: '/pages/cards',
+      //       image: ''
+      //     },
+      //     {
+      //       title: 'Popup',
+      //       url: '/pages/popups',
+      //       image: ''
+      //     }
+      //   ]
+      // },
+      {
+        title: 'Pre Application',
+        url: '/pages/pre-application',
+        image: 'fa-solid fa-file-import',
+      },
+      {
+        title: 'Post Application',
+        url: '/pages/post-application',
+        image: 'fa-solid fa-file-export',
+      },
+      {
+        title: 'Post Admission',
+        url: '/pages/post-admission',
+        image: 'fa-solid fa-ticket',
+      },
+      {
+        title: 'Career Hub',
+        url: '/pages/career-hub',
+        image: 'fa-solid fa-briefcase',
+      },
+      {
+        title: 'University',
+        url: '',
+        image: 'fa-solid fa-building-columns',
+      },
+      {
+        title: `Life at ${this.countryName}`,
+        url: '',
+        image: 'fa-solid fa-tower-observation',
+      },
+      {
+        title: 'Subscription',
+        url: '/pages/subscriptions',
+        image: 'fa-solid fa-crown',
+      },
+      {
+        title: 'FAQ',
+        url: '/pages/faq',
+        image: 'fa-solid fa-comments',
+      },
+      {
+        title: 'Help & Support',
+        url: '/pages/help',
+        image: 'fa-solid fa-phone-volume',
+      }
+      //,
+      // {
+      //   title: 'USER MANAGER',
+      //   url: '/pages/usermanagement',
+      //   image: 'pi pi-briefcase',
+      // },
+      // {
+      //   title: 'SUBCRIPTION MANAGER',
+      //   url: '/pages/subscriptionmanagement',
+      //   image: 'pi pi-briefcase',
+      // }
+    ];
   }
 
   ngOnInit(): void {

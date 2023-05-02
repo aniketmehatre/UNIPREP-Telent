@@ -1,259 +1,323 @@
-<div class="container-fluid custom_container">
-  <div class="row">
-    <div class="col-8">
-      <div class="fillercard shadow p-0 mb-0 bg-body rounded">
-        <div class="container">
-          <div class="row">
-            <p class="text-left mt-3">FILTERS</p>
-            <div class="col-4 mt-3">
-              <label class="form-label label label">USER ROLE</label>
-              <select class="form-select" aria-label="Default select example">
-                <option selected></option>
-                <option value="1">One</option>
-                <option value="2">Two</option>
-                <option value="3">Three</option>
-              </select>
-            </div>
-            <div class="col-4 mt-3">
-              <label class="form-label label label">PLAN</label>
-              <select class="form-select" aria-label="Default select example">
-                <option selected></option>
-                <option value="1">One</option>
-                <option value="2">Two</option>
-                <option value="3">Three</option>
-              </select>
-            </div>
-            <div class="col-4 mt-3">
-              <label class="form-label label label">STATUS</label>
-              <select class="form-select" aria-label="Default select example">
-                <option selected></option>
-                <option value="1">One</option>
-                <option value="2">Two</option>
-                <option value="3">Three</option>
-              </select>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="mt-5 tablecard shadow p-0 mb-5 bg-body rounded">
-        <div class="row mt-3">
-
-              <div class="col-sm-1">
-                <label class="form-label label label2">SHOW</label>
-              </div>
-              <div class="col-sm-3">
-                <div class="drop mr-2">
-                    <select class="form-select" aria-label="Default select example">
-                        <option selected></option>
-                        <option value="1">One</option>
-                        <option value="2">Two</option>
-                        <option value="3">Three</option>
-                      </select>
-                      
-                </div>
-                <span>entries</span>
-              </div>
-             
-          <div class="col-sm-7">
-            <form>
-                <div class="search">
-                    <input
-                    type="text"
-                    class="form-control"
-                    placeholder="search"
-                  />
-
-                </div>
-              
-            </form>
-           
-          </div>
-          
-        </div>
-
-        <div class="row">
-          <div class="col-12 mt-3">
-            <table class="table table-bordered">
-              <thead style="background-color: #9bc3296e;">
-                
-                  <!-- <th scope="col">#</th> -->
-                  <th scope="col">USER</th>
-                  <th scope="col">EMAIL</th>
-                  <th scope="col">ROLE</th>
-                  <th scope="col">PLAN</th>
-                  <th scope="col">CHECK'S</th>
-                  <th scope="col">STATUS</th>
-                  <th scope="col">ACTION</th>
-    
-              </thead>
-              <tbody>
-                <tr>
-                  <!-- <th scope="row">1</th> -->
-                  <!-- <td>Mark</td> -->
-                  <td>Otto</td>
-                  <td>@mdo</td>
-                  <td>Mark</td>
-                  <td>Otto</td>
-                  <td>@mdo</td>
-                  <td>Mark</td>
-                  <td>
-                    <div class="btn-group">
-                      <a
-                        type="button"
-                        data-bs-toggle="dropdown"
-                        aria-expanded="false"
-                      >
-                        <i class="bi bi-three-dots-vertical"></i>
-                      </a>
-                      <ul class="dropdown-menu">
-                        <li>
-                          <a class="dropdown-item" href="#"
-                            ><i class="bi bi-check2-square label"></i>DETAILS</a
-                          >
-                        </li>
-                        <li>
-                          <a class="dropdown-item"  data-bs-toggle="modal" data-bs-target="#exampleModal"
-                            ><i class="bi bi-pencil-square label"></i>EDIT</a
-                          >
-                        </li>
-                        <li>
-                          <a class="dropdown-item" href="#"
-                            ><i class="bi bi-trash3 label"></i>DELETED</a
-                          >
-                        </li>
-                      </ul>
+<div class="container-fluid">
+    <form
+            [formGroup]="registrationForm"
+            (ngSubmit)="onSubmit()">
+        <div class="container-fluid px-0">
+            <div class="card card-body">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="h-full profilecrd">
+                            <div class="d-flex flex-column align-items-center h-full justify-content-center">
+                                <div class="profileImg mb-2">{{(user?.name || '').charAt(0)}}</div>
+                                <div class="pName text-center bold mt-2">{{user?.name}}</div>
+                                <div class="pEmail text-center font-primarycolor">{{user?.email}}</div>
+                                <div class="text-center mt-3">
+                                    <button (click)="logout()" class="btn btn-primary">SIGN OUT</button>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="col-4">
-      <div class="tablecard">
-        <p class="text-center mt-3">ADD NEW USER</p>
-        <div class="container">
-          <div class="mb-3">
-            <label class="form-label label">FULL NAME</label>
-            <input type="email" class="form-control" placeholder="FULL NAME" />
-          </div>
-          <div class="mb-3">
-            <label class="form-label label">USERNAME</label>
-            <input type="email" class="form-control" placeholder="USERNAME" />
-          </div>
-          <div class="mb-3">
-            <label class="form-label label">Email</label>
-            <input
-              type="email"
-              class="form-control"
-              Id=""
-              placeholder="Email"
-            />
-          </div>
-          <div class="mb-3">
-            <label class="form-label label">COMPANY</label>
-            <input
-              type="email"
-              class="form-control"
-              Id=""
-              placeholder="COMPANY"
-            />
-          </div>
-          <div class="mb-3">
-            <label class="form-label label">COUNTRY</label>
-            <input
-              type="email"
-              class="form-control"
-              Id=""
-              placeholder="COUNTRY"
-            />
-          </div>
-          <div class="mb-3">
-            <label class="form-label label">USER ROLE</label>
-            <select
-              class="form-select form-select-sm"
-              aria-label=".form-select-sm example"
-            >
-              <option selected>Open this select menu</option>
-              <option value="1">One</option>
-              <option value="2">Two</option>
-              <option value="3">Three</option>
-            </select>
-          </div>
-          <div class="mb-3">
-            <label class="form-label label">PLAN</label>
-            <select
-              class="form-select form-select-sm"
-              aria-label=".form-select-sm example"
-            >
-              <option selected>Open this select menu</option>
-              <option value="1">One</option>
-              <option value="2">Two</option>
-              <option value="3">Three</option>
-            </select>
-          </div>
-          <div class="row mb-3">
-            <div class="col-2" style="margin: 5px;">
-              <button type="button" class="btn btn-primary btn-sm btncolor">
-                ADD
-              </button>
-            </div>
-            <div class="col-3">
-              <button type="button" class="btn btn btn-outline-dark btn-sm">
-                CANCEL
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <!-- Button trigger modal -->
+                    <div class="col-md-8">
+                        <div class="h-full">
+                            <div class="row g-3">
+                                <div class="col-6">
+                                    <label>Full Name</label>
+                                    <div class="p-inputgroup">
+                                        <div class="p-inputgroup-addon">
+                                            <i class="pi pi-user"></i>
+                                        </div>
+                                        <input
+                                                type="text"
+                                                class="border-0"
+                                                pInputText
+                                                formControlName="name"
+                                        />
+                                    </div>
+                                    <div
+                                            *ngIf="submitted && f.name.errors"
+                                            class="invalid-feedback"
+                                    >
+                                        <div *ngIf="f.name.errors.required">
+                                            First Name is required
+                                        </div>
+                                    </div>
+                                </div>
 
-<!-- Modal -->
-<div class="modal fade" id="exampleModal">
+                                <div class="col-6">
+                                    <label>Country</label>
+                                    <div class="p-inputgroup">
+                                        <div class="p-inputgroup-addon">
+                                            <i class="pi pi-map-marker"></i>
+                                        </div>
+                                        <p-dropdown
+                                                appendTo="body"
+                                                [filter]="true"
+                                                filterBy="name"
+                                                optionValue="id"
+                                                optionLabel="country"
+                                                formControlName="interested_country_id"
+                                                [options]="countryList"
+                                        ></p-dropdown>
+                                    </div>
+                                    <div
+                                            *ngIf="submitted && f.interested_country_id.errors"
+                                            class="invalid-feedback"
+                                    >
+                                        <div *ngIf="f.interested_country_id.errors.required">
+                                            Country is required
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row g-3">
+                                <div class="col-6">
+                                    <label>Location</label>
+                                    <div class="p-inputgroup">
+                                        <div class="p-inputgroup-addon">
+                                            <i class="pi pi-map-marker"></i>
+                                        </div>
+                                        <p-dropdown
+                                                appendTo="body"
+                                                optionValue="id"
+                                                formControlName="location_id"
+                                                [options]="locationList"
+                                                optionLabel="district"
+                                        ></p-dropdown>
+                                    </div>
+                                    <div
+                                            *ngIf="submitted && f.location_id.errors"
+                                            class="invalid-feedback"
+                                    >
+                                        <div *ngIf="f.location_id.errors.required">
+                                            Location is required
+                                        </div>
+                                    </div>
+                                </div>
 
-<div class="modal-dialog">
-  <div class="cardedit">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-     
-      <div class="modal-body">
-      
-        
-            <div class="row">
-         
-              <div class="col-sm-4">
-                <img class="img" src="uniprep-assets/images/img2.jpg" />
-              </div>
-              <div class="col-sm-4">
-                <div class="titledis">
-                  <strong>NAOMI LAWRENCE</strong><br />
-                  <label>nikunj@gmail.com</label>
+                                <div class="col-6">
+                                    <label>Mobile Number</label>
+                                    <div class="p-inputgroup">
+                                        <div class="p-inputgroup-addon">
+                                            <i class="pi pi-mobile"></i>
+                                        </div>
+                                        <input
+                                                [readonly]="true"
+                                                type="number"
+                                                class="border-0"
+                                                pInputText
+                                                formControlName="phone"
+                                        />
+                                    </div>
+                                    <div
+                                            *ngIf="submitted && f.contactNumber.errors"
+                                            class="invalid-feedback"
+                                    >
+                                        <div *ngIf="f.contactNumber.errors.required">
+                                            Contact Number is required
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row g-3">
+                                <div class="col">
+                                    <label>Email Address</label>
+                                    <div class="p-inputgroup">
+                                        <div class="p-inputgroup-addon">
+                                            <i class="pi pi-envelope"></i>
+                                        </div>
+                                        <input
+                                                [readonly]="true"
+                                                type="text"
+                                                pInputText
+                                                class="border-0 w-full"
+                                                formControlName="email"
+                                        />
+                                    </div>
+                                    <div
+                                            *ngIf="submitted && f.email.errors"
+                                            class="invalid-feedback"
+                                    >
+                                        <div *ngIf="f.email.errors.required">
+                                            Email Address is required
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row g-3">
+                                <div class="col-6">
+                                    <label>Interested Country</label>
+                                    <div class="p-inputgroup">
+                                        <div class="p-inputgroup-addon">
+                                            <i class="pi pi-map-marker"></i>
+                                        </div>
+                                        <p-multiSelect
+                                                appendTo="body"
+                                                formControlName="interested_country_id"
+                                                [options]="countryList"
+                                                [(ngModel)]="selectedCountries"
+                                                optionValue="id"
+                                                optionLabel="country"
+                                        ></p-multiSelect>
+                                    </div>
+                                    <div
+                                            *ngIf="submitted && f.interested_country_id.errors"
+                                            class="invalid-feedback"
+                                    >
+                                        <div *ngIf="f.interested_country_id.errors.required">
+                                            Interested Country is required
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <label>Last Degree Passing Year</label>
+                                    <div class="p-inputgroup">
+                                        <div class="p-inputgroup-addon">
+                                            <i class="pi pi-map-marker"></i>
+                                        </div>
+                                        <p-calendar
+                                                appendTo="body"
+                                                view="year"
+                                                [maxDate]="today"
+                                                dateFormat="yy"
+                                                inputId="yearpicker"
+                                                formControlName="last_degree_passing_year"
+                                        ></p-calendar>
+                                    </div>
+                                    <div
+                                            *ngIf="submitted && f.last_degree_passing_year.errors"
+                                            class="invalid-feedback"
+                                    >
+                                        <div *ngIf="f.last_degree_passing_year.errors.required">
+                                            Passing Year is required
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row g-3">
+                                <div class="col-6">
+                                    <label>Inake Year Looking</label>
+                                    <div class="p-inputgroup">
+                                        <div class="p-inputgroup-addon">
+                                            <i class="pi pi-map-marker"></i>
+                                        </div>
+                                        <p-calendar
+                                                [minDate]="today"
+                                                (onSelect)="yearChage($event)"
+                                                appendTo="body"
+                                                view="year"
+                                                dateFormat="yy"
+                                                inputId="yearpicker"
+                                                formControlName="intake_year_looking"
+                                        ></p-calendar>
+                                    </div>
+                                    <div
+                                            *ngIf="submitted && f.intake_year_looking.errors"
+                                            class="invalid-feedback"
+                                    >
+                                        <div *ngIf="f.intake_year_looking.errors.required">
+                                            Intake Year is required
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <label>Intake Month Looking</label>
+                                    <div class="p-inputgroup">
+                                        <div class="p-inputgroup-addon">
+                                            <i class="pi pi-map-marker"></i>
+                                        </div>
+
+                                        <p-calendar
+                                                [minDate]="today"
+                                                appendTo="body"
+                                                formControlName="intake_month_looking"
+                                                view="month"
+                                                dateFormat="mm"
+                                        ></p-calendar>
+                                    </div>
+                                    <div
+                                            *ngIf="submitted && f.intake_month_looking.errors"
+                                            class="invalid-feedback"
+                                    >
+                                        <div *ngIf="f.intake_month_looking.errors.required">
+                                            Intake Month is required
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row g-3">
+                                <div class="col-6">
+                                    <label>Program Level</label>
+                                    <div class="p-inputgroup">
+                                        <div class="p-inputgroup-addon">
+                                            <i class="pi pi-map-marker"></i>
+                                        </div>
+                                        <p-dropdown
+                                                appendTo="body"
+                                                [filter]="true"
+                                                filterBy="name"
+                                                optionValue="id"
+                                                optionLabel="programlevel"
+                                                formControlName="programlevel_id"
+                                                [options]="programlevelList"
+                                        ></p-dropdown>
+                                    </div>
+                                    <div
+                                            *ngIf="submitted && f.programlevel_id.errors"
+                                            class="invalid-feedback"
+                                    >
+                                        <div *ngIf="f.programlevel_id.errors.required">
+                                            Program Level is required
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <label>Gender</label>
+                                    <div class="p-inputgroup">
+                                        <div class="p-inputgroup-addon">
+                                            <i class="pi pi-map-marker"></i>
+                                        </div>
+                                        <p-dropdown
+                                                appendTo="body"
+                                                [filter]="true"
+                                                filterBy="name"
+                                                optionValue="name"
+                                                optionLabel="name"
+                                                formControlName="gender"
+                                                [options]="genderList"
+                                        ></p-dropdown>
+                                    </div>
+                                    <div
+                                            *ngIf="submitted && f.gender.errors"
+                                            class="invalid-feedback"
+                                    >
+                                        <div *ngIf="f.gender.errors.required">Gender is required</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
                 </div>
-                
-              </div>
-              <div class="col-sm-4">
-                <div class="titledis1">
-                 <button routerLink="../profile" data-bs-dismiss="modal"    type="button" class="btn btn-sm btncolor mr-2">EDIT</button>
-                  
-                <button type="button" class="btn btn-outline-dark btn-sm">DELETE</button>
+                <br/>
+                <div class="row">
+                    <div class="col-12">
+                        <div class="profilecrd">
+                            <div class="text-center">NOTIFICATIONS</div>
+                            <p class="text-muted">Basic information on Data Protection: uniabroad stores your data to
+                                improve the service and, with your consent, offers news, promotions and raffles, as well
+                                as projects and releases from UNIABROAD</p>
+                            <p class="notify d-flex justify-content-between align-items-center">
+                                <span style="vertical-align: center">I wish to receive newsletters, promotions and news from UNIABROAD</span>
+                                <p-inputSwitch formControlName="notification"></p-inputSwitch>
+                            </p>
+                            <div class="text-center">
+                                <button class="btn btn-primary">SAVE THE CHANGES</button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-
-              </div>
-          
-          </div>
+            </div>
         </div>
-      </div>
-    </div>
-  </div>
+    </form>
 </div>
-</div>
-<!-- Button trigger modal -->
-
-  
-  
