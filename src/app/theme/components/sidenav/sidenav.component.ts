@@ -120,7 +120,7 @@ export class SidenavComponent {
       {
         title: `Life at ${this.countryName}`,
         url: '',
-        image: 'fa-solid fa-tower-observation',
+        image: 'fa-solid fa-earth-americas',
       },
       {
         title: 'Subscription',
