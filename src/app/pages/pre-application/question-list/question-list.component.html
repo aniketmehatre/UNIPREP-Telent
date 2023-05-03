@@ -11,7 +11,8 @@
                                 <div class="card-body mb-5">
                                     <div class="row justify-content-center">
                                         <p class="mb-3 circle text-center">{{sub.id}}</p>
-                                        <p class="text-start text-capitalize fw-medium questiontext">{{sub.question}}</p>
+                                        <p class="text-start text-capitalize fw-medium questiontext">{{sub.question}}
+                                        </p>
                                         <button type="button" pButton class="btn w-full btn-primary primary-btn">Read
                                             Answer
                                         </button>
@@ -26,7 +27,7 @@
     </div>
 </div>
 <p-dialog class="questionmodal" header="Header" [draggable]="false" [modal]="true" [(visible)]="isQuestionAnswerVisible"
-          [style]="{ width: '80vw' }">
+    [style]="{ width: '80vw' }">
     <ng-template pTemplate="header" class="p-3">
         <h5 class="select-title text-center mb-3">PRE-Application - {{moduleName}}<i
                 class="questiontooltip fa-solid fa-circle-question"></i></h5>
@@ -41,13 +42,11 @@
             </div>
             <div class="col-md-8 d-flex align-items-center justify-content-center text-center">
                 <a (click)="clickPrevious(carousel, $event)"><i
-                        class="text-green h4 mx-3 mb-0 fa-solid fa-circle-chevron-left"
-                ></i></a>
+                        class="text-green h4 mx-3 mb-0 fa-solid fa-circle-chevron-left"></i></a>
                 <h5 class="mb-0">Question
                     Number {{positionNumber}}</h5>
                 <a (click)="clickNext(carousel, $event)"><i
-                        class="text-green mx-3 h4 fa-solid mb-0 fa-circle-chevron-right"
-                ></i></a>
+                        class="text-green mx-3 h4 fa-solid mb-0 fa-circle-chevron-right"></i></a>
             </div>
             <div class="col-md-2 gap-2 d-flex">
                 <button class="btn w-100 btn-primary homecardbtn m-0 px-2 py-2" (click)="goToHome($event)">
@@ -61,8 +60,7 @@
             </div>
         </div>
         <p-carousel #carousel class="answersection" [value]="data" [numVisible]="1" [numScroll]="1" [circular]="true"
-                    [page]="selectedQuestion -1"
-                    [responsiveOptions]="responsiveOptions" (onPage)="setPage($event)">
+            [page]="selectedQuestion -1" [responsiveOptions]="responsiveOptions" (onPage)="setPage($event)">
             <ng-template ngFor let-val [ngForOf]="data" pTemplate="item" let-i="index">
                 <div class="row text-center">
                     <div class="col-12">
@@ -81,24 +79,20 @@
         <div class="container-fluid">
             <div class="row mt-5">
                 <div class="col-4">
-                    <button type="button"
-                            class="bbtn btn btn-secondary h-100 d-flex align-items-center justify-content-center w-100"
-                            (click)="onClickRecommendedVideo()">
-                        <p class="my-2">Recommended Videos</p><i class="h5 mx-2 mb-0 fa-solid fa-video"></i>
-                    </button>
+                     <span class="text-xl font-bold">Recommended Videos</span>
                 </div>
                 <div class="col-4">
                     <button type="button"
-                            class="bbtn btn btn-primary h-100 d-flex align-items-center justify-content-center w-100"
-                            (click)="onClickAsk()">
+                        class="bbtn btn btn-primary h-100 d-flex align-items-center justify-content-center w-100"
+                        (click)="onClickAsk()">
                         <p class="my-2">Click here to ask related questions</p> <i
                             class="h5 mx-2 mb-0 fa-solid fa-comments"></i>
                     </button>
                 </div>
                 <div class="col-4">
                     <button type="button"
-                            class="bbtn btn btn-tertiary h-100 d-flex align-items-center justify-content-center w-100"
-                            (click)="onClickRecommendedLinks()">
+                        class="bbtn btn btn-tertiary h-100 d-flex align-items-center justify-content-center w-100"
+                        (click)="onClickRecommendedLinks()">
                         <p class="my-2">Recommended Links</p> <i class="h5 mx-2 mb-0 fa-solid fa-link"></i>
                     </button>
                 </div>

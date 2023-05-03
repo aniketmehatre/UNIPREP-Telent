@@ -5,15 +5,6 @@ import {SubSink} from "subsink";
 import {Router} from "@angular/router";
 import { DataService } from 'src/app/data.service';
 
-export interface getDashboardCount {
-    "success": boolean,
-    "registereduser": number,
-    "popularquestioncount": number,
-    "totalquestioncount": number
-    "recentlyaddedquestion": number,
-    "personalisedquestioncount": number
-}
-
 @Component({
     selector: 'uni-dashboard',
     templateUrl: './dashboard.component.html',
@@ -70,17 +61,18 @@ export class DashboardComponent implements OnInit {
     selectedCountryId: any;
 
     ngOnInit(): void {
+        this.selectedCountryId = 2;
+
         this.loadDashboardData();
-        this.loadReadProgression();
-        this.loadQuizProgression();
+        this.loadReadProgression(this.selectedCountryId);
+        this.loadQuizProgression(this.selectedCountryId);
         this.modalReadingProgressing();
         this.modalQuizProgressing();
-        this.subs.sink = this.service.getMe().subscribe(data => {
-            this.selectedCountryId = data.userdetails[0].interested_country_id;
-            this.countryListData(this.selectedCountryId);
-        });
-
-        //this.selectedCountryId = 2;
+        // this.subs.sink = this.service.getMe().subscribe(data => {
+        //     this.selectedCountryId = data.userdetails[0].interested_country_id;
+        //     this.countryListData(this.selectedCountryId);
+        // });
+        this.countryListData(this.selectedCountryId);
     }
 
     loadDashboardData() {

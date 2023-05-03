@@ -155,7 +155,7 @@ export class SidenavComponent {
     this.markCurrentMenu();
   }
 
-  markCurrentMenu() {
+  markCurrentMenu() {    
     const path = this.router.url.split('?')[0];
     const paramtersLen = Object.keys(this.activatedRoute.snapshot.params).length;
     const pathArr = path.split('/').slice(0, path.split('/').length - paramtersLen);

@@ -40,13 +40,11 @@ export class AuthService {
         // return of(Object.create({}));
         return this.http.get<any>(`${environment.ApiUrl}/getuserdetails`).pipe(
             tap((response) => {
-                console.log(response.userdetails[0].interested_country_id);
-                localStorage.setItem('countryId', response.userdetails[0].interested_country_id)
-                this.dataService.changeCountryId(response.userdetails[0].interested_country_id);
+                localStorage.setItem('countryId', '2')
                 this.user = response.userdetails[0];
                 this.getCountry().subscribe(data => {
                     data.filter((value: any) => {
-                        if (response.userdetails[0].interested_country_id == value.id) {
+                        if (2 == value.id) {
                             this.dataService.changeCountryName(value.country);
                         }
                     })

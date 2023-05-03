@@ -19,7 +19,7 @@ export class PagesComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.subs.sink = this.pageFacade.sideBarState$().subscribe({
-      next: (state) => {
+      next: (state) => {        
         this.sidebarClass = state ? "active" : "";
       },
     });

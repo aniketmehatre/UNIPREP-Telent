@@ -11,8 +11,11 @@ export class DataService {
     public countryNameSource = new BehaviorSubject('United States');
     countryName = this.countryNameSource.asObservable();
 
-    public countryIdSource = new BehaviorSubject('1');
+    public countryIdSource = new BehaviorSubject('2');
     countryId = this.countryIdSource.asObservable();
+
+    public timeoutStatusSource = new BehaviorSubject(0);
+    timeoutStatus = this.timeoutStatusSource.asObservable();
 
     constructor() {
     }
@@ -27,6 +30,10 @@ export class DataService {
 
     changeCountryId(countryId: string) {
         this.countryIdSource.next(countryId)
+    }
+
+    changeTimeOutStatus(isValid: number) {
+        this.timeoutStatusSource.next(isValid)
     }
 
 }

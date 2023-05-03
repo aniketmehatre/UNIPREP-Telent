@@ -74,8 +74,8 @@ export class RegistrationComponent implements OnInit {
         // this.isMobileOTPSend = true;
         // this.isMobileOTPValidated = true;
         // this.isEmailOTPSend = true;
-        // this.isEmailOTPValidated = true;
-        // this.isRemainingFieldVisible = true;
+        // this.isEmailOTPValidated = false;
+        // this.isRemainingFieldVisible = false;
         this.dateTime.setDate(this.dateTime.getDate());
 
         this.password = 'password';
@@ -411,25 +411,25 @@ export class RegistrationComponent implements OnInit {
 
         if (code.includes('backspace')) {
             switch (num) {
-                case 2:
+                case 6:
                     this.otp5.nativeElement.focus();
                     break;
-                case 3:
+                case 7:
                     this.otp6.nativeElement.focus();
                     break;
-                case 4:
+                case 8:
                     this.otp7.nativeElement.focus();
                     break;
             }
         } else if (code.includes('digit')) {
             switch (num) {
-                case 1:
+                case 5:
                     this.otp6.nativeElement.focus();
                     break;
-                case 2:
+                case 6:
                     this.otp7.nativeElement.focus();
                     break;
-                case 3:
+                case 7:
                     this.otp8.nativeElement.focus();
                     break;
             }

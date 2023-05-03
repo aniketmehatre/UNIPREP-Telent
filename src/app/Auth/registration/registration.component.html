@@ -305,19 +305,20 @@
                           'is-invalid': submitted && f.otp5.errors
                         }"
                         formControlName="otp5"
-                        (keyup)="focusNextEmailInput($event, 1)"
-                        (keypress)="numericOnly($event)"
+                        (keyup)="focusNextEmailInput($event, 5)"
                         type="text"
+                        #otp5
                         autofocus
                         maxlength="1"
                       />
                       <input
                         class="col form-control"
                         formControlName="otp6"
-                        (keyup)="focusNextEmailInput($event, 2)"
+                        (keyup)="focusNextEmailInput($event, 6)"
                         type="text"
                         maxlength="1"
                         autofocus
+                        #otp6
                         [ngClass]="{
                           'is-invalid': submitted && f.otp6.errors
                         }"
@@ -325,9 +326,10 @@
                       <input
                         class="col form-control"
                         formControlName="otp7"
-                        (keyup)="focusNextEmailInput($event, 3)"
+                        (keyup)="focusNextEmailInput($event, 7)"
                         type="text"
                         maxlength="1"
+                        #otp7
                         autofocus
                         [ngClass]="{
                           'is-invalid': submitted && f.otp7.errors
@@ -337,6 +339,8 @@
                         class="col form-control"
                         formControlName="otp8"
                         type="text"
+                        (keyup)="focusNextEmailInput($event, 8)"
+                        #otp8
                         maxlength="1"autofocus
                         [ngClass]="{
                           'is-invalid': submitted && f.otp8.errors
@@ -638,7 +642,7 @@
                               style="width: 120%"
                               *ngIf="f.confirmPassword.hasError('matching')"
                       >
-                        Password and confirm not match
+                        Password and confirm password not match
                       </div>
                       <div *ngIf="f.confirmPassword.errors.required">
                         Confirm Password is required

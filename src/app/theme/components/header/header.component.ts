@@ -10,16 +10,15 @@ import {
     ViewContainerRef,
     ViewEncapsulation,
 } from "@angular/core";
-import { MenuItem, MessageService } from "primeng/api";
-import { CountdownConfig } from 'ngx-countdown';
-import { ModalService } from "src/app/components/modal/modal.service";
-import { AuthService } from "../../../Auth/auth.service";
-import { SubSink } from "subsink";
-import { Router } from "@angular/router";
-import { LocationService } from "../../../location.service";
-import { DataService } from "src/app/data.service";
-import { FormBuilder, Validators } from '@angular/forms';
-import {FormGroup} from "@angular/forms";
+import {MenuItem, MessageService} from "primeng/api";
+import {CountdownConfig} from 'ngx-countdown';
+import {ModalService} from "src/app/components/modal/modal.service";
+import {AuthService} from "../../../Auth/auth.service";
+import {SubSink} from "subsink";
+import {Router} from "@angular/router";
+import {LocationService} from "../../../location.service";
+import {DataService} from "src/app/data.service";
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 
 const KEY = 'time'
 let DEFAULT = 0
@@ -35,8 +34,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
     config: CountdownConfig | null = null;
     public reportSubmitForm: any = FormGroup;
     @Input() breadcrumb: MenuItem[] = [
-        { label: "Categories" },
-        { label: "Sports" },
+        {label: "Categories"},
+        {label: "Sports"},
     ];
     @Input() expandicon = "";
     @Output() togleSidebar = new EventEmitter();
@@ -55,6 +54,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     reportOptionList: any[] = [];
     darkModeSwitch!: HTMLInputElement;
     visible: boolean = false;
+    showReportSuccess: boolean = false;
 
     constructor(
         private modalService: ModalService, private router: Router, private locationService: LocationService,
@@ -64,6 +64,11 @@ export class HeaderComponent implements OnInit, OnDestroy {
         this.dataService.countryIdSource.subscribe(data => {
             this.selectedContryId = Number(data);
             this.getModuleList();
+        })
+        this.dataService.timeoutStatusSource.subscribe(data => {
+            if(data == 1){
+                this.visible = true;
+            }
         })
     }
 
@@ -88,6 +93,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
                     this.visible = true;
                     return;
                 }
+                
                 localStorage.setItem('question_left', data.questions_left);
                 localStorage.setItem(KEY, `${data.time_left * 60}`);
             }
@@ -166,6 +172,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
     handleEvent(ev: any) {
         if (ev.action === 'notify') {
+            this.dataService.changeTimeOutStatus(ev.left / 1000);
             localStorage.setItem(KEY, `${ev.left / 1000}`);
         }
     }
@@ -182,7 +189,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
     logout() {
         this.subs.sink = this.service.logout().subscribe(data => {
-            this.toast.add({ severity: 'success', summary: 'Success', detail: 'logged out successfully' });
+            this.toast.add({severity: 'success', summary: 'Success', detail: 'logged out successfully'});
             window.sessionStorage.clear();
             localStorage.clear();
             this.router.navigateByUrl('/login');
@@ -257,7 +264,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
         this.router.navigate(['pages/subscriptions'])
     }
 
-    onSubmit(){
+    onSubmit() {
         if (this.reportSubmitForm.invalid) {
             return;
         }
@@ -268,13 +275,13 @@ export class HeaderComponent implements OnInit, OnDestroy {
             reportOption: this.reportSubmitForm.value.reportOption.id,
             comment: this.reportSubmitForm.value.comment
         }
-        console.log(data)
 
         this.locationService.reportFaqQuestion(data).subscribe(res => {
             if (res.status == 404) {
 
             }
-            this.toast.add({ severity: 'success', summary: 'Success', detail: 'FAQ Report submitted successfully' });
+            this.showReportSuccess = true;
+            this.toast.add({severity: 'success', summary: 'Success', detail: 'FAQ Report submitted successfully'});
         })
     }
 

@@ -66,9 +66,9 @@
         <span class="system-main__name"> {{ item.title }} </span>
       </div>
     </ng-template>
-    <ul @accordion *ngIf="item.children && item.expanded">
+    <!-- <ul @accordion *ngIf="item.children && item.expanded">
       <uni-sidenav></uni-sidenav>
-    </ul>
+    </ul> -->
   </li>
   <!-- <li [ngClass]="{'menu-item': true, 'active': item.active, 'overlap': isOverlap}" *ngFor="let item of menus">
     <ng-container *ngIf="item.header; else menu">
