@@ -99,7 +99,7 @@ export class SidenavComponent {
     {
       title: 'FAQ',
       url: '/pages/faq',
-      image: 'fa-solid fa-comments',
+      image: 'fa-solid fa-comments-question',
     },
     {
       title: 'Help & Support',
