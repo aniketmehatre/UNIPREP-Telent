@@ -1,6 +1,6 @@
 import {NgModule} from '@angular/core';
 
-import { DashboardRoutingModule } from './dashboard-routing.module';
+import {DashboardRoutingModule} from './dashboard-routing.module';
 import {DashboardComponent} from "./dashboard.component";
 import {TableModule} from "primeng/table";
 import {FormsModule} from "@angular/forms";
@@ -12,12 +12,11 @@ import {ButtonModule} from "primeng/button";
 import {RippleModule} from "primeng/ripple";
 import {CardModule} from 'primeng/card';
 import {CarouselModule} from 'primeng/carousel';
-import { CommonModule } from '@angular/common'
+import {CommonModule} from '@angular/common'
 import {PagesModule} from "../pages.module";
-import {FooterStatusBoxComponent} from "../footer-status-box/footer-status-box.component";
 
 @NgModule({
-  declarations: [DashboardComponent],
+    declarations: [DashboardComponent],
     imports: [
         CommonModule,
         DashboardRoutingModule,
@@ -34,4 +33,5 @@ import {FooterStatusBoxComponent} from "../footer-status-box/footer-status-box.c
         PagesModule,
     ],
 })
-export class DashboardModule { }
+export class DashboardModule {
+}

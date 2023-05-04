@@ -1,19 +1,23 @@
 .nav-link {
   text-decoration: none;
   color: #343a40;
+
   &.active {
     color: #9bc329;
     font-weight: bold;
   }
 }
+
 .card {
   h5 {
     color: #9bc329;
     font-weight: bold;
   }
+
   p {
     max-height: 500px;
     overflow-y: auto;
+
     &::-webkit-scrollbar {
       width: 10px;
       height: 8px;
@@ -42,9 +46,11 @@
   color: #9bc329;
   font-weight: 700;
   cursor: pointer;
+
   i {
     transition: all .3s ease-in-out;
   }
+
   &:hover {
     i {
       margin-left: 3px;

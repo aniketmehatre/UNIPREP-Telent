@@ -2,31 +2,32 @@
     <div class="row">
         <div class="col-md-12 px-0">
             <div class="card">
-            <div class="card-body">
-                <div class="d-flex"><h4 class="sop-border sop-header">How can we help?</h4></div>
-                <div class="row">
-                    <div class="col-md-4 mt-3" *ngFor="let v of helpCategoryData">
-                        <div class="card help-shadow">
-                            <div class="breadcrumb mb-0">
-                                <div class="card-body">
-                                    <h5>{{v.helpcategory_name}}</h5>
-                                    <p class="">
-                                        {{v.description}}
-                                    </p>
-                                    <div class="km">
+                <div class="card-body">
+                    <div class="d-flex"><h4 class="sop-border sop-header">How can we help?</h4></div>
+                    <div class="row">
+                        <div *ngFor="let v of helpCategoryData" class="col-md-4 mt-3">
+                            <div class="card help-shadow">
+                                <div class="breadcrumb mb-0">
+                                    <div class="card-body">
+                                        <h5>{{v.helpcategory_name}}</h5>
+                                        <p class="">
+                                            {{v.description}}
+                                        </p>
+                                        <div class="km">
                                         <span routerLink="../description">Know More
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                            class="bi bi-play-fill" viewBox="0 0 16 16">
+                                        <svg class="bi bi-play-fill" fill="currentColor" height="16"
+                                             viewBox="0 0 16 16"
+                                             width="16" xmlns="http://www.w3.org/2000/svg">
                                         <path d="m11.596 8.697-6.363 3.692c-.54.313-1.233-.066-1.233-.697V4.308c0-.63.692-1.01 1.233-.696l6.363 3.692a.802.802 0 0 1 0 1.393z"/>
                                         </svg>
                                         </span>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
             </div>
         </div>
     </div>

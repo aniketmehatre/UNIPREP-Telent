@@ -25,14 +25,14 @@
 .application-text {
   font-size: 0.8rem;
 }
-.questionmodal
-{
-  .bbtn
-  {
+
+.questionmodal {
+  .bbtn {
     border-radius: 10px 10px 0px 0px !important;
     border: none;
   }
 }
+
 .questioncard {
   border: 2px solid #efb875;
   width: 100%;
@@ -49,8 +49,8 @@
   &:focus {
     background-color: #daeca5;
     border: 2px solid #9bc329;
-    .primary-btn
-    {
+
+    .primary-btn {
       background-color: #fff;
       border: 2px solid #9bc329;
     }
@@ -59,15 +59,14 @@
   &:hover {
     background-color: #daeca5;
     border: 2px solid #9bc329;
-    .primary-btn
-    {
+
+    .primary-btn {
       background-color: #fff;
       border: 2px solid #9bc329;
     }
   }
 
-  .questiontext
-  {
+  .questiontext {
     min-height: -webkit-fill-available;
   }
 
@@ -86,9 +85,11 @@
   justify-content: center;
   display: flex;
 }
-.card-body{
+
+.card-body {
   cursor: pointer;
 }
+
 .card-box {
   height: 300px;
   overflow: scroll;
@@ -108,14 +109,15 @@
 .tiny-btn {
   font-size: 10px
 }
+
 :host ::ng-deep p-breadcrumb {
-  .p-component{
+  .p-component {
     border: none !important;
     padding: 0;
   }
 }
-.answercard
-{
+
+.answercard {
   background-color: #daeca5;
   border: 2px solid #9bc329;
   min-height: 50vh;

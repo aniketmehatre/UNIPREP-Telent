@@ -1,15 +1,16 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 
 @Component({
-  selector: 'uni-help-support',
-  templateUrl: './help-support.component.html',
-  styleUrls: ['./help-support.component.scss']
+    selector: 'uni-help-support',
+    templateUrl: './help-support.component.html',
+    styleUrls: ['./help-support.component.scss']
 })
 export class HelpSupportComponent implements OnInit {
 
-  constructor() { }
+    constructor() {
+    }
 
-  ngOnInit(): void {
-  }
+    ngOnInit(): void {
+    }
 
 }

@@ -3,7 +3,7 @@ import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {environment} from "@env/environment";
 import {PostApplicationModel} from "../../../@Models/post-application.model";
-import { CareerHubModel } from "src/app/@Models/career-hub.model";
+import {CareerHubModel} from "src/app/@Models/career-hub.model";
 import {QuestionList} from "../../../@Models/question-list.model";
 
 

@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {Store} from "@ngrx/store";
-import {loadQuestionList, loadSubModules } from './store/post-admission.actions';
+import {loadQuestionList, loadSubModules} from './store/post-admission.actions';
 import {PostAdmissionState} from "./store/post-admission.reducer";
 import {selectQuestionList$, selectSubModule$} from "./store/post-admission.selectors";
 

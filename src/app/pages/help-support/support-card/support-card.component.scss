@@ -3,35 +3,43 @@
   font-size: .8rem;
   color: #9bc329;
   font-weight: 700;
+
   span {
     display: inline-block;
     cursor: pointer;
     transform: scale(1);
     transition: all .1s ease-in-out;
+
     &:hover {
       transform: scale(1.1);
     }
   }
 }
+
 .breadcrumb {
   width: 100% !important;
+
   &:hover {
     .card {
       width: 100% !important;
       background-color: rgba(155, 195, 41, 1);
+
       & * {
         color: #ffffff !important;
       }
     }
   }
 }
+
 .lnk {
   color: #9bc329;
   font-weight: 700;
   cursor: pointer;
+
   i {
     transition: all .3s ease-in-out;
   }
+
   &:hover {
     i {
       margin-left: 3px;

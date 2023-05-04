@@ -1,7 +1,7 @@
 import {createReducer, on} from "@ngrx/store";
 import {loadQuestionListSuccess, loadSubModulesSuccess} from "./post-admission.actions";
 import {SubModuleList} from "../../../@Models/post-admission.model";
-import {ListQuestion, QuestionList} from "../../../@Models/question-list.model";
+import {ListQuestion} from "../../../@Models/question-list.model";
 
 export interface PostAdmissionState {
     submodules?: SubModuleList[],

@@ -1,15 +1,16 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 
 @Component({
-  selector: 'uni-support-query',
-  templateUrl: './support-query.component.html',
-  styleUrls: ['./support-query.component.scss']
+    selector: 'uni-support-query',
+    templateUrl: './support-query.component.html',
+    styleUrls: ['./support-query.component.scss']
 })
 export class SupportQueryComponent implements OnInit {
 
-  constructor() { }
+    constructor() {
+    }
 
-  ngOnInit(): void {
-  }
+    ngOnInit(): void {
+    }
 
 }

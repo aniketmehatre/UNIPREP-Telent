@@ -1,15 +1,16 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 
 @Component({
-  selector: 'uni-pre-application',
-  templateUrl: './pre-application.component.html',
-  styleUrls: ['./pre-application.component.scss']
+    selector: 'uni-pre-application',
+    templateUrl: './pre-application.component.html',
+    styleUrls: ['./pre-application.component.scss']
 })
 export class PreApplicationComponent implements OnInit {
 
-  constructor() { }
+    constructor() {
+    }
 
-  ngOnInit(): void {
-  }
+    ngOnInit(): void {
+    }
 
 }

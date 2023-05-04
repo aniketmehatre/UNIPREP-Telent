@@ -50,6 +50,7 @@ export class DashboardService {
         const headers = new HttpHeaders().set("Accept", "application/json");
         return this.http.post<any>(environment.ApiUrl + "/getmodulequizprogression", val, {headers: headers});
     }
+
     countryList() {
         const headers = new HttpHeaders().set("Accept", "application/json");
         return this.http.get(environment.ApiUrl + "/country", {headers: headers});

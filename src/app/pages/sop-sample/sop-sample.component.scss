@@ -11,6 +11,7 @@
   display: flex;
   flex-direction: column;
 }
+
 .nav-tabs.wizard > li:nth-of-type(1) > a {
   border-top-left-radius: 10px;
   border-bottom-left-radius: 10px;
@@ -34,9 +35,11 @@
   border-radius: 0.5rem;
   box-shadow: rgb(0 0 0 / 11%) 0px 5px 15px;
 }
+
 .nav-tabs.wizard li *::after {
   display: none;
 }
+
 .bi {
   font-size: 18px;
   padding: 0.6rem;
@@ -52,6 +55,7 @@
   background-color: silver;
   background-color: transparent;
 }
+
 b,
 strong {
   font-weight: bolder;
@@ -59,6 +63,7 @@ strong {
   padding-bottom: 7px;
   font-size: 1rem;
 }
+
 .left {
   transform: rotate(135deg);
   -webkit-transform: rotate(135deg);

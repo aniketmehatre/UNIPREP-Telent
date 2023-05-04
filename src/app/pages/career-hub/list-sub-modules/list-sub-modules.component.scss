@@ -4,16 +4,19 @@
   padding-left: 10px;
   padding-right: 10px;
 }
+
 .application-border {
   border: 2px solid #9bc32a;
   border-radius: 5%;
   font-size: 0.8rem;
 }
+
 .unselected-border {
   border: 2px solid #efb875;
   border-radius: 5px;
   font-size: 0.8rem;
 }
+
 .selected-border {
   background-color: #9bc32a;
   border: 0;
@@ -23,28 +26,28 @@
   font-size: 0.8rem;
 }
 
-.subjectcard
-{
-  border:2px solid #efb875;
-  width:100%;
+.subjectcard {
+  border: 2px solid #efb875;
+  width: 100%;
   margin: 10px 0px;
+
   .selectimage {
     aspect-ratio: 1/1;
     width: -webkit-fill-available;
     mix-blend-mode: multiply;
   }
-  &:focus
-  {
+
+  &:focus {
     background-color: #daeca5;
     border: 2px solid #9bc329;
   }
-  &:hover
-  {
+
+  &:hover {
     background-color: #daeca5;
     border: 2px solid #9bc329;
   }
-  .subjecttitle
-  {
+
+  .subjecttitle {
     height: 50px;
   }
 }

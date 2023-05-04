@@ -9,11 +9,7 @@ import {loadQuestionListSuccess} from "../../pre-application/store/pre-applicati
 
 
 @Injectable()
- export class PostAdmissionEffects {
-    constructor(private actions$: Actions, private postAdmissionService: PostAdmissionService,
-                ) {
-    }
-
+export class PostAdmissionEffects {
     loadSubModules = createEffect(() => this.actions$.pipe(
         ofType(loadSubModules),
         switchMap((payload) => this.postAdmissionService.loadSubModules(payload.countryId).pipe(
@@ -22,7 +18,6 @@ import {loadQuestionListSuccess} from "../../pre-application/store/pre-applicati
             })
         ))
     ));
-
     loadQuestionList = createEffect(() => this.actions$.pipe(
         ofType(loadQuestionList),
         switchMap((payload) => this.postAdmissionService.loadQuestionList({
@@ -35,5 +30,9 @@ import {loadQuestionListSuccess} from "../../pre-application/store/pre-applicati
             })
         ))
     ));
+
+    constructor(private actions$: Actions, private postAdmissionService: PostAdmissionService,
+    ) {
+    }
 
 }

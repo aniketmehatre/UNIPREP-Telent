@@ -1,6 +1,7 @@
 import {Component, OnDestroy, OnInit} from "@angular/core";
 import {SopService} from "../sop.service";
 import {SubSink} from "subsink";
+
 @Component({
     selector: "uni-verify",
     templateUrl: "./verify.component.html",
@@ -8,12 +9,29 @@ import {SubSink} from "subsink";
 })
 export class VerifyComponent implements OnInit, OnDestroy {
 
-    private subs = new SubSink();
     text = '';
     textHightlights: any[] = [];
+    private subs = new SubSink();
+
     constructor(
         private _sopService: SopService
-    ) {}
+    ) {
+    }
+
+    get characters() {
+        return this.text.trim().length;
+    }
+
+    get sentences() {
+        const lines = this.text.split(/[.!?]/);
+        const isLastLineValid = lines.length ? (lines[lines.length - 1].trim().length ? 0 : 1) : 0;
+        return isLastLineValid ? lines.length - 1 : lines.length;
+    }
+
+    get words() {
+        return this.text.split(' ').length;
+    }
+
     ngOnDestroy() {
         this.subs.unsubscribe();
     }
@@ -25,11 +43,11 @@ export class VerifyComponent implements OnInit, OnDestroy {
             const positive = data.positive || [];
             const negative = data.negative || [];
             setTimeout(() => {
-                const n1 = positive?.filter(p => p.trim().length != 0 )?.map((p: string) => {
+                const n1 = positive?.filter(p => p.trim().length != 0)?.map((p: string) => {
                     return {word: p.trim(), color: 'green'};
                 });
-                const n2 = negative?.filter(p => p.trim().length != 0 )?.map((n: string) => {
-                   return {word: n.trim(), color: 'red'};
+                const n2 = negative?.filter(p => p.trim().length != 0)?.map((n: string) => {
+                    return {word: n.trim(), color: 'red'};
                 });
                 console.log(n1, n2);
                 this.textHightlights = [n1, n2].flat().filter(vv => !!vv.word);
@@ -37,20 +55,10 @@ export class VerifyComponent implements OnInit, OnDestroy {
         });
     }
 
-    get characters() {
-        return this.text.trim().length;
-    }
-    get sentences() {
-        const lines = this.text.split(/[.!?]/);
-        const isLastLineValid = lines.length ? (lines[lines.length - 1].trim().length ? 0 : 1) : 0;
-        return isLastLineValid ? lines.length - 1 : lines.length;
-    }
-    get words() {
-        return  this.text.split(' ').length;
-    }
     recheck() {
         this._sopService.verifyPlag();
     }
+
     gotoDownload() {
         this._sopService.gotoDownload();
     }

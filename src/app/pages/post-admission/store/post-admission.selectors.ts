@@ -1,6 +1,5 @@
 import {createFeatureSelector, createSelector} from "@ngrx/store";
 import {PostAdmissionState} from "./post-admission.reducer";
-import {PostApplicationState} from "../../post-application/store/post-application.reducer";
 
 export const postAdmissionFeatureKey = 'postAdmissionFeatureKey';
 

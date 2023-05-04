@@ -19,48 +19,48 @@
 <!--  </div>-->
 <!--</div>-->
 <div class="row">
-  <div class="col-md-9">
-    <div class="card card-body">
-      <div class="doc-container">
-        <h6>YOUR STATEMENT OF PURPOSE</h6>
-        <hr />
-        <div class="_container">
-          <p-editor [style]="{'height':'320px'}" [spellcheck]="false" [(ngModel)]="text" uniEditor
-                     [highlight]="highLightcontent" [color]="highLightColor"
-                     [options]="highLightOptions" class="w-full">
-            <ng-template pTemplate="header">
-            </ng-template>
-          </p-editor>
+    <div class="col-md-9">
+        <div class="card card-body">
+            <div class="doc-container">
+                <h6>YOUR STATEMENT OF PURPOSE</h6>
+                <hr/>
+                <div class="_container">
+                    <p-editor [(ngModel)]="text" [color]="highLightColor" [highlight]="highLightcontent" [options]="highLightOptions"
+                              [spellcheck]="false" [style]="{'height':'320px'}"
+                              class="w-full" uniEditor>
+                        <ng-template pTemplate="header">
+                        </ng-template>
+                    </p-editor>
+                </div>
+                <div class="_footer_part">
+                    <div>CHARACTERS: <span>{{characters}}</span></div>
+                    <div>SENTENCES: <span>{{sentences}}</span></div>
+                    <div>WORDS: <span>{{words}}</span></div>
+                </div>
+            </div>
         </div>
-        <div class="_footer_part">
-          <div>CHARACTERS: <span>{{characters}}</span></div>
-          <div>SENTENCES: <span>{{sentences}}</span></div>
-          <div>WORDS: <span>{{words}}</span></div>
+    </div>
+    <div class="col-md-3">
+        <div class="card card-body">
+            <uni-result-accordion (contentClick)="onContentClick($event)" [data]="result"></uni-result-accordion>
         </div>
-      </div>
     </div>
-  </div>
-  <div class="col-md-3">
-    <div class="card card-body">
-      <uni-result-accordion (contentClick)="onContentClick($event)" [data]="result"></uni-result-accordion>
-    </div>
-  </div>
 </div>
 <br>
 <div class="d-flex justify-content-between align-item-center">
-  <div>
-  </div>
-  <div>
-          <button (click)="recheck()" class="btn btn-dark">
+    <div>
+    </div>
+    <div>
+        <button (click)="recheck()" class="btn btn-dark">
             RECHECK <span class="btn-label-dark"><i class="pi pi-sync"></i></span>
-            </button> &nbsp;&nbsp;
-            <button class="btn btn-primary" (click)="gotoVerify()">
-              NEXT <span class="btn-label"><i class="pi pi-arrow-right"></i></span>
-            </button>
-        </div>
-      </div>
+        </button> &nbsp;&nbsp;
+        <button (click)="gotoVerify()" class="btn btn-primary">
+            NEXT <span class="btn-label"><i class="pi pi-arrow-right"></i></span>
+        </button>
+    </div>
+</div>
 
-      <!--<div class="d-flex justify-content-between align-item-center">-->
+<!--<div class="d-flex justify-content-between align-item-center">-->
 <!--  <div>-->
 <!--    <button (click)="docdata='';hasdoc=true;" *ngIf="btn_save" class="btn btn-orange">-->
 <!--      Replace SOP-->
