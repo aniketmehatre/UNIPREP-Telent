@@ -283,24 +283,29 @@ export class UserManagementComponent implements OnInit {
     ) {
     }
 
+    get f() {
+        return this.registrationForm.value;
+    }
+
     ngOnInit(): void {
         this.authService.userData.subscribe(data => {
-          this.user = data;
+            console.log(data);
+            this.user = data;
+            this.registrationForm = this.formBuilder.group({
+                name: [this.user?.name, [Validators.required]],
+                location_id: [this.user?.location_id, [Validators.required]],
+                phone: [this.user?.phone, [Validators.required]],
+                email: [this.user?.email, [Validators.required, Validators.email]],
+                interested_country_id: [this.user?.interested_country_id, [Validators.required]],
+                last_degree_passing_year: [this.user?.last_degree_passing_year, [Validators.required]],
+                intake_year_looking: [this.user?.intake_year_looking, [Validators.required]],
+                intake_month_looking: [this.user?.intake_month_looking, [Validators.required]],
+                programlevel_id: [this.user?.programlevel_id, [Validators.required]],
+                gender: [this.user?.gender, [Validators.required]],
+            });
         });
 
-        this.registrationForm = this.formBuilder.group({
-            name: [this.user?.name, [Validators.required]],
-            location_id: [this.user?.location_id, [Validators.required]],
-            phone: [this.user?.phone, [Validators.required]],
-            email: [this.user?.email, [Validators.required, Validators.email]],
-            interested_country_id: [this.user?.interested_country_id, [Validators.required]],
-            last_degree_passing_year: [this.user?.last_degree_passing_year, [Validators.required]],
-            intake_year_looking: [this.user?.intake_year_looking, [Validators.required]],
-            intake_month_looking: [this.user?.intake_month_looking, [Validators.required]],
-            programlevel_id: [this.user?.programlevel_id, [Validators.required]],
-            gender: [this.user?.gender, [Validators.required]],
-        });
-        this.GetprogramlevelList();
+
         this.GetLocationList();
         this.GetprogramlevelList();
         this.getCountryList();
@@ -323,7 +328,8 @@ export class UserManagementComponent implements OnInit {
 
     GetprogramlevelList() {
         this.authService.getProgramLevel().subscribe((response) => {
-            this.programlevelList = [{id: null, name: 'Select'}, ...response.data];
+            console.log(response.data);
+            this.programlevelList = response.data;
         });
     }
 
@@ -338,10 +344,6 @@ export class UserManagementComponent implements OnInit {
         );
     }
 
-    get f() {
-        return this.registrationForm.value;
-    }
-
     yearChage(event: any) {
         this.registrationForm?.get('intakeMonth')?.setValue(event);
     }
@@ -351,45 +353,45 @@ export class UserManagementComponent implements OnInit {
     }
 
     onSubmit() {
-        let data: any = {};
-        if (this.registrationForm.value.fullName.dirty) {
-            data['fullName'] = this.registrationForm.value.fullName;
-        }
-        if (this.registrationForm.value.location.dirty) {
-            data['location'] = this.registrationForm.value.location;
-        }
-        if (this.registrationForm.value.contactNumber.dirty) {
-            data['contactNumber'] = this.registrationForm.value.country;
-        }
-        if (this.registrationForm.value.emailAddress.dirty) {
-            data['emailAddress'] = this.registrationForm.value.notification ? 1 : 0;
-        }
-        if (this.registrationForm.value.interestedCountry.dirty) {
-            data['interestedCountry'] = this.registrationForm.value.interestedCountry;
-        }
-        if (this.registrationForm.value.lastDegreePassingYear.dirty) {
-            data['lastDegreePassingYear'] = '' + this.registrationForm.value.passingYear?.getFullYear();
-        }
-        if (this.registrationForm.value.intakeYear.dirty) {
-            data['intakeYear'] = '' + this.registrationForm.value.intakeYear?.getFullYear();
-        }
-        if (this.registrationForm.value.intakeMonth.dirty) {
-            data['intakeMonth'] = '' + this.registrationForm.value.intakeMonth?.getMonth();
-        }
-        if (this.registrationForm.value.programLevel.dirty) {
-            data['programLevel'] = this.registrationForm.value.programLevel;
-        }
-        if (this.registrationForm.value.gender.dirty) {
-            data['gender'] = this.registrationForm.value.gender;
-        }
-        if (!Object.keys(data).length) {
-            this.toastr.add({
-                severity: "error",
-                summary: "Warning",
-                detail: 'Nothing to update',
-            });
-            return;
-        }
+        // let data: any = {};
+        // if (this.registrationForm.value.fullName.dirty) {
+        //     data['fullName'] = this.registrationForm.value.fullName;
+        // }
+        // if (this.registrationForm.value.location.dirty) {
+        //     data['location'] = this.registrationForm.value.location;
+        // }
+        // if (this.registrationForm.value.contactNumber.dirty) {
+        //     data['contactNumber'] = this.registrationForm.value.country;
+        // }
+        // if (this.registrationForm.value.emailAddress.dirty) {
+        //     data['emailAddress'] = this.registrationForm.value.email ? 1 : 0;
+        // }
+        // if (this.registrationForm.value.interestedCountry.dirty) {
+        //     data['interestedCountry'] = this.registrationForm.value.interestedCountry;
+        // }
+        // if (this.registrationForm.value.lastDegreePassingYear.dirty) {
+        //     data['lastDegreePassingYear'] = '' + this.registrationForm.value.passingYear?.getFullYear();
+        // }
+        // if (this.registrationForm.value.intakeYear.dirty) {
+        //     data['intakeYear'] = '' + this.registrationForm.value.intakeYear?.getFullYear();
+        // }
+        // if (this.registrationForm.value.intakeMonth.dirty) {
+        //     data['intakeMonth'] = '' + this.registrationForm.value.intakeMonth?.getMonth();
+        // }
+        // if (this.registrationForm.value.programLevel.dirty) {
+        //     data['programLevel'] = this.registrationForm.value.programLevel;
+        // }
+        // if (this.registrationForm.value.gender.dirty) {
+        //     data['gender'] = this.registrationForm.value.gender;
+        // }
+        // if (!Object.keys(data).length) {
+        //     this.toastr.add({
+        //         severity: "error",
+        //         summary: "Warning",
+        //         detail: 'Nothing to update',
+        //     });
+        //     return;
+        // }
         // this.authService.updateProfile(data).subscribe(response => {
         //   this.authService.user = response;
         // });

@@ -17,6 +17,9 @@ export class DataService {
     public timeoutStatusSource = new BehaviorSubject(0);
     timeoutStatus = this.timeoutStatusSource.asObservable();
 
+    public showTimeOutSource = new BehaviorSubject(false);
+    showTimeOutStatus = this.showTimeOutSource.asObservable();
+
     constructor() {
     }
 
@@ -34,6 +37,10 @@ export class DataService {
 
     changeTimeOutStatus(isValid: number) {
         this.timeoutStatusSource.next(isValid)
+    }
+
+    showTimeOut(isShow: boolean){
+        this.showTimeOutSource.next(isShow);
     }
 
 }

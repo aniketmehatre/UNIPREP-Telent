@@ -14,7 +14,10 @@ export const selectUploadedDoc$ = createSelector(featureSelect, (state: SopState
 export const selectCourses$ = createSelector(featureSelect, (state: SopState) => state.courses || []);
 export const selectCountries$ = createSelector(featureSelect, (state: SopState) => state.countries || []);
 export const selectCountryUnivercity$ = createSelector(featureSelect, (state: SopState) => state.univercities || []);
-export const selectPlag$ = createSelector(featureSelect, (state: SopState) => ({ plag: state.Plagiarism, grammar: state.grammer}));
+export const selectPlag$ = createSelector(featureSelect, (state: SopState) => ({
+    plag: state.Plagiarism,
+    grammar: state.grammer
+}));
 export const selectIsAnalyseBtnEnabaled$ = createSelector(featureSelect, (state: SopState) => {
     const courses = state.course || [];
     if (courses?.length < 1 || state.university == -1 || state.country == -1) {
@@ -33,4 +36,7 @@ export const selectVerifyPageData$ = createSelector(featureSelect, (state: SopSt
     }
 });
 
-export const selectVerified$ = createSelector(featureSelect, (state: SopState) => ({positive: state.positive, negative: state.negative}));
+export const selectVerified$ = createSelector(featureSelect, (state: SopState) => ({
+    positive: state.positive,
+    negative: state.negative
+}));

@@ -25,10 +25,9 @@
 .application-text {
   font-size: 0.8rem;
 }
-.questionmodal
-{
-  .bbtn
-  {
+
+.questionmodal {
+  .bbtn {
     border-radius: 10px 10px 0px 0px !important;
     border: none;
   }
@@ -53,8 +52,8 @@
   &:focus {
     background-color: #daeca5;
     border: 2px solid #9bc329;
-    .primary-btn
-    {
+
+    .primary-btn {
       background-color: #fff;
       border: 2px solid #9bc329;
     }
@@ -63,15 +62,14 @@
   &:hover {
     background-color: #daeca5;
     border: 2px solid #9bc329;
-    .primary-btn
-      {
+
+    .primary-btn {
       background-color: #fff;
       border: 2px solid #9bc329;
-      }
+    }
   }
 
-  .questiontext
-  {
+  .questiontext {
     min-height: -webkit-fill-available;
   }
 
@@ -90,15 +88,17 @@
   justify-content: center;
   display: flex;
 }
-.card-body{
+
+.card-body {
   cursor: pointer;
 }
+
 .card-box {
   height: 300px;
   overflow: scroll;
 }
 
-:host ::ng-deep p-carousel {
+:host ::ng-deep p-carousel .answersection {
   //On later realease of PrimeNG, this can be done programmatically with [showIndicators | showNavigators]="false"
   .p-carousel-indicators {
     display: none !important;
@@ -112,23 +112,32 @@
 .tiny-btn {
   font-size: 10px
 }
+
 :host ::ng-deep p-breadcrumb {
-  .p-component{
+  .p-component {
     border: none !important;
     padding: 0;
   }
 }
-.answercard
-{
+
+.answercard {
   background-color: #daeca5;
   border: 2px solid #9bc329;
   max-height: 60vh;
-  overflow-y:auto;
+  overflow-y: auto;
 }
 
-:host  ::ng-deep .p-carousel-item{
+:host ::ng-deep .p-carousel-item {
   max-height: 0;
 }
-:host ::ng-deep  .p-carousel-item-active{
- max-height: 100% !important;
+
+:host ::ng-deep .p-carousel-item-active {
+  max-height: 100% !important;
+}
+
+.card-color {
+  background: #9bc329 !important;
+  width: 100%;
+  height: 100%;
+
 }

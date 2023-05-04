@@ -1,6 +1,5 @@
 import {createFeatureSelector, createSelector} from "@ngrx/store";
-import {CareerHubReducer, CareerHubState} from "./career-hub.reducer";
-import {PostApplicationState} from "../../post-application/store/post-application.reducer";
+import {CareerHubState} from "./career-hub.reducer";
 
 export const careerHubFeatureKey = 'careerHubFeatureKey';
 

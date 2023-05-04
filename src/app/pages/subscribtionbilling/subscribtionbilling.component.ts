@@ -1,15 +1,16 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 
 @Component({
-  selector: 'uni-subscribtionbilling',
-  templateUrl: './subscribtionbilling.component.html',
-  styleUrls: ['./subscribtionbilling.component.scss']
+    selector: 'uni-subscribtionbilling',
+    templateUrl: './subscribtionbilling.component.html',
+    styleUrls: ['./subscribtionbilling.component.scss']
 })
 export class SubscribtionbillingComponent implements OnInit {
 
-  constructor() { }
+    constructor() {
+    }
 
-  ngOnInit(): void {
-  }
+    ngOnInit(): void {
+    }
 
 }

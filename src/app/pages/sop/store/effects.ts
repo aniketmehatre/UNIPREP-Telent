@@ -12,7 +12,8 @@ import {
     loadCourseSuccess,
     loadUnivercityByCountry,
     loadUnivercityByCountrySuccess,
-    selectOptions, selectOptionsSuccess,
+    selectOptions,
+    selectOptionsSuccess,
     updateDoc,
     updateDocSuccess,
     uploadDoc,
@@ -26,11 +27,6 @@ import {selectVerifyPageData$} from "./selectors";
 
 @Injectable()
 export class SopEffects {
-    constructor(
-        private actions$: Actions,
-        private service: SopStoreService,
-        private store: Store<SopState>
-    ) {}
     uploadDoc$ = createEffect(() => this.actions$.pipe(
         ofType(uploadDoc),
         switchMap((payload) => this.service.getTextExtractionfromDoc({document: payload.document}).pipe(
@@ -46,7 +42,12 @@ export class SopEffects {
     selectOptions$ = createEffect(() => this.actions$.pipe(
         ofType(selectOptions),
         withLatestFrom(this.store.pipe(select(selectVerifyPageData$))),
-        switchMap(([payload, form]) => this.service.selectOptions({docId: form.docId, country: form.country, course: form.course, university: form.university}).pipe(
+        switchMap(([payload, form]) => this.service.selectOptions({
+            docId: form.docId,
+            country: form.country,
+            course: form.course,
+            university: form.university
+        }).pipe(
             map(response => selectOptionsSuccess({data: response}))
         ))
     ));
@@ -82,4 +83,11 @@ export class SopEffects {
             map(response => verifyPlagSuccess({data: response}))
         ))
     ));
+
+    constructor(
+        private actions$: Actions,
+        private service: SopStoreService,
+        private store: Store<SopState>
+    ) {
+    }
 }

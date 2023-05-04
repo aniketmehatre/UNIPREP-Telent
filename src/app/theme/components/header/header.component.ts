@@ -65,10 +65,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
             this.selectedContryId = Number(data);
             this.getModuleList();
         })
-        this.dataService.timeoutStatusSource.subscribe(data => {
-            if(data == 1){
-                this.visible = true;
-            }
+        this.dataService.showTimeOutSource.subscribe(data => {
+            this.visible = data;
         })
     }
 
@@ -89,13 +87,13 @@ export class HeaderComponent implements OnInit, OnDestroy {
         });
         this.subs.sink = this.service.selectLogInData$().subscribe(data => {
             if (data) {
-                if (data.time_left < 0) {
-                    this.visible = true;
-                    return;
-                }
+                // if (data.time_left < 0) {
+                //     this.visible = true;
+                //     return;
+                // }
                 
                 localStorage.setItem('question_left', data.questions_left);
-                localStorage.setItem(KEY, `${data.time_left * 60}`);
+                localStorage.setItem(KEY, `${10 * 60}`);
             }
         });
 

@@ -33,18 +33,102 @@ export class SidenavComponent {
   @Output() active = new EventEmitter<SideMenu>;
   @Input() isOverlap = false;
 
-  @Input() menus: SideMenu[] = [];
-  countryName: any;
+  @Input() menus: SideMenu[] = [
+    {
+      title: 'Dashboard',
+      url: '/pages/dashboard',
+      image: 'fa-solid fa-house',
+    },
+    // {
+    //   title: 'Components',
+    //   url: '',
+    //   image: 'pi pi-chart-bar',
+    //   children: [
+    //     {
+    //       title: 'Button',
+    //       url: '/pages/button',
+    //       image: ''
+    //     },
+    //     {
+    //       title: 'Cards',
+    //       url: '/pages/cards',
+    //       image: ''
+    //     },
+    //     {
+    //       title: 'Popup',
+    //       url: '/pages/popups',
+    //       image: ''
+    //     }
+    //   ]
+    // },
+    {
+      title: 'Pre Application',
+      url: '/pages/pre-application',
+      image: 'fa-solid fa-file-import',
+    },
+    {
+      title: 'Post Application',
+      url: '/pages/post-application',
+      image: 'fa-solid fa-file-export',
+    },
+    {
+      title: 'Post Admission',
+      url: '/pages/post-admission',
+      image: 'fa-solid fa-ticket',
+    },
+    {
+      title: 'Career Hub',
+      url: '/pages/career-hub',
+      image: 'fa-solid fa-briefcase',
+    },
+    {
+      title: 'University',
+      url: '',
+      image: 'fa-solid fa-building-columns',
+    },
+    {
+      title: 'Life at',
+      url: '',
+      image: 'fa-solid fa-earth-americas',
+    },
+    {
+      title: 'Subscription',
+      url: '/pages/subscriptions',
+      image: 'fa-solid fa-crown',
+    },
+    {
+      title: 'FAQ',
+      url: '/pages/faq',
+      image: 'fa-solid fa-comments',
+    },
+    {
+      title: 'Help & Support',
+      url: '/pages/help',
+      image: 'fa-solid fa-phone-volume',
+    }
+    //,
+    // {
+    //   title: 'USER MANAGER',
+    //   url: '/pages/usermanagement',
+    //   image: 'pi pi-briefcase',
+    // },
+    // {
+    //   title: 'SUBCRIPTION MANAGER',
+    //   url: '/pages/subscriptionmanagement',
+    //   image: 'pi pi-briefcase',
+    // }
+  ];
   constructor(
     private router: Router,
     private activatedRoute: ActivatedRoute,
     private dataService: DataService
   ) {
     this.dataService.countryNameSource.subscribe(countryName => {
-      this.countryName = countryName;
-      this.menuList();
+      this.menus.filter(data => {
+        if(data.title.includes('Life at'))
+        data.title = 'Life at '+countryName;
+      });
     });
-    this.menuList();
     router.events
       .pipe(
         filter((event) => event instanceof NavigationEnd),
@@ -63,99 +147,11 @@ export class SidenavComponent {
       });
   }
 
-  menuList(){
-    this.menus = [
-      {
-        title: 'Dashboard',
-        url: '/pages/dashboard',
-        image: 'fa-solid fa-house',
-      },
-      // {
-      //   title: 'Components',
-      //   url: '',
-      //   image: 'pi pi-chart-bar',
-      //   children: [
-      //     {
-      //       title: 'Button',
-      //       url: '/pages/button',
-      //       image: ''
-      //     },
-      //     {
-      //       title: 'Cards',
-      //       url: '/pages/cards',
-      //       image: ''
-      //     },
-      //     {
-      //       title: 'Popup',
-      //       url: '/pages/popups',
-      //       image: ''
-      //     }
-      //   ]
-      // },
-      {
-        title: 'Pre Application',
-        url: '/pages/pre-application',
-        image: 'fa-solid fa-file-import',
-      },
-      {
-        title: 'Post Application',
-        url: '/pages/post-application',
-        image: 'fa-solid fa-file-export',
-      },
-      {
-        title: 'Post Admission',
-        url: '/pages/post-admission',
-        image: 'fa-solid fa-ticket',
-      },
-      {
-        title: 'Career Hub',
-        url: '/pages/career-hub',
-        image: 'fa-solid fa-briefcase',
-      },
-      {
-        title: 'University',
-        url: '',
-        image: 'fa-solid fa-building-columns',
-      },
-      {
-        title: `Life at ${this.countryName}`,
-        url: '',
-        image: 'fa-solid fa-earth-americas',
-      },
-      {
-        title: 'Subscription',
-        url: '/pages/subscriptions',
-        image: 'fa-solid fa-crown',
-      },
-      {
-        title: 'FAQ',
-        url: '/pages/faq',
-        image: 'fa-solid fa-comments',
-      },
-      {
-        title: 'Help & Support',
-        url: '/pages/help',
-        image: 'fa-solid fa-phone-volume',
-      }
-      //,
-      // {
-      //   title: 'USER MANAGER',
-      //   url: '/pages/usermanagement',
-      //   image: 'pi pi-briefcase',
-      // },
-      // {
-      //   title: 'SUBCRIPTION MANAGER',
-      //   url: '/pages/subscriptionmanagement',
-      //   image: 'pi pi-briefcase',
-      // }
-    ];
-  }
-
   ngOnInit(): void {
     this.markCurrentMenu();
   }
 
-  markCurrentMenu() {    
+  markCurrentMenu() {
     const path = this.router.url.split('?')[0];
     const paramtersLen = Object.keys(this.activatedRoute.snapshot.params).length;
     const pathArr = path.split('/').slice(0, path.split('/').length - paramtersLen);

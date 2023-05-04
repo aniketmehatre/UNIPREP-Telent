@@ -22,7 +22,6 @@ import {InputTextModule} from "primeng/inputtext";
 import {RippleModule} from "primeng/ripple";
 import {PreApplicationModule} from './pre-application/pre-application.module';
 import {PostAdmissionModule} from "./post-admission/post-admission.module";
-import { SubscribtionbillingComponent } from './subscribtionbilling/subscribtionbilling.component';
 import {ReactiveFormsModule} from "@angular/forms";
 import {DropdownModule} from "primeng/dropdown";
 import {CalendarModule} from "primeng/calendar";

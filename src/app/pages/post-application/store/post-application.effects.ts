@@ -8,9 +8,6 @@ import {loadQuestionListSuccess} from "../../pre-application/store/pre-applicati
 
 @Injectable()
 export class PostApplicationEffects {
-    constructor(private actions$: Actions, private postApplicationService: PostApplicationService) {
-    }
-
     loadSubModules$ = createEffect(() => this.actions$.pipe(
         ofType(loadSubModules),
         switchMap((payload) => this.postApplicationService.loadSubModules(payload.countryId).pipe(
@@ -19,7 +16,6 @@ export class PostApplicationEffects {
             })
         ))
     ));
-
     loadQuestionList = createEffect(() => this.actions$.pipe(
         ofType(loadQuestionList),
         switchMap((payload) => this.postApplicationService.loadQuestionList({
@@ -32,4 +28,7 @@ export class PostApplicationEffects {
             })
         ))
     ));
+
+    constructor(private actions$: Actions, private postApplicationService: PostApplicationService) {
+    }
 }

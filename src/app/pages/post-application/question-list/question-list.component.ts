@@ -1,18 +1,16 @@
 import {AfterContentChecked, ChangeDetectorRef, Component, OnInit} from '@angular/core';
-import { MenuItem } from 'primeng/api';
-import { Observable } from 'rxjs';
-import { SubModuleList } from 'src/app/@Models/post-application.model';
-import { ListQuestion } from 'src/app/@Models/question-list.model';
-import { PostApplicationService } from '../post-application.service';
-import { DataService } from 'src/app/data.service';
-import { ActivatedRoute } from '@angular/router';
-import {PreAppService} from "../../pre-application/pre-app.service";
-import {CareerHubService} from "../../career-hub/career-hub.service";
+import {MenuItem} from 'primeng/api';
+import {Observable} from 'rxjs';
+import {SubModuleList} from 'src/app/@Models/post-application.model';
+import {ListQuestion} from 'src/app/@Models/question-list.model';
+import {PostApplicationService} from '../post-application.service';
+import {DataService} from 'src/app/data.service';
+import {ActivatedRoute} from '@angular/router';
 
 @Component({
-  selector: 'uni-question-list',
-  templateUrl: './question-list.component.html',
-  styleUrls: ['./question-list.component.scss']
+    selector: 'uni-question-list',
+    templateUrl: './question-list.component.html',
+    styleUrls: ['./question-list.component.scss']
 })
 export class QuestionListComponent implements OnInit, AfterContentChecked {
     subModules$!: Observable<SubModuleList[]>;

@@ -1,5 +1,5 @@
-import { createReducer, on } from "@ngrx/store";
-import { toggleSideBar } from "./pages.actions";
+import {createReducer, on} from "@ngrx/store";
+import {toggleSideBar} from "./pages.actions";
 
 export interface PageState {
     showSidebar: boolean;

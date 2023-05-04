@@ -14,10 +14,6 @@ import {PreApplicationService} from "./pre-application.service";
 
 @Injectable()
 export class PreApplicationEffects {
-    constructor(private actions$: Actions, private preApplicationService: PreApplicationService,
-    ) {
-    }
-
     loadSubModules = createEffect(() => this.actions$.pipe(
         ofType(loadSubModules),
         switchMap((payload) => this.preApplicationService.loadSubModules(payload.countryId).pipe(
@@ -26,7 +22,6 @@ export class PreApplicationEffects {
             })
         ))
     ));
-
     loadQuestionList = createEffect(() => this.actions$.pipe(
         ofType(loadQuestionList),
         switchMap((payload) => this.preApplicationService.loadQuestionList({
@@ -39,4 +34,8 @@ export class PreApplicationEffects {
             })
         ))
     ));
+
+    constructor(private actions$: Actions, private preApplicationService: PreApplicationService,
+    ) {
+    }
 }

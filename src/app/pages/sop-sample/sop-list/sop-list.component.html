@@ -4,8 +4,8 @@
             <div class="d-flex"><h4 class="sop-border sop-header">Statement Of Purpose Sample</h4></div>
         </div>
         <div class="row">
-            <div class="col-md-4 mt-3" *ngFor=" let sample of getsopsmplList">
-                <div routerLink="../../displayPDF/{{sample.url}}" class="card shadow bg-body rounded">
+            <div *ngFor=" let sample of getsopsmplList" class="col-md-4 mt-3">
+                <div class="card shadow bg-body rounded" routerLink="../../displayPDF/{{sample.url}}">
                     <div class="card-body">
                         <div class="cdr">
                             <strong>{{sample.name}}</strong>

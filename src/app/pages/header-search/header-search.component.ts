@@ -10,6 +10,8 @@ import {DataService} from "../../data.service";
 export class HeaderSearchComponent implements OnInit {
     message: any
     countryName: any
+    isSearchResultFound: boolean = false;
+    searchResult: any;
 
     constructor(private dashboardService: DashboardService, private dataService: DataService) {
         this.dataService.chatTriggerSource.subscribe(message => {
@@ -19,9 +21,6 @@ export class HeaderSearchComponent implements OnInit {
             this.countryName = countryName;
         });
     }
-
-    isSearchResultFound: boolean = false;
-    searchResult: any;
 
     ngOnInit(): void {
     }

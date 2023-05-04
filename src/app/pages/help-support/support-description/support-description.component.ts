@@ -1,15 +1,16 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 
 @Component({
-  selector: 'uni-support-description',
-  templateUrl: './support-description.component.html',
-  styleUrls: ['./support-description.component.scss']
+    selector: 'uni-support-description',
+    templateUrl: './support-description.component.html',
+    styleUrls: ['./support-description.component.scss']
 })
 export class SupportDescriptionComponent implements OnInit {
 
-  constructor() { }
+    constructor() {
+    }
 
-  ngOnInit(): void {
-  }
+    ngOnInit(): void {
+    }
 
 }

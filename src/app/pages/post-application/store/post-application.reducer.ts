@@ -18,5 +18,4 @@ export const PostApplicationReducer = createReducer(
     on(loadSubModulesSuccess, (state,
                                payload) => ({...state, submodules: payload.submodules})),
     on(loadQuestionListSuccess, (state, payload) => ({...state, questionList: payload.questionList})),
-
 )

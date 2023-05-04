@@ -1,15 +1,16 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 
 @Component({
-  selector: 'uni-subcription-manager',
-  templateUrl: './subcription-manager.component.html',
-  styleUrls: ['./subcription-manager.component.scss']
+    selector: 'uni-subcription-manager',
+    templateUrl: './subcription-manager.component.html',
+    styleUrls: ['./subcription-manager.component.scss']
 })
 export class SubcriptionManagerComponent implements OnInit {
 
-  constructor() { }
+    constructor() {
+    }
 
-  ngOnInit(): void {
-  }
+    ngOnInit(): void {
+    }
 
 }

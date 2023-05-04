@@ -1,5 +1,6 @@
 .search-dropdown {
   width: 100%;
+  position: relative;
 }
 
 .search-icon {
@@ -13,13 +14,19 @@
   padding: 10px;
 }
 
-.p-inputgroup
-{
-  padding:0px;
+.p-inputgroup {
+  padding: 0px;
   background: #fff;
   border-radius: 10px;
 }
 
-btn-primary{
+btn-primary {
   color: black !important;
+}
+
+.list-group {
+  position: absolute;
+  z-index: 9999 !important;
+  right: 0;
+  left: 0;
 }

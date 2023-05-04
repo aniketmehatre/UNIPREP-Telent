@@ -1,4 +1,4 @@
-import { createFeatureSelector, createSelector} from "@ngrx/store";
+import {createFeatureSelector, createSelector} from "@ngrx/store";
 import {PostApplicationState} from "./post-application.reducer";
 
 export const postApplicationFeatureKey = 'postApplicationFeatureKey';

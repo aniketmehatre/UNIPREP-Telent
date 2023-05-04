@@ -29,6 +29,9 @@ export class QuestionListComponent implements OnInit, AfterContentChecked {
     videoLink: any;
     refLink: any;
     countryId: any;
+    test: any[] = [];
+    videoLinku: any [] = [];
+    refLinku: any [] = [];
 
     constructor(private preAppService: PreAppService, private changeDetector: ChangeDetectorRef,
                 private dataService: DataService, private route: ActivatedRoute) {
@@ -39,6 +42,22 @@ export class QuestionListComponent implements OnInit, AfterContentChecked {
     }
 
     ngOnInit(): void {
+        this.videoLinku = [
+            {
+                "link": "https://www.youtube.com/watch?v=vJFhDC-df34&t=31s",
+                "title": "Why should you consider UNIABROAD to kickstart your study abroad journey?"
+            },
+            {
+                "link": "https://www.youtube.com/watch?v=eG4-XLekuEw",
+                "title": "Manish’s Study Abroad Journey | California State University, Los Angeles | Study in USA – UNIABROAD"
+            }
+        ];
+        this.refLinku = [
+            {
+                "reflink": "https://www.youtube.com/watch?v=vJFhDC-df34&t=31s",
+                "imglink": "https://www.google.com/url?sa=i&url=https%3A%2F%2Fen.wikipedia.org%2Fwiki%2FUnited_Kingdom&psig=AOvVaw1mvQjpLnydR8tAbNkPfv7D&ust=1682577204957000&source=images&cd=vfe&ved=0CBEQjRxqFwoTCKiFztb2xv4CFQAAAAAdAAAAABAE"
+            }
+        ]
         this.countryId = Number(localStorage.getItem('countryId'));
 
         this.subModuleId = this.route.snapshot.paramMap.get('id');

@@ -1,24 +1,25 @@
 <div class="row">
-<div class="col-md-12">
-    <div class="card card-body">
-        <div class="doc-container">
-            <h6>YOUR STATEMENT CHECKER</h6>
-            <hr />
-            <div class="_container">
-                <p-editor [style]="{'height':'320px'}" [textHighlight]="textHightlights" [spellcheck]="false" [(ngModel)]="text" uniEditor
-                          class="w-full">
-                    <ng-template pTemplate="header">
-                    </ng-template>
-                </p-editor>
-            </div>
-            <div class="_footer_part">
-                <div>CHARACTERS: <span>{{characters}}</span></div>
-                <div>SENTENCES: <span>{{sentences}}</span></div>
-                <div>WORDS: <span>{{words}}</span></div>
+    <div class="col-md-12">
+        <div class="card card-body">
+            <div class="doc-container">
+                <h6>YOUR STATEMENT CHECKER</h6>
+                <hr/>
+                <div class="_container">
+                    <p-editor [(ngModel)]="text" [spellcheck]="false" [style]="{'height':'320px'}"
+                              [textHighlight]="textHightlights" class="w-full"
+                              uniEditor>
+                        <ng-template pTemplate="header">
+                        </ng-template>
+                    </p-editor>
+                </div>
+                <div class="_footer_part">
+                    <div>CHARACTERS: <span>{{characters}}</span></div>
+                    <div>SENTENCES: <span>{{sentences}}</span></div>
+                    <div>WORDS: <span>{{words}}</span></div>
+                </div>
             </div>
         </div>
     </div>
-</div>
 </div>
 
 <br>
@@ -29,7 +30,7 @@
         <button (click)="recheck()" class="btn btn-dark">
             RECHECK <span class="btn-label-dark"><i class="pi pi-sync"></i></span>
         </button> &nbsp;&nbsp;
-        <button class="btn btn-primary" (click)="gotoDownload()">
+        <button (click)="gotoDownload()" class="btn btn-primary">
             NEXT <span class="btn-label"><i class="pi pi-arrow-right"></i></span>
         </button>
     </div>

@@ -3,7 +3,7 @@ import {DashboardService} from "./dashboard.service";
 import {AuthService} from "../../Auth/auth.service";
 import {SubSink} from "subsink";
 import {Router} from "@angular/router";
-import { DataService } from 'src/app/data.service';
+import {DataService} from 'src/app/data.service';
 
 @Component({
     selector: 'uni-dashboard',
@@ -24,7 +24,6 @@ export class DashboardComponent implements OnInit {
     isSearchResultFound: boolean = false;
 
     searchResult: any;
-    private subs = new SubSink();
     university: any[] = [
         {
             "image": "../../../uniprep-assets/images/icons/university1.svg",
@@ -36,6 +35,8 @@ export class DashboardComponent implements OnInit {
             "image": "../../../uniprep-assets/images/icons/university3.svg",
         }
     ];
+    selectedCountryId: any;
+    private subs = new SubSink();
 
     constructor(private dashboardService: DashboardService, private service: AuthService,
                 private router: Router, private dataService: DataService) {
@@ -57,8 +58,6 @@ export class DashboardComponent implements OnInit {
             }
         ];
     }
-
-    selectedCountryId: any;
 
     ngOnInit(): void {
         this.selectedCountryId = 2;

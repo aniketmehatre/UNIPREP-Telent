@@ -1,7 +1,7 @@
 <div class="container-fluid">
     <form
-            [formGroup]="registrationForm"
-            (ngSubmit)="onSubmit()">
+            (ngSubmit)="onSubmit()"
+            [formGroup]="registrationForm">
         <div class="container-fluid px-0">
             <div class="card card-body">
                 <div class="row">
@@ -27,10 +27,10 @@
                                             <i class="pi pi-user"></i>
                                         </div>
                                         <input
-                                                type="text"
                                                 class="border-0"
-                                                pInputText
                                                 formControlName="name"
+                                                pInputText
+                                                type="text"
                                         />
                                     </div>
                                     <div
@@ -50,13 +50,12 @@
                                             <i class="pi pi-map-marker"></i>
                                         </div>
                                         <p-dropdown
-                                                appendTo="body"
                                                 [filter]="true"
-                                                filterBy="name"
-                                                optionValue="id"
-                                                optionLabel="country"
-                                                formControlName="interested_country_id"
                                                 [options]="countryList"
+                                                filterBy="name"
+                                                formControlName="interested_country_id"
+                                                optionLabel="country"
+                                                optionValue="id"
                                         ></p-dropdown>
                                     </div>
                                     <div
@@ -77,11 +76,11 @@
                                             <i class="pi pi-map-marker"></i>
                                         </div>
                                         <p-dropdown
-                                                appendTo="body"
-                                                optionValue="id"
-                                                formControlName="location_id"
+                                                [filter]="true"
                                                 [options]="locationList"
+                                                formControlName="location_id"
                                                 optionLabel="district"
+                                                optionValue="id"
                                         ></p-dropdown>
                                     </div>
                                     <div
@@ -102,10 +101,10 @@
                                         </div>
                                         <input
                                                 [readonly]="true"
-                                                type="number"
                                                 class="border-0"
-                                                pInputText
                                                 formControlName="phone"
+                                                pInputText
+                                                type="number"
                                         />
                                     </div>
                                     <div
@@ -127,10 +126,10 @@
                                         </div>
                                         <input
                                                 [readonly]="true"
-                                                type="text"
-                                                pInputText
                                                 class="border-0 w-full"
                                                 formControlName="email"
+                                                pInputText
+                                                type="text"
                                         />
                                     </div>
                                     <div
@@ -145,7 +144,7 @@
                             </div>
 
                             <div class="row g-3">
-                                <div class="col-6">
+                                <!-- <div class="col-6">
                                     <label>Interested Country</label>
                                     <div class="p-inputgroup">
                                         <div class="p-inputgroup-addon">
@@ -168,7 +167,7 @@
                                             Interested Country is required
                                         </div>
                                     </div>
-                                </div>
+                                </div> -->
                                 <div class="col-6">
                                     <label>Last Degree Passing Year</label>
                                     <div class="p-inputgroup">
@@ -176,12 +175,12 @@
                                             <i class="pi pi-map-marker"></i>
                                         </div>
                                         <p-calendar
-                                                appendTo="body"
-                                                view="year"
                                                 [maxDate]="today"
+                                                appendTo="body"
                                                 dateFormat="yy"
-                                                inputId="yearpicker"
                                                 formControlName="last_degree_passing_year"
+                                                inputId="yearpicker"
+                                                view="year"
                                         ></p-calendar>
                                     </div>
                                     <div
@@ -202,13 +201,13 @@
                                             <i class="pi pi-map-marker"></i>
                                         </div>
                                         <p-calendar
-                                                [minDate]="today"
                                                 (onSelect)="yearChage($event)"
+                                                [minDate]="today"
                                                 appendTo="body"
-                                                view="year"
                                                 dateFormat="yy"
-                                                inputId="yearpicker"
                                                 formControlName="intake_year_looking"
+                                                inputId="yearpicker"
+                                                view="year"
                                         ></p-calendar>
                                     </div>
                                     <div
@@ -230,9 +229,9 @@
                                         <p-calendar
                                                 [minDate]="today"
                                                 appendTo="body"
+                                                dateFormat="mm"
                                                 formControlName="intake_month_looking"
                                                 view="month"
-                                                dateFormat="mm"
                                         ></p-calendar>
                                     </div>
                                     <div
@@ -253,13 +252,12 @@
                                             <i class="pi pi-map-marker"></i>
                                         </div>
                                         <p-dropdown
-                                                appendTo="body"
                                                 [filter]="true"
-                                                filterBy="name"
-                                                optionValue="id"
-                                                optionLabel="programlevel"
-                                                formControlName="programlevel_id"
                                                 [options]="programlevelList"
+                                                filterBy="programlevel"
+                                                formControlName="programlevel_id"
+                                                optionLabel="programlevel"
+                                                optionValue="id"
                                         ></p-dropdown>
                                     </div>
                                     <div
@@ -278,13 +276,13 @@
                                             <i class="pi pi-map-marker"></i>
                                         </div>
                                         <p-dropdown
-                                                appendTo="body"
                                                 [filter]="true"
-                                                filterBy="name"
-                                                optionValue="name"
-                                                optionLabel="name"
-                                                formControlName="gender"
                                                 [options]="genderList"
+                                                appendTo="body"
+                                                filterBy="name"
+                                                formControlName="gender"
+                                                optionLabel="name"
+                                                optionValue="code"
                                         ></p-dropdown>
                                     </div>
                                     <div
@@ -309,7 +307,7 @@
                                 as projects and releases from UNIABROAD</p>
                             <p class="notify d-flex justify-content-between align-items-center">
                                 <span style="vertical-align: center">I wish to receive newsletters, promotions and news from UNIABROAD</span>
-                                <p-inputSwitch formControlName="notification"></p-inputSwitch>
+                                <p-inputSwitch></p-inputSwitch>
                             </p>
                             <div class="text-center">
                                 <button class="btn btn-primary">SAVE THE CHANGES</button>

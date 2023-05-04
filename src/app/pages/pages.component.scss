@@ -1,9 +1,11 @@
 @import "../../uniprep-assets/breakpoints";
+
 section {
   position: relative;
   display: flex;
   width: 100%;
   height: 100%;
+
   #page {
     background-color: #EFEFEF;
     position: relative;
@@ -11,35 +13,39 @@ section {
     width: 0;
     flex: 1;
     box-sizing: border-box;
+
     #page-container {
       padding: 1rem .8rem;
       box-sizing: border-box;
     }
+
     uni-header {
       z-index: 99;
       display: block;
       transition: top 0.1s ease-in-out;
+
       &.sticky {
         background-color: hsla(0, 0%, 100%, 0.8) !important;
         position: sticky;
         top: 0px;
         box-shadow: inset 0 0 1px 1px hsla(0, 0%, 100%, 0.9),
-          0 20px 27px 0 rgba(0, 0, 0, 0.05) !important;
+        0 20px 27px 0 rgba(0, 0, 0, 0.05) !important;
         backdrop-filter: saturate(200%) blur(30px);
         border-radius: 10px;
       }
     }
+
     footer {
       position: fixed;
       bottom: 0;
       left: 0;
-      margin-left:235px;
-      right:0;
+      margin-left: 235px;
+      right: 0;
       display: flex;
       justify-content: space-between;
       background-color: hsla(0, 0%, 100%, 0.8);
       box-shadow: inset 0 0 1px 1px hsla(0, 0%, 100%, 0.9),
-        0 20px 27px 0 rgba(0, 0, 0, 0.05);
+      0 20px 27px 0 rgba(0, 0, 0, 0.05);
       backdrop-filter: saturate(200%) blur(30px);
       padding: 0.5rem;
       font-size: 0.9rem;
@@ -47,36 +53,44 @@ section {
       @include md {
         left: 0;
       }
+
       &.alignleft {
         left: 0;
       }
     }
+
     footer ul {
       display: table-row;
     }
+
     footer ul li {
       display: table-cell;
       list-style-type: none;
       margin: 10px;
       vertical-align: middle;
     }
+
     li span {
       margin: 0px 5px 0px 5px;
     }
   }
+
   #sidenav {
     transition: transform 0.05s ease-in-out;
     width: 235px;
+
     img {
       height: 70px;
       margin-top: 10px;
     }
+
     @include md {
       position: fixed;
       top: 0;
       bottom: 0;
       transform: translateX(-220px);
     }
+
     &.active {
       @include md {
         z-index: 2000;

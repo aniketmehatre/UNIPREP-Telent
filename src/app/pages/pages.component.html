@@ -1,28 +1,28 @@
 <section>
-    <div id="sidenav" [ngClass]="sidebarClass">
+    <div [ngClass]="sidebarClass" id="sidenav">
         <uni-sidenav>
             <ng-template #appTitle>
                 <img src="../../uniprep-assets/images/uniboard.png">
             </ng-template>
         </uni-sidenav>
     </div>
-    <div id="page" (scroll)="onWindowScroll($event)">
-        <uni-header [ngClass]="{'sticky': stickHeader}" [expandicon]="expandicon" (togleSidebar)="togleSidebar()">
+    <div (scroll)="onWindowScroll($event)" id="page">
+        <uni-header (togleSidebar)="togleSidebar()" [expandicon]="expandicon" [ngClass]="{'sticky': stickHeader}">
         </uni-header>
         <div id="page-container">
             <uni-header-search></uni-header-search>
             <div class="row">
-                <router-outlet ></router-outlet>
+                <router-outlet></router-outlet>
             </div>
-            <uni-footer-status-box ></uni-footer-status-box>
+            <uni-footer-status-box></uni-footer-status-box>
         </div>
         <footer [ngClass]="{'alignleft': !!sidebarClass}">
             <div>
-                <a>2023 &#169; All rights reserved by UNIPREP .Ltd</a>
+                <a>2023 &#169; All rights reserved by UNIABROAD Ltd. | UOEC Consultants(OPC) Pvt. Ltd.</a>
             </div>
             <div>
                 <ul>
-                    <li>TERMS AND CONDTIONS<span>|</span></li> 
+                    <li>TERMS AND CONDTIONS<span>|</span></li>
                     <li>PRIVACY POLICY<span>|</span></li>
                     <li>ABOUT US<span>|</span></li>
                     <li>CONTACT US</li>

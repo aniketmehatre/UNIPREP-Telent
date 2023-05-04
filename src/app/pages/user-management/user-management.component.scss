@@ -12,6 +12,7 @@
   background-clip: border-box;
   border-radius: 0.35rem;
 }
+
 .tablecard {
   border: 1px solid #9bc329;
   height: auto;
@@ -26,27 +27,32 @@
   background-clip: border-box;
   border-radius: 0.35rem;
 }
+
 .text-left {
   float: left;
   font-size: medium;
   font-weight: 700;
   font-family: Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
 }
+
 .label {
   color: #9bc329;
 }
-.label2{
-    padding: 5px;
-    text-align: center -webkit-right;
-    color: #9bc329;
-    align-items: center;
+
+.label2 {
+  padding: 5px;
+  text-align: center -webkit-right;
+  color: #9bc329;
+  align-items: center;
 }
+
 .btncolor {
   background-color: #9bc329;
   color: #ffffffff;
   border: none;
-  margin-right: 10pxs;
+  margin-right: 10 pxs;
 }
+
 .ms-n5 {
   margin-left: -40px;
 }
@@ -64,39 +70,44 @@
 }
 
 .drop {
-    position: relative;
-    width: 70px;
-    float: left;
-    height: 10px;
-  }
-  .cardedit {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    min-width: 0;
-    word-wrap: break-word;
-    background-color: #fff;
-    border: none;
+  position: relative;
+  width: 70px;
+  float: left;
+  height: 10px;
+}
+
+.cardedit {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  word-wrap: break-word;
+  background-color: #fff;
+  border: none;
 
 
 }
-.img{
+
+.img {
   width: 90px;
   height: 90px;
   object-fit: cover;
   border-radius: 50%;
 }
-  .titledis{
-    /* margin: 10px; */
-    margin-left: -36px;
-    margin-top: 20px;
+
+.titledis {
+  /* margin: 10px; */
+  margin-left: -36px;
+  margin-top: 20px;
 
 }
-.titledis1{
+
+.titledis1 {
   margin-left: -25px;
   margin-top: 25px
 
 }
+
 .modal {
   position: fixed;
   top: 0;
@@ -110,6 +121,7 @@
   outline: 0;
   border: 1px solid #9bc329;
 }
+
 .modal-header {
   display: flex;
   flex-shrink: 0;

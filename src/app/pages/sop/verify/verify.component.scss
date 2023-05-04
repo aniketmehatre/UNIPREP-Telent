@@ -1,6 +1,7 @@
 .arrowchilditems {
   margin-left: 25px !important;
 }
+
 .arrow-right-ufade:after {
   content: "";
   position: absolute;
@@ -11,11 +12,13 @@
   border-left: 20px solid #e8e8e8;
   z-index: 1;
 }
+
 .custom_container {
   border-radius: 0.5rem;
   padding: 1rem;
   overflow: hidden;
 }
+
 .arrow-right-udefault:after {
   content: "";
   position: absolute;
@@ -26,6 +29,7 @@
   border-left: 20px solid #ffffff;
   z-index: 1;
 }
+
 .ufade {
   position: relative;
   width: 220px;
@@ -37,6 +41,7 @@
   font-size: 0.66rem;
   background: #e8e8e8;
 }
+
 .udefault {
   position: relative;
   width: 220px;
@@ -48,9 +53,11 @@
   font-size: 0.66rem;
   background: #ffffff;
 }
+
 .bg-white {
   background-color: #ffffff !important;
 }
+
 .upload_h {
   margin-top: 10px;
   margin-bottom: 10px;
@@ -59,17 +66,21 @@
 
 .container_footer {
   margin-bottom: 0.8rem;
+
   p {
     font-size: .8rem;
   }
+
   span {
     color: #9bc329;
   }
 }
+
 .footer-btn {
   padding: 1rem;
   text-align: end;
 }
+
 .btn-dark {
   background: linear-gradient(
                   90deg,
@@ -79,6 +90,7 @@
   ) !important;
   border-color: grey !important;
 }
+
 .containerr {
   width: 100%;
   height: 100%;
@@ -88,12 +100,15 @@
   position: relative;
   margin: 0 auto;
   background-color: rgb(63 57 57 / 7%);
+
   &:hover {
     background-color: rgb(63 57 57 / 5%);
   }
+
   &:active {
     background-color: rgb(63 57 57 / 1%);
   }
+
   input {
     cursor: pointer;
     opacity: 0;
@@ -214,21 +229,25 @@
     transform: translate(1px, -2px) rotate(-1deg);
   }
 }
+
 .sop-container {
   h6 {
     font-size: 0.65rem;
     font-weight: 800;
   }
+
   hr {
     width: 100%;
   }
 }
+
 ._container {
   width: 100%;
   height: 100%;
   text-align: center;
   position: relative;
   margin: 0 auto;
+
   textarea {
     width: 100%;
     height: 280px;
@@ -236,6 +255,7 @@
     border-radius: 5px;
     overflow: auto;
   }
+
   label {
     color: white;
     width: 183px;
@@ -251,16 +271,20 @@
     color: #38424c;
   }
 }
+
 .doc-container {
   margin: 0px 0 -15px 0px;
+
   h6 {
     font-size: 0.85rem;
     font-weight: 600;
   }
+
   hr {
     width: 100%;
   }
 }
+
 ._footer_part {
   display: flex;
   background: #9bc329;
@@ -272,15 +296,18 @@
   font-size: .8rem;
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
+
   div {
     text-align: center;
     flex: 1;
     border-right: 1px solid white;
+
     &:last-child {
       border-right-width: 0px;
     }
   }
 }
+
 .sop-subscription-remind {
   min-height: 450px;
   background-image: url("/uniprep-assets/images/SOP2.jpg");
@@ -288,6 +315,7 @@
   background-repeat: no-repeat;
   color: white;
 }
+
 .p-dialog-content {
   padding: 10px !important;
 }
