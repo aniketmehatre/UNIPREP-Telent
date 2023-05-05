@@ -123,16 +123,21 @@
 .answercard {
   background-color: #daeca5;
   border: 2px solid #9bc329;
-  min-height: 50vh;
+  max-height: 60vh;
+  overflow-y: auto;
 }
-// #leftclick
-::ng-deep .p-carousel .p-carousel-content .p-carousel-next{
-  background: #9BC329;
-  border: 40px;
-  color: #fff;
+
+:host ::ng-deep .p-carousel-item {
+  max-height: 0;
 }
-::ng-deep .p-carousel .p-carousel-content .p-carousel-prev{
-  background: #9BC329;
-  border: 40px;
-  color: #fff;
+
+:host ::ng-deep .p-carousel-item-active {
+  max-height: 100% !important;
+}
+
+.card-color {
+  background: #9bc329 !important;
+  width: 100%;
+  height: 100%;
+
 }

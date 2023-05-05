@@ -41,7 +41,12 @@
             <div class="col-md-2">
             </div>
             <div class="col-md-8 d-flex align-items-center justify-content-center text-center">
-                <i href="#carouselExampleControls" class="text-green h4 mx-3 mb-0 fa-solid fa-circle-chevron-left"></i><h5 class="mb-0">Question Number</h5><i class="text-green mx-3 h4 fa-solid mb-0 fa-circle-chevron-right"></i>
+                <a (click)="clickPrevious(carousel, $event)"><i
+                        class="text-green h4 mx-3 mb-0 fa-solid fa-circle-chevron-left"></i></a>
+                <h5 class="mb-0">Question
+                    Number {{positionNumber}}</h5>
+                <a (click)="clickNext(carousel, $event)"><i
+                        class="text-green mx-3 h4 fa-solid mb-0 fa-circle-chevron-right"></i></a>
             </div>
             <div class="col-md-2 gap-2 d-flex">
                 <button (click)="goToHome($event)" class="btn w-100 btn-primary homecardbtn m-0 px-2 py-2">
@@ -54,14 +59,13 @@
                 </button>
             </div>
         </div>
-        
-        <p-carousel id="carouselExampleControls" class="answersection" [value]="data" [numVisible]="1" [numScroll]="1" [circular]="true" [page]="selectedQuestion -1"
-                    [responsiveOptions]="responsiveOptions" (onPage)="setPage($event)">
-            <ng-template ngFor let-val [ngForOf]="data" pTemplate="item" let-i="index">
+        <p-carousel #carousel (onPage)="setPage($event)" [circular]="true" [numScroll]="1" [numVisible]="1" [page]="selectedQuestion -1"
+                    [responsiveOptions]="responsiveOptions" [value]="data" class="answersection">
+            <ng-template [ngForOf]="data" let-i="index" let-val ngFor pTemplate="item">
                 <div class="row text-center">
                     <div class="col-12">
                         <div class="card answercard">
-                        <div data-target="#carouselExampleControls" class="card-body text-start">
+                            <div class="card-body text-start">
                                 <h3>{{val.question}}</h3>
                                 <h5 class="fw-medium">{{val.answer}}</h5>
                             </div>
@@ -70,24 +74,52 @@
                 </div>
             </ng-template>
         </p-carousel>
-</div>
-<ng-template pTemplate="footer" class="p-3">
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-4">
-                        <button type="button" class="bbtn btn btn-secondary h-100 d-flex align-items-center justify-content-center w-100" (click)="onClickRecommendedVideo()">
-                           <p class="my-2">Recommended Videos</p><i class="h5 mx-2 mb-0 fa-solid fa-video"></i>
-                        </button>
-                    </div>
-                    <div class="col-4">
-                        <button type="button" class="bbtn btn btn-primary h-100 d-flex align-items-center justify-content-center w-100">
-                            <p class="my-2">Click here to ask related questions</p> <i class="h5 mx-2 mb-0 fa-solid fa-comments"></i>
-                        </button>
-                    </div>
-                    <div class="col-4">
-                        <button type="button" class="bbtn btn btn-tertiary h-100 d-flex align-items-center justify-content-center w-100" (click)="onClickRecommendedLinks()">
-                            <p class="my-2">Recommended Links</p> <i class="h5 mx-2 mb-0 fa-solid fa-link"></i>
-                        </button>
+    </div>
+    <ng-template class="p-3" pTemplate="footer">
+        <div class="container-fluid">
+            <div class="row mt-5">
+                <div class="col-md-5">
+                    <p-carousel [circular]="false" [numScroll]="1" [numVisible]="2" [responsiveOptions]="responsiveOptions"
+                                [value]="videoLinku">
+                        <ng-template let-item pTemplate="item">
+                            <div class="border-1 surface-border border-round m-2 text-center ">
+                                <div class="mb-1">
+                                    <!-- <img  src="../../../../uniprep-assets/images/icons/thumbsup.webp" height="100" width="100" [alt]="item.name" class="w-2 shadow-2" /> -->
+                                    <video controls height="100" width="100">
+                                        <source src="item.link" type="video/mp4">
+                                        <source src="item.link" type="video/ogg">
+                                        Your browser does not support HTML video.
+                                    </video>
+                                </div>
+                                <!-- <div class="mb-1">
+                                    <p style="font-size:6px">{{item.title}}</p>
+                                </div> -->
+                            </div>
+                        </ng-template>
+                    </p-carousel>
+                </div>
+                <div class="col-md-5">
+                    <p-carousel [circular]="false" [numScroll]="1" [numVisible]="2" [responsiveOptions]="responsiveOptions"
+                                [value]="refLinku">
+                        <ng-template let-item pTemplate="item">
+                            <div class="border-1 surface-border border-round m-2 text-center ">
+                                <div class="mb-1">
+                                    <video controls height="100" width="100">
+                                        <source src="item.reflink" type="video/mp4">
+                                        <source src="item.reflink" type="video/ogg">
+                                        Your browser does not support HTML video.
+                                    </video>
+                                </div>
+                                <!-- <div class="mb-1">
+                                <p style="font-size:6px">{{item.title}}</p>
+                            </div> -->
+                            </div>
+                        </ng-template>
+                    </p-carousel>
+                </div>
+                <div (click)="onClickAsk()" class="col-md-2 p-3 justify-content-center align-items-center">
+                    <div class="text-center card-color">
+                        Content
                     </div>
                     <!-- <button type="button"
                         class="bbtn btn btn-tertiary d-flex align-items-center justify-content-center w-100"
