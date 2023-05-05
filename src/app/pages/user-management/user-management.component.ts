@@ -274,6 +274,7 @@ export class UserManagementComponent implements OnInit {
     submitted = false;
     registrationForm!: FormGroup;
     countryList: any;
+    dateTime = new Date();
 
     constructor(
         private authService: AuthService,
@@ -288,9 +289,14 @@ export class UserManagementComponent implements OnInit {
     }
 
     ngOnInit(): void {
+        this.dateTime.setDate(this.dateTime.getDate());
+
+        this.GetLocationList();
+        this.GetprogramlevelList();
+        this.getCountryList();
         this.authService.userData.subscribe(data => {
-            console.log(data);
             this.user = data;
+            let mon = this.getMonthName(this.user?.intake_month_looking);
             this.registrationForm = this.formBuilder.group({
                 name: [this.user?.name, [Validators.required]],
                 location_id: [this.user?.location_id, [Validators.required]],
@@ -299,17 +305,19 @@ export class UserManagementComponent implements OnInit {
                 interested_country_id: [this.user?.interested_country_id, [Validators.required]],
                 last_degree_passing_year: [this.user?.last_degree_passing_year, [Validators.required]],
                 intake_year_looking: [this.user?.intake_year_looking, [Validators.required]],
-                intake_month_looking: [this.user?.intake_month_looking, [Validators.required]],
+                intake_month_looking: [mon, [Validators.required]],
                 programlevel_id: [this.user?.programlevel_id, [Validators.required]],
                 gender: [this.user?.gender, [Validators.required]],
             });
         });
-
-
-        this.GetLocationList();
-        this.GetprogramlevelList();
-        this.getCountryList();
     }
+
+     getMonthName(monthNumber: any) {
+        const date = new Date();
+        date.setMonth(monthNumber - 1);
+      
+        return date.toLocaleString('en-US', { month: 'long' });
+      }
 
     GetLocationList() {
         this.locationService.getLocation().subscribe(
@@ -328,8 +336,7 @@ export class UserManagementComponent implements OnInit {
 
     GetprogramlevelList() {
         this.authService.getProgramLevel().subscribe((response) => {
-            console.log(response.data);
-            this.programlevelList = response.data;
+            this.programlevelList = response;
         });
     }
 
@@ -345,7 +352,7 @@ export class UserManagementComponent implements OnInit {
     }
 
     yearChage(event: any) {
-        this.registrationForm?.get('intakeMonth')?.setValue(event);
+        this.registrationForm?.get('intake_month_looking')?.setValue(event);
     }
 
     logout() {
@@ -353,45 +360,30 @@ export class UserManagementComponent implements OnInit {
     }
 
     onSubmit() {
-        // let data: any = {};
-        // if (this.registrationForm.value.fullName.dirty) {
-        //     data['fullName'] = this.registrationForm.value.fullName;
-        // }
-        // if (this.registrationForm.value.location.dirty) {
-        //     data['location'] = this.registrationForm.value.location;
-        // }
-        // if (this.registrationForm.value.contactNumber.dirty) {
-        //     data['contactNumber'] = this.registrationForm.value.country;
-        // }
-        // if (this.registrationForm.value.emailAddress.dirty) {
-        //     data['emailAddress'] = this.registrationForm.value.email ? 1 : 0;
-        // }
-        // if (this.registrationForm.value.interestedCountry.dirty) {
-        //     data['interestedCountry'] = this.registrationForm.value.interestedCountry;
-        // }
-        // if (this.registrationForm.value.lastDegreePassingYear.dirty) {
-        //     data['lastDegreePassingYear'] = '' + this.registrationForm.value.passingYear?.getFullYear();
-        // }
-        // if (this.registrationForm.value.intakeYear.dirty) {
-        //     data['intakeYear'] = '' + this.registrationForm.value.intakeYear?.getFullYear();
-        // }
-        // if (this.registrationForm.value.intakeMonth.dirty) {
-        //     data['intakeMonth'] = '' + this.registrationForm.value.intakeMonth?.getMonth();
-        // }
-        // if (this.registrationForm.value.programLevel.dirty) {
-        //     data['programLevel'] = this.registrationForm.value.programLevel;
-        // }
-        // if (this.registrationForm.value.gender.dirty) {
-        //     data['gender'] = this.registrationForm.value.gender;
-        // }
-        // if (!Object.keys(data).length) {
-        //     this.toastr.add({
-        //         severity: "error",
-        //         summary: "Warning",
-        //         detail: 'Nothing to update',
-        //     });
-        //     return;
-        // }
+        let data: any = {};
+        if (this.registrationForm.value.invalid) {
+            console.log('this', this.registrationForm.value.invalid);
+        }
+        data['name'] = this.registrationForm.value.name;
+        data['location_id'] = this.registrationForm.value.location_id;
+        data['phone'] = this.registrationForm.value.phone;
+        data['email'] = this.registrationForm.value.email;
+        data['interested_country_id'] = this.registrationForm.value.interested_country_id;
+        data['last_degree_passing_year'] = '' + this.registrationForm.value.last_degree_passing_year;
+        data['intake_year_looking'] = '' + this.registrationForm.value.intake_year_looking;
+        data['intake_month_looking'] = '' + this.registrationForm.value.intake_month_looking;
+        data['programlevel_id'] = this.registrationForm.value.programlevel_id;
+        data['gender'] = this.registrationForm.value.gender;
+        console.log(data);
+        if (!Object.keys(data).length) {
+            this.toastr.add({
+                severity: "error",
+                summary: "Warning",
+                detail: 'Nothing to update',
+            });
+            return;
+        }
+
         // this.authService.updateProfile(data).subscribe(response => {
         //   this.authService.user = response;
         // });
