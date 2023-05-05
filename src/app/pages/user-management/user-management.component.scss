@@ -133,3 +133,10 @@
   /* border-top-left-radius: calc(0.3rem - 1px); */
   /* border-top-right-radius: calc(0.3rem - 1px); */
 }
+.bg-image {
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  align-items: center;
+  width: 80%;
+}

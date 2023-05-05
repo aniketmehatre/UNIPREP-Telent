@@ -74,8 +74,8 @@ export class RegistrationComponent implements OnInit {
         // this.isMobileOTPSend = true;
         // this.isMobileOTPValidated = true;
         // this.isEmailOTPSend = true;
-        // this.isEmailOTPValidated = false;
-        // this.isRemainingFieldVisible = false;
+        // this.isEmailOTPValidated = true;
+        // this.isRemainingFieldVisible = true;
         this.dateTime.setDate(this.dateTime.getDate());
 
         this.password = 'password';
@@ -135,6 +135,10 @@ export class RegistrationComponent implements OnInit {
             {label: "2026", value: "2026"},
             {label: "2027", value: "2027"},
         ];
+    }
+
+    yearChage(event: any) {
+        this.registrationForm?.get('intakeMonth')?.setValue(event);
     }
 
     GetLocationList() {
