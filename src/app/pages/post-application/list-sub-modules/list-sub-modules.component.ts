@@ -3,6 +3,7 @@ import {Observable} from "rxjs";
 import {SubModuleList} from "../../../@Models/post-application.model";
 import {PostApplicationService} from "../post-application.service";
 import {Router} from "@angular/router";
+import {MenuItem} from "primeng/api";
 
 @Component({
     selector: 'app-list-sub-modules',
@@ -14,8 +15,29 @@ export class ListSubModulesComponent implements OnInit {
     selectedSubModule: any;
     subModuleList: any[] = [];
     isStartQuiz: boolean = false;
-
+    responsiveOptions: any[] = [];
+    selectedQuestion: any;
+    quizData: any [] = [];
+    breadCrumb: MenuItem[] = [];
+    positionNumber: any;
     constructor(private postApplicationService: PostApplicationService, private router: Router) {
+        this.responsiveOptions = [
+            {
+                breakpoint: '1199px',
+                numVisible: 1,
+                numScroll: 1
+            },
+            {
+                breakpoint: '991px',
+                numVisible: 2,
+                numScroll: 1
+            },
+            {
+                breakpoint: '767px',
+                numVisible: 1,
+                numScroll: 1
+            }
+        ];
     }
 
     ngOnInit(): void {
@@ -28,8 +50,17 @@ export class ListSubModulesComponent implements OnInit {
         console.log(event)
     }
 
-    startQuiz() {
-        this.isStartQuiz = true;
+
+
+    setPage(page: any) {
+        let pageNum: number = 0
+        if (page.page < 0) {
+            pageNum = this.quizData.length;
+        } else {
+            pageNum = page.page
+        }
+        this.positionNumber = pageNum + 1;
+        this.breadCrumb = [{label: 'POST Application'}, {label: 'asdfasdfasdfasdfasdfasdfasdfasdf'}, {label: `Question ${pageNum + 1}`}];
     }
 
     onSubModuleClick(id: any) {
@@ -42,4 +73,6 @@ export class ListSubModulesComponent implements OnInit {
         this.router.navigate([`/pages/post-application/question-list/${this.selectedSubModule}`]);
 
     }
+
+
 }
