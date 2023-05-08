@@ -12,6 +12,7 @@ import {QuestionListComponent} from './question-list/question-list.component';
 import {DialogModule} from "primeng/dialog";
 import {BreadcrumbModule} from "primeng/breadcrumb";
 import {CarouselModule} from "primeng/carousel";
+import {ButtonModule} from "primeng/button";
 
 @NgModule({
     imports: [
@@ -22,6 +23,7 @@ import {CarouselModule} from "primeng/carousel";
         DialogModule,
         BreadcrumbModule,
         CarouselModule,
+        ButtonModule,
     ],
     declarations: [PostApplicationComponent, ListSubModulesComponent, QuestionListComponent,
     ]

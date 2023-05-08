@@ -45,4 +45,7 @@ export class HeaderSearchComponent implements OnInit {
 
         });
     }
+    openChat(){
+        this.dataService.changeChatOpenStatus("open chat window");
+    }
 }

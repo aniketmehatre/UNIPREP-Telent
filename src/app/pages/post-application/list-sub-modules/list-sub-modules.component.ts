@@ -13,6 +13,7 @@ export class ListSubModulesComponent implements OnInit {
     subModules$!: Observable<SubModuleList[]>;
     selectedSubModule: any;
     subModuleList: any[] = [];
+    isStartQuiz: boolean = false;
 
     constructor(private postApplicationService: PostApplicationService, private router: Router) {
     }
@@ -21,6 +22,14 @@ export class ListSubModulesComponent implements OnInit {
         this.subModules$ = this.postApplicationService.subModuleList$();
         let countryId = Number(localStorage.getItem('countryId'));
         this.postApplicationService.loadSubModules(countryId);
+    }
+
+    goToHome(event: any) {
+        console.log(event)
+    }
+
+    startQuiz() {
+        this.isStartQuiz = true;
     }
 
     onSubModuleClick(id: any) {

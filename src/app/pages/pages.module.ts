@@ -27,6 +27,7 @@ import {DropdownModule} from "primeng/dropdown";
 import {CalendarModule} from "primeng/calendar";
 import {InputSwitchModule} from "primeng/inputswitch";
 import {MultiSelectModule} from "primeng/multiselect";
+import { QuizComponent } from './quiz/quiz.component';
 
 @NgModule({
     declarations: [
@@ -41,6 +42,7 @@ import {MultiSelectModule} from "primeng/multiselect";
         SubcriptionManagerComponent,
         FooterStatusBoxComponent,
         HeaderSearchComponent,
+        QuizComponent,
     ],
     exports: [
         FooterStatusBoxComponent,
