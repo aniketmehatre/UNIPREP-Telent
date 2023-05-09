@@ -145,14 +145,26 @@
     </div>
 </p-dialog>
 
-<p-dialog header="Header" [(visible)]="isStartQuiz" [style]="{ width: '70vw' }">
+<p-dialog class="questionmodal" header="Header"  [draggable]="false" [modal]="true" [(visible)]="isStartQuiz" [style]="{ width: '70vw' }">
     <ng-template class="p-2" pTemplate="header">
         <h5 class="select-title text-center mb-3">Quiz <i class="questiontooltip fa-solid fa-circle-question"></i></h5>
     </ng-template>
     <div class="container-fluid">
         <div class="row justify-content-center">
-            <div class="col-md-12 text-center mb-4">
+            <div class="col-md-2 text-center mb-4">
+            </div>
+            <div class="col-md-8 text-center mb-4">
                 <p-breadcrumb [model]="breadCrumb" class="max-w-full"></p-breadcrumb>
+            </div>
+            <div class="col-md-2 gap-2 d-flex">
+                <button (click)="goToHome($event)" class="btn w-100 btn-primary homecardbtn m-0 px-2 py-2">
+                    <i class="fa-solid h5 fa-house"></i>
+                    <p class="mb-0">Home</p>
+                </button>
+                <button class="btn w-100 btn-primary homecardbtn m-0 px-2 py-2">
+                    <i class="fa-solid h5 fa-file-contract"></i>
+                    <p class="mb-0">Report</p>
+                </button>
             </div>
             <div class="col-md-6">
                 <p-carousel #carousel3 (onPage)="setPage($event)" [circular]="true" [numScroll]="1" [numVisible]="1"
@@ -180,16 +192,18 @@
         </div>
     </div>
     <ng-template pTemplate="footer">
-        <div class="row gap-2 justify-content-end">
+        <div class="container-fluid">
+        <div class="row gap-2 justify-content-end mb-4">
             <button (click)="clickPreviousQuiz(carousel3, $event)" class="btn btn-lg rounded-pill btn-tertiary m-0 px-2 py-2">
-                <p class="mb-0 px-2">Previous <i class="fa-solid fa-circle-arrow-right"></i></p>
+                <p class="mb-0 px-2">Previous <i class="fa-solid fa-circle-arrow-left"></i></p>
             </button>
             <button (click)="clickNextQuiz(carousel3, $event)" class="btn btn-lg rounded-pill btn-secondary m-0 px-2 py-2">
                 <p class="mb-0 px-2"> Next <i class="fa-solid fa-circle-arrow-right"></i></p>
             </button>
             <button (click)="clickSubmitQuiz($event)" class="btn btn-lg rounded-pill btn-primary m-0 px-2 py-2">
-                <p class="mb-0 px-2"> Submit <i class="fa-solid fa-circle-arrow-right"></i></p>
+                <p class="mb-0 px-2"> Submit <i class="fa-solid fa-circle-check"></i></p>
             </button>
+        </div>
         </div>
     </ng-template>
 </p-dialog>
