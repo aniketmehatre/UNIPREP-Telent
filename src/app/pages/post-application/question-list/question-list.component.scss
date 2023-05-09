@@ -122,3 +122,20 @@
   border: 2px solid #9bc329;
   min-height: 50vh;
 }
+.quizCard{
+  background: #efb875;
+}
+
+.parent{
+  width:200px;
+  height:200px;
+  position:absolute;
+  z-index:0;
+}
+
+.inner{
+  position:absolute;
+  z-index:1;
+  bottom:0;
+  right:0;
+}

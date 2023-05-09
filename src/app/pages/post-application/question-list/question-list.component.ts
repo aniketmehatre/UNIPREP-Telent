@@ -29,7 +29,9 @@ export class QuestionListComponent implements OnInit, AfterContentChecked {
     videoLink: any;
     refLink: any;
     countryId: any;
-
+    quizData: any [] = [];
+    isStartQuiz: boolean = false;
+    isQuizSubmit: boolean = false;
     constructor(private postApplicationService: PostApplicationService, private changeDetector: ChangeDetectorRef,
                 private dataService: DataService, private route: ActivatedRoute) {
     }
@@ -39,6 +41,13 @@ export class QuestionListComponent implements OnInit, AfterContentChecked {
     }
 
     ngOnInit(): void {
+        this.quizData = [{
+            question: "What is the name of the company?",
+            answer: ["Uni Abroad", "Uni Prep", "Uni SOP"]
+        },{
+            question: "what is status of the application",
+            answer: ["Processed", "Hold", "Rejected", "Accepted"]
+        }]
         this.countryId = Number(localStorage.getItem('countryId'));
 
         this.subModuleId = this.route.snapshot.paramMap.get('id');
@@ -153,5 +162,23 @@ export class QuestionListComponent implements OnInit, AfterContentChecked {
 
     goToHome(event: any) {
         this.isQuestionAnswerVisible = false;
+    }
+
+
+    clickPreviousQuiz(carousel: any, event: any){
+
+    }
+
+    clickNextQuiz(carousel: any, event: any){
+
+    }
+
+    clickSubmitQuiz(event: any){
+        this.isStartQuiz = false;
+        this.isQuizSubmit = true;
+    }
+
+    startQuiz() {
+        this.isStartQuiz = true;
     }
 }
