@@ -139,3 +139,44 @@
   bottom:0;
   right:0;
 }
+.qacard
+{
+  border:2px solid #9bc329;
+}
+.margin-minus
+{
+  margin-top:-1.5em;
+}
+.answerbtn
+{
+  border:2px solid #efb875;
+  color:#001631;
+  &:hover
+  {
+    border:2px solid #9bc329;
+    color:#001631;
+    box-shadow: none;
+  }
+  &:focus
+  {
+    border:2px solid #9bc329;
+    color:#fff;
+    box-shadow: none;
+  }
+}
+.btn-check:checked + .answerbtn
+{
+  box-shadow:none;
+  &:hover
+  {
+    border:2px solid #9bc329;
+    color:#fff;
+    box-shadow: none;
+  }
+  &:focus
+  {
+    border:2px solid #9bc329;
+    box-shadow: none;
+    color:#fff;
+  }
+}
