@@ -116,55 +116,68 @@ h1, h2, h3, h4, h5 {
 .btn-primary
 {
   color: #000 !important;
+  background: rgb(155,195,41);
+  background: linear-gradient(0deg, rgba(155,195,41,1) 0%, rgba(181,227,49,1) 100%);
   border-radius: 10px !important;
   &:disabled
   {
     background-color: #343a40;
+    background: linear-gradient(0deg, rgb(0, 0, 0) 0%, rgb(77, 77, 77) 100%);
     border-color:#343a40;
   }
   &:hover
   {
     color: #000 !important;
+    background: rgb(155,195,41);
+    background: linear-gradient(0deg, rgba(155,195,41,1) 0%, rgba(181,227,49,1) 100%);
   }
   &:focus
   {
     color: #000 !important;
+    background: rgb(155,195,41);
+    background: linear-gradient(0deg, rgba(155,195,41,1) 0%, rgba(181,227,49,1) 100%);
   }
 }
 .btn-secondary {
   color: #000 !important;
-  background-color: #ffa53c !important;
+  background: rgb(254,159,132);
+  background: linear-gradient(0deg, rgba(254,159,132,1) 0%, rgba(246,209,102,1) 100%);
   border-color: #ffa53c !important;
   border-radius: 10px !important;
   &:hover
   {
     color: #000 !important;
-    background-color: #f9951e !important;
+    background: rgb(254,159,132);
+    background: linear-gradient(0deg, rgba(254,159,132,1) 0%, rgba(246,209,102,1) 100%);
     border-color: #f9951e !important;
   }
   &:focus
   {
     color: #000 !important;
-    background-color: #f9951e !important;
+    background: rgb(254,159,132);
+    background: linear-gradient(0deg, rgba(254,159,132,1) 0%, rgba(246,209,102,1) 100%);
     border-color: #f9951e !important;
     box-shadow: 0 0 0 0.25rem #f9951e80;
   }
 }
 .btn-tertiary {
   color: #000 !important;
-  background-color: #598CDF !important;
+  background: rgb(89,140,223);
+  background: linear-gradient(0deg, rgba(89,140,223,1) 0%, rgba(186,222,242,1) 100%);
   border-color: #598CDF !important;
   border-radius: 10px !important;
   &:hover
   {
     color: #000 !important;
-    background-color: #BADEF2 !important;
+    background: rgb(89,140,223);
+    background: linear-gradient(0deg, rgba(89,140,223,1) 0%, rgba(186,222,242,1) 100%);
     border-color: #BADEF2 !important;
   }
   &:focus
   {
     color: #000 !important;
-    background-color: #BADEF2 !important;
+    background: rgb(89,140,223);
+    background: linear-gradient(0deg, rgba(89,140,223,1) 0%, rgba(186,222,242,1) 100%);
     border-color: #BADEF2 !important;
     box-shadow: 0 0 0 0.25rem #598CDF80;
   }
