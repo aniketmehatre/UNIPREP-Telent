@@ -161,7 +161,9 @@
                 <div class="container">
                     <div class="row mb-5">
                         <div class="col-md-12">
-                            <h3 class="mb-3">Continue Reading</h3>
+                            <h3 class="mb-3" tooltipPosition="top"
+                            pTooltip="Complete the quiz for all modules to get the certificate.">Continue Reading
+                             <i class="questiontooltip fa-solid fa-circle-question"></i></h3>
                             <div class="row gap-2 d-flex">
                                 <div *ngFor="let readPro of readingProgressings" class="col px-0">
                                     <div class="card continuecard">
@@ -218,12 +220,13 @@
                     <span aria-hidden="true"><img src="/uniprep-assets/images/icons/close_button.svg"/></span>
                 </a>
             </div>
-
             <div class="modal-body">
                 <div class="container">
                     <div class="row mb-5">
                         <div class="col-md-12">
-                            <h3 class="mb-3">Continue Quiz</h3>
+                            <h3 class="mb-3" tooltipPosition="top"
+                            pTooltip="Complete the quiz for all modules to get the certificate.">
+                            Take Quiz <i class="questiontooltip fa-solid fa-circle-question"></i></h3>
                             <div class="row gap-2 d-flex">
                                 <div *ngFor="let quiz of quizProgressings" class="col px-0">
                                     <div class="card continuecardq">
