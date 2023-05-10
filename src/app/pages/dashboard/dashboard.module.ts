@@ -14,6 +14,7 @@ import {CardModule} from 'primeng/card';
 import {CarouselModule} from 'primeng/carousel';
 import {CommonModule} from '@angular/common'
 import {PagesModule} from "../pages.module";
+import { TooltipModule } from 'primeng/tooltip';
 
 @NgModule({
     declarations: [DashboardComponent],
@@ -31,6 +32,7 @@ import {PagesModule} from "../pages.module";
         CardModule,
         CarouselModule,
         PagesModule,
+        TooltipModule
     ],
 })
 export class DashboardModule {

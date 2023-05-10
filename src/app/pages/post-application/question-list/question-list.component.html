@@ -21,7 +21,7 @@
                 <div class="row">
                     <div *ngFor="let sub of listQuestion$ | async" class="col-md-3">
                         <div class="row w-100 h-100 m-0 justify-content-center">
-                            <div (click)="onSubModuleClick(sub.id)" class="card questioncard" role="button">
+                            <div (click)="onSubModuleClick(sub.id)" class="card questioncard " role="button">
                                 <div class="card-body mb-5">
                                     <div class="row justify-content-center">
                                         <p class="mb-3 circle text-center">{{sub.id}}</p>
