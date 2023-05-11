@@ -70,7 +70,34 @@ export class HeaderComponent implements OnInit, OnDestroy {
         })
     }
 
+    isMenuOpen = true;
+
+    toggleMenu() {
+        const sidenav: Element | null = document.getElementById('sidenav');
+        if (sidenav) {
+          this.isMenuOpen = !this.isMenuOpen;
+          localStorage.setItem('isMenuOpen', JSON.stringify(this.isMenuOpen));
+          this.updateMenuClass();
+        }
+      }
+      
+      updateMenuClass() {
+        const sidenav: Element | null = document.getElementById('sidenav');
+        if (sidenav) {
+          if (this.isMenuOpen) {
+            sidenav.classList.remove('menuclosed');
+          } else {
+            sidenav.classList.add('menuclosed');
+          }
+        }
+      }
+
     ngOnInit() {
+        const storedIsMenuOpen = localStorage.getItem('isMenuOpen');
+        if (storedIsMenuOpen) {
+            this.isMenuOpen = JSON.parse(storedIsMenuOpen);
+        }
+        this.updateMenuClass();
         this.reportSubmitForm = this.formBuilder.group({
             moduleId: ["", [Validators.required]],
             submoduleId: ["", [Validators.required]],

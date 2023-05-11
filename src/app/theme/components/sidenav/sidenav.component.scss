@@ -1,16 +1,30 @@
 .app-title {
-    padding: 0rem 0rem 0.5rem 1.5rem;
+    // padding: 0rem 0rem 0.5rem 1.5rem;
    // border-bottom: 1px solid #ebe6e6;
+   text-align: center;
 }
 
 #menu-items {
     user-select: none;
     padding: 0;
     list-style-type: none;
-    overflow: hidden;
+    // overflow: hidden;
     padding-bottom: 10px;
+    .menutoggle
+    {
+        .btn
+        {
+            position: absolute;
+        right: -1.25em;
+        top: -3.5em;
+        z-index: 999;
+        background: #9bc329;
+        }
+        
+    }
     .menu-item {
         color: #222b45;
+        
         cursor: pointer;
         .system-main__apps {
             font-size:0.9rem;

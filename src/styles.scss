@@ -97,6 +97,30 @@ h1, h2, h3, h4, h5 {
   color:#001631;
 }
 
+.menuclosed
+{
+  width: 65px !important;
+  transition: width 150ms ease-in-out;
+  .maintext
+  {
+    display:none;
+  }
+  #menu-items
+  {
+    .menu-item
+    {
+      .system-main__apps
+      {
+        justify-content:center;
+      }
+      .system-main__name
+      {
+        display:none;
+      }
+    }
+  }
+}
+
 .startbg
 {
   background-image: url(uniprep-assets/images/icons/startbg.jpg);

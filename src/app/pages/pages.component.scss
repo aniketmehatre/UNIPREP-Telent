@@ -38,9 +38,6 @@ section {
     footer {
       position: fixed;
       bottom: 0;
-      left: 0;
-      margin-left: 235px;
-      right: 0;
       display: flex;
       justify-content: space-between;
       background-color: hsla(0, 0%, 100%, 0.8);
@@ -50,6 +47,7 @@ section {
       padding: 0.5rem;
       font-size: 0.9rem;
       font-weight: 600;
+      width: -webkit-fill-available;
       @include md {
         left: 0;
       }
@@ -78,6 +76,8 @@ section {
   #sidenav {
     transition: transform 0.05s ease-in-out;
     width: 235px;
+    position: relative;
+    transition: width 150ms ease-in-out;
 
     img {
       height: 70px;

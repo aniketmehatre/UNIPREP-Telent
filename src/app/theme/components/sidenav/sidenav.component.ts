@@ -28,7 +28,6 @@ export interface SideMenu {
   styleUrls: ['./sidenav.component.scss']
 })
 export class SidenavComponent {
-
   @ContentChild('appTitle') appTitle!: TemplateRef<any>;
   @Output() active = new EventEmitter<SideMenu>;
   @Input() isOverlap = false;
