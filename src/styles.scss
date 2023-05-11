@@ -10,6 +10,10 @@ body {
   font-family: "Poppins", sans-serif;
   font-size:1rem;
 }
+.p-tooltip.p-tooltip-top {
+  position: fixed !important;
+  z-index:9999 !important;
+}
 ::-webkit-scrollbar-track {
   -webkit-box-shadow: none!important;
   border-radius: 10px!important;
@@ -185,6 +189,10 @@ h1, h2, h3, h4, h5 {
 .p-overlaypanel .p-overlaypanel-content {
   padding: 1.25rem;
   width: 40vh;
+}
+.p-dropdown-panel .p-dropdown-header .p-dropdown-filter
+{
+  width:100%;
 }
 // .p-dropdown-panel{
 //   margin-top: 20%;

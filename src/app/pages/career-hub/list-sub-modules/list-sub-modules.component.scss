@@ -33,8 +33,7 @@
 
   .selectimage {
     aspect-ratio: 1/1;
-    width: -webkit-fill-available;
-    mix-blend-mode: multiply;
+    width: unset;
   }
 
   &:focus {
