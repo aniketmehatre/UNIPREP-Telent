@@ -39,7 +39,6 @@
 </ng-template>
 
  -->
-
 <div class="app-title">
   <ng-container *ngTemplateOutlet="appTitle || defaultTitle"></ng-container>
   <br /><br />
@@ -52,7 +51,9 @@
 <div class="footer"></div>
 <!--<uni-side-menu [menus]="menus"></uni-side-menu>-->
 <ul id="menu-items">
-  <li class="px-3"><p class="fw-semibold text-small">Main Menu</p></li>
+  <li class=" position-relative">
+    <p class="px-3 fw-semibold text-small"><span class="maintext">Main</span> Menu</p>
+  </li>
   <li [ngClass]="{'menu-item': true, 'active': item.active, 'overlap': isOverlap}" *ngFor="let item of menus">
     <ng-container *ngIf="item.header; else menu">
       <div class="system-main__apps header">
@@ -62,7 +63,7 @@
     </ng-container>
     <ng-template #menu>
       <div class="system-main__apps" (click)="onexpand(item)">
-        <span class="system-main__icon"><i class="{{ item.image }}"></i></span>
+        <span class="system-main__icon" title="{{ item.title }}"><i class="{{ item.image }}"></i></span>
         <span class="system-main__name"> {{ item.title }} </span>
       </div>
     </ng-template>
