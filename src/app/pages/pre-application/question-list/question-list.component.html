@@ -6,7 +6,8 @@
                 <div class="row">
                     <div *ngFor="let sub of listQuestion$ | async" class="col-md-3">
                         <div class="row w-100 h-100 m-0 justify-content-center">
-                            <div (click)="onSubModuleClick(sub.id)" class="card questioncard {{sub.read == 1 ? 'questionread' : ''}}" role="button">
+                            <div (click)="onSubModuleClick(sub.id)"
+                                class="card questioncard {{sub.read == 1 ? 'questionread' : ''}}" role="button">
                                 <div class="card-body mb-5">
                                     <div class="row justify-content-center">
                                         <p class="mb-3 circle text-center">{{sub.id}}</p>
@@ -80,23 +81,23 @@
                 <div class="col-md-5">
                     <div class="row justify-content-center align-items-center">
                         <div class="col-md-2">
-                            <!-- <a (click)="clickPreviousVideo(carouselVideo, $event)"><i
-                                    class="text-green h4 mx-3 mb-0 fa-solid fa-circle-chevron-left"></i></a> -->
+                             <a (click)="clickPreviousVideo($event)"><i
+                                    class="text-green h4 mx-3 mb-0 fa-solid fa-circle-chevron-left"></i></a>
                         </div>
                         <div class="col-md-8">
-                            <p-carousel #carouselVideo [circular]="false" [showNavigators]="false"
-                                [showIndicators]="false" [numScroll]="1" [numVisible]="2"
+                            <p-carousel #carouselVideoElm [circular]="false" [showNavigators]="false"
+                                [showIndicators]="false" [numScroll]="1" [numVisible]="2" [page]="selectedVideo - 1"
                                 [responsiveOptions]="responsiveOptions" [value]="videoLinks" *ngIf="videoLinks">
                                 <ng-template let-item pTemplate="item">
                                     <div class="border-1 surface-border border-round m-2 text-center ">
                                         <div class="mb-1">
-                                            <img src="item.imglink" (click)="onClickRecommendedVideo(videoLinks)"
-                                                height="100" width="100" [alt]="item.imglink" class="w-2 shadow-2" />
-                                            <!-- <video controls height="100" width="100">
-                                            <source src="item.imglink" type="video/mp4">
-                                            <source src="item.imglink" type="video/ogg">
+                                            <!-- <img src="item.link" (click)="onClickRecommendedVideo(videoLinks)"
+                                                height="100" width="100" [alt]="item.link" class="w-2 shadow-2" /> -->
+                                            <video  (click)="onClickRecommendedVideo(item)" controls height="100" width="100">
+                                            <source src="{{item.link}}" type="video/mp4">
+                                            <source src="{{item.link}}" type="video/ogg">
                                             Your browser does not support HTML video. 
-                                        </video> -->
+                                        </video>
                                         </div>
                                         <!-- <div class="mb-1">
                                         <p style="font-size:6px">{{item.title}}</p>
@@ -105,40 +106,39 @@
                                 </ng-template>
                             </p-carousel>
                         </div>
-                        <div class="col-md-2">
-                            <!-- <a (click)="clickNextVideo(carouselVideo, $event)"><i
-                                    class="text-green mx-3 h4 fa-solid mb-0 fa-circle-chevron-right"></i></a> -->
+                        <div class="col-md-2"> 
+                            <a (click)="clickNextVideo($event)"><i
+                                    class="text-green mx-3 h4 fa-solid mb-0 fa-circle-chevron-right"></i></a>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-5">
                     <div class="row justify-content-center align-items-center">
                         <div class="col-md-2">
-                            <!-- <a (click)="clickPreviousRef(carouselRef, $event)"><i
-                                    class="text-green h4 mx-3 mb-0 fa-solid fa-circle-chevron-left"></i></a> -->
+                            <a (click)="clickPreviousRef($event)"><i
+                                    class="text-green h4 mx-3 mb-0 fa-solid fa-circle-chevron-left"></i></a>
                         </div>
                         <div class="col-md-8">
-                            <p-carousel #carouselRef [circular]="false" [numScroll]="1" [numVisible]="2"
+                            <p-carousel #carouselRefElm [circular]="false" [numScroll]="1" [numVisible]="2"
                                 [responsiveOptions]="responsiveOptions" [value]="refLink" *ngIf="refLink">
                                 <ng-template let-item pTemplate="item">
                                     <div class="border-1 surface-border border-round m-2 text-center ">
                                         <div class="mb-1">
-                                            <video controls height="100" width="100">
+                                            <img src="{{item.image}}" (click)="onClickRecommendedLinks(item)"
+                                                height="100" width="100" [alt]="item.image" class="w-2 shadow-2" />
+                                            <!-- <video controls height="100" width="100">
                                                 <source src="item.reflink" type="video/mp4">
                                                 <source src="item.reflink" type="video/ogg">
                                                 Your browser does not support HTML video.
-                                            </video>
+                                            </video> -->
                                         </div>
-                                        <!-- <div class="mb-1">
-                                <p style="font-size:6px">{{item.title}}</p>
-                            </div> -->
                                     </div>
                                 </ng-template>
                             </p-carousel>
                         </div>
                         <div class="col-md-2">
-                            <!-- <a (click)="clickNextRef(carouselRef, $event)"><i
-                                    class="text-green mx-3 h4 fa-solid mb-0 fa-circle-chevron-right"></i></a> -->
+                            <a (click)="clickNextRef($event)"><i
+                                class="text-green mx-3 h4 fa-solid mb-0 fa-circle-chevron-right"></i></a>
                         </div>
                     </div>
                 </div>
@@ -147,11 +147,6 @@
                         <p class="mb-0">Click here to ask personalised questions</p>
                         <i class="pi pi-comment"></i>
                     </button>
-                    <!-- <button type="button"
-                        class="bbtn btn btn-tertiary d-flex align-items-center justify-content-center w-100"
-                        (click)="onClickRecommendedLinks()">
-                        <p class="my-2">Recommended Links</p> <i class="h5 mx-2 mb-0 fa-solid fa-link"></i>
-                    </button> -->
                 </div>
             </div>
         </div>
