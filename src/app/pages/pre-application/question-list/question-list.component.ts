@@ -19,7 +19,7 @@ export class QuestionListComponent implements OnInit, AfterContentChecked {
     subModules$!: Observable<SubModuleList[]>;
     listQuestion$!: Observable<ListQuestion[]>;
     selectedQuestion: number = 0;
-    selectedVideo: number = 0;
+    selectedVideo: number = 1;
     selectedRefLink: number = 0;
     positionNumber: number = 0;
     data: any;
@@ -95,11 +95,12 @@ export class QuestionListComponent implements OnInit, AfterContentChecked {
         })
     }
 
-    onSubModuleClick(id: any) {
+    onQuestionClick(id: any) {
+        console.log(id);
         this.listQuestion$.subscribe(event => {
             this.data = event
         });
-        this.selectedQuestion = id;
+        this.selectedQuestion = id-1;
         this.positionNumber = id;
         this.breadCrumb = [{ label: 'Pre Application' }, { label: this.moduleName }, { label: `Question ${id}` }];
         this.isQuestionAnswerVisible = true;
@@ -118,65 +119,75 @@ export class QuestionListComponent implements OnInit, AfterContentChecked {
     }
 
     clickPrevious(carousel: any, event: any) {
-        if (this.selectedQuestion < 2) {
-            this.selectedQuestion = this.data.length;
-            carousel.navBackward(event, this.selectedQuestion);
+        this.selectedQuestion = this.selectedQuestion - 1;
+        console.log('prev',this.selectedQuestion);
+        if (this.selectedQuestion <= 0) {
             return;
         }
         this.data.filter((res: any) => {
             if (res.id == this.selectedQuestion) {
-                this.refLink = res.reflink;
+                    this.refLink = res.reflink;
+                } else {
+                    this.refLink = [];
             }
         })
+        // this.data.filter((res: any) => {
+        //     if (res.id == this.selectedQuestion) {
+        //         this.videoLinks = res.videolink;
+        //         }
+        // })
         this.data.filter((res: any) => {
             if (res.id == this.selectedQuestion) {
                 this.videoLinks = res.videolink;
             }
         })
-        carousel.navBackward(event, --this.selectedQuestion)
+        this.data.find((res: any) => {
+            res.id == this.selectedQuestion ? this.videoLinks = res.videolink : this.videoLinks = [];
+        })
+        carousel.navBackward(event, this.selectedQuestion)
     }
 
     clickNext(carousel: any, event: any) {
+        this.selectedQuestion = this.selectedQuestion + 1;
+        console.log('next', this.selectedQuestion)
         if (this.selectedQuestion > this.data.length) {
-            this.selectedQuestion = 0;
-            carousel.navForward(event, this.selectedQuestion++)
             return;
         }
         this.data.filter((res: any) => {
+            console.log(res);
             if (res.id == this.selectedQuestion) {
-                this.refLink = res.reflink;
+                    this.refLink = res.reflink;
+                } else {
+                    this.refLink = [];
             }
         })
-        this.data.filter((res: any) => {
-            if (res.id == this.selectedQuestion) {
-                this.videoLinks = res.videolink;
-            }
+        // this.data.find((res: any) => {
+        //     res.id == this.selectedQuestion ? this.refLink = res.reflink : this.refLink = [];
+        // })
+        this.data.find((res: any) => {
+            res.id == this.selectedQuestion ? this.videoLinks = res.videolink : this.videoLinks = [];
         })
-        carousel.navForward(event, this.selectedQuestion++)
+        carousel.navForward(event, this.selectedQuestion)
     }
 
     clickPreviousVideo(event: any) {
-        if (this.videoLinks.length > 1) {
+        if (this.selectedVideo <= 0) {
             return;
         }
-        if (this.selectedVideo < 2) {
-            this.selectedVideo = this.videoLinks.length;
-            this.carouselVideoElm.navBackward(event, this.selectedVideo);
-            return;
-        }
-        this.carouselVideoElm.navBackward(event, --this.selectedVideo)
+        this.selectedVideo = this.selectedVideo - 1;
+        console.log(this.selectedVideo)
+
+        this.carouselVideoElm.navBackward(event, this.selectedVideo)
     }
 
     clickNextVideo(event: any) {
-        if (this.videoLinks.length < 1) {
+        if (this.selectedVideo > this.videoLinks.length - 1) {
             return;
         }
-        if (this.selectedVideo > this.videoLinks.length) {
-            this.selectedVideo = 0;
-            this.carouselVideoElm.navForward(event, this.selectedVideo++)
-            return;
-        }
-        this.carouselVideoElm.navForward(event, this.selectedVideo++)
+        this.selectedVideo += 1;
+        console.log('next', this.selectedVideo)
+
+        this.carouselVideoElm.navForward(event, this.selectedVideo)
     }
 
     clickPreviousRef(event: any) {
