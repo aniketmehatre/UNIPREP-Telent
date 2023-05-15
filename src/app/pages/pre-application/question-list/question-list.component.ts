@@ -16,6 +16,7 @@ export class QuestionListComponent implements OnInit, AfterContentChecked {
     @ViewChild('carouselVideoElm') carouselVideoElm: any;
     @ViewChild('carouselRefElm') carouselRefElm: any;
     @ViewChild('carouselPopupVideoElm') carouselPopupVideoElm: any;
+    @ViewChild('carouselPopupRefElm') carouselPopupRefElm: any;
 
     subModules$!: Observable<SubModuleList[]>;
     listQuestion$!: Observable<ListQuestion[]>;
@@ -94,7 +95,6 @@ export class QuestionListComponent implements OnInit, AfterContentChecked {
     }
 
     onQuestionClick(id: any) {
-        console.log(id);
         this.listQuestion$.subscribe(event => {
             this.data = event
         });
@@ -112,6 +112,12 @@ export class QuestionListComponent implements OnInit, AfterContentChecked {
         } else {
             pageNum = page.page
         }
+        this.data.filter((res: any) => {
+            if (res.id == pageNum + 1) {
+                this.refLink = res.reflink;
+                this.videoLinks = res.videolink;
+            }
+        });
         this.positionNumber = pageNum + 1;
         this.breadCrumb = [{label: 'Pre Application'}, {label: this.moduleName}, {label: `Question ${pageNum + 1}`}];
     }
@@ -140,7 +146,7 @@ export class QuestionListComponent implements OnInit, AfterContentChecked {
                 this.refLink = res.reflink;
                 this.videoLinks = res.videolink;
             }
-        })
+        });
         carousel.navForward(event, this.selectedQuestion)
     }
 
@@ -212,6 +218,8 @@ export class QuestionListComponent implements OnInit, AfterContentChecked {
     }
 
     onClickRecommendedLinks(data: any) {
+        console.log(data);
+        
         this.isRecommendedLinksVisible = true;
         // this.data.filter((res: any) => {
         //     if (res.id == this.selectedQuestion) {
@@ -234,6 +242,13 @@ export class QuestionListComponent implements OnInit, AfterContentChecked {
 
     }
     clickNextVideoPopup(data: any){
+
+    }
+
+    clickPreviousRefPopup(data: any){
+
+    }
+    clickNextRefPopup(data: any){
 
     }
 }

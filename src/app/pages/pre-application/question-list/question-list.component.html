@@ -130,7 +130,7 @@
                                 <ng-template let-item pTemplate="item">
                                     <div class="border-1 surface-border border-round m-2 text-center ">
                                         <div class="mb-1">
-                                            <img src="{{item.image}}" (click)="onClickRecommendedLinks(item)"
+                                            <img src="{{item.image}}" (click)="onClickRecommendedLinks(refLink)"
                                                  height="100" width="100" [alt]="item.image" class="w-2 shadow-2"/>
                                             <!-- <video controls height="100" width="100">
                                                 <source src="item.reflink" type="video/mp4">
@@ -148,38 +148,16 @@
                         </div>
                     </div>
                 </div>
-                <!-- <div (click)="onClickAsk()" class="col-md-2 p-3 justify-content-center align-items-center">
-                    <button (click)="onClickAsk()" class="btn w-100 btn-primary homecardbtn m-0 px-2 py-2">
-                        <p class="mb-0">Click here to ask personalised questions</p>
-                        <i class="pi pi-comment"></i>
-                    </button>
-                </div> -->
+
             </div>
         </div>
     </ng-template>
 </p-dialog>
 
 <p-dialog [(visible)]="isRecommendedVideoVisible" [modal]="true" [style]="{ width: '30vw' }" header="Header">
-    <!--    <ng-template pTemplate="header">-->
-    <!--        <span class="text-xl font-bold">Recommended Videos</span>-->
-    <!--    </ng-template>-->
+
     <div class="container-fluid">
-        <!--        <div class="row">-->
-        <!--                <p-carousel #carouselPopupVideoElm [circular]="false" [numScroll]="1" [numVisible]="1"-->
-        <!--                            [responsiveOptions]="responsiveOptions" [value]="videoLinks" *ngIf="videoLinks">-->
-        <!--                    <ng-template let-item pTemplate="item">-->
-        <!--                        <div class="border-1 surface-border border-round m-2 text-center ">-->
-        <!--                            <div class="mb-1">-->
-        <!--                                <video controls height="400" width="400">-->
-        <!--                                    <source src="{{item.link}}" type="video/mp4">-->
-        <!--                                    <source src="{{item.link}}" type="video/ogg">-->
-        <!--                                    Your browser does not support HTML video.-->
-        <!--                                </video>-->
-        <!--                            </div>-->
-        <!--                        </div>-->
-        <!--                    </ng-template>-->
-        <!--                </p-carousel>-->
-        <!--        </div>-->
+        
         <div class="row justify-content-center align-items-center">
             <div class="col-md-2" *ngIf="videoLinks">
                 <a (click)="clickPreviousVideoPopup($event)"><i
@@ -187,7 +165,7 @@
             </div>
             <div class="col-md-8">
                 <p-carousel #carouselPopupVideoElm [circular]="false" [showNavigators]="false"
-                            [showIndicators]="false" [numScroll]="1" [numVisible]="3" [page]="selectedVideo - 1"
+                            [showIndicators]="false" [numScroll]="1" [numVisible]="1" [page]="selectedVideo - 1"
                             [responsiveOptions]="responsiveOptions" [value]="videoLinks" *ngIf="videoLinks">
                     <ng-template let-item pTemplate="item">
                         <div class="border-1 surface-border border-round m-2 text-center ">
@@ -216,13 +194,40 @@
         <span class="text-xl font-bold">Recommended Links</span>
     </ng-template>
     <div class="container-fluid">
-        <div class="row">
-            <ng-template *ngFor="let link of refLink">
-                <div class="col">
-                    <img src="link.reflink" height="100" width="100" [alt]="link.reflink" class="w-2 shadow-2"/>
-                </div>
-            </ng-template>
+        <!-- <div class="row">
+            <div class="col-md-12 col-lg-12" *ngFor="let link of refLink">
+                <img src="link.image" height="100" width="100" [alt]="link.image" class="w-2 shadow-2"/>
+            </div>
+           
+        </div> -->
+        <div class="row justify-content-center align-items-center">
+            <div class="col-md-2" *ngIf="refLink">
+                <a (click)="clickPreviousRefPopup($event)"><i
+                        class="text-green h4 mx-3 mb-0 fa-solid fa-circle-chevron-left"></i></a>
+            </div>
+            <div class="col-md-8">
+                
+                <p-carousel #carouselPopupRefElm [circular]="false" [numScroll]="1" [numVisible]="1"
+                                        [responsiveOptions]="responsiveOptions" [value]="refLink" *ngIf="refLink">
+                                <ng-template let-item pTemplate="item">
+                                    <div class="border-1 surface-border border-round m-2 text-center ">
+                                        <div class="mb-1">
+                                            <img src="{{item.image}}" 
+                                                 [alt]="item.image" class="w-2 shadow-2 img-fluid"/>
+                                            <!-- <video controls height="100" width="100">
+                                                <source src="item.reflink" type="video/mp4">
+                                                <source src="item.reflink" type="video/ogg">
+                                                Your browser does not support HTML video.
+                                            </video> -->
+                                        </div>
+                                    </div>
+                                </ng-template>
+                            </p-carousel>
+            </div>
+            <div class="col-md-2" *ngIf="refLink">
+                <a (click)="clickNextRefPopup($event)"><i
+                        class="text-green mx-3 h4 fa-solid mb-0 fa-circle-chevron-right"></i></a>
+            </div>
         </div>
-
     </div>
 </p-dialog>
