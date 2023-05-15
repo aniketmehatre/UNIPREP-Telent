@@ -154,16 +154,16 @@
     </ng-template>
 </p-dialog>
 
-<p-dialog [(visible)]="isRecommendedVideoVisible" [modal]="true" [style]="{ width: '30vw' }" header="Header">
+<p-dialog [(visible)]="isRecommendedVideoVisible" class="questionvideopopup"  [modal]="true" [style]="{ width: '80vw' }">
 
     <div class="container-fluid">
         
         <div class="row justify-content-center align-items-center">
-            <div class="col-md-2" *ngIf="videoLinks">
+            <div class="col-md-1" *ngIf="videoLinks">
                 <a (click)="clickPreviousVideoPopup($event)"><i
                         class="text-green h4 mx-3 mb-0 fa-solid fa-circle-chevron-left"></i></a>
             </div>
-            <div class="col-md-8">
+            <div class="col-md-10">
                 <p-carousel #carouselPopupVideoElm [circular]="false" [showNavigators]="false"
                             [showIndicators]="false" [numScroll]="1" [numVisible]="1" [page]="selectedVideo - 1"
                             [responsiveOptions]="responsiveOptions" [value]="videoLinks" *ngIf="videoLinks">
@@ -176,15 +176,13 @@
                                     <source src="{{item.link}}" type="video/ogg">
                                     Your browser does not support HTML video.
                                 </video> -->
-                                <iframe width="100%" height="100%"
-                                src="https://www.youtube.com/embed/tgbNymZ7vqY">
-                                </iframe> 
+                                <iframe width="100%" height="500px" src="https://www.youtube.com/embed/tgbNymZ7vqY"></iframe> 
                             </div>
                         </div>
                     </ng-template>
                 </p-carousel>
             </div>
-            <div class="col-md-2" *ngIf="videoLinks">
+            <div class="col-md-1" *ngIf="videoLinks">
                 <a (click)="clickNextVideoPopup($event)"><i
                         class="text-green mx-3 h4 fa-solid mb-0 fa-circle-chevron-right"></i></a>
             </div>
