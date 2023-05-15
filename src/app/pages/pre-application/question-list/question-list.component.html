@@ -56,7 +56,7 @@
                     <i class="fa-solid h5 fa-file-contract"></i>
                     <p class="mb-0">Report</p>
                 </button>
-                <button class="btn w-100 btn-primary homecardbtn m-0 px-2 py-2">
+                <button  (click)="onClickAsk()" class="btn w-100 btn-primary homecardbtn m-0 px-2 py-2">
                     <i class="pi pi-comment"></i>
                     <p class="mb-0">Chart</p>
                 </button>
@@ -96,18 +96,9 @@
                                 <ng-template let-item pTemplate="item">
                                     <div class="border-1 surface-border border-round m-2 text-center ">
                                         <div class="mb-1">
-                                            <!-- <img src="item.link" (click)="onClickRecommendedVideo(videoLinks)"
-                                                height="100" width="100" [alt]="item.link" class="w-2 shadow-2" /> -->
-                                            <video (click)="onClickRecommendedVideo(videoLinks)" controls height="100"
-                                                   width="100">
-                                                <source src="{{item.link}}" type="video/mp4">
-                                                <source src="{{item.link}}" type="video/ogg">
-                                                Your browser does not support HTML video.
-                                            </video>
+                                            <img src="{{item.image}}" (click)="onClickRecommendedVideo(videoLinks)"
+                                                height="100" width="100" [alt]="item.image" class="w-2 shadow-2" />
                                         </div>
-                                        <!-- <div class="mb-1">
-                                        <p style="font-size:6px">{{item.title}}</p>
-                                    </div> -->
                                     </div>
                                 </ng-template>
                             </p-carousel>
@@ -120,29 +111,25 @@
                 </div>
                 <div class="col-md-6">
                     <div class="row justify-content-center align-items-center">
-                        <div class="col-md-2" *ngIf="false">
+                        <div class="col-md-2" *ngIf="refLink">
                             <a (click)="clickPreviousRef($event)"><i
                                     class="text-green h4 mx-3 mb-0 fa-solid fa-circle-chevron-left"></i></a>
                         </div>
                         <div class="col-md-8">
-                            <p-carousel #carouselRefElm [circular]="false" [numScroll]="1" [numVisible]="2"
+                            <p-carousel #carouselRefElm [circular]="false" [numScroll]="1" [numVisible]="3"
+                            [page]="selectedRefLink - 1"
                                         [responsiveOptions]="responsiveOptions" [value]="refLink" *ngIf="refLink">
                                 <ng-template let-item pTemplate="item">
                                     <div class="border-1 surface-border border-round m-2 text-center ">
                                         <div class="mb-1">
                                             <img src="{{item.image}}" (click)="onClickRecommendedLinks(refLink)"
                                                  height="100" width="100" [alt]="item.image" class="w-2 shadow-2"/>
-                                            <!-- <video controls height="100" width="100">
-                                                <source src="item.reflink" type="video/mp4">
-                                                <source src="item.reflink" type="video/ogg">
-                                                Your browser does not support HTML video.
-                                            </video> -->
                                         </div>
                                     </div>
                                 </ng-template>
                             </p-carousel>
                         </div>
-                        <div class="col-md-2" *ngIf="false">
+                        <div class="col-md-2" *ngIf="refLink">
                             <a (click)="clickNextRef($event)"><i
                                     class="text-green mx-3 h4 fa-solid mb-0 fa-circle-chevron-right"></i></a>
                         </div>
@@ -170,12 +157,6 @@
                     <ng-template let-item pTemplate="item">
                         <div class="border-1 surface-border border-round m-2 text-center ">
                             <div class="mb-1">
-                                <!-- <video controls height="500"
-                                       width="600">
-                                    <source src="{{item.link}}" type="video/mp4">
-                                    <source src="{{item.link}}" type="video/ogg">
-                                    Your browser does not support HTML video.
-                                </video> -->
                                 <iframe width="100%" height="500px" src="https://www.youtube.com/embed/tgbNymZ7vqY"></iframe> 
                             </div>
                         </div>

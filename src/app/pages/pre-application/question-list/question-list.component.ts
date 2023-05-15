@@ -21,7 +21,7 @@ export class QuestionListComponent implements OnInit, AfterContentChecked {
     subModules$!: Observable<SubModuleList[]>;
     listQuestion$!: Observable<ListQuestion[]>;
     selectedQuestion: number = 0;
-    selectedVideo: number = 1;
+    selectedVideo: number = 0;
     selectedRefLink: number = 0;
     positionNumber: number = 0;
     data: any;
@@ -171,41 +171,23 @@ export class QuestionListComponent implements OnInit, AfterContentChecked {
     }
 
     clickPreviousRef(event: any) {
-        // if (this.selectedQuestion < 2) {
-        //     this.selectedQuestion = this.data.length;
-        //     this.carouselRefElm.navBackward(event, this.selectedQuestion);
-        //     return;
-        // }
-        //
-        // this.carouselRefElm.navBackward(event, --this.selectedQuestion)
-        if (this.selectedVideo <= 0) {
+        if (this.selectedRefLink <= 0) {
             return;
         }
-        this.selectedVideo = this.selectedVideo - 1;
-        console.log(this.selectedVideo)
+        this.selectedRefLink = this.selectedRefLink - 1;
+        console.log(this.selectedRefLink)
 
-        this.carouselVideoElm.navBackward(event, this.selectedVideo)
+        this.carouselRefElm.navBackward(event, this.selectedRefLink)
     }
 
     clickNextRef(event: any) {
-        if (this.selectedQuestion > this.data.length) {
-            this.selectedQuestion = 0;
-            this.carouselRefElm.navForward(event, this.selectedQuestion++)
+        if (this.selectedRefLink > this.refLink.length - 1) {
             return;
         }
-        this.data.filter((res: any) => {
-            if (res.id == this.selectedQuestion) {
-                console.log('res', res)
-                this.refLink = res.reflink;
-            }
-        })
-        this.data.filter((res: any) => {
-            if (res.id == this.selectedQuestion) {
-                console.log('res 1', res)
-                this.videoLinks = res.imagelink;
-            }
-        })
-        this.carouselRefElm.navForward(event, this.selectedQuestion++)
+        this.selectedRefLink += 1;
+        console.log('next', this.selectedRefLink)
+
+        this.carouselRefElm.navForward(event, this.selectedRefLink)
     }
 
     onClickRecommendedVideo(data: any) {
@@ -237,10 +219,12 @@ export class QuestionListComponent implements OnInit, AfterContentChecked {
         this.isQuestionAnswerVisible = false;
     }
 
-    // popup video
+    // popup video prev
     clickPreviousVideoPopup(data: any){
 
     }
+
+     // popup video next
     clickNextVideoPopup(data: any){
 
     }
