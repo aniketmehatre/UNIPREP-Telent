@@ -144,7 +144,20 @@
     <!-- <img src="../../../uniprep-assets/images/icons/report_popup.png"/> -->
 </p-dialog>
 
-<p-dialog class="thankyoupopup" [modal]="true" header="Header" [(visible)]="isShowFreeTrailStart" [closable]="false"
+<p-dialog [(visible)]="isShowFreeTrailStart" [closable]="false" [style]="{ width: 'auto' }" class="p-0 m-0 bg-white"
+          class="timerpopup"
+          [modal]="true" [draggable]="false" [resizable]="false">
+    <div class="px-5 pb-5 pt-3">
+        <div class="justify-content-center text-center pb-5 px-5">
+            <h5 class="text-center mb-2">Your 1 hour free trail<br>Starts Now!</h5>
+            <div><img src="../../../uniprep-assets/images/icons/timerstart.png" width="auto"></div>
+            <p class="text-center text-small mb-2 mt-2">Explore all modules on UNIPERP<br>and get a certificate.</p>
+            <button class="btn btn-primary btn-rounded btn-lg text-white" (click)="exploreNow()">Continue</button>
+        </div>
+    </div>
+</p-dialog>
+
+<!-- <p-dialog class="thankyoupopup" [modal]="true" header="Header" [(visible)]="isShowFreeTrailStart" [closable]="false"
           [breakpoints]="{ '960px': '75vw' }"
           [style]="{ width: '30vw' }" [draggable]="false" [resizable]="false">
     <ng-template pTemplate="header">
@@ -155,8 +168,8 @@
             <h4>Your 1 hour free trail Starts Now!</h4>
             <img class="pb-5 pt-2" src="../../../../uniprep-assets/images/icons/clock_icon.png" width="auto" alt="thumbs up">
             <p class="text-center mb-2 mt-2">Explore all moduleon UNIPERP and get a certificate.</p>
-            <button (click)="exploreNow()" class="btn btn-primary text-white">Continue</button>
+            <button  class="btn btn-primary text-white">Continue</button>
         </div>
     </div>
-    <!--    <img src="../../../uniprep-assets/images/icons/clock_card.png"/>-->
-</p-dialog>
+ <img src="../../../uniprep-assets/images/icons/clock_card.png"/>
+</p-dialog> -->

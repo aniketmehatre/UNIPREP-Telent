@@ -134,8 +134,8 @@ h1, h2, h3, h4, h5 {
 }
 .btn
 {
-  border-radius:5px !important;
   font-weight:600 !important;
+  
 }
 .text-green
 {
@@ -147,6 +147,7 @@ h1, h2, h3, h4, h5 {
   background: rgb(155,195,41);
   background: linear-gradient(0deg, rgba(155,195,41,1) 0%, rgba(181,227,49,1) 100%);
   border-radius: 10px !important;
+  
   &:disabled
   {
     background-color: #343a40;
@@ -209,6 +210,10 @@ h1, h2, h3, h4, h5 {
     border-color: #BADEF2 !important;
     box-shadow: 0 0 0 0.25rem #598CDF80;
   }
+}
+.btn-rounded
+{
+  border-radius:100px !important;
 }
 .p-overlaypanel .p-overlaypanel-content {
   padding: 1.25rem;
@@ -423,8 +428,9 @@ h1, h2, h3, h4, h5 {
       .p-dialog-content
       {
         background-image:url(/uniprep-assets/images/icons/alert_popup.png);
-        background-size: cover;
+        background-size: contain;
         background-position: bottom;
+        background-repeat: no-repeat;
         border-radius: 10px;
       }
       
