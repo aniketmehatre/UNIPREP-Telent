@@ -15,6 +15,7 @@ import {SubModuleList} from "../../../@Models/pre-application.model";
 export class QuestionListComponent implements OnInit, AfterContentChecked {
     @ViewChild('carouselVideoElm') carouselVideoElm: any;
     @ViewChild('carouselRefElm') carouselRefElm: any;
+    @ViewChild('carouselPopupVideoElm') carouselPopupVideoElm: any;
 
     subModules$!: Observable<SubModuleList[]>;
     listQuestion$!: Observable<ListQuestion[]>;
@@ -78,7 +79,6 @@ export class QuestionListComponent implements OnInit, AfterContentChecked {
             submoduleId: this.subModuleId
         }
         this.preAppService.loadQuestionList(data);
-
     }
 
     getSubmoduleName(countryId: number) {
@@ -229,4 +229,11 @@ export class QuestionListComponent implements OnInit, AfterContentChecked {
         this.isQuestionAnswerVisible = false;
     }
 
+    // popup video
+    clickPreviousVideoPopup(data: any){
+
+    }
+    clickNextVideoPopup(data: any){
+
+    }
 }

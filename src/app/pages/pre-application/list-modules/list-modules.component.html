@@ -9,15 +9,15 @@
                 <div class="row">
                     <div class="col-md-10">
                     </div>
-                    <div class="col-md-2 gap-2 d-flex text-end">
+                    <div class="col-md-1 gap-2 d-flex text-end">
                         <button (click)="startQuiz()" class="btn w-100 btn-secondary quizCard m-0 px-2 py-2">
                             <i class="fa-solid h5 fa fa-info-circle"></i>
                             <p class="mb-0">Start Quiz</p>
                         </button>
-                        <button (click)="goToHome($event)" class="btn w-100 btn-primary homecardbtn m-0 px-2 py-2">
-                            <i class="fa-solid h5 fa-house"></i>
-                            <p class="mb-0">Home</p>
-                        </button>
+<!--                        <button (click)="goToHome($event)" class="btn w-100 btn-primary homecardbtn m-0 px-2 py-2">-->
+<!--                            <i class="fa-solid h5 fa-house"></i>-->
+<!--                            <p class="mb-0">Home</p>-->
+<!--                        </button>-->
                     </div>
                 </div>
                 <div class="row mb-0">
@@ -56,28 +56,51 @@
                     <i class="fa-solid h5 fa-house"></i>
                     <p class="mb-0">Home</p>
                 </button>
-                <button class="btn w-100 btn-primary homecardbtn m-0 px-2 py-2">
+                <button (click)="openReport($event)" class="btn w-100 btn-primary homecardbtn m-0 px-2 py-2">
                     <i class="fa-solid h5 fa-file-contract"></i>
                     <p class="mb-0">Report</p>
                 </button>
             </div>
             <div class="col-md-6">
-                <p-carousel #carousel3 (onPage)="setPage($event)" [circular]="true" [numScroll]="1" [numVisible]="1"
-                            [page]="selectedQuestion -1"
+                <p-carousel #carouselQuiz (onPage)="setPage($event)" [circular]="true" [numScroll]="1" [numVisible]="1"
+                            [page]="selectedQuiz -1"
                             [responsiveOptions]="responsiveOptions"
                             [value]="quizData" class="text-center">
                     <ng-template [ngForOf]="quizData" let-i="index" let-val ngFor pTemplate="item">
                         <div class="row text-center">
                             <div class="col-12 mt-3 mb-4">
                                 <div class="card qacard">
-                                    <div class="select-title margin-minus text-center"><h5>Question #</h5></div>
+                                    <div class="select-title margin-minus text-center"><h5>Question {{val.id}}</h5>
+                                    </div>
                                     <div class="card-body text-start">
                                         <h3 class="font-secondarycolor text-center pt-2 pb-3 text-capitalize">{{val.question}}</h3>
-                                        <div class="py-2" *ngFor="let ans of val.answer">
-                                            <input type="radio" class="btn-check" name="options" id="{{ans}}"
+                                        <div class="py-2" (click)="selectAnswer(val.option1, val)">
+                                            <input type="radio" class="btn-check" name="options" id="{{val.option1}}"
                                                    autocomplete="off">
                                             <label class="btn btn-outline-primary text-start answerbtn w-100 m-0"
-                                                   for="{{ans}}"><h5 class="py-2 mb-0">{{ans}}</h5></label>
+                                                   for="{{val.option1}}"><h5 class="py-2 mb-0">{{val.option1}}</h5>
+                                            </label>
+                                        </div>
+                                        <div class="py-2">
+                                            <input type="radio" class="btn-check" name="options" id="{{val.option2}}"
+                                                   autocomplete="off">
+                                            <label class="btn btn-outline-primary text-start answerbtn w-100 m-0"
+                                                   for="{{val.option2}}"><h5 class="py-2 mb-0">{{val.option2}}</h5>
+                                            </label>
+                                        </div>
+                                        <div class="py-2">
+                                            <input type="radio" class="btn-check" name="options" id="{{val.option3}}"
+                                                   autocomplete="off">
+                                            <label class="btn btn-outline-primary text-start answerbtn w-100 m-0"
+                                                   for="{{val.option3}}"><h5 class="py-2 mb-0">{{val.option3}}</h5>
+                                            </label>
+                                        </div>
+                                        <div class="py-2">
+                                            <input type="radio" class="btn-check" name="options" id="{{val.option4}}"
+                                                   autocomplete="off">
+                                            <label class="btn btn-outline-primary text-start answerbtn w-100 m-0"
+                                                   for="{{val.option4}}"><h5 class="py-2 mb-0">{{val.option4}}</h5>
+                                            </label>
                                         </div>
                                     </div>
                                 </div>
@@ -91,11 +114,11 @@
     <ng-template pTemplate="footer">
         <div class="container-fluid">
             <div class="row gap-2 justify-content-end mb-4">
-                <button (click)="clickPreviousQuiz(carousel3, $event)"
+                <button (click)="clickPreviousQuiz(carouselQuiz, $event)"
                         class="btn btn-lg rounded-pill btn-tertiary m-0 px-2 py-2">
                     <p class="mb-0 px-2">Previous <i class="fa-solid fa-circle-arrow-left"></i></p>
                 </button>
-                <button (click)="clickNextQuiz(carousel3, $event)"
+                <button (click)="clickNextQuiz(carouselQuiz, $event)"
                         class="btn btn-lg rounded-pill btn-secondary m-0 px-2 py-2">
                     <p class="mb-0 px-2"> Next <i class="fa-solid fa-circle-arrow-right"></i></p>
                 </button>

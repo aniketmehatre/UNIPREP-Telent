@@ -28,6 +28,7 @@ export class ModalComponent implements OnInit {
     isReportChanged: boolean = false
     visible: boolean = true;
     showReportSuccess: boolean = false;
+    isShowFreeTrailStart: boolean = false;
     reportValueSelected: any;
     message: any;
 

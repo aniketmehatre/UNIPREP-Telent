@@ -8,7 +8,7 @@ export class DataService {
     public chatTriggerSource = new BehaviorSubject('not open');
     currentMessage = this.chatTriggerSource.asObservable();
 
-    public countryNameSource = new BehaviorSubject('United States');
+    public countryNameSource = new BehaviorSubject('United Kingdom');
     countryName = this.countryNameSource.asObservable();
 
     public countryIdSource = new BehaviorSubject('2');

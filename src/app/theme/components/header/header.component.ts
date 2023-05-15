@@ -55,6 +55,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     darkModeSwitch!: HTMLInputElement;
     visible: boolean = false;
     showReportSuccess: boolean = false;
+    isShowFreeTrailStart: boolean = false;
 
     constructor(
         private modalService: ModalService, private router: Router, private locationService: LocationService,
@@ -75,22 +76,22 @@ export class HeaderComponent implements OnInit, OnDestroy {
     toggleMenu() {
         const sidenav: Element | null = document.getElementById('sidenav');
         if (sidenav) {
-          this.isMenuOpen = !this.isMenuOpen;
-          localStorage.setItem('isMenuOpen', JSON.stringify(this.isMenuOpen));
-          this.updateMenuClass();
+            this.isMenuOpen = !this.isMenuOpen;
+            localStorage.setItem('isMenuOpen', JSON.stringify(this.isMenuOpen));
+            this.updateMenuClass();
         }
-      }
-      
-      updateMenuClass() {
+    }
+
+    updateMenuClass() {
         const sidenav: Element | null = document.getElementById('sidenav');
         if (sidenav) {
-          if (this.isMenuOpen) {
-            sidenav.classList.remove('menuclosed');
-          } else {
-            sidenav.classList.add('menuclosed');
-          }
+            if (this.isMenuOpen) {
+                sidenav.classList.remove('menuclosed');
+            } else {
+                sidenav.classList.add('menuclosed');
+            }
         }
-      }
+    }
 
     ngOnInit() {
         const storedIsMenuOpen = localStorage.getItem('isMenuOpen');
@@ -114,13 +115,16 @@ export class HeaderComponent implements OnInit, OnDestroy {
         });
         this.subs.sink = this.service.selectLogInData$().subscribe(data => {
             if (data) {
+                localStorage.setItem('question_left', data.questions_left);
+                if (60 == 60) {
+                    this.isShowFreeTrailStart = true;
+                    return;
+                }
                 // if (data.time_left < 0) {
                 //     this.visible = true;
                 //     return;
                 // }
-                
-                localStorage.setItem('question_left', data.questions_left);
-                localStorage.setItem(KEY, `${10 * 60}`);
+                localStorage.setItem(KEY, `${data.time_left * 60}`);
             }
         });
 
@@ -188,6 +192,36 @@ export class HeaderComponent implements OnInit, OnDestroy {
                 this.setCookie('checked', 'false');
             }
         });
+    }
+
+    exploreNow() {
+        this.isShowFreeTrailStart = false;
+        localStorage.setItem(KEY, `${60 * 60}`);
+        if (localStorage.getItem(KEY)) {
+            this.config = {
+                leftTime: Number(localStorage.getItem(KEY)),
+                format: 'HH:mm:ss',
+                notify: 0,
+                prettyText: (text) => {
+                    return text
+                        .split(':')
+                        .map((v) => `<span class="item">${v}</span>`)
+                        .join('');
+                },
+            };
+        } else {
+            this.config = {
+                leftTime: 0,
+                format: 'HH:mm:ss',
+                notify: 0,
+                prettyText: (text) => {
+                    return text
+                        .split(':')
+                        .map((v) => `<span class="item">${v}</span>`)
+                        .join('');
+                },
+            };
+        }
     }
 
     ngOnDestroy() {
