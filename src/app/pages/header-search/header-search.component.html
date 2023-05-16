@@ -13,7 +13,7 @@
                     <li *ngFor="let c of searchResult" class="list-group-item">
                         <span class="pr-4">{{c.id}}) {{c.question}}</span>
                     </li>
-                    <li class="list-group-item">If you can't find your answer! <span (click)="openChat()" class="text-primary">Ask Us</span></li>
+                    <li class="list-group-item">If you can't find your answer! <span (click)="openChat()" role="button" class="text-primary">Ask Us</span></li>
                 </ul>
             </div>
         </div>
