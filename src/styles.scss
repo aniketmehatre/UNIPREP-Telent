@@ -97,30 +97,6 @@ h1, h2, h3, h4, h5 {
   color:#001631;
 }
 
-.menuclosed
-{
-  width: 65px !important;
-  transition: width 150ms ease-in-out;
-  .maintext
-  {
-    display:none;
-  }
-  #menu-items
-  {
-    .menu-item
-    {
-      .system-main__apps
-      {
-        justify-content:center;
-      }
-      .system-main__name
-      {
-        display:none;
-      }
-    }
-  }
-}
-
 .startbg
 {
   background-image: url(uniprep-assets/images/icons/startbg.jpg);
@@ -1150,18 +1126,16 @@ h1, h2, h3, h4, h5 {
     color:#fff !important;
   }
 }
-
+#sidenav {
+  width: 235px;
+}
 @media (max-width: 1499.98px)
 {
   html,body {
     font-size:12px;
   }
   #sidenav {
-    width: 210px !important;
-  }
-  footer {
-    margin-left:210px !important;
-    left:0;
+    width: 210px;
   }
 }
 
@@ -1171,11 +1145,7 @@ h1, h2, h3, h4, h5 {
     font-size:12px;
   }
   #sidenav {
-    width: 210px !important;
-  }
-  footer {
-    margin-left:210px !important;
-    left:0;
+    width: 210px;
   }
 }
 
@@ -1185,11 +1155,7 @@ h1, h2, h3, h4, h5 {
     font-size:12px;
   }
   #sidenav {
-    width: 200px !important;
-  }
-  footer {
-    margin-left:200px !important;
-    left:0;
+    width: 200px;
   }
 }
 
@@ -1199,11 +1165,7 @@ h1, h2, h3, h4, h5 {
     font-size:12px;
   }
   #sidenav {
-    width: 175px !important;
-  }
-  footer {
-    margin-left:175px;
-    left:0;
+    width: 175px;
   }
 }
 
@@ -1219,3 +1181,26 @@ h1, h2, h3, h4, h5 {
 {
 }
 
+.menuclosed
+{
+  width: 65px !important;
+  transition: width 150ms ease-in-out;
+  .maintext
+  {
+    display:none;
+  }
+  #menu-items
+  {
+    .menu-item
+    {
+      .system-main__apps
+      {
+        justify-content:center;
+      }
+      .system-main__name
+      {
+        display:none;
+      }
+    }
+  }
+}
