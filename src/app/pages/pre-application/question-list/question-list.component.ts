@@ -1,11 +1,11 @@
-import {AfterContentChecked, ChangeDetectorRef, Component, OnInit, ViewChild} from '@angular/core';
-import {Observable} from "rxjs";
-import {PreAppService} from "../pre-app.service";
-import {ListQuestion} from "../../../@Models/question-list.model";
-import {MenuItem} from "primeng/api";
-import {DataService} from 'src/app/data.service';
-import {ActivatedRoute} from "@angular/router";
-import {SubModuleList} from "../../../@Models/pre-application.model";
+import { AfterContentChecked, ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
+import { Observable } from "rxjs";
+import { PreAppService } from "../pre-app.service";
+import { ListQuestion } from "../../../@Models/question-list.model";
+import { MenuItem } from "primeng/api";
+import { DataService } from 'src/app/data.service';
+import { ActivatedRoute } from "@angular/router";
+import { SubModuleList } from "../../../@Models/pre-application.model";
 
 @Component({
     selector: 'uni-question-list',
@@ -38,7 +38,7 @@ export class QuestionListComponent implements OnInit, AfterContentChecked {
     countryId: any;
 
     constructor(private preAppService: PreAppService, private changeDetector: ChangeDetectorRef,
-                private dataService: DataService, private route: ActivatedRoute) {
+        private dataService: DataService, private route: ActivatedRoute) {
     }
 
     ngAfterContentChecked(): void {
@@ -54,7 +54,7 @@ export class QuestionListComponent implements OnInit, AfterContentChecked {
         this.getSubmoduleName(this.countryId);
 
         this.dataService.currentMessage.subscribe(message => this.message = message)
-        this.breadCrumb = [{label: 'Pre Application'}, {label: this.moduleName}, {label: 'Question'}];
+        this.breadCrumb = [{ label: 'Pre Application' }, { label: this.moduleName }, { label: 'Question' }];
 
         this.responsiveOptions = [
             {
@@ -100,7 +100,7 @@ export class QuestionListComponent implements OnInit, AfterContentChecked {
         });
         this.selectedQuestion = id - 1;
         this.positionNumber = id;
-        this.breadCrumb = [{label: 'Pre Application'}, {label: this.moduleName}, {label: `Question ${id}`}];
+        this.breadCrumb = [{ label: 'Pre Application' }, { label: this.moduleName }, { label: `Question ${id}` }];
         this.isQuestionAnswerVisible = true;
 
     }
@@ -119,7 +119,7 @@ export class QuestionListComponent implements OnInit, AfterContentChecked {
             }
         });
         this.positionNumber = pageNum + 1;
-        this.breadCrumb = [{label: 'Pre Application'}, {label: this.moduleName}, {label: `Question ${pageNum + 1}`}];
+        this.breadCrumb = [{ label: 'Pre Application' }, { label: this.moduleName }, { label: `Question ${pageNum + 1}` }];
     }
 
     clickPrevious(carousel: any, event: any) {
@@ -200,15 +200,7 @@ export class QuestionListComponent implements OnInit, AfterContentChecked {
     }
 
     onClickRecommendedLinks(data: any) {
-        console.log(data);
-        
         this.isRecommendedLinksVisible = true;
-        // this.data.filter((res: any) => {
-        //     if (res.id == this.selectedQuestion) {
-        //         console.log('res', res)
-        //         this.refLink = res.reflink
-        //     }
-        // })
     }
 
     onClickAsk() {
@@ -220,19 +212,29 @@ export class QuestionListComponent implements OnInit, AfterContentChecked {
     }
 
     // popup video prev
-    clickPreviousVideoPopup(data: any){
+    clickPreviousVideoPopup(data: any) {
 
     }
 
-     // popup video next
-    clickNextVideoPopup(data: any){
+    // popup video next
+    clickNextVideoPopup(data: any) {
 
     }
 
-    clickPreviousRefPopup(data: any){
+    clickPreviousRefPopup(data: any) {
+        if (this.selectedRefLink <= 0) {
+            return;
+        }
+        this.selectedRefLink = this.selectedRefLink - 1;
 
+        this.carouselPopupRefElm.navBackward(event, this.selectedRefLink)
     }
-    clickNextRefPopup(data: any){
+    clickNextRefPopup(data: any) {
+        if (this.selectedRefLink > this.refLink.length - 1) {
+            return;
+        }
+        this.selectedRefLink += 1;
 
+        this.carouselPopupRefElm.navForward(event, this.selectedRefLink)
     }
 }

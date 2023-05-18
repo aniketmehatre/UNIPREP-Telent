@@ -4,7 +4,7 @@
             <div class="col-12 md:col-4">
                 <div class="p-inputgroup">
                     <div class="search-icon"><i class="fa-solid fa-magnifying-glass"></i></div>
-                    <input #searchInput (input)="onSearchChange(searchInput.value)" pInputText placeholder="ENTER YOUR KEY WORDS HERE"
+                    <input #searchInput (keyup.enter)="searchKeyWord(searchInput)" (input)="onSearchChange(searchInput.value)" pInputText placeholder="ENTER YOUR KEY WORDS HERE"
                            type="text">
                     <button (click)="searchKeyWord(searchInput)" class="btn-primary" label="Search" pButton pRipple
                             type="button"></button>
@@ -13,7 +13,7 @@
                     <li *ngFor="let c of searchResult" class="list-group-item">
                         <span class="pr-4">{{c.id}}) {{c.question}}</span>
                     </li>
-                    <li class="list-group-item">If you can't find your answer! <span (click)="openChat()" role="button" class="text-primary">Ask Us</span></li>
+                    <li class="list-group-item text-center"><strong><h5>If you can't find your answer! <span (click)="openChat()" role="button" class="text-primary">Ask Us</span></h5></strong></li>
                 </ul>
             </div>
         </div>

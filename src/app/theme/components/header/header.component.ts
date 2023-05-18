@@ -155,6 +155,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
         }
 
         this.subs.sink = this.service.getMe().subscribe(data => {
+            console.log('user data', data.userdetails)
             this.userName = data.userdetails[0].name.toString();
             this.firstChar = this.userName.charAt(0);
         });
