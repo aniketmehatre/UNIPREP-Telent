@@ -12,11 +12,11 @@
                             type="button"></button>
                 </div>
                 <ul *ngIf="isSearchResultFound" class="list-group list-group-flush shadow-lg">
-                    <li *ngFor="let c of searchResult" class="list-group-item" (click)="gerSelectedQuestion(c)">
+                    <li *ngFor="let c of searchResult" class="list-group-item" role="button" (click)="gerSelectedQuestion(c)">
                         <span class="pr-4">{{c.id}}) {{c.question}}</span>
                     </li>
-                    <li class="list-group-item text-center"><strong><h5>If you can't find your answer! <span
-                            (click)="openChat()" role="button" class="text-primary">Ask Us</span></h5></strong></li>
+                    <li class="list-group-item text-center"><h5>If you can't find your answer! 
+                        <span (click)="openChat()" role="button" class="text-primary font-primarycolor">Ask Us</span></h5></li>
                 </ul>
             </div>
         </div>
@@ -31,6 +31,7 @@
     <div class="container-fluid">
         <div class="row mb-3">
             <div class="col-md-12 mb-2">
+                <p class="text-center text-muted fw-semibold mb-0">Reference</p>
                 <p-breadcrumb [model]="breadCrumb" class="max-w-full"></p-breadcrumb>
             </div>
             <div class="col-md-2">
@@ -45,16 +46,16 @@
             </div>
             <div class="col-md-2 gap-2 d-flex">
                 <button (click)="goToHome()" class="btn w-100 btn-primary homecardbtn m-0 px-2 py-2">
-                    <i class="fa-solid h5 fa-house"></i>
+                    <i class="fa-solid fw-bold h5 fa-house"></i>
                     <p class="mb-0">Home</p>
                 </button>
                 <button class="btn w-100 btn-primary homecardbtn m-0 px-2 py-2">
-                    <i class="fa-solid h5 fa-file-contract"></i>
+                    <i class="fa-solid fw-bold h5 fa-file-contract"></i>
                     <p class="mb-0">Report</p>
                 </button>
                 <button (click)="openChat()" class="btn w-100 btn-primary homecardbtn m-0 px-2 py-2">
-                    <i class="pi pi-comment"></i>
-                    <p class="mb-0">Chart</p>
+                    <i class="fa-solid fw-bold h5 fa-comment"></i>
+                    <p class="mb-0">Chat</p>
                 </button>
             </div>
         </div>
