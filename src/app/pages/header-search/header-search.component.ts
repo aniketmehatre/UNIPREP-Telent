@@ -83,7 +83,6 @@ export class HeaderSearchComponent implements OnInit, OnDestroy {
     gerSelectedQuestion(selectedQuestionData: any) {
         this.isQuestionAnswerVisible = true;
         this.getModuleName(selectedQuestionData)
-
     }
 
     getModuleName(selectedQuestionModule: any) {
@@ -125,10 +124,13 @@ export class HeaderSearchComponent implements OnInit, OnDestroy {
     }
 
     clickPrevious(carousel: any, event: any) {
+        console.log(carousel)
         if (this.selectedQuestion <= 0) {
             return;
         }
         this.selectedQuestion = this.selectedQuestion - 1;
+        let data = this.searchResult[this.selectedQuestion]
+        this.getModuleName(data);
         carousel.navBackward(event, this.selectedQuestion)
     }
 
@@ -137,16 +139,16 @@ export class HeaderSearchComponent implements OnInit, OnDestroy {
             return;
         }
         this.selectedQuestion = this.selectedQuestion + 1;
+        let data = this.searchResult[this.selectedQuestion];
+        this.getModuleName(data);
         carousel.navForward(event, this.selectedQuestion)
     }
 
-    goToHome(event: any) {
-
+    goToHome() {
+        this.isQuestionAnswerVisible = false;
     }
 
-    setPage(event: any) {
 
-    }
 
     onClickRecommendedVideo() {
 

@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA  } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -7,7 +7,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { StoreModule } from '@ngrx/store';
 import { pagesReducer } from './pages/store/pages.reducer';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
-import { environment } from '../environments/environment';
+import { environment } from '@env/environment';
 import { AuthModule } from './Auth/auth.module';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { DatePipe } from '@angular/common';
@@ -50,6 +50,7 @@ export function tokenGetter() {
   declarations: [
     AppComponent, ModalComponent, ScrollToBottomDirective
   ],
+    schemas: [ CUSTOM_ELEMENTS_SCHEMA],
     imports: [
         BrowserModule,
         BrowserAnimationsModule,

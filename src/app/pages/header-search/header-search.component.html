@@ -44,7 +44,7 @@
                         class="text-green mx-3 h4 fa-solid mb-0 fa-circle-chevron-right"></i></a>
             </div>
             <div class="col-md-2 gap-2 d-flex">
-                <button (click)="goToHome($event)" class="btn w-100 btn-primary homecardbtn m-0 px-2 py-2">
+                <button (click)="goToHome()" class="btn w-100 btn-primary homecardbtn m-0 px-2 py-2">
                     <i class="fa-solid h5 fa-house"></i>
                     <p class="mb-0">Home</p>
                 </button>
@@ -52,14 +52,14 @@
                     <i class="fa-solid h5 fa-file-contract"></i>
                     <p class="mb-0">Report</p>
                 </button>
-                <button (click)="onClickAsk()" class="btn w-100 btn-primary homecardbtn m-0 px-2 py-2">
+                <button (click)="openChat()" class="btn w-100 btn-primary homecardbtn m-0 px-2 py-2">
                     <i class="pi pi-comment"></i>
                     <p class="mb-0">Chart</p>
                 </button>
             </div>
         </div>
-        <p-carousel #carousel (onPage)="setPage($event)" [circular]="true" [numScroll]="1" [numVisible]="1"
-                    [page]="selectedQuestion - 1" [responsiveOptions]="responsiveOptions" [value]="searchResult"
+        <p-carousel #carousel  [circular]="true" [numScroll]="1" [numVisible]="1"
+                    [page]="selectedQuestion" [responsiveOptions]="responsiveOptions" [value]="searchResult"
                     class="answersection">
             <ng-template [ngForOf]="searchResult" let-i="index" let-val ngFor pTemplate="item">
                 <div class="row text-center">

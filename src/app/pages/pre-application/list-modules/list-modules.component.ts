@@ -1,10 +1,10 @@
-import { Component, OnInit } from '@angular/core';
-import { PreAppService } from "../pre-app.service";
-import { Observable } from "rxjs";
-import { SubModuleList } from "../../../@Models/pre-application.model";
-import { Router } from "@angular/router";
-import { MenuItem } from "primeng/api";
-import { DataService } from "../../../data.service";
+import {Component, OnInit} from '@angular/core';
+import {PreAppService} from "../pre-app.service";
+import {Observable} from "rxjs";
+import {SubModuleList} from "../../../@Models/pre-application.model";
+import {Router} from "@angular/router";
+import {MenuItem} from "primeng/api";
+import {DataService} from "../../../data.service";
 
 @Component({
     selector: 'uni-list-modules',
@@ -62,11 +62,11 @@ export class ListModulesComponent implements OnInit {
             id: 2,
             country_id: 2,
             module_id: 1,
-            question: "test 2",
-            option1: "test",
-            option2: "test",
-            option3: "test",
-            option4: "test",
+            question: "a sdf asdf asdf asdf asdf",
+            option1: "what is ",
+            option2: "test asdf",
+            option3: "wer df",
+            option4: "agffgasdf",
             answer: 2,
             status: 1,
             created_at: "2023-03-06T13:42:39.000000Z",
@@ -76,8 +76,8 @@ export class ListModulesComponent implements OnInit {
             id: 3,
             country_id: 2,
             module_id: 1,
-            question: "test 3",
-            option1: "test",
+            question: "test w ebsdgwehggsh",
+            option1: "test4vert",
             option2: "test",
             option3: "test",
             option4: "test",
@@ -90,11 +90,11 @@ export class ListModulesComponent implements OnInit {
             id: 4,
             country_id: 2,
             module_id: 1,
-            question: "test 4",
-            option1: "test",
-            option2: "test",
-            option3: "test",
-            option4: "test",
+            question: "test wert wetg wer",
+            option1: "test asdf",
+            option2: "testasdf",
+            option3: "testgh",
+            option4: "testwet",
             answer: 2,
             status: 1,
             created_at: "2023-03-06T13:42:39.000000Z",
@@ -104,73 +104,17 @@ export class ListModulesComponent implements OnInit {
             id: 5,
             country_id: 2,
             module_id: 1,
-            question: "test 5",
-            option1: "test",
-            option2: "test",
-            option3: "test",
-            option4: "test",
+            question: "test  mryjrtyh ethge",
+            option1: "ghj",
+            option2: "tetrtyust",
+            option3: "ghj f jgf",
+            option4: "djh dgh",
             answer: 2,
             status: 1,
             created_at: "2023-03-06T13:42:39.000000Z",
             updated_at: "2023-03-06T13:42:39.000000Z",
             submodule_id: 1
-        }, {
-            id: 6,
-            country_id: 2,
-            module_id: 1,
-            question: "test 6",
-            option1: "test",
-            option2: "test",
-            option3: "test",
-            option4: "test",
-            answer: 3,
-            status: 1,
-            created_at: "2023-03-06T13:42:39.000000Z",
-            updated_at: "2023-03-06T13:42:39.000000Z",
-            submodule_id: 1
-        }, {
-            id: 7,
-            country_id: 2,
-            module_id: 1,
-            question: "test 7",
-            option1: "test",
-            option2: "test",
-            option3: "test",
-            option4: "test",
-            answer: 3,
-            status: 1,
-            created_at: "2023-03-06T13:42:39.000000Z",
-            updated_at: "2023-03-06T13:42:39.000000Z",
-            submodule_id: 1
-        }, {
-            id: 8,
-            country_id: 2,
-            module_id: 1,
-            question: "test4",
-            option1: "test",
-            option2: "test",
-            option3: "test",
-            option4: "test",
-            answer: 2,
-            status: 1,
-            created_at: "2023-03-06T13:42:39.000000Z",
-            updated_at: "2023-03-06T13:42:39.000000Z",
-            submodule_id: 1
-        }, {
-            id: 9,
-            country_id: 2,
-            module_id: 1,
-            question: "test5",
-            option1: "test",
-            option2: "test",
-            option3: "test",
-            option4: "test",
-            answer: 2,
-            status: 1,
-            created_at: "2023-03-06T13:42:39.000000Z",
-            updated_at: "2023-03-06T13:42:39.000000Z",
-            submodule_id: 1
-        }];
+        }, ];
         this.subModules$ = this.preAppService.subModuleList$();
         let countryId = Number(localStorage.getItem('countryId'));
         this.preAppService.loadSubModules(countryId);
@@ -178,7 +122,7 @@ export class ListModulesComponent implements OnInit {
         this.dataService.countryNameSource.subscribe(countryName => {
             cName = countryName;
         });
-        this.breadCrumb = [{ label: cName }, { label: `Quiz ${this.positionNumber + 1}` }];
+        this.breadCrumb = [{label: cName}, {label: `Quiz ${this.positionNumber + 1}`}];
     }
 
     clickPreviousQuiz(carouselQuiz: any, event: any) {
@@ -186,12 +130,12 @@ export class ListModulesComponent implements OnInit {
             return;
         }
         this.selectedQuiz = this.selectedQuiz - 1;
-        carouselQuiz.navBackward(event, this.selectedQuiz)
         let cName = "";
         this.dataService.countryNameSource.subscribe(countryName => {
             cName = countryName;
         });
-        this.breadCrumb = [{ label: cName }, { label: `Quiz ${this.selectedQuiz}` }];
+        this.breadCrumb = [{label: cName}, {label: `Quiz ${this.selectedQuiz}`}];
+        carouselQuiz.navBackward(event, this.selectedQuiz)
     }
 
     clickNextQuiz(carouselQuiz: any, event: any) {
@@ -199,12 +143,12 @@ export class ListModulesComponent implements OnInit {
             return;
         }
         this.selectedQuiz += 1;
-        carouselQuiz.navForward(event, this.selectedQuiz);
         let cName = "";
         this.dataService.countryNameSource.subscribe(countryName => {
             cName = countryName;
         });
-        this.breadCrumb = [{ label: cName }, { label: `Quiz ${this.selectedQuiz}` }];
+        this.breadCrumb = [{label: cName}, {label: `Quiz ${this.selectedQuiz}`}];
+        carouselQuiz.navForward(event, this.selectedQuiz);
     }
 
     clickSubmitQuiz(event: any) {
@@ -248,13 +192,17 @@ export class ListModulesComponent implements OnInit {
     selectAnswer(selectedOption: any, data: any) {
         console.log(selectedOption, data);
     }
+
     selectAnswer1(selectedOption: any, data: any) {
         console.log(selectedOption, data);
     }
+
     selectAnswer2(selectedOption: any, data: any) {
         console.log(selectedOption, data);
     }
+
     selectAnswer3(selectedOption: any, data: any) {
         console.log(selectedOption, data);
     }
+
 }
