@@ -160,9 +160,10 @@
                 <div class="container">
                     <div class="row mb-5">
                         <div class="col-md-12">
-                            <h3 class="mb-3" tooltipZIndex="auto"  tooltipPosition="top"
-                            pTooltip="Complete the reading for all modules to get the certificate.">Continue Reading
-                             <i class="questiontooltip fa-solid fa-circle-question"></i></h3>
+                            <h3 class="mb-3" tooltipZIndex="auto" tooltipPosition="top"
+                                pTooltip="Complete the reading for all modules to get the certificate.">Continue Reading
+                                <i class="questiontooltip fa-solid fa-circle-question"></i>
+                            </h3>
                             <div class="row gap-2 d-flex">
                                 <div *ngFor="let readPro of readingProgressings" class="col px-0">
                                     <div class="card continuecard">
@@ -273,3 +274,13 @@
         </div>
     </div>
 </div>
+<p-dialog [(visible)]="isVideoVisible" [modal]="true" [style]="{ width: '30vw' }" header="Header">
+    <ng-template pTemplate="header">
+        <span class="text-xl font-bold">Recommended Videos</span>
+    </ng-template>
+    <div class="container-fluid">
+        <p>
+            Test video
+        </p>
+    </div>
+</p-dialog>

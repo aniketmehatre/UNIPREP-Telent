@@ -22,6 +22,7 @@ export class DashboardComponent implements OnInit {
     continueReading = "none";
     continueQuiz = "none";
     isSearchResultFound: boolean = false;
+    isVideoVisible: boolean = false;
 
     searchResult: any;
     university: any[] = [

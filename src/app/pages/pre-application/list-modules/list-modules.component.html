@@ -58,7 +58,7 @@
             </div>
             <div class="col-md-6">
                 <p-carousel #carouselQuiz (onPage)="setPage($event)" [circular]="true" [numScroll]="1" [numVisible]="1"
-                            [page]="selectedQuiz -1"
+                            [page]="selectedQuiz"
                             [responsiveOptions]="responsiveOptions"
                             [value]="quizData" class="text-center">
                     <ng-template [ngForOf]="quizData" let-i="index" let-val ngFor pTemplate="item">
@@ -69,15 +69,15 @@
                                     </div>
                                     <div class="card-body text-start">
                                         <h3 class="font-secondarycolor text-center pt-2 pb-3 text-capitalize">{{val.question}}</h3>
-                                        <div class="py-2" (click)="selectAnswer(val.option1, val)">
-                                            <input type="radio" class="btn-check" name="options" id="{{val.option1}}"
+                                        <div class="py-2" >
+                                            <input type="radio" (click)="selectAnswer(val.option1, val)" class="btn-check" name="options" id="{{val.option1}}"
                                                    autocomplete="off">
                                             <label class="btn btn-outline-primary text-start answerbtn w-100 m-0"
                                                    for="{{val.option1}}"><h5 class="py-2 mb-0">{{val.option1}}</h5>
                                             </label>
                                         </div>
                                         <div class="py-2">
-                                            <input type="radio" class="btn-check" name="options" id="{{val.option2}}"
+                                            <input type="radio" (click)="selectAnswer(val.option2, val)" class="btn-check" name="options" id="{{val.option2}}"
                                                    autocomplete="off">
                                             <label class="btn btn-outline-primary text-start answerbtn w-100 m-0"
                                                    for="{{val.option2}}"><h5 class="py-2 mb-0">{{val.option2}}</h5>

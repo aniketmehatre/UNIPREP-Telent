@@ -37,3 +37,20 @@ btn-primary {
   border-radius: 10px;
   border: 1px solid #9bc329;
 }
+.answercard {
+  background-color: #daeca5;
+  border: 2px solid #9bc329;
+  max-height: 60vh;
+  overflow-y: auto;
+}
+
+:host ::ng-deep p-carousel {
+  //On later realease of PrimeNG, this can be done programmatically with [showIndicators | showNavigators]="false"
+  .p-carousel-indicators {
+    display: none !important;
+  }
+
+  .p-carousel-next, .p-carousel-prev {
+    display: none !important;
+  }
+}

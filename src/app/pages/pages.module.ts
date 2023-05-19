@@ -28,6 +28,9 @@ import {CalendarModule} from "primeng/calendar";
 import {InputSwitchModule} from "primeng/inputswitch";
 import {MultiSelectModule} from "primeng/multiselect";
 import { QuizComponent } from './quiz/quiz.component';
+import { CarouselModule } from 'primeng/carousel';
+import { DialogModule } from 'primeng/dialog';
+import { BreadcrumbModule } from 'primeng/breadcrumb';
 
 @NgModule({
     declarations: [
@@ -63,7 +66,10 @@ import { QuizComponent } from './quiz/quiz.component';
         DropdownModule,
         CalendarModule,
         InputSwitchModule,
-        MultiSelectModule
+        MultiSelectModule,
+        CarouselModule,
+        DialogModule,
+        BreadcrumbModule 
     ]
 })
 export class PagesModule {

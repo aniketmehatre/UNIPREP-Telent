@@ -1,11 +1,10 @@
-import {Component, OnInit} from '@angular/core';
-import {PreAppService} from "../pre-app.service";
-import {Observable} from "rxjs";
-import {SubModuleList} from "../../../@Models/pre-application.model";
-import {Router} from "@angular/router";
-import {MenuItem} from "primeng/api";
-import {selectOptions} from "../../sop/store/actions";
-import {DataService} from "../../../data.service";
+import { Component, OnInit } from '@angular/core';
+import { PreAppService } from "../pre-app.service";
+import { Observable } from "rxjs";
+import { SubModuleList } from "../../../@Models/pre-application.model";
+import { Router } from "@angular/router";
+import { MenuItem } from "primeng/api";
+import { DataService } from "../../../data.service";
 
 @Component({
     selector: 'uni-list-modules',
@@ -19,7 +18,7 @@ export class ListModulesComponent implements OnInit {
     isStartQuiz: boolean = false;
     isQuizSubmit: boolean = false;
     responsiveOptions: any[] = [];
-    quizData: any [] = [];
+    quizData: any[] = [];
     selectedQuiz: number = 1;
     positionNumber: number = 0;
     breadCrumb: MenuItem[] = [];
@@ -179,7 +178,7 @@ export class ListModulesComponent implements OnInit {
         this.dataService.countryNameSource.subscribe(countryName => {
             cName = countryName;
         });
-        this.breadCrumb = [{label: cName}, {label: `Quiz ${this.positionNumber + 1}`}];
+        this.breadCrumb = [{ label: cName }, { label: `Quiz ${this.positionNumber + 1}` }];
     }
 
     clickPreviousQuiz(carouselQuiz: any, event: any) {
@@ -192,7 +191,7 @@ export class ListModulesComponent implements OnInit {
         this.dataService.countryNameSource.subscribe(countryName => {
             cName = countryName;
         });
-        this.breadCrumb = [{label: cName}, {label: `Quiz ${this.selectedQuiz}`}];
+        this.breadCrumb = [{ label: cName }, { label: `Quiz ${this.selectedQuiz}` }];
     }
 
     clickNextQuiz(carouselQuiz: any, event: any) {
@@ -205,7 +204,7 @@ export class ListModulesComponent implements OnInit {
         this.dataService.countryNameSource.subscribe(countryName => {
             cName = countryName;
         });
-        this.breadCrumb = [{label: cName}, {label: `Quiz ${this.selectedQuiz}`}];
+        this.breadCrumb = [{ label: cName }, { label: `Quiz ${this.selectedQuiz}` }];
     }
 
     clickSubmitQuiz(event: any) {
@@ -246,7 +245,16 @@ export class ListModulesComponent implements OnInit {
 
     }
 
-    selectAnswer(selectedOption: any, data: any){
+    selectAnswer(selectedOption: any, data: any) {
+        console.log(selectedOption, data);
+    }
+    selectAnswer1(selectedOption: any, data: any) {
+        console.log(selectedOption, data);
+    }
+    selectAnswer2(selectedOption: any, data: any) {
+        console.log(selectedOption, data);
+    }
+    selectAnswer3(selectedOption: any, data: any) {
         console.log(selectedOption, data);
     }
 }
