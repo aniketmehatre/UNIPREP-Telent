@@ -8,7 +8,7 @@
                 </h5>
                 <div class="row">
                     <div class="col-md-11 text-end">
-                       
+
                     </div>
                     <div class="col-md-1 gap-2 d-flex text-end">
                         <button (click)="startQuiz()" class="btn w-100 btn-secondary quizCard m-0 px-2 py-2">
@@ -22,7 +22,8 @@
                         <div class="row w-100 m-0 justify-content-center">
                             <div (click)="onSubModuleClick(sub.id)" class="card subjectcard" role="button">
                                 <div class="card-body px-0">
-                                    <img alt="{{sub.submodule_name}}" class="selectimage" src="{{sub.icon}}"  width="{{ selectedSubModule == sub.id ? '100px' : '100px'}}">
+                                    <img alt="{{sub.submodule_name}}" class="selectimage" src="{{sub.icon}}"
+                                         width="{{ selectedSubModule == sub.id ? '100px' : '100px'}}">
                                     <h5 class="text-center text-capitalize subjecttitle">{{sub.submodule_name}}</h5>
                                     <p class="mb-0">{{sub.questioncount}} Question Answered</p>
                                 </div>
@@ -58,40 +59,48 @@
             </div>
             <div class="col-md-6">
                 <p-carousel #carouselQuiz (onPage)="setPage($event)" [circular]="true" [numScroll]="1" [numVisible]="1"
-                            [page]="selectedQuiz"
+                            [page]="selectedQuiz -1"
                             [responsiveOptions]="responsiveOptions"
                             [value]="quizData" class="text-center">
                     <ng-template [ngForOf]="quizData" let-i="index" let-val ngFor pTemplate="item">
                         <div class="row text-center">
                             <div class="col-12 mt-3 mb-4">
                                 <div class="card qacard">
-                                    <div class="select-title margin-minus text-center"><h5>Question {{val.id}}</h5>
+                                    <div class="select-title margin-minus text-center"><h5>Question </h5>
                                     </div>
                                     <div class="card-body text-start">
                                         <h3 class="font-secondarycolor text-center pt-2 pb-3 text-capitalize">{{val.question}}</h3>
-                                        <div class="py-2" >
-                                            <input type="radio" (click)="selectAnswer(val.option1, val)" class="btn-check" name="options" id="{{val.option1}}"
+                                        <div class="py-2">
+                                            <input type="radio" (click)="selectAnswer(val.option1, val)"
+                                                   value="{{val.option1}}"
+                                                   class="btn-check" name="options"
                                                    autocomplete="off">
                                             <label class="btn btn-outline-primary text-start answerbtn w-100 m-0"
                                                    for="{{val.option1}}"><h5 class="py-2 mb-0">{{val.option1}}</h5>
                                             </label>
                                         </div>
                                         <div class="py-2">
-                                            <input type="radio" (click)="selectAnswer(val.option2, val)" class="btn-check" name="options" id="{{val.option2}}"
+                                            <input type="radio" (click)="selectAnswer(val.option2, val)"
+                                                   value="{{val.option2}}"
+                                                   class="btn-check" name="options"
                                                    autocomplete="off">
                                             <label class="btn btn-outline-primary text-start answerbtn w-100 m-0"
                                                    for="{{val.option2}}"><h5 class="py-2 mb-0">{{val.option2}}</h5>
                                             </label>
                                         </div>
-                                        <div class="py-2">
-                                            <input type="radio" class="btn-check" name="options" id="{{val.option3}}"
+                                        <div class="py-2" (click)="selectAnswer(val.option3, val)">
+                                            <input type="radio"
+                                                   value="{{val.option3}}"
+                                                   class="btn-check" name="options"
                                                    autocomplete="off">
                                             <label class="btn btn-outline-primary text-start answerbtn w-100 m-0"
                                                    for="{{val.option3}}"><h5 class="py-2 mb-0">{{val.option3}}</h5>
                                             </label>
                                         </div>
-                                        <div class="py-2">
-                                            <input type="radio" class="btn-check" name="options" id="{{val.option4}}"
+                                        <div class="py-2" (click)="selectAnswer(val.option4, val)">
+                                            <input type="radio"
+                                                   value="{{val.option4}}"
+                                                   class="btn-check" name="options"
                                                    autocomplete="off">
                                             <label class="btn btn-outline-primary text-start answerbtn w-100 m-0"
                                                    for="{{val.option4}}"><h5 class="py-2 mb-0">{{val.option4}}</h5>

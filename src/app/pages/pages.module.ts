@@ -27,10 +27,10 @@ import {DropdownModule} from "primeng/dropdown";
 import {CalendarModule} from "primeng/calendar";
 import {InputSwitchModule} from "primeng/inputswitch";
 import {MultiSelectModule} from "primeng/multiselect";
-import { QuizComponent } from './quiz/quiz.component';
 import { CarouselModule } from 'primeng/carousel';
 import { DialogModule } from 'primeng/dialog';
 import { BreadcrumbModule } from 'primeng/breadcrumb';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
 @NgModule({
     declarations: [
@@ -45,7 +45,6 @@ import { BreadcrumbModule } from 'primeng/breadcrumb';
         SubcriptionManagerComponent,
         FooterStatusBoxComponent,
         HeaderSearchComponent,
-        QuizComponent,
     ],
     exports: [
         FooterStatusBoxComponent,
@@ -65,12 +64,15 @@ import { BreadcrumbModule } from 'primeng/breadcrumb';
         ReactiveFormsModule,
         DropdownModule,
         CalendarModule,
-        InputSwitchModule,
         MultiSelectModule,
         CarouselModule,
         DialogModule,
-        BreadcrumbModule 
-    ]
+        BreadcrumbModule,
+        InputSwitchModule
+    ],
+    schemas: [
+        CUSTOM_ELEMENTS_SCHEMA
+    ],
 })
 export class PagesModule {
 }
