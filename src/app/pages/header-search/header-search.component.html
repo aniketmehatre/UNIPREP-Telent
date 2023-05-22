@@ -13,7 +13,14 @@
                 </div>
                 <ul *ngIf="isSearchResultFound" class="list-group list-group-flush shadow-lg">
                     <li *ngFor="let c of searchResult" class="list-group-item" (click)="gerSelectedQuestion(c)">
-                        <span class="pr-4">{{c.id}}) {{c.question}}</span>
+                        <div class="row">
+                            <div class="col-md-9">
+                                <span class="pr-4">{{c.id}}) {{c.question}}</span>
+                            </div>
+                            <div class="col-md-3">
+                                {{c.module_name}} -> {{c.submodule_name}}
+                            </div>
+                        </div>
                     </li>
                     <li class="list-group-item text-center"><strong><h5>If you can't find your answer! <span
                             (click)="openChat()" role="button" class="text-primary">Ask Us</span></h5></strong></li>

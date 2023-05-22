@@ -1,11 +1,11 @@
-import { AfterContentChecked, ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
-import { Observable } from "rxjs";
-import { PreAppService } from "../pre-app.service";
-import { ListQuestion } from "../../../@Models/question-list.model";
-import { MenuItem } from "primeng/api";
-import { DataService } from 'src/app/data.service';
-import { ActivatedRoute } from "@angular/router";
-import { SubModuleList } from "../../../@Models/pre-application.model";
+import {AfterContentChecked, ChangeDetectorRef, Component, OnInit, ViewChild} from '@angular/core';
+import {Observable} from "rxjs";
+import {PreAppService} from "../pre-app.service";
+import {ListQuestion} from "../../../@Models/question-list.model";
+import {MenuItem} from "primeng/api";
+import {DataService} from 'src/app/data.service';
+import {ActivatedRoute} from "@angular/router";
+import {SubModuleList} from "../../../@Models/pre-application.model";
 
 @Component({
     selector: 'uni-question-list',
@@ -38,7 +38,7 @@ export class QuestionListComponent implements OnInit, AfterContentChecked {
     countryId: any;
 
     constructor(private preAppService: PreAppService, private changeDetector: ChangeDetectorRef,
-        private dataService: DataService, private route: ActivatedRoute) {
+                private dataService: DataService, private route: ActivatedRoute) {
     }
 
     ngAfterContentChecked(): void {
@@ -54,7 +54,7 @@ export class QuestionListComponent implements OnInit, AfterContentChecked {
         this.getSubmoduleName(this.countryId);
 
         this.dataService.currentMessage.subscribe(message => this.message = message)
-        this.breadCrumb = [{ label: 'Pre Application' }, { label: this.moduleName }, { label: 'Question' }];
+        this.breadCrumb = [{label: 'Pre Application'}, {label: this.moduleName}, {label: 'Question'}];
 
         this.responsiveOptions = [
             {
@@ -98,11 +98,12 @@ export class QuestionListComponent implements OnInit, AfterContentChecked {
         this.listQuestion$.subscribe(event => {
             this.data = event
         });
-        this.selectedQuestion = id - 1;
-        this.positionNumber = id;
-        this.breadCrumb = [{ label: 'Pre Application' }, { label: this.moduleName }, { label: `Question ${id}` }];
+        console.log(id, this.data);
+        let index = this.data.findIndex((x: any) => x.id === id);
+        this.selectedQuestion = index;
+        this.positionNumber = index;
+        this.breadCrumb = [{label: 'Pre Application'}, {label: this.moduleName}, {label: `Question ${index + 1}`}];
         this.isQuestionAnswerVisible = true;
-
     }
 
     setPage(page: any) {
@@ -119,7 +120,7 @@ export class QuestionListComponent implements OnInit, AfterContentChecked {
             }
         });
         this.positionNumber = pageNum + 1;
-        this.breadCrumb = [{ label: 'Pre Application' }, { label: this.moduleName }, { label: `Question ${pageNum + 1}` }];
+        this.breadCrumb = [{label: 'Pre Application'}, {label: this.moduleName}, {label: `Question ${pageNum + 1}`}];
     }
 
     clickPrevious(carousel: any, event: any) {
@@ -137,7 +138,7 @@ export class QuestionListComponent implements OnInit, AfterContentChecked {
     }
 
     clickNext(carousel: any, event: any) {
-        if (this.selectedQuestion > this.data.length) {
+        if (this.selectedQuestion >= this.data.length - 1) {
             return;
         }
         this.selectedQuestion = this.selectedQuestion + 1;
@@ -229,6 +230,7 @@ export class QuestionListComponent implements OnInit, AfterContentChecked {
 
         this.carouselPopupRefElm.navBackward(event, this.selectedRefLink)
     }
+
     clickNextRefPopup(data: any) {
         if (this.selectedRefLink > this.refLink.length - 1) {
             return;
