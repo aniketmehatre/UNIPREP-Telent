@@ -43,7 +43,7 @@
                 <a role="button" (click)="clickPrevious(carousel, $event)"><i
                         class="text-green h4 mx-3 mb-0 fa-solid fa-circle-chevron-left"></i></a>
                 <h5 class="mb-0">Question
-                    Number {{positionNumber}}</h5>
+                    Number {{selectedQuestion + 1}}</h5>
                 <a role="button" (click)="clickNext(carousel, $event)"><i
                         class="text-green mx-3 h4 fa-solid mb-0 fa-circle-chevron-right"></i></a>
             </div>
@@ -90,7 +90,7 @@
                         <div class="col-md-10">
                             <p-carousel #carouselVideoElm [circular]="false" [showNavigators]="false"
                                 [showIndicators]="false" [numScroll]="1" [numVisible]="3" [circular]="true"
-                                [page]="selectedVideo - 1" [responsiveOptions]="responsiveOptions" [value]="videoLinks"
+                                [page]="selectedVideo" [responsiveOptions]="responsiveOptions" [value]="videoLinks"
                                 *ngIf="videoLinks">
                                 <ng-template let-item pTemplate="item">
                                     <div class="border-1 surface-border border-round m-2 text-center ">

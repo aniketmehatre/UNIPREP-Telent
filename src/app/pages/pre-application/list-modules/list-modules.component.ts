@@ -22,6 +22,8 @@ export class ListModulesComponent implements OnInit {
     selectedQuiz: number = 1;
     positionNumber: number = 0;
     breadCrumb: MenuItem[] = [];
+    answeredValue: any;
+    reviewAnswer: any [] = []
 
     constructor(private preAppService: PreAppService, private router: Router, private dataService: DataService) {
         this.responsiveOptions = [
@@ -67,7 +69,7 @@ export class ListModulesComponent implements OnInit {
             option2: "test asdf",
             option3: "wer df",
             option4: "agffgasdf",
-            answer: 2,
+            answer: 4,
             status: 1,
             created_at: "2023-03-06T13:42:39.000000Z",
             updated_at: "2023-03-06T13:42:39.000000Z",
@@ -78,10 +80,10 @@ export class ListModulesComponent implements OnInit {
             module_id: 1,
             question: "test w ebsdgwehggsh",
             option1: "test4vert",
-            option2: "test",
-            option3: "test",
-            option4: "test",
-            answer: 2,
+            option2: "test gfhg",
+            option3: "testwe rtwert",
+            option4: "testvaf",
+            answer: 1,
             status: 1,
             created_at: "2023-03-06T13:42:39.000000Z",
             updated_at: "2023-03-06T13:42:39.000000Z",
@@ -95,7 +97,7 @@ export class ListModulesComponent implements OnInit {
             option2: "testasdf",
             option3: "testgh",
             option4: "testwet",
-            answer: 2,
+            answer: 3,
             status: 1,
             created_at: "2023-03-06T13:42:39.000000Z",
             updated_at: "2023-03-06T13:42:39.000000Z",
@@ -105,7 +107,7 @@ export class ListModulesComponent implements OnInit {
             country_id: 2,
             module_id: 1,
             question: "test  mryjrtyh ethge",
-            option1: "ghj",
+            option1: "ghj sdfg",
             option2: "tetrtyust",
             option3: "ghj f jgf",
             option4: "djh dgh",
@@ -114,7 +116,13 @@ export class ListModulesComponent implements OnInit {
             created_at: "2023-03-06T13:42:39.000000Z",
             updated_at: "2023-03-06T13:42:39.000000Z",
             submodule_id: 1
-        }, ];
+        },];
+        this.quizData.map((data) => {
+            data.otp1 = data.option1 + data.id;
+            data.otp2 = data.option2 + data.id;
+            data.otp3 = data.option3 + data.id;
+            data.otp4 = data.option4 + data.id;
+        });
         this.subModules$ = this.preAppService.subModuleList$();
         let countryId = Number(localStorage.getItem('countryId'));
         this.preAppService.loadSubModules(countryId);
@@ -129,6 +137,13 @@ export class ListModulesComponent implements OnInit {
         if (this.selectedQuiz <= 1) {
             return;
         }
+        let data = this.quizData[this.selectedQuiz];
+        this.quizData.map((data) => {
+            if(data.id == this.selectedQuiz){
+                data.user_answered = this.selectedQuiz;
+            }
+        });
+        console.log(this.quizData);
         this.selectedQuiz = this.selectedQuiz - 1;
         let cName = "";
         this.dataService.countryNameSource.subscribe(countryName => {
@@ -142,7 +157,15 @@ export class ListModulesComponent implements OnInit {
         if (this.selectedQuiz > this.quizData.length - 1) {
             return;
         }
-        this.selectedQuiz += 1;
+        let data = this.quizData[this.selectedQuiz];
+        this.quizData.map((data) => {
+            if(data.id == this.selectedQuiz){
+                data.user_answered = this.selectedQuiz;
+            }
+        });
+        console.log(this.quizData);
+        this.selectedQuiz = this.selectedQuiz + 1;
+
         let cName = "";
         this.dataService.countryNameSource.subscribe(countryName => {
             cName = countryName;
