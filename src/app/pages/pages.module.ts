@@ -22,7 +22,7 @@ import {InputTextModule} from "primeng/inputtext";
 import {RippleModule} from "primeng/ripple";
 import {PreApplicationModule} from './pre-application/pre-application.module';
 import {PostAdmissionModule} from "./post-admission/post-admission.module";
-import {ReactiveFormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {DropdownModule} from "primeng/dropdown";
 import {CalendarModule} from "primeng/calendar";
 import {InputSwitchModule} from "primeng/inputswitch";
@@ -31,6 +31,7 @@ import { CarouselModule } from 'primeng/carousel';
 import { DialogModule } from 'primeng/dialog';
 import { BreadcrumbModule } from 'primeng/breadcrumb';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { QuestionCreditComponent } from './question-credit/question-credit.component';
 
 @NgModule({
     declarations: [
@@ -45,6 +46,7 @@ import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
         SubcriptionManagerComponent,
         FooterStatusBoxComponent,
         HeaderSearchComponent,
+        QuestionCreditComponent,
     ],
     exports: [
         FooterStatusBoxComponent,
@@ -68,7 +70,8 @@ import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
         CarouselModule,
         DialogModule,
         BreadcrumbModule,
-        InputSwitchModule
+        InputSwitchModule,
+        FormsModule
     ],
     schemas: [
         CUSTOM_ELEMENTS_SCHEMA

@@ -24,7 +24,7 @@ export class SopsampleContentComponent implements OnInit {
         this.router.params.subscribe((response: any) => {
             this.routerurl = "" + response?.url;
             this.sopSample.displaypdfconent(this.routerurl).subscribe((response: any) => {
-                this.pdfData = response.data;
+                this.pdfData = response.subscriptions;
 
             })
         })

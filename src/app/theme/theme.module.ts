@@ -14,12 +14,13 @@ import {DropdownModule} from "primeng/dropdown";
 import {InputTextareaModule} from "primeng/inputtextarea";
 import {OverlayPanelModule} from "primeng/overlaypanel";
 import {DialogModule} from "primeng/dialog";
+import {InputTextModule} from "primeng/inputtext";
 
 @NgModule({
   declarations: [HeaderComponent, SidenavComponent, SideMenuComponent],
     imports: [
         CommonModule, PipesModule, BreadcrumbModule,
-        AvatarModule, CountdownModule, ButtonModule, FormsModule, DropdownModule, InputTextareaModule, OverlayPanelModule, DialogModule, ReactiveFormsModule
+        AvatarModule, CountdownModule, ButtonModule, FormsModule, DropdownModule, InputTextareaModule, OverlayPanelModule, DialogModule, ReactiveFormsModule, InputTextModule
     ],
   exports: [HeaderComponent, SidenavComponent, CountdownComponent]
 })

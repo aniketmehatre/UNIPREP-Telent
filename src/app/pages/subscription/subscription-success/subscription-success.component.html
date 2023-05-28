@@ -1,0 +1,63 @@
+<div class="row">
+    <div class="col-md-8 offset-md-2">
+        <div class="paymentpanel shadow-sm">
+            <div>
+                <div class="p-4 text-white text-center bg-app">
+                    <div class="links">
+                        <span routerLink="/dashboard">HOME</span>
+                        <span routerLink="/sop">CHECK SOP</span>
+                    </div>
+                    <div>
+                        <span class="circle"><i class="pi pi-check"></i></span>
+                    </div>
+                    <br>
+                    <h4>Congratulations and thank you for subscribing!</h4>
+                    <p>That is sure to help you grab a seat at your dream university.</p>
+                </div>
+            </div>
+            <div class="bg-white p-4">
+                <h5>Order details</h5>
+                <table style="width: 100%">
+                    <tr>
+                        <td>Order number</td>
+                        <td class="text-end">{{plan?.orderid}}</td>
+                    </tr>
+                    <tr>
+                        <td>Date</td>
+                        <td class="text-end">{{now | date: 'dd-MM-yyyy'}}</td>
+                    </tr>
+                    <tr>
+                        <td>Reference Id</td>
+                        <td class="text-end">{{plan?.refrenceid}}</td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <hr>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Subtotal</td>
+                        <td class="text-end">INR {{plan?.subtotal}}</td>
+                    </tr>
+                    <tr>
+                        <td>Total</td>
+                        <td class="text-end">INR {{plan?.total}}</td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <div class="line"></div>
+                        </td>
+                    </tr>
+                </table>
+                <br/>
+                <h5>Product</h5>
+                <table style="width: 100%">
+                    <tr>
+                        <td>INR {{plan?.subscriptionname}}</td>
+                        <td class="text-end">INR {{plan?.subscriptionamount}}</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

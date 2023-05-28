@@ -1,9 +1,16 @@
 import {Component, OnInit} from "@angular/core";
-import {AuthService} from "src/app/Auth/auth.service";
-import {SubscriptionService} from "./subscription.service";
-import {WindowRefService} from "./window-ref.service";
+import { AuthService } from "src/app/Auth/auth.service";
+import { SubscriptionService } from "./subscription.service";
+import { WindowRefService } from "./window-ref.service";
 import {MessageService} from "primeng/api";
-import {Router} from "@angular/router";
+import {
+    Billinginfo,
+    OrderHistory,
+    Subscription,
+    SubscriptionPlan,
+    SubscriptionSuccess
+} from "../../@Models/subscription";
+import {Observable} from "rxjs";
 
 @Component({
     selector: "uni-subscription",
@@ -12,73 +19,78 @@ import {Router} from "@angular/router";
 })
 export class SubscriptionComponent implements OnInit {
     stage = 1;
-    cards: any[] = [
-        {
-            img: "uniprep-assets/icons/mastercard.png",
-            name: "Master card",
-        },
-        {
-            img: "uniprep-assets/icons/visacard.png",
-            name: "Visa card",
-        },
-    ];
-    planname: any = [];
-    planprice: any = [];
-    totalcheck: any = [];
-    subscriptionid: any = [];
-    selectedplanname: any;
-    selectedplanprice: any;
-    selectedsubscriptionid: any;
-    noofchecks: any;
-    currentDate = new Date();
-    subscribername: any;
-
+    subscriptions$!:Observable<SubscriptionPlan[]>;
+    orderLoading$!:Observable<boolean>;
+    selectedSubscription!: SubscriptionPlan | null;
+    showPayLoading = false;
+    orderHistory$!:Observable<OrderHistory[]>;
+    subscriptionDetail$!:Observable<Subscription | null>;
+    billingInfo$!:Observable<Billinginfo | null>;
+    success!: SubscriptionSuccess;
     constructor(
         private subscriptionService: SubscriptionService,
         private toastr: MessageService,
         private winRef: WindowRefService,
-        private authservice: AuthService,
-        private router: Router
-    ) {
-    }
-
+        private authservice: AuthService
+    ) {}
     ngOnInit(): void {
-        this.subscriptionService.getSubscriptionList().subscribe(
-            (res: any) => {
-                res.data.forEach((plandata: any) => {
-                    this.planname.push(plandata?.name);
-                    this.planprice.push(plandata?.price);
-                    this.totalcheck.push(plandata?.checks);
-                    this.subscriptionid.push(plandata?.id);
-                });
-            },
-            (error: any) => {
-                this.toastr.add({severity: 'error', summary: 'Failed', detail: error.error.message});
-            }
-        );
+        if (!this.authservice.user?.subscription.toLowerCase().includes('Free')) {
+            console.log('test')
+            this.stage = 1;
+            this.loadSubDetails();
+            return;
+        }
+        this.start();
     }
-
-    paymentcheckout() {
-        var checkoutdata = {
-            // userid: this.authservice._logindata.id,
-            subscriptionid: this.selectedsubscriptionid,
-            price: this.selectedplanprice,
-        };
-        this.subscriptionService.GetOrderId(checkoutdata).subscribe(
-            (res: any) => {
-                this.payWithRazor(res.orderid);
+    start() {
+        this.showPayLoading = false;
+        this.stage = 2;
+        this.loadSubscriptions();
+    }
+    loadSubDetails() {
+        this.orderHistory$ = this.subscriptionService.getOrderHistory();
+        this.subscriptionDetail$ = this.subscriptionService.getSubscriptionDetail();
+        this.subscriptionDetail$.subscribe(data => {
+            console.log(data);
+        })
+        this.billingInfo$ = this.subscriptionService.getBillingInfo();
+        //this.subscriptionService.loadSubDetails();
+    }
+    loadSubscriptions() {
+        this.subscriptions$ = this.subscriptionService.getSubscriptionList();
+        this.subscriptions$.subscribe(data => {
+            console.log(data);
+        })
+        this.orderLoading$ = this.subscriptionService.getLoading();
+        this.subscriptionService.loadSubscriptionList();
+        this.subscriptionService.getOrderID().subscribe(order => {
+            console.log(order);
+            if (!order) {
                 return;
-            },
-            (error: any) => {
-                // this.toastr.warning(error.error.message);
             }
-        );
+            this.payWithRazor(order);
+        });
     }
-
+    onSelectSubscription(event: SubscriptionPlan) {
+        this.selectedSubscription = event;
+        this.stage = 3;
+    }
+    changePlan() {
+        this.selectedSubscription = null;
+        this.stage = 2;
+    }
+    pay() {
+        this.showPayLoading = true;
+        let data = {
+            country_id: 2,
+            subscription_id: this.selectedSubscription?.id
+        }
+        this.subscriptionService.placeOrder(data);
+    }
     payWithRazor(orderid: any) {
         const options: any = {
             key: "rzp_test_Crpr7YkjPaCLEr",
-            amount: this.selectedplanprice, // amount should be in paise format to display Rs 1255 without decimal point
+            amount: this.selectedSubscription?.price, // amount should be in paise format to display Rs 1255 without decimal point
             currency: "INR",
             name: "Uniabroad", // company name or product name
             description: "SOP Expert Subscription", // product description
@@ -86,9 +98,9 @@ export class SubscriptionComponent implements OnInit {
             order_id: orderid, // order_id created by you in backend
             //callback_url: "http://localhost:4200/pages/subscriptions",
             prefill: {
-                name: "Gaurav Kumar",
-                email: "gaurav.kumar@example.com",
-                contact: "9999999999",
+                name: this.selectedSubscription?.subscription,
+                email: this.authservice.user?.email,
+                contact: this.authservice.user?.usertype_name,
             },
             notes: {
                 address: "Razorpay Corporate Office",
@@ -98,7 +110,7 @@ export class SubscriptionComponent implements OnInit {
                 escape: false,
             },
             theme: {
-                color: "#0c238a",
+                color: "#9ABD38",
             },
         };
         options.handler = (response: any, error: any) => {
@@ -107,34 +119,26 @@ export class SubscriptionComponent implements OnInit {
                 orderid: response?.razorpay_order_id,
                 paymentid: response?.razorpay_payment_id,
             };
-            this.subscriptionService.PaymentComplete(paymentdata).subscribe(
-                (res: any) => {
-                    console.log("Response", res)
-                    //this.subscribername= this.authservice.user.email
-                    this.stage = 3;
-                },
-                (error: any) => {
-                    // this.toastr.warning(error.error.message);
-                }
-            );
+            setTimeout(() => {
+                this.authservice.updateSubscriptionName(this.selectedSubscription?.subscription || '');
+                this.subscriptionService.PaymentComplete(paymentdata).subscribe(
+                    (res: any) => {
+                        this.success = res;
+                        this.subscriptionService.doneLoading();
+                        this.stage = 4;
+                    },
+                    (error: any) => {
+                        // this.toastr.warning(error.error.message);
+                        this.subscriptionService.doneLoading();
+                        this.stage = 4;
+                    }
+                );
+            },0)
         };
         options.modal.ondismiss = () => {
             console.log("Transaction cancelled.");
         };
         const rzp = new this.winRef.nativeWindow.Razorpay(options);
         rzp.open();
-    }
-
-    buynow(planprice: any, planname: any, noofcheck: any, subscriptionid: any) {
-        this.stage = 2;
-        this.selectedplanname = planname;
-        this.selectedplanprice = planprice;
-        this.noofchecks = noofcheck;
-        this.selectedsubscriptionid = subscriptionid;
-    }
-
-    basicplan() {
-        console.log("varunnunddooo");
-        this.router.navigate(["/billing"]);
     }
 }

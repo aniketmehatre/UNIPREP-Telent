@@ -37,7 +37,12 @@ export class AuthService {
         return this._user;
     }
 
-    
+    updateSubscriptionName(name: string) {
+        if (this.user) {
+            this.user.subscription_name = name;
+        }
+    }
+
     getMe(): Observable<any> {
         // return of(Object.create({}));
         return this.http.get<any>(`${environment.ApiUrl}/getuserdetails`).pipe(

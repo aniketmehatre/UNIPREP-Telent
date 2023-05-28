@@ -4,6 +4,7 @@ import {AuthService} from "../../Auth/auth.service";
 import {SubSink} from "subsink";
 import {Router} from "@angular/router";
 import {DataService} from 'src/app/data.service';
+import {MessageService} from "primeng/api";
 
 @Component({
     selector: 'uni-dashboard',
@@ -40,7 +41,7 @@ export class DashboardComponent implements OnInit {
     private subs = new SubSink();
 
     constructor(private dashboardService: DashboardService, private service: AuthService,
-                private router: Router, private dataService: DataService) {
+                private router: Router, private dataService: DataService, private toast: MessageService) {
         this.responsiveOptions = [
             {
                 breakpoint: '1024px',
@@ -209,6 +210,10 @@ export class DashboardComponent implements OnInit {
 
 
     selectCountry(selectedId: any) {
+        if(selectedId != 2){
+            this.toast.add({severity: 'info', summary: 'Information', detail: "Currently United Kingdom only available"});
+            return;
+        }
         this.countryLists.forEach((element: any) => {
             if (element.id === selectedId) {
                 this.selectedCountryName = element.country;

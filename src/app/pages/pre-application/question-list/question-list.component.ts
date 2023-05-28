@@ -208,6 +208,11 @@ export class QuestionListComponent implements OnInit, AfterContentChecked {
         this.dataService.changeChatOpenStatus("open chat window");
     }
 
+    openReport(){
+        this.dataService.openReportWindow(true);
+    }
+
+
     goToHome(event: any) {
         this.isQuestionAnswerVisible = false;
     }

@@ -19,6 +19,7 @@ import {Router} from "@angular/router";
 import {LocationService} from "../../../location.service";
 import {DataService} from "src/app/data.service";
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {matchValidator} from "../../../@Supports/matchvalidator";
 
 const KEY = 'time'
 let DEFAULT = 0
@@ -56,10 +57,11 @@ export class HeaderComponent implements OnInit, OnDestroy {
     visible: boolean = false;
     showReportSuccess: boolean = false;
     isShowFreeTrailStart: boolean = false;
+    isChangePasswordWindowVisible: boolean = false;
 
     constructor(
         private modalService: ModalService, private router: Router, private locationService: LocationService,
-        private viewContainerRef: ViewContainerRef, private formBuilder: FormBuilder,
+        private viewContainerRef: ViewContainerRef, private formBuilder: FormBuilder, private authService: AuthService,
         private service: AuthService, private toast: MessageService, private dataService: DataService
     ) {
         this.dataService.countryIdSource.subscribe(data => {
@@ -93,7 +95,20 @@ export class HeaderComponent implements OnInit, OnDestroy {
         }
     }
 
+
+
     ngOnInit() {
+        this.setPasswordForm = this.formBuilder.group({
+            password: [
+                "",
+                [
+                    Validators.required,
+                    Validators.minLength(8),
+                    matchValidator("confirmPassword", true),
+                ],
+            ],
+            confirmPassword: ["", [Validators.required, matchValidator("password")]],
+        });
         const storedIsMenuOpen = localStorage.getItem('isMenuOpen');
         if (storedIsMenuOpen) {
             this.isMenuOpen = JSON.parse(storedIsMenuOpen);
@@ -111,6 +126,12 @@ export class HeaderComponent implements OnInit, OnDestroy {
             if (message === "open chat window") {
                 this.openModal(null)
                 //this.openReportModal(this.op, event);
+            }
+        });
+        this.dataService.openReportWindowSource.subscribe((isOpen) => {
+            if (isOpen) {
+                console.log(isOpen)
+                this.openReportModal(this.op, event);
             }
         });
         this.subs.sink = this.service.selectLogInData$().subscribe(data => {
@@ -343,6 +364,35 @@ export class HeaderComponent implements OnInit, OnDestroy {
             this.showReportSuccess = true;
             this.toast.add({severity: 'success', summary: 'Success', detail: 'FAQ Report submitted successfully'});
         })
+    }
+
+    public setPasswordForm: any = FormGroup;
+    isNotSuccess: boolean = true;
+    submitted: boolean = false;
+
+    changePassword() {
+        this.isChangePasswordWindowVisible = true;
+    }
+
+    get f() {
+        return this.setPasswordForm.controls;
+    }
+
+    passwordChangeOnClick() {
+        if (this.setPasswordForm.value.password !== this.setPasswordForm.value.confirmPassword){
+            this.toast.add({severity: 'info', summary: 'Alert', detail: 'Password does not match'});
+        }
+
+        this.locationService.updatePassword(this.setPasswordForm.value.confirmPassword).subscribe(res => {
+            if (res.status == 404) {
+
+            }
+            this.isChangePasswordWindowVisible = false;
+            this.authService.logout();
+            this.toast.add({severity: 'success', summary: 'Success', detail: 'Password Updated Successfully.'});
+        })
+
+
     }
 
 }
