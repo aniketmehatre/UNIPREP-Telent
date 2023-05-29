@@ -1,13 +1,13 @@
-import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
-import { ButtonComponent } from './button/button.component';
-import { CardsComponent } from './cards/cards.component';
-import { PagesComponent } from './pages.component';
-import { SubcriptionManagerComponent } from './subcription-manager/subcription-manager.component';
-import { EditprofileComponent } from './user-management/editprofile/editprofile.component';
-import { UserManagementComponent } from './user-management/user-management.component';
-import { SubscribtionbillingComponent } from './subscribtionbilling/subscribtionbilling.component';
-import { PagesGuard } from './pages.guard';
+import {NgModule} from '@angular/core';
+import {RouterModule, Routes} from '@angular/router';
+import {ButtonComponent} from './button/button.component';
+import {CardsComponent} from './cards/cards.component';
+import {PagesComponent} from './pages.component';
+import {SubcriptionManagerComponent} from './subcription-manager/subcription-manager.component';
+import {EditprofileComponent} from './user-management/editprofile/editprofile.component';
+import {UserManagementComponent} from './user-management/user-management.component';
+import {SubscribtionbillingComponent} from './subscribtionbilling/subscribtionbilling.component';
+import {PagesGuard} from './pages.guard';
 
 const routes: Routes = [
     {
@@ -42,22 +42,18 @@ const routes: Routes = [
                 path: 'subscriptions',
                 loadChildren: () => import('./subscription/subscription.module').then(m => m.SubscriptionModule)
             },
-            {
-                path: 'sample-sop',
-                loadChildren: () => import('./sop-sample/sop-sample.module').then(m => m.SopSampleModule)
-            },
-            { path: 'faq', loadChildren: () => import('./faq/faq.module').then(m => m.FaqModule) },
-            { path: 'button', component: ButtonComponent },
-            { path: 'cards', component: CardsComponent },
+            {path: 'faq', loadChildren: () => import('./faq/faq.module').then(m => m.FaqModule)},
+            {path: 'button', component: ButtonComponent},
+            {path: 'cards', component: CardsComponent},
             {
                 path: 'help',
                 loadChildren: () => import('./help-support/help-support.module').then(m => m.HelpSupportModule)
             },
-            { path: 'usermanagement', component: UserManagementComponent },
-            { path: 'subscriptionmanagement', component: SubcriptionManagerComponent },
-            { path: 'profile', component: EditprofileComponent },
-            { path: 'billing', component: SubscribtionbillingComponent },
-            { path: '', redirectTo: 'dashboard', pathMatch: 'full' }
+            {path: 'usermanagement', component: UserManagementComponent},
+            {path: 'subscriptionmanagement', component: SubcriptionManagerComponent},
+            {path: 'profile', component: EditprofileComponent},
+            {path: 'billing', component: SubscribtionbillingComponent},
+            {path: '', redirectTo: 'dashboard', pathMatch: 'full'}
         ]
     }
 ];

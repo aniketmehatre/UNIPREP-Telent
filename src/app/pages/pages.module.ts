@@ -8,9 +8,7 @@ import {pagesFeatureKey} from './store/pages.selectors';
 import {pagesReducer} from './store/pages.reducer';
 import {ButtonComponent} from './button/button.component';
 import {CardsComponent} from './cards/cards.component';
-import {DocPreviewComponent} from "./sop/docpreview/docpreview.component";
 import {TableModule} from "primeng/table";
-import {SopSampleComponent} from './sop-sample/sop-sample.component';
 import {HelpSupportComponent} from './help-support/help-support.component';
 import {UserManagementComponent} from './user-management/user-management.component';
 import {EditprofileComponent} from './user-management/editprofile/editprofile.component';
@@ -32,14 +30,11 @@ import { DialogModule } from 'primeng/dialog';
 import { BreadcrumbModule } from 'primeng/breadcrumb';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { QuestionCreditComponent } from './question-credit/question-credit.component';
-
 @NgModule({
     declarations: [
         PagesComponent,
         ButtonComponent,
         CardsComponent,
-        DocPreviewComponent,
-        SopSampleComponent,
         HelpSupportComponent,
         UserManagementComponent,
         EditprofileComponent,
@@ -70,8 +65,8 @@ import { QuestionCreditComponent } from './question-credit/question-credit.compo
         CarouselModule,
         DialogModule,
         BreadcrumbModule,
-        InputSwitchModule,
-        FormsModule
+        FormsModule,
+        InputSwitchModule
     ],
     schemas: [
         CUSTOM_ELEMENTS_SCHEMA

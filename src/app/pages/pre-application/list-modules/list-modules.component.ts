@@ -271,21 +271,23 @@ export class ListModulesComponent implements OnInit {
 
     }
 
-    selectAnswer(selectedOption: any, data: any, optNumber: number) {
+    selectAnswer(selectedOption: any, singleData: any, optNumber: number) {
         this.selectedOptNumber = optNumber;
         this.selectedOptValue = selectedOption;
-    }
-
-    selectAnswer1(selectedOption: any, data: any) {
-        console.log(selectedOption, data);
-    }
-
-    selectAnswer2(selectedOption: any, data: any) {
-        console.log(selectedOption, data);
-    }
-
-    selectAnswer3(selectedOption: any, data: any) {
-        console.log(selectedOption, data);
+        let mappedQuiz = this.quizData.map((data: any) => {
+            let dat = {...data}
+            if (dat.id == singleData.id) {
+                console.log(optNumber)
+                console.log(selectedOption)
+                console.log(optNumber)
+                dat.user_answered = optNumber;
+                dat.user_answered_value = selectedOption;
+                return dat;
+            }
+            return dat;
+        });
+        this.quizData = mappedQuiz;
+        console.log(this.quizData);
     }
 
     openReviewPopup() {
