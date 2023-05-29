@@ -98,7 +98,6 @@ export class QuestionListComponent implements OnInit, AfterContentChecked {
         this.listQuestion$.subscribe(event => {
             this.data = event
         });
-        console.log(id, this.data);
         let index = this.data.findIndex((x: any) => x.id === id);
         this.selectedQuestion = index;
         this.positionNumber = index;
@@ -156,7 +155,6 @@ export class QuestionListComponent implements OnInit, AfterContentChecked {
             return;
         }
         this.selectedVideo = this.selectedVideo - 1;
-        console.log(this.selectedVideo)
 
         this.carouselVideoElm.navBackward(event, this.selectedVideo)
     }
@@ -166,7 +164,6 @@ export class QuestionListComponent implements OnInit, AfterContentChecked {
             return;
         }
         this.selectedVideo += 1;
-        console.log('next', this.selectedVideo)
 
         this.carouselVideoElm.navForward(event, this.selectedVideo)
     }
@@ -176,7 +173,6 @@ export class QuestionListComponent implements OnInit, AfterContentChecked {
             return;
         }
         this.selectedRefLink = this.selectedRefLink - 1;
-        console.log(this.selectedRefLink)
 
         this.carouselRefElm.navBackward(event, this.selectedRefLink)
     }
@@ -186,7 +182,6 @@ export class QuestionListComponent implements OnInit, AfterContentChecked {
             return;
         }
         this.selectedRefLink += 1;
-        console.log('next', this.selectedRefLink)
 
         this.carouselRefElm.navForward(event, this.selectedRefLink)
     }

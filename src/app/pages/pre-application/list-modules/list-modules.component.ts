@@ -50,82 +50,6 @@ export class ListModulesComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        // this.quizData = [{
-        //     id: 1,
-        //     country_id: 2,
-        //     module_id: 1,
-        //     question: "test 1",
-        //     option1: "test fda",
-        //     option2: "test asdf ",
-        //     option3: "test dsfg",
-        //     option4: "test dgh",
-        //     answer: 2,
-        //     status: 1,
-        //     created_at: "2023-03-06T13:42:39.000000Z",
-        //     updated_at: "2023-03-06T13:42:39.000000Z",
-        //     submodule_id: 1
-        // }, {
-        //     id: 2,
-        //     country_id: 2,
-        //     module_id: 1,
-        //     question: "a sdf asdf asdf asdf asdf",
-        //     option1: "what is ",
-        //     option2: "test asdf",
-        //     option3: "wer df",
-        //     option4: "agffgasdf",
-        //     answer: 4,
-        //     status: 1,
-        //     created_at: "2023-03-06T13:42:39.000000Z",
-        //     updated_at: "2023-03-06T13:42:39.000000Z",
-        //     submodule_id: 1
-        // }, {
-        //     id: 3,
-        //     country_id: 2,
-        //     module_id: 1,
-        //     question: "test w ebsdgwehggsh",
-        //     option1: "test4vert",
-        //     option2: "test gfhg",
-        //     option3: "testwe rtwert",
-        //     option4: "testvaf",
-        //     answer: 1,
-        //     status: 1,
-        //     created_at: "2023-03-06T13:42:39.000000Z",
-        //     updated_at: "2023-03-06T13:42:39.000000Z",
-        //     submodule_id: 1
-        // }, {
-        //     id: 4,
-        //     country_id: 2,
-        //     module_id: 1,
-        //     question: "test wert wetg wer",
-        //     option1: "test asdf",
-        //     option2: "testasdf",
-        //     option3: "testgh",
-        //     option4: "testwet",
-        //     answer: 3,
-        //     status: 1,
-        //     created_at: "2023-03-06T13:42:39.000000Z",
-        //     updated_at: "2023-03-06T13:42:39.000000Z",
-        //     submodule_id: 1
-        // }, {
-        //     id: 5,
-        //     country_id: 2,
-        //     module_id: 1,
-        //     question: "test  mryjrtyh ethge",
-        //     option1: "ghj sdfg",
-        //     option2: "tetrtyust",
-        //     option3: "ghj f jgf",
-        //     option4: "djh dgh",
-        //     answer: 2,
-        //     status: 1,
-        //     created_at: "2023-03-06T13:42:39.000000Z",
-        //     updated_at: "2023-03-06T13:42:39.000000Z",
-        //     submodule_id: 1
-        // },];
-        // this.quizData.map(data => {
-        //     data.test = "asdf asdf";
-        // })
-        // console.log(this.quizData);
-
         this.subModules$ = this.preAppService.subModuleList$();
         let countryId = Number(localStorage.getItem('countryId'));
         this.preAppService.loadSubModules(countryId);
@@ -147,7 +71,6 @@ export class ListModulesComponent implements OnInit {
         this.preAppService.quizList(data);
         this.quizList$.subscribe((data) => {
             let rotData = data;
-            console.log(rotData);
             this.quizData = rotData.map((val: any) => {
                 let number = 1;
                 let dd = {...val};
@@ -175,7 +98,6 @@ export class ListModulesComponent implements OnInit {
                 return dd;
             }
         });
-        console.log(this.quizData);
         this.selectedQuiz = this.selectedQuiz - 1;
         let cName = "";
         this.dataService.countryNameSource.subscribe(countryName => {
@@ -183,10 +105,6 @@ export class ListModulesComponent implements OnInit {
         });
         this.breadCrumb = [{label: cName}, {label: `Quiz ${this.selectedQuiz}`}];
         carouselQuiz.navBackward(event, this.selectedQuiz)
-    }
-
-    onItemChange(val: any) {
-        console.log(val);
     }
 
     clickNextQuiz(carouselQuiz: any, event: any) {
@@ -277,9 +195,7 @@ export class ListModulesComponent implements OnInit {
         let mappedQuiz = this.quizData.map((data: any) => {
             let dat = {...data}
             if (dat.id == singleData.id) {
-                console.log(optNumber)
-                console.log(selectedOption)
-                console.log(optNumber)
+
                 dat.user_answered = optNumber;
                 dat.user_answered_value = selectedOption;
                 return dat;
@@ -287,7 +203,6 @@ export class ListModulesComponent implements OnInit {
             return dat;
         });
         this.quizData = mappedQuiz;
-        console.log(this.quizData);
     }
 
     openReviewPopup() {
