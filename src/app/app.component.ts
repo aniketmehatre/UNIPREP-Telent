@@ -1,4 +1,5 @@
 import {Component} from '@angular/core';
+import {  HostListener } from '@angular/core';
 @Component({
   selector: 'app-root',
   template: `
@@ -17,4 +18,20 @@ export class AppComponent {
   // beforeUnloadHandler(event: any) {
   //   alert(event);
   // }
+
+  child : Boolean=true;
+
+  @HostListener('keydown', ['$event']) triggerEsc(e: KeyboardEvent) {
+    
+    if(e.keyCode===27 && this.child===true){
+      console.log("global esc");
+      alert("parent esc");
+    }else{
+      this.child=true;
+    }
+  }
+
+  public doSomething(child: any):void {
+    this.child=child;
+}
 }

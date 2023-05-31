@@ -1,16 +1,17 @@
-import {Component, OnInit} from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 import { AuthService } from "src/app/Auth/auth.service";
 import { SubscriptionService } from "./subscription.service";
 import { WindowRefService } from "./window-ref.service";
-import {MessageService} from "primeng/api";
+import { MessageService } from "primeng/api";
 import {
     Billinginfo,
     OrderHistory,
     Subscription,
     SubscriptionPlan,
-    SubscriptionSuccess
+    SubscriptionSuccess,
 } from "../../@Models/subscription";
-import {Observable} from "rxjs";
+import { Observable } from "rxjs";
+import { selectBillingInfo$ } from "./store/selectors";
 
 @Component({
     selector: "uni-subscription",
@@ -19,27 +20,31 @@ import {Observable} from "rxjs";
 })
 export class SubscriptionComponent implements OnInit {
     stage = 1;
-    subscriptions$!:Observable<SubscriptionPlan[]>;
-    orderLoading$!:Observable<boolean>;
+    subscriptions$!: Observable<SubscriptionPlan[]>;
+    orderLoading$!: Observable<boolean>;
     selectedSubscription!: SubscriptionPlan | null;
+    selectedQuestionCredit!: any | null;
     showPayLoading = false;
-    orderHistory$!:Observable<OrderHistory[]>;
-    subscriptionDetail$!:Observable<Subscription | null>;
-    billingInfo$!:Observable<Billinginfo | null>;
+    orderHistory$!: Observable<OrderHistory[]>;
+    subscriptionDetail$!: Observable<Subscription | null>;
+    billingInfo$!: Observable<Billinginfo | null>;
     success!: SubscriptionSuccess;
+    user: any;
+    countryList: any;
+    isSubOrQuestion: number = 1;
     constructor(
         private subscriptionService: SubscriptionService,
-        private toastr: MessageService,
         private winRef: WindowRefService,
         private authservice: AuthService
-    ) {}
+    ) { }
     ngOnInit(): void {
-        if (!this.authservice.user?.subscription.toLowerCase().includes('Free')) {
-            console.log('test')
+        if (!this.authservice.user?.subscription.toLowerCase().includes("Free")) {
+            this.user = this.authservice.user;
             this.stage = 1;
             this.loadSubDetails();
             return;
         }
+
         this.start();
     }
     start() {
@@ -47,24 +52,21 @@ export class SubscriptionComponent implements OnInit {
         this.stage = 2;
         this.loadSubscriptions();
     }
+
     loadSubDetails() {
         this.orderHistory$ = this.subscriptionService.getOrderHistory();
         this.subscriptionDetail$ = this.subscriptionService.getSubscriptionDetail();
-        this.subscriptionDetail$.subscribe(data => {
-            console.log(data);
-        })
+        this.subscriptionDetail$.subscribe((data) => { });
+
         this.billingInfo$ = this.subscriptionService.getBillingInfo();
         //this.subscriptionService.loadSubDetails();
     }
     loadSubscriptions() {
         this.subscriptions$ = this.subscriptionService.getSubscriptionList();
-        this.subscriptions$.subscribe(data => {
-            console.log(data);
-        })
+        this.subscriptions$.subscribe((data) => { });
         this.orderLoading$ = this.subscriptionService.getLoading();
         this.subscriptionService.loadSubscriptionList();
-        this.subscriptionService.getOrderID().subscribe(order => {
-            console.log(order);
+        this.subscriptionService.getOrderID().subscribe((order) => {
             if (!order) {
                 return;
             }
@@ -75,17 +77,46 @@ export class SubscriptionComponent implements OnInit {
         this.selectedSubscription = event;
         this.stage = 3;
     }
+    onSelectQuestionCredit(event: any) {
+        this.selectedQuestionCredit = event;
+        this.stage = 3;
+    }
     changePlan() {
         this.selectedSubscription = null;
+        this.isSubOrQuestion = 1;
+        this.stage = 2;
+    }
+
+    changeQuestionCreditPlan() {
+        this.selectedQuestionCredit = null;
+        this.isSubOrQuestion = 2;
         this.stage = 2;
     }
     pay() {
         this.showPayLoading = true;
         let data = {
             country_id: 2,
-            subscription_id: this.selectedSubscription?.id
-        }
-        this.subscriptionService.placeOrder(data);
+            user_id: 2,
+            subscription_id: this.selectedSubscription?.id,
+        };
+
+        this.subscriptionService.placeSubscriptionOrder(data).subscribe((data) => {
+            this.payWithRazor(data.orderid);
+        });
+    }
+
+    payQuestionCredit() {
+        this.showPayLoading = true;
+        let data = {
+            user_id: 2,
+            questioncredits_id: this.selectedQuestionCredit?.id,
+        };
+
+        this.subscriptionService
+            .placeQuestionCreditOrder(data)
+            .subscribe((data) => {
+                this.payWithRazor(data.orderid);
+            });
     }
     payWithRazor(orderid: any) {
         const options: any = {
@@ -120,7 +151,9 @@ export class SubscriptionComponent implements OnInit {
                 paymentid: response?.razorpay_payment_id,
             };
             setTimeout(() => {
-                this.authservice.updateSubscriptionName(this.selectedSubscription?.subscription || '');
+                this.authservice.updateSubscriptionName(
+                    this.selectedSubscription?.subscription || ""
+                );
                 this.subscriptionService.PaymentComplete(paymentdata).subscribe(
                     (res: any) => {
                         this.success = res;
@@ -133,7 +166,7 @@ export class SubscriptionComponent implements OnInit {
                         this.stage = 4;
                     }
                 );
-            },0)
+            }, 0);
         };
         options.modal.ondismiss = () => {
             console.log("Transaction cancelled.");

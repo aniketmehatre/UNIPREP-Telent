@@ -47,15 +47,15 @@
             <div class="col-md-8 text-center mb-4">
                 <p-breadcrumb [model]="breadCrumb" class="max-w-full"></p-breadcrumb>
             </div>
-            <div class="col-md-2 gap-2 d-flex">
+            <div class="col-md-1 gap-1 d-flex">
                 <button (click)="goToHome($event)" class="btn w-100 btn-primary homecardbtn m-0 px-2 py-2">
                     <i class="fa-solid h5 fa-house"></i>
                     <p class="mb-0">Home</p>
                 </button>
-                <button (click)="openReport($event)" class="btn w-100 btn-primary homecardbtn m-0 px-2 py-2">
-                    <i class="fa-solid h5 fa-file-contract"></i>
-                    <p class="mb-0">Report</p>
-                </button>
+<!--                <button (click)="openReport($event)" class="btn w-100 btn-primary homecardbtn m-0 px-2 py-2">-->
+<!--                    <i class="fa-solid h5 fa-file-contract"></i>-->
+<!--                    <p class="mb-0">Report</p>-->
+<!--                </button>-->
             </div>
             <div class="col-md-6">
                 <p-carousel #carouselQuiz (onPage)="setPage($event)" [circular]="true" [numScroll]="1" [numVisible]="1"
@@ -66,7 +66,7 @@
                         <div class="row text-center">
                             <div class="col-12 mt-3 mb-4">
                                 <div class="card qacard">
-                                    <div class="select-title margin-minus text-center"><h5>Question </h5>
+                                    <div class="select-title margin-minus text-center"><h5>Question : {{selectedQuiz}} / {{quizData.length}}</h5>
                                     </div>
                                     <div class="card-body text-start">
                                         <h3 class="font-secondarycolor text-center pt-2 pb-3 text-capitalize">{{val.question}}</h3>
@@ -123,15 +123,15 @@
     <ng-template pTemplate="footer">
         <div class="container-fluid">
             <div class="row gap-2 justify-content-end mb-4">
-                <button (click)="clickPreviousQuiz(carouselQuiz, $event)"
+                <button (click)="clickPreviousQuiz(carouselQuiz, $event)" *ngIf="selectedQuiz != 1"
                         class="btn btn-lg rounded-pill btn-tertiary m-0 px-2 py-2">
                     <p class="mb-0 px-2">Previous <i class="fa-solid fa-circle-arrow-left"></i></p>
                 </button>
-                <button *ngIf="this.quizData.length > this.selectedQuiz" (click)="clickNextQuiz(carouselQuiz, $event)"
+                <button *ngIf="this.quizData.length > this.selectedQuiz" [disabled]="answerOptionClicked" (click)="clickNextQuiz(carouselQuiz, $event)"
                         class="btn btn-lg rounded-pill btn-secondary m-0 px-2 py-2">
                     <p class="mb-0 px-2"> Next <i class="fa-solid fa-circle-arrow-right"></i></p>
                 </button>
-                <button *ngIf="this.quizData.length <= this.selectedQuiz" (click)="clickSubmitQuiz($event)"
+                <button *ngIf="this.quizData.length <= this.selectedQuiz" (click)="clickSubmitQuiz()"
                         class="btn btn-lg rounded-pill btn-primary m-0 px-2 py-2">
                     <p class="mb-0 px-2"> Submit <i class="fa-solid fa-circle-check"></i></p>
                 </button>
@@ -160,7 +160,7 @@
                 <button class="btn btn-lg w-auto  btn-secondary m-0 px-2 py-2">
                     <p class="mb-0 px-2"> Retry <i class="fa-solid fa-arrow-rotate-right"></i></p>
                 </button>
-                <button (click)="closeAllHome($event)" class="btn btn-lg w-auto btn-primary m-0 px-2 py-2">
+                <button (click)="closeAllHome()" class="btn btn-lg w-auto btn-primary m-0 px-2 py-2">
                     <p class="mb-0 px-2"> Home <i class="fa-solid fa-house"></i></p>
                 </button>
             </div>

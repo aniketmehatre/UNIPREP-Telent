@@ -19,7 +19,7 @@
                     <li *ngFor="let c of searchResult" class="list-group-item">
                         <div class="row">
                             <div class="col-md-9"  (click)="gerSelectedQuestion(c)">
-                                <span class="pr-4">{{c.id}}) {{c.question}}</span>
+                                <span class="pr-4">Q.{{c.id}}) {{c.question}}</span>
                             </div>
                             <div class="col-md-3">
                                 <a (click)="redirectModule(c.module_name)">{{c.module_name}}</a> ->
@@ -66,7 +66,7 @@
                 </button>
                 <button (click)="openChat()" class="btn w-100 btn-primary homecardbtn m-0 px-2 py-2">
                     <i class="pi pi-comment"></i>
-                    <p class="mb-0">Chart</p>
+                    <p class="mb-0">Chat</p>
                 </button>
             </div>
         </div>

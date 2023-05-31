@@ -2,15 +2,25 @@
     <div class="row">
         <div class="card">
             <div class="card-body text-center pt-0 h-100">
-                <h5 class="select-title mb-3">PRE-Application - {{moduleName}}</h5>
+                <div class="row justify-content-center">
+                    <div class="col-md-2 text-start">
+                        <p-button (click)="goBack()" icon="pi pi-arrow-left" styleClass="p-button-rounded p-button-text text-dark"></p-button>
+                    </div>
+                    <div class="col-md-8 text-center">
+                        <h5 class="select-title mb-3">PRE-Application - {{moduleName}}</h5>
+                    </div>
+                    <div class="col-md-2">
+
+                    </div>
+                </div>
                 <div class="row">
-                    <div *ngFor="let sub of listQuestion$ | async" class="col-md-3">
+                    <div *ngFor="let sub of listQuestion$ | async; let i  = index;" class="col-md-3">
                         <div class="row w-100 h-100 m-0 justify-content-center">
-                            <div (click)="onQuestionClick(sub.id)"
+                            <div (click)="onQuestionClick(sub)"
                                 class="card questioncard {{sub.read == 1 ? 'questionread' : ''}}" role="button">
                                 <div class="card-body mb-5">
                                     <div class="row justify-content-center">
-                                        <p class="mb-3 circle text-center">{{sub.id}}</p>
+                                        <p class="mb-3 circle text-center">{{i+1}}</p>
                                         <p class="text-start text-capitalize fw-medium questiontext">{{sub.question}}
                                         </p>
                                         <button class="btn w-full btn-primary primary-btn" pButton type="button">Read
@@ -58,7 +68,7 @@
                 </button>
                 <button (click)="onClickAsk()" class="btn w-100 btn-primary homecardbtn m-0 px-2 py-2">
                     <i class="pi pi-comment"></i>
-                    <p class="mb-0">Chart</p>
+                    <p class="mb-0">Chat</p>
                 </button>
             </div>
         </div>

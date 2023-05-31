@@ -1,139 +1,244 @@
-<div class="card card-body">
-    <h3 class="sop-border sop-header">Billing Details</h3>
-</div>
-<br/>
-<div class="row">
-    <div class="col-12">
-        <div class="card h-100">
-            <div class="card-body">
-                <div class="sop-border-thin">
-                    <h4>{{plan?.subscription}}</h4>
-                    <p class="font-primarycolor">{{plan?.status}} Checks</p>
-                    <div><span (click)="change.emit()" class="scardStart">Change Plans&nbsp;&nbsp;<i class="pi vertical-center pi-arrow-right"></i></span></div>
-                </div>
-                <br/>
-                <div class="scardFeatures">
-                    <label style="font-size: 24px; color: #3C3C3C;">YOUR BENEFITS</label>
-                    <div class="card h-full card-body mt-3" style="border-radius:0.5px;">
-                        <table class="w-full">
-                            <tr>
-                                <td><label class="m-0" style="font-size: 24pz; color: #3C3C3C;">Live resolution to personal questions. </label></td>
-                                <!--                            <td class="text-end fw-semibold" style="font-size: 17px; color: #D44100;">15</td>-->
-                            </tr>
-                        </table>
-                        <hr class="dotedline">
-                        <table class="w-full">
-                            <tr>
-                                <td><label class="m-0" style="font-size: 24pz; color: #3C3C3C;">30,000+ questions on every topic concerning education abroad answered by alumni of international universities.
-                                    Choose your destination from a list of 10 countries - USA, UK, Switzerland, Dubai, Germany, France, Spain, Ireland, Australia, Singapore</label></td>
-                                <!--                            <td class="text-end fw-semibold" style="font-size: 17px; color: #D44100;">15</td>-->
-                            </tr>
-                        </table>
-                        <hr class="dotedline">
-                        <table class="w-full">
-                            <tr>
-                                <td><label class="m-0" style="font-size: 24pz; color: #3C3C3C;">360degree questions answered on topics such as:
-                                    <br>
-                                    Pre application: everything you should know before applying for a university abroad<br>
-                                    Post application: everything you should know post submission of documents to desired university<br>
-                                    Post admission: everything you should know post admission letter<br>
-                                    Life at destination country: everything you should know about destination country<br>
-                                    Career Hub: everything you should know about the career growth and opportunity<br>
-                                    Universities: everything you should know about the best of universities
-                                </label></td>
-                                <!--                            <td class="text-end fw-semibold" style="font-size: 17px; color: #D44100;">15</td>-->
-                            </tr>
-                        </table>
-                        <hr class="dotedline">
-                        <table class="w-full">
-                            <tr>
-                                <td><label class="m-0" style="font-size: 24pz; color: #3C3C3C;">Keyword\ Search engine based user interface: Search for questions through keywords. </label></td>
-                                <!--                            <td class="text-end fw-semibold" style="font-size: 17px; color: #D44100;">15</td>-->
-                            </tr>
-                        </table>
-                        <hr class="dotedline">
-                        <table class="w-full">
-                            <tr>
-                                <td><label class="m-0" style="font-size: 24pz; color: #3C3C3C;">Evaluate your knowledge through a quiz. </label></td>
-                                <!--                            <td class="text-end fw-semibold" style="font-size: 17px; color: #D44100;">15</td>-->
-                            </tr>
-                        </table>
-                        <hr class="dotedline">
-                        <table class="w-full">
-                            <tr>
-                                <td><label class="m-0" style="font-size: 24pz; color: #3C3C3C;">Certificate granted for the progress.</label></td>
-                                <!--                            <td class="text-end fw-semibold" style="font-size: 17px; color: #D44100;">15</td>-->
-                            </tr>
-                        </table>
-                        <hr class="dotedline">
-                        <table class="w-full">
-                            <tr>
-                                <td><label class="m-0" style="font-size: 24pz; color: #3C3C3C;">Weekly live webinars.</label></td>
-                                <!--                            <td class="text-end fw-semibold" style="font-size: 17px; color: #D44100;">15</td>-->
-                            </tr>
-                        </table>
+<div class="row" *ngIf="plan">
+    <div class="card card-body">
+        <h3 class="sop-border sop-header">Billing Details</h3>
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-12">
+            <div class="card h-100">
+                <div class="card-body">
+                    <div class="sop-border-thin">
+                        <h4>{{plan!.subscription}}</h4>
+                        <!-- <p class="font-primarycolor">{{plan?.status}} Checks</p> -->
+                        <div><span (click)="change.emit()" class="scardStart"><i
+                                    class="pi vertical-center pi-arrow-left"></i>&nbsp;&nbsp;Change Plans</span></div>
                     </div>
+                    <br />
+                    <div class="scardFeatures">
+                        <label style="font-size: 24px; color: #3C3C3C;">YOUR BENEFITS</label>
+                        <div class="card h-full card-body mt-3" style="border-radius:0.5px;">
+                            <table class="w-full">
+                                <tr>
+                                    <td><label class="m-0" style="font-size: 24pz; color: #3C3C3C;">Live resolution to
+                                            personal questions. </label></td>
+                                    <!--                            <td class="text-end fw-semibold" style="font-size: 17px; color: #D44100;">15</td>-->
+                                </tr>
+                            </table>
+                            <hr class="dotedline">
+                            <table class="w-full">
+                                <tr>
+                                    <td><label class="m-0" style="font-size: 24pz; color: #3C3C3C;">30,000+ questions on
+                                            every topic concerning education abroad answered by alumni of international
+                                            universities.
+                                            Choose your destination from a list of 10 countries - USA, UK, Switzerland,
+                                            Dubai, Germany, France, Spain, Ireland, Australia, Singapore</label></td>
+                                    <!--                            <td class="text-end fw-semibold" style="font-size: 17px; color: #D44100;">15</td>-->
+                                </tr>
+                            </table>
+                            <hr class="dotedline">
+                            <table class="w-full">
+                                <tr>
+                                    <td><label class="m-0" style="font-size: 24pz; color: #3C3C3C;">360degree questions
+                                            answered on topics such as:
+                                            <br>
+                                            Pre application: everything you should know before applying for a university
+                                            abroad<br>
+                                            Post application: everything you should know post submission of documents to
+                                            desired university<br>
+                                            Post admission: everything you should know post admission letter<br>
+                                            Life at destination country: everything you should know about destination
+                                            country<br>
+                                            Career Hub: everything you should know about the career growth and
+                                            opportunity<br>
+                                            Universities: everything you should know about the best of universities
+                                        </label></td>
+                                    <!--                            <td class="text-end fw-semibold" style="font-size: 17px; color: #D44100;">15</td>-->
+                                </tr>
+                            </table>
+                            <hr class="dotedline">
+                            <table class="w-full">
+                                <tr>
+                                    <td><label class="m-0" style="font-size: 24pz; color: #3C3C3C;">Keyword\ Search
+                                            engine based user interface: Search for questions through keywords. </label>
+                                    </td>
+                                    <!--                            <td class="text-end fw-semibold" style="font-size: 17px; color: #D44100;">15</td>-->
+                                </tr>
+                            </table>
+                            <hr class="dotedline">
+                            <table class="w-full">
+                                <tr>
+                                    <td><label class="m-0" style="font-size: 24pz; color: #3C3C3C;">Evaluate your
+                                            knowledge through a quiz. </label></td>
+                                    <!--                            <td class="text-end fw-semibold" style="font-size: 17px; color: #D44100;">15</td>-->
+                                </tr>
+                            </table>
+                            <hr class="dotedline">
+                            <table class="w-full">
+                                <tr>
+                                    <td><label class="m-0" style="font-size: 24pz; color: #3C3C3C;">Certificate granted
+                                            for the progress.</label></td>
+                                    <!--                            <td class="text-end fw-semibold" style="font-size: 17px; color: #D44100;">15</td>-->
+                                </tr>
+                            </table>
+                            <hr class="dotedline">
+                            <table class="w-full">
+                                <tr>
+                                    <td><label class="m-0" style="font-size: 24pz; color: #3C3C3C;">Weekly live
+                                            webinars.</label></td>
+                                    <!--                            <td class="text-end fw-semibold" style="font-size: 17px; color: #D44100;">15</td>-->
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                    <table class="w-full">
+                        <tr>
+                            <td class="text-right">Sub total</td>
+                            <td class="text-center" style="width: 20px;">-</td>
+                            <td class="text-center" style="width: 40px;">INR : </td>
+                            <td class="text-right" style="width: 20px">{{plan!.price}}</td>
+                        </tr>
+                        <!--                    <tr>-->
+                        <!--                        <td class="text-right">Coupon discount</td>-->
+                        <!--                        <td class="text-center" style="width: 20px;">-</td>-->
+                        <!--                        <td class="text-center" style="width: 40px;">INR : </td>-->
+                        <!--                        <td class="text-right" style="width: 20px">499</td>-->
+                        <!--                    </tr>-->
+                    </table>
                 </div>
-                <table class="w-full">
-                    <tr>
-                        <td class="text-right">Sub total</td>
-                        <td class="text-center" style="width: 20px;">-</td>
-                        <td class="text-center" style="width: 40px;">INR : </td>
-                        <td class="text-right" style="width: 20px">{{plan?.price}}</td>
-                    </tr>
-                    <!--                    <tr>-->
-                    <!--                        <td class="text-right">Coupon discount</td>-->
-                    <!--                        <td class="text-center" style="width: 20px;">-</td>-->
-                    <!--                        <td class="text-center" style="width: 40px;">INR : </td>-->
-                    <!--                        <td class="text-right" style="width: 20px">499</td>-->
-                    <!--                    </tr>-->
-                </table>
-            </div>
-            <div class="card-footer">
-                <h6 class="text-right">Total : <span class="font-primarycolor">INR {{plan?.price}}</span></h6>
-                <div class="text-right" style="font-size: .5rem">(inclusive of all taxes)</div>
+                <div class="card-footer">
+                    <h6 class="text-right">Total : <span class="font-primarycolor">INR {{plan!.price}}</span></h6>
+                    <div class="text-right" style="font-size: .5rem">(inclusive of all taxes)</div>
+                </div>
             </div>
         </div>
     </div>
-    <!--    <div class="col-md-4">-->
-    <!--        <div class="card h-100 shadow-sm">-->
-    <!--            <div class="card-body">-->
-    <!--                <div class="contnr">-->
-    <!--                    <p>Apply your coupon code here</p>-->
-    <!--                    <div class="input-group mb-3">-->
-    <!--                        <input type="text" class="form-control" placeholder="UNIXJ54HT" aria-label="Username" aria-describedby="basic-addon1">-->
-    <!--                        <div class="input-group-append">-->
-    <!--                            <span class="input-group-text">APPLY</span>-->
-    <!--                        </div>-->
-    <!--                    </div>-->
-    <!--                    <div class="text-red">You entered an invalid discount code. Please check the code and try again</div>-->
-    <!--                </div>-->
-    <!--                <br/><br/>-->
-    <!--                <table class="w-full">-->
-    <!--                    <tr>-->
-    <!--                        <td class="text-right">Sub total</td>-->
-    <!--                        <td class="text-center" style="width: 20px;">-</td>-->
-    <!--                        <td class="text-center" style="width: 40px;">INR : </td>-->
-    <!--                        <td class="text-right">499</td>-->
-    <!--                    </tr>-->
-    <!--                    <tr>-->
-    <!--                        <td class="text-right">Coupon discount</td>-->
-    <!--                        <td class="text-center" style="width: 20px;">-</td>-->
-    <!--                        <td class="text-center" style="width: 40px;">INR : </td>-->
-    <!--                        <td class="text-right">499</td>-->
-    <!--                    </tr>-->
-    <!--                </table>-->
-    <!--            </div>-->
-    <!--            <div class="card-footer">-->
-    <!--                <h6 class="text-right">Total : <span class="font-primarycolor">INR 399</span></h6>-->
-    <!--                <div class="text-right" style="font-size: .5rem">(inclusive of all taxes)</div>-->
-    <!--            </div>-->
-    <!--        </div>-->
-    <!--    </div>-->
-</div>
 
-<div class="text-right">
-    <button pButton (click)="pay.emit()" [loading]="loading" class="btn btn-dark">
-        PAY NOW <span *ngIf="!loading" class="btn-label"><i class="pi pi-arrow-right"></i></span>
-    </button>
+    <div class="text-right">
+        <button pButton (click)="pay.emit()" [loading]="loading" class="btn btn-dark">
+            PAY NOW <span *ngIf="!loading" class="btn-label"><i class="pi pi-arrow-right"></i></span>
+        </button>
+    </div>
+</div>
+<div class="row" *ngIf="planQuestionCredit">
+    <div class="card card-body">
+        <h3 class="sop-border sop-header">Question Credit Billing Details</h3>
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-12">
+            <div class="card h-100">
+                <div class="card-body">
+                    <div class="sop-border-thin">
+                        <h4>{{planQuestionCredit?.subscription}}</h4>
+                        <!-- <p class="font-primarycolor">{{plan?.status}} Checks</p> -->
+                        <div><span (click)="changeQuestionCreditPlan.emit()" class="scardStart"><i
+                                    class="pi vertical-center pi-arrow-left"></i>&nbsp;&nbsp;Change Plans</span></div>
+                    </div>
+                    <br />
+                    <div class="scardFeatures">
+                        <label style="font-size: 24px; color: #3C3C3C;">YOUR BENEFITS</label>
+                        <div class="card h-full card-body mt-3" style="border-radius:0.5px;">
+                            <table class="w-full">
+                                <tr>
+                                    <td><label class="m-0" style="font-size: 24pz; color: #3C3C3C;">Live resolution to
+                                            personal questions. </label></td>
+                                    <!--                            <td class="text-end fw-semibold" style="font-size: 17px; color: #D44100;">15</td>-->
+                                </tr>
+                            </table>
+                            <hr class="dotedline">
+                            <table class="w-full">
+                                <tr>
+                                    <td><label class="m-0" style="font-size: 24pz; color: #3C3C3C;">30,000+ questions on
+                                            every topic concerning education abroad answered by alumni of international
+                                            universities.
+                                            Choose your destination from a list of 10 countries - USA, UK, Switzerland,
+                                            Dubai, Germany, France, Spain, Ireland, Australia, Singapore</label></td>
+                                    <!--                            <td class="text-end fw-semibold" style="font-size: 17px; color: #D44100;">15</td>-->
+                                </tr>
+                            </table>
+                            <hr class="dotedline">
+                            <table class="w-full">
+                                <tr>
+                                    <td><label class="m-0" style="font-size: 24pz; color: #3C3C3C;">360degree questions
+                                            answered on topics such as:
+                                            <br>
+                                            Pre application: everything you should know before applying for a university
+                                            abroad<br>
+                                            Post application: everything you should know post submission of documents to
+                                            desired university<br>
+                                            Post admission: everything you should know post admission letter<br>
+                                            Life at destination country: everything you should know about destination
+                                            country<br>
+                                            Career Hub: everything you should know about the career growth and
+                                            opportunity<br>
+                                            Universities: everything you should know about the best of universities
+                                        </label></td>
+                                    <!--                            <td class="text-end fw-semibold" style="font-size: 17px; color: #D44100;">15</td>-->
+                                </tr>
+                            </table>
+                            <hr class="dotedline">
+                            <table class="w-full">
+                                <tr>
+                                    <td><label class="m-0" style="font-size: 24pz; color: #3C3C3C;">Keyword\ Search
+                                            engine based user interface: Search for questions through keywords. </label>
+                                    </td>
+                                    <!--                            <td class="text-end fw-semibold" style="font-size: 17px; color: #D44100;">15</td>-->
+                                </tr>
+                            </table>
+                            <hr class="dotedline">
+                            <table class="w-full">
+                                <tr>
+                                    <td><label class="m-0" style="font-size: 24pz; color: #3C3C3C;">Evaluate your
+                                            knowledge through a quiz. </label></td>
+                                    <!--                            <td class="text-end fw-semibold" style="font-size: 17px; color: #D44100;">15</td>-->
+                                </tr>
+                            </table>
+                            <hr class="dotedline">
+                            <table class="w-full">
+                                <tr>
+                                    <td><label class="m-0" style="font-size: 24pz; color: #3C3C3C;">Certificate granted
+                                            for the progress.</label></td>
+                                    <!--                            <td class="text-end fw-semibold" style="font-size: 17px; color: #D44100;">15</td>-->
+                                </tr>
+                            </table>
+                            <hr class="dotedline">
+                            <table class="w-full">
+                                <tr>
+                                    <td><label class="m-0" style="font-size: 24pz; color: #3C3C3C;">Weekly live
+                                            webinars.</label></td>
+                                    <!--                            <td class="text-end fw-semibold" style="font-size: 17px; color: #D44100;">15</td>-->
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                    <table class="w-full">
+                        <tr>
+                            <td class="text-right">Sub total</td>
+                            <td class="text-center" style="width: 20px;">-</td>
+                            <td class="text-center" style="width: 40px;">INR : </td>
+                            <td class="text-right" style="width: 20px">{{planQuestionCredit.price -
+                                planQuestionCredit.discount}}</td>
+                        </tr>
+                        <!--                    <tr>-->
+                        <!--                        <td class="text-right">Coupon discount</td>-->
+                        <!--                        <td class="text-center" style="width: 20px;">-</td>-->
+                        <!--                        <td class="text-center" style="width: 40px;">INR : </td>-->
+                        <!--                        <td class="text-right" style="width: 20px">499</td>-->
+                        <!--                    </tr>-->
+                    </table>
+                </div>
+                <div class="card-footer">
+                    <h6 class="text-right">Total : <span class="font-primarycolor">INR {{planQuestionCredit.price -
+                            planQuestionCredit.discount}}</span></h6>
+                    <div class="text-right" style="font-size: .5rem">(inclusive of all taxes)</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="text-right">
+        <button pButton (click)="payQuestionCredit.emit()" [loading]="loading" class="btn btn-dark">
+            PAY NOW <span *ngIf="!loading" class="btn-label"><i class="pi pi-arrow-right"></i></span>
+        </button>
+    </div>
 </div>

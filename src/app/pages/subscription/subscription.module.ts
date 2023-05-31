@@ -22,6 +22,8 @@ import {subscriptionFeatureKey} from "./store/selectors";
 import {SubscriptionEffects} from "./store/effects";
 import {subscriptionReducer} from "./store/reducer";
 import {ButtonModule} from "primeng/button";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import {MultiSelectModule} from "primeng/multiselect";
 
 @NgModule({
     declarations: [
@@ -45,6 +47,9 @@ import {ButtonModule} from "primeng/button";
         ToastModule,
         TableModule,
         ButtonModule,
+        ReactiveFormsModule,
+        MultiSelectModule,
+        FormsModule,
     ],
     providers: [MessageService]
 })

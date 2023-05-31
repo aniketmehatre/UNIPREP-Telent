@@ -5,6 +5,7 @@ import {SubSink} from "subsink";
 import {Router} from "@angular/router";
 import {DataService} from 'src/app/data.service';
 import {MessageService} from "primeng/api";
+import { log } from 'console';
 
 @Component({
     selector: 'uni-dashboard',
@@ -89,7 +90,7 @@ export class DashboardComponent implements OnInit {
         });
     }
 
-    loadReadProgression(countryId = 0) {
+    loadReadProgression(countryId: number = 0) {
         this.dashboardService.getReadProgression({countryId: countryId}).subscribe((res: any) => {
             if (res.status === 404) {
 
@@ -102,7 +103,7 @@ export class DashboardComponent implements OnInit {
         });
     }
 
-    loadQuizProgression(countryId = 0) {
+    loadQuizProgression(countryId: number = 0) {
         this.dashboardService.getQuizProgression({countryId: countryId}).subscribe((res: any) => {
             if (res.status === 404) {
                 return;
@@ -159,7 +160,7 @@ export class DashboardComponent implements OnInit {
     }
 
 
-    modalReadingProgressing(countryId = 0) {
+    modalReadingProgressing(countryId: number = 2) {
         let v = 'reading';
         const data = {
             countryId: countryId,
@@ -175,7 +176,7 @@ export class DashboardComponent implements OnInit {
         });
     }
 
-    modalQuizProgressing(countryId = 0) {
+    modalQuizProgressing(countryId: number = 2) {
         let v = 'reading';
         const data = {
             countryId: countryId,
@@ -184,6 +185,7 @@ export class DashboardComponent implements OnInit {
             if (res.status === 404) {
                 return;
             }
+            console.log(res.module);
             this.quizProgressings = res.module;
         }, err => {
             console.log('err', err);

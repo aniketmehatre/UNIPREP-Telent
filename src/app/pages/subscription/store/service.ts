@@ -12,7 +12,10 @@ export class SubStoreService {
     //     return this.http.get<any>(environment.ApiUrl+'/getsubscriptions');
     // }
     placeOrder(subscription: any): Observable<any>{
-        return this.http.post<any>(environment.ApiUrl+'/placeorder', {subscription});
+        const headers = new HttpHeaders().set("Accept", "application/json");
+        return this.http.post<any>(environment.ApiUrl+'/placeorder', {subscription},{
+            headers: headers,
+        });
     }
     getSubscriptionList(): Observable<any>{
         return this.http.post<any>(environment.ApiUrl+'/getsubscriptions', {});

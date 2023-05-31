@@ -33,6 +33,7 @@ import {OverlayPanelModule} from "primeng/overlaypanel";
 import {DialogModule} from "primeng/dialog";
 import {CardModule} from "primeng/card";
 import {TooltipModule} from "primeng/tooltip";
+import { BlockCopyPasteDirective } from './block-copy-paste.directive';
 const reducers = {
   pageSelector: pagesReducer
 }
@@ -48,7 +49,7 @@ export function tokenGetter() {
 
 @NgModule({
   declarations: [
-    AppComponent, ModalComponent, ScrollToBottomDirective
+    AppComponent, ModalComponent, ScrollToBottomDirective, BlockCopyPasteDirective,
   ],
     schemas: [ CUSTOM_ELEMENTS_SCHEMA],
     imports: [

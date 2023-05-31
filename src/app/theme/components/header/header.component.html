@@ -22,10 +22,17 @@
             <h5 class="mb-0">Time Left</h5>
             <!-- <img src="../../../../uniprep-assets/icons/hourglass.svg"> -->
             <i class="px-3 fa-solid fa-hourglass-end h3 mb-0"></i>
-            <countdown #cd (event)="handleEvent($event)" *ngIf="config" [config]="config" class="custom-style">
-            </countdown>
+            <div class="row">
+                <div class="col-md-12 text-center">
+                    <countdown #cd (event)="handleEvent($event)" *ngIf="config" [config]="config" class="custom-style">
+                    </countdown>
+                </div>
+               <div class="col-md-12 text-center mt-1 fw-bold" style="font-size:10px">
+                   <span class="px-2">DAYS  </span><span class="px-2">HRS  </span><span class="px-2">MIN</span>
+                </div>
+            </div>
         </span>
-        <button class="btn btn-primary mx-2" alt="chat with notification">Subscribe Now</button>
+        <button class="btn btn-primary mx-2" alt="chat with notification" routerLink="/pages/subscriptions">Subscribe Now</button>
         <button class="btn btn-secondary subscribe_button mx-2 me-4" (click)="openReportModal(op, $event)" alt="reports"
                 alt="chat with notification"><i class="fa-solid fa-files"></i> Report
         </button>
@@ -36,27 +43,29 @@
                         <div class="row report">
                             <p class="report-label text-left mb-0">Modules</p>
                             <span class="report-modal">
-                            <p-dropdown [options]="moduleList" (onChange)="onChangeModuleList($event.value.id)"
-                                        formControlName="moduleId" dataKey="id" [(ngModel)]="moduleNgModel"
+                            <p-dropdown [options]="moduleList" (onChange)="onChangeModuleList($event.value)"
+                                        formControlName="moduleId" [(ngModel)]="moduleNgModel"
+                                        optionValue="id"
                                         class="w-100" id="moduleId" optionLabel="module_name"></p-dropdown>
                         </span>
                             <p class="report-label text-left mb-0">Categories</p>
                             <span class="report-modal">
-                            <p-dropdown [options]="subModuleList" dataKey="id"
-                                        [(ngModel)]="subModuleNgModel"
-                                        formControlName="submoduleId"
-                                        (onChange)="onChangeSubModuleList($event.value.id)"
+                            <p-dropdown [options]="subModuleList" [(ngModel)]="subModuleNgModel"
+                                        formControlName="submoduleId"  optionValue="id"
+                                        (onChange)="onChangeSubModuleList($event.value)"
                                         class="w-100" id="submoduleId" optionLabel="submodule_name"></p-dropdown>
                         </span>
                             <p class="report-label text-left mb-0">Question Number</p>
                             <span class="report-modal">
-                            <p-dropdown [options]="questionList" dataKey="id" [(ngModel)]="questionIdNgModel"
+                            <p-dropdown [options]="questionList" [(ngModel)]="questionIdNgModel"
+                                        optionValue="id"
                                         formControlName="questionId" (onChange)="onChangeQuestionIdList($event)"
                                         class="w-100" id="questionId" optionLabel="id"></p-dropdown>
                         </span>
                             <p class="report-label text-left mb-0">Issue Type</p>
                             <span class="report-modal">
-                            <p-dropdown [options]="reportOptionList" dataKey="id" [(ngModel)]="reportOptionNgModel"
+                            <p-dropdown [options]="reportOptionList" [(ngModel)]="reportOptionNgModel"
+                                        optionValue="id"
                                         formControlName="reportOption" (onChange)="onChangeIssueTypeList($event)"
                                         class="w-100" id="reportOption" optionLabel="reportoption_name"></p-dropdown>
                         </span>
@@ -229,21 +238,21 @@
                         </button>
                     </div>
                 </ng-container>
-<!--                <ng-template #done>-->
-<!--                    <div>-->
-<!--                        <div class="icn mt-3 mb-4">-->
-<!--                            <svg xmlns="http://www.w3.org/2000/svg" width="56" height="56" fill="#9bc329"-->
-<!--                                 class="bi bi-check-circle-fill" viewBox="0 0 16 16">-->
-<!--                                <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>-->
-<!--                            </svg>-->
-<!--                        </div>-->
-<!--                        <p class="bold">Your account password has been successfully changed.</p>-->
-<!--                        <p style="font-size: .8rem;">Please login to unichecker with your new password.</p>-->
-<!--                        <button routerLink="/login" class="btn btn-primary w-full" type="button">-->
-<!--                            CONTINUE TO LOGIN-->
-<!--                        </button>-->
-<!--                    </div>-->
-<!--                </ng-template>-->
+                <!--                <ng-template #done>-->
+                <!--                    <div>-->
+                <!--                        <div class="icn mt-3 mb-4">-->
+                <!--                            <svg xmlns="http://www.w3.org/2000/svg" width="56" height="56" fill="#9bc329"-->
+                <!--                                 class="bi bi-check-circle-fill" viewBox="0 0 16 16">-->
+                <!--                                <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>-->
+                <!--                            </svg>-->
+                <!--                        </div>-->
+                <!--                        <p class="bold">Your account password has been successfully changed.</p>-->
+                <!--                        <p style="font-size: .8rem;">Please login to unichecker with your new password.</p>-->
+                <!--                        <button routerLink="/login" class="btn btn-primary w-full" type="button">-->
+                <!--                            CONTINUE TO LOGIN-->
+                <!--                        </button>-->
+                <!--                    </div>-->
+                <!--                </ng-template>-->
             </form>
         </div>
     </div>

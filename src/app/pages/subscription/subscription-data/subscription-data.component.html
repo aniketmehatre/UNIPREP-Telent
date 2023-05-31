@@ -1,17 +1,21 @@
 <div [class]="'card card-body'">
     <h3 class="sop-border sop-header text-uppercase">subscriptions</h3>
 </div>
-<br/>
+<br />
 <div class="row">
     <div class="col-md-6">
         <div class="card h-full card-body">
             <table class="w-full">
                 <tr>
-                    <td><h5 class="m-0">{{subscriptions?.name}}</h5></td>
-                    <td class="text-end fw-semibold"><span class="text-danger">{{subscriptions?.checksLeft}}</span> CHECKS PENDING</td>
+                    <td>
+                        <h5 class="m-0">{{!subscriptions?.name ? 'Free' : subscriptions?.name}}</h5>
+                    </td>
+                    <!-- <td class="text-end fw-semibold"><span class="text-danger">{{subscriptions?.checksLeft}}</span>
+                        CHECKS PENDING</td> -->
                 </tr>
                 <tr>
-                    <td><span class="font-primarycolor h3 fw-semibold">{{subscriptions?.checks}}YOUR BENEFITS</span></td>
+                    <td><span class="font-primarycolor h3 fw-semibold">{{subscriptions?.checks}}YOUR BENEFITS</span>
+                    </td>
                     <td class="text-end">
                         <button class="btn btn-primary mx-0" (click)="upgrade.emit()">UPGRADE PLAN</button>
                     </td>
@@ -21,58 +25,67 @@
             <div class="card h-full card-body mt-3" style="border-radius:0.5px;">
                 <table class="w-full">
                     <tr>
-                        <td><label class="m-0" style="font-size: 24pz; color: #3C3C3C;">Live resolution to personal questions. </label></td>
+                        <td><label class="m-0" style="font-size: 24pz; color: #3C3C3C;">Live resolution to personal
+                                questions. </label></td>
                         <!--                            <td class="text-end fw-semibold" style="font-size: 17px; color: #D44100;">15</td>-->
                     </tr>
                 </table>
                 <hr class="dotedline">
                 <table class="w-full">
                     <tr>
-                        <td><label class="m-0" style="font-size: 24pz; color: #3C3C3C;">30,000+ questions on every topic concerning education abroad answered by alumni of international universities.
-                            Choose your destination from a list of 10 countries - USA, UK, Switzerland, Dubai, Germany, France, Spain, Ireland, Australia, Singapore</label></td>
+                        <td><label class="m-0" style="font-size: 24pz; color: #3C3C3C;">30,000+ questions on every topic
+                                concerning education abroad answered by alumni of international universities.
+                                Choose your destination from a list of 10 countries - USA, UK, Switzerland, Dubai,
+                                Germany, France, Spain, Ireland, Australia, Singapore</label></td>
                         <!--                            <td class="text-end fw-semibold" style="font-size: 17px; color: #D44100;">15</td>-->
                     </tr>
                 </table>
                 <hr class="dotedline">
                 <table class="w-full">
                     <tr>
-                        <td><label class="m-0" style="font-size: 24pz; color: #3C3C3C;">360degree questions answered on topics such as:
-                            <br>
-                            Pre application: everything you should know before applying for a university abroad<br>
-                            Post application: everything you should know post submission of documents to desired university<br>
-                            Post admission: everything you should know post admission letter<br>
-                            Life at destination country: everything you should know about destination country<br>
-                            Career Hub: everything you should know about the career growth and opportunity<br>
-                            Universities: everything you should know about the best of universities
-                        </label></td>
+                        <td><label class="m-0" style="font-size: 24pz; color: #3C3C3C;">360degree questions answered on
+                                topics such as:
+                                <br>
+                                Pre application: everything you should know before applying for a university abroad<br>
+                                Post application: everything you should know post submission of documents to desired
+                                university<br>
+                                Post admission: everything you should know post admission letter<br>
+                                Life at destination country: everything you should know about destination country<br>
+                                Career Hub: everything you should know about the career growth and opportunity<br>
+                                Universities: everything you should know about the best of universities
+                            </label></td>
                         <!--                            <td class="text-end fw-semibold" style="font-size: 17px; color: #D44100;">15</td>-->
                     </tr>
                 </table>
                 <hr class="dotedline">
                 <table class="w-full">
                     <tr>
-                        <td><label class="m-0" style="font-size: 24pz; color: #3C3C3C;">Keyword\ Search engine based user interface: Search for questions through keywords. </label></td>
+                        <td><label class="m-0" style="font-size: 24pz; color: #3C3C3C;">Keyword\ Search engine based
+                                user interface: Search for questions through keywords. </label></td>
                         <!--                            <td class="text-end fw-semibold" style="font-size: 17px; color: #D44100;">15</td>-->
                     </tr>
                 </table>
                 <hr class="dotedline">
                 <table class="w-full">
                     <tr>
-                        <td><label class="m-0" style="font-size: 24pz; color: #3C3C3C;">Evaluate your knowledge through a quiz. </label></td>
+                        <td><label class="m-0" style="font-size: 24pz; color: #3C3C3C;">Evaluate your knowledge through
+                                a quiz. </label></td>
                         <!--                            <td class="text-end fw-semibold" style="font-size: 17px; color: #D44100;">15</td>-->
                     </tr>
                 </table>
                 <hr class="dotedline">
                 <table class="w-full">
                     <tr>
-                        <td><label class="m-0" style="font-size: 24pz; color: #3C3C3C;">Certificate granted for the progress.</label></td>
+                        <td><label class="m-0" style="font-size: 24pz; color: #3C3C3C;">Certificate granted for the
+                                progress.</label></td>
                         <!--                            <td class="text-end fw-semibold" style="font-size: 17px; color: #D44100;">15</td>-->
                     </tr>
                 </table>
                 <hr class="dotedline">
                 <table class="w-full">
                     <tr>
-                        <td><label class="m-0" style="font-size: 24pz; color: #3C3C3C;">Weekly live webinars.</label></td>
+                        <td><label class="m-0" style="font-size: 24pz; color: #3C3C3C;">Weekly live webinars.</label>
+                        </td>
                         <!--                            <td class="text-end fw-semibold" style="font-size: 17px; color: #D44100;">15</td>-->
                     </tr>
                 </table>
@@ -80,74 +93,84 @@
         </div>
     </div>
     <div class="col-md-6">
-        <div class="card h-100 card-body">
-            <h5>Billing Information</h5>
-            <br/>
-            <table class="w-full">
-                <tr>
-                    <td class="fw-medium w-25 py-1">Full Name</td>
-                    <td style="width: 20px">-</td>
-                    <td>{{billing?.name}}</td>
-                </tr>
-                <tr>
-                    <td  class="fw-medium w-25 py-1">Mobile Number</td>
-                    <td style="width: 20px">-</td>
-                    <td>{{billing?.mobile}}</td>
-                </tr>
-                <tr>
-                    <td class="fw-medium w-25 py-1">Email</td>
-                    <td style="width: 20px">-</td>
-                    <td>{{billing?.email}}</td>
-                </tr>
-                <tr>
-                    <td class="fw-medium w-25 py-1">Country</td>
-                    <td style="width: 20px">-</td>
-                    <td>{{billing?.country}}</td>
-                </tr>
-                <tr>
-                    <td class="fw-medium w-25 py-1">Location</td>
-                    <td style="width: 20px">-</td>
-                    <td>{{billing?.location}}</td>
-                </tr>
-            </table>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card h-100 card-body">
+                    <h5>Billing Information</h5>
+                    <br />
+                    <table class="w-full">
+                        <tr>
+                            <td class="fw-medium w-25 py-1">Full Name</td>
+                            <td style="width: 20px">-</td>
+                            <td>{{billing?.name}}</td>
+                        </tr>
+                        <tr>
+                            <td class="fw-medium w-25 py-1">Mobile Number</td>
+                            <td style="width: 20px">-</td>
+                            <td>{{billing?.phone}}</td>
+                        </tr>
+                        <tr>
+                            <td class="fw-medium w-25 py-1">Email</td>
+                            <td style="width: 20px">-</td>
+                            <td>{{billing?.email}}</td>
+                        </tr>
+<!--                        <tr>-->
+<!--                            <td class="fw-medium w-25 py-1">Country</td>-->
+<!--                            <td style="width: 20px">-</td>-->
+<!--                            <td>{{billing?.countryName}}</td>-->
+<!--                        </tr>-->
+                        <tr>
+                            <td class="fw-medium w-25 py-1">State</td>
+                            <td style="width: 20px">-</td>
+                            <td>{{billing?.state}}</td>
+                        </tr>
+                        <tr>
+                            <td class="fw-medium w-25 py-1">District</td>
+                            <td style="width: 20px">-</td>
+                            <td>{{billing?.district}}</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <div class="col-md-12 mt-4">
+                <div class="card card-body mb-5">
+                    <h5>Check billing history</h5>
+                    <p-table [value]="history">
+                        <ng-template pTemplate="header">
+                            <tr>
+                                <th>Product</th>
+                                <th>Reference</th>
+                                <th>Date</th>
+                                <th>Amount</th>
+                                <th>Status</th>
+                                <th>Download</th>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="body" let-product>
+                            <tr>
+                                <td>{{ product.subscriptionsName }}</td>
+                                <td>{{ product.refrence }}</td>
+                                <td>{{ product.date }}</td>
+                                <td>INR {{ product.amount }}</td>
+                                <td><span class="font-primarycolor"><i class="pi pi-check"></i></span></td>
+                                <td>
+                                    <!--                    <span fileSaver-->
+                                    <!--                          method="POST"-->
+                                    <!--                          [fileName]="(product?.refrence || 'invoice').split('.')[0]+'.pdf'"-->
+                                    <!--                          [url]="URL"-->
+                                    <!--                          [query]="{orderId: product?.orderId}"-->
+                                    <!--                          [header]="{ token: '' }"-->
+                                    <!--                          (success)="onSuc($event)"-->
+                                    <!--                          (error)="onErr($event)"-->
+                                    <!--                          class="download">-->
+                                    <!--                        <i class="pi pi-download"></i>-->
+                                    <!--                    </span>-->
+                                </td>
+                            </tr>
+                        </ng-template>
+                    </p-table>
+                </div>
+            </div>
         </div>
     </div>
-</div>
-<br/>
-<div class="card card-body mb-5">
-    <h5>Check billing history</h5>
-    <p-table [value]="history">
-        <ng-template pTemplate="header">
-            <tr>
-                <th>Product</th>
-                <th>Reference</th>
-                <th>Date</th>
-                <th>Amount</th>
-                <th>Status</th>
-                <th>Download</th>
-            </tr>
-        </ng-template>
-        <ng-template pTemplate="body" let-product>
-            <tr>
-                <td>{{ product.subscriptionsName }}</td>
-                <td>{{ product.refrence }}</td>
-                <td>{{ product.date }}</td>
-                <td>INR {{ product.amount }}</td>
-                <td><span class="font-primarycolor"><i class="pi pi-check"></i></span></td>
-                <td>
-<!--                    <span fileSaver-->
-<!--                          method="POST"-->
-<!--                          [fileName]="(product?.refrence || 'invoice').split('.')[0]+'.pdf'"-->
-<!--                          [url]="URL"-->
-<!--                          [query]="{orderId: product?.orderId}"-->
-<!--                          [header]="{ token: '' }"-->
-<!--                          (success)="onSuc($event)"-->
-<!--                          (error)="onErr($event)"-->
-<!--                          class="download">-->
-<!--                        <i class="pi pi-download"></i>-->
-<!--                    </span>-->
-                </td>
-            </tr>
-        </ng-template>
-    </p-table>
 </div>

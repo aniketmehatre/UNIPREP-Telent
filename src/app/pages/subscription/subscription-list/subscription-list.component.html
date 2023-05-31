@@ -1,52 +1,47 @@
 <div class="card card-body">
-    <h3 class="sop-border sop-header">Our Pricing Plans</h3>
+    <div class="row">
+        <div class="col-md-6">
+            <h3 class="sop-border sop-header">Our Pricing Plans</h3>
+        </div>
+        <div class="col-md-6 text-end">
+            <button pButton class="btn-primary text-dark fw-bold" (click)="buyCreditClicked()">{{buttonText}}</button>
+        </div>
+    </div>
 </div>
-<br/>
+<br />
 <div class="card">
     <div class="card-body">
         <div class="container-fluid">
             <div class="row gap-5 mt-5 d-flex">
-                <!--                                <div class="card subscriptioncard col px-0" *ngFor="let p of plans; let i = index">-->
-                <!--                                    <div class="mostpopular" *ngIf="i == 2">Most Popular Plan</div>-->
-                <!--                                    <div class="card-header p-4">-->
-                <!--                                        <div class="d-flex justify-content-between align-items-center">-->
-                <!--                                            <h3 class="fw-bold mb-0">{{p.subscription}}<br>Plan</h3>-->
-                <!--                                            <div class="text-end">-->
-                <!--                                                <h4 class="mb-0"><s>INR {{p.price}}</s></h4>-->
-                <!--                                                <div class="btn discountbutton">Save {{p.discount}}</div>-->
-                <!--                                            </div>-->
-                <!--                                        </div>-->
-                <!--                                    </div>-->
-                <!--&lt;!&ndash;                                    <div class="card-body p-4">&ndash;&gt;-->
-                <!--&lt;!&ndash;                                        <ul class="mb-0 p-0">&ndash;&gt;-->
-                <!--&lt;!&ndash;                                            <li class="d-flex py-2 align-items-center"><i class="fa-solid h4 mb-0 me-2 fa-circle-check font-primarycolor"></i><p class="mb-0 fw-medium">Plagiarism Checker</p></li>&ndash;&gt;-->
-                <!--&lt;!&ndash;                                            <li class="d-flex py-2 align-items-center"><i class="fa-solid h4 mb-0 me-2 fa-circle-check font-primarycolor"></i><p class="mb-0 fw-medium">Grammar Checker</p></li>&ndash;&gt;-->
-                <!--&lt;!&ndash;                                            <li class="d-flex py-2 align-items-center"><i class="fa-solid h4 mb-0 me-2 fa-circle-check font-primarycolor"></i><p class="mb-0 fw-medium">Statement Checker</p></li>&ndash;&gt;-->
-                <!--&lt;!&ndash;                                            <li class="d-flex py-2 align-items-center"><i class="fa-solid h4 mb-0 me-2 fa-circle-check font-primarycolor"></i><p class="mb-0 fw-medium">Word Count</p></li>&ndash;&gt;-->
-                <!--&lt;!&ndash;                                            <li class="d-flex py-2 align-items-center"><i class="fa-solid h4 mb-0 me-2 fa-circle-check font-primarycolor"></i><p class="mb-0 fw-medium">Sop Samples</p></li>&ndash;&gt;-->
-                <!--&lt;!&ndash;                                            <li class="d-flex py-2 align-items-center"><i class="fa-solid h4 mb-0 me-2 fa-circle-check font-primarycolor"></i><p class="mb-0 fw-medium">SOP Formatting</p></li>&ndash;&gt;-->
-                <!--&lt;!&ndash;                                        </ul>&ndash;&gt;-->
-                <!--&lt;!&ndash;                                    </div>&ndash;&gt;-->
-                <!--                                    <div class="card-footer  p-4">-->
-                <!--                                        <div class="scardDiscount">United Kingdom</div>-->
-                <!--                                        <p class="scardCheck">Add other Countries at {{p.addln_country_discount}} INR</p>-->
-                <!--                                        <div class="text-center">-->
-                <!--                                            <button class="btn btn-primary" *ngIf="i != 0" (click)="selected.emit(p)">SUBSCRIBE NOW</button>-->
-                <!--                                        </div>-->
-                <!--                                    </div>-->
-                <!--                                </div>-->
-
-                <div class="scards mb-5">
+                <div class="scards mb-5" *ngIf="isNormalPlanSelected">
                     <div *ngFor="let v of plans; let i = index" class="scard px-3">
-                        <div class="scardTitle"> Save {{( v.price - v.discount/ v.price) / 100 | number:'1.0-0'}} %
+                        <div class="scardTitle"> Save
+                            {{ (v.price - v.discount / v.price) / 100 | number:'1.0-0' }}
+                            %
                         </div>
-                        <h3 class="scardCheck mb-2 pt-2">{{v.subscription}}</h3>
-                        <h6 class="scardCheck mb-4 pt-2">{{v.validity}} month validity</h6>
-                        <h5 class="scardPrice mb-1 pt-2">INR-<b>{{v.price}}</b>.00</h5>
-                        <h3 class="scardPriceCurrent mb-4">INR-<b>{{v.price - v.discount}}</b>.00</h3>
-                        <div class="scardDiscount pt-2">United Kingdom</div>
-                        <p class="scardCheck pt-2">Add other Countries at {{v.addln_country_discount}} INR</p>
+                        <h3 class="scardCheck mb-2 pt-2">{{ v.subscription }}</h3>
+                        <h6 class="scardCheck mb-4 pt-2">{{ v.validity }} month validity</h6>
+                        <h5 class="scardPrice mb-1 pt-2">INR-<b>{{ v.price }}</b>.00</h5>
+                        <h3 class="scardPriceCurrent mb-4">INR-<b>{{ v.price - v.discount }}</b>.00</h3>
+                        <span class="p-float-label">
+                            <p-multiSelect [options]="countryList" styleClass="w-100" optionValue="id"
+                                [(ngModel)]="selectedCountry[i]" [readonly]="i == 0"
+                                optionLabel="country"></p-multiSelect>
+                        </span>
+                        <p class="scardCheck pt-2">Add other Countries at {{ v.addln_country_discount }} INR</p>
                         <div class="scardStart pt-2" *ngIf="i != 0" (click)="selected.emit(v)">SUBSCRIBE NOW</div>
+                    </div>
+                </div>
+
+                <div class="scards mb-5" *ngIf="isBuyCreditSelected">
+                    <div *ngFor="let v of questionCreditData; let i = index" class="scard px-3">
+                        <div class="scardTitle px-2"> Save {{(v.price - v.discount/ v.price) / 100 | number:'1.0-0'}} %
+                        </div>
+                        <h3 class="scardCheck mb-3 mt-4 px-2">{{v.name}}</h3>
+                        <h5 class="scardPrice mb-3 mt-4 px-2">INR-<b>{{v.price}}</b>.00</h5>
+                        <h3 class="scardPriceCurrent mt-4 px-2">INR-<b>{{v.price - v.discount}}</b>.00</h3>
+                        <h6 class="scardDiscount mt-4 px-2">{{v.questions_count}} Questions</h6>
+                        <div class="scardStart mt-4 px-2" (click)="selectedCredit.emit(v)">BUY NOW</div>
                     </div>
                 </div>
             </div>

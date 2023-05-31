@@ -19,7 +19,7 @@ export class DataService {
 
     public showTimeOutSource = new BehaviorSubject(false);
     showTimeOutStatus = this.showTimeOutSource.asObservable();
-    public openReportWindowSource = new BehaviorSubject(false);
+    public openReportWindowSource = new BehaviorSubject<any>('');
     openReport = this.openReportWindowSource.asObservable();
 
     constructor() {
@@ -45,8 +45,8 @@ export class DataService {
         this.showTimeOutSource.next(isShow);
     }
 
-    openReportWindow(isShow: boolean){
-        this.openReportWindowSource.next(isShow);
+    openReportWindow(data: any){
+        this.openReportWindowSource.next(data);
     }
 
 }

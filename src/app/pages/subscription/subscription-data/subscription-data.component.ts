@@ -9,10 +9,11 @@ import {environment} from "@env/environment.prod";
 })
 export class SubscriptionDataComponent implements OnInit {
 
-  @Input() billing!: Billinginfo | null;
+  @Input() billing!: any | null;
   @Input() subscriptions!: Subscription | null;
   @Input() history: OrderHistory[] = [];
   @Output() upgrade = new EventEmitter();
+
   constructor() { }
 
   ngOnInit(): void {

@@ -43,10 +43,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
     private subs = new SubSink();
     userName: any;
     firstChar: any;
-    moduleNgModel: string = '1';
-    subModuleNgModel: string = '1';
-    questionIdNgModel: string = '1';
-    reportOptionNgModel: string = '1';
+    moduleNgModel: number = 1;
+    subModuleNgModel: number = 1;
+    questionIdNgModel: number = 1;
+    reportOptionNgModel: number = 1;
     selectedContryId: any;
     selectedModuleId: any;
     moduleList: any[] = [];
@@ -58,7 +58,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     showReportSuccess: boolean = false;
     isShowFreeTrailStart: boolean = false;
     isChangePasswordWindowVisible: boolean = false;
-
+    dayHourMin: any;
     constructor(
         private modalService: ModalService, private router: Router, private locationService: LocationService,
         private viewContainerRef: ViewContainerRef, private formBuilder: FormBuilder, private authService: AuthService,
@@ -71,6 +71,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
         this.dataService.showTimeOutSource.subscribe(data => {
             this.visible = data;
         })
+
     }
 
     isMenuOpen = true;
@@ -94,8 +95,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
             }
         }
     }
-
-
 
     ngOnInit() {
         this.setPasswordForm = this.formBuilder.group({
@@ -128,23 +127,29 @@ export class HeaderComponent implements OnInit, OnDestroy {
                 //this.openReportModal(this.op, event);
             }
         });
-        this.dataService.openReportWindowSource.subscribe((isOpen) => {
-            if (isOpen) {
-                console.log(isOpen)
+        this.dataService.openReportWindowSource.subscribe((data) => {
+            if (data.isVisible) {
+                this.moduleNgModel = data.moduleId
+                this.subModuleNgModel = data.subModuleId
+                this.questionIdNgModel = data.questionId
+                this.onChangeSubModuleList(data.subModuleId);
                 this.openReportModal(this.op, event);
             }
         });
+
         this.subs.sink = this.service.selectLogInData$().subscribe(data => {
             if (data) {
                 localStorage.setItem('question_left', data.questions_left);
-                if (60 == 60) {
-                    this.isShowFreeTrailStart = true;
-                    return;
-                }
+                // if (60 == 60) {
+                //     localStorage.setItem(KEY, '60');
+                //     this.isShowFreeTrailStart = true;
+                //     return;
+                // }
                 // if (data.time_left < 0) {
                 //     this.visible = true;
                 //     return;
                 // }
+                
                 localStorage.setItem(KEY, `${data.time_left * 60}`);
             }
         });
@@ -176,7 +181,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
         }
 
         this.subs.sink = this.service.getMe().subscribe(data => {
-            console.log('user data', data.userdetails)
+
             this.userName = data.userdetails[0].name.toString();
             this.firstChar = this.userName.charAt(0);
         });
@@ -214,6 +219,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
                 this.setCookie('checked', 'false');
             }
         });
+
     }
 
     exploreNow() {
@@ -292,7 +298,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
         });
     }
 
-    onChangeModuleList(moduleId = 1) {
+    onChangeModuleList(moduleId: number = 1) {
         let data = {
             moduleid: moduleId
         }
@@ -306,7 +312,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
         })
     }
 
-    onChangeSubModuleList(subModuleId = 1) {
+    onChangeSubModuleList(subModuleId: any = 1) {
         let data = {
             moduleId: this.selectedModuleId,
             countryId: this.selectedContryId,
@@ -379,7 +385,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     }
 
     passwordChangeOnClick() {
-        if (this.setPasswordForm.value.password !== this.setPasswordForm.value.confirmPassword){
+        if (this.setPasswordForm.value.password !== this.setPasswordForm.value.confirmPassword) {
             this.toast.add({severity: 'info', summary: 'Alert', detail: 'Password does not match'});
         }
 
