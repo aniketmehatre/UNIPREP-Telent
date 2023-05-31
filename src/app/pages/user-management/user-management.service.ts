@@ -1,0 +1,19 @@
+import { Injectable } from '@angular/core';
+import {HttpClient, HttpHeaders} from "@angular/common/http";
+import {environment} from "@env/environment";
+
+@Injectable({
+  providedIn: 'root'
+})
+export class UserManagementService {
+
+  constructor(private httpClient: HttpClient) { }
+
+
+  updateUserDetails(data: any) {
+    const headers = new HttpHeaders().set("Accept", "application/json");
+    return this.httpClient.post<any>(environment.ApiUrl + "/updateuserdetails", data, {
+      headers: headers,
+    });
+  }
+}

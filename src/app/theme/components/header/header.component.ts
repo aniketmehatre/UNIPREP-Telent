@@ -19,6 +19,7 @@ import {Router} from "@angular/router";
 import {LocationService} from "../../../location.service";
 import {DataService} from "src/app/data.service";
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {matchValidator} from "../../../@Supports/matchvalidator";
 
 const KEY = 'time'
 let DEFAULT = 0
@@ -42,10 +43,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
     private subs = new SubSink();
     userName: any;
     firstChar: any;
-    moduleNgModel: string = '1';
-    subModuleNgModel: string = '1';
-    questionIdNgModel: string = '1';
-    reportOptionNgModel: string = '1';
+    moduleNgModel: number = 1;
+    subModuleNgModel: number = 1;
+    questionIdNgModel: number = 1;
+    reportOptionNgModel: number = 1;
     selectedContryId: any;
     selectedModuleId: any;
     moduleList: any[] = [];
@@ -56,10 +57,11 @@ export class HeaderComponent implements OnInit, OnDestroy {
     visible: boolean = false;
     showReportSuccess: boolean = false;
     isShowFreeTrailStart: boolean = false;
-
+    isChangePasswordWindowVisible: boolean = false;
+    dayHourMin: any;
     constructor(
         private modalService: ModalService, private router: Router, private locationService: LocationService,
-        private viewContainerRef: ViewContainerRef, private formBuilder: FormBuilder,
+        private viewContainerRef: ViewContainerRef, private formBuilder: FormBuilder, private authService: AuthService,
         private service: AuthService, private toast: MessageService, private dataService: DataService
     ) {
         this.dataService.countryIdSource.subscribe(data => {
@@ -69,6 +71,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
         this.dataService.showTimeOutSource.subscribe(data => {
             this.visible = data;
         })
+
     }
 
     isMenuOpen = true;
@@ -94,6 +97,17 @@ export class HeaderComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
+        this.setPasswordForm = this.formBuilder.group({
+            password: [
+                "",
+                [
+                    Validators.required,
+                    Validators.minLength(8),
+                    matchValidator("confirmPassword", true),
+                ],
+            ],
+            confirmPassword: ["", [Validators.required, matchValidator("password")]],
+        });
         const storedIsMenuOpen = localStorage.getItem('isMenuOpen');
         if (storedIsMenuOpen) {
             this.isMenuOpen = JSON.parse(storedIsMenuOpen);
@@ -113,17 +127,29 @@ export class HeaderComponent implements OnInit, OnDestroy {
                 //this.openReportModal(this.op, event);
             }
         });
+        this.dataService.openReportWindowSource.subscribe((data) => {
+            if (data.isVisible) {
+                this.moduleNgModel = data.moduleId
+                this.subModuleNgModel = data.subModuleId
+                this.questionIdNgModel = data.questionId
+                this.onChangeSubModuleList(data.subModuleId);
+                this.openReportModal(this.op, event);
+            }
+        });
+
         this.subs.sink = this.service.selectLogInData$().subscribe(data => {
             if (data) {
                 localStorage.setItem('question_left', data.questions_left);
-                if (60 == 60) {
-                    this.isShowFreeTrailStart = true;
-                    return;
-                }
+                // if (60 == 60) {
+                //     localStorage.setItem(KEY, '60');
+                //     this.isShowFreeTrailStart = true;
+                //     return;
+                // }
                 // if (data.time_left < 0) {
                 //     this.visible = true;
                 //     return;
                 // }
+                
                 localStorage.setItem(KEY, `${data.time_left * 60}`);
             }
         });
@@ -155,7 +181,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
         }
 
         this.subs.sink = this.service.getMe().subscribe(data => {
-            console.log('user data', data.userdetails)
+
             this.userName = data.userdetails[0].name.toString();
             this.firstChar = this.userName.charAt(0);
         });
@@ -193,6 +219,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
                 this.setCookie('checked', 'false');
             }
         });
+
     }
 
     exploreNow() {
@@ -271,7 +298,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
         });
     }
 
-    onChangeModuleList(moduleId = 1) {
+    onChangeModuleList(moduleId: number = 1) {
         let data = {
             moduleid: moduleId
         }
@@ -285,7 +312,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
         })
     }
 
-    onChangeSubModuleList(subModuleId = 1) {
+    onChangeSubModuleList(subModuleId: any = 1) {
         let data = {
             moduleId: this.selectedModuleId,
             countryId: this.selectedContryId,
@@ -296,6 +323,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
             }
             this.questionList = res.questions;
+            this.questionList.map((x: any,i: number) => {
+                x['index'] = i+1;
+            })            
         })
     }
 
@@ -329,10 +359,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
             return;
         }
         let data = {
-            moduleId: this.reportSubmitForm.value.moduleId.id,
-            submoduleId: this.reportSubmitForm.value.submoduleId.id,
-            questionId: this.reportSubmitForm.value.questionId.id,
-            reportOption: this.reportSubmitForm.value.reportOption.id,
+            moduleId: this.reportSubmitForm.value.moduleId,
+            submoduleId: this.reportSubmitForm.value.submoduleId,
+            questionId: this.reportSubmitForm.value.questionId,
+            reportOption: this.reportSubmitForm.value.reportOption,
             comment: this.reportSubmitForm.value.comment
         }
 
@@ -343,6 +373,35 @@ export class HeaderComponent implements OnInit, OnDestroy {
             this.showReportSuccess = true;
             this.toast.add({severity: 'success', summary: 'Success', detail: 'FAQ Report submitted successfully'});
         })
+    }
+
+    public setPasswordForm: any = FormGroup;
+    isNotSuccess: boolean = true;
+    submitted: boolean = false;
+
+    changePassword() {
+        this.isChangePasswordWindowVisible = true;
+    }
+
+    get f() {
+        return this.setPasswordForm.controls;
+    }
+
+    passwordChangeOnClick() {
+        if (this.setPasswordForm.value.password !== this.setPasswordForm.value.confirmPassword) {
+            this.toast.add({severity: 'info', summary: 'Alert', detail: 'Password does not match'});
+        }
+
+        this.locationService.updatePassword(this.setPasswordForm.value.confirmPassword).subscribe(res => {
+            if (res.status == 404) {
+
+            }
+            this.isChangePasswordWindowVisible = false;
+            this.authService.logout();
+            this.toast.add({severity: 'success', summary: 'Success', detail: 'Password Updated Successfully.'});
+        })
+
+
     }
 
 }

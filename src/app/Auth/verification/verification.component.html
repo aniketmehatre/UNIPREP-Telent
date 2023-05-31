@@ -9,9 +9,11 @@
       <div style="text-align-last: center">
         <input
           class="col form-control"
+          #otp1
           [ngClass]="{
             'is-invalid': submitted && f.otp1.errors
           }"
+          (keyup)="focusNextInput($event, 1)"
           formControlName="otp1"
           type="text"
           maxlength="1"
@@ -20,6 +22,8 @@
           class="col form-control"
           formControlName="otp2"
           type="text"
+          #otp2
+          (keyup)="focusNextInput($event, 2)"
           maxlength="1"
           [ngClass]="{
             'is-invalid': submitted && f.otp2.errors
@@ -29,7 +33,9 @@
           class="col form-control"
           formControlName="otp3"
           type="text"
+          #otp3
           maxlength="1"
+          (keyup)="focusNextInput($event, 3)"
           [ngClass]="{
             'is-invalid': submitted && f.otp3.errors
           }"
@@ -38,7 +44,9 @@
           class="col form-control"
           formControlName="otp4"
           type="text"
+          #otp4
           maxlength="1"
+          (keyup)="focusNextInput($event, 4)"
           [ngClass]="{
             'is-invalid': submitted && f.otp4.errors
           }"

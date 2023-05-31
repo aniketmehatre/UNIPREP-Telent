@@ -4,12 +4,15 @@ import {switchMap} from "rxjs";
 import {map} from "rxjs/operators";
 import {
     loadQuestionList,
+    loadQuizList,
+    loadQuizListSuccess,
     loadQuestionListSuccess,
     loadSubModules,
     loadSubModulesSuccess
 } from "./pre-application.actions";
 import {Actions, createEffect, ofType} from "@ngrx/effects";
 import {PreApplicationService} from "./pre-application.service";
+import {QuizList} from "../../../@Models/list-quiz.model";
 
 
 @Injectable()
@@ -31,6 +34,19 @@ export class PreApplicationEffects {
         }).pipe(
             map(response => {
                 return loadQuestionListSuccess({questionList: response.questions})
+            })
+        ))
+    ));
+
+    loadQuizList = createEffect(() => this.actions$.pipe(
+        ofType(loadQuizList),
+        switchMap((payload) => this.preApplicationService.loadQuizList({
+            countryId: payload.countryId,
+            moduleId: payload.moduleId,
+            submoduleId: payload.submoduleId
+        }).pipe(
+            map(response => {
+                return loadQuizListSuccess({quizList: response.quizquestion})
             })
         ))
     ));

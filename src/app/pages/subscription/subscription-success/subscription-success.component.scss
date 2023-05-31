@@ -1,0 +1,145 @@
+.paymentpanel {
+  min-width: 300px;
+}
+.pricedetailtable {
+  font-size: 1.2rem;
+  .space {
+    height: 20px;
+  }
+  .border-dashed {
+    border: 1px dashed #343a40;
+    margin: 10px 0px;
+  }
+  img {
+    margin: 10px 0px;
+    width: 100px;
+  }
+}
+.downloadbtn {
+  display: block;
+  border: 1px solid lightgray;
+  color: white;
+  width: 100%;
+  background: linear-gradient(90deg, rgb(127, 129, 121) 35%, rgb(101, 106, 87) 60%, rgb(76, 78, 72) 85%) !important;
+  padding: 10px 0px;
+  border-radius: 5px;
+  margin-top: 10px;
+}
+.price-card-list {
+  display: flex;
+  gap: 12px;
+}
+.price-card {
+  min-height: 600px;
+  flex: 1;
+  overflow: hidden;
+  position: relative;
+  .header {
+    h4 {
+      font-size: 3rem;
+    }
+    p {
+      display: none;
+    }
+    text-align: center;
+    font-weight: bold;
+  }
+  .pricedetails {
+    width: 100%;
+    position: absolute;
+    bottom: -100px;
+    text-align: center;
+    font-weight: bold;
+    color: #ffffff;
+    .fs3{
+      font-size: 3rem !important;
+    }
+    .fs2 {
+      font-size: 2rem !important;
+    }
+  }
+  &:hover {
+    .fs {
+      color: #9bc329;
+    }
+    .header {
+      color: #ffffff;
+      p {
+        display: block;
+      }
+    }
+    .buynow {
+      opacity: 1;
+    }
+  }
+  .buynow {
+    opacity: 0;
+    border: 0;
+    background-color: #9bc329;
+    color: white;
+    width: 150px;
+    height: 150px;
+    padding: 10px;
+    border-radius: 50%;
+    position: relative;
+    span {
+      position: absolute;
+      top: 20px;
+      left: 0px;
+      display: block;
+      width: 100%;
+      text-align: center;
+    }
+  }
+}
+.basicImg {
+  background-image: url("/src/assets/images/Group 1.jpg");
+  backdrop-filter: grayscale(100%);
+  filter: grayscale(1);
+  &:hover {
+    filter: grayscale(0);
+  }
+}
+.standardImg {
+  background-image: url("/src/assets/images/Group 2.jpg");
+  background-size: 100% 100%;
+  filter: grayscale(1);
+  &:hover {
+    filter: grayscale(0);
+  }
+}
+.unlimitedImg {
+  background-image: url("/src/assets/images/Group 3.jpg");
+  background-size: 100% 100%;
+  filter: grayscale(1);
+  &:hover {
+    filter: grayscale(0);
+  }
+}
+.circle {
+  display: inline-block;
+  padding: 15px;
+  border: 2px solid white;
+  border-radius: 50%;
+  .pi {
+    font-weight: bold;
+    width: 20px; height: 20px
+  }
+}
+.links {
+  text-align: left;
+  span {
+    font-weight: bold;
+    margin: 0px 10px;
+    cursor: pointer;
+    &:first-child {
+      border-right: 2px solid white;
+      padding-right: 10px;
+      margin-right: 0px;
+    }
+  }
+}
+.line {
+  height: 10px;
+  border-bottom: 1px dashed gray;
+}

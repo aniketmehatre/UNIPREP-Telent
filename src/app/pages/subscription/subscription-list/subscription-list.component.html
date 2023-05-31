@@ -1,0 +1,50 @@
+<div class="card card-body">
+    <div class="row">
+        <div class="col-md-6">
+            <h3 class="sop-border sop-header">Our Pricing Plans</h3>
+        </div>
+        <div class="col-md-6 text-end">
+            <button pButton class="btn-primary text-dark fw-bold" (click)="buyCreditClicked()">{{buttonText}}</button>
+        </div>
+    </div>
+</div>
+<br />
+<div class="card">
+    <div class="card-body">
+        <div class="container-fluid">
+            <div class="row gap-5 mt-5 d-flex">
+                <div class="scards mb-5" *ngIf="isNormalPlanSelected">
+                    <div *ngFor="let v of plans; let i = index" class="scard px-3">
+                        <div class="scardTitle"> Save
+                            {{ (v.price - v.discount / v.price) / 100 | number:'1.0-0' }}
+                            %
+                        </div>
+                        <h3 class="scardCheck mb-2 pt-2">{{ v.subscription }}</h3>
+                        <h6 class="scardCheck mb-4 pt-2">{{ v.validity }} month validity</h6>
+                        <h5 class="scardPrice mb-1 pt-2">INR-<b>{{ v.price }}</b>.00</h5>
+                        <h3 class="scardPriceCurrent mb-4">INR-<b>{{ v.price - v.discount }}</b>.00</h3>
+                        <span class="p-float-label">
+                            <p-multiSelect [options]="countryList" styleClass="w-100" optionValue="id"
+                                [(ngModel)]="selectedCountry[i]" [readonly]="i == 0"
+                                optionLabel="country"></p-multiSelect>
+                        </span>
+                        <p class="scardCheck pt-2">Add other Countries at {{ v.addln_country_discount }} INR</p>
+                        <div class="scardStart pt-2" *ngIf="i != 0" (click)="selected.emit(v)">SUBSCRIBE NOW</div>
+                    </div>
+                </div>
+
+                <div class="scards mb-5" *ngIf="isBuyCreditSelected">
+                    <div *ngFor="let v of questionCreditData; let i = index" class="scard px-3">
+                        <div class="scardTitle px-2"> Save {{(v.price - v.discount/ v.price) / 100 | number:'1.0-0'}} %
+                        </div>
+                        <h3 class="scardCheck mb-3 mt-4 px-2">{{v.name}}</h3>
+                        <h5 class="scardPrice mb-3 mt-4 px-2">INR-<b>{{v.price}}</b>.00</h5>
+                        <h3 class="scardPriceCurrent mt-4 px-2">INR-<b>{{v.price - v.discount}}</b>.00</h3>
+                        <h6 class="scardDiscount mt-4 px-2">{{v.questions_count}} Questions</h6>
+                        <div class="scardStart mt-4 px-2" (click)="selectedCredit.emit(v)">BUY NOW</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,281 @@
+.price-card-list {
+  display: flex;
+  gap: 12px;
+}
+
+.price-card {
+  min-height: 600px;
+  flex: 1;
+  overflow: hidden;
+  position: relative;
+
+  .header {
+    h4 {
+      font-size: 3rem;
+    }
+
+    p {
+      display: none;
+    }
+
+    text-align: center;
+    font-weight: bold;
+  }
+
+  .pricedetails {
+    width: 100%;
+    position: absolute;
+    bottom: -100px;
+    text-align: center;
+    font-weight: bold;
+    color: #ffffff;
+
+    .fs3 {
+      font-size: 3rem !important;
+    }
+
+    .fs2 {
+      font-size: 2rem !important;
+    }
+  }
+
+  &:hover {
+    .fs {
+      color: #9bc329;
+    }
+
+    .header {
+      color: #ffffff;
+
+      p {
+        display: block;
+      }
+    }
+
+    .buynow {
+      opacity: 1;
+    }
+  }
+
+  .buynow {
+    opacity: 0;
+    border: 0;
+    background-color: #9bc329;
+    color: white;
+    width: 150px;
+    height: 150px;
+    padding: 10px;
+    border-radius: 50%;
+    position: relative;
+
+    span {
+      position: absolute;
+      top: 20px;
+      left: 0px;
+      display: block;
+      width: 100%;
+      text-align: center;
+    }
+  }
+}
+
+.basicImg {
+  background-image: url("/uniprep-assets/images/Group 1.jpg");
+  backdrop-filter: grayscale(100%);
+  filter: grayscale(1);
+
+  &:hover {
+    filter: grayscale(0);
+  }
+}
+
+.standardImg {
+  background-image: url("/uniprep-assets/images/Group 2.jpg");
+  background-size: 100% 100%;
+  filter: grayscale(1);
+
+  &:hover {
+    filter: grayscale(0);
+  }
+}
+
+.unlimitedImg {
+  background-image: url("/uniprep-assets/images/Group 3.jpg");
+  background-size: 100% 100%;
+  filter: grayscale(1);
+
+  &:hover {
+    filter: grayscale(0);
+  }
+}
+
+.paymentpanel {
+  min-width: 300px;
+}
+
+.pricedetailtable {
+  font-size: 1.2rem;
+
+  .space {
+    height: 20px;
+  }
+
+  .border-dashed {
+    border: 1px dashed #343a40;
+    margin: 10px 0px;
+  }
+
+  img {
+    margin: 10px 0px;
+    width: 100px;
+  }
+}
+
+.downloadbtn {
+  display: block;
+  border: 1px solid lightgray;
+  color: white;
+  width: 100%;
+  background: linear-gradient(90deg, rgb(127, 129, 121) 35%, rgb(101, 106, 87) 60%, rgb(76, 78, 72) 85%) !important;
+  padding: 10px 0px;
+  border-radius: 5px;
+  margin-top: 10px;
+}
+
+//  changes design
+// .sop-border:after {
+//   width: 232px !important;
+// }
+.scardFeatures {
+  display: flex;
+  gap: 10px;
+
+  &.center {
+    justify-content: center;
+  }
+
+  .scardFeature {
+    display: flex;
+    gap: 5px;
+
+    .pi {
+      background: #9BC329;
+      color: white;
+      text-align: center;
+      line-height: 22px;
+      width: 22px !important;
+      height: 22px !important;
+      font-size: 10px;
+      border-radius: 50%;
+    }
+  }
+}
+
+.questiontooltip {
+  position: absolute;
+  top: 5px;
+  color: #9bc329;
+  margin-left: 5px;
+}
+
+.scards {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  justify-content: center;
+  @media only screen and (max-width: 565px) {
+    flex-direction: column;
+  }
+}
+
+.scard {
+  border-radius: 15px;
+  background: #F5F5F5;
+  border: 1px solid #e7e7e7;
+
+  &:hover {
+    background: #FBFFF2 0% 0% no-repeat padding-box;
+  }
+
+  .scardTitle {
+    width: 70%;
+    margin: auto;
+    margin-bottom: 20px;
+    padding: 5px 0px;
+    background: #9BC329;
+    color: #001631;
+    text-align: center;
+    border-bottom-right-radius: 35px;
+    border-bottom-left-radius: 35px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+
+  .scardStart {
+    width: 70%;
+    margin: auto;
+    padding: 5px 0px;
+    background: #9BC329;
+    color: white;
+    text-align: center;
+    border-radius: 35px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    margin-bottom: -15px;
+    z-index: 2;
+    position: relative;
+
+    &:hover {
+      background: #001631 0% 0% no-repeat padding-box;
+      cursor: pointer;
+    }
+  }
+
+  .scardPrice {
+    text-decoration: line-through;
+    text-decoration-color: black;
+    color: #9BC329;
+    text-align: center;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+
+  .scardDiscount {
+    background: white;
+    color: #001631;
+    text-align: center;
+    padding: 5px;
+    border-radius: 20px;
+    border-color: #9BC329;
+    border-width: 1em;
+    margin: auto;
+    width: 150px;
+  }
+
+  .scardPriceCurrent {
+    color: #001631;
+    text-align: center;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+
+  .scardCheck {
+    color: #001631;
+    text-align: center;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+
+  // .btn{
+  //   position: fixed;
+  //   bottom: 0px;
+  //   right: 0px;
+  //   padding: 20px;
+  // }
+
+}

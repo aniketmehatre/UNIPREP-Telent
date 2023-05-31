@@ -9,4 +9,6 @@ export const selectSubModule$ =
 
 export const selectQuestionList$ =
     createSelector(featureSelect, (state: PreApplicationState) => state.questionList || []);
+export const selectQuizList$ =
+    createSelector(featureSelect, (state: PreApplicationState) => state.quizList || []);
 

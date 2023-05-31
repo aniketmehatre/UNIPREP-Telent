@@ -5,6 +5,7 @@ import {SubModuleList} from "../../../@Models/pre-application.model";
 import {Router} from "@angular/router";
 import {MenuItem} from "primeng/api";
 import {DataService} from "../../../data.service";
+import {LocationService} from "../../../location.service";
 
 @Component({
     selector: 'uni-list-modules',
@@ -13,19 +14,26 @@ import {DataService} from "../../../data.service";
 })
 export class ListModulesComponent implements OnInit {
     subModules$!: Observable<SubModuleList[]>;
+    quizList$!: Observable<any>;
     selectedSubModule: any;
+    answeredCorrect: number = 0;
+    totalPercentage: number = 0;
     subModuleList: any[] = [];
     isStartQuiz: boolean = false;
     isQuizSubmit: boolean = false;
+    isReviewVisible: boolean = false;
     responsiveOptions: any[] = [];
-    quizData: any[] = [];
+    quizData: any [] = [];
+    moduleList: any [] = [];
     selectedQuiz: number = 1;
+    selectedOptNumber: number = 1;
+    selectedOptValue: string = '';
     positionNumber: number = 0;
     breadCrumb: MenuItem[] = [];
-    answeredValue: any;
-    reviewAnswer: any [] = []
+    answerOptionClicked: boolean = true
 
-    constructor(private preAppService: PreAppService, private router: Router, private dataService: DataService) {
+    constructor(private preAppService: PreAppService, private router: Router, private dataService: DataService,
+                private locationService: LocationService) {
         this.responsiveOptions = [
             {
                 breakpoint: '1199px',
@@ -46,141 +54,152 @@ export class ListModulesComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.quizData = [{
-            id: 1,
-            country_id: 2,
-            module_id: 1,
-            question: "test 1",
-            option1: "test fda",
-            option2: "test asdf ",
-            option3: "test dsfg",
-            option4: "test dgh",
-            answer: 2,
-            status: 1,
-            created_at: "2023-03-06T13:42:39.000000Z",
-            updated_at: "2023-03-06T13:42:39.000000Z",
-            submodule_id: 1
-        }, {
-            id: 2,
-            country_id: 2,
-            module_id: 1,
-            question: "a sdf asdf asdf asdf asdf",
-            option1: "what is ",
-            option2: "test asdf",
-            option3: "wer df",
-            option4: "agffgasdf",
-            answer: 4,
-            status: 1,
-            created_at: "2023-03-06T13:42:39.000000Z",
-            updated_at: "2023-03-06T13:42:39.000000Z",
-            submodule_id: 1
-        }, {
-            id: 3,
-            country_id: 2,
-            module_id: 1,
-            question: "test w ebsdgwehggsh",
-            option1: "test4vert",
-            option2: "test gfhg",
-            option3: "testwe rtwert",
-            option4: "testvaf",
-            answer: 1,
-            status: 1,
-            created_at: "2023-03-06T13:42:39.000000Z",
-            updated_at: "2023-03-06T13:42:39.000000Z",
-            submodule_id: 1
-        }, {
-            id: 4,
-            country_id: 2,
-            module_id: 1,
-            question: "test wert wetg wer",
-            option1: "test asdf",
-            option2: "testasdf",
-            option3: "testgh",
-            option4: "testwet",
-            answer: 3,
-            status: 1,
-            created_at: "2023-03-06T13:42:39.000000Z",
-            updated_at: "2023-03-06T13:42:39.000000Z",
-            submodule_id: 1
-        }, {
-            id: 5,
-            country_id: 2,
-            module_id: 1,
-            question: "test  mryjrtyh ethge",
-            option1: "ghj sdfg",
-            option2: "tetrtyust",
-            option3: "ghj f jgf",
-            option4: "djh dgh",
-            answer: 2,
-            status: 1,
-            created_at: "2023-03-06T13:42:39.000000Z",
-            updated_at: "2023-03-06T13:42:39.000000Z",
-            submodule_id: 1
-        },];
-        this.quizData.map((data) => {
-            data.otp1 = data.option1 + data.id;
-            data.otp2 = data.option2 + data.id;
-            data.otp3 = data.option3 + data.id;
-            data.otp4 = data.option4 + data.id;
-        });
+        this.loadModuleAndSubModule();
+    }
+
+    loadModuleAndSubModule() {
         this.subModules$ = this.preAppService.subModuleList$();
         let countryId = Number(localStorage.getItem('countryId'));
         this.preAppService.loadSubModules(countryId);
+        this.subModules$.subscribe(event => {
+            this.subModuleList = event;
+        });
+        this.locationService.getUniPerpModuleList().subscribe((data: any) => {
+            this.moduleList = data.modules;
+        });
+    }
+
+    getQuizData() {
         let cName = "";
         this.dataService.countryNameSource.subscribe(countryName => {
             cName = countryName;
         });
-        this.breadCrumb = [{label: cName}, {label: `Quiz ${this.positionNumber + 1}`}];
+        let data = {
+            countryId: Number(localStorage.getItem('countryId')),
+            moduleId: 1,
+            submoduleId: 1
+        }
+
+        this.quizList$ = this.preAppService.quizList$();
+        this.preAppService.quizList(data);
+
+        this.quizList$.subscribe((data) => {
+
+            this.quizData = data.map((val: any) => {
+                let moduleData = this.moduleList.filter(ind => ind.id == val.module_id)[0]!.module_name;
+                let subModuleName = this.subModuleList.filter(ind => ind.id == val.submodule_id)[0]!.submodule_name;
+                let number = 1;
+                let dd = {...val};
+                dd.module_name = moduleData
+                dd.sub_module_name = subModuleName
+                dd.otp1 = dd.option1 + dd.id + number++;
+                dd.otp2 = dd.option2 + dd.id + number++;
+                dd.otp3 = dd.option3 + dd.id + number++;
+                dd.otp4 = dd.option4 + dd.id + number++;
+                return dd;
+            })
+            this.breadCrumb = [{label: cName}, {label: this.quizData[0]!.module_name},
+                {label: this.quizData[0]!.sub_module_name}];
+        });
+
     }
 
     clickPreviousQuiz(carouselQuiz: any, event: any) {
         if (this.selectedQuiz <= 1) {
             return;
         }
-        let data = this.quizData[this.selectedQuiz];
-        this.quizData.map((data) => {
-            if(data.id == this.selectedQuiz){
-                data.user_answered = this.selectedQuiz;
+        let singleQuizData = this.quizData[this.selectedQuiz-2];
+        console.log(singleQuizData);
+        this.quizData.map((data: any) => {
+            let dd = {...data};
+
+            if (dd.id == singleQuizData.id) {
+                console.log(dd);
+                this.selectedOptNumber = dd.user_answered;
+                if(dd.user_answered_value != ''){
+                    this.answerOptionClicked = false;
+                    dd.user_answered = this.selectedQuiz;
+                }
+                return dd;
             }
         });
-        console.log(this.quizData);
         this.selectedQuiz = this.selectedQuiz - 1;
         let cName = "";
         this.dataService.countryNameSource.subscribe(countryName => {
             cName = countryName;
         });
-        this.breadCrumb = [{label: cName}, {label: `Quiz ${this.selectedQuiz}`}];
-        carouselQuiz.navBackward(event, this.selectedQuiz)
+        this.breadCrumb = [{label: cName}, {label: singleQuizData.module_name},
+            {label: singleQuizData.sub_module_name}];
+        carouselQuiz.navBackward(event, this.selectedQuiz);
     }
 
     clickNextQuiz(carouselQuiz: any, event: any) {
         if (this.selectedQuiz > this.quizData.length - 1) {
             return;
         }
-        let data = this.quizData[this.selectedQuiz];
-        this.quizData.map((data) => {
-            if(data.id == this.selectedQuiz){
-                data.user_answered = this.selectedQuiz;
+
+        let singleQuizData = this.quizData[this.selectedQuiz - 1];
+        this.quizData = this.quizData.map((data: any) => {
+            let dat = {...data}
+            if (dat.id == singleQuizData.id) {
+                console.log('01', dat.user_answered_value);
+                if(!dat.user_answered_value){
+                    console.log('02');
+                    dat.user_answered = this.selectedOptNumber;
+                    dat.user_answered_value = this.selectedOptValue;
+                    this.answerOptionClicked = true;
+                }else{
+                    console.log('03');
+                    this.answerOptionClicked = false;
+                }
+                return dat;
             }
+            return dat;
         });
-        console.log(this.quizData);
+        let sing = this.quizData[this.selectedQuiz];
+        if(!sing.user_answered_value) {
+            this.answerOptionClicked = true;
+        }
         this.selectedQuiz = this.selectedQuiz + 1;
 
         let cName = "";
         this.dataService.countryNameSource.subscribe(countryName => {
             cName = countryName;
         });
-        this.breadCrumb = [{label: cName}, {label: `Quiz ${this.selectedQuiz}`}];
+
+        this.breadCrumb = [{label: cName}, {label: singleQuizData.module_name},
+            {label: singleQuizData.sub_module_name}];
         carouselQuiz.navForward(event, this.selectedQuiz);
     }
 
-    clickSubmitQuiz(event: any) {
+    clickSubmitQuiz() {
+        this.quizData.forEach((data) => {
+            if (data.answer == data.user_answered) {
+                this.answeredCorrect++;
+            }
+        });
+        this.totalPercentage = (this.answeredCorrect / this.quizData.length) * 100;
         this.isStartQuiz = false;
         this.isQuizSubmit = true;
     }
 
+    closeAllHome() {
+        this.isStartQuiz = false;
+        this.isQuizSubmit = false;
+    }
+
     startQuiz() {
+        let cName = "";
+        this.dataService.countryNameSource.subscribe(countryName => {
+            cName = countryName;
+        });
+        this.quizData = [];
+        this.loadModuleAndSubModule();
+        this.getQuizData();
+        this.selectedQuiz = 1;
+        this.positionNumber = 1;
         this.isStartQuiz = true;
+
     }
 
     goToHome(event: any) {
@@ -188,6 +207,7 @@ export class ListModulesComponent implements OnInit {
     }
 
     openReport(event: any) {
+        this.dataService.openReportWindow(true);
     }
 
     setPage(page: any) {
@@ -212,20 +232,33 @@ export class ListModulesComponent implements OnInit {
 
     }
 
-    selectAnswer(selectedOption: any, data: any) {
-        console.log(selectedOption, data);
+    selectAnswer(selectedOption: any, singleData: any, optNumber: number) {
+        this.answerOptionClicked = false;
+        this.selectedOptNumber = optNumber;
+        this.selectedOptValue = selectedOption;
+        let mappedQuiz = this.quizData.map((data: any) => {
+            let dat = {...data}
+            if (dat.id == singleData.id) {
+
+                dat.user_answered = optNumber;
+                dat.user_answered_value = selectedOption;
+                return dat;
+            }
+            return dat;
+        });
+        this.quizData = mappedQuiz;
     }
 
-    selectAnswer1(selectedOption: any, data: any) {
-        console.log(selectedOption, data);
+    openReviewPopup() {
+        this.isQuizSubmit = false;
+        this.isReviewVisible = true;
     }
 
-    selectAnswer2(selectedOption: any, data: any) {
-        console.log(selectedOption, data);
+    retryQuiz() {
+        this.quizData = [];
+        this.getQuizData();
+        this.selectedQuiz = 1;
+        this.positionNumber = 1;
+        this.isStartQuiz = true;
     }
-
-    selectAnswer3(selectedOption: any, data: any) {
-        console.log(selectedOption, data);
-    }
-
 }

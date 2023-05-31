@@ -1,8 +1,8 @@
 import {Injectable} from '@angular/core';
 import {Store} from "@ngrx/store";
 import {PreApplicationState} from "./store/pre-application.reducer";
-import {loadQuestionList, loadSubModules} from "./store/pre-application.actions";
-import {selectQuestionList$, selectSubModule$} from "./store/pre-application.selectors";
+import {loadQuestionList, loadQuizList, loadSubModules} from "./store/pre-application.actions";
+import {selectQuestionList$, selectQuizList$, selectSubModule$} from "./store/pre-application.selectors";
 
 @Injectable({
     providedIn: 'root'
@@ -30,5 +30,16 @@ export class PreAppService {
 
     questionList$() {
         return this.store.select(selectQuestionList$);
+    }
+
+    quizList(data: any) {
+        this.store.dispatch(loadQuizList({
+            countryId: data.countryId,
+            moduleId: data.moduleId,
+            submoduleId: data.submoduleId
+        }));
+    }
+    quizList$() {
+        return this.store.select(selectQuizList$);
     }
 }

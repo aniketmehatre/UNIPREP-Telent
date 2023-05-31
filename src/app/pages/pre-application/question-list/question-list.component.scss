@@ -22,6 +22,7 @@
   border: 0;
 }
 
+
 .application-text {
   font-size: 0.8rem;
 }
@@ -32,10 +33,11 @@
     border: none;
   }
 }
-.questionread
-  {
-    filter: grayscale(1);
-  }
+
+.questionread {
+  filter: grayscale(1);
+}
+
 .questioncard {
   border: 2px solid #efb875;
   width: 100%;
@@ -74,6 +76,7 @@
   }
 
 }
+
 .circle {
   border-radius: 50%;
   width: 40px;

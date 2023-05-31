@@ -46,6 +46,11 @@ export class RegistrationComponent implements OnInit {
     showConfirm = false;
     confirmPassword: any;
 
+    // resent timer
+    resendTime = 1;
+    startTimer = 0;
+    interval: any;
+
     showHidePassword() {
         if (this.password === 'password') {
             this.password = 'text';
@@ -69,13 +74,15 @@ export class RegistrationComponent implements OnInit {
     constructor(private service: AuthService, private router: Router, private formBuilder: FormBuilder,
                 private locationService: LocationService, private toastr: MessageService) {
     }
+
     dateTime = new Date();
+
     ngOnInit() {
-        // this.isMobileOTPSend = true;
-        // this.isMobileOTPValidated = true;
-        // this.isEmailOTPSend = true;
-        // this.isEmailOTPValidated = true;
-        // this.isRemainingFieldVisible = true;
+        // this.isMobileOTPSend = false;
+        // this.isMobileOTPValidated = false;
+        // this.isEmailOTPSend = false;
+        // this.isEmailOTPValidated = false;
+        // this.isRemainingFieldVisible = false;
         this.dateTime.setDate(this.dateTime.getDate());
 
         this.password = 'password';
@@ -151,6 +158,7 @@ export class RegistrationComponent implements OnInit {
             }
         );
     }
+
     getCountryList() {
         this.locationService.getCountry().subscribe(
             (res: any) => {
@@ -201,7 +209,7 @@ export class RegistrationComponent implements OnInit {
             interested_country_id: this.registrationForm.value.interestedCountry.id,
             last_degree_passing_year: this.registrationForm.value.lastDegreePassingYear.getFullYear(),
             intake_year_looking: this.registrationForm.value.intakeYear.getFullYear(),
-            intake_month_looking: this.registrationForm.value.intakeMonth.getMonth()+1,
+            intake_month_looking: this.registrationForm.value.intakeMonth.getMonth() + 1,
             programlevel_id: this.registrationForm.value.programLevel.id,
             gender: this.registrationForm.value.gender.label,
             password: this.registrationForm.value.password,
@@ -243,6 +251,12 @@ export class RegistrationComponent implements OnInit {
         if (this.registrationForm.value.fullName != null && this.registrationForm.value.contactNumber) {
             this.service.getSmsOTP(val).subscribe(
                 (res: any) => {
+                    this.resendTime++;
+                    this.startTimer = 60;
+                    if (this.resendTime >= 3) {
+                        this.startTimer = 30;
+                    }
+                    this.processTimer();
                     this.isMobileOTPSend = true;
                     this.toastr.add({
                         severity: "success",
@@ -282,6 +296,7 @@ export class RegistrationComponent implements OnInit {
             };
             this.service.verifySmsOTP(val).subscribe(
                 (res: any) => {
+
                     this.isMobileOTPValidated = true;
                     this.otpForm.reset();
                     this.toastr.add({
@@ -312,6 +327,7 @@ export class RegistrationComponent implements OnInit {
         this.service.sendEmailOTP(data).subscribe(
             (res) => {
                 console.log(res)
+
                 this.isEmailOTPSend = true;
                 this.registrationForm.controls['emailAddress'].readonly = true;
             },
@@ -357,27 +373,6 @@ export class RegistrationComponent implements OnInit {
         );
         // this.isMobileOTPValidated = true;
         // this.isEmailOTPSend = true;
-    }
-
-    yearChange(event: any) {
-        // console.log(event.value.value)
-        const month = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-
-        const d = new Date();
-        // const rest = month.slice(d.getMonth())
-        this.intakeMonthLooking = [
-            {label: "1", value: "January"},
-            {label: "2", value: "February"},
-            {label: "3", value: "March"},
-            {label: "4", value: "April"},
-            {label: "5", value: "May"},
-            {label: "6", value: "June"},
-            {label: "7", value: "July"},
-            {label: "8", value: "August"},
-            {label: "9", value: "September"},
-            {label: "10", value: "October"},
-            {label: "11", value: "November"},
-            {label: "12", value: "December"},];
     }
 
     focusNextInput(event: any, num: number) {
@@ -440,4 +435,17 @@ export class RegistrationComponent implements OnInit {
         }
     }
 
+    processTimer() {
+        if (this.interval) {
+            clearInterval(this.interval);
+            this.interval = undefined;
+        }
+        this.interval = setInterval(() => {
+            this.startTimer -= 1;
+            console.log('=>', this.startTimer);
+            if (this.startTimer <= 0) {
+                clearInterval(this.interval);
+            }
+        }, 1000);
+    }
 }

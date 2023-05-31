@@ -1,9 +1,10 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {DashboardService} from "../dashboard/dashboard.service";
 import {DataService} from "../../data.service";
 import {MenuItem} from "primeng/api";
 import {LocationService} from "../../location.service";
 import {SubSink} from "subsink";
+import {Router} from "@angular/router";
 
 @Component({
     selector: 'uni-header-search',
@@ -11,6 +12,8 @@ import {SubSink} from "subsink";
     styleUrls: ['./header-search.component.scss']
 })
 export class HeaderSearchComponent implements OnInit, OnDestroy {
+    @ViewChild('searchInput', {static: false, read: ElementRef}) elRef: any;
+
     message: any
     countryName: any
     isSearchResultFound: boolean = false;
@@ -28,9 +31,10 @@ export class HeaderSearchComponent implements OnInit, OnDestroy {
     moduleName: any;
     subModuleName: any;
     searchInputValue: any;
+    searchInputText: any;
 
     constructor(private dashboardService: DashboardService, private dataService: DataService,
-                private locationService: LocationService) {
+                private locationService: LocationService, private route: Router) {
         this.dataService.chatTriggerSource.subscribe(message => {
             this.message = message;
         });
@@ -186,6 +190,31 @@ export class HeaderSearchComponent implements OnInit, OnDestroy {
 
     ngOnDestroy() {
         this.subs.unsubscribe();
+    }
+
+    redirectModule(moduleName: any) {
+        let modName = this.convertToSlug(moduleName);
+        this.searchInputText = "";
+        this.isSearchResultFound = false;
+        this.route.navigate([`/pages/${modName}/sub-modules`]);
+    }
+
+    redirectToSubmodule(data: any) {
+        let modName = this.convertToSlug(data.module_name);
+        this.searchInputText = "";
+        this.isSearchResultFound = false;
+        this.route.navigate([`/pages/${modName}/question-list/${data.submodule_id}`]);
+    }
+
+    convertToSlug(text: any) {
+        return text.toLowerCase()
+            .replace(/ /g, '-')
+            .replace(/[^\w-]+/g, '');
+    }
+
+    clearButton(val: any) {
+        this.searchInputText = "";
+        this.isSearchResultFound = false;
     }
 
 }

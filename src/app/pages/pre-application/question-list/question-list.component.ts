@@ -1,11 +1,12 @@
-import {AfterContentChecked, ChangeDetectorRef, Component, OnInit, ViewChild} from '@angular/core';
-import {Observable} from "rxjs";
-import {PreAppService} from "../pre-app.service";
-import {ListQuestion} from "../../../@Models/question-list.model";
-import {MenuItem} from "primeng/api";
-import {DataService} from 'src/app/data.service';
-import {ActivatedRoute} from "@angular/router";
-import {SubModuleList} from "../../../@Models/pre-application.model";
+import { AfterContentChecked, ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
+import { Observable } from "rxjs";
+import { PreAppService } from "../pre-app.service";
+import { ListQuestion } from "../../../@Models/question-list.model";
+import { MenuItem } from "primeng/api";
+import { DataService } from 'src/app/data.service';
+import { ActivatedRoute } from "@angular/router";
+import { SubModuleList } from "../../../@Models/pre-application.model";
+import {Location} from '@angular/common';
 
 @Component({
     selector: 'uni-question-list',
@@ -21,6 +22,9 @@ export class QuestionListComponent implements OnInit, AfterContentChecked {
     subModules$!: Observable<SubModuleList[]>;
     listQuestion$!: Observable<ListQuestion[]>;
     selectedQuestion: number = 0;
+    selectedQuestionId: number = 0;
+    selectedModule: number = 0;
+    selectedSubModule: number = 0;
     selectedVideo: number = 0;
     selectedRefLink: number = 0;
     positionNumber: number = 0;
@@ -36,9 +40,10 @@ export class QuestionListComponent implements OnInit, AfterContentChecked {
     videoLinks: any;
     refLink: any;
     countryId: any;
+    selectedQuestionData: any;
 
     constructor(private preAppService: PreAppService, private changeDetector: ChangeDetectorRef,
-                private dataService: DataService, private route: ActivatedRoute) {
+        private dataService: DataService, private route: ActivatedRoute, private _location: Location) {
     }
 
     ngAfterContentChecked(): void {
@@ -54,7 +59,7 @@ export class QuestionListComponent implements OnInit, AfterContentChecked {
         this.getSubmoduleName(this.countryId);
 
         this.dataService.currentMessage.subscribe(message => this.message = message)
-        this.breadCrumb = [{label: 'Pre Application'}, {label: this.moduleName}, {label: 'Question'}];
+        this.breadCrumb = [{ label: 'Pre Application' }, { label: this.moduleName }, { label: 'Question' }];
 
         this.responsiveOptions = [
             {
@@ -82,6 +87,10 @@ export class QuestionListComponent implements OnInit, AfterContentChecked {
         this.preAppService.loadQuestionList(data);
     }
 
+    goBack(){
+        this._location.back();
+    }
+
     getSubmoduleName(countryId: number) {
         this.preAppService.loadSubModules(countryId);
         this.subModules$ = this.preAppService.subModuleList$();
@@ -94,16 +103,26 @@ export class QuestionListComponent implements OnInit, AfterContentChecked {
         })
     }
 
-    onQuestionClick(id: any) {
+    onQuestionClick(selectedData: any) {
         this.listQuestion$.subscribe(event => {
             this.data = event
-        });
-        console.log(id, this.data);
-        let index = this.data.findIndex((x: any) => x.id === id);
-        this.selectedQuestion = index;
+        });        
+        this.selectedQuestionData = selectedData;
+        this.selectedModule = selectedData.module_id;
+        this.selectedSubModule = selectedData.submodule_id;
+        this.selectedQuestionId = selectedData.id;
+        this.selectedQuestion = this.selectedQuestion - 1;
+        let index = this.data.findIndex((x: any) => x.id === selectedData.id);
+        this.selectedQuestion = index; 
         this.positionNumber = index;
-        this.breadCrumb = [{label: 'Pre Application'}, {label: this.moduleName}, {label: `Question ${index + 1}`}];
+        this.breadCrumb = [{ label: 'Pre Application' }, { label: this.moduleName }, { label: `Question ${index + 1}` }];
         this.isQuestionAnswerVisible = true;
+        this.data.filter((res: any) => {
+            if (res.id == selectedData.id) {
+                this.refLink = res.reflink;
+                this.videoLinks = res.videolink;
+            }
+        });
     }
 
     setPage(page: any) {
@@ -120,30 +139,40 @@ export class QuestionListComponent implements OnInit, AfterContentChecked {
             }
         });
         this.positionNumber = pageNum + 1;
-        this.breadCrumb = [{label: 'Pre Application'}, {label: this.moduleName}, {label: `Question ${pageNum + 1}`}];
+        this.breadCrumb = [{ label: 'Pre Application' }, { label: this.moduleName }, { label: `Question ${pageNum + 1}` }];
     }
 
     clickPrevious(carousel: any, event: any) {
         if (this.selectedQuestion <= 0) {
             return;
         }
+        let selectedData = this.data[this.selectedQuestion-1];
+        this.selectedQuestionData = selectedData;
+        this.selectedModule = selectedData.module_id;
+        this.selectedSubModule = selectedData.submodule_id;
+        this.selectedQuestionId = selectedData.id;
         this.selectedQuestion = this.selectedQuestion - 1;
         this.data.filter((res: any) => {
-            if (res.id == this.selectedQuestion + 1) {
+            if (res.id == selectedData.id) {
                 this.refLink = res.reflink;
                 this.videoLinks = res.videolink;
             }
-        })
-        carousel.navBackward(event, this.selectedQuestion)
+        });
+        carousel.navBackward(event, this.selectedQuestion);
     }
 
     clickNext(carousel: any, event: any) {
         if (this.selectedQuestion >= this.data.length - 1) {
             return;
         }
+        let selectedData = this.data[this.selectedQuestion+1];
+        this.selectedQuestionData = selectedData;
+        this.selectedModule = selectedData.module_id;
+        this.selectedSubModule = selectedData.submodule_id;
+        this.selectedQuestionId = selectedData.id;
         this.selectedQuestion = this.selectedQuestion + 1;
         this.data.filter((res: any) => {
-            if (res.id == this.selectedQuestion + 1) {
+            if (res.id == selectedData.id) {
                 this.refLink = res.reflink;
                 this.videoLinks = res.videolink;
             }
@@ -156,7 +185,6 @@ export class QuestionListComponent implements OnInit, AfterContentChecked {
             return;
         }
         this.selectedVideo = this.selectedVideo - 1;
-        console.log(this.selectedVideo)
 
         this.carouselVideoElm.navBackward(event, this.selectedVideo)
     }
@@ -166,7 +194,6 @@ export class QuestionListComponent implements OnInit, AfterContentChecked {
             return;
         }
         this.selectedVideo += 1;
-        console.log('next', this.selectedVideo)
 
         this.carouselVideoElm.navForward(event, this.selectedVideo)
     }
@@ -176,7 +203,6 @@ export class QuestionListComponent implements OnInit, AfterContentChecked {
             return;
         }
         this.selectedRefLink = this.selectedRefLink - 1;
-        console.log(this.selectedRefLink)
 
         this.carouselRefElm.navBackward(event, this.selectedRefLink)
     }
@@ -186,7 +212,6 @@ export class QuestionListComponent implements OnInit, AfterContentChecked {
             return;
         }
         this.selectedRefLink += 1;
-        console.log('next', this.selectedRefLink)
 
         this.carouselRefElm.navForward(event, this.selectedRefLink)
     }
@@ -207,6 +232,17 @@ export class QuestionListComponent implements OnInit, AfterContentChecked {
     onClickAsk() {
         this.dataService.changeChatOpenStatus("open chat window");
     }
+
+    openReport() {
+        let data = {
+            isVisible: true,
+            moduleId: this.selectedQuestionData.module_id,
+            subModuleId: this.selectedQuestionData.submodule_id,
+            questionId: this.selectedQuestionData.id,
+        }
+        this.dataService.openReportWindow(data);
+    }
+
 
     goToHome(event: any) {
         this.isQuestionAnswerVisible = false;

@@ -31,6 +31,16 @@ export class LocationService {
         });
     }
 
+    updatePassword(pass: any) {
+        let data = {
+            updated_password: pass
+        }
+        const headers = new HttpHeaders().set("Accept", "application/json");
+        return this.http.post<any>(environment.ApiUrl + "/updatepassword", data, {
+            headers: headers,
+        });
+    }
+
     getSubModuleByModule(data: any) {
         const headers = new HttpHeaders().set("Accept", "application/json");
         return this.http.post<any>(environment.ApiUrl + "/getsubmodulesbymodule", data, {

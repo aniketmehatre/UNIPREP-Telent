@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from '../auth.service';
@@ -10,7 +10,10 @@ import {MessageService} from "primeng/api";
   styleUrls: ['./verification.component.scss']
 })
 export class VerificationComponent implements OnInit {
-
+  @ViewChild('otp1') otp1!: ElementRef;
+  @ViewChild('otp2') otp2!: ElementRef;
+  @ViewChild('otp3') otp3!: ElementRef;
+  @ViewChild('otp4') otp4!: ElementRef;
   public otpForm: any = FormGroup;
   constructor(private service: AuthService, private formBuilder: FormBuilder,
     private router: Router,
@@ -64,5 +67,35 @@ export class VerificationComponent implements OnInit {
         console.log(error);
       }
     );
+  }
+
+  focusNextInput(event: any, num: number) {
+    const code = (event.code || '').toLowerCase();
+
+    if (code.includes('backspace')) {
+      switch (num) {
+        case 2:
+          this.otp1.nativeElement.focus();
+          break;
+        case 3:
+          this.otp2.nativeElement.focus();
+          break;
+        case 4:
+          this.otp3.nativeElement.focus();
+          break;
+      }
+    } else if (code.includes('digit')) {
+      switch (num) {
+        case 1:
+          this.otp2.nativeElement.focus();
+          break;
+        case 2:
+          this.otp3.nativeElement.focus();
+          break;
+        case 3:
+          this.otp4.nativeElement.focus();
+          break;
+      }
+    }
   }
 }

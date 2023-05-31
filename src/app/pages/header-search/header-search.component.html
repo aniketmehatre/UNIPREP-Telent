@@ -4,21 +4,24 @@
             <div class="col-12 md:col-4">
                 <div class="p-inputgroup">
                     <div class="search-icon"><i class="fa-solid fa-magnifying-glass"></i></div>
-                    <input #searchInput (keyup.enter)="searchKeyWord(searchInput)"
+                    <input #searchInput (keyup.enter)="searchKeyWord(searchInput)" [(ngModel)]="searchInputText"
                            (input)="onSearchChange(searchInput.value)" pInputText
                            placeholder="ENTER YOUR KEY WORDS HERE"
                            type="text">
+                          
                     <button (click)="searchKeyWord(searchInput)" class="btn-primary" label="Search" pButton pRipple
                             type="button"></button>
                 </div>
+
                 <ul *ngIf="isSearchResultFound" class="list-group list-group-flush shadow-lg">
-                    <li *ngFor="let c of searchResult" class="list-group-item" role="button" (click)="gerSelectedQuestion(c)">
+                    <li *ngFor="let c of searchResult" class="list-group-item">
                         <div class="row">
-                            <div class="col-md-9">
-                                <span class="pr-4">{{c.id}}) {{c.question}}</span>
+                            <div class="col-md-9"  (click)="gerSelectedQuestion(c)">
+                                <span class="pr-4">Q.{{c.id}}) {{c.question}}</span>
                             </div>
                             <div class="col-md-3">
-                                {{c.module_name}} -> {{c.submodule_name}}
+                                <a (click)="redirectModule(c.module_name)">{{c.module_name}}</a> ->
+                                <a (click)='redirectToSubmodule(c)'>{{c.submodule_name}}</a>
                             </div>
                         </div>
                     </li>

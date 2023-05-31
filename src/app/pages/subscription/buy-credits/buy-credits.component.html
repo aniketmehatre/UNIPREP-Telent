@@ -1,0 +1,35 @@
+<ng-container [ngSwitch]="stage">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="card">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between">
+                        <h3>Question Credits <i class="questiontooltip h4 fa-solid fa-circle-question"></i></h3>
+                        <div class="d-flex justify-content-center align-items-center">
+                            <i class="h2 pe-2 text-green fa-solid fa-shield"></i>
+                            <h5>Fast, Secure<br>and Affordable</h5>
+                        </div>
+                    </div>
+                    <div class="text-right d-flex justify-content-end">
+                        <!--                        <button alt="chat with notification" (click)="buyCreditPage()"-->
+                        <!--                                class="btn btn-primary mx-0 py-2 justify-content-center align-items-center d-flex">BUY QUESTION CREDITS <i-->
+                        <!--                                class="h4 ps-2 mb-0 fa-solid fa-circle-arrow-right"></i></button>-->
+                    </div>
+                    <div class="scards mb-5">
+                        <div (click)="basicplan()" *ngFor="let v of questionCreditData" class="scard px-3">
+                            <div class="scardTitle"> Save {{(v.price - v.discount/ v.price) / 100 | number:'1.0-0'}} %</div>
+                            <h3 class="scardCheck mb-2">{{v.name}}</h3>
+                            <h5 class="scardPrice mb-1">INR-<b>{{v.price}}</b>.00</h5>
+                            <h3 class="scardPriceCurrent mb-4">INR-<b>{{v.price - v.discount}}</b>.00</h3>
+<!--                            <div class="scardDiscount">United Kingdom</div>-->
+                            <h6 class="scardDiscount">{{v.questions_count}} Questions</h6>
+
+<!--                            <p class="scardCheck">Add other Countries at {{v.addln_country_discount}} INR</p>-->
+                            <div class="scardStart">BUY NOW</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</ng-container>

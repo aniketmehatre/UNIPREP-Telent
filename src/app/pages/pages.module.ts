@@ -8,9 +8,7 @@ import {pagesFeatureKey} from './store/pages.selectors';
 import {pagesReducer} from './store/pages.reducer';
 import {ButtonComponent} from './button/button.component';
 import {CardsComponent} from './cards/cards.component';
-import {DocPreviewComponent} from "./sop/docpreview/docpreview.component";
 import {TableModule} from "primeng/table";
-import {SopSampleComponent} from './sop-sample/sop-sample.component';
 import {HelpSupportComponent} from './help-support/help-support.component';
 import {UserManagementComponent} from './user-management/user-management.component';
 import {EditprofileComponent} from './user-management/editprofile/editprofile.component';
@@ -22,7 +20,7 @@ import {InputTextModule} from "primeng/inputtext";
 import {RippleModule} from "primeng/ripple";
 import {PreApplicationModule} from './pre-application/pre-application.module';
 import {PostAdmissionModule} from "./post-admission/post-admission.module";
-import {ReactiveFormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {DropdownModule} from "primeng/dropdown";
 import {CalendarModule} from "primeng/calendar";
 import {InputSwitchModule} from "primeng/inputswitch";
@@ -31,20 +29,19 @@ import { CarouselModule } from 'primeng/carousel';
 import { DialogModule } from 'primeng/dialog';
 import { BreadcrumbModule } from 'primeng/breadcrumb';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-
+import { QuestionCreditComponent } from './question-credit/question-credit.component';
 @NgModule({
     declarations: [
         PagesComponent,
         ButtonComponent,
         CardsComponent,
-        DocPreviewComponent,
-        SopSampleComponent,
         HelpSupportComponent,
         UserManagementComponent,
         EditprofileComponent,
         SubcriptionManagerComponent,
         FooterStatusBoxComponent,
         HeaderSearchComponent,
+        QuestionCreditComponent,
     ],
     exports: [
         FooterStatusBoxComponent,
@@ -68,6 +65,7 @@ import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
         CarouselModule,
         DialogModule,
         BreadcrumbModule,
+        FormsModule,
         InputSwitchModule
     ],
     schemas: [

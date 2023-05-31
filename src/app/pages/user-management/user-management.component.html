@@ -30,7 +30,7 @@
                                         <div class="p-inputgroup-addon">
                                             <i class="pi pi-user"></i>
                                         </div>
-                                        <input class="border-0" formControlName="name" pInputText type="text" />
+                                        <input class="border-0" formControlName="name" pInputText type="text"/>
                                     </div>
                                     <div *ngIf="submitted && f.name.errors" class="invalid-feedback">
                                         <div *ngIf="f.name.errors.required">
@@ -43,10 +43,11 @@
                                     <div class="p-inputgroup">
                                         <div class="p-inputgroup-addon">
                                             <img class="bg-image text-center"
-                                                src="../../../uniprep-assets/images/icons/Uniprep_Icons_location.png" />
+                                                 src="../../../uniprep-assets/images/icons/Uniprep_Icons_location.png"/>
                                         </div>
                                         <p-dropdown [filter]="true" [options]="locationList"
-                                            formControlName="location_id" optionLabel="district" optionValue="id">
+                                                    formControlName="location_id" optionLabel="district"
+                                                    optionValue="id">
                                         </p-dropdown>
                                     </div>
                                     <div *ngIf="submitted && f.location_id.errors" class="invalid-feedback">
@@ -62,10 +63,10 @@
                                     <div class="p-inputgroup">
                                         <div class="p-inputgroup-addon">
                                             <img class="bg-image text-center"
-                                                src="../../../uniprep-assets/images/icons/Uniprep_Icons_Contact.png" />
+                                                 src="../../../uniprep-assets/images/icons/Uniprep_Icons_Contact.png"/>
                                         </div>
                                         <input [readonly]="true" class="border-0" formControlName="phone" pInputText
-                                            type="number" />
+                                               type="number"/>
                                     </div>
                                     <div *ngIf="submitted && f.phone.errors" class="invalid-feedback">
                                         <div *ngIf="f.phone.errors.required">
@@ -78,10 +79,10 @@
                                     <div class="p-inputgroup">
                                         <div class="p-inputgroup-addon">
                                             <img class="bg-image text-center"
-                                                src="../../../uniprep-assets/images/icons/Uniprep_Icons_email.png" />
+                                                 src="../../../uniprep-assets/images/icons/Uniprep_Icons_email.png"/>
                                         </div>
                                         <input [readonly]="true" class="border-0 w-full" formControlName="email"
-                                            pInputText type="text" />
+                                               pInputText type="text"/>
                                     </div>
                                     <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
                                         <div *ngIf="f.email.errors.required">
@@ -96,10 +97,10 @@
                                     <div class="p-inputgroup">
                                         <div class="p-inputgroup-addon">
                                             <img class="bg-image text-center"
-                                                src="../../../uniprep-assets/images/icons/Uniprep_Icons_select_country.png" />
+                                                 src="../../../uniprep-assets/images/icons/Uniprep_Icons_select_country.png"/>
                                         </div>
                                         <p-dropdown formControlName="interested_country_id" [options]="countryList"
-                                            filterBy="name" optionLabel="country" optionValue="id"></p-dropdown>
+                                                    filterBy="name" optionLabel="country" optionValue="id"></p-dropdown>
                                     </div>
                                     <div *ngIf="submitted && f.interested_country_id.errors" class="invalid-feedback">
                                         <div *ngIf="f.interested_country_id.errors.required">
@@ -112,14 +113,15 @@
                                     <div class="p-inputgroup">
                                         <div class="p-inputgroup-addon">
                                             <img class="bg-image text-center"
-                                                src="../../../uniprep-assets/images/icons/Uniprep_Icons_calender.png" />
+                                                 src="../../../uniprep-assets/images/icons/Uniprep_Icons_calender.png"/>
                                         </div>
                                         <p-calendar [maxDate]="today" appendTo="body" dateFormat="yy"
-                                            formControlName="last_degree_passing_year" inputId="pickYear" view="year">
+                                                    formControlName="last_degree_passing_year" inputId="pickYear"
+                                                    view="year">
                                         </p-calendar>
                                     </div>
                                     <div *ngIf="submitted && f.last_degree_passing_year.errors"
-                                        class="invalid-feedback">
+                                         class="invalid-feedback">
                                         <div *ngIf="f.last_degree_passing_year.errors.required">
                                             Passing Year is required
                                         </div>
@@ -132,11 +134,12 @@
                                     <div class="p-inputgroup">
                                         <div class="p-inputgroup-addon">
                                             <img class="bg-image text-center"
-                                                src="../../../uniprep-assets/images/icons/Uniprep_Icons_calender.png" />
+                                                 src="../../../uniprep-assets/images/icons/Uniprep_Icons_calender.png"/>
                                         </div>
                                         <p-calendar (onSelect)="yearChage($event)" [minDate]="dateTime" appendTo="body"
-                                            dateFormat="yy" formControlName="intake_year_looking" inputId="yearpicker"
-                                            view="year"></p-calendar>
+                                                    dateFormat="yy" formControlName="intake_year_looking"
+                                                    inputId="yearpicker"
+                                                    view="year"></p-calendar>
                                     </div>
                                     <div *ngIf="submitted && f.intake_year_looking.errors" class="invalid-feedback">
                                         <div *ngIf="f.intake_year_looking.errors.required">
@@ -149,16 +152,16 @@
                                     <div class="p-inputgroup">
                                         <div class="p-inputgroup-addon">
                                             <img class="bg-image text-center"
-                                                src="../../../uniprep-assets/images/icons/Uniprep_Icons_calender.png" />
+                                                 src="../../../uniprep-assets/images/icons/Uniprep_Icons_calender.png"/>
                                         </div>
                                         <!-- <p-calendar [minDate]="dateTime" appendTo="body" dateFormat="mm" inputId="pickMonth"
                                             formControlName="intake_month_looking" value="intake_month_looking" view="month"></p-calendar> -->
-                                            <p-calendar view="month" dateFormat="MM" formControlName="intake_month_looking" inputId="pickMonth"
-                                            class="pt-2" [readonlyInput]="false" [minDate]="dateTime"
-                                            placeholder="">
-                                          </p-calendar>
-                                        </div>
-  
+                                        <p-calendar view="month" dateFormat="MM" formControlName="intake_month_looking"
+                                                    inputId="pickMonth"
+                                                    class="pt-2" [readonlyInput]="false" [minDate]="dateTime"
+                                                    placeholder="">
+                                        </p-calendar>
+                                    </div>
                                 </div>
                             </div>
                             <div class="row g-3">
@@ -167,11 +170,11 @@
                                     <div class="p-inputgroup">
                                         <div class="p-inputgroup-addon">
                                             <img class="bg-image text-center"
-                                                src="../../../uniprep-assets/images/icons/Uniprep_Icons_Program_Level.png" />
+                                                 src="../../../uniprep-assets/images/icons/Uniprep_Icons_Program_Level.png"/>
                                         </div>
                                         <p-dropdown [filter]="true" [options]="programlevelList" filterBy="programlevel"
-                                            formControlName="programlevel_id" optionLabel="programlevel"
-                                            optionValue="id"></p-dropdown>
+                                                    formControlName="programlevel_id" optionLabel="programlevel"
+                                                    optionValue="id"></p-dropdown>
                                     </div>
                                     <div *ngIf="submitted && f.programlevel_id.errors" class="invalid-feedback">
                                         <div *ngIf="f.programlevel_id.errors.required">
@@ -184,11 +187,11 @@
                                     <div class="p-inputgroup">
                                         <div class="p-inputgroup-addon">
                                             <img class="bg-image text-center"
-                                                src="../../../uniprep-assets/images/icons/Uniprep_Icons_gender.png" />
+                                                 src="../../../uniprep-assets/images/icons/Uniprep_Icons_gender.png"/>
                                         </div>
                                         <p-dropdown [filter]="true" [options]="genderList" appendTo="body"
-                                            filterBy="name" formControlName="gender" optionLabel="name"
-                                            optionValue="code"></p-dropdown>
+                                                    filterBy="name" formControlName="gender" optionLabel="name"
+                                                    optionValue="code"></p-dropdown>
                                     </div>
                                     <div *ngIf="submitted && f.gender.errors" class="invalid-feedback">
                                         <div *ngIf="f.gender.errors.required">
@@ -200,23 +203,24 @@
                         </div>
                     </div>
                 </div>
-                <br />
+                <br/>
                 <div class="row">
                     <div class="col-12">
                         <div class="profilecrd">
                             <div class="text-center">NOTIFICATIONS</div>
+                            <p class="notify d-flex justify-content-between align-items-center bg-light rounded-4 p-2">
+                                <span style="vertical-align: center">I wish to receive newsletters, promotions and news
+                                    from
+                                    UNIABROAD</span>
+                                <p-inputSwitch></p-inputSwitch>
+                            </p>
                             <p class="text-muted">
                                 Basic information on Data Protection: uniabroad stores your data
                                 to improve the service and, with your consent, offers news,
                                 promotions and raffles, as well as projects and releases from
                                 UNIABROAD
                             </p>
-                            <p class="notify d-flex justify-content-between align-items-center">
-                                <span style="vertical-align: center">I wish to receive newsletters, promotions and news
-                                    from
-                                    UNIABROAD</span>
-                                <p-inputSwitch></p-inputSwitch>
-                            </p>
+
                             <div class="text-center">
                                 <button class="btn btn-primary">SAVE THE CHANGES</button>
                             </div>

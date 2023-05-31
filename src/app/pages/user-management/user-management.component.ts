@@ -1,14 +1,16 @@
-import {Component, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {AuthService} from "../../Auth/auth.service";
-import {LocationService} from "../../location.service";
-import {MessageService} from "primeng/api";
-import {User} from "../../@Models/user.model";
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { AuthService } from "../../Auth/auth.service";
+import { LocationService } from "../../location.service";
+import { MessageService } from "primeng/api";
+import { User } from "../../@Models/user.model";
+import { UserManagementService } from "./user-management.service";
+import { SubSink } from "subsink";
 
 @Component({
     selector: 'uni-user-management',
     templateUrl: './user-management.component.html',
-    styleUrls: ['./user-management.component.scss']
+    styleUrls: ['./user-management.component.scss'],
 })
 export class UserManagementComponent implements OnInit {
 
@@ -261,26 +263,25 @@ export class UserManagementComponent implements OnInit {
     //     {name: "Zimbabwe", code: "ZW"},
     // ];
     genderList = [
-        {name: "Select", code: ""},
-        {name: "Male", code: "M"},
-        {name: "Female", code: "F"},
-        {name: "Others", code: "O"},
+        { name: "Select", code: "" },
+        { name: "Male", code: "M" },
+        { name: "Female", code: "F" },
+        { name: "Others", code: "O" },
     ];
     locationList: any;
     programlevelList: any[] = [];
-    countryListInt = [];
-    selectedCountries = [];
     today = new Date();
     submitted = false;
     registrationForm!: FormGroup;
     countryList: any;
     dateTime = new Date();
-
+    private subs = new SubSink();
     constructor(
         private authService: AuthService,
         private formBuilder: FormBuilder,
         private locationService: LocationService,
-        private toastr: MessageService
+        private toast: MessageService,
+        private userManagementService: UserManagementService
     ) {
     }
 
@@ -290,9 +291,8 @@ export class UserManagementComponent implements OnInit {
 
     ngOnInit(): void {
         this.dateTime.setDate(this.dateTime.getDate());
-
         this.GetLocationList();
-        this.GetprogramlevelList();
+        this.getProgramLevelList();
         this.getCountryList();
         this.authService.userData.subscribe(data => {
             this.user = data;
@@ -305,27 +305,32 @@ export class UserManagementComponent implements OnInit {
                 interested_country_id: [this.user?.interested_country_id, [Validators.required]],
                 last_degree_passing_year: [this.user?.last_degree_passing_year, [Validators.required]],
                 intake_year_looking: [this.user?.intake_year_looking, [Validators.required]],
-                intake_month_looking: [mon, [Validators.required]],
+                intake_month_looking: [new Date(`${this.user?.intake_month_looking}-01-${this.user?.intake_year_looking}`), [Validators.required]],
                 programlevel_id: [this.user?.programlevel_id, [Validators.required]],
                 gender: [this.user?.gender, [Validators.required]],
             });
         });
     }
 
-     getMonthName(monthNumber: any) {
+    getMonthName(monthNumber: any) {
         const date = new Date();
         date.setMonth(monthNumber - 1);
-      
+
         return date.toLocaleString('en-US', { month: 'long' });
-      }
+    }
+
+    getMonthNumberFromName(monthName: any) {
+        const year = new Date().getFullYear();
+        return new Date(`${monthName} 1, ${year}`).getMonth() + 1;
+    }
 
     GetLocationList() {
         this.locationService.getLocation().subscribe(
             (res: any) => {
-                this.locationList = [{id: null, district: 'Select'}, ...res];
+                this.locationList = [{ id: null, district: 'Select' }, ...res];
             },
             (error: any) => {
-                this.toastr.add({
+                this.toast.add({
                     severity: "warning",
                     summary: "Warning",
                     detail: error.error.message,
@@ -334,7 +339,7 @@ export class UserManagementComponent implements OnInit {
         );
     }
 
-    GetprogramlevelList() {
+    getProgramLevelList() {
         this.authService.getProgramLevel().subscribe((response) => {
             this.programlevelList = response;
         });
@@ -344,7 +349,6 @@ export class UserManagementComponent implements OnInit {
         this.locationService.getCountry().subscribe(
             (res: any) => {
                 this.countryList = res;
-                //this.registrationForm.get('interestedCountry')?.setValue(this.user?.interested_countries?.map(d => d.id));
             },
             (error: any) => {
             }
@@ -360,23 +364,25 @@ export class UserManagementComponent implements OnInit {
     }
 
     onSubmit() {
+
         let data: any = {};
         if (this.registrationForm.value.invalid) {
             console.log('this', this.registrationForm.value.invalid);
         }
+
         data['name'] = this.registrationForm.value.name;
         data['location_id'] = this.registrationForm.value.location_id;
         data['phone'] = this.registrationForm.value.phone;
         data['email'] = this.registrationForm.value.email;
         data['interested_country_id'] = this.registrationForm.value.interested_country_id;
-        data['last_degree_passing_year'] = '' + this.registrationForm.value.last_degree_passing_year;
-        data['intake_year_looking'] = '' + this.registrationForm.value.intake_year_looking;
-        data['intake_month_looking'] = '' + this.registrationForm.value.intake_month_looking;
+        data['last_degree_passing_year'] = '' + this.registrationForm.value.last_degree_passing_year.getFullYear();
+        data['intake_year_looking'] = '' + this.registrationForm.value.intake_year_looking.getFullYear();
+        data['intake_month_looking'] = '' + this.registrationForm.value.intake_month_looking.getMonth() + 1;
         data['programlevel_id'] = this.registrationForm.value.programlevel_id;
         data['gender'] = this.registrationForm.value.gender;
-        console.log(data);
+
         if (!Object.keys(data).length) {
-            this.toastr.add({
+            this.toast.add({
                 severity: "error",
                 summary: "Warning",
                 detail: 'Nothing to update',
@@ -384,8 +390,10 @@ export class UserManagementComponent implements OnInit {
             return;
         }
 
-        // this.authService.updateProfile(data).subscribe(response => {
-        //   this.authService.user = response;
-        // });
+
+        this.subs.sink = this.userManagementService.updateUserDetails(data).subscribe(data => {
+            this.toast.add({ severity: 'success', summary: 'Success', detail: "Successfully Updated" });
+        });
     }
+
 }

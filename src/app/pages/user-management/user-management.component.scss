@@ -140,3 +140,18 @@
   align-items: center;
   width: 80%;
 }
+
+.profileImg{
+  border-radius: 50%;
+  width: 100px;
+  height: 100px;
+  padding: 7px;
+  background: #9bc329;
+  border: 5px solid #9bc329;
+  color: white;
+  font-size: 20px;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+}
