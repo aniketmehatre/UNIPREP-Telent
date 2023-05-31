@@ -323,6 +323,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
             }
             this.questionList = res.questions;
+            this.questionList.map((x: any,i: number) => {
+                x['index'] = i+1;
+            })            
         })
     }
 
@@ -356,10 +359,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
             return;
         }
         let data = {
-            moduleId: this.reportSubmitForm.value.moduleId.id,
-            submoduleId: this.reportSubmitForm.value.submoduleId.id,
-            questionId: this.reportSubmitForm.value.questionId.id,
-            reportOption: this.reportSubmitForm.value.reportOption.id,
+            moduleId: this.reportSubmitForm.value.moduleId,
+            submoduleId: this.reportSubmitForm.value.submoduleId,
+            questionId: this.reportSubmitForm.value.questionId,
+            reportOption: this.reportSubmitForm.value.reportOption,
             comment: this.reportSubmitForm.value.comment
         }
 
