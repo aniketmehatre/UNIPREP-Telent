@@ -20,21 +20,21 @@
     <div class="right-panel">
         <span class="subscribe_button d-flex align-items-center justify-content-center" role="button">
             <h5 class="mb-0">Time Left</h5>
-            <!-- <img src="../../../../uniprep-assets/icons/hourglass.svg"> -->
             <i class="px-3 fa-solid fa-hourglass-end h3 mb-0"></i>
             <div class="row">
                 <div class="col-md-12 text-center">
                     <countdown #cd (event)="handleEvent($event)" *ngIf="config" [config]="config" class="custom-style">
                     </countdown>
                 </div>
-               <div class="col-md-12 text-center mt-1 fw-bold" style="font-size:10px">
-                   <span class="px-2">DAYS  </span><span class="px-2">HRS  </span><span class="px-2">MIN</span>
+                <div class="col-md-12 text-center mt-1 fw-bold" style="font-size:10px">
+                    <span class="px-2">DAYS </span><span class="px-2">HRS </span><span class="px-2">MIN</span>
                 </div>
             </div>
         </span>
-        <button class="btn btn-primary mx-2" alt="chat with notification" routerLink="/pages/subscriptions">Subscribe Now</button>
+        <button class="btn btn-primary mx-2" alt="chat with notification" routerLink="/pages/subscriptions">Subscribe
+            Now</button>
         <button class="btn btn-secondary subscribe_button mx-2 me-4" (click)="openReportModal(op, $event)" alt="reports"
-                alt="chat with notification"><i class="fa-solid fa-files"></i> Report
+            alt="chat with notification"><i class="fa-solid fa-files"></i> Report
         </button>
         <p-overlayPanel #op>
             <ng-template pTemplate="content">
@@ -43,41 +43,39 @@
                         <div class="row report">
                             <p class="report-label text-left mb-0">Modules</p>
                             <span class="report-modal">
-                            <p-dropdown [options]="moduleList" (onChange)="onChangeModuleList($event.value)"
-                                        formControlName="moduleId" [(ngModel)]="moduleNgModel"
-                                        optionValue="id"
-                                        class="w-100" id="moduleId" optionLabel="module_name"></p-dropdown>
-                        </span>
+                                <p-dropdown [options]="moduleList" (onChange)="onChangeModuleList($event.value)"
+                                    formControlName="moduleId" [(ngModel)]="moduleNgModel" optionValue="id"
+                                    class="w-100" id="moduleId" optionLabel="module_name"></p-dropdown>
+                            </span>
                             <p class="report-label text-left mb-0">Categories</p>
                             <span class="report-modal">
-                            <p-dropdown [options]="subModuleList" [(ngModel)]="subModuleNgModel"
-                                        formControlName="submoduleId"  optionValue="id"
-                                        (onChange)="onChangeSubModuleList($event.value)"
-                                        class="w-100" id="submoduleId" optionLabel="submodule_name"></p-dropdown>
-                        </span>
+                                <p-dropdown [options]="subModuleList" [(ngModel)]="subModuleNgModel"
+                                    formControlName="submoduleId" optionValue="id"
+                                    (onChange)="onChangeSubModuleList($event.value)" class="w-100" id="submoduleId"
+                                    optionLabel="submodule_name"></p-dropdown>
+                            </span>
                             <p class="report-label text-left mb-0">Question Number</p>
                             <span class="report-modal">
-                            <p-dropdown [options]="questionList" [(ngModel)]="questionIdNgModel"
-                                        optionValue="id"
-                                        formControlName="questionId" (onChange)="onChangeQuestionIdList($event)"
-                                        class="w-100" id="questionId" optionLabel="index"></p-dropdown>
-                        </span>
+                                <p-dropdown [options]="questionList" [(ngModel)]="questionIdNgModel" optionValue="id"
+                                    formControlName="questionId" (onChange)="onChangeQuestionIdList($event)"
+                                    class="w-100" id="questionId" optionLabel="index"></p-dropdown>
+                            </span>
                             <p class="report-label text-left mb-0">Issue Type</p>
                             <span class="report-modal">
-                            <p-dropdown [options]="reportOptionList" [(ngModel)]="reportOptionNgModel"
-                                        optionValue="id"
-                                        formControlName="reportOption" (onChange)="onChangeIssueTypeList($event)"
-                                        class="w-100" id="reportOption" optionLabel="reportoption_name"></p-dropdown>
-                        </span>
+                                <p-dropdown [options]="reportOptionList" [(ngModel)]="reportOptionNgModel"
+                                    optionValue="id" formControlName="reportOption"
+                                    (onChange)="onChangeIssueTypeList($event)" class="w-100" id="reportOption"
+                                    optionLabel="reportoption_name"></p-dropdown>
+                            </span>
                             <p class="report-labeltext-left mb-0">Add Command</p>
                             <span class="report-modal">
-                            <textarea formControlName="comment" pInputTextarea id="comment"></textarea>
-                        </span>
+                                <textarea formControlName="comment" pInputTextarea id="comment"></textarea>
+                            </span>
                             <span>
-                            <button class="btn btn-primary w-100 m-0">
-                                Submit
-                            </button>
-                        </span>
+                                <button class="btn btn-primary w-100 m-0">
+                                    Submit
+                                </button>
+                            </span>
 
                         </div>
                     </form>
@@ -85,9 +83,9 @@
             </ng-template>
         </p-overlayPanel>
         <!--        <p-button (click)="op.toggle($event)" icon="pi pi-image" label="Show"></p-button>-->
-        <!-- <p-avatar (click)="togleSidebar.emit()" class="" label="" role="button">
-            <i class="fa-solid fa-coins"></i>
-        </p-avatar> -->
+        <p-avatar label="" role="button">
+            <img src="../../../uniprep-assets/icons/UnitedKingdom.png" height="auto" width="auto">
+        </p-avatar>
         <p-avatar (click)="togleSidebar.emit()" (click)="openModal($event)" class="" label="" role="button">
             <i class="fa-solid fa-comments"></i>
         </p-avatar>
@@ -129,7 +127,8 @@
                         </div>
                     </a>
                 </li>
-                <li><a class="dropdown-item pt-2 pb-2" (click)="logout()"><i class="fa-solid fa-power-off me-2"></i>Logout</a>
+                <li><a class="dropdown-item pt-2 pb-2" (click)="logout()"><i
+                            class="fa-solid fa-power-off me-2"></i>Logout</a>
                 </li>
             </ul>
         </div>
@@ -137,8 +136,7 @@
 </nav>
 
 <p-dialog [(visible)]="visible" [closable]="true" [style]="{ width: 'auto' }" class="p-0 m-0 bg-white"
-          class="timerpopup"
-          [modal]="true" [draggable]="false" [resizable]="false">
+    class="timerpopup" [modal]="true" [draggable]="false" [resizable]="false">
     <div class="px-5 pb-5 pt-3">
         <div class="justify-content-center text-center pb-5 px-2">
             <h5 class="text-center mb-2">Your 1 Hour Free Trial has<br>Exhausted</h5>
@@ -149,8 +147,7 @@
 </p-dialog>
 
 <p-dialog class="thankyoupopup" [modal]="true" header="Header" [(visible)]="showReportSuccess"
-          [breakpoints]="{ '960px': '75vw' }"
-          [style]="{ width: 'auto' }" [draggable]="false" [resizable]="false">
+    [breakpoints]="{ '960px': '75vw' }" [style]="{ width: 'auto' }" [draggable]="false" [resizable]="false">
     <ng-template pTemplate="header">
         <span class="text-xl font-bold"></span>
     </ng-template>
@@ -165,8 +162,7 @@
 </p-dialog>
 
 <p-dialog [(visible)]="isShowFreeTrailStart" [closable]="false" [style]="{ width: 'auto' }" class="p-0 m-0 bg-white"
-          class="timerpopup"
-          [modal]="true" [draggable]="false" [resizable]="false">
+    class="timerpopup" [modal]="true" [draggable]="false" [resizable]="false">
     <div class="px-5 pb-5 pt-3">
         <div class="justify-content-center text-center pb-5 px-5">
             <h5 class="text-center mb-2">Your 1 hour free trail<br>Starts Now!</h5>
@@ -177,28 +173,20 @@
     </div>
 </p-dialog>
 <p-dialog [(visible)]="isChangePasswordWindowVisible" [closable]="true" [style]="{ width: 'auto' }"
-          class="p-0 m-0 bg-white"
-          [modal]="true" [draggable]="false" [resizable]="false">
+    class="p-0 m-0 bg-white" [modal]="true" [draggable]="false" [resizable]="false">
     <div class="px-5 pb-5 pt-3">
         <div class="justify-content-center text-center pb-5 px-5">
             <h5 class="text-center mb-2">Change Password</h5>
             <form [formGroup]="setPasswordForm" (ngSubmit)="passwordChangeOnClick()">
                 <ng-container>
 
-                    <label class="signup mb-3"
-                    >your new password must be different to previously used password.</label
-                    >
+                    <label class="signup mb-3">your new password must be different to previously used password.</label>
                     <label for="floatingInput">Password</label>
                     <div class="form-floating mb-3">
                         <div class="p-inputgroup">
                             <div class="p-inputgroup-addon"><i class="pi pi-lock"></i></div>
-                            <input
-                                    type="password"
-                                    id="floatingInput"
-                                    formControlName="password"
-                                    pInputText
-                                    [ngClass]="{ 'is-invalid': submitted && f.password.errors }"
-                            />
+                            <input type="password" id="floatingInput" formControlName="password" pInputText
+                                [ngClass]="{ 'is-invalid': submitted && f.password.errors }" />
                         </div>
                         <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
                             <div *ngIf="f.password.errors.required">Password is required</div>
@@ -210,20 +198,12 @@
                     <label for="confirmPassword">Confirm Password</label>
                     <div class="p-inputgroup">
                         <div class="p-inputgroup-addon"><i class="pi pi-lock"></i></div>
-                        <input
-                                type="password"
-                                pInputText
-                                id="confirmPassword"
-                                formControlName="confirmPassword"
-                                [ngClass]="{
+                        <input type="password" pInputText id="confirmPassword" formControlName="confirmPassword"
+                            [ngClass]="{
             'is-invalid': submitted && f.confirmPassword.errors
-          }"
-                        />
+          }" />
                     </div>
-                    <div
-                            *ngIf="submitted && f.confirmPassword.errors"
-                            class="invalid-feedback"
-                    >
+                    <div *ngIf="submitted && f.confirmPassword.errors" class="invalid-feedback">
                         <div *ngIf="f.confirmPassword.hasError('matching')">
                             Password and confirm password not match
                         </div>
@@ -231,7 +211,7 @@
                             Confirm Password is required
                         </div>
                     </div>
-                    <br/>
+                    <br />
                     <div class="d-grid">
                         <button class="p-2 btn btn-primary btn-login text-uppercase fw-bold" type="submit">
                             Change Password

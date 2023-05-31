@@ -164,8 +164,8 @@
                                 pTooltip="Complete the reading for all modules to get the certificate.">Continue Reading
                                 <i class="questiontooltip fa-solid fa-circle-question"></i>
                             </h3>
-                            <div class="row gap-2 d-flex">
-                                <div *ngFor="let readPro of readingProgressings" class="col px-0">
+                            <div class="row">
+                                <div *ngFor="let readPro of readingProgressings" class="col-md-6 p-2">
                                     <div class="card continuecard">
                                         <div class="modal-selected-box d-flex flex-column">
                                             <h6 class="fw-semibold">{{readPro.module_name}}</h6>
@@ -227,8 +227,8 @@
                             <h3 class="mb-3" tooltipPosition="top"
                                 pTooltip="Complete the quiz for all modules to get the certificate.">
                                 Take Quiz <i class="questiontooltip fa-solid fa-circle-question"></i></h3>
-                            <div class="row gap-2 d-flex">
-                                <div *ngFor="let quiz of quizProgressings" class="col px-0">
+                            <div class="row ">
+                                <div *ngFor="let quiz of quizProgressings" class="col-md-6 p-2">
                                     <div class="card continuecardq">
                                         <div class="modal-selected-box d-flex flex-column">
                                             <h6 class="fw-semibold">{{quiz.module_name}}</h6>
