@@ -11,6 +11,9 @@ const routes: Routes = [{
             path: 'sub-modules', component: ListModulesComponent,
         },
         {
+            path: 'sub-modules/:id', component: ListModulesComponent,
+        },
+        {
             path: 'question-list/:id', component: QuestionListComponent,
         },
         {path: '', redirectTo: 'sub-modules', pathMatch: 'full'}
