@@ -21,19 +21,19 @@
         <span class="subscribe_button d-flex align-items-center justify-content-center" role="button">
             <h5 class="mb-0">Time Left</h5>
             <i class="px-3 fa-solid fa-hourglass-end h3 mb-0"></i>
-            <div class="row">
+            <div class="">
                 <div class="col-md-12 text-center">
                     <countdown #cd (event)="handleEvent($event)" *ngIf="config" [config]="config" class="custom-style">
                     </countdown>
                 </div>
-                <div class="col-md-12 text-center mt-1 fw-bold" style="font-size:10px">
-                    <span class="px-2">DAYS </span><span class="px-2">HRS </span><span class="px-2">MIN</span>
+                <div class="d-flex fw-bold justify-content-between" style="font-size:10px;padding: 0 5px;padding-top:6px;">
+                    <span class="text-center" style="width: 35px;">DAYS</span><span  class="text-center" style="width: 35px;">HRS</span><span  class="text-center" style="width: 35px;">MIN</span>
                 </div>
             </div>
         </span>
         <button class="btn btn-primary mx-2" alt="chat with notification" routerLink="/pages/subscriptions">Subscribe
             Now</button>
-        <button class="btn btn-secondary subscribe_button mx-2 me-4" (click)="openReportModal(op, $event)" alt="reports"
+        <button class="btn btn-secondary subscribe_button mx-2 me-3" (click)="openReportModal(op, $event)" alt="reports"
             alt="chat with notification"><i class="fa-solid fa-files"></i> Report
         </button>
         <p-overlayPanel #op>
@@ -83,9 +83,9 @@
             </ng-template>
         </p-overlayPanel>
         <!--        <p-button (click)="op.toggle($event)" icon="pi pi-image" label="Show"></p-button>-->
-        <p-avatar label="" role="button">
-            <img src="../../../uniprep-assets/icons/UnitedKingdom.png" height="auto" width="auto">
-        </p-avatar>
+        <div label="" role="button" class="headercountry me-3">
+            <img src="http://40.80.95.32/uniprepapi/storage/app/public/country-flags/united-kingdom.svg" alt="United Kingdom" height="auto" width="auto">
+        </div>
         <p-avatar (click)="togleSidebar.emit()" (click)="openModal($event)" class="" label="" role="button">
             <i class="fa-solid fa-comments"></i>
         </p-avatar>
