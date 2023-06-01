@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {PreAppService} from "../pre-app.service";
 import {Observable} from "rxjs";
 import {SubModuleList} from "../../../@Models/pre-application.model";
-import {Router} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {MenuItem} from "primeng/api";
 import {DataService} from "../../../data.service";
 import {LocationService} from "../../../location.service";
@@ -33,7 +33,7 @@ export class ListModulesComponent implements OnInit {
     answerOptionClicked: boolean = true
 
     constructor(private preAppService: PreAppService, private router: Router, private dataService: DataService,
-                private locationService: LocationService) {
+                private locationService: LocationService, private route: ActivatedRoute) {
         this.responsiveOptions = [
             {
                 breakpoint: '1199px',
@@ -55,6 +55,9 @@ export class ListModulesComponent implements OnInit {
 
     ngOnInit(): void {
         this.loadModuleAndSubModule();
+        if(this.route.snapshot.paramMap.get('id') == '2'){
+            this.startQuiz();
+        }
     }
 
     loadModuleAndSubModule() {

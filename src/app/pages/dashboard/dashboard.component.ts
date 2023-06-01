@@ -278,6 +278,6 @@ export class DashboardComponent implements OnInit {
                 moduleName = "career-hub"
                 break;
         }
-        this.router.navigate([`pages/${moduleName}/`]);
+        this.router.navigate([`pages/${moduleName}/sub-modules/2`]);
     }
 }
