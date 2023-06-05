@@ -181,16 +181,18 @@ export class QuestionListComponent implements OnInit, AfterContentChecked {
     }
 
     clickPreviousVideo(event: any) {
+        console.log(this.selectedVideo);
+        
         if (this.selectedVideo <= 0) {
             return;
         }
         this.selectedVideo = this.selectedVideo - 1;
 
         this.carouselVideoElm.navBackward(event, this.selectedVideo)
-    }
+    }  
 
     clickNextVideo(event: any) {
-        if (this.selectedVideo > this.videoLinks.length - 1) {
+        if (this.selectedVideo > (this.videoLinks.length / 2) - 1) {
             return;
         }
         this.selectedVideo += 1;
@@ -208,7 +210,8 @@ export class QuestionListComponent implements OnInit, AfterContentChecked {
     }
 
     clickNextRef(event: any) {
-        if (this.selectedRefLink > this.refLink.length - 1) {
+        console.log(this.selectedRefLink ,'>', this.refLink.length)
+        if (this.selectedRefLink >= (this.refLink.length/2) - 1) {
             return;
         }
         this.selectedRefLink += 1;
@@ -250,12 +253,22 @@ export class QuestionListComponent implements OnInit, AfterContentChecked {
 
     // popup video prev
     clickPreviousVideoPopup(data: any) {
+        if (this.selectedVideo <= 0) {
+            return;
+        }
+        this.selectedVideo = this.selectedVideo - 1;
 
+        this.carouselPopupRefElm.navBackward(event, this.selectedVideo)
     }
 
     // popup video next
     clickNextVideoPopup(data: any) {
+        if (this.selectedVideo >= this.videoLinks.length - 1) {
+            return;
+        }
+        this.selectedVideo += 1;
 
+        this.carouselPopupRefElm.navForward(event, this.selectedVideo)
     }
 
     clickPreviousRefPopup(data: any) {
@@ -268,7 +281,7 @@ export class QuestionListComponent implements OnInit, AfterContentChecked {
     }
 
     clickNextRefPopup(data: any) {
-        if (this.selectedRefLink > this.refLink.length - 1) {
+        if (this.selectedRefLink >= this.refLink.length - 1) {
             return;
         }
         this.selectedRefLink += 1;

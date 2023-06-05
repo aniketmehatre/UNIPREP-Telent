@@ -5,7 +5,7 @@ import {SubSink} from "subsink";
 import {Router} from "@angular/router";
 import {DataService} from 'src/app/data.service';
 import {MessageService} from "primeng/api";
-import { log } from 'console';
+import {combineLatest} from "rxjs";
 
 @Component({
     selector: 'uni-dashboard',
@@ -64,135 +64,54 @@ export class DashboardComponent implements OnInit {
 
     ngOnInit(): void {
         this.selectedCountryId = 2;
-
-        this.loadDashboardData();
-        this.loadReadProgression(this.selectedCountryId);
-        this.loadQuizProgression(this.selectedCountryId);
-        this.modalReadingProgressing();
-        this.modalQuizProgressing();
-        // this.subs.sink = this.service.getMe().subscribe(data => {
-        //     this.selectedCountryId = data.userdetails[0].interested_country_id;
-        //     this.countryListData(this.selectedCountryId);
-        // });
-        this.countryListData(this.selectedCountryId);
-    }
-
-    loadDashboardData() {
-        this.dashboardService.getDashboardCounts().subscribe((res: any) => {
-            if (res.status === 404) {
-
-                return;
-            }
-            this.dashboardCount = res;
-        }, err => {
-            console.log('err', err);
-
-        });
-    }
-
-    loadReadProgression(countryId: number = 0) {
-        this.dashboardService.getReadProgression({countryId: countryId}).subscribe((res: any) => {
-            if (res.status === 404) {
-
-                return;
-            }
-            this.readProgressionPercentage = Math.round(res.readpercentage);
-        }, err => {
-            console.log('err', err);
-
-        });
-    }
-
-    loadQuizProgression(countryId: number = 0) {
-        this.dashboardService.getQuizProgression({countryId: countryId}).subscribe((res: any) => {
-            if (res.status === 404) {
-                return;
-            }
-            this.readQuizProgressionPercentage = Math.round(res.quizpercentage);
-        }, err => {
-            console.log('err', err);
-
-        });
-    }
-
-    countryListData(selectedCountryId: number) {
-        this.dashboardService.countryList().subscribe((res: any) => {
-            if (res.status === 404) {
-                return;
-            }
-            this.countryLists = res;
-            this.countryLists.forEach((element: any) => {
-                if (element.id == selectedCountryId) {
-                    this.selectedCountryName = element.country;
-                    this.dataService.changeCountryName(element.country);
+        const data = {
+            countryId: this.selectedCountryId,
+        }
+        combineLatest(this.dashboardService.getDashboardCounts(),
+            this.dashboardService.getReadProgression({countryId: this.selectedCountryId}),
+            this.dashboardService.getQuizProgression({countryId: this.selectedCountryId}),
+            this.dashboardService.countryList(),
+            this.dashboardService.getModuleReadProgression(data),
+            this.dashboardService.getModuleQuizProgression(data))
+            .subscribe(([dashboard, readProgression, quizProgression, countryList, getModuleReadProgression,
+                            getModuleQuizProgression]) => {
+                if (dashboard) {
+                    if (dashboard.status === 404) {
+                        return;
+                    }
+                    this.dashboardCount = dashboard.res;
                 }
-            });
-        }, err => {
-            console.log('err', err);
+                if (readProgression) {
+                    if (!readProgression.success) {
 
-        });
+                        return;
+                    }
+                    this.readProgressionPercentage = Math.round(readProgression.readpercentage);
+                }
+                if (quizProgression) {
+                    if (!quizProgression.success) {
+                        return;
+                    }
+                    this.readQuizProgressionPercentage = Math.round(quizProgression.quizpercentage);
+                }
+                if(countryList){
+                    this.countryLists = countryList;
+                    this.countryLists.forEach((element: any) => {
+                        if (element.id == this.selectedCountryId) {
+                            this.selectedCountryName = element.country;
+                            this.dataService.changeCountryName(element.country);
+                        }
+                    });
+                }
+                if(getModuleReadProgression){
+                    this.readingProgressings = getModuleReadProgression.module;
+                }
+                if(getModuleReadProgression){
+                    this.quizProgressings = getModuleReadProgression.module;
+                }
+            })
+
     }
-
-
-    select(event: any) {
-        console.log(event)
-    }
-
-    onSearchChange(event: any) {
-        event == "" ? this.isSearchResultFound = false : '';
-    }
-
-    searchKeyWord(searchInput: any) {
-        const data = {
-            countryId: Number(localStorage.getItem('countryId')),
-            searchtag: searchInput.value
-        }
-        this.dashboardService.searchKeyword(data).subscribe((res: any) => {
-            if (res.status === 404) {
-                return;
-            }
-            this.isSearchResultFound = true;
-            this.searchResult = res.questions;
-        }, err => {
-            console.log('err', err);
-
-        });
-    }
-
-
-    modalReadingProgressing(countryId: number = 2) {
-        let v = 'reading';
-        const data = {
-            countryId: countryId,
-        }
-        this.dashboardService.getModuleReadProgression(data).subscribe((res: any) => {
-            if (res.status === 404) {
-                return;
-            }
-            this.readingProgressings = res.module;
-        }, err => {
-            console.log('err', err);
-
-        });
-    }
-
-    modalQuizProgressing(countryId: number = 2) {
-        let v = 'reading';
-        const data = {
-            countryId: countryId,
-        }
-        this.dashboardService.getModuleQuizProgression(data).subscribe((res: any) => {
-            if (res.status === 404) {
-                return;
-            }
-            console.log(res.module);
-            this.quizProgressings = res.module;
-        }, err => {
-            console.log('err', err);
-
-        });
-    }
-
 
     closeReading() {
         this.continueReading = 'none'
@@ -212,8 +131,12 @@ export class DashboardComponent implements OnInit {
 
 
     selectCountry(selectedId: any) {
-        if(selectedId != 2){
-            this.toast.add({severity: 'info', summary: 'Information', detail: "Currently United Kingdom only available"});
+        if (selectedId != 2) {
+            this.toast.add({
+                severity: 'info',
+                summary: 'Information',
+                detail: "Currently United Kingdom only available"
+            });
             return;
         }
         this.countryLists.forEach((element: any) => {
@@ -221,14 +144,14 @@ export class DashboardComponent implements OnInit {
                 this.selectedCountryName = element.country;
             }
         });
-        localStorage.setItem('countryId', selectedId);
-        this.selectedCountryId = selectedId;
-        this.dataService.changeCountryId(selectedId);
-        this.countryListData(this.selectedCountryId);
-        this.modalQuizProgressing(selectedId);
-        this.modalReadingProgressing(selectedId);
-        this.loadReadProgression(selectedId);
-        this.loadQuizProgression(selectedId);
+        // localStorage.setItem('countryId', selectedId);
+        // this.selectedCountryId = selectedId;
+        // this.dataService.changeCountryId(selectedId);
+        // this.countryListData(this.selectedCountryId);
+        // this.modalQuizProgressing(selectedId);
+        // this.modalReadingProgressing(selectedId);
+        // this.loadReadProgression(selectedId);
+        // this.loadQuizProgression(selectedId);
     }
 
     onClickReadProgression(data: any) {

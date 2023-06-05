@@ -30,7 +30,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.loginForm = this.formBuilder.group({
       email: ["vaisagh@uniabroad.co.in", [Validators.required, Validators.email]],
-      password: ["12345678", [Validators.required]],
+      password: ["applepie", [Validators.required]],
     });
     this.subs.sink = this.service.selectloggedIn$().subscribe(loggedIn => {
       if (!loggedIn) {

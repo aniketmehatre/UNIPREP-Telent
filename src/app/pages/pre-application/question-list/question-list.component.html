@@ -127,7 +127,7 @@
                         </div>
                         <div class="col-md-8">
                             <p-carousel #carouselRefElm [circular]="false" [numScroll]="1" [numVisible]="3"
-                                [page]="selectedRefLink - 1" [circular]="true" [responsiveOptions]="responsiveOptions"
+                                [page]="selectedRefLink" [circular]="true" [responsiveOptions]="responsiveOptions"
                                 [value]="refLink" *ngIf="refLink">
                                 <ng-template let-item pTemplate="item">
                                     <div class="border-1 surface-border border-round m-2 text-center ">
@@ -163,7 +163,7 @@
             </div>
             <div class="col-md-10">
                 <p-carousel #carouselPopupVideoElm [circular]="false" [showNavigators]="false" [showIndicators]="false"
-                    [numScroll]="1" [numVisible]="1" [page]="selectedVideo - 1" [responsiveOptions]="responsiveOptions"
+                    [numScroll]="1" [numVisible]="1" [page]="selectedVideo" [responsiveOptions]="responsiveOptions"
                     [value]="videoLinks" *ngIf="videoLinks">
                     <ng-template let-item pTemplate="item">
                         <div class="border-1 surface-border border-round m-2 text-center ">
@@ -203,7 +203,7 @@
 
                 <p-carousel #carouselPopupRefElm [circular]="false" [numScroll]="1" [numVisible]="1"
                     [responsiveOptions]="responsiveOptions" [value]="refLink" *ngIf="refLink"
-                    [page]="selectedRefLink - 1">
+                    [page]="selectedRefLink">
                     <ng-template let-item pTemplate="item">
                         <div class="border-1 surface-border border-round m-2 text-center ">
                             <div class="mb-1">

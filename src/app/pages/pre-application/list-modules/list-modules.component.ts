@@ -18,6 +18,7 @@ export class ListModulesComponent implements OnInit {
     selectedSubModule: any;
     answeredCorrect: number = 0;
     totalPercentage: number = 0;
+    percentageValue: string = '';
     subModuleList: any[] = [];
     isStartQuiz: boolean = false;
     isQuizSubmit: boolean = false;
@@ -182,6 +183,13 @@ export class ListModulesComponent implements OnInit {
             }
         });
         this.totalPercentage = (this.answeredCorrect / this.quizData.length) * 100;
+        if(this.totalPercentage < 40){
+            this.percentageValue = 'Average';
+        }else if(this.totalPercentage >= 40 && this.totalPercentage <= 80){
+            this.percentageValue = 'Good';
+        }else{
+            this.percentageValue = 'Excellent';
+        }
         this.isStartQuiz = false;
         this.isQuizSubmit = true;
     }
@@ -252,12 +260,16 @@ export class ListModulesComponent implements OnInit {
         this.quizData = mappedQuiz;
     }
 
-    openReviewPopup() {
+    openReviewPopup() { 
         this.isQuizSubmit = false;
         this.isReviewVisible = true;
     }
 
     retryQuiz() {
+        this.isReviewVisible = false;
+        this.isQuizSubmit = false;
+        this.totalPercentage = 0;
+        this.percentageValue = '';
         this.quizData = [];
         this.getQuizData();
         this.selectedQuiz = 1;
