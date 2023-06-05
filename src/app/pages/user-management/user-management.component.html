@@ -45,7 +45,7 @@
                                             <img class="bg-image text-center"
                                                  src="../../../uniprep-assets/images/icons/Uniprep_Icons_location.png"/>
                                         </div>
-                                        <p-dropdown [filter]="true" [options]="locationList"
+                                        <p-dropdown [filter]="true"  appendTo="body" [options]="locationList"
                                                     formControlName="location_id" optionLabel="district"
                                                     optionValue="id">
                                         </p-dropdown>
@@ -99,7 +99,7 @@
                                             <img class="bg-image text-center"
                                                  src="../../../uniprep-assets/images/icons/Uniprep_Icons_select_country.png"/>
                                         </div>
-                                        <p-dropdown formControlName="interested_country_id" [options]="countryList"
+                                        <p-dropdown formControlName="interested_country_id"  appendTo="body" [options]="countryList"
                                                     filterBy="name" optionLabel="country" optionValue="id"></p-dropdown>
                                     </div>
                                     <div *ngIf="submitted && f.interested_country_id.errors" class="invalid-feedback">
@@ -172,8 +172,8 @@
                                             <img class="bg-image text-center"
                                                  src="../../../uniprep-assets/images/icons/Uniprep_Icons_Program_Level.png"/>
                                         </div>
-                                        <p-dropdown [filter]="true" [options]="programlevelList" filterBy="programlevel"
-                                                    formControlName="programlevel_id" optionLabel="programlevel"
+                                        <p-dropdown [filter]="true" [options]="programlevelList" appendTo="body" 
+                                        filterBy="programlevel" formControlName="programlevel_id" optionLabel="programlevel"
                                                     optionValue="id"></p-dropdown>
                                     </div>
                                     <div *ngIf="submitted && f.programlevel_id.errors" class="invalid-feedback">
