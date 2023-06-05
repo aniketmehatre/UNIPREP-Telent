@@ -35,7 +35,7 @@ const routes: Routes = [
             },
             {
                 path: 'career-hub',
-                canActivate: [PagesGuard],
+                //canActivate: [PagesGuard],
                 loadChildren: () => import('./career-hub/career-hub.module').then(m => m.CareerHubModule)
             },
             {

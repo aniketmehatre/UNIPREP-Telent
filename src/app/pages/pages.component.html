@@ -10,11 +10,15 @@
         <uni-header (togleSidebar)="togleSidebar()" [expandicon]="expandicon" [ngClass]="{'sticky': stickHeader}">
         </uni-header>
         <div id="page-container">
-            <uni-header-search></uni-header-search>
+            <div *ngIf="showSearch">
+                <uni-header-search></uni-header-search>
+            </div>
             <div class="row">
                 <router-outlet></router-outlet>
             </div>
-            <uni-footer-status-box></uni-footer-status-box>
+            <div *ngIf="isFooterBoxVisible">
+                <uni-footer-status-box></uni-footer-status-box>
+            </div>
         </div>
         <footer [ngClass]="{'alignleft': !!sidebarClass}">
             <div>

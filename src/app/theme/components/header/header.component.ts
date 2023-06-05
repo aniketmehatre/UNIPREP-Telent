@@ -154,34 +154,34 @@ export class HeaderComponent implements OnInit, OnDestroy {
             }
         });
 
-        if (localStorage.getItem(KEY)) {
-            this.config = {
-                leftTime: Number(localStorage.getItem(KEY)),
-                format: 'HH:mm:ss',
-                notify: 0,
-                prettyText: (text) => {
-                    return text
-                        .split(':')
-                        .map((v) => `<span class="item">${v}</span>`)
-                        .join('');
-                },
-            };
-        } else {
-            this.config = {
-                leftTime: 0,
-                format: 'HH:mm:ss',
-                notify: 0,
-                prettyText: (text) => {
-                    return text
-                        .split(':')
-                        .map((v) => `<span class="item">${v}</span>`)
-                        .join('');
-                },
-            };
-        }
+        // if (localStorage.getItem(KEY)) {
+        //     this.config = {
+        //         leftTime: Number(localStorage.getItem(KEY)),
+        //         format: 'HH:mm:ss',
+        //         notify: 0,
+        //         prettyText: (text) => {
+        //             return text
+        //                 .split(':')
+        //                 .map((v) => `<span class="item">${v}</span>`)
+        //                 .join('');
+        //         },
+        //     };
+        // } else {
+        //     this.config = {
+        //         leftTime: 0,
+        //         format: 'HH:mm:ss',
+        //         notify: 0,
+        //         prettyText: (text) => {
+        //             return text
+        //                 .split(':')
+        //                 .map((v) => `<span class="item">${v}</span>`)
+        //                 .join('');
+        //         },
+        //     };
+        // }
 
         this.subs.sink = this.service.getMe().subscribe(data => {
-
+            console.log(data);
             this.userName = data.userdetails[0].name.toString();
             this.firstChar = this.userName.charAt(0);
         });
@@ -397,11 +397,11 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
             }
             this.isChangePasswordWindowVisible = false;
-            this.authService.logout();
+            window.sessionStorage.clear();
+            localStorage.clear();
+            this.router.navigateByUrl('/login');
             this.toast.add({severity: 'success', summary: 'Success', detail: 'Password Updated Successfully.'});
         })
-
-
     }
 
 }

@@ -1,6 +1,7 @@
 import {Component, HostListener, OnDestroy, OnInit, Output} from "@angular/core";
 import {PageFacadeService} from "./page-facade.service";
 import {SubSink} from "subsink";
+import { NavigationEnd, Router } from "@angular/router";
 
 @Component({
     selector: "uni-pages",
@@ -10,13 +11,26 @@ import {SubSink} from "subsink";
 export class PagesComponent implements OnInit, OnDestroy {
     sidebarClass = "";
     stickHeader = false;
+    showSearch = false;
+    isFooterBoxVisible = false;
     @Output() expandicon = !this.sidebarClass
         ? "pi-align-right"
         : "pi-align-justify";
     private subs = new SubSink();
-
-    constructor(private pageFacade: PageFacadeService) {
-    }
+    constructor(private pageFacade: PageFacadeService, router: Router) {
+        router.events.subscribe((val) => {
+            if(val instanceof NavigationEnd){
+                if(val.url.includes('subscriptions') || val.url.includes('faq') || val.url.includes('support-help')
+                || val.url.includes('usermanagement')){
+                    this.showSearch = false;
+                    this.isFooterBoxVisible = false;
+                }else{
+                    this.showSearch = true;
+                    this.isFooterBoxVisible = true;
+                }
+            }
+        })
+    } 
 
     ngOnDestroy() {
         this.subs.unsubscribe();

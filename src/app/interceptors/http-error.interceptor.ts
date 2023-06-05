@@ -18,7 +18,9 @@ export class HttpErrorInterceptor implements HttpInterceptor {
   ) {}
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
-    this.ngxService.start();
+      if(!request.url.includes('getchathistory')){
+          this.ngxService.start();
+      }
     return next.handle(request).pipe(
         tap((res: any) => {
             if (res.status) {

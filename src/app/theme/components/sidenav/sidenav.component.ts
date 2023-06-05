@@ -82,12 +82,12 @@ export class SidenavComponent {
     },
     {
       title: 'University',
-      url: '',
+      url: '#',
       image: 'fa-solid fa-building-columns',
     },
     {
       title: 'Life at',
-      url: '',
+      url: '#',
       image: 'fa-solid fa-earth-americas',
     },
     {
