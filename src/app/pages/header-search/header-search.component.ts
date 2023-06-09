@@ -21,7 +21,6 @@ export class HeaderSearchComponent implements OnInit, OnDestroy {
     searchResult: any;
     breadCrumb: MenuItem[] = [];
     question: MenuItem[] = [];
-    positionNumber: number = 0;
     selectedQuestion: number = 0;
     responsiveOptions: any [] = [];
     data: any [] = [];
@@ -174,20 +173,6 @@ export class HeaderSearchComponent implements OnInit, OnDestroy {
     goToHome() {
         this.isQuestionAnswerVisible = false;
     }
-
-
-    onClickRecommendedVideo() {
-
-    }
-
-    onClickAsk() {
-
-    }
-
-    onClickRecommendedLinks() {
-
-    }
-
     ngOnDestroy() {
         this.subs.unsubscribe();
     }

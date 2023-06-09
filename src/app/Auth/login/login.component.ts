@@ -8,6 +8,7 @@ import { Router } from "@angular/router";
 import { AuthService } from "../auth.service";
 import {MessageService} from "primeng/api";
 import {SubSink} from "subsink";
+import { DataService } from "src/app/data.service";
 
 @Component({
   selector: "app-login",
@@ -20,7 +21,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   submitted = false;
   constructor(
       private service: AuthService, private formBuilder: FormBuilder,private route:Router,
-      private toast: MessageService
+      private toast: MessageService, private dataService: DataService
   ) {}
 
   ngOnDestroy() {
@@ -36,6 +37,8 @@ export class LoginComponent implements OnInit, OnDestroy {
       if (!loggedIn) {
         return
       }
+
+      this.dataService.showTimerInHeader(loggedIn);
       this.subs.sink = this.service.selectMessage$().subscribe(message => {
         this.toast.add({severity: 'success', summary: 'Success', detail: message});
       });

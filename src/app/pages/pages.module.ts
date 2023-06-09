@@ -30,6 +30,7 @@ import { DialogModule } from 'primeng/dialog';
 import { BreadcrumbModule } from 'primeng/breadcrumb';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { QuestionCreditComponent } from './question-credit/question-credit.component';
+import {ProgressBarModule} from "primeng/progressbar";
 @NgModule({
     declarations: [
         PagesComponent,
@@ -66,7 +67,8 @@ import { QuestionCreditComponent } from './question-credit/question-credit.compo
         DialogModule,
         BreadcrumbModule,
         FormsModule,
-        InputSwitchModule
+        InputSwitchModule,
+        ProgressBarModule
     ],
     schemas: [
         CUSTOM_ELEMENTS_SCHEMA

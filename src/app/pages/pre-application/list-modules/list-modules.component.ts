@@ -32,6 +32,7 @@ export class ListModulesComponent implements OnInit {
     positionNumber: number = 0;
     breadCrumb: MenuItem[] = [];
     answerOptionClicked: boolean = true
+    isInstructionVisible: boolean = false
 
     constructor(private preAppService: PreAppService, private router: Router, private dataService: DataService,
                 private locationService: LocationService, private route: ActivatedRoute) {
@@ -56,7 +57,7 @@ export class ListModulesComponent implements OnInit {
 
     ngOnInit(): void {
         this.loadModuleAndSubModule();
-        if(this.route.snapshot.paramMap.get('id') == '2'){
+        if (this.route.snapshot.paramMap.get('id') == '2') {
             this.startQuiz();
         }
     }
@@ -108,11 +109,20 @@ export class ListModulesComponent implements OnInit {
 
     }
 
+    nextModule(){
+        this.router.navigateByUrl('/pages/post-application/sub-modules')
+    }
+
+    runQuiz(){
+        this.isInstructionVisible = false;
+        this.isStartQuiz = true;
+    }
+
     clickPreviousQuiz(carouselQuiz: any, event: any) {
         if (this.selectedQuiz <= 1) {
             return;
         }
-        let singleQuizData = this.quizData[this.selectedQuiz-2];
+        let singleQuizData = this.quizData[this.selectedQuiz - 2];
         console.log(singleQuizData);
         this.quizData.map((data: any) => {
             let dd = {...data};
@@ -120,7 +130,7 @@ export class ListModulesComponent implements OnInit {
             if (dd.id == singleQuizData.id) {
                 console.log(dd);
                 this.selectedOptNumber = dd.user_answered;
-                if(dd.user_answered_value != ''){
+                if (dd.user_answered_value != '') {
                     this.answerOptionClicked = false;
                     dd.user_answered = this.selectedQuiz;
                 }
@@ -147,12 +157,12 @@ export class ListModulesComponent implements OnInit {
             let dat = {...data}
             if (dat.id == singleQuizData.id) {
                 console.log('01', dat.user_answered_value);
-                if(!dat.user_answered_value){
+                if (!dat.user_answered_value) {
                     console.log('02');
                     dat.user_answered = this.selectedOptNumber;
                     dat.user_answered_value = this.selectedOptValue;
                     this.answerOptionClicked = true;
-                }else{
+                } else {
                     console.log('03');
                     this.answerOptionClicked = false;
                 }
@@ -161,7 +171,7 @@ export class ListModulesComponent implements OnInit {
             return dat;
         });
         let sing = this.quizData[this.selectedQuiz];
-        if(!sing.user_answered_value) {
+        if (!sing.user_answered_value) {
             this.answerOptionClicked = true;
         }
         this.selectedQuiz = this.selectedQuiz + 1;
@@ -183,11 +193,11 @@ export class ListModulesComponent implements OnInit {
             }
         });
         this.totalPercentage = (this.answeredCorrect / this.quizData.length) * 100;
-        if(this.totalPercentage < 40){
+        if (this.totalPercentage < 40) {
             this.percentageValue = 'Average';
-        }else if(this.totalPercentage >= 40 && this.totalPercentage <= 80){
+        } else if (this.totalPercentage >= 40 && this.totalPercentage <= 80) {
             this.percentageValue = 'Good';
-        }else{
+        } else {
             this.percentageValue = 'Excellent';
         }
         this.isStartQuiz = false;
@@ -196,6 +206,7 @@ export class ListModulesComponent implements OnInit {
 
     closeAllHome() {
         this.isStartQuiz = false;
+        this.isInstructionVisible = false;
         this.isQuizSubmit = false;
     }
 
@@ -209,16 +220,7 @@ export class ListModulesComponent implements OnInit {
         this.getQuizData();
         this.selectedQuiz = 1;
         this.positionNumber = 1;
-        this.isStartQuiz = true;
-
-    }
-
-    goToHome(event: any) {
-        this.isStartQuiz = false;
-    }
-
-    openReport(event: any) {
-        this.dataService.openReportWindow(true);
+        this.isInstructionVisible = true;
     }
 
     setPage(page: any) {
@@ -260,7 +262,7 @@ export class ListModulesComponent implements OnInit {
         this.quizData = mappedQuiz;
     }
 
-    openReviewPopup() { 
+    openReviewPopup() {
         this.isQuizSubmit = false;
         this.isReviewVisible = true;
     }
@@ -274,6 +276,6 @@ export class ListModulesComponent implements OnInit {
         this.getQuizData();
         this.selectedQuiz = 1;
         this.positionNumber = 1;
-        this.isStartQuiz = true;
+        this.isInstructionVisible = true;
     }
 }

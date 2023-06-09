@@ -1,52 +1,104 @@
-import {Injectable} from '@angular/core';
-import {BehaviorSubject} from "rxjs";
+import { Injectable } from "@angular/core";
+import { BehaviorSubject } from "rxjs";
 
 @Injectable({
-    providedIn: 'root'
+  providedIn: "root",
 })
 export class DataService {
-    public chatTriggerSource = new BehaviorSubject('not open');
-    currentMessage = this.chatTriggerSource.asObservable();
+  public chatTriggerSource = new BehaviorSubject("not open");
+  currentMessage = this.chatTriggerSource.asObservable();
 
-    public countryNameSource = new BehaviorSubject('United Kingdom');
-    countryName = this.countryNameSource.asObservable();
+  public countryNameSource = new BehaviorSubject("United Kingdom");
+  countryName = this.countryNameSource.asObservable();
 
-    public countryIdSource = new BehaviorSubject('2');
-    countryId = this.countryIdSource.asObservable();
+  public countryIdSource = new BehaviorSubject("2");
+  countryId = this.countryIdSource.asObservable();
 
-    public timeoutStatusSource = new BehaviorSubject(0);
-    timeoutStatus = this.timeoutStatusSource.asObservable();
+  public timeoutStatusSource = new BehaviorSubject(0);
+  timeoutStatus = this.timeoutStatusSource.asObservable();
 
-    public showTimeOutSource = new BehaviorSubject(false);
-    showTimeOutStatus = this.showTimeOutSource.asObservable();
-    public openReportWindowSource = new BehaviorSubject<any>('');
-    openReport = this.openReportWindowSource.asObservable();
+  public showTimeOutSource = new BehaviorSubject(false);
+  showTimeOutStatus = this.showTimeOutSource.asObservable();
 
-    constructor() {
-    }
+  public openReportWindowSource = new BehaviorSubject<any>("");
+  openReport = this.openReportWindowSource.asObservable();
 
-    changeChatOpenStatus(message: string) {
-        this.chatTriggerSource.next(message);
-    }
+  public showTimerSource = new BehaviorSubject<any>(null);
+  showTimer = this.showTimerSource.asObservable();
 
-    changeCountryName(countryName: string) {
-        this.countryNameSource.next(countryName)
-    }
+  constructor() {}
 
-    changeCountryId(countryId: string) {
-        this.countryIdSource.next(countryId)
-    }
+  changeChatOpenStatus(message: string) {
+    this.chatTriggerSource.next(message);
+  }
 
-    changeTimeOutStatus(isValid: number) {
-        this.timeoutStatusSource.next(isValid)
-    }
+  changeCountryName(countryName: string) {
+    this.countryNameSource.next(countryName);
+  }
 
-    showTimeOut(isShow: boolean){
-        this.showTimeOutSource.next(isShow);
-    }
+  changeCountryId(countryId: string) {
+    this.countryIdSource.next(countryId);
+  }
 
-    openReportWindow(data: any){
-        this.openReportWindowSource.next(data);
-    }
+  changeTimeOutStatus(isValid: number) {
+    this.timeoutStatusSource.next(isValid);
+  }
+
+  showTimeOut(isShow: boolean) {
+    this.showTimeOutSource.next(isShow);
+  }
+
+  openReportWindow(data: any) {
+    this.openReportWindowSource.next(data);
+  }
+  countDownFun: any
+  showTimerInHeader(min: any) {
+
+    const now = new Date();
+    const next = this.AddMinutesToDate(now, 86400);
+    const countDownDate = next.getTime();
+    clearInterval(this.countDownFun);
+    this.countDownFun = setInterval(() => {
+      let now = new Date().getTime();
+
+      // Find the distance between now an the count down date
+      let distance = countDownDate - now;
+
+      // Time calculations for days, hours, minutes and seconds
+      let days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      let hours = Math.floor(
+        (distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+      );
+      let minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      let seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+      // Output the result in an element with id="demo"
+
+      this.showTimerSource.next(
+        days + "-" + hours + "-" + minutes + "-" + seconds
+      );
+      // If the countdown is over, write some text
+      if (distance < 0) {
+        clearInterval(this.countDownFun);
+        this.showTimerSource.next("EXPIRED");
+      }
+    }, 1000);
+  }
+
+  AddMinutesToDate(date: any, minutes: any) {
+    return new Date(date.getTime() + minutes * 60000);
+  }
+
+  DateFormat(date: any) {
+    var days = date.getDate();
+    var year = date.getFullYear();
+    var month = date.getMonth() + 1;
+    var hours = date.getHours();
+    var minutes = date.getMinutes();
+    minutes = minutes < 10 ? "0" + minutes : minutes;
+    var strTime =
+      days + "/" + month + "/" + year + "/ " + hours + ":" + minutes;
+    return strTime;
+  }
 
 }

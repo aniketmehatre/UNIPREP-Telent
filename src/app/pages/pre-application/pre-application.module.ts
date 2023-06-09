@@ -16,6 +16,7 @@ import {DialogModule} from "primeng/dialog";
 import {CarouselModule} from "primeng/carousel";
 import {BreadcrumbModule} from "primeng/breadcrumb";
 import {CardModule} from 'primeng/card';
+import {ProgressBarModule} from "primeng/progressbar";
 
 
 @NgModule({
@@ -34,7 +35,8 @@ import {CardModule} from 'primeng/card';
         DialogModule,
         CarouselModule,
         BreadcrumbModule,
-        CardModule
+        CardModule,
+        ProgressBarModule
     ]
 })
 export class PreApplicationModule {
