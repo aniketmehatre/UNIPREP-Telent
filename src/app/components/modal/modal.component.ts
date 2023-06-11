@@ -7,12 +7,11 @@ import {
   ViewChild,
 } from "@angular/core";
 import { ModalService } from "./modal.service";
-import { ScrollToBottomDirective } from "./scroll-to-bottom.directive";
 import { MessageService } from "primeng/api";
 import { SubSink } from "subsink";
 import { AuthService } from "../../Auth/auth.service";
 import { interval } from "rxjs";
-import { log } from "console";
+import { ScrollToBottomDirective } from "src/app/scroll-to-bottom.directive";
 
 @Component({
   selector: "app-modal",
@@ -22,24 +21,22 @@ import { log } from "console";
 export class ModalComponent implements OnInit {
   @Output() closeModal: EventEmitter<any> = new EventEmitter<any>();
   @Output() togleSidebar = new EventEmitter();
-  @ViewChild(ScrollToBottomDirective) scrollMe!: ScrollToBottomDirective;
+  @ViewChild(ScrollToBottomDirective)
+  scroll!: ScrollToBottomDirective;
+
   details: any[] = [];
   private subs = new SubSink();
 
   comment: string = "";
   title = "socketrv";
   content = "";
-  received: any[] = [];
-  sent: any[] = [];
-  isModalVisible: any = "none";
   issueType: any[] = [];
   questionLeft = "";
   isReportChanged: boolean = false;
   visible: boolean = true;
   showReportSuccess: boolean = false;
-  isShowFreeTrailStart: boolean = false;
   reportValueSelected: any;
-  message: any;
+  message: string = '';
 
   constructor(
     private modalService: ModalService,
@@ -55,6 +52,9 @@ export class ModalComponent implements OnInit {
     //     {label: 'Unsatisfactory answer', name: 'Unsatisfactory answer'},
     //     {label: 'Others', name: 'Others'},
     // ];
+    this.subs.sink = interval(5000).subscribe((x) => {
+      this.getChatHistoryData();
+    });
   }
 
 
@@ -89,8 +89,7 @@ export class ModalComponent implements OnInit {
       (res: any) => {
         if (res.status === 404) {
           return;
-        }
-        console.log(res.message);
+        };
         this.details = res.messages;
       },
       (err) => {
@@ -99,7 +98,7 @@ export class ModalComponent implements OnInit {
     );
   }
 
-  sendMsg(msg: any) {
+  sendMsg() {
     // let message = {
     //     source: '',
     //     content: ''
@@ -109,9 +108,10 @@ export class ModalComponent implements OnInit {
     //
     // this.sent.push(msg);
     //this.WebsocketService.messages.next(message);
+
     let userInfo = this.service.user;
     const data = {
-      message: msg.value,
+      message: this.message,
       user_id: userInfo!.id,
     };
     this.modalService.sendChatMessage(data).subscribe(
@@ -119,22 +119,19 @@ export class ModalComponent implements OnInit {
         if (res.status === 404) {
           return;
         }
+        this.message = '';
         this.toast.add({
-          severity: "info",
-          summary: "Alert",
+          severity: "success",
+          summary: "Info",
           detail: res.message,
         });
         this.init();
       },
       (err) => {
-        console.log("err", err);
+
         this.toast.add({ severity: "info", summary: "Alert", detail: err });
       }
     );
-    this.subs.sink = interval(5000).subscribe((x) => {
-      this.getChatHistoryData();
-    });
-    
   }
 
   issueTypeOnChange(event: any) {

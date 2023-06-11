@@ -58,7 +58,7 @@ export class SetpasswordComponent implements OnInit {
       },
       (error: any) => {
         
-        console.log(error);
+
         this.toastr.add({severity:'warning', summary: 'Sorry :(', detail: "Something went wrong in Password Reset " + error.error.message});
         this.router.navigate(["/forgot-password"]);
       }

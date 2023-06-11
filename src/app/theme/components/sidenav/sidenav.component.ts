@@ -1,10 +1,9 @@
 import {
-  ChangeDetectionStrategy,
   Component,
   ContentChild,
   EventEmitter,
   Input,
-  OnInit, Output,
+  Output,
   TemplateRef
 } from '@angular/core';
 import { ActivatedRoute, NavigationEnd, Router } from "@angular/router";
@@ -80,14 +79,14 @@ export class SidenavComponent {
       url: '/pages/career-hub',
       image: 'fa-solid fa-briefcase',
     },
-    {
-      title: 'University',
-      url: '#',
-      image: 'fa-solid fa-building-columns',
-    },
+    // {
+    //   title: 'University',
+    //   url: '#',
+    //   image: 'fa-solid fa-building-columns',
+    // },
     {
       title: 'Life at',
-      url: '#',
+      url: '/pages/life-at',
       image: 'fa-solid fa-earth-americas',
     },
     {

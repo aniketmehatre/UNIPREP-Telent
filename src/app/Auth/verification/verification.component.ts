@@ -50,7 +50,7 @@ export class VerificationComponent implements OnInit {
           this.router.navigate(["/setpassword",_otp,this.route.snapshot.paramMap.get("email")]);
         },
         (error: any) => {
-          console.log(error);
+
         }
     );
   }

@@ -131,7 +131,7 @@ export class QuestionListComponent implements OnInit, AfterContentChecked {
         this.isRecommendedVideoVisible = true;
         this.data.filter((res: any) => {
             if (res.id == this.selectedQuestion) {
-                console.log('res 1', res)
+
                 this.videoLink = res.videolink
             }
         })
@@ -141,7 +141,7 @@ export class QuestionListComponent implements OnInit, AfterContentChecked {
         this.isRecommendedLinksVisible = true;
         this.data.filter((res: any) => {
             if (res.id == this.selectedQuestion) {
-                console.log('res', res)
+
                 this.refLink = res.reflink
             }
         })

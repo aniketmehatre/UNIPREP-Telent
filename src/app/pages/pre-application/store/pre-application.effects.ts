@@ -12,8 +12,6 @@ import {
 } from "./pre-application.actions";
 import {Actions, createEffect, ofType} from "@ngrx/effects";
 import {PreApplicationService} from "./pre-application.service";
-import {QuizList} from "../../../@Models/list-quiz.model";
-
 
 @Injectable()
 export class PreApplicationEffects {

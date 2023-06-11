@@ -25,7 +25,6 @@ import {AvatarModule} from 'primeng/avatar';
 import { DropdownModule } from 'primeng/dropdown';
 import {ButtonModule} from 'primeng/button';
 
-import {ScrollToBottomDirective} from "./components/modal/scroll-to-bottom.directive";
 import {InputTextModule} from "primeng/inputtext";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {InputTextareaModule} from "primeng/inputtextarea";
@@ -34,6 +33,7 @@ import {DialogModule} from "primeng/dialog";
 import {CardModule} from "primeng/card";
 import {TooltipModule} from "primeng/tooltip";
 import { BlockCopyPasteDirective } from './block-copy-paste.directive';
+import { ScrollToBottomDirective } from './scroll-to-bottom.directive';
 const reducers = {
   pageSelector: pagesReducer
 }
@@ -49,7 +49,7 @@ export function tokenGetter() {
 
 @NgModule({
   declarations: [
-    AppComponent, ModalComponent, ScrollToBottomDirective, BlockCopyPasteDirective,
+    AppComponent, ModalComponent, BlockCopyPasteDirective, ScrollToBottomDirective
   ],
     schemas: [ CUSTOM_ELEMENTS_SCHEMA],
     imports: [

@@ -296,7 +296,6 @@ export class UserManagementComponent implements OnInit {
         this.getCountryList();
         this.authService.userData.subscribe(data => {
             this.user = data;
-            console.log(data);
             let mon = this.getMonthName(this.user?.intake_month_looking);
             this.registrationForm = this.formBuilder.group({
                 name: [this.user?.name, [Validators.required]],

@@ -33,7 +33,6 @@ export class ModalService {
     public connect(url: string): AnonymousSubject<MessageEvent> {
         if (!this.subject) {
             this.subject = this.create(url);
-            console.log("Successfully connected: " + url);
         }
         return this.subject;
     }
@@ -50,7 +49,7 @@ export class ModalService {
             error: null,
             complete: null,
             next: (data: Object) => {
-                console.log('Message sent to websocket: ', data);
+
                 if (ws.readyState === WebSocket.OPEN) {
                     ws.send(JSON.stringify(data));
                 }

@@ -24,8 +24,8 @@ export class AppComponent {
   @HostListener('keydown', ['$event']) triggerEsc(e: KeyboardEvent) {
     
     if(e.keyCode===27 && this.child===true){
-      console.log("global esc");
-      alert("parent esc");
+
+
     }else{
       this.child=true;
     }

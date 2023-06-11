@@ -37,7 +37,7 @@ export class ForgotPasswordComponent implements OnInit {
       },
       (error: any) => {
         this.toastr.add({severity:'error', summary: 'Error', detail: error.error.message});
-        console.log(error);
+
       }
     );
   }

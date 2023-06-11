@@ -22,7 +22,7 @@ export class SupportCardComponent implements OnInit {
             }
             this.helpCategoryData = res.helpcategories;
         }, err => {
-            console.log('err', err);
+
             this.toast.add({severity: 'info', summary: 'Alert', detail: err});
         });
     }

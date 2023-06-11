@@ -228,7 +228,7 @@ export class RegistrationComponent implements OnInit {
             (error) => {
                 const message = error.error.message;
                 this.toastr.add({severity: 'error', summary: 'Failed', detail: error.error.message});
-                console.log(error);
+
             }
         );
     }
@@ -266,7 +266,7 @@ export class RegistrationComponent implements OnInit {
                 },
                 (error: any) => {
                     this.isMobileOTPSend = false;
-                    console.log(error);
+
                 }
             );
         } else {
@@ -307,7 +307,7 @@ export class RegistrationComponent implements OnInit {
                 },
                 (error: any) => {
                     this.isMobileOTPValidated = false;
-                    console.log(error);
+
                 }
             );
         }
@@ -326,7 +326,7 @@ export class RegistrationComponent implements OnInit {
 
         this.service.sendEmailOTP(data).subscribe(
             (res) => {
-                console.log(res)
+
 
                 this.isEmailOTPSend = true;
                 this.registrationForm.controls['emailAddress'].readonly = true;
@@ -335,7 +335,7 @@ export class RegistrationComponent implements OnInit {
                 this.isEmailOTPSend = false;
                 const message = error.error.message;
                 this.toastr.add({severity: 'error', summary: 'Failed', detail: error.error.message});
-                console.log(error);
+
             }
         );
     }
@@ -359,7 +359,7 @@ export class RegistrationComponent implements OnInit {
         // this.isRemainingFieldVisible = true;
         this.service.validateEmailOTP(data).subscribe(
             (res) => {
-                console.log(res)
+
                 this.isRemainingFieldVisible = true;
                 this.isEmailOTPValidated = true;
 
@@ -442,7 +442,7 @@ export class RegistrationComponent implements OnInit {
         }
         this.interval = setInterval(() => {
             this.startTimer -= 1;
-            console.log('=>', this.startTimer);
+
             if (this.startTimer <= 0) {
                 clearInterval(this.interval);
             }

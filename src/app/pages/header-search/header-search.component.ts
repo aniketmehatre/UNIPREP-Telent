@@ -1,4 +1,4 @@
-import {Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core';
+import {Component, ElementRef, HostListener, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {DashboardService} from "../dashboard/dashboard.service";
 import {DataService} from "../../data.service";
 import {MenuItem} from "primeng/api";
@@ -25,6 +25,7 @@ export class HeaderSearchComponent implements OnInit, OnDestroy {
     responsiveOptions: any [] = [];
     data: any [] = [];
     moduleList: any;
+    genMod: any;
     subModuleList: any;
     private subs = new SubSink();
     moduleName: any;
@@ -33,7 +34,7 @@ export class HeaderSearchComponent implements OnInit, OnDestroy {
     searchInputText: any;
 
     constructor(private dashboardService: DashboardService, private dataService: DataService,
-                private locationService: LocationService, private route: Router) {
+                private locationService: LocationService, private route: Router, private elementRef: ElementRef) {
         this.dataService.chatTriggerSource.subscribe(message => {
             this.message = message;
         });
@@ -60,6 +61,7 @@ export class HeaderSearchComponent implements OnInit, OnDestroy {
                 numScroll: 1
             }
         ];
+
     }
 
     onSearchChange(event: any) {
@@ -98,7 +100,6 @@ export class HeaderSearchComponent implements OnInit, OnDestroy {
                     data.submodule_name = name.submodule_name;
                 })
             });
-            console.log(this.searchResult);
         }, err => {
             console.log('err', err);
 
@@ -150,7 +151,6 @@ export class HeaderSearchComponent implements OnInit, OnDestroy {
     }
 
     clickPrevious(carousel: any, event: any) {
-        console.log(carousel)
         if (this.selectedQuestion <= 0) {
             return;
         }
@@ -173,7 +173,9 @@ export class HeaderSearchComponent implements OnInit, OnDestroy {
     goToHome() {
         this.isQuestionAnswerVisible = false;
     }
+
     ngOnDestroy() {
+        this.elementRef.nativeElement.remove();
         this.subs.unsubscribe();
     }
 

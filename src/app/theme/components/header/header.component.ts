@@ -43,11 +43,13 @@ export class HeaderComponent implements OnInit, OnDestroy {
   private subs = new SubSink();
   userName: any;
   firstChar: any;
+  genMod: any;
   moduleNgModel: number = 1;
+  selectedGenMod: number = 1;
   subModuleNgModel: number = 1;
   questionIdNgModel: number = 1;
   reportOptionNgModel: number = 1;
-  selectedContryId: any;
+  selectedCountryId: any;
   selectedModuleId: any;
   moduleList: any[] = [];
   subModuleList: any[] = [];
@@ -62,6 +64,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   hrs: number = 0;
   min: number = 0;
   sec: number = 0;
+  isVisibleModulesMenu: boolean = false;
 
   constructor(
     private modalService: ModalService,
@@ -74,7 +77,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     private dataService: DataService
   ) {
     this.subs.sink = this.dataService.countryIdSource.subscribe((data) => {
-      this.selectedContryId = Number(data);
+      this.selectedCountryId = Number(data);
       this.getModuleList();
     });
     this.subs.sink = this.dataService.showTimeOutSource.subscribe((data) => {
@@ -122,6 +125,13 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    this.genMod = [{
+      name: 'General',
+      id: 1
+    }, {
+      name: 'Modules',
+      id: 2
+    }]
     this.setPasswordForm = this.formBuilder.group({
       password: [
         "",
@@ -139,6 +149,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     }
     this.updateMenuClass();
     this.reportSubmitForm = this.formBuilder.group({
+      general: [1, [Validators.required]],
       moduleId: ["", [Validators.required]],
       submoduleId: ["", [Validators.required]],
       questionId: ["", [Validators.required]],
@@ -154,6 +165,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
     });
     this.dataService.openReportWindowSource.subscribe((data) => {
       if (data.isVisible) {
+        this.selectedGenMod = 2;
+        this.isVisibleModulesMenu = true;
         this.moduleNgModel = data.moduleId;
         this.subModuleNgModel = data.subModuleId;
         this.questionIdNgModel = data.questionId;
@@ -288,6 +301,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
       });
   }
 
+  onChangeChooseMain(event: any){
+    this.isVisibleModulesMenu = event == 2;
+  }
+
   onChangeModuleList(moduleId: number = 1) {
     let data = {
       moduleid: moduleId,
@@ -304,7 +321,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   onChangeSubModuleList(subModuleId: any = 1) {
     let data = {
       moduleId: this.selectedModuleId,
-      countryId: this.selectedContryId,
+      countryId: this.selectedCountryId,
       submoduleId: subModuleId,
     };
     this.locationService.getModuleQuestionList(data).subscribe((res) => {
@@ -316,10 +333,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
       });
     });
   }
-
-  onChangeQuestionIdList(event: any) {}
-
-  onChangeIssueTypeList(event: any) {}
 
   private setCookie(name: string, value: string, days: number = 365) {
     const date = new Date();
@@ -335,22 +348,26 @@ export class HeaderComponent implements OnInit, OnDestroy {
     return cookieValue ? cookieValue.pop() : "";
   }
 
-  onClickSubscribe(dialog: any) {
-    dialog.close();
-    this.router.navigate(["pages/subscriptions"]);
+  onClickSubscribe() {
+    this.router.navigate(["/pages/subscriptions"]);
   }
 
   onSubmit() {
-    if (this.reportSubmitForm.invalid) {
-      return;
+    let data;
+    if(this.reportSubmitForm.value.general == 1){
+      data = {
+        reportOption: this.reportSubmitForm.value.reportOption,
+        comment: this.reportSubmitForm.value.comment,
+      };
+    }else{
+      data = {
+        moduleId: this.reportSubmitForm.value.moduleId,
+        submoduleId: this.reportSubmitForm.value.submoduleId,
+        questionId: this.reportSubmitForm.value.questionId,
+        reportOption: this.reportSubmitForm.value.reportOption,
+        comment: this.reportSubmitForm.value.comment,
+      };
     }
-    let data = {
-      moduleId: this.reportSubmitForm.value.moduleId,
-      submoduleId: this.reportSubmitForm.value.submoduleId,
-      questionId: this.reportSubmitForm.value.questionId,
-      reportOption: this.reportSubmitForm.value.reportOption,
-      comment: this.reportSubmitForm.value.comment,
-    };
 
     this.locationService.reportFaqQuestion(data).subscribe((res) => {
       if (res.status == 404) {

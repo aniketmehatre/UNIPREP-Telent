@@ -59,7 +59,7 @@
             <div class="modal-dialog-scrollable">
                 <div class="modal-content">
                     <div  class="modal-body">
-                        <div class="msg-body"  #scrollMe [scrollTop]="scrollMe.scrollHeight">
+                        <div class="msg-body" #scrollMe [scrollTop]="scrollMe.scrollHeight">
                             <ul>
                                 <div *ngFor="let v of details">
                                     <li class="sender">
@@ -85,15 +85,17 @@
         <form action="" class=" bg-light">
             <div class="p-inputgroup  d-flex align-items-center bg-light">
                 <input
-                    #message
                     class="border-0 w-full bg-light"
                     pInputText
+                    name="message"
+                    id="message"
+                    [(ngModel)]="message"
                     placeholder="Type your message"
                     type="text"
                 />
                 <div class="" role="button">
                     <span>
-                      <img (click)="sendMsg(message)" alt="uni_send_icon"
+                      <img (click)="sendMsg()" alt="uni_send_icon"
                            class="bg-image text-center" src="../../../uniprep-assets/images/icons/send_icon.svg">
                     </span>
                 </div>

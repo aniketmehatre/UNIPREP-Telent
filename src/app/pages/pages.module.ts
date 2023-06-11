@@ -31,6 +31,7 @@ import { BreadcrumbModule } from 'primeng/breadcrumb';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { QuestionCreditComponent } from './question-credit/question-credit.component';
 import {ProgressBarModule} from "primeng/progressbar";
+import {LifeAtModule} from "./life-at/life-at.module";
 @NgModule({
     declarations: [
         PagesComponent,
@@ -68,7 +69,8 @@ import {ProgressBarModule} from "primeng/progressbar";
         BreadcrumbModule,
         FormsModule,
         InputSwitchModule,
-        ProgressBarModule
+        ProgressBarModule,
+        LifeAtModule
     ],
     schemas: [
         CUSTOM_ELEMENTS_SCHEMA

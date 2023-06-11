@@ -317,6 +317,8 @@ a.add {
 
 
 .msg-body {
+  height: 550px;
+  overflow: auto;
   ul {
     overflow: hidden;
     padding: 20px;

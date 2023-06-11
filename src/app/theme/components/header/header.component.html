@@ -39,7 +39,7 @@
                 </div>
             </div>
         </span>
-        <button class="btn btn-primary mx-2" alt="chat with notification" routerLink="/pages/subscriptions">Subscribe
+        <button class="btn btn-primary mx-2" alt="chat with notification" (click)="onClickSubscribe()">Subscribe
             Now
         </button>
         <button class="btn btn-secondary subscribe_button mx-2 me-3" (click)="openReportModal(op, $event)" alt="reports"
@@ -50,31 +50,39 @@
                 <div class="container px-0">
                     <form [formGroup]="reportSubmitForm" (ngSubmit)="onSubmit()">
                         <div class="row report">
-                            <p class="report-label text-left mb-0">Modules</p>
+                            <p class="report-label text-left mb-0">General / Modules</p>
                             <span class="report-modal">
+                                <p-dropdown [options]="genMod" (onChange)="onChangeChooseMain($event.value)"
+                                            [(ngModel)]="selectedGenMod" optionValue="id" formControlName="general"
+                                            class="w-100" id="genMod" optionLabel="name"></p-dropdown>
+                            </span>
+                            <div *ngIf="isVisibleModulesMenu">
+                                <p class="report-label text-left mb-0">Modules</p>
+                                <span class="report-modal">
                                 <p-dropdown [options]="moduleList" (onChange)="onChangeModuleList($event.value)"
                                             formControlName="moduleId" [(ngModel)]="moduleNgModel" optionValue="id"
                                             class="w-100" id="moduleId" optionLabel="module_name"></p-dropdown>
                             </span>
-                            <p class="report-label text-left mb-0">Categories</p>
-                            <span class="report-modal">
+                                <p class="report-label text-left mb-0">Categories</p>
+                                <span class="report-modal">
                                 <p-dropdown [options]="subModuleList" [(ngModel)]="subModuleNgModel"
                                             formControlName="submoduleId" optionValue="id"
                                             (onChange)="onChangeSubModuleList($event.value)" class="w-100"
                                             id="submoduleId"
                                             optionLabel="submodule_name"></p-dropdown>
                             </span>
-                            <p class="report-label text-left mb-0">Question Number</p>
-                            <span class="report-modal">
+                                <p class="report-label text-left mb-0">Question Number</p>
+                                <span class="report-modal">
                                 <p-dropdown [options]="questionList" [(ngModel)]="questionIdNgModel" optionValue="id"
-                                            formControlName="questionId" (onChange)="onChangeQuestionIdList($event)"
+                                            formControlName="questionId"
                                             class="w-100" id="questionId" optionLabel="index"></p-dropdown>
                             </span>
+                            </div>
                             <p class="report-label text-left mb-0">Issue Type</p>
                             <span class="report-modal">
                                 <p-dropdown [options]="reportOptionList" [(ngModel)]="reportOptionNgModel"
                                             optionValue="id" formControlName="reportOption"
-                                            (onChange)="onChangeIssueTypeList($event)" class="w-100" id="reportOption"
+                                            class="w-100" id="reportOption"
                                             optionLabel="reportoption_name"></p-dropdown>
                             </span>
                             <p class="report-labeltext-left mb-0">Add Command</p>

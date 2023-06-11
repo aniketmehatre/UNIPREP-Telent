@@ -11,7 +11,6 @@ export const loadSubModulesSuccess = createAction('[PRE Application] load sub mo
     (payload: {
         submodules: SubModuleList[]
     }) => payload);
-// [{countryId: number}, {moduleId: number}, {submoduleId: number}]
 export const loadQuestionList = createAction('[PRE Application] load question list',
     (payload: {
         countryId: number,
