@@ -18,27 +18,20 @@
         </div>
     </div>
     <div class="right-panel">
-        <span class="subscribe_button d-flex align-items-center justify-content-center" role="button">
-            <h5 class="mb-0">Time Left</h5>
-            <i class="px-3 fa-solid fa-hourglass-end h3 mb-0"></i>
-            <div class="">
-                <div class="col-md-12 text-center">
-                    <div class="row">
-                        <div class="col"><div class="boxView fw-semibold text-green">{{day + ''}}</div></div>
-                        <div class="col"><div class="boxView fw-semibold text-green">{{hrs + ''}}</div></div>
-                        <div class="col"><div class="boxView fw-semibold text-green">{{min + ''}}</div></div>
-                        <div class="col"><div class="boxView fw-semibold text-green">{{sec + ''}}</div></div>
-                    </div>
+        <div class="row me-2">
+            <div class="d-flex text-center">
+                <div class="d-flex justify-content-center align-items-center">
+                    <h5 class="mb-0">Time Left</h5>
+                    <i class="px-3 fa-solid fa-hourglass-end h3 mb-0"></i>
                 </div>
-                <div class="d-flex fw-bold justify-content-between"
-                     style="font-size:10px;padding: 0 5px;padding-top:6px;">
-                    <span class="text-center" style="width: 35px;">DAYS </span><span class="text-center"
-                                                                                     style="width: 35px;">HRS</span><span
-                        class="text-center" style="width: 35px;">MIN</span> <span class="text-center"
-                                                                                  style="width: 35px;">SEC</span>
+                <div class="row">
+                    <div class="col px-1"><div class="boxView fw-semibold text-green">{{day + ''}}</div><span class="timertext">Days</span></div>
+                    <div class="col px-1"><div class="boxView fw-semibold text-green">{{hrs + ''}}</div><span class="timertext">Hrs</span></div>
+                    <div class="col px-1"><div class="boxView fw-semibold text-green">{{min + ''}}</div><span class="timertext">Mins</span></div>
+                    <div class="col px-1"><div class="boxView fw-semibold text-green">{{sec + ''}}</div><span class="timertext">Sec</span></div>
                 </div>
             </div>
-        </span>
+        </div>
         <button class="btn btn-primary mx-2" alt="chat with notification" (click)="onClickSubscribe()">Subscribe
             Now
         </button>

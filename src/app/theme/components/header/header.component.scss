@@ -274,14 +274,21 @@ form {
   padding: 0 !important;
 }
 .boxView {
-  width: 40px;
-  height: 40px;
-  padding: 7px;
+  width: 35px;
+  height: 35px;
+  padding: 0px;
   background: #fff;
-  border: 3px solid #9bc329;
-  color: black;
+  border: 2px solid #9bc329;
+  border-radius: 5px;
   text-align: center;
   align-items: center;
   justify-content: center;
   display: flex;
+  margin-bottom: -5px;
+}
+.timertext
+{
+  font-size: 10px;
+  font-weight:600;
+  color:#001631;
 }
