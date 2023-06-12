@@ -21,10 +21,10 @@
         <div class="row me-2">
             <div class="d-flex text-center">
                 <div class="d-flex justify-content-center align-items-center">
-                    <h5 class="mb-0">Time Left</h5>
-                    <i class="px-3 fa-solid fa-hourglass-end h3 mb-0"></i>
+                    <h6 class="mb-0">Time Left</h6>
+                    <i class="ps-1 pe-2 fa-solid fa-hourglass-end h4 mb-0"></i>
                 </div>
-                <div class="row">
+                <div class="d-flex">
                     <div class="col px-1"><div class="boxView fw-semibold text-green">{{day + ''}}</div><span class="timertext">Days</span></div>
                     <div class="col px-1"><div class="boxView fw-semibold text-green">{{hrs + ''}}</div><span class="timertext">Hrs</span></div>
                     <div class="col px-1"><div class="boxView fw-semibold text-green">{{min + ''}}</div><span class="timertext">Mins</span></div>
@@ -32,12 +32,9 @@
                 </div>
             </div>
         </div>
-        <button class="btn btn-primary mx-2" alt="chat with notification" (click)="onClickSubscribe()">Subscribe
-            Now
-        </button>
-        <button class="btn btn-secondary subscribe_button mx-2 me-3" (click)="openReportModal(op, $event)" alt="reports"
-                alt="chat with notification"><i class="fa-solid fa-files"></i> Report
-        </button>
+        <button class="btn btn-primary btn-rounded me-2 ms-0 my-0" style="height:45px;" alt="chat with notification" (click)="onClickSubscribe()"><span class="text-small fw-normal px-2">Subscribe Now</span></button>
+        <button (click)="openReportModal(op, $event)" alt="reports" class="btn btn-secondary btn-rounded me-2 ms-0 my-0 px-2 py-2"><div class="d-flex align-items-center"><span class="fw-normal text-small mb-0 ps-3 pe-2">Report</span> <div class="btn-icon"><i class="fa-solid fa-files"></i></div></div></button>
+    
         <p-overlayPanel #op>
             <ng-template pTemplate="content">
                 <div class="container px-0">
@@ -114,7 +111,7 @@
         <!--        </div>-->
         <div class="dropdown profile-dropdown">
             <button class="button" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                <span class="nme">{{(firstChar || '')?.charAt(0)}}</span> {{userName}}
+                <span class="nme">{{(firstChar || '')?.charAt(0)}}</span> <span class="fw-medium">{{userName}}</span>
             </button>
             <ul class="dropdown-menu">
                 <li>
