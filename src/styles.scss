@@ -127,7 +127,7 @@ h1, h2, h3, h4, h5 {
 }
 .btn-primary
 {
-  color: #fff !important;
+  color: #001631 !important;
   background: #9bc329;
   border-radius: 10px !important;
   padding: 5px !important;
@@ -139,17 +139,17 @@ h1, h2, h3, h4, h5 {
   }
   &:hover
   {
-    color: #fff !important;
+    color: #001631 !important;
     background: #9bc329;
   }
   &:focus
   {
-    color: #fff !important;
+    color: #001631 !important;
     background: #9bc329;
   }
 }
 .btn-secondary {
-  color: #fff !important;
+  color: #001631 !important;
   background: #f9951e;
   padding: 5px !important;
   border-color: #ffa53c !important;
@@ -166,13 +166,13 @@ h1, h2, h3, h4, h5 {
   }
   &:hover
   {
-    color: #fff !important;
+    color: #001631 !important;
     background: #f9951e;
     border-color: #f9951e !important;
   }
   &:focus
   {
-    color: #fff !important;
+    color: #001631 !important;
     background: #f9951e;
     border-color: #f9951e !important;
     box-shadow: 0 0 0 0.25rem #f9951e80;
