@@ -40,10 +40,10 @@
     <ng-template pTemplate="header">
         <div class="container-fluid py-3 mb-2 cb-bottom">
             <div class="row justify-content-center">
-                <div class="col-md-9 d-flex align-items-center text-start">
+                <div class="col-md-8 d-flex align-items-center text-start">
                     <h4 class="text-left font-secondarycolor mb-0">Pre-Application Quiz</h4>
                 </div>
-                <div class="col-md-3 d-flex text-end">
+                <div class="col-md-4 d-flex text-end">
                     <div class="w-100 me-3 quizprogress">
                         <span class="font-secondarycolor fw-semibold">Progress:{{selectedQuiz/quizData.length*100 | number:'1.0-0'}} % Completed</span>
                         <p-progressBar [value]="selectedQuiz/quizData.length*100 | number:'1.0-0'"></p-progressBar>
