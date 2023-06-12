@@ -34,6 +34,7 @@ import {CardModule} from "primeng/card";
 import {TooltipModule} from "primeng/tooltip";
 import { BlockCopyPasteDirective } from './block-copy-paste.directive';
 import { ScrollToBottomDirective } from './scroll-to-bottom.directive';
+import {ConfirmDialogModule} from "primeng/confirmdialog";
 const reducers = {
   pageSelector: pagesReducer
 }
@@ -82,7 +83,8 @@ export function tokenGetter() {
         DialogModule,
         CardModule,
         FormsModule,
-        TooltipModule
+        TooltipModule,
+        ConfirmDialogModule
     ],
   providers: [
     DatePipe,

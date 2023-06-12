@@ -32,6 +32,7 @@ import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { QuestionCreditComponent } from './question-credit/question-credit.component';
 import {ProgressBarModule} from "primeng/progressbar";
 import {LifeAtModule} from "./life-at/life-at.module";
+import {ConfirmDialogModule} from "primeng/confirmdialog";
 @NgModule({
     declarations: [
         PagesComponent,
@@ -70,7 +71,8 @@ import {LifeAtModule} from "./life-at/life-at.module";
         FormsModule,
         InputSwitchModule,
         ProgressBarModule,
-        LifeAtModule
+        LifeAtModule,
+        ConfirmDialogModule
     ],
     schemas: [
         CUSTOM_ELEMENTS_SCHEMA

@@ -17,6 +17,7 @@ import {CarouselModule} from "primeng/carousel";
 import {BreadcrumbModule} from "primeng/breadcrumb";
 import {CardModule} from 'primeng/card';
 import {ProgressBarModule} from "primeng/progressbar";
+import {ConfirmDialogModule} from "primeng/confirmdialog";
 
 
 @NgModule({
@@ -36,7 +37,8 @@ import {ProgressBarModule} from "primeng/progressbar";
         CarouselModule,
         BreadcrumbModule,
         CardModule,
-        ProgressBarModule
+        ProgressBarModule,
+        ConfirmDialogModule
     ]
 })
 export class PreApplicationModule {

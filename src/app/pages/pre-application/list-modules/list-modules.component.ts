@@ -3,7 +3,7 @@ import {PreAppService} from "../pre-app.service";
 import {Observable} from "rxjs";
 import {SubModuleList} from "../../../@Models/pre-application.model";
 import {ActivatedRoute, Router} from "@angular/router";
-import {MenuItem} from "primeng/api";
+import {ConfirmationService, MenuItem} from "primeng/api";
 import {DataService} from "../../../data.service";
 import {LocationService} from "../../../location.service";
 
@@ -35,7 +35,8 @@ export class ListModulesComponent implements OnInit {
     isInstructionVisible: boolean = false
 
     constructor(private preAppService: PreAppService, private router: Router, private dataService: DataService,
-                private locationService: LocationService, private route: ActivatedRoute) {
+                private locationService: LocationService, private route: ActivatedRoute,
+                private confirmationService: ConfirmationService) {
         this.responsiveOptions = [
             {
                 breakpoint: '1199px',
@@ -109,11 +110,11 @@ export class ListModulesComponent implements OnInit {
 
     }
 
-    nextModule(){
+    nextModule() {
         this.router.navigateByUrl('/pages/post-application/sub-modules')
     }
 
-    runQuiz(){
+    runQuiz() {
         this.isInstructionVisible = false;
         this.isStartQuiz = true;
     }
@@ -208,6 +209,20 @@ export class ListModulesComponent implements OnInit {
         this.isStartQuiz = false;
         this.isInstructionVisible = false;
         this.isQuizSubmit = false;
+    }
+
+    closeQuiz() {
+        this.confirmationService.confirm({
+            message: 'Are you sure that you want to proceed?',
+            header: 'Confirmation',
+            icon: 'pi pi-exclamation-triangle',
+        });
+    }
+    quitQuiz(cd: any){
+        this.isStartQuiz = false;
+        this.isInstructionVisible = false;
+        this.isQuizSubmit = false;
+        cd.accept();
     }
 
     startQuiz() {

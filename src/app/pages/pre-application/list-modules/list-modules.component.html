@@ -49,7 +49,7 @@
                         <p-progressBar [value]="selectedQuiz/quizData.length*100 | number:'1.0-0'"></p-progressBar>
                     </div>
                     <div>
-                        <button (click)="closeAllHome()" class="btn btn-quit btn-rounded m-0 px-2 py-2">
+                        <button (click)="closeQuiz()" class="btn btn-quit btn-rounded m-0 px-2 py-2" >
                             <div class="d-flex align-items-center"><span class="fw-normal h6 mb-0 ps-3 pe-2">Quit</span>
                                 <div class="btn-icon"><i class="fa-solid fa-power-off"></i></div>
                             </div>
@@ -363,3 +363,12 @@
         </div>
     </ng-template>
 </p-dialog>
+<p-confirmDialog #cd [style]="{width: '50vw'}">
+    <ng-template pTemplate="header">
+        <h3>Header Content</h3>
+    </ng-template>
+    <ng-template pTemplate="footer">
+        <button type="button" pButton icon="pi pi-times" label="No" (click)="cd.reject()"></button>
+        <button type="button" pButton icon="pi pi-check" label="Yes" (click)="quitQuiz(cd)"></button>
+    </ng-template>
+</p-confirmDialog>
