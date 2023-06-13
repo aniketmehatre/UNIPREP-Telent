@@ -214,9 +214,9 @@ export class ListModulesComponent implements OnInit {
 
     closeQuiz() {
         this.confirmationService.confirm({
-            message: 'Are you sure that you want to proceed?',
+            message: 'Are you sure you want to Quit, All your current progress will be lost.',
             header: 'Confirmation',
-            icon: 'pi pi-exclamation-triangle',
+            icon: 'fa-solid fa-circle-exclamation',
         });
     }
 
