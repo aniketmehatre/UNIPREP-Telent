@@ -10,7 +10,8 @@ import {LocationService} from "../../../location.service";
 @Component({
     selector: 'uni-list-modules',
     templateUrl: './list-modules.component.html',
-    styleUrls: ['./list-modules.component.scss']
+    styleUrls: ['./list-modules.component.scss'],
+    providers: [ConfirmationService]
 })
 export class ListModulesComponent implements OnInit {
     subModules$!: Observable<SubModuleList[]>;
@@ -218,6 +219,7 @@ export class ListModulesComponent implements OnInit {
             icon: 'pi pi-exclamation-triangle',
         });
     }
+
     quitQuiz(cd: any){
         this.isStartQuiz = false;
         this.isInstructionVisible = false;

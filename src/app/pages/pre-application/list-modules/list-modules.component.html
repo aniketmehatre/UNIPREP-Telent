@@ -45,11 +45,12 @@
                 </div>
                 <div class="col-md-4 d-flex text-end">
                     <div class="w-100 me-3 quizprogress">
-                        <span class="font-secondarycolor fw-semibold">Progress:{{selectedQuiz/quizData.length*100 | number:'1.0-0'}} % Completed</span>
+                        <span class="font-secondarycolor fw-semibold">Progress:{{selectedQuiz / quizData.length * 100 | number:'1.0-0'}}
+                            % Completed</span>
                         <p-progressBar [value]="selectedQuiz/quizData.length*100 | number:'1.0-0'"></p-progressBar>
                     </div>
                     <div>
-                        <button (click)="closeQuiz()" class="btn btn-quit btn-rounded m-0 px-2 py-2" >
+                        <button (click)="closeQuiz()" class="btn btn-quit btn-rounded m-0 px-2 py-2">
                             <div class="d-flex align-items-center"><span class="fw-normal h6 mb-0 ps-3 pe-2">Quit</span>
                                 <div class="btn-icon"><i class="fa-solid fa-power-off"></i></div>
                             </div>
@@ -294,47 +295,48 @@
     <div class="container-fluid">
         <div class="row justify-content-center">
             <div class="col-md-8">
-            <div class="row">
-                <div class="col-md-6" *ngFor="let val of quizData">
-                    <div class="card px-3 py-2 my-2 ">
-                                <!--                                <div class="select-title margin-minus text-center"><h5>Question</h5>-->
-                                <!--                                </div>-->
-                                    <h5 class="font-secondarycolor text-start pt-2 pb-3 text-capitalize">
-                                        {{val.question}}</h5>
-                                    <div class="py-2">
-                                        <input type="radio" value="{{val.option1}}" id="{{val.otp1}}" class="btn-check"
-                                               name="options" autocomplete="off" [disabled]="true">
-                                        <label class="{{1 === val.answer ? 'optionreviewcorrect' : (1 === val.user_answered ? 'optionreviewwrong' : 'optionnotanswered') }} quiznotanswered
+                <div class="row">
+                    <div class="col-md-6" *ngFor="let val of quizData">
+                        <div class="card px-3 py-2 my-2 ">
+                            <!--                                <div class="select-title margin-minus text-center"><h5>Question</h5>-->
+                            <!--                                </div>-->
+                            <h5 class="font-secondarycolor text-start pt-2 pb-3 text-capitalize">
+                                {{val.question}}</h5>
+                            <div class="py-2">
+                                <input type="radio" value="{{val.option1}}" id="{{val.otp1}}" class="btn-check"
+                                       name="options" autocomplete="off" [disabled]="true">
+                                <label class="{{1 === val.answer ? 'optionreviewcorrect' : (1 === val.user_answered ? 'optionreviewwrong' : 'optionnotanswered') }} quiznotanswered
                                                  text-start  w-100 m-0" for="{{val.otp1}}" disabled="true">
-                                            <h6 class="py-2 mb-0">{{val.option1}}</h6>
-                                        </label>
-                                    </div>
-                                    <div class="py-2">
-                                        <input type="radio" value="{{val.option2}}" id="{{val.otp2}}" class="btn-check"
-                                               name="options" autocomplete="off" [disabled]="true">
-                                        <label class="{{2 === val.answer ? 'optionreviewcorrect' : (2 === val.user_answered ? 'optionreviewwrong' : 'optionnotanswered') }} quiznotanswered
+                                    <h6 class="py-2 mb-0">{{val.option1}}</h6>
+                                </label>
+                            </div>
+                            <div class="py-2">
+                                <input type="radio" value="{{val.option2}}" id="{{val.otp2}}" class="btn-check"
+                                       name="options" autocomplete="off" [disabled]="true">
+                                <label class="{{2 === val.answer ? 'optionreviewcorrect' : (2 === val.user_answered ? 'optionreviewwrong' : 'optionnotanswered') }} quiznotanswered
                                                   text-start  w-100 m-0" for="{{val.otp2}}">
-                                            <h6 class="py-2 mb-0">{{val.option2}}</h6>
-                                        </label>
-                                    </div>
-                                    <div class="py-2">
-                                        <input type="radio" value="{{val.option3}}" id="{{val.otp3}}" class="btn-check"
-                                               name="options" autocomplete="off" [disabled]="true">
-                                        <label class="{{3 === val.answer ? 'optionreviewcorrect' : (3 === val.user_answered ? 'optionreviewwrong' : 'optionnotanswered') }} quiznotanswered
+                                    <h6 class="py-2 mb-0">{{val.option2}}</h6>
+                                </label>
+                            </div>
+                            <div class="py-2">
+                                <input type="radio" value="{{val.option3}}" id="{{val.otp3}}" class="btn-check"
+                                       name="options" autocomplete="off" [disabled]="true">
+                                <label class="{{3 === val.answer ? 'optionreviewcorrect' : (3 === val.user_answered ? 'optionreviewwrong' : 'optionnotanswered') }} quiznotanswered
                                                  text-start  w-100 m-0" for="{{val.otp3}}">
-                                            <h6 class="py-2 mb-0">{{val.option3}}</h6>
-                                        </label>
-                                    </div>
-                                    <div class="py-2">
-                                        <input type="radio" value="{{val.option4}}" id="{{val.otp4 }}" class="btn-check"
-                                               name="options" autocomplete="off" [disabled]="true">
-                                        <label class="{{4 === val.answer ? 'optionreviewcorrect' : (4 === val.user_answered ? 'optionreviewwrong' : 'optionnotanswered') }} quiznotanswered text-start  w-100 m-0" for="{{val.otp4}}">
-                                            <h6 class="py-2 mb-0">{{val.option4}}</h6>
-                                        </label>
-                                    </div>
+                                    <h6 class="py-2 mb-0">{{val.option3}}</h6>
+                                </label>
+                            </div>
+                            <div class="py-2">
+                                <input type="radio" value="{{val.option4}}" id="{{val.otp4 }}" class="btn-check"
+                                       name="options" autocomplete="off" [disabled]="true">
+                                <label class="{{4 === val.answer ? 'optionreviewcorrect' : (4 === val.user_answered ? 'optionreviewwrong' : 'optionnotanswered') }} quiznotanswered text-start  w-100 m-0"
+                                       for="{{val.otp4}}">
+                                    <h6 class="py-2 mb-0">{{val.option4}}</h6>
+                                </label>
+                            </div>
+                        </div>
                     </div>
-                    </div>
-                <!--                </p-carousel>-->
+                    <!--                </p-carousel>-->
                 </div>
             </div>
         </div>
@@ -350,17 +352,27 @@
                 <!--                            class="btn btn-lg rounded-pill btn-secondary m-0 px-2 py-2">-->
                 <!--                        <p class="mb-0 px-2"> Next <i class="fa-solid fa-circle-arrow-right"></i></p>-->
                 <!--                    </button>-->
-                <button (click)="retryQuiz()" class="btn btn-quit btn-rounded me-2 px-2 py-2"><div class="d-flex align-items-center"><span class="fw-normal h6 mb-0 ps-3 pe-2">Retry</span> <div class="btn-icon"><i class="fa-solid fa-arrow-rotate-right"></i></div></div></button>
+                <button (click)="retryQuiz()" class="btn btn-quit btn-rounded me-2 px-2 py-2">
+                    <div class="d-flex align-items-center"><span class="fw-normal h6 mb-0 ps-3 pe-2">Retry</span>
+                        <div class="btn-icon"><i class="fa-solid fa-arrow-rotate-right"></i></div>
+                    </div>
+                </button>
             </div>
         </div>
     </ng-template>
 </p-dialog>
-<p-confirmDialog #cd [style]="{width: '50vw'}">
+<p-confirmDialog #cd [style]="{width: '50vw'}" class="me-2 px-2 py-2">
     <ng-template pTemplate="header">
-        <h3>Header Content</h3>
+        <h3>Quit</h3>
     </ng-template>
     <ng-template pTemplate="footer">
-        <button type="button" pButton icon="pi pi-times" label="No" (click)="cd.reject()"></button>
-        <button type="button" pButton icon="pi pi-check" label="Yes" (click)="quitQuiz(cd)"></button>
+        <button (click)="cd.reject()" class="btn btn-primary btn-rounded me-2 px-2 py-2">
+            <div class="d-flex align-items-center"><span class="fw-normal h6 mb-0 ps-3 pe-2">No</span>
+            </div>
+        </button>
+        <button (click)="quitQuiz(cd)" class="btn btn-quit btn-rounded me-2 px-2 py-2">
+            <div class="d-flex align-items-center"><span class="fw-normal h6 mb-0 ps-3 pe-2">Yes</span>
+            </div>
+        </button>
     </ng-template>
 </p-confirmDialog>
