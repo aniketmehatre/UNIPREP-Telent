@@ -13,6 +13,8 @@ import {DialogModule} from "primeng/dialog";
 import {BreadcrumbModule} from "primeng/breadcrumb";
 import {CarouselModule} from "primeng/carousel";
 import {ButtonModule} from "primeng/button";
+import {ConfirmDialogModule} from "primeng/confirmdialog";
+import {ProgressBarModule} from "primeng/progressbar";
 
 @NgModule({
     imports: [
@@ -24,6 +26,8 @@ import {ButtonModule} from "primeng/button";
         BreadcrumbModule,
         CarouselModule,
         ButtonModule,
+        ConfirmDialogModule,
+        ProgressBarModule,
     ],
     declarations: [PostApplicationComponent, ListSubModulesComponent, QuestionListComponent,
     ]

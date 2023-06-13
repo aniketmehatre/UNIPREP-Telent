@@ -1,16 +1,16 @@
 import { Injectable } from '@angular/core';
 import {Store} from "@ngrx/store";
-import {loadQuestionList, loadSubModules } from './store/life-at.actions';
-import {LifeAtState} from "./store/life-at.reducer";
-import {selectQuestionList$, selectSubModule$} from "./store/life-at.selectors";
-
+import {loadQuestionList, loadSubModules } from './store/university.actions';
+import {UniversityState} from "./store/university.reducer";
+import {selectQuestionList$, selectSubModule$} from "./store/university.selectors";
 
 @Injectable({
   providedIn: 'root'
 })
-export class LifeAtService {
+export class UniversityService {
 
-  constructor(private store: Store<LifeAtState>) {
+
+  constructor(private store: Store<UniversityState>) {
   }
 
   loadSubModules(countryId: number) {
@@ -32,5 +32,4 @@ export class LifeAtService {
   questionList$() {
     return this.store.select(selectQuestionList$);
   }
-
 }

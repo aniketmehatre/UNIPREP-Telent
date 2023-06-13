@@ -1,12 +1,12 @@
 import {ChangeDetectorRef, Component, OnInit, ViewChild} from '@angular/core';
 import {Observable} from "rxjs";
+import {SubModuleList} from "../../../@Models/pre-application.model";
 import {ListQuestion} from "../../../@Models/question-list.model";
 import {MenuItem} from "primeng/api";
 import {DataService} from "../../../data.service";
 import {ActivatedRoute} from "@angular/router";
 import {Location} from "@angular/common";
-import {LifeAtSubModules} from "../../../@Models/life-at.model";
-import {LifeAtService} from "../life-at.service";
+import {UniversityService} from "../university.service";
 
 @Component({
   selector: 'uni-question-list',
@@ -19,7 +19,7 @@ export class QuestionListComponent implements OnInit {
   @ViewChild('carouselPopupVideoElm') carouselPopupVideoElm: any;
   @ViewChild('carouselPopupRefElm') carouselPopupRefElm: any;
 
-  subModules$!: Observable<LifeAtSubModules[]>;
+  subModules$!: Observable<SubModuleList[]>;
   listQuestion$!: Observable<ListQuestion[]>;
   selectedQuestion: number = 0;
   selectedQuestionId: number = 0;
@@ -42,27 +42,24 @@ export class QuestionListComponent implements OnInit {
   countryId: any;
   selectedQuestionData: any;
 
-  constructor(private lifeAtService: LifeAtService, private changeDetector: ChangeDetectorRef,
+  constructor(private universityService: UniversityService, private changeDetector: ChangeDetectorRef,
               private dataService: DataService, private route: ActivatedRoute, private _location: Location) {
   }
 
   ngAfterContentChecked(): void {
     this.changeDetector.detectChanges();
   }
-  countryName: string = '';
+
   ngOnInit(): void {
 
     this.countryId = Number(localStorage.getItem('countryId'));
-    this.dataService.countryNameSource.subscribe(cName => {
 
-      this.countryName = cName;
-    });
     this.subModuleId = this.route.snapshot.paramMap.get('id');
 
     this.getSubmoduleName(this.countryId);
 
     this.dataService.currentMessage.subscribe(message => this.message = message)
-    this.breadCrumb = [{ label: 'life At '+ this.countryName }, { label: this.moduleName }, { label: 'Question' }];
+    this.breadCrumb = [{ label: 'University' }, { label: this.moduleName }, { label: 'Question' }];
 
     this.responsiveOptions = [
       {
@@ -81,13 +78,13 @@ export class QuestionListComponent implements OnInit {
         numScroll: 1
       }
     ];
-    this.listQuestion$ = this.lifeAtService.questionList$();
+    this.listQuestion$ = this.universityService.questionList$();
     let data = {
       countryId: Number(localStorage.getItem('countryId')),
-      moduleId: 6,
+      moduleId: 1,
       submoduleId: this.subModuleId
     }
-    this.lifeAtService.loadQuestionList(data);
+    this.universityService.loadQuestionList(data);
   }
 
   goBack(){
@@ -95,8 +92,8 @@ export class QuestionListComponent implements OnInit {
   }
 
   getSubmoduleName(countryId: number) {
-    this.lifeAtService.loadSubModules(countryId);
-    this.subModules$ = this.lifeAtService.subModuleList$();
+    this.universityService.loadSubModules(countryId);
+    this.subModules$ = this.universityService.subModuleList$();
     this.subModules$.subscribe(event => {
       event.filter(data => {
         if (data.id == this.subModuleId) {
@@ -118,7 +115,7 @@ export class QuestionListComponent implements OnInit {
     let index = this.data.findIndex((x: any) => x.id === selectedData.id);
     this.selectedQuestion = index;
     this.positionNumber = index;
-    this.breadCrumb = [{ label: 'life At ' +this.countryName }, { label: this.moduleName }, { label: `Question ${index + 1}` }];
+    this.breadCrumb = [{ label: 'Pre Application' }, { label: this.moduleName }, { label: `Question ${index + 1}` }];
     this.isQuestionAnswerVisible = true;
     this.data.filter((res: any) => {
       if (res.id == selectedData.id) {
@@ -142,7 +139,7 @@ export class QuestionListComponent implements OnInit {
       }
     });
     this.positionNumber = pageNum + 1;
-    this.breadCrumb = [{ label: 'life At'+ this.countryName }, { label: this.moduleName }, { label: `Question ${pageNum + 1}` }];
+    this.breadCrumb = [{ label: 'Pre Application' }, { label: this.moduleName }, { label: `Question ${pageNum + 1}` }];
   }
 
   clickPrevious(carousel: any, event: any) {

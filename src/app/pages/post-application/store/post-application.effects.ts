@@ -3,8 +3,8 @@ import {Actions, createEffect, ofType} from "@ngrx/effects";
 import {PostApplicationService} from "./post-application.service";
 import {switchMap} from "rxjs";
 import {map} from "rxjs/operators";
-import {loadQuestionList, loadSubModules, loadSubModulesSuccess} from "./post-application.actions";
-import {loadQuestionListSuccess} from "../../pre-application/store/pre-application.actions";
+import {loadQuestionList, loadQuizList, loadSubModules, loadSubModulesSuccess} from "./post-application.actions";
+import {loadQuestionListSuccess, loadQuizListSuccess} from "../../pre-application/store/pre-application.actions";
 
 @Injectable()
 export class PostApplicationEffects {
@@ -28,7 +28,18 @@ export class PostApplicationEffects {
             })
         ))
     ));
-
+    loadQuizList = createEffect(() => this.actions$.pipe(
+        ofType(loadQuizList),
+        switchMap((payload) => this.postApplicationService.loadQuizList({
+            countryId: payload.countryId,
+            moduleId: payload.moduleId,
+            submoduleId: payload.submoduleId
+        }).pipe(
+            map(response => {
+                return loadQuizListSuccess({quizList: response.quizquestion})
+            })
+        ))
+    ));
     constructor(private actions$: Actions, private postApplicationService: PostApplicationService) {
     }
 }

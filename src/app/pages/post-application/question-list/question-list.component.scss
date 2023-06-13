@@ -22,6 +22,7 @@
   border: 0;
 }
 
+
 .application-text {
   font-size: 0.8rem;
 }
@@ -31,6 +32,10 @@
     border-radius: 10px 10px 0px 0px !important;
     border: none;
   }
+}
+
+.questionread {
+  filter: grayscale(1);
 }
 
 .questioncard {
@@ -120,63 +125,21 @@
 .answercard {
   background-color: #daeca5;
   border: 2px solid #9bc329;
-  min-height: 50vh;
-}
-.quizCard{
-  background: #efb875;
+  max-height: 60vh;
+  overflow-y: auto;
 }
 
-.parent{
-  width:200px;
-  height:200px;
-  position:absolute;
-  z-index:0;
+:host ::ng-deep .p-carousel-item {
+  max-height: 0;
 }
 
-.inner{
-  position:absolute;
-  z-index:1;
-  bottom:0;
-  right:0;
+:host ::ng-deep .p-carousel-item-active {
+  max-height: 100% !important;
 }
-.qacard
-{
-  border:2px solid #9bc329;
-}
-.margin-minus
-{
-  margin-top:-1.5em;
-}
-.answerbtn
-{
-  border:2px solid #efb875;
-  color:#001631;
-  &:hover
-  {
-    border:2px solid #9bc329;
-    color:#001631;
-    box-shadow: none;
-  }
-  &:focus
-  {
-    border:2px solid #9bc329;
-    color:#fff;
-    box-shadow: none;
-  }
-}
-.btn-check:checked + .answerbtn
-{
-  box-shadow:none;
-  &:hover
-  {
-    border:2px solid #9bc329;
-    color:#fff;
-    box-shadow: none;
-  }
-  &:focus
-  {
-    border:2px solid #9bc329;
-    box-shadow: none;
-    color:#fff;
-  }
+
+.card-color {
+  background: #9bc329 !important;
+  width: 100%;
+  height: 100%;
+
 }

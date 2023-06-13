@@ -20,7 +20,7 @@
                 <div class="row mb-0">
                     <div *ngFor="let sub of subModules$ | async" class="col-md-2">
                         <div class="row w-100 m-0 justify-content-center">
-                            <div (click)="onSubModuleClick(sub.id)" class="card subjectcard" role="button">
+                            <div (click)="onSubModuleClick(sub.id)" class="card subjectcard h-100" role="button">
                                 <div class="card-body px-0">
                                     <img alt="{{sub.submodule_name}}" class="selectimage" src="{{sub.icon}}"
                                          width="{{ selectedSubModule == sub.id ? '100px' : '100px'}}">

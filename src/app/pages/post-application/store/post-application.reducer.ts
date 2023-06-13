@@ -1,7 +1,7 @@
 import {createReducer, on} from "@ngrx/store";
 import {loadSubModulesSuccess} from "./post-application.actions";
 import {SubModuleList} from "../../../@Models/post-application.model";
-import {loadQuestionListSuccess} from "../../pre-application/store/pre-application.actions";
+import {loadQuestionListSuccess, loadQuizListSuccess} from "../../pre-application/store/pre-application.actions";
 import {ListQuestion} from "../../../@Models/question-list.model";
 
 export interface PostApplicationState {
@@ -18,4 +18,6 @@ export const PostApplicationReducer = createReducer(
     on(loadSubModulesSuccess, (state,
                                payload) => ({...state, submodules: payload.submodules})),
     on(loadQuestionListSuccess, (state, payload) => ({...state, questionList: payload.questionList})),
+    on(loadQuizListSuccess, (state, payload) => ({...state, quizList: payload.quizList})),
+
 )

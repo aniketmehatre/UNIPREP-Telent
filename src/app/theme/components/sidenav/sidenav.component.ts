@@ -37,28 +37,6 @@ export class SidenavComponent {
       url: '/pages/dashboard',
       image: 'fa-solid fa-house',
     },
-    // {
-    //   title: 'Components',
-    //   url: '',
-    //   image: 'pi pi-chart-bar',
-    //   children: [
-    //     {
-    //       title: 'Button',
-    //       url: '/pages/button',
-    //       image: ''
-    //     },
-    //     {
-    //       title: 'Cards',
-    //       url: '/pages/cards',
-    //       image: ''
-    //     },
-    //     {
-    //       title: 'Popup',
-    //       url: '/pages/popups',
-    //       image: ''
-    //     }
-    //   ]
-    // },
     {
       title: 'Pre Application',
       url: '/pages/pre-application',
@@ -79,11 +57,11 @@ export class SidenavComponent {
       url: '/pages/career-hub',
       image: 'fa-solid fa-briefcase',
     },
-    // {
-    //   title: 'University',
-    //   url: '#',
-    //   image: 'fa-solid fa-building-columns',
-    // },
+    {
+      title: 'University',
+      url: '/pages/university',
+      image: 'fa-solid fa-building-columns',
+    },
     {
       title: 'Life at',
       url: '/pages/life-at',
