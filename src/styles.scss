@@ -1337,11 +1337,27 @@ h1, h2, h3, h4, h5 {
 @media (max-width: 575.98px)
 {
 }
+.openlogo
+  {
+    display:block;
+  }
+  .closedlogo
+  {
+    display:none;
+  }
 
 .menuclosed
 {
   width: 65px !important;
   transition: width 150ms ease-in-out;
+  .openlogo
+  {
+    display:none;
+  }
+  .closedlogo
+  {
+    display:block;
+  }
   .maintext
   {
     display:none;
