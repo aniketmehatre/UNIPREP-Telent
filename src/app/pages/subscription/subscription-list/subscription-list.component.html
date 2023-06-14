@@ -13,7 +13,7 @@
     <div class="card-body">
         <div class="container-fluid">
             <div class="row gap-5 mt-5 d-flex">
-                <div class="card subscriptioncard col px-0" *ngFor="let p of plans; let i = index">
+                <div class="card subscriptioncard col px-0" *ngFor="let p of plans; let i = index" >
                     <div class="mostpopular" *ngIf="i == 1">Most Popular Plan</div>
                     <div class="card-header p-4">
                         <div class="d-flex justify-content-between align-items-center">
@@ -28,15 +28,16 @@
                     <div class="card-body p-4">
                         <span class="p-float-label">
                             <p-multiSelect [options]="countryList" styleClass="w-100" optionValue="id"
-                                           [(ngModel)]="selectedCountry[i]" [readonly]="i == 0"
+                                           [(ngModel)]="selectedCountry[i]" [readonly]="i == 0" #elm
+                                           (onClick)="onChangeSelectedCountry(elm.value)"
                                            optionLabel="country"></p-multiSelect>
                         </span>
                     </div>
                     <div class="card-footer  p-4">
                         <h2 class="font-primarycolor fw-bold">INR {{p.price - p.discount}}</h2>
-                        <p class="fw-semibold">Add other Countries at {{ p.addln_country_discount }} INR</p>
+                        <p class="fw-semibold">Add other Countries at 699 INR</p>
                         <div class="getstartedbtn">
-                            <button class="btn btn-primary" (click)="selected.emit(p)">Get Started</button>
+                            <button class="btn btn-primary" (click)="selected.emit({event: p, selectedCountryList: selectedCountryList})">Get Started</button>
                         </div>
                     </div>
                 </div>

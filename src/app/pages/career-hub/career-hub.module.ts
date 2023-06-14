@@ -13,6 +13,9 @@ import {DialogModule} from 'primeng/dialog';
 import {CarouselModule} from 'primeng/carousel';
 import {QuestionListComponent} from "./question-list/question-list.component";
 import {BreadcrumbModule} from "primeng/breadcrumb";
+import {ButtonModule} from "primeng/button";
+import {ConfirmDialogModule} from "primeng/confirmdialog";
+import {ProgressBarModule} from "primeng/progressbar";
 
 
 @NgModule({
@@ -29,6 +32,9 @@ import {BreadcrumbModule} from "primeng/breadcrumb";
         DialogModule,
         CarouselModule,
         BreadcrumbModule,
+        ButtonModule,
+        ConfirmDialogModule,
+        ProgressBarModule,
     ]
 })
 export class CareerHubModule {

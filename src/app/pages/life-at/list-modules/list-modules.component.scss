@@ -64,3 +64,43 @@ selctedQuizTiny{
   font-size: 10px;
   color: #9bc329;
 }
+.quizprogress
+{
+  .p-progressbar
+  {
+    height: 10px;
+    margin-top: 5px;
+  }
+}
+.quiznotanswered
+{
+  border: 2px solid #E3E3E3;
+  border-radius: 8px;
+  width: 100%;
+  padding: 8px;
+  text-align: start;
+  color: #001631;
+}
+
+.optionanswered
+{
+  border: 2px solid #9bc329;
+  border-radius: 8px;
+  color: #001631;
+}
+
+.optionreviewcorrect
+{
+  border: 2px solid #9bc329;
+  background: #9bc329;
+  border-radius: 8px;
+  color: #fff;
+}
+
+.optionreviewwrong
+{
+  border: 2px solid #DF3E3E;
+  background: #DF3E3E;
+  border-radius: 8px;
+  color: #fff;
+}

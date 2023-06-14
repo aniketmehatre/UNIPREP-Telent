@@ -1,21 +1,25 @@
 import {createReducer, on} from "@ngrx/store";
-import {loadSubModulesSuccess} from "./career-hub.actions";
+import {loadQuestionListSuccess, loadQuizListSuccess, loadSubModulesSuccess} from "./career-hub.actions";
 import {SubModuleList} from "../../../@Models/post-application.model";
-import {loadQuestionListSuccess} from "../../pre-application/store/pre-application.actions";
 import {ListQuestion} from "../../../@Models/question-list.model";
+import {QuizList} from "../../../@Models/list-quiz.model";
 
 export interface CareerHubState {
     submodules: SubModuleList[],
-    questionList?: ListQuestion[]
+    questionList?: ListQuestion[],
+    quizList?: QuizList[]
 }
 
 export const initialState: CareerHubState = {
     submodules: [],
     questionList: [],
+    quizList: [],
 }
 export const CareerHubReducer = createReducer(
     initialState,
     on(loadSubModulesSuccess, (state,
                                payload) => ({...state, submodules: payload.submodules})),
     on(loadQuestionListSuccess, (state, payload) => ({...state, questionList: payload.questionList})),
+    on(loadQuizListSuccess, (state, payload) => ({...state, quizList: payload.quizList})),
+
 )

@@ -81,7 +81,7 @@ export class QuestionListComponent implements OnInit {
     this.listQuestion$ = this.universityService.questionList$();
     let data = {
       countryId: Number(localStorage.getItem('countryId')),
-      moduleId: 1,
+      moduleId: 5,
       submoduleId: this.subModuleId
     }
     this.universityService.loadQuestionList(data);

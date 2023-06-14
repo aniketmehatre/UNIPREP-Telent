@@ -174,8 +174,8 @@
                 </div>
                 <div class="col-md-4 d-flex text-end">
                     <div class="w-100 me-3 quizprogress">
-                        <span class="font-secondarycolor fw-semibold">Progress: % Completed</span>
-                        <p-progressBar [value]="quizData.length"></p-progressBar>
+                        <span class="font-secondarycolor fw-semibold">Progress:100% Completed</span>
+                        <p-progressBar [value]="100"></p-progressBar>
                     </div>
                     <div>
                         <button (click)="closeAllHome()" class="btn btn-start btn-rounded m-0 px-2 py-2">
@@ -275,7 +275,8 @@
                     <h4 class="font-primarycolor">ALL THE BEST!</h4>
                 </div>
                 <div class="col-md-6 text-end">
-                    <button (click)="runQuiz()" class="btn btn-start btn-rounded m-0 px-2 py-2">
+                    <button (click)="runQuiz()" class="btn btn-start btn-rounded m-0 px-2 py-2"
+                            [disabled]="!this.quizData">
                         <div class="d-flex align-items-center"><span class="fw-normal h6 mb-0 ps-3 pe-2">Start</span>
                             <div class="btn-icon"><i class="fa-solid fa-arrow-right"></i></div>
                         </div>

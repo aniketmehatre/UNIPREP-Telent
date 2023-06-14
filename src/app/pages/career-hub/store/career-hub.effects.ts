@@ -2,7 +2,14 @@ import {Injectable} from "@angular/core";
 import {Actions, createEffect, ofType} from "@ngrx/effects";
 import {switchMap} from "rxjs";
 import {map} from "rxjs/operators";
-import {loadQuestionList, loadQuestionListSuccess, loadSubModules, loadSubModulesSuccess} from "./career-hub.actions";
+import {
+    loadQuestionList,
+    loadQuestionListSuccess,
+    loadQuizList,
+    loadQuizListSuccess,
+    loadSubModules,
+    loadSubModulesSuccess
+} from "./career-hub.actions";
 import {CareerHubService} from "./career-hub.service";
 
 @Injectable()
@@ -27,7 +34,18 @@ export class CareerHubEffects {
             })
         ))
     ));
-
+    loadQuizList = createEffect(() => this.actions$.pipe(
+        ofType(loadQuizList),
+        switchMap((payload) => this.careerHubService.loadQuizList({
+            countryId: payload.countryId,
+            moduleId: payload.moduleId,
+            submoduleId: payload.submoduleId
+        }).pipe(
+            map(response => {
+                return loadQuizListSuccess({quizList: response.quizquestion})
+            })
+        ))
+    ));
     constructor(private actions$: Actions, private careerHubService: CareerHubService) {
     }
 }

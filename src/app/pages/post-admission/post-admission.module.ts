@@ -14,6 +14,8 @@ import {BreadcrumbModule} from "primeng/breadcrumb";
 import {CarouselModule} from "primeng/carousel";
 import {DialogModule} from "primeng/dialog";
 import {SharedModule} from "primeng/api";
+import {ConfirmDialogModule} from "primeng/confirmdialog";
+import {ProgressBarModule} from "primeng/progressbar";
 
 
 @NgModule({
@@ -31,6 +33,8 @@ import {SharedModule} from "primeng/api";
         CarouselModule,
         DialogModule,
         SharedModule,
+        ConfirmDialogModule,
+        ProgressBarModule,
     ]
 })
 export class PostAdmissionModule {

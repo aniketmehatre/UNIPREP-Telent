@@ -4,6 +4,7 @@ import {Observable} from "rxjs";
 import {environment} from "@env/environment";
 import {PostAdmissionModel} from "../../../@Models/post-admission.model";
 import {QuestionList} from "../../../@Models/question-list.model";
+import {ListQuiz} from "../../../@Models/list-quiz.model";
 
 
 @Injectable({providedIn: 'root'})
@@ -32,4 +33,19 @@ export class PostAdmissionService {
         }
         return this.http.post<QuestionList>(environment.ApiUrl + "/getmodulequestions", request);
     }
+    loadQuizList(
+        params: {
+            countryId: number,
+            moduleId: number,
+            submoduleId: number
+        }
+    ): Observable<ListQuiz> {
+        let request = {
+            countryId: params.countryId,
+            moduleId: params.moduleId,
+            submoduleId: params.submoduleId
+        }
+        return this.http.post<ListQuiz>(environment.ApiUrl + "/quizquestions", request);
+    }
+
 }

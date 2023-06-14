@@ -17,6 +17,7 @@ import {lifeAtFeatureKey} from "./store/life-at.selectors";
 import {LifeAtReducer} from "./store/life-at.reducer";
 import {LifeAtEffects} from "./store/life-at.effects";
 import { QuestionListComponent } from './question-list/question-list.component';
+import {ConfirmDialogModule} from "primeng/confirmdialog";
 
 
 @NgModule({
@@ -25,18 +26,19 @@ import { QuestionListComponent } from './question-list/question-list.component';
     ListModulesComponent,
     QuestionListComponent
   ],
-  imports: [
-    CommonModule,
-    LifeAtRoutingModule,
-    StoreModule.forFeature(lifeAtFeatureKey, LifeAtReducer),
-    EffectsModule.forFeature([LifeAtEffects]),
-    TooltipModule,
-    ButtonModule,
-    DialogModule,
-    CarouselModule,
-    BreadcrumbModule,
-    CardModule,
-    ProgressBarModule
-  ]
+    imports: [
+        CommonModule,
+        LifeAtRoutingModule,
+        StoreModule.forFeature(lifeAtFeatureKey, LifeAtReducer),
+        EffectsModule.forFeature([LifeAtEffects]),
+        TooltipModule,
+        ButtonModule,
+        DialogModule,
+        CarouselModule,
+        BreadcrumbModule,
+        CardModule,
+        ProgressBarModule,
+        ConfirmDialogModule
+    ]
 })
 export class LifeAtModule { }

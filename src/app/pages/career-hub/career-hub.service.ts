@@ -1,8 +1,8 @@
 import {Injectable} from '@angular/core';
 import {CareerHubState} from './store/career-hub.reducer';
 import {Store} from '@ngrx/store';
-import {loadQuestionList, loadSubModules} from './store/career-hub.actions';
-import {selectQuestionList$, selectSubModule$} from './store/career-hub.selectors';
+import {loadQuestionList, loadQuizList, loadSubModules} from './store/career-hub.actions';
+import {selectQuestionList$, selectQuizList$, selectSubModule$} from './store/career-hub.selectors';
 
 @Injectable({
     providedIn: 'root'
@@ -30,5 +30,17 @@ export class CareerHubService {
 
     questionList$() {
         return this.store.select(selectQuestionList$);
+    }
+
+    quizList(data: any) {
+        this.store.dispatch(loadQuizList({
+            countryId: data.countryId,
+            moduleId: data.moduleId,
+            submoduleId: data.submoduleId
+        }));
+    }
+
+    quizList$() {
+        return this.store.select(selectQuizList$);
     }
 }

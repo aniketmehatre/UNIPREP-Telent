@@ -1,8 +1,8 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
-import {ListSubModulesComponent} from "./list-sub-modules/list-sub-modules.component";
 import {QuestionListComponent} from "./question-list/question-list.component";
 import {PostAdmissionComponent} from "./post-admission.component";
+import {ListSubModulesComponent} from "./list-sub-modules/list-sub-modules.component";
 
 
 const routes: Routes = [{
@@ -12,12 +12,15 @@ const routes: Routes = [{
             path: 'sub-modules', component: ListSubModulesComponent,
         },
         {
-            path: 'question-list/:id', component: QuestionListComponent,
+            path: 'sub-modules/:id', component: ListSubModulesComponent,
         },
         {
-            path: '', redirectTo: 'sub-modules', pathMatch: 'full'
-        }
+            path: 'question-list/:id', component: QuestionListComponent,
+        },
+        {path: '', redirectTo: 'sub-modules', pathMatch: 'full'}
     ]
+
+
 },];
 
 @NgModule({

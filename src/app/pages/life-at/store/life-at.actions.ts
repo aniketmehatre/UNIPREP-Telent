@@ -1,6 +1,7 @@
 import {createAction} from "@ngrx/store";
 import {LifeAtSubModules} from "../../../@Models/life-at.model";
 import {ListQuestion} from "../../../@Models/question-list.model";
+import {QuizList} from "../../../@Models/list-quiz.model";
 
 
 export const loadSubModules = createAction('[LIFE AT] load Sub modules', (payload: {
@@ -20,4 +21,15 @@ export const loadQuestionList = createAction('[LIFE AT] load question list',
 export const loadQuestionListSuccess = createAction('[LIFE AT] load question list success',
     (payload: {
         questionList: ListQuestion[]
+    }) => payload);
+
+export const loadQuizList = createAction('[LIFE AT] load quiz list',
+    (payload: {
+        countryId: number,
+        moduleId: number,
+        submoduleId: number
+    }) => payload);
+export const loadQuizListSuccess = createAction('[LIFE AT] load quiz list success',
+    (payload: {
+        quizList: QuizList[]
     }) => payload);

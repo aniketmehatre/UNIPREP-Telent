@@ -12,6 +12,7 @@ import {
 } from "../../@Models/subscription";
 import { Observable } from "rxjs";
 import { selectBillingInfo$ } from "./store/selectors";
+import {select} from "@ngrx/store";
 
 @Component({
     selector: "uni-subscription",
@@ -31,6 +32,7 @@ export class SubscriptionComponent implements OnInit {
     success!: SubscriptionSuccess;
     user: any;
     countryList: any;
+    selectedCountry: any;
     isSubOrQuestion: number = 1;
     constructor(
         private subscriptionService: SubscriptionService,
@@ -73,8 +75,12 @@ export class SubscriptionComponent implements OnInit {
             this.payWithRazor(order);
         });
     }
-    onSelectSubscription(event: SubscriptionPlan) {
-        this.selectedSubscription = event;
+    onSelectSubscription(event: any) {
+       let selectedPlanData = {... event.event};
+        selectedPlanData.country = event.selectedCountryList;
+        selectedPlanData.price = Number(selectedPlanData.price) + ((event.selectedCountryList.length -1) * 699);
+
+        this.selectedSubscription = selectedPlanData;
         this.stage = 3;
     }
     onSelectQuestionCredit(event: any) {
@@ -124,7 +130,7 @@ export class SubscriptionComponent implements OnInit {
             amount: this.selectedSubscription?.price, // amount should be in paise format to display Rs 1255 without decimal point
             currency: "INR",
             name: "Uniabroad", // company name or product name
-            description: "SOP Expert Subscription", // product description
+            description: "UNIPREP Subscription", // product description
             image: "https://uniabroad.io/webassets/img/rplogo.svg", // company logo or product image
             order_id: orderid, // order_id created by you in backend
             //callback_url: "http://localhost:4200/pages/subscriptions",

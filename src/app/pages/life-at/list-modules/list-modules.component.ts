@@ -4,8 +4,8 @@ import {ConfirmationService, MenuItem} from "primeng/api";
 import {ActivatedRoute, Router} from "@angular/router";
 import {DataService} from "../../../data.service";
 import {LocationService} from "../../../location.service";
-import {LifeAtService} from "../life-at.service";
 import {LifeAtSubModules} from "../../../@Models/life-at.model";
+import {LifeAtService} from "../life-at.service";
 
 @Component({
   selector: 'uni-list-modules',
@@ -15,6 +15,7 @@ import {LifeAtSubModules} from "../../../@Models/life-at.model";
 })
 export class ListModulesComponent implements OnInit {
   subModules$!: Observable<LifeAtSubModules[]>;
+  quizList$!: Observable<any>;
   selectedSubModule: any;
   answeredCorrect: number = 0;
   totalPercentage: number = 0;
@@ -33,10 +34,10 @@ export class ListModulesComponent implements OnInit {
   breadCrumb: MenuItem[] = [];
   answerOptionClicked: boolean = true
   isInstructionVisible: boolean = false
-  selectedCountryName: string = ''
 
-  constructor(private liveAtService: LifeAtService, private router: Router, private dataService: DataService,
-              private locationService: LocationService, private route: ActivatedRoute) {
+  constructor(private lifeAtService: LifeAtService, private router: Router, private dataService: DataService,
+              private locationService: LocationService, private route: ActivatedRoute,
+              private confirmationService: ConfirmationService) {
     this.responsiveOptions = [
       {
         breakpoint: '1199px',
@@ -55,26 +56,26 @@ export class ListModulesComponent implements OnInit {
       }
     ];
   }
-
+  countryName: string = ''
   ngOnInit(): void {
     this.loadModuleAndSubModule();
     if (this.route.snapshot.paramMap.get('id') == '2') {
       this.startQuiz();
     }
-    this.dataService.countryNameSource.subscribe(countryName => {
-      this.selectedCountryName = countryName;
-    });
   }
 
   loadModuleAndSubModule() {
-    this.subModules$ = this.liveAtService.subModuleList$();
+    this.subModules$ = this.lifeAtService.subModuleList$();
     let countryId = Number(localStorage.getItem('countryId'));
-    this.liveAtService.loadSubModules(countryId);
+    this.lifeAtService.loadSubModules(countryId);
     this.subModules$.subscribe(event => {
       this.subModuleList = event;
     });
     this.locationService.getUniPerpModuleList().subscribe((data: any) => {
       this.moduleList = data.modules;
+    });
+    this.dataService.countryNameSource.subscribe(countryName => {
+      this.countryName = countryName;
     });
   }
 
@@ -85,39 +86,40 @@ export class ListModulesComponent implements OnInit {
     });
     let data = {
       countryId: Number(localStorage.getItem('countryId')),
-      moduleId: 6,
+      moduleId: 1,
       submoduleId: 1
     }
 
-    // this.quizList$ = this.liveAtService.quizList$();
-    // this.liveAtService.quizList(data);
-    //
-    // this.quizList$.subscribe((data) => {
-    //
-    //   this.quizData = data.map((val: any) => {
-    //     let moduleData = this.moduleList.filter(ind => ind.id == val.module_id)[0]!.module_name;
-    //     let subModuleName = this.subModuleList.filter(ind => ind.id == val.submodule_id)[0]!.submodule_name;
-    //     let number = 1;
-    //     let dd = {...val};
-    //     dd.module_name = moduleData
-    //     dd.sub_module_name = subModuleName
-    //     dd.otp1 = dd.option1 + dd.id + number++;
-    //     dd.otp2 = dd.option2 + dd.id + number++;
-    //     dd.otp3 = dd.option3 + dd.id + number++;
-    //     dd.otp4 = dd.option4 + dd.id + number++;
-    //     return dd;
-    //   })
-    //   this.breadCrumb = [{label: cName}, {label: this.quizData[0]!.module_name},
-    //     {label: this.quizData[0]!.sub_module_name}];
-    // });
+    this.quizList$ = this.lifeAtService.quizList$();
+    this.lifeAtService.quizList(data);
+
+    this.quizList$.subscribe((data) => {
+
+      this.quizData = data.map((val: any) => {
+        let moduleData = this.moduleList.filter(ind => ind.id == val.module_id)[0]!.module_name;
+        let subModuleName = this.subModuleList.filter(ind => ind.id == val.submodule_id)[0]!.submodule_name;
+        let number = 1;
+        let dd = {...val};
+        dd.module_name = moduleData
+        dd.sub_module_name = subModuleName
+        dd.otp1 = dd.option1 + dd.id + number++;
+        dd.otp2 = dd.option2 + dd.id + number++;
+        dd.otp3 = dd.option3 + dd.id + number++;
+        dd.otp4 = dd.option4 + dd.id + number++;
+        return dd;
+      })
+      this.breadCrumb = [{label: cName}, {label: this.quizData[0]!.module_name},
+        {label: this.quizData[0]!.sub_module_name}];
+    });
 
   }
 
-  nextModule(){
+  nextModule() {
+    return;
     this.router.navigateByUrl('/pages/post-application/sub-modules')
   }
 
-  runQuiz(){
+  runQuiz() {
     this.isInstructionVisible = false;
     this.isStartQuiz = true;
   }
@@ -214,6 +216,21 @@ export class ListModulesComponent implements OnInit {
     this.isQuizSubmit = false;
   }
 
+  closeQuiz() {
+    this.confirmationService.confirm({
+      message: 'Are you sure you want to Quit, All your current progress will be lost.',
+      header: 'Confirmation',
+      icon: 'fa-solid fa-circle-exclamation',
+    });
+  }
+
+  quitQuiz(cd: any){
+    this.isStartQuiz = false;
+    this.isInstructionVisible = false;
+    this.isQuizSubmit = false;
+    cd.accept();
+  }
+
   startQuiz() {
     let cName = "";
     this.dataService.countryNameSource.subscribe(countryName => {
@@ -239,7 +256,6 @@ export class ListModulesComponent implements OnInit {
   }
 
   onSubModuleClick(id: any) {
-
     this.subModuleList.forEach((element: any) => {
       if (element.id === id) {
         this.selectedSubModule = element.country;

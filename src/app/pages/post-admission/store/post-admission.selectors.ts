@@ -10,3 +10,6 @@ export const selectSubModule$ =
 export const selectQuestionList$ =
     createSelector(featureSelect, (state: PostAdmissionState) => state.questionList || []);
 
+export const selectQuizList$ =
+    createSelector(featureSelect, (state: PostAdmissionState) => state.quizList || []);
+

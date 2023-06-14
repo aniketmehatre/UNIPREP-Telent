@@ -59,8 +59,6 @@ import {ConfirmDialogModule} from "primeng/confirmdialog";
         ButtonModule,
         InputTextModule,
         RippleModule,
-        PreApplicationModule,
-        PostAdmissionModule,
         ReactiveFormsModule,
         DropdownModule,
         CalendarModule,

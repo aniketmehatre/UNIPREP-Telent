@@ -8,3 +8,6 @@ export const selectSubModule$ =
     createSelector(featureSelect, (state: CareerHubState) => state.submodules || []);
 export const selectQuestionList$ =
     createSelector(featureSelect, (state: CareerHubState) => state.questionList || []);
+
+export const selectQuizList$ =
+    createSelector(featureSelect, (state: CareerHubState) => state.quizList || []);

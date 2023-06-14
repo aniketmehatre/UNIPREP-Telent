@@ -4,13 +4,13 @@
             <div class="card-body text-center pt-0">
                 <h5 class="select-title mb-3" tooltipPosition="top"
                     pTooltip="Questions related to the application process are answered">
-                    LIFE AT {{selectedCountryName}} <i class="questiontooltip fa-solid fa-circle-question"></i>
+                    Life At {{ countryName }} <i class="questiontooltip fa-solid fa-circle-question"></i>
                 </h5>
                 <div class="row">
                     <div class="col-md-11 text-end">
 
                     </div>
-                    <div class="col-md-1 gap-2 d-flex text-end d-none">
+                    <div class="col-md-1 gap-2 d-flex text-end">
                         <button (click)="startQuiz()" class="btn w-100 btn-secondary quizCard m-0 px-2 py-2">
                             <i class="fa-solid h5 fa fa-info-circle"></i>
                             <p class="mb-0">Start Quiz</p>
@@ -20,7 +20,7 @@
                 <div class="row mb-0">
                     <div *ngFor="let sub of subModules$ | async" class="col-md-2">
                         <div class="row w-100 m-0 justify-content-center">
-                            <div (click)="onSubModuleClick(sub.id)" class="card subjectcard h-100" role="button">
+                            <div (click)="onSubModuleClick(sub.id)" class="card subjectcard" role="button">
                                 <div class="card-body px-0">
                                     <img alt="{{sub.submodule_name}}" class="selectimage" src="{{sub.icon}}"
                                          width="{{ selectedSubModule == sub.id ? '100px' : '100px'}}">
@@ -35,281 +35,352 @@
         </div>
     </div>
 </div>
-<!--<p-dialog class="questionmodal" header="Header" [draggable]="false" [modal]="true" [(visible)]="isStartQuiz"-->
-<!--          [style]="{ width: '70vw' }" [closable]="false">-->
-<!--    <ng-template class="p-2" pTemplate="header">-->
+<p-dialog class="quizmodal" header="Header" footer="Footer" [draggable]="false" [modal]="true" [(visible)]="isStartQuiz"
+          [style]="{ width: '70vw' }" [closable]="false">
+    <ng-template pTemplate="header">
+        <div class="container-fluid py-3 mb-2 cb-bottom">
+            <div class="row justify-content-center">
+                <div class="col-md-8 d-flex align-items-center text-start">
+                    <h4 class="text-left font-secondarycolor mb-0">Life At {{ countryName }} Quiz</h4>
+                </div>
+                <div class="col-md-4 d-flex text-end">
+                    <div class="w-100 me-3 quizprogress">
+                        <span class="font-secondarycolor fw-semibold">Progress:{{selectedQuiz / quizData.length * 100 | number:'1.0-0'}}
+                            % Completed</span>
+                        <p-progressBar [value]="selectedQuiz/quizData.length*100 | number:'1.0-0'"></p-progressBar>
+                    </div>
+                    <div>
+                        <button (click)="closeQuiz()" class="btn btn-quit btn-rounded m-0 px-2 py-2">
+                            <div class="d-flex align-items-center"><span class="fw-normal h6 mb-0 ps-3 pe-2">Quit</span>
+                                <div class="btn-icon"><i class="fa-solid fa-power-off"></i></div>
+                            </div>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </ng-template>
 
-<!--    </ng-template>-->
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <h6 class="text-muted">{{selectedQuiz}}/{{quizData.length}} Question Left</h6>
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-md-12">
+                <p-carousel #carouselQuiz (onPage)="setPage($event)" [circular]="true" [numScroll]="1"
+                            [numVisible]="1"
+                            [page]="selectedQuiz -1" [responsiveOptions]="responsiveOptions" [value]="quizData"
+                            class="text-center">
+                    <ng-template [ngForOf]="quizData" let-i="index" let-val ngFor pTemplate="item">
+                        <div class="row text-center">
+                            <div class="col-12 mt-3 mb-4">
+                                <p class="text-start mb-0 fw-medium text-small font-primarycolor">Question
+                                    Number {{selectedQuiz}}</p>
+                                <h4 class="font-secondarycolor text-start pt-2 pb-2 text-capitalize">{{val.question}}</h4>
+                                <div class="py-1">
+                                    <input type="radio" value="{{val.option1}}" id="{{val.otp1}}" class="btn-check"
+                                           name="options" autocomplete="off">
+                                    <label (click)="selectAnswer(val.option1, val, 1)"
+                                           class="{{ 1 === val.user_answered ? 'optionanswered' : 'optionnotanswered' }} text-start quiznotanswered w-100 m-0"
+                                           for="{{val.otp1}}">
+                                        <h6 class="py-2 px-2 mb-0"><i
+                                                class="{{1=== val.user_answered ? 'fa-sharp fa-solid fa-circle-check' : 'fa-regular fa-circle'}} pe-2"></i> {{val.option1}}
+                                        </h6>
+                                    </label>
+                                </div>
+                                <div class="py-1">
+                                    <input type="radio" value="{{val.option2}}" id="{{val.otp2}}"
+                                           class="btn-check" name="options" autocomplete="off">
+                                    <label (click)="selectAnswer(val.option2, val, 2)"
+                                           class="{{ 2 === val.user_answered ? 'optionanswered' : 'optionnotansweredy' }}
+                                                    text-start quiznotanswered w-100 m-0" for="{{val.otp2}}">
+                                        <h6 class="py-2 px-2 mb-0"><i
+                                                class="{{2=== val.user_answered ? 'fa-sharp fa-solid fa-circle-check' : 'fa-regular fa-circle'}} pe-2"></i> {{val.option2}}
+                                        </h6>
+                                    </label>
+                                </div>
+                                <div class="py-1">
+                                    <input type="radio" value="{{val.option3}}" id="{{val.otp3}}"
+                                           class="btn-check" name="options" autocomplete="off">
+                                    <label (click)="selectAnswer(val.option3, val, 3)"
+                                           class="{{ 3 === val.user_answered ? 'optionanswered' : 'optionnotanswered' }} text-start quiznotanswered w-100 m-0"
+                                           for="{{val.otp3}}">
+                                        <h6 class="py-2 px-2 mb-0"><i
+                                                class="{{3=== val.user_answered ? 'fa-sharp fa-solid fa-circle-check' : 'fa-regular fa-circle'}} pe-2"></i> {{val.option3}}
+                                        </h6>
+                                    </label>
+                                </div>
+                                <div class="py-1">
+                                    <input type="radio" value="{{val.option4}}" id="{{val.otp4 }}"
+                                           class="btn-check" name="options" autocomplete="off">
+                                    <label (click)="selectAnswer(val.option4, val, 4)"
+                                           class="{{ 4 === val.user_answered ? 'optionanswered' : 'optionnotanswered' }} text-start quiznotanswered w-100 m-0"
+                                           for="{{val.otp4}}">
+                                        <h6 class="py-2 px-2 mb-0"><i
+                                                class="{{4=== val.user_answered ? 'fa-sharp fa-solid fa-circle-check' : 'fa-regular fa-circle'}} pe-2"></i> {{val.option4}}
+                                        </h6>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </ng-template>
+                </p-carousel>
+            </div>
+        </div>
+    </div>
+    <ng-template pTemplate="footer">
+        <div class="container-fluid py-3 mt-2 cb-top">
+            <div class="row justify-content-center">
+                <div class="col-md-6 text-start">
+                    <p class="mb-0 fw-semibold">Reference</p>
+                    <p-breadcrumb [model]="breadCrumb" class="max-w-full quizreference"></p-breadcrumb>
+                </div>
+                <div class="col-md-6 text-end">
+                    <button (click)="clickPreviousQuiz(carouselQuiz, $event)" *ngIf="selectedQuiz != 1"
+                            class="btn btn-back btn-rounded me-3 px-2 py-2">
+                        <div class="d-flex align-items-center"><span class="fw-normal h6 mb-0 ps-3 pe-2">Previous</span>
+                            <div class="btn-icon"><i class="fa-solid fa-arrow-left"></i></div>
+                        </div>
+                    </button>
+                    <button *ngIf="this.quizData.length > this.selectedQuiz" [disabled]="answerOptionClicked"
+                            (click)="clickNextQuiz(carouselQuiz, $event)"
+                            class="btn btn-start btn-rounded m-0 px-2 py-2">
+                        <div class="d-flex align-items-center"><span class="fw-normal h6 mb-0 ps-3 pe-2">Next</span>
+                            <div class="btn-icon"><i class="fa-solid fa-arrow-right"></i></div>
+                        </div>
+                    </button>
+                    <button *ngIf="this.quizData.length <= this.selectedQuiz" (click)="clickSubmitQuiz()"
+                            class="btn btn-start btn-rounded m-0 px-2 py-2">
+                        <div class="d-flex align-items-center"><span class="fw-normal h6 mb-0 ps-3 pe-2">Submit</span>
+                            <div class="btn-icon"><i class="fa-solid fa-check"></i></div>
+                        </div>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </ng-template>
+</p-dialog>
+<p-dialog class="retrypopup" [closable]="false" [modal]="true" header="Header" footer="Footer"
+          [(visible)]="isQuizSubmit" [style]="{ width: '60vw' }"
+          [breakpoints]="{ '960px': '75vw' }" [draggable]="false" [resizable]="false">
+    <ng-template pTemplate="header">
 
-<!--    <div class="container-fluid">-->
-<!--        <div class="row">-->
-<!--            <div class="col-md-6 text-start">-->
-<!--                <h5 class="text-left mb-3 p-4">Pre Application Quiz</h5>-->
-<!--            </div>-->
-<!--            <div class="col-md-6 text-end">-->
-<!--                <div class="row d-flex justify-content-center align-content-center align-item-center">-->
-<!--                    <div class="col text-center">-->
-<!--                        <p-progressBar [value]="quizData.length"></p-progressBar>-->
-<!--                    </div>-->
-<!--                    <div class="col">-->
-<!--                        <button (click)="closeAllHome()"-->
-<!--                                class="btn btn-lg rounded-pill btn-danger m-0 px-2 py-2">-->
-<!--                            <p class="mb-0 px-2">Quit<i class="fa-solid fa-circle-arrow-left"></i></p>-->
-<!--                        </button>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--            <div class="col-md-12">-->
-<!--                <p>{{selectedQuiz}}/{{quizData.length}} Question Left</p>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--        <div class="row justify-content-center">-->
-<!--            <div class="col-md-12">-->
-<!--                <p class="selctedQuizTiny">Question Number {{selectedQuiz}}</p>-->
-<!--            </div>-->
-<!--            <div class="col-md-12">-->
-<!--                <p-carousel #carouselQuiz (onPage)="setPage($event)" [circular]="true" [numScroll]="1"-->
-<!--                            [numVisible]="1"-->
-<!--                            [page]="selectedQuiz -1" [responsiveOptions]="responsiveOptions" [value]="quizData"-->
-<!--                            class="text-center">-->
-<!--                    <ng-template [ngForOf]="quizData" let-i="index" let-val ngFor pTemplate="item">-->
-<!--                        <div class="row text-center">-->
-<!--                            <div class="col-12 mt-3 mb-4">-->
-<!--                                <div class="card qacard">-->
-<!--                                    <div class="card-body text-start">-->
-<!--                                        <h3 class="font-secondarycolor text-start1 pt-2 pb-3 text-capitalize">-->
-<!--                                            {{val.question}}</h3>-->
-<!--                                        <div class="py-2">-->
-<!--                                            <input type="radio" value="{{val.option1}}" id="{{val.otp1}}"-->
-<!--                                                   class="btn-check" name="options" autocomplete="off">-->
-<!--                                            <label (click)="selectAnswer(val.option1, val, 1)"-->
-<!--                                                   class="btn {{ 1 === val.user_answered ? 'btn-primary' : 'btn-outline-primary' }} text-start answerbtn w-100 m-0"-->
-<!--                                                   for="{{val.otp1}}">-->
-<!--                                                <h5 class="py-2 mb-0">{{val.option2}}</h5>-->
-<!--                                            </label>-->
-<!--                                        </div>-->
-<!--                                        <div class="py-2">-->
-<!--                                            <input type="radio" value="{{val.option2}}" id="{{val.otp2}}"-->
-<!--                                                   class="btn-check" name="options" autocomplete="off">-->
-<!--                                            <label (click)="selectAnswer(val.option2, val, 2)"-->
-<!--                                                   class="btn {{ 2 === val.user_answered ? 'btn-primary' : 'btn-outline-primary' }}-->
-<!--                                                    text-start answerbtn w-100 m-0" for="{{val.otp2}}">-->
-<!--                                                <h5 class="py-2 mb-0">{{val.option2}}</h5>-->
-<!--                                            </label>-->
-<!--                                        </div>-->
-<!--                                        <div class="py-2">-->
-<!--                                            <input type="radio" value="{{val.option3}}" id="{{val.otp3}}"-->
-<!--                                                   class="btn-check" name="options" autocomplete="off">-->
-<!--                                            <label (click)="selectAnswer(val.option3, val, 3)"-->
-<!--                                                   class="btn {{ 3 === val.user_answered ? 'btn-primary' : 'btn-outline-primary' }} text-start answerbtn w-100 m-0"-->
-<!--                                                   for="{{val.otp3}}">-->
-<!--                                                <h5 class="py-2 mb-0">{{val.option3}}</h5>-->
-<!--                                            </label>-->
-<!--                                        </div>-->
-<!--                                        <div class="py-2">-->
-<!--                                            <input type="radio" value="{{val.option4}}" id="{{val.otp4 }}"-->
-<!--                                                   class="btn-check" name="options" autocomplete="off">-->
-<!--                                            <label (click)="selectAnswer(val.option4, val, 4)"-->
-<!--                                                   class="btn {{ 4 === val.user_answered ? 'btn-primary' : 'btn-outline-primary' }} text-start answerbtn w-100 m-0"-->
-<!--                                                   for="{{val.otp4}}">-->
-<!--                                                <h5 class="py-2 mb-0">{{val.option4}}</h5>-->
-<!--                                            </label>-->
-<!--                                        </div>-->
-<!--                                    </div>-->
-<!--                                </div>-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                    </ng-template>-->
-<!--                </p-carousel>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--    </div>-->
-<!--    <ng-template pTemplate="footer" *ngIf="!isInstructionVisible">-->
-<!--        <div class="container-fluid">-->
-<!--            <div class="row justify-content-end mb-4">-->
-<!--                <div class="col-md-6">-->
-<!--                    <div class="row text-start">-->
-<!--                        <p>Reference</p>-->
-<!--                        <p-breadcrumb [model]="breadCrumb" class="max-w-full"></p-breadcrumb>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--                <div class="col-md-6">-->
-<!--                    <button (click)="clickPreviousQuiz(carouselQuiz, $event)" *ngIf="selectedQuiz != 1"-->
-<!--                            class="btn btn-lg rounded-pill btn-tertiary m-0 px-2 py-2 ml-2">-->
-<!--                        <p class="mb-0 px-2">Previous <i class="fa-solid fa-circle-arrow-left"></i></p>-->
-<!--                    </button>-->
-<!--                    <button *ngIf="this.quizData.length > this.selectedQuiz" [disabled]="answerOptionClicked"-->
-<!--                            (click)="clickNextQuiz(carouselQuiz, $event)"-->
-<!--                            class="btn btn-lg rounded-pill btn-secondary m-0 px-2 py-2 ml-2">-->
-<!--                        <p class="mb-0 px-2"> Next <i class="fa-solid fa-circle-arrow-right"></i></p>-->
-<!--                    </button>-->
-<!--                    <button (click)="clickSubmitQuiz()"-->
-<!--                            class="btn btn-lg rounded-pill btn-primary m-0 px-2 py-2 ml-2">-->
-<!--                        <p class="mb-0 px-2"> Submit <i class="fa-solid fa-circle-check"></i></p>-->
-<!--                    </button>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--    </ng-template>-->
-<!--</p-dialog>-->
-<!--<p-dialog class="retrypopup" [modal]="true" header="Header" [(visible)]="isQuizSubmit" [style]="{ width: '50vw' }"-->
-<!--          [breakpoints]="{ '960px': '75vw' }" [style]="{ width: 'auto' }" [draggable]="false" [resizable]="false">-->
-<!--    <ng-template pTemplate="header">-->
-<!--        <span class="text-xl font-bold"></span>-->
-<!--        <button (click)="closeAllHome()" class="btn btn-lg w-auto btn-primary m-0 px-2 py-2">-->
-<!--            <p class="mb-0 px-2"> Home <i class="fa-solid fa-house"></i></p>-->
-<!--        </button>-->
-<!--    </ng-template>-->
-<!--    <div class="px-3 pb-3 pt-2">-->
-<!--        <div class="justify-content-center text-center">-->
-<!--            <img class="pb-2" src="/uniprep-assets/images/icons/retry_child0.png" alt="retry">-->
-<!--            <p class="text-center mb-2 fw-medium">You have completed {{totalPercentage | number: '1.0-0'}} % of-->
-<!--                Pre-Application module<br>To Claim your-->
-<!--                certificate please complete the pending modules</p>-->
-<!--            <h4 class="text-center mb-3 fw-semibold">{{answeredCorrect}}/{{quizData.length != 0 ? quizData.length : 0}}-->
-<!--                = {{percentageValue}}</h4>-->
-<!--            <div class="row gap-2 justify-content-center pb-3 mb-5">-->
-<!--                <button class="btn btn-lg w-auto btn-tertiary m-0 px-2 py-2" (click)="openReviewPopup()">-->
-<!--                    <p class="mb-0 px-2">Review <i class="fa-solid fa-arrows-rotate"></i></p>-->
-<!--                </button>-->
-<!--                <button (click)="retryQuiz()" class="btn btn-lg w-auto  btn-secondary m-0 px-2 py-2">-->
-<!--                    <p class="mb-0 px-2"> Retry <i class="fa-solid fa-arrow-rotate-right"></i></p>-->
-<!--                </button>-->
-
-<!--                <button (click)="nextModule()" class="btn btn-lg w-auto btn-primary m-0 px-2 py-2">-->
-<!--                    <p class="mb-0 px-2"> Next Module <i class="fa-solid fa-house"></i></p>-->
-<!--                </button>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--    </div>-->
-<!--</p-dialog>-->
-
-
-<!--<p-dialog class="retrypopup" [modal]="true" header="Header" [(visible)]="isInstructionVisible" [style]="{ width: '50vw' }"-->
-<!--          [breakpoints]="{ '960px': '75vw' }" [style]="{ width: 'auto' }" [draggable]="false" [resizable]="false">-->
-<!--    <ng-template pTemplate="header">-->
-<!--        <span class="text-xl font-bold"></span>-->
-<!--    </ng-template>-->
-<!--    <div class="container-fluid bg-white">-->
-<!--        <div class="row">-->
-<!--            <div class="col-md-6 text-start">-->
-<!--                <h5 class="text-left mb-3 p-4">Quiz Instruction</h5>-->
-<!--            </div>-->
-<!--            <div class="col-md-6 text-end">-->
-<!--                <button (click)="closeAllHome()"-->
-<!--                        class="btn btn-lg rounded-pill btn-danger m-0 px-2 py-2">-->
-<!--                    <p class="mb-0 px-2">Quit<i class="fa-solid fa fa-stop-circle"></i></p>-->
-<!--                </button>-->
-<!--            </div>-->
-<!--            <div class="col-md-12">-->
-<!--                <p>{{selectedQuiz}}/{{quizData.length}} Question Left</p>-->
-<!--            </div>-->
-<!--            <div class="col-md-12">-->
-<!--                <ul>-->
-<!--                    <li>There are {{quizData.length}} MCQs in the quiz.</li>-->
-<!--                    <li>You can not skip any question / All question are mandatory to answer.</li>-->
-<!--                    <li>You can not access the other screens while taking the quiz.</li>-->
-<!--                    <li>You cannot save and submit later.</li>-->
-<!--                    <li>Restart - will display new set of questions.</li>-->
-<!--                    <li>You will get a certificate for completing all the quiz modules.</li>-->
-<!--                    <li>Buffer? To qualify for the quiz you need to get __% correct.</li>-->
-<!--                    <li>There is no time limit.</li>-->
-<!--                </ul>-->
+        <div class="container-fluid py-3 mb-2 cb-bottom">
+            <div class="row justify-content-center">
+                <div class="col-md-8 d-flex align-items-center text-start">
+                    <h4 class="text-left font-secondarycolor mb-0">Life At {{ countryName }} Quiz</h4>
+                </div>
+                <div class="col-md-4 d-flex text-end">
+                    <div class="w-100 me-3 quizprogress">
+                        <span class="font-secondarycolor fw-semibold">Progress:100% Completed</span>
+                        <p-progressBar [value]="100"></p-progressBar>
+                    </div>
+                    <div>
+                        <button (click)="closeAllHome()" class="btn btn-start btn-rounded m-0 px-2 py-2">
+                            <div class="d-flex align-items-center"><span class="fw-normal h6 mb-0 ps-3 pe-2">Home</span>
+                                <div class="btn-icon"><i class="fa-solid fa-home"></i></div>
+                            </div>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </ng-template>
+    <div class="container-fluid bg-white">
+        <div class="row">
+            <div class="col-md-12 text-center">
+                <img class="pb-2" src="/uniprep-assets/images/icons/quizcomplete.webp" alt="retry">
+                <p class="text-center mb-2 fw-medium">You have completed {{totalPercentage | number: '1.0-0'}} % of
+                    Life At {{ countryName }} module<br>To Claim your
+                    certificate please complete the pending modules</p>
+                <h4 class="text-center mb-3 fw-semibold">{{answeredCorrect}}
+                    /{{quizData.length != 0 ? quizData.length : 0}}
+                    = {{percentageValue}}</h4>
+            </div>
+            <div class="text-center">
+                <button (click)="retryQuiz()" class="btn btn-quit btn-rounded me-2 px-2 py-2">
+                    <div class="d-flex align-items-center"><span class="fw-normal h6 mb-0 ps-3 pe-2">Retry</span>
+                        <div class="btn-icon"><i class="fa-solid fa-arrow-rotate-right"></i></div>
+                    </div>
+                </button>
+                <button (click)="openReviewPopup()" class="btn btn-back btn-rounded m-0 px-2 py-2">
+                    <div class="d-flex align-items-center"><span class="fw-normal h6 mb-0 ps-3 pe-2">Review</span>
+                        <div class="btn-icon"><i class="fa-solid fa-list-check"></i></div>
+                    </div>
+                </button>
+            </div>
+        </div>
+    </div>
+    <ng-template pTemplate="footer">
+        <div class="container py-3 mt-2 cb-top">
+            <div class="row justify-content-center">
+                <div class="col-md-12 text-center">
+                    <button (click)="nextModule()" class="btn btn-start btn-rounded m-0 px-2 py-2">
+                        <div class="d-flex align-items-center"><span
+                                class="fw-normal h6 mb-0 ps-3 pe-2">Next Module</span>
+                            <div class="btn-icon"><i class="fa-solid fa-arrow-right"></i></div>
+                        </div>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </ng-template>
+</p-dialog>
 
 
-<!--            </div>-->
-<!--            <div class="col-md-12">-->
-<!--                <div class="row">-->
-<!--                    <div class="col-md-6 text-start">-->
-<!--                        <h3>ALL THE BEST!</h3>-->
-<!--                    </div>-->
-<!--                    <div class="col-md-6 text-end">-->
-<!--                        <button (click)="runQuiz()"-->
-<!--                                class="btn btn-lg rounded-pill btn-success m-0 px-2 py-2">-->
-<!--                            <p class="mb-0 px-2">Start<i class="fa-solid fa fa-stop-circle"></i></p>-->
-<!--                        </button>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--    </div>-->
-<!--</p-dialog>-->
+<p-dialog class="retrypopup" [modal]="true" [closable]="false" header="Header" footer="Footer"
+          [(visible)]="isInstructionVisible" [style]="{ width: '60vw' }"
+          [breakpoints]="{ '960px': '75vw' }" [draggable]="false" [resizable]="false">
+    <ng-template pTemplate="header">
+        <div class="container-fluid py-3 mb-2 cb-bottom">
+            <div class="row justify-content-center">
+                <div class="col-md-6 d-flex align-items-center text-start">
+                    <h4 class="text-left font-secondarycolor mb-0">Quiz Instruction</h4>
+                </div>
+                <div class="col-md-6 text-end">
+                    <button (click)="closeAllHome()" class="btn btn-quit btn-rounded m-0 px-2 py-2">
+                        <div class="d-flex align-items-center"><span class="fw-normal h6 mb-0 ps-3 pe-2">Quit</span>
+                            <div class="btn-icon"><i class="fa-solid fa-power-off"></i></div>
+                        </div>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </ng-template>
+    <div class="container-fluid bg-white">
+        <div class="row">
+            <div class="col-md-12">
+                <h6 class="text-muted pb-4">{{quizData.length}}/{{quizData.length}} Questions</h6>
+            </div>
+            <div class="col-md-12">
+                <ul class="font-secondarycolor fw-medium lh-lg">
+                    <li>There are {{quizData.length}} MCQs in the quiz.</li>
+                    <li>You can not skip any question / All question are mandatory to answer.</li>
+                    <li>You can not access the other screens while taking the quiz.</li>
+                    <li>You cannot save and submit later.</li>
+                    <li>Restart - will display new set of questions.</li>
+                    <li>You will get a certificate for completing all the quiz modules.</li>
+                    <li>Buffer? To qualify for the quiz you need to get __% correct.</li>
+                    <li>There is no time limit.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <ng-template pTemplate="footer">
+        <div class="container py-3 mt-2 cb-top">
+            <div class="row justify-content-center">
+                <div class="col-md-6 d-flex align-items-center text-start">
+                    <h4 class="font-primarycolor">ALL THE BEST!</h4>
+                </div>
+                <div class="col-md-6 text-end">
+                    <button (click)="runQuiz()" class="btn btn-start btn-rounded m-0 px-2 py-2">
+                        <div class="d-flex align-items-center"><span class="fw-normal h6 mb-0 ps-3 pe-2">Start</span>
+                            <div class="btn-icon"><i class="fa-solid fa-arrow-right"></i></div>
+                        </div>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </ng-template>
+</p-dialog>
 
-<!--<p-dialog class="questionmodal" header="Header" [draggable]="false" [modal]="true" [(visible)]="isReviewVisible"-->
-<!--          [style]="{ width: '70vw' }">-->
-<!--    <ng-template class="p-2" pTemplate="header">-->
-<!--        <h5 class="select-title text-center mb-3">-->
-<!--            Review Quiz</h5>-->
-<!--    </ng-template>-->
-<!--    <div class="container-fluid">-->
-<!--        <div class="row justify-content-center">-->
-<!--            <div class="col-md-10">-->
-<!--                <div *ngFor="let val of quizData">-->
-<!--                    <div class="row text-center">-->
-<!--                        <div class="col-12 mt-3 mb-4">-->
-<!--                            <div class="card qacard">-->
-<!--                                &lt;!&ndash;                                <div class="select-title margin-minus text-center"><h5>Question</h5>&ndash;&gt;-->
-<!--                                &lt;!&ndash;                                </div>&ndash;&gt;-->
-<!--                                <div class="card-body text-start">-->
-<!--                                    <h3 class="font-secondarycolor text-center pt-2 pb-3 text-capitalize">-->
-<!--                                        {{val.question}}</h3>-->
-<!--                                    <div class="py-2">-->
-<!--                                        <input type="radio" value="{{val.option1}}" id="{{val.otp1}}" class="btn-check"-->
-<!--                                               name="options" autocomplete="off" [disabled]="true">-->
-<!--                                        <label class="btn {{1 === val.answer ? 'btn-primary' : (1 === val.user_answered ? 'btn-danger' : 'btn-outline-primary') }}-->
-<!--                                                 text-start  w-100 m-0" for="{{val.otp1}}" disabled="true">-->
-<!--                                            <h5 class="py-2 mb-0">{{val.option1}}</h5>-->
-<!--                                        </label>-->
-<!--                                    </div>-->
-<!--                                    <div class="py-2">-->
-<!--                                        <input type="radio" value="{{val.option2}}" id="{{val.otp2}}" class="btn-check"-->
-<!--                                               name="options" autocomplete="off" [disabled]="true">-->
-<!--                                        <label class="btn {{2 === val.answer ? 'btn-primary' : (2 === val.user_answered ? 'btn-danger' : 'btn-outline-primary') }}-->
-<!--                                                  text-start  w-100 m-0" for="{{val.otp2}}">-->
-<!--                                            <h5 class="py-2 mb-0">{{val.option2}}</h5>-->
-<!--                                        </label>-->
-<!--                                    </div>-->
-<!--                                    <div class="py-2">-->
-<!--                                        <input type="radio" value="{{val.option3}}" id="{{val.otp3}}" class="btn-check"-->
-<!--                                               name="options" autocomplete="off" [disabled]="true">-->
-<!--                                        <label class="btn {{3 === val.answer ? 'btn-primary' : (3 === val.user_answered ? 'btn-danger' : 'btn-outline-primary') }}-->
-<!--                                                 text-start  w-100 m-0" for="{{val.otp3}}">-->
-<!--                                            <h5 class="py-2 mb-0">{{val.option3}}</h5>-->
-<!--                                        </label>-->
-<!--                                    </div>-->
-<!--                                    <div class="py-2">-->
-<!--                                        <input type="radio" value="{{val.option4}}" id="{{val.otp4 }}" class="btn-check"-->
-<!--                                               name="options" autocomplete="off" [disabled]="true">-->
-<!--                                        <label-->
-<!--                                                class="btn {{4 === val.answer ? 'btn-primary' : (4 === val.user_answered ? 'btn-danger' : 'btn-outline-primary') }} text-start  w-100 m-0"-->
-<!--                                                for="{{val.otp4}}">-->
-<!--                                            <h5 class="py-2 mb-0">{{val.option4}}</h5>-->
-<!--                                        </label>-->
-<!--                                    </div>-->
-<!--                                </div>-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--                &lt;!&ndash;                </p-carousel>&ndash;&gt;-->
-<!--            </div>-->
-<!--        </div>-->
-<!--    </div>-->
-<!--    <ng-template pTemplate="footer">-->
-<!--        <div class="container-fluid">-->
-<!--            <div class="row gap-2 justify-content-end mb-4">-->
-<!--                &lt;!&ndash;                    <button (click)="clickPreviousQuiz(carouselQuiz, $event)"&ndash;&gt;-->
-<!--                &lt;!&ndash;                            class="btn btn-lg rounded-pill btn-tertiary m-0 px-2 py-2">&ndash;&gt;-->
-<!--                &lt;!&ndash;                        <p class="mb-0 px-2">Previous <i class="fa-solid fa-circle-arrow-left"></i></p>&ndash;&gt;-->
-<!--                &lt;!&ndash;                    </button>&ndash;&gt;-->
-<!--                &lt;!&ndash;                    <button *ngIf="this.quizData.length > this.selectedQuiz" (click)="clickNextQuiz(carouselQuiz, $event)"&ndash;&gt;-->
-<!--                &lt;!&ndash;                            class="btn btn-lg rounded-pill btn-secondary m-0 px-2 py-2">&ndash;&gt;-->
-<!--                &lt;!&ndash;                        <p class="mb-0 px-2"> Next <i class="fa-solid fa-circle-arrow-right"></i></p>&ndash;&gt;-->
-<!--                &lt;!&ndash;                    </button>&ndash;&gt;-->
-<!--                <button (click)="retryQuiz()" class="btn btn-lg rounded-pill btn-primary m-0 px-2 py-2">-->
-<!--                    <p class="mb-0 px-2"> RETRY <i class="fa-solid fa-circle-arrow-right"></i></p>-->
-<!--                </button>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--    </ng-template>-->
-<!--</p-dialog>-->
+<p-dialog class="questionmodal" header="Header" [draggable]="false" [modal]="true" [(visible)]="isReviewVisible"
+          [style]="{ width: '70vw' }">
+    <ng-template class="p-2" pTemplate="header">
+        <h5 class="select-title text-center mb-3">
+            Review Quiz</h5>
+    </ng-template>
+    <div class="container-fluid">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="row">
+                    <div class="col-md-6" *ngFor="let val of quizData">
+                        <div class="card px-3 py-2 my-2 ">
+                            <!--                                <div class="select-title margin-minus text-center"><h5>Question</h5>-->
+                            <!--                                </div>-->
+                            <h5 class="font-secondarycolor text-start pt-2 pb-3 text-capitalize">
+                                {{val.question}}</h5>
+                            <div class="py-2">
+                                <input type="radio" value="{{val.option1}}" id="{{val.otp1}}" class="btn-check"
+                                       name="options" autocomplete="off" [disabled]="true">
+                                <label class="{{1 === val.answer ? 'optionreviewcorrect' : (1 === val.user_answered ? 'optionreviewwrong' : 'optionnotanswered') }} quiznotanswered
+                                                 text-start  w-100 m-0" for="{{val.otp1}}" disabled="true">
+                                    <h6 class="py-2 mb-0">{{val.option1}}</h6>
+                                </label>
+                            </div>
+                            <div class="py-2">
+                                <input type="radio" value="{{val.option2}}" id="{{val.otp2}}" class="btn-check"
+                                       name="options" autocomplete="off" [disabled]="true">
+                                <label class="{{2 === val.answer ? 'optionreviewcorrect' : (2 === val.user_answered ? 'optionreviewwrong' : 'optionnotanswered') }} quiznotanswered
+                                                  text-start  w-100 m-0" for="{{val.otp2}}">
+                                    <h6 class="py-2 mb-0">{{val.option2}}</h6>
+                                </label>
+                            </div>
+                            <div class="py-2">
+                                <input type="radio" value="{{val.option3}}" id="{{val.otp3}}" class="btn-check"
+                                       name="options" autocomplete="off" [disabled]="true">
+                                <label class="{{3 === val.answer ? 'optionreviewcorrect' : (3 === val.user_answered ? 'optionreviewwrong' : 'optionnotanswered') }} quiznotanswered
+                                                 text-start  w-100 m-0" for="{{val.otp3}}">
+                                    <h6 class="py-2 mb-0">{{val.option3}}</h6>
+                                </label>
+                            </div>
+                            <div class="py-2">
+                                <input type="radio" value="{{val.option4}}" id="{{val.otp4 }}" class="btn-check"
+                                       name="options" autocomplete="off" [disabled]="true">
+                                <label class="{{4 === val.answer ? 'optionreviewcorrect' : (4 === val.user_answered ? 'optionreviewwrong' : 'optionnotanswered') }} quiznotanswered text-start  w-100 m-0"
+                                       for="{{val.otp4}}">
+                                    <h6 class="py-2 mb-0">{{val.option4}}</h6>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <!--                </p-carousel>-->
+                </div>
+            </div>
+        </div>
+    </div>
+    <ng-template pTemplate="footer">
+        <div class="container-fluid">
+            <div class="row gap-2 justify-content-end mb-4">
+                <!--                    <button (click)="clickPreviousQuiz(carouselQuiz, $event)"-->
+                <!--                            class="btn btn-lg rounded-pill btn-tertiary m-0 px-2 py-2">-->
+                <!--                        <p class="mb-0 px-2">Previous <i class="fa-solid fa-circle-arrow-left"></i></p>-->
+                <!--                    </button>-->
+                <!--                    <button *ngIf="this.quizData.length > this.selectedQuiz" (click)="clickNextQuiz(carouselQuiz, $event)"-->
+                <!--                            class="btn btn-lg rounded-pill btn-secondary m-0 px-2 py-2">-->
+                <!--                        <p class="mb-0 px-2"> Next <i class="fa-solid fa-circle-arrow-right"></i></p>-->
+                <!--                    </button>-->
+                <button (click)="retryQuiz()" class="btn btn-quit btn-rounded me-2 px-2 py-2">
+                    <div class="d-flex align-items-center"><span class="fw-normal h6 mb-0 ps-3 pe-2">Retry</span>
+                        <div class="btn-icon"><i class="fa-solid fa-arrow-rotate-right"></i></div>
+                    </div>
+                </button>
+            </div>
+        </div>
+    </ng-template>
+</p-dialog>
+<p-confirmDialog #cd [style]="{width: '25vw'}" class="me-2 px-2 py-2" [closable]="false">
+    <ng-template pTemplate="header">
+        <div class="container py-3">
+            <div class="row justify-content-center">
+                <h3 class="text-center">Quit</h3>
+            </div>
+        </div>
+    </ng-template>
+    <ng-template pTemplate="footer">
+        <div class="container py-3">
+            <div class="row justify-content-center">
+                <button (click)="cd.reject()" class="btn btn-primary btn-rounded me-2 px-2 py-2">
+                    <div class="d-flex align-items-center"><span class="fw-normal h6 mb-0 px-3 py-1">No</span>
+                    </div>
+                </button>
+                <button (click)="quitQuiz(cd)" class="btn btn-quit btn-rounded me-2 px-2 py-2">
+                    <div class="d-flex align-items-center"><span class="fw-normal h6 mb-0 px-3 py-1">Yes</span>
+                    </div>
+                </button>
+            </div>
+        </div>
+    </ng-template>
+</p-confirmDialog>

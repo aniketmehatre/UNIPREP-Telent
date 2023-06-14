@@ -3,6 +3,8 @@ import {Store} from "@ngrx/store";
 import {loadQuestionList, loadSubModules} from './store/post-admission.actions';
 import {PostAdmissionState} from "./store/post-admission.reducer";
 import {selectQuestionList$, selectSubModule$} from "./store/post-admission.selectors";
+import {loadQuizList} from "../pre-application/store/pre-application.actions";
+import {selectQuizList$} from "../pre-application/store/pre-application.selectors";
 
 @Injectable({
     providedIn: 'root'
@@ -33,4 +35,17 @@ export class PostAdmissionService {
     questionList$() {
         return this.store.select(selectQuestionList$);
     }
+
+    quizList(data: any) {
+        this.store.dispatch(loadQuizList({
+            countryId: data.countryId,
+            moduleId: data.moduleId,
+            submoduleId: data.submoduleId
+        }));
+    }
+
+    quizList$() {
+        return this.store.select(selectQuizList$);
+    }
+
 }

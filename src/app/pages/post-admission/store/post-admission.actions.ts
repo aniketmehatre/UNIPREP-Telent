@@ -1,6 +1,7 @@
 import {createAction} from "@ngrx/store";
 import {SubModuleList} from "../../../@Models/post-admission.model";
 import {ListQuestion} from "../../../@Models/question-list.model";
+import {QuizList} from "../../../@Models/list-quiz.model";
 
 
 export const loadSubModules = createAction('[POST Admission] load Sub modules', (payload: {
@@ -20,5 +21,16 @@ export const loadQuestionList = createAction('[POST Admission] load question lis
 export const loadQuestionListSuccess = createAction('[POST Admission] load question list success',
     (payload: {
         questionList: ListQuestion[]
+    }) => payload);
+
+export const loadQuizList = createAction('[PRE Application] load quiz list',
+    (payload: {
+        countryId: number,
+        moduleId: number,
+        submoduleId: number
+    }) => payload);
+export const loadQuizListSuccess = createAction('[PRE Application] load quiz list success',
+    (payload: {
+        quizList: QuizList[]
     }) => payload);
 

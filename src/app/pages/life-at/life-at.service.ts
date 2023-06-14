@@ -3,6 +3,8 @@ import {Store} from "@ngrx/store";
 import {loadQuestionList, loadSubModules } from './store/life-at.actions';
 import {LifeAtState} from "./store/life-at.reducer";
 import {selectQuestionList$, selectSubModule$} from "./store/life-at.selectors";
+import {loadQuizList} from "../pre-application/store/pre-application.actions";
+import {selectQuizList$} from "../pre-application/store/pre-application.selectors";
 
 
 @Injectable({
@@ -31,6 +33,17 @@ export class LifeAtService {
 
   questionList$() {
     return this.store.select(selectQuestionList$);
+  }
+
+  quizList(data: any) {
+    this.store.dispatch(loadQuizList({
+      countryId: data.countryId,
+      moduleId: data.moduleId,
+      submoduleId: data.submoduleId
+    }));
+  }
+  quizList$() {
+    return this.store.select(selectQuizList$);
   }
 
 }

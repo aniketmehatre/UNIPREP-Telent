@@ -15,7 +15,7 @@ export class UniversityService {
         let data = {
             countryId: countryId
         }
-        return this.http.post<UniversityModel>(environment.ApiUrl + "/getpreapplicationsubmoduleqcount", data);
+        return this.http.post<UniversityModel>(environment.ApiUrl + "/getuniversitysubmoduleqcount", data);
     }
 
     loadQuestionList(
