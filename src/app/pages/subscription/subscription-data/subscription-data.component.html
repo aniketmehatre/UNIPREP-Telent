@@ -17,117 +17,77 @@
                     <td><span class="font-primarycolor h3 fw-semibold">{{subscriptions?.checks}}YOUR BENEFITS</span>
                     </td>
                     <td class="text-end">
-                        <button class="btn btn-primary mx-0" (click)="upgrade.emit()">UPGRADE PLAN</button>
+                        <button class="btn btn-primary mx-0 my-0" (click)="upgrade.emit()">UPGRADE PLAN</button>
                     </td>
                 </tr>
             </table>
             <hr>
-            <div class="card h-full card-body mt-3" style="border-radius:0.5px;">
-                <table class="w-full">
-                    <tr>
-                        <td><label class="m-0" style="font-size: 24pz; color: #3C3C3C;">3 Question credits  </label></td>
-                        <!--                            <td class="text-end fw-semibold" style="font-size: 17px; color: #D44100;">15</td>-->
-                    </tr>
-                </table>
-                <hr class="dotedline">
-                <table class="w-full">
-                    <tr>
-                        <td><label class="m-0" style="font-size: 24pz; color: #3C3C3C;">30,000+ Questions
-                        </label></td>
-                        <!--                            <td class="text-end fw-semibold" style="font-size: 17px; color: #D44100;">15</td>-->
-                    </tr>
-                </table>
-                <hr class="dotedline">
-                <table class="w-full">
-                    <tr>
-                        <td><label class="m-0" style="font-size: 24pz; color: #3C3C3C;">Queries answered by Destination Experts
-
-                        </label></td>
-                        <!--                            <td class="text-end fw-semibold" style="font-size: 17px; color: #D44100;">15</td>-->
-                    </tr>
-                </table>
-                <hr class="dotedline">
-                <table class="w-full">
-                    <tr>
-                        <td><label class="m-0" style="font-size: 24pz; color: #3C3C3C;">360° questions  </label>
-                        </td>
-                        <!--                            <td class="text-end fw-semibold" style="font-size: 17px; color: #D44100;">15</td>-->
-                    </tr>
-                </table>
-                <hr class="dotedline">
-                <table class="w-full">
-                    <tr>
-                        <td><label class="m-0" style="font-size: 24pz; color: #3C3C3C;">Keyword global search
-                        </label></td>
-                        <!--                            <td class="text-end fw-semibold" style="font-size: 17px; color: #D44100;">15</td>-->
-                    </tr>
-                </table>
-                <hr class="dotedline">
-                <table class="w-full">
-                    <tr>
-                        <td><label class="m-0" style="font-size: 24pz; color: #3C3C3C;">Get reference links
-                        </label></td>
-                        <!--                            <td class="text-end fw-semibold" style="font-size: 17px; color: #D44100;">15</td>-->
-                    </tr>
-                </table>
-                <hr class="dotedline">
-                <table class="w-full">
-                    <tr>
-                        <td><label class="m-0" style="font-size: 24pz; color: #3C3C3C;">Evaluate your knowledge through a quiz.
-                        </label></td>
-                        <!--                            <td class="text-end fw-semibold" style="font-size: 17px; color: #D44100;">15</td>-->
-                    </tr>
-                </table>
-                <table class="w-full">
-                    <tr>
-                        <td><label class="m-0" style="font-size: 24pz; color: #3C3C3C;">Get a certificate accredited by foreign universities
-                        </label></td>
-                        <!--                            <td class="text-end fw-semibold" style="font-size: 17px; color: #D44100;">15</td>-->
-                    </tr>
-                </table>
+            <div class="d-flex">
+                <div class="scardFeatures flex-grow-1">
+                    <div class="scardFeature">
+                        <i class="pi pi-check"></i><span>3 Question credits </span>
+                    </div>
+                    <div class="scardFeature">
+                        <i class="pi pi-check"></i><span>30,000+ Questions</span>
+                    </div>
+                    <div class="scardFeature">
+                        <i class="pi pi-check"></i><span>Queries answered by Destination Experts</span>
+                    </div>
+                    <div class="scardFeature">
+                        <i class="pi pi-check"></i><span>360° questions</span>
+                    </div>
+                    <div class="scardFeature">
+                        <i class="pi pi-check"></i><span>Keyword global search</span>
+                    </div>
+                    <div class="scardFeature">
+                        <i class="pi pi-check"></i><span>Get reference links</span>
+                    </div>
+                    <div class="scardFeature">
+                        <i class="pi pi-check"></i><span>Evaluate your knowledge through a quiz.</span>
+                    </div>
+                    <div class="scardFeature">
+                        <i class="pi pi-check"></i><span>Get a certificate accredited by foreign universities</span>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
     <div class="col-md-6">
-        <div class="row">
-            <div class="col-md-12">
-                <div class="card h-100 card-body">
-                    <h5>Billing Information</h5>
-                    <br />
-                    <table class="w-full">
-                        <tr>
-                            <td class="fw-medium w-25 py-1">Full Name</td>
-                            <td style="width: 20px">-</td>
-                            <td>{{billing?.name}}</td>
-                        </tr>
-                        <tr>
-                            <td class="fw-medium w-25 py-1">Mobile Number</td>
-                            <td style="width: 20px">-</td>
-                            <td>{{billing?.phone}}</td>
-                        </tr>
-                        <tr>
-                            <td class="fw-medium w-25 py-1">Email</td>
-                            <td style="width: 20px">-</td>
-                            <td>{{billing?.email}}</td>
-                        </tr>
+        <div class="card h-100 card-body">
+            <h5>Billing Information</h5>
+            <br />
+            <table class="w-full">
+                <tr>
+                    <td class="fw-medium w-25 py-1">Full Name</td>
+                    <td style="width: 20px">-</td>
+                    <td>{{billing?.name}}</td>
+                </tr>
+                <tr>
+                    <td class="fw-medium w-25 py-1">Mobile Number</td>
+                    <td style="width: 20px">-</td>
+                    <td>{{billing?.phone}}</td>
+                </tr>
+                <tr>
+                    <td class="fw-medium w-25 py-1">Email</td>
+                    <td style="width: 20px">-</td>
+                    <td>{{billing?.email}}</td>
+                </tr>
 <!--                        <tr>-->
 <!--                            <td class="fw-medium w-25 py-1">Country</td>-->
 <!--                            <td style="width: 20px">-</td>-->
 <!--                            <td>{{billing?.countryName}}</td>-->
 <!--                        </tr>-->
-                        <tr>
-                            <td class="fw-medium w-25 py-1">State</td>
-                            <td style="width: 20px">-</td>
-                            <td>{{billing?.state}}</td>
-                        </tr>
-                        <tr>
-                            <td class="fw-medium w-25 py-1">District</td>
-                            <td style="width: 20px">-</td>
-                            <td>{{billing?.district}}</td>
-                        </tr>
-                    </table>
-                </div>
-            </div>
+                <tr>
+                    <td class="fw-medium w-25 py-1">State</td>
+                    <td style="width: 20px">-</td>
+                    <td>{{billing?.state}}</td>
+                </tr>
+                <tr>
+                    <td class="fw-medium w-25 py-1">District</td>
+                    <td style="width: 20px">-</td>
+                    <td>{{billing?.district}}</td>
+                </tr>
+            </table>
         </div>
     </div>
     <div class="col-md-12 mt-4">
