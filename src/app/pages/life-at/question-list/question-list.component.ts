@@ -5,8 +5,9 @@ import {MenuItem} from "primeng/api";
 import {DataService} from "../../../data.service";
 import {ActivatedRoute} from "@angular/router";
 import {Location} from "@angular/common";
-import {LifeAtSubModules} from "../../../@Models/life-at.model";
-import {LifeAtService} from "../life-at.service";
+import {ModuleListSub} from "../../../@Models/module.model";
+import {ModuleServiceService} from "../../module-store/module-service.service";
+import {ReadQuestion} from "../../../@Models/read-question.model";
 
 @Component({
   selector: 'uni-question-list',
@@ -19,7 +20,8 @@ export class QuestionListComponent implements OnInit {
   @ViewChild('carouselPopupVideoElm') carouselPopupVideoElm: any;
   @ViewChild('carouselPopupRefElm') carouselPopupRefElm: any;
 
-  subModules$!: Observable<LifeAtSubModules[]>;
+  subModules$!: Observable<ModuleListSub[]>;
+  readQue$!: Observable<ReadQuestion[]>;
   listQuestion$!: Observable<ListQuestion[]>;
   selectedQuestion: number = 0;
   selectedQuestionId: number = 0;
@@ -42,7 +44,7 @@ export class QuestionListComponent implements OnInit {
   countryId: any;
   selectedQuestionData: any;
 
-  constructor(private lifeAtService: LifeAtService, private changeDetector: ChangeDetectorRef,
+  constructor(private moduleListService: ModuleServiceService, private changeDetector: ChangeDetectorRef,
               private dataService: DataService, private route: ActivatedRoute, private _location: Location) {
   }
 
@@ -81,13 +83,13 @@ export class QuestionListComponent implements OnInit {
         numScroll: 1
       }
     ];
-    this.listQuestion$ = this.lifeAtService.questionList$();
+    this.listQuestion$ = this.moduleListService.questionList$();
     let data = {
       countryId: Number(localStorage.getItem('countryId')),
       moduleId: 6,
       submoduleId: this.subModuleId
     }
-    this.lifeAtService.loadQuestionList(data);
+    this.moduleListService.loadQuestionList(data);
   }
 
   goBack(){
@@ -95,8 +97,12 @@ export class QuestionListComponent implements OnInit {
   }
 
   getSubmoduleName(countryId: number) {
-    this.lifeAtService.loadSubModules(countryId);
-    this.subModules$ = this.lifeAtService.subModuleList$();
+    let data = {
+      countryId: countryId,
+      api_module_name: 'getlifeincountrysubmoduleqcount'
+    }
+    this.moduleListService.loadSubModules(data);
+    this.subModules$ = this.moduleListService.subModuleList$();
     this.subModules$.subscribe(event => {
       event.filter(data => {
         if (data.id == this.subModuleId) {
@@ -104,6 +110,18 @@ export class QuestionListComponent implements OnInit {
         }
       })
     })
+  }
+
+  readQuestion(data: any){
+    this.moduleListService.readQuestion(data);
+    this.readQue$ = this.moduleListService.readQuestionMessage$();
+    let data1 = {
+      countryId: Number(localStorage.getItem('countryId')),
+      moduleId: 6,
+      submoduleId: this.subModuleId
+    }
+    this.moduleListService.loadQuestionList(data1);
+    this.listQuestion$ = this.moduleListService.questionList$();
   }
 
   onQuestionClick(selectedData: any) {
@@ -126,6 +144,12 @@ export class QuestionListComponent implements OnInit {
         this.videoLinks = res.videolink;
       }
     });
+    let readQueData = {
+      questionId: selectedData.id,
+      countryId: this.countryId
+    }
+
+    this.readQuestion(readQueData);
   }
 
   setPage(page: any) {
@@ -162,6 +186,12 @@ export class QuestionListComponent implements OnInit {
       }
     });
     carousel.navBackward(event, this.selectedQuestion);
+    let readQueData = {
+      questionId: selectedData.id,
+      countryId: this.countryId
+    }
+
+    this.readQuestion(readQueData);
   }
 
   clickNext(carousel: any, event: any) {
@@ -180,7 +210,13 @@ export class QuestionListComponent implements OnInit {
         this.videoLinks = res.videolink;
       }
     });
-    carousel.navForward(event, this.selectedQuestion)
+    carousel.navForward(event, this.selectedQuestion);
+    let readQueData = {
+      questionId: selectedData.id,
+      countryId: this.countryId
+    }
+
+    this.readQuestion(readQueData);
   }
 
   clickPreviousVideo(event: any) {

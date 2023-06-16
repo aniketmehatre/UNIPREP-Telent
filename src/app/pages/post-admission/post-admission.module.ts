@@ -4,11 +4,6 @@ import {CommonModule} from '@angular/common';
 import {PostAdmissionRoutingModule} from './post-admission-routing.module';
 import {PostAdmissionComponent} from './post-admission.component';
 import {ListSubModulesComponent} from './list-sub-modules/list-sub-modules.component';
-import {StoreModule} from "@ngrx/store";
-import {EffectsModule} from "@ngrx/effects";
-import {PostAdmissionReducer} from "./store/post-admission.reducer";
-import {postAdmissionFeatureKey} from "./store/post-admission.selectors";
-import {PostAdmissionEffects} from "./store/post-admission.effects";
 import {QuestionListComponent} from './question-list/question-list.component';
 import {BreadcrumbModule} from "primeng/breadcrumb";
 import {CarouselModule} from "primeng/carousel";
@@ -27,8 +22,6 @@ import {ProgressBarModule} from "primeng/progressbar";
     imports: [
         CommonModule,
         PostAdmissionRoutingModule,
-        StoreModule.forFeature(postAdmissionFeatureKey, PostAdmissionReducer),
-        EffectsModule.forFeature([PostAdmissionEffects]),
         BreadcrumbModule,
         CarouselModule,
         DialogModule,

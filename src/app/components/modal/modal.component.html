@@ -62,12 +62,12 @@
                         <div class="msg-body" #scrollMe [scrollTop]="scrollMe.scrollHeight">
                             <ul>
                                 <div *ngFor="let v of details">
-                                    <li class="sender">
-                                        <p>{{v.admin_message}}<br>
-                                            <span class="time">{{v.updated_at | date:"HH:mm"}}</span>
+                                    <li class="sender" *ngIf="v.admin_message == 1">
+                                        <p>{{v.message}}<br>
+                                            <span class="time">{{v.created_at | date:"HH:mm"}}</span>
                                         </p>
                                     </li>
-                                    <li class="reply">
+                                    <li class="reply" *ngIf="v.admin_message != 1">
                                         <p>{{v.message}}<br><span
                                                 class="time">{{v.created_at | date:"HH:mm"}}</span>
                                         </p>

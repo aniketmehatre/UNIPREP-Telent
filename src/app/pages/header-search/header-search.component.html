@@ -8,7 +8,9 @@
                            (input)="onSearchChange(searchInput.value)" pInputText
                            placeholder="ENTER YOUR KEY WORDS HERE"
                            type="text">
-                          
+                    <span class="input-group-text passwordvisibility bg-white" (click)="clearText()">
+                        <i class="pi pi-times-circle text-danger" style="font-size: 2rem"></i>
+                    </span>
                     <button (click)="searchKeyWord(searchInput)" class="btn-primary" label="Search" pButton pRipple
                             type="button"></button>
                 </div>

@@ -4,8 +4,8 @@ import {ConfirmationService, MenuItem} from "primeng/api";
 import {ActivatedRoute, Router} from "@angular/router";
 import {DataService} from "../../../data.service";
 import {LocationService} from "../../../location.service";
-import {LifeAtSubModules} from "../../../@Models/life-at.model";
-import {LifeAtService} from "../life-at.service";
+import {ModuleServiceService} from "../../module-store/module-service.service";
+import {ModuleListSub} from "../../../@Models/module.model";
 
 @Component({
   selector: 'uni-list-modules',
@@ -14,7 +14,7 @@ import {LifeAtService} from "../life-at.service";
   providers: [ConfirmationService]
 })
 export class ListModulesComponent implements OnInit {
-  subModules$!: Observable<LifeAtSubModules[]>;
+  subModules$!: Observable<ModuleListSub[]>;
   quizList$!: Observable<any>;
   selectedSubModule: any;
   answeredCorrect: number = 0;
@@ -35,7 +35,7 @@ export class ListModulesComponent implements OnInit {
   answerOptionClicked: boolean = true
   isInstructionVisible: boolean = false
 
-  constructor(private lifeAtService: LifeAtService, private router: Router, private dataService: DataService,
+  constructor(private moduleListService: ModuleServiceService, private router: Router, private dataService: DataService,
               private locationService: LocationService, private route: ActivatedRoute,
               private confirmationService: ConfirmationService) {
     this.responsiveOptions = [
@@ -65,9 +65,13 @@ export class ListModulesComponent implements OnInit {
   }
 
   loadModuleAndSubModule() {
-    this.subModules$ = this.lifeAtService.subModuleList$();
+    this.subModules$ = this.moduleListService.subModuleList$();
     let countryId = Number(localStorage.getItem('countryId'));
-    this.lifeAtService.loadSubModules(countryId);
+    let data = {
+      countryId: countryId,
+      api_module_name: 'getlifeincountrysubmoduleqcount'
+    }
+    this.moduleListService.loadSubModules(data);
     this.subModules$.subscribe(event => {
       this.subModuleList = event;
     });
@@ -90,8 +94,8 @@ export class ListModulesComponent implements OnInit {
       submoduleId: 1
     }
 
-    this.quizList$ = this.lifeAtService.quizList$();
-    this.lifeAtService.quizList(data);
+    this.quizList$ = this.moduleListService.quizList$();
+    this.moduleListService.quizList(data);
 
     this.quizList$.subscribe((data) => {
 

@@ -1,12 +1,13 @@
 import {AfterContentChecked, ChangeDetectorRef, Component, OnInit, ViewChild} from '@angular/core';
 import {MenuItem} from 'primeng/api';
 import {Observable} from 'rxjs';
-import {SubModuleList} from 'src/app/@Models/post-application.model';
 import {ListQuestion} from 'src/app/@Models/question-list.model';
-import {PostApplicationService} from '../post-application.service';
 import {DataService} from 'src/app/data.service';
 import {ActivatedRoute} from '@angular/router';
 import {Location} from "@angular/common";
+import {ModuleListSub} from "../../../@Models/module.model";
+import {ModuleServiceService} from "../../module-store/module-service.service";
+import {ReadQuestion} from "../../../@Models/read-question.model";
 
 @Component({
     selector: 'uni-question-list',
@@ -19,7 +20,8 @@ export class QuestionListComponent implements OnInit, AfterContentChecked {
     @ViewChild('carouselPopupVideoElm') carouselPopupVideoElm: any;
     @ViewChild('carouselPopupRefElm') carouselPopupRefElm: any;
 
-    subModules$!: Observable<SubModuleList[]>;
+    subModules$!: Observable<ModuleListSub[]>;
+    readQue$!: Observable<ReadQuestion[]>;
     listQuestion$!: Observable<ListQuestion[]>;
     selectedQuestion: number = 0;
     selectedQuestionId: number = 0;
@@ -42,7 +44,7 @@ export class QuestionListComponent implements OnInit, AfterContentChecked {
     countryId: any;
     selectedQuestionData: any;
 
-    constructor(private postAppService: PostApplicationService, private changeDetector: ChangeDetectorRef,
+    constructor(private moduleListService: ModuleServiceService, private changeDetector: ChangeDetectorRef,
                 private dataService: DataService, private route: ActivatedRoute, private _location: Location) {
     }
 
@@ -78,13 +80,13 @@ export class QuestionListComponent implements OnInit, AfterContentChecked {
                 numScroll: 1
             }
         ];
-        this.listQuestion$ = this.postAppService.questionList$();
+        this.listQuestion$ = this.moduleListService.questionList$();
         let data = {
             countryId: Number(localStorage.getItem('countryId')),
             moduleId: 2,
             submoduleId: this.subModuleId
         }
-        this.postAppService.loadQuestionList(data);
+        this.moduleListService.loadQuestionList(data);
     }
 
     goBack(){
@@ -92,8 +94,12 @@ export class QuestionListComponent implements OnInit, AfterContentChecked {
     }
 
     getSubmoduleName(countryId: number) {
-        this.postAppService.loadSubModules(countryId);
-        this.subModules$ = this.postAppService.subModuleList$();
+        let data = {
+            countryId: countryId,
+            api_module_name: 'getpostapplicationsubmoduleqcount'
+        }
+        this.moduleListService.loadSubModules(data);
+        this.subModules$ = this.moduleListService.subModuleList$();
         this.subModules$.subscribe(event => {
             event.filter(data => {
                 if (data.id == this.subModuleId) {
@@ -101,6 +107,18 @@ export class QuestionListComponent implements OnInit, AfterContentChecked {
                 }
             })
         })
+    }
+
+    readQuestion(data: any){
+        this.moduleListService.readQuestion(data);
+        this.readQue$ = this.moduleListService.readQuestionMessage$();
+        let data1 = {
+            countryId: Number(localStorage.getItem('countryId')),
+            moduleId: 2,
+            submoduleId: this.subModuleId
+        }
+        this.moduleListService.loadQuestionList(data1);
+        this.listQuestion$ = this.moduleListService.questionList$();
     }
 
     onQuestionClick(selectedData: any) {
@@ -123,6 +141,12 @@ export class QuestionListComponent implements OnInit, AfterContentChecked {
                 this.videoLinks = res.videolink;
             }
         });
+        let readQueData = {
+            questionId: selectedData.id,
+            countryId: this.countryId
+        }
+
+        this.readQuestion(readQueData);
     }
 
     setPage(page: any) {
@@ -159,6 +183,12 @@ export class QuestionListComponent implements OnInit, AfterContentChecked {
             }
         });
         carousel.navBackward(event, this.selectedQuestion);
+        let data = {
+            questionId: selectedData.id,
+            countryId: this.countryId
+        }
+
+        this.readQuestion(data);
     }
 
     clickNext(carousel: any, event: any) {
@@ -177,7 +207,13 @@ export class QuestionListComponent implements OnInit, AfterContentChecked {
                 this.videoLinks = res.videolink;
             }
         });
-        carousel.navForward(event, this.selectedQuestion)
+        carousel.navForward(event, this.selectedQuestion);
+        let data = {
+            questionId: selectedData.id,
+            countryId: this.countryId
+        }
+
+        this.readQuestion(data);
     }
 
     clickPreviousVideo(event: any) {
@@ -219,7 +255,7 @@ export class QuestionListComponent implements OnInit, AfterContentChecked {
         this.carouselRefElm.navForward(event, this.selectedRefLink)
     }
 
-    onClickRecommendedVideo(data: any) {
+    onClickRecommendedVideo( data: any) {
         this.isRecommendedVideoVisible = true;
         // this.videoLinks.filter((res: any) => {
         //     if (res.id == this.selectedQuestion) {

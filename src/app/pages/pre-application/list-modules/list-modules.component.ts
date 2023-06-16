@@ -1,11 +1,12 @@
 import {Component, OnInit} from '@angular/core';
-import {PreAppService} from "../pre-app.service";
 import {Observable} from "rxjs";
-import {SubModuleList} from "../../../@Models/pre-application.model";
+
 import {ActivatedRoute, Router} from "@angular/router";
 import {ConfirmationService, MenuItem} from "primeng/api";
 import {DataService} from "../../../data.service";
 import {LocationService} from "../../../location.service";
+import {ModuleListSub} from "../../../@Models/module.model";
+import {ModuleServiceService} from "../../module-store/module-service.service";
 
 @Component({
     selector: 'uni-list-modules',
@@ -14,7 +15,7 @@ import {LocationService} from "../../../location.service";
     providers: [ConfirmationService]
 })
 export class ListModulesComponent implements OnInit {
-    subModules$!: Observable<SubModuleList[]>;
+    subModules$!: Observable<ModuleListSub[]>;
     quizList$!: Observable<any>;
     selectedSubModule: any;
     answeredCorrect: number = 0;
@@ -35,7 +36,7 @@ export class ListModulesComponent implements OnInit {
     answerOptionClicked: boolean = true
     isInstructionVisible: boolean = false
 
-    constructor(private preAppService: PreAppService, private router: Router, private dataService: DataService,
+    constructor(private moduleListService: ModuleServiceService, private router: Router, private dataService: DataService,
                 private locationService: LocationService, private route: ActivatedRoute,
                 private confirmationService: ConfirmationService) {
         this.responsiveOptions = [
@@ -65,9 +66,13 @@ export class ListModulesComponent implements OnInit {
     }
 
     loadModuleAndSubModule() {
-        this.subModules$ = this.preAppService.subModuleList$();
+        this.subModules$ = this.moduleListService.subModuleList$();
         let countryId = Number(localStorage.getItem('countryId'));
-        this.preAppService.loadSubModules(countryId);
+        let data = {
+            countryId: countryId,
+            api_module_name: 'getpreapplicationsubmoduleqcount'
+        }
+        this.moduleListService.loadSubModules(data);
         this.subModules$.subscribe(event => {
             this.subModuleList = event;
         });
@@ -77,36 +82,31 @@ export class ListModulesComponent implements OnInit {
     }
 
     getQuizData() {
-        let cName = "";
-        this.dataService.countryNameSource.subscribe(countryName => {
-            cName = countryName;
-        });
+
         let data = {
             countryId: Number(localStorage.getItem('countryId')),
             moduleId: 1,
             submoduleId: 1
         }
-
-        this.quizList$ = this.preAppService.quizList$();
-        this.preAppService.quizList(data);
+        this.moduleListService.quizList(data);
+        this.quizList$ = this.moduleListService.quizList$();
 
         this.quizList$.subscribe((data) => {
-
-            this.quizData = data.map((val: any) => {
-                let moduleData = this.moduleList.filter(ind => ind.id == val.module_id)[0]!.module_name;
-                let subModuleName = this.subModuleList.filter(ind => ind.id == val.submodule_id)[0]!.submodule_name;
-                let number = 1;
-                let dd = {...val};
-                dd.module_name = moduleData
-                dd.sub_module_name = subModuleName
-                dd.otp1 = dd.option1 + dd.id + number++;
-                dd.otp2 = dd.option2 + dd.id + number++;
-                dd.otp3 = dd.option3 + dd.id + number++;
-                dd.otp4 = dd.option4 + dd.id + number++;
-                return dd;
-            })
-            this.breadCrumb = [{label: cName}, {label: this.quizData[0]!.module_name},
-                {label: this.quizData[0]!.sub_module_name}];
+            if(data){
+                this.quizData = data.map((val: any) => {
+                    let moduleData = this.moduleList.filter(ind => ind.id == val.module_id)[0]!.module_name;
+                    let subModuleName = this.subModuleList.filter(ind => ind.id == val.submodule_id)[0]!.submodule_name;
+                    let number = 1;
+                    let dd = {...val};
+                    dd.module_name = moduleData
+                    dd.sub_module_name = subModuleName
+                    dd.otp1 = dd.option1 + dd.id + number++;
+                    dd.otp2 = dd.option2 + dd.id + number++;
+                    dd.otp3 = dd.option3 + dd.id + number++;
+                    dd.otp4 = dd.option4 + dd.id + number++;
+                    return dd;
+                });
+            }
         });
 
     }
@@ -118,6 +118,12 @@ export class ListModulesComponent implements OnInit {
     runQuiz() {
         this.isInstructionVisible = false;
         this.isStartQuiz = true;
+        let cName = "";
+        this.dataService.countryNameSource.subscribe(countryName => {
+            cName = countryName;
+        });
+        this.breadCrumb = [{label: cName}, {label: this.quizData[0]!.module_name},
+            {label: this.quizData[0]!.sub_module_name}];
     }
 
     clickPreviousQuiz(carouselQuiz: any, event: any) {

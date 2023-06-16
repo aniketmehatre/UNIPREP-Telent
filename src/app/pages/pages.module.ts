@@ -18,8 +18,6 @@ import {HeaderSearchComponent} from './header-search/header-search.component';
 import {ButtonModule} from "primeng/button";
 import {InputTextModule} from "primeng/inputtext";
 import {RippleModule} from "primeng/ripple";
-import {PreApplicationModule} from './pre-application/pre-application.module';
-import {PostAdmissionModule} from "./post-admission/post-admission.module";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {DropdownModule} from "primeng/dropdown";
 import {CalendarModule} from "primeng/calendar";
@@ -33,6 +31,10 @@ import { QuestionCreditComponent } from './question-credit/question-credit.compo
 import {ProgressBarModule} from "primeng/progressbar";
 import {LifeAtModule} from "./life-at/life-at.module";
 import {ConfirmDialogModule} from "primeng/confirmdialog";
+import {EffectsModule} from "@ngrx/effects";
+import {ModuleStoreReducer} from "./module-store/module-store.reducer";
+import {appFeatureKey} from "./module-store/module-store.selectors";
+import {ModuleStoreEffects} from "./module-store/module-store.effects";
 @NgModule({
     declarations: [
         PagesComponent,
@@ -55,6 +57,8 @@ import {ConfirmDialogModule} from "primeng/confirmdialog";
         PagesRoutingModule,
         ThemeModule,
         StoreModule.forFeature(pagesFeatureKey, pagesReducer),
+        StoreModule.forFeature(appFeatureKey, ModuleStoreReducer),
+        EffectsModule.forFeature([ModuleStoreEffects]),
         TableModule,
         ButtonModule,
         InputTextModule,

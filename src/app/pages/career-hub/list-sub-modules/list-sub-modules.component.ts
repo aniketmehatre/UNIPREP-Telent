@@ -1,11 +1,11 @@
 import {Component, OnInit} from '@angular/core';
 import {Observable} from 'rxjs';
-import {SubModuleList} from 'src/app/@Models/career-hub.model';
 import {ActivatedRoute, Router} from '@angular/router';
 import {ConfirmationService, MenuItem} from "primeng/api";
 import {DataService} from "../../../data.service";
 import {LocationService} from "../../../location.service";
-import {CareerHubService} from "../career-hub.service";
+import {ModuleListSub} from "../../../@Models/module.model";
+import {ModuleServiceService} from "../../module-store/module-service.service";
 
 @Component({
     selector: 'app-list-sub-modules',
@@ -14,7 +14,7 @@ import {CareerHubService} from "../career-hub.service";
     providers: [ConfirmationService]
 })
 export class ListSubModulesComponent implements OnInit {
-    subModules$!: Observable<SubModuleList[]>;
+    subModules$!: Observable<ModuleListSub[]>;
     quizList$!: Observable<any>;
     selectedSubModule: any;
     answeredCorrect: number = 0;
@@ -35,7 +35,7 @@ export class ListSubModulesComponent implements OnInit {
     answerOptionClicked: boolean = true
     isInstructionVisible: boolean = false
 
-    constructor(private careerHubService: CareerHubService, private router: Router, private dataService: DataService,
+    constructor(private moduleListService: ModuleServiceService, private router: Router, private dataService: DataService,
                 private locationService: LocationService, private route: ActivatedRoute,
                 private confirmationService: ConfirmationService) {
         this.responsiveOptions = [
@@ -65,9 +65,13 @@ export class ListSubModulesComponent implements OnInit {
     }
 
     loadModuleAndSubModule() {
-        this.subModules$ = this.careerHubService.subModuleList$();
+        this.subModules$ = this.moduleListService.subModuleList$();
         let countryId = Number(localStorage.getItem('countryId'));
-        this.careerHubService.loadSubModules(countryId);
+        let data = {
+            countryId: countryId,
+            api_module_name: 'getcareerhubsubmoduleqcount'
+        }
+        this.moduleListService.loadSubModules(data);
         this.subModules$.subscribe(event => {
             this.subModuleList = event;
         });
@@ -87,8 +91,8 @@ export class ListSubModulesComponent implements OnInit {
             submoduleId: 1
         }
 
-        this.quizList$ = this.careerHubService.quizList$();
-        this.careerHubService.quizList(data);
+        this.quizList$ = this.moduleListService.quizList$();
+        this.moduleListService.quizList(data);
 
         this.quizList$.subscribe((data) => {
 

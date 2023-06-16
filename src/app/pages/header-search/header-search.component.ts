@@ -5,6 +5,9 @@ import {MenuItem} from "primeng/api";
 import {LocationService} from "../../location.service";
 import {SubSink} from "subsink";
 import {Router} from "@angular/router";
+import {Observable} from "rxjs";
+import {ReadQuestion} from "../../@Models/read-question.model";
+import {ModuleServiceService} from "../module-store/module-service.service";
 
 @Component({
     selector: 'uni-header-search',
@@ -25,16 +28,16 @@ export class HeaderSearchComponent implements OnInit, OnDestroy {
     responsiveOptions: any [] = [];
     data: any [] = [];
     moduleList: any;
-    genMod: any;
     subModuleList: any;
     private subs = new SubSink();
     moduleName: any;
     subModuleName: any;
     searchInputValue: any;
     searchInputText: any;
-
+    readQue$!: Observable<ReadQuestion[]>;
     constructor(private dashboardService: DashboardService, private dataService: DataService,
-                private locationService: LocationService, private route: Router, private elementRef: ElementRef) {
+                private moduleListService: ModuleServiceService, private locationService: LocationService,
+                private route: Router, private elementRef: ElementRef) {
         this.dataService.chatTriggerSource.subscribe(message => {
             this.message = message;
         });
@@ -107,12 +110,26 @@ export class HeaderSearchComponent implements OnInit, OnDestroy {
     }
 
     gerSelectedQuestion(selectedQuestionData: any) {
+        this.readQuestion(selectedQuestionData);
         this.isQuestionAnswerVisible = true;
         this.getModuleName(selectedQuestionData)
     }
+    clearText(){
+        this.searchInputText = '';
+        this.isSearchResultFound = false;
+        this.searchResult = [];
+    }
+
+    readQuestion(data: any){
+        let readQueData = {
+            questionId: data.id,
+            countryId: data.country_id
+        }
+        this.moduleListService.readQuestion(readQueData);
+        this.readQue$ = this.moduleListService.readQuestionMessage$();
+    }
 
     getModuleName(selectedQuestionModule: any) {
-        // this.selectedQuestion = selectedQuestionModule.id;
         this.selectedQuestion = this.searchResult.findIndex((x: any) => x.id === selectedQuestionModule.id);
         let moduleData: any;
         this.subs.sink = this.locationService.getUniPerpModuleList().subscribe(data => {
@@ -158,6 +175,8 @@ export class HeaderSearchComponent implements OnInit, OnDestroy {
         let data = this.searchResult[this.selectedQuestion]
         this.getModuleName(data);
         carousel.navBackward(event, this.selectedQuestion)
+
+        this.readQuestion(data);
     }
 
     clickNext(carousel: any, event: any) {
@@ -167,7 +186,8 @@ export class HeaderSearchComponent implements OnInit, OnDestroy {
         this.selectedQuestion = this.selectedQuestion + 1;
         let data = this.searchResult[this.selectedQuestion];
         this.getModuleName(data);
-        carousel.navForward(event, this.selectedQuestion)
+        carousel.navForward(event, this.selectedQuestion);
+        this.readQuestion(data);
     }
 
     goToHome() {

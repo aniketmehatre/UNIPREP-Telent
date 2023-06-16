@@ -1,12 +1,14 @@
 import { AfterContentChecked, ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
 import { Observable } from "rxjs";
-import { PreAppService } from "../pre-app.service";
-import { ListQuestion } from "../../../@Models/question-list.model";
 import { MenuItem } from "primeng/api";
 import { DataService } from 'src/app/data.service';
 import { ActivatedRoute } from "@angular/router";
-import { SubModuleList } from "../../../@Models/pre-application.model";
 import {Location} from '@angular/common';
+import {ModuleListSub} from "../../../@Models/module.model";
+import {ReadQuestion} from "../../../@Models/read-question.model";
+import {ListQuestion} from "../../../@Models/question-list.model";
+import {ModuleServiceService} from "../../module-store/module-service.service";
+import {DomSanitizer} from "@angular/platform-browser";
 
 @Component({
     selector: 'uni-question-list',
@@ -19,7 +21,8 @@ export class QuestionListComponent implements OnInit, AfterContentChecked {
     @ViewChild('carouselPopupVideoElm') carouselPopupVideoElm: any;
     @ViewChild('carouselPopupRefElm') carouselPopupRefElm: any;
 
-    subModules$!: Observable<SubModuleList[]>;
+    subModules$!: Observable<ModuleListSub[]>;
+    readQue$!: Observable<ReadQuestion[]>;
     listQuestion$!: Observable<ListQuestion[]>;
     selectedQuestion: number = 0;
     selectedQuestionId: number = 0;
@@ -41,13 +44,15 @@ export class QuestionListComponent implements OnInit, AfterContentChecked {
     refLink: any;
     countryId: any;
     selectedQuestionData: any;
+    popUpItemVideoLink: any;
 
-    constructor(private preAppService: PreAppService, private changeDetector: ChangeDetectorRef,
-        private dataService: DataService, private route: ActivatedRoute, private _location: Location) {
+    constructor(private moduleListService: ModuleServiceService, private changeDetector: ChangeDetectorRef,
+        private dataService: DataService, private route: ActivatedRoute, private _location: Location,
+                private _sanitizer: DomSanitizer) {
     }
 
     ngAfterContentChecked(): void {
-        this.changeDetector.detectChanges();
+        // this.changeDetector.detectChanges();
     }
 
     ngOnInit(): void {
@@ -78,13 +83,13 @@ export class QuestionListComponent implements OnInit, AfterContentChecked {
                 numScroll: 1
             }
         ];
-        this.listQuestion$ = this.preAppService.questionList$();
+        this.listQuestion$ = this.moduleListService.questionList$();
         let data = {
             countryId: Number(localStorage.getItem('countryId')),
             moduleId: 1,
             submoduleId: this.subModuleId
         }
-        this.preAppService.loadQuestionList(data);
+        this.moduleListService.loadQuestionList(data);
     }
 
     goBack(){
@@ -92,21 +97,27 @@ export class QuestionListComponent implements OnInit, AfterContentChecked {
     }
 
     getSubmoduleName(countryId: number) {
-        this.preAppService.loadSubModules(countryId);
-        this.subModules$ = this.preAppService.subModuleList$();
+        let data = {
+            countryId: countryId,
+            api_module_name: 'getpreapplicationsubmoduleqcount'
+        }
+        this.moduleListService.loadSubModules(data);
+        this.subModules$ = this.moduleListService.subModuleList$();
         this.subModules$.subscribe(event => {
-            event.filter(data => {
-                if (data.id == this.subModuleId) {
-                    this.moduleName = data.submodule_name;
-                }
-            })
+            if(event){
+                event.filter(data => {
+                    if (data.id == this.subModuleId) {
+                        this.moduleName = data.submodule_name;
+                    }
+                })
+            }
         })
     }
 
     onQuestionClick(selectedData: any) {
         this.listQuestion$.subscribe(event => {
             this.data = event
-        });        
+        })
         this.selectedQuestionData = selectedData;
         this.selectedModule = selectedData.module_id;
         this.selectedSubModule = selectedData.submodule_id;
@@ -123,6 +134,24 @@ export class QuestionListComponent implements OnInit, AfterContentChecked {
                 this.videoLinks = res.videolink;
             }
         });
+        let data = {
+            questionId: selectedData.id,
+            countryId: this.countryId
+        }
+
+        this.readQuestion(data);
+    }
+
+    readQuestion(data: any){
+        this.moduleListService.readQuestion(data);
+        this.readQue$ = this.moduleListService.readQuestionMessage$();
+        let data1 = {
+            countryId: Number(localStorage.getItem('countryId')),
+            moduleId: 1,
+            submoduleId: this.subModuleId
+        }
+        this.moduleListService.loadQuestionList(data1);
+        this.listQuestion$ = this.moduleListService.questionList$();
     }
 
     setPage(page: any) {
@@ -159,6 +188,12 @@ export class QuestionListComponent implements OnInit, AfterContentChecked {
             }
         });
         carousel.navBackward(event, this.selectedQuestion);
+        let data = {
+            questionId: selectedData.id,
+            countryId: this.countryId
+        }
+
+        this.readQuestion(data);
     }
 
     clickNext(carousel: any, event: any) {
@@ -178,11 +213,14 @@ export class QuestionListComponent implements OnInit, AfterContentChecked {
             }
         });
         carousel.navForward(event, this.selectedQuestion)
+        let data = {
+            questionId: selectedData.id,
+            countryId: this.countryId
+        }
+        this.readQuestion(data);
     }
 
     clickPreviousVideo(event: any) {
-        console.log(this.selectedVideo);
-        
         if (this.selectedVideo <= 0) {
             return;
         }
@@ -210,7 +248,6 @@ export class QuestionListComponent implements OnInit, AfterContentChecked {
     }
 
     clickNextRef(event: any) {
-        console.log(this.selectedRefLink ,'>', this.refLink.length)
         if (this.selectedRefLink >= (this.refLink.length/2) - 1) {
             return;
         }
@@ -221,11 +258,7 @@ export class QuestionListComponent implements OnInit, AfterContentChecked {
 
     onClickRecommendedVideo(data: any) {
         this.isRecommendedVideoVisible = true;
-        // this.videoLinks.filter((res: any) => {
-        //     if (res.id == this.selectedQuestion) {
-        //         this.videoLink = res.videolink
-        //     }
-        // })
+        this.popUpItemVideoLink = this._sanitizer.bypassSecurityTrustResourceUrl(data[0].link);
     }
 
     onClickRecommendedLinks(data: any) {
@@ -266,6 +299,10 @@ export class QuestionListComponent implements OnInit, AfterContentChecked {
         if (this.selectedVideo >= this.videoLinks.length - 1) {
             return;
         }
+        console.log(this.selectedVideo);
+        let vdoLinks = this.videoLinks.find((x : any) => x.id == this.selectedVideo)
+        this.popUpItemVideoLink = this._sanitizer.bypassSecurityTrustResourceUrl(data[0].link);
+
         this.selectedVideo += 1;
 
         this.carouselPopupRefElm.navForward(event, this.selectedVideo)
