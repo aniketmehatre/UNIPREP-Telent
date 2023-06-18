@@ -14,8 +14,7 @@
                     <button (click)="searchKeyWord(searchInput)" class="btn-primary" label="Search" pButton pRipple
                             type="button"></button>
                 </div>
-
-                <ul *ngIf="isSearchResultFound" class="list-group list-group-flush shadow-lg">
+                <ul *ngIf="isSearchResultFound" class="list-group list-group-flush shadow-lg" #listgroup>
                     <li *ngFor="let c of searchResult" class="list-group-item">
                         <div class="row">
                             <div class="col-md-9"  (click)="gerSelectedQuestion(c)">

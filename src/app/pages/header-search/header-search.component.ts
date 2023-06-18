@@ -1,4 +1,11 @@
-import {Component, ElementRef, HostListener, OnDestroy, OnInit, ViewChild} from '@angular/core';
+import {
+    Component,
+    ElementRef,
+    OnDestroy,
+    OnInit,
+    Renderer2,
+    ViewChild
+} from '@angular/core';
 import {DashboardService} from "../dashboard/dashboard.service";
 import {DataService} from "../../data.service";
 import {MenuItem} from "primeng/api";
@@ -8,6 +15,7 @@ import {Router} from "@angular/router";
 import {Observable} from "rxjs";
 import {ReadQuestion} from "../../@Models/read-question.model";
 import {ModuleServiceService} from "../module-store/module-service.service";
+import {login} from "../../Auth/store/actions";
 
 @Component({
     selector: 'uni-header-search',
@@ -34,15 +42,25 @@ export class HeaderSearchComponent implements OnInit, OnDestroy {
     subModuleName: any;
     searchInputValue: any;
     searchInputText: any;
+
     readQue$!: Observable<ReadQuestion[]>;
+    @ViewChild('listgroup') listgroup: ElementRef | undefined;
     constructor(private dashboardService: DashboardService, private dataService: DataService,
                 private moduleListService: ModuleServiceService, private locationService: LocationService,
-                private route: Router, private elementRef: ElementRef) {
+                private route: Router, private elementRef: ElementRef, private renderer: Renderer2) {
         this.dataService.chatTriggerSource.subscribe(message => {
             this.message = message;
         });
         this.dataService.countryNameSource.subscribe(countryName => {
             this.countryName = countryName;
+        });
+        this.renderer.listen('window', 'click',(e:Event)=>{
+
+            if(e.target !== this.elRef!.nativeElement){
+                this.isSearchResultFound=false;
+                this.searchInputText = '';
+                this.searchResult  = [];
+            }
         });
     }
 
@@ -100,7 +118,9 @@ export class HeaderSearchComponent implements OnInit, OnDestroy {
                 this.subModuleList = res.submodules;
                 this.searchResult.map((data: any) => {
                     let name = this.subModuleList.find((x: any) => x.id == data.submodule_id);
-                    data.submodule_name = name.submodule_name;
+                    if(name.submodule_name){
+                        data.submodule_name = name.submodule_name ? name.submodule_name : '';
+                    }
                 })
             });
         }, err => {
@@ -114,13 +134,14 @@ export class HeaderSearchComponent implements OnInit, OnDestroy {
         this.isQuestionAnswerVisible = true;
         this.getModuleName(selectedQuestionData)
     }
-    clearText(){
+
+    clearText() {
         this.searchInputText = '';
         this.isSearchResultFound = false;
         this.searchResult = [];
     }
 
-    readQuestion(data: any){
+    readQuestion(data: any) {
         let readQueData = {
             questionId: data.id,
             countryId: data.country_id
