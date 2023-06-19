@@ -19,6 +19,8 @@ export class LoginComponent implements OnInit, OnDestroy {
   private subs = new SubSink();
   loginForm: any = FormGroup;
   submitted = false;
+  show= true;
+  password: string = 'password';
   constructor(
       private service: AuthService, private formBuilder: FormBuilder,private route:Router,
       private toast: MessageService, private dataService: DataService
@@ -26,6 +28,17 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.subs.unsubscribe();
+  }
+
+  showPassword(){
+    if (this.password === 'password') {
+      this.password = 'text';
+      this.show = false;
+    } else {
+      this.password = 'password';
+      this.show = true;
+
+    }
   }
 
   ngOnInit() {

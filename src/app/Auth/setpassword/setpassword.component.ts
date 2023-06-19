@@ -1,12 +1,9 @@
 import { Component, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
-import {
-  ActivatedRoute,
-  Router,
-} from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
 import { matchValidator } from "src/app/@Supports/matchvalidator";
 import { AuthService } from "../auth.service";
-import {MessageService} from "primeng/api";
+import { MessageService } from "primeng/api";
 
 @Component({
   selector: "app-setpassword",
@@ -16,6 +13,12 @@ import {MessageService} from "primeng/api";
 export class SetpasswordComponent implements OnInit {
   public setpasswordForm: any = FormGroup;
   isNotSuccess = true;
+
+  show = false;
+  password: string = "password";
+  show1 = false;
+  password1: string = "password";
+
   constructor(
     private service: AuthService,
     private formBuilder: FormBuilder,
@@ -36,6 +39,27 @@ export class SetpasswordComponent implements OnInit {
       confirmPassword: ["", [Validators.required, matchValidator("password")]],
     });
   }
+
+  showPassword() {
+    if (this.password === "password") {
+      this.password = "text";
+      this.show = true;
+    } else {
+      this.password = "password";
+      this.show = false;
+    }
+  }
+
+  showPassword1() {
+    if (this.password1 === "password") {
+      this.password1 = "text";
+      this.show1 = true;
+    } else {
+      this.password1 = "password";
+      this.show1 = false;
+    }
+  }
+
   submitted = false;
   get f() {
     return this.setpasswordForm.controls;
@@ -52,14 +76,23 @@ export class SetpasswordComponent implements OnInit {
     };
     this.service.setPassword(val).subscribe(
       (res: any) => {
-        this.toastr.add({severity:'success', summary: 'Success', detail: "Password Reset for your " + val.email});
+        this.toastr.add({
+          severity: "success",
+          summary: "Success",
+          detail: "Password Reset for your " + val.email,
+        });
         this.isNotSuccess = false;
-        setTimeout(() => { this.router.navigate(["/login"]) }, 2000)
+        setTimeout(() => {
+          this.router.navigate(["/login"]);
+        }, 2000);
       },
       (error: any) => {
-        
-
-        this.toastr.add({severity:'warning', summary: 'Sorry :(', detail: "Something went wrong in Password Reset " + error.error.message});
+        this.toastr.add({
+          severity: "warning",
+          summary: "Sorry :(",
+          detail:
+            "Something went wrong in Password Reset " + error.error.message,
+        });
         this.router.navigate(["/forgot-password"]);
       }
     );

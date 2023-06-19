@@ -264,10 +264,10 @@
                             </button>
                           </p>
                           <p
-                            *ngIf="readPro.progression_status == 'Complete'"
-                            class="text-center text-small mb-0"
+                            *ngIf="readPro.progression_status == 'Completed'"
+                            class="text-center text-black text-small mb-0"
                           >
-                            {{readPro.progression_status}}
+                            <strong>{{readPro.progression_status}}</strong>
                           </p>
                         </div>
                       </div>
@@ -353,10 +353,10 @@
                             </button>
                           </p>
                           <p
-                            *ngIf="quiz.progression_status == 'Complete'"
+                            *ngIf="quiz.progression_status == 'Completed'"
                             class="text-center text-small mb-0"
                           >
-                            {{quiz.progression_status}}
+                            <strong>{{quiz.progression_status}}</strong>
                           </p>
                         </div>
                       </div>
@@ -384,5 +384,15 @@
     <p>
       Test video
     </p>
+  </div>
+</p-dialog>
+
+
+<p-dialog [(visible)]="isShareWithSocialMedia" [closable]="false" [style]="{ width: 'auto' }" class="p-0 m-0 bg-white"
+          class="timerpopup" [modal]="true" [draggable]="false" [resizable]="false">
+  <div class="px-5 pb-5 pt-3">
+    <div class="justify-content-center text-center pb-5 px-5">
+
+    </div>
   </div>
 </p-dialog>

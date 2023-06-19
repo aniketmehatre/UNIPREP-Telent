@@ -1,12 +1,11 @@
 import {Component, OnInit} from '@angular/core';
 import {Observable} from "rxjs";
-import {SubModuleList} from "../../../@Models/post-admission.model";
-import {PostAdmissionService} from "../post-admission.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import {ConfirmationService, MenuItem} from "primeng/api";
-import {PostApplicationService} from "../../post-application/post-application.service";
 import {DataService} from "../../../data.service";
 import {LocationService} from "../../../location.service";
+import {ModuleServiceService} from "../../module-store/module-service.service";
+import {ModuleListSub} from "../../../@Models/module.model";
 
 @Component({
     selector: 'uni-list-sub-modules',
@@ -15,7 +14,7 @@ import {LocationService} from "../../../location.service";
     providers: [ConfirmationService]
 })
 export class ListSubModulesComponent implements OnInit {
-    subModules$!: Observable<SubModuleList[]>;
+    subModules$!: Observable<ModuleListSub[]>;
     quizList$!: Observable<any>;
     selectedSubModule: any;
     answeredCorrect: number = 0;
@@ -36,7 +35,7 @@ export class ListSubModulesComponent implements OnInit {
     answerOptionClicked: boolean = true
     isInstructionVisible: boolean = false
 
-    constructor(private postAdmService: PostAdmissionService, private router: Router, private dataService: DataService,
+    constructor(private moduleListService: ModuleServiceService, private router: Router, private dataService: DataService,
                 private locationService: LocationService, private route: ActivatedRoute,
                 private confirmationService: ConfirmationService) {
         this.responsiveOptions = [
@@ -66,9 +65,13 @@ export class ListSubModulesComponent implements OnInit {
     }
 
     loadModuleAndSubModule() {
-        this.subModules$ = this.postAdmService.subModuleList$();
+        this.subModules$ = this.moduleListService.subModuleList$();
         let countryId = Number(localStorage.getItem('countryId'));
-        this.postAdmService.loadSubModules(countryId);
+        let data = {
+            countryId: countryId,
+            api_module_name: 'getpostadmissionsubmoduleqcount'
+        }
+        this.moduleListService.loadSubModules(data);
         this.subModules$.subscribe(event => {
             this.subModuleList = event;
         });
@@ -88,8 +91,8 @@ export class ListSubModulesComponent implements OnInit {
             submoduleId: 1
         }
 
-        this.quizList$ = this.postAdmService.quizList$();
-        this.postAdmService.quizList(data);
+        this.quizList$ = this.moduleListService.quizList$();
+        this.moduleListService.quizList(data);
 
         this.quizList$.subscribe((data) => {
 

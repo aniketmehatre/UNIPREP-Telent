@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import {Observable} from "rxjs";
-import {SubModuleList} from "../../../@Models/pre-application.model";
 import {ConfirmationService, MenuItem} from "primeng/api";
 import {ActivatedRoute, Router} from "@angular/router";
 import {DataService} from "../../../data.service";
 import {LocationService} from "../../../location.service";
-import {UniversityService} from "../university.service";
+import {ModuleListSub} from "../../../@Models/module.model";
+import {ModuleServiceService} from "../../module-store/module-service.service";
 
 @Component({
   selector: 'uni-list-modules',
@@ -14,7 +14,7 @@ import {UniversityService} from "../university.service";
   providers: [ConfirmationService]
 })
 export class ListModulesComponent implements OnInit {
-  subModules$!: Observable<SubModuleList[]>;
+  subModules$!: Observable<ModuleListSub[]>;
   selectedSubModule: any;
   answeredCorrect: number = 0;
   totalPercentage: number = 0;
@@ -29,7 +29,7 @@ export class ListModulesComponent implements OnInit {
   isInstructionVisible: boolean = false
   countryName: string = ''
 
-  constructor(private universityService: UniversityService, private router: Router, private dataService: DataService,
+  constructor(private moduleListService: ModuleServiceService, private router: Router, private dataService: DataService,
               private locationService: LocationService, private route: ActivatedRoute,
               private confirmationService: ConfirmationService) {
     this.responsiveOptions = [
@@ -56,9 +56,13 @@ export class ListModulesComponent implements OnInit {
   }
 
   loadModuleAndSubModule() {
-    this.subModules$ = this.universityService.subModuleList$();
+    this.subModules$ = this.moduleListService.subModuleList$();
     let countryId = Number(localStorage.getItem('countryId'));
-    this.universityService.loadSubModules(countryId);
+    let data = {
+      countryId: countryId,
+      api_module_name: 'getuniversitysubmoduleqcount'
+    }
+    this.moduleListService.loadSubModules(data);
     this.subModules$.subscribe(event => {
       this.subModuleList = event;
     });

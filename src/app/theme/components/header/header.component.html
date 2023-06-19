@@ -75,7 +75,7 @@
                                             class="w-100" id="reportOption"
                                             optionLabel="reportoption_name"></p-dropdown>
                             </span>
-                            <p class="report-labeltext-left mb-0">Add Command</p>
+                            <p class="report-labeltext-left mb-0">Comment</p>
                             <span class="report-modal">
                                 <textarea formControlName="comment" pInputTextarea id="comment"></textarea>
                             </span>
@@ -101,14 +101,6 @@
         <p-avatar (click)="togleSidebar.emit()" class="" label="" role="button">
             <i class="fa-solid fa-bell"></i>
         </p-avatar>
-        <!--        <p-avatar (click)="togleSidebar.emit()" label="{{firstChar}}"></p-avatar>-->
-        <!--        <span>{{userName}}</span>-->
-        <!--        <div class="dropdown">-->
-        <!--            <i class="pi pi-angle-down text-primary dropbtn"></i>-->
-        <!--            <div class="dropdown-content" style="right: 0; left: auto;">-->
-        <!--                <a (click)="logout()">Logout</a>-->
-        <!--            </div>-->
-        <!--        </div>-->
         <div class="dropdown profile-dropdown">
             <button class="button" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                 <span class="nme">{{(firstChar || '')?.charAt(0)}}</span> <span class="fw-medium">{{userName}}</span>
@@ -191,8 +183,12 @@
                     <div class="form-floating mb-3">
                         <div class="p-inputgroup">
                             <div class="p-inputgroup-addon"><i class="pi pi-lock"></i></div>
-                            <input type="password" id="floatingInput" formControlName="password" pInputText
+                            <input [type]="password" id="floatingInput" formControlName="password" pInputText
                                    [ngClass]="{ 'is-invalid': submitted && f.password.errors }"/>
+                                   <span class="input-group-text passwordvisibility" (click)="showPassword()">
+                                    <img src="../../../uniprep-assets/images/viewpassword.svg" height="20" width="20px" *ngIf="show">
+                                    <img src="../../../uniprep-assets/images/hidepassword.svg" height="20" width="20px" *ngIf="!show">
+                                  </span>
                         </div>
                         <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
                             <div *ngIf="f.password.errors.required">Password is required</div>
@@ -204,10 +200,14 @@
                     <label for="confirmPassword">Confirm Password</label>
                     <div class="p-inputgroup">
                         <div class="p-inputgroup-addon"><i class="pi pi-lock"></i></div>
-                        <input type="password" pInputText id="confirmPassword" formControlName="confirmPassword"
+                        <input [type]="password1" pInputText id="confirmPassword" formControlName="confirmPassword"
                                [ngClass]="{
             'is-invalid': submitted && f.confirmPassword.errors
           }"/>
+          <span class="input-group-text passwordvisibility" (click)="showPassword1()">
+            <img src="../../../uniprep-assets/images/viewpassword.svg" height="20" width="20px" *ngIf="show1">
+            <img src="../../../uniprep-assets/images/hidepassword.svg" height="20" width="20px" *ngIf="!show1">
+          </span>
                     </div>
                     <div *ngIf="submitted && f.confirmPassword.errors" class="invalid-feedback">
                         <div *ngIf="f.confirmPassword.hasError('matching')">

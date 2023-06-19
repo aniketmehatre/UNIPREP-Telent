@@ -2,20 +2,24 @@ import {Injectable} from "@angular/core";
 import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {environment} from "@env/environment";
-import {LifeAtModel} from "../../../@Models/life-at.model";
-import {QuestionList} from "../../../@Models/question-list.model";
-import {ListQuiz} from "../../../@Models/list-quiz.model";
+import {ModuleList} from "../../@Models/module.model";
+import {QuestionList} from "../../@Models/question-list.model";
+import {ListQuiz} from "../../@Models/list-quiz.model";
+
 
 @Injectable({providedIn: 'root'})
-export class LifeAtService{
+export class ModuleStoreService {
     constructor(private http: HttpClient) {
     }
 
-    loadSubModules(countryId: number): Observable<LifeAtModel> {
-        let data = {
-            countryId: countryId
+    loadSubModules(params: {
+        countryId: number,
+        api_module_name: string
+    }): Observable<ModuleList> {
+        let request = {
+            countryId: params.countryId
         }
-        return this.http.post<LifeAtModel>(environment.ApiUrl + "/getlifeincountrysubmoduleqcount", data);
+        return this.http.post<ModuleList>(environment.ApiUrl + `/${params.api_module_name}`, request);
     }
 
     loadQuestionList(
@@ -46,5 +50,16 @@ export class LifeAtService{
             submoduleId: params.submoduleId
         }
         return this.http.post<ListQuiz>(environment.ApiUrl + "/quizquestions", request);
+    }
+
+    readQuestion(params: {
+        countryId: number,
+        questionId: number,
+    }): Observable<any> {
+        let data = {
+            countryId: params.countryId,
+            questionId: params.questionId,
+        }
+        return this.http.post<any>(environment.ApiUrl + "/markread", data);
     }
 }

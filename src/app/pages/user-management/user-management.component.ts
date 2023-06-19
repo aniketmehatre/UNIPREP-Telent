@@ -6,6 +6,7 @@ import { MessageService } from "primeng/api";
 import { User } from "../../@Models/user.model";
 import { UserManagementService } from "./user-management.service";
 import { SubSink } from "subsink";
+import {Router} from "@angular/router";
 
 @Component({
     selector: 'uni-user-management',
@@ -13,7 +14,6 @@ import { SubSink } from "subsink";
     styleUrls: ['./user-management.component.scss'],
 })
 export class UserManagementComponent implements OnInit {
-
     user!: User | null;
     // countryList = [
     //     {name: "Select", code: ""},
@@ -281,8 +281,23 @@ export class UserManagementComponent implements OnInit {
         private formBuilder: FormBuilder,
         private locationService: LocationService,
         private toast: MessageService,
-        private userManagementService: UserManagementService
+        private userManagementService: UserManagementService,
+        private router: Router
     ) {
+
+        this.registrationForm = this.formBuilder.group({
+            name: ['', [Validators.required]],
+            location_id: ['', [Validators.required]],
+            phone: ['', [Validators.required]],
+            email: ['', [Validators.required, Validators.email]],
+            interested_country_id: [Number(this.user?.interested_country_id), [Validators.required]],
+            last_degree_passing_year: [this.user?.last_degree_passing_year, [Validators.required]],
+            intake_year_looking: [this.user?.intake_year_looking, [Validators.required]],
+            intake_month_looking: [new Date(`${this.user?.intake_month_looking}-01-${this.user?.intake_year_looking}`), [Validators.required]],
+            programlevel_id: [this.user?.programlevel_id, [Validators.required]],
+            gender: [this.user?.gender, [Validators.required]],
+            newsletter_consent: [this.user?.newsletter_consent == 1, [Validators.required]],
+        });
     }
 
     get f() {
@@ -295,27 +310,29 @@ export class UserManagementComponent implements OnInit {
         this.getProgramLevelList();
         this.getCountryList();
         this.authService.userData.subscribe(data => {
-            this.user = data;
-            let mon = this.getMonthName(this.user?.intake_month_looking);
-            this.registrationForm = this.formBuilder.group({
-                name: [this.user?.name, [Validators.required]],
-                location_id: [this.user?.location_id, [Validators.required]],
-                phone: [this.user?.phone, [Validators.required]],
-                email: [this.user?.email, [Validators.required, Validators.email]],
-                interested_country_id: [this.user?.interested_country_id, [Validators.required]],
-                last_degree_passing_year: [this.user?.last_degree_passing_year, [Validators.required]],
-                intake_year_looking: [this.user?.intake_year_looking, [Validators.required]],
-                intake_month_looking: [new Date(`${this.user?.intake_month_looking}-01-${this.user?.intake_year_looking}`), [Validators.required]],
-                programlevel_id: [this.user?.programlevel_id, [Validators.required]],
-                gender: [this.user?.gender, [Validators.required]],
-            });
+            if(data){
+                this.user = data;
+                let mon = this.getMonthName(this.user?.intake_month_looking);
+                this.registrationForm = this.formBuilder.group({
+                    name: [this.user?.name, [Validators.required]],
+                    location_id: [this.user?.location_id, [Validators.required]],
+                    phone: [this.user?.phone, [Validators.required]],
+                    email: [this.user?.email, [Validators.required, Validators.email]],
+                    interested_country_id: [Number(this.user?.interested_country_id), [Validators.required]],
+                    last_degree_passing_year: [this.user?.last_degree_passing_year, [Validators.required]],
+                    intake_year_looking: [this.user?.intake_year_looking, [Validators.required]],
+                    intake_month_looking: [new Date(`${this.user?.intake_month_looking}-01-${this.user?.intake_year_looking}`), [Validators.required]],
+                    programlevel_id: [this.user?.programlevel_id, [Validators.required]],
+                    gender: [this.user?.gender, [Validators.required]],
+                    newsletter_consent: [this.user?.newsletter_consent == 1 ? true : false, [Validators.required]],
+                });
+            }
         });
     }
 
     getMonthName(monthNumber: any) {
         const date = new Date();
         date.setMonth(monthNumber - 1);
-
         return date.toLocaleString('en-US', { month: 'long' });
     }
 
@@ -360,28 +377,55 @@ export class UserManagementComponent implements OnInit {
     }
 
     logout() {
-        this.authService.logout();
+        this.authService.logout().subscribe(data => {
+            this.toast.add({
+                severity: "success",
+                summary: "Success",
+                detail: "logged out successfully",
+            });
+            window.sessionStorage.clear();
+            localStorage.clear();
+            this.router.navigateByUrl("/login");
+        });
     }
 
     onSubmit() {
-
         let data: any = {};
         if (this.registrationForm.value.invalid) {
             console.log('this', this.registrationForm.value.invalid);
         }
-        console.log(this.registrationForm.value);
-        return;
+        let lastYear = ''
+        if(this.registrationForm.value.intake_year_looking instanceof Date){
+            lastYear = this.registrationForm.value.last_degree_passing_year.getFullYear()
+        }else{
+            lastYear = this.registrationForm.value.last_degree_passing_year;
+        }
+        let intakeMonth = '';
+        if(this.registrationForm.value.intake_month_looking instanceof Date){
+            intakeMonth = this.registrationForm.value.intake_month_looking.getMonth()
+        }else{
+            intakeMonth = this.registrationForm.value.intake_month_looking;
+        }
+        let intakeYearLooking = '';
+        if(this.registrationForm.value.intake_year_looking instanceof Date){
+            intakeYearLooking = this.registrationForm.value.intake_year_looking.getMonth()
+        }else{
+            intakeYearLooking = this.registrationForm.value.intake_year_looking;
+        }
+
+        let newsLetter = this.registrationForm.value.newsletter_consent == true ? 1 : 0;
 
         data['name'] = this.registrationForm.value.name;
         data['location_id'] = this.registrationForm.value.location_id;
         data['phone'] = this.registrationForm.value.phone;
         data['email'] = this.registrationForm.value.email;
         data['interested_country_id'] = this.registrationForm.value.interested_country_id;
-        data['last_degree_passing_year'] = '' + this.registrationForm.value.last_degree_passing_year.getFullYear();
-        data['intake_year_looking'] = '' + this.registrationForm.value.intake_year_looking.getFullYear();
+        data['last_degree_passing_year'] = lastYear;
+        data['intake_year_looking'] = '' + intakeYearLooking;
         data['intake_month_looking'] = '' + this.registrationForm.value.intake_month_looking.getMonth() + 1;
         data['programlevel_id'] = this.registrationForm.value.programlevel_id;
         data['gender'] = this.registrationForm.value.gender;
+        data['newsletter_consent'] = newsLetter;
 
         if (!Object.keys(data).length) {
             this.toast.add({

@@ -11,6 +11,9 @@ const routes: Routes = [
                 path: 'sub-modules', component: ListSubModulesComponent,
             },
             {
+                path: 'sub-modules/:id', component: ListSubModulesComponent,
+            },
+            {
                 path: 'question-list/:id', component: QuestionListComponent,
             },
             {

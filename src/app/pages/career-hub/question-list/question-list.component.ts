@@ -4,9 +4,10 @@ import {ListQuestion} from "../../../@Models/question-list.model";
 import {ConfirmationService, MenuItem} from "primeng/api";
 import {DataService} from "../../../data.service";
 import {ActivatedRoute} from "@angular/router";
-import {SubModuleList} from "../../../@Models/career-hub.model";
 import {Location} from "@angular/common";
-import {CareerHubService} from "../career-hub.service";
+import {ModuleListSub} from "../../../@Models/module.model";
+import {ModuleServiceService} from "../../module-store/module-service.service";
+import {ReadQuestion} from "../../../@Models/read-question.model";
 
 @Component({
     selector: 'app-question-list',
@@ -20,7 +21,8 @@ export class QuestionListComponent implements OnInit, AfterContentChecked {
     @ViewChild('carouselPopupVideoElm') carouselPopupVideoElm: any;
     @ViewChild('carouselPopupRefElm') carouselPopupRefElm: any;
 
-    subModules$!: Observable<SubModuleList[]>;
+    subModules$!: Observable<ModuleListSub[]>;
+    readQue$!: Observable<ReadQuestion[]>;
     listQuestion$!: Observable<ListQuestion[]>;
     selectedQuestion: number = 0;
     selectedQuestionId: number = 0;
@@ -43,7 +45,7 @@ export class QuestionListComponent implements OnInit, AfterContentChecked {
     countryId: any;
     selectedQuestionData: any;
 
-    constructor(private careerHubService: CareerHubService, private changeDetector: ChangeDetectorRef,
+    constructor(private moduleListService: ModuleServiceService, private changeDetector: ChangeDetectorRef,
                 private dataService: DataService, private route: ActivatedRoute, private _location: Location) {
     }
 
@@ -79,13 +81,13 @@ export class QuestionListComponent implements OnInit, AfterContentChecked {
                 numScroll: 1
             }
         ];
-        this.listQuestion$ = this.careerHubService.questionList$();
+        this.listQuestion$ = this.moduleListService.questionList$();
         let data = {
             countryId: Number(localStorage.getItem('countryId')),
             moduleId: 4,
             submoduleId: this.subModuleId
         }
-        this.careerHubService.loadQuestionList(data);
+        this.moduleListService.loadQuestionList(data);
     }
 
     goBack(){
@@ -93,8 +95,12 @@ export class QuestionListComponent implements OnInit, AfterContentChecked {
     }
 
     getSubmoduleName(countryId: number) {
-        this.careerHubService.loadSubModules(countryId);
-        this.subModules$ = this.careerHubService.subModuleList$();
+        let data = {
+            countryId: countryId,
+            api_module_name: 'getcareerhubsubmoduleqcount'
+        }
+        this.moduleListService.loadSubModules(data);
+        this.subModules$ = this.moduleListService.subModuleList$();
         this.subModules$.subscribe(event => {
             event.filter(data => {
                 if (data.id == this.subModuleId) {
@@ -102,6 +108,18 @@ export class QuestionListComponent implements OnInit, AfterContentChecked {
                 }
             })
         })
+    }
+
+    readQuestion(data: any){
+        this.moduleListService.readQuestion(data);
+        this.readQue$ = this.moduleListService.readQuestionMessage$();
+        let data1 = {
+            countryId: Number(localStorage.getItem('countryId')),
+            moduleId: 4,
+            submoduleId: this.subModuleId
+        }
+        this.moduleListService.loadQuestionList(data1);
+        this.listQuestion$ = this.moduleListService.questionList$();
     }
 
     onQuestionClick(selectedData: any) {
@@ -124,6 +142,12 @@ export class QuestionListComponent implements OnInit, AfterContentChecked {
                 this.videoLinks = res.videolink;
             }
         });
+        let readQueData = {
+            questionId: selectedData.id,
+            countryId: this.countryId
+        }
+
+        this.readQuestion(readQueData);
     }
 
     setPage(page: any) {
@@ -148,6 +172,7 @@ export class QuestionListComponent implements OnInit, AfterContentChecked {
             return;
         }
         let selectedData = this.data[this.selectedQuestion-1];
+        console.log(selectedData)
         this.selectedQuestionData = selectedData;
         this.selectedModule = selectedData.module_id;
         this.selectedSubModule = selectedData.submodule_id;
@@ -160,6 +185,12 @@ export class QuestionListComponent implements OnInit, AfterContentChecked {
             }
         });
         carousel.navBackward(event, this.selectedQuestion);
+        let readQueData = {
+            questionId: selectedData.id,
+            countryId: this.countryId
+        }
+
+        this.readQuestion(readQueData);
     }
 
     clickNext(carousel: any, event: any) {
@@ -178,7 +209,13 @@ export class QuestionListComponent implements OnInit, AfterContentChecked {
                 this.videoLinks = res.videolink;
             }
         });
-        carousel.navForward(event, this.selectedQuestion)
+        carousel.navForward(event, this.selectedQuestion);
+        let readQueData = {
+            questionId: selectedData.id,
+            countryId: this.countryId
+        }
+
+        this.readQuestion(readQueData);
     }
 
     clickPreviousVideo(event: any) {

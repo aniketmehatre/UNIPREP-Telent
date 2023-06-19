@@ -21,9 +21,6 @@ import { DataService } from "src/app/data.service";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { matchValidator } from "../../../@Supports/matchvalidator";
 
-const KEY = "time";
-let DEFAULT = 0;
-
 @Component({
   selector: "uni-header",
   templateUrl: "./header.component.html",
@@ -32,7 +29,6 @@ let DEFAULT = 0;
 })
 export class HeaderComponent implements OnInit, OnDestroy {
   @ViewChild("op") op!: ElementRef<HTMLInputElement>;
-  config: CountdownConfig | null = null;
   public reportSubmitForm: any = FormGroup;
   @Input() breadcrumb: MenuItem[] = [
     { label: "Categories" },
@@ -51,9 +47,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
   reportOptionNgModel: number = 1;
   selectedCountryId: any;
   selectedModuleId: any;
+  selectedSubModuleId: any;
   moduleList: any[] = [];
   subModuleList: any[] = [];
-  questionList: any[] = [];
+  questionList: any;
   reportOptionList: any[] = [];
   darkModeSwitch!: HTMLInputElement;
   visible: boolean = false;
@@ -65,7 +62,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
   min: number = 0;
   sec: number = 0;
   isVisibleModulesMenu: boolean = false;
-
+  show= false;
+  password: string = 'password';
+  show1= false;
+  password1: string = 'password';
   constructor(
     private modalService: ModalService,
     private router: Router,
@@ -113,6 +113,33 @@ export class HeaderComponent implements OnInit, OnDestroy {
     }
   }
 
+  showPassword(){
+    if (this.password === 'password') {
+      this.password = 'text';
+      this.show = true;
+
+    } else {
+      this.password = 'password';
+      this.show = false;
+
+    }
+  }
+
+  showPassword1(){
+    if (this.password1 === 'password') {
+      this.password1 = 'text';
+      this.show1 = true;
+    } else {
+      this.password1 = 'password';
+      this.show1 = false;
+
+    }
+  }
+
+  exploreNow(){
+    this.dataService.showTimerInHeader(null);
+  }
+
   updateMenuClass() {
     const sidenav: Element | null = document.getElementById("sidenav");
     if (sidenav) {
@@ -125,6 +152,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+
+    this.getModuleList();
+    this.onChangeModuleList(1);
+    this.onChangeSubModuleList(1);
     this.genMod = [{
       name: 'General',
       id: 1
@@ -160,24 +191,30 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.dataService.chatTriggerSource.subscribe((message) => {
       if (message === "open chat window") {
         this.openModal(null);
-        //this.openReportModal(this.op, event);
       }
     });
     this.dataService.openReportWindowSource.subscribe((data) => {
       if (data.isVisible) {
+        this.moduleList = [];
+        this.subModuleList = [];
+        this.questionList = [];
+        this.getModuleList();
+        this.onChangeModuleList(data.moduleId);
+        this.onChangeSubModuleList(data.subModuleId);
         this.selectedGenMod = 2;
         this.isVisibleModulesMenu = true;
         this.moduleNgModel = data.moduleId;
         this.subModuleNgModel = data.subModuleId;
         this.questionIdNgModel = data.questionId;
-        this.onChangeSubModuleList(data.subModuleId);
         this.openReportModal(this.op, event);
       }
     });
 
     this.subs.sink = this.service.getMe().subscribe((data) => {
-      this.userName = data.userdetails[0].name.toString();
-      this.firstChar = this.userName.charAt(0);
+      if(data){
+        this.userName = data.userdetails[0].name.toString();
+        this.firstChar = this.userName.charAt(0);
+      }
     });
 
     this.darkModeSwitch = document.getElementById(
@@ -217,46 +254,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
     });
   }
 
-  exploreNow() {
-    this.isShowFreeTrailStart = false;
-    localStorage.setItem(KEY, `${60 * 60}`);
-    if (localStorage.getItem(KEY)) {
-      this.config = {
-        leftTime: Number(localStorage.getItem(KEY)),
-        format: "HH:mm:ss",
-        notify: 0,
-        prettyText: (text) => {
-          return text
-            .split(":")
-            .map((v) => `<span class="item">${v}</span>`)
-            .join("");
-        },
-      };
-    } else {
-      this.config = {
-        leftTime: 0,
-        format: "HH:mm:ss",
-        notify: 0,
-        prettyText: (text) => {
-          return text
-            .split(":")
-            .map((v) => `<span class="item">${v}</span>`)
-            .join("");
-        },
-      };
-    }
-  }
-
   ngOnDestroy() {
-    console.log("coming");
     this.subs.unsubscribe();
-  }
-
-  handleEvent(ev: any) {
-    if (ev.action === "notify") {
-      //this.dataService.changeTimeOutStatus(ev.left / 1000);
-      localStorage.setItem(KEY, `${ev.left / 1000}`);
-    }
   }
 
   openModal(e: any) {
@@ -288,8 +287,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
       .subscribe((data) => {
         this.moduleList = data.modules;
         this.selectedModuleId = 1;
-
-        this.onChangeModuleList(1);
       });
   }
 
@@ -314,7 +311,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
       if (res.status == 404) {
       }
       this.subModuleList = res.submodules;
-      this.onChangeSubModuleList(res.submodules[0].id);
     });
   }
 
@@ -403,6 +399,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
         summary: "Alert",
         detail: "Password does not match",
       });
+      return;
     }
 
     this.locationService

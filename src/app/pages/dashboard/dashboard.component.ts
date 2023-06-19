@@ -25,6 +25,7 @@ export class DashboardComponent implements OnInit {
     continueQuiz = "none";
     isSearchResultFound: boolean = false;
     isVideoVisible: boolean = false;
+    isShareWithSocialMedia: boolean = false;
 
     searchResult: any;
     university: any[] = [
@@ -107,10 +108,14 @@ export class DashboardComponent implements OnInit {
                     this.readingProgressings = getModuleReadProgression.module;
                 }
                 if(getModuleReadProgression){
-                    this.quizProgressings = getModuleReadProgression.module;
+                    this.quizProgressings = getModuleQuizProgression.module;
                 }
             })
 
+    }
+
+    shareWithSocial(){
+        this.isShareWithSocialMedia = true
     }
 
     closeReading() {
@@ -173,7 +178,7 @@ export class DashboardComponent implements OnInit {
                 moduleName = "career-hub"
                 break;
             case "Life at ":
-                moduleName = "career-hub"
+                moduleName = "life-at"
                 break;
         }
         this.router.navigate([`pages/${moduleName}/`]);
@@ -198,7 +203,7 @@ export class DashboardComponent implements OnInit {
                 moduleName = "career-hub"
                 break;
             case "Life at ":
-                moduleName = "career-hub"
+                moduleName = "life-at"
                 break;
         }
         this.router.navigate([`pages/${moduleName}/sub-modules/2`]);

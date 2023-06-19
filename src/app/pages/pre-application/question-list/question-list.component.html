@@ -20,7 +20,16 @@
                                 class="card questioncard {{sub.read == 1 ? 'questionread' : ''}}" role="button">
                                 <div class="card-body mb-5">
                                     <div class="row justify-content-center">
-                                        <p class="mb-3 circle text-center">{{i+1}}</p>
+                                        <div class="col-md-4">
+                                        </div>
+                                        <div class="col-md-4 text-center">
+                                            <p class="mb-3 circle text-center">{{i+1}}</p>
+                                        </div>
+                                        <div class="col-md-4 text-end">
+                                            <div class="row text-end p-2" *ngIf="sub.popular == 1">
+                                                <i class="pi pi-heart-fill text-danger" pTooltip="Most Popular Question" tooltipPosition="right" style="font-size: 1.5rem"></i>
+                                            </div>
+                                        </div>
                                         <p class="text-start text-capitalize fw-medium questiontext">{{sub.question}}
                                         </p>
                                         <button class="btn w-full btn-primary primary-btn" pButton type="button">Read
@@ -99,15 +108,15 @@
                         </div>
                         <div class="col-md-10">
                             <p-carousel #carouselVideoElm [circular]="false" [showNavigators]="false"
-                                [showIndicators]="false" [numScroll]="1" [numVisible]="3" [circular]="true"
+                                [showIndicators]="false" [numScroll]="1" [numVisible]="3"
                                 [page]="selectedVideo" [responsiveOptions]="responsiveOptions" [value]="videoLinks"
                                 *ngIf="videoLinks">
                                 <ng-template let-item pTemplate="item">
                                     <div class="border-1 surface-border border-round m-2 text-center ">
                                         <div class="mb-1">
-                                            <img src="{{item.image}}" role="button"
+                                            <img src="{{item.imageurl}}" role="button"
                                                 (click)="onClickRecommendedVideo(videoLinks)" width="100%"
-                                                [alt]="item.image" class="w-2 shadow-2" />
+                                                [alt]="item.imageurl" class="w-2 shadow-2" />
                                         </div>
                                     </div>
                                 </ng-template>
@@ -126,14 +135,14 @@
                                     class="text-green h4 mx-3 mb-0 fa-solid fa-circle-chevron-left"></i></a>
                         </div>
                         <div class="col-md-8">
-                            <p-carousel #carouselRefElm [circular]="false" [numScroll]="1" [numVisible]="3"
-                                [page]="selectedRefLink" [circular]="true" [responsiveOptions]="responsiveOptions"
+                            <p-carousel #carouselRefElm [numScroll]="1" [numVisible]="3"
+                                [page]="selectedRefLink" [circular]="false" [responsiveOptions]="responsiveOptions"
                                 [value]="refLink" *ngIf="refLink">
                                 <ng-template let-item pTemplate="item">
                                     <div class="border-1 surface-border border-round m-2 text-center ">
                                         <div class="mb-1">
-                                            <img src="{{item.image}}" (click)="onClickRecommendedLinks(refLink)"
-                                                width="100%" [alt]="item.image" class="w-2 shadow-2" />
+                                            <img src="{{item.imageurl}}" (click)="onClickRecommendedLinks(refLink)"
+                                                width="100%" [alt]="item.imageurl" class="w-2 shadow-2" />
                                         </div>
                                     </div>
                                 </ng-template>
@@ -168,8 +177,16 @@
                     <ng-template let-item pTemplate="item">
                         <div class="border-1 surface-border border-round m-2 text-center ">
                             <div class="mb-1">
-                                <iframe width="100%" height="500px"
-                                    src="https://www.youtube.com/embed/tgbNymZ7vqY"></iframe>
+                                <iframe
+                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                        allowfullscreen
+                                        class="mb-2"
+                                        frameborder="0"
+                                        height="500px "
+                                        [src]='popUpItemVideoLink'
+                                        title="YouTube video player"
+                                        width="100%"
+                                ></iframe>
                             </div>
                         </div>
                     </ng-template>
@@ -207,7 +224,7 @@
                     <ng-template let-item pTemplate="item">
                         <div class="border-1 surface-border border-round m-2 text-center ">
                             <div class="mb-1">
-                                <img src="{{item.image}}" [alt]="item.image" class="w-2 shadow-2 img-fluid" />
+                                <img src="{{item.imageurl}}" [alt]="item.imageurl" class="w-2 shadow-2 img-fluid" />
                                 <!-- <video controls height="100" width="100">
                                                 <source src="item.reflink" type="video/mp4">
                                                 <source src="item.reflink" type="video/ogg">

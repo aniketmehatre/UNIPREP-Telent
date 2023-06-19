@@ -34,7 +34,7 @@ import { DialogModule } from 'primeng/dialog';
         CarouselModule,
         PagesModule,
         TooltipModule,
-        DialogModule 
+        DialogModule,
     ],
 })
 export class DashboardModule {
