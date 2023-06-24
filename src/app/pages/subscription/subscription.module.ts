@@ -9,7 +9,6 @@ import {InputTextModule} from "primeng/inputtext";
 import {CheckboxModule} from "primeng/checkbox";
 import {ToastModule} from 'primeng/toast';
 import {MessageService} from "primeng/api";
-import {SubscribtionbillingComponent} from '../subscribtionbilling/subscribtionbilling.component';
 import { BuyCreditsComponent } from './buy-credits/buy-credits.component';
 import { SubscriptionBillingComponent } from './subscription-billing/subscription-billing.component';
 import { SubscriptionDataComponent } from './subscription-data/subscription-data.component';
@@ -28,7 +27,6 @@ import {MultiSelectModule} from "primeng/multiselect";
 @NgModule({
     declarations: [
         SubscriptionComponent,
-        SubscribtionbillingComponent,
         BuyCreditsComponent,
         SubscriptionBillingComponent,
         SubscriptionDataComponent,
