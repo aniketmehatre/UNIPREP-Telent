@@ -12,7 +12,6 @@ import {TableModule} from "primeng/table";
 import {HelpSupportComponent} from './help-support/help-support.component';
 import {UserManagementComponent} from './user-management/user-management.component';
 import {EditprofileComponent} from './user-management/editprofile/editprofile.component';
-import {SubcriptionManagerComponent} from './subcription-manager/subcription-manager.component';
 import {FooterStatusBoxComponent} from './footer-status-box/footer-status-box.component';
 import {HeaderSearchComponent} from './header-search/header-search.component';
 import {ButtonModule} from "primeng/button";
@@ -43,7 +42,6 @@ import {ModuleStoreEffects} from "./module-store/module-store.effects";
         HelpSupportComponent,
         UserManagementComponent,
         EditprofileComponent,
-        SubcriptionManagerComponent,
         FooterStatusBoxComponent,
         HeaderSearchComponent,
         QuestionCreditComponent,

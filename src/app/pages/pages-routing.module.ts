@@ -3,11 +3,7 @@ import {RouterModule, Routes} from '@angular/router';
 import {ButtonComponent} from './button/button.component';
 import {CardsComponent} from './cards/cards.component';
 import {PagesComponent} from './pages.component';
-import {SubcriptionManagerComponent} from './subcription-manager/subcription-manager.component';
-import {EditprofileComponent} from './user-management/editprofile/editprofile.component';
 import {UserManagementComponent} from './user-management/user-management.component';
-import {SubscribtionbillingComponent} from './subscribtionbilling/subscribtionbilling.component';
-import {PagesGuard} from './pages.guard';
 import {AuthGuard} from "../Auth/auth.guard";
 
 const routes: Routes = [
@@ -78,9 +74,6 @@ const routes: Routes = [
                 loadChildren: () => import('./help-support/help-support.module').then(m => m.HelpSupportModule)
             },
             {path: 'usermanagement', canActivate: [AuthGuard], component: UserManagementComponent},
-            {path: 'subscriptionmanagement', canActivate: [AuthGuard], component: SubcriptionManagerComponent},
-            {path: 'profile', canActivate: [AuthGuard], component: EditprofileComponent},
-            {path: 'billing', canActivate: [AuthGuard], component: SubscribtionbillingComponent},
             {path: '', redirectTo: 'dashboard', pathMatch: 'full'}
         ]
     }
