@@ -23,6 +23,8 @@ import {subscriptionReducer} from "./store/reducer";
 import {ButtonModule} from "primeng/button";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {MultiSelectModule} from "primeng/multiselect";
+import { DialogModule } from 'primeng/dialog';
+import { BreadcrumbModule } from 'primeng/breadcrumb';
 
 @NgModule({
     declarations: [
@@ -48,6 +50,8 @@ import {MultiSelectModule} from "primeng/multiselect";
         ReactiveFormsModule,
         MultiSelectModule,
         FormsModule,
+        DialogModule,
+        BreadcrumbModule 
     ],
     providers: [MessageService]
 })
