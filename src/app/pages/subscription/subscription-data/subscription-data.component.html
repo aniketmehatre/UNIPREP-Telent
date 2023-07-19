@@ -135,7 +135,7 @@
             <div class="col-4">
                 <div class="card-body">
                     <div class="container-fluid">
-                        <div class="row gap-5 mt-4 d-flex" style="height: 388px !important;">
+                        <div class="row gap-5 mt-4 d-flex" style="height: 420px !important;">
                             <div class="card subscriptioncard1 col px-0"  >
                                 <!-- <div class="mostpopular">Most Popular Plan</div> -->
                                 <div class="card-header p-4">
@@ -151,7 +151,7 @@
                                 <div class="card-body p-4">
                                     <h5 style="font-size: 18px; text-align: center;">Select Your Base Country</h5>
                                     <span class="p-float-label">
-                                        <p-multiSelect [options]="countryList" styleClass="w-100" optionValue="id"
+                                        <p-multiSelect [options]="countryList" styleClass="w-100 custom-multiselect" optionValue="id"
                                                        [(ngModel)]="selectedCountry"
                                                        optionLabel="country"></p-multiSelect>
                                     </span>
@@ -187,7 +187,7 @@
                                 <div class="card-body p-4">
                                     <h5 style="font-size: 18px; text-align: center;">Select Your Base Country</h5>
                                     <span class="p-float-label">
-                                        <p-multiSelect [options]="countryList" styleClass="w-100" optionValue="id"
+                                        <p-multiSelect [options]="countryList" styleClass="w-100 custom-multiselect" optionValue="id"
                                                        [(ngModel)]="selectedCountry"
                                                        optionLabel="country"></p-multiSelect>
                                     </span>
@@ -207,7 +207,7 @@
             <div class="col-4">
                 <div class="card-body">
                     <div class="container-fluid">
-                        <div class="row gap-5 mt-4 d-flex" style="height: 388px !important;">
+                        <div class="row gap-5 mt-4 d-flex" style="height: 420px !important;">
                             <div class="card subscriptioncard1 col px-0"  >
                                 <!-- <div class="mostpopular">Most Popular Plan</div> -->
                                 <div class="card-header p-4">
@@ -220,7 +220,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="card-body p-4">
+                                <div class="card-body p-4 ">
                                     <h5 style="font-size: 18px; text-align: center;">Select Your Base Country</h5>
                                     <span class="p-float-label">
                                         <p-multiSelect [options]="countryList" optionValue="id"
@@ -286,10 +286,10 @@
 <!-- top up validity -->
 <div class="row p-3" *ngIf="topupvalidity">
     <div class=" d-flex justify-content-between">
-        <div>
-            <label for="" style="    white-space: nowrap;">Select Country for Validity</label>
+        <div class="mt-2">
+            <label for="" style="white-space: nowrap;">Select Country for Validity</label>
         </div>
-        <div class="ms-5"  style="width: -webkit-fill-available;">
+        <div class="ms-2"  style="width: -webkit-fill-available;">
             <span class="p-float-label">
                 <p-multiSelect [options]="countryList" optionValue="id" placeholder="Select a country"
                                [(ngModel)]="selectedCountry" styleClass="w-100 custom-multiselect"
