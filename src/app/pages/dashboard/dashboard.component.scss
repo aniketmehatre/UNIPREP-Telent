@@ -248,7 +248,7 @@
 $borderWidth: 10px;
 $animationTime: 0.5s;
 $border-color-default: #efefef;
-$border-color-fill: #efb875;
+$border-color-fill: var(--uniprep-primaryhighlight);
 $size: 100px;
 $howManySteps: 100; //this needs to be even.
 
@@ -416,7 +416,7 @@ Due to the split circle of progress-left and progress right, we must use the ani
 }
 
 .quiz-card {
-  background: #efb875;
+  background: var(--uniprep-primaryhighlight);
   color: white;
   font-size: 0.8rem;
 }
@@ -829,7 +829,7 @@ Due to the split circle of progress-left and progress right, we must use the ani
   }
 }
 .continuecardq {
-  border: 2px solid #efb875 !important;
+  border: 2px solid var(--uniprep-primaryhighlight) !important;
   padding: 15px;
   background: #FFEFC9;
 
@@ -842,17 +842,17 @@ Due to the split circle of progress-left and progress right, we must use the ani
   }
 
   svg {
-    color: #efb875;
+    color: var(--uniprep-primaryhighlight);
   }
 
   &:hover {
     background-color: #f2deaf !important;
-    border: 2px solid #efb875 !important;
+    border: 2px solid var(--uniprep-primaryhighlight) !important;
   }
 
   &:focus {
     background-color: #f2deaf !important;
-    border: 2px solid #efb875 !important;
+    border: 2px solid var(--uniprep-primaryhighlight) !important;
   }
 }
 .questiontooltip

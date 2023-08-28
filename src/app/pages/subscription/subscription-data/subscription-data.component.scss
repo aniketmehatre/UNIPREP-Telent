@@ -118,7 +118,7 @@
   }
   &:hover
   {
-    background-color: #FAFFEC;
+    background-color: var(--uniprep-primaryop10);
     border:2px solid var(--uniprep-primary);
     height: 445px;
     .getstartedbtn
@@ -134,7 +134,7 @@
   }
   &:focus
   {
-    background-color: #FAFFEC;
+    background-color: var(--uniprep-primaryop10);
     border:2px solid var(--uniprep-primary);
     .getstartedbtn
     {
@@ -173,7 +173,7 @@
   &:hover
   {
     height: 465px;
-    background-color: #FAFFEC;
+    background-color: var(--uniprep-primaryop10);
     border:2px solid var(--uniprep-primary);
     .getstartedbtn
     {
@@ -188,7 +188,7 @@
   }
   &:focus
   {
-    background-color: #FAFFEC;
+    background-color: var(--uniprep-primaryop10);
     border:2px solid var(--uniprep-primary);
     .getstartedbtn
     {

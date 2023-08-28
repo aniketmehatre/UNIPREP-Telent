@@ -55,7 +55,7 @@
   }
   &:hover
   {
-    background-color: #FAFFEC;
+    background-color: var(--uniprep-primaryop10);
     border:2px solid var(--uniprep-primary);
     .getstartedbtn
     {
@@ -70,7 +70,7 @@
   }
   &:focus
   {
-    background-color: #FAFFEC;
+    background-color: var(--uniprep-primaryop10);
     border:2px solid var(--uniprep-primary);
     .getstartedbtn
     {

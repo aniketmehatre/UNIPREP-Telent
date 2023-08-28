@@ -12,7 +12,7 @@
 }
 
 .unselected-border {
-  border: 2px solid #efb875;
+  border: 2px solid var(--uniprep-primaryhighlight);
   border-radius: 5px;
   font-size: 0.8rem;
 }
@@ -39,7 +39,7 @@
 }
 
 .questioncard {
-  border: 2px solid #efb875;
+  border: 2px solid var(--uniprep-primaryhighlight);
   width: 100%;
   margin: 10px 0px;
 

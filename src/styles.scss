@@ -221,6 +221,7 @@ h1, h2, h3, h4, h5 {
 .btn
 {
   font-weight:600 !important;
+  border-radius:10px !important;
   
 }
 .text-green
@@ -237,10 +238,9 @@ h1, h2, h3, h4, h5 {
 }
 .btn-primary
 {
-  color: #001631 !important;
+  color: #fff !important;
   background: var(--uniprep-primary);
   border-radius: 10px !important;
-  padding: 5px !important;
   &:disabled
   {
     background-color: #343a40;
@@ -249,17 +249,17 @@ h1, h2, h3, h4, h5 {
   }
   &:hover
   {
-    color: #001631 !important;
+    color: #fff !important;
     background: var(--uniprep-primary);
   }
   &:focus
   {
-    color: #001631 !important;
+    color: #fff !important;
     background: var(--uniprep-primary);
   }
 }
 .btn-secondary {
-  color: #001631 !important;
+  color: #fff !important;
   background: var(--uniprep-secondary);
   padding: 5px !important;
   border-color: #ffa53c !important;
@@ -276,13 +276,13 @@ h1, h2, h3, h4, h5 {
   }
   &:hover
   {
-    color: #001631 !important;
+    color: #fff !important;
     background: var(--uniprep-secondary);
     border-color: var(--uniprep-secondary) !important;
   }
   &:focus
   {
-    color: #001631 !important;
+    color: #fff !important;
     background: var(--uniprep-secondary);
     border-color: var(--uniprep-secondary) !important;
     box-shadow: 0 0 0 0.25rem var(--uniprep-secondary)80;
@@ -360,7 +360,7 @@ h1, h2, h3, h4, h5 {
   {
     width: 35px;
     height: 35px;
-    background: #7D9F1B;
+    background: var(--uniprep-primaryhighlight);
     margin-left: 5px;
     display: flex;
     align-items: center;
