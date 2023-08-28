@@ -1,5 +1,5 @@
 .fillercard {
-  border: 1px solid #9bc329;
+  border: 1px solid var(--uniprep-primary);
   height: 150px;
   width: 100%;
   border-radius: 0.35rem;
@@ -14,7 +14,7 @@
 }
 
 .tablecard {
-  border: 1px solid #9bc329;
+  border: 1px solid var(--uniprep-primary);
   height: auto;
   width: 100%;
   border-radius: 0.35rem;
@@ -36,18 +36,18 @@
 }
 
 .label {
-  color: #9bc329;
+  color: var(--uniprep-primary);
 }
 
 .label2 {
   padding: 5px;
   text-align: center -webkit-right;
-  color: #9bc329;
+  color: var(--uniprep-primary);
   align-items: center;
 }
 
 .btncolor {
-  background-color: #9bc329;
+  background-color: var(--uniprep-primary);
   color: #ffffffff;
   border: none;
   margin-right: 10 pxs;
@@ -119,7 +119,7 @@
   overflow-x: hidden;
   overflow-y: auto;
   outline: 0;
-  border: 1px solid #9bc329;
+  border: 1px solid var(--uniprep-primary);
 }
 
 .modal-header {
@@ -146,8 +146,8 @@
   width: 100px;
   height: 100px;
   padding: 7px;
-  background: #9bc329;
-  border: 5px solid #9bc329;
+  background: var(--uniprep-primary);
+  border: 5px solid var(--uniprep-primary);
   color: white;
   font-size: 20px;
   text-align: center;

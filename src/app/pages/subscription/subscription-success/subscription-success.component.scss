@@ -60,7 +60,7 @@
   }
   &:hover {
     .fs {
-      color: #9bc329;
+      color: var(--uniprep-primary);
     }
     .header {
       color: #ffffff;
@@ -75,7 +75,7 @@
   .buynow {
     opacity: 0;
     border: 0;
-    background-color: #9bc329;
+    background-color: var(--uniprep-primary);
     color: white;
     width: 150px;
     height: 150px;

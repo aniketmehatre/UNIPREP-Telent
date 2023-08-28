@@ -6,7 +6,7 @@
 }
 
 .application-border {
-  border: 2px solid #9bc32a;
+  border: 2px solid var(--uniprep-primary);
   border-radius: 5%;
   font-size: 0.8rem;
 }
@@ -18,7 +18,7 @@
 }
 
 .selected-border {
-  background-color: #9bc32a;
+  background-color: var(--uniprep-primary);
   border: 0;
 }
 
@@ -37,13 +37,13 @@
   }
 
   &:focus {
-    background-color: #daeca5;
-    border: 2px solid #9bc329;
+    background-color: var(--uniprep-primaryop10);
+    border: 2px solid var(--uniprep-primary);
   }
 
   &:hover {
-    background-color: #daeca5;
-    border: 2px solid #9bc329;
+    background-color: var(--uniprep-primaryop10);
+    border: 2px solid var(--uniprep-primary);
   }
 
   .subjecttitle {
@@ -62,7 +62,7 @@
 }
 selctedQuizTiny{
   font-size: 10px;
-  color: #9bc329;
+  color: var(--uniprep-primary);
 }
 .quizprogress
 {
@@ -84,15 +84,15 @@ selctedQuizTiny{
 
 .optionanswered
 {
-  border: 2px solid #9bc329;
+  border: 2px solid var(--uniprep-primary);
   border-radius: 8px;
   color: #001631;
 }
 
 .optionreviewcorrect
 {
-  border: 2px solid #9bc329;
-  background: #9bc329;
+  border: 2px solid var(--uniprep-primary);
+  background: var(--uniprep-primary);
   border-radius: 8px;
   color: #fff;
 }

@@ -68,7 +68,7 @@ nav {
 }
 
 .icon-color {
-  background-color: #e2ecc7;
+  background-color: var(--uniprep-primaryop10);
   color: gray;
   border-radius: 8px;
 }
@@ -94,7 +94,7 @@ nav {
 {
   width: 40px;
     height: 40px;
-    border: 2px solid #e2ecc7;
+    border: 2px solid var(--uniprep-primaryop10);
     border-radius: 100%;
 }
 form {
@@ -105,7 +105,7 @@ form {
     text-align: start;
     margin-right: 10px;
     float: right;
-    color: #9bc329;
+    color: var(--uniprep-primary);
   }
 
   label {
@@ -114,7 +114,7 @@ form {
   }
 
   :focus {
-    border-color: #9bc329 !important;
+    border-color: var(--uniprep-primary) !important;
     box-shadow: 0 0 0 0.25rem rgb(13 110 253 / 0%) !important;
   }
 
@@ -160,7 +160,7 @@ form {
     padding-left: 4px;
     padding: 5px;
     margin: 5px;
-    border: 1px solid #9bc329 !important;
+    border: 1px solid var(--uniprep-primary) !important;
     border-radius: 3px;
 
     &:nth-child(1) {
@@ -185,7 +185,7 @@ form {
   width: 2.5rem !important;
   height: 2.5rem !important;
   font-size: 1rem;
-  background-color: #e2ecc7;
+  background-color: var(--uniprep-primaryop10);
   border-radius: 10px !important;
 
 }
@@ -278,7 +278,7 @@ form {
   height: 35px;
   padding: 0px;
   background: #fff;
-  border: 2px solid #9bc329;
+  border: 2px solid var(--uniprep-primary);
   border-radius: 5px;
   text-align: center;
   align-items: center;

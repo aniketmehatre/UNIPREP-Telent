@@ -108,11 +108,11 @@ p-accordion {
 
       &.success {
         .p-accordion-header-link {
-          border-color: #9bc329 !important;
+          border-color: var(--uniprep-primary) !important;
         }
         .arrow, .batch {
           color: white;
-          background-color: #9bc329;
+          background-color: var(--uniprep-primary);
         }
       }
       &.warning {
@@ -137,7 +137,7 @@ p-accordion {
   }
 }
 .p-inputgroup {
-  border: 1px solid #9bc329;
+  border: 1px solid var(--uniprep-primary);
   padding: 4px;
   border-radius: 5px;
   .p-multiselect {
@@ -152,17 +152,17 @@ p-accordion {
   .p-inputgroup-addon {
     border-width: 0px;
     background-color: transparent;
-    border-right: 1px solid #9bc329;
+    border-right: 1px solid var(--uniprep-primary);
   }
 
   .p-inputgroup-addon-new {
     border-width: 0px;
     background-color: transparent;
-    border-right: 0px solid #9bc329;
+    border-right: 0px solid var(--uniprep-primary);
   }
 
   .p-dropdown-trigger, .p-multiselect-trigger {
-    border-left: 1px solid #9bc329;
+    border-left: 1px solid var(--uniprep-primary);
   }
   input {
     padding: 0px 10px;
@@ -207,10 +207,10 @@ p-dialog {
 .p-inputtext {
   &:focus {
     box-shadow: unset !important;
-    border-color: #9bc329 !important;
+    border-color: var(--uniprep-primary) !important;
   }
   &:hover {
-    border-color: #9bc329 !important;
+    border-color: var(--uniprep-primary) !important;
   }
 }
 
@@ -219,7 +219,7 @@ p-dialog {
     display: none !important;
   }
   .p-editor-container {
-    border: 1px solid #9bc329;
+    border: 1px solid var(--uniprep-primary);
     border-radius: 11px;
     overflow: hidden;
   }

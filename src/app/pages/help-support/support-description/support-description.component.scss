@@ -3,14 +3,14 @@
   color: #343a40;
 
   &.active {
-    color: #9bc329;
+    color: var(--uniprep-primary);
     font-weight: bold;
   }
 }
 
 .card {
   h5 {
-    color: #9bc329;
+    color: var(--uniprep-primary);
     font-weight: bold;
   }
 
@@ -43,7 +43,7 @@
 }
 
 .lnk {
-  color: #9bc329;
+  color: var(--uniprep-primary);
   font-weight: 700;
   cursor: pointer;
 

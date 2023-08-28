@@ -3,7 +3,7 @@
   <defs>
     <style>
       .cls-1 {
-        fill: #9bc329;
+        fill: var(--uniprep-primary);
       }
     </style>
   </defs>

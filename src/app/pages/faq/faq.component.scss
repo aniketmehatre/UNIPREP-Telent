@@ -5,7 +5,7 @@
     cursor: pointer;
 
     &.active {
-      color: #9bc329;
+      color: var(--uniprep-primary);
     }
 
     margin-bottom: 15px;

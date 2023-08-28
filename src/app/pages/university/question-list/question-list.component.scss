@@ -6,7 +6,7 @@
 }
 
 .application-border {
-  border: 2px solid #9bc32a;
+  border: 2px solid var(--uniprep-primary);
   border-radius: 5%;
   font-size: 0.8rem;
 }
@@ -18,7 +18,7 @@
 }
 
 .selected-border {
-  background-color: #9bc32a;
+  background-color: var(--uniprep-primary);
   border: 0;
 }
 
@@ -48,26 +48,26 @@
     bottom: 10px;
     margin: 0;
     width: 95%;
-    border: 2px solid #9bc329;
+    border: 2px solid var(--uniprep-primary);
   }
 
   &:focus {
-    background-color: #daeca5;
-    border: 2px solid #9bc329;
+    background-color: var(--uniprep-primaryop10);
+    border: 2px solid var(--uniprep-primary);
 
     .primary-btn {
       background-color: #fff;
-      border: 2px solid #9bc329;
+      border: 2px solid var(--uniprep-primary);
     }
   }
 
   &:hover {
-    background-color: #daeca5;
-    border: 2px solid #9bc329;
+    background-color: var(--uniprep-primaryop10);
+    border: 2px solid var(--uniprep-primary);
 
     .primary-btn {
       background-color: #fff;
-      border: 2px solid #9bc329;
+      border: 2px solid var(--uniprep-primary);
     }
   }
 
@@ -83,7 +83,7 @@
   height: 40px;
   padding: 7px;
   background: #fff;
-  border: 5px solid #9bc329;
+  border: 5px solid var(--uniprep-primary);
   color: black;
   text-align: center;
   align-items: center;
@@ -123,8 +123,8 @@
 }
 
 .answercard {
-  background-color: #daeca5;
-  border: 2px solid #9bc329;
+  background-color: var(--uniprep-primaryop10);
+  border: 2px solid var(--uniprep-primary);
   max-height: 60vh;
   overflow-y: auto;
 }
@@ -138,7 +138,7 @@
 }
 
 .card-color {
-  background: #9bc329 !important;
+  background: var(--uniprep-primary) !important;
   width: 100%;
   height: 100%;
 

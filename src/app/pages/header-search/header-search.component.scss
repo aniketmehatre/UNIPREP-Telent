@@ -9,8 +9,8 @@
   vertical-align: middle;
   display: flex;
   font-size: 2rem;
-  color: #9bc329;
-  border-right: 1px solid #9bc329;
+  color: var(--uniprep-primary);
+  border-right: 1px solid var(--uniprep-primary);
   padding: 10px;
 }
 
@@ -36,11 +36,11 @@ btn-primary {
   left: 0;
   top: 60px;
   border-radius: 10px;
-  border: 1px solid #9bc329;
+  border: 1px solid var(--uniprep-primary);
 }
 .answercard {
-  background-color: #daeca5;
-  border: 2px solid #9bc329;
+  background-color: var(--uniprep-primaryop10);
+  border: 2px solid var(--uniprep-primary);
   max-height: 60vh;
   overflow-y: auto;
 }

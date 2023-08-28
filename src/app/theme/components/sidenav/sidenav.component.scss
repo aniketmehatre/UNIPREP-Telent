@@ -1,7 +1,8 @@
 .app-title {
-    // padding: 0rem 0rem 0.5rem 1.5rem;
-   // border-bottom: 1px solid #ebe6e6;
-   text-align: center;
+    display: flex;
+    justify-content: center;
+    margin-top: 5px;
+    margin-bottom: 10px;
 }
 
 #menu-items {
@@ -18,7 +19,7 @@
         right: -1.25em;
         top: -3.5em;
         z-index: 999;
-        background: #9bc329;
+        background: var(--uniprep-primary);
         }
         
     }
@@ -56,19 +57,19 @@
             &:hover
             {
                 color: #001631;
-                background-color: #e2ecc7;
+                background-color: var(--uniprep-primaryop10);
                 border-radius:10px;
             }
         }
         &.active {
             .system-main__apps {
                 color: #fff;
-                background-color: #9bc329;
+                background-color: var(--uniprep-primary);
                 border-radius: 10px 10px;
             }
             background-color: transparent;
             .system-main__icon .pi {
-                color: #9bc329;
+                color: var(--uniprep-primary);
             }
             .menu-item.active {
                 .system-main__name {

@@ -57,7 +57,7 @@
   }
   .dsrp-score, .dsrp-content {
     &.success {
-      color: #9bc329;
+      color: var(--uniprep-primary);
     }
     &.warning {
       color: orange;
@@ -88,7 +88,7 @@
   stroke: #ff0000;
 }
 .circular-chart.success .circle {
-  stroke: #9bc329;
+  stroke: var(--uniprep-primary);
 }
 .percentage {
   fill: #666;

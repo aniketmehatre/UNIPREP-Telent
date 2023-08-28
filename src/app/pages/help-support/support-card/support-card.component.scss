@@ -1,7 +1,7 @@
 .km {
   margin-top: 8px;
   font-size: .8rem;
-  color: #9bc329;
+  color: var(--uniprep-primary);
   font-weight: 700;
 
   span {
@@ -32,7 +32,7 @@
 }
 
 .lnk {
-  color: #9bc329;
+  color: var(--uniprep-primary);
   font-weight: 700;
   cursor: pointer;
 

@@ -1,11 +1,11 @@
 .selected-box {
-  background: #daeca5;
+  background: var(--uniprep-primaryop10);
   color: black;
   font-size: 1.2rem;
   font-weight: bold;
   display: flex;
   padding: 10px;
-  border: 1px solid #daeca5;
+  border: 1px solid var(--uniprep-primaryop10);
   border-radius: 8px;
   box-shadow: 1px 2px 5px 0 rgba(0, 0, 0, 0.16),
   0 2px 10px 0 rgba(0, 0, 0, 0.12);
@@ -14,7 +14,7 @@
 }
 
 .modal-selected-box {
-  background: #daeca5;
+  background: var(--uniprep-primaryop10);
   color: black;
   font-size: 0.8rem;
   font-weight: bold;
@@ -45,7 +45,7 @@
   font-weight: bold;
   display: flex;
   padding: 10px;
-  border: 1px solid #daeca5;
+  border: 1px solid var(--uniprep-primaryop10);
   border-radius: 8px;
   box-shadow: 1px 2px 5px 0 rgba(215, 142, 142, 0.16),
   0 2px 10px 0 rgba(0, 0, 0, 0.12);
@@ -64,17 +64,17 @@
   }
 
   svg {
-    color: #9bc329;
+    color: var(--uniprep-primary);
   }
 
   &:hover {
-    background-color: #daeca5;
-    border: 2px solid #9bc329;
+    background-color: var(--uniprep-primaryop10);
+    border: 2px solid var(--uniprep-primary);
   }
 
   &:focus {
-    background-color: #daeca5;
-    border: 2px solid #9bc329;
+    background-color: var(--uniprep-primaryop10);
+    border: 2px solid var(--uniprep-primary);
   }
 }
 

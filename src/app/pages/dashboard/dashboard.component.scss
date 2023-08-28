@@ -38,7 +38,7 @@
 .title_p {
   font-size: smaller !important;
   padding: 0.9rem 0.9rem 0rem 0.9rem;
-  color: #9bc329;
+  color: var(--uniprep-primary);
 }
 
 ._title {
@@ -46,7 +46,7 @@
   font-size: x-small;
   padding: 0.8rem;
   background-color: #e1e1e1b3;
-  color: #9bc329;
+  color: var(--uniprep-primary);
   border-radius: 5px;
   box-shadow: rgb(0 0 0 / 15%) 0px 3px 8px;
 
@@ -104,7 +104,7 @@
 .terms_p {
   font-size: small;
   color: white;
-  background: #9bc329;
+  background: var(--uniprep-primary);
   width: 20%;
   border-radius: 2px;
   padding-left: 1rem;
@@ -138,7 +138,7 @@
 .modal-content {
   background-color: #fff;
   overflow: hidden;
-  border-color: #9bc329;
+  border-color: var(--uniprep-primary);
 }
 
 .modal-bg {
@@ -157,7 +157,7 @@
 }
 
 .border-primary {
-  border: 1px solid #9bc329 !important;
+  border: 1px solid var(--uniprep-primary) !important;
 }
 
 .card-base > .card-icon {
@@ -166,7 +166,7 @@
 }
 
 .p-inputgroup {
-  border: 1px solid #9bc329;
+  border: 1px solid var(--uniprep-primary);
   padding: 0 !important;
   border-radius: 8px;
 }
@@ -214,7 +214,7 @@
 }
 
 .widgetCardIconOthers {
-  background: #9bc32a !important;
+  background: var(--uniprep-primary) !important;
   font-size: 28px;
   line-height: 35px;
 }
@@ -335,7 +335,7 @@ $howManySteps: 100; //this needs to be even.
 
     div {
       //margin-top: 10px;
-      background-color: #9bc32a;
+      background-color: var(--uniprep-primary);
       border-radius: 100%;
       padding: 10px;
       color: white;
@@ -356,7 +356,7 @@ $howManySteps: 100; //this needs to be even.
 }
 
 .country-text {
-  color: #9bc32a;
+  color: var(--uniprep-primary);
   font-weight: 600;
   font-size: 1rem;
 }
@@ -368,9 +368,9 @@ $howManySteps: 100; //this needs to be even.
 }
 
 .country-border {
-  border: 2px solid #9bc32a;
+  border: 2px solid var(--uniprep-primary);
   border-radius: 5%;
-  background: #f6ffda;
+  background: var(--uniprep-primaryop10);
 }
 
 /* This for loop creates the necessary css animation names 
@@ -770,7 +770,7 @@ Due to the split circle of progress-left and progress right, we must use the ani
   right: -13px;
   font-size: 18px;
   color: white;
-  background-color: #9bc329;
+  background-color: var(--uniprep-primary);
   padding: 7px 15px;
   border-radius: 50%;
   text-decoration: none;
@@ -793,7 +793,7 @@ Due to the split circle of progress-left and progress right, we must use the ani
 .p-carousel .p-carousel-content .p-carousel-prev, .p-carousel .p-carousel-content .p-carousel-next {
   width: 2rem;
   height: 2rem;
-  color: #9bc329 !important;
+  color: var(--uniprep-primary) !important;
   border: 0 none;
   background: transparent;
   border-radius: 50%;
@@ -802,30 +802,30 @@ Due to the split circle of progress-left and progress right, we must use the ani
 }
 
 .continuecard {
-  border: 2px solid #9bc329 !important;
+  border: 2px solid var(--uniprep-primary) !important;
   padding: 15px;
-  background: #daeca5;
+  background: var(--uniprep-primaryop10);
 
   .progress1 {
     .progress1-value {
       div {
-        background-color: #9bc329;
+        background-color: var(--uniprep-primary);
       }
     }
   }
 
   svg {
-    color: #9bc329;
+    color: var(--uniprep-primary);
   }
 
   &:hover {
-    background-color: #c8dd8b !important;
-    border: 2px solid #9bc329 !important;
+    background-color: var(--uniprep-primaryop30) !important;
+    border: 2px solid var(--uniprep-primary) !important;
   }
 
   &:focus {
-    background-color: #c8dd8b !important;
-    border: 2px solid #9bc329 !important;
+    background-color: var(--uniprep-primaryop30) !important;
+    border: 2px solid var(--uniprep-primary) !important;
   }
 }
 .continuecardq {
@@ -859,6 +859,6 @@ Due to the split circle of progress-left and progress right, we must use the ani
 {
   position: absolute;
   top: 5px;
-  color:#9bc329;
+  color:var(--uniprep-primary);
   margin-left: 5px;
 }

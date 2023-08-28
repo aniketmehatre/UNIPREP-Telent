@@ -7,7 +7,7 @@ body {
   background-color: #ffffff;
   font-family: "Montserrat !important";
   font-size: 0.95rem;
-  --primary-color: #9bc329;
+  --primary-color: var(--uniprep-primary);
   --secondary-color: #2088f0;
   --warning: #ffc107;
   --card-color: #90b91f;
@@ -22,22 +22,22 @@ body {
   margin: 0 !important;
 }
 .font-primarycolor {
-  color: #9bc329 !important;
+  color: var(--uniprep-primary) !important;
 }
 .fit-content {
   width: fit-content;
 }
 .hover-bg {
   &:hover {
-    background-color: #9bc329;
+    background-color: var(--uniprep-primary);
     color: #ffffff;
   }
 }
 .bg-app {
-  background-color: #9bc329;
+  background-color: var(--uniprep-primary);
 }
 .text-app {
-  color: #9bc329;
+  color: var(--uniprep-primary);
 }
 .bold {
   font-weight: 700;
@@ -71,7 +71,7 @@ body {
     height: 5px;
     display: block;
     margin-top: 10px !important;
-    background-color: #9bc329;
+    background-color: var(--uniprep-primary);
     border-radius: 5px;
   }
   &.sop-border-center {
@@ -82,7 +82,7 @@ body {
 }
 
 .g-header-top {
-  background-color: #9bc329;
+  background-color: var(--uniprep-primary);
   color: white;
   text-transform: uppercase;
   border-bottom-left-radius: 20px;
