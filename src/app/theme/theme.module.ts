@@ -15,11 +15,15 @@ import {InputTextareaModule} from "primeng/inputtextarea";
 import {OverlayPanelModule} from "primeng/overlaypanel";
 import {DialogModule} from "primeng/dialog";
 import {InputTextModule} from "primeng/inputtext";
+import { CardModule } from 'primeng/card';
+import { EditorModule } from 'primeng/editor';
 
 @NgModule({
   declarations: [HeaderComponent, SidenavComponent, SideMenuComponent],
     imports: [
         CommonModule, PipesModule, BreadcrumbModule,
+        CardModule,
+        EditorModule,
         AvatarModule, CountdownModule, ButtonModule, FormsModule, DropdownModule, InputTextareaModule, OverlayPanelModule, DialogModule, ReactiveFormsModule, InputTextModule
     ],
   exports: [HeaderComponent, SidenavComponent, CountdownComponent]
