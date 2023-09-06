@@ -34,6 +34,23 @@
   color: var(--uniprep-secondaryhighlight);
 }
 
+.worksans
+{
+  font-family: 'Work Sans', sans-serif !important;
+}
+
+.worksans-semibold
+{
+  font-family: 'Work Sans', sans-serif;
+  font-weight:600;
+}
+
+.worksans-regular
+{
+  font-family: 'Work Sans', sans-serif;
+  font-weight:400;
+}
+
 
 html,
 body {
@@ -833,6 +850,15 @@ h1, h2, h3, h4, h5 {
       color: #fff;
       background: var(--uniprep-primary);
     }
+  }
+  .timertext
+  {
+    color:#fff;
+  }
+  .boxView
+  {
+    background-color: #202124;
+    color:white !important;
   }
   .p-inputtext {
     color: #fff;
