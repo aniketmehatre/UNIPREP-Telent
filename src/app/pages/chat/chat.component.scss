@@ -119,13 +119,14 @@
   padding: 7px;
   border-radius: 4px;
   text-transform: uppercase;
-  width: 14%;margin-right: 10px;
+  width: 16%;
+  margin-right: 10px;
 }
 button {
   border-radius: 3px !important;
   font-size: x-small;
   padding: 9px;
-  margin: 1px!important;
+  margin: 1px !important;
   background-color: white;
 }
 
@@ -157,7 +158,7 @@ a {
   text-align: center;
   i {
     color: black;
-    vertical-align: middle;
+    vertical-align: -webkit-baseline-middle;
   }
 }
 
@@ -277,4 +278,38 @@ countryimage {
 }
 .p-card .p-card-content {
   width: 100% !important;
+}
+.chat {
+  height: 300px;
+  overflow: scroll;
+}
+
+::ng-deep .p-confirm-popup {
+  width: 375px;
+  font-size: medium;
+  font-weight: 600;
+  background-color: #888a9447;
+  color: #3f4c83;
+  border: 2px solid #3f4c83;
+}
+
+::ng-deep .p-confirm-popup-footer {
+  button {
+    background: none !important;
+    border: none !important;
+    color: #3f4c83;
+    :active {
+      background: none !important;
+      border: none !important;
+      color: #3f4c83;
+    }
+    :focus{
+      background: none !important;
+      border: none !important;
+      color: #3f4c83;
+    }
+  }
+}
+::ng-deep .p-confirm-popup .p-confirm-popup-flipped:after {
+  border-top-color: #888a9447 !important;
 }

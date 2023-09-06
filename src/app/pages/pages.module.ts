@@ -36,6 +36,8 @@ import {appFeatureKey} from "./module-store/module-store.selectors";
 import {ModuleStoreEffects} from "./module-store/module-store.effects";
 import { ChatComponent } from './chat/chat.component';
 import { CardModule } from 'primeng/card';
+import { EditorModule } from 'primeng/editor';
+import { ConfirmPopupModule } from 'primeng/confirmpopup';
 @NgModule({
     declarations: [
         PagesComponent,
@@ -76,7 +78,8 @@ import { CardModule } from 'primeng/card';
         ProgressBarModule,
         LifeAtModule,
         ConfirmDialogModule,
-        CardModule
+        CardModule,
+        EditorModule,ConfirmPopupModule
     ],
     schemas: [
         CUSTOM_ELEMENTS_SCHEMA
