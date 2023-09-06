@@ -62,6 +62,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
   min: number = 0;
   sec: number = 0;
   isVisibleModulesMenu: boolean = false;
+  isChatWindowVisible: boolean = false;
+  messages:any=[];
   show= false;
   password: string = 'password';
   show1= false;
@@ -190,7 +192,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.getReportOption();
     this.dataService.chatTriggerSource.subscribe((message) => {
       if (message === "open chat window") {
-        this.openModal(null);
+        this.openModal();
       }
     });
     this.dataService.openReportWindowSource.subscribe((data) => {
@@ -258,10 +260,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.subs.unsubscribe();
   }
 
-  openModal(e: any) {
-    //e.preventDefault();
-    this.modalService.setRootViewContainerRef(this.viewContainerRef);
-    this.modalService.addDynamicComponent();
+  openModal() {
+    this.isChatWindowVisible = true;
   }
 
   openReportModal(op: any, event: any) {
