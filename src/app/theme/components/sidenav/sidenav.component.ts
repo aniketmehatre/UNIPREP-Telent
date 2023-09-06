@@ -73,6 +73,11 @@ export class SidenavComponent {
       image: 'fa-solid fa-crown',
     },
     {
+      title: 'Resources',
+      url: '/pages/resource',
+      image: 'fa-solid fa-link',
+    },
+    {
       title: 'FAQ',
       url: '/pages/faq',
       image: 'fa-solid fa-comments-question',
