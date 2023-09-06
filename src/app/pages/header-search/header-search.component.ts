@@ -244,4 +244,6 @@ export class HeaderSearchComponent implements OnInit, OnDestroy {
         this.isSearchResultFound = false;
     }
 
+
+
 }
