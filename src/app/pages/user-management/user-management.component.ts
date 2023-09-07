@@ -310,6 +310,7 @@ export class UserManagementComponent implements OnInit {
         this.getProgramLevelList();
         this.getCountryList();
         this.authService.userData.subscribe(data => {
+            console.log(data);
             if(data){
                 this.user = data;
                 let mon = this.getMonthName(this.user?.intake_month_looking);
