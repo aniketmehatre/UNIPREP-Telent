@@ -25,6 +25,7 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {MultiSelectModule} from "primeng/multiselect";
 import { DialogModule } from 'primeng/dialog';
 import { BreadcrumbModule } from 'primeng/breadcrumb';
+import { ChipModule } from 'primeng/chip';
 
 @NgModule({
     declarations: [
@@ -51,7 +52,8 @@ import { BreadcrumbModule } from 'primeng/breadcrumb';
         MultiSelectModule,
         FormsModule,
         DialogModule,
-        BreadcrumbModule 
+        BreadcrumbModule,
+        ChipModule
     ],
     providers: [MessageService]
 })
