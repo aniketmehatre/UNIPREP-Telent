@@ -62,4 +62,13 @@ export class ModuleStoreService {
         }
         return this.http.post<any>(environment.ApiUrl + "/markread", data);
     }
+
+    GetReviewedByOrgLogo(params: {
+        question_id: number,
+    }): Observable<any> {
+        let data = {
+            question_id: params.question_id,
+        }
+        return this.http.post<any>(environment.ApiUrl + "/GetReviewedByOrgLogo", data);
+    }
 }
