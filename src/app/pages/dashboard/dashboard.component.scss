@@ -869,13 +869,14 @@ Due to the split circle of progress-left and progress right, we must use the ani
 }
 
 .ellipse-button {
-  width: 100px; 
-  height: 20px; 
-  background-color: #ffa53c; 
-  border-radius: 25px; 
+  width: auto;
+  padding: 6px 25px;
+  height: auto;
+  background-color: #f0780e;
+  border-radius: 25px;
   display: flex;
   justify-content: center;
   align-items: center;
-  cursor: not-allowed; 
-  font-size: 8px;
+  cursor: not-allowed;
+  font-size: 10px;
 }
