@@ -392,7 +392,7 @@ h1, h2, h3, h4, h5 {
 .btn-back {
   color: #fff !important;
   background: #001631 !important;
-  padding: 5px !important;
+  padding: 5px 10px !important;
   border-color: #708FB5 !important;
   border-radius: 10px !important;
   .btn-icon
@@ -1492,4 +1492,21 @@ h1, h2, h3, h4, h5 {
   background-color: #fff;
   color: #000;
   border: 1px solid #ced4da;
+}
+
+.subscriptiontable .p-datatable th {
+  background-color: #fff !important;
+  color: #000 !important;
+  border-right: none !important;
+}
+
+.subscriptiontable .p-datatable .p-datatable-thead > tr > th {
+  border: 2px solid #000;
+  border-width: 0 0 2px 0;
+}
+
+.subscriptioncard1 .p-chip img,.subscriptioncard .p-chip img {
+  width: 1.5rem;
+  height: 1.5rem;
+  margin-left: -0.5rem;
 }

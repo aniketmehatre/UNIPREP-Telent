@@ -12,4 +12,12 @@ export class SubscriptionedDataComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  buttonclicked1() {
+
+  }
+
+  buttonclicked2() {
+    
+  }
+
 }
