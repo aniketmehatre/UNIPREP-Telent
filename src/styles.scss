@@ -1505,3 +1505,17 @@ h1, h2, h3, h4, h5 {
     }
   }
 }
+.btn-basic {
+  color: #000;
+  border-radius: 20px !important;
+  border: 1px solid #000;
+  &:hover {
+    border: 1px solid #000;
+  }
+}
+
+.subscriptioncard1 .p-chip, .subscriptioncard .p-chip {
+  background-color: #fff;
+  color: #000;
+  border: 1px solid #ced4da;
+}

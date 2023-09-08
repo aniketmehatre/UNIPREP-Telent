@@ -13,7 +13,7 @@ export class SubscriptionDataComponent implements OnInit {
   selectedButton:any;
   countryList: any;
   breadCrumb: MenuItem[] = [];
-  selectedCountry: any[] = [[2], [2], [2], [2]];
+  selectedCountry: any[] = [2, 3];
   isInstructionVisible: boolean = false
   @Input() billing!: any | null;
   @Input() subscriptions!: Subscription | null;
@@ -22,6 +22,8 @@ export class SubscriptionDataComponent implements OnInit {
   basesubscription=true;
   topupcountries=false;
   topupvalidity=false;
+  labelVariable: string = 'test'
+  baseSubSelectedCountry: any = [2];
   constructor(  private authService: AuthService,) { }
 
   ngOnInit(): void {
@@ -30,6 +32,7 @@ export class SubscriptionDataComponent implements OnInit {
       this.countryList = data;
       console.log(this.countryList);
   });
+  this.buttonclicked2()
   }
   get URL() {
     return `${environment.ApiUrl}/downloadinvoice`;

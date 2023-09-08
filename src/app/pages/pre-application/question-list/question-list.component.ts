@@ -262,7 +262,8 @@ export class QuestionListComponent implements OnInit, AfterContentChecked {
 
     onClickRecommendedVideo(data: any) {
         this.isRecommendedVideoVisible = true;
-        this.popUpItemVideoLink = this._sanitizer.bypassSecurityTrustResourceUrl(data[0].link);
+        let url = encodeURIComponent(data[0].link);
+        this.popUpItemVideoLink = this._sanitizer.bypassSecurityTrustResourceUrl(url);
     }
 
     onClickRecommendedLinks(data: any) {
