@@ -156,4 +156,14 @@
   display: flex;
 }
 
-
+.passwordvisibility
+{
+  position: absolute;
+  right: 25px;
+  top: 35px;
+  cursor: pointer;
+  img {
+    width:20px;
+    height:20px;
+  }
+}

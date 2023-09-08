@@ -110,7 +110,7 @@
             <div class="container-fluid px-0">
                 <div class="card card-body">
                     <div class="row">
-                        <div class="d-flex col-sm-5 col-md-6  justify-content-between">
+                        <div class="d-flex col-sm-5 col-md-6 mb-2 justify-content-between">
                             <h4>Update Password</h4>
                         </div>
                         <div class="d-flex col-sm-5 col-md-6 justify-content-end">
@@ -118,50 +118,31 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="container">
-                            <div class="d-flex">
-                                <div class="flex-fill p-4">
-                                    <small>Full Name</small>
-                                    <p class="mb-0 fw-semibold">{{ user?.name }}</p>
-                                </div>
-                                <div class="flex-fill p-4">
-                                    <small>Country</small>
-                                    <p class="mb-0 fw-semibold">{{ user?.name }}</p>
-                                </div>
-                                <div class="flex-fill p-4">
-                                    <small>Location(district)</small>
-                                    <p class="mb-0 fw-semibold">{{ user?.location_id }}</p>
-                                </div>
-                                <div class="flex-fill p-4">
-                                    <small>Intrested Country</small>
-                                    <p class="mb-0 fw-semibold">{{ user?.interested_country_id }}</p>
-                                </div>
-                                <div class="flex-fill p-4">
-                                    <small>Last Degree Passing Year</small>
-                                    <p class="mb-0 fw-semibold">{{ user?.last_degree_passing_year }}</p>
+                        <form [formGroup]="updatedpasswords" (ngSubmit)="UserUpdatePassword(updatedpasswords)">
+                            <div class="container">
+                                <div class="d-flex">
+                                    <div class="flex-fill p-2 position-relative">
+                                        <label class="mb-1">Current Password</label>
+                                        <input type="text" class="form-control" formControlName="current_password">
+                                        <span class="passwordvisibility" >
+                                            <img src="../../../uniprep-assets/icons/viewpassword.svg" >
+                                            <!-- <img src="../../../uniprep-assets/icons/hidepassword.svg" > -->
+                                        </span>
+                                    </div>
+                                    <div class="flex-fill p-2">
+                                        <label class="mb-1">Set New Password</label>
+                                        <input type="text" class="form-control" formControlName="new_password">
+                                    </div>
+                                    <div class="flex-fill p-2">
+                                        <label class="mb-1">Enter New Password Again</label>
+                                        <input type="text" class="form-control" formControlName="confirm_password">
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="container">
-                            <div class="d-flex">
-                                <div class="flex-fill p-4">
-                                    <small>Intake Month</small>
-                                    <p class="mb-0 fw-semibold">{{ user?.intake_month_looking }}</p>
-                                </div>
-                                <div class="flex-fill p-4">
-                                    <small>Intake Year</small>
-                                    <p class="mb-0 fw-semibold">{{ user?.intake_year_looking }}</p>
-                                </div>
-                                <div class="flex-fill p-4">
-                                    <small>Program Level</small>
-                                    <p class="mb-0 fw-semibold">{{ user?.programlevel_id }}</p>
-                                </div>
-                                <div class="flex-fill p-4"></div>
-                                <div class="flex-fill p-4"></div>
+                            <div class="d-flex justify-content-end mt-2">
+                                <button type="submit" class="btn btn-primary" >Update Password</button>
                             </div>
-                        </div>
+                        </form>
                     </div>
                 </div>
             </div>

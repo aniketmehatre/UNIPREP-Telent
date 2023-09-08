@@ -275,6 +275,7 @@ export class UserManagementComponent implements OnInit {
     registrationForm!: FormGroup;
     countryList: any;
     dateTime = new Date();
+    updatedpasswords: FormGroup;
     private subs = new SubSink();
     constructor(
         private authService: AuthService,
@@ -297,6 +298,12 @@ export class UserManagementComponent implements OnInit {
             programlevel_id: [this.user?.programlevel_id, [Validators.required]],
             gender: [this.user?.gender, [Validators.required]],
             newsletter_consent: [this.user?.newsletter_consent == 1, [Validators.required]],
+        });
+
+        this.updatedpasswords = this.formBuilder.group({
+            current_password: ['', [Validators.required]],
+            new_password: ['', [Validators.required]],
+            confirm_password: ['', [Validators.required]],
         });
     }
 
@@ -441,6 +448,24 @@ export class UserManagementComponent implements OnInit {
         this.subs.sink = this.userManagementService.updateUserDetails(data).subscribe(data => {
             this.toast.add({ severity: 'success', summary: 'Success', detail: "Successfully Updated" });
         });
+    }
+
+    UserUpdatePassword(updatedpasswords:any){
+        console.log(this.updatedpasswords.value);
+        console.log(this.authService.userData.value);
+        let data = this.updatedpasswords.value;
+
+        this.subs.sink = this.userManagementService.CompareUserPassword(data).subscribe(passwordconfirmation => {
+            if(!passwordconfirmation.success){
+                return this.toast.add({ severity: 'error', summary: 'Success', detail: passwordconfirmation.message });
+            }else if(data.new_password != data.confirm_password){
+                this.toast.add({ severity: 'error', summary: 'Success', detail: "New Password and Confirm Password are Not Same" });
+            }else if(data.confirm_password == data.current_password){
+                this.toast.add({ severity: 'error', summary: 'Success', detail: "New Password and Old Password are same Please Change" });
+            }
+        });
+        console.log("comes or not");
+        
     }
 
 }
