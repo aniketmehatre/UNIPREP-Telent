@@ -46,6 +46,8 @@ export class ModuleServiceService {
     this.store.dispatch(readQuestion({
       countryId: data.countryId,
       questionId: data.questionId,
+      moduleId: data.moduleId,
+      submoduleId: data.submoduleId
     }));
   }
   readQuestionMessage$() {
