@@ -89,7 +89,7 @@ export class QuestionListComponent implements OnInit, AfterContentChecked {
         let data = {
             countryId: Number(localStorage.getItem('countryId')),
             moduleId: 2,
-            submoduleId: this.subModuleId
+            submoduleId: Number(this.subModuleId)
         }
         this.moduleListService.loadQuestionList(data);
     }
@@ -148,7 +148,9 @@ export class QuestionListComponent implements OnInit, AfterContentChecked {
         });
         let readQueData = {
             questionId: selectedData.id,
-            countryId: this.countryId
+            countryId: this.countryId,
+            moduleId: 2,
+            submoduleId: this.subModuleId
         }
 
         this.readQuestion(readQueData);

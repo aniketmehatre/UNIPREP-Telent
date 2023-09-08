@@ -140,7 +140,9 @@ export class QuestionListComponent implements OnInit, AfterContentChecked {
         });
         let data = {
             questionId: selectedData.id,
-            countryId: this.countryId
+            countryId: this.countryId,
+            moduleId: 1,
+            submoduleId: Number(this.subModuleId)
         }
 
         this.readQuestion(data);

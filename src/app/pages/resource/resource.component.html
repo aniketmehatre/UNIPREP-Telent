@@ -1,0 +1,25 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-lg-2">
+                    </div>
+                    <div class="row mb-0 justify-content-center text-center">
+                        <div class="badge bg-dark text-wrap upper-text text-capitalize">
+                            RESOURCES
+                        </div>
+                      </div>
+                    <div class="col-lg-2">
+                  </div>
+            </div>
+            <div class="container">
+                <div class="row">
+                  <div *ngFor="let resource of resourceslist" class="col-4 mt-3">
+                    <div class="card card-style"><a href={{resource.link}} target="_blank" style="text-decoration: none;">{{resource.title}}</a></div>
+                  </div>
+                </div>
+              </div>
+        </div>
+    </div>
+</div>
