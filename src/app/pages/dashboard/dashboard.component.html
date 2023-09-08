@@ -126,16 +126,21 @@
       </div>
     </div>
     <div class="col px-0 d-flex">
-      <div class="w-100 justify-content-center bg-white card">
+      <div class="w-120 justify-content-center bg-white card">
         <div class="card-body">
           <div class="row mb-3">
             <div class="col-md-6 col-lg-6 d-flex">
-              <button
+              <button style="pointer-events: none;"
                 (click)="openQuiz()"
-                class="btn w-100 btn-secondary m-0 px-4 py-3 homecardbtn"
+                class="btn w-100 m-0 px-4 py-3 homecardbtn homecardbtnquiz"
               >
-                <i class="fa-regular h3 fa-lightbulb"></i>
+                <i class="fa-regular h3 fa-lightbulb-on"></i>
                 <p class="mb-0">Start<br />Quiz</p>
+                <div class="row">
+                  <span class="ellipse-button">
+                    Launching Soon
+                  </span>
+              </div>
               </button>
             </div>
             <div class="col-md-6 col-lg-6 d-flex align-items-center">
