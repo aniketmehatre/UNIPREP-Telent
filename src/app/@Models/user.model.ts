@@ -43,5 +43,6 @@ export interface User {
     state: string;
     district: string;
     programlevel: string;
+    country:string;
 
 }
