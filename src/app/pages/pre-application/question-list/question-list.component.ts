@@ -32,6 +32,7 @@ export class QuestionListComponent implements OnInit, AfterContentChecked {
     selectedRefLink: number = 0;
     positionNumber: number = 0;
     data: any;
+    imageUrl:any;
     breadCrumb: MenuItem[] = [];
     isQuestionAnswerVisible: boolean = false;
     isRecommendedLinksVisible: boolean = false;
@@ -329,7 +330,18 @@ export class QuestionListComponent implements OnInit, AfterContentChecked {
         this.carouselPopupRefElm.navForward(event, this.selectedRefLink)
     }
 
+    imageList:any = [];
     reviewBy(){
+        let data = {
+            question_id: this.selectedQuestionData.id,
+        }
+        this.imageList=[];
+        this.moduleListService.getReviewOrgLogo(data).subscribe((response:any)=>{
+            response.forEach((element:any)=> {
+                var logo = element.logo;
+                this.imageList.push(logo);
+            });
+        });
         this.isReviewedByVisible = true;
     }
 }
