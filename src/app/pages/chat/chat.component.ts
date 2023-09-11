@@ -23,17 +23,16 @@ export class ChatComponent implements OnInit {
   ) {}
   username: string = "";
   ngOnInit(): void {
-    this.getChatHistoryByUserId(Number(localStorage.getItem("UserID")));
+    this.getChatHistoryByUserId();
     this.username = localStorage.getItem("Name") || "";
   }
   totalquestionsanswered = 0;
   totalquestionsasked = 0;
   questionsleft = 0;
-  getChatHistoryByUserId(id: number) {
+  getChatHistoryByUserId() {
     this.service
-      .getChatHistoryByUser({ chatuserid: id })
+      .getChatHistoryByUser()
       .subscribe((response) => {
-        console.log(response)
         this.messages = response.messages;
         this.totalquestionsasked = response?.totalquestionsasked;
         this.totalquestionsanswered = response?.totalquestionsanswered;
@@ -48,12 +47,14 @@ export class ChatComponent implements OnInit {
     }
     let data = {
       message: this.textMessage,
-      country: "1",
-      module: "1",
+      country: 2,
     };
     this.service.sendChatMessage(data).subscribe((response) => {
-      this.textMessage = "";
-      this.getChatHistoryByUserId(Number(localStorage.getItem("UserID")));
+          this.textMessage = "";
+          this.getChatHistoryByUserId();
+        },
+      (error) => {
+        this.toast.add({severity: 'warn', summary: 'Warn', detail: error?.message});
     });
   }
   confirm(event: Event) {

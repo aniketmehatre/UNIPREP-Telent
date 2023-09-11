@@ -40,8 +40,11 @@ export class ChathistoryService {
             headers: headers,
         });
     }
-    getChatHistoryByUser(params: Object) {
-        return this.http.post<ChatsByUser>(environment.ApiUrl+'/getchathistorybyid', params);
+    getChatHistoryByUser() {
+        const headers = new HttpHeaders().set("Accept", "application/json");
+        return this.http.post<ChatsByUser>(environment.ApiUrl+'/getchathistory',{
+            headers: headers,
+        });
     }
 
     sendChatMessage(params: any) {
