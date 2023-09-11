@@ -1,0 +1,145 @@
+.application-text-small {
+  color: black;
+  font-size: 0.8rem;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.application-border {
+  border: 2px solid var(--uniprep-primary);
+  border-radius: 5%;
+  font-size: 0.8rem;
+}
+
+.unselected-border {
+  border: 2px solid var(--uniprep-primaryhighlight);
+  border-radius: 5px;
+  font-size: 0.8rem;
+}
+
+.selected-border {
+  background-color: var(--uniprep-primary);
+  border: 0;
+}
+
+
+.application-text {
+  font-size: 0.8rem;
+}
+
+.questionmodal {
+  .bbtn {
+    border-radius: 10px 10px 0px 0px !important;
+    border: none;
+  }
+}
+
+.questionread {
+  filter: grayscale(1);
+}
+
+.questioncard {
+  border: 2px solid var(--uniprep-primaryhighlight);
+  width: 100%;
+  margin: 10px 0px;
+
+  .primary-btn {
+    position: absolute;
+    bottom: 10px;
+    margin: 0;
+    width: 95%;
+    border: 2px solid var(--uniprep-primary);
+  }
+
+  &:focus {
+    background-color: var(--uniprep-primaryop10);
+    border: 2px solid var(--uniprep-primary);
+
+    .primary-btn {
+      background-color: #fff;
+      border: 2px solid var(--uniprep-primary);
+    }
+  }
+
+  &:hover {
+    background-color: var(--uniprep-primaryop10);
+    border: 2px solid var(--uniprep-primary);
+
+    .primary-btn {
+      background-color: #fff;
+      border: 2px solid var(--uniprep-primary);
+    }
+  }
+
+  .questiontext {
+    min-height: -webkit-fill-available;
+  }
+
+}
+
+.circle {
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  padding: 7px;
+  background: #fff;
+  border: 5px solid var(--uniprep-primary);
+  color: black;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+}
+
+.card-body {
+  cursor: pointer;
+}
+
+.card-box {
+  height: 300px;
+  overflow: scroll;
+}
+
+:host ::ng-deep p-carousel {
+  //On later realease of PrimeNG, this can be done programmatically with [showIndicators | showNavigators]="false"
+  .p-carousel-indicators {
+    display: none !important;
+  }
+
+  .p-carousel-next, .p-carousel-prev {
+    display: none !important;
+  }
+}
+
+.tiny-btn {
+  font-size: 10px
+}
+
+:host ::ng-deep p-breadcrumb {
+  .p-component {
+    border: none !important;
+    padding: 0;
+  }
+}
+
+.answercard {
+  background-color: var(--uniprep-primaryop10);
+  border: 2px solid var(--uniprep-primary);
+  max-height: 60vh;
+  overflow-y: auto;
+}
+
+:host ::ng-deep .p-carousel-item {
+  max-height: 0;
+}
+
+:host ::ng-deep .p-carousel-item-active {
+  max-height: 100% !important;
+}
+
+.card-color {
+  background: var(--uniprep-primary) !important;
+  width: 100%;
+  height: 100%;
+
+}
