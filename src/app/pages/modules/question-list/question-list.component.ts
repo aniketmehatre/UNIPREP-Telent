@@ -187,8 +187,8 @@ export class QuestionListComponent implements OnInit, AfterContentChecked {
     this.moduleListService.readQuestion(data);
     this.readQue$ = this.moduleListService.readQuestionMessage$();
     let data1 = {
-      countryId: Number(localStorage.getItem('countryId')),
-      moduleId: 1,
+      countryId: this.countryId,
+      moduleId: this.currentModuleId,
       submoduleId: this.subModuleId
     }
     this.moduleListService.loadQuestionList(data1);
