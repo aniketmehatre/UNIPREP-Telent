@@ -37,7 +37,7 @@
     <ng-template pTemplate="body">
       <section class="chat">
         <div *ngFor="let message of messages; let index = index">
-          <div class="chat-section-container" *ngIf="message.questionNumber">
+          <div class="chat-section-container" *ngIf="message?.questionNumber">
             <div class="chat-section mb-2">
               <div class="photo receiver-bg">
                 <ng-container *ngIf="message?.countryFlag">
@@ -63,8 +63,7 @@
               >Question {{ message.questionNumber }}</span
             ><br />
             <div class="chat-section msg-bottom">
-              <div class="messages">
-                {{ message.message }}
+              <div class="messages" [innerHTML]="message.message">
               </div>
             </div>
           </div>
@@ -77,10 +76,10 @@
               <div class="response">
                 <div class="chat-section mb-2">
                   <div class="photo sender-bg">
-                    <span class="name">Y</span>
+                    <span class="name">{{ message.sendByName.slice(0, 1) }}</span>
                   </div>
                   <div>
-                    <span class="full-name">You</span>
+                    <span class="full-name">{{ message.sendByName }}</span>
                   </div>
                 </div>
                 <div>

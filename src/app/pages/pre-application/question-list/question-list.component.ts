@@ -9,6 +9,7 @@ import {ReadQuestion} from "../../../@Models/read-question.model";
 import {ListQuestion} from "../../../@Models/question-list.model";
 import {ModuleServiceService} from "../../module-store/module-service.service";
 import {DomSanitizer} from "@angular/platform-browser";
+import {ModuleStoreService} from "../../module-store/module-store.service";
 
 @Component({
     selector: 'uni-question-list',
@@ -47,8 +48,10 @@ export class QuestionListComponent implements OnInit, AfterContentChecked {
     countryId: any;
     selectedQuestionData: any;
     popUpItemVideoLink: any;
+    reviewedByOrgList: any;
 
-    constructor(private moduleListService: ModuleServiceService, private changeDetector: ChangeDetectorRef,
+    constructor(private moduleListService: ModuleServiceService, private moduleStoreService: ModuleStoreService,
+                private changeDetector: ChangeDetectorRef,
         private dataService: DataService, private route: ActivatedRoute, private _location: Location,
                 private _sanitizer: DomSanitizer) {
     }
@@ -262,7 +265,8 @@ export class QuestionListComponent implements OnInit, AfterContentChecked {
 
     onClickRecommendedVideo(data: any) {
         this.isRecommendedVideoVisible = true;
-        this.popUpItemVideoLink = this._sanitizer.bypassSecurityTrustResourceUrl(data[0].link);
+        let url = encodeURIComponent(data[0].link);
+        this.popUpItemVideoLink = this._sanitizer.bypassSecurityTrustResourceUrl(url);
     }
 
     onClickRecommendedLinks(data: any) {
@@ -343,5 +347,11 @@ export class QuestionListComponent implements OnInit, AfterContentChecked {
             });
         });
         this.isReviewedByVisible = true;
+        let request = {
+            question_id: this.selectedQuestionId
+        }
+        this.moduleStoreService.GetReviewedByOrgLogo(request).subscribe((response) => {
+            this.reviewedByOrgList = response;
+        })
     }
 }

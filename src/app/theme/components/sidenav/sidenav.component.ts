@@ -9,6 +9,7 @@ import {
 import { ActivatedRoute, NavigationEnd, Router } from "@angular/router";
 import { filter } from "rxjs";
 import { map } from "rxjs/operators";
+import { AuthService } from 'src/app/Auth/auth.service';
 import { DataService } from 'src/app/data.service';
 
 export interface SideMenu {
@@ -102,7 +103,8 @@ export class SidenavComponent {
   constructor(
     private router: Router,
     private activatedRoute: ActivatedRoute,
-    private dataService: DataService
+    private dataService: DataService,
+    private authService: AuthService
   ) {
     this.dataService.countryNameSource.subscribe(countryName => {
       this.menus.filter(data => {
@@ -130,6 +132,16 @@ export class SidenavComponent {
 
   ngOnInit(): void {
     this.markCurrentMenu();
+    this.changeSubscriptionUrl();
+  }
+
+  changeSubscriptionUrl() {
+    if(this.authService.user?.subscription) {
+      const subscriptionItem = this.menus.find(item => item.title === 'Subscription');
+      if (subscriptionItem) {
+        subscriptionItem.url = 'subscriptions/subscriptioned-data';
+      }
+    }
   }
 
   markCurrentMenu() {

@@ -247,7 +247,7 @@
 <p-dialog [(visible)]="isReviewedByVisible" [draggable]="false" [modal]="true" [style]="{ width: '40vw' }"
           header="Header">
     <ng-template pTemplate="header">
-        <span class="text-xl font-bold"></span>
+        <span class="text-xl font-bold ms-2">Reviewed</span>
     </ng-template>
     <div class="container-fluid">
         <div class="row justify-content-center align-items-center">
@@ -255,7 +255,6 @@
             <div class="col-md-8 image" *ngFor="let image of imageList ">
                 <img [src]="image" alt="Image">
             </div>
-
         </div>
     </div>
 </p-dialog>
