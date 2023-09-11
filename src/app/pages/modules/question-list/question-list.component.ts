@@ -16,7 +16,7 @@ import {DomSanitizer} from "@angular/platform-browser";
   templateUrl: './question-list.component.html',
   styleUrls: ['./question-list.component.scss']
 })
-export class QuestionListComponent implements OnInit, AfterContentChecked {
+export class QuestionListComponent implements OnInit {
   @ViewChild('carouselVideoElm') carouselVideoElm: any;
   @ViewChild('carouselRefElm') carouselRefElm: any;
   @ViewChild('carouselPopupVideoElm') carouselPopupVideoElm: any;
@@ -58,10 +58,6 @@ export class QuestionListComponent implements OnInit, AfterContentChecked {
               private changeDetector: ChangeDetectorRef,
               private dataService: DataService, private route: ActivatedRoute, private _location: Location,
               private _sanitizer: DomSanitizer) {
-  }
-
-  ngAfterContentChecked(): void {
-    // this.changeDetector.detectChanges();
   }
 
   ngOnInit(): void {
@@ -211,7 +207,7 @@ export class QuestionListComponent implements OnInit, AfterContentChecked {
       }
     });
     this.positionNumber = pageNum + 1;
-    this.breadCrumb = [{ label: 'Pre Application' }, { label: this.moduleName }, { label: `Question ${pageNum + 1}` }];
+    this.breadCrumb = [{ label: this.currentModuleName }, { label: this.moduleName }, { label: `Question ${pageNum + 1}` }];
   }
 
   clickPrevious(carousel: any, event: any) {
