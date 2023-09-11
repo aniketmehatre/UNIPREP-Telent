@@ -100,28 +100,28 @@ export class HeaderSearchComponent implements OnInit, OnDestroy {
             }
             this.isSearchResultFound = true;
             this.searchResult = res.questions;
-            this.subs.sink = this.locationService.getUniPerpModuleList().subscribe(data => {
-                this.moduleList = data.modules;
-                this.searchResult.map((data: any) => {
-                    let name = this.moduleList.find((x: any) => x.id == data.module_id);
-                    data.module_name = name.module_name;
-                })
-            });
-            let data = {
-                moduleid: 1
-            }
-            this.subs.sink = this.locationService.getSubModuleByModule(data).subscribe(res => {
-                if (res.status == 404) {
-
-                }
-                this.subModuleList = res.submodules;
-                this.searchResult.map((data: any) => {
-                    let name = this.subModuleList.find((x: any) => x.id == data.submodule_id);
-                    if(name.submodule_name){
-                        data.submodule_name = name.submodule_name ? name.submodule_name : '';
-                    }
-                })
-            });
+                // this.subs.sink = this.locationService.getUniPerpModuleList().subscribe(data => {
+                //     this.moduleList = data.modules;
+                //     this.searchResult.map((data: any) => {
+                //         let name = this.moduleList.find((x: any) => x.id == data.module_id);
+                //         data.module_name = name.module_name;
+                //     })
+                // });
+                // let data = {
+                //     moduleid: 1
+                // }
+                // this.subs.sink = this.locationService.getSubModuleByModule(data).subscribe(res => {
+                //     if (res.status == 404) {
+                //
+                //     }
+                //     this.subModuleList = res.submodules;
+                //     this.searchResult.map((data: any) => {
+                //         let name = this.subModuleList.find((x: any) => x.id == data.submodule_id);
+                //         if(name.submodule_name){
+                //             data.submodule_name = name.submodule_name ? name.submodule_name : '';
+                //         }
+                //     })
+                // });
         }, err => {
             console.log('err', err);
 

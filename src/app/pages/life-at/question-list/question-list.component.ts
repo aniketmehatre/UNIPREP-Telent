@@ -146,7 +146,9 @@ export class QuestionListComponent implements OnInit {
     });
     let readQueData = {
       questionId: selectedData.id,
-      countryId: this.countryId
+      countryId: this.countryId,
+      moduleId: 6,
+      submoduleId: Number(this.subModuleId)
     }
 
     this.readQuestion(readQueData);

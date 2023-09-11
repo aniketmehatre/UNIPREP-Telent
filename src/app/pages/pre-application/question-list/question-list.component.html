@@ -32,8 +32,8 @@
                                         </div>
                                         <p class="text-start text-capitalize fw-medium questiontext">{{sub.question}}
                                         </p>
-                                        <button class="btn w-full btn-primary primary-btn" pButton type="button">Read
-                                            Answer
+                                        <button class="btn w-full btn-primary primary-btn" pButton type="button">
+                                            <span class="button-text">Read Answer</span>
                                         </button>
                                     </div>
                                 </div>
@@ -71,7 +71,6 @@
                         class="text-green mx-3 h4 fa-solid mb-0 fa-circle-chevron-right"></i></a>
             </div>
             <div class="col-md-2 gap-2 d-flex">
-
                 <button (click)="openReport()" class="btn w-100 btn-primary homecardbtn m-0 px-2 py-2">
                     <i class="fa-solid h5 fa-file-contract"></i>
                     <p class="mb-0">Report</p>
@@ -245,19 +244,16 @@
     </div>
 </p-dialog>
 
-<p-dialog [(visible)]="isReviewedByVisible" [draggable]="false" [modal]="true" [style]="{ width: '30vw' }"
+<p-dialog [(visible)]="isReviewedByVisible" [draggable]="false" label="Show" [modal]="true" [style]="{ width: '30vw' }"
           header="Header">
     <ng-template pTemplate="header">
-        <span class="text-xl font-bold"></span>
+        <span class="text-xl font-bold ms-2">Reviewed</span>
     </ng-template>
     <div class="container-fluid">
         <div class="row justify-content-center align-items-center">
-
-            <div class="col-md-8">
-
-                <p>test ad fa sdfasd</p>
+            <div class="col-md-3" *ngFor="let review of reviewedByOrgList">
+                <img src="{{review.logo}}" [alt]="review.organizationname" class="w-2 shadow-2 img-fluid" />
             </div>
-
         </div>
     </div>
 </p-dialog>

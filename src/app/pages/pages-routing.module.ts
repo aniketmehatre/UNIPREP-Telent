@@ -78,6 +78,11 @@ const routes: Routes = [
                 path: 'help',
                 loadChildren: () => import('./help-support/help-support.module').then(m => m.HelpSupportModule)
             },
+            {
+                path: 'resource',
+
+                loadChildren: () => import('./resource/resource.module').then(m => m.ResourceModule)
+            },
             {path: 'usermanagement', canActivate: [AuthGuard], component: UserManagementComponent},
             {path: '', redirectTo: 'dashboard', pathMatch: 'full'}
         ]

@@ -40,7 +40,7 @@ export class SubscriptionComponent implements OnInit {
         private authservice: AuthService
     ) { }
     ngOnInit(): void {
-        if (!this.authservice.user?.subscription.toLowerCase().includes("Free")) {
+        if (!this.authservice.user?.subscription?.toLowerCase().includes("Free")) {
             this.user = this.authservice.user;
             this.stage = 1;
             this.loadSubDetails();

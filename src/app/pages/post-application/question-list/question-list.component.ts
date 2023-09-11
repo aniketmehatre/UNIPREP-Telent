@@ -8,6 +8,8 @@ import {Location} from "@angular/common";
 import {ModuleListSub} from "../../../@Models/module.model";
 import {ModuleServiceService} from "../../module-store/module-service.service";
 import {ReadQuestion} from "../../../@Models/read-question.model";
+import {ModuleStoreService} from "../../module-store/module-store.service";
+import {DomSanitizer} from "@angular/platform-browser";
 
 @Component({
     selector: 'uni-question-list',
@@ -43,8 +45,11 @@ export class QuestionListComponent implements OnInit, AfterContentChecked {
     refLink: any;
     countryId: any;
     selectedQuestionData: any;
-
+    reviewedByOrgList: any;
+    popUpItemVideoLink: any;
+    isReviewedByVisible: boolean = false;
     constructor(private moduleListService: ModuleServiceService, private changeDetector: ChangeDetectorRef,
+                private moduleStoreService: ModuleStoreService, private _sanitizer: DomSanitizer,
                 private dataService: DataService, private route: ActivatedRoute, private _location: Location) {
     }
 
@@ -84,7 +89,7 @@ export class QuestionListComponent implements OnInit, AfterContentChecked {
         let data = {
             countryId: Number(localStorage.getItem('countryId')),
             moduleId: 2,
-            submoduleId: this.subModuleId
+            submoduleId: Number(this.subModuleId)
         }
         this.moduleListService.loadQuestionList(data);
     }
@@ -143,7 +148,9 @@ export class QuestionListComponent implements OnInit, AfterContentChecked {
         });
         let readQueData = {
             questionId: selectedData.id,
-            countryId: this.countryId
+            countryId: this.countryId,
+            moduleId: 2,
+            submoduleId: this.subModuleId
         }
 
         this.readQuestion(readQueData);
@@ -257,6 +264,7 @@ export class QuestionListComponent implements OnInit, AfterContentChecked {
 
     onClickRecommendedVideo( data: any) {
         this.isRecommendedVideoVisible = true;
+        this.popUpItemVideoLink = this._sanitizer.bypassSecurityTrustResourceUrl(data[0].link);
         // this.videoLinks.filter((res: any) => {
         //     if (res.id == this.selectedQuestion) {
         //         this.videoLink = res.videolink
@@ -323,5 +331,16 @@ export class QuestionListComponent implements OnInit, AfterContentChecked {
         this.selectedRefLink += 1;
 
         this.carouselPopupRefElm.navForward(event, this.selectedRefLink)
+    }
+
+    reviewBy(){
+        this.reviewedByOrgList = [];
+        this.isReviewedByVisible = true;
+        let request = {
+            question_id: this.selectedQuestionId
+        }
+        this.moduleStoreService.GetReviewedByOrgLogo(request).subscribe((response) => {
+            this.reviewedByOrgList = response;
+        })
     }
 }

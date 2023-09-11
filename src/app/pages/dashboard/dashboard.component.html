@@ -127,12 +127,15 @@
         <div class="card-body">
           <div class="row mb-3">
             <div class="col-md-6 col-lg-6 d-flex">
-              <button
+              <button role="button" style="pointer-events: none;"
                 (click)="openQuiz()"
-                class="btn w-100 btn-secondary m-0 px-4 py-3 homecardbtn"
+                class="btn w-100 m-0 px-4 py-3 homecardbtn homecardbtnquiz"
               >
-                <i class="fa-regular h3 fa-lightbulb"></i>
-                <p class="mb-0">Start<br />Quiz</p>
+                <i class="fa-regular h3 fa-lightbulb-on"></i>
+                <p class="mb-1">Start Quiz</p>
+                <div class="d-flex justify-content-center">
+                  <span class="ellipse-button fw-regular">Launching Soon</span>
+              </div>
               </button>
             </div>
             <div class="col-md-6 col-lg-6 d-flex align-items-center">
@@ -171,15 +174,15 @@
             <div
               class="col-md-6 col-lg-6 text-center d-flex justify-content-end align-items-center"
             >
-              <div>
+              <!-- <div>
                 <button class="btn btn-primary btn-lg homecardbtn" disabled>
                   Share <i class="fa-solid fa-share-nodes"></i>
                 </button>
-              </div>
+              </div> -->
             </div>
           </div>
-          <h5 class="mb-1">Unlock Certificate</h5>
-          <p class="mb-0">Complete the final 10% to unlock the certificate.</p>
+          <h5 class="mb-1">Launching Soon</h5>
+          <p class="mb-0">Get certified for completing the quiz with an extraordinary score.</p>
         </div>
       </div>
     </div>

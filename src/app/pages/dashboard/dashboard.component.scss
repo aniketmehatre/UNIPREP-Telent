@@ -82,6 +82,7 @@
   padding: 10px !important;
   color: #fff !important;
 
+
   p {
     font-size: 14px;
   }
@@ -89,6 +90,10 @@
   .certificatelocked {
     color: #3b3b3b;
   }
+}
+
+.homecardbtnquiz{
+  background-color: black;
 }
 
 .certificatelock {
@@ -861,4 +866,17 @@ Due to the split circle of progress-left and progress right, we must use the ani
   top: 5px;
   color:var(--uniprep-primary);
   margin-left: 5px;
+}
+
+.ellipse-button {
+  width: auto;
+  padding: 6px 25px;
+  height: auto;
+  background-color: #f0780e;
+  border-radius: 25px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: not-allowed;
+  font-size: 10px;
 }
