@@ -8,10 +8,15 @@
   align-items: center;
   vertical-align: middle;
   display: flex;
-  font-size: 2rem;
+  font-size: 1.5rem;
   color: var(--uniprep-primary);
   border-right: 1px solid var(--uniprep-primary);
   padding: 10px;
+}
+
+.searchheight
+{
+  height: 2.5rem;
 }
 
 .p-inputgroup {

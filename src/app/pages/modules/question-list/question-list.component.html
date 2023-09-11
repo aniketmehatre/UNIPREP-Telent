@@ -1,6 +1,6 @@
 <div class="container-fluid">
     <div class="row">
-        <div class="card">
+        <div class="card readingcard">
             <div class="card-body text-center pt-0 h-100">
                 <div class="row justify-content-center">
                     <div class="col-md-2 text-start">
@@ -10,32 +10,29 @@
                         <h5 class="select-title mb-3">{{currentModuleName}} - {{moduleName}}</h5>
                     </div>
                     <div class="col-md-2">
-
                     </div>
                 </div>
                 <div class="row">
-                    <div *ngFor="let sub of listQuestion$ | async; let i  = index;" class="col-md-3">
+                    <div *ngFor="let sub of listQuestion$ | async; let i  = index;" class="col-md-3 mb-3">
                         <div class="row w-100 h-100 m-0 justify-content-center">
                             <div (click)="onQuestionClick(sub)"
-                                 class="card questioncard {{sub.read == 1 ? 'questionread' : ''}}" role="button">
-                                <div class="card-body mb-5">
+                                 class="card questioncard {{sub.read == 1 ? 'questionread' : ''}}">
+                                <div class="card-body px-0 d-flex justify-content-between flex-column">
                                     <div class="row justify-content-center">
-                                        <div class="col-md-4">
+                                        <div class="col">
+                                            <p class="text-start text-capitalize fw-medium questiontext">{{sub.question}}</p>
                                         </div>
-                                        <div class="col-md-4 text-center">
+                                         <!--<div class="col-md-4 text-center">
                                             <p class="mb-3 circle text-center">{{i+1}}</p>
-                                        </div>
-                                        <div class="col-md-4 text-end">
-                                            <div class="row text-end p-2" *ngIf="sub.popular == 1">
+                                        </div> -->
+                                        <div class="col-md-3 text-end" *ngIf="sub.popular == 1">
                                                 <i class="pi pi-heart-fill text-danger" pTooltip="Most Popular Question" tooltipPosition="right" style="font-size: 1.5rem"></i>
-                                            </div>
                                         </div>
-                                        <p class="text-start text-capitalize fw-medium questiontext">{{sub.question}}
-                                        </p>
-                                        <button class="btn w-full btn-primary primary-btn" pButton type="button">Read
-                                            Answer
-                                        </button>
+                                        
                                     </div>
+                                    <button class="btn w-full btn-primary m-0 primary-btn" pButton type="button">Read
+                                         Answer
+                                    </button>
                                 </div>
                             </div>
                         </div>
