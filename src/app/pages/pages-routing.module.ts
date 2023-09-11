@@ -5,6 +5,7 @@ import {CardsComponent} from './cards/cards.component';
 import {PagesComponent} from './pages.component';
 import {UserManagementComponent} from './user-management/user-management.component';
 import {AuthGuard} from "../Auth/auth.guard";
+import { ChatComponent } from './chat/chat.component';
 
 const routes: Routes = [
     {
@@ -36,6 +37,10 @@ const routes: Routes = [
                 component: ButtonComponent
             },
             {
+                path: 'chat',
+                component: ChatComponent
+            },
+            {
                 path: 'cards',
 
                 component: CardsComponent
@@ -43,6 +48,11 @@ const routes: Routes = [
             {
                 path: 'help',
                 loadChildren: () => import('./help-support/help-support.module').then(m => m.HelpSupportModule)
+            },
+            {
+                path: 'resource',
+
+                loadChildren: () => import('./resource/resource.module').then(m => m.ResourceModule)
             },
             {path: 'usermanagement', canActivate: [AuthGuard], component: UserManagementComponent},
             {path: '', redirectTo: 'dashboard', pathMatch: 'full'}

@@ -5,6 +5,12 @@
   padding-right: 10px;
 }
 
+.readingcard
+{
+  height:55vh;
+  overflow:scroll;
+}
+
 .application-border {
   border: 2px solid var(--uniprep-primary);
   border-radius: 5%;
@@ -44,10 +50,6 @@
   margin: 10px 0px;
 
   .primary-btn {
-    position: absolute;
-    bottom: 10px;
-    margin: 0;
-    width: 95%;
     border: 2px solid var(--uniprep-primary);
   }
 
@@ -56,7 +58,7 @@
     border: 2px solid var(--uniprep-primary);
 
     .primary-btn {
-      background-color: #fff;
+      background-color: var(--uniprep-primaryhighlight);
       border: 2px solid var(--uniprep-primary);
     }
   }
@@ -66,7 +68,7 @@
     border: 2px solid var(--uniprep-primary);
 
     .primary-btn {
-      background-color: #fff;
+      background-color: var(--uniprep-primaryhighlight);
       border: 2px solid var(--uniprep-primary);
     }
   }
