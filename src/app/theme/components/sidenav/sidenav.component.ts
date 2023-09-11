@@ -40,32 +40,32 @@ export class SidenavComponent {
     },
     {
       title: 'Pre Application',
-      url: '/pages/pre-application',
+      url: '/pages/modules/pre-application',
       image: 'fa-solid fa-file-import',
     },
     {
       title: 'Post Application',
-      url: '/pages/post-application',
+      url: '/pages/modules/post-application',
       image: 'fa-solid fa-file-export',
     },
     {
       title: 'Post Admission',
-      url: '/pages/post-admission',
+      url: '/pages/modules/post-admission',
       image: 'fa-solid fa-ticket',
     },
     {
       title: 'Career Hub',
-      url: '/pages/career-hub',
+      url: '/pages/modules/career-hub',
       image: 'fa-solid fa-briefcase',
     },
     {
       title: 'University',
-      url: '/pages/university',
+      url: '/pages/modules/university',
       image: 'fa-solid fa-building-columns',
     },
     {
       title: 'Life at',
-      url: '/pages/life-at',
+      url: '/pages/modules/life-at-country',
       image: 'fa-solid fa-earth-americas',
     },
     {

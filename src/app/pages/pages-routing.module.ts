@@ -17,6 +17,11 @@ const routes: Routes = [
             },
             // { path: 'sop', loadChildren: () => import('./sop/sop.module').then(m => m.SopModule)  },
             {
+                path: 'modules',
+                // canActivate: [PagesGuard],
+                loadChildren: () => import('./modules/modules.module').then(m => m.ModulesModule)
+            },
+            {
                 path: 'pre-application',
 
                 // canActivate: [PagesGuard],

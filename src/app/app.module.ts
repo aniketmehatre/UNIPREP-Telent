@@ -35,6 +35,8 @@ import {TooltipModule} from "primeng/tooltip";
 import { BlockCopyPasteDirective } from './block-copy-paste.directive';
 import { ScrollToBottomDirective } from './scroll-to-bottom.directive';
 import {ConfirmDialogModule} from "primeng/confirmdialog";
+import {SafePipe} from "@pipes/safe.pipe";
+import {PipesModule} from "@pipes/pipes.module";
 const reducers = {
   pageSelector: pagesReducer
 }
@@ -84,6 +86,7 @@ export function tokenGetter() {
         CardModule,
         FormsModule,
         TooltipModule,
+        PipesModule,
         ConfirmDialogModule
     ],
   providers: [
