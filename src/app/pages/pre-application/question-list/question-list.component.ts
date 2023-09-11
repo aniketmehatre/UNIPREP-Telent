@@ -36,6 +36,7 @@ export class QuestionListComponent implements OnInit, AfterContentChecked {
     isQuestionAnswerVisible: boolean = false;
     isRecommendedLinksVisible: boolean = false;
     isRecommendedVideoVisible: boolean = false;
+    isReviewedByVisible: boolean = false;
     responsiveOptions: any[] = [];
     message: string = '';
     moduleName: any;
@@ -326,5 +327,9 @@ export class QuestionListComponent implements OnInit, AfterContentChecked {
         this.selectedRefLink += 1;
 
         this.carouselPopupRefElm.navForward(event, this.selectedRefLink)
+    }
+
+    reviewBy(){
+        this.isReviewedByVisible = true;
     }
 }

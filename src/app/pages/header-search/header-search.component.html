@@ -15,19 +15,26 @@
                             type="button"></button>
                 </div>
                 <ul *ngIf="isSearchResultFound" class="list-group list-group-flush shadow-lg" #listgroup>
-                    <li *ngFor="let c of searchResult" class="list-group-item">
+                    <li *ngFor="let c of searchResult" class="list-group-item border-0 pt-0 pb-0 mt-0 mb-0">
                         <div class="row">
                             <div class="col-md-9"  (click)="gerSelectedQuestion(c)">
-                                <span class="pr-4">Q.{{c.id}}) {{c.question}}</span>
+                                <span style="font-size: 12px" class="pr-4 fa-sm">{{c.question}}</span>
                             </div>
-                            <div class="col-md-3">
-                                <a (click)="redirectModule(c.module_name)">{{c.module_name}}</a> ->
-                                <a (click)='redirectToSubmodule(c)'>{{c.submodule_name}}</a>
+                            <div class="col-md-3" style="cursor: pointer">
+                                <a style="font-size: 12px" (click)="redirectModule(c.module_name)">{{c.module_name}}</a> ->
+                                <a style="font-size: 12px" (click)='redirectToSubmodule(c)'>{{c.submodule_name}}</a>
                             </div>
                         </div>
                     </li>
-                    <li class="list-group-item text-center"><h5>If you can't find your Question!
-                        <span (click)="openChat()" role="button" class="text-primary font-primarycolor">Ask Us</span></h5></li>
+                    <li class="list-group-item border-0"><div class="row mt-2">
+                        <div class="col-md-6 text-start ">
+                            <p class="text-left fa-sm fw-bold">If you can't find your Question!
+                                <span (click)="openChat()" role="button" class="text-primary font-primarycolor">Ask Us</span><p>
+                        </div>
+                        <div class="col-md-6 text-end">
+                            <p class="text-right fa-sm fw-bold"> Total Related Questions: {{searchResult.length}}</p>
+                        </div>
+                    </div></li>
                 </ul>
             </div>
         </div>
