@@ -127,8 +127,8 @@ export class QuestionListComponent implements OnInit, AfterContentChecked {
     this.listQuestion$ = this.moduleListService.questionList$();
     let data = {
       countryId: Number(localStorage.getItem('countryId')),
-      moduleId: 1,
-      submoduleId: this.subModuleId
+      moduleId: this.currentModuleId,
+      submoduleId: Number(this.subModuleId)
     }
     this.moduleListService.loadQuestionList(data);
   }
@@ -167,7 +167,7 @@ export class QuestionListComponent implements OnInit, AfterContentChecked {
     let index = this.data.findIndex((x: any) => x.id === selectedData.id);
     this.selectedQuestion = index;
     this.positionNumber = index;
-    this.breadCrumb = [{ label: this.currentApiSlug }, { label: this.moduleName }, { label: `Question ${index + 1}` }];
+    this.breadCrumb = [{ label: this.currentModuleName }, { label: this.moduleName }, { label: `Question ${index + 1}` }];
     this.isQuestionAnswerVisible = true;
     this.data.filter((res: any) => {
       if (res.id == selectedData.id) {
@@ -177,7 +177,9 @@ export class QuestionListComponent implements OnInit, AfterContentChecked {
     });
     let data = {
       questionId: selectedData.id,
-      countryId: this.countryId
+      countryId: this.countryId,
+      moduleId: this.currentModuleId,
+      submoduleId: Number(this.subModuleId)
     }
 
     this.readQuestion(data);
@@ -189,7 +191,7 @@ export class QuestionListComponent implements OnInit, AfterContentChecked {
     let data1 = {
       countryId: this.countryId,
       moduleId: this.currentModuleId,
-      submoduleId: this.subModuleId
+      submoduleId: Number(this.subModuleId)
     }
     this.moduleListService.loadQuestionList(data1);
     this.listQuestion$ = this.moduleListService.questionList$();
@@ -262,7 +264,6 @@ export class QuestionListComponent implements OnInit, AfterContentChecked {
   }
 
   clickPreviousVideo(event: any) {
-    console.log(this.selectedVideo)
     if (this.selectedVideo <= 0) {
       return;
     }
@@ -271,9 +272,7 @@ export class QuestionListComponent implements OnInit, AfterContentChecked {
   }
 
   clickNextVideo(event: any) {
-    console.log('next', (this.videoLinks.length / 2) - 1)
     if (this.selectedVideo > this.videoLinks.length) {
-      console.log('retunr;')
       return;
     }
     this.selectedVideo += 1;
@@ -343,7 +342,6 @@ export class QuestionListComponent implements OnInit, AfterContentChecked {
     if (this.selectedVideo >= this.videoLinks.length - 1) {
       return;
     }
-    console.log(this.selectedVideo);
     let vdoLinks = this.videoLinks.find((x : any) => x.id == this.selectedVideo)
     this.popUpItemVideoLink = this._sanitizer.bypassSecurityTrustResourceUrl(data[0].link);
 

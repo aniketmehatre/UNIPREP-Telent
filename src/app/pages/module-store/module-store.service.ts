@@ -55,10 +55,14 @@ export class ModuleStoreService {
     readQuestion(params: {
         countryId: number,
         questionId: number,
+        moduleId: number,
+        submoduleId: number
     }): Observable<any> {
         let data = {
             countryId: params.countryId,
             questionId: params.questionId,
+            moduleId: params.moduleId,
+            submoduleId: params.submoduleId
         }
         return this.http.post<any>(environment.ApiUrl + "/markread", data);
     }

@@ -28,7 +28,6 @@ import { BreadcrumbModule } from 'primeng/breadcrumb';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { QuestionCreditComponent } from './question-credit/question-credit.component';
 import {ProgressBarModule} from "primeng/progressbar";
-import {LifeAtModule} from "./life-at/life-at.module";
 import {ConfirmDialogModule} from "primeng/confirmdialog";
 import {EffectsModule} from "@ngrx/effects";
 import {ModuleStoreReducer} from "./module-store/module-store.reducer";
@@ -71,7 +70,6 @@ import {ModuleStoreEffects} from "./module-store/module-store.effects";
         FormsModule,
         InputSwitchModule,
         ProgressBarModule,
-        LifeAtModule,
         ConfirmDialogModule
     ],
     schemas: [

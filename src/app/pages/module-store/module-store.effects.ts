@@ -58,7 +58,8 @@ export class ModuleStoreEffects {
     readQuestion = createEffect(() => this.actions$.pipe(
         ofType(readQuestion),
         switchMap((payload) => this.preApplicationService.readQuestion(
-            {questionId: payload.questionId, countryId: payload.countryId}
+            {questionId: payload.questionId, countryId: payload.countryId, moduleId: payload.moduleId,
+                submoduleId: payload.submoduleId}
         ).pipe(
             map(response => {
                 return readQuestionSuccess({submodules: response})

@@ -37,6 +37,8 @@ export const loadQuizListSuccess = createAction('[Modules] load quiz list succes
 export const readQuestion = createAction('[Modules] read que modules', (payload: {
     countryId: number,
     questionId: number,
+    moduleId: number,
+    submoduleId: number
 }) => payload);
 
 export const readQuestionSuccess = createAction('[Modules] readQuestion success',
