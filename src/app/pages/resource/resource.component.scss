@@ -8,7 +8,21 @@
   }
 
   .card-style {
-    padding: 30px 50px;
     border-radius: 0px 0px 10px 10px;
-    background-color: lightsteelblue;
+    background-color: #F5F5F5;
+    a
+    {
+      color:#001631;
+      padding: 30px;
+      text-decoration: none;
+    }
+    &:hover
+    {
+      background-color: var(--uniprep-primary);
+      color:#fff;
+      a
+      {
+        color:#fff;
+      }
+    }
   }

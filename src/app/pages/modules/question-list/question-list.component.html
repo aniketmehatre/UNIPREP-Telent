@@ -7,7 +7,7 @@
                         <p-button (click)="goBack()" icon="pi pi-arrow-left" styleClass="p-button-rounded p-button-text text-dark"></p-button>
                     </div>
                     <div class="col-md-8 text-center">
-                        <h5 class="select-title mb-3">{{currentModuleName}} - {{moduleName}}</h5>
+                        <h5 class="select-title mb-1">{{currentModuleName}} - {{moduleName}}</h5>
                     </div>
                     <div class="col-md-2">
                     </div>
@@ -87,7 +87,7 @@
                         <div class="card answercard">
                             <div class="card-body text-start">
                                 <h3>{{val.question}}</h3>
-                                <h5 class="fw-medium" [innerHTML]="val.answer"></h5>
+                                <div class="fw-medium worksans" [innerHTML]="val.answer"></div>
                                 <p class="text-small blockquote text-center mb-0">Last updated at: {{val.updated_at | date}}</p>
                             </div>
                         </div>
@@ -99,7 +99,7 @@
     <ng-template class="p-3" pTemplate="footer">
         <div class="container-fluid">
             <div class="row mt-5 mb-4">
-                <div class="col-md-6">
+                <div class="col-md-5">
                     <div class="row">
                         <div class="col-md-3" *ngFor="let videoL of videoLinks;let ind=index;">
                             <p-tag [rounded]="true" ><a class="p-2" style="text-decoration:none; color: white;"
@@ -107,45 +107,8 @@
                                 Video {{ind+1}} &nbsp;</a><i class="pi pi-video"> </i> </p-tag>
                         </div>
                     </div>
-
-                    <!--                    <div class="row justify-content-center align-items-center">-->
-<!--                        <div class="col-md-1" *ngIf="videoLinks">-->
-<!--                            <a (click)="clickPreviousVideo($event)" role="button"><i-->
-<!--                                    class="text-green h4 mx-3 mb-0 fa-solid fa-circle-chevron-left"></i></a>-->
-<!--                        </div>-->
-<!--                        <div class="col-md-10">-->
-<!--                            <p-carousel #carouselVideoElm [circular]="false" [showNavigators]="false"-->
-<!--                                        [showIndicators]="false"-->
-<!--                                        [page]="selectedVideo" [responsiveOptions]="responsiveOptions" [value]="videoLinks"-->
-<!--                                        *ngIf="videoLinks">-->
-<!--                                <ng-template let-item pTemplate="item">-->
-<!--                                    <div class="border-1 surface-border border-round m-2 text-center ">-->
-<!--                                        <div class="mb-1">-->
-<!--&lt;!&ndash;                                            <img src="{{item.link}}" role="button"&ndash;&gt;-->
-<!--&lt;!&ndash;                                                 (click)="onClickRecommendedVideo(videoLinks)" width="100%"&ndash;&gt;-->
-<!--&lt;!&ndash;                                                 [alt]="item.imageurl" class="w-2 shadow-2" />&ndash;&gt;-->
-<!--                                            <iframe-->
-<!--                                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"-->
-<!--                                                    allowfullscreen-->
-<!--                                                    class="mb-2"-->
-<!--                                                    frameborder="0"-->
-<!--                                                    height="150px"-->
-<!--                                                    [src]="item.link | safe"-->
-<!--                                                    title="YouTube video player"-->
-<!--                                                    width="100%"-->
-<!--                                            ></iframe>-->
-<!--                                        </div>-->
-<!--                                    </div>-->
-<!--                                </ng-template>-->
-<!--                            </p-carousel>-->
-<!--                        </div>-->
-<!--                        <div class="col-md-1" *ngIf="videoLinks">-->
-<!--                            <a (click)="clickNextVideo($event)" role="button"><i-->
-<!--                                    class="text-green mx-3 h4 fa-solid mb-0 fa-circle-chevron-right"></i></a>-->
-<!--                        </div>-->
-<!--                    </div>-->
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-5">
                     <div class="row">
                         <div class="col-md-3" *ngFor="let refL of refLink;let ind=index;">
                             <p-tag [rounded]="true" ><a class="p-2" style="text-decoration:none; color: white;"
@@ -153,32 +116,14 @@
                                 Link {{ind+1}} &nbsp;</a><i class="pi pi-link"> </i> </p-tag>
                         </div>
                     </div>
-<!--                    <div class="row justify-content-center align-items-center">-->
-<!--                        <div class="col-md-2" *ngIf="refLink">-->
-<!--                            <a (click)="clickPreviousRef($event)"><i-->
-<!--                                    class="text-green h4 mx-3 mb-0 fa-solid fa-circle-chevron-left"></i></a>-->
-<!--                        </div>-->
-<!--                        <div class="col-md-8">-->
-<!--                            <p-carousel #carouselRefElm [numScroll]="1" [numVisible]="3"-->
-<!--                                        [page]="selectedRefLink" [circular]="false" [responsiveOptions]="responsiveOptions"-->
-<!--                                        [value]="refLink" *ngIf="refLink">-->
-<!--                                <ng-template let-item pTemplate="item">-->
-<!--                                    <div class="border-1 surface-border border-round m-2 text-center ">-->
-<!--                                        <div class="mb-1">-->
-<!--                                            <img src="{{item.link}}" (click)="onClickRecommendedLinks(refLink)"-->
-<!--                                                 width="100%" [alt]="item.imageurl" class="w-2 shadow-2" />-->
-<!--                                        </div>-->
-<!--                                    </div>-->
-<!--                                </ng-template>-->
-<!--                            </p-carousel>-->
-<!--                        </div>-->
-<!--                        <div class="col-md-2" *ngIf="refLink">-->
-<!--                            <a (click)="clickNextRef($event)"><i-->
-<!--                                    class="text-green mx-3 h4 fa-solid mb-0 fa-circle-chevron-right"></i></a>-->
-<!--                        </div>-->
-<!--                    </div>-->
                 </div>
-
+                <div class="col-md-2">
+                    <button class="btn w-100 btn-primary homecardbtn m-0 px-2 py-2">
+                        <i class="fa-solid h5 fa-file-contract"></i>
+                        <br>
+                        Click here to ask<br>Personalised Questions
+                    </button>
+                </div>
             </div>
         </div>
     </ng-template>

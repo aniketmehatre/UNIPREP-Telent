@@ -1,22 +1,20 @@
 <div class="container-fluid">
     <div class="row">
-        <div class="card">
-            <div class="card-body">
-                <div class="row">
-                    <div class="col-lg-2">
-                    </div>
-                    <div class="row mb-0 justify-content-center text-center">
-                        <div class="badge bg-dark text-wrap upper-text text-capitalize">
-                            RESOURCES
-                        </div>
-                      </div>
-                    <div class="col-lg-2">
-                  </div>
+        <div class="card readingcard">
+            <div class="card-body pt-0">
+              <div class="row justify-content-center">
+                <div class="col-md-2 text-start">
+                </div>
+                <div class="col-md-8 text-center">
+                    <h5 class="select-title mb-1">Resources</h5>
+                </div>
+                <div class="col-md-2">
+                </div>
             </div>
-            <div class="container">
+            <div class="container-fluid">
                 <div class="row">
-                  <div *ngFor="let resource of resourceslist" class="col-4 mt-3">
-                    <div class="card card-style"><a href={{resource.link}} target="_blank" style="text-decoration: none;">{{resource.title}}</a></div>
+                  <div *ngFor="let resource of resourceslist" class="col-md-3 col-12 mt-3">
+                    <div class="card card-style"><a href={{resource.link}} class="fw-semibold" target="_blank">{{resource.title}}</a></div>
                   </div>
                 </div>
               </div>

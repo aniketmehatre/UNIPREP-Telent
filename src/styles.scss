@@ -230,6 +230,12 @@ h1, h2, h3, h4, h5 {
   }
 }
 
+.readingcard
+{
+  height:55vh;
+  overflow-y:auto;
+}
+
 .card
 {
   border-radius: 15px !important;
@@ -700,11 +706,11 @@ h1, h2, h3, h4, h5 {
 .select-title
 {
   background: #1C1B17;
-  text-transform: uppercase;
+  font-weight: 500;
   width: 65%;
   margin: auto;
   color: #fff;
-  padding: 15px 15px 10px 15px;
+  padding: 8px 15px 8px 15px;
   border-radius: 0px 0px 10px 10px;
   .questiontooltip
   {
