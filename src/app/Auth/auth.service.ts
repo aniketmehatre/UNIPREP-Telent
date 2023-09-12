@@ -51,7 +51,7 @@ export class AuthService {
                 this.user = response.userdetails[0];
                 localStorage.setItem("UserID",response.userdetails[0].id)
                 localStorage.setItem("Name",response.userdetails[0].name)
-                console.log(">>>>>",response.userdetails[0])
+                localStorage.setItem("credit_plans",response.userdetails[0].credit_plans)
                 this.getCountry().subscribe(data => {
                     data.filter((value: any) => {
                         if (2 == value.id) {
