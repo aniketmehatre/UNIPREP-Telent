@@ -54,7 +54,7 @@
                 <p-breadcrumb [model]="breadCrumb" class="max-w-full"></p-breadcrumb>
             </div>
             <div class="col-md-2">
-                <button (click)="goToHome($event)" class="btn w-50 btn-primary homecardbtn m-0 px-2 py-2">
+                <button (click)="goToHome($event)" class="btn w-50 btn-secondary homecardbtn m-0 px-2 py-2">
                     <i class="fa-solid h5 fa-house"></i><br>
                     Home
                 </button>
@@ -86,9 +86,11 @@
                     <div class="col-12">
                         <div class="card answercard">
                             <div class="card-body text-start">
-                                <h3>{{val.question}}</h3>
-                                <div class="fw-medium worksans" [innerHTML]="val.answer"></div>
-                                <p class="text-small blockquote text-center mb-0">Last updated at: {{val.updated_at | date}}</p>
+                                <div class="readingheight">
+                                    <h3>{{val.question}}</h3>
+                                    <div class="fw-medium worksans" [innerHTML]="val.answer"></div>
+                                    <p class="text-small blockquote text-center mb-0">Last updated at: {{val.updated_at | date}}</p>
+                                </div>
                             </div>
                         </div>
                     </div>

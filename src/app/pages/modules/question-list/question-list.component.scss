@@ -121,10 +121,14 @@
 .answercard {
   background-color: var(--uniprep-primaryop10);
   border: 2px solid var(--uniprep-primary);
-  max-height: 60vh;
+  // max-height: 50vh;
   overflow-y: auto;
 }
-
+.readingheight
+{
+  max-height:50vh;
+  overflow-y:auto;
+}
 :host ::ng-deep .p-carousel-item {
   max-height: 0;
 }
