@@ -29,6 +29,7 @@ export class ChatComponent implements OnInit {
   totalquestionsanswered = 0;
   totalquestionsasked = 0;
   questionsleft = 0;
+  totalcredits=0;
   getChatHistoryByUserId() {
     this.service
       .getChatHistoryByUser()
@@ -37,6 +38,7 @@ export class ChatComponent implements OnInit {
         this.totalquestionsasked = response?.totalquestionsasked;
         this.totalquestionsanswered = response?.totalquestionsanswered;
         this.questionsleft = response?.questionsleft;
+        this.totalcredits=Number(localStorage.getItem("credit_plans"));
       });
   }
   textMessage: string = "";
