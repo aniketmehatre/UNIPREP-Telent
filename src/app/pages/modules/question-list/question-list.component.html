@@ -48,7 +48,7 @@
         <h5 class="select-title text-center mb-3">{{currentModuleName}} - {{moduleName}}</h5>
         <span class="text-xl font-bold"></span>
     </ng-template>
-    <div class="container-fluid">
+    <div class="container-fluid px-5">
         <div class="row mb-3">
             <div class="col-md-12 mb-2">
                 <p-breadcrumb [model]="breadCrumb" class="max-w-full"></p-breadcrumb>
@@ -97,24 +97,18 @@
         </p-carousel>
     </div>
     <ng-template class="p-3" pTemplate="footer">
-        <div class="container-fluid">
+        <div class="container-fluid px-5">
             <div class="row mt-5 mb-4">
                 <div class="col-md-5">
-                    <div class="row">
-                        <div class="col-md-3" *ngFor="let videoL of videoLinks;let ind=index;">
-                            <p-tag [rounded]="true" ><a class="p-2" style="text-decoration:none; color: white;"
-                                                        target="_blank" href="{{videoL.link}}">
-                                Video {{ind+1}} &nbsp;</a><i class="pi pi-video"> </i> </p-tag>
-                        </div>
+                    <h5 class="text-start">Recommended Videos</h5>
+                    <div class="d-flex flex-wrap gap-3">
+                        <a class="px-4 m-0 py-2 btn btn-primary btn-rounded" target="_blank" href="{{videoL.link}}" *ngFor="let videoL of videoLinks;let ind=index;">Video {{ind+1}} &nbsp;<i class="fa-solid fa-video"></i></a>
                     </div>
                 </div>
                 <div class="col-md-5">
-                    <div class="row">
-                        <div class="col-md-3" *ngFor="let refL of refLink;let ind=index;">
-                            <p-tag [rounded]="true" ><a class="p-2" style="text-decoration:none; color: white;"
-                                                        target="_blank" href="{{refL.link}}">
-                                Link {{ind+1}} &nbsp;</a><i class="pi pi-link"> </i> </p-tag>
-                        </div>
+                    <h5 class="text-start">Recommended Links</h5>
+                    <div class="d-flex flex-wrap gap-3">
+                        <a class="px-4 m-0 py-2 btn btn-secondary btn-rounded" target="_blank" href="{{refL.link}}" *ngFor="let refL of refLink;let ind=index;">Link {{ind+1}} &nbsp;<i class="fa-solid fa-link"></i></a>
                     </div>
                 </div>
                 <div class="col-md-2">
