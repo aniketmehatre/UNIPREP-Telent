@@ -2,16 +2,14 @@ nav {
   background: white;
   display: flex;
   justify-content: space-between;
-  padding: 10px;
+  padding: 6px 10px;
 
   .btn-primary {
-    padding: 10px;
     font-size: 1rem;
     color: #000;
   }
 
   .btn-secondary {
-    padding: 10px;
     font-size: 1rem;
     color: #000;
   }
@@ -274,21 +272,20 @@ form {
   padding: 0 !important;
 }
 .boxView {
-  width: 35px;
-  height: 35px;
+  width: 30px;
+  height: 30px;
   padding: 0px;
   background: #fff;
-  border: 2px solid var(--uniprep-primary);
+  border: 1px solid var(--uniprep-primary);
   border-radius: 5px;
   text-align: center;
   align-items: center;
   justify-content: center;
   display: flex;
-  margin-bottom: -5px;
 }
 .timertext
 {
-  font-size: 10px;
+  font-size: 8px;
   font-weight:600;
   color:#001631;
 }
