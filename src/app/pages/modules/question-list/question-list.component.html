@@ -13,7 +13,7 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div *ngFor="let sub of listQuestion$ | async; let i  = index;" class="col-md-3 mb-3">
+                    <div *ngFor="let sub of listQuestion$ | async; let i  = index;" class="col-md-3">
                         <div class="row w-100 h-100 m-0 justify-content-center">
                             <div (click)="onQuestionClick(sub)"
                                  class="card questioncard {{sub.read == 1 ? 'questionread' : ''}}">

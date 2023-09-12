@@ -39,9 +39,9 @@
 }
 
 .questioncard {
-  border: 2px solid var(--uniprep-primaryhighlight);
+  border: 1px solid var(--uniprep-primaryhighlight);
   width: 100%;
-  margin: 10px 0px;
+  margin: 8px 0px;
 
   .primary-btn {
     border: 2px solid var(--uniprep-primary);
@@ -49,7 +49,7 @@
 
   &:focus {
     background-color: var(--uniprep-primaryop10);
-    border: 2px solid var(--uniprep-primary);
+    border: 1px solid var(--uniprep-primary);
 
     .primary-btn {
       background-color: var(--uniprep-primaryhighlight);
@@ -59,7 +59,7 @@
 
   &:hover {
     background-color: var(--uniprep-primaryop10);
-    border: 2px solid var(--uniprep-primary);
+    border: 1px solid var(--uniprep-primary);
 
     .primary-btn {
       background-color: var(--uniprep-primaryhighlight);
