@@ -7,7 +7,7 @@ import {MenuItem} from "primeng/api";
 import {ModuleServiceService} from "../../module-store/module-service.service";
 import {ModuleStoreService} from "../../module-store/module-store.service";
 import {DataService} from "../../../data.service";
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {Location} from "@angular/common";
 import {DomSanitizer} from "@angular/platform-browser";
 
@@ -55,9 +55,8 @@ export class QuestionListComponent implements OnInit {
   currentCountryId: any
   currentApiSlug: any;
   constructor(private moduleListService: ModuleServiceService, private moduleStoreService: ModuleStoreService,
-              private changeDetector: ChangeDetectorRef,
               private dataService: DataService, private route: ActivatedRoute, private _location: Location,
-              private _sanitizer: DomSanitizer) {
+              private _sanitizer: DomSanitizer, private router: Router) {
   }
 
   ngOnInit(): void {
@@ -305,7 +304,8 @@ export class QuestionListComponent implements OnInit {
   }
 
   onClickAsk() {
-    this.dataService.changeChatOpenStatus("open chat window");
+    this.router.navigateByUrl(`/pages/chat`)
+    //this.dataService.changeChatOpenStatus("open chat window");
   }
 
   openReport() {
