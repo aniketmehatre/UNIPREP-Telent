@@ -44,7 +44,7 @@
                                 <h4>Personal information</h4>
                             </div>
                             <div class="d-flex col-sm-5 col-md-6 justify-content-end">
-                                <button class="btn btn-primary" (click)="EditPageShowAndHide('Edit')" >Edit Request</button>
+                                <button class="btn btn-primary" (click)="EditPageShowAndHide('Edit')" ><i class="mr-1 fa-regular fa-pen-to-square"></i>    Edit Request</button>
                             </div>
                         </div>
                         <div  *ngIf="!ShowPersonalInfo">
@@ -57,7 +57,7 @@
                                         </div>
                                         <div class="flex-fill p-4">
                                             <small>Country</small>
-                                            <p class="mb-0 fw-semibold">{{ user?.name }}</p>
+                                            <p class="mb-0 fw-semibold">{{ user?.country }}</p>
                                         </div>
                                         <div class="flex-fill p-4">
                                             <small>Location(district)</small>
@@ -109,8 +109,8 @@
                                                     </div>
                                                     <input class="border-0" formControlName="name" pInputText type="text"/>
                                                 </div>
-                                                <div *ngIf="submitted && f.name.errors" class="invalid-feedback">
-                                                    <div *ngIf="f.name.errors.required">
+                                                <div *ngIf="submitted && f['name']['errors']" class="UserInfoValidation">
+                                                    <div *ngIf="f['name']['errors']['required']">
                                                         First Name is required
                                                     </div>
                                                 </div>
@@ -125,8 +125,8 @@
                                                     <p-dropdown formControlName="home_country"  appendTo="body" [options]="countryList"
                                                                 filterBy="name" optionLabel="country" optionValue="id"></p-dropdown>
                                                 </div>
-                                                <div *ngIf="submitted && f.interested_country_id.errors" class="invalid-feedback">
-                                                    <div *ngIf="f.interested_country_id.errors.required">
+                                                <div *ngIf="submitted && f['home_country']['errors']" class="UserInfoValidation">
+                                                    <div *ngIf="f['home_country']['errors']['required']">
                                                         Country is required
                                                     </div>
                                                 </div>
@@ -143,8 +143,8 @@
                                                                 optionValue="id">
                                                     </p-dropdown>
                                                 </div>
-                                                <div *ngIf="submitted && f.location_id.errors" class="invalid-feedback">
-                                                    <div *ngIf="f.location_id.errors.required">
+                                                <div *ngIf="submitted && f['location_id']['errors']" class="UserInfoValidation">
+                                                    <div *ngIf="f['location_id']['errors']['required']">
                                                         Location is required
                                                     </div>
                                                 </div>
@@ -164,8 +164,8 @@
                                                     <p-dropdown formControlName="interested_country_id"  appendTo="body" [options]="countryList"
                                                                 filterBy="name" optionLabel="country" optionValue="id"></p-dropdown>
                                                 </div>
-                                                <div *ngIf="submitted && f.interested_country_id.errors" class="invalid-feedback">
-                                                    <div *ngIf="f.interested_country_id.errors.required">
+                                                <div *ngIf="submitted && f['interested_country_id']['errors']" class="UserInfoValidation">
+                                                    <div *ngIf="f['interested_country_id']['errors']['required']">
                                                         Country is required
                                                     </div>
                                                 </div>
@@ -182,9 +182,9 @@
                                                                 view="year">
                                                     </p-calendar>
                                                 </div>
-                                                <div *ngIf="submitted && f.last_degree_passing_year.errors"
-                                                    class="invalid-feedback">
-                                                    <div *ngIf="f.last_degree_passing_year.errors.required">
+                                                <div *ngIf="submitted && f['last_degree_passing_year']['errors']"
+                                                    class="UserInfoValidation">
+                                                    <div *ngIf="f['last_degree_passing_year']['errors']['required']">
                                                         Passing Year is required
                                                     </div>
                                                 </div>
@@ -201,8 +201,8 @@
                                                                 inputId="yearpicker"
                                                                 view="year"></p-calendar>
                                                 </div>
-                                                <div *ngIf="submitted && f.intake_year_looking.errors" class="invalid-feedback">
-                                                    <div *ngIf="f.intake_year_looking.errors.required">
+                                                <div *ngIf="submitted && f['intake_year_looking']['errors']" class="UserInfoValidation">
+                                                    <div *ngIf="f['intake_year_looking']['errors']['required']">
                                                         Intake Year is required
                                                     </div>
                                                 </div>
@@ -219,8 +219,8 @@
                                                         <img class="bg-image text-center"
                                                             src="../../../uniprep-assets/images/icons/Uniprep_Icons_calender.png"/>
                                                     </div>
-                                                    <p-calendar view="month" dateFormat="MM" formControlName="intake_month_looking"
-                                                                inputId="pickMonth"
+                                                    <p-calendar view="month" dateFormat="mm/yy" formControlName="intake_month_looking"
+                                                                incalendarputId="pickMonth"
                                                                 class="pt-2" [readonlyInput]="false" [minDate]="dateTime"
                                                                 placeholder="">
                                                     </p-calendar>
@@ -237,13 +237,29 @@
                                                     filterBy="programlevel" formControlName="programlevel_id" optionLabel="programlevel"
                                                                 optionValue="id"></p-dropdown>
                                                 </div>
-                                                <div *ngIf="submitted && f.programlevel_id.errors" class="invalid-feedback">
-                                                    <div *ngIf="f.programlevel_id.errors.required">
+                                                <div *ngIf="submitted && f['programlevel_id']['errors']" class="UserInfoValidation">
+                                                    <div *ngIf="f['programlevel_id']['errors']['required']">
                                                         Program Level is required
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col-md-4 p-2"></div>
+                                            <div class="col-md-4 p-2">
+                                                <label>Gender</label>
+                                                <div class="p-inputgroup">
+                                                    <div class="p-inputgroup-addon">
+                                                        <img class="bg-image text-center"
+                                                            src="../../../uniprep-assets/images/icons/Uniprep_Icons_gender.png"/>
+                                                    </div>
+                                                    <p-dropdown [filter]="true" [options]="genderList" appendTo="body"
+                                                                filterBy="name" formControlName="gender" optionLabel="name"
+                                                                optionValue="code"></p-dropdown>
+                                                </div>
+                                                <div *ngIf="submitted && f['gender']['errors']" class="UserInfoValidation">
+                                                    <div *ngIf="f['gender']['errors']['required']">
+                                                        Gender is required
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -262,10 +278,13 @@
                                 <h4>Update Password</h4>
                             </div>
                             <div class="d-flex col-sm-5 col-md-6 justify-content-end">
-                                <small>down aero</small>
+                                <a (click)="ShowPasswordDiv()" class="CursorPointer">
+                                    <i class="fa-solid fa-angle-down fs-3" *ngIf="PasswordDivShow" ></i>
+                                    <i class="fa-solid fa-angle-up fs-3" *ngIf="!PasswordDivShow"></i>
+                                </a>
                             </div>
                         </div>
-                        <div class="row">
+                        <div class="row" *ngIf="PasswordDivShow">
                             <form [formGroup]="updatedpasswords" (ngSubmit)="UserUpdatePassword(updatedpasswords)">
                                 <div class="container">
                                     <div class="d-flex">
@@ -276,7 +295,13 @@
                                                 <img src="../../../uniprep-assets/icons/viewpassword.svg" *ngIf="ShowCrntPass">
                                                 <img src="../../../uniprep-assets/icons/hidepassword.svg" *ngIf="!ShowCrntPass">
                                             </span>
+                                            <div  class="UserInfoValidation">
+                                                <div >
+                                                    Gender is required
+                                                </div>
+                                            </div>
                                         </div>
+                                        
                                         <div class="flex-fill p-2 position-relative">
                                             <label class="mb-1">Set New Password</label>
                                             <input [type]="NewPass" class="form-control" formControlName="new_password">
@@ -302,7 +327,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="container-fluid px-0">
+                <div class="container-fluid px-0 mb-2">
                     <div class="card card-body">
                         <div class="row">
                             <div class="d-flex col-sm-5 col-md-6 mb-2 justify-content-between">
@@ -320,7 +345,7 @@
                                     <span style="vertical-align: center">I wish to receive newsletters, promotions and news
                                         from
                                         UNIABROAD</span>
-                                    <p-inputSwitch formControlName="newsletter_consent"></p-inputSwitch>
+                                    <p-inputSwitch (onChange)="NewsLetterUpdate($event)" formControlName="newsletter_consent"></p-inputSwitch>
                                 </p>
                             </div>
                         </div>
@@ -330,6 +355,11 @@
             <div class="col-md-4  container-fluid mb-3">
                 <div class="container-fluid px-0">
                     <div class="card card-body">
+                        <div class="row">
+                            <div class="d-flex col-sm-5 col-md-6 mb-2 justify-content-start">
+                                <h6>Notification Settings</h6>
+                            </div>
+                        </div>
                         
                     </div>
                 </div>
@@ -492,7 +522,7 @@
                                             <div class="p-inputgroup-addon">
                                                 <img class="bg-image text-center"
                                                     src="../../../uniprep-assets/images/icons/Uniprep_Icons_calender.png"/>
-                                            </div>
+                                            </div> -->
                                             <!-- <p-calendar [minDate]="dateTime" appendTo="body" dateFormat="mm" inputId="pickMonth"
                                                 formControlName="intake_month_looking" value="intake_month_looking" view="month"></p-calendar> -->
                                             <!-- <p-calendar view="month" dateFormat="MM" formControlName="intake_month_looking"
@@ -569,4 +599,4 @@
                 </div>
             </div>
         </form>
-    </div> --> 
+    </div>  -->

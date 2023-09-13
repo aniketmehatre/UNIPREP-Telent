@@ -34,6 +34,7 @@ import {EffectsModule} from "@ngrx/effects";
 import {ModuleStoreReducer} from "./module-store/module-store.reducer";
 import {appFeatureKey} from "./module-store/module-store.selectors";
 import {ModuleStoreEffects} from "./module-store/module-store.effects";
+import {AccordionModule} from 'primeng/accordion';
 @NgModule({
     declarations: [
         PagesComponent,
@@ -72,7 +73,8 @@ import {ModuleStoreEffects} from "./module-store/module-store.effects";
         InputSwitchModule,
         ProgressBarModule,
         LifeAtModule,
-        ConfirmDialogModule
+        ConfirmDialogModule,
+        AccordionModule
     ],
     schemas: [
         CUSTOM_ELEMENTS_SCHEMA
