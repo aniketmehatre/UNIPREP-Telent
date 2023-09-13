@@ -7,20 +7,10 @@
           <div class="container-fluid">
             <div class="row mb-0 justify-content-center">
               <div *ngFor="let v of countryLists" class="col" role="button">
-                <div
-                  (click)="selectCountry(v.id)"
-                  class="row justify-content-center {{ selectedCountryId == v.id ? 'country-border pr-4 pl-4' : ''}}"
-                >
-                  <img
-                    alt="country"
-                    class=""
-                    src="{{v.flag}}"
-                    style="{{ selectedCountryId == v.id ? 'transform: scale(0.75);' : 'transform: scale(0.5);'}}"
-                    width="{{ selectedCountryId == v.id ? '350px' : '100px'}}"
-                  />
-                  <p
-                    class="text-center text-sm text-capitalize {{ selectedCountryId == v.id ? 'country-text' : 'country-text-small'}}"
-                  >
+                <div (click)="selectCountry(v.id)" class="row justify-content-center {{ selectedCountryId == v.id ? 'country-border pr-4 pl-4' : ''}}" >
+                  <img alt="country" class="countryicon" src="{{v.flag}}" style="{{ selectedCountryId == v.id ? 'transform: scale(0.75);' : 'transform: scale(0.5);'}}"
+                    width="{{ selectedCountryId == v.id ? '350px' : '100px'}}" />
+                  <p class="mb-2 text-center text-sm text-capitalize {{ selectedCountryId == v.id ? 'country-text' : 'country-text-small'}}" >
                     {{v.country}}
                   </p>
                 </div>
@@ -60,7 +50,7 @@
         </ng-template>
       </p-carousel>
       <div class="card-footer text-center border-0 bg-white">
-        <button class="btn btn-primary px-4 py-2">View More</button>
+        <button class="btn btn-primary px-4 py-2 m-0">View More</button>
       </div>
     </div>
   </div>
@@ -196,26 +186,21 @@
   >
     <div class="modal-content card bg-light">
       <div class="modal-header">
-        <a (click)="closeReading()" class="close" role="button">
-          <span aria-hidden="true"
-            ><img src="/uniprep-assets/images/icons/close_button.svg"
-          /></span>
-        </a>
+        <h3 class="mb-0" tooltipZIndex="auto" tooltipPosition="top" pTooltip="Complete the reading for all modules to get the certificate." >
+          Continue Reading
+          <i class="questiontooltip fa-solid fa-circle-question"></i>
+        </h3>
+        <div class="popupclose">
+          <a (click)="closeReading()" class="close" role="button">
+            <span aria-hidden="true"><i class="fa-solid fa-circle-x"></i></span>
+          </a>
+        </div>
       </div>
-
-      <div class="modal-body">
+      <div class="modal-body card-body">
         <div class="container">
           <div class="row mb-5">
-            <div class="col-md-12">
-              <h3
-                class="mb-3"
-                tooltipZIndex="auto"
-                tooltipPosition="top"
-                pTooltip="Complete the reading for all modules to get the certificate."
-              >
-                Continue Reading
-                <i class="questiontooltip fa-solid fa-circle-question"></i>
-              </h3>
+            <div class="col-md-12 px-4">
+              
               <div class="row">
                 <div
                   *ngFor="let readPro of readingProgressings"
@@ -243,25 +228,16 @@
                             </div>
                           </div>
                         </div>
-                        <div
-                          class="d-flex align-items-center justify-content-center"
-                        >
-                          <p
-                            *ngIf="readPro.progression_status == 'Pending'"
-                            class="text-center text-small mb-0"
-                          >
-                            {{readPro.progression_status}}
-                            <button
-                              (click)="onClickReadProgression(readPro)"
-                              class="btn btn-dark"
-                            >
+                        <div class="align-items-center justify-content-center" >
+                          <div class="d-flex flex-column" *ngIf="readPro.progression_status == 'Pending'">
+                            <p class="text-center text-small mb-0" >
+                              {{readPro.progression_status}}
+                            </p>
+                            <button (click)="onClickReadProgression(readPro)" class="btn btn-dark">
                               Read Now
                             </button>
-                          </p>
-                          <p
-                            *ngIf="readPro.progression_status == 'Completed'"
-                            class="text-center text-black text-small mb-0"
-                          >
+                          </div>
+                          <p *ngIf="readPro.progression_status == 'Completed'" class="text-center text-black text-small mb-0" >
                             <strong>{{readPro.progression_status}}</strong>
                           </p>
                         </div>
@@ -278,16 +254,8 @@
   </div>
 </div>
 
-<div
-  [ngStyle]="{ display: continueQuiz }"
-  class="modal modal-bg"
-  role="dialog"
-  tabindex="-1"
->
-  <div
-    class="modal-dialog modal-dialog-scrollable modal-dialog-centered"
-    role="document"
-  >
+<div [ngStyle]="{ display: continueQuiz }" class="modal modal-bg" role="dialog" tabindex="-1">
+  <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered" role="document" >
     <div class="modal-content card bg-light">
       <div class="modal-header">
         <a (click)="closeQuiz()" class="close" role="button">
@@ -298,13 +266,9 @@
       </div>
       <div class="modal-body">
         <div class="container">
-          <div class="row mb-5">
+          <div class="row mb-3">
             <div class="col-md-12">
-              <h3
-                class="mb-3"
-                tooltipPosition="top"
-                pTooltip="Complete the quiz for all modules to get the certificate."
-              >
+              <h3 class="mb-3" tooltipPosition="top" pTooltip="Complete the quiz for all modules to get the certificate.">
                 Take Quiz
                 <i class="questiontooltip fa-solid fa-circle-question"></i>
               </h3>
