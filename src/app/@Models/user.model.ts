@@ -44,5 +44,6 @@ export interface User {
     district: string;
     programlevel: string;
     country:string;
+    interested_country_name:string;
 
 }

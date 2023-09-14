@@ -179,3 +179,19 @@
 .CursorPointer{
   cursor: pointer;
 }
+
+.custom-border{
+  --bs-border-width: 4px;
+  --bs-border-color: #1d4ed8;
+  border-bottom: var(--bs-border-width) var(--bs-border-style) var(--bs-border-color)!important;
+}
+
+.scrollable-container {
+  max-height: 350px; /* Set the maximum height for scrollable content */
+  overflow: hidden; /* Hide the scrollbar by default */
+  position: relative; /* Enable positioning for the child div */
+}
+
+.scrollable-container:hover {
+  overflow: scroll; /* Show the scrollbar on hover */
+}

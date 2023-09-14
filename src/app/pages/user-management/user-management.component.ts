@@ -39,6 +39,8 @@ export class UserManagementComponent implements OnInit {
     CnfrmPass:string = "password";
     ShowPersonalInfo:boolean = false;
     PasswordDivShow:boolean=false;
+    PasswordSubmitted = false;
+    newsLetter:boolean = true;
 
     private subs = new SubSink();
     constructor(
@@ -76,6 +78,10 @@ export class UserManagementComponent implements OnInit {
         return this.registrationForm.controls;
     }
 
+    get updatepassword(){
+        return this.updatedpasswords.controls;
+    }
+
     ngOnInit(): void {
         this.dateTime.setDate(this.dateTime.getDate());
         this.GetLocationList();
@@ -87,6 +93,8 @@ export class UserManagementComponent implements OnInit {
             if(data){
                 this.user = data;
                 let mon = this.getMonthName(this.user?.intake_month_looking);
+                this.newsLetter = this.registrationForm.value.newsletter_consent == 1 ? true : false;
+                console.log('newsletter',this.newsLetter);
                 this.registrationForm = this.formBuilder.group({
                     name: [this.user?.name, [Validators.required]],
                     location_id: [this.user?.location_id, [Validators.required]],
@@ -100,7 +108,9 @@ export class UserManagementComponent implements OnInit {
                     programlevel_id: [this.user?.programlevel_id, [Validators.required]],
                     gender: [this.user?.gender, [Validators.required]],
                     newsletter_consent: [this.user?.newsletter_consent == 1 ? true : false, [Validators.required]],
+                    
                 });
+                
             }
         });
     }
@@ -164,9 +174,13 @@ export class UserManagementComponent implements OnInit {
         });
     }
 
+    onClickSubscribe() {
+        this.router.navigate(["/pages/subscriptions"]);
+    }
+
     onSubmit() {
         let data: any = {};
-        console.log('this', this.registrationForm.invalid);
+        //console.log('this', this.registrationForm.invalid);
         this.submitted = true;
         if (this.registrationForm.invalid) {
             //console.log('this', this.registrationForm.value.invalid);
@@ -191,8 +205,8 @@ export class UserManagementComponent implements OnInit {
         //     intakeYearLooking = this.registrationForm.value.intake_year_looking;
         // }
 
-        //let newsLetter = this.registrationForm.value.newsletter_consent == true ? 1 : 0;
-        console.log(this.registrationForm.value);
+        
+        //console.log(this.registrationForm.value);
         data['name'] = this.registrationForm.value.name;
         data['location_id'] = this.registrationForm.value.location_id; 
         //data['phone'] = this.registrationForm.value.phone;
@@ -224,6 +238,10 @@ export class UserManagementComponent implements OnInit {
 
     UserUpdatePassword(updatedpasswords:any){
         let data = this.updatedpasswords.value;
+        this.PasswordSubmitted = true;
+        if (this.updatedpasswords.invalid) {
+            return ;
+        }
         this.subs.sink = this.userManagementService.CompareUserPassword(data).subscribe(passwordconfirmation => {
             if(passwordconfirmation.severity == "success"){
                 this.updatedpasswords.patchValue({
@@ -276,9 +294,10 @@ export class UserManagementComponent implements OnInit {
 
     NewsLetterUpdate(e:any){
         let isChecked = e.checked == true ? 1 : 0;
-        
+        let OnOrOff = isChecked == 1 ? "On" : "Off";
         this.subs.sink = this.userManagementService.UpdateNewsLetter(isChecked).subscribe(data => {
-            return this.toast.add({ severity: data.severity, summary: 'Success', detail: data.message });
+            
+            return this.toast.add({ severity: 'success', summary: 'Success', detail: "Notification Turned "+OnOrOff+" successfully."});
         });
     }
 
