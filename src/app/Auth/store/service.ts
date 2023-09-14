@@ -13,7 +13,8 @@ export class AuthStoreService {
 
     login(request: LoginRequest): Observable<LoginResponse>{
         return this.http.post<LoginResponse>(environment.ApiUrl + "/login", request).pipe(
-            tap((response) => this.storage.set(environment.tokenKey, response.token))
-        );;
+            tap((response) =>
+             this.storage.set(environment.tokenKey, response.token))
+        );
     }
 }

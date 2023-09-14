@@ -40,7 +40,7 @@ export class ChatComponent implements OnInit {
       this.totalquestionsasked = response?.totalquestionsasked;
       this.totalquestionsanswered = response?.totalquestionsanswered;
       this.questionsleft = response?.questionsleft;
-      this.totalcredits = Number(localStorage.getItem("credit_plans"));
+      this.totalcredits = Number(localStorage.getItem("Questionsleft"));
     });
   }
   textMessage: string = "";

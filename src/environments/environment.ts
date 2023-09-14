@@ -9,5 +9,5 @@ export const environment = {
   domain,
   production: false,
   ApiUrl:url,
-  tokenKey: 'token'
+  tokenKey: 'token',
 };
