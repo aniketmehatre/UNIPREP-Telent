@@ -100,13 +100,13 @@
         <div class="container-fluid px-5">
             <div class="row mt-5 mb-4">
                 <div class="col-md-5">
-                    <h5 class="text-start">Recommended Videos</h5>
+                    <h5 class="text-start" *ngIf="videoLinks.length > 0">Recommended Videos</h5>
                     <div class="d-flex flex-wrap gap-3">
                         <a class="px-4 m-0 py-2 btn btn-primary btn-rounded" target="_blank" href="{{videoL.link}}" *ngFor="let videoL of videoLinks;let ind=index;">Video {{ind+1}} &nbsp;<i class="fa-solid fa-video"></i></a>
                     </div>
                 </div>
                 <div class="col-md-5">
-                    <h5 class="text-start">Recommended Links</h5>
+                    <h5 class="text-start" *ngIf="refLink.length > 0">Recommended Links</h5>
                     <div class="d-flex flex-wrap gap-3">
                         <a class="px-4 m-0 py-2 btn btn-secondary btn-rounded" target="_blank" href="{{refL.link}}" *ngFor="let refL of refLink;let ind=index;">Link {{ind+1}} &nbsp;<i class="fa-solid fa-link"></i></a>
                     </div>
