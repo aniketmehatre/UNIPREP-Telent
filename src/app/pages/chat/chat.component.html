@@ -10,7 +10,7 @@
           >{{ totalcredits }}</span
         >
       </span>
-      <span class="chatwindow"><i class="fa fa-arrow-left"></i></span>
+      <span class="chatwindow" (click)="previouspage()"><i class="fa fa-arrow-left"></i></span>
       <span
         style="
           font-size: 0.9rem;
@@ -111,6 +111,7 @@
           margin-left: 20rem;
           display: flex;
         "
+        *ngIf="visibility" 
       >
         <div style="color: white; height: 25px; width: 25px; text-align: center; vertical-align: middle; margin-right: 1rem; background-color: #3f4c83; border-radius: 50%;"><i class="fa fa-info"></i></div>
         Thank you for reaching out to us. Please anticipate a response within 6 working days

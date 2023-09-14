@@ -4,6 +4,7 @@ import { AuthService } from "src/app/Auth/auth.service";
 import { ConfirmationService, MessageService } from "primeng/api";
 import { FormBuilder } from "@angular/forms";
 import { PageFacadeService } from "../page-facade.service";
+import { fas } from "@fortawesome/free-solid-svg-icons";
 
 @Component({
   selector: "uni-chat",
@@ -26,38 +27,54 @@ export class ChatComponent implements OnInit {
     this.getChatHistoryByUserId();
     this.username = localStorage.getItem("Name") || "";
   }
+  previouspage() {
+    window.history.back();
+  }
   totalquestionsanswered = 0;
   totalquestionsasked = 0;
   questionsleft = 0;
-  totalcredits=0;
+  totalcredits = 0;
   getChatHistoryByUserId() {
-    this.service
-      .getChatHistoryByUser()
-      .subscribe((response) => {
-        this.messages = response.messages;
-        this.totalquestionsasked = response?.totalquestionsasked;
-        this.totalquestionsanswered = response?.totalquestionsanswered;
-        this.questionsleft = response?.questionsleft;
-        this.totalcredits=Number(localStorage.getItem("credit_plans"));
-      });
+    this.service.getChatHistoryByUser().subscribe((response) => {
+      this.messages = response.messages;
+      this.totalquestionsasked = response?.totalquestionsasked;
+      this.totalquestionsanswered = response?.totalquestionsanswered;
+      this.questionsleft = response?.questionsleft;
+      this.totalcredits = Number(localStorage.getItem("credit_plans"));
+    });
   }
   textMessage: string = "";
+  visibility = false;
   sendMessage() {
-    if(this.textMessage==null || this.textMessage==""){
-        this.toast.add({severity: 'warn', summary: 'Warn', detail: "Not allowed to send empty message"});
-    return;
+    if (this.textMessage == null || this.textMessage == "") {
+      this.toast.add({
+        severity: "warn",
+        summary: "Warn",
+        detail: "Not allowed to send empty message",
+      });
+      return;
     }
     let data = {
       message: this.textMessage,
       country: 2,
     };
-    this.service.sendChatMessage(data).subscribe((response) => {
-          this.textMessage = "";
-          this.getChatHistoryByUserId();
-        },
+    this.service.sendChatMessage(data).subscribe(
+      (response) => {
+        this.visibility=true;
+        this.textMessage = "";
+        this.getChatHistoryByUserId();
+        setTimeout(() => {
+          this.visibility = false;
+        }, 3000);
+      },
       (error) => {
-        this.toast.add({severity: 'warn', summary: 'Warn', detail: error?.message});
-    });
+        this.toast.add({
+          severity: "warn",
+          summary: "Warn",
+          detail: error?.message,
+        });
+      }
+    );
   }
   confirm(event: Event) {
     this.confirmationService.confirm({
