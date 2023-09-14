@@ -15,7 +15,7 @@ section {
     box-sizing: border-box;
 
     #page-container {
-      padding: 1rem .8rem;
+      padding: 1.5rem .8rem;
       box-sizing: border-box;
     }
 
@@ -36,8 +36,8 @@ section {
     }
 
     footer {
-      position: fixed;
-      bottom: 0;
+      position: sticky;
+      bottom: 0px;
       display: flex;
       justify-content: space-between;
       background-color: hsla(0, 0%, 100%, 0.8);
