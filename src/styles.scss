@@ -1097,7 +1097,11 @@ h1, h2, h3, h4, h5 {
   }
   #page
   {
-    background-color:#17181b !important;
+    background-color:#121212 !important;
+    #page-container
+    {
+        background-color: #17181b!important;
+    }
     footer
     {
     background-color: #0e1013 !important;

@@ -7,16 +7,18 @@ section {
   height: 100%;
 
   #page {
-    background-color: #EFEFEF;
+    background-color: transparent;
     position: relative;
-    overflow: auto;
     width: 0;
+    overflow: auto;
     flex: 1;
     box-sizing: border-box;
 
     #page-container {
       padding: 1.5rem .8rem;
       box-sizing: border-box;
+      border-radius: 20px;
+      background: #efefef;
     }
 
     uni-header {
@@ -36,8 +38,8 @@ section {
     }
 
     footer {
-      position: fixed;
       bottom: 0px;
+      position: sticky;
       display: flex;
       justify-content: space-between;
       background-color: hsla(0, 0%, 100%, 0.8);
