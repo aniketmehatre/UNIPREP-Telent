@@ -16,4 +16,18 @@ export class UserManagementService {
       headers: headers,
     });
   }
+
+  CompareUserPassword(data:any){
+    const headers = new HttpHeaders().set("Accept", "application/json");
+    return this.httpClient.post<any>(environment.ApiUrl + "/CompareUserPassword", data, {
+      headers: headers,
+    });
+  }
+
+  UpdateNewsLetter(data:number){
+    const headers = new HttpHeaders().set("Accept", "application/json");
+    return this.httpClient.post<any>(environment.ApiUrl + "/UpdateNewsLetterNotification", data, {
+      headers: headers,
+    });
+  }
 }

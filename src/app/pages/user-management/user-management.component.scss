@@ -143,8 +143,8 @@
 
 .profileImg{
   border-radius: 50%;
-  width: 100px;
-  height: 100px;
+  width: 30px;
+  height: 30px;
   padding: 7px;
   background: var(--uniprep-primary);
   border: 5px solid var(--uniprep-primary);
@@ -154,4 +154,44 @@
   align-items: center;
   justify-content: center;
   display: flex;
+}
+
+.passwordvisibility
+{
+  position: absolute;
+  right: 25px;
+  top: 35px;
+  cursor: pointer;
+  img {
+    width:20px;
+    height:20px;
+  }
+}
+
+.UserInfoValidation{
+  display: block;
+  width: 100%;
+  margin-top: .25rem;
+  font-size: .875em;
+  color: #fc051d;
+}
+
+.CursorPointer{
+  cursor: pointer;
+}
+
+.custom-border{
+  --bs-border-width: 4px;
+  --bs-border-color: #1d4ed8;
+  border-bottom: var(--bs-border-width) var(--bs-border-style) var(--bs-border-color)!important;
+}
+
+.scrollable-container {
+  max-height: 350px; /* Set the maximum height for scrollable content */
+  overflow: hidden; /* Hide the scrollbar by default */
+  position: relative; /* Enable positioning for the child div */
+}
+
+.scrollable-container:hover {
+  overflow: scroll; /* Show the scrollbar on hover */
 }

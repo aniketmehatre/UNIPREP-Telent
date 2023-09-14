@@ -1,233 +1,693 @@
-<div class="container-fluid">
-    <form (ngSubmit)="onSubmit()" [formGroup]="registrationForm">
+    <div class="container-fluid mb-3">
         <div class="container-fluid px-0">
             <div class="card card-body">
-                <div class="row">
-                    <div class="col-md-4">
-                        <div class="h-full profilecrd">
-                            <div class="d-flex flex-column align-items-center h-full justify-content-center">
-                                <div class="profileImg mb-2">
-                                    {{ (user?.name || "").charAt(0) }}
+                <div class="container">
+                    <div class="d-flex justify-content-between">
+                        <div class="d-flex justify-content-start align-items-center">
+                            <div class="profileImg">
+                                {{ (user?.name || "").charAt(0) }}
+                            </div>
+                            <div class="ps-3">
+                                <small>User Name</small>
+                                <p class="mb-0 fw-semibold">{{ user?.name }}</p>
+                            </div>
+                            <div class="ps-5">
+                                <small>
+                                    Phone
+                                </small>
+                                <p class="mb-0 fw-semibold text-center">{{ user?.phone }}</p>
+                            </div>
+                            <div class="ps-5">
+                                <small>
+                                    Email
+                                </small>
+                                <p class="mb-0 fw-semibold text-center">{{ user?.email }}</p>
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-end text-center">
+                            <a class="btn btn-primary me-2" (click)="onClickSubscribe()"><i class="fa-sharp fa-regular fa-crown" style="color: #ffffff;"></i> &nbsp; My Subscription</a>
+                            <a class="btn btn-primary" (click)="logout()">Logout &nbsp;<i class="fa-solid fa-power-off" style="color: #ffffff;"></i></a>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8  container-fluid mb-3">
+                <div class="container-fluid px-0 mb-3">
+                    <div class="card card-body">
+                        <div class="row">
+                            <div class="d-flex col-sm-5 col-md-6  justify-content-between">
+                                <h4>Personal information</h4>
+                            </div>
+                            <div class="d-flex col-sm-5 col-md-6 justify-content-end">
+                                <button class="btn btn-primary" (click)="EditPageShowAndHide('Edit')" ><i class="mr-1 fa-regular fa-pen-to-square"></i>    Edit Request</button>
+                            </div>
+                        </div>
+                        <div  *ngIf="!ShowPersonalInfo">
+                            <div class="row">
+                                <div class="container">
+                                    <div class="d-flex">
+                                        <div class="flex-fill p-4">
+                                            <small>Full Name</small>
+                                            <p class="mb-0 fw-semibold">{{ user?.name }}</p>
+                                        </div>
+                                        <div class="flex-fill p-4">
+                                            <small>Country</small>
+                                            <p class="mb-0 fw-semibold">{{ user?.country }}</p>
+                                        </div>
+                                        <div class="flex-fill p-4">
+                                            <small>Location(district)</small>
+                                            <p class="mb-0 fw-semibold">{{ user?.district }} , {{ user?.state }}</p>
+                                        </div>
+                                        <div class="flex-fill p-4">
+                                            <small>Intrested Country</small>
+                                            <p class="mb-0 fw-semibold">{{ user?.interested_country_name }}</p>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="pName text-center bold mt-2">{{ user?.name }}</div>
-                                <div class="pEmail text-center font-primarycolor">
-                                    {{ user?.email }}
-                                </div>
-                                <div class="text-center mt-3">
-                                    <button (click)="logout()" class="btn btn-primary">
-                                        SIGN OUT
-                                    </button>
+                            </div>
+                            <div class="row">
+                                <div class="container">
+                                    <div class="d-flex">
+                                        <div class="flex-fill p-4">
+                                            <small>Last Degree Passing Year</small>
+                                            <p class="mb-0 fw-semibold">{{ user?.last_degree_passing_year }}</p>
+                                        </div>
+                                        <div class="flex-fill p-4">
+                                            <small>Intake Month</small>
+                                            <p class="mb-0 fw-semibold">{{ user?.intake_month_looking }}</p>
+                                        </div>
+                                        <div class="flex-fill p-4">
+                                            <small>Intake Year</small>
+                                            <p class="mb-0 fw-semibold">{{ user?.intake_year_looking }}</p>
+                                        </div>
+                                        <div class="flex-fill p-4">
+                                            <small>Program Level</small>
+                                            <p class="mb-0 fw-semibold">{{ user?.programlevel }}</p>
+                                        </div>
+                                        <div class="flex-fill p-4"></div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
+                        <div *ngIf="ShowPersonalInfo">
+                            <form (ngSubmit)="onSubmit()" [formGroup]="registrationForm">
+                                <div class="container">
+                                    <!-- First row -->
+                                    <div class="row">
+                                        <div class="d-flex">
+                                            <div class="col-md-4 p-2">
+                                                <label>Full Name</label>
+                                                <div class="p-inputgroup">
+                                                    <div class="p-inputgroup-addon">
+                                                        <i class="pi pi-user"></i>
+                                                    </div>
+                                                    <input class="border-0" formControlName="name" pInputText type="text"/>
+                                                </div>
+                                                <div *ngIf="submitted && f['name']['errors']" class="UserInfoValidation">
+                                                    <div *ngIf="f['name']['errors']['required']">
+                                                        First Name is required
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4 p-2">
+                                                <label>Country</label>
+                                                <div class="p-inputgroup">
+                                                    <div class="p-inputgroup-addon">
+                                                        <img class="bg-image text-center"
+                                                            src="../../../uniprep-assets/images/icons/Uniprep_Icons_select_country.png"/>
+                                                    </div>
+                                                    <p-dropdown formControlName="home_country"  appendTo="body" [options]="countryList"
+                                                                filterBy="name" optionLabel="country" optionValue="id"></p-dropdown>
+                                                </div>
+                                                <div *ngIf="submitted && f['home_country']['errors']" class="UserInfoValidation">
+                                                    <div *ngIf="f['home_country']['errors']['required']">
+                                                        Country is required
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4 p-2">
+                                                <label>Location</label>
+                                                <div class="p-inputgroup">
+                                                    <div class="p-inputgroup-addon">
+                                                        <img class="bg-image text-center"
+                                                            src="../../../uniprep-assets/images/icons/Uniprep_Icons_location.png"/>
+                                                    </div>
+                                                    <p-dropdown [filter]="true"  appendTo="body" [options]="locationList"
+                                                                formControlName="location_id" optionLabel="district"
+                                                                optionValue="id">
+                                                    </p-dropdown>
+                                                </div>
+                                                <div *ngIf="submitted && f['location_id']['errors']" class="UserInfoValidation">
+                                                    <div *ngIf="f['location_id']['errors']['required']">
+                                                        Location is required
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- Second row -->
+                                    <div class="row">
+                                        <div class="d-flex">
+                                            <div class="col-md-4 p-2">
+                                                <label>Intrested Country</label>
+                                                <div class="p-inputgroup">
+                                                    <div class="p-inputgroup-addon">
+                                                        <img class="bg-image text-center"
+                                                            src="../../../uniprep-assets/images/icons/Uniprep_Icons_select_country.png"/>
+                                                    </div>
+                                                    <p-dropdown formControlName="interested_country_id"  appendTo="body" [options]="countryList"
+                                                                filterBy="name" optionLabel="country" optionValue="id"></p-dropdown>
+                                                </div>
+                                                <div *ngIf="submitted && f['interested_country_id']['errors']" class="UserInfoValidation">
+                                                    <div *ngIf="f['interested_country_id']['errors']['required']">
+                                                        Country is required
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4 p-2">
+                                                <label>Last Degree Passing Year</label>
+                                                <div class="p-inputgroup">
+                                                    <div class="p-inputgroup-addon">
+                                                        <img class="bg-image text-center"
+                                                            src="../../../uniprep-assets/images/icons/Uniprep_Icons_calender.png"/>
+                                                    </div>
+                                                    <p-calendar [maxDate]="today" appendTo="body" dateFormat="yy"
+                                                                formControlName="last_degree_passing_year" inputId="pickYear"
+                                                                view="year">
+                                                    </p-calendar>
+                                                </div>
+                                                <div *ngIf="submitted && f['last_degree_passing_year']['errors']"
+                                                    class="UserInfoValidation">
+                                                    <div *ngIf="f['last_degree_passing_year']['errors']['required']">
+                                                        Passing Year is required
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4 p-2">
+                                                <label>Inake Year Looking</label>
+                                                <div class="p-inputgroup">
+                                                    <div class="p-inputgroup-addon">
+                                                        <img class="bg-image text-center"
+                                                            src="../../../uniprep-assets/images/icons/Uniprep_Icons_calender.png"/>
+                                                    </div>
+                                                    <p-calendar (onSelect)="yearChage($event)" [minDate]="dateTime" appendTo="body"
+                                                                dateFormat="yy" formControlName="intake_year_looking"
+                                                                inputId="yearpicker"
+                                                                view="year"></p-calendar>
+                                                </div>
+                                                <div *ngIf="submitted && f['intake_year_looking']['errors']" class="UserInfoValidation">
+                                                    <div *ngIf="f['intake_year_looking']['errors']['required']">
+                                                        Intake Year is required
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- Third row -->
+                                    <div class="row">
+                                        <div class="d-flex">
+                                            <div class="col-md-4 p-2">
+                                                <label>Intake Month Looking</label>
+                                                <div class="p-inputgroup">
+                                                    <div class="p-inputgroup-addon">
+                                                        <img class="bg-image text-center"
+                                                            src="../../../uniprep-assets/images/icons/Uniprep_Icons_calender.png"/>
+                                                    </div>
+                                                    <p-calendar view="month" dateFormat="mm/yy" formControlName="intake_month_looking"
+                                                                incalendarputId="pickMonth"
+                                                                class="pt-2" [readonlyInput]="false" [minDate]="dateTime"
+                                                                placeholder="">
+                                                    </p-calendar>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4 p-2">
+                                                <label>Program Level</label>
+                                                <div class="p-inputgroup">
+                                                    <div class="p-inputgroup-addon">
+                                                        <img class="bg-image text-center"
+                                                            src="../../../uniprep-assets/images/icons/Uniprep_Icons_Program_Level.png"/>
+                                                    </div>
+                                                    <p-dropdown [filter]="true" [options]="programlevelList" appendTo="body" 
+                                                    filterBy="programlevel" formControlName="programlevel_id" optionLabel="programlevel"
+                                                                optionValue="id"></p-dropdown>
+                                                </div>
+                                                <div *ngIf="submitted && f['programlevel_id']['errors']" class="UserInfoValidation">
+                                                    <div *ngIf="f['programlevel_id']['errors']['required']">
+                                                        Program Level is required
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4 p-2">
+                                                <label>Gender</label>
+                                                <div class="p-inputgroup">
+                                                    <div class="p-inputgroup-addon">
+                                                        <img class="bg-image text-center"
+                                                            src="../../../uniprep-assets/images/icons/Uniprep_Icons_gender.png"/>
+                                                    </div>
+                                                    <p-dropdown [filter]="true" [options]="genderList" appendTo="body"
+                                                                filterBy="name" formControlName="gender" optionLabel="name"
+                                                                optionValue="code"></p-dropdown>
+                                                </div>
+                                                <div *ngIf="submitted && f['gender']['errors']" class="UserInfoValidation">
+                                                    <div *ngIf="f['gender']['errors']['required']">
+                                                        Gender is required
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="d-flex justify-content-end mt-2">
+                                    <button class="btn btn-primary" (click)="EditPageShowAndHide('Cancel')" >Cancel</button>
+                                    <button type="submit" class="btn btn-primary" >Update Info</button>
+                                </div>
+                            </form>
+                        </div>
                     </div>
-                    <div class="col-md-8">
-                        <div class="h-full">
-                            <div class="row g-3">
-                                <div class="col-6">
-                                    <label>Full Name</label>
-                                    <div class="p-inputgroup">
-                                        <div class="p-inputgroup-addon">
-                                            <i class="pi pi-user"></i>
-                                        </div>
-                                        <input class="border-0" formControlName="name" pInputText type="text"/>
-                                    </div>
-                                    <div *ngIf="submitted && f.name.errors" class="invalid-feedback">
-                                        <div *ngIf="f.name.errors.required">
-                                            First Name is required
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-6">
-                                    <label>Location</label>
-                                    <div class="p-inputgroup">
-                                        <div class="p-inputgroup-addon">
-                                            <img class="bg-image text-center"
-                                                 src="../../../uniprep-assets/images/icons/Uniprep_Icons_location.png"/>
-                                        </div>
-                                        <p-dropdown [filter]="true"  appendTo="body" [options]="locationList"
-                                                    formControlName="location_id" optionLabel="district"
-                                                    optionValue="id">
-                                        </p-dropdown>
-                                    </div>
-                                    <div *ngIf="submitted && f.location_id.errors" class="invalid-feedback">
-                                        <div *ngIf="f.location_id.errors.required">
-                                            Location is required
-                                        </div>
-                                    </div>
-                                </div>
+                </div>
+                <div class="container-fluid px-0 mb-3">
+                    <div class="card card-body">
+                        <div class="row">
+                            <div class="d-flex col-sm-5 col-md-6 mb-2 justify-content-between">
+                                <h4>Update Password</h4>
                             </div>
-                            <div class="row g-3">
-                                <div class="col-6">
-                                    <label>Mobile Number</label>
-                                    <div class="p-inputgroup">
-                                        <div class="p-inputgroup-addon">
-                                            <img class="bg-image text-center"
-                                                 src="../../../uniprep-assets/images/icons/Uniprep_Icons_Contact.png"/>
-                                        </div>
-                                        <input [readonly]="true" class="border-0" formControlName="phone" pInputText
-                                               type="number"/>
-                                    </div>
-                                    <div *ngIf="submitted && f.phone.errors" class="invalid-feedback">
-                                        <div *ngIf="f.phone.errors.required">
-                                            Contact Number is required
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-6">
-                                    <label>Email Address</label>
-                                    <div class="p-inputgroup">
-                                        <div class="p-inputgroup-addon">
-                                            <img class="bg-image text-center"
-                                                 src="../../../uniprep-assets/images/icons/Uniprep_Icons_email.png"/>
-                                        </div>
-                                        <input [readonly]="true" class="border-0 w-full" formControlName="email"
-                                               pInputText type="text"/>
-                                    </div>
-                                    <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
-                                        <div *ngIf="f.email.errors.required">
-                                            Email Address is required
-                                        </div>
-                                    </div>
-                                </div>
+                            <div class="d-flex col-sm-5 col-md-6 justify-content-end">
+                                <a (click)="ShowPasswordDiv()" class="CursorPointer">
+                                    <i class="fa-solid fa-angle-down fs-3" style="color: #000000;" *ngIf="PasswordDivShow" ></i>
+                                    <i class="fa-solid fa-angle-up fs-3" style="color: #000000;" *ngIf="!PasswordDivShow"></i>
+                                </a>
                             </div>
-                            <div class="row g-3">
-                                <div class="col-6">
-                                    <label>Country</label>
-                                    <div class="p-inputgroup">
-                                        <div class="p-inputgroup-addon">
-                                            <img class="bg-image text-center"
-                                                 src="../../../uniprep-assets/images/icons/Uniprep_Icons_select_country.png"/>
+                        </div>
+                        <div class="row" *ngIf="PasswordDivShow">
+                            <form [formGroup]="updatedpasswords" (ngSubmit)="UserUpdatePassword(updatedpasswords)">
+                                <div class="container">
+                                    <div class="d-flex">
+                                        <div class="flex-fill p-2 position-relative">
+                                            <label class="mb-1">Current Password</label>
+                                            <input [type]="CrntPass" class="form-control" formControlName="current_password">
+                                            <span class="passwordvisibility" (click)="ShowCurrentPassword()">
+                                                <img src="../../../uniprep-assets/icons/viewpassword.svg" *ngIf="ShowCrntPass">
+                                                <img src="../../../uniprep-assets/icons/hidepassword.svg" *ngIf="!ShowCrntPass">
+                                            </span>
+                                            <div *ngIf="PasswordSubmitted && updatepassword['current_password']['errors']"  class="UserInfoValidation">
+                                                <div *ngIf="updatepassword['current_password']['errors']['required']">
+                                                    Current Password is required
+                                                </div>
+                                            </div>
                                         </div>
-                                        <p-dropdown formControlName="interested_country_id"  appendTo="body" [options]="countryList"
-                                                    filterBy="name" optionLabel="country" optionValue="id"></p-dropdown>
-                                    </div>
-                                    <div *ngIf="submitted && f.interested_country_id.errors" class="invalid-feedback">
-                                        <div *ngIf="f.interested_country_id.errors.required">
-                                            Country is required
+                                        
+                                        <div class="flex-fill p-2 position-relative">
+                                            <label class="mb-1">Set New Password</label>
+                                            <input [type]="NewPass" class="form-control" formControlName="new_password">
+                                            <span class="passwordvisibility" (click)="ShowNewPassword()">
+                                                <img src="../../../uniprep-assets/icons/viewpassword.svg" *ngIf="ShowNewPass">
+                                                <img src="../../../uniprep-assets/icons/hidepassword.svg" *ngIf="!ShowNewPass">
+                                            </span>
+                                            <div *ngIf="PasswordSubmitted && updatepassword['new_password']['errors']"  class="UserInfoValidation">
+                                                <div *ngIf="updatepassword['new_password']['errors']['required']">
+                                                    New Password is required
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="flex-fill p-2 position-relative">
+                                            <label class="mb-1">Enter New Password Again</label>
+                                            <input [type]="CnfrmPass" class="form-control" formControlName="confirm_password">
+                                            <span class="passwordvisibility" (click)="ShowConfirmPassword()">
+                                                <img src="../../../uniprep-assets/icons/viewpassword.svg" *ngIf="ShowCnfrmPass">
+                                                <img src="../../../uniprep-assets/icons/hidepassword.svg" *ngIf="!ShowCnfrmPass">
+                                            </span>
+                                            <div *ngIf="PasswordSubmitted && updatepassword['confirm_password']['errors']"  class="UserInfoValidation">
+                                                <div *ngIf="updatepassword['confirm_password']['errors']['required']">
+                                                    Confirm Password is required
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-6">
-                                    <label>Last Degree Passing Year</label>
-                                    <div class="p-inputgroup">
-                                        <div class="p-inputgroup-addon">
-                                            <img class="bg-image text-center"
-                                                 src="../../../uniprep-assets/images/icons/Uniprep_Icons_calender.png"/>
-                                        </div>
-                                        <p-calendar [maxDate]="today" appendTo="body" dateFormat="yy"
-                                                    formControlName="last_degree_passing_year" inputId="pickYear"
-                                                    view="year">
-                                        </p-calendar>
-                                    </div>
-                                    <div *ngIf="submitted && f.last_degree_passing_year.errors"
-                                         class="invalid-feedback">
-                                        <div *ngIf="f.last_degree_passing_year.errors.required">
-                                            Passing Year is required
-                                        </div>
-                                    </div>
+                                <div class="d-flex justify-content-end mt-2">
+                                    <button type="submit" class="btn btn-primary" >Update Password</button>
                                 </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="container-fluid px-0 mb-3">
+                    <div class="card card-body">
+                        <div class="row">
+                            <div class="d-flex col-sm-5 col-md-6 mb-2 justify-content-between">
+                                <h4>Notification Settings</h4>
                             </div>
-                            <div class="row g-3">
-                                <div class="col-6">
-                                    <label>Inake Year Looking</label>
-                                    <div class="p-inputgroup">
-                                        <div class="p-inputgroup-addon">
-                                            <img class="bg-image text-center"
-                                                 src="../../../uniprep-assets/images/icons/Uniprep_Icons_calender.png"/>
-                                        </div>
-                                        <p-calendar (onSelect)="yearChage($event)" [minDate]="dateTime" appendTo="body"
-                                                    dateFormat="yy" formControlName="intake_year_looking"
-                                                    inputId="yearpicker"
-                                                    view="year"></p-calendar>
-                                    </div>
-                                    <div *ngIf="submitted && f.intake_year_looking.errors" class="invalid-feedback">
-                                        <div *ngIf="f.intake_year_looking.errors.required">
-                                            Intake Year is required
-                                        </div>
-                                    </div>
+                        </div>
+                        <div class="row">
+                            <div class="container">
+                                <div class="d-flex">
+                                    <p class="text-muted">
+                                        Basic information on Data Protection: uniabroad stores your data to improve the service and with your consent, offer news, promotion and raffles, as well as projects and releases form UNIABROAD
+                                    </p> 
                                 </div>
-                                <div class="col-6">
-                                    <label>Intake Month Looking</label>
-                                    <div class="p-inputgroup">
-                                        <div class="p-inputgroup-addon">
-                                            <img class="bg-image text-center"
-                                                 src="../../../uniprep-assets/images/icons/Uniprep_Icons_calender.png"/>
-                                        </div>
-                                        <!-- <p-calendar [minDate]="dateTime" appendTo="body" dateFormat="mm" inputId="pickMonth"
-                                            formControlName="intake_month_looking" value="intake_month_looking" view="month"></p-calendar> -->
-                                        <p-calendar view="month" dateFormat="MM" formControlName="intake_month_looking"
-                                                    inputId="pickMonth"
-                                                    class="pt-2" [readonlyInput]="false" [minDate]="dateTime"
-                                                    placeholder="">
-                                        </p-calendar>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row g-3">
-                                <div class="col-6">
-                                    <label>Program Level</label>
-                                    <div class="p-inputgroup">
-                                        <div class="p-inputgroup-addon">
-                                            <img class="bg-image text-center"
-                                                 src="../../../uniprep-assets/images/icons/Uniprep_Icons_Program_Level.png"/>
-                                        </div>
-                                        <p-dropdown [filter]="true" [options]="programlevelList" appendTo="body" 
-                                        filterBy="programlevel" formControlName="programlevel_id" optionLabel="programlevel"
-                                                    optionValue="id"></p-dropdown>
-                                    </div>
-                                    <div *ngIf="submitted && f.programlevel_id.errors" class="invalid-feedback">
-                                        <div *ngIf="f.programlevel_id.errors.required">
-                                            Program Level is required
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-6">
-                                    <label>Gender</label>
-                                    <div class="p-inputgroup">
-                                        <div class="p-inputgroup-addon">
-                                            <img class="bg-image text-center"
-                                                 src="../../../uniprep-assets/images/icons/Uniprep_Icons_gender.png"/>
-                                        </div>
-                                        <p-dropdown [filter]="true" [options]="genderList" appendTo="body"
-                                                    filterBy="name" formControlName="gender" optionLabel="name"
-                                                    optionValue="code"></p-dropdown>
-                                    </div>
-                                    <div *ngIf="submitted && f.gender.errors" class="invalid-feedback">
-                                        <div *ngIf="f.gender.errors.required">
-                                            Gender is required
-                                        </div>
-                                    </div>
-                                </div>
+                                <p class="notify d-flex justify-content-between align-items-center bg-light rounded-4 p-2">
+                                    <span style="vertical-align: center">I wish to receive newsletters, promotions and news
+                                        from
+                                        UNIABROAD</span>
+                                    <p-inputSwitch (onChange)="NewsLetterUpdate($event)" [(ngModel)]="newsLetter" formControlName="newsletter_consent"></p-inputSwitch>{{newsLetter}}
+                                </p>
                             </div>
                         </div>
                     </div>
                 </div>
-                <br/>
-                <div class="row">
-                    <div class="col-12">
-                        <div class="profilecrd">
-                            <div class="text-center">NOTIFICATIONS</div>
-                            <p class="notify d-flex justify-content-between align-items-center bg-light rounded-4 p-2">
-                                <span style="vertical-align: center">I wish to receive newsletters, promotions and news
-                                    from
-                                    UNIABROAD</span>
-                                <p-inputSwitch formControlName="newsletter_consent"></p-inputSwitch>
-                            </p>
-                            <p class="text-muted">
-                                Basic information on Data Protection: uniabroad stores your data
-                                to improve the service and, with your consent, offers news,
-                                promotions and raffles, as well as projects and releases from
-                                UNIABROAD
-                            </p> 
-
-                            <div class="text-center">
-                                <button class="btn btn-primary">SAVE THE CHANGES</button>
+            </div>
+            <div class="col-md-4  container-fluid mb-3">
+                <div class="container-fluid px-0">
+                    <div class="card card-body">
+                        <div class="row">
+                            <div class="d-flex col-sm-5 col-md-6 mb-2 justify-content-start">
+                                <h4>Notification</h4>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-10">
+                                <div class="d-flex justify-content-between">
+                                    <div class="pb-1 custom-border"><h6>All</h6></div>
+                                    <div class="pb-1"><h6>Archive</h6></div>
+                                    <div class="pb-1"><h6>Orders</h6></div>
+                                </div>
+                            </div>
+                            <div class="col-2 d-flex justify-content-end" >
+                                <div><h6><i class="fa-regular fa-gear CursorPointer" style="color: #000000;"></i></h6></div>
+                            </div>
+                        </div>
+                        <div class="container scrollable-container" >
+                            <h3>Today</h3>
+                            <div class="justify-content-start">
+                                <div class="mb-3">
+                                    <div class="d-flex justify-content-start align-items-center">
+                                        <i class="fa-light fa-circle-check" style="color: #9e9e9e; font-size: 2rem;"></i>
+                                        <div class="ps-3">
+                                            <p class="mb-0 fw-semibold">Your Password has been successfully changed.</p>
+                                            <small>June 21,2023 at 03:13 PM</small>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <div class="d-flex justify-content-start align-items-center">
+                                        <i class="fa-light fa-circle-check" style="color: #9e9e9e; font-size: 2rem;"></i>
+                                        <div class="ps-3">
+                                            <p class="mb-0 fw-semibold">Your Subscription has been successfully renewed.</p>
+                                            <small>June 21,2023 at 03:13 PM</small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <h3>Yesterday</h3>
+                            <div class="justify-content-start">
+                                <div class="mb-3">
+                                    <div class="d-flex justify-content-start align-items-center">
+                                        <i class="fa-light fa-circle-check" style="color: #9e9e9e; font-size: 2rem;"></i>
+                                        <div class="ps-3">
+                                            <p class="mb-0 fw-semibold">You have 1 free chat credit remaining.</p>
+                                            <small>June 21,2023 at 03:13 PM</small>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <div class="d-flex justify-content-start align-items-center">
+                                        <i class="fa-light fa-circle-check" style="color: #9e9e9e; font-size: 2rem;"></i>
+                                        <div class="ps-3">
+                                            <p class="mb-0 fw-semibold">You haven't completed the Pre-Application Quiz.</p>
+                                            <small>June 21,2023 at 03:13 PM</small>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <div class="d-flex justify-content-start align-items-center">
+                                        <i class="fa-light fa-circle-check" style="color: #9e9e9e; font-size: 2rem;"></i>
+                                        <div class="ps-3">
+                                            <p class="mb-0 fw-semibold">You haven't completed the Post-Application Quiz.</p>
+                                            <small>June 21,2023 at 03:13 PM</small>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <div class="d-flex justify-content-start align-items-center">
+                                        <i class="fa-light fa-circle-check" style="color: #9e9e9e; font-size: 2rem;"></i>
+                                        <div class="ps-3">
+                                            <p class="mb-0 fw-semibold">You haven't completed the Career Hub Quiz.</p>
+                                            <small>June 21,2023 at 03:13 PM</small>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <div class="d-flex justify-content-start align-items-center">
+                                        <i class="fa-light fa-circle-check" style="color: #9e9e9e; font-size: 2rem;"></i>
+                                        <div class="ps-3">
+                                            <p class="mb-0 fw-semibold">You haven't completed the Life at UK Quiz.</p>
+                                            <small>June 21,2023 at 03:13 PM</small>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </form>
-</div>
+    </div>
+
+    <!-- <div class="container-fluid">
+        <form (ngSubmit)="onSubmit()" [formGroup]="registrationForm">
+            <div class="container-fluid px-0">
+                <div class="card card-body">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="h-full profilecrd">
+                                <div class="d-flex flex-column align-items-center h-full justify-content-center">
+                                    <div class="profileImg mb-2">
+                                        {{ (user?.name || "").charAt(0) }}
+                                    </div>
+                                    <div class="pName text-center bold mt-2">{{ user?.name }}</div>
+                                    <div class="pEmail text-center font-primarycolor">
+                                        {{ user?.email }}
+                                    </div>
+                                    <div class="text-center mt-3">
+                                        <button (click)="logout()" class="btn btn-primary">
+                                            SIGN OUT
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-8">
+                            <div class="h-full">
+                                <div class="row g-3">
+                                    <div class="col-6">
+                                        <label>Full Name</label>
+                                        <div class="p-inputgroup">
+                                            <div class="p-inputgroup-addon">
+                                                <i class="pi pi-user"></i>
+                                            </div>
+                                            <input class="border-0" formControlName="name" pInputText type="text"/>
+                                        </div>
+                                        <div *ngIf="submitted && f.name.errors" class="invalid-feedback">
+                                            <div *ngIf="f.name.errors.required">
+                                                First Name is required
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <label>Location</label>
+                                        <div class="p-inputgroup">
+                                            <div class="p-inputgroup-addon">
+                                                <img class="bg-image text-center"
+                                                    src="../../../uniprep-assets/images/icons/Uniprep_Icons_location.png"/>
+                                            </div>
+                                            <p-dropdown [filter]="true"  appendTo="body" [options]="locationList"
+                                                        formControlName="location_id" optionLabel="district"
+                                                        optionValue="id">
+                                            </p-dropdown>
+                                        </div>
+                                        <div *ngIf="submitted && f.location_id.errors" class="invalid-feedback">
+                                            <div *ngIf="f.location_id.errors.required">
+                                                Location is required
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row g-3">
+                                    <div class="col-6">
+                                        <label>Mobile Number</label>
+                                        <div class="p-inputgroup">
+                                            <div class="p-inputgroup-addon">
+                                                <img class="bg-image text-center"
+                                                    src="../../../uniprep-assets/images/icons/Uniprep_Icons_Contact.png"/>
+                                            </div>
+                                            <input [readonly]="true" class="border-0" formControlName="phone" pInputText
+                                                type="number"/>
+                                        </div>
+                                        <div *ngIf="submitted && f.phone.errors" class="invalid-feedback">
+                                            <div *ngIf="f.phone.errors.required">
+                                                Contact Number is required
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <label>Email Address</label>
+                                        <div class="p-inputgroup">
+                                            <div class="p-inputgroup-addon">
+                                                <img class="bg-image text-center"
+                                                    src="../../../uniprep-assets/images/icons/Uniprep_Icons_email.png"/>
+                                            </div>
+                                            <input [readonly]="true" class="border-0 w-full" formControlName="email"
+                                                pInputText type="text"/>
+                                        </div>
+                                        <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
+                                            <div *ngIf="f.email.errors.required">
+                                                Email Address is required
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row g-3">
+                                    <div class="col-6">
+                                        <label>Country</label>
+                                        <div class="p-inputgroup">
+                                            <div class="p-inputgroup-addon">
+                                                <img class="bg-image text-center"
+                                                    src="../../../uniprep-assets/images/icons/Uniprep_Icons_select_country.png"/>
+                                            </div>
+                                            <p-dropdown formControlName="interested_country_id"  appendTo="body" [options]="countryList"
+                                                        filterBy="name" optionLabel="country" optionValue="id"></p-dropdown>
+                                        </div>
+                                        <div *ngIf="submitted && f.interested_country_id.errors" class="invalid-feedback">
+                                            <div *ngIf="f.interested_country_id.errors.required">
+                                                Country is required
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <label>Last Degree Passing Year</label>
+                                        <div class="p-inputgroup">
+                                            <div class="p-inputgroup-addon">
+                                                <img class="bg-image text-center"
+                                                    src="../../../uniprep-assets/images/icons/Uniprep_Icons_calender.png"/>
+                                            </div>
+                                            <p-calendar [maxDate]="today" appendTo="body" dateFormat="yy"
+                                                        formControlName="last_degree_passing_year" inputId="pickYear"
+                                                        view="year">
+                                            </p-calendar>
+                                        </div>
+                                        <div *ngIf="submitted && f.last_degree_passing_year.errors"
+                                            class="invalid-feedback">
+                                            <div *ngIf="f.last_degree_passing_year.errors.required">
+                                                Passing Year is required
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row g-3">
+                                    <div class="col-6">
+                                        <label>Inake Year Looking</label>
+                                        <div class="p-inputgroup">
+                                            <div class="p-inputgroup-addon">
+                                                <img class="bg-image text-center"
+                                                    src="../../../uniprep-assets/images/icons/Uniprep_Icons_calender.png"/>
+                                            </div>
+                                            <p-calendar (onSelect)="yearChage($event)" [minDate]="dateTime" appendTo="body"
+                                                        dateFormat="yy" formControlName="intake_year_looking"
+                                                        inputId="yearpicker"
+                                                        view="year"></p-calendar>
+                                        </div>
+                                        <div *ngIf="submitted && f.intake_year_looking.errors" class="invalid-feedback">
+                                            <div *ngIf="f.intake_year_looking.errors.required">
+                                                Intake Year is required
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <label>Intake Month Looking</label>
+                                        <div class="p-inputgroup">
+                                            <div class="p-inputgroup-addon">
+                                                <img class="bg-image text-center"
+                                                    src="../../../uniprep-assets/images/icons/Uniprep_Icons_calender.png"/>
+                                            </div> -->
+                                            <!-- <p-calendar [minDate]="dateTime" appendTo="body" dateFormat="mm" inputId="pickMonth"
+                                                formControlName="intake_month_looking" value="intake_month_looking" view="month"></p-calendar> -->
+                                            <!-- <p-calendar view="month" dateFormat="MM" formControlName="intake_month_looking"
+                                                        inputId="pickMonth"
+                                                        class="pt-2" [readonlyInput]="false" [minDate]="dateTime"
+                                                        placeholder="">
+                                            </p-calendar>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row g-3">
+                                    <div class="col-6">
+                                        <label>Program Level</label>
+                                        <div class="p-inputgroup">
+                                            <div class="p-inputgroup-addon">
+                                                <img class="bg-image text-center"
+                                                    src="../../../uniprep-assets/images/icons/Uniprep_Icons_Program_Level.png"/>
+                                            </div>
+                                            <p-dropdown [filter]="true" [options]="programlevelList" appendTo="body" 
+                                            filterBy="programlevel" formControlName="programlevel_id" optionLabel="programlevel"
+                                                        optionValue="id"></p-dropdown>
+                                        </div>
+                                        <div *ngIf="submitted && f.programlevel_id.errors" class="invalid-feedback">
+                                            <div *ngIf="f.programlevel_id.errors.required">
+                                                Program Level is required
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <label>Gender</label>
+                                        <div class="p-inputgroup">
+                                            <div class="p-inputgroup-addon">
+                                                <img class="bg-image text-center"
+                                                    src="../../../uniprep-assets/images/icons/Uniprep_Icons_gender.png"/>
+                                            </div>
+                                            <p-dropdown [filter]="true" [options]="genderList" appendTo="body"
+                                                        filterBy="name" formControlName="gender" optionLabel="name"
+                                                        optionValue="code"></p-dropdown>
+                                        </div>
+                                        <div *ngIf="submitted && f.gender.errors" class="invalid-feedback">
+                                            <div *ngIf="f.gender.errors.required">
+                                                Gender is required
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <br/>
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="profilecrd">
+                                <div class="text-center">NOTIFICATIONS</div>
+                                <p class="notify d-flex justify-content-between align-items-center bg-light rounded-4 p-2">
+                                    <span style="vertical-align: center">I wish to receive newsletters, promotions and news
+                                        from
+                                        UNIABROAD</span>
+                                    <p-inputSwitch formControlName="newsletter_consent"></p-inputSwitch>
+                                </p>
+                                <p class="text-muted">
+                                    Basic information on Data Protection: uniabroad stores your data
+                                    to improve the service and, with your consent, offers news,
+                                    promotions and raffles, as well as projects and releases from
+                                    UNIABROAD
+                                </p> 
+
+                                <div class="text-center">
+                                    <button class="btn btn-primary">SAVE THE CHANGES</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>  -->

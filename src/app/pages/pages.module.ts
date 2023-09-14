@@ -37,6 +37,7 @@ import { ChatComponent } from './chat/chat.component';
 import { CardModule } from 'primeng/card';
 import { EditorModule } from 'primeng/editor';
 import { ConfirmPopupModule } from 'primeng/confirmpopup';
+import {AccordionModule} from 'primeng/accordion';
 @NgModule({
     declarations: [
         PagesComponent,
@@ -77,7 +78,10 @@ import { ConfirmPopupModule } from 'primeng/confirmpopup';
         ProgressBarModule,
         ConfirmDialogModule,
         CardModule,
-        EditorModule,ConfirmPopupModule
+        EditorModule,
+        ConfirmPopupModule,
+        ConfirmDialogModule,
+        AccordionModule
     ],
     schemas: [
         CUSTOM_ELEMENTS_SCHEMA
