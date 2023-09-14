@@ -40,7 +40,7 @@ export class UserManagementComponent implements OnInit {
     ShowPersonalInfo:boolean = false;
     PasswordDivShow:boolean=false;
     PasswordSubmitted = false;
-    newsLetter:boolean = true;
+    newsLetter:boolean = false;
 
     private subs = new SubSink();
     constructor(
@@ -93,7 +93,7 @@ export class UserManagementComponent implements OnInit {
             if(data){
                 this.user = data;
                 let mon = this.getMonthName(this.user?.intake_month_looking);
-                this.newsLetter = this.registrationForm.value.newsletter_consent == 1 ? true : false;
+                this.newsLetter = this.user.newsletter_consent == 1 ? true : false;
                 console.log('newsletter',this.newsLetter);
                 this.registrationForm = this.formBuilder.group({
                     name: [this.user?.name, [Validators.required]],
