@@ -12,15 +12,15 @@
     <div (scroll)="onWindowScroll($event)" id="page">
         <uni-header (togleSidebar)="togleSidebar()" [expandicon]="expandicon" [ngClass]="{'sticky': stickHeader}">
         </uni-header>
-        <div id="page-container">
+        <div class="container-fluid" id="page-container">
             <div *ngIf="showSearch">
                 <uni-header-search></uni-header-search>
             </div>
-            <div class="row">
+            <div class="row mb-4">
                 <router-outlet></router-outlet>
-            </div>
-            <div *ngIf="isFooterBoxVisible">
-                <uni-footer-status-box></uni-footer-status-box>
+                <div *ngIf="isFooterBoxVisible">
+                    <uni-footer-status-box></uni-footer-status-box>
+                </div>
             </div>
         </div>
         <footer [ngClass]="{'alignleft': !!sidebarClass}">
@@ -36,6 +36,6 @@
                 </ul>
             </div>
         </footer>
-
     </div>
+    
 </section>
