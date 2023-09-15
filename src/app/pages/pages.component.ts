@@ -21,7 +21,7 @@ export class PagesComponent implements OnInit, OnDestroy {
         router.events.subscribe((val) => {
             if(val instanceof NavigationEnd){
                 if(val.url.includes('subscriptions') || val.url.includes('faq') || val.url.includes('support-help')
-                || val.url.includes('usermanagement')|| val.url.includes('chat')){
+                || val.url.includes('usermanagement')|| val.url.includes('chat') || val.url.includes('guideline')){
                     this.showSearch = false;
                     this.isFooterBoxVisible = false;
                 }else{

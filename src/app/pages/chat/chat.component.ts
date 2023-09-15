@@ -2,10 +2,10 @@ import { Component, OnInit } from "@angular/core";
 import { ChathistoryService } from "./chat.service";
 import { AuthService } from "src/app/Auth/auth.service";
 import { ConfirmationService, MessageService } from "primeng/api";
-import { FormBuilder } from "@angular/forms";
+import { FormBuilder, FormGroup } from "@angular/forms";
 import { PageFacadeService } from "../page-facade.service";
 import { fas } from "@fortawesome/free-solid-svg-icons";
-
+import { Router } from "@angular/router";
 @Component({
   selector: "uni-chat",
   templateUrl: "./chat.component.html",
@@ -13,19 +13,39 @@ import { fas } from "@fortawesome/free-solid-svg-icons";
   providers: [ConfirmationService],
 })
 export class ChatComponent implements OnInit {
+  filterForm: FormGroup;
   messages: any = [];
+  reportOptions=[];
   constructor(
     private service: ChathistoryService,
     private authService: AuthService,
     private toast: MessageService,
     private fb: FormBuilder,
     private pageService: PageFacadeService,
-    private confirmationService: ConfirmationService
-  ) {}
+    private confirmationService: ConfirmationService,
+    private route:Router
+  ) {
+    this.filterForm = fb.group({
+      reportOption: [""],
+      comment: [""],
+    });
+  }
   username: string = "";
   ngOnInit(): void {
+    if (localStorage.getItem("guidlineAccepted")) {
+      if (Number(localStorage.getItem("guidlineAccepted")) == 0) {
+        this.route.navigate(['/pages/guideline']);
+      }
+    }
     this.getChatHistoryByUserId();
+    this.getOptions();
     this.username = localStorage.getItem("Name") || "";
+  }
+  getOptions() {
+    this.service.getReportoption().subscribe((response) => {
+      this.reportOptions = [];
+      this.reportOptions = response.reportOptions;
+    });
   }
   previouspage() {
     window.history.back();
@@ -40,7 +60,7 @@ export class ChatComponent implements OnInit {
       this.totalquestionsasked = response?.totalquestionsasked;
       this.totalquestionsanswered = response?.totalquestionsanswered;
       this.questionsleft = response?.questionsleft;
-      this.totalcredits = Number(localStorage.getItem("Questionsleft"));
+      this.totalcredits = Number(localStorage.getItem("questions_left"));
     });
   }
   textMessage: string = "";
@@ -60,7 +80,12 @@ export class ChatComponent implements OnInit {
     };
     this.service.sendChatMessage(data).subscribe(
       (response) => {
-        this.visibility=true;
+        this.toast.add({
+          severity: "success",
+          summary: "success",
+          detail: "Message sent successfully",
+        });
+        this.visibility = true;
         this.textMessage = "";
         this.getChatHistoryByUserId();
         setTimeout(() => {
@@ -87,5 +112,22 @@ export class ChatComponent implements OnInit {
       },
       reject: () => {},
     });
+  }
+
+  filtersubmit() {
+    if (this.filterForm.invalid) return;
+    this.service.Reportchat(this.filterForm?.value).subscribe(
+      (response) => {
+        this.toast.add({
+          severity: "success",
+          summary: "success",
+          detail: "Reported successfully",
+        });
+        this.filterForm.reset();
+      },
+      (error) => {
+       
+      }
+    );
   }
 }
