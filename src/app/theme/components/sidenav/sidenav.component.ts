@@ -9,6 +9,7 @@ import {
 import { ActivatedRoute, NavigationEnd, Router } from "@angular/router";
 import { filter } from "rxjs";
 import { map } from "rxjs/operators";
+import { AuthService } from 'src/app/Auth/auth.service';
 import { DataService } from 'src/app/data.service';
 
 export interface SideMenu {
@@ -39,38 +40,43 @@ export class SidenavComponent {
     },
     {
       title: 'Pre Application',
-      url: '/pages/pre-application',
+      url: '/pages/modules/pre-application',
       image: 'fa-solid fa-file-import',
     },
     {
       title: 'Post Application',
-      url: '/pages/post-application',
+      url: '/pages/modules/post-application',
       image: 'fa-solid fa-file-export',
     },
     {
       title: 'Post Admission',
-      url: '/pages/post-admission',
+      url: '/pages/modules/post-admission',
       image: 'fa-solid fa-ticket',
     },
     {
       title: 'Career Hub',
-      url: '/pages/career-hub',
+      url: '/pages/modules/career-hub',
       image: 'fa-solid fa-briefcase',
     },
     {
       title: 'University',
-      url: '/pages/university',
+      url: '/pages/modules/university',
       image: 'fa-solid fa-building-columns',
     },
     {
       title: 'Life at',
-      url: '/pages/life-at',
+      url: '/pages/modules/life-at-country',
       image: 'fa-solid fa-earth-americas',
     },
     {
       title: 'Subscription',
       url: '/pages/subscriptions',
       image: 'fa-solid fa-crown',
+    },
+    {
+      title: 'Resources',
+      url: '/pages/resource',
+      image: 'fa-solid fa-link',
     },
     {
       title: 'FAQ',
@@ -97,7 +103,8 @@ export class SidenavComponent {
   constructor(
     private router: Router,
     private activatedRoute: ActivatedRoute,
-    private dataService: DataService
+    private dataService: DataService,
+    private authService: AuthService
   ) {
     this.dataService.countryNameSource.subscribe(countryName => {
       this.menus.filter(data => {
@@ -125,6 +132,16 @@ export class SidenavComponent {
 
   ngOnInit(): void {
     this.markCurrentMenu();
+    this.changeSubscriptionUrl();
+  }
+
+  changeSubscriptionUrl() {
+    if(this.authService.user?.subscription) {
+      const subscriptionItem = this.menus.find(item => item.title === 'Subscription');
+      if (subscriptionItem) {
+        subscriptionItem.url = 'subscriptions/subscriptioned-data';
+      }
+    }
   }
 
   markCurrentMenu() {

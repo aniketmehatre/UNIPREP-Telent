@@ -49,6 +49,9 @@ export class AuthService {
             tap((response) => {
                 localStorage.setItem('countryId', '2')
                 this.user = response.userdetails[0];
+                localStorage.setItem("UserID",response.userdetails[0].id)
+                localStorage.setItem("Name",response.userdetails[0].name)
+                localStorage.setItem("credit_plans",response.userdetails[0].credit_plans)
                 this.getCountry().subscribe(data => {
                     data.filter((value: any) => {
                         if (2 == value.id) {

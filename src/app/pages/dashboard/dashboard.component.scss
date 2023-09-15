@@ -82,6 +82,7 @@
   padding: 10px !important;
   color: #fff !important;
 
+
   p {
     font-size: 14px;
   }
@@ -89,6 +90,10 @@
   .certificatelocked {
     color: #3b3b3b;
   }
+}
+
+.homecardbtnquiz{
+  background-color: black;
 }
 
 .certificatelock {
@@ -118,17 +123,6 @@
   padding: 0 !important;
 }
 
-.modal-header {
-  align-self: self-end;
-  background-color: transparent !important;
-  border-radius: 50%;
-  width: 60px !important;
-  height: 60px !important;
-  margin: -25px -15px 0 0;
-  z-index: 9000;
-  border-bottom: 0 !important;
-  position: relative;
-}
 
 .modal-header a {
   padding: 0 !important;
@@ -137,8 +131,24 @@
 
 .modal-content {
   background-color: #fff;
-  overflow: hidden;
+  overflow: visible;
   border-color: var(--uniprep-primary);
+}
+
+.popupclose
+{
+  position: absolute;
+  top: -1rem;
+  right: 1rem;
+  font-size: 2rem;
+  i
+  {
+    color: var(--uniprep-primary);
+    background:white;
+    border-radius:100%;
+  }
+  
+
 }
 
 .modal-bg {
@@ -339,6 +349,11 @@ $howManySteps: 100; //this needs to be even.
       border-radius: 100%;
       padding: 10px;
       color: white;
+      width: 50px;
+      height: 50px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
     }
 
     span {
@@ -350,9 +365,20 @@ $howManySteps: 100; //this needs to be even.
 
   .quizcircle {
     div {
-      background-color: #ffa337;
+      background-color: var(--uniprep-secondary);
     }
   }
+}
+
+.card-footer
+{
+  background:transparent !important;
+}
+
+.countryicon
+{
+  width:150px;
+  height:100px;
 }
 
 .country-text {
@@ -443,7 +469,7 @@ Due to the split circle of progress-left and progress right, we must use the ani
 $borderWidth: 10px;
 $animationTime: 0.5s;
 $border-color-default: #efefef;
-$border-color-fill: #f6d166;
+$border-color-fill: var(--uniprep-secondary);
 $size: 70px;
 $howManySteps: 100; //this needs to be even.
 
@@ -758,7 +784,7 @@ Due to the split circle of progress-left and progress right, we must use the ani
 .modal--modal-content {
   box-shadow: 0 1px 3px 0 rgba(38, 41, 58, 0.06);
   width: 100%;
-  max-width: 600px;
+  max-width: 700px;
   padding: 30px;
   background: white;
   position: relative;
@@ -803,13 +829,20 @@ Due to the split circle of progress-left and progress right, we must use the ani
 
 .continuecard {
   border: 2px solid var(--uniprep-primary) !important;
-  padding: 15px;
+  padding: 15px 10px;
   background: var(--uniprep-primaryop10);
 
   .progress1 {
     .progress1-value {
       div {
         background-color: var(--uniprep-primary);
+        height: 40px;
+        width: 40px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 0.8rem;
+        font-weight: 500;
       }
     }
   }
@@ -836,7 +869,7 @@ Due to the split circle of progress-left and progress right, we must use the ani
   .progress1 {
     .progress1-value {
       div {
-        background-color: #ffa337;
+        background-color: var(--uniprep-secondary);
       }
     }
   }
@@ -861,4 +894,18 @@ Due to the split circle of progress-left and progress right, we must use the ani
   top: 5px;
   color:var(--uniprep-primary);
   margin-left: 5px;
+  font-size: 1.5rem;
+}
+
+.ellipse-button {
+  width: auto;
+  padding: 6px 25px;
+  height: auto;
+  background-color: #f0780e;
+  border-radius: 25px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: not-allowed;
+  font-size: 10px;
 }

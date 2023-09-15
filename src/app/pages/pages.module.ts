@@ -28,12 +28,15 @@ import { BreadcrumbModule } from 'primeng/breadcrumb';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { QuestionCreditComponent } from './question-credit/question-credit.component';
 import {ProgressBarModule} from "primeng/progressbar";
-import {LifeAtModule} from "./life-at/life-at.module";
 import {ConfirmDialogModule} from "primeng/confirmdialog";
 import {EffectsModule} from "@ngrx/effects";
 import {ModuleStoreReducer} from "./module-store/module-store.reducer";
 import {appFeatureKey} from "./module-store/module-store.selectors";
 import {ModuleStoreEffects} from "./module-store/module-store.effects";
+import { ChatComponent } from './chat/chat.component';
+import { CardModule } from 'primeng/card';
+import { EditorModule } from 'primeng/editor';
+import { ConfirmPopupModule } from 'primeng/confirmpopup';
 import {AccordionModule} from 'primeng/accordion';
 @NgModule({
     declarations: [
@@ -46,6 +49,7 @@ import {AccordionModule} from 'primeng/accordion';
         FooterStatusBoxComponent,
         HeaderSearchComponent,
         QuestionCreditComponent,
+        ChatComponent
     ],
     exports: [
         FooterStatusBoxComponent,
@@ -72,7 +76,10 @@ import {AccordionModule} from 'primeng/accordion';
         FormsModule,
         InputSwitchModule,
         ProgressBarModule,
-        LifeAtModule,
+        ConfirmDialogModule,
+        CardModule,
+        EditorModule,
+        ConfirmPopupModule,
         ConfirmDialogModule,
         AccordionModule
     ],

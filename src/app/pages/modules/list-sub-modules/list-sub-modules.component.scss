@@ -1,0 +1,106 @@
+.application-text-small {
+  color: black;
+  font-size: 0.8rem;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.application-border {
+  border: 1px solid var(--uniprep-primary);
+  border-radius: 5%;
+  font-size: 0.8rem;
+}
+
+.unselected-border {
+  border: 1px solid var(--uniprep-primaryhighlight);
+  border-radius: 5px;
+  font-size: 0.8rem;
+}
+
+.selected-border {
+  background-color: var(--uniprep-primary);
+  border: 0;
+}
+
+.application-text {
+  font-size: 0.8rem;
+}
+
+.subjectcard {
+  border: 1px solid var(--uniprep-primaryhighlight);
+  width: 100%;
+  margin: 10px 0px;
+
+  .selectimage {
+    aspect-ratio: 1/1;
+    width: 50%;
+  }
+
+  &:focus {
+    background-color: var(--uniprep-primaryop10);
+    border: 1px solid var(--uniprep-primary);
+  }
+
+  &:hover {
+    background-color: var(--uniprep-primaryop10);
+    border: 1px solid var(--uniprep-primary);
+  }
+
+  .subjecttitle {
+    height: 50px;
+  }
+}
+:host ::ng-deep p-carousel {
+  //On later realease of PrimeNG, this can be done programmatically with [showIndicators | showNavigators]="false"
+  .p-carousel-indicators {
+    display: none !important;
+  }
+
+  .p-carousel-next, .p-carousel-prev {
+    display: none !important;
+  }
+}
+selctedQuizTiny{
+  font-size: 10px;
+  color: var(--uniprep-primary);
+}
+.quizprogress
+{
+  .p-progressbar
+  {
+    height: 10px;
+    margin-top: 5px;
+  }
+}
+.quiznotanswered
+{
+  border: 1px solid #E3E3E3;
+  border-radius: 8px;
+  width: 100%;
+  padding: 8px;
+  text-align: start;
+  color: #001631;
+}
+
+.optionanswered
+{
+  border: 1px solid var(--uniprep-primary);
+  border-radius: 8px;
+  color: #001631;
+}
+
+.optionreviewcorrect
+{
+  border: 1px solid var(--uniprep-primary);
+  background: var(--uniprep-primary);
+  border-radius: 8px;
+  color: #fff;
+}
+
+.optionreviewwrong
+{
+  border: 1px solid #DF3E3E;
+  background: #DF3E3E;
+  border-radius: 8px;
+  color: #fff;
+}
