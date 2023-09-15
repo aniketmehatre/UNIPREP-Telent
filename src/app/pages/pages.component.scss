@@ -19,6 +19,7 @@ section {
       box-sizing: border-box;
       border-radius: 20px;
       background: #efefef;
+      margin-bottom:35px;
     }
 
     uni-header {
@@ -39,7 +40,7 @@ section {
 
     footer {
       bottom: 0px;
-      position: sticky;
+      position: fixed;
       display: flex;
       justify-content: space-between;
       background-color: hsla(0, 0%, 100%, 0.8);
