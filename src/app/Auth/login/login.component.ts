@@ -23,7 +23,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   password: string = 'password';
   constructor(
       private service: AuthService, private formBuilder: FormBuilder,private route:Router,
-      private toast: MessageService, private dataService: DataService
+      private toast: MessageService, private dataService: DataService,
   ) {}
 
   ngOnDestroy() {
@@ -69,5 +69,7 @@ export class LoginComponent implements OnInit, OnDestroy {
       return;
     }
     this.service.login(this.loginForm.value);
+    
   }
+  
 }
