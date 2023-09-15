@@ -1,7 +1,7 @@
     <div class="container-fluid mb-3">
         <div class="container-fluid px-0">
             <div class="card card-body">
-                <div class="container">
+                <div class="container-fluid">
                     <div class="d-flex justify-content-between">
                         <div class="d-flex justify-content-start align-items-center">
                             <div class="profileImg">
@@ -34,7 +34,7 @@
             </div>
         </div>
     </div>
-    <div class="container">
+    <div class="container-fluid">
         <div class="row">
             <div class="col-md-8  container-fluid mb-3">
                 <div class="container-fluid px-0 mb-3">
@@ -44,26 +44,27 @@
                                 <h4>Personal information</h4>
                             </div>
                             <div class="d-flex col-sm-5 col-md-6 justify-content-end">
-                                <button class="btn btn-primary" (click)="EditPageShowAndHide('Edit')" ><i class="mr-1 fa-regular fa-pen-to-square"></i>    Edit Request</button>
+                                <button class="btn btn-primary" *ngIf="!ShowPersonalInfo" (click)="EditPageShowAndHide('Edit')" ><i class="mr-1 mt-1 fa-regular fa-pen-to-square"></i> &nbsp; Edit &nbsp; </button>
+                                <button class="btn btn-danger" *ngIf="ShowPersonalInfo" (click)="EditPageShowAndHide('cancel')" ><i class="fa-sharp fa-solid fa-xmark mt-1" style="color: #ffffff;"></i> &nbsp; Cancel &nbsp; </button>
                             </div>
                         </div>
                         <div  *ngIf="!ShowPersonalInfo">
                             <div class="row">
-                                <div class="container">
+                                <div class="container-fluid">
                                     <div class="d-flex">
-                                        <div class="flex-fill p-4">
+                                        <div class="col-md-3 p-4">
                                             <small>Full Name</small>
                                             <p class="mb-0 fw-semibold">{{ user?.name }}</p>
                                         </div>
-                                        <div class="flex-fill p-4">
+                                        <div class="col-md-3 p-4">
                                             <small>Country</small>
                                             <p class="mb-0 fw-semibold">{{ user?.country }}</p>
                                         </div>
-                                        <div class="flex-fill p-4">
+                                        <div class="col-md-3 p-4">
                                             <small>Location(district)</small>
                                             <p class="mb-0 fw-semibold">{{ user?.district }} , {{ user?.state }}</p>
                                         </div>
-                                        <div class="flex-fill p-4">
+                                        <div class="col-md-3 p-4">
                                             <small>Intrested Country</small>
                                             <p class="mb-0 fw-semibold">{{ user?.interested_country_name }}</p>
                                         </div>
@@ -71,32 +72,32 @@
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="container">
+                                <div class="container-fluid">
                                     <div class="d-flex">
-                                        <div class="flex-fill p-4">
+                                        <div class="col-md-3 p-4">
                                             <small>Last Degree Passing Year</small>
                                             <p class="mb-0 fw-semibold">{{ user?.last_degree_passing_year }}</p>
                                         </div>
-                                        <div class="flex-fill p-4">
+                                        <div class="col-md-3 p-4">
                                             <small>Intake Month</small>
                                             <p class="mb-0 fw-semibold">{{ user?.intake_month_looking }}</p>
                                         </div>
-                                        <div class="flex-fill p-4">
+                                        <div class="col-md-3 p-4">
                                             <small>Intake Year</small>
                                             <p class="mb-0 fw-semibold">{{ user?.intake_year_looking }}</p>
                                         </div>
-                                        <div class="flex-fill p-4">
+                                        <div class="col-md-3 p-4">
                                             <small>Program Level</small>
                                             <p class="mb-0 fw-semibold">{{ user?.programlevel }}</p>
                                         </div>
-                                        <div class="flex-fill p-4"></div>
+                                        
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div *ngIf="ShowPersonalInfo">
                             <form (ngSubmit)="onSubmit()" [formGroup]="registrationForm">
-                                <div class="container">
+                                <div class="container-fluid">
                                     <!-- First row -->
                                     <div class="row">
                                         <div class="d-flex">
@@ -263,8 +264,7 @@
                                     </div>
                                 </div>
                                 <div class="d-flex justify-content-end mt-2">
-                                    <button class="btn btn-primary" (click)="EditPageShowAndHide('Cancel')" >Cancel</button>
-                                    <button type="submit" class="btn btn-primary" >Update Info</button>
+                                    <button type="submit" class="btn btn-primary" ><i class="fa-solid fa-circle-up mt-1" style="color: #ffffff;"></i> &nbsp; Update Info &nbsp;</button>
                                 </div>
                             </form>
                         </div>
@@ -285,7 +285,7 @@
                         </div>
                         <div class="row" *ngIf="PasswordDivShow">
                             <form [formGroup]="updatedpasswords" (ngSubmit)="UserUpdatePassword(updatedpasswords)">
-                                <div class="container">
+                                <div class="container-fluid">
                                     <div class="d-flex">
                                         <div class="flex-fill p-2 position-relative">
                                             <label class="mb-1">Current Password</label>
@@ -330,7 +330,7 @@
                                     </div>
                                 </div>
                                 <div class="d-flex justify-content-end mt-2">
-                                    <button type="submit" class="btn btn-primary" >Update Password</button>
+                                    <button type="submit" class="btn btn-primary" ><i class="fa-solid fa-circle-up mt-1" style="color: #ffffff;"></i> &nbsp; Update Password &nbsp; </button>
                                 </div>
                             </form>
                         </div>
@@ -344,7 +344,7 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="container">
+                            <div class="container-fluid">
                                 <div class="d-flex">
                                     <p class="text-muted">
                                         Basic information on Data Protection: uniabroad stores your data to improve the service and with your consent, offer news, promotion and raffles, as well as projects and releases form UNIABROAD
@@ -381,7 +381,7 @@
                                 <div><h6><i class="fa-regular fa-gear CursorPointer" style="color: #000000;"></i></h6></div>
                             </div>
                         </div>
-                        <div class="container scrollable-container" >
+                        <div class="container-fluid scrollable-container" >
                             <h3>Today</h3>
                             <div class="justify-content-start">
                                 <div class="mb-3">
