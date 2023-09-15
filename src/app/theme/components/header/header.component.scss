@@ -289,3 +289,30 @@ form {
   font-weight:600;
   color:#001631;
 }
+
+.menutoggle
+{
+  button
+  {
+    border-radius: 100% !important;
+    width: 30px;
+    height: 30px;
+    margin: auto !important;
+    padding: 0;
+    display: flex !important;
+    justify-content: center;
+    background: #efefef;
+  }
+}
+
+.darkmode
+{
+  .menutoggle
+{
+  button
+  {
+    color:#fff;
+    background: #202124;
+  }
+}
+}
