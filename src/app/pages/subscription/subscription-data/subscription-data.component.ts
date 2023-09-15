@@ -24,8 +24,9 @@ export class SubscriptionDataComponent implements OnInit {
   topupcountries = false;
   topupvalidity = false;
   labelVariable: string = 'test'
-  baseSubSelectedCountry: number = 2;
+  baseSubSelectedCountry: any [] = [2,1,2];
   selectedCoutriesList: any = [];
+  listSubscriptionList: any;
   selectedCountryOption: any = {
         altname: "uk",
         country: "United Kingdom",
@@ -83,7 +84,7 @@ export class SubscriptionDataComponent implements OnInit {
       perpage: 1000
     }
     this.subscriptionService.getSubscriptions(data).subscribe((response) => {
-
+      this.listSubscriptionList = response.subscriptions;
     });
   }
 
