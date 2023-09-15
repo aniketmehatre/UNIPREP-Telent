@@ -63,11 +63,11 @@ export class HeaderComponent implements OnInit, OnDestroy {
   sec: number = 0;
   isVisibleModulesMenu: boolean = false;
   isChatWindowVisible: boolean = false;
-  messages:any=[];
-  show= false;
-  password: string = 'password';
-  show1= false;
-  password1: string = 'password';
+  messages: any = [];
+  show = false;
+  password: string = "password";
+  show1 = false;
+  password1: string = "password";
   constructor(
     private modalService: ModalService,
     private router: Router,
@@ -86,7 +86,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
       this.visible = data;
     });
     this.subs.sink = this.dataService.showTimerSource.subscribe((data) => {
-      if(data == 'EXPIRED'){
+      if (data == "EXPIRED") {
         this.visible = true;
         this.day = 0;
         this.hrs = 0;
@@ -95,7 +95,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
         return;
       }
       if (data) {
-        data = data.split('-', 4);
+        data = data.split("-", 4);
         this.day = data[0];
         this.hrs = data[1];
         this.min = data[2];
@@ -115,33 +115,32 @@ export class HeaderComponent implements OnInit, OnDestroy {
     }
   }
 
-  showPassword(){
-    if (this.password === 'password') {
-      this.password = 'text';
+  showPassword() {
+    if (this.password === "password") {
+      this.password = "text";
       this.show = true;
-
     } else {
-      this.password = 'password';
+      this.password = "password";
       this.show = false;
-
     }
   }
 
-  showPassword1(){
-    if (this.password1 === 'password') {
-      this.password1 = 'text';
+  showPassword1() {
+    if (this.password1 === "password") {
+      this.password1 = "text";
       this.show1 = true;
     } else {
-      this.password1 = 'password';
+      this.password1 = "password";
       this.show1 = false;
-
     }
   }
 
-  exploreNow(){
+  exploreNow() {
     this.dataService.showTimerInHeader(null);
   }
-
+  openchat() {
+    this.router.navigate(["/pages/chat"]);
+  }
   updateMenuClass() {
     const sidenav: Element | null = document.getElementById("sidenav");
     if (sidenav) {
@@ -154,17 +153,19 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-
     this.getModuleList();
     this.onChangeModuleList(1);
     this.onChangeSubModuleList(1);
-    this.genMod = [{
-      name: 'General',
-      id: 1
-    }, {
-      name: 'Modules',
-      id: 2
-    }]
+    this.genMod = [
+      {
+        name: "General",
+        id: 1,
+      },
+      {
+        name: "Modules",
+        id: 2,
+      },
+    ];
     this.setPasswordForm = this.formBuilder.group({
       password: [
         "",
@@ -213,7 +214,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     });
 
     this.subs.sink = this.service.getMe().subscribe((data) => {
-      if(data){
+      if (data) {
         this.userName = data.userdetails[0].name.toString();
         this.firstChar = this.userName.charAt(0);
       }
@@ -298,7 +299,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
       });
   }
 
-  onChangeChooseMain(event: any){
+  onChangeChooseMain(event: any) {
     this.isVisibleModulesMenu = event == 2;
   }
 
@@ -350,12 +351,12 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   onSubmit() {
     let data;
-    if(this.reportSubmitForm.value.general == 1){
+    if (this.reportSubmitForm.value.general == 1) {
       data = {
         reportOption: this.reportSubmitForm.value.reportOption,
         comment: this.reportSubmitForm.value.comment,
       };
-    }else{
+    } else {
       data = {
         moduleId: this.reportSubmitForm.value.moduleId,
         submoduleId: this.reportSubmitForm.value.submoduleId,

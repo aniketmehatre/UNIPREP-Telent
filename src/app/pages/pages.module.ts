@@ -38,6 +38,9 @@ import { CardModule } from 'primeng/card';
 import { EditorModule } from 'primeng/editor';
 import { ConfirmPopupModule } from 'primeng/confirmpopup';
 import {AccordionModule} from 'primeng/accordion';
+import { GuidelineComponent } from './chat/guidelines/guidelines.component';
+import { OverlayPanelModule } from 'primeng/overlaypanel';
+import { InputTextareaModule } from 'primeng/inputtextarea';
 @NgModule({
     declarations: [
         PagesComponent,
@@ -49,7 +52,8 @@ import {AccordionModule} from 'primeng/accordion';
         FooterStatusBoxComponent,
         HeaderSearchComponent,
         QuestionCreditComponent,
-        ChatComponent
+        ChatComponent,
+        GuidelineComponent
     ],
     exports: [
         FooterStatusBoxComponent,
@@ -81,7 +85,7 @@ import {AccordionModule} from 'primeng/accordion';
         EditorModule,
         ConfirmPopupModule,
         ConfirmDialogModule,
-        AccordionModule
+        AccordionModule,OverlayPanelModule,InputTextareaModule
     ],
     schemas: [
         CUSTOM_ELEMENTS_SCHEMA

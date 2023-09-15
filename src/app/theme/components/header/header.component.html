@@ -95,9 +95,9 @@
             </ng-template>
         </p-overlayPanel>
         <!--        <p-button (click)="op.toggle($event)" icon="pi pi-image" label="Show"></p-button>-->
-        <p-avatar routerLink="/pages/chat" class="" label="" role="button">
+        <a (click)="openchat()"><p-avatar class="" label="" role="button">
             <i class="fa-solid fa-comments"></i>
-        </p-avatar>
+        </p-avatar></a>
         <p-avatar (click)="togleSidebar.emit()" class="" label="" role="button">
             <i class="fa-solid fa-bell"></i>
         </p-avatar>
