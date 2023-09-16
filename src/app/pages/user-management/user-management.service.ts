@@ -30,4 +30,11 @@ export class UserManagementService {
       headers: headers,
     });
   }
+
+  GetPaidSubscriptionDetails(){
+    const headers = new HttpHeaders().set("Accept", "application/json");
+    return this.httpClient.post<any>(environment.ApiUrl + "/SubscriptionValidity", {
+      headers: headers,
+    });
+  }
 }
