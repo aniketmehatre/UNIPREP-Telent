@@ -28,7 +28,7 @@ export interface User {
     location_name: string;
     usertype_name: string;
     newsletter_consent: number;
-
+    subscription_plan: string;
     location_id: string;
     phone: string;
     subscription: string;

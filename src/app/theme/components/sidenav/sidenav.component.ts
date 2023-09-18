@@ -132,14 +132,14 @@ export class SidenavComponent {
 
   ngOnInit(): void {
     this.markCurrentMenu();
-    this.changeSubscriptionUrl();
+    //this.changeSubscriptionUrl();
   }
 
   changeSubscriptionUrl() {
     if(this.authService.user?.subscription) {
       const subscriptionItem = this.menus.find(item => item.title === 'Subscription');
       if (subscriptionItem) {
-        subscriptionItem.url = 'subscriptions/subscriptioned-data';
+        subscriptionItem.url = 'subscriptions/subscription-history';
       }
     }
   }
