@@ -13,8 +13,9 @@
 
 // const domain = '40.80.95.32';
 // const url= `http://${domain}/sopapi/public/api`;
-const domain = '40.80.95.32';
-const url= `http://40.80.95.32/uniprepapi/public/api`;
+// const domain = '40.80.95.32';
+const domain = '20.235.29.36';
+const url= `http://${domain}/uniprepapi/public/api`;
 export const environment = {
   domain,
   production: false,
