@@ -16,4 +16,9 @@
     <ng-container *ngSwitchCase="4">
         <uni-subscription-success [plan]="success"></uni-subscription-success>
     </ng-container>
+    <ng-container *ngSwitchCase="5">
+        <uni-subscription-history [userSubscription]="userSubscription" [subscribedHistoryData]="subscribedHistoryData"
+                                  [subscribedCountryList]="subscribedCountryList"
+        ></uni-subscription-history>
+    </ng-container>
 </ng-container>
