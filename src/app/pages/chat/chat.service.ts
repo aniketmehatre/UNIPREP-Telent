@@ -22,6 +22,18 @@ export class ChathistoryService {
             headers: headers,
         });
     }
+    getReportoption():Observable<any> {
+        const headers = new HttpHeaders().set("Accept", "application/json");
+        return this.http.get<any>(environment.ApiUrl+'/reportoption', {
+            headers: headers,
+        });
+    }
+    Reportchat(data:any):Observable<any> {
+        const headers = new HttpHeaders().set("Accept", "application/json");
+        return this.http.post<any>(environment.ApiUrl+'/reportchat',data, {
+            headers: headers,
+        });
+    }
     getnonrepliedChatList(data:any):Observable<any> {
         const headers = new HttpHeaders().set("Accept", "application/json");
         return this.http.post<any>(environment.ApiUrl+'/getnotrepliedchatlist',data, {
@@ -49,6 +61,11 @@ export class ChathistoryService {
 
     sendChatMessage(params: any) {
         return this.http.post<any>(environment.ApiUrl+'/sentchatmessage', params); 
+    }
+    Acceptance() {const headers = new HttpHeaders().set("Accept", "application/json");
+        return this.http.post<any>(environment.ApiUrl+'/guidlineaccept',{
+            headers: headers,
+        }); 
     }
     getleadtype(){
         const headers = new HttpHeaders().set("Accept", "application/json");

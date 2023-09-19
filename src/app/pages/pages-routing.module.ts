@@ -6,6 +6,7 @@ import {PagesComponent} from './pages.component';
 import {UserManagementComponent} from './user-management/user-management.component';
 import {AuthGuard} from "../Auth/auth.guard";
 import { ChatComponent } from './chat/chat.component';
+import { GuidelineComponent } from './chat/guidelines/guidelines.component';
 
 const routes: Routes = [
     {
@@ -55,7 +56,11 @@ const routes: Routes = [
                 loadChildren: () => import('./resource/resource.module').then(m => m.ResourceModule)
             },
             {path: 'usermanagement', canActivate: [AuthGuard], component: UserManagementComponent},
-            {path: '', redirectTo: 'dashboard', pathMatch: 'full'}
+            {path: '', redirectTo: 'dashboard', pathMatch: 'full'},
+            {
+                path: 'guideline',
+                component: GuidelineComponent
+            }
         ]
     }
 ];

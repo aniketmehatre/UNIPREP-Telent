@@ -9,6 +9,8 @@
   --uniprep-primaryop10: #3f4c8325;
   --uniprep-primaryop30: #3f4c835b;
   --uniprep-secondary: #f0780e;
+  --uniprep-secondaryop10: #f0780e25;
+  --uniprep-secondaryop30: #f0780e5b;
   --uniprep-primaryhighlight: #4552a3;
   --uniprep-secondaryhighlight: #f6895a;
   --uniprep-tertiary: #ffffff;
@@ -238,8 +240,15 @@ h1, h2, h3, h4, h5 {
 
 .card
 {
-  border-radius: 15px !important;
+  border-radius: 20px !important;
   text-transform: inherit !important;
+  background-color: #FAFAFA;
+  border:1px solid #EFEFEF;
+  &:hover
+  {
+    background-color: #FFFFFF;
+    border:1px solid #EFEFEF;
+  }
 }
 .btn
 {
@@ -279,6 +288,8 @@ h1, h2, h3, h4, h5 {
   {
     color: #fff !important;
     background: var(--uniprep-primary);
+    box-shadow: 0 0 0 0.25rem var(--uniprep-primaryop10)!important;
+    border-color: var(--uniprep-primary);
   }
 }
 .btn-secondary {
@@ -307,7 +318,7 @@ h1, h2, h3, h4, h5 {
     color: #fff !important;
     background: var(--uniprep-secondary);
     border-color: var(--uniprep-secondary) !important;
-    box-shadow: 0 0 0 0.25rem var(--uniprep-secondary)80;
+    box-shadow: 0 0 0 0.25rem var(--uniprep-secondaryop10);
   }
 }
 .btn-tertiary {
@@ -1090,7 +1101,11 @@ h1, h2, h3, h4, h5 {
   }
   #page
   {
-    background-color:#17181b !important;
+    background-color:#121212 !important;
+    #page-container
+    {
+        background-color: #17181b!important;
+    }
     footer
     {
     background-color: #0e1013 !important;
