@@ -64,7 +64,7 @@ export class UserManagementComponent implements OnInit {
             intake_month_looking: [new Date(`${this.user?.intake_month_looking}-01-${this.user?.intake_year_looking}`), [Validators.required]],
             programlevel_id: [this.user?.programlevel_id, [Validators.required]],
             gender: [this.user?.gender, [Validators.required]],
-            newsletter_consent: [this.user?.newsletter_consent == 1, [Validators.required]],
+            // newsletter_consent: [this.user?.newsletter_consent == 1, [Validators.required]],
         });
 
         this.updatedpasswords = this.formBuilder.group({
@@ -107,7 +107,7 @@ export class UserManagementComponent implements OnInit {
                     intake_month_looking: [new Date(mon+"/"+this.user?.intake_year_looking), [Validators.required]],
                     programlevel_id: [this.user?.programlevel_id, [Validators.required]],
                     gender: [this.user?.gender, [Validators.required]],
-                    newsletter_consent: [this.user?.newsletter_consent == 1 ? true : false, [Validators.required]],
+                    // newsletter_consent: [this.user?.newsletter_consent == 1 ? true : false, [Validators.required]],
                     
                 });
                 
@@ -175,7 +175,15 @@ export class UserManagementComponent implements OnInit {
     }
 
     onClickSubscribe() {
-        this.router.navigate(["/pages/subscriptions"]);
+        this.subs.sink = this.userManagementService.GetPaidSubscriptionDetails().subscribe(data => {
+            if (data.includes(1)) {
+                this.router.navigate(["/pages/subscriptions/subscription-history"]);
+            } else {
+                this.router.navigate(["/pages/subscriptions"]);
+            }
+        });
+
+        
     }
 
     onSubmit() {

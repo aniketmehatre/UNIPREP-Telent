@@ -26,7 +26,7 @@ import {MultiSelectModule} from "primeng/multiselect";
 import { DialogModule } from 'primeng/dialog';
 import { BreadcrumbModule } from 'primeng/breadcrumb';
 import { ChipModule } from 'primeng/chip';
-import { SubscriptionedDataComponent } from './subscriptioned-data/subscriptioned-data.component';
+import { SubscriptionHistoryComponent } from './subscription-history/subscription-history.component';
 
 @NgModule({
     declarations: [
@@ -36,7 +36,7 @@ import { SubscriptionedDataComponent } from './subscriptioned-data/subscriptione
         SubscriptionDataComponent,
         SubscriptionListComponent,
         SubscriptionSuccessComponent,
-        SubscriptionedDataComponent
+        SubscriptionHistoryComponent
     ],
     imports: [
         CommonModule,

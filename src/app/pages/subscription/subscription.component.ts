@@ -32,15 +32,17 @@ export class SubscriptionComponent implements OnInit {
     success!: SubscriptionSuccess;
     user: any;
     countryList: any;
-    selectedCountry: any;
     isSubOrQuestion: number = 1;
+    subscribedCountryList: any [] = [];
+    subscribedHistoryData: any [] = [];
+    userSubscription: any [] = [];
     constructor(
         private subscriptionService: SubscriptionService,
         private winRef: WindowRefService,
         private authservice: AuthService
     ) { }
     ngOnInit(): void {
-        if (!this.authservice.user?.subscription?.toLowerCase().includes("Free")) {
+        if (this.authservice?.user?.subscription_plan.includes("Free")) {
             this.user = this.authservice.user;
             this.stage = 1;
             this.loadSubDetails();
@@ -48,11 +50,12 @@ export class SubscriptionComponent implements OnInit {
         }
 
         this.start();
+        this.loadSubscriptionHistory();
     }
     start() {
         this.showPayLoading = false;
-        this.stage = 2;
-        this.loadSubscriptions();
+        this.stage = 5;
+        //this.loadSubscriptions();
     }
 
     loadSubDetails() {
@@ -179,5 +182,17 @@ export class SubscriptionComponent implements OnInit {
         };
         const rzp = new this.winRef.nativeWindow.Razorpay(options);
         rzp.open();
+    }
+
+    loadSubscriptionHistory(){
+        let request = {
+            country_id: 2
+        }
+        this.subscriptionService.getSubscriptionDetails(request).subscribe((response) => {
+            console.log(response);
+            this.userSubscription = response.user_subscription;
+            this.subscribedHistoryData = response.subscription_history;
+            this.subscribedCountryList = response.country_list;
+        })
     }
 }
