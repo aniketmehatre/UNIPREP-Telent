@@ -173,7 +173,7 @@
                                         </ng-template>
                                     </p-multiSelect>
                                     <div class="d-flex align-items-center gap-2 flex-wrap pt-2">
-                                        <div *ngFor="let data of selectedCoutriesList">
+                                        <div *ngFor="let data of subscription.selectedCountryList">
                                             <p-chip [label]="data.country" [image]="data.flag" [removable]="true"
                                                 (onRemove)="removeCountry(data.id)" removeIcon="fa fa-times"></p-chip>
                                         </div>
