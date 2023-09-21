@@ -154,7 +154,7 @@
                                 <div class="card-body p-4">
                                     <h5 style="font-size: 18px; text-align: center;">Select Your Base Country</h5>
                                     <span class="p-float-label">
-                                        <p-dropdown [options]="countryList" styleClass="w-100" optionValue="id"
+                                        <!-- <p-dropdown [options]="countryList" styleClass="w-100" optionValue="id"
                                             [(ngModel)]="baseSubSelectedCountry"
                                             (onChange)="changeBaseCountry(selected)" optionLabel="country" #selected>
                                             <ng-template pTemplate="selectedItem" *ngIf="selectedCountryOption">
@@ -162,7 +162,22 @@
                                                     [alt]="selectedCountryOption.altname" class="base-country-flag">
                                                 {{ selectedCountryOption?.country }}
                                             </ng-template>
-                                        </p-dropdown>
+                                        </p-dropdown> -->
+                                        <p-multiSelect [options]="countryList" styleClass="w-100"
+                                        (onChange)="changeCountry($event)" optionValue="id"
+                                        [(ngModel)]="subscription.country"
+                                        defaultLabel="Select a multiple countries as per your requirement"
+                                        optionLabel="country" #multiSelect>
+                                        <ng-template pTemplate="selectedItems">
+                                            {{ multiSelect.defaultLabel }}
+                                        </ng-template>
+                                    </p-multiSelect>
+                                    <div class="d-flex align-items-center gap-2 flex-wrap pt-2">
+                                        <div *ngFor="let data of selectedCoutriesList">
+                                            <p-chip [label]="data.country" [image]="data.flag" [removable]="true"
+                                                (onRemove)="removeCountry(data.id)" removeIcon="fa fa-times"></p-chip>
+                                        </div>
+                                    </div>
                                     </span>
                                     <h5 style="font-size: 18px; text-align: center;" class="pt-4">Personalized Question:
                                         2 / day</h5>

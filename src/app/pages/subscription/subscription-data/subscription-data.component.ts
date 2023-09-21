@@ -24,7 +24,7 @@ export class SubscriptionDataComponent implements OnInit {
   topupcountries = false;
   topupvalidity = false;
   labelVariable: string = 'test'
-  baseSubSelectedCountry: any [] = [2,1,2];
+  baseSubSelectedCountry: any [] = [1,2];
   selectedCoutriesList: any = [];
   listSubscriptionList: any;
   selectedCountryOption: any = {
@@ -85,6 +85,11 @@ export class SubscriptionDataComponent implements OnInit {
     }
     this.subscriptionService.getSubscriptions(data).subscribe((response) => {
       this.listSubscriptionList = response.subscriptions;
+      this.listSubscriptionList.forEach((item: any) => {
+        if (item.country) {
+          item.country = item.country.split(',').map(Number);
+        }
+      });
     });
   }
 
