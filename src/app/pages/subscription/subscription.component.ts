@@ -42,6 +42,7 @@ export class SubscriptionComponent implements OnInit {
         private authservice: AuthService
     ) { }
     ngOnInit(): void {
+        console.log(this.authservice?.user?.subscription_plan)
         if (this.authservice?.user?.subscription_plan.includes("Free")) {
             this.user = this.authservice.user;
             this.stage = 1;

@@ -42,8 +42,8 @@ export class QuestionListComponent implements OnInit {
   message: string = '';
   moduleName: any;
   subModuleId: any;
-  videoLinks: any;
-  refLink: any;
+  videoLinks: any [] = [];
+  refLink: any [] = [];
   countryId: any;
   selectedQuestionData: any;
   popUpItemVideoLink: any;
@@ -60,7 +60,14 @@ export class QuestionListComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.route.params.subscribe(params => {
+      this.loadInit();
+      this.getSubmoduleName(this.countryId);
+    });
 
+  }
+
+  loadInit(){
     this.countryId = Number(localStorage.getItem('countryId'));
 
     this.subModuleId = this.route.snapshot.paramMap.get('id');
