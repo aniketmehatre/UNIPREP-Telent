@@ -20,6 +20,7 @@ import {RippleModule} from "primeng/ripple";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {DropdownModule} from "primeng/dropdown";
 import {CalendarModule} from "primeng/calendar";
+import {TabViewModule} from 'primeng/tabview';
 import {InputSwitchModule} from "primeng/inputswitch";
 import {MultiSelectModule} from "primeng/multiselect";
 import { CarouselModule } from 'primeng/carousel';
@@ -69,6 +70,7 @@ import {AccordionModule} from 'primeng/accordion';
         ReactiveFormsModule,
         DropdownModule,
         CalendarModule,
+        TabViewModule,
         MultiSelectModule,
         CarouselModule,
         DialogModule,

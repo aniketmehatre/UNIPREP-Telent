@@ -37,4 +37,11 @@ export class UserManagementService {
       headers: headers,
     });
   }
+
+  GetUserPersonalInfo(){
+    const headers = new HttpHeaders().set("Accept", "application/json");
+    return this.httpClient.post<any>(environment.ApiUrl + "/GetUserPersonalDetails", {
+      headers: headers,
+    });
+  }
 }
