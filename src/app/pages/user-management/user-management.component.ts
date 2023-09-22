@@ -41,6 +41,7 @@ export class UserManagementComponent implements OnInit {
     PasswordDivShow:boolean=false;
     PasswordSubmitted = false;
     newsLetter:boolean = false;
+    PersonalInfo:any=[];
 
     private subs = new SubSink();
     constructor(
@@ -88,13 +89,10 @@ export class UserManagementComponent implements OnInit {
         this.getProgramLevelList();
         this.getCountryList();
         this.authService.userData.subscribe(data => {
-            console.log(data);
-            console.log("data");
             if(data){
                 this.user = data;
                 let mon = this.getMonthName(this.user?.intake_month_looking);
                 this.newsLetter = this.user.newsletter_consent == 1 ? true : false;
-                console.log('newsletter',this.newsLetter);
                 this.registrationForm = this.formBuilder.group({
                     name: [this.user?.name, [Validators.required]],
                     location_id: [this.user?.location_id, [Validators.required]],
@@ -108,10 +106,17 @@ export class UserManagementComponent implements OnInit {
                     programlevel_id: [this.user?.programlevel_id, [Validators.required]],
                     gender: [this.user?.gender, [Validators.required]],
                     // newsletter_consent: [this.user?.newsletter_consent == 1 ? true : false, [Validators.required]],
-                    
                 });
                 
             }
+        });
+        this.GetPersonalProfileData();
+        
+    }
+    GetPersonalProfileData(){
+        this.userManagementService.GetUserPersonalInfo().subscribe(data => {
+            this.PersonalInfo = data;
+            //console.log(data);
         });
     }
 
@@ -188,10 +193,8 @@ export class UserManagementComponent implements OnInit {
 
     onSubmit() {
         let data: any = {};
-        //console.log('this', this.registrationForm.invalid);
         this.submitted = true;
         if (this.registrationForm.invalid) {
-            //console.log('this', this.registrationForm.value.invalid);
             return ;
         }
         // let lastYear = ''
@@ -213,8 +216,6 @@ export class UserManagementComponent implements OnInit {
         //     intakeYearLooking = this.registrationForm.value.intake_year_looking;
         // }
 
-        
-        //console.log(this.registrationForm.value);
         data['name'] = this.registrationForm.value.name;
         data['location_id'] = this.registrationForm.value.location_id; 
         //data['phone'] = this.registrationForm.value.phone;
@@ -239,7 +240,6 @@ export class UserManagementComponent implements OnInit {
 
 
         this.subs.sink = this.userManagementService.updateUserDetails(data).subscribe(data => {
-            console.log(data);
             this.toast.add({ severity: 'success', summary: 'Success', detail: "Successfully Updated" });
         });
     }
