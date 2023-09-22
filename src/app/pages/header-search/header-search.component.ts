@@ -223,14 +223,14 @@ export class HeaderSearchComponent implements OnInit, OnDestroy {
         let modName = this.convertToSlug(moduleName);
         this.searchInputText = "";
         this.isSearchResultFound = false;
-        this.route.navigate([`/pages/${modName}/sub-modules`]);
+        this.route.navigate([`/pages/modules/${modName}`]);
     }
 
     redirectToSubmodule(data: any) {
         let modName = this.convertToSlug(data.module_name);
         this.searchInputText = "";
         this.isSearchResultFound = false;
-        this.route.navigate([`/pages/${modName}/question-list/${data.submodule_id}`]);
+        this.route.navigate([`/pages/modules/${modName}/question-list/${data.submodule_id}`]);
     }
 
     convertToSlug(text: any) {

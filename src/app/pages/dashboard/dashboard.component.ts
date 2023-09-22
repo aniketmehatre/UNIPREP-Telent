@@ -175,13 +175,13 @@ export class DashboardComponent implements OnInit {
                 moduleName = "career-hub"
                 break;
             case "University":
-                moduleName = "career-hub"
+                moduleName = "university"
                 break;
             case "Life at ":
-                moduleName = "life-at"
+                moduleName = "life-at-country"
                 break;
         }
-        this.router.navigate([`pages/${moduleName}/`]);
+        this.router.navigate([`pages/modules/${moduleName}/`]);
     }
 
     onClickQuizProgression(data: any) {
