@@ -128,6 +128,7 @@
 {
   max-height:50vh;
   overflow-y:auto;
+  min-height: 35vh;
 }
 :host ::ng-deep .p-carousel-item {
   max-height: 0;

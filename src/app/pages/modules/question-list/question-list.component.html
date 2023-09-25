@@ -87,9 +87,10 @@
                         <div class="card answercard">
                             <div class="card-body text-start">
                                 <div class="readingheight">
+                                    <p class="text-small blockquote text-start mb-0">Last updated at: {{val.updated_at | date}}</p>
                                     <h3>{{val.question}}</h3>
                                     <div class="fw-medium worksans" [innerHTML]="val.answer"></div>
-                                    <p class="text-small blockquote text-center mb-0">Last updated at: {{val.updated_at | date}}</p>
+                                    
                                 </div>
                             </div>
                         </div>
