@@ -260,6 +260,7 @@ export class UserManagementComponent implements OnInit {
             }
             return this.toast.add({ severity: passwordconfirmation.severity, summary: 'Success', detail: passwordconfirmation.message });
         });
+        this.PasswordSubmitted = false;
     }
 
     ShowCurrentPassword(){
