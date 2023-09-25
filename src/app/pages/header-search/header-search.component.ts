@@ -28,7 +28,7 @@ export class HeaderSearchComponent implements OnInit, OnDestroy {
     countryName: any
     isSearchResultFound: boolean = false;
     isQuestionAnswerVisible: boolean = false;
-    searchResult: any;
+    searchResult: any [] = [];
     breadCrumb: MenuItem[] = [];
     question: MenuItem[] = [];
     selectedQuestion: number = 0;
@@ -55,10 +55,10 @@ export class HeaderSearchComponent implements OnInit, OnDestroy {
         });
         this.renderer.listen('window', 'click',(e:Event)=>{
 
-            if(e.target !== this.elRef!.nativeElement){
+            if(e.target !== this.elRef!.nativeElement){                
                 this.isSearchResultFound=false;
                 this.searchInputText = '';
-                this.searchResult  = [];
+                //this.searchResult  = [];
             }
         });
     }
@@ -129,15 +129,18 @@ export class HeaderSearchComponent implements OnInit, OnDestroy {
     }
 
     gerSelectedQuestion(selectedQuestionData: any) {
+        console.log(selectedQuestionData);
         this.readQuestion(selectedQuestionData);
         this.isQuestionAnswerVisible = true;
         this.getModuleName(selectedQuestionData)
     }
 
     clearText() {
+        console.log('clear');
+        
         this.searchInputText = '';
         this.isSearchResultFound = false;
-        this.searchResult = [];
+        //this.searchResult = [];
     }
 
     readQuestion(data: any) {
