@@ -81,12 +81,42 @@ body {
   background-color: var(--uniprep-primary)!important
 }
 
-p {margin-bottom: 1rem;}
+p {
+  margin-bottom: 1rem;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+span
+{
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+li
+{
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
 
 h1, h2, h3, h4, h5 {
   font-family: 'Poppins', sans-serif;
   font-weight: 600;
   line-height: 1.3;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 
 .h1,h1 {
@@ -755,6 +785,36 @@ h1, h2, h3, h4, h5 {
   }
   }
 }
+.accordionpassword
+{
+  .accordion-item
+  {
+    border-radius: 20px;
+    overflow: hidden;
+    border: none;
+    background: #fafafa;
+    .accordion-button
+    {
+      background: transparent;
+      color: black;
+      box-shadow: none;
+    }
+    .accordion-body
+    {
+      form
+      {
+        background: transparent;
+      }
+    }
+  }
+}
+
+.notify
+{
+  background-color: transparent !important;
+  border: 1px solid #efefef;
+}
+
 .darkmode
 {
   h1,h2,h3,h4,h5,p
@@ -803,6 +863,37 @@ h1, h2, h3, h4, h5 {
     border-color: var(--uniprep-primary) !important;
     outline: 0;
     box-shadow: 0 0 0 0.25rem var(--uniprep-primary)52 !important;
+  }
+  .accordionpassword
+  {
+    .accordion-item
+    {
+      border-radius: 20px;
+      overflow: hidden;
+      border: none;
+      background: #202124;
+      .accordion-button
+      {
+        background: transparent;
+        color: white;
+        box-shadow: none;
+      }
+      .accordion-body
+      {
+        form
+        {
+          label
+          {
+            color:white;
+          }
+        }
+      }
+    }
+  }
+
+  .notify
+  {
+    border: 1px solid #121212;
   }
   .custom-style .item
   {
