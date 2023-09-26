@@ -43,12 +43,12 @@
                             <div class="d-flex col-sm-5 col-md-6  justify-content-between">
                                 <h4>Personal information</h4>
                             </div>
-                            <div class="d-flex col-sm-5 col-md-6 justify-content-end">
+                            <!-- <div class="d-flex col-sm-5 col-md-6 justify-content-end">
                                 <button class="btn btn-primary" *ngIf="!ShowPersonalInfo" (click)="EditPageShowAndHide('Edit')" ><i class="mr-1 fa-regular fa-pen-to-square"></i> &nbsp; Edit &nbsp; </button>
                                 <button class="btn btn-danger" *ngIf="ShowPersonalInfo" (click)="EditPageShowAndHide('cancel')" ><i class="fa-sharp fa-solid fa-xmark " style="color: #ffffff;"></i> &nbsp; Cancel &nbsp; </button>
-                            </div>
+                            </div> -->
                         </div>
-                        <div  *ngIf="!ShowPersonalInfo">
+                        <div  > <!--*ngIf="!ShowPersonalInfo" -->
                             <div class="row">
                                 <div class="container-fluid">
                                     <div class="d-flex">
@@ -95,10 +95,10 @@
                                 </div>
                             </div>
                         </div>
-                        <div *ngIf="ShowPersonalInfo">
+                        <!-- <div *ngIf="ShowPersonalInfo">
                             <form (ngSubmit)="onSubmit()" [formGroup]="registrationForm">
                                 <div class="container-fluid">
-                                    <!-- First row -->
+                                    
                                     <div class="row">
                                         <div class="d-flex">
                                             <div class="col-md-4 p-2">
@@ -151,7 +151,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <!-- Second row -->
+                                   
                                     <div class="row">
                                         <div class="d-flex">
                                             <div class="col-md-4 p-2">
@@ -209,7 +209,6 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <!-- Third row -->
                                     <div class="row">
                                         <div class="d-flex">
                                             <div class="col-md-4 p-2">
@@ -267,7 +266,7 @@
                                     <button type="submit" class="btn btn-primary" ><i class="fa-solid fa-circle-up mt-1" style="color: #ffffff;"></i> &nbsp; Update Info &nbsp;</button>
                                 </div>
                             </form>
-                        </div>
+                        </div> -->
                     </div>
                 </div>
                 <div class="accordion accordionpassword mb-3" id="accordionPanelsStayOpenExample" >
