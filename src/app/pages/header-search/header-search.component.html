@@ -14,11 +14,12 @@
                     <button (click)="searchKeyWord(searchInput)" class="btn-primary" label="Search" pButton pRipple
                             type="button"></button>
                 </div>
-                <ul *ngIf="isSearchResultFound" class="list-group list-group-flush shadow-lg" #listgroup>
+                <ul *ngIf="isSearchResultFound"
+                    class="list-group list-group-flush shadow-lg" #listgroup>
                     <li *ngFor="let c of searchResult" class="list-group-item border-0 pt-0 pb-0 mt-0 mb-0">
                         <div class="row">
                             <div class="col-md-9"  (click)="gerSelectedQuestion(c)">
-                                <span style="font-size: 12px" class="pr-4 fa-sm">{{c.question}}</span>
+                                <span style="font-size: 12px; cursor: pointer" class="pr-4 fa-sm">{{c.question}}</span>
                             </div>
                             <div class="col-md-3" style="cursor: pointer">
                                 <a style="font-size: 12px" (click)="redirectModule(c.module_name)">{{c.module_name}}</a> ->

@@ -164,8 +164,8 @@ export class UserManagementComponent implements OnInit {
     logout() {
         this.authService.logout().subscribe(data => {
             this.toast.add({
-                severity: "success",
-                summary: "Success",
+                severity: "info",
+                summary: "Info",
                 detail: "logged out successfully",
             });
             window.sessionStorage.clear();

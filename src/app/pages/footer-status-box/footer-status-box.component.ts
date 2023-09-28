@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {DashboardService} from "../dashboard/dashboard.service";
 import {MessageService} from "primeng/api";
+import {ActivatedRoute, Router} from "@angular/router";
 
 @Component({
     selector: 'uni-footer-status-box',
@@ -10,7 +11,8 @@ import {MessageService} from "primeng/api";
 export class FooterStatusBoxComponent implements OnInit {
     dashboardCount: any = [];
 
-    constructor(private dashboardService: DashboardService, private toast: MessageService) {
+    constructor(private dashboardService: DashboardService, private toast: MessageService,
+                private route: Router) {
     }
 
     ngOnInit(): void {
@@ -26,6 +28,10 @@ export class FooterStatusBoxComponent implements OnInit {
         }, err => {
             this.toast.add({severity: 'Alert', summary: 'Alert', detail: err});
         });
+    }
+
+    askYourPersonalized(){
+        this.route.navigate([`/pages/chat`]);
     }
 
 }

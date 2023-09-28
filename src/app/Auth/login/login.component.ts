@@ -53,7 +53,10 @@ export class LoginComponent implements OnInit, OnDestroy {
 
       this.dataService.showTimerInHeader(loggedIn);
       this.subs.sink = this.service.selectMessage$().subscribe(message => {
-        this.toast.add({severity: 'success', summary: 'Success', detail: message});
+        console.log('message', message)
+        if(message == 'Login Success'){
+          this.toast.add({severity: 'success', summary: 'Success', detail: message});
+        }
       });
       this.route.navigate(['/pages/dashboard']);
     });

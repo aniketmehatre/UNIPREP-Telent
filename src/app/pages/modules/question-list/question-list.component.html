@@ -7,7 +7,9 @@
                         <p-button (click)="goBack()" icon="pi pi-arrow-left" styleClass="p-button-rounded p-button-text text-dark"></p-button>
                     </div>
                     <div class="col-md-8 text-center">
-                        <h5 class="select-title mb-1">{{currentModuleName}} - {{moduleName}}</h5>
+                        <h5 class="select-title mb-1" tooltipPosition="top"
+                            pTooltip="Questions related to the application process are answered">
+                            {{currentModuleName}} - {{moduleName}}<i class="questiontooltip fa-solid fa-circle-question"></i></h5>
                     </div>
                     <div class="col-md-2">
                     </div>
@@ -87,8 +89,8 @@
                         <div class="card answercard">
                             <div class="card-body text-start">
                                 <div class="readingheight">
-                                    <h3>{{val.question}}</h3>
-                                    <div class="fw-medium worksans" [innerHTML]="val.answer"></div>
+                                    <h3 class="unselectable">{{val.question}}</h3>
+                                    <div class="fw-medium worksans unselectable" [innerHTML]="val.answer"></div>
                                     <p class="text-small blockquote text-center mb-0">Last updated at: {{val.updated_at | date}}</p>
                                 </div>
                             </div>

@@ -26,6 +26,7 @@ export class DashboardComponent implements OnInit {
     isSearchResultFound: boolean = false;
     isVideoVisible: boolean = false;
     isShareWithSocialMedia: boolean = false;
+    isViewMoreOrgVisible: boolean = false;
 
     searchResult: any;
     university: any[] = [
@@ -207,5 +208,9 @@ export class DashboardComponent implements OnInit {
                 break;
         }
         this.router.navigate([`pages/${moduleName}/sub-modules/2`]);
+    }
+
+    openViewMoreOrg(){
+        this.isViewMoreOrgVisible = true;
     }
 }
