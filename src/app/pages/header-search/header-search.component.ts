@@ -187,7 +187,8 @@ export class HeaderSearchComponent implements OnInit, OnDestroy {
     }
 
     openChat() {
-        this.dataService.changeChatOpenStatus("open chat window");
+        this.route.navigate([`/pages/chat`]);
+        //this.dataService.changeChatOpenStatus("open chat window");
     }
 
     clickPrevious(carousel: any, event: any) {
