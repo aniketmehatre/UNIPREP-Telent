@@ -378,7 +378,6 @@
 
 :host ::ng-deep .p-dropdown {
   border-radius: 50px !important;
-  padding: 5px;
 }
 
 :host ::ng-deep .p-multiselect .p-multiselect-label.p-placeholder {
@@ -388,4 +387,31 @@
 .base-country-flag {
   width: 27px;
   height: 27px;
+}
+
+.dark-btn {
+  background: #0d102f;
+  color: white;
+
+  &:hover {
+      background: #010205;
+  }
+}
+
+.inputheight
+{
+  height: 2.3rem;
+}
+
+.p-inputgroup {
+  padding: 0px;
+  background: #fff;
+  border-radius: 10px;
+  .p-button {
+    border-radius: 0px 8px 8px 0 !important;
+  }
+  input {
+    padding-left: 0;
+    margin-left: 10px;
+  }
 }

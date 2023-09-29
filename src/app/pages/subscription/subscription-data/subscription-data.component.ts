@@ -23,19 +23,15 @@ export class SubscriptionDataComponent implements OnInit {
   basesubscription = true;
   topupcountries = false;
   topupvalidity = false;
-  labelVariable: string = 'test'
-  baseSubSelectedCountry: any [] = [1,2];
-  selectedCoutriesList: any = [];
-  listSubscriptionList: any;
-  selectedCountryOption: any = {
-        altname: "uk",
-        country: "United Kingdom",
-        created_at: "2022-12-14T06:16:52.000000Z",
-        flag: "http://40.80.95.32/uniprepapi/storage/app/public/country-flags/united-kingdom.svg",
-        id: 2,
-        status: 1,
-        updated_at: "2023-07-25T06:45:19.000000Z"
-  };
+  subscriptionList: any = [];
+
+  subscriptionTopupList: any = [];
+  couponInput: string = '';
+  subscriptionTotal: any = '0.00';
+  invalidCoupon: boolean = false;
+  selectedSubscriptionDetails: any;
+  selectedTopupCountryDetails: any;
+  @Output() subscriptionPlan = new EventEmitter();
   constructor(private authService: AuthService,
     private subscriptionService: SubscriptionService) { }
 
@@ -43,8 +39,8 @@ export class SubscriptionDataComponent implements OnInit {
 
     this.authService.getCountry().subscribe((data) => {
       this.countryList = data;
-      this.changeCountry({value:[2,3]});
       this.getSubscriptionList();
+      this.getSubscriptionTopupList();
     });
   }
   get URL() {
@@ -81,29 +77,108 @@ export class SubscriptionDataComponent implements OnInit {
   getSubscriptionList() {
     let data = {
       page: 1,
-      perpage: 1000
+      perpage: 1000,
+      studenttype: 1
     }
     this.subscriptionService.getSubscriptions(data).subscribe((response) => {
-      this.listSubscriptionList = response.subscriptions;
-      this.listSubscriptionList.forEach((item: any) => {
-        if (item.country) {
-          item.country = item.country.split(',').map(Number);
-        }
-        let selectedCountryIds = item.country;
-        item.selectedCountryList = this.countryList.filter((item: any) => selectedCountryIds.includes(item.id));
+      this.subscriptionList = response.subscriptions;
+      this.subscriptionList.forEach((item: any) => {
+        item.country = item.country.split(',').map(Number);
+        let filteredCountryIds = item.country;
+        item.selected = false;
+        item.selectedCoutry = {};
+        item.filteredCountryList = this.countryList.filter((data: any) => filteredCountryIds.includes(data.id));
       });
-
     });
   }
 
-  changeCountry(event: any) {
-    let selectedIds = event.value;
-    this.selectedCoutriesList = this.countryList.filter((item: any) => selectedIds.includes(item.id));
+  getSubscriptionTopupList() {
+    this.subscriptionService.getSubscriptionTopups().subscribe((response) => {
+      this.subscriptionTopupList = response.topups;
+      this.subscriptionTopupList.forEach((item: any) => {
+        item.price = Number(item.price);
+        item.countries = item.countries.split(',').map(Number);
+        let filteredCountryIds = item.countries;
+        item.selected = false;
+        item.selectedCoutriesList = [];
+        item.filteredCountryList = this.countryList.filter((data: any) => filteredCountryIds.includes(data.id));
+      });
+    });
   }
-  removeCountry(selectedId: number) {
-    this.selectedCountry = this.selectedCountry.filter(item => item !== selectedId);
+
+  removeCountry(subId: number, selectedId: number) {
+    this.subscriptionTopupList.forEach((item: any) => {
+      if (subId == item.id) {
+        item.selectedCoutriesList = item.selectedCoutriesList.filter((data: any) => data.id !== selectedId);
+      }
+    });
   }
-  changeBaseCountry(event: any) {
-    this.selectedCountryOption = event.selectedOption;
+
+  selectedSubscriptionPlan(sub: any) {
+    this.subscriptionList.forEach((item: any) => {
+      item.selected = false;
+      if (sub.id == item.id) {
+        item.selected = true;
+      }
+    });
+    this.selectedSubscriptionDetails = sub;
+    this.subscriptionTotal = sub.givenprice;
   }
+
+  selectedTopupCountryPlan(sub: any) {
+    if(sub?.selectedCoutriesList?.length > 0) {
+      this.subscriptionTopupList.forEach((item: any) => {
+        item.selected = false;
+        if (sub.id == item.id) {
+          item.selected = true;
+        }
+      });
+      this.selectedTopupCountryDetails = sub;
+      this.subscriptionTotal = sub.finalamount * sub.selectedCoutriesList.length;
+    }
+
+  }
+
+  applyCoupon() {
+    if (this.couponInput) {
+      let data = {
+        couponCode: this.couponInput,
+        checkoutTotal: this.subscriptionTotal
+      }
+      this.subscriptionService.applyCoupon(data).subscribe((response) => {
+        if (response.success) {
+          this.subscriptionTotal = Number(this.subscriptionTotal) - response.discountPrice;
+        }
+        else {
+          this.invalidCoupon = true;
+        }
+      });
+    }
+  }
+
+  checkout() {
+    if (this.basesubscription && this.selectedSubscriptionDetails) {
+      let data = {
+        subscriptionId: this.selectedSubscriptionDetails.id,
+        countryId: this.selectedSubscriptionDetails.selectedCoutry.id,
+        finalPrice: this.subscriptionTotal,
+        couponApplied: this.couponInput ? 1 : 0,
+        coupon: this.couponInput,
+      }
+      this.subscriptionPlan.emit(data);
+    }
+    else {
+      if (this.selectedTopupCountryDetails) {
+        let data = {
+          topupid: this.selectedTopupCountryDetails.id,
+          countryId: this.selectedTopupCountryDetails.selectedCoutriesList.map((item: any) => item.id).toString(),
+          finalPrice: this.subscriptionTotal,
+          couponApplied: this.couponInput ? 1 : 0,
+          coupon: this.couponInput,
+        }
+        this.subscriptionPlan.emit(data);
+      }
+    }
+  }
+
 }

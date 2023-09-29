@@ -5,8 +5,10 @@
             <span>Choose a plan tailored to your needs</span>
         </div>
         <div>
-            <!--            <button (click)="buttonclicked1()" class="btn btn-basic" [class.active]="selectedButton === 'button1'" (click)="selectedButton = 'button1'" *ngIf="topupcountries">BASE SUBSCRIPTION</button>-->
-            <!--            <button  (click)="buttonclicked2()"class="btn btn-basic" [class.active]="selectedButton ==='button2'" (click)="selectedButton = 'button2'" *ngIf="basesubscription">TOP UP COUNTRIES</button>-->
+            <button (click)="buttonclicked1()" class="btn btn-basic" [class.active]="selectedButton === 'button1'"
+                (click)="selectedButton = 'button1'" *ngIf="topupcountries">BASE SUBSCRIPTION</button>
+            <button (click)="buttonclicked2()" class="btn btn-basic" [class.active]="selectedButton ==='button2'"
+                (click)="selectedButton = 'button2'" *ngIf="basesubscription">TOP UP COUNTRIES</button>
             <!-- <button (click)="buttonclicked3()" class="btn btn-primary" [class.active]="selectedButton === 'button3'" (click)="selectedButton = 'button3'" >TOP UP VALIDITY</button> -->
         </div>
     </div>
@@ -129,65 +131,52 @@
     </div>
 </div> -->
 <div class="card d-flex">
-
     <div class="card">
         <div class="row" *ngIf="basesubscription">
-            <div *ngFor="let subscription of listSubscriptionList" class="col-4">
+            <div *ngFor="let subscription of subscriptionList" class="col-lg-4">
                 <div class="card-body">
                     <div class="container-fluid">
                         <div class="row gap-5 mt-4 d-flex">
-                            <div class="card subscriptioncard1 col px-0">
+                            <div class="card card-bg subscriptioncard col px-0"
+                                [ngClass]="{'active': subscription.popular == 1}">
                                 <div class="mostpopular" *ngIf="subscription.popular == 1">Most Popular Plan</div>
                                 <div class="card-header p-4">
                                     <div class="d-flex justify-content-between align-items-center">
-                                        <h3 class="fw-bold mb-0">{{subscription.subscription_plan}}</h3>
+                                        <h3 class="fw-bold mb-0">{{subscription.subscription_plan}} <br>Plan</h3>
                                         <div class="text-end">
                                             <h4 class="mb-0"><s>INR {{subscription.actualprice | number : '.2-2' }}</s>
                                             </h4>
-                                            <div class="btn discountbutton">
-                                                Save {{subscription.givenprice / subscription.actualprice * 100 | number
-                                                : '.2-2'}}
-                                                %</div>
+                                            <div class="btn discountbutton">Save {{subscription.discountpercentage}} %
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="card-body p-4">
                                     <h5 style="font-size: 18px; text-align: center;">Select Your Base Country</h5>
                                     <span class="p-float-label">
-                                        <!-- <p-dropdown [options]="countryList" styleClass="w-100" optionValue="id"
-                                            [(ngModel)]="baseSubSelectedCountry"
-                                            (onChange)="changeBaseCountry(selected)" optionLabel="country" #selected>
-                                            <ng-template pTemplate="selectedItem" *ngIf="selectedCountryOption">
-                                                <img [src]="selectedCountryOption?.flag"
-                                                    [alt]="selectedCountryOption.altname" class="base-country-flag">
-                                                {{ selectedCountryOption?.country }}
+                                        <p-dropdown [options]="subscription.filteredCountryList" styleClass="w-100"
+                                            [(ngModel)]="subscription.selectedCoutry" optionLabel="country">
+                                            <ng-template pTemplate="selectedItem">
+                                                <img [src]="subscription.selectedCoutry?.flag"
+                                                    [alt]="subscription.selectedCoutry?.altname"
+                                                    class="base-country-flag">
+                                                {{ subscription.selectedCoutry?.country }}
                                             </ng-template>
-                                        </p-dropdown> -->
-                                        <p-multiSelect [options]="countryList" styleClass="w-100"
-                                        (onChange)="changeCountry($event)" optionValue="id"
-                                        [(ngModel)]="subscription.country"
-                                        defaultLabel="Select a multiple countries as per your requirement"
-                                        optionLabel="country" #multiSelect>
-                                        <ng-template pTemplate="selectedItems">
-                                            {{ multiSelect.defaultLabel }}
-                                        </ng-template>
-                                    </p-multiSelect>
-                                    <div class="d-flex align-items-center gap-2 flex-wrap pt-2">
-                                        <div *ngFor="let data of subscription.selectedCountryList">
-                                            <p-chip [label]="data.country" [image]="data.flag" [removable]="true"
-                                                (onRemove)="removeCountry(data.id)" removeIcon="fa fa-times"></p-chip>
-                                        </div>
-                                    </div>
+                                        </p-dropdown>
                                     </span>
                                     <h5 style="font-size: 18px; text-align: center;" class="pt-4">Personalized Question:
-                                        2 / day</h5>
+                                        {{subscription.chatlimit}} / day</h5>
                                 </div>
                                 <div class="card-footer  p-4" style="text-align: center;">
                                     <h2 class="font-primarycolor fw-bold">INR {{ subscription.givenprice | number :
                                         '.2-2' }}</h2>
-                                    <p class="fw-semibold">01 Month Validity</p>
+                                    <p class="fw-semibold">{{subscription.validity}} Month Validity</p>
                                     <div class="getstartedbtn">
-                                        <button class="btn btn-primary">Select this Plan</button>
+                                        <button *ngIf="!subscription.selected" class="btn btn-primary"
+                                            (click)="selectedSubscriptionPlan(subscription)">Select this Plan</button>
+                                        <button *ngIf="subscription.selected" class="btn dark-btn"
+                                            (click)="selectedSubscriptionPlan(subscription)">You have selected
+                                            {{subscription.subscription_plan}} Plan</button>
                                     </div>
                                 </div>
                             </div>
@@ -195,115 +184,33 @@
                     </div>
                 </div>
             </div>
-            <!--            <div class="col-4">-->
-            <!--                <div class="card-body">-->
-            <!--                    <div class="container-fluid">-->
-            <!--                        <div class="row gap-5 mt-5 d-flex">-->
-            <!--                            <div class="card subscriptioncard col px-0 active"  >-->
-            <!--                                <div class="mostpopular">Most Popular Plan</div>-->
-            <!--                                <div class="card-header p-4">-->
-            <!--                                    <div class="d-flex justify-content-between align-items-center">-->
-            <!--                                        <h3 class="fw-bold mb-0">Popular<br>Plan</h3>-->
-            <!--                                        <div class="text-end">-->
-            <!--                                            <h4 class="mb-0"><s>INR 1000</s></h4>-->
-            <!--                                            <div class="btn discountbutton">Save 30-->
-            <!--                                                %</div>-->
-            <!--                                        </div>-->
-            <!--                                    </div>-->
-            <!--                                </div>-->
-            <!--                                <div class="card-body p-4">-->
-            <!--                                    <h5 style="font-size: 18px; text-align: center;">Select Your Base Country</h5>-->
-            <!--                                    <span class="p-float-label">-->
-            <!--                                        <p-dropdown [options]="countryList" styleClass="w-100" optionValue="id"-->
-            <!--                                                       [(ngModel)]="baseSubSelectedCountry" (onChange)="changeBaseCountry(selected)"-->
-            <!--                                                       optionLabel="country" #selected>-->
-            <!--                                                    <ng-template pTemplate="selectedItem" *ngIf="selectedCountryOption">-->
-            <!--                                                        <img [src]="selectedCountryOption?.flag" [alt]="selectedCountryOption.altname" class="base-country-flag">-->
-            <!--                                                        {{ selectedCountryOption?.country }}-->
-            <!--                                                    </ng-template>-->
-            <!--                                        </p-dropdown>-->
-            <!--                                    </span>-->
-            <!--                                    <h5 style="font-size: 18px; text-align: center;" class="pt-4">Personalized Question: 2 / day</h5>-->
-            <!--                                </div>-->
-            <!--                                <div class="card-footer  p-4" style="text-align: center;">-->
-            <!--                                    <h2 class="font-primarycolor fw-bold" >INR 1000</h2>-->
-            <!--                                    <p class="fw-semibold">03 Month Validity</p>-->
-            <!--                                    <div class="getstartedbtn">-->
-            <!--                                        <button class="btn btn-primary">Select this Plan</button>-->
-            <!--                                    </div>-->
-            <!--                                </div>-->
-            <!--                            </div>-->
-            <!--                        </div>-->
-            <!--                    </div>-->
-            <!--                </div>-->
-            <!--            </div>-->
-            <!--            <div class="col-4">-->
-            <!--                <div class="card-body">-->
-            <!--                    <div class="container-fluid">-->
-            <!--                        <div class="row gap-5 mt-4 d-flex">-->
-            <!--                            <div class="card subscriptioncard1 col px-0"  >-->
-            <!--                                &lt;!&ndash; <div class="mostpopular">Most Popular Plan</div> &ndash;&gt;-->
-            <!--                                <div class="card-header p-4">-->
-            <!--                                    <div class="d-flex justify-content-between align-items-center">-->
-            <!--                                        <h3 class="fw-bold mb-0">Premium<br>Plan</h3>-->
-            <!--                                        <div class="text-end" >-->
-            <!--                                            <h4 class="mb-0"><s>INR 1000</s></h4>-->
-            <!--                                            <div class="btn discountbutton">Save 40-->
-            <!--                                                %</div>-->
-            <!--                                        </div>-->
-            <!--                                    </div>-->
-            <!--                                </div>-->
-            <!--                                <div class="card-body p-4 ">-->
-            <!--                                    <h5 style="font-size: 18px; text-align: center;">Select Your Base Country</h5>-->
-            <!--                                    <span class="p-float-label">-->
-            <!--                                        <p-dropdown [options]="countryList" styleClass="w-100" optionValue="id"-->
-            <!--                                                       [(ngModel)]="baseSubSelectedCountry" (onChange)="changeBaseCountry(selected)"-->
-            <!--                                                       optionLabel="country" #selected>-->
-            <!--                                                    <ng-template pTemplate="selectedItem" *ngIf="selectedCountryOption">-->
-            <!--                                                        <img [src]="selectedCountryOption?.flag" [alt]="selectedCountryOption.altname" class="base-country-flag">-->
-            <!--                                                        {{ selectedCountryOption?.country }}-->
-            <!--                                                    </ng-template>-->
-            <!--                                        </p-dropdown>-->
-            <!--                                    </span>-->
-            <!--                                    <h5 style="font-size: 18px; text-align: center;" class="pt-4">Personalized Question: 2 / day</h5>-->
-            <!--                                </div>-->
-            <!--                                <div class="card-footer  p-4" style="text-align: center;">-->
-            <!--                                    <h2 class="font-primarycolor fw-bold">INR 1000</h2>-->
-            <!--                                    <p class="fw-semibold">06 Month Validity</p>-->
-            <!--                                    <div class="getstartedbtn">-->
-            <!--                                        <button class="btn btn-primary">Select this Plan</button>-->
-            <!--                                    </div>-->
-            <!--                                </div>-->
-            <!--                            </div>-->
-            <!--                        </div>-->
-            <!--                    </div>-->
-            <!--                </div>-->
-            <!--            </div>-->
         </div>
 
         <!-- Top-up-countries -->
         <div class="row" *ngIf="topupcountries">
-            <div class="col-4">
+            <div *ngFor="let subscription of subscriptionTopupList" class="col-lg-4">
                 <div class="card-body">
                     <div class="container-fluid">
-                        <div class="row gap-5 mt-5 d-flex">
-                            <div class="card subscriptioncard1 col px-0">
-                                <!-- <div class="mostpopular">Most Popular Plan</div> -->
+                        <div class="row gap-5 mt-4 d-flex">
+                            <div class="card card-bg subscriptioncard col px-0"
+                                [ngClass]="{'active': subscription.popular == 1}">
+                                <div class="mostpopular" *ngIf="subscription.popular == 1">Most Popular Plan</div>
                                 <div class="card-header p-4">
                                     <div class="d-flex justify-content-between align-items-center">
-                                        <h3 class="fw-bold mb-0">Advanced<br>Topup</h3>
+                                        <h3 class="fw-bold mb-0">{{subscription.name}} <br>Plan</h3>
                                         <div class="text-end">
-                                            <h4 class="mb-0"><s>INR 1000</s></h4>
-                                            <div class="btn discountbutton">Save 20
+                                            <h4 class="mb-0"><s>INR {{subscription.price | number : '.2-2' }}</s>
+                                            </h4>
+                                            <div class="btn discountbutton">
+                                                Save {{subscription.discountPercentage}}
                                                 %</div>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="card-body p-3">
                                     <h5 style="font-size: 18px; text-align: center;">Select Your Add On Countries</h5>
-                                    <p-multiSelect [options]="countryList" styleClass="w-100"
-                                        (onChange)="changeCountry($event)" optionValue="id"
-                                        [(ngModel)]="selectedCountry"
+                                    <p-multiSelect [options]="subscription.filteredCountryList" styleClass="w-100"
+                                        [(ngModel)]="subscription.selectedCoutriesList"
                                         defaultLabel="Select a multiple countries as per your requirement"
                                         optionLabel="country" #multiSelect>
                                         <ng-template pTemplate="selectedItems">
@@ -311,110 +218,23 @@
                                         </ng-template>
                                     </p-multiSelect>
                                     <div class="d-flex align-items-center gap-2 flex-wrap pt-2">
-                                        <div *ngFor="let data of selectedCoutriesList">
+                                        <div *ngFor="let data of subscription?.selectedCoutriesList">
                                             <p-chip [label]="data.country" [image]="data.flag" [removable]="true"
-                                                (onRemove)="removeCountry(data.id)" removeIcon="fa fa-times"></p-chip>
-                                        </div>
-                                    </div>
-
-                                </div>
-                                <div class="card-footer  p-4" style="text-align: center;">
-                                    <h2 class="font-primarycolor fw-bold">INR 1000</h2>
-                                    <p class="fw-semibold">01 Month Validity</p>
-                                    <div class="getstartedbtn">
-                                        <button class="btn btn-primary">Select Plan</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-4">
-                <div class="card-body">
-                    <div class="container-fluid">
-                        <div class="row gap-5 mt-5 d-flex">
-                            <div class="card subscriptioncard col px-0 active">
-                                <div class="mostpopular">Most Popular Plan</div>
-                                <div class="card-header p-4">
-                                    <div class="d-flex justify-content-between align-items-center">
-                                        <h3 class="fw-bold mb-0">Popular<br>Topup</h3>
-                                        <div class="text-end">
-                                            <h4 class="mb-0"><s>INR 1000</s></h4>
-                                            <div class="btn discountbutton">Save 30
-                                                %</div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="card-body p-3">
-                                    <h5 style="font-size: 18px; text-align: center;">Select Your Add On Countries</h5>
-                                    <p-multiSelect [options]="countryList" styleClass="w-100"
-                                        (onChange)="changeCountry($event)" optionValue="id"
-                                        [(ngModel)]="selectedCountry"
-                                        defaultLabel="Select a multiple countries as per your requirement"
-                                        optionLabel="country" #multiSelect>
-                                        <ng-template pTemplate="selectedItems">
-                                            {{ multiSelect.defaultLabel }}
-                                        </ng-template>
-                                    </p-multiSelect>
-                                    <div class="d-flex align-items-center gap-2 flex-wrap pt-2">
-                                        <div *ngFor="let data of selectedCoutriesList">
-                                            <p-chip [label]="data.country" [image]="data.flag" [removable]="true"
-                                                (onRemove)="removeCountry(data.id)" removeIcon="fa fa-times"></p-chip>
+                                                (onRemove)="removeCountry(subscription.id, data.id)"
+                                                removeIcon="pi pi-times"></p-chip>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="card-footer  p-4" style="text-align: center;">
-                                    <h2 class="font-primarycolor fw-bold">INR 1000</h2>
-                                    <p class="fw-semibold">03 Month Validity</p>
+                                    <h2 class="font-primarycolor fw-bold">INR {{ subscription.finalamount | number :
+                                        '.2-2' }}</h2>
+                                    <p class="fw-semibold">{{subscription.validity}} Month Validity</p>
                                     <div class="getstartedbtn">
-                                        <button class="btn btn-primary">Select Plan</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-4">
-                <div class="card-body">
-                    <div class="container-fluid">
-                        <div class="row gap-5 mt-5 d-flex">
-                            <div class="card subscriptioncard1 col px-0">
-                                <!-- <div class="mostpopular">Most Popular Plan</div> -->
-                                <div class="card-header p-4">
-                                    <div class="d-flex justify-content-between align-items-center">
-                                        <h3 class="fw-bold mb-0">Premium<br>Topup</h3>
-                                        <div class="text-end">
-                                            <h4 class="mb-0"><s>INR 1000</s></h4>
-                                            <div class="btn discountbutton">Save 40
-                                                %</div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="card-body p-3 ">
-                                    <h5 style="font-size: 18px; text-align: center;">Select Your Add On Countries</h5>
-                                    <p-multiSelect [options]="countryList" styleClass="w-100"
-                                        (onChange)="changeCountry($event)" optionValue="id"
-                                        [(ngModel)]="selectedCountry"
-                                        defaultLabel="Select a multiple countries as per your requirement"
-                                        optionLabel="country" #multiSelect>
-                                        <ng-template pTemplate="selectedItems">
-                                            {{ multiSelect.defaultLabel }}
-                                        </ng-template>
-                                    </p-multiSelect>
-                                    <div class="d-flex align-items-center gap-2 flex-wrap pt-2">
-                                        <div *ngFor="let data of selectedCoutriesList">
-                                            <p-chip [label]="data.country" [image]="data.flag" [removable]="true"
-                                                (onRemove)="removeCountry(data.id)" removeIcon="fa fa-times"></p-chip>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="card-footer  p-4" style="text-align: center;">
-                                    <h2 class="font-primarycolor fw-bold">INR 1000</h2>
-                                    <p class="fw-semibold">06 Month Validity</p>
-                                    <div class="getstartedbtn">
-                                        <button class="btn btn-primary">Select Plan</button>
+                                        <button *ngIf="!subscription.selected" class="btn btn-primary"
+                                            (click)="selectedTopupCountryPlan(subscription)">Select this Plan</button>
+                                        <button *ngIf="subscription.selected" class="btn dark-btn"
+                                            (click)="selectedTopupCountryPlan(subscription)">You have selected
+                                            {{subscription.name}} Plan</button>
                                     </div>
                                 </div>
                             </div>
@@ -580,31 +400,56 @@
 
 <!-- last know more about section -->
 <div class="row">
-    <div class="col-8">
+    <div class="col-lg-5">
         <div [class]="'card card-body mt-3'">
             <div class=" d-flex justify-content-between">
                 <div class="mt-1">
-                    <span style="font-size: 20px !important;" class="sop-header">Checkout What You Get With Our
-                        Subscriptions</span>
+                    <span style="font-size: 16px !important;" class="sop-header"><b>Checkout What You Get With Our
+                            Subscriptions</b></span>
                 </div>
                 <div>
                     <button (click)="moreabout()" style="color: #fff !important;" class="btn btn-primary "><span
-                            class="ps-3 pe-3"> Know More About Our Features</span></button>
+                            style="white-space: nowrap;"> Know More About Our Features</span></button>
                 </div>
             </div>
         </div>
 
     </div>
-    <div class="col-4">
+    <div class="col-lg-4">
+        <div [class]="'card card-body mt-3'">
+            <div>
+                <span style="font-size: 13px !important;" class="sop-header"><b>Apply your coupon code here</b></span>
+                <br>
+                <div class="p-inputgroup inputheight mt-1">
+                    <input [(ngModel)]="couponInput" pInputText placeholder="Enter Your coupon code Here" type="text">
+                    <button (click)="applyCoupon()" class="btn-primary" label="Apply" pButton pRipple
+                        type="button"></button>
+                </div>
+                <span *ngIf="invalidCoupon" style="font-size: 9px !important; color: lightgray !important;">You entered
+                    an invalid discount code. Please chech the code and try againg</span>
+            </div>
+        </div>
+
+    </div>
+    <div class="col-lg-3">
         <div [class]="'card card-body mt-3'">
             <div class=" d-flex justify-content-between">
-                <div>
+                <div *ngIf="basesubscription">
                     <span style="font-size: 13px !important;" class="sop-header"><b>Total</b></span> <br>
                     <span style="font-size: 15px !important; color: var(--uniprep-primary) !important;"
-                        class="sop-header"><b> INR 1999.00</b></span>
+                        class="sop-header"><b> INR {{subscriptionTotal | number : '.2-2'}}</b></span>
+                </div>
+                <div *ngIf="topupcountries">
+                    <span style="font-size: 13px !important;" class="sop-header"><b>Countries</b></span>
+                    <span style="font-size: 13px !important; color: var(--uniprep-primary) !important;"
+                        class="sop-header"><b>
+                            {{selectedTopupCountryDetails?.selectedCoutriesList?.length}}</b></span><br>
+                    <span style="font-size: 13px !important;" class="sop-header"><b>Total</b></span>
+                    <span style="font-size: 13px !important; color: var(--uniprep-primary) !important;"
+                        class="sop-header"><b> INR {{subscriptionTotal | number : '.2-2'}}</b></span>
                 </div>
                 <div>
-                    <button style="color: #fff !important;" class="btn btn-primary "><span
+                    <button style="color: #fff !important;" class="btn btn-primary " (click)="checkout()"><span
                             class=" ps-3 pe-3">Checkout</span> </button>
                 </div>
             </div>
