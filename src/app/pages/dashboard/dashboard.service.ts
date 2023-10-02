@@ -56,4 +56,9 @@ export class DashboardService {
         return this.http.get(environment.ApiUrl + "/country", {headers: headers});
     }
 
+    getTrustedPartners() {
+        const headers = new HttpHeaders().set("Accept", "application/json");
+        return this.http.post(environment.ApiUrl + "/GetTrusterPatners", {},{headers: headers});
+    }
+
 }

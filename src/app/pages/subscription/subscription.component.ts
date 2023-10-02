@@ -102,7 +102,7 @@ export class SubscriptionComponent implements OnInit {
         this.isSubOrQuestion = 2;
         this.stage = 2;
     }
-    pay() {
+        pay() {
         this.showPayLoading = true;
         let data = {
             country_id: 2,

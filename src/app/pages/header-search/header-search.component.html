@@ -4,11 +4,13 @@
             <div class="col-12 md:col-4">
                 <div class="p-inputgroup searchheight">
                     <div class="search-icon"><i class="fa-solid fa-magnifying-glass"></i></div>
-                    <input #searchInput (keyup.enter)="searchKeyWord(searchInput)" [(ngModel)]="searchInputText"
+                    <input #searchInput (keyup)="onKey(searchInput.value)" (keyup.enter)="searchKeyWord(searchInput)"
+                           [(ngModel)]="searchInputText"
                            (input)="onSearchChange(searchInput.value)" pInputText
                            placeholder="Enter Your Keywords Here"
                            type="text">
-                    <span role="button" class="border-0 input-group-text passwordvisibility" style="background:transparent" (click)="clearText()">
+                    <span (click)="clearText()" *ngIf="showCloseIcon" class="border-0 input-group-text passwordvisibility"
+                          role="button" style="background:transparent">
                         <i class="fa-solid fa-xmark text-danger" style="font-size: 1.25rem"></i>
                     </span>
                     <button (click)="searchKeyWord(searchInput)" class="btn-primary" label="Search" pButton pRipple
@@ -19,7 +21,9 @@
                     <li *ngFor="let c of searchResult" class="list-group-item border-0 pt-0 pb-0 mt-0 mb-0">
                         <div class="row">
                             <div class="col-md-9"  (click)="gerSelectedQuestion(c)">
-                                <span style="font-size: 12px; cursor: pointer" class="pr-4 fa-sm">{{c.question}}</span>
+                                <span [innerHTML]="dataContentChange(c.question)" class="pr-4 fa-sm"
+                                      style="font-size: 12px; cursor: pointer">
+                                </span>
                             </div>
                             <div class="col-md-3" style="cursor: pointer">
                                 <a style="font-size: 12px" (click)="redirectModule(c.module_name)">{{c.module_name}}</a> ->
@@ -33,7 +37,7 @@
                                 <span (click)="openChat()" role="button" class="text-primary font-primarycolor">Ask Us</span><p>
                         </div>
                         <div class="col-md-6 text-end">
-                            <p class="text-right fa-sm fw-bold"> Total Related Questions: {{searchResult.length}}</p>
+                            <p class="text-right fa-sm fw-bold"> Total Related Questions: {{searchResult?.length}}</p>
                         </div>
                     </div></li>
                 </ul>

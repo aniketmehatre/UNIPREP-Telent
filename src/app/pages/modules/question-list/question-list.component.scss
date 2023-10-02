@@ -34,7 +34,14 @@
   }
 }
 
+//.questionread {
+//  filter: grayscale(1);
+//}
 .questionread {
+  color: gray;
+  background: lightgray;
+}
+.readButton{
   filter: grayscale(1);
 }
 

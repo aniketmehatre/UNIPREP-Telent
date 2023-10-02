@@ -209,8 +209,11 @@ export class DashboardComponent implements OnInit {
         }
         this.router.navigate([`pages/${moduleName}/sub-modules/2`]);
     }
-
+    partnerTrusterLogo: any;
     openViewMoreOrg(){
         this.isViewMoreOrgVisible = true;
+        this.dashboardService.getTrustedPartners().subscribe(partnerLogo => {
+            this.partnerTrusterLogo = partnerLogo;
+        });
     }
 }
