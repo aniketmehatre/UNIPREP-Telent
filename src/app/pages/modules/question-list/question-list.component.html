@@ -32,7 +32,8 @@
                                         </div>
                                         
                                     </div>
-                                    <button class="btn w-full btn-primary m-0 primary-btn" pButton type="button">Read
+                                    <button class="btn w-full btn-primary m-0 primary-btn
+                                        {{sub.read == 1 ? 'readButton' : ''}}" pButton type="button">Read
                                          Answer
                                     </button>
                                 </div>
@@ -45,7 +46,7 @@
     </div>
 </div>
 <p-dialog [(visible)]="isQuestionAnswerVisible" [draggable]="false" [modal]="true" [style]="{ width: '80vw' }"
-          class="questionmodal" header="Header">
+          class="questionmodal" header="Header" [maximizable]="true">
     <ng-template class="p-3" pTemplate="header">
         <h5 class="select-title text-center mb-3">{{currentModuleName}} - {{moduleName}}</h5>
         <span class="text-xl font-bold"></span>
@@ -62,11 +63,11 @@
                 </button>
             </div>
             <div class="col-md-8 d-flex align-items-center justify-content-center text-center">
-                <a role="button" (click)="clickPrevious(carousel, $event)"><i
+                <a role="button" *ngIf="isAnswerDialogVisiblePrev" (click)="clickPrevious(carousel, $event)"><i
                         class="text-green h4 mx-3 mb-0 fa-solid fa-circle-chevron-left"></i></a>
                 <h5 class="mb-0">Question
                     Number {{selectedQuestion + 1}}</h5>
-                <a role="button" (click)="clickNext(carousel, $event)"><i
+                <a role="button" *ngIf="isAnswerDialogVisibleNext" (click)="clickNext(carousel, $event)"><i
                         class="text-green mx-3 h4 fa-solid mb-0 fa-circle-chevron-right"></i></a>
             </div>
             <div class="col-md-2 gap-2 d-flex">

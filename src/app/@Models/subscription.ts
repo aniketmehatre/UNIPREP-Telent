@@ -104,3 +104,23 @@ export interface SubscriptionSuccess {
     subscriptionname: string;
     subscriptionamount: string;
 }
+
+export interface SubscriptionTopup {
+    success: boolean;
+    topups: Topup[];
+}
+  
+export interface Topup {
+    id: number;
+    name: string;
+    validity: number;
+    price: string;
+    discount: string;
+    discountPercentage: number;
+    countries: string;
+    topuptype: number;
+    status: number;
+    created_at: any;
+    updated_at: any;
+    countryNames: string;
+}
