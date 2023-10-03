@@ -38,6 +38,8 @@ export class QuestionListComponent implements OnInit {
   isRecommendedLinksVisible: boolean = false;
   isRecommendedVideoVisible: boolean = false;
   isReviewedByVisible: boolean = false;
+  isAnswerDialogVisiblePrev: boolean = false;
+  isAnswerDialogVisibleNext: boolean = false;
   responsiveOptions: any[] = [];
   message: string = '';
   moduleName: any;
@@ -183,7 +185,16 @@ export class QuestionListComponent implements OnInit {
       moduleId: this.currentModuleId,
       submoduleId: Number(this.subModuleId)
     }
-
+    if (this.selectedQuestion < 1) {
+      this.isAnswerDialogVisiblePrev = false;
+    }else{
+      this.isAnswerDialogVisiblePrev = true;
+    }
+    if (this.selectedQuestion >= this.data.length - 1) {
+      this.isAnswerDialogVisibleNext = false;
+    }else{
+      this.isAnswerDialogVisibleNext = true;
+    }
     this.readQuestion(data);
   }
 
@@ -217,6 +228,11 @@ export class QuestionListComponent implements OnInit {
   }
 
   clickPrevious(carousel: any, event: any) {
+    this.isAnswerDialogVisiblePrev = true;
+    this.isAnswerDialogVisibleNext = true;
+    if (this.selectedQuestion <= 1) {
+      this.isAnswerDialogVisiblePrev = false;
+    }
     if (this.selectedQuestion <= 0) {
       return;
     }
@@ -242,6 +258,11 @@ export class QuestionListComponent implements OnInit {
   }
 
   clickNext(carousel: any, event: any) {
+    this.isAnswerDialogVisiblePrev = true;
+    this.isAnswerDialogVisibleNext = true;
+    if (this.selectedQuestion >= this.data.length - 2) {
+      this.isAnswerDialogVisibleNext = false;
+    }
     if (this.selectedQuestion >= this.data.length - 1) {
       return;
     }
@@ -321,6 +342,7 @@ export class QuestionListComponent implements OnInit {
       moduleId: this.selectedQuestionData.module_id,
       subModuleId: this.selectedQuestionData.submodule_id,
       questionId: this.selectedQuestionData.id,
+      from: 'module'
     }
     this.dataService.openReportWindow(data);
   }
