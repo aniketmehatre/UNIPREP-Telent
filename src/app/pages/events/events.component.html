@@ -18,37 +18,37 @@
             </div>
             <!-- upcomming event -->
             <div class="card-container p-4 mt-4" *ngIf="upcomingevent">
-                <div class="card card1" style="background-color: #fff; ">
-                    <a style="text-decoration: none;" href="">
+                <div class="card card1" style="background-color: #fff; " *ngFor=" let event of upcommingevent">
+                    <a style="text-decoration: none;" href="{{event.eventlink}}">
                   <div>
                     <span  class="mt-2 ms-2 p-1" style="border: 1px solid #3F4C83; background-color: #3F4C83; color: #fff;
-                    border-radius: 14px 14px 14px 14px; font-size: 11px; width: fit-content; float: left;" >3 DAYS TO GO</span>
+                    border-radius: 14px 14px 14px 14px; font-size: 11px; width: fit-content; float: left;" >{{event.daysago}} TO GO</span>
                     </div>
                     <div class="mt-5" style="text-align: center;">
-                        <img width="120px" src="" alt="">
+                        <img width="120px" src="{{event.companylogo}}" alt="">
                     </div>
         
                     <div>
                         <span class=" p-1" style="border: 1px solid #3F4C83; background-color: #3F4C83; color: #fff;
                         border-radius: 14px 14px 0px 0px; font-size: 11px; width: fit-content;" >
-                        <span><i class="fa-solid fa-clock"></i>&nbsp;from - to</span><span class="vertical-line"></span><span> <span><i class="fa-solid fa-calendar"></i></span>&nbsp;event.date</span>
+                        <span><i class="fa-solid fa-clock"></i>&nbsp;{{event.from}} - {{event.to}}</span><span class="vertical-line"></span><span> <span><i class="fa-solid fa-calendar"></i></span>&nbsp;{{event.date}}</span>
                         </span>
                         <hr style="color: #3F4C83; background-color: #3F4C83; margin: auto;">
                    <div class="mt-2 ms-2" style="text-align: start; color: black;">
-                    <h6>eventname</h6>
+                    <h6>{{event.eventname}}</h6>
                     <p style="font-size: 10px;">
-                        event.eventdescription
+                        {{event.eventdescription}}
                     </p>
                    </div>
             
                     </div>
                     <div style="text-align: start; color: black;" class="flex justify-content-start ms-3">
                       <div>
-                        <span style="font-size: 10px; font-weight: 156px;"><img style="width: 17px;" src="" alt="">&nbsp;event.country</span> &nbsp;&nbsp;
+                        <span style="font-size: 10px; font-weight: 156px;"><img style="width: 17px;" src="{{event.countrylog}}" alt="">&nbsp;{{event.country}}</span> &nbsp;&nbsp;
                         <span style="font-size: 10px; font-family: 156px;" ><i class="fa-solid fa-users"></i>&nbsp;Registered Members - 25</span>
                       </div>
                       <div>
-                        <span style="font-size: 10px; font-family: 156px;">Speaker - event.speakername (HR Recruiter)</span>
+                        <span style="font-size: 10px; font-family: 156px;">Speaker - {{event.speakername}} (HR Recruiter)</span>
                       </div>
                     </div>
                 </a>
@@ -56,37 +56,37 @@
             </div>
             <!-- post event -->
             <div class="card-container p-4 mt-4" *ngIf="postevent">
-                <div class="card card1" style="background-color: #fff; ">
-                    <a style="text-decoration: none;" href="">
+                <div class="card card1" style="background-color: #fff; " *ngFor=" let event of postevetdetaisl">
+                    <a style="text-decoration: none;" href="{{event.eventlink}}">
                   <div>
                     <span  class="mt-2 ms-2 p-1" style="border: 1px solid #3F4C83; background-color: #3F4C83; color: #fff;
-                    border-radius: 14px 14px 14px 14px; font-size: 11px; width: fit-content; float: left;" >3 DAYS TO GO</span>
+                    border-radius: 14px 14px 14px 14px; font-size: 11px; width: fit-content; float: left;" >{{event.date}}</span>
                     </div>
                     <div class="mt-5" style="text-align: center;">
-                        <img width="120px" src="" alt="">
+                        <img width="120px" src="{{event.companylogo}}" alt="">
                     </div>
         
                     <div>
                         <!-- <span class=" p-1" style="border: 1px solid #3F4C83; background-color: #3F4C83; color: #fff;
                         border-radius: 14px 14px 0px 0px; font-size: 11px; width: fit-content;" >
-                        <span><i class="fa-solid fa-clock"></i>&nbsp;from - to</span><span class="vertical-line"></span><span> <span><i class="fa-solid fa-calendar"></i></span>&nbsp;event.date</span>
+                        <span><i class="fa-solid fa-clock"></i>&nbsp;{{event.from}} - {{event.to}}</span><span class="vertical-line"></span><span> <span><i class="fa-solid fa-calendar"></i></span>&nbsp;{{event.date}}</span>
                         </span> -->
                         <hr style="color: #3F4C83; background-color: #3F4C83; margin: auto;">
                    <div class="mt-2 ms-2" style="text-align: start; color: black;">
-                    <h6>eventname</h6>
+                    <h6>{{event.eventname}}</h6>
                     <p style="font-size: 10px;">
-                        event.eventdescription
+                        {{event.eventdescription}}
                     </p>
                    </div>
             
                     </div>
                     <div style="text-align: start; color: black;" class="flex justify-content-start ms-3">
                       <div>
-                        <span style="font-size: 10px; font-weight: 156px;"><img style="width: 17px;" src="" alt="">&nbsp;event.country</span> &nbsp;&nbsp;
+                        <span style="font-size: 10px; font-weight: 156px;"><img style="width: 17px;" src="{{event.countrylog}}" alt="">&nbsp;{{event.country}}</span> &nbsp;&nbsp;
                         <span style="font-size: 10px; font-family: 156px;" ><i class="fa-solid fa-users"></i>&nbsp;Registered Members - 25</span>
                       </div>
                       <div>
-                        <span style="font-size: 10px; font-family: 156px;">Speaker - event.speakername (HR Recruiter)</span>
+                        <span style="font-size: 10px; font-family: 156px;">Speaker - {{event.speakername}} (HR Recruiter)</span>
                       </div>
                     </div>
                 </a>

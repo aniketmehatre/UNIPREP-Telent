@@ -25,7 +25,8 @@ export class EventsComponent implements OnInit {
   perpage:number = 12;
   totalcount: number=0;
   pageno:number = 1;
-  upcommingevent=[]
+  upcommingevent: any[] = [];
+  postevetdetaisl: any[] = [];
   constructor(private fb: FormBuilder, private service:EventsService,private datePipe: DatePipe) { 
     this.filterform = this.fb.group({
       from: [''],
@@ -131,10 +132,13 @@ export class EventsComponent implements OnInit {
           from: this.timeformatchange(list.from),
           to:this.timeformatchange(list.to),
           eventdescription:list.eventdescription,
-          countrylog:list.countryFlag
+          countrylog:list.countryFlag,
+          daysago:list.remainingTime
         }
+        console.log(bindingdata);
+        
         this.totalcount=res.count
-        // this.upcommingevent.push(bindingdata)
+        this.upcommingevent.push(bindingdata)
       })
     })
   }
@@ -187,7 +191,7 @@ export class EventsComponent implements OnInit {
           countrylog:list.countryFlag
         }
         this.totalcount=res.count
-        // this.upcommingevent.push(bindingdata)
+        this.postevetdetaisl.push(bindingdata)
       })
     })
   }
