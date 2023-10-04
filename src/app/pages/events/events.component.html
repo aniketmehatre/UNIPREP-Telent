@@ -119,11 +119,11 @@
         </div>
         <div class="card-footer" *ngIf="upcomingevent">
             <p-paginator [rows]="10" [totalRecords]="totalcount" (onPageChange)="paginate($event)"
-                [rowsPerPageOptions]="[8,36,72,100]"></p-paginator>
+                [rowsPerPageOptions]="[8,32,72,100]"></p-paginator>
         </div>
         <div class="card-footer" *ngIf="postevent">
             <p-paginator [rows]="10" [totalRecords]="totalcountpost" (onPageChange)="paginatepost($event)"
-                [rowsPerPageOptions]="[8,36,72,100]"></p-paginator>
+                [rowsPerPageOptions]="[8,32,72,100]"></p-paginator>
         </div>
     </div>
 
