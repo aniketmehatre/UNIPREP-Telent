@@ -119,9 +119,14 @@
   padding: 7px;
   border-radius: 4px;
   text-transform: uppercase;
-  width: 16%;
+  width: 14%;
   margin-right: 10px;
 }
+:host ::ng-deep .p-dialog-content{
+  overflow: visible !important;
+}
+
+
 button {
   border-radius: 3px !important;
   font-size: x-small;

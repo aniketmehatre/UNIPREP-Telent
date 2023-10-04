@@ -20,6 +20,7 @@ import {
 import {
   PlaceOrderResponse,
   SubscriptionSuccess,
+  SubscriptionTopup,
 } from "../../@Models/subscription";
 import { Observable } from "rxjs";
 
@@ -30,7 +31,7 @@ export class SubscriptionService {
   constructor(
     private http: HttpClient,
     private store: Store<SubscriptionState>
-  ) {}
+  ) { }
 
   // getSubscriptionList() {
   //     localStorage.getItem("loginToken")
@@ -81,6 +82,13 @@ export class SubscriptionService {
   placeSubscriptionOrder(subscription: any): Observable<any> {
     return this.http.post<any>(
       environment.ApiUrl + "/placeorder",
+      subscription
+    );
+  }
+
+  placeTopupSubscriptionOrder(subscription: any): Observable<any> {
+    return this.http.post<any>(
+      environment.ApiUrl + "/topupplaceorder",
       subscription
     );
   }
@@ -159,6 +167,16 @@ export class SubscriptionService {
     );
   }
 
+  topupPaymentComplete(data: any) {
+    localStorage.getItem("loginToken");
+    const headers = new HttpHeaders().set("Accept", "application/json");
+    return this.http.post<SubscriptionSuccess>(
+      environment.ApiUrl + "/topupcompletepayment",
+      data,
+      { headers: headers }
+    );
+  }
+
   getSubscriptions(data: any) {
     localStorage.getItem("loginToken");
     const headers = new HttpHeaders().set("Accept", "application/json");
@@ -176,9 +194,48 @@ export class SubscriptionService {
     body.append('country_id', data.country_id);
     const headers = new HttpHeaders().set("Accept", "application/json");
     return this.http.post<any>(
-        environment.ApiUrl + "/GetSubscriptionDetails",
-        body,
-        { headers: headers }
+      environment.ApiUrl + "/GetSubscriptionDetails",
+      body,
+      { headers: headers }
+    );
+  }
+
+  getSubscriptionTopups() {
+    localStorage.getItem("loginToken");
+    const headers = new HttpHeaders().set("Accept", "application/json");
+    return this.http.post<SubscriptionTopup>(
+      environment.ApiUrl + "/gettopuplist",
+      {},
+      { headers: headers }
+    );
+  }
+
+  applyCoupon(data: any) {
+    localStorage.getItem("loginToken");
+    const headers = new HttpHeaders().set("Accept", "application/json");
+    return this.http.post<any>(
+      environment.ApiUrl + "/applycoupondiscount",
+      data,
+      { headers: headers }
+    );
+  }
+
+  getSubscriptionHistory() {
+    localStorage.getItem("loginToken");
+    const headers = new HttpHeaders().set("Accept", "application/json");
+    return this.http.post<any>(
+      environment.ApiUrl + "/getsubscriptionhistory",
+      {},
+      { headers: headers }
+    );
+  }
+
+  getExistingSubscription() {
+    localStorage.getItem("loginToken");
+    const headers = new HttpHeaders().set("Accept", "application/json");
+    return this.http.get<SubscriptionTopup>(
+      environment.ApiUrl + "/getexistingsubscription",
+      { headers: headers }
     );
   }
 

@@ -88,9 +88,6 @@ export class ChatComponent implements OnInit {
         this.visibility = true;
         this.textMessage = "";
         this.getChatHistoryByUserId();
-        setTimeout(() => {
-          this.visibility = false;
-        }, 3000);
       },
       (error) => {
         this.toast.add({
