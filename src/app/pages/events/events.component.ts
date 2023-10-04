@@ -22,8 +22,9 @@ export class EventsComponent implements OnInit {
   newfile = "none";
   countries: country[] = [];
   filterform:FormGroup;
-  perpage:number = 12;
+  perpage:number = 8;
   totalcount: number=0;
+  totalcountpost:number=0;
   pageno:number = 1;
   upcommingevent: any[] = [];
   postevetdetaisl: any[] = [];
@@ -45,7 +46,7 @@ export class EventsComponent implements OnInit {
       page : 1,
     }
     this.geteventupcomming(data)
-    this.getpostevent()
+    this.getpostevent(data)
   }
 
 
@@ -116,9 +117,18 @@ export class EventsComponent implements OnInit {
     }
     this.geteventupcomming(data);
   }
+  paginatepost(event:any){
+    this.pageno = event.page + 1;
+    this.perpage = event.rows;
+    let data = {
+      perpage : this.perpage,
+      page : event.page + 1,
+    }
+    this.getpostevent(data);
+  }
   geteventupcomming(data:any){
     this.service.getupcommingevent(data).subscribe((res) => {
-      console.log(res);   
+      this.upcommingevent=[]  
       res.events.forEach((list: any) => {
         var bindingdata = {
           id:list.id,
@@ -135,11 +145,10 @@ export class EventsComponent implements OnInit {
           countrylog:list.countryFlag,
           daysago:list.remainingTime
         }
-        console.log(bindingdata);
-        
         this.totalcount=res.count
         this.upcommingevent.push(bindingdata)
       })
+      this.newfile = "none";
     })
   }
   // format changing contact
@@ -164,17 +173,14 @@ export class EventsComponent implements OnInit {
       from:this.filterform.value.from,
       country:this.filterform.value.country,
       page:1,
-      perpage:10
+      perpage:this.perpage
     }
+    this.geteventupcomming(data)
   }
   // post event
-  getpostevent(){
-    var data={
-      page:1,
-      perpage:10
-    }
+  getpostevent(data:any){
     this.service.postevets(data).subscribe((res) => {
-      console.log(res);   
+      this.postevetdetaisl=[] 
       res.events.forEach((list: any) => {
         var bindingdata = {
           id:list.id,
@@ -190,7 +196,7 @@ export class EventsComponent implements OnInit {
           eventdescription:list.eventdescription,
           countrylog:list.countryFlag
         }
-        this.totalcount=res.count
+        this.totalcountpost=res.count
         this.postevetdetaisl.push(bindingdata)
       })
     })
