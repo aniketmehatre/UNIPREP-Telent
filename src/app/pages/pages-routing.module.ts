@@ -57,8 +57,11 @@ const routes: Routes = [
             },
             {
                 path: 'events',
-
                 loadChildren: () => import('./events/event.module').then(m => m.EventsModule)
+            },
+            {
+                path: 'tutorials',
+                loadChildren: () => import('./tutorials/tutorials.module').then(m => m.TutorialsModule)
             },
             {path: 'usermanagement', canActivate: [AuthGuard], component: UserManagementComponent},
             {path: '', redirectTo: 'dashboard', pathMatch: 'full'},
