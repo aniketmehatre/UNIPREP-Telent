@@ -24,7 +24,6 @@ export class RegistrationComponent implements OnInit {
     @ViewChild('otp7') otp7!: ElementRef;
     @ViewChild('otp8') otp8!: ElementRef;
     public registrationForm: any = FormGroup;
-    intakeMonthLooking: any;
     genderList: any;
     intakeYearLooking: any;
     displayTerms = "none";
@@ -78,11 +77,13 @@ export class RegistrationComponent implements OnInit {
     dateTime = new Date();
 
     ngOnInit() {
+
         // this.isMobileOTPSend = false;
         // this.isMobileOTPValidated = false;
         // this.isEmailOTPSend = false;
         // this.isEmailOTPValidated = false;
         // this.isRemainingFieldVisible = false;
+
         this.dateTime.setDate(this.dateTime.getDate());
 
         this.password = 'password';
@@ -119,19 +120,6 @@ export class RegistrationComponent implements OnInit {
         this.GetLocationList();
         this.getCountryList();
         this.getProgramLevelList();
-        this.intakeMonthLooking = [
-            {label: "1", value: "January"},
-            {label: "2", value: "February"},
-            {label: "3", value: "March"},
-            {label: "4", value: "April"},
-            {label: "5", value: "May"},
-            {label: "6", value: "June"},
-            {label: "7", value: "July"},
-            {label: "8", value: "August"},
-            {label: "9", value: "September"},
-            {label: "10", value: "October"},
-            {label: "11", value: "November"},
-            {label: "12", value: "December"},];
         this.genderList = [
             {label: "M", value: "Male"},
             {label: "F", value: "Female"},];
@@ -447,5 +435,13 @@ export class RegistrationComponent implements OnInit {
                 clearInterval(this.interval);
             }
         }, 1000);
+    }
+
+    editMobileNumberAgain(){
+        this.isMobileOTPSend = false;
+    }
+
+    editEmailAgain(){
+        this.isEmailOTPSend = false;
     }
 }
