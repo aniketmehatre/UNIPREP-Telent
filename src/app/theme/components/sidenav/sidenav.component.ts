@@ -93,11 +93,11 @@ export class SidenavComponent {
       url: '/pages/faq',
       image: 'fa-solid fa-comments-question',
     },
-    {
-      title: 'Help & Support',
-      url: '/pages/help',
-      image: 'fa-solid fa-phone-volume',
-    }
+    // {
+    //   title: 'Help & Support',
+    //   url: '/pages/help',
+    //   image: 'fa-solid fa-phone-volume',
+    // }
     //,
     // {
     //   title: 'USER MANAGER',

@@ -10,16 +10,15 @@ import {
   ViewContainerRef,
   ViewEncapsulation,
 } from "@angular/core";
-import { MenuItem, MessageService } from "primeng/api";
-import { CountdownConfig } from "ngx-countdown";
-import { ModalService } from "src/app/components/modal/modal.service";
-import { AuthService } from "../../../Auth/auth.service";
-import { SubSink } from "subsink";
-import { Router } from "@angular/router";
-import { LocationService } from "../../../location.service";
-import { DataService } from "src/app/data.service";
-import { FormBuilder, FormGroup, Validators } from "@angular/forms";
-import { matchValidator } from "../../../@Supports/matchvalidator";
+import {MenuItem, MessageService} from "primeng/api";
+import {ModalService} from "src/app/components/modal/modal.service";
+import {AuthService} from "../../../Auth/auth.service";
+import {SubSink} from "subsink";
+import {Router} from "@angular/router";
+import {LocationService} from "../../../location.service";
+import {DataService} from "src/app/data.service";
+import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {matchValidator} from "../../../@Supports/matchvalidator";
 
 @Component({
   selector: "uni-header",
@@ -63,6 +62,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   sec: number = 0;
   isVisibleModulesMenu: boolean = false;
   isChatWindowVisible: boolean = false;
+  isQuestionVisible: boolean = true;
   messages: any = [];
   show = false;
   password: string = "password";
@@ -197,6 +197,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
       }
     });
     this.dataService.openReportWindowSource.subscribe((data) => {
+      // if(data.from == 'module'){
+      //   this.isQuestionVisible = false
+      // }
       if (data.isVisible) {
         this.moduleList = [];
         this.subModuleList = [];
@@ -209,7 +212,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
         this.moduleNgModel = data.moduleId;
         this.subModuleNgModel = data.subModuleId;
         this.questionIdNgModel = data.questionId;
-        this.openReportModal(this.op, event);
+        this.openReportModalFromMoudle(this.op, event);
+      } else {
+        this.isQuestionVisible = false;
       }
     });
 
@@ -265,7 +270,26 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.isChatWindowVisible = true;
   }
 
+  openReportModalFromMoudle(op: any, event: any) {
+    this.isQuestionVisible = false;
+    this.isVisibleModulesMenu = true;
+    op.toggle(event);
+  }
+
   openReportModal(op: any, event: any) {
+    this.isQuestionVisible = true;
+    this.isVisibleModulesMenu = false;
+    // this.dataService.openReportWindowSource.subscribe((data) => {
+    //   if (data.from == 'module') {
+    //     this.isQuestionVisible = false
+    //   }else{
+    //     this.isQuestionVisible = true;
+    //     this.isVisibleModulesMenu = false;
+    //   }
+    // });
+    // let data = {}
+    // this.dataService.openReportWindow(data);
+    // console.log('come', data)
     op.toggle(event);
   }
 
@@ -349,7 +373,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.router.navigate(["/pages/subscriptions"]);
   }
 
-  onSubmit() {
+  onSubmit(op: any) {
     let data;
     if (this.reportSubmitForm.value.general == 1) {
       data = {
@@ -370,6 +394,12 @@ export class HeaderComponent implements OnInit, OnDestroy {
       if (res.status == 404) {
       }
       this.showReportSuccess = true;
+
+      setTimeout(() => {
+        this.showReportSuccess = false;
+        op.hide();
+      }, 4000);
+
       this.toast.add({
         severity: "success",
         summary: "Success",

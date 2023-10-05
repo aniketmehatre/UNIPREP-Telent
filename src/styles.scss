@@ -900,6 +900,18 @@ h1, h2, h3, h4, h5 {
     }
   }
 
+  .p-overlaypanel
+  {
+    background: #202124;
+    &::before
+    {
+      border-bottom-color: #202124;
+    }
+    &::after
+    {
+      border-bottom-color: #202124;
+    }
+  }
   .notify
   {
     border: 1px solid #121212;
@@ -930,6 +942,7 @@ h1, h2, h3, h4, h5 {
   .p-dropdown
   {
     background:transparent;
+    border: 1px solid;
   }
   .p-dropdown-panel .p-dropdown-items .p-dropdown-item:not(.p-highlight):not(.p-disabled):hover 
   {
@@ -1481,6 +1494,7 @@ h1, h2, h3, h4, h5 {
         {
         background-color: #fff !important;
         border: 2px solid var(--uniprep-primary);
+        color: var(--uniprep-primary) !important;
         }
     }
   

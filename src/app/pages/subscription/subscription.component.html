@@ -1,7 +1,7 @@
 <ng-container [ngSwitch]="stage">
     <ng-container *ngSwitchCase="1">
         <uni-subscription-data (upgrade)="start()" [history]="(orderHistory$ | async) || []" [billing]="user"
-            [subscriptions]="subscriptionDetail$ | async"></uni-subscription-data>
+            [subscriptions]="subscriptionDetail$ | async" (subscriptionPlan)="pay($event)"></uni-subscription-data>
     </ng-container>
     <ng-container *ngSwitchCase="2">
         <uni-subscription-list  [whichOneVisible]="isSubOrQuestion" (selected)="onSelectSubscription($event)"
@@ -9,7 +9,7 @@
             [plans]="(subscriptions$ | async) || []"></uni-subscription-list>
     </ng-container>
     <ng-container *ngSwitchCase="3">
-        <uni-subscription-billing (pay)="pay()" (payQuestionCredit)="payQuestionCredit()" (change)="changePlan()" 
+        <uni-subscription-billing (pay)="pay($event)" (payQuestionCredit)="payQuestionCredit()" (change)="changePlan()" 
         (changeQuestionCreditPlan)="changeQuestionCreditPlan()" [loading]="(orderLoading$ | async) || false"
             [plan]="selectedSubscription" [planQuestionCredit]="selectedQuestionCredit"></uni-subscription-billing>
     </ng-container>

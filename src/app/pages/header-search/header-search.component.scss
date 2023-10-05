@@ -40,6 +40,7 @@ btn-primary {
   right: 0;
   left: 0;
   top: 60px;
+  min-height: 200px;
   border-radius: 10px;
 }
 .answercard {
@@ -58,4 +59,7 @@ btn-primary {
   .p-carousel-next, .p-carousel-prev {
     display: none !important;
   }
+}
+.color-red{
+  color: green !important;
 }

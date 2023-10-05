@@ -8,7 +8,7 @@ import {
 } from '@angular/core';
 import {DashboardService} from "../dashboard/dashboard.service";
 import {DataService} from "../../data.service";
-import {MenuItem} from "primeng/api";
+import {MenuItem, MessageService} from "primeng/api";
 import {LocationService} from "../../location.service";
 import {SubSink} from "subsink";
 import {Router} from "@angular/router";
@@ -29,6 +29,7 @@ export class HeaderSearchComponent implements OnInit, OnDestroy {
     isSearchResultFound: boolean = false;
     isQuestionAnswerVisible: boolean = false;
     searchResult: any [] = [];
+    searchKeyword: any;
     breadCrumb: MenuItem[] = [];
     question: MenuItem[] = [];
     selectedQuestion: number = 0;
@@ -41,12 +42,14 @@ export class HeaderSearchComponent implements OnInit, OnDestroy {
     subModuleName: any;
     searchInputValue: any;
     searchInputText: any;
+    showCloseIcon: boolean = false
 
     readQue$!: Observable<ReadQuestion[]>;
     @ViewChild('listgroup') listgroup: ElementRef | undefined;
     constructor(private dashboardService: DashboardService, private dataService: DataService,
-                private moduleListService: ModuleServiceService, private locationService: LocationService,
-                private route: Router, private elementRef: ElementRef, private renderer: Renderer2) {
+                private toastr: MessageService, private moduleListService: ModuleServiceService,
+                private locationService: LocationService, private route: Router, private elementRef: ElementRef,
+                private renderer: Renderer2) {
         this.dataService.chatTriggerSource.subscribe(message => {
             this.message = message;
         });
@@ -85,10 +88,27 @@ export class HeaderSearchComponent implements OnInit, OnDestroy {
     }
 
     onSearchChange(event: any) {
+        this.searchKeyword = event;
         event == "" ? this.isSearchResultFound = false : '';
     }
 
+    onKey(searchInput: any){
+        this.showCloseIcon = searchInput?.length > 0;
+    }
+
+    dataContentChange(test: any){
+        let searchValue = this.searchKeyword;
+        const small = new RegExp(searchValue, "g");
+        const caps = new RegExp(searchValue.toUpperCase(), "g");
+        let newText = test.replace(small, '<span class="fw-bold">'+searchValue+'</span>')
+       return newText.replace(caps, '<span class="fw-bold">'+searchValue+'</span>');
+    }
+
     searchKeyWord(searchInput: any) {
+        if(searchInput.value == ""){
+            this.toastr.add({severity: 'error', summary: 'Error', detail: "Enter keyword to search data."});
+            return;
+        }
         this.searchInputValue = searchInput.value;
         const data = {
             countryId: Number(localStorage.getItem('countryId')),
@@ -136,8 +156,7 @@ export class HeaderSearchComponent implements OnInit, OnDestroy {
     }
 
     clearText() {
-        console.log('clear');
-        
+        this.showCloseIcon = false;
         this.searchInputText = '';
         this.isSearchResultFound = false;
         //this.searchResult = [];
@@ -187,7 +206,8 @@ export class HeaderSearchComponent implements OnInit, OnDestroy {
     }
 
     openChat() {
-        this.dataService.changeChatOpenStatus("open chat window");
+        this.route.navigate([`/pages/chat`]);
+        //this.dataService.changeChatOpenStatus("open chat window");
     }
 
     clickPrevious(carousel: any, event: any) {
