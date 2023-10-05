@@ -76,12 +76,17 @@ export class SidenavComponent {
     {
       title: 'Events',
       url: '/pages/events',
-      image: 'fa-solid fa-link',
+      image: 'fa-solid fa-calendar-days',
     },
     {
       title: 'Resources',
       url: '/pages/resource',
       image: 'fa-solid fa-link',
+    },
+    {
+      title: 'Tutorials',
+      url: '/pages/tutorials',
+      image: 'fa-solid fa-video',
     },
     {
       title: 'FAQ',
