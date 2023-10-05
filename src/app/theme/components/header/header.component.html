@@ -102,12 +102,13 @@
             <i class="fa-solid fa-bell"></i>
         </p-avatar>
         <div class="dropdown profile-dropdown">
-            <button class="button" type="button" routerLink="/usermanagement"  aria-expanded="false">
+            <!-- <button class="button" type="button" routerLink="/usermanagement"  aria-expanded="false"> -->
+                   <button class="button" data-bs-toggle="dropdown"   aria-expanded="false">
                 <span class="nme">{{(firstChar || '')?.charAt(0)}}</span> <span class="fw-medium">{{userName}}</span>
             </button>
             <ul class="dropdown-menu">
-                <!-- <li>
-                    <a class="dropdown-item pt-2 pb-2" >
+                <li>
+                    <a class="dropdown-item pt-2 pb-2" routerLink="/usermanagement" >
                         <div class="d-flex justify-content-top">
                             <i class="fa-solid fa-user me-2 mt-1"></i>
                             <div>
@@ -116,7 +117,7 @@
                             </div>
                         </div>
                     </a>
-                </li> -->
+                </li>
                 <!-- <li>
                     <a class="dropdown-item pt-2 pb-2" (click)="changePassword()">
                         <div class="d-flex justify-content-top">
@@ -127,10 +128,10 @@
                             </div>
                         </div>
                     </a>
-                </li>
+                </li>-->
                 <li><a class="dropdown-item pt-2 pb-2" (click)="logout()"><i
                         class="fa-solid fa-power-off me-2"></i>Logout</a>
-                </li> -->
+                </li> 
             </ul>
         </div>
     </div>
