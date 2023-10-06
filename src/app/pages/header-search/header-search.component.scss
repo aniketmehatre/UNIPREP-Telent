@@ -40,7 +40,9 @@ btn-primary {
   right: 0;
   left: 0;
   top: 60px;
-  min-height: 200px;
+  //min-height: 200px;
+  overflow: scroll;
+  max-height: 400px;
   border-radius: 10px;
 }
 .answercard {
@@ -48,6 +50,12 @@ btn-primary {
   border: 2px solid var(--uniprep-primary);
   max-height: 60vh;
   overflow-y: auto;
+}
+li:last-of-type {
+  width: 100%;
+  position: sticky;
+  right: 0;
+  bottom: 0;
 }
 
 :host ::ng-deep p-carousel {
@@ -62,4 +70,11 @@ btn-primary {
 }
 .color-red{
   color: green !important;
+}
+.unselectable {
+  -webkit-user-select: none;
+  -webkit-touch-callout: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }

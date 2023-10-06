@@ -16,31 +16,34 @@
                     <button (click)="searchKeyWord(searchInput)" class="btn-primary" label="Search" pButton pRipple
                             type="button"></button>
                 </div>
-                <ul *ngIf="isSearchResultFound"
-                    class="list-group list-group-flush shadow-lg" #listgroup>
-                    <li *ngFor="let c of searchResult" class="list-group-item border-0 pt-0 pb-0 mt-0 mb-0">
-                        <div class="row">
-                            <div class="col-md-9"  (click)="gerSelectedQuestion(c)">
+                <div >
+                    <ul *ngIf="isSearchResultFound"
+                        class="list-group list-group-flush shadow-lg" #listgroup>
+                        <li *ngFor="let c of searchResult" class="list-group-item border-0 pt-0 pb-0 mt-0 mb-0">
+                            <div class="row">
+                                <div class="col-md-9"  (click)="gerSelectedQuestion(c)">
                                 <span [innerHTML]="dataContentChange(c.question)" class="pr-4 fa-sm"
                                       style="font-size: 12px; cursor: pointer">
                                 </span>
+                                </div>
+                                <div class="col-md-3" style="cursor: pointer">
+                                    <a style="font-size: 12px" (click)="redirectModule(c.module_name)">{{c.module_name}}</a> ->
+                                    <a style="font-size: 12px" (click)='redirectToSubmodule(c)'>{{c.submodule_name}}</a>
+                                </div>
                             </div>
-                            <div class="col-md-3" style="cursor: pointer">
-                                <a style="font-size: 12px" (click)="redirectModule(c.module_name)">{{c.module_name}}</a> ->
-                                <a style="font-size: 12px" (click)='redirectToSubmodule(c)'>{{c.submodule_name}}</a>
+                        </li>
+                        <li class="list-group-item border-0"><div class="row mt-2">
+                            <div class="col-md-6 text-start ">
+                                <p class="text-left fa-sm fw-bold">If you can't find your Question!
+                                    <span (click)="openChat()" role="button" class="text-primary font-primarycolor">Ask Us</span><p>
+                            </div>
+                            <div class="col-md-6 text-end">
+                                <p class="text-right fa-sm fw-bold"> Total Related Questions: {{searchResult?.length}}</p>
                             </div>
                         </div>
-                    </li>
-                    <li class="list-group-item border-0"><div class="row mt-2">
-                        <div class="col-md-6 text-start ">
-                            <p class="text-left fa-sm fw-bold">If you can't find your Question!
-                                <span (click)="openChat()" role="button" class="text-primary font-primarycolor">Ask Us</span><p>
-                        </div>
-                        <div class="col-md-6 text-end">
-                            <p class="text-right fa-sm fw-bold"> Total Related Questions: {{searchResult?.length}}</p>
-                        </div>
-                    </div></li>
-                </ul>
+                        </li>
+                    </ul>
+                </div>
             </div>
         </div>
     </div>
@@ -54,31 +57,31 @@
     <div class="container-fluid">
         <div class="row mb-3">
             <div class="col-md-12 mb-2">
-                <p class="text-center text-muted fw-semibold mb-0">Reference</p>
-                <p-breadcrumb [model]="breadCrumb" class="max-w-full"></p-breadcrumb>
+                <p-breadcrumb [model]="breadCrumb"  class="max-w-full"></p-breadcrumb>
             </div>
             <div class="col-md-2">
+                <button (click)="goToHome($event)" class="btn w-50 btn-secondary homecardbtn m-0 px-2 py-2">
+                    <i class="fa-solid h5 fa-house"></i><br>
+                    Home
+                </button>
             </div>
             <div class="col-md-8 d-flex align-items-center justify-content-center text-center">
-                <a role="button" (click)="clickPrevious(carousel, $event)"><i
+                <a role="button" *ngIf="isAnswerDialogVisiblePrev" (click)="clickPrevious(carousel, $event)"><i
                         class="text-green h4 mx-3 mb-0 fa-solid fa-circle-chevron-left"></i></a>
                 <h5 class="mb-0">Question
                     Number {{selectedQuestion + 1}}</h5>
-                <a role="button" (click)="clickNext(carousel, $event)"><i
+                <a role="button" *ngIf="isAnswerDialogVisibleNext" (click)="clickNext(carousel, $event)"><i
                         class="text-green mx-3 h4 fa-solid mb-0 fa-circle-chevron-right"></i></a>
             </div>
             <div class="col-md-2 gap-2 d-flex">
-                <button (click)="goToHome()" class="btn w-100 btn-primary homecardbtn m-0 px-2 py-2">
-                    <i class="fa-solid fw-bold h5 fa-house"></i>
-                    <p class="mb-0">Home</p>
+                <button (click)="openReport()" class="btn w-100 btn-primary homecardbtn m-0 px-2 py-2">
+                    <i class="fa-solid h5 fa-file-contract"></i>
+                    <br>
+                    Report
                 </button>
-                <button class="btn w-100 btn-primary homecardbtn m-0 px-2 py-2">
-                    <i class="fa-solid fw-bold h5 fa-file-contract"></i>
-                    <p class="mb-0">Report</p>
-                </button>
-                <button (click)="openChat()" class="btn w-100 btn-primary homecardbtn m-0 px-2 py-2">
-                    <i class="fa-solid fw-bold h5 fa-comment"></i>
-                    <p class="mb-0">Chat</p>
+                <button (click)="reviewBy()" class="btn w-100 btn-primary homecardbtn m-0 px-2 py-2">
+                    <i class="pi pi-user  h5 "></i><br>
+                    Reviewed By
                 </button>
             </div>
         </div>
@@ -90,8 +93,10 @@
                     <div class="col-12">
                         <div class="card answercard">
                             <div class="card-body text-start">
-                                <h3>{{val.question}}</h3>
-                                <h5 class="fw-medium">{{val.answer}}</h5>
+                                <p class="text-small blockquote text-start mb-0">Last updated at: {{val.updated_at | date}}</p>
+                                <h3 class="unselectable">{{val.question}}</h3>
+                                <div class="fw-medium worksans unselectable" [innerHTML]="val.answer"></div>
+
                             </div>
                         </div>
                     </div>
@@ -100,64 +105,43 @@
         </p-carousel>
     </div>
     <ng-template class="p-3" pTemplate="footer">
-        <div class="container-fluid">
+        <div class="container-fluid px-5">
             <div class="row mt-5 mb-4">
-                <div class="col-md-6">
-                    <!--<div class="row justify-content-center align-items-center">
-                        <div class="col-md-1" *ngIf="videoLinks">
-                            <a (click)="clickPreviousVideo($event)" role="button"><i
-                                    class="text-green h4 mx-3 mb-0 fa-solid fa-circle-chevron-left"></i></a>
-                        </div>
-                        <div class="col-md-10">
-                            <p-carousel #carouselVideoElm [circular]="false" [showNavigators]="false"
-                                        [showIndicators]="false" [numScroll]="1" [numVisible]="3" [circular]="true"
-                                        [page]="selectedVideo - 1" [responsiveOptions]="responsiveOptions" [value]="videoLinks"
-                                        *ngIf="videoLinks">
-                                <ng-template let-item pTemplate="item">
-                                    <div class="border-1 surface-border border-round m-2 text-center ">
-                                        <div class="mb-1">
-                                            <img src="{{item.image}}" role="button"
-                                                 (click)="onClickRecommendedVideo(videoLinks)" width="100%"
-                                                 [alt]="item.image" class="w-2 shadow-2" />
-                                        </div>
-                                    </div>
-                                </ng-template>
-                            </p-carousel>
-                        </div>
-                        <div class="col-md-1" *ngIf="videoLinks">
-                            <a (click)="clickNextVideo($event)" role="button"><i
-                                    class="text-green mx-3 h4 fa-solid mb-0 fa-circle-chevron-right"></i></a>
-                        </div>
-                    </div>-->
+                <div class="col-md-5">
+                    <h5 class="text-start" *ngIf="videoLinks">Recommended Videos</h5>
+                    <div class="d-flex flex-wrap gap-3">
+                        <a class="px-4 m-0 py-2 btn btn-primary btn-rounded" target="_blank" href="{{videoL.link}}" *ngFor="let videoL of videoLinks;let ind=index;">Video {{ind+1}} &nbsp;<i class="fa-solid fa-video"></i></a>
+                    </div>
                 </div>
-                <div class="col-md-6">
-                    <!--                    <div class="row justify-content-center align-items-center">-->
-                    <!--                        <div class="col-md-2" *ngIf="refLink">-->
-                    <!--                            <a (click)="clickPreviousRef($event)"><i-->
-                    <!--                                    class="text-green h4 mx-3 mb-0 fa-solid fa-circle-chevron-left"></i></a>-->
-                    <!--                        </div>-->
-                    <!--                        <div class="col-md-8">-->
-                    <!--                            <p-carousel #carouselRefElm [circular]="false" [numScroll]="1" [numVisible]="3"-->
-                    <!--                                        [page]="selectedRefLink - 1" [circular]="true" [responsiveOptions]="responsiveOptions"-->
-                    <!--                                        [value]="refLink" *ngIf="refLink">-->
-                    <!--                                <ng-template let-item pTemplate="item">-->
-                    <!--                                    <div class="border-1 surface-border border-round m-2 text-center ">-->
-                    <!--                                        <div class="mb-1">-->
-                    <!--                                            <img src="{{item.image}}" (click)="onClickRecommendedLinks(refLink)"-->
-                    <!--                                                 width="100%" [alt]="item.image" class="w-2 shadow-2" />-->
-                    <!--                                        </div>-->
-                    <!--                                    </div>-->
-                    <!--                                </ng-template>-->
-                    <!--                            </p-carousel>-->
-                    <!--                        </div>-->
-                    <!--                        <div class="col-md-2" *ngIf="refLink">-->
-                    <!--                            <a (click)="clickNextRef($event)"><i-->
-                    <!--                                    class="text-green mx-3 h4 fa-solid mb-0 fa-circle-chevron-right"></i></a>-->
-                    <!--                        </div>-->
-                    <!--                    </div>-->
+                <div class="col-md-5">
+                    <h5 class="text-start" *ngIf="refLink">Recommended Links</h5>
+                    <div class="d-flex flex-wrap gap-3">
+                        <a class="px-4 m-0 py-2 btn btn-secondary btn-rounded" target="_blank" href="{{refL.link}}" *ngFor="let refL of refLink;let ind=index;">Link {{ind+1}} &nbsp;<i class="fa-solid fa-link"></i></a>
+                    </div>
                 </div>
-
+                <div class="col-md-2">
+                    <button class="btn w-100 btn-primary homecardbtn m-0 px-2 py-2" (click)="onClickAsk()">
+                        <i class="fa-solid h5 fa-file-contract"></i>
+                        <br>
+                        Click here to ask<br>Personalised Questions
+                    </button>
+                </div>
             </div>
         </div>
     </ng-template>
+</p-dialog>
+
+<p-dialog [(visible)]="isReviewedByVisible" [draggable]="false" label="Show" [modal]="true"
+          [maximizable]="true" [style]="{ width: '30vw' }"
+          header="Header">
+    <ng-template pTemplate="header">
+        <span class="text-xl font-bold ms-2">Reviewed</span>
+    </ng-template>
+    <div class="container-fluid">
+        <div class="row justify-content-center align-items-center">
+            <div class="col-md-3" *ngFor="let review of reviewedByOrgList">
+                <img src="{{review.logo}}" [alt]="review.organizationname" class="w-2 shadow-2 img-fluid" />
+            </div>
+        </div>
+    </div>
 </p-dialog>
