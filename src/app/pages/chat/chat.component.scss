@@ -119,8 +119,29 @@
   padding: 7px;
   border-radius: 4px;
   text-transform: uppercase;
-  width: 16%;
+  width: 14%;
   margin-right: 10px;
+}
+:host ::ng-deep .p-dialog-content{
+  overflow: visible !important;
+}
+
+::ng-deep .ql-fullscreen:after {
+  content: "\26F6";
+  padding: 0 !important;
+  font-weight: bold;
+}::ng-deep {
+  .fullscreen {
+    background-color: white;
+    .form-group {
+      height: 100%;
+      width: 100%;
+    }
+    .ql-container {
+      height: 100vh !important;
+      width: 100% !important;
+    }
+  }
 }
 button {
   border-radius: 3px !important;

@@ -1,5 +1,5 @@
 <div class="col-md-12">
-  <p-card class="col-12">
+  <p-card class="col-12" >
     <ng-template pTemplate="header">
       <span style="float: right">
         <p-overlayPanel #op>
@@ -8,25 +8,32 @@
             (ngSubmit)="filtersubmit()"
             #filterFormElm
           >
-              <div class="col-md-12 mt-1">
-                <div class="form-group">
-                  <label>Report Issues</label>
-                  <p-dropdown
-                    formControlName="reportOption"
-                    optionValue="id"
-                    optionLabel="reportoption_name"
-                    styleClass="w-full"
-                    [options]="reportOptions"
-                  ></p-dropdown>
-                </div>
-              </div><br>
-              <div class="col-md-12 mt-1">
-                <div class="form-group">
-                  <label>Add Comment</label>
-                  <textarea rows="3" cols="42" class="form-group" pInputTextarea formControlName="comment"></textarea>
-                </div>
+            <div class="col-md-12 mt-1">
+              <div class="form-group">
+                <label>Report Issues</label>
+                <p-dropdown
+                  formControlName="reportOption"
+                  optionValue="id"
+                  optionLabel="reportoption_name"
+                  styleClass="w-full"
+                  [options]="reportOptions"
+                ></p-dropdown>
               </div>
-              
+            </div>
+            <br />
+            <div class="col-md-12 mt-1">
+              <div class="form-group">
+                <label>Add Comment</label>
+                <textarea
+                  rows="3"
+                  cols="35"
+                  styleClass="w-full"
+                  pInputTextarea
+                  formControlName="comment"
+                ></textarea>
+              </div>
+            </div>
+
             <div class="row mt-3 mt-1">
               <button
                 class="ps-3 pe-3 pt-2 pb-2"
@@ -39,8 +46,7 @@
                   color: #fff;
                 "
                 label="Submit"
-              >
-              </button>
+              ></button>
             </div>
           </form>
         </p-overlayPanel>
@@ -48,16 +54,12 @@
           Report
         </button>
 
-        <button
-          class="btn btn-light" routerLink="/pages/guideline"
-        >
+        <button class="btn btn-light" routerLink="/pages/guideline">
           Chat Guidlines
         </button></span
       >
       <span class="text-right credits"
-        >Question Credits &nbsp;<span class="credits-span ml-2">{{
-          totalcredits
-        }}</span>
+        >Question Credits <span class="credits-span">{{ totalcredits }}</span>
       </span>
       <span class="chatwindow" (click)="previouspage()"
         ><i class="fa fa-arrow-left"></i
@@ -70,8 +72,8 @@
           margin-right: 7rem;
         "
         >UNIPREP<br />
-        <span style="font-size: 0.8rem">support@uniabroad.co.in</span></span
-      >
+        <!-- <span style="font-size: 0.8rem">support@uniabroad.co.in</span> -->
+      </span>
       <span style="float: right">
         <img
           src="../../../uniprep-assets/images/chatimage.png"
@@ -147,42 +149,15 @@
         </div></section
     ></ng-template>
     <ng-template pTemplate="footer">
+      <div class="field col-12" [class]="fullscreen" #fullscreeneditor>
       <p-editor
         [(ngModel)]="textMessage"
         [style]="{ height: '100px' }"
-      ></p-editor
-      ><br />
-      <div
-        style="
-          background-color: #ebedf2;
-          color: #3f4c83;
-          font-weight: 600;
-          font-size: small;
-          border-radius: 5px;
-          float: left;
-          padding: 1rem;
-          margin-left: 20rem;
-          display: flex;
-        "
-        *ngIf="visibility"
-      >
-        <div
-          style="
-            color: white;
-            height: 25px;
-            width: 25px;
-            text-align: center;
-            vertical-align: middle;
-            margin-right: 1rem;
-            background-color: #3f4c83;
-            border-radius: 50%;
-          "
+        [modules]="modules"
         >
-          <i class="fa fa-info"></i>
-        </div>
-        Thank you for reaching out to us. Please anticipate a response within 6
-        working days
-      </div>
+        <ng-template pTemplate="header" style="visibility: hidden;"></ng-template>
+      </p-editor
+      ></div><br />
       <div class="text-end">
         <button
           (click)="confirm($event)"
@@ -199,5 +174,53 @@
       </div>
     </ng-template></p-card
   >
+  <p-dialog
+    [visible]="visibility"
+    [closable]="false"
+    [modal]="true"
+    [style]="{ width: '20vw' }"
+  >
+    <div
+      style="
+        background: #3f4c83 !important;
+        border-radius: 50% !important;
+        height: 25px !important;
+        width: 25px !important;
+        position: absolute;
+        right: -10px;
+        top: -10px;
+        text-align: center;
+        cursor: pointer;
+      "
+      (click)="visibility = !visibility"
+    >
+      <i style="color: #fff" class="fa fa-close"></i>
+    </div>
+    <div class="row mt-1">
+      <div
+        class="col-2"
+        style="align-self: center; padding-left: 30px; padding-bottom: 25px"
+      >
+        <span
+          style="
+            color: white;
+            text-align: center;
+            vertical-align: middle;
+            background-color: #3f4c83;
+            border-radius: 50%;
+          "
+          ><i style="height: 25px; width: 25px" class="fa fa-info"></i
+        ></span>
+      </div>
+      <div
+        class="col-10 mb-4"
+        style="font-size: 14px; font-weight: 600; vertical-align: middle"
+      >
+        Thank you for reaching out to us.<br />
+        Please anticipate a response within<br />
+        8 working hours
+      </div>
+    </div>
+  </p-dialog>
   <p-confirmPopup></p-confirmPopup>
 </div>

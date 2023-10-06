@@ -1,0 +1,62 @@
+.upper-text {
+    width: auto;
+    font-size: 20px;
+    font-weight: normal;
+    padding: 20px 220px;
+    border-radius: 0px 0px 10px 10px;
+    margin-top: -13px;
+  }
+
+  .card-style {
+    border-radius: 0px 0px 10px 10px;
+    background-color: #F5F5F5;
+    a
+    {
+      color:#001631;
+      padding: 30px;
+      text-decoration: none;
+    }
+    &:hover
+    {
+      background-color: var(--uniprep-primary);
+      color:#fff;
+      a
+      {
+        color:#fff;
+      }
+    }
+  }
+  button {
+    padding: 10px 20px;
+    margin: 10px;
+    border: 2px solid #3F4C83;
+    cursor: pointer;
+    border-radius: 5px;
+  }
+  .card-container {
+    display: flex; /* Use a flex container for horizontal alignment */
+    flex-wrap: wrap; /* Allow cards to wrap to the next row on smaller screens */
+    gap: 10px; /* Add some spacing between cards */
+  }
+  
+  /* Style for each card */
+  .card1 {
+    flex: 0 0 calc(25% - 10px); /* Each card takes up 25% of the container width with spacing */
+    background-color: #f0f0f0;
+    // padding: 20px;
+    box-sizing: border-box;
+    text-align: center;
+    border: 1px solid #ccc;
+  }
+  .vertical-line {
+    border-left: 1px solid #fff; /* Adjust the color and thickness as needed */
+    height: 22px; /* Adjust the height of the vertical line as needed */
+    display: inline-block;
+    margin: -7px 5px; /* Optional: Add margin for spacing */
+  }
+  .card1:hover .card__inner {
+    background-color: #EBEDF2;
+  }
+  .card1:hover {
+    border: 3px solid #3F4C83;
+  }

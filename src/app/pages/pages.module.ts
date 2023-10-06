@@ -42,6 +42,7 @@ import {AccordionModule} from 'primeng/accordion';
 import { GuidelineComponent } from './chat/guidelines/guidelines.component';
 import { OverlayPanelModule } from 'primeng/overlaypanel';
 import { InputTextareaModule } from 'primeng/inputtextarea';
+
 @NgModule({
     declarations: [
         PagesComponent,
@@ -54,7 +55,7 @@ import { InputTextareaModule } from 'primeng/inputtextarea';
         HeaderSearchComponent,
         QuestionCreditComponent,
         ChatComponent,
-        GuidelineComponent
+        GuidelineComponent,
     ],
     exports: [
         FooterStatusBoxComponent,

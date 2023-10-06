@@ -1,0 +1,190 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="card readingcard">
+            <div class="card-body pt-0">
+                <div class="row justify-content-center">
+                    <div class="col-md-2 text-start">
+                    </div>
+                    <div class="col-md-8 text-center">
+                        <h5 class="select-title mb-1">EVENTS</h5>
+                    </div>
+                    <div class="col-md-2">
+                    </div>
+                </div>
+                <div style="text-align: center;">
+                    <span style="float: left;" (click)="filterpopup()"><button type="button">Filter</button> <br><span
+                            style="font-size: small;">Total Events - {{totalcount}}</span></span>
+                    <button (click)="setActiveButton(1)" [ngStyle]="button1Style">Upcoming Events</button>
+                    <button (click)="setActiveButton(2)" [ngStyle]="button2Style">Past Events</button>
+                </div>
+                <!-- upcomming event -->
+                <div class="card-container p-4 mt-4" *ngIf="upcomingevent">
+                    <div class="card card1" style="background-color: #fff; " *ngFor=" let event of upcommingevent">
+                        <a style="text-decoration: none;" href="{{event.eventlink}}">
+                            <div style="height: 200px;">
+                                <div>
+                                    <span class="mt-2 ms-2 p-1"
+                                        style="border: 1px solid #3F4C83; background-color: #3F4C83; color: #fff;
+                      border-radius: 14px 14px 14px 14px; font-size: 11px; width: fit-content; float: left;">{{event.daysago}}</span>
+                                </div><br>
+                                <div class="mt-5" style="text-align: center;">
+                                    <img width="120px" src="{{event.companylogo}}" alt="">
+                                </div>
+
+                            </div>
+                            <div>
+                                <span class=" p-1" style="border: 1px solid #3F4C83; background-color: #3F4C83; color: #fff;
+                        border-radius: 14px 14px 0px 0px; font-size: 11px; width: fit-content;">
+                                    <span><i class="fa-solid fa-clock"></i>&nbsp;{{event.from}} -
+                                        {{event.to}}</span><span class="vertical-line"></span><span> <span><i
+                                                class="fa-solid fa-calendar"></i></span>&nbsp;{{event.date}}</span>
+                                </span>
+                                <hr style="color: #3F4C83; background-color: #3F4C83; margin: auto;">
+                            </div>
+                            <div style="height: 150px;" class="card__inner">
+                                <div class="mt-2 ms-2" style="text-align: start; color: black;">
+                                    <h6>{{event.eventname}}</h6>
+                                    <p style="font-size: 10px;">
+                                        {{event.eventdescription}}
+                                    </p>
+                                </div>
+
+                            <div style="text-align: start; color: black;" class="flex justify-content-start ms-2">
+                                <div>
+                                    <span style="font-size: 10px; font-weight: 156px;"><img style="width: 17px;"
+                                            src="{{event.countrylog}}" alt="">&nbsp;{{event.country}}</span>
+                                    &nbsp;&nbsp;
+                                    <span style="font-size: 10px; font-family: 156px;"><i
+                                            class="fa-solid fa-users"></i>&nbsp;Registered Members - 25</span>
+                                </div>
+                                <div>
+                                    <span style="font-size: 10px; font-family: 156px;">Speaker - {{event.speakername}}
+                                        (HR Recruiter)</span>
+                                </div>
+                            </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <!-- post event -->
+                <div class="card-container p-4 mt-4" *ngIf="postevent">
+                    <div class="card card1" style="background-color: #fff; " *ngFor=" let event of postevetdetaisl">
+                        <a style="text-decoration: none;" href="{{event.eventlink}}">
+                            <div style="height: 200px;">
+                            <div>
+                                <span class="mt-2 ms-2 p-1"
+                                    style="border: 1px solid #757575; background-color: #A8A8A8; color: #fff;
+                    border-radius: 14px 14px 14px 14px; font-size: 11px; width: fit-content; float: left;">{{event.date}}</span>
+                            </div><br>
+                            <div class="mt-5" style="text-align: center;">
+                                <img width="120px" src="{{event.companylogo}}" alt="">
+                            </div>
+                            </div>
+                            <div>
+                                <!-- <span class=" p-1" style="border: 1px solid #3F4C83; background-color: #3F4C83; color: #fff;
+                        border-radius: 14px 14px 0px 0px; font-size: 11px; width: fit-content;" >
+                        <span><i class="fa-solid fa-clock"></i>&nbsp;{{event.from}} - {{event.to}}</span><span class="vertical-line"></span><span> <span><i class="fa-solid fa-calendar"></i></span>&nbsp;{{event.date}}</span>
+                        </span> -->
+                                <hr style="color: #3F4C83; background-color: #3F4C83; margin: auto;">
+                            </div>
+                            <div style="height: 150px;" class="card__inner">
+                                <div class="mt-2 ms-2" style="text-align: start; color: black;">
+                                    <h6>{{event.eventname}}</h6>
+                                    <p style="font-size: 10px;">
+                                        {{event.eventdescription}}
+                                    </p>
+                                </div>
+
+                        
+                            <div style="text-align: start; color: black;" class="flex justify-content-start ms-3">
+                                <div>
+                                    <span style="font-size: 10px; font-weight: 156px;"><img style="width: 17px;"
+                                            src="{{event.countrylog}}" alt="">&nbsp;{{event.country}}</span>
+                                    &nbsp;&nbsp;
+                                    <span style="font-size: 10px; font-family: 156px;"><i
+                                            class="fa-solid fa-users"></i>&nbsp;Registered Members - 25</span>
+                                </div>
+                                <div>
+                                    <span style="font-size: 10px; font-family: 156px;">Speaker - {{event.speakername}}
+                                        (HR Recruiter)</span>
+                                </div>
+                            </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <!-- <div class="container-fluid">
+                <div class="row">
+                  <div *ngFor="let resource of resourceslist" class="col-md-3 col-12 mt-3">
+                    <div class="card card-style"><a href={{resource.link}} class="fw-semibold" target="_blank">{{resource.title}}</a></div>
+                  </div>
+                </div>
+              </div> -->
+            </div>
+        </div>
+        <div class="card-footer" *ngIf="upcomingevent">
+            <p-paginator [rows]="10" [totalRecords]="totalcount" (onPageChange)="paginate($event)"
+                [rowsPerPageOptions]="[8,32,72,100]"></p-paginator>
+        </div>
+        <div class="card-footer" *ngIf="postevent">
+            <p-paginator [rows]="10" [totalRecords]="totalcountpost" (onPageChange)="paginatepost($event)"
+                [rowsPerPageOptions]="[8,32,72,100]"></p-paginator>
+        </div>
+    </div>
+
+
+    <!-- filter pop-up -->
+    <div class="modal" tabindex="-1" role="dialog" [ngStyle]="{'display':newfile}">
+        <div class="modal-dialog" role="document">
+            <form role="form" [formGroup]="filterform" (ngSubmit)="filtersubmit()">
+                <div class="modal-content" style="margin-top: 50% !important;">
+                    <div class="modal-header flex justify-content-between">
+                        <h4 class="modal-title">Filter Events</h4>
+                        <span style="cursor: pointer;"><i (click)="closenewfilePopup()"
+                                class="fa-solid fa-circle-xmark fa-2x"></i></span>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="form-label" style="font-size:medium;">Filter by date</label>
+                                            <div class=" mb-3">
+                                                <input placeholder="Start date" type="date" formControlName="from"
+                                                    class="form-control border-black paddingfive">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="form-label"></label>
+                                            <div class=" mb-3 mt-2">
+                                                <input placeholder="End date" type="date" formControlName="to"
+                                                    class="form-control border-black paddingfive">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label style="font-size: medium;">Filter by Country</label>
+                                    <p-dropdown class="mt-2" placeholder="Select" formControlName="country"
+                                        [options]="countries" optionValue="id" optionLabel="country"
+                                        styleClass="w-full"></p-dropdown>
+                                </div>
+                            </div>
+                        </div>
+                        <span style="float: right;">
+                            <button type="submit" class="btn btn-dark" style="background-color: #3F4C83 !important;">
+                                Apply Filter
+                            </button>
+                        </span>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
