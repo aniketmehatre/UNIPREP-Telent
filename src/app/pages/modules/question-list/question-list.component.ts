@@ -109,7 +109,7 @@ export class QuestionListComponent implements OnInit {
     this.getSubmoduleName(this.countryId);
 
     this.dataService.currentMessage.subscribe(message => this.message = message)
-    this.breadCrumb = [{ label: this.currentModuleName }, { label: this.moduleName }, { label: 'Question' }];
+    this.breadCrumb = [{ label: this.currentModuleName,command: (event) =>this.gotomodulebreadcrump() }, { label: this.moduleName, command: (event) =>this.goToHomebreadcrump() }, { label: 'Question' }];
 
     this.responsiveOptions = [
       {
@@ -171,7 +171,7 @@ export class QuestionListComponent implements OnInit {
     let index = this.data.findIndex((x: any) => x.id === selectedData.id);
     this.selectedQuestion = index;
     this.positionNumber = index;
-    this.breadCrumb = [{ label: this.currentModuleName }, { label: this.moduleName }, { label: `Question ${index + 1}` }];
+    this.breadCrumb = [{ label: this.currentModuleName,command: (event) =>this.gotomodulebreadcrump() }, { label: this.moduleName, command: (event) => this.goToHomebreadcrump() }, { label: `Question ${index + 1}` }];
     this.isQuestionAnswerVisible = true;
     this.data.filter((res: any) => {
       if (res.id == selectedData.id) {
@@ -224,7 +224,7 @@ export class QuestionListComponent implements OnInit {
       }
     });
     this.positionNumber = pageNum + 1;
-    this.breadCrumb = [{ label: this.currentModuleName }, { label: this.moduleName }, { label: `Question ${pageNum + 1}` }];
+    this.breadCrumb = [{ label: this.currentModuleName,command: (event) =>this.gotomodulebreadcrump() }, { label: this.moduleName , command: (event) => this.goToHomebreadcrump()}, { label: `Question ${pageNum + 1}` }];
   }
 
   clickPrevious(carousel: any, event: any) {
@@ -350,6 +350,24 @@ export class QuestionListComponent implements OnInit {
 
   goToHome(event: any) {
     this.isQuestionAnswerVisible = false;
+  }
+  goToHomebreadcrump(){
+    this.isQuestionAnswerVisible = false;
+  }
+  gotomodulebreadcrump(){
+   if( this.currentModuleId == 1){
+    this.router.navigate(['/pages/modules/pre-application'])
+   }else if(this.currentModuleId == 2){
+    this.router.navigate(['/pages/modules/post-application'])
+   }else if(this.currentModuleId == 3){
+    this.router.navigate(['//pages/modules/post-admission'])
+   }else if(this.currentModuleId == 4){
+    this.router.navigate(['/pages/modules/career-hub'])
+   }else if(this.currentModuleId == 5){
+    this.router.navigate(['/pages/modules/university'])
+   }else if(this.currentModuleId == 6){
+    this.router.navigate(['/pages/modules/life-at-country'])
+   }
   }
 
   // popup video prev
