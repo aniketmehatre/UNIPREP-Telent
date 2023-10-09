@@ -196,4 +196,8 @@ export class ChatComponent implements OnInit {
       (error) => {}
     );
   }
+  getmessage(){
+    this.visibility = !this.visibility;
+    this.ngOnInit();
+  }
 }
