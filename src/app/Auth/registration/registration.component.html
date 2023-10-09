@@ -175,7 +175,7 @@
                                     class="resend_label text-center mt-3"
                                     style="font-size: 0.7rem"
                             >
-                              <div>Didn't receive the Otp?</div>
+                              <div class="text-center">Didn't receive the Otp?</div>
                               <div class="text-center">
                                 <span *ngIf="startTimer > 0; else notime">Resend OTP in {{startTimer}}</span>
                                 <ng-template #notime>
@@ -188,9 +188,13 @@
                           </div>
                           <br />
                           <div class="text-center">
-                            <button class="pt-2 pb-2 btn btn-primary btn-login text-uppercase fw-bold m-0 w-50"
+                            <button class="pt-2 pb-2 btn btn-primary btn-login text-uppercase fw-bold m-2 w-50"
                                     type="submit">
                               VERIFY OTP
+                            </button>
+                            <button (click)="editMobileNumberAgain()" *ngIf="isMobileOTPSend"
+                                    class="pt-2 pb-2 btn btn-primary btn-login text-uppercase fw-bold m-2 w-50" type="button">
+                              Edit
                             </button>
                           </div>
 <!--                          <label class="resend_label"-->
@@ -273,6 +277,10 @@
                             <button class="pt-2 pb-2 btn btn-primary btn-login text-uppercase fw-bold m-0 w-50"
                                     type="submit">
                               VERIFY OTP
+                            </button>
+                            <button (click)="editEmailAgain()" *ngIf="isMobileOTPSend"
+                                    class="pt-2 pb-2 btn btn-primary btn-login text-uppercase fw-bold m-2 w-50" type="button">
+                              Edit
                             </button>
                           </div>
                           <label class="resend_label"
