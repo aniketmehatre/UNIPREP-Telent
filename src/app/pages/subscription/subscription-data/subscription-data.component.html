@@ -449,8 +449,8 @@
                         class="sop-header"><b> INR {{subscriptionTotal | number : '.2-2'}}</b></span>
                 </div>
                 <div>
-                    <button style="color: #fff !important;" class="btn btn-primary " (click)="checkout()"><span
-                            class=" ps-3 pe-3">Checkout</span> </button>
+                    <button [disabled]="showCheckout" style="color: #fff !important;" class="btn btn-primary " (click)="checkout()"><span
+                            class=" ps-3 pe-3" >Checkout</span> </button>
                 </div>
             </div>
         </div>

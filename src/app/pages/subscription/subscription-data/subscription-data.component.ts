@@ -31,6 +31,7 @@ export class SubscriptionDataComponent implements OnInit {
   invalidCoupon: boolean = false;
   selectedSubscriptionDetails: any;
   selectedTopupCountryDetails: any;
+  showCheckout: boolean = true;
   @Output() subscriptionPlan = new EventEmitter();
   constructor(private authService: AuthService,
     private subscriptionService: SubscriptionService,
@@ -116,6 +117,7 @@ export class SubscriptionDataComponent implements OnInit {
   }
 
   selectedSubscriptionPlan(sub: any) {
+    this.showCheckout = false;
     this.subscriptionList.forEach((item: any) => {
       item.selected = false;
       if (sub.id == item.id) {
@@ -128,6 +130,7 @@ export class SubscriptionDataComponent implements OnInit {
 
   selectedTopupCountryPlan(sub: any) {
     if(sub?.selectedCoutriesList?.length > 0) {
+      this.showCheckout = false;
       this.subscriptionTopupList.forEach((item: any) => {
         item.selected = false;
         if (sub.id == item.id) {
