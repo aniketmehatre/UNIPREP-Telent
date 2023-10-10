@@ -17,8 +17,8 @@
         <uni-subscription-success [plan]="success"></uni-subscription-success>
     </ng-container>
     <ng-container *ngSwitchCase="5">
-        <uni-subscription-history [userSubscription]="userSubscription" [subscribedHistoryData]="subscribedHistoryData"
-                                  [subscribedCountryList]="subscribedCountryList"
+        <uni-subscription-history [userSubscription]="userSubscription" [subscribedHistoryList]="subscribedHistoryData"
+                                  [subscribedCountryList]="subscribedCountryList" [accountBillingList]="accountBillingData"
         ></uni-subscription-history>
     </ng-container>
 </ng-container>

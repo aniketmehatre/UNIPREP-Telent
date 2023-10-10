@@ -157,11 +157,11 @@ export class SubscriptionService {
     localStorage.getItem("loginToken");
     const headers = new HttpHeaders().set("Accept", "application/json");
     var bindingdata = {
-      orderid: data?.orderid,
-      paymentid: data.paymentid,
+      order_id: data?.orderid,
+      payment_reference_id: data.paymentid,
     };
     return this.http.post<SubscriptionSuccess>(
-      environment.ApiUrl + "/paymentcomplete",
+      environment.ApiUrl + "/completepayment",
       bindingdata,
       { headers: headers }
     );
@@ -223,9 +223,8 @@ export class SubscriptionService {
   getSubscriptionHistory() {
     localStorage.getItem("loginToken");
     const headers = new HttpHeaders().set("Accept", "application/json");
-    return this.http.post<any>(
+    return this.http.get<any>(
       environment.ApiUrl + "/getsubscriptionhistory",
-      {},
       { headers: headers }
     );
   }

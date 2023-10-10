@@ -9,8 +9,10 @@ import { SubscriptionService } from '../subscription.service';
 export class SubscriptionHistoryComponent implements OnInit {
 
   @Input() userSubscription: any;
-  @Input() subscribedHistoryData: any;
+  @Input() subscribedHistoryList: any;
   @Input() subscribedCountryList: any;
+  @Input() accountBillingList: any;
+
   constructor() {
   }
 
