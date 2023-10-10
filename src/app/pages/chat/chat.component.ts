@@ -127,4 +127,8 @@ export class ChatComponent implements OnInit {
       }
     );
   }
+  getmessage(){
+    this.visibility = !this.visibility;
+    this.ngOnInit();
+  }
 }

@@ -37,6 +37,7 @@ export class SubscriptionComponent implements OnInit {
     subscribedHistoryData: any [] = [];
     userSubscription: any [] = [];
     subscriptionDetails: any;
+    accountBillingData: any[] = [];
     constructor(
         private subscriptionService: SubscriptionService,
         private winRef: WindowRefService,
@@ -57,7 +58,7 @@ export class SubscriptionComponent implements OnInit {
     start() {
         this.showPayLoading = false;
         this.stage = 1;
-        //this.loadSubscriptions();
+        // this.loadSubscriptions();
     }
 
     loadSubDetails() {
@@ -173,12 +174,12 @@ export class SubscriptionComponent implements OnInit {
                         (res: any) => {
                             this.success = res;
                             this.subscriptionService.doneLoading();
-                            this.stage = 4;
+                            this.stage = 5;
                         },
                         (error: any) => {
                             // this.toastr.warning(error.error.message);
                             this.subscriptionService.doneLoading();
-                            this.stage = 4;
+                            this.stage = 5;
                         }
                     );
                 }
@@ -191,12 +192,12 @@ export class SubscriptionComponent implements OnInit {
                         (res: any) => {
                             this.success = res;
                             this.subscriptionService.doneLoading();
-                            this.stage = 4;
+                            this.stage = 5;
                         },
                         (error: any) => {
                             // this.toastr.warning(error.error.message);
                             this.subscriptionService.doneLoading();
-                            this.stage = 4;
+                            this.stage = 5;
                         }
                     );
                 }
@@ -222,13 +223,15 @@ export class SubscriptionComponent implements OnInit {
         // })
 
         this.subscriptionService.getSubscriptionHistory().subscribe((response: any) => {
-            this.subscribedHistoryData = response.subscription_history;
+            this.subscribedHistoryData = response.subscriptionhistory;
+            this.accountBillingData = response.accountbillings;
+            this.stage = 5;
         });
     }
 
     loadExistingSubscription(){
         this.subscriptionService.getExistingSubscription().subscribe((response: any) => {
-            this.subscribedHistoryData = response.subscription_history;
+            this.userSubscription = response.subscription;
         });
     }
 }

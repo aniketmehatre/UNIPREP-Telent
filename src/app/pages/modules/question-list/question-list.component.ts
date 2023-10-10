@@ -177,7 +177,9 @@ export class QuestionListComponent implements OnInit {
     let index = this.data.findIndex((x: any) => x.id === selectedData.id);
     this.selectedQuestion = index;
     this.positionNumber = index;
-    this.breadCrumb = [{ label: this.currentModuleName }, { label: this.moduleName, url: this.router.url }, { label: `Question ${index + 1}` }];
+
+    this.breadCrumb = [{ label: this.currentModuleName,command: (event) =>this.gotomodulebreadcrump() }, { label: this.moduleName, command: (event) => this.goToHomebreadcrump() }, { label: `Question ${index + 1}` }];
+
     this.isQuestionAnswerVisible = true;
     this.data.filter((res: any) => {
       if (res.id == selectedData.id) {
@@ -230,7 +232,7 @@ export class QuestionListComponent implements OnInit {
       }
     });
     this.positionNumber = pageNum + 1;
-    this.breadCrumb = [{ label: this.currentModuleName }, { label: this.moduleName, url: this.router.url }, { label: `Question ${pageNum + 1}` }];
+    this.breadCrumb = [{ label: this.currentModuleName,command: (event) =>this.gotomodulebreadcrump() }, { label: this.moduleName , command: (event) => this.goToHomebreadcrump()}, { label: `Question ${pageNum + 1}` }];
   }
 
   clickPrevious(carousel: any, event: any) {
