@@ -26,7 +26,7 @@ export class LocationService {
 
     getUniPerpModuleList() {
         const headers = new HttpHeaders().set("Accept", "application/json");
-        return this.http.post<any>(environment.ApiUrl + "/modulecountry", {countryId: 2}, {
+        return this.http.post<any>(environment.ApiUrl + "/modulecountry", {countryId: localStorage.getItem('countryId')}, {
             headers: headers,
         });
     }
