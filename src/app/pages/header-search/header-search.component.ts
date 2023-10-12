@@ -15,6 +15,7 @@ import {Router} from "@angular/router";
 import {Observable} from "rxjs";
 import {ReadQuestion} from "../../@Models/read-question.model";
 import {ModuleServiceService} from "../module-store/module-service.service";
+import {ModuleStoreService} from "../module-store/module-store.service";
 
 @Component({
     selector: 'uni-header-search',
@@ -43,10 +44,19 @@ export class HeaderSearchComponent implements OnInit, OnDestroy {
     searchInputValue: any;
     searchInputText: any;
     showCloseIcon: boolean = false
+    isAnswerDialogVisiblePrev: boolean = false
+    isAnswerDialogVisibleNext: boolean = false
+    videoLinks: any [] = [];
+    refLink: any [] = [];
+    selectedQuestionData: any;
+    reviewedByOrgList: any;
+    selectedQuestionId: number = 0;
+    isReviewedByVisible: boolean = false;
+
 
     readQue$!: Observable<ReadQuestion[]>;
     @ViewChild('listgroup') listgroup: ElementRef | undefined;
-    constructor(private dashboardService: DashboardService, private dataService: DataService,
+    constructor(private dashboardService: DashboardService, private dataService: DataService, private moduleStoreService: ModuleStoreService,
                 private toastr: MessageService, private moduleListService: ModuleServiceService,
                 private locationService: LocationService, private route: Router, private elementRef: ElementRef,
                 private renderer: Renderer2) {
@@ -120,6 +130,7 @@ export class HeaderSearchComponent implements OnInit, OnDestroy {
             }
             this.isSearchResultFound = true;
             this.searchResult = res.questions;
+           
                 // this.subs.sink = this.locationService.getUniPerpModuleList().subscribe(data => {
                 //     this.moduleList = data.modules;
                 //     this.searchResult.map((data: any) => {
@@ -149,17 +160,33 @@ export class HeaderSearchComponent implements OnInit, OnDestroy {
     }
 
     gerSelectedQuestion(selectedQuestionData: any) {
-        console.log(selectedQuestionData);
+        this.selectedQuestionData = selectedQuestionData;
+        this.selectedQuestionId = selectedQuestionData.id;
         this.readQuestion(selectedQuestionData);
         this.isQuestionAnswerVisible = true;
-        this.getModuleName(selectedQuestionData)
+        this.searchResult.filter((res: any) => {
+            if (res.id == selectedQuestionData.id) {
+              this.refLink = res.reflink;
+              this.videoLinks = res.videolink;
+            }
+          });
+        this.getModuleName(selectedQuestionData);
+        if (this.selectedQuestion < 1) {
+            this.isAnswerDialogVisiblePrev = false;
+          }else{
+            this.isAnswerDialogVisiblePrev = true;
+          }
+          if (this.selectedQuestion >= this.searchResult.length - 1) {
+            this.isAnswerDialogVisibleNext = false;
+          }else{
+            this.isAnswerDialogVisibleNext = true;
+          }
     }
 
     clearText() {
         this.showCloseIcon = false;
         this.searchInputText = '';
         this.isSearchResultFound = false;
-        //this.searchResult = [];
     }
 
     readQuestion(data: any) {
@@ -211,11 +238,23 @@ export class HeaderSearchComponent implements OnInit, OnDestroy {
     }
 
     clickPrevious(carousel: any, event: any) {
+        this.isAnswerDialogVisiblePrev = true;
+        this.isAnswerDialogVisibleNext = true;
+        if (this.selectedQuestion <= 1) {
+          this.isAnswerDialogVisiblePrev = false;
+        }
         if (this.selectedQuestion <= 0) {
             return;
         }
+        this.selectedQuestionId = this.selectedQuestion;
         this.selectedQuestion = this.selectedQuestion - 1;
         let data = this.searchResult[this.selectedQuestion]
+        this.searchResult.filter((res: any) => {
+            if (res.id == data.id) {
+              this.refLink = res.reflink;
+              this.videoLinks = res.videolink;
+            }
+          });
         this.getModuleName(data);
         carousel.navBackward(event, this.selectedQuestion)
 
@@ -223,19 +262,32 @@ export class HeaderSearchComponent implements OnInit, OnDestroy {
     }
 
     clickNext(carousel: any, event: any) {
+        this.isAnswerDialogVisiblePrev = true;
+        this.isAnswerDialogVisibleNext = true;
+        if (this.selectedQuestion >= this.searchResult.length - 2) {
+          this.isAnswerDialogVisibleNext = false;
+        }
         if (this.selectedQuestion >= this.searchResult.length - 1) {
             return;
         }
+
+        this.selectedQuestionId = this.selectedQuestion;
         this.selectedQuestion = this.selectedQuestion + 1;
         let data = this.searchResult[this.selectedQuestion];
+        this.searchResult.filter((res: any) => {
+            if (res.id == data.id) {
+              this.refLink = res.reflink;
+              this.videoLinks = res.videolink;
+            }
+          });
         this.getModuleName(data);
         carousel.navForward(event, this.selectedQuestion);
         this.readQuestion(data);
     }
 
-    goToHome() {
-        this.isQuestionAnswerVisible = false;
-    }
+    // goToHome() {
+    //     this.isQuestionAnswerVisible = false;
+    // }
 
     ngOnDestroy() {
         this.elementRef.nativeElement.remove();
@@ -266,7 +318,33 @@ export class HeaderSearchComponent implements OnInit, OnDestroy {
         this.searchInputText = "";
         this.isSearchResultFound = false;
     }
+    onClickAsk(){
+        this.route.navigate([`/pages/chat`]);
+    }
+    goToHome(event: any){
+        this.isQuestionAnswerVisible = false;
+    }
 
+    openReport(){
+        let data = {
+            isVisible: true,
+            moduleId: this.selectedQuestionData.module_id,
+            subModuleId: this.selectedQuestionData.submodule_id,
+            questionId: this.selectedQuestionData.id,
+            from: 'module'
+          }
+          this.dataService.openReportWindow(data);
+    }
 
+    reviewBy(){
+        this.reviewedByOrgList = [];
+        this.isReviewedByVisible = true;
+        let request = {
+          question_id: this.selectedQuestionId
+        }
+        this.moduleStoreService.GetReviewedByOrgLogo(request).subscribe((response) => {
+          this.reviewedByOrgList = response;
+        })
+    }
 
 }

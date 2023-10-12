@@ -37,6 +37,7 @@ export class SubscriptionComponent implements OnInit {
     subscribedHistoryData: any [] = [];
     userSubscription: any [] = [];
     subscriptionDetails: any;
+    accountBillingData: any[] = [];
     constructor(
         private subscriptionService: SubscriptionService,
         private winRef: WindowRefService,
@@ -57,7 +58,7 @@ export class SubscriptionComponent implements OnInit {
     start() {
         this.showPayLoading = false;
         this.stage = 1;
-        //this.loadSubscriptions();
+        // this.loadSubscriptions();
     }
 
     loadSubDetails() {
@@ -135,7 +136,7 @@ export class SubscriptionComponent implements OnInit {
     payWithRazor(orderid: any) {
         const options: any = {
             key: "rzp_test_Crpr7YkjPaCLEr",
-            amount: this.selectedSubscription?.price, // amount should be in paise format to display Rs 1255 without decimal point
+            amount: this.subscriptionDetails?.finalPrice * 100, // amount should be in paise format to display Rs 1255 without decimal point
             currency: "INR",
             name: "Uniabroad", // company name or product name
             description: "UNIPREP Subscription", // product description
@@ -173,12 +174,12 @@ export class SubscriptionComponent implements OnInit {
                         (res: any) => {
                             this.success = res;
                             this.subscriptionService.doneLoading();
-                            this.stage = 4;
+                            this.stage = 5;
                         },
                         (error: any) => {
                             // this.toastr.warning(error.error.message);
                             this.subscriptionService.doneLoading();
-                            this.stage = 4;
+                            this.stage = 5;
                         }
                     );
                 }
@@ -191,12 +192,12 @@ export class SubscriptionComponent implements OnInit {
                         (res: any) => {
                             this.success = res;
                             this.subscriptionService.doneLoading();
-                            this.stage = 4;
+                            this.stage = 5;
                         },
                         (error: any) => {
                             // this.toastr.warning(error.error.message);
                             this.subscriptionService.doneLoading();
-                            this.stage = 4;
+                            this.stage = 5;
                         }
                     );
                 }
@@ -222,13 +223,15 @@ export class SubscriptionComponent implements OnInit {
         // })
 
         this.subscriptionService.getSubscriptionHistory().subscribe((response: any) => {
-            this.subscribedHistoryData = response.subscription_history;
+            this.subscribedHistoryData = response.subscriptionhistory;
+            this.accountBillingData = response.accountbillings;
         });
     }
 
     loadExistingSubscription(){
         this.subscriptionService.getExistingSubscription().subscribe((response: any) => {
-            this.subscribedHistoryData = response.subscription_history;
+            this.userSubscription = response.subscription;
+            this.stage = 5;
         });
     }
 }

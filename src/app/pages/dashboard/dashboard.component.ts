@@ -65,7 +65,11 @@ export class DashboardComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.selectedCountryId = 2;
+       this.loadApiData();
+    }
+
+    loadApiData(){
+        this.selectedCountryId = localStorage.getItem('countryId');    
         const data = {
             countryId: this.selectedCountryId,
         }
@@ -112,7 +116,6 @@ export class DashboardComponent implements OnInit {
                     this.quizProgressings = getModuleQuizProgression.module;
                 }
             })
-
     }
 
     shareWithSocial(){
@@ -137,22 +140,24 @@ export class DashboardComponent implements OnInit {
 
 
     selectCountry(selectedId: any) {
-        if (selectedId != 2) {
-            this.toast.add({
-                severity: 'info',
-                summary: 'Information',
-                detail: "Currently United Kingdom only available"
-            });
-            return;
-        }
+        // if (selectedId != 2) {
+        //     this.toast.add({
+        //         severity: 'info',
+        //         summary: 'Information',
+        //         detail: "Currently United Kingdom only available"
+        //     });
+        //     return;
+        // }
         this.countryLists.forEach((element: any) => {
             if (element.id === selectedId) {
                 this.selectedCountryName = element.country;
             }
         });
-        // localStorage.setItem('countryId', selectedId);
-        // this.selectedCountryId = selectedId;
-        // this.dataService.changeCountryId(selectedId);
+
+        localStorage.setItem('countryId', selectedId);
+        this.loadApiData();
+        this.selectedCountryId = selectedId;
+        this.dataService.changeCountryId(selectedId);
         // this.countryListData(this.selectedCountryId);
         // this.modalQuizProgressing(selectedId);
         // this.modalReadingProgressing(selectedId);

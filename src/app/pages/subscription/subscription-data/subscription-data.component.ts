@@ -2,13 +2,13 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Billinginfo, OrderHistory, Subscription } from "../../../@Models/subscription";
 import { environment } from "@env/environment.prod";
 import { AuthService } from 'src/app/Auth/auth.service';
-import { MenuItem } from 'primeng/api';
+import { MenuItem, MessageService } from 'primeng/api';
 import { SubscriptionService } from '../subscription.service';
 
 @Component({
   selector: 'uni-subscription-data',
   templateUrl: './subscription-data.component.html',
-  styleUrls: ['./subscription-data.component.scss']
+  styleUrls: ['./subscription-data.component.scss'],
 })
 export class SubscriptionDataComponent implements OnInit {
   selectedButton: any;
@@ -31,9 +31,11 @@ export class SubscriptionDataComponent implements OnInit {
   invalidCoupon: boolean = false;
   selectedSubscriptionDetails: any;
   selectedTopupCountryDetails: any;
+  showCheckout: boolean = true;
   @Output() subscriptionPlan = new EventEmitter();
   constructor(private authService: AuthService,
-    private subscriptionService: SubscriptionService) { }
+    private subscriptionService: SubscriptionService,
+    private toast: MessageService) { }
 
   ngOnInit(): void {
 
@@ -115,6 +117,7 @@ export class SubscriptionDataComponent implements OnInit {
   }
 
   selectedSubscriptionPlan(sub: any) {
+    this.showCheckout = false;
     this.subscriptionList.forEach((item: any) => {
       item.selected = false;
       if (sub.id == item.id) {
@@ -127,6 +130,7 @@ export class SubscriptionDataComponent implements OnInit {
 
   selectedTopupCountryPlan(sub: any) {
     if(sub?.selectedCoutriesList?.length > 0) {
+      this.showCheckout = false;
       this.subscriptionTopupList.forEach((item: any) => {
         item.selected = false;
         if (sub.id == item.id) {
@@ -135,6 +139,9 @@ export class SubscriptionDataComponent implements OnInit {
       });
       this.selectedTopupCountryDetails = sub;
       this.subscriptionTotal = sub.finalamount * sub.selectedCoutriesList.length;
+    }
+    else {
+      this.toast.add({severity:'warn', summary: 'Warn', detail: 'Please Choose a country'});
     }
 
   }
@@ -177,6 +184,9 @@ export class SubscriptionDataComponent implements OnInit {
           coupon: this.couponInput,
         }
         this.subscriptionPlan.emit(data);
+      }
+      else {
+        this.toast.add({severity:'warn', summary: 'Warn', detail: 'Please Choose a plan'});
       }
     }
   }
