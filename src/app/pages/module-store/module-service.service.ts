@@ -15,7 +15,7 @@ export class ModuleServiceService {
   }
 
   loadSubModules(data: any) {
-    this.store.dispatch(loadSubModules({countryId: data.countryId, api_module_name: data.api_module_name}));
+    this.store.dispatch(loadSubModules({countryId: data.countryId, moduleId: data.moduleId, api_module_name: data.api_module_name}));
   }
 
   subModuleList$() {

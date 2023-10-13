@@ -70,32 +70,32 @@ export class ListSubModulesComponent implements OnInit {
       case 'pre-application':
         this.currentModuleId = 1;
         this.currentModuleName = 'Pre Application';
-        this.currentApiSlug = 'getpreapplicationsubmoduleqcount';
+        this.currentApiSlug = 'GetQuestionsCount';
         break;
       case 'post-application':
         this.currentModuleId = 2;
         this.currentModuleName = 'Post Application';
-        this.currentApiSlug = 'getpostapplicationsubmoduleqcount';
+        this.currentApiSlug = 'GetQuestionsCount';
         break;
       case 'post-admission':
         this.currentModuleId = 3;
         this.currentModuleName = 'Post Admission';
-        this.currentApiSlug = 'getpostadmissionsubmoduleqcount';
+        this.currentApiSlug = 'GetQuestionsCount';
         break;
       case 'career-hub':
         this.currentModuleId = 4;
         this.currentModuleName = 'Career Hub';
-        this.currentApiSlug = 'getcareerhubsubmoduleqcount';
+        this.currentApiSlug = 'GetQuestionsCount';
         break;
       case 'university':
         this.currentModuleId = 5;
         this.currentModuleName = 'University';
-        this.currentApiSlug = 'getuniversitysubmoduleqcount';
+        this.currentApiSlug = 'GetQuestionsCount';
         break;
       default:
         this.currentModuleId = 6;
         this.currentModuleName = 'Life At Country';
-        this.currentApiSlug = 'getlifeincountrysubmoduleqcount';
+        this.currentApiSlug = 'GetQuestionsCount';
         break;
     }
     this.loadModuleAndSubModule();
@@ -108,10 +108,12 @@ export class ListSubModulesComponent implements OnInit {
     this.subModules$ = this.moduleListService.subModuleList$();
     let data = {
       countryId: this.currentCountryId,
+      moduleId: this.currentModuleId,
       api_module_name: this.currentApiSlug
     }
     this.moduleListService.loadSubModules(data);
     this.subModules$.subscribe(event => {
+      console.log(event);
       this.subModuleList = event;
     });
     this.locationService.getUniPerpModuleList().subscribe((data: any) => {
