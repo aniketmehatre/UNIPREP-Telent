@@ -38,27 +38,31 @@ export class SubscriptionComponent implements OnInit {
     userSubscription: any [] = [];
     subscriptionDetails: any;
     accountBillingData: any[] = [];
+    loadingSubscriptionHistory: boolean = false;
+    loadingExistingSubscription: boolean = false;
+    showSubscriptionedData: boolean = false;
+
     constructor(
         private subscriptionService: SubscriptionService,
         private winRef: WindowRefService,
         private authservice: AuthService
     ) { }
     ngOnInit(): void {
-        if (this.authservice?.user?.subscription_plan?.includes("Free")) {
-            this.user = this.authservice.user;
+        if(!this.authservice?.user?.subscription) {
             this.stage = 1;
-            this.loadSubDetails();
             return;
         }
-
-        this.start();
-        this.loadSubscriptionHistory();
-        this.loadExistingSubscription();
+        this.loadSubData();
     }
     start() {
         this.showPayLoading = false;
         this.stage = 1;
         // this.loadSubscriptions();
+    }
+
+    loadSubData() {
+        this.loadSubscriptionHistory();
+        this.loadExistingSubscription();
     }
 
     loadSubDetails() {
@@ -174,12 +178,12 @@ export class SubscriptionComponent implements OnInit {
                         (res: any) => {
                             this.success = res;
                             this.subscriptionService.doneLoading();
-                            this.stage = 5;
+                            this.loadSubData();
                         },
                         (error: any) => {
                             // this.toastr.warning(error.error.message);
                             this.subscriptionService.doneLoading();
-                            this.stage = 5;
+                            this.loadSubData();
                         }
                     );
                 }
@@ -192,12 +196,12 @@ export class SubscriptionComponent implements OnInit {
                         (res: any) => {
                             this.success = res;
                             this.subscriptionService.doneLoading();
-                            this.stage = 5;
+                            this.loadSubData();
                         },
                         (error: any) => {
                             // this.toastr.warning(error.error.message);
                             this.subscriptionService.doneLoading();
-                            this.stage = 5;
+                            this.loadSubData();
                         }
                     );
                 }
@@ -212,26 +216,29 @@ export class SubscriptionComponent implements OnInit {
     }
 
     loadSubscriptionHistory(){
-        // let request = {
-        //     country_id: 2
-        // }
-        // this.subscriptionService.getSubscriptionDetails(request).subscribe((response) => {
-        //     console.log(response);
-        //     this.userSubscription = response.user_subscription;
-        //     this.subscribedHistoryData = response.subscription_history;
-        //     this.subscribedCountryList = response.country_list;
-        // })
-
         this.subscriptionService.getSubscriptionHistory().subscribe((response: any) => {
             this.subscribedHistoryData = response.subscriptionhistory;
             this.accountBillingData = response.accountbillings;
+            if(this.subscribedHistoryData.length > 0 && this.accountBillingData.length > 0) {
+                this.loadingSubscriptionHistory = true;
+                this.loadSubscriptionedData();
+            }
         });
     }
 
     loadExistingSubscription(){
         this.subscriptionService.getExistingSubscription().subscribe((response: any) => {
             this.userSubscription = response.subscription;
-            this.stage = 5;
+            if(this.userSubscription.length > 0) {
+                this.loadingExistingSubscription = true;
+                this.loadSubscriptionedData();
+            }
         });
+    }
+
+    loadSubscriptionedData() {
+        if(this.loadingSubscriptionHistory && this.loadingExistingSubscription) {
+            this.stage = 5;
+        }
     }
 }
