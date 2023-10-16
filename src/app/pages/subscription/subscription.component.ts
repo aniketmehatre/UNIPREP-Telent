@@ -136,7 +136,7 @@ export class SubscriptionComponent implements OnInit {
     payWithRazor(orderid: any) {
         const options: any = {
             key: "rzp_test_Crpr7YkjPaCLEr",
-            amount: this.selectedSubscription?.price, // amount should be in paise format to display Rs 1255 without decimal point
+            amount: this.subscriptionDetails?.finalPrice * 100, // amount should be in paise format to display Rs 1255 without decimal point
             currency: "INR",
             name: "Uniabroad", // company name or product name
             description: "UNIPREP Subscription", // product description
@@ -225,13 +225,13 @@ export class SubscriptionComponent implements OnInit {
         this.subscriptionService.getSubscriptionHistory().subscribe((response: any) => {
             this.subscribedHistoryData = response.subscriptionhistory;
             this.accountBillingData = response.accountbillings;
-            this.stage = 5;
         });
     }
 
     loadExistingSubscription(){
         this.subscriptionService.getExistingSubscription().subscribe((response: any) => {
             this.userSubscription = response.subscription;
+            this.stage = 5;
         });
     }
 }

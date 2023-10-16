@@ -7,6 +7,7 @@ import {QuizList} from "../../@Models/list-quiz.model";
 export const loadSubModules = createAction('[Modules] load Sub modules',
     (payload: {
         countryId: number,
+        moduleId: number,
         api_module_name: string
     }) => payload);
 export const loadSubModulesSuccess = createAction('[Modules] load sub modules success',

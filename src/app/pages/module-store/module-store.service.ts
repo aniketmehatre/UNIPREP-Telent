@@ -14,12 +14,14 @@ export class ModuleStoreService {
 
     loadSubModules(params: {
         countryId: number,
+        moduleId: number
         api_module_name: string
-    }): Observable<ModuleList> {
+    }): Observable<any> {
         let request = {
-            countryId: params.countryId
+            countryId: params.countryId,
+            moduleId: params.moduleId
         }
-        return this.http.post<ModuleList>(environment.ApiUrl + `/${params.api_module_name}`, request);
+        return this.http.post<any>(environment.ApiUrl + `/${params.api_module_name}`, request);
     }
 
     loadQuestionList(

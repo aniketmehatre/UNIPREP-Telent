@@ -23,9 +23,9 @@ export class ModuleStoreEffects {
     loadSubModules = createEffect(() => this.actions$.pipe(
         ofType(loadSubModules),
         switchMap((payload) => this.preApplicationService.loadSubModules(
-            {countryId: payload.countryId, api_module_name: payload.api_module_name}).pipe(
+            {countryId: payload.countryId,moduleId: payload.moduleId, api_module_name: payload.api_module_name}).pipe(
             map(response => {
-                return loadSubModulesSuccess({submodules: response.submodulecount})
+                return loadSubModulesSuccess({submodules: response})
             })
         ))
     ));

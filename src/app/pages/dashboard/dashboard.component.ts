@@ -27,7 +27,7 @@ export class DashboardComponent implements OnInit {
     isVideoVisible: boolean = false;
     isShareWithSocialMedia: boolean = false;
     isViewMoreOrgVisible: boolean = false;
-
+    partnerTrusterLogo: any;
     searchResult: any;
     university: any[] = [
         {
@@ -35,6 +35,12 @@ export class DashboardComponent implements OnInit {
         },
         {
             "image": "../../../uniprep-assets/images/icons/university2.svg",
+        },
+        {
+            "image": "../../../uniprep-assets/images/icons/university3.svg",
+        },
+        {
+            "image": "../../../uniprep-assets/images/icons/university3.svg",
         },
         {
             "image": "../../../uniprep-assets/images/icons/university3.svg",
@@ -62,10 +68,21 @@ export class DashboardComponent implements OnInit {
                 numScroll: 1
             }
         ];
+
+
+        this.dashboardService.getTrustedPartners().subscribe(partnerLogo => {
+            this.partnerTrusterLogo = partnerLogo;
+        });
+
+
     }
 
     ngOnInit(): void {
-        this.selectedCountryId = 2;
+       this.loadApiData();
+    }
+
+    loadApiData(){
+        this.selectedCountryId = localStorage.getItem('countryId');    
         const data = {
             countryId: this.selectedCountryId,
         }
@@ -101,6 +118,7 @@ export class DashboardComponent implements OnInit {
                     this.countryLists.forEach((element: any) => {
                         if (element.id == this.selectedCountryId) {
                             this.selectedCountryName = element.country;
+                            this.selectedCountryId = element.id;
                             this.dataService.changeCountryName(element.country);
                         }
                     });
@@ -112,7 +130,6 @@ export class DashboardComponent implements OnInit {
                     this.quizProgressings = getModuleQuizProgression.module;
                 }
             })
-
     }
 
     shareWithSocial(){
@@ -137,22 +154,24 @@ export class DashboardComponent implements OnInit {
 
 
     selectCountry(selectedId: any) {
-        if (selectedId != 2) {
-            this.toast.add({
-                severity: 'info',
-                summary: 'Information',
-                detail: "Currently United Kingdom only available"
-            });
-            return;
-        }
+        // if (selectedId != 2) {
+        //     this.toast.add({
+        //         severity: 'info',
+        //         summary: 'Information',
+        //         detail: "Currently United Kingdom only available"
+        //     });
+        //     return;
+        // }
         this.countryLists.forEach((element: any) => {
             if (element.id === selectedId) {
                 this.selectedCountryName = element.country;
             }
         });
-        // localStorage.setItem('countryId', selectedId);
-        // this.selectedCountryId = selectedId;
-        // this.dataService.changeCountryId(selectedId);
+
+        localStorage.setItem('countryId', selectedId);
+        this.loadApiData();
+        this.selectedCountryId = selectedId;
+        this.dataService.changeCountryId(selectedId);
         // this.countryListData(this.selectedCountryId);
         // this.modalQuizProgressing(selectedId);
         // this.modalReadingProgressing(selectedId);
@@ -209,7 +228,7 @@ export class DashboardComponent implements OnInit {
         }
         this.router.navigate([`pages/${moduleName}/sub-modules/2`]);
     }
-    partnerTrusterLogo: any;
+
     openViewMoreOrg(){
         this.isViewMoreOrgVisible = true;
         this.dashboardService.getTrustedPartners().subscribe(partnerLogo => {
