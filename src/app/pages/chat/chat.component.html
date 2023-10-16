@@ -109,7 +109,7 @@
                 <span class="full-name">{{ message.sendByName }}</span
                 ><br />
                 <span class="msg-info"
-                  >Post Application | 31-7-2023 | 10.23am</span
+                  >Post Application | {{ message.sendDateTime }}</span
                 >
               </div>
             </div>
@@ -141,7 +141,20 @@
                   <span class="msg-info"
                     >Replying for Question {{ message.answerForQuestion }}</span
                   ><br />
-                  <p class="response-msg" [innerHtml]="message.message"></p>
+                  <p class="response-msg-question" [innerHtml]=getData(message.answerForQuestion)></p>
+                 <p
+                      *ngIf="message.message"
+                      class="response-msg"
+                      [innerHtml]="message.message"
+                    ></p>
+                    <p *ngIf="message.attachment" [pTooltip]=message.attachment class="response-msg-attach"><label>{{ message.attachment }}</label> &nbsp;&nbsp;<a 
+                    [href]="
+                      'http://20.235.29.36/uniprepapi/storage/app/public/attachment/' +
+                      message.attachment
+                    "
+                    ><i class="pi pi-arrow-circle-down"></i>
+                      </a></p>
+  
                 </div>
               </div>
             </div>

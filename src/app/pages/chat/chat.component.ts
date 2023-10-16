@@ -63,6 +63,10 @@ export class ChatComponent implements OnInit {
       this.totalcredits = Number(localStorage.getItem("questions_left"));
     });
   }
+  getData(questionNumber:any):string{
+    console.log(">>",questionNumber)
+    return this.messages?.find((data: { questionNumber: any; })=>data.questionNumber==questionNumber).message;
+  }
   textMessage: string = "";
   visibility = false;
   sendMessage() {
