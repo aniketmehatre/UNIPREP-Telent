@@ -105,6 +105,7 @@ export class DashboardComponent implements OnInit {
                     this.countryLists.forEach((element: any) => {
                         if (element.id == this.selectedCountryId) {
                             this.selectedCountryName = element.country;
+                            this.selectedCountryId = element.id;
                             this.dataService.changeCountryName(element.country);
                         }
                     });
