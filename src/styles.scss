@@ -5,15 +5,19 @@
 @import './uniprep-assets/primeng';
 @import './uniprep-assets/buttons';
 :root {
-  --uniprep-primary: #3f4c83;
-  --uniprep-primaryop10: #3f4c8325;
+  --uniprep-primary: rgb(63, 76, 131);
+  --uniprep-primaryop10: rgba(63, 76, 131, 0.145);
   --uniprep-primaryop30: #3f4c835b;
   --uniprep-secondary: #f0780e;
   --uniprep-secondaryop10: #f0780e25;
   --uniprep-secondaryop30: #f0780e5b;
-  --uniprep-primaryhighlight: #4552a3;
+  --uniprep-primaryhighlight: rgb(69, 82, 163);
   --uniprep-secondaryhighlight: #f6895a;
   --uniprep-tertiary: #ffffff;
+  scrollbar-face-color: rgb(63, 76, 131); /* Firefox 63 compatibility */
+  scrollbar-track-color: rgba(63, 76, 131, 0.145); /* Firefox 63 compatibility */
+  scrollbar-color: rgb(63, 76, 131) rgba(63, 76, 131, 0.145);
+  scrollbar-width: auto;
 }
 
 .uniprep-primary
@@ -58,6 +62,7 @@ html,
 body {
   font-family: "Poppins", sans-serif;
   font-size:1rem;
+  overflow: hidden;
 }
 .p-tooltip.p-tooltip-top {
   position: fixed !important;
