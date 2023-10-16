@@ -42,6 +42,9 @@ import {AccordionModule} from 'primeng/accordion';
 import { GuidelineComponent } from './chat/guidelines/guidelines.component';
 import { OverlayPanelModule } from 'primeng/overlaypanel';
 import { InputTextareaModule } from 'primeng/inputtextarea';
+import { RecentlyaddedquestionsComponent } from './recentlyaddedquestions/recentlyaddedquestions.component';
+import { TermsandconditionComponent } from './footersection/termsandcondition/termsandcondition.component';
+import { PrivacypolicyComponent } from './footersection/privacypolicy/privacypolicy.component';
 
 @NgModule({
     declarations: [
@@ -56,6 +59,8 @@ import { InputTextareaModule } from 'primeng/inputtextarea';
         QuestionCreditComponent,
         ChatComponent,
         GuidelineComponent,
+        RecentlyaddedquestionsComponent,
+        PrivacypolicyComponent,
     ],
     exports: [
         FooterStatusBoxComponent,

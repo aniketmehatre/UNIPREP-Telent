@@ -7,6 +7,8 @@ import {UserManagementComponent} from './user-management/user-management.compone
 import {AuthGuard} from "../Auth/auth.guard";
 import { ChatComponent } from './chat/chat.component';
 import { GuidelineComponent } from './chat/guidelines/guidelines.component';
+import { RecentlyaddedquestionsComponent } from './recentlyaddedquestions/recentlyaddedquestions.component';
+import { PrivacypolicyComponent } from './footersection/privacypolicy/privacypolicy.component';
 
 const routes: Routes = [
     {
@@ -33,6 +35,15 @@ const routes: Routes = [
                 loadChildren: () => import('./faq/faq.module').then(m => m.FaqModule)
             },
             {
+                path: 'helpandsupport',
+                loadChildren: () => import('./footersection/termsandcondition/termsandcondition.module').then(m => m.TermsAnsConditionModule)
+            },
+            {
+                path: 'privacypolicy',
+
+                component: PrivacypolicyComponent
+            },
+            {
                 path: 'button',
 
                 component: ButtonComponent
@@ -40,6 +51,10 @@ const routes: Routes = [
             {
                 path: 'chat',
                 component: ChatComponent
+            },
+            {
+                path: 'recentlyaddedquestions',
+                component: RecentlyaddedquestionsComponent
             },
             {
                 path: 'cards',
@@ -50,6 +65,7 @@ const routes: Routes = [
                 path: 'help',
                 loadChildren: () => import('./help-support/help-support.module').then(m => m.HelpSupportModule)
             },
+
             {
                 path: 'resource',
 
