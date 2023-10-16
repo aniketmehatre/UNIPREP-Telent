@@ -294,7 +294,31 @@ countryimage {
 .response-msg {
   background-color: #e3effd;
   padding: 15px;
-  border-radius: 12px;
+  border-radius: 12px;border-top-left-radius:0;
+}
+.response-msg-question{
+  background-color: #e6e7ed;
+  width: fit-content;
+  padding-right: 30px;
+  margin-bottom: -16px;
+  padding-left: 10px;
+}
+.response-msg-attach {
+  
+  background: #e3effd;
+  padding: 10px;
+  border-radius: 20px;
+  width: 50%;
+  label{
+    width: 80%;
+    overflow: hidden;
+  }
+  a{
+    float: right; 
+    i{
+      font-size: 25px;
+    }
+  }
 }
 .p-card .p-card-content {
   width: 100% !important;
