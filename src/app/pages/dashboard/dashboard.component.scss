@@ -373,8 +373,8 @@ $howManySteps: 100; //this needs to be even.
 
 .countryicon
 {
-  width:150px;
-  height:100px;
+  max-width:100%;
+  max-height:70px;
 }
 
 .country-text {
