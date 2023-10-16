@@ -5,24 +5,27 @@
         <div class="card-body d-flex p-5">
           <div class="col-md-6 col-lg-6 d-flex align-items-center col-12">
             <div class="row">
-                <img class="small-image text-left mb-2" src="../../../uniprep-assets/images/uniprep-light.svg">
-                <h2 class="fw-medium uniprep-primaryhighlight mb-0">Welcome to <span class="fw-bold uniprep-primary">UNIPREP</span></h2>
-                <h5 class="uniprep-primary">Your Personal Advisor for All Things International.</h5>
-                <p class="uniprep-primary">Access over half a million questions answered by experts and accredited by International education bodies.</p>
-                <div class="row justify-content-start">
-                    <img class="bg-image text-center"
-                         src="../../../uniprep-assets/images/Uniprep_Icons_image.png">
-                </div>
+              <img class="small-image text-left mb-2" src="../../../uniprep-assets/images/uniprep-light.svg">
+              <h2 class="fw-medium uniprep-primaryhighlight mb-0">Welcome to <span
+                  class="fw-bold uniprep-primary">UNIPREP</span></h2>
+              <h5 class="uniprep-primary">Your Personal Advisor for All Things International.</h5>
+              <p class="uniprep-primary">Access over half a million questions answered by experts and accredited by
+                International education bodies.</p>
+              <div class="row justify-content-start">
+                <img class="bg-image text-center" src="../../../uniprep-assets/images/Uniprep_Icons_image.png">
+              </div>
             </div>
-        </div>
+          </div>
           <div class="col-md-6 col-lg-6 col-12">
             <div class="login d-flex align-items-center">
               <div class="container">
                 <div class="row">
                   <div class="col-md-12 col-lg-12">
-                    <h5 class="login-heading mt-3 mb-3 fw-bold">Welcome, Please Register to your <span class="font-primarycolor ">account.</span></h5>
+                    <h5 class="login-heading mt-3 mb-3 fw-bold">Welcome, Please Register to your <span
+                        class="font-primarycolor ">account.</span></h5>
                     <hr>
-                    <p class="signup">Already have an account?<span><a class="font-primarycolor " href="login"> Login</a></span></p>
+                    <p class="signup">Already have an account?<span><a class="font-primarycolor " href="login">
+                          Login</a></span></p>
                     <form [formGroup]="registrationForm" (ngSubmit)="onSubmit()">
                       <div class="row g-3">
                         <div class="col">
@@ -30,10 +33,10 @@
                           <div class="p-inputgroup">
                             <div class="p-inputgroup-addon">
                               <img class="bg-image text-center"
-                                   src="../../../uniprep-assets/images/icons/Uniprep_Icons_Full_name.png" />
+                                src="../../../uniprep-assets/images/icons/Uniprep_Icons_Full_name.png" />
                             </div>
                             <input type="text" class="border-0" pInputText id="fullName" placeholder="Full Name"
-                                   formControlName="fullName" [ngClass]="{
+                              formControlName="fullName" [ngClass]="{
                                 'is-invalid': submitted && f.fullName.errors
                               }" />
                           </div>
@@ -48,10 +51,10 @@
                           <div class="p-inputgroup">
                             <div class="p-inputgroup-addon">
                               <img class="bg-image text-center"
-                                   src="../../../uniprep-assets/images/icons/Uniprep_Icons_location.png" />
+                                src="../../../uniprep-assets/images/icons/Uniprep_Icons_location.png" />
                             </div>
                             <p-dropdown formControlName="location" id="location" [filter]="true" [filterBy]="'district'"
-                                        [options]="locationList" optionLabel="district"></p-dropdown>
+                              [options]="locationList" optionLabel="district"></p-dropdown>
                           </div>
                           <div *ngIf="submitted && f.location.errors" class="invalid-feedback">
                             <div *ngIf="f.location.errors.required">
@@ -66,22 +69,22 @@
                           <div class="p-inputgroup">
                             <div class="p-inputgroup-addon">
                               <img class="bg-image text-center"
-                                   src="../../../uniprep-assets/images/icons/Uniprep_Icons_Contact.png" />
+                                src="../../../uniprep-assets/images/icons/Uniprep_Icons_Contact.png" />
                             </div>
                             <input type="number" class="border-0" pInputText id="contactNumber"
-                                   formControlName="contactNumber" placeholder="Contact Number" [readonly]="isMobileOTPSend"
-                                   [ngClass]="{
+                              formControlName="contactNumber" placeholder="Contact Number" [readonly]="isMobileOTPSend"
+                              [ngClass]="{
                                 'is-invalid':
                                   submitted && f.contactNumber.errors
                               }" />
                             <div class="p-2">
                               <span *ngIf="!isMobileOTPValidated">
                                 <img class="bg-image text-center"
-                                     src="../../../uniprep-assets/images/icons/Uniprep_Icons_un_verified.png" />
+                                  src="../../../uniprep-assets/images/icons/Uniprep_Icons_un_verified.png" />
                               </span>
                               <span *ngIf="isMobileOTPValidated">
                                 <img class="bg-image text-center"
-                                     src="../../../uniprep-assets/images/icons/Uniprep_Icons_verified.png" />
+                                  src="../../../uniprep-assets/images/icons/Uniprep_Icons_verified.png" />
                               </span>
                             </div>
                           </div>
@@ -96,20 +99,20 @@
                           <div class="p-inputgroup">
                             <div class="p-inputgroup-addon">
                               <img class="bg-image text-center"
-                                   src="../../../uniprep-assets/images/icons/Uniprep_Icons_email.png" />
+                                src="../../../uniprep-assets/images/icons/Uniprep_Icons_email.png" />
                             </div>
                             <input type="email" pInputText class="border-0 w-full" id="emailAddress"
-                                   [readonly]="isEmailOTPSend" formControlName="emailAddress" [ngClass]="{
+                              [readonly]="isEmailOTPSend" formControlName="emailAddress" [ngClass]="{
                                 'is-invalid': submitted && f.emailAddress.errors
                               }" />
                             <div class="p-2">
                               <span *ngIf="!isEmailOTPValidated">
                                 <img class="bg-image text-center"
-                                     src="../../../uniprep-assets/images/icons/Uniprep_Icons_un_verified.png" />
+                                  src="../../../uniprep-assets/images/icons/Uniprep_Icons_un_verified.png" />
                               </span>
                               <span *ngIf="isEmailOTPValidated">
                                 <img class="bg-image text-center"
-                                     src="../../../uniprep-assets/images/icons/Uniprep_Icons_verified.png" />
+                                  src="../../../uniprep-assets/images/icons/Uniprep_Icons_verified.png" />
                               </span>
                             </div>
                           </div>
@@ -125,14 +128,14 @@
                           <br />
                           <div class="text-center">
                             <button class="pt-2 pb-2 btn btn-primary btn-login text-uppercase fw-bold m-0 w-50"
-                                    type="button" (click)="sendMobileOTP()">
+                              type="button" (click)="sendMobileOTP()">
                               SEND OTP
                             </button>
                           </div>
                         </div>
                       </div>
                       <div class="row g-3 justify-content-center text-center mt-2"
-                           *ngIf="isMobileOTPSend && !isMobileOTPValidated">
+                        *ngIf="isMobileOTPSend && !isMobileOTPValidated">
                         <form [formGroup]="otpForm" class="formOTP" (ngSubmit)="onValidateMobileOTP()">
                           <h5 class="login-heading mt-3 mb-2">
                             Enter your OTP
@@ -147,13 +150,13 @@
                                 'is-invalid': submitted && f.otp2.errors
                               }" class="col form-control" formControlName="otp2" maxlength="1" type="text" />
                             <input class="col form-control" formControlName="otp3" (keyup)="focusNextInput($event, 3)"
-                                   type="text" #otp3 maxlength="1" [ngClass]="{
+                              type="text" #otp3 maxlength="1" [ngClass]="{
                                 'is-invalid': submitted && f.otp3.errors
                               }" />
                             <input [ngClass]="{
                                 'is-invalid': submitted && f.otp4.errors
                               }" class="col form-control" #otp4 formControlName="otp4"
-                                   (keyup)="focusNextInput($event, 4)" maxlength="1" type="text" />
+                              (keyup)="focusNextInput($event, 4)" maxlength="1" type="text" />
                             <div *ngIf="
                                 submitted &&
                                 f.otp1.errors &&
@@ -170,16 +173,13 @@
                                 OTP is required
                               </div>
                             </div>
-                            <div
-                                    *ngIf="resendTime<=3"
-                                    class="resend_label text-center mt-3"
-                                    style="font-size: 0.7rem"
-                            >
+                            <div *ngIf="resendTime<=3" class="resend_label text-center mt-3" style="font-size: 0.7rem">
                               <div class="text-center">Didn't receive the Otp?</div>
                               <div class="text-center">
                                 <span *ngIf="startTimer > 0; else notime">Resend OTP in {{startTimer}}</span>
                                 <ng-template #notime>
-                                  <span class="font-primarycolor"><a (click)="sendMobileOTP()">Click to resend.</a></span>
+                                  <span class="font-primarycolor"><a (click)="sendMobileOTP()">Click to
+                                      resend.</a></span>
                                 </ng-template>
 
                               </div>
@@ -189,26 +189,24 @@
                           <br />
                           <div class="text-center">
                             <button class="pt-2 pb-2 btn btn-primary btn-login text-uppercase fw-bold m-2 w-50"
-                                    type="submit">
+                              type="submit">
                               VERIFY OTP
                             </button>
                             <button (click)="editMobileNumberAgain()" *ngIf="isMobileOTPSend"
-                                    class="pt-2 pb-2 btn btn-primary btn-login text-uppercase fw-bold m-2 w-50" type="button">
+                              class="pt-2 pb-2 btn btn-primary btn-login text-uppercase fw-bold m-2 w-50" type="button">
                               Edit
                             </button>
                           </div>
-<!--                          <label class="resend_label"-->
-<!--                          >Didn't receive the Mobile OTP?-->
-<!--                            <span class="font-primarycolor"-->
-<!--                            ><a (click)="sendMobileOTP()"-->
-<!--                            >Click to resend.</a-->
-<!--                            ></span-->
-<!--                            ></label-->
-<!--                          >-->
+                          <!--                          <label class="resend_label"-->
+                          <!--                          >Didn't receive the Mobile OTP?-->
+                          <!--                            <span class="font-primarycolor"-->
+                          <!--                            ><a (click)="sendMobileOTP()"-->
+                          <!--                            >Click to resend.</a-->
+                          <!--                            ></span-->
+                          <!--                            ></label-->
+                          <!--                          >-->
                           <div class="footer-part">
-                            <a href="login"
-                            ><span><i class="pi pi-chevron-left"></i></span></a
-                            ><br />
+                            <a href="login"><span><i class="pi pi-chevron-left"></i></span></a><br />
                             <label>Back to Sign In</label>
                           </div>
                         </form>
@@ -222,14 +220,14 @@
                           <br />
                           <div class="text-center">
                             <button class="pt-2 pb-2 btn btn-primary btn-login text-uppercase fw-bold m-0 w-50"
-                                    type="button" (click)="sendEmailOTP()">
+                              type="button" (click)="sendEmailOTP()">
                               SEND OTP
                             </button>
                           </div>
                         </div>
                       </div>
                       <div class="row g-3 justify-content-center text-center mt-2"
-                           *ngIf="isEmailOTPSend && !isRemainingFieldVisible">
+                        *ngIf="isEmailOTPSend && !isRemainingFieldVisible">
                         <form [formGroup]="emailOTPForm" class="formOTP" (ngSubmit)="onValidateEmailOTP()">
                           <h5 class="login-heading mt-3 mb-2">
                             Enter your Email OTP
@@ -240,19 +238,19 @@
                             <input class="col form-control" [ngClass]="{
                                 'is-invalid': submitted && f.otp5.errors
                               }" formControlName="otp5" (keyup)="focusNextEmailInput($event, 5)" type="text" #otp5
-                                   autofocus maxlength="1" />
+                              autofocus maxlength="1" />
                             <input class="col form-control" formControlName="otp6"
-                                   (keyup)="focusNextEmailInput($event, 6)" type="text" maxlength="1" autofocus #otp6
-                                   [ngClass]="{
+                              (keyup)="focusNextEmailInput($event, 6)" type="text" maxlength="1" autofocus #otp6
+                              [ngClass]="{
                                 'is-invalid': submitted && f.otp6.errors
                               }" />
                             <input class="col form-control" formControlName="otp7"
-                                   (keyup)="focusNextEmailInput($event, 7)" type="text" maxlength="1" #otp7 autofocus
-                                   [ngClass]="{
+                              (keyup)="focusNextEmailInput($event, 7)" type="text" maxlength="1" #otp7 autofocus
+                              [ngClass]="{
                                 'is-invalid': submitted && f.otp7.errors
                               }" />
                             <input class="col form-control" formControlName="otp8" type="text"
-                                   (keyup)="focusNextEmailInput($event, 8)" #otp8 maxlength="1" autofocus [ngClass]="{
+                              (keyup)="focusNextEmailInput($event, 8)" #otp8 maxlength="1" autofocus [ngClass]="{
                                 'is-invalid': submitted && f.otp8.errors
                               }" />
                             <div *ngIf="
@@ -275,26 +273,19 @@
                           <br />
                           <div class="text-center">
                             <button class="pt-2 pb-2 btn btn-primary btn-login text-uppercase fw-bold m-0 w-50"
-                                    type="submit">
+                              type="submit">
                               VERIFY OTP
                             </button>
                             <button (click)="editEmailAgain()" *ngIf="isMobileOTPSend"
-                                    class="pt-2 pb-2 btn btn-primary btn-login text-uppercase fw-bold m-2 w-50" type="button">
+                              class="pt-2 pb-2 btn btn-primary btn-login text-uppercase fw-bold m-2 w-50" type="button">
                               Edit
                             </button>
                           </div>
-                          <label class="resend_label"
-                          >Didn't receive the Email OTP?
-                            <span class="font-primarycolor"
-                            ><a (click)="sendEmailOTP()"
-                            >Click to resend.</a
-                            ></span
-                            ></label
-                          >
+                          <label class="resend_label">Didn't receive the Email OTP?
+                            <span class="font-primarycolor"><a (click)="sendEmailOTP()">Click to
+                                resend.</a></span></label>
                           <div class="footer-part">
-                            <a href="login"
-                            ><span><i class="pi pi-chevron-left"></i></span></a
-                            ><br/>
+                            <a href="login"><span><i class="pi pi-chevron-left"></i></span></a><br />
                             <label>Back to Sign In</label>
                           </div>
                         </form>
@@ -307,10 +298,10 @@
                             <div class="p-inputgroup">
                               <div class="p-inputgroup-addon">
                                 <img class="bg-image text-center"
-                                     src="../../../uniprep-assets/images/icons/Uniprep_Icons_select_country.png" />
+                                  src="../../../uniprep-assets/images/icons/Uniprep_Icons_select_country.png" />
                               </div>
                               <p-dropdown formControlName="interestedCountry" [options]="countryList"
-                                          [autoDisplayFirst]="false" optionLabel="country"></p-dropdown>
+                                [autoDisplayFirst]="false" optionLabel="country"></p-dropdown>
                             </div>
                             <div *ngIf="submitted && f.interestedCountry.errors" class="invalid-feedback">
                               <div *ngIf="f.interestedCountry.errors.required">
@@ -325,7 +316,7 @@
                             <div class="p-inputgroup">
                               <div class="p-inputgroup-addon">
                                 <img class="bg-image text-center"
-                                     src="../../../uniprep-assets/images/icons/Uniprep_Icons_calender.png" />
+                                  src="../../../uniprep-assets/images/icons/Uniprep_Icons_calender.png" />
                               </div>
                               <!--                      <input-->
                               <!--                        type="number"-->
@@ -338,8 +329,8 @@
                               <!--                      />-->
 
                               <p-calendar view="year" dateFormat="yy" inputId="pickYear" class="pt-2"
-                                          formControlName="lastDegreePassingYear" [maxDate]="dateTime" [readonlyInput]="false"
-                                          placeholder="">
+                                formControlName="lastDegreePassingYear" [maxDate]="dateTime" [readonlyInput]="false"
+                                placeholder="">
                               </p-calendar>
                             </div>
                             <div *ngIf="
@@ -357,7 +348,7 @@
                             <div class="p-inputgroup">
                               <div class="p-inputgroup-addon">
                                 <img class="bg-image text-center"
-                                     src="../../../uniprep-assets/images/icons/Uniprep_Icons_calender.png" />
+                                  src="../../../uniprep-assets/images/icons/Uniprep_Icons_calender.png" />
                               </div>
                               <!--                      <p-dropdown-->
                               <!--                        formControlName="intakeYear"-->
@@ -368,9 +359,9 @@
                               <!--                        optionLabel="value"-->
                               <!--                      ></p-dropdown>-->
 
-                              <p-calendar (onSelect)="yearChage($event)" view="year" dateFormat="yy" inputId="pickYear" class="pt-2"
-                                          formControlName="intakeYear" [minDate]="dateTime" [readonlyInput]="false"
-                                          placeholder="">
+                              <p-calendar (onSelect)="yearChage($event)" view="year" dateFormat="yy" inputId="pickYear"
+                                class="pt-2" formControlName="intakeYear" [minDate]="dateTime" [readonlyInput]="false"
+                                placeholder="">
                               </p-calendar>
                             </div>
                             <div *ngIf="submitted && f.intakeYear.errors" class="invalid-feedback">
@@ -385,7 +376,7 @@
                             <div class="p-inputgroup">
                               <div class="p-inputgroup-addon">
                                 <img class="bg-image text-center"
-                                     src="../../../uniprep-assets/images/icons/Uniprep_Icons_calender.png" />
+                                  src="../../../uniprep-assets/images/icons/Uniprep_Icons_calender.png" />
                               </div>
                               <!--                      <p-dropdown-->
                               <!--                        formControlName="intakeMonth"-->
@@ -395,8 +386,8 @@
                               <!--                      ></p-dropdown>-->
 
                               <p-calendar view="month" dateFormat="MM" formControlName="intakeMonth" inputId="pickMonth"
-                                          [yearNavigator]="true" class="pt-2" [readonlyInput]="false" [minDate]="dateTime"
-                                          placeholder="">
+                                [yearNavigator]="true" class="pt-2" [readonlyInput]="false" [minDate]="dateTime"
+                                placeholder="">
                               </p-calendar>
                             </div>
                             <div *ngIf="submitted && f.intakeMonth.errors" class="invalid-feedback">
@@ -412,10 +403,10 @@
                             <div class="p-inputgroup">
                               <div class="p-inputgroup-addon">
                                 <img class="bg-image text-center"
-                                     src="../../../uniprep-assets/images/icons/Uniprep_Icons_Program_Level.png" />
+                                  src="../../../uniprep-assets/images/icons/Uniprep_Icons_Program_Level.png" />
                               </div>
                               <p-dropdown formControlName="programLevel" [options]="programLevelList"
-                                          [autoDisplayFirst]="false" optionLabel="programlevel"></p-dropdown>
+                                [autoDisplayFirst]="false" optionLabel="programlevel"></p-dropdown>
                             </div>
                             <div *ngIf="submitted && f.location.errors" class="invalid-feedback">
                               <div *ngIf="f.location.errors.required">
@@ -429,10 +420,10 @@
                             <div class="p-inputgroup">
                               <div class="p-inputgroup-addon">
                                 <img class="bg-image text-center"
-                                     src="../../../uniprep-assets/images/icons/Uniprep_Icons_gender.png" />
+                                  src="../../../uniprep-assets/images/icons/Uniprep_Icons_gender.png" />
                               </div>
                               <p-dropdown formControlName="gender" [options]="genderList" [autoDisplayFirst]="false"
-                                          optionLabel="value"></p-dropdown>
+                                optionLabel="value"></p-dropdown>
                             </div>
                             <div *ngIf="submitted && f.gender.errors" class="invalid-feedback">
                               <div *ngIf="f.gender.errors.required">
@@ -475,7 +466,7 @@
                                 <i class="pi pi-lock"></i>
                               </div>
                               <input [type]="confirmPassword" pInputText class="border-0" id="confirmPassword"
-                                     formControlName="confirmPassword" [ngClass]="{
+                                formControlName="confirmPassword" [ngClass]="{
                                   'is-invalid':
                                     submitted && f.confirmPassword.errors
                                 }" />
@@ -499,7 +490,7 @@
                         <br />
                         <div class="form-check mb-3">
                           <input class="form-check-input" class="input_checkbox" type="checkbox" id="terms"
-                                 formControlName="terms" />
+                            formControlName="terms" />
                           <label class="form-check-label agree" for="terms">
                             I agree to the
                             <a class="font-primarycolor" (click)="openTermsPopup()">
@@ -540,70 +531,298 @@
                   <hr />
                   <div style="font-size: 0.9rem">
                     <p>
-                      <b>Welcome to Project</b><br />
-                      Quisque est nisi, eleifend tristique congue non, sagittis
-                      quis justo. In blandit hendrerit magna, sit amet
-                      ullamcorper sapien. Suspendisse potenti. Vivamus eu lacus
-                      ut nulla dapibus malesuada nec et libero. Ut ultrices
-                      risus id eleifend sagittis.
+                      These Terms of Use are created to govern the access and use of the Services in SOP Expert. The
+                      Terms of Use,
+                      as well as the User Agreement, which will be provided after Your Account registration, constitute
+                      legally
+                      binding agreement between You, as the User of the Services UNIPREP, and UNIABROAD LTD (may refer
+                      to "We", "Our",
+                      "Ours" or "Us" in the Terms of Use),
                     </p>
                     <br />
                     <p>
-                      <b>1. What are Terms and Conditions</b><br />
-                      Sed non dui aliquam, ullamcorper est non, aliquet mauris.
-                      Quisque lacus ligula, dapibus nec dignissim non, tincidunt
-                      vel quam. Etiam porttitor iaculis odio. Cras sagittis nunc
-                      lectus, in condimentum ligula ornare at. Etiam sagittis
-                      malesuada nisl. Duis volutpat ligula ante. Sed cursus,
-                      tortor a pellentesque pulvinar, lorem ipsum gravida elit,
-                      id posuere elit neque in est. Mauris ex justo, tincidunt
-                      at suscipit quis, pretium a mi. Quisque consequat nisl
-                      nulla, dignissim gravida ipsum ultrices et. Morbi pharetra
-                      non massa at cursus. Vivamus convallis dui eu nisl
-                      blandit, vel convallis nisi dapibus.
-                    </p>
-                    <br />
+                      Please read this Terms of Use carefully as far as it will regulate relations between you and us in
+                      the course
+                      of your use of the Service. By using the Service you agree to be bound by the terms and conditions
+                      stated
+                      herein. You claim and warrant that You have the full legal authority to enter these Terms of Use
+                      and to be
+                      legally bound by them
+                    </p><br>
+                    <hr><br>
+                    <h2>LICENSE</h2>
+                    <br>
+                    <label style="font-size: 1rem; text-decoration: underline;" for="">LICENSE TO USE THE
+                      SITE</label><br>
                     <p>
-                      <b>A. What to include in a Terms and Conditions</b><br />
-                      tiam rhoncus quis eros eget fringilla. Etiam malesuada
-                      enim laoreet nibh euismod, eu finibus elit finibus. Duis
-                      ornare tempus purus. Nam at leo quis tortor congue
-                      dignissim. Sed non varius erat. Nulla vel nibh eu risus
-                      cursus vulputate nec ac elit.
-                    </p>
-                    <br />
+                      In consideration for Your consent to follow these Terms, We grant You a non-transferable,
+                      non-exclusive,
+                      worldwide license to use the Site and the Services only for Your personal, non-commercial purposes
+                      to
+                      find the similarity in the texts or other materials. No other license is granted. You may not
+                      modify,
+                      copy, distribute, transmit, display, perform, reproduce, publish, license, create derivative works
+                      from, transfer, or sell any information or services from the Site without our direct prior written
+                      consent. While UNIPREP provides comprehensive services to enhance your career, it is important to
+                      note that the platform and the company are not responsible for any prospective or specific growth
+                      in your career or choice you may make.
+                    </p><br>
+                    <label style="font-size: 1rem; text-decoration: underline;" for="">LICENSE BY YOU</label><br>
                     <p>
-                      <b>B. Is a Terms and Conditions required?</b><br />
-                      roin efficitur vestibulum molestie. Nam urna justo, ornare
-                      commodo sem eget, pretium lobortis nisi. Curabitur ac
-                      felis pharetra nunc molestie semper quis eu mauris.
-                      Aliquam mollis, arcu in blandit cursus, lacus est aliquam
-                      dui, vitae suscipit orci massa.
-                    </p>
+                      When You upload, submit, store, send or receive Text information to,
+                      or from our Services, You give/grant to Us (Our representatives, agents, employees) a worldwide,
+                      non-exclusive, royalty-free, perpetual, irrevocable license to use, host, store, create derivative
+                      works (such as those resulting from translations, adaptations or other changes), reproduce such
+                      content. The rights that You grant by this license are for the limited purpose of operating,
+                      performing and improving our Services, and developing new ones. This license shall survive
+                      termination or suspension of these Terms notwithstanding the reason for such termination or
+                      suspension. Any suggestions you give or messages sent on the chat window do
+                      not grant any license or promise to enhance your career accomplishments in any way.
+                    </p><br>
+                    <label style="font-size: 1rem; text-decoration: underline;" for="">ACCEPTABLE USE POLICY</label><br>
                     <p>
-                      <b>2. What are Terms and Conditions</b><br />
-                      Sed non dui aliquam, ullamcorper est non, aliquet mauris.
-                      Quisque lacus ligula, dapibus nec dignissim non, tincidunt
-                      vel quam. Etiam porttitor iaculis odio. Cras sagittis nunc
-                      lectus, in condimentum ligula ornare at. Etiam sagittis
-                      malesuada nisl. Duis volutpat ligula ante. Sed cursus,
-                      tortor a pellentesque pulvinar, lorem ipsum gravida elit,
-                      id posuere elit neque in est. Mauris ex justo, tincidunt
-                      at suscipit quis, pretium a mi. Quisque consequat nisl
-                      nulla, dignissim gravida ipsum ultrices et. Morbi pharetra
-                      non massa at cursus. Vivamus convallis dui eu nisl
-                      blandit, vel convallis nisi dapibus.
-                    </p>
-                    <br />
-                    <p>
-                      <b>3. Is a Terms and Conditions required?</b><br />
-                      roin efficitur vestibulum molestie. Nam urna justo, ornare
-                      commodo sem eget, pretium lobortis nisi. Curabitur ac
-                      felis pharetra nunc molestie semper quis eu mauris.
-                      Aliquam mollis, arcu in blandit cursus, lacus est aliquam
-                      dui, vitae suscipit orci massa.
-                    </p>
+                      You shall use the Services in full compliance with these Terms. You acknowledge that the main
+                      purpose
+                      of the Services is to provide guidance through information related to career in general and study
+                      abroad. It does
+                      not target any specific course details or expertise. Thereby the user agrees to use UNIPREP for
+                      gaining information
+                      in any manner or to any extent provided. We do not assure of any kind of certain results to be
+                      achieved from the use
+                      of UNIPREP. The usage of the Services for any other purposes of any other materials than the
+                      educational
+                      records or materials related to Your own internalactivities shall be previously agreed with Us.
+                    </p><br>
+                    <div>
+                      <label for="">You shall not:</label>
+                    </div>
+                    <ol>
+                      <li>copy, modify duplicate or create derivative works based on the Site and the Services;</li>
+                      <li>Republish, download, display, transmit, or distribute all or any portion of the Site or
+                        software included in Site in any form or media or by any means;
+                      </li>
+                      <li>access content or data not intended for You, log onto a server or account that You are not
+                        authorized to access, or otherwise violate or attempt to violate any security or authentication
+                        feature or measures of the Site or the Services;
+                      </li>
+                      <li>attempt to access or derive the source code or architecture of the Services software;
+                      </li>
+                      <li>attempt to reverse compile, disassemble, reverse engineer or otherwise reduce to
+                        human-perceivable form all or any part of the Site or software included in the Site;
+                      </li>
+                      <li>attempt to probe, scan or test the vulnerability of the Site, or any associated system or
+                        network,
+                        or to breach any security or authentication feature or measures of the Site;
+                      </li>
+                      <li>
+                        interfere or attempt to interfere with Services to any User, host or network, including,
+                        without limitation, by means of submitting malicious software or computer code to the Site or
+                        the Services,
+                        load testing, overloading, "flooding," "spamming," "mail bombing," "crashing,";
+                      </li>
+                      <li>
+                        email or otherwise transmit any content that (i) infringes any intellectual property or other
+                        proprietary rights; (ii) You do not have a right to upload under any law or under contractual or
+                        fiduciary relationships; (iii) contains any malicious code, files or programs designed to
+                        interrupt,
+                        destroy or limit the functionality of any computer software or hardware or telecommunications
+                        equipment;
+                        (iv) poses or creates a privacy or security risk to any person or entity; (v) constitutes
+                        unsolicited or
+                        unauthorized materials; or (vi) is otherwise objectionable;
+
+                      </li>
+                      <li>
+                        automate access to the Site or the Services, including, without limitation, through the use of
+                        bots,
+                        scrapers or other similar devices;
+                      </li>
+                      <li>
+                        use or access any services, or software in order to build a competitive product, service or
+                        solution;
+
+                      </li>
+                      <li>access, store, distribute or transmit via, during the course of its use of the Site
+                        information that is
+                        unlawful, harmful, threatening, defamatory, obscene, infringing, harassing or racially or
+                        ethnically
+                        offensive, facilitates illegal activity, depicts sexually explicit images, promotes unlawful
+                        violence,
+                        is discriminatory based on race, gender, color, religious belief, sexual orientation,
+                        disability,
+                        or any other illegal activity or causes damage or injury to any person or property;
+                      </li>
+                      <li>violate any applicable law or regulations.
+                      </li>
+
+                    </ol>
                   </div>
+                  <br>
+                  <p>You shall use all reasonable endeavors to prevent any unauthorized access to, or use of, the Site
+                    and, in the
+                    event of any such
+                    unauthorized access or use, promptly notify Us.</p><br>
+                  <p>
+                    You represent and warrant that You are not on a list of persons barred and are not the subject of
+                    any
+                    sanction administered or enforced by the law
+
+                  </p><br>
+                  <hr>
+                  <br>
+                  <h2>REGISTRATION AND USER ACCOUNT</h2><br>
+                  <p>
+                    You will need to pass the registration procedure and create Your Account to
+                    obtain access to the Services. The registration procedure covers the transfer of Your Personal Data
+                    to Us by filing the information. By completing the registration procedure on the Site, You agree to
+                    use the Services in accordance with these Terms and Your User Agreement, which will be provided
+                    after the registration. You agree to provide us with accurate and complete registration information.
+                    The failure to provide accurate information may affect Your use of the Services.
+                  </p><br>
+                  <p>
+                    To learn more about the collection, storage and transfer of the User's Personal Data, please read
+                    our Privacy Policy and Cookie Policy.
+                  </p><br>
+                  <p>
+                    You are solely responsible for all activity in connection with access to the Site and/or the
+                    Services through Your Account or using Your password, and for the security of Your computer systems,
+                    and in no event shall We be liable for any loss or damages relating to such activity.
+                  </p><br>
+                  <hr><br>
+                  <h2>FEES AND PAYMENT</h2>
+                  <br>
+                  <p>The amount of fees and payments for the use of the Services depends on the amount of the ordered
+                    Users' Account or Search requests (Page) You have chosen. UNIABROAD and </p><br>
+                  <hr><br>
+                  <h2>INTELLECTUAL PROPERTY RIGHTS</h2><br>
+                  <p>You acknowledge that all rights in and to the Site and its content, including visual interface,
+                    graphics, design, text materials, compilations, computer code, software and all other elements of
+                    the Site are and shall remain Our sole property.</p><br>
+                  <p>
+                    As expressly stated herein, these Terms do not grant You any rights to, or in, patents, copyrights,
+                    database rights, trade secrets, trade names, trademarks (whether registered or unregistered), or any
+                    other rights or licenses in respect of the Site and Services.
+                  </p><br>
+                  <p>
+                    We confirm that We have all the rights in relation to the Site and Services that are necessary to
+                    grant all the rights We purport to grant under and in accordance with these Terms.
+                  </p><br>
+                  <hr>
+                  <br>
+                  <h2>MODIFICATION OF SITE AND SERVICES</h2><br>
+                  <p>We may from time to time modify, alternate or change design, functionality or information contained
+                    on the Site at Our own discretion without any prior notice to You.</p><br>
+                  <hr>
+                  <br>
+                  <h2>MODIFICATION OF THESE TERMS</h2><br>
+                  <br>
+                  <p>We reserve the right to change these Terms of Use or the User Agreement. We may notify You about
+                    such changes in Our legal documents, including these Terms of Use, User Agreement, Service Level
+                    Agreement and/or any other kind of legal and information document regarding the Site, the Services
+                    and/or any other area of relations between You and Us, by the email or through a notification on the
+                    Site. The updates become legally binding after the posting of the renewed Terms on the Site. Your
+                    use of the Services following any such update or revision constitutes Your agreement to be bound by
+                    and comply with these Terms as updated or revised.</p>
+                  <br>
+                  <p>
+                    No modification to these Terms of Use or any other legal document at this Site by You is allowed.
+                    Any abovementioned modification, alteration, or change of any kind without Our express written
+                    consent shall be negligent.
+                  </p>
+                  <br>
+                  <hr>
+                  <br>
+                  <h2>TERMINATION</h2>
+                  <br>
+                  <p>
+                    We reserve the right at any time without liability to You at Our sole discretion to limit, suspend
+                    or revoke Your access to the Services in case of any breach of these Terms of Use or any other
+                    written Agreement between You and Us.
+                  </p><br>
+                  <hr>
+                  <br>
+                  <h2>WARRANTY, DISCLAIMER and LIMITATION of LIABILITY</h2><br>
+                  <p>Other than as expressly set out in these terms of use or legal documents at this site, neither we
+                    nor our licensees, vendors, agents, or affiliates make any specific promises, warranties or
+                    representation about the site. site and services are provided on "as is" and "as available" basis.
+                    We do not make any statements or give any warranties about the results obtained by using the site
+                    and services, the specific functions of the site or it's reliability, availability, accuracy or
+                    ability to meet your needs. we do not warrant that access to the site and services will be
+                    uninterrupted or error-free, or that defects in the site or services will be corrected. some
+                    jurisdictions provide for certain warranties, like the implied warranty of merchantability, fitness
+                    for a particular purpose and non-infringement. To the fullest extent permitted by law, we exclude
+                    all such warranties.
+                  </p><br>
+                  <p>
+                    you acknowledge and agree that the services have information purposes only and provide the
+                    similarity check of your text information. In any case, the results of the similarity check provided
+                    by the services shall be subject to your further review. we shall not be responsible or liable for
+                    any results of your services use, their interpretation and consequences of such interpretation.
+
+                  </p><br>
+                  <p>
+                    we and our licensees, vendors, agents, and affiliates will not be responsible for loss of profits,
+                    revenues or data, admissions, financial losses or indirect, special, consequential, exemplary or
+                    punitive damages.
+                  </p><br>
+                  <p>
+                    under no circumstances shall we and our licensees, vendors, agents, or affiliates be liable for any
+                    loss or damage that is not reasonably foreseeable.
+                  </p>
+                  <hr>
+                  <h2>
+                    LOGOS USE
+                  </h2>
+                  <br>
+                  <p>
+                    We hereby grant to You a limited, non-exclusive, non-transferable, non-sublicensable, royalty-free
+                    and revocable license to use Our logo "UNIPREP" for the limited purposes subject to the terms and
+                    conditions of these Terms of Use.
+                  </p>
+                  <br>
+                  <p>
+                    Within the scope of the license granted to You here under You can list Us as Your counter party in
+                    Your Website and/or in Your advertising materials and display Our logo for these purposes. But in
+                    any case, You agree that any use of Our logo by You shall be subject to Our previous written
+                    approval.
+                  </p><br>
+                  <div>
+                    <label for="">You do not permit to make any changes to Our logo, including, but not limited
+                      to:</label>
+                    <ul>
+                      <li>Distort the logo by scaling disproportionally;
+                      </li>
+                      <li> Adjust the colors of or add gradients to the logo;</li>
+                      <li> Change the typeface;
+                      </li>
+                      <li>Reconfigure the logo or add embellishments like drop shadows;
+                      </li>
+                      <li>Outline the logo;
+                      </li>
+                      <li>Size the logo so small that it is not readable;
+                      </li>
+                      <li> Manipulate or alter the logo in any other way.
+                      </li>
+                    </ul>
+                  </div>
+                  <p>
+                    You agree not to challenge or assist others to challenge Our logo (except to the extent such
+                    restriction is prohibited by applicable law), and You agree not to register or attempt to register
+                    any domain names, trademarks, trade names, or other distinctive brand features that are confusingly
+                    similar to those of Us.
+                  </p>
+                  <br>
+                  <p>
+                    We reserve the right in Our sole discretion to terminate or modify Your permission to display Our
+                    logo and to take action against any use that does not conform to the terms and conditions set forth
+                    herein, infringes any of our intellectual property or other right, or violates applicable law. Any
+                    use of Our logo without Our prior written permission, other than as specifically authorized by these
+                    Terms of use, is strictly prohibited.
+                  </p><br>
+                  <p>
+                    All disputes related to these Terms of Use shall be resolved by negotiations between the parties,
+                    which agree to make all efforts to resolve the dispute.
+                  </p>
                 </div>
               </div>
             </div>
