@@ -69,17 +69,17 @@ export class ListSubModulesComponent implements OnInit {
     switch (this.currentModuleSlug) {
       case 'pre-application':
         this.currentModuleId = 1;
-        this.currentModuleName = 'Pre Application';
+        this.currentModuleName = 'Pre-Application';
         this.currentApiSlug = 'GetQuestionsCount';
         break;
       case 'post-application':
         this.currentModuleId = 2;
-        this.currentModuleName = 'Post Application';
+        this.currentModuleName = 'Post-Application';
         this.currentApiSlug = 'GetQuestionsCount';
         break;
       case 'post-admission':
         this.currentModuleId = 3;
-        this.currentModuleName = 'Post Admission';
+        this.currentModuleName = 'Post-Admission';
         this.currentApiSlug = 'GetQuestionsCount';
         break;
       case 'career-hub':
@@ -94,9 +94,10 @@ export class ListSubModulesComponent implements OnInit {
         break;
       default:
         this.currentModuleId = 6;
-        this.currentModuleName = 'Life At Country';
+        this.currentModuleName = 'Life At UK';
         this.currentApiSlug = 'GetQuestionsCount';
         break;
+      
     }
     this.loadModuleAndSubModule();
     if (this.route.snapshot.paramMap.get('id') == '2') {

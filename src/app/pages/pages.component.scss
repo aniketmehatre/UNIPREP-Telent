@@ -48,8 +48,9 @@ section {
       0 20px 27px 0 rgba(0, 0, 0, 0.05);
       backdrop-filter: saturate(200%) blur(30px);
       padding: 0.5rem;
-      font-size: 0.9rem;
-      font-weight: 600;
+      font-size: 14px;
+      font-weight: 500;
+      color: #727272;
       width: -webkit-fill-available;
       width: -moz-available;
       @include md {
