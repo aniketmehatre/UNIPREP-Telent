@@ -51,6 +51,7 @@ section {
       font-size: 0.9rem;
       font-weight: 600;
       width: -webkit-fill-available;
+      width: -moz-available;
       @include md {
         left: 0;
       }

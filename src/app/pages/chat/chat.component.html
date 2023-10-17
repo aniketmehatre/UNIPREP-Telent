@@ -1,5 +1,5 @@
 <div class="col-md-12">
-  <p-card class="col-12" >
+  <p-card class="col-12">
     <ng-template pTemplate="header">
       <span style="float: right">
         <p-overlayPanel #op>
@@ -161,15 +161,11 @@
         </div></section
     ></ng-template>
     <ng-template pTemplate="footer">
-      <div class="field col-12" [class]="fullscreen" #fullscreeneditor>
       <p-editor
         [(ngModel)]="textMessage"
         [style]="{ height: '100px' }"
-        [modules]="modules"
-        >
-        <ng-template pTemplate="header" style="visibility: hidden;"></ng-template>
-      </p-editor
-      ></div><br />
+      ></p-editor
+      ><br />
       <div class="text-end">
         <button
           (click)="confirm($event)"

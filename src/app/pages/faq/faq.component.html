@@ -9,57 +9,23 @@
                     <div class="row">
                         <div class="col-md-4">
                             <p><b>Table of content</b></p>
-                            <ul class="menulist">
-                                <li class="active">General</li>
-                                <li>Trust and safety</li>
-                                <li>Services</li>
-                                <li>Billing</li>
-                                <li>Office And Cleaning</li>
+                            <ul class="menulist" *ngFor="let faqcat of faqcatlist" (click)="onFaqcatClick(faqcat.id)">
+                                <li class="active">{{faqcat.name}}</li>
                             </ul>
                         </div>
                         <div class="col-md-8">
                             <p-accordion [multiple]="true" class="plain">
-                                <p-accordionTab header="How do i pay for the essentials or premium plan?">
-                                    <p>You can pay with a credit card or via net banking (if you are in Poland). We will
-                                        renew your subscription automatically at the end of every billing cycle.</p>
-                                    <p>You can pay with a credit card or via net banking (if you are in Poland). We will
-                                        renew your subscription automatically at the end of every billing cycle.</p>
-                                    <p>You can pay with a credit card or via net banking (if you are in Poland). We will
-                                        renew your subscription automatically at the end of every billing cycle.</p>
-                                </p-accordionTab>
-                                <p-accordionTab
-                                        header="Can i cancel my essentials or premium plan subscription at anytime?">
-                                    <p>You can pay with a credit card or via net banking (if you are in Poland). We will
-                                        renew your subscription automatically at the end of every billing cycle.</p>
-                                    <p>You can pay with a credit card or via net banking (if you are in Poland). We will
-                                        renew your subscription automatically at the end of every billing cycle.</p>
-                                    <p>You can pay with a credit card or via net banking (if you are in Poland). We will
-                                        renew your subscription automatically at the end of every billing cycle.</p>
-                                </p-accordionTab>
-                                <p-accordionTab header="We need to add new users to our team. How will that be billed?">
-                                    <p>You can pay with a credit card or via net banking (if you are in Poland). We will
-                                        renew your subscription automatically at the end of every billing cycle.</p>
-                                    <p>You can pay with a credit card or via net banking (if you are in Poland). We will
-                                        renew your subscription automatically at the end of every billing cycle.</p>
-                                    <p>You can pay with a credit card or via net banking (if you are in Poland). We will
-                                        renew your subscription automatically at the end of every billing cycle.</p>
-                                </p-accordionTab>
-                                <p-accordionTab header="Header 3">
-                                    <p>You can pay with a credit card or via net banking (if you are in Poland). We will
-                                        renew your subscription automatically at the end of every billing cycle.</p>
-                                    <p>You can pay with a credit card or via net banking (if you are in Poland). We will
-                                        renew your subscription automatically at the end of every billing cycle.</p>
-                                    <p>You can pay with a credit card or via net banking (if you are in Poland). We will
-                                        renew your subscription automatically at the end of every billing cycle.</p>
-                                </p-accordionTab>
-                                <p-accordionTab header="Header 3">
-                                    <p>You can pay with a credit card or via net banking (if you are in Poland). We will
-                                        renew your subscription automatically at the end of every billing cycle.</p>
-                                    <p>You can pay with a credit card or via net banking (if you are in Poland). We will
-                                        renew your subscription automatically at the end of every billing cycle.</p>
-                                    <p>You can pay with a credit card or via net banking (if you are in Poland). We will
-                                        renew your subscription automatically at the end of every billing cycle.</p>
-                                </p-accordionTab>
+                                <div class="col-md-8">
+                                    <p-accordion [multiple]="true" class="plain">
+                                        <div *ngFor="let faqlist of faqanswelist">
+                                        <p-accordionTab header={{faqlist.question}}>
+                                            <p>{{faqlist.answer}}</p>
+                                        </p-accordionTab>
+                                                                            
+                                    </div>
+                                    </p-accordion>
+        
+                                </div>
                             </p-accordion>
 
                         </div>

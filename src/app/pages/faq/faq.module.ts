@@ -4,6 +4,7 @@ import {CommonModule} from '@angular/common';
 import {FaqRoutingModule} from './faq-routing.module';
 import {FaqComponent} from './faq.component';
 import {AccordionModule} from "primeng/accordion";
+import { FaqService } from './faq.service';
 
 
 @NgModule({
@@ -14,6 +15,9 @@ import {AccordionModule} from "primeng/accordion";
         CommonModule,
         FaqRoutingModule,
         AccordionModule
+    ],
+    providers:[
+        FaqService
     ]
 })
 export class FaqModule {

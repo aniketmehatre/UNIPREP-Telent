@@ -22,7 +22,7 @@ export class EventsComponent implements OnInit {
   newfile = "none";
   countries: country[] = [];
   filterform:FormGroup;
-  perpage:number = 8;
+  perpage:number = 12;
   totalcount: number=0;
   totalcountpost:number=0;
   pageno:number = 1;
