@@ -43,15 +43,6 @@ export class ModalComponent implements OnInit {
     private toast: MessageService,
     private service: AuthService
   ) {
-    // WebsocketService.messages.subscribe(msg => {
-    //     this.received.push(msg);
-    //     console.log("Response from websocket: " + msg);
-    // });
-    // this.issueType = [
-    //     {label: 'Response delayed', name: 'Response delayed'},
-    //     {label: 'Unsatisfactory answer', name: 'Unsatisfactory answer'},
-    //     {label: 'Others', name: 'Others'},
-    // ];
     this.subs.sink = interval(5000).subscribe((x) => {
       this.getChatHistoryData();
     });
@@ -60,7 +51,6 @@ export class ModalComponent implements OnInit {
 
   ngOnInit() {
     this.questionLeft = "0";
-    //this.questionLeft =
     this.subs.sink = this.service.selectLogInData$().subscribe((data) => {
       if (data) {
         this.questionLeft = data.questions_left;

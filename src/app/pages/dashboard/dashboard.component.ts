@@ -6,6 +6,7 @@ import {Router} from "@angular/router";
 import {DataService} from 'src/app/data.service';
 import {MessageService} from "primeng/api";
 import {combineLatest} from "rxjs";
+import {select} from "@ngrx/store";
 
 @Component({
     selector: 'uni-dashboard',
@@ -164,15 +165,16 @@ export class DashboardComponent implements OnInit {
         //     return;
         // }
         this.countryLists.forEach((element: any) => {
-            if (element.id === selectedId) {
+            if (element.id === selectedId.id) {
                 this.selectedCountryName = element.country;
             }
         });
 
-        localStorage.setItem('countryId', selectedId);
+        localStorage.setItem('countryId', selectedId.id);
         this.loadApiData();
-        this.selectedCountryId = selectedId;
-        this.dataService.changeCountryId(selectedId);
+        this.selectedCountryId = selectedId.id;
+        this.dataService.changeCountryId(selectedId.id);
+        this.dataService.changeCountryFlag(selectedId.flag)
         // this.countryListData(this.selectedCountryId);
         // this.modalQuizProgressing(selectedId);
         // this.modalReadingProgressing(selectedId);

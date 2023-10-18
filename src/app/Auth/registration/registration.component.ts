@@ -260,12 +260,6 @@ export class RegistrationComponent implements OnInit {
         } else {
             this.toastr.add({severity: 'info', summary: 'Info', detail: 'Enter Above Filed'});
         }
-        // console.log(this.registrationForm.value)
-        // if (this.registrationForm.value.fullName != null && this.registrationForm.value.contactNumber) {
-        //   this.isMobileOTPSend = true;
-        // } else {
-        //   this.toastr.add({severity: 'info', summary: 'Info', detail: 'Enter Above Filed'});
-        // }
     }
 
     onValidateMobileOTP() {

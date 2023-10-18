@@ -14,6 +14,9 @@ export class DataService {
     public countryIdSource = new BehaviorSubject("2");
     countryId = this.countryIdSource.asObservable();
 
+    public countryFlagSource = new BehaviorSubject("http://40.80.95.32/uniprepapi/storage/app/public/country-flags/united-kingdom.svg");
+    countryFlag = this.countryFlagSource.asObservable();
+
     public timeoutStatusSource = new BehaviorSubject(0);
     timeoutStatus = this.timeoutStatusSource.asObservable();
 
@@ -35,6 +38,10 @@ export class DataService {
 
     changeCountryName(countryName: string) {
         this.countryNameSource.next(countryName);
+    }
+
+    changeCountryFlag(countryFlag: string) {
+        this.countryFlagSource.next(countryFlag);
     }
 
     changeCountryId(countryId: string) {
