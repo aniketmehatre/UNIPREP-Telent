@@ -43,7 +43,6 @@ import { GuidelineComponent } from "./chat/guidelines/guidelines.component";
 import { OverlayPanelModule } from "primeng/overlaypanel";
 import { InputTextareaModule } from "primeng/inputtextarea";
 import { TooltipModule } from "primeng/tooltip";
-import { RecentlyaddedquestionsComponent } from "./recentlyaddedquestions/recentlyaddedquestions.component";
 import { PrivacypolicyComponent } from "./footersection/privacypolicy/privacypolicy.component";
 
 @NgModule({
@@ -59,7 +58,6 @@ import { PrivacypolicyComponent } from "./footersection/privacypolicy/privacypol
     QuestionCreditComponent,
     ChatComponent,
     GuidelineComponent,
-    RecentlyaddedquestionsComponent,
     PrivacypolicyComponent,
   ],
   exports: [FooterStatusBoxComponent, HeaderSearchComponent],

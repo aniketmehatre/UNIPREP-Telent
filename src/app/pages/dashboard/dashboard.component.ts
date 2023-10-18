@@ -79,6 +79,7 @@ export class DashboardComponent implements OnInit {
 
     ngOnInit(): void {
        this.loadApiData();
+       localStorage.setItem("currentmodulenameforrecently",'')
     }
 
     loadApiData(){

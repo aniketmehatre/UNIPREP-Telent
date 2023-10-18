@@ -105,7 +105,7 @@ export class QuestionListComponent implements OnInit {
         this.currentModuleName = 'Life At Country';
         this.currentApiSlug = 'getlifeincountrysubmoduleqcount';
         break;
-    }
+    }   
     this.getSubmoduleName(this.countryId);
 
     this.dataService.currentMessage.subscribe(message => this.message = message)

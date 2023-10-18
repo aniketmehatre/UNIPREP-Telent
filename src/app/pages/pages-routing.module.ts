@@ -54,7 +54,7 @@ const routes: Routes = [
             },
             {
                 path: 'recentlyaddedquestions',
-                component: RecentlyaddedquestionsComponent
+                loadChildren: () => import('./recentlyaddedquestions/recentlyaddedques.module').then(m => m.RecentlyAddedQuestionsModule)
             },
             {
                 path: 'cards',
