@@ -43,6 +43,7 @@ import { GuidelineComponent } from "./chat/guidelines/guidelines.component";
 import { OverlayPanelModule } from "primeng/overlaypanel";
 import { InputTextareaModule } from "primeng/inputtextarea";
 import { TooltipModule } from "primeng/tooltip";
+import { PrivacypolicyComponent } from "./footersection/privacypolicy/privacypolicy.component";
 
 @NgModule({
   declarations: [
@@ -57,6 +58,7 @@ import { TooltipModule } from "primeng/tooltip";
     QuestionCreditComponent,
     ChatComponent,
     GuidelineComponent,
+    PrivacypolicyComponent,
   ],
   exports: [FooterStatusBoxComponent, HeaderSearchComponent],
   imports: [

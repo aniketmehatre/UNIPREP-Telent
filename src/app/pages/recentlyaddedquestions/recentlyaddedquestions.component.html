@@ -1,0 +1,131 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="card readingcard">
+            <div class="card-body text-center pt-0 h-100">
+                <div class="row justify-content-center">
+                    <div class="col-md-2 text-start">
+                        <!-- <p-button (click)="goBack()" icon="pi pi-arrow-left" styleClass="p-button-rounded p-button-text text-dark"></p-button> -->
+                    </div>
+                    <div class="col-md-8 text-center">
+                        <h5 class="select-title mb-1" tooltipPosition="top"
+                            pTooltip="Questions related to the application process are answered">
+                            {{currentModuleName}}<i class="questiontooltip fa-solid fa-circle-question"></i></h5>
+                    </div>
+                    <div class="col-md-2">
+                    </div>
+                </div>
+                <div class="row">
+                    <div *ngFor="let sub of listQuestion let i  = index;" class="col-lg-3 col-md-4 col-sm-4 col-xs-6 col-6">
+                        <div class="row w-100 h-100 m-0 justify-content-center">
+                            <div (click)="onQuestionClick(sub)"
+                                 class="card questioncard {{sub.read == 1 ? 'questionread' : ''}}">
+                                <div class="card-body px-0 d-flex justify-content-between flex-column">
+                                    <div class="row justify-content-center">
+                                        <div class="col">
+                                            <p class="text-start text-capitalize fw-medium questiontext">{{sub.question}}</p>
+                                        </div>
+                                         <!--<div class="col-md-4 text-center">
+                                            <p class="mb-3 circle text-center">{{i+1}}</p>
+                                        </div> -->
+                                        <div class="col-md-3 text-end" *ngIf="sub.popular == 1">
+                                                <i class="pi pi-heart-fill text-danger" pTooltip="Most Popular Question" tooltipPosition="right" style="font-size: 1.5rem"></i>
+                                        </div>
+                                        
+                                    </div>
+                                    <button class="btn w-full btn-primary m-0 primary-btn
+                                        {{sub.read == 1 ? 'readButton' : ''}}" pButton type="button">Read
+                                         Answer
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<p-dialog [(visible)]="isQuestionAnswerVisible" [draggable]="false" [modal]="true" [style]="{ width: '80vw' }"
+          class="questionmodal" header="Header" [maximizable]="true">
+    <ng-template class="p-3" pTemplate="header">
+        <h5 class="select-title text-center mb-3">{{currentModuleName}} </h5>
+        <span class="text-xl font-bold"></span>
+    </ng-template>
+    <div class="container-fluid px-5">
+        <div class="row mb-3">
+            <div class="col-md-12 mb-2">
+                <!-- <p-breadcrumb [model]="breadCrumb"  class="max-w-full"></p-breadcrumb> -->
+            </div>
+            <div class="col-md-2">
+                <button (click)="goToHome($event)" class="btn w-50 btn-secondary homecardbtn m-0 px-2 py-2">
+                    <i class="fa-solid h5 fa-house"></i><br>
+                    Home
+                </button>
+            </div>
+            <div class="col-md-8 d-flex align-items-center justify-content-center text-center">
+                <a role="button" *ngIf="isAnswerDialogVisiblePrev" (click)="clickPrevious(carousel, $event)"><i
+                        class="text-green h4 mx-3 mb-0 fa-solid fa-circle-chevron-left"></i></a>
+                <h5 class="mb-0">Question
+                    Number {{selectedQuestion + 1}}</h5>
+                <a role="button" *ngIf="isAnswerDialogVisibleNext" (click)="clickNext(carousel, $event)"><i
+                        class="text-green mx-3 h4 fa-solid mb-0 fa-circle-chevron-right"></i></a>
+            </div>
+            <div class="col-md-2 gap-2 d-flex">
+                <button (click)="openReport()" class="btn w-100 btn-primary homecardbtn m-0 px-2 py-2">
+                    <i class="fa-solid h5 fa-file-contract"></i>
+                    <br>
+                    Report
+                </button>
+                <button (click)="reviewBy()" class="btn w-100 btn-primary homecardbtn m-0 px-2 py-2">
+                    <i class="pi pi-user  h5 "></i><br>
+                    Reviewed By
+                </button>
+            </div>
+        </div>
+        <p-carousel #carousel (onPage)="setPage($event)" [circular]="true" [numScroll]="1" [numVisible]="1"
+                    [page]="selectedQuestion" [responsiveOptions]="responsiveOptions" [value]="data" class="answersection">
+            <ng-template [ngForOf]="data" let-i="index" let-val ngFor pTemplate="item">
+                <div class="row text-center">
+                    <div class="col-12">
+                        <div class="card answercard">
+                            <div class="card-body text-start">
+                                <div class="readingheight">
+
+                                    <p class="text-small blockquote text-start mb-0">Last updated at: {{val.updated_at | date}}</p>
+                                    <h3 class="unselectable">{{val.question}}</h3>
+                                    <div class="fw-medium worksans unselectable" style="white-space:pre-wrap;" [innerHTML]="val.answer"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </ng-template>
+        </p-carousel>
+    </div>
+    <ng-template class="p-3" pTemplate="footer">
+        <div class="container-fluid px-5">
+            <div class="row mt-5 mb-4">
+                <div class="col-md-5">
+                    <h5 class="text-start" *ngIf="videoLinks">Recommended Videos</h5>
+                    <div class="d-flex flex-wrap gap-3">
+                        <a class="px-4 m-0 py-2 btn btn-primary btn-rounded" target="_blank" href="{{videoL.link}}" *ngFor="let videoL of videoLinks;let ind=index;">Video {{ind+1}} &nbsp;<i class="fa-solid fa-video"></i></a>
+                    </div>
+                </div>
+                <div class="col-md-5">
+                    <h5 class="text-start" *ngIf="refLink">Recommended Links</h5>
+                    <div class="d-flex flex-wrap gap-3">
+                        <a class="px-4 m-0 py-2 btn btn-secondary btn-rounded" target="_blank" href="{{refL.link}}" *ngFor="let refL of refLink;let ind=index;">Link {{ind+1}} &nbsp;<i class="fa-solid fa-link"></i></a>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <button class="btn w-100 btn-primary homecardbtn m-0 px-2 py-2" (click)="onClickAsk()">
+                        <i class="fa-solid h5 fa-file-contract"></i>
+                        <br>
+                        Click here to ask<br>Personalised Questions
+                    </button>
+                </div>
+            </div>
+        </div>
+    </ng-template>
+</p-dialog>

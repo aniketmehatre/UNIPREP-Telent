@@ -98,6 +98,7 @@ export class ListSubModulesComponent implements OnInit {
         this.currentApiSlug = 'GetQuestionsCount';
         break;
     }
+    localStorage.setItem("currentmodulenameforrecently",this.currentModuleName);
     this.loadModuleAndSubModule();
     if (this.route.snapshot.paramMap.get('id') == '2') {
       this.startQuiz();

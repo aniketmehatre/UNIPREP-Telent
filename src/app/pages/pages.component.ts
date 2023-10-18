@@ -17,11 +17,12 @@ export class PagesComponent implements OnInit, OnDestroy {
         ? "pi-align-right"
         : "pi-align-justify";
     private subs = new SubSink();
-    constructor(private pageFacade: PageFacadeService, router: Router) {
+    constructor(private pageFacade: PageFacadeService, router: Router,) {
         router.events.subscribe((val) => {
             if(val instanceof NavigationEnd){
                 if(val.url.includes('subscriptions') || val.url.includes('faq') || val.url.includes('support-help')
-                || val.url.includes('usermanagement')|| val.url.includes('chat') || val.url.includes('guideline')){
+                || val.url.includes('usermanagement')|| val.url.includes('chat') || val.url.includes('guideline')
+                ||val.url.includes('helpandsupport')||val.url.includes('privacypolicy')){
                     this.showSearch = false;
                     this.isFooterBoxVisible = false;
                 }else{
