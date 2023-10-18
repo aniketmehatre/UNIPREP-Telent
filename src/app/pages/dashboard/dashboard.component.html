@@ -4,21 +4,41 @@
       <div class="card mt-3">
         <div class="card-body text-center">
           <h5>SELECTED COUNTRY</h5>
-          <div class="container-fluid">
-            <div class="row mb-0 justify-content-center">
-              <div *ngFor="let v of countryLists" class="col" role="button">
-                <div (click)="selectCountry(v)"
-                  class="row justify-content-center {{ selectedCountryId == v.id ? 'country-border pr-4 pl-4' : ''}}">
-                  <img alt="country" class="countryicon" src="{{v.flag}}"
-                    style="{{ selectedCountryId == v.id ? 'transform: scale(0.75);' : 'transform: scale(0.5);'}}"
-                    width="{{ selectedCountryId == v.id ? '350px' : '100px'}}" />
-                  <p
-                    class="mb-2 text-center text-sm text-capitalize {{ selectedCountryId == v.id ? 'country-text' : 'country-text-small'}}">
-                    {{v.country}}
-                  </p>
+
+          <div class="container-fluid bt-1">
+            <div class="row mb-0 justify-content-center mt-2" *ngIf="countryLists.length<=15;else other_content">
+              <p-carousel [value]="countryLists" [numVisible]="7" [numScroll]="7" [circular]="true"
+                [responsiveOptions]="responsiveOptions">
+                <ng-template let-v pTemplate="item">
+                  <div (click)="selectCountry(v)"
+                    class="row justify-content-center {{ selectedCountryId == v.id ? 'country-border pr-4 pl-4' : ''}}">
+                    <img alt="country" class="countryicon" src="{{v.flag}}"
+                      style="{{ selectedCountryId == v.id ? 'transform: scale(0.75);' : 'transform: scale(0.5);'}}"
+                      width="{{ selectedCountryId == v.id ? '350px' : '100px'}}" />
+                    <p
+                      class="mb-2 text-center text-sm text-capitalize {{ selectedCountryId == v.id ? 'country-text' : 'country-text-small'}}">
+                      {{v.country | uppercase}}
+                    </p>
+                  </div>
+                </ng-template>
+              </p-carousel>
+            </div>
+            <ng-template #other_content>
+              <div class="row mb-0 justify-content-center mt-2">
+                <div *ngFor="let v of countryLists" class="col" role="button">
+                  <div (click)="selectCountry(v.id)"
+                    class="row justify-content-center {{ selectedCountryId == v.id ? 'country-border pr-4 pl-4' : ''}}">
+                    <img alt="country" class="countryicon" src="{{v.flag}}"
+                      style="{{ selectedCountryId == v.id ? 'transform: scale(0.75);' : 'transform: scale(0.5);'}}"
+                      width="{{ selectedCountryId == v.id ? '350px' : '100px'}}" />
+                    <p
+                      class="mb-2 text-center text-sm text-capitalize {{ selectedCountryId == v.id ? 'country-text' : 'country-text-small'}}">
+                      {{v.country | uppercase}}
+                    </p>
+                  </div>
                 </div>
               </div>
-            </div>
+            </ng-template>
           </div>
         </div>
         <div class="row mb-0 justify-content-center text-center">

@@ -77,17 +77,17 @@ export class QuestionListComponent implements OnInit {
     switch (this.currentSubModuleSlug) {
       case 'pre-application':
         this.currentModuleId = 1;
-        this.currentModuleName = 'Pre Application';
+        this.currentModuleName = 'Pre-Application';
         this.currentApiSlug = 'getpreapplicationsubmoduleqcount';
         break;
       case 'post-application':
         this.currentModuleId = 2;
-        this.currentModuleName = 'Post Application';
+        this.currentModuleName = 'Post-Application';
         this.currentApiSlug = 'getpostapplicationsubmoduleqcount';
         break;
       case 'post-admission':
         this.currentModuleId = 3;
-        this.currentModuleName = 'Post Admission';
+        this.currentModuleName = 'Post-Admission';
         this.currentApiSlug = 'getpostadmissionsubmoduleqcount';
         break;
       case 'career-hub':
@@ -102,7 +102,7 @@ export class QuestionListComponent implements OnInit {
         break;
       default:
         this.currentModuleId = 6;
-        this.currentModuleName = 'Life At Country';
+        this.currentModuleName = 'Life At UK';
         this.currentApiSlug = 'getlifeincountrysubmoduleqcount';
         break;
     }   

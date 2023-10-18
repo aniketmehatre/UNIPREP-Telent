@@ -79,8 +79,9 @@ export class DashboardComponent implements OnInit {
     }
 
     ngOnInit(): void {
-       this.loadApiData();
        localStorage.setItem("currentmodulenameforrecently",'')
+        this.loadApiData();
+
     }
 
     loadApiData(){
@@ -124,6 +125,7 @@ export class DashboardComponent implements OnInit {
                             this.dataService.changeCountryName(element.country);
                         }
                     });
+                    console.log(this.countryLists.length);
                 }
                 if(getModuleReadProgression){
                     this.readingProgressings = getModuleReadProgression.module;
@@ -185,13 +187,13 @@ export class DashboardComponent implements OnInit {
     onClickReadProgression(data: any) {
         let moduleName = "";
         switch (data.module_name) {
-            case "Pre Application":
+            case "Pre-Application":
                 moduleName = "pre-application"
                 break;
-            case "Post Application":
+            case "Post-Application":
                 moduleName = "post-application"
                 break;
-            case "Post Admission":
+            case "Post-Admission":
                 moduleName = "post-admission"
                 break;
             case "Career Hub":
@@ -210,13 +212,13 @@ export class DashboardComponent implements OnInit {
     onClickQuizProgression(data: any) {
         let moduleName = "";
         switch (data.module_name) {
-            case "Pre Application":
+            case "Pre-Application":
                 moduleName = "pre-application"
                 break;
-            case "Post Application":
+            case "Post-Application":
                 moduleName = "post-application"
                 break;
-            case "Post Admission":
+            case "Post-Admission":
                 moduleName = "post-admission"
                 break;
             case "Career Hub":
