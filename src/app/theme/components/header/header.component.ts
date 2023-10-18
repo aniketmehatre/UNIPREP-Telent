@@ -68,6 +68,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   password: string = "password";
   show1 = false;
   password1: string = "password";
+  headerFlag: any = "";
   constructor(
     private modalService: ModalService,
     private router: Router,
@@ -194,6 +195,11 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.dataService.chatTriggerSource.subscribe((message) => {
       if (message === "open chat window") {
         this.openModal();
+      }
+    });
+    this.dataService.countryFlagSource.subscribe((data) => {
+      if(data != ""){
+        this.headerFlag = data;
       }
     });
     this.dataService.openReportWindowSource.subscribe((data) => {
