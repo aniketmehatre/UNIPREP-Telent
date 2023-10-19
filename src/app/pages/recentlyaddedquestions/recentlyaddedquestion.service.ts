@@ -9,9 +9,9 @@ import { Observable } from 'rxjs';
 export class RecentlyaddedquestionService {
 
   constructor(private http: HttpClient,) { }
-  getrecentquestionadd(val: any) {
+  getRecentlyAddedQuestions(req: any) {
     const headers = new HttpHeaders().set("Accept", "application/json");
-    return this.http.post<any>(environment.ApiUrl + "/getrecentlyaddedfaqquestions",val, {
+    return this.http.post<any>(environment.ApiUrl + "/getrecentlyaddedfaqquestions",req, {
         headers: headers,
     });
   }
