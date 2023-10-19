@@ -486,6 +486,25 @@
                             </div>
                           </div>
                         </div>
+                        <div class="row g-3">
+                          <div class="col-6">
+                            <label for="country">Home Country
+                            </label>
+                            <div class="p-inputgroup">
+                              <div class="p-inputgroup-addon">
+                                <img class="bg-image text-center"
+                                  src="../../../uniprep-assets/images/icons/Uniprep_Icons_select_country.png" />
+                              </div>
+                              <p-dropdown formControlName="country" [options]="countryList"
+                                [autoDisplayFirst]="false" optionLabel="country"></p-dropdown>
+                            </div>
+                            <div *ngIf="submitted && f.country.errors" class="invalid-feedback">
+                              <div *ngIf="f.country.errors.required">
+                                Country is required
+                              </div>
+                            </div>
+                          </div>
+                        </div>
                         <br />
                         <div class="form-check mb-3">
                           <input class="form-check-input" class="input_checkbox" type="checkbox" id="terms"

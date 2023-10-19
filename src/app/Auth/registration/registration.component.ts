@@ -101,6 +101,7 @@ export class RegistrationComponent implements OnInit {
                 password: ["", [Validators.required, Validators.minLength(8), matchValidator('confirmPassword', true)]],
                 confirmPassword: ["", [Validators.required, matchValidator('password')]],
                 terms: [false, [Validators.required]],
+                country: ["", [Validators.required]],
             }
         );
 
@@ -204,6 +205,7 @@ export class RegistrationComponent implements OnInit {
             password_confirmation: this.registrationForm.value.password,
             platform_id: 1,
             usertype_id: 1,
+            country_id: this.registrationForm.value.country.id,
         };
 
         this.service.Registraion(data).subscribe(
