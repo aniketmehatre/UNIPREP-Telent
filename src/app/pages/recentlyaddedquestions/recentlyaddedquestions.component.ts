@@ -1,22 +1,22 @@
-import {AfterContentChecked, ChangeDetectorRef, Component, OnInit, ViewChild} from '@angular/core';
-import {Observable} from "rxjs";
-import {ModuleListSub} from "../../../@Models/module.model";
-import {ReadQuestion} from "../../../@Models/read-question.model";
-import {ListQuestion} from "../../../@Models/question-list.model";
-import {MenuItem} from "primeng/api";
-import {ModuleServiceService} from "../../module-store/module-service.service";
-import {ModuleStoreService} from "../../module-store/module-store.service";
-import {DataService} from "../../../data.service";
-import {ActivatedRoute, Router} from "@angular/router";
+import {Component, OnInit, ViewChild} from '@angular/core';
+import {ActivatedRoute, Router} from '@angular/router';
+import {Observable} from 'rxjs';
+import {ListQuestion} from 'src/app/@Models/question-list.model';
+import {DataService} from 'src/app/data.service';
+import {ModuleServiceService} from '../module-store/module-service.service';
+import {ReadQuestion} from 'src/app/@Models/read-question.model';
+import {RecentlyaddedquestionService} from './recentlyaddedquestion.service';
 import {Location} from "@angular/common";
+import {ModuleListSub} from "../../@Models/module.model";
+import {MenuItem} from "primeng/api";
 import {DomSanitizer} from "@angular/platform-browser";
 
 @Component({
-  selector: 'uni-question-list',
-  templateUrl: './question-list.component.html',
-  styleUrls: ['./question-list.component.scss']
+  selector: 'uni-recentlyaddedquestions',
+  templateUrl: './recentlyaddedquestions.component.html',
+  styleUrls: ['./recentlyaddedquestions.component.scss']
 })
-export class QuestionListComponent implements OnInit {
+export class RecentlyaddedquestionsComponent implements OnInit {
   @ViewChild('carouselVideoElm') carouselVideoElm: any;
   @ViewChild('carouselRefElm') carouselRefElm: any;
   @ViewChild('carouselPopupVideoElm') carouselPopupVideoElm: any;
@@ -56,17 +56,17 @@ export class QuestionListComponent implements OnInit {
   currentModuleId: any
   currentCountryId: any
   currentApiSlug: any;
-  constructor(private moduleListService: ModuleServiceService, private moduleStoreService: ModuleStoreService,
-              private dataService: DataService, private route: ActivatedRoute, private _location: Location,
+  listQuestion:any[]=[];
+  listQuestions: any;
+
+  constructor(private route: ActivatedRoute, private dataService: DataService,
+              private moduleListService: ModuleServiceService, private service: RecentlyaddedquestionService,
+              private _location: Location,
               private _sanitizer: DomSanitizer, private router: Router) {
   }
 
   ngOnInit(): void {
-    this.route.params.subscribe(params => {
-      this.loadInit();
-      this.getSubmoduleName(this.countryId);
-    });
-
+    this.loadInit()
   }
 
   loadInit(){
@@ -74,42 +74,13 @@ export class QuestionListComponent implements OnInit {
 
     this.subModuleId = this.route.snapshot.paramMap.get('id');
     this.currentSubModuleSlug = this.route.snapshot.paramMap.get('module_name');
-    switch (this.currentSubModuleSlug) {
-      case 'pre-application':
-        this.currentModuleId = 1;
-        this.currentModuleName = 'Pre-Application';
-        this.currentApiSlug = 'getpreapplicationsubmoduleqcount';
-        break;
-      case 'post-application':
-        this.currentModuleId = 2;
-        this.currentModuleName = 'Post-Application';
-        this.currentApiSlug = 'getpostapplicationsubmoduleqcount';
-        break;
-      case 'post-admission':
-        this.currentModuleId = 3;
-        this.currentModuleName = 'Post-Admission';
-        this.currentApiSlug = 'getpostadmissionsubmoduleqcount';
-        break;
-      case 'career-hub':
-        this.currentModuleId = 4;
-        this.currentModuleName = 'Career Hub';
-        this.currentApiSlug = 'getcareerhubsubmoduleqcount';
-        break;
-      case 'university':
-        this.currentModuleId = 5;
-        this.currentModuleName = 'University';
-        this.currentApiSlug = 'getuniversitysubmoduleqcount';
-        break;
-      default:
-        this.currentModuleId = 6;
-        this.currentModuleName = 'Life At UK';
-        this.currentApiSlug = 'getlifeincountrysubmoduleqcount';
-        break;
-    }   
-    this.getSubmoduleName(this.countryId);
+    //this.getSubmoduleName(this.countryId);
 
     this.dataService.currentMessage.subscribe(message => this.message = message)
-    this.breadCrumb = [{ label: this.currentModuleName,command: (event) =>this.gotomodulebreadcrump() }, { label: this.moduleName, command: (event) =>this.goToHomebreadcrump() }, { label: 'Question' }];
+    this.breadCrumb = [{
+      label: this.currentModuleName,
+      command: (event) => this.gotomodulebreadcrump()
+    }, {label: this.moduleName, command: (event) => this.goToHomebreadcrump()}, {label: 'Question'}];
 
     this.responsiveOptions = [
       {
@@ -128,16 +99,24 @@ export class QuestionListComponent implements OnInit {
         numScroll: 1
       }
     ];
-    this.listQuestion$ = this.moduleListService.questionList$();
-    let data = {
-      countryId: Number(localStorage.getItem('countryId')),
-      moduleId: this.currentModuleId,
-      submoduleId: Number(this.subModuleId)
+    // this.listQuestion$ = this.moduleListService.questionList$();
+    // let data = {
+    //   countryId: Number(localStorage.getItem('countryId')),
+    //   moduleId: this.currentModuleId,
+    //   submoduleId: Number(this.subModuleId)
+    // }
+    // this.moduleListService.loadQuestionList(data);
+    let req = {
+      getcountry_id: this.countryId,
+      perpage: 10,
+      page: 1,
     }
-    this.moduleListService.loadQuestionList(data);
+    this.service.getRecentlyAddedQuestions(req).subscribe((response) => {
+      this.listQuestions = response.recentlyaddedfaqquestions;
+    })
   }
 
-  goBack(){
+  goBack() {
     this._location.back();
   }
 
@@ -149,7 +128,7 @@ export class QuestionListComponent implements OnInit {
     this.moduleListService.loadSubModules(data);
     this.subModules$ = this.moduleListService.subModuleList$();
     this.subModules$.subscribe(event => {
-      if(event){
+      if (event) {
         event.filter(data => {
           if (data.id == this.subModuleId) {
             this.moduleName = data.submodule_name;
@@ -178,7 +157,10 @@ export class QuestionListComponent implements OnInit {
     this.selectedQuestion = index;
     this.positionNumber = index;
 
-    this.breadCrumb = [{ label: this.currentModuleName,command: (event) =>this.gotomodulebreadcrump() }, { label: this.moduleName, command: (event) => this.goToHomebreadcrump() }, { label: `Question ${index + 1}` }];
+    this.breadCrumb = [{
+      label: this.currentModuleName,
+      command: (event) => this.gotomodulebreadcrump()
+    }, {label: this.moduleName, command: (event) => this.goToHomebreadcrump()}, {label: `Question ${index + 1}`}];
 
     this.isQuestionAnswerVisible = true;
     this.data.filter((res: any) => {
@@ -206,7 +188,7 @@ export class QuestionListComponent implements OnInit {
     this.readQuestion(data);
   }
 
-  readQuestion(data: any){
+  readQuestion(data: any) {
     this.moduleListService.readQuestion(data);
     this.readQue$ = this.moduleListService.readQuestionMessage$();
     let data1 = {
@@ -232,7 +214,10 @@ export class QuestionListComponent implements OnInit {
       }
     });
     this.positionNumber = pageNum + 1;
-    this.breadCrumb = [{ label: this.currentModuleName,command: (event) =>this.gotomodulebreadcrump() }, { label: this.moduleName , command: (event) => this.goToHomebreadcrump()}, { label: `Question ${pageNum + 1}` }];
+    this.breadCrumb = [{
+      label: this.currentModuleName,
+      command: (event) => this.gotomodulebreadcrump()
+    }, {label: this.moduleName, command: (event) => this.goToHomebreadcrump()}, {label: `Question ${pageNum + 1}`}];
   }
 
   clickPrevious(carousel: any, event: any) {
@@ -321,7 +306,7 @@ export class QuestionListComponent implements OnInit {
   }
 
   clickNextRef(event: any) {
-    if (this.selectedRefLink >= (this.refLink.length/2) - 1) {
+    if (this.selectedRefLink >= (this.refLink.length / 2) - 1) {
       return;
     }
     this.selectedRefLink += 1;
@@ -359,23 +344,25 @@ export class QuestionListComponent implements OnInit {
   goToHome(event: any) {
     this.isQuestionAnswerVisible = false;
   }
-  goToHomebreadcrump(){
+
+  goToHomebreadcrump() {
     this.isQuestionAnswerVisible = false;
   }
-  gotomodulebreadcrump(){
-   if( this.currentModuleId == 1){
-    this.router.navigate(['/pages/modules/pre-application'])
-   }else if(this.currentModuleId == 2){
-    this.router.navigate(['/pages/modules/post-application'])
-   }else if(this.currentModuleId == 3){
-    this.router.navigate(['//pages/modules/post-admission'])
-   }else if(this.currentModuleId == 4){
-    this.router.navigate(['/pages/modules/career-hub'])
-   }else if(this.currentModuleId == 5){
-    this.router.navigate(['/pages/modules/university'])
-   }else if(this.currentModuleId == 6){
-    this.router.navigate(['/pages/modules/life-at-country'])
-   }
+
+  gotomodulebreadcrump() {
+    if (this.currentModuleId == 1) {
+      this.router.navigate(['/pages/modules/pre-application'])
+    } else if (this.currentModuleId == 2) {
+      this.router.navigate(['/pages/modules/post-application'])
+    } else if (this.currentModuleId == 3) {
+      this.router.navigate(['//pages/modules/post-admission'])
+    } else if (this.currentModuleId == 4) {
+      this.router.navigate(['/pages/modules/career-hub'])
+    } else if (this.currentModuleId == 5) {
+      this.router.navigate(['/pages/modules/university'])
+    } else if (this.currentModuleId == 6) {
+      this.router.navigate(['/pages/modules/life-at-country'])
+    }
   }
 
   // popup video prev
@@ -393,7 +380,7 @@ export class QuestionListComponent implements OnInit {
     if (this.selectedVideo >= this.videoLinks.length - 1) {
       return;
     }
-    let vdoLinks = this.videoLinks.find((x : any) => x.id == this.selectedVideo)
+    let vdoLinks = this.videoLinks.find((x: any) => x.id == this.selectedVideo)
     this.popUpItemVideoLink = this._sanitizer.bypassSecurityTrustResourceUrl(data[0].link);
 
     this.selectedVideo += 1;
@@ -425,8 +412,9 @@ export class QuestionListComponent implements OnInit {
     let request = {
       question_id: this.selectedQuestionId
     }
-    this.moduleStoreService.GetReviewedByOrgLogo(request).subscribe((response) => {
-      this.reviewedByOrgList = response;
-    })
+    // this.moduleStoreService.GetReviewedByOrgLogo(request).subscribe((response) => {
+    //   this.reviewedByOrgList = response;
+    // })
   }
+
 }

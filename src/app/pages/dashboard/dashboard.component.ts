@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {DashboardService} from "./dashboard.service";
 import {AuthService} from "../../Auth/auth.service";
 import {SubSink} from "subsink";
@@ -7,6 +7,8 @@ import {DataService} from 'src/app/data.service';
 import {MessageService} from "primeng/api";
 import {combineLatest} from "rxjs";
 import {select} from "@ngrx/store";
+import {AnimationBuilder} from "@angular/animations";
+import {Carousel, CarouselModule} from "primeng/carousel";
 
 @Component({
     selector: 'uni-dashboard',
@@ -14,6 +16,7 @@ import {select} from "@ngrx/store";
     styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit {
+
     dashboardCount: any = [];
     readProgressionPercentage: any;
     readQuizProgressionPercentage: any;
@@ -49,9 +52,10 @@ export class DashboardComponent implements OnInit {
     ];
     selectedCountryId: any;
     private subs = new SubSink();
+    currentSlide: any;
 
-    constructor(private dashboardService: DashboardService, private service: AuthService,
-                private router: Router, private dataService: DataService, private toast: MessageService) {
+    constructor(private dashboardService: DashboardService, private builder : AnimationBuilder,
+    private router: Router, private dataService: DataService, private toast: MessageService) {
         this.responsiveOptions = [
             {
                 breakpoint: '1024px',
@@ -69,17 +73,12 @@ export class DashboardComponent implements OnInit {
                 numScroll: 1
             }
         ];
-
-
-        this.dashboardService.getTrustedPartners().subscribe(partnerLogo => {
-            this.partnerTrusterLogo = partnerLogo;
-        });
-
-
     }
 
     ngOnInit(): void {
+       localStorage.setItem("currentmodulenameforrecently",'')
         this.loadApiData();
+
     }
 
     loadApiData(){
@@ -123,8 +122,8 @@ export class DashboardComponent implements OnInit {
                             this.dataService.changeCountryName(element.country);
                         }
                     });
-                    console.log(this.countryLists.length);
                 }
+
                 if(getModuleReadProgression){
                     this.readingProgressings = getModuleReadProgression.module;
                 }
