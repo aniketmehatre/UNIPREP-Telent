@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {DashboardService} from "./dashboard.service";
 import {AuthService} from "../../Auth/auth.service";
 import {SubSink} from "subsink";
@@ -6,6 +6,9 @@ import {Router} from "@angular/router";
 import {DataService} from 'src/app/data.service';
 import {MessageService} from "primeng/api";
 import {combineLatest} from "rxjs";
+import {select} from "@ngrx/store";
+import {AnimationBuilder} from "@angular/animations";
+import {Carousel, CarouselModule} from "primeng/carousel";
 
 @Component({
     selector: 'uni-dashboard',
@@ -13,6 +16,7 @@ import {combineLatest} from "rxjs";
     styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit {
+
     dashboardCount: any = [];
     readProgressionPercentage: any;
     readQuizProgressionPercentage: any;
@@ -48,9 +52,10 @@ export class DashboardComponent implements OnInit {
     ];
     selectedCountryId: any;
     private subs = new SubSink();
+    currentSlide: any;
 
-    constructor(private dashboardService: DashboardService, private service: AuthService,
-                private router: Router, private dataService: DataService, private toast: MessageService) {
+    constructor(private dashboardService: DashboardService, private builder : AnimationBuilder,
+    private router: Router, private dataService: DataService, private toast: MessageService) {
         this.responsiveOptions = [
             {
                 breakpoint: '1024px',
@@ -68,18 +73,12 @@ export class DashboardComponent implements OnInit {
                 numScroll: 1
             }
         ];
-
-
-        this.dashboardService.getTrustedPartners().subscribe(partnerLogo => {
-            this.partnerTrusterLogo = partnerLogo;
-        });
-
-
     }
 
     ngOnInit(): void {
-       this.loadApiData();
        localStorage.setItem("currentmodulenameforrecently",'')
+        this.loadApiData();
+
     }
 
     loadApiData(){
@@ -124,6 +123,7 @@ export class DashboardComponent implements OnInit {
                         }
                     });
                 }
+
                 if(getModuleReadProgression){
                     this.readingProgressings = getModuleReadProgression.module;
                 }
@@ -164,15 +164,16 @@ export class DashboardComponent implements OnInit {
         //     return;
         // }
         this.countryLists.forEach((element: any) => {
-            if (element.id === selectedId) {
+            if (element.id === selectedId.id) {
                 this.selectedCountryName = element.country;
             }
         });
 
-        localStorage.setItem('countryId', selectedId);
+        localStorage.setItem('countryId', selectedId.id);
         this.loadApiData();
-        this.selectedCountryId = selectedId;
-        this.dataService.changeCountryId(selectedId);
+        this.selectedCountryId = selectedId.id;
+        this.dataService.changeCountryId(selectedId.id);
+        this.dataService.changeCountryFlag(selectedId.flag)
         // this.countryListData(this.selectedCountryId);
         // this.modalQuizProgressing(selectedId);
         // this.modalReadingProgressing(selectedId);
@@ -183,13 +184,13 @@ export class DashboardComponent implements OnInit {
     onClickReadProgression(data: any) {
         let moduleName = "";
         switch (data.module_name) {
-            case "Pre Application":
+            case "Pre-Application":
                 moduleName = "pre-application"
                 break;
-            case "Post Application":
+            case "Post-Application":
                 moduleName = "post-application"
                 break;
-            case "Post Admission":
+            case "Post-Admission":
                 moduleName = "post-admission"
                 break;
             case "Career Hub":
@@ -208,13 +209,13 @@ export class DashboardComponent implements OnInit {
     onClickQuizProgression(data: any) {
         let moduleName = "";
         switch (data.module_name) {
-            case "Pre Application":
+            case "Pre-Application":
                 moduleName = "pre-application"
                 break;
-            case "Post Application":
+            case "Post-Application":
                 moduleName = "post-application"
                 break;
-            case "Post Admission":
+            case "Post-Admission":
                 moduleName = "post-admission"
                 break;
             case "Career Hub":

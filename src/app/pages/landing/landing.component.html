@@ -1,0 +1,1506 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="light">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <title>UNIPREP - Your Global Advisor</title>
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="img/favicon/apple-touch-icon.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="img/favicon/favicon-32x32.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="img/favicon/favicon-16x16.png"
+    />
+    <link rel="manifest" href="img/favicon/site.webmanifest" />
+    <link
+      rel="mask-icon"
+      href="img/favicon/safari-pinned-tab.svg"
+      color="#3f4c83"
+    />
+    <link rel="shortcut icon" href="img/favicon/favicon.ico" />
+    <meta name="msapplication-TileColor" content="#ffffff" />
+    <meta name="msapplication-config" content="img/favicon/browserconfig.xml" />
+    <meta name="theme-color" content="#ffffff" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css"
+    />
+    <script
+      src="https://kit.fontawesome.com/e84fad3bc1.js"
+      crossorigin="anonymous"
+    ></script>
+    <!-- <link rel="preload" rel="stylesheet" href="https://kit.fontawesome.com/e84fad3bc1.css" crossorigin="anonymous"> -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;400;500;600;700;800;900&family=Work+Sans:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <!-- <link rel="stylesheet" href="style/uniprep.css" /> -->
+    <link
+      rel="preload"
+      fetchpriority="high"
+      as="image"
+      href="img/promovideo.webp"
+      type="image/webp"
+    />
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-md navbar-light sticky-top" id="mainmenu">
+      <div class="container d-md-flex d-none">
+        <!-- Your brand/logo (optional) -->
+        <a class="navbar-brand py-0" href="#">
+          <img
+            src="img/uniprep-light.svg"
+            data-bs-theme="light"
+            alt="UNIPREP"
+            class="d-inline-block align-text-top"
+          />
+        </a>
+
+        <ul class="nav flex-row gap-2">
+          <li class="nav-item">
+            <a
+              class="nav-link active text-primary fw-semibold"
+              aria-current="page"
+              href="#"
+              >Home</a
+            >
+          </li>
+          <li class="nav-item">
+            <a
+              class="nav-link text-primary fw-semibold"
+              aria-label="About"
+              href="#about"
+              >About</a
+            >
+          </li>
+          <li class="nav-item">
+            <a
+              class="nav-link text-primary fw-semibold"
+              aria-label="Challenges"
+              href="#challenges"
+              >Challenges</a
+            >
+          </li>
+          <li class="nav-item">
+            <a
+              class="nav-link text-primary fw-semibold"
+              aria-label="Features"
+              href="#features"
+              >Features</a
+            >
+          </li>
+          <li class="nav-item">
+            <a
+              class="nav-link text-primary fw-semibold"
+              aria-label="FAQ"
+              href="#faq"
+              >F.A.Q</a
+            >
+          </li>
+          <!-- Add other desktop menu items as needed -->
+        </ul>
+        <div class="d-flex gap-3">
+          <a
+            [routerLink]="['/login']"
+            class="text-decoration-none"
+            target="_blank"
+            ><button type="button" class="btn btn-primary rounded-pill">
+              Login
+            </button></a
+          >
+          <a
+            href="http://uniprep.ai/register"
+            class="text-decoration-none"
+            target="_blank"
+            ><button type="button" class="btn btn-primary rounded-pill">
+              Try for Free
+            </button></a
+          >
+        </div>
+      </div>
+
+      <div class="container d-md-none">
+        <!-- Your brand/logo (optional) -->
+        <a class="navbar-brand py-0" href="#">
+          <img
+            src="img/uniprep-light.svg"
+            data-bs-theme="light"
+            alt="UNIPREP"
+            class="d-inline-block align-text-top"
+          />
+        </a>
+
+        <!-- Hamburger button for mobile -->
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="offcanvas"
+          data-bs-placement="right"
+          data-bs-target="#sidebarNav"
+          aria-controls="sidebarNav"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <!-- Sidebar navigation (offcanvas) -->
+        <div
+          class="offcanvas offcanvas-end"
+          data-bs-scroll="true"
+          tabindex="-1"
+          id="sidebarNav"
+          aria-labelledby="sidebarNavLabel"
+        >
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="sidebarNavLabel">Menu</h5>
+            <!-- Close button (X) to close the sidebar -->
+            <button
+              type="button"
+              class="btn-close text-reset"
+              data-bs-dismiss="offcanvas"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div
+            class="offcanvas-body justify-content-md-end justify-content-start"
+          >
+            <!-- Mobile menu items -->
+            <ul class="nav flex-column gap-3">
+              <li class="nav-item">
+                <a
+                  class="nav-link active text-primary fw-semibold"
+                  aria-current="page"
+                  href="#"
+                  >Home</a
+                >
+              </li>
+              <li class="nav-item">
+                <a
+                  class="nav-link d-block text-primary fw-semibold"
+                  aria-label="About"
+                  href="#about"
+                  >About</a
+                >
+              </li>
+              <li class="nav-item">
+                <a
+                  class="nav-link d-block text-primary fw-semibold"
+                  aria-label="Challenges"
+                  href="#challenges"
+                  >Challenges</a
+                >
+              </li>
+              <li class="nav-item">
+                <a
+                  class="nav-link d-block text-primary fw-semibold"
+                  aria-label="Features"
+                  href="#features"
+                  >Features</a
+                >
+              </li>
+              <li class="nav-item">
+                <a
+                  class="nav-link d-block text-primary fw-semibold"
+                  aria-label="FAQ"
+                  href="#faq"
+                  >F.A.Q</a
+                >
+              </li>
+              <!-- Add other mobile menu items as needed -->
+            </ul>
+          </div>
+          <!-- "Try for Free" button (common for both mobile and desktop) -->
+          <a
+            href="http://uniprep.ai/register"
+            class="text-decoration-none"
+            target="_blank"
+            ><button type="button" class="btn btn-primary rounded-pill">
+              Try for Free
+            </button></a
+          >
+        </div>
+      </div>
+    </nav>
+
+    <section class="py-2 py-md-5">
+      <div class="container pt-4 pb-5 text-center">
+        <div class="row justify-content-center">
+          <div
+            class="col-md-6 d-flex flex-column justify-content-center align-items-center"
+          >
+            <h1 class="text-center fw-semibold text-primary mb-2">
+              Embark on a journey of endless global opportunities with UNIPREP.
+            </h1>
+            <p>
+              Efficiently manage and resolve customer issues, improve
+              satisfaction and boost your bottom line with our all-in-one
+              customer support solution.
+            </p>
+            <div class="text-center mb-3">
+              <a
+                href="http://uniprep.ai/register"
+                class="text-decoration-none"
+                target="_blank"
+                ><button type="button" class="btn btn-primary rounded-pill">
+                  Get 1 Hour Free Trial
+                </button></a
+              >
+            </div>
+          </div>
+          <div class="col-md-12">
+            <div class="video-container" role="button">
+              <video
+                class="uniprepvideo"
+                width="100%"
+                height="100%"
+                preload="none"
+                muted
+                poster="img/promovideo.webp"
+              >
+                <source src="video/uniprep.mp4" />
+              </video>
+              <i class="fa-solid fa-circle-play play-button text-primary"></i>
+            </div>
+            <!-- <img src="img/MockupImage.png"> -->
+          </div>
+          <!-- <div class="col-md-6">
+                    <img src="img/coverimage.webp" alt="Uniprep Cover Image" class="img-fluid w-100">
+                </div> -->
+        </div>
+      </div>
+    </section>
+
+    <section class="pb-md-5 pt-md-3 pb-4 pt-4" id="aboutuniabroad">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="container-fluid position-relative">
+              <div class="swiper-countries overflow-hidden">
+                <div class="swiper-wrapper">
+                  <div class="swiper-slide text-center" style="cursor: pointer">
+                    <a
+                      href="http://uniprep.ai/register"
+                      target="_blank"
+                      class="text-decoration-none text-black"
+                    >
+                      <img
+                        class="s-countryicon"
+                        src="img/united-states.svg"
+                        alt="USA"
+                      />
+                      <p
+                        class="text-center text-black text-small fw-medium pt-2"
+                      >
+                        USA
+                      </p>
+                    </a>
+                  </div>
+                  <div class="swiper-slide text-center" style="cursor: pointer">
+                    <a
+                      href="http://uniprep.ai/register"
+                      target="_blank"
+                      class="text-decoration-none text-black"
+                    >
+                      <img
+                        class="s-countryicon"
+                        src="img/united-kingdom.svg"
+                        alt="UK"
+                      />
+                      <p
+                        class="text-center text-black text-small fw-medium pt-2"
+                      >
+                        UK
+                      </p>
+                    </a>
+                  </div>
+                  <div class="swiper-slide text-center" style="cursor: pointer">
+                    <a
+                      href="http://uniprep.ai/register"
+                      target="_blank"
+                      class="text-decoration-none text-black"
+                    >
+                      <img
+                        class="s-countryicon"
+                        src="img/germany.svg"
+                        alt="Germany"
+                      />
+                      <p
+                        class="text-center text-black text-small fw-medium pt-2"
+                      >
+                        Germany
+                      </p>
+                    </a>
+                  </div>
+                  <div class="swiper-slide text-center" style="cursor: pointer">
+                    <a
+                      href="http://uniprep.ai/register"
+                      target="_blank"
+                      class="text-decoration-none text-black"
+                    >
+                      <img
+                        class="s-countryicon"
+                        src="img/ireland.svg"
+                        alt="Ireland"
+                      />
+                      <p
+                        class="text-center text-black text-small fw-medium pt-2"
+                      >
+                        Ireland
+                      </p>
+                    </a>
+                  </div>
+                  <div class="swiper-slide text-center" style="cursor: pointer">
+                    <a
+                      href="http://uniprep.ai/register"
+                      target="_blank"
+                      class="text-decoration-none text-black"
+                    >
+                      <img
+                        class="s-countryicon"
+                        src="img/singapore.svg"
+                        alt="Singapore"
+                      />
+                      <p
+                        class="text-center text-black text-small fw-medium pt-2"
+                      >
+                        Singapore
+                      </p>
+                    </a>
+                  </div>
+                  <div class="swiper-slide text-center" style="cursor: pointer">
+                    <a
+                      href="http://uniprep.ai/register"
+                      target="_blank"
+                      class="text-decoration-none text-black"
+                    >
+                      <img
+                        class="s-countryicon"
+                        src="img/dubai.svg"
+                        alt="UAE"
+                      />
+                      <p
+                        class="text-center text-black text-small fw-medium pt-2"
+                      >
+                        UAE
+                      </p>
+                    </a>
+                  </div>
+                  <div class="swiper-slide text-center" style="cursor: pointer">
+                    <a
+                      href="http://uniprep.ai/register"
+                      target="_blank"
+                      class="text-decoration-none text-black"
+                    >
+                      <img
+                        class="s-countryicon"
+                        src="img/france.svg"
+                        alt="France"
+                      />
+                      <p
+                        class="text-center text-black text-small fw-medium pt-2"
+                      >
+                        France
+                      </p>
+                    </a>
+                  </div>
+                  <div class="swiper-slide text-center" style="cursor: pointer">
+                    <a
+                      href="http://uniprep.ai/register"
+                      target="_blank"
+                      class="text-decoration-none text-black"
+                    >
+                      <img
+                        class="s-countryicon"
+                        src="img/switzerland.svg"
+                        alt="Switzerland"
+                      />
+                      <p
+                        class="text-center text-black text-small fw-medium pt-2"
+                      >
+                        Switzerland
+                      </p>
+                    </a>
+                  </div>
+                  <div class="swiper-slide text-center" style="cursor: pointer">
+                    <a
+                      href="http://uniprep.ai/register"
+                      target="_blank"
+                      class="text-decoration-none text-black"
+                    >
+                      <img
+                        class="s-countryicon"
+                        src="img/australia.svg"
+                        alt="Australia"
+                      />
+                      <p
+                        class="text-center text-black text-small fw-medium pt-2"
+                      >
+                        Australia
+                      </p>
+                    </a>
+                  </div>
+                  <div class="swiper-slide text-center" style="cursor: pointer">
+                    <a
+                      href="http://uniprep.ai/register"
+                      target="_blank"
+                      class="text-decoration-none text-black"
+                    >
+                      <img
+                        class="s-countryicon"
+                        src="img/spain.svg"
+                        alt="Spain"
+                      />
+                      <p
+                        class="text-center text-black text-small fw-medium pt-2"
+                      >
+                        Spain
+                      </p>
+                    </a>
+                  </div>
+                  <div class="swiper-slide text-center" style="cursor: pointer">
+                    <a
+                      href="http://uniprep.ai/register"
+                      target="_blank"
+                      class="text-decoration-none text-black"
+                    >
+                      <img
+                        class="s-countryicon"
+                        src="img/united-states.svg"
+                        alt="USA"
+                      />
+                      <p
+                        class="text-center text-black text-small fw-medium pt-2"
+                      >
+                        USA
+                      </p>
+                    </a>
+                  </div>
+                  <div class="swiper-slide text-center" style="cursor: pointer">
+                    <a
+                      href="http://uniprep.ai/register"
+                      target="_blank"
+                      class="text-decoration-none text-black"
+                    >
+                      <img
+                        class="s-countryicon"
+                        src="img/united-kingdom.svg"
+                        alt="UK"
+                      />
+                      <p
+                        class="text-center text-black text-small fw-medium pt-2"
+                      >
+                        UK
+                      </p>
+                    </a>
+                  </div>
+                  <div class="swiper-slide text-center" style="cursor: pointer">
+                    <a
+                      href="http://uniprep.ai/register"
+                      target="_blank"
+                      class="text-decoration-none text-black"
+                    >
+                      <img
+                        class="s-countryicon"
+                        src="img/germany.svg"
+                        alt="Germany"
+                      />
+                      <p
+                        class="text-center text-black text-small fw-medium pt-2"
+                      >
+                        Germany
+                      </p>
+                    </a>
+                  </div>
+                  <div class="swiper-slide text-center" style="cursor: pointer">
+                    <a
+                      href="http://uniprep.ai/register"
+                      target="_blank"
+                      class="text-decoration-none text-black"
+                    >
+                      <img
+                        class="s-countryicon"
+                        src="img/ireland.svg"
+                        alt="Ireland"
+                      />
+                      <p
+                        class="text-center text-black text-small fw-medium pt-2"
+                      >
+                        Ireland
+                      </p>
+                    </a>
+                  </div>
+                  <div class="swiper-slide text-center" style="cursor: pointer">
+                    <a
+                      href="http://uniprep.ai/register"
+                      target="_blank"
+                      class="text-decoration-none text-black"
+                    >
+                      <img
+                        class="s-countryicon"
+                        src="img/singapore.svg"
+                        alt="Singapore"
+                      />
+                      <p
+                        class="text-center text-black text-small fw-medium pt-2"
+                      >
+                        Singapore
+                      </p>
+                    </a>
+                  </div>
+                  <div class="swiper-slide text-center" style="cursor: pointer">
+                    <a
+                      href="http://uniprep.ai/register"
+                      target="_blank"
+                      class="text-decoration-none text-black"
+                    >
+                      <img
+                        class="s-countryicon"
+                        src="img/dubai.svg"
+                        alt="UAE"
+                      />
+                      <p
+                        class="text-center text-black text-small fw-medium pt-2"
+                      >
+                        UAE
+                      </p>
+                    </a>
+                  </div>
+                  <div class="swiper-slide text-center" style="cursor: pointer">
+                    <a
+                      href="http://uniprep.ai/register"
+                      target="_blank"
+                      class="text-decoration-none text-black"
+                    >
+                      <img
+                        class="s-countryicon"
+                        src="img/france.svg"
+                        alt="France"
+                      />
+                      <p
+                        class="text-center text-black text-small fw-medium pt-2"
+                      >
+                        France
+                      </p>
+                    </a>
+                  </div>
+                  <div class="swiper-slide text-center" style="cursor: pointer">
+                    <a
+                      href="http://uniprep.ai/register"
+                      target="_blank"
+                      class="text-decoration-none text-black"
+                    >
+                      <img
+                        class="s-countryicon"
+                        src="img/switzerland.svg"
+                        alt="Switzerland"
+                      />
+                      <p
+                        class="text-center text-black text-small fw-medium pt-2"
+                      >
+                        Switzerland
+                      </p>
+                    </a>
+                  </div>
+                  <div class="swiper-slide text-center" style="cursor: pointer">
+                    <a
+                      href="http://uniprep.ai/register"
+                      target="_blank"
+                      class="text-decoration-none text-black"
+                    >
+                      <img
+                        class="s-countryicon"
+                        src="img/australia.svg"
+                        alt="Australia"
+                      />
+                      <p
+                        class="text-center text-black text-small fw-medium pt-2"
+                      >
+                        Australia
+                      </p>
+                    </a>
+                  </div>
+                  <div class="swiper-slide text-center" style="cursor: pointer">
+                    <a
+                      href="http://uniprep.ai/register"
+                      target="_blank"
+                      class="text-decoration-none text-black"
+                    >
+                      <img
+                        class="s-countryicon"
+                        src="img/spain.svg"
+                        alt="Spain"
+                      />
+                      <p
+                        class="text-center text-black text-small fw-medium pt-2"
+                      >
+                        Spain
+                      </p>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="pt-5 pb-5" id="about">
+      <div class="container text-center">
+        <div class="row justify-content-between">
+          <div class="col-md-8 text-start d-flex align-items-center">
+            <div>
+              <h1 class="text-primary mb-4 fw-semibold">About UNIPREP</h1>
+              <p class="text-justify mb-5 w-50">
+                UNIPREP is a one-stop global search platform, designed to act as
+                a personalized advisor, catering to all students and graduates
+                seeking guidance on career growth, opportunities, life, and
+                education abroad.<br /><br />The experts who have graduated
+                abroad have answered over half a million questions addressing
+                all 360-degree queries. The information on the portal is further
+                reviewed by the top international education bodies and
+                universities.
+              </p>
+              <div class="d-flex flex-wrap gap-md-5 gap-2 mb-3">
+                <div class="text-start">
+                  <h1 class="fw-semibold text-secondary">10+</h1>
+                  <p>Countries</p>
+                </div>
+                <div class="text-start">
+                  <h1 class="fw-semibold text-secondary">2000+</h1>
+                  <p>Universities</p>
+                </div>
+                <div class="text-start">
+                  <h1 class="fw-semibold text-secondary">500+</h1>
+                  <p>Sub-Modules</p>
+                </div>
+                <div class="text-start">
+                  <h1 class="fw-semibold text-secondary">5,00,000+</h1>
+                  <p>Questions Answered</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <img src="img/aboutuniprep.webp" class="img-fluid" />
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="pt-5 pb-5">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="card promocard px-5 py-5">
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-md-6">
+                    <h3 class="mb-0 fw-semibold">
+                      A Student spends more than 2 months to get all the
+                      information about pursuing their career abroad.
+                    </h3>
+                  </div>
+                  <div class="col-md-3">
+                    <h1 class="mb-0 fw-semibold">2X</h1>
+                    <span class="mb-0 small"
+                      >Save twice the time you spend on research</span
+                    >
+                  </div>
+                  <div class="col-md-3">
+                    <h1 class="mb-0 fw-semibold">95%</h1>
+                    <span class="mb-0 small"
+                      >Increase your chances of working abroad.</span
+                    >
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="pt-5 pb-5">
+      <div class="container text-center">
+        <div class="row justify-content-between align-items-center">
+          <div class="col-md-5 text-start">
+            <h1 class="fw-semibold">One-Stop Global Search Platform</h1>
+            <p>
+              Imagine a platform that has answers to all your queries. Discover
+              everything you need in one place, streamline your career goals
+              with us!
+            </p>
+          </div>
+          <div class="col-md-4">
+            <img src="img/aboutuniprep.webp" class="img-fluid" />
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="pt-5 pb-5">
+      <div class="container text-center">
+        <div class="row justify-content-between align-items-center">
+          <div class="col-md-4">
+            <img src="img/aboutuniprep.webp" class="img-fluid" />
+          </div>
+          <div class="col-md-5 text-start">
+            <h1 class="fw-semibold">Verified & Reliable Information</h1>
+            <p>
+              No more struggling for hours to get information on the internet
+              addressing your specific needs. Get access to information
+              validated by experts at your fingertips.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section>
+      <div class="container text-center">
+        <div class="row justify-content-between align-items-center">
+          <div class="col-md-5 text-start">
+            <button type="button" class="btn btn-primary rounded-pill">
+              Coming Soon
+            </button>
+            <h1 class="fw-semibold">Quiz and Certificate</h1>
+            <p>
+              Test your readiness, earn a certificate, and step confidently into
+              your overseas journey of success.
+            </p>
+          </div>
+          <div class="col-md-4">
+            <img src="img/aboutuniprep.webp" class="img-fluid" />
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="pt-5 pb-5" id="features">
+      <div class="container text-center">
+        <div class="row justify-content-between">
+          <div class="col-md-5">
+            <img
+              src="img/test1.webp"
+              id="changingImage"
+              alt="Image"
+              class="w-100"
+            />
+          </div>
+          <div class="col-md-5">
+            <h1 class="text-primary fw-semibold text-start">
+              Time Saving Features of UNIPREP
+            </h1>
+            <div class="accordion accordion-flush" id="accordionFeatures">
+              <div class="accordion-item featurecard">
+                <h2 class="accordion-header">
+                  <button
+                    class="accordion-button"
+                    type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#collapseOne"
+                    aria-expanded="true"
+                    aria-controls="collapseOne"
+                  >
+                    Personalised Advisory
+                  </button>
+                </h2>
+                <div
+                  id="collapseOne"
+                  class="accordion-collapse collapse show"
+                  data-bs-parent="#accordionFeatures"
+                >
+                  <div class="accordion-body">
+                    <p class="mb-0">
+                      Get direct insights from global experts on your profile.
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div class="accordion-item featurecard">
+                <h2 class="accordion-header">
+                  <button
+                    class="accordion-button collapsed"
+                    type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#collapseTwo"
+                    aria-expanded="false"
+                    aria-controls="collapseTwo"
+                  >
+                    Events
+                  </button>
+                </h2>
+                <div
+                  id="collapseTwo"
+                  class="accordion-collapse collapse"
+                  data-bs-parent="#accordionFeatures"
+                >
+                  <div class="accordion-body">
+                    <p class="mb-0">
+                      Get invited to seminars with global delegates and directly
+                      link up with premier universities, all curated for you!
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div class="accordion-item featurecard">
+                <h2 class="accordion-header">
+                  <button
+                    class="accordion-button collapsed"
+                    type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#collapseThree"
+                    aria-expanded="false"
+                    aria-controls="collapseThree"
+                  >
+                    Vast Resources
+                  </button>
+                </h2>
+                <div
+                  id="collapseThree"
+                  class="accordion-collapse collapse"
+                  data-bs-parent="#accordionFeatures"
+                >
+                  <div class="accordion-body">
+                    <p class="mb-0">
+                      Get access to several resources and free tools that
+                      encourage your career growth.
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div class="accordion-item featurecard">
+                <h2 class="accordion-header">
+                  <button
+                    class="accordion-button collapsed"
+                    type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#collapseFour"
+                    aria-expanded="false"
+                    aria-controls="collapseFour"
+                  >
+                    Profile Building
+                  </button>
+                </h2>
+                <div
+                  id="collapseFour"
+                  class="accordion-collapse collapse"
+                  data-bs-parent="#accordionFeatures"
+                >
+                  <div class="accordion-body">
+                    <p class="mb-0">
+                      You can now enhance your professional online presence by
+                      the learnings from UNIPREP.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section>
+      <div class="container mt-5">
+        <div class="row">
+          <!-- AI Assistants Card -->
+          <div class="col-md-3 col-sm-12 my-3">
+            <div class="card comparision-card">
+              <div class="card-body">
+                <h5 class="text-primary">AI Assistants</h5>
+                <p>You get access to only a limited database.</p>
+                <hr />
+                <ul class="list-unstyled">
+                  <li>
+                    <span class="fa fa-times crossmark"></span> Personal Advisor
+                  </li>
+                  <li>
+                    <span class="fa fa-times crossmark"></span> Verified
+                    Information
+                  </li>
+                  <li>
+                    <span class="fa fa-times crossmark"></span> Up-to-date
+                    Information
+                  </li>
+                  <li>
+                    <span class="fa fa-times crossmark"></span> Keyword Search
+                  </li>
+                  <li>
+                    <span class="fa fa-times crossmark"></span> International
+                    Events Update
+                  </li>
+                  <li>
+                    <span class="fa fa-times crossmark"></span> One Stop
+                    Platform
+                  </li>
+                  <li>
+                    <span class="fa fa-times crossmark"></span> Additional
+                    Resources
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <!-- Search Engines Card -->
+          <div class="col-md-3 col-sm-12 my-3">
+            <div class="card comparision-card">
+              <div class="card-body">
+                <h5 class="text-primary">Search Engines</h5>
+                <p>It requires a lot of time for research online.</p>
+                <hr />
+                <ul class="list-unstyled">
+                  <li>
+                    <span class="fa fa-times crossmark"></span> Personal Advisor
+                  </li>
+                  <li>
+                    <span class="fa fa-times crossmark"></span> Verified
+                    Information
+                  </li>
+                  <li>
+                    <span class="fa fa-times crossmark"></span> Up-to-date
+                    Information
+                  </li>
+                  <li>
+                    <span class="fa fa-check checkmark"></span> Keyword Search
+                  </li>
+                  <li>
+                    <span class="fa fa-check checkmark"></span> International
+                    Events Update
+                  </li>
+                  <li>
+                    <span class="fa fa-times crossmark"></span> One Stop
+                    Platform
+                  </li>
+                  <li>
+                    <span class="fa fa-check checkmark"></span> Additional
+                    Resources
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <!-- UNIPREP Card -->
+          <div class="col-md-6 col-sm-12 my-3">
+            <div class="card comparision-card-uniprep">
+              <div class="card-body">
+                <h5 class="text-primary">UNIPREP</h5>
+                <p>
+                  Your one stop personal advisor for all questions related
+                  <br />to career abroad.
+                </p>
+                <hr />
+                <div class="d-flex justify-content-between align-items-end">
+                  <ul class="list-unstyled">
+                    <li>
+                      <span class="fa fa-check checkmark"></span> Personal
+                      Advisor
+                    </li>
+                    <li>
+                      <span class="fa fa-check checkmark"></span> Verified
+                      Information
+                    </li>
+                    <li>
+                      <span class="fa fa-check checkmark"></span> Up-to-date
+                      Information
+                    </li>
+                    <li>
+                      <span class="fa fa-check checkmark"></span> Keyword Search
+                    </li>
+                    <li>
+                      <span class="fa fa-check checkmark"></span> International
+                      Events Update
+                    </li>
+                    <li>
+                      <span class="fa fa-check checkmark"></span> One Stop
+                      Platform
+                    </li>
+                    <li>
+                      <span class="fa fa-check checkmark"></span> Additional
+                      Resources
+                    </li>
+                  </ul>
+                  <a
+                    href="http://uniprep.ai/register"
+                    class="text-decoration-none"
+                    target="_blank"
+                    ><button type="button" class="btn btn-primary rounded-pill">
+                      Get Started Today
+                    </button></a
+                  >
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="pt-5 pb-0" id="faq">
+      <div class="container text-start">
+        <div class="row justify-content-between">
+          <div class="col-md-5">
+            <p class="text-secondary fw-semibold">Frequently Asked Questions</p>
+            <h1 class="text-primary fw-semibold mb-4 text-start">
+              Get answers of your common questions
+            </h1>
+          </div>
+          <div class="col-md-6">
+            <div class="accordion pb-5" id="accordionFAQ">
+              <div class="accordion-item faqcard">
+                <h2 class="accordion-header">
+                  <button
+                    class="accordion-button"
+                    type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#faqcollapseOne"
+                    aria-expanded="true"
+                    aria-controls="faqcollapseOne"
+                  >
+                    What is UNIPREP?
+                  </button>
+                </h2>
+                <div
+                  id="faqcollapseOne"
+                  class="accordion-collapse collapse show"
+                  data-bs-parent="#accordionFAQ"
+                >
+                  <div class="accordion-body">
+                    UNIPREP is a one-stop global search platform designed to
+                    serve as a personalized advisor for students and graduates
+                    seeking guidance on career growth, opportunities, life, and
+                    education abroad.
+                  </div>
+                </div>
+              </div>
+              <div class="accordion-item faqcard">
+                <h2 class="accordion-header">
+                  <button
+                    class="accordion-button collapsed"
+                    type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#faqcollapseTwo"
+                    aria-expanded="false"
+                    aria-controls="faqcollapseTwo"
+                  >
+                    How is UNIPREP beneficial?
+                  </button>
+                </h2>
+                <div
+                  id="faqcollapseTwo"
+                  class="accordion-collapse collapse"
+                  data-bs-parent="#accordionFAQ"
+                >
+                  <div class="accordion-body">
+                    UNIPREP provides tailored guidance, verified information,
+                    and access to resources that empower individuals to make
+                    informed decisions about their educational and professional
+                    journey.
+                  </div>
+                </div>
+              </div>
+              <div class="accordion-item faqcard">
+                <h2 class="accordion-header">
+                  <button
+                    class="accordion-button collapsed"
+                    type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#faqcollapseFive"
+                    aria-expanded="false"
+                    aria-controls="faqcollapseFive"
+                  >
+                    Is UNIPREP free?
+                  </button>
+                </h2>
+                <div
+                  id="faqcollapseFive"
+                  class="accordion-collapse collapse"
+                  data-bs-parent="#accordionFAQ"
+                >
+                  <div class="accordion-body">
+                    The UNIPREP platform is free for 1 hour to a new user.
+                    UNIPREP may offer certain free resources, but it also offers
+                    premium features as part of a subscription-based model for
+                    enhanced access and support.
+                  </div>
+                </div>
+              </div>
+              <div class="accordion-item faqcard">
+                <h2 class="accordion-header">
+                  <button
+                    class="accordion-button collapsed"
+                    type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#faqcollapseSeven"
+                    aria-expanded="false"
+                    aria-controls="faqcollapseSeven"
+                  >
+                    Will UNIPREP help me with my career?
+                  </button>
+                </h2>
+                <div
+                  id="faqcollapseSeven"
+                  class="accordion-collapse collapse"
+                  data-bs-parent="#accordionFAQ"
+                >
+                  <div class="accordion-body">
+                    Yes, UNIPREP offers resources, advice, and access to
+                    information and events that can significantly contribute to
+                    your career growth and development.
+                  </div>
+                </div>
+              </div>
+              <div class="accordion-item faqcard">
+                <h2 class="accordion-header">
+                  <button
+                    class="accordion-button collapsed"
+                    type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#faqcollapseNine"
+                    aria-expanded="false"
+                    aria-controls="faqcollapseNine"
+                  >
+                    Can I ask specific questions related to my situation?
+                  </button>
+                </h2>
+                <div
+                  id="faqcollapseNine"
+                  class="accordion-collapse collapse"
+                  data-bs-parent="#accordionFAQ"
+                >
+                  <div class="accordion-body">
+                    Absolutely! UNIPREP encourages users to ask specific
+                    questions related to their unique situations. Our platform
+                    provides personalized answers to address your individual
+                    queries and concerns.
+                  </div>
+                </div>
+              </div>
+              <div class="accordion-item faqcard">
+                <h2 class="accordion-header">
+                  <button
+                    class="accordion-button collapsed"
+                    type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#faqcollapseEleven"
+                    aria-expanded="false"
+                    aria-controls="faqcollapseEleven"
+                  >
+                    What are resources, and how are they helpful?
+                  </button>
+                </h2>
+                <div
+                  id="faqcollapseEleven"
+                  class="accordion-collapse collapse"
+                  data-bs-parent="#accordionFAQ"
+                >
+                  <div class="accordion-body">
+                    Resources on UNIPREP encompass a wide range of materials,
+                    including, guides, and tools, designed to assist you in
+                    various aspects of your educational and professional
+                    journey. They are helpful as they provide valuable
+                    resources, platforms, and tools to enhance profile further.
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- Footer -->
+    <footer class="text-center">
+      <section class="bg-primary">
+        <div class="container py-3">
+          <div class="row">
+            <div class="col-md-6 col-12 text-md-start text-center">
+              <p class="mb-0 text-white fw-semibold">
+                Join our social media community for more insights
+              </p>
+            </div>
+            <div class="col-md-6 col-12 text-md-end text-center">
+              <div
+                class="d-flex justify-content-center justify-content-md-end gap-4"
+              >
+                <a
+                  href="https://www.facebook.com/uniprepindia"
+                  aria-label="Facebook"
+                  class="text-white"
+                  target="_blank"
+                  ><i class="fa-brands fa-facebook fa-xl"></i
+                ></a>
+                <a
+                  href="https://instagram.com/uniprepindia"
+                  aria-label="Instagram"
+                  target="_blank"
+                  class="text-white"
+                  ><i class="fa-brands fa-instagram fa-xl"></i
+                ></a>
+                <a
+                  href="https://www.linkedin.com/company/uniabroad-indi"
+                  aria-label="LinkedIn"
+                  target="_blank"
+                  class="text-white"
+                  ><i class="fa-brands fa-linkedin fa-xl"></i
+                ></a>
+                <!--<a href="" class="text-white"><i class="fa-brands fa-youtube fa-xl"></i></a> -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="bg-mediumblue">
+        <div class="container py-3">
+          <div class="row">
+            <div class="col-12 text-center">
+              <img
+                src="img/uniprep-dark.svg"
+                width="170"
+                class="mb-2"
+                alt="UNIPREP"
+              />
+              <div class="text-white small">
+                <a
+                  href="mailto:support@uniprep.ai"
+                  class="text-decoration-none text-white"
+                  >support@uniprep.ai</a
+                >
+                |
+                <a
+                  href="tel:+919035723087"
+                  class="text-decoration-none text-white"
+                  >+91 9035723087</a
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="bg-darkblue">
+        <div class="container py-3">
+          <div class="row">
+            <div class="col-md-6">
+              <div
+                class="d-flex justify-content-center justify-content-md-start gap-2 text-white"
+              >
+                <a
+                  href="privacypolicy.html"
+                  aria-label="Privacy Policy"
+                  class="text-white text-decoration-none"
+                  >Privacy Policy</a
+                >
+                |
+                <a
+                  href="termsandconditions.html"
+                  aria-label="Terms Conditions"
+                  class="text-white text-decoration-none"
+                  >Terms & Conditions</a
+                >
+              </div>
+            </div>
+            <div class="col-md-6 text-md-end text-center">
+              <p class="mb-0 text-white">
+                2023 © All rights reserved by UNIABROAD LTD.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </footer>
+    <!-- Footer -->
+    <!-- <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous"></script> -->
+    <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"
+      integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+"
+      crossorigin="anonymous"
+    ></script>
+    <script>
+      var swiper1 = new Swiper(".swiper-university", {
+        spaceBetween: 20,
+        freeMode: true, // Enable free mode to allow continuous scrolling
+        grabCursor: true,
+        centeredSlides: false,
+        slidesPerView: 6,
+        loop: true,
+        autoplay: {
+          delay: 1000, // Set the delay between slides in milliseconds (1 second in this example)
+          disableOnInteraction: false, // Allow autoplay to continue even when the user interacts with the Swiper
+        },
+        navigation: {
+          nextEl: ".swiper-next1",
+          prevEl: ".swiper-prev1",
+        },
+      });
+      var swiper3 = new Swiper(".swiper-countries", {
+        slidesPerView: 10,
+        spaceBetween: 30,
+        loop: true,
+        autoplay: {
+          delay: 1, // very small delay for continuous motion
+          disableOnInteraction: false,
+        },
+        breakpoints: {
+          320: { slidesPerView: 4, spaceBetween: 20 },
+          480: { slidesPerView: 4, spaceBetween: 20 },
+          640: { slidesPerView: 6, spaceBetween: 20 },
+          768: { slidesPerView: 6, spaceBetween: 20 },
+          1024: { slidesPerView: 8, spaceBetween: 30 },
+          1366: { slidesPerView: 10, spaceBetween: 50 },
+        },
+        speed: 1000, // Adjust speed as necessary
+        loopedSlides: 1000, // Large number for infinity loop
+        freeMode: true, // enables free mode which makes it non-sliding
+      });
+      // var swiper3 = new Swiper(".swiper-countries", {
+      //     slidesPerView:10,
+      //     freeMode: true,
+      //     slidesPerView: 'auto',  // Adjust as necessary
+      //         spaceBetween: 30,  // Adjust as necessary
+      //         loop: true,
+      //         autoplay: {
+      //             delay: 0,
+      //             disableOnInteraction: false,
+      //             reverseDirection: false,
+      //             stopOnLastSlide: false,
+      //             waitForTransition: false,
+      //         },
+      //         speed: 3000 , // Adjust speed to your liking. This is relatively slow for continuous motion.
+      //         breakpoints: {
+      //         320: { slidesPerView: 4, spaceBetween: 20 },
+      //         480: { slidesPerView: 4, spaceBetween: 20 },
+      //         640: { slidesPerView: 6, spaceBetween: 20 },
+      //         768: { slidesPerView: 6, spaceBetween: 20 },
+      //         1024: { slidesPerView: 8, spaceBetween: 30 },
+      //         1366: { slidesPerView: 10, spaceBetween: 50 },
+      //         },
+      //     });
+      var swiper2 = new Swiper(".swiper", {
+        slidesPerView: 1,
+        spaceBetween: 20,
+        grabCursor: true,
+
+        breakpoints: {
+          1366: {
+            slidesPerView: 4,
+            spaceBetween: 50,
+          },
+          1024: {
+            slidesPerView: 3,
+            spaceBetween: 50,
+          },
+          768: {
+            slidesPerView: 2,
+            spaceBetween: 40,
+          },
+          640: {
+            slidesPerView: 1,
+            spaceBetween: 20,
+          },
+        },
+
+        // Navigation arrows
+        navigation: {
+          nextEl: ".swiper-next3",
+          prevEl: ".swiper-prev3",
+        },
+      });
+    </script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        var videoContainer = document.querySelector(".video-container");
+        var video = document.querySelector(".uniprepvideo");
+        var playButton = document.querySelector(".play-button");
+
+        // Function to revert to poster image
+        function revertToPoster() {
+          video.load(); // This will load the video back to its initial state
+          playButton.style.display = "block";
+          videoContainer.classList.remove("playing"); // remove playing class
+        }
+
+        // Show play button initially
+        playButton.style.display = "block";
+
+        playButton.addEventListener("click", function () {
+          video.play();
+          playButton.style.display = "none";
+          videoContainer.classList.add("playing"); // add playing class
+        });
+
+        video.addEventListener("click", function () {
+          if (video.paused) {
+            video.play();
+            playButton.style.display = "none";
+            videoContainer.classList.add("playing"); // add playing class
+          } else {
+            revertToPoster();
+          }
+        });
+
+        video.addEventListener("ended", revertToPoster);
+      });
+    </script>
+    <script>
+      // Get the navbar element
+      const navbar = document.getElementById("mainmenu");
+
+      // Function to update the navbar's appearance on scroll
+      function updateNavbarOnScroll() {
+        if (window.scrollY > 50) {
+          // Adjust the scroll threshold as needed
+          navbar.classList.add("scrolled");
+        } else {
+          navbar.classList.remove("scrolled");
+        }
+      }
+
+      // Add an event listener to the window for the scroll event
+      window.addEventListener("scroll", updateNavbarOnScroll);
+
+      // Call the function to set the initial state of the navbar
+      updateNavbarOnScroll();
+    </script>
+    <script>
+      // Get the accordion buttons for "accordionFeatures"
+      var accordionButtonsFeatures = document.querySelectorAll(
+        "#accordionFeatures .accordion-button"
+      );
+      var changingImage = document.getElementById("changingImage");
+
+      // Add click event listeners to the accordion buttons in "accordionFeatures"
+      accordionButtonsFeatures.forEach(function (button, index) {
+        button.addEventListener("click", function () {
+          // Define an array of image file paths that correspond to accordion items in "accordionFeatures"
+          var imageFilePathsFeatures = [
+            "img/test1.webp", // Corresponds to Accordion Item 1 in "accordionFeatures"
+            "img/test2.webp", // Corresponds to Accordion Item 2 in "accordionFeatures"
+            // Add more file paths as needed
+          ];
+
+          // Update the image source based on the index of the clicked accordion header in "accordionFeatures"
+          changingImage.src = imageFilePathsFeatures[index];
+        });
+      });
+    </script>
+  </body>
+</html>

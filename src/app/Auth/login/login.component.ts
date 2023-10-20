@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit} from "@angular/core";
+import { Component, OnDestroy, OnInit } from "@angular/core";
 import {
   FormGroup,
   Validators,
@@ -6,8 +6,8 @@ import {
 } from "@angular/forms";
 import { Router } from "@angular/router";
 import { AuthService } from "../auth.service";
-import {MessageService} from "primeng/api";
-import {SubSink} from "subsink";
+import { MessageService } from "primeng/api";
+import { SubSink } from "subsink";
 import { DataService } from "src/app/data.service";
 
 @Component({
@@ -18,26 +18,25 @@ import { DataService } from "src/app/data.service";
 export class LoginComponent implements OnInit, OnDestroy {
   private subs = new SubSink();
   loginForm: any = FormGroup;
-  submitted = false;
-  show= true;
+  submitted: boolean = false;
+  show: boolean = true;
   password: string = 'password';
   constructor(
-      private service: AuthService, private formBuilder: FormBuilder,private route:Router,
-      private toast: MessageService, private dataService: DataService,
-  ) {}
+    private service: AuthService, private formBuilder: FormBuilder, private route: Router,
+    private toast: MessageService, private dataService: DataService,
+  ) { }
 
   ngOnDestroy() {
     this.subs.unsubscribe();
   }
 
-  showPassword(){
+  showPassword(): void{
     if (this.password === 'password') {
       this.password = 'text';
       this.show = false;
     } else {
       this.password = 'password';
       this.show = true;
-
     }
   }
 
@@ -50,12 +49,10 @@ export class LoginComponent implements OnInit, OnDestroy {
       if (!loggedIn) {
         return
       }
-
       this.dataService.showTimerInHeader(loggedIn);
       this.subs.sink = this.service.selectMessage$().subscribe(message => {
-        console.log('message', message)
-        if(message == 'Login Success'){
-          this.toast.add({severity: 'success', summary: 'Success', detail: message});
+        if (message == 'Login Success') {
+          this.toast.add({ severity: 'success', summary: 'Success', detail: message });
         }
       });
       this.route.navigate(['/pages/dashboard']);
@@ -66,13 +63,12 @@ export class LoginComponent implements OnInit, OnDestroy {
     return this.loginForm.controls;
   }
 
-  onSubmit() {
+  onSubmit(): void {
     this.submitted = true;
     if (this.loginForm.invalid) {
       return;
     }
     this.service.login(this.loginForm.value);
-    
   }
-  
+
 }

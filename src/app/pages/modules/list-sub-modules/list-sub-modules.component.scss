@@ -27,7 +27,7 @@
 }
 
 .subjectcard {
-  border: 1px solid var(--uniprep-primaryhighlight);
+  border: 1px solid #f0780c;
   width: 100%;
   margin: 10px 0px;
 
@@ -48,7 +48,11 @@
 
   .subjecttitle {
     height: 50px;
+    font-size: 16px;
   }
+}
+.sub-data{
+  font-size: 12px;
 }
 :host ::ng-deep p-carousel {
   //On later realease of PrimeNG, this can be done programmatically with [showIndicators | showNavigators]="false"
