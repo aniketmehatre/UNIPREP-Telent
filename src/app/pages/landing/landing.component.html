@@ -1,70 +1,3 @@
-<!DOCTYPE html>
-<html lang="en" data-bs-theme="light">
-  <head>
-    <meta charset="utf-8" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1, shrink-to-fit=no"
-    />
-    <title>UNIPREP - Your Global Advisor</title>
-    <link
-      rel="apple-touch-icon"
-      sizes="180x180"
-      href="img/favicon/apple-touch-icon.png"
-    />
-    <link
-      rel="icon"
-      type="image/png"
-      sizes="32x32"
-      href="img/favicon/favicon-32x32.png"
-    />
-    <link
-      rel="icon"
-      type="image/png"
-      sizes="16x16"
-      href="img/favicon/favicon-16x16.png"
-    />
-    <link rel="manifest" href="img/favicon/site.webmanifest" />
-    <link
-      rel="mask-icon"
-      href="img/favicon/safari-pinned-tab.svg"
-      color="#3f4c83"
-    />
-    <link rel="shortcut icon" href="img/favicon/favicon.ico" />
-    <meta name="msapplication-TileColor" content="#ffffff" />
-    <meta name="msapplication-config" content="img/favicon/browserconfig.xml" />
-    <meta name="theme-color" content="#ffffff" />
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-      integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
-      crossorigin="anonymous"
-    />
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css"
-    />
-    <script
-      src="https://kit.fontawesome.com/e84fad3bc1.js"
-      crossorigin="anonymous"
-    ></script>
-    <!-- <link rel="preload" rel="stylesheet" href="https://kit.fontawesome.com/e84fad3bc1.css" crossorigin="anonymous"> -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;400;500;600;700;800;900&family=Work+Sans:wght@300;400;500;600;700&display=swap"
-      rel="stylesheet"
-    />
-    <!-- <link rel="stylesheet" href="style/uniprep.css" /> -->
-    <link
-      rel="preload"
-      fetchpriority="high"
-      as="image"
-      href="img/promovideo.webp"
-      type="image/webp"
-    />
-  </head>
-  <body>
     <nav class="navbar navbar-expand-md navbar-light sticky-top" id="mainmenu">
       <div class="container d-md-flex d-none">
         <!-- Your brand/logo (optional) -->
@@ -290,6 +223,19 @@
       </div>
     </section>
 
+<p-carousel [value]="countries" [numVisible]="3" [numScroll]="3" [circular]="false" >
+    <ng-template pTemplate="header">
+        <h5>Basic</h5>
+    </ng-template>
+    <ng-template let-product pTemplate="item">
+        <div class="product-item">
+            <div class="product-item-content">
+              <h1>{{countries.name}}</h1>
+            </div>
+        </div>
+    </ng-template>
+</p-carousel>
+  
     <section class="pb-md-5 pt-md-3 pb-4 pt-4" id="aboutuniabroad">
       <div class="container-fluid">
         <div class="row">
@@ -1328,13 +1274,13 @@
     <!-- Footer -->
     <!-- <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous"></script> -->
-    <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
-    <script
+    <!-- <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script> -->
+    <!-- <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"
       integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+"
       crossorigin="anonymous"
-    ></script>
-    <script>
+    ></script> -->
+    <!-- <script>
       var swiper1 = new Swiper(".swiper-university", {
         spaceBetween: 20,
         freeMode: true, // Enable free mode to allow continuous scrolling
@@ -1501,6 +1447,4 @@
           changingImage.src = imageFilePathsFeatures[index];
         });
       });
-    </script>
-  </body>
-</html>
+    </script> -->
