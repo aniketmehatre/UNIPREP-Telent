@@ -100,6 +100,7 @@ export class EventsComponent implements OnInit {
   // pop up closing
   closenewfilePopup() {
     this.newfile = "none";
+    this.filterform.reset()
   }
   // filterpop-up
   filterpopup(){
@@ -149,6 +150,7 @@ export class EventsComponent implements OnInit {
         }
         this.totalcount=res.count
         this.upcommingevent.push(bindingdata)
+        this.filterform.reset()
       })
       this.newfile = "none";
     })
