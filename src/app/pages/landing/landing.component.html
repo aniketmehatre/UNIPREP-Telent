@@ -212,399 +212,24 @@
             <!-- <img src="img/MockupImage.png"> -->
           </div>
           <!-- <div class="col-md-6">
-                    <img src="img/coverimage.webp" alt="Uniprep Cover Image" class="img-fluid w-100">
+                    <img src="img/coverimage.webp" alt="Uniprep Cover Image" class="w-100 w-100">
                 </div> -->
         </div>
       </div>
     </section>
 
-<p-carousel [value]="countries" [numVisible]="3" [numScroll]="3" [circular]="false" >
-    <ng-template pTemplate="header">
-        <h5>Basic</h5>
-    </ng-template>
-    <ng-template let-product pTemplate="item">
-        <div class="product-item">
-            <div class="product-item-content">
-              <h1>{{countries.name}}</h1>
-            </div>
-        </div>
-    </ng-template>
-</p-carousel>
-  
-    <section class="pb-md-5 pt-md-3 pb-4 pt-4" id="aboutuniabroad">
-      <div class="container-fluid">
-        <div class="row">
-          <div class="col-md-12">
-            <div class="container-fluid position-relative">
-              <div class="swiper-countries overflow-hidden">
-                <div class="swiper-wrapper">
-                  <div class="swiper-slide text-center" style="cursor: pointer">
-                    <a
-                      href="http://uniprep.ai/register"
-                      target="_blank"
-                      class="text-decoration-none text-black"
-                    >
-                      <img
-                        class="s-countryicon"
-                        src="img/united-states.svg"
-                        alt="USA"
-                      />
-                      <p
-                        class="text-center text-black text-small fw-medium pt-2"
-                      >
-                        USA
-                      </p>
-                    </a>
-                  </div>
-                  <div class="swiper-slide text-center" style="cursor: pointer">
-                    <a
-                      href="http://uniprep.ai/register"
-                      target="_blank"
-                      class="text-decoration-none text-black"
-                    >
-                      <img
-                        class="s-countryicon"
-                        src="img/united-kingdom.svg"
-                        alt="UK"
-                      />
-                      <p
-                        class="text-center text-black text-small fw-medium pt-2"
-                      >
-                        UK
-                      </p>
-                    </a>
-                  </div>
-                  <div class="swiper-slide text-center" style="cursor: pointer">
-                    <a
-                      href="http://uniprep.ai/register"
-                      target="_blank"
-                      class="text-decoration-none text-black"
-                    >
-                      <img
-                        class="s-countryicon"
-                        src="img/germany.svg"
-                        alt="Germany"
-                      />
-                      <p
-                        class="text-center text-black text-small fw-medium pt-2"
-                      >
-                        Germany
-                      </p>
-                    </a>
-                  </div>
-                  <div class="swiper-slide text-center" style="cursor: pointer">
-                    <a
-                      href="http://uniprep.ai/register"
-                      target="_blank"
-                      class="text-decoration-none text-black"
-                    >
-                      <img
-                        class="s-countryicon"
-                        src="img/ireland.svg"
-                        alt="Ireland"
-                      />
-                      <p
-                        class="text-center text-black text-small fw-medium pt-2"
-                      >
-                        Ireland
-                      </p>
-                    </a>
-                  </div>
-                  <div class="swiper-slide text-center" style="cursor: pointer">
-                    <a
-                      href="http://uniprep.ai/register"
-                      target="_blank"
-                      class="text-decoration-none text-black"
-                    >
-                      <img
-                        class="s-countryicon"
-                        src="img/singapore.svg"
-                        alt="Singapore"
-                      />
-                      <p
-                        class="text-center text-black text-small fw-medium pt-2"
-                      >
-                        Singapore
-                      </p>
-                    </a>
-                  </div>
-                  <div class="swiper-slide text-center" style="cursor: pointer">
-                    <a
-                      href="http://uniprep.ai/register"
-                      target="_blank"
-                      class="text-decoration-none text-black"
-                    >
-                      <img
-                        class="s-countryicon"
-                        src="img/dubai.svg"
-                        alt="UAE"
-                      />
-                      <p
-                        class="text-center text-black text-small fw-medium pt-2"
-                      >
-                        UAE
-                      </p>
-                    </a>
-                  </div>
-                  <div class="swiper-slide text-center" style="cursor: pointer">
-                    <a
-                      href="http://uniprep.ai/register"
-                      target="_blank"
-                      class="text-decoration-none text-black"
-                    >
-                      <img
-                        class="s-countryicon"
-                        src="img/france.svg"
-                        alt="France"
-                      />
-                      <p
-                        class="text-center text-black text-small fw-medium pt-2"
-                      >
-                        France
-                      </p>
-                    </a>
-                  </div>
-                  <div class="swiper-slide text-center" style="cursor: pointer">
-                    <a
-                      href="http://uniprep.ai/register"
-                      target="_blank"
-                      class="text-decoration-none text-black"
-                    >
-                      <img
-                        class="s-countryicon"
-                        src="img/switzerland.svg"
-                        alt="Switzerland"
-                      />
-                      <p
-                        class="text-center text-black text-small fw-medium pt-2"
-                      >
-                        Switzerland
-                      </p>
-                    </a>
-                  </div>
-                  <div class="swiper-slide text-center" style="cursor: pointer">
-                    <a
-                      href="http://uniprep.ai/register"
-                      target="_blank"
-                      class="text-decoration-none text-black"
-                    >
-                      <img
-                        class="s-countryicon"
-                        src="img/australia.svg"
-                        alt="Australia"
-                      />
-                      <p
-                        class="text-center text-black text-small fw-medium pt-2"
-                      >
-                        Australia
-                      </p>
-                    </a>
-                  </div>
-                  <div class="swiper-slide text-center" style="cursor: pointer">
-                    <a
-                      href="http://uniprep.ai/register"
-                      target="_blank"
-                      class="text-decoration-none text-black"
-                    >
-                      <img
-                        class="s-countryicon"
-                        src="img/spain.svg"
-                        alt="Spain"
-                      />
-                      <p
-                        class="text-center text-black text-small fw-medium pt-2"
-                      >
-                        Spain
-                      </p>
-                    </a>
-                  </div>
-                  <div class="swiper-slide text-center" style="cursor: pointer">
-                    <a
-                      href="http://uniprep.ai/register"
-                      target="_blank"
-                      class="text-decoration-none text-black"
-                    >
-                      <img
-                        class="s-countryicon"
-                        src="img/united-states.svg"
-                        alt="USA"
-                      />
-                      <p
-                        class="text-center text-black text-small fw-medium pt-2"
-                      >
-                        USA
-                      </p>
-                    </a>
-                  </div>
-                  <div class="swiper-slide text-center" style="cursor: pointer">
-                    <a
-                      href="http://uniprep.ai/register"
-                      target="_blank"
-                      class="text-decoration-none text-black"
-                    >
-                      <img
-                        class="s-countryicon"
-                        src="img/united-kingdom.svg"
-                        alt="UK"
-                      />
-                      <p
-                        class="text-center text-black text-small fw-medium pt-2"
-                      >
-                        UK
-                      </p>
-                    </a>
-                  </div>
-                  <div class="swiper-slide text-center" style="cursor: pointer">
-                    <a
-                      href="http://uniprep.ai/register"
-                      target="_blank"
-                      class="text-decoration-none text-black"
-                    >
-                      <img
-                        class="s-countryicon"
-                        src="img/germany.svg"
-                        alt="Germany"
-                      />
-                      <p
-                        class="text-center text-black text-small fw-medium pt-2"
-                      >
-                        Germany
-                      </p>
-                    </a>
-                  </div>
-                  <div class="swiper-slide text-center" style="cursor: pointer">
-                    <a
-                      href="http://uniprep.ai/register"
-                      target="_blank"
-                      class="text-decoration-none text-black"
-                    >
-                      <img
-                        class="s-countryicon"
-                        src="img/ireland.svg"
-                        alt="Ireland"
-                      />
-                      <p
-                        class="text-center text-black text-small fw-medium pt-2"
-                      >
-                        Ireland
-                      </p>
-                    </a>
-                  </div>
-                  <div class="swiper-slide text-center" style="cursor: pointer">
-                    <a
-                      href="http://uniprep.ai/register"
-                      target="_blank"
-                      class="text-decoration-none text-black"
-                    >
-                      <img
-                        class="s-countryicon"
-                        src="img/singapore.svg"
-                        alt="Singapore"
-                      />
-                      <p
-                        class="text-center text-black text-small fw-medium pt-2"
-                      >
-                        Singapore
-                      </p>
-                    </a>
-                  </div>
-                  <div class="swiper-slide text-center" style="cursor: pointer">
-                    <a
-                      href="http://uniprep.ai/register"
-                      target="_blank"
-                      class="text-decoration-none text-black"
-                    >
-                      <img
-                        class="s-countryicon"
-                        src="img/dubai.svg"
-                        alt="UAE"
-                      />
-                      <p
-                        class="text-center text-black text-small fw-medium pt-2"
-                      >
-                        UAE
-                      </p>
-                    </a>
-                  </div>
-                  <div class="swiper-slide text-center" style="cursor: pointer">
-                    <a
-                      href="http://uniprep.ai/register"
-                      target="_blank"
-                      class="text-decoration-none text-black"
-                    >
-                      <img
-                        class="s-countryicon"
-                        src="img/france.svg"
-                        alt="France"
-                      />
-                      <p
-                        class="text-center text-black text-small fw-medium pt-2"
-                      >
-                        France
-                      </p>
-                    </a>
-                  </div>
-                  <div class="swiper-slide text-center" style="cursor: pointer">
-                    <a
-                      href="http://uniprep.ai/register"
-                      target="_blank"
-                      class="text-decoration-none text-black"
-                    >
-                      <img
-                        class="s-countryicon"
-                        src="img/switzerland.svg"
-                        alt="Switzerland"
-                      />
-                      <p
-                        class="text-center text-black text-small fw-medium pt-2"
-                      >
-                        Switzerland
-                      </p>
-                    </a>
-                  </div>
-                  <div class="swiper-slide text-center" style="cursor: pointer">
-                    <a
-                      href="http://uniprep.ai/register"
-                      target="_blank"
-                      class="text-decoration-none text-black"
-                    >
-                      <img
-                        class="s-countryicon"
-                        src="img/australia.svg"
-                        alt="Australia"
-                      />
-                      <p
-                        class="text-center text-black text-small fw-medium pt-2"
-                      >
-                        Australia
-                      </p>
-                    </a>
-                  </div>
-                  <div class="swiper-slide text-center" style="cursor: pointer">
-                    <a
-                      href="http://uniprep.ai/register"
-                      target="_blank"
-                      class="text-decoration-none text-black"
-                    >
-                      <img
-                        class="s-countryicon"
-                        src="img/spain.svg"
-                        alt="Spain"
-                      />
-                      <p
-                        class="text-center text-black text-small fw-medium pt-2"
-                      >
-                        Spain
-                      </p>
-                    </a>
-                  </div>
+    <p-carousel [value]="countries" [numVisible]="3" [numScroll]="3" [circular]="false" >
+        <ng-template pTemplate="header">
+            <h5>Basic</h5>
+        </ng-template>
+        <ng-template let-product pTemplate="item">
+            <div class="product-item">
+                <div class="product-item-content">
+                  <h1>{{countries.name}}</h1>
                 </div>
-              </div>
             </div>
-          </div>
-        </div>
-      </div>
-    </section>
+        </ng-template>
+    </p-carousel>
 
     <section class="pt-5 pb-5" id="about">
       <div class="container text-center">
@@ -624,26 +249,26 @@
               </p>
               <div class="d-flex flex-wrap gap-md-5 gap-2 mb-3">
                 <div class="text-start">
-                  <h1 class="fw-semibold text-secondary">10+</h1>
+                  <h1 class="fw-semibold uniprep-secondary">10+</h1>
                   <p>Countries</p>
                 </div>
                 <div class="text-start">
-                  <h1 class="fw-semibold text-secondary">2000+</h1>
+                  <h1 class="fw-semibold uniprep-secondary">2000+</h1>
                   <p>Universities</p>
                 </div>
                 <div class="text-start">
-                  <h1 class="fw-semibold text-secondary">500+</h1>
+                  <h1 class="fw-semibold uniprep-secondary">500+</h1>
                   <p>Sub-Modules</p>
                 </div>
                 <div class="text-start">
-                  <h1 class="fw-semibold text-secondary">5,00,000+</h1>
+                  <h1 class="fw-semibold uniprep-secondary">5,00,000+</h1>
                   <p>Questions Answered</p>
                 </div>
               </div>
             </div>
           </div>
           <div class="col-md-4">
-            <img src="../../../uniprep-assets/images/aboutuniprep.webp" class="img-fluid" />
+            <img src="../../../uniprep-assets/images/aboutuniprep.webp" class="w-100" />
           </div>
         </div>
       </div>
@@ -692,7 +317,7 @@
             </p>
           </div>
           <div class="col-md-4">
-            <img src="../../../uniprep-assets/images/aboutuniprep.webp" class="img-fluid" />
+            <img src="../../../uniprep-assets/images/aboutuniprep.webp" class="w-100" />
           </div>
         </div>
       </div>
@@ -701,7 +326,7 @@
       <div class="container text-center">
         <div class="row justify-content-between align-items-center">
           <div class="col-md-4">
-            <img src="../../../uniprep-assets/images/aboutuniprep.webp" class="img-fluid" />
+            <img src="../../../uniprep-assets/images/aboutuniprep.webp" class="w-100" />
           </div>
           <div class="col-md-5 text-start">
             <h1 class="fw-semibold">Verified & Reliable Information</h1>
@@ -728,7 +353,7 @@
             </p>
           </div>
           <div class="col-md-4">
-            <img src="../../../uniprep-assets/images/aboutuniprep.webp" class="img-fluid" />
+            <img src="../../../uniprep-assets/images/aboutuniprep.webp" class="w-100" />
           </div>
         </div>
       </div>
@@ -997,7 +622,7 @@
       <div class="container text-start">
         <div class="row justify-content-between">
           <div class="col-md-5">
-            <p class="text-secondary fw-semibold">Frequently Asked Questions</p>
+            <p class="uniprep-secondary fw-semibold">Frequently Asked Questions</p>
             <h1 class="uniprep-primary fw-semibold mb-4 text-start">
               Get answers of your common questions
             </h1>
