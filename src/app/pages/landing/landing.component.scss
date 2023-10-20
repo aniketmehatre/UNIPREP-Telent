@@ -260,8 +260,8 @@ p
 .faqcard .accordion-button:not(.collapsed)
 {
     background: #F5F7FF;
-    color: var(--bs-primary);
     border-radius: 10px;
+    color:var(--uniprep-primary);
 }
 
 /* .faqcard .accordion-button:not(.collapsed)::after
@@ -275,7 +275,6 @@ p
     box-shadow: none;
     padding: 1rem 1rem;
     font-weight:600;
-    color:var(--bs-primary);
 }
 
 .faqcard .accordion-body
