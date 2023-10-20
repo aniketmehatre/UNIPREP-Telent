@@ -1,7 +1,8 @@
+<h6 class="sub-label">Subscription</h6>
 <div [class]="'card card-body'" *ngFor="let subscription of userSubscription">
     <div class=" d-flex justify-content-between">
         <div>
-            <span class="sop-border sop-header">{{subscription.country}}</span>
+            <span class="sop-border sop-header">{{subscription.country}} Subscription</span>
             <h2 class="mt-3 mb-0">{{subscription.plan}}</h2>
             <span>{{subscription.remainingdays}} Days Remaining</span>
         </div>
@@ -20,7 +21,7 @@
 </div>
 <br />
 <div [class]="'card card-body'">
-    <span class="sop-header mb-3">Subscription history</span>
+    <span class="sop-header mb-3">Subscription History</span>
     <p-table [value]="subscribedHistoryList" class="subscriptiontable">
         <ng-template pTemplate="header">
             <tr>
@@ -46,7 +47,7 @@
 </div>
 <br />
 <div [class]="'card card-body'">
-    <span class="sop-header mb-3">Account Billing history</span>
+    <span class="sop-header mb-3">Account Billing History</span>
     <p-table [value]="accountBillingList" class="subscriptiontable">
         <ng-template pTemplate="header">
             <tr>
