@@ -37,6 +37,7 @@ import { ScrollToBottomDirective } from './scroll-to-bottom.directive';
 import {ConfirmDialogModule} from "primeng/confirmdialog";
 import {SafePipe} from "@pipes/safe.pipe";
 import {PipesModule} from "@pipes/pipes.module";
+import { LandingComponent } from './pages/landing/landing.component';
 const reducers = {
   pageSelector: pagesReducer
 }
@@ -52,7 +53,7 @@ export function tokenGetter() {
 
 @NgModule({
   declarations: [
-    AppComponent, ModalComponent, BlockCopyPasteDirective, ScrollToBottomDirective
+    AppComponent,LandingComponent, ModalComponent, BlockCopyPasteDirective, ScrollToBottomDirective
   ],
     schemas: [ CUSTOM_ELEMENTS_SCHEMA],
     imports: [
