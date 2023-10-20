@@ -6,13 +6,13 @@
                     <div class="col-md-2 text-start">
                     </div>
                     <div class="col-md-8 text-center">
-                        <h5 class="select-title mb-1">EVENTS</h5>
+                        <h5 class="select-title mb-1">EVENTS<i class="questiontooltip fa-solid fa-circle-question"></i></h5>
                     </div>
                     <div class="col-md-2">
                     </div>
                 </div>
                 <div style="text-align: center;">
-                    <span style="float: left;" (click)="filterpopup()"><button type="button">Filter</button> <br><span
+                    <span style="float: left;" (click)="filterpopup()"><button type="button">Filter by</button> <br><span
                             style="font-size: small;">Total Events - {{totalcount}}</span></span>
                     <button (click)="setActiveButton(1)" [ngStyle]="button1Style">Upcoming Events</button>
                     <button (click)="setActiveButton(2)" [ngStyle]="button2Style">Past Events</button>

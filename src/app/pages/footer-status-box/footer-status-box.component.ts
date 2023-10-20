@@ -33,8 +33,8 @@ export class FooterStatusBoxComponent implements OnInit {
     askYourPersonalized(){
         this.route.navigate([`/pages/chat`]);
     }
-    recentlyaddedquestions(){
-        this.route.navigate([`recentlyaddedquestions`]);
+    recentlyAddedQuestions(){
+        this.route.navigate([`question-list`]);
     }
 
 }
