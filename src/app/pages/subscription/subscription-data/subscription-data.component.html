@@ -1,3 +1,4 @@
+<h6 class="sub-label">Subscription</h6>
 <div [class]="'card card-body'">
     <div class=" d-flex justify-content-between">
         <div>
@@ -5,9 +6,9 @@
             <span>Choose a plan tailored to your needs</span>
         </div>
         <div>
-            <button (click)="buttonclicked1()" class="btn btn-basic" [class.active]="selectedButton === 'button1'"
+            <button (click)="buttonclicked1()" class="btn btn-basic mt-4" [class.active]="selectedButton === 'button1'"
                 (click)="selectedButton = 'button1'" *ngIf="topupcountries">BASE SUBSCRIPTION</button>
-            <button (click)="buttonclicked2()" class="btn btn-basic" [class.active]="selectedButton ==='button2'"
+            <button (click)="buttonclicked2()" class="btn btn-basic mt-4" [class.active]="selectedButton ==='button2'"
                 (click)="selectedButton = 'button2'" *ngIf="basesubscription">TOP UP COUNTRIES</button>
             <!-- <button (click)="buttonclicked3()" class="btn btn-primary" [class.active]="selectedButton === 'button3'" (click)="selectedButton = 'button3'" >TOP UP VALIDITY</button> -->
         </div>
@@ -173,7 +174,7 @@
                                     <p class="fw-semibold">{{subscription.validity}} Month Validity</p>
                                     <div class="getstartedbtn">
                                         <button *ngIf="!subscription.selected" class="btn btn-primary"
-                                            (click)="selectedSubscriptionPlan(subscription)">Select this Plan</button>
+                                            (click)="selectedSubscriptionPlan(subscription)">Select This Plan</button>
                                         <button *ngIf="subscription.selected" class="btn dark-btn"
                                             (click)="selectedSubscriptionPlan(subscription)">You have selected
                                             {{subscription.subscription_plan}} Plan</button>
@@ -231,7 +232,7 @@
                                     <p class="fw-semibold">{{subscription.validity}} Month Validity</p>
                                     <div class="getstartedbtn">
                                         <button *ngIf="!subscription.selected" class="btn btn-primary"
-                                            (click)="selectedTopupCountryPlan(subscription)">Select this Plan</button>
+                                            (click)="selectedTopupCountryPlan(subscription)">Select Plan</button>
                                         <button *ngIf="subscription.selected" class="btn dark-btn"
                                             (click)="selectedTopupCountryPlan(subscription)">You have selected
                                             {{subscription.name}} Plan</button>
@@ -401,22 +402,21 @@
 <!-- last know more about section -->
 <div class="row">
     <div class="col-lg-5">
-        <div [class]="'card card-body mt-3'">
-            <div class=" d-flex justify-content-between">
-                <div class="mt-1">
+        <div [class]="'card card-body mt-3 h-100 justify-content-center'">
+            <div class="row">
+                <div class="mt-1 col-lg-6">
                     <span style="font-size: 16px !important;" class="sop-header"><b>Checkout What You Get With Our
                             Subscriptions</b></span>
                 </div>
-                <div>
+                <div class="col-lg-6">
                     <button (click)="moreabout()" style="color: #fff !important;" class="btn btn-primary "><span
                             style="white-space: nowrap;"> Know More About Our Features</span></button>
                 </div>
             </div>
         </div>
-
     </div>
     <div class="col-lg-4">
-        <div [class]="'card card-body mt-3'">
+        <div [class]="'card card-body mt-3 h-100'">
             <div>
                 <span style="font-size: 13px !important;" class="sop-header"><b>Apply your coupon code here</b></span>
                 <br>
@@ -425,21 +425,20 @@
                     <button (click)="applyCoupon()" class="btn-primary" label="Apply" pButton pRipple
                         type="button"></button>
                 </div>
-                <span *ngIf="invalidCoupon" style="font-size: 9px !important; color: lightgray !important;">You entered
-                    an invalid discount code. Please chech the code and try againg</span>
+                <span *ngIf="invalidCoupon" style="font-size: 9px !important; color: lightgray !important;">You entered an invalid discount code. Please check the code and try again</span>
             </div>
         </div>
 
     </div>
     <div class="col-lg-3">
-        <div [class]="'card card-body mt-3'">
-            <div class=" d-flex justify-content-between">
-                <div *ngIf="basesubscription">
+        <div [class]="'card card-body mt-3 h-100 justify-content-center'">
+            <div class="row">
+                <div *ngIf="basesubscription" class="col-lg-6">
                     <span style="font-size: 13px !important;" class="sop-header"><b>Total</b></span> <br>
                     <span style="font-size: 15px !important; color: var(--uniprep-primary) !important;"
                         class="sop-header"><b> INR {{subscriptionTotal | number : '.2-2'}}</b></span>
                 </div>
-                <div *ngIf="topupcountries">
+                <div *ngIf="topupcountries" class="col-lg-6">
                     <span style="font-size: 13px !important;" class="sop-header"><b>Countries</b></span>
                     <span style="font-size: 13px !important; color: var(--uniprep-primary) !important;"
                         class="sop-header"><b>
@@ -448,7 +447,7 @@
                     <span style="font-size: 13px !important; color: var(--uniprep-primary) !important;"
                         class="sop-header"><b> INR {{subscriptionTotal | number : '.2-2'}}</b></span>
                 </div>
-                <div>
+                <div class="col-lg-6">
                     <button [disabled]="showCheckout" style="color: #fff !important;" class="btn btn-primary " (click)="checkout()"><span
                             class=" ps-3 pe-3" >Checkout</span> </button>
                 </div>

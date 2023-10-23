@@ -911,11 +911,11 @@ h1, h2, h3, h4, h5 {
     background: #202124;
     &::before
     {
-      border-bottom-color: #202124;
+      border-bottom-color: #00000026;
     }
     &::after
     {
-      border-bottom-color: #202124;
+      border-bottom-color: #00000026;
     }
   }
   .notify
@@ -1667,8 +1667,9 @@ h1, h2, h3, h4, h5 {
 }
 
 .subscriptiontable .p-datatable .p-datatable-thead > tr > th {
-  border: 2px solid #000;
+  border: 2px solid #F1F1F1;
   border-width: 0 0 2px 0;
+  font-size: 20px;
 }
 
 .subscriptioncard1 .p-chip img,.subscriptioncard .p-chip img {
