@@ -2,8 +2,15 @@ import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
 import {AuthGuard} from "./Auth/auth.guard";
 import {UserResolver} from "./resolvers/user.resolver";
+import { LandingComponent } from "./pages/landing/landing.component";
+import { AppComponent } from "./app.component";
 
 const routes: Routes = [
+  {
+    path: "",
+    component: AppComponent ,
+    children: [{ path: "", component: LandingComponent }],
+  },
   {
     path: "pages",
     loadChildren: () => import("./pages/pages.module").then((m) => m.PagesModule),
@@ -17,6 +24,10 @@ const routes: Routes = [
     loadChildren: () =>
     import("./Auth/auth.module").then((m) => m.AuthModule),
   }
+  ,{
+    path: "**",
+    redirectTo: "",
+  },
 ];
 
 @NgModule({

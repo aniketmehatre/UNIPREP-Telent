@@ -147,7 +147,7 @@
                       class="response-msg"
                       [innerHtml]="message.message"
                     ></p>
-                    <p *ngIf="message.attachment" [pTooltip]=message.attachment class="response-msg-attach"><label>{{ message.attachment }}</label> &nbsp;&nbsp;<a 
+                    <p *ngIf="message.attachment" [pTooltip]=message.filename class="response-msg-attach"><label>{{ message.filename }}</label> &nbsp;&nbsp;<a 
                     [href]="
                       message.attachment
                     "
