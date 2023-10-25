@@ -1,14 +1,11 @@
-import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
-import {DashboardService} from "./dashboard.service";
-import {AuthService} from "../../Auth/auth.service";
-import {SubSink} from "subsink";
-import {Router} from "@angular/router";
-import {DataService} from 'src/app/data.service';
-import {MessageService} from "primeng/api";
-import {combineLatest} from "rxjs";
-import {select} from "@ngrx/store";
-import {AnimationBuilder} from "@angular/animations";
-import {Carousel, CarouselModule} from "primeng/carousel";
+import { Component, OnInit } from '@angular/core';
+import { DashboardService } from "./dashboard.service";
+import { SubSink } from "subsink";
+import { Router } from "@angular/router";
+import { DataService } from 'src/app/data.service';
+import { MessageService } from "primeng/api";
+import { combineLatest } from "rxjs";
+import { AnimationBuilder } from "@angular/animations";
 
 @Component({
     selector: 'uni-dashboard',
@@ -51,11 +48,11 @@ export class DashboardComponent implements OnInit {
         }
     ];
     selectedCountryId: any;
-    private subs = new SubSink();
     currentSlide: any;
+    freeTrial: boolean | undefined;
 
-    constructor(private dashboardService: DashboardService, private builder : AnimationBuilder,
-    private router: Router, private dataService: DataService, private toast: MessageService) {
+    constructor(private dashboardService: DashboardService, private builder: AnimationBuilder,
+        private router: Router, private dataService: DataService, private toast: MessageService) {
         this.responsiveOptions = [
             {
                 breakpoint: '1024px',
@@ -76,24 +73,25 @@ export class DashboardComponent implements OnInit {
     }
 
     ngOnInit(): void {
-       localStorage.setItem("currentmodulenameforrecently",'')
+        localStorage.setItem("currentmodulenameforrecently", '')
         this.loadApiData();
+        this.freeTrial = true;
 
     }
 
-    loadApiData(){
-        this.selectedCountryId = localStorage.getItem('countryId');    
+    loadApiData(): void {
+        this.selectedCountryId = localStorage.getItem('countryId');
         const data = {
             countryId: this.selectedCountryId,
         }
         combineLatest(this.dashboardService.getDashboardCounts(),
-            this.dashboardService.getReadProgression({countryId: this.selectedCountryId}),
-            this.dashboardService.getQuizProgression({countryId: this.selectedCountryId}),
+            this.dashboardService.getReadProgression({ countryId: this.selectedCountryId }),
+            this.dashboardService.getQuizProgression({ countryId: this.selectedCountryId }),
             this.dashboardService.countryList(),
             this.dashboardService.getModuleReadProgression(data),
             this.dashboardService.getModuleQuizProgression(data))
             .subscribe(([dashboard, readProgression, quizProgression, countryList, getModuleReadProgression,
-                            getModuleQuizProgression]) => {
+                getModuleQuizProgression]) => {
                 if (dashboard) {
                     if (dashboard.status === 404) {
                         return;
@@ -113,7 +111,7 @@ export class DashboardComponent implements OnInit {
                     }
                     this.readQuizProgressionPercentage = Math.round(quizProgression.quizpercentage);
                 }
-                if(countryList){
+                if (countryList) {
                     this.countryLists = countryList;
                     this.countryLists.forEach((element: any) => {
                         if (element.id == this.selectedCountryId) {
@@ -124,37 +122,37 @@ export class DashboardComponent implements OnInit {
                     });
                 }
 
-                if(getModuleReadProgression){
+                if (getModuleReadProgression) {
                     this.readingProgressings = getModuleReadProgression.module;
                 }
-                if(getModuleReadProgression){
+                if (getModuleReadProgression) {
                     this.quizProgressings = getModuleQuizProgression.module;
                 }
             })
     }
 
-    shareWithSocial(){
+    shareWithSocial(): void {
         this.isShareWithSocialMedia = true
     }
 
-    closeReading() {
+    closeReading(): void {
         this.continueReading = 'none'
     }
 
-    openReading() {
+    openReading(): void {
         this.continueReading = "block";
     }
 
-    closeQuiz() {
+    closeQuiz(): void {
         this.continueQuiz = 'none'
     }
 
-    openQuiz() {
+    openQuiz(): void {
         this.continueQuiz = "block";
     }
 
 
-    selectCountry(selectedId: any) {
+    selectCountry(selectedId: any): void {
         // if (selectedId != 2) {
         //     this.toast.add({
         //         severity: 'info',
@@ -181,7 +179,7 @@ export class DashboardComponent implements OnInit {
         // this.loadQuizProgression(selectedId);
     }
 
-    onClickReadProgression(data: any) {
+    onClickReadProgression(data: any): void {
         let moduleName = "";
         switch (data.module_name) {
             case "Pre-Application":
@@ -206,7 +204,7 @@ export class DashboardComponent implements OnInit {
         this.router.navigate([`pages/modules/${moduleName}/`]);
     }
 
-    onClickQuizProgression(data: any) {
+    onClickQuizProgression(data: any): void {
         let moduleName = "";
         switch (data.module_name) {
             case "Pre-Application":
@@ -231,10 +229,14 @@ export class DashboardComponent implements OnInit {
         this.router.navigate([`pages/${moduleName}/sub-modules/2`]);
     }
 
-    openViewMoreOrg(){
+    openViewMoreOrg(): void {
         this.isViewMoreOrgVisible = true;
         this.dashboardService.getTrustedPartners().subscribe(partnerLogo => {
             this.partnerTrusterLogo = partnerLogo;
         });
+    }
+
+    onClickSubscribe(): void {
+        this.router.navigate(["/pages/subscriptions"]);
     }
 }
