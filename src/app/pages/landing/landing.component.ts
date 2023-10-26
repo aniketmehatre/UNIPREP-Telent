@@ -6,10 +6,17 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./landing.component.scss']
 })
 export class LandingComponent implements OnInit {
+  countries: any;
 
   constructor() { }
 
   ngOnInit(): void {
+
+     this.countries = [
+      {name: 'USA', flag: 'path_to_usa_flag'},
+      {name: 'Canada', flag: 'path_to_canada_flag'},
+    ];
+
   }
 
 }
