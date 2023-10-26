@@ -28,4 +28,10 @@ export class EventsService {
       headers: headers,
   });
   }
+  registered(data:any):Observable<any>{
+    const headers = new HttpHeaders().set("Accept", "application/json");
+    return this.http.post<any>(environment.ApiUrl+'/RegisterEvent',data, {
+        headers: headers,
+    });
+  }
 }

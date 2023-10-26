@@ -64,7 +64,7 @@
                             </div>
                             </div>
                         </a>
-                        <button class="resterbutton" type="button">Register Now</button>
+                        <button class="resterbutton" (click)="registerbutton(event.id)" type="button">{{event.registered===0? 'register Now':'Registered'}}</button>
                     </div>
                 </div>
                 <!-- post event -->
