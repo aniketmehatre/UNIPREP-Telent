@@ -292,6 +292,8 @@ countryimage {
   background: #e3effd;
   padding: 10px;
   border-radius: 20px;
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
   width: 50%;
   label{
     width: 80%;

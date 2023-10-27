@@ -64,7 +64,6 @@ export class ChatComponent implements OnInit {
     });
   }
   getData(questionNumber:any):string{
-    console.log(">>",questionNumber)
     return this.messages?.find((data: { questionNumber: any; })=>data.questionNumber==questionNumber).message;
   }
   textMessage: string = "";
