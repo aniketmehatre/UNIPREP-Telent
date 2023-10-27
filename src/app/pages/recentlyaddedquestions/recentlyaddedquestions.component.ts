@@ -10,6 +10,8 @@ import {Location} from "@angular/common";
 import {ModuleListSub} from "../../@Models/module.model";
 import {MenuItem} from "primeng/api";
 import {DomSanitizer} from "@angular/platform-browser";
+import {loadQuestionList} from "../module-store/module-store.actions";
+import {LocationService} from "../../location.service";
 
 @Component({
   selector: 'uni-recentlyaddedquestions',
@@ -24,7 +26,7 @@ export class RecentlyaddedquestionsComponent implements OnInit {
 
   subModules$!: Observable<ModuleListSub[]>;
   readQue$!: Observable<ReadQuestion[]>;
-  listQuestion$!: Observable<ListQuestion[]>;
+  //listQuestion$!: Observable<ListQuestion[]>;
   selectedQuestion: number = 0;
   selectedQuestionId: number = 0;
   selectedModule: number = 0;
@@ -60,20 +62,22 @@ export class RecentlyaddedquestionsComponent implements OnInit {
 
   constructor(private route: ActivatedRoute, private dataService: DataService,
               private moduleListService: ModuleServiceService, private service: RecentlyaddedquestionService,
-              private _location: Location,
+              private _location: Location, private locationService: LocationService,
               private _sanitizer: DomSanitizer, private router: Router) {
   }
 
   ngOnInit(): void {
+    this.countryId = Number(localStorage.getItem('countryId'));
     this.route.params.subscribe(params => {
+      this.perpage = 10;
+      this.pageno = 1;
       this.type = this.route.snapshot.paramMap.get('type');
       this.loadInit();
     });
+    //this.getSubmoduleName(this.countryId);
   }
 
-  loadInit(){
-    this.countryId = Number(localStorage.getItem('countryId'));
-
+  loadInit(): void {
     this.subModuleId = this.route.snapshot.paramMap.get('id');
     this.currentSubModuleSlug = this.route.snapshot.paramMap.get('module_name');
     //this.getSubmoduleName(this.countryId);
@@ -108,6 +112,10 @@ export class RecentlyaddedquestionsComponent implements OnInit {
     //   submoduleId: Number(this.subModuleId)
     // }
     // this.moduleListService.loadQuestionList(data);
+    this.loadQuestionList();
+  }
+
+  loadQuestionList(){
     let req = {
       getcountry_id: this.countryId,
       perpage: this.perpage,
@@ -126,17 +134,37 @@ export class RecentlyaddedquestionsComponent implements OnInit {
   }
 
   getSubmoduleName(countryId: number) {
+    console.log(this.selectedQuestionData)
     let data = {
       countryId: countryId,
-      api_module_name: this.currentApiSlug
+      api_module_name: this.currentApiSlug,
+      moduleId: this.selectedModule
     }
+
+    this.locationService.getUniPerpModuleList().subscribe((data: any) => {
+      console.log(data)
+      data.modules.filter((res: any) => {
+        if(res.id == this.selectedModule){
+          this.currentModuleName = res.module_name;
+          this.breadCrumb = [{
+            label: this.currentModuleName,
+            command: (event) => this.gotomodulebreadcrump()
+          }, {label: this.moduleName, command: (event) => this.goToHomebreadcrump()}, {label: 'Question'}];
+        }
+      })
+    })
     this.moduleListService.loadSubModules(data);
     this.subModules$ = this.moduleListService.subModuleList$();
     this.subModules$.subscribe(event => {
       if (event) {
         event.filter(data => {
-          if (data.id == this.subModuleId) {
+          if (data.id == this.selectedSubModule) {
+            console.log(data.submodule_name)
             this.moduleName = data.submodule_name;
+            this.breadCrumb = [{
+              label: this.currentModuleName,
+              command: (event) => this.gotomodulebreadcrump()
+            }, {label: this.moduleName, command: (event) => this.goToHomebreadcrump()}, {label: 'Question'}];
           }
         })
       }
@@ -153,7 +181,6 @@ export class RecentlyaddedquestionsComponent implements OnInit {
     // this.listQuestion$.subscribe(event => {
     //   this.data = event
     // })
-    console.log(selectedData);
     this.selectedQuestionData = selectedData;
     this.selectedModule = selectedData.module_id;
     this.selectedSubModule = selectedData.submodule_id;
@@ -162,7 +189,7 @@ export class RecentlyaddedquestionsComponent implements OnInit {
     let index = this.listQuestions.findIndex((x: any) => x.id === selectedData.id);
     this.selectedQuestion = index;
     this.positionNumber = index;
-
+    this.getSubmoduleName(this.countryId);
     this.breadCrumb = [{
       label: this.currentModuleName,
       command: (event) => this.gotomodulebreadcrump()
@@ -194,18 +221,19 @@ export class RecentlyaddedquestionsComponent implements OnInit {
       moduleId: this.selectedModule,
       submoduleId: Number(this.selectedSubModule)
     }
-    this.moduleListService.loadQuestionList(data1);
-    this.listQuestion$ = this.moduleListService.questionList$();
+    //this.moduleListService.loadQuestionList(data1);
+    //this.listQuestion$ = this.moduleListService.questionList$();
+    this.loadQuestionList();
   }
 
   setPage(page: any) {
     let pageNum: number = 0
     if (page.page < 0) {
-      pageNum = this.data.length;
+      pageNum = this.listQuestions.length;
     } else {
       pageNum = page.page
     }
-    this.data.filter((res: any) => {
+    this.listQuestions.filter((res: any) => {
       if (res.id == pageNum + 1) {
         this.refLink = res.reflink;
         this.videoLinks = res.videolink;
@@ -219,6 +247,8 @@ export class RecentlyaddedquestionsComponent implements OnInit {
   }
 
   clickPrevious(carousel: any, event: any) {
+    this.refLink = [];
+    this.videoLinks = [];
     this.isAnswerDialogVisiblePrev = true;
     this.isAnswerDialogVisibleNext = true;
     if (this.selectedQuestion <= 1) {
@@ -244,11 +274,12 @@ export class RecentlyaddedquestionsComponent implements OnInit {
       questionId: selectedData.id,
       countryId: this.countryId
     }
-
     this.readQuestion(data);
   }
 
   clickNext(carousel: any, event: any) {
+    this.refLink = [];
+    this.videoLinks = [];
     this.isAnswerDialogVisiblePrev = true;
     this.isAnswerDialogVisibleNext = true;
     if (this.selectedQuestion >= this.listQuestions.length - 2) {

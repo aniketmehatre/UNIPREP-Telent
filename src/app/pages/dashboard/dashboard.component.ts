@@ -76,7 +76,9 @@ export class DashboardComponent implements OnInit {
         localStorage.setItem("currentmodulenameforrecently", '')
         this.loadApiData();
         this.freeTrial = true;
-
+        this.dashboardService.getTrustedPartners().subscribe(partnerLogo => {
+            this.partnerTrusterLogo = partnerLogo;
+        });
     }
 
     loadApiData(): void {
@@ -231,9 +233,6 @@ export class DashboardComponent implements OnInit {
 
     openViewMoreOrg(): void {
         this.isViewMoreOrgVisible = true;
-        this.dashboardService.getTrustedPartners().subscribe(partnerLogo => {
-            this.partnerTrusterLogo = partnerLogo;
-        });
     }
 
     onClickSubscribe(): void {
