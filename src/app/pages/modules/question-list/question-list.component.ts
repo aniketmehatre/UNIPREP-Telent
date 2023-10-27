@@ -64,7 +64,7 @@ export class QuestionListComponent implements OnInit {
   ngOnInit(): void {
     this.route.params.subscribe(params => {
       this.loadInit();
-      this.getSubmoduleName(this.countryId);
+      //this.getSubmoduleName(this.countryId);
     });
 
   }
@@ -144,19 +144,29 @@ export class QuestionListComponent implements OnInit {
   getSubmoduleName(countryId: number) {
     let data = {
       countryId: countryId,
-      api_module_name: this.currentApiSlug
+      moduleId: this.currentModuleId
     }
-    this.moduleListService.loadSubModules(data);
-    this.subModules$ = this.moduleListService.subModuleList$();
-    this.subModules$.subscribe(event => {
-      if(event){
-        event.filter(data => {
-          if (data.id == this.subModuleId) {
-            this.moduleName = data.submodule_name;
+    //this.moduleListService.loadQuestionList()
+    this.moduleStoreService.loadSubModuleData(data).subscribe(response => {
+      console.log('sub', response)
+      if(response){
+        response.filter((res: any) => {
+          if (res.id == this.subModuleId) {
+            this.moduleName = res.submodule_name;
           }
         })
       }
-    })
+    });
+    // this.subModules$ = this.moduleListService.subModuleList$();
+    // this.subModules$.subscribe(event => {
+    //   if(event){
+    //     event.filter(data => {
+    //       if (data.id == this.subModuleId) {
+    //         this.moduleName = data.submodule_name;
+    //       }
+    //     })
+    //   }
+    // })
   }
 
   convertToSlug(text: any) {

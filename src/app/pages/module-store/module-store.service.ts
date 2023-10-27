@@ -1,5 +1,5 @@
 import {Injectable} from "@angular/core";
-import {HttpClient} from "@angular/common/http";
+import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {environment} from "@env/environment";
 import {ModuleList} from "../../@Models/module.model";
@@ -21,7 +21,22 @@ export class ModuleStoreService {
             countryId: params.countryId,
             moduleId: params.moduleId
         }
-        return this.http.post<any>(environment.ApiUrl + `/${params.api_module_name}`, request);
+        let body = new FormData();
+        body.append('countryId', params.countryId.toString());
+        body.append('moduleId', params.moduleId.toString());
+        let apiName = 'GetSubModulesList';
+        return this.http.post<any>(environment.ApiUrl + `/${apiName}`, body);
+    }
+
+    loadSubModuleData(params: any) {
+        let body = new FormData();
+        body.append('countryId', params.countryId.toString());
+        body.append('moduleId', params.moduleId.toString());
+        const headers = new HttpHeaders().set("Accept", "application/json");
+        return this.http.post<any>(environment.ApiUrl + "/GetSubModulesList",
+            body, {
+            headers: headers,
+        });
     }
 
     loadQuestionList(

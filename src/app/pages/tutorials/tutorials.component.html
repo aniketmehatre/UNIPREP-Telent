@@ -14,7 +14,8 @@
             <div class="container-fluid">
                 <div class="row">
                   <div *ngFor="let tutorial of tutoriallist" class="col-md-3 col-12 mt-3">
-                    <div class="card card-style"><a href={{tutorial.link}} class="fw-semibold" target="_blank">{{tutorial.title}}</a></div>
+                    <div class="card card-style"><a href={{tutorial.link}} class="fw-semibold" target="_blank">
+                        <h5>{{tutorial.title}}</h5></a></div>
                   </div>
                 </div>
               </div>

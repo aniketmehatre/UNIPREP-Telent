@@ -40,8 +40,12 @@
                             </div>
                         </div>
                     </div>
+
                 </div>
+
             </div>
+            <p-paginator [rows]="10" [totalRecords]="listQuestionCount" (onPageChange)="paginate($event)"
+                         [rowsPerPageOptions]="[10,32,72,100]"></p-paginator>
         </div>
     </div>
 </div>
@@ -83,8 +87,8 @@
             </div>
         </div>
         <p-carousel #carousel (onPage)="setPage($event)" [circular]="true" [numScroll]="1" [numVisible]="1"
-                    [page]="selectedQuestion" [responsiveOptions]="responsiveOptions" [value]="data" class="answersection">
-            <ng-template [ngForOf]="data" let-i="index" let-val ngFor pTemplate="item">
+                    [page]="selectedQuestion" [responsiveOptions]="responsiveOptions" [value]="listQuestions" class="answersection">
+            <ng-template [ngForOf]="listQuestions" let-i="index" let-val ngFor pTemplate="item">
                 <div class="row text-center">
                     <div class="col-12">
                         <div class="card answercard">

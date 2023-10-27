@@ -7,22 +7,27 @@
     margin-top: -13px;
   }
 
-  .card-style {
-    border-radius: 0px 0px 10px 10px;
-    background-color: #F5F5F5;
+.card-style {
+  border-radius: 0px 0px 10px 10px;
+  background-color: #F5F5F5;
+  a
+  {
+    color:#001631;
+    padding: 30px;
+    text-decoration: none;
+  }
+  &:hover
+  {
+    background-color: var(--uniprep-primary);
+    color:#fff;
     a
     {
-      color:#001631;
-      padding: 30px;
-      text-decoration: none;
-    }
-    &:hover
-    {
-      background-color: var(--uniprep-primary);
-      color:#fff;
-      a
-      {
-        color:#fff;
-      }
+      color:#fff !important;
     }
   }
+}
+.readingcard
+{
+  height:60vh;
+  overflow-y:auto;
+}

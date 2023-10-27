@@ -11,24 +11,26 @@ import {PipesModule} from "@pipes/pipes.module";
 import {TagModule} from "primeng/tag";
 import { RecentlyaddedquestionsComponent } from './recentlyaddedquestions.component';
 import { RecentlyAddedQuesRoutingModule } from './recentlyaddedques-routing.module';
+import {PaginatorModule} from "primeng/paginator";
 
 
 @NgModule({
   declarations: [
     RecentlyaddedquestionsComponent
   ],
-  imports: [
-    CommonModule,
-    BreadcrumbModule,
-    CarouselModule,
-    ConfirmDialogModule,
-    DialogModule,
-    RecentlyAddedQuesRoutingModule,
-    ProgressBarModule,
-    SharedModule,
-    TooltipModule,
-    PipesModule,
-    TagModule
-  ]
+    imports: [
+        CommonModule,
+        BreadcrumbModule,
+        CarouselModule,
+        ConfirmDialogModule,
+        DialogModule,
+        RecentlyAddedQuesRoutingModule,
+        ProgressBarModule,
+        SharedModule,
+        TooltipModule,
+        PipesModule,
+        TagModule,
+        PaginatorModule
+    ]
 })
 export class RecentlyAddedQuestionsModule { }

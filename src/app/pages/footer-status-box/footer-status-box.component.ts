@@ -34,7 +34,11 @@ export class FooterStatusBoxComponent implements OnInit {
         this.route.navigate([`/pages/chat`]);
     }
     recentlyAddedQuestions(){
-        this.route.navigate([`question-list`]);
+        this.route.navigate([`/pages/question-list/recent`]);
+    }
+
+    popularQuestions(){
+        this.route.navigate([`/pages/question-list/popular`]);
     }
 
 }
