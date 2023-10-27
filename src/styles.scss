@@ -62,7 +62,7 @@ html,
 body {
   font-family: "Poppins", sans-serif;
   font-size:1rem;
-  overflow: hidden;
+  overflow: auto;
 }
 .p-tooltip.p-tooltip-top {
   position: fixed !important;
@@ -163,7 +163,7 @@ h1, h2, h3, h4, h5 {
 
 .fw-normal {
   font-weight: 400!important;
-  font-size: 18px;
+  font-size: 14px;
 }
 
 .fw-medium {
