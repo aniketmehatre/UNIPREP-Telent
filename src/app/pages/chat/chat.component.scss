@@ -483,7 +483,7 @@ countryimage {
       width: 100%;
     }
     .ql-container {
-      height: 100vh !important;
+      height: 87vh !important;
       width: 100% !important;
     }
   }
@@ -676,4 +676,8 @@ countryimage {
 }
 ::ng-deep .p-confirm-popup .p-confirm-popup-flipped:after {
   border-top-color: #888a9447 !important;
+}
+.fullscreen .ql-container {
+  height: 90vh !important;
+  width: 100% !important;
 }
