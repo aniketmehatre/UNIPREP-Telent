@@ -126,7 +126,23 @@
   overflow: visible !important;
 }
 
-
+::ng-deep .ql-fullscreen:after {
+  content: "\26F6";
+  padding: 0 !important;
+  font-weight: bold;
+}::ng-deep {
+  .fullscreen {
+    background-color: white;
+    .form-group {
+      height: 100%;
+      width: 100%;
+    }
+    .ql-container {
+      height: 100vh !important;
+      width: 100% !important;
+    }
+  }
+}
 button {
   border-radius: 3px !important;
   font-size: x-small;
@@ -278,33 +294,7 @@ countryimage {
 .response-msg {
   background-color: #e3effd;
   padding: 15px;
-  border-radius: 12px;border-top-left-radius:0;
-}
-.response-msg-question{
-  background-color: #e6e7ed;
-  width: fit-content;
-  padding-right: 30px;
-  margin-bottom: -16px;
-  padding-left: 10px;
-}
-.response-msg-attach {
-  
-  background: #e3effd;
-  padding: 10px;
-  border-radius: 20px;
-  border-top-left-radius: 0;
-  border-bottom-left-radius: 0;
-  width: 50%;
-  label{
-    width: 80%;
-    overflow: hidden;
-  }
-  a{
-    float: right; 
-    i{
-      font-size: 25px;
-    }
-  }
+  border-radius: 12px;
 }
 .p-card .p-card-content {
   width: 100% !important;

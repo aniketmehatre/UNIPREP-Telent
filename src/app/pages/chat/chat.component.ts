@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, ElementRef, OnInit, ViewChild } from "@angular/core";
 import { ChathistoryService } from "./chat.service";
 import { AuthService } from "src/app/Auth/auth.service";
 import { ConfirmationService, MessageService } from "primeng/api";
@@ -6,6 +6,7 @@ import { FormBuilder, FormGroup } from "@angular/forms";
 import { PageFacadeService } from "../page-facade.service";
 import { fas } from "@fortawesome/free-solid-svg-icons";
 import { Router } from "@angular/router";
+import screenfull from "screenfull";
 @Component({
   selector: "uni-chat",
   templateUrl: "./chat.component.html",
@@ -13,9 +14,12 @@ import { Router } from "@angular/router";
   providers: [ConfirmationService],
 })
 export class ChatComponent implements OnInit {
+  @ViewChild("fullscreeneditor") editorelement: ElementRef|any;
+  fullscreen = "";
+  modules = {};
   filterForm: FormGroup;
   messages: any = [];
-  reportOptions=[];
+  reportOptions = [];
   constructor(
     private service: ChathistoryService,
     private authService: AuthService,
@@ -23,18 +27,84 @@ export class ChatComponent implements OnInit {
     private fb: FormBuilder,
     private pageService: PageFacadeService,
     private confirmationService: ConfirmationService,
-    private route:Router
+    private route: Router
   ) {
     this.filterForm = fb.group({
       reportOption: [""],
       comment: [""],
     });
+
+    this.modules = {
+      toolbar: {
+          container: [
+              // ['bold', 'italic', 'underline', 'strike'], // toggled buttons
+              // ['blockquote', 'code-block'],
+
+              // [{ header: 1 }, { header: 2 }], // custom button values
+              // [{ list: 'ordered' }, { list: 'bullet' }],
+              // [{ script: 'sub' }, { script: 'super' }], // superscript/subscript
+              // [{ indent: '-1' }, { indent: '+1' }], // outdent/indent
+              // [{ direction: 'rtl' }], // text direction
+              // [{ 'size': ['small', false, 'large', 'huge'] }],  // custom dropdown
+              // [
+              //     {
+              //         size: [
+              //             '8px',
+              //             '10px',
+              //             '12px',
+              //             '14px',
+              //             '16px',
+              //             '18px',
+              //             '20px',
+              //             '22px',
+              //             '24px',
+              //             '32px',
+              //             '64px',
+              //             '72px',
+              //         ],
+              //     },
+              // ],
+              // [{ header: [1, 2, 3, 4, 5, 6, false] }],
+
+              // [{ color: [] }, { background: [] }], // dropdown with defaults from theme
+              // [
+              //     {
+              //         font: [
+              //             'verdana',
+              //             'sans-serif',
+              //             'roboto',
+              //             'cursive',
+              //             'fantasy',
+              //             'monospace',
+              //         ],
+              //     },
+              // ],
+              // [{ align: [] }],
+
+              // ['clean'], // remove formatting button
+
+              // ['link', 'image', 'video'], // link and image, video
+              ['fullscreen'],
+          ],
+          handlers: {
+              emoji: function () {},
+              fullscreen: () => {
+                  if (screenfull.isEnabled) {
+                      this.fullscreen = this.fullscreen
+                          ? ''
+                          : 'fullscreen';
+                      screenfull.toggle(this.editorelement.nativeElement);
+                  }
+              },
+          },
+      },
+  };
   }
   username: string = "";
   ngOnInit(): void {
     if (localStorage.getItem("guidlineAccepted")) {
       if (Number(localStorage.getItem("guidlineAccepted")) == 0) {
-        this.route.navigate(['/pages/guideline']);
+        this.route.navigate(["/pages/guideline"]);
       }
     }
     this.getChatHistoryByUserId();
@@ -62,9 +132,6 @@ export class ChatComponent implements OnInit {
       this.questionsleft = response?.questionsleft;
       this.totalcredits = Number(localStorage.getItem("questions_left"));
     });
-  }
-  getData(questionNumber:any):string{
-    return this.messages?.find((data: { questionNumber: any; })=>data.questionNumber==questionNumber).message;
   }
   textMessage: string = "";
   visibility = false;
@@ -123,15 +190,10 @@ export class ChatComponent implements OnInit {
           summary: "success",
           detail: "Reported successfully",
         });
+        window.location.reload();
         this.filterForm.reset();
       },
-      (error) => {
-       
-      }
+      (error) => {}
     );
-  }
-  getmessage(){
-    this.visibility = !this.visibility;
-    this.ngOnInit();
   }
 }
