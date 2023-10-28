@@ -212,6 +212,7 @@ export class EventsComponent implements OnInit {
     }
     this.service.registered(data).subscribe((response)=>{
         this.toast.add({ severity: 'success', summary: 'Success', detail: response.message });
+        this.ngOnInit()
     },
     error => {
       this.toast.add({ severity: 'error', summary: 'Error', detail: error.message });
