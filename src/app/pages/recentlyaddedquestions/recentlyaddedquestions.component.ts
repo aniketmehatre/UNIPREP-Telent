@@ -59,6 +59,7 @@ export class RecentlyaddedquestionsComponent implements OnInit {
   currentApiSlug: any;
   listQuestions: any;
   listQuestionCount: any;
+  headerName: any;
 
   constructor(private route: ActivatedRoute, private dataService: DataService,
               private moduleListService: ModuleServiceService, private service: RecentlyaddedquestionService,
@@ -72,6 +73,8 @@ export class RecentlyaddedquestionsComponent implements OnInit {
       this.perpage = 10;
       this.pageno = 1;
       this.type = this.route.snapshot.paramMap.get('type');
+      this.headerName = this.type == 'popular' ? 'Popular' : 'Recently Added'
+
       this.loadInit();
     });
     //this.getSubmoduleName(this.countryId);
