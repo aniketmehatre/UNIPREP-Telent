@@ -200,8 +200,7 @@
       <div class="modal-header">
         <h3 class="mb-0" tooltipZIndex="auto" tooltipPosition="top"
           pTooltip="Complete the reading for all modules to get the certificate.">
-          Continue Reading
-          <i class="questiontooltip fa-solid fa-circle-question"></i>
+          CONTINUE READING
         </h3>
         <div class="popupclose">
           <a (click)="closeReading()" class="close" role="button">
@@ -218,7 +217,7 @@
                 <div *ngFor="let readPro of readingProgressings" class="col-md-6 p-2">
                   <div class="card continuecard">
                     <div class="modal-selected-box d-flex flex-column">
-                      <h6 class="fw-semibold">{{readPro.module_name}}</h6>
+                      <h6 class="fw-semibold">{{readPro.module_name | uppercase}}</h6>
                       <div class="d-flex justify-content-between">
                         <div>
                           <div [attr.data-percentage]="readPro.progression" class="progress1">
@@ -363,7 +362,7 @@
 </p-dialog>
 
 <p-dialog [(visible)]="freeTrial" [closable]="true" [style]="{ width: '35vw' }" class="p-0 m-0" [modal]="true"
-  [draggable]="false" [resizable]="false">
+  [draggable]="false" [resizable]="false" *ngIf="newUserLogin">
   <div class="d-flex justify-content-between p-4">
     <div>
       <h4>Your 60 Min<span class="text-xl font-bold p-3 fw-bold" style="color: #3F4C83;"> Free Trail</span>Starts Now!
