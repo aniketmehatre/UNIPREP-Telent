@@ -823,9 +823,9 @@ Due to the split circle of progress-left and progress right, we must use the ani
 }
 
 .continuecard {
-  // border: 2px solid var(--uniprep-primary) !important;
+  border: 2px solid var(--uniprep-primary) !important;
   padding: 15px 10px;
-  background: #EBEDF2;
+  background: var(--uniprep-primaryop10);
 
   .progress1 {
     .progress1-value {
@@ -917,8 +917,4 @@ Due to the split circle of progress-left and progress right, we must use the ani
 .list-data{
   color: #858585;
   font-size: 16px;
-}
-.fw-semifold {
-  color: #1C1B17;
-  font-size: 17px;
 }

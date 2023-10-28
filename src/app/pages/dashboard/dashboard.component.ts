@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { DashboardService } from "./dashboard.service";
+import { SubSink } from "subsink";
 import { Router } from "@angular/router";
 import { DataService } from 'src/app/data.service';
 import { MessageService } from "primeng/api";
 import { combineLatest } from "rxjs";
-import { AuthService } from 'src/app/Auth/auth.service';
+import { AnimationBuilder } from "@angular/animations";
 
 @Component({
     selector: 'uni-dashboard',
@@ -29,7 +30,6 @@ export class DashboardComponent implements OnInit {
     isViewMoreOrgVisible: boolean = false;
     partnerTrusterLogo: any;
     searchResult: any;
-    newUserLogin: boolean = false;
     university: any[] = [
         {
             "image": "../../../uniprep-assets/images/icons/university1.svg",
@@ -51,8 +51,8 @@ export class DashboardComponent implements OnInit {
     currentSlide: any;
     freeTrial: boolean | undefined;
 
-    constructor(private dashboardService: DashboardService, private authService: AuthService,
-        private router: Router, private dataService: DataService) {
+    constructor(private dashboardService: DashboardService, private builder: AnimationBuilder,
+        private router: Router, private dataService: DataService, private toast: MessageService) {
         this.responsiveOptions = [
             {
                 breakpoint: '1024px',
@@ -76,14 +76,9 @@ export class DashboardComponent implements OnInit {
         localStorage.setItem("currentmodulenameforrecently", '')
         this.loadApiData();
         this.freeTrial = true;
-
         this.dashboardService.getTrustedPartners().subscribe(partnerLogo => {
             this.partnerTrusterLogo = partnerLogo;
         });
-
-        //this.openViewMoreOrg();
-        this.isViewMoreOrgVisible = false;
-        this.checkUserLoginedFirst();
     }
 
     loadApiData(): void {
@@ -154,7 +149,7 @@ export class DashboardComponent implements OnInit {
         this.continueQuiz = 'none'
     }
 
-    openQuiz() {
+    openQuiz(): void {
         this.continueQuiz = "block";
     }
 
@@ -242,15 +237,5 @@ export class DashboardComponent implements OnInit {
 
     onClickSubscribe(): void {
         this.router.navigate(["/pages/subscriptions"]);
-    }
-
-    checkUserLoginedFirst(): void{
-        this.authService.getMe().subscribe(res => {
-            let userData = res.userdetails;
-            if (userData[0].login_status === 4) {
-                this.newUserLogin = true;
-            }
-        })
-        
     }
 }
