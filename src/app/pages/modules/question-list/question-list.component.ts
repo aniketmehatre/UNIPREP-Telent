@@ -193,7 +193,7 @@ export class QuestionListComponent implements OnInit {
     this.isQuestionAnswerVisible = true;
     this.data.filter((res: any) => {
       if (res.id == selectedData.id) {
-        this.refLink = res.imagelink;
+        this.refLink = res.reflink;
         this.videoLinks = res.videolink;
       }
     });
