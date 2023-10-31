@@ -9,6 +9,7 @@ import {catchError, Observable, tap, throwError} from 'rxjs';
 import {MessageService} from "primeng/api";
 import {NgxUiLoaderService} from "ngx-ui-loader";
 import { Router } from '@angular/router';
+import { log } from 'console';
 
 @Injectable()
 export class HttpErrorInterceptor implements HttpInterceptor {
@@ -20,7 +21,8 @@ export class HttpErrorInterceptor implements HttpInterceptor {
   ) {}
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
-      if(!request.url.includes('getchathistory')){
+      if(!request.url.includes('getchathistory') || !request.url.includes('getdashboardcount') || !request.url.includes('getmodulereadprogression')
+      || !request.url.includes('country') || !request.url.includes('getuserdetails') || !request.url.includes('GetTrusterPatners')){
           this.ngxService.start();
       }
     return next.handle(request).pipe(
@@ -30,7 +32,6 @@ export class HttpErrorInterceptor implements HttpInterceptor {
             }
         }),
       catchError((err: any) => {
-        console.log(">>",err);
         if(err.error.message.includes('Call to a member function tokens() on null')){
           window.sessionStorage.clear();
           localStorage.clear();

@@ -54,13 +54,13 @@ export class AuthService {
                 localStorage.setItem("credit_plans",response.userdetails[0].credit_plans)
                 localStorage.setItem("questions_left",response.userdetails[0].questions_left)
                 localStorage.setItem("guidlineAccepted",response.userdetails[0].guidlineAccepted)
-                this.getCountry().subscribe(data => {
-                    data.filter((value: any) => {
-                        if (2 == value.id) {
-                            this.dataService.changeCountryName(value.country);
-                        }
-                    })
-                })
+                // this.getCountry().subscribe(data => {
+                //     data.filter((value: any) => {
+                //         if (2 == value.id) {
+                //             this.dataService.changeCountryName(value.country);
+                //         }
+                //     })
+                // })
             }),
             catchError(() => {
                 // this.storage.clear();
