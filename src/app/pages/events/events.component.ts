@@ -82,7 +82,7 @@ export class EventsComponent implements OnInit {
       this.upcomingevent=true;
       this.postevent=false;
       this.button1Style = {
-        'background-color': '#3F4C83',
+        'background-color': 'var(--uniprep-primary)',
         color: '#FFFFFF'
       };
     } else if (buttonNumber === 2) {
@@ -90,7 +90,7 @@ export class EventsComponent implements OnInit {
       this.postevent=true;
       this.upcomingevent=false;
       this.button2Style = {
-        'background-color': '#3F4C83',
+        'background-color': 'var(--uniprep-primary)',
         color: '#FFFFFF'
       };
     }
