@@ -7,7 +7,7 @@
 :root {
   --uniprep-primary: rgb(63, 76, 131);
   --uniprep-primaryop10: rgba(63, 76, 131, 0.145);
-  --uniprep-primaryop30: #3f4c835b;
+  --uniprep-primaryop30: rgba(63, 76, 131, 0.300);
   --uniprep-secondary: #f0780e;
   --uniprep-secondaryop10: #f0780e25;
   --uniprep-secondaryop30: #f0780e5b;
@@ -510,6 +510,10 @@ h1, h2, h3, h4, h5 {
 {
   border-radius:100px !important;
 }
+.p-paginator
+{
+  background:transparent;
+}
 .p-overlaypanel .p-overlaypanel-content {
   padding: 1.25rem;
   width: 40vh;
@@ -903,6 +907,46 @@ h1, h2, h3, h4, h5 {
           }
         }
       }
+    }
+  }
+
+  .eventcard
+  {
+    border:1px solid #f0f0f0;
+    margin: 10px 0;
+    &:hover
+    {
+      border: 1px solid var(--uniprep-primary);
+      .event-top
+      {
+        border-bottom: 1px solid  var(--uniprep-primary);
+      }
+      .event-bottom
+      {
+        background-color: var(--uniprep-primaryop10);
+      }
+      .registerbtn
+      {
+        background-color:white !important;
+        color:var(--uniprep-primary) !important;
+      }
+    }
+    .eventcomplete
+    {
+      color: #000 !important;
+    }
+    .event-top
+    {
+      border-bottom: 1px solid #121212 !important;
+      background-color: #2e3134 !important;
+      .eventtime
+      {
+        background-color:var(--uniprep-primary);
+      }
+    }
+    .event-bottom
+    {
+      background-color: #121212 !important;
     }
   }
 

@@ -1,6 +1,6 @@
 ::ng-deep .p-card-header {
   padding: 1rem;
-  background-color: #3f4c83;
+  background-color: var(--uniprep-primary);
   color: white;
 }
 
@@ -319,24 +319,24 @@ countryimage {
   font-size: medium;
   font-weight: 600;
   background-color: #888a9447;
-  color: #3f4c83;
-  border: 2px solid #3f4c83;
+  color: var(--uniprep-primary);
+  border: 2px solid var(--uniprep-primary);
 }
 
 ::ng-deep .p-confirm-popup-footer {
   button {
     background: none !important;
     border: none !important;
-    color: #3f4c83;
+    color: var(--uniprep-primary);
     :active {
       background: none !important;
       border: none !important;
-      color: #3f4c83;
+      color: var(--uniprep-primary);
     }
     :focus{
       background: none !important;
       border: none !important;
-      color: #3f4c83;
+      color: var(--uniprep-primary);
     }
   }
 }

@@ -29,7 +29,7 @@
   button {
     padding: 10px 20px;
     margin: 10px;
-    border: 2px solid #3F4C83;
+    border: 2px solid var(--uniprep-primary);
     cursor: pointer;
     border-radius: 5px;
   }
@@ -58,14 +58,74 @@
   //   background-color: #EBEDF2;
   // }
   .card1:hover {
-    border: 3px solid #3F4C83;
+    border: 3px solid var(--uniprep-primary);
   }
   .resterbutton {
     background-color: #fff;
-     color: #3F4C83;
+     color: var(--uniprep-primary);
   }
   .resterbutton:hover {
-    background-color: #3F4C83;
+    background-color: var(--uniprep-primary);
     color: #fff;
   }
-  
+  .eventcard
+  {
+    border:1px solid #f0f0f0;
+    margin: 10px 0;
+    &:hover
+    {
+      border: 1px solid var(--uniprep-primary);
+      .event-top
+      {
+        border-bottom: 1px solid  var(--uniprep-primary);
+      }
+      .event-bottom
+      {
+        background-color: var(--uniprep-primaryop10);
+      }
+      .registerbtn
+      {
+        background-color:white !important;
+        color:var(--uniprep-primary) !important;
+      }
+    }
+    .eventcomplete
+    {
+      background-color: #ccc !important;
+      position:absolute;
+        left: 0.5rem;
+        right: auto;
+        top: 0.5rem;
+        border-radius: 100px !important;
+        border: none !important;
+    }
+    .eventcountdown
+      {
+        position:absolute;
+        left: 0.5rem;
+        right: auto;
+        top: 0.5rem;
+        border-radius: 100px !important;
+      }
+    .event-top
+    {
+      border-bottom: 1px solid #f0f0f0;
+      background-color: white;
+      border-radius: 20px 20px 0 0;
+      min-height: 175px;
+      .eventtime
+      {
+        background-color:var(--uniprep-primary);
+        color: white;
+        font-size: 1rem;
+        padding: 0.5rem 1.5rem;
+        border-radius: 20px 20px 0px 0px;
+        display: inline-block;
+      }
+    }
+    .event-bottom
+    {
+      border-radius:0 0 20px 20px;
+      background-color: #f0f0f0;
+    }
+  }
