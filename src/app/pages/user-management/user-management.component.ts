@@ -131,6 +131,7 @@ export class UserManagementComponent implements OnInit {
         return new Date(`${monthName} 1, ${year}`).getMonth() + 1;
     }
     // using get location
+    // test command
     GetLocationList() {
         this.locationService.getLocation().subscribe(
             (res: any) => {
