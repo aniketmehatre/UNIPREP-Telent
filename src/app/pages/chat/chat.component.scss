@@ -1,6 +1,6 @@
 ::ng-deep .p-card-header {
   padding: 1rem;
-  background-color: var(--uniprep-primary);
+  background-color: #3f4c83;
   color: white;
 }
 
@@ -119,7 +119,7 @@
   padding: 7px;
   border-radius: 4px;
   text-transform: uppercase;
-  width: 14%;
+  width: auto;
   margin-right: 10px;
 }
 :host ::ng-deep .p-dialog-content{
@@ -319,24 +319,24 @@ countryimage {
   font-size: medium;
   font-weight: 600;
   background-color: #888a9447;
-  color: var(--uniprep-primary);
-  border: 2px solid var(--uniprep-primary);
+  color: #3f4c83;
+  border: 2px solid #3f4c83;
 }
 
 ::ng-deep .p-confirm-popup-footer {
   button {
     background: none !important;
     border: none !important;
-    color: var(--uniprep-primary);
+    color: #3f4c83;
     :active {
       background: none !important;
       border: none !important;
-      color: var(--uniprep-primary);
+      color: #3f4c83;
     }
     :focus{
       background: none !important;
       border: none !important;
-      color: var(--uniprep-primary);
+      color: #3f4c83;
     }
   }
 }
@@ -455,7 +455,9 @@ countryimage {
     }
   }
 }
-
+.p-inputtext{
+  width: -webkit-fill-available !important;
+}
 .credits {
   float: right;
   font-weight: 600;
@@ -464,7 +466,7 @@ countryimage {
   padding: 7px;
   border-radius: 4px;
   text-transform: uppercase;
-  width: 14%;
+  width: auto;
   margin-right: 10px;
 }
 :host ::ng-deep .p-dialog-content{
