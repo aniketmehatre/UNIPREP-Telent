@@ -1,25 +1,23 @@
 <nav>
-    <div class="left-panel d-flex align-items-center">
-        <div class="menutoggle me-3">
-            <button class="btn m-0 align-items-center d-flex" (click)="toggleMenu()">
-                <i class="fa-solid" [ngClass]="isMenuOpen ? 'fa-arrow-left-to-line' : 'fa-arrow-right-to-line'"></i>
-            </button>
-        </div>
-        <div class="d-flex me-3">
-            <label class="me-2">
-                <i class="fa-solid fa-sun"></i>
-            </label>
-            <div class="form-check form-switch">
-                <input type="checkbox" role="button" id="darkmodeswitch" class="form-check-input">
+    <div class="container-fluid">
+        <div class="row h-100">
+            <div class="col-md-3 d-flex align-items-center">
+                    <div class="menutoggle me-3">
+                        <button class="btn m-0 align-items-center d-flex" (click)="toggleMenu()">
+                            <i class="fa-solid" [ngClass]="isMenuOpen ? 'fa-arrow-left-to-line' : 'fa-arrow-right-to-line'"></i>
+                        </button>
+                    </div>
+                    <label class="me-2">
+                        <i class="fa-solid fa-sun"></i>
+                    </label>
+                    <div class="form-check form-switch">
+                        <input type="checkbox" role="button" id="darkmodeswitch" class="form-check-input">
+                    </div>
+                    <label class="ms-1">
+                        <i class="fa-solid fa-moon"></i>
+                    </label>
             </div>
-            <label class="ms-1">
-                <i class="fa-solid fa-moon"></i>
-            </label>
-        </div>
-    </div>
-    <div class="right-panel">
-        <div class="row me-2">
-            <div class="d-flex text-center px-0">
+            <div class="col-md-9 d-flex justify-content-end">
                 <div class="d-flex justify-content-center align-items-center">
                     <h6 class="mb-0">Time Left</h6>
                     <i class="ps-1 pe-2 fa-solid fa-hourglass-end h4 mb-0"></i>
@@ -30,15 +28,42 @@
                     <div class="col d-flex flex-column px-1"><div class="boxView fw-semibold text-green">{{min + ''}}</div><span class="timertext text-uppercase">Mins</span></div>
                     <div class="col d-flex flex-column px-1"><div class="boxView fw-semibold text-green">{{sec + ''}}</div><span class="timertext text-uppercase">Sec</span></div>
                 </div>
+                <div label="" role="button" class="headercountry me-2">
+                    <img src="{{headerFlag}}" alt="United Kingdom" height="auto" width="auto">
+                </div>
+                <button class="btn btn-primary btn-rounded me-2 ms-0 my-0" alt="chat with notification" (click)="onClickSubscribe()"><span class="text-small fw-normal px-3">Subscribe Now</span></button>
+                <button class="btn btn-secondary btn-rounded me-2 ms-0 my-0" (click)="openReportModal(op, $event)" alt="reports" ><span class="text-small fw-normal px-4"><i class="fa-solid fa-bug"></i> Report</span></button>
+                <a (click)="openchat()"><p-avatar class="" label="" role="button">
+                    <i class="fa-solid fa-comments"></i>
+                </p-avatar></a>
+                <p-avatar (click)="togleSidebar.emit()" class="" label="" role="button">
+                    <i class="fa-solid fa-bell"></i>
+                </p-avatar>
+                <div class="dropdown profile-dropdown">
+                           <button class="button" data-bs-toggle="dropdown"   aria-expanded="false">
+                        <span class="nme">{{(firstChar || '')?.charAt(0)}}</span> <span class="fw-medium">{{userName}}</span>
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <a class="dropdown-item pt-2 pb-2" routerLink="/usermanagement" >
+                                <div class="d-flex justify-content-top">
+                                    <i class="fa-solid fa-user me-2 mt-1"></i>
+                                    <div>
+                                        <p class="fw-semibold mb-1">{{userName}}</p>
+                                        <p class="mb-0">{{userName}}</p>
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
+                        <li><a class="dropdown-item pt-2 pb-2" (click)="logout()"><i
+                                class="fa-solid fa-power-off me-2"></i>Logout</a>
+                        </li> 
+                    </ul>
+                </div>
             </div>
         </div>
-        <div label="" role="button" class="headercountry me-2">
-            <img src="{{headerFlag}}"
-                 alt="United Kingdom" height="auto" width="auto">
-        </div>
-        <button class="btn btn-primary btn-rounded me-2 ms-0 my-0" alt="chat with notification" (click)="onClickSubscribe()"><span class="text-small fw-normal px-3">Subscribe Now</span></button>
-        <button class="btn btn-secondary btn-rounded me-2 ms-0 my-0" (click)="openReportModal(op, $event)" alt="reports" ><span class="text-small fw-normal px-4"><i class="fa-solid fa-bug"></i> Report</span></button>
-    
+    </div>
+        
         <p-overlayPanel #op>
             <ng-template pTemplate="content">
                 <div class="container px-0">
@@ -95,47 +120,6 @@
                 </div>
             </ng-template>
         </p-overlayPanel>
-        <!--        <p-button (click)="op.toggle($event)" icon="pi pi-image" label="Show"></p-button>-->
-        <a (click)="openchat()"><p-avatar class="" label="" role="button">
-            <i class="fa-solid fa-comments"></i>
-        </p-avatar></a>
-        <p-avatar (click)="togleSidebar.emit()" class="" label="" role="button">
-            <i class="fa-solid fa-bell"></i>
-        </p-avatar>
-        <div class="dropdown profile-dropdown">
-            <!-- <button class="button" type="button" routerLink="/usermanagement"  aria-expanded="false"> -->
-                   <button class="button" data-bs-toggle="dropdown"   aria-expanded="false">
-                <span class="nme">{{(firstChar || '')?.charAt(0)}}</span> <span class="fw-medium">{{userName}}</span>
-            </button>
-            <ul class="dropdown-menu">
-                <li>
-                    <a class="dropdown-item pt-2 pb-2" routerLink="/usermanagement" >
-                        <div class="d-flex justify-content-top">
-                            <i class="fa-solid fa-user me-2 mt-1"></i>
-                            <div>
-                                <p class="fw-semibold mb-1">{{userName}}</p>
-                                <p class="mb-0">{{userName}}</p>
-                            </div>
-                        </div>
-                    </a>
-                </li>
-                <!-- <li>
-                    <a class="dropdown-item pt-2 pb-2" (click)="changePassword()">
-                        <div class="d-flex justify-content-top">
-                            <i class="fa-solid fa fa-lock me-2 mt-1"></i>
-                            <div>
-                                <p class="fw-semibold mb-1">Change</p>
-                                <p class="mb-0">Password</p>
-                            </div>
-                        </div>
-                    </a>
-                </li>-->
-                <li><a class="dropdown-item pt-2 pb-2" (click)="logout()"><i
-                        class="fa-solid fa-power-off me-2"></i>Logout</a>
-                </li> 
-            </ul>
-        </div>
-    </div>
 </nav>
 
 <p-dialog [(visible)]="visible" [closable]="true" [style]="{ width: 'auto' }" class="p-0 m-0 bg-white"
