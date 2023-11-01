@@ -53,7 +53,7 @@
             [routerLink]="['/login']"
             class="text-decoration-none"
             target="_blank"
-            ><button type="button" class="btn btn-primary rounded-pill">
+            ><button type="button" class="btn btn-primary px-4 py-2 m-0">
               Login
             </button></a
           >
@@ -61,7 +61,7 @@
             href="http://uniprep.ai/register"
             class="text-decoration-none"
             target="_blank"
-            ><button type="button" class="btn btn-primary rounded-pill">
+            ><button type="button" class="btn btn-secondary px-4 py-2 m-0">
               Try for Free
             </button></a
           >
@@ -72,7 +72,7 @@
         <!-- Your brand/logo (optional) -->
         <a class="navbar-brand py-0" href="#">
           <img
-            src="img/uniprep-light.svg"
+            src="../../uniprep-assets/images/uniprep-light.svg"
             data-bs-theme="light"
             alt="UNIPREP"
             class="d-inline-block align-text-top"
@@ -162,7 +162,7 @@
             href="http://uniprep.ai/register"
             class="text-decoration-none"
             target="_blank"
-            ><button type="button" class="btn btn-primary rounded-pill">
+            ><button type="button" class="btn btn-primary px-4 py-2 m-0">
               Try for Free
             </button></a
           >
@@ -184,60 +184,45 @@
               satisfaction and boost your bottom line with our all-in-one
               customer support solution.
             </p>
-            <div class="text-center mb-3">
+            <div class="text-center mb-5">
               <a
                 href="http://uniprep.ai/register"
                 class="text-decoration-none"
                 target="_blank"
-                ><button type="button" class="btn btn-primary rounded-pill">
+                ><button type="button" class="btn btn-secondary px-4 py-2 m-0">
                   Get 1 Hour Free Trial
                 </button></a
               >
             </div>
           </div>
           <div class="col-md-12">
-            <div class="video-container" role="button">
-              <video
-                class="uniprepvideo"
-                width="100%"
-                height="100%"
-                preload="none"
-                muted
-                poster="../../../uniprep-assets/images/landingvideocover.webp"
-              >
-                <source src="video/uniprep.mp4" />
+              <video>
+                <source src="../../../uniprep-assets/video/uniprepvideo.mp4"/>
               </video>
-              <i class="fa-solid fa-circle-play play-button uniprep-primary"></i>
-            </div>
-            <!-- <img src="img/MockupImage.png"> -->
           </div>
-          <!-- <div class="col-md-6">
-                    <img src="img/coverimage.webp" alt="Uniprep Cover Image" class="w-100 w-100">
-                </div> -->
         </div>
       </div>
     </section>
 
-    <p-carousel [value]="countries" [numVisible]="3" [numScroll]="3" [circular]="false" >
-        <ng-template pTemplate="header">
-            <h5>Basic</h5>
-        </ng-template>
-        <ng-template let-product pTemplate="item">
-            <div class="product-item">
-                <div class="product-item-content">
-                  <h1>{{countries.name}}</h1>
-                </div>
-            </div>
-        </ng-template>
-    </p-carousel>
+    <section class="marquee-container pb-5">
+      <div class="container-fluid">
+          <div class="row">
+              <div class="col-md-12">
+                <a href="http://uniprep.ai" class="marquee">
+                  <img src="../../../uniprep-assets/images/countries.webp" alt="Description of the image" class="marquee-img">
+                  <img src="../../../uniprep-assets/images/countries.webp" alt="Description of the image" class="marquee-img"></a>
+              </div>
+          </div>
+      </div>
+    </section>
 
     <section class="pt-5 pb-5" id="about">
       <div class="container text-center">
         <div class="row justify-content-between">
-          <div class="col-md-8 text-start d-flex align-items-center">
+          <div class="col-md-5 text-start d-flex align-items-center">
             <div>
               <h1 class="uniprep-primary mb-4 fw-semibold">About UNIPREP</h1>
-              <p class="text-justify mb-5 w-50">
+              <p class="text-justify mb-5">
                 UNIPREP is a one-stop global search platform, designed to act as
                 a personalized advisor, catering to all students and graduates
                 seeking guidance on career growth, opportunities, life, and
@@ -247,28 +232,28 @@
                 reviewed by the top international education bodies and
                 universities.
               </p>
-              <div class="d-flex flex-wrap gap-md-5 gap-2 mb-3">
+              <div class="d-flex flex-wrap gap-md-3 gap-2 mb-3">
                 <div class="text-start">
-                  <h1 class="fw-semibold uniprep-secondary">10+</h1>
+                  <h2 class="fw-bold uniprep-secondary mb-1">10+</h2>
                   <p>Countries</p>
                 </div>
                 <div class="text-start">
-                  <h1 class="fw-semibold uniprep-secondary">2000+</h1>
+                  <h2 class="fw-bold uniprep-secondary mb-1">2000+</h2>
                   <p>Universities</p>
                 </div>
                 <div class="text-start">
-                  <h1 class="fw-semibold uniprep-secondary">500+</h1>
+                  <h2 class="fw-bold uniprep-secondary mb-1">500+</h2>
                   <p>Sub-Modules</p>
                 </div>
                 <div class="text-start">
-                  <h1 class="fw-semibold uniprep-secondary">5,00,000+</h1>
+                  <h2 class="fw-bold uniprep-secondary mb-1">5,00,000+</h2>
                   <p>Questions Answered</p>
                 </div>
               </div>
             </div>
           </div>
-          <div class="col-md-4">
-            <img src="../../../uniprep-assets/images/aboutuniprep.webp" class="w-100" />
+          <div class="col-md-5">
+            <img src="../../../uniprep-assets/images/landingabout.webp" class="w-100" />
           </div>
         </div>
       </div>
@@ -282,8 +267,8 @@
                 <div class="row">
                   <div class="col-md-6">
                     <h3 class="mb-0 fw-semibold">
-                      A Student spends more than 2 months to get all the
-                      information about pursuing their career abroad.
+                      "A Student spends more than 2 months to get all the
+                      information about pursuing their career abroad."
                     </h3>
                   </div>
                   <div class="col-md-3">
@@ -309,37 +294,37 @@
       <div class="container">
         <div class="row justify-content-between">
           <div class="col-md-3 text-center challenge">
-            <img src="img/challenge1.webp" class="mb-2">
+            <img src="../../../uniprep-assets/images/challenge1.webp" class="mb-2">
             <h6 class="fw-semibold">Lack of Up to Date Information</h6>
             <p>Do you also struggle in finding updated information on the internet?</p>
           </div>
 
           <div class="col-md-3 text-center challenge">
-            <img src="img/challenge2.webp" class="mb-2">
+            <img src="../../../uniprep-assets/images/challenge2.webp" class="mb-2">
             <h6  class="fw-semibold">No Unified Platform</h6>
             <p>Tired of juggling multiple tabs? Discover everything in one place, streamlined just for you!</p>
           </div>
 
           <div class="col-md-3 text-center challenge">
-            <img src="img/challenge3.webp" class="mb-2">
+            <img src="../../../uniprep-assets/images/challenge3.webp" class="mb-2">
             <h6  class="fw-semibold">Lack of Verified Information</h6>
             <p>Doubtful of what you read online? Get access to a pool of information verified by the experts.</p>
           </div>
           <div class="col-md-12"></div>
           <div class="col-md-3 text-center challenge">
-            <img src="img/challenge4.webp" class="mb-2">
+            <img src="../../../uniprep-assets/images/challenge4.webp" class="mb-2">
             <h6  class="fw-semibold">Unexplored Questions</h6>
             <p>Go beyond the ordinary and get experiential information crafted for your profile.</p>
           </div>
 
           <div class="col-md-3 text-center challenge">
-            <img src="img/challenge5.webp" class="mb-2">
+            <img src="../../../uniprep-assets/images/challenge5.webp" class="mb-2">
             <h6  class="fw-semibold">Exhaustive Research</h6>
             <p>Navigating countless websites to gather information can be extremely time consuming.</p>
           </div>
 
           <div class="col-md-3 text-center challenge">
-            <img src="img/challenge6.webp" class="mb-2">
+            <img src="../../../uniprep-assets/images/challenge6.webp" class="mb-2">
             <h6  class="fw-semibold">Career & Job Concerns</h6>
             <p>Do you have concerns regarding your career? Let us guide you to promising career paths and opportunities abroad!</p>
           </div>
@@ -357,8 +342,8 @@
               with us!
             </p>
           </div>
-          <div class="col-md-4">
-            <img src="../../../uniprep-assets/images/aboutuniprep.webp" class="w-100" />
+          <div class="col-md-5">
+            <img src="../../../uniprep-assets/images/onestopsearch.webp" class="w-100" />
           </div>
         </div>
       </div>
@@ -366,8 +351,8 @@
     <section class="pt-5 pb-5">
       <div class="container text-center">
         <div class="row justify-content-between align-items-center">
-          <div class="col-md-4">
-            <img src="../../../uniprep-assets/images/aboutuniprep.webp" class="w-100" />
+          <div class="col-md-5">
+            <img src="../../../uniprep-assets/images/verifiedinfo.webp" class="w-100" />
           </div>
           <div class="col-md-5 text-start">
             <h1 class="fw-semibold">Verified & Reliable Information</h1>
@@ -384,7 +369,7 @@
       <div class="container text-center">
         <div class="row justify-content-between align-items-center">
           <div class="col-md-5 text-start">
-            <button type="button" class="btn btn-primary rounded-pill">
+            <button type="button" class="btn btn-secondary px-4 py-2 m-0">
               Coming Soon
             </button>
             <h1 class="fw-semibold">Quiz and Certificate</h1>
@@ -393,8 +378,8 @@
               your overseas journey of success.
             </p>
           </div>
-          <div class="col-md-4">
-            <img src="../../../uniprep-assets/images/aboutuniprep.webp" class="w-100" />
+          <div class="col-md-5">
+            <img src="../../../uniprep-assets/images/quizcertificate.webp" class="w-100" />
           </div>
         </div>
       </div>
@@ -678,16 +663,40 @@
         </div>
       </div>
     </section>
+    <section class="marquee-container pb-5">
+      <div class="container-fluid">
+          <div class="row">
+            <div class="col-md-12 text-center">
+              <h1 class="uniprep-primary fw-semibold mb-4">
+                Partened by hundereds of universities
+              </h1>
+            </div>
+              <div class="col-md-12 mb-3">
+                <a href="http://uniprep.ai" class="marquee my-4">
+                  <img src="../../../uniprep-assets/images/countries.webp" alt="Description of the image" class="marquee-img">
+                  <img src="../../../uniprep-assets/images/countries.webp" alt="Description of the image" class="marquee-img">
+                </a>
+                <a href="http://uniprep.ai" class="marquee my-4">
+                  <img src="../../../uniprep-assets/images/countries.webp" alt="Description of the image" class="marquee-img">
+                  <img src="../../../uniprep-assets/images/countries.webp" alt="Description of the image" class="marquee-img">
+                </a>
+              </div>
+              <div class="col-md-12 text-center">
+                <p class="muted">Join a growing group of satisfied universities.</p>
+              </div>
+          </div>
+      </div>
+    </section>
     <section class="pt-5 pb-0" id="faq">
       <div class="container text-start">
-        <div class="row justify-content-between">
-          <div class="col-md-5">
-            <p class="uniprep-secondary fw-semibold">Frequently Asked Questions</p>
-            <h1 class="uniprep-primary fw-semibold mb-4 text-start">
-              Get answers of your common questions
+        <div class="row justify-content-center">
+          <div class="col-md-6 text-center">
+            <p class="uniprep-secondary fw-semibold mb-0">Frequently Asked Questions</p>
+            <h1 class="uniprep-primary fw-semibold mb-4">
+              Get answers for your most commong questions
             </h1>
           </div>
-          <div class="col-md-6">
+          <div class="col-md-8">
             <div class="accordion pb-5" id="accordionFAQ">
               <div class="accordion-item faqcard">
                 <h2 class="accordion-header">
