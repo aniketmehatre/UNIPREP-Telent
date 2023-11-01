@@ -24,7 +24,7 @@ export class ModuleStoreService {
         let body = new FormData();
         body.append('countryId', params.countryId.toString());
         body.append('moduleId', params.moduleId.toString());
-        let apiName = 'GetSubModulesList';
+        let apiName = 'GetQuestionsCount';
         return this.http.post<any>(environment.ApiUrl + `/${apiName}`, body);
     }
 
