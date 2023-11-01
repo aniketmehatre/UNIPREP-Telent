@@ -1,5 +1,5 @@
 <div class="col-md-12">
-  <p-card class="col-12" >
+  <p-card class="col-12">
     <ng-template pTemplate="header">
       <span style="float: right">
         <p-overlayPanel #op>
@@ -66,10 +66,10 @@
       ></span>
       <span
         style="
+          padding-top: 0.6rem;
           font-size: 0.9rem;
           float: right;
-          line-height: normal;
-          margin-right: 7rem;
+          margin-right: 1rem;
         "
         >UNIPREP<br />
         <!-- <span style="font-size: 0.8rem">support@uniabroad.co.in</span> -->
@@ -141,18 +141,25 @@
                   <span class="msg-info"
                     >Replying for Question {{ message.answerForQuestion }}</span
                   ><br />
-                  <p class="response-msg-question" [innerHtml]=getData(message.answerForQuestion)></p>
-                 <p
-                      *ngIf="message.message"
-                      class="response-msg"
-                      [innerHtml]="message.message"
-                    ></p>
-                    <p *ngIf="message.attachment" [pTooltip]=message.filename class="response-msg-attach"><label>{{ message.filename }}</label> &nbsp;&nbsp;<a 
-                    [href]="
-                      message.attachment
-                    "
-                    ><i class="pi pi-arrow-circle-down"></i>
-                      </a></p>
+                  <p
+                    class="response-msg-question"
+                    [innerHtml]="getData(message.answerForQuestion)"
+                  ></p>
+                  <p
+                    *ngIf="message.message"
+                    class="response-msg"
+                    [innerHtml]="message.message"
+                  ></p>
+                  <p
+                    *ngIf="message.attachment"
+                    [pTooltip]="message.filename"
+                    class="response-msg-attach"
+                  >
+                    <label>{{ message.filename }}</label> &nbsp;&nbsp;<a
+                      [href]="message.attachment"
+                      ><i class="pi pi-arrow-circle-down"></i>
+                    </a>
+                  </p>
                 </div>
               </div>
             </div>
@@ -161,29 +168,32 @@
     ></ng-template>
     <ng-template pTemplate="footer">
       <div class="field col-12" [class]="fullscreen" #fullscreeneditor>
-      <p-editor
-        [(ngModel)]="textMessage"
-        [style]="{ height: '100px' }"
-        [modules]="modules"
+        <p-editor
+          [(ngModel)]="textMessage"
+          [style]="{ height: '100px' }"
+          [modules]="modules"
         >
-        <ng-template pTemplate="header" style="visibility: hidden;"></ng-template>
-      </p-editor
-      >
-      <br />
-      <div class="text-end">
-        <button
-          (click)="confirm($event)"
-          class="btn text-white"
-          style="
-            background-color: #3f4c83;
-            height: 35%;
-            width: 15%;
-            font-size: medium;
-          "
-        >
-          Send Message
-        </button>
-      </div></div>
+          <ng-template
+            pTemplate="header"
+            style="visibility: hidden"
+          ></ng-template>
+        </p-editor>
+        <br />
+        <div class="text-end">
+          <button
+            (click)="confirm($event)"
+            class="btn text-white"
+            style="
+              background-color: #3f4c83;
+              height: 35%;
+              width: 15%;
+              font-size: medium;
+            "
+          >
+            Send Message
+          </button>
+        </div>
+      </div>
     </ng-template></p-card
   >
   <p-dialog
