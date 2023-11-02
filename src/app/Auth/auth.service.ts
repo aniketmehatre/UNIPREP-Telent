@@ -20,6 +20,7 @@ export class AuthService {
     _logindata: any;
     // user!: User;
     _user!: User | null;
+    public _userLoginCount!: number;
     userData = new BehaviorSubject<User | null>(null);
     constructor(
         private http: HttpClient,
