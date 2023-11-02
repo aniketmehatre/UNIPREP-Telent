@@ -8,7 +8,7 @@
             <div class="row mb-0 justify-content-center">
 
               <div *ngFor="let v of countryLists" class="col-md-1 col-3 col-offset-1" role="button">
-                <div (click)="selectCountry(v.id)"
+                <div (click)="selectCountry(v)"
                      class="row justify-content-center {{ selectedCountryId == v.id ? 'country-border pr-4 pl-4' : ''}}">
                   <img alt="country" class="countryicon" src="{{v.flag != '' ? v.flag : '../../uniprep-assets/images/mstile-150x150.png'}}"
                        style="{{ selectedCountryId == v.id ? 'transform: scale(0.75);' : 'transform: scale(0.5);'}}"
