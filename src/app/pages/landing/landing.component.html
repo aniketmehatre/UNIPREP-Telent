@@ -10,7 +10,7 @@
             <a
               class="nav-link active uniprep-primary fw-semibold"
               aria-current="page"
-              href="#"
+              href="#home"
               >Home</a
             >
           </li>
@@ -118,7 +118,7 @@
                 <a
                   class="nav-link active uniprep-primary fw-semibold"
                   aria-current="page"
-                  href="#"
+                  href="#home"
                   >Home</a
                 >
               </li>
@@ -170,7 +170,7 @@
       </div>
     </nav>
 
-    <section class="py-2 py-md-5">
+    <section class="py-2 py-md-5" id="home">
       <div class="container pt-4 pb-5 text-center">
         <div class="row justify-content-center">
           <div
@@ -196,9 +196,12 @@
             </div>
           </div>
           <div class="col-md-12">
-              <video>
-                <source src="../../../uniprep-assets/video/uniprepvideo.mp4"/>
+            <div class="video-container">
+              <video width="100%" height="100%" preload="none" muted poster="../../../uniprep-assets/images/landingvideocover.webp">
+                <source src="../../../uniprep-assets/video/uniprepvideo.mp4" type="video/mp4">
               </video>
+              <div class="video-gradient"></div>
+            </div>
           </div>
         </div>
       </div>
@@ -208,19 +211,20 @@
       <div class="container-fluid">
           <div class="row">
               <div class="col-md-12">
-                <a href="http://uniprep.ai" class="marquee">
-                  <img src="../../../uniprep-assets/images/countries.webp" height="90px" alt="Description of the image" class="marquee-img">
-                  <img src="../../../uniprep-assets/images/countries.webp" height="90px" alt="Description of the image" class="marquee-img">
-                </a>
+                  <a href="http://uniprep.ai" class="marquee">
+                      <img src="../../../uniprep-assets/images/countries.webp" alt="Countries" class="marquee-img">
+                      <img src="../../../uniprep-assets/images/countries.webp" alt="Countries" class="marquee-img">
+                      <img src="../../../uniprep-assets/images/countries.webp" alt="Countries" class="marquee-img">
+                  </a>
               </div>
           </div>
       </div>
-    </section>
+  </section>
 
     <section class="pt-5 pb-5" id="about">
       <div class="container text-center">
         <div class="row justify-content-between">
-          <div class="col-md-5 text-start d-flex align-items-center">
+          <div class="col-md-5 text-start d-flex align-items-center  order-2 order-md-2">
             <div>
               <h1 class="uniprep-primary mb-4 fw-semibold">About UNIPREP</h1>
               <p class="text-justify mb-5">
@@ -233,7 +237,7 @@
                 reviewed by the top international education bodies and
                 universities.
               </p>
-              <div class="d-flex flex-wrap gap-md-3 gap-2 mb-3">
+              <div class="d-flex flex-wrap gap-md-3 gap-2 mb-3 justify-content-between justify-content-md-start">
                 <div class="text-start">
                   <h2 class="fw-bold uniprep-secondary mb-1">10+</h2>
                   <p>Countries</p>
@@ -253,8 +257,9 @@
               </div>
             </div>
           </div>
-          <div class="col-md-5">
-            <img src="../../../uniprep-assets/images/landingabout.webp" class="w-100" />
+          <div class="col-md-5  order-1 order-md-2">
+            <img src="../../../uniprep-assets/images/landingaboutmob.webp" class="w-100 d-md-none d-block mb-5" />
+            <img src="../../../uniprep-assets/images/landingabout.webp" class="w-100 d-md-block d-none" />
           </div>
         </div>
       </div>
@@ -266,19 +271,19 @@
             <div class="card promocard px-5 py-5">
               <div class="card-body">
                 <div class="row">
-                  <div class="col-md-6">
+                  <div class="col-md-6 col-12">
                     <h3 class="mb-0 fw-semibold">
                       "A Student spends more than 2 months to get all the
                       information about pursuing their career abroad."
                     </h3>
                   </div>
-                  <div class="col-md-3">
+                  <div class="col-md-3 col-6">
                     <h1 class="mb-0 fw-semibold">2X</h1>
                     <span class="mb-0 small"
                       >Save twice the time you spend on research</span
                     >
                   </div>
-                  <div class="col-md-3">
+                  <div class="col-md-3 col-6">
                     <h1 class="mb-0 fw-semibold">95%</h1>
                     <span class="mb-0 small"
                       >Increase your chances of working abroad.</span
@@ -294,37 +299,37 @@
     <section class="pt-5 pb-5" id="challenges">
       <div class="container">
         <div class="row justify-content-between">
-          <div class="col-md-3 text-center challenge">
+          <div class="col-md-3 col-6 text-center challenge">
             <img src="../../../uniprep-assets/images/challenge1.webp" class="mb-2">
             <h6 class="fw-semibold">Lack of Up to Date Information</h6>
             <p>Do you also struggle in finding updated information on the internet?</p>
           </div>
 
-          <div class="col-md-3 text-center challenge">
+          <div class="col-md-3 col-6 text-center challenge">
             <img src="../../../uniprep-assets/images/challenge2.webp" class="mb-2">
             <h6  class="fw-semibold">No Unified Platform</h6>
             <p>Tired of juggling multiple tabs? Discover everything in one place, streamlined just for you!</p>
           </div>
 
-          <div class="col-md-3 text-center challenge">
+          <div class="col-md-3 col-6 text-center challenge">
             <img src="../../../uniprep-assets/images/challenge3.webp" class="mb-2">
             <h6  class="fw-semibold">Lack of Verified Information</h6>
             <p>Doubtful of what you read online? Get access to a pool of information verified by the experts.</p>
           </div>
-          <div class="col-md-12"></div>
-          <div class="col-md-3 text-center challenge">
+          <div class="col-md-12 d-none d-md-block"></div>
+          <div class="col-md-3 col-6 text-center challenge">
             <img src="../../../uniprep-assets/images/challenge4.webp" class="mb-2">
             <h6  class="fw-semibold">Unexplored Questions</h6>
             <p>Go beyond the ordinary and get experiential information crafted for your profile.</p>
           </div>
 
-          <div class="col-md-3 text-center challenge">
+          <div class="col-md-3 col-6 text-center challenge">
             <img src="../../../uniprep-assets/images/challenge5.webp" class="mb-2">
             <h6  class="fw-semibold">Exhaustive Research</h6>
             <p>Navigating countless websites to gather information can be extremely time consuming.</p>
           </div>
 
-          <div class="col-md-3 text-center challenge">
+          <div class="col-md-3 col-6 text-center challenge">
             <img src="../../../uniprep-assets/images/challenge6.webp" class="mb-2">
             <h6  class="fw-semibold">Career & Job Concerns</h6>
             <p>Do you have concerns regarding your career? Let us guide you to promising career paths and opportunities abroad!</p>
@@ -335,7 +340,7 @@
     <section class="pt-5 pb-5" id="features">
       <div class="container text-center">
         <div class="row justify-content-between align-items-center">
-          <div class="col-md-5 text-start">
+          <div class="col-md-5 text-start  order-2 order-md-1">
             <h1 class="fw-semibold">One-Stop Global Search Platform</h1>
             <p>
               Imagine a platform that has answers to all your queries. Discover
@@ -343,8 +348,9 @@
               with us!
             </p>
           </div>
-          <div class="col-md-5">
-            <img src="../../../uniprep-assets/images/onestopsearch.webp" class="w-100" />
+          <div class="col-md-5 order-1 order-md-2">
+            <img src="../../../uniprep-assets/images/onestopsearchmob.webp" class="w-100 d-md-none d-block mb-5" />
+            <img src="../../../uniprep-assets/images/onestopsearch.webp" class="w-100 d-md-block d-none" />
           </div>
         </div>
       </div>
@@ -352,10 +358,11 @@
     <section class="pt-5 pb-5">
       <div class="container text-center">
         <div class="row justify-content-between align-items-center">
-          <div class="col-md-5">
-            <img src="../../../uniprep-assets/images/verifiedinfo.webp" class="w-100" />
+          <div class="col-md-5  order-1 order-md-1">
+            <img src="../../../uniprep-assets/images/verifiedinfomob.webp" class="w-100 d-md-none d-block mb-5" />
+            <img src="../../../uniprep-assets/images/verifiedinfo.webp" class="w-100 d-md-block d-none" />
           </div>
-          <div class="col-md-5 text-start">
+          <div class="col-md-5 text-start  order-2 order-md-2">
             <h1 class="fw-semibold">Verified & Reliable Information</h1>
             <p>
               No more struggling for hours to get information on the internet
@@ -369,7 +376,7 @@
     <section>
       <div class="container text-center">
         <div class="row justify-content-between align-items-center">
-          <div class="col-md-5 text-start">
+          <div class="col-md-5 text-start order-2 order-md-1">
             <button type="button" class="btn btn-secondary px-4 py-2 m-0">
               Coming Soon
             </button>
@@ -379,8 +386,9 @@
               your overseas journey of success.
             </p>
           </div>
-          <div class="col-md-5">
-            <img src="../../../uniprep-assets/images/quizcertificate.webp" class="w-100" />
+          <div class="col-md-5 order-1 order-md-2">
+            <img src="../../../uniprep-assets/images/quizcertificatemob.webp" class="w-100 d-md-none d-block mb-5" />
+            <img src="../../../uniprep-assets/images/quizcertificate.webp" class="w-100 d-md-block d-none" />
           </div>
         </div>
       </div>
@@ -390,7 +398,7 @@
         <div class="row justify-content-between">
           <div class="col-md-5">
             <img
-              src="img/test1.webp"
+              src="../../../uniprep-assets/images/landingaboutmob.webp"
               id="changingImage"
               alt="Image"
               class="w-100"
@@ -664,7 +672,7 @@
         </div>
       </div>
     </section>
-    <section class="marquee-container pb-5">
+    <section class="marquee-container pb-5 pt-5">
       <div class="container-fluid">
           <div class="row">
             <div class="col-md-12 text-center">
@@ -673,8 +681,8 @@
               </h1>
             </div>
               <div class="col-md-12 mb-3 marquee">
-                  <img src="../../../uniprep-assets/images/unilogos.webp" height="200px" alt="Description of the image" class="marquee-img">
-                  <img src="../../../uniprep-assets/images/unilogos.webp" height="200px" alt="Description of the image" class="marquee-img">
+                  <img src="../../../uniprep-assets/images/unilogos.webp" alt="Universities" class="marquee-imgu">
+                  <img src="../../../uniprep-assets/images/unilogos.webp" alt="Universities" class="marquee-imgu">
               </div>
               <div class="col-md-12 text-center">
                 <p class="muted">Join a growing group of satisfied universities.</p>
@@ -950,180 +958,3 @@
         </div>
       </section>
     </footer>
-    <!-- Footer -->
-    <!-- <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous"></script> -->
-    <!-- <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script> -->
-    <!-- <script
-      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"
-      integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+"
-      crossorigin="anonymous"
-    ></script> -->
-    <!-- <script>
-      var swiper1 = new Swiper(".swiper-university", {
-        spaceBetween: 20,
-        freeMode: true, // Enable free mode to allow continuous scrolling
-        grabCursor: true,
-        centeredSlides: false,
-        slidesPerView: 6,
-        loop: true,
-        autoplay: {
-          delay: 1000, // Set the delay between slides in milliseconds (1 second in this example)
-          disableOnInteraction: false, // Allow autoplay to continue even when the user interacts with the Swiper
-        },
-        navigation: {
-          nextEl: ".swiper-next1",
-          prevEl: ".swiper-prev1",
-        },
-      });
-      var swiper3 = new Swiper(".swiper-countries", {
-        slidesPerView: 10,
-        spaceBetween: 30,
-        loop: true,
-        autoplay: {
-          delay: 1, // very small delay for continuous motion
-          disableOnInteraction: false,
-        },
-        breakpoints: {
-          320: { slidesPerView: 4, spaceBetween: 20 },
-          480: { slidesPerView: 4, spaceBetween: 20 },
-          640: { slidesPerView: 6, spaceBetween: 20 },
-          768: { slidesPerView: 6, spaceBetween: 20 },
-          1024: { slidesPerView: 8, spaceBetween: 30 },
-          1366: { slidesPerView: 10, spaceBetween: 50 },
-        },
-        speed: 1000, // Adjust speed as necessary
-        loopedSlides: 1000, // Large number for infinity loop
-        freeMode: true, // enables free mode which makes it non-sliding
-      });
-      // var swiper3 = new Swiper(".swiper-countries", {
-      //     slidesPerView:10,
-      //     freeMode: true,
-      //     slidesPerView: 'auto',  // Adjust as necessary
-      //         spaceBetween: 30,  // Adjust as necessary
-      //         loop: true,
-      //         autoplay: {
-      //             delay: 0,
-      //             disableOnInteraction: false,
-      //             reverseDirection: false,
-      //             stopOnLastSlide: false,
-      //             waitForTransition: false,
-      //         },
-      //         speed: 3000 , // Adjust speed to your liking. This is relatively slow for continuous motion.
-      //         breakpoints: {
-      //         320: { slidesPerView: 4, spaceBetween: 20 },
-      //         480: { slidesPerView: 4, spaceBetween: 20 },
-      //         640: { slidesPerView: 6, spaceBetween: 20 },
-      //         768: { slidesPerView: 6, spaceBetween: 20 },
-      //         1024: { slidesPerView: 8, spaceBetween: 30 },
-      //         1366: { slidesPerView: 10, spaceBetween: 50 },
-      //         },
-      //     });
-      var swiper2 = new Swiper(".swiper", {
-        slidesPerView: 1,
-        spaceBetween: 20,
-        grabCursor: true,
-
-        breakpoints: {
-          1366: {
-            slidesPerView: 4,
-            spaceBetween: 50,
-          },
-          1024: {
-            slidesPerView: 3,
-            spaceBetween: 50,
-          },
-          768: {
-            slidesPerView: 2,
-            spaceBetween: 40,
-          },
-          640: {
-            slidesPerView: 1,
-            spaceBetween: 20,
-          },
-        },
-
-        // Navigation arrows
-        navigation: {
-          nextEl: ".swiper-next3",
-          prevEl: ".swiper-prev3",
-        },
-      });
-    </script>
-    <script>
-      document.addEventListener("DOMContentLoaded", function () {
-        var videoContainer = document.querySelector(".video-container");
-        var video = document.querySelector(".uniprepvideo");
-        var playButton = document.querySelector(".play-button");
-
-        // Function to revert to poster image
-        function revertToPoster() {
-          video.load(); // This will load the video back to its initial state
-          playButton.style.display = "block";
-          videoContainer.classList.remove("playing"); // remove playing class
-        }
-
-        // Show play button initially
-        playButton.style.display = "block";
-
-        playButton.addEventListener("click", function () {
-          video.play();
-          playButton.style.display = "none";
-          videoContainer.classList.add("playing"); // add playing class
-        });
-
-        video.addEventListener("click", function () {
-          if (video.paused) {
-            video.play();
-            playButton.style.display = "none";
-            videoContainer.classList.add("playing"); // add playing class
-          } else {
-            revertToPoster();
-          }
-        });
-
-        video.addEventListener("ended", revertToPoster);
-      });
-    </script>
-    <script>
-      // Get the navbar element
-      const navbar = document.getElementById("mainmenu");
-
-      // Function to update the navbar's appearance on scroll
-      function updateNavbarOnScroll() {
-        if (window.scrollY > 50) {
-          // Adjust the scroll threshold as needed
-          navbar.classList.add("scrolled");
-        } else {
-          navbar.classList.remove("scrolled");
-        }
-      }
-
-      // Add an event listener to the window for the scroll event
-      window.addEventListener("scroll", updateNavbarOnScroll);
-
-      // Call the function to set the initial state of the navbar
-      updateNavbarOnScroll();
-    </script>
-    <script>
-      // Get the accordion buttons for "accordionFeatures"
-      var accordionButtonsFeatures = document.querySelectorAll(
-        "#accordionFeatures .accordion-button uniprep-primary"
-      );
-      var changingImage = document.getElementById("changingImage");
-
-      // Add click event listeners to the accordion buttons in "accordionFeatures"
-      accordionButtonsFeatures.forEach(function (button, index) {
-        button.addEventListener("click", function () {
-          // Define an array of image file paths that correspond to accordion items in "accordionFeatures"
-          var imageFilePathsFeatures = [
-            "img/test1.webp", // Corresponds to Accordion Item 1 in "accordionFeatures"
-            "img/test2.webp", // Corresponds to Accordion Item 2 in "accordionFeatures"
-            // Add more file paths as needed
-          ];
-
-          // Update the image source based on the index of the clicked accordion header in "accordionFeatures"
-          changingImage.src = imageFilePathsFeatures[index];
-        });
-      });
-    </script> -->

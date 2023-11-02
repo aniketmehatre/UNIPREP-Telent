@@ -21,6 +21,27 @@ html
 video::-webkit-media-controls-panel {
     background-image: none !important;
 }
+.video-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+video {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+
+.video-gradient {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 200px; /* Adjust this value to change the height of the gradient */
+    background: linear-gradient(to top, white, transparent);
+}
 body
 {
     font-family: 'Poppins', sans-serif !important;
@@ -95,63 +116,6 @@ p
     --bs-btn-bg: var(--uniprep-primary);
     --bs-btn-border-color: var(--uniprep-primary);
 }
-
-/* ... existing CSS ... */
-
-.video-container {
-    position: relative;
-    width: 100%;
-    margin: 0 auto;
-    display: flex;
-    justify-content: center; 
-    align-items: center;
-    transition: filter 0.3s ease; /* This will smoothly animate the blur effect */
-}
-
-.video-container:hover .uniprepvideo {
-    filter: blur(5px);
-}
-
-.video-container:hover .play-button {
-    animation: pulse 1s infinite;
-}
-
-@keyframes pulse {
-    0% {
-        transform: scale(1);
-        opacity: 1;
-    }
-    70% {
-        transform: scale(1.2);
-        opacity: 0.7;
-    }
-    100% {
-        transform: scale(1);
-        opacity: 1;
-    }
-}
-
-/* Avoid blurring while video is playing */
-.video-container.playing .uniprepvideo {
-    filter: none;
-}
-
-.uniprepvideo {
-    width: 100%;
-    display: block;
-    transition: filter 0.3s ease;
-}
-
-.play-button {
-    position: absolute;
-    font-size: 3rem;
-    color: white;
-    cursor: pointer;
-    display: none; /* initially hidden */
-    z-index: 10;
-    padding: 5px
-}
-
 .card
 {
     background-color: #F5F5F5;
@@ -282,33 +246,38 @@ p
     padding: 0.75rem 1rem;
     color: #8B939D;
 }
-
 .marquee-container {
     overflow: hidden;
     position: relative;
     width: 100%;
+    padding-bottom: 5rem;  /* pb-5 equivalent */
 }
 
 .marquee {
     display: flex;
-    animation: marquee 20s linear infinite;
+    width: calc(100% * 2);  /* width of 2 images */
 }
 
 .marquee-img {
+    width: auto;  /* Let the width adjust automatically based on the height */
+    height: 90px;  /* Default height for larger screens */
     display: block;
-    width: auto;
-    padding: 0 10px;
+    animation: marquee 20s linear infinite;
 }
-
+.marquee-imgu {
+    width: auto;  /* Let the width adjust automatically based on the height */
+    height: 200px;  /* Default height for larger screens */
+    display: block;
+    animation: marquee 60s linear infinite;
+}
 @keyframes marquee {
     0% {
         transform: translateX(0);
     }
     100% {
-        transform: translateX(-50%);
+        transform: translateX(-100%);
     }
 }
-
 .bg-primary
 {
     background-color:#3f4c83 !important;
