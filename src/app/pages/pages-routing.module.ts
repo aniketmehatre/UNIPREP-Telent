@@ -53,7 +53,7 @@ const routes: Routes = [
                 component: ChatComponent
             },
             {
-                path: 'question-list',
+                path: 'question-list/:type',
                 loadChildren: () => import('./recentlyaddedquestions/recentlyaddedques.module').then(m => m.RecentlyAddedQuestionsModule)
             },
             {

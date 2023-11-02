@@ -10,6 +10,8 @@ import {Location} from "@angular/common";
 import {ModuleListSub} from "../../@Models/module.model";
 import {MenuItem} from "primeng/api";
 import {DomSanitizer} from "@angular/platform-browser";
+import {loadQuestionList} from "../module-store/module-store.actions";
+import {LocationService} from "../../location.service";
 
 @Component({
   selector: 'uni-recentlyaddedquestions',
@@ -24,7 +26,7 @@ export class RecentlyaddedquestionsComponent implements OnInit {
 
   subModules$!: Observable<ModuleListSub[]>;
   readQue$!: Observable<ReadQuestion[]>;
-  listQuestion$!: Observable<ListQuestion[]>;
+  //listQuestion$!: Observable<ListQuestion[]>;
   selectedQuestion: number = 0;
   selectedQuestionId: number = 0;
   selectedModule: number = 0;
@@ -33,6 +35,7 @@ export class RecentlyaddedquestionsComponent implements OnInit {
   selectedRefLink: number = 0;
   positionNumber: number = 0;
   data: any;
+  type: any;
   breadCrumb: MenuItem[] = [];
   isQuestionAnswerVisible: boolean = false;
   isRecommendedLinksVisible: boolean = false;
@@ -51,27 +54,33 @@ export class RecentlyaddedquestionsComponent implements OnInit {
   popUpItemVideoLink: any;
   reviewedByOrgList: any;
   currentSubModuleSlug: any;
-  currentModuleSlug: any;
   currentModuleName: any;
   currentModuleId: any
-  currentCountryId: any
   currentApiSlug: any;
-  listQuestion:any[]=[];
   listQuestions: any;
+  listQuestionCount: any;
+  headerName: any;
 
   constructor(private route: ActivatedRoute, private dataService: DataService,
               private moduleListService: ModuleServiceService, private service: RecentlyaddedquestionService,
-              private _location: Location,
+              private _location: Location, private locationService: LocationService,
               private _sanitizer: DomSanitizer, private router: Router) {
   }
 
   ngOnInit(): void {
-    this.loadInit()
+    this.countryId = Number(localStorage.getItem('countryId'));
+    this.route.params.subscribe(params => {
+      this.perpage = 10;
+      this.pageno = 1;
+      this.type = this.route.snapshot.paramMap.get('type');
+      this.headerName = this.type == 'popular' ? 'Popular' : 'Recently Added'
+
+      this.loadInit();
+    });
+    //this.getSubmoduleName(this.countryId);
   }
 
-  loadInit(){
-    this.countryId = Number(localStorage.getItem('countryId'));
-
+  loadInit(): void {
     this.subModuleId = this.route.snapshot.paramMap.get('id');
     this.currentSubModuleSlug = this.route.snapshot.paramMap.get('module_name');
     //this.getSubmoduleName(this.countryId);
@@ -106,13 +115,20 @@ export class RecentlyaddedquestionsComponent implements OnInit {
     //   submoduleId: Number(this.subModuleId)
     // }
     // this.moduleListService.loadQuestionList(data);
+    this.loadQuestionList();
+  }
+
+  loadQuestionList(){
     let req = {
       getcountry_id: this.countryId,
-      perpage: 10,
-      page: 1,
+      perpage: this.perpage,
+      page: this.pageno,
+      popular: this.type == 'popular' ? 1 : null
     }
-    this.service.getRecentlyAddedQuestions(req).subscribe((response) => {
-      this.listQuestions = response.recentlyaddedfaqquestions;
+    let apiName = 'getlatestfaqquestions';
+    this.service.getRecentlyAddedQuestions(req, apiName).subscribe((response) => {
+      this.listQuestions = response.latestaddedfaqquestions;
+      this.listQuestionCount = response.count;
     })
   }
 
@@ -123,15 +139,32 @@ export class RecentlyaddedquestionsComponent implements OnInit {
   getSubmoduleName(countryId: number) {
     let data = {
       countryId: countryId,
-      api_module_name: this.currentApiSlug
+      api_module_name: this.currentApiSlug,
+      moduleId: this.selectedModule
     }
+
+    this.locationService.getUniPerpModuleList().subscribe((data: any) => {
+      data.modules.filter((res: any) => {
+        if(res.id == this.selectedModule){
+          this.currentModuleName = res.module_name;
+          this.breadCrumb = [{
+            label: this.currentModuleName,
+            command: (event) => this.gotomodulebreadcrump()
+          }, {label: this.moduleName, command: (event) => this.goToHomebreadcrump()}, {label: 'Question'}];
+        }
+      })
+    })
     this.moduleListService.loadSubModules(data);
     this.subModules$ = this.moduleListService.subModuleList$();
     this.subModules$.subscribe(event => {
       if (event) {
         event.filter(data => {
-          if (data.id == this.subModuleId) {
+          if (data.id == this.selectedSubModule) {
             this.moduleName = data.submodule_name;
+            this.breadCrumb = [{
+              label: this.currentModuleName,
+              command: (event) => this.gotomodulebreadcrump()
+            }, {label: this.moduleName, command: (event) => this.goToHomebreadcrump()}, {label: 'Question'}];
           }
         })
       }
@@ -145,25 +178,25 @@ export class RecentlyaddedquestionsComponent implements OnInit {
   }
 
   onQuestionClick(selectedData: any) {
-    this.listQuestion$.subscribe(event => {
-      this.data = event
-    })
+    // this.listQuestion$.subscribe(event => {
+    //   this.data = event
+    // })
     this.selectedQuestionData = selectedData;
     this.selectedModule = selectedData.module_id;
     this.selectedSubModule = selectedData.submodule_id;
     this.selectedQuestionId = selectedData.id;
     this.selectedQuestion = this.selectedQuestion - 1;
-    let index = this.data.findIndex((x: any) => x.id === selectedData.id);
+    let index = this.listQuestions.findIndex((x: any) => x.id === selectedData.id);
     this.selectedQuestion = index;
     this.positionNumber = index;
-
+    this.getSubmoduleName(this.countryId);
     this.breadCrumb = [{
       label: this.currentModuleName,
       command: (event) => this.gotomodulebreadcrump()
     }, {label: this.moduleName, command: (event) => this.goToHomebreadcrump()}, {label: `Question ${index + 1}`}];
 
     this.isQuestionAnswerVisible = true;
-    this.data.filter((res: any) => {
+    this.listQuestions.filter((res: any) => {
       if (res.id == selectedData.id) {
         this.refLink = res.imagelink;
         this.videoLinks = res.videolink;
@@ -173,18 +206,10 @@ export class RecentlyaddedquestionsComponent implements OnInit {
       questionId: selectedData.id,
       countryId: this.countryId,
       moduleId: this.currentModuleId,
-      submoduleId: Number(this.subModuleId)
+      submoduleId: Number(this.selectedSubModule)
     }
-    if (this.selectedQuestion < 1) {
-      this.isAnswerDialogVisiblePrev = false;
-    }else{
-      this.isAnswerDialogVisiblePrev = true;
-    }
-    if (this.selectedQuestion >= this.data.length - 1) {
-      this.isAnswerDialogVisibleNext = false;
-    }else{
-      this.isAnswerDialogVisibleNext = true;
-    }
+    this.isAnswerDialogVisiblePrev = this.selectedQuestion >= 1;
+    this.isAnswerDialogVisibleNext = this.selectedQuestion < this.listQuestions.length - 1;
     this.readQuestion(data);
   }
 
@@ -193,21 +218,22 @@ export class RecentlyaddedquestionsComponent implements OnInit {
     this.readQue$ = this.moduleListService.readQuestionMessage$();
     let data1 = {
       countryId: this.countryId,
-      moduleId: this.currentModuleId,
-      submoduleId: Number(this.subModuleId)
+      moduleId: this.selectedModule,
+      submoduleId: Number(this.selectedSubModule)
     }
-    this.moduleListService.loadQuestionList(data1);
-    this.listQuestion$ = this.moduleListService.questionList$();
+    //this.moduleListService.loadQuestionList(data1);
+    //this.listQuestion$ = this.moduleListService.questionList$();
+    this.loadQuestionList();
   }
 
   setPage(page: any) {
     let pageNum: number = 0
     if (page.page < 0) {
-      pageNum = this.data.length;
+      pageNum = this.listQuestions.length;
     } else {
       pageNum = page.page
     }
-    this.data.filter((res: any) => {
+    this.listQuestions.filter((res: any) => {
       if (res.id == pageNum + 1) {
         this.refLink = res.reflink;
         this.videoLinks = res.videolink;
@@ -221,6 +247,8 @@ export class RecentlyaddedquestionsComponent implements OnInit {
   }
 
   clickPrevious(carousel: any, event: any) {
+    this.refLink = [];
+    this.videoLinks = [];
     this.isAnswerDialogVisiblePrev = true;
     this.isAnswerDialogVisibleNext = true;
     if (this.selectedQuestion <= 1) {
@@ -229,13 +257,13 @@ export class RecentlyaddedquestionsComponent implements OnInit {
     if (this.selectedQuestion <= 0) {
       return;
     }
-    let selectedData = this.data[this.selectedQuestion-1];
+    let selectedData = this.listQuestions[this.selectedQuestion-1];
     this.selectedQuestionData = selectedData;
     this.selectedModule = selectedData.module_id;
     this.selectedSubModule = selectedData.submodule_id;
     this.selectedQuestionId = selectedData.id;
     this.selectedQuestion = this.selectedQuestion - 1;
-    this.data.filter((res: any) => {
+    this.listQuestions.filter((res: any) => {
       if (res.id == selectedData.id) {
         this.refLink = res.reflink;
         this.videoLinks = res.videolink;
@@ -246,26 +274,27 @@ export class RecentlyaddedquestionsComponent implements OnInit {
       questionId: selectedData.id,
       countryId: this.countryId
     }
-
     this.readQuestion(data);
   }
 
   clickNext(carousel: any, event: any) {
+    this.refLink = [];
+    this.videoLinks = [];
     this.isAnswerDialogVisiblePrev = true;
     this.isAnswerDialogVisibleNext = true;
-    if (this.selectedQuestion >= this.data.length - 2) {
+    if (this.selectedQuestion >= this.listQuestions.length - 2) {
       this.isAnswerDialogVisibleNext = false;
     }
-    if (this.selectedQuestion >= this.data.length - 1) {
+    if (this.selectedQuestion >= this.listQuestions.length - 1) {
       return;
     }
-    let selectedData = this.data[this.selectedQuestion+1];
+    let selectedData = this.listQuestions[this.selectedQuestion+1];
     this.selectedQuestionData = selectedData;
     this.selectedModule = selectedData.module_id;
     this.selectedSubModule = selectedData.submodule_id;
     this.selectedQuestionId = selectedData.id;
     this.selectedQuestion = this.selectedQuestion + 1;
-    this.data.filter((res: any) => {
+    this.listQuestions.filter((res: any) => {
       if (res.id == selectedData.id) {
         this.refLink = res.reflink;
         this.videoLinks = res.videolink;
@@ -415,6 +444,14 @@ export class RecentlyaddedquestionsComponent implements OnInit {
     // this.moduleStoreService.GetReviewedByOrgLogo(request).subscribe((response) => {
     //   this.reviewedByOrgList = response;
     // })
+  }
+
+  perpage:number = 10;
+  pageno:number = 1;
+  paginate(event: any){
+    this.pageno = event.page + 1;
+    this.perpage = event.rows;
+    this.loadInit();
   }
 
 }

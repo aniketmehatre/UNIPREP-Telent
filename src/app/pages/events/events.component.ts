@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { EventsService } from './events.service';
 import { DatePipe } from '@angular/common';
+import { MessageService } from 'primeng/api';
 interface country {
   id: number,
   country: string,
@@ -28,7 +29,7 @@ export class EventsComponent implements OnInit {
   pageno:number = 1;
   upcommingevent: any[] = [];
   postevetdetaisl: any[] = [];
-  constructor(private fb: FormBuilder, private service:EventsService,private datePipe: DatePipe) { 
+  constructor(private fb: FormBuilder, private service:EventsService,private datePipe: DatePipe,private toast: MessageService,) { 
     this.filterform = this.fb.group({
       from: [''],
       to: [''],
@@ -82,7 +83,7 @@ export class EventsComponent implements OnInit {
       this.upcomingevent=true;
       this.postevent=false;
       this.button1Style = {
-        'background-color': '#3F4C83',
+        'background-color': 'var(--uniprep-primary)',
         color: '#FFFFFF'
       };
     } else if (buttonNumber === 2) {
@@ -90,7 +91,7 @@ export class EventsComponent implements OnInit {
       this.postevent=true;
       this.upcomingevent=false;
       this.button2Style = {
-        'background-color': '#3F4C83',
+        'background-color': 'var(--uniprep-primary)',
         color: '#FFFFFF'
       };
     }
@@ -99,6 +100,7 @@ export class EventsComponent implements OnInit {
   // pop up closing
   closenewfilePopup() {
     this.newfile = "none";
+    this.filterform.reset()
   }
   // filterpop-up
   filterpopup(){
@@ -143,10 +145,12 @@ export class EventsComponent implements OnInit {
           to:this.timeformatchange(list.to),
           eventdescription:list.eventdescription,
           countrylog:list.countryFlag,
-          daysago:list.remainingTime
+          daysago:list.remainingTime,
+          registered:list.registered
         }
         this.totalcount=res.count
         this.upcommingevent.push(bindingdata)
+        this.filterform.reset()
       })
       this.newfile = "none";
     })
@@ -201,4 +205,18 @@ export class EventsComponent implements OnInit {
       })
     })
   }
+  registerbutton(event:any){
+    console.log(event);
+    var data={
+      id:event
+    }
+    this.service.registered(data).subscribe((response)=>{
+        this.toast.add({ severity: 'success', summary: 'Success', detail: response.message });
+        this.ngOnInit()
+    },
+    error => {
+      this.toast.add({ severity: 'error', summary: 'Error', detail: error.message });
+      // this.router.navigate(['/subscribers']);
+    });
+}
 }

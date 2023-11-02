@@ -115,7 +115,6 @@ export class ListSubModulesComponent implements OnInit {
     }
     this.moduleListService.loadSubModules(data);
     this.subModules$.subscribe(event => {
-      console.log(event);
       this.subModuleList = event;
     });
     this.locationService.getUniPerpModuleList().subscribe((data: any) => {
@@ -173,12 +172,10 @@ export class ListSubModulesComponent implements OnInit {
       return;
     }
     let singleQuizData = this.quizData[this.selectedQuiz - 2];
-    console.log(singleQuizData);
     this.quizData.map((data: any) => {
       let dd = {...data};
 
       if (dd.id == singleQuizData.id) {
-        console.log(dd);
         this.selectedOptNumber = dd.user_answered;
         if (dd.user_answered_value != '') {
           this.answerOptionClicked = false;
@@ -206,14 +203,11 @@ export class ListSubModulesComponent implements OnInit {
     this.quizData = this.quizData.map((data: any) => {
       let dat = {...data}
       if (dat.id == singleQuizData.id) {
-        console.log('01', dat.user_answered_value);
         if (!dat.user_answered_value) {
-          console.log('02');
           dat.user_answered = this.selectedOptNumber;
           dat.user_answered_value = this.selectedOptValue;
           this.answerOptionClicked = true;
         } else {
-          console.log('03');
           this.answerOptionClicked = false;
         }
         return dat;

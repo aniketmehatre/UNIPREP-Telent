@@ -13,7 +13,6 @@ import { AuthService } from 'src/app/Auth/auth.service';
 })
 export class DashboardComponent implements OnInit {
 
-    dashboardCount: any = [];
     readProgressionPercentage: any;
     readQuizProgressionPercentage: any;
     responsiveOptions: any;
@@ -74,11 +73,27 @@ export class DashboardComponent implements OnInit {
 
     ngOnInit(): void {
         localStorage.setItem("currentmodulenameforrecently", '')
-        this.loadApiData();
+        
         this.freeTrial = true;
-        this.openViewMoreOrg();
+
+        this.dashboardService.getTrustedPartners().subscribe(partnerLogo => {
+            this.partnerTrusterLogo = partnerLogo;
+        });
+        this.dashboardService.countryList().subscribe(countryList => {
+            this.countryLists = countryList;
+            this.countryLists.forEach((element: any) => {
+                if (element.id == this.selectedCountryId) {
+                    this.selectedCountryName = element.country;
+                    this.selectedCountryId = element.id;
+                    this.dataService.changeCountryName(element.country);
+                }
+            });
+        });
+
+        //this.openViewMoreOrg();
         this.isViewMoreOrgVisible = false;
-        this.checkUserLoginedFirst();
+        this.checkUserLoggedInFirst();
+        this.loadApiData();
     }
 
     loadApiData(): void {
@@ -86,20 +101,13 @@ export class DashboardComponent implements OnInit {
         const data = {
             countryId: this.selectedCountryId,
         }
-        combineLatest(this.dashboardService.getDashboardCounts(),
+        combineLatest(
             this.dashboardService.getReadProgression({ countryId: this.selectedCountryId }),
             this.dashboardService.getQuizProgression({ countryId: this.selectedCountryId }),
-            this.dashboardService.countryList(),
             this.dashboardService.getModuleReadProgression(data),
             this.dashboardService.getModuleQuizProgression(data))
-            .subscribe(([dashboard, readProgression, quizProgression, countryList, getModuleReadProgression,
+            .subscribe(([readProgression, quizProgression, getModuleReadProgression,
                 getModuleQuizProgression]) => {
-                if (dashboard) {
-                    if (dashboard.status === 404) {
-                        return;
-                    }
-                    this.dashboardCount = dashboard.res;
-                }
                 if (readProgression) {
                     if (!readProgression.success) {
 
@@ -112,16 +120,6 @@ export class DashboardComponent implements OnInit {
                         return;
                     }
                     this.readQuizProgressionPercentage = Math.round(quizProgression.quizpercentage);
-                }
-                if (countryList) {
-                    this.countryLists = countryList;
-                    this.countryLists.forEach((element: any) => {
-                        if (element.id == this.selectedCountryId) {
-                            this.selectedCountryName = element.country;
-                            this.selectedCountryId = element.id;
-                            this.dataService.changeCountryName(element.country);
-                        }
-                    });
                 }
 
                 if (getModuleReadProgression) {
@@ -233,22 +231,19 @@ export class DashboardComponent implements OnInit {
 
     openViewMoreOrg(): void {
         this.isViewMoreOrgVisible = true;
-        this.dashboardService.getTrustedPartners().subscribe(partnerLogo => {
-            this.partnerTrusterLogo = partnerLogo;
-        });
     }
 
     onClickSubscribe(): void {
         this.router.navigate(["/pages/subscriptions"]);
     }
 
-    checkUserLoginedFirst(): void{
+    checkUserLoggedInFirst(): void {
         this.authService.getMe().subscribe(res => {
             let userData = res.userdetails;
             if (userData[0].login_status === 4) {
                 this.newUserLogin = true;
             }
         })
-        
+
     }
 }

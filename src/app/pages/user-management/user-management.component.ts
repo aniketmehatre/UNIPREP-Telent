@@ -130,7 +130,8 @@ export class UserManagementComponent implements OnInit {
         const year = new Date().getFullYear();
         return new Date(`${monthName} 1, ${year}`).getMonth() + 1;
     }
-
+    // using get location
+    // test command
     GetLocationList() {
         this.locationService.getLocation().subscribe(
             (res: any) => {

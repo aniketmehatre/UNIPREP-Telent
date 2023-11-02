@@ -70,10 +70,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
   password1: string = "password";
   headerFlag: any = "";
   constructor(
-    private modalService: ModalService,
     private router: Router,
     private locationService: LocationService,
-    private viewContainerRef: ViewContainerRef,
     private formBuilder: FormBuilder,
     private service: AuthService,
     private toast: MessageService,
