@@ -5,7 +5,8 @@
 // const url= `http://${domain}/sopapi/public/api`;
 // const domain = '20.235.29.36';
 const domain = '40.80.95.32';
-const url= `http://${domain}/uniprepapi/public/api`;
+// const url= `http://${domain}/uniprepapi/public/api`;
+const url='https://uniprep.ai/uniprepapi/public/api'
 export const environment = {
   domain,
   production: false,
