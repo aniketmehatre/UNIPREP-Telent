@@ -205,7 +205,7 @@ export class RecentlyaddedquestionsComponent implements OnInit {
     let data = {
       questionId: selectedData.id,
       countryId: this.countryId,
-      moduleId: this.currentModuleId,
+      moduleId: this.selectedModule,
       submoduleId: Number(this.selectedSubModule)
     }
     this.isAnswerDialogVisiblePrev = this.selectedQuestion >= 1;
@@ -272,7 +272,9 @@ export class RecentlyaddedquestionsComponent implements OnInit {
     carousel.navBackward(event, this.selectedQuestion);
     let data = {
       questionId: selectedData.id,
-      countryId: this.countryId
+      moduleId: this.selectedModule,
+      countryId: this.countryId,
+      submoduleId: Number(this.selectedSubModule)
     }
     this.readQuestion(data);
   }
@@ -303,7 +305,9 @@ export class RecentlyaddedquestionsComponent implements OnInit {
     carousel.navForward(event, this.selectedQuestion)
     let data = {
       questionId: selectedData.id,
-      countryId: this.countryId
+      moduleId: this.selectedModule,
+      countryId: this.countryId,
+      submoduleId: Number(this.selectedSubModule)
     }
     this.readQuestion(data);
   }

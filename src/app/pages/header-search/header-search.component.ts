@@ -66,7 +66,6 @@ export class HeaderSearchComponent implements OnInit, OnDestroy {
     this.renderer.listen('window', 'click', (e: Event) => {
       if (e.target !== this.elRef!.nativeElement) {
         this.isSearchResultFound = false;
-        this.searchInputText = '';
       }
     });
   }
