@@ -7,7 +7,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LandingComponent implements OnInit {
   countries: any;
-
+  videoUrl = "../../../uniprep-assets/video/uniprepvideo.mp4";
   constructor() { }
 
   ngOnInit(): void {
