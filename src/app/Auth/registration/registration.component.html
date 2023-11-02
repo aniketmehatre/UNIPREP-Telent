@@ -1,8 +1,9 @@
-<div class="startbg h-100">
-  <div class="container h-100">
-    <div class="row loginbox">
+<div class="startbg h-100 d-flex align-items-start align-items-md-center">
+  <div class="container">
+    <div class="row">
       <div class="card">
-        <div class="card-body d-flex p-5">
+        <div class="card-body p-md-5 p-0">
+        <div class="row">
           <div class="col-md-6 col-lg-6 d-flex align-items-center col-12">
             <div class="row">
               <img class="small-image text-left mb-2" src="../../../uniprep-assets/images/uniprep-light.svg">
@@ -27,7 +28,7 @@
                           Login</a></span></p>
                     <form [formGroup]="registrationForm" (ngSubmit)="onSubmit()">
                       <div class="row g-3">
-                        <div class="col">
+                        <div class="col-md-6 col-12">
                           <label for="fullName">Full Name</label>
                           <div class="p-inputgroup">
                             <div class="p-inputgroup-addon">
@@ -45,7 +46,7 @@
                             </div>
                           </div>
                         </div>
-                        <div class="col">
+                        <div class="col-md-6 col-12">
                           <label for="location">Location</label>
                           <div class="p-inputgroup">
                             <div class="p-inputgroup-addon">
@@ -63,7 +64,7 @@
                         </div>
                       </div>
                       <div class="row g-3">
-                        <div class="col-6">
+                        <div class="col-md-6 col-12">
                           <label for="contactNumber">Contact Number</label>
                           <div class="p-inputgroup">
                             <div class="p-inputgroup-addon">
@@ -93,7 +94,7 @@
                             </div>
                           </div>
                         </div>
-                        <div class="col-6" *ngIf="isMobileOTPValidated">
+                        <div class="col-md-6 col-12" *ngIf="isMobileOTPValidated">
                           <label for="emailAddress">Email Address</label>
                           <div class="p-inputgroup">
                             <div class="p-inputgroup-addon">
@@ -123,7 +124,7 @@
                         </div>
                       </div>
                       <div class="row g-3" *ngIf="!isMobileOTPSend">
-                        <div class="col">
+                        <div class="col-md-6 col-12">
                           <br />
                           <div class="text-center">
                             <button class="pt-2 pb-2 btn btn-primary btn-login text-uppercase fw-bold m-0 w-50"
@@ -215,7 +216,7 @@
                           isMobileOTPValidated &&
                           !isRemainingFieldVisible
                         ">
-                        <div class="col">
+                        <div class="col-md-6 col-12">
                           <br />
                           <div class="text-center">
                             <button class="pt-2 pb-2 btn btn-primary btn-login text-uppercase fw-bold m-0 w-50"
@@ -528,6 +529,7 @@
               </div>
             </div>
           </div>
+        </div>
         </div>
       </div>
     </div>

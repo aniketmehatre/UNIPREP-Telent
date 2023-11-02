@@ -51,9 +51,11 @@ p
 .navbar
 {
     transition:0.2s;
+    background: white;
 }
 .btn{
     display:block;
+    border-radius:100px !important;
 }
 .mobilemenu
 {
@@ -201,35 +203,32 @@ p
 
 .featurecard
 {
-    background:#F5F5F5;
-    border-radius: 25px !important;
+    background:transparent;
+    border-radius: 0 !important;
     overflow: hidden;
-    margin-bottom: 10px;
-    border: none;
+    border-top: 1px solid #000 !important;
+    margin-bottom: 12px;
+    border-bottom: 0;
 }
 
-.featurecard .accordion-button::after
-{
-    display:none;
-}
 
 .featurecard .accordion-collapse
 {
-    background:#F5F5F5;
+    background:transparent;
 }
 
 .featurecard .accordion-button:not(.collapsed)
 {
-    background:#f5f5f5;
+    background:transparent;
 }
 
 .featurecard .accordion-header button
 {
-    background:white;
+    background:transparent;
     box-shadow: none;
     padding: 0.75rem 1rem;
     font-weight:600;
-    color:var(--bs-primary);
+    color:#000;
 }
 
 .featurecard .accordion-body
@@ -282,6 +281,37 @@ p
     text-align:start;
     padding: 0.75rem 1rem;
     color: #8B939D;
+}
+
+.marquee-container {
+    overflow: hidden;
+    position: relative;
+    width: 100%;
+}
+
+.marquee {
+    display: flex;
+    animation: marquee 20s linear infinite;
+}
+
+.marquee-img {
+    display: block;
+    width: auto;
+    padding: 0 10px;
+}
+
+@keyframes marquee {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(-50%);
+    }
+}
+
+.bg-primary
+{
+    background-color:#3f4c83 !important;
 }
 
 .bg-mediumblue

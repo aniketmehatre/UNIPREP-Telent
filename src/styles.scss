@@ -191,11 +191,12 @@ h1, h2, h3, h4, h5 {
   color:#001631;
 }
 
-.startbg
-{
+.startbg {
+  min-height: 100vh;
   background-image: url(uniprep-assets/images/startbg.png);
   background-position: center;
-    background-size: cover;
+  background-size: cover;
+  overflow-y: auto;  /* Allows scrolling if content overflows */
 }
 
 .lightmode

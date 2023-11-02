@@ -90,10 +90,13 @@ nav {
 }
 .headercountry
 {
-  width: 40px;
-    height: 40px;
+  img
+  {
+    width: 40px;
     border: 2px solid var(--uniprep-primaryop10);
     border-radius: 100%;
+  }
+  
 }
 form {
   input {
@@ -145,7 +148,6 @@ form {
   border-radius: 8px;
   color: #001631;
   background-color: var(--uniprep-primaryop10);
-  border: 2px solid var(--uniprep-primaryop10);
   text-align: center;
   margin-right: 10px;
   font-weight: 700!important;
