@@ -172,6 +172,11 @@ export class EventsComponent implements OnInit {
   
   }
   filtersubmit(){
+    const formData = this.filterform.value;
+    if (!formData.to && !formData.from && !formData.country) {
+      this.toast.add({ severity: 'error', summary: 'Error', detail: 'Please make sure you have some filter!' });
+      return;
+    }
     var data={
       to:this.filterform.value.to,
       from:this.filterform.value.from,
