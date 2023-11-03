@@ -1,4 +1,4 @@
-import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {Component,Renderer2, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {DashboardService} from "./dashboard.service";
 import {AuthService} from "../../Auth/auth.service";
 import {SubSink} from "subsink";
@@ -54,7 +54,7 @@ export class DashboardComponent implements OnInit {
     private subs = new SubSink();
     currentSlide: any;
 
-    constructor(private dashboardService: DashboardService, private builder : AnimationBuilder,
+    constructor(private dashboardService: DashboardService, private builder : AnimationBuilder,private renderer: Renderer2,private elRef: ElementRef,
     private router: Router, private dataService: DataService, private toast: MessageService) {
         this.responsiveOptions = [
             {
@@ -78,7 +78,11 @@ export class DashboardComponent implements OnInit {
     ngOnInit(): void {
        localStorage.setItem("currentmodulenameforrecently",'')
         this.loadApiData();
-
+        const section = this.elRef.nativeElement.querySelector('#horizontalScrollSection');
+        this.renderer.listen(section, 'wheel', (event: WheelEvent) => {
+        event.preventDefault();
+        section.scrollLeft += event.deltaY;
+        });
     }
 
     loadApiData(){

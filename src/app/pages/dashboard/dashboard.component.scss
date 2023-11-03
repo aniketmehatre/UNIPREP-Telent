@@ -369,11 +369,30 @@ $howManySteps: 100; //this needs to be even.
 {
   background:transparent !important;
 }
+.country
+{
+  min-width: 175px;
+  padding: 0px;
+  box-sizing: border-box;
+  flex: 1;
+  text-align: center;
+  cursor: pointer;
+  text-transform: uppercase;
+}
 
 .countryicon
 {
-  max-width:100%;
-  max-height:70px;
+  width: 60px;
+}
+
+.countryscroll
+{
+    overflow-x: auto;
+    padding: 10px 5px;
+}
+
+.countryscroll::-webkit-scrollbar {
+  height: 6px !important;
 }
 
 .country-text {
@@ -390,7 +409,7 @@ $howManySteps: 100; //this needs to be even.
 
 .country-border {
   border: 2px solid var(--uniprep-primary);
-  border-radius: 5%;
+  border-radius: 10px;
   background: var(--uniprep-primaryop10);
 }
 

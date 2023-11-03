@@ -1,17 +1,21 @@
 <div class="container-fluid">
-	<div class="row d-none d-md-flex">
+	<div class="row">
 		<div class="col px-0">
 			<div class="card mt-3">
 				<div class="card-body text-center">
 					<h5>SELECTED COUNTRY</h5>
 					<div class="container-fluid">
-						<div class="row mb-0 justify-content-center">
-							<div *ngFor="let v of countryLists" class="col-md-1 col-3 col-offset-1" role="button">
-								<div (click)="selectCountry(v.id)" class="row justify-content-center {{ selectedCountryId == v.id ? 'country-border pr-4 pl-4' : '' }}">
-									<img alt="country" class="countryicon" src="{{ v.flag != '' ? v.flag : '../../uniprep-assets/images/mstile-150x150.png' }}" style="{{ selectedCountryId == v.id ? 'transform: scale(0.75);' : 'transform: scale(0.5);' }}" width="{{ selectedCountryId == v.id ? '350px' : '100px' }}" />
-									<p class="mb-2 text-center text-sm text-capitalize {{ selectedCountryId == v.id ? 'country-text' : 'country-text-small' }}">
-										{{ v.country }}
-									</p>
+						<div class="row">
+							<div class="countryscroll" id="horizontalScrollSection">
+								<div class="d-flex gap-2">
+									<div *ngFor="let v of countryLists" class="country" role="button">
+										<div (click)="selectCountry(v.id)" class="card-body {{ selectedCountryId == v.id ? 'country-border px-2 py-2' : '' }}">
+											<img alt="country" class="countryicon" src="{{ v.flag != '' ? v.flag : '../../uniprep-assets/images/mstile-150x150.png' }}" />
+											<p class="mb-2 text-center text-sm text-capitalize {{ selectedCountryId == v.id ? 'country-text' : 'country-text-small' }}">
+												{{ v.country }}
+											</p>
+										</div>
+									</div>
 								</div>
 							</div>
 						</div>

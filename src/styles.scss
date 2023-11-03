@@ -1653,6 +1653,14 @@ h1, h2, h3, h4, h5 {
   {
     display: none;
   }
+  .country
+  {
+    min-width:125px !important;
+  }
+  .bottom-text
+  {
+    width:85% !important;
+  }
 }
 
 @media (max-width: 767.98px)
@@ -1669,6 +1677,10 @@ h1, h2, h3, h4, h5 {
   {
     display: none;
   }
+  .country
+  {
+    min-width:125px !important;
+  }
 }
 
 @media (max-width: 575.98px)
@@ -1684,6 +1696,10 @@ h1, h2, h3, h4, h5 {
   .menuclosed
   {
     display: none;
+  }
+  .country
+  {
+    min-width:125px !important;
   }
 }
 .openlogo
