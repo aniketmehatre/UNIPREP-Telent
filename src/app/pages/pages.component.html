@@ -23,18 +23,22 @@
                 </div>
             </div>
         </div>
-        <footer [ngClass]="{'alignleft': !!sidebarClass}">
-            <div>
-                <a>2023 &#169; All rights reserved by UNIABROAD Ltd. | UOEC Consultants(OPC) Pvt. Ltd.</a>
-            </div>
-            <div>
-                <ul>
-                    <li routerLink="/helpandsupport" style="cursor: pointer;">TERMS AND CONDTIONS<span>|</span></li>
-                    <li routerLink="/privacypolicy" style="cursor: pointer;">PRIVACY POLICY<span>|</span></li>
-                    <li style="cursor: pointer;">ABOUT US</li>
-                </ul>
-            </div>
-        </footer>
+        <footer [ngClass]="{ alignleft: !!sidebarClass }">
+			<div class="container-fluid">
+				<div class="row align-items-center">
+					<div class="col-md-6 text-md-start text-center">
+						<p class="mb-0 fw-semibold">2022 &#169; All rights reserved by UNIABROAD Ltd.</p>
+					</div>
+					<ul class="nav justify-content-md-end justify-content-center col-md-6">
+						<li class="nav-item"><a href="#" class="nav-link px-2 py-0 text-body-secondary">Terms & Conditions</a></li>
+						<li class="nav-item">|</li>
+						<li class="nav-item"><a href="#" class="nav-link px-2 py-0 text-body-secondary">Privacy Policy</a></li>
+						<li class="nav-item">|</li>
+						<li class="nav-item"><a href="#" class="nav-link px-2 py-0 text-body-secondary">About Us</a></li>
+					</ul>
+				</div>
+			</div>
+		</footer>
     </div>
     
 </section>
