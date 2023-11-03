@@ -199,4 +199,8 @@ export class ChatComponent implements OnInit {
   getData(questionNumber:any):string{
     return this.messages?.find((data: { questionNumber: any; })=>data.questionNumber==questionNumber).message;
   }
+
+  getmessage(){
+
+  }
 }
