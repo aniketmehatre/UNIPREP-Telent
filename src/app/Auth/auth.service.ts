@@ -54,7 +54,7 @@ export class AuthService {
                 localStorage.setItem("Name",response.userdetails[0].name)
                 localStorage.setItem("credit_plans",response.userdetails[0].credit_plans)
                 localStorage.setItem("questions_left",response.userdetails[0].questions_left)
-                localStorage.setItem("guidlineAccepted",response.userdetails[0].guidlineAccepted)
+                localStorage.setItem("guidlineAccepted",response.userdetails[0].guidelineaccept)
                 // this.getCountry().subscribe(data => {
                 //     data.filter((value: any) => {
                 //         if (2 == value.id) {
