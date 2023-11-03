@@ -2,7 +2,7 @@
 	<div class="container">
 		<div class="row">
 			<div class="card">
-				<div class="card-body p-md-5 p-0">
+				<div class="card-body p-md-5 p-0 py-5">
 					<div class="row">
 						<div class="col-md-6 col-lg-6 d-flex align-items-center col-12">
 							<div class="row">
@@ -94,17 +94,17 @@
 													<div class="col-md-12" *ngIf="!isMobileOTPSend">
 														<div class="row">
 															<div class="col-md-6 col-12">
-																<div class="text-center">
-																	<button class="pt-2 pb-2 btn btn-primary btn-login text-uppercase fw-bold m-0 w-50" type="button" (click)="sendMobileOTP()">SEND OTP</button>
+																<div class="text-center mt-3">
+																	<button class="btn m-0 btn-primary w-100" type="button" (click)="sendMobileOTP()">SEND OTP</button>
 																</div>
 															</div>
 														</div>
 													</div>
 													<div class="col-md-12" *ngIf="isMobileOTPSend && !isMobileOTPValidated">
 														<form [formGroup]="otpForm" class="formOTP" (ngSubmit)="onValidateMobileOTP()">
-															<h5 class="login-heading mt-3 mb-2">Enter your OTP</h5>
-															<label class="signup mb-3">We have sent you one time password to your contact number for verification</label>
-															<div style="text-align-last: center">
+															<h5 class="mt-3 text-center">Enter your OTP</h5>
+															<p class="text-center">We have sent you one time password to your contact number for verification</p>
+															<div class="text-center">
 																<input (keypress)="numericOnly($event)" (keyup)="focusNextInput($event, 1)" [ngClass]="{ 'is-invalid': submitted && f.otp1.errors }" autofocus class="col form-control" formControlName="otp1" maxlength="1" type="text" />
 																<input #otp2 (keyup)="focusNextInput($event, 2)" [ngClass]="{ 'is-invalid': submitted && f.otp2.errors }" class="col form-control" formControlName="otp2" maxlength="1" type="text" />
 																<input class="col form-control" formControlName="otp3" (keyup)="focusNextInput($event, 3)" type="text" #otp3 maxlength="1" [ngClass]="{ 'is-invalid': submitted && f.otp3.errors }" />
@@ -112,7 +112,7 @@
 																<div *ngIf="submitted && f.otp1.errors && f.otp2.errors && f.otp3.errors && f.otp4.errors" class="invalid-feedback">
 																	<div *ngIf="f.otp1.errors.required && f.otp2.errors.required && f.otp3.errors.required && f.otp4.errors.required">OTP is required</div>
 																</div>
-																<div *ngIf="resendTime <= 3" class="resend_label text-center mt-3" style="font-size: 0.7rem">
+																<div *ngIf="resendTime <= 3" class="mt-3 mb-4 small">
 																	<div class="text-center">Didn't receive the Otp?</div>
 																	<div class="text-center">
 																		<span *ngIf="startTimer > 0; else notime">Resend OTP in {{ startTimer }}</span>
@@ -122,16 +122,12 @@
 																	</div>
 																</div>
 															</div>
-															<br />
-															<div class="text-center">
+															<div class="text-center d-flex">
 																<button class="pt-2 pb-2 btn btn-primary btn-login text-uppercase fw-bold m-2 w-50" type="submit">VERIFY OTP</button>
-																<button (click)="editMobileNumberAgain()" *ngIf="isMobileOTPSend" class="pt-2 pb-2 btn btn-primary btn-login text-uppercase fw-bold m-2 w-50" type="button">Edit</button>
+																<button (click)="editMobileNumberAgain()" *ngIf="isMobileOTPSend" class="pt-2 pb-2 btn btn-primary btn-login text-uppercase fw-bold m-2 w-50" type="button">Edit Number</button>
 															</div>
 															<div class="footer-part">
-																<a href="login"
-																	><span><i class="pi pi-chevron-left"></i></span></a
-																><br />
-																<label>Back to Sign In</label>
+																<a href="login"><span><i class="pi pi-chevron-left"></i></span></a><br /><label>Back to Sign In</label>
 															</div>
 														</form>
 													</div>
@@ -139,17 +135,17 @@
 														<div class="row g-3">
 															<div class="col-md-6 col-12">&nbsp;</div>
 															<div class="col-md-6 col-12">
-																<div class="text-center">
-																	<button class="pt-2 pb-2 btn btn-primary btn-login text-uppercase fw-bold m-0 w-50" type="button" (click)="sendEmailOTP()">SEND OTP</button>
+																<div class="text-center mt-3">
+																	<button class="btn m-0 mt-3 btn-primary w-100" type="button" (click)="sendEmailOTP()">SEND OTP</button>
 																</div>
 															</div>
 														</div>
 													</div>
 													<div class="col-md-12" *ngIf="isEmailOTPSend && !isRemainingFieldVisible">
 														<form [formGroup]="emailOTPForm" class="formOTP" (ngSubmit)="onValidateEmailOTP()">
-															<h5 class="login-heading mt-3 mb-2">Enter your Email OTP</h5>
-															<label class="signup mb-3">We have sent you one time password to your Email for verification</label>
-															<div style="text-align-last: center">
+															<h5 class="mt-3 text-center">Enter your OTP</h5>
+															<p class="text-center">We have sent you one time password to your contact number for verification</p>
+															<div class="text-center">
 																<input class="col form-control" [ngClass]="{ 'is-invalid': submitted && f.otp5.errors }" formControlName="otp5" (keyup)="focusNextEmailInput($event, 5)" type="text" #otp5 autofocus maxlength="1" />
 																<input class="col form-control" formControlName="otp6" (keyup)="focusNextEmailInput($event, 6)" type="text" maxlength="1" autofocus #otp6 [ngClass]="{ 'is-invalid': submitted && f.otp6.errors }" />
 																<input class="col form-control" formControlName="otp7" (keyup)="focusNextEmailInput($event, 7)" type="text" maxlength="1" #otp7 autofocus [ngClass]="{ 'is-invalid': submitted && f.otp7.errors }" />
@@ -159,17 +155,16 @@
 																</div>
 															</div>
 															<br />
-															<div class="text-center">
+															<div class="text-center d-flex gap-3 mt-4">
 																<button class="pt-2 pb-2 btn btn-primary btn-login text-uppercase fw-bold m-0 w-50" type="submit">VERIFY OTP</button>
-																<button (click)="editEmailAgain()" *ngIf="isMobileOTPSend" class="pt-2 pb-2 btn btn-primary btn-login text-uppercase fw-bold m-2 w-50" type="button">Edit</button>
+																<button (click)="editEmailAgain()" *ngIf="isMobileOTPSend" class="pt-2 pb-2 btn btn-primary btn-login text-uppercase fw-bold m-0 w-50" type="button">Edit Email</button>
 															</div>
-															<label class="resend_label"
-																>Didn't receive the Email OTP? <span class="font-primarycolor"><a (click)="sendEmailOTP()">Click to resend.</a></span></label
-															>
+															<label class="text-center mt-3">
+                                Didn't receive the Email OTP?<br><span class="font-primarycolor"><a (click)="sendEmailOTP()">Click to resend.</a>
+                                </span>
+                              </label>
 															<div class="footer-part">
-																<a href="login"
-																	><span><i class="pi pi-chevron-left"></i></span></a
-																><br />
+																<a href="login"><span><i class="pi pi-chevron-left"></i></span></a><br />
 																<label>Back to Sign In</label>
 															</div>
 														</form>
