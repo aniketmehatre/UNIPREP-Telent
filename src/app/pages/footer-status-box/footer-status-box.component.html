@@ -1,7 +1,8 @@
 <div class="container-fluid mt-2 mb-0">
-    <div class="row gap-3 d-flex">
-        <div class="card col footer-card w-100 px-0" role="button" (click)="askYourPersonalized()">
-            <div class="card-body">
+    <div class="row justify-content-center">
+        <div class="col-lg-2 col-md-3 col-sm-6 col-6 my-2 footer-card" role="button" (click)="askYourPersonalized()">
+            <div class="card h-100">
+                <div class="card-body">
                 <div class="d-flex align-items-center justify-content-between mb-3">
                     <i class="h4 fa-solid fa-message"></i>
                     <p class="mb-2 text-end fw-medium fctitle">Ask your personalized<br>Questions</p>
@@ -10,9 +11,11 @@
                     <p class="p-0 m-0 text-start text-small fw-medium">Questions<br>Answered</p>
                     <h4 class="mb-0">{{dashboardCount.personalisedquestioncount}}</h4>
                 </div>
+                </div>
             </div>
         </div>
-        <div class="card col footer-card w-100 px-0" role="button" (click)="recentlyAddedQuestions()">
+        <div class="col-lg-2 col-md-3 col-sm-6 col-6 my-2 footer-card" role="button" (click)="recentlyAddedQuestions()">
+            <div class="card h-100">
             <div class="card-body">
                 <div class="d-flex align-items-center justify-content-between mb-3">
                     <i class="h4 fa-solid fa-question"></i>
@@ -24,8 +27,10 @@
                     <h4 class="mb-0">{{dashboardCount.recentlyaddedquestion}}</h4>
                 </div>
             </div>
+            </div>
         </div>
-        <div class="card col footer-card w-100 px-0" role="button">
+        <div class="col-lg-2 col-md-3 col-sm-6 col-6 my-2 footer-card" role="button">
+            <div class="card h-100">
             <div class="card-body">
                 <div class="d-flex align-items-center justify-content-between mb-3">
                     <i class="h4 fa-solid fa-circle-check"></i>
@@ -37,8 +42,12 @@
                     <h4 class="mb-0">{{dashboardCount.totalquestioncount}}</h4>
                 </div>
             </div>
+            </div>
         </div>
-        <div class="card col footer-card w-100 px-0" role="button" (click)="popularQuestions()">
+
+        <div class="col-lg-2 col-md-3 col-sm-6 col-6 my-2 footer-card" role="button">
+            <div class="card h-100" (click)="popularQuestions()">
+
             <div class="card-body">
                 <div class="d-flex align-items-center justify-content-between mb-3">
                     <i class="h4 fa-solid fa-circle-question"></i>
@@ -50,8 +59,10 @@
                     <h4 class="mb-0">{{dashboardCount.popularquestioncount}}</h4>
                 </div>
             </div>
+            </div>
         </div>
-        <div class="card col footer-card w-100 px-0" role="button">
+        <div class="col-lg-2 col-md-3 col-sm-6 col-6 my-2 footer-card" role="button">
+            <div class="card h-100">
             <div class="card-body">
                 <div class="d-flex align-items-center justify-content-between mb-3">
                     <i class="h4 fa-solid fa-graduation-cap"></i>
@@ -63,8 +74,10 @@
                     <h4 class="mb-0">{{dashboardCount.registereduser}}</h4>
                 </div>
             </div>
+            </div>
         </div>
-        <div class="card col footer-card w-100 px-0" role="button">
+        <div class="col-lg-2 col-md-3 col-sm-6 col-6 my-2 footer-card" role="button">
+            <div class="card h-100">
             <div class="card-body">
                 <div class="d-flex align-items-center justify-content-between mb-3">
                     <i class="h4 fa-solid fa-user-graduate"></i>
@@ -78,6 +91,7 @@
                     <h4 class="mb-0">Launching Soon</h4>
                     <!-- <h4 class="mb-0">{{dashboardCount.certificate_granted}}</h4> -->
                 </div>
+            </div>
             </div>
         </div>
     </div>

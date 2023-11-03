@@ -1,10 +1,16 @@
-import { Component, OnInit } from '@angular/core';
-import { DashboardService } from "./dashboard.service";
-import { Router } from "@angular/router";
-import { DataService } from 'src/app/data.service';
-import { MessageService } from "primeng/api";
-import { combineLatest } from "rxjs";
-import { AuthService } from 'src/app/Auth/auth.service';
+
+import {Component,Renderer2, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {DashboardService} from "./dashboard.service";
+import {AuthService} from "../../Auth/auth.service";
+import {SubSink} from "subsink";
+import {Router} from "@angular/router";
+import {DataService} from 'src/app/data.service';
+import {MessageService} from "primeng/api";
+import {combineLatest} from "rxjs";
+import {select} from "@ngrx/store";
+import {AnimationBuilder} from "@angular/animations";
+import {Carousel, CarouselModule} from "primeng/carousel";
+
 
 @Component({
     selector: 'uni-dashboard',
@@ -50,8 +56,10 @@ export class DashboardComponent implements OnInit {
     currentSlide: any;
     freeTrial: boolean | undefined;
 
-    constructor(private dashboardService: DashboardService, private authService: AuthService,
-        private router: Router, private dataService: DataService) {
+    constructor(private dashboardService: DashboardService, private builder : AnimationBuilder,private renderer: Renderer2,private elRef: ElementRef,
+    private router: Router, private dataService: DataService, private toast: MessageService,
+                private authService: AuthService) {
+
         this.responsiveOptions = [
             {
                 breakpoint: '1024px',
@@ -72,6 +80,7 @@ export class DashboardComponent implements OnInit {
     }
 
     ngOnInit(): void {
+
         localStorage.setItem("currentmodulenameforrecently", '')
         
         this.freeTrial = true;
@@ -89,11 +98,16 @@ export class DashboardComponent implements OnInit {
                 }
             });
         });
-
+        const section = this.elRef.nativeElement.querySelector('#horizontalScrollSection');
+        this.renderer.listen(section, 'wheel', (event: WheelEvent) => {
+            event.preventDefault();
+            section.scrollLeft += event.deltaY;
+        });
         //this.openViewMoreOrg();
         this.isViewMoreOrgVisible = false;
         this.checkUserLoggedInFirst();
         this.loadApiData();
+
     }
 
     loadApiData(): void {

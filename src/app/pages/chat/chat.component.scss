@@ -1,7 +1,23 @@
 ::ng-deep .p-card-header {
-  padding: 1rem;
-  background-color: #3f4c83;
+  padding:0.5rem 1rem;
+  background-color: var(--uniprep-primary);
   color: white;
+}
+
+.chatprofile
+{
+  width:50px;
+  height:50px;
+  border-radius: 100px;
+  background-color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  img
+  {
+    width:100%;
+    padding:4px;
+  }
 }
 
 .chat .header-chat .right {
@@ -46,6 +62,7 @@
 }
 .msg-info {
   font-size: smaller;
+  margin-left:40px;
 }
 
 .message-active {
@@ -125,29 +142,25 @@
 :host ::ng-deep .p-dialog-content{
   overflow: visible !important;
 }
-
-
-button {
-  border-radius: 3px !important;
-  font-size: x-small;
-  padding: 9px;
-  margin: 1px !important;
-  background-color: white;
+.btn-credit
+{
+  background: #68729D;
+  border:1px solid #fff;
+  color: white;
+  font-size: 1rem;
 }
-
+.btn-chat
+{
+  background: white;
+  padding: 1rem 1.5rem;
+}
 .credits-span {
-  color: black;
   background: #ffffff;
-  border-radius: 4px;
-  vertical-align: middle;
-  height: 22px;
-  width: 48px;
-  display: inline-block;
-  text-align: center;
-  margin-left: 4px;
-  padding-top: 2px;
-  font-size: 0.8rem;
-  font-weight: 600;
+  border-radius: 10px;
+  vertical-align: baseline;
+  margin-left: 10px;
+  padding: 0.5rem 1rem;
+  color:#000;
 }
 a {
   cursor: pointer;
@@ -250,19 +263,9 @@ countryimage {
   font-weight: 600;
 }
 
-.chat-section-container {
-  padding: 25px 35px;
-}
-
 .chat-section {
   display: flex;
   gap: 10px;
-}
-
-.messages {
-  background-color: #f6f6f6;
-  padding: 15px;
-  border-radius: 12px;
 }
 
 .checkbox-container {
@@ -270,7 +273,7 @@ countryimage {
 }
 
 .msg-bottom {
-  padding-bottom: 35px;
+  padding-bottom: 20px;
   border-bottom: 1px solid lightgray;
   width: 100%;
 }

@@ -1,220 +1,226 @@
 <nav>
-    <div class="container-fluid">
-        <div class="row h-100">
-            <div class="col-md-3 d-flex align-items-center">
-                    <div class="menutoggle me-3">
-                        <button class="btn m-0 align-items-center d-flex" (click)="toggleMenu()">
-                            <i class="fa-solid" [ngClass]="isMenuOpen ? 'fa-arrow-left-to-line' : 'fa-arrow-right-to-line'"></i>
-                        </button>
-                    </div>
-                    <label class="me-2">
-                        <i class="fa-solid fa-sun"></i>
-                    </label>
-                    <div class="form-check form-switch">
-                        <input type="checkbox" role="button" id="darkmodeswitch" class="form-check-input">
-                    </div>
-                    <label class="ms-1">
-                        <i class="fa-solid fa-moon"></i>
-                    </label>
-            </div>
-            <div class="col-md-9 d-flex justify-content-end">
-                <div class="d-flex justify-content-center align-items-center">
-                    <h6 class="mb-0">Time Left</h6>
-                    <i class="ps-1 pe-2 fa-solid fa-hourglass-end h4 mb-0"></i>
-                </div>
-                <div class="d-flex">
-                    <div class="col d-flex flex-column px-1"><div class="boxView fw-semibold text-green">{{day + ''}}</div><span class="timertext text-uppercase">Days</span></div>
-                    <div class="col d-flex flex-column px-1"><div class="boxView fw-semibold text-green">{{hrs + ''}}</div><span class="timertext text-uppercase">Hrs</span></div>
-                    <div class="col d-flex flex-column px-1"><div class="boxView fw-semibold text-green">{{min + ''}}</div><span class="timertext text-uppercase">Mins</span></div>
-                    <div class="col d-flex flex-column px-1"><div class="boxView fw-semibold text-green">{{sec + ''}}</div><span class="timertext text-uppercase">Sec</span></div>
-                </div>
-                <div label="" role="button" class="headercountry me-2">
-                    <img src="{{headerFlag}}" alt="United Kingdom" height="auto" width="auto">
-                </div>
-                <p-overlayPanel #op>
-                    <ng-template pTemplate="content">
-                        <div class="container px-0">
-                            <form [formGroup]="reportSubmitForm" (ngSubmit)="onSubmit(op)">
-                                <div class="row report">
-                                    <p *ngIf="isQuestionVisible"
-                                       class="report-label text-left mb-0">General / Modules</p>
-                                    <span *ngIf="isQuestionVisible" class="report-modal">
-                                <p-dropdown [options]="genMod" (onChange)="onChangeChooseMain($event.value)"
-                                            [(ngModel)]="selectedGenMod" optionValue="id" formControlName="general"
-                                            class="w-100" id="genMod" optionLabel="name"></p-dropdown>
-                            </span>
-                                    <div *ngIf="isVisibleModulesMenu">
-                                        <p *ngIf="isQuestionVisible" class="report-label text-left mb-0">Modules</p>
-                                        <span *ngIf="isQuestionVisible" class="report-modal">
-                                <p-dropdown [options]="moduleList" (onChange)="onChangeModuleList($event.value)"
-                                            formControlName="moduleId" [(ngModel)]="moduleNgModel" optionValue="id"
-                                            class="w-100" id="moduleId" optionLabel="module_name"></p-dropdown>
-                            </span>
-                                        <p *ngIf="isQuestionVisible" class="report-label text-left mb-0">Categories</p>
-                                        <span *ngIf="isQuestionVisible" class="report-modal">
-                                <p-dropdown [options]="subModuleList" [(ngModel)]="subModuleNgModel"
-                                            formControlName="submoduleId" optionValue="id"
-                                            (onChange)="onChangeSubModuleList($event.value)" class="w-100"
-                                            id="submoduleId"
-                                            optionLabel="submodule_name"></p-dropdown>
-                            </span>
-                                        <p *ngIf="isQuestionVisible" class="report-label text-left mb-0">Question Number</p>
-                                        <span *ngIf="isQuestionVisible" class="report-modal">
-                                <p-dropdown [options]="questionList" [(ngModel)]="questionIdNgModel" optionValue="id"
-                                            formControlName="questionId"
-                                            class="w-100" id="questionId" optionLabel="index"></p-dropdown>
-                            </span>
-                                    </div>
-                                    <p class="report-label text-left mb-0">Issue Type</p>
-                                    <span class="report-modal">
-                                <p-dropdown [options]="reportOptionList" [(ngModel)]="reportOptionNgModel"
-                                            optionValue="id" formControlName="reportOption"
-                                            class="w-100" id="reportOption"
-                                            optionLabel="reportoption_name"></p-dropdown>
-                            </span>
-                                    <p class="report-labeltext-left mb-0">Comment</p>
-                                    <span class="report-modal">
-                                <textarea formControlName="comment" pInputTextarea id="comment"></textarea>
-                            </span>
-                                    <span>
-                                <button class="btn btn-primary w-100 m-0">
-                                    Submit
-                                </button>
-                            </span>
+	<div class="container-fluid">
+		<div class="row h-100">
+			<div class="col-md-3 col-12">
+				<div class="d-flex justify-content-between">
+					<div class="d-flex align-items-center">
+						<div class="menutoggle my-2 me-3">
+							<button class="btn m-0 align-items-center d-flex" (click)="toggleMenu()">
+								<i class="fa-solid" [ngClass]="isMenuOpen ? 'fa-arrow-left-to-line' : 'fa-arrow-right-to-line'"></i>
+							</button>
+						</div>
+						<label class="me-2">
+							<i class="fa-solid fa-sun"></i>
+						</label>
+						<div class="form-check form-switch">
+							<input type="checkbox" role="button" id="darkmodeswitch" class="form-check-input" />
+						</div>
+						<label class="ms-1">
+							<i class="fa-solid fa-moon"></i>
+						</label>
+					</div>
+					<div class="d-md-none d-flex align-items-center">
+						<a (click)="openchat()"
+							><p-avatar class="" label="" role="button"> <i class="fa-solid fa-comments"></i> </p-avatar
+						></a>
+						<p-avatar (click)="togleSidebar.emit()" class="" label="" role="button">
+							<i class="fa-solid fa-bell"></i>
+						</p-avatar>
+						<a class="btn m-0 p-0" data-bs-toggle="dropdown" aria-expanded="false">
+							<span class="nme me-0">{{ (firstChar || "")?.charAt(0) }}</span>
+						</a>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-9 col-12">
+				<div class="d-flex justify-content-md-end justify-content-start mt-3 mt-md-0">
+					<div class="d-flex justify-content-center align-items-center">
+						<h6 class="mb-0 d-none d-md-block">Time Left</h6>
+						<i class="ps-1 pe-2 fa-solid fa-hourglass-end h4 mb-0"></i>
+					</div>
+					<div class="d-flex">
+						<div class="col d-flex flex-column px-1">
+							<div class="boxView fw-semibold text-green">{{ day + "" }}</div>
+							<span class="timertext text-uppercase">Days</span>
+						</div>
+						<div class="col d-flex flex-column px-1">
+							<div class="boxView fw-semibold text-green">{{ hrs + "" }}</div>
+							<span class="timertext text-uppercase">Hrs</span>
+						</div>
+						<div class="col d-flex flex-column px-1">
+							<div class="boxView fw-semibold text-green">{{ min + "" }}</div>
+							<span class="timertext text-uppercase">Mins</span>
+						</div>
+						<div class="col d-flex flex-column px-1">
+							<div class="boxView fw-semibold text-green">{{ sec + "" }}</div>
+							<span class="timertext text-uppercase">Sec</span>
+						</div>
+					</div>
+					<div label="" role="button" class="headercountry me-2 d-none d-md-block">
+						<img src="{{ headerFlag }}" alt="United Kingdom" height="auto" width="auto" />
+					</div>
+					<button class="d-md-block d-none btn btn-primary btn-rounded me-2 ms-0 my-0" alt="chat with notification" (click)="onClickSubscribe()"><span class="text-small fw-normal px-3">Subscribe Now</span></button>
+					<button class="d-md-block d-none btn btn-secondary btn-rounded me-2 ms-0 my-0" (click)="openReportModal(op, $event)" alt="reports">
+						<span class="text-small fw-normal px-4"><i class="fa-solid fa-bug"></i> Report</span>
+					</button>
+					<div class="d-none d-md-block">
+						<a (click)="openchat()"
+							><p-avatar class="" label="" role="button"> <i class="fa-solid fa-comments"></i> </p-avatar
+						></a>
+						<p-avatar (click)="togleSidebar.emit()" class="" label="" role="button">
+							<i class="fa-solid fa-bell"></i>
+						</p-avatar>
+						<div class="dropdown profile-dropdown">
+							<button class="button" data-bs-toggle="dropdown" aria-expanded="false">
+								<span class="nme">{{ (firstChar || "")?.charAt(0) }}</span> <span class="fw-medium">{{ userName }}</span>
+							</button>
+							<ul class="dropdown-menu">
+								<li>
+									<a class="dropdown-item pt-2 pb-2" routerLink="/usermanagement">
+										<div class="d-flex justify-content-top">
+											<i class="fa-solid fa-user me-2 mt-1"></i>
+											<div>
+												<p class="fw-semibold mb-1">{{ userName }}</p>
+												<p class="mb-0">{{ userName }}</p>
+											</div>
+										</div>
+									</a>
+								</li>
+								<li>
+									<a class="dropdown-item pt-2 pb-2" (click)="logout()"><i class="fa-solid fa-power-off me-2"></i>Logout</a>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 
-                                </div>
-                            </form>
-                        </div>
-                    </ng-template>
-                </p-overlayPanel>
-
-                <button class="btn btn-primary btn-rounded me-2 ms-0 my-0" alt="chat with notification" (click)="onClickSubscribe()"><span class="text-small fw-normal px-3">Subscribe Now</span></button>
-                <button class="btn btn-secondary btn-rounded me-2 ms-0 my-0" (click)="openReportModal(op, $event)" alt="reports" ><span class="text-small fw-normal px-4"><i class="fa-solid fa-bug"></i> Report</span></button>
-                <a (click)="openchat()"><p-avatar class="" label="" role="button">
-                    <i class="fa-solid fa-comments"></i>
-                </p-avatar></a>
-                <p-avatar (click)="togleSidebar.emit()" class="" label="" role="button">
-                    <i class="fa-solid fa-bell"></i>
-                </p-avatar>
-                <div class="dropdown profile-dropdown">
-                           <button class="button" data-bs-toggle="dropdown"   aria-expanded="false">
-                        <span class="nme">{{(firstChar || '')?.charAt(0)}}</span> <span class="fw-medium">{{userName}}</span>
-                    </button>
-                    <ul class="dropdown-menu">
-                        <li>
-                            <a class="dropdown-item pt-2 pb-2" routerLink="/pages/usermanagement" >
-                                <div class="d-flex justify-content-top">
-                                    <i class="fa-solid fa-user me-2 mt-1"></i>
-                                    <div>
-                                        <p class="fw-semibold mb-1">{{userName}}</p>
-                                        <p class="mb-0">{{userName}}</p>
-                                    </div>
-                                </div>
-                            </a>
-                        </li>
-                        <li><a class="dropdown-item pt-2 pb-2" (click)="logout()"><i
-                                class="fa-solid fa-power-off me-2"></i>Logout</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
-
+	<p-overlayPanel #op>
+		<ng-template pTemplate="content">
+			<div class="container px-0">
+				<form [formGroup]="reportSubmitForm" (ngSubmit)="onSubmit(op)">
+					<div class="row report">
+						<p *ngIf="isQuestionVisible" class="report-label text-left mb-0">General / Modules</p>
+						<span *ngIf="isQuestionVisible" class="report-modal">
+							<p-dropdown [options]="genMod" (onChange)="onChangeChooseMain($event.value)" [(ngModel)]="selectedGenMod" optionValue="id" formControlName="general" class="w-100" id="genMod" optionLabel="name"></p-dropdown>
+						</span>
+						<div *ngIf="isVisibleModulesMenu">
+							<p *ngIf="isQuestionVisible" class="report-label text-left mb-0">Modules</p>
+							<span *ngIf="isQuestionVisible" class="report-modal">
+								<p-dropdown [options]="moduleList" (onChange)="onChangeModuleList($event.value)" formControlName="moduleId" [(ngModel)]="moduleNgModel" optionValue="id" class="w-100" id="moduleId" optionLabel="module_name"></p-dropdown>
+							</span>
+							<p *ngIf="isQuestionVisible" class="report-label text-left mb-0">Categories</p>
+							<span *ngIf="isQuestionVisible" class="report-modal">
+								<p-dropdown [options]="subModuleList" [(ngModel)]="subModuleNgModel" formControlName="submoduleId" optionValue="id" (onChange)="onChangeSubModuleList($event.value)" class="w-100" id="submoduleId" optionLabel="submodule_name"></p-dropdown>
+							</span>
+							<p *ngIf="isQuestionVisible" class="report-label text-left mb-0">Question Number</p>
+							<span *ngIf="isQuestionVisible" class="report-modal">
+								<p-dropdown [options]="questionList" [(ngModel)]="questionIdNgModel" optionValue="id" formControlName="questionId" class="w-100" id="questionId" optionLabel="index"></p-dropdown>
+							</span>
+						</div>
+						<p class="report-label text-left mb-0">Issue Type</p>
+						<span class="report-modal">
+							<p-dropdown [options]="reportOptionList" [(ngModel)]="reportOptionNgModel" optionValue="id" formControlName="reportOption" class="w-100" id="reportOption" optionLabel="reportoption_name"></p-dropdown>
+						</span>
+						<p class="report-labeltext-left mb-0">Comment</p>
+						<span class="report-modal">
+							<textarea formControlName="comment" pInputTextarea id="comment"></textarea>
+						</span>
+						<span>
+							<button class="btn btn-primary w-100 m-0">Submit</button>
+						</span>
+					</div>
+				</form>
+			</div>
+		</ng-template>
+	</p-overlayPanel>
 </nav>
 
-<!-- <p-dialog [(visible)]="visible" [closable]="true" [style]="{ width: 'auto' }" class="p-0 m-0 bg-white"
-          class="timerpopup" [modal]="true" [draggable]="false" [resizable]="false">
-    <div class="px-5 pb-5 pt-3">
-        <div class="justify-content-center text-center pb-5 px-2">
-            <h5 class="text-center mb-2">Your 1 Hour Free Trial has<br>Exhausted</h5>
-            <div><img src="../../../uniprep-assets/images/icons/timerstart.png" width="auto"></div>
-            <button class="btn btn-primary text-white">Subscribe Now</button>
-        </div>
-    </div>
-</p-dialog> -->
-
-<p-dialog class="thankyoupopup" [modal]="true" header="Header" [(visible)]="showReportSuccess"
-          [breakpoints]="{ '960px': '75vw' }" [style]="{ width: 'auto' }" [draggable]="false" [resizable]="false">
-    <ng-template pTemplate="header">
-        <span class="text-xl font-bold"></span>
-    </ng-template>
-    <div class="px-3 pb-3 pt-2">
-        <div class="justify-content-center text-center">
-            <h4 class="text-center mb-2">We have noted your feedback.<br>Our team will get back to you shortly.</h4>
-            <h3 class="text-center mb-2 text-green">Thank You</h3>
-            <img class="pb-5" src="../../../uniprep-assets/images/icons/thumbsup.webp" width="auto" alt="thumbs up">
-        </div>
-    </div>
+<p-dialog [(visible)]="visible" [closable]="true" [style]="{ width: 'auto' }" class="p-0 m-0 bg-white" class="timerpopup" [modal]="true" [draggable]="false" [resizable]="false">
+	<div class="px-5 pb-5 pt-3">
+		<div class="justify-content-center text-center pb-5 px-2">
+			<h5 class="text-center mb-2">Your 1 Hour Free Trial has<br />Exhausted</h5>
+			<div><img src="../../../uniprep-assets/images/icons/timerstart.png" width="auto" /></div>
+			<button class="btn btn-primary text-white">Subscribe Now</button>
+		</div>
+	</div>
 </p-dialog>
 
-<p-dialog [(visible)]="isShowFreeTrailStart" [closable]="false" [style]="{ width: 'auto' }" class="p-0 m-0 bg-white"
-          class="timerpopup" [modal]="true" [draggable]="false" [resizable]="false">
-    <div class="px-5 pb-5 pt-3">
-        <div class="justify-content-center text-center pb-5 px-5">
-            <h5 class="text-center mb-2">Your 1 hour free trail<br>Starts Now!</h5>
-            <div><img src="../../../uniprep-assets/images/icons/timerstart.png" width="auto"></div>
-            <p class="text-center text-small mb-2 mt-2">Explore all modules on UNIPERP<br>and get a certificate.</p>
-            <button class="btn btn-primary btn-rounded btn-lg text-white" (click)="exploreNow()">Continue</button>
-        </div>
-    </div>
-</p-dialog>
-<p-dialog [(visible)]="isChangePasswordWindowVisible" [closable]="true" [style]="{ width: 'auto' }"
-          class="p-0 m-0 bg-white" [modal]="true" [draggable]="false" [resizable]="false">
-    <div class="px-5 pb-5 pt-3">
-        <div class="justify-content-center text-center pb-5 px-5">
-            <h5 class="text-center mb-2">Change Password</h5>
-            <form [formGroup]="setPasswordForm" (ngSubmit)="passwordChangeOnClick()">
-                <ng-container>
-                    <label class="signup mb-3">your new password must be different to previously used password.</label>
-                    <div class="form-floating mb-3">
-                        <div class="p-inputgroup">
-                            <div class="p-inputgroup-addon"><i class="pi pi-lock"></i></div>
-                            <input [type]="password" id="floatingInput" formControlName="password" pInputText
-                                   [ngClass]="{ 'is-invalid': submitted && f.password.errors }"/>
-                                   <span class="input-group-text passwordvisibility" (click)="showPassword()">
-                                    <img src="../../../uniprep-assets/images/viewpassword.svg" height="20" width="20px" *ngIf="show">
-                                    <img src="../../../uniprep-assets/images/hidepassword.svg" height="20" width="20px" *ngIf="!show">
-                                  </span>
-                        </div>
-                        <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
-                            <div *ngIf="f.password.errors.required">Password is required</div>
-                            <div *ngIf="f.password.errors.minlength">
-                                Password must be at least 8 characters
-                            </div>
-                        </div>
-                    </div>
-                    <label for="confirmPassword">Confirm Password</label>
-                    <div class="p-inputgroup">
-                        <div class="p-inputgroup-addon"><i class="pi pi-lock"></i></div>
-                        <input [type]="password1" pInputText id="confirmPassword" formControlName="confirmPassword"
-                               [ngClass]="{
-            'is-invalid': submitted && f.confirmPassword.errors
-          }"/>
-          <span class="input-group-text passwordvisibility" (click)="showPassword1()">
-            <img src="../../../uniprep-assets/images/viewpassword.svg" height="20" width="20px" *ngIf="show1">
-            <img src="../../../uniprep-assets/images/hidepassword.svg" height="20" width="20px" *ngIf="!show1">
-          </span>
-                    </div>
-                    <div *ngIf="submitted && f.confirmPassword.errors" class="invalid-feedback">
-                        <div *ngIf="f.confirmPassword.hasError('matching')">
-                            Password and confirm password not match
-                        </div>
-                        <div *ngIf="f.confirmPassword.errors.required">
-                            Confirm Password is required
-                        </div>
-                    </div>
-                    <br/>
-                    <div class="d-grid">
-                        <button class="p-2 btn btn-primary btn-login text-uppercase fw-bold" type="submit">
-                            Change Password
-                        </button>
-                    </div>
-                </ng-container>
 
-            </form>
-        </div>
-    </div>
+<p-dialog class="thankyoupopup" [modal]="true" header="Header" [(visible)]="showReportSuccess" [breakpoints]="{ '960px': '75vw' }" [style]="{ width: 'auto' }" [draggable]="false" [resizable]="false">
+	<ng-template pTemplate="header">
+		<span class="text-xl font-bold"></span>
+	</ng-template>
+	<div class="px-3 pb-3 pt-2">
+		<div class="justify-content-center text-center">
+			<h4 class="text-center mb-2">We have noted your feedback.<br />Our team will get back to you shortly.</h4>
+			<h3 class="text-center mb-2 text-green">Thank You</h3>
+			<img class="pb-5" src="../../../uniprep-assets/images/icons/thumbsup.webp" width="auto" alt="thumbs up" />
+		</div>
+	</div>
+</p-dialog>
+
+<p-dialog [(visible)]="isShowFreeTrailStart" [closable]="false" [style]="{ width: 'auto' }" class="p-0 m-0 bg-white" class="timerpopup" [modal]="true" [draggable]="false" [resizable]="false">
+	<div class="px-5 pb-5 pt-3">
+		<div class="justify-content-center text-center pb-5 px-5">
+			<h5 class="text-center mb-2">Your 1 hour free trail<br />Starts Now!</h5>
+			<div><img src="../../../uniprep-assets/images/icons/timerstart.png" width="auto" /></div>
+			<p class="text-center text-small mb-2 mt-2">Explore all modules on UNIPERP<br />and get a certificate.</p>
+			<button class="btn btn-primary btn-rounded btn-lg text-white" (click)="exploreNow()">Continue</button>
+		</div>
+	</div>
+</p-dialog>
+<p-dialog [(visible)]="isChangePasswordWindowVisible" [closable]="true" [style]="{ width: 'auto' }" class="p-0 m-0 bg-white" [modal]="true" [draggable]="false" [resizable]="false">
+	<div class="px-5 pb-5 pt-3">
+		<div class="justify-content-center text-center pb-5 px-5">
+			<h5 class="text-center mb-2">Change Password</h5>
+			<form [formGroup]="setPasswordForm" (ngSubmit)="passwordChangeOnClick()">
+				<ng-container>
+					<label class="signup mb-3">your new password must be different to previously used password.</label>
+					<div class="form-floating mb-3">
+						<div class="p-inputgroup">
+							<div class="p-inputgroup-addon"><i class="pi pi-lock"></i></div>
+							<input [type]="password" id="floatingInput" formControlName="password" pInputText [ngClass]="{ 'is-invalid': submitted && f.password.errors }" />
+							<span class="input-group-text passwordvisibility" (click)="showPassword()">
+								<img src="../../../uniprep-assets/images/viewpassword.svg" height="20" width="20px" *ngIf="show" />
+								<img src="../../../uniprep-assets/images/hidepassword.svg" height="20" width="20px" *ngIf="!show" />
+							</span>
+						</div>
+						<div *ngIf="submitted && f.password.errors" class="invalid-feedback">
+							<div *ngIf="f.password.errors.required">Password is required</div>
+							<div *ngIf="f.password.errors.minlength">Password must be at least 8 characters</div>
+						</div>
+					</div>
+					<label for="confirmPassword">Confirm Password</label>
+					<div class="p-inputgroup">
+						<div class="p-inputgroup-addon"><i class="pi pi-lock"></i></div>
+						<input
+							[type]="password1"
+							pInputText
+							id="confirmPassword"
+							formControlName="confirmPassword"
+							[ngClass]="{
+								'is-invalid': submitted && f.confirmPassword.errors
+							}" />
+						<span class="input-group-text passwordvisibility" (click)="showPassword1()">
+							<img src="../../../uniprep-assets/images/viewpassword.svg" height="20" width="20px" *ngIf="show1" />
+							<img src="../../../uniprep-assets/images/hidepassword.svg" height="20" width="20px" *ngIf="!show1" />
+						</span>
+					</div>
+					<div *ngIf="submitted && f.confirmPassword.errors" class="invalid-feedback">
+						<div *ngIf="f.confirmPassword.hasError('matching')">Password and confirm password not match</div>
+						<div *ngIf="f.confirmPassword.errors.required">Confirm Password is required</div>
+					</div>
+					<br />
+					<div class="d-grid">
+						<button class="p-2 btn btn-primary btn-login text-uppercase fw-bold" type="submit">Change Password</button>
+					</div>
+				</ng-container>
+			</form>
+		</div>
+	</div>
 </p-dialog>
 <p-dialog [(visible)]="visible" [closable]="false" [style]="{ width: '35vw' }" class="p-0 m-0" [modal]="true"
     [draggable]="false" [resizable]="false">
