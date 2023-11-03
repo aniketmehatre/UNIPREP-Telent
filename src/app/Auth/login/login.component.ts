@@ -50,12 +50,14 @@ export class LoginComponent implements OnInit, OnDestroy {
         return
       }
       this.dataService.showTimerInHeader(loggedIn);
-      this.subs.sink = this.service.selectMessage$().subscribe(message => {
-        if (message == 'Login Success') {
-          this.toast.add({ severity: 'success', summary: 'Success', detail: message });
-        }
+      this.service.getMe().subscribe((data) => {
+        this.subs.sink = this.service.selectMessage$().subscribe(message => {
+          if (message == 'Login Success') {
+            this.toast.add({ severity: 'success', summary: 'Success', detail: message });
+          }
+        });
+        this.route.navigate(['/pages/dashboard']);
       });
-      this.route.navigate(['/pages/dashboard']);
     });
   }
 

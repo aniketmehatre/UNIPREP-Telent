@@ -227,3 +227,11 @@ p-dialog {
     border: unset !important;
   }
 }
+
+.subscriptioncard p-multiSelect .p-multiselect-trigger-icon, .subscriptioncard p-chip .pi-chip-remove-icon { 
+  color: unset !important;
+}
+
+.notification p-tabview .p-tabview-title {
+  color: unset !important;
+}

@@ -276,6 +276,14 @@ h1, h2, h3, h4, h5 {
       height: 60px !important;
     }
   }
+  .btn-basic { 
+    color: #fff;
+    border-radius: 20px !important;
+    border: 1px solid #fff;
+    &:hover {
+      border: 1px solid #fff;
+    }
+  }
 }
 
 .readingcard

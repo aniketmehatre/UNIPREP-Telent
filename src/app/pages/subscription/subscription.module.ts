@@ -56,8 +56,7 @@ import { SubscriptionHistoryComponent } from './subscription-history/subscriptio
         DialogModule,
         BreadcrumbModule,
         ChipModule
-    ],
-    providers: [MessageService],
+    ]
 })
 export class SubscriptionModule {
 }

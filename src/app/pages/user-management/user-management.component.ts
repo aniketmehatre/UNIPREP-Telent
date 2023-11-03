@@ -183,7 +183,7 @@ export class UserManagementComponent implements OnInit {
     onClickSubscribe() {
         this.subs.sink = this.userManagementService.GetPaidSubscriptionDetails().subscribe(data => {
             if (data.includes(1)) {
-                this.router.navigate(["/pages/subscriptions/subscription-history"]);
+                this.router.navigate(["/pages/subscriptions"]);
             } else {
                 this.router.navigate(["/pages/subscriptions"]);
             }
