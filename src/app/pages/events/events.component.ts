@@ -206,7 +206,6 @@ export class EventsComponent implements OnInit {
     })
   }
   registerbutton(event:any){
-    console.log(event);
     var data={
       id:event
     }
