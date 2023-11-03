@@ -103,7 +103,7 @@ export class ChatComponent implements OnInit {
   username: string = "";
   ngOnInit(): void {
     if (localStorage.getItem("guidlineAccepted")) {
-      if (Number(localStorage.getItem("guidlineAccepted")) == 0) {
+      if (Number(localStorage.getItem("guidlineAccepted")) == 0 ||localStorage.getItem("guidlineAccepted")) {
         this.route.navigate(["/pages/guideline"]);
       }
     }
