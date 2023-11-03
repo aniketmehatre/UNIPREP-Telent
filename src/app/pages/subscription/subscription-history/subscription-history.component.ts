@@ -197,4 +197,13 @@ export class SubscriptionHistoryComponent implements OnInit {
     }
   }
 
+  downloadInvoice(id: number): void {
+    let data = {
+      user_subscription_id: id
+    }
+    this.subscriptionService.downloadInvoice(data).subscribe((response) => {
+      window.open(response, '_blank');
+    });
+  }
+
 }

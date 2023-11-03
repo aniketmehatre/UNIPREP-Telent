@@ -421,11 +421,11 @@
                 <span style="font-size: 13px !important;" class="sop-header"><b>Apply your coupon code here</b></span>
                 <br>
                 <div class="p-inputgroup inputheight mt-1">
-                    <input [(ngModel)]="couponInput" pInputText placeholder="Enter Your coupon code Here" type="text">
+                    <input [(ngModel)]="couponInput" (keyup)="onInput($event)" pInputText placeholder="Enter Your coupon code Here" type="text">
                     <button (click)="applyCoupon()" class="btn-primary" label="Apply" pButton pRipple
                         type="button"></button>
                 </div>
-                <span *ngIf="invalidCoupon" style="font-size: 9px !important; color: lightgray !important;">You entered an invalid discount code. Please check the code and try again</span>
+                <span *ngIf="invalidCoupon" style="font-size: 9px !important; color: red !important;">You entered an invalid discount code. Please check the code and try again</span>
             </div>
         </div>
 

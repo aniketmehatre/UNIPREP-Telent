@@ -157,9 +157,13 @@ export class SubscriptionDataComponent implements OnInit {
           this.subscriptionTotal = Number(this.subscriptionTotal) - response.discountPrice;
         }
         else {
+          this.toast.add({ severity: 'error', summary: 'Error', detail: response.message });
           this.invalidCoupon = true;
         }
       });
+    }
+    else {
+      this.toast.add({ severity: 'error', summary: 'Error', detail: 'Please make sure you have some Coupon Code!' });
     }
   }
 
@@ -189,6 +193,10 @@ export class SubscriptionDataComponent implements OnInit {
         this.toast.add({severity:'warn', summary: 'Warn', detail: 'Please Choose a plan'});
       }
     }
+  }
+
+  onInput(event: any) {
+    this.invalidCoupon = false;
   }
 
 }

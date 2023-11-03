@@ -195,3 +195,9 @@
 .scrollable-container:hover {
   overflow: scroll; /* Show the scrollbar on hover */
 }
+
+.notification {
+  p,h3 {
+    color: unset !important;
+  }
+}
