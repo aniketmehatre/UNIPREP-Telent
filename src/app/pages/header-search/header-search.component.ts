@@ -119,7 +119,8 @@ export class HeaderSearchComponent implements OnInit, OnDestroy {
       searchtag: searchInput.value
     }
     this.dashboardService.searchKeyword(data).subscribe((res: any) => {
-      if (res.status === 404) {
+      if (res.success === false) {
+        this.toastr.add({ severity: 'error', summary: 'Error', detail: res.message });
         return;
       }
       this.isSearchResultFound = true;
