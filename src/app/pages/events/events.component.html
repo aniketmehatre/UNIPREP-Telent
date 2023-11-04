@@ -11,11 +11,22 @@
                     <div class="col-md-2">
                     </div>
                 </div>
-                <div style="text-align: center;">
-                    <span style="float: left;" (click)="filterpopup()"><button type="button">Filter by</button> <br><span
-                            style="font-size: small;">Total Events - {{totalcount}}</span></span>
-                    <button (click)="setActiveButton(1)" [ngStyle]="button1Style">Upcoming Events</button>
-                    <button (click)="setActiveButton(2)" [ngStyle]="button2Style">Past Events</button>
+                <div class="p-4" style="text-align: center; display: flex; justify-content: space-between;">
+                    <div>
+                    <span style="float: left;" (click)="filterPopUp()"><button type="button">Filter</button> <br><span
+                            style="font-size: small;">Total Events - {{activeButton== 1 ? totalcount:totalcountpost}}</span></span>
+                        </div>
+                        <div>
+                            <button (click)="setActiveButton(1)" [ngStyle]="button1Style">Upcoming Events</button>
+                            <button (click)="setActiveButton(2)" [ngStyle]="button2Style">Past Events</button>
+                        </div>
+                        <div class="mt-3">
+                            <span class="p-input-icon-left customstyle">
+                                <i class="pi pi-search"></i>
+                                <input class="custom-input" placeholder="Search Events Near You..." pInputText [(ngModel)]="valueNearYouFilter" (input)="performSearch($event)" />
+                            </span>
+                        </div>
+                </div>
                 </div>
                 <!-- upcomming event -->
                 <div class="card-container p-4 mt-4" *ngIf="upcomingevent">

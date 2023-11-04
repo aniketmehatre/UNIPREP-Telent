@@ -29,6 +29,7 @@ export class EventsComponent implements OnInit {
   pageno:number = 1;
   upcommingevent: any[] = [];
   postevetdetaisl: any[] = [];
+  valueNearYouFilter: string | undefined;
   constructor(private fb: FormBuilder, private service:EventsService,private datePipe: DatePipe,private toast: MessageService,) { 
     this.filterform = this.fb.group({
       from: [''],
@@ -46,7 +47,7 @@ export class EventsComponent implements OnInit {
       perpage : this.perpage,
       page : 1,
     }
-    this.geteventupcomming(data)
+    this.getEventUpComming(data)
     this.getpostevent(data)
   }
 
@@ -103,7 +104,7 @@ export class EventsComponent implements OnInit {
     this.filterform.reset()
   }
   // filterpop-up
-  filterpopup(){
+  filterPopUp(){
     this.setActiveButton(1)
     this.newfile = "block";   
   }
@@ -117,7 +118,7 @@ export class EventsComponent implements OnInit {
       from:this.filterform.value.from,
       country:this.filterform.value.country,
     }
-    this.geteventupcomming(data);
+    this.getEventUpComming(data);
   }
   paginatepost(event:any){
     this.pageno = event.page + 1;
@@ -128,7 +129,7 @@ export class EventsComponent implements OnInit {
     }
     this.getpostevent(data);
   }
-  geteventupcomming(data:any){
+  getEventUpComming(data:any){
     this.service.getupcommingevent(data).subscribe((res) => {
       this.upcommingevent=[]  
       res.events.forEach((list: any) => {
@@ -179,7 +180,7 @@ export class EventsComponent implements OnInit {
       page:1,
       perpage:this.perpage
     }
-    this.geteventupcomming(data)
+    this.getEventUpComming(data)
   }
   // post event
   getpostevent(data:any){
@@ -218,4 +219,10 @@ export class EventsComponent implements OnInit {
       // this.router.navigate(['/subscribers']);
     });
 }
+performSearch(events:any){
+  var data={
+    nearby_search:this.valueNearYouFilter
+  }
+  this.getEventUpComming(data)
+  }
 }
