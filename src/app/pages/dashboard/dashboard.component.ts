@@ -1,16 +1,11 @@
-
-import {Component,Renderer2, ElementRef, OnInit, ViewChild} from '@angular/core';
-import {DashboardService} from "./dashboard.service";
-import {AuthService} from "../../Auth/auth.service";
-import {SubSink} from "subsink";
-import {Router} from "@angular/router";
-import {DataService} from 'src/app/data.service';
-import {MessageService} from "primeng/api";
-import {combineLatest} from "rxjs";
-import {select} from "@ngrx/store";
-import {AnimationBuilder} from "@angular/animations";
-import {Carousel, CarouselModule} from "primeng/carousel";
-
+import { Component, OnInit } from '@angular/core';
+import { DashboardService } from "./dashboard.service";
+import { SubSink } from "subsink";
+import { Router } from "@angular/router";
+import { DataService } from 'src/app/data.service';
+import { MessageService } from "primeng/api";
+import { combineLatest } from "rxjs";
+import { AnimationBuilder } from "@angular/animations";
 
 @Component({
     selector: 'uni-dashboard',
@@ -34,7 +29,6 @@ export class DashboardComponent implements OnInit {
     isViewMoreOrgVisible: boolean = false;
     partnerTrusterLogo: any;
     searchResult: any;
-    newUserLogin: boolean = false;
     university: any[] = [
         {
             "image": "../../../uniprep-assets/images/icons/university1.svg",
@@ -56,10 +50,8 @@ export class DashboardComponent implements OnInit {
     currentSlide: any;
     freeTrial: boolean | undefined;
 
-    constructor(private dashboardService: DashboardService, private builder : AnimationBuilder,private renderer: Renderer2,private elRef: ElementRef,
-    private router: Router, private dataService: DataService, private toast: MessageService,
-                private authService: AuthService) {
-
+    constructor(private dashboardService: DashboardService, private builder: AnimationBuilder,
+        private router: Router, private dataService: DataService, private toast: MessageService) {
         this.responsiveOptions = [
             {
                 breakpoint: '1024px',
@@ -84,30 +76,9 @@ export class DashboardComponent implements OnInit {
         localStorage.setItem("currentmodulenameforrecently", '')
         
         this.freeTrial = true;
-
         this.dashboardService.getTrustedPartners().subscribe(partnerLogo => {
             this.partnerTrusterLogo = partnerLogo;
         });
-        this.dashboardService.countryList().subscribe(countryList => {
-            this.countryLists = countryList;
-            this.countryLists.forEach((element: any) => {
-                if (element.id == this.selectedCountryId) {
-                    this.selectedCountryName = element.country;
-                    this.selectedCountryId = element.id;
-                    this.dataService.changeCountryName(element.country);
-                }
-            });
-        });
-        const section = this.elRef.nativeElement.querySelector('#horizontalScrollSection');
-        this.renderer.listen(section, 'wheel', (event: WheelEvent) => {
-            event.preventDefault();
-            section.scrollLeft += event.deltaY;
-        });
-        //this.openViewMoreOrg();
-        this.isViewMoreOrgVisible = false;
-        this.checkUserLoggedInFirst();
-        this.loadApiData();
-
     }
 
     loadApiData(): void {
@@ -161,7 +132,7 @@ export class DashboardComponent implements OnInit {
         this.continueQuiz = 'none'
     }
 
-    openQuiz() {
+    openQuiz(): void {
         this.continueQuiz = "block";
     }
 
@@ -253,15 +224,5 @@ export class DashboardComponent implements OnInit {
 
     onClickSubscribe(): void {
         this.router.navigate(["/pages/subscriptions"]);
-    }
-
-    checkUserLoggedInFirst(): void {
-        this.authService.getMe().subscribe(res => {
-            let userData = res.userdetails;
-            if (userData[0].login_status === 4) {
-                this.newUserLogin = true;
-            }
-        })
-
     }
 }

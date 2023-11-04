@@ -185,65 +185,71 @@
 </div>
 
 <div [ngStyle]="{ display: continueReading }" class="modal modal-bg" role="dialog" tabindex="-1">
-	<div class="modal-dialog modal-dialog-scrollable modal-dialog-centered" role="document">
-		<div class="modal-content card bg-light">
-			<div class="modal-header">
-				<h3 class="mb-0" tooltipZIndex="auto" tooltipPosition="top" pTooltip="Complete the reading for all modules to get the certificate.">
-					Continue Reading
-					<i class="questiontooltip fa-solid fa-circle-question"></i>
-				</h3>
-				<div class="popupclose">
-					<a (click)="closeReading()" class="close" role="button">
-						<span aria-hidden="true"><i class="fa-solid fa-circle-x"></i></span>
-					</a>
-				</div>
-			</div>
-			<div class="modal-body card-body">
-				<div class="container">
-					<div class="row mb-5">
-						<div class="col-md-12 px-4">
-							<div class="row">
-								<div *ngFor="let readPro of readingProgressings" class="col-md-6 p-2">
-									<div class="card continuecard">
-										<div class="modal-selected-box d-flex flex-column">
-											<h6 class="fw-semibold">{{ readPro.module_name }}</h6>
-											<div class="d-flex justify-content-between">
-												<div>
-													<div [attr.data-percentage]="readPro.progression" class="progress1">
-														<span class="progress1-left">
-															<span class="progress1-bar"></span>
-														</span>
-														<span class="progress1-right">
-															<span class="progress1-bar"></span>
-														</span>
-														<div class="progress1-value">
-															<div>{{ readPro.progression | number : "1.0-0" }}%<br /></div>
-														</div>
-													</div>
-												</div>
-												<div class="align-items-center justify-content-center">
-													<div class="d-flex flex-column" *ngIf="readPro.progression_status == 'Pending'">
-														<p class="text-center text-small mb-0">
-															{{ readPro.progression_status }}
-														</p>
-														<button (click)="onClickReadProgression(readPro)" class="btn btn-dark">Read Now</button>
-													</div>
-													<p *ngIf="readPro.progression_status == 'Completed'" class="text-center text-black text-small mb-0">
-														<strong>{{ readPro.progression_status }}</strong>
-													</p>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
+  <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered" role="document">
+    <div class="modal-content card bg-light">
+      <div class="modal-header">
+        <h3 class="mb-0" tooltipZIndex="auto" tooltipPosition="top"
+          pTooltip="Complete the reading for all modules to get the certificate.">
+          Continue Reading
+          <i class="questiontooltip fa-solid fa-circle-question"></i>
+        </h3>
+        <div class="popupclose">
+          <a (click)="closeReading()" class="close" role="button">
+            <span aria-hidden="true"><i class="fa-solid fa-circle-x"></i></span>
+          </a>
+        </div>
+      </div>
+      <div class="modal-body card-body">
+        <div class="container">
+          <div class="row mb-5">
+            <div class="col-md-12 px-4">
 
+              <div class="row">
+                <div *ngFor="let readPro of readingProgressings" class="col-md-6 p-2">
+                  <div class="card continuecard">
+                    <div class="modal-selected-box d-flex flex-column">
+                      <h6 class="fw-semibold">{{readPro.module_name}}</h6>
+                      <div class="d-flex justify-content-between">
+                        <div>
+                          <div [attr.data-percentage]="readPro.progression" class="progress1">
+                            <span class="progress1-left">
+                              <span class="progress1-bar"></span>
+                            </span>
+                            <span class="progress1-right">
+                              <span class="progress1-bar"></span>
+                            </span>
+                            <div class="progress1-value">
+                              <div>
+                                {{readPro.progression | number: '1.0-0'}}%<br />
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="align-items-center justify-content-center">
+                          <div class="d-flex flex-column" *ngIf="readPro.progression_status == 'Pending'">
+                            <p class="text-center text-small mb-0">
+                              {{readPro.progression_status}}
+                            </p>
+                            <button (click)="onClickReadProgression(readPro)" class="btn btn-dark">
+                              Read Now
+                            </button>
+                          </div>
+                          <p *ngIf="readPro.progression_status == 'Completed'"
+                            class="text-center text-black text-small mb-0">
+                            <strong>{{readPro.progression_status}}</strong>
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 
 <div [ngStyle]="{ display: continueQuiz }" class="modal modal-bg" role="dialog" tabindex="-1">
@@ -319,7 +325,7 @@
 </p-dialog>
 
 <p-dialog [(visible)]="freeTrial" [closable]="true" [style]="{ width: '35vw' }" class="p-0 m-0" [modal]="true"
-  [draggable]="false" [resizable]="false" *ngIf="newUserLogin">
+  [draggable]="false" [resizable]="false">
   <div class="d-flex justify-content-between p-4">
     <div>
       <h4>Your 60 Min<span class="text-xl font-bold p-3 fw-bold" style="color: #3F4C83;"> Free Trial</span>Starts Now!

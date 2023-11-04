@@ -59,7 +59,6 @@ export class RecentlyaddedquestionsComponent implements OnInit {
   currentApiSlug: any;
   listQuestions: any;
   listQuestionCount: any;
-  headerName: any;
 
   constructor(private route: ActivatedRoute, private dataService: DataService,
               private moduleListService: ModuleServiceService, private service: RecentlyaddedquestionService,
@@ -73,8 +72,6 @@ export class RecentlyaddedquestionsComponent implements OnInit {
       this.perpage = 10;
       this.pageno = 1;
       this.type = this.route.snapshot.paramMap.get('type');
-      this.headerName = this.type == 'popular' ? 'Popular' : 'Recently Added'
-
       this.loadInit();
     });
     //this.getSubmoduleName(this.countryId);
@@ -137,6 +134,7 @@ export class RecentlyaddedquestionsComponent implements OnInit {
   }
 
   getSubmoduleName(countryId: number) {
+    console.log(this.selectedQuestionData)
     let data = {
       countryId: countryId,
       api_module_name: this.currentApiSlug,
@@ -144,6 +142,7 @@ export class RecentlyaddedquestionsComponent implements OnInit {
     }
 
     this.locationService.getUniPerpModuleList().subscribe((data: any) => {
+      console.log(data)
       data.modules.filter((res: any) => {
         if(res.id == this.selectedModule){
           this.currentModuleName = res.module_name;
@@ -160,6 +159,7 @@ export class RecentlyaddedquestionsComponent implements OnInit {
       if (event) {
         event.filter(data => {
           if (data.id == this.selectedSubModule) {
+            console.log(data.submodule_name)
             this.moduleName = data.submodule_name;
             this.breadCrumb = [{
               label: this.currentModuleName,
