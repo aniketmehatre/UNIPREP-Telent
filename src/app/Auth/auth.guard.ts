@@ -21,6 +21,7 @@ import { AuthService } from './auth.service';
 export class AuthGuard implements CanActivate, CanLoad {
   min!: any;
   userData: any;
+  sec: any;
   constructor(
     private storage: LocalStorageService,
     private router: Router,
@@ -49,8 +50,9 @@ export class AuthGuard implements CanActivate, CanLoad {
         if (data) {
           data = data.split("-", 4);
           this.min = data[2];
+          this.sec = data[3];
           let count = this.authService._userLoginCount;
-          if (this.min === "1" && count === 4) {
+          if (this.min === "1" && count === 4 || this.min === "1" && count === 4) {
             this.dataService.showTimeOut(true);
           }
         }
