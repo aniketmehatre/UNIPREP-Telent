@@ -1,12 +1,15 @@
 
 import {Component,Renderer2, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {DashboardService} from "./dashboard.service";
+import {AuthService} from "../../Auth/auth.service";
+import {SubSink} from "subsink";
 import {Router} from "@angular/router";
 import {DataService} from 'src/app/data.service';
 import {MessageService} from "primeng/api";
 import {combineLatest} from "rxjs";
+import {select} from "@ngrx/store";
 import {AnimationBuilder} from "@angular/animations";
-import { AuthService } from 'src/app/Auth/auth.service';
+import {Carousel, CarouselModule} from "primeng/carousel";
 
 @Component({
     selector: 'uni-dashboard',
@@ -50,12 +53,10 @@ export class DashboardComponent implements OnInit {
     selectedCountryId: any;
     currentSlide: any;
     freeTrial: boolean | undefined;
-    newUserLogin!: boolean;
 
-    constructor(private dashboardService: DashboardService, private builder : AnimationBuilder,private renderer: Renderer2,private elRef: ElementRef,
-    private router: Router, private dataService: DataService, private toast: MessageService,
-                private authService: AuthService) {
-
+    constructor(private dashboardService: DashboardService, private builder: AnimationBuilder,
+        private router: Router, private dataService: DataService, private toast: MessageService, private elRef: ElementRef, private renderer: Renderer2
+    ) {
         this.responsiveOptions = [
             {
                 breakpoint: '1024px',
@@ -100,7 +101,6 @@ export class DashboardComponent implements OnInit {
         });
         //this.openViewMoreOrg();
         this.isViewMoreOrgVisible = false;
-        this.checkUserLoggedInFirst();
         this.loadApiData();
 
     }
@@ -248,15 +248,5 @@ export class DashboardComponent implements OnInit {
 
     onClickSubscribe(): void {
         this.router.navigate(["/pages/subscriptions"]);
-    }
-
-    checkUserLoggedInFirst(): void {
-        this.authService.getMe().subscribe(res => {
-            let userData = res.userdetails;
-            if (userData[0].login_status === 4) {
-                this.newUserLogin = true;
-            }
-        })
-
     }
 }
