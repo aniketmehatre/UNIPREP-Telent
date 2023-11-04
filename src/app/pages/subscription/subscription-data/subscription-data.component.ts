@@ -84,6 +84,7 @@ export class SubscriptionDataComponent implements OnInit {
         item.selected = false;
         item.selectedCoutry = {};
         item.filteredCountryList = this.countryList.filter((data: any) => filteredCountryIds.includes(data.id));
+        item.isActive = item.popular == 1 ? true : false;
       });
     });
   }
@@ -98,6 +99,7 @@ export class SubscriptionDataComponent implements OnInit {
         item.selected = false;
         item.selectedCoutriesList = [];
         item.filteredCountryList = this.countryList.filter((data: any) => filteredCountryIds.includes(data.id));
+        item.isActive = item.popular == 1 ? true : false;
       });
     });
   }
@@ -114,8 +116,10 @@ export class SubscriptionDataComponent implements OnInit {
     this.showCheckout = false;
     this.subscriptionList.forEach((item: any) => {
       item.selected = false;
+      item.isActive = false;
       if (sub.id == item.id) {
         item.selected = true;
+        item.isActive = true;
       }
     });
     this.selectedSubscriptionDetails = sub;
@@ -127,8 +131,10 @@ export class SubscriptionDataComponent implements OnInit {
       this.showCheckout = false;
       this.subscriptionTopupList.forEach((item: any) => {
         item.selected = false;
+        item.isActive = false;
         if (sub.id == item.id) {
           item.selected = true;
+          item.isActive = true;
         }
       });
       this.selectedTopupCountryDetails = sub;
@@ -149,6 +155,7 @@ export class SubscriptionDataComponent implements OnInit {
       this.subscriptionService.applyCoupon(data).subscribe((response) => {
         if (response.success) {
           this.subscriptionTotal = Number(this.subscriptionTotal) - response.discountPrice;
+          this.toast.add({ severity: 'success', summary: 'Success', detail: 'Coupon is Applied' });
         }
         else {
           this.toast.add({ severity: 'error', summary: 'Error', detail: response.message });
