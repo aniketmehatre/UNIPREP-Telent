@@ -80,7 +80,7 @@ export class DashboardComponent implements OnInit {
 
         localStorage.setItem("currentmodulenameforrecently", '')
         
-        this.freeTrial = true;
+        //this.freeTrial = true;
         this.dashboardService.getTrustedPartners().subscribe(partnerLogo => {
             this.partnerTrusterLogo = partnerLogo;
         });
