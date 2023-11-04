@@ -24,7 +24,7 @@ export class ChathistoryService {
     }
     getReportoption():Observable<any> {
         const headers = new HttpHeaders().set("Accept", "application/json");
-        return this.http.get<any>(environment.ApiUrl+'/reportoption', {
+        return this.http.get<any>(environment.ApiUrl+'/chatreportoptions', {
             headers: headers,
         });
     }

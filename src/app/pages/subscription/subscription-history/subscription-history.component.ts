@@ -54,12 +54,6 @@ export class SubscriptionHistoryComponent implements OnInit {
   get URL() {
     return `${environment.ApiUrl}/downloadinvoice`;
   }
-  onSuc(event: any): void {
-    console.log(event);
-  }
-  onErr(event: any): void {
-    console.log(event);
-  }
   buttonclicked1(): void {
     this.basesubscription = true;
     this.topupcountries = false;

@@ -148,7 +148,6 @@ export class QuestionListComponent implements OnInit {
     }
     //this.moduleListService.loadQuestionList()
     this.moduleStoreService.loadSubModuleData(data).subscribe(response => {
-      console.log('sub', response)
       if(response){
         response.filter((res: any) => {
           if (res.id == this.subModuleId) {

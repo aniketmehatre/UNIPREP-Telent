@@ -69,7 +69,7 @@ export class ModalComponent implements OnInit {
         this.issueType = res.reportOptions;
       },
       (err) => {
-        console.log("err", err);
+        this.toast.add({ severity: 'error', summary: 'Error', detail: err });
       }
     );
   }
@@ -83,7 +83,7 @@ export class ModalComponent implements OnInit {
         this.details = res.messages;
       },
       (err) => {
-        console.log("err", err);
+        this.toast.add({ severity: 'error', summary: 'Error', detail: err });
       }
     );
   }

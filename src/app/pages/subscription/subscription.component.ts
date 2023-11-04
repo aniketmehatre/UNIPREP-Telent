@@ -45,7 +45,8 @@ export class SubscriptionComponent implements OnInit {
     constructor(
         private subscriptionService: SubscriptionService,
         private winRef: WindowRefService,
-        private authservice: AuthService
+        private authservice: AuthService,
+        private toastr: MessageService
     ) { }
     ngOnInit(): void {
         if(!this.authservice?.user?.subscription) {
@@ -209,7 +210,7 @@ export class SubscriptionComponent implements OnInit {
             }, 0);
         };
         options.modal.ondismiss = () => {
-            console.log("Transaction cancelled.");
+            this.toastr.add({ severity: 'warning', summary: 'warning', detail: 'Transaction cancelled' });
         };
         const rzp = new this.winRef.nativeWindow.Razorpay(options);
         rzp.open();
