@@ -63,8 +63,7 @@ export class VerificationComponent implements OnInit {
         this.toastr.add({severity:'success', summary: 'Success', detail: "OTP Generated and Sent to " + val.email});
       },
       (error: any) => {
-        this.toastr.add({severity:'warning', summary: 'Sorry :(', detail: 'Something went wrong in OTP Generation'});
-        console.log(error);
+        this.toastr.add({severity:'warning', summary: 'Sorry :(', detail: error});
       }
     );
   }

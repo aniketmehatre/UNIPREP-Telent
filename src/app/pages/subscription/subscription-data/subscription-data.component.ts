@@ -48,12 +48,6 @@ export class SubscriptionDataComponent implements OnInit {
   get URL() {
     return `${environment.ApiUrl}/downloadinvoice`;
   }
-  onSuc(event: any) {
-    console.log(event);
-  }
-  onErr(event: any) {
-    console.log(event);
-  }
   buttonclicked1() {
     this.basesubscription = true;
     this.topupcountries = false;

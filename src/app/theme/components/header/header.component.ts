@@ -293,7 +293,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
     // });
     // let data = {}
     // this.dataService.openReportWindow(data);
-    // console.log('come', data)
     op.toggle(event);
   }
 
