@@ -247,6 +247,7 @@ export class DashboardComponent implements OnInit {
     }
 
     onClickSubscribe(): void {
+        this.freeTrial = false;
         this.router.navigate(["/pages/subscriptions"]);
     }
 }

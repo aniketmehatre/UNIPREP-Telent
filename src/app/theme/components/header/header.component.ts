@@ -373,6 +373,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   onClickSubscribe() {
+    this.visible = false;
     this.router.navigate(["/pages/subscriptions"]);
   }
 
