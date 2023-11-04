@@ -35,7 +35,7 @@ const routes: Routes = [
                 loadChildren: () => import('./faq/faq.module').then(m => m.FaqModule)
             },
             {
-                path: 'helpandsupport',
+                path: 'termsandcondition',
                 loadChildren: () => import('./footersection/termsandcondition/termsandcondition.module').then(m => m.TermsAnsConditionModule)
             },
             {

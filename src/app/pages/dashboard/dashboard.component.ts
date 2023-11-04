@@ -1,16 +1,12 @@
 
 import {Component,Renderer2, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {DashboardService} from "./dashboard.service";
-import {AuthService} from "../../Auth/auth.service";
-import {SubSink} from "subsink";
 import {Router} from "@angular/router";
 import {DataService} from 'src/app/data.service';
 import {MessageService} from "primeng/api";
 import {combineLatest} from "rxjs";
-import {select} from "@ngrx/store";
 import {AnimationBuilder} from "@angular/animations";
-import {Carousel, CarouselModule} from "primeng/carousel";
-
+import { AuthService } from 'src/app/Auth/auth.service';
 
 @Component({
     selector: 'uni-dashboard',
@@ -34,7 +30,6 @@ export class DashboardComponent implements OnInit {
     isViewMoreOrgVisible: boolean = false;
     partnerTrusterLogo: any;
     searchResult: any;
-    newUserLogin: boolean = false;
     university: any[] = [
         {
             "image": "../../../uniprep-assets/images/icons/university1.svg",
@@ -55,6 +50,7 @@ export class DashboardComponent implements OnInit {
     selectedCountryId: any;
     currentSlide: any;
     freeTrial: boolean | undefined;
+    newUserLogin!: boolean;
 
     constructor(private dashboardService: DashboardService, private builder : AnimationBuilder,private renderer: Renderer2,private elRef: ElementRef,
     private router: Router, private dataService: DataService, private toast: MessageService,
@@ -84,7 +80,6 @@ export class DashboardComponent implements OnInit {
         localStorage.setItem("currentmodulenameforrecently", '')
         
         this.freeTrial = true;
-
         this.dashboardService.getTrustedPartners().subscribe(partnerLogo => {
             this.partnerTrusterLogo = partnerLogo;
         });
@@ -161,7 +156,7 @@ export class DashboardComponent implements OnInit {
         this.continueQuiz = 'none'
     }
 
-    openQuiz() {
+    openQuiz(): void {
         this.continueQuiz = "block";
     }
 
