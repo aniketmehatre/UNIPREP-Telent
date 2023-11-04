@@ -1,4 +1,5 @@
 import {Injectable} from "@angular/core";
+import { environment } from "@env/environment";
 import {BehaviorSubject} from "rxjs";
 
 @Injectable({
@@ -14,7 +15,7 @@ export class DataService {
     public countryIdSource = new BehaviorSubject("2");
     countryId = this.countryIdSource.asObservable();
 
-    public countryFlagSource = new BehaviorSubject("http://40.80.95.32/uniprepapi/storage/app/public/country-flags/united-kingdom.svg");
+    public countryFlagSource = new BehaviorSubject("http://"+environment.domain+"/uniprepapi/storage/app/public/country-flags/united-kingdom.svg");
     countryFlag = this.countryFlagSource.asObservable();
 
     public timeoutStatusSource = new BehaviorSubject(0);
