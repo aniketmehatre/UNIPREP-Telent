@@ -64,7 +64,6 @@ export class EventsComponent implements OnInit {
   };
 
   setActiveButton(buttonNumber: number): void {
-    console.log(buttonNumber);
     
     // Reset styles for both buttons
     this.button1Style = {
@@ -211,7 +210,6 @@ export class EventsComponent implements OnInit {
     })
   }
   registerbutton(event:any){
-    console.log(event);
     var data={
       id:event
     }

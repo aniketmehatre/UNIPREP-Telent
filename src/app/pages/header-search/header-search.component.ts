@@ -126,7 +126,7 @@ export class HeaderSearchComponent implements OnInit, OnDestroy {
       this.isSearchResultFound = true;
       this.searchResult = res.questions;
     }, err => {
-      console.log('err', err);
+      this.toastr.add({ severity: 'error', summary: 'Error', detail: err });
     });
   }
 

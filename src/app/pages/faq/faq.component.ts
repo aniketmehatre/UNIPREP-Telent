@@ -18,8 +18,7 @@ export class FaqComponent implements OnInit {
     getfaqlist() {
         this.faqcatlist=[];
         this.service.Getfaqlist().subscribe((res) => {
-       this.faqcatlist=res.data
-       console.log(this.faqcatlist);      
+          this.faqcatlist = res.data;      
        this.onFaqcatClick(res.data[0].id)
        
         }) 

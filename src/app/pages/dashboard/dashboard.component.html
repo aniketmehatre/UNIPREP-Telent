@@ -322,7 +322,7 @@
   [draggable]="false" [resizable]="false" *ngIf="newUserLogin">
   <div class="d-flex justify-content-between p-4">
     <div>
-      <h4>Your 60 Min<span class="text-xl font-bold p-3 fw-bold" style="color: #3F4C83;"> Free Trail</span>Starts Now!
+      <h4>Your 60 Min<span class="text-xl font-bold p-3 fw-bold" style="color: #3F4C83;"> Free Trial</span>Starts Now!
       </h4>
       <p class="get-certificate">Explore all modules on UNIPREP and get a certificate.</p>
     </div>
@@ -348,7 +348,7 @@
       <button class="btn btn-primary btn-rounded me-2 ms-0 my-0" (click)="onClickSubscribe()"
         alt="chat with notification"><span class="text-small fw-normal px-3">Subscribe Now</span></button>
       <button class="btn btn-secondary btn-rounded me-2 ms-0 my-0" alt="reports"><span
-          class="text-small fw-normal px-4">Continue Trial</span></button>
+          class="text-small fw-normal px-4" (click)="continueTrial()">Continue Trial</span></button>
     </div>
   </div>
 </p-dialog>
