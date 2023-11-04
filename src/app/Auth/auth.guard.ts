@@ -53,7 +53,7 @@ export class AuthGuard implements CanActivate, CanLoad {
           this.min = data[2];
           this.sec = data[3];
           let count = this.authService._userLoginCount;
-          if ((this.min === "1" && count === 4) || (this.min === "0" && count == 4)) {
+          if ((this.min === "1" && count === 4) || (this.min === "0" && count === 4)) {
             this.dataService.showTimeOut(true);
           }
         }
