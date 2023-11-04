@@ -18,8 +18,6 @@ export class BuyCreditsComponent implements OnInit {
     ngOnInit(): void {
         this.subscriptionService.getQuestionCredit().subscribe(
             (res: any) => {
-                console.log(res.subscriptions)
-
                 this.questionCreditData = res.questioncredits;
             },
             (error: any) => {

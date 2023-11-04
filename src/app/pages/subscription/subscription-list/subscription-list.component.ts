@@ -29,7 +29,6 @@ export class SubscriptionListComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        console.log(this.whichOneVisible);
         if (this.whichOneVisible == 1 || this.whichOneVisible == undefined) {
             this.isNormalPlanSelected = true;
             this.isBuyCreditSelected = false;
@@ -39,7 +38,6 @@ export class SubscriptionListComponent implements OnInit {
         }
         this.authService.getCountry().subscribe((data) => {
             this.countryList = data;
-            console.log(this.countryList);
         });
         this.subscriptionService.getQuestionCredit().subscribe(
             (res: any) => {

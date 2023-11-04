@@ -116,7 +116,6 @@ export class UserManagementComponent implements OnInit {
     GetPersonalProfileData(){
         this.userManagementService.GetUserPersonalInfo().subscribe(data => {
             this.PersonalInfo = data;
-            //console.log(data);
         });
     }
 

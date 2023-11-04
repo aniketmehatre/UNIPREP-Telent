@@ -247,6 +247,10 @@ export class DashboardComponent implements OnInit {
         this.isViewMoreOrgVisible = true;
     }
 
+    continueTrial(): void {
+        this.freeTrial = false;
+    }
+
     onClickSubscribe(): void {
         this.router.navigate(["/pages/subscriptions"]);
     }
