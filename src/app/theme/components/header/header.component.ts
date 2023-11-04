@@ -379,6 +379,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   onSubmit(op: any) {
     let data;
+
     if (this.reportSubmitForm.value.general == 1) {
       data = {
         reportOption: this.reportSubmitForm.value.reportOption,
@@ -393,6 +394,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
         comment: this.reportSubmitForm.value.comment,
       };
     }
+    this.reportSubmitForm.patchValue( {'comment':null} );
 
     this.locationService.reportFaqQuestion(data).subscribe((res) => {
       if (res.status == 404) {
