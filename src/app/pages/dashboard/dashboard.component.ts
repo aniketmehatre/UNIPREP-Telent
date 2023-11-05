@@ -55,7 +55,8 @@ export class DashboardComponent implements OnInit {
     freeTrial: boolean | undefined;
 
     constructor(private dashboardService: DashboardService, private builder: AnimationBuilder,
-        private router: Router, private dataService: DataService, private toast: MessageService, private elRef: ElementRef, private renderer: Renderer2
+        private router: Router, private dataService: DataService, private toast: MessageService, private elRef: ElementRef, private renderer: Renderer2,
+        private authService: AuthService
     ) {
         this.responsiveOptions = [
             {
@@ -77,10 +78,7 @@ export class DashboardComponent implements OnInit {
     }
 
     ngOnInit(): void {
-
-        localStorage.setItem("currentmodulenameforrecently", '')
-        
-        this.freeTrial = true;
+        localStorage.setItem("currentmodulenameforrecently", '');
         this.dashboardService.getTrustedPartners().subscribe(partnerLogo => {
             this.partnerTrusterLogo = partnerLogo;
         });
@@ -102,7 +100,7 @@ export class DashboardComponent implements OnInit {
         //this.openViewMoreOrg();
         this.isViewMoreOrgVisible = false;
         this.loadApiData();
-
+        this.checkNewUSerLogin();
     }
 
     loadApiData(): void {
@@ -249,5 +247,12 @@ export class DashboardComponent implements OnInit {
     onClickSubscribe(): void {
         this.freeTrial = false;
         this.router.navigate(["/pages/subscriptions"]);
+    }
+
+    checkNewUSerLogin(): void{
+        let userLoginCount = this.authService._userLoginCount;
+        if (userLoginCount === 4) {
+            this.freeTrial = true;
+        }
     }
 }
