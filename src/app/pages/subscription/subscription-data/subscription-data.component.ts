@@ -32,6 +32,7 @@ export class SubscriptionDataComponent implements OnInit {
   selectedSubscriptionDetails: any;
   selectedTopupCountryDetails: any;
   showCheckout: boolean = true;
+  subscriptionAmt: any = '0.00';
   @Output() subscriptionPlan = new EventEmitter();
   constructor(private authService: AuthService,
     private subscriptionService: SubscriptionService,
@@ -123,7 +124,8 @@ export class SubscriptionDataComponent implements OnInit {
       }
     });
     this.selectedSubscriptionDetails = sub;
-    this.subscriptionTotal = sub.givenprice;
+    this.subscriptionAmt = sub.givenprice;
+    this.subscriptionTotal = this.subscriptionAmt;
   }
 
   selectedTopupCountryPlan(sub: any) {
@@ -138,7 +140,8 @@ export class SubscriptionDataComponent implements OnInit {
         }
       });
       this.selectedTopupCountryDetails = sub;
-      this.subscriptionTotal = sub.finalamount * sub.selectedCoutriesList.length;
+      this.subscriptionAmt = sub.finalamount * sub.selectedCoutriesList.length;
+      this.subscriptionTotal = this.subscriptionAmt;
     }
     else {
       this.toast.add({severity:'warn', summary: 'Warn', detail: 'Please Choose a country'});
@@ -150,11 +153,11 @@ export class SubscriptionDataComponent implements OnInit {
     if (this.couponInput) {
       let data = {
         couponCode: this.couponInput,
-        checkoutTotal: this.subscriptionTotal
+        checkoutTotal: this.subscriptionAmt
       }
       this.subscriptionService.applyCoupon(data).subscribe((response) => {
         if (response.success) {
-          this.subscriptionTotal = Number(this.subscriptionTotal) - response.discountPrice;
+          this.subscriptionTotal = Number(this.subscriptionAmt) - response.discountPrice;
           this.toast.add({ severity: 'success', summary: 'Success', detail: 'Coupon is Applied' });
         }
         else {

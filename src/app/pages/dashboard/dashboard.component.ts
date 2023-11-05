@@ -179,7 +179,9 @@ export class DashboardComponent implements OnInit {
         this.selectedCountryId = selectedId.id;
         this.dataService.changeCountryId(selectedId.id);
         this.dataService.changeCountryFlag(selectedId.flag)
+        this.dataService.changeCountryName(selectedId.country)
         // this.countryListData(this.selectedCountryId);
+
         // this.modalQuizProgressing(selectedId);
         // this.modalReadingProgressing(selectedId);
         // this.loadReadProgression(selectedId);
