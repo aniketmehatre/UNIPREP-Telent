@@ -561,12 +561,17 @@ small {
 	border-radius: 10px !important;
 }
 .questionmodal {
+	.p-dialog-header-icons {
+		position: absolute;
+		right: 0.5rem;
+		top: 1rem;
+	}
 	.p-dialog-mask {
 		background: #00000070;
 		backdrop-filter: blur(2px);
 	}
 	.p-dialog {
-		width:80%;
+		width: 80%;
 		.p-dialog-header {
 			background: #fff;
 			padding: 0 !important;
@@ -773,27 +778,24 @@ small {
 		color: #fff;
 	}
 
-  .navbar {
-    transition: 0.2s;
-    background: transparent;
-  }
+	.navbar {
+		transition: 0.2s;
+		background: transparent;
+	}
 
-  .darksection
-  {
-    background-color:#121212;
-    .video-gradient {
-      background: linear-gradient(to top, #121212, transparent);
-    }
-    .marquee-imgu
-    {
-      filter:brightness(0) invert(1);
-    }
-  }
+	.darksection {
+		background-color: #121212;
+		.video-gradient {
+			background: linear-gradient(to top, #121212, transparent);
+		}
+		.marquee-imgu {
+			filter: brightness(0) invert(1);
+		}
+	}
 
-  .navbar
-  {
-    background: #121212 !important;
-  }
+	.navbar {
+		background: #121212 !important;
+	}
 
 	#menu-items {
 		.menu-item {
@@ -1351,7 +1353,7 @@ small {
 
 		.questiontext {
 			//min-height: -webkit-fill-available;
-			height:auto
+			height: auto;
 		}
 	}
 	.p-breadcrumb {
@@ -1448,7 +1450,7 @@ small {
 	}
 	.questionmodal {
 		.p-dialog {
-			width:95%;
+			width: 95%;
 		}
 	}
 }
@@ -1470,7 +1472,7 @@ small {
 	}
 	.questionmodal {
 		.p-dialog {
-			width:95%;
+			width: 95%;
 		}
 	}
 }
@@ -1492,7 +1494,7 @@ small {
 	}
 	.questionmodal {
 		.p-dialog {
-			width:95%;
+			width: 95%;
 		}
 	}
 }

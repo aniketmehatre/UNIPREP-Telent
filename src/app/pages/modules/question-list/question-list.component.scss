@@ -28,6 +28,12 @@
 }
 
 .questionmodal {
+  p-dialog-header-icons
+  {
+    position: absolute;
+    right:0.5rem;
+    top:1rem;
+  }
   .bbtn {
     border-radius: 10px 10px 0px 0px !important;
     border: none;
