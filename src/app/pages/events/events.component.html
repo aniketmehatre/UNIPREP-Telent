@@ -28,7 +28,7 @@
 			</div>
 			<!-- upcomming event -->
 			<div class="row mt-3" *ngIf="upcomingevent">
-				<div class="col-md-3" *ngFor="let event of upcommingevent">
+				<div class="col-md-3 col-6" *ngFor="let event of upcommingevent">
 					<div class="card eventcard">
 						<span class="btn btn-primary eventcountdown">{{ event.daysago }}</span>
 						<div class="event-top card-body pb-0">
@@ -48,7 +48,7 @@
 						<div class="event-bottom card-body">
 							<h5 class="mb-0">{{ event.eventname }}</h5>
 							<p class="small">{{ event.eventdescription }}</p>
-							<div class="d-flex gap-2">
+							<div class="d-flex gap-2 flex-md-row flex-column">
 								<div class="d-flex align-items-center">
 									<img class="me-1" style="width: 20px" src="{{ event.countrylog }}" alt="" />
 									<p class="small fw-semibold mb-0">{{ event.country }}</p>
@@ -69,7 +69,7 @@
 			</div>
 			<!-- post event -->
 			<div class="row mt-3" *ngIf="postevent">
-				<div class="col-md-3" *ngFor="let event of postevetdetaisl">
+				<div class="col-md-3 col-6" *ngFor="let event of postevetdetaisl">
 					<div class="card eventcard">
 						<span class="btn btn-primary eventcomplete">{{ event.date }}</span>
 						<div class="event-top card-body pb-0">
@@ -82,7 +82,7 @@
 						<div class="event-bottom card-body">
 							<h5 class="mb-0">{{ event.eventname }}</h5>
 							<p class="small">{{ event.eventdescription }}</p>
-							<div class="d-flex gap-2">
+							<div class="d-flex gap-2 flex-md-row flex-column">
 								<div class="d-flex align-items-center">
 									<img class="me-1" style="width: 20px" src="{{ event.countrylog }}" alt="" />
 									<p class="small fw-semibold mb-0">{{ event.country }}</p>
