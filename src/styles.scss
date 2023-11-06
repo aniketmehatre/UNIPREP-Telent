@@ -1255,11 +1255,15 @@ small {
 		background: #121212 !important;
 	}
 	.footer-card {
-		background-color: #2e3134 !important;
-		border: 1px solid #202124 !important;
+		background-color: transparent !important;
+		border: transparent!important;
 		&:hover {
-			background-color: #2e3134 !important;
-			border: 1px solid #202124 !important;
+			background-color: transparent !important;
+			border: transparent !important;
+			.card
+			{
+				background: #2e3134 !important;
+			}
 		}
 	}
 	.card {
