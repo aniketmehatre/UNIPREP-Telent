@@ -6,7 +6,7 @@ import { FormBuilder, FormGroup } from "@angular/forms";
 import { PageFacadeService } from "../page-facade.service";
 import { fas } from "@fortawesome/free-solid-svg-icons";
 import { Router } from "@angular/router";
-import screenfull from "screenfull";
+// import screenfull from "screenfull";
 @Component({
   selector: "uni-chat",
   templateUrl: "./chat.component.html",
@@ -84,18 +84,18 @@ export class ChatComponent implements OnInit {
               // ['clean'], // remove formatting button
 
               // ['link', 'image', 'video'], // link and image, video
-              ['fullscreen'],
+              // ['fullscreen'],
           ],
           handlers: {
               emoji: function () {},
-              fullscreen: () => {
-                  if (screenfull.isEnabled) {
-                      this.fullscreen = this.fullscreen
-                          ? ''
-                          : 'fullscreen';
-                      screenfull.toggle(this.editorelement.nativeElement);
-                  }
-              },
+              // fullscreen: () => {
+              //     if (screenfull.isEnabled) {
+              //         this.fullscreen = this.fullscreen
+              //             ? ''
+              //             : 'fullscreen';
+              //         screenfull.toggle(this.editorelement.nativeElement);
+              //     }
+              // },
           },
       },
   };
