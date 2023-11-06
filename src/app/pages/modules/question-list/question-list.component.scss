@@ -76,6 +76,7 @@
 
   .questiontext {
     //min-height: -webkit-fill-available;
+    height:auto;
   }
 
 }
@@ -130,13 +131,19 @@
   border: 2px solid var(--uniprep-primary);
   // max-height: 50vh;
   overflow-y: auto;
+  .card-body
+  {
+    height:50vh;
+    overflow-y: auto;
+  }
+  // .readingheight
+  // {
+  //   max-height:50vh;
+  //   overflow-y:auto;
+  //   min-height: 35vh;
+  // }
 }
-.readingheight
-{
-  max-height:50vh;
-  overflow-y:auto;
-  min-height: 35vh;
-}
+
 :host ::ng-deep .p-carousel-item {
   max-height: 0;
 }

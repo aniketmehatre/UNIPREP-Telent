@@ -40,8 +40,7 @@
   width: 40px;
   height: 38px;
   background: #e6e7ed;
-  -moz-border-radius: 50px;
-  -webkit-border-radius: 50px;
+  border-radius: 50px;
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
@@ -123,6 +122,7 @@
     .timer {
       span {
         //background-color: black !important;
+        height:auto;
       }
     }
   }
@@ -232,8 +232,7 @@ a {
   display: block;
   width: 40px;
   height: 38px;
-  -moz-border-radius: 50px;
-  -webkit-border-radius: 50px;
+  border-radius: 50px;
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
@@ -372,8 +371,7 @@ countryimage {
   width: 40px;
   height: 38px;
   background: #e6e7ed;
-  -moz-border-radius: 50px;
-  -webkit-border-radius: 50px;
+  border-radius: 50px;
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
@@ -454,6 +452,7 @@ countryimage {
     .timer {
       span {
         //background-color: black !important;
+        height:auto
       }
     }
   }
@@ -577,8 +576,7 @@ a {
   display: block;
   width: 40px;
   height: 38px;
-  -moz-border-radius: 50px;
-  -webkit-border-radius: 50px;
+  border-radius: 50px;
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;

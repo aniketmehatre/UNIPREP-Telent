@@ -566,6 +566,7 @@ small {
 		backdrop-filter: blur(2px);
 	}
 	.p-dialog {
+		width:80%;
 		.p-dialog-header {
 			background: #fff;
 			padding: 0 !important;
@@ -851,10 +852,6 @@ small {
 				background-color: white !important;
 				color: var(--uniprep-primary) !important;
 			}
-		}
-		.eventcountdown
-		{
-			position: absolute;
 		}
 		.eventcomplete {
 			color: #000 !important;
@@ -1354,6 +1351,7 @@ small {
 
 		.questiontext {
 			//min-height: -webkit-fill-available;
+			height:auto
 		}
 	}
 	.p-breadcrumb {
@@ -1448,6 +1446,11 @@ small {
 	.bottom-text {
 		width: 85% !important;
 	}
+	.questionmodal {
+		.p-dialog {
+			width:95%;
+		}
+	}
 }
 
 @media (max-width: 767.98px) {
@@ -1465,6 +1468,11 @@ small {
 	.country {
 		min-width: 125px !important;
 	}
+	.questionmodal {
+		.p-dialog {
+			width:95%;
+		}
+	}
 }
 
 @media (max-width: 575.98px) {
@@ -1481,6 +1489,11 @@ small {
 	}
 	.country {
 		min-width: 125px !important;
+	}
+	.questionmodal {
+		.p-dialog {
+			width:95%;
+		}
 	}
 }
 .openlogo {
