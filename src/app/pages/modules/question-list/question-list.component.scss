@@ -133,22 +133,18 @@
 }
 
 .answercard {
-  background-color: var(--uniprep-primaryop10);
-  border: 2px solid var(--uniprep-primary);
+  background-color: transparent;
+  border: none;
   // max-height: 50vh;
   overflow-y: auto;
-  .card-body
+  .readingheight
   {
-    height:50vh;
-    overflow-y: auto;
+    max-height:40vh;
+    overflow-y:auto;
+    min-height: 35vh;
   }
-  // .readingheight
-  // {
-  //   max-height:50vh;
-  //   overflow-y:auto;
-  //   min-height: 35vh;
-  // }
 }
+
 
 :host ::ng-deep .p-carousel-item {
   max-height: 0;

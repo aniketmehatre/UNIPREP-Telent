@@ -3,7 +3,7 @@
 		<!-- Your brand/logo (optional) -->
 		<a class="navbar-brand py-0" href="#">
 			<img class="lightmodelogo" src="../../uniprep-assets/images/uniprep-light.svg" />
-			<img class="darkmodelogo d-none" src="../../uniprep-assets/images/uniprep-dark.svg" />
+			<img class="darkmodelogo" src="../../uniprep-assets/images/uniprep-dark.svg" />
 		</a>
 
 		<ul class="nav flex-row gap-2">
@@ -33,7 +33,8 @@
 	<div class="container d-md-none">
 		<!-- Your brand/logo (optional) -->
 		<a class="navbar-brand py-0" href="#">
-			<img src="../../uniprep-assets/images/uniprep-light.svg" data-bs-theme="light" alt="UNIPREP" class="d-inline-block align-text-top" />
+			<img class="lightmodelogo" src="../../uniprep-assets/images/uniprep-light.svg" />
+			<img class="darkmodelogo" src="../../uniprep-assets/images/uniprep-dark.svg" />
 		</a>
 
 		<!-- Hamburger button for mobile -->
@@ -78,7 +79,7 @@
       <i class="fa-solid fa-sun"></i>
     </label>
     <div class="form-check form-switch">
-      <input type="checkbox" role="button" id="darkmodeswitch" class="form-check-input"  />
+		<input type="checkbox" role="button" id="darkmodeswitch" class="form-check-input" [checked]="isDarkMode" (change)="toggleTheme()"/>
     </div>
     <label class="ms-1">
       <i class="fa-solid fa-moon"></i>
