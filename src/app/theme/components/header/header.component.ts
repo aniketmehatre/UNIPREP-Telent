@@ -322,7 +322,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.subs.sink = this.locationService
       .getReportOptionList()
       .subscribe((data) => {
-        this.reportOptionList = data.reportOptions;
+        this.reportOptionList = [{id: null, reportoption_name: 'Select'}, ...data.reportOptions];
       });
   }
 
