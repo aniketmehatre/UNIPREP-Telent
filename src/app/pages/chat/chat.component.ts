@@ -2,11 +2,11 @@ import { Component, ElementRef, OnInit, ViewChild } from "@angular/core";
 import { ChathistoryService } from "./chat.service";
 import { AuthService } from "src/app/Auth/auth.service";
 import { ConfirmationService, MessageService } from "primeng/api";
-import { FormBuilder, FormGroup } from "@angular/forms";
+import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { PageFacadeService } from "../page-facade.service";
 import { fas } from "@fortawesome/free-solid-svg-icons";
 import { Router } from "@angular/router";
-// import screenfull from "screenfull";
+import screenfull from "screenfull";
 @Component({
   selector: "uni-chat",
   templateUrl: "./chat.component.html",
@@ -14,12 +14,12 @@ import { Router } from "@angular/router";
   providers: [ConfirmationService],
 })
 export class ChatComponent implements OnInit {
-  @ViewChild("fullscreeneditor") editorelement: ElementRef|any;
+  @ViewChild("fullscreeneditor") editorelement: ElementRef | any;
   fullscreen = "";
   modules = {};
-  filterForm: FormGroup;
+  reportForm: FormGroup;
   messages: any = [];
-  reportOptions = [];
+  reportOptions: any = [];
   constructor(
     private service: ChathistoryService,
     private authService: AuthService,
@@ -29,76 +29,74 @@ export class ChatComponent implements OnInit {
     private confirmationService: ConfirmationService,
     private route: Router
   ) {
-    this.filterForm = fb.group({
-      reportOption: [""],
-      comment: [""],
+    this.reportForm = fb.group({
+      reportOption: ["",Validators.required],
+      comment: ["",Validators.required],
     });
 
     this.modules = {
       toolbar: {
-          container: [
-              // ['bold', 'italic', 'underline', 'strike'], // toggled buttons
-              // ['blockquote', 'code-block'],
+        container: [
+          // ['bold', 'italic', 'underline', 'strike'], // toggled buttons
+          // ['blockquote', 'code-block'],
 
-              // [{ header: 1 }, { header: 2 }], // custom button values
-              // [{ list: 'ordered' }, { list: 'bullet' }],
-              // [{ script: 'sub' }, { script: 'super' }], // superscript/subscript
-              // [{ indent: '-1' }, { indent: '+1' }], // outdent/indent
-              // [{ direction: 'rtl' }], // text direction
-              // [{ 'size': ['small', false, 'large', 'huge'] }],  // custom dropdown
-              // [
-              //     {
-              //         size: [
-              //             '8px',
-              //             '10px',
-              //             '12px',
-              //             '14px',
-              //             '16px',
-              //             '18px',
-              //             '20px',
-              //             '22px',
-              //             '24px',
-              //             '32px',
-              //             '64px',
-              //             '72px',
-              //         ],
-              //     },
-              // ],
-              // [{ header: [1, 2, 3, 4, 5, 6, false] }],
+          // [{ header: 1 }, { header: 2 }], // custom button values
+          // [{ list: 'ordered' }, { list: 'bullet' }],
+          // [{ script: 'sub' }, { script: 'super' }], // superscript/subscript
+          // [{ indent: '-1' }, { indent: '+1' }], // outdent/indent
+          // [{ direction: 'rtl' }], // text direction
+          // [{ 'size': ['small', false, 'large', 'huge'] }],  // custom dropdown
+          // [
+          //     {
+          //         size: [
+          //             '8px',
+          //             '10px',
+          //             '12px',
+          //             '14px',
+          //             '16px',
+          //             '18px',
+          //             '20px',
+          //             '22px',
+          //             '24px',
+          //             '32px',
+          //             '64px',
+          //             '72px',
+          //         ],
+          //     },
+          // ],
+          // [{ header: [1, 2, 3, 4, 5, 6, false] }],
 
-              // [{ color: [] }, { background: [] }], // dropdown with defaults from theme
-              // [
-              //     {
-              //         font: [
-              //             'verdana',
-              //             'sans-serif',
-              //             'roboto',
-              //             'cursive',
-              //             'fantasy',
-              //             'monospace',
-              //         ],
-              //     },
-              // ],
-              // [{ align: [] }],
+          // [{ color: [] }, { background: [] }], // dropdown with defaults from theme
+          // [
+          //     {
+          //         font: [
+          //             'verdana',
+          //             'sans-serif',
+          //             'roboto',
+          //             'cursive',
+          //             'fantasy',
+          //             'monospace',
+          //         ],
+          //     },
+          // ],
+          // [{ align: [] }],
 
-              // ['clean'], // remove formatting button
+          // ['clean'], // remove formatting button
 
-              // ['link', 'image', 'video'], // link and image, video
-              // ['fullscreen'],
-          ],
-          handlers: {
-              emoji: function () {},
-              // fullscreen: () => {
-              //     if (screenfull.isEnabled) {
-              //         this.fullscreen = this.fullscreen
-              //             ? ''
-              //             : 'fullscreen';
-              //         screenfull.toggle(this.editorelement.nativeElement);
-              //     }
-              // },
+          // ['link', 'image', 'video'], // link and image, video
+          ["fullscreen"],
+        ],
+        handlers: {
+          emoji: function () {},
+          fullscreen: () => {
+            if (screenfull.isEnabled) {
+              this.fullscreen = this.fullscreen ? "" : "fullscreen";
+              screenfull.toggle(this.editorelement.nativeElement);
+            }
           },
+        },
       },
-  };
+    };
   }
   username: string = "";
   ngOnInit(): void {
@@ -114,7 +112,10 @@ export class ChatComponent implements OnInit {
   getOptions() {
     this.service.getReportoption().subscribe((response) => {
       this.reportOptions = [];
-      this.reportOptions = response.reportOptions;
+      this.reportOptions = [
+        { id: null, reportoption_name: "Select" },
+        ...response.reportOptions,
+      ];
     });
   }
   previouspage() {
@@ -136,6 +137,10 @@ export class ChatComponent implements OnInit {
   textMessage: string = "";
   visibility = false;
   sendMessage() {
+    if (this.totalcredits == 0) {
+      this.creditspopupVisibility = true;
+      return;
+    }
     if (this.textMessage == null || this.textMessage == "") {
       this.toast.add({
         severity: "warn",
@@ -181,9 +186,9 @@ export class ChatComponent implements OnInit {
     });
   }
 
-  filtersubmit() {
-    if (this.filterForm.invalid) return;
-    this.service.Reportchat(this.filterForm?.value).subscribe(
+  reportSubmit() {
+    if (this.reportForm.invalid) return;
+    this.service.Reportchat(this.reportForm?.value).subscribe(
       (response) => {
         this.toast.add({
           severity: "success",
@@ -191,16 +196,16 @@ export class ChatComponent implements OnInit {
           detail: "Reported successfully",
         });
         window.location.reload();
-        this.filterForm.reset();
+        this.reportForm.reset();
       },
       (error) => {}
     );
-  } 
-  getData(questionNumber:any):string{
-    return this.messages?.find((data: { questionNumber: any; })=>data.questionNumber==questionNumber).message;
+  }
+  getData(questionNumber: any): string {
+    return this.messages?.find(
+      (data: { questionNumber: any }) => data.questionNumber == questionNumber
+    ).message;
   }
 
-  getmessage(){
-
-  }
+  creditspopupVisibility = false;
 }

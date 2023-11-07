@@ -42,9 +42,9 @@
         </ng-template>
         <p-overlayPanel #op>
           <form
-            [formGroup]="filterForm"
-            (ngSubmit)="filtersubmit()"
-            #filterFormElm
+            [formGroup]="reportForm"
+            (ngSubmit)="reportSubmit()"
+            #reportFormElm
           >
             <div class="col-md-12 mt-1">
               <div class="form-group">
@@ -225,7 +225,7 @@
         <div class="row mt-1">
           <div
             class="col-2"
-            style="align-self: center; padding-left: 30px; padding-bottom: 25px"
+            style="margin: auto; padding: 1.5rem"
           >
             <span
               style="
@@ -235,16 +235,57 @@
                 background-color: var(--uniprep-primary);
                 border-radius: 50%;
               "
-              ><i style="height: 25px; width: 25px" class="fa fa-info"></i
+              ><i style="height: 100%; width: 100%" class="fa fa-info"></i
             ></span>
           </div>
           <div
             class="col-10 mb-4"
-            style="font-size: 14px; font-weight: 600; vertical-align: middle"
+            style="margin: auto; padding: 1rem"
           >
             Thank you for reaching out to us.<br />
             Please anticipate a response within<br />
             8 working hours
+          </div>
+        </div>
+      </p-dialog>
+      <p-dialog
+        [visible]="creditspopupVisibility"
+        [closable]="false"
+        [modal]="true"
+        [style]="{ width: '20vw' }"
+      >
+        <div
+          style="
+            background: var(--uniprep-primary) !important;
+            border-radius: 50% !important;
+            height: 25px !important;
+            width: 25px !important;
+            position: absolute;
+            right: -10px;
+            top: -10px;
+            text-align: center;
+            cursor: pointer;
+          "
+          (click)="creditspopupVisibility = !creditspopupVisibility"
+        >
+          <i style="color: #fff" class="fa fa-close"></i>
+        </div>
+        <div class="row mt-1">
+          <div class="col-2" style="margin: auto; padding: 1.5rem">
+            <span
+              style="
+                color: white;
+                text-align: center;
+                vertical-align: middle;
+                background-color: var(--uniprep-secondary);
+                border-radius: 50%;
+              "
+              ><i style="height: 100%; width: 100%" class="fa fa-info"></i
+            ></span>
+          </div>
+          <div class="col-10" style="margin: auto; padding: 1rem">
+            You will accumulate 1 credit per day. Please try again after
+            sometime.
           </div>
         </div>
       </p-dialog>
