@@ -8,6 +8,16 @@ import { ThemeService } from '../../theme.service';
 })
 export class LandingComponent implements OnInit {
   isDarkMode: boolean;
+  displaytandc!: boolean;
+  displayprivacypolicy!: boolean;
+
+  showTandC() {
+    this.displaytandc = true;
+  }
+  
+  showprivacypolicy() {
+    this.displayprivacypolicy = true;
+  }
 
   constructor(private themeService: ThemeService) {
     // Initialize the isDarkMode property with the value from the service
