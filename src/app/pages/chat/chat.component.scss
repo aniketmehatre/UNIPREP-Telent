@@ -276,12 +276,8 @@ countryimage {
   border-bottom: 1px solid lightgray;
   width: 100%;
 }
-
-.response-msg {
-  background-color: #e3effd;
-  padding: 15px;
-}
 .response-msg-question{
+  margin-left: 40px;
   background-color: #e6e7ed;
   width: fit-content;
   padding-right: 30px;
@@ -290,7 +286,7 @@ countryimage {
   border-top-left-radius:0;
 }
 .response-msg-attach {
-  
+  margin-left: 40px;
   background: #e3effd;
   padding: 10px;
   border-radius: 20px;
@@ -631,6 +627,7 @@ countryimage {
 .response-msg {
   background-color: #e3effd;
   padding: 15px;
+  margin-left: 40px;
 }
 .p-card .p-card-content {
   width: 100% !important;
