@@ -19,6 +19,7 @@ import {LocationService} from "../../../location.service";
 import {DataService} from "src/app/data.service";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {matchValidator} from "../../../@Supports/matchvalidator";
+import {ThemeService} from '../../../theme.service';
 
 @Component({
   selector: "uni-header",
@@ -75,7 +76,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
     private formBuilder: FormBuilder,
     private service: AuthService,
     private toast: MessageService,
-    private dataService: DataService
+    private dataService: DataService,
+    private themeService: ThemeService
   ) {
     this.subs.sink = this.dataService.countryIdSource.subscribe((data) => {
       this.selectedCountryId = Number(data);
@@ -229,40 +231,11 @@ export class HeaderComponent implements OnInit, OnDestroy {
       }
     });
 
-    this.darkModeSwitch = document.getElementById(
-      "darkmodeswitch"
-    ) as HTMLInputElement;
-
-    // Read the theme and checked state from the cookie and apply them to the body class and the switch
-    const theme = this.getCookie("theme");
-    if (theme === "dark") {
-      document.body.classList.add("darkmode");
-      this.darkModeSwitch.checked = true;
-    } else {
-      document.body.classList.add("lightmode");
-      this.darkModeSwitch.checked = false;
-    }
-
-    const checked = this.getCookie("checked");
-    if (checked === "true") {
-      this.darkModeSwitch.checked = true;
-    } else if (checked === "false") {
-      this.darkModeSwitch.checked = false;
-    }
-
-    // Add event listener to toggle the theme and save it in a cookie
+    this.darkModeSwitch = document.getElementById("darkmodeswitch") as HTMLInputElement;
+    this.darkModeSwitch.checked = this.themeService.isDarkMode();
+  
     this.darkModeSwitch.addEventListener("change", () => {
-      if (this.darkModeSwitch.checked) {
-        document.body.classList.remove("lightmode");
-        document.body.classList.add("darkmode");
-        this.setCookie("theme", "dark");
-        this.setCookie("checked", "true");
-      } else {
-        document.body.classList.remove("darkmode");
-        document.body.classList.add("lightmode");
-        this.setCookie("theme", "light");
-        this.setCookie("checked", "false");
-      }
+      this.themeService.toggleTheme();
     });
   }
 
