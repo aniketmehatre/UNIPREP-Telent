@@ -1,120 +1,136 @@
 .selected-box {
-  background: var(--uniprep-primaryop10);
-  color: black;
-  font-size: 1.2rem;
-  font-weight: bold;
-  display: flex;
-  padding: 10px;
-  border: 1px solid var(--uniprep-primaryop10);
-  border-radius: 8px;
-  box-shadow: 1px 2px 5px 0 rgba(0, 0, 0, 0.16),
-  0 2px 10px 0 rgba(0, 0, 0, 0.12);
-  width: 100%;
-
+	background: var(--uniprep-primaryop10);
+	color: black;
+	font-size: 1.2rem;
+	font-weight: bold;
+	display: flex;
+	padding: 10px;
+	border: 1px solid var(--uniprep-primaryop10);
+	border-radius: 8px;
+	box-shadow: 1px 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
+	width: 100%;
 }
 
 .modal-selected-box {
-  background: var(--uniprep-primaryop10);
-  color: black;
-  font-size: 0.8rem;
-  font-weight: bold;
-  display: flex;
-  padding: 10px;
-  border: 1px solid #F8AE4D;
-  border-radius: 8px;
-  box-shadow: 1px 2px 5px 0 rgba(0, 0, 0, 0.16),
-  0 2px 10px 0 rgba(0, 0, 0, 0.12);
+	background: var(--uniprep-primaryop10);
+	color: black;
+	font-size: 0.8rem;
+	font-weight: bold;
+	display: flex;
+	padding: 10px;
+	border: 1px solid #f8ae4d;
+	border-radius: 8px;
+	box-shadow: 1px 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
 }
 
 .modal-selected-box-quiz {
-  background: #ffefc9;
-  color: black;
-  font-size: 0.8rem;
-  font-weight: bold;
-  display: flex;
-  padding: 10px;
-  border: 1px solid #ffefc9;
-  border-radius: 8px;
-  box-shadow: 1px 2px 5px 0 rgba(0, 0, 0, 0.16),
-  0 2px 10px 0 rgba(0, 0, 0, 0.12);
+	background: #ffefc9;
+	color: black;
+	font-size: 0.8rem;
+	font-weight: bold;
+	display: flex;
+	padding: 10px;
+	border: 1px solid #ffefc9;
+	border-radius: 8px;
+	box-shadow: 1px 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
 }
 
 .un-selected-box {
-  color: black;
-  font-size: 1.2rem;
-  font-weight: bold;
-  display: flex;
-  padding: 10px;
-  border: 1px solid var(--uniprep-primaryop10);
-  border-radius: 8px;
-  box-shadow: 1px 2px 5px 0 rgba(215, 142, 142, 0.16),
-  0 2px 10px 0 rgba(0, 0, 0, 0.12);
+	color: black;
+	font-size: 1.2rem;
+	font-weight: bold;
+	display: flex;
+	padding: 10px;
+	border: 1px solid var(--uniprep-primaryop10);
+	border-radius: 8px;
+	box-shadow: 1px 2px 5px 0 rgba(215, 142, 142, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
 }
 
 .tiny-text {
-  font-size: 0.9rem;
-  color: white;
+	font-size: 0.9rem;
+	color: white;
 }
 
 .footer-card {
-  border: 2px solid var(--uniprep-primaryhighlight);
+	.card {
+		border: 1px solid var(--uniprep-primaryhighlight);
+	}
 
-  .fctitle {
-    height: 50px !important;
-  }
+	.fctitle {
+		height: 50px !important;
+	}
 
-  svg {
-    color: var(--uniprep-primary);
-  }
+	svg {
+		color: var(--uniprep-primary);
+	}
 
-  &:hover {
-    background-color: var(--uniprep-primaryop10);
-    border: 2px solid var(--uniprep-primary);
-  }
+	&:hover {
+		.card {
+			background-color: var(--uniprep-primaryop10);
+			border: 1px solid var(--uniprep-primary);
+		}
+	}
 
-  &:focus {
-    background-color: var(--uniprep-primaryop10);
-    border: 2px solid var(--uniprep-primary);
-  }
+	&:focus {
+		.card {
+			background-color: var(--uniprep-primaryop10);
+			border: 1px solid var(--uniprep-primary);
+		}
+	}
 }
 
 @media (max-width: 1499.98px) {
-  .footer-card {
-    .fctitle {
-      height: 70px !important;
-    }
-  }
+	.footer-card {
+		.fctitle {
+			height: 70px !important;
+		}
+	}
 }
 
 @media (max-width: 1399.98px) {
-  .footer-card {
-    .fctitle {
-      height: 60px !important;
-    }
-  }
+	.footer-card {
+		.fctitle {
+			height: 60px !important;
+		}
+	}
 }
 
 @media (max-width: 1299.98px) {
-  .footer-card {
-    .fctitle {
-      height: 60px !important;
-    }
-  }
+	.footer-card {
+		.fctitle {
+			height: 60px !important;
+		}
+	}
 }
 
 @media (max-width: 1199.98px) {
-  .footer-card {
-    .fctitle {
-      height: 85px !important;
-    }
-  }
+	.footer-card {
+		.fctitle {
+			height: 85px !important;
+		}
+	}
 }
 
 @media (max-width: 991.98px) {
+  .footer-card {
+		.fctitle {
+			height: 60px !important;
+		}
+	}
 }
 
 @media (max-width: 767.98px) {
+  .footer-card {
+		.fctitle {
+			height: 50px !important;
+		}
+	}
 }
 
 @media (max-width: 575.98px) {
+  .footer-card {
+		.fctitle {
+			height: 40px !important;
+		}
+	}
 }
