@@ -239,7 +239,7 @@ export class SubscriptionComponent implements OnInit {
 
     loadSubscriptionedData() {
         if(this.loadingSubscriptionHistory && this.loadingExistingSubscription) {
-            // this.stage = 5;
+            this.stage = 5;
         }
     }
 }
