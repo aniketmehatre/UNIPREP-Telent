@@ -43,7 +43,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   selectedGenMod: number = 1;
   subModuleNgModel: number = 1;
   questionIdNgModel: number = 1;
-  reportOptionNgModel: number = 1;
+  reportOptionNgModel: number = 0;
   selectedCountryId: any;
   selectedModuleId: any;
   selectedSubModuleId: any;
@@ -299,8 +299,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
   logout() {
     this.subs.sink = this.service.logout().subscribe((data) => {
       this.toast.add({
-        severity: "success",
-        summary: "Success",
+        severity: "info",
+        summary: "Info",
         detail: "logged out successfully",
       });
       window.sessionStorage.clear();
@@ -319,6 +319,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   getReportOption() {
+    this.reportOptionList = [];
     this.subs.sink = this.locationService
       .getReportOptionList()
       .subscribe((data) => {
@@ -379,7 +380,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   onSubmit(op: any) {
     let data;
-
+    if(this.reportSubmitForm.value.reportOption == null){
+      return;
+    }
     if (this.reportSubmitForm.value.general == 1) {
       data = {
         reportOption: this.reportSubmitForm.value.reportOption,
@@ -412,6 +415,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
         detail: "FAQ Report submitted successfully",
       });
     });
+    this.getReportOption();
   }
 
   public setPasswordForm: any = FormGroup;
