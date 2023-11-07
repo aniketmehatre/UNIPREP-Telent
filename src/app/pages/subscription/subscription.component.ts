@@ -210,7 +210,9 @@ export class SubscriptionComponent implements OnInit {
             }, 0);
         };
         options.modal.ondismiss = () => {
-            this.toastr.add({ severity: 'warning', summary: 'warning', detail: 'Transaction cancelled' });
+
+            this.toastr.add({severity: 'error', summary: 'Error', detail: "Transaction cancelled"});
+
         };
         const rzp = new this.winRef.nativeWindow.Razorpay(options);
         rzp.open();

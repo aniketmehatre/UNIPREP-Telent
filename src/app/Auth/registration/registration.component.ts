@@ -70,6 +70,14 @@ export class RegistrationComponent implements OnInit {
         }
     }
 
+    homeCountryList: any = [
+        {
+            "id": 15,
+            "country": "India",
+            "flag": "https://uniprep.ai/uniprepapi/storage/app/public/country-flags/1689510580Horse8b (2).svg"
+        }
+    ];
+
     constructor(private service: AuthService, private router: Router, private formBuilder: FormBuilder,
                 private locationService: LocationService, private toastr: MessageService) {
     }
