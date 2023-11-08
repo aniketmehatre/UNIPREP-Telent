@@ -180,4 +180,11 @@ export class AuthService {
             headers: headers,
         });
     }
+
+    getNewUserTimeLeft() {
+        const headers = new HttpHeaders().set("Accept", "application/json");
+        return this.http.post<any>(environment.ApiUrl + "/getsubscriptiontimeleft", {
+            headers: headers,
+        });
+    }
 }

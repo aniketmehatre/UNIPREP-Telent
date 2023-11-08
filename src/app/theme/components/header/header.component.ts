@@ -70,6 +70,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
   show1 = false;
   password1: string = "password";
   headerFlag: any = "";
+  timeLeftSecs: any;
+  timerInterval: any;
+  userLoginTimeLeftCount!: boolean;
+  timeLeftMins: any;
   constructor(
     private router: Router,
     private locationService: LocationService,
@@ -82,26 +86,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.subs.sink = this.dataService.countryIdSource.subscribe((data) => {
       this.selectedCountryId = Number(data);
       this.getModuleList();
-    });
-    this.subs.sink = this.dataService.showTimeOutSource.subscribe((data) => {
-      this.visible = data;
-    });
-    this.subs.sink = this.dataService.showTimerSource.subscribe((data) => {
-      if (data == "EXPIRED") {
-        this.visible = true;
-        this.day = 0;
-        this.hrs = 0;
-        this.min = 0;
-        this.sec = 0;
-        return;
-      }
-      if (data) {
-        data = data.split("-", 4);
-        this.day = data[0];
-        this.hrs = data[1];
-        this.min = data[2];
-        this.sec = data[3];
-      }
     });
   }
 
@@ -157,6 +141,31 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.getModuleList();
     this.onChangeModuleList(1);
     this.onChangeSubModuleList(1);
+    if (this.service._userLoginCount === 4) {
+      this.checkNewUser();
+    } else {
+      this.userLoginTimeLeftCount = true;
+      this.subs.sink = this.dataService.showTimeOutSource.subscribe((data) => {
+        this.visible = data;
+      });
+      this.subs.sink = this.dataService.showTimerSource.subscribe((data) => {
+        if (data == "EXPIRED") {
+          this.visible = true;
+          this.day = 0;
+          this.hrs = 0;
+          this.min = 0;
+          this.sec = 0;
+          return;
+        }
+        if (data) {
+          data = data.split("-", 4);
+          this.day = data[0];
+          this.hrs = data[1];
+          this.min = data[2];
+          this.sec = data[3];
+        }
+      });
+    }
     this.genMod = [
       {
         name: "General",
@@ -349,6 +358,36 @@ export class HeaderComponent implements OnInit, OnDestroy {
   onClickSubscribe() {
     this.visible = false;
     this.router.navigate(["/pages/subscriptions"]);
+  }
+
+  checkNewUser(): void {
+    this.service.getNewUserTimeLeft().subscribe(res => {
+      let data = res.time_left;
+      this.userLoginTimeLeftCount = false;
+      this.timer(data.minutes);
+    })
+  }
+
+  timer(minute: any): void{
+    let seconds: number = minute * 60;
+    let textSec: any = '0';
+    let statSec: number = 60;
+    const prefix = minute < 10 ? '0' : '';
+    this.timerInterval = setInterval(() => {
+      seconds--;
+      if (statSec != 0) statSec--;
+      else statSec = 59;
+      if (statSec < 10) {
+        textSec = '0' + statSec;
+      } else textSec = statSec;
+
+      this.timeLeftMins = `${prefix}${Math.floor(seconds / 60)}`
+      this.timeLeftSecs = `${textSec}`;
+      if (this.timeLeftMins == 0) {
+        this.visible = true;
+        clearInterval(this.timerInterval);
+      }
+    }, 1000);
   }
 
   onSubmit(op: any) {
