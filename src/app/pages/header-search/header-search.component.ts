@@ -125,10 +125,42 @@ export class HeaderSearchComponent implements OnInit, OnDestroy {
       }
       this.isSearchResultFound = true;
       this.searchResult = res.questions;
+      let searchedResult = this.searchInputValue;
+
+      searchedResult = searchedResult.split(" ");
+      this.searchResult.map((data: any) => {
+        let ans: any = '';
+        console.log(data.question);
+        //data.question = data.question;
+        let searchedResult = this.searchInputValue;
+        searchedResult = searchedResult.split(" ");
+        searchedResult.forEach((element: any) => {
+          console.log(element);
+          const small = new RegExp(element, "g");
+          const caps = new RegExp(element.toUpperCase(), "g");
+          data.question =  data.question.replace(small, '<span class="fw-bold">' + element + '</span>')
+          data.question = data.question.replace(caps, '<span class="fw-bold">' + element + '</span>');
+        });
+        // for (let x in searchedResult) {
+        //   console.log(x);
+        //   ans = ans.replace(new RegExp(x, 'g'), '<span class="fw-bold">' + x + '</span>');
+        // }
+      })
+      console.log(this.searchResult);
     }, err => {
       this.toastr.add({ severity: 'error', summary: 'Error', detail: err });
     });
   }
+
+  allReplace(str: any) {
+    let searchedResult = this.searchInputValue;
+    searchedResult = searchedResult.split(" ");
+    for (const x in searchedResult) {
+      str = str.replace(new RegExp(x, 'g'), '<span class="fw-bold">' + x + '</span>');
+    }
+    return str;
+  };
+
 
   gerSelectedQuestion(selectedQuestionData: any) {
     this.selectedQuestionData = selectedQuestionData;
