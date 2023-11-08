@@ -29,8 +29,7 @@ video::-webkit-media-controls-panel {
 }
 
 video {
-	display: block;
-	width: 100%;
+	width: 60%;
 	height: auto;
 }
 
@@ -64,7 +63,8 @@ h6 {
 p {
 	font-family: "Work Sans", sans-serif;
 	line-height: 2;
-	color: #8b939d;
+	color: #000;
+	font-weight:500;
 }
 
 .btn {
@@ -209,7 +209,7 @@ p {
 .faqcard .accordion-body {
 	text-align: start;
 	padding: 0.75rem 1rem;
-	color: #8b939d;
+	color: #000;
 }
 .marquee-container {
 	overflow: hidden;
@@ -328,7 +328,7 @@ p {
 }
 
 .comparision-card li {
-	color: #8b939d;
+	color: #000;
 	font-size: 0.9rem;
 }
 
@@ -350,7 +350,7 @@ p {
 }
 
 .comparision-card-uniprep li {
-	color: #8b939d;
+	color: #000;
 	font-size: 0.9rem;
 }
 
@@ -369,6 +369,7 @@ p {
 
 .challenge img {
 	width: 100px;
+	margin: auto;
 }
 
 .landingmodeswitch
