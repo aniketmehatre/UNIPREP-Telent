@@ -10,6 +10,7 @@ export class LandingComponent implements OnInit {
   isDarkMode: boolean;
   displaytandc!: boolean;
   displayprivacypolicy!: boolean;
+  currentImage: string = '/uniprep-assets/images/content.webp';
 
   showTandC() {
     this.displaytandc = true;
@@ -22,6 +23,10 @@ export class LandingComponent implements OnInit {
   constructor(private themeService: ThemeService) {
     // Initialize the isDarkMode property with the value from the service
     this.isDarkMode = this.themeService.getInitialSwitchState();
+  }
+
+  changeImage(imageName: string): void {
+    this.currentImage = '/uniprep-assets/images/' + imageName;
   }
 
   scrollToSection(event: Event, sectionId: string): void {
@@ -39,6 +44,7 @@ export class LandingComponent implements OnInit {
 
   ngOnInit() {
     // Any additional initialization can go here
+    this.currentImage = '../../../uniprep-assets/images/content.webp';
   }
 
   toggleTheme() {

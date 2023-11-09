@@ -297,7 +297,7 @@
 				<div class="accordion accordion-flush" id="accordionFeatures">
 					<div class="accordion-item featurecard">
 						<h2 class="accordion-header">
-							<button class="accordion-button uniprep-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne"><i class="fa-duotone fa-globe-pointer fa-xl mt-0 me-2"></i> One-stop global search platform</button>
+							<button class="accordion-button uniprep-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne" (click)="changeImage('../../../uniprep-assets/images/content.webp')"><i class="fa-duotone fa-globe-pointer fa-xl mt-0 me-2"></i> One-stop global search platform</button>
 						</h2>
 						<div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionFeatures">
 							<div class="accordion-body">
@@ -307,7 +307,7 @@
 					</div>
 					<div class="accordion-item featurecard">
 						<h2 class="accordion-header">
-							<button class="accordion-button uniprep-primary collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo"><i class="fa-duotone fa-angel fa-xl mt-0 me-2"></i> Personalized Advisory</button>
+							<button class="accordion-button uniprep-primary collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo" (click)="changeImage('../../../uniprep-assets/images/content.webp')"><i class="fa-duotone fa-angel fa-xl mt-0 me-2"></i> Personalized Advisory</button>
 						</h2>
 						<div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionFeatures">
 							<div class="accordion-body">
@@ -317,7 +317,7 @@
 					</div>
 					<div class="accordion-item featurecard">
 						<h2 class="accordion-header">
-							<button class="accordion-button uniprep-primary collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree"><i class="fa-duotone fa-keyboard fa-xl mt-0 me-2"></i> Smart keyword search</button>
+							<button class="accordion-button uniprep-primary collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree" (click)="changeImage('../../../uniprep-assets/images/featurethree.webp')"><i class="fa-duotone fa-keyboard fa-xl mt-0 me-2"></i> Smart keyword search</button>
 						</h2>
 						<div id="collapseThree" class="accordion-collapse collapse" data-bs-parent="#accordionFeatures">
 							<div class="accordion-body">
@@ -327,7 +327,7 @@
 					</div>
 					<div class="accordion-item featurecard">
 						<h2 class="accordion-header">
-							<button class="accordion-button uniprep-primary collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour"><i class="fa-duotone fa-calendar-pen fa-xl mt-0 me-2"></i> Verified and Up-to-date information</button>
+							<button class="accordion-button uniprep-primary collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour" (click)="changeImage('../../../uniprep-assets/images/featurefour.webp')"><i class="fa-duotone fa-calendar-pen fa-xl mt-0 me-2"></i> Verified and Up-to-date information</button>
 						</h2>
 						<div id="collapseFour" class="accordion-collapse collapse" data-bs-parent="#accordionFeatures">
 							<div class="accordion-body">
@@ -337,7 +337,7 @@
 					</div>
 					<div class="accordion-item featurecard">
 						<h2 class="accordion-header">
-							<button class="accordion-button uniprep-primary collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive"><i class="fa-duotone fa-user-shield fa-xl mt-0 me-2"></i> Reliable answers</button>
+							<button class="accordion-button uniprep-primary collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive" (click)="changeImage('../../../uniprep-assets/images/featurefive.webp')"><i class="fa-duotone fa-user-shield fa-xl mt-0 me-2"></i> Reliable answers</button>
 						</h2>
 						<div id="collapseFive" class="accordion-collapse collapse" data-bs-parent="#accordionFeatures">
 							<div class="accordion-body">
@@ -347,7 +347,7 @@
 					</div>
 					<div class="accordion-item featurecard">
 						<h2 class="accordion-header">
-							<button class="accordion-button uniprep-primary collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSix" aria-expanded="false" aria-controls="collapseSix"><i class="fa-duotone fa-briefcase fa-xl mt-0 me-2"></i> Resources to build your personal portfolio</button>
+							<button class="accordion-button uniprep-primary collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSix" aria-expanded="false" aria-controls="collapseSix" (click)="changeImage('../../../uniprep-assets/images/featuresix.webp')"><i class="fa-duotone fa-briefcase fa-xl mt-0 me-2"></i> Resources to build your personal portfolio</button>
 						</h2>
 						<div id="collapseSix" class="accordion-collapse collapse" data-bs-parent="#accordionFeatures">
 							<div class="accordion-body">
@@ -369,7 +369,8 @@
 			</div>
 
 			<div class="col-md-6 d-md-block d-none">
-				<img src="../../../uniprep-assets/images/content.webp" id="changingImage" alt="Image" class="w-100" />
+				<img [src]="currentImage" id="changingImage" alt="Image" class="w-100" />
+				<!-- <img src="../../../uniprep-assets/images/content.webp" id="changingImage" alt="Image" class="w-100" /> -->
 			</div>
 		</div>
 	</div>
