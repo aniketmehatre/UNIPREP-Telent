@@ -49,6 +49,8 @@ export class RegistrationComponent implements OnInit {
     resendTime = 1;
     startTimer = 0;
     interval: any;
+    showContactErrorIcon: boolean = false;
+    showEmailErrorIcon: boolean = false;
 
     showHidePassword() {
         if (this.password === 'password') {
@@ -100,16 +102,16 @@ export class RegistrationComponent implements OnInit {
                 location: ["", [Validators.required]],
                 contactNumber: ["", [Validators.required]],
                 emailAddress: ["", [Validators.required, Validators.email]],
-                interestedCountry: ["", [Validators.required]],
-                lastDegreePassingYear: ["", [Validators.required]],
-                intakeYear: ["", [Validators.required]],
-                intakeMonth: ["", [Validators.required]],
-                programLevel: ["", [Validators.required]],
+                // interestedCountry: ["", [Validators.required]],
+                // lastDegreePassingYear: ["", [Validators.required]],
+                // intakeYear: ["", [Validators.required]],
+                // intakeMonth: ["", [Validators.required]],
+                // programLevel: ["", [Validators.required]],
                 gender: ["", [Validators.required]],
                 password: ["", [Validators.required, Validators.minLength(8), matchValidator('confirmPassword', true)]],
                 confirmPassword: ["", [Validators.required, matchValidator('password')]],
-                terms: [false, [Validators.required]],
-                country: ["", [Validators.required]],
+                // terms: [false, [Validators.required]],
+                country: [14, [Validators.required]],
             }
         );
 
@@ -186,14 +188,14 @@ export class RegistrationComponent implements OnInit {
 
     onSubmit() {
         this.submitted = true;
-        if (this.registrationForm.value.terms == false) {
-            this.toastr.add({
-                severity: 'error',
-                summary: 'Alert!!!',
-                detail: "Please agree Terms and Condition before Signup"
-            });
-            return;
-        }
+        // if (this.registrationForm.value.terms == false) {
+        //     this.toastr.add({
+        //         severity: 'error',
+        //         summary: 'Alert!!!',
+        //         detail: "Please agree Terms and Condition before Signup"
+        //     });
+        //     return;
+        // }
         if (this.registrationForm.invalid) {
             this.toastr.add({severity: 'error', summary: 'Alert!!!', detail: "Fill all the information"});
             return;
@@ -203,17 +205,17 @@ export class RegistrationComponent implements OnInit {
             location_id: this.registrationForm.value.location?.id,
             phone: this.registrationForm.value.contactNumber,
             email: this.registrationForm.value.emailAddress,
-            interested_country_id: this.registrationForm.value.interestedCountry.id,
-            last_degree_passing_year: this.registrationForm.value.lastDegreePassingYear.getFullYear(),
-            intake_year_looking: this.registrationForm.value.intakeYear.getFullYear(),
-            intake_month_looking: this.registrationForm.value.intakeMonth.getMonth() + 1,
-            programlevel_id: this.registrationForm.value.programLevel.id,
+            // interested_country_id: this.registrationForm.value.interestedCountry.id,
+            // last_degree_passing_year: this.registrationForm.value.lastDegreePassingYear.getFullYear(),
+            // intake_year_looking: this.registrationForm.value.intakeYear.getFullYear(),
+            // intake_month_looking: this.registrationForm.value.intakeMonth.getMonth() + 1,
+            // programlevel_id: this.registrationForm.value.programLevel.id,
             gender: this.registrationForm.value.gender.label,
             password: this.registrationForm.value.password,
             password_confirmation: this.registrationForm.value.password,
             platform_id: 1,
             usertype_id: 1,
-            country_id: this.registrationForm.value.country.id,
+            country_id: this.registrationForm.value.country,
         };
 
         this.service.Registraion(data).subscribe(
@@ -447,5 +449,19 @@ export class RegistrationComponent implements OnInit {
 
     editEmailAgain(){
         this.isEmailOTPSend = false;
+    }
+
+    onChangeContact(event: any) {
+        this.showContactErrorIcon = false;
+        if(event?.target?.value?.length == 10) {
+            this.showContactErrorIcon = true;
+        }
+    }
+
+    onChangeEmail(event: any) {
+        this.showEmailErrorIcon = false;
+        if(this.registrationForm.controls['emailAddress'].valid) {
+            this.showEmailErrorIcon = true;
+        }
     }
 }
