@@ -63,10 +63,16 @@ h6 {
 p {
 	font-family: "Work Sans", sans-serif;
 	line-height: 2;
-	color: #000;
 	font-weight:500;
 }
-
+.darksection
+{
+	p
+	{
+		color: #000;
+	}
+	
+}
 .btn {
 	display: block;
 	border-radius: 100px !important;
@@ -102,7 +108,7 @@ p {
 	--bs-btn-border-color: var(--uniprep-primary);
 }
 .card {
-	background-color: #f5f5f5;
+	background-color: #F5F7FF;
 	border: none;
 	border-radius: 25px;
 }
@@ -142,36 +148,43 @@ p {
 	background: #f5f7ff;
 }
 
-.featurecard {
-	background: transparent;
-	border-radius: 0 !important;
-	overflow: hidden;
-	border-top: 1px solid #000 !important;
-	margin-bottom: 12px;
-	border-bottom: 0;
+.featurecard
+{
+    background:#F5F7FF;
+    border-radius: 12px !important;
+    overflow: hidden;
+    margin-bottom: 10px;
+    border: none;
 }
 
-.featurecard .accordion-collapse {
-	background: transparent;
+.featurecard .accordion-button::after
+{
+    display:none;
 }
 
-.featurecard .accordion-button:not(.collapsed) {
-	background: transparent;
+.featurecard .accordion-collapse
+{
+    background:#F5F7FF;
 }
 
-.featurecard .accordion-header button {
-	background: transparent;
-	box-shadow: none;
-	padding: 0.75rem 1rem;
-	font-weight: 600;
-	color: #000;
+.featurecard .accordion-button:not(.collapsed)
+{
+    background:#F5F7FF;
 }
 
-.featurecard .accordion-body {
-	text-align: start;
-	padding: 0.75rem 1rem;
+.featurecard .accordion-header button
+{
+    box-shadow: none;
+    padding: 0.75rem 1rem;
+    font-weight:600;
+    color:var(--uniprep-primary);
 }
 
+.featurecard .accordion-body
+{
+    text-align:start;
+    padding: 0.75rem 1rem;
+}
 
 .faqcard {
 	background: #f5f7ff;
@@ -221,6 +234,7 @@ p {
 .marquee {
 	display: flex;
 	width: calc(100% * 2); /* width of 2 images */
+	overflow: hidden;
 }
 
 .marquee-img {
@@ -315,7 +329,7 @@ p {
 
 .comparision-card {
 	background: white;
-	border: 1px solid #eaf4ff;
+	border: 1px solid #F5F7FF;
 }
 
 .comparision-card ul {
@@ -323,7 +337,7 @@ p {
 }
 
 .comparision-card hr {
-	border-top: 1px solid #eaf4ff;
+	border-top: 1px solid #F5F7FF;
 	opacity: 1;
 }
 
@@ -341,8 +355,8 @@ p {
 }
 
 .comparision-card-uniprep {
-	background: #eaf4ff;
-	border: 1px solid #eaf4ff;
+	background: #F5F7FF;
+	border: 1px solid #F5F7FF;
 }
 
 .comparision-card-uniprep ul {
@@ -367,10 +381,19 @@ p {
 	color: #5fbe14;
 }
 
-.challenge img {
-	width: 100px;
+.challenge 
+{
+	.card
+	{
+		width: 50%;
+		margin: auto;
+	}
+	img {
+	width: 100%;
 	margin: auto;
+	}
 }
+
 
 .landingmodeswitch
 {
