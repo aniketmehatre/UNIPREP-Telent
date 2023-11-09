@@ -198,7 +198,7 @@ export class RecentlyaddedquestionsComponent implements OnInit {
     this.isQuestionAnswerVisible = true;
     this.listQuestions.filter((res: any) => {
       if (res.id == selectedData.id) {
-        this.refLink = res.imagelink;
+        this.refLink = res.reflink;
         this.videoLinks = res.videolink;
       }
     });
