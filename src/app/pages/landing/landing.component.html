@@ -6,24 +6,26 @@
 			<img class="darkmodelogo" src="../../uniprep-assets/images/uniprep-dark.svg" />
 		</a>
 
+		<!-- Inside your component's template -->
 		<ul class="nav flex-row gap-2">
 			<li class="nav-item">
-				<a class="nav-link active uniprep-primary fw-semibold" aria-current="page" href="#home">Home</a>
+				<a class="nav-link active uniprep-primary fw-semibold" aria-current="page" href="#home" (click)="scrollToSection($event, 'home')">Home</a>
 			</li>
 			<li class="nav-item">
-				<a class="nav-link uniprep-primary fw-semibold" aria-label="About" href="#about">About</a>
+				<a class="nav-link uniprep-primary fw-semibold" aria-label="About" href="#about" (click)="scrollToSection($event, 'about')">About</a>
 			</li>
 			<li class="nav-item">
-				<a class="nav-link uniprep-primary fw-semibold" aria-label="Challenges" href="#challenges">Challenges</a>
+				<a class="nav-link uniprep-primary fw-semibold" aria-label="Challenges" href="#challenges" (click)="scrollToSection($event, 'challenges')">Challenges</a>
 			</li>
 			<li class="nav-item">
-				<a class="nav-link uniprep-primary fw-semibold" aria-label="Features" href="#features">Features</a>
+				<a class="nav-link uniprep-primary fw-semibold" aria-label="Features" href="#features" (click)="scrollToSection($event, 'features')">Features</a>
 			</li>
 			<li class="nav-item">
-				<a class="nav-link uniprep-primary fw-semibold" aria-label="FAQ" href="#faq">F.A.Q</a>
+				<a class="nav-link uniprep-primary fw-semibold" aria-label="FAQ" href="#faq" (click)="scrollToSection($event, 'faq')">F.A.Q</a>
 			</li>
 			<!-- Add other desktop menu items as needed -->
 		</ul>
+
 		<div class="d-flex gap-3">
 			<a [routerLink]="['/login']" class="text-decoration-none"><button type="button" class="btn btn-primary px-4 py-2 m-0">Login</button></a>
 			<a href="/register" class="text-decoration-none"><button type="button" class="btn btn-secondary px-4 py-2 m-0">Try for Free</button></a>
@@ -53,19 +55,19 @@
 				<!-- Mobile menu items -->
 				<ul class="nav flex-column gap-3">
 					<li class="nav-item">
-						<a class="nav-link active uniprep-primary fw-semibold" aria-current="page" href="#home">Home</a>
+						<a class="nav-link active uniprep-primary fw-semibold" aria-current="page" href="#home" (click)="scrollToSection($event, 'home')">Home</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link d-block uniprep-primary fw-semibold" aria-label="About" href="#about">About</a>
+						<a class="nav-link uniprep-primary fw-semibold" aria-label="About" href="#about" (click)="scrollToSection($event, 'about')">About</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link d-block uniprep-primary fw-semibold" aria-label="Challenges" href="#challenges">Challenges</a>
+						<a class="nav-link uniprep-primary fw-semibold" aria-label="Challenges" href="#challenges" (click)="scrollToSection($event, 'challenges')">Challenges</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link d-block uniprep-primary fw-semibold" aria-label="Features" href="#features">Features</a>
+						<a class="nav-link uniprep-primary fw-semibold" aria-label="Features" href="#features" (click)="scrollToSection($event, 'features')">Features</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link d-block uniprep-primary fw-semibold" aria-label="FAQ" href="#faq">F.A.Q</a>
+						<a class="nav-link uniprep-primary fw-semibold" aria-label="FAQ" href="#faq" (click)="scrollToSection($event, 'faq')">F.A.Q</a>
 					</li>
 					<!-- Add other mobile menu items as needed -->
 					<a href="/register" class="text-decoration-none"><button type="button" class="btn btn-primary px-4 py-2 m-0">Try for Free</button></a>

@@ -24,6 +24,19 @@ export class LandingComponent implements OnInit {
     this.isDarkMode = this.themeService.getInitialSwitchState();
   }
 
+  scrollToSection(event: Event, sectionId: string): void {
+    // Prevent the default anchor link behavior
+    event.preventDefault();
+
+    // Find the element with the given section ID
+    const section = document.querySelector(`#${sectionId}`);
+
+    // If the section exists, scroll to it smoothly
+    if (section) {
+      section.scrollIntoView({ behavior: 'smooth' });
+    }
+  }
+
   ngOnInit() {
     // Any additional initialization can go here
   }
