@@ -329,7 +329,7 @@ p {
 
 .comparision-card {
 	background: white;
-	border: 1px solid #F5F7FF;
+	border: 1px solid #e2e2e2;
 }
 
 .comparision-card ul {
@@ -344,19 +344,22 @@ p {
 .comparision-card li {
 	color: #000;
 	font-size: 0.9rem;
+	font-weight: 500;
 }
 
 .comparision-card .crossmark {
 	color: #f33f3f;
+	margin-right: 0.5rem;
 }
 
 .comparision-card .checkmark {
 	color: #5fbe14;
+	margin-right: 0.5rem;
 }
 
 .comparision-card-uniprep {
 	background: #F5F7FF;
-	border: 1px solid #F5F7FF;
+	border: 1px solid #8d98cc;
 }
 
 .comparision-card-uniprep ul {
@@ -366,6 +369,7 @@ p {
 .comparision-card-uniprep li {
 	color: #000;
 	font-size: 0.9rem;
+	font-weight: 600;
 }
 
 .comparision-card-uniprep hr {
@@ -375,10 +379,12 @@ p {
 
 .comparision-card-uniprep .crossmark {
 	color: #f33f3f;
+	margin-right: 0.5rem;
 }
 
 .comparision-card-uniprep .checkmark {
 	color: #5fbe14;
+	margin-right: 0.5rem;
 }
 
 .challenge 
