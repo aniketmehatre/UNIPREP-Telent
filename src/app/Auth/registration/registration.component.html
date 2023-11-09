@@ -20,7 +20,7 @@
 								<div class="container">
 									<div class="row">
 										<div class="col-md-12 col-lg-12">
-											<h5 class="login-heading mt-3 mb-3 fw-bold">Welcome, Please Register to your <span class="font-primarycolor">account.</span></h5>
+											<h5 class="login-heading mt-3 mb-3 fw-bold">Welcome, Please Register to your account.</h5>
 											<hr />
 											<p class="signup">
 												Already have an account?<span><a class="font-primarycolor" href="login"> Login</a></span>
@@ -40,15 +40,15 @@
 														</div>
 													</div>
 													<div class="col-md-6 col-12">
-														<label for="country">Home Country</label>
+														<label for="gender">Gender</label>
 														<div class="p-inputgroup">
 															<div class="p-inputgroup-addon">
-																<i class="fa-regular fa-earth-americas"></i>
+																<i class="fa-regular fa-venus-mars"></i>
 															</div>
-															<p-dropdown formControlName="country" id="country" [options]="homeCountryList" optionLabel="country" [autoDisplayFirst]="false"></p-dropdown>
+															<p-dropdown formControlName="gender" [options]="genderList" [autoDisplayFirst]="false" optionLabel="value"></p-dropdown>
 														</div>
-														<div *ngIf="submitted && f.country.errors" class="invalid-feedback">
-															<div *ngIf="f.country.errors.required">Home Country is required</div>
+														<div *ngIf="submitted && f.gender.errors" class="invalid-feedback">
+															<div *ngIf="f.gender.errors.required">Gender is required</div>
 														</div>
 													</div>
 													<div class="col-md-6 col-12">
@@ -57,9 +57,9 @@
 															<div class="p-inputgroup-addon">
 																<i class="fa-regular fa-phone"></i>
 															</div>
-															<input type="number" class="border-0" pInputText id="contactNumber" formControlName="contactNumber" placeholder="Contact Number" [readonly]="isMobileOTPSend" [ngClass]="{ 'is-invalid': submitted && f.contactNumber.errors }" />
+															<input type="number" class="border-0" pInputText id="contactNumber" formControlName="contactNumber" placeholder="Contact Number" [readonly]="isMobileOTPSend" [ngClass]="{ 'is-invalid': submitted && f.contactNumber.errors }" (keyup)="onChangeContact($event)"/>
 															<div class="p-2">
-																<span *ngIf="!isMobileOTPValidated">
+																<span *ngIf="!isMobileOTPValidated && showContactErrorIcon">
 																	<i class="fa-solid fa-circle-exclamation text-danger"></i>
 																</span>
 																<span *ngIf="isMobileOTPValidated">
@@ -77,9 +77,9 @@
 															<div class="p-inputgroup-addon">
 																<i class="fa-regular fa-envelope"></i>
 															</div>
-															<input type="email" pInputText class="border-0 w-full" id="emailAddress" [readonly]="isEmailOTPSend" formControlName="emailAddress" [ngClass]="{ 'is-invalid': submitted && f.emailAddress.errors }" />
+															<input type="email" pInputText class="border-0 w-full" id="emailAddress" [readonly]="isEmailOTPSend" formControlName="emailAddress" [ngClass]="{ 'is-invalid': submitted && f.emailAddress.errors }" (keyup)="onChangeEmail($event)"/>
 															<div class="p-2">
-																<span *ngIf="!isEmailOTPValidated">
+																<span *ngIf="!isEmailOTPValidated && showEmailErrorIcon">
 																	<i class="fa-solid fa-circle-exclamation text-danger"></i>
 																</span>
 																<span *ngIf="isEmailOTPValidated">
@@ -171,7 +171,7 @@
 													</div>
 												</div>
 												<div *ngIf="isRemainingFieldVisible">
-													<div class="row g-3">
+													<!-- <div class="row g-3">
 														<div class="col-md-6 col-12">
 															<label for="interestedCountry">Interested Country </label>
 															<div class="p-inputgroup">
@@ -191,16 +191,6 @@
 																<div class="p-inputgroup-addon">
 																	<i class="fa-regular fa-calendar-clock"></i>
 																</div>
-																<!--                      <input-->
-																<!--                        type="number"-->
-																<!--                        class="border-0"-->
-																<!--                        pInputText-->
-																<!--                        formControlName="lastDegreePassingYear"-->
-																<!--                        [ngClass]="{-->
-																<!--                          'is-invalid': submitted && f.lastDegreePassingYear.errors-->
-																<!--                        }"-->
-																<!--                      />-->
-
 																<p-calendar view="year" dateFormat="yy" inputId="pickYear" class="pt-2" formControlName="lastDegreePassingYear" [maxDate]="dateTime" [readonlyInput]="false" placeholder=""> </p-calendar>
 															</div>
 															<div *ngIf="submitted && f.lastDegreePassingYear.errors" class="invalid-feedback">
@@ -215,15 +205,6 @@
 																<div class="p-inputgroup-addon">
 																	<i class="fa-regular fa-calendar-circle-plus"></i>
 																</div>
-																<!--                      <p-dropdown-->
-																<!--                        formControlName="intakeYear"-->
-																<!--                        #intakeYear-->
-																<!--                        [options]="intakeYearLooking"-->
-																<!--                        [autoDisplayFirst]="false"-->
-																<!--                        (onChange)="yearChange($event)"-->
-																<!--                        optionLabel="value"-->
-																<!--                      ></p-dropdown>-->
-
 																<p-calendar (onSelect)="yearChage($event)" view="year" dateFormat="yy" inputId="pickYear" class="pt-2" formControlName="intakeYear" [minDate]="dateTime" [readonlyInput]="false" placeholder=""> </p-calendar>
 															</div>
 															<div *ngIf="submitted && f.intakeYear.errors" class="invalid-feedback">
@@ -237,13 +218,6 @@
 																<div class="p-inputgroup-addon">
 																	<i class="fa-regular fa-calendar-day"></i>
 																</div>
-																<!--                      <p-dropdown-->
-																<!--                        formControlName="intakeMonth"-->
-																<!--                        [options]="intakeMonthLooking"-->
-																<!--                        [autoDisplayFirst]="false"-->
-																<!--                        optionLabel="value"-->
-																<!--                      ></p-dropdown>-->
-
 																<p-calendar view="month" dateFormat="MM" formControlName="intakeMonth" inputId="pickMonth" [yearNavigator]="true" class="pt-2" [readonlyInput]="false" [minDate]="dateTime" placeholder=""> </p-calendar>
 															</div>
 															<div *ngIf="submitted && f.intakeMonth.errors" class="invalid-feedback">
@@ -264,17 +238,30 @@
 																<div *ngIf="f.location.errors.required">Location is required</div>
 															</div>
 														</div>
-
+													</div> -->
+													<div class="row g-3">
 														<div class="col-md-6 col-12">
-															<label for="gender">Gender</label>
+															<label for="country">Home Country</label>
 															<div class="p-inputgroup">
 																<div class="p-inputgroup-addon">
-																	<i class="fa-regular fa-venus-mars"></i>
+																	<i class="fa-regular fa-earth-americas"></i>
 																</div>
-																<p-dropdown formControlName="gender" [options]="genderList" [autoDisplayFirst]="false" optionLabel="value"></p-dropdown>
+																<p-dropdown formControlName="country" id="country" [options]="countryList" optionValue="id" optionLabel="country" [autoDisplayFirst]="false"></p-dropdown>
 															</div>
-															<div *ngIf="submitted && f.gender.errors" class="invalid-feedback">
-																<div *ngIf="f.gender.errors.required">Gender is required</div>
+															<div *ngIf="submitted && f.country.errors" class="invalid-feedback">
+																<div *ngIf="f.country.errors.required">Home Country is required</div>
+															</div>
+														</div>
+														<div class="col-md-6 col-12">
+															<label for="location">Location</label>
+															<div class="p-inputgroup">
+																<div class="p-inputgroup-addon">
+																	<i class="fa-regular fa-location-dot"></i>
+																</div>
+																<p-dropdown formControlName="location" id="location" [filter]="true" [filterBy]="'district'" [options]="locationList" optionLabel="district" [autoDisplayFirst]="false"></p-dropdown>
+															</div>
+															<div *ngIf="submitted && f.location.errors" class="invalid-feedback">
+																<div *ngIf="f.location.errors.required">Location is required</div>
 															</div>
 														</div>
 													</div>
@@ -334,28 +321,15 @@
 															</div>
 														</div>
 													</div>
-													<div class="row g-3">
-														<div class="col-md-6 col-12">
-														<label for="location">Location</label>
-														<div class="p-inputgroup">
-															<div class="p-inputgroup-addon">
-																<i class="fa-regular fa-location-dot"></i>
-															</div>
-															<p-dropdown formControlName="location" id="location" [filter]="true" [filterBy]="'district'" [options]="locationList" optionLabel="district" [autoDisplayFirst]="false"></p-dropdown>
-														</div>
-														<div *ngIf="submitted && f.location.errors" class="invalid-feedback">
-															<div *ngIf="f.location.errors.required">Location is required</div>
-														</div>
-													</div>
-													</div>
+													
 													<br />
-													<div class="form-check mb-3">
+													<!-- <div class="form-check mb-3">
 														<input class="form-check-input" class="input_checkbox" type="checkbox" id="terms" formControlName="terms" />
 														<label class="form-check-label agree" for="terms">
 															I agree to the
 															<a class="font-primarycolor" (click)="openTermsPopup()"> terms and Conditions</a>.
 														</label>
-													</div>
+													</div> -->
 													<br />
 													<div class="d-grid">
 														<button class="pt-3 pb-3 btn btn-primary btn-login text-uppercase fw-bold m-0" type="submit">Sign Up</button>
