@@ -146,7 +146,8 @@ export class EventsComponent implements OnInit {
           eventdescription:list.eventdescription,
           countrylog:list.countryFlag,
           daysago:list.remainingTime,
-          registered:list.registered
+          registered:list.registered,
+          registerusercount:list.registered_users_count
         }
         this.totalcount=res.count
         this.upcommingevent.push(bindingdata)
@@ -203,7 +204,8 @@ export class EventsComponent implements OnInit {
           from: this.timeformatchange(list.from),
           to:this.timeformatchange(list.to),
           eventdescription:list.eventdescription,
-          countrylog:list.countryFlag
+          countrylog:list.countryFlag,
+          registerusercount:list.registered_users_count
         }
         this.totalcountpost=res.count
         this.postevetdetaisl.push(bindingdata)
@@ -229,4 +231,17 @@ performSearch(events:any){
   }
   this.getEventUpComming(data)
   }
+  registerButton(event:any){
+    var data={
+      id:event
+    }
+    this.service.registered(data).subscribe((response)=>{
+        this.toast.add({ severity: 'success', summary: 'Success', detail: response.message });
+        this.ngOnInit()
+    },
+    error => {
+      this.toast.add({ severity: 'error', summary: 'Error', detail: error.message });
+      // this.router.navigate(['/subscribers']);
+    });
+}
 }
