@@ -1,22 +1,20 @@
 ::ng-deep .p-card-header {
-  padding:0.5rem 1rem;
+  padding: 0.5rem 1rem;
   background-color: var(--uniprep-primary);
   color: white;
 }
 
-.chatprofile
-{
-  width:50px;
-  height:50px;
+.chatprofile {
+  width: 50px;
+  height: 50px;
   border-radius: 100px;
   background-color: white;
   display: flex;
   justify-content: center;
   align-items: center;
-  img
-  {
-    width:100%;
-    padding:4px;
+  img {
+    width: 100%;
+    padding: 4px;
   }
 }
 
@@ -61,7 +59,7 @@
 }
 .msg-info {
   font-size: smaller;
-  margin-left:40px;
+  margin-left: 40px;
 }
 
 .message-active {
@@ -122,7 +120,7 @@
     .timer {
       span {
         //background-color: black !important;
-        height:auto;
+        height: auto;
       }
     }
   }
@@ -139,18 +137,16 @@
   width: auto;
   margin-right: 10px;
 }
-:host ::ng-deep .p-dialog-content{
+:host ::ng-deep .p-dialog-content {
   overflow: visible !important;
 }
-.btn-credit
-{
-  background: #68729D;
-  border:1px solid #fff;
+.btn-credit {
+  background: #68729d;
+  border: 1px solid #fff;
   color: white;
   font-size: 1rem;
 }
-.btn-chat
-{
+.btn-chat {
   background: white;
   padding: 1rem 1.5rem;
 }
@@ -160,7 +156,7 @@
   vertical-align: baseline;
   margin-left: 10px;
   padding: 0.5rem 1rem;
-  color:#000;
+  color: #000;
 }
 a {
   cursor: pointer;
@@ -276,14 +272,14 @@ countryimage {
   border-bottom: 1px solid lightgray;
   width: 100%;
 }
-.response-msg-question{
+.response-msg-question {
   margin-left: 40px;
   background-color: #e6e7ed;
   width: fit-content;
   padding-right: 30px;
   margin-bottom: -16px;
   padding-left: 10px;
-  border-top-left-radius:0;
+  border-top-left-radius: 0;
 }
 .response-msg-attach {
   margin-left: 40px;
@@ -293,13 +289,13 @@ countryimage {
   border-top-left-radius: 0;
   border-bottom-left-radius: 0;
   width: 50%;
-  label{
+  label {
     width: 80%;
     overflow: hidden;
   }
-  a{
-    float: right; 
-    i{
+  a {
+    float: right;
+    i {
       font-size: 25px;
     }
   }
@@ -331,7 +327,7 @@ countryimage {
       border: none !important;
       color: #3f4c83;
     }
-    :focus{
+    :focus {
       background: none !important;
       border: none !important;
       color: #3f4c83;
@@ -448,12 +444,12 @@ countryimage {
     .timer {
       span {
         //background-color: black !important;
-        height:auto
+        height: auto;
       }
     }
   }
 }
-.p-inputtext{
+.p-inputtext {
   width: -webkit-fill-available !important;
 }
 .credits {
@@ -467,7 +463,7 @@ countryimage {
   width: auto;
   margin-right: 10px;
 }
-:host ::ng-deep .p-dialog-content{
+:host ::ng-deep .p-dialog-content {
   overflow: visible !important;
 }
 
@@ -475,8 +471,10 @@ countryimage {
   content: "\26F6";
   padding: 0 !important;
   font-weight: bold;
-}::ng-deep {
+}
+::ng-deep {
   .fullscreen {
+    z-index: 10 !important;
     background-color: white;
     .form-group {
       height: 100%;
@@ -602,7 +600,6 @@ countryimage {
   font-weight: 600;
 }
 
-
 .chat-section {
   display: flex;
   gap: 10px;
@@ -638,6 +635,7 @@ countryimage {
 }
 
 ::ng-deep .p-confirm-popup {
+  z-index: 9999;
   width: 375px;
   font-size: medium;
   font-weight: 600;
@@ -656,7 +654,7 @@ countryimage {
       border: none !important;
       color: #3f4c83;
     }
-    :focus{
+    :focus {
       background: none !important;
       border: none !important;
       color: #3f4c83;
