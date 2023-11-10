@@ -157,6 +157,13 @@ p {
     border: none;
 }
 
+.featureimage
+{
+	border-radius: 20px;
+    overflow: hidden;
+    border: 1px solid #f5f7ff;
+}
+
 .featurecard .accordion-button::after
 {
     display:none;

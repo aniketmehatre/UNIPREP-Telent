@@ -4,16 +4,19 @@ import {AuthGuard} from "./Auth/auth.guard";
 import {UserResolver} from "./resolvers/user.resolver";
 import { LandingComponent } from "./pages/landing/landing.component";
 import { AppComponent } from "./app.component";
-
 const routes: Routes = [
   {
-    path: "",
-    component: AppComponent ,
-    children: [{ path: "", component: LandingComponent }],
+    path: '',
+    redirectTo: '/landing',
+    pathMatch: 'full'
   },
   {
-    path: "pages",
-    loadChildren: () => import("./pages/pages.module").then((m) => m.PagesModule),
+    path: 'landing',
+    component: LandingComponent
+  },
+  {
+    path: 'pages',
+    loadChildren: () => import('./pages/pages.module').then((m) => m.PagesModule),
     canActivate: [AuthGuard],
     resolve: {
       user: UserResolver
@@ -23,10 +26,10 @@ const routes: Routes = [
     path: "",
     loadChildren: () =>
     import("./Auth/auth.module").then((m) => m.AuthModule),
-  }
-  ,{
-    path: "**",
-    redirectTo: "",
+  },
+  {
+    path: '**',
+    redirectTo: '/landing'
   },
 ];
 
