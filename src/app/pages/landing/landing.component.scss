@@ -113,16 +113,6 @@ p {
 	border-radius: 25px;
 }
 
-.card img {
-	transform: scale(0.75);
-	transition: 0.2s;
-}
-
-.card:hover img {
-	transform: scale(1);
-	transition: 0.2s;
-}
-
 .benefitcard {
 	background: transparent;
 	transition: 0.2s;
@@ -155,6 +145,13 @@ p {
     overflow: hidden;
     margin-bottom: 10px;
     border: none;
+}
+
+.featureimage
+{
+	border-radius: 20px;
+    overflow: hidden;
+    border: 1px solid #f5f7ff;
 }
 
 .featurecard .accordion-button::after
@@ -257,8 +254,8 @@ p {
 		transform: translateX(-100%);
 	}
 }
-.bg-primary {
-	background-color: #3f4c83 !important;
+.bg-lightblue {
+	background-color: #3f4c83;
 }
 
 .bg-mediumblue {
@@ -393,6 +390,15 @@ p {
 	{
 		width: 50%;
 		margin: auto;
+	}
+	.card img {
+		transform: scale(0.75);
+		transition: 0.2s;
+	}
+	
+	.card:hover img {
+		transform: scale(1);
+		transition: 0.2s;
 	}
 	img {
 	width: 100%;
