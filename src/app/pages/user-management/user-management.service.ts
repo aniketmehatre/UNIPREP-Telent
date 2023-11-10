@@ -44,4 +44,11 @@ export class UserManagementService {
       headers: headers,
     });
   }
+
+  updateUserData(data: any) {
+    const headers = new HttpHeaders().set("Accept", "application/json");
+    return this.httpClient.post<any>(environment.ApiUrl + "/profileedit", data, {
+      headers: headers,
+    });
+  }
 }

@@ -40,15 +40,16 @@
                 <div class="container-fluid px-0 mb-3">
                     <div class="card card-body">
                         <div class="row">
-                            <div class="d-flex col-sm-5 col-md-6  justify-content-between">
+                            <div class="d-flex justify-content-between">
                                 <h4>Personal information</h4>
+                                <p class="mb-0 fw-semibold" (click)="ShowPersonalInfo=true;" style="cursor: pointer;"><i class="fa-sharp fa-regular fa-edit mr-2"></i>Edit Request</p>
                             </div>
                             <!-- <div class="d-flex col-sm-5 col-md-6 justify-content-end">
                                 <button class="btn btn-primary" *ngIf="!ShowPersonalInfo" (click)="EditPageShowAndHide('Edit')" ><i class="mr-1 fa-regular fa-pen-to-square"></i> &nbsp; Edit &nbsp; </button>
                                 <button class="btn btn-danger" *ngIf="ShowPersonalInfo" (click)="EditPageShowAndHide('cancel')" ><i class="fa-sharp fa-solid fa-xmark " style="color: #ffffff;"></i> &nbsp; Cancel &nbsp; </button>
                             </div> -->
                         </div>
-                        <div  > <!--*ngIf="!ShowPersonalInfo" -->
+                        <div  *ngIf="!ShowPersonalInfo"> <!--*ngIf="!ShowPersonalInfo" -->
                             <div class="row">
                                 <div class="container-fluid">
                                     <div class="d-flex">
@@ -66,7 +67,7 @@
                                         </div>
                                         <div class="col-md-3 p-4">
                                             <small>Intrested Country</small>
-                                            <p class="mb-0 fw-semibold">{{ PersonalInfo?.intrested_country }}</p>
+                                            <p class="mb-0 fw-semibold">{{ PersonalInfo?.intrested_country || '-' }}</p>
                                         </div>
                                     </div>
                                 </div>
@@ -76,26 +77,26 @@
                                     <div class="d-flex">
                                         <div class="col-md-3 p-4">
                                             <small>Last Degree Passing Year</small>
-                                            <p class="mb-0 fw-semibold">{{ PersonalInfo?.last_degree_passing_year }}</p>
+                                            <p class="mb-0 fw-semibold">{{ PersonalInfo?.last_degree_passing_year || '-' }}</p>
                                         </div>
                                         <div class="col-md-3 p-4">
                                             <small>Intake Month</small>
-                                            <p class="mb-0 fw-semibold">{{ PersonalInfo?.intake_month_looking }}</p>
+                                            <p class="mb-0 fw-semibold">{{ PersonalInfo?.intake_month_looking || '-' }}</p>
                                         </div>
                                         <div class="col-md-3 p-4">
                                             <small>Intake Year</small>
-                                            <p class="mb-0 fw-semibold">{{ PersonalInfo?.intake_year_looking }}</p>
+                                            <p class="mb-0 fw-semibold">{{ PersonalInfo?.intake_year_looking || '-' }}</p>
                                         </div>
                                         <div class="col-md-3 p-4">
                                             <small>Program Level</small>
-                                            <p class="mb-0 fw-semibold">{{ PersonalInfo?.programlevel }}</p>
+                                            <p class="mb-0 fw-semibold">{{ PersonalInfo?.programlevel || '-' }}</p>
                                         </div>
                                         
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <!-- <div *ngIf="ShowPersonalInfo">
+                        <div *ngIf="ShowPersonalInfo">
                             <form (ngSubmit)="onSubmit()" [formGroup]="registrationForm">
                                 <div class="container-fluid">
                                     
@@ -123,7 +124,7 @@
                                                             src="../../../uniprep-assets/images/icons/Uniprep_Icons_select_country.png"/>
                                                     </div>
                                                     <p-dropdown formControlName="home_country"  appendTo="body" [options]="countryList"
-                                                                filterBy="name" optionLabel="country" optionValue="id"></p-dropdown>
+                                                                filterBy="name" optionLabel="country" optionValue="id" [autoDisplayFirst]="false"></p-dropdown>
                                                 </div>
                                                 <div *ngIf="submitted && f['home_country']['errors']" class="UserInfoValidation">
                                                     <div *ngIf="f['home_country']['errors']['required']">
@@ -140,7 +141,7 @@
                                                     </div>
                                                     <p-dropdown [filter]="true"  appendTo="body" [options]="locationList"
                                                                 formControlName="location_id" optionLabel="district"
-                                                                optionValue="id">
+                                                                optionValue="id" [autoDisplayFirst]="false">
                                                     </p-dropdown>
                                                 </div>
                                                 <div *ngIf="submitted && f['location_id']['errors']" class="UserInfoValidation">
@@ -162,13 +163,13 @@
                                                             src="../../../uniprep-assets/images/icons/Uniprep_Icons_select_country.png"/>
                                                     </div>
                                                     <p-dropdown formControlName="interested_country_id"  appendTo="body" [options]="countryList"
-                                                                filterBy="name" optionLabel="country" optionValue="id"></p-dropdown>
+                                                                filterBy="name" optionLabel="country" optionValue="id" [autoDisplayFirst]="false"></p-dropdown>
                                                 </div>
-                                                <div *ngIf="submitted && f['interested_country_id']['errors']" class="UserInfoValidation">
+                                                <!-- <div *ngIf="submitted && f['interested_country_id']['errors']" class="UserInfoValidation">
                                                     <div *ngIf="f['interested_country_id']['errors']['required']">
                                                         Country is required
                                                     </div>
-                                                </div>
+                                                </div> -->
                                             </div>
                                             <div class="col-md-4 p-2">
                                                 <label>Last Degree Passing Year</label>
@@ -182,12 +183,12 @@
                                                                 view="year">
                                                     </p-calendar>
                                                 </div>
-                                                <div *ngIf="submitted && f['last_degree_passing_year']['errors']"
+                                                <!-- <div *ngIf="submitted && f['last_degree_passing_year']['errors']"
                                                     class="UserInfoValidation">
                                                     <div *ngIf="f['last_degree_passing_year']['errors']['required']">
                                                         Passing Year is required
                                                     </div>
-                                                </div>
+                                                </div> -->
                                             </div>
                                             <div class="col-md-4 p-2">
                                                 <label>Inake Year Looking</label>
@@ -201,11 +202,11 @@
                                                                 inputId="yearpicker"
                                                                 view="year"></p-calendar>
                                                 </div>
-                                                <div *ngIf="submitted && f['intake_year_looking']['errors']" class="UserInfoValidation">
+                                                <!-- <div *ngIf="submitted && f['intake_year_looking']['errors']" class="UserInfoValidation">
                                                     <div *ngIf="f['intake_year_looking']['errors']['required']">
                                                         Intake Year is required
                                                     </div>
-                                                </div>
+                                                </div> -->
                                             </div>
                                         </div>
                                     </div>
@@ -224,6 +225,11 @@
                                                                 placeholder="">
                                                     </p-calendar>
                                                 </div>
+                                                <!-- <div *ngIf="submitted && f['intake_month_looking']['errors']" class="UserInfoValidation">
+                                                    <div *ngIf="f['intake_month_looking']['errors']['required']">
+                                                        Intake Month Looking is required
+                                                    </div>
+                                                </div> -->
                                             </div>
                                             <div class="col-md-4 p-2">
                                                 <label>Program Level</label>
@@ -234,15 +240,15 @@
                                                     </div>
                                                     <p-dropdown [filter]="true" [options]="programlevelList" appendTo="body" 
                                                     filterBy="programlevel" formControlName="programlevel_id" optionLabel="programlevel"
-                                                                optionValue="id"></p-dropdown>
+                                                                optionValue="id" [autoDisplayFirst]="false"></p-dropdown>
                                                 </div>
-                                                <div *ngIf="submitted && f['programlevel_id']['errors']" class="UserInfoValidation">
+                                                <!-- <div *ngIf="submitted && f['programlevel_id']['errors']" class="UserInfoValidation">
                                                     <div *ngIf="f['programlevel_id']['errors']['required']">
                                                         Program Level is required
                                                     </div>
-                                                </div>
+                                                </div> -->
                                             </div>
-                                            <div class="col-md-4 p-2">
+                                            <!-- <div class="col-md-4 p-2">
                                                 <label>Gender</label>
                                                 <div class="p-inputgroup">
                                                     <div class="p-inputgroup-addon">
@@ -251,14 +257,14 @@
                                                     </div>
                                                     <p-dropdown [filter]="true" [options]="genderList" appendTo="body"
                                                                 filterBy="name" formControlName="gender" optionLabel="name"
-                                                                optionValue="code"></p-dropdown>
+                                                                optionValue="code" [autoDisplayFirst]="false"></p-dropdown>
                                                 </div>
                                                 <div *ngIf="submitted && f['gender']['errors']" class="UserInfoValidation">
                                                     <div *ngIf="f['gender']['errors']['required']">
                                                         Gender is required
                                                     </div>
                                                 </div>
-                                            </div>
+                                            </div> -->
                                         </div>
                                     </div>
                                 </div>
@@ -266,7 +272,7 @@
                                     <button type="submit" class="btn btn-primary" ><i class="fa-solid fa-circle-up mt-1" style="color: #ffffff;"></i> &nbsp; Update Info &nbsp;</button>
                                 </div>
                             </form>
-                        </div> -->
+                        </div>
                     </div>
                 </div>
                 <div class="accordion accordionpassword mb-3" id="accordionPanelsStayOpenExample" >
