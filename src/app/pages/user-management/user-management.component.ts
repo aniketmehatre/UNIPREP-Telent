@@ -115,15 +115,15 @@ export class UserManagementComponent implements OnInit {
     GetPersonalProfileData(){
         this.userManagementService.GetUserPersonalInfo().subscribe(data => {
             this.PersonalInfo = data;
-            let mon = this.getMonthName(this.PersonalInfo?.intake_month_looking);
+            let mon = this.PersonalInfo?.intake_month_looking == null ? null : this.getMonthName(this.PersonalInfo?.intake_month_looking);
             this.registrationForm.patchValue({
                 name: this.PersonalInfo?.name,
-                location_id: this.user?.location_id,
-                interested_country_id: Number(this.PersonalInfo?.intrested_country),
-                home_country: Number(this.user?.country),
+                location_id: this.PersonalInfo?.location_id,
+                interested_country_id: this.PersonalInfo?.interested_country_id == null ? null : Number(this.PersonalInfo?.interested_country_id),
+                home_country: this.PersonalInfo?.country == null ? null : Number(this.PersonalInfo?.country),
                 last_degree_passing_year: this.PersonalInfo?.last_degree_passing_year,
                 intake_year_looking: this.PersonalInfo?.intake_year_looking,
-                intake_month_looking: this.PersonalInfo?.intake_year_looking == null ? "" : new Date(mon+"/"+this.PersonalInfo?.intake_year_looking),
+                intake_month_looking: this.PersonalInfo?.intake_year_looking == null ? null : new Date(mon+"/"+this.PersonalInfo?.intake_year_looking),
                 programlevel_id: this.PersonalInfo?.programlevel_id,
             });
         });
@@ -208,17 +208,18 @@ export class UserManagementComponent implements OnInit {
         }
         var data = {
             userId: this.PersonalInfo?.user_id,
-            name: this.registrationForm.value.name,
-            location_id: this.registrationForm.value.location_id,
-            interested_country_id: this.registrationForm.value.interested_country_id,
-            last_degree_passing_year: this.registrationForm.value.last_degree_passing_year.getFullYear(),
-            intake_year_looking: this.registrationForm.value.intake_year_looking.getFullYear(),
-            intake_month_looking: this.registrationForm.value.intake_month_looking.getMonth() + 1,
-            programlevel_id: this.registrationForm.value.programlevel_id,
-            country_id: this.registrationForm.value.home_country,
+            name: this.registrationForm.value?.name,
+            location_id: this.registrationForm.value?.location_id,
+            interested_country_id: this.registrationForm.value?.interested_country_id == null ? "" : this.registrationForm.value?.interested_country_id,
+            last_degree_passing_year: this.registrationForm.value?.last_degree_passing_year == null ? "" : this.registrationForm.value?.last_degree_passing_year?.getFullYear(),
+            intake_year_looking: this.registrationForm.value?.intake_year_looking == null ? "" : this.registrationForm.value?.intake_year_looking?.getFullYear(),
+            intake_month_looking: this.registrationForm.value?.intake_month_looking == null ? "" : this.registrationForm.value?.intake_month_looking?.getMonth() + 1,
+            programlevel_id: this.registrationForm.value?.programlevel_id,
+            home_country: this.registrationForm.value?.home_country,
         };
         this.userManagementService.updateUserData(data).subscribe(data => {
             this.ShowPersonalInfo = false;
+            this.GetPersonalProfileData();
             this.toast.add({ severity: 'success', summary: 'Success', detail: "Successfully Updated" });
         },
         error => {
