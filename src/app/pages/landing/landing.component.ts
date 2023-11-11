@@ -10,7 +10,7 @@ export class LandingComponent implements OnInit {
   isDarkMode: boolean;
   displaytandc!: boolean;
   displayprivacypolicy!: boolean;
-  currentImage: string = '/uniprep-assets/images/content.webp';
+  currentImage: string = '/uniprep-assets/images/feature1.webp';
 
   showTandC() {
     this.displaytandc = true;
@@ -44,7 +44,7 @@ export class LandingComponent implements OnInit {
 
   ngOnInit() {
     // Any additional initialization can go here
-    this.currentImage = '../../../uniprep-assets/images/content.webp';
+    this.currentImage = '/uniprep-assets/images/feature1.webp';
   }
 
   toggleTheme() {

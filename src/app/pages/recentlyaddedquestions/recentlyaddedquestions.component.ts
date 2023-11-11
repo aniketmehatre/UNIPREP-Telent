@@ -134,7 +134,6 @@ export class RecentlyaddedquestionsComponent implements OnInit {
   }
 
   getSubmoduleName(countryId: number) {
-    console.log(this.selectedQuestionData)
     let data = {
       countryId: countryId,
       api_module_name: this.currentApiSlug,
@@ -142,7 +141,6 @@ export class RecentlyaddedquestionsComponent implements OnInit {
     }
 
     this.locationService.getUniPerpModuleList().subscribe((data: any) => {
-      console.log(data)
       data.modules.filter((res: any) => {
         if(res.id == this.selectedModule){
           this.currentModuleName = res.module_name;
@@ -159,7 +157,6 @@ export class RecentlyaddedquestionsComponent implements OnInit {
       if (event) {
         event.filter(data => {
           if (data.id == this.selectedSubModule) {
-            console.log(data.submodule_name)
             this.moduleName = data.submodule_name;
             this.breadCrumb = [{
               label: this.currentModuleName,
