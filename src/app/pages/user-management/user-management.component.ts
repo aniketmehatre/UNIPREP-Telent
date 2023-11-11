@@ -206,17 +206,41 @@ export class UserManagementComponent implements OnInit {
         if (this.registrationForm.invalid) {
             return ;
         }
-        var data = {
+        var data : any = {
             userId: this.PersonalInfo?.user_id,
             name: this.registrationForm.value?.name,
             location_id: this.registrationForm.value?.location_id,
             interested_country_id: this.registrationForm.value?.interested_country_id == null ? "" : this.registrationForm.value?.interested_country_id,
-            last_degree_passing_year: this.registrationForm.value?.last_degree_passing_year == null ? "" : this.registrationForm.value?.last_degree_passing_year?.getFullYear(),
-            intake_year_looking: this.registrationForm.value?.intake_year_looking == null ? "" : this.registrationForm.value?.intake_year_looking?.getFullYear(),
-            intake_month_looking: this.registrationForm.value?.intake_month_looking == null ? "" : this.registrationForm.value?.intake_month_looking?.getMonth() + 1,
             programlevel_id: this.registrationForm.value?.programlevel_id,
             home_country: this.registrationForm.value?.home_country,
         };
+        if(this.registrationForm.value?.last_degree_passing_year == null) {
+            data.last_degree_passing_year = "";
+        }
+        else if (typeof this.registrationForm.value?.last_degree_passing_year == "string") {
+            data.last_degree_passing_year = this.registrationForm.value?.last_degree_passing_year;
+        }
+        else {
+            data.last_degree_passing_year = this.registrationForm.value?.last_degree_passing_year?.getFullYear();
+        }
+        if(this.registrationForm.value?.intake_year_looking == null) {
+            data.intake_year_looking = "";
+        }
+        else if (typeof this.registrationForm.value?.intake_year_looking == "string") {
+            data.intake_year_looking = this.registrationForm.value?.intake_year_looking;
+        }
+        else {
+            data.intake_year_looking = this.registrationForm.value?.intake_year_looking?.getFullYear();
+        }
+        if(this.registrationForm.value?.intake_month_looking == null) {
+            data.intake_month_looking = "";
+        }
+        else if (typeof this.registrationForm.value?.intake_month_looking == "string") {
+            data.intake_month_looking = this.registrationForm.value?.intake_month_looking;
+        }
+        else {
+            data.intake_month_looking = this.registrationForm.value?.intake_month_looking?.getMonth() + 1;
+        }
         this.userManagementService.updateUserData(data).subscribe(data => {
             this.ShowPersonalInfo = false;
             this.GetPersonalProfileData();
