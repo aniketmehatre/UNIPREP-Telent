@@ -23,7 +23,7 @@ export class EventsComponent implements OnInit {
   newfile = "none";
   countries: country[] = [];
   filterform:FormGroup;
-  perpage:number = 12;
+  perpage:number = 8;
   totalcount: number=0;
   totalcountpost:number=0;
   pageno:number = 1;
@@ -44,11 +44,11 @@ export class EventsComponent implements OnInit {
       this.countries = response;
     });
     let data = {
-      perpage : this.perpage,
+      perpage : 8,
       page : 1,
     }
     this.getEventUpComming(data)
-    this.getpostevent(data)
+    this.getPostEvent(data)
   }
 
 
@@ -126,7 +126,7 @@ export class EventsComponent implements OnInit {
       perpage : this.perpage,
       page : event.page + 1,
     }
-    this.getpostevent(data);
+    this.getPostEvent(data);
   }
   getEventUpComming(data:any){
     this.service.getupcommingevent(data).subscribe((res) => {
@@ -188,7 +188,7 @@ export class EventsComponent implements OnInit {
     this.getEventUpComming(data)
   }
   // post event
-  getpostevent(data:any){
+  getPostEvent(data:any){
     this.service.postevets(data).subscribe((res) => {
       this.postevetdetaisl=[] 
       res.events.forEach((list: any) => {
@@ -230,6 +230,7 @@ performSearch(events:any){
     nearby_search:this.valueNearYouFilter
   }
   this.getEventUpComming(data)
+  this.getPostEvent(data)
   }
   registerButton(event:any){
     var data={
