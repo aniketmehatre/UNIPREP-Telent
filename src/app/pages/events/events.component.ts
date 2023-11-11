@@ -116,6 +116,7 @@ export class EventsComponent implements OnInit {
       to:this.filterform.value.to,
       from:this.filterform.value.from,
       country:this.filterform.value.country,
+      nearby_search:this.valueNearYouFilter
     }
     this.getEventUpComming(data);
   }
@@ -125,6 +126,7 @@ export class EventsComponent implements OnInit {
     let data = {
       perpage : this.perpage,
       page : event.page + 1,
+      nearby_search:this.valueNearYouFilter
     }
     this.getPostEvent(data);
   }
