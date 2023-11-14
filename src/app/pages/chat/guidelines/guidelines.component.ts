@@ -23,7 +23,8 @@ export class GuidelineComponent implements OnInit {
   acceptguideline() {
     this.service.Acceptance().subscribe(
       (response) => {
-        this.route.navigate(['/pages/chat']);
+        window.location.reload();
+        // this.route.navigate(['/pages/chat']);
       },
       (error) => {
        
