@@ -30,8 +30,8 @@ export class ChatComponent implements OnInit {
     private route: Router
   ) {
     this.reportForm = fb.group({
-      reportOption: ["",Validators.required],
-      comment: ["",Validators.required],
+      reportOption: ["", Validators.required],
+      comment: ["", Validators.required],
     });
 
     this.modules = {
@@ -131,6 +131,8 @@ export class ChatComponent implements OnInit {
       this.totalquestionsasked = response?.totalquestionsasked;
       this.totalquestionsanswered = response?.totalquestionsanswered;
       this.questionsleft = response?.questionsleft;
+    });
+    this.authService.getMe().subscribe((response) => {
       this.totalcredits = Number(localStorage.getItem("questions_left"));
     });
   }
