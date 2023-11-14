@@ -167,3 +167,14 @@
   -ms-user-select: none;
   user-select: none;
 }
+
+@media screen and (max-width: 768px) {
+  #ref-links-container {
+      flex-wrap: nowrap !important;
+      overflow-x: auto;
+  }
+  #ref-links-container a {
+      flex: 0 0 auto;
+      margin-bottom: 0.5rem;
+}
+}
