@@ -153,8 +153,9 @@ export class ChatComponent implements OnInit {
     }
     let data = {
       message: this.textMessage,
-      country: 2,
+      country: localStorage.getItem('selectedcountryId'),
     };
+    console.log
     this.service.sendChatMessage(data).subscribe(
       (response) => {
         this.toast.add({

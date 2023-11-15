@@ -175,6 +175,7 @@ export class DashboardComponent implements OnInit {
         });
 
         localStorage.setItem('countryId', selectedId.id);
+        localStorage.setItem('selectedcountryId', selectedId.id);
         this.loadApiData();
         this.selectedCountryId = selectedId.id;
         this.dataService.changeCountryId(selectedId.id);
