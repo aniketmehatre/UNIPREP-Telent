@@ -22,6 +22,7 @@ export class AuthService {
     _user!: User | null;
     public _userLoginCount!: number;
     userData = new BehaviorSubject<User | null>(null);
+    public _checkExistsSubscription!: number;
     constructor(
         private http: HttpClient,
         private store: Store<AuthState>,
@@ -51,6 +52,7 @@ export class AuthService {
                 localStorage.setItem('countryId', '2')
                 this.user = response.userdetails[0];
                 this._userLoginCount = response.userdetails[0].login_status;
+                this._checkExistsSubscription = response.userdetails[0].subscription_exists;
                 localStorage.setItem("UserID",response.userdetails[0].id)
                 localStorage.setItem("Name",response.userdetails[0].name)
                 localStorage.setItem("credit_plans",response.userdetails[0].credit_plans)

@@ -12,7 +12,7 @@
                 <div class="row justify-content-center">
                     <div class="col-md-3 col-5 text-md-start">
                         <span (click)="filterPopUp()"><button class="btn btn-outline-light px-4 py-3" type="button">Filter by</button></span>
-                            <p class="small">Total Events - Total Events - {{ activeButton == 1 ? totalcount : totalcountpost }}</p>
+                            <p class="small fw-bold">Total Events - {{ activeButton == 1 ? totalcount : totalcountpost }}</p>
                     </div>
                     <div class="col-md-6 col-7 text-md-center text-end">
                         <button class="btn btn-outline-light px-3 py-3" (click)="setActiveButton(1)" [ngStyle]="button1Style">Upcoming Events</button>

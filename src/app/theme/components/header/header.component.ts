@@ -141,7 +141,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.getModuleList();
     this.onChangeModuleList(1);
     this.onChangeSubModuleList(1);
-    if (this.service._userLoginCount === 4) {
+    if (this.service._checkExistsSubscription === 0) {
       this.checkNewUser();
     } else {
       this.userLoginTimeLeftCount = true;
@@ -364,11 +364,11 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.service.getNewUserTimeLeft().subscribe(res => {
       let data = res.time_left;
       this.userLoginTimeLeftCount = false;
-      this.timer(data.minutes);
+      this.timer(data.minutes,data.seconds);
     })
   }
 
-  timer(minute: any): void{
+  timer(minute: any,sec:any): void{
     let seconds: number = minute * 60;
     let textSec: any = '0';
     let statSec: number = 60;
@@ -381,9 +381,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
         textSec = '0' + statSec;
       } else textSec = statSec;
 
-      this.timeLeftMins = `${prefix}${Math.floor(seconds / 60)}`
-      this.timeLeftSecs = `${textSec}`;
-      if (this.timeLeftMins == 0) {
+      this.timeLeftMins = `${prefix}`
+      this.timeLeftSecs = `${sec}`;
+      if (this.timeLeftMins == 0 && this.timeLeftSecs == 0) {
         this.visible = true;
         clearInterval(this.timerInterval);
       }
