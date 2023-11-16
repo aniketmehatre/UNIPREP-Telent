@@ -414,10 +414,11 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.locationService.reportFaqQuestion(data).subscribe((res) => {
       if (res.status == 404) {
       }
-      this.showReportSuccess = true;
-
+      this.dataService.showFeedBackPopup(true);
+      // this.showReportSuccess = true;
       setTimeout(() => {
-        this.showReportSuccess = false;
+        this.dataService.showFeedBackPopup(false);
+        // this.showReportSuccess = false;
         op.hide();
       }, 4000);
 

@@ -2,6 +2,7 @@ import {Component, HostListener, OnDestroy, OnInit, Output} from "@angular/core"
 import {PageFacadeService} from "./page-facade.service";
 import {SubSink} from "subsink";
 import { NavigationEnd, Router } from "@angular/router";
+import { DataService } from "../data.service";
 
 @Component({
     selector: "uni-pages",
@@ -13,11 +14,12 @@ export class PagesComponent implements OnInit, OnDestroy {
     stickHeader = false;
     showSearch = false;
     isFooterBoxVisible = false;
+    showReportSuccess = false;
     @Output() expandicon = !this.sidebarClass
         ? "pi-align-right"
         : "pi-align-justify";
     private subs = new SubSink();
-    constructor(private pageFacade: PageFacadeService, router: Router,) {
+    constructor(private pageFacade: PageFacadeService, router: Router, private dataService: DataService) {
         router.events.subscribe((val) => {
             if(val instanceof NavigationEnd){
                 if(val.url.includes('subscriptions') || val.url.includes('faq') || val.url.includes('support-help')
@@ -43,6 +45,13 @@ export class PagesComponent implements OnInit, OnDestroy {
                 this.sidebarClass = state ? "active" : "";
             },
         });
+        this.dataService.showFeedBackSource.subscribe((data) => {
+            if(data){
+                this.showReportSuccess = true;
+            }else{
+                this.showReportSuccess = false;
+            }
+        })
     }
 
     @HostListener("window:resize", ["$event"])

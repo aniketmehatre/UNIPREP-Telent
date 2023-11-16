@@ -30,6 +30,9 @@ export class DataService {
     public showTimerSource = new BehaviorSubject<any>(null);
     showTimer = this.showTimerSource.asObservable();
 
+    public showFeedBackSource = new BehaviorSubject<any>(false);
+    showFeedback = this.showFeedBackSource.asObservable();
+
     constructor() {
     }
 
@@ -61,6 +64,10 @@ export class DataService {
         this.openReportWindowSource.next(data);
     }
 
+    showFeedBackPopup(data: any) {
+        this.showFeedBackSource.next(data);
+    }
+    
     countDownFun: any
 
     showTimerInHeader(data: any) {
