@@ -381,9 +381,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
         textSec = '0' + statSec;
       } else textSec = statSec;
 
-      this.timeLeftMins = `${prefix}`
-      this.timeLeftSecs = `${sec}`;
-      if (this.timeLeftMins == 0 && this.timeLeftSecs == 0) {
+      this.timeLeftMins = `${Math.floor(seconds / 60)}`
+      this.timeLeftSecs = `${textSec}`;
+      if (this.timeLeftMins == 0) {
         this.visible = true;
         clearInterval(this.timerInterval);
       }
