@@ -371,7 +371,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   timer(minute: any,sec:any): void{
     let seconds: number = minute * 60;
     let textSec: any = '0';
-    let statSec: number = 60;
+    let statSec: number = sec;
     const prefix = minute < 10 ? '0' : '';
     this.timerInterval = setInterval(() => {
       seconds--;
@@ -383,7 +383,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
       this.timeLeftMins = `${Math.floor(seconds / 60)}`
       this.timeLeftSecs = `${textSec}`;
-      if (this.timeLeftMins == 0) {
+      if (this.timeLeftMins <= 0) {
         this.visible = true;
         clearInterval(this.timerInterval);
       }
