@@ -89,23 +89,24 @@
 	</div> -->
 </nav>
 
-<section class="py-2 py-md-5 darksection" id="home">
-	<div class="container pt-4 text-center">
+<section class="py-2 py-md-3 darksection" id="home">
+	<div class="container pt-3 text-center">
 		<div class="row justify-content-center">
 			<div class="col-md-6 d-flex flex-column justify-content-center align-items-center">
-				<h1 class="text-center fw-semibold uniprep-primary mb-2">Embark on a journey of endless global opportunities with UNIPREP.</h1>
-				<p>Efficiently manage and resolve customer issues, improve satisfaction and boost your bottom line with our all-in-one customer support solution.</p>
-				<div class="text-center mb-5">
-					<a href="/register" class="text-decoration-none"><button type="button" class="btn btn-secondary px-4 py-2 m-0">Get 1 Hour Free Trial</button></a>
+				<h1 class="text-center fw-semibold uniprep-primary mb-4">Explore boundless global opportunities with UNIPREP</h1>
+				<p class="mb-4">Unlock your potential and embrace a world of possibilities through UNIPREP's comprehensive resources and guidance. or Gain the tools to explore, adapt, and thrive in a global landscape, setting the stage for your future success.</p>
+				<div class="text-center mb-4">
+					<a href="/register" class="text-decoration-none"><button type="button" class="btn btn-secondary px-4 py-3 m-0"><h6 class="mb-0">Get 1 Hour Free Trial</h6></button></a>
 				</div>
 			</div>
 			<div class="col-md-12">
-				<div class="video-container">
-					<video width="100%" height="100%" preload="none" muted poster="/uniprep-assets/images/landingvideocover.webp">
+				<div class="video-container" (click)="toggleVideo()">
+					<i class="fa-duotone fa-circle-play uniprep-primary" role="button" *ngIf="!isPlaying"></i>
+					<video #videoPlayer width="100%" height="100%" preload="none" poster="/uniprep-assets/images/landingvideocover.webp">
 						<source src="/uniprep-assets/video/uniprepvideo.mp4" type="video/mp4" />
 					</video>
-					<div class="video-gradient"></div>
-				</div>
+					<div class="video-gradient" *ngIf="!isPlaying"></div>
+				</div>				
 			</div>
 		</div>
 	</div>
@@ -130,10 +131,10 @@
 		<div class="row justify-content-between">
 			<div class="col-md-5 text-start d-flex align-items-center order-2 order-md-2">
 				<div>
-					<h1 class="uniprep-primary mb-4 fw-semibold text-md-start text-center">About UNIPREP</h1>
-					<img src="/uniprep-assets/images/landingaboutmob.webp" class="w-100 d-md-none d-block mb-5" />
+					<h1 class="uniprep-primary text-md-start text-center">ABOUT UNIPREP</h1>
+					<img src="/uniprep-assets/images/landingaboutmob.webp" class="w-100 d-md-none d-block" />
 					<p class="text-justify mb-5">UNIPREP is a one-stop global search platform, designed to act as a personalized advisor, catering to all students and graduates seeking guidance on career growth, opportunities, life, and education abroad.<br /><br />The experts who have graduated abroad have answered over half a million questions addressing all 360-degree queries. The information on the portal is further reviewed by the top international education bodies and universities.</p>
-					<div class="d-flex flex-wrap gap-md-3 gap-2 mb-3 justify-content-between justify-content-md-start">
+					<div class="d-flex flex-wrap gap-md-4 gap-3 mb-3 justify-content-between justify-content-md-start">
 						<div class="text-start">
 							<h2 class="fw-bold uniprep-secondary mb-1">10+</h2>
 							<p>Countries</p>
@@ -142,10 +143,10 @@
 							<h2 class="fw-bold uniprep-secondary mb-1">2000+</h2>
 							<p>Universities</p>
 						</div>
-						<div class="text-start">
+						<!-- <div class="text-start">
 							<h2 class="fw-bold uniprep-secondary mb-1">500+</h2>
 							<p>Sub-Modules</p>
-						</div>
+						</div> -->
 						<div class="text-start">
 							<h2 class="fw-bold uniprep-secondary mb-1">5,00,000+</h2>
 							<p>Questions Answered</p>
@@ -153,7 +154,7 @@
 					</div>
 				</div>
 			</div>
-			<div class="col-md-5 order-1 order-md-2">
+			<div class="col-md-6 order-1 order-md-2">
 				<img src="/uniprep-assets/images/landingabout.webp" class="w-100 d-md-block d-none" />
 			</div>
 		</div>
@@ -194,8 +195,8 @@
 						<img src="/uniprep-assets/images/challenge1.webp" />
 					</div>
 				</div>
-				<h6 class="fw-semibold">Lack of Up to Date Information</h6>
-				<p>Do you also struggle in finding updated information on the internet?</p>
+				<h6 class="fw-semibold">Lack of up-to-date information</h6>
+				<p>Insufficiency in possessing the most recent data available.</p>
 			</div>
 			<div class="col-md-4 col-6 text-center challenge">
 				<div class="card mb-3">
@@ -203,8 +204,9 @@
 						<img src="/uniprep-assets/images/challenge2.webp" />
 					</div>
 				</div>
-				<h6 class="fw-semibold">No Centralized Hub</h6>
-				<p>Tired of juggling multiple tabs? Discover everything in one place, streamlined just for you!</p>
+				<h6 class="fw-semibold">No platform for undiscovered questions</h6>
+				<p>Absence of a platform catering to unexplored or unaddressed inquiries.</p>
+				
 			</div>
 			<div class="col-md-4 col-6 text-center challenge">
 				<div class="card mb-3">
@@ -212,8 +214,8 @@
 						<img src="/uniprep-assets/images/challenge3.webp" />
 					</div>
 				</div>
-				<h6 class="fw-semibold">Unverified Information</h6>
-				<p>Doubtful of what you read online? Get access to a pool of information verified by the experts.</p>
+				<h6 class="fw-semibold">Lack of Verified Data</h6>
+				<p>Inadequacy in having data that has been authenticated or confirmed.</p>
 			</div>
 			<div class="col-md-4 col-6 text-center challenge">
 				<div class="card mb-3">
@@ -221,8 +223,8 @@
 						<img src="/uniprep-assets/images/challenge4.webp" />
 					</div>
 				</div>
-				<h6 class="fw-semibold">Unexplored Questions</h6>
-				<p>Go beyond the ordinary and get experiential information crafted for your profile.</p>
+				<h6 class="fw-semibold">Lack of personalised support</h6>
+				<p>Absence of tailored or individualized assistance.</p>
 			</div>
 			<div class="col-md-4 col-6 text-center challenge">
 				<div class="card mb-3">
@@ -239,8 +241,8 @@
 						<img src="/uniprep-assets/images/challenge6.webp" />
 					</div>
 				</div>
-				<h6 class="fw-semibold">Lack of Personal Guidance</h6>
-				<p>Do you have concerns regarding your career? Let us guide you to promising career paths and opportunities abroad!</p>
+				<h6 class="fw-semibold">No platform for International event alerts</h6>
+				<p>Absence of a platform providing alerts or updates on international events.</p>
 			</div>
 		</div>
 	</div>
@@ -311,7 +313,7 @@
 						</h2>
 						<div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionFeatures">
 							<div class="accordion-body">
-								<p class="mb-0">Receive tailored advice as per your needs and educational aspirations abroad.</p>
+								<p class="mb-0">Receive tailored responses to your questions about career and education abroad.</p>
 							</div>
 						</div>
 					</div>
@@ -321,7 +323,7 @@
 						</h2>
 						<div id="collapseThree" class="accordion-collapse collapse" data-bs-parent="#accordionFeatures">
 							<div class="accordion-body">
-								<p class="mb-0">Input keywords and navigate through information effortlessly with our smart keyword search.</p>
+								<p class="mb-0">Receive tailored responses to your questions about career and education abroad.</p>
 							</div>
 						</div>
 					</div>
@@ -331,11 +333,11 @@
 						</h2>
 						<div id="collapseFour" class="accordion-collapse collapse" data-bs-parent="#accordionFeatures">
 							<div class="accordion-body">
-								<p class="mb-0">The information on the UNIPREP portal is reviewed by international education bodies are updated every 15 days.</p>
+								<p class="mb-0">The information on the UNIPREP portal is reviewed by international education bodies and is updated every 15 days.</p>
 							</div>
 						</div>
 					</div>
-					<div class="accordion-item featurecard">
+					<!-- <div class="accordion-item featurecard">
 						<h2 class="accordion-header">
 							<button class="accordion-button uniprep-primary collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive" (click)="changeImage('feature5.webp')"><i class="fa-duotone fa-user-shield fa-xl mt-0 me-2"></i> Reliable answers</button>
 						</h2>
@@ -344,14 +346,14 @@
 								<p class="mb-0">Answers are framed by experts who have the experience of staying abroad. All the answers come with links to additional information.</p>
 							</div>
 						</div>
-					</div>
+					</div> -->
 					<div class="accordion-item featurecard">
 						<h2 class="accordion-header">
 							<button class="accordion-button uniprep-primary collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSix" aria-expanded="false" aria-controls="collapseSix" (click)="changeImage('feature6.webp')"><i class="fa-duotone fa-briefcase fa-xl mt-0 me-2"></i> Resources to build your personal portfolio</button>
 						</h2>
 						<div id="collapseSix" class="accordion-collapse collapse" data-bs-parent="#accordionFeatures">
 							<div class="accordion-body">
-								<p class="mb-0">UNIPREP equips you to shape your future by offering an array of free resources and tools to help you craft an exceptional personal portfolio.</p>
+								<p class="mb-0">UNIPREP equips you to shape your future by offering an array of free resources and tools to help you navigate the job market.</p>
 							</div>
 						</div>
 					</div>
@@ -361,7 +363,7 @@
 						</h2>
 						<div id="collapseSeven" class="accordion-collapse collapse" data-bs-parent="#accordionFeatures">
 							<div class="accordion-body">
-								<p class="mb-0">Updates on events hosted by international universities, career coaches and more.</p>
+								<p class="mb-0">UNIPREP Updates on events hosted by international universities, career coaches and many others.</p>
 							</div>
 						</div>
 					</div>
@@ -395,8 +397,7 @@
 							<li><span class="fa-solid fa-circle-xmark crossmark"></span> Verified Information</li>
 							<li><span class="fa-solid fa-circle-xmark crossmark"></span> Up-to-date Information</li>
 							<li><span class="fa-solid fa-circle-xmark crossmark"></span> Keyword Search</li>
-							<li><span class="fa-solid fa-circle-xmark crossmark"></span> International Events Update</li>
-							<li><span class="fa-solid fa-circle-check checkmark"></span> One Stop Platform</li>
+							<li><span class="fa-solid fa-circle-xmark crossmark"></span> International Events Alerts</li>
 							<li><span class="fa-solid fa-circle-xmark crossmark"></span> Additional Resources</li>
 						</ul>
 					</div>
@@ -415,8 +416,7 @@
 							<li><span class="fa-solid fa-circle-xmark crossmark"></span> Verified Information</li>
 							<li><span class="fa-solid fa-circle-xmark crossmark"></span> Up-to-date Information</li>
 							<li><span class="fa-solid fa-circle-check checkmark"></span> Keyword Search</li>
-							<li><span class="fa-solid fa-circle-check checkmark"></span> International Events Update</li>
-							<li><span class="fa-solid fa-circle-xmark crossmark"></span> One Stop Platform</li>
+							<li><span class="fa-solid fa-circle-xmark crossmark"></span> International Events Alerts</li>
 							<li><span class="fa-solid fa-circle-check checkmark"></span> Additional Resources</li>
 						</ul>
 					</div>
@@ -439,8 +439,7 @@
 								<li><span class="fa-solid fa-circle-check checkmark"></span> Verified Information</li>
 								<li><span class="fa-solid fa-circle-check checkmark"></span> Up-to-date Information</li>
 								<li><span class="fa-solid fa-circle-check checkmark"></span> Keyword Search</li>
-								<li><span class="fa-solid fa-circle-check checkmark"></span> International Events Update</li>
-								<li><span class="fa-solid fa-circle-check checkmark"></span> One Stop Platform</li>
+								<li><span class="fa-solid fa-circle-check checkmark"></span> International Events Alerts</li>
 								<li><span class="fa-solid fa-circle-check checkmark"></span> Additional Resources</li>
 							</ul>
 							<a href="/register" class="text-decoration-none" target="_blank"><button type="button" class="btn btn-primary rounded-pill">Get Started Today</button></a>
