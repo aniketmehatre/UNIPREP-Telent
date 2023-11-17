@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ThemeService } from '../../theme.service';
 
 @Component({
@@ -7,6 +7,9 @@ import { ThemeService } from '../../theme.service';
   styleUrls: ['./landing.component.scss']
 })
 export class LandingComponent implements OnInit {
+  @ViewChild('videoPlayer')
+  videoPlayer!: ElementRef;
+  isPlaying = false;
   isDarkMode: boolean;
   displaytandc!: boolean;
   displayprivacypolicy!: boolean;
@@ -27,6 +30,17 @@ export class LandingComponent implements OnInit {
 
   changeImage(imageName: string): void {
     this.currentImage = '/uniprep-assets/images/' + imageName;
+  }
+
+  toggleVideo() {
+    const video: HTMLVideoElement = this.videoPlayer.nativeElement;
+    if (video.paused) {
+      video.play();
+      this.isPlaying = true;
+    } else {
+      video.pause();
+      this.isPlaying = false;
+    }
   }
 
   scrollToSection(event: Event, sectionId: string): void {

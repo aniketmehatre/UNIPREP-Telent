@@ -89,23 +89,24 @@
 	</div> -->
 </nav>
 
-<section class="py-2 py-md-5 darksection" id="home">
-	<div class="container pt-4 text-center">
+<section class="py-2 py-md-3 darksection" id="home">
+	<div class="container pt-3 text-center">
 		<div class="row justify-content-center">
 			<div class="col-md-6 d-flex flex-column justify-content-center align-items-center">
 				<h1 class="text-center fw-semibold uniprep-primary mb-2">Embark on a journey of endless global opportunities with UNIPREP.</h1>
 				<p>Efficiently manage and resolve customer issues, improve satisfaction and boost your bottom line with our all-in-one customer support solution.</p>
-				<div class="text-center mb-5">
-					<a href="/register" class="text-decoration-none"><button type="button" class="btn btn-secondary px-4 py-2 m-0">Get 1 Hour Free Trial</button></a>
+				<div class="text-center mb-4">
+					<a href="/register" class="text-decoration-none"><button type="button" class="btn btn-secondary px-4 py-3 m-0"><h5 class="mb-0">Get 1 Hour Free Trial</h5></button></a>
 				</div>
 			</div>
 			<div class="col-md-12">
-				<div class="video-container">
-					<video width="100%" height="100%" preload="none" muted poster="/uniprep-assets/images/landingvideocover.webp">
+				<div class="video-container" (click)="toggleVideo()">
+					<i class="fa-solid fa-play" role="button" *ngIf="!isPlaying"></i>
+					<video #videoPlayer width="100%" height="100%" preload="none" poster="/uniprep-assets/images/landingvideocover.webp">
 						<source src="/uniprep-assets/video/uniprepvideo.mp4" type="video/mp4" />
 					</video>
-					<div class="video-gradient"></div>
-				</div>
+					<div class="video-gradient" *ngIf="!isPlaying"></div>
+				</div>				
 			</div>
 		</div>
 	</div>
@@ -130,10 +131,10 @@
 		<div class="row justify-content-between">
 			<div class="col-md-5 text-start d-flex align-items-center order-2 order-md-2">
 				<div>
-					<h1 class="uniprep-primary mb-4 fw-semibold text-md-start text-center">About UNIPREP</h1>
-					<img src="/uniprep-assets/images/landingaboutmob.webp" class="w-100 d-md-none d-block mb-5" />
+					<h1 class="uniprep-primary text-md-start text-center">ABOUT UNIPREP</h1>
+					<img src="/uniprep-assets/images/landingaboutmob.webp" class="w-100 d-md-none d-block" />
 					<p class="text-justify mb-5">UNIPREP is a one-stop global search platform, designed to act as a personalized advisor, catering to all students and graduates seeking guidance on career growth, opportunities, life, and education abroad.<br /><br />The experts who have graduated abroad have answered over half a million questions addressing all 360-degree queries. The information on the portal is further reviewed by the top international education bodies and universities.</p>
-					<div class="d-flex flex-wrap gap-md-3 gap-2 mb-3 justify-content-between justify-content-md-start">
+					<div class="d-flex flex-wrap gap-md-4 gap-3 mb-3 justify-content-between justify-content-md-start">
 						<div class="text-start">
 							<h2 class="fw-bold uniprep-secondary mb-1">10+</h2>
 							<p>Countries</p>
@@ -142,10 +143,10 @@
 							<h2 class="fw-bold uniprep-secondary mb-1">2000+</h2>
 							<p>Universities</p>
 						</div>
-						<div class="text-start">
+						<!-- <div class="text-start">
 							<h2 class="fw-bold uniprep-secondary mb-1">500+</h2>
 							<p>Sub-Modules</p>
-						</div>
+						</div> -->
 						<div class="text-start">
 							<h2 class="fw-bold uniprep-secondary mb-1">5,00,000+</h2>
 							<p>Questions Answered</p>
@@ -153,7 +154,7 @@
 					</div>
 				</div>
 			</div>
-			<div class="col-md-5 order-1 order-md-2">
+			<div class="col-md-6 order-1 order-md-2">
 				<img src="/uniprep-assets/images/landingabout.webp" class="w-100 d-md-block d-none" />
 			</div>
 		</div>
@@ -395,8 +396,7 @@
 							<li><span class="fa-solid fa-circle-xmark crossmark"></span> Verified Information</li>
 							<li><span class="fa-solid fa-circle-xmark crossmark"></span> Up-to-date Information</li>
 							<li><span class="fa-solid fa-circle-xmark crossmark"></span> Keyword Search</li>
-							<li><span class="fa-solid fa-circle-xmark crossmark"></span> International Events Update</li>
-							<li><span class="fa-solid fa-circle-check checkmark"></span> One Stop Platform</li>
+							<li><span class="fa-solid fa-circle-xmark crossmark"></span> International Events Alerts</li>
 							<li><span class="fa-solid fa-circle-xmark crossmark"></span> Additional Resources</li>
 						</ul>
 					</div>
@@ -415,8 +415,7 @@
 							<li><span class="fa-solid fa-circle-xmark crossmark"></span> Verified Information</li>
 							<li><span class="fa-solid fa-circle-xmark crossmark"></span> Up-to-date Information</li>
 							<li><span class="fa-solid fa-circle-check checkmark"></span> Keyword Search</li>
-							<li><span class="fa-solid fa-circle-check checkmark"></span> International Events Update</li>
-							<li><span class="fa-solid fa-circle-xmark crossmark"></span> One Stop Platform</li>
+							<li><span class="fa-solid fa-circle-xmark crossmark"></span> International Events Alerts</li>
 							<li><span class="fa-solid fa-circle-check checkmark"></span> Additional Resources</li>
 						</ul>
 					</div>
@@ -439,8 +438,7 @@
 								<li><span class="fa-solid fa-circle-check checkmark"></span> Verified Information</li>
 								<li><span class="fa-solid fa-circle-check checkmark"></span> Up-to-date Information</li>
 								<li><span class="fa-solid fa-circle-check checkmark"></span> Keyword Search</li>
-								<li><span class="fa-solid fa-circle-check checkmark"></span> International Events Update</li>
-								<li><span class="fa-solid fa-circle-check checkmark"></span> One Stop Platform</li>
+								<li><span class="fa-solid fa-circle-check checkmark"></span> International Events Alerts</li>
 								<li><span class="fa-solid fa-circle-check checkmark"></span> Additional Resources</li>
 							</ul>
 							<a href="/register" class="text-decoration-none" target="_blank"><button type="button" class="btn btn-primary rounded-pill">Get Started Today</button></a>
