@@ -7,11 +7,11 @@ import { AppComponent } from "./app.component";
 const routes: Routes = [
   {
     path: '',
-    redirectTo: '/landing',
+    redirectTo: '/home',
     pathMatch: 'full'
   },
   {
-    path: 'landing',
+    path: 'home',
     component: LandingComponent
   },
   {
@@ -29,7 +29,7 @@ const routes: Routes = [
   },
   {
     path: '**',
-    redirectTo: '/landing'
+    redirectTo: '/home'
   },
 ];
 
