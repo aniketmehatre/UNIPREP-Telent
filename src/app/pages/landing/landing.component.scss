@@ -28,13 +28,12 @@ video::-webkit-media-controls-panel {
 	overflow: hidden;
 }
 
-.fa-play {
+.fa-circle-play {
 	position: absolute;
 	top: 50%;
 	left: 50%;
 	transform: translate(-50%, -50%);
 	font-size: 3em; /* Adjust size as needed */
-	color: white; /* Adjust color as needed */
 	z-index: 2;
   }
 
@@ -423,3 +422,10 @@ p {
     right: 1rem;
     display: flex;
 }
+
+@media screen and (max-width: 768px) {
+	video {
+		width: 100%;
+		height: auto;
+	}
+  }
