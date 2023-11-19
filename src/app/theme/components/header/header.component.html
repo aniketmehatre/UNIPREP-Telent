@@ -57,7 +57,7 @@
 						</div>
 					</div>
 					<div label="" role="button" class="headercountry me-2 d-none d-md-block">
-						<img src="{{ headerFlag }}" alt="United Kingdom" height="auto" width="auto" />
+						<img src="{{ headerFlag }}" alt="United Kingdom" height="auto" width="auto" (click)="openFlagModal(totalCountryList, $event)"/>
 					</div>
 					<button class="d-md-block d-none btn btn-primary btn-rounded me-2 ms-0 my-0" alt="chat with notification" (click)="onClickSubscribe()"><span class="text-small fw-normal px-3">Subscribe Now</span></button>
 					<button class="d-md-block d-none btn btn-secondary btn-rounded me-2 ms-0 my-0" (click)="openReportModal(op, $event)" alt="reports">
@@ -112,6 +112,10 @@
 					</div>
 					<div label="" role="button" class="headercountry me-2 d-none d-md-block">
 						<img src="{{ headerFlag }}" alt="United Kingdom" height="auto" width="auto" />
+						<span class="report-modal">
+							<p-dropdown [options]="reportOptionList" [(ngModel)]="reportOptionNgModel" optionValue="id"
+								formControlName="reportOption" class="w-100" id="reportOption" optionLabel="reportoption_name"></p-dropdown>
+						</span>
 					</div>
 					<button class="d-md-block d-none btn btn-primary btn-rounded me-2 ms-0 my-0" alt="chat with notification"
 						(click)="onClickSubscribe()"><span class="text-small fw-normal px-3">Subscribe Now</span></button>
@@ -180,7 +184,7 @@
 						<span class="report-modal">
 							<p-dropdown [options]="reportOptionList" [(ngModel)]="reportOptionNgModel" optionValue="id" formControlName="reportOption" class="w-100" id="reportOption" optionLabel="reportoption_name"></p-dropdown>
 						</span>
-						<p class="report-labeltext-left mb-0">Comment</p>
+						<p class="report-label text-left mb-0">Comment</p>
 						<span class="report-modal">
 							<textarea formControlName="comment" pInputTextarea id="comment"></textarea>
 						</span>
@@ -189,6 +193,16 @@
 						</span>
 					</div>
 				</form>
+			</div>
+		</ng-template>
+	</p-overlayPanel>
+	<p-overlayPanel #totalCountryList>
+		<ng-template pTemplate="content">
+			<div *ngIf="isLondon">
+				<ul *ngFor="let v of countryLists">
+					<li class="list-group-item"><img alt="country" class="countryicon mr-2"
+						src="{{ v.flag != '' ? v.flag : '../../uniprep-assets/images/mstile-150x150.png' }}" width="25"/>{{v.country}}</li>
+				</ul>
 			</div>
 		</ng-template>
 	</p-overlayPanel>
