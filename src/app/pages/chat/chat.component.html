@@ -48,7 +48,7 @@
           >
             <div class="col-md-12 mt-1">
               <div class="form-group">
-                <label>Report Issues</label>
+                <label>Report Issues<span style="color: red; font-weight: bold;">*</span></label>
                 <p-dropdown
                   formControlName="reportOption"
                   optionValue="id"
@@ -61,10 +61,11 @@
             <br />
             <div class="col-md-12 mt-1">
               <div class="form-group">
-                <label>Add Comment</label>
+                <label>Add Comment <span style="color: red; font-weight: bold;">*</span></label>
                 <textarea
                   rows="3"
                   cols="35"
+                  required
                   styleClass="w-full"
                   pInputTextarea
                   formControlName="comment"

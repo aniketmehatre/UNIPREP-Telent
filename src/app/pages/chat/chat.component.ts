@@ -31,7 +31,7 @@ export class ChatComponent implements OnInit {
   ) {
     this.reportForm = fb.group({
       reportOption: ["", Validators.required],
-      comment: ["", Validators.required],
+      comment: ["",Validators.required],
     });
 
     this.modules = {
@@ -155,7 +155,6 @@ export class ChatComponent implements OnInit {
       message: this.textMessage,
       country: localStorage.getItem('selectedcountryId'),
     };
-    console.log
     this.service.sendChatMessage(data).subscribe(
       (response) => {
         this.toast.add({
