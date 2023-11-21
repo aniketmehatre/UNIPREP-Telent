@@ -156,7 +156,7 @@ export class SubscriptionHistoryComponent implements OnInit {
     if (this.couponInput) {
       let data = {
         couponCode: this.couponInput,
-        checkoutTotal: this.subscriptionTotal
+        checkoutTotal: this.subscriptionTotal,
       }
       this.subscriptionService.applyCoupon(data).subscribe((response) => {
         if (response.success) {

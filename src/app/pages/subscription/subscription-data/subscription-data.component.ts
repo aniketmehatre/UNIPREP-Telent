@@ -38,7 +38,6 @@ export class SubscriptionDataComponent implements OnInit {
     private toast: MessageService) { }
 
   ngOnInit(): void {
-
     this.authService.getCountry().subscribe((data) => {
       this.countryList = data;
       this.getSubscriptionList();
@@ -139,6 +138,7 @@ export class SubscriptionDataComponent implements OnInit {
       });
       this.selectedTopupCountryDetails = sub;
       this.subscriptionTotal = sub.finalamount * sub.selectedCoutriesList.length;
+
     }
     else {
       this.toast.add({severity:'warn', summary: 'Warn', detail: 'Please Choose a country'});
@@ -150,11 +150,13 @@ export class SubscriptionDataComponent implements OnInit {
     if (this.couponInput) {
       let data = {
         couponCode: this.couponInput,
-        checkoutTotal: this.subscriptionTotal
+        checkoutTotal: this.subscriptionTotal,
+        subscriptioncouponstatus :this.selectedSubscriptionDetails.couponcode
       }
       this.subscriptionService.applyCoupon(data).subscribe((response) => {
+        this.toast.add({severity:'warn', summary: 'Warn', detail: response.message});
         if (response.success) {
-          this.subscriptionTotal = Number(this.subscriptionTotal) - response.discountPrice;
+          this.subscriptionTotal = Number(this.subscriptionTotal) - response.discountPrice;  
         }
         else {
           this.invalidCoupon = true;

@@ -8,7 +8,6 @@ import {InputMaskModule} from "primeng/inputmask";
 import {InputTextModule} from "primeng/inputtext";
 import {CheckboxModule} from "primeng/checkbox";
 import {ToastModule} from 'primeng/toast';
-import {MessageService} from "primeng/api";
 import { BuyCreditsComponent } from './buy-credits/buy-credits.component';
 import { SubscriptionBillingComponent } from './subscription-billing/subscription-billing.component';
 import { SubscriptionDataComponent } from './subscription-data/subscription-data.component';
@@ -57,7 +56,7 @@ import { SubscriptionHistoryComponent } from './subscription-history/subscriptio
         BreadcrumbModule,
         ChipModule
     ],
-    providers: [MessageService],
+     providers: [],
 })
 export class SubscriptionModule {
 }
