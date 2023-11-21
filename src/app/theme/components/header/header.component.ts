@@ -392,6 +392,14 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   onSubmit(op: any) {
     let data;
+    if(this.reportSubmitForm.value.comment == null || this.reportSubmitForm.value.comment == ''){
+      this.toast.add({
+        severity: "error",
+        summary: "Error",
+        detail: "Add comments to submit report",
+      });
+      return;
+    }
     if(this.reportSubmitForm.value.reportOption == null){
       return;
     }
