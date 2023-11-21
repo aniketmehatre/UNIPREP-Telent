@@ -154,14 +154,21 @@ export class RegistrationComponent implements OnInit {
     }
 
     GetLocationList() {
-        this.locationService.getLocation().subscribe(
-            (res: any) => {
-                this.locationList = res;
-            },
-            (error: any) => {
-                this.toastr.add({severity: 'warning', summary: 'Warning', detail: error.error.message});
-            }
-        );
+        if(this.registrationForm.get('country').value==122){
+            this.locationService.getLocation().subscribe(
+                (res: any) => {
+                    this.locationList = res;
+                    console.log(this.locationList)
+                },
+                (error: any) => {
+                    this.toastr.add({severity: 'warning', summary: 'Warning', detail: error.error.message});
+                }
+            );
+        }
+        else{
+            this.locationList=[{id:null,district:'Others'}];
+        }
+
     }
 
     gethomeCountryList() {
@@ -483,6 +490,6 @@ export class RegistrationComponent implements OnInit {
     }
 
     changeLocation(event:any){
-        console.log(event.value);
+        this.GetLocationList()
     }
 }

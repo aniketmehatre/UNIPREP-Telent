@@ -298,7 +298,8 @@
                                   <i class="fa-regular fa-earth-americas"></i>
                                 </div>
                                 <p-dropdown formControlName="country" id="country" [options]="countryList"
-                                  optionValue="id" optionLabel="country" [autoDisplayFirst]="false" [filter]="true" filterBy="country"  (onChange)="changeLocation($event)"></p-dropdown>
+                                  optionValue="id" optionLabel="country" [autoDisplayFirst]="false" [filter]="true"
+                                  filterBy="country" (onChange)="changeLocation($event)"></p-dropdown>
                               </div>
                               <div *ngIf="submitted && f.country.errors" class="invalid-feedback">
                                 <div *ngIf="f.country.errors.required">Home Country is required</div>
@@ -310,8 +311,8 @@
                                 <div class="p-inputgroup-addon">
                                   <i class="fa-regular fa-earth-americas"></i>
                                 </div>
-                                <p-dropdown formControlName="interestedCountry"   [options]="intrestedCountryList"
-                                  optionValue="id" optionLabel="country" [autoDisplayFirst]="false" ></p-dropdown>
+                                <p-dropdown formControlName="interestedCountry" [options]="intrestedCountryList"
+                                  optionValue="id" optionLabel="country" [autoDisplayFirst]="false"></p-dropdown>
                               </div>
                               <div *ngIf="submitted && f.interestedCountry.errors" class="invalid-feedback">
                                 <div *ngIf="f.interestedCountry.errors.required">Home Country is required</div>
@@ -320,6 +321,24 @@
 
                           </div>
                           <div class="row g-3">
+                            <div class="col-md-6 col-12">
+                              <label for="location">Location</label>
+                              <div class="p-inputgroup">
+                                <div class="p-inputgroup-addon">
+                                  <i class="fa-regular fa-location-dot"></i>
+                                </div>
+                                <p-dropdown formControlName="location" id="location" [filter]="true"
+                                  *ngIf="registrationForm.get('country').value==122" [filterBy]="'district'"
+                                  [options]="locationList" optionLabel="district"
+                                  [autoDisplayFirst]="false"></p-dropdown>
+                                <p-dropdown formControlName="location" id="location" [options]="locationList"
+                                  *ngIf="registrationForm.get('country').value!=122" optionLabel="district"
+                                  optionValue="id" [readonly]="true"></p-dropdown>
+                              </div>
+                              <div *ngIf="submitted && f.location.errors" class="invalid-feedback">
+                                <div *ngIf="f.location.errors.required">Location is required</div>
+                              </div>
+                            </div>
                             <div class="col-md-6 col-12">
                               <label for="floatingPassword">Password</label>
                               <div class="p-inputgroup">
@@ -342,6 +361,9 @@
                                 <div *ngIf="f.password.errors.minlength">Password must be at least 8 characters</div>
                               </div>
                             </div>
+                          </div>
+                          <div class="row g-3">
+
 
                             <div class="col-md-6 col-12">
                               <label for="confirmPassword">Confirm Password</label>
@@ -366,21 +388,8 @@
                                 <div *ngIf="f.confirmPassword.errors.required">Confirm Password is required</div>
                               </div>
                             </div>
-                            
-                            <div class="col-md-6 col-12">
-                              <label for="location">Location</label>
-                              <div class="p-inputgroup">
-                                <div class="p-inputgroup-addon">
-                                  <i class="fa-regular fa-location-dot"></i>
-                                </div>
-                                <p-dropdown formControlName="location" id="location" [filter]="true"
-                                  [filterBy]="'district'" [options]="locationList" optionLabel="district"
-                                  [autoDisplayFirst]="false"></p-dropdown>
-                              </div>
-                              <div *ngIf="submitted && f.location.errors" class="invalid-feedback">
-                                <div *ngIf="f.location.errors.required">Location is required</div>
-                              </div>
-                            </div>
+
+
                           </div>
 
                           <br />
