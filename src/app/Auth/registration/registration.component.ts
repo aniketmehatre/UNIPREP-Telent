@@ -30,6 +30,7 @@ export class RegistrationComponent implements OnInit {
     locationList: any;
     countryList: any;
     programLevelList: any;
+    intrestedCountryList:any;
 
     public otpForm: any = FormGroup;
     public emailOTPForm: any = FormGroup;
@@ -102,7 +103,9 @@ export class RegistrationComponent implements OnInit {
                 location: ["", [Validators.required]],
                 contactNumber: ["", [Validators.required]],
                 emailAddress: ["", [Validators.required, Validators.email]],
-                // interestedCountry: ["", [Validators.required]],
+
+                interestedCountry: [2, [Validators.required]],
+
                 // lastDegreePassingYear: ["", [Validators.required]],
                 // intakeYear: ["", [Validators.required]],
                 // intakeMonth: ["", [Validators.required]],
@@ -111,7 +114,9 @@ export class RegistrationComponent implements OnInit {
                 password: ["", [Validators.required, Validators.minLength(8), matchValidator('confirmPassword', true)]],
                 confirmPassword: ["", [Validators.required, matchValidator('password')]],
                 // terms: [false, [Validators.required]],
-                country: [14, [Validators.required]],
+
+                country: [122, [Validators.required]],
+
             }
         );
 
@@ -129,8 +134,9 @@ export class RegistrationComponent implements OnInit {
         });
 
         this.GetLocationList();
-        this.getCountryList();
+        this.gethomeCountryList();
         this.getProgramLevelList();
+        this.getIntrestedCountryList(); 
         this.genderList = [
             {label: "M", value: "Male"},
             {label: "F", value: "Female"},];
@@ -158,10 +164,21 @@ export class RegistrationComponent implements OnInit {
         );
     }
 
-    getCountryList() {
-        this.locationService.getCountry().subscribe(
+    gethomeCountryList() {
+        this.locationService.getHomeCountry(2).subscribe(
             (res: any) => {
                 this.countryList = res;
+                 
+            },
+            (error: any) => {
+                this.toastr.add({severity: 'warning', summary: 'Warning', detail: error.error.message});
+            }
+        );
+    }
+    getIntrestedCountryList() {
+        this.locationService.getCountry().subscribe(
+            (res: any) => {
+                this.intrestedCountryList = res;
             },
             (error: any) => {
                 this.toastr.add({severity: 'warning', summary: 'Warning', detail: error.error.message});
@@ -463,5 +480,9 @@ export class RegistrationComponent implements OnInit {
         if(this.registrationForm.controls['emailAddress'].valid) {
             this.showEmailErrorIcon = true;
         }
+    }
+
+    changeLocation(event:any){
+        console.log(event.value);
     }
 }
