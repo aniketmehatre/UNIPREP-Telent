@@ -151,7 +151,7 @@ export class RegistrationComponent implements OnInit {
 
     GetLocationList() {
         if(this.registrationForm.get('country').value==122){
-            this.locationService.gethomeLocation(121).subscribe(
+            this.locationService.getLocation().subscribe(
                 (res: any) => {
                     this.locationList = res;
                     console.log(this.locationList)

@@ -9,13 +9,6 @@ import {LocationData} from './@Models/location.model'
 export class LocationService {
     constructor(private http: HttpClient) {
     }
-
-    gethomeLocation(countryId:number) {
-        const headers = new HttpHeaders().set("Accept", "application/json");
-        return this.http.get<LocationData>(environment.ApiUrl + `/location?country_id=${countryId}`, {
-            headers: headers,
-        });
-    }
     getLocation() {
         const headers = new HttpHeaders().set("Accept", "application/json");
         return this.http.get<LocationData>(environment.ApiUrl + "/location", {
