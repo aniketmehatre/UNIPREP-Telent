@@ -35,11 +35,11 @@ export class RegistrationComponent implements OnInit {
     public otpForm: any = FormGroup;
     public emailOTPForm: any = FormGroup;
 
-    isMobileOTPSend: boolean = true;
-    isMobileOTPValidated: boolean = true;
-    isEmailOTPSend: boolean = true;
-    isEmailOTPValidated: boolean = true;
-    isRemainingFieldVisible: boolean = true;
+    isMobileOTPSend: boolean = false;
+    isMobileOTPValidated: boolean = false;
+    isEmailOTPSend: boolean = false;
+    isEmailOTPValidated: boolean = false;
+    isRemainingFieldVisible: boolean = false;
 
     password: any;
     show = false;
