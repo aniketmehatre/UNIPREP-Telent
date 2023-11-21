@@ -154,12 +154,13 @@ export class SubscriptionDataComponent implements OnInit {
         subscriptioncouponstatus :this.selectedSubscriptionDetails.couponcode
       }
       this.subscriptionService.applyCoupon(data).subscribe((response) => {
-        this.toast.add({severity:'warn', summary: 'Warn', detail: response.message});
+        
         if (response.success) {
           this.subscriptionTotal = Number(this.subscriptionTotal) - response.discountPrice;  
         }
         else {
           this.invalidCoupon = true;
+          this.toast.add({severity:'warn', summary: 'Warn', detail: response.message});
         }
       });
     }
