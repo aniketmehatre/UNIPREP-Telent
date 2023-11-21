@@ -10,16 +10,16 @@ import {
   ViewContainerRef,
   ViewEncapsulation,
 } from "@angular/core";
-import {MenuItem, MessageService} from "primeng/api";
-import {ModalService} from "src/app/components/modal/modal.service";
-import {AuthService} from "../../../Auth/auth.service";
-import {SubSink} from "subsink";
-import {Router} from "@angular/router";
-import {LocationService} from "../../../location.service";
-import {DataService} from "src/app/data.service";
-import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {matchValidator} from "../../../@Supports/matchvalidator";
-import {ThemeService} from '../../../theme.service';
+import { MenuItem, MessageService } from "primeng/api";
+import { ModalService } from "src/app/components/modal/modal.service";
+import { AuthService } from "../../../Auth/auth.service";
+import { SubSink } from "subsink";
+import { Router } from "@angular/router";
+import { LocationService } from "../../../location.service";
+import { DataService } from "src/app/data.service";
+import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { matchValidator } from "../../../@Supports/matchvalidator";
+import { ThemeService } from '../../../theme.service';
 import { DashboardService } from "src/app/pages/dashboard/dashboard.service";
 
 @Component({
@@ -52,6 +52,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   moduleList: any[] = [];
   subModuleList: any[] = [];
   questionList: any;
+  moduleQuestionReport: any;
   reportOptionList: any[] = [];
   darkModeSwitch!: HTMLInputElement;
   visible: boolean = false;
@@ -212,7 +213,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
       }
     });
     this.dataService.countryFlagSource.subscribe((data) => {
-      if(data != ""){
+      if (data != "") {
         this.headerFlag = data;
       }
     });
@@ -221,6 +222,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
       //   this.isQuestionVisible = false
       // }
       if (data.isVisible) {
+        this.moduleQuestionReport = data;
         this.moduleList = [];
         this.subModuleList = [];
         this.questionList = [];
@@ -228,6 +230,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
         this.onChangeModuleList(data.moduleId);
         this.onChangeSubModuleList(data.subModuleId);
         this.selectedGenMod = 2;
+        console.log('fgsdf');
+        
         this.isVisibleModulesMenu = true;
         this.moduleNgModel = data.moduleId;
         this.subModuleNgModel = data.subModuleId;
@@ -247,7 +251,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
     this.darkModeSwitch = document.getElementById("darkmodeswitch") as HTMLInputElement;
     this.darkModeSwitch.checked = this.themeService.isDarkMode();
-  
+
     this.darkModeSwitch.addEventListener("change", () => {
       this.themeService.toggleTheme();
     });
@@ -262,12 +266,33 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   openReportModalFromMoudle(op: any, event: any) {
+    console.log('asdddddd');
+    
     this.isQuestionVisible = false;
     this.isVisibleModulesMenu = true;
     op.toggle(event);
   }
 
   openReportModal(op: any, event: any) {
+    console.log('gfsdf');
+    this.reportSubmitForm.reset();
+    this.reportSubmitForm = this.formBuilder.group({
+      general: [1, [Validators.required]],
+      moduleId: ["", [Validators.required]],
+      submoduleId: ["", [Validators.required]],
+      questionId: ["", [Validators.required]],
+      reportOption: [""],
+      comment: ["", []],
+    });
+
+    this.moduleList = [];
+    this.subModuleList = [];
+    this.questionList = [];
+    this.getModuleList();
+    this.selectedGenMod = 1;
+    this.onChangeModuleList(1);
+    this.onChangeSubModuleList(1);
+    this.moduleQuestionReport = [];
     this.isQuestionVisible = true;
     this.isVisibleModulesMenu = false;
     // this.dataService.openReportWindowSource.subscribe((data) => {
@@ -310,16 +335,16 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.subs.sink = this.locationService
       .getReportOptionList()
       .subscribe((data) => {
-        this.reportOptionList = [{id: null, reportoption_name: 'Select'}, ...data.reportOptions];
+        this.reportOptionList = [{ id: null, reportoption_name: 'Select' }, ...data.reportOptions];
       });
   }
 
-  openFlagModal(totalCountryList: any, event: any): void{
+  openFlagModal(totalCountryList: any, event: any): void {
     this.isLondon = true;
     totalCountryList.toggle(event);
   }
 
-  getCountryList(): void{
+  getCountryList(): void {
     this.dashboardService.countryList().subscribe((countryList) => {
       this.countryLists = countryList;
     });
@@ -380,11 +405,11 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.service.getNewUserTimeLeft().subscribe(res => {
       let data = res.time_left;
       this.userLoginTimeLeftCount = false;
-      this.timer(data.minutes,data.seconds);
+      this.timer(data.minutes, data.seconds);
     })
   }
 
-  timer(minute: any,sec:any): void{
+  timer(minute: any, sec: any): void {
     let seconds: number = minute * 60;
     let textSec: any = '0';
     let statSec: number = sec;
@@ -408,7 +433,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   onSubmit(op: any) {
     let data;
-    if(this.reportSubmitForm.value.comment == null || this.reportSubmitForm.value.comment == ''){
+    if (this.reportSubmitForm.value.comment == null || this.reportSubmitForm.value.comment == '') {
       this.toast.add({
         severity: "error",
         summary: "Error",
@@ -416,24 +441,22 @@ export class HeaderComponent implements OnInit, OnDestroy {
       });
       return;
     }
-    if(this.reportSubmitForm.value.reportOption == null){
+
+    if (this.reportSubmitForm.value.reportOption == null) {
       return;
     }
-    if (this.reportSubmitForm.value.general == 1) {
-      data = {
-        reportOption: this.reportSubmitForm.value.reportOption,
-        comment: this.reportSubmitForm.value.comment,
-      };
-    } else {
-      data = {
-        moduleId: this.reportSubmitForm.value.moduleId,
-        submoduleId: this.reportSubmitForm.value.submoduleId,
-        questionId: this.reportSubmitForm.value.questionId,
-        reportOption: this.reportSubmitForm.value.reportOption,
-        comment: this.reportSubmitForm.value.comment,
-      };
-    }
-    this.reportSubmitForm.patchValue( {'comment':null} );
+
+    data = {
+      moduleId: this.moduleQuestionReport.moduleId ? this.moduleQuestionReport.moduleId : this.reportSubmitForm.value.moduleId,
+      submoduleId: this.moduleQuestionReport.subModuleId ? this.moduleQuestionReport.subModuleId : this.reportSubmitForm.value.submoduleId,
+      questionId: this.moduleQuestionReport.questionId ? this.moduleQuestionReport.questionId : this.reportSubmitForm.value.questionId,
+      reportOption: this.reportSubmitForm.value.reportOption,
+      comment: this.reportSubmitForm.value.comment,
+      countryId: this.selectedCountryId
+    };
+
+
+    this.reportSubmitForm.patchValue({ 'comment': null });
 
     this.locationService.reportFaqQuestion(data).subscribe((res) => {
       if (res.status == 404) {

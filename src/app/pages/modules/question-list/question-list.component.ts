@@ -354,6 +354,7 @@ export class QuestionListComponent implements OnInit {
   }
 
   openReport() {
+
     let data = {
       isVisible: true,
       moduleId: this.selectedQuestionData.module_id,
