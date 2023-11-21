@@ -20,6 +20,7 @@ import {DataService} from "src/app/data.service";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {matchValidator} from "../../../@Supports/matchvalidator";
 import {ThemeService} from '../../../theme.service';
+import { DashboardService } from "src/app/pages/dashboard/dashboard.service";
 
 @Component({
   selector: "uni-header",
@@ -74,6 +75,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
   timerInterval: any;
   userLoginTimeLeftCount!: boolean;
   timeLeftMins: any;
+  isLondon!: boolean;
+  countryLists!: any;
   constructor(
     private router: Router,
     private locationService: LocationService,
@@ -81,7 +84,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
     private service: AuthService,
     private toast: MessageService,
     private dataService: DataService,
-    private themeService: ThemeService
+    private themeService: ThemeService,
+    private dashboardService: DashboardService
   ) {
     this.subs.sink = this.dataService.countryIdSource.subscribe((data) => {
       this.selectedCountryId = Number(data);
@@ -139,6 +143,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.getModuleList();
+    this.getCountryList();
     this.onChangeModuleList(1);
     this.onChangeSubModuleList(1);
     if (this.service._checkExistsSubscription === 0) {
@@ -197,7 +202,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
       moduleId: ["", [Validators.required]],
       submoduleId: ["", [Validators.required]],
       questionId: ["", [Validators.required]],
-      reportOption: ["", [Validators.required]],
+      reportOption: [""],
       comment: ["", []],
     });
     this.getReportOption();
@@ -307,6 +312,17 @@ export class HeaderComponent implements OnInit, OnDestroy {
       .subscribe((data) => {
         this.reportOptionList = [{id: null, reportoption_name: 'Select'}, ...data.reportOptions];
       });
+  }
+
+  openFlagModal(totalCountryList: any, event: any): void{
+    this.isLondon = true;
+    totalCountryList.toggle(event);
+  }
+
+  getCountryList(): void{
+    this.dashboardService.countryList().subscribe((countryList) => {
+      this.countryLists = countryList;
+    });
   }
 
   onChangeChooseMain(event: any) {
