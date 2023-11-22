@@ -61,8 +61,27 @@
   /* Add other styles for active buttons */
 }
 // sop
+@media screen and (min-width: 500px) and (max-width: 1200px) {
 .sop-border:after {
-  width: 232px !important;
+    width: 350px !important;
+  }
+}
+@media screen and (min-width: 1200px) and (max-width: 1600px) {
+  .sop-border:after {
+    width: 700px !important;
+  }
+}
+
+@media screen and (min-width: 380px) and (max-width: 500px) {
+  .sop-border:after {
+    width: 300px !important;
+  }
+}
+
+@media screen and (max-width: 380px) {
+.sop-border:after {
+    width: 250px !important;
+  }
 }
 .scardFeatures {
   display: flex;
