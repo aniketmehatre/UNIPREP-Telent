@@ -56,10 +56,6 @@
 		border: 1px solid var(--uniprep-primaryhighlight);
 	}
 
-	.fctitle {
-		height: 50px !important;
-	}
-
 	svg {
 		color: var(--uniprep-primary);
 	}
@@ -69,12 +65,20 @@
 			background-color: var(--uniprep-primaryop10);
 			border: 1px solid var(--uniprep-primary);
 		}
+		.cardinactive
+		{
+			background-color: white;
+		}
 	}
 
 	&:focus {
 		.card {
 			background-color: var(--uniprep-primaryop10);
 			border: 1px solid var(--uniprep-primary);
+		}
+		.cardinactive
+		{
+			background-color: white;
 		}
 	}
 }

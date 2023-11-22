@@ -1,37 +1,34 @@
 <div class="container-fluid">
-    <div class="row">
-        <div class="card">
-            <div class="col-md-12">
-                <div class="card-body">
-                    <div class="mb-4">
-                        <div class="d-flex"><h4 class="sop-border sop-header">Frequently Asked Questions</h4></div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-4">
-                            <p><b>Table of content</b></p>
-                            <ul class="menulist" *ngFor="let faqcat of faqcatlist" (click)="onFaqcatClick(faqcat.id)">
-                                <li class="active">{{faqcat.name}}</li>
-                            </ul>
-                        </div>
-                        <div class="col-md-8">
-                            <p-accordion [multiple]="true" class="plain">
-                                <div class="col-md-8">
-                                    <p-accordion [multiple]="true" class="plain">
-                                        <div *ngFor="let faqlist of faqanswelist">
-                                        <p-accordionTab header={{faqlist.question}}>
-                                            <p>{{faqlist.answer}}</p>
-                                        </p-accordionTab>
-                                                                            
-                                    </div>
-                                    </p-accordion>
-        
-                                </div>
-                            </p-accordion>
-
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+	<div class="row">
+		<div class="card">
+			<div class="col-md-12">
+				<div class="card-body">
+					<div class="mb-4">
+						<div class="d-flex"><h4 class="sop-border sop-header">Frequently Asked Questions</h4></div>
+					</div>
+					<div class="row">
+						<div class="col-md-3">
+							<p><b>Table of content</b></p>
+							<ul class="menulist">
+								<li *ngFor="let faqcat of faqcatlist"  (click)="onFaqcatClick(faqcat.id)" [class.active]="faqcat.id === activeCategory">{{ faqcat.name }}</li>
+							</ul>
+						</div>
+						<div class="col-md-9">
+							<p-accordion [multiple]="true" class="plain">
+								<div class="col-md-8">
+									<p-accordion [multiple]="true" class="plain">
+										<div *ngFor="let faqlist of faqanswelist">
+											<p-accordionTab header="{{ faqlist.question }}">
+												<p>{{ faqlist.answer }}</p>
+											</p-accordionTab>
+										</div>
+									</p-accordion>
+								</div>
+							</p-accordion>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>

@@ -9,6 +9,7 @@ import { FaqService } from './faq.service';
 export class FaqComponent implements OnInit {
     faqcatlist: any[] = [];
     faqanswelist: any[] = [];
+    activeCategory: any = null;
     constructor(private service: FaqService) {
     }
 
@@ -24,14 +25,14 @@ export class FaqComponent implements OnInit {
         }) 
       }
     
-      onFaqcatClick(id:any){ 
-        this.faqanswelist=[];
-          var data={
-            category:id
-          }
-        
+      onFaqcatClick(id: any) {
+        this.faqanswelist = []; // Clear the faqanswelist array when a category is clicked
+        var data = {
+          category: id
+        };
+        this.activeCategory = id; // Set the active category to the clicked ID
         this.service.Getfaqlistwithcate(data).subscribe((res) => {
-          this.faqanswelist=res.data
-           })
+          this.faqanswelist = res.data; // Update faqanswelist with the retrieved data
+        });
       }
 }
