@@ -192,11 +192,11 @@
 			</div>
 		</ng-template>
 	</p-overlayPanel>
-	<p-overlayPanel #totalCountryList [style]="{'width': '25vh'}">
+	<p-overlayPanel #totalCountryList>
 		<ng-template pTemplate="content">
 			<div *ngIf="isLondon">
 				<ul class="px-0">
-					<li class="list-group-item my-2" *ngFor="let v of countryLists">
+					<li class="list-group-item my-2" role="button" *ngFor="let v of countryLists">
 						<img alt="country" class="countryicon mr-2"	src="{{ v.flag != '' ? v.flag : '../../uniprep-assets/images/mstile-150x150.png' }}" width="25"/>
 						<span>{{v.country}}</span>
 					</li>
