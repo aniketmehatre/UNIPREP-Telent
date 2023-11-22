@@ -111,11 +111,7 @@
 						</div>
 					</div>
 					<div label="" role="button" class="headercountry me-2 d-none d-md-block">
-						<img src="{{ headerFlag }}" alt="United Kingdom" height="auto" width="auto" />
-						<span class="report-modal">
-							<p-dropdown [options]="reportOptionList" [(ngModel)]="reportOptionNgModel" optionValue="id"
-								formControlName="reportOption" class="w-100" id="reportOption" optionLabel="reportoption_name"></p-dropdown>
-						</span>
+						<img src="{{ headerFlag }}" alt="United Kingdom" height="auto" width="auto" (click)="openFlagModal(totalCountryList, $event)"/>
 					</div>
 					<button class="d-md-block d-none btn btn-primary btn-rounded me-2 ms-0 my-0" alt="chat with notification"
 						(click)="onClickSubscribe()"><span class="text-small fw-normal px-3">Subscribe Now</span></button>
