@@ -153,7 +153,6 @@ export class EventsComponent implements OnInit {
         }
         this.totalcount=res.count
         this.upcommingevent.push(bindingdata)
-        this.filterform.reset()
       })
       this.newfile = "none";
     })
@@ -185,7 +184,7 @@ export class EventsComponent implements OnInit {
       from:this.filterform.value.from,
       country:this.filterform.value.country,
       page:1,
-      perpage:this.perpage
+      perpage:8
     }
     this.getEventUpComming(data)
   }
