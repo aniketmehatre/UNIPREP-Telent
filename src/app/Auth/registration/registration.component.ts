@@ -4,7 +4,7 @@ import {Router} from "@angular/router";
 import {matchValidator} from "src/app/@Supports/matchvalidator";
 import {LocationService} from "src/app/location.service";
 import {AuthService} from "../auth.service";
-import {MessageService} from "primeng/api";
+import {MessageService} from "primeng/api"; 
 
 @Component({
     selector: "app-registration",
@@ -101,7 +101,7 @@ export class RegistrationComponent implements OnInit {
         this.registrationForm = this.formBuilder.group({
                 fullName: ["", [Validators.required]],
                 location: ["", [Validators.required]],
-                contactNumber: ["", [Validators.required]],
+                contactNumber: ['', [Validators.required]],
                 emailAddress: ["", [Validators.required, Validators.email]],
 
                 interestedCountry: [2, [Validators.required]],
@@ -229,7 +229,7 @@ export class RegistrationComponent implements OnInit {
             location_id: this.registrationForm.value.location?.id,
             phone: this.registrationForm.value.contactNumber,
             email: this.registrationForm.value.emailAddress,
-            // interested_country_id: this.registrationForm.value.interestedCountry.id,
+            interested_country_id: this.registrationForm.value.interestedCountry,
             // last_degree_passing_year: this.registrationForm.value.lastDegreePassingYear.getFullYear(),
             // intake_year_looking: this.registrationForm.value.intakeYear.getFullYear(),
             // intake_month_looking: this.registrationForm.value.intakeMonth.getMonth() + 1,
