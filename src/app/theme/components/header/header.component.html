@@ -110,8 +110,8 @@
 							<span class="timertext text-uppercase">Sec</span>
 						</div>
 					</div>
-					<div label="" role="button" class="headercountry me-2 d-none d-md-block">
-						<img src="{{ headerFlag }}" alt="United Kingdom" height="auto" width="auto" (click)="openFlagModal(totalCountryList, $event)"/>
+					<div label="" role="button" class="headercountry me-2 d-none d-md-block" (click)="openFlagModal(totalCountryList, $event)">
+						<img src="{{ headerFlag }}" alt="United Kingdom" height="auto" width="auto"/>
 					</div>
 					<button class="d-md-block d-none btn btn-primary btn-rounded me-2 ms-0 my-0" alt="chat with notification"
 						(click)="onClickSubscribe()"><span class="text-small fw-normal px-3">Subscribe Now</span></button>
@@ -195,9 +195,11 @@
 	<p-overlayPanel #totalCountryList>
 		<ng-template pTemplate="content">
 			<div *ngIf="isLondon">
-				<ul *ngFor="let v of countryLists">
-					<li class="list-group-item"><img alt="country" class="countryicon mr-2"
-						src="{{ v.flag != '' ? v.flag : '../../uniprep-assets/images/mstile-150x150.png' }}" width="25"/>{{v.country}}</li>
+				<ul class="px-0">
+					<li class="list-group-item my-2" role="button" *ngFor="let v of countryLists">
+						<img alt="country" class="countryicon mr-2"	src="{{ v.flag != '' ? v.flag : '../../uniprep-assets/images/mstile-150x150.png' }}" width="25"/>
+						<span>{{v.country}}</span>
+					</li>
 				</ul>
 			</div>
 		</ng-template>
