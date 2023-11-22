@@ -242,7 +242,7 @@ export class SubscriptionService {
     localStorage.getItem("loginToken");
     const headers = new HttpHeaders().set("Accept", "application/json");
     return this.http.post<any>(
-      environment.ApiUrl + "/downloadinvoice",
+      environment.ApiUrl + "/downloadinvoiceforstudent",
       data,
       { headers: headers },
     );
