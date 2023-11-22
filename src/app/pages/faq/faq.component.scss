@@ -2,13 +2,16 @@
   list-style: none;
 
   li {
+    padding: 10px;
     cursor: pointer;
 
     &.active {
       color: var(--uniprep-primary);
+      font-weight: 600;
+      background: var(--uniprep-primaryop10);
+      padding: 10px;
+      border-radius: 5px;
     }
-
-    margin-bottom: 15px;
 
     &:last-child {
       margin-bottom: 0px;
@@ -17,4 +20,5 @@
 
   position: sticky;
   top: 80px;
+  padding-left:0;
 }
