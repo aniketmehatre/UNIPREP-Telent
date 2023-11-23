@@ -160,7 +160,7 @@
                         class="response-msg-attach"
                       >
                         <label>{{ message.filename }}</label> &nbsp;&nbsp;<a
-                          [href]="message.attachment"
+                        (click)="openAttachment(message.attachment)"
                           ><i class="pi pi-arrow-circle-down"></i>
                         </a>
                       </p>
