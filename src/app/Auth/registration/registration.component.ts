@@ -5,6 +5,7 @@ import {matchValidator} from "src/app/@Supports/matchvalidator";
 import {LocationService} from "src/app/location.service";
 import {AuthService} from "../auth.service";
 import {MessageService} from "primeng/api"; 
+import { faL } from "@fortawesome/free-solid-svg-icons";
 
 @Component({
     selector: "app-registration",
@@ -40,7 +41,6 @@ export class RegistrationComponent implements OnInit {
     isEmailOTPSend: boolean = false;
     isEmailOTPValidated: boolean = false;
     isRemainingFieldVisible: boolean = false;
-
     password: any;
     show = false;
     showConfirm = false;
@@ -52,6 +52,8 @@ export class RegistrationComponent implements OnInit {
     interval: any;
     showContactErrorIcon: boolean = false;
     showEmailErrorIcon: boolean = false;
+    validNumberRequired: boolean = false;
+    registerFormInvalid: boolean = true;
 
     showHidePassword() {
         if (this.password === 'password') {
@@ -477,8 +479,13 @@ export class RegistrationComponent implements OnInit {
 
     onChangeContact(event: any) {
         this.showContactErrorIcon = false;
-        if(event?.target?.value?.length == 10) {
+        if (event?.target?.value?.length <= 8) {
+            this.validNumberRequired = true;
             this.showContactErrorIcon = true;
+            this.registerFormInvalid = true;
+        } else {
+            this.validNumberRequired = false;
+            this.registerFormInvalid = false;
         }
     }
 
