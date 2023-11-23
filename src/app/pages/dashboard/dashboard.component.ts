@@ -105,6 +105,7 @@ export class DashboardComponent implements OnInit {
 
     loadApiData(): void {
         this.selectedCountryId = localStorage.getItem('countryId');
+        localStorage.setItem('selectedcountryId',this.selectedCountryId)
         const data = {
             countryId: this.selectedCountryId,
         }
