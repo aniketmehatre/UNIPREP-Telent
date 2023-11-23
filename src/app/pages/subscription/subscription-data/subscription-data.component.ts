@@ -34,6 +34,10 @@ export class SubscriptionDataComponent implements OnInit {
   showCheckout: boolean = true;
   subscriptionAmt: any = '0.00';
   @Output() subscriptionPlan = new EventEmitter();
+  studentType: number = 0;
+  loadingCountry: boolean = false;
+  loadingUserDetails: boolean = false;
+
   constructor(private authService: AuthService,
     private subscriptionService: SubscriptionService,
     private toast: MessageService) { }
@@ -41,13 +45,24 @@ export class SubscriptionDataComponent implements OnInit {
   ngOnInit(): void {
     this.authService.getCountry().subscribe((data) => {
       this.countryList = data;
-      this.getSubscriptionList();
+      this.loadingCountry = true;
       this.getSubscriptionTopupList();
+      this.loadSubscriptionList();
+    });
+    this.authService.getMe().subscribe(data => {
+      this.studentType = data?.userdetails[0]?.student_type_id;
+      this.loadingUserDetails = true;
+      this.loadSubscriptionList();
     });
   }
   get URL() {
     return `${environment.ApiUrl}/downloadinvoice`;
   }
+  loadSubscriptionList() {
+    if(this.loadingCountry && this.loadingUserDetails) {
+      this.getSubscriptionList();
+    }
+}
   buttonclicked1() {
     this.basesubscription = true;
     this.topupcountries = false;
@@ -74,7 +89,7 @@ export class SubscriptionDataComponent implements OnInit {
     let data = {
       page: 1,
       perpage: 1000,
-      studenttype: 1
+      studenttype: this.studentType
     }
     this.subscriptionService.getSubscriptions(data).subscribe((response) => {
       this.subscriptionList = response.subscriptions;
@@ -150,6 +165,10 @@ export class SubscriptionDataComponent implements OnInit {
   }
 
   applyCoupon() {
+    if(this.showCheckout) {
+      this.toast.add({ severity: 'error', summary: 'Error', detail: 'Please select the Plan!' });
+      return; 
+    }
     if (this.couponInput) {
       let data = {
         couponCode: this.couponInput,
@@ -164,7 +183,6 @@ export class SubscriptionDataComponent implements OnInit {
         else {
           this.toast.add({ severity: 'error', summary: 'Error', detail: response.message });
           this.invalidCoupon = true;
-          this.toast.add({severity:'warn', summary: 'Warn', detail: response.message});
         }
       });
     }

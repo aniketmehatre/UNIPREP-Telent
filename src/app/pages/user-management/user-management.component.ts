@@ -84,7 +84,6 @@ export class UserManagementComponent implements OnInit {
 
     ngOnInit(): void {
         this.dateTime.setDate(this.dateTime.getDate());
-        this.GetLocationList();
         this.getProgramLevelList();
         this.getCountryList();
         this.authService.userData.subscribe(data => {
@@ -126,6 +125,7 @@ export class UserManagementComponent implements OnInit {
                 intake_month_looking: this.PersonalInfo?.intake_year_looking == null ? null : new Date(mon+"/"+this.PersonalInfo?.intake_year_looking),
                 programlevel_id: this.PersonalInfo?.programlevel_id,
             });
+            this.GetLocationList();
 
         });
     }
@@ -143,18 +143,24 @@ export class UserManagementComponent implements OnInit {
     // using get location
     // test command
     GetLocationList() {
-        this.locationService.getLocation().subscribe(
-            (res: any) => {
-                this.locationList = [{ id: null, district: 'Select' }, ...res];
-            },
-            (error: any) => {
-                this.toast.add({
-                    severity: "warning",
-                    summary: "Warning",
-                    detail: error.error.message,
-                });
-            }
-        );
+        if(this.registrationForm.get('home_country')?.value==122){
+            this.locationService.getLocation().subscribe(
+                (res: any) => {
+                    this.locationList = res;
+                },
+                (error: any) => {
+                    this.toast.add({
+                        severity: "warning",
+                        summary: "Warning",
+                        detail: error.error.message,
+                    });
+                }
+            );
+        }
+        else{
+            this.locationList=[{id:0,district:'Others'}];
+            this.registrationForm?.get('location_id')?.setValue(0);
+        }
     }
 
     getProgramLevelList() {
@@ -164,7 +170,7 @@ export class UserManagementComponent implements OnInit {
     }
 
     getCountryList() {
-        this.locationService.getCountry().subscribe(
+        this.locationService.getHomeCountry(2).subscribe(
             (res: any) => {
                 this.countryList = res;
             },
@@ -325,5 +331,9 @@ export class UserManagementComponent implements OnInit {
         }else{
             this.PasswordDivShow = true;
         }
+    }
+
+    changeLocation(event:any){
+        this.GetLocationList()
     }
 }
