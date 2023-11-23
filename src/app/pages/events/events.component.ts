@@ -210,6 +210,8 @@ export class EventsComponent implements OnInit {
         }
         this.totalcountpost=res.count
         this.postevetdetaisl.push(bindingdata)
+        console.log(this.postevetdetaisl);
+        
       })
     })
   }
@@ -245,5 +247,8 @@ performSearch(events:any){
       this.toast.add({ severity: 'error', summary: 'Error', detail: error.message });
       // this.router.navigate(['/subscribers']);
     });
+}
+goingEventLink(eventlink:any){
+  window.open(eventlink);
 }
 }

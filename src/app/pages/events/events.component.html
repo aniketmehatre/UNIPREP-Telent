@@ -32,7 +32,7 @@
 							<span class="btn btn-primary eventcountdown">{{ event.daysago }}</span>
 							<div class="event-top card-body pb-0">
 								<div class="position-relative mt-3">
-									<div class="text-center">
+									<div class="text-center" style="text-align: center; height: 125px;">
 										<img width="120px" src="{{ event.companylogo }}" alt="" />
 									</div>
 								</div>
@@ -44,44 +44,6 @@
 									</div>
 								</div>
 							</div>
-							<div class="event-bottom card-body">
-								<div class="row">
-									<div class="col-md-7">
-										<h5 class="mb-0">{{ event.eventname }}</h5>
-									</div>
-									<div class="col-md-5">
-										<span *ngIf="event.registered === 0 ? false : true">
-											<div>
-												<a class="text-decoration-none" href="{{ event.eventlink }}">
-													<button class="btn btn-primary registerbtn w-100 m-0 d-flex align-items-center" type="button"><i class="fa-regular fa-clock me-2"></i> &nbsp;Event Link</button>
-												</a>
-											</div>
-										</span>
-									</div>
-								</div>
-
-								<p class="small">{{ event.eventdescription }}</p>
-								<div class="d-flex mt-2 flex-md-row flex-column">
-									<div class="d-flex align-items-center">
-										<img class="me-1" style="width: 20px" src="{{ event.countrylog }}" alt="" />
-										<p class="small fw-semibold mb-0">{{ event.country }}</p>
-									</div>
-								</div>
-								<div class="d-flex mt-2 flex-md-row flex-column">
-									<div class="d-flex align-items-center">
-										<i class="fa-regular fa-users me-1 small"></i>
-										<p class="small fw-semibold mb-0">Registered Members-{{ event.registerusercount }}</p>
-									</div>
-								</div>
-								<div class="d-flex mt-2 align-items-center">
-									<i class="fa-regular fa-microphone-stand me-1 small"></i>
-									<p class="mb-0 small fw-semibold">Speaker-{{ event.speakername }}(HR Recruiter)</p>
-								</div>
-								<div class="mt-2">
-									<button (click)="registerButton(event.id)" class="btn btn-primary registerbtn w-100 m-0" type="button">{{ event.registered === 0 ? "register Now" : "Registered" }}</button>
-								</div>
-							</div>
-						</div>
 
 						<div class="event-bottom card-body">
 							<h5 class="mb-0">{{ event.eventname }}</h5>
@@ -106,8 +68,8 @@
 									<p class="mb-0 small fw-semibold">Speaker-{{ event.speakername }}(HR Recruiter)</p>
 								</div>
 								<div class="col-6">
-									<span *ngIf="event.registered===0?false:true">
-										<div class="mt-2"><a href="{{ event.eventlink }}"><button style="display: inline-flex;" class="btn btn-primary registerbtn w-100 m-0" type="button"><i class="fa-regular fa-clock me-2"></i> &nbsp;Event Link</button></a></div>
+									<span *ngIf="event.registered===0?false:true" target="_blank">
+										<div (click)="goingEventLink(event.eventlink)" class="mt-2"><button style="display: inline-flex;" class="btn btn-primary registerbtn w-100 m-0" type="button"><i class="fa-regular fa-clock me-2"></i> &nbsp;Event Link</button></div>
 									</span>
 								</div>
 							</div>
@@ -116,44 +78,52 @@
 
 					</div>
 				</div>
-				<!-- post event -->
-				<div class="row mt-3" *ngIf="postevent">
-					<div class="col-md-3 col-6" *ngFor="let event of postevetdetaisl">
-						<div class="card eventcard">
-							<span class="btn btn-primary eventcomplete">{{ event.date }}</span>
-							<div class="event-top card-body pb-0">
-								<div class="position-relative mt-3">
-									<div class="text-center">
-										<img width="120px" src="{{ event.companylogo }}" alt="" />
+			</div>
+						<!-- post event -->
+						<div class="row mt-3" *ngIf="postevent">
+							<div class="col-md-3 col-6" *ngFor="let events of postevetdetaisl">
+								<div class="card eventcard">
+									<span class="btn btn-primary eventcomplete">{{ events.date }}</span>
+									<div class="event-top card-body pb-0">
+										<div class="position-relative mt-3">
+											<div class="text-center" style="text-align: center; height: 125px;">
+												<img width="120px" src="{{ events.companylogo }}" alt="" />
+											</div>
+										</div>
 									</div>
-								</div>
-							</div>
-
-							<div class="event-bottom card-body">
-								<h5 class="mb-0">{{ event.eventname }}</h5>
-								<p class="small">{{ event.eventdescription }}</p>
-								<div class="d-flex mt-2 flex-md-row flex-column">
-									<div class="d-flex align-items-center">
-										<img class="me-1" style="width: 20px" src="{{ event.countrylog }}" alt="" />
-										<p class="small fw-semibold mb-0">{{ event.country }}</p>
+		
+									<div class="event-bottom card-body">
+										<h5 class="mb-0">{{ events.eventname }}</h5>
+										<p class="small">{{ events.eventdescription.length > 29 ? events.eventdescription.slice(0, 29) + '...' : events.eventdescription }}</p>
+										<div class="d-flex mt-2 flex-md-row flex-column">
+											<div class="d-flex align-items-center">
+												<img class="me-1" style="width: 20px" src="{{ events.countrylog }}" alt="" />
+												<p class="small fw-semibold mb-0">{{ events.country }}</p>
+											</div>
+										</div>
+		
+										<div class="row">
+											<div class="col-6">
+												<div class="d-flex align-items-center mt-2">
+													<img class="me-1" style="width: 20px" src="{{ events.countrylog }}" alt="" />
+													<p class="small fw-semibold mb-0">{{ events.country }}</p>
+												</div>
+											</div>
+											<div class="col-6">
+												<div class="d-flex align-items-center">
+													<i class="fa-regular fa-users me-1 small"></i>
+													<p class="small fw-semibold mb-0">Registered Members-{{events.registerusercount}}</p>
+												</div>
+											</div>
+										</div>
+										<div class="d-flex mt-2 align-items-center">
+											<i class="fa-regular fa-microphone-stand me-1 small"></i>
+											<p class="mb-0 small fw-semibold">Speaker-{{ events.speakername }}(HR Recruiter)</p>
+										</div>
 									</div>
-								</div>
-
-								<div class="d-flex mt-2 flex-md-row flex-column">
-									<div class="d-flex align-items-center">
-										<i class="fa-regular fa-users me-1 small"></i>
-										<p class="small fw-semibold mb-0">Registered Members-{{ event.registerusercount }}</p>
-									</div>
-								</div>
-								<div class="d-flex mt-2 align-items-center">
-									<i class="fa-regular fa-microphone-stand me-1 small"></i>
-									<p class="mb-0 small fw-semibold">Speaker-{{ event.speakername }}(HR Recruiter)</p>
 								</div>
 							</div>
 						</div>
-					</div>
-				</div>
-			</div>
 			<!-- <div class="container-fluid">
                 <div class="row">
                   <div *ngFor="let resource of resourceslist" class="col-md-3 col-12 mt-3">
