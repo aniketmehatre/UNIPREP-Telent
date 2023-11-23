@@ -7,6 +7,7 @@ import { EventsRoutingModule } from './events-routing.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { PaginatorModule } from 'primeng/paginator';
 import { DropdownModule } from 'primeng/dropdown';
+import { TooltipModule } from 'primeng/tooltip';
 
 
 @NgModule({
@@ -19,7 +20,8 @@ import { DropdownModule } from 'primeng/dropdown';
         AccordionModule,
         ReactiveFormsModule,
         PaginatorModule,
-        DropdownModule
+        DropdownModule,
+        TooltipModule
     ]
 })
 export class EventsModule {

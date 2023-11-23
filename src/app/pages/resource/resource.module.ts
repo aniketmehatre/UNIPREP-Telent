@@ -4,6 +4,7 @@ import {CommonModule} from '@angular/common';
 import {ResourceRoutingModule} from './resource-routing.module';
 import { ResourceComponent } from './resource.component';
 import {AccordionModule} from "primeng/accordion";
+import { TooltipModule } from 'primeng/tooltip';
 
 
 @NgModule({
@@ -13,7 +14,8 @@ import {AccordionModule} from "primeng/accordion";
     imports: [
         CommonModule,
         ResourceRoutingModule,
-        AccordionModule
+        AccordionModule,
+        TooltipModule
     ]
 })
 export class ResourceModule {
