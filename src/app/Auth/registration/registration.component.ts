@@ -166,7 +166,7 @@ export class RegistrationComponent implements OnInit {
             );
         }
         else{
-            this.locationList=[{id:null,district:'Others'}];
+            this.locationList=[{id:0,district:'Others'}];
         }
 
     }
