@@ -78,6 +78,7 @@ export class DashboardComponent implements OnInit {
     }
 
     ngOnInit(): void {
+        this.selectedCountryId = localStorage.getItem('countryId');
         localStorage.setItem("currentmodulenameforrecently", '');
         this.dashboardService.getTrustedPartners().subscribe(partnerLogo => {
             this.partnerTrusterLogo = partnerLogo;
@@ -104,7 +105,7 @@ export class DashboardComponent implements OnInit {
     }
 
     loadApiData(): void {
-        this.selectedCountryId = localStorage.getItem('countryId');
+
         localStorage.setItem('selectedcountryId',this.selectedCountryId)
         const data = {
             countryId: this.selectedCountryId,
