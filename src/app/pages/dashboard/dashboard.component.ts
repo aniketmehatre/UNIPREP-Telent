@@ -1,15 +1,10 @@
-
-import {Component,Renderer2, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {Component, ElementRef, OnInit, Renderer2} from '@angular/core';
 import {DashboardService} from "./dashboard.service";
 import {AuthService} from "../../Auth/auth.service";
 import {SubSink} from "subsink";
 import {Router} from "@angular/router";
 import {DataService} from 'src/app/data.service';
-import {MessageService} from "primeng/api";
 import {combineLatest} from "rxjs";
-import {select} from "@ngrx/store";
-import {AnimationBuilder} from "@angular/animations";
-import {Carousel, CarouselModule} from "primeng/carousel";
 
 @Component({
     selector: 'uni-dashboard',
@@ -32,7 +27,6 @@ export class DashboardComponent implements OnInit {
     isShareWithSocialMedia: boolean = false;
     isViewMoreOrgVisible: boolean = false;
     partnerTrusterLogo: any;
-    searchResult: any;
     university: any[] = [
         {
             "image": "../../../uniprep-assets/images/icons/university1.svg",
@@ -86,6 +80,13 @@ export class DashboardComponent implements OnInit {
         this.dashboardService.getTrustedPartners().subscribe(partnerLogo => {
             this.partnerTrusterLogo = partnerLogo;
         });
+
+        const data = {
+            countryId: this.selectedCountryId,
+        }
+        this.dashboardService.getModuleReadProgression(data).subscribe(response => {
+            this.readingProgressings = response.module;
+        });
         this.dashboardService.countryList().subscribe(countryList => {
             this.countryLists = countryList;
             this.countryLists.forEach((element: any) => {
@@ -115,9 +116,8 @@ export class DashboardComponent implements OnInit {
         combineLatest(
             this.dashboardService.getReadProgression({ countryId: this.selectedCountryId }),
             this.dashboardService.getQuizProgression({ countryId: this.selectedCountryId }),
-            this.dashboardService.getModuleReadProgression(data),
             this.dashboardService.getModuleQuizProgression(data))
-            .subscribe(([readProgression, quizProgression, getModuleReadProgression,
+            .subscribe(([readProgression, quizProgression,
                 getModuleQuizProgression]) => {
                 if (readProgression) {
                     if (!readProgression.success) {
@@ -132,11 +132,7 @@ export class DashboardComponent implements OnInit {
                     }
                     this.readQuizProgressionPercentage = Math.round(quizProgression.quizpercentage);
                 }
-
-                if (getModuleReadProgression) {
-                    this.readingProgressings = getModuleReadProgression.module;
-                }
-                if (getModuleReadProgression) {
+                if (getModuleQuizProgression) {
                     this.quizProgressings = getModuleQuizProgression.module;
                 }
             })

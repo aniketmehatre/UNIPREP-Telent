@@ -48,7 +48,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
   reportOptionNgModel: number = 0;
   selectedCountryId: any;
   selectedModuleId: any;
-  selectedSubModuleId: any;
   moduleList: any[] = [];
   subModuleList: any[] = [];
   questionList: any;
@@ -56,7 +55,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
   reportOptionList: any[] = [];
   darkModeSwitch!: HTMLInputElement;
   visible: boolean = false;
-  showReportSuccess: boolean = false;
   isShowFreeTrialStart: boolean = false;
   isChangePasswordWindowVisible: boolean = false;
   day: number = 0;
@@ -214,11 +212,11 @@ export class HeaderComponent implements OnInit, OnDestroy {
         this.openModal();
       }
     });
-    this.dataService.countryFlagSource.subscribe((data) => {
-      if (data != "") {
-        this.headerFlag = data;
-      }
-    });
+    // this.dataService.countryFlagSource.subscribe((data) => {
+    //   if (data != "") {
+    //     this.headerFlag = data;
+    //   }
+    // });
     this.dataService.openReportWindowSource.subscribe((data) => {
       // if(data.from == 'module'){
       //   this.isQuestionVisible = false
