@@ -5,7 +5,9 @@
 				<div class="row justify-content-center">
 					<div class="col-md-2 text-start"></div>
 					<div class="col-md-8 text-center">
-						<h5 class="select-title mb-1"  tooltipPosition="top"  pTooltip="Within this section, you'll find information about future events hosted by international organisations.">EVENTS<i class="questiontooltip fa-solid fa-circle-question"></i>
+						<h5 class="select-title mb-1" tooltipPosition="top"
+							pTooltip="Within this section, you'll find information about future events hosted by international organisations.">
+							EVENTS<i class="questiontooltip fa-solid fa-circle-question"></i>
 						</h5>
 					</div>
 					<div class="col-md-2"></div>
@@ -53,14 +55,19 @@
 							</div>
 
 							<div class="event-bottom card-body">
-								<h5 class="mb-0">{{ event.eventname }}</h5>
+								<h5 class="mb-0" tooltipPosition="top"
+									[pTooltip]="event.eventname + '<br>Speaker - ' + event.speakername"
+									[escape]="false">
+									{{ event.eventname.length >15 ? event.eventname.slice(0,15) + '...':event.eventname
+									}} <span><i class="questiontooltip fa-solid fa-circle-question"></i></span></h5>
 								<p class="small">{{ event.eventdescription.length > 29 ? event.eventdescription.slice(0,
 									29) + '...' : event.eventdescription }}</p>
 								<div class="row">
 									<div class="col-6">
 										<div class="d-flex align-items-center mt-2">
 											<img class="me-1" style="width: 20px" src="{{ event.countrylog }}" alt="" />
-											<p class="small fw-semibold mb-0">{{ event.country }}</p>
+											<p style="white-space: nowrap;" class="small fw-semibold mb-0">{{
+												event.country }}</p>
 										</div>
 									</div>
 									<div class="col-6">
@@ -74,7 +81,9 @@
 								<div class="row">
 									<div class="col-6 d-flex mt-2 align-items-center">
 										<i class="fa-regular fa-microphone-stand me-1 small"></i>
-										<p class="mb-0 small fw-semibold">Speaker-{{ event.speakername }}(HR Recruiter)
+										<p class="mb-0 small fw-semibold">Speaker- <br>{{ event.speakername.length>9
+											?event.speakername.slice(0,9) + '...':event.speakername}}<br> <span
+												style="white-space: nowrap;"> (HR Recruiter)</span>
 										</p>
 									</div>
 									<div class="col-6">
@@ -110,22 +119,22 @@
 							</div>
 
 							<div class="event-bottom card-body">
-								<h5 class="mb-0">{{ events.eventname }}</h5>
+								<h5 class="mb-0" tooltipPosition="top"
+									[pTooltip]="events.eventname + '<br>Speaker - ' + events.speakername"
+									[escape]="false">
+									{{ events.eventname.length >15 ? events.eventname.slice(0,15) +
+									'...':events.eventname
+									}} <span><i class="questiontooltip fa-solid fa-circle-question"></i></span></h5>
 								<p class="small">{{ events.eventdescription.length > 29 ?
 									events.eventdescription.slice(0, 29) + '...' : events.eventdescription }}</p>
-								<div class="d-flex mt-2 flex-md-row flex-column">
-									<div class="d-flex align-items-center">
-										<img class="me-1" style="width: 20px" src="{{ events.countrylog }}" alt="" />
-										<p class="small fw-semibold mb-0">{{ events.country }}</p>
-									</div>
-								</div>
 
 								<div class="row">
 									<div class="col-6">
 										<div class="d-flex align-items-center mt-2">
 											<img class="me-1" style="width: 20px" src="{{ events.countrylog }}"
 												alt="" />
-											<p class="small fw-semibold mb-0">{{ events.country }}</p>
+											<p style="white-space: nowrap;" class="small fw-semibold mb-0">{{
+												events.country }}</p>
 										</div>
 									</div>
 									<div class="col-6">
@@ -138,13 +147,16 @@
 								</div>
 								<div class="d-flex mt-2 align-items-center">
 									<i class="fa-regular fa-microphone-stand me-1 small"></i>
-									<p class="mb-0 small fw-semibold">Speaker-{{ events.speakername }}(HR Recruiter)</p>
+									<p style="white-space: nowrap;" class="mb-0 small fw-semibold">Speaker-{{
+										events.speakername.length>8
+										?events.speakername.slice(0,8) + '...':events.speakername}}<span> (HR
+											Recruiter)</span>
+									</p>
 								</div>
 							</div>
 						</div>
 					</div>
-				</div>
-				<!-- <div class="container-fluid">
+					<!-- <div class="container-fluid">
                 <div class="row">
                   <div *ngFor="let resource of resourceslist" class="col-md-3 col-12 mt-3">
                     <div class="card card-style"><a href={{resource.link}} class="fw-semibold" target="_blank">{{resource.title}}</a></div>
@@ -152,67 +164,68 @@
                 </div>
               </div> -->
 
+				</div>
 			</div>
 		</div>
 		<div class="event-paginator" style="background-color: #fff; border-radius: 0px 0px 15px 15px;">
-			<p-paginator *ngIf="upcomingevent" [rows]="10" [totalRecords]="totalcount" (onPageChange)="paginate($event)"
-				[rowsPerPageOptions]="[8, 32, 72, 100]"></p-paginator>
+			<p-paginator *ngIf="upcomingevent" [rows]="10" [totalRecords]="totalcount"
+				(onPageChange)="paginate($event)" [rowsPerPageOptions]="[8, 32, 72, 100]"></p-paginator>
 			<p-paginator *ngIf="postevent" [rows]="10" [totalRecords]="totalcountpost"
 				(onPageChange)="paginatepost($event)" [rowsPerPageOptions]="[8, 32, 72, 100]"></p-paginator>
 		</div>
-	</div>
 
-	<!-- filter pop-up -->
-	<div class="modal" tabindex="-1" role="dialog" [ngStyle]="{ display: newfile }">
-		<div class="modal-dialog" role="document">
-			<form role="form" [formGroup]="filterform" (ngSubmit)="filtersubmit()">
-				<div class="modal-content" style="margin-top: 50% !important">
-					<div class="modal-header flex justify-content-between">
-						<h4 class="modal-title">Filter Events</h4>
-						<span style="cursor: pointer"><i (click)="closenewfilePopup()"
-								class="fa-solid fa-circle-xmark fa-2x"></i></span>
-					</div>
-					<div class="modal-body">
-						<div class="row">
-							<div class="col-md-12">
-								<div class="row">
-									<div class="col-md-6">
-										<div class="form-group">
-											<label class="form-label" style="font-size: medium">Filter by date</label>
-											<div class="mb-3">
-												<input placeholder="Start date" type="date" formControlName="from"
-													class="form-control border-black paddingfive" />
+		<!-- filter pop-up -->
+		<div class="modal" tabindex="-1" role="dialog" [ngStyle]="{ display: newfile }">
+			<div class="modal-dialog" role="document">
+				<form role="form" [formGroup]="filterform" (ngSubmit)="filtersubmit()">
+					<div class="modal-content" style="margin-top: 50% !important">
+						<div class="modal-header flex justify-content-between">
+							<h4 class="modal-title">Filter Events</h4>
+							<span style="cursor: pointer"><i (click)="closenewfilePopup()"
+									class="fa-solid fa-circle-xmark fa-2x"></i></span>
+						</div>
+						<div class="modal-body">
+							<div class="row">
+								<div class="col-md-12">
+									<div class="row">
+										<div class="col-md-6">
+											<div class="form-group">
+												<label class="form-label" style="font-size: medium">Filter by
+													date</label>
+												<div class="mb-3">
+													<input placeholder="Start date" type="date" formControlName="from"
+														class="form-control border-black paddingfive" />
+												</div>
 											</div>
 										</div>
-									</div>
-									<div class="col-md-6">
-										<div class="form-group">
-											<label class="form-label"></label>
-											<div class="mb-3 mt-2">
-												<input placeholder="End date" type="date" formControlName="to"
-													class="form-control border-black paddingfive" />
+										<div class="col-md-6">
+											<div class="form-group">
+												<label class="form-label"></label>
+												<div class="mb-3 mt-2">
+													<input placeholder="End date" type="date" formControlName="to"
+														class="form-control border-black paddingfive" />
+												</div>
 											</div>
 										</div>
 									</div>
 								</div>
 							</div>
-						</div>
-						<div class="row">
-							<div class="col-12">
-								<div class="form-group">
-									<label style="font-size: medium">Filter by Country</label>
-									<p-dropdown class="mt-2" placeholder="Select" formControlName="country"
-										[options]="countries" optionValue="id" optionLabel="country"
-										styleClass="w-full"></p-dropdown>
+							<div class="row">
+								<div class="col-12">
+									<div class="form-group">
+										<label style="font-size: medium">Filter by Country</label>
+										<p-dropdown class="mt-2" placeholder="Select" formControlName="country"
+											[options]="countries" optionValue="id" optionLabel="country"
+											styleClass="w-full"></p-dropdown>
+									</div>
 								</div>
 							</div>
+							<span style="float: right">
+								<button type="submit" class="btn btn-dark"
+									style="background-color: var(--uniprep-primary) !important">Apply Filter</button>
+							</span>
 						</div>
-						<span style="float: right">
-							<button type="submit" class="btn btn-dark"
-								style="background-color: var(--uniprep-primary) !important">Apply Filter</button>
-						</span>
 					</div>
-				</div>
-			</form>
+				</form>
+			</div>
 		</div>
-	</div>
