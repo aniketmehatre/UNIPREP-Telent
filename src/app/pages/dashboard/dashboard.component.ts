@@ -54,8 +54,10 @@ export class DashboardComponent implements OnInit {
     currentSlide: any;
     freeTrial: boolean | undefined;
 
-    constructor(private dashboardService: DashboardService, private builder: AnimationBuilder,
-        private router: Router, private dataService: DataService, private toast: MessageService, private elRef: ElementRef, private renderer: Renderer2,
+    constructor(private dashboardService: DashboardService,
+                private service: AuthService,
+        private router: Router, private dataService: DataService,
+                private elRef: ElementRef, private renderer: Renderer2,
         private authService: AuthService
     ) {
         this.responsiveOptions = [
@@ -76,7 +78,7 @@ export class DashboardComponent implements OnInit {
             }
         ];
     }
-
+    private subs = new SubSink();
     ngOnInit(): void {
         this.selectedCountryId = localStorage.getItem('countryId');
         this.checkNewUSerLogin();
