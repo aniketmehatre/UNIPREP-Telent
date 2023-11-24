@@ -1,11 +1,11 @@
+
 import {Component, ElementRef, OnInit, ViewChild} from "@angular/core";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {Router} from "@angular/router";
 import {matchValidator} from "src/app/@Supports/matchvalidator";
 import {LocationService} from "src/app/location.service";
 import {AuthService} from "../auth.service";
-import {MessageService} from "primeng/api"; 
-import { faL } from "@fortawesome/free-solid-svg-icons";
+import {MessageService} from "primeng/api";
 
 @Component({
     selector: "app-registration",
@@ -31,7 +31,8 @@ export class RegistrationComponent implements OnInit {
     locationList: any;
     countryList: any;
     programLevelList: any;
-    intrestedCountryList:any;
+    intrestedCountryList: any;
+    countryCodes: any;
 
     public otpForm: any = FormGroup;
     public emailOTPForm: any = FormGroup;
@@ -84,7 +85,7 @@ export class RegistrationComponent implements OnInit {
     ];
 
     constructor(private service: AuthService, private router: Router, private formBuilder: FormBuilder,
-                private locationService: LocationService, private toastr: MessageService) {
+        private locationService: LocationService, private toastr: MessageService) {
     }
 
     dateTime = new Date();
@@ -101,25 +102,25 @@ export class RegistrationComponent implements OnInit {
 
         this.password = 'password';
         this.registrationForm = this.formBuilder.group({
-                fullName: ["", [Validators.required]],
-                location: ["", [Validators.required]],
-                contactNumber: ['', [Validators.required]],
-                emailAddress: ["", [Validators.required, Validators.email]],
+            fullName: ["", [Validators.required]],
+            location: ["", [Validators.required]],
+            contactNumber: ['', [Validators.required]],
+            emailAddress: ["", [Validators.required, Validators.email]],
+            country_code: ['+91', [Validators.required]],
+            interestedCountry: [2, [Validators.required]],
 
-                interestedCountry: [2, [Validators.required]],
+            // lastDegreePassingYear: ["", [Validators.required]],
+            // intakeYear: ["", [Validators.required]],
+            // intakeMonth: ["", [Validators.required]],
+            // programLevel: ["", [Validators.required]],
+            gender: ["", [Validators.required]],
+            password: ["", [Validators.required, Validators.minLength(8), matchValidator('confirmPassword', true)]],
+            confirmPassword: ["", [Validators.required, matchValidator('password')]],
+            // terms: [false, [Validators.required]],
 
-                // lastDegreePassingYear: ["", [Validators.required]],
-                // intakeYear: ["", [Validators.required]],
-                // intakeMonth: ["", [Validators.required]],
-                // programLevel: ["", [Validators.required]],
-                gender: ["", [Validators.required]],
-                password: ["", [Validators.required, Validators.minLength(8), matchValidator('confirmPassword', true)]],
-                confirmPassword: ["", [Validators.required, matchValidator('password')]],
-                // terms: [false, [Validators.required]],
+            country: [122, [Validators.required]],
 
-                country: [122, [Validators.required]],
-
-            }
+        }
         );
 
         this.otpForm = this.formBuilder.group({
@@ -138,16 +139,16 @@ export class RegistrationComponent implements OnInit {
         this.GetLocationList();
         this.gethomeCountryList();
         this.getProgramLevelList();
-        this.getIntrestedCountryList(); 
+        this.getIntrestedCountryList();
         this.genderList = [
-            {label: "M", value: "Male"},
-            {label: "F", value: "Female"},];
+            { label: "M", value: "Male" },
+            { label: "F", value: "Female" },];
         this.intakeYearLooking = [
-            {label: "2023", value: "2023"},
-            {label: "2024", value: "2024"},
-            {label: "2025", value: "2025"},
-            {label: "2026", value: "2026"},
-            {label: "2027", value: "2027"},
+            { label: "2023", value: "2023" },
+            { label: "2024", value: "2024" },
+            { label: "2025", value: "2025" },
+            { label: "2026", value: "2026" },
+            { label: "2027", value: "2027" },
         ];
     }
 
@@ -156,31 +157,31 @@ export class RegistrationComponent implements OnInit {
     }
 
     GetLocationList() {
-        if(this.registrationForm.get('country').value==122){
+        if (this.registrationForm.get('country').value == 122) {
             this.locationService.getLocation().subscribe(
                 (res: any) => {
                     this.locationList = res;
-                    console.log(this.locationList)
                 },
                 (error: any) => {
-                    this.toastr.add({severity: 'warning', summary: 'Warning', detail: error.error.message});
+                    this.toastr.add({ severity: 'warning', summary: 'Warning', detail: error.error.message });
                 }
             );
         }
-        else{
-            this.locationList=[{id:0,district:'Others'}];
+        else {
+            this.locationList = [{ id: 0, district: 'Others' }];
+            this.registrationForm.get('location').setValue(0);
         }
 
     }
 
+
     gethomeCountryList() {
         this.locationService.getHomeCountry(2).subscribe(
             (res: any) => {
-                this.countryList = res;
-                 
+                this.countryList = res;                 
             },
             (error: any) => {
-                this.toastr.add({severity: 'warning', summary: 'Warning', detail: error.error.message});
+                this.toastr.add({ severity: 'warning', summary: 'Warning', detail: error.error.message });
             }
         );
     }
@@ -190,7 +191,7 @@ export class RegistrationComponent implements OnInit {
                 this.intrestedCountryList = res;
             },
             (error: any) => {
-                this.toastr.add({severity: 'warning', summary: 'Warning', detail: error.error.message});
+                this.toastr.add({ severity: 'warning', summary: 'Warning', detail: error.error.message });
             }
         );
     }
@@ -201,7 +202,7 @@ export class RegistrationComponent implements OnInit {
                 this.programLevelList = res;
             },
             (error: any) => {
-                this.toastr.add({severity: 'warning', summary: 'Warning', detail: error.error.message});
+                this.toastr.add({ severity: 'warning', summary: 'Warning', detail: error.error.message });
             }
         );
     }
@@ -223,12 +224,12 @@ export class RegistrationComponent implements OnInit {
         //     return;
         // }
         if (this.registrationForm.invalid) {
-            this.toastr.add({severity: 'error', summary: 'Alert!!!', detail: "Fill all the information"});
+            this.toastr.add({ severity: 'error', summary: 'Alert!!!', detail: "Fill all the information" });
             return;
         }
         var data = {
             name: this.registrationForm.value.fullName,
-            location_id: this.registrationForm.value.location?.id,
+            location_id: this.registrationForm.value.location,
             phone: this.registrationForm.value.contactNumber,
             email: this.registrationForm.value.emailAddress,
             interested_country_id: this.registrationForm.value.interestedCountry,
@@ -242,18 +243,19 @@ export class RegistrationComponent implements OnInit {
             platform_id: 1,
             usertype_id: 1,
             country_id: this.registrationForm.value.country,
+            country_code:this.registrationForm.value.country_code
         };
 
         this.service.Registraion(data).subscribe(
             (_) => {
-                this.toastr.add({severity: 'success', summary: 'Success', detail: "User Registered"});
+                this.toastr.add({ severity: 'success', summary: 'Success', detail: "User Registered" });
                 setTimeout(() => {
                     this.router.navigate(["/login"])
                 }, 2000)
             },
             (error) => {
                 const message = error.error.message;
-                this.toastr.add({severity: 'error', summary: 'Failed', detail: error.error.message});
+                this.toastr.add({ severity: 'error', summary: 'Failed', detail: error.error.message });
 
             }
         );
@@ -296,7 +298,7 @@ export class RegistrationComponent implements OnInit {
                 }
             );
         } else {
-            this.toastr.add({severity: 'info', summary: 'Info', detail: 'Enter Above Filed'});
+            this.toastr.add({ severity: 'info', summary: 'Info', detail: 'Enter Above Filed' });
         }
     }
 
@@ -354,7 +356,7 @@ export class RegistrationComponent implements OnInit {
             (error) => {
                 this.isEmailOTPSend = false;
                 const message = error.error.message;
-                this.toastr.add({severity: 'error', summary: 'Failed', detail: error.error.message});
+                this.toastr.add({ severity: 'error', summary: 'Failed', detail: error.error.message });
 
             }
         );
@@ -366,7 +368,7 @@ export class RegistrationComponent implements OnInit {
         //
         // return;
         if (this.emailOTPForm.invalid) {
-            this.toastr.add({severity: 'error', summary: 'Alert!!!', detail: "Enter Valid OTP"});
+            this.toastr.add({ severity: 'error', summary: 'Alert!!!', detail: "Enter Valid OTP" });
             return;
         }
 
@@ -388,7 +390,7 @@ export class RegistrationComponent implements OnInit {
                 this.isEmailOTPValidated = false;
                 this.isRemainingFieldVisible = false;
                 const message = error.error.message;
-                this.toastr.add({severity: 'error', summary: 'Failed', detail: "Invalid OTP"});
+                this.toastr.add({ severity: 'error', summary: 'Failed', detail: "Invalid OTP" });
             }
         );
         // this.isMobileOTPValidated = true;
@@ -469,11 +471,11 @@ export class RegistrationComponent implements OnInit {
         }, 1000);
     }
 
-    editMobileNumberAgain(){
+    editMobileNumberAgain() {
         this.isMobileOTPSend = false;
     }
 
-    editEmailAgain(){
+    editEmailAgain() {
         this.isEmailOTPSend = false;
     }
 
@@ -491,12 +493,17 @@ export class RegistrationComponent implements OnInit {
 
     onChangeEmail(event: any) {
         this.showEmailErrorIcon = false;
-        if(this.registrationForm.controls['emailAddress'].valid) {
+        if (this.registrationForm.controls['emailAddress'].valid) {
             this.showEmailErrorIcon = true;
         }
     }
 
-    changeLocation(event:any){
-        this.GetLocationList()
+    changeLocation(event: any) {
+        this.GetLocationList();
+    }
+    changeCountryCode(event: any) {
+        let changeHomeCountry=this.countryList.find((data:any)=>data.country_code==event.value);
+        this.registrationForm.get('country').setValue(changeHomeCountry.id);
+        this.GetLocationList();
     }
 }

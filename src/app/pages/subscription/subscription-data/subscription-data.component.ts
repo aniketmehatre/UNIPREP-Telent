@@ -179,6 +179,7 @@ export class SubscriptionDataComponent implements OnInit {
         
         if (response.success) {
           this.subscriptionTotal = Number(this.subscriptionTotal) - response.discountPrice;
+          this.toast.add({ severity: 'success', summary: 'Success', detail: 'Coupon applied' });
         }
         else {
           this.toast.add({ severity: 'error', summary: 'Error', detail: response.message });

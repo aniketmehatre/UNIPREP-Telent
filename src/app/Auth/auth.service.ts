@@ -49,7 +49,7 @@ export class AuthService {
         // return of(Object.create({}));
         return this.http.get<any>(`${environment.ApiUrl}/getuserdetails`).pipe(
             tap((response) => {
-                localStorage.setItem('countryId', response.userdetails.interested_country_id)
+                localStorage.setItem('countryId', response.userdetails[0].interested_country_id)
                 this.user = response.userdetails[0];
                 this._userLoginCount = response.userdetails[0].login_status;
                 this._checkExistsSubscription = response.userdetails[0].subscription_exists;
