@@ -212,11 +212,22 @@ export class HeaderComponent implements OnInit, OnDestroy {
         this.openModal();
       }
     });
-    // this.dataService.countryFlagSource.subscribe((data) => {
-    //   if (data != "") {
-    //     this.headerFlag = data;
-    //   }
-    // });
+
+    this.dashboardService.countryList().subscribe(countryList => {
+      this.countryLists = countryList;
+      this.countryLists.forEach((element: any) => {
+        if (element.id == this.selectedCountryId) {
+          this.headerFlag = element.flag;
+          this.dataService.changeCountryId(element.id)
+          this.dataService.changeCountryFlag(element.flag)
+        }
+      });
+    });
+    this.dataService.countryFlagSource.subscribe((data) => {
+      if (data != "") {
+        this.headerFlag = data;
+      }
+    });
     this.dataService.openReportWindowSource.subscribe((data) => {
       // if(data.from == 'module'){
       //   this.isQuestionVisible = false
@@ -230,7 +241,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
         this.onChangeModuleList(data.moduleId);
         this.onChangeSubModuleList(data.subModuleId);
         this.selectedGenMod = 2;
-        console.log('fgsdf');
+
         
         this.isVisibleModulesMenu = true;
         this.moduleNgModel = data.moduleId;
