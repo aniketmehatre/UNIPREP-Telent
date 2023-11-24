@@ -21,6 +21,7 @@ export class AuthService {
     // user!: User;
     _user!: User | null;
     public _userLoginCount!: number;
+    public _userContineTrial!: boolean;
     userData = new BehaviorSubject<User | null>(null);
     public _checkExistsSubscription!: number;
     constructor(
@@ -38,6 +39,11 @@ export class AuthService {
     get user() {
         return this._user;
     }
+
+    contineStatus(event: any) {
+        debugger;
+        this._userContineTrial = event;
+    }    
 
     updateSubscriptionName(name: string) {
         if (this.user) {
@@ -57,7 +63,7 @@ export class AuthService {
                 localStorage.setItem("Name",response.userdetails[0].name)
                 localStorage.setItem("credit_plans",response.userdetails[0].credit_plans)
                 localStorage.setItem("questions_left",response.userdetails[0].questions_left)
-                localStorage.setItem("guidlineAccepted",response.userdetails[0].guidelineaccept)
+                localStorage.setItem("guidlineAccepted", response.userdetails[0].guidelineaccept)
                 // this.getCountry().subscribe(data => {
                 //     data.filter((value: any) => {
                 //         if (2 == value.id) {

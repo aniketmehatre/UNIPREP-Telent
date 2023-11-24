@@ -66,4 +66,11 @@ export class DashboardService {
         return this.http.post<any>(environment.ApiUrl + "/gettimeleft", {}, { headers: headers });
     }
 
+    getContineTrial() {
+        const headers = new HttpHeaders().set("Accept", "application/json");
+        return this.http.post<any>(environment.ApiUrl + "/freetrailcontinue", {
+            headers: headers,
+        });
+    }
+
 }
