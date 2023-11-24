@@ -248,7 +248,12 @@ export class DashboardComponent implements OnInit {
     }
 
     continueTrial(): void {
+        this.dashboardService.getContineTrial().subscribe(res => {
+            return res;
+        });
+        this.authService.contineStatus(false);
         this.freeTrial = false;
+        this.authService._userContineTrial = false;
     }
 
     onClickSubscribe(): void {
