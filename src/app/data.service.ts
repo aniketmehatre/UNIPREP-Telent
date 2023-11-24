@@ -12,7 +12,7 @@ export class DataService {
     public countryNameSource = new BehaviorSubject("United Kingdom");
     countryName = this.countryNameSource.asObservable();
 
-    public countryIdSource = new BehaviorSubject("2");
+    public countryIdSource = new BehaviorSubject(localStorage.getItem('countryId'));
     countryId = this.countryIdSource.asObservable();
 
     public countryFlagSource = new BehaviorSubject("http://"+environment.domain+"/uniprepapi/storage/app/public/country-flags/united-kingdom.svg");
