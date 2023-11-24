@@ -273,6 +273,7 @@ export class RegistrationComponent implements OnInit {
         // }
         let val = {
             phone: this.registrationForm.value.contactNumber,
+            country_code:this.registrationForm.value.country_code
         };
         if (this.registrationForm.value.fullName != null && this.registrationForm.value.contactNumber) {
             this.service.getSmsOTP(val).subscribe(
