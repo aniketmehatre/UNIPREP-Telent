@@ -78,6 +78,7 @@ export class DashboardComponent implements OnInit {
     }
 
     ngOnInit(): void {
+        this.checkNewUSerLogin();
         localStorage.setItem("currentmodulenameforrecently", '');
         this.dashboardService.getTrustedPartners().subscribe(partnerLogo => {
             this.partnerTrusterLogo = partnerLogo;
@@ -100,7 +101,6 @@ export class DashboardComponent implements OnInit {
         //this.openViewMoreOrg();
         this.isViewMoreOrgVisible = false;
         this.loadApiData();
-        this.checkNewUSerLogin();
     }
 
     loadApiData(): void {
@@ -255,6 +255,7 @@ export class DashboardComponent implements OnInit {
 
     checkNewUSerLogin(): void{
         let userLoginCount = this.authService._userLoginCount;
+        console.log(userLoginCount)
         if (userLoginCount === 4) {
             this.freeTrial = true;
         }
