@@ -57,7 +57,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   darkModeSwitch!: HTMLInputElement;
   visible: boolean = false;
   showReportSuccess: boolean = false;
-  isShowFreeTrailStart: boolean = false;
+  isShowFreeTrialStart: boolean = false;
   isChangePasswordWindowVisible: boolean = false;
   day: number = 0;
   hrs: number = 0;
@@ -78,6 +78,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
   timeLeftMins: any;
   isLondon!: boolean;
   countryLists!: any;
+  timeHours: any;
+  timeDays: any;
   constructor(
     private router: Router,
     private locationService: LocationService,
@@ -405,11 +407,11 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.service.getNewUserTimeLeft().subscribe(res => {
       let data = res.time_left;
       this.userLoginTimeLeftCount = false;
-      this.timer(data.minutes, data.seconds);
+      this.timer(data.minutes, data.seconds, data.hours, data.days);
     })
   }
 
-  timer(minute: any, sec: any): void {
+  timer(minute: any, sec: any, hours: any, days: any): void {
     let seconds: number = minute * 60;
     let textSec: any = '0';
     let statSec: number = sec;
@@ -425,6 +427,12 @@ export class HeaderComponent implements OnInit, OnDestroy {
       this.timeLeftMins = `${Math.floor(seconds / 60)}`
       this.timeLeftSecs = `${textSec}`;
       if (this.timeLeftMins <= 0) {
+        this.timeLeftMins = 0;
+        this.timeLeftSecs = 0;
+      }
+      this.timeHours = hours;
+      this.timeDays = days;
+      if (this.timeLeftMins <= 0 && this.timeHours <= 0 && this.timeDays <= 0 && this.timeLeftSecs <= 0) {
         this.visible = true;
         clearInterval(this.timerInterval);
       }
