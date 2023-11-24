@@ -318,3 +318,6 @@ input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
   display: none;
 }
+::ng-deep .custom-dropdown .p-dropdown-trigger .p-dropdown-trigger-icon {
+  display: none;
+}

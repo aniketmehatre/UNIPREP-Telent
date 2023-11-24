@@ -28,6 +28,7 @@ export class UserManagementComponent implements OnInit {
     submitted = false;
     registrationForm!: FormGroup;
     countryList: any;
+    intrestedCountryList: any;
     dateTime = new Date();
 
     updatedpasswords: FormGroup;
@@ -86,6 +87,7 @@ export class UserManagementComponent implements OnInit {
         this.dateTime.setDate(this.dateTime.getDate());
         this.getProgramLevelList();
         this.getCountryList();
+        this.getIntrestedCountryList();
         this.authService.userData.subscribe(data => {
             if(data){
                 this.user = data;
@@ -175,6 +177,16 @@ export class UserManagementComponent implements OnInit {
                 this.countryList = res;
             },
             (error: any) => {
+            }
+        );
+    }
+    getIntrestedCountryList() {
+        this.locationService.getCountry().subscribe(
+            (res: any) => {
+                this.intrestedCountryList = res;
+            },
+            (error: any) => {
+               
             }
         );
     }

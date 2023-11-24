@@ -59,9 +59,13 @@
                           <div class="col-md-6 col-12">
                             <label for="contactNumber">Contact Number</label>
                             <div class="p-inputgroup">
-                              <div class="p-inputgroup-addon">
+                              <!-- <div class="p-inputgroup-addon">
                                 <i class="fa-regular fa-phone"></i>
-                              </div>
+                              </div> -->
+                              <p-dropdown [options]="countryList" formControlName="country_code" 
+                              [autoDisplayFirst]="false" (onChange)="changeCountryCode($event)" 
+                              optionValue="country_code" optionLabel="country_code"  [filter]="true"
+                              filterBy="country_code" class="custom-dropdown"></p-dropdown>
                               <input type="number" class="border-0" pInputText id="contactNumber"
                                 formControlName="contactNumber" placeholder="Contact Number"
                                 [readonly]="isMobileOTPSend"
@@ -177,7 +181,7 @@
                           <div class="col-md-12" *ngIf="isEmailOTPSend && !isRemainingFieldVisible">
                             <form [formGroup]="emailOTPForm" class="formOTP" (ngSubmit)="onValidateEmailOTP()">
                               <h5 class="mt-3 text-center">Enter your OTP</h5>
-                              <p class="text-center">We have sent you one time password to your contact number for
+                              <p class="text-center">We have sent you one time password to your email for
                                 verification</p>
                               <div class="text-center">
                                 <input class="col form-control" [ngClass]="{ 'is-invalid': submitted && f.otp5.errors }"
