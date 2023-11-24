@@ -130,23 +130,17 @@ export class HeaderSearchComponent implements OnInit, OnDestroy {
       searchedResult = searchedResult.split(" ");
       this.searchResult.map((data: any) => {
         let ans: any = '';
-        console.log(data.question);
         //data.question = data.question;
         let searchedResult = this.searchInputValue;
         searchedResult = searchedResult.split(" ");
         searchedResult.forEach((element: any) => {
-          console.log(element);
-          const small = new RegExp(element, "g");
-          const caps = new RegExp(element.toUpperCase(), "g");
-          data.question =  data.question.replace(small, '<span class="fw-bold">' + element + '</span>')
-          data.question = data.question.replace(caps, '<span class="fw-bold">' + element + '</span>');
+          const small = new RegExp(element, "i");
+          data.question = data.question.replace(small, '<span class="fw-bold">' + element + '</span>');
         });
         // for (let x in searchedResult) {
-        //   console.log(x);
         //   ans = ans.replace(new RegExp(x, 'g'), '<span class="fw-bold">' + x + '</span>');
         // }
       })
-      console.log(this.searchResult);
     }, err => {
       this.toastr.add({ severity: 'error', summary: 'Error', detail: err });
     });
