@@ -78,6 +78,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   countryLists!: any;
   timeHours: any;
   timeDays: any;
+  freeTrial!: boolean;
   constructor(
     private router: Router,
     private locationService: LocationService,
@@ -145,6 +146,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.getModuleList();
     this.getCountryList();
+    this.checkNewUSerLogin();
     this.onChangeModuleList(1);
     this.onChangeSubModuleList(1);
     if (this.service._checkExistsSubscription === 0) {
@@ -520,6 +522,32 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   get f() {
     return this.setPasswordForm.controls;
+  }
+
+  continueTrial(): void {
+    this.dashboardService.getContineTrial().subscribe(res => {
+      return res;
+    });
+    setTimeout(() => {
+      this.checkNewUser();
+    }, 2000);
+    this.service.contineStatus(false);
+    this.freeTrial = false;
+    this.service._userContineTrial = false;
+  }
+
+  onClickSubscribeData(): void {
+    this.freeTrial = false;
+    this.continueTrial();
+    this.router.navigate(["/pages/subscriptions"]);
+  }
+
+  checkNewUSerLogin(): void {
+    let userLoginCount = this.service._userLoginCount;
+    console.log(userLoginCount)
+    if (userLoginCount === 4) {
+      this.freeTrial = true;
+    }
   }
 
   passwordChangeOnClick() {

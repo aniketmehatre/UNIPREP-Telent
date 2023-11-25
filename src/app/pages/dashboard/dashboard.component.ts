@@ -75,7 +75,6 @@ export class DashboardComponent implements OnInit {
     private subs = new SubSink();
     ngOnInit(): void {
         this.selectedCountryId = localStorage.getItem('countryId');
-        this.checkNewUSerLogin();
         localStorage.setItem("currentmodulenameforrecently", '');
         this.dashboardService.getTrustedPartners().subscribe(partnerLogo => {
             this.partnerTrusterLogo = partnerLogo;
@@ -243,34 +242,5 @@ export class DashboardComponent implements OnInit {
 
     openViewMoreOrg(): void {
         this.isViewMoreOrgVisible = true;
-    }
-
-    continueTrial(): void {
-        this.dashboardService.getContineTrial().subscribe(res => {
-            return res;
-        });
-        setTimeout(() => {
-            this.service.getNewUserTimeLeft().subscribe(res => {
-                return res;
-            });
-            window.location.reload();
-        }, 2000);
-        this.authService.contineStatus(false);
-        this.freeTrial = false;
-        this.authService._userContineTrial = false;
-    }
-
-    onClickSubscribe(): void {
-        this.freeTrial = false;
-        this.continueTrial();
-        this.router.navigate(["/pages/subscriptions"]);
-    }
-
-    checkNewUSerLogin(): void{
-        let userLoginCount = this.authService._userLoginCount;
-        console.log(userLoginCount)
-        if (userLoginCount === 4) {
-            this.freeTrial = true;
-        }
     }
 }
