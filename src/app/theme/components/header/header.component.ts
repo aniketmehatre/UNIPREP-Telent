@@ -415,8 +415,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
   checkNewUser(): void {
     this.service.getNewUserTimeLeft().subscribe(res => {
       let data = res.time_left;
-      this.userLoginTimeLeftCount = false;
-      this.timer(data.minutes, data.seconds, data.hours, data.days);
+      if (data.plan === 'on_progress') {
+        this.userLoginTimeLeftCount = false;
+        this.timer(data.minutes, data.seconds, data.hours, data.days);
+      }
     })
   }
 

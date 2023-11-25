@@ -247,6 +247,12 @@ export class DashboardComponent implements OnInit {
         this.dashboardService.getContineTrial().subscribe(res => {
             return res;
         });
+        setTimeout(() => {
+            this.service.getNewUserTimeLeft().subscribe(res => {
+                return res;
+            });
+            window.location.reload();
+        }, 2000);
         this.authService.contineStatus(false);
         this.freeTrial = false;
         this.authService._userContineTrial = false;
@@ -254,6 +260,7 @@ export class DashboardComponent implements OnInit {
 
     onClickSubscribe(): void {
         this.freeTrial = false;
+        this.continueTrial();
         this.router.navigate(["/pages/subscriptions"]);
     }
 
