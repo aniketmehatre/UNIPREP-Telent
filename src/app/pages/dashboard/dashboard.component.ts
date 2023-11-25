@@ -17,7 +17,7 @@ export class DashboardComponent implements OnInit {
     readQuizProgressionPercentage: any;
     responsiveOptions: any;
     selectedCountryName: any;
-    readingProgressings: any = [];
+    readingProgressings: any;
     countryLists: any = [];
     quizProgressings: any = [];
     continueReading = "none";
@@ -81,12 +81,10 @@ export class DashboardComponent implements OnInit {
             this.partnerTrusterLogo = partnerLogo;
         });
 
-        const data = {
+        let data = {
             countryId: this.selectedCountryId,
         }
-        this.dashboardService.getModuleReadProgression(data).subscribe(response => {
-            this.readingProgressings = response.module;
-        });
+
         this.dashboardService.countryList().subscribe(countryList => {
             this.countryLists = countryList;
             this.countryLists.forEach((element: any) => {
@@ -94,8 +92,12 @@ export class DashboardComponent implements OnInit {
                     this.selectedCountryName = element.country;
                     this.selectedCountryId = element.id;
                     this.dataService.changeCountryName(element.country);
+                    this.dataService.changeCountryFlag(element.flag);
                 }
             });
+        });
+        this.dashboardService.getModuleReadProgression(data).subscribe(response => {
+            this.readingProgressings = response.module;
         });
         const section = this.elRef.nativeElement.querySelector('#horizontalScrollSection');
         this.renderer.listen(section, 'wheel', (event: WheelEvent) => {

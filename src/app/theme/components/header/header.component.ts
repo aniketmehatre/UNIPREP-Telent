@@ -154,6 +154,17 @@ export class HeaderComponent implements OnInit, OnDestroy {
       this.subs.sink = this.dataService.showTimeOutSource.subscribe((data) => {
         this.visible = data;
       });
+      this.dashboardService.countryList().subscribe(countryList => {
+        this.countryLists = countryList;
+        this.countryLists.forEach((element: any) => {
+          if (element.id == this.selectedCountryId) {
+            this.selectedCountryId = element.id;
+            this.dataService.changeCountryId(element.id)
+            //this.dataService.changeCountryFlag(element.flag)
+            this.dataService.changeCountryName(element.country);
+          }
+        });
+      });
       this.subs.sink = this.dataService.showTimerSource.subscribe((data) => {
         if (data == "EXPIRED") {
           this.visible = true;
@@ -217,9 +228,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
       this.countryLists = countryList;
       this.countryLists.forEach((element: any) => {
         if (element.id == this.selectedCountryId) {
-          this.headerFlag = element.flag;
+          // this.headerFlag = element.flag;
+          localStorage.setItem('countryId', element.id);
           this.dataService.changeCountryId(element.id)
-          this.dataService.changeCountryFlag(element.flag)
+          //this.dataService.changeCountryFlag(element.flag)
         }
       });
     });
@@ -255,17 +267,18 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
     this.subs.sink = this.service.getMe().subscribe((data) => {
       if (data) {
+        localStorage.setItem('countryId', data.userdetails.interested_country_id);
         this.userName = data.userdetails[0].name.toString();
         this.firstChar = this.userName.charAt(0);
       }
     });
 
-    this.darkModeSwitch = document.getElementById("darkmodeswitch") as HTMLInputElement;
-    this.darkModeSwitch.checked = this.themeService.isDarkMode();
-
-    this.darkModeSwitch.addEventListener("change", () => {
-      this.themeService.toggleTheme();
-    });
+    // this.darkModeSwitch = document.getElementById("darkmodeswitch") as HTMLInputElement;
+    // this.darkModeSwitch.checked = this.themeService.isDarkMode();
+    //
+    // this.darkModeSwitch.addEventListener("change", () => {
+    //   this.themeService.toggleTheme();
+    // });
   }
 
   ngOnDestroy() {
