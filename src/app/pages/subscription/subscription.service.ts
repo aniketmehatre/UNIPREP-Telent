@@ -3,6 +3,7 @@ import { Injectable } from "@angular/core";
 import { environment } from "@env/environment";
 import { Store } from "@ngrx/store";
 import { SubscriptionState } from "./store/reducer";
+import {BehaviorSubject} from "rxjs";
 import {
   loadSubscriptionPlans,
   placeorder,
@@ -41,7 +42,8 @@ export class SubscriptionService {
   //     return this.http.post<any>(environment.ApiUrl + '/getsubscriptions', {}, {'headers': headers});
   //
   // }
-
+ 
+  usedCoupon = new BehaviorSubject('');
   getQuestionCredit() {
     localStorage.getItem("loginToken");
     const headers = new HttpHeaders()

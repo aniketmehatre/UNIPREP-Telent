@@ -26,8 +26,10 @@ export class SubscriptionDataComponent implements OnInit {
   subscriptionList: any = [];
 
   subscriptionTopupList: any = [];
-  couponInput: string = '';
+  couponInput: any = '';
   subscriptionTotal: any = '0.00';
+  checkoutTotal: any = '';
+  currentlyUsedCoupon: any = '';
   invalidCoupon: boolean = false;
   selectedSubscriptionDetails: any;
   selectedTopupCountryDetails: any;
@@ -59,10 +61,10 @@ export class SubscriptionDataComponent implements OnInit {
     return `${environment.ApiUrl}/downloadinvoice`;
   }
   loadSubscriptionList() {
-    if(this.loadingCountry && this.loadingUserDetails) {
+    if (this.loadingCountry && this.loadingUserDetails) {
       this.getSubscriptionList();
     }
-}
+  }
   buttonclicked1() {
     this.basesubscription = true;
     this.topupcountries = false;
@@ -129,6 +131,7 @@ export class SubscriptionDataComponent implements OnInit {
 
   selectedSubscriptionPlan(sub: any) {
     this.showCheckout = false;
+    this.checkoutTotal = '';
     this.subscriptionList.forEach((item: any) => {
       item.selected = false;
       item.isActive = false;
@@ -143,8 +146,9 @@ export class SubscriptionDataComponent implements OnInit {
   }
 
   selectedTopupCountryPlan(sub: any) {
-    if(sub?.selectedCoutriesList?.length > 0) {
+    if (sub?.selectedCoutriesList?.length > 0) {
       this.showCheckout = false;
+      this.checkoutTotal = '';
       this.subscriptionTopupList.forEach((item: any) => {
         item.selected = false;
         item.isActive = false;
@@ -159,26 +163,31 @@ export class SubscriptionDataComponent implements OnInit {
 
     }
     else {
-      this.toast.add({severity:'warn', summary: 'Warn', detail: 'Please Choose a country'});
+      this.toast.add({ severity: 'warn', summary: 'Warn', detail: 'Please Choose a country' });
     }
 
   }
 
   applyCoupon() {
-    if(this.showCheckout) {
+    if (this.showCheckout) {
       this.toast.add({ severity: 'error', summary: 'Error', detail: 'Please select the Plan!' });
-      return; 
+      return;
+    }
+    if (this.subscriptionService.usedCoupon == this.couponInput) {
+      this.toast.add({ severity: 'error', summary: 'Error', detail: 'Coupon already used' });
+      return;
     }
     if (this.couponInput) {
+      this.subscriptionService.usedCoupon = this.couponInput
       let data = {
         couponCode: this.couponInput,
         checkoutTotal: this.subscriptionTotal,
-        subscriptioncouponstatus :this.selectedSubscriptionDetails.couponcode
+        subscriptioncouponstatus: this.selectedSubscriptionDetails?.couponcode
       }
+
       this.subscriptionService.applyCoupon(data).subscribe((response) => {
-        
         if (response.success) {
-          this.subscriptionTotal = Number(this.subscriptionTotal) - response.discountPrice;
+          this.checkoutTotal = Number(this.subscriptionTotal) - response.discountPrice;
           this.toast.add({ severity: 'success', summary: 'Success', detail: 'Coupon applied' });
         }
         else {
@@ -197,9 +206,12 @@ export class SubscriptionDataComponent implements OnInit {
       let data = {
         subscriptionId: this.selectedSubscriptionDetails.id,
         countryId: this.selectedSubscriptionDetails.selectedCoutry.id,
-        finalPrice: this.subscriptionTotal,
+        finalPrice: this.checkoutTotal,
         couponApplied: this.couponInput ? 1 : 0,
         coupon: this.couponInput,
+      }
+      if (this.checkoutTotal == '') {
+        data.finalPrice = this.subscriptionTotal;
       }
       this.subscriptionPlan.emit(data);
     }
@@ -208,14 +220,14 @@ export class SubscriptionDataComponent implements OnInit {
         let data = {
           topupid: this.selectedTopupCountryDetails.id,
           countryId: this.selectedTopupCountryDetails.selectedCoutriesList.map((item: any) => item.id).toString(),
-          finalPrice: this.subscriptionTotal,
+          finalPrice: this.checkoutTotal,
           couponApplied: this.couponInput ? 1 : 0,
           coupon: this.couponInput,
         }
         this.subscriptionPlan.emit(data);
       }
       else {
-        this.toast.add({severity:'warn', summary: 'Warn', detail: 'Please Choose a plan'});
+        this.toast.add({ severity: 'warn', summary: 'Warn', detail: 'Please Choose a plan' });
       }
     }
   }
