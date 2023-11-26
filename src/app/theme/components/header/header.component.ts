@@ -85,6 +85,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     private formBuilder: FormBuilder,
     private service: AuthService,
     private toast: MessageService,
+    private themeService: ThemeService,
     route: ActivatedRoute,
     private dataService: DataService,
     private dashboardService: DashboardService
@@ -294,12 +295,12 @@ export class HeaderComponent implements OnInit, OnDestroy {
       }
     });
 
-    // this.darkModeSwitch = document.getElementById("darkmodeswitch") as HTMLInputElement;
-    // this.darkModeSwitch.checked = this.themeService.isDarkMode();
-    //
-    // this.darkModeSwitch.addEventListener("change", () => {
-    //   this.themeService.toggleTheme();
-    // });
+    this.darkModeSwitch = document.getElementById("darkmodeswitch") as HTMLInputElement;
+    this.darkModeSwitch.checked = this.themeService.isDarkMode();
+
+    this.darkModeSwitch.addEventListener("change", () => {
+      this.themeService.toggleTheme();
+    });
   }
 
   ngOnDestroy() {
