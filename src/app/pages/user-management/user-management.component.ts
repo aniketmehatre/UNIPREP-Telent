@@ -243,6 +243,7 @@ export class UserManagementComponent implements OnInit {
             this.countryList = countryList;
             this.countryList.forEach((element: any) => {
                 if (element.id == this.registrationForm.value?.interested_country_id) {
+                    localStorage.setItem('countryId', element.id);
                     this.dataService.changeCountryId(element.id);
                     this.dataService.changeCountryName(element.country);
                     this.dataService.changeCountryFlag(element.flag);

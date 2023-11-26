@@ -3,6 +3,7 @@ import {PageFacadeService} from "./page-facade.service";
 import {SubSink} from "subsink";
 import { NavigationEnd, Router } from "@angular/router";
 import { DataService } from "../data.service";
+import {DashboardService} from "./dashboard/dashboard.service";
 
 @Component({
     selector: "uni-pages",
@@ -19,7 +20,8 @@ export class PagesComponent implements OnInit, OnDestroy {
         ? "pi-align-right"
         : "pi-align-justify";
     private subs = new SubSink();
-    constructor(private pageFacade: PageFacadeService, router: Router, private dataService: DataService) {
+    constructor(private pageFacade: PageFacadeService, router: Router, private dataService: DataService,
+                private dashboardService: DashboardService) {
         router.events.subscribe((val) => {
             if(val instanceof NavigationEnd){
                 if(val.url.includes('subscriptions') || val.url.includes('faq') || val.url.includes('support-help')
@@ -40,6 +42,7 @@ export class PagesComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit(): void {
+
         this.subs.sink = this.pageFacade.sideBarState$().subscribe({
             next: (state) => {
                 this.sidebarClass = state ? "active" : "";

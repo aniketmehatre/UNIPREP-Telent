@@ -71,9 +71,12 @@ export class QuestionListComponent implements OnInit {
 
   loadInit(){
     this.countryId = Number(localStorage.getItem('countryId'));
-
+    let countryName: any
     this.subModuleId = this.route.snapshot.paramMap.get('id');
     this.currentSubModuleSlug = this.route.snapshot.paramMap.get('module_name');
+    this.dataService.countryName.subscribe((data) => {
+      countryName = data;
+    });
     switch (this.currentSubModuleSlug) {
       case 'pre-application':
         this.currentModuleId = 1;
@@ -102,7 +105,7 @@ export class QuestionListComponent implements OnInit {
         break;
       default:
         this.currentModuleId = 6;
-        this.currentModuleName = 'Life At UK';
+        this.currentModuleName = 'Life At '+countryName;
         this.currentApiSlug = 'getlifeincountrysubmoduleqcount';
         break;
     }   

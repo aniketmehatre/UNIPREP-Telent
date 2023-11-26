@@ -22,7 +22,6 @@ export class DashboardComponent implements OnInit {
     quizProgressings: any = [];
     continueReading = "none";
     continueQuiz = "none";
-    isSearchResultFound: boolean = false;
     isVideoVisible: boolean = false;
     isShareWithSocialMedia: boolean = false;
     isViewMoreOrgVisible: boolean = false;
@@ -45,14 +44,10 @@ export class DashboardComponent implements OnInit {
         }
     ];
     selectedCountryId: any;
-    currentSlide: any;
-    freeTrial: boolean | undefined;
 
     constructor(private dashboardService: DashboardService,
-                private service: AuthService,
         private router: Router, private dataService: DataService,
                 private elRef: ElementRef, private renderer: Renderer2,
-        private authService: AuthService
     ) {
         this.responsiveOptions = [
             {
@@ -72,7 +67,6 @@ export class DashboardComponent implements OnInit {
             }
         ];
     }
-    private subs = new SubSink();
     ngOnInit(): void {
         this.selectedCountryId = localStorage.getItem('countryId');
         localStorage.setItem("currentmodulenameforrecently", '');

@@ -9,13 +9,13 @@ export class DataService {
     public chatTriggerSource = new BehaviorSubject("not open");
     currentMessage = this.chatTriggerSource.asObservable();
 
-    public countryNameSource = new BehaviorSubject("United Kingdom");
+    public countryNameSource = new BehaviorSubject('');
     countryName = this.countryNameSource.asObservable();
 
-    public countryIdSource = new BehaviorSubject(localStorage.getItem('countryId'));
+    public countryIdSource = new BehaviorSubject(localStorage.getItem('countryId') ? '' : '');
     countryId = this.countryIdSource.asObservable();
 
-    public countryFlagSource = new BehaviorSubject("http://"+environment.domain+"/uniprepapi/storage/app/public/country-flags/united-kingdom.svg");
+    public countryFlagSource = new BehaviorSubject('');
     countryFlag = this.countryFlagSource.asObservable();
 
     public timeoutStatusSource = new BehaviorSubject(0);
