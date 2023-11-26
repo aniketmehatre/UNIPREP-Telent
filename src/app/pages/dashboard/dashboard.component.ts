@@ -68,7 +68,8 @@ export class DashboardComponent implements OnInit {
         ];
     }
     ngOnInit(): void {
-        this.selectedCountryId = localStorage.getItem('countryId');
+        this.selectedCountryId = localStorage.getItem('countryId');        
+        localStorage.setItem('selectedcountryId', this.selectedCountryId);
         localStorage.setItem("currentmodulenameforrecently", '');
         this.dashboardService.getTrustedPartners().subscribe(partnerLogo => {
             this.partnerTrusterLogo = partnerLogo;
@@ -103,8 +104,6 @@ export class DashboardComponent implements OnInit {
     }
 
     loadApiData(): void {
-
-        localStorage.setItem('selectedcountryId',this.selectedCountryId)
         const data = {
             countryId: this.selectedCountryId,
         }
@@ -176,6 +175,7 @@ export class DashboardComponent implements OnInit {
         this.dataService.changeCountryId(selectedId.id);
         this.dataService.changeCountryFlag(selectedId.flag)
         this.dataService.changeCountryName(selectedId.country)
+        console.log(localStorage.getItem('selectedcountryId'))
         // this.countryListData(this.selectedCountryId);
 
         // this.modalQuizProgressing(selectedId);

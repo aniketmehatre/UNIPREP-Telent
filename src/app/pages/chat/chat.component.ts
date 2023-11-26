@@ -100,6 +100,7 @@ export class ChatComponent implements OnInit {
   }
   username: string = "";
   ngOnInit(): void {
+    console.log(localStorage.getItem('selectedcountryId'))
     if (localStorage.getItem("guidlineAccepted")) {
       if (Number(localStorage.getItem("guidlineAccepted")) == 0) {
         this.route.navigate(["/pages/guideline"]);
