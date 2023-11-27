@@ -111,11 +111,11 @@ export class ChatComponent implements OnInit {
   }
   username: string = "";
   ngOnInit(): void {
-    if (localStorage.getItem("guidlineAccepted")) {
-      if (Number(localStorage.getItem("guidlineAccepted")) == 0) {
-        this.route.navigate(["/pages/guideline"]);
-      }
-    }
+    // if (localStorage.getItem("guidlineAccepted")) {
+    //   if (Number(localStorage.getItem("guidlineAccepted")) == 0) {
+    //     this.route.navigate(["/pages/guideline"]);
+    //   }
+    // }
     this.getChatHistoryByUserId();
     this.getOptions();
     this.username = localStorage.getItem("Name") || "";
