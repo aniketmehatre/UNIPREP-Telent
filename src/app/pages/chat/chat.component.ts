@@ -1,10 +1,15 @@
-import { Component, ElementRef, OnInit, ViewChild } from "@angular/core";
+import {
+  Component,
+  ElementRef,
+  HostListener,
+  OnInit,
+  ViewChild,
+} from "@angular/core";
 import { ChathistoryService } from "./chat.service";
 import { AuthService } from "src/app/Auth/auth.service";
 import { ConfirmationService, MessageService } from "primeng/api";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { PageFacadeService } from "../page-facade.service";
-import { fas } from "@fortawesome/free-solid-svg-icons";
 import { Router } from "@angular/router";
 import screenfull from "screenfull";
 @Component({
@@ -14,6 +19,12 @@ import screenfull from "screenfull";
   providers: [ConfirmationService],
 })
 export class ChatComponent implements OnInit {
+  @HostListener("fullscreenchange", ["$event"])
+  fullscreenchange(event: any) {
+    if(!screenfull.isFullscreen){
+      this.fullscreen = "";
+    }
+  }
   @ViewChild("fullscreeneditor") editorelement: ElementRef | any;
   fullscreen = "";
   modules = {};
@@ -31,7 +42,7 @@ export class ChatComponent implements OnInit {
   ) {
     this.reportForm = fb.group({
       reportOption: ["", Validators.required],
-      comment: ["",Validators.required],
+      comment: ["", Validators.required],
     });
 
     this.modules = {
@@ -100,12 +111,11 @@ export class ChatComponent implements OnInit {
   }
   username: string = "";
   ngOnInit(): void {
-    console.log(localStorage.getItem('selectedcountryId'))
-    if (localStorage.getItem("guidlineAccepted")) {
-      if (Number(localStorage.getItem("guidlineAccepted")) == 0) {
-        this.route.navigate(["/pages/guideline"]);
-      }
-    }
+    // if (localStorage.getItem("guidlineAccepted")) {
+    //   if (Number(localStorage.getItem("guidlineAccepted")) == 0) {
+    //     this.route.navigate(["/pages/guideline"]);
+    //   }
+    // }
     this.getChatHistoryByUserId();
     this.getOptions();
     this.username = localStorage.getItem("Name") || "";
@@ -154,7 +164,7 @@ export class ChatComponent implements OnInit {
     }
     let data = {
       message: this.textMessage,
-      country: localStorage.getItem('selectedcountryId'),
+      country: localStorage.getItem("selectedcountryId"),
     };
     this.service.sendChatMessage(data).subscribe(
       (response) => {
