@@ -1,6 +1,6 @@
 import {
   Component,
-  ElementRef,
+  ElementRef, HostListener,
   OnDestroy,
   OnInit,
   Renderer2,
@@ -69,7 +69,25 @@ export class HeaderSearchComponent implements OnInit, OnDestroy {
       }
     });
   }
+  page: number = 1;
 
+  @HostListener('window:scroll', ['$event'])
+  scrollHandler(event: any) {
+    var insightsResults = document.getElementsByClassName(
+        'list-group-item'
+    )[0];
+    var childInsights = insightsResults?.scrollHeight;
+    var windowScroll = window.scrollY;
+    if (Math.floor(windowScroll) >= Math.floor(childInsights)) {
+      this.loadMore();
+    }
+  }
+
+
+  loadMore(): void {
+    this.page++;
+    console.log(this.page)
+  }
   ngOnInit(): void {
     this.responsiveOptions = [
       {
