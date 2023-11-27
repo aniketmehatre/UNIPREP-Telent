@@ -192,20 +192,24 @@
               ></ng-template
             ></p-editor>
             <div class="text-end">
-              <p-confirmPopup></p-confirmPopup>
-              <button
-                (click)="confirm($event)"
-                class="btn text-white"
-                style="
-                  background-color: var(--uniprep-primary);
-                  height: 35%;
-                  width: 15%;
-                  font-size: medium;
-                "
-              >
-                Send Message
-              </button>
+              <p-confirmPopup
+                [style]="{ 'z-index': '999999 !important' }"
+              ></p-confirmPopup>
             </div>
+          </div>
+          <div class="text-end">
+            <button
+              (click)="confirm($event)"
+              class="btn text-white"
+              style="
+                background-color: var(--uniprep-primary);
+                height: 35%;
+                width: 15%;
+                font-size: medium;
+              "
+            >
+              Send Message
+            </button>
           </div>
         </ng-template>
       </p-card>
