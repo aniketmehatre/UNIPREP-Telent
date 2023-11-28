@@ -19,12 +19,12 @@ import screenfull from "screenfull";
   providers: [ConfirmationService],
 })
 export class ChatComponent implements OnInit {
-  // @HostListener("fullscreenchange", ["$event"])
-  // fullscreenchange(event: any) {
-  //   if(!screenfull.isFullscreen){
-  //     this.fullscreen = "";
-  //   }
-  // }
+  @HostListener("fullscreenchange", ["$event"])
+  fullscreenchange(event: any) {
+    if(!screenfull.isFullscreen){
+      this.fullscreen = "";
+    }
+  }
   @ViewChild("fullscreeneditor") editorelement: ElementRef | any;
   fullscreen = "";
   modules = {};
