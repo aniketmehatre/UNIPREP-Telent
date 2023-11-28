@@ -14,8 +14,10 @@
             <div class="container-fluid">
                 <div class="row">
                   <div *ngFor="let resource of resourceslist" class="col-md-3 col-12 mt-3 text-center">
-                    <div class="card card-style text-black">
-                        <a href={{resource.link}} class="fw-semibold text-dark text-start" target="_blank"><h6 class="mb-0">{{resource.title}}</h6></a>
+                    <div class="card card-style text-black" style="height: 130px;">
+                        <a href={{resource.link}} class="fw-semibold text-dark text-start" target="_blank"><h5 class="mb-0">{{resource.title}}</h5>
+                        <p style="font-size: medium;" class="mt-2"><span style="font-weight: 400 !important;" class="fw-semibold text-start">{{resource.resourcedescription.length>20 ? resource.resourcedescription.slice(0,59) +'...': resource.resourcedescription}}</span></p>
+                      </a>
                     </div>
                   </div>
                 </div>

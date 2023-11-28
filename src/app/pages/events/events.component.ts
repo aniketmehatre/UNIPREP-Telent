@@ -30,6 +30,8 @@ export class EventsComponent implements OnInit {
   upcommingevent: any[] = [];
   postevetdetaisl: any[] = [];
   valueNearYouFilter: string | undefined;
+  selectedCountryId: any;
+  isDropdownDisabled:boolean=true;
   constructor(private fb: FormBuilder, private service:EventsService,private datePipe: DatePipe,private toast: MessageService,) { 
     this.filterform = this.fb.group({
       from: [''],
@@ -39,6 +41,13 @@ export class EventsComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.selectedCountryId = localStorage.getItem('countryId');
+    console.log(this.selectedCountryId);
+    this.filterform.patchValue({
+      country: Number(this.selectedCountryId)
+    })
+    console.log(this.filterform.value);
+    
     this.setActiveButton(this.activeButton)
     this.service.GetCountryList().subscribe((response) => {
       this.countries = response;
@@ -46,6 +55,10 @@ export class EventsComponent implements OnInit {
     let data = {
       perpage : 8,
       page : 1,
+      to:this.filterform.value.to,
+      from:this.filterform.value.from,
+      country:this.filterform.value.country,
+      nearby_search:this.valueNearYouFilter
     }
     this.getEventUpComming(data)
     this.getPostEvent(data)
@@ -149,7 +162,8 @@ export class EventsComponent implements OnInit {
           countrylog:list.countryFlag,
           daysago:list.remainingTime,
           registered:list.registered,
-          registerusercount:list.registered_users_count
+          registerusercount:list.registered_users_count,
+          slotno:list.eventslots
         }
         this.totalcount=res.count
         this.upcommingevent.push(bindingdata)
@@ -235,8 +249,13 @@ performSearch(events:any){
   this.getPostEvent(data)
   }
   registerButton(event:any){
+    console.log(event);
+    if(event.registered==1){
+      this.toast.add({ severity: 'error', summary: 'Error', detail: "Already Registered" });
+      return;
+    }
     var data={
-      id:event
+      id:event.id
     }
     this.service.registered(data).subscribe((response)=>{
         this.toast.add({ severity: 'success', summary: 'Success', detail: response.message });

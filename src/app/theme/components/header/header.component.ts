@@ -57,10 +57,11 @@ export class HeaderComponent implements OnInit, OnDestroy {
   visible: boolean = false;
   isShowFreeTrialStart: boolean = false;
   isChangePasswordWindowVisible: boolean = false;
-  day: number = 0;
-  hrs: number = 0;
-  min: number = 0;
-  sec: number = 0;
+  day:any = 0;
+  hrs: any = 0;
+  min: any = 0;
+  sec: any = 0;
+  month: any = 0;
   isVisibleModulesMenu: boolean = false;
   isChatWindowVisible: boolean = false;
   isQuestionVisible: boolean = true;
@@ -169,6 +170,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     if (this.service._checkExistsSubscription === 0) {
       this.checkNewUser();
     } else {
+      this.subScribedUserCount();
       this.userLoginTimeLeftCount = true;
       this.subs.sink = this.dataService.showTimeOutSource.subscribe((data) => {
         this.visible = data;
@@ -185,32 +187,11 @@ export class HeaderComponent implements OnInit, OnDestroy {
           }
         });
       });
-      this.subs.sink = this.dataService.showTimerSource.subscribe((data) => {
-        if (data == "EXPIRED") {
-          this.visible = true;
-          this.day = 0;
-          this.hrs = 0;
-          this.min = 0;
-          this.sec = 0;
-          return;
-        }
-        if (data) {
-          data = data.split("-", 4);
-          this.day = data[0];
-          this.hrs = data[1];
-          this.min = data[2];
-          this.sec = data[3];
-        }
-      });
     }
     this.genMod = [
       {
         name: "General",
         id: 1,
-      },
-      {
-        name: "Modules",
-        id: 2,
       },
     ];
     this.setPasswordForm = this.formBuilder.group({
@@ -425,23 +406,44 @@ export class HeaderComponent implements OnInit, OnDestroy {
     });
   }
 
-  private setCookie(name: string, value: string, days: number = 365) {
-    const date = new Date();
-    date.setTime(date.getTime() + days * 24 * 60 * 60 * 1000);
-    const expires = `expires=${date.toUTCString()}`;
-    document.cookie = `${name}=${value};${expires};path=/`;
-  }
-
-  private getCookie(name: string) {
-    const cookieValue = document.cookie.match(
-      `(^|;)\\s*${name}\\s*=\\s*([^;]+)`
-    );
-    return cookieValue ? cookieValue.pop() : "";
-  }
-
   onClickSubscribe() {
     this.visible = false;
     this.router.navigate(["/pages/subscriptions"]);
+  }
+
+  subScribedUserCount(): void{
+    this.service.getNewUserTimeLeft().subscribe(res => {
+      let data = res.time_left;
+      this.getTimer(data.minutes, data.seconds, data.hours, data.days, data.months);
+    });
+  }
+  getTimer(minute: any, sec: any, hours: any, days: any, months :any): void {
+    let seconds: number = minute * 60;
+    let textSec: any = '0';
+    let statSec: number = sec;
+    const prefix = minute < 10 ? '0' : '';
+    this.timerInterval = setInterval(() => {
+      seconds--;
+      if (statSec != 0) statSec--;
+      else statSec = 59;
+      if (statSec < 10) {
+        textSec = '0' + statSec;
+      } else textSec = statSec;
+
+      this.min = `${Math.floor(seconds / 60)}`
+      this.sec = `${textSec}`;
+      if (this.timeLeftMins <= 0) {
+        this.min = 0;
+        this.sec = 0;
+      }
+      this.month = months;
+      this.hrs = hours;
+      this.day = days;
+      if (this.timeLeftMins <= 0 && this.timeHours <= 0 && this.timeDays <= 0 && this.timeLeftSecs <= 0) {
+        this.visible = true;
+        clearInterval(this.timerInterval);
+      }
+    }, 1000);
   }
 
   checkNewUser(): void {

@@ -1,11 +1,8 @@
-@import "../../../uniprep-assets/buttons";
+// @import "../../../uniprep-assets/buttons";
 .loginbox {
   top: 50%;
   position: relative;
   transform: translateY(-50%);
-}
-.container-fluid{
-  padding-right: 0 !important;
 }
 .btn {
   font-size: smaller !important;
@@ -14,9 +11,16 @@
   height: 70px;
 }
 
-.small-image{
-  height: 25%;
-  width: 35%;
+.p-inputgroup
+{
+  height: 3.5rem;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+}
+
+.small-image {
+  width: 40%;
   text-align: left;
 }
 .signup{

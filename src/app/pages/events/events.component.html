@@ -35,7 +35,7 @@
 				</div>
 				<!-- upcomming event -->
 				<div class="row mt-3" *ngIf="upcomingevent">
-					<div class="col-md-3 col-6" *ngFor="let event of upcommingevent">
+					<div class="col-md-4 col-6" *ngFor="let event of upcommingevent">
 						<div class="card eventcard">
 							<span class="btn btn-primary eventcountdown">{{ event.daysago }}</span>
 							<div class="event-top card-body pb-0">
@@ -55,38 +55,34 @@
 							</div>
 
 							<div class="event-bottom card-body">
-								<h5 class="mb-0" tooltipPosition="top"
-									[pTooltip]="event.eventname + '<br>Speaker - ' + event.speakername"
-									[escape]="false">
-									{{ event.eventname.length >15 ? event.eventname.slice(0,15) + '...':event.eventname
-									}} <span><i class="questiontooltip fa-solid fa-circle-question"></i></span></h5>
-								<p class="small">{{ event.eventdescription.length > 29 ? event.eventdescription.slice(0,
-									29) + '...' : event.eventdescription }}</p>
-								<div class="row">
-									<div class="col-6">
-										<div class="d-flex align-items-center mt-2">
-											<img class="me-1" style="width: 20px" src="{{ event.countrylog }}" alt="" />
-											<p style="white-space: nowrap;" class="small fw-semibold mb-0">{{
-												event.country }}</p>
-										</div>
-									</div>
-									<div class="col-6">
-										<div class="d-flex align-items-center">
-											<i class="fa-regular fa-users me-1 small"></i>
-											<p class="small fw-semibold mb-0">Registered
-												Members-{{event.registerusercount}}</p>
-										</div>
-									</div>
+								<div *ngIf="event.registered===1?false:true">
+									<!-- befor registration -->
+									<h5 class="mb-0" tooltipPosition="top"
+										[pTooltip]="event.eventname + '<br>Speaker - ' + event.speakername"
+										[escape]="false">
+										{{ event.eventname.length >27 ? event.eventname.slice(0,27) +
+										'...':event.eventname
+										}} <span><i class="questiontooltip fa-solid fa-circle-question"></i></span></h5>
+									<p class="small">{{ event.eventdescription.length > 43 ?
+										event.eventdescription.slice(0,
+										43) + '...' : event.eventdescription }}</p>
 								</div>
-								<div class="row">
-									<div class="col-6 d-flex mt-2 align-items-center">
-										<i class="fa-regular fa-microphone-stand me-1 small"></i>
-										<p class="mb-0 small fw-semibold">Speaker- <br>{{ event.speakername.length>9
-											?event.speakername.slice(0,9) + '...':event.speakername}}<br> <span
-												style="white-space: nowrap;"> (HR Recruiter)</span>
-										</p>
+								
+								<div class="row" *ngIf="event.registered===0?false:true">
+									<!-- after registration -->
+									<div class="col-7">
+										<h5 class="mb-0" tooltipPosition="top"
+											[pTooltip]="event.eventname + '<br>Speaker - ' + event.speakername"
+											[escape]="false">
+											{{ event.eventname.length >15 ? event.eventname.slice(0,15) +
+											'...':event.eventname
+											}} <span><i class="questiontooltip fa-solid fa-circle-question"></i></span>
+										</h5>
+										<p class="small">{{ event.eventdescription.length > 25 ?
+											event.eventdescription.slice(0,
+											25) + '...' : event.eventdescription }}</p>
 									</div>
-									<div class="col-6">
+									<div class="col-5">
 										<span *ngIf="event.registered===0?false:true" target="_blank">
 											<div (click)="goingEventLink(event.eventlink)" class="mt-2"><button
 													style="display: inline-flex;"
@@ -96,7 +92,38 @@
 										</span>
 									</div>
 								</div>
-								<div class="mt-2"><button (click)="registerButton(event.id)"
+								<div class="row">
+									<div class="col-12">
+										<div class="d-flex align-items-center mt-2">
+											<img class="me-1" style="width: 20px" src="{{ event.countrylog }}" alt="" />
+											<p style="white-space: nowrap;" class="small fw-semibold mb-0">{{
+												event.country }}</p>
+										</div>
+									</div>
+									<div class="col-12">
+										<div class="d-flex align-items-center mt-3">
+											<i class="fa-regular fa-users me-1 small"></i>
+											<p class="small fw-semibold mb-0 ">Registered
+												Members-{{event.registerusercount}}</p>
+										</div>
+									</div>
+									<div class="col-12 d-flex mt-3 align-items-center">
+										<i class="fa-regular fa-microphone-stand me-1 small"></i>
+										<p style="white-space: nowrap;" class="mb-0 small fw-semibold">Speaker- {{
+											event.speakername.length>13
+											?event.speakername.slice(0,13) + '...':event.speakername}}<span> (HR
+												Recruiter)</span>
+										</p>
+									</div>
+									<div class="col-12 d-flex mt-3 align-items-center">
+										<i class="fa-regular fa-gauge-simple-min"></i> &nbsp;
+										<p style="white-space: nowrap;" class="mb-0 small fw-semibold">{{event.registerusercount}} / {{event.slotno}}
+										</p>
+									</div>
+								</div>
+								<div class="row">
+								</div>
+								<div class="mt-2"><button (click)="registerButton(event)"
 										class="btn btn-primary registerbtn w-100 m-0"
 										type="button">{{event.registered===0? 'register Now':'Registered'}}</button>
 								</div>
@@ -107,7 +134,7 @@
 				</div>
 				<!-- post event -->
 				<div class="row mt-3" *ngIf="postevent">
-					<div class="col-md-3 col-6" *ngFor="let events of postevetdetaisl">
+					<div class="col-md-4 col-6" *ngFor="let events of postevetdetaisl">
 						<div class="card eventcard">
 							<span class="btn btn-primary eventcomplete">{{ events.date }}</span>
 							<div class="event-top card-body pb-0">
@@ -168,8 +195,8 @@
 			</div>
 		</div>
 		<div class="event-paginator" style="background-color: #fff; border-radius: 0px 0px 15px 15px;">
-			<p-paginator *ngIf="upcomingevent" [rows]="10" [totalRecords]="totalcount"
-				(onPageChange)="paginate($event)" [rowsPerPageOptions]="[8, 32, 72, 100]"></p-paginator>
+			<p-paginator *ngIf="upcomingevent" [rows]="10" [totalRecords]="totalcount" (onPageChange)="paginate($event)"
+				[rowsPerPageOptions]="[8, 32, 72, 100]"></p-paginator>
 			<p-paginator *ngIf="postevent" [rows]="10" [totalRecords]="totalcountpost"
 				(onPageChange)="paginatepost($event)" [rowsPerPageOptions]="[8, 32, 72, 100]"></p-paginator>
 		</div>
@@ -216,7 +243,7 @@
 										<label style="font-size: medium">Filter by Country</label>
 										<p-dropdown class="mt-2" placeholder="Select" formControlName="country"
 											[options]="countries" optionValue="id" optionLabel="country"
-											styleClass="w-full"></p-dropdown>
+											styleClass="w-full" [filter]="true"  [disabled]="isDropdownDisabled"></p-dropdown>
 									</div>
 								</div>
 							</div>
