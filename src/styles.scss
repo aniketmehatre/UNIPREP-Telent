@@ -21,6 +21,17 @@
 	scrollbar-width: auto;
 }
 
+input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus, 
+input:-webkit-autofill:active{
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: black;
+    transition: none;
+	background-color: transparent;
+    box-shadow: none;
+}
+
 .uniprep-primary {
 	color: var(--uniprep-primary);
 }
@@ -792,6 +803,16 @@ small {
 	}
 	.profile-dropdown button {
 		color: #fff;
+	}
+	input:-webkit-autofill,
+	input:-webkit-autofill:hover, 
+	input:-webkit-autofill:focus, 
+	input:-webkit-autofill:active{
+		-webkit-background-clip: text;
+		-webkit-text-fill-color: white;
+		transition: none;
+		background-color: transparent;
+		box-shadow: none;
 	}
 
 	.bg-lightblue {
