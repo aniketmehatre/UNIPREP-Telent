@@ -193,10 +193,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
         name: "General",
         id: 1,
       },
-      {
-        name: "Modules",
-        id: 2,
-      },
     ];
     this.setPasswordForm = this.formBuilder.group({
       password: [
