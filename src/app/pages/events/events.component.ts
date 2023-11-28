@@ -210,8 +210,7 @@ export class EventsComponent implements OnInit {
         }
         this.totalcountpost=res.count
         this.postevetdetaisl.push(bindingdata)
-        console.log(this.postevetdetaisl);
-        
+
       })
     })
   }

@@ -6,6 +6,7 @@
 @import "./uniprep-assets/buttons";
 :root {
 	--uniprep-primary: rgb(63, 76, 131);
+	--uniprep-primarydark: #001631;
 	--uniprep-primaryop10: rgba(63, 76, 131, 0.145);
 	--uniprep-primaryop30: rgba(63, 76, 131, 0.3);
 	--uniprep-secondary: #f0780e;
@@ -22,6 +23,10 @@
 
 .uniprep-primary {
 	color: var(--uniprep-primary);
+}
+
+.uniprep-primarydark {
+	color: var(--uniprep-primarydark);
 }
 
 .uniprep-secondary {

@@ -17,12 +17,11 @@ export class DashboardComponent implements OnInit {
     readQuizProgressionPercentage: any;
     responsiveOptions: any;
     selectedCountryName: any;
-    readingProgressings: any = [];
+    readingProgressings: any;
     countryLists: any = [];
     quizProgressings: any = [];
     continueReading = "none";
     continueQuiz = "none";
-    isSearchResultFound: boolean = false;
     isVideoVisible: boolean = false;
     isShareWithSocialMedia: boolean = false;
     isViewMoreOrgVisible: boolean = false;
@@ -45,14 +44,10 @@ export class DashboardComponent implements OnInit {
         }
     ];
     selectedCountryId: any;
-    currentSlide: any;
-    freeTrial: boolean | undefined;
 
     constructor(private dashboardService: DashboardService,
-                private service: AuthService,
         private router: Router, private dataService: DataService,
                 private elRef: ElementRef, private renderer: Renderer2,
-        private authService: AuthService
     ) {
         this.responsiveOptions = [
             {
@@ -72,21 +67,18 @@ export class DashboardComponent implements OnInit {
             }
         ];
     }
-    private subs = new SubSink();
     ngOnInit(): void {
-        this.selectedCountryId = localStorage.getItem('countryId');
-        this.checkNewUSerLogin();
+        this.selectedCountryId = localStorage.getItem('countryId');        
+        localStorage.setItem('selectedcountryId', this.selectedCountryId);
         localStorage.setItem("currentmodulenameforrecently", '');
         this.dashboardService.getTrustedPartners().subscribe(partnerLogo => {
             this.partnerTrusterLogo = partnerLogo;
         });
 
-        const data = {
+        let data = {
             countryId: this.selectedCountryId,
         }
-        this.dashboardService.getModuleReadProgression(data).subscribe(response => {
-            this.readingProgressings = response.module;
-        });
+
         this.dashboardService.countryList().subscribe(countryList => {
             this.countryLists = countryList;
             this.countryLists.forEach((element: any) => {
@@ -94,8 +86,12 @@ export class DashboardComponent implements OnInit {
                     this.selectedCountryName = element.country;
                     this.selectedCountryId = element.id;
                     this.dataService.changeCountryName(element.country);
+                    this.dataService.changeCountryFlag(element.flag);
                 }
             });
+        });
+        this.dashboardService.getModuleReadProgression(data).subscribe(response => {
+            this.readingProgressings = response.module;
         });
         const section = this.elRef.nativeElement.querySelector('#horizontalScrollSection');
         this.renderer.listen(section, 'wheel', (event: WheelEvent) => {
@@ -108,8 +104,6 @@ export class DashboardComponent implements OnInit {
     }
 
     loadApiData(): void {
-
-        localStorage.setItem('selectedcountryId',this.selectedCountryId)
         const data = {
             countryId: this.selectedCountryId,
         }
@@ -241,27 +235,5 @@ export class DashboardComponent implements OnInit {
 
     openViewMoreOrg(): void {
         this.isViewMoreOrgVisible = true;
-    }
-
-    continueTrial(): void {
-        this.dashboardService.getContineTrial().subscribe(res => {
-            return res;
-        });
-        this.authService.contineStatus(false);
-        this.freeTrial = false;
-        this.authService._userContineTrial = false;
-    }
-
-    onClickSubscribe(): void {
-        this.freeTrial = false;
-        this.router.navigate(["/pages/subscriptions"]);
-    }
-
-    checkNewUSerLogin(): void{
-        let userLoginCount = this.authService._userLoginCount;
-        console.log(userLoginCount)
-        if (userLoginCount === 4) {
-            this.freeTrial = true;
-        }
     }
 }

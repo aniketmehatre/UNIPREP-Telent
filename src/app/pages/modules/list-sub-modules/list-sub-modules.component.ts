@@ -65,7 +65,11 @@ export class ListSubModulesComponent implements OnInit {
 
   ngOnInit(): void {
     this.currentCountryId = Number(localStorage.getItem('countryId'));
+    let countryName: any
     this.currentModuleSlug = this.router.url.split('/').pop();
+    this.dataService.countryNameSource.subscribe((data) => {
+      countryName = data;
+    });
     switch (this.currentModuleSlug) {
       case 'pre-application':
         this.currentModuleId = 1;
@@ -94,7 +98,7 @@ export class ListSubModulesComponent implements OnInit {
         break;
       default:
         this.currentModuleId = 6;
-        this.currentModuleName = 'Life At UK';
+        this.currentModuleName = 'Life At '+countryName;
         this.currentApiSlug = 'GetQuestionsCount';
         break;
       

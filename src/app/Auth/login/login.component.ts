@@ -9,6 +9,7 @@ import { AuthService } from "../auth.service";
 import { MessageService } from "primeng/api";
 import { SubSink } from "subsink";
 import { DataService } from "src/app/data.service";
+import {DashboardService} from "../../pages/dashboard/dashboard.service";
 
 @Component({
   selector: "app-login",
@@ -24,6 +25,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   constructor(
     private service: AuthService, private formBuilder: FormBuilder, private route: Router,
     private toast: MessageService, private dataService: DataService,
+    private dashboardService: DashboardService,
   ) { }
 
   ngOnDestroy() {
@@ -51,6 +53,7 @@ export class LoginComponent implements OnInit, OnDestroy {
       }
       this.dataService.showTimerInHeader(loggedIn);
       this.service.getMe().subscribe((data) => {
+        this.loadCountryList(data);
         localStorage.setItem('countryId', data.userdetails.interested_country_id);
         this.subs.sink = this.service.selectMessage$().subscribe(message => {
           if (message == 'Login Success') {
@@ -58,6 +61,20 @@ export class LoginComponent implements OnInit, OnDestroy {
           }
         });
         this.route.navigate(['/pages/dashboard']);
+      });
+    });
+  }
+
+  countryLists: any;
+  loadCountryList(data: any){
+    this.dashboardService.countryList().subscribe(countryList => {
+      this.countryLists = countryList;
+      this.countryLists.forEach((element: any) => {
+        if (element.id == data.userdetails.interested_country_id) {
+          this.dataService.changeCountryName(element.country);
+          this.dataService.changeCountryFlag(element.flag);
+          this.dataService.changeCountryId(element.id);
+        }
       });
     });
   }

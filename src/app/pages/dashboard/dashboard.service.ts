@@ -68,7 +68,7 @@ export class DashboardService {
 
     getContineTrial() {
         const headers = new HttpHeaders().set("Accept", "application/json");
-        return this.http.post<any>(environment.ApiUrl + "/freetrailcontinue", {
+        return this.http.post<any>(environment.ApiUrl + "/freetrailcontinue", {}, {
             headers: headers,
         });
     }

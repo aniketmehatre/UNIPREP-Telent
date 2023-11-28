@@ -16,8 +16,8 @@
                     <button (click)="searchKeyWord(searchInput)" class="btn-primary" label="Search" pButton pRipple
                             type="button"></button>
                 </div>
-                <div >
-                    <ul *ngIf="isSearchResultFound"
+                <div>
+                    <ul *ngIf="isSearchResultFound" (scroll)="scrollHandler($event)"
                         class="list-group list-group-flush shadow-lg" #listgroup>
                         <li *ngFor="let c of searchResult" class="list-group-item border-0 pt-0 pb-0 mt-0 mb-0">
                             <div class="row">

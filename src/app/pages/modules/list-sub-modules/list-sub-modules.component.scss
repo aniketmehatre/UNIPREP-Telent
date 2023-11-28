@@ -31,9 +31,17 @@
   width: 100%;
   margin: 10px 0px;
 
-  .selectimage {
-    aspect-ratio: 1/1;
-    width: 50%;
+  .submoduleicon
+  {
+    height:100px;
+    width:100px;
+    margin: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    .selectimage {
+      width:100%;
+    }
   }
 
   &:focus {

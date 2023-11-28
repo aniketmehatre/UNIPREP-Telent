@@ -14,7 +14,7 @@ import { MenuItem, MessageService } from "primeng/api";
 import { ModalService } from "src/app/components/modal/modal.service";
 import { AuthService } from "../../../Auth/auth.service";
 import { SubSink } from "subsink";
-import { Router } from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import { LocationService } from "../../../location.service";
 import { DataService } from "src/app/data.service";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
@@ -78,22 +78,40 @@ export class HeaderComponent implements OnInit, OnDestroy {
   countryLists!: any;
   timeHours: any;
   timeDays: any;
+  freeTrial!: boolean;
   constructor(
     private router: Router,
     private locationService: LocationService,
     private formBuilder: FormBuilder,
     private service: AuthService,
     private toast: MessageService,
-    private dataService: DataService,
     private themeService: ThemeService,
+    route: ActivatedRoute,
+    private dataService: DataService,
     private dashboardService: DashboardService
   ) {
     this.subs.sink = this.dataService.countryIdSource.subscribe((data) => {
       this.selectedCountryId = Number(data);
       this.getModuleList();
     });
+    route.params.subscribe(val => {
+      // put the code from `ngOnInit` here
+      this.loadCountryList();
+    });
   }
 
+  loadCountryList(){
+    this.dashboardService.countryList().subscribe(countryList => {
+      this.countryLists = countryList;
+      this.countryLists.forEach((element: any) => {
+        if (element.id == localStorage.getItem('countryId')) {
+          this.dataService.changeCountryName(element.country);
+          this.dataService.changeCountryFlag(element.flag);
+          this.dataService.changeCountryId(element.id);
+        }
+      });
+    });
+  }
   isMenuOpen = true;
 
   toggleMenu() {
@@ -145,6 +163,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.getModuleList();
     this.getCountryList();
+    this.checkNewUSerLogin();
     this.onChangeModuleList(1);
     this.onChangeSubModuleList(1);
     if (this.service._checkExistsSubscription === 0) {
@@ -153,6 +172,18 @@ export class HeaderComponent implements OnInit, OnDestroy {
       this.userLoginTimeLeftCount = true;
       this.subs.sink = this.dataService.showTimeOutSource.subscribe((data) => {
         this.visible = data;
+      });
+      this.dashboardService.countryList().subscribe(countryList => {
+        this.countryLists = countryList;
+        this.countryLists.forEach((element: any) => {
+          if (element.id == this.selectedCountryId) {
+            this.selectedCountryId = element.id;
+            localStorage.setItem('countryId', element.id);
+            this.dataService.changeCountryId(element.id)
+            //this.dataService.changeCountryFlag(element.flag)
+            this.dataService.changeCountryName(element.country);
+          }
+        });
       });
       this.subs.sink = this.dataService.showTimerSource.subscribe((data) => {
         if (data == "EXPIRED") {
@@ -213,16 +244,18 @@ export class HeaderComponent implements OnInit, OnDestroy {
       }
     });
 
-    this.dashboardService.countryList().subscribe(countryList => {
-      this.countryLists = countryList;
-      this.countryLists.forEach((element: any) => {
-        if (element.id == this.selectedCountryId) {
-          this.headerFlag = element.flag;
-          this.dataService.changeCountryId(element.id)
-          this.dataService.changeCountryFlag(element.flag)
-        }
-      });
-    });
+    // this.dashboardService.countryList().subscribe(countryList => {
+    //   this.countryLists = countryList;
+    //   this.countryLists.forEach((element: any) => {
+    //     if (element.id == this.selectedCountryId) {
+    //       // this.headerFlag = element.flag;
+    //       localStorage.setItem('countryId', element.id);
+    //       this.dataService.changeCountryId(element.id)
+    //       this.dataService.changeCountryName(element.country);
+    //       //this.dataService.changeCountryFlag(element.flag)
+    //     }
+    //   });
+    // });
     this.dataService.countryFlagSource.subscribe((data) => {
       if (data != "") {
         this.headerFlag = data;
@@ -255,17 +288,18 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
     this.subs.sink = this.service.getMe().subscribe((data) => {
       if (data) {
+        localStorage.setItem('countryId', data.userdetails[0].interested_country_id);
         this.userName = data.userdetails[0].name.toString();
         this.firstChar = this.userName.charAt(0);
       }
     });
 
-    this.darkModeSwitch = document.getElementById("darkmodeswitch") as HTMLInputElement;
-    this.darkModeSwitch.checked = this.themeService.isDarkMode();
-
-    this.darkModeSwitch.addEventListener("change", () => {
-      this.themeService.toggleTheme();
-    });
+    // this.darkModeSwitch = document.getElementById("darkmodeswitch") as HTMLInputElement;
+    // this.darkModeSwitch.checked = this.themeService.isDarkMode();
+    //
+    // this.darkModeSwitch.addEventListener("change", () => {
+    //   this.themeService.toggleTheme();
+    // });
   }
 
   ngOnDestroy() {
@@ -277,15 +311,13 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   openReportModalFromMoudle(op: any, event: any) {
-    console.log('asdddddd');
-    
+
     this.isQuestionVisible = false;
     this.isVisibleModulesMenu = true;
     op.toggle(event);
   }
 
   openReportModal(op: any, event: any) {
-    console.log('gfsdf');
     this.reportSubmitForm.reset();
     this.reportSubmitForm = this.formBuilder.group({
       general: [1, [Validators.required]],
@@ -415,8 +447,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
   checkNewUser(): void {
     this.service.getNewUserTimeLeft().subscribe(res => {
       let data = res.time_left;
-      this.userLoginTimeLeftCount = false;
-      this.timer(data.minutes, data.seconds, data.hours, data.days);
+      if (data.plan === 'on_progress') {
+        this.userLoginTimeLeftCount = false;
+        this.timer(data.minutes, data.seconds, data.hours, data.days);
+      }
     })
   }
 
@@ -505,6 +539,31 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   get f() {
     return this.setPasswordForm.controls;
+  }
+
+  continueTrial(): void {
+    this.dashboardService.getContineTrial().subscribe(res => {
+      return res;
+    });
+    setTimeout(() => {
+      this.checkNewUser();
+    }, 2000);
+    this.service.contineStatus(false);
+    this.freeTrial = false;
+    this.service._userContineTrial = false;
+  }
+
+  onClickSubscribeData(): void {
+    this.freeTrial = false;
+    this.continueTrial();
+    this.router.navigate(["/pages/subscriptions"]);
+  }
+
+  checkNewUSerLogin(): void {
+    let userLoginCount = this.service._userLoginCount;
+    if (userLoginCount === 4) {
+      this.freeTrial = true;
+    }
   }
 
   passwordChangeOnClick() {

@@ -35,7 +35,7 @@ export class SubscriptionComponent implements OnInit {
     isSubOrQuestion: number = 1;
     subscribedCountryList: any [] = [];
     subscribedHistoryData: any [] = [];
-    userSubscription: any [] = [];
+    userSubscription: any  = [];
     subscriptionDetails: any;
     accountBillingData: any[] = [];
     loadingSubscriptionHistory: boolean = false;
@@ -232,6 +232,11 @@ export class SubscriptionComponent implements OnInit {
     loadExistingSubscription(){
         this.subscriptionService.getExistingSubscription().subscribe((response: any) => {
             this.userSubscription = response.subscription;
+            if(typeof this.userSubscription=='object' && this.userSubscription.countryName!=null){
+                this.loadingExistingSubscription = true;
+                this.loadSubscriptionedData();
+                return;
+            }
             if(this.userSubscription.length > 0) {
                 this.loadingExistingSubscription = true;
                 this.loadSubscriptionedData();

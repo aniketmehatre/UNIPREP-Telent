@@ -39,6 +39,11 @@ export class SidenavComponent {
       image: 'fa-solid fa-house',
     },
     {
+      title: 'Study',
+      url: '',
+      image: '',
+    },
+    {
       title: 'Pre Application',
       url: '/pages/modules/pre-application',
       image: 'fa-solid fa-file-import',
@@ -54,14 +59,24 @@ export class SidenavComponent {
       image: 'fa-solid fa-ticket',
     },
     {
+      title: 'University',
+      url: '/pages/modules/university',
+      image: 'fa-solid fa-building-columns',
+    },
+    {
+      title: 'Career',
+      url: '',
+      image: '',
+    },
+    {
       title: 'Career Hub',
       url: '/pages/modules/career-hub',
       image: 'fa-solid fa-briefcase',
     },
     {
-      title: 'University',
-      url: '/pages/modules/university',
-      image: 'fa-solid fa-building-columns',
+      title: 'Life',
+      url: '',
+      image: '',
     },
     {
       title: 'Life at',

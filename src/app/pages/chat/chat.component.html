@@ -48,7 +48,11 @@
           >
             <div class="col-md-12 mt-1">
               <div class="form-group">
-                <label>Report Issues<span style="color: red; font-weight: bold;">*</span></label>
+                <label
+                  >Report Issues<span style="color: red; font-weight: bold"
+                    >*</span
+                  ></label
+                >
                 <p-dropdown
                   formControlName="reportOption"
                   optionValue="id"
@@ -61,7 +65,10 @@
             <br />
             <div class="col-md-12 mt-1">
               <div class="form-group">
-                <label>Add Comment <span style="color: red; font-weight: bold;">*</span></label>
+                <label
+                  >Add Comment
+                  <span style="color: red; font-weight: bold">*</span></label
+                >
                 <textarea
                   rows="3"
                   cols="35"
@@ -160,7 +167,7 @@
                         class="response-msg-attach"
                       >
                         <label>{{ message.filename }}</label> &nbsp;&nbsp;<a
-                        (click)="openAttachment(message.attachment)"
+                          (click)="openAttachment(message.attachment)"
                           ><i class="pi pi-arrow-circle-down"></i>
                         </a>
                       </p>
@@ -175,7 +182,7 @@
           <div class="field col-12" [class]="fullscreen" #fullscreeneditor>
             <p-editor
               [(ngModel)]="textMessage"
-              [style]="{ height: '100px' }"
+              [style]="{ height: '50px' }"
               [modules]="modules"
               placeholder="Reply"
             >
@@ -185,20 +192,24 @@
               ></ng-template
             ></p-editor>
             <div class="text-end">
-              <p-confirmPopup></p-confirmPopup>
-              <button
-                (click)="confirm($event)"
-                class="btn text-white"
-                style="
-                  background-color: var(--uniprep-primary);
-                  height: 35%;
-                  width: 15%;
-                  font-size: medium;
-                "
-              >
-                Send Message
-              </button>
+              <p-confirmPopup
+                [style]="{ 'z-index': '999999 !important' }"
+              ></p-confirmPopup>
             </div>
+          </div>
+          <div class="text-end">
+            <button
+              (click)="confirm($event)"
+              class="btn text-white"
+              style="
+                background-color: var(--uniprep-primary);
+                height: 35%;
+                width: 15%;
+                font-size: medium;
+              "
+            >
+              Send Message
+            </button>
           </div>
         </ng-template>
       </p-card>
@@ -225,10 +236,7 @@
           <i style="color: #fff" class="fa fa-close"></i>
         </div>
         <div class="row mt-1">
-          <div
-            class="col-2"
-            style="margin: auto; padding: 1.5rem"
-          >
+          <div class="col-2" style="margin: auto; padding: 1.5rem">
             <span
               style="
                 color: white;
@@ -240,10 +248,7 @@
               ><i style="height: 20px; width: 20px" class="fa fa-info"></i
             ></span>
           </div>
-          <div
-            class="col-10 mb-4"
-            style="margin: auto; padding: 1rem"
-          >
+          <div class="col-10 mb-4" style="margin: auto; padding: 1rem">
             Thank you for reaching out to us.<br />
             Please anticipate a response within<br />
             8 working hours

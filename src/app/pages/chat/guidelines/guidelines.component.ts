@@ -14,21 +14,22 @@ export class GuidelineComponent implements OnInit {
   accepted=false;
   constructor(private service: ChathistoryService,private route:Router) {}
   ngOnInit(): void {
-    if(localStorage.getItem("guidlineAccepted")){
-        if(Number(localStorage.getItem("guidlineAccepted"))==1){
-          this.accepted=true;
-        }
-      }
+    // if(localStorage.getItem("guidlineAccepted")){
+    //     if(Number(localStorage.getItem("guidlineAccepted"))==1){
+    //       this.accepted=true;
+    //     }
+    //   }
   }
   acceptguideline() {
-    this.service.Acceptance().subscribe(
-      (response) => {
-        window.location.reload();
-        // this.route.navigate(['/pages/chat']);
-      },
-      (error) => {
+    this.route.navigate(['/pages/chat']);
+    // this.service.Acceptance().subscribe(
+    //   (response) => {
+    //     window.location.reload();
+    //     // this.route.navigate(['/pages/chat']);
+    //   },
+    //   (error) => {
        
-      }
-    );
+    //   }
+    // );
   }
 }

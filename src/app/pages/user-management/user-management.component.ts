@@ -7,6 +7,9 @@ import { User } from "../../@Models/user.model";
 import { UserManagementService } from "./user-management.service";
 import { SubSink } from "subsink";
 import {Router} from "@angular/router";
+import {DashboardService} from "../dashboard/dashboard.service";
+import {DataService} from "../../data.service";
+import {count} from "rxjs";
 
 
 @Component({
@@ -50,6 +53,8 @@ export class UserManagementComponent implements OnInit {
         private formBuilder: FormBuilder,
         private locationService: LocationService,
         private toast: MessageService,
+        private dataService: DataService,
+        private dashboardService: DashboardService,
         private userManagementService: UserManagementService,
         private router: Router
     ) {
@@ -233,6 +238,18 @@ export class UserManagementComponent implements OnInit {
             programlevel_id: this.registrationForm.value?.programlevel_id,
             home_country: this.registrationForm.value?.home_country,
         };
+
+        this.dashboardService.countryList().subscribe(countryList => {
+            this.countryList = countryList;
+            this.countryList.forEach((element: any) => {
+                if (element.id == this.registrationForm.value?.interested_country_id) {
+                    localStorage.setItem('countryId', element.id);
+                    this.dataService.changeCountryId(element.id);
+                    this.dataService.changeCountryName(element.country);
+                    this.dataService.changeCountryFlag(element.flag);
+                }
+            });
+        });
         if(this.registrationForm.value?.last_degree_passing_year == null) {
             data.last_degree_passing_year = "";
         }

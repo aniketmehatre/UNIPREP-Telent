@@ -60,7 +60,10 @@
       </div>
     </ng-container>
     <ng-template #menu>
-      <div class="system-main__apps" (click)="onexpand(item)">
+      <div class="fw-bold system-main__apps mr-4" *ngIf="item.title == 'Study' || item.title == 'Career' || item.title == 'Life'">
+        {{ item.title }}
+      </div>
+      <div *ngIf="item.title != 'Study' && item.title != 'Career' && item.title != 'Life'" class="system-main__apps" (click)="onexpand(item)">
         <span class="system-main__icon" title="{{ item.title }}"><i class="{{ item.image }}"></i></span>
         <span class="system-main__name"> {{ item.title }} </span>
       </div>
