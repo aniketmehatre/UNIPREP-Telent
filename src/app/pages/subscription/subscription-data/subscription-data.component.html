@@ -1,18 +1,18 @@
-<h6 class="sub-label">Subscription</h6>
-<div [class]="'card card-body'">
-    <div class=" d-flex justify-content-between">
-        <div>
-            <span class="sop-border sop-header">Ready To Get Started?</span>
-            <span>Choose a plan tailored to your needs</span>
-        </div>
-        <div>
-            <button (click)="buttonclicked1()" class="btn btn-basic mt-4" [class.active]="selectedButton === 'button1'"
-                (click)="selectedButton = 'button1'" *ngIf="topupcountries">BASE SUBSCRIPTION</button>
-            <button (click)="buttonclicked2()" class="btn btn-basic mt-4" [class.active]="selectedButton ==='button2'"
-                (click)="selectedButton = 'button2'" *ngIf="basesubscription">TOP UP COUNTRIES</button>
-            <!-- <button (click)="buttonclicked3()" class="btn btn-primary" [class.active]="selectedButton === 'button3'" (click)="selectedButton = 'button3'" >TOP UP VALIDITY</button> -->
-        </div>
-    </div>
+<p class="uniprep-primary mb-0">Subscription</p>
+<div class="card">
+	<div class="card-body">
+		<div class="d-flex justify-content-between">
+			<div>
+				<h5 class="sop-border sop-header">Ready To Get Started?</h5>
+				<span>Choose a plan tailored to your needs</span>
+			</div>
+			<div>
+				<button (click)="buttonclicked1()" class="btn btn-basic mt-4" [class.active]="selectedButton === 'button1'" (click)="selectedButton = 'button1'" *ngIf="topupcountries">BASE SUBSCRIPTION</button>
+				<button (click)="buttonclicked2()" class="btn btn-basic mt-4" [class.active]="selectedButton === 'button2'" (click)="selectedButton = 'button2'" *ngIf="basesubscription">TOP UP COUNTRIES</button>
+				<!-- <button (click)="buttonclicked3()" class="btn btn-primary" [class.active]="selectedButton === 'button3'" (click)="selectedButton = 'button3'" >TOP UP VALIDITY</button> -->
+			</div>
+		</div>
+	</div>
 </div>
 <br />
 
@@ -132,369 +132,337 @@
     </div>
 </div> -->
 <div class="card d-flex">
-    <div class="card">
-        <div class="row" *ngIf="basesubscription">
-            <div *ngFor="let subscription of subscriptionList" class="col-lg-4">
-                <div class="card-body">
-                    <div class="container-fluid">
-                        <div class="row gap-5 mt-4 d-flex">
-                            <div class="card card-bg subscriptioncard col px-0"
-                                [ngClass]="{'active': subscription.isActive}" >
-                                <div class="mostpopular" *ngIf="subscription.popular == 1">Most Popular Plan</div>
-                                <div class="card-header p-4">
-                                    <div class="d-flex justify-content-between align-items-center">
-                                        <h3 class="fw-bold mb-0">{{subscription.subscription_plan}} <br>Plan</h3>
-                                        <div class="text-end">
-                                            <h4 class="mb-0"><s>INR {{subscription.actualprice | number : '.2-2' }}</s>
-                                            </h4>
-                                            <div class="btn discountbutton">Save {{subscription.discountpercentage}} %
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="card-body p-4">
-                                    <h5 style="font-size: 18px; text-align: center;">Select Your Base Country</h5>
-                                    <span class="p-float-label">
-                                        <p-dropdown [options]="subscription.filteredCountryList" styleClass="w-100"
-                                            [(ngModel)]="subscription.selectedCoutry" optionLabel="country">
-                                            <ng-template pTemplate="selectedItem">
-                                                <img [src]="subscription.selectedCoutry?.flag"
-                                                    [alt]="subscription.selectedCoutry?.altname"
-                                                    class="base-country-flag">
-                                                {{ subscription.selectedCoutry?.country }}
-                                            </ng-template>
-                                        </p-dropdown>
-                                    </span>
-                                    <h5 style="font-size: 18px; text-align: center;" class="pt-4">Personalized Question:
-                                        {{subscription.chatlimit}} / day</h5>
-                                </div>
-                                <div class="card-footer  p-4" style="text-align: center;">
-                                    <h2 class="font-primarycolor fw-bold">INR {{ subscription.givenprice | number :
-                                        '.2-2' }}</h2>
-                                    <p class="fw-semibold">{{subscription.validity}} Month Validity</p>
-                                    <div class="getstartedbtn">
-                                        <button *ngIf="!subscription.selected" class="btn btn-primary"
-                                            (click)="selectedSubscriptionPlan(subscription)">Select This Plan</button>
-                                        <button *ngIf="subscription.selected" class="btn dark-btn"
-                                            (click)="selectedSubscriptionPlan(subscription)">You have selected
-                                            {{subscription.subscription_plan}} Plan</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+	<div class="card">
+		<div class="row" *ngIf="basesubscription">
+			<div *ngFor="let subscription of subscriptionList" class="col-lg-4">
+				<div class="card-body">
+					<div class="container-fluid">
+						<div class="row gap-5 mt-4 d-flex">
+							<div class="card card-bg subscriptioncard col px-0" [ngClass]="{ active: subscription.isActive }">
+								<div class="mostpopular" *ngIf="subscription.popular == 1">Most Popular Plan</div>
+								<div class="card-header py-2 px-4">
+									<div class="d-flex justify-content-between align-items-center">
+										<h3 class="fw-semibold mb-0">{{ subscription.subscription_plan }} <br />Plan</h3>
+										<div class="text-end">
+											<h5 class="mb-0">INR {{ subscription.actualprice | number : ".2-2" }}</h5>
+											<div class="btn discountbutton">Save {{ subscription.discountpercentage }} %</div>
+										</div>
+									</div>
+								</div>
+								<div class="card-body p-4">
+									<h5 style="font-size: 18px; text-align: center">Select Your Base Country</h5>
+									<span class="p-float-label">
+										<p-dropdown [options]="subscription.filteredCountryList" styleClass="w-100" [(ngModel)]="subscription.selectedCoutry" optionLabel="country">
+											<ng-template pTemplate="selectedItem">
+												<img [src]="subscription.selectedCoutry?.flag" [alt]="subscription.selectedCoutry?.altname" class="base-country-flag" />
+												{{ subscription.selectedCoutry?.country }}
+											</ng-template>
+										</p-dropdown>
+									</span>
+									<h5 style="font-size: 18px; text-align: center" class="pt-4">Personalized Question: {{ subscription.chatlimit }} / day</h5>
+								</div>
+								<div class="card-footer py-2 px-4" style="text-align: center">
+									<h3 class="font-primarycolor fw-bold">INR {{ subscription.givenprice | number : ".2-2" }}</h3>
+									<h5 class="fw-semibold">{{ subscription.validity }} Month Validity</h5>
+									<div class="getstartedbtn">
+										<button *ngIf="!subscription.selected" class="btn btn-primary" (click)="selectedSubscriptionPlan(subscription)">Select This Plan</button>
+										<button *ngIf="subscription.selected" class="btn dark-btn" (click)="selectedSubscriptionPlan(subscription)">You have selected {{ subscription.subscription_plan }} Plan</button>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
 
-        <!-- Top-up-countries -->
-        <div class="row" *ngIf="topupcountries">
-            <div *ngFor="let subscription of subscriptionTopupList" class="col-lg-4">
-                <div class="card-body">
-                    <div class="container-fluid">
-                        <div class="row gap-5 mt-4 d-flex">
-                            <div class="card card-bg subscriptioncard col px-0"
-                                [ngClass]="{'active': subscription.isActive}">
-                                <div class="mostpopular" *ngIf="subscription.popular == 1">Most Popular Plan</div>
-                                <div class="card-header p-4">
-                                    <div class="d-flex justify-content-between align-items-center">
-                                        <h3 class="fw-bold mb-0">{{subscription.name}} <br>Plan</h3>
-                                        <div class="text-end">
-                                            <h4 class="mb-0"><s>INR {{subscription.price | number : '.2-2' }}</s>
-                                            </h4>
-                                            <div class="btn discountbutton">
-                                                Save {{subscription.discountPercentage}}
-                                                %</div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="card-body p-3">
-                                    <h5 style="font-size: 18px; text-align: center;">Select Your Add On Countries</h5>
-                                    <p-multiSelect [options]="subscription.filteredCountryList" styleClass="w-100"
-                                        [(ngModel)]="subscription.selectedCoutriesList"
-                                        defaultLabel="Select a multiple countries as per your requirement"
-                                        optionLabel="country" #multiSelect>
-                                        <ng-template pTemplate="selectedItems">
-                                            {{ multiSelect.defaultLabel }}
-                                        </ng-template>
-                                    </p-multiSelect>
-                                    <div class="d-flex align-items-center gap-2 flex-wrap pt-2">
-                                        <div *ngFor="let data of subscription?.selectedCoutriesList">
-                                            <p-chip [label]="data.country" [image]="data.flag" [removable]="true"
-                                                (onRemove)="removeCountry(subscription.id, data.id)"
-                                                removeIcon="pi pi-times"></p-chip>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="card-footer  p-4" style="text-align: center;">
-                                    <h2 class="font-primarycolor fw-bold">INR {{ subscription.finalamount | number :
-                                        '.2-2' }}</h2>
-                                    <p class="fw-semibold">{{subscription.validity}} Month Validity</p>
-                                    <div class="getstartedbtn">
-                                        <button *ngIf="!subscription.selected" class="btn btn-primary"
-                                            (click)="selectedTopupCountryPlan(subscription)">Select Plan</button>
-                                        <button *ngIf="subscription.selected" class="btn dark-btn"
-                                            (click)="selectedTopupCountryPlan(subscription)">You have selected
-                                            {{subscription.name}} Plan</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- top up validity -->
-        <div class="row p-3" *ngIf="topupvalidity">
-            <div class=" d-flex justify-content-between">
-                <div class="mt-2">
-                    <label for="" style="white-space: nowrap;">Select Country for Validity</label>
-                </div>
-                <div class="ms-2" style="width: -webkit-fill-available;">
-                    <span class="p-float-label">
-                        <p-multiSelect [options]="countryList" optionValue="id" placeholder="Select a country"
-                            [(ngModel)]="selectedCountry" styleClass="w-100 custom-multiselect"
-                            optionLabel="country"></p-multiSelect>
-                    </span>
-                </div>
+		<!-- Top-up-countries -->
+		<div class="row" *ngIf="topupcountries">
+			<div *ngFor="let subscription of subscriptionTopupList" class="col-lg-4">
+				<div class="card-body">
+					<div class="container-fluid">
+						<div class="row gap-5 mt-4 d-flex">
+							<div class="card card-bg subscriptioncard col px-0" [ngClass]="{ active: subscription.isActive }">
+								<div class="mostpopular" *ngIf="subscription.popular == 1">Most Popular Plan</div>
+								<div class="card-header p-4">
+									<div class="d-flex justify-content-between align-items-center">
+										<h3 class="fw-bold mb-0">{{ subscription.name }} <br />Plan</h3>
+										<div class="text-end">
+											<h4 class="mb-0">
+												<s>INR {{ subscription.price | number : ".2-2" }}</s>
+											</h4>
+											<div class="btn discountbutton">Save {{ subscription.discountPercentage }} %</div>
+										</div>
+									</div>
+								</div>
+								<div class="card-body p-3">
+									<h5 style="font-size: 18px; text-align: center">Select Your Add On Countries</h5>
+									<p-multiSelect [options]="subscription.filteredCountryList" styleClass="w-100" [(ngModel)]="subscription.selectedCoutriesList" defaultLabel="Select a multiple countries as per your requirement" optionLabel="country" #multiSelect>
+										<ng-template pTemplate="selectedItems">
+											{{ multiSelect.defaultLabel }}
+										</ng-template>
+									</p-multiSelect>
+									<div class="d-flex align-items-center gap-2 flex-wrap pt-2">
+										<div *ngFor="let data of subscription?.selectedCoutriesList">
+											<p-chip [label]="data.country" [image]="data.flag" [removable]="true" (onRemove)="removeCountry(subscription.id, data.id)" removeIcon="pi pi-times"></p-chip>
+										</div>
+									</div>
+								</div>
+								<div class="card-footer p-4" style="text-align: center">
+									<h2 class="font-primarycolor fw-bold">INR {{ subscription.finalamount | number : ".2-2" }}</h2>
+									<p class="fw-semibold">{{ subscription.validity }} Month Validity</p>
+									<div class="getstartedbtn">
+										<button *ngIf="!subscription.selected" class="btn btn-primary" (click)="selectedTopupCountryPlan(subscription)">Select Plan</button>
+										<button *ngIf="subscription.selected" class="btn dark-btn" (click)="selectedTopupCountryPlan(subscription)">You have selected {{ subscription.name }} Plan</button>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- top up validity -->
+		<div class="row p-3" *ngIf="topupvalidity">
+			<div class="d-flex justify-content-between">
+				<div class="mt-2">
+					<label for="" style="white-space: nowrap">Select Country for Validity</label>
+				</div>
+				<div class="ms-2" style="width: -webkit-fill-available">
+					<span class="p-float-label">
+						<p-multiSelect [options]="countryList" optionValue="id" placeholder="Select a country" [(ngModel)]="selectedCountry" styleClass="w-100 custom-multiselect" optionLabel="country"></p-multiSelect>
+					</span>
+				</div>
+			</div>
+		</div>
+		<div class="cardcontainer" *ngIf="topupvalidity">
+			<div class="card-body sameline">
+				<div class="container-fluid">
+					<div class="row gap-5 mt-4 d-flex">
+						<div class="card col px-0">
+							<!-- <div class="mostpopular">Most Popular Plan</div> -->
+							<div class="card-header p-4">
+								<div class="d-flex justify-content-between align-items-center">
+									<h6 class="fw-bold mb-0">1 Month <br />Validity</h6>
+									<div class="text-end">
+										<span class="mb-0"><s>INR 1000</s></span>
+										<div class="btn discountbutton">Save 20 %</div>
+									</div>
+								</div>
+							</div>
+							<div class="card-footer p-4 pt-5" style="text-align: center">
+								<h4 class="font-primarycolor fw-bold">INR 699.00</h4>
+								<div class="">
+									<button style="width: -webkit-fill-available" class="btn btn-primary"><span style="color: #fff !important" class="ps-5 pe-5">Top Up</span></button>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
 
-            </div>
-        </div>
-        <div class="cardcontainer" *ngIf="topupvalidity">
-            <div class="card-body sameline">
-                <div class="container-fluid">
-                    <div class="row gap-5 mt-4 d-flex">
-                        <div class="card  col px-0">
-                            <!-- <div class="mostpopular">Most Popular Plan</div> -->
-                            <div class="card-header p-4">
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <h6 class="fw-bold mb-0">1 Month <br>Validity</h6>
-                                    <div class="text-end">
-                                        <span class="mb-0"><s>INR 1000</s></span>
-                                        <div class="btn discountbutton">Save 20
-                                            %</div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="card-footer p-4 pt-5" style="text-align: center;">
-                                <h4 class="font-primarycolor fw-bold">INR 699.00</h4>
-                                <div class="">
-                                    <button style="width: -webkit-fill-available;" class="btn btn-primary"><span
-                                            style="color: #fff !important;" class="ps-5 pe-5">Top Up</span></button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+			<div class="card-body sameline">
+				<div class="container-fluid">
+					<div class="row gap-5 mt-4 d-flex">
+						<div class="card col px-0">
+							<!-- <div class="mostpopular">Most Popular Plan</div> -->
+							<div class="card-header p-4">
+								<div class="d-flex justify-content-between align-items-center">
+									<h6 class="fw-bold mb-0">1 Month <br />Validity</h6>
+									<div class="text-end">
+										<span class="mb-0"><s>INR 1000</s></span>
+										<div class="btn discountbutton">Save 20 %</div>
+									</div>
+								</div>
+							</div>
+							<div class="card-footer p-4 pt-5" style="text-align: center">
+								<h4 class="font-primarycolor fw-bold">INR 699.00</h4>
+								<div class="">
+									<button style="width: -webkit-fill-available" class="btn btn-primary"><span style="color: #fff !important" class="ps-5 pe-5">Top Up</span></button>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
 
-            <div class="card-body sameline">
-                <div class="container-fluid">
-                    <div class="row gap-5 mt-4 d-flex">
-                        <div class="card  col px-0">
-                            <!-- <div class="mostpopular">Most Popular Plan</div> -->
-                            <div class="card-header p-4">
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <h6 class="fw-bold mb-0">1 Month <br>Validity</h6>
-                                    <div class="text-end">
-                                        <span class="mb-0"><s>INR 1000</s></span>
-                                        <div class="btn discountbutton">Save 20
-                                            %</div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="card-footer  p-4 pt-5" style="text-align: center;">
-                                <h4 class="font-primarycolor fw-bold">INR 699.00</h4>
-                                <div class="">
-                                    <button style="width: -webkit-fill-available;" class="btn btn-primary"><span
-                                            style="color: #fff !important;" class="ps-5 pe-5">Top Up</span></button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+			<div class="card-body sameline">
+				<div class="container-fluid">
+					<div class="row gap-5 mt-4 d-flex">
+						<div class="card col px-0">
+							<!-- <div class="mostpopular">Most Popular Plan</div> -->
+							<div class="card-header p-4">
+								<div class="d-flex justify-content-between align-items-center">
+									<h6 class="fw-bold mb-0">1 Month <br />Validity</h6>
+									<div class="text-end">
+										<span class="mb-0"><s>INR 1000</s></span>
+										<div class="btn discountbutton">Save 20 %</div>
+									</div>
+								</div>
+							</div>
 
-            <div class="card-body sameline">
-                <div class="container-fluid">
-                    <div class="row gap-5 mt-4 d-flex">
-                        <div class="card  col px-0">
-                            <!-- <div class="mostpopular">Most Popular Plan</div> -->
-                            <div class="card-header p-4">
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <h6 class="fw-bold mb-0">1 Month <br>Validity</h6>
-                                    <div class="text-end">
-                                        <span class="mb-0"><s>INR 1000</s></span>
-                                        <div class="btn discountbutton">Save 20
-                                            %</div>
-                                    </div>
-                                </div>
-                            </div>
+							<div class="card-footer p-4 pt-5" style="text-align: center">
+								<h4 class="font-primarycolor fw-bold">INR 699.00</h4>
+								<div class="">
+									<button style="width: -webkit-fill-available" class="btn btn-primary"><span style="color: #fff !important" class="ps-5 pe-5">Top Up</span></button>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="card-body sameline">
+				<div class="container-fluid">
+					<div class="row gap-5 mt-4 d-flex">
+						<div class="card col px-0">
+							<!-- <div class="mostpopular">Most Popular Plan</div> -->
+							<div class="card-header p-4">
+								<div class="d-flex justify-content-between align-items-center">
+									<h6 class="fw-bold mb-0">1 Month <br />Validity</h6>
+									<div class="text-end">
+										<span class="mb-0"><s>INR 1000</s></span>
+										<div class="btn discountbutton">Save 20 %</div>
+									</div>
+								</div>
+							</div>
 
-                            <div class="card-footer  p-4 pt-5" style="text-align: center;">
-                                <h4 class="font-primarycolor fw-bold">INR 699.00</h4>
-                                <div class="">
-                                    <button style="width: -webkit-fill-available;" class="btn btn-primary"><span
-                                            style="color: #fff !important;" class="ps-5 pe-5">Top Up</span></button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="card-body sameline">
-                <div class="container-fluid">
-                    <div class="row gap-5 mt-4 d-flex">
-                        <div class="card  col px-0">
-                            <!-- <div class="mostpopular">Most Popular Plan</div> -->
-                            <div class="card-header p-4">
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <h6 class="fw-bold mb-0">1 Month <br>Validity</h6>
-                                    <div class="text-end">
-                                        <span class="mb-0"><s>INR 1000</s></span>
-                                        <div class="btn discountbutton">Save 20
-                                            %</div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="card-footer  p-4 pt-5" style="text-align: center;">
-                                <h4 class="font-primarycolor fw-bold">INR 699.00</h4>
-                                <div class="">
-                                    <button style="width: -webkit-fill-available;" class="btn btn-primary"><span
-                                            style="color: #fff !important;" class="ps-5 pe-5">Top Up</span></button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="card-body sameline">
-                <div class="container-fluid">
-                    <div class="row gap-5 mt-4 d-flex">
-                        <div class="card  col px-0">
-                            <!-- <div class="mostpopular">Most Popular Plan</div> -->
-                            <div class="card-header p-4">
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <h6 class="fw-bold mb-0">1 Month <br>Validity</h6>
-                                    <div class="text-end">
-                                        <span class="mb-0"><s>INR 1000</s></span>
-                                        <div class="btn discountbutton">Save 20
-                                            %</div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="card-footer  p-4 pt-5" style="text-align: center;">
-                                <h4 class="font-primarycolor fw-bold">INR 699.00</h4>
-                                <div class="">
-                                    <button style="width: -webkit-fill-available;" class="btn btn-primary"><span
-                                            style="color: #fff !important;" class="ps-5 pe-5">Top Up</span></button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+							<div class="card-footer p-4 pt-5" style="text-align: center">
+								<h4 class="font-primarycolor fw-bold">INR 699.00</h4>
+								<div class="">
+									<button style="width: -webkit-fill-available" class="btn btn-primary"><span style="color: #fff !important" class="ps-5 pe-5">Top Up</span></button>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="card-body sameline">
+				<div class="container-fluid">
+					<div class="row gap-5 mt-4 d-flex">
+						<div class="card col px-0">
+							<!-- <div class="mostpopular">Most Popular Plan</div> -->
+							<div class="card-header p-4">
+								<div class="d-flex justify-content-between align-items-center">
+									<h6 class="fw-bold mb-0">1 Month <br />Validity</h6>
+									<div class="text-end">
+										<span class="mb-0"><s>INR 1000</s></span>
+										<div class="btn discountbutton">Save 20 %</div>
+									</div>
+								</div>
+							</div>
+							<div class="card-footer p-4 pt-5" style="text-align: center">
+								<h4 class="font-primarycolor fw-bold">INR 699.00</h4>
+								<div class="">
+									<button style="width: -webkit-fill-available" class="btn btn-primary"><span style="color: #fff !important" class="ps-5 pe-5">Top Up</span></button>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>
 
 <!-- last know more about section -->
 <div class="row">
-    <div class="col-lg-5">
-        <div [class]="'card card-body mt-3 h-100 justify-content-center'">
-            <div class="row">
-                <div class="mt-1 col-lg-6">
-                    <span style="font-size: 16px !important;" class="sop-header"><b>Checkout What You Get With Our
-                            Subscriptions</b></span>
-                </div>
-                <div class="col-lg-6">
-                    <button (click)="moreabout()" style="color: #fff !important;" class="btn btn-primary "><span
-                            style="white-space: nowrap;"> Know More About Our Features</span></button>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="col-lg-4">
-        <div [class]="'card card-body mt-3 h-100'">
-            <div>
-                <span style="font-size: 13px !important;" class="sop-header"><b>Apply your coupon code here</b></span>
-                <br>
-                <div class="p-inputgroup inputheight mt-1">
-                    <input [(ngModel)]="couponInput" (keyup)="onInput($event)" pInputText placeholder="Enter Your coupon code Here" type="text">
-                    <button (click)="applyCoupon()" class="btn-primary" label="Apply" pButton pRipple
-                        type="button"></button>
-                </div>
-                <span *ngIf="invalidCoupon" style="font-size: 9px !important; color: red !important;">You entered an invalid discount code. Please check the code and try again</span>
-            </div>
-        </div>
-
-    </div>
-    <div class="col-lg-3">
-        <div [class]="'card card-body mt-3 h-100 justify-content-center'">
-            <div class="row">
-                <div *ngIf="basesubscription" class="col-lg-6">
-                    <span style="font-size: 13px !important;" class="sop-header"><b>Total</b></span> <br>
-                    <span style="font-size: 15px !important; color: var(--uniprep-primary) !important;"
-                        class="sop-header"><b *ngIf="checkoutTotal==''"> INR {{subscriptionTotal | number : '.2-2'}}</b><b *ngIf="subscriptionTotal!='0.00' && checkoutTotal!=''"> INR {{checkoutTotal | number : '.2-2'}}</b></span>
-                </div>
-                <div *ngIf="topupcountries" class="col-lg-6">
-                    <span style="font-size: 13px !important;" class="sop-header"><b>Countries</b></span>
-                    <span style="font-size: 13px !important; color: var(--uniprep-primary) !important;"
-                        class="sop-header"><b>
-                            {{selectedTopupCountryDetails?.selectedCoutriesList?.length}}</b></span><br>
-                    <span style="font-size: 13px !important;" class="sop-header"><b>Total</b></span>
-                    <span style="font-size: 13px !important; color: var(--uniprep-primary) !important;"
-                        class="sop-header"><b *ngIf="checkoutTotal==''"> INR {{subscriptionTotal | number : '.2-2'}}</b><b *ngIf="subscriptionTotal!='0.00' && checkoutTotal!=''"> INR {{checkoutTotal | number : '.2-2'}}</b></span>
-                </div>
-                <div class="col-lg-6">
-                    <button [disabled]="showCheckout" style="color: #fff !important;" class="btn btn-primary " (click)="checkout()"><span
-                            class=" ps-3 pe-3" >Checkout</span> </button>
-                </div>
-            </div>
-        </div>
-
-    </div>
+	<div class="col-lg-5">
+		<div class="card mt-3 h-100">
+			<div class="card-body d-flex align-items-center">
+				<div class="row w-100">
+					<div class="col-lg-6">
+						<h5 class="mb-0">Checkout What You<br />Get With Our Subscriptions</h5>
+					</div>
+					<div class="col-lg-6">
+						<button (click)="moreabout()" class="btn btn-primary w-100 py-3 h6 m-0">Know More About Our Features</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="col-lg-4">
+		<div [class]="'card card-body mt-3 h-100'">
+			<div>
+				<span style="font-size: 13px !important" class="sop-header"><b>Apply your coupon code here</b></span>
+				<br />
+				<div class="p-inputgroup inputheight mt-1">
+					<input [(ngModel)]="couponInput" (keyup)="onInput($event)" pInputText placeholder="Enter Your coupon code Here" type="text" />
+					<button (click)="applyCoupon()" class="btn-primary" label="Apply" pButton pRipple type="button"></button>
+				</div>
+				<span *ngIf="invalidCoupon" style="font-size: 9px !important; color: red !important">You entered an invalid discount code. Please check the code and try again</span>
+			</div>
+		</div>
+	</div>
+	<div class="col-lg-3">
+		<div [class]="'card card-body mt-3 h-100 justify-content-center'">
+			<div class="row">
+				<div *ngIf="basesubscription" class="col-lg-6">
+					<span style="font-size: 13px !important" class="sop-header"><b>Total</b></span> <br />
+					<span style="font-size: 15px !important; color: var(--uniprep-primary) !important" class="sop-header"
+						><b *ngIf="checkoutTotal == ''"> INR {{ subscriptionTotal | number : ".2-2" }}</b
+						><b *ngIf="subscriptionTotal != '0.00' && checkoutTotal != ''"> INR {{ checkoutTotal | number : ".2-2" }}</b></span
+					>
+				</div>
+				<div *ngIf="topupcountries" class="col-lg-6">
+					<span style="font-size: 13px !important" class="sop-header"><b>Countries</b></span>
+					<span style="font-size: 13px !important; color: var(--uniprep-primary) !important" class="sop-header"
+						><b> {{ selectedTopupCountryDetails?.selectedCoutriesList?.length }}</b></span
+					><br />
+					<span style="font-size: 13px !important" class="sop-header"><b>Total</b></span>
+					<span style="font-size: 13px !important; color: var(--uniprep-primary) !important" class="sop-header"
+						><b *ngIf="checkoutTotal == ''"> INR {{ subscriptionTotal | number : ".2-2" }}</b
+						><b *ngIf="subscriptionTotal != '0.00' && checkoutTotal != ''"> INR {{ checkoutTotal | number : ".2-2" }}</b></span
+					>
+				</div>
+				<div class="col-lg-6">
+					<button [disabled]="showCheckout" style="color: #fff !important" class="btn btn-primary" (click)="checkout()"><span class="ps-3 pe-3">Checkout</span></button>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>
 
 <!-- modeal -->
 
-<p-dialog class="retrypopup" [modal]="true" [closable]="false" header="Header" footer="Footer"
-    [(visible)]="isInstructionVisible" [style]="{ width: '27vw'}" [breakpoints]="{ '960px': '75vw' }"
-    [draggable]="false" [resizable]="false">
+<p-dialog class="retrypopup" [modal]="true" [closable]="false" header="Header" footer="Footer" [(visible)]="isInstructionVisible" [style]="{ width: '27vw' }" [breakpoints]="{ '960px': '75vw' }" [draggable]="false" [resizable]="false">
+	<ng-template pTemplate="header" style="overflow: hidden"></ng-template>
+	<span style="float: right"><i (click)="closeAllHome()" class="fa-solid fa-circle-xmark fa-2x custom-icon"></i></span>
+	<div style="margin: 10px 10px 10px 10px">
+		<div class="card text-center mt-1" style="background-color: #fbfbfb; padding: 10px">
+			<h3 class="p-2">What You Get With The Subscription</h3>
+		</div>
+	</div>
 
-    <ng-template pTemplate="header" style="overflow: hidden;">
-    </ng-template>
-    <span style="float: right;"><i (click)="closeAllHome()"
-            class="fa-solid fa-circle-xmark fa-2x custom-icon"></i></span>
-    <div style="margin: 10px 10px 10px 10px;">
-        <div class="card text-center mt-1 " style="background-color: #FBFBFB; padding: 10px;">
-            <h3 style="font-size: 18px;" class="p-2">What You Get With The Subscription</h3>
-        </div>
-    </div>
-
-    <div class="container-fluid bg-white">
-        <div class="row">
-            <div class="col-md-12">
-                <div class="font-secondarycolor fw-medium lh-lg">
-                    <p><span><i class="fa-solid fa-circle-check custom-icon1"></i>&nbsp;</span>Discover Unexplored
-                        Questions.</p>
-                    <p><span><i class="fa-solid fa-circle-check custom-icon1"></i>&nbsp;</span>Earn A Certificate By
-                        Taking Quizzes</p>
-                    <p><span><i class="fa-solid fa-circle-check custom-icon1"></i>&nbsp;</span>Share Your Certificates
-                        On Linkedin</p>
-                    <p><span><i class="fa-solid fa-circle-check custom-icon1"></i>&nbsp;</span>Navigate Using Keyword
-                        Search</p>
-                    <p><span><i class="fa-solid fa-circle-check custom-icon1"></i>&nbsp;</span>Get Expert Answers To
-                        Your Queries</p>
-                    <p><span><i class="fa-solid fa-circle-check custom-icon1"></i>&nbsp;</span>Find Answers To Your
-                        Question With Verified Source Links</p>
-                    <p><span><i class="fa-solid fa-circle-check custom-icon1"></i>&nbsp;</span>Find Over 5 Lakh
-                        Questions And Answers Throughout Platform</p>
-                    <p><span><i class="fa-solid fa-circle-check custom-icon1"></i>&nbsp;</span>Ask Any Personalized
-                        Questions & Get Answer Within 8 Working Hours</p>
-                </div>
-            </div>
-        </div>
-    </div>
+	<div class="container-fluid bg-white">
+		<div class="row">
+			<div class="col-md-12">
+				<div class="font-secondarycolor fw-medium lh-lg">
+					<p>
+						<span><i class="fa-solid fa-circle-check custom-icon1"></i>&nbsp;</span>Discover Unexplored Questions.
+					</p>
+					<p>
+						<span><i class="fa-solid fa-circle-check custom-icon1"></i>&nbsp;</span>Earn A Certificate By Taking Quizzes
+					</p>
+					<p>
+						<span><i class="fa-solid fa-circle-check custom-icon1"></i>&nbsp;</span>Share Your Certificates On Linkedin
+					</p>
+					<p>
+						<span><i class="fa-solid fa-circle-check custom-icon1"></i>&nbsp;</span>Navigate Using Keyword Search
+					</p>
+					<p>
+						<span><i class="fa-solid fa-circle-check custom-icon1"></i>&nbsp;</span>Get Expert Answers To Your Queries
+					</p>
+					<p>
+						<span><i class="fa-solid fa-circle-check custom-icon1"></i>&nbsp;</span>Find Answers To Your Question With Verified Source Links
+					</p>
+					<p>
+						<span><i class="fa-solid fa-circle-check custom-icon1"></i>&nbsp;</span>Find Over 5 Lakh Questions And Answers Throughout Platform
+					</p>
+					<p>
+						<span><i class="fa-solid fa-circle-check custom-icon1"></i>&nbsp;</span>Ask Any Personalized Questions & Get Answer Within 8 Working Hours
+					</p>
+				</div>
+			</div>
+		</div>
+	</div>
 </p-dialog>
