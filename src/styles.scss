@@ -295,7 +295,7 @@ uni-modules {
 		overflow-y: auto; /* Enable vertical scrolling for overflowing content */
 		display: flex;
 		flex-direction: column;
-	}	
+	}
 	uni-question-list {
 		flex: 1;
 		overflow-y: auto; /* Enable vertical scrolling for overflowing content */
@@ -316,19 +316,44 @@ uni-events {
 	flex: 1;
 	height: 100%;
 	flex-direction: column;
-	overflow: hidden; /* Try setting overflow to visible on .uni-events */
-	
-	.event-paginator {
-	  .ui-dropdown-panel {
-		position: absolute !important;
-		z-index: 9999;
-		top: auto !important;
-		bottom: 100% !important;
-		margin-top: 5px;
-		overflow: visible; /* Ensure dropdown visibility */
-	  }
+	overflow: hidden;
+	.eventscard {
+		flex: 1;
+		overflow-y: auto;
 	}
-  }
+	.event-paginator {
+		.p-dropdown
+		{
+			position: absolute;
+    right: 3rem;
+		}
+		.p-dropdown-panel .p-dropdown-items .p-dropdown-item {
+			padding: 0.25rem 1rem;
+		}
+	}
+}
+
+// uni-events {
+// 	display: flex;
+// 	flex: 1;
+// 	height: 100%;
+// 	flex-direction: column;
+// 	overflow: hidden;
+
+// 	/* Apply scrolling to the eventscard */
+// 	.eventscard {
+// 	  flex: 1;
+// 	  overflow-y: auto; /* Adjust padding as needed */
+// 	  position: relative; /* Ensure relative positioning */
+// 	  .event-paginator{
+// 		position: sticky !important;
+// 		bottom: 0;
+// 		left: 0;
+// 		z-index: 9999;
+// 		background-color: #fff;
+// 	  }
+// 	}
+//   }
 
 uni-resource {
 	display: flex;
@@ -359,12 +384,8 @@ uni-subscription {
 		overflow-y: auto;
 	}
 }
-.readingcard { 
-	flex: 1;/* Take the full height within container-fluid */
-	overflow-y: auto; /* Enable vertical scrolling */
-}
-.eventscard { 
-	flex: 1;/* Take the full height within container-fluid */
+.readingcard {
+	flex: 1; /* Take the full height within container-fluid */
 	overflow-y: auto; /* Enable vertical scrolling */
 }
 
