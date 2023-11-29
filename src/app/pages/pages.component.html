@@ -11,17 +11,12 @@
 	</div>
 	<div (scroll)="onWindowScroll($event)" id="page">
 		<uni-header (togleSidebar)="togleSidebar()" [expandicon]="expandicon" [ngClass]="{ sticky: stickHeader }"> </uni-header>
-		<div class="container-fluid" id="page-container">
-			<div class="row">
-				<div *ngIf="showSearch">
-					<uni-header-search></uni-header-search>
-				</div>
+        <div id="page-container">
+				<uni-header-search *ngIf="showSearch"></uni-header-search>
                 <router-outlet></router-outlet>
-			</div>
-			<div class="row" *ngIf="isFooterBoxVisible">
-				<uni-footer-status-box></uni-footer-status-box>
-			</div>
-		</div>
+				<uni-footer-status-box *ngIf="isFooterBoxVisible"></uni-footer-status-box>
+        </div>
+		
 
 		<footer [ngClass]="{ alignleft: !!sidebarClass }">
 			<div class="container-fluid py-2">

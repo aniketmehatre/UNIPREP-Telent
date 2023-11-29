@@ -1,7 +1,7 @@
 <nav>
 	<div class="container-fluid">
-		<div class="row h-100">
-			<div class="col-md-3 col-12">
+		<div class="row justify-content-between h-100">
+			<div class="col-md-1 col-12">
 				<div class="d-flex justify-content-between">
 					<div class="d-flex align-items-center">
 						<div class="menutoggle my-2 me-3">
@@ -32,7 +32,7 @@
 					</div>
 				</div>
 			</div>
-			<div class="col-md-9 col-12" *ngIf="userLoginTimeLeftCount">
+			<div class="col-md-11 col-12" *ngIf="userLoginTimeLeftCount">
 				<div class="d-flex justify-content-md-end justify-content-start mt-3 mt-md-0">
 					<div class="d-flex justify-content-center align-items-center">
 						<h6 class="mb-0 d-none d-md-block">Time Left</h6>
@@ -100,7 +100,7 @@
 					</div>
 				</div>
 			</div>
-			<div class="col-md-9 col-12" *ngIf="!userLoginTimeLeftCount">
+			<div class="col-md-11 col-12" *ngIf="!userLoginTimeLeftCount">
 				<div class="d-flex justify-content-md-end justify-content-start mt-3 mt-md-0">
 					<div class="d-flex justify-content-center align-items-center">
 						<h6 class="mb-0 d-none d-md-block">Time Left</h6>
