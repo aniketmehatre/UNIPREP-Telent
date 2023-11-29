@@ -337,6 +337,7 @@ uni-subscription {
 		flex: 1; /* Enable vertical scrolling for overflowing content */
 		display: flex;
 		flex-direction: column;
+		overflow-y: auto;
 	}
 }
 .readingcard { 
