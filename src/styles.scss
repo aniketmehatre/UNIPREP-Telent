@@ -315,11 +315,30 @@ uni-events {
 	display: flex;
 	flex: 1;
 	height: 100%;
+	flex-direction: column;
+	overflow: hidden; /* Try setting overflow to visible on .uni-events */
+	
+	.event-paginator {
+	  .ui-dropdown-panel {
+		position: absolute !important;
+		z-index: 9999;
+		top: auto !important;
+		bottom: 100% !important;
+		margin-top: 5px;
+		overflow: visible; /* Ensure dropdown visibility */
+	  }
+	}
+  }
+
+uni-resource {
+	display: flex;
+	flex: 1;
+	height: 100%;
 	flex-direction: column; /* Ensure flex children stack vertically */
 	overflow: hidden;
 }
 
-uni-resource {
+uni-recentlyaddedquestions {
 	display: flex;
 	flex: 1;
 	height: 100%;
@@ -341,6 +360,10 @@ uni-subscription {
 	}
 }
 .readingcard { 
+	flex: 1;/* Take the full height within container-fluid */
+	overflow-y: auto; /* Enable vertical scrolling */
+}
+.eventscard { 
 	flex: 1;/* Take the full height within container-fluid */
 	overflow-y: auto; /* Enable vertical scrolling */
 }

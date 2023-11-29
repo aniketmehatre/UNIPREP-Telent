@@ -1,4 +1,4 @@
-<div class="card readingcard" style="border-radius: 15px 15px 0px 0px !important">
+<div class="card eventscard" style="border-radius: 15px 15px 0px 0px !important">
 	<div class="card-body pt-0">
 		<div class="row justify-content-center">
 			<div class="col-md-2 text-start"></div>
@@ -139,7 +139,6 @@
 	<p-paginator *ngIf="upcomingevent" [rows]="10" [totalRecords]="totalcount" (onPageChange)="paginate($event)" [rowsPerPageOptions]="[8, 32, 72, 100]"></p-paginator>
 	<p-paginator *ngIf="postevent" [rows]="10" [totalRecords]="totalcountpost" (onPageChange)="paginatepost($event)" [rowsPerPageOptions]="[8, 32, 72, 100]"></p-paginator>
 </div>
-
 <!-- filter pop-up -->
 <div class="modal" tabindex="-1" role="dialog" [ngStyle]="{ display: newfile }">
 	<div class="modal-dialog" role="document">
