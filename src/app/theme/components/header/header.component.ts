@@ -421,7 +421,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     let seconds: number = minute * 60;
     let textSec: any = '0';
     let statSec: number = sec;
-    const prefix = minute < 10 ? '0' : '';
+    const prefix = minute < 2 ? '0' : '';
     this.timerInterval = setInterval(() => {
       seconds--;
       if (statSec != 0) statSec--;
@@ -430,7 +430,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
         textSec = '0' + statSec;
       } else textSec = statSec;
 
-      this.min = `${Math.floor(seconds / 60)}`
+      this.min = `${prefix}${Math.floor(seconds / 60)}`
       this.sec = `${textSec}`;
       if (this.min <= 0) {
         this.min = 0;
@@ -462,7 +462,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     let seconds: number = minute * 60;
     let textSec: any = '0';
     let statSec: number = sec;
-    const prefix = minute < 10 ? '0' : '';
+    const prefix = minute < 2 ? '0' : '';
     this.timerInterval = setInterval(() => {
       seconds--;
       if (statSec != 0) statSec--;
@@ -471,7 +471,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
         textSec = '0' + statSec;
       } else textSec = statSec;
 
-      this.timeLeftMins = `${Math.floor(seconds / 60)}`
+      this.timeLeftMins = `${prefix}${Math.floor(seconds / 60)}`
       this.timeLeftSecs = `${textSec}`;
       if (this.timeLeftMins <= 0) {
         this.timeLeftMins = 0;
