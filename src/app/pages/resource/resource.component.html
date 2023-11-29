@@ -1,27 +1,47 @@
 <div class="container-fluid">
-    <div class="row">
-        <div class="card readingcard">
-            <div class="card-body pt-0">
-              <div class="row justify-content-center">
-                <div class="col-md-2 text-start">
-                </div>
-                <div class="col-md-8 text-center">
-                    <h5 class="select-title mb-1"  tooltipPosition="top"  pTooltip="Within this section, you have all the necessary components to craft a solid portfolio.">RESOURCES<i class="questiontooltip fa-solid fa-circle-question"></i></h5>
-                </div>
-                <div class="col-md-2">
-                </div>
-            </div>
-            <div class="container-fluid">
-                <div class="row">
-                  <div *ngFor="let resource of resourceslist" class="col-md-3 col-12 mt-3 text-center">
-                    <div class="card card-style text-black" style="height: 130px;">
-                        <a href={{resource.link}} class="fw-semibold text-dark text-start" target="_blank"><h5 class="mb-0">{{resource.title}}</h5>
-                        <p style="font-size: medium;" class="mt-2"><span style="font-weight: 400 !important;" class="fw-semibold text-start">{{resource.resourcedescription.length>20 ? resource.resourcedescription.slice(0,59) +'...': resource.resourcedescription}}</span></p>
-                      </a>
+  <div class="row">
+    <div class="card readingcard">
+      <div class="card-body pt-0">
+        <div class="row justify-content-center">
+          <div class="col-md-2 text-start">
+          </div>
+          <div class="col-md-8 text-center">
+            <h5 class="select-title mb-1" tooltipPosition="top"
+              pTooltip="Within this section, you have all the necessary components to craft a solid portfolio.">
+              RESOURCES<i class="questiontooltip fa-solid fa-circle-question"></i></h5>
+          </div>
+          <div class="col-md-2">
+          </div>
+        </div>
+        <div class="container-fluid">
+          <div class="row">
+            <div *ngFor="let resource of resourceslist" class="col-md-3 col-12 mt-3 ">
+              <div class="card card-style text-black">
+                <a href={{resource.link}} class="fw-semibold text-dark text-start" target="_blank">
+                  <h5 class="mb-0">{{resource.title}}</h5>
+                  <div class="flex justify-content-between">
+                    <div style="display: flex;">
+                      <img style="width: 55px; margin-right: 10px;" src="{{resource.coverimage}}" alt="">
+                      <div style="text-align: start; overflow: hidden;">
+                        <h4><a style="text-decoration: none; color: #001631;" href="{{resource.link}}">
+                            <span style="font-size: 20px;">{{resource.title.length>15 ?resource.title.slice(0,15)
+                              +'...':resource.title}}</span>
+                          </a></h4>
+                        <p style="text-align: start; height: 38px; font-size: medium; font-weight: 400px !important;">
+                          {{resource.resourcedescription.length > 40 ? resource.resourcedescription.slice(0, 40) + '...'
+                          : resource.resourcedescription}}
+                        </p>
+                        <span><img style="width: 23px;" src="{{resource.countryFlag}}"
+                            alt="">&nbsp;{{resource.country}}</span>
+                      </div>
                     </div>
                   </div>
-                </div>
+                </a>
               </div>
+            </div>
+          </div>
         </div>
+      </div>
     </div>
+  </div>
 </div>

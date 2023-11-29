@@ -19,7 +19,10 @@ export class ResourceComponent implements OnInit {
          var resource = {
           title: element.title,
           link: element.link,
-          resourcedescription:element.resourcedescription
+          resourcedescription:element.resourcedescription,
+          coverimage:element.coverimage,
+          countryFlag:element.countryFlag,
+          country:element.country
          }
          this.resourceslist.push(resource);
       });
