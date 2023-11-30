@@ -1,84 +1,49 @@
-<div class="container-fluid">
-  <div class="row">
-    <div class="col-md-12">
-      <p-card>
-        <ng-template pTemplate="header">
-          <div class="row">
-            <div class="col-md-6 col-12 d-flex justify-content-md-start">
-              <div class="d-flex align-items-center gap-3">
-                <div>
-                  <span class="chatwindow" (click)="previouspage()"
-                    ><i class="fa fa-arrow-left"></i
-                  ></span>
-                </div>
-                <div class="d-flex gap-2 align-items-center">
-                  <div class="chatprofile">
-                    <img src="../../../uniprep-assets/images/icon-light.svg" />
-                  </div>
+<p-card>
+	<ng-template pTemplate="header">
+		<div class="row">
+			<div class="col-md-6 col-12 d-flex justify-content-md-start">
+				<div class="d-flex align-items-center gap-3">
+					<div>
+						<span class="chatwindow" (click)="previouspage()"><i class="fa fa-arrow-left"></i></span>
+					</div>
+					<div class="d-flex gap-2 align-items-center">
+						<div class="chatprofile">
+							<img src="../../../uniprep-assets/images/icon-light.svg" />
+						</div>
 
-                  <div>
-                    <p class="fw-semibold mb-0">UNIPREP</p>
-                    <p class="small mb-0">support@uniabroad.co.in</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="col-md-6 col-12 d-flex justify-content-md-end">
-              <div class="d-flex">
-                <button class="btn btn-credit">
-                  Question Credits<span class="credits-span">{{
-                    totalcredits
-                  }}</span>
-                </button>
-                <button class="btn btn-chat" (click)="op?.toggle($event)">
-                  Report
-                </button>
-                <button class="btn btn-chat" routerLink="/pages/guideline">
-                  Chat Guidelines
-                </button>
-              </div>
-            </div>
-          </div>
-        </ng-template>
-        <p-overlayPanel #op>
-          <form
-            [formGroup]="reportForm"
-            (ngSubmit)="reportSubmit()"
-            #reportFormElm
-          >
-            <div class="col-md-12 mt-1">
-              <div class="form-group">
-                <label
-                  >Report Issues<span style="color: red; font-weight: bold"
-                    >*</span
-                  ></label
-                >
-                <p-dropdown
-                  formControlName="reportOption"
-                  optionValue="id"
-                  optionLabel="reportoption_name"
-                  styleClass="w-full"
-                  [options]="reportOptions"
-                ></p-dropdown>
-              </div>
-            </div>
-            <br />
-            <div class="col-md-12 mt-1">
-              <div class="form-group">
-                <label
-                  >Add Comment
-                  <span style="color: red; font-weight: bold">*</span></label
-                >
-                <textarea
-                  rows="3"
-                  cols="35"
-                  required
-                  styleClass="w-full"
-                  pInputTextarea
-                  formControlName="comment"
-                ></textarea>
-              </div>
-            </div>
+						<div>
+							<p class="fw-semibold mb-0">UNIPREP</p>
+							<p class="small mb-0">support@uniabroad.co.in</p>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-6 col-12 d-flex justify-content-md-end">
+				<div class="d-flex">
+					<button class="btn btn-credit">
+						Question Credits<span class="credits-span">{{ totalcredits }}</span>
+					</button>
+					<button class="btn btn-chat" (click)="op?.toggle($event)">Report</button>
+					<button class="btn btn-chat" routerLink="/pages/guideline">Chat Guidelines</button>
+				</div>
+			</div>
+		</div>
+	</ng-template>
+	<p-overlayPanel #op>
+		<form [formGroup]="reportForm" (ngSubmit)="reportSubmit()" #reportFormElm>
+			<div class="col-md-12 mt-1">
+				<div class="form-group">
+					<label>Report Issues<span style="color: red; font-weight: bold">*</span></label>
+					<p-dropdown formControlName="reportOption" optionValue="id" optionLabel="reportoption_name" styleClass="w-full" [options]="reportOptions"></p-dropdown>
+				</div>
+			</div>
+			<br />
+			<div class="col-md-12 mt-1">
+				<div class="form-group">
+					<label>Add Comment <span style="color: red; font-weight: bold">*</span></label>
+					<textarea rows="3" cols="35" required styleClass="w-full" pInputTextarea formControlName="comment"></textarea>
+				</div>
+			</div>
 
             <div class="row mt-3 mt-1">
               <button

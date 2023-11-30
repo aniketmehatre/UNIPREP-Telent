@@ -281,6 +281,14 @@ small {
 }
 
 
+uni-chat {
+	display: flex;
+	flex: 1;
+	height: 100%;
+	flex-direction: column; /* Ensure flex children stack vertically */
+	overflow: hidden;
+}
+
 uni-events {
 	display: flex;
 	flex: 1;
