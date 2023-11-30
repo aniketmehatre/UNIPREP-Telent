@@ -131,25 +131,25 @@
 					</div>
 					<!-- <div label="" role="button" class="headercountry me-2 d-none d-md-block" (click)="openFlagModal(totalCountryList, $event)"> -->
 
-					<div label="" role="button" class="headercountry me-2 d-none d-md-block" >
+					<div label="" role="button" class="headercountry me-2 d-none d-md-block" title="Selected Country" >
 						<img src="{{ headerFlag }}" alt="flag" height="auto" width="auto"/>
 					</div>
-					<button class="d-md-block d-none btn btn-primary btn-rounded me-2 ms-0 my-0"
+					<button title="Subscribe" class="d-md-block d-none btn btn-primary btn-rounded me-2 ms-0 my-0"
 						alt="chat with notification" (click)="onClickSubscribe()"><span
 							class="text-small fw-normal px-3">Subscribe Now</span></button>
-					<button class="d-md-block d-none btn btn-secondary btn-rounded me-2 ms-0 my-0"
+					<button title="Report" class="d-md-block d-none btn btn-secondary btn-rounded me-2 ms-0 my-0"
 						(click)="openReportModal(op, $event)" alt="reports">
 						<span class="text-small fw-normal px-4"><i class="fa-solid fa-bug"></i> Report</span>
 					</button>
 					<div class="d-none d-md-block">
-						<a (click)="openchat()"><p-avatar class="" label="" role="button"> <i
-									class="fa-solid fa-comments"></i>
-							</p-avatar></a>
+						<a (click)="openchat()" title="Chat">
+							<p-avatar class="" label="" role="button"><i class="fa-solid fa-comments"></i></p-avatar>
+						</a>
 						<!-- <p-avatar (click)="togleSidebar.emit()" class="" label="" role="button">
 							<i class="fa-solid fa-bell"></i>
 						</p-avatar> -->
 						<div class="dropdown profile-dropdown">
-							<button class="button" data-bs-toggle="dropdown" aria-expanded="false">
+							<button class="button" data-bs-toggle="dropdown" aria-expanded="false" title="My Profile">
 								<span class="nme">{{ (firstChar || "")?.charAt(0) }}</span>
 								<!-- <span class="fw-medium">{{ userName }}</span> -->
 							</button>

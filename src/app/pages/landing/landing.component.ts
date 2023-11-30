@@ -13,6 +13,7 @@ export class LandingComponent implements OnInit {
   isDarkMode: boolean;
   displaytandc!: boolean;
   displayprivacypolicy!: boolean;
+  displaycancellationpolicy!: boolean;
   currentImage: string = '/uniprep-assets/images/feature1.webp';
 
   showTandC() {
@@ -21,6 +22,10 @@ export class LandingComponent implements OnInit {
   
   showprivacypolicy() {
     this.displayprivacypolicy = true;
+  }
+  
+  showcancellationpolicy() {
+    this.displaycancellationpolicy = true;
   }
 
   constructor(private themeService: ThemeService) {

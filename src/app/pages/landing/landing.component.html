@@ -588,6 +588,8 @@
 						<p (click)="showprivacypolicy()" role="button" aria-label="Privacy Policy" class="mb-0 text-white text-decoration-none">Privacy Policy</p>
 						|
 						<p (click)="showTandC()" role="button" aria-label="Terms Conditions" class="mb-0 text-white text-decoration-none">Terms & Conditions</p>
+						|
+						<p (click)="showcancellationpolicy()" role="button" aria-label="Cancellation Policy" class="mb-0 text-white text-decoration-none">Cancellation Policy</p>
 					</div>
 				</div>
 				<div class="col-md-6 text-md-end text-center">
@@ -600,7 +602,7 @@
 
 <p-dialog [(visible)]="displaytandc" [modal]="true" [style]="{ width: '80vw' }" [maximizable]="true" [draggable]="true" [resizable]="false">
 	<h3 class="mb-0">Terms & Conditions</h3>
-	<p class="mb-0">Last update: 1 November 2022</p>
+	<p class="mb-0">Last update: 30 November 2023</p>
 	<hr />
 	<p>
 		These Terms of Use are created to govern the access and use of the Services in SOP Expert. The Terms of Use, as well as the User Agreement, which will be provided after Your Account registration, constitute legally binding agreement between You, as the User of the Services UNIPREP, and UNIABROAD LTD (may refer to "We", "Our", "Ours" or "Us" in the Terms of Use),Please read this Terms of Use carefully as far as it will regulate relations between you and us in the course of your use of the
@@ -655,7 +657,7 @@
 	<p>You are solely responsible for all activity in connection with access to the Site and/or the Services through Your Account or using Your password, and for the security of Your computer systems, and in no event shall We be liable for any loss or damages relating to such activity.</p>
 	<hr />
 	<h4>FEES AND PAYMENT</h4>
-	<p>The amount of fees and payments for the use of the Services depends on the amount of the ordered Users' Account or Search requests (Page) You have chosen. UNIABROAD and</p>
+	<p>The amount of fees and payments for the use of the Services depends on the amount of the ordered Users' Account or Search requests (Page) You have chosen. UNIABROAD and UNIPREP can change the subscription plans and the costing at any time.<br>There are multiple subscription plans on the platform for the users to choose from. The payment can be made digitally, either through UPI or card.<br>Please note that UNIABROAD and UNIPREP  do not charge any cancellation fees or offer any refund on any of the subscription plans.</p>
 	<hr />
 	<h4>INTELLECTUAL PROPERTY RIGHTS</h4>
 	<p>You acknowledge that all rights in and to the Site and its content, including visual interface, graphics, design, text materials, compilations, computer code, software and all other elements of the Site are and shall remain Our sole property.</p>
@@ -703,7 +705,8 @@
 </p-dialog>
 
 <p-dialog [(visible)]="displayprivacypolicy" [modal]="true" [style]="{ width: '80vw' }" [maximizable]="true" [draggable]="false" [resizable]="false">
-	<h3>Privacy Policy</h3>
+	<h3 class="mb-0">Privacy Policy</h3>
+	<p class="mb-0">Last update: 30 November 2023</p>
 	<p>We respect your privacy rights, care about Your Personal Data, and do Our best endeavors to protect it. So we provide this Privacy Policy (which can be also referred to as Policy) to explain to you how we collect, manage, use and protect your Personal Data. Please read this Policy carefully along with the Terms of Use and Cookie Policy. Unless otherwise defined all of the terms in this Privacy Policy have the same meaning as in the Terms of Use.</p>
 	<hr />
 	<h4>ABOUT US</h4>
@@ -711,7 +714,7 @@
 		In this Privacy Policy references to SOP Expert, or to "We", "Our", and "Ours" are to UNIABROAD Ltd. UNIABROAD Ltd is acting as data controller of the SOP Expert Individual Users' Personal Data. If you are a Corporate User, We will act on your behalf as Your data processor. We will provide You with the amended Privacy statement together with the User Agreement at the time of your Account activation. For the purpose of this clause the term "Individual User" shall mean any natural person, who
 		visits our Site and/or use Our Services, and the term "Corporate User" shall mean any legal entity (organizations, educational establishments etc.), which uses Our Services through the specially created for that K-12&Higher ED Account.
 	</p>
-	<p>If You have any questions related to your privacy, please contact us: by email: support@uniprep.ai</p>
+	<p>If You have any questions related to your privacy, please contact us by Email: <a href="matilto:support@uniprep.ai">support@uniprep.ai</a></p>
 	<h4>Your Personal Data</h4>
 	<h5>a) What categories of Your Personal Data do We collect and process?</h5>
 	<p>In the course of using the Services, we will ask You to provide Us or can collect from third parties, certain information that identifies You as a specific individual or can be used to contact or identify You (hereinafter referred to as Personal Data).</p>
@@ -787,7 +790,7 @@
 	<p>Contact Us</p>
 	<p>If You have any questions related to your privacy, please contact us:</p>
 
-	<p>email: support@uniprep.ai</p>
+	<p>Email: <a href="matilto:support@uniprep.ai">support@uniprep.ai</a></p>
 	<p>or use "Contact Us" form.</p>
 	<hr />
 	<h4>Cookie Policy</h4>
@@ -836,5 +839,31 @@
 	<p>The browser You are using to view the Site can enable, disable or delete cookies. To do this, You should follow the instructions provided by Your browser (usually located within the "Help," "Tools" or "Edit" facility).</p>
 	<p>But if You set the browser to disable cookies, You may not be able to access certain parts of the Site. Other parts of the Site may also not work properly</p>
 	<p>Contacting Us</p>
-	<p>If You have any questions about this Cookie Policy, please contact Us at: info@uniabroad.co.in</p>
+	<p>If You have any questions about this Cookie Policy, please contact Us at: <a href="matilto:support@uniprep.ai">support@uniprep.ai</a></p>
+</p-dialog>
+
+<p-dialog [(visible)]="displaycancellationpolicy" [modal]="true" [style]="{ width: '80vw' }" [maximizable]="true" [draggable]="false" [resizable]="false">
+	<h3 class="mb-0">Cancellation Policy</h3>
+	<p class="mb-0">Last update: 30 November 2023</p>
+	<p>At UNIPREP, we understand that circumstances may change, and we want to ensure a hassle-free experience for our users. Our cancellation policy is designed to be transparent and accommodating for both free and paid subscription plans.</p>
+	<hr />
+	<h4>1. Free Registration (1-Month Trial)</h4>
+	<ul>
+		<li>Users who have registered for the free 1-month trial can cancel their subscription at any time during the trial period with no charges.
+		<li>To cancel, users can contact our customer support team at <a href="matilto:support@uniprep.ai">support@uniprep.ai</a>.Your access will be deactivated immediately.</li>
+		
+	</ul>
+	<h4>Your Personal Data</h4>
+	<ul>
+		<li>For users with paid subscription plans, the following conditions apply:</li>
+		<li>Users can cancel their subscription at any time during the subscription period.</li>
+		<li>There will be no additional cancellation fees. </li>
+		<li>In case, you want to cancel your subscription you can write to the customer support team at <a href="matilto:support@uniprep.ai">support@uniprep.ai</a> </li>
+		<li>The UNIPREP team will deactivate your account, please note that under any circumstances, we do not offer a refund on any of the subscription plans. </li>
+	</ul>
+	<h4>Common Guidelines</h4>
+	<p>UNIPREP will not charge any cancellation fees for either free registration or paid subscription plans.Users can cancel their subscription by contacting our customer support team; currently, we do not have a cancellation option available on the portal.Cancellations will not result in a refund for any remaining days in the current billing cycle.</p>
+	<h4>Additional Notes</h4>
+	<p>UNIPREP offers a 1-month free trial upon registration. Users can explore the platform during this trial period without any subscription charges.There are multiple Subscription plans for the users, and you can choose from various plans based on validity and the countries they wish to receive information about (total of 13 countries).For any assistance or clarification regarding cancellations, please feel free to reach out to our customer support team at <a href="matilto:support@uniprep.ai">support@uniprep.ai</a> </p>
+	<p>Thank you for choosing UNIPREP as your educational companion.</p>
 </p-dialog>
