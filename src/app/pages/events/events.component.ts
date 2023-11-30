@@ -93,6 +93,12 @@ export class EventsComponent implements OnInit {
 
     // Set styles for the clicked button
     if (buttonNumber === 1) {
+      let data = {
+        perpage : 6,
+        page : 1,
+        country:this.filterform.value.country,
+      }
+      this.getEventUpComming(data)
       this.activeButton = 1;
       this.upcomingevent=true;
       this.postevent=false;
@@ -101,6 +107,13 @@ export class EventsComponent implements OnInit {
         color: '#FFFFFF'
       };
     } else if (buttonNumber === 2) {
+      let postdata={
+        perpage : 6,
+        page : 1,
+        country:this.filterform.value.country,
+        nearby_search:this.valueNearYouFilter
+      }
+      this.getPostEvent(postdata)
       this.activeButton = 2;
       this.postevent=true;
       this.upcomingevent=false;
