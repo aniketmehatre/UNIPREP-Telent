@@ -12,29 +12,29 @@
     <div (scroll)="onWindowScroll($event)" id="page">
         <uni-header (togleSidebar)="togleSidebar()" [expandicon]="expandicon" [ngClass]="{'sticky': stickHeader}">
         </uni-header>
-        <div class="container-fluid pb-25" id="page-container">
+        <div class="container-fluid" id="page-container">
             <div *ngIf="showSearch">
                 <uni-header-search></uni-header-search>
             </div>
             <div class="row">
                 <router-outlet></router-outlet>
+                <div *ngIf="isFooterBoxVisible">
+                    <uni-footer-status-box></uni-footer-status-box>
+                </div>
             </div>
         </div>
         <footer [ngClass]="{ alignleft: !!sidebarClass }">
-            <div *ngIf="isFooterBoxVisible" class="footer-section">
-                <uni-footer-status-box></uni-footer-status-box>
-            </div>
 			<div class="container-fluid">
 				<div class="row align-items-center">
 					<div class="col-md-7 text-md-start text-center">
 						<p class="mb-0 fw-semibold">2023 &#169; All rights reserved by UNIABROAD Ltd. | UOEC Consultants(OPC) Pvt. Ltd.</p>
 					</div>
 					<ul class="nav justify-content-md-end justify-content-center col-md-5">
-						<li class="nav-item"><a href="/pages/termsandcondition" style="cursor: pointer;"class="nav-link px-2 py-0 text-body-secondary uppercase">Terms and Conditions</a></li>
+						<li class="nav-item"><a href="/pages/termsandcondition" style="cursor: pointer;"class="nav-link px-2 py-0 text-body-secondary">Terms & Conditions</a></li>
 						<li class="nav-item">|</li>
-						<li class="nav-item"><a href="/pages/privacypolicy" style="cursor: pointer;" class="nav-link px-2 py-0 text-body-secondary uppercase">Privacy Policy</a></li>
+						<li class="nav-item"><a href="/pages/privacypolicy" style="cursor: pointer;" class="nav-link px-2 py-0 text-body-secondary">Privacy Policy</a></li>
 						<li class="nav-item">|</li>
-						<li class="nav-item"><a href="/#about" target="_blank" class="nav-link px-2 py-0 text-body-secondary uppercase">About Us</a></li>
+						<li class="nav-item"><a href="/#about" target="_blank" class="nav-link px-2 py-0 text-body-secondary">About Us</a></li>
 					</ul>
 				</div>
 			</div>

@@ -9,7 +9,7 @@
   vertical-align: middle;
   display: flex;
   font-size: 1.5rem;
-  color: rgb(58 171 50);
+  color: var(--uniprep-primary);
   border-right: 1px solid var(--uniprep-primary);
   padding: 10px;
 }
@@ -80,10 +80,4 @@ li:last-of-type {
   font-weight: 700;
   color: #f0780c;
   text-transform: capitalize;
-}
-.search-button{
-  background-color: #4552A3;
-}
-.b-none{
-  border: none !important;
 }
