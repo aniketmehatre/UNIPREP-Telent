@@ -1,5 +1,4 @@
-<div class="container-fluid">
-    <div class="row">
+
         <div class="card readingcard">
             <div class="card-body pt-0">
               <div class="row justify-content-center">
@@ -13,13 +12,7 @@
             </div>
             <div class="container-fluid">
                   <div class="wrapper" >
-                    <!-- <div class="card card-style"><a href={{tutorial.link}} class="fw-semibold" target="_blank">
-                        <h6 class="mb-0">{{tutorial.title}}</h6></a></div> -->
-                        <!-- <div class="card1" style="background-image: url('{{ tutorial.coverimage }}'); background-size: cover; background-position: center; background-repeat: no-repeat; width: 300px; height: 250px;"> -->
-                          <!-- Your card content goes here -->
-                        <!-- </div> -->
                         <div class="card1 mt-2" *ngFor="let tutorial of tutoriallist">
-                          <!-- The background image -->
                           <a href="{{tutorial.link}}" target="_blank">
                             <figure class="card__thumbnail">
                               <img src="{{tutorial.coverimage}}" style="opacity: 0.6;">
@@ -31,4 +24,3 @@
               </div>
         </div>
     </div>
-</div>
