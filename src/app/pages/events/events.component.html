@@ -7,6 +7,7 @@
 							pTooltip="Within this section, you'll find information about future events hosted by international organisations.">
 							EVENTS<i class="questiontooltip fa-solid fa-circle-question"></i>
 						</h5>
+
 					</div>
 					<div class="col-md-2"></div>
 				</div>
@@ -65,7 +66,7 @@
 										event.eventdescription.slice(0,
 										43) + '...' : event.eventdescription }}</p>
 								</div>
-								
+
 								<div class="row" *ngIf="event.registered===0?false:true">
 									<!-- after registration -->
 									<div class="col-7">
@@ -179,6 +180,7 @@
 									</p>
 								</div>
 							</div>
+
 						</div>
 					</div>
 					<!-- <div class="container-fluid">
@@ -190,6 +192,7 @@
               </div> -->
 
 				</div>
+
 			</div>
 		</div>
 		<div class="event-paginator" style="background-color: #fff; border-radius: 0px 0px 15px 15px;">
@@ -210,6 +213,7 @@
 									class="fa-solid fa-circle-xmark fa-2x"></i></span>
 						</div>
 						<div class="modal-body">
+
 							<div class="row">
 								<div class="col-md-12">
 									<div class="row">
@@ -238,6 +242,7 @@
 							<!-- <div class="row">
 								<div class="col-12">
 									<div class="form-group">
+
 										<label style="font-size: medium">Filter by Country</label>
 										<p-dropdown class="mt-2" placeholder="Select" formControlName="country"
 											[options]="countries" optionValue="id" optionLabel="country"
@@ -249,6 +254,7 @@
 								<button type="submit" class="btn btn-dark"
 									style="background-color: var(--uniprep-primary) !important">Apply Filter</button>
 							</span>
+
 						</div>
 					</div>
 				</form>
