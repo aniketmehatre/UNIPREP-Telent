@@ -18,21 +18,18 @@
             <div *ngFor="let resource of resourceslist" class="col-md-3 col-12 mt-3 ">
               <div class="card card-style text-black">
                 <a href={{resource.link}} class="fw-semibold text-dark text-start" target="_blank">
-                  <h5 class="mb-0">{{resource.title}}</h5>
                   <div class="flex justify-content-between">
                     <div style="display: flex;">
                       <img style="width: 55px; margin-right: 10px;" src="{{resource.coverimage}}" alt="">
                       <div style="text-align: start; overflow: hidden;">
-                        <h4><a style="text-decoration: none; color: #001631;" href="{{resource.link}}">
+                        <h6>
                             <span style="font-size: 20px;">{{resource.title.length>15 ?resource.title.slice(0,15)
                               +'...':resource.title}}</span>
-                          </a></h4>
-                        <p style="text-align: start; height: 38px; font-size: medium; font-weight: 400px !important;">
-                          {{resource.resourcedescription.length > 40 ? resource.resourcedescription.slice(0, 40) + '...'
+                          </h6>
+                        <p style="text-align: start; height: 38px; font-size: small; font-weight: 100px !important;">
+                          {{resource.resourcedescription.length > 75 ? resource.resourcedescription.slice(0, 75) + '...'
                           : resource.resourcedescription}}
                         </p>
-                        <span><img style="width: 23px;" src="{{resource.countryFlag}}"
-                            alt="">&nbsp;{{resource.country}}</span>
                       </div>
                     </div>
                   </div>

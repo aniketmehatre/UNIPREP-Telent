@@ -22,7 +22,7 @@ export class ResourceComponent implements OnInit {
           resourcedescription:element.resourcedescription,
           coverimage:element.coverimage,
           countryFlag:element.countryFlag,
-          country:element.country
+          country:element.countryName
          }
          this.resourceslist.push(resource);
       });
