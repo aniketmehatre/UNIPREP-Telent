@@ -42,7 +42,6 @@ export class EventsComponent implements OnInit {
 
   ngOnInit(): void {
     this.selectedCountryId = localStorage.getItem('countryId');
-    console.log(this.selectedCountryId);
     this.filterform.patchValue({
       country: Number(this.selectedCountryId)
     })
@@ -61,7 +60,13 @@ export class EventsComponent implements OnInit {
       nearby_search:this.valueNearYouFilter
     }
     this.getEventUpComming(data)
-    this.getPostEvent(data)
+    let postdata={
+      perpage : 8,
+      page : 1,
+      country:this.filterform.value.country,
+      nearby_search:this.valueNearYouFilter
+    }
+    this.getPostEvent(postdata)
   }
 
 
@@ -139,7 +144,8 @@ export class EventsComponent implements OnInit {
     let data = {
       perpage : this.perpage,
       page : event.page + 1,
-      nearby_search:this.valueNearYouFilter
+      nearby_search:this.valueNearYouFilter,
+      country:this.filterform.value.country,
     }
     this.getPostEvent(data);
   }

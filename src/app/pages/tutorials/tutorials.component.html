@@ -12,16 +12,22 @@
                 </div>
             </div>
             <div class="container-fluid">
-                <div class="row">
-                  <div *ngFor="let tutorial of tutoriallist" class="col-md-3 col-12 mt-3" >
+                  <div class="wrapper" >
                     <!-- <div class="card card-style"><a href={{tutorial.link}} class="fw-semibold" target="_blank">
                         <h6 class="mb-0">{{tutorial.title}}</h6></a></div> -->
-                        <div class="card1" style="background-image: url('{{ tutorial.coverimage }}'); background-size: cover; background-position: center; background-repeat: no-repeat; width: 300px; height: 250px;">
+                        <!-- <div class="card1" style="background-image: url('{{ tutorial.coverimage }}'); background-size: cover; background-position: center; background-repeat: no-repeat; width: 300px; height: 250px;"> -->
                           <!-- Your card content goes here -->
-                        </div>
-                      
+                        <!-- </div> -->
+                        <div class="card1 mt-2" *ngFor="let tutorial of tutoriallist">
+                          <!-- The background image -->
+                          <a href="{{tutorial.link}}" target="_blank">
+                            <figure class="card__thumbnail">
+                              <img src="{{tutorial.coverimage}}" style="opacity: 0.6;">
+                              <span class="card__title">{{tutorial.title}} <br><span class="card__title2">{{tutorial.description.length > 35 ? tutorial.description.slice(0, 35) + '...' : tutorial.description}}</span></span>                             
+                            </figure>
+                          </a>
+                        </div> 
                   </div>
-                </div>
               </div>
         </div>
     </div>

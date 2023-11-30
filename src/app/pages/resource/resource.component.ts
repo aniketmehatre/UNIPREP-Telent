@@ -12,8 +12,13 @@ export class ResourceComponent implements OnInit {
 
   resources:any=[];
   resourceslist:any=[];
+  selectedCountryId: any;
   ngOnInit(): void {
-    this.resourceService.getResources().subscribe((response:any)=>{
+    this.selectedCountryId = localStorage.getItem('countryId');
+    let data={
+      coutryname:this.selectedCountryId
+    }
+    this.resourceService.getResources(data).subscribe((response:any)=>{
       var resources= response.resources;
       resources.forEach((element:any) => {
          var resource = {
@@ -28,5 +33,4 @@ export class ResourceComponent implements OnInit {
       });
     });
   }
-
 }
