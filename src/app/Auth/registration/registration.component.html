@@ -274,8 +274,8 @@
 																	<div class="p-inputgroup-addon">
 																		<i class="fa-regular fa-location-dot"></i>
 																	</div>
-																	<p-dropdown  placeholder="Location" formControlName="location" id="location" [filter]="true" *ngIf="registrationForm.get('country').value == 122" [filterBy]="'district'" [options]="locationList" optionLabel="district" [autoDisplayFirst]="false"></p-dropdown>
-																	<p-dropdown placeholder="Location" formControlName="location" id="location" [options]="locationList" *ngIf="registrationForm.get('country').value != 122" optionLabel="district" optionValue="id" [readonly]="true"></p-dropdown>
+																	<p-dropdown  placeholder="City" formControlName="location" id="location" [filter]="true" *ngIf="registrationForm.get('country').value == 122" [filterBy]="'district'" [options]="locationList" optionLabel="district" [autoDisplayFirst]="false"></p-dropdown>
+																	<p-dropdown placeholder="City" formControlName="location" id="location" [options]="locationList" *ngIf="registrationForm.get('country').value != 122" optionLabel="district" optionValue="id" [readonly]="true"></p-dropdown>
 																</div>
 																<div *ngIf="submitted && f.location.errors" class="invalid-feedback">
 																	<div *ngIf="f.location.errors.required">Location is required</div>
