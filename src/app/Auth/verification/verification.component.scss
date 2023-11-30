@@ -54,7 +54,27 @@ form {
     color: rgba(0, 0, 0, 0.378);
   }
 }
+.footer-part {
+  text-align-last: center;
+  margin-top: 3rem;
+  span{
+    background-color: var(--uniprep-primary);
+    padding: 5px 10px;
+    border-radius: 50%;
+    color: white;
+  }
+  i{
+    font-size: 0.5rem;
+    font-weight: 900;
+    vertical-align: middle;
+    margin-right: 4px;
+  }
+}
 .resend_label{
     margin-left: 50px;
     margin-top: 10px;
 }
+a {
+    text-decoration: none;
+    cursor: pointer;
+  }

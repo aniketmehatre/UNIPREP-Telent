@@ -15,7 +15,6 @@
 	--uniprep-primaryhighlight: rgb(69, 82, 163);
 	--uniprep-secondaryhighlight: #f6895a;
 	--uniprep-tertiary: #ffffff;
-	--uniprep-lightgray: #aaaaaa;
 	scrollbar-face-color: rgb(63, 76, 131); /* Firefox 63 compatibility */
 	scrollbar-track-color: rgba(63, 76, 131, 0.145); /* Firefox 63 compatibility */
 	scrollbar-color: rgb(63, 76, 131) rgba(63, 76, 131, 0.145);
@@ -23,14 +22,14 @@
 }
 
 input:-webkit-autofill,
-input:-webkit-autofill:hover,
-input:-webkit-autofill:focus,
-input:-webkit-autofill:active {
-	-webkit-background-clip: text;
-	-webkit-text-fill-color: black;
-	transition: none;
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus, 
+input:-webkit-autofill:active{
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: black;
+    transition: none;
 	background-color: transparent;
-	box-shadow: none;
+    box-shadow: none;
 }
 
 .uniprep-primary {
@@ -51,10 +50,6 @@ input:-webkit-autofill:active {
 
 .uniprep-secondaryhighlight {
 	color: var(--uniprep-secondaryhighlight);
-}
-
-.uniprep-lightgray {
-	color: var(--uniprep-lightgray);
 }
 
 .worksans {
@@ -283,109 +278,10 @@ small {
 		}
 	}
 }
-uni-modules {
-	display: flex;
-	flex: 1;
-	height: 100%;
-	flex-direction: column; /* Ensure flex children stack vertically */
-	overflow: hidden; /* Hide overflowing content initially */
-	uni-list-sub-modules {
-		flex: 1;
-		overflow-y: auto; /* Enable vertical scrolling for overflowing content */
-		display: flex;
-		flex-direction: column;
-	}
-	uni-question-list {
-		flex: 1;
-		overflow-y: auto; /* Enable vertical scrolling for overflowing content */
-		display: flex;
-		flex-direction: column;
-	}
-}
-uni-tutorials {
-	display: flex;
-	flex: 1;
-	height: 100%;
-	flex-direction: column; /* Ensure flex children stack vertically */
-	overflow: hidden;
-}
 
-uni-events {
-	display: flex;
-	flex: 1;
-	height: 100%;
-	flex-direction: column;
-	overflow: hidden;
-	.eventscard {
-		flex: 1;
-		overflow-y: auto;
-	}
-	.event-paginator {
-		.p-dropdown
-		{
-			position: absolute;
-    right: 3rem;
-		}
-		.p-dropdown-panel .p-dropdown-items .p-dropdown-item {
-			padding: 0.25rem 1rem;
-		}
-	}
-}
-
-// uni-events {
-// 	display: flex;
-// 	flex: 1;
-// 	height: 100%;
-// 	flex-direction: column;
-// 	overflow: hidden;
-
-// 	/* Apply scrolling to the eventscard */
-// 	.eventscard {
-// 	  flex: 1;
-// 	  overflow-y: auto; /* Adjust padding as needed */
-// 	  position: relative; /* Ensure relative positioning */
-// 	  .event-paginator{
-// 		position: sticky !important;
-// 		bottom: 0;
-// 		left: 0;
-// 		z-index: 9999;
-// 		background-color: #fff;
-// 	  }
-// 	}
-//   }
-
-uni-resource {
-	display: flex;
-	flex: 1;
-	height: 100%;
-	flex-direction: column; /* Ensure flex children stack vertically */
-	overflow: hidden;
-}
-
-uni-recentlyaddedquestions {
-	display: flex;
-	flex: 1;
-	height: 100%;
-	flex-direction: column; /* Ensure flex children stack vertically */
-	overflow: hidden;
-}
-
-uni-subscription {
-	display: flex;
-	flex: 1;
-	height: 100%;
-	flex-direction: column; /* Ensure flex children stack vertically */
-	overflow: hidden;
-	uni-subscription-data {
-		flex: 1; /* Enable vertical scrolling for overflowing content */
-		display: flex;
-		flex-direction: column;
-		overflow-y: auto;
-	}
-}
 .readingcard {
-	flex: 1; /* Take the full height within container-fluid */
-	overflow-y: auto; /* Enable vertical scrolling */
+	height: 55vh;
+	overflow-y: auto;
 }
 
 .card {
@@ -908,9 +804,9 @@ uni-subscription {
 		color: #fff;
 	}
 	input:-webkit-autofill,
-	input:-webkit-autofill:hover,
-	input:-webkit-autofill:focus,
-	input:-webkit-autofill:active {
+	input:-webkit-autofill:hover, 
+	input:-webkit-autofill:focus, 
+	input:-webkit-autofill:active{
 		-webkit-background-clip: text;
 		-webkit-text-fill-color: white;
 		transition: none;
@@ -921,11 +817,11 @@ uni-subscription {
 	.bg-lightblue {
 		background-color: #202124 !important;
 	}
-
+	
 	.bg-mediumblue {
 		background-color: #121212 !important;
 	}
-
+	
 	.bg-darkblue {
 		background-color: #000 !important;
 	}
@@ -1523,7 +1419,7 @@ uni-subscription {
 			background: #202124;
 		}
 	}
-
+	
 	.feature-card {
 		background-color: #17181b !important;
 		border: 1px solid #202124 !important;
