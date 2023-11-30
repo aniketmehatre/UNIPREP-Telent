@@ -180,8 +180,8 @@
 			<div class="container px-0">
 				<form [formGroup]="reportSubmitForm" (ngSubmit)="onSubmit(op)">
 					<div class="row report">
-						<p *ngIf="isQuestionVisible" class="report-label text-left mb-0">General / Modules</p>
-						<span *ngIf="isQuestionVisible" class="report-modal">
+						<p *ngIf="false" class="report-label text-left mb-0">General / Modules</p>
+						<span *ngIf="false" class="report-modal">
 							<p-dropdown [options]="genMod" (onChange)="onChangeChooseMain($event.value)"
 								[(ngModel)]="selectedGenMod" optionValue="id" formControlName="general" class="w-100"
 								id="genMod" optionLabel="name"></p-dropdown>
