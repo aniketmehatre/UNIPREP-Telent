@@ -18,7 +18,8 @@ export class ResourceComponent implements OnInit {
       resources.forEach((element:any) => {
          var resource = {
           title: element.title,
-          link: element.link
+          link: element.link,
+          resourcedescription:element.resourcedescription
          }
          this.resourceslist.push(resource);
       });

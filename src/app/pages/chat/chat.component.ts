@@ -11,7 +11,7 @@ import { ConfirmationService, MessageService } from "primeng/api";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { PageFacadeService } from "../page-facade.service";
 import { Router } from "@angular/router";
-// import screenfull from "screenfull";
+import screenfull from "screenfull";
 @Component({
   selector: "uni-chat",
   templateUrl: "./chat.component.html",
@@ -19,12 +19,12 @@ import { Router } from "@angular/router";
   providers: [ConfirmationService],
 })
 export class ChatComponent implements OnInit {
-  // @HostListener("fullscreenchange", ["$event"])
-  // fullscreenchange(event: any) {
-  //   if(!screenfull.isFullscreen){
-  //     this.fullscreen = "";
-  //   }
-  // }
+  @HostListener("fullscreenchange", ["$event"])
+  fullscreenchange(event: any) {
+    if(!screenfull.isFullscreen){
+      this.fullscreen = "";
+    }
+  }
   @ViewChild("fullscreeneditor") editorelement: ElementRef | any;
   fullscreen = "";
   modules = {};
@@ -99,12 +99,12 @@ export class ChatComponent implements OnInit {
         ],
         handlers: {
           emoji: function () {},
-          // fullscreen: () => {
-          //   if (screenfull.isEnabled) {
-          //     this.fullscreen = this.fullscreen ? "" : "fullscreen";
-          //     screenfull.toggle(this.editorelement.nativeElement);
-          //   }
-          // },
+          fullscreen: () => {
+            if (screenfull.isEnabled) {
+              this.fullscreen = this.fullscreen ? "" : "fullscreen";
+              screenfull.toggle(this.editorelement.nativeElement);
+            }
+          },
         },
       },
     };
