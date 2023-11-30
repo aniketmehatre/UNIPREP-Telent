@@ -49,6 +49,13 @@
 //     opacity: .7;
 //   }
 // }
+.subcountry
+{
+	.p-dropdown
+	{
+		border: 2px solid var(--uniprep-primary);
+	}
+}
 
 .buttonactive {
   background-color: white;
@@ -112,70 +119,82 @@
     flex-direction: column;
   }
 }
-.mostpopular
-{
-  background: var(--uniprep-primary);
-  color: #fff;
-  text-align: center;
-  padding: 10px;
-  border-radius: 12px 12px 0 0;
-  position: absolute;
-  top: -2em;
-  width: 100%;
+.mostpopular {
+	background: var(--uniprep-primary);
+	color: #fff;
+	text-align: center;
+	padding: 10px;
+	border-radius: 12px 12px 0 0;
+	width: 100%;
 }
-.subscriptioncard
-{
-  border-width: 2px !important;
-  height: -webkit-fill-available;
-  .card-header
-  {
-    background:transparent;
-  }
-  .card-footer
-  {
-    background:transparent;
-  }
-  &:hover
-  {
-    background-color: var(--uniprep-primaryop10);
-    border:2px solid var(--uniprep-primary);
-    // height: 445px;
-    .getstartedbtn
-    {
-      display:block;
-      .btn
-      {
-        margin: 0 !important;
-        width: 100%;
-        border-radius: 10px !important;
-      }
-    }
-  }
-  &:focus
-  {
-    background-color: var(--uniprep-primaryop10);
-    border:2px solid var(--uniprep-primary);
-    .getstartedbtn
-    {
-      display:block;
-      .btn
-      {
-        margin: 0 !important;
-        width: 100%;
-        border-radius: 10px !important;
-      }
-    }
-  }
-  .getstartedbtn
-  {
-    display:none;
-    .btn
-    {
-      margin: 0 !important;
-      width: 100%;
-      border-radius: 10px !important;
-    }
-  }
+.active
+	{
+		.card-header {
+			border-bottom: 2px solid var(--uniprep-primary) !important;
+		}
+		.card-footer {
+			border-top: 2px solid var(--uniprep-primary) !important;
+		}
+	}
+.subscriptioncard {
+	border-width: 2px !important;
+	height: -webkit-fill-available;
+	.card-header {
+		background: transparent;
+		border-bottom: 2px solid #efefef;
+	}
+	.card-footer {
+		background: transparent;
+		border-top: 2px solid #efefef;
+	}
+	
+	&:hover {
+		background-color: var(--uniprep-primaryop10);
+		border: 2px solid var(--uniprep-primary);
+		.card-header {
+			border-bottom: 2px solid var(--uniprep-primary);
+		}
+		.card-footer {
+			border-top: 2px solid var(--uniprep-primary);
+		}
+		// height: 445px;
+		.getstartedbtn {
+			opacity: 1;
+			.btn {
+				margin: 0 !important;
+				width: 100%;
+				border-radius: 10px !important;
+			}
+		}
+	}
+	&:focus {
+		background-color: var(--uniprep-primaryop10);
+		border: 2px solid var(--uniprep-primary);
+		.card-header {
+			border-bottom: 2px solid var(--uniprep-primary);
+		}
+		.card-footer {
+			border-top: 2px solid var(--uniprep-primary);
+		}
+		.getstartedbtn {
+			opacity: 1;
+			.btn {
+				margin: 0 !important;
+				width: 100%;
+				border-radius: 10px !important;
+			}
+		}
+	}
+	.getstartedbtn {
+		opacity: 0;
+		transition: opacity 0.3s ease; /* Apply transition for opacity change */
+		.btn {
+			margin: 0 !important;
+			width: 100%;
+			border-radius: 10px !important;
+		}
+	}
+
 }
 .subscriptioncard.active  {
   background-color: var(--uniprep-primaryop10);
@@ -392,18 +411,16 @@
 }
 
 :host ::ng-deep .p-multiselect {
-  border-radius: 50px !important;
-  color: #010205;
+
+	border-radius: 50px !important;
+	color: #010205;
+	border: 2px solid var(--uniprep-primary);
 }
 
 :host ::ng-deep .p-dropdown {
-  border-radius: 50px !important;
-      margin: 0px 55px;
-}
-
-:host ::ng-deep .p-multiselect .p-multiselect-label.p-placeholder {
-  font-size: 12px;
-  color: #010205;
+	border-radius: 50px !important;
+	margin: 0px 55px;
+	border: 2px solid var(--uniprep-primary);
 }
 
 .base-country-flag {

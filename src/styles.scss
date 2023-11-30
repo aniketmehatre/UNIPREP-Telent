@@ -280,6 +280,80 @@ small {
 	}
 }
 
+
+uni-events {
+	display: flex;
+	flex: 1;
+	height: 100%;
+	flex-direction: column;
+	overflow: hidden;
+	.eventscard {
+		flex: 1;
+		overflow-y: auto;
+	}
+	.event-paginator {
+		.p-dropdown
+		{
+			position: absolute;
+    		right: 3rem;
+		}
+		.p-dropdown-panel .p-dropdown-items .p-dropdown-item {
+			padding: 0.25rem 1rem;
+		}
+	}
+}
+
+// uni-events {
+// 	display: flex;
+// 	flex: 1;
+// 	height: 100%;
+// 	flex-direction: column;
+// 	overflow: hidden;
+
+// 	/* Apply scrolling to the eventscard */
+// 	.eventscard {
+// 	  flex: 1;
+// 	  overflow-y: auto; /* Adjust padding as needed */
+// 	  position: relative; /* Ensure relative positioning */
+// 	  .event-paginator{
+// 		position: sticky !important;
+// 		bottom: 0;
+// 		left: 0;
+// 		z-index: 9999;
+// 		background-color: #fff;
+// 	  }
+// 	}
+//   }
+
+uni-resource {
+	display: flex;
+	flex: 1;
+	height: 100%;
+	flex-direction: column; /* Ensure flex children stack vertically */
+	overflow: hidden;
+}
+
+uni-recentlyaddedquestions {
+	display: flex;
+	flex: 1;
+	height: 100%;
+	flex-direction: column; /* Ensure flex children stack vertically */
+	overflow: hidden;
+}
+
+uni-subscription {
+	display: flex;
+	flex: 1;
+	height: 100%;
+	flex-direction: column; /* Ensure flex children stack vertically */
+	overflow: hidden;
+	uni-subscription-data {
+		flex: 1; /* Enable vertical scrolling for overflowing content */
+		display: flex;
+		flex-direction: column;
+		overflow-y: auto;
+	}
+}
 .readingcard {
 	height: 55vh;
 	overflow-y: auto;
@@ -1660,7 +1734,8 @@ small {
 .subscriptioncard .p-chip {
 	background-color: #fff;
 	color: #000;
-	border: 1px solid #ced4da;
+	border: 2px solid var(--uniprep-primary);
+	border-radius:100px;
 }
 
 .subscriptiontable .p-datatable th {
