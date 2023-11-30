@@ -17,7 +17,9 @@ export class TutorialsComponent implements OnInit {
       tutorials.forEach((element:any) => {
          var tutorial = {
           title: element.title,
-          link: element.link
+          link: element.link,
+          coverimage:element.coverimage,
+          description:element.description
          }
          this.tutoriallist.push(tutorial);
       });

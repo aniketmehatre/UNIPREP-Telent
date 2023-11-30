@@ -5,6 +5,7 @@ import {AccordionModule} from "primeng/accordion";
 import { TutorialsComponent } from './tutorials.component';
 import { TutorialsRoutingModule } from './tutorials-routing.module';
 import { TooltipModule } from 'primeng/tooltip';
+import { CardModule } from 'primeng/card';
 
 
 @NgModule({
@@ -15,7 +16,8 @@ import { TooltipModule } from 'primeng/tooltip';
         CommonModule,
         TutorialsRoutingModule,
         AccordionModule,
-        TooltipModule
+        TooltipModule,
+        CardModule 
     ]
 })
 export class TutorialsModule {
