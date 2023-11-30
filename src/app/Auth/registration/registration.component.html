@@ -67,7 +67,7 @@
 																<div class="p-inputgroup-addon">
 																	<i class="fa-regular fa-envelope"></i>
 																</div>
-																<input type="email" pInputText class="border-0 w-full" id="emailAddress" [readonly]="isEmailOTPSend" formControlName="emailAddress" [ngClass]="{ 'is-invalid': submitted && f.emailAddress.errors }" (keyup)="onChangeEmail($event)" />
+																<input type="email"  placeholder="Email ID" pInputText class="border-0 w-full" id="emailAddress" [readonly]="isEmailOTPSend" formControlName="emailAddress" [ngClass]="{ 'is-invalid': submitted && f.emailAddress.errors }" (keyup)="onChangeEmail($event)" />
 																<div class="p-2">
 																	<span *ngIf="!isEmailOTPValidated && showEmailErrorIcon">
 																		<i class="fa-solid fa-circle-exclamation text-danger"></i>
@@ -238,7 +238,7 @@
 																	<div class="p-inputgroup-addon">
 																		<i class="fa-regular fa-venus-mars"></i>
 																	</div>
-																	<p-dropdown formControlName="gender" [options]="genderList" [autoDisplayFirst]="false" optionLabel="value"></p-dropdown>
+																	<p-dropdown  placeholder="Gender" formControlName="gender" [options]="genderList" [autoDisplayFirst]="false" optionLabel="value"></p-dropdown>
 																</div>
 																<div *ngIf="submitted && f.gender.errors" class="invalid-feedback">
 																	<div *ngIf="f.gender.errors.required">Gender is required</div>
@@ -250,7 +250,7 @@
 																	<div class="p-inputgroup-addon">
 																		<i class="fa-regular fa-earth-americas"></i>
 																	</div>
-																	<p-dropdown formControlName="interestedCountry" [options]="intrestedCountryList" optionValue="id" optionLabel="country" [autoDisplayFirst]="false"></p-dropdown>
+																	<p-dropdown  placeholder="Interested Country" formControlName="interestedCountry" [options]="intrestedCountryList" optionValue="id" optionLabel="country" [autoDisplayFirst]="false"></p-dropdown>
 																</div>
 																<div *ngIf="submitted && f.interestedCountry.errors" class="invalid-feedback">
 																	<div *ngIf="f.interestedCountry.errors.required">Interested Country is required</div>
@@ -262,7 +262,7 @@
 																	<div class="p-inputgroup-addon">
 																		<i class="fa-regular fa-earth-americas"></i>
 																	</div>
-																	<p-dropdown formControlName="country" id="country" [options]="countryList" optionValue="id" optionLabel="country" [autoDisplayFirst]="false" [filter]="true" filterBy="country" (onChange)="changeLocation($event)"></p-dropdown>
+																	<p-dropdown placeholder="Home Country" formControlName="country" id="country" [options]="countryList" optionValue="id" optionLabel="country" [autoDisplayFirst]="false" [filter]="true" filterBy="country" (onChange)="changeLocation($event)"></p-dropdown>
 																</div>
 																<div *ngIf="submitted && f.country.errors" class="invalid-feedback">
 																	<div *ngIf="f.country.errors.required">Home Country is required</div>
@@ -274,8 +274,8 @@
 																	<div class="p-inputgroup-addon">
 																		<i class="fa-regular fa-location-dot"></i>
 																	</div>
-																	<p-dropdown formControlName="location" id="location" [filter]="true" *ngIf="registrationForm.get('country').value == 122" [filterBy]="'district'" [options]="locationList" optionLabel="district" [autoDisplayFirst]="false"></p-dropdown>
-																	<p-dropdown formControlName="location" id="location" [options]="locationList" *ngIf="registrationForm.get('country').value != 122" optionLabel="district" optionValue="id" [readonly]="true"></p-dropdown>
+																	<p-dropdown  placeholder="City" formControlName="location" id="location" [filter]="true" *ngIf="registrationForm.get('country').value == 122" [filterBy]="'district'" [options]="locationList" optionLabel="district" [autoDisplayFirst]="false"></p-dropdown>
+																	<p-dropdown placeholder="City" formControlName="location" id="location" [options]="locationList" *ngIf="registrationForm.get('country').value != 122" optionLabel="district" optionValue="id" [readonly]="true"></p-dropdown>
 																</div>
 																<div *ngIf="submitted && f.location.errors" class="invalid-feedback">
 																	<div *ngIf="f.location.errors.required">Location is required</div>
@@ -292,6 +292,7 @@
 																		pInputText
 																		class="border-0"
 																		formControlName="password"
+																		placeholder="Password"
 																		[ngClass]="{
 																			'is-invalid': submitted && f.password.errors
 																		}" />
@@ -316,6 +317,7 @@
 																	<input
 																		[type]="confirmPassword"
 																		pInputText
+																		placeholder="Confirm Password"
 																		class="border-0"
 																		id="confirmPassword"
 																		formControlName="confirmPassword"
