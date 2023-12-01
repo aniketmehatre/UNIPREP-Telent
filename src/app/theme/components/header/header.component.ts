@@ -237,6 +237,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
     //     }
     //   });
     // });
+    this.dataService.showTimeOutSourceData.subscribe((res) => {
+      this.checkNewUser();
+      this.subScribedUserCount();
+    })
     this.dataService.countryFlagSource.subscribe((data) => {
       if (data != "") {
         this.headerFlag = data;
