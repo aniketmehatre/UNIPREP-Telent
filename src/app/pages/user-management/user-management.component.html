@@ -61,8 +61,8 @@
                                         <p class="mb-0 fw-semibold">{{ PersonalInfo?.name }}</p>
                                     </div>
                                     <div class="col-md-3 p-4">
-                                        <small>Country</small>
-                                        <p class="mb-0 fw-semibold">{{ PersonalInfo?.home_country }}</p>
+                                        <small>Home Country</small>
+                                        <p class="mb-0 fw-semibold">{{ PersonalInfo?.home_country_name }}</p>
                                     </div>
                                     <div class="col-md-3 p-4">
                                         <small>Location(district)</small>
@@ -86,7 +86,7 @@
                                     </div>
                                     <div class="col-md-3 p-4">
                                         <small>Intake Month</small>
-                                        <p class="mb-0 fw-semibold">{{ PersonalInfo?.intake_month_looking || '-' }}</p>
+                                        <p class="mb-0 fw-semibold">{{ selectedDate| date:'MMM' || '-' }}</p>
                                     </div>
                                     <div class="col-md-3 p-4">
                                         <small>Intake Year</small>
@@ -122,7 +122,7 @@
                                             </div>
                                         </div>
                                         <div class="col-md-4 p-2">
-                                            <label>Country</label>
+                                            <label>Home Country</label>
                                             <div class="p-inputgroup">
                                                 <div class="p-inputgroup-addon">
                                                     <img class="bg-image text-center"
@@ -203,13 +203,13 @@
                                                 </div> -->
                                         </div>
                                         <div class="col-md-4 p-2">
-                                            <label>Inake Year Looking</label>
+                                            <label>Intake Year Looking</label>
                                             <div class="p-inputgroup">
                                                 <div class="p-inputgroup-addon">
                                                     <img class="bg-image text-center"
                                                         src="../../../uniprep-assets/images/icons/Uniprep_Icons_calender.png" />
                                                 </div>
-                                                <p-calendar (onSelect)="yearChage($event)" [minDate]="dateTime"
+                                                <p-calendar (onSelect)="yearChage($event)" [minDate]="currentDate"
                                                     appendTo="body" dateFormat="yy"
                                                     formControlName="intake_year_looking" inputId="yearpicker"
                                                     view="year"></p-calendar>
@@ -231,9 +231,9 @@
                                                     <img class="bg-image text-center"
                                                         src="../../../uniprep-assets/images/icons/Uniprep_Icons_calender.png" />
                                                 </div>
-                                                <p-calendar view="month" dateFormat="mm/yy"
+                                                <p-calendar view="month" dateFormat="M"
                                                     formControlName="intake_month_looking" incalendarputId="pickMonth"
-                                                    class="pt-2" [readonlyInput]="false" [minDate]="dateTime"
+                                                    class="pt-2" [readonlyInput]="false" [minDate]="dateTime" [maxDate]="maximumTime"
                                                     placeholder="">
                                                 </p-calendar>
                                             </div>

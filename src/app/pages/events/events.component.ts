@@ -45,8 +45,6 @@ export class EventsComponent implements OnInit {
     this.filterform.patchValue({
       country: Number(this.selectedCountryId)
     })
-    console.log(this.filterform.value);
-    
     this.setActiveButton(this.activeButton)
     this.service.GetCountryList().subscribe((response) => {
       this.countries = response;
@@ -54,13 +52,13 @@ export class EventsComponent implements OnInit {
     let data = {
       perpage : 6,
       page : 1,
-      country:this.filterform.value.country,
+      country: this.selectedCountryId,
     }
     this.getEventUpComming(data)
     let postdata={
       perpage : 6,
       page : 1,
-      country:this.filterform.value.country,
+      country: this.selectedCountryId,
     }
     this.getPostEvent(postdata)
   }
@@ -93,12 +91,6 @@ export class EventsComponent implements OnInit {
 
     // Set styles for the clicked button
     if (buttonNumber === 1) {
-      let data = {
-        perpage : 6,
-        page : 1,
-        country:this.filterform.value.country,
-      }
-      this.getEventUpComming(data)
       this.activeButton = 1;
       this.upcomingevent=true;
       this.postevent=false;
@@ -106,14 +98,16 @@ export class EventsComponent implements OnInit {
         'background-color': 'var(--uniprep-primary)',
         color: '#FFFFFF'
       };
-    } else if (buttonNumber === 2) {
-      let postdata={
+      let data = {
         perpage : 6,
         page : 1,
-        country:this.filterform.value.country,
+        country: this.selectedCountryId,
+        to:this.filterform.value.to,
+        from:this.filterform.value.from,
         nearby_search:this.valueNearYouFilter
       }
-      this.getPostEvent(postdata)
+      this.getEventUpComming(data)
+    } else if (buttonNumber === 2) {
       this.activeButton = 2;
       this.postevent=true;
       this.upcomingevent=false;
@@ -121,13 +115,20 @@ export class EventsComponent implements OnInit {
         'background-color': 'var(--uniprep-primary)',
         color: '#FFFFFF'
       };
+      this.filterform.reset()
+      let postdata={
+        perpage : 6,
+        page : 1,
+        country: this.selectedCountryId,
+        nearby_search:this.valueNearYouFilter
+      }
+      this.getPostEvent(postdata)
     }
   }
 
   // pop up closing
   closenewfilePopup() {
     this.newfile = "none";
-    this.filterform.reset()
   }
   // filterpop-up
   filterPopUp(){
@@ -142,7 +143,7 @@ export class EventsComponent implements OnInit {
       page : event.page + 1,
       to:this.filterform.value.to,
       from:this.filterform.value.from,
-      country:this.filterform.value.country,
+      country: this.selectedCountryId,
       nearby_search:this.valueNearYouFilter
     }
     this.getEventUpComming(data);
@@ -154,7 +155,7 @@ export class EventsComponent implements OnInit {
       perpage : this.perpage,
       page : event.page + 1,
       nearby_search:this.valueNearYouFilter,
-      country:this.filterform.value.country,
+      country: this.selectedCountryId,
     }
     this.getPostEvent(data);
   }
@@ -183,7 +184,6 @@ export class EventsComponent implements OnInit {
         this.totalcount=res.count
         this.upcommingevent.push(bindingdata)
       })
-      this.newfile = "none";
     })
   }
   // format changing contact
@@ -204,14 +204,15 @@ export class EventsComponent implements OnInit {
   }
   filtersubmit(){
     const formData = this.filterform.value;
-    if (!formData.to && !formData.from && !formData.country) {
+    if (!formData.to && !formData.from) {
       this.toast.add({ severity: 'error', summary: 'Error', detail: 'Please make sure you have some filter!' });
       return;
     }
+    this.newfile = "none";
     var data={
       to:this.filterform.value.to,
       from:this.filterform.value.from,
-      country:this.filterform.value.country,
+      country: this.selectedCountryId,
       page:1,
       perpage:6
     }

@@ -1,11 +1,15 @@
-
-import {Component, ElementRef, OnInit, ViewChild} from "@angular/core";
-import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {Router} from "@angular/router";
-import {matchValidator} from "src/app/@Supports/matchvalidator";
-import {LocationService} from "src/app/location.service";
-import {AuthService} from "../auth.service";
-import {MessageService} from "primeng/api";
+import { Component, ElementRef, OnInit, ViewChild } from "@angular/core";
+import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { Router } from "@angular/router";
+import { matchValidator } from "src/app/@Supports/matchvalidator";
+import { LocationService } from "src/app/location.service";
+import { AuthService } from "../auth.service";
+import { MessageService } from "primeng/api";
+import {
+    CountryISO,
+    SearchCountryField,
+    
+  } from "ngx-intl-tel-input";
 
 @Component({
     selector: "app-registration",
@@ -56,6 +60,14 @@ export class RegistrationComponent implements OnInit {
     validNumberRequired: boolean = false;
     registerFormInvalid: boolean = true;
 
+    separateDialCode = false;
+    SearchCountryField = SearchCountryField;
+    CountryISO = CountryISO;
+    preferredCountries: CountryISO[] = [
+      CountryISO.India,
+    ];
+    isMobileOTPEdit: boolean = false;
+
     showHidePassword() {
         if (this.password === 'password') {
             this.password = 'text';
@@ -91,6 +103,7 @@ export class RegistrationComponent implements OnInit {
     dateTime = new Date();
 
     ngOnInit() {
+      
 
         // this.isMobileOTPSend = false;
         // this.isMobileOTPValidated = false;
@@ -178,7 +191,8 @@ export class RegistrationComponent implements OnInit {
     gethomeCountryList() {
         this.locationService.getHomeCountry(2).subscribe(
             (res: any) => {
-                this.countryList = res;                 
+                this.countryList = res;  
+                  console.log(this.countryList);            
             },
             (error: any) => {
                 this.toastr.add({ severity: 'warning', summary: 'Warning', detail: error.error.message });
@@ -230,7 +244,7 @@ export class RegistrationComponent implements OnInit {
         var data = {
             name: this.registrationForm.value.fullName,
             location_id: this.registrationForm.value.location,
-            phone: this.registrationForm.value.contactNumber,
+            phone: this.registrationForm.value.contactNumber.number,
             email: this.registrationForm.value.emailAddress,
             interested_country_id: this.registrationForm.value.interestedCountry,
             // last_degree_passing_year: this.registrationForm.value.lastDegreePassingYear.getFullYear(),
@@ -274,10 +288,10 @@ export class RegistrationComponent implements OnInit {
         //   return;
         // }
         let val = {
-            phone: this.registrationForm.value.contactNumber,
-            country_code:this.registrationForm.value.country_code
+            phone: this.registrationForm.value.contactNumber.number,
+            country_code:this.registrationForm.value.contactNumber.dialCode
         };
-        if (this.registrationForm.value.fullName != null && this.registrationForm.value.contactNumber) {
+        if (this.registrationForm.value.fullName != null && this.registrationForm.value.contactNumber.number) {
             this.service.getSmsOTP(val).subscribe(
                 (res: any) => {
                     this.resendTime++;
@@ -287,6 +301,7 @@ export class RegistrationComponent implements OnInit {
                     }
                     this.processTimer();
                     this.isMobileOTPSend = true;
+                    this.isMobileOTPEdit = true;
                     this.toastr.add({
                         severity: "success",
                         summary: "Success",
@@ -314,7 +329,7 @@ export class RegistrationComponent implements OnInit {
             this.otpForm.value.otp4;
         if (!this.isMobileOTPValidated) {
             let val = {
-                phone: this.registrationForm.value.contactNumber,
+                phone: this.registrationForm.value.contactNumber.number,
                 otp: _otp,
             };
             this.service.verifySmsOTP(val).subscribe(
@@ -482,8 +497,7 @@ export class RegistrationComponent implements OnInit {
 
     onChangeContact(event: any) {
         this.showContactErrorIcon = false;
-        if (event?.target?.value?.length <= 8) {
-            this.validNumberRequired = true;
+        if (event?.target?.value?.length != 0) {
             this.showContactErrorIcon = true;
             this.registerFormInvalid = true;
         } else {

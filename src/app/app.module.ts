@@ -38,6 +38,8 @@ import {ConfirmDialogModule} from "primeng/confirmdialog";
 import {SafePipe} from "@pipes/safe.pipe";
 import {PipesModule} from "@pipes/pipes.module";
 import { LandingComponent } from './pages/landing/landing.component';
+
+
 const reducers = {
   pageSelector: pagesReducer
 }
