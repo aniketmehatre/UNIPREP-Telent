@@ -13,6 +13,7 @@ import {
 import { Observable } from "rxjs";
 import { selectBillingInfo$ } from "./store/selectors";
 import {select} from "@ngrx/store";
+import { DataService } from "src/app/data.service";
 
 @Component({
     selector: "uni-subscription",
@@ -46,7 +47,8 @@ export class SubscriptionComponent implements OnInit {
         private subscriptionService: SubscriptionService,
         private winRef: WindowRefService,
         private authservice: AuthService,
-        private toastr: MessageService
+        private toastr: MessageService,
+        private dataService: DataService
     ) { }
     ngOnInit(): void {
         if(!this.authservice?.user?.subscription) {
@@ -227,6 +229,7 @@ export class SubscriptionComponent implements OnInit {
                 this.loadSubscriptionedData();
             }
         });
+        this.dataService.showPopup(true);
     }
 
     loadExistingSubscription(){

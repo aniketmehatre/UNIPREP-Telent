@@ -1,6 +1,7 @@
 import {Injectable} from "@angular/core";
 import { environment } from "@env/environment";
 import {BehaviorSubject} from "rxjs";
+import { AuthService } from "./Auth/auth.service";
 
 @Injectable({
     providedIn: "root",
@@ -32,6 +33,9 @@ export class DataService {
 
     public showFeedBackSource = new BehaviorSubject<any>(false);
     showFeedback = this.showFeedBackSource.asObservable();
+
+    public showTimeOutSourceData = new BehaviorSubject(false);
+    showTimeOutStatusData = this.showTimeOutSourceData.asObservable();
 
     constructor() {
     }
@@ -66,6 +70,10 @@ export class DataService {
 
     showFeedBackPopup(data: any) {
         this.showFeedBackSource.next(data);
+    }
+
+    showPopup(data:any) {
+        this.showTimeOutSourceData.next(data);
     }
     
     countDownFun: any
