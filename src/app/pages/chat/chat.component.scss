@@ -528,7 +528,10 @@ a {
   font-size: 1.5rem;
   margin: 0rem 0rem 0rem 0.8rem;
 }
+::ng-deep.p-card-footer {
+  padding: 0 !important;
 
+}
 .chat .messages-chat .text {
   margin: 0 35px;
   background-color: #f6f6f6;

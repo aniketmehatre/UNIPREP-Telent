@@ -110,10 +110,11 @@
 				<p-confirmPopup [style]="{ 'z-index': '999999 !important' }"></p-confirmPopup>
 			</div>
 		</div>
-		<div class="text-end">
-			<button (click)="confirm($event)" class="btn text-white" style="background-color: var(--uniprep-primary); height: 35%; width: 15%; font-size: medium">Send Message</button>
+		<div class="text-end mb-4">
+			<button (click)="confirm($event)" class="btn text-white" style="background-color: var(--uniprep-primary); height: 35%; width: 20%; font-size: medium">Send Message</button>
 		</div>
 	</ng-template>
+	<br><br>
 </p-card>
 <p-dialog [visible]="visibility" [closable]="false" [modal]="true" [style]="{ width: '20vw' }">
 	<div style="background: var(--uniprep-primary) !important; border-radius: 50% !important; height: 25px !important; width: 25px !important; position: absolute; right: -10px; top: -10px; text-align: center; cursor: pointer" (click)="visibility = !visibility">
