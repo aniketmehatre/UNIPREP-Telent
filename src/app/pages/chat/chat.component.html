@@ -1,120 +1,109 @@
-<p-card>
-	<ng-template pTemplate="header">
-		<div class="row">
-			<div class="col-md-6 col-12 d-flex justify-content-md-start">
-				<div class="d-flex align-items-center gap-3">
-					<div>
-						<span class="chatwindow" (click)="previouspage()"><i class="fa fa-arrow-left"></i></span>
-					</div>
-					<div class="d-flex gap-2 align-items-center">
-						<div class="chatprofile">
-							<img src="../../../uniprep-assets/images/icon-light.svg" />
-						</div>
-
-						<div>
-							<p class="fw-semibold mb-0">UNIPREP</p>
-							<p class="small mb-0">support@uniabroad.co.in</p>
-						</div>
-					</div>
-				</div>
+<div class="chatheader d-flex justify-content-between">
+	<div class="d-flex align-items-center gap-2">
+		<div role="button">
+			<span class="chatwindow" (click)="previouspage()"><i class="fa fa-arrow-left"></i></span>
+		</div>
+		<div class="d-flex gap-2 align-items-center">
+			<div class="chatprofile">
+				<img src="../../../uniprep-assets/images/icon-light.svg" />
 			</div>
-			<div class="col-md-6 col-12 d-flex justify-content-md-end">
-				<div class="d-flex">
-					<button class="btn btn-credit">
-						Question Credits<span class="credits-span">{{ totalcredits }}</span>
-					</button>
-					<button class="btn btn-chat" (click)="op?.toggle($event)">Report</button>
-					<button class="btn btn-chat" routerLink="/pages/guideline">Chat Guidelines</button>
-				</div>
+
+			<div class="d-md-block d-none">
+				<h5 class="fw-semibold mb-0 text-white">UNIPREP</h5>
+				<p class="mb-0 text-white">support@uniabroad.co.in</p>
 			</div>
 		</div>
-	</ng-template>
-	<p-overlayPanel #op>
-		<form [formGroup]="reportForm" (ngSubmit)="reportSubmit()" #reportFormElm>
-			<div class="col-md-12 mt-1">
-				<div class="form-group">
-					<label>Report Issues<span style="color: red; font-weight: bold">*</span></label>
-					<p-dropdown formControlName="reportOption" optionValue="id" optionLabel="reportoption_name" styleClass="w-full" [options]="reportOptions"></p-dropdown>
+	</div>
+	<div class="d-flex">
+		<button class="btn btn-credit">
+			Question Credits<span class="credits-span">{{ totalcredits }}</span>
+		</button>
+		<button class="btn btn-chat" (click)="op?.toggle($event)"><span class="d-md-block d-none">Report</span><i class="fa-solid fa-file-circle-exclamation d-md-none d-block"></i></button>
+		<button class="btn btn-chat" routerLink="/pages/guideline"><span class="d-md-block d-none">Guidelines</span><i class="fa-solid fa-book d-md-none d-block"></i></button>
+	</div>
+</div>
+<div class="chatflexbody p-4 bg-white">
+	<h5 class="mb-0">Hello</h5>
+	<p class="fw-semibold">Welcome to UNIPREP.<br />You have 3 free question credits. Your personalised questions will be answered by the experts. Each message will be considered as 1 credit.</p>
+	<hr>
+	<div *ngFor="let message of messages; let index = index">
+		<div class="chat-section-container pb-3" *ngIf="message?.questionNumber">
+			<div class="chat-section mb-2">
+				<div class="photo receiver-bg">
+					<ng-container *ngIf="message?.countryFlag">
+						<span class="countryimage"><img [src]="message?.countryFlag" /></span>
+					</ng-container>
+					<ng-container *ngIf="!message?.countryFlag">
+						<span class="name"> {{ message.sendByName.slice(0, 1) }}</span>
+					</ng-container>
+				</div>
+				<div class="d-flex flex-column">
+					<p class="fw-semibold mb-0">{{ message.sendByName }}</p>
+					<p class="small mb-0">Post Application | {{ message.sendDateTime }}</p>
 				</div>
 			</div>
-			<br />
-			<div class="col-md-12 mt-1">
-				<div class="form-group">
-					<label>Add Comment <span style="color: red; font-weight: bold">*</span></label>
-					<textarea rows="3" cols="35" required styleClass="w-full" pInputTextarea formControlName="comment"></textarea>
-				</div>
+			<span class="msg-info">Question {{ message.questionNumber }}</span>
+			<div class="chat-section msg-bottom">
+				<div class="messages" [innerHTML]="message.message"></div>
 			</div>
-
-			<div class="row mt-3 mt-1">
-				<button class="ps-3 pe-3 pt-2 pb-2" pButton type="submit" style="background-color: var(--uniprep-primary); border-radius: 8px; border: aliceblue; color: #fff" label="Submit"></button>
-			</div>
-		</form>
-	</p-overlayPanel>
-	<ng-template pTemplate="body">
-		<section>
-			<h5 class="mb-0">Hello</h5>
-			<p class="fw-semibold">Welcome to UNIPREP.<br>You have 3 free question credits. Your personalised questions will be answered by the experts.  Each message will be considered as 1 credit.</p>
-		</section>
-		<section class="chat">
-			<div *ngFor="let message of messages; let index = index">
-				<div class="chat-section-container pb-3" *ngIf="message?.questionNumber">
+		</div>
+		<div class="chat-section-container" style="display: flex" *ngIf="message.answerForQuestion">
+			<div class="msg-bottom">
+				<div class="response">
 					<div class="chat-section mb-2">
-						<div class="photo receiver-bg">
-							<ng-container *ngIf="message?.countryFlag">
-								<span class="countryimage"><img [src]="message?.countryFlag" /></span>
-							</ng-container>
-							<ng-container *ngIf="!message?.countryFlag">
-								<span class="name"> {{ message.sendByName.slice(0, 1) }}</span>
-							</ng-container>
+						<div class="photo sender-bg">
+							<span class="name">{{ message.sendByName.slice(0, 1) }}</span>
 						</div>
-						<div class="d-flex flex-column">
-							<p class="fw-semibold mb-0">{{ message.sendByName }}</p>
-							<p class="small mb-0">Post Application | {{ message.sendDateTime }}</p>
+						<div>
+							<span class="full-name">{{ message.sendByName }}</span>
 						</div>
 					</div>
-					<span class="msg-info">Question {{ message.questionNumber }}</span>
-					<div class="chat-section msg-bottom">
-						<div class="messages" [innerHTML]="message.message"></div>
-					</div>
-				</div>
-				<div class="chat-section-container" style="display: flex" *ngIf="message.answerForQuestion">
-					<div class="msg-bottom">
-						<div class="response">
-							<div class="chat-section mb-2">
-								<div class="photo sender-bg">
-									<span class="name">{{ message.sendByName.slice(0, 1) }}</span>
-								</div>
-								<div>
-									<span class="full-name">{{ message.sendByName }}</span>
-								</div>
-							</div>
-							<div>
-								<span class="msg-info">Replying for Question {{ message.answerForQuestion }}</span
-								><br />
-								<p class="response-msg-question" [innerHtml]="getData(message.answerForQuestion)"></p>
-								<p *ngIf="message.message" class="response-msg" [innerHtml]="message.message"></p>
-								<p *ngIf="message.attachment" [pTooltip]="message.filename" class="response-msg-attach">
-									<label>{{ message.filename }}</label> &nbsp;&nbsp;<a (click)="openAttachment(message.attachment)"><i class="pi pi-arrow-circle-down"></i> </a>
-								</p>
-							</div>
-						</div>
+					<div>
+						<span class="msg-info">Replying for Question {{ message.answerForQuestion }}</span
+						><br />
+						<p class="response-msg-question" [innerHtml]="getData(message.answerForQuestion)"></p>
+						<p *ngIf="message.message" class="response-msg" [innerHtml]="message.message"></p>
+						<p *ngIf="message.attachment" [pTooltip]="message.filename" class="response-msg-attach">
+							<label>{{ message.filename }}</label> &nbsp;&nbsp;<a (click)="openAttachment(message.attachment)"><i class="pi pi-arrow-circle-down"></i> </a>
+						</p>
 					</div>
 				</div>
-			</div>
-		</section>
-	</ng-template>
-	<ng-template pTemplate="footer">
-		<div class="field col-12" [class]="fullscreen" #fullscreeneditor>
-			<p-editor [(ngModel)]="textMessage" [style]="{ height: '50px' }" [modules]="modules" placeholder="Reply"> <ng-template pTemplate="header" style="visibility: hidden"></ng-template></p-editor>
-			<div class="text-end">
-				<p-confirmPopup [style]="{ 'z-index': '999999 !important' }"></p-confirmPopup>
 			</div>
 		</div>
+	</div>
+</div>
+<div class="chatfooter bg-white px-2 py-3 d-flex flex-column gap-2">
+	<div [class]="fullscreen" #fullscreeneditor>
+		<p-editor [(ngModel)]="textMessage" [style]="{ height: '50px' }" [modules]="modules" placeholder="Reply"> <ng-template pTemplate="header" style="visibility: hidden"></ng-template></p-editor>
 		<div class="text-end">
-			<button (click)="confirm($event)" class="btn text-white" style="background-color: var(--uniprep-primary); height: 35%; width: 15%; font-size: medium">Send Message</button>
+			<p-confirmPopup [style]="{ 'z-index': '999999 !important' }"></p-confirmPopup>
 		</div>
-	</ng-template>
-</p-card>
+	</div>
+	<div class="d-flex justify-content-end">
+		<button (click)="confirm($event)" class="btn btn-primary px-4 py-2 h5 m-0">Send Message</button>
+	</div>
+</div>
+<p-overlayPanel #op>
+	<form [formGroup]="reportForm" (ngSubmit)="reportSubmit()" #reportFormElm>
+		<div class="col-md-12 mt-1">
+			<div class="form-group">
+				<label>Report Issues<span style="color: red; font-weight: bold">*</span></label>
+				<p-dropdown formControlName="reportOption" optionValue="id" optionLabel="reportoption_name" styleClass="w-full" [options]="reportOptions"></p-dropdown>
+			</div>
+		</div>
+		<br />
+		<div class="col-md-12 mt-1">
+			<div class="form-group">
+				<label>Add Comment <span style="color: red; font-weight: bold">*</span></label>
+				<textarea class="w-100" rows="3" cols="35" required pInputTextarea formControlName="comment"></textarea>
+			</div>
+		</div>
+
+		<div class="row mt-3 mt-1">
+			<button class="ps-3 pe-3 pt-2 pb-2" pButton type="submit" style="background-color: var(--uniprep-primary); border-radius: 8px; border: aliceblue; color: #fff" label="Submit"></button>
+		</div>
+	</form>
+</p-overlayPanel>
 <p-dialog [visible]="visibility" [closable]="false" [modal]="true" [style]="{ width: '20vw' }">
 	<div style="background: var(--uniprep-primary) !important; border-radius: 50% !important; height: 25px !important; width: 25px !important; position: absolute; right: -10px; top: -10px; text-align: center; cursor: pointer" (click)="visibility = !visibility">
 		<i style="color: #fff" class="fa fa-close"></i>
