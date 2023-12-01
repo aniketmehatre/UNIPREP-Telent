@@ -45,10 +45,16 @@ btn-primary {
   border-radius: 10px;
 }
 .answercard {
-  background-color: var(--uniprep-primaryop10);
-  border: 2px solid var(--uniprep-primary);
-  max-height: 60vh;
+  background-color: transparent;
+  border: none;
+  // max-height: 50vh;
   overflow-y: auto;
+  .readingheight
+  {
+    max-height:40vh;
+    overflow-y:auto;
+    min-height: 35vh;
+  }
 }
 li:last-of-type {
   width: 100%;
@@ -58,6 +64,7 @@ li:last-of-type {
 }
 
 :host ::ng-deep p-carousel {
+  //On later realease of PrimeNG, this can be done programmatically with [showIndicators | showNavigators]="false"
   .p-carousel-indicators {
     display: none !important;
   }
@@ -66,6 +73,15 @@ li:last-of-type {
     display: none !important;
   }
 }
+
+:host ::ng-deep .p-carousel-item {
+  max-height: 0;
+}
+
+:host ::ng-deep .p-carousel-item-active {
+  max-height: 100% !important;
+}
+
 .color-red{
   color: green !important;
 }
@@ -80,4 +96,15 @@ li:last-of-type {
   font-weight: 700;
   color: #f0780c;
   text-transform: capitalize;
+}
+
+@media screen and (max-width: 768px) {
+  #ref-links-container {
+      flex-wrap: nowrap !important;
+      overflow-x: auto;
+  }
+  #ref-links-container a {
+      flex: 0 0 auto;
+      margin-bottom: 0.5rem;
+}
 }
