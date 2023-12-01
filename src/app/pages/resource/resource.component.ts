@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ResourceService } from './resource.service';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { MessageService } from 'primeng/api';
 interface country {
   id: number,
   country: string,
@@ -19,7 +20,7 @@ export class ResourceComponent implements OnInit {
   newfile = "none";
   countries: country[] = [];
 
-  constructor(private fb: FormBuilder,private resourceService: ResourceService) { 
+  constructor(private fb: FormBuilder,private resourceService: ResourceService,private toast: MessageService) { 
     this.filterform = this.fb.group({
       coutryname: ['']
     });
@@ -57,9 +58,15 @@ export class ResourceComponent implements OnInit {
   }
   
   filtersubmit(){
+    const formData = this.filterform.value;
+    if (!formData.coutryname) {
+      this.toast.add({ severity: 'error', summary: 'Error', detail: 'Please make sure you have some filter!' });
+      return;
+    }
     let data={
       coutryname:this.filterform.value.coutryname
     }
+    this.newfile = "none";
     this.getResources(data)
   }
   closenewfilePopup() {
