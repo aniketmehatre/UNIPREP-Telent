@@ -5,6 +5,37 @@
   margin: 0.4rem 0 0 0 !important;
   font-weight: 800;
 }
+.trustedcard
+{
+  .card-header
+  {
+    background: transparent;
+    text-align: center;
+    border-bottom:none;
+  }
+}
+.countrycard
+{
+  .card-header
+  {
+    background: transparent;
+    text-align: center;
+  }
+  .card-body
+  {
+    .p-carousel .p-carousel-indicators .p-carousel-indicator.p-highlight button {
+      background-color: #001631;
+      height: 5px;
+    }
+  }
+  .card-footer
+  {
+    background:transparent;
+    text-align: center;
+    padding-bottom: 0;
+    border-top:none;
+  }
+}
 
 .card-main {
   border-radius: 5px !important;
