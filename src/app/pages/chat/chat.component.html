@@ -74,7 +74,9 @@
 </div>
 <div class="chatfooter bg-white px-2 py-3 d-flex flex-column gap-2">
 	<div [class]="fullscreen" #fullscreeneditor>
-		<p-editor [(ngModel)]="textMessage" [style]="{ height: '50px' }" [modules]="modules" placeholder="Reply"> <ng-template pTemplate="header" style="visibility: hidden"></ng-template></p-editor>
+		<p-editor [(ngModel)]="textMessage" [modules]="modules" placeholder="Reply">
+			<ng-template pTemplate="header"></ng-template>
+		</p-editor>
 		<div class="text-end">
 			<p-confirmPopup [style]="{ 'z-index': '999999 !important' }"></p-confirmPopup>
 		</div>
