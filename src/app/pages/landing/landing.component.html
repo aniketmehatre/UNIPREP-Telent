@@ -585,11 +585,13 @@
 			<div class="row">
 				<div class="col-md-6">
 					<div class="d-flex align-items-center justify-content-center justify-content-md-start gap-2 text-white">
-						<p (click)="showprivacypolicy()" role="button" aria-label="Privacy Policy" class="mb-0 text-white text-decoration-none">Privacy Policy</p>
+						<p (click)="showcontactform()" role="button" aria-label="Contact Form" class="mb-0 text-white text-decoration-none small">Contact Us</p>
 						|
-						<p (click)="showTandC()" role="button" aria-label="Terms Conditions" class="mb-0 text-white text-decoration-none">Terms & Conditions</p>
+						<p (click)="showprivacypolicy()" role="button" aria-label="Privacy Policy" class="mb-0 text-white text-decoration-none small">Privacy Policy</p>
 						|
-						<p (click)="showcancellationpolicy()" role="button" aria-label="Cancellation Policy" class="mb-0 text-white text-decoration-none">Cancellation Policy</p>
+						<p (click)="showTandC()" role="button" aria-label="Terms Conditions" class="mb-0 text-white text-decoration-none small">Terms & Conditions</p>
+						|
+						<p (click)="showcancellationpolicy()" role="button" aria-label="Cancellation Policy" class="mb-0 text-white text-decoration-none small">Cancellation Policy</p>
 					</div>
 				</div>
 				<div class="col-md-6 text-md-end text-center">
@@ -599,6 +601,36 @@
 		</div>
 	</section>
 </footer>
+
+<p-dialog [(visible)]="displaycontactform" [modal]="true" [style]="{ width: '60vw' }" [maximizable]="true" [draggable]="false" [resizable]="false">
+	<h3 class="mb-0">Contact Us</h3>
+	<form>
+		<div class="mb-3">
+		  <label for="homepagename" class="form-label">Name</label>
+		  <input type="name" placeholder="Your Name" class="form-control" id="homepagename" aria-describedby="nameHelp">
+		</div>
+		<div class="mb-3">
+		  <label for="homepageemail" class="form-label">Email address</label>
+		  <input type="email" placeholder="Your Email" class="form-control" id="homepageemail" aria-describedby="emailHelp">
+		</div>
+		<div class="mb-3">
+		  <label for="homepagephone" class="form-label">Phone Number</label>
+		  <input type="phone" placeholder="Your Mobile Number" class="form-control" id="homepagephone" aria-describedby="phoneHelp">
+		</div>
+		<div class="mb-3">
+		  <label for="homepagesubject" class="form-label">Subject</label>
+		  <input type="text" placeholder="Please Enter a Subject" class="form-control" id="homepagesubject" aria-describedby="subjectHelp">
+		</div>
+		<div class="mb-3">
+		  <label for="homepagemessage" class="form-label">Message</label>
+		  <textarea type="textarea" placeholder="Your message for us" class="form-control" id="homepagemessage" aria-describedby="messageHelp"></textarea>
+		</div>
+		<div class="text-end">
+			<button type="submit" class="btn btn-primary px-5 py-3 m-0" style="border-radius:10px !important;">Submit</button>
+		</div>
+		
+	  </form>
+</p-dialog>
 
 <p-dialog [(visible)]="displaytandc" [modal]="true" [style]="{ width: '80vw' }" [maximizable]="true" [draggable]="true" [resizable]="false">
 	<h3 class="mb-0">Terms & Conditions</h3>
