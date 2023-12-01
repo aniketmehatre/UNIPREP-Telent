@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { LoginComponent } from './login/login.component';
 import { RegistrationComponent } from './registration/registration.component';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
@@ -20,6 +20,7 @@ import {authReducer} from "./store/reducer";
 import {EffectsModule} from "@ngrx/effects";
 import {AuthEffects} from "./store/effects";
 import {CalendarModule} from "primeng/calendar";
+import { NgxIntlTelInputModule } from 'ngx-intl-tel-input';
 
 @NgModule({
   declarations: [
@@ -42,8 +43,10 @@ import {CalendarModule} from "primeng/calendar";
         ToastModule,
         StoreModule.forFeature(authFeatureKey, authReducer),
         EffectsModule.forFeature([AuthEffects]),
-        CalendarModule
+        CalendarModule,
+        NgxIntlTelInputModule
     ],
-    providers: [MessageService]
+    providers: [MessageService],
+    schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class AuthModule { }

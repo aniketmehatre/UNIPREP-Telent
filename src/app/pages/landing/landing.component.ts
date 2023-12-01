@@ -1,6 +1,6 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ThemeService } from '../../theme.service';
-
+import { FormBuilder, FormsModule, ReactiveFormsModule,FormControl,FormGroup,Validators } from '@angular/forms';
 @Component({
   selector: 'uni-landing',
   templateUrl: './landing.component.html',
@@ -13,7 +13,12 @@ export class LandingComponent implements OnInit {
   isDarkMode: boolean;
   displaytandc!: boolean;
   displayprivacypolicy!: boolean;
+  displaycancellationpolicy!: boolean;
+  displaycontactform!: boolean;
   currentImage: string = '/uniprep-assets/images/feature1.webp';
+  contactForm: any;
+ 
+
 
   showTandC() {
     this.displaytandc = true;
@@ -22,8 +27,16 @@ export class LandingComponent implements OnInit {
   showprivacypolicy() {
     this.displayprivacypolicy = true;
   }
+  
+  showcancellationpolicy() {
+    this.displaycancellationpolicy = true;
+  }
+  
+  showcontactform() {
+    this.displaycontactform = true;
+  }
 
-  constructor(private themeService: ThemeService) {
+  constructor(private themeService: ThemeService , private formbuilder: FormBuilder) {
     // Initialize the isDarkMode property with the value from the service
     this.isDarkMode = this.themeService.getInitialSwitchState();
   }
@@ -59,11 +72,42 @@ export class LandingComponent implements OnInit {
   ngOnInit() {
     // Any additional initialization can go here
     this.currentImage = '/uniprep-assets/images/feature1.webp';
+
+
+    this.contactForm = this.formbuilder.group({
+      name:['',Validators.required],
+      email:['',Validators.required],
+      subject:['',Validators.required],
+      phone:['',Validators.required],
+      message:['', Validators.required],
+    })
+
+
   }
 
   toggleTheme() {
     this.themeService.toggleTheme();
     // After toggling, update the isDarkMode property to reflect the new state
     this.isDarkMode = this.themeService.isDarkMode();
+  }
+
+
+  submitForm(){
+    // alert("subit");
+
+    let contactData = {
+      name: this.contactForm.value.name,
+      email: this.contactForm.value.email,
+      phone:this.contactForm.value.phone,
+      subject: this.contactForm.value.subject,
+      message: this.contactForm.value.message
+    }
+    this.themeService.storeContatForm(contactData).subscribe((response) => {
+    // this.toastr.add({severity: 'success', summary: 'Success', detail: "Organization Added"});
+    // this.getOrgList();
+    // this.reviewOrg.reset()
+    alert('Thank You , we will get back to you .')
+    this.displaycontactform = false;
+    }); 
   }
 }

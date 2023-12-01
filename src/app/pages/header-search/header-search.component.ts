@@ -168,7 +168,8 @@ export class HeaderSearchComponent implements OnInit, OnDestroy {
     let searchedResult = this.searchInputValue;
     searchedResult = searchedResult.split(" ");
     for (const x in searchedResult) {
-      str = str.replace(new RegExp(x, 'g'), '<span class="fw-bold">' + x + '</span>');
+      let word = '<span class="fw-bold">' + x + '</span>';
+      str = str.replace(new RegExp(x, 'g'), word);
     }
     return str;
   };
@@ -242,7 +243,7 @@ export class HeaderSearchComponent implements OnInit, OnDestroy {
           this.subModuleName = value.submodule_name;
         }
       })
-      this.breadCrumb = [{ label: 'United Kingdom' }, { label: this.moduleName },
+      this.breadCrumb = [{ label:  this.countryName}, { label: this.moduleName },
       { label: this.subModuleName }];
     })
   }

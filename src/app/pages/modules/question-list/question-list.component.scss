@@ -145,6 +145,18 @@
   }
 }
 
+.carousel-container {
+  /* Make use of flexbox to occupy available space */
+  display: flex;
+  flex-direction: column;
+  height: 100%; /* Occupy full height of the dialog */
+}
+
+.custom-carousel {
+  /* Allow the carousel to take up all available space */
+  flex: 1;
+  overflow-y: auto; /* Enable vertical scrolling when content exceeds height */
+}
 
 :host ::ng-deep .p-carousel-item {
   max-height: 0;

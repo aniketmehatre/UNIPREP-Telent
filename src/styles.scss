@@ -370,6 +370,14 @@ uni-resource {
 	overflow: hidden;
 }
 
+uni-faq {
+	display: flex;
+	flex: 1;
+	height: 100%;
+	flex-direction: column; /* Ensure flex children stack vertically */
+	overflow: hidden;
+}
+
 uni-recentlyaddedquestions {
 	display: flex;
 	flex: 1;
@@ -724,19 +732,12 @@ uni-subscription {
 		}
 	}
 	.answersection {
-		.p-carousel-content {
-			overflow: visible;
-		}
-		.p-carousel-items-content {
-			height: auto;
+			/* Allow the carousel to take up all available space */
+			flex: 1;
+			overflow-y: auto; /* Enable vertical scrolling when content exceeds height */
 			background: var(--uniprep-primaryop10);
 			border: 2px solid var(--uniprep-primary);
 			border-radius: 20px;
-			margin: 0 2rem;
-		}
-		.p-carousel-container {
-			position: relative;
-		}
 		// .p-carousel .p-carousel-content .p-carousel-prev
 		// {
 		//   position: absolute;
@@ -1793,3 +1794,24 @@ uni-subscription {
 	height: 1.5rem;
 	margin-left: -0.5rem;
 }
+
+.intel-input .iti {
+	.iti__flag-container {
+	  border-right: 1px solid;
+	  padding: 5px 0;
+  
+	  .iti__selected-flag {
+		border-right: 1px solid;
+	  padding: 10px;
+	  }
+	}
+	.custom {
+		border: 1px solid var(--uniprep-primary);
+		padding: 15px 5px 15px 60px;
+		border-radius: 5px;
+
+		&:focus-visible {
+			outline: none;
+		}
+	  }
+  }
