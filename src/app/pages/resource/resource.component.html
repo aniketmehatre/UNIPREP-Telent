@@ -13,6 +13,12 @@
         </div>
         <div class="container-fluid">
           <div class="row">
+            <div class="col-md-3 text-md-start">
+              <span (click)="filterPopUp()"><button class="btn btn-outline-light px-4 py-3"
+                  type="button">Filter by</button></span>
+            </div>
+          </div>
+          <div class="row">
             <div *ngFor="let resource of resourceslist" class="col-md-3 col-12 mt-3 ">
               <div class="card card-style text-black">
                 <a href={{resource.link}} class="fw-semibold text-dark text-start" target="_blank">
@@ -38,3 +44,36 @@
         </div>
       </div>
     </div>
+
+    	<!-- filter pop-up -->
+		<div class="modal" tabindex="-1" role="dialog" [ngStyle]="{ display: newfile }">
+			<div class="modal-dialog" role="document">
+				<form role="form" [formGroup]="filterform" (ngSubmit)="filtersubmit()">
+					<div class="modal-content" style="margin-top: 50% !important">
+						<div class="modal-header flex justify-content-between">
+							<h4 class="modal-title">Filter Resources</h4>
+							<span style="cursor: pointer"><i (click)="closenewfilePopup()"
+									class="fa-solid fa-circle-xmark fa-2x"></i></span>
+						</div>
+						<div class="modal-body">
+							<div class="row">
+								<div class="col-12">
+									<div class="form-group">
+
+										<label style="font-size: medium">Filter by Country</label>
+										<p-dropdown class="mt-2" placeholder="Select" formControlName="coutryname"
+											[options]="countries" optionValue="id" optionLabel="country"
+											styleClass="w-full" [filter]="true"></p-dropdown>
+									</div>
+								</div>
+							</div>
+							<span style="float: right">
+								<button type="submit" class="btn btn-dark"
+									style="background-color: var(--uniprep-primary) !important">Apply Filter</button>
+							</span>
+
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
