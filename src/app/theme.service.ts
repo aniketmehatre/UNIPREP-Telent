@@ -1,4 +1,8 @@
+
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { environment } from '@env/environment';
+import { Observable } from 'rxjs/internal/Observable';
 
 @Injectable({
   providedIn: 'root',
@@ -6,7 +10,7 @@ import { Injectable } from '@angular/core';
 export class ThemeService {
   private theme: 'light' | 'dark' = 'light';
 
-  constructor() {
+  constructor(private http:HttpClient) {
     this.loadTheme();
   }
 
@@ -60,5 +64,10 @@ export class ThemeService {
       if (c.indexOf(nameEQ) === 0) return c.substring(nameEQ.length, c.length);
     }
     return undefined;
+  }
+
+  
+  storeContatForm(val:any):Observable<any> {
+    return this.http.post(environment.ApiUrl +'/storeContactForm',val);
   }
 }
