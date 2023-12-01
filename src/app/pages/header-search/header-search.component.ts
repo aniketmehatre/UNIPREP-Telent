@@ -242,7 +242,7 @@ export class HeaderSearchComponent implements OnInit, OnDestroy {
           this.subModuleName = value.submodule_name;
         }
       })
-      this.breadCrumb = [{ label: 'United Kingdom' }, { label: this.moduleName },
+      this.breadCrumb = [{ label:  this.searchInputValue}, { label: this.moduleName },
       { label: this.subModuleName }];
     })
   }

@@ -73,16 +73,16 @@
                 <a role="button" *ngIf="isAnswerDialogVisibleNext" (click)="clickNext(carousel, $event)"><i
                         class="text-green mx-3 h4 fa-solid mb-0 fa-circle-chevron-right"></i></a>
             </div>
-            <div class="col-md-2 gap-2 d-flex">
-                <button (click)="openReport()" class="btn w-100 btn-primary homecardbtn m-0 px-2 py-2">
+            <div class="col-md-2 gap-2 text-right d-flex align-items-right justify-content-right">
+                <button (click)="openReport()" class="btn w-50 btn-primary homecardbtn m-0 px-2 py-2">
                     <i class="fa-solid h5 fa-file-contract"></i>
                     <br>
                     Report
                 </button>
-                <button (click)="reviewBy()" class="btn w-100 btn-primary homecardbtn m-0 px-2 py-2">
+                <!-- <button style="display: none;" (click)="reviewBy()" class="btn w-100 btn-primary homecardbtn m-0 px-2 py-2">
                     <i class="pi pi-user  h5 "></i><br>
                     Reviewed By
-                </button>
+                </button> -->
             </div>
         </div>
         <p-carousel #carousel  [circular]="true" [numScroll]="1" [numVisible]="1"
