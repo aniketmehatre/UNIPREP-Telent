@@ -56,11 +56,11 @@
 						Home
 					</button>
 				</div>
-				<!-- <div class="d-flex">
+				<div class="d-flex">
 					<a role="button" *ngIf="isAnswerDialogVisiblePrev" (click)="clickPrevious(carousel, $event)"> <i class="text-green h4 mx-3 mb-0 fa-solid fa-circle-chevron-left"></i></a>
 					<p class="mb-0 fw-semibold">Question Number {{ selectedQuestion + 1 }}</p>
 					<a role="button" *ngIf="isAnswerDialogVisibleNext" (click)="clickNext(carousel, $event)"><i class="text-green mx-3 h4 fa-solid mb-0 fa-circle-chevron-right"></i></a>
-				</div> -->
+				</div>
 				<div>
 					<button (click)="openReport()" class="btn btn-primary homecardbtn my-0 px-4 py-2 mx-0">
 						<i class="fa-solid h5 fa-file-contract"></i>
@@ -76,7 +76,7 @@
 		</div>
 	</ng-template>
 	<div class="carousel-container px-4">
-	<p-carousel #carousel (onPage)="setPage($event)" [circular]="true" [numScroll]="1" [numVisible]="1" [page]="selectedQuestion" [responsiveOptions]="responsiveOptions" [value]="data" class="answersection">
+		<p-carousel #carousel (onPage)="setPage($event)" [circular]="true" [numScroll]="1" [numVisible]="1" [page]="selectedQuestion" [responsiveOptions]="responsiveOptions" [value]="data" class="answersection">
 			<ng-template [ngForOf]="data" let-i="index" let-val ngFor pTemplate="item">
 				<div class="card answercard">
 					<div class="card-body text-start">
@@ -88,7 +88,7 @@
 			</ng-template>
 		</p-carousel>
 	</div>
-	
+
 	<ng-template pTemplate="footer">
 		<div class="d-flex justify-content-between flex-column flex-md-row px-4 my-4">
 			<div class="flex-full" *ngIf="videoLinks">

@@ -4,9 +4,23 @@
   color: white;
 }
 
+.chatheader
+{
+  padding: 0.5rem 1rem;
+  background-color: var(--uniprep-primary);
+  border-radius:12px 12px 0 0;
+}
+
+.chatfooter
+{
+  padding: 0.5rem 1rem;
+  background-color: white;
+  border-radius:0 0 12px 12px;
+}
+
 .chatprofile {
-  width: 50px;
-  height: 50px;
+  width: 40px;
+  height: 40px;
   border-radius: 100px;
   background-color: white;
   display: flex;
@@ -163,13 +177,13 @@ a {
 }
 
 .chatwindow {
-  font-size: 1rem;
-  height: 30px;
-  width: 30px;
+  height: 40px;
+  width: 40px;
   background-color: #ffffff;
   border-radius: 50%;
-  display: inline-block;
-  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   i {
     color: black;
     vertical-align: -webkit-baseline-middle;
@@ -189,9 +203,9 @@ a {
 
 .chat .messages-chat .text {
   margin: 0 35px;
-  background-color: #f6f6f6;
+  background-color: #F1F1F1;
   padding: 15px;
-  border-radius: 12px;
+  border-radius: 0 12px 12px 12px;
 }
 
 .text-only {
@@ -312,7 +326,7 @@ countryimage {
   width: 375px;
   font-size: medium;
   font-weight: 600;
-  background-color: #888a9447;
+  background-color: #EBEDF2;
   color: #3f4c83;
   border: 2px solid #3f4c83;
 }
@@ -666,4 +680,5 @@ countryimage {
 }
 ::ng-deep .p-confirm-popup .p-confirm-popup-flipped:after {
   border-top-color: #888a9447 !important;
+  border-top-color: #EBEDF2 !important;
 }
