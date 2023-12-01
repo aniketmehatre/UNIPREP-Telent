@@ -424,6 +424,12 @@ uni-subscription {
 		overflow-y: auto;
 	}
 }
+.carousel-container {
+	/* Make use of flexbox to occupy available space */
+	display: flex;
+	flex-direction: column;
+	height: 100%; /* Occupy full height of the dialog */
+  }
 .readingcard {
 	flex: 1; /* Take the full height within container-fluid */
 	overflow-y: auto; /* Enable vertical scrolling */
