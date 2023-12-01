@@ -23,7 +23,7 @@ export class EventsComponent implements OnInit {
   newfile = "none";
   countries: country[] = [];
   filterform:FormGroup;
-  perpage:number = 8;
+  perpage:number = 6;
   totalcount: number=0;
   totalcountpost:number=0;
   pageno:number = 1;
@@ -52,19 +52,15 @@ export class EventsComponent implements OnInit {
       this.countries = response;
     });
     let data = {
-      perpage : 8,
+      perpage : 6,
       page : 1,
-      to:this.filterform.value.to,
-      from:this.filterform.value.from,
       country:this.filterform.value.country,
-      nearby_search:this.valueNearYouFilter
     }
     this.getEventUpComming(data)
     let postdata={
-      perpage : 8,
+      perpage : 6,
       page : 1,
       country:this.filterform.value.country,
-      nearby_search:this.valueNearYouFilter
     }
     this.getPostEvent(postdata)
   }
@@ -97,6 +93,12 @@ export class EventsComponent implements OnInit {
 
     // Set styles for the clicked button
     if (buttonNumber === 1) {
+      let data = {
+        perpage : 6,
+        page : 1,
+        country:this.filterform.value.country,
+      }
+      this.getEventUpComming(data)
       this.activeButton = 1;
       this.upcomingevent=true;
       this.postevent=false;
@@ -105,6 +107,13 @@ export class EventsComponent implements OnInit {
         color: '#FFFFFF'
       };
     } else if (buttonNumber === 2) {
+      let postdata={
+        perpage : 6,
+        page : 1,
+        country:this.filterform.value.country,
+        nearby_search:this.valueNearYouFilter
+      }
+      this.getPostEvent(postdata)
       this.activeButton = 2;
       this.postevent=true;
       this.upcomingevent=false;
@@ -204,7 +213,7 @@ export class EventsComponent implements OnInit {
       from:this.filterform.value.from,
       country:this.filterform.value.country,
       page:1,
-      perpage:8
+      perpage:6
     }
     this.getEventUpComming(data)
   }
