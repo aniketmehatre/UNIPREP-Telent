@@ -732,19 +732,12 @@ uni-subscription {
 		}
 	}
 	.answersection {
-		.p-carousel-content {
-			overflow: visible;
-		}
-		.p-carousel-items-content {
-			height: auto;
+			/* Allow the carousel to take up all available space */
+			flex: 1;
+			overflow-y: auto; /* Enable vertical scrolling when content exceeds height */
 			background: var(--uniprep-primaryop10);
 			border: 2px solid var(--uniprep-primary);
 			border-radius: 20px;
-			margin: 0 2rem;
-		}
-		.p-carousel-container {
-			position: relative;
-		}
 		// .p-carousel .p-carousel-content .p-carousel-prev
 		// {
 		//   position: absolute;

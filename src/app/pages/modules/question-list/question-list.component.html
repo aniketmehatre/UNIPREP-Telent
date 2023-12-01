@@ -39,9 +39,9 @@
 		</div>
 	</div>
 </div>
-<p-dialog #dialogContent [(visible)]="isQuestionAnswerVisible" [draggable]="false" [modal]="true" class="questionmodal" header="Header" [maximizable]="true">
-	<ng-template class="p-3" pTemplate="header">
-		<div class="d-flex flex-column w-100">
+<p-dialog #dialogContent [(visible)]="isQuestionAnswerVisible" [draggable]="false" [modal]="true" class="questionmodal" header="Header" [maximizable]="true" [style]="{ height: '80vh' }">
+	<ng-template pTemplate="header">
+		<div class="d-flex flex-column w-100 px-4 mb-4">
 			<div>
 				<h5 class="select-title text-center mb-3">{{ currentModuleName }} - {{ moduleName }}</h5>
 				<span class="text-xl font-bold"></span>
@@ -58,7 +58,7 @@
 				</div>
 				<div class="d-flex">
 					<a role="button" *ngIf="isAnswerDialogVisiblePrev" (click)="clickPrevious(carousel, $event)"> <i class="text-green h4 mx-3 mb-0 fa-solid fa-circle-chevron-left"></i></a>
-					<h5 class="mb-0">Question Number {{ selectedQuestion + 1 }}</h5>
+					<p class="mb-0 fw-semibold">Question Number {{ selectedQuestion + 1 }}</p>
 					<a role="button" *ngIf="isAnswerDialogVisibleNext" (click)="clickNext(carousel, $event)"><i class="text-green mx-3 h4 fa-solid mb-0 fa-circle-chevron-right"></i></a>
 				</div>
 				<div>
@@ -75,39 +75,40 @@
 			</div>
 		</div>
 	</ng-template>
+	<div class="carousel-container px-4">
 	<p-carousel #carousel (onPage)="setPage($event)" [circular]="true" [numScroll]="1" [numVisible]="1" [page]="selectedQuestion" [responsiveOptions]="responsiveOptions" [value]="data" class="answersection">
-		<ng-template [ngForOf]="data" let-i="index" let-val ngFor pTemplate="item">
-			<div class="card answercard">
-				<div class="card-body text-start">
-					<p class="text-small blockquote text-start mb-0">Last updated at: {{ val.updated_at | date }}</p>
-					<h3 class="unselectable">{{ val.question }}</h3>
-					<div class="fw-medium worksans unselectable" style="white-space: pre-wrap" [innerHTML]="val.answer"></div>
+			<ng-template [ngForOf]="data" let-i="index" let-val ngFor pTemplate="item">
+				<div class="card answercard">
+					<div class="card-body text-start">
+						<p class="text-small blockquote text-start mb-0">Last updated at: {{ val.updated_at | date }}</p>
+						<h3 class="unselectable">{{ val.question }}</h3>
+						<div class="fw-medium worksans unselectable" style="white-space: pre-wrap" [innerHTML]="val.answer"></div>
+					</div>
+				</div>
+			</ng-template>
+		</p-carousel>
+	</div>
+	
+	<ng-template pTemplate="footer">
+		<div class="d-flex justify-content-between flex-column flex-md-row px-4 my-4">
+			<div class="flex-full" *ngIf="videoLinks">
+				<h5 class="text-start">Recommended Videos</h5>
+				<div class="d-flex flex-wrap gap-2" id="ref-links-container">
+					<a class="px-4 m-0 py-2 btn btn-primary btn-rounded" target="_blank" href="{{ videoL.link }}" *ngFor="let videoL of videoLinks; let ind = index">Video {{ ind + 1 }} &nbsp;<i class="fa-solid fa-video"></i></a>
 				</div>
 			</div>
-		</ng-template>
-	</p-carousel>
-	<ng-template class="p-3" pTemplate="footer">
-		<div class="container-fluid px-5">
-			<div class="row mt-5 mb-4">
-				<div class="col-md-5 col-12">
-					<h5 class="text-start" *ngIf="videoLinks">Recommended Videos</h5>
-					<div class="d-flex flex-wrap gap-2" id="ref-links-container">
-						<a class="px-4 m-0 py-2 btn btn-primary btn-rounded" target="_blank" href="{{ videoL.link }}" *ngFor="let videoL of videoLinks; let ind = index">Video {{ ind + 1 }} &nbsp;<i class="fa-solid fa-video"></i></a>
-					</div>
+			<div class="flex-full" *ngIf="refLink">
+				<h5 class="text-start">Recommended Links</h5>
+				<div class="d-flex flex-wrap gap-2" id="ref-links-container">
+					<a class="px-4 m-0 py-2 btn btn-secondary btn-rounded" target="_blank" href="{{ refL.link }}" *ngFor="let refL of refLink; let ind = index">Link {{ ind + 1 }} &nbsp;<i class="fa-solid fa-link"></i></a>
 				</div>
-				<div class="col-md-5 col-12">
-					<h5 class="text-start" *ngIf="refLink">Recommended Links</h5>
-					<div class="d-flex flex-wrap gap-2" id="ref-links-container">
-						<a class="px-4 m-0 py-2 btn btn-secondary btn-rounded" target="_blank" href="{{ refL.link }}" *ngFor="let refL of refLink; let ind = index">Link {{ ind + 1 }} &nbsp;<i class="fa-solid fa-link"></i></a>
-					</div>
-				</div>
-				<div class="col-md-2 col-12">
-					<button class="btn w-100 btn-primary homecardbtn mx-0 mt-3 px-2 py-2" (click)="onClickAsk()">
-						<i class="fa-solid h5 fa-file-contract"></i>
-						<br />
-						Click here to ask<br />Personalised Questions
-					</button>
-				</div>
+			</div>
+			<div class="flex-shrink-0 align-items-center d-flex">
+				<button class="btn w-100 btn-primary homecardbtn mx-0 px-5 py-2" (click)="onClickAsk()">
+					<i class="fa-solid h5 fa-file-contract"></i>
+					<br />
+					Click here to ask<br />Personalised Questions
+				</button>
 			</div>
 		</div>
 	</ng-template>
