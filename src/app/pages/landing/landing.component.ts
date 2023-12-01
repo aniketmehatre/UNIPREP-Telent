@@ -14,6 +14,7 @@ export class LandingComponent implements OnInit {
   displaytandc!: boolean;
   displayprivacypolicy!: boolean;
   displaycancellationpolicy!: boolean;
+  displaycontactform!: boolean;
   currentImage: string = '/uniprep-assets/images/feature1.webp';
 
   showTandC() {
@@ -26,6 +27,10 @@ export class LandingComponent implements OnInit {
   
   showcancellationpolicy() {
     this.displaycancellationpolicy = true;
+  }
+  
+  showcontactform() {
+    this.displaycontactform = true;
   }
 
   constructor(private themeService: ThemeService) {
