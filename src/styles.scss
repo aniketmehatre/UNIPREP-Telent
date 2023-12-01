@@ -1794,3 +1794,24 @@ uni-subscription {
 	height: 1.5rem;
 	margin-left: -0.5rem;
 }
+
+.intel-input .iti {
+	.iti__flag-container {
+	  border-right: 1px solid;
+	  padding: 5px 0;
+  
+	  .iti__selected-flag {
+		border-right: 1px solid;
+	  padding: 10px;
+	  }
+	}
+	.custom {
+		border: 1px solid var(--uniprep-primary);
+		padding: 15px 5px 15px 60px;
+		border-radius: 5px;
+
+		&:focus-visible {
+			outline: none;
+		}
+	  }
+  }

@@ -32,7 +32,10 @@ export class UserManagementComponent implements OnInit {
     registrationForm!: FormGroup;
     countryList: any;
     intrestedCountryList: any;
+    currentDate = new Date();
     dateTime = new Date();
+    maximumTime=new Date();
+    selectedDate:any;
 
     updatedpasswords: FormGroup;
     ShowCrntPass:boolean = false;
@@ -90,6 +93,7 @@ export class UserManagementComponent implements OnInit {
 
     ngOnInit(): void {
         this.dateTime.setDate(this.dateTime.getDate());
+       
         this.getProgramLevelList();
         this.getCountryList();
         this.getIntrestedCountryList();
@@ -121,20 +125,33 @@ export class UserManagementComponent implements OnInit {
     GetPersonalProfileData(){
         this.userManagementService.GetUserPersonalInfo().subscribe(data => {
             this.PersonalInfo = data;
-            let mon = this.PersonalInfo?.intake_month_looking == null ? null : this.getMonthName(this.PersonalInfo?.intake_month_looking);
+          //  let mon = this.PersonalInfo?.intake_month_looking == null ? null : this.getMonthName(this.PersonalInfo?.intake_month_looking);
             this.registrationForm.patchValue({
                 name: this.PersonalInfo?.name,
                 location_id: this.PersonalInfo?.location_id,
                 interested_country_id: this.PersonalInfo?.interested_country_id == null ? null : Number(this.PersonalInfo?.interested_country_id),
-                home_country: this.PersonalInfo?.country == null ? null : Number(this.PersonalInfo?.country),
+                home_country: this.PersonalInfo?.home_country_id == null ? null : Number(this.PersonalInfo?.country),
                 last_degree_passing_year: this.PersonalInfo?.last_degree_passing_year,
                 intake_year_looking: this.PersonalInfo?.intake_year_looking,
-                intake_month_looking: this.PersonalInfo?.intake_year_looking == null ? null : new Date(mon+"/"+this.PersonalInfo?.intake_year_looking),
+                intake_month_looking: this.PersonalInfo?.intake_month_looking,
                 programlevel_id: this.PersonalInfo?.programlevel_id,
             });
+            this.selectedDate=new Date();
+            this.selectedDate.setFullYear(this.registrationForm.get('intake_year_looking')?.value);
+            this.selectedDate.setMonth(this.registrationForm.get('intake_month_looking')?.value);
             this.GetLocationList();
-
-        });
+            this.registrationForm.get('intake_month_looking')?.setValue(this.selectedDate);
+            var selectedYear=this.registrationForm.get('intake_year_looking')?.value;
+             
+            this.maximumTime.setFullYear(selectedYear);
+            this.maximumTime.setMonth(11);
+            if(this.currentDate.getFullYear()!=selectedYear){
+                this.dateTime = new Date(selectedYear, 0, 1);
+            }
+            else {
+                this.dateTime.setFullYear(selectedYear);
+            }
+        });    
     }
 
     getMonthName(monthNumber: any) {
@@ -197,7 +214,20 @@ export class UserManagementComponent implements OnInit {
     }
 
     yearChage(event: any) {
-        this.registrationForm?.get('intake_month_looking')?.setValue(event);
+        this.registrationForm.get('intake_month_looking')?.setValue('');
+        // this.registrationForm?.get('intake_month_looking')?.setValue(event);
+       let intakeYearValue=this.registrationForm.get('intake_year_looking')?.value;
+ 
+      let  intakeYear=intakeYearValue.toString().split(' ')[3];
+        this.maximumTime.setFullYear(intakeYear);
+ 
+        this.maximumTime.setMonth(11);
+        if(this.dateTime.getFullYear()!=intakeYear && this.currentDate.getFullYear()!=intakeYear){
+            this.dateTime = new Date(intakeYear, 0, 1);
+        }
+        else {
+            this.dateTime = new Date(intakeYear, this.currentDate.getMonth(), 1);
+        }
     }
 
     logout() {
@@ -275,7 +305,8 @@ export class UserManagementComponent implements OnInit {
             data.intake_month_looking = this.registrationForm.value?.intake_month_looking;
         }
         else {
-            data.intake_month_looking = this.registrationForm.value?.intake_month_looking?.getMonth() + 1;
+            data.intake_month_looking = this.registrationForm.value?.intake_month_looking?.getMonth();
+            
         }
         this.userManagementService.updateUserData(data).subscribe(data => {
             this.ShowPersonalInfo = false;

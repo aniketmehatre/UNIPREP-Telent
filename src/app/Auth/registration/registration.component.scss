@@ -334,3 +334,16 @@ input::-webkit-inner-spin-button {
     }
   }
 }
+
+.edit-button {
+  position: absolute;
+  right: 13px;
+  top: 15px;
+  color: var(--uniprep-primary);
+  cursor: pointer;
+  z-index: 999;
+}
+
+.send-btn {
+  padding: 0.5rem 5rem !important;
+}
