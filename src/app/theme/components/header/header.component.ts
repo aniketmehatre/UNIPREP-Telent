@@ -432,14 +432,14 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
       this.min = `${Math.floor(seconds / 60)}`
       this.sec = `${textSec}`;
-      if (this.timeLeftMins <= 0) {
+      if (this.min <= 0) {
         this.min = 0;
         this.sec = 0;
       }
       this.month = months;
       this.hrs = hours;
       this.day = days;
-      if (this.timeLeftMins <= 0 && this.timeHours <= 0 && this.timeDays <= 0 && this.timeLeftSecs <= 0) {
+      if (this.min <= 0 && this.hrs <= 0 && this.day <= 0 && this.sec <= 0) {
         this.visible = true;
         clearInterval(this.timerInterval);
       }
