@@ -316,6 +316,17 @@ uni-chat {
 	height: 100%;
 	flex-direction: column; /* Ensure flex children stack vertically */
 	overflow: hidden;
+	p-card {
+		flex: 1;
+		overflow-y: auto; /* Enable vertical scrolling for overflowing content */
+		display: flex;
+		flex-direction: column;
+	}
+	.chatflexbody
+	{
+		flex: 1;
+		overflow-y: auto;
+	}
 }
 
 uni-events {
@@ -384,6 +395,20 @@ uni-recentlyaddedquestions {
 	height: 100%;
 	flex-direction: column; /* Ensure flex children stack vertically */
 	overflow: hidden;
+	.eventscard {
+		flex: 1;
+		overflow-y: auto;
+	}
+	.event-paginator {
+		.p-dropdown
+		{
+			position: absolute;
+    		right: 3rem;
+		}
+		.p-dropdown-panel .p-dropdown-items .p-dropdown-item {
+			padding: 0.25rem 1rem;
+		}
+	}
 }
 
 uni-subscription {
@@ -673,10 +698,11 @@ uni-subscription {
 	}
 }
 .messages {
-	background-color: #f6f6f6;
+	background-color: #f1f1f1;
 	padding: 5px 15px;
 	margin-left: 40px;
-	border-radius: 12px;
+	border-radius: 0 12px 12px 12px; 
+	max-width:75%;
 	p {
 		margin-bottom: 0 !important;
 	}

@@ -131,12 +131,6 @@
     // max-height: 50vh;
     overflow-y: auto;
   }
-  .readingheight
-  {
-    max-height:50vh;
-    overflow-y:auto;
-    min-height: 35vh;
-  }
   :host ::ng-deep .p-carousel-item {
     max-height: 0;
   }
@@ -157,11 +151,4 @@
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
-  }
-
-  .readingcard {
-   overflow: unset;
-   .overflow {
-    overflow-y: auto;
-   }
   }
