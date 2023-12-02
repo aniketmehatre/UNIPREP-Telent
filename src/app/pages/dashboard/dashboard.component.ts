@@ -89,6 +89,12 @@ export class DashboardComponent implements OnInit {
                     this.dataService.changeCountryFlag(element.flag);
                 }
             });
+            this.countryLists.forEach((item: any, i: any) => {
+                if(item.id === this.selectedCountryId){
+                  this.countryLists.splice(i, 1);
+                  this.countryLists.unshift(item);
+                }
+              });            
         });
         this.dashboardService.getModuleReadProgression(data).subscribe(response => {
             this.readingProgressings = response.module;

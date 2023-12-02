@@ -24,7 +24,7 @@
 </div>
 <div class="chatflexbody p-4 bg-white">
 	<h5 class="mb-0">Hello</h5>
-	<p class="fw-semibold">Welcome to UNIPREP.<br />You have 2 free question credits. Your personalised questions will be answered by the experts. Each message will be considered as 1 credit.</p>
+	<p class="fw-semibold">Welcome to UNIPREP.<br />Your personalised questions will be answered by the experts. Each message will be considered as 1 credit.</p>
 	<hr>
 	<div *ngFor="let message of messages; let index = index">
 		<div class="chat-section-container pb-3" *ngIf="message?.questionNumber">
@@ -52,10 +52,12 @@
 				<div class="response">
 					<div class="chat-section mb-2">
 						<div class="photo sender-bg">
-							<span class="name">{{ message.sendByName.slice(0, 1) }}</span>
+							<span class="name">{{ "A" }}</span>
+							<!-- message.sendByName.slice(0, 1) -->
 						</div>
 						<div>
-							<span class="full-name">{{ message.sendByName }}</span>
+							<span class="full-name">{{ "Admin" }}</span>
+							<!-- message.sendByName -->
 						</div>
 					</div>
 					<div>
