@@ -123,7 +123,7 @@
 								<div class="p-inputgroup-addon">
 								  <i class="fa-regular fa-venus-mars"></i>
 								</div>
-								<p-dropdown formControlName="gender" [options]="genderList" [autoDisplayFirst]="false"
+								<p-dropdown formControlName="gender" [options]="genderList"  placeholder="Gender" [autoDisplayFirst]="false"
 								  optionLabel="value"></p-dropdown>
 							  </div>
 							  <div *ngIf="submitted && f.gender.errors" class="invalid-feedback">
@@ -357,10 +357,10 @@
 								  <p-dropdown formControlName="location" id="location" [filter]="true"
 									*ngIf="registrationForm.get('country').value==122" [filterBy]="'district'"
 									[options]="locationList" optionLabel="district" optionValue="id"
-									[autoDisplayFirst]="false"></p-dropdown>
+									[autoDisplayFirst]="false" placeholder="Location"></p-dropdown>
 								  <p-dropdown formControlName="location" id="location" [options]="locationList"
-									*ngIf="registrationForm.get('country').value!=122" optionLabel="district"
-									optionValue="id" [readonly]="true"></p-dropdown>
+									*ngIf="registrationForm.get('country').value!=122" plceh optionLabel="district"
+									optionValue="id" [readonly]="true" placeholder="Location"></p-dropdown>
 								</div>
 								<div *ngIf="submitted && f.location.errors" class="invalid-feedback">
 								  <div *ngIf="f.location.errors.required">Location is required</div>
