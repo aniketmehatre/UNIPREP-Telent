@@ -5,6 +5,8 @@ import {ResourceRoutingModule} from './resource-routing.module';
 import { ResourceComponent } from './resource.component';
 import {AccordionModule} from "primeng/accordion";
 import { TooltipModule } from 'primeng/tooltip';
+import { ReactiveFormsModule } from '@angular/forms';
+import { DropdownModule } from 'primeng/dropdown';
 
 
 @NgModule({
@@ -15,6 +17,9 @@ import { TooltipModule } from 'primeng/tooltip';
         CommonModule,
         ResourceRoutingModule,
         AccordionModule,
+        TooltipModule,
+        ReactiveFormsModule,
+        DropdownModule,
         TooltipModule
     ]
 })

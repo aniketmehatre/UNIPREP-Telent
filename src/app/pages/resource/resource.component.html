@@ -13,20 +13,22 @@
         </div>
         <div class="container-fluid">
           <div class="row">
+            <div class="col-md-3 text-md-start">
+              <span (click)="filterPopUp()"><button class="btn btn-outline-light px-4 py-3"
+                  type="button">Filter by</button></span>
+            </div>
+          </div>
+          <div class="row">
             <div *ngFor="let resource of resourceslist" class="col-md-3 col-12 mt-3 ">
-              <div class="card card-style text-black">
+              <div class="card card-style text-black ps-2 pe-2 pt-2" style="height: 100%;">
                 <a href={{resource.link}} class="fw-semibold text-dark text-start" target="_blank">
                   <div class="flex justify-content-between">
                     <div style="display: flex;">
                       <img style="width: 55px; margin-right: 10px;" src="{{resource.coverimage}}" alt="">
                       <div style="text-align: start; overflow: hidden;">
-                        <h6>
-                            <span style="font-size: 20px;">{{resource.title.length>15 ?resource.title.slice(0,15)
-                              +'...':resource.title}}</span>
-                          </h6>
-                        <p style="text-align: start; height: 38px; font-size: small; font-weight: 100px !important;">
-                          {{resource.resourcedescription.length > 75 ? resource.resourcedescription.slice(0, 75) + '...'
-                          : resource.resourcedescription}}
+                        <h6 style="font-size: medium;"><b>{{resource.title}}</b></h6>
+                        <p style="font-size: small; font-weight: 50px !important;">
+                          {{resource.resourcedescription.length > 75 ? resource.resourcedescription.slice(0, 75) + '...' : resource.resourcedescription}}
                         </p>
                       </div>
                     </div>
@@ -38,3 +40,36 @@
         </div>
       </div>
     </div>
+
+    	<!-- filter pop-up -->
+		<div class="modal" tabindex="-1" role="dialog" [ngStyle]="{ display: newfile }">
+			<div class="modal-dialog" role="document">
+				<form role="form" [formGroup]="filterform" (ngSubmit)="filtersubmit()">
+					<div class="modal-content" style="margin-top: 50% !important">
+						<div class="modal-header flex justify-content-between">
+							<h4 class="modal-title">Filter Resources</h4>
+							<span style="cursor: pointer"><i (click)="closenewfilePopup()"
+									class="fa-solid fa-circle-xmark fa-2x"></i></span>
+						</div>
+						<div class="modal-body">
+							<div class="row">
+								<div class="col-12">
+									<div class="form-group">
+
+										<label style="font-size: medium">Filter by Country</label>
+										<p-dropdown class="mt-2" placeholder="Select" formControlName="coutryname"
+											[options]="countries" optionValue="id" optionLabel="country"
+											styleClass="w-full" [filter]="true"></p-dropdown>
+									</div>
+								</div>
+							</div>
+							<span style="float: right">
+								<button type="submit" class="btn btn-dark"
+									style="background-color: var(--uniprep-primary) !important">Apply Filter</button>
+							</span>
+
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>

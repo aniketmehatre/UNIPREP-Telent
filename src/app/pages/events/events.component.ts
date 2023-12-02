@@ -31,7 +31,6 @@ export class EventsComponent implements OnInit {
   postevetdetaisl: any[] = [];
   valueNearYouFilter: string | undefined;
   selectedCountryId: any;
-  isDropdownDisabled:boolean=true;
   constructor(private fb: FormBuilder, private service:EventsService,private datePipe: DatePipe,private toast: MessageService,) { 
     this.filterform = this.fb.group({
       from: [''],
@@ -41,10 +40,6 @@ export class EventsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.selectedCountryId = localStorage.getItem('countryId');
-    this.filterform.patchValue({
-      country: Number(this.selectedCountryId)
-    })
     this.setActiveButton(this.activeButton)
     this.service.GetCountryList().subscribe((response) => {
       this.countries = response;
@@ -52,13 +47,11 @@ export class EventsComponent implements OnInit {
     let data = {
       perpage : 6,
       page : 1,
-      country: this.selectedCountryId,
     }
     this.getEventUpComming(data)
     let postdata={
       perpage : 6,
       page : 1,
-      country: this.selectedCountryId,
     }
     this.getPostEvent(postdata)
   }
@@ -101,7 +94,7 @@ export class EventsComponent implements OnInit {
       let data = {
         perpage : 6,
         page : 1,
-        country: this.selectedCountryId,
+        country: this.filterform.value.country,
         to:this.filterform.value.to,
         from:this.filterform.value.from,
         nearby_search:this.valueNearYouFilter
@@ -119,7 +112,6 @@ export class EventsComponent implements OnInit {
       let postdata={
         perpage : 6,
         page : 1,
-        country: this.selectedCountryId,
         nearby_search:this.valueNearYouFilter
       }
       this.getPostEvent(postdata)
@@ -143,7 +135,7 @@ export class EventsComponent implements OnInit {
       page : event.page + 1,
       to:this.filterform.value.to,
       from:this.filterform.value.from,
-      country: this.selectedCountryId,
+      country: this.filterform.value.country,
       nearby_search:this.valueNearYouFilter
     }
     this.getEventUpComming(data);
@@ -155,7 +147,7 @@ export class EventsComponent implements OnInit {
       perpage : this.perpage,
       page : event.page + 1,
       nearby_search:this.valueNearYouFilter,
-      country: this.selectedCountryId,
+      country: this.filterform.value.country,
     }
     this.getPostEvent(data);
   }
@@ -204,7 +196,7 @@ export class EventsComponent implements OnInit {
   }
   filtersubmit(){
     const formData = this.filterform.value;
-    if (!formData.to && !formData.from) {
+    if (!formData.to && !formData.from && !formData.country) {
       this.toast.add({ severity: 'error', summary: 'Error', detail: 'Please make sure you have some filter!' });
       return;
     }
@@ -212,7 +204,7 @@ export class EventsComponent implements OnInit {
     var data={
       to:this.filterform.value.to,
       from:this.filterform.value.from,
-      country: this.selectedCountryId,
+      country: this.filterform.value.country,
       page:1,
       perpage:6
     }
