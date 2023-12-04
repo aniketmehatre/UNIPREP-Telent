@@ -6,6 +6,35 @@
   border-radius: 0px 0px 10px 10px;
   margin-top: -13px;
 }
+.tutcard
+{
+  overflow: hidden;
+  .tutgradient
+  {
+    background: hsla(229, 35%, 38%, 1);
+
+    background: linear-gradient(90deg, hsla(229, 35%, 38%, 1) 0%, hsla(229, 35%, 38%, 0.1) 100%);
+    
+    background: -moz-linear-gradient(90deg, hsla(229, 35%, 38%, 1) 0%, hsla(229, 35%, 38%, 0.1) 100%);
+    
+    background: -webkit-linear-gradient(90deg, hsla(229, 35%, 38%, 1) 0%, hsla(229, 35%, 38%, 0.1) 100%);
+    position: absolute;
+    left:0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+  }
+  .tutorialcontent
+  {
+    position: absolute;
+    bottom: 1rem;
+    right: 1rem;
+    left: 1rem;
+  }
+}
+
+
+
 
 .card-style {
   border-radius: 0px 0px 10px 10px;
