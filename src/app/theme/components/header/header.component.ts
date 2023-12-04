@@ -567,7 +567,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   checkNewUSerLogin(): void {
     let userLoginCount = this.service._userLoginCount;
-    if (userLoginCount === 4) {
+    if (userLoginCount === 4 && this.service._checkExistsSubscription === 0) {
       this.freeTrial = true;
     }
   }
