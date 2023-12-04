@@ -11,16 +11,30 @@
                 </div>
             </div>
             <div class="container-fluid">
-                  <div class="wrapper" >
-                        <div class="card1 mt-2" *ngFor="let tutorial of tutoriallist">
+              <div class="row">
+                <div class="col-md-3 col-6" *ngFor="let tutorial of tutoriallist">
+                  <a class="text-decoration-none text-white" href="{{tutorial.link}}"  target="_blank">
+                  <div class="card my-2 position-relative tutcard"> 
+                    <div class="tutgradient"></div>
+                    <img src="{{tutorial.coverimage}}">
+                    <div class="tutorialcontent">
+                      <h5 class="mb-0 text-white">{{tutorial.title}}</h5>
+                      <p class="mb-0 text-white" title="{{tutorial.description}}">{{tutorial.description.length > 35 ? tutorial.description.slice(0, 35) + '...' : tutorial.description}}</p>
+                    </div>
+                  </div>
+                </a>
+                </div>
+              </div>
+                  <!-- <div class="wrapper" >
+                        <div class="card mt-2" >
                           <a href="{{tutorial.link}}" target="_blank">
                             <figure class="card__thumbnail">
                               <img src="{{tutorial.coverimage}}" style="opacity: 0.6;">
-                              <span class="card__title">{{tutorial.title}} <br><span class="card__title2">{{tutorial.description.length > 35 ? tutorial.description.slice(0, 35) + '...' : tutorial.description}}</span></span>                             
+                                                        
                             </figure>
                           </a>
                         </div> 
-                  </div>
+                  </div> -->
               </div>
         </div>
     </div>
