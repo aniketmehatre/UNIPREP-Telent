@@ -418,7 +418,11 @@ export class HeaderComponent implements OnInit, OnDestroy {
   subScribedUserCount(): void{
     this.service.getNewUserTimeLeft().subscribe(res => {
       let data = res.time_left;
-      this.getTimer(data.minutes, data.seconds, data.hours, data.days, data.months);
+      if (data.plan === 'not_started') {
+        this.visible = false;
+      } else {
+        this.getTimer(data.minutes, data.seconds, data.hours, data.days, data.months);
+      }
     });
   }
   getTimer(minute: any, sec: any, hours: any, days: any, months :any): void {

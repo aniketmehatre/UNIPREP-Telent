@@ -45,22 +45,24 @@ import { InputTextareaModule } from "primeng/inputtextarea";
 import { TooltipModule } from "primeng/tooltip";
 import { PrivacypolicyComponent } from "./footersection/privacypolicy/privacypolicy.component";
 import { PaginatorModule } from "primeng/paginator";
+import {ScrollTrackerDirective} from "./header-search/scroll-tracker.directive";
 
 @NgModule({
-  declarations: [
-    PagesComponent,
-    ButtonComponent,
-    CardsComponent,
-    HelpSupportComponent,
-    UserManagementComponent,
-    EditprofileComponent,
-    FooterStatusBoxComponent,
-    HeaderSearchComponent,
-    QuestionCreditComponent,
-    ChatComponent,
-    GuidelineComponent,
-    PrivacypolicyComponent,
-  ],
+    declarations: [
+        PagesComponent,
+        ButtonComponent,
+        CardsComponent,
+        HelpSupportComponent,
+        UserManagementComponent,
+        EditprofileComponent,
+        FooterStatusBoxComponent,
+        HeaderSearchComponent,
+        QuestionCreditComponent,
+        ChatComponent,
+        GuidelineComponent,
+        PrivacypolicyComponent,
+        ScrollTrackerDirective,
+    ],
   exports: [FooterStatusBoxComponent, HeaderSearchComponent],
   imports: [
     CommonModule,
