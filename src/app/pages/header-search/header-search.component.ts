@@ -83,6 +83,10 @@ export class HeaderSearchComponent implements OnInit, OnDestroy {
     }
   }
 
+  onScrollingFinished() {
+    console.log('load more');
+  }
+
 
   loadMore(): void {
     this.page++;

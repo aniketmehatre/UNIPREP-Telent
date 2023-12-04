@@ -9,9 +9,11 @@
 			<button (click)="searchKeyWord(searchInput)" class="btn-primary" label="Search" pButton pRipple type="button"></button>
 		</div>
 		<div>
-			<ul *ngIf="isSearchResultFound" (scroll)="scrollHandler($event)" class="list-group list-group-flush shadow-lg" #listgroup>
-				<li *ngFor="let c of searchResult" class="list-group-item border-0 pt-0 pb-0 mt-0 mb-0">
-					<div class="row">
+			<ul *ngIf="isSearchResultFound" (scroll)="scrollHandler($event)" scrollTracker
+				(scrollingFinished)="onScrollingFinished()"
+				class="multiselect-list list-group list-group-flush shadow-lg" #listgroup>
+				<li *ngFor="let c of searchResult" class="list-group-item border-0 pt-0 pb-0 mt-0 mb-0 multiselect-list--option">
+					<div class="row ">
 						<div class="col-md-9" (click)="gerSelectedQuestion(c)">
 							<span [innerHTML]="dataContentChange(c.question)" class="pr-4 fa-sm" style="font-size: 12px; cursor: pointer"> </span>
 						</div>
@@ -21,7 +23,7 @@
 						</div>
 					</div>
 				</li>
-				<li class="list-group-item border-0 scroller">
+				<li class="list-group-item border-0 ">
 					<div class="row mt-2">
 						<div class="col-md-6 text-start">
 							<p class="text-left fa-sm fw-bold">If you can't find your Question! <span (click)="openChat()" role="button" class="text-primary font-primarycolor">Ask Us</span></p>
