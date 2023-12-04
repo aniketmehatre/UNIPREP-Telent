@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { EventsService } from './events.service';
 import { DatePipe } from '@angular/common';
 import { MessageService } from 'primeng/api';
@@ -37,8 +37,15 @@ export class EventsComponent implements OnInit {
       to: [''],
       country: ['']
     });
-  }
+    // this.filterform.get('to')?.valueChanges.subscribe(() => {
+    //   this.updateToValidator();
+    // });
 
+    // // Apply the dateRangeValidator to the 'from' control conditionally
+    // this.filterform.get('from')?.valueChanges.subscribe(() => {
+    //   this.updateFromValidator();
+    // });
+  }
   ngOnInit(): void {
     this.setActiveButton(this.activeButton)
     this.service.GetCountryList().subscribe((response) => {
