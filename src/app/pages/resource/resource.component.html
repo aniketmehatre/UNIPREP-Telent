@@ -20,18 +20,16 @@
           </div>
           <div class="row">
             <div *ngFor="let resource of resourceslist" class="col-md-3 col-12 mt-3 ">
-              <div class="card card-style text-black ps-2 pe-2 pt-2" style="height: 100%;">
-                <a href={{resource.link}} class="fw-semibold text-dark text-start" target="_blank">
-                  <div class="flex justify-content-between">
-                    <div style="display: flex;">
-                      <img style="width: 55px; margin-right: 10px;" src="{{resource.coverimage}}" alt="">
-                      <div style="text-align: start; overflow: hidden;">
-                        <h6 style="font-size: medium;"><b>{{resource.title}}</b></h6>
-                        <p style="font-size: small; font-weight: 50px !important;">
+              <div class="card justify-content-center card-style text-black p-2 h-100" >
+                <a href={{resource.link}} class="text-dark text-start" target="_blank">
+                  <div class="d-flex gap-3 align-items-center">
+                      <div class="resourceimg"><img src="{{resource.coverimage}}" alt=""></div>
+                      <div>
+                        <h5 title="{{resource.title}}">{{resource.title}}</h5>
+                        <p class="small mb-0">
                           {{resource.resourcedescription.length > 75 ? resource.resourcedescription.slice(0, 75) + '...' : resource.resourcedescription}}
                         </p>
                       </div>
-                    </div>
                   </div>
                 </a>
               </div>

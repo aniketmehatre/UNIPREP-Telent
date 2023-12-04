@@ -7,6 +7,16 @@
     margin-top: -13px;
   }
 
+  .resourceimg
+  {
+    width:60px;
+    height:60px;
+    img
+    {
+      width:inherit;
+    }
+  }
+
 .card-style {
   border: 1px solid #3F4C83;
   border-radius: 0px 0px 10px 10px;
