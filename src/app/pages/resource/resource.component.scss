@@ -8,26 +8,45 @@
   }
 
 .card-style {
+  border: 1px solid #3F4C83;
   border-radius: 0px 0px 10px 10px;
-  background-color: #F5F5F5;
+  background-color: #FFFFFF;
   a
   {
     color:#001631;
-    padding: 1.5rem 1rem;
     text-decoration: none;
   }
   &:hover
   {
-    background-color: var(--uniprep-primary);
-    color:#fff;
-    a
-    {
-      color:#fff !important;
-    }
+    background-color: #EBEDF2;
+    
   }
 }
 .readingcard
 {
   height:60vh;
   overflow-y:auto;
+}
+
+
+// css
+/* Add more styles for larger screens if needed */
+@media only screen and (max-width: 768px) {
+  /* Adjust styles for smaller screens */
+  .card-style {
+    /* Add responsive styles here */
+  }
+  
+  .card-style img {
+    width: 100%; /* Make the image take 100% width of its container */
+    margin-right: 0; /* Remove margin for small screens */
+  }
+  
+  .card-style h6 {
+    font-size: small; /* Adjust font size for smaller screens */
+  }
+  
+  .card-style p {
+    font-size: x-small; /* Adjust font size for smaller screens */
+  }
 }

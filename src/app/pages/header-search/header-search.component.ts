@@ -74,7 +74,7 @@ export class HeaderSearchComponent implements OnInit, OnDestroy {
   @HostListener('window:scroll', ['$event'])
   scrollHandler(event: any) {
     var insightsResults = document.getElementsByClassName(
-        'list-group-item'
+        'scroller'
     )[0];
     var childInsights = insightsResults?.scrollHeight;
     var windowScroll = window.scrollY;
@@ -122,8 +122,8 @@ export class HeaderSearchComponent implements OnInit, OnDestroy {
     let searchValue = this.searchKeyword;
     const small = new RegExp(searchValue, "g");
     const caps = new RegExp(searchValue.toUpperCase(), "g");
-    let newText = test.replace(small, '<span class="fw-bold">' + searchValue + '</span>')
-    return newText.replace(caps, '<span class="fw-bold">' + searchValue + '</span>');
+    let newText = test.replace(small, '<span class="fw-bold sec-color" style="color:#F0780C">' + searchValue + '</span>')
+    return newText.replace(caps, '<span class="fw-bold sec-color"  style="color:#F0780C">' + searchValue + '</span>');
   }
 
   searchKeyWord(searchInput: any) {
@@ -153,7 +153,7 @@ export class HeaderSearchComponent implements OnInit, OnDestroy {
         searchedResult = searchedResult.split(" ");
         searchedResult.forEach((element: any) => {
           const small = new RegExp(element, "i");
-          data.question = data.question.replace(small, '<span class="fw-bold">' + element + '</span>');
+          data.question = data.question.replace(small, '<span class="fw-bold sec-color" style="color:#F0780C">' + element + '</span>');
         });
         // for (let x in searchedResult) {
         //   ans = ans.replace(new RegExp(x, 'g'), '<span class="fw-bold">' + x + '</span>');
@@ -163,17 +163,6 @@ export class HeaderSearchComponent implements OnInit, OnDestroy {
       this.toastr.add({ severity: 'error', summary: 'Error', detail: err });
     });
   }
-
-  allReplace(str: any) {
-    let searchedResult = this.searchInputValue;
-    searchedResult = searchedResult.split(" ");
-    for (const x in searchedResult) {
-      let word = '<span class="fw-bold">' + x + '</span>';
-      str = str.replace(new RegExp(x, 'g'), word);
-    }
-    return str;
-  };
-
 
   gerSelectedQuestion(selectedQuestionData: any) {
     this.selectedQuestionData = selectedQuestionData;

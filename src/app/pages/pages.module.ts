@@ -44,6 +44,7 @@ import { OverlayPanelModule } from "primeng/overlaypanel";
 import { InputTextareaModule } from "primeng/inputtextarea";
 import { TooltipModule } from "primeng/tooltip";
 import { PrivacypolicyComponent } from "./footersection/privacypolicy/privacypolicy.component";
+import { PaginatorModule } from "primeng/paginator";
 
 @NgModule({
   declarations: [
@@ -79,6 +80,7 @@ import { PrivacypolicyComponent } from "./footersection/privacypolicy/privacypol
     MultiSelectModule,
     CarouselModule,
     DialogModule,
+    PaginatorModule,
     BreadcrumbModule,
     FormsModule,
     InputSwitchModule,
