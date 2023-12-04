@@ -1,13 +1,13 @@
 
-		<div class="card h-100">
+		<div class="card readingcard">
 				<div class="card-body">
 					<div class="mb-4">
 						<div class="d-flex"><h4 class="sop-border sop-header">Frequently Asked Questions</h4></div>
 					</div>
 					<div class="row">
 						<div class="col-md-3">
-							<p><b>Table of content</b></p>
 							<ul class="menulist">
+								<p><b>Table of content</b></p>
 								<li *ngFor="let faqcat of faqcatlist"  (click)="onFaqcatClick(faqcat.id)" [class.active]="faqcat.id === activeCategory">{{ faqcat.name }}</li>
 							</ul>
 						</div>
