@@ -122,8 +122,8 @@ export class HeaderSearchComponent implements OnInit, OnDestroy {
     let searchValue = this.searchKeyword;
     const small = new RegExp(searchValue, "g");
     const caps = new RegExp(searchValue.toUpperCase(), "g");
-    let newText = test.replace(small, '<span class="fw-bold sec-color" style="color:#F0780C">' + searchValue + '</span>')
-    return newText.replace(caps, '<span class="fw-bold sec-color"  style="color:#F0780C">' + searchValue + '</span>');
+    let newText = test.replace(small, '<span class="fw-bold uniprep-secondary" >' + searchValue + '</span>')
+    return newText.replace(caps, '<span class="fw-bold uniprep-secondary">' + searchValue + '</span>');
   }
 
   searchKeyWord(searchInput: any) {
