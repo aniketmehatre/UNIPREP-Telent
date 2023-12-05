@@ -52,13 +52,13 @@
 			<div class="card h-100">
 				<div class="card-body d-flex justify-content-evenly flex-column">
 					<div class="row mb-3">
-						<div class="col-md-6 col-lg-6 d-flex order-2 order-md-1">
+						<div class="col-md-6 col-lg-6 col-6 d-flex order-1 order-md-1">
 							<button (click)="openReading()" class="btn w-100 btn-primary homecardbtn m-0 px-4 py-3">
 								<i class="fa-regular h3 fa-paste"></i>
 								<p class="mb-0">Start<br />Reading</p>
 							</button>
 						</div>
-						<div class="col-md-6 col-lg-6 d-flex align-items-center order-1 order-md-2">
+						<div class="col-md-6 col-lg-6 col-6 d-flex align-items-center order-2 order-md-2">
 							<div [attr.data-percentage]="readProgressionPercentage" class="progress">
 								<span class="progress-left">
 									<span class="progress-bar"></span>
@@ -150,7 +150,7 @@
 				</div>
 				<div class="modal-body card-body">
 					<div class="container">
-						<div class="row mb-5">
+						<div class="row mb-2">
 							<div class="col-md-12 px-4">
 								<div class="row">
 									<div *ngFor="let readPro of readingProgressings" class="col-md-6 p-2">
