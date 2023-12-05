@@ -1,3 +1,8 @@
+.horizontal-scroll-container {
+	overflow-x: hidden;
+	white-space: nowrap;
+	-webkit-overflow-scrolling: touch; /* For smooth scrolling on iOS devices */
+  }
 .selected-box {
 	background: var(--uniprep-primaryop10);
 	color: black;
@@ -113,6 +118,15 @@
 			height: 85px !important;
 		}
 	}
+	.horizontal-scroll-container {
+		overflow-x: scroll;
+	  }
+	
+	  /* Optionally, you can adjust padding or other styles for desktop */
+	  .horizontal-scroll-container {
+		padding: 0;
+		/* Other desktop-specific styles */
+	  }
 }
 
 @media (max-width: 991.98px) {
@@ -121,6 +135,15 @@
 			height: 60px !important;
 		}
 	}
+	.horizontal-scroll-container {
+		overflow-x: scroll;
+	  }
+	
+	  /* Optionally, you can adjust padding or other styles for desktop */
+	  .horizontal-scroll-container {
+		padding: 0;
+		/* Other desktop-specific styles */
+	  }
 }
 
 @media (max-width: 767.98px) {
@@ -129,6 +152,15 @@
 			height: 50px !important;
 		}
 	}
+	.horizontal-scroll-container {
+		overflow-x: scroll;
+	  }
+	
+	  /* Optionally, you can adjust padding or other styles for desktop */
+	  .horizontal-scroll-container {
+		padding: 0;
+		/* Other desktop-specific styles */
+	  }
 }
 
 @media (max-width: 575.98px) {
@@ -137,4 +169,13 @@
 			height: 40px !important;
 		}
 	}
+	.horizontal-scroll-container {
+		overflow-x: scroll;
+	  }
+	
+	  /* Optionally, you can adjust padding or other styles for desktop */
+	  .horizontal-scroll-container {
+		padding: 0;
+		/* Other desktop-specific styles */
+	  }
 }
