@@ -50,7 +50,7 @@
 <!--<uni-side-menu [menus]="menus"></uni-side-menu>-->
 <ul id="menu-items">
   <li class=" position-relative">
-    <p class="px-3 fw-semibold text-small"><span class="maintext">Main</span> Menu</p>
+    <p class="px-3 fw-semibold text-small mb-2"><span class="maintext">Main</span> Menu</p>
   </li>
   <li [ngClass]="{'menu-item': true, 'active': item.active, 'overlap': isOverlap}" *ngFor="let item of menus">
     <ng-container *ngIf="item.header; else menu">
@@ -60,7 +60,7 @@
       </div>
     </ng-container>
     <ng-template #menu>
-      <div class="fw-bold system-main__apps mr-4" *ngIf="item.title == 'Study' || item.title == 'Career' || item.title == 'Life' || item.title == 'Subscription' || item.title == 'Support'">
+      <div class="fw-semibold px-3 py-1 submenutitle mr-4" *ngIf="item.title == 'Study' || item.title == 'Career' || item.title == 'Life' || item.title == 'Subscription' || item.title == 'Support'">
         {{ item.title }}
       </div>
       <div *ngIf="item.title != 'Study' && item.title != 'Career' && item.title != 'Life' && item.title != 'Subscription' && item.title != 'Support' " class="system-main__apps" (click)="onexpand(item)">
