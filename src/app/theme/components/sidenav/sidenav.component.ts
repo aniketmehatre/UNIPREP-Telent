@@ -39,6 +39,11 @@ export class SidenavComponent {
       image: 'fa-solid fa-house',
     },
     {
+      title: 'Subscription',
+      url: '/pages/subscriptions',
+      image: 'fa-solid fa-crown',
+    },
+    {
       title: 'Study',
       url: '',
       image: '',
@@ -84,6 +89,11 @@ export class SidenavComponent {
       image: 'fa-solid fa-earth-americas',
     },
     {
+      title: 'Explore',
+      url: '',
+      image: '',
+    },
+    {
       title: 'Events',
       url: '/pages/events',
       image: 'fa-solid fa-calendar-days',
@@ -92,16 +102,6 @@ export class SidenavComponent {
       title: 'Resources',
       url: '/pages/resource',
       image: 'fa-solid fa-link',
-    },
-    {
-      title: 'Subscription',
-      url: '',
-      image: '',
-    },
-    {
-      title: 'My Subscription',
-      url: '/pages/subscriptions',
-      image: 'fa-solid fa-crown',
     },
     {
       title: 'Support',
