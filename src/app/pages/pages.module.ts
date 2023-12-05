@@ -46,6 +46,7 @@ import { TooltipModule } from "primeng/tooltip";
 import { PrivacypolicyComponent } from "./footersection/privacypolicy/privacypolicy.component";
 import { PaginatorModule } from "primeng/paginator";
 import {ScrollTrackerDirective} from "./header-search/scroll-tracker.directive";
+import { RefundpolicyComponent } from './footersection/refundpolicy/refundpolicy.component';
 
 @NgModule({
     declarations: [
@@ -62,6 +63,7 @@ import {ScrollTrackerDirective} from "./header-search/scroll-tracker.directive";
         GuidelineComponent,
         PrivacypolicyComponent,
         ScrollTrackerDirective,
+        RefundpolicyComponent,
     ],
   exports: [FooterStatusBoxComponent, HeaderSearchComponent],
   imports: [

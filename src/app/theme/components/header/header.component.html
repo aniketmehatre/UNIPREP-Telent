@@ -1,6 +1,6 @@
-<nav>
+<nav class="px-0">
 	<div class="container-fluid">
-		<div class="row justify-content-between h-100">
+		<div class="row justify-content-between align-items-center">
 			<div class="col-md-1 col-12">
 				<div class="d-flex justify-content-between">
 					<div class="d-flex align-items-center">
@@ -37,33 +37,36 @@
 				<div class="d-flex justify-content-md-end justify-content-start mt-3 mt-md-0">
 					<div class="d-flex justify-content-center align-items-center">
 						<h6 class="mb-0 d-none d-md-block">Time Left</h6>
-						<i class="ps-1 pe-2 fa-solid fa-hourglass-end h4 mb-0"></i>
+						<i class="ps-1 pe-2 fa-solid fa-hourglass-end h4 mb-0 uniprep-secondary"></i>
 					</div>
 					<div class="d-flex">
-						<div class="col d-flex flex-column px-1">
+						<div class="col d-flex flex-column align-items-center px-1">
 							<div class="boxView fw-semibold text-green">{{ month + "" }}</div>
 							<span class="timertext text-uppercase">Months</span>
 						</div>
-						<div class="col d-flex flex-column px-1">
+						<div class="d-flex flex-column align-items-center justify-content-center"><span>:</span><span class="timertext">&nbsp;</span></div>
+						<div class="col d-flex flex-column align-items-center px-1">
 							<div class="boxView fw-semibold text-green">{{ day + "" }}</div>
 							<span class="timertext text-uppercase">Days</span>
 						</div>
-						<div class="col d-flex flex-column px-1">
+						<div class="d-flex flex-column align-items-center justify-content-center"><span>:</span><span class="timertext">&nbsp;</span></div>
+						<div class="col d-flex flex-column align-items-center px-1">
 							<div class="boxView fw-semibold text-green">{{ hrs + "" }}</div>
 							<span class="timertext text-uppercase">Hrs</span>
 						</div>
-						<div class="col d-flex flex-column px-1">
+						<div class="d-flex flex-column align-items-center justify-content-center"><span>:</span><span class="timertext">&nbsp;</span></div>
+						<div class="col d-flex flex-column align-items-center px-1">
 							<div class="boxView fw-semibold text-green">{{ min + "" }}</div>
 							<span class="timertext text-uppercase">Mins</span>
 						</div>
-						<div class="col d-flex flex-column px-1">
+						<div class="d-flex flex-column align-items-center justify-content-center"><span>:</span><span class="timertext">&nbsp;</span></div>
+						<div class="col d-flex flex-column align-items-center px-1">
 							<div class="boxView fw-semibold text-green">{{ sec + "" }}</div>
 							<span class="timertext text-uppercase">Sec</span>
 						</div>
 					</div>
 					<div label="" role="button" class="headercountry me-2 d-none d-md-block">
 						<img src="{{ headerFlag }}" alt="flag" height="auto" width="auto" />
-
 						<!-- <img src="{{ headerFlag }}" alt="United Kingdom" height="auto" width="auto" (click)="openFlagModal(totalCountryList, $event)"/> -->
 					</div>
 					<button class="d-md-block d-none btn btn-primary btn-rounded me-2 ms-0 my-0"
@@ -106,34 +109,38 @@
 				</div>
 			</div>
 			<div class="col-md-11 col-12" *ngIf="!userLoginTimeLeftCount">
-				<div class="d-flex justify-content-md-end justify-content-start mt-3 mt-md-0">
+				<div class="d-flex align-items-center justify-content-md-end justify-content-start mt-3 mt-md-0">
 					<div class="d-flex justify-content-center align-items-center">
 						<h6 class="mb-0 d-none d-md-block">Time Left</h6>
-						<i class="ps-1 pe-2 fa-solid fa-hourglass-end h4 mb-0"></i>
+						<i class="ps-1 pe-2 fa-solid fa-hourglass-end h4 mb-0  uniprep-secondary"></i>
 					</div>
-					<div class="d-flex">
-						<div class="col d-flex flex-column px-1">
-							<div class="boxView fw-semibold text-green">{{timeDays}}</div>
+					<div class="d-flex me-2">
+						<div class="col d-flex flex-column align-items-center px-1">
+							<div class="boxView fw-semibold text-green">{{ month + "" }}</div>
+							<span class="timertext text-uppercase">Months</span>
+						</div>
+						<div class="d-flex flex-column align-items-center justify-content-center"><span>:</span><span class="timertext">&nbsp;</span></div>
+						<div class="col d-flex flex-column align-items-center px-1">
+							<div class="boxView fw-semibold text-green">{{ day + "" }}</div>
 							<span class="timertext text-uppercase">Days</span>
 						</div>
-						<div class="col d-flex flex-column px-1">
-							<div class="boxView fw-semibold text-green">{{timeHours}}</div>
-							<span class="timertext text-uppercase">Hours</span>
-						</div> :
-						<div class="col d-flex flex-column px-1">
-							<div class="boxView fw-semibold text-green">{{timeLeftMins}}</div>
+						<div class="d-flex flex-column align-items-center justify-content-center"><span>:</span><span class="timertext">&nbsp;</span></div>
+						<div class="col d-flex flex-column align-items-center px-1">
+							<div class="boxView fw-semibold text-green">{{ hrs + "" }}</div>
+							<span class="timertext text-uppercase">Hrs</span>
+						</div>
+						<div class="d-flex flex-column align-items-center justify-content-center"><span>:</span><span class="timertext">&nbsp;</span></div>
+						<div class="col d-flex flex-column align-items-center px-1">
+							<div class="boxView fw-semibold text-green">{{ min + "" }}</div>
 							<span class="timertext text-uppercase">Mins</span>
-						</div> :
-						<div class="col d-flex flex-column px-1">
-							<div class="boxView fw-semibold text-green">{{timeLeftSecs}}</div>
+						</div>
+						<div class="d-flex flex-column align-items-center justify-content-center"><span>:</span><span class="timertext">&nbsp;</span></div>
+						<div class="col d-flex flex-column align-items-center px-1">
+							<div class="boxView fw-semibold text-green">{{ sec + "" }}</div>
 							<span class="timertext text-uppercase">Sec</span>
 						</div>
 					</div>
 					<!-- <div label="" role="button" class="headercountry me-2 d-none d-md-block" (click)="openFlagModal(totalCountryList, $event)"> -->
-
-					<div label="" role="button" class="headercountry me-2 d-none d-md-block" title="Selected Country" >
-						<img src="{{ headerFlag }}" alt="flag" height="auto" width="auto"/>
-					</div>
 					<button title="Subscribe" class="d-md-block d-none btn btn-primary btn-rounded me-2 ms-0 my-0"
 						alt="chat with notification" (click)="onClickSubscribe()"><span
 							class="text-small fw-normal px-3">Subscribe Now</span></button>
@@ -141,6 +148,9 @@
 						(click)="openReportModal(op, $event)" alt="reports">
 						<span class="text-small fw-normal px-4"><i class="fa-solid fa-bug"></i> Report</span>
 					</button>
+					<div label="" role="button" class="headercountry me-2 d-none d-md-block" title="Selected Country" >
+						<img src="{{ headerFlag }}" alt="flag" height="auto" width="auto"/>
+					</div>
 					<div class="d-none d-md-block">
 						<a (click)="openchat()" title="Chat">
 							<p-avatar class="" label="" role="button"><i class="fa-solid fa-comments"></i></p-avatar>
