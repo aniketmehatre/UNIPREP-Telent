@@ -425,32 +425,35 @@ export class HeaderComponent implements OnInit, OnDestroy {
       }
     });
   }
+
   getTimer(minute: any, sec: any, hours: any, days: any, months :any): void {
     let seconds: number = minute * 60;
     let textSec: any = '0';
-    let statSec: number = sec;
+    let statSec: number = 60;
     const prefix = minute < 10 ? '0' : '';
     this.timerInterval = setInterval(() => {
       seconds--;
       if (statSec != 0) statSec--;
       else statSec = 59;
+
       if (statSec < 10) {
         textSec = '0' + statSec;
       } else textSec = statSec;
 
-      this.min = `${Math.floor(seconds / 60)}`
+      this.min = `${Math.floor(seconds / 60)}`;
       this.sec = `${textSec}`;
-      if (this.min <= 0) {
-        this.min = 0;
-        this.sec = 0;
-      }
-      this.month = months;
-      this.hrs = hours;
-      this.day = days;
-      if (this.min <= 0 && this.hrs <= 0 && this.day <= 0 && this.sec <= 0) {
-        this.visible = true;
-        clearInterval(this.timerInterval);
-      }
+
+        if (this.min <= 0) {
+          this.min = 0;
+          this.sec = 0;
+        }
+        this.month = months;
+        this.hrs = hours;
+        this.day = days;
+        if (this.min <= 0 && this.hrs <= 0 && this.day <= 0 && this.sec <= 0) {
+          this.visible = true;
+          clearInterval(this.timerInterval);
+        }
     }, 1000);
   }
 
@@ -467,7 +470,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   timer(minute: any, sec: any, hours: any, days: any): void {
     let seconds: number = minute * 60;
     let textSec: any = '0';
-    let statSec: number = sec;
+    let statSec: number = 60;
     const prefix = minute < 10 ? '0' : '';
     this.timerInterval = setInterval(() => {
       seconds--;
