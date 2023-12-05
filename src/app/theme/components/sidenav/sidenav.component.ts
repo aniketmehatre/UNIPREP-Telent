@@ -94,26 +94,36 @@ export class SidenavComponent {
       image: 'fa-solid fa-link',
     },
     {
+      title: 'Subscription',
+      url: '',
+      image: '',
+    },
+    {
+      title: 'My Subscription',
+      url: '/pages/subscriptions',
+      image: 'fa-solid fa-crown',
+    },
+    {
+      title: 'Support',
+      url: '',
+      image: '',
+    },
+    {
       title: 'Tutorials',
       url: '/pages/tutorials',
       image: 'fa-solid fa-video',
-    },
-    {
-      title: 'Subscription',
-      url: '/pages/subscriptions',
-      image: 'fa-solid fa-crown',
     },
     {
       title: 'FAQ',
       url: '/pages/faq',
       image: 'fa-solid fa-comments-question',
     },
-    // {
-    //   title: 'Help & Support',
-    //   url: '/pages/help',
-    //   image: 'fa-solid fa-phone-volume',
-    // }
-    //,
+    {
+      title: 'Help & Support',
+      url: '/pages/help',
+      image: 'fa-solid fa-phone-volume',
+    }
+    ,
     // {
     //   title: 'USER MANAGER',
     //   url: '/pages/usermanagement',

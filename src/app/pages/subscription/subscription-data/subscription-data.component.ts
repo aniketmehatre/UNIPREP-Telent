@@ -39,12 +39,15 @@ export class SubscriptionDataComponent implements OnInit {
   studentType: number = 0;
   loadingCountry: boolean = false;
   loadingUserDetails: boolean = false;
+  discountAmount: any;
+  discountAmountEnable!: boolean;
 
   constructor(private authService: AuthService,
     private subscriptionService: SubscriptionService,
     private toast: MessageService) { }
 
   ngOnInit(): void {
+    this.discountAmountEnable = false;
     this.authService.getCountry().subscribe((data) => {
       this.countryList = data;
       this.loadingCountry = true;
@@ -188,6 +191,8 @@ export class SubscriptionDataComponent implements OnInit {
       this.subscriptionService.applyCoupon(data).subscribe((response) => {
         if (response.success) {
           this.checkoutTotal = Number(this.subscriptionTotal) - response.discountPrice;
+          this.discountAmount = response.discountPrice;
+          this.discountAmountEnable = true;
           this.toast.add({ severity: 'success', summary: 'Success', detail: "Coupon" + response.discountPrice + "applied" });
         }
         else {
