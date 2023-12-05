@@ -432,6 +432,20 @@ uni-recentlyaddedquestions {
 	}
 }
 
+uni-subscription-history
+{
+	display: flex;
+	flex: 1;
+	height: 100%;
+	flex-direction: column; /* Ensure flex children stack vertically */
+	overflow: hidden;
+	.historycard
+	{
+		flex: 1;
+		overflow-y: auto;
+	}
+}
+
 uni-subscription {
 	display: flex;
 	flex: 1;

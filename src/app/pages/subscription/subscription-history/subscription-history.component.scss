@@ -5,11 +5,29 @@
 //     border: 2px solid var(--uniprep-primaryop10);
 //     border-radius: 100%;
 // }
-.sop-header{
-  color: #001631;
-  font-size: 30px !important;
-  font-weight: 500 !important;
-}
+// sop
+@media screen and (min-width: 500px) and (max-width: 1200px) {
+  .sop-border:after {
+      width: 350px !important;
+    }
+  }
+  @media screen and (min-width: 1200px) and (max-width: 1600px) {
+    .sop-border:after {
+      width: 700px !important;
+    }
+  }
+  
+  @media screen and (min-width: 380px) and (max-width: 500px) {
+    .sop-border:after {
+      width: 300px !important;
+    }
+  }
+  
+  @media screen and (max-width: 380px) {
+  .sop-border:after {
+      width: 250px !important;
+    }
+  }
 .sub-label {
   color: #3F4C83;
   font-size: 20px;
@@ -78,10 +96,6 @@
   /* Add other styles for active buttons */
 }
 
-// sop
-.sop-border:after {
-  width: 600px !important;
-}
 
 .scardFeatures {
   display: flex;
