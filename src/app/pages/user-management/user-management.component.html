@@ -86,7 +86,10 @@
                                     </div>
                                     <div class="col-md-3 p-4">
                                         <small>Intake Month</small>
-                                        <p class="mb-0 fw-semibold">{{ selectedDate| date:'MMM' || '-' }}</p>
+                                        <p class="mb-0 fw-semibold" *ngIf="PersonalInfo?.intake_month_looking else noMonth">{{ selectedDate| date:'MMM' || '-' }}</p>
+                                        <ng-template #noMonth>
+                                            <p class="mb-0 fw-semibold">-</p>
+                                        </ng-template>
                                     </div>
                                     <div class="col-md-3 p-4">
                                         <small>Intake Year</small>
