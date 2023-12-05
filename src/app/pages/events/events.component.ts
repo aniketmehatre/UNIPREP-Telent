@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { EventsService } from './events.service';
 import { DatePipe } from '@angular/common';
 import { MessageService } from 'primeng/api';
@@ -10,6 +10,18 @@ interface country {
   status: number,
   created_at: string,
   updated_at: string
+};
+// Custom validator function
+const dateRangeValidator: any = (control: FormGroup): ValidationErrors | null => {
+  const fromDate = control.get('from')?.value;
+  const toDate = control.get('to')?.value;
+
+  // Check if either both dates are selected or none of them is selected
+  if ((fromDate && !toDate) || (!fromDate && toDate)) {
+    return { dateRange: 'Please select both From date and To date.' };
+  }
+
+  return null;
 };
 @Component({
   selector: 'uni-events',
@@ -36,15 +48,7 @@ export class EventsComponent implements OnInit {
       from: [''],
       to: [''],
       country: ['']
-    });
-    // this.filterform.get('to')?.valueChanges.subscribe(() => {
-    //   this.updateToValidator();
-    // });
-
-    // // Apply the dateRangeValidator to the 'from' control conditionally
-    // this.filterform.get('from')?.valueChanges.subscribe(() => {
-    //   this.updateFromValidator();
-    // });
+    },{ validator: dateRangeValidator });
   }
   ngOnInit(): void {
     this.setActiveButton(this.activeButton)

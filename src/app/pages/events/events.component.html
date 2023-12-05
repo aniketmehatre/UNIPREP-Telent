@@ -231,6 +231,9 @@
 										<div class="mb-3">
 											<input placeholder="End date" type="date" formControlName="to"
 												class="form-control border-black paddingfive" />
+												<div *ngIf="filterform.hasError('dateRange')" class="text-danger">
+													{{ filterform.getError('dateRange') }}
+												  </div>
 										</div>
 									</div>
 								</div>
