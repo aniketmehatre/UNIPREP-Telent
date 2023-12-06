@@ -4,7 +4,8 @@
 			<div class="col-md-1 col-12">
 				<div class="d-flex justify-content-between">
 					<div class="d-flex align-items-center">
-						<div class="menutoggle my-2 me-3">
+						<div class="d-md-none d-block"><button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions" aria-controls="offcanvasWithBothOptions"><i class="fa-solid fa-bars"></i></button></div>
+						<div class="menutoggle d-md-block d-none my-2 me-3">
 							<button class="btn m-0 align-items-center d-flex" (click)="toggleMenu()">
 								<i class="fa-solid"
 									[ngClass]="isMenuOpen ? 'fa-arrow-left-to-line' : 'fa-arrow-right-to-line'"></i>

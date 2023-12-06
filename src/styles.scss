@@ -1666,17 +1666,17 @@ uni-subscription {
 		color: #fff !important;
 	}
 }
-#sidenav {
-	width: 235px;
-}
+// #sidenav {
+// 	width: 235px;
+// }
 @media (max-width: 1499.98px) {
 	html,
 	body {
 		font-size: 12px;
 	}
-	#sidenav {
-		width: 210px;
-	}
+	// #sidenav {
+	// 	width: 210px;
+	// }
 }
 
 @media (max-width: 1399.98px) {
@@ -1684,9 +1684,9 @@ uni-subscription {
 	body {
 		font-size: 12px;
 	}
-	#sidenav {
-		width: 210px;
-	}
+	// #sidenav {
+	// 	width: 210px;
+	// }
 }
 
 @media (max-width: 1299.98px) {
@@ -1694,9 +1694,9 @@ uni-subscription {
 	body {
 		font-size: 12px;
 	}
-	#sidenav {
-		width: 200px;
-	}
+	// #sidenav {
+	// 	width: 200px;
+	// }
 }
 
 @media (max-width: 1199.98px) {
@@ -1704,22 +1704,26 @@ uni-subscription {
 	body {
 		font-size: 12px;
 	}
-	#sidenav {
-		width: 175px;
-	}
+	// #sidenav {
+	// 	width: 175px;
+	// }
 }
 
 @media (max-width: 991.98px) {
-	#sidenav {
-		position: absolute !important;
-		z-index: 1;
-		background: white;
-		width: 33%;
-		transform: translateX(0) !important;
-		display: none;
-	}
-	.menuclosed {
-		display: none;
+	// #sidenav {
+	// 	position: absolute !important;
+	// 	z-index: 1;
+	// 	background: white;
+	// 	width: 33%;
+	// 	transform: translateX(0) !important;
+	// 	display: none;
+	// }
+	// .menuclosed {
+	// 	display: none;
+	// }
+	#sidenav
+	{
+		width:0;
 	}
 	.country {
 		min-width: 125px !important;
@@ -1735,17 +1739,17 @@ uni-subscription {
 }
 
 @media (max-width: 767.98px) {
-	#sidenav {
-		position: absolute !important;
-		z-index: 1;
-		background: white;
-		width: 50%;
-		transform: translateX(0) !important;
-		display: none;
-	}
-	.menuclosed {
-		display: none;
-	}
+	// #sidenav {
+	// 	position: absolute !important;
+	// 	z-index: 1;
+	// 	background: white;
+	// 	width: 50%;
+	// 	transform: translateX(0) !important;
+	// 	display: none;
+	// }
+	// .menuclosed {
+	// 	display: none;
+	// }
 	.country {
 		min-width: 125px !important;
 	}
@@ -1753,6 +1757,10 @@ uni-subscription {
 		.p-dialog {
 			width: 95%;
 		}
+	}
+	#sidenav
+	{
+		width:0;
 	}
 	.landingmodeswitch {
 		position: fixed !important;
@@ -1762,16 +1770,20 @@ uni-subscription {
 }
 
 @media (max-width: 575.98px) {
-	#sidenav {
-		position: absolute !important;
-		z-index: 1;
-		background: white;
-		width: 75%;
-		transform: translateX(0) !important;
-		display: none;
-	}
-	.menuclosed {
-		display: none;
+	// #sidenav {
+	// 	position: absolute !important;
+	// 	z-index: 1;
+	// 	background: white;
+	// 	width: 75%;
+	// 	transform: translateX(0) !important;
+	// 	display: none;
+	// }
+	// .menuclosed {
+	// 	display: none;
+	// }
+	#sidenav
+	{
+		width:0;
 	}
 	.country {
 		min-width: 125px !important;
