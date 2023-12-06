@@ -33,6 +33,17 @@ input:-webkit-autofill:active {
 	box-shadow: none;
 }
 
+.ngx-loading-logo
+{
+	height:120px !important;
+	top:50% !important;
+}
+
+.ngx-foreground-spinner
+{
+	top:60% !important;
+}
+
 .uniprep-primary {
 	color: var(--uniprep-primary);
 }
