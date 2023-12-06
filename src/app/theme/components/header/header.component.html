@@ -4,11 +4,14 @@
 			<div class="col-md-1 col-12">
 				<div class="d-flex justify-content-between">
 					<div class="d-flex align-items-center">
-						<div class="d-md-none d-block"><button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions" aria-controls="offcanvasWithBothOptions"><i class="fa-solid fa-bars"></i></button></div>
+						<div class="d-md-none d-block">
+							<a class="text-decoration-none uniprep-primary" data-bs-toggle="offcanvas" href="#offcanvasWithBothOptions" role="button" aria-controls="offcanvasWithBothOptions">
+								<i class="fa-solid fa-bars fa-2xl"></i>
+							</a>
+						</div>
 						<div class="menutoggle d-md-block d-none my-2 me-3">
 							<button class="btn m-0 align-items-center d-flex" (click)="toggleMenu()">
-								<i class="fa-solid"
-									[ngClass]="isMenuOpen ? 'fa-arrow-left-to-line' : 'fa-arrow-right-to-line'"></i>
+								<i class="fa-solid" [ngClass]="isMenuOpen ? 'fa-arrow-left-to-line' : 'fa-arrow-right-to-line'"></i>
 							</button>
 						</div>
 						<!-- <label class="me-2">
@@ -22,8 +25,9 @@
 						</label> -->
 					</div>
 					<div class="d-md-none d-flex align-items-center">
-						<a (click)="openchat()"><p-avatar class="" label="" role="button"> <i
-									class="fa-solid fa-comments"></i> </p-avatar></a>
+						<a (click)="openchat()"
+							><p-avatar class="" label="" role="button"> <i class="fa-solid fa-comments"></i> </p-avatar
+						></a>
 						<p-avatar (click)="togleSidebar.emit()" class="" label="" role="button">
 							<i class="fa-solid fa-bell"></i>
 						</p-avatar>
@@ -35,57 +39,66 @@
 			</div>
 
 			<div class="col-md-11 col-12" *ngIf="userLoginTimeLeftCount">
-				<div class="d-flex justify-content-md-end justify-content-start mt-3 mt-md-0">
-					<div class="d-flex justify-content-center align-items-center">
-						<h6 class="mb-0 d-none d-md-block">Time Left</h6>
-						<i class="ps-1 pe-2 fa-solid fa-hourglass-end h4 mb-0 uniprep-secondary"></i>
+				<div class="d-flex justify-content-md-end justify-content-between align-items-center mt-3 mt-md-0">
+					<div class="d-flex">
+						<div class="d-flex justify-content-center align-items-center">
+							<h6 class="mb-0 d-none d-md-block">Time Left</h6>
+							<i class="ps-1 pe-2 fa-solid fa-hourglass-end h4 mb-0 uniprep-secondary"></i>
+						</div>
+						<div class="d-flex me-2">
+							<div class="col d-flex flex-column align-items-center px-1">
+								<div class="boxView fw-semibold text-green">{{ month + "" }}</div>
+								<span class="timertext text-uppercase">Months</span>
+							</div>
+							<div class="d-flex flex-column align-items-center justify-content-center"><span>:</span><span class="timertext">&nbsp;</span></div>
+							<div class="col d-flex flex-column align-items-center px-1">
+								<div class="boxView fw-semibold text-green">{{ day + "" }}</div>
+								<span class="timertext text-uppercase">Days</span>
+							</div>
+							<div class="d-flex flex-column align-items-center justify-content-center"><span>:</span><span class="timertext">&nbsp;</span></div>
+							<div class="col d-flex flex-column align-items-center px-1">
+								<div class="boxView fw-semibold text-green">{{ hrs + "" }}</div>
+								<span class="timertext text-uppercase">Hrs</span>
+							</div>
+							<div class="d-flex flex-column align-items-center justify-content-center"><span>:</span><span class="timertext">&nbsp;</span></div>
+							<div class="col d-flex flex-column align-items-center px-1">
+								<div class="boxView fw-semibold text-green">{{ min + "" }}</div>
+								<span class="timertext text-uppercase">Mins</span>
+							</div>
+							<div class="d-flex flex-column align-items-center justify-content-center"><span>:</span><span class="timertext">&nbsp;</span></div>
+							<div class="col d-flex flex-column align-items-center px-1">
+								<div class="boxView fw-semibold text-green">{{ sec + "" }}</div>
+								<span class="timertext text-uppercase">Sec</span>
+							</div>
+						</div>
 					</div>
-					<div class="d-flex me-2">
-						<div class="col d-flex flex-column align-items-center px-1">
-							<div class="boxView fw-semibold text-green">{{ month + "" }}</div>
-							<span class="timertext text-uppercase">Months</span>
-						</div>
-						<div class="d-flex flex-column align-items-center justify-content-center"><span>:</span><span class="timertext">&nbsp;</span></div>
-						<div class="col d-flex flex-column align-items-center px-1">
-							<div class="boxView fw-semibold text-green">{{ day + "" }}</div>
-							<span class="timertext text-uppercase">Days</span>
-						</div>
-						<div class="d-flex flex-column align-items-center justify-content-center"><span>:</span><span class="timertext">&nbsp;</span></div>
-						<div class="col d-flex flex-column align-items-center px-1">
-							<div class="boxView fw-semibold text-green">{{ hrs + "" }}</div>
-							<span class="timertext text-uppercase">Hrs</span>
-						</div>
-						<div class="d-flex flex-column align-items-center justify-content-center"><span>:</span><span class="timertext">&nbsp;</span></div>
-						<div class="col d-flex flex-column align-items-center px-1">
-							<div class="boxView fw-semibold text-green">{{ min + "" }}</div>
-							<span class="timertext text-uppercase">Mins</span>
-						</div>
-						<div class="d-flex flex-column align-items-center justify-content-center"><span>:</span><span class="timertext">&nbsp;</span></div>
-						<div class="col d-flex flex-column align-items-center px-1">
-							<div class="boxView fw-semibold text-green">{{ sec + "" }}</div>
-							<span class="timertext text-uppercase">Sec</span>
-						</div>
+					
+					<div class="d-flex gap-2 d-md-none">
+						<button class="btn btn-primary p-3 m-0" alt="chat with notification" (click)="onClickSubscribe()"><i class="fa-solid fa-crown"></i></button>
+						<button class="btn btn-secondary p-3 m-0" (click)="openReportModal(op, $event)" alt="reports"><i class="fa-solid fa-circle-exclamation"></i>
+						</button>
 					</div>
-					<button class="d-md-block d-none btn btn-primary btn-rounded me-2 ms-0 my-0"
-						alt="chat with notification" (click)="onClickSubscribe()"><span
-							class="text-small fw-normal px-3">Subscribe Now</span></button>
-					<button class="d-md-block d-none btn btn-secondary btn-rounded me-2 ms-0 my-0"
-						(click)="openReportModal(op, $event)" alt="reports">
-						<span class="text-small fw-normal px-4"><i class="fa-solid fa-bug"></i> Report</span>
-					</button>
+					<div class="d-none d-md-block">
+						<button class="btn btn-primary btn-rounded me-2 ms-0 my-0" alt="chat with notification" (click)="onClickSubscribe()"><span class="text-small fw-normal px-3">Subscribe Now</span></button>
+						<button class="btn btn-secondary btn-rounded me-2 ms-0 my-0" (click)="openReportModal(op, $event)" alt="reports">
+							<span class="text-small fw-normal px-4"><i class="fa-solid fa-circle-exclamation"></i> Report</span>
+						</button>
+					</div>
+
 					<div label="" role="button" class="headercountry me-2 d-none d-md-block">
 						<img src="{{ headerFlag }}" alt="flag" height="auto" width="auto" />
 						<!-- <img src="{{ headerFlag }}" alt="United Kingdom" height="auto" width="auto" (click)="openFlagModal(totalCountryList, $event)"/> -->
 					</div>
 					<div class="d-none d-md-block">
-						<a (click)="openchat()"><p-avatar class="" label="" role="button"> <i
-									class="fa-solid fa-comments"></i> </p-avatar></a>
+						<a (click)="openchat()"
+							><p-avatar class="" label="" role="button"> <i class="fa-solid fa-comments"></i> </p-avatar
+						></a>
 						<!-- <p-avatar (click)="togleSidebar.emit()" class="" label="" role="button">
 							<i class="fa-solid fa-bell"></i>
 						</p-avatar> -->
 						<div class="dropdown profile-dropdown">
 							<button class="button" data-bs-toggle="dropdown" aria-expanded="false">
-								<span class="nme">{{ (firstChar || "")?.charAt(0) }}</span> 
+								<span class="nme">{{ (firstChar || "")?.charAt(0) }}</span>
 								<!-- <span class="fw-medium">{{userName }}</span> -->
 							</button>
 							<ul class="dropdown-menu">
@@ -101,8 +114,7 @@
 									</a>
 								</li>
 								<li>
-									<a class="dropdown-item pt-2 pb-2" (click)="logout()"><i
-											class="fa-solid fa-power-off me-2"></i>Logout</a>
+									<a class="dropdown-item pt-2 pb-2" (click)="logout()"><i class="fa-solid fa-power-off me-2"></i>Logout</a>
 								</li>
 							</ul>
 						</div>
@@ -110,47 +122,53 @@
 				</div>
 			</div>
 			<div class="col-md-11 col-12" *ngIf="!userLoginTimeLeftCount">
-				<div class="d-flex align-items-center justify-content-md-end justify-content-start mt-3 mt-md-0">
-					<div class="d-flex justify-content-center align-items-center">
-						<h6 class="mb-0 d-none d-md-block">Time Left</h6>
-						<i class="ps-1 pe-2 fa-solid fa-hourglass-end h4 mb-0  uniprep-secondary"></i>
-					</div>
-					<div class="d-flex me-2">
-						<div class="col d-flex flex-column align-items-center px-1">
-							<div class="boxView fw-semibold text-green">{{ month + "" }}</div>
-							<span class="timertext text-uppercase">Months</span>
+				<div class="d-flex align-items-center justify-content-md-end justify-content-between align-items-center mt-3 mt-md-0">
+					<div class="d-flex">
+						<div class="d-flex justify-content-center align-items-center">
+							<h6 class="mb-0 d-none d-md-block">Time Left</h6>
+							<i class="ps-1 pe-2 fa-solid fa-hourglass-end h4 mb-0 uniprep-secondary"></i>
 						</div>
-						<div class="d-flex flex-column align-items-center justify-content-center"><span>:</span><span class="timertext">&nbsp;</span></div>
-						<div class="col d-flex flex-column align-items-center px-1">
-							<div class="boxView fw-semibold text-green">{{ day + "" }}</div>
-							<span class="timertext text-uppercase">Days</span>
-						</div>
-						<div class="d-flex flex-column align-items-center justify-content-center"><span>:</span><span class="timertext">&nbsp;</span></div>
-						<div class="col d-flex flex-column align-items-center px-1">
-							<div class="boxView fw-semibold text-green">{{ hrs + "" }}</div>
-							<span class="timertext text-uppercase">Hrs</span>
-						</div>
-						<div class="d-flex flex-column align-items-center justify-content-center"><span>:</span><span class="timertext">&nbsp;</span></div>
-						<div class="col d-flex flex-column align-items-center px-1">
-							<div class="boxView fw-semibold text-green">{{ min + "" }}</div>
-							<span class="timertext text-uppercase">Mins</span>
-						</div>
-						<div class="d-flex flex-column align-items-center justify-content-center"><span>:</span><span class="timertext">&nbsp;</span></div>
-						<div class="col d-flex flex-column align-items-center px-1">
-							<div class="boxView fw-semibold text-green">{{ sec + "" }}</div>
-							<span class="timertext text-uppercase">Sec</span>
+						<div class="d-flex me-2">
+							<div class="col d-flex flex-column align-items-center px-1">
+								<div class="boxView fw-semibold text-green">{{ month + "" }}</div>
+								<span class="timertext text-uppercase">Months</span>
+							</div>
+							<div class="d-flex flex-column align-items-center justify-content-center"><span>:</span><span class="timertext">&nbsp;</span></div>
+							<div class="col d-flex flex-column align-items-center px-1">
+								<div class="boxView fw-semibold text-green">{{ day + "" }}</div>
+								<span class="timertext text-uppercase">Days</span>
+							</div>
+							<div class="d-flex flex-column align-items-center justify-content-center"><span>:</span><span class="timertext">&nbsp;</span></div>
+							<div class="col d-flex flex-column align-items-center px-1">
+								<div class="boxView fw-semibold text-green">{{ hrs + "" }}</div>
+								<span class="timertext text-uppercase">Hrs</span>
+							</div>
+							<div class="d-flex flex-column align-items-center justify-content-center"><span>:</span><span class="timertext">&nbsp;</span></div>
+							<div class="col d-flex flex-column align-items-center px-1">
+								<div class="boxView fw-semibold text-green">{{ min + "" }}</div>
+								<span class="timertext text-uppercase">Mins</span>
+							</div>
+							<div class="d-flex flex-column align-items-center justify-content-center"><span>:</span><span class="timertext">&nbsp;</span></div>
+							<div class="col d-flex flex-column align-items-center px-1">
+								<div class="boxView fw-semibold text-green">{{ sec + "" }}</div>
+								<span class="timertext text-uppercase">Sec</span>
+							</div>
 						</div>
 					</div>
 					<!-- <div label="" role="button" class="headercountry me-2 d-none d-md-block" (click)="openFlagModal(totalCountryList, $event)"> -->
-					<button title="Subscribe" class="d-md-block d-none btn btn-primary btn-rounded me-2 ms-0 my-0"
-						alt="chat with notification" (click)="onClickSubscribe()"><span
-							class="text-small fw-normal px-3">Subscribe Now</span></button>
-					<button title="Report" class="d-md-block d-none btn btn-secondary btn-rounded me-2 ms-0 my-0"
-						(click)="openReportModal(op, $event)" alt="reports">
-						<span class="text-small fw-normal px-4"><i class="fa-solid fa-bug"></i> Report</span>
-					</button>
-					<div label="" role="button" class="headercountry me-2 d-none d-md-block" title="Selected Country" >
-						<img src="{{ headerFlag }}" alt="flag" height="auto" width="auto"/>
+						<div class="d-flex gap-2 d-md-none">
+							<button class="btn btn-primary p-3 m-0" alt="chat with notification" (click)="onClickSubscribe()"><i class="fa-solid fa-crown"></i></button>
+							<button class="btn btn-secondary p-3 m-0" (click)="openReportModal(op, $event)" alt="reports"><i class="fa-solid fa-circle-exclamation"></i>
+							</button>
+						</div>
+					<div class="d-none d-md-block">
+						<button class="btn btn-primary btn-rounded me-2 ms-0 my-0" alt="chat with notification" (click)="onClickSubscribe()"><span class="text-small fw-normal px-3">Subscribe Now</span></button>
+						<button class="btn btn-secondary btn-rounded me-2 ms-0 my-0" (click)="openReportModal(op, $event)" alt="reports">
+							<span class="text-small fw-normal px-4"><i class="fa-solid fa-bug"></i> Report</span>
+						</button>
+					</div>
+					<div label="" role="button" class="headercountry me-2 d-none d-md-block" title="Selected Country">
+						<img src="{{ headerFlag }}" alt="flag" height="auto" width="auto" />
 					</div>
 					<div class="d-none d-md-block">
 						<a (click)="openchat()" title="Chat">
@@ -177,8 +195,7 @@
 									</a>
 								</li>
 								<li>
-									<a class="dropdown-item pt-2 pb-2" (click)="logout()"><i
-											class="fa-solid fa-power-off me-2"></i>Logout</a>
+									<a class="dropdown-item pt-2 pb-2" (click)="logout()"><i class="fa-solid fa-power-off me-2"></i>Logout</a>
 								</li>
 							</ul>
 						</div>
@@ -194,36 +211,25 @@
 					<div class="row report">
 						<p *ngIf="false" class="report-label text-left mb-0">General / Modules</p>
 						<span *ngIf="false" class="report-modal">
-							<p-dropdown [options]="genMod" (onChange)="onChangeChooseMain($event.value)"
-								[(ngModel)]="selectedGenMod" optionValue="id" formControlName="general" class="w-100"
-								id="genMod" optionLabel="name"></p-dropdown>
+							<p-dropdown [options]="genMod" (onChange)="onChangeChooseMain($event.value)" [(ngModel)]="selectedGenMod" optionValue="id" formControlName="general" class="w-100" id="genMod" optionLabel="name"></p-dropdown>
 						</span>
 						<div *ngIf="isVisibleModulesMenu">
 							<p *ngIf="isQuestionVisible" class="report-label text-left mb-0">Modules</p>
 							<span *ngIf="isQuestionVisible" class="report-modal">
-								<p-dropdown [options]="moduleList" (onChange)="onChangeModuleList($event.value)"
-									formControlName="moduleId" [(ngModel)]="moduleNgModel" optionValue="id"
-									class="w-100" id="moduleId" optionLabel="module_name"></p-dropdown>
+								<p-dropdown [options]="moduleList" (onChange)="onChangeModuleList($event.value)" formControlName="moduleId" [(ngModel)]="moduleNgModel" optionValue="id" class="w-100" id="moduleId" optionLabel="module_name"></p-dropdown>
 							</span>
 							<p *ngIf="isQuestionVisible" class="report-label text-left mb-0">Categories</p>
 							<span *ngIf="isQuestionVisible" class="report-modal">
-								<p-dropdown [options]="subModuleList" [(ngModel)]="subModuleNgModel"
-									formControlName="submoduleId" optionValue="id"
-									(onChange)="onChangeSubModuleList($event.value)" class="w-100" id="submoduleId"
-									optionLabel="submodule_name"></p-dropdown>
+								<p-dropdown [options]="subModuleList" [(ngModel)]="subModuleNgModel" formControlName="submoduleId" optionValue="id" (onChange)="onChangeSubModuleList($event.value)" class="w-100" id="submoduleId" optionLabel="submodule_name"></p-dropdown>
 							</span>
 							<p *ngIf="isQuestionVisible" class="report-label text-left mb-0">Question Number</p>
 							<span *ngIf="isQuestionVisible" class="report-modal">
-								<p-dropdown [options]="questionList" [(ngModel)]="questionIdNgModel" optionValue="id"
-									formControlName="questionId" class="w-100" id="questionId"
-									optionLabel="index"></p-dropdown>
+								<p-dropdown [options]="questionList" [(ngModel)]="questionIdNgModel" optionValue="id" formControlName="questionId" class="w-100" id="questionId" optionLabel="index"></p-dropdown>
 							</span>
 						</div>
 						<p class="report-label text-left mb-0">Issue Type</p>
 						<span class="report-modal">
-							<p-dropdown [options]="reportOptionList" [(ngModel)]="reportOptionNgModel" optionValue="id"
-								formControlName="reportOption" class="w-100" id="reportOption"
-								optionLabel="reportoption_name"></p-dropdown>
+							<p-dropdown [options]="reportOptionList" [(ngModel)]="reportOptionNgModel" optionValue="id" formControlName="reportOption" class="w-100" id="reportOption" optionLabel="reportoption_name"></p-dropdown>
 						</span>
 						<p class="report-label text-left mb-0">Comment</p>
 						<span class="report-modal">
@@ -242,10 +248,8 @@
 			<div *ngIf="isLondon">
 				<ul class="px-0">
 					<li class="list-group-item my-2" role="button" *ngFor="let v of countryLists">
-						<img alt="country" class="countryicon mr-2"
-							src="{{ v.flag != '' ? v.flag : '../../uniprep-assets/images/mstile-150x150.png' }}"
-							width="25" />
-						<span>{{v.country}}</span>
+						<img alt="country" class="countryicon mr-2" src="{{ v.flag != '' ? v.flag : '../../uniprep-assets/images/mstile-150x150.png' }}" width="25" />
+						<span>{{ v.country }}</span>
 					</li>
 				</ul>
 			</div>
@@ -253,9 +257,7 @@
 	</p-overlayPanel>
 </nav>
 
-
-<p-dialog [(visible)]="visible" [closable]="true" [style]="{ width: 'auto' }" class="p-0 m-0 bg-white"
-	class="timerpopup" [modal]="true" [draggable]="false" [resizable]="false">
+<p-dialog [(visible)]="visible" [closable]="true" [style]="{ width: 'auto' }" class="p-0 m-0 bg-white" class="timerpopup" [modal]="true" [draggable]="false" [resizable]="false">
 	<div class="px-5 pb-5 pt-3">
 		<div class="justify-content-center text-center pb-5 px-2">
 			<h5 class="text-center mb-2">Your 1 Hour Free Trial has<br />Exhausted</h5>
@@ -264,7 +266,6 @@
 		</div>
 	</div>
 </p-dialog>
-
 
 <!-- <p-dialog class="thankyoupopup" [modal]="true" header="Header" [(visible)]="showReportSuccess" [breakpoints]="{ '960px': '75vw' }" [style]="{ width: 'auto' }" [draggable]="false" [resizable]="false">
 	<ng-template pTemplate="header">
@@ -279,8 +280,7 @@
 	</div>
 </p-dialog> -->
 
-<p-dialog [(visible)]="isShowFreeTrialStart" [closable]="false" [style]="{ width: 'auto' }" class="p-0 m-0 bg-white"
-	class="timerpopup" [modal]="true" [draggable]="false" [resizable]="false">
+<p-dialog [(visible)]="isShowFreeTrialStart" [closable]="false" [style]="{ width: 'auto' }" class="p-0 m-0 bg-white" class="timerpopup" [modal]="true" [draggable]="false" [resizable]="false">
 	<div class="px-5 pb-5 pt-3">
 		<div class="justify-content-center text-center pb-5 px-5">
 			<h5 class="text-center mb-2">Your 1 hour free trial<br />Starts Now!</h5>
@@ -290,8 +290,7 @@
 		</div>
 	</div>
 </p-dialog>
-<p-dialog [(visible)]="isChangePasswordWindowVisible" [closable]="true" [style]="{ width: 'auto' }"
-	class="p-0 m-0 bg-white" [modal]="true" [draggable]="false" [resizable]="false">
+<p-dialog [(visible)]="isChangePasswordWindowVisible" [closable]="true" [style]="{ width: 'auto' }" class="p-0 m-0 bg-white" [modal]="true" [draggable]="false" [resizable]="false">
 	<div class="px-5 pb-5 pt-3">
 		<div class="justify-content-center text-center pb-5 px-5">
 			<h5 class="text-center mb-2">Change Password</h5>
@@ -301,13 +300,10 @@
 					<div class="form-floating mb-3">
 						<div class="p-inputgroup">
 							<div class="p-inputgroup-addon"><i class="pi pi-lock"></i></div>
-							<input [type]="password" id="floatingInput" formControlName="password" pInputText
-								[ngClass]="{ 'is-invalid': submitted && f.password.errors }" />
+							<input [type]="password" id="floatingInput" formControlName="password" pInputText [ngClass]="{ 'is-invalid': submitted && f.password.errors }" />
 							<span class="input-group-text passwordvisibility" (click)="showPassword()">
-								<img src="../../../uniprep-assets/images/viewpassword.svg" height="20" width="20px"
-									*ngIf="show" />
-								<img src="../../../uniprep-assets/images/hidepassword.svg" height="20" width="20px"
-									*ngIf="!show" />
+								<img src="../../../uniprep-assets/images/viewpassword.svg" height="20" width="20px" *ngIf="show" />
+								<img src="../../../uniprep-assets/images/hidepassword.svg" height="20" width="20px" *ngIf="!show" />
 							</span>
 						</div>
 						<div *ngIf="submitted && f.password.errors" class="invalid-feedback">
@@ -318,97 +314,80 @@
 					<label for="confirmPassword">Confirm Password</label>
 					<div class="p-inputgroup">
 						<div class="p-inputgroup-addon"><i class="pi pi-lock"></i></div>
-						<input [type]="password1" pInputText id="confirmPassword" formControlName="confirmPassword"
+						<input
+							[type]="password1"
+							pInputText
+							id="confirmPassword"
+							formControlName="confirmPassword"
 							[ngClass]="{
 								'is-invalid': submitted && f.confirmPassword.errors
 							}" />
 						<span class="input-group-text passwordvisibility" (click)="showPassword1()">
-							<img src="../../../uniprep-assets/images/viewpassword.svg" height="20" width="20px"
-								*ngIf="show1" />
-							<img src="../../../uniprep-assets/images/hidepassword.svg" height="20" width="20px"
-								*ngIf="!show1" />
+							<img src="../../../uniprep-assets/images/viewpassword.svg" height="20" width="20px" *ngIf="show1" />
+							<img src="../../../uniprep-assets/images/hidepassword.svg" height="20" width="20px" *ngIf="!show1" />
 						</span>
 					</div>
 					<div *ngIf="submitted && f.confirmPassword.errors" class="invalid-feedback">
-						<div *ngIf="f.confirmPassword.hasError('matching')">Password and confirm password not match
-						</div>
+						<div *ngIf="f.confirmPassword.hasError('matching')">Password and confirm password not match</div>
 						<div *ngIf="f.confirmPassword.errors.required">Confirm Password is required</div>
 					</div>
 					<br />
 					<div class="d-grid">
-						<button class="p-2 btn btn-primary btn-login text-uppercase fw-bold" type="submit">Change
-							Password</button>
+						<button class="p-2 btn btn-primary btn-login text-uppercase fw-bold" type="submit">Change Password</button>
 					</div>
 				</ng-container>
 			</form>
 		</div>
 	</div>
 </p-dialog>
-<p-dialog [(visible)]="visible" [closable]="false" [style]="{ width: '35vw' }" class="p-0 m-0" [modal]="true"
-	[draggable]="false" [resizable]="false">
+<p-dialog [(visible)]="visible" [closable]="false" [style]="{ width: '35vw' }" class="p-0 m-0" [modal]="true" [draggable]="false" [resizable]="false">
 	<div class="d-flex justify-content-between p-4">
 		<div>
-			<h4>Your 30 Days<span class="text-xl font-bold p-1 fw-bold" style="color: #3F4C83;"> Free
-					Trial</span>Exhausted
-			</h4>
+			<h4>Your 30 Days<span class="text-xl font-bold p-1 fw-bold" style="color: #3f4c83"> Free Trial</span>Exhausted</h4>
 			<p class="get-certificate">Explore all modules on UNIPREP and get a certificate.</p>
 		</div>
 		<div>
-			<img src="../../../uniprep-assets/images/popup-clock.png" alt="clock" width="70">
+			<img src="../../../uniprep-assets/images/popup-clock.png" alt="clock" width="70" />
 		</div>
 	</div>
 	<div class="px-5 pb-5 pt-3">
-		<h4>Get More With our<span class="text-xl font-bold p-1 fw-bold" style="color: #3F4C83;"> Subscription.</span>
-		</h4>
-		<p class="list-data"><i class="pi pi-check mr-2"></i>Find Over 5 Lakh questions and answers throughout platform
-		</p>
-		<p class="list-data"><i class="pi pi-check mr-2"></i>Ask any Personalized Questions & Get answer within 12
-			working
-			hours </p>
+		<h4>Get More With our<span class="text-xl font-bold p-1 fw-bold" style="color: #3f4c83"> Subscription.</span></h4>
+		<p class="list-data"><i class="pi pi-check mr-2"></i>Find Over 5 Lakh questions and answers throughout platform</p>
+		<p class="list-data"><i class="pi pi-check mr-2"></i>Ask any Personalized Questions & Get answer within 12 working hours</p>
 		<p class="list-data"><i class="pi pi-check mr-2"></i>Get Expert Answers to Your Queries</p>
 		<p class="list-data"><i class="pi pi-check mr-2"></i>Discover Unexplored Questions</p>
 		<p class="list-data"><i class="pi pi-check mr-2"></i>Earn a Certificate by Taking Quizzes</p>
 		<p class="list-data"><i class="pi pi-check mr-2"></i>Share Your Certificates on LinkedIn</p>
-		<p class="list-data"><i class="pi pi-check mr-2"></i>Find Answers to your question with Verified Source links
-		</p>
-		<p class="list-data"><i class="pi pi-check mr-2"></i>Answers to your questions reviewed by
-			Educational Bodies</p>
+		<p class="list-data"><i class="pi pi-check mr-2"></i>Find Answers to your question with Verified Source links</p>
+		<p class="list-data"><i class="pi pi-check mr-2"></i>Answers to your questions reviewed by Educational Bodies</p>
 		<p class="list-data"><i class="pi pi-check mr-2"></i>Navigate using Keyword Search</p>
 		<div class="d-flex justify-content-center">
-			<button class="btn btn-primary btn-rounded me-2 ms-0 my-0" (click)="onClickSubscribe()"
-				alt="chat with notification"><span class="text-small fw-normal px-3">Subscribe Now</span></button>
+			<button class="btn btn-primary btn-rounded me-2 ms-0 my-0" (click)="onClickSubscribe()" alt="chat with notification"><span class="text-small fw-normal px-3">Subscribe Now</span></button>
 		</div>
 	</div>
 </p-dialog>
 
-<p-dialog [(visible)]="freeTrial" [closable]="false" [style]="{ width: '35vw' }" class="p-0 m-0" [modal]="true"
-  [draggable]="false" [resizable]="false">
-  <div class="d-flex justify-content-between p-4">
-    <div>
-      <h4> You have unlocked 30 Days<span class="text-xl font-bold p-3 fw-bold" style="color: #3F4C83;"> Free
-          Trial</span>
-      </h4>
-      <p class="get-certificate">Explore our features today!.</p>
-    </div>
-    <div>
-      <img src="../../../uniprep-assets/images/popup-clock.png" alt="clock" width="70">
-    </div>
-  </div>
-  <div class="px-5 pb-5 pt-3">
-    <!-- <h4>Get More With our<span class="text-xl font-bold p-3 fw-bold" style="color: #3F4C83;"> Subscription.</span></h4> -->
-    <p class="list-data"><i class="pi pi-check mr-2"></i>Find answers to over half a million questions
-    </p>
-    <p class="list-data"><i class="pi pi-check mr-2"></i>Ask personalised questions & get tailored responses from
-      experts </p>
-    <p class="list-data"><i class="pi pi-check mr-2"></i>Smart keyword search to navigate your searches</p>
-    <p class="list-data"><i class="pi pi-check mr-2"></i>Verified and up-to-date information</p>
-    <p class="list-data"><i class="pi pi-check mr-2"></i>Resources to build a solid portfolio</p>
-    <p class="list-data"><i class="pi pi-check mr-2"></i>Access to exclusive events</p>
-    <div class="d-flex justify-content-center">
-      <button class="btn btn-primary btn-rounded me-2 ms-0 my-0" (click)="onClickSubscribeData()"
-        alt="chat with notification"><span class="text-small fw-normal px-3">Subscribe Now</span></button>
-      <button class="btn btn-secondary btn-rounded me-2 ms-0 my-0" alt="reports"><span class="text-small fw-normal px-4"
-          (click)="continueTrial()">Continue Trial</span></button>
-    </div>
-  </div>
+<p-dialog [(visible)]="freeTrial" [closable]="false" [style]="{ width: '35vw' }" class="p-0 m-0" [modal]="true" [draggable]="false" [resizable]="false">
+	<div class="d-flex justify-content-between p-4">
+		<div>
+			<h4>You have unlocked 30 Days<span class="text-xl font-bold p-3 fw-bold" style="color: #3f4c83"> Free Trial</span></h4>
+			<p class="get-certificate">Explore our features today!.</p>
+		</div>
+		<div>
+			<img src="../../../uniprep-assets/images/popup-clock.png" alt="clock" width="70" />
+		</div>
+	</div>
+	<div class="px-5 pb-5 pt-3">
+		<!-- <h4>Get More With our<span class="text-xl font-bold p-3 fw-bold" style="color: #3F4C83;"> Subscription.</span></h4> -->
+		<p class="list-data"><i class="pi pi-check mr-2"></i>Find answers to over half a million questions</p>
+		<p class="list-data"><i class="pi pi-check mr-2"></i>Ask personalised questions & get tailored responses from experts</p>
+		<p class="list-data"><i class="pi pi-check mr-2"></i>Smart keyword search to navigate your searches</p>
+		<p class="list-data"><i class="pi pi-check mr-2"></i>Verified and up-to-date information</p>
+		<p class="list-data"><i class="pi pi-check mr-2"></i>Resources to build a solid portfolio</p>
+		<p class="list-data"><i class="pi pi-check mr-2"></i>Access to exclusive events</p>
+		<div class="d-flex justify-content-center">
+			<button class="btn btn-primary btn-rounded me-2 ms-0 my-0" (click)="onClickSubscribeData()" alt="chat with notification"><span class="text-small fw-normal px-3">Subscribe Now</span></button>
+			<button class="btn btn-secondary btn-rounded me-2 ms-0 my-0" alt="reports"><span class="text-small fw-normal px-4" (click)="continueTrial()">Continue Trial</span></button>
+		</div>
+	</div>
 </p-dialog>
