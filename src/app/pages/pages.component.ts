@@ -4,6 +4,7 @@ import {SubSink} from "subsink";
 import { NavigationEnd, Router } from "@angular/router";
 import { DataService } from "../data.service";
 import {DashboardService} from "./dashboard/dashboard.service";
+import { AuthService } from "../Auth/auth.service";
 
 @Component({
     selector: "uni-pages",
@@ -16,12 +17,13 @@ export class PagesComponent implements OnInit, OnDestroy {
     showSearch = false;
     isFooterBoxVisible = false;
     showReportSuccess = false;
+    conditionSubscribed = true;
     @Output() expandicon = !this.sidebarClass
         ? "pi-align-right"
         : "pi-align-justify";
     private subs = new SubSink();
     constructor(private pageFacade: PageFacadeService, router: Router, private dataService: DataService,
-                private dashboardService: DashboardService) {
+                private dashboardService: DashboardService,private service:AuthService) {
         router.events.subscribe((val) => {
             if(val instanceof NavigationEnd){
                 if(val.url.includes('subscriptions') || val.url.includes('faq') || val.url.includes('support-help')
@@ -49,12 +51,20 @@ export class PagesComponent implements OnInit, OnDestroy {
             },
         });
         this.dataService.showFeedBackSource.subscribe((data) => {
-            if(data){
+            if (data) {
                 this.showReportSuccess = true;
-            }else{
+            } else {
                 this.showReportSuccess = false;
             }
-        })
+        });
+        this.service.getNewUserTimeLeft().subscribe(res => {
+            let data = res.time_left;
+            if (data.plan === 'expired' || data.plan === 'subscription_expired') {
+                this.conditionSubscribed = false;
+            } else {
+                this.conditionSubscribed = true;
+            }
+        });
     }
 
     @HostListener("window:resize", ["$event"])

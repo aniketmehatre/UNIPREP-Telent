@@ -48,7 +48,7 @@
 </ng-template>
 <div class="footer"></div>
 <!--<uni-side-menu [menus]="menus"></uni-side-menu>-->
-<ul id="menu-items">
+<ul id="menu-items" [ngClass]="conditionSubscribed ? 'sidebarClass' : 'unsidebarClass'">
   <li class=" position-relative">
     <p class="px-3 fw-semibold text-small"><span class="maintext">Main</span> Menu</p>
   </li>

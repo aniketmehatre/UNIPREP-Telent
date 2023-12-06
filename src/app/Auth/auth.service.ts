@@ -41,7 +41,6 @@ export class AuthService {
     }
 
     contineStatus(event: any) {
-        debugger;
         this._userContineTrial = event;
     }    
 

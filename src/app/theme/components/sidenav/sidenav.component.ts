@@ -135,6 +135,7 @@ export class SidenavComponent {
     //   image: 'pi pi-briefcase',
     // }
   ];
+  conditionSubscribed!: boolean;
   constructor(
     private router: Router,
     private activatedRoute: ActivatedRoute,
@@ -167,6 +168,14 @@ export class SidenavComponent {
 
   ngOnInit(): void {
     this.markCurrentMenu();
+    this.authService.getNewUserTimeLeft().subscribe(res => {
+      let data = res.time_left;
+      if (data.plan === 'expired' || data.plan === 'subscription_expired') {
+        this.conditionSubscribed = false;
+      } else {
+        this.conditionSubscribed = true;
+      }
+    });
     //this.changeSubscriptionUrl();
   }
 
