@@ -1685,6 +1685,10 @@ uni-subscription {
 	// #sidenav {
 	// 	width: 210px;
 	// }
+	#sidenav
+	{
+		width:18% !important;
+	}
 }
 
 @media (max-width: 1299.98px) {
@@ -1695,6 +1699,10 @@ uni-subscription {
 	// #sidenav {
 	// 	width: 200px;
 	// }
+	#sidenav
+	{
+		width:20% !important;
+	}
 }
 
 @media (max-width: 1199.98px) {
@@ -1705,6 +1713,10 @@ uni-subscription {
 	// #sidenav {
 	// 	width: 175px;
 	// }
+	#sidenav
+	{
+		width:25% !important;
+	}
 }
 
 @media (max-width: 991.98px) {
@@ -1721,7 +1733,7 @@ uni-subscription {
 	// }
 	#sidenav
 	{
-		width:0;
+		width:0 !important;
 	}
 	.menuclosed
 	{
@@ -1762,7 +1774,7 @@ uni-subscription {
 	}
 	#sidenav
 	{
-		width:0;
+		width:0 !important;
 	}
 	.menuclosed
 	{
@@ -1789,7 +1801,7 @@ uni-subscription {
 	// }
 	#sidenav
 	{
-		width:0;
+		width:0 !important;
 	}
 	.menuclosed
 	{
