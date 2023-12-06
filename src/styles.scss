@@ -313,15 +313,7 @@ uni-modules {
 		flex-direction: column;
 	}
 }
-uni-tutorials {
-	display: flex;
-	flex: 1;
-	height: 100%;
-	flex-direction: column; /* Ensure flex children stack vertically */
-	overflow: hidden;
-}
-
-uni-refundpolicy {
+uni-tutorials,uni-guidelines,uni-refundpolicy,uni-resource,uni-privacypolicy,uni-termsandcondition,uni-faq {
 	display: flex;
 	flex: 1;
 	height: 100%;
@@ -389,38 +381,6 @@ uni-events {
 // 	  }
 // 	}
 //   }
-
-uni-resource {
-	display: flex;
-	flex: 1;
-	height: 100%;
-	flex-direction: column; /* Ensure flex children stack vertically */
-	overflow: hidden;
-}
-
-uni-privacypolicy {
-	display: flex;
-	flex: 1;
-	height: 100%;
-	flex-direction: column; /* Ensure flex children stack vertically */
-	overflow: hidden;
-}
-
-uni-termsandcondition {
-	display: flex;
-	flex: 1;
-	height: 100%;
-	flex-direction: column; /* Ensure flex children stack vertically */
-	overflow: hidden;
-}
-
-uni-faq {
-	display: flex;
-	flex: 1;
-	height: 100%;
-	flex-direction: column; /* Ensure flex children stack vertically */
-	overflow: hidden;
-}
 
 uni-recentlyaddedquestions {
 	display: flex;

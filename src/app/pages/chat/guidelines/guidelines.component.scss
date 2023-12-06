@@ -1,21 +1,14 @@
-p {
+.headingbar {
     padding: 1rem;
-    background-color: #3f4c83;
+    background-color: var(--uniprep-primary);
     text-transform: uppercase;
     color: white;
-    font-size: 1.2rem;
     border-bottom-left-radius: 25px;
     border-bottom-right-radius: 25px;
-    width: 50%;
+    text-align: center;
   }
 .content {
-  h5 {
-    text-align: left !important;
-  }
-  text-align: left !important;
-  padding: 1rem;
-  border: 0.5px solid #3f4c83;
+  border: 0.5px solid var(--uniprep-primary);;
   border-radius: 20px;
-  font-weight: 500;
-  font-size: smaller;
+  padding:1rem;
 }

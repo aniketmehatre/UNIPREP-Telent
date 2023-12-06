@@ -1,95 +1,57 @@
-<div class="col-md-12" style="background-color: white;">
-<p style="text-align: center; margin-left:22rem ;">Personal Advisor Guidelines</p><br>
-
-<p-card class="col-12">
-  <!-- <div style="text-align-last: end;
-  margin-right: 20px;">
-  <span routerLink="/pages/chat" style="cursor: pointer; background-color: #3f4c83; border-radius: 50%; padding: 0.7rem; color: #fff;"><i class="fa fa-close"></i></span>
-  </div>   -->
-  <br>
-  <ng-template pTemplate="body">
-      <div class="content">
-        <h5>What questions are accepted ?</h5>
-        <br />Questions related to Pre application, post application and Post
-        admission process, Career abroad, Life in destination country &
-        universities are accepted. Questions should be related to the country
-        you have selected. <b>Example : </b><br />
-        <b>Country Selected :</b> United Kingdom<br /><br />
-
-        <b>Topics Related to Study Abroad :</b> <br />
-        1. I received my Visa to Oxford University , can you suggest cheaper
-        flights for the last week of this month ? <br />
-        2. Suggest a cheaper mode of transportation to reach Oxford University
-        from London ?<br />
-        3. Recommend the best & cheapest Student accommodation within 5 Km of
-        Oxford University for Indian students?<br />
-        4. I Scored 54% in my bachelor's degree in Science, am I eligible to
-        join Oxford University for masters in Philosophy? <br />
-        5. I am looking to apply for my Masters in the United Kingdom, please
-        help me with a list of scholarships for the same. <br />
-        I have mentioned the necessary information below: <br />
-        10th Grade : 60% | 12th Grade : 75% | Bachelor's Degree : 75% | IELTS :
-        7 Band | Bachelors Passing Year : 2019 | Work Experience : 3 Years
+<div class="card readingcard">
+	<div class="card-body pt-0">
+		<div class="row justify-content-center">
+			<div class="col-md-6">
+				<div class="headingbar">Personal Advisor Guidelines</div>
+			</div>
+      <div class="col-md-12">
+          <div class="content mt-3">
+            <h4 class="uniprep-primary">What questions are accepted ?</h4>
+            <p>Questions related to Pre application, post application and Post admission process, Career abroad, Life in destination country & universities are accepted. Questions should be related to the country you have selected.</p>
+            <h5 class="uniprep-primary">Example </h5>
+            <h5 class="mb-3"><span class="uniprep-primary">Country Selected </span>: United Kingdom</h5>
+      
+            <h5 class="uniprep-primary">Topics Related to Study Abroad :</h5>
+            <ol class="ps-3">
+              <li>I received my Visa to Oxford University , can you suggest cheaper flights for the last week of this month ?</li>
+              <li>Suggest a cheaper mode of transportation to reach Oxford University from London ?</li>
+              <li>Recommend the best & cheapest Student accommodation within 5 Km of Oxford University for Indian students?</li>
+              <li>I Scored 54% in my bachelor's degree in Science, am I eligible to join Oxford University for masters in Philosophy?</li>
+              <li>I am looking to apply for my Masters in the United Kingdom, please help me with a list of scholarships for the same.</li>
+            </ol>
+            <p>I have mentioned the necessary information below:<br>
+              10th Grade : 60% | 12th Grade : 75% | Bachelor's Degree : 75% | IELTS : 7 Band | Bachelors Passing Year : 2019 | Work Experience : 3 Years</p>
+          </div>
+          <div class="content mt-3">
+            <h5 class="uniprep-primary">Topics Related to Career :</h5>
+            <ol class="ps-3">
+              <li>I have graduated from Oxford University in 2023 with a distinction in Masters in political science, please provide a list of sponsored companies as per the latest listings.</li>
+              <li>I have graduated from Oxford University, my student visa expires in 2 weeks. Suggest some other countries that will give me a work visa based on my qualification.</li>
+              <li>I graduated from Oxford University last week. Can I apply for a PR in Canada ?</li>
+              <li>I completed my masters in Computer science. Can I apply for a job in Marketing ?</li>
+              <li>I worked 50 hours this week along with my course in the UK. Will it be recorded in immigration with a negative marking?</li>
+              <li>I am in the final semester at Queen’s University and have received an offer from Deloitte. Will I get a work permit if I drop my course now and join the company?</li>
+            </ol>
+          </div>
+          <div class="content mt-3">
+            <h5 class="uniprep-primary">Topics Related to Country :</h5>
+            <ol class="ps-3">
+              <li>I have graduated from Oxford University in 2023 with a distinction in Masters in political science, please provide a list of sponsored companies as per the latest listings.</li>
+              <li>I have graduated from Oxford University, my student visa expires in 2 weeks. Suggest some other countries that will give me a work visa based on my qualification.</li>
+              <li>I graduated from Oxford University last week. Can I apply for a PR in Canada ?</li>
+              <li>I completed my masters in Computer science. Can I apply for a job in Marketing ?</li>
+              <li>I worked 50 hours this week along with my course in the UK. Will it be recorded in immigration with a negative marking?</li>
+            </ol>
+          </div>
+          <div class="content mt-3">
+            <h4 class="uniprep-primary">What Questions are Declined ?</h4>
+            <p class="mb-0">Questions other than relevant modules like Career prospects, jobs, Pre application, Post admission and life abroad will be declined.<br>
+            Do not club multiple questions at the same time<br>Questions related to Different countries you have selected.<br>irrelevent questions will be declined</p>
+          </div>
       </div>
-      <br />
-      <div class="content">
-        <b>Topics Related to Career :</b> <br />
-        01. I have graduated from Oxford University in 2023 with a distinction
-        in Masters in political science, please provide a list of sponsored
-        companies as per the latest listings.<br />
-        02. I have graduated from Oxford University, my student visa expires in
-        2 weeks. Suggest some other countries that will give me a work visa
-        based on my qualification.<br />
-        03. I graduated from Oxford University last week. Can I apply for a PR
-        in Canada ?<br />
-        04. I completed my masters in Computer science. Can I apply for a job in
-        Marketing ?<br />
-        05. I worked 50 hours this week along with my course in the UK. Will it
-        be recorded in immigration with a negative marking? <br />
-        06. I am in the final semester at Queen’s University and have received
-        an offer from Deloitte. Will I get a work permit if I drop my course now
-        and join the company?
+      <div class="col-md-12 text-end">
+        <button class="btn btn-primary"(click)="acceptguideline()" [disabled]="accepted">Accept & Continue to Chat ></button>
       </div>
-      <br />
-      <div class="content">
-        <b>Topics Related to Country :</b> <br />
-        01. I have graduated from Oxford University in 2023 with a distinction
-        in Masters in political science, please provide a list of sponsored
-        companies as per the latest listings.<br />
-        02. I have graduated from Oxford University, my student visa expires in
-        2 weeks. Suggest some other countries that will give me a work visa
-        based on my qualification.<br />
-        03. I graduated from Oxford University last week. Can I apply for a PR
-        in Canada ?<br />
-        04. I completed my masters in Computer science. Can I apply for a job in
-        Marketing ?<br />
-        05. I worked 50 hours this week along with my course in the UK. Will it
-        be recorded in immigration with a negative marking? <br />
-      </div>
-      <br />
-      <div class="content">
-        <h5>What Questions are Declined ?</h5>
-        <br />
-        Questions other than relevant modules like Career prospects, jobs, Pre application, Post admission and life abroad will be declined.
-        <br />
-        Donot club multiple questions at the same time<br />Questions related to
-        Different countries you have selected.<br />irrelevent questions will be
-        declined
-      </div>
-      <br />
-      <button
-        class="btn text-white"
-        style="
-          float: right;
-          background-color: #3f4c83;
-          height: 35%;
-          font-size: small;
-        "
-        (click)="acceptguideline()"
-        [disabled]="accepted"
-      >
-        Accept & Continue to Chat ></button
-      ><br /><br />
-    </ng-template>
-  </p-card>
+		</div>
+	</div>
 </div>
