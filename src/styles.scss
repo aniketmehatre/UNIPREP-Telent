@@ -1824,8 +1824,12 @@ uni-subscription {
 }
 
 .menuclosed {
-	width: 65px;
+	width: 5% !important;
 	transition: width 150ms ease-in-out;
+	.submenutitle
+	{
+		text-align: center;
+	}
 	.openlogo {
 		display: none;
 	}
