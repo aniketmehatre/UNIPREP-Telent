@@ -86,7 +86,9 @@
                                     </div>
                                     <div class="col-md-3 p-4">
                                         <small>Intake Month</small>
-                                        <p class="mb-0 fw-semibold" *ngIf="PersonalInfo?.intake_month_looking else noMonth">{{ selectedDate| date:'MMM' || '-' }}</p>
+                                        <p class="mb-0 fw-semibold"
+                                            *ngIf="PersonalInfo?.intake_month_looking else noMonth">{{ selectedDate|
+                                            date:'MMM' || '-' }}</p>
                                         <ng-template #noMonth>
                                             <p class="mb-0 fw-semibold">-</p>
                                         </ng-template>
@@ -236,8 +238,8 @@
                                                 </div>
                                                 <p-calendar view="month" dateFormat="M"
                                                     formControlName="intake_month_looking" incalendarputId="pickMonth"
-                                                    class="pt-2" [readonlyInput]="false" [minDate]="dateTime" [maxDate]="maximumTime"
-                                                    placeholder="">
+                                                    class="pt-2" [readonlyInput]="false" [minDate]="dateTime"
+                                                    [maxDate]="maximumTime" placeholder="">
                                                 </p-calendar>
                                             </div>
                                             <!-- <div *ngIf="submitted && f['intake_month_looking']['errors']" class="UserInfoValidation">
@@ -694,9 +696,9 @@
             </div>
         </div>
     </div> -->
-</div>
+    </div>
 
-<!-- <div class="container-fluid">
+    <!-- <div class="container-fluid">
         <form (ngSubmit)="onSubmit()" [formGroup]="registrationForm">
             <div class="container-fluid px-0">
                 <div class="card card-body">
@@ -852,9 +854,9 @@
                                                 <img class="bg-image text-center"
                                                     src="../../../uniprep-assets/images/icons/Uniprep_Icons_calender.png"/>
                                             </div> -->
-<!-- <p-calendar [minDate]="dateTime" appendTo="body" dateFormat="mm" inputId="pickMonth"
+    <!-- <p-calendar [minDate]="dateTime" appendTo="body" dateFormat="mm" inputId="pickMonth"
                                                 formControlName="intake_month_looking" value="intake_month_looking" view="month"></p-calendar> -->
-<!-- <p-calendar view="month" dateFormat="MM" formControlName="intake_month_looking"
+    <!-- <p-calendar view="month" dateFormat="MM" formControlName="intake_month_looking"
                                                         inputId="pickMonth"
                                                         class="pt-2" [readonlyInput]="false" [minDate]="dateTime"
                                                         placeholder="">

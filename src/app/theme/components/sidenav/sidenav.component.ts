@@ -39,6 +39,11 @@ export class SidenavComponent {
       image: 'fa-solid fa-house',
     },
     {
+      title: 'Subscription',
+      url: '/pages/subscriptions',
+      image: 'fa-solid fa-crown',
+    },
+    {
       title: 'Study',
       url: '',
       image: '',
@@ -84,6 +89,11 @@ export class SidenavComponent {
       image: 'fa-solid fa-earth-americas',
     },
     {
+      title: 'Explore',
+      url: '',
+      image: '',
+    },
+    {
       title: 'Events',
       url: '/pages/events',
       image: 'fa-solid fa-calendar-days',
@@ -94,14 +104,14 @@ export class SidenavComponent {
       image: 'fa-solid fa-link',
     },
     {
+      title: 'Support',
+      url: '',
+      image: '',
+    },
+    {
       title: 'Tutorials',
       url: '/pages/tutorials',
       image: 'fa-solid fa-video',
-    },
-    {
-      title: 'Subscription',
-      url: '/pages/subscriptions',
-      image: 'fa-solid fa-crown',
     },
     {
       title: 'FAQ',
@@ -113,7 +123,7 @@ export class SidenavComponent {
     //   url: '/pages/help',
     //   image: 'fa-solid fa-phone-volume',
     // }
-    //,
+    // ,
     // {
     //   title: 'USER MANAGER',
     //   url: '/pages/usermanagement',
@@ -125,6 +135,7 @@ export class SidenavComponent {
     //   image: 'pi pi-briefcase',
     // }
   ];
+  conditionSubscribed!: boolean;
   constructor(
     private router: Router,
     private activatedRoute: ActivatedRoute,
@@ -157,6 +168,14 @@ export class SidenavComponent {
 
   ngOnInit(): void {
     this.markCurrentMenu();
+    this.authService.getNewUserTimeLeft().subscribe(res => {
+      let data = res.time_left;
+      if (data.plan === 'expired' || data.plan === 'subscription_expired') {
+        this.conditionSubscribed = false;
+      } else {
+        this.conditionSubscribed = true;
+      }
+    });
     //this.changeSubscriptionUrl();
   }
 

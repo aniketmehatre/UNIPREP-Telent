@@ -15,29 +15,36 @@
 		</p-carousel>
 	</div>
 	<div class="card-footer">
-		<div class="badge bg-dark text-wrap bottom-text text-capitalize" style="">You Have Currently Selected {{ selectedCountryName }}. If you're intrigued by details about other countries, start exploring them now!</div>
+		<div class="badge bg-dark text-wrap bottom-text text-capitalize">You Have Currently Selected {{ selectedCountryName }}. If you're intrigued by details about other countries, start exploring them now!</div>
+	</div>
+</div>
+<div class="container-fluid mt-2">
+	<div class="row align-items-center">
+		<div class="col-md-5 col-12">
+			<h3 class="fw-semibold text-uppercase">Welcome To {{ selectedCountryId == 1 ? "The" : "" }}{{ selectedCountryId == 2 ? "The" : "" }} {{ selectedCountryName }}</h3>
+			<h5 class="fw-normal lh-base mb-4 mb-md-0">UNIPREP {{ selectedCountryName }} information and content is reviewed by alumni of top international universities.</h5>
+		</div>
+		<div class="col-md-7 col-12 p-0">
+			<div class="card trustedcard">
+				<div class="card-header">
+					<h5 class="mb-0">Trusted by 100+ Education Partners</h5>
+				</div>
+				<div class="card-body">
+					<p-carousel [numScroll]="1" [numVisible]="4" [circular]="true" [responsiveOptions]="responsiveOptions" [showIndicators]="false" [value]="partnerTrusterLogo" class="text-center">
+						<ng-template let-uni pTemplate="item">
+							<img alt="{{ uni.logo }}" class="carousel" src="{{ uni.logo }}" />
+						</ng-template>
+					</p-carousel>
+				</div>
+				<div class="card-footer text-center border-0">
+					<button class="btn btn-primary px-4 py-2 m-0" (click)="openViewMoreOrg()">View More</button>
+				</div>
+			</div>
+		</div>
 	</div>
 </div>
 <div class="d-flex gap-3 flex-md-row flex-column align-items-center justify-content-between my-2">
-	<div class="flex-shrink-0">
-		<h3 class="fw-semibold text-uppercase">Welcome To {{ selectedCountryId == 1 ? "The" : "" }}{{ selectedCountryId == 2 ? "The" : "" }} {{ selectedCountryName }}</h3>
-		<h5 class="fw-normal lh-base mb-4 mb-md-0">UNIPREP {{ selectedCountryName }} information and content is reviewed<br />by alumni of top international universities.</h5>
-	</div>
-	<div class="card trustedcard col-md-7 col-12">
-		<div class="card-header">
-			<h5 class="mb-0">Trusted by 100+ Education Partners</h5>
-		</div>
-		<div class="card-body">
-			<p-carousel [numScroll]="1" [numVisible]="4" [circular]="true" [responsiveOptions]="responsiveOptions" [showIndicators]="false" [value]="partnerTrusterLogo" class="text-center">
-				<ng-template let-uni pTemplate="item">
-					<img alt="{{ uni.logo }}" class="carousel" src="{{ uni.logo }}" />
-				</ng-template>
-			</p-carousel>
-		</div>
-		<div class="card-footer text-center border-0">
-			<button class="btn btn-primary px-4 py-2 m-0" (click)="openViewMoreOrg()">View More</button>
-		</div>
-	</div>
+	<div class="flex-shrink-0 col-md-5"></div>
 </div>
 <div class="container-fluid px-0">
 	<div class="row">
@@ -48,17 +55,17 @@
 				</div>
 			</div>
 		</div>
-		<div class="col-md-3 col-6 my-md-0 my-2">
+		<div class="col-md-3 col-12 my-md-0 my-2">
 			<div class="card h-100">
 				<div class="card-body d-flex justify-content-evenly flex-column">
 					<div class="row mb-3">
-						<div class="col-md-6 col-lg-6 d-flex order-2 order-md-1">
+						<div class="col-md-6 col-lg-6 col-6 d-flex order-1 order-md-1">
 							<button (click)="openReading()" class="btn w-100 btn-primary homecardbtn m-0 px-4 py-3">
 								<i class="fa-regular h3 fa-paste"></i>
 								<p class="mb-0">Start<br />Reading</p>
 							</button>
 						</div>
-						<div class="col-md-6 col-lg-6 d-flex align-items-center order-1 order-md-2">
+						<div class="col-md-6 col-lg-6 col-6 d-flex align-items-center order-2 order-md-2">
 							<div [attr.data-percentage]="readProgressionPercentage" class="progress">
 								<span class="progress-left">
 									<span class="progress-bar"></span>
@@ -94,7 +101,7 @@
 								</div>
 							</button>
 						</div>
-						<div class="col-md-6 col-lg-6 d-flex align-items-center order-1 order-md-2">
+						<!-- <div class="col-md-6 col-lg-6 d-flex align-items-center order-1 order-md-2">
 							<div [attr.data-percentage]="readQuizProgressionPercentage" class="progress">
 								<span class="progress-left">
 									<span class="progress-bar"></span>
@@ -106,7 +113,7 @@
 									<div>{{ readQuizProgressionPercentage }}%<br /></div>
 								</div>
 							</div>
-						</div>
+						</div> -->
 					</div>
 					<div>
 						<h5 class="mb-1">Quiz</h5>
@@ -115,7 +122,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="col-md-3 col-12 my-md-0 my-2">
+		<div class="col-md-3 col-6 my-md-0 my-2">
 			<div class="card h-100">
 				<div class="card-body d-flex justify-content-evenly flex-column">
 					<div class="row mb-3">
@@ -134,110 +141,53 @@
 		</div>
 	</div>
 </div>
-	<div [ngStyle]="{ display: continueReading }" class="modal modal-bg" role="dialog" tabindex="-1">
-		<div class="modal-dialog modal-dialog-scrollable modal-dialog-centered" role="document">
-			<div class="modal-content card bg-light">
-				<div class="modal-header">
-					<h3 class="mb-0" tooltipZIndex="auto" tooltipPosition="top" pTooltip="Complete the reading for all modules to get the certificate.">
-						Continue Reading
-						<i class="questiontooltip fa-solid fa-circle-question"></i>
-					</h3>
-					<div class="popupclose">
-						<a (click)="closeReading()" class="close" role="button">
-							<span aria-hidden="true"><i class="fa-solid fa-circle-x"></i></span>
-						</a>
-					</div>
-				</div>
-				<div class="modal-body card-body">
-					<div class="container">
-						<div class="row mb-5">
-							<div class="col-md-12 px-4">
-								<div class="row">
-									<div *ngFor="let readPro of readingProgressings" class="col-md-6 p-2">
-										<div class="card continuecard">
-											<div class="modal-selected-box d-flex flex-column">
-												<h6 class="fw-semibold">{{ readPro.module_name }}</h6>
-												<div class="d-flex justify-content-between">
-													<div>
-														<div [attr.data-percentage]="readPro.progression" class="progress1">
-															<span class="progress1-left">
-																<span class="progress1-bar"></span>
-															</span>
-															<span class="progress1-right">
-																<span class="progress1-bar"></span>
-															</span>
-															<div class="progress1-value">
-																<div>{{ readPro.progression | number : "1.0-0" }} %<br /></div>
-															</div>
-														</div>
-													</div>
-													<div class="align-items-center justify-content-center">
-														<div class="d-flex flex-column" *ngIf="readPro.progression_status == 'Pending'">
-															<p class="text-center text-small mb-0">
-																{{ readPro.progression_status }}
-															</p>
-															<button (click)="onClickReadProgression(readPro)" class="btn btn-dark">Read Now</button>
-														</div>
-														<p *ngIf="readPro.progression_status == 'Completed'" class="text-center text-black text-small mb-0">
-															<strong>{{ readPro.progression_status }}</strong>
-														</p>
-													</div>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	<div [ngStyle]="{ display: continueQuiz }" class="modal modal-bg" role="dialog" tabindex="-1">
-		<div class="modal-dialog modal-dialog-scrollable modal-dialog-centered" role="document">
-			<div class="modal-content card bg-light">
-				<div class="modal-header">
-					<a (click)="closeQuiz()" class="close" role="button">
-						<span aria-hidden="true"><img src="/uniprep-assets/images/icons/close_button.svg" /></span>
+<div [ngStyle]="{ display: continueReading }" class="modal modal-bg" role="dialog" tabindex="-1">
+	<div class="modal-dialog modal-dialog-scrollable modal-dialog-centered" role="document">
+		<div class="modal-content card bg-light">
+			<div class="modal-header">
+				<h3 class="mb-0" tooltipZIndex="auto" tooltipPosition="top" pTooltip="Complete the reading for all modules to get the certificate.">
+					Continue Reading
+					<i class="questiontooltip fa-solid fa-circle-question"></i>
+				</h3>
+				<div class="popupclose">
+					<a (click)="closeReading()" class="close" role="button">
+						<span aria-hidden="true"><i class="fa-solid fa-circle-x"></i></span>
 					</a>
 				</div>
-				<div class="modal-body">
-					<div class="container">
-						<div class="row mb-3">
-							<div class="col-md-12">
-								<h3 class="mb-3" tooltipPosition="top" pTooltip="Complete the quiz for all modules to get the certificate.">
-									Take Quiz
-									<i class="questiontooltip fa-solid fa-circle-question"></i>
-								</h3>
-								<div class="row">
-									<div *ngFor="let quiz of quizProgressings" class="col-md-6 p-2">
-										<div class="card continuecardq">
-											<div class="modal-selected-box d-flex flex-column">
-												<h6 class="fw-semibold">{{ quiz.module_name }}</h6>
-												<div class="d-flex justify-content-between">
-													<div>
-														<div [attr.data-percentage]="quiz.progression" class="progress1">
-															<span class="progress1-left">
-																<span class="progress1-bar"></span>
-															</span>
-															<span class="progress1-right">
-																<span class="progress1-bar"></span>
-															</span>
-															<div class="progress1-value">
-																<div>{{ quiz.progression | number : "1.0-0" }}%<br /></div>
-															</div>
+			</div>
+			<div class="modal-body card-body">
+				<div class="container">
+					<div class="row mb-2">
+						<div class="col-md-12 px-4">
+							<div class="row">
+								<div *ngFor="let readPro of readingProgressings" class="col-md-6 p-2">
+									<div class="card continuecard">
+										<div class="modal-selected-box d-flex flex-column">
+											<h6 class="fw-semibold">{{ readPro.module_name }}</h6>
+											<div class="d-flex justify-content-between">
+												<div>
+													<div [attr.data-percentage]="readPro.progression" class="progress1">
+														<span class="progress1-left">
+															<span class="progress1-bar"></span>
+														</span>
+														<span class="progress1-right">
+															<span class="progress1-bar"></span>
+														</span>
+														<div class="progress1-value">
+															<div>{{ readPro.progression | number : "1.0-0" }} %<br /></div>
 														</div>
 													</div>
-													<div class="d-flex align-items-center justify-content-center">
-														<p *ngIf="quiz.progression_status == 'Pending'" class="text-center text-small mb-0">
-															{{ quiz.progression_status }}
-															<button (click)="onClickQuizProgression(quiz)" class="btn btn-dark">Take Quiz</button>
+												</div>
+												<div class="align-items-center justify-content-center">
+													<div class="d-flex flex-column" *ngIf="readPro.progression_status == 'Pending'">
+														<p class="text-center text-small mb-0">
+															{{ readPro.progression_status }}
 														</p>
-														<p *ngIf="quiz.progression_status == 'Completed'" class="text-center text-small mb-0">
-															<strong>{{ quiz.progression_status }}</strong>
-														</p>
+														<button (click)="onClickReadProgression(readPro)" class="btn btn-dark">Read Now</button>
 													</div>
+													<p *ngIf="readPro.progression_status == 'Completed'" class="text-center text-black text-small mb-0">
+														<strong>{{ readPro.progression_status }}</strong>
+													</p>
 												</div>
 											</div>
 										</div>
@@ -250,33 +200,90 @@
 			</div>
 		</div>
 	</div>
-
-	<p-dialog [(visible)]="isVideoVisible" [modal]="true" [style]="{ width: '30vw' }" header="Header">
-		<ng-template pTemplate="header">
-			<span class="text-xl font-bold">Recommended Videos</span>
-		</ng-template>
-		<div class="container-fluid">
-			<p>Test video</p>
-		</div>
-	</p-dialog>
-
-	<p-dialog [(visible)]="isShareWithSocialMedia" [closable]="false" [style]="{ width: 'auto' }" class="p-0 m-0" class="timerpopup" [modal]="true" [draggable]="false" [resizable]="false">
-		<div class="px-5 pb-5 pt-3">
-			<div class="justify-content-center text-center pb-5 px-5"></div>
-		</div>
-	</p-dialog>
-
-	<p-dialog [(visible)]="isViewMoreOrgVisible" [closable]="true" [style]="{ width: '80vw' }" class="p-0 m-0" [modal]="true" [draggable]="false" [resizable]="false">
-        <div class="text-center">
-            <h4 class="mb-0 uniprep-primary">Trusted by 100+ Education Partners</h4>
-        </div>
-		<div class="px-5 pb-5 pt-3">
-			<div class="justify-content-center text-center pb-5 px-5">
-				<div class="row">
-					<div class="col-md-2 col-6 p-2 d-flex justify-content-center align-items-center" *ngFor="let uni of partnerTrusterLogo">
-						<img alt="{{ uni.logo }}" class="trustedbylogo" src="{{ uni.logo }}" />
+</div>
+<div [ngStyle]="{ display: continueQuiz }" class="modal modal-bg" role="dialog" tabindex="-1">
+	<div class="modal-dialog modal-dialog-scrollable modal-dialog-centered" role="document">
+		<div class="modal-content card bg-light">
+			<div class="modal-header">
+				<a (click)="closeQuiz()" class="close" role="button">
+					<span aria-hidden="true"><img src="/uniprep-assets/images/icons/close_button.svg" /></span>
+				</a>
+			</div>
+			<div class="modal-body">
+				<div class="container">
+					<div class="row mb-3">
+						<div class="col-md-12">
+							<h3 class="mb-3" tooltipPosition="top" pTooltip="Complete the quiz for all modules to get the certificate.">
+								Take Quiz
+								<i class="questiontooltip fa-solid fa-circle-question"></i>
+							</h3>
+							<div class="row">
+								<div *ngFor="let quiz of quizProgressings" class="col-md-6 p-2">
+									<div class="card continuecardq">
+										<div class="modal-selected-box d-flex flex-column">
+											<h6 class="fw-semibold">{{ quiz.module_name }}</h6>
+											<div class="d-flex justify-content-between">
+												<div>
+													<div [attr.data-percentage]="quiz.progression" class="progress1">
+														<span class="progress1-left">
+															<span class="progress1-bar"></span>
+														</span>
+														<span class="progress1-right">
+															<span class="progress1-bar"></span>
+														</span>
+														<div class="progress1-value">
+															<div>{{ quiz.progression | number : "1.0-0" }}%<br /></div>
+														</div>
+													</div>
+												</div>
+												<div class="d-flex align-items-center justify-content-center">
+													<p *ngIf="quiz.progression_status == 'Pending'" class="text-center text-small mb-0">
+														{{ quiz.progression_status }}
+														<button (click)="onClickQuizProgression(quiz)" class="btn btn-dark">Take Quiz</button>
+													</p>
+													<p *ngIf="quiz.progression_status == 'Completed'" class="text-center text-small mb-0">
+														<strong>{{ quiz.progression_status }}</strong>
+													</p>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>
 		</div>
-	</p-dialog>
+	</div>
+</div>
+
+<p-dialog [(visible)]="isVideoVisible" [modal]="true" [style]="{ width: '30vw' }" header="Header">
+	<ng-template pTemplate="header">
+		<span class="text-xl font-bold">Recommended Videos</span>
+	</ng-template>
+	<div class="container-fluid">
+		<p>Test video</p>
+	</div>
+</p-dialog>
+
+<p-dialog [(visible)]="isShareWithSocialMedia" [closable]="false" [style]="{ width: 'auto' }" class="p-0 m-0" class="timerpopup" [modal]="true" [draggable]="false" [resizable]="false">
+	<div class="px-5 pb-5 pt-3">
+		<div class="justify-content-center text-center pb-5 px-5"></div>
+	</div>
+</p-dialog>
+
+<p-dialog [(visible)]="isViewMoreOrgVisible" [closable]="true" [style]="{ width: '80vw' }" class="p-0 m-0" [modal]="true" [draggable]="false" [resizable]="false">
+	<div class="text-center">
+		<h4 class="mb-0 uniprep-primary">Trusted by 100+ Education Partners</h4>
+	</div>
+	<div class="px-5 pb-5 pt-3">
+		<div class="justify-content-center text-center pb-5 px-5">
+			<div class="row">
+				<div class="col-md-2 col-6 p-2 d-flex justify-content-center align-items-center" *ngFor="let uni of partnerTrusterLogo">
+					<img alt="{{ uni.logo }}" class="trustedbylogo" src="{{ uni.logo }}" />
+				</div>
+			</div>
+		</div>
+	</div>
+</p-dialog>

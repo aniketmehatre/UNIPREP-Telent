@@ -41,36 +41,9 @@ uni-list-sub-modules {
     transition: transform 0.05s ease-in-out;
     position: relative;
     transition: width 150ms ease-in-out;
-    width: 270px;
     flex: 1 1 auto !important;
     overflow-y: auto;
-    img {
-      height: 70px;
-      margin-top: 10px;
-      margin:auto;
-    }
-
-    @include md {
-      position: fixed;
-      top: 0;
-      bottom: 0;
-      transform: translateX(-220px);
-    }
-
-    &.active {
-      @include md {
-        z-index: 2000;
-        background-color: white;
-        position: fixed;
-        top: 10px;
-        bottom: 10px;
-        left: 18px;
-        width: 250px;
-        box-shadow: 0 20px 27px 0 rgb(0 0 0 / 5%);
-        transform: translateX(0);
-        border-radius: 10px;
-      }
-    }
+    width:15%
   }
 }
 
@@ -85,4 +58,8 @@ uni-list-sub-modules {
 
 .uppercase{
   text-transform: uppercase;
+}
+.unsidebarClass{
+  cursor: no-drop;
+  pointer-events: none;
 }

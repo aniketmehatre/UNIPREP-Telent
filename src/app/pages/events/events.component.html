@@ -34,7 +34,7 @@
 		</div>
 		<!-- upcomming event -->
 		<div class="row mt-3 p-4" *ngIf="upcomingevent">
-			<div class="col-md-4 col-6" *ngFor="let event of upcommingevent">
+			<div class="col-md-4 col-12" *ngFor="let event of upcommingevent">
 				<div class="card eventcard">
 					<span class="btn btn-primary eventcountdown">{{ event.daysago }}</span>
 					<div class="event-top card-body pb-0">
@@ -133,7 +133,7 @@
 		</div>
 		<!-- post event -->
 		<div class="row mt-3" *ngIf="postevent">
-			<div class="col-md-4 col-6" *ngFor="let events of postevetdetaisl">
+			<div class="col-md-4 col-12" *ngFor="let events of postevetdetaisl">
 				<div class="card eventcard">
 					<span class="btn btn-primary eventcomplete">{{ events.date }}</span>
 					<div class="event-top card-body pb-0">

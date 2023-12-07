@@ -182,11 +182,13 @@ export class SubscriptionComponent implements OnInit {
                             this.success = res;
                             this.subscriptionService.doneLoading();
                             this.loadSubData();
+                            window.location.reload();
                         },
                         (error: any) => {
                             // this.toastr.warning(error.error.message);
                             this.subscriptionService.doneLoading();
                             this.loadSubData();
+                            window.location.reload();
                         }
                     );
                 }
@@ -200,11 +202,13 @@ export class SubscriptionComponent implements OnInit {
                             this.success = res;
                             this.subscriptionService.doneLoading();
                             this.loadSubData();
+                            window.location.reload();
                         },
                         (error: any) => {
                             // this.toastr.warning(error.error.message);
                             this.subscriptionService.doneLoading();
                             this.loadSubData();
+                            window.location.reload();
                         }
                     );
                 }

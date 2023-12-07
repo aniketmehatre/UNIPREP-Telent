@@ -5,13 +5,13 @@
 						<div class="d-flex"><h4 class="sop-border sop-header">Frequently Asked Questions</h4></div>
 					</div>
 					<div class="row">
-						<div class="col-md-3">
+						<div class="col-md-3 col-5">
 							<ul class="menulist">
 								<p><b>Table of content</b></p>
 								<li *ngFor="let faqcat of faqcatlist"  (click)="onFaqcatClick(faqcat.id)" [class.active]="faqcat.id === activeCategory">{{ faqcat.name }}</li>
 							</ul>
 						</div>
-						<div class="col-md-9">
+						<div class="col-md-9 col-7">
 							<p-accordion [multiple]="true" class="plain">
 								<div class="col-md-8">
 									<p-accordion [multiple]="true" class="plain">

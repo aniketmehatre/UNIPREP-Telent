@@ -39,12 +39,15 @@ export class SubscriptionDataComponent implements OnInit {
   studentType: number = 0;
   loadingCountry: boolean = false;
   loadingUserDetails: boolean = false;
+  discountAmount: any;
+  discountAmountEnable!: boolean;
 
   constructor(private authService: AuthService,
     private subscriptionService: SubscriptionService,
     private toast: MessageService) { }
 
   ngOnInit(): void {
+    this.discountAmountEnable = false;
     this.authService.getCountry().subscribe((data) => {
       this.countryList = data;
       this.loadingCountry = true;
@@ -175,7 +178,13 @@ export class SubscriptionDataComponent implements OnInit {
     }
     if (this.subscriptionService.usedCoupon == this.couponInput) {
       this.toast.add({ severity: 'error', summary: 'Error', detail: 'Coupon already used' });
+      this.checkoutTotal = this.subscriptionTotal;
+      this.discountAmountEnable =false;
       return;
+    }
+    if (this.subscriptionService.usedCoupon === undefined) {
+      this.discountAmountEnable = false;
+      this.checkoutTotal = this.subscriptionTotal;
     }
     if (this.couponInput) {
       this.subscriptionService.usedCoupon = this.couponInput
@@ -188,11 +197,15 @@ export class SubscriptionDataComponent implements OnInit {
       this.subscriptionService.applyCoupon(data).subscribe((response) => {
         if (response.success) {
           this.checkoutTotal = Number(this.subscriptionTotal) - response.discountPrice;
-          this.toast.add({ severity: 'success', summary: 'Success', detail: "Coupon" + response.discountPrice + "applied" });
+          this.discountAmount = response.discountPrice;
+          this.discountAmountEnable = true;
+          this.toast.add({ severity: 'success', summary: 'Success', detail: "Coupon applied" });
         }
         else {
           this.toast.add({ severity: 'error', summary: 'Error', detail: response.message });
           this.invalidCoupon = true;
+          this.checkoutTotal = this.subscriptionTotal;
+          this.discountAmountEnable = false;
         }
       });
     }

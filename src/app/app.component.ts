@@ -5,7 +5,7 @@ import {  HostListener } from '@angular/core';
   template: `
     <router-outlet></router-outlet>
     <p-toast position="top-right"></p-toast>
-    <ngx-ui-loader fgsColor="var(--uniprep-primary)" [hasProgressBar]="false"></ngx-ui-loader>`
+    <ngx-ui-loader overlayColor="rgba(0,0,0,0.8)" logoUrl="uniprep-assets/images/icon-loader.svg" [fgsSize]="75" fgsType="circle" fgsColor="#f0780e" [hasProgressBar]="false"></ngx-ui-loader>`
 })
 export class AppComponent {
 
