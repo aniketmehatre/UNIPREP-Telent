@@ -465,3 +465,31 @@
 .font-secondarycolor p{
   color: #001631;
 }
+
+.offer-msg {
+  font-weight: 600;
+  margin: auto;
+  padding: 10px 25px;
+  border-radius: 25px;
+  background-color: #FFE1BE;
+  border: 2px solid #FF8800;
+  margin-bottom: 10px;
+}
+
+.confirm-modal-header {
+  font-size: 18px;
+  font-weight: 700;
+  padding: 20px 15px;
+  border: 2px solid #ebebeb;
+  border-radius: 10px;
+  background: #f6f6f6;
+}
+
+.confirm-modal-country {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 5px;
+  border: 1px solid var(--uniprep-primary);
+  border-radius: 25px;
+}
