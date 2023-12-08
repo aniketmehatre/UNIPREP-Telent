@@ -268,7 +268,6 @@ performSearch(events:any){
   this.getPostEvent(data)
   }
   registerButton(event:any){
-    console.log(event);
     if(event.registered==1){
       this.toast.add({ severity: 'error', summary: 'Error', detail: "Already Registered" });
       return;
