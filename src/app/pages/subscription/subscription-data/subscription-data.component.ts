@@ -15,7 +15,7 @@ export class SubscriptionDataComponent implements OnInit {
   countryList: any;
   breadCrumb: MenuItem[] = [];
   selectedCountry: any[] = [2, 3];
-  isInstructionVisible: boolean = false
+  isInstructionVisible: boolean = false;
   @Input() billing!: any | null;
   @Input() subscriptions!: Subscription | null;
   @Input() history: OrderHistory[] = [];
@@ -41,6 +41,8 @@ export class SubscriptionDataComponent implements OnInit {
   loadingUserDetails: boolean = false;
   discountAmount: any;
   discountAmountEnable!: boolean;
+  confirmModal: boolean = false;
+
 
   constructor(private authService: AuthService,
     private subscriptionService: SubscriptionService,
@@ -215,6 +217,7 @@ export class SubscriptionDataComponent implements OnInit {
   }
 
   checkout() {
+    this.confirmModal = false;
     if (this.basesubscription && this.selectedSubscriptionDetails) {
       let data = {
         subscriptionId: this.selectedSubscriptionDetails.id,

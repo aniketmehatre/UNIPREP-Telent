@@ -140,7 +140,7 @@ export class UserManagementComponent implements OnInit {
             this.selectedDate.setFullYear(this.registrationForm.get('intake_year_looking')?.value);
             this.selectedDate.setMonth(this.registrationForm.get('intake_month_looking')?.value);
             this.GetLocationList();
-            this.registrationForm.get('intake_month_looking')?.setValue(this.selectedDate);
+            this.registrationForm.get('intake_month_looking')?.value ? this.registrationForm.get('intake_month_looking')?.setValue(this.selectedDate) : '';
             var selectedYear=this.registrationForm.get('intake_year_looking')?.value;
              
             this.maximumTime.setFullYear(selectedYear);
@@ -269,16 +269,13 @@ export class UserManagementComponent implements OnInit {
             home_country: this.registrationForm.value?.home_country,
         };
 
-        this.dashboardService.countryList().subscribe(countryList => {
-            this.countryList = countryList;
-            this.countryList.forEach((element: any) => {
-                if (element.id == this.registrationForm.value?.interested_country_id) {
-                    localStorage.setItem('countryId', element.id);
-                    this.dataService.changeCountryId(element.id);
-                    this.dataService.changeCountryName(element.country);
-                    this.dataService.changeCountryFlag(element.flag);
-                }
-            });
+        this.intrestedCountryList.forEach((element: any) => {
+            if (element.id == this.registrationForm.value?.interested_country_id) {
+                localStorage.setItem('countryId', element.id);
+                this.dataService.changeCountryId(element.id);
+                this.dataService.changeCountryName(element.country);
+                this.dataService.changeCountryFlag(element.flag);
+            }
         });
         if(this.registrationForm.value?.last_degree_passing_year == null) {
             data.last_degree_passing_year = "";
