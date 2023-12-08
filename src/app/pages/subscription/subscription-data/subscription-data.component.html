@@ -41,13 +41,13 @@
 										<h5 style="font-size: 18px; text-align: center">Select Your Base Country</h5>
 										<span class="p-float-label">
 											<p-dropdown class="subcountry" [options]="subscription.filteredCountryList"
-												styleClass="w-100" [(ngModel)]="subscription.selectedCoutry"
+												styleClass="w-100" [(ngModel)]="subscription.selectedCountry"
 												optionLabel="country">
 												<ng-template pTemplate="selectedItem">
-													<img [src]="subscription.selectedCoutry?.flag"
-														[alt]="subscription.selectedCoutry?.altname"
+													<img [src]="subscription.selectedCountry?.flag"
+														[alt]="subscription.selectedCountry?.altname"
 														class="base-country-flag" />
-													{{ subscription.selectedCoutry?.country }}
+													{{ subscription.selectedCountry?.country }}
 												</ng-template>
 											</p-dropdown>
 										</span>
@@ -416,8 +416,8 @@
 				<div class="d-flex align-items-center gap-2">
 					<div class="fw-bold">Selected Base Country</div>
 					<div class="confirm-modal-country">
-						<img [src]="selectedSubscriptionDetails?.selectedCoutry?.flag" alt="country" style="width: 25px;height: 25px;">
-						<div class="fw-bold">{{selectedSubscriptionDetails?.selectedCoutry?.country}}</div>
+						<img [src]="selectedSubscriptionDetails?.selectedCountry?.flag" alt="country" style="width: 25px;height: 25px;">
+						<div class="fw-bold">{{selectedSubscriptionDetails?.selectedCountry?.country}}</div>
 					</div>
 				</div>
 				<div class="fw-bold">Congratulations !</div>

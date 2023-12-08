@@ -244,10 +244,10 @@ export class SubscriptionComponent implements OnInit {
                 this.loadSubscriptionedData();
                 return;
             }
-            if(this.userSubscription.length > 0) {
+            // if(this.userSubscription.length > 0) {
                 this.loadingExistingSubscription = true;
                 this.loadSubscriptionedData();
-            }
+            // }
         });
     }
 
