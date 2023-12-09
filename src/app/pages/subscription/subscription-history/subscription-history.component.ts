@@ -44,10 +44,6 @@ export class SubscriptionHistoryComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.authService.getCountry().subscribe((data) => {
-      this.countryList = data;
-      this.getSubscriptionTopupList();
-    });
   }
 
 
