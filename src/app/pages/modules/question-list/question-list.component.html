@@ -80,7 +80,7 @@
 			<ng-template [ngForOf]="data" let-i="index" let-val ngFor pTemplate="item">
 				<div class="card answercard">
 					<div class="card-body text-start">
-						<p class="text-small blockquote text-start mb-0">Last updated at: {{ val.updated_at | date }}  <span *ngIf="val.verified == 1" class="badge" style="background-color: darkorchid;">Verified</span></p>
+						<p class="text-small blockquote text-start mb-0">Last updated at: {{ val.updated_at | date }}  <span class="badge" style="background-color: {{val.verified == 1 ? 'darkorchid' : '#F59E0B'}};">{{val.verified == 1 ? 'Verified' : 'Not Verified'}}</span></p>
 						<h3 class="unselectable">{{ val.question }}</h3>
 						<div class="fw-medium worksans unselectable" style="white-space: pre-wrap" [innerHTML]="val.answer"></div>
 					</div>

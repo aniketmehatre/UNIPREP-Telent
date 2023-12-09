@@ -14,6 +14,11 @@
 	--uniprep-secondaryhighlight: #f6895a;
 	--uniprep-tertiary: #ffffff;
 }
+
+.topmarquee
+{
+	background-color:var(--uniprep-primaryhighlight);
+}
 html {
 	scroll-behavior: smooth;
 	overflow: auto !important;

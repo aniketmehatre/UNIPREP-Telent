@@ -76,9 +76,9 @@
 									'...':event.eventname
 									}} <span><i class="questiontooltip fa-solid fa-circle-question"></i></span>
 								</h5>
-								<p class="small">{{ event.eventdescription.length > 25 ?
+								<p class="small">{{ event.eventdescription.length > 21 ?
 									event.eventdescription.slice(0,
-									25) + '...' : event.eventdescription }}</p>
+									21) + '...' : event.eventdescription }}</p>
 							</div>
 							<div class="col-5">
 								<span *ngIf="event.registered===0?false:true" target="_blank">

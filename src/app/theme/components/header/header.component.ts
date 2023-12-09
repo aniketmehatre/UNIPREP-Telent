@@ -560,6 +560,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     });
     setTimeout(() => {
       this.checkNewUser();
+      window.location.reload();
     }, 2000);
     this.service.contineStatus(false);
     this.freeTrial = false;
