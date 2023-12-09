@@ -4,6 +4,7 @@ import { environment } from "@env/environment.prod";
 import { AuthService } from 'src/app/Auth/auth.service';
 import { MenuItem, MessageService } from 'primeng/api';
 import { SubscriptionService } from '../subscription.service';
+import { User } from 'src/app/@Models/user.model';
 
 @Component({
   selector: 'uni-subscription-data',
@@ -42,7 +43,7 @@ export class SubscriptionDataComponent implements OnInit {
   discountAmount: any;
   discountAmountEnable!: boolean;
   confirmModal: boolean = false;
-
+  user!: User | null;
 
   constructor(private authService: AuthService,
     private subscriptionService: SubscriptionService,
@@ -56,11 +57,12 @@ export class SubscriptionDataComponent implements OnInit {
       this.getSubscriptionTopupList();
       this.loadSubscriptionList();
     });
-    this.authService.getMe().subscribe(data => {
-      this.studentType = data?.userdetails[0]?.student_type_id;
+    this.user = this.authService.user;
+    if(this.user?.student_type_id) {
+      this.studentType = this.user?.student_type_id;
       this.loadingUserDetails = true;
       this.loadSubscriptionList();
-    });
+    }
   }
   get URL() {
     return `${environment.ApiUrl}/downloadinvoice`;
@@ -104,8 +106,10 @@ export class SubscriptionDataComponent implements OnInit {
         item.country = item.country.split(',').map(Number);
         let filteredCountryIds = item.country;
         item.selected = false;
-        item.selectedCoutry = {};
-        item.filteredCountryList = this.countryList.filter((data: any) => filteredCountryIds.includes(data.id));
+        item.selectedCountry = {};
+        // item.filteredCountryList = this.countryList.filter((data: any) => filteredCountryIds.includes(data.id));
+        item.filteredCountryList = this.countryList;
+        item.selectedCountry = this.countryList.find((country:any) => country.id === Number(this.user?.interested_country_id));
         item.isActive = item.popular == 1 ? true : false;
       });
     });
@@ -221,7 +225,7 @@ export class SubscriptionDataComponent implements OnInit {
     if (this.basesubscription && this.selectedSubscriptionDetails) {
       let data = {
         subscriptionId: this.selectedSubscriptionDetails.id,
-        countryId: this.selectedSubscriptionDetails.selectedCoutry.id,
+        countryId: this.selectedSubscriptionDetails.selectedCountry.id,
         finalPrice: this.checkoutTotal,
         couponApplied: this.couponInput ? 1 : 0,
         coupon: this.couponInput,

@@ -45,5 +45,5 @@ export interface User {
     programlevel: string;
     country:string;
     interested_country_name:string;
-
+    student_type_id: number;
 }
