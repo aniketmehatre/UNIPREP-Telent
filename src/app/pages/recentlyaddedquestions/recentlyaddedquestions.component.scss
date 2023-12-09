@@ -177,3 +177,14 @@
       margin-bottom: 0.5rem;
 }
 }
+
+::ng-deep button.p-ripple.p-element.p-button.p-component.p-button-icon-only{
+  border-radius: 50% !important;
+    height: 3rem;
+    background: #3f4c83 !important;
+    color: white !important;
+}
+
+.btn-rounded{
+  border-radius: 25px !important;
+}

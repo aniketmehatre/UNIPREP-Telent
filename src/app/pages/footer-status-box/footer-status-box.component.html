@@ -2,44 +2,44 @@
     <div class="row justify-content-start flex-nowrap overflow-auto">
 			<div class="col-xxl-2 col-xl-2 col-lg-4 col-md-4 col-sm-4 col-6 my-2 footer-card" role="button" (click)="askYourPersonalized()">
 				<div class="card h-100">
-					<div class="card-body d-flex align-items-center justify-content-between flex-column">
-						<div class="d-flex w-100 align-items-center justify-content-between">
+					<div class="card-body">
+						<div class="w-100">
 							<i class="h4 fa-solid fa-message"></i>
-							<p class="mb-2 text-end fw-medium">Ask your personalized<br />Questions</p>
+							<p class="mb-2 text-start fw-medium">Ask your personalized<br />Questions</p>
 						</div>
 						<div class="d-flex w-100 align-items-center justify-content-between">
-							<p class="p-0 m-0 text-start text-small fw-medium">Questions<br />Answered</p>
 							<h4 class="mb-0">{{ dashboardCount.personalisedquestioncount }}</h4>
+							<p class="p-0 m-0 text-end text-small fw-medium">Questions<br />Answered</p>
 						</div>
 					</div>
 				</div>
 			</div>
 			<div class="col-xxl-2 col-xl-2 col-lg-4 col-md-4 col-sm-4 col-6 my-2 footer-card" role="button" (click)="recentlyAddedQuestions()">
 				<div class="card h-100">
-					<div class="card-body d-flex align-items-center justify-content-between flex-column">
-						<div class="d-flex w-100 align-items-center justify-content-between">
-							<i class="h4 fa-solid fa-timer"></i>
-							<p class="mb-2 text-end fw-medium">Recently Added<br />Questions</p>
+					<div class="card-body">
+						<div class="w-100">
+							<i class="h4 fa-solid fa-question"></i>
+							<p class="mb-2 text-start fw-medium">Recently Added<br />Questions</p>
 						</div>
 	
 						<div class="d-flex w-100 align-items-center justify-content-between">
-							<p class="p-0 m-0 text-start text-small fw-medium">Added in last<br />30 days</p>
 							<h4 class="mb-0">{{ dashboardCount.recentlyaddedquestion }}</h4>
+							<p class="p-0 m-0 text-end text-small fw-medium">Added in last<br />30 days</p>
 						</div>
 					</div>
 				</div>
 			</div>
 			<div class="col-xxl-2 col-xl-2 col-lg-4 col-md-4 col-sm-4 col-6 my-2 footer-card" role="button">
 				<div class="card cardinactive h-100">
-					<div class="card-body d-flex align-items-center justify-content-between flex-column">
-						<div class="d-flex w-100 align-items-center justify-content-between">
+					<div class="card-body">
+						<div class="w-100">
 							<i class="h4 fa-solid fa-circle-check"></i>
-							<p class="mb-2 text-end fw-medium">Total Questions</p>
+							<p class="mb-2 text-start fw-medium">Total Questions</p>
 						</div>
 	
 						<div class="d-flex w-100 align-items-center justify-content-between">
-							<p class="p-0 m-0 text-start text-small fw-medium">Questions<br />Answered</p>
 							<h4 class="mb-0">{{ dashboardCount.totalquestioncount }}</h4>
+							<p class="p-0 m-0 text-end text-small fw-medium">Questions<br />Answered</p>
 						</div>
 					</div>
 				</div>
@@ -47,47 +47,46 @@
 	
 			<div class="col-xxl-2 col-xl-2 col-lg-4 col-md-4 col-sm-4 col-6 my-2 footer-card" role="button" (click)="popularQuestions()">
 				<div class="card h-100">
-					<div class="card-body d-flex align-items-center justify-content-between flex-column">
-						<div class="d-flex w-100 align-items-center justify-content-between">
-							<i class="h4 fa-solid fa-star"></i>
-							<p class="mb-2 text-end fw-medium">Most Popular <br />Questions</p>
+					<div class="card-body">
+						<div class="w-100">
+							<i class="h4 fa fa-question-circle-o"></i>
+							<p class="mb-2 text-start fw-medium">Most Popular <br />Questions</p>
 						</div>
 	
 						<div class="d-flex w-100 align-items-center justify-content-between">
-							<p class="p-0 m-0 text-start text-small fw-medium">Questions<br />Answered</p>
 							<h4 class="mb-0">{{ dashboardCount.popularquestioncount }}</h4>
+							<p class="p-0 m-0 text-end text-small fw-medium">Questions<br />Answered</p>
 						</div>
 					</div>
 				</div>
 			</div>
 			<div class="col-xxl-2 col-xl-2 col-lg-4 col-md-4 col-sm-4 col-6 my-2 footer-card" role="button">
 				<div class="card cardinactive h-100">
-					<div class="card-body d-flex align-items-center justify-content-between flex-column">
-						<div class="d-flex w-100 align-items-center justify-content-between">
+					<div class="card-body">
+						<div class="w-100 align-items-center">
 							<i class="h4 fa-solid fa-graduation-cap"></i>
-							<p class="mb-2 text-end fw-medium">Number of Registered <br />Students</p>
+							<p class="mb-2 text-start fw-medium">Number of Registered <br />Students</p>
 						</div>
 	
 						<div class="d-flex w-100 align-items-center justify-content-between">
-							<p class="p-0 m-0 text-start text-small fw-medium">Active<br />Users</p>
 							<h4 class="mb-0">{{ dashboardCount.registereduser }}</h4>
+							<p class="p-0 m-0 text-start text-small fw-medium">Active<br />Users</p>
 						</div>
 					</div>
 				</div>
 			</div>
 			<div class="col-xxl-2 col-xl-2 col-lg-4 col-md-4 col-sm-4 col-6 my-2 footer-card" role="button">
 				<div class="card cardinactive h-100">
-					<div class="card-body d-flex align-items-center justify-content-between flex-column">
-						<div class="d-flex w-100 align-items-center justify-content-between">
+					<div class="card-body">
+						<div class="w-100">
 							<i class="h4 fa-solid fa-user-graduate"></i>
-							<p class="mb-2 text-end fw-medium">Certificate</p>
+							<p class="mb-2 text-start fw-medium">Certificates Granted</p>
 						</div>
 	
-						<div class="d-flex w-100 align-items-center justify-content-between">
-							<p class="p-0 m-0 text-start text-small fw-medium"></p>
+						<div class="w-100">
 							<!-- <p class="p-0 m-0 text-start text-small fw-medium">Added in last<br>30 days</p> -->
 	
-							<h4 class="mb-0">Launching Soon</h4>
+							<h4 class="mb-0 text-start">Launching Soon</h4>
 							<!-- <h4 class="mb-0">{{dashboardCount.certificate_granted}}</h4> -->
 						</div>
 					</div>
