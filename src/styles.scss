@@ -445,6 +445,14 @@ uni-subscription {
 	overflow-y: auto; /* Enable vertical scrolling */
 }
 
+.disablepmargin
+{
+  p
+  {
+    margin-bottom: 0px !important;
+  }
+}
+
 .card {
 	border-radius: 15px !important;
 	text-transform: inherit !important;

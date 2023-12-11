@@ -60,14 +60,13 @@
 							<!-- message.sendByName -->
 						</div>
 					</div>
-					<div>
-						<span class="msg-info">Replying for Question {{ message.answerForQuestion }}</span
-						><br />
-						<p class="response-msg-question" [innerHtml]="getData(message.answerForQuestion)"></p>
-						<p *ngIf="message.message" class="response-msg" [innerHtml]="message.message"></p>
-						<p *ngIf="message.attachment" [pTooltip]="message.filename" class="response-msg-attach">
+					<div class="disablepmargin">
+						<p class="msg-info small mb-0">Replying for Question {{ message.answerForQuestion }}</p>
+						<div class="response-msg-question" [innerHtml]="getData(message.answerForQuestion)"></div>
+						<div *ngIf="message.message" class="response-msg" [innerHtml]="message.message"></div>
+						<div *ngIf="message.attachment" [pTooltip]="message.filename" class="response-msg-attach">
 							<label>{{ message.filename }}</label> &nbsp;&nbsp;<a (click)="openAttachment(message.attachment)"><i class="pi pi-arrow-circle-down"></i> </a>
-						</p>
+						</div>
 					</div>
 				</div>
 			</div>
