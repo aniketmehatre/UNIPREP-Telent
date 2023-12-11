@@ -42,6 +42,7 @@ export class SubscriptionComponent implements OnInit {
     loadingSubscriptionHistory: boolean = false;
     loadingExistingSubscription: boolean = false;
     showSubscriptionedData: boolean = false;
+    showPlanBtn: boolean = false;
 
     constructor(
         private subscriptionService: SubscriptionService,
@@ -56,6 +57,14 @@ export class SubscriptionComponent implements OnInit {
             return;
         }
         this.loadSubData();
+        this.authservice.getNewUserTimeLeft().subscribe(res => {
+            let data = res.time_left;
+            if (data.plan === 'expired' || data.plan === 'subscription_expired') {
+                this.showPlanBtn = true;
+            } else {
+                this.showPlanBtn = false;
+            }
+        });
     }
     start() {
         this.showPayLoading = false;
@@ -255,5 +264,9 @@ export class SubscriptionComponent implements OnInit {
         if(this.loadingSubscriptionHistory && this.loadingExistingSubscription) {
             this.stage = 5;
         }
+    }
+
+    showPlan($event: any) {
+        this.stage = 1;
     }
 }
