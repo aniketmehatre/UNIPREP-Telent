@@ -6,18 +6,18 @@ import { TutorialsComponent } from './tutorials.component';
 import { TutorialsRoutingModule } from './tutorials-routing.module';
 import { TooltipModule } from 'primeng/tooltip';
 import { CardModule } from 'primeng/card';
-
+import { SafePipe } from '@pipes/safe.pipe';
 
 @NgModule({
     declarations: [
-        TutorialsComponent
+        TutorialsComponent,
     ],
     imports: [
         CommonModule,
         TutorialsRoutingModule,
         AccordionModule,
         TooltipModule,
-        CardModule 
+        CardModule, 
     ]
 })
 export class TutorialsModule {

@@ -13,7 +13,7 @@
             <div class="container-fluid">
               <div class="row">
                 <div class="col-md-3 col-12" *ngFor="let tutorial of tutoriallist">
-                  <a class="text-decoration-none text-white" href="{{tutorial.link}}"  target="_blank">
+                  <div class="text-decoration-none text-white"  (click)="openVideoPopup(tutorial.link)">
                   <div class="card my-2 position-relative tutcard"> 
                     <div class="tutgradient"></div>
                     <img src="{{tutorial.coverimage}}">
@@ -22,19 +22,16 @@
                       <p class="mb-0 text-white small" title="{{tutorial.description}}">{{tutorial.description.length > 35 ? tutorial.description.slice(0, 35) + '...' : tutorial.description}}</p>
                     </div>
                   </div>
-                </a>
+                </div>
                 </div>
               </div>
-                  <!-- <div class="wrapper" >
-                        <div class="card mt-2" >
-                          <a href="{{tutorial.link}}" target="_blank">
-                            <figure class="card__thumbnail">
-                              <img src="{{tutorial.coverimage}}" style="opacity: 0.6;">
-                                                        
-                            </figure>
-                          </a>
-                        </div> 
-                  </div> -->
               </div>
         </div>
     </div>
+<!-- Modal Markup -->
+<div *ngIf="selectedVideoLink" class="modal-overlay" (click)="closeVideoPopup()">
+  <div class="modal-container">
+    <button class="close-button" (click)="closeVideoPopup()"><b>X</b></button>
+    <!-- Use the safe pipe here for the src attribute -->
+    <iframe [src]="selectedVideoLink" width="560" height="315" frameborder="0" allowfullscreen></iframe>  </div>
+</div>
