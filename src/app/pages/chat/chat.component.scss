@@ -4,18 +4,16 @@
   color: white;
 }
 
-.chatheader
-{
+.chatheader {
   padding: 0.5rem 1rem;
   background-color: var(--uniprep-primary);
-  border-radius:12px 12px 0 0;
+  border-radius: 12px 12px 0 0;
 }
 
-.chatfooter
-{
+.chatfooter {
   padding: 0.5rem 1rem;
   background-color: white;
-  border-radius:0 0 12px 12px;
+  border-radius: 0 0 12px 12px;
 }
 
 .chatprofile {
@@ -203,7 +201,7 @@ a {
 
 .chat .messages-chat .text {
   margin: 0 35px;
-  background-color: #F1F1F1;
+  background-color: #f1f1f1;
   padding: 15px;
   border-radius: 0 12px 12px 12px;
 }
@@ -288,14 +286,13 @@ countryimage {
 }
 .response-msg-question {
   margin-left: 40px;
-  background-color: #F1F1F1;
+  background-color: #f1f1f1;
   width: fit-content;
   padding: 15px;
   border-radius: 12px;
   border-radius: 0 12px 0 0;
-  max-width:65%;
-  p
-  {
+  max-width: 65%;
+  p {
     margin-bottom: 0px;
   }
 }
@@ -330,7 +327,7 @@ countryimage {
   width: 375px;
   font-size: medium;
   font-weight: 600;
-  background-color: #EBEDF2;
+  background-color: #ebedf2;
   color: #3f4c83;
   border: 2px solid #3f4c83;
 }
@@ -431,7 +428,7 @@ countryimage {
   padding: 15px;
   border-radius: 0 12px 12px 12px;
   margin-left: 40px;
-  max-width:75%;
+  max-width: 75%;
 }
 .p-card .p-card-content {
   width: 100% !important;
@@ -470,5 +467,28 @@ countryimage {
 }
 ::ng-deep .p-confirm-popup .p-confirm-popup-flipped:after {
   border-top-color: #888a9447 !important;
-  border-top-color: #EBEDF2 !important;
+  border-top-color: #ebedf2 !important;
+}
+::ng-deep .ql-attachmentHandler::after {
+  content: "Attach";
+  padding: 0 !important;
+  color: blue;
+}
+::ng-deep {
+  .fullscreen {
+    background-color: white;
+    .form-group {
+      height: 100%;
+      width: 100%;
+    }
+    .ql-container {
+      height: 90vh !important;
+      width: 100% !important;
+    }
+  }
+}
+::ng-deep .ql-fullscreen:after {
+  content: "\26F6";
+  padding: 0 !important;
+  font-weight: bold;
 }
