@@ -103,6 +103,9 @@ export class ListSubModulesComponent implements OnInit {
         break;
       
     }
+    if(this.currentModuleId == 5){
+      return;
+    }
     localStorage.setItem("currentmodulenameforrecently",this.currentModuleName);
     this.loadModuleAndSubModule();
     if (this.route.snapshot.paramMap.get('id') == '2') {
