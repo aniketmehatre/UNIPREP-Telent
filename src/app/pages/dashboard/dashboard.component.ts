@@ -12,7 +12,8 @@ import {combineLatest} from "rxjs";
     styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit {
-
+    private subs = new SubSink();
+    userName: any;
     readProgressionPercentage: any;
     readQuizProgressionPercentage: any;
     responsiveOptions: any;
@@ -45,7 +46,7 @@ export class DashboardComponent implements OnInit {
     ];
     selectedCountryId: any;
 
-    constructor(private dashboardService: DashboardService,
+    constructor(private dashboardService: DashboardService,private service: AuthService,
         private router: Router, private dataService: DataService,
                 private elRef: ElementRef, private renderer: Renderer2,
     ) {
@@ -74,6 +75,13 @@ export class DashboardComponent implements OnInit {
         this.dashboardService.getTrustedPartners().subscribe(partnerLogo => {
             this.partnerTrusterLogo = partnerLogo;
         });
+
+        this.subs.sink = this.service.getMe().subscribe((data) => {
+            if (data) {
+              localStorage.setItem('countryId', data.userdetails[0].interested_country_id);
+              this.userName = data.userdetails[0].name.toString();
+            }
+          });
 
         let data = {
             countryId: this.selectedCountryId,
