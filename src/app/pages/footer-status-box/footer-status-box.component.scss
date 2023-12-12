@@ -1,7 +1,21 @@
 .horizontal-scroll-container {
 	overflow-x: auto;
 	-webkit-overflow-scrolling: touch; /* For smooth scrolling on iOS devices */
-  }
+}
+
+.footstatusbox {
+	.accordion-item {
+		border: 0px;
+		border-radius: 15px;
+		.accordion-button
+		{
+			border-radius: 15px;
+			background: transparent;
+			border: none;
+			box-shadow: none;
+		}
+	}
+}
 .selected-box {
 	background: var(--uniprep-primaryop10);
 	color: black;
@@ -57,7 +71,7 @@
 
 .footer-card {
 	.card {
-		border: 1px solid #F0780C;
+		border: 1px solid #f0780c;
 	}
 
 	svg {
@@ -69,8 +83,7 @@
 			background-color: var(--uniprep-primaryop10);
 			border: 1px solid var(--uniprep-primary);
 		}
-		.cardinactive
-		{
+		.cardinactive {
 			background-color: white;
 		}
 	}
@@ -80,8 +93,7 @@
 			background-color: var(--uniprep-primaryop10);
 			border: 1px solid var(--uniprep-primary);
 		}
-		.cardinactive
-		{
+		.cardinactive {
 			background-color: white;
 		}
 	}
@@ -103,13 +115,13 @@
 	}
 	.horizontal-scroll-container {
 		overflow-x: scroll;
-	  }
-	
-	  /* Optionally, you can adjust padding or other styles for desktop */
-	  .horizontal-scroll-container {
+	}
+
+	/* Optionally, you can adjust padding or other styles for desktop */
+	.horizontal-scroll-container {
 		padding: 0;
 		/* Other desktop-specific styles */
-	  }
+	}
 }
 
 @media (max-width: 1299.98px) {
@@ -120,13 +132,13 @@
 	}
 	.horizontal-scroll-container {
 		overflow-x: scroll;
-	  }
-	
-	  /* Optionally, you can adjust padding or other styles for desktop */
-	  .horizontal-scroll-container {
+	}
+
+	/* Optionally, you can adjust padding or other styles for desktop */
+	.horizontal-scroll-container {
 		padding: 0;
 		/* Other desktop-specific styles */
-	  }
+	}
 }
 
 @media (max-width: 1199.98px) {
@@ -137,62 +149,62 @@
 	}
 	.horizontal-scroll-container {
 		overflow-x: scroll;
-	  }
-	
-	  /* Optionally, you can adjust padding or other styles for desktop */
-	  .horizontal-scroll-container {
+	}
+
+	/* Optionally, you can adjust padding or other styles for desktop */
+	.horizontal-scroll-container {
 		padding: 0;
 		/* Other desktop-specific styles */
-	  }
+	}
 }
 
 @media (max-width: 991.98px) {
-  .footer-card {
+	.footer-card {
 		.fctitle {
 			height: 60px !important;
 		}
 	}
 	.horizontal-scroll-container {
 		overflow-x: scroll;
-	  }
-	
-	  /* Optionally, you can adjust padding or other styles for desktop */
-	  .horizontal-scroll-container {
+	}
+
+	/* Optionally, you can adjust padding or other styles for desktop */
+	.horizontal-scroll-container {
 		padding: 0;
 		/* Other desktop-specific styles */
-	  }
+	}
 }
 
 @media (max-width: 767.98px) {
-  .footer-card {
+	.footer-card {
 		.fctitle {
 			height: 50px !important;
 		}
 	}
 	.horizontal-scroll-container {
 		overflow-x: scroll;
-	  }
-	
-	  /* Optionally, you can adjust padding or other styles for desktop */
-	  .horizontal-scroll-container {
+	}
+
+	/* Optionally, you can adjust padding or other styles for desktop */
+	.horizontal-scroll-container {
 		padding: 0;
 		/* Other desktop-specific styles */
-	  }
+	}
 }
 
 @media (max-width: 575.98px) {
-  .footer-card {
+	.footer-card {
 		.fctitle {
 			height: 40px !important;
 		}
 	}
 	.horizontal-scroll-container {
 		overflow-x: scroll;
-	  }
-	
-	  /* Optionally, you can adjust padding or other styles for desktop */
-	  .horizontal-scroll-container {
+	}
+
+	/* Optionally, you can adjust padding or other styles for desktop */
+	.horizontal-scroll-container {
 		padding: 0;
 		/* Other desktop-specific styles */
-	  }
+	}
 }

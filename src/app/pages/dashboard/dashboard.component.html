@@ -21,15 +21,16 @@
 <div class="container-fluid mt-2">
 	<div class="row align-items-center">
 		<div class="col-md-5 col-12">
-			<h3 class="fw-semibold text-uppercase">Welcome To {{ selectedCountryId == 1 ? "The" : "" }}{{ selectedCountryId == 2 ? "The" : "" }} {{ selectedCountryName }}</h3>
-			<h5 class="fw-normal lh-base mb-4 mb-md-0">UNIPREP {{ selectedCountryName }} information and content is reviewed by alumni of top international universities.</h5>
+			<h3 class="fw-semibold mb-0">Hey {{ userName }},</h3>
+			<!-- {{ selectedCountryId == 1 ? "The" : "" }}{{ selectedCountryId == 2 ? "The" : "" }} {{ selectedCountryName }} -->
+			<h5 class="fw-normal lh-base mb-4 mb-md-0">Welcome to UNIPREP!<br>Exlore all the fascinating details and essential insights about {{ selectedCountryName }}.</h5>
 		</div>
 		<div class="col-md-7 col-12 p-0">
 			<div class="card trustedcard">
 				<div class="card-header">
 					<h5 class="mb-0">Trusted by 100+ Education Partners</h5>
 				</div>
-				<div class="card-body">
+				<div class="card-body pb-0">
 					<p-carousel [numScroll]="1" [numVisible]="4" [circular]="true" [responsiveOptions]="responsiveOptions" [showIndicators]="false" [value]="partnerTrusterLogo" class="text-center">
 						<ng-template let-uni pTemplate="item">
 							<img alt="{{ uni.logo }}" class="carousel" src="{{ uni.logo }}" />
