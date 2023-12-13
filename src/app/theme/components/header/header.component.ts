@@ -80,6 +80,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   timeHours: any;
   timeDays: any;
   freeTrial!: boolean;
+  visibleExhasted: boolean = false;
   constructor(
     private router: Router,
     private locationService: LocationService,
@@ -451,7 +452,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
         this.hrs = hours;
         this.day = days;
         if (this.min <= 0 && this.hrs <= 0 && this.day <= 0 && this.sec <= 0) {
-          this.visible = true;
+          this.visibleExhasted = true;
           clearInterval(this.timerInterval);
         }
     }, 1000);
