@@ -1,32 +1,39 @@
 <div class="card readingcard">
 	<div class="card-body text-center pt-0 h-100">
 		<div class="row justify-content-center">
-			<div class="col-md-2 text-start">
+			<div class="col-md-2 col-2 text-start">
 				<p-button (click)="goBack()" icon="pi pi-arrow-left" styleClass="p-button-rounded p-button-text text-dark"></p-button>
 			</div>
-			<div class="col-md-8 text-center">
+			<div class="col-md-8 col-8 text-center">
 				<h5 class="select-title mb-1" tooltipPosition="top" pTooltip="Questions related to the application process are answered">{{ currentModuleName }} - {{ moduleName }}<i class="questiontooltip fa-solid fa-circle-question"></i></h5>
 			</div>
-			<div class="col-md-2"></div>
+			<div class="col-md-2 col-2">&nbsp;</div>
 		</div>
 		<div class="row">
-			<div *ngFor="let sub of listQuestion$ | async; let i = index" class="col-lg-3 col-md-4 col-sm-4 col-xs-6 col-6">
+			<div *ngFor="let sub of listQuestion$ | async; let i = index" class="col-lg-3 col-md-4 col-sm-4 col-xs-12 col-12">
 				<div class="row w-100 h-100 m-0 justify-content-center">
 					<div (click)="onQuestionClick(sub)" class="card questioncard {{ sub.read == 1 ? 'questionread' : '' }}">
-						<div class="card-body px-0 d-flex justify-content-between flex-column">
-							<div class="row justify-content-center">
+						<div class="card-body d-flex flex-md-column flex-row justify-content-md-between align-items-center px-0 py-2">
+							<div class="row justify-content-center w-100">
 								<div class="col">
-									<p class="text-start fw-medium questiontext">{{ sub.question }}</p>
+									<p class="text-start fw-medium questiontext mb-0 mb-md-2">{{ sub.question }}</p>
 								</div>
 								<!--<div class="col-md-4 text-center">
                                             <p class="mb-3 circle text-center">{{i+1}}</p>
                                         </div> -->
-								<div class="col-md-3 text-end" *ngIf="sub.popular == 1">
+								<div class="col-md-3 col-2 text-end" *ngIf="sub.popular == 1">
 									<i class="pi pi-star-fill text-danger" pTooltip="Most Popular Question" tooltipPosition="right" style="font-size: 1.5rem"></i>
 								</div>
 							</div>
 							<button
-								class="btn w-full btn-primary m-0 primary-btn
+								class="btn d-md-block d-none w-100 flex-shrink-0 btn-primary m-0 primary-btn
+                                        {{ sub.read == 1 ? 'readButton' : '' }}"
+								pButton
+								type="button">
+								Read Answer
+							</button>
+							<button
+								class="btn d-md-none d-flex flex-shrink-0 btn-primary m-0 primary-btn
                                         {{ sub.read == 1 ? 'readButton' : '' }}"
 								pButton
 								type="button">
@@ -51,7 +58,7 @@
 			</div>
 			<div class="d-flex justify-content-between align-items-center">
 				<div>
-					<button (click)="goToHome($event)" class="btn btn-secondary homecardbtn m-0 px-4 py-2">
+					<button (click)="goToHome($event)" class="btn btn-primary homecardbtn m-0 px-4 py-2">
 						<i class="fa-solid h5 fa-house"></i><br />
 						Home
 					</button>
@@ -76,11 +83,13 @@
 		</div>
 	</ng-template>
 	<div class="carousel-container px-4">
+<!--        <span class="badge" style="background-color: {{val.verified == 1 ? 'darkorchid' : '#F59E0B'}};">{{val.verified == 1 ? 'Verified' : 'Not Verified'}}-->
+<!--                        </span>-->
 		<p-carousel #carousel (onPage)="setPage($event)" [circular]="true" [numScroll]="1" [numVisible]="1" [page]="selectedQuestion" [responsiveOptions]="responsiveOptions" [value]="data" class="answersection">
 			<ng-template [ngForOf]="data" let-i="index" let-val ngFor pTemplate="item">
 				<div class="card answercard">
 					<div class="card-body text-start">
-						<p class="text-small blockquote text-start mb-0">Last updated at: {{ val.updated_at | date }}  <span *ngIf="val.verified == 1" class="badge" style="background-color: darkorchid;">Verified</span></p>
+						<p class="text-small blockquote text-start mb-0">Last updated at: {{ val.updated_at | date }}   <span class="badge" style="background-color: {{val.pre_verified == 1 ? 'darkorchid' : '#3f4c83'}};"> {{val.pre_verified == 1 ? 'Pre Verified' : 'Non Pre-Verified'}}</span></p>
 						<h3 class="unselectable">{{ val.question }}</h3>
 						<div class="fw-medium worksans unselectable" style="white-space: pre-wrap" [innerHTML]="val.answer"></div>
 					</div>

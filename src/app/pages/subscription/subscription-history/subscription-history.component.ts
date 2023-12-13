@@ -40,14 +40,14 @@ export class SubscriptionHistoryComponent implements OnInit {
   selectedSubscriptionDetails: any;
   selectedTopupCountryDetails: any;
   showCheckout: boolean = true;
+
+  @Output() showPlan = new EventEmitter();
+  @Input() showPlanBtn: any;
+
   constructor(private router: Router, private subscriptionService: SubscriptionService, private authService: AuthService, private toast: MessageService) {
   }
 
   ngOnInit(): void {
-    this.authService.getCountry().subscribe((data) => {
-      this.countryList = data;
-      this.getSubscriptionTopupList();
-    });
   }
 
 
@@ -200,4 +200,7 @@ export class SubscriptionHistoryComponent implements OnInit {
     });
   }
 
+  gotoPlan() {
+    this.showPlan.emit(true);
+  }
 }

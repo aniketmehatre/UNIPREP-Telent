@@ -8,7 +8,7 @@
 				<div (click)="selectCountry(v)" role="button" class="text-center card-body {{ selectedCountryId == v.id ? 'country-border px-2 py-2' : '' }}">
 					<img alt="country" class="countryicon" src="{{ v.flag != '' ? v.flag : '../../uniprep-assets/images/mstile-150x150.png' }}" />
 					<p class="mb-2 text-center text-sm text-capitalize {{ selectedCountryId == v.id ? 'country-text' : 'country-text-small' }}">
-						{{ v.country }}
+						{{ v.country | uppercase}}
 					</p>
 				</div>
 			</ng-template>
@@ -21,15 +21,16 @@
 <div class="container-fluid mt-2">
 	<div class="row align-items-center">
 		<div class="col-md-5 col-12">
-			<h3 class="fw-semibold text-uppercase">Welcome To {{ selectedCountryId == 1 ? "The" : "" }}{{ selectedCountryId == 2 ? "The" : "" }} {{ selectedCountryName }}</h3>
-			<h5 class="fw-normal lh-base mb-4 mb-md-0">UNIPREP {{ selectedCountryName }} information and content is reviewed by alumni of top international universities.</h5>
+			<h3 class="fw-semibold mb-0">Hey {{ userName }},</h3>
+			<!-- {{ selectedCountryId == 1 ? "The" : "" }}{{ selectedCountryId == 2 ? "The" : "" }} {{ selectedCountryName }} -->
+			<h5 class="fw-normal lh-base mb-4 mb-md-0">Welcome to UNIPREP!<br>Exlore all the fascinating details and essential insights about {{ selectedCountryName }}.</h5>
 		</div>
 		<div class="col-md-7 col-12 p-0">
 			<div class="card trustedcard">
 				<div class="card-header">
 					<h5 class="mb-0">Trusted by 100+ Education Partners</h5>
 				</div>
-				<div class="card-body">
+				<div class="card-body pb-0">
 					<p-carousel [numScroll]="1" [numVisible]="4" [circular]="true" [responsiveOptions]="responsiveOptions" [showIndicators]="false" [value]="partnerTrusterLogo" class="text-center">
 						<ng-template let-uni pTemplate="item">
 							<img alt="{{ uni.logo }}" class="carousel" src="{{ uni.logo }}" />
@@ -37,7 +38,7 @@
 					</p-carousel>
 				</div>
 				<div class="card-footer text-center border-0">
-					<button class="btn btn-primary px-4 py-2 m-0" (click)="openViewMoreOrg()">View More</button>
+					<button class="btn btn-primary px-4 py-2 m-0 b-25" (click)="openViewMoreOrg()">View More</button>
 				</div>
 			</div>
 		</div>
@@ -61,7 +62,7 @@
 					<div class="row mb-3">
 						<div class="col-md-6 col-lg-6 col-6 d-flex order-1 order-md-1">
 							<button (click)="openReading()" class="btn w-100 btn-primary homecardbtn m-0 px-4 py-3">
-								<i class="fa-regular h3 fa-paste"></i>
+								<i class="far fa-book-open"></i>
 								<p class="mb-0">Start<br />Reading</p>
 							</button>
 						</div>
@@ -80,7 +81,7 @@
 						</div>
 					</div>
 					<div>
-						<h5 class="mb-1">Reading</h5>
+						<h5 class="mb-1 uppercase">Reading</h5>
 						<p class="mb-0">Expand your horizons through reading</p>
 					</div>
 				</div>
@@ -116,7 +117,7 @@
 						</div> -->
 					</div>
 					<div>
-						<h5 class="mb-1">Quiz</h5>
+						<h5 class="mb-1 uppercase">Quiz</h5>
 						<p class="mb-0">Test your global knowledge</p>
 					</div>
 				</div>
@@ -133,7 +134,7 @@
 						</div>
 					</div>
 					<div>
-						<h5 class="mb-1">Launching Soon</h5>
+						<h5 class="mb-1 uppercase">Launching Soon</h5>
 						<p class="mb-0">Get certified for completing the quiz with an extraordinary score.</p>
 					</div>
 				</div>

@@ -4,18 +4,16 @@
   color: white;
 }
 
-.chatheader
-{
+.chatheader {
   padding: 0.5rem 1rem;
   background-color: var(--uniprep-primary);
-  border-radius:12px 12px 0 0;
+  border-radius: 12px 12px 0 0;
 }
 
-.chatfooter
-{
+.chatfooter {
   padding: 0.5rem 1rem;
   background-color: white;
-  border-radius:0 0 12px 12px;
+  border-radius: 0 0 12px 12px;
 }
 
 .chatprofile {
@@ -203,7 +201,7 @@ a {
 
 .chat .messages-chat .text {
   margin: 0 35px;
-  background-color: #F1F1F1;
+  background-color: #f1f1f1;
   padding: 15px;
   border-radius: 0 12px 12px 12px;
 }
@@ -288,12 +286,15 @@ countryimage {
 }
 .response-msg-question {
   margin-left: 40px;
-  background-color: #e6e7ed;
+  background-color: #f1f1f1;
   width: fit-content;
-  padding-right: 30px;
-  margin-bottom: -16px;
-  padding-left: 10px;
-  border-top-left-radius: 0;
+  padding: 15px;
+  border-radius: 12px;
+  border-radius: 0 12px 0 0;
+  max-width: 65%;
+  p {
+    margin-bottom: 0px;
+  }
 }
 .response-msg-attach {
   margin-left: 40px;
@@ -326,7 +327,7 @@ countryimage {
   width: 375px;
   font-size: medium;
   font-weight: 600;
-  background-color: #EBEDF2;
+  background-color: #ebedf2;
   color: #3f4c83;
   border: 2px solid #3f4c83;
 }
@@ -351,218 +352,6 @@ countryimage {
 ::ng-deep .p-confirm-popup .p-confirm-popup-flipped:after {
   border-top-color: #888a9447 !important;
 }
-::ng-deep .p-card-header {
-  padding: 1rem;
-  background-color: #3f4c83;
-  color: white;
-}
-
-.chat .header-chat .right {
-  position: absolute;
-  right: 40px;
-}
-
-.chat .messages-chat {
-  padding: 25px 35px;
-}
-
-.chat .messages-chat .message {
-  display: flex;
-  align-items: center;
-  margin-bottom: 8px;
-}
-
-.chat .messages-chat .message .photo {
-  display: block;
-  width: 40px;
-  height: 38px;
-  background: #e6e7ed;
-  border-radius: 50px;
-  background-position: center;
-  background-size: cover;
-  background-repeat: no-repeat;
-}
-.notification .badge {
-  top: -11px;
-  right: -5px;
-  padding: 3px 6px;
-  border-radius: 50%;
-  background-color: #d60909;
-  color: white;
-  font-size: 0.7rem;
-  font-weight: lighter;
-}
-.notification {
-  position: relative;
-  display: inline-block;
-}
-.msg-info {
-  font-size: smaller;
-}
-
-.message-active {
-  padding: 8px;
-  width: 100%;
-  border: 1px solid rgb(155 195 41 / 25%);
-  margin-left: 0px;
-  background: white;
-}
-
-.message-deactive {
-  padding: 8px;
-  width: 100%;
-  border: 1px solid rgb(155 195 41 / 25%);
-  margin-left: 0px;
-  background: #e1e1e7;
-
-  .timer {
-    span {
-      background-color: black !important;
-    }
-  }
-}
-
-.discussion {
-  cursor: pointer;
-
-  .name {
-    font-size: large;
-    font-weight: 600;
-  }
-
-  :host ::ng-deep .p-card .p-card-content {
-    padding: 0 !important;
-  }
-
-  .timer {
-    font-size: small;
-
-    span {
-      background-color: var(--uniprep-primary);
-      font-size: smaller;
-      color: white;
-      width: 55px;
-      display: inline-block;
-      border-radius: 3px;
-      text-align: center;
-    }
-  }
-
-  &.active {
-    padding: 8px;
-    width: 100%;
-    border: 1px solid rgb(155 195 41 / 25%);
-    margin-left: 0px;
-    background: #efefef;
-
-    .timer {
-      span {
-        //background-color: black !important;
-        height: auto;
-      }
-    }
-  }
-}
-.p-inputtext {
-  width: -webkit-fill-available !important;
-}
-.credits {
-  float: right;
-  font-weight: 600;
-  font-size: 11px;
-  background-color: rgb(255 255 255 / 34%);
-  padding: 7px;
-  border-radius: 4px;
-  text-transform: uppercase;
-  width: auto;
-  margin-right: 10px;
-}
-:host ::ng-deep .p-dialog-content {
-  overflow: visible !important;
-}
-
-::ng-deep .ql-fullscreen:after {
-  content: "\26F6";
-  padding: 0 !important;
-  font-weight: bold;
-}
-::ng-deep {
-  .fullscreen {
-    z-index: 10 !important;
-    background-color: white;
-    .form-group {
-      height: 100%;
-      width: 100%;
-    }
-    .ql-container {
-      height: 87vh !important;
-      width: 100% !important;
-    }
-  }
-}
-.credits-span {
-  color: black;
-  background: #ffffff;
-  border-radius: 4px;
-  vertical-align: middle;
-  height: 22px;
-  width: 48px;
-  display: inline-block;
-  text-align: center;
-  margin-left: 4px;
-  padding-top: 2px;
-  font-size: 0.8rem;
-  font-weight: 600;
-}
-a {
-  cursor: pointer;
-}
-
-.chatwindow {
-  font-size: 1rem;
-  height: 30px;
-  width: 30px;
-  background-color: #ffffff;
-  border-radius: 50%;
-  display: inline-block;
-  text-align: center;
-  i {
-    color: black;
-    vertical-align: -webkit-baseline-middle;
-  }
-}
-
-.status {
-  font-size: small;
-}
-
-.spanmessage {
-  vertical-align: -webkit-baseline-middle;
-  font-weight: 500;
-  font-size: 1.5rem;
-  margin: 0rem 0rem 0rem 0.8rem;
-}
-::ng-deep.p-card-footer {
-  padding: 0 !important;
-
-}
-.chat .messages-chat .text {
-  margin: 0 35px;
-  background-color: #f6f6f6;
-  padding: 15px;
-  border-radius: 12px;
-}
-
-.text-only {
-  margin-left: 45px;
-}
-
-.time {
-  font-size: 10px;
-  color: lightgrey;
-  margin-bottom: 10px;
-  margin-left: 85px;
-}
 
 .response-time {
   float: right;
@@ -577,10 +366,6 @@ a {
 
 .response .text {
   background-color: #e3effd !important;
-}
-
-.bg-black {
-  background: #373836;
 }
 
 .photo {
@@ -639,9 +424,11 @@ countryimage {
 }
 
 .response-msg {
-  background-color: #e3effd;
+  background-color: var(--uniprep-primaryop10);
   padding: 15px;
+  border-radius: 0 12px 12px 12px;
   margin-left: 40px;
+  max-width: 75%;
 }
 .p-card .p-card-content {
   width: 100% !important;
@@ -680,5 +467,28 @@ countryimage {
 }
 ::ng-deep .p-confirm-popup .p-confirm-popup-flipped:after {
   border-top-color: #888a9447 !important;
-  border-top-color: #EBEDF2 !important;
+  border-top-color: #ebedf2 !important;
+}
+::ng-deep .ql-attachmentHandler::after {
+  content: "Attach";
+  padding: 0 !important;
+  color: blue;
+}
+::ng-deep {
+  .fullscreen {
+    background-color: white;
+    .form-group {
+      height: 100%;
+      width: 100%;
+    }
+    .ql-container {
+      height: 90vh !important;
+      width: 100% !important;
+    }
+  }
+}
+::ng-deep .ql-fullscreen:after {
+  content: "\26F6";
+  padding: 0 !important;
+  font-weight: bold;
 }

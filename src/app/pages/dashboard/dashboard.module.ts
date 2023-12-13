@@ -13,7 +13,6 @@ import {RippleModule} from "primeng/ripple";
 import {CardModule} from 'primeng/card';
 import {CarouselModule} from 'primeng/carousel';
 import {CommonModule} from '@angular/common'
-import {PagesModule} from "../pages.module";
 import { TooltipModule } from 'primeng/tooltip';
 import { DialogModule } from 'primeng/dialog';
 
@@ -32,7 +31,6 @@ import { DialogModule } from 'primeng/dialog';
         RippleModule,
         CardModule,
         CarouselModule,
-        PagesModule,
         TooltipModule,
         DialogModule,
     ],

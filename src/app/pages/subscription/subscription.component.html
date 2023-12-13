@@ -18,7 +18,7 @@
     </ng-container>
     <ng-container *ngSwitchCase="5">
         <uni-subscription-history [userSubscription]="userSubscription" [subscribedHistoryList]="subscribedHistoryData"
-                                  [subscribedCountryList]="subscribedCountryList" [accountBillingList]="accountBillingData"
+            (showPlan)="showPlan($event)" [showPlanBtn]="showPlanBtn" [subscribedCountryList]="subscribedCountryList" [accountBillingList]="accountBillingData"
         ></uni-subscription-history>
     </ng-container>
 </ng-container>

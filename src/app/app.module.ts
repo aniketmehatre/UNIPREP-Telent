@@ -2,7 +2,6 @@ import { NgModule, CUSTOM_ELEMENTS_SCHEMA  } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { PagesModule } from './pages/pages.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { StoreModule } from '@ngrx/store';
 import { pagesReducer } from './pages/store/pages.reducer';
@@ -62,7 +61,6 @@ export function tokenGetter() {
         BrowserModule,
         BrowserAnimationsModule,
         AppRoutingModule,
-        PagesModule,
         StoreModule.forRoot(reducers, {}),
         AuthModule,
         HttpClientModule,

@@ -3,15 +3,18 @@
 	<div class="card-body">
 		<div class="d-flex justify-content-between">
 			<div>
-				<h5 class="sop-border sop-header">{{ subscription.country }} Subscription</h5>
-				<h2 class="mb-0">{{ subscription.plan }}</h2>
+				<!-- <h5 class="sop-border sop-header">{{ subscription.country }} Subscription</h5> -->
+				<h2 class="mb-0">{{ subscription.plan }} Plan</h2>
 				<span>{{ subscription.remainingdays }} Days Remaining</span>
 			</div>
 			<div>
-				<div class="col-md-4">
-					<div label="" role="button" class="headercountry me-2">
-						<img *ngIf="subscription.flag" [src]="subscription.flag" [alt]="subscription.country" height="auto" width="auto" />
+				<div class="d-flex" >
+					<div class="headercountry me-2" *ngFor="let flag of subscription.flag">
+						<img *ngIf="flag" [src]="flag" alt="Country Flag" height="auto" width="auto" />
 					</div>
+				</div>
+				<div class="text-end pt-3" *ngIf="showPlanBtn">
+					<button class="btn btn-primary" (click)="gotoPlan()">Subscription Plan</button>
 				</div>
 				<div>
 					<!-- <div>
@@ -80,7 +83,10 @@
 					<td>{{ data.amount }}</td>
 					<td><i class="pi pi-check" style="color: aquamarine"></i></td>
 					<td>
-						<button class="btn btn-primary" (click)="downloadInvoice(data.id)"><i class="pi pi-download"></i></button>
+						<button class="btn btn-primary" (click)="downloadInvoice(data.id)" *ngIf="data.product != 'Free Add On' else noData"><i class="pi pi-download"></i></button>
+						<ng-template #noData>
+							<div class="ms-4">-</div>
+						</ng-template>
 					</td>
 				</tr>
 			</ng-template>
