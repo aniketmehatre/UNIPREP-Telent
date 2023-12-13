@@ -29,9 +29,11 @@
         </div>
     </div>
 <!-- Modal Markup -->
-<div *ngIf="selectedVideoLink" class="modal-overlay" (click)="closeVideoPopup()">
+<div *ngIf="showVideoPopup" class="modal-overlay">
   <div class="modal-container">
-    <button class="close-button" (click)="closeVideoPopup()"><b>X</b></button>
+    <button class="close-button"tooltipPosition="top"  pTooltip="Close" (click)="closeVideoPopup()"><b>X</b></button>
+    <button class="newwindow-button" tooltipPosition="top"  pTooltip="Open New Window" (click)="openNextVideo()"><b>+</b></button>
     <!-- Use the safe pipe here for the src attribute -->
-    <iframe [src]="selectedVideoLink" width="560" height="315" frameborder="0" allowfullscreen></iframe>  </div>
+    <iframe [src]="selectedVideoLink" width="560" height="315" frameborder="0" allowfullscreen></iframe> 
+  </div>
 </div>

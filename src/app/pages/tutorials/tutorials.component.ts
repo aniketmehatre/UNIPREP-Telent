@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, NgModule, OnInit } from '@angular/core';
 import { TutorialsService } from './tutorials.service';
 import { DomSanitizer, SafeHtml, SafeResourceUrl, SafeScript, SafeStyle, SafeUrl } from '@angular/platform-browser';
 import { Pipe, PipeTransform } from '@angular/core';
@@ -9,26 +9,15 @@ import { Pipe, PipeTransform } from '@angular/core';
   templateUrl: './tutorials.component.html',
   styleUrls: ['./tutorials.component.scss']
 })
+
 export class TutorialsComponent implements OnInit {
-//   @Pipe({
-//   name: 'safe'
-// })
   tutorials:any=[];
   tutoriallist:any=[];
   showVideoPopup: boolean = false;
   selectedVideoLink: any | null = null;
   constructor(private resourceService: TutorialsService,private sanitizer: DomSanitizer) { }
 
-  transform(value: string, type: string): SafeHtml | SafeStyle | SafeScript | SafeUrl | SafeResourceUrl {
-    switch (type) {
-      case 'html': return this.sanitizer.bypassSecurityTrustHtml(value);
-      case 'style': return this.sanitizer.bypassSecurityTrustStyle(value);
-      case 'script': return this.sanitizer.bypassSecurityTrustScript(value);
-      case 'url': return this.sanitizer.bypassSecurityTrustUrl(value);
-      case 'resourceUrl': return this.sanitizer.bypassSecurityTrustResourceUrl(value);
-      default: throw new Error(`Invalid safe type specified: ${type}`);
-    }
-  }
+
   ngOnInit(): void {
     this.resourceService.getResources().subscribe((response:any)=>{
       var tutorials= response.Tutorial;
@@ -43,16 +32,45 @@ export class TutorialsComponent implements OnInit {
       });
     });
   }
+  openNextPageLink:any;
+  openVideoPopup(link: any): void {
+    const sanitizedLink = this.sanitizer.bypassSecurityTrustResourceUrl(link);
+    this.openNextPageLink=link
+    // Check if it's a YouTube video link
+    if (this.isYoutubeVideoLink(link)) {
+      // If it's a YouTube video link, extract the video ID and construct the embeddable URL
+      const videoId = this.extractYoutubeVideoId(link);
+      const embedUrl = `https://www.youtube.com/embed/${videoId}`;
+      this.selectedVideoLink = this.sanitizer.bypassSecurityTrustResourceUrl(embedUrl);
+    } else {
+      // If it's not a YouTube video link, use the URL directly
+      this.selectedVideoLink = sanitizedLink;
+    }
 
-  openVideoPopup(videoLink: string): void {
-    // Using DomSanitizer to sanitize the URL as a resource URL
-    this.selectedVideoLink = this.sanitizer.bypassSecurityTrustResourceUrl(videoLink);
+    this.showVideoPopup = true;
   }
+
+  private isYoutubeVideoLink(link: string): boolean {
+    // Check if the link is a YouTube video link based on a simple pattern
+    return link.includes('youtube.com') || link.includes('youtu.be');
+  }
+
+  private extractYoutubeVideoId(url: string): string {
+    const videoIdRegex = /(?:youtube\.com\/(?:[^\/\n\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|\S*?[?&]v=)|youtu\.be\/)([^"'&?\n\s]+)/;
+    const match = url.match(videoIdRegex);
+    return match ? match[1] : '';
+  }
+
+
   closeVideoPopup(): void {
     this.selectedVideoLink = null;
+    this.showVideoPopup = false;
   }
 
   stopPropagation(event: Event): void {
     event.stopPropagation();
+  }
+  openNextVideo(){
+    window.open(this.openNextPageLink)
   }
 }
