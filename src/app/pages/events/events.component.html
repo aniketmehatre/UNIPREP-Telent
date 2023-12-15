@@ -19,9 +19,9 @@
 				</p>
 			</div>
 			<div class="col-md-6 col-7 text-md-center text-end">
-				<button class="btn btn-outline-light px-3 py-3" (click)="setActiveButton(1)"
+				<button class="btn btn-outline-light theme-blue px-3 py-3" (click)="setActiveButton(1)"
 					[ngStyle]="button1Style">Upcoming Events</button>
-				<button class="btn btn-outline-light px-3 py-3" (click)="setActiveButton(2)"
+				<button class="btn btn-outline-light theme-blue px-3 py-3" (click)="setActiveButton(2)"
 					[ngStyle]="button2Style">Past Events</button>
 			</div>
 			<div class="col-md-3 col-12">
@@ -149,7 +149,7 @@
 							[pTooltip]="events.eventname + '<br>Speaker - ' + events.speakername" [escape]="false">
 							{{ events.eventname.length >15 ? events.eventname.slice(0,15) +
 							'...':events.eventname
-							}} <span><i class="questiontooltip fa-solid fa-circle-question"></i></span></h5>
+							}}</h5>
 						<p class="small">{{ events.eventdescription.length > 29 ?
 							events.eventdescription.slice(0, 29) + '...' : events.eventdescription }}</p>
 
@@ -207,7 +207,7 @@
 			<div class="modal-content" style="margin-top: 50% !important">
 				<div class="modal-header flex justify-content-between">
 					<h4 class="modal-title">Filter Events</h4>
-					<span style="cursor: pointer"><i (click)="closenewfilePopup()"
+					<span style="cursor: pointer;color: #3f4c83;"><i (click)="closenewfilePopup()"
 							class="fa-solid fa-circle-xmark fa-2x"></i></span>
 				</div>
 				<div class="modal-body">
@@ -216,7 +216,7 @@
 						<div class="col-md-12">
 							<div class="row">
 								<div class="col-md-6">
-									<label class="form-label" style="font-size: medium">Filter by
+									<label class="form-label" style="font-size: medium;font-weight:500">Filter by
 										date</label>
 									<div class="form-group">
 										<div class="mb-3">
@@ -244,8 +244,8 @@
 						<div class="col-12">
 							<div class="form-group">
 
-								<label style="font-size: medium">Filter by Country</label>
-								<p-dropdown class="mt-2" placeholder="Select" formControlName="country"
+								<label style="font-size: medium;font-weight: 500;">Filter by Country</label>
+								<p-dropdown class="mt-2" placeholder="Select one or more countries" formControlName="country"
 									[options]="countries" optionValue="id" optionLabel="country" styleClass="w-full"
 									[filter]="true"></p-dropdown>
 							</div>
