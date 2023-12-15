@@ -416,6 +416,11 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.router.navigate(["/pages/subscriptions"]);
   }
 
+  onClickSubscribedUser(): void{
+    this.visibleExhasted = false;
+    this.router.navigate(["/pages/subscriptions"]);
+  }
+
   subScribedUserCount(): void{
     this.service.getNewUserTimeLeft().subscribe(res => {
       let data = res.time_left;
