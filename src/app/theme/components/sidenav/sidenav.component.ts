@@ -136,6 +136,7 @@ export class SidenavComponent {
     // }
   ];
   conditionSubscribed!: boolean;
+  currentTitle: any;
   constructor(
     private router: Router,
     private activatedRoute: ActivatedRoute,
@@ -170,9 +171,10 @@ export class SidenavComponent {
     this.markCurrentMenu();
     this.authService.getNewUserTimeLeft().subscribe(res => {
       let data = res.time_left;
-      if (data.plan === 'expired' || data.plan === 'subscription_expired') {
+      if (data.plan === 'expired' || data.plan === 'subscription_expired' ) {
         this.conditionSubscribed = false;
-      } else {
+      }
+      else {
         this.conditionSubscribed = true;
       }
     });
