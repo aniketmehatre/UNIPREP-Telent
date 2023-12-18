@@ -44,6 +44,7 @@ export class SubscriptionDataComponent implements OnInit {
   discountAmountEnable!: boolean;
   confirmModal: boolean = false;
   user!: User | null;
+  discountPercentage: any;
 
   constructor(private authService: AuthService,
     private subscriptionService: SubscriptionService,
@@ -204,6 +205,7 @@ export class SubscriptionDataComponent implements OnInit {
         if (response.success) {
           this.checkoutTotal = Number(this.subscriptionTotal) - response.discountPrice;
           this.discountAmount = response.discountPrice;
+          this.discountPercentage = response.discountPercentage;
           this.discountAmountEnable = true;
           this.toast.add({ severity: 'success', summary: 'Success', detail: "Coupon applied" });
         }
