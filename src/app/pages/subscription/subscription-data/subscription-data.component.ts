@@ -182,16 +182,15 @@ export class SubscriptionDataComponent implements OnInit {
       this.toast.add({ severity: 'error', summary: 'Error', detail: 'Please select the Plan!' });
       return;
     }
-    if (this.subscriptionService.usedCoupon == this.couponInput) {
-      this.toast.add({ severity: 'error', summary: 'Error', detail: 'Coupon already used' });
-      this.checkoutTotal = this.subscriptionTotal;
-      this.discountAmountEnable =false;
+    if (this.subscriptionService.usedCoupon == this.couponInput && this.invalidCoupon) {
+      this.toast.add({ severity: 'error', summary: 'Error', detail: 'Invalid Coupon Code' });
       return;
     }
-    if (this.subscriptionService.usedCoupon === undefined) {
-      this.discountAmountEnable = false;
-      this.checkoutTotal = this.subscriptionTotal;
+    if (this.subscriptionService.usedCoupon == this.couponInput) {
+      this.toast.add({ severity: 'error', summary: 'Error', detail: 'Coupon already used' });
+      return;
     }
+
     if (this.couponInput) {
       this.subscriptionService.usedCoupon = this.couponInput
       let data = {
