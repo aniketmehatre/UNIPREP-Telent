@@ -81,6 +81,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   timeDays: any;
   freeTrial!: boolean;
   visibleExhasted: boolean = false;
+  reportType: number = 1;
   constructor(
     private router: Router,
     private locationService: LocationService,
@@ -97,6 +98,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
       this.getModuleList();
     });
     route.params.subscribe(val => {
+      console.log('coming')
+      this.reportType = 1;
+      this.getReportOption();
       // put the code from `ngOnInit` here
       this.loadCountryList();
     });
@@ -219,7 +223,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
       reportOption: [""],
       comment: ["", []],
     });
-    this.getReportOption();
+    // this.getReportOption();
     this.dataService.chatTriggerSource.subscribe((message) => {
       if (message === "open chat window") {
         this.openModal();
@@ -260,13 +264,14 @@ export class HeaderComponent implements OnInit, OnDestroy {
         this.onChangeModuleList(data.moduleId);
         this.onChangeSubModuleList(data.subModuleId);
         this.selectedGenMod = 2;
-
-        
+        this.openReportModalFromMoudle(this.op, event);
+        this.reportType = 3;
+        this.getReportOption()
         this.isVisibleModulesMenu = true;
         this.moduleNgModel = data.moduleId;
         this.subModuleNgModel = data.subModuleId;
         this.questionIdNgModel = data.questionId;
-        this.openReportModalFromMoudle(this.op, event);
+
       } else {
         this.isQuestionVisible = false;
       }
@@ -297,27 +302,31 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   openReportModalFromMoudle(op: any, event: any) {
-
+    this.reportType = 1;
+    console.log('asdf')
     this.isQuestionVisible = false;
     this.isVisibleModulesMenu = true;
     op.toggle(event);
   }
 
   openReportModal(op: any, event: any) {
+    this.reportType = 1
+
     this.reportSubmitForm.reset();
-    this.reportSubmitForm = this.formBuilder.group({
-      general: [1, [Validators.required]],
-      moduleId: ["", [Validators.required]],
-      submoduleId: ["", [Validators.required]],
-      questionId: ["", [Validators.required]],
-      reportOption: [""],
-      comment: ["", []],
-    });
+    // this.reportSubmitForm = this.formBuilder.group({
+    //   general: [1, [Validators.required]],
+    //   moduleId: ["", [Validators.required]],
+    //   submoduleId: ["", [Validators.required]],
+    //   questionId: ["", [Validators.required]],
+    //   reportOption: [""],
+    //   comment: ["", []],
+    // });
 
     this.moduleList = [];
     this.subModuleList = [];
     this.questionList = [];
     this.getModuleList();
+    this.getReportOption();
     this.selectedGenMod = 1;
     this.onChangeModuleList(1);
     this.onChangeSubModuleList(1);
@@ -364,7 +373,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.subs.sink = this.locationService
       .getReportOptionList()
       .subscribe((data) => {
-        this.reportOptionList = [{ id: null, reportoption_name: 'Select' }, ...data.reportOptions];
+        console.log(this.reportType);
+         let reportTypeData = data.reportOptions.filter((value: any) => value.reporttype === this.reportType)
+        this.reportOptionList = [{ id: null, reportoption_name: 'Select' }, ...reportTypeData];
       });
   }
 
