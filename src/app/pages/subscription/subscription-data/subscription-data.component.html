@@ -328,6 +328,7 @@
 								number : ".2-2" }}</h4>
 							<h4 class="mb-0 uniprep-primary" *ngIf="subscriptionTotal != '0.00' && checkoutTotal != ''">
 								INR {{ checkoutTotal | number : ".2-2" }}</h4>
+							<p *ngIf="discountAmountEnable">Discount Percentage:{{discountPercentage}}%</p>
 						</div>
 						<div *ngIf="topupcountries">
 							<h5 class="fw-semibold mb-0">Countries: <span class="uniprep-primary">{{

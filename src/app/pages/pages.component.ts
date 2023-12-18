@@ -57,14 +57,6 @@ export class PagesComponent implements OnInit, OnDestroy {
                 this.showReportSuccess = false;
             }
         });
-        this.service.getNewUserTimeLeft().subscribe(res => {
-            let data = res.time_left;
-            if (data.plan === 'expired' || data.plan === 'subscription_expired') {
-                this.conditionSubscribed = false;
-            } else {
-                this.conditionSubscribed = true;
-            }
-        });
     }
 
     @HostListener("window:resize", ["$event"])
