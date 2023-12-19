@@ -78,3 +78,17 @@ a {
     text-decoration: none;
     cursor: pointer;
   }
+
+    @media screen and (max-width: 480px) {
+      .container-fluid{
+        margin: auto;
+      }
+      .login-heading {
+        text-align: center;
+      }
+  
+      .text-muted {
+        color: #50555C;
+        text-align: center;
+      }
+    }
