@@ -31,7 +31,7 @@
 						</div>
 
 						<div class="col-md-6 text-end">
-							<p class="text-right fa-sm fw-bold">Total Related Questions: {{ searchResult.length }}</p>
+							<p class="text-right fa-sm fw-bold">Total Related Questions: {{ searchKeywordTotalCount }}</p>
 						</div>
 					</div>
 				</li>
@@ -83,7 +83,6 @@
                             <p class="text-small blockquote text-start mb-0">Last updated at: {{ val.updated_at | date }} <span class="badge" style="background-color: {{val.pre_verified == 1 ? 'darkorchid' : '#3f4c83'}};"> {{val.pre_verified == 1 ? 'Pre Verified' : 'Non Pre-Verified'}}</span></p>
                             <h3 class="unselectable" [innerHTML]="val.question"></h3>
                             <div class="fw-medium worksans unselectable" style="white-space: pre-wrap" [innerHTML]="val.answer"></div>
-
                         </div>
                     </div>
                 </ng-template>
