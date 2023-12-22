@@ -188,3 +188,11 @@
 .btn-rounded{
   border-radius: 25px !important;
 }
+
+@media screen and (max-width: 480px) {
+  .mobile {
+    .homecardbtn{
+      width: 20px;
+    }
+  }
+}

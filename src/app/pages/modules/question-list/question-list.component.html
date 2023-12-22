@@ -5,7 +5,7 @@
 				<p-button (click)="goBack()" icon="pi pi-arrow-left" styleClass="p-button-rounded p-button-text text-dark"></p-button>
 			</div>
 			<div class="col-md-8 col-8 text-center">
-				<h5 class="select-title mb-1" tooltipPosition="top" pTooltip="Questions related to the application process are answered">{{ currentModuleName }} - {{ moduleName }}<i class="questiontooltip fa-solid fa-circle-question"></i></h5>
+				<h5 class="select-title mb-1" tooltipPosition="top" pTooltip="Questions related to the application process are answered"><span class="desktop">{{ currentModuleName }} -</span> {{ moduleName }}<i class="questiontooltip fa-solid fa-circle-question"></i></h5>
 			</div>
 			<div class="col-md-2 col-2">&nbsp;</div>
 		</div>
@@ -21,7 +21,7 @@
 								<!--<div class="col-md-4 text-center">
                                             <p class="mb-3 circle text-center">{{i+1}}</p>
                                         </div> -->
-								<div class="col-md-3 col-2 text-end" *ngIf="sub.popular == 1">
+								<div class="col-2 text-end" *ngIf="sub.popular == 1">
 									<i class="pi pi-star-fill text-danger" pTooltip="Most Popular Question" tooltipPosition="right" style="font-size: 1.5rem"></i>
 								</div>
 							</div>
@@ -30,14 +30,14 @@
                                         {{ sub.read == 1 ? 'readButton' : '' }}"
 								pButton
 								type="button">
-								Read Answer
+								Read <span class="desktop-enable">Answer</span>
 							</button>
 							<button
 								class="btn d-md-none d-flex flex-shrink-0 btn-primary m-0 primary-btn
                                         {{ sub.read == 1 ? 'readButton' : '' }}"
 								pButton
 								type="button">
-								Read Answer
+								Read <span class="desktop-enable">Answer</span>
 							</button>
 						</div>
 					</div>

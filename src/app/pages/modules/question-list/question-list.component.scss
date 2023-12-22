@@ -52,7 +52,7 @@
 }
 
 .questioncard {
-  border: 1px solid var(--uniprep-primaryhighlight);
+  border: 3px solid var(--uniprep-primaryhighlight);
   width: 100%;
   margin: 8px 0px;
 
@@ -62,7 +62,7 @@
 
   &:focus {
     background-color: var(--uniprep-primaryop10);
-    border: 1px solid var(--uniprep-primary);
+    border: 3px solid var(--uniprep-primary);
 
     .primary-btn {
       background-color: var(--uniprep-primaryhighlight);
@@ -72,7 +72,7 @@
 
   &:hover {
     background-color: var(--uniprep-primaryop10);
-    border: 1px solid var(--uniprep-primary);
+    border: 3px solid var(--uniprep-primary);
 
     .primary-btn {
       background-color: var(--uniprep-primaryhighlight);
@@ -182,7 +182,6 @@
 
 @media screen and (max-width: 768px) {
   #ref-links-container {
-      flex-wrap: nowrap !important;
       overflow-x: auto;
   }
   #ref-links-container a {
@@ -190,3 +189,25 @@
       margin-bottom: 0.5rem;
 }
 }
+
+.desktop{
+  display: block !important;
+}
+
+.mobile{
+  display: none;
+}
+
+@media screen and (max-width: 480px) {
+  .desktop {
+    display: none !important;
+  }
+    .mobile {
+      display: block;
+    }
+
+    .desktop-enable{
+      display: none;
+    }
+}
+

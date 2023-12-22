@@ -6,13 +6,13 @@
 }
 
 .application-border {
-  border: 1px solid var(--uniprep-primary);
+  border: 3px solid var(--uniprep-primary);
   border-radius: 5%;
   font-size: 0.8rem;
 }
 
 .unselected-border {
-  border: 1px solid var(--uniprep-primaryhighlight);
+  border: 3px solid var(--uniprep-primaryhighlight);
   border-radius: 5px;
   font-size: 0.8rem;
 }
@@ -27,7 +27,7 @@
 }
 
 .subjectcard {
-  border: 1px solid #f0780c;
+  border: 3px solid #f0780c;
   width: 100%;
   margin: 10px 0px;
 
@@ -46,12 +46,12 @@
 
   &:focus {
     background-color: var(--uniprep-primaryop10);
-    border: 1px solid var(--uniprep-primary);
+    border: 3px solid var(--uniprep-primary);
   }
 
   &:hover {
     background-color: var(--uniprep-primaryop10);
-    border: 1px solid var(--uniprep-primary);
+    border: 3px solid var(--uniprep-primary);
   }
 
   // .subjecttitle {
@@ -171,3 +171,14 @@ selctedQuizTiny{
   cursor: not-allowed;
   font-size: 10px;
 }
+
+.desktop{
+  display: flex;
+}
+
+@media screen and (max-width: 480px) {
+.desktop {
+    display: none;
+  }
+}
+
