@@ -201,3 +201,32 @@
     color: unset !important;
   }
 }
+
+@media screen and (max-width: 480px) {
+.desktop{
+  display: none;
+}
+.mobile-view{
+  display: block;
+  .profileImg {
+      border-radius: 50%;
+      width: 30px;
+      height: 30px;
+      padding: 7px;
+      background: var(--uniprep-primary);
+      border: 5px solid var(--uniprep-primary);
+      color: white;
+      font-size: 20px;
+      text-align: center;
+      align-items: center;
+      justify-content: center;
+      display: flex;
+    }
+  
+    .info-edit {
+      display: flex;
+      flex-direction: row;
+    }
+}
+
+}
