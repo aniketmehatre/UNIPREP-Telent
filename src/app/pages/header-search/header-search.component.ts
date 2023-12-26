@@ -29,6 +29,7 @@ export class HeaderSearchComponent implements OnInit, OnDestroy {
   isSearchResultFound: boolean = false;
   isQuestionAnswerVisible: boolean = false;
   searchResult: any[] = [];
+  searchKeywordTotalCount: number = 0;
   searchKeyword: any;
   breadCrumb: MenuItem[] = [];
   question: MenuItem[] = [];
@@ -148,6 +149,7 @@ export class HeaderSearchComponent implements OnInit, OnDestroy {
       this.isSearchResultFound = true;
       this.searchResult = res.questions;
       let searchedResult = this.searchInputValue;
+      this.searchKeywordTotalCount = res.pagination.total;
 
       searchedResult = searchedResult.split(" ");
       this.searchResult.map((data: any) => {

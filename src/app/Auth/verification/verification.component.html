@@ -6,7 +6,7 @@
 					<div class="card-body p-5 pb-4">
 						<form [formGroup]="otpForm" (ngSubmit)="onSubmit()">
 							<h3 class="login-heading mt-4 mb-2">Enter your OTP</h3>
-							<p class="fw-medium mb-4">We have sent you one time password to your E-mail address for verification</p>
+							<p class="fw-medium mb-4 text-muted">We have sent you one time password to your E-mail address for verification</p>
 							<div style="text-align-last: center">
 								<input class="col form-control" formControlName="otp1" type="text" #otp1 maxlength="1" (keyup)="focusNextInput($event, 1)" [ngClass]="{ 'is-invalid': submitted && f.otp1.errors }" />
 								<input class="col form-control" formControlName="otp2" type="text" #otp2 maxlength="1" (keyup)="focusNextInput($event, 2)" [ngClass]="{ 'is-invalid': submitted && f.otp2.errors }" />

@@ -98,7 +98,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
       this.getModuleList();
     });
     route.params.subscribe(val => {
-      console.log('coming')
       this.reportType = 1;
       this.getReportOption();
       // put the code from `ngOnInit` here
@@ -303,7 +302,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   openReportModalFromMoudle(op: any, event: any) {
     this.reportType = 1;
-    console.log('asdf')
     this.isQuestionVisible = false;
     this.isVisibleModulesMenu = true;
     op.toggle(event);
@@ -373,7 +371,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.subs.sink = this.locationService
       .getReportOptionList()
       .subscribe((data) => {
-        console.log(this.reportType);
          let reportTypeData = data.reportOptions.filter((value: any) => value.reporttype === this.reportType)
         this.reportOptionList = [{ id: null, reportoption_name: 'Select' }, ...reportTypeData];
       });
