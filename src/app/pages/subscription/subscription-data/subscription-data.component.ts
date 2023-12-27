@@ -235,10 +235,13 @@ export class SubscriptionDataComponent implements OnInit {
         if (this.basesubscription && this.selectedSubscriptionDetails) {
           let data = {
             subscriptionId: this.selectedSubscriptionDetails.id,
-            countryId: this.selectedSubscriptionDetails.selectedCoutry.id,
-            finalPrice: this.subscriptionTotal,
+            countryId: this.selectedSubscriptionDetails.selectedCountry.id,
+            finalPrice: this.checkoutTotal,
             couponApplied: this.couponInput ? 1 : 0,
             coupon: this.couponInput,
+          }
+          if (this.checkoutTotal == '') {
+            data.finalPrice = this.subscriptionTotal;
           }
           this.subscriptionPlan.emit(data);
         }
@@ -247,7 +250,7 @@ export class SubscriptionDataComponent implements OnInit {
             let data = {
               topupid: this.selectedTopupCountryDetails.id,
               countryId: this.selectedTopupCountryDetails.selectedCoutriesList.map((item: any) => item.id).toString(),
-              finalPrice: this.subscriptionTotal,
+              finalPrice: this.checkoutTotal,
               couponApplied: this.couponInput ? 1 : 0,
               coupon: this.couponInput,
             }
@@ -262,10 +265,13 @@ export class SubscriptionDataComponent implements OnInit {
         if (this.basesubscription && this.selectedSubscriptionDetails) {
           let data = {
             subscriptionId: this.selectedSubscriptionDetails.id,
-            countryId: this.selectedSubscriptionDetails.selectedCoutry?.id,
-            finalPrice: this.subscriptionTotal,
+            countryId: this.selectedSubscriptionDetails.selectedCountry.id,
+            finalPrice: this.checkoutTotal,
             couponApplied: this.couponInput ? 1 : 0,
             coupon: this.couponInput,
+          }
+          if (this.checkoutTotal == '') {
+            data.finalPrice = this.subscriptionTotal;
           }
           this.subscriptionPlan.emit(data);
         }
@@ -274,7 +280,7 @@ export class SubscriptionDataComponent implements OnInit {
             let data = {
               topupid: this.selectedTopupCountryDetails.id,
               countryId: this.selectedTopupCountryDetails.selectedCoutriesList.map((item: any) => item.id).toString(),
-              finalPrice: this.subscriptionTotal,
+              finalPrice: this.checkoutTotal,
               couponApplied: this.couponInput ? 1 : 0,
               coupon: this.couponInput,
             }
@@ -287,7 +293,7 @@ export class SubscriptionDataComponent implements OnInit {
       }
     );
   }
-
+  
   onInput(event: any) {
     this.invalidCoupon = false;
   }
