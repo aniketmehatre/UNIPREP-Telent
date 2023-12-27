@@ -22,3 +22,26 @@
   top: 1rem;
   padding-left:0;
 }
+
+.mobile {
+  display: none;
+}
+
+@media screen and (max-width: 480px) {
+ .mobile{
+  display: block;
+ }
+ .ml-35{
+  margin-left: 35px;
+ }
+}
+
+ ::ng-deep .p-accordion-header-link:after {
+   content: "+";
+   position: absolute;
+   right: 15px;
+   background: #3F4C83;
+   padding: 5px 10px;
+   border-radius: 25px;
+   color: #000000;
+ }

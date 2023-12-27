@@ -1,29 +1,51 @@
-
-		<div class="card readingcard">
-				<div class="card-body">
-					<div class="mb-4">
-						<div class="d-flex"><h4 class="sop-border sop-header">Frequently Asked Questions</h4></div>
-					</div>
-					<div class="row">
-						<div class="col-md-3 col-5">
-							<ul class="menulist">
-								<p><b>Table of content</b></p>
-								<li *ngFor="let faqcat of faqcatlist"  (click)="onFaqcatClick(faqcat.id)" [class.active]="faqcat.id === activeCategory">{{ faqcat.name }}</li>
-							</ul>
-						</div>
-						<div class="col-md-9 col-7">
-							<p-accordion [multiple]="true" class="plain">
-								<div class="col-md-8">
-									<p-accordion [multiple]="true" class="plain">
-										<div *ngFor="let faqlist of faqanswelist">
-											<p-accordionTab header="{{ faqlist.question }}">
-												<p>{{ faqlist.answer }}</p>
-											</p-accordionTab>
-										</div>
-									</p-accordion>
-								</div>
-							</p-accordion>
-						</div>
-					</div>
-				</div>
+<div class="card readingcard">
+	<div class="card-body">
+		<div class="mb-4">
+			<div class="d-flex">
+				<h4 class="sop-border sop-header">Frequently Asked Questions</h4>
+			</div>
 		</div>
+		<div class="row">
+			<div class="col-md-3 col-5">
+				<ul class="menulist">
+					<p><b>Table of content</b></p>
+					<li *ngFor="let faqcat of faqcatlist" (click)="onFaqcatClick(faqcat.id)"
+						[class.active]="faqcat.id === activeCategory">{{ faqcat.name }}</li>
+				</ul>
+			</div>
+			<div class="col-md-9 col-7">
+				<p-accordion [multiple]="true" class="plain">
+					<div class="col-md-8">
+						<p-accordion [multiple]="true" class="plain">
+							<div *ngFor="let faqlist of faqanswelist">
+								<p-accordionTab header="{{ faqlist.question }}">
+									<p>{{ faqlist.answer }}</p>
+								</p-accordionTab>
+							</div>
+						</p-accordion>
+					</div>
+				</p-accordion>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="card card-body mobile">
+	<div class="row">
+		<div class="col-md-12 text-center">
+			<h5 class="select-title mb-3 text-capitalize" tooltipPosition="top" pTooltip="Frequently Asked Questions">
+				Frequently Asked Questions<i class="questiontooltip fa-solid fa-circle-question mt-3 ml-35"></i>
+			</h5>
+		</div>
+	</div>
+	<p-accordion [multiple]="true" class="plain">
+		<div class="col-md-8">
+			<p-accordion [multiple]="true" class="plain">
+				<div *ngFor="let faqlist of faqanswelist">
+					<p-accordionTab header="{{ faqlist.question }}">
+						<p>{{ faqlist.answer }}</p>
+					</p-accordionTab>
+				</div>
+			</p-accordion>
+		</div>
+	</p-accordion>
+</div>
