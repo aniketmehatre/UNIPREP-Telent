@@ -151,7 +151,7 @@ export class SubscriptionComponent implements OnInit {
     }
     payWithRazor(orderid: any) {
         const options: any = {
-            key: "rzp_test_Crpr7YkjPaCLEr",
+            key: "rzp_live_YErYQVqDIrZn1D",
             amount: this.subscriptionDetails?.finalPrice * 100, // amount should be in paise format to display Rs 1255 without decimal point
             currency: "INR",
             name: "Uniabroad", // company name or product name
