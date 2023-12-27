@@ -10,5 +10,6 @@ export interface ModuleListSub{
     status: number,
     created_at?: any,
     updated_at?: any,
-    questioncount: any
+    questioncount: any,
+    submodule_id?: any,
 }

@@ -43,3 +43,45 @@ form {
 	align-items: center;
 	width: 100%;
 }
+
+.desktop {
+	display: flex;
+}
+
+
+@media screen and (max-width: 480px) {
+	.container-fluid {
+		margin: auto !important;
+	}
+
+	.desktop {
+		display: none;
+	}
+
+	.signup {
+		color: #1C1B17;
+		font-size: 12px;
+	}
+
+	.loginForm {
+		label {
+			color: #1C1B17;
+			font-size: 12px;
+			font-weight: 400;
+		}
+	}
+
+	.formOTP {
+		.text-muted {
+			color: #47464A;
+		}
+	}
+
+	.loginForm {
+		label , .forgot-password{
+			color: #1C1B17;
+			font-size: 12px;
+			font-weight: 400;
+		}
+	}
+}

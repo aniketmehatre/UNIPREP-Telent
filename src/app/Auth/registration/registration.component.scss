@@ -6,16 +6,14 @@
   transform: translateY(-50%);
 }
 
-.p-inputgroup
-{
+.p-inputgroup {
   height: 3.5rem;
   border-radius: 10px;
   display: flex;
   align-items: center;
 }
 
-.otpbtn
-{
+.otpbtn {
   border-radius: 10px !important;
   padding: 1rem;
 }
@@ -296,7 +294,10 @@ a {
     font-size: 0.5rem;
     font-weight: 900;
     vertical-align: middle;
-    margin-right: 4px;
+  }
+
+  .pi {
+    line-height: none !important;
   }
 }
 
@@ -317,8 +318,10 @@ input::-webkit-inner-spin-button {
 
 ::ng-deep .custom-dropdown {
   max-width: fit-content;
+
   .p-dropdown-trigger {
     max-width: 0px;
+
     .p-dropdown-trigger-icon {
       display: none;
     }
@@ -336,4 +339,61 @@ input::-webkit-inner-spin-button {
 
 .send-btn {
   padding: 0.5rem 5rem !important;
+}
+
+.desktop {
+  display: flex;
+}
+
+@media screen and (max-width: 480px) {
+  .col-md-6 {
+    label {
+      color: #1C1B17;
+      font-size: 12px;
+    }
+  }
+
+  .container-fluid {
+    margin: auto !important;
+  }
+
+  .desktop {
+    display: none;
+  }
+
+  .signup {
+    color: #1C1B17;
+    font-size: 12px;
+  }
+
+  .registerForm {
+    label {
+      color: #1C1B17;
+      font-size: 12px;
+      font-weight: 400;
+    }
+  }
+
+  .p-inputgroup {
+    margin-top: 5px;
+    margin-bottom: 5px;
+  }
+
+  .formOTP {
+    .text-muted {
+      color: #47464A;
+    }
+  }
+
+  .registerForm {
+    label {
+      color: #1C1B17;
+      font-size: 12px;
+      font-weight: 400;
+    }
+  }
+}
+
+.pi-chevron-left {
+  line-height: none !important;
 }

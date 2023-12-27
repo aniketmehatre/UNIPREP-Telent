@@ -86,22 +86,6 @@
 }
 
 .unsidebarClass {
-    cursor: not-allowed !important;
-    .position-relative{
-        cursor: not-allowed !important; 
-        pointer-events: none;
-    }
-    .menu-item .system-main__apps {
-        cursor: not-allowed !important;
-        pointer-events: none;
-    }
-}
-
-.unsidebarClass{
-#menu-items {
-        .menu-item {
-            cursor: not-allowed !important;
-            pointer-events: none;
-        }
-    }
+    cursor: no-drop;
+    pointer-events: none;
 }

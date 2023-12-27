@@ -40,6 +40,11 @@ export class HttpErrorInterceptor implements HttpInterceptor {
         const msg = err?.error?.message || err?.error?.error?.message || 'Something wrong please try again!';
           this.toastr.add({severity: 'error', summary: 'Error', detail: msg});
           this.ngxService.stop();
+          if(err?.status === 401){
+            window.sessionStorage.clear();
+            localStorage.clear();
+            this.router.navigateByUrl('/login');
+          }
         return throwError(() => new Error(msg));
       })
     );

@@ -44,6 +44,7 @@ export class SubscriptionDataComponent implements OnInit {
   discountAmountEnable!: boolean;
   confirmModal: boolean = false;
   user!: User | null;
+  discountPercentage: any;
 
   constructor(private authService: AuthService,
     private subscriptionService: SubscriptionService,
@@ -182,16 +183,15 @@ export class SubscriptionDataComponent implements OnInit {
       this.toast.add({ severity: 'error', summary: 'Error', detail: 'Please select the Plan!' });
       return;
     }
-    if (this.subscriptionService.usedCoupon == this.couponInput) {
-      this.toast.add({ severity: 'error', summary: 'Error', detail: 'Coupon already used' });
-      this.checkoutTotal = this.subscriptionTotal;
-      this.discountAmountEnable =false;
+    if (this.subscriptionService.usedCoupon == this.couponInput && this.invalidCoupon) {
+      this.toast.add({ severity: 'error', summary: 'Error', detail: 'Invalid Coupon Code' });
       return;
     }
-    if (this.subscriptionService.usedCoupon === undefined) {
-      this.discountAmountEnable = false;
-      this.checkoutTotal = this.subscriptionTotal;
+    if (this.subscriptionService.usedCoupon == this.couponInput) {
+      this.toast.add({ severity: 'error', summary: 'Error', detail: 'Coupon already used' });
+      return;
     }
+
     if (this.couponInput) {
       this.subscriptionService.usedCoupon = this.couponInput
       let data = {
@@ -204,6 +204,7 @@ export class SubscriptionDataComponent implements OnInit {
         if (response.success) {
           this.checkoutTotal = Number(this.subscriptionTotal) - response.discountPrice;
           this.discountAmount = response.discountPrice;
+          this.discountPercentage = response.discountPercentage;
           this.discountAmountEnable = true;
           this.toast.add({ severity: 'success', summary: 'Success', detail: "Coupon applied" });
         }

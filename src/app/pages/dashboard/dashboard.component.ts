@@ -107,11 +107,11 @@ export class DashboardComponent implements OnInit {
         this.dashboardService.getModuleReadProgression(data).subscribe(response => {
             this.readingProgressings = response.module;
         });
-        const section = this.elRef.nativeElement.querySelector('#horizontalScrollSection');
-        this.renderer.listen(section, 'wheel', (event: WheelEvent) => {
-            event.preventDefault();
-            section.scrollLeft += event.deltaY;
-        });
+        // const section = this.elRef.nativeElement.querySelector('#horizontalScrollSection');
+        // this.renderer.listen(section, 'wheel', (event: WheelEvent) => {
+        //     event.preventDefault();
+        //     section.scrollLeft += event.deltaY;
+        // });
         //this.openViewMoreOrg();
         this.isViewMoreOrgVisible = false;
         this.loadApiData();
