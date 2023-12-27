@@ -1,4 +1,4 @@
-import { Component, NgModule, OnInit } from '@angular/core';
+import { Component, HostListener, NgModule, OnInit } from '@angular/core';
 import { TutorialsService } from './tutorials.service';
 import { DomSanitizer, SafeHtml, SafeResourceUrl, SafeScript, SafeStyle, SafeUrl } from '@angular/platform-browser';
 import { Pipe, PipeTransform } from '@angular/core';
@@ -61,7 +61,13 @@ export class TutorialsComponent implements OnInit {
     return match ? match[1] : '';
   }
 
-
+  @HostListener('document:keydown', ['$event'])
+  onKeyDown(event: KeyboardEvent): void {
+    // Check if the pressed key is the Escape key (code 27)
+    if (event.code === 'Escape') {
+      this.closeVideoPopup();
+    }
+  }
   closeVideoPopup(): void {
     this.selectedVideoLink = null;
     this.showVideoPopup = false;
