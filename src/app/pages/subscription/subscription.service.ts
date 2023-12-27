@@ -250,4 +250,11 @@ export class SubscriptionService {
     );
   }
 
+  getExtendedToken() {
+    const headers = new HttpHeaders().set("Accept", "application/json");
+    const data={
+      token:''
+    };
+    return this.http.post<any>(environment.ApiUrl + "/tokenexpireremainingtime",data,{ headers: headers });
+  }
 }

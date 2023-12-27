@@ -6,6 +6,9 @@ import { MenuItem, MessageService } from 'primeng/api';
 import { SubscriptionService } from '../subscription.service';
 import { User } from 'src/app/@Models/user.model';
 
+import { LocalStorageService } from "ngx-localstorage";
+import { error } from 'console';
+
 @Component({
   selector: 'uni-subscription-data',
   templateUrl: './subscription-data.component.html',
@@ -48,6 +51,7 @@ export class SubscriptionDataComponent implements OnInit {
 
   constructor(private authService: AuthService,
     private subscriptionService: SubscriptionService,
+    private storage: LocalStorageService,
     private toast: MessageService) { }
 
   ngOnInit(): void {
@@ -223,34 +227,65 @@ export class SubscriptionDataComponent implements OnInit {
 
   checkout() {
     this.confirmModal = false;
-    if (this.basesubscription && this.selectedSubscriptionDetails) {
-      let data = {
-        subscriptionId: this.selectedSubscriptionDetails.id,
-        countryId: this.selectedSubscriptionDetails.selectedCountry.id,
-        finalPrice: this.checkoutTotal,
-        couponApplied: this.couponInput ? 1 : 0,
-        coupon: this.couponInput,
-      }
-      if (this.checkoutTotal == '') {
-        data.finalPrice = this.subscriptionTotal;
-      }
-      this.subscriptionPlan.emit(data);
-    }
-    else {
-      if (this.selectedTopupCountryDetails) {
-        let data = {
-          topupid: this.selectedTopupCountryDetails.id,
-          countryId: this.selectedTopupCountryDetails.selectedCoutriesList.map((item: any) => item.id).toString(),
-          finalPrice: this.checkoutTotal,
-          couponApplied: this.couponInput ? 1 : 0,
-          coupon: this.couponInput,
+    this.subscriptionService.getExtendedToken().subscribe(
+      response => {
+        if (response.token) {
+          this.storage.set(environment.tokenKey, response.token);
         }
-        this.subscriptionPlan.emit(data);
+        if (this.basesubscription && this.selectedSubscriptionDetails) {
+          let data = {
+            subscriptionId: this.selectedSubscriptionDetails.id,
+            countryId: this.selectedSubscriptionDetails.selectedCoutry.id,
+            finalPrice: this.subscriptionTotal,
+            couponApplied: this.couponInput ? 1 : 0,
+            coupon: this.couponInput,
+          }
+          this.subscriptionPlan.emit(data);
+        }
+        else {
+          if (this.selectedTopupCountryDetails) {
+            let data = {
+              topupid: this.selectedTopupCountryDetails.id,
+              countryId: this.selectedTopupCountryDetails.selectedCoutriesList.map((item: any) => item.id).toString(),
+              finalPrice: this.subscriptionTotal,
+              couponApplied: this.couponInput ? 1 : 0,
+              coupon: this.couponInput,
+            }
+            this.subscriptionPlan.emit(data);
+          }
+          else {
+            this.toast.add({ severity: 'warn', summary: 'Warn', detail: 'Please Choose a plan' });
+          }
+        }
+      },
+      (error) => {
+        if (this.basesubscription && this.selectedSubscriptionDetails) {
+          let data = {
+            subscriptionId: this.selectedSubscriptionDetails.id,
+            countryId: this.selectedSubscriptionDetails.selectedCoutry?.id,
+            finalPrice: this.subscriptionTotal,
+            couponApplied: this.couponInput ? 1 : 0,
+            coupon: this.couponInput,
+          }
+          this.subscriptionPlan.emit(data);
+        }
+        else {
+          if (this.selectedTopupCountryDetails) {
+            let data = {
+              topupid: this.selectedTopupCountryDetails.id,
+              countryId: this.selectedTopupCountryDetails.selectedCoutriesList.map((item: any) => item.id).toString(),
+              finalPrice: this.subscriptionTotal,
+              couponApplied: this.couponInput ? 1 : 0,
+              coupon: this.couponInput,
+            }
+            this.subscriptionPlan.emit(data);
+          }
+          else {
+            this.toast.add({ severity: 'warn', summary: 'Warn', detail: 'Please Choose a plan' });
+          }
+        }
       }
-      else {
-        this.toast.add({ severity: 'warn', summary: 'Warn', detail: 'Please Choose a plan' });
-      }
-    }
+    );
   }
 
   onInput(event: any) {

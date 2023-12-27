@@ -6,6 +6,6 @@ const produrl=`https://${proddomain}/uniprepapi/public/api`;
 export const environment = {
   domain:proddomain,
   production: false,
-  ApiUrl:produrl,
+  ApiUrl:devurl,
   tokenKey: 'token',
 };
