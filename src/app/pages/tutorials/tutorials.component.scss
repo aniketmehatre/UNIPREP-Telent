@@ -188,30 +188,33 @@
 
 .modal-container {
   background: #fff;
-  padding: 20px;
-  max-width: 80%;
-  max-height: 80%;
+  padding: 25px;
+  max-width: 100%;
+  max-height: 100%;
   overflow: auto;
   margin-bottom: 140px;
+  position: relative;
 }
-
-.close-button {
+.newwindow-button {
   position: absolute;
-  top: 0px;
-  right: 10px;
+  top: -7px; /* Adjust the top position as needed */
+  right: 32px; /* Adjust the right position as needed */
   cursor: pointer;
-  border: none;
   background: none;
-  font-size: 30px;
-  color: #fff;
+  border: none;
+  font-size: 18px;
+  color: #3F4C83;
 }
-.newwindow-button{
+.close-button{
   position: absolute;
-  top: 0px;
-  right: 50px;
+  top: -3px; /* Adjust the top position as needed */
+  right: 6px; /* Adjust the right position as needed */
   cursor: pointer;
-  border: none;
   background: none;
-  font-size: 30px;
-  color: #fff;
+  border: none;
+  font-size: 18px;
+  color: #3F4C83;
+}
+.newwindow-button {
+  font-size: 24px;
 }
