@@ -189,16 +189,16 @@
 .modal-container {
   background: #fff;
   padding: 25px;
-  max-width: 90%;
-  max-height: 90%;
+  max-width: 100%;
+  max-height: 100%;
   overflow: auto;
   margin-bottom: 140px;
   position: relative;
 }
 .newwindow-button {
   position: absolute;
-  top: -8px; /* Adjust the top position as needed */
-  right: 30px; /* Adjust the right position as needed */
+  top: -7px; /* Adjust the top position as needed */
+  right: 32px; /* Adjust the right position as needed */
   cursor: pointer;
   background: none;
   border: none;
@@ -207,8 +207,8 @@
 }
 .close-button{
   position: absolute;
-  top: -4px; /* Adjust the top position as needed */
-  right: 8px; /* Adjust the right position as needed */
+  top: -3px; /* Adjust the top position as needed */
+  right: 6px; /* Adjust the right position as needed */
   cursor: pointer;
   background: none;
   border: none;
