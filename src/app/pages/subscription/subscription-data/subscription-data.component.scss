@@ -123,7 +123,7 @@
 	background: var(--uniprep-primary);
 	color: #fff;
 	text-align: center;
-	padding: 10px;
+  padding: 10px 10px 12px;
 	border-radius: 12px 12px 0 0;
 	width: 100%;
 }
@@ -275,27 +275,27 @@
   border-radius: 5px !important;
   color: #FF8800;
   font-weight: 500;
-  &:focus
-  {
-    border: 2px solid #FF8800;
-    margin: 0;
-    padding: 4px 10px !important;
-    background-color: #FF8800;
-    font-size: 0.8em;
-    border-radius: 5px !important;
-    color: #fff;
-    font-weight: 500;
-  }&:hover
-   {
-     border: 2px solid #FF8800;
-     margin: 0;
-     padding: 4px 10px !important;
-     background-color: #FF8800;
-     font-size: 0.8em;
-     border-radius: 5px !important;
-     color: #fff;
-     font-weight: 500;
-   }
+  // &:focus
+  // {
+  //   border: 2px solid #FF8800;
+  //   margin: 0;
+  //   padding: 4px 10px !important;
+  //   background-color: #FF8800;
+  //   font-size: 0.8em;
+  //   border-radius: 5px !important;
+  //   color: #fff;
+  //   font-weight: 500;
+  // }&:hover
+  //  {
+  //    border: 2px solid #FF8800;
+  //    margin: 0;
+  //    padding: 4px 10px !important;
+  //    background-color: #FF8800;
+  //    font-size: 0.8em;
+  //    border-radius: 5px !important;
+  //    color: #fff;
+  //    font-weight: 500;
+  //  }
 }
 .scard {
   border: 1px solid #B9B9B9;
