@@ -56,7 +56,10 @@
 				</div>
 			</div>
 		</div>
-		<div class="col-md-3 col-12 my-md-0 my-2">
+		<div class="col-md-3 col-12 my-md-0 my-2" [ngClass]="{
+		  'readingData-enable': enableReading,
+		  'readingData-disable': !enableReading
+		}">
 			<div class="card h-100">
 				<div class="card-body d-flex justify-content-evenly flex-column">
 					<div class="row mb-3">

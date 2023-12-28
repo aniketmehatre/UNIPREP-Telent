@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {DashboardService} from "../dashboard/dashboard.service";
 import {MessageService} from "primeng/api";
 import {ActivatedRoute, Router} from "@angular/router";
+import { AuthService } from 'src/app/Auth/auth.service';
 
 @Component({
     selector: 'uni-footer-status-box',
@@ -10,9 +11,10 @@ import {ActivatedRoute, Router} from "@angular/router";
 })
 export class FooterStatusBoxComponent implements OnInit {
     dashboardCount: any = [];
+    enableReading!: boolean;
 
     constructor(private dashboardService: DashboardService, private toast: MessageService,
-                private route: Router) {
+                private route: Router , private service: AuthService) {
     }
 
     ngOnInit(): void {
@@ -41,4 +43,16 @@ export class FooterStatusBoxComponent implements OnInit {
         this.route.navigate([`/pages/question-list/popular`]);
     }
 
+    enableReadingData(): void {
+        this.service.getNewUserTimeLeft().subscribe(res => {
+            let data = res.time_left;
+            data.plan = "expired";
+            if (data.plan === 'expired' || data.plan === 'subscription_expired') {
+                this.enableReading = false;
+            }
+            else {
+                this.enableReading = true;
+            }
+        });
+    }
 }
