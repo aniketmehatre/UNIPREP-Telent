@@ -48,6 +48,8 @@ export class SubscriptionDataComponent implements OnInit {
   confirmModal: boolean = false;
   user!: User | null;
   discountPercentage: any;
+  @Output() showHistory = new EventEmitter();
+  @Input() showHistoryBtn: any;
 
   constructor(private authService: AuthService,
     private subscriptionService: SubscriptionService,
@@ -106,7 +108,10 @@ export class SubscriptionDataComponent implements OnInit {
       studenttype: this.studentType
     }
     this.subscriptionService.getSubscriptions(data).subscribe((response) => {
-      this.subscriptionList = response.subscriptions;
+      const mostPopularOnes = response.subscriptions.filter((item:any) => item.popular === 1);
+      const filteredData = response.subscriptions.filter((item:any) => item.popular !== 1);
+      filteredData.splice(1, 0, ...mostPopularOnes);
+      this.subscriptionList = filteredData;
       this.subscriptionList.forEach((item: any) => {
         item.country = item.country.split(',').map(Number);
         let filteredCountryIds = item.country;
@@ -298,4 +303,7 @@ export class SubscriptionDataComponent implements OnInit {
     this.invalidCoupon = false;
   }
 
+  gotoHistory() {
+    this.showHistory.emit(true);
+  }
 }

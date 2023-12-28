@@ -43,6 +43,7 @@ export class SubscriptionComponent implements OnInit {
     loadingExistingSubscription: boolean = false;
     showSubscriptionedData: boolean = false;
     showPlanBtn: boolean = false;
+    showHistoryBtn: boolean = false;
 
     constructor(
         private subscriptionService: SubscriptionService,
@@ -262,11 +263,16 @@ export class SubscriptionComponent implements OnInit {
 
     loadSubscriptionedData() {
         if(this.loadingSubscriptionHistory && this.loadingExistingSubscription) {
+            this.showHistoryBtn = true;
             this.stage = 5;
         }
     }
 
     showPlan($event: any) {
         this.stage = 1;
+    }
+
+    showHistory($event: any) {
+        this.stage = 5;
     }
 }
