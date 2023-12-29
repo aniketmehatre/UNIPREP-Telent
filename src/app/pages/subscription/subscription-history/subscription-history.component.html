@@ -8,7 +8,7 @@
 				<span>{{ subscription.remainingdays }} Days Remaining</span>
 			</div>
 			<div>
-				<div class="d-flex" >
+				<div class="d-flex">
 					<div class="headercountry me-2" *ngFor="let flag of subscription.flag">
 						<img *ngIf="flag" [src]="flag" alt="Country Flag" height="auto" width="auto" />
 					</div>
@@ -83,7 +83,8 @@
 					<td>{{ data.amount }}</td>
 					<td><i class="pi pi-check" style="color: aquamarine"></i></td>
 					<td>
-						<button class="btn btn-primary" (click)="downloadInvoice(data.id)" *ngIf="data.product != 'Free Add On' else noData"><i class="pi pi-download"></i></button>
+						<button class="btn btn-primary" (click)="downloadInvoice(data.id)"
+							*ngIf="data.product != 'Free Add On' else noData"><i class="pi pi-download"></i></button>
 						<ng-template #noData>
 							<div class="ms-4">-</div>
 						</ng-template>
@@ -101,7 +102,8 @@
 				<div class="card-body">
 					<div class="container-fluid">
 						<div class="row gap-5 mt-4 d-flex">
-							<div class="card card-bg subscriptioncard col px-0" [ngClass]="{ active: subscription.popular == 1 }">
+							<div class="card card-bg subscriptioncard col px-0"
+								[ngClass]="{ active: subscription.popular == 1 }">
 								<div class="mostpopular" *ngIf="subscription.popular == 1">Most Popular Plan</div>
 								<div class="card-header p-4">
 									<div class="d-flex justify-content-between align-items-center">
@@ -120,21 +122,29 @@
 								<div class="card-body p-4">
 									<h5 style="font-size: 18px; text-align: center">Select Your Base Country</h5>
 									<span class="p-float-label">
-										<p-dropdown [options]="subscription.filteredCountryList" styleClass="w-100" [(ngModel)]="subscription.selectedCoutry" optionLabel="country">
+										<p-dropdown [options]="subscription.filteredCountryList" styleClass="w-100"
+											[(ngModel)]="subscription.selectedCoutry" optionLabel="country">
 											<ng-template pTemplate="selectedItem">
-												<img [src]="subscription.selectedCoutry?.flag" [alt]="subscription.selectedCoutry?.altname" class="base-country-flag" />
+												<img [src]="subscription.selectedCoutry?.flag"
+													[alt]="subscription.selectedCoutry?.altname"
+													class="base-country-flag" />
 												{{ subscription.selectedCoutry?.country }}
 											</ng-template>
 										</p-dropdown>
 									</span>
-									<h5 style="font-size: 18px; text-align: center" class="pt-4">Personalized Question: {{ subscription.chatlimit }} / day</h5>
+									<h5 style="font-size: 18px; text-align: center" class="pt-4">Personalized Question:
+										{{ subscription.chatlimit }} / day</h5>
 								</div>
 								<div class="card-footer p-4" style="text-align: center">
-									<h2 class="font-primarycolor fw-bold">INR {{ subscription.givenprice | number : ".2-2" }}</h2>
+									<h2 class="font-primarycolor fw-bold">INR {{ subscription.givenprice | number :
+										".2-2" }}</h2>
 									<p class="fw-semibold">{{ subscription.validity }} Month Validity</p>
 									<div class="getstartedbtn">
-										<button *ngIf="!subscription.selected" class="btn btn-primary" (click)="selectedSubscriptionPlan(subscription)">Select This Plan</button>
-										<button *ngIf="subscription.selected" class="btn dark-btn" (click)="selectedSubscriptionPlan(subscription)">You have selected {{ subscription.subscription_plan }} Plan</button>
+										<button *ngIf="!subscription.selected" class="btn btn-primary"
+											(click)="selectedSubscriptionPlan(subscription)">Select This Plan</button>
+										<button *ngIf="subscription.selected" class="btn dark-btn"
+											(click)="selectedSubscriptionPlan(subscription)">You have selected {{
+											subscription.subscription_plan }} Plan</button>
 									</div>
 								</div>
 							</div>
@@ -150,7 +160,8 @@
 				<div class="card-body">
 					<div class="container-fluid">
 						<div class="row gap-5 mt-4 d-flex">
-							<div class="card card-bg subscriptioncard col px-0" [ngClass]="{ active: subscription.popular == 1 }">
+							<div class="card card-bg subscriptioncard col px-0"
+								[ngClass]="{ active: subscription.popular == 1 }">
 								<div class="mostpopular" *ngIf="subscription.popular == 1">Most Popular Plan</div>
 								<div class="card-header p-4">
 									<div class="d-flex justify-content-between align-items-center">
@@ -159,29 +170,39 @@
 											<h4 class="mb-0">
 												<s>INR {{ subscription.price | number : ".2-2" }}</s>
 											</h4>
-											<div class="btn discountbutton">Save {{ subscription.discountPercentage }} %</div>
+											<div class="btn discountbutton">Save {{ subscription.discountPercentage }} %
+											</div>
 										</div>
 									</div>
 								</div>
 								<div class="card-body p-3">
 									<h5 style="font-size: 18px; text-align: center">Select Your Add On Countries</h5>
-									<p-multiSelect [options]="subscription.filteredCountryList" styleClass="w-100" [(ngModel)]="subscription.selectedCoutriesList" defaultLabel="Select a multiple countries as per your requirement" optionLabel="country" #multiSelect>
+									<p-multiSelect [options]="subscription.filteredCountryList" styleClass="w-100"
+										[(ngModel)]="subscription.selectedCoutriesList"
+										defaultLabel="Select a multiple countries as per your requirement"
+										optionLabel="country" #multiSelect>
 										<ng-template pTemplate="selectedItems">
 											{{ multiSelect.defaultLabel }}
 										</ng-template>
 									</p-multiSelect>
 									<div class="d-flex align-items-center gap-2 flex-wrap pt-2">
 										<div *ngFor="let data of subscription?.selectedCoutriesList">
-											<p-chip [label]="data.country" [image]="data.flag" [removable]="true" (onRemove)="removeCountry(subscription.id, data.id)" removeIcon="pi pi-times"></p-chip>
+											<p-chip [label]="data.country" [image]="data.flag" [removable]="true"
+												(onRemove)="removeCountry(subscription.id, data.id)"
+												removeIcon="pi pi-times"></p-chip>
 										</div>
 									</div>
 								</div>
 								<div class="card-footer p-4" style="text-align: center">
-									<h2 class="font-primarycolor fw-bold">INR {{ subscription.finalamount | number : ".2-2" }}</h2>
+									<h2 class="font-primarycolor fw-bold">INR {{ subscription.finalamount | number :
+										".2-2" }}</h2>
 									<p class="fw-semibold">{{ subscription.validity }} Month Validity</p>
 									<div class="getstartedbtn">
-										<button *ngIf="!subscription.selected" class="btn btn-primary" (click)="selectedTopupCountryPlan(subscription)">Select Plan</button>
-										<button *ngIf="subscription.selected" class="btn dark-btn" (click)="selectedTopupCountryPlan(subscription)">You have selected {{ subscription.name }} Plan</button>
+										<button *ngIf="!subscription.selected" class="btn btn-primary"
+											(click)="selectedTopupCountryPlan(subscription)">Select Plan</button>
+										<button *ngIf="subscription.selected" class="btn dark-btn"
+											(click)="selectedTopupCountryPlan(subscription)">You have selected {{
+											subscription.name }} Plan</button>
 									</div>
 								</div>
 							</div>
@@ -198,7 +219,9 @@
 				</div>
 				<div class="ms-2" style="width: -webkit-fill-available">
 					<span class="p-float-label">
-						<p-multiSelect [options]="countryList" optionValue="id" placeholder="Select a country" [(ngModel)]="selectedCountry" styleClass="w-100 custom-multiselect" optionLabel="country"></p-multiSelect>
+						<p-multiSelect [options]="countryList" optionValue="id" placeholder="Select a country"
+							[(ngModel)]="selectedCountry" styleClass="w-100 custom-multiselect"
+							optionLabel="country"></p-multiSelect>
 					</span>
 				</div>
 			</div>
@@ -221,7 +244,8 @@
 							<div class="card-footer p-4 pt-5" style="text-align: center">
 								<h4 class="font-primarycolor fw-bold">INR 699.00</h4>
 								<div class="">
-									<button style="width: -webkit-fill-available" class="btn btn-primary"><span style="color: #fff !important" class="ps-5 pe-5">Top Up</span></button>
+									<button style="width: -webkit-fill-available" class="btn btn-primary"><span
+											style="color: #fff !important" class="ps-5 pe-5">Top Up</span></button>
 								</div>
 							</div>
 						</div>
@@ -246,7 +270,8 @@
 							<div class="card-footer p-4 pt-5" style="text-align: center">
 								<h4 class="font-primarycolor fw-bold">INR 699.00</h4>
 								<div class="">
-									<button style="width: -webkit-fill-available" class="btn btn-primary"><span style="color: #fff !important" class="ps-5 pe-5">Top Up</span></button>
+									<button style="width: -webkit-fill-available" class="btn btn-primary"><span
+											style="color: #fff !important" class="ps-5 pe-5">Top Up</span></button>
 								</div>
 							</div>
 						</div>
@@ -272,7 +297,8 @@
 							<div class="card-footer p-4 pt-5" style="text-align: center">
 								<h4 class="font-primarycolor fw-bold">INR 699.00</h4>
 								<div class="">
-									<button style="width: -webkit-fill-available" class="btn btn-primary"><span style="color: #fff !important" class="ps-5 pe-5">Top Up</span></button>
+									<button style="width: -webkit-fill-available" class="btn btn-primary"><span
+											style="color: #fff !important" class="ps-5 pe-5">Top Up</span></button>
 								</div>
 							</div>
 						</div>
@@ -297,7 +323,8 @@
 							<div class="card-footer p-4 pt-5" style="text-align: center">
 								<h4 class="font-primarycolor fw-bold">INR 699.00</h4>
 								<div class="">
-									<button style="width: -webkit-fill-available" class="btn btn-primary"><span style="color: #fff !important" class="ps-5 pe-5">Top Up</span></button>
+									<button style="width: -webkit-fill-available" class="btn btn-primary"><span
+											style="color: #fff !important" class="ps-5 pe-5">Top Up</span></button>
 								</div>
 							</div>
 						</div>
@@ -321,7 +348,8 @@
 							<div class="card-footer p-4 pt-5" style="text-align: center">
 								<h4 class="font-primarycolor fw-bold">INR 699.00</h4>
 								<div class="">
-									<button style="width: -webkit-fill-available" class="btn btn-primary"><span style="color: #fff !important" class="ps-5 pe-5">Top Up</span></button>
+									<button style="width: -webkit-fill-available" class="btn btn-primary"><span
+											style="color: #fff !important" class="ps-5 pe-5">Top Up</span></button>
 								</div>
 							</div>
 						</div>
@@ -338,10 +366,12 @@
 		<div [class]="'card card-body mt-3 h-100 justify-content-center'">
 			<div class="row">
 				<div class="mt-1 col-lg-6">
-					<span style="font-size: 16px !important" class="sop-header"><b>Checkout What You Get With Our Subscriptions</b></span>
+					<span style="font-size: 16px !important" class="sop-header"><b>Checkout What You Get With Our
+							Subscriptions</b></span>
 				</div>
 				<div class="col-lg-6">
-					<button (click)="moreabout()" style="color: #fff !important" class="btn btn-primary"><span style="white-space: nowrap"> Know More About Our Features</span></button>
+					<button (click)="moreabout()" style="color: #fff !important" class="btn btn-primary"><span
+							style="white-space: nowrap"> Know More About Our Features</span></button>
 				</div>
 			</div>
 		</div>
@@ -353,9 +383,11 @@
 				<br />
 				<div class="p-inputgroup inputheight mt-1">
 					<input [(ngModel)]="couponInput" pInputText placeholder="Enter Your coupon code Here" type="text" />
-					<button (click)="applyCoupon()" class="btn-primary" label="Apply" pButton pRipple type="button"></button>
+					<button (click)="applyCoupon()" class="btn-primary" label="Apply" pButton pRipple
+						type="button"></button>
 				</div>
-				<span *ngIf="invalidCoupon" style="font-size: 9px !important; color: lightgray !important">You entered an invalid discount code. Please check the code and try again</span>
+				<span *ngIf="invalidCoupon" style="font-size: 9px !important; color: lightgray !important">You entered
+					an invalid discount code. Please check the code and try again</span>
 			</div>
 		</div>
 	</div>
@@ -364,22 +396,21 @@
 			<div class="row">
 				<div *ngIf="basesubscription" class="col-lg-6">
 					<span style="font-size: 13px !important" class="sop-header"><b>Total</b></span> <br />
-					<span style="font-size: 15px !important; color: var(--uniprep-primary) !important" class="sop-header"
-						><b> INR {{ subscriptionTotal | number : ".2-2" }}</b></span
-					>
+					<span style="font-size: 15px !important; color: var(--uniprep-primary) !important"
+						class="sop-header"><b> INR {{ subscriptionTotal | number : ".2-2" }}</b></span>
 				</div>
 				<div *ngIf="topupcountries" class="col-lg-6">
 					<span style="font-size: 13px !important" class="sop-header"><b>Countries</b></span>
-					<span style="font-size: 13px !important; color: var(--uniprep-primary) !important" class="sop-header"
-						><b> {{ selectedTopupCountryDetails?.selectedCoutriesList?.length }}</b></span
-					><br />
+					<span style="font-size: 13px !important; color: var(--uniprep-primary) !important"
+						class="sop-header"><b> {{ selectedTopupCountryDetails?.selectedCoutriesList?.length
+							}}</b></span><br />
 					<span style="font-size: 13px !important" class="sop-header"><b>Total</b></span>
-					<span style="font-size: 13px !important; color: var(--uniprep-primary) !important" class="sop-header"
-						><b> INR {{ subscriptionTotal | number : ".2-2" }}</b></span
-					>
+					<span style="font-size: 13px !important; color: var(--uniprep-primary) !important"
+						class="sop-header"><b> INR {{ subscriptionTotal | number : ".2-2" }}</b></span>
 				</div>
 				<div class="col-lg-6">
-					<button [disabled]="showCheckout" style="color: #fff !important" class="btn btn-primary" (click)="checkout()"><span class="ps-3 pe-3">Checkout</span></button>
+					<button [disabled]="showCheckout" style="color: #fff !important" class="btn btn-primary"
+						(click)="checkout()"><span class="ps-3 pe-3">Checkout</span></button>
 				</div>
 			</div>
 		</div>
@@ -388,9 +419,12 @@
 
 <!-- modeal -->
 
-<p-dialog class="retrypopup" [modal]="true" [closable]="false" header="Header" footer="Footer" [(visible)]="isInstructionVisible" [style]="{ width: '27vw' }" [breakpoints]="{ '960px': '75vw' }" [draggable]="false" [resizable]="false">
+<p-dialog class="retrypopup" [modal]="true" [closable]="false" header="Header" footer="Footer"
+	[(visible)]="isInstructionVisible" [style]="{ width: '27vw' }" [breakpoints]="{ '960px': '75vw' }"
+	[draggable]="false" [resizable]="false">
 	<ng-template pTemplate="header" style="overflow: hidden"> </ng-template>
-	<span style="float: right"><i (click)="closeAllHome()" class="fa-solid fa-circle-xmark fa-2x custom-icon"></i></span>
+	<span style="float: right"><i (click)="closeAllHome()"
+			class="fa-solid fa-circle-xmark fa-2x custom-icon"></i></span>
 	<div style="margin: 10px 10px 10px 10px">
 		<div class="card text-center mt-1" style="background-color: #fbfbfb; padding: 10px">
 			<h3 style="font-size: 18px" class="p-2">What You Get With The Subscription</h3>
@@ -402,28 +436,36 @@
 			<div class="col-md-12">
 				<div class="font-secondarycolor fw-medium lh-lg">
 					<p>
-						<span><i class="fa-solid fa-circle-check custom-icon1"></i>&nbsp;</span>Discover Unexplored Questions.
+						<span><i class="fa-solid fa-circle-check custom-icon1"></i>&nbsp;</span>Discover Unexplored
+						Questions.
 					</p>
 					<p>
-						<span><i class="fa-solid fa-circle-check custom-icon1"></i>&nbsp;</span>Earn A Certificate By Taking Quizzes
+						<span><i class="fa-solid fa-circle-check custom-icon1"></i>&nbsp;</span>Earn A Certificate By
+						Taking Quizzes
 					</p>
 					<p>
-						<span><i class="fa-solid fa-circle-check custom-icon1"></i>&nbsp;</span>Share Your Certificates On Linkedin
+						<span><i class="fa-solid fa-circle-check custom-icon1"></i>&nbsp;</span>Share Your Certificates
+						On Linkedin
 					</p>
 					<p>
-						<span><i class="fa-solid fa-circle-check custom-icon1"></i>&nbsp;</span>Navigate Using Keyword Search
+						<span><i class="fa-solid fa-circle-check custom-icon1"></i>&nbsp;</span>Navigate Using Smart
+						Keyword Search
 					</p>
 					<p>
-						<span><i class="fa-solid fa-circle-check custom-icon1"></i>&nbsp;</span>Get Expert Answers To Your Queries
+						<span><i class="fa-solid fa-circle-check custom-icon1"></i>&nbsp;</span>Get Expert Answers To
+						Your Queries
 					</p>
 					<p>
-						<span><i class="fa-solid fa-circle-check custom-icon1"></i>&nbsp;</span>Find Answers To Your Question With Verified Source Links
+						<span><i class="fa-solid fa-circle-check custom-icon1"></i>&nbsp;</span>Find Answers To Your
+						Question With Verified Source Links
 					</p>
 					<p>
-						<span><i class="fa-solid fa-circle-check custom-icon1"></i>&nbsp;</span>Find Over 5 Lakh Questions And Answers Throughout Platform
+						<span><i class="fa-solid fa-circle-check custom-icon1"></i>&nbsp;</span>Over half a million
+						Questions And Answers Throughout Platform
 					</p>
 					<p>
-						<span><i class="fa-solid fa-circle-check custom-icon1"></i>&nbsp;</span>Ask Any Personalized Questions & Get Answer Within 12 Working Hours
+						<span><i class="fa-solid fa-circle-check custom-icon1"></i>&nbsp;</span>Ask Any Personalized
+						Questions & Get Answer Within 12 Working Hours
 					</p>
 				</div>
 			</div>
