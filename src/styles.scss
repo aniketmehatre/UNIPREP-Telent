@@ -319,6 +319,12 @@ uni-tutorials,uni-guidelines,uni-refundpolicy,uni-resource,uni-privacypolicy,uni
 	overflow: hidden;
 }
 
+@media screen and (max-width: 480px) {
+	uni-faq {
+		overflow-y: scroll !important;
+	}
+}
+
 uni-chat {
 	display: flex;
 	flex: 1;

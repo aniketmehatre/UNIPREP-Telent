@@ -998,3 +998,8 @@ Due to the split circle of progress-left and progress right, we must use the ani
 .b-25{
   border-radius: 25px !important;
 }
+.readingData-disable {
+  pointer-events: none;
+  cursor: no-drop;
+  opacity: 0.5;
+}
