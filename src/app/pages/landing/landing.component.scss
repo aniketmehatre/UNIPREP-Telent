@@ -127,6 +127,20 @@ p {
 	border-radius: 25px;
 }
 
+.quotesymbole
+{
+	&::before
+	{
+		content: open-quote;
+		font-size: 14rem;
+		font-family: "Work Sans";
+		position: absolute;
+		opacity: 0.2;
+		line-height: 0;
+		color: var(--uniprep-primary);
+	}
+}
+
 .benefitcard {
 	background: transparent;
 	transition: 0.2s;
