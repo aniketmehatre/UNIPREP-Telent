@@ -19,6 +19,7 @@ export class FooterStatusBoxComponent implements OnInit {
 
     ngOnInit(): void {
         this.loadDashboardData();
+        this.enableReadingData();
     }
 
     loadDashboardData() {
@@ -46,7 +47,6 @@ export class FooterStatusBoxComponent implements OnInit {
     enableReadingData(): void {
         this.service.getNewUserTimeLeft().subscribe(res => {
             let data = res.time_left;
-            data.plan = "expired";
             if (data.plan === 'expired' || data.plan === 'subscription_expired') {
                 this.enableReading = false;
             }
