@@ -10,6 +10,9 @@
 				<!-- <button (click)="buttonclicked1()" class="btn btn-basic mt-4" [class.active]="selectedButton === 'button1'" (click)="selectedButton = 'button1'" *ngIf="topupcountries">BASE SUBSCRIPTION</button> -->
 				<!-- <button (click)="buttonclicked2()" class="btn btn-basic mt-4" [class.active]="selectedButton === 'button2'" (click)="selectedButton = 'button2'" *ngIf="basesubscription">TOP UP COUNTRIES</button> -->
 				<!-- <button (click)="buttonclicked3()" class="btn btn-primary" [class.active]="selectedButton === 'button3'" (click)="selectedButton = 'button3'" >TOP UP VALIDITY</button> -->
+				<div class="text-end pt-3" *ngIf="showHistoryBtn">
+					<button class="btn btn-primary" (click)="gotoHistory()">Subscription History</button>
+				</div>
 			</div>
 		</div>
 	</div>
@@ -54,7 +57,7 @@
 										<h5 style="font-size: 18px; text-align: center" class="pt-4">Personalized
 											Question: {{ subscription.chatlimit }} / day</h5>
 									</div>
-									<div class="card-footer py-2 px-4" style="text-align: center">
+									<div class="card-footer py-2 px-4" style="text-align: center" [ngClass]="subscription.popular != 1 ? 'mb-5' : '' ">
 										<h3 class="font-primarycolor fw-bold">INR {{ subscription.givenprice | number :
 											".2-2" }}</h3>
 										<h5 class="fw-semibold">{{ subscription.validity }} Month Validity</h5>

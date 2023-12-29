@@ -97,7 +97,7 @@
 			<div class="fw-semibold px-3 py-1 submenutitle mr-4" *ngIf="item.title == 'Study' || item.title == 'Career' || item.title == 'Life' || item.title == 'Explore' || item.title == 'Support'">
 				{{ item.title }}
 			</div>
-			<div [ngClass]="{'sidebarClass': item.title == 'Dashboard', 'unsidebarClass': item.title != 'Dashboard' && conditionSubscribed == false }" *ngIf="item.title != 'Study' && item.title != 'Career' && item.title != 'Life' && item.title != 'Explore' && item.title != 'Support'" class="system-main__apps" (click)="onexpand(item)">
+			<div [ngClass]="{'sidebarClass': item.title == 'Dashboard' || item.title == 'Tutorials' || item.title == 'FAQ', 'unsidebarClass': item.title != 'Dashboard' && item.title != 'Tutorials' && item.title != 'FAQ' && conditionSubscribed == false }" *ngIf="item.title != 'Study' && item.title != 'Career' && item.title != 'Life' && item.title != 'Explore' && item.title != 'Support'" class="system-main__apps" (click)="onexpand(item)">
 				<span class="system-main__icon" title="{{ item.title }}"><i class="{{ item.image }}"></i></span>
 				<span class="system-main__name"> {{ item.title }} </span>
 			</div>

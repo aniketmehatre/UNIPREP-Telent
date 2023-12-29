@@ -27,6 +27,7 @@ export class DashboardComponent implements OnInit {
     isShareWithSocialMedia: boolean = false;
     isViewMoreOrgVisible: boolean = false;
     partnerTrusterLogo: any;
+    enableReading!: boolean;
     university: any[] = [
         {
             "image": "../../../uniprep-assets/images/icons/university1.svg",
@@ -70,6 +71,7 @@ export class DashboardComponent implements OnInit {
     }
     ngOnInit(): void {
         this.selectedCountryId = localStorage.getItem('countryId');        
+        this.enableReadingData();
         localStorage.setItem('selectedcountryId', this.selectedCountryId);
         localStorage.setItem("currentmodulenameforrecently", '');
         this.dashboardService.getTrustedPartners().subscribe(partnerLogo => {
@@ -115,6 +117,19 @@ export class DashboardComponent implements OnInit {
         //this.openViewMoreOrg();
         this.isViewMoreOrgVisible = false;
         this.loadApiData();
+    }
+
+    enableReadingData(): void {
+        this.service.getNewUserTimeLeft().subscribe(res => {
+            let data = res.time_left;
+            data.plan = "expired";
+            if (data.plan === 'expired' || data.plan === 'subscription_expired') {
+                this.enableReading = false;
+            }
+            else {
+                this.enableReading = true;
+            }
+        });
     }
 
     loadApiData(): void {
