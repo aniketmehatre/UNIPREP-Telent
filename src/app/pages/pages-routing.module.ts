@@ -10,6 +10,7 @@ import { GuidelineComponent } from './chat/guidelines/guidelines.component';
 import { RecentlyaddedquestionsComponent } from './recentlyaddedquestions/recentlyaddedquestions.component';
 import { PrivacypolicyComponent } from './footersection/privacypolicy/privacypolicy.component';
 import { RefundpolicyComponent } from './footersection/refundpolicy/refundpolicy.component';
+import { CancellationpolicyComponent } from './footersection/cancellationpolicy/cancellationpolicy.component';
 
 const routes: Routes = [
     {
@@ -48,6 +49,11 @@ const routes: Routes = [
                 path: 'refundpolicy',
 
                 component: RefundpolicyComponent
+            },
+            {
+                path: 'cancellationpolicy',
+
+                component: CancellationpolicyComponent
             },
             {
                 path: 'button',

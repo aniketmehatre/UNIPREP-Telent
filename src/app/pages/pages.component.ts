@@ -28,7 +28,8 @@ export class PagesComponent implements OnInit, OnDestroy {
             if(val instanceof NavigationEnd){
                 if(val.url.includes('subscriptions') || val.url.includes('faq') || val.url.includes('support-help')
                 || val.url.includes('usermanagement')|| val.url.includes('chat') || val.url.includes('guideline')
-                ||val.url.includes('termsandcondition')||val.url.includes('privacypolicy')){
+                ||val.url.includes('termsandcondition')||val.url.includes('privacypolicy')||val.url.includes('refundpolicy')
+                ||val.url.includes('cancellationpolicy')){
                     this.showSearch = false;
                     this.isFooterBoxVisible = false;
                 }else{
