@@ -87,7 +87,7 @@
                                     <div class="col-md-3 p-4">
                                         <small>Intake Month</small>
                                         <p class="mb-0 fw-semibold"
-                                            *ngIf="PersonalInfo?.intake_month_looking else noMonth">{{ selectedDate|
+                                            *ngIf="(PersonalInfo?.intake_month_looking || PersonalInfo?.intake_month_looking == 0) else noMonth">{{ selectedDate|
                                             date:'MMM' || '-' }}</p>
                                         <ng-template #noMonth>
                                             <p class="mb-0 fw-semibold">-</p>
@@ -1135,7 +1135,7 @@
                     </div>
                     <div class="pt-2">
                         <small>Intake Month</small>
-                        <p class="mb-0 fw-semibold" *ngIf="PersonalInfo?.intake_month_looking else noMonth">{{ selectedDate|
+                        <p class="mb-0 fw-semibold" *ngIf="(PersonalInfo?.intake_month_looking || PersonalInfo?.intake_month_looking == 0) else noMonth">{{ selectedDate|
                             date:'MMM' || '-' }}</p>
                         <ng-template #noMonth>
                             <p class="mb-0 fw-semibold">-</p>

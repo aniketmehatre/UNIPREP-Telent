@@ -140,7 +140,7 @@ export class UserManagementComponent implements OnInit {
             this.selectedDate.setFullYear(this.registrationForm.get('intake_year_looking')?.value);
             this.selectedDate.setMonth(this.registrationForm.get('intake_month_looking')?.value);
             this.GetLocationList();
-            this.registrationForm.get('intake_month_looking')?.value ? this.registrationForm.get('intake_month_looking')?.setValue(this.selectedDate) : '';
+            this.registrationForm.get('intake_month_looking')?.setValue((this.registrationForm.get('intake_month_looking')?.value || this.registrationForm.get('intake_month_looking')?.value == 0) ? this.selectedDate : '');
             var selectedYear=this.registrationForm.get('intake_year_looking')?.value;
              
             this.maximumTime.setFullYear(selectedYear);
