@@ -16,6 +16,7 @@ import { Observable } from "rxjs";
 import { ReadQuestion } from "../../@Models/read-question.model";
 import { ModuleServiceService } from "../module-store/module-service.service";
 import { ModuleStoreService } from "../module-store/module-store.service";
+import { AuthService } from 'src/app/Auth/auth.service';
 
 @Component({
   selector: 'uni-header-search',
@@ -54,9 +55,12 @@ export class HeaderSearchComponent implements OnInit, OnDestroy {
   isReviewedByVisible: boolean = false;
   readQue$!: Observable<ReadQuestion[]>;
   @ViewChild('listgroup') listgroup: ElementRef | undefined;
+  timeLeft: any;
+  visibleExhasted!: boolean;
   constructor(private dashboardService: DashboardService, private dataService: DataService, private moduleStoreService: ModuleStoreService,
     private toastr: MessageService, private moduleListService: ModuleServiceService,
     private locationService: LocationService, private route: Router, private elementRef: ElementRef,
+    private service:AuthService,
     private renderer: Renderer2) {
     this.dataService.chatTriggerSource.subscribe(message => {
       this.message = message;
@@ -111,7 +115,7 @@ export class HeaderSearchComponent implements OnInit, OnDestroy {
         numScroll: 1
       }
     ];
-
+    this.enableReadingData();
   }
 
   onSearchChange(event: any) {
@@ -174,7 +178,12 @@ export class HeaderSearchComponent implements OnInit, OnDestroy {
     this.selectedQuestionData = selectedQuestionData;
     this.selectedQuestionId = selectedQuestionData.id;
     this.readQuestion(selectedQuestionData);
-    this.isQuestionAnswerVisible = true;
+    if (this.timeLeft.plan === 'expired' || this.timeLeft.plan === 'subscription_expired') {
+      this.visibleExhasted = true;
+    }
+    else {
+      this.isQuestionAnswerVisible = true;
+    }
     this.searchResult.filter((res: any) => {
       if (res.id == selectedQuestionData.id) {
         this.refLink = res.reflink;
@@ -307,14 +316,34 @@ export class HeaderSearchComponent implements OnInit, OnDestroy {
     let modName = this.convertToSlug(moduleName);
     this.searchInputText = "";
     this.isSearchResultFound = false;
-    this.route.navigate([`/pages/modules/${modName}`]);
+    if (this.timeLeft.plan === 'expired' || this.timeLeft.plan === 'subscription_expired') {
+      this.visibleExhasted = true;
+    }
+    else {
+      this.route.navigate([`/pages/modules/${modName}`]);
+    }
+  }
+
+  enableReadingData(): void {
+    this.service.getNewUserTimeLeft().subscribe(res => {
+      this.timeLeft = res.time_left;
+    });
+  }
+
+  onClickSubscribedUser(): void {
+    this.visibleExhasted = false;
+    this.route.navigate(["/pages/subscriptions"]);
   }
 
   redirectToSubmodule(data: any) {
     let modName = this.convertToSlug(data.module_name);
     this.searchInputText = "";
     this.isSearchResultFound = false;
-    this.route.navigate([`/pages/modules/${modName}/question-list/${data.submodule_id}`]);
+    if (this.timeLeft.plan === 'expired' || this.timeLeft.plan === 'subscription_expired') {
+      this.visibleExhasted = true;
+    } else {
+      this.route.navigate([`/pages/modules/${modName}/question-list/${data.submodule_id}`]);
+    }
   }
 
   convertToSlug(text: any) {

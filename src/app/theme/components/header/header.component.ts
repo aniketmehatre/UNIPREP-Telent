@@ -476,12 +476,12 @@ export class HeaderComponent implements OnInit, OnDestroy {
       let data = res.time_left;
       if (data.plan === 'on_progress') {
         this.userLoginTimeLeftCount = false;
-        this.timer(data.minutes, data.seconds, data.hours, data.days);
+        this.timer(data.minutes, data.seconds, data.hours);
       }
     })
   }
 
-  timer(minute: any, sec: any, hours: any, days: any): void {
+  timer(minute: any, sec: any, hours: any): void {
     let seconds: number = minute * 60;
     let textSec: any = '0';
     let statSec: number = 60;
@@ -501,8 +501,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
         this.timeLeftSecs = 0;
       }
       this.timeHours = hours;
-      this.timeDays = days;
-      if (this.timeLeftMins <= 0 && this.timeHours <= 0 && this.timeDays <= 0 && this.timeLeftSecs <= 0) {
+      if (this.timeLeftMins <= 0 && this.timeHours <= 0  && this.timeLeftSecs <= 0) {
         this.visible = true;
         clearInterval(this.timerInterval);
       }
