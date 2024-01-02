@@ -4,8 +4,8 @@ const devurl= `http://${devdomain}/uniprepapi/public/api`;
 const produrl=`https://${proddomain}/uniprepapi/public/api`;
 
 export const environment = {
-  domain:proddomain,
+  domain: devdomain,
   production: false,
-  ApiUrl:produrl,
+  ApiUrl: devurl,
   tokenKey: 'token',
 };
