@@ -137,6 +137,7 @@ export class SidenavComponent {
   ];
   conditionSubscribed!: boolean;
   currentTitle: any;
+  visibleExhasted!: boolean;
   constructor(
     private router: Router,
     private activatedRoute: ActivatedRoute,
@@ -219,6 +220,24 @@ export class SidenavComponent {
         }
       }
     });
+  }
+
+  listClick(event: any, newValue: any) {
+    console.log(newValue)
+    this.authService.getNewUserTimeLeft().subscribe(res => {
+      let data = res.time_left;
+      if (data.plan === 'expired' && newValue.title != 'Dashboard' && newValue.title != 'Tutorials' && newValue.title != 'FAQ' && newValue.title != 'Subscription') {
+        this.visibleExhasted = true;
+      } else {
+        this.visibleExhasted = false;
+      }
+    });
+  }
+
+
+  onClickSubscribedUser(): void {
+    this.visibleExhasted = false;
+    this.router.navigate(["/pages/subscriptions"]);
   }
 
   onexpand(item: SideMenu) {
