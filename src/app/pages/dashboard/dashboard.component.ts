@@ -45,7 +45,7 @@ export class DashboardComponent implements OnInit {
             "image": "../../../uniprep-assets/images/icons/university3.svg",
         }
     ];
-    selectedCountryId: any;
+    selectedCountryId: number = 1;
 
     constructor(private dashboardService: DashboardService,private service: AuthService,
         private router: Router, private dataService: DataService,
@@ -70,9 +70,10 @@ export class DashboardComponent implements OnInit {
         ];
     }
     ngOnInit(): void {
-        this.selectedCountryId = localStorage.getItem('countryId');        
+        this.selectedCountryId = Number(localStorage.getItem('countryId'));
+        console.log(this.selectedCountryId);
         this.enableReadingData();
-        localStorage.setItem('selectedcountryId', this.selectedCountryId);
+        //localStorage.setItem('selectedcountryId', this.selectedCountryId);
         localStorage.setItem("currentmodulenameforrecently", '');
         this.dashboardService.getTrustedPartners().subscribe(partnerLogo => {
             this.partnerTrusterLogo = partnerLogo;
@@ -80,10 +81,10 @@ export class DashboardComponent implements OnInit {
 
         this.subs.sink = this.service.getMe().subscribe((data) => {
             if (data) {
-              localStorage.setItem('countryId', data.userdetails[0].interested_country_id);
+              //localStorage.setItem('countryId', data.userdetails[0].interested_country_id);
               this.userName = data.userdetails[0].name.toString();
             }
-          });
+        });
 
         let data = {
             countryId: this.selectedCountryId,

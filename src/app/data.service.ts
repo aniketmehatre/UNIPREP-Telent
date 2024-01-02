@@ -13,7 +13,7 @@ export class DataService {
     public countryNameSource = new BehaviorSubject('');
     countryName = this.countryNameSource.asObservable();
 
-    public countryIdSource = new BehaviorSubject(localStorage.getItem('countryId') ? '' : '');
+    public countryIdSource = new BehaviorSubject(Number(localStorage.getItem('countryId')) ? '' : '');
     countryId = this.countryIdSource.asObservable();
 
     public countryFlagSource = new BehaviorSubject('');

@@ -54,7 +54,6 @@ export class LoginComponent implements OnInit, OnDestroy {
       this.dataService.showTimerInHeader(loggedIn);
       this.service.getMe().subscribe((data) => {
         this.loadCountryList(data);
-        localStorage.setItem('countryId', data.userdetails.interested_country_id);
         this.subs.sink = this.service.selectMessage$().subscribe(message => {
           if (message == 'Login Success') {
             this.toast.add({ severity: 'success', summary: 'Success', detail: message });
@@ -70,7 +69,8 @@ export class LoginComponent implements OnInit, OnDestroy {
     this.dashboardService.countryList().subscribe(countryList => {
       this.countryLists = countryList;
       this.countryLists.forEach((element: any) => {
-        if (element.id == data.userdetails.interested_country_id) {
+        if (element.id == Number(data.userdetails[0].interested_country_id)) {
+          localStorage.setItem('countryId', data.userdetails[0].interested_country_id);
           this.dataService.changeCountryName(element.country);
           this.dataService.changeCountryFlag(element.flag);
           this.dataService.changeCountryId(element.id);

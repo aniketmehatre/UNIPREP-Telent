@@ -14,7 +14,7 @@ export class DashboardService {
 
     getDashboardCounts() {
         const headers = new HttpHeaders().set("Accept", "application/json");
-        return this.http.get<any>(environment.ApiUrl + "/getdashboardcount?"+"getcountry_id="+localStorage.getItem('countryId'), {
+        return this.http.get<any>(environment.ApiUrl + "/getdashboardcount?"+"getcountry_id="+Number(localStorage.getItem('countryId')), {
             headers: headers,
         });
     }

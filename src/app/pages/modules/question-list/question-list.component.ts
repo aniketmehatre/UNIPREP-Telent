@@ -131,6 +131,7 @@ export class QuestionListComponent implements OnInit {
         numScroll: 1
       }
     ];
+
     this.listQuestion$ = this.moduleListService.questionList$();
     let data = {
       countryId: Number(localStorage.getItem('countryId')),

@@ -109,7 +109,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.dashboardService.countryList().subscribe(countryList => {
       this.countryLists = countryList;
       this.countryLists.forEach((element: any) => {
-        if (element.id == localStorage.getItem('countryId')) {
+        if (element.id == Number(localStorage.getItem('countryId'))) {
           this.dataService.changeCountryName(element.country);
           this.dataService.changeCountryFlag(element.flag);
           this.dataService.changeCountryId(element.id);
@@ -278,7 +278,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
     this.subs.sink = this.service.getMe().subscribe((data) => {
       if (data) {
-        localStorage.setItem('countryId', data.userdetails[0].interested_country_id);
+        //localStorage.setItem('countryId', data.userdetails[0].interested_country_id);
         this.userName = data.userdetails[0].name.toString();
         this.firstChar = this.userName.charAt(0);
       }
