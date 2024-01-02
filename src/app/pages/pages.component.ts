@@ -18,11 +18,12 @@ export class PagesComponent implements OnInit, OnDestroy {
     isFooterBoxVisible = false;
     showReportSuccess = false;
     conditionSubscribed = true;
+    visibleExhasted!: boolean;
     @Output() expandicon = !this.sidebarClass
         ? "pi-align-right"
         : "pi-align-justify";
     private subs = new SubSink();
-    constructor(private pageFacade: PageFacadeService, router: Router, private dataService: DataService,
+    constructor(private pageFacade: PageFacadeService, private router: Router, private dataService: DataService,
                 private dashboardService: DashboardService,private service:AuthService) {
         router.events.subscribe((val) => {
             if(val instanceof NavigationEnd){
@@ -45,6 +46,7 @@ export class PagesComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit(): void {
+        this.subScribedUserCount();
 
         this.subs.sink = this.pageFacade.sideBarState$().subscribe({
             next: (state) => {
@@ -56,6 +58,22 @@ export class PagesComponent implements OnInit, OnDestroy {
                 this.showReportSuccess = true;
             } else {
                 this.showReportSuccess = false;
+            }
+        });
+    }
+
+    onClickSubscribedUser(): void {
+        this.visibleExhasted = false;
+        this.router.navigate(["/pages/subscriptions"]);
+    }
+
+    subScribedUserCount(): void {
+        this.service.getNewUserTimeLeft().subscribe(res => {
+            let data = res.time_left;
+            if (data.plan === 'expired') {
+                this.visibleExhasted = true;
+            } else {
+                this.visibleExhasted = false;
             }
         });
     }
