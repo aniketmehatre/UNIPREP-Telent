@@ -11,7 +11,7 @@ import { DataService } from "../../data.service";
 import { MenuItem, MessageService } from "primeng/api";
 import { LocationService } from "../../location.service";
 import { SubSink } from "subsink";
-import { Router } from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import { Observable } from "rxjs";
 import { ReadQuestion } from "../../@Models/read-question.model";
 import { ModuleServiceService } from "../module-store/module-service.service";
@@ -27,6 +27,7 @@ export class HeaderSearchComponent implements OnInit, OnDestroy {
   @ViewChild('searchInput', { static: false, read: ElementRef }) elRef: any;
   message: any
   countryName: any
+  selectedGlobalData: any
   isSearchResultFound: boolean = false;
   isQuestionAnswerVisible: boolean = false;
   searchResult: any[] = [];
@@ -175,6 +176,7 @@ export class HeaderSearchComponent implements OnInit, OnDestroy {
   }
 
   gerSelectedQuestion(selectedQuestionData: any) {
+    this.selectedGlobalData = selectedQuestionData
     this.selectedQuestionData = selectedQuestionData;
     this.selectedQuestionId = selectedQuestionData.id;
     this.readQuestion(selectedQuestionData);
@@ -252,6 +254,22 @@ export class HeaderSearchComponent implements OnInit, OnDestroy {
     })
   }
 
+  breadCrumbClick(event: any, defaultEvent: any){
+    if (defaultEvent.item.label == this.countryName){
+      return;
+    }
+    this.searchInputText = '';
+    if (event.model[1].label == defaultEvent.item.label){
+      let slug = this.convertToSlug(event.model[1].label);
+      this.isQuestionAnswerVisible = false;
+      this.route.navigate([`/pages/modules/${slug}`]);
+    } else {
+      let slug = this.convertToSlug(event.model[1].label);
+      this.isQuestionAnswerVisible = false;
+      this.route.navigate([`/pages/modules/${slug}/question-list/${this.selectedGlobalData.submodule_id}`]);
+    }
+  }
+
   openChat(): void {
     this.route.navigate([`/pages/chat`]);
   }
@@ -266,6 +284,7 @@ export class HeaderSearchComponent implements OnInit, OnDestroy {
       return;
     }
     this.selectedQuestionId = this.selectedQuestion;
+    this.selectedGlobalData = this.searchResult[this.selectedQuestion - 1];
     this.selectedQuestion = this.selectedQuestion - 1;
     let data = this.searchResult[this.selectedQuestion]
     this.searchResult.filter((res: any) => {
@@ -290,6 +309,7 @@ export class HeaderSearchComponent implements OnInit, OnDestroy {
     }
 
     this.selectedQuestionId = this.selectedQuestion;
+    this.selectedGlobalData = this.searchResult[this.selectedQuestion + 1];
     this.selectedQuestion = this.selectedQuestion + 1;
     let data = this.searchResult[this.selectedQuestion];
     this.searchResult.filter((res: any) => {
