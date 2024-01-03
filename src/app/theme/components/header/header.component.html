@@ -35,6 +35,7 @@
 						<a class="btn m-0 p-0" routerLink="/pages/usermanagement" data-bs-toggle="dropdown" aria-expanded="false">
 							<span class="nme me-0">{{ (firstChar || "")?.charAt(0) }}</span>
 						</a>
+						<p-avatar (click)="logout()" class="p-0 ms-2 d-flex justify-content-center" label="" role="button"> <i class="fa-solid fa-power-off"></i></p-avatar>
 					</div>
 				</div>
 			</div>
