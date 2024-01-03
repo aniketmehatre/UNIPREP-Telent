@@ -53,6 +53,8 @@ export class ResourceComponent implements OnInit {
           country:element.countryName
          }
          this.resourceslist.push(resource);
+         console.log(element.countryFlag);
+         
       });
     });
   }
