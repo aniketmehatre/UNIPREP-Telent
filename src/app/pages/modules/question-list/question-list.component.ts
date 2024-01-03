@@ -62,6 +62,7 @@ export class QuestionListComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.moduleListService.emptyQuestionList$();
     this.route.params.subscribe(params => {
       this.loadInit();
       //this.getSubmoduleName(this.countryId);

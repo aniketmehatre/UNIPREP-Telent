@@ -1,5 +1,6 @@
 import {createReducer, on} from "@ngrx/store";
 import {
+    emptyQuestionList,
     loadQuestionListSuccess,
     loadQuizListSuccess,
     loadSubModulesSuccess, readQuestionSuccess,
@@ -8,6 +9,7 @@ import {ModuleListSub} from "../../@Models/module.model";
 import {ListQuestion} from "../../@Models/question-list.model";
 import {QuizList} from "../../@Models/list-quiz.model";
 import {ReadQuestion} from "../../@Models/read-question.model";
+import {state} from "@angular/animations";
 
 
 export interface ModuleStoreState {
@@ -27,6 +29,7 @@ export const ModuleStoreReducer = createReducer(
     initialState,
     on(loadSubModulesSuccess, (state, payload) => ({...state, subModules: payload.submodules})),
     on(loadQuestionListSuccess, (state, payload) => ({...state, questionList: payload.questionList})),
+    on(emptyQuestionList, (state) => ({...state, questionList: []})),
     on(loadQuizListSuccess, (state, payload) => ({...state, quizList: payload.quizList})),
     on(readQuestionSuccess, (state, payload) => ({...state, readQue: payload.readQue})),
 );

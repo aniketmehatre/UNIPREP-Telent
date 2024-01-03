@@ -20,6 +20,8 @@ export const loadQuestionList = createAction('[Modules] load question list',
         moduleId: number,
         submoduleId: number
     }) => payload);
+
+export const emptyQuestionList = createAction('[Modules] load question list');
 export const loadQuestionListSuccess = createAction('[Modules] load question list success',
     (payload: {
         questionList: ListQuestion[]

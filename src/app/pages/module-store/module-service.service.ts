@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import {Store} from "@ngrx/store";
 import { environment } from '@env/environment';
-import {loadQuestionList, loadQuizList, loadSubModules, readQuestion} from './module-store.actions';
+import {emptyQuestionList, loadQuestionList, loadQuizList, loadSubModules, readQuestion} from './module-store.actions';
 import {ModuleStoreState} from "./module-store.reducer";
 import {readQuestion$, selectQuestionList$, selectQuizList$, selectSubModule$} from './module-store.selectors';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
@@ -28,6 +28,10 @@ export class ModuleServiceService {
       moduleId: data.moduleId,
       submoduleId: data.submoduleId
     }));
+  }
+
+  emptyQuestionList$() {
+    this.store.dispatch(emptyQuestionList());
   }
 
   questionList$() {
