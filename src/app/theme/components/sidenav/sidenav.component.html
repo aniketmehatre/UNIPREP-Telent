@@ -51,7 +51,7 @@
 			<li class="position-relative">
 				<p class="px-3 fw-semibold text-small mb-2"><span class="maintext">Main</span> Menu</p>
 			</li>
-			<li [ngClass]="{ 'menu-item': true, active: item.active, overlap: isOverlap }" *ngFor="let item of menus">
+			<li [ngClass]="{ 'menu-item': true, active: item.active, overlap: isOverlap }" *ngFor="let item of menus" data-bs-dismiss="offcanvas">
 				<ng-container *ngIf="item.header; else menu">
 					<div class="system-main__apps header">
 						<span class="system-main__icon"><img src="./../../../../uniprep-assets/images/icons/tip_with_notification.svg" /></span>
