@@ -2,18 +2,25 @@
 	<div class="card-body text-center pt-0 h-100">
 		<div class="row justify-content-center">
 			<div class="col-md-2 col-2 text-start">
-				<p-button (click)="goBack()" icon="pi pi-arrow-left" styleClass="p-button-rounded p-button-text text-dark"></p-button>
+				<p-button (click)="goBack()" icon="pi pi-arrow-left"
+					styleClass="p-button-rounded p-button-text text-dark"></p-button>
 			</div>
 			<div class="col-md-8 col-8 text-center">
-				<h5 class="select-title mb-1" tooltipPosition="top" pTooltip="Questions related to the application process are answered"><span class="desktop">{{ currentModuleName }} -</span> {{ moduleName }}<i class="questiontooltip fa-solid fa-circle-question"></i></h5>
+				<h5 class="select-title mb-1" tooltipPosition="right"
+					pTooltip="Questions related to the application process are answered"><span class="desktop">{{
+						currentModuleName }} -</span> {{ moduleName }}<i
+						class="questiontooltip fa-solid fa-circle-question"></i></h5>
 			</div>
 			<div class="col-md-2 col-2">&nbsp;</div>
 		</div>
 		<div class="row">
-			<div *ngFor="let sub of listQuestion$ | async; let i = index" class="col-lg-3 col-md-4 col-sm-4 col-xs-12 col-12">
+			<div *ngFor="let sub of listQuestion$ | async; let i = index"
+				class="col-lg-3 col-md-4 col-sm-4 col-xs-12 col-12">
 				<div class="row w-100 h-100 m-0 justify-content-center">
-					<div (click)="onQuestionClick(sub)" class="card questioncard {{ sub.read == 1 ? 'questionread' : '' }}">
-						<div class="card-body d-flex flex-md-column flex-row justify-content-md-between align-items-center px-0 py-2">
+					<div (click)="onQuestionClick(sub)"
+						class="card questioncard {{ sub.read == 1 ? 'questionread' : '' }}">
+						<div
+							class="card-body d-flex flex-md-column flex-row justify-content-md-between align-items-center px-0 py-2">
 							<div class="row justify-content-center w-100">
 								<div class="col">
 									<p class="text-start fw-medium questiontext mb-0 mb-md-2">{{ sub.question }}</p>
@@ -22,21 +29,16 @@
                                             <p class="mb-3 circle text-center">{{i+1}}</p>
                                         </div> -->
 								<div class="col-2 text-end" *ngIf="sub.popular == 1">
-									<i class="pi pi-star-fill text-danger" pTooltip="Most Popular Question" tooltipPosition="right" style="font-size: 1.5rem"></i>
+									<i class="pi pi-star-fill text-danger" pTooltip="Most Popular Question"
+										tooltipPosition="right" style="font-size: 1.5rem"></i>
 								</div>
 							</div>
-							<button
-								class="btn d-md-block d-none w-100 flex-shrink-0 btn-primary m-0 primary-btn
-                                        {{ sub.read == 1 ? 'readButton' : '' }}"
-								pButton
-								type="button">
+							<button class="btn d-md-block d-none w-100 flex-shrink-0 btn-primary m-0 primary-btn
+                                        {{ sub.read == 1 ? 'readButton' : '' }}" pButton type="button">
 								Read <span class="desktop-enable">Answer</span>
 							</button>
-							<button
-								class="btn d-md-none d-flex flex-shrink-0 btn-primary m-0 primary-btn
-                                        {{ sub.read == 1 ? 'readButton' : '' }}"
-								pButton
-								type="button">
+							<button class="btn d-md-none d-flex flex-shrink-0 btn-primary m-0 primary-btn
+                                        {{ sub.read == 1 ? 'readButton' : '' }}" pButton type="button">
 								Read <span class="desktop-enable">Answer</span>
 							</button>
 						</div>
@@ -46,7 +48,8 @@
 		</div>
 	</div>
 </div>
-<p-dialog #dialogContent [(visible)]="isQuestionAnswerVisible" [draggable]="false" [modal]="true" class="questionmodal" header="Header" [maximizable]="true" [style]="{ height: '80vh' }">
+<p-dialog #dialogContent [(visible)]="isQuestionAnswerVisible" [draggable]="false" [modal]="true" class="questionmodal"
+	header="Header" [maximizable]="true" [style]="{ height: '80vh' }">
 	<ng-template pTemplate="header">
 		<div class="d-flex flex-column w-100 px-4 mb-4">
 			<div>
@@ -64,9 +67,11 @@
 					</button>
 				</div>
 				<div class="d-flex">
-					<a role="button" *ngIf="isAnswerDialogVisiblePrev" (click)="clickPrevious(carousel, $event)"> <i class="text-green h4 mx-3 mb-0 fa-solid fa-circle-chevron-left"></i></a>
+					<a role="button" *ngIf="isAnswerDialogVisiblePrev" (click)="clickPrevious(carousel, $event)"> <i
+							class="text-green h4 mx-3 mb-0 fa-solid fa-circle-chevron-left"></i></a>
 					<p class="mb-0 fw-semibold">Question Number {{ selectedQuestion + 1 }}</p>
-					<a role="button" *ngIf="isAnswerDialogVisibleNext" (click)="clickNext(carousel, $event)"><i class="text-green mx-3 h4 fa-solid mb-0 fa-circle-chevron-right"></i></a>
+					<a role="button" *ngIf="isAnswerDialogVisibleNext" (click)="clickNext(carousel, $event)"><i
+							class="text-green mx-3 h4 fa-solid mb-0 fa-circle-chevron-right"></i></a>
 				</div>
 				<div>
 					<button (click)="openReport()" class="btn btn-primary homecardbtn my-0 px-4 py-2 mx-0">
@@ -74,7 +79,8 @@
 						<br />
 						Report
 					</button>
-					<button style="display: none" (click)="reviewBy()" class="btn btn-primary homecardbtn my-0 px-4 py-2">
+					<button style="display: none" (click)="reviewBy()"
+						class="btn btn-primary homecardbtn my-0 px-4 py-2">
 						<i class="fa-regular fa-user h5"></i><br />
 						Reviewed By
 					</button>
@@ -83,15 +89,20 @@
 		</div>
 	</ng-template>
 	<div class="carousel-container px-4">
-<!--        <span class="badge" style="background-color: {{val.verified == 1 ? 'darkorchid' : '#F59E0B'}};">{{val.verified == 1 ? 'Verified' : 'Not Verified'}}-->
-<!--                        </span>-->
-		<p-carousel #carousel (onPage)="setPage($event)" [circular]="true" [numScroll]="1" [numVisible]="1" [page]="selectedQuestion" [responsiveOptions]="responsiveOptions" [value]="data" class="answersection">
+		<!--        <span class="badge" style="background-color: {{val.verified == 1 ? 'darkorchid' : '#F59E0B'}};">{{val.verified == 1 ? 'Verified' : 'Not Verified'}}-->
+		<!--                        </span>-->
+		<p-carousel #carousel (onPage)="setPage($event)" [circular]="true" [numScroll]="1" [numVisible]="1"
+			[page]="selectedQuestion" [responsiveOptions]="responsiveOptions" [value]="data" class="answersection">
 			<ng-template [ngForOf]="data" let-i="index" let-val ngFor pTemplate="item">
 				<div class="card answercard">
 					<div class="card-body text-start">
-						<p class="text-small blockquote text-start mb-0">Last updated at: {{ val.updated_at | date }}   <span class="badge" style="background-color: {{val.pre_verified == 1 ? 'darkorchid' : '#3f4c83'}};"> {{val.pre_verified == 1 ? 'Pre Verified' : 'Non Pre-Verified'}}</span></p>
+						<p class="text-small blockquote text-start mb-0">Last updated at: {{ val.updated_at | date }}
+							<span class="badge"
+								style="background-color: {{val.pre_verified == 1 ? 'darkorchid' : '#3f4c83'}};">
+								{{val.pre_verified == 1 ? 'Pre Verified' : 'Non Pre-Verified'}}</span></p>
 						<h3 class="unselectable">{{ val.question }}</h3>
-						<div class="fw-medium worksans unselectable" style="white-space: pre-wrap" [innerHTML]="val.answer"></div>
+						<div class="fw-medium worksans unselectable" style="white-space: pre-wrap"
+							[innerHTML]="val.answer"></div>
 					</div>
 				</div>
 			</ng-template>
@@ -103,13 +114,17 @@
 			<div class="flex-full" *ngIf="videoLinks">
 				<h5 class="text-start">Recommended Videos</h5>
 				<div class="d-flex flex-wrap gap-2" id="ref-links-container">
-					<a class="px-4 m-0 py-2 btn btn-primary btn-rounded" target="_blank" href="{{ videoL.link }}" *ngFor="let videoL of videoLinks; let ind = index">Video {{ ind + 1 }} &nbsp;<i class="fa-solid fa-video"></i></a>
+					<a class="px-4 m-0 py-2 btn btn-primary btn-rounded" target="_blank" href="{{ videoL.link }}"
+						*ngFor="let videoL of videoLinks; let ind = index">Video {{ ind + 1 }} &nbsp;<i
+							class="fa-solid fa-video"></i></a>
 				</div>
 			</div>
 			<div class="flex-full" *ngIf="refLink">
 				<h5 class="text-start">Recommended Links</h5>
 				<div class="d-flex flex-wrap gap-2" id="ref-links-container">
-					<a class="px-4 m-0 py-2 btn btn-secondary btn-rounded" target="_blank" href="{{ refL.link }}" *ngFor="let refL of refLink; let ind = index">Link {{ ind + 1 }} &nbsp;<i class="fa-solid fa-link"></i></a>
+					<a class="px-4 m-0 py-2 btn btn-secondary btn-rounded" target="_blank" href="{{ refL.link }}"
+						*ngFor="let refL of refLink; let ind = index">Link {{ ind + 1 }} &nbsp;<i
+							class="fa-solid fa-link"></i></a>
 				</div>
 			</div>
 			<div class="flex-shrink-0 align-items-center d-flex">
@@ -127,27 +142,35 @@
 	<div class="container-fluid">
 		<div class="row justify-content-center align-items-center">
 			<div class="col-md-1" *ngIf="videoLinks">
-				<a (click)="clickPreviousVideoPopup($event)"><i class="text-green h4 mx-3 mb-0 fa-solid fa-circle-chevron-left"></i></a>
+				<a (click)="clickPreviousVideoPopup($event)"><i
+						class="text-green h4 mx-3 mb-0 fa-solid fa-circle-chevron-left"></i></a>
 			</div>
 			<div class="col-md-10">
-				<p-carousel #carouselPopupVideoElm [circular]="false" [showNavigators]="false" [showIndicators]="false" [numScroll]="1" [numVisible]="1" [page]="selectedVideo" [responsiveOptions]="responsiveOptions" [value]="videoLinks" *ngIf="videoLinks">
+				<p-carousel #carouselPopupVideoElm [circular]="false" [showNavigators]="false" [showIndicators]="false"
+					[numScroll]="1" [numVisible]="1" [page]="selectedVideo" [responsiveOptions]="responsiveOptions"
+					[value]="videoLinks" *ngIf="videoLinks">
 					<ng-template let-item pTemplate="item">
 						<div class="border-1 surface-border border-round m-2 text-center">
 							<div class="mb-1">
-								<iframe allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen class="mb-2" frameborder="0" height="500px " [src]="" title="YouTube video player" width="100%"></iframe>
+								<iframe
+									allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+									allowfullscreen class="mb-2" frameborder="0" height="500px " [src]=""
+									title="YouTube video player" width="100%"></iframe>
 							</div>
 						</div>
 					</ng-template>
 				</p-carousel>
 			</div>
 			<div class="col-md-1" *ngIf="videoLinks">
-				<a (click)="clickNextVideoPopup($event)"><i class="text-green mx-3 h4 fa-solid mb-0 fa-circle-chevron-right"></i></a>
+				<a (click)="clickNextVideoPopup($event)"><i
+						class="text-green mx-3 h4 fa-solid mb-0 fa-circle-chevron-right"></i></a>
 			</div>
 		</div>
 	</div>
 </p-dialog>
 
-<p-dialog [(visible)]="isRecommendedLinksVisible" [draggable]="false" [modal]="true" [style]="{ width: '30vw' }" header="Header">
+<p-dialog [(visible)]="isRecommendedLinksVisible" [draggable]="false" [modal]="true" [style]="{ width: '30vw' }"
+	header="Header">
 	<ng-template pTemplate="header">
 		<span class="text-xl font-bold"></span>
 	</ng-template>
@@ -159,10 +182,12 @@
         </div> -->
 		<div class="row justify-content-center align-items-center">
 			<div class="col-md-2" *ngIf="refLink">
-				<a (click)="clickPreviousRefPopup($event)"><i class="text-green h4 mx-3 mb-0 fa-solid fa-circle-chevron-left"></i></a>
+				<a (click)="clickPreviousRefPopup($event)"><i
+						class="text-green h4 mx-3 mb-0 fa-solid fa-circle-chevron-left"></i></a>
 			</div>
 			<div class="col-md-8">
-				<p-carousel #carouselPopupRefElm [circular]="false" [numScroll]="1" [numVisible]="1" [responsiveOptions]="responsiveOptions" [value]="refLink" *ngIf="refLink" [page]="selectedRefLink">
+				<p-carousel #carouselPopupRefElm [circular]="false" [numScroll]="1" [numVisible]="1"
+					[responsiveOptions]="responsiveOptions" [value]="refLink" *ngIf="refLink" [page]="selectedRefLink">
 					<ng-template let-item pTemplate="item">
 						<div class="border-1 surface-border border-round m-2 text-center">
 							<div class="mb-1">
@@ -178,13 +203,15 @@
 				</p-carousel>
 			</div>
 			<div class="col-md-2" *ngIf="refLink">
-				<a (click)="clickNextRefPopup($event)"><i class="text-green mx-3 h4 fa-solid mb-0 fa-circle-chevron-right"></i></a>
+				<a (click)="clickNextRefPopup($event)"><i
+						class="text-green mx-3 h4 fa-solid mb-0 fa-circle-chevron-right"></i></a>
 			</div>
 		</div>
 	</div>
 </p-dialog>
 
-<p-dialog [(visible)]="isReviewedByVisible" [draggable]="false" label="Show" [modal]="true" [maximizable]="true" [style]="{ width: '30vw' }" header="Header">
+<p-dialog [(visible)]="isReviewedByVisible" [draggable]="false" label="Show" [modal]="true" [maximizable]="true"
+	[style]="{ width: '30vw' }" header="Header">
 	<ng-template pTemplate="header">
 		<span class="text-xl fw-bold ms-2 pl-4">Reviewed By</span>
 	</ng-template>

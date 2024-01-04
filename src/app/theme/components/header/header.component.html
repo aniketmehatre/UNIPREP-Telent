@@ -35,10 +35,28 @@
 						<p-avatar (click)="togleSidebar.emit()" class="" label="" role="button">
 							<i class="fa-solid fa-bell"></i>
 						</p-avatar>
-						<a class="btn m-0 p-0" routerLink="/pages/usermanagement" data-bs-toggle="dropdown"
-							aria-expanded="false">
-							<span class="nme me-0">{{ (firstChar || "")?.charAt(0) }}</span>
-						</a>
+						<div class="dropdown profile-dropdown">
+							<button class="button" data-bs-toggle="dropdown" aria-expanded="false">
+								<span class="nme">{{ (firstChar || "")?.charAt(0) }}</span>
+								<!-- <span class="fw-medium">{{userName }}</span> -->
+							</button>
+							<ul class="dropdown-menu">
+								<li>
+									<a class="dropdown-item pt-2 pb-2" routerLink="/pages/usermanagement">
+										<div class="d-flex justify-content-top">
+											<i class="fa-solid fa-user me-2 mt-1"></i>
+											<div>
+												<p class="fw-semibold mb-1">{{ userName }}</p>
+												<p class="mb-0">{{ userName }}</p>
+											</div>
+										</div>
+									</a>
+								</li>
+								<li>
+									<a class="dropdown-item pt-2 pb-2" (click)="logout()"><i class="fa-solid fa-power-off me-2"></i>Logout</a>
+								</li>
+							</ul>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -377,7 +395,7 @@
 	[draggable]="false" [resizable]="false">
 	<div class="d-flex justify-content-between p-4">
 		<div>
-			<h4>Your 30 Days<span class="text-xl font-bold p-1 fw-bold" style="color: #3f4c83"> Free
+			<h4>Your 24 hours<span class="text-xl font-bold p-1 fw-bold" style="color: #3f4c83"> Free
 					Trial</span>Exhausted</h4>
 			<p class="get-certificate">Explore all modules on UNIPREP and get a certificate.</p>
 		</div>
@@ -413,7 +431,7 @@
 	<div class="d-flex justify-content-between p-4">
 		<div>
 			<h4>Congratulations</h4>
-			<p class="get-certificate">You have unlocked 30 days free trial.</p>
+			<p class="get-certificate">You have unlocked 24 hours free trial.</p>
 			<h4 class="get-certificate">Explore our <span class="text-xl font-bold fw-bold" style="color: #3f4c83">
 					Features</span> today!.</h4>
 		</div>

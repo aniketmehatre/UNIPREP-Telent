@@ -37,6 +37,10 @@
 			</h5>
 		</div>
 	</div>
+	<ul class="menulist">
+		<li *ngFor="let faqcat of faqcatlist" (click)="onFaqcatClick(faqcat.id)"
+			[class.active]="faqcat.id === activeCategory">{{ faqcat.name }}</li>
+	</ul>
 	<p-accordion [multiple]="true" class="plain">
 		<div class="col-md-8">
 			<p-accordion [multiple]="true" class="plain">

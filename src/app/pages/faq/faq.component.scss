@@ -34,6 +34,13 @@
  .ml-35{
   margin-left: 35px;
  }
+ .menulist{
+  display: -webkit-box !important;
+  overflow-x: auto;
+ }
+ .readingcard{
+  display: none;
+ }
 }
 
  ::ng-deep .p-accordion-header-link:after {
