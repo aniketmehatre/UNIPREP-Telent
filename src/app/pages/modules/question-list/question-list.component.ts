@@ -259,6 +259,7 @@ export class QuestionListComponent implements OnInit {
       return;
     }
     let selectedData = this.data[this.selectedQuestion-1];
+    let selectedDataReadAnswer = this.data[this.selectedQuestion];
     this.selectedQuestionData = selectedData;
     this.selectedModule = selectedData.module_id;
     this.selectedSubModule = selectedData.submodule_id;
@@ -273,7 +274,9 @@ export class QuestionListComponent implements OnInit {
     carousel.navBackward(event, this.selectedQuestion);
     let data = {
       questionId: selectedData.id,
-      countryId: this.countryId
+      countryId: this.countryId,
+      moduleId: this.currentModuleId,
+      submoduleId: Number(this.subModuleId)
     }
 
     this.readQuestion(data);
@@ -303,7 +306,9 @@ export class QuestionListComponent implements OnInit {
     carousel.navForward(event, this.selectedQuestion)
     let data = {
       questionId: selectedData.id,
-      countryId: this.countryId
+      countryId: this.countryId,
+      moduleId: this.currentModuleId,
+      submoduleId: Number(this.subModuleId)
     }
     this.readQuestion(data);
   }
