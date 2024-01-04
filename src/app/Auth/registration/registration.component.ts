@@ -120,7 +120,7 @@ export class RegistrationComponent implements OnInit {
             contactNumber: ['', [Validators.required]],
             emailAddress: ["", [Validators.required, Validators.email]],
             country_code: ['+91', [Validators.required]],
-            interestedCountry: [2, [Validators.required]],
+            interestedCountry: [null, [Validators.required]],
 
             // lastDegreePassingYear: ["", [Validators.required]],
             // intakeYear: ["", [Validators.required]],
