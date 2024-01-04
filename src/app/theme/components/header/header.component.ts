@@ -459,6 +459,15 @@ export class HeaderComponent implements OnInit, OnDestroy {
       this.sec = textSec;
       this.month = months;
       this.day = days;
+      if (minute <= 0 && hours <= 0 && sec <= 0) {
+        this.hrs = 0;
+        this.min = 0;
+        this.sec = 0;
+      } else {
+        this.hrs = hoursLeft;
+        this.min = textMin;
+        this.sec = textSec;
+      }
 
       if (this.min <= 0 && this.hrs <= 0 && this.day <= 0 && this.sec <= 0 && this.month <= 0) {
         this.visibleExhasted = true;
@@ -490,10 +499,15 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
       const textMin: string = minutesLeft < 10 ? '0' + minutesLeft : minutesLeft.toString();
       const textSec: string = secondsLeft < 10 ? '0' + secondsLeft : secondsLeft.toString();
-
-      this.timeHours = hoursLeft;
-      this.timeLeftMins = textMin;
-      this.timeLeftSecs = textSec;
+      if (minute <= 0 && hours <= 0 && sec <= 0) {
+        this.timeHours = 0;
+        this.timeLeftMins = 0;
+        this.timeLeftSecs = 0;
+      } else {
+        this.timeHours = hoursLeft;
+        this.timeLeftMins = textMin;
+        this.timeLeftSecs = textSec;
+      }
 
       if (this.timeLeftMins <= 0 && this.timeHours <= 0 && this.timeLeftSecs <= 0) {
         this.visible = true;
