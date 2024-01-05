@@ -22,7 +22,6 @@ export class QuestionListComponent implements OnInit {
   @ViewChild('carouselPopupVideoElm') carouselPopupVideoElm: any;
   @ViewChild('carouselPopupRefElm') carouselPopupRefElm: any;
 
-  subModules$!: Observable<ModuleListSub[]>;
   readQue$!: Observable<ReadQuestion[]>;
   listQuestion$!: Observable<ListQuestion[]>;
   selectedQuestion: number = 0;
@@ -51,11 +50,10 @@ export class QuestionListComponent implements OnInit {
   popUpItemVideoLink: any;
   reviewedByOrgList: any;
   currentSubModuleSlug: any;
-  currentModuleSlug: any;
   currentModuleName: any;
   currentModuleId: any
-  currentCountryId: any
   currentApiSlug: any;
+  tooltip: any;
   constructor(private moduleListService: ModuleServiceService, private moduleStoreService: ModuleStoreService,
               private dataService: DataService, private route: ActivatedRoute, private _location: Location,
               private _sanitizer: DomSanitizer, private router: Router) {
@@ -67,7 +65,7 @@ export class QuestionListComponent implements OnInit {
       this.loadInit();
       //this.getSubmoduleName(this.countryId);
     });
-
+    this.tooltip = 'Questions related to the application process are answered';
   }
 
   loadInit(){
@@ -103,11 +101,13 @@ export class QuestionListComponent implements OnInit {
         this.currentModuleId = 5;
         this.currentModuleName = 'University';
         this.currentApiSlug = 'getuniversitysubmoduleqcount';
+        this.tooltip = '';
         break;
       default:
         this.currentModuleId = 6;
         this.currentModuleName = 'Life At '+countryName;
         this.currentApiSlug = 'getlifeincountrysubmoduleqcount';
+        this.tooltip = '';
         break;
     }   
     this.getSubmoduleName(this.countryId);
