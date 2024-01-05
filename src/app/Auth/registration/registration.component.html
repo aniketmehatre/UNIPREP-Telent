@@ -295,6 +295,7 @@
 																		formControlName="interestedCountry"
 																		[options]="intrestedCountryList"
 																		optionValue="id" optionLabel="country"
+																		[filter]="true" filterBy="country"
 																		[autoDisplayFirst]="false"></p-dropdown>
 																</div>
 																<div *ngIf="submitted && f.interestedCountry.errors"
