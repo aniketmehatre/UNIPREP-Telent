@@ -45,6 +45,7 @@ export class SubscriptionDataComponent implements OnInit {
   loadingUserDetails: boolean = false;
   discountAmount: any;
   discountAmountEnable!: boolean;
+  usedCouponId: number = 0;
   confirmModal: boolean = false;
   user!: User | null;
   discountPercentage: any;
@@ -200,7 +201,7 @@ export class SubscriptionDataComponent implements OnInit {
       this.toast.add({ severity: 'error', summary: 'Error', detail: 'Coupon already used' });
       return;
     }
-
+    
     if (this.couponInput) {
       this.subscriptionService.usedCoupon = this.couponInput
       let data = {
@@ -210,11 +211,13 @@ export class SubscriptionDataComponent implements OnInit {
       }
 
       this.subscriptionService.applyCoupon(data).subscribe((response) => {
+        console.log(response);
         if (response.success) {
           this.checkoutTotal = Number(this.subscriptionTotal) - response.discountPrice;
           this.discountAmount = response.discountPrice;
           this.discountPercentage = response.discountPercentage;
           this.discountAmountEnable = true;
+          this.usedCouponId = response.coupon_id;
           this.toast.add({ severity: 'success', summary: 'Success', detail: "Coupon applied" });
         }
         else {
@@ -244,6 +247,7 @@ export class SubscriptionDataComponent implements OnInit {
             finalPrice: this.checkoutTotal,
             couponApplied: this.couponInput ? 1 : 0,
             coupon: this.couponInput,
+            coupon_id: this.usedCouponId,
           }
           if (this.checkoutTotal == '') {
             data.finalPrice = this.subscriptionTotal;
