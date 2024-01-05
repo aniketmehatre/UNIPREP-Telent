@@ -86,7 +86,7 @@ export class RecentlyaddedquestionsComponent implements OnInit {
     this.breadCrumb = [{
       label: this.currentModuleName,
       command: (event) => this.gotomodulebreadcrump()
-    }, {label: this.moduleName, command: (event) => this.goToHomebreadcrump()}, {label: 'Question'}];
+    }, {label: this.moduleName, command: (event) => this.goToHomebreadcrump()}, {label: `Question ${this.selectedQuestion + 1}`}];
 
     this.responsiveOptions = [
       {
@@ -147,21 +147,22 @@ export class RecentlyaddedquestionsComponent implements OnInit {
           this.breadCrumb = [{
             label: this.currentModuleName,
             command: (event) => this.gotomodulebreadcrump()
-          }, {label: this.moduleName, command: (event) => this.goToHomebreadcrump()}, {label: 'Question'}];
+          }, {label: this.moduleName, command: (event) => this.goToHomebreadcrump()}, {label: `Question ${this.selectedQuestion + 1}`}];
         }
       })
     })
     this.moduleListService.loadSubModules(data);
     this.subModules$ = this.moduleListService.subModuleList$();
     this.subModules$.subscribe(event => {
+      console.log('event', event);
       if (event) {
         event.filter(data => {
-          if (data.id == this.selectedSubModule) {
+          if (data.submodule_id == this.selectedSubModule) {
             this.moduleName = data.submodule_name;
             this.breadCrumb = [{
               label: this.currentModuleName,
               command: (event) => this.gotomodulebreadcrump()
-            }, {label: this.moduleName, command: (event) => this.goToHomebreadcrump()}, {label: 'Question'}];
+            }, {label: this.moduleName, command: (event) => this.goToHomebreadcrump()}, {label: `Question ${this.selectedQuestion + 1}`}];
           }
         })
       }
@@ -190,7 +191,7 @@ export class RecentlyaddedquestionsComponent implements OnInit {
     this.breadCrumb = [{
       label: this.currentModuleName,
       command: (event) => this.gotomodulebreadcrump()
-    }, {label: this.moduleName, command: (event) => this.goToHomebreadcrump()}, {label: `Question ${index + 1}`}];
+    }, {label: this.moduleName, command: (event) => this.goToHomebreadcrump()}, {label: `Question ${this.selectedQuestion + 1}`}];
 
     this.isQuestionAnswerVisible = true;
     this.listQuestions.filter((res: any) => {
@@ -240,7 +241,7 @@ export class RecentlyaddedquestionsComponent implements OnInit {
     this.breadCrumb = [{
       label: this.currentModuleName,
       command: (event) => this.gotomodulebreadcrump()
-    }, {label: this.moduleName, command: (event) => this.goToHomebreadcrump()}, {label: `Question ${pageNum + 1}`}];
+    }, {label: this.moduleName, command: (event) => this.goToHomebreadcrump()}, {label: `Question ${this.selectedQuestion + 1}`}];
   }
 
   clickPrevious(carousel: any, event: any) {
@@ -254,6 +255,7 @@ export class RecentlyaddedquestionsComponent implements OnInit {
     if (this.selectedQuestion <= 0) {
       return;
     }
+    this.getSubmoduleName(this.countryId);
     let selectedData = this.listQuestions[this.selectedQuestion-1];
     this.selectedQuestionData = selectedData;
     this.selectedModule = selectedData.module_id;
@@ -287,6 +289,7 @@ export class RecentlyaddedquestionsComponent implements OnInit {
     if (this.selectedQuestion >= this.listQuestions.length - 1) {
       return;
     }
+    this.getSubmoduleName(this.countryId);
     let selectedData = this.listQuestions[this.selectedQuestion+1];
     this.selectedQuestionData = selectedData;
     this.selectedModule = selectedData.module_id;
