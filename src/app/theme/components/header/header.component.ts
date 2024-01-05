@@ -440,34 +440,39 @@ export class HeaderComponent implements OnInit, OnDestroy {
     });
   }
 
-  getTimer(minute: any, sec: any, hours: any, days: any, months :any): void {
-    let seconds: number = minute * 60;
-    let textSec: any = '0';
-    let statSec: number = 60;
-    const prefix = minute < 10 ? '0' : '';
+  getTimer(minute: any, sec: any, hours: any, days: any, months: any): void {
+    let totalSeconds: number = hours * 3600 + minute * 60 + sec;
+    let textSec: string | number = '0';
+
     this.timerInterval = setInterval(() => {
-      seconds--;
-      if (statSec != 0) statSec--;
-      else statSec = 59;
+      totalSeconds--;
 
-      if (statSec < 10) {
-        textSec = '0' + statSec;
-      } else textSec = statSec;
+      const hoursLeft: number = Math.floor(totalSeconds / 3600);
+      const minutesLeft: number = Math.floor((totalSeconds % 3600) / 60);
+      const secondsLeft: number = totalSeconds % 60;
 
-      this.min = `${Math.floor(seconds / 60)}`;
-      this.sec = `${textSec}`;
+      const textMin: string = minutesLeft < 10 ? '0' + minutesLeft : minutesLeft.toString();
+      const textSec: string = secondsLeft < 10 ? '0' + secondsLeft : secondsLeft.toString();
 
-        if (this.min <= 0) {
-          this.min = 0;
-          this.sec = 0;
-        }
-        this.month = months;
-        this.hrs = hours;
-        this.day = days;
-        if (this.min <= 0 && this.hrs <= 0 && this.day <= 0 && this.sec <= 0) {
-          this.visibleExhasted = true;
-          clearInterval(this.timerInterval);
-        }
+      this.hrs = hoursLeft;
+      this.min = textMin;
+      this.sec = textSec;
+      this.month = months;
+      this.day = days;
+      if (minute <= 0 && hours <= 0 && sec <= 0) {
+        this.hrs = 0;
+        this.min = 0;
+        this.sec = 0;
+      } else {
+        this.hrs = hoursLeft;
+        this.min = textMin;
+        this.sec = textSec;
+      }
+
+      if (this.min <= 0 && this.hrs <= 0 && this.day <= 0 && this.sec <= 0 && this.month <= 0) {
+        this.visibleExhasted = true;
+        clearInterval(this.timerInterval);
+      }
     }, 1000);
   }
 
@@ -482,26 +487,29 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   timer(minute: any, sec: any, hours: any): void {
-    let seconds: number = minute * 60;
-    let textSec: any = '0';
-    let statSec: number = 60;
-    const prefix = minute < 10 ? '0' : '';
-    this.timerInterval = setInterval(() => {
-      seconds--;
-      if (statSec != 0) statSec--;
-      else statSec = 59;
-      if (statSec < 10) {
-        textSec = '0' + statSec;
-      } else textSec = statSec;
+    let totalSeconds: number = hours * 3600 + minute * 60 + sec;
+    let textSec: string | number = '0';
 
-      this.timeLeftMins = `${Math.floor(seconds / 60)}`
-      this.timeLeftSecs = `${textSec}`;
-      if (this.timeLeftMins <= 0) {
+    this.timerInterval = setInterval(() => {
+      totalSeconds--;
+
+      const hoursLeft: number = Math.floor(totalSeconds / 3600);
+      const minutesLeft: number = Math.floor((totalSeconds % 3600) / 60);
+      const secondsLeft: number = totalSeconds % 60;
+
+      const textMin: string = minutesLeft < 10 ? '0' + minutesLeft : minutesLeft.toString();
+      const textSec: string = secondsLeft < 10 ? '0' + secondsLeft : secondsLeft.toString();
+      if (minute <= 0 && hours <= 0 && sec <= 0) {
+        this.timeHours = 0;
         this.timeLeftMins = 0;
         this.timeLeftSecs = 0;
+      } else {
+        this.timeHours = hoursLeft;
+        this.timeLeftMins = textMin;
+        this.timeLeftSecs = textSec;
       }
-      this.timeHours = hours;
-      if (this.timeLeftMins <= 0 && this.timeHours <= 0  && this.timeLeftSecs <= 0) {
+
+      if (this.timeLeftMins <= 0 && this.timeHours <= 0 && this.timeLeftSecs <= 0) {
         this.visible = true;
         clearInterval(this.timerInterval);
       }
