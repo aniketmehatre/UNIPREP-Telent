@@ -7,6 +7,7 @@ import { SubscriptionService } from '../subscription.service';
 import { User } from 'src/app/@Models/user.model';
 
 import { LocalStorageService } from "ngx-localstorage";
+import { NgxUiLoaderService } from 'ngx-ui-loader';
 
 @Component({
   selector: 'uni-subscription-data',
@@ -40,7 +41,6 @@ export class SubscriptionDataComponent implements OnInit {
   subscriptionAmt: any = '0.00';
   @Output() subscriptionPlan = new EventEmitter();
   studentType: number = 0;
-  loadingCountry: boolean = false;
   loadingUserDetails: boolean = false;
   discountAmount: any;
   discountAmountEnable!: boolean;
@@ -54,31 +54,28 @@ export class SubscriptionDataComponent implements OnInit {
   constructor(private authService: AuthService,
     private subscriptionService: SubscriptionService,
     private storage: LocalStorageService,
-    private toast: MessageService) { }
+    private toast: MessageService,
+    private ngxService: NgxUiLoaderService,) { }
 
   ngOnInit(): void {
     this.discountAmountEnable = false;
-    this.authService.getCountry().subscribe((data) => {
-      this.countryList = data;
-      this.loadingCountry = true;
-      this.getSubscriptionTopupList();
-      this.loadSubscriptionList();
-    });
     this.user = this.authService.user;
-    if(this.user?.student_type_id) {
-      this.studentType = this.user?.student_type_id;
-      this.loadingUserDetails = true;
-      this.loadSubscriptionList();
-    }
+    this.studentType = this.user?.student_type_id || 0;
+    this.ngxService.start();
+    this.authService.getCountry().subscribe((data) => {
+      this.ngxService.stop();
+      this.countryList = data;
+      this.getSubscriptionList();
+      this.getSubscriptionTopupList();
+    }, error => {
+      this.ngxService.stop();
+    });
+
   }
   get URL() {
     return `${environment.ApiUrl}/downloadinvoice`;
   }
-  loadSubscriptionList() {
-    if (this.loadingCountry && this.loadingUserDetails) {
-      this.getSubscriptionList();
-    }
-  }
+
   buttonclicked1() {
     this.basesubscription = true;
     this.topupcountries = false;
@@ -107,6 +104,7 @@ export class SubscriptionDataComponent implements OnInit {
       perpage: 1000,
       studenttype: this.studentType
     }
+    
     this.subscriptionService.getSubscriptions(data).subscribe((response) => {
       const mostPopularOnes = response.subscriptions.filter((item:any) => item.popular === 1);
       const filteredData = response.subscriptions.filter((item:any) => item.popular !== 1);
