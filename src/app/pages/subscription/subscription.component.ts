@@ -266,6 +266,9 @@ export class SubscriptionComponent implements OnInit {
             this.showHistoryBtn = true;
             this.stage = 5;
         }
+        else {
+            this.stage = 1;
+        }
     }
 
     showPlan($event: any) {
