@@ -7,7 +7,6 @@ import { SubscriptionService } from '../subscription.service';
 import { User } from 'src/app/@Models/user.model';
 
 import { LocalStorageService } from "ngx-localstorage";
-import { error } from 'console';
 
 @Component({
   selector: 'uni-subscription-data',
@@ -211,7 +210,6 @@ export class SubscriptionDataComponent implements OnInit {
       }
 
       this.subscriptionService.applyCoupon(data).subscribe((response) => {
-        console.log(response);
         if (response.success) {
           this.checkoutTotal = Number(this.subscriptionTotal) - response.discountPrice;
           this.discountAmount = response.discountPrice;
