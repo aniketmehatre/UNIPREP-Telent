@@ -108,3 +108,20 @@ li:last-of-type {
       margin-bottom: 0.5rem;
 }
 }
+
+
+@media (max-width: 575.98px) {
+.list-group{
+    position: absolute;
+      z-index: 1 !important;
+      right: 0;
+      left: 0;
+      top: 40px;
+      overflow-y: auto;
+      max-height: 300px;
+      border-radius: 10px;
+}
+.p-breadcrumb ul{
+  display: -webkit-box !important;
+}
+}
