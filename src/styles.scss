@@ -33,15 +33,13 @@ input:-webkit-autofill:active {
 	box-shadow: none;
 }
 
-.ngx-loading-logo
-{
-	height:50px !important;
-	top:50% !important;
+.ngx-loading-logo {
+	height: 50px !important;
+	top: 50% !important;
 }
 
-.ngx-foreground-spinner
-{
-	top:50% !important;
+.ngx-foreground-spinner {
+	top: 50% !important;
 }
 
 .uniprep-primary {
@@ -311,7 +309,13 @@ uni-modules {
 		flex-direction: column;
 	}
 }
-uni-tutorials,uni-guidelines,uni-refundpolicy,uni-resource,uni-privacypolicy,uni-termsandcondition,uni-faq {
+uni-tutorials,
+uni-guidelines,
+uni-refundpolicy,
+uni-resource,
+uni-privacypolicy,
+uni-termsandcondition,
+uni-faq {
 	display: flex;
 	flex: 1;
 	height: 100%;
@@ -337,10 +341,9 @@ uni-chat {
 	}
 }
 
-uni-landing
-{
+uni-landing {
 	position: absolute;
-	width:100%;
+	width: 100%;
 }
 
 uni-events {
@@ -407,15 +410,13 @@ uni-recentlyaddedquestions {
 	}
 }
 
-uni-subscription-history
-{
+uni-subscription-history {
 	display: flex;
 	flex: 1;
 	height: 100%;
 	flex-direction: column; /* Ensure flex children stack vertically */
 	overflow: hidden;
-	.historycard
-	{
+	.historycard {
 		flex: 1;
 		overflow-y: auto;
 	}
@@ -435,9 +436,8 @@ uni-subscription {
 	}
 }
 
-.reportwidthfix
-{
-  width:20vw !important;
+.reportwidthfix {
+	width: 20vw !important;
 }
 
 .carousel-container {
@@ -451,12 +451,10 @@ uni-subscription {
 	overflow-y: auto; /* Enable vertical scrolling */
 }
 
-.disablepmargin
-{
-  p
-  {
-    margin-bottom: 0px !important;
-  }
+.disablepmargin {
+	p {
+		margin-bottom: 0px !important;
+	}
 }
 
 .card {
@@ -899,11 +897,12 @@ uni-subscription {
 	color: #fff;
 	padding: 8px 15px 8px 15px;
 	border-radius: 0px 0px 10px 10px;
+	position: relative;
 	.questiontooltip {
-		position: absolute;
-		top: 5px;
 		color: var(--uniprep-primary);
-		margin-left: 5px;
+		vertical-align: top;
+		font-size: 1rem;
+		margin-left: 0.5rem;
 	}
 }
 .form-switch .form-check-input:focus {
@@ -1688,7 +1687,6 @@ uni-subscription {
 // 	width: 235px;
 // }
 
-
 @media (max-width: 1499.98px) {
 	html,
 	body {
@@ -1707,13 +1705,11 @@ uni-subscription {
 	// #sidenav {
 	// 	width: 210px;
 	// }
-	#sidenav
-	{
-		width:18% !important;
+	#sidenav {
+		width: 18% !important;
 	}
-	.reportwidthfix
-	{
-	  width:25vw !important;
+	.reportwidthfix {
+		width: 25vw !important;
 	}
 }
 
@@ -1725,13 +1721,11 @@ uni-subscription {
 	// #sidenav {
 	// 	width: 200px;
 	// }
-	#sidenav
-	{
-		width:20% !important;
+	#sidenav {
+		width: 20% !important;
 	}
-	.reportwidthfix
-	{
-	  width:30vw !important;
+	.reportwidthfix {
+		width: 30vw !important;
 	}
 }
 
@@ -1743,13 +1737,15 @@ uni-subscription {
 	// #sidenav {
 	// 	width: 175px;
 	// }
-	#sidenav
-	{
-		width:25% !important;
+	#sidenav {
+		width: 25% !important;
 	}
-	.reportwidthfix
-	{
-	  width:30vw !important;
+	.select-title {
+		width: 100%;
+	}
+
+	.reportwidthfix {
+		width: 30vw !important;
 	}
 }
 
@@ -1765,17 +1761,18 @@ uni-subscription {
 	// .menuclosed {
 	// 	display: none;
 	// }
-	.reportwidthfix
-	{
-	  width:60vw !important;
+	.reportwidthfix {
+		width: 60vw !important;
 	}
-	#sidenav
-	{
-		width:0 !important;
+	.select-title {
+		width: 100%;
 	}
-	.menuclosed
-	{
-		width:0;
+
+	#sidenav {
+		width: 0 !important;
+	}
+	.menuclosed {
+		width: 0;
 	}
 	.country {
 		min-width: 125px !important;
@@ -1802,10 +1799,13 @@ uni-subscription {
 	// .menuclosed {
 	// 	display: none;
 	// }
-	.reportwidthfix
-	{
-	  width:90vw !important;
+	.reportwidthfix {
+		width: 90vw !important;
 	}
+	.select-title {
+		width: 100%;
+	}
+
 	.country {
 		min-width: 125px !important;
 	}
@@ -1814,22 +1814,19 @@ uni-subscription {
 			width: 95%;
 		}
 	}
-	#sidenav
-	{
-		width:0 !important;
+	#sidenav {
+		width: 0 !important;
 	}
-	.menuclosed
-	{
-		width:0;
+	.menuclosed {
+		width: 0;
 	}
 	.landingmodeswitch {
 		position: fixed !important;
 		bottom: 1rem;
 		right: 2rem !important;
 	}
-	.quotesymbole
-	{
-		margin-top:5rem;
+	.quotesymbole {
+		margin-top: 5rem;
 	}
 }
 
@@ -1845,18 +1842,19 @@ uni-subscription {
 	// .menuclosed {
 	// 	display: none;
 	// }
-	.reportwidthfix
-	{
-	  width:90vw !important;
+	.reportwidthfix {
+		width: 90vw !important;
 	}
 
-	#sidenav
-	{
-		width:0 !important;
+	.select-title {
+		width: 100%;
 	}
-	.menuclosed
-	{
-		width:0;
+
+	#sidenav {
+		width: 0 !important;
+	}
+	.menuclosed {
+		width: 0;
 	}
 	.country {
 		min-width: 125px !important;
@@ -1866,9 +1864,8 @@ uni-subscription {
 			width: 95%;
 		}
 	}
-	.quotesymbole
-	{
-		margin-top:5rem;
+	.quotesymbole {
+		margin-top: 5rem;
 	}
 }
 .openlogo {
@@ -1881,8 +1878,7 @@ uni-subscription {
 .menuclosed {
 	width: 5% !important;
 	transition: width 150ms ease-in-out;
-	.submenutitle
-	{
+	.submenutitle {
 		text-align: center;
 	}
 	.openlogo {
