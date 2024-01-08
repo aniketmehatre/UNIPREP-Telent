@@ -1003,3 +1003,16 @@ Due to the split circle of progress-left and progress right, we must use the ani
   cursor: no-drop;
   opacity: 0.5;
 }
+
+.mobile{
+  display: none;
+}
+
+@media screen and (max-width: 575.98px) {
+  .desktop{
+    display: none;
+  }
+    .mobile {
+      display: flex;
+    }
+}

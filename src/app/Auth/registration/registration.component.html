@@ -35,7 +35,8 @@
 												<form [formGroup]="registrationForm" (ngSubmit)="onSubmit()">
 													<div class="row registerForm">
 														<div class="col-md-6 col-12">
-															<label for="fullName">Full Name</label>
+															<label for="fullName">Full Name<span
+																	class="required">*</span></label>
 															<div class="p-inputgroup">
 																<div class="p-inputgroup-addon">
 																	<i class="fa-regular fa-user"></i>
@@ -62,6 +63,7 @@
 																	<i
 																		class="fa-solid fa-circle-check uniprep-primary"></i>
 																</span>
+																<span class="required">*</span>
 															</label>
 															<div class="w-100 position-relative">
 																<ngx-intl-tel-input class="intel-input w-100"
@@ -99,6 +101,7 @@
 																	<i
 																		class="fa-solid fa-circle-check uniprep-primary"></i>
 																</span>
+																<span class="required">*</span>
 															</label>
 															<div style="position: relative">
 																<div class="p-inputgroup">
@@ -138,7 +141,8 @@
 															<form [formGroup]="otpForm" class="formOTP"
 																(ngSubmit)="onValidateMobileOTP()">
 																<h5 class="mt-3 text-center">Enter your OTP</h5>
-																<p class="text-center text-muted">We have sent you one time
+																<p class="text-center text-muted">We have sent you one
+																	time
 																	password to your contact number for verification</p>
 																<div class="text-center">
 																	<input (keypress)="numericOnly($event)"
@@ -214,7 +218,8 @@
 															<form [formGroup]="emailOTPForm" class="formOTP"
 																(ngSubmit)="onValidateEmailOTP()">
 																<h5 class="mt-3 text-center">Enter your OTP</h5>
-																<p class="text-center text-muted">We have sent you one time
+																<p class="text-center text-muted">We have sent you one
+																	time
 																	password to your email for verification</p>
 																<div class="text-center">
 																	<input class="col form-control"
@@ -268,7 +273,7 @@
 													<div *ngIf="isRemainingFieldVisible">
 														<div class="row">
 															<div class="col-md-6 col-12">
-																<label for="gender">Gender</label>
+																<label for="gender">Gender<span class="required">*</span></label>
 																<div class="p-inputgroup">
 																	<div class="p-inputgroup-addon">
 																		<i class="fa-regular fa-venus-mars"></i>
@@ -286,7 +291,7 @@
 															</div>
 															<div class="col-md-6 col-12">
 																<label for="interestedCountry">Interested
-																	Country</label>
+																	Country<span class="required">*</span></label>
 																<div class="p-inputgroup">
 																	<div class="p-inputgroup-addon">
 																		<i class="fa-regular fa-earth-americas"></i>
@@ -305,7 +310,7 @@
 																</div>
 															</div>
 															<div class="col-md-6 col-12">
-																<label for="country">Home Country</label>
+																<label for="country">Home Country<span class="required">*</span></label>
 																<div class="p-inputgroup">
 																	<div class="p-inputgroup-addon">
 																		<i class="fa-regular fa-earth-americas"></i>
@@ -324,7 +329,7 @@
 																</div>
 															</div>
 															<div class="col-md-6 col-12">
-																<label for="location">Location</label>
+																<label for="location">Location<span class="required">*</span></label>
 																<div class="p-inputgroup">
 																	<div class="p-inputgroup-addon">
 																		<i class="fa-regular fa-location-dot"></i>
@@ -350,7 +355,7 @@
 																</div>
 															</div>
 															<div class="col-md-6 col-12">
-																<label for="floatingPassword">Password</label>
+																<label for="floatingPassword">Password<span class="required">*</span></label>
 																<div class="p-inputgroup">
 																	<div class="p-inputgroup-addon">
 																		<i class="fa-regular fa-lock"></i>
@@ -378,7 +383,7 @@
 																</div>
 															</div>
 															<div class="col-md-6 col-12">
-																<label for="confirmPassword">Confirm Password</label>
+																<label for="confirmPassword">Confirm Password<span class="required">*</span></label>
 																<div class="p-inputgroup">
 																	<div class="p-inputgroup-addon">
 																		<i class="fa-regular fa-lock-hashtag"></i>
