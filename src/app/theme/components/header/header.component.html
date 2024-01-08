@@ -201,58 +201,59 @@
 			</div>
 		</div>
 	</div>
-	<p-overlayPanel #op>
-		<ng-template pTemplate="content">
-			<div class="container px-0">
-				<form [formGroup]="reportSubmitForm" (ngSubmit)="onSubmit(op)">
-					<div class="row report">
-						<p *ngIf="false" class="report-label text-left mb-0">General / Modules</p>
-						<span *ngIf="false" class="report-modal">
-							<p-dropdown [options]="genMod" (onChange)="onChangeChooseMain($event.value)" [(ngModel)]="selectedGenMod" optionValue="id" formControlName="general" class="w-100" id="genMod" optionLabel="name"></p-dropdown>
+</nav>
+
+<p-overlayPanel #op styleClass="reportwidthfix">
+	<ng-template pTemplate="content">
+		<div class="container px-0">
+			<form [formGroup]="reportSubmitForm" (ngSubmit)="onSubmit(op)">
+				<div class="row report">
+					<p *ngIf="false" class="report-label text-left mb-0">General / Modules</p>
+					<span *ngIf="false" class="report-modal">
+						<p-dropdown [options]="genMod" (onChange)="onChangeChooseMain($event.value)" [(ngModel)]="selectedGenMod" optionValue="id" formControlName="general" class="w-100" id="genMod" optionLabel="name"></p-dropdown>
+					</span>
+					<div *ngIf="isVisibleModulesMenu">
+						<p *ngIf="isQuestionVisible" class="report-label text-left mb-0">Modules</p>
+						<span *ngIf="isQuestionVisible" class="report-modal">
+							<p-dropdown [options]="moduleList" (onChange)="onChangeModuleList($event.value)" formControlName="moduleId" [(ngModel)]="moduleNgModel" optionValue="id" class="w-100" id="moduleId" optionLabel="module_name"></p-dropdown>
 						</span>
-						<div *ngIf="isVisibleModulesMenu">
-							<p *ngIf="isQuestionVisible" class="report-label text-left mb-0">Modules</p>
-							<span *ngIf="isQuestionVisible" class="report-modal">
-								<p-dropdown [options]="moduleList" (onChange)="onChangeModuleList($event.value)" formControlName="moduleId" [(ngModel)]="moduleNgModel" optionValue="id" class="w-100" id="moduleId" optionLabel="module_name"></p-dropdown>
-							</span>
-							<p *ngIf="isQuestionVisible" class="report-label text-left mb-0">Categories</p>
-							<span *ngIf="isQuestionVisible" class="report-modal">
-								<p-dropdown [options]="subModuleList" [(ngModel)]="subModuleNgModel" formControlName="submoduleId" optionValue="id" (onChange)="onChangeSubModuleList($event.value)" class="w-100" id="submoduleId" optionLabel="submodule_name"></p-dropdown>
-							</span>
-							<p *ngIf="isQuestionVisible" class="report-label text-left mb-0">Question Number</p>
-							<span *ngIf="isQuestionVisible" class="report-modal">
-								<p-dropdown [options]="questionList" [(ngModel)]="questionIdNgModel" optionValue="id" formControlName="questionId" class="w-100" id="questionId" optionLabel="index"></p-dropdown>
-							</span>
-						</div>
-						<p class="report-label text-left mb-0">Issue Type</p>
-						<span class="report-modal">
-							<p-dropdown [options]="reportOptionList" [(ngModel)]="reportOptionNgModel" optionValue="id" formControlName="reportOption" class="w-100" id="reportOption" optionLabel="reportoption_name"></p-dropdown>
+						<p *ngIf="isQuestionVisible" class="report-label text-left mb-0">Categories</p>
+						<span *ngIf="isQuestionVisible" class="report-modal">
+							<p-dropdown [options]="subModuleList" [(ngModel)]="subModuleNgModel" formControlName="submoduleId" optionValue="id" (onChange)="onChangeSubModuleList($event.value)" class="w-100" id="submoduleId" optionLabel="submodule_name"></p-dropdown>
 						</span>
-						<p class="report-label text-left mb-0">Comment</p>
-						<span class="report-modal">
-							<textarea formControlName="comment" pInputTextarea id="comment"></textarea>
-						</span>
-						<span>
-							<button class="btn btn-primary w-100 m-0">Submit</button>
+						<p *ngIf="isQuestionVisible" class="report-label text-left mb-0">Question Number</p>
+						<span *ngIf="isQuestionVisible" class="report-modal">
+							<p-dropdown [options]="questionList" [(ngModel)]="questionIdNgModel" optionValue="id" formControlName="questionId" class="w-100" id="questionId" optionLabel="index"></p-dropdown>
 						</span>
 					</div>
-				</form>
-			</div>
-		</ng-template>
-	</p-overlayPanel>
-	<p-overlayPanel #totalCountryList>
-		<ng-template pTemplate="content">
-			<div *ngIf="isLondon">
-				<ul class="px-0">
-					<li class="list-group-item my-2" role="button" *ngFor="let v of countryLists">
-						<img alt="country" class="countryicon mr-2" src="{{ v.flag != '' ? v.flag : '../../uniprep-assets/images/mstile-150x150.png' }}" width="25" />
-						<span>{{ v.country }}</span>
-					</li>
-				</ul>
-			</div>
-		</ng-template>
-	</p-overlayPanel>
-</nav>
+					<p class="report-label text-left mb-0">Issue Type</p>
+					<span class="report-modal">
+						<p-dropdown [options]="reportOptionList" [(ngModel)]="reportOptionNgModel" optionValue="id" formControlName="reportOption" class="w-100" id="reportOption" optionLabel="reportoption_name"></p-dropdown>
+					</span>
+					<p class="report-label text-left mb-0">Comment</p>
+					<span class="report-modal">
+						<textarea formControlName="comment" pInputTextarea id="comment"></textarea>
+					</span>
+					<span>
+						<button class="btn btn-primary w-100 m-0">Submit</button>
+					</span>
+				</div>
+			</form>
+		</div>
+	</ng-template>
+</p-overlayPanel>
+<p-overlayPanel #totalCountryList>
+	<ng-template pTemplate="content">
+		<div *ngIf="isLondon">
+			<ul class="px-0">
+				<li class="list-group-item my-2" role="button" *ngFor="let v of countryLists">
+					<img alt="country" class="countryicon mr-2" src="{{ v.flag != '' ? v.flag : '../../uniprep-assets/images/mstile-150x150.png' }}" width="25" />
+					<span>{{ v.country }}</span>
+				</li>
+			</ul>
+		</div>
+	</ng-template>
+</p-overlayPanel>
 
 <p-dialog [(visible)]="visible" [closable]="true" [style]="{ width: 'auto' }" class="p-0 m-0 bg-white" class="timerpopup" [modal]="true" [draggable]="false" [resizable]="false">
 	<div class="px-5 pb-5 pt-3">

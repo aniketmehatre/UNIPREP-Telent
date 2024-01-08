@@ -434,6 +434,12 @@ uni-subscription {
 		overflow-y: auto;
 	}
 }
+
+.reportwidthfix
+{
+  width:20vw !important;
+}
+
 .carousel-container {
 	/* Make use of flexbox to occupy available space */
 	display: flex;
@@ -1681,6 +1687,8 @@ uni-subscription {
 // #sidenav {
 // 	width: 235px;
 // }
+
+
 @media (max-width: 1499.98px) {
 	html,
 	body {
@@ -1703,6 +1711,10 @@ uni-subscription {
 	{
 		width:18% !important;
 	}
+	.reportwidthfix
+	{
+	  width:25vw !important;
+	}
 }
 
 @media (max-width: 1299.98px) {
@@ -1716,6 +1728,10 @@ uni-subscription {
 	#sidenav
 	{
 		width:20% !important;
+	}
+	.reportwidthfix
+	{
+	  width:30vw !important;
 	}
 }
 
@@ -1731,6 +1747,10 @@ uni-subscription {
 	{
 		width:25% !important;
 	}
+	.reportwidthfix
+	{
+	  width:30vw !important;
+	}
 }
 
 @media (max-width: 991.98px) {
@@ -1745,6 +1765,10 @@ uni-subscription {
 	// .menuclosed {
 	// 	display: none;
 	// }
+	.reportwidthfix
+	{
+	  width:60vw !important;
+	}
 	#sidenav
 	{
 		width:0 !important;
@@ -1778,6 +1802,10 @@ uni-subscription {
 	// .menuclosed {
 	// 	display: none;
 	// }
+	.reportwidthfix
+	{
+	  width:90vw !important;
+	}
 	.country {
 		min-width: 125px !important;
 	}
@@ -1817,6 +1845,11 @@ uni-subscription {
 	// .menuclosed {
 	// 	display: none;
 	// }
+	.reportwidthfix
+	{
+	  width:90vw !important;
+	}
+
 	#sidenav
 	{
 		width:0 !important;
