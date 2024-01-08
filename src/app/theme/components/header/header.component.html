@@ -75,184 +75,173 @@
                         </div>
                     </div>
 
-                    <div class="d-flex gap-2 d-md-none">
-                        <button class="btn btn-primary p-3 m-0" alt="chat with notification" (click)="onClickSubscribe()"><i class="fa-solid fa-crown"></i></button>
-                        <button class="btn btn-secondary p-3 m-0" (click)="openReportModal(op, $event)" alt="reports"><i class="fa-solid fa-circle-exclamation"></i>
-                        </button>
-                    </div>
-                    <div class="d-none d-md-block">
-                        <button class="btn btn-primary btn-rounded me-2 ms-0 my-0" alt="chat with notification" (click)="onClickSubscribe()"><span class="text-small fw-normal px-3">Subscribe Now</span></button>
-                        <button class="btn btn-secondary btn-rounded me-2 ms-0 my-0" (click)="openReportModal(op, $event)" alt="reports">
-                            <span class="text-small fw-normal px-4"><i class="fa-solid fa-circle-exclamation"></i> Report</span>
-                        </button>
-                    </div>
-
-                    <div label="" role="button" class="headercountry me-2 d-none d-md-block">
-                        <img src="{{ headerFlag }}" alt="flag" height="auto" width="auto" />
-                        <!-- <img src="{{ headerFlag }}" alt="United Kingdom" height="auto" width="auto" (click)="openFlagModal(totalCountryList, $event)"/> -->
-                    </div>
-                    <div class="d-none d-md-block">
-                        <a (click)="openchat()"
-                        ><p-avatar class="" label="" role="button"> <i class="fa-solid fa-comments"></i> </p-avatar
-                        ></a>
-                        <!-- <p-avatar (click)="togleSidebar.emit()" class="" label="" role="button">
-                            <i class="fa-solid fa-bell"></i>
-                        </p-avatar> -->
-                        <div class="dropdown profile-dropdown">
-                            <button class="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                <span class="nme">{{ (firstChar || "")?.charAt(0) }}</span>
-                                <!-- <span class="fw-medium">{{userName }}</span> -->
-                            </button>
-                            <ul class="dropdown-menu">
-                                <li>
-                                    <a class="dropdown-item pt-2 pb-2" routerLink="/pages/usermanagement">
-                                        <div class="d-flex justify-content-top">
-                                            <i class="fa-solid fa-user me-2 mt-1"></i>
-                                            <div>
-                                                <p class="fw-semibold mb-1">{{ userName }}</p>
-                                                <p class="mb-0">{{ userName }}</p>
-                                            </div>
-                                        </div>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a class="dropdown-item pt-2 pb-2" (click)="logout()"><i class="fa-solid fa-power-off me-2"></i>Logout</a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-11 col-12" *ngIf="!userLoginTimeLeftCount">
-                <div class="d-flex align-items-center justify-content-md-end justify-content-between align-items-center mt-3 mt-md-0">
-                    <div class="d-flex">
-                        <div class="d-flex justify-content-center align-items-center">
-                            <h6 class="mb-0 d-none d-md-block">TIME LEFT</h6>
-                            <i class="ps-1 pe-2 fa-solid fa-hourglass-end h4 mb-0 uniprep-secondary"></i>
-                        </div>
-                        <div class="d-flex me-2">
-                            <div class="col d-flex flex-column align-items-center px-1">
-                                <div class="boxView fw-semibold text-green">{{ day + "" }}</div>
-                                <span class="timertext text-uppercase">Days</span>
-                            </div>
-                            <div class="d-flex flex-column align-items-center justify-content-center"><span>:</span><span class="timertext">&nbsp;</span></div>
-                            <div class="col d-flex flex-column align-items-center px-1">
-                                <div class="boxView fw-semibold text-green">{{ hrs + "" }}</div>
-                                <span class="timertext text-uppercase">Hrs</span>
-                            </div>
-                            <div class="d-flex flex-column align-items-center justify-content-center"><span>:</span><span class="timertext">&nbsp;</span></div>
-                            <div class="col d-flex flex-column align-items-center px-1">
-                                <div class="boxView fw-semibold text-green">{{ min + "" }}</div>
-                                <span class="timertext text-uppercase">Mins</span>
-                            </div>
-                            <div class="d-flex flex-column align-items-center justify-content-center"><span>:</span><span class="timertext">&nbsp;</span></div>
-                            <div class="col d-flex flex-column align-items-center px-1">
-                                <div class="boxView fw-semibold text-green">{{ sec + "" }}</div>
-                                <span class="timertext text-uppercase">Sec</span>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- <div label="" role="button" class="headercountry me-2 d-none d-md-block" (click)="openFlagModal(totalCountryList, $event)"> -->
-                    <div class="d-flex gap-2 d-md-none">
-                        <button class="btn btn-primary p-3 m-0" alt="chat with notification" (click)="onClickSubscribe()"><i class="fa-solid fa-crown"></i></button>
-                        <button class="btn btn-secondary p-3 m-0" (click)="openReportModal(op, $event)" alt="reports"><i class="fa-solid fa-circle-exclamation"></i>
-                        </button>
-                    </div>
-                    <div class="d-none d-md-block">
-                        <button class="btn btn-primary btn-rounded me-2 ms-0 my-0" alt="chat with notification" (click)="onClickSubscribe()"><span class="text-small fw-normal px-3">Subscribe Now</span></button>
-                        <button class="btn btn-secondary btn-rounded me-2 ms-0 my-0" (click)="openReportModal(op, $event)" alt="reports">
-                            <span class="text-small fw-normal px-4"><i class="fa-solid fa-bug"></i> Report</span>
-                        </button>
-                    </div>
-                    <div label="" role="button" class="headercountry me-2 d-none d-md-block" title="Selected Country">
-                        <img src="{{ headerFlag }}" alt="flag" height="auto" width="auto" />
-                    </div>
-                    <div class="d-none d-md-block">
-                        <a (click)="openchat()" title="Chat">
-                            <p-avatar class="" label="" role="button"><i class="fa-solid fa-comments"></i></p-avatar>
-                        </a>
-                        <!-- <p-avatar (click)="togleSidebar.emit()" class="" label="" role="button">
-                            <i class="fa-solid fa-bell"></i>
-                        </p-avatar> -->
-                        <div class="dropdown profile-dropdown">
-                            <button class="button" data-bs-toggle="dropdown" aria-expanded="false" title="My Profile">
-                                <span class="nme">{{ (firstChar || "")?.charAt(0) }}</span>
-                                <!-- <span class="fw-medium">{{ userName }}</span> -->
-                            </button>
-                            <ul class="dropdown-menu">
-                                <li>
-                                    <a class="dropdown-item pt-2 pb-2" routerLink="/pages/usermanagement">
-                                        <div class="d-flex justify-content-top">
-                                            <i class="fa-solid fa-user me-2 mt-1"></i>
-                                            <div>
-                                                <p class="fw-semibold mb-1">{{ userName }}</p>
-                                                <p class="mb-0">{{ userName }}</p>
-                                            </div>
-                                        </div>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a class="dropdown-item pt-2 pb-2" (click)="logout()"><i class="fa-solid fa-power-off me-2"></i>Logout</a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <p-overlayPanel #op>
-        <ng-template pTemplate="content">
-            <div class="container px-0">
-                <form [formGroup]="reportSubmitForm" (ngSubmit)="onSubmit(op)">
-                    <div class="row report">
-                        <p *ngIf="false" class="report-label text-left mb-0">General / Modules</p>
-                        <span *ngIf="false" class="report-modal">
-							<p-dropdown [options]="genMod" (onChange)="onChangeChooseMain($event.value)" [(ngModel)]="selectedGenMod" optionValue="id" formControlName="general" class="w-100" id="genMod" optionLabel="name"></p-dropdown>
-						</span>
-                        <div *ngIf="isVisibleModulesMenu">
-                            <p *ngIf="isQuestionVisible" class="report-label text-left mb-0">Modules</p>
-                            <span *ngIf="isQuestionVisible" class="report-modal">
-								<p-dropdown [options]="moduleList" (onChange)="onChangeModuleList($event.value)" formControlName="moduleId" [(ngModel)]="moduleNgModel" optionValue="id" class="w-100" id="moduleId" optionLabel="module_name"></p-dropdown>
-							</span>
-                            <p *ngIf="isQuestionVisible" class="report-label text-left mb-0">Categories</p>
-                            <span *ngIf="isQuestionVisible" class="report-modal">
-								<p-dropdown [options]="subModuleList" [(ngModel)]="subModuleNgModel" formControlName="submoduleId" optionValue="id" (onChange)="onChangeSubModuleList($event.value)" class="w-100" id="submoduleId" optionLabel="submodule_name"></p-dropdown>
-							</span>
-                            <p *ngIf="isQuestionVisible" class="report-label text-left mb-0">Question Number</p>
-                            <span *ngIf="isQuestionVisible" class="report-modal">
-								<p-dropdown [options]="questionList" [(ngModel)]="questionIdNgModel" optionValue="id" formControlName="questionId" class="w-100" id="questionId" optionLabel="index"></p-dropdown>
-							</span>
-                        </div>
-                        <p class="report-label text-left mb-0">Issue Type</p>
-                        <span class="report-modal">
-							<p-dropdown [options]="reportOptionList" [(ngModel)]="reportOptionNgModel" optionValue="id" formControlName="reportOption" class="w-100" id="reportOption" optionLabel="reportoption_name"></p-dropdown>
-						</span>
-                        <p class="report-label text-left mb-0">Comment</p>
-                        <span class="report-modal">
-							<textarea formControlName="comment" pInputTextarea id="comment"></textarea>
-						</span>
-                        <span>
-							<button class="btn btn-primary w-100 m-0">Submit</button>
-						</span>
-                    </div>
-                </form>
-            </div>
-        </ng-template>
-    </p-overlayPanel>
-    <p-overlayPanel #totalCountryList>
-        <ng-template pTemplate="content">
-            <div *ngIf="isLondon">
-                <ul class="px-0">
-                    <li class="list-group-item my-2" role="button" *ngFor="let v of countryLists">
-                        <img alt="country" class="countryicon mr-2" src="{{ v.flag != '' ? v.flag : '../../uniprep-assets/images/mstile-150x150.png' }}" width="25" />
-                        <span>{{ v.country }}</span>
-                    </li>
-                </ul>
-            </div>
-        </ng-template>
-    </p-overlayPanel>
+					<div label="" role="button" class="headercountry me-2 d-none d-md-block">
+						<img src="{{ headerFlag }}" alt="flag" height="auto" width="auto" />
+						<!-- <img src="{{ headerFlag }}" alt="United Kingdom" height="auto" width="auto" (click)="openFlagModal(totalCountryList, $event)"/> -->
+					</div>
+					<div class="d-none d-md-block">
+						<a (click)="openchat()"
+							><p-avatar class="" label="" role="button"> <i class="fa-solid fa-comments"></i> </p-avatar
+						></a>
+						<!-- <p-avatar (click)="togleSidebar.emit()" class="" label="" role="button">
+							<i class="fa-solid fa-bell"></i>
+						</p-avatar> -->
+						<div class="dropdown profile-dropdown">
+							<button class="button" data-bs-toggle="dropdown" aria-expanded="false">
+								<span class="nme">{{ (firstChar || "")?.charAt(0) }}</span>
+								<!-- <span class="fw-medium">{{userName }}</span> -->
+							</button>
+							<ul class="dropdown-menu">
+								<li>
+									<a class="dropdown-item pt-2 pb-2" routerLink="/pages/usermanagement">
+										<div class="d-flex justify-content-top">
+											<i class="fa-solid fa-user me-2 mt-1"></i>
+											<div>
+												<p class="fw-semibold mb-1">{{ userName }}</p>
+												<p class="mb-0">{{ userName }}</p>
+											</div>
+										</div>
+									</a>
+								</li>
+								<li>
+									<a class="dropdown-item pt-2 pb-2" (click)="logout()"><i class="fa-solid fa-power-off me-2"></i>Logout</a>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-11 col-12" *ngIf="!userLoginTimeLeftCount">
+				<div class="d-flex align-items-center justify-content-md-end justify-content-between align-items-center mt-3 mt-md-0">
+					<div class="d-flex">
+						<div class="d-flex justify-content-center align-items-center">
+							<h6 class="mb-0 d-none d-md-block">TIME LEFT</h6>
+							<i class="ps-1 pe-2 fa-solid fa-hourglass-end h4 mb-0 uniprep-secondary"></i>
+						</div>
+						<div class="d-flex me-2">
+							<div class="col d-flex flex-column align-items-center px-1">
+								<div class="boxView fw-semibold text-green">{{ day + "" }}</div>
+								<span class="timertext text-uppercase">Days</span>
+							</div>
+							<div class="d-flex flex-column align-items-center justify-content-center"><span>:</span><span class="timertext">&nbsp;</span></div>
+							<div class="col d-flex flex-column align-items-center px-1">
+								<div class="boxView fw-semibold text-green">{{ hrs + "" }}</div>
+								<span class="timertext text-uppercase">Hrs</span>
+							</div>
+							<div class="d-flex flex-column align-items-center justify-content-center"><span>:</span><span class="timertext">&nbsp;</span></div>
+							<div class="col d-flex flex-column align-items-center px-1">
+								<div class="boxView fw-semibold text-green">{{ min + "" }}</div>
+								<span class="timertext text-uppercase">Mins</span>
+							</div>
+							<div class="d-flex flex-column align-items-center justify-content-center"><span>:</span><span class="timertext">&nbsp;</span></div>
+							<div class="col d-flex flex-column align-items-center px-1">
+								<div class="boxView fw-semibold text-green">{{ sec + "" }}</div>
+								<span class="timertext text-uppercase">Sec</span>
+							</div>
+						</div>
+					</div>
+					<!-- <div label="" role="button" class="headercountry me-2 d-none d-md-block" (click)="openFlagModal(totalCountryList, $event)"> -->
+						<div class="d-flex gap-2 d-md-none">
+							<button class="btn btn-primary p-3 m-0" alt="chat with notification" (click)="onClickSubscribe()"><i class="fa-solid fa-crown"></i></button>
+							<button class="btn btn-secondary p-3 m-0" (click)="openReportModal(op, $event)" alt="reports"><i class="fa-solid fa-circle-exclamation"></i>
+							</button>
+						</div>
+					<div class="d-none d-md-block">
+						<button class="btn btn-primary btn-rounded me-2 ms-0 my-0" alt="chat with notification" (click)="onClickSubscribe()"><span class="text-small fw-normal px-3">Subscribe Now</span></button>
+						<button class="btn btn-secondary btn-rounded me-2 ms-0 my-0" (click)="openReportModal(op, $event)" alt="reports">
+							<span class="text-small fw-normal px-4"><i class="fa-solid fa-bug"></i> Report</span>
+						</button>
+					</div>
+					<div label="" role="button" class="headercountry me-2 d-none d-md-block" title="Selected Country">
+						<img src="{{ headerFlag }}" alt="flag" height="auto" width="auto" />
+					</div>
+					<div class="d-none d-md-block">
+						<a (click)="openchat()" title="Chat">
+							<p-avatar class="" label="" role="button"><i class="fa-solid fa-comments"></i></p-avatar>
+						</a>
+						<!-- <p-avatar (click)="togleSidebar.emit()" class="" label="" role="button">
+							<i class="fa-solid fa-bell"></i>
+						</p-avatar> -->
+						<div class="dropdown profile-dropdown">
+							<button class="button" data-bs-toggle="dropdown" aria-expanded="false" title="My Profile">
+								<span class="nme">{{ (firstChar || "")?.charAt(0) }}</span>
+								<!-- <span class="fw-medium">{{ userName }}</span> -->
+							</button>
+							<ul class="dropdown-menu">
+								<li>
+									<a class="dropdown-item pt-2 pb-2" routerLink="/pages/usermanagement">
+										<div class="d-flex justify-content-top">
+											<i class="fa-solid fa-user me-2 mt-1"></i>
+											<div>
+												<p class="fw-semibold mb-1">{{ userName }}</p>
+												<p class="mb-0">{{ userName }}</p>
+											</div>
+										</div>
+									</a>
+								</li>
+								<li>
+									<a class="dropdown-item pt-2 pb-2" (click)="logout()"><i class="fa-solid fa-power-off me-2"></i>Logout</a>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 </nav>
+
+<p-overlayPanel #op styleClass="reportwidthfix">
+	<ng-template pTemplate="content">
+		<div class="container px-0">
+			<form [formGroup]="reportSubmitForm" (ngSubmit)="onSubmit(op)">
+				<div class="row report">
+					<p *ngIf="false" class="report-label text-left mb-0">General / Modules</p>
+					<span *ngIf="false" class="report-modal">
+						<p-dropdown [options]="genMod" (onChange)="onChangeChooseMain($event.value)" [(ngModel)]="selectedGenMod" optionValue="id" formControlName="general" class="w-100" id="genMod" optionLabel="name"></p-dropdown>
+					</span>
+					<div *ngIf="isVisibleModulesMenu">
+						<p *ngIf="isQuestionVisible" class="report-label text-left mb-0">Modules</p>
+						<span *ngIf="isQuestionVisible" class="report-modal">
+							<p-dropdown [options]="moduleList" (onChange)="onChangeModuleList($event.value)" formControlName="moduleId" [(ngModel)]="moduleNgModel" optionValue="id" class="w-100" id="moduleId" optionLabel="module_name"></p-dropdown>
+						</span>
+						<p *ngIf="isQuestionVisible" class="report-label text-left mb-0">Categories</p>
+						<span *ngIf="isQuestionVisible" class="report-modal">
+							<p-dropdown [options]="subModuleList" [(ngModel)]="subModuleNgModel" formControlName="submoduleId" optionValue="id" (onChange)="onChangeSubModuleList($event.value)" class="w-100" id="submoduleId" optionLabel="submodule_name"></p-dropdown>
+						</span>
+						<p *ngIf="isQuestionVisible" class="report-label text-left mb-0">Question Number</p>
+						<span *ngIf="isQuestionVisible" class="report-modal">
+							<p-dropdown [options]="questionList" [(ngModel)]="questionIdNgModel" optionValue="id" formControlName="questionId" class="w-100" id="questionId" optionLabel="index"></p-dropdown>
+						</span>
+					</div>
+					<p class="report-label text-left mb-0">Issue Type</p>
+					<span class="report-modal">
+						<p-dropdown [options]="reportOptionList" [(ngModel)]="reportOptionNgModel" optionValue="id" formControlName="reportOption" class="w-100" id="reportOption" optionLabel="reportoption_name"></p-dropdown>
+					</span>
+					<p class="report-label text-left mb-0">Comment</p>
+					<span class="report-modal">
+						<textarea formControlName="comment" pInputTextarea id="comment"></textarea>
+					</span>
+					<span>
+						<button class="btn btn-primary w-100 m-0">Submit</button>
+					</span>
+				</div>
+			</form>
+		</div>
+	</ng-template>
+</p-overlayPanel>
+<p-overlayPanel #totalCountryList>
+	<ng-template pTemplate="content">
+		<div *ngIf="isLondon">
+			<ul class="px-0">
+				<li class="list-group-item my-2" role="button" *ngFor="let v of countryLists">
+					<img alt="country" class="countryicon mr-2" src="{{ v.flag != '' ? v.flag : '../../uniprep-assets/images/mstile-150x150.png' }}" width="25" />
+					<span>{{ v.country }}</span>
+				</li>
+			</ul>
+		</div>
+	</ng-template>
+</p-overlayPanel>
 
 <p-dialog [(visible)]="visible" [closable]="true" [style]="{ width: 'auto' }" class="p-0 m-0 bg-white" class="timerpopup" [modal]="true" [draggable]="false" [resizable]="false">
     <div class="px-5 pb-5 pt-3">
