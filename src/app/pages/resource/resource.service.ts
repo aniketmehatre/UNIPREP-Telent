@@ -20,7 +20,7 @@ export class ResourceService {
   GetCountryList(): Observable<any> {
     const headers= new HttpHeaders()
     .set('Accept', "application/json")
-    return this.http.get(environment.ApiUrl + "/country", {
+    return this.http.get(environment.ApiUrl + "/country?module_name=resource", {
       headers: headers,
   });
   }
