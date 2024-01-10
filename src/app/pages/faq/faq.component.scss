@@ -38,7 +38,7 @@
   display: -webkit-box !important;
   overflow-x: auto;
  }
- .readingcard{
+ .desktop{
   display: none;
  }
 }
@@ -51,4 +51,8 @@
    padding: 5px 10px;
    border-radius: 25px;
    color: #000000;
+ }
+
+ .faqListData{
+  overflow-y: scroll !important;
  }

@@ -194,5 +194,12 @@
     .homecardbtn{
       width: 20px;
     }
+    display: block !important;
   }
+  .desktop{
+    display: none !important;
+  }
+}
+.mobile{
+  display: none;
 }
