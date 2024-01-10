@@ -7,6 +7,7 @@ import {AccordionModule} from "primeng/accordion";
 import { TooltipModule } from 'primeng/tooltip';
 import { ReactiveFormsModule } from '@angular/forms';
 import { DropdownModule } from 'primeng/dropdown';
+import { MultiSelectModule } from 'primeng/multiselect';
 
 
 @NgModule({
@@ -20,7 +21,8 @@ import { DropdownModule } from 'primeng/dropdown';
         TooltipModule,
         ReactiveFormsModule,
         DropdownModule,
-        TooltipModule
+        TooltipModule,
+        MultiSelectModule
     ]
 })
 export class ResourceModule {

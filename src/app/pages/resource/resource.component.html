@@ -31,7 +31,12 @@
                     {{resource.resourcedescription.length > 75 ? resource.resourcedescription.slice(0, 75) + '...' :
                     resource.resourcedescription}}
                   </p>
-                  <div> <span><img width="20px" src="{{resource.countryFlag}}" alt=""></span>
+                  <div>
+                    <span *ngFor="let flag of resource.countryFlag.split(',')" class="resourceimg mt-4 ms-2 me-2"
+                      style="cursor: pointer;">
+                      <img [src]="flag" loading="lazy" [style.width.px]="20" tooltipPosition="top"
+                        pTooltip="{{ getCountryName(flag) }}">
+                    </span>
                   </div>
                 </div>
               </div>
@@ -59,8 +64,12 @@
               <div class="form-group">
 
                 <label style="font-size: medium">Filter by Country</label>
-                <p-dropdown class="mt-2" placeholder="Select" formControlName="coutryname" [options]="countries"
-                  optionValue="id" optionLabel="country" styleClass="w-full" [filter]="true"></p-dropdown>
+                <!-- <p-dropdown class="mt-2" placeholder="Select" formControlName="coutryname" [options]="countries"
+                  optionValue="id" optionLabel="country" styleClass="w-full" [filter]="true"></p-dropdown> -->
+                  <p-multiSelect class="custom-multiselect" placeholder="Select" formControlName="coutryname"
+                  optionValue="id" placeholder="Select" optionLabel="country" styleClass="w-full"
+                  [options]="countries" [filter]="true" (onChange)="onLocationSelect($event)" ></p-multiSelect>
+
               </div>
             </div>
           </div>
