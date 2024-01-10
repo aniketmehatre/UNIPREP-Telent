@@ -57,7 +57,7 @@ export class HeaderSearchComponent implements OnInit, OnDestroy {
   readQue$!: Observable<ReadQuestion[]>;
   @ViewChild('listgroup') listgroup: ElementRef | undefined;
   timeLeft: any;
-  visibleExhasted!: boolean;
+  visibleExhastedData!: boolean;
   constructor(private dashboardService: DashboardService, private dataService: DataService, private moduleStoreService: ModuleStoreService,
     private toastr: MessageService, private moduleListService: ModuleServiceService,
     private locationService: LocationService, private route: Router, private elementRef: ElementRef,
@@ -181,7 +181,7 @@ export class HeaderSearchComponent implements OnInit, OnDestroy {
     this.selectedQuestionId = selectedQuestionData.id;
     this.readQuestion(selectedQuestionData);
     if (this.timeLeft.plan === 'expired' || this.timeLeft.plan === 'subscription_expired') {
-      this.visibleExhasted = true;
+      this.visibleExhastedData = true;
     }
     else {
       this.isQuestionAnswerVisible = true;
@@ -337,7 +337,7 @@ export class HeaderSearchComponent implements OnInit, OnDestroy {
     this.searchInputText = "";
     this.isSearchResultFound = false;
     if (this.timeLeft.plan === 'expired' || this.timeLeft.plan === 'subscription_expired') {
-      this.visibleExhasted = true;
+      this.visibleExhastedData = true;
     }
     else {
       this.route.navigate([`/pages/modules/${modName}`]);
@@ -351,7 +351,7 @@ export class HeaderSearchComponent implements OnInit, OnDestroy {
   }
 
   onClickSubscribedUser(): void {
-    this.visibleExhasted = false;
+    this.visibleExhastedData = false;
     this.route.navigate(["/pages/subscriptions"]);
   }
 
@@ -360,7 +360,7 @@ export class HeaderSearchComponent implements OnInit, OnDestroy {
     this.searchInputText = "";
     this.isSearchResultFound = false;
     if (this.timeLeft.plan === 'expired' || this.timeLeft.plan === 'subscription_expired') {
-      this.visibleExhasted = true;
+      this.visibleExhastedData = true;
     } else {
       this.route.navigate([`/pages/modules/${modName}/question-list/${data.submodule_id}`]);
     }

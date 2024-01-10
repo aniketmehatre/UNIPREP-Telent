@@ -330,6 +330,7 @@ export class RegistrationComponent implements OnInit {
         if (!this.isMobileOTPValidated) {
             let val = {
                 phone: this.registrationForm.value.contactNumber.number,
+                country_code: this.registrationForm.value.country_code,
                 otp: _otp,
             };
             this.service.verifySmsOTP(val).subscribe(

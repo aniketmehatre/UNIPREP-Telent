@@ -429,7 +429,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.router.navigate(["/pages/subscriptions"]);
   }
 
-  subScribedUserCount(): void{
+  subScribedUserCount(): void {
     this.service.getNewUserTimeLeft().subscribe(res => {
       let data = res.time_left;
       if (data.plan === 'not_started') {
