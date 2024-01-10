@@ -89,9 +89,7 @@ export class ResourceComponent implements OnInit {
   }
   onLocationSelect(event: any) {
     // Clear the array and add the newly selected city
-
     if (event!.value.includes(0)) {
-      console.log(event!.value);
       this.filterform.get('coutryname')!.setValue([0]);
     }
   }
