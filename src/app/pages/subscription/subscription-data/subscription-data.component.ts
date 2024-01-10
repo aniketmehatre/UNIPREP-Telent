@@ -301,6 +301,12 @@ export class SubscriptionDataComponent implements OnInit {
   
   onInput(event: any) {
     this.invalidCoupon = false;
+    if(this.couponInput=='' || this.couponInput==null){
+      this.toast.add({ severity: 'error', summary: 'Error', detail: 'Coupon Removed' });
+      this.subscriptionTotal = this.subscriptionAmt;
+      this.checkoutTotal = this.subscriptionTotal;
+      this.discountAmountEnable=false;
+    }
   }
 
   gotoHistory() {
