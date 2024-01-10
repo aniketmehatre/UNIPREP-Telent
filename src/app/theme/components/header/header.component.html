@@ -124,7 +124,6 @@
 <!--								<div class="boxView fw-semibold text-green">{{ day + "" }}</div>-->
 <!--								<span class="timertext text-uppercase">Days</span>-->
 <!--							</div>-->
-							<div class="d-flex flex-column align-items-center justify-content-center"><span>:</span><span class="timertext">&nbsp;</span></div>
 							<div class="col d-flex flex-column align-items-center px-1">
 								<div class="boxView fw-semibold text-green">{{ hrs + "" }}</div>
 								<span class="timertext text-uppercase">Hrs</span>
@@ -327,7 +326,7 @@
         </div>
     </div>
 </p-dialog>
-<p-dialog [(visible)]="visible" [closable]="false" [style]="{ width: '35vw' }" class="p-0 m-0" [modal]="true" [draggable]="false" [resizable]="false">
+<p-dialog [(visible)]="visible" [closable]="false" class="p-0 m-0" [modal]="true" [draggable]="false" [resizable]="false">
     <div class="d-flex justify-content-between p-4">
         <div>
             <h4>Your 24 Hours<span class="text-xl font-bold p-1 fw-bold" style="color: #3f4c83"> Free Trial</span>Exhausted</h4>
@@ -354,7 +353,7 @@
     </div>
 </p-dialog>
 
-<p-dialog [(visible)]="freeTrial" [closable]="false" [style]="{ width: '35vw' }" class="p-0 m-0" [modal]="true" [draggable]="false" [resizable]="false">
+<p-dialog [(visible)]="freeTrial" [closable]="false" class="p-0 m-0" [modal]="true" [draggable]="false" [resizable]="false">
     <div class="d-flex justify-content-between p-4">
         <div>
             <h4>Congratulations</h4>
@@ -383,7 +382,7 @@
     </div>
 </p-dialog>
 
-<p-dialog [(visible)]="visibleExhasted" [closable]="false" [style]="{ width: '35vw' }" class="p-0 m-0" [modal]="true"
+<!-- <p-dialog [(visible)]="visibleExhasted" [closable]="false" class="p-0 m-0" [modal]="true"
           [draggable]="false" [resizable]="false">
     <div class="d-flex justify-content-between p-4">
         <div>
@@ -415,4 +414,4 @@
                     alt="chat with notification"><span class="text-small fw-normal px-3">Subscribe Now</span></button>
         </div>
     </div>
-</p-dialog>
+</p-dialog> -->
