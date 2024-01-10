@@ -71,12 +71,28 @@ export class DashboardComponent implements OnInit {
     }
     ngOnInit(): void {
         this.selectedCountryId = Number(localStorage.getItem('countryId'));
-        console.log(this.selectedCountryId);
         this.enableReadingData();
         //localStorage.setItem('selectedcountryId', this.selectedCountryId);
         localStorage.setItem("currentmodulenameforrecently", '');
         this.dashboardService.getTrustedPartners().subscribe(partnerLogo => {
             this.partnerTrusterLogo = partnerLogo;
+        });
+        this.dataService.countryIdSource.subscribe((data) => {
+            this.dashboardService.countryList().subscribe(countryList => {
+                this.countryLists = countryList;
+                this.countryLists.forEach((element: any) => {
+                    if (element.id == data) {
+                        this.selectedCountryName = element.country;
+                        this.selectedCountryId = element.id;
+                    }
+                });
+                this.countryLists.forEach((item: any, i: any) => {
+                    if(item.id === this.selectedCountryId){
+                        this.countryLists.splice(i, 1);
+                        this.countryLists.unshift(item);
+                    }
+                });
+            });
         });
 
         this.subs.sink = this.service.getMe().subscribe((data) => {

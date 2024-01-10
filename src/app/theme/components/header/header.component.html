@@ -76,8 +76,8 @@
                         </div>
                     </div>
 
-					<div label="" role="button" class="headercountry me-2 d-none d-md-block">
-						<img src="{{ headerFlag }}" alt="flag" height="auto" width="auto" />
+					<div label="" role="button" class="headercountry me-2 d-md-block">
+						<img #openCountryPopup src="{{ headerFlag }}" alt="flag" height="auto" width="auto"  (click)="openFlagModal(totalCountryList, $event)" />
 						<!-- <img src="{{ headerFlag }}" alt="United Kingdom" height="auto" width="auto" (click)="openFlagModal(totalCountryList, $event)"/> -->
 					</div>
 					<div class="d-none d-md-block">
@@ -236,7 +236,7 @@
 			<ul class="px-0">
 				<li class="list-group-item my-2" role="button" *ngFor="let v of countryLists">
 					<img alt="country" class="countryicon mr-2" src="{{ v.flag != '' ? v.flag : '../../uniprep-assets/images/mstile-150x150.png' }}" width="25" />
-					<span>{{ v.country }}</span>
+					<span (click)="selectCountryInHeader(v, totalCountryList)">{{ v.country }}</span>
 				</li>
 			</ul>
 		</div>

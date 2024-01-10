@@ -21,6 +21,7 @@ import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { matchValidator } from "../../../@Supports/matchvalidator";
 import { ThemeService } from '../../../theme.service';
 import { DashboardService } from "src/app/pages/dashboard/dashboard.service";
+import {count} from "rxjs";
 
 @Component({
   selector: "uni-header",
@@ -375,10 +376,20 @@ export class HeaderComponent implements OnInit, OnDestroy {
         this.reportOptionList = [{ id: null, reportoption_name: 'Select' }, ...reportTypeData];
       });
   }
-
+  isCountryPopupOpen: any
   openFlagModal(totalCountryList: any, event: any): void {
     this.isLondon = true;
+    this.isCountryPopupOpen = event;
     totalCountryList.toggle(event);
+   // this.dataService.countryIdSource
+  }
+
+  selectCountryInHeader(countryData: any, totalCountryList: any){
+    this.dataService.changeCountryId(countryData.id)
+    this.dataService.changeCountryName(countryData.country)
+    this.dataService.changeCountryFlag(countryData.flag)
+    localStorage.setItem('countryId', countryData.id)
+    totalCountryList.toggle(false);
   }
 
   getCountryList(): void {
