@@ -155,7 +155,7 @@ export class SubscriptionComponent implements OnInit {
             key: "rzp_live_YErYQVqDIrZn1D",
             amount: this.subscriptionDetails?.finalPrice * 100, // amount should be in paise format to display Rs 1255 without decimal point
             currency: "INR",
-            name: "Uniabroad", // company name or product name
+            name: "UNIABROAD", // company name or product name
             description: "UNIPREP Subscription", // product description
             image: "https://uniabroad.io/webassets/img/rplogo.svg", // company logo or product image
             order_id: orderid, // order_id created by you in backend
