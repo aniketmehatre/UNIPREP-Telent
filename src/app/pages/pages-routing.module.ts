@@ -11,6 +11,7 @@ import { RecentlyaddedquestionsComponent } from './recentlyaddedquestions/recent
 import { PrivacypolicyComponent } from './footersection/privacypolicy/privacypolicy.component';
 import { RefundpolicyComponent } from './footersection/refundpolicy/refundpolicy.component';
 import { CancellationpolicyComponent } from './footersection/cancellationpolicy/cancellationpolicy.component';
+import { SupportComponent } from './support/support.component';
 
 const routes: Routes = [
     {
@@ -72,6 +73,10 @@ const routes: Routes = [
                 path: 'cards',
 
                 component: CardsComponent
+            },
+            {
+                path: 'support',
+                component: SupportComponent
             },
             {
                 path: 'help',

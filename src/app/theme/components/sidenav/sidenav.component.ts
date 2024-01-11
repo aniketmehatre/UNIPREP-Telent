@@ -118,6 +118,11 @@ export class SidenavComponent {
       url: '/pages/faq',
       image: 'fa-solid fa-comments-question',
     },
+    {
+      title: '24x7 Support',
+      url: '/pages/support',
+      image: 'fa-solid fa-headset',
+    }
     // {
     //   title: 'Help & Support',
     //   url: '/pages/help',
