@@ -121,7 +121,7 @@ export class SidenavComponent {
     {
       title: '24x7 Support',
       url: '/pages/support',
-      image: 'fa-regular fa-headset',
+      image: 'fa-solid fa-headset',
     }
     // {
     //   title: 'Help & Support',
