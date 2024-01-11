@@ -176,9 +176,35 @@ selctedQuizTiny{
   display: flex;
 }
 
+.primary-btn{
+border-radius: 25px !important;
+}
+
+.readButton{
+  border-radius: 25px !important;
+}
+
+.float-right{
+  float: right;
+  .warning{
+    background-color: #F0780C !important;
+    border-radius: 25px !important;
+    color: white;
+    font-weight: 300;
+    font-size: 10px;
+  }
+}
+
+.mobile{
+  display: none;
+}
 @media screen and (max-width: 480px) {
 .desktop {
     display: none;
   }
+    .mobile {
+      display: block;
+    }
 }
+
 

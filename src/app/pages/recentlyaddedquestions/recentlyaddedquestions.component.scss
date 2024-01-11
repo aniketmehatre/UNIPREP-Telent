@@ -189,6 +189,11 @@
   border-radius: 25px !important;
 }
 
+.btn-warning {
+  background-color: #F0780C;
+  color: white;
+}
+
 @media screen and (max-width: 480px) {
   .mobile {
     .homecardbtn{
@@ -202,4 +207,8 @@
 }
 .mobile{
   display: none;
+}
+
+.badge{
+  border-radius: 25px !important;
 }
