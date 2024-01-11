@@ -11,12 +11,7 @@
             </div>
 
             <div class="col-md-2 mt-2 text-end desktop" *ngIf="currentModuleId != 5">
-                <!-- <button (click)="startQuiz()" class="btn w-100 quizCard m-0 px-2 py-2"
-                        style="background-color: lightgray;" disabled>
-                            <i class="fa-solid h5 fa fa-info-circle"></i>
-                            <p class="mb-0">Start Quiz</p>
-                        </button> -->
-                <button role="button" style="pointer-events: none;width: 150px !important;" (click)="startQuiz()"
+                <button role="button" style="pointer-events: none;width: 150px !important;background-color: black;" (click)="startQuiz()"
                     class="btn w-100 m-0 px-4 py-3 homecardbtn homecardbtnquiz">
                     <i class="fa-regular h3 fa-lightbulb-on"></i>
                     <p class="mb-1">Start Quiz</p>
@@ -38,16 +33,19 @@
                                 <div class="submoduleicon">
                                     <img alt="{{sub.submodule_name}}" class="selectimage" src="{{sub.icon}}">
                                 </div>
-                                <h6 class="text-center subjecttitle d-md-block d-none">{{sub.submodule_name}}</h6>
+                                <h6 class="text-center subjecttitle d-md-block d-none pt-2">{{sub.submodule_name}}</h6>
                             </div>
                             <div class="text-start text-md-center">
-                                <h6 class="subjecttitle d-md-none d-block">{{sub.submodule_name}}</h6>
+                                <h6 class="subjecttitle d-md-none d-block pt-2">{{sub.submodule_name}}</h6>
                                 <p class="mb-0 sub-data">{{sub.questioncount}} Question Answered</p>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+        </div>
+        <div class="float-right mobile" (click)="startQuiz()">
+            <button class="btn warning pt-2" type="submit">Start Quiz</button>
         </div>
     </div>
 </div>

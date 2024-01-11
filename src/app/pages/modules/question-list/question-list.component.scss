@@ -198,6 +198,25 @@
   display: none;
 }
 
+
+.primary-btn {
+  border-radius: 25px !important;
+}
+
+.readButton {
+  border-radius: 25px !important;
+}
+
+::ng-deep.p-button.p-button-icon-only.p-button-rounded{
+  background-color: #3F4C83 !important;
+  color: white !important;
+}
+
+.btn-warning {
+  background-color: #F0780C;
+  color: white;
+}
+
 @media screen and (max-width: 480px) {
   .desktop {
     display: none !important;
@@ -211,3 +230,6 @@
     }
 }
 
+.badge {
+  border-radius: 25px !important;
+}

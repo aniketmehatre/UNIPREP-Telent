@@ -124,4 +124,20 @@ li:last-of-type {
 .p-breadcrumb ul{
   display: -webkit-box !important;
 }
+.mobile{
+  display: block;
+}
+}
+
+.btn-warning {
+  background-color: #F0780C;
+  color: white;
+}
+
+.mobile {
+  display: none;
+}
+
+.badge{
+  border-radius: 25px !important;
 }

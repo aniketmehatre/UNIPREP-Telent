@@ -50,27 +50,29 @@
 <p-dialog [(visible)]="isQuestionAnswerVisible" [draggable]="false" [modal]="true" class="questionmodal" header="Header"
 	[maximizable]="true" [style]="{ height: '80vh' }">
 	<ng-template pTemplate="header">
-		<div class="d-flex flex-column w-100 px-4 mb-4">
+		<div class="d-flex flex-column w-100 pl-4 pr-4 mb-4">
 			<div>
 				<h5 class="select-title text-center mb-3">{{ currentModuleName }} - {{ moduleName }}</h5>
 				<span class="text-xl font-bold"></span>
 			</div>
-			<div>
+			<div class="desktop">
 				<p-breadcrumb [model]="breadCrumb" class="max-w-full desktop"></p-breadcrumb>
 			</div>
 			<div class="d-flex justify-content-between align-items-center">
 				<div>
-					<button (click)="goToHome($event)" class="btn btn-primary homecardbtn m-0 px-4 py-2">
+					<button (click)="goToHome($event)" class="btn btn-warning homecardbtn m-0 px-4 py-2">
 						<i class="fa-solid h5 fa-house"></i><br />
 						Home
 					</button>
 				</div>
-				<div class="d-flex desktop">
-					<a role="button" *ngIf="isAnswerDialogVisiblePrev" (click)="clickPrevious(carousel, $event)"> <i
-							class="text-green h4 mx-3 mb-0 fa-solid fa-circle-chevron-left"></i></a>
-					<p class="mb-0 fw-semibold">Question Number {{ selectedQuestion + 1 }}</p>
-					<a role="button" *ngIf="isAnswerDialogVisibleNext" (click)="clickNext(carousel, $event)"><i
-							class="text-green mx-3 h4 fa-solid mb-0 fa-circle-chevron-right"></i></a>
+				<div class="desktop">
+					<div class="d-flex">
+						<a role="button" *ngIf="isAnswerDialogVisiblePrev" (click)="clickPrevious(carousel, $event)"> <i
+								class="text-green h4 mx-3 mb-0 fa-solid fa-circle-chevron-left"></i></a>
+						<p class="mb-0 fw-semibold">Question Number {{ selectedQuestion + 1 }}</p>
+						<a role="button" *ngIf="isAnswerDialogVisibleNext" (click)="clickNext(carousel, $event)"><i
+								class="text-green mx-3 h4 fa-solid mb-0 fa-circle-chevron-right"></i></a>
+					</div>
 				</div>
 				<div class="mobile">
 					<p-breadcrumb [model]="breadCrumb" class="max-w-full"></p-breadcrumb>
@@ -127,12 +129,16 @@
 							class="fa-solid fa-link"></i></a>
 				</div>
 			</div>
-			<div class="flex-shrink-0 align-items-center d-flex">
+			<div class="flex-shrink-0 align-items-center d-flex desktop">
 				<button class="btn w-100 btn-primary homecardbtn mx-0 px-5 py-2" (click)="onClickAsk()">
 					<i class="h5 fas fa-comment"></i>
 					<br />
 					Click here to ask<br />Personalised Questions
 				</button>
+			</div>
+			<div class="mobile">
+				<button class="btn w-100 btn-primary homecardbtn mx-0 px-5 py-2" (click)="onClickAsk()">Click here to ask
+					personalised <br>questions</button>
 			</div>
 		</div>
 	</ng-template>
