@@ -48,6 +48,7 @@ import { PaginatorModule } from "primeng/paginator";
 import {ScrollTrackerDirective} from "./header-search/scroll-tracker.directive";
 import { RefundpolicyComponent } from './footersection/refundpolicy/refundpolicy.component';
 import { CancellationpolicyComponent } from './footersection/cancellationpolicy/cancellationpolicy.component';
+import { SupportComponent } from "./support/support.component";
 
 @NgModule({
     declarations: [
@@ -65,6 +66,7 @@ import { CancellationpolicyComponent } from './footersection/cancellationpolicy/
         PrivacypolicyComponent,
         ScrollTrackerDirective,
         RefundpolicyComponent,
+        SupportComponent,
         CancellationpolicyComponent,
     ],
   exports: [FooterStatusBoxComponent, HeaderSearchComponent],
