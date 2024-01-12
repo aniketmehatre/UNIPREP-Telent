@@ -1,4 +1,4 @@
-<div class="card countrycard">
+<div class="card countrycard desktop">
 	<div class="card-header">
 		<h5 class="mb-0">SELECTED COUNTRY</h5>
 	</div>
@@ -19,6 +19,27 @@
 	</div>
 </div>
 <div class="container-fluid mt-2">
+	<div class="d-f mobile">
+		<div class="col-5">
+			<h6 class="pt-2">Country Selection</h6>
+		</div>
+		<div class="col-7">
+			<p-dropdown [options]="countryLists" styleClass="w-100" optionLabel="country"
+				(onChange)="selectCountryInHeader($event.value)" class="country-dropdown">
+				<ng-template pTemplate="selectedItem">
+					<img [src]="headerFlag" class="base-country-flag" width="15">
+					{{ selectedCountryName }}
+				</ng-template>
+				<ng-template let-country pTemplate="item">
+					<div class="country-item">
+						<div><img alt="country" class="countryicon" width="15"
+								src="{{ country.flag != '' ? country.flag : '../../uniprep-assets/images/mstile-150x150.png' }}" />{{country.country}}
+						</div>
+					</div>
+				</ng-template>
+			</p-dropdown>
+		</div>
+	</div> 
 	<div class="row align-items-center">
 		<div class="col-md-5 col-12">
 			<h3 class="fw-semibold mb-0">Hey {{ userName }},</h3>
@@ -212,7 +233,7 @@
 					</div>
 					<div>
 						<div class="col-12">
-							<button class="btn btn-secondary fw-regular container-fluid ">Start Reading</button>
+							<button class="btn btn-secondary fw-regular container-fluid ">Start Quiz</button>
 						</div>
 					</div>
 				</div>
@@ -239,9 +260,9 @@
 </div>
 <div [ngStyle]="{ display: continueReading }" class="modal modal-bg" role="dialog" tabindex="-1">
 	<div class="modal-dialog modal-dialog-scrollable modal-dialog-centered" role="document">
-		<div class="modal-content card bg-light">
+		<div class="modal-content card bg-light desktop">
 			<div class="modal-header">
-				<h3 class="mb-0" tooltipZIndex="auto" tooltipPosition="top" pTooltip="Complete the reading for all modules to get the certificate.">
+				<h3 class="mb-0 continue-reading-header" tooltipZIndex="auto" tooltipPosition="top" pTooltip="Complete the reading for all modules to get the certificate.">
 					Continue Reading
 					<i class="questiontooltip fa-solid fa-circle-question"></i>
 				</h3>

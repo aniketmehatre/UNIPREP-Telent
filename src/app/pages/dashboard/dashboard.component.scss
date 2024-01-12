@@ -1015,4 +1015,38 @@ Due to the split circle of progress-left and progress right, we must use the ani
     .mobile {
       display: flex;
     }
+    .countryicon{
+      width: 25px !important;
+    }
+    .d-f{
+      display: flex;
+    }
+}
+
+.item {
+  width: 100%
+}
+
+.container {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.container>div {
+  flex: 50%;
+  /* or - flex: 0 50% - or - flex-basis: 50% - */
+  /*demo*/
+  box-shadow: 0 0 0 1px black;
+  margin-bottom: 10px;
+}
+.continue-reading-header{
+  text-align: center;
+  text-transform: uppercase;
+}
+
+::ng-deep .country-dropdown {
+  .p-dropdown {
+    border-radius: 25px !important;
+    border: 1px solid #001631;
+  }
 }
