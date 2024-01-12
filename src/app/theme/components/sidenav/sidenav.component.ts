@@ -231,7 +231,7 @@ export class SidenavComponent {
     console.log(newValue)
     this.authService.getNewUserTimeLeft().subscribe(res => {
       let data = res.time_left;
-      if (data.plan === 'expired' && newValue.title != 'Dashboard' && newValue.title != 'Tutorials' && newValue.title != 'FAQ' && newValue.title != 'Subscription') {
+      if (data.plan === 'expired' && newValue.title != 'Dashboard' && newValue.title != 'Tutorials' && newValue.title != 'FAQ' && newValue.title != '24x7 Support' && newValue.title != 'Subscription') {
         this.visibleExhasted = true;
       } else {
         this.visibleExhasted = false;
