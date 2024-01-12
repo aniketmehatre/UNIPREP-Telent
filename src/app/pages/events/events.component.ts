@@ -184,9 +184,9 @@ export class EventsComponent implements OnInit {
           registerusercount:list.registered_users_count,
           slotno:list.eventslots
         }
-        this.totalcount=res.count
         this.upcommingevent.push(bindingdata)
       })
+      this.totalcount=res.count 
     })
   }
   // format changing contact
@@ -224,7 +224,8 @@ export class EventsComponent implements OnInit {
   // post event
   getPostEvent(data:any){
     this.service.postevets(data).subscribe((res) => {
-      this.postevetdetaisl=[] 
+      this.postevetdetaisl=[]
+      this.totalcountpost=0; 
       res.events.forEach((list: any) => {
         var bindingdata = {
           id:list.id,
@@ -241,10 +242,9 @@ export class EventsComponent implements OnInit {
           countrylog:list.countryFlag,
           registerusercount:list.registered_users_count
         }
-        this.totalcountpost=res.count
         this.postevetdetaisl.push(bindingdata)
-
       })
+      this.totalcountpost=res.count
     })
   }
   registerbutton(event:any){
