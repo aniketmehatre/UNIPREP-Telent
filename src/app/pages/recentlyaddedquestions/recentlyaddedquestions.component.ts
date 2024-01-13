@@ -154,7 +154,6 @@ export class RecentlyaddedquestionsComponent implements OnInit {
     this.moduleListService.loadSubModules(data);
     this.subModules$ = this.moduleListService.subModuleList$();
     this.subModules$.subscribe(event => {
-      console.log('event', event);
       if (event) {
         event.filter(data => {
           if (data.submodule_id == this.selectedSubModule) {

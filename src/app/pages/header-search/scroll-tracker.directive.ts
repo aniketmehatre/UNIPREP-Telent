@@ -10,7 +10,6 @@ export class ScrollTrackerDirective {
 
     @HostListener("window:scroll", [])
     onScroll(): void {
-        console.log(window.scrollY)
         if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight && !this.emitted) {
             this.emitted = true;
             this.scrollingFinished.emit();

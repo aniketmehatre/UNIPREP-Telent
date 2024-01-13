@@ -228,7 +228,6 @@ export class SidenavComponent {
   }
 
   listClick(event: any, newValue: any) {
-    console.log(newValue)
     this.authService.getNewUserTimeLeft().subscribe(res => {
       let data = res.time_left;
       if (data.plan === 'expired' && newValue.title != 'Dashboard' && newValue.title != 'Tutorials' && newValue.title != 'FAQ' && newValue.title != '24x7 Support' && newValue.title != 'Subscription') {

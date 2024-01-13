@@ -96,7 +96,6 @@ export class HeaderSearchComponent implements OnInit, OnDestroy {
 
   loadMore(): void {
     this.page++;
-    console.log(this.page)
   }
   ngOnInit(): void {
     this.responsiveOptions = [

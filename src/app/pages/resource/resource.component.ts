@@ -68,7 +68,6 @@ export class ResourceComponent implements OnInit {
   }
   filtersubmit() {
     const formData = this.filterform.value;
-    console.log(this.filterform.value);
 
     if (!formData.coutryname == null) {
       this.toast.add({ severity: 'error', summary: 'Error', detail: 'Please make sure you have some filter!' });

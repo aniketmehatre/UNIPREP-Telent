@@ -192,7 +192,6 @@ export class RegistrationComponent implements OnInit {
         this.locationService.getHomeCountry(2).subscribe(
             (res: any) => {
                 this.countryList = res;  
-                  console.log(this.countryList);            
             },
             (error: any) => {
                 this.toastr.add({ severity: 'warning', summary: 'Warning', detail: error.error.message });

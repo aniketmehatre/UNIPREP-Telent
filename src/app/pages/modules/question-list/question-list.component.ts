@@ -54,6 +54,7 @@ export class QuestionListComponent implements OnInit {
   currentModuleId: any
   currentApiSlug: any;
   tooltip: any;
+  questionListData: any [] = []
   constructor(private moduleListService: ModuleServiceService, private moduleStoreService: ModuleStoreService,
               private dataService: DataService, private route: ActivatedRoute, private _location: Location,
               private _sanitizer: DomSanitizer, private router: Router) {
@@ -140,6 +141,9 @@ export class QuestionListComponent implements OnInit {
       submoduleId: Number(this.subModuleId)
     }
     this.moduleListService.loadQuestionList(data);
+    this.listQuestion$.subscribe((data: any) => {
+      this.questionListData = data;
+    })
   }
 
   goBack(){
@@ -191,9 +195,6 @@ export class QuestionListComponent implements OnInit {
     let index = this.data.findIndex((x: any) => x.id === selectedData.id);
     this.selectedQuestion = index;
     this.positionNumber = index;
-
-    this.breadCrumb = [{ label: this.currentModuleName,command: (event) =>this.gotomodulebreadcrump() }, { label: this.moduleName, command: (event) => this.goToHomebreadcrump() }, { label: `Question ${index + 1}` }];
-
     this.isQuestionAnswerVisible = true;
     this.data.filter((res: any) => {
       if (res.id == selectedData.id) {
@@ -217,19 +218,21 @@ export class QuestionListComponent implements OnInit {
     }else{
       this.isAnswerDialogVisibleNext = true;
     }
+    this.breadCrumb = [{ label: this.currentModuleName,command: (event) =>this.gotomodulebreadcrump() }, { label: this.moduleName, command: (event) => this.goToHomebreadcrump() }, { label: `Question ${index + 1}` }];
+
     this.readQuestion(data);
   }
 
   readQuestion(data: any){
     this.moduleListService.readQuestion(data);
     this.readQue$ = this.moduleListService.readQuestionMessage$();
-    let data1 = {
-      countryId: this.countryId,
-      moduleId: this.currentModuleId,
-      submoduleId: Number(this.subModuleId)
-    }
-    this.moduleListService.loadQuestionList(data1);
-    this.listQuestion$ = this.moduleListService.questionList$();
+    this.questionListData = this.questionListData.map(item => {
+      if (item.id === data.questionId) {
+        return { ...item, read: 1 };
+      }
+      return item;
+    });
+
   }
 
   setPage(page: any) {
