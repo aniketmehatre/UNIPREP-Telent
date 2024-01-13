@@ -1837,6 +1837,11 @@ uni-subscription {
 }
 
 @media (max-width: 575.98px) {
+	::-webkit-scrollbar {
+			border-radius: 10px;
+			width: 6px !important;
+			background-color: #fff !important;
+		}
 	// #sidenav {
 	// 	position: absolute !important;
 	// 	z-index: 1;

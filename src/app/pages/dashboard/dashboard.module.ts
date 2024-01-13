@@ -16,6 +16,7 @@ import {CommonModule} from '@angular/common'
 import { TooltipModule } from 'primeng/tooltip';
 import { DialogModule } from 'primeng/dialog';
 import { DropdownModule } from 'primeng/dropdown';
+import { OverlayPanelModule } from 'primeng/overlaypanel';
 
 @NgModule({
     declarations: [DashboardComponent],
@@ -34,7 +35,8 @@ import { DropdownModule } from 'primeng/dropdown';
         CarouselModule,
         TooltipModule,
         DialogModule,
-        DropdownModule
+        DropdownModule,
+        OverlayPanelModule
     ],
 })
 export class DashboardModule {

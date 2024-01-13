@@ -46,6 +46,9 @@ export class DashboardComponent implements OnInit {
         }
     ];
     selectedCountryId: number = 1;
+    headerFlag!: string;
+    isLondon!: boolean;
+    isCountryPopupOpen: any;
 
     constructor(private dashboardService: DashboardService,private service: AuthService,
         private router: Router, private dataService: DataService,
@@ -77,6 +80,11 @@ export class DashboardComponent implements OnInit {
         this.dashboardService.getTrustedPartners().subscribe(partnerLogo => {
             this.partnerTrusterLogo = partnerLogo;
         });
+        this.dataService.countryFlagSource.subscribe((data) => {
+            if (data != "") {
+                this.headerFlag = data;
+            }
+        });
         this.dataService.countryIdSource.subscribe((data) => {
             this.dashboardService.countryList().subscribe(countryList => {
                 this.countryLists = countryList;
@@ -84,6 +92,7 @@ export class DashboardComponent implements OnInit {
                     if (element.id == data) {
                         this.selectedCountryName = element.country;
                         this.selectedCountryId = element.id;
+                        this.headerFlag = element.flag;
                     }
                 });
                 this.countryLists.forEach((item: any, i: any) => {
@@ -146,6 +155,16 @@ export class DashboardComponent implements OnInit {
                 this.enableReading = true;
             }
         });
+    }
+
+    selectCountryInHeader(countryData: any) {
+        this.dataService.changeCountryId(countryData.id)
+        this.dataService.changeCountryName(countryData.country)
+        this.dataService.changeCountryFlag(countryData.flag)
+        localStorage.setItem('countryId', countryData.id);
+        this.selectedCountryName = countryData.country;
+        this.headerFlag = countryData.flag;
+        this.ngOnInit();
     }
 
     loadApiData(): void {
