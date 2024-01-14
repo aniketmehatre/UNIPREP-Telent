@@ -34,14 +34,41 @@
  .ml-35{
   margin-left: 35px;
  }
- .menulist{
-  display: -webkit-box !important;
-  overflow-x: auto;
+ .menulist {
+   display: -webkit-box !important;
+   overflow-x: auto;
+   border-radius: 25px;
+   border: 1px solid #3F4C83;
+   padding: 4px;
+
+   li {
+     padding: 10px;
+     cursor: pointer;
+     border-radius: 25px;
+     border: 1px solid #3F4C83;
+
+     &.active {
+       color: white;
+       font-weight: 600;
+       background: #3F4C83;
+       padding: 10px;
+       border-radius: 25px;
+     }
+
+     &:last-child {
+       margin-bottom: 0px;
+     }
+   }
  }
- .desktop{
-  display: none;
+
+ .desktop {
+   display: none;
  }
-}
+
+ ::-webkit-scrollbar {
+   height: 6px !important;
+ }
+ }
 
  ::ng-deep .p-accordion-header-link:after {
    content: "+";
