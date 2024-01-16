@@ -218,3 +218,14 @@
 .newwindow-button {
   font-size: 24px;
 }
+
+@media (max-width: 575.98px) {
+  .modal-container {
+    max-width: -webkit-fill-available !important;
+  }
+
+  iframe {
+    width: auto !important;
+    height: 200px !important;
+  }
+}

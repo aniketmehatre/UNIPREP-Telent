@@ -442,10 +442,6 @@ uni-subscription {
 	}
 }
 
-.reportwidthfix {
-	width: 20vw !important;
-}
-
 .carousel-container {
 	/* Make use of flexbox to occupy available space */
 	display: flex;
@@ -1842,6 +1838,21 @@ uni-subscription {
 			width: 6px !important;
 			background-color: #fff !important;
 		}
+
+		:host .p-paginator .p-paginator-first,
+		.p-paginator .p-paginator-prev,
+		.p-paginator .p-paginator-next,
+		.p-paginator .p-paginator-last {
+			min-width: 1px !important;
+		}
+
+		uni-recentlyaddedquestions .event-paginator .p-dropdown {
+			right: 1rem !important;
+		}
+				.p-paginator .p-paginator-pages .p-paginator-page{
+					min-width:2rem !important;
+					height: 2rem !important;
+				}
 	// #sidenav {
 	// 	position: absolute !important;
 	// 	z-index: 1;
@@ -1884,6 +1895,9 @@ uni-subscription {
 	.p-breadcrumb ul {
 		display: -webkit-box !important;
 	}
+}
+@media screen and (max-width: 480px) {
+
 }
 .openlogo {
 	display: block;

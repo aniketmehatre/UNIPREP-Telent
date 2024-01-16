@@ -51,9 +51,8 @@
 			</div>
 			<div class="d-flex justify-content-between align-items-center">
 				<div>
-					<button (click)="goToHome($event)" class="btn btn-warning homecardbtn m-0 px-4 py-2">
-						<i class="fa-solid h5 fa-house"></i><br />
-						Home
+					<button (click)="goToHome($event)" class="btn btn-warning homecardbtn">
+						<i class="fa-solid fa-house"></i><br />
 					</button>
 				</div>
 				<div class="desktop">
@@ -70,10 +69,9 @@
 						class="max-w-full"></p-breadcrumb>
 				</div>
 				<div>
-					<button (click)="openReport()" class="btn btn-primary homecardbtn my-0 px-4 py-2 mx-0">
+					<button (click)="openReport()" class="btn btn-primary homecardbtn">
 						<i class="fa-solid h5 fa-file-contract"></i>
 						<br />
-						Report
 					</button>
 					<button style="display: none" (click)="reviewBy()" class="btn btn-primary homecardbtn my-0 px-4 py-2">
 						<i class="fa-regular fa-user h5"></i><br />

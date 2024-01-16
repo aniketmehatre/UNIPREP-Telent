@@ -204,6 +204,17 @@
   .desktop{
     display: none !important;
   }
+     :host ::ng-deep .p-breadcrumb {
+       font-size: 10px;
+     }
+  
+     .fa-file-contract {
+       font-size: 10px;
+     }
+  
+     .fa-house {
+       font-size: 10px;
+     }
 }
 .mobile{
   display: none;

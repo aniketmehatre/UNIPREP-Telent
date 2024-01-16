@@ -218,6 +218,7 @@
 }
 
 @media screen and (max-width: 480px) {
+
   .desktop {
     display: none !important;
   }
@@ -227,6 +228,17 @@
 
     .desktop-enable{
       display: none;
+    }
+
+    :host ::ng-deep .p-breadcrumb {
+      font-size: 10px ;
+    }
+
+    .fa-file-contract{
+      font-size: 10px;
+    }
+    .fa-house{
+      font-size: 10px;
     }
 }
 

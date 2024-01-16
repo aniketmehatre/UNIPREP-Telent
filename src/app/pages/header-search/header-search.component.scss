@@ -127,6 +127,18 @@ li:last-of-type {
 .mobile{
   display: block;
 }
+
+ :host ::ng-deep .p-breadcrumb {
+   font-size: 10px;
+ }
+
+ .fa-file-contract {
+   font-size: 10px;
+ }
+
+ .fa-house {
+   font-size: 10px;
+ }
 }
 
 .btn-warning {

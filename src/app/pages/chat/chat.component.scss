@@ -492,3 +492,27 @@ countryimage {
   padding: 0 !important;
   font-weight: bold;
 }
+
+@media (max-width: 575.98px) {
+  .btn-chat {
+    padding: 3px 8px !important;
+  }
+
+  .btn-credit {
+    font-size: 10px !important;
+    margin-top: 5px !important;
+  }
+
+  .credits-span {
+    padding: 5px 7px !important;
+  }
+
+  .fa-file-circle-exclamation {
+    font-size: 10px !important;
+  }
+
+  .fa-book {
+    font-size: 10px !important;
+  }
+
+}
