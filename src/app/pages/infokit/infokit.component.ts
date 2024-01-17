@@ -73,7 +73,6 @@ export class InfoKitComponent implements OnInit {
       this.actionedrouteData = [];
       this.routedata.forEach((rdata: any, index: number) => {
         if (index <= arrayindex) {
-          console.log(">", arrayindex, ">>", index);
           this.actionedrouteData.push(rdata);
         }
       });
