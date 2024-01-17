@@ -12,6 +12,7 @@ import { PrivacypolicyComponent } from './footersection/privacypolicy/privacypol
 import { RefundpolicyComponent } from './footersection/refundpolicy/refundpolicy.component';
 import { CancellationpolicyComponent } from './footersection/cancellationpolicy/cancellationpolicy.component';
 import { SupportComponent } from './support/support.component';
+import {InvestorListComponent} from "./investor-list/investor-list.component";
 
 const routes: Routes = [
     {
@@ -87,6 +88,10 @@ const routes: Routes = [
                 path: 'resource',
 
                 loadChildren: () => import('./resource/resource.module').then(m => m.ResourceModule)
+            },
+            {
+                path: 'investor-list',
+                component: InvestorListComponent
             },
             {
                 path: 'events',

@@ -49,6 +49,7 @@ import {ScrollTrackerDirective} from "./header-search/scroll-tracker.directive";
 import { RefundpolicyComponent } from './footersection/refundpolicy/refundpolicy.component';
 import { CancellationpolicyComponent } from './footersection/cancellationpolicy/cancellationpolicy.component';
 import { SupportComponent } from "./support/support.component";
+import { InvestorListComponent } from './investor-list/investor-list.component';
 
 @NgModule({
     declarations: [
@@ -68,6 +69,7 @@ import { SupportComponent } from "./support/support.component";
         RefundpolicyComponent,
         SupportComponent,
         CancellationpolicyComponent,
+        InvestorListComponent,
     ],
   exports: [FooterStatusBoxComponent, HeaderSearchComponent],
   imports: [
