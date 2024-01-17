@@ -12,6 +12,7 @@ import { PrivacypolicyComponent } from './footersection/privacypolicy/privacypol
 import { RefundpolicyComponent } from './footersection/refundpolicy/refundpolicy.component';
 import { CancellationpolicyComponent } from './footersection/cancellationpolicy/cancellationpolicy.component';
 import { SupportComponent } from './support/support.component';
+import { InfoKitComponent } from './infokit/infokit.component';
 
 const routes: Routes = [
     {
@@ -101,6 +102,10 @@ const routes: Routes = [
             {
                 path: 'guideline',
                 component: GuidelineComponent
+            },
+            {
+                path: 'infokit',
+                component: InfoKitComponent
             }
         ]
     }

@@ -1,0 +1,57 @@
+<div class="row p-3">
+  <div style="display: flex " class="routedata">
+    <span (click)="redirectTo('dashboard',-1)">Dashboard / </span><span (click)="redirectTo('infokit',-1)">Information Kit / </span><span *ngFor="let data of routedata ; let i = index;let isLast=last" (click)="redirectTo(data,i)" [ngClass]="isLast?'fontcolor':''">{{ data.name }} / </span>
+  </div>
+</div>
+<div class="card readingcard">
+  <div class="card-body pt-0">
+    <div class="row justify-content-center">
+      <div class="col-md-2 text-start"></div>
+      <div class="col-md-8 text-center">
+        <h5
+          class="select-title mb-1"
+          style="text-transform: uppercase"
+          tooltipPosition="top"
+          pTooltip="This section provides a comprehensive walkthrough on the UNIPREP platform."
+        >
+          {{ titletext
+          }}<i class="questiontooltip fa-solid fa-circle-question"></i>
+        </h5>
+      </div>
+      <div class="col-md-2"></div>
+    </div>
+    <div class="container-fluid">
+      <div class="row gap-2 p-3">
+        <div
+          class="col-3 card folder-card"
+          *ngFor="let folder of parentfolderlists"
+        >
+          <div class="card-body">
+            <div
+              class="d-flex justify-content-start folder"
+              (click)="getchildinfo(folder)"
+            >
+              <div class="me-2 d-flex align-items-center">
+                <img
+                  class="img-responsive"
+                  *ngIf="folder?.isFolder == 1; else fileimage"
+                  [src]="folder?.img_path"
+                /><ng-template #fileimage>
+                  <img
+                    class="img-responsive"
+                    src="../../../uniprep-assets/images/pdf.svg"
+                /></ng-template>
+              </div>
+              <div class="folderinfo">
+                <h5>{{ folder?.name }}</h5>
+                <p>
+                  Last Updated:<span>{{ folder?.last_updated }}</span>
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
