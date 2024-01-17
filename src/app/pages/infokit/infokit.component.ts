@@ -55,6 +55,9 @@ export class InfoKitComponent implements OnInit {
       });
   }
   getchildinfo(data: any) {
+    if (data.isFolder == "2") {
+      return;
+    }
     this.folderdata = data.id;
     if (data.parent_id == "0") {
       this.titletext = data.name;
