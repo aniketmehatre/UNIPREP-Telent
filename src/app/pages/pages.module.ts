@@ -50,6 +50,7 @@ import { RefundpolicyComponent } from './footersection/refundpolicy/refundpolicy
 import { CancellationpolicyComponent } from './footersection/cancellationpolicy/cancellationpolicy.component';
 import { SupportComponent } from "./support/support.component";
 import { InvestorListComponent } from './investor-list/investor-list.component';
+import { CompanyListComponent } from './company-list/company-list.component';
 
 @NgModule({
     declarations: [
@@ -70,6 +71,7 @@ import { InvestorListComponent } from './investor-list/investor-list.component';
         SupportComponent,
         CancellationpolicyComponent,
         InvestorListComponent,
+        CompanyListComponent,
     ],
   exports: [FooterStatusBoxComponent, HeaderSearchComponent],
   imports: [

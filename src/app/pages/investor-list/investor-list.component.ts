@@ -19,16 +19,6 @@ export class InvestorListComponent implements OnInit {
   goBack(){
     this._location.back();
   }
-  button1Style = {
-    'background-color': '#4287f5',
-    color: '#fff',
-
-  };
-
-  button2Style = {
-    'background-color': '#FFFFFF',
-    color: '#000000'
-  };
 
   performSearch(events:any){
     var data={
