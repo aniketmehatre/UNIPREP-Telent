@@ -109,7 +109,7 @@ export class SidenavComponent {
       image: "",
     },
     {
-      title: "Information Kit",
+      title: "Startup Kit",
       url: "/pages/infokit",
       image: "fa-solid fa-memo-circle-info",
     },
@@ -247,7 +247,7 @@ export class SidenavComponent {
         newValue.title != "Tutorials" &&
         newValue.title != "FAQ" &&
         newValue.title != "24x7 Support" &&
-        newValue.title != "Information Kit" &&
+        newValue.title != "Startup Kit" &&
         newValue.title != "Subscription"
       ) {
         this.visibleExhasted = true;
