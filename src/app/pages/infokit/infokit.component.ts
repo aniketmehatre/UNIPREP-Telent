@@ -38,10 +38,11 @@ export class InfoKitComponent implements OnInit {
     private toastr: MessageService,
     private route: Router
   ) {}
-  titletext = "INFORMATION KIT";
+  titletext = "STARTUP KIT";
   folderdata: any = "0";
   routedata: any = [];
   parentfolderlists: any = [];
+  parentfilelists: any = [];
   ngOnInit(): void {
     this.getFolderData(this.folderdata);
   }
@@ -51,7 +52,13 @@ export class InfoKitComponent implements OnInit {
         parent_id: parent_id,
       })
       .subscribe((res) => {
-        this.parentfolderlists = res?.data;
+        let responseData = res?.data;
+        this.parentfolderlists = responseData.filter(
+          (fdata: any) => fdata.isFolder == 1
+        );
+        this.parentfilelists = responseData.filter(
+          (fdata: any) => fdata.isFolder == 2
+        );
       });
   }
   getchildinfo(data: any) {
