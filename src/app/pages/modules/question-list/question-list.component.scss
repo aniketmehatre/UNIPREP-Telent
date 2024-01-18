@@ -217,7 +217,14 @@
   color: white;
 }
 
+.gap-2 {
+  flex-wrap: wrap !important;
+}
+
 @media screen and (max-width: 480px) {
+  .gap-2 {
+      flex-wrap: nowrap !important;
+    }
 
   .desktop {
     display: none !important;
