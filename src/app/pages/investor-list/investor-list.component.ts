@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {Location} from "@angular/common";
+import {FormBuilder, FormGroup} from "@angular/forms";
 
 @Component({
   selector: 'uni-investor-list',
@@ -8,9 +9,18 @@ import {Location} from "@angular/common";
 })
 export class InvestorListComponent implements OnInit {
 
-  array: any []= []
+  investorData: any []= []
   valueNearYouFilter: any;
-  constructor(private _location: Location,) { }
+  totalInvestorsCount: any;
+  isFilterVisible: string = 'none';
+  filterform:FormGroup;
+  constructor(private _location: Location, private fb: FormBuilder) {
+    this.filterform = this.fb.group({
+      from: [''],
+      to: [''],
+      country: ['']
+    });
+  }
 
   ngOnInit(): void {
     this.loadInvestorData();
@@ -35,5 +45,25 @@ export class InvestorListComponent implements OnInit {
 
   filterOnSubmit(){
 
+  }
+
+  pageChange(event: any){
+
+  }
+  edit(data: any){
+
+  }
+
+  filterSubmit(){
+
+  }
+
+  closePopup(){
+
+  }
+
+  filterBy(){
+    console.log('asdfasdf')
+    this.isFilterVisible = 'none';
   }
 }
