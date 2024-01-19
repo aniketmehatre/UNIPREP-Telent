@@ -23,8 +23,11 @@
             <div class="col-md-6 col-7 text-md-center text-end">
             </div>
             <div class="col-md-3 col-12 text-right">
-                <span ><button class="btn btn-outline-primary theme-blue px-4 py-3" (click)="filterBy()" type="button">Filter
+                <span ><button class="btn btn-outline-primary theme-blue px-4 py-3" (click)="filterBy()" type="button">
+                    Filter
 						by</button></span>
+                <span ><button class="btn btn-danger theme-blue px-4 py-3" (click)="resetFilter()" type="button">
+                    Reset</button></span>
             </div>
         </div>
         <div class="mobile mt-2">
@@ -59,16 +62,19 @@
             </div>
         </div>
         <!-- upcomming event -->
-        <p-table #table [value]="investorData" styleClass="gray-header" [paginator]="true" (onPage)="pageChange($event)"
-                 [lazy]="true" [totalRecords]="valueNearYouFilter" [rows]="valueNearYouFilter" [rowsPerPageOptions]="[10, 25, 50]">
+        <p-table #table [value]="investorData" styleClass="gray-header" [paginator]="false" (onPage)="pageChange($event)"
+                  [totalRecords]="totalInvestorsCount" [rows]="pageSize" [rowsPerPageOptions]="[10, 25, 50]">
             <ng-template pTemplate="caption">
                 <div class="d-flex w-full align-items-end justify-content-end">
-                    <div>
+                    <div class="pe-2">
                         <span class="text-muted text-small">Total Investors : {{ totalInvestorsCount }}</span>
                     </div>
-                    <!-- <button pButton>Export &nbsp; <i class="pi pi-file"></i></button> -->
-<!--                    <button type="button" class="ps-3 pe-2 pt-2 pb-2" (click)="exportTable()" pButton style="background-color: var(&#45;&#45;uniprep-primary);border-radius: 8px; border: aliceblue; color: #fff;">Export &nbsp; <i class="pi pi-file"></i></button>-->
-
+                    <div class="ps-2">
+<!--                     <button pButton>Export &nbsp; <i class="pi pi-file"></i></button>-->
+                    <button type="button" class="ps-3 pe-2 pt-2 pb-2" (click)="exportTable()"
+                            pButton style="background-color: var(--uniprep-primary);border-radius: 8px; border: aliceblue; color: #fff;">
+                        Export &nbsp; <i class="pi pi-file"></i></button>
+                    </div>
                 </div>
             </ng-template>
             <ng-template pTemplate="header">
@@ -82,30 +88,31 @@
                     <th class="border-cell">Link</th>
                 </tr>
             </ng-template>
-            <ng-template pTemplate="body" let-faq let-expanded="expanded">
+            <ng-template pTemplate="body" let-inv let-expanded="expanded">
                 <tr>
-                    <td class="border-cell">{{faq.question}}</td>
-                    <td class="border-cell">{{faq.answer}}</td>
-                    <td class="border-cell">{{faq.name}}</td>
-                    <td class="border-cell">{{faq.status==1?"Active":"Deactive"}}</td>
-                    <td class="border-cell">{{faq.status==1?"Active":"Deactive"}}</td>
-                    <td class="border-cell">{{faq.status==1?"Active":"Deactive"}}</td>
+                    <td class="border-cell">{{inv.org_name}}</td>
+                    <td class="border-cell">{{inv.org_type}}</td>
+                    <td class="border-cell">{{inv.country}}</td>
+                    <td class="border-cell">{{inv.head_quarters}}</td>
+                    <td class="border-cell">{{inv.investor_type}}</td>
+                    <td class="border-cell">{{inv.industry_interested}}</td>
                     <td class="border-cell">
-                <span style="display: inline-flex;">
-                    <div style="cursor: pointer;" class="view-btn m-1"><a (click)="edit(faq)"><i class="fa-solid fa-pen"></i> Edit</a></div>
-                    <!-- <div style="cursor: pointer;" class="view-btn m-1"><span (click)="deleted(faq.id)"><i class="fa-solid fa-trash text-danger"></i> Delete</span></div> -->
-
-                </span>
+                        <a target="_blank" href="{{inv.linked_in}}">Linked In</a><br>
+                        <a target="_blank" href="{{inv.website}}">Website</a><br>
+                        <a href="mailto:{{inv.email}}">Email</a><br>
                     </td>
                 </tr>
             </ng-template>
         </p-table>
-
+        <p-paginator [rows]="pageSize" [totalRecords]="totalInvestorsCount" (onPageChange)="pageChange($event)" [first]="page"
+                     [rowsPerPageOptions]="[10, 25, 50]"></p-paginator>
     </div>
+
 </div>
+
 <div class="modal" tabindex="-1" role="dialog" [ngStyle]="{ display: isFilterVisible }">
     <div class="modal-dialog" role="document">
-        <form role="form" [formGroup]="filterform" (ngSubmit)="filterSubmit()">
+        <form role="form" [formGroup]="filterForm" (ngSubmit)="loadInvestorData()">
             <div class="modal-content" style="margin-top: 50% !important">
                 <div class="modal-header flex justify-content-between">
                     <h4 class="modal-title">Filter Events</h4>
@@ -113,43 +120,107 @@
                                                                      class="fa-solid fa-circle-xmark fa-2x"></i></span>
                 </div>
                 <div class="modal-body">
-
                     <div class="row">
                         <div class="col-md-12">
                             <div class="row">
                                 <div class="col-md-6">
                                     <label class="form-label" style="font-size: medium;font-weight:500">Filter by
-                                        date</label>
+                                        Org. Name</label>
                                     <div class="form-group">
                                         <div class="mb-3">
-                                            <input placeholder="Start date" type="date" formControlName="from"
+                                            <input placeholder="Org Name" type="text" formControlName="org_name"
                                                    class="form-control border-black paddingfive" />
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-6 mt-2">
-                                    <div class="form-group">
-                                        <label class="form-label"></label>
-                                        <div class="mb-3">
-                                            <input placeholder="End date" type="date" formControlName="to"
-                                                   class="form-control border-black paddingfive" />
-                                            <div *ngIf="filterform.hasError('dateRange')" class="text-danger">
-                                                {{ filterform.getError('dateRange') }}
+                                            <div *ngIf="filterForm.hasError('org_name')" class="text-danger">
+                                                {{ filterForm.getError('org_name') }}
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-12">
-                            <div class="form-group">
-
-                                <label style="font-size: medium;font-weight: 500;">Filter by Country</label>
-<!--                                <p-dropdown class="mt-2" placeholder="Select one or more countries" formControlName="country"-->
-<!--                                            [options]="countries" optionValue="id" optionLabel="country" styleClass="w-full"-->
-<!--                                            [filter]="true"></p-dropdown>-->
+                                <div class="col-md-6">
+                                    <label class="form-label" style="font-size: medium;font-weight:500">Filter by
+                                        Org. Type</label>
+                                    <div class="form-group">
+                                        <div class="mb-3">
+                                            <p-multiSelect [options]="investorOrgType" styleClass="w-100"
+                                                           formControlName="org_type"
+                                                           optionValue="id"
+                                                           defaultLabel="Select a multiple Org. Type"
+                                                           optionLabel="org_type_name" #multiSelect>
+                                                <ng-template pTemplate="selectedItems">
+                                                    {{ multiSelect.defaultLabel  }}
+                                                </ng-template>
+                                            </p-multiSelect>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label" style="font-size: medium;font-weight:500">Filter by
+                                        Country</label>
+                                    <div class="form-group">
+                                        <div class="mb-3">
+                                            <p-multiSelect [options]="countryList" styleClass="w-100"
+                                                           formControlName="country"
+                                                           optionValue="id"
+                                                           defaultLabel="Select a multiple Country"
+                                                           optionLabel="country" #multiSelect>
+                                                <ng-template pTemplate="selectedItems">
+                                                    {{ multiSelect.defaultLabel }}
+                                                </ng-template>
+                                            </p-multiSelect>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label" style="font-size: medium;font-weight:500">Filter by
+                                        Headquarters</label>
+                                    <div class="form-group">
+                                        <div class="mb-3">
+<!--                                            <p-multiSelect [options]="anny" styleClass="w-100"-->
+<!--                                                           [(ngModel)]="anny"-->
+<!--                                                           formControlName="country"-->
+<!--                                                           defaultLabel="Select a multiple Org. Type"-->
+<!--                                                           optionLabel="orgType" #multiSelect>-->
+<!--                                                <ng-template pTemplate="selectedItems">-->
+<!--&lt;!&ndash;                                                    {{ multiSelect }}&ndash;&gt;-->
+<!--                                                </ng-template>-->
+<!--                                            </p-multiSelect>-->
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label" style="font-size: medium;font-weight:500">Filter by
+                                        Investor Type</label>
+                                    <div class="form-group">
+                                        <div class="mb-3">
+                                            <p-multiSelect [options]="investorType" styleClass="w-100"
+                                                           formControlName="investor_type"
+                                                           optionValue="id"
+                                                           defaultLabel="Select a multiple Investor Type"
+                                                           optionLabel="investor_type_name" #multiSelect>
+                                                <ng-template pTemplate="selectedItems">
+                                                    {{ multiSelect.defaultLabel }}
+                                                </ng-template>
+                                            </p-multiSelect>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label" style="font-size: medium;font-weight:500">Filter by
+                                        Industry</label>
+                                    <div class="form-group">
+                                        <div class="mb-3">
+                                            <p-multiSelect [options]="investorIndustryInterested" styleClass="w-100"
+                                                           formControlName="industry_interested"
+                                                           optionValue="id"
+                                                           defaultLabel="Select a multiple Industry Interested"
+                                                           optionLabel="industry_name" #multiSelect>
+                                                <ng-template pTemplate="selectedItems">
+                                                    {{ multiSelect.defaultLabel }}
+                                                </ng-template>
+                                            </p-multiSelect>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>

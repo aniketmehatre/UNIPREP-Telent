@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {Location} from "@angular/common";
 import {FormBuilder, FormGroup} from "@angular/forms";
+import {InvestorListService} from "./investor-list.service";
 
 @Component({
   selector: 'uni-investor-list',
@@ -8,21 +9,30 @@ import {FormBuilder, FormGroup} from "@angular/forms";
   styleUrls: ['./investor-list.component.scss']
 })
 export class InvestorListComponent implements OnInit {
-
   investorData: any []= []
+  investorIndustryInterested: any;
+  investorOrgType: any;
+  investorType: any;
+  countryList: any;
+  page = 1;
+  pageSize = 10;
   valueNearYouFilter: any;
   totalInvestorsCount: any;
   isFilterVisible: string = 'none';
-  filterform:FormGroup;
-  constructor(private _location: Location, private fb: FormBuilder) {
-    this.filterform = this.fb.group({
-      from: [''],
-      to: [''],
-      country: ['']
+  filterForm:FormGroup;
+  
+  constructor(private _location: Location, private fb: FormBuilder, private investorList: InvestorListService) {
+    this.filterForm = this.fb.group({
+      org_name: [''],
+      org_type: [''],
+      country: [''],
+      investor_type: [''],
+      industry_interested: [''],
     });
   }
 
   ngOnInit(): void {
+    this.loadMultiSelectData();
     this.loadInvestorData();
   }
 
@@ -38,32 +48,53 @@ export class InvestorListComponent implements OnInit {
     // this.getPostEvent(data)
   }
 
-
-  loadInvestorData(){
-
+  loadMultiSelectData(){
+    this.investorList.getMultiSelectData().subscribe((response) => {
+      this.investorIndustryInterested = response.investor_industry_interested;
+      this.investorOrgType = response.investor_org_type;
+      this.investorType = response.investor_type;
+      this.countryList = response.countries_list;
+    });
   }
 
-  filterOnSubmit(){
+  resetFilter(){
+    this.filterForm.reset();
+    this.loadInvestorData();
+  }
 
+
+  loadInvestorData(){
+    let data = {
+      org_name: this.filterForm.value.org_name ? this.filterForm.value.org_name : '',
+      org_type: this.filterForm.value.org_type ? this.filterForm.value.org_type : '',
+      country: this.filterForm.value.org_type ? this.filterForm.value.country : '',
+      investor_type: this.filterForm.value.org_type ? this.filterForm.value.investor_type : '',
+      industry_interested: this.filterForm.value.org_type ? this.filterForm.value.industry_interested : '',
+      page: this.page,
+      perpage: this.pageSize,
+    }
+    this.investorList.getInvestorList(data).subscribe((response) => {
+      this.investorData = response.data;
+      this.totalInvestorsCount = response.count;
+    });
   }
 
   pageChange(event: any){
-
-  }
-  edit(data: any){
-
-  }
-
-  filterSubmit(){
-
+    this.page = event.page + 1;
+    this.pageSize = event.rows;
+    this.loadInvestorData();
   }
 
   closePopup(){
+    this.isFilterVisible = 'none'
 
   }
 
   filterBy(){
-    console.log('asdfasdf')
-    this.isFilterVisible = 'none';
+    this.isFilterVisible = 'block';
+  }
+
+  exportTable(){
+
   }
 }
