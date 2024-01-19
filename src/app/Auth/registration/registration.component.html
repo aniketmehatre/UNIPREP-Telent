@@ -271,7 +271,7 @@
 													<div *ngIf="isRemainingFieldVisible">
 														<div class="row">
 															<div class="col-md-6 col-12">
-																<label for="gender">Gender<span class="required">*</span></label>
+																<label for="gender">Gender</label>
 																<div class="p-inputgroup">
 																	<div class="p-inputgroup-addon">
 																		<i class="fa-regular fa-venus-mars"></i>
@@ -280,11 +280,6 @@
 																		formControlName="gender" [options]="genderList"
 																		[autoDisplayFirst]="false"
 																		optionLabel="value"></p-dropdown>
-																</div>
-																<div *ngIf="submitted && f.gender.errors"
-																	class="invalid-feedback">
-																	<div *ngIf="f.gender.errors.required">Gender is
-																		required</div>
 																</div>
 															</div>
 															<div class="col-md-6 col-12">

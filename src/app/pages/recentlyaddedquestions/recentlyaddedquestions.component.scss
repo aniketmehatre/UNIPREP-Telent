@@ -194,7 +194,14 @@
   color: white;
 }
 
+.gap-2 {
+  flex-wrap: wrap !important;
+}
+
 @media screen and (max-width: 480px) {
+  .gap-2 {
+      flex-wrap: nowrap !important;
+    }
   .mobile {
     .homecardbtn{
       width: 20px;

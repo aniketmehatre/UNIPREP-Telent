@@ -109,8 +109,14 @@ li:last-of-type {
 }
 }
 
+.gap-2 {
+  flex-wrap: wrap !important;
+}
 
 @media (max-width: 575.98px) {
+  .gap-2{
+    flex-wrap: nowrap !important;
+  }
 .list-group{
     position: absolute;
       z-index: 1 !important;
