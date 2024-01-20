@@ -129,6 +129,9 @@
   .p-component {
     border: none !important;
     padding: 0;
+    ul {
+        overflow: scroll !important;
+      }
   }
 }
 
