@@ -104,6 +104,16 @@ export class SidenavComponent {
       image: "fa-solid fa-link",
     },
     {
+      title: "Revenue",
+      url: "",
+      image: "",
+    },
+    {
+      title: "Investor List",
+      url: "/pages/investor-list",
+      image: "fa-solid fa-memo-circle-info",
+    },
+    {
       title: "Support",
       url: "",
       image: "",

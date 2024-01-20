@@ -14,18 +14,20 @@ export class InvestorListComponent implements OnInit {
   investorOrgType: any;
   investorType: any;
   countryList: any;
+  headQuartersList: any
   page = 1;
   pageSize = 10;
   valueNearYouFilter: any;
   totalInvestorsCount: any;
   isFilterVisible: string = 'none';
   filterForm:FormGroup;
-  
+
   constructor(private _location: Location, private fb: FormBuilder, private investorList: InvestorListService) {
     this.filterForm = this.fb.group({
       org_name: [''],
       org_type: [''],
       country: [''],
+      head_quarters: [''],
       investor_type: [''],
       industry_interested: [''],
     });
@@ -54,6 +56,7 @@ export class InvestorListComponent implements OnInit {
       this.investorOrgType = response.investor_org_type;
       this.investorType = response.investor_type;
       this.countryList = response.countries_list;
+      this.headQuartersList = response.head_quarters_list;
     });
   }
 
@@ -68,6 +71,7 @@ export class InvestorListComponent implements OnInit {
       org_name: this.filterForm.value.org_name ? this.filterForm.value.org_name : '',
       org_type: this.filterForm.value.org_type ? this.filterForm.value.org_type : '',
       country: this.filterForm.value.org_type ? this.filterForm.value.country : '',
+      head_quarters: this.filterForm.value.head_quarters ? this.filterForm.value.head_quarters : '',
       investor_type: this.filterForm.value.org_type ? this.filterForm.value.investor_type : '',
       industry_interested: this.filterForm.value.org_type ? this.filterForm.value.industry_interested : '',
       page: this.page,
@@ -77,6 +81,7 @@ export class InvestorListComponent implements OnInit {
       this.investorData = response.data;
       this.totalInvestorsCount = response.count;
     });
+    this.isFilterVisible = 'none'
   }
 
   pageChange(event: any){
@@ -95,6 +100,8 @@ export class InvestorListComponent implements OnInit {
   }
 
   exportTable(){
-
+    this.investorList.export().subscribe((response) => {
+      window.open(response.link, '_blank');
+    });
   }
 }

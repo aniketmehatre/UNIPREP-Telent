@@ -63,17 +63,17 @@
         </div>
         <!-- upcomming event -->
         <p-table #table [value]="investorData" styleClass="gray-header" [paginator]="false" (onPage)="pageChange($event)"
-                  [totalRecords]="totalInvestorsCount" [rows]="pageSize" [rowsPerPageOptions]="[10, 25, 50]">
+                 [totalRecords]="totalInvestorsCount" [rows]="pageSize" [rowsPerPageOptions]="[10, 25, 50]">
             <ng-template pTemplate="caption">
                 <div class="d-flex w-full align-items-end justify-content-end">
                     <div class="pe-2">
                         <span class="text-muted text-small">Total Investors : {{ totalInvestorsCount }}</span>
                     </div>
                     <div class="ps-2">
-<!--                     <button pButton>Export &nbsp; <i class="pi pi-file"></i></button>-->
-                    <button type="button" class="ps-3 pe-2 pt-2 pb-2" (click)="exportTable()"
-                            pButton style="background-color: var(--uniprep-primary);border-radius: 8px; border: aliceblue; color: #fff;">
-                        Export &nbsp; <i class="pi pi-file"></i></button>
+                        <!--                     <button pButton>Export &nbsp; <i class="pi pi-file"></i></button>-->
+                        <button type="button" class="ps-3 pe-2 pt-2 pb-2" (click)="exportTable()"
+                                pButton style="background-color: var(--uniprep-primary);border-radius: 8px; border: aliceblue; color: #fff;">
+                            Export &nbsp; <i class="pi pi-file"></i></button>
                     </div>
                 </div>
             </ng-template>
@@ -115,7 +115,7 @@
         <form role="form" [formGroup]="filterForm" (ngSubmit)="loadInvestorData()">
             <div class="modal-content" style="margin-top: 50% !important">
                 <div class="modal-header flex justify-content-between">
-                    <h4 class="modal-title">Filter Events</h4>
+                    <h4 class="modal-title">Filter Investor</h4>
                     <span style="cursor: pointer;color: #3f4c83;"><i (click)="closePopup()"
                                                                      class="fa-solid fa-circle-xmark fa-2x"></i></span>
                 </div>
@@ -175,15 +175,14 @@
                                         Headquarters</label>
                                     <div class="form-group">
                                         <div class="mb-3">
-<!--                                            <p-multiSelect [options]="anny" styleClass="w-100"-->
-<!--                                                           [(ngModel)]="anny"-->
-<!--                                                           formControlName="country"-->
-<!--                                                           defaultLabel="Select a multiple Org. Type"-->
-<!--                                                           optionLabel="orgType" #multiSelect>-->
-<!--                                                <ng-template pTemplate="selectedItems">-->
-<!--&lt;!&ndash;                                                    {{ multiSelect }}&ndash;&gt;-->
-<!--                                                </ng-template>-->
-<!--                                            </p-multiSelect>-->
+                                        <p-multiSelect [options]="headQuartersList" styleClass="w-100"
+                                                       formControlName="head_quarters"
+                                                       defaultLabel="Select a multiple Org. Type"
+                                                       optionLabel="country" #multiSelect>
+                                            <ng-template pTemplate="selectedItems">
+                                                            {{ multiSelect.defaultLabel }}
+                                            </ng-template>
+                                        </p-multiSelect>
                                         </div>
                                     </div>
                                 </div>

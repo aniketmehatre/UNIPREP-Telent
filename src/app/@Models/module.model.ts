@@ -13,3 +13,6 @@ export interface ModuleListSub{
     questioncount: any,
     submodule_id?: any,
 }
+export interface ExportData {
+    link: string
+}
