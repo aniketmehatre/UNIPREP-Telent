@@ -31,6 +31,7 @@ video::-webkit-media-controls-panel {
 	width: 100%;
 	height: 100%;
 	overflow: hidden;
+	margin-bottom:-10px;
 }
 
 .fa-circle-play {
@@ -53,7 +54,7 @@ video {
 	left: 0;
 	right: 0;
 	height: 200px; /* Adjust this value to change the height of the gradient */
-	background: linear-gradient(to top, white, transparent);
+	background: linear-gradient(to top, #07070b, transparent);
 }
 body {
 	font-family: "Poppins", sans-serif !important;
@@ -62,6 +63,34 @@ body {
 section {
 	scroll-margin-top: 3rem;
 }
+
+h1,
+.text-size-h1 {
+  font-weight: 700;
+  margin-top: 0;
+  font-size: 4.21em;
+}
+
+h2,
+.text-size-h2 { font-size: 3.16em; }
+
+h3,
+.text-size-h3 { font-size: 2.37em; }
+
+h4,
+.text-size-h4 { font-size: 1.78em; }
+
+h5,
+.text-size-h5 { font-size: 1.33em; }
+
+.text-caption { font-size: 0.75em; }
+
+small,
+.text-small {
+  font-size: 0.56em;
+}
+
+
 h1,
 h2 {
 	font-weight: 700;
@@ -81,15 +110,20 @@ p {
 }
 .darksection
 {
+	background-color: #07070B;
 	p
 	{
 		color: #000;
 	}
 	
 }
+.navbar
+{
+	background: #07070b;
+}
 .btn {
 	display: block;
-	border-radius: 100px !important;
+	border-radius: 5px !important;
 }
 .mobilemenu {
 	pointer-events: auto;
@@ -121,10 +155,65 @@ p {
 	--bs-btn-bg: var(--uniprep-primary);
 	--bs-btn-border-color: var(--uniprep-primary);
 }
+.footerbg
+{
+	background: rgb(219,83,175);
+	background: linear-gradient(90deg, rgba(219,83,175,1) 0%, rgba(220,122,86,1) 100%);
+	border:none;
+}
+.cta-field
+{
+	.card
+	{
+		background: rgb(219,83,175);
+		background: linear-gradient(90deg, rgba(219,83,175,1) 0%, rgba(220,122,86,1) 100%);
+		border:none;
+	}
+	.cta-btn
+	{
+		background: black;
+    color: white;
+    padding: 0.8rem;
+	}
+}
 .card {
-	background-color: #F5F7FF;
-	border: none;
-	border-radius: 25px;
+	border-radius: 1.5rem;
+	border: 1px solid #E6DDFE08;
+	background: linear-gradient(0deg, rgba(255, 255, 255, 0.00) 0%, rgba(255, 255, 255, 0.05) 100%);
+	box-shadow: 0px 10px 25px 0px rgba(230, 221, 254, 0.10) inset;
+	color:white;
+	&:hover
+	{
+		.card-title
+		{
+			color:var(--uniprep-secondary);
+		}
+		.cardicon
+		{
+			font-weight:700;
+		}
+	}
+}
+.isforyou
+{
+	margin-bottom: 1rem;
+}
+
+.homebg
+{
+	background-image: url("/uniprep-assets/images/homepagebg.png");
+	background-size: cover;
+    background-position: center;
+}
+.homefaqbg
+{
+	background-image: url("/uniprep-assets/images/homefaqbg.png");
+	background-size: cover;
+    background-position: center;
+}
+.text-grey
+{
+	color:#7F7F90 !important;
 }
 
 .quotesymbole
@@ -168,7 +257,7 @@ p {
 
 .featurecard
 {
-    background:#F5F7FF;
+    background:#07070B;
     border-radius: 12px !important;
     overflow: hidden;
     margin-bottom: 10px;
@@ -179,22 +268,22 @@ p {
 {
 	border-radius: 20px;
     overflow: hidden;
-    border: 1px solid #f5f7ff;
+    border: 1px solid #07070B;
 }
 
-.featurecard .accordion-button::after
-{
-    display:none;
-}
+// .featurecard .accordion-button::after
+// {
+//     display:none;
+// }
 
 .featurecard .accordion-collapse
 {
-    background:#F5F7FF;
+    background:#07070B;
 }
 
 .featurecard .accordion-button:not(.collapsed)
 {
-    background:#F5F7FF;
+    background:#07070B;
 }
 
 .featurecard .accordion-header button
@@ -203,6 +292,7 @@ p {
     padding: 0.75rem 1rem;
     font-weight:600;
     color:var(--uniprep-primary);
+	background:none;
 }
 
 .featurecard .accordion-body
@@ -212,24 +302,25 @@ p {
 }
 
 .faqcard {
-	background: #f5f7ff;
+	background: #18181D;
 	border-radius: 10px !important;
 	overflow: hidden;
 	margin-bottom: 10px;
-	border: 1px solid #cbd1ea !important;
+	border: 1px solid #080E13 !important;
 }
 
 .faqcard .accordion-button::after {
 }
 
 .faqcard .accordion-collapse {
-	background: #f5f7ff;
+	background: #18181D;
 }
 
 .faqcard .accordion-button:not(.collapsed) {
-	background: #f5f7ff;
+	background: #18181D;
 	border-radius: 10px;
 	color: var(--uniprep-primary);
+	border:none;
 }
 
 /* .faqcard .accordion-button:not(.collapsed)::after
@@ -238,7 +329,7 @@ p {
 } */
 
 .faqcard .accordion-header button {
-	background: #f5f7ff;
+	background: #18181D;
 	box-shadow: none;
 	padding: 1rem 1rem;
 	font-weight: 600;
@@ -247,8 +338,22 @@ p {
 .faqcard .accordion-body {
 	text-align: start;
 	padding: 0.75rem 1rem;
-	color: #000;
+	color: white;
 }
+
+.comparisionchart
+{
+	ul
+	{
+		list-style: none;
+		padding-left: 0;
+		li
+		{
+			padding: 10px 0;
+		}
+	}
+}
+
 .marquee-container {
 	overflow: hidden;
 	position: relative;
