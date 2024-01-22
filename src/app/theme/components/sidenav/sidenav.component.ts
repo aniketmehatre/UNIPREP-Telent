@@ -114,6 +114,11 @@ export class SidenavComponent {
       image: "fa-solid fa-memo-circle-info",
     },
     {
+      title: "Company List",
+      url: "/pages/company-list",
+      image: "fa-solid fa-memo-circle-info",
+    },
+    {
       title: "Support",
       url: "",
       image: "",

@@ -67,7 +67,7 @@
         </div>
         <!-- upcomming event -->
         <p-table #table [value]="investorData" class="primary-header" styleClass="primary-header" [paginator]="false" (onPage)="pageChange($event)"
-                 [totalRecords]="totalInvestorsCount" [rows]="pageSize" [rowsPerPageOptions]="[10, 25, 50]">
+                 [totalRecords]="totalInvestorsCount" [rows]="pageSize" [rowsPerPageOptions]="[50, 100]">
             <ng-template pTemplate="caption">
                 <div class="d-flex w-full align-items-end justify-content-end">
                     <div class="pe-2">
@@ -75,9 +75,9 @@
                     </div>
                     <div class="ps-2">
                         <!--                     <button pButton>Export &nbsp; <i class="pi pi-file"></i></button>-->
-                        <button type="button" class="ps-3 pe-2 pt-2 pb-2" (click)="exportTable()"
-                                pButton style="background-color: var(--uniprep-primary);border-radius: 8px; border: aliceblue; color: #fff;">
-                            Export &nbsp; <i class="pi pi-file"></i></button>
+<!--                        <button type="button" class="ps-3 pe-2 pt-2 pb-2" (click)="exportTable()"-->
+<!--                                pButton style="background-color: var(&#45;&#45;uniprep-primary);border-radius: 8px; border: aliceblue; color: #fff;">-->
+<!--                            Export &nbsp; <i class="pi pi-file"></i></button>-->
                     </div>
                 </div>
             </ng-template>
@@ -109,7 +109,7 @@
             </ng-template>
         </p-table>
         <p-paginator [rows]="pageSize" [totalRecords]="totalInvestorsCount" (onPageChange)="pageChange($event)" [first]="page"
-                     [rowsPerPageOptions]="[10, 25, 50]"></p-paginator>
+                     [rowsPerPageOptions]="[50, 100]"></p-paginator>
     </div>
 
 </div>
