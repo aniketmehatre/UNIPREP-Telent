@@ -71,7 +71,7 @@ export class LandingComponent implements OnInit {
 
   ngOnInit() {
     // Any additional initialization can go here
-    this.currentImage = '/uniprep-assets/images/feature1.webp';
+    this.currentImage = '/uniprep-assets/images/f1.png';
 
 
     this.contactForm = this.formbuilder.group({
