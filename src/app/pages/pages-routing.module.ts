@@ -119,7 +119,7 @@ const routes: Routes = [
                 component: GuidelineComponent
             },
             {
-                path: 'infokit',
+                path: 'startup',
                 component: InfoKitComponent
             }
         ]
