@@ -110,7 +110,7 @@ export class SidenavComponent {
     },
     {
       title: "Startup Kit",
-      url: "/pages/infokit",
+      url: "/pages/startup",
       image: "fa-solid fa-memo-circle-info",
     },
     {

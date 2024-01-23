@@ -1,6 +1,6 @@
 <div class="row p-3">
   <div style="display: flex " class="routedata">
-    <span (click)="redirectTo('dashboard',-1)">Dashboard / </span><span (click)="redirectTo('infokit',-1)">Startup Kit / </span><span *ngFor="let data of routedata ; let i = index;let isLast=last" (click)="redirectTo(data,i)" [ngClass]="isLast?'fontcolor':''">{{ data.name }} / </span>
+    <span (click)="redirectTo('dashboard',-1)">Dashboard / </span><span (click)="redirectTo('startup',-1)">Startup Kit / </span><span *ngFor="let data of routedata ; let i = index;let isLast=last" (click)="redirectTo(data,i)" [ngClass]="isLast?'fontcolor':''">{{ data.name }} / </span>
   </div>
 </div>
 <div class="card readingcard">
@@ -55,6 +55,7 @@
           class="col-3 card folder-card"
           *ngFor="let folder of parentfilelists"
         >
+        <a (click)="openFile(folder.img_path)">
           <div class="card-body">
             <div
               class="d-flex justify-content-start folder"
@@ -74,7 +75,7 @@
                 </p>
               </div>
             </div>
-          </div>
+          </div></a>
         </div>
       </div>
     </div>

@@ -80,6 +80,7 @@ export class InfoKitComponent implements OnInit {
   actionedrouteData: any = [];
   redirectTo(path: any, arrayindex: number) {
     if (path.path == "country") {
+      this.folderdata = path.id;
       this.actionedrouteData = [];
       this.routedata.forEach((rdata: any, index: number) => {
         if (index <= arrayindex) {
@@ -89,11 +90,15 @@ export class InfoKitComponent implements OnInit {
       this.routedata = this.actionedrouteData;
       this.getFolderData(path.id);
     } else {
-      if (path == "infokit") {
+      if (path == "startup") {
+        this.folderdata = "0";
         this.routedata = [];
         this.getFolderData("0");
       }
       this.route.navigate(["pages/" + path]);
     }
+  }
+  openFile(url:any) {
+    window.open(url, "_blank");
   }
 }
