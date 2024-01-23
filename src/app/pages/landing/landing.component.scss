@@ -174,6 +174,12 @@ p {
 	}
 	
 }
+// .impactborder
+// {
+// 	border:10px solid #c0c0c0;
+// 	border-color: linear-gradient(145deg, rgba(24,34,79,1) 0%, rgba(220,122,86,1) 100%);
+// 	border-radius:20px;
+// }
 .navbar
 {
 	background: #07070b;
@@ -220,7 +226,7 @@ p {
 .footerbg
 {
 	background: rgb(219,83,175);
-	background: linear-gradient(90deg, rgba(219,83,175,1) 0%, rgba(220,122,86,1) 100%);
+	background: linear-gradient(145deg, rgba(24,34,79,1) 0%, rgba(220,122,86,1) 100%);
 	border:none;
 }
 .cta-field
@@ -228,7 +234,7 @@ p {
 	.card
 	{
 		background: rgb(219,83,175);
-		background: linear-gradient(90deg, rgba(219,83,175,1) 0%, rgba(220,122,86,1) 100%);
+		background: linear-gradient(145deg, rgba(24,34,79,1) 0%, rgba(220,122,86,1) 100%);
 		border:none;
 	}
 	.cta-btn
@@ -275,7 +281,7 @@ p {
 }
 .text-grey
 {
-	color:#7F7F90 !important;
+	color:#c0c0c0 !important;
 }
 
 .quotesymbole
