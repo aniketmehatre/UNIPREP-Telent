@@ -69,9 +69,14 @@ export class SidenavComponent {
       image: "fa-solid fa-building-columns",
     },
     {
-      title: "Career",
-      url: "",
-      image: "",
+      title: 'Scholarship List',
+      url: '/pages/scholarship-list',
+      image: 'fa-solid fa-building-columns',
+    },
+    {
+      title: 'Career',
+      url: '',
+      image: '',
     },
     {
       title: "Career Hub",
