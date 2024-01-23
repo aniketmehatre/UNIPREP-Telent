@@ -60,34 +60,81 @@ body {
 	font-family: "Poppins", sans-serif !important;
 	overflow: auto !important;
 }
+
+::ng-deep ::-webkit-scrollbar-track {
+	-webkit-box-shadow: none !important;
+	border-radius: 8px !important;
+	background-color: black !important;
+}
+
+::ng-deep ::-webkit-scrollbar {
+	border-radius: 0px;
+	width: 8px !important;
+	height: 5px;
+	background-color: black !important;
+}
+
+::ng-deep ::-webkit-scrollbar-thumb {
+	border-radius: 8px !important;
+	-webkit-box-shadow: none !important;
+	background-color: var(--uniprep-secondary) !important;
+}
+
 section {
 	scroll-margin-top: 3rem;
 }
+
+// h1,
+// .text-size-h1 {
+//   font-weight: 700;
+//   margin-top: 0;
+//   font-size: 4.21em;
+// }
+
+// h2,
+// .text-size-h2 { font-size: 3.16em; }
+
+// h3,
+// .text-size-h3 { font-size: 2.37em; }
+
+// h4,
+// .text-size-h4 { font-size: 1.78em; }
+
+// h5,
+// .text-size-h5 { font-size: 1.33em; }
+
+// .text-caption { font-size: 0.75em; }
+
+// small,
+// .text-small {
+//   font-size: 0.56em;
+// }
+
 
 h1,
 .text-size-h1 {
   font-weight: 700;
   margin-top: 0;
-  font-size: 4.21em;
+  font-size: 5.65em;
 }
 
 h2,
-.text-size-h2 { font-size: 3.16em; }
+.text-size-h2 { font-size: 4em; }
 
 h3,
-.text-size-h3 { font-size: 2.37em; }
+.text-size-h3 { font-size: 2.83em; }
 
 h4,
-.text-size-h4 { font-size: 1.78em; }
+.text-size-h4 { font-size: 2em; }
 
 h5,
-.text-size-h5 { font-size: 1.33em; }
+.text-size-h5 { font-size: 1.41em; }
 
-.text-caption { font-size: 0.75em; }
+.text-caption { font-size: 0.71em; }
 
 small,
 .text-small {
-  font-size: 0.56em;
+  font-size: 0.5em;
 }
 
 
@@ -262,11 +309,13 @@ p {
     overflow: hidden;
     margin-bottom: 10px;
     border: none;
+	border-bottom: 1px solid #ffffff42;
+    border-radius: 0px !important;
 }
 
 .featureimage
 {
-	border-radius: 20px;
+	border-radius: 10px;
     overflow: hidden;
     border: 1px solid #07070B;
 }
@@ -293,12 +342,14 @@ p {
     font-weight:600;
     color:var(--uniprep-primary);
 	background:none;
+	padding-left: 0;
 }
 
 .featurecard .accordion-body
 {
     text-align:start;
     padding: 0.75rem 1rem;
+	padding-left: 0;
 }
 
 .faqcard {
@@ -363,7 +414,7 @@ p {
 
 .marquee {
 	display: flex;
-	width: calc(100% * 2); /* width of 2 images */
+	// width: calc(100% * 2); /* width of 2 images */
 	overflow: hidden;
 }
 
