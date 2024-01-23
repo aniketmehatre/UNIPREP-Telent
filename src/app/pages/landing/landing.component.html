@@ -17,16 +17,16 @@
 		<!-- Inside your component's template -->
 		<ul class="nav flex-row gap-2">
 			<li class="nav-item">
-				<a class="nav-link active text-white fw-medium" aria-current="page" href="#home" (click)="scrollToSection($event, 'home')">Home</a>
+				<a class="nav-link active text-white fw-regular" aria-current="page" href="#home" (click)="scrollToSection($event, 'home')">Home</a>
 			</li>
 			<li class="nav-item">
-				<a class="nav-link text-white fw-medium" aria-label="About UNIPREP" href="#about" (click)="scrollToSection($event, 'about')">About UNIPREP</a>
+				<a class="nav-link text-white fw-regular" aria-label="About UNIPREP" href="#about" (click)="scrollToSection($event, 'about')">About UNIPREP</a>
 			</li>
 			<li class="nav-item">
-				<a class="nav-link text-white fw-medium" aria-label="Key Features" href="#keyfeatures" (click)="scrollToSection($event, 'keyfeatures')">Key Features</a>
+				<a class="nav-link text-white fw-regular" aria-label="Key Features" href="#keyfeatures" (click)="scrollToSection($event, 'keyfeatures')">Key Features</a>
 			</li>
 			<li class="nav-item">
-				<a class="nav-link text-white fw-medium" aria-label="FAQ" href="#faq" (click)="scrollToSection($event, 'faq')">F.A.Q</a>
+				<a class="nav-link text-white fw-regular" aria-label="FAQ" href="#faq" (click)="scrollToSection($event, 'faq')">F.A.Q</a>
 			</li>
 			<!-- Add other desktop menu items as needed -->
 		</ul>
@@ -47,33 +47,33 @@
 		<!-- Hamburger button for mobile -->
 		<button class="navbar-toggler text-white" type="button" data-bs-toggle="offcanvas" data-bs-placement="right" data-bs-target="#sidebarNav" aria-controls="sidebarNav">
 			<!-- <span class="navbar-toggler-icon text-white"></span> -->
-			<i class="fa-solid fa-bars fa-2xl"></i>
+			<i class="fa-regular fa-bars fa-2xl" role="button"></i>
 		</button>
 
 		<!-- Sidebar navigation (offcanvas) -->
 		<div class="offcanvas offcanvas-end text-bg-dark"  data-bs-scroll="true" tabindex="-1" id="sidebarNav" aria-labelledby="sidebarNavLabel">
-			<div class="offcanvas-header justify-content-end">
+			<div class="offcanvas-header justify-content-end mt-2">
 				<!-- Close button (X) to close the sidebar -->
-				<button type="button" class="btn-close text-reset text-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+				<i class="fa-solid fa-xmark text-white fa-2xl" role="button"  data-bs-dismiss="offcanvas"></i>
 			</div>
 			<div class="offcanvas-body justify-content-center d-flex align-items-center">
 				<!-- Mobile menu items -->
 				<ul class="nav flex-column gap-5 w-100">
 					<li class="nav-item" data-bs-dismiss="offcanvas">
-						<a class="nav-link active text-white fw-semibold text-center h3" aria-current="page" href="#home" (click)="scrollToSection($event, 'home')">Home</a>
+						<a class="nav-link active text-white fw-medium text-center h4" aria-current="page" href="#home" (click)="scrollToSection($event, 'home')">Home</a>
 					</li>
 					<li class="nav-item" data-bs-dismiss="offcanvas">
-						<a class="nav-link text-white fw-semibold text-center h3" aria-label="About" href="#about" (click)="scrollToSection($event, 'about')">About</a>
+						<a class="nav-link text-white fw-medium text-center h4" aria-label="About" href="#about" (click)="scrollToSection($event, 'about')">About</a>
 					</li>
 					<li class="nav-item" data-bs-dismiss="offcanvas">
-						<a class="nav-link text-white fw-semibold text-center h3" aria-label="Challenges" href="#keyfeatures" (click)="scrollToSection($event, 'challenges')">Challenges</a>
+						<a class="nav-link text-white fw-medium text-center h4" aria-label="keyfeatures" href="#keyfeatures" (click)="scrollToSection($event, 'keyfeatures')">Key Features</a>
 					</li>
 					<li class="nav-item" data-bs-dismiss="offcanvas">
-						<a class="nav-link text-white fw-semibold text-center h3" aria-label="FAQ" href="#faq" (click)="scrollToSection($event, 'faq')">F.A.Q</a>
+						<a class="nav-link text-white fw-medium text-center h4" aria-label="FAQ" href="#faq" (click)="scrollToSection($event, 'faq')">F.A.Q</a>
 					</li>
 					<!-- Add other mobile menu items as needed -->
 					<li class="nav-item text-center">
-						<a [routerLink]="['/login']" class="text-decoration-none text-center h3 text-white">Login</a>
+						<a [routerLink]="['/login']" class="text-decoration-none text-center h4 text-white fw-regular">Login</a>
 					</li>
 					<li class="nav-item">
 						<a href="/register" class="text-decoration-none"><button type="button" class="w-100 h4 btn btn-secondary px-4 py-2 m-0">Try for Free</button></a>
@@ -348,7 +348,7 @@
 						<div class="accordion accordion-flush" id="accordionFeatures">
 							<div class="accordion-item featurecard">
 								<h2 class="accordion-header">
-									<button class="accordion-button text-white" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne" (click)="changeImage('feature1.webp')">Global Repository of Information</button>
+									<button class="accordion-button text-white" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne" (click)="changeImage('f1.png')">Global Repository of Information</button>
 								</h2>
 								<div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionFeatures">
 									<div class="accordion-body">
@@ -358,7 +358,7 @@
 							</div>
 							<div class="accordion-item featurecard">
 								<h2 class="accordion-header">
-									<button class="accordion-button text-white collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo" (click)="changeImage('feature2.webp')">Smart Keyword Search</button>
+									<button class="accordion-button text-white collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo" (click)="changeImage('f2.png')">Smart Keyword Search</button>
 								</h2>
 								<div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionFeatures">
 									<div class="accordion-body">
@@ -368,7 +368,7 @@
 							</div>
 							<div class="accordion-item featurecard">
 								<h2 class="accordion-header">
-									<button class="accordion-button text-white collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree" (click)="changeImage('feature3.webp')">Personal Global Advisor</button>
+									<button class="accordion-button text-white collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree" (click)="changeImage('f3.png')">Personal Global Advisor</button>
 								</h2>
 								<div id="collapseThree" class="accordion-collapse collapse" data-bs-parent="#accordionFeatures">
 									<div class="accordion-body">
@@ -378,7 +378,7 @@
 							</div>
 							<div class="accordion-item featurecard">
 								<h2 class="accordion-header">
-									<button class="accordion-button text-white collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour" (click)="changeImage('feature4.webp')">Global Scholarship List</button>
+									<button class="accordion-button text-white collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour" (click)="changeImage('f4.png')">Global Scholarship List</button>
 								</h2>
 								<div id="collapseFour" class="accordion-collapse collapse" data-bs-parent="#accordionFeatures">
 									<div class="accordion-body">
@@ -388,7 +388,7 @@
 							</div>
 							<div class="accordion-item featurecard">
 								<h2 class="accordion-header">
-									<button class="accordion-button text-white collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSix" aria-expanded="false" aria-controls="collapseSix" (click)="changeImage('feature6.webp')">Resource for Global Knowledge</button>
+									<button class="accordion-button text-white collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSix" aria-expanded="false" aria-controls="collapseSix" (click)="changeImage('f5.png')">Resource for Global Knowledge</button>
 								</h2>
 								<div id="collapseSix" class="accordion-collapse collapse" data-bs-parent="#accordionFeatures">
 									<div class="accordion-body">
@@ -398,7 +398,17 @@
 							</div>
 							<div class="accordion-item featurecard">
 								<h2 class="accordion-header">
-									<button class="accordion-button text-white collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSeven" aria-expanded="false" aria-controls="collapseSeven" (click)="changeImage('feature7.webp')">Start-up Kit</button>
+									<button class="accordion-button text-white collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTen" aria-expanded="false" aria-controls="collapseTen" (click)="changeImage('f6.png')">Access to Exclusive Events</button>
+								</h2>
+								<div id="collapseTen" class="accordion-collapse collapse" data-bs-parent="#accordionFeatures">
+									<div class="accordion-body">
+										<p class="mb-0 text-white fw-extralight">Get exclusive access to events hosted by international education experts, universities, career coaches and more.</p>
+									</div>
+								</div>
+							</div>
+							<div class="accordion-item featurecard">
+								<h2 class="accordion-header">
+									<button class="accordion-button text-white collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSeven" aria-expanded="false" aria-controls="collapseSeven" (click)="changeImage('f7.png')">Start-up Kit</button>
 								</h2>
 								<div id="collapseSeven" class="accordion-collapse collapse" data-bs-parent="#accordionFeatures">
 									<div class="accordion-body">
@@ -408,7 +418,7 @@
 							</div>
 							<div class="accordion-item featurecard">
 								<h2 class="accordion-header">
-									<button class="accordion-button text-white collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseEight" aria-expanded="false" aria-controls="collapseEight" (click)="changeImage('feature7.webp')">Global Investors' Data</button>
+									<button class="accordion-button text-white collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseEight" aria-expanded="false" aria-controls="collapseEight" (click)="changeImage('f8.png')">Global Investors' Data</button>
 								</h2>
 								<div id="collapseEight" class="accordion-collapse collapse" data-bs-parent="#accordionFeatures">
 									<div class="accordion-body">
@@ -418,7 +428,7 @@
 							</div>
 							<div class="accordion-item featurecard">
 								<h2 class="accordion-header">
-									<button class="accordion-button text-white collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseNine" aria-expanded="false" aria-controls="collapseNine" (click)="changeImage('feature7.webp')">Global Companies Data</button>
+									<button class="accordion-button text-white collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseNine" aria-expanded="false" aria-controls="collapseNine" (click)="changeImage('f9.png')">Global Companies Data</button>
 								</h2>
 								<div id="collapseNine" class="accordion-collapse collapse" data-bs-parent="#accordionFeatures">
 									<div class="accordion-body">
