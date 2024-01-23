@@ -16,7 +16,7 @@ export class InvestorListComponent implements OnInit {
   countryList: any;
   headQuartersList: any
   page = 1;
-  pageSize = 50;
+  pageSize = 500;
   valueNearYouFilter: any;
   totalInvestorsCount: any;
   isFilterVisible: string = 'none';
@@ -46,8 +46,20 @@ export class InvestorListComponent implements OnInit {
     var data={
       nearby_search:this.valueNearYouFilter
     }
+    //console.log(data);
     // this.getEventUpComming(data)
     // this.getPostEvent(data)
+  }
+
+  onEnterKeyPressed(){
+    var data={
+      global_search: this.valueNearYouFilter
+    }
+
+    this.investorList.getInvestorList(data).subscribe((response) => {
+      this.investorData = response.data;
+      this.totalInvestorsCount = response.count;
+    });
   }
 
   loadMultiSelectData(){
