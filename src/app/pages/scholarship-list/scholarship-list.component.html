@@ -15,8 +15,8 @@
             <div class="col-md-3 col-5 text-md-start">
                 <div class="p-input-icon-left w-100 mt-3">
                     <i class="pi pi-search"></i>
-                    <input class="w-100 px-5 py-2" type="text" placeholder="Search in Scholarship list" pInputText
-                           [(ngModel)]="valueNearYouFilter" (input)="performSearch($event)" />
+                    <input class="w-100 px-5 py-2" type="text" placeholder="Search in Scholarship Name" pInputText
+                           [(ngModel)]="searchScholarshpName" (input)="performSearch()" />
                 </div>
             </div>
             <div class="col-md-6 col-7 text-md-center text-end">
@@ -42,15 +42,15 @@
                     <div class="p-input-icon-left w-100 mt-3">
                         <i class="pi pi-search"></i>
                         <input class="w-100 px-5 py-2 b-6 h-100" type="text" placeholder="Search Events Near You..." pInputText
-                               [(ngModel)]="valueNearYouFilter" (input)="performSearch($event)" />
+                               [(ngModel)]="searchScholarshpName" (input)="performSearch()" />
                     </div>
                 </div>
                 <div class="col-4 mt-2">
-                     <span ><button class="btn btn-outline-light px-4 py-3 b-6" type="button">Filter
+                     <span ><button class="btn btn-outline-light px-4 py-3 b-6" type="button" (click)="filterBy()">Filter
 							by</button></span>
                 </div>
             </div>
-            <div class="row">
+            <!-- <div class="row">
                 <div class="col-8">
                     <div class="p-input-icon-left w-100 mt-3">
                         <i class="pi pi-search"></i>
@@ -62,7 +62,7 @@
                      <span ><button class="btn btn-outline-light px-4 py-3 b-6" (click)="filterBy()" type="button">Filter
 							by</button></span>
                 </div>
-            </div>
+            </div> -->
         </div>
         <!-- upcomming event -->
         <p-table #table [value]="scholarshipData" class="primary-header" styleClass="primary-header" [paginator]="false" (onPage)="pageChange($event)"
@@ -97,12 +97,12 @@
                     <td class="border-cell">{{scholarship.home_country}}</td>
                     <td class="border-cell">{{scholarship.name}} </td>
                     <td class="border-cell">{{scholarship.country}} </td>
-                    <td class="border-cell">{{scholarship.level}}</td>
+                    <td class="border-cell">{{scholarship.study_level}}</td>
                     <td class="border-cell">{{scholarship.university}} </td>
                     <td class="border-cell">{{scholarship.region==null?'null':scholarship.region}}</td>
                     <td class="border-cell">{{scholarship.value}} </td>
                     <td class="border-cell">
-                        <a target="_blank" href="{{scholarship.website}}">Website</a><br>
+                        <a target="_blank" href="{{scholarship.website}}">Website <i class="fa-solid fa-link"></i></a><br>
                     </td>
                 </tr>
             </ng-template>
@@ -135,11 +135,9 @@
                                                            formControlName="country"
                                                            optionValue="id"
                                                            placeholder="Select  Country (Multi-Select)"
+                                                           (onChange)="countryChange($event)"
                                                            optionLabel="country" #countrySelect>
                                             </p-multiSelect>
-                                            <div *ngIf="filterForm.hasError('org_name')" class="text-danger">
-                                                {{ filterForm.getError('org_name') }}
-                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -151,13 +149,9 @@
                                             <p-multiSelect [options]="homeCountryList" styleClass="w-100"
                                                            formControlName="home_country"
                                                            optionValue="id"
-                                                           placeholder="Select Home Country (Multi-Select)"
-                                                           (onChange)="homeCountryChange($event)"
+                                                           placeholder="Select Home Country (Multi-Select)"                                                         
                                                            optionLabel="country" #homeCountrySelect>
                                             </p-multiSelect>
-                                            <div *ngIf="filterForm.hasError('org_name')" class="text-danger">
-                                                {{ filterForm.getError('org_name') }}
-                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -172,9 +166,6 @@
                                                            placeholder="Select Study Level (Multi-Select)"
                                                            optionLabel="level" #StudylevelSelect>
                                             </p-multiSelect>
-                                            <div *ngIf="filterForm.hasError('org_name')" class="text-danger">
-                                                {{ filterForm.getError('org_name') }}
-                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -189,13 +180,10 @@
                                                            placeholder="Select Region (Multi-Select)"
                                                            optionLabel="state" #region>
                                             </p-multiSelect>
-                                            <div *ngIf="filterForm.hasError('org_name')" class="text-danger">
-                                                {{ filterForm.getError('org_name') }}
-                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-12">
+                                <!-- <div class="col-md-12">
                                     <label class="form-label" style="font-size: medium;font-weight:500">Filter by
                                         Value</label>
                                     <div class="form-group">
@@ -211,7 +199,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                </div>
+                                </div> -->
                             </div>
                         </div>
                     </div>

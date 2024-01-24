@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '@env/environment';
 
@@ -17,10 +17,12 @@ export class ScholarshipListService {
       headers: headers,
     });
   }
-  getScholarshipCountry(){
+  getScholarshipCountry(scholarship_country:number){
+    let params = new HttpParams();
+    params=params.append("scholarship_country",scholarship_country)
     const headers = new HttpHeaders().set("Accept", "application/json");
     return this.http.get<any>(environment.ApiUrl + "/country", {
-        headers: headers,
+        headers: headers,params:params
     });
   }
   getStudyLevel(){

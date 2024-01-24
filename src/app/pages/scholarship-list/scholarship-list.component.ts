@@ -19,7 +19,7 @@ export class ScholarshipListComponent implements OnInit {
   headQuartersList: any
   page = 1;
   pageSize = 50;
-  valueNearYouFilter: string = '';
+  searchScholarshpName: string = '';
   totalScholarShipCount: any;
   isFilterVisible: string = 'none';
   filterForm: FormGroup;
@@ -51,10 +51,18 @@ export class ScholarshipListComponent implements OnInit {
 
 
 
-  performSearch(events: any) {
-    var data = {
-      nearby_search: this.valueNearYouFilter
+  performSearch() {
+    if (this.searchScholarshpName=="") {
+      this.loadScholarShipData();
+      return;
     }
+    var searchedScholarship: any = [];
+    this.scholarshipData.filter(item => {
+      if (item.name.includes(this.searchScholarshpName)) {
+        searchedScholarship.push(item);
+      };
+    });
+    this.scholarshipData = [...searchedScholarship];
   }
 
 
@@ -65,10 +73,11 @@ export class ScholarshipListComponent implements OnInit {
   }
 
   getScholarshipCountry() {
-    this.scholarshipListService.getScholarshipCountry().subscribe((response) => {
+    this.scholarshipListService.getScholarshipCountry(1).subscribe((response) => {
       this.countryList = response;
-    })
+    });
   }
+ 
 
   gethomeCountryList() {
     this.locationService.getHomeCountry(2).subscribe(
@@ -104,16 +113,16 @@ export class ScholarshipListComponent implements OnInit {
     this.isFilterVisible = 'none'
   }
   getRegionList() {
-      this.scholarshipListService.getRegion().subscribe(response => {
-        this.regionList = response;
-      });
+    this.scholarshipListService.getRegion().subscribe(response => {
+      this.regionList = response;
+    });
   }
-  homeCountryChange(event: any) {
-    if(event.value.includes(122)==true){
+  countryChange(event: any) {
+    if (event.value.includes(15)==true) {
       this.getRegionList();
     }
-    else{
-      this.regionList=[];
+    else {
+      this.regionList = [];
     }
   }
   pageChange(event: any) {
