@@ -515,4 +515,13 @@ countryimage {
     font-size: 10px !important;
   }
 
+  .response-msg{
+      background-color: var(--uniprep-primaryop10) !important;
+        padding: 15px !important;
+        border-radius: 0 12px 12px 12px !important;
+        margin-left: 100px;
+        text-align: right;
+        margin-top: 5px;
+  }
+
 }

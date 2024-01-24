@@ -14,6 +14,7 @@ import { CancellationpolicyComponent } from './footersection/cancellationpolicy/
 import { SupportComponent } from './support/support.component';
 import {InvestorListComponent} from "./investor-list/investor-list.component";
 import { InfoKitComponent } from './infokit/infokit.component';
+import {CompanyListComponent} from "./company-list/company-list.component";
 
 const routes: Routes = [
     {
@@ -93,6 +94,10 @@ const routes: Routes = [
             {
                 path: 'investor-list',
                 component: InvestorListComponent
+            },
+            {
+                path: 'company-list',
+                component: CompanyListComponent
             },
             {
                 path: 'events',

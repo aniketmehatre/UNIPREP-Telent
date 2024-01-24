@@ -5,7 +5,7 @@
             <div class="col-md-8 text-center">
                 <h5 class="select-title mb-1" tooltipPosition="top"
                     pTooltip="">
-                    INVESTOR LIST
+                    COMPANY LIST
                 </h5>
 
             </div>
@@ -15,10 +15,9 @@
             <div class="col-md-3 col-5 text-md-start">
                 <div class="p-input-icon-left w-100 mt-3">
                     <i class="pi pi-search"></i>
-                    <input class="w-100 px-5 py-2" type="text" placeholder="Search Investors..." pInputText
+                    <input class="w-100 px-5 py-2" type="text" placeholder="Search Companies..." pInputText
                            [(ngModel)]="valueNearYouFilter" (input)="performSearch($event)" />
                 </div>
-
             </div>
             <div class="col-md-6 col-7 text-md-center text-end">
             </div>
@@ -35,9 +34,9 @@
             </div>
         </div>
         <div class="mobile mt-2">
-<!--            <div class="text-center curve">-->
+            <!--            <div class="text-center curve">-->
 
-<!--            </div>-->
+            <!--            </div>-->
             <div class="row">
                 <div class="col-8">
                     <div class="p-input-icon-left w-100 mt-3">
@@ -66,12 +65,12 @@
             </div>
         </div>
         <!-- upcomming event -->
-        <p-table #table [value]="investorData" class="primary-header" styleClass="primary-header" [paginator]="false" (onPage)="pageChange($event)"
-                 [totalRecords]="totalInvestorsCount" [rows]="pageSize" [rowsPerPageOptions]="[50, 100]">
+        <p-table #table [value]="companyData" class="primary-header" styleClass="primary-header" [paginator]="false" (onPage)="pageChange($event)"
+                 [totalRecords]="totalCompanyCount" [rows]="pageSize" [rowsPerPageOptions]="[50, 100]">
             <ng-template pTemplate="caption">
                 <div class="d-flex w-full align-items-end justify-content-end">
                     <div class="pe-2">
-                        <span class="text-muted text-small">Total Investors : {{ totalInvestorsCount }}</span>
+                        <span class="text-muted text-small">Total Companies : {{ totalCompanyCount }}</span>
                     </div>
                     <div class="ps-2">
                         <!--                     <button pButton>Export &nbsp; <i class="pi pi-file"></i></button>-->
@@ -83,32 +82,30 @@
             </ng-template>
             <ng-template pTemplate="header">
                 <tr>
-                    <th class="border-cell">Org. Name</th>
-                    <th class="border-cell">Org. Type</th>
+                    <th class="border-cell">Company Name</th>
                     <th class="border-cell">Country</th>
                     <th class="border-cell">Headquarters</th>
-                    <th class="border-cell">Investor Type</th>
+                    <th class="border-cell">Estd. Date</th>
                     <th class="border-cell">Industry Interested</th>
                     <th class="border-cell">Link</th>
                 </tr>
             </ng-template>
-            <ng-template pTemplate="body" let-inv let-expanded="expanded">
+            <ng-template pTemplate="body" let-com let-expanded="expanded">
                 <tr>
-                    <td class="border-cell">{{inv.org_name}}</td>
-                    <td class="border-cell">{{inv.org_type}}</td>
-                    <td class="border-cell">{{inv.country}}</td>
-                    <td class="border-cell">{{inv.head_quarters}}</td>
-                    <td class="border-cell">{{inv.investor_type}}</td>
-                    <td class="border-cell">{{inv.industry_interested}}</td>
+                    <td class="border-cell">{{com.company_name}}</td>
+                    <td class="border-cell">{{com.country_name}}</td>
+                    <td class="border-cell">{{com.head_quarters_name}}</td>
+                    <td class="border-cell">{{com.estd_date}}</td>
+                    <td class="border-cell">{{com.industry_interested_name}}</td>
                     <td class="border-cell">
-                        <a target="_blank" href="{{inv.linked_in}}">Linked In</a><br>
-                        <a target="_blank" href="{{inv.website}}">Website</a><br>
-                        <a href="mailto:{{inv.email}}">Email</a><br>
+                        <a target="_blank" href="{{com.linked_in}}">Linked In</a><br>
+                        <a target="_blank" href="{{com.website}}">Website</a><br>
+                        <a href="mailto:{{com.email}}">Email</a><br>
                     </td>
                 </tr>
             </ng-template>
         </p-table>
-        <p-paginator [rows]="pageSize" [totalRecords]="totalInvestorsCount" (onPageChange)="pageChange($event)" [first]="page"
+        <p-paginator [rows]="pageSize" [totalRecords]="totalCompanyCount" (onPageChange)="pageChange($event)" [first]="page"
                      [rowsPerPageOptions]="[50, 100]"></p-paginator>
     </div>
 
@@ -119,7 +116,7 @@
         <form role="form" [formGroup]="filterForm" (ngSubmit)="loadInvestorData()">
             <div class="modal-content" style="margin-top: 50% !important">
                 <div class="modal-header flex justify-content-between">
-                    <h4 class="modal-title">Filter Investor</h4>
+                    <h4 class="modal-title">Filter Companies</h4>
                     <span style="cursor: pointer;color: #3f4c83;"><i (click)="closePopup()"
                                                                      class="fa-solid fa-circle-xmark fa-2x"></i></span>
                 </div>
@@ -127,13 +124,20 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="row">
-                                <div class="col-md-6">
+                                <div class="col-md-12">
                                     <label class="form-label" style="font-size: medium;font-weight:500">Filter by
-                                        Org. Name</label>
+                                        Country</label>
                                     <div class="form-group">
                                         <div class="mb-3">
-                                            <input placeholder="Org Name" type="text" formControlName="org_name"
-                                                   class="form-control border-black paddingfive" />
+                                            <p-multiSelect [options]="countryList" styleClass="w-100"
+                                                           formControlName="country"
+                                                           optionValue="id"
+                                                           defaultLabel="Select a multiple"
+                                                           optionLabel="country" #multiSelect>
+                                                <ng-template pTemplate="selectedItems">
+                                                    {{ multiSelect.defaultLabel }}
+                                                </ng-template>
+                                            </p-multiSelect>
                                             <div *ngIf="filterForm.hasError('org_name')" class="text-danger">
                                                 {{ filterForm.getError('org_name') }}
                                             </div>
@@ -142,18 +146,11 @@
                                 </div>
                                 <div class="col-md-6">
                                     <label class="form-label" style="font-size: medium;font-weight:500">Filter by
-                                        Org. Type</label>
+                                        Est. Date</label>
                                     <div class="form-group">
                                         <div class="mb-3">
-                                            <p-multiSelect [options]="investorOrgType" styleClass="w-100"
-                                                           formControlName="org_type"
-                                                           optionValue="id"
-                                                           defaultLabel="Select a multiple Org. Type"
-                                                           optionLabel="org_type_name" #multiSelect>
-                                                <ng-template pTemplate="selectedItems">
-                                                    {{ multiSelect.defaultLabel  }}
-                                                </ng-template>
-                                            </p-multiSelect>
+                                            <input placeholder="Start date" type="date" formControlName="fromdate"
+                                                   class="form-control border-black paddingfive" />
                                         </div>
                                     </div>
                                 </div>
@@ -162,48 +159,8 @@
                                         Country</label>
                                     <div class="form-group">
                                         <div class="mb-3">
-                                            <p-multiSelect [options]="countryList" styleClass="w-100"
-                                                           formControlName="country"
-                                                           optionValue="id"
-                                                           defaultLabel="Select a multiple Country"
-                                                           optionLabel="country" #multiSelect>
-                                                <ng-template pTemplate="selectedItems">
-                                                    {{ multiSelect.defaultLabel }}
-                                                </ng-template>
-                                            </p-multiSelect>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <label class="form-label" style="font-size: medium;font-weight:500">Filter by
-                                        Headquarters</label>
-                                    <div class="form-group">
-                                        <div class="mb-3">
-                                        <p-multiSelect [options]="headQuartersList" styleClass="w-100"
-                                                       formControlName="head_quarters"
-                                                       defaultLabel="Select a multiple Org. Type"
-                                                       optionLabel="country" #multiSelect>
-                                            <ng-template pTemplate="selectedItems">
-                                                            {{ multiSelect.defaultLabel }}
-                                            </ng-template>
-                                        </p-multiSelect>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <label class="form-label" style="font-size: medium;font-weight:500">Filter by
-                                        Investor Type</label>
-                                    <div class="form-group">
-                                        <div class="mb-3">
-                                            <p-multiSelect [options]="investorType" styleClass="w-100"
-                                                           formControlName="investor_type"
-                                                           optionValue="id"
-                                                           defaultLabel="Select a multiple Investor Type"
-                                                           optionLabel="investor_type_name" #multiSelect>
-                                                <ng-template pTemplate="selectedItems">
-                                                    {{ multiSelect.defaultLabel }}
-                                                </ng-template>
-                                            </p-multiSelect>
+                                            <input placeholder="End date" type="date" formControlName="todate"
+                                                   class="form-control border-black paddingfive" />
                                         </div>
                                     </div>
                                 </div>
@@ -212,10 +169,10 @@
                                         Industry</label>
                                     <div class="form-group">
                                         <div class="mb-3">
-                                            <p-multiSelect [options]="investorIndustryInterested" styleClass="w-100"
+                                            <p-multiSelect [options]="industryInterested" styleClass="w-100"
                                                            formControlName="industry_interested"
+                                                           defaultLabel="Select a multiple"
                                                            optionValue="id"
-                                                           defaultLabel="Select a multiple Industry Interested"
                                                            optionLabel="industry_name" #multiSelect>
                                                 <ng-template pTemplate="selectedItems">
                                                     {{ multiSelect.defaultLabel }}

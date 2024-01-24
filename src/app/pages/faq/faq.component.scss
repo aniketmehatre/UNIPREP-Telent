@@ -40,12 +40,17 @@
    border-radius: 25px;
    border: 1px solid #3F4C83;
    padding: 4px;
+   z-index: 1;
+   background-color: white;
+   top:2px;
 
    li {
      padding: 10px;
      cursor: pointer;
      border-radius: 25px;
      border: 1px solid #3F4C83;
+    //  padding-left: 2px;
+    //  padding-right: 2px;
 
      &.active {
        color: white;

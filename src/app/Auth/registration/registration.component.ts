@@ -126,7 +126,7 @@ export class RegistrationComponent implements OnInit {
             // intakeYear: ["", [Validators.required]],
             // intakeMonth: ["", [Validators.required]],
             // programLevel: ["", [Validators.required]],
-            gender: ["", [Validators.required]],
+            gender: [""],
             password: ["", [Validators.required, Validators.minLength(8), matchValidator('confirmPassword', true)]],
             confirmPassword: ["", [Validators.required, matchValidator('password')]],
             // terms: [false, [Validators.required]],

@@ -1,16 +1,16 @@
 import { Component, OnInit } from '@angular/core';
-import {Location} from "@angular/common";
 import {FormBuilder, FormGroup} from "@angular/forms";
-import {InvestorListService} from "./investor-list.service";
+import {Location} from "@angular/common";
+import {CompanyListService} from "./company-list.service";
 
 @Component({
-  selector: 'uni-investor-list',
-  templateUrl: './investor-list.component.html',
-  styleUrls: ['./investor-list.component.scss']
+  selector: 'uni-company-list',
+  templateUrl: './company-list.component.html',
+  styleUrls: ['./company-list.component.scss']
 })
-export class InvestorListComponent implements OnInit {
-  investorData: any []= []
-  investorIndustryInterested: any;
+export class CompanyListComponent implements OnInit {
+  companyData: any []= []
+  industryInterested: any;
   investorOrgType: any;
   investorType: any;
   countryList: any;
@@ -18,17 +18,16 @@ export class InvestorListComponent implements OnInit {
   page = 1;
   pageSize = 50;
   valueNearYouFilter: any;
-  totalInvestorsCount: any;
+  totalCompanyCount: any;
   isFilterVisible: string = 'none';
   filterForm:FormGroup;
 
-  constructor(private _location: Location, private fb: FormBuilder, private investorList: InvestorListService) {
+  constructor(private _location: Location, private fb: FormBuilder, private companyListService: CompanyListService) {
     this.filterForm = this.fb.group({
-      org_name: [''],
-      org_type: [''],
       country: [''],
       head_quarters: [''],
-      investor_type: [''],
+      fromdate: [''],
+      todate: [''],
       industry_interested: [''],
     });
   }
@@ -46,13 +45,11 @@ export class InvestorListComponent implements OnInit {
     var data={
       nearby_search:this.valueNearYouFilter
     }
-    // this.getEventUpComming(data)
-    // this.getPostEvent(data)
   }
 
   loadMultiSelectData(){
-    this.investorList.getMultiSelectData().subscribe((response) => {
-      this.investorIndustryInterested = response.investor_industry_interested;
+    this.companyListService.getMultiSelectData().subscribe((response) => {
+      this.industryInterested = response.investor_industry_interested;
       this.investorOrgType = response.investor_org_type;
       this.investorType = response.investor_type;
       this.countryList = response.countries_list;
@@ -68,18 +65,18 @@ export class InvestorListComponent implements OnInit {
 
   loadInvestorData(){
     let data = {
-      org_name: this.filterForm.value.org_name ? this.filterForm.value.org_name : '',
-      org_type: this.filterForm.value.org_type ? this.filterForm.value.org_type : '',
       country: this.filterForm.value.country ? this.filterForm.value.country : '',
       head_quarters: this.filterForm.value.head_quarters ? this.filterForm.value.head_quarters : '',
-      investor_type: this.filterForm.value.investor_type ? this.filterForm.value.investor_type : '',
+      fromdate: this.filterForm.value.fromdate ? this.filterForm.value.fromdate : '',
+      todate: this.filterForm.value.todate ? this.filterForm.value.todate : '',
       industry_interested: this.filterForm.value.industry_interested ? this.filterForm.value.industry_interested : '',
       page: this.page,
       perpage: this.pageSize,
     }
-    this.investorList.getInvestorList(data).subscribe((response) => {
-      this.investorData = response.data;
-      this.totalInvestorsCount = response.count;
+    this.companyListService.getInvestorList(data).subscribe((response) => {
+      this.companyData = response.data;
+      this.totalCompanyCount = response.count;
+      this.totalCompanyCount = response.count;
     });
     this.isFilterVisible = 'none'
   }
@@ -100,7 +97,7 @@ export class InvestorListComponent implements OnInit {
   }
 
   exportTable(){
-    this.investorList.export().subscribe((response) => {
+    this.companyListService.export().subscribe((response) => {
       window.open(response.link, '_blank');
     });
   }
