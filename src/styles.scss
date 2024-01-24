@@ -1842,33 +1842,69 @@ uni-subscription {
 }
 
 @media (max-width: 575.98px) {
+	.p-tabview .p-tabview-nav li.p-highlight .p-tabview-nav-link {
+		color: white;
+		background-color: #3F4C83;
+	}
+
+	.mobile-subscription {
+		.p-tabview-nav-content {
+			border: 1px solid #3F4C83;
+			;
+			border-radius: 25px !important;
+			padding: 5px 10px;
+			cursor: pointer;
+		}
+
+		.p-tabview .p-tabview-nav li .p-tabview-nav-link {
+			border: 1px solid #3F4C83 !important;
+			border-radius: 25px !important;
+		}
+
+		.p-highlight {
+			border: 1px solid #3F4C83;
+			border-radius: 25px !important;
+		}
+
+		.p-tabview .p-tabview-nav {
+			border-width: 0;
+		}
+
+		.p-tabview .p-tabview-nav li {
+			margin-right: 8px;
+		}
+	}
+
 	.questionmodal {
-			.p-dialog-header-icons {
-				top: 5px;
-			}
+		.p-dialog-header-icons {
+			top: 5px;
 		}
+	}
+
 	::-webkit-scrollbar {
-			border-radius: 10px;
-			width: 6px !important;
-			height: 5px !important;
-			background-color: #fff !important;
-			margin-top: 5px;
-		}
+		border-radius: 10px;
+		width: 6px !important;
+		height: 5px !important;
+		background-color: #fff !important;
+		margin-top: 5px;
+	}
 
-		:host .p-paginator .p-paginator-first,
-		.p-paginator .p-paginator-prev,
-		.p-paginator .p-paginator-next,
-		.p-paginator .p-paginator-last {
-			min-width: 1px !important;
-		}
+	:host .p-paginator .p-paginator-first,
+	.p-paginator .p-paginator-prev,
+	.p-paginator .p-paginator-next,
+	.p-paginator .p-paginator-last {
+		min-width: 1px !important;
+	}
 
-		uni-recentlyaddedquestions .event-paginator .p-dropdown {
-			right: 1rem !important;
-		}
-				.p-paginator .p-paginator-pages .p-paginator-page{
-					min-width:2rem !important;
-					height: 2rem !important;
-				}
+	uni-recentlyaddedquestions .event-paginator .p-dropdown {
+		right: 1rem !important;
+	}
+
+	.p-paginator .p-paginator-pages .p-paginator-page {
+		min-width: 2rem !important;
+		height: 2rem !important;
+	}
+
 	// #sidenav {
 	// 	position: absolute !important;
 	// 	z-index: 1;
@@ -1883,8 +1919,9 @@ uni-subscription {
 	.reportwidthfix {
 		width: 90vw !important;
 	}
+
 	.p-paginator {
-	justify-content: left !important;
+		justify-content: left !important;
 	}
 
 	.select-title {
@@ -1894,20 +1931,25 @@ uni-subscription {
 	#sidenav {
 		width: 0 !important;
 	}
+
 	.menuclosed {
 		width: 0;
 	}
+
 	.country {
 		min-width: 125px !important;
 	}
+
 	.questionmodal {
 		.p-dialog {
 			width: 95%;
 		}
 	}
+
 	.quotesymbole {
 		margin-top: 5rem;
 	}
+
 	.p-breadcrumb ul {
 		display: -webkit-box !important;
 	}
