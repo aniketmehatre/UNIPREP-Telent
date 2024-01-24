@@ -56,7 +56,7 @@ export class EventsComponent implements OnInit {
       this.countries = response;
     });
     let data = {
-      perpage : 6,
+      perpage : 12,
       page : 1,
     }
     this.getEventUpComming(data)
@@ -103,7 +103,7 @@ export class EventsComponent implements OnInit {
         color: '#FFFFFF'
       };
       let data = {
-        perpage : 6,
+        perpage : 12,
         page : 1,
         country: this.filterform.value.country,
         to:this.filterform.value.to,
