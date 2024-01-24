@@ -55,7 +55,9 @@ input[type="text"] {
   height: 40px !important;
   // font-weight: bold;
 }
-
+:host ::ng-deep .card-body {
+  padding: 0 !important;
+}
 .card-header {
   padding: 1rem 1rem 0rem 1rem;
   border-bottom: 1px solid #b9b4b491;
@@ -85,6 +87,7 @@ input[type="text"] {
   float: left;
   cursor: pointer;
   align-items: flex-start;
+  padding: 1rem;
   .folderinfo {
     h5 {
       margin: 0 !important;
@@ -142,13 +145,13 @@ i {
 .routedata {
   font-size: 0.85rem;
   font-weight: 700;
-  text-transform: capitalize;text-indent: 2px;
+  text-transform: capitalize;
+  text-indent: 2px;
 }
 .fontcolor {
   color: #3e4d92f5;
 }
-.info{
+.info {
   font-size: small;
   font-weight: 600;
-
 }

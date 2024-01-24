@@ -32,6 +32,23 @@
   gap: 10px; /* Add some spacing between cards */
 }
 
+::ng-deep .p-datatable th
+{
+  background-color: var(--uniprep-primaryhighlight) !important;
+  border-right: 1px solid var(--uniprep-primaryop30);
+}
+
+::ng-deep .p-datatable .p-datatable-tbody > tr > td
+{
+  border:1px solid var(--uniprep-primaryop10);
+}
+
+::ng-deep .p-datatable a
+{
+  text-decoration: none;
+  color:var(--uniprep-primaryhighlight);
+}
+
 /* Style for each card */
 .card1 {
   flex: 0 0 calc(25% - 10px); /* Each card takes up 25% of the container width with spacing */

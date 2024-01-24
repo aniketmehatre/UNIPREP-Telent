@@ -37,7 +37,11 @@ import {ConfirmDialogModule} from "primeng/confirmdialog";
 import {SafePipe} from "@pipes/safe.pipe";
 import {PipesModule} from "@pipes/pipes.module";
 import { LandingComponent } from './pages/landing/landing.component';
-
+import {SocialLoginModule, SocialAuthServiceConfig, GoogleSigninButtonModule} from '@abacritt/angularx-social-login';
+import {
+    GoogleLoginProvider,
+    FacebookLoginProvider
+} from '@abacritt/angularx-social-login';
 
 const reducers = {
   pageSelector: pagesReducer
@@ -88,7 +92,9 @@ export function tokenGetter() {
         FormsModule,
         TooltipModule,
         PipesModule,
-        ConfirmDialogModule
+        ConfirmDialogModule,
+        SocialLoginModule,
+        GoogleSigninButtonModule
     ],
   providers: [
     DatePipe,
@@ -102,7 +108,28 @@ export function tokenGetter() {
       provide: NGX_LOCAL_STORAGE_CONFIG,
       useValue: ngxLocalstorageConfiguration
     },
-    ModalService
+    ModalService,
+      {
+          provide: 'SocialAuthServiceConfig',
+          useValue: {
+              autoLogin: true,
+              providers: [
+                  {
+                      id: GoogleLoginProvider.PROVIDER_ID,
+                      provider: new GoogleLoginProvider(
+                          '32944187384-rfr3dc7mcif3slflo38r5sqhb70e0vjd.apps.googleusercontent.com'
+                      )
+                  },
+                  // {
+                  //     id: FacebookLoginProvider.PROVIDER_ID,
+                  //     provider: new FacebookLoginProvider('32944187384-rfr3dc7mcif3slflo38r5sqhb70e0vjd.apps.googleusercontent.com')
+                  // }
+              ],
+              onError: (err) => {
+                  console.error(err);
+              }
+          } as SocialAuthServiceConfig,
+      }
   ],
   bootstrap: [AppComponent],
   entryComponents: [ModalComponent]

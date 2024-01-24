@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import {ActivatedRoute, Router} from "@angular/router";
-import {Observable} from "rxjs";
-import {ModuleListSub} from "../../../@Models/module.model";
-import {ConfirmationService, MenuItem} from "primeng/api";
-import {ModuleServiceService} from "../../module-store/module-service.service";
-import {DataService} from "../../../data.service";
-import {LocationService} from "../../../location.service";
+import { ActivatedRoute, Router } from "@angular/router";
+import { Observable } from "rxjs";
+import { ModuleListSub } from "../../../@Models/module.model";
+import { ConfirmationService, MenuItem } from "primeng/api";
+import { ModuleServiceService } from "../../module-store/module-service.service";
+import { DataService } from "../../../data.service";
+import { LocationService } from "../../../location.service";
 
 @Component({
   selector: 'uni-list-sub-modules',
@@ -25,8 +25,8 @@ export class ListSubModulesComponent implements OnInit {
   isQuizSubmit: boolean = false;
   isReviewVisible: boolean = false;
   responsiveOptions: any[] = [];
-  quizData: any [] = [];
-  moduleList: any [] = [];
+  quizData: any[] = [];
+  moduleList: any[] = [];
   selectedQuiz: number = 1;
   selectedOptNumber: number = 1;
   selectedOptValue: string = '';
@@ -42,8 +42,8 @@ export class ListSubModulesComponent implements OnInit {
 
 
   constructor(private moduleListService: ModuleServiceService, private router: Router, private dataService: DataService,
-              private locationService: LocationService, private route: ActivatedRoute,
-              private confirmationService: ConfirmationService) {
+    private locationService: LocationService, private route: ActivatedRoute,
+    private confirmationService: ConfirmationService) {
     this.responsiveOptions = [
       {
         breakpoint: '1199px',
@@ -98,15 +98,15 @@ export class ListSubModulesComponent implements OnInit {
         break;
       default:
         this.currentModuleId = 6;
-        this.currentModuleName = 'Life At '+countryName;
+        this.currentModuleName = 'Life At ' + countryName;
         this.currentApiSlug = 'GetQuestionsCount';
         break;
-      
+
     }
-    if(this.currentModuleId == 5){
+    if (this.currentModuleId == 5) {
       return;
     }
-    localStorage.setItem("currentmodulenameforrecently",this.currentModuleName);
+    localStorage.setItem("currentmodulenameforrecently", this.currentModuleName);
     this.loadModuleAndSubModule();
     if (this.route.snapshot.paramMap.get('id') == '2') {
       this.startQuiz();
@@ -140,12 +140,12 @@ export class ListSubModulesComponent implements OnInit {
     this.quizList$ = this.moduleListService.quizList$();
 
     this.quizList$.subscribe((data) => {
-      if(data){
+      if (data) {
         this.quizData = data.map((val: any) => {
           let moduleData = this.moduleList.filter(ind => ind.id == val.module_id)[0]!.module_name;
           let subModuleName = this.subModuleList.filter(ind => ind.id == val.submodule_id)[0]!.submodule_name;
           let number = 1;
-          let dd = {...val};
+          let dd = { ...val };
           dd.module_name = moduleData
           dd.sub_module_name = subModuleName
           dd.otp1 = dd.option1 + dd.id + number++;
@@ -170,8 +170,8 @@ export class ListSubModulesComponent implements OnInit {
     this.dataService.countryNameSource.subscribe(countryName => {
       cName = countryName;
     });
-    this.breadCrumb = [{label: cName}, {label: this.quizData[0]!.module_name},
-      {label: this.quizData[0]!.sub_module_name}];
+    this.breadCrumb = [{ label: cName }, { label: this.quizData[0]!.module_name },
+    { label: this.quizData[0]!.sub_module_name }];
   }
 
   clickPreviousQuiz(carouselQuiz: any, event: any) {
@@ -180,7 +180,7 @@ export class ListSubModulesComponent implements OnInit {
     }
     let singleQuizData = this.quizData[this.selectedQuiz - 2];
     this.quizData.map((data: any) => {
-      let dd = {...data};
+      let dd = { ...data };
 
       if (dd.id == singleQuizData.id) {
         this.selectedOptNumber = dd.user_answered;
@@ -196,8 +196,8 @@ export class ListSubModulesComponent implements OnInit {
     this.dataService.countryNameSource.subscribe(countryName => {
       cName = countryName;
     });
-    this.breadCrumb = [{label: cName}, {label: singleQuizData.module_name},
-      {label: singleQuizData.sub_module_name}];
+    this.breadCrumb = [{ label: cName }, { label: singleQuizData.module_name },
+    { label: singleQuizData.sub_module_name }];
     carouselQuiz.navBackward(event, this.selectedQuiz);
   }
 
@@ -208,7 +208,7 @@ export class ListSubModulesComponent implements OnInit {
 
     let singleQuizData = this.quizData[this.selectedQuiz - 1];
     this.quizData = this.quizData.map((data: any) => {
-      let dat = {...data}
+      let dat = { ...data }
       if (dat.id == singleQuizData.id) {
         if (!dat.user_answered_value) {
           dat.user_answered = this.selectedOptNumber;
@@ -232,8 +232,8 @@ export class ListSubModulesComponent implements OnInit {
       cName = countryName;
     });
 
-    this.breadCrumb = [{label: cName}, {label: singleQuizData.module_name},
-      {label: singleQuizData.sub_module_name}];
+    this.breadCrumb = [{ label: cName }, { label: singleQuizData.module_name },
+    { label: singleQuizData.sub_module_name }];
     carouselQuiz.navForward(event, this.selectedQuiz);
   }
 
@@ -269,7 +269,7 @@ export class ListSubModulesComponent implements OnInit {
     });
   }
 
-  quitQuiz(cd: any){
+  quitQuiz(cd: any) {
     this.isStartQuiz = false;
     this.isInstructionVisible = false;
     this.isQuizSubmit = false;
@@ -316,7 +316,7 @@ export class ListSubModulesComponent implements OnInit {
     this.selectedOptNumber = optNumber;
     this.selectedOptValue = selectedOption;
     let mappedQuiz = this.quizData.map((data: any) => {
-      let dat = {...data}
+      let dat = { ...data }
       if (dat.id == singleData.id) {
 
         dat.user_answered = optNumber;

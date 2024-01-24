@@ -14,6 +14,8 @@ import { CancellationpolicyComponent } from './footersection/cancellationpolicy/
 import { SupportComponent } from './support/support.component';
 import {InvestorListComponent} from "./investor-list/investor-list.component";
 import { InfoKitComponent } from './infokit/infokit.component';
+import {CompanyListComponent} from "./company-list/company-list.component";
+import { ScholarshipListComponent } from './scholarship-list/scholarship-list.component';
 
 const routes: Routes = [
     {
@@ -68,6 +70,10 @@ const routes: Routes = [
                 component: ChatComponent
             },
             {
+                path: 'scholarship-list',
+                component: ScholarshipListComponent
+            },
+            {
                 path: 'question-list/:type',
                 loadChildren: () => import('./recentlyaddedquestions/recentlyaddedques.module').then(m => m.RecentlyAddedQuestionsModule)
             },
@@ -95,6 +101,10 @@ const routes: Routes = [
                 component: InvestorListComponent
             },
             {
+                path: 'company-list',
+                component: CompanyListComponent
+            },
+            {
                 path: 'events',
                 loadChildren: () => import('./events/event.module').then(m => m.EventsModule)
             },
@@ -109,7 +119,7 @@ const routes: Routes = [
                 component: GuidelineComponent
             },
             {
-                path: 'infokit',
+                path: 'startup',
                 component: InfoKitComponent
             }
         ]

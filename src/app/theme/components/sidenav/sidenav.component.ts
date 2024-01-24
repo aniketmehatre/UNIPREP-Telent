@@ -69,9 +69,14 @@ export class SidenavComponent {
       image: "fa-solid fa-building-columns",
     },
     {
-      title: "Career",
-      url: "",
-      image: "",
+      title: 'Scholarship List',
+      url: '/pages/scholarship-list',
+      image: 'fa-solid fa-building-columns',
+    },
+    {
+      title: 'Career',
+      url: '',
+      image: '',
     },
     {
       title: "Career Hub",
@@ -114,13 +119,18 @@ export class SidenavComponent {
       image: "fa-solid fa-memo-circle-info",
     },
     {
+      title: "Company List",
+      url: "/pages/company-list",
+      image: "fa-solid fa-memo-circle-info",
+    },
+    {
       title: "Support",
       url: "",
       image: "",
     },
     {
       title: "Startup Kit",
-      url: "/pages/infokit",
+      url: "/pages/startup",
       image: "fa-solid fa-memo-circle-info",
     },
     {

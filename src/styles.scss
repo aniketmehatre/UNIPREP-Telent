@@ -185,6 +185,15 @@ h5 {
 small {
 	font-size: 0.833rem;
 }
+
+.fw-thin {
+	font-weight: 100 !important;
+}
+
+.fw-extralight {
+	font-weight: 200 !important;
+}
+
 .fw-light {
 	font-weight: 300 !important;
 }
@@ -220,7 +229,7 @@ small {
 
 .startbg {
 	min-height: 100vh;
-	background-image: url(uniprep-assets/images/startbg.png);
+	background-image: url(uniprep-assets/images/startbg.webp);
 	background-position: center;
 	background-size: cover;
 	overflow-y: auto; /* Allows scrolling if content overflows */

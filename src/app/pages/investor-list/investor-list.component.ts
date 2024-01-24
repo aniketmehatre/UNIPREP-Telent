@@ -16,7 +16,7 @@ export class InvestorListComponent implements OnInit {
   countryList: any;
   headQuartersList: any
   page = 1;
-  pageSize = 10;
+  pageSize = 500;
   valueNearYouFilter: any;
   totalInvestorsCount: any;
   isFilterVisible: string = 'none';
@@ -46,8 +46,20 @@ export class InvestorListComponent implements OnInit {
     var data={
       nearby_search:this.valueNearYouFilter
     }
+    //console.log(data);
     // this.getEventUpComming(data)
     // this.getPostEvent(data)
+  }
+
+  onEnterKeyPressed(){
+    var data={
+      global_search: this.valueNearYouFilter
+    }
+
+    this.investorList.getInvestorList(data).subscribe((response) => {
+      this.investorData = response.data;
+      this.totalInvestorsCount = response.count;
+    });
   }
 
   loadMultiSelectData(){
@@ -70,10 +82,10 @@ export class InvestorListComponent implements OnInit {
     let data = {
       org_name: this.filterForm.value.org_name ? this.filterForm.value.org_name : '',
       org_type: this.filterForm.value.org_type ? this.filterForm.value.org_type : '',
-      country: this.filterForm.value.org_type ? this.filterForm.value.country : '',
+      country: this.filterForm.value.country ? this.filterForm.value.country : '',
       head_quarters: this.filterForm.value.head_quarters ? this.filterForm.value.head_quarters : '',
-      investor_type: this.filterForm.value.org_type ? this.filterForm.value.investor_type : '',
-      industry_interested: this.filterForm.value.org_type ? this.filterForm.value.industry_interested : '',
+      investor_type: this.filterForm.value.investor_type ? this.filterForm.value.investor_type : '',
+      industry_interested: this.filterForm.value.industry_interested ? this.filterForm.value.industry_interested : '',
       page: this.page,
       perpage: this.pageSize,
     }

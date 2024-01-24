@@ -1,0 +1,192 @@
+.upper-text {
+  width: auto;
+  font-size: 20px;
+  font-weight: normal;
+  padding: 20px 220px;
+  border-radius: 0px 0px 10px 10px;
+  margin-top: -13px;
+}
+
+.card-style {
+  border-radius: 0px 0px 10px 10px;
+  background-color: #F5F5F5;
+  a
+  {
+    color:#001631;
+    padding: 30px;
+    text-decoration: none;
+  }
+  &:hover
+  {
+    background-color: var(--uniprep-primary);
+    color:#fff;
+    a
+    {
+      color:#fff;
+    }
+  }
+}
+
+::ng-deep .p-datatable th
+{
+  background-color: var(--uniprep-primaryhighlight) !important;
+  border-right: 1px solid var(--uniprep-primaryop30);
+}
+
+::ng-deep .p-datatable .p-datatable-tbody > tr > td
+{
+  border:1px solid var(--uniprep-primaryop10);
+}
+
+::ng-deep .p-datatable a
+{
+  text-decoration: none;
+  color:var(--uniprep-primaryhighlight);
+}
+
+
+.card-container {
+  display: flex; /* Use a flex container for horizontal alignment */
+  flex-wrap: wrap; /* Allow cards to wrap to the next row on smaller screens */
+  gap: 10px; /* Add some spacing between cards */
+}
+
+/* Style for each card */
+.card1 {
+  flex: 0 0 calc(25% - 10px); /* Each card takes up 25% of the container width with spacing */
+  background-color: #f0f0f0;
+  // padding: 20px;
+  box-sizing: border-box;
+  text-align: center;
+  border: 1px solid #ccc;
+}
+.vertical-line {
+  border-left: 1px solid #fff; /* Adjust the color and thickness as needed */
+  height: 22px; /* Adjust the height of the vertical line as needed */
+  display: inline-block;
+  margin: -7px 5px; /* Optional: Add margin for spacing */
+}
+// .card1:hover .card__inner {
+//   background-color: #EBEDF2;
+// }
+.card1:hover {
+  border: 3px solid var(--uniprep-primary);
+}
+.resterbutton {
+  background-color: #fff;
+  color: var(--uniprep-primary);
+}
+.resterbutton:hover {
+  background-color: var(--uniprep-primary);
+  color: #fff;
+}
+.custom-input {
+  width: 325px;
+}
+
+.eventcard
+{
+  border:1px solid #f0f0f0;
+  margin: 10px 0;
+  border-radius: 20px !important;
+  &:hover
+  {
+    border: 1px solid var(--uniprep-primary);
+    .event-top
+    {
+      border-bottom: 1px solid  var(--uniprep-primary);
+    }
+    .event-bottom
+    {
+      background-color: var(--uniprep-primaryop10);
+    }
+    .registerbtn
+    {
+      background-color:white !important;
+      color:var(--uniprep-primary) !important;
+    }
+  }
+  .eventcomplete
+  {
+    background-color: #ccc !important;
+    position:absolute;
+    left: 0.5rem;
+    right: auto;
+    top: 0.5rem;
+    border-radius: 100px !important;
+    border: none !important;
+  }
+  .eventcountdown
+  {
+    position:absolute;
+    left: 0.5rem;
+    right: auto;
+    top: 0.5rem;
+    border-radius: 100px !important;
+  }
+  .event-top
+  {
+    border-bottom: 1px solid #f0f0f0;
+    background-color: white;
+    border-radius: 20px 20px 0 0;
+    min-height: 175px;
+    .eventtime
+    {
+      background-color:var(--uniprep-primary);
+      color: white;
+      font-size: 0.8rem;
+      padding: 0.5rem 1.5rem;
+      border-radius: 20px 20px 0px 0px;
+      display: inline-block;
+    }
+  }
+  .event-bottom
+  {
+    border-radius:0 0 20px 20px;
+    background-color: #f0f0f0;
+  }
+  .card {
+    border-radius: 15px 15px 0px 0px !important;
+  }
+}
+
+.theme-blue{
+  border: 1px solid (--uniprep-primary) !important;
+}
+
+.mobile{
+  display: none;
+}
+
+@media (max-width: 575.98px) {
+  .mobileview {
+    width: 100px;
+    border-radius: 25px !important;
+    border: 1px solid #3F4C83;
+  }
+  .b-6{
+    border-radius: 6px;
+    border: 1px solid #3F4C83;
+  }
+  .curve{
+    border-radius: 25px;
+    border: 1px solid #3F4C83;
+  }
+  .desktop{
+    display: none;
+  }
+
+  .mobile{
+    display: block;
+  }
+
+  .h-100{
+    height: 40px !important;
+  }
+  .p-paginator{
+    justify-content: left !important;
+  }
+}
+.primary-header{
+  background: #3F4C83 !important;
+}

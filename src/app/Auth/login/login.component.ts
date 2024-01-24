@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from "@angular/core";
+import {Component, ElementRef, Input, OnDestroy, OnInit} from "@angular/core";
 import {
   FormGroup,
   Validators,
@@ -10,7 +10,8 @@ import { MessageService } from "primeng/api";
 import { SubSink } from "subsink";
 import { DataService } from "src/app/data.service";
 import {DashboardService} from "../../pages/dashboard/dashboard.service";
-
+import {GoogleLoginProvider, SocialAuthService} from "@abacritt/angularx-social-login";
+import {take} from "rxjs";
 @Component({
   selector: "app-login",
   templateUrl: "./login.component.html",
@@ -24,8 +25,8 @@ export class LoginComponent implements OnInit, OnDestroy {
   password: string = 'password';
   constructor(
     private service: AuthService, private formBuilder: FormBuilder, private route: Router,
-    private toast: MessageService, private dataService: DataService,
-    private dashboardService: DashboardService,
+    private toast: MessageService, private dataService: DataService, private el: ElementRef,
+    private dashboardService: DashboardService, private authService: SocialAuthService
   ) { }
 
   ngOnDestroy() {
@@ -91,4 +92,10 @@ export class LoginComponent implements OnInit, OnDestroy {
     this.service.login(this.loginForm.value);
   }
 
+
+  signInWithGoogle(): void {
+    this.authService.signIn(GoogleLoginProvider.PROVIDER_ID)
+        .then(user => {console.log('usss', user)})
+        .catch(error => console.error(error));
+  }
 }

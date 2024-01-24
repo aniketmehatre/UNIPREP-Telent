@@ -5,7 +5,7 @@
             <div class="col-md-8 text-center">
                 <h5 class="select-title mb-1" tooltipPosition="top"
                     pTooltip="">
-                    COMPANY LIST
+                    SCHOLARSHIP LIST
                 </h5>
 
             </div>
@@ -15,8 +15,8 @@
             <div class="col-md-3 col-5 text-md-start">
                 <div class="p-input-icon-left w-100 mt-3">
                     <i class="pi pi-search"></i>
-                    <input class="w-100 px-5 py-2" type="text" placeholder="Search Companies..." pInputText
-                           [(ngModel)]="valueNearYouFilter" (input)="performSearch($event)" (keyup.enter)="onEnterKeyPressed()" />
+                    <input class="w-100 px-5 py-2" type="text" placeholder="Search in Scholarship list" pInputText
+                           [(ngModel)]="valueNearYouFilter" (input)="performSearch($event)" />
                 </div>
             </div>
             <div class="col-md-6 col-7 text-md-center text-end">
@@ -42,7 +42,7 @@
                     <div class="p-input-icon-left w-100 mt-3">
                         <i class="pi pi-search"></i>
                         <input class="w-100 px-5 py-2 b-6 h-100" type="text" placeholder="Search Events Near You..." pInputText
-                               [(ngModel)]="valueNearYouFilter" (input)="performSearch($event)" (keyup.enter)="onEnterKeyPressed()" />
+                               [(ngModel)]="valueNearYouFilter" (input)="performSearch($event)" />
                     </div>
                 </div>
                 <div class="col-4 mt-2">
@@ -55,7 +55,7 @@
                     <div class="p-input-icon-left w-100 mt-3">
                         <i class="pi pi-search"></i>
                         <input class="w-100 px-5 py-2 b-6 h-100" type="text" placeholder="Search Events Near You..." pInputText
-                               [(ngModel)]="valueNearYouFilter" (input)="performSearch($event)" (keyup.enter)="onEnterKeyPressed()" />
+                               [(ngModel)]="valueNearYouFilter" (input)="performSearch($event)" />
                     </div>
                 </div>
                 <div class="col-4 mt-2">
@@ -65,12 +65,12 @@
             </div>
         </div>
         <!-- upcomming event -->
-        <p-table #table [value]="companyData" class="primary-header" styleClass="primary-header" [paginator]="false" (onPage)="pageChange($event)"
-                 [totalRecords]="totalCompanyCount" [rows]="pageSize" [rowsPerPageOptions]="[500,300, 100]">
+        <p-table #table [value]="scholarshipData" class="primary-header" styleClass="primary-header" [paginator]="false" (onPage)="pageChange($event)"
+                 [totalRecords]="totalScholarShipCount" [rows]="pageSize" [rowsPerPageOptions]="[50, 100]">
             <ng-template pTemplate="caption">
                 <div class="d-flex w-full align-items-end justify-content-end">
                     <div class="pe-2">
-                        <span class="text-muted text-small">Total Companies : {{ totalCompanyCount }}</span>
+                        <span class="text-muted text-small">Total Scholarship : {{ totalScholarShipCount }}</span>
                     </div>
                     <div class="ps-2">
                         <!--                     <button pButton>Export &nbsp; <i class="pi pi-file"></i></button>-->
@@ -82,40 +82,43 @@
             </ng-template>
             <ng-template pTemplate="header">
                 <tr>
-                    <th class="border-cell">Company Name</th>
-                    <th class="border-cell">Country</th>
-                    <th class="border-cell">Headquarters</th>
-                    <th class="border-cell">Estd. Date</th>
-                    <th class="border-cell">Industry Interested</th>
-                    <th class="border-cell">Link</th>
+                    <th class="border-cell">Home Country</th>
+                    <th class="border-cell">Scholarship Name</th>
+                    <th class="border-cell">Scholarship Country</th>
+                    <th class="border-cell">Study Level</th>
+                    <th class="border-cell">Organisation/Institute</th>
+                    <th class="border-cell">Region</th>
+                    <th class="border-cell">value</th>
+                    <th class="border-cell">Links</th>
                 </tr>
             </ng-template>
-            <ng-template pTemplate="body" let-com let-expanded="expanded">
+            <ng-template pTemplate="body" let-scholarship let-expanded="expanded">
                 <tr>
-                    <td class="border-cell">{{com.company_name}}</td>
-                    <td class="border-cell">{{com.country_name}}</td>
-                    <td class="border-cell">{{com.head_quarters_name}}</td>
-                    <td class="border-cell">{{com.estd_date}}</td>
-                    <td class="border-cell">{{com.industry_interested_name}}</td>
-                    <td class="border-cell" style="white-space: nowrap;">
-                        <i class="fa-brands fa-linkedin"></i> <a class="ms-1" target="_blank" href="{{com.linked_in}}">Linked In</a><br>
-                        <i class="fa-solid fa-globe"></i> <a class="ms-1" target="_blank" href="{{com.website}}">Website</a><br>
+                    <td class="border-cell">{{scholarship.home_country}}</td>
+                    <td class="border-cell">{{scholarship.name}} </td>
+                    <td class="border-cell">{{scholarship.country}} </td>
+                    <td class="border-cell">{{scholarship.level}}</td>
+                    <td class="border-cell">{{scholarship.university}} </td>
+                    <td class="border-cell">{{scholarship.region==null?'null':scholarship.region}}</td>
+                    <td class="border-cell">{{scholarship.value}} </td>
+                    <td class="border-cell">
+                        <a target="_blank" href="{{scholarship.website}}">Website</a><br>
                     </td>
                 </tr>
             </ng-template>
         </p-table>
-        <p-paginator [rows]="pageSize" [totalRecords]="totalCompanyCount" (onPageChange)="pageChange($event)" [first]="page"
-                     [rowsPerPageOptions]="[500, 300 ,100]"></p-paginator>
+        <p-paginator [rows]="pageSize" [totalRecords]="totalScholarShipCount" (onPageChange)="pageChange($event)" [first]="page"
+                     [rowsPerPageOptions]="[50, 100]"></p-paginator>
     </div>
 
 </div>
 
 <div class="modal" tabindex="-1" role="dialog" [ngStyle]="{ display: isFilterVisible }">
     <div class="modal-dialog" role="document">
-        <form role="form" [formGroup]="filterForm" (ngSubmit)="loadInvestorData()">
+        <form role="form" [formGroup]="filterForm" (ngSubmit)="loadScholarShipData()">
             <div class="modal-content" style="margin-top: 50% !important">
                 <div class="modal-header flex justify-content-between">
-                    <h4 class="modal-title">Filter Companies</h4>
+                    <h4 class="modal-title">Filter Events</h4>
                     <span style="cursor: pointer;color: #3f4c83;"><i (click)="closePopup()"
                                                                      class="fa-solid fa-circle-xmark fa-2x"></i></span>
                 </div>
@@ -131,11 +134,8 @@
                                             <p-multiSelect [options]="countryList" styleClass="w-100"
                                                            formControlName="country"
                                                            optionValue="id"
-                                                           defaultLabel="Select Countries"
-                                                           optionLabel="country" #multiSelect>
-                                                <ng-template pTemplate="selectedItems">
-                                                    {{ multiSelect.defaultLabel }}
-                                                </ng-template>
+                                                           placeholder="Select  Country (Multi-Select)"
+                                                           optionLabel="country" #countrySelect>
                                             </p-multiSelect>
                                             <div *ngIf="filterForm.hasError('org_name')" class="text-danger">
                                                 {{ filterForm.getError('org_name') }}
@@ -143,57 +143,72 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-6">
+                                <div class="col-md-12">
                                     <label class="form-label" style="font-size: medium;font-weight:500">Filter by
-                                        Est. Date</label>
+                                        Home Country</label>
                                     <div class="form-group">
                                         <div class="mb-3">
-                                            <input placeholder="Start date" type="date" formControlName="fromdate"
-                                                   class="form-control border-black paddingfive" />
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <label class="form-label" style="font-size: medium;font-weight:500">Filter by
-                                        Country</label>
-                                    <div class="form-group">
-                                        <div class="mb-3">
-                                            <input placeholder="End date" type="date" formControlName="todate"
-                                                   class="form-control border-black paddingfive" />
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <label class="form-label" style="font-size: medium;font-weight:500">Filter by
-                                        Industry</label>
-                                    <div class="form-group">
-                                        <div class="mb-3">
-                                            <p-multiSelect [options]="industryInterested" styleClass="w-100"
-                                                           formControlName="industry_interested"
-                                                           defaultLabel="Select Interested Industries"
+                                            <p-multiSelect [options]="homeCountryList" styleClass="w-100"
+                                                           formControlName="home_country"
                                                            optionValue="id"
-                                                           optionLabel="industry_name" #IndustriesMultiSelect>
-                                                <ng-template pTemplate="selectedItems">
-                                                    {{ IndustriesMultiSelect.defaultLabel }}
-                                                </ng-template>
+                                                           placeholder="Select Home Country (Multi-Select)"
+                                                           (onChange)="homeCountryChange($event)"
+                                                           optionLabel="country" #homeCountrySelect>
                                             </p-multiSelect>
+                                            <div *ngIf="filterForm.hasError('org_name')" class="text-danger">
+                                                {{ filterForm.getError('org_name') }}
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-6">
+                                <div class="col-md-12">
                                     <label class="form-label" style="font-size: medium;font-weight:500">Filter by
-                                        Head Quarters</label>
+                                        Study Level</label>
                                     <div class="form-group">
                                         <div class="mb-3">
-                                            <p-multiSelect [options]="headQuartersList" styleClass="w-100"
-                                                           formControlName="head_quarters"
-                                                           defaultLabel="Select Head Quarters"
+                                            <p-multiSelect [options]="studyLevelList" styleClass="w-100"
+                                                           formControlName="study_level"
                                                            optionValue="id"
-                                                           optionLabel="head_quarters_name" #HeadMultiSelect>
-                                                <ng-template pTemplate="selectedItems">
-                                                    {{ HeadMultiSelect.defaultLabel }}
-                                                </ng-template>
+                                                           placeholder="Select Study Level (Multi-Select)"
+                                                           optionLabel="level" #StudylevelSelect>
                                             </p-multiSelect>
+                                            <div *ngIf="filterForm.hasError('org_name')" class="text-danger">
+                                                {{ filterForm.getError('org_name') }}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <label class="form-label" style="font-size: medium;font-weight:500">Filter by
+                                        Region</label>
+                                    <div class="form-group">
+                                        <div class="mb-3">
+                                            <p-multiSelect [options]="regionList" styleClass="w-100"
+                                                           formControlName="region"
+                                                           optionValue="id"
+                                                           placeholder="Select Region (Multi-Select)"
+                                                           optionLabel="state" #region>
+                                            </p-multiSelect>
+                                            <div *ngIf="filterForm.hasError('org_name')" class="text-danger">
+                                                {{ filterForm.getError('org_name') }}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <label class="form-label" style="font-size: medium;font-weight:500">Filter by
+                                        Value</label>
+                                    <div class="form-group">
+                                        <div class="mb-3">
+                                            <p-multiSelect [options]="countryList" styleClass="w-100"
+                                                           formControlName="valueRange"
+                                                           optionValue=" "
+                                                           placeholder="Select Value Range (Multi-Select)"
+                                                           optionLabel=" " #value>
+                                            </p-multiSelect>
+                                            <div *ngIf="filterForm.hasError('org_name')" class="text-danger">
+                                                {{ filterForm.getError('org_name') }}
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -210,3 +225,4 @@
         </form>
     </div>
 </div>
+
