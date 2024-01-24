@@ -16,7 +16,7 @@ export class CompanyListComponent implements OnInit {
   countryList: any;
   headQuartersList: any
   page = 1;
-  pageSize = 50;
+  pageSize = 500;
   valueNearYouFilter: any;
   totalCompanyCount: any;
   isFilterVisible: string = 'none';
@@ -45,6 +45,18 @@ export class CompanyListComponent implements OnInit {
     var data={
       nearby_search:this.valueNearYouFilter
     }
+  }
+
+  onEnterKeyPressed(){
+    var data={
+      global_search: this.valueNearYouFilter
+    }
+
+    this.companyListService.getInvestorList(data).subscribe((response) => {
+      this.companyData = response.data;
+      this.totalCompanyCount = response.count;
+      //this.totalCompanyCount = response.count;
+    });
   }
 
   loadMultiSelectData(){
@@ -76,7 +88,7 @@ export class CompanyListComponent implements OnInit {
     this.companyListService.getInvestorList(data).subscribe((response) => {
       this.companyData = response.data;
       this.totalCompanyCount = response.count;
-      this.totalCompanyCount = response.count;
+      //this.totalCompanyCount = response.count;
     });
     this.isFilterVisible = 'none'
   }
