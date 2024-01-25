@@ -26,6 +26,8 @@ import { DialogModule } from 'primeng/dialog';
 import { BreadcrumbModule } from 'primeng/breadcrumb';
 import { ChipModule } from 'primeng/chip';
 import { SubscriptionHistoryComponent } from './subscription-history/subscription-history.component';
+import { CardModule } from 'primeng/card';
+import { TabViewModule } from 'primeng/tabview';
 
 @NgModule({
     declarations: [
@@ -54,7 +56,9 @@ import { SubscriptionHistoryComponent } from './subscription-history/subscriptio
         FormsModule,
         DialogModule,
         BreadcrumbModule,
-        ChipModule
+        ChipModule,
+        CardModule,
+        TabViewModule
     ],
      providers: [],
 })
