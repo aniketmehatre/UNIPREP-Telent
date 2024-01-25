@@ -54,18 +54,18 @@
 			</div>
 		</div>
 		<!-- upcomming event -->
-		<div class="row mt-3 p-4" *ngIf="upcomingevent">
-			<div class="col-md-4 col-12" *ngFor="let event of upcommingevent">
+		<div class="row mt-3 p-4 row-cols-1 row-cols-md-5 g-4" *ngIf="upcomingevent">
+			<div class="col mb-4" *ngFor="let event of upcommingevent;let i = index;">
 				<div class="card eventcard">
 					<span class="btn btn-primary eventcountdown">{{ event.daysago }}</span>
 					<div class="event-top card-body pb-0">
 						<div class="position-relative mt-2 p-2">
-							<div class="text-center" style="text-align: center; height: 75px;">
-								<img width="21%" src="{{ event.companylogo }}" alt="" />
+							<div class="text-center" style="text-align: center; height: 90px;">
+								<img width="21%" height="141px;" src="{{ event.companylogo }}" alt="" />
 							</div>
 						</div>
 						<div class="mt-5 text-center">
-							<div class="eventtime text-small">
+							<div class="eventtime" style="font-size: 10px;">
 								<span><i class="fa-regular fa-clock me-2"></i>{{ event.from }} - {{ event.to
 									}}</span>
 								<span class="mx-2">|</span>
@@ -81,43 +81,41 @@
 								[pTooltip]="event.eventname + '<br>Speaker - ' + event.speakername" [escape]="false">
 								{{ event.eventname.length >27 ? event.eventname.slice(0,27) +
 								'...':event.eventname
-								}} <span><i class="questiontooltip fa-solid fa-circle-question"></i></span></h5>
-							<p class="small">{{ event.eventdescription.length > 43 ?
-								event.eventdescription.slice(0,
-								43) + '...' : event.eventdescription }}</p>
+								}} </h5>
+								<p class="small">{{ event.eventdescription.length > 43 ?
+									event.eventdescription.slice(0,
+									43) + '...' : event.eventdescription }}</p>
 						</div>
 
 						<div class="row" *ngIf="event.registered===0?false:true">
 							<!-- after registration -->
-							<div class="col-7">
-								<h5 class="mb-0" tooltipPosition="top"
-									[pTooltip]="event.eventname + '<br>Speaker - ' + event.speakername"
-									[escape]="false">
+							<div class="col-12">
+								<h5 class="mb-0" tooltipPosition="top">
 									{{ event.eventname.length >15 ? event.eventname.slice(0,15) +
 									'...':event.eventname
-									}} <span><i class="questiontooltip fa-solid fa-circle-question"></i></span>
+									}} 
 								</h5>
-								<p class="small">{{ event.eventdescription.length > 21 ?
+								<p class="small">{{ event.eventdescription.length > 25 ?
 									event.eventdescription.slice(0,
-									21) + '...' : event.eventdescription }}</p>
-							</div>
-							<div class="col-5">
-								<span *ngIf="event.registered===0?false:true" target="_blank">
-									<div (click)="goingEventLink(event.eventlink)" class="mt-2"><button
-											style="display: inline-flex;" class="btn btn-primary registerbtn w-100 m-0"
-											type="button"><i class="fa-regular fa-clock me-2"></i> &nbsp;Event
-											Link</button>
-									</div>
-								</span>
+									25) + '...' : event.eventdescription }}</p>
 							</div>
 						</div>
 						<div class="row">
-							<div class="col-12">
+							<div class="col-md-6 col-12 mb-md-0 mb-2 countryname">
 								<div class="d-flex align-items-center ">
 									<img class="me-1" style="width: 20px" src="{{ event.countrylog }}" alt="" />
 									<p style="white-space: nowrap;" class="small fw-semibold mb-0">{{
 										event.country }}</p>
 								</div>
+							</div>
+							<div class="col-md-6 col-12 mb-2 eventlink">
+								<span *ngIf="event.registered===0?false:true" target="_blank">
+									<div (click)="goingEventLink(event.eventlink)"><button
+											class="btn btn-primary registerbtn w-100 m-0"
+											type="button"><i class="fa-regular fa-clock"></i> &nbsp;Event
+											Link</button>
+									</div>
+								</span>
 							</div>
 							<div class="col-12">
 								<div class="d-flex align-items-center mt-1">
@@ -214,7 +212,7 @@
 </div>
 <div class="event-paginator" style="background-color: #fff; border-radius: 0px 0px 15px 15px;">
 	<p-paginator *ngIf="upcomingevent" [rows]="10" [totalRecords]="totalcount" (onPageChange)="paginate($event)"
-		[rowsPerPageOptions]="[6, 30, 60, 120]"></p-paginator>
+		[rowsPerPageOptions]="[12, 60, 120]"></p-paginator>
 	<p-paginator *ngIf="postevent" [rows]="10" [totalRecords]="totalcountpost" (onPageChange)="paginatepost($event)"
 		[rowsPerPageOptions]="[6, 30, 60, 120]"></p-paginator>
 </div>
