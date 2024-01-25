@@ -21,7 +21,7 @@ import screenfull from "screenfull";
 export class ChatComponent implements OnInit {
   @HostListener("fullscreenchange", ["$event"])
   fullscreenchange(event: any) {
-    if(!screenfull.isFullscreen){
+    if (!screenfull.isFullscreen) {
       this.fullscreen = "";
     }
   }
@@ -111,11 +111,6 @@ export class ChatComponent implements OnInit {
   }
   username: string = "";
   ngOnInit(): void {
-    // if (localStorage.getItem("guidlineAccepted")) {
-    //   if (Number(localStorage.getItem("guidlineAccepted")) == 0) {
-    //     this.route.navigate(["/pages/guideline"]);
-    //   }
-    // }
     this.getChatHistoryByUserId();
     this.getOptions();
     this.username = localStorage.getItem("Name") || "";
@@ -149,9 +144,11 @@ export class ChatComponent implements OnInit {
   }
   textMessage: string = "";
   visibility = false;
+  textareavisbility = false;
   sendMessage() {
     if (this.totalcredits == 0) {
-      this.creditspopupVisibility = true;
+      this.textareavisbility = false;
+      this.creditspopupVisibility=true;
       return;
     }
     if (this.textMessage == null || this.textMessage == "") {
@@ -175,6 +172,7 @@ export class ChatComponent implements OnInit {
         });
         this.visibility = true;
         this.textMessage = "";
+        this.textareavisbility = false;
         this.getChatHistoryByUserId();
       },
       (error) => {
