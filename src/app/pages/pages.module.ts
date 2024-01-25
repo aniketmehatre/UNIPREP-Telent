@@ -51,6 +51,7 @@ import { CancellationpolicyComponent } from './footersection/cancellationpolicy/
 import { SupportComponent } from "./support/support.component";
 import { InvestorListComponent } from './investor-list/investor-list.component';
 import { CompanyListComponent } from './company-list/company-list.component';
+import { DividerModule } from "primeng/divider";
 
 @NgModule({
     declarations: [
@@ -105,7 +106,8 @@ import { CompanyListComponent } from './company-list/company-list.component';
     AccordionModule,
     OverlayPanelModule,
     InputTextareaModule,
-    TooltipModule
+    TooltipModule,
+    DividerModule
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
