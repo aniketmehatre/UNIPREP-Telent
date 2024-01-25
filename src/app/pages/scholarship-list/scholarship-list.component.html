@@ -131,13 +131,9 @@
                                         Country</label>
                                     <div class="form-group">
                                         <div class="mb-3">
-                                            <p-multiSelect [options]="countryList" styleClass="w-100"
-                                                           formControlName="country"
-                                                           optionValue="id"
-                                                           placeholder="Select  Country (Multi-Select)"
-                                                           (onChange)="countryChange($event)"
-                                                           optionLabel="country" #countrySelect>
-                                            </p-multiSelect>
+                                            <p-dropdown formControlName="country" optionValue="id" optionLabel="country"
+                                            styleClass="w-full" [options]="countryList" [filter]="true"
+                                            filterBy="country"  (onChange)="countryChange($event)"  placeholder="Select  Country"></p-dropdown>
                                         </div>
                                     </div>
                                 </div>
@@ -146,12 +142,9 @@
                                         Home Country</label>
                                     <div class="form-group">
                                         <div class="mb-3">
-                                            <p-multiSelect [options]="homeCountryList" styleClass="w-100"
-                                                           formControlName="home_country"
-                                                           optionValue="id"
-                                                           placeholder="Select Home Country (Multi-Select)"                                                         
-                                                           optionLabel="country" #homeCountrySelect>
-                                            </p-multiSelect>
+                                            <p-dropdown formControlName="home_country" optionValue="id" optionLabel="country"
+                                            styleClass="w-full" [options]="homeCountryList" [filter]="true"
+                                            filterBy="country"   placeholder="Select  Home Country"></p-dropdown>
                                         </div>
                                     </div>
                                 </div>
@@ -171,6 +164,20 @@
                                 </div>
                                 <div class="col-md-12">
                                     <label class="form-label" style="font-size: medium;font-weight:500">Filter by
+                                        University</label>
+                                    <div class="form-group">
+                                        <div class="mb-3">
+                                            <p-multiSelect [options]="filterUniversityList" styleClass="w-100"
+                                                           formControlName="university"
+                                                           optionValue="id"
+                                                           placeholder="Select Organisation Or University (Multi-Select)"
+                                                           optionLabel="name">
+                                            </p-multiSelect>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <label class="form-label" style="font-size: medium;font-weight:500">Filter by
                                         Region</label>
                                     <div class="form-group">
                                         <div class="mb-3">
@@ -178,7 +185,7 @@
                                                            formControlName="region"
                                                            optionValue="id"
                                                            placeholder="Select Region (Multi-Select)"
-                                                           optionLabel="state" #region>
+                                                           optionLabel="state">
                                             </p-multiSelect>
                                         </div>
                                     </div>
