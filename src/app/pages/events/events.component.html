@@ -150,8 +150,8 @@
 			</div>
 		</div>
 		<!-- post event -->
-		<div class="row mt-3" *ngIf="postevent">
-			<div class="col-md-4 col-12" *ngFor="let events of postevetdetaisl">
+		<div class="row mt-3 p-4 row-cols-1 row-cols-md-5 g-4" *ngIf="postevent">
+			<div class="col-mb-4" *ngFor="let events of postevetdetaisl">
 				<div class="card eventcard">
 					<span class="btn btn-primary eventcomplete">{{ events.date }}</span>
 					<div class="event-top card-body pb-0">
@@ -172,15 +172,17 @@
 							events.eventdescription.slice(0, 29) + '...' : events.eventdescription }}</p>
 
 						<div class="row">
-							<div class="col-6">
+							<div class="col-12">
 								<div class="d-flex align-items-center mt-2">
 									<img class="me-1" style="width: 20px" src="{{ events.countrylog }}" alt="" />
 									<p style="white-space: nowrap;" class="small fw-semibold mb-0">{{
 										events.country }}</p>
 								</div>
 							</div>
-							<div class="col-6">
-								<div class="d-flex align-items-center">
+						</div>
+						<div class="row">
+							<div class="col-12">
+								<div class="d-flex mt-2 align-items-center">
 									<i class="fa-regular fa-users me-1 small"></i>
 									<p class="small fw-semibold mb-0">Registered
 										Members-{{events.registerusercount}}</p>
@@ -212,9 +214,9 @@
 </div>
 <div class="event-paginator" style="background-color: #fff; border-radius: 0px 0px 15px 15px;">
 	<p-paginator *ngIf="upcomingevent" [rows]="10" [totalRecords]="totalcount" (onPageChange)="paginate($event)"
-		[rowsPerPageOptions]="[12, 60, 120]"></p-paginator>
+		[rowsPerPageOptions]="[10, 50, 100, 200]"></p-paginator>
 	<p-paginator *ngIf="postevent" [rows]="10" [totalRecords]="totalcountpost" (onPageChange)="paginatepost($event)"
-		[rowsPerPageOptions]="[6, 30, 60, 120]"></p-paginator>
+		[rowsPerPageOptions]="[10, 50, 100, 200]"></p-paginator>
 </div>
 
 <!-- filter pop-up -->
