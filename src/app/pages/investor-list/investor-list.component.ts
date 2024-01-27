@@ -11,8 +11,8 @@ import {InvestorListService} from "./investor-list.service";
 export class InvestorListComponent implements OnInit {
   investorData: any []= []
   investorIndustryInterested: any;
-  investorOrgType: any;
-  investorType: any;
+  // investorOrgType: any;
+  // investorType: any;
   countryList: any;
   headQuartersList: any
   page = 1;
@@ -25,10 +25,10 @@ export class InvestorListComponent implements OnInit {
   constructor(private _location: Location, private fb: FormBuilder, private investorList: InvestorListService) {
     this.filterForm = this.fb.group({
       org_name: [''],
-      org_type: [''],
+      // org_type: [''],
       country: [''],
       head_quarters: [''],
-      investor_type: [''],
+      // investor_type: [''],
       industry_interested: [''],
     });
   }
@@ -65,8 +65,8 @@ export class InvestorListComponent implements OnInit {
   loadMultiSelectData(){
     this.investorList.getMultiSelectData().subscribe((response) => {
       this.investorIndustryInterested = response.investor_industry_interested;
-      this.investorOrgType = response.investor_org_type;
-      this.investorType = response.investor_type;
+      // this.investorOrgType = response.investor_org_type;
+      // this.investorType = response.investor_type;
       this.countryList = response.countries_list;
       this.headQuartersList = response.head_quarters_list;
     });
