@@ -11,8 +11,8 @@ import {CompanyListService} from "./company-list.service";
 export class CompanyListComponent implements OnInit {
   companyData: any []= []
   industryInterested: any;
-  investorOrgType: any;
-  investorType: any;
+  // investorOrgType: any;
+  // investorType: any;
   countryList: any;
   headQuartersList: any
   page = 1;
@@ -62,8 +62,8 @@ export class CompanyListComponent implements OnInit {
   loadMultiSelectData(){
     this.companyListService.getMultiSelectData().subscribe((response) => {
       this.industryInterested = response.investor_industry_interested;
-      this.investorOrgType = response.investor_org_type;
-      this.investorType = response.investor_type;
+      // this.investorOrgType = response.investor_org_type;
+      // this.investorType = response.investor_type;
       this.countryList = response.countries_list;
       this.headQuartersList = response.head_quarters_list;
     });
