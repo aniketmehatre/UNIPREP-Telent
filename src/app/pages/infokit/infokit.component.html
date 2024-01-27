@@ -3,7 +3,7 @@
     <span (click)="redirectTo('dashboard',-1)">Dashboard / </span><span (click)="redirectTo('startup',-1)">Startup Kit / </span><span *ngFor="let data of routedata ; let i = index;let isLast=last" (click)="redirectTo(data,i)" [ngClass]="isLast?'fontcolor':''">{{ data.name }} / </span>
   </div>
 </div>
-<div class="card readingcard">
+<div class="card readingcard" *ngIf="!planExpired">
   <div class="card-body pt-0">
     <div class="row justify-content-center">
       <div class="col-md-2 text-start"></div>
@@ -80,4 +80,12 @@
       </div>
     </div>
   </div>
+</div>
+<div class="text-center mt-5 mb-4" *ngIf="planExpired">
+  <img src="../../../uniprep-assets/images/smartloack.png" class="image" width="80">
+  <h3>Upgrade now to access invaluable tools</h3>
+  <p>Unlock the power of success with our exclusive events!<br> Upgrade your plan now to gain instant access.</p>
+  <p class="offer">Events offers:<br> Career growth, International Education, Life in your destination and more</p>
+  <button pButton type="button" class=" text-white p-ripple p-button-rounded p-button-warning p-button p-component"
+    (click)="upgradePlan()">Upgrade Plan<i class="pi pi-arrow-circle-right"></i></button>
 </div>

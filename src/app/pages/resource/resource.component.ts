@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ResourceService } from './resource.service';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MessageService } from 'primeng/api';
+import { AuthService } from 'src/app/Auth/auth.service';
+import { Router } from '@angular/router';
 interface country {
   id: number,
   country: string,
@@ -19,8 +21,10 @@ export class ResourceComponent implements OnInit {
   filterform: FormGroup;
   newfile = "none";
   countries: country[] = [];
+  planExpired!: boolean;
 
-  constructor(private fb: FormBuilder, private resourceService: ResourceService, private toast: MessageService) {
+  constructor(private fb: FormBuilder, private resourceService: ResourceService, private toast: MessageService, private authService: AuthService,
+  private router:Router) {
     this.filterform = this.fb.group({
       coutryname: ['']
     });
@@ -37,7 +41,8 @@ export class ResourceComponent implements OnInit {
     let data = {
       coutryname: this.filterform.value.coutryname
     }
-    this.getResources(data)
+    this.getResources(data);
+    this.checkplanExpire();
   }
   getResources(data: any) {
     this.resourceService.getResources(data).subscribe((response: any) => {
@@ -91,5 +96,19 @@ export class ResourceComponent implements OnInit {
     if (event!.value.includes(0)) {
       this.filterform.get('coutryname')!.setValue([0]);
     }
+  }
+  checkplanExpire(): void {
+    this.authService.getNewUserTimeLeft().subscribe((res) => {
+      let data = res.time_left;
+      let subscription_exists_status = res.subscription_details;
+      if (data.plan === "expired" || subscription_exists_status === 'free_trail') {
+        this.planExpired = true;
+      } else {
+        this.planExpired = false;
+      }
+    })
+  }
+  upgradePlan(): void {
+    this.router.navigate(["/pages/subscriptions"]);
   }
 }

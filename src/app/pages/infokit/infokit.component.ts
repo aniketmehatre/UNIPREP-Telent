@@ -15,6 +15,7 @@ import { TableModule } from "primeng/table";
 import { DropdownModule } from "primeng/dropdown";
 import { MultiSelectModule } from "primeng/multiselect";
 import { Router } from "@angular/router";
+import { AuthService } from "src/app/Auth/auth.service";
 @Component({
   selector: "uni-infokit",
   standalone: true,
@@ -32,18 +33,30 @@ import { Router } from "@angular/router";
   styleUrls: ["./infokit.component.scss"],
 })
 export class InfoKitComponent implements OnInit {
+  planExpired!: boolean;
   constructor(
     private fb: FormBuilder,
     private service: InformationService,
     private toastr: MessageService,
-    private route: Router
-  ) {}
+    private route: Router,
+    private authService: AuthService
+  ) {
+    this.authService.getNewUserTimeLeft().subscribe((res) => {
+      let data = res.time_left;
+      let subscription_exists_status = res.subscription_details;
+      if (data.plan === "expired" || subscription_exists_status === 'free_trail' || subscription_exists_status === 'Popular' || subscription_exists_status === 'Advanced') {
+        this.planExpired = true;
+      } else {
+        this.planExpired = false;
+      }
+    })
+  }
   titletext = "STARTUP KIT";
   folderdata: any = "0";
   routedata: any = [];
   parentfolderlists: any = [];
   parentfilelists: any = [];
-  ngOnInit(): void {
+  ngOnInit() {
     this.getFolderData(this.folderdata);
   }
   getFolderData(parent_id: any) {
@@ -100,5 +113,9 @@ export class InfoKitComponent implements OnInit {
   }
   openFile(url:any) {
     window.open(url, "_blank");
+  }
+
+  upgradePlan(): void {
+    this.route.navigate(["/pages/subscriptions"]);
   }
 }
