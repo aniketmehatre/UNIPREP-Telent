@@ -15,11 +15,11 @@ const Auhtroutes: Routes = [
     children: [
       {
         path: 'login',
-        component: MaintenanceComponent,
+        component: LoginComponent,
       },
       {
         path: 'register',
-        component: MaintenanceComponent,
+        component: RegistrationComponent,
       },
       {
         path: 'login-new',
