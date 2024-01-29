@@ -3,6 +3,8 @@ import { FormBuilder, FormGroup, ValidationErrors, ValidatorFn, Validators } fro
 import { EventsService } from './events.service';
 import { DatePipe } from '@angular/common';
 import { MessageService } from 'primeng/api';
+import { AuthService } from 'src/app/Auth/auth.service';
+import { Router } from '@angular/router';
 interface country {
   id: number,
   country: string,
@@ -43,7 +45,8 @@ export class EventsComponent implements OnInit {
   postevetdetaisl: any[] = [];
   valueNearYouFilter: string | undefined;
   selectedCountryId: any;
-  constructor(private fb: FormBuilder, private service:EventsService,private datePipe: DatePipe,private toast: MessageService,) { 
+  planExpired!: boolean;
+  constructor(private fb: FormBuilder, private service: EventsService, private datePipe: DatePipe, private toast: MessageService, private authService: AuthService, private router: Router) { 
     this.filterform = this.fb.group({
       from: [''],
       to: [''],
@@ -65,6 +68,7 @@ export class EventsComponent implements OnInit {
       page : 1,
     }
     this.getPostEvent(postdata)
+    this.checkplanExpire();
   }
 
 
@@ -282,5 +286,21 @@ performSearch(events:any){
 }
 goingEventLink(eventlink:any){
   window.open(eventlink);
-}
+  }
+  
+  checkplanExpire(): void {
+    this.authService.getNewUserTimeLeft().subscribe((res) => {
+      let data = res.time_left;
+      let subscription_exists_status = res.subscription_details;
+      if (data.plan === "expired" || subscription_exists_status === 'free_trail') {
+        this.planExpired = true;
+      } else {
+        this.planExpired = false;
+      }
+    })
+  }
+
+  upgradePlan(): void {
+    this.router.navigate(["/pages/subscriptions"]);
+  }
 }

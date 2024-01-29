@@ -1,5 +1,5 @@
 <div class="card readingcard" style="border-radius: 15px 15px 0px 0px !important;">
-    <div class="card-body pt-0">
+    <div class="card-body pt-0"  *ngIf="!planExpired">
         <div class="row justify-content-center">
             <div class="col-md-2 text-start"></div>
             <div class="col-md-8 text-center">
@@ -107,6 +107,15 @@
         </p-table>
         <p-paginator [rows]="pageSize" [totalRecords]="totalInvestorsCount" (onPageChange)="pageChange($event)" [first]="page"
                      [rowsPerPageOptions]="[500, 300, 100]"></p-paginator>
+    </div>
+
+    <div class="text-center mt-5 mb-4" *ngIf="planExpired">
+        <img src="../../../uniprep-assets/images/smartloack.png" class="image" width="80">
+        <h3>Upgrade now to access invaluable tools</h3>
+        <p>Unlock the power of success with our exclusive events!<br> Upgrade your plan now to gain instant access.</p>
+        <p class="offer">Events offers:<br> Career growth, International Education, Life in your destination and more</p>
+        <button pButton type="button" class=" text-white p-ripple p-button-rounded p-button-warning p-button p-component"
+            (click)="upgradePlan()">Upgrade Plan<i class="pi pi-arrow-circle-right"></i></button>
     </div>
 
 </div>
