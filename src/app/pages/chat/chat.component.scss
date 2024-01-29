@@ -149,16 +149,19 @@
 
 .chatcontainer {
   padding: 0rem 2rem 0rem 2rem;
-  max-height: 40vh;
+  max-height: 47vh;
   overflow-y: scroll;
   scrollbar-width: thin;
 }
 ::ng-deep .p-card {
   .p-card-content {
     padding: 0 !important;
+    height: 100vh;
   }
   .p-card-footer {
     padding: 1rem !important;
+    position: sticky;background: white;
+    bottom: 0 !important;
     .sendbtn {
       margin-top: 0.5rem;
 
@@ -308,7 +311,7 @@
   }
   h5 {
     margin: 0 !important;
-    font-size: small !important;    
+    font-size: small !important;
     width: 180px !important;
     overflow: hidden !important;
   }
@@ -318,4 +321,12 @@
 }
 :host ::ng-deep .p-dialog-content {
   overflow: visible !important;
+}
+:host ::ng-deep .ql-container {
+  height: 80px;
+  overflow-y: scroll !important;
+  scrollbar-width: thin !important;
+}
+:host ::ng-deep .ql-editor{
+  overflow: unset !important;
 }
