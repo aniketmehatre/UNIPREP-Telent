@@ -98,9 +98,19 @@
                     <td class="border-cell">{{inv.investor_type}}</td>
                     <!-- <td class="border-cell">{{inv.industry_interested}}</td> -->
                     <td class="border-cell" style="white-space: nowrap;">
-                        <i class="fa-brands fa-linkedin"></i>&nbsp;<a target="_blank" href="{{inv.linked_in}}">Linked In</a><br>
-                        <i class="fa-solid fa-globe"></i>&nbsp;<a target="_blank" href="{{inv.website}}">Website</a><br>
-                        <i class="fa-solid fa-envelope"></i>&nbsp;<a href="mailto:{{inv.email}}">Email</a><br>
+                        <div *ngIf="inv.linked_in && inv.linked_in.trim() !== ''">
+                            <i class="fa-brands fa-linkedin"></i>&nbsp;<a target="_blank" href="{{inv.linked_in}}">Linked In</a><br>
+                        </div>
+                        
+                        <div *ngIf="inv.website && inv.website.trim() !== ''">
+                            <i class="fa-solid fa-globe"></i>&nbsp;<a target="_blank" href="{{inv.website}}">Website</a><br>
+                        </div>
+
+                        <div *ngIf="inv.email && inv.email.trim() !== ''">
+                            <i class="fa-solid fa-envelope"></i>&nbsp;<a href="mailto:{{inv.email}}">Email</a><br>
+                        </div>
+                        
+                        
                     </td>
                 </tr>
             </ng-template>

@@ -98,11 +98,11 @@ export class SidenavComponent {
       url: "/pages/modules/life-at-country",
       image: "fa-solid fa-earth-americas",
     },
-    {
-      title: "Explore",
-      url: "",
-      image: "",
-    },
+    // {
+    //   title: "Explore",
+    //   url: "",
+    //   image: "",
+    // },
     {
       title: "Events",
       url: "/pages/events",
@@ -112,6 +112,16 @@ export class SidenavComponent {
       title: "Resources",
       url: "/pages/resource",
       image: "fa-solid fa-link",
+    },
+    {
+      title: "Subscriptions",
+      url: "",
+      image: "",
+    },
+    {
+      title: "Subscription",
+      url: "/pages/subscriptions",
+      image: "fa-solid fa-crown",
     },
     {
       title: "Revenue",

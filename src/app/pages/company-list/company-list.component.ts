@@ -27,6 +27,7 @@ export class CompanyListComponent implements OnInit {
 
   constructor(private _location: Location, private fb: FormBuilder, private companyListService: CompanyListService, private authService: AuthService, private router:Router) {
     this.filterForm = this.fb.group({
+      company_name: [''],
       country: [''],
       head_quarters: [''],
       fromdate: [''],
@@ -81,6 +82,7 @@ export class CompanyListComponent implements OnInit {
 
   loadInvestorData(){
     let data = {
+      company_name: this.filterForm.value.company_name ? this.filterForm.value.company_name : '',
       country: this.filterForm.value.country ? this.filterForm.value.country : '',
       head_quarters: this.filterForm.value.head_quarters ? this.filterForm.value.head_quarters : '',
       fromdate: this.filterForm.value.fromdate ? this.filterForm.value.fromdate : '',
