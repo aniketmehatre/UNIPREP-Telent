@@ -52,6 +52,7 @@ import { SupportComponent } from "./support/support.component";
 import { InvestorListComponent } from './investor-list/investor-list.component';
 import { CompanyListComponent } from './company-list/company-list.component';
 import { ScholarshipListComponent } from "./scholarship-list/scholarship-list.component";
+import { UserGuideComponent } from './user-guide/user-guide.component';
 
 @NgModule({
     declarations: [
@@ -74,6 +75,7 @@ import { ScholarshipListComponent } from "./scholarship-list/scholarship-list.co
         InvestorListComponent,
         CompanyListComponent,
         ScholarshipListComponent,
+        UserGuideComponent,
     ],
   exports: [FooterStatusBoxComponent, HeaderSearchComponent],
   imports: [

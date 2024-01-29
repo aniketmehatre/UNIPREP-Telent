@@ -39,6 +39,11 @@ export class SidenavComponent {
       image: "fa-solid fa-house",
     },
     {
+      title: "User Guide",
+      url: "/pages/userguide",
+      image: "fa-solid fa-book",
+    },
+    {
       title: "Subscription",
       url: "/pages/subscriptions",
       image: "fa-solid fa-crown",
@@ -281,7 +286,7 @@ export class SidenavComponent {
     this.visibleExhasted = false;
     this.router.navigate(["/pages/subscriptions"]);
   }
-
+ 
   onexpand(item: SideMenu) {
     if (item.header) {
       return;

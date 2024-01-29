@@ -27,6 +27,11 @@ const routes: Routes = [
                 loadChildren: () => import('./dashboard/dashboard.module').then(m => m.DashboardModule)
             },
             {
+                path: 'userguide',
+
+                loadChildren: () => import('./user-guide/user-guide.module').then(m => m.UserGuideModule)
+            },            
+            {
                 path: 'modules',
                 // canActivate: [PagesGuard],
                 loadChildren: () => import('./modules/modules.module').then(m => m.ModulesModule)
