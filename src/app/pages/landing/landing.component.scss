@@ -19,6 +19,11 @@
 {
 	background:linear-gradient(145deg, rgba(24,34,79,1) 0%, rgba(220,122,86,1) 100%);
 }
+.white-divider
+{
+	border-color:grey;
+	background-color: white;
+}
 html {
 	scroll-behavior: smooth;
 	overflow: auto !important;
@@ -28,19 +33,21 @@ video::-webkit-media-controls-panel {
 }
 .video-container {
 	position: relative;
-	width: 100%;
-	height: 100%;
-	overflow: hidden;
-	margin-bottom:-10px;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .fa-circle-play {
-	position: absolute;
-	top: 50%;
-	left: 50%;
-	transform: translate(-50%, -50%);
-	font-size: 3em; /* Adjust size as needed */
-	z-index: 2;
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 5em;
+    z-index: 2;
   }
 
 video {
