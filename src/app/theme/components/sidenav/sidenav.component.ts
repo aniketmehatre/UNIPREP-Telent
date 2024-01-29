@@ -38,11 +38,11 @@ export class SidenavComponent {
       url: "/pages/dashboard",
       image: "fa-solid fa-house",
     },
-    {
-      title: "User Guide",
-      url: "/pages/userguide",
-      image: "fa-solid fa-book",
-    },
+    // {
+    //   title: "User Guide",
+    //   url: "/pages/userguide",
+    //   image: "fa-solid fa-book",
+    // },
     {
       title: "Subscription",
       url: "/pages/subscriptions",
@@ -113,16 +113,16 @@ export class SidenavComponent {
       url: "/pages/resource",
       image: "fa-solid fa-link",
     },
-    {
-      title: "Subscriptions",
-      url: "",
-      image: "",
-    },
-    {
-      title: "Subscription",
-      url: "/pages/subscriptions",
-      image: "fa-solid fa-crown",
-    },
+    // {
+    //   title: "Subscriptions",
+    //   url: "",
+    //   image: "",
+    // },
+    // {
+    //   title: "Subscription",
+    //   url: "/pages/subscriptions",
+    //   image: "fa-solid fa-crown",
+    // },
     {
       title: "Revenue",
       url: "",
