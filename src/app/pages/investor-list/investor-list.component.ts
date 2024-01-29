@@ -13,8 +13,8 @@ import { Router } from '@angular/router';
 export class InvestorListComponent implements OnInit {
   investorData: any []= []
   investorIndustryInterested: any;
-  // investorOrgType: any;
-  // investorType: any;
+  investorOrgType: any;
+  //investorType: any;
   countryList: any;
   headQuartersList: any
   page = 1;
@@ -69,8 +69,8 @@ export class InvestorListComponent implements OnInit {
   loadMultiSelectData(){
     this.investorList.getMultiSelectData().subscribe((response) => {
       this.investorIndustryInterested = response.investor_industry_interested;
-      // this.investorOrgType = response.investor_org_type;
-      // this.investorType = response.investor_type;
+      this.investorOrgType = response.investor_org_type;
+      //this.investorType = response.investor_type;
       this.countryList = response.countries_list;
       this.headQuartersList = response.head_quarters_list;
     });
