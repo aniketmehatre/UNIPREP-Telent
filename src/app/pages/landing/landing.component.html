@@ -1,12 +1,12 @@
 <nav class="navbar navbar-expand-md flex-column navbar-light sticky-top pt-0" id="mainmenu">
-	<!-- <div class="topmarquee container-fluid justify-content-center">
+	<div class="topmarquee container-fluid justify-content-center">
 		<div class="row">
 			<div class="col-md-12">
-				<p class="mb-0 py-2 text-center text-white">Gear up for success in 2024 with UNIPREP. <a href="/register" class="text-white text-decoration-none">Register now to avail free access!</a></p>
+				<p class="mb-0 py-2 text-center text-white"><span class="h5 fw-semibold">UNIPREP 1.0</span> is live now! Explore our features today. <a href="/register" class="text-white">Try now for free</a></p>
 			</div>
 		</div>
-		<marquee class="text-white py-2">Enjoy free access to UNIPREP till 1st January 2024.</marquee>
-	</div> -->
+		<!-- <marquee class="text-white py-2">Enjoy free access to UNIPREP till 1st January 2024.</marquee> -->
+	</div>
 	<div class="container-fluid d-md-flex d-none">
 		<!-- Your brand/logo (optional) -->
 		<a class="navbar-brand py-0" href="#">
@@ -31,7 +31,7 @@
 			<!-- Add other desktop menu items as needed -->
 		</ul>
 
-		<div class="d-flex gap-3 align-items-center">
+		<div class="d-flex gap-4 align-items-center">
 			<a [routerLink]="['/login']" class="text-decoration-none text-white">Login</a>
 			<a [routerLink]="['/register']" class="text-decoration-none"><button type="button" class="btn btn-secondary px-4 py-2 m-0">Register</button></a>
 		</div>
@@ -51,10 +51,10 @@
 		</button>
 
 		<!-- Sidebar navigation (offcanvas) -->
-		<div class="offcanvas offcanvas-end text-bg-dark"  data-bs-scroll="true" tabindex="-1" id="sidebarNav" aria-labelledby="sidebarNavLabel">
+		<div class="offcanvas offcanvas-end text-bg-dark" data-bs-scroll="true" tabindex="-1" id="sidebarNav" aria-labelledby="sidebarNavLabel">
 			<div class="offcanvas-header justify-content-end mt-2">
 				<!-- Close button (X) to close the sidebar -->
-				<i class="fa-solid fa-xmark text-white fa-2xl" role="button"  data-bs-dismiss="offcanvas"></i>
+				<i class="fa-solid fa-xmark text-white fa-2xl" role="button" data-bs-dismiss="offcanvas"></i>
 			</div>
 			<div class="offcanvas-body justify-content-center d-flex align-items-center">
 				<!-- Mobile menu items -->
@@ -119,7 +119,7 @@
 		<div class="row justify-content-center">
 			<div class="col-md-10">
 				<div class="video-container" (click)="toggleVideo()">
-					<i class="fa-duotone fa-circle-play text-white" role="button" *ngIf="!isPlaying"></i>
+					<i class="fa-duotone fa-circle-play uniprep-primary" role="button" *ngIf="!isPlaying"></i>
 					<video #videoPlayer width="100%" height="100%" preload="none" poster="/uniprep-assets/images/uniprepmockup.png">
 						<source src="/uniprep-assets/video/uniprepvideo.mp4" type="video/mp4" />
 					</video>
@@ -146,15 +146,14 @@
 <section class="pt-5 pb-5 darksection" id="about">
 	<div class="container-fluid text-center">
 		<div class="row justify-content-center">
-			<div class="col-md-9 text-start d-flex align-items-center order-2 order-md-2">
-				<div class="impactborder card">
-					<div class="card-body">
-<h4 class="py-4 text-white text-center fw-extralight"><span class="h1">"</span><span class="fw-bold">UNIPREP</span> is a one-stop platform for <span class="fw-bold uniprep-secondary">students, graduates</span> & <span class="fw-bold uniprep-secondary">entrepreneurs</span>, seeking information on global opportunities for education, business, career and life abroad.<span class="h1">"</span></h4>
+			<div class="col-md-9 text-start d-flex align-items-center pt-5">
+				<div class="card">
+					<div class="card-body p-5">
+						<h4 class="p-5 text-white text-center fw-extralight"><span class="h1">"</span><span class="fw-bold">UNIPREP</span> is a one-stop platform for <span class="fw-bold uniprep-secondary">students, graduates</span> & <span class="fw-bold uniprep-secondary">entrepreneurs</span>, seeking information on global opportunities for education, business, career and life abroad.<span class="h1">"</span></h4>
 					</div>
-					
 				</div>
-					<!-- <h1 class="text-white text-md-start text-center">ABOUT UNIPREP</h1> -->
-					<!-- <p class="text-justify mb-5">
+				<!-- <h1 class="text-white text-md-start text-center">ABOUT UNIPREP</h1> -->
+				<!-- <p class="text-justify mb-5">
 						UNIPREP is a one-stop global search platform, designed to act as a personalized advisor, catering to all students and graduates seeking guidance on career growth, opportunities, life, and education abroad.<br /><br />Experts with firsthand experience residing in various countries have answered over half a million questions addressing all 360-degree queries. The information on the portal is further reviewed by the alumni of top international universities.
 					</p> -->
 			</div>
@@ -210,7 +209,7 @@
 							<div class="card-body py-5 px-4">
 								<div class="d-flex flex-md-row flex-column gap-2 align-items-center card-title">
 									<i class="fa-thin fa-square-check fa-2xl cardicon mb-4 mb-md-0"></i>
-									<h5 class="text-md-start text-center mb-0">You are looking for scholarship options to study abroad?</h5>
+									<h5 class="text-md-start text-center mb-0">Are you looking for scholarship options to study abroad?</h5>
 								</div>
 								<p class="text-md-start text-center text-grey small mb-0">Our database of 5000+ scholarships, helps you select the best one to fund your education abroad.</p>
 							</div>
@@ -243,7 +242,7 @@
 							<div class="card-body py-5 px-4">
 								<div class="d-flex flex-md-row flex-column gap-2 align-items-center card-title">
 									<i class="fa-thin fa-square-check fa-2xl cardicon mb-4 mb-md-0"></i>
-									<h5 class="text-md-start text-center mb-0">You want to kickstart your start-up journey?</h5>
+									<h5 class="text-md-start text-center mb-0">Want to kickstart your start-up journey?</h5>
 								</div>
 								<p class="text-md-start text-center text-grey small mb-0">Ourstart-up kit consisting of over 1000 documents and samples, that are vital for launching a successful startup.</p>
 							</div>
@@ -272,11 +271,11 @@
 			<div class="col-md-10">
 				<div class="card py-4 px-4">
 					<div class="card-body">
-						<div class="row align-items-center">
+						<div class="row align-items-center justify-content-center">
 							<div class="col-md-10">
 								<h3 class="mb-md-0 mb-3 text-md-start text-center fw-light"><span class="fw-bold">Get Free Access</span><br />Right Away!</h3>
 							</div>
-							<div class="col-md-2">
+							<div class="col-md-2 col-7">
 								<a href="/register" class="btn cta-btn m-0 h5 py-4">REGISTER NOW</a>
 							</div>
 						</div>
@@ -454,19 +453,14 @@
 						<div class="row">
 							<div class="d-flex justify-content-between gap-5">
 								<div class="text-center pt-4 pb-4">
-									<i class="fa-thin fa-comments-question fa-2xl pb-4"></i>
-									<h3 class="mb-2 uniprep-secondary">500K+</h3>
-									<h5 class="mb-0">Questions Answered</h5>
-								</div>
-								<div class="text-center pt-4 pb-4">
 									<i class="fa-thin fa-briefcase fa-2xl pb-4"></i>
 									<h3 class="mb-2 uniprep-secondary">1000+</h3>
 									<h5 class="mb-0">Start-up Business Templates</h5>
 								</div>
 								<div class="text-center pt-4 pb-4">
-									<i class="fa-thin fa-buildings fa-2xl pb-4"></i>
-									<h3 class="mb-2 uniprep-secondary">2M+</h3>
-									<h5 class="mb-0">Global Companies Data</h5>
+									<i class="fa-thin fa-graduation-cap fa-2xl pb-4"></i>
+									<h3 class="mb-2 uniprep-secondary">5000+</h3>
+									<h5 class="mb-0">Global Scholarships' Data</h5>
 								</div>
 								<div class="text-center pt-4 pb-4">
 									<i class="fa-thin fa-hand-holding-circle-dollar fa-2xl pb-4"></i>
@@ -474,9 +468,14 @@
 									<h5 class="mb-0">Global Investors' Data</h5>
 								</div>
 								<div class="text-center pt-4 pb-4">
-									<i class="fa-thin fa-graduation-cap fa-2xl pb-4"></i>
-									<h3 class="mb-2 uniprep-secondary">5000+</h3>
-									<h5 class="mb-0">Global Scholarships' Data</h5>
+									<i class="fa-thin fa-comments-question fa-2xl pb-4"></i>
+									<h3 class="mb-2 uniprep-secondary">500K+</h3>
+									<h5 class="mb-0">Questions Answered</h5>
+								</div>
+								<div class="text-center pt-4 pb-4">
+									<i class="fa-thin fa-buildings fa-2xl pb-4"></i>
+									<h3 class="mb-2 uniprep-secondary">2M+</h3>
+									<h5 class="mb-0">Global Companies Data</h5>
 								</div>
 							</div>
 						</div>
@@ -493,13 +492,14 @@
 			<div class="col-md-10">
 				<div class="card py-4 px-4">
 					<div class="card-body">
-						<div class="row align-items-center">
+						<div class="row align-items-center justify-content-center">
 							<div class="col-md-10">
 								<h3 class="mb-md-0 mb-3 text-md-start text-center">Act Now!</h3>
-								<h5 class="fw-medium text-white">Start your journey with us today for FREE!</h5>
+								<h5 class="fw-medium text-white d-md-block d-none">Start your journey with us today for <span class="fw-bold">FREE!</span></h5>
+								<h5 class="fw-medium text-white text-center d-md-none d-block">Start your journey with us today<br />for <span class="fw-bold">FREE!</span></h5>
 							</div>
-							<div class="col-md-2">
-								<a href="" class="btn cta-btn m-0 h5 py-4">TALK TO US</a>
+							<div class="col-md-2 col-6">
+								<a href="/register" class="btn cta-btn m-0 h5 py-4">TALK TO US</a>
 							</div>
 						</div>
 					</div>
@@ -645,12 +645,12 @@
 			<div class="col-md-10">
 				<div class="card py-4 px-4">
 					<div class="card-body">
-						<div class="row align-items-center">
+						<div class="row align-items-center justify-content-center">
 							<div class="col-md-10">
-								<h3 class="mb-md-0 mb-3 text-md-start text-center fw-light">Sign-Up Now<br><span class="fw-bold">for Free!</span></h3>
+								<h3 class="mb-md-0 mb-3 text-md-start text-center fw-light">Sign-Up Now<br /><span class="fw-bold">for Free!</span></h3>
 							</div>
-							<div class="col-md-2">
-								<a href="" class="btn cta-btn m-0 h5 py-4">LEARN MORE</a>
+							<div class="col-md-2 col-7">
+								<a href="/register" class="btn cta-btn m-0 h5 py-4">LEARN MORE</a>
 							</div>
 						</div>
 					</div>
@@ -689,7 +689,7 @@
 							<button class="accordion-button text-white collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqcollapseFive" aria-expanded="false" aria-controls="faqcollapseFive">Is UNIPREP free?</button>
 						</h2>
 						<div id="faqcollapseFive" class="accordion-collapse collapse" data-bs-parent="#accordionFAQ">
-							<div class="accordion-body">The UNIPREP platform is free untill 1st of January 2024. UNIPREP may offer certain free resources, but it also offers premium features as part of a subscription-based model for enhanced access and support.</div>
+							<div class="accordion-body">On Registering to UNIPREP you can get free access to the portal. It allows the users to navigate through half a million question, external resources and scholarship data across 13 countries.</div>
 						</div>
 					</div>
 					<div class="accordion-item faqcard">
@@ -719,8 +719,9 @@
 				</div>
 			</div>
 			<div class="col-md-10 text-center">
-				<a href="/register" class="text-decoration-none d-flex justify-content-center mb-5"><button type="button" class="btn btn-secondary px-4 py-3 m-0"><h5 class="mb-0">KNOW MORE</h5></button></a
-					>
+				<a href="/register" class="text-decoration-none d-flex justify-content-center mb-5"
+					><button type="button" class="btn btn-secondary px-4 py-3 m-0"><h5 class="mb-0">KNOW MORE</h5></button></a
+				>
 			</div>
 		</div>
 	</div>
@@ -757,10 +758,11 @@
 						|
 						<a href="tel:+919035723087" class="text-decoration-none text-white">+91 9035723087</a>
 					</div>
-					<!-- <p class="text-white small mb-0">
-						UOEC Consultants(OPC) Pvt. Ltd.<br />165/1,Opp Brahmasthana Kalyana Mantapa<br />
+					
+					<p class="text-white small mb-0">
+						165/1,Opp Brahmasthana Kalyana Mantapa<br />
 						Sahukar Chenniah Road, TK Layout, Mysuru - 570023
-					</p> -->
+					</p>
 				</div>
 			</div>
 		</div>
@@ -768,7 +770,7 @@
 
 	<section class="bg-black">
 		<div class="container-fluid py-3">
-			<div class="row">
+			<div class="row align-items-center">
 				<div class="col-md-6">
 					<div class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-start gap-2 text-white">
 						<p (click)="showcontactform()" role="button" aria-label="Contact Form" class="mb-0 text-white text-decoration-none small">Contact Us</p>
@@ -781,7 +783,8 @@
 					</div>
 				</div>
 				<div class="col-md-6 text-md-end text-center">
-					<p class="mb-0 text-white">2023 © All rights reserved by UNIABROAD Ltd.</p>
+					<p class="mb-0 text-white">2023 © All rights reserved by UNIABROAD TECHNOLOGY Pvt. Ltd.</p>
+					<p class="mb-0 text-white">165/1 Opp Brahmasthana Kalyana Mantapa, Sahukar Chenniah Road, TK Layout, Mysuru, Karnataka.</p>
 				</div>
 			</div>
 		</div>

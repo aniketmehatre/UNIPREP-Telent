@@ -34,7 +34,6 @@ import {TooltipModule} from "primeng/tooltip";
 import { BlockCopyPasteDirective } from './block-copy-paste.directive';
 import { ScrollToBottomDirective } from './scroll-to-bottom.directive';
 import {ConfirmDialogModule} from "primeng/confirmdialog";
-import {SafePipe} from "@pipes/safe.pipe";
 import {PipesModule} from "@pipes/pipes.module";
 import { LandingComponent } from './pages/landing/landing.component';
 import {SocialLoginModule, SocialAuthServiceConfig, GoogleSigninButtonModule} from '@abacritt/angularx-social-login';
@@ -42,6 +41,7 @@ import {
     GoogleLoginProvider,
     FacebookLoginProvider
 } from '@abacritt/angularx-social-login';
+import { MaintenanceComponent } from './Auth/maintenance/maintenance.component';
 
 const reducers = {
   pageSelector: pagesReducer
@@ -112,7 +112,7 @@ export function tokenGetter() {
       {
           provide: 'SocialAuthServiceConfig',
           useValue: {
-              autoLogin: true,
+              autoLogin: false,
               providers: [
                   {
                       id: GoogleLoginProvider.PROVIDER_ID,

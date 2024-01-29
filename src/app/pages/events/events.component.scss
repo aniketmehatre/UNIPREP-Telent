@@ -168,3 +168,23 @@
           justify-content: left !important;
         }
     }
+
+    @media (max-width: 1469px) {
+      .countryname {
+        flex: 0 0 100%; /* On smaller screens, set each column to take up 100% of the available width */
+      }
+      .eventlink {
+        flex: 0 0 100%; /* On smaller screens, set each column to take up 100% of the available width */
+        margin-top: 4px;
+      }
+    }
+
+    @media (min-width:1500px) and (max-width:1700px) {
+      .countryname {
+        flex: 0 0 100%; /* On smaller screens, set each column to take up 100% of the available width */
+      }
+      .eventlink {
+        flex: 0 0 100%; /* On smaller screens, set each column to take up 100% of the available width */
+        margin-top: 4px;
+      }
+    }

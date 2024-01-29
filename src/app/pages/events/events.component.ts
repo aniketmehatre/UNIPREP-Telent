@@ -3,6 +3,8 @@ import { FormBuilder, FormGroup, ValidationErrors, ValidatorFn, Validators } fro
 import { EventsService } from './events.service';
 import { DatePipe } from '@angular/common';
 import { MessageService } from 'primeng/api';
+import { AuthService } from 'src/app/Auth/auth.service';
+import { Router } from '@angular/router';
 interface country {
   id: number,
   country: string,
@@ -35,7 +37,7 @@ export class EventsComponent implements OnInit {
   newfile = "none";
   countries: country[] = [];
   filterform:FormGroup;
-  perpage:number = 6;
+  perpage:number = 10;
   totalcount: number=0;
   totalcountpost:number=0;
   pageno:number = 1;
@@ -43,7 +45,8 @@ export class EventsComponent implements OnInit {
   postevetdetaisl: any[] = [];
   valueNearYouFilter: string | undefined;
   selectedCountryId: any;
-  constructor(private fb: FormBuilder, private service:EventsService,private datePipe: DatePipe,private toast: MessageService,) { 
+  planExpired!: boolean;
+  constructor(private fb: FormBuilder, private service: EventsService, private datePipe: DatePipe, private toast: MessageService, private authService: AuthService, private router: Router) { 
     this.filterform = this.fb.group({
       from: [''],
       to: [''],
@@ -56,15 +59,16 @@ export class EventsComponent implements OnInit {
       this.countries = response;
     });
     let data = {
-      perpage : 6,
+      perpage : 10,
       page : 1,
     }
     this.getEventUpComming(data)
     let postdata={
-      perpage : 6,
+      perpage : 10,
       page : 1,
     }
     this.getPostEvent(postdata)
+    this.checkplanExpire();
   }
 
 
@@ -103,7 +107,7 @@ export class EventsComponent implements OnInit {
         color: '#FFFFFF'
       };
       let data = {
-        perpage : 6,
+        perpage : 10,
         page : 1,
         country: this.filterform.value.country,
         to:this.filterform.value.to,
@@ -121,7 +125,7 @@ export class EventsComponent implements OnInit {
       };
       this.filterform.reset()
       let postdata={
-        perpage : 6,
+        perpage : 10,
         page : 1,
         nearby_search:this.valueNearYouFilter
       }
@@ -217,7 +221,7 @@ export class EventsComponent implements OnInit {
       from:this.filterform.value.from,
       country: this.filterform.value.country,
       page:1,
-      perpage:6
+      perpage:10
     }
     this.getEventUpComming(data)
   }
@@ -282,5 +286,21 @@ performSearch(events:any){
 }
 goingEventLink(eventlink:any){
   window.open(eventlink);
-}
+  }
+  
+  checkplanExpire(): void {
+    this.authService.getNewUserTimeLeft().subscribe((res) => {
+      let data = res.time_left;
+      let subscription_exists_status = res.subscription_details;
+      if (data.plan === "expired" || subscription_exists_status === 'free_trail') {
+        this.planExpired = true;
+      } else {
+        this.planExpired = false;
+      }
+    })
+  }
+
+  upgradePlan(): void {
+    this.router.navigate(["/pages/subscriptions"]);
+  }
 }

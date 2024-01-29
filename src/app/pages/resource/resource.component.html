@@ -11,7 +11,7 @@
       <div class="col-md-2">
       </div>
     </div>
-    <div class="container-fluid">
+    <div class="container-fluid" *ngIf="!planExpired">
       <div class="row">
         <div class="col-md-3 text-md-start">
           <span (click)="filterPopUp()"><button class="btn btn-outline-light px-4 py-3" type="button">Filter
@@ -45,6 +45,15 @@
         </div>
       </div>
     </div>
+      <div class="text-center mt-5 mb-4" *ngIf="planExpired">
+        <img src="../../../uniprep-assets/images/smartloack.png" class="image" width="80">
+        <h3>Upgrade now to access invaluable tools</h3>
+        <p>Unlock the power of success with our exclusive events!<br> Upgrade your plan now to gain instant access.</p>
+        <p class="offer">Events offers:<br> Career growth, International Education, Life in your destination and more</p>
+        <button pButton type="button"
+          class=" text-white p-ripple p-button-rounded p-button-warning p-button p-component" (click)="upgradePlan()"> Upgrade Plan<i
+            class="pi pi-arrow-circle-right"></i></button>
+      </div>
   </div>
 </div>
 

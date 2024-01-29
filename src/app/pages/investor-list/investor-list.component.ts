@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import {Location} from "@angular/common";
 import {FormBuilder, FormGroup} from "@angular/forms";
 import {InvestorListService} from "./investor-list.service";
+import { AuthService } from 'src/app/Auth/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'uni-investor-list',
@@ -12,7 +14,7 @@ export class InvestorListComponent implements OnInit {
   investorData: any []= []
   investorIndustryInterested: any;
   investorOrgType: any;
-  investorType: any;
+  //investorType: any;
   countryList: any;
   headQuartersList: any
   page = 1;
@@ -21,14 +23,15 @@ export class InvestorListComponent implements OnInit {
   totalInvestorsCount: any;
   isFilterVisible: string = 'none';
   filterForm:FormGroup;
+  planExpired!: boolean;
 
-  constructor(private _location: Location, private fb: FormBuilder, private investorList: InvestorListService) {
+  constructor(private _location: Location, private fb: FormBuilder, private investorList: InvestorListService, private authService: AuthService,private router:Router) {
     this.filterForm = this.fb.group({
       org_name: [''],
-      org_type: [''],
+      // org_type: [''],
       country: [''],
       head_quarters: [''],
-      investor_type: [''],
+      // investor_type: [''],
       industry_interested: [''],
     });
   }
@@ -36,6 +39,7 @@ export class InvestorListComponent implements OnInit {
   ngOnInit(): void {
     this.loadMultiSelectData();
     this.loadInvestorData();
+    this.checkplanExpire();
   }
 
   goBack(){
@@ -66,7 +70,7 @@ export class InvestorListComponent implements OnInit {
     this.investorList.getMultiSelectData().subscribe((response) => {
       this.investorIndustryInterested = response.investor_industry_interested;
       this.investorOrgType = response.investor_org_type;
-      this.investorType = response.investor_type;
+      //this.investorType = response.investor_type;
       this.countryList = response.countries_list;
       this.headQuartersList = response.head_quarters_list;
     });
@@ -115,5 +119,21 @@ export class InvestorListComponent implements OnInit {
     this.investorList.export().subscribe((response) => {
       window.open(response.link, '_blank');
     });
+  }
+
+  checkplanExpire(): void {
+    this.authService.getNewUserTimeLeft().subscribe((res) => {
+      let data = res.time_left;
+      let subscription_exists_status = res.subscription_details;
+      if (data.plan === "expired" || subscription_exists_status === 'free_trail' || subscription_exists_status === 'Popular' || subscription_exists_status === 'Advanced') {
+        this.planExpired = true;
+      } else {
+        this.planExpired = false;
+      }
+    })
+  }
+
+  upgradePlan(): void {
+    this.router.navigate(["/pages/subscriptions"]);
   }
 }

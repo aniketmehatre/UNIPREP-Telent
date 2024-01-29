@@ -1,111 +1,195 @@
-<div class="chatheader d-flex justify-content-between">
-	<div class="d-flex align-items-center gap-2">
-		<div role="button">
-			<span class="chatwindow" (click)="previouspage()"><i class="fa fa-arrow-left"></i></span>
-		</div>
-		<div class="d-flex gap-2 align-items-center">
-			<div class="chatprofile">
-				<img src="../../../uniprep-assets/images/icon-light.svg" />
-			</div>
+<p-card [style]="{ width: '100%' }">
+  <ng-template pTemplate="header">
+    CHAT
+    <br />
+    <p class="userinfo">Hello {{ username }}.</p>
+    <div class="info row">
+      <div class="col-2 chatguide">
+        <button routerLink="/pages/guideline">Chat Guidelines</button>
+      </div>
+      <div class="col-8 chat-info">
+        <p>
+          Welcome to UNIPREP.Your have 2 free question credits. Your
+          personalised questions will be answered by the experts. Each message
+          will be considered as 1 credit.
+        </p>
+      </div>
+      <div class="col-2 report">
+        <button (click)="op?.toggle($event)">Report</button>
+      </div>
+    </div>
 
-			<div class="d-md-block d-none">
-				<h5 class="fw-semibold mb-0 text-white">UNIPREP</h5>
-				<p class="mb-0 text-white">support@uniprep.ai</p>
-			</div>
-		</div>
-	</div>
-	<div class="d-flex">
-		<button class="btn btn-credit">
-			Question Credits<span class="credits-span">{{ totalcredits }}</span>
-		</button>
-		<button class="btn btn-chat" (click)="op?.toggle($event)"><span class="d-md-block d-none">Report</span><i class="fa-solid fa-file-circle-exclamation d-md-none d-block"></i></button>
-		<button class="btn btn-chat" routerLink="/pages/guideline"><span class="d-md-block d-none">Guidelines</span><i class="fa-solid fa-book d-md-none d-block"></i></button>
-	</div>
-</div>
-<div class="chatflexbody p-4 bg-white">
-	<h5 class="mb-0">Hello</h5>
-	<p class="fw-semibold">Welcome to UNIPREP.<br />Your personalised questions will be answered by the experts. Each message will be considered as 1 credit.</p>
-	<hr>
-	<div *ngFor="let message of messages; let index = index">
-		<div class="chat-section-container pb-3" *ngIf="message?.questionNumber">
-			<div class="chat-section mb-2">
-				<div class="photo receiver-bg">
-					<ng-container *ngIf="message?.countryFlag">
-						<span class="countryimage"><img [src]="message?.countryFlag" /></span>
-					</ng-container>
-					<ng-container *ngIf="!message?.countryFlag">
-						<span class="name"> {{ message.sendByName.slice(0, 1) }}</span>
-					</ng-container>
-				</div>
-				<div class="d-flex flex-column">
-					<p class="fw-semibold mb-0">{{ message.sendByName }}</p>
-					<p class="small mb-0">Post Application | {{ message.sendDateTime }}</p>
-				</div>
-			</div>
-			<span class="msg-info">Question {{ message.questionNumber }}</span>
-			<div class="chat-section msg-bottom">
-				<div class="messages" [innerHTML]="message.message"></div>
-			</div>
-		</div>
-		<div class="chat-section-container" style="display: flex" *ngIf="message.answerForQuestion">
-			<div class="msg-bottom">
-				<div class="response">
-					<div class="chat-section mb-2">
-						<div class="photo sender-bg">
-							<span class="name">{{ "A" }}</span>
-							<!-- message.sendByName.slice(0, 1) -->
-						</div>
-						<div>
-							<span class="full-name">{{ "Admin" }}</span>
-							<!-- message.sendByName -->
-						</div>
-					</div>
-					<div class="disablepmargin">
-						<p class="msg-info small mb-0">Replying for Question {{ message.answerForQuestion }}</p>
-						<div class="response-msg-question" [innerHtml]="getData(message.answerForQuestion)"></div>
-						<div *ngIf="message.message" class="response-msg" [innerHtml]="message.message"></div>
-						<div *ngIf="message.attachment" [pTooltip]="message.filename" class="response-msg-attach">
-							<label>{{ message.filename }}</label> &nbsp;&nbsp;<a (click)="openAttachment(message.attachment)"><i class="pi pi-arrow-circle-down"></i> </a>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-</div>
-<div class="chatfooter bg-white px-2 py-3 d-flex flex-column gap-2">
-	<div [class]="fullscreen" #fullscreeneditor>
-		<p-editor [(ngModel)]="textMessage" [modules]="modules" placeholder="Entre your question here">
-			<ng-template pTemplate="header"></ng-template>
-		</p-editor>
-		<div class="text-end">
-			<p-confirmPopup [style]="{ 'z-index': '999999 !important' }"></p-confirmPopup>
-		</div>
-	</div>
-	<div class="d-flex justify-content-end">
-		<button (click)="confirm($event)" class="btn btn-primary px-4 py-2 h5 m-0">Send Message</button>
-	</div>
-</div>
+    <p-divider></p-divider
+  ></ng-template>
+  <ng-template pTemplate="body">
+    <div class="chatcontainer">
+      <div *ngFor="let message of messages; let i = index">
+        <div class="message-container msger-chat">
+          <div class="msg left-msg" *ngIf="message.admin_message != 0">
+            <div class="msg-img-admin">
+              <img src="../../../uniprep-assets/images/icon-light.svg" />
+            </div>
+            <div class="msg-info">
+              <div class="msg-info-name">
+                UNIPREP
+                <div class="msg-info-time">
+                  {{ message.created_at | date : "short" }}
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="msg left-msg" *ngIf="message.admin_message != 0">
+            <div class="msg-bubble">
+              <p [innerHtml]="getData(message.answerForQuestion)"></p>
+              <div
+                class="msg-text"
+                *ngIf="
+                  message.message != 'undefined' && message.message != undefined
+                "
+                [innerHTML]="message.message"
+              ></div>
+              <div class="folder-card"  *ngIf="message.attachment" (click)="openAttachment(message.attachment)">
+                  <div class="d-flex folder">
+                    <div class="me-2 d-flex align-items-center">
+                      <img
+                        class="img-responsive"
+                        src="../../../uniprep-assets/images/pdf.svg"
+                      />
+                    </div>
+                    <div class="folderinfo" [pTooltip]="message.filename">
+                      <h5>{{ message?.filename }}</h5>
+                      <label>
+                        Last Updated:<span>{{
+                          message.created_at | date : "short"
+                        }}</span>
+                      </label>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="msg left-msg" *ngIf="message.admin_message == 0">
+            <div class="msg-img">{{ message.sendByName.slice(0, 1) }}</div>
+            <div class="msg-info">
+              <div class="msg-info-name">
+                {{ message.sendByName }}
+                <div class="msg-info-time">
+                  {{ message.created_at | date : "short" }}
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="msg left-msg" *ngIf="message.admin_message == 0">
+            <div class="msg-bubble">
+              <div
+                class="msg-text"
+                *ngIf="
+                  message.message != 'undefined' && message.message != undefined
+                "
+                [innerHTML]="message.message"
+              ></div>
+            </div>
+          </div>
+        </div>
+        <p-divider></p-divider>
+      </div>
+    </div>
+  </ng-template>
+  <ng-template pTemplate="footer">
+    <div>
+      <div
+        class="row togglediv"
+        *ngIf="!textareavisbility"
+        (click)="textareavisbility = !textareavisbility"
+      >
+        <div class="col customplaceholder">Please ask your question...</div>
+        <div class="col credits">
+          <span
+            >Credits <span>{{ totalcredits }}</span></span
+          >
+        </div>
+      </div>
+      <div [class]="fullscreen" #fullscreeneditor>
+        <div *ngIf="textareavisbility" class="col credits-div">
+          <span class="credits-span"
+            >Credits <span class="creditscore">{{ totalcredits }}</span></span
+          >
+        </div>
+        <p-editor
+          *ngIf="textareavisbility"
+          [(ngModel)]="textMessage"
+          [modules]="modules"
+        >
+          <ng-template pTemplate="header"></ng-template>
+        </p-editor>
+      </div>
+      <div class="text-end">
+        <p-confirmPopup
+          [style]="{ 'z-index': '999999 !important' }"
+        ></p-confirmPopup>
+      </div>
+    </div>
+    <div class="d-flex justify-content-end sendbtn">
+      <button
+        (click)="confirm($event)"
+        class="btn btn-primary px-4 py-2 h5 m-0"
+      >
+        Send Message
+      </button>
+    </div>
+  </ng-template>
+</p-card>
 <p-overlayPanel #op>
-	<form [formGroup]="reportForm" (ngSubmit)="reportSubmit()" #reportFormElm>
-		<div class="col-md-12 mt-1">
-			<div class="form-group">
-				<label>Report Issues<span style="color: red; font-weight: bold">*</span></label>
-				<p-dropdown formControlName="reportOption" optionValue="id" optionLabel="reportoption_name" styleClass="w-full" [options]="reportOptions"></p-dropdown>
-			</div>
-		</div>
-		<br />
-		<div class="col-md-12 mt-1">
-			<div class="form-group">
-				<label>Add Comment <span style="color: red; font-weight: bold">*</span></label>
-				<textarea class="w-100" rows="3" cols="35" required pInputTextarea formControlName="comment"></textarea>
-			</div>
-		</div>
+  <form [formGroup]="reportForm" (ngSubmit)="reportSubmit()" #reportFormElm>
+    <div class="col-md-12 mt-1">
+      <div class="form-group">
+        <label
+          >Report Issues<span style="color: red; font-weight: bold"
+            >*</span
+          ></label
+        >
+        <p-dropdown
+          formControlName="reportOption"
+          optionValue="id"
+          optionLabel="reportoption_name"
+          styleClass="w-full"
+          [options]="reportOptions"
+        ></p-dropdown>
+      </div>
+    </div>
+    <br />
+    <div class="col-md-12 mt-1">
+      <div class="form-group">
+        <label
+          >Add Comment
+          <span style="color: red; font-weight: bold">*</span></label
+        >
+        <textarea
+          class="w-100"
+          rows="3"
+          cols="35"
+          required
+          pInputTextarea
+          formControlName="comment"
+        ></textarea>
+      </div>
+    </div>
 
-		<div class="row mt-3 mt-1">
-			<button class="ps-3 pe-3 pt-2 pb-2" pButton type="submit" style="background-color: var(--uniprep-primary); border-radius: 8px; border: aliceblue; color: #fff" label="SUBMIT"></button>
-		</div>
-	</form>
+    <div class="row mt-3 mt-1">
+      <button
+        class="ps-3 pe-3 pt-2 pb-2"
+        pButton
+        type="submit"
+        style="
+          background-color: var(--uniprep-primary);
+          border-radius: 8px;
+          border: aliceblue;
+          color: #fff;
+        "
+        label="SUBMIT"
+      ></button>
+    </div>
+  </form>
 </p-overlayPanel>
 <p-dialog [visible]="visibility" [closable]="false" [modal]="true">
 	<div style="background: var(--uniprep-primary) !important; border-radius: 50% !important; height: 25px !important; width: 25px !important; position: absolute; right: -10px; top: -10px; text-align: center; cursor: pointer" (click)="visibility = !visibility">

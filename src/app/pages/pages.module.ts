@@ -53,6 +53,7 @@ import { InvestorListComponent } from './investor-list/investor-list.component';
 import { CompanyListComponent } from './company-list/company-list.component';
 import { ScholarshipListComponent } from "./scholarship-list/scholarship-list.component";
 import { UserGuideComponent } from './user-guide/user-guide.component';
+import { DividerModule } from "primeng/divider";
 
 @NgModule({
     declarations: [
@@ -109,7 +110,8 @@ import { UserGuideComponent } from './user-guide/user-guide.component';
     AccordionModule,
     OverlayPanelModule,
     InputTextareaModule,
-    TooltipModule
+    TooltipModule,
+    DividerModule
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })

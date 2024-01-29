@@ -273,9 +273,13 @@ export class SidenavComponent {
         newValue.title != "FAQ" &&
         newValue.title != "24x7 Support" &&
         newValue.title != "Startup Kit" &&
-        newValue.title != "Subscription"
+        newValue.title != "Subscription" &&
+        newValue.title != "Events" &&
+        newValue.title != "Resources" &&
+        newValue.title != "Investor List" &&
+        newValue.title != "Company List"
       ) {
-        this.visibleExhasted = true;
+        this.visibleExhasted = false;
       } else {
         this.visibleExhasted = false;
       }

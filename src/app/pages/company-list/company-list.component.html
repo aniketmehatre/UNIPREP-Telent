@@ -1,5 +1,5 @@
 <div class="card readingcard" style="border-radius: 15px 15px 0px 0px !important;">
-    <div class="card-body pt-0">
+    <div class="card-body pt-0"  *ngIf="!planExpired">
         <div class="row justify-content-center">
             <div class="col-md-2 text-start"></div>
             <div class="col-md-8 text-center">
@@ -12,7 +12,7 @@
             <div class="col-md-2"></div>
         </div>
         <div class="row justify-content-center desktop">
-            <div class="col-md-3 col-5 text-md-start">
+            <div class="col-md-3 col-5 text-md-start mb-3">
                 <div class="p-input-icon-left w-100 mt-3">
                     <i class="pi pi-search"></i>
                     <input class="w-100 px-5 py-2" type="text" placeholder="Search Companies..." pInputText
@@ -52,7 +52,7 @@
             </div>
             <div class="row">
                 <div class="col-8">
-                    <div class="p-input-icon-left w-100 mt-3">
+                    <div class="p-input-icon-left w-100 mt-3 mb-3">
                         <i class="pi pi-search"></i>
                         <input class="w-100 px-5 py-2 b-6 h-100" type="text" placeholder="Search Events Near You..." pInputText
                                [(ngModel)]="valueNearYouFilter" (input)="performSearch($event)" (keyup.enter)="onEnterKeyPressed()" />
@@ -86,7 +86,7 @@
                     <th class="border-cell">Country</th>
                     <th class="border-cell">Headquarters</th>
                     <th class="border-cell">Estd. Date</th>
-                    <th class="border-cell">Industry Interested</th>
+                    <th class="border-cell">Industry</th>
                     <th class="border-cell">Link</th>
                 </tr>
             </ng-template>
@@ -107,7 +107,14 @@
         <p-paginator [rows]="pageSize" [totalRecords]="totalCompanyCount" (onPageChange)="pageChange($event)" [first]="page"
                      [rowsPerPageOptions]="[500, 300 ,100]"></p-paginator>
     </div>
-
+    <div class="text-center mt-5 mb-4" *ngIf="planExpired">
+        <img src="../../../uniprep-assets/images/smartloack.png" class="image" width="80">
+        <h3>Upgrade now to access invaluable tools</h3>
+        <p>Unlock the power of success with our exclusive events!<br> Upgrade your plan now to gain instant access.</p>
+        <p class="offer">Events offers:<br> Career growth, International Education, Life in your destination and more</p>
+        <button pButton type="button" class=" text-white p-ripple p-button-rounded p-button-warning p-button p-component"
+            (click)="upgradePlan()">Upgrade Plan<i class="pi pi-arrow-circle-right"></i></button>
+    </div>
 </div>
 
 <div class="modal" tabindex="-1" role="dialog" [ngStyle]="{ display: isFilterVisible }">
@@ -155,7 +162,7 @@
                                 </div>
                                 <div class="col-md-6">
                                     <label class="form-label" style="font-size: medium;font-weight:500">Filter by
-                                        Country</label>
+                                        Est. Date</label>
                                     <div class="form-group">
                                         <div class="mb-3">
                                             <input placeholder="End date" type="date" formControlName="todate"
@@ -170,7 +177,7 @@
                                         <div class="mb-3">
                                             <p-multiSelect [options]="industryInterested" styleClass="w-100"
                                                            formControlName="industry_interested"
-                                                           defaultLabel="Select Interested Industries"
+                                                           defaultLabel="Select Industry"
                                                            optionValue="id"
                                                            optionLabel="industry_name" #IndustriesMultiSelect>
                                                 <ng-template pTemplate="selectedItems">

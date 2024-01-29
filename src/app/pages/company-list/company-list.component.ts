@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup} from "@angular/forms";
 import {Location} from "@angular/common";
 import {CompanyListService} from "./company-list.service";
+import { AuthService } from 'src/app/Auth/auth.service';
+import { Route, Router } from '@angular/router';
 
 @Component({
   selector: 'uni-company-list',
@@ -11,8 +13,8 @@ import {CompanyListService} from "./company-list.service";
 export class CompanyListComponent implements OnInit {
   companyData: any []= []
   industryInterested: any;
-  investorOrgType: any;
-  investorType: any;
+  // investorOrgType: any;
+  // investorType: any;
   countryList: any;
   headQuartersList: any
   page = 1;
@@ -21,8 +23,9 @@ export class CompanyListComponent implements OnInit {
   totalCompanyCount: any;
   isFilterVisible: string = 'none';
   filterForm:FormGroup;
+  planExpired!: boolean;
 
-  constructor(private _location: Location, private fb: FormBuilder, private companyListService: CompanyListService) {
+  constructor(private _location: Location, private fb: FormBuilder, private companyListService: CompanyListService, private authService: AuthService, private router:Router) {
     this.filterForm = this.fb.group({
       country: [''],
       head_quarters: [''],
@@ -35,6 +38,7 @@ export class CompanyListComponent implements OnInit {
   ngOnInit(): void {
     this.loadMultiSelectData();
     this.loadInvestorData();
+    this.checkplanExpire();
   }
 
   goBack(){
@@ -62,8 +66,8 @@ export class CompanyListComponent implements OnInit {
   loadMultiSelectData(){
     this.companyListService.getMultiSelectData().subscribe((response) => {
       this.industryInterested = response.investor_industry_interested;
-      this.investorOrgType = response.investor_org_type;
-      this.investorType = response.investor_type;
+      // this.investorOrgType = response.investor_org_type;
+      // this.investorType = response.investor_type;
       this.countryList = response.countries_list;
       this.headQuartersList = response.head_quarters_list;
     });
@@ -112,5 +116,21 @@ export class CompanyListComponent implements OnInit {
     this.companyListService.export().subscribe((response) => {
       window.open(response.link, '_blank');
     });
+  }
+
+  checkplanExpire(): void {
+    this.authService.getNewUserTimeLeft().subscribe((res) => {
+      let data = res.time_left;
+      let subscription_exists_status = res.subscription_details;
+      if (data.plan === "expired" || subscription_exists_status === 'free_trail' || subscription_exists_status === 'Popular') {
+        this.planExpired = true;
+      } else {
+        this.planExpired = false;
+      }
+    })
+  }
+
+  upgradePlan(): void {
+    this.router.navigate(["/pages/subscriptions"]);
   }
 }
