@@ -194,4 +194,10 @@ export class AuthService {
             headers: headers,
         });
     }
+    gmailLogin(data: any){
+        const headers = new HttpHeaders().set("Accept", "application/json");
+        return this.http.post<any>(environment.ApiUrl + "/GoogleLogin", data,{
+            headers: headers,
+        });
+    }
 }

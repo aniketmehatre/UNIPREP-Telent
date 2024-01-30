@@ -12,6 +12,8 @@ import { DataService } from "src/app/data.service";
 import {DashboardService} from "../../pages/dashboard/dashboard.service";
 import {GoogleLoginProvider, SocialAuthService} from "@abacritt/angularx-social-login";
 import {take} from "rxjs";
+import {environment} from "@env/environment";
+import {LocalStorageService} from "ngx-localstorage";
 @Component({
   selector: "app-login",
   templateUrl: "./login.component.html",
@@ -26,7 +28,8 @@ export class LoginComponent implements OnInit, OnDestroy {
   constructor(
     private service: AuthService, private formBuilder: FormBuilder, private route: Router,
     private toast: MessageService, private dataService: DataService, private el: ElementRef,
-    private dashboardService: DashboardService, private authService: SocialAuthService
+    private dashboardService: DashboardService, private authService: SocialAuthService,
+    private storage: LocalStorageService,
   ) { }
 
   ngOnDestroy() {
@@ -45,9 +48,12 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.authService.authState.subscribe((user) => {
-      console.log(user);
-      var socialUser = user;
-      var isLoggedIn = (user != null);
+      this.service.gmailLogin(user).subscribe(data => {
+          this.storage.set(environment.tokenKey, data.token);
+        this.route.navigate(['/pages/dashboard']);
+      });
+      //var socialUser = user;
+      //this.loggedIn = (user != null);
     });
     this.loginForm = this.formBuilder.group({
       email: ["", [Validators.required, Validators.email]],
@@ -97,10 +103,4 @@ export class LoginComponent implements OnInit, OnDestroy {
     this.service.login(this.loginForm.value);
   }
 
-
-  signInWithGoogle(): void {
-    this.authService.signIn(GoogleLoginProvider.PROVIDER_ID)
-        .then(user => {console.log('usss', user)})
-        .catch(error => console.error(error));
-  }
 }
