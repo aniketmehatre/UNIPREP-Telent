@@ -57,6 +57,7 @@ input[type="text"] {
 }
 :host ::ng-deep .card-body {
   padding: 0 !important;
+  overflow: hidden !important;
 }
 .card-header {
   padding: 1rem 1rem 0rem 1rem;
@@ -91,7 +92,8 @@ input[type="text"] {
   .folderinfo {
     h5 {
       margin: 0 !important;
-      font-size: medium;
+      font-size: small;
+      width: 500px;
     }
     p {
       font-size: x-small;
@@ -134,6 +136,9 @@ i {
 }
 .folder-card {
   border: 1px solid #3f4c83b3;
+  min-width: 300px;
+  max-width: 300px;
+  margin: 0.2rem !important;
 }
 .container-fluid {
   min-height: 350px;
