@@ -68,24 +68,24 @@ body {
 	overflow: auto !important;
 }
 
-::ng-deep ::-webkit-scrollbar-track {
-	-webkit-box-shadow: none !important;
-	border-radius: 8px !important;
-	background-color: black !important;
-}
+// ::ng-deep ::-webkit-scrollbar-track {
+// 	-webkit-box-shadow: none !important;
+// 	border-radius: 8px !important;
+// 	background-color: black !important;
+// }
 
-::ng-deep ::-webkit-scrollbar {
-	border-radius: 0px;
-	width: 8px !important;
-	height: 5px;
-	background-color: black !important;
-}
+// ::ng-deep ::-webkit-scrollbar {
+// 	border-radius: 0px;
+// 	width: 8px !important;
+// 	height: 5px;
+// 	background-color: black !important;
+// }
 
-::ng-deep ::-webkit-scrollbar-thumb {
-	border-radius: 8px !important;
-	-webkit-box-shadow: none !important;
-	background-color: var(--uniprep-secondary) !important;
-}
+// ::ng-deep ::-webkit-scrollbar-thumb {
+// 	border-radius: 8px !important;
+// 	-webkit-box-shadow: none !important;
+// 	background-color: var(--uniprep-secondary) !important;
+// }
 
 section {
 	scroll-margin-top: 3rem;

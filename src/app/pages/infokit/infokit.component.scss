@@ -134,13 +134,7 @@ i {
 }
 .folder-card {
   border: 1px solid #3f4c83b3;
-}
-.container-fluid {
-  min-height: 350px;
-  max-height: 350px;
-  overflow-y: scroll;
-  scrollbar-width: thin;
-  scrollbar-gutter: stable !important;
+  margin: 5px 0;
 }
 .routedata {
   font-size: 0.85rem;
