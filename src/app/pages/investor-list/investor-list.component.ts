@@ -13,13 +13,13 @@ import { Router } from '@angular/router';
 export class InvestorListComponent implements OnInit {
   investorData: any []= []
   investorIndustryInterested: any;
-  investorOrgType: any;
+  // investorOrgType: any;
   investorType: any;
   countryList: any;
   headQuartersList: any
   page = 1;
   pageSize = 500;
-  valueNearYouFilter: any;
+  valueNearYouFilter: string = '';
   totalInvestorsCount: any;
   isFilterVisible: string = 'none';
   filterForm:FormGroup;
@@ -47,29 +47,23 @@ export class InvestorListComponent implements OnInit {
   }
 
   performSearch(events:any){
-    var data={
-      nearby_search:this.valueNearYouFilter
+    if (this.valueNearYouFilter == "") {
+      this.loadInvestorData();
+      return;
     }
-    //console.log(data);
-    // this.getEventUpComming(data)
-    // this.getPostEvent(data)
-  }
-
-  onEnterKeyPressed(){
-    var data={
-      global_search: this.valueNearYouFilter
-    }
-
-    this.investorList.getInvestorList(data).subscribe((response) => {
-      this.investorData = response.data;
-      this.totalInvestorsCount = response.count;
+    var investorSearchData: any = [];
+    this.investorData.filter(item => {
+      if (item.org_name?.includes(this.valueNearYouFilter)) {
+        investorSearchData.push(item);
+      };
     });
+    this.investorData = [...investorSearchData];
   }
 
   loadMultiSelectData(){
     this.investorList.getMultiSelectData().subscribe((response) => {
       this.investorIndustryInterested = response.investor_industry_interested;
-      this.investorOrgType = response.investor_org_type;
+      // this.investorOrgType = response.investor_org_type;
       this.investorType = response.investor_type;
       this.countryList = response.countries_list;
       this.headQuartersList = response.head_quarters_list;
