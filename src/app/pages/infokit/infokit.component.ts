@@ -44,7 +44,7 @@ export class InfoKitComponent implements OnInit {
     this.authService.getNewUserTimeLeft().subscribe((res) => {
       let data = res.time_left;
       let subscription_exists_status = res.subscription_details;
-      if (data.plan === "expired" || subscription_exists_status === 'free_trail' || subscription_exists_status === 'Popular' || subscription_exists_status === 'Advanced') {
+      if (data.plan === "expired" || subscription_exists_status.subscription_plan === 'free_trail' || subscription_exists_status.subscription_plan === 'Student' || subscription_exists_status.subscription_plan === 'Career') {
         this.planExpired = true;
       } else {
         this.planExpired = false;
