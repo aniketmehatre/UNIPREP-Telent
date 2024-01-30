@@ -38,11 +38,11 @@ export class SidenavComponent {
       url: "/pages/dashboard",
       image: "fa-solid fa-house",
     },
-    // {
-    //   title: "User Guide",
-    //   url: "/pages/userguide",
-    //   image: "fa-solid fa-book",
-    // },
+     {
+       title: "User Guide",
+       url: "/pages/userguide",
+       image: "fa-solid fa-book",
+     },
     {
       title: "Subscription",
       url: "/pages/subscriptions",

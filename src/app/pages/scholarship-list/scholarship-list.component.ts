@@ -58,6 +58,7 @@ export class ScholarshipListComponent implements OnInit {
     this.getFilterUniversityList("");
     this.checkplanExpire();
     this.getScholarshipType();
+    this.getRegionList();
   }
 
 
@@ -82,6 +83,8 @@ export class ScholarshipListComponent implements OnInit {
     this.regionList = [];
     this.filterForm.reset();
     this.loadScholarShipData();
+    this.getRegionList();
+    this.getFilterUniversityList('');
   }
 
   getScholarshipCountry() {
@@ -154,6 +157,7 @@ export class ScholarshipListComponent implements OnInit {
       this.getRegionList();
     }
     else {
+      this.filterForm.value.region=null;
       this.regionList = [];
     }
     this.getFilterUniversityList(event.value);
