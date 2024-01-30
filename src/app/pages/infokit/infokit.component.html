@@ -1,4 +1,4 @@
-<div class="row p-3">
+<div class="row p-3 readingcard">
   <div style="display: flex " class="routedata">
     <span (click)="redirectTo('dashboard',-1)">Dashboard / </span><span (click)="redirectTo('startup',-1)">Startup Kit / </span><span *ngFor="let data of routedata ; let i = index;let isLast=last" (click)="redirectTo(data,i)" [ngClass]="isLast?'fontcolor':''">{{ data.name }} / </span>
   </div>
