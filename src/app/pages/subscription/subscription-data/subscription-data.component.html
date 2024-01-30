@@ -109,9 +109,9 @@
 							<li>
 								<div class="getstartedbtn pb-2">
 									<button class="pt-3 pb-3 btn btn-primary w-100 m-0 text-white"
-										*ngIf="subscription.popular == 1"
+										*ngIf="subscription.selected"
 										(click)="selectedSubscriptionPlan(subscription)">Selected</button>
-									<button class="pt-3 pb-3 btn btn-basic w-100 m-0" *ngIf="subscription.popular != 1"
+									<button class="pt-3 pb-3 btn btn-basic w-100 m-0" *ngIf="!subscription.selected"
 										(click)="selectedSubscriptionPlan(subscription)">Select Plan</button>
 								</div>
 							</li>
@@ -220,11 +220,11 @@
 											<h5 class="fw-semibold">{{ subscription.validity }} Month Validity</h5>
 											<div class="getstartedbtn pb-2">
 												<button class="pt-3 pb-3 btn btn-primary w-100 m-0 text-white"
-													*ngIf="subscription.popular == 1"
-													(click)="selectedSubscriptionPlan(subscription)">Subscribe Now</button>
+													*ngIf="subscription.selected"
+													(click)="selectedSubscriptionPlan(subscription)">Selected</button>
 												<button class="pt-3 pb-3 btn btn-grey w-100 m-0 text-white"
-													*ngIf="subscription.popular != 1"
-													(click)="selectedSubscriptionPlan(subscription)">Subscribe Now</button>
+													*ngIf="!subscription.selected"
+													(click)="selectedSubscriptionPlan(subscription)">Select Plan</button>
 											</div>
 										</div>
 									</div>
