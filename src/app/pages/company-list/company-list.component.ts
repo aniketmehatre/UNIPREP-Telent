@@ -13,13 +13,11 @@ import { Route, Router } from '@angular/router';
 export class CompanyListComponent implements OnInit {
   companyData: any []= []
   industryInterested: any;
-  // investorOrgType: any;
-  // investorType: any;
   countryList: any;
   headQuartersList: any
   page = 1;
   pageSize = 500;
-  valueNearYouFilter: any;
+  valueNearYouFilter: string = '';
   totalCompanyCount: any;
   isFilterVisible: string = 'none';
   filterForm:FormGroup;
@@ -37,8 +35,8 @@ export class CompanyListComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.loadMultiSelectData();
     this.loadInvestorData();
+    this.loadMultiSelectData();
     this.checkplanExpire();
   }
 
@@ -47,28 +45,23 @@ export class CompanyListComponent implements OnInit {
   }
 
   performSearch(events:any){
-    var data={
-      nearby_search:this.valueNearYouFilter
+    if (this.valueNearYouFilter == "") {
+      this.loadInvestorData();
+      return;
     }
-  }
-
-  onEnterKeyPressed(){
-    var data={
-      global_search: this.valueNearYouFilter
-    }
-
-    this.companyListService.getInvestorList(data).subscribe((response) => {
-      this.companyData = response.data;
-      this.totalCompanyCount = response.count;
-      //this.totalCompanyCount = response.count;
+    var companySearchData: any = [];
+    this.companyData.filter(item => {
+      if (item.company_name?.includes(this.valueNearYouFilter)) {
+        companySearchData.push(item);
+      };
     });
+    this.companyData = [...companySearchData];
   }
+
 
   loadMultiSelectData(){
     this.companyListService.getMultiSelectData().subscribe((response) => {
       this.industryInterested = response.investor_industry_interested;
-      // this.investorOrgType = response.investor_org_type;
-      // this.investorType = response.investor_type;
       this.countryList = response.countries_list;
       this.headQuartersList = response.head_quarters_list;
     });

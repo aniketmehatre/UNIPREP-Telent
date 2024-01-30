@@ -129,7 +129,7 @@
         <form role="form" [formGroup]="filterForm" (ngSubmit)="loadScholarShipData()">
             <div class="modal-content" style="margin-top: 50% !important">
                 <div class="modal-header flex justify-content-between">
-                    <h4 class="modal-title">Filter Events</h4>
+                    <h4 class="modal-title">Filter Scholarship</h4>
                     <span style="cursor: pointer;color: #3f4c83;"><i (click)="closePopup()"
                                                                      class="fa-solid fa-circle-xmark fa-2x"></i></span>
                 </div>
@@ -178,7 +178,7 @@
                                             <p-multiSelect [options]="studyLevelList" styleClass="w-100"
                                                            formControlName="study_level"
                                                            optionValue="id"
-                                                           placeholder="Select Study Level (Multi-Select)"
+                                                           placeholder="Select Study Level"
                                                            optionLabel="level" #StudylevelSelect>
                                             </p-multiSelect>
                                         </div>
@@ -192,7 +192,7 @@
                                             <p-multiSelect [options]="filterUniversityList" styleClass="w-100"
                                                            formControlName="university"
                                                            optionValue="id"
-                                                           placeholder="Select Organisation Or University (Multi-Select)"
+                                                           placeholder="Select Organisation Or University"
                                                            optionLabel="name">
                                             </p-multiSelect>
                                         </div>
@@ -206,7 +206,7 @@
                                             <p-multiSelect [options]="regionList" styleClass="w-100"
                                                            formControlName="region"
                                                            optionValue="id"
-                                                           placeholder="Select Region (Multi-Select)"
+                                                           placeholder="Select Region"
                                                            optionLabel="state">
                                             </p-multiSelect>
                                         </div>
@@ -220,7 +220,7 @@
                                             <p-multiSelect [options]="countryList" styleClass="w-100"
                                                            formControlName="valueRange"
                                                            optionValue=" "
-                                                           placeholder="Select Value Range (Multi-Select)"
+                                                           placeholder="Select Value Range"
                                                            optionLabel=" " #value>
                                             </p-multiSelect>
                                             <div *ngIf="filterForm.hasError('org_name')" class="text-danger">

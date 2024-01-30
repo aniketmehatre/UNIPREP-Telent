@@ -16,7 +16,7 @@
                 <div class="p-input-icon-left w-100 mt-3">
                     <i class="pi pi-search"></i>
                     <input class="w-100 px-5 py-2" type="text" placeholder="Search Investors..." pInputText
-                           [(ngModel)]="valueNearYouFilter" (input)="performSearch($event)" (keyup.enter)="onEnterKeyPressed()"/>
+                           [(ngModel)]="valueNearYouFilter" (input)="performSearch($event)"/>
                 </div>
             </div>
             <div class="col-md-6 col-7 text-md-center text-end">
@@ -42,7 +42,7 @@
                     <div class="p-input-icon-left w-100 mt-3">
                         <i class="pi pi-search"></i>
                         <input class="w-100 px-5 py-2 b-6 h-100" type="text" placeholder="Search Events Near You..." pInputText
-                               [(ngModel)]="valueNearYouFilter" (input)="performSearch($event)" (keyup.enter)="onEnterKeyPressed()" />
+                               [(ngModel)]="valueNearYouFilter" (input)="performSearch($event)"  />
                     </div>
                 </div>
                 <div class="col-4 mt-2">
@@ -55,7 +55,7 @@
                     <div class="p-input-icon-left w-100 mt-3">
                         <i class="pi pi-search"></i>
                         <input class="w-100 px-5 py-2 b-6 h-100" type="text" placeholder="Search Events Near You..." pInputText
-                               [(ngModel)]="valueNearYouFilter" (input)="performSearch($event)" (keyup.enter)="onEnterKeyPressed()" />
+                               [(ngModel)]="valueNearYouFilter" (input)="performSearch($event)"  />
                     </div>
                 </div>
                 <div class="col-4 mt-2">
@@ -82,7 +82,7 @@
             </ng-template>
             <ng-template pTemplate="header">
                 <tr>
-                    <th class="border-cell">Org. Name</th>
+                    <th class="border-cell">Investor Name</th>
                     <th class="border-cell">Country</th>
                     <th class="border-cell">Headquarters</th>
                     <th class="border-cell">Investor Type</th>
@@ -144,10 +144,10 @@
                             <div class="row">
                                 <div class="col-md-6">
                                     <label class="form-label" style="font-size: medium;font-weight:500">Filter by
-                                        Org. Name</label>
+                                        Investor Name</label>
                                     <div class="form-group">
                                         <div class="mb-3">
-                                            <input placeholder="Org Name" type="text" formControlName="org_name"
+                                            <input placeholder="Investor Name" type="text" formControlName="org_name"
                                                    class="form-control border-black paddingfive" />
                                             <div *ngIf="filterForm.hasError('org_name')" class="text-danger">
                                                 {{ filterForm.getError('org_name') }}
@@ -211,11 +211,11 @@
                                         Investor Type</label>
                                     <div class="form-group">
                                         <div class="mb-3">
-                                            <p-multiSelect [options]="investorOrgType" styleClass="w-100"
+                                            <p-multiSelect [options]="investorType" styleClass="w-100"
                                                            formControlName="investor_type"
                                                            optionValue="id"
                                                            defaultLabel="Select Investor Type"
-                                                           optionLabel="org_type_name" #InvestorTypeMultiSelect>
+                                                           optionLabel="investor_type_name" #InvestorTypeMultiSelect>
                                                 <ng-template pTemplate="selectedItems">
                                                     {{ InvestorTypeMultiSelect.defaultLabel }}
                                                 </ng-template>
