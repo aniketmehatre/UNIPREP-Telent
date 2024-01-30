@@ -91,18 +91,18 @@ body {
 }
 ::-webkit-scrollbar-track {
 	-webkit-box-shadow: none !important;
-	border-radius: 10px !important;
-	background-color: #fff !important;
+	border-radius: 0px !important;
+	background-color: #transparent !important;
 }
 
 ::-webkit-scrollbar {
-	border-radius: 10px;
-	width: 12px !important;
-	background-color: #fff !important;
+	border-radius: 0px;
+	width: 8px !important;
+	background-color: transparent !important;
 }
 
 ::-webkit-scrollbar-thumb {
-	border-radius: 10px !important;
+	border-radius: 0px !important;
 	-webkit-box-shadow: none !important;
 	background-color: var(--uniprep-primary) !important;
 }
@@ -324,6 +324,11 @@ uni-refundpolicy,
 uni-resource,
 uni-privacypolicy,
 uni-termsandcondition,
+uni-support,
+uni-infokit,
+uni-investor-list,
+uni-company-list,
+uni-scholarship-list,
 uni-faq {
 	display: flex;
 	flex: 1;
@@ -460,6 +465,7 @@ uni-subscription {
 .readingcard {
 	flex: 1; /* Take the full height within container-fluid */
 	overflow-y: auto; /* Enable vertical scrolling */
+	overflow-x: hidden;
 }
 
 .disablepmargin {
@@ -1844,25 +1850,24 @@ uni-subscription {
 @media (max-width: 575.98px) {
 	.p-tabview .p-tabview-nav li.p-highlight .p-tabview-nav-link {
 		color: white;
-		background-color: #3F4C83;
+		background-color: #3f4c83;
 	}
 
 	.mobile-subscription {
 		.p-tabview-nav-content {
-			border: 1px solid #3F4C83;
-			;
+			border: 1px solid #3f4c83;
 			border-radius: 25px !important;
 			padding: 5px 10px;
 			cursor: pointer;
 		}
 
 		.p-tabview .p-tabview-nav li .p-tabview-nav-link {
-			border: 1px solid #3F4C83 !important;
+			border: 1px solid #3f4c83 !important;
 			border-radius: 25px !important;
 		}
 
 		.p-highlight {
-			border: 1px solid #3F4C83;
+			border: 1px solid #3f4c83;
 			border-radius: 25px !important;
 		}
 
@@ -1955,7 +1960,6 @@ uni-subscription {
 	}
 }
 @media screen and (max-width: 480px) {
-
 }
 .openlogo {
 	display: block;
@@ -2051,8 +2055,8 @@ uni-subscription {
 		}
 	}
 }
-.btnCurser{
-  cursor: default   !important;
+.btnCurser {
+	cursor: default !important;
 }
 p-accordion.plain .p-accordion-tab-active .p-accordion-header-link:after {
 	content: "-" !important;
@@ -2060,9 +2064,9 @@ p-accordion.plain .p-accordion-tab-active .p-accordion-header-link:after {
 	right: 15px;
 }
 
-.pl-4{
+.pl-4 {
 	padding-left: 4px;
 }
-.pr-4{
+.pr-4 {
 	padding-right: 4px;
 }
