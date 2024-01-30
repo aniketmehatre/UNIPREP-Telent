@@ -30,6 +30,7 @@ export class ScholarshipListComponent implements OnInit {
   regionList: any[] = [];
   filterUniversityList:any[]=[];
   planExpired!: boolean;
+  scholarshipTypeList: any[] = [];
   constructor(
     private fb: FormBuilder,
     private scholarshipListService: ScholarshipListService,
@@ -43,8 +44,9 @@ export class ScholarshipListComponent implements OnInit {
       home_country: [null],
       study_level: [null],
       region: [null],
-      university:[null],
+      university: [null],
       valueRange: [null],
+      type:[null]
     });
   }
 
@@ -55,6 +57,7 @@ export class ScholarshipListComponent implements OnInit {
     this.getStudyLevel();
     this.getFilterUniversityList("");
     this.checkplanExpire();
+    this.getScholarshipType();
   }
 
 
@@ -105,9 +108,15 @@ export class ScholarshipListComponent implements OnInit {
     })
   }
 
+  getScholarshipType() {
+    this.scholarshipListService.getScholarshipType().subscribe(response => {
+      this.scholarshipTypeList = response;
+    })
+  }
+
   loadScholarShipData() {
-   
-    let data :any= {
+
+    let data: any = {
       page: this.page,
       perpage: this.pageSize,
     }
@@ -117,13 +126,16 @@ export class ScholarshipListComponent implements OnInit {
     if (this.filterForm.value.home_country) {
       data.home_country = this.filterForm.value.home_country
     }
-    if (this.filterForm.value.study_level && this.filterForm.value.study_level.length>0) {
+    if (this.filterForm.value.type) {
+      data.type = this.filterForm.value.type
+    }
+    if (this.filterForm.value.study_level && this.filterForm.value.study_level.length > 0) {
       data.study_level = this.filterForm.value.study_level
     }
-    if (this.filterForm.value.region && this.filterForm.value.region.length>0) {
+    if (this.filterForm.value.region && this.filterForm.value.region.length > 0) {
       data.region = this.filterForm.value.region
     }
-    if (this.filterForm.value.university && this.filterForm.value.university.length>0) {
+    if (this.filterForm.value.university && this.filterForm.value.university.length > 0) {
       data.university = this.filterForm.value.university
     }
     this.scholarshipListService.getScholarshipList(data).subscribe((response) => {
