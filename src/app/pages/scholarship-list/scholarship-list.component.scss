@@ -26,6 +26,14 @@
       }
     }
   }
+  :host ::ng-deep .p-paginator .p-dropdown-panel {
+    left: auto !important;
+    right: 0; /* Adjust the right position as needed */
+    top: auto !important;
+    bottom: 100%; /* Position the dropdown above the paginator */
+    max-height: none !important; /* Prevent max-height from causing a scroll */
+    overflow: visible !important; /* Ensure the dropdown is not hidden */
+  }
   .card-container {
     display: flex; /* Use a flex container for horizontal alignment */
     flex-wrap: wrap; /* Allow cards to wrap to the next row on smaller screens */

@@ -43,6 +43,15 @@
   border:1px solid var(--uniprep-primaryop10);
 }
 
+:host ::ng-deep .p-paginator .p-dropdown-panel {
+  left: auto !important;
+  right: 0; /* Adjust the right position as needed */
+  top: auto !important;
+  bottom: 100%; /* Position the dropdown above the paginator */
+  max-height: none !important; /* Prevent max-height from causing a scroll */
+  overflow: visible !important; /* Ensure the dropdown is not hidden */
+}
+
 ::ng-deep .p-datatable a
 {
   text-decoration: none;

@@ -1,5 +1,5 @@
 <div class="card readingcard" style="border-radius: 15px 15px 0px 0px !important;">
-    <div class="card-body pt-0">
+    <div class="card-body pt-0"  *ngIf="!planExpired">
         <div class="row justify-content-center">
             <div class="col-md-2 text-start"></div>
             <div class="col-md-8 text-center">
@@ -83,7 +83,6 @@
             <ng-template pTemplate="header">
                 <tr>
                     <th class="border-cell">Org. Name</th>
-                    <th class="border-cell">Org. Type</th>
                     <th class="border-cell">Country</th>
                     <th class="border-cell">Headquarters</th>
                     <th class="border-cell">Investor Type</th>
@@ -94,7 +93,6 @@
             <ng-template pTemplate="body" let-inv let-expanded="expanded">
                 <tr>
                     <td class="border-cell">{{inv.org_name}}</td>
-                    <td class="border-cell">{{inv.org_type}}</td>
                     <td class="border-cell">{{inv.country}}</td>
                     <td class="border-cell">{{inv.head_quarters}}</td>
                     <td class="border-cell">{{inv.investor_type}}</td>
@@ -109,6 +107,15 @@
         </p-table>
         <p-paginator [rows]="pageSize" [totalRecords]="totalInvestorsCount" (onPageChange)="pageChange($event)" [first]="page"
                      [rowsPerPageOptions]="[500, 300, 100]"></p-paginator>
+    </div>
+
+    <div class="text-center mt-5 mb-4" *ngIf="planExpired">
+        <img src="../../../uniprep-assets/images/smartloack.png" class="image" width="80">
+        <h3>Upgrade now to access invaluable tools</h3>
+        <p>Unlock the power of success with our exclusive events!<br> Upgrade your plan now to gain instant access.</p>
+        <p class="offer">Events offers:<br> Career growth, International Education, Life in your destination and more</p>
+        <button pButton type="button" class=" text-white p-ripple p-button-rounded p-button-warning p-button p-component"
+            (click)="upgradePlan()">Upgrade Plan<i class="pi pi-arrow-circle-right"></i></button>
     </div>
 
 </div>
@@ -138,7 +145,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-6">
+                                <!-- <div class="col-md-6">
                                     <label class="form-label" style="font-size: medium;font-weight:500">Filter by
                                         Org. Type</label>
                                     <div class="form-group">
@@ -153,8 +160,8 @@
                                                 </ng-template>
                                             </p-multiSelect>
                                         </div>
-                                    </div>
-                                </div>
+                                    </div> 
+                                </div>-->
                                 <div class="col-md-6">
                                     <label class="form-label" style="font-size: medium;font-weight:500">Filter by
                                         Country</label>
@@ -194,7 +201,7 @@
                                         Investor Type</label>
                                     <div class="form-group">
                                         <div class="mb-3">
-                                            <p-multiSelect [options]="investorType" styleClass="w-100"
+                                            <p-multiSelect [options]="investorOrgType" styleClass="w-100"
                                                            formControlName="investor_type"
                                                            optionValue="id"
                                                            defaultLabel="Select Investor Type"

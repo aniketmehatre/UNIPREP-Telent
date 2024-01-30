@@ -3,6 +3,8 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { ScholarshipListService } from './scholarship-list.service';
 import { LocationService } from 'src/app/location.service';
 import { MessageService } from 'primeng/api';
+import { AuthService } from 'src/app/Auth/auth.service';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -27,11 +29,14 @@ export class ScholarshipListComponent implements OnInit {
   studyLevelList: any[] = [];
   regionList: any[] = [];
   filterUniversityList:any[]=[];
+  planExpired!: boolean;
   constructor(
     private fb: FormBuilder,
     private scholarshipListService: ScholarshipListService,
     private locationService: LocationService,
-    private toast: MessageService
+    private toast: MessageService,
+    private authService: AuthService,
+    private router: Router
   ) {
     this.filterForm = this.fb.group({
       country: [null],
@@ -44,12 +49,12 @@ export class ScholarshipListComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
     this.loadScholarShipData();
     this.getScholarshipCountry();
     this.gethomeCountryList();
     this.getStudyLevel();
     this.getFilterUniversityList("");
+    this.checkplanExpire();
   }
 
 
@@ -163,5 +168,21 @@ export class ScholarshipListComponent implements OnInit {
     this.scholarshipListService.getUniversity(value).subscribe(response => {
       this.filterUniversityList = response;
     });
+  }
+
+  checkplanExpire(): void {
+    this.authService.getNewUserTimeLeft().subscribe((res) => {
+      let data = res.time_left;
+      let subscription_exists_status = res.subscription_details;
+      if (data.plan === "expired" || subscription_exists_status === 'free_trail') {
+        this.planExpired = true;
+      } else {
+        this.planExpired = false;
+      }
+    })
+  }
+
+  upgradePlan(): void {
+    this.router.navigate(["/pages/subscriptions"]);
   }
 }

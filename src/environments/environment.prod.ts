@@ -1,6 +1,6 @@
-const devdomain = '40.80.95.32';
+const devdomain = 'api.uniprep.ai';
 const proddomain='uniprep.ai'
-const devurl= `http://${devdomain}/uniprepapi/public/api`;
+const devurl= `https://${devdomain}/uniprepapi/public/api`;
 const produrl=`https://${proddomain}/uniprepapi/public/api`;
 export const environment = {
   domain:devdomain,

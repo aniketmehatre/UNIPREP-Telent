@@ -22,6 +22,7 @@ import {AuthEffects} from "./store/effects";
 import {CalendarModule} from "primeng/calendar";
 import { NgxIntlTelInputModule } from 'ngx-intl-tel-input';
 import {GoogleSigninButtonModule} from "@abacritt/angularx-social-login";
+import {MaintenanceComponent} from "./maintenance/maintenance.component";
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import {GoogleSigninButtonModule} from "@abacritt/angularx-social-login";
     RegistrationComponent,
     ForgotPasswordComponent,
     VerificationComponent,
-    SetpasswordComponent
+    SetpasswordComponent,
+      MaintenanceComponent
   ],
     imports: [
         FormsModule,

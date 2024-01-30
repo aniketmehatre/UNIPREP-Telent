@@ -6,6 +6,7 @@ import { LoginComponent } from './login/login.component';
 import { RegistrationComponent } from './registration/registration.component';
 import { SetpasswordComponent } from './setpassword/setpassword.component';
 import { VerificationComponent } from './verification/verification.component';
+import {MaintenanceComponent} from "./maintenance/maintenance.component";
 
 const Auhtroutes: Routes = [
   {
@@ -18,6 +19,14 @@ const Auhtroutes: Routes = [
       },
       {
         path: 'register',
+        component: RegistrationComponent,
+      },
+      {
+        path: 'login-new',
+        component: LoginComponent,
+      },
+      {
+        path: 'register-new',
         component: RegistrationComponent,
       },
       {
