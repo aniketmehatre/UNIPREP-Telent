@@ -44,6 +44,11 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    this.authService.authState.subscribe((user) => {
+      console.log(user);
+      var socialUser = user;
+      var isLoggedIn = (user != null);
+    });
     this.loginForm = this.formBuilder.group({
       email: ["", [Validators.required, Validators.email]],
       password: ["", [Validators.required]],

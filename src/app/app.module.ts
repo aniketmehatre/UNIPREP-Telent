@@ -36,11 +36,11 @@ import { ScrollToBottomDirective } from './scroll-to-bottom.directive';
 import {ConfirmDialogModule} from "primeng/confirmdialog";
 import {PipesModule} from "@pipes/pipes.module";
 import { LandingComponent } from './pages/landing/landing.component';
-import {SocialLoginModule, SocialAuthServiceConfig, GoogleSigninButtonModule} from '@abacritt/angularx-social-login';
 import {
-    GoogleLoginProvider,
-    FacebookLoginProvider
+    SocialLoginModule,
+    SocialAuthServiceConfig, GoogleLoginProvider,
 } from '@abacritt/angularx-social-login';
+
 import { MaintenanceComponent } from './Auth/maintenance/maintenance.component';
 
 const reducers = {
@@ -94,7 +94,6 @@ export function tokenGetter() {
         PipesModule,
         ConfirmDialogModule,
         SocialLoginModule,
-        GoogleSigninButtonModule
     ],
   providers: [
     DatePipe,
@@ -116,20 +115,11 @@ export function tokenGetter() {
               providers: [
                   {
                       id: GoogleLoginProvider.PROVIDER_ID,
-                      provider: new GoogleLoginProvider(
-                          '32944187384-rfr3dc7mcif3slflo38r5sqhb70e0vjd.apps.googleusercontent.com'
-                      )
+                      provider: new GoogleLoginProvider('32944187384-4jubeedmfdusvhk6n7ben61ce7u9ber8.apps.googleusercontent.com'),
                   },
-                  // {
-                  //     id: FacebookLoginProvider.PROVIDER_ID,
-                  //     provider: new FacebookLoginProvider('32944187384-rfr3dc7mcif3slflo38r5sqhb70e0vjd.apps.googleusercontent.com')
-                  // }
               ],
-              onError: (err) => {
-                  console.error(err);
-              }
           } as SocialAuthServiceConfig,
-      }
+      },
   ],
   bootstrap: [AppComponent],
   entryComponents: [ModalComponent]
