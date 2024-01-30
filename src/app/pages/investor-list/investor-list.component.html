@@ -82,7 +82,7 @@
             </ng-template>
             <ng-template pTemplate="header">
                 <tr>
-                    <th class="border-cell">Org. Name</th>
+                    <th class="border-cell">Investor Name</th>
                     <th class="border-cell">Country</th>
                     <th class="border-cell">Headquarters</th>
                     <th class="border-cell">Investor Type</th>
@@ -98,9 +98,19 @@
                     <td class="border-cell">{{inv.investor_type}}</td>
                     <!-- <td class="border-cell">{{inv.industry_interested}}</td> -->
                     <td class="border-cell" style="white-space: nowrap;">
-                        <i class="fa-brands fa-linkedin"></i>&nbsp;<a target="_blank" href="{{inv.linked_in}}">Linked In</a><br>
-                        <i class="fa-solid fa-globe"></i>&nbsp;<a target="_blank" href="{{inv.website}}">Website</a><br>
-                        <i class="fa-solid fa-envelope"></i>&nbsp;<a href="mailto:{{inv.email}}">Email</a><br>
+                        <div *ngIf="inv.linked_in && inv.linked_in.trim() !== ''">
+                            <i class="fa-brands fa-linkedin"></i>&nbsp;<a target="_blank" href="{{inv.linked_in}}">Linked In</a><br>
+                        </div>
+                        
+                        <div *ngIf="inv.website && inv.website.trim() !== ''">
+                            <i class="fa-solid fa-globe"></i>&nbsp;<a target="_blank" href="{{inv.website}}">Website</a><br>
+                        </div>
+
+                        <div *ngIf="inv.email && inv.email.trim() !== ''">
+                            <i class="fa-solid fa-envelope"></i>&nbsp;<a href="mailto:{{inv.email}}">Email</a><br>
+                        </div>
+                        
+                        
                     </td>
                 </tr>
             </ng-template>
@@ -134,7 +144,7 @@
                             <div class="row">
                                 <div class="col-md-6">
                                     <label class="form-label" style="font-size: medium;font-weight:500">Filter by
-                                        Org. Name</label>
+                                        Investor Name</label>
                                     <div class="form-group">
                                         <div class="mb-3">
                                             <input placeholder="Org Name" type="text" formControlName="org_name"
@@ -205,7 +215,7 @@
                                                            formControlName="investor_type"
                                                            optionValue="id"
                                                            defaultLabel="Select Investor Type"
-                                                           optionLabel="investor_type_name" #InvestorTypeMultiSelect>
+                                                           optionLabel="org_type_name" #InvestorTypeMultiSelect>
                                                 <ng-template pTemplate="selectedItems">
                                                     {{ InvestorTypeMultiSelect.defaultLabel }}
                                                 </ng-template>

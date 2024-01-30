@@ -85,6 +85,7 @@
                     <th class="border-cell">Home Country</th>
                     <th class="border-cell">Scholarship Name</th>
                     <th class="border-cell">Scholarship Country</th>
+                    <th class="border-cell">Scholarship Type</th>
                     <th class="border-cell">Study Level</th>
                     <th class="border-cell">Organisation/Institute</th>
                     <th class="border-cell">Region</th>
@@ -97,6 +98,7 @@
                     <td class="border-cell">{{scholarship.home_country}}</td>
                     <td class="border-cell">{{scholarship.name}} </td>
                     <td class="border-cell">{{scholarship.country}} </td>
+                    <td class="border-cell">{{scholarship.type}}</td>
                     <td class="border-cell">{{scholarship.study_level}}</td>
                     <td class="border-cell">{{scholarship.university}} </td>
                     <td class="border-cell">{{scholarship.region==null?'null':scholarship.region}}</td>
@@ -137,7 +139,7 @@
                             <div class="row">
                                 <div class="col-md-12">
                                     <label class="form-label" style="font-size: medium;font-weight:500">Filter by
-                                        Country</label>
+                                        Scholarship Country</label>
                                     <div class="form-group">
                                         <div class="mb-3">
                                             <p-dropdown formControlName="country" optionValue="id" optionLabel="country"
@@ -159,13 +161,24 @@
                                 </div>
                                 <div class="col-md-12">
                                     <label class="form-label" style="font-size: medium;font-weight:500">Filter by
+                                        Scholarship Type</label>
+                                    <div class="form-group">
+                                        <div class="mb-3">
+                                            <p-dropdown formControlName="type" optionValue="id" optionLabel="type"
+                                            styleClass="w-full" [options]="scholarshipTypeList" [filter]="true"
+                                            filterBy="type"   placeholder="Select  Scholarship Type"></p-dropdown>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <label class="form-label" style="font-size: medium;font-weight:500">Filter by
                                         Study Level</label>
                                     <div class="form-group">
                                         <div class="mb-3">
                                             <p-multiSelect [options]="studyLevelList" styleClass="w-100"
                                                            formControlName="study_level"
                                                            optionValue="id"
-                                                           placeholder="Select Study Level (Multi-Select)"
+                                                           placeholder="Select Study Level "
                                                            optionLabel="level" #StudylevelSelect>
                                             </p-multiSelect>
                                         </div>
@@ -173,13 +186,13 @@
                                 </div>
                                 <div class="col-md-12">
                                     <label class="form-label" style="font-size: medium;font-weight:500">Filter by
-                                        University</label>
+                                        organizations/Institute</label>
                                     <div class="form-group">
                                         <div class="mb-3">
                                             <p-multiSelect [options]="filterUniversityList" styleClass="w-100"
                                                            formControlName="university"
                                                            optionValue="id"
-                                                           placeholder="Select Organisation Or University (Multi-Select)"
+                                                           placeholder="Select Organisation Or University"
                                                            optionLabel="name">
                                             </p-multiSelect>
                                         </div>
@@ -193,7 +206,7 @@
                                             <p-multiSelect [options]="regionList" styleClass="w-100"
                                                            formControlName="region"
                                                            optionValue="id"
-                                                           placeholder="Select Region (Multi-Select)"
+                                                           placeholder="Select Region"
                                                            optionLabel="state">
                                             </p-multiSelect>
                                         </div>

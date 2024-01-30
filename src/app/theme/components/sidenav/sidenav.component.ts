@@ -38,6 +38,11 @@ export class SidenavComponent {
       url: "/pages/dashboard",
       image: "fa-solid fa-house",
     },
+    // {
+    //   title: "User Guide",
+    //   url: "/pages/userguide",
+    //   image: "fa-solid fa-book",
+    // },
     {
       title: "Subscription",
       url: "/pages/subscriptions",
@@ -93,11 +98,11 @@ export class SidenavComponent {
       url: "/pages/modules/life-at-country",
       image: "fa-solid fa-earth-americas",
     },
-    {
-      title: "Explore",
-      url: "",
-      image: "",
-    },
+    // {
+    //   title: "Explore",
+    //   url: "",
+    //   image: "",
+    // },
     {
       title: "Events",
       url: "/pages/events",
@@ -108,6 +113,16 @@ export class SidenavComponent {
       url: "/pages/resource",
       image: "fa-solid fa-link",
     },
+    // {
+    //   title: "Subscriptions",
+    //   url: "",
+    //   image: "",
+    // },
+    // {
+    //   title: "Subscription",
+    //   url: "/pages/subscriptions",
+    //   image: "fa-solid fa-crown",
+    // },
     {
       title: "Revenue",
       url: "",
@@ -285,7 +300,7 @@ export class SidenavComponent {
     this.visibleExhasted = false;
     this.router.navigate(["/pages/subscriptions"]);
   }
-
+ 
   onexpand(item: SideMenu) {
     if (item.header) {
       return;

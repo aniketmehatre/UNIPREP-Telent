@@ -14,7 +14,7 @@ export class InvestorListComponent implements OnInit {
   investorData: any []= []
   investorIndustryInterested: any;
   investorOrgType: any;
-  //investorType: any;
+  investorType: any;
   countryList: any;
   headQuartersList: any
   page = 1;
@@ -31,7 +31,7 @@ export class InvestorListComponent implements OnInit {
       // org_type: [''],
       country: [''],
       head_quarters: [''],
-      // investor_type: [''],
+      investor_type: [''],
       industry_interested: [''],
     });
   }
@@ -70,7 +70,7 @@ export class InvestorListComponent implements OnInit {
     this.investorList.getMultiSelectData().subscribe((response) => {
       this.investorIndustryInterested = response.investor_industry_interested;
       this.investorOrgType = response.investor_org_type;
-      //this.investorType = response.investor_type;
+      this.investorType = response.investor_type;
       this.countryList = response.countries_list;
       this.headQuartersList = response.head_quarters_list;
     });

@@ -52,6 +52,7 @@ import { SupportComponent } from "./support/support.component";
 import { InvestorListComponent } from './investor-list/investor-list.component';
 import { CompanyListComponent } from './company-list/company-list.component';
 import { ScholarshipListComponent } from "./scholarship-list/scholarship-list.component";
+import { UserGuideComponent } from './user-guide/user-guide.component';
 import { DividerModule } from "primeng/divider";
 
 @NgModule({
@@ -75,6 +76,7 @@ import { DividerModule } from "primeng/divider";
         InvestorListComponent,
         CompanyListComponent,
         ScholarshipListComponent,
+        UserGuideComponent,
     ],
   exports: [FooterStatusBoxComponent, HeaderSearchComponent],
   imports: [

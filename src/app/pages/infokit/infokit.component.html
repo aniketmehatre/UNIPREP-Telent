@@ -1,71 +1,107 @@
-<div style="display: flex" class="routedata">
-	<span (click)="redirectTo('dashboard', -1)" role="button">Dashboard / </span><span (click)="redirectTo('startup', -1)" role="button">Startup Kit / </span><span *ngFor="let data of routedata; let i = index; let isLast = last" (click)="redirectTo(data, i)" [ngClass]="isLast ? 'fontcolor' : ''" role="button">{{ data.name }} / </span>
+<div class="row p-3">
+  <div style="display: flex" class="routedata">
+    <span (click)="redirectTo('dashboard', -1)">Dashboard / </span
+    ><span (click)="redirectTo('startup', -1)">Startup Kit / </span
+    ><span
+      *ngFor="let data of routedata; let i = index; let isLast = last"
+      (click)="redirectTo(data, i)"
+      [ngClass]="isLast ? 'fontcolor' : ''"
+      >{{ data.name }} /
+    </span>
+  </div>
 </div>
 <div class="card readingcard" *ngIf="!planExpired">
-	<div class="card-body pt-0">
-		<div class="row justify-content-center">
-			<div class="col-md-2 text-start"></div>
-			<div class="col-md-8 text-center">
-				<h5 class="select-title mb-1" style="text-transform: uppercase" tooltipPosition="top" pTooltip="This section provides a comprehensive walkthrough on the UNIPREP platform.">{{ titletext }}<i class="questiontooltip fa-solid fa-circle-question"></i></h5>
-			</div>
-			<div class="col-md-2"></div>
-		</div>
-		<div class="container-fluid">
-			<div class="row p-3">
-				<p class="info mb-2" *ngIf="parentfolderlists.length > 0">Folders</p>
-				<div class="col-md-3 col-12" *ngFor="let folder of parentfolderlists">
-					<div class="card folder-card">
-						<div class="card-body">
-							<div class="d-flex justify-content-start folder" (click)="getchildinfo(folder)">
-								<div class="me-2 d-flex align-items-center">
-									<img class="img-responsive" [src]="folder?.img_path" />
-								</div>
-								<div class="folderinfo">
-									<h5 class="mb-0">{{ folder?.name }}</h5>
-									<p class="mb-0">
-										Last Updated:<span>{{ folder?.last_updated }}</span>
-									</p>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="row p-3">
-				<p class="info mb-2" *ngIf="parentfilelists.length > 0">Files</p>
-				<div class="col-md-3 col-12" *ngFor="let folder of parentfilelists">
-					<div class="card folder-card">
-						<a (click)="openFile(folder.img_path)">
-							<div class="card-body">
-								<div class="d-flex align-items-center justify-content-start folder">
-									<div class="me-2 d-flex align-items-center">
-										<img class="img-responsive" src="../../../uniprep-assets/images/pdf.svg" />
-									</div>
-									<div class="folderinfo">
-										<h5 class="mb-0">{{ folder?.name }}</h5>
-										<p class="mb-0">
-											Last Updated:<span>{{ folder?.last_updated }}</span>
-										</p>
-									</div>
-								</div>
-							</div>
-						</a>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
+  <div class="card-body pt-0">
+    <div class="row justify-content-center">
+      <div class="col-md-2 text-start"></div>
+      <div class="col-md-8 text-center">
+        <h5
+          class="select-title mb-1"
+          style="text-transform: uppercase"
+          tooltipPosition="top"
+          pTooltip="This section provides a comprehensive walkthrough on the UNIPREP platform."
+        >
+          {{ titletext
+          }}<i class="questiontooltip fa-solid fa-circle-question"></i>
+        </h5>
+      </div>
+      <div class="col-md-2"></div>
+    </div>
+    <div class="container-fluid">
+      <div class="row p-3">
+        <p class="info" *ngIf="parentfolderlists.length > 0">Folders</p>
+        <div
+          class="col-4 card folder-card"
+          *ngFor="let folder of parentfolderlists"
+        >
+          <div class="card-body">
+            <div
+              class="d-flex justify-content-start folder"
+              (click)="getchildinfo(folder)"
+            >
+              <div class="me-2 d-flex align-items-center">
+                <img class="img-responsive" [src]="folder?.img_path" />
+              </div>
+              <div class="folderinfo">
+                <h5>{{ folder?.name }}</h5>
+                <p>
+                  Last Updated:<span>{{ folder?.last_updated }}</span>
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row p-3">
+        <p class="info" *ngIf="parentfilelists.length > 0">Files</p>
+        <div
+          class="col-4 card folder-card"
+          *ngFor="let folder of parentfilelists"
+        >
+          <a (click)="openFile(folder.img_path)">
+            <div class="card-body">
+              <div class="d-flex justify-content-start folder">
+                <div class="me-2 d-flex align-items-center">
+                  <img
+                    class="img-responsive"
+                    src="../../../uniprep-assets/images/pdf.svg"
+                  />
+                </div>
+                <div class="folderinfo">
+                  <h5>{{ folder?.name }}</h5>
+                  <p>
+                    Last Updated:<span>{{ folder?.last_updated }}</span>
+                  </p>
+                </div>
+              </div>
+            </div></a
+          >
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 <div class="text-center mt-5 mb-4" *ngIf="planExpired">
-	<img src="../../../uniprep-assets/images/smartloack.png" class="image" width="80" />
-	<h3>Upgrade now to access invaluable tools</h3>
-	<p>
-		Unlock the power of success with our exclusive events!<br />
-		Upgrade your plan now to gain instant access.
-	</p>
-	<p class="offer">
-		Events offers:<br />
-		Career growth, International Education, Life in your destination and more
-	</p>
-	<button pButton type="button" class="text-white p-ripple p-button-rounded p-button-warning p-button p-component" (click)="upgradePlan()">Upgrade Plan<i class="pi pi-arrow-circle-right"></i></button>
+  <img
+    src="../../../uniprep-assets/images/smartloack.png"
+    class="image"
+    width="80"
+  />
+  <h3>Upgrade now to access invaluable tools</h3>
+  <p>
+    Unlock the power of success with our exclusive events!<br />
+    Upgrade your plan now to gain instant access.
+  </p>
+  <p class="offer">
+    Events offers:<br />
+    Career growth, International Education, Life in your destination and more
+  </p>
+  <button
+    pButton
+    type="button"
+    class="text-white p-ripple p-button-rounded p-button-warning p-button p-component"
+    (click)="upgradePlan()"
+  >
+    Upgrade Plan<i class="pi pi-arrow-circle-right"></i>
+  </button>
 </div>

@@ -25,6 +25,10 @@ export class ScholarshipListService {
         headers: headers,params:params
     });
   }
+  getScholarshipType() {
+    const headers = new HttpHeaders().set("Accept", "application/json");
+    return this.http.get<any>(environment.ApiUrl + "/getscholarshiptype", { headers: headers });
+  }
   getStudyLevel(){
     const headers = new HttpHeaders().set("Accept", "application/json");
     return this.http.get<any>(environment.ApiUrl + "/getstudylevel", {
