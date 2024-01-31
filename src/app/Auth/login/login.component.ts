@@ -48,7 +48,6 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.authService.authState.subscribe((user) => {
-      console.log('asdf',user);
       this.service.gmailLogin(user).subscribe(data => {
         this.storage.set(environment.tokenKey, data.token);
         this.route.navigate(['/pages/dashboard']);

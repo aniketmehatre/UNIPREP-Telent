@@ -22,6 +22,7 @@ import { matchValidator } from "../../../@Supports/matchvalidator";
 import { ThemeService } from '../../../theme.service';
 import { DashboardService } from "src/app/pages/dashboard/dashboard.service";
 import {count} from "rxjs";
+import {SocialAuthService} from "@abacritt/angularx-social-login";
 
 @Component({
   selector: "uni-header",
@@ -92,7 +93,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
     private themeService: ThemeService,
     route: ActivatedRoute,
     private dataService: DataService,
-    private dashboardService: DashboardService
+    private dashboardService: DashboardService, private authService: SocialAuthService
+
   ) {
     this.subs.sink = this.dataService.countryIdSource.subscribe((data) => {
       this.selectedCountryId = Number(data);
@@ -346,6 +348,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   logout() {
+    this.authService.signOut();
     this.subs.sink = this.service.logout().subscribe((data) => {
       this.toast.add({
         severity: "info",
