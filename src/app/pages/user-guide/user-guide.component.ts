@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { UserGuideService } from './user-guide.service';
+import { DomSanitizer, SafeHtml, SafeUrl } from '@angular/platform-browser';
 
 @Component({
   selector: 'uni-user-guide',
@@ -6,63 +8,30 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./user-guide.component.scss']
 })
 export class UserGuideComponent implements OnInit {
-  pdf:string='https://vadimdez.github.io/ng2-pdf-viewer/assets/pdf-test.pdf';
-  constructor() { }
+  pdfUrl: SafeUrl | undefined;
+  guideList: any[] = [];
+  selectedTopic:string="";
+  constructor(
+    private userGuideService: UserGuideService,
+    private sanitizer: DomSanitizer
+  ) {
 
-  guideList = [
-    { id: 1, title: 'Automatic renewal' }, { id: 2, title: 'Subscription invoices' },
-    { id: 3, title: 'Rejected and declined payments' }, { id: 4, title: 'SOP checker Premium Plans' },
-    { id: 5, title: 'Payments methods' }, { id: 6, title: 'Change payment method' },
-    { id: 7, title: 'Automatic renewal cancellation' }, { id: 8, title: 'Subscription upgrade' },
-    { id: 9, title: 'Benefits of being Premium' }]
+  }
 
   ngOnInit(): void {
-     
+    this.getUserGuideLinks()
   }
 
   changePdf(item: any) {
-    console.log(item);
-
-    let itemId = item.id;
-    switch (itemId) {
-      case 1: {
-        this.pdf=''
-        break;
-      }
-      case 2: {
-        this.pdf=''
-        break;
-      }
-      case 3: {
-        this.pdf=''
-        break;
-      }
-      case 4: {
-        this.pdf=''
-        break;
-      }
-      case 5: {
-        this.pdf=''
-        break;
-      }
-      case 6: {
-        this.pdf=''
-        break;
-      }
-      case 7: {
-        this.pdf=''
-        break;
-      }
-      case 8: {
-        this.pdf=''
-        break;
-      }
-      default: {
-        this.pdf=''
-        break;
-      }
-    }
-
+    this.selectedTopic=item.topics
+    this.pdfUrl = this.sanitizer.bypassSecurityTrustResourceUrl(item.url);
   }
 
+  getUserGuideLinks() {
+    this.userGuideService.getUserGuide().subscribe(response => {
+      this.guideList = response;
+      this.selectedTopic=this.guideList[0].topics;
+      this.pdfUrl = this.sanitizer.bypassSecurityTrustResourceUrl('https://api.uniprep.ai/uniprepapi/storage/app/public/UniprepUserGuide/dashboard.pdf');
+    })
+  }
 }
