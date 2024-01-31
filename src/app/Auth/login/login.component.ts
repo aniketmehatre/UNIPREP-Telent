@@ -48,8 +48,9 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.authService.authState.subscribe((user) => {
+      console.log('asdf',user);
       this.service.gmailLogin(user).subscribe(data => {
-          this.storage.set(environment.tokenKey, data.token);
+        this.storage.set(environment.tokenKey, data.token);
         this.route.navigate(['/pages/dashboard']);
       });
       //var socialUser = user;
@@ -101,6 +102,10 @@ export class LoginComponent implements OnInit, OnDestroy {
       return;
     }
     this.service.login(this.loginForm.value);
+  }
+
+  gmailLogin(){
+
   }
 
   loginWithFacebook(){

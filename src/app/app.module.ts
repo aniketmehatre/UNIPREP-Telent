@@ -115,7 +115,8 @@ export function tokenGetter() {
               providers: [
                   {
                       id: GoogleLoginProvider.PROVIDER_ID,
-                      provider: new GoogleLoginProvider('32944187384-4jubeedmfdusvhk6n7ben61ce7u9ber8.apps.googleusercontent.com'),
+                      provider: new GoogleLoginProvider('32944187384-4jubeedmfdusvhk6n7ben61ce7u9ber8.apps.googleusercontent.com',
+                          {oneTapEnabled:false, prompt:'consent'}),
                   },
                   {
                       id: FacebookLoginProvider.PROVIDER_ID,
