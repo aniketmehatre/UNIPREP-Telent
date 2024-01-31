@@ -38,7 +38,7 @@ import {PipesModule} from "@pipes/pipes.module";
 import { LandingComponent } from './pages/landing/landing.component';
 import {
     SocialLoginModule,
-    SocialAuthServiceConfig, GoogleLoginProvider,
+    SocialAuthServiceConfig, GoogleLoginProvider, FacebookLoginProvider,
 } from '@abacritt/angularx-social-login';
 
 import { MaintenanceComponent } from './Auth/maintenance/maintenance.component';
@@ -116,6 +116,10 @@ export function tokenGetter() {
                   {
                       id: GoogleLoginProvider.PROVIDER_ID,
                       provider: new GoogleLoginProvider('32944187384-4jubeedmfdusvhk6n7ben61ce7u9ber8.apps.googleusercontent.com'),
+                  },
+                  {
+                      id: FacebookLoginProvider.PROVIDER_ID,
+                      provider: new FacebookLoginProvider('892925195633254'),
                   },
               ],
           } as SocialAuthServiceConfig,

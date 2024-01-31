@@ -10,7 +10,7 @@ import { MessageService } from "primeng/api";
 import { SubSink } from "subsink";
 import { DataService } from "src/app/data.service";
 import {DashboardService} from "../../pages/dashboard/dashboard.service";
-import {GoogleLoginProvider, SocialAuthService} from "@abacritt/angularx-social-login";
+import {FacebookLoginProvider, GoogleLoginProvider, SocialAuthService} from "@abacritt/angularx-social-login";
 import {take} from "rxjs";
 import {environment} from "@env/environment";
 import {LocalStorageService} from "ngx-localstorage";
@@ -101,6 +101,10 @@ export class LoginComponent implements OnInit, OnDestroy {
       return;
     }
     this.service.login(this.loginForm.value);
+  }
+
+  loginWithFacebook(){
+    this.authService.signIn(FacebookLoginProvider.PROVIDER_ID);
   }
 
 }
