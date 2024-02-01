@@ -8,19 +8,18 @@
             USER GUIDE
         </h5>
     </div>
-        <div class="row" >
+        <div class="row pdfDiv" >
             <div class="card col-3">
                 <div class="card-body ">
-                <p class="card-heading  uniprep-primary fw-semibold">Subscriptions for intuition</p>
                 <ul style="list-style-type: none;" class="p-0">
-                    <li *ngFor="let item of guideList" class="mb-2" (click)="changePdf(item)">{{ item.title }}</li>
+                    <li *ngFor="let item of guideList" class="mb-2" (click)="changePdf(item)"  [class.active]="item.topics==selectedTopic">{{ item.topics }}</li>
                 </ul>
 
             </div>
         </div>
             <div class="col-9">
                 <embed type="application/pdf" width="100%" height="100%"  
-                    [src]="pdf" 
+                    [src]="pdfUrl" 
                     title="'title'">
             </div>
           </div>
