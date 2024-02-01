@@ -8,4 +8,5 @@ export const environment = {
   production: false,
   ApiUrl:devurl,
   tokenKey: 'token',
+  facebookAppId: '892925195633254'
 };

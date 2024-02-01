@@ -11,15 +11,18 @@ import { SubSink } from "subsink";
 import { DataService } from "src/app/data.service";
 import {DashboardService} from "../../pages/dashboard/dashboard.service";
 import {FacebookLoginProvider, GoogleLoginProvider, SocialAuthService} from "@abacritt/angularx-social-login";
-import {take} from "rxjs";
+import {BehaviorSubject, take} from "rxjs";
 import {environment} from "@env/environment";
 import {LocalStorageService} from "ngx-localstorage";
+import {Observable} from "rxjs/internal/Observable";
+import {FacebookService} from "ngx-facebook";
 @Component({
   selector: "app-login",
   templateUrl: "./login.component.html",
   styleUrls: ["./login.component.scss"],
 })
 export class LoginComponent implements OnInit, OnDestroy {
+
   private subs = new SubSink();
   loginForm: any = FormGroup;
   submitted: boolean = false;
@@ -29,7 +32,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     private service: AuthService, private formBuilder: FormBuilder, private route: Router,
     private toast: MessageService, private dataService: DataService, private el: ElementRef,
     private dashboardService: DashboardService, private authService: SocialAuthService,
-    private storage: LocalStorageService,
+    private storage: LocalStorageService, private fb: FacebookService
   ) { }
 
   ngOnDestroy() {
@@ -103,12 +106,12 @@ export class LoginComponent implements OnInit, OnDestroy {
     this.service.login(this.loginForm.value);
   }
 
-  gmailLogin(){
-
-  }
-
   loginWithFacebook(){
-    this.authService.signIn(FacebookLoginProvider.PROVIDER_ID);
+    this.fb.login().then(response => {
+      console.log('Facebook login response:', response);
+    }).catch(error => {
+      console.error('Facebook login error:', error);
+    });
   }
 
 }

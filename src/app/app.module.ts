@@ -1,4 +1,4 @@
-import { NgModule, CUSTOM_ELEMENTS_SCHEMA  } from '@angular/core';
+import {NgModule, CUSTOM_ELEMENTS_SCHEMA, APP_INITIALIZER} from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -42,9 +42,16 @@ import {
 } from '@abacritt/angularx-social-login';
 
 import { MaintenanceComponent } from './Auth/maintenance/maintenance.component';
+import {FacebookInitService} from "./Auth/facebook-init.service";
+import {FacebookModule} from "ngx-facebook";
 
 const reducers = {
   pageSelector: pagesReducer
+}
+
+
+export function initFacebook(facebookInitService: FacebookInitService) {
+    return () => facebookInitService.init();
 }
 
 const ngxLocalstorageConfiguration: NgxLocalstorageConfiguration = {
@@ -94,8 +101,16 @@ export function tokenGetter() {
         PipesModule,
         ConfirmDialogModule,
         SocialLoginModule,
+        FacebookModule.forRoot(),
     ],
   providers: [
+      FacebookInitService,
+      {
+          provide: APP_INITIALIZER,
+          useFactory: initFacebook,
+          deps: [FacebookInitService],
+          multi: true,
+      },
     DatePipe,
     AuthService,
     {
@@ -110,6 +125,7 @@ export function tokenGetter() {
     ModalService,
       {
           provide: 'SocialAuthServiceConfig',
+
           useValue: {
               autoLogin: false,
               providers: [
