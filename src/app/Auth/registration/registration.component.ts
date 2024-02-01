@@ -290,6 +290,7 @@ export class RegistrationComponent implements OnInit {
             phone: this.registrationForm.value.contactNumber.number,
             country_code:this.registrationForm.value.contactNumber.dialCode
         };
+        console.log(val);
         if (this.registrationForm.value.fullName != null && this.registrationForm.value.contactNumber.number) {
             this.service.getSmsOTP(val).subscribe(
                 (res: any) => {
@@ -329,9 +330,10 @@ export class RegistrationComponent implements OnInit {
         if (!this.isMobileOTPValidated) {
             let val = {
                 phone: this.registrationForm.value.contactNumber.number,
-                country_code: this.registrationForm.value.country_code,
+                country_code: this.registrationForm.value.contactNumber.dialCode,
                 otp: _otp,
             };
+            console.log(val);
             this.service.verifySmsOTP(val).subscribe(
                 (res: any) => {
 
