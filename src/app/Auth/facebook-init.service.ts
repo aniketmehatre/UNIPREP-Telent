@@ -12,7 +12,7 @@ export class FacebookInitService {
         const initParams: InitParams = {
             appId: environment.facebookAppId,
             xfbml: true,
-            version: 'v12.0', // Replace with the desired version
+            version: 'v10.0', // Replace with the desired version
         };
 
         return this.fb.init(initParams);
