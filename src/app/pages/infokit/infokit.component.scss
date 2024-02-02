@@ -153,3 +153,9 @@ i {
   font-size: small;
   font-weight: 600;
 }
+    @media screen and (max-width: 575.98px) {
+        .card-body {
+          padding: 0 !important;
+          overflow-y: scroll !important;
+        }
+    }

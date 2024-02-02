@@ -935,7 +935,7 @@
 
     <div class="mobile-view">
         <div class="card card-body d-flex flex-row">
-            <div class="d-block">
+            <div class="d-block w-60">
                 <div class="profileImg">
                     {{ (PersonalInfo?.name || "").charAt(0) }}
                 </div>
@@ -956,14 +956,14 @@
                     <p class="mb-0 fw-semibold">{{ PersonalInfo?.email }}</p>
                 </div>
             </div>
-            <div class="justify-content-end">
+            <div class="justify-content-end w-40">
                 <a class="btn btn-primary me-2" (click)="onClickSubscribe()"><i class="fa-sharp fa-regular fa-crown"
                         style="color: #ffffff;"></i> &nbsp; My
                     Subscription</a>
             </div>
         </div>
         <div class="card card-body mt-4 info-edit" *ngIf="!ShowPersonalInfo">
-            <div class="personel-info">
+            <div class="personel-info w-50">
                 <h5>Personal information</h5>
                 <div *ngIf="!ShowPersonalInfo"> <!--*ngIf="!ShowPersonalInfo" -->
                     <div class="d-block">
@@ -1122,8 +1122,8 @@
                     </div>
                 </form>
             </div>
-            <div>
-                <div class="personel-info flex-end">
+            <div class=" w-50">
+                <div class="personel-info">
                     <p class="mb-0 fw-semibold" (click)="ShowPersonalInfo=true;" style="cursor: pointer;text-align: right;"><i
                             class="fa-sharp fa-regular fa-edit mr-2"></i>Edit Request</p>
                 </div>

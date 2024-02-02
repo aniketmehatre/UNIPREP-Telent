@@ -1,9 +1,9 @@
 <p-card [style]="{ width: '100%',height: 'auto' }">
   <ng-template pTemplate="header">
-    GLOBAL ADVISOR
+    CHAT
     <br />
     <p class="userinfo">Hello {{ username }}.</p>
-    <div class="info row">
+    <div class="info row desktop">
       <div class="col-2 chatguide">
         <button routerLink="/pages/guideline">Chat Guidelines</button>
       </div>
@@ -18,7 +18,23 @@
         <button (click)="op?.toggle($event)">Report</button>
       </div>
     </div>
-
+    <div class="info row mobile">
+      <div class="chat-info">
+        <p>
+          Welcome to UNIPREP.Your have 2 free question credits. Your
+          personalised questions will be answered by the experts. Each message
+          will be considered as 1 credit.
+        </p>
+      </div>
+      <div class="d-flex justify-content-between">
+        <div class="chatguide">
+          <button routerLink="/pages/guideline">Chat Guidelines</button>
+        </div>
+        <div class="report">
+          <button (click)="op?.toggle($event)">Report</button>
+        </div>
+      </div>
+    </div>
     <p-divider></p-divider
   ></ng-template>
   <ng-template pTemplate="body">
@@ -102,8 +118,8 @@
         *ngIf="!textareavisbility"
         (click)="textareavisbility = !textareavisbility"
       >
-        <div class="col customplaceholder">Please ask your question...</div>
-        <div class="col credits">
+        <div class="col-7 customplaceholder">Please ask your question...</div>
+        <div class="col-5 credits">
           <span
             >Credits <span>{{ totalcredits }}</span></span
           >
