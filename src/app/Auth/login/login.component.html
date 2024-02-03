@@ -98,13 +98,16 @@
 													</div>
 												</form>
 												<div class="line"></div>
-												<div class="social-media mt-3">
-													<div class="w-25">
-														<img src="../../../uniprep-assets/icons/google.svg" width="20">
-													</div>
-													<div class="ml-2 font-bold w-75">Continue with Google</div>
-												</div>
-												<div class="social-media mt-3" (click)="loginWithFacebook()">
+<!--												<div class="social-media mt-3">-->
+<!--													<div class="w-25">-->
+<!--														<img src="../../../uniprep-assets/icons/google.svg" width="20">-->
+<!--													</div>-->
+<!--													<div class="ml-2 font-bold w-75">Continue with Google</div>-->
+<!--												</div>-->
+
+                                                <asl-google-signin-button class="ml-2 font-bold w-75" logo_alignment="center" type="standard" size="medium"></asl-google-signin-button>
+
+                                                <div class="social-media mt-3" (click)="loginWithFacebook()">
 													<div class="w-25">
 														<img src="../../../uniprep-assets/icons/facebook.svg"
 															width="20">
@@ -198,13 +201,22 @@
 										Now</a></span>
 							</p>
 							<div class="line"></div>
-							<div class="social-media mt-3">
-								<div class="w-25">
-									<img src="../../../uniprep-assets/icons/google.svg" width="20">
-								</div>
-								<div class="ml-2 font-bold w-75">Continue with Google</div>
-							</div>
-							<div class="social-media mt-3" (click)="loginWithFacebook()">
+<!--                            <div class="main mt-4">-->
+<!--                                <asl-google-signin-button type="standard" size="medium"></asl-google-signin-button>-->
+<!--                            </div>-->
+<!--                            <div class="main mt-4">-->
+<!--                                <button type="button" (click)="loginWithFacebook()" class="btn btn-primary btn-block">Signin with Facebook</button>-->
+<!--                            </div>-->
+<!--							<div class="social-media mt-3" (click)="button1Clicked()">-->
+<!--								<div class="w-25" >-->
+<!--									<img src="../../../uniprep-assets/icons/google.svg" width="20">-->
+<!--								</div>-->
+<!--								<div class="ml-2 font-bold w-75">Continue with Google</div>-->
+<!--                                <asl-google-signin-button #button2 class="d-none" type="standard" size="medium"></asl-google-signin-button>-->
+<!--							</div>-->
+                            <asl-google-signin-button class="ml-2 font-bold w-75" logo_alignment="center" type="standard" size="medium"></asl-google-signin-button>
+
+                            <div class="social-media mt-3" (click)="loginWithFacebook()">
 								<div class="w-25">
 									<img src="../../../uniprep-assets/icons/facebook.svg" width="20">
 								</div>

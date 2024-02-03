@@ -1,4 +1,4 @@
-import {Component, ElementRef, Input, OnDestroy, OnInit} from "@angular/core";
+import {Component, ElementRef, Input, OnDestroy, OnInit, ViewChild} from "@angular/core";
 import {
   FormGroup,
   Validators,
@@ -22,7 +22,7 @@ import {FacebookService} from "ngx-facebook";
   styleUrls: ["./login.component.scss"],
 })
 export class LoginComponent implements OnInit, OnDestroy {
-
+  @ViewChild('button2') button2!: ElementRef;
   private subs = new SubSink();
   loginForm: any = FormGroup;
   submitted: boolean = false;
@@ -34,6 +34,10 @@ export class LoginComponent implements OnInit, OnDestroy {
     private dashboardService: DashboardService, private authService: SocialAuthService,
     private storage: LocalStorageService, private fb: FacebookService
   ) { }
+
+  button1Clicked() {
+    this.button2.nativeElement.click();
+  }
 
   ngOnDestroy() {
     this.subs.unsubscribe();
