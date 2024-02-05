@@ -37,6 +37,7 @@
     "jw-angular-social-buttons": "^1.0.0",
     "ngx-bootstrap": "^11.0.2",
     "ngx-countdown": "^15.0.0",
+    "ngx-device-detector": "^7.0.0",
     "ngx-facebook": "^3.0.0-0",
     "ngx-intl-tel-input": "^3.2.0",
     "ngx-localstorage": "^4.0.0",
