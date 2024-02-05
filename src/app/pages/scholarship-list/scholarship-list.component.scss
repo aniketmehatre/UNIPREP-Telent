@@ -165,8 +165,16 @@
       border-radius: 25px;
       border: 1px solid #3F4C83;
     }
-    .desktop{
-      display: none;
+    .desktop {
+      display: none !important;
+    }
+
+    .company-list-filter {
+      margin-top: 10px;
+    }
+
+    :host .scholarship-list-table-header {
+      white-space: nowrap !important;
     }
   
     .mobile{

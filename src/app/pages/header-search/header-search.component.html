@@ -100,13 +100,13 @@
             <div class="d-flex justify-content-between flex-column flex-md-row px-4 my-4">
                 <div class="flex-full" *ngIf="videoLinks">
                     <h5 class="text-start">Recommended Videos</h5>
-                    <div class="d-flex gap-2" id="ref-links-container">
+                    <div class="d-flex gap-2 pb-2" id="ref-links-container">
                         <a class="px-4 m-0 py-2 btn btn-primary btn-rounded" target="_blank" href="{{ videoL.link }}" *ngFor="let videoL of videoLinks; let ind = index">Video {{ ind + 1 }} &nbsp;<i class="fa-solid fa-video"></i></a>
                     </div>
                 </div>
                 <div class="flex-full" *ngIf="refLink">
                     <h5 class="text-start">Recommended Links</h5>
-                    <div class="d-flex gap-2" id="ref-links-container">
+                    <div class="d-flex gap-2 pb-2" id="ref-links-container">
                         <a class="px-4 m-0 py-2 btn btn-secondary btn-rounded" target="_blank" href="{{ refL.link }}" *ngFor="let refL of refLink; let ind = index">Link {{ ind + 1 }} &nbsp;<i class="fa-solid fa-link"></i></a>
                     </div>
                 </div>
@@ -117,8 +117,8 @@
                         Click here to ask<br />Personalised Questions
                     </button>
                 </div>
-				<div class="mobile">
-					<button class="btn w-100 btn-primary homecardbtn mx-0 px-5 py-2 mobile" (click)="onClickAsk()">Click here to ask
+				<div class="mobile mt-4">
+					<button class="btn w-100 btn-primary homecardbtn mx-0 px-5 py-2" (click)="onClickAsk()">Click here to ask
 						personalised <br>questions</button>
 				</div>
             </div>

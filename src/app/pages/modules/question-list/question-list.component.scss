@@ -125,15 +125,6 @@
   font-size: 10px
 }
 
-:host ::ng-deep p-breadcrumb {
-  .p-component {
-    border: none !important;
-    padding: 0;
-    ul{
-      overflow: scroll !important;
-    }
-  }
-}
 
 .answercard {
   background-color: transparent;
@@ -242,6 +233,7 @@
 
     :host ::ng-deep .p-breadcrumb {
       font-size: 10px ;
+      padding-bottom: 5px;
     }
 
     .fa-file-contract{

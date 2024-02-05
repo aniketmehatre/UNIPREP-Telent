@@ -34,54 +34,47 @@
             </div>
         </div>
         <div class="mobile mt-2">
-            <!--            <div class="text-center curve">-->
-
-            <!--            </div>-->
             <div class="row">
-                <div class="col-8">
+                <div class="col-12">
                     <div class="p-input-icon-left w-100 mt-3">
                         <i class="pi pi-search"></i>
-                        <input class="w-100 px-5 py-2 b-6 h-100" type="text" placeholder="Search Events Near You..." pInputText
-                               [(ngModel)]="valueNearYouFilter" (input)="performSearch($event)" />
+                        <input class="w-100 px-5 py-2" type="text" placeholder="Search Companies..." pInputText
+                            [(ngModel)]="valueNearYouFilter" (input)="performSearch($event)" />
                     </div>
-                </div>
-                <div class="col-4 mt-2">
-                     <span ><button class="btn btn-outline-light px-4 py-3 b-6" type="button">Filter
-							by</button></span>
                 </div>
             </div>
             <div class="row">
-                <div class="col-8">
-                    <div class="p-input-icon-left w-100 mt-3 mb-3">
-                        <i class="pi pi-search"></i>
-                        <input class="w-100 px-5 py-2 b-6 h-100" type="text" placeholder="Search Events Near You..." pInputText
-                               [(ngModel)]="valueNearYouFilter" (input)="performSearch($event)" />
-                    </div>
+                <div class="col-6 mt-2">
+                    <button class="btn w-100 btn-primary ps-3 pe-3 pt-2 pb-2" (click)="filterBy()"
+                            style="background-color: var(--uniprep-primary);border-radius: 8px; border: aliceblue; color: #fff;"
+                            type="button">
+                            Filter
+                            by</button>
                 </div>
-                <div class="col-4 mt-2">
-                     <span ><button class="btn btn-outline-light px-4 py-3 b-6" (click)="filterBy()" type="button">Filter
-							by</button></span>
+                <div class="col-6 mt-2">
+                    <button class="btn w-100 btn-danger ps-3 pe-3 pt-2 pb-2" (click)="resetFilter()"
+                            style="border-radius: 8px; color: #fff;" type="button">
+                            Reset</button>
                 </div>
             </div>
         </div>
         <!-- upcomming event -->
-        <p-table #table [value]="companyData" class="primary-header" styleClass="primary-header" [paginator]="false" (onPage)="pageChange($event)"
+        <p-table responsiveLayout="scroll" #table [value]="companyData" [responsive]="true" class="primary-header" styleClass="primary-header" [paginator]="false" (onPage)="pageChange($event)"
                  [totalRecords]="totalCompanyCount" [rows]="pageSize" [rowsPerPageOptions]="[500,300, 100]">
             <ng-template pTemplate="caption">
-                <div class="d-flex w-full align-items-end justify-content-end">
+                <div class="d-flex w-full align-items-center justify-content-end desktop">
                     <div class="pe-2">
                         <span class="text-muted text-small">Total Companies : {{ totalCompanyCount }}</span>
                     </div>
-                    <div class="ps-2">
-                        <!--                     <button pButton>Export &nbsp; <i class="pi pi-file"></i></button>-->
-<!--                        <button type="button" class="ps-3 pe-2 pt-2 pb-2" (click)="exportTable()"-->
-<!--                                pButton style="background-color: var(&#45;&#45;uniprep-primary);border-radius: 8px; border: aliceblue; color: #fff;">-->
-<!--                            Export &nbsp; <i class="pi pi-file"></i></button>-->
+                </div>
+                <div class="text-center mobile">
+                    <div class="pe-2">
+                        <span class="text-muted text-small">Total Companies : {{ totalCompanyCount }}</span>
                     </div>
                 </div>
             </ng-template>
             <ng-template pTemplate="header">
-                <tr>
+                <tr class="company-list-table-header">
                     <th class="border-cell">Company Name</th>
                     <th class="border-cell">Country</th>
                     <th class="border-cell">Headquarters</th>
@@ -127,7 +120,7 @@
 <div class="modal" tabindex="-1" role="dialog" [ngStyle]="{ display: isFilterVisible }">
     <div class="modal-dialog" role="document">
         <form role="form" [formGroup]="filterForm" (ngSubmit)="loadInvestorData()">
-            <div class="modal-content" style="margin-top: 50% !important">
+            <div class="modal-content company-list-filter">
                 <div class="modal-header flex justify-content-between">
                     <h4 class="modal-title">Filter Companies</h4>
                     <span style="cursor: pointer;color: #3f4c83;"><i (click)="closePopup()"

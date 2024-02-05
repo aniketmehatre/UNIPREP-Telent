@@ -78,13 +78,15 @@
 					<p-breadcrumb [model]="breadCrumb" class="max-w-full"></p-breadcrumb>
 				</div>
 				<div>
-					<button (click)="openReport()" class="btn btn-primary homecardbtn">
-						<i class="fa-solid fa-file-contract"></i>
+					<button (click)="openReport()" class="btn btn-primary homecardbtn m-0 px-4 py-2">
+						<i class="fa-solid h5 fa-file-contract"></i>
 						<br />
+						Report
 					</button>
 					<button style="display: none" (click)="reviewBy()"
 						class="btn btn-primary homecardbtn my-0 px-4 py-2">
-						<i class="fa-regular fa-user"></i><br />
+						<i class="fa-regular h5 fa-user"></i><br />
+						Reviewed By
 					</button>
 				</div>
 			</div>
@@ -113,7 +115,7 @@
 		<div class="d-flex justify-content-between flex-column flex-md-row px-4 my-4">
 			<div class="flex-full" *ngIf="videoLinks">
 				<h5 class="text-start">Recommended Videos</h5>
-				<div class="d-flex flex-wrap gap-2" id="ref-links-container">
+				<div class="d-flex flex-wrap gap-2 pb-2" id="ref-links-container">
 					<a class="px-4 m-0 py-2 btn btn-primary btn-rounded" target="_blank" href="{{ videoL.link }}"
 						*ngFor="let videoL of videoLinks; let ind = index">Video {{ ind + 1 }} &nbsp;<i
 							class="fa-solid fa-video"></i></a>
@@ -121,7 +123,7 @@
 			</div>
 			<div class="flex-full" *ngIf="refLink">
 				<h5 class="text-start">Recommended Links</h5>
-				<div class="d-flex flex-wrap gap-2" id="ref-links-container">
+				<div class="d-flex flex-wrap gap-2 pb-2" id="ref-links-container">
 					<a class="px-4 m-0 py-2 btn btn-secondary btn-rounded" target="_blank" href="{{ refL.link }}"
 						*ngFor="let refL of refLink; let ind = index">Link {{ ind + 1 }} &nbsp;<i
 							class="fa-solid fa-link"></i></a>
@@ -134,7 +136,7 @@
 					Click here to ask<br />Personalised Questions
 				</button>
 			</div>
-			<div class="mobile">
+			<div class="mobile mt-4">
 				<button class="btn w-100 btn-primary homecardbtn mx-0 px-5 py-2" (click)="onClickAsk()">Click here to ask
 					personalised <br>questions</button>
 			</div>

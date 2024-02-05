@@ -1849,6 +1849,25 @@ uni-subscription {
 }
 
 @media (max-width: 575.98px) {
+	uni-subscription-history {
+		.historycard {
+			text-align: center !important;
+		}
+	}
+
+	.subscriptiontable .p-datatable .p-datatable-thead>tr>th {
+		font-size: 14px !important;
+		white-space: nowrap;
+		font-weight: 500;
+	}
+
+	.account-history-header {
+		white-space: nowrap;
+	}
+
+	.subscription-history-header {
+		white-space: nowrap;
+	}
 	.p-tabview .p-tabview-nav li.p-highlight .p-tabview-nav-link {
 		color: white;
 		background-color: #3f4c83;
@@ -1903,7 +1922,7 @@ uni-subscription {
 	}
 
 	uni-recentlyaddedquestions .event-paginator .p-dropdown {
-		right: 1rem !important;
+		right: 30px !important;
 	}
 
 	.p-paginator .p-paginator-pages .p-paginator-page {

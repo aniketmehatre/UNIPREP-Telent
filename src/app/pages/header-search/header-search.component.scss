@@ -113,7 +113,14 @@ li:last-of-type {
   flex-wrap: wrap !important;
 }
 
+.mobile{
+  display: none;
+}
+
 @media (max-width: 575.98px) {
+  .desktop{
+    display: none !important;
+  }
   .gap-2{
     flex-wrap: nowrap !important;
   }
@@ -136,6 +143,7 @@ li:last-of-type {
 
  :host ::ng-deep .p-breadcrumb {
    font-size: 10px;
+   padding-bottom: 5px;
  }
 
  .fa-file-contract {
@@ -150,10 +158,6 @@ li:last-of-type {
 .btn-warning {
   background-color: #F0780C;
   color: white;
-}
-
-.mobile {
-  display: none;
 }
 
 .badge{

@@ -33,7 +33,7 @@
 <div class="card historycard mb-2" *ngIf="basesubscription">
 	<div class="card-body">
 		<span class="sop-header mb-3">Subscription History</span>
-		<p-table [value]="subscribedHistoryList" class="subscriptiontable">
+		<p-table [value]="subscribedHistoryList" class="subscriptiontable"  responsiveLayout="scroll">
 			<ng-template pTemplate="header">
 				<tr>
 					<th>Product</th>
@@ -45,7 +45,7 @@
 				</tr>
 			</ng-template>
 			<ng-template pTemplate="body" let-data>
-				<tr>
+				<tr class="subscription-history-header">
 					<td>{{ data.product }}</td>
 					<td>{{ data.country }}</td>
 					<td>{{ data.validity }} months</td>
@@ -60,7 +60,7 @@
 <div class="card historycard" *ngIf="basesubscription">
 	<div class="card-body">
 		<span class="sop-header mb-3">Account Billing History</span>
-		<p-table [value]="accountBillingList" class="subscriptiontable">
+		<p-table [value]="accountBillingList" class="subscriptiontable"  responsiveLayout="scroll">
 			<ng-template pTemplate="header">
 				<tr>
 					<th>Product</th>
@@ -74,7 +74,7 @@
 				</tr>
 			</ng-template>
 			<ng-template pTemplate="body" let-data>
-				<tr>
+				<tr class="account-history-header">
 					<td>{{ data.product }}</td>
 					<td>{{ data.countryNames }}</td>
 					<td>{{ data.validity }} months</td>
