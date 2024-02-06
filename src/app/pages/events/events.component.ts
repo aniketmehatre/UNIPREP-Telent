@@ -85,7 +85,7 @@ export class EventsComponent implements OnInit {
   };
 
   setActiveButton(buttonNumber: number): void {
-    
+    this.filterform.reset()
     // Reset styles for both buttons
     this.button1Style = {
       'background-color': '#FFFFFF',
@@ -127,6 +127,9 @@ export class EventsComponent implements OnInit {
       let postdata={
         perpage : 10,
         page : 1,
+        country: this.filterform.value.country,
+        to:this.filterform.value.to,
+        from:this.filterform.value.from,
         nearby_search:this.valueNearYouFilter
       }
       this.getPostEvent(postdata)
@@ -139,7 +142,7 @@ export class EventsComponent implements OnInit {
   }
   // filterpop-up
   filterPopUp(){
-    this.setActiveButton(1)
+    // this.setActiveButton(1)
     this.newfile = "block";   
   }
   paginate(event: any){
@@ -224,6 +227,7 @@ export class EventsComponent implements OnInit {
       perpage:10
     }
     this.getEventUpComming(data)
+    this.getPostEvent(data)
   }
   // post event
   getPostEvent(data:any){
