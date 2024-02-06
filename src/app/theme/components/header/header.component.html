@@ -362,8 +362,8 @@
         </div>
     </div>
 </p-dialog>
-
-<p-dialog [(visible)]="freeTrial" [closable]="false" class="p-0 m-0" [modal]="true" [draggable]="false" [resizable]="false">
+<!-- old subscription popup -->
+<!--<p-dialog [(visible)]="freeTrial" [closable]="false" class="p-0 m-0" [modal]="true" [draggable]="false" [resizable]="false">
     <div class="d-flex justify-content-between p-4">
         <div>
             <h4>Congratulations</h4>
@@ -374,9 +374,9 @@
             <img src="../../../uniprep-assets/images/popup-clock.png" alt="clock" width="70" />
         </div>
     </div>
-    <div class="px-5 pb-5 pt-3">
+    <div class="px-5 pb-5 pt-3"> -->
         <!-- <h4>Get More With our<span class="text-xl font-bold p-3 fw-bold" style="color: #3F4C83;"> Subscription.</span></h4> -->
-        <p class="list-data"><i class="pi pi-check mr-2"></i>Enjoy free access to the BETA version.</p>
+        <!-- <p class="list-data"><i class="pi pi-check mr-2"></i>Enjoy free access to the BETA version.</p>
         <p class="list-data"><i class="pi pi-check mr-2"></i>Our mobile application is set to launch by the 1st of February 2024</p>
         <p class="list-data"><i class="pi pi-check mr-2"></i><b>We welcome your input and recommendations to improvise the platform through our report option</b></p>
         <p class="list-data"><i class="pi pi-check mr-2"></i>Find answers to over half a million questions</p>
@@ -390,7 +390,7 @@
             <button class="btn btn-secondary btn-rounded me-2 ms-0 my-0" alt="reports"><span class="text-small fw-normal px-2" (click)="continueTrial()">Continue Trial</span></button>
         </div>
     </div>
-</p-dialog>
+</p-dialog> -->
 
 <!-- <p-dialog [(visible)]="visibleExhasted" [closable]="false" class="p-0 m-0" [modal]="true"
           [draggable]="false" [resizable]="false">
@@ -425,3 +425,56 @@
         </div>
     </div>
 </p-dialog> -->
+<!-- <p-dialog [(visible)]="freeTrial" [closable]="false" class="p-0 m-0" [modal]="true" [draggable]="false" [resizable]="false">
+    
+        <div class="col-md-12 justify-content-center">
+            <div class="d-flex flex-column ">
+            <img src="../../../uniprep-assets/images/popup-clock.png" alt="clock" width="100" />
+            <h4>Congratulations</h4>
+        </div>
+    </div>
+</p-dialog> -->
+
+<div  [ngStyle]="{ 'display': freeTrial ? 'block' : 'none'  }" class="modal modal-bg firsttimeloginpopup" role="dialog" tabindex="-1">
+	<div class="modal-dialog modal-dialog-scrollable modal-dialog-centered" role="document">
+		<div class="modal-content card bg-light">
+			<div class="modal-body card-body">
+				<div class="container">
+					<div class="row mb-2">
+						<div class="col-md-12 px-4">
+							<div class="d-flex flex-column">
+								<div class="icon-container d-flex justify-content-center p-2">
+									<img src="../../../uniprep-assets/images/TrialStart.png" alt="clock" width="100" />
+								</div>
+                                <div class="mt-1 mb-1">
+									<span>
+										<strong class="firsttimelogin">
+											<h5 style="color: rgb(63 76 131);">Congratulations</h5>
+										</strong>
+									</span>
+								</div>
+								<div class="mt-1">
+                                    <span>
+                                        <strong class="firsttimelogin">
+                                            <h2 style="color: #f0780e; margin-bottom: 0;">You have unlocked</h2>
+                                        </strong>
+                                        <strong class="firsttimelogin">
+                                            <h2 style="color: #f0780e; margin-top: 0;">24 hours free trial.</h2>
+                                        </strong>
+                                    </span>
+                                </div>
+								<div class="icon-container mt-2 d-flex justify-content-center mb-2">
+									<h6 style="color: rgb(63 76 131);">Enjoy access to <strong>UNIPREP</strong> V 1.0</h6>
+								</div>
+                                <div class="d-flex justify-content-center">
+                                    <button class="btn btn-primary btn-rounded me-2 ms-0 my-0" (click)="onClickSubscribedUser()"
+                                        alt="chat with notification"><span class="text-small fw-normal px-3">Subscribe Now</span></button>
+                                </div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
