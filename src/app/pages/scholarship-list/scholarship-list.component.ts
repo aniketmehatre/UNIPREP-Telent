@@ -20,7 +20,7 @@ export class ScholarshipListComponent implements OnInit {
   countryList: any;
   headQuartersList: any
   page = 1;
-  pageSize = 50;
+  pageSize = 100;
   searchScholarshpName: string = '';
   totalScholarShipCount: any;
   isFilterVisible: string = 'none';
@@ -163,7 +163,7 @@ export class ScholarshipListComponent implements OnInit {
     this.getFilterUniversityList(event.value);
   }
   pageChange(event: any) {
-    this.page = event.page + 1;
+    this.page = event.first + 1;
     this.pageSize = event.rows;
     this.loadScholarShipData();
   }
