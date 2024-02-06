@@ -105,6 +105,17 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="row">
+                            <div class="container-fluid">
+                                <div class="d-flex">
+                                    <div class="col-md-3 p-4">
+                                        <small>Phone Number</small>
+                                        <p class="mb-0 fw-semibold">{{ PersonalInfo?.phone || '-' }}
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     <div *ngIf="ShowPersonalInfo">
                         <form (ngSubmit)="onSubmit()" [formGroup]="registrationForm">
@@ -265,6 +276,20 @@
                                                         Program Level is required
                                                     </div>
                                                 </div> -->
+                                        </div>
+                                        <div class="col-md-4 p-2">
+                                            <label>Phone Number</label>
+                                            <div class="p-inputgroup">
+                                                <div class="p-inputgroup-addon">
+                                                    <i class="pi pi-phone"></i>
+                                                </div>
+                                                <input class="border-0" formControlName="phone" pInputText type="text" />
+                                            </div>
+                                            <div *ngIf="submitted && f['phone']['errors']" class="UserInfoValidation">
+                                                <div *ngIf="f['phone']['errors']['required']">
+                                                    Phone Number is required
+                                                </div>
+                                            </div>
                                         </div>
                                         <!-- <div class="col-md-4 p-2">
                                                 <label>Gender</label>
