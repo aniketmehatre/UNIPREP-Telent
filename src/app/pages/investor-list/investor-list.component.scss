@@ -184,7 +184,7 @@
     border: 1px solid #3F4C83;
   }
   .desktop{
-    display: none;
+    display: none !important;
   }
 
   .mobile{
@@ -196,6 +196,10 @@
   }
   .p-paginator{
     justify-content: left !important;
+  }
+
+  :host .investor-list-table-header {
+    white-space: nowrap !important;
   }
 }
 .primary-header{
