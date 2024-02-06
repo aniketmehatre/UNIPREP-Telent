@@ -72,8 +72,8 @@
             </div> -->
         </div>
         <!-- upcomming event -->
-        <p-table #table class="custom-paginator" [value]="scholarshipData" class="primary-header" styleClass="primary-header" [paginator]="false" (onPage)="pageChange($event)"
-                 [totalRecords]="totalScholarShipCount"  responsiveLayout="scroll" [rows]="pageSize" [rowsPerPageOptions]="[50, 100, 200]">
+        <p-table #table class="custom-paginator" [value]="scholarshipData" class="primary-header" styleClass="primary-header" [paginator]="true" (onPage)="pageChange($event)"
+                 [totalRecords]="totalScholarShipCount"    responsiveLayout="scroll" [rows]="pageSize" [rowsPerPageOptions]="[100,250,500]">
             <ng-template pTemplate="caption">
                 <div class="d-flex w-full align-items-end justify-content-end">
                     <div class="pe-2">
@@ -84,7 +84,7 @@
 <!--                        <button type="button" class="ps-3 pe-2 pt-2 pb-2" (click)="exportTable()"-->
 <!--                                pButton style="background-color: var(&#45;&#45;uniprep-primary);border-radius: 8px; border: aliceblue; color: #fff;">-->
 <!--                            Export &nbsp; <i class="pi pi-file"></i></button>-->
-                    </div>
+                    </div>   
                 </div>
             </ng-template>
             <ng-template pTemplate="header">
@@ -116,8 +116,7 @@
                 </tr>
             </ng-template>
         </p-table>
-        <p-paginator [rows]="pageSize" [totalRecords]="totalScholarShipCount" (onPageChange)="pageChange($event)" [first]="page" 
-        [rowsPerPageOptions]="[50,100,200]"></p-paginator>
+ 
     </div>
 
     <div class="text-center mt-5 mb-4" *ngIf="planExpired">
