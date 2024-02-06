@@ -114,13 +114,26 @@
                      [rowsPerPageOptions]="[500, 300, 100]"></p-paginator>
     </div>
 
-    <div class="text-center mt-5 mb-4" *ngIf="planExpired">
-        <img src="../../../uniprep-assets/images/smartloack.png" class="image" width="80">
-        <h3>Upgrade now to access invaluable tools</h3>
-        <p>Unlock the power of success with our exclusive events!<br> Upgrade your plan now to gain instant access.</p>
-        <p class="offer">Events offers:<br> Career growth, International Education, Life in your destination and more</p>
-        <button pButton type="button" class=" text-white p-ripple p-button-rounded p-button-warning p-button p-component"
-            (click)="upgradePlan()">Upgrade Plan<i class="pi pi-arrow-circle-right"></i></button>
+    <div *ngIf="planExpired">
+        <div class="row justify-content-center">
+            <div class="col-md-2 text-start"></div>
+            <div class="col-md-8 text-center">
+                <h5 class="select-title mb-1" tooltipPosition="top" pTooltip="">
+                    INVESTOR LIST
+                </h5>
+        
+            </div>
+            <div class="col-md-2"></div>
+        </div>
+        <div class="text-center mt-5 mb-4">
+            <img src="../../../uniprep-assets/images/smartloack.png" class="image" width="80">
+            <h3>Upgrade now to access invaluable tools</h3>
+            <p>Unlock the power of success with our exclusive investor list!<br> Upgrade your plan now to gain instant access.</p>
+            <p class="offer">Investor list offers:<br>Information of over 1,00,000 investors including details about the company name, investor type,
+            contact details and much more!</p>
+            <button pButton type="button" class=" text-white p-ripple p-button-rounded p-button-warning p-button p-component p-2"
+                (click)="upgradePlan()">Upgrade Plan<i class="fa fa-arrow-right exhausted-plan-icon"></i></button>
+        </div>
     </div>
 
 </div>

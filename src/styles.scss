@@ -1855,6 +1855,10 @@ uni-subscription {
 		}
 	}
 
+	.p-paginator{
+		padding: 0px !important;
+	}
+
 	.subscriptiontable .p-datatable .p-datatable-thead>tr>th {
 		font-size: 14px !important;
 		white-space: nowrap;
@@ -2089,4 +2093,15 @@ p-accordion.plain .p-accordion-tab-active .p-accordion-header-link:after {
 }
 .pr-4 {
 	padding-right: 4px;
+}
+.offer {
+	color: #FF9113;
+}
+
+.exhausted-plan-icon{
+	padding: 10px;
+	border-radius: 25px;
+	background-color: #DF7905;
+	color: white;
+	margin-left: 5px;
 }
