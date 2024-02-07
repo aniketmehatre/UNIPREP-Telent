@@ -33,58 +33,20 @@
                     Reset</button></span>
             </div>
         </div>
-        <div class="mobile mt-2">
-            <div class="row">
-                <div class="col-12">
-                    <div class="p-input-icon-left w-100 mt-3">
-                        <i class="pi pi-search"></i>
-                        <input class="w-100 px-5 py-2" type="text" placeholder="Search in Scholarship Name" pInputText
-                            [(ngModel)]="searchScholarshpName" (input)="performSearch()" />
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-6 mt-2">
-                        <button class="btn w-100 btn-primary ps-3 pe-3 pt-2 pb-2" (click)="filterBy()"
-                            style="background-color: var(--uniprep-primary);border-radius: 8px; border: aliceblue; color: #fff;"
-                            type="button">
-                            Filter
-                            by</button>
-                    </div>
-                    <div class="col-6 mt-2">
-                        <button class="btn w-100 btn-danger ps-3 pe-3 pt-2 pb-2" (click)="resetFilter()"
-                            style="border-radius: 8px; color: #fff;" type="button">
-                            Reset</button>
-                    </div>
-                </div>
-            </div>
-            <!-- <div class="row">
-                <div class="col-8">
-                    <div class="p-input-icon-left w-100 mt-3">
-                        <i class="pi pi-search"></i>
-                        <input class="w-100 px-5 py-2 b-6 h-100" type="text" placeholder="Search Events Near You..." pInputText
-                               [(ngModel)]="valueNearYouFilter" (input)="performSearch($event)" />
-                    </div>
-                </div>
-                <div class="col-4 mt-2">
-                     <span ><button class="btn btn-outline-light px-4 py-3 b-6" (click)="filterBy()" type="button">Filter
-							by</button></span>
-                </div>
-            </div> -->
-        </div>
         <!-- upcomming event -->
         <p-table #table class="custom-paginator" [value]="scholarshipData" class="primary-header" styleClass="primary-header" [paginator]="true" (onPage)="pageChange($event)"
                  [totalRecords]="totalScholarShipCount"    responsiveLayout="scroll" [rows]="pageSize" [rowsPerPageOptions]="[100,250,500]">
             <ng-template pTemplate="caption">
-                <div class="d-flex w-full align-items-end justify-content-end">
+                <div class="d-flex w-full align-items-end justify-content-end desktop">
                     <div class="pe-2">
                         <span class="text-muted text-small">Total Scholarship : {{ totalScholarShipCount }}</span>
                     </div>
-                    <div class="ps-2">
-                        <!--                     <button pButton>Export &nbsp; <i class="pi pi-file"></i></button>-->
-<!--                        <button type="button" class="ps-3 pe-2 pt-2 pb-2" (click)="exportTable()"-->
-<!--                                pButton style="background-color: var(&#45;&#45;uniprep-primary);border-radius: 8px; border: aliceblue; color: #fff;">-->
-<!--                            Export &nbsp; <i class="pi pi-file"></i></button>-->
-                    </div>   
+                    <div class="ps-2"></div>  
+                </div>
+                <div class="text-center mobile">
+                    <div class="pe-2">
+                        <span class="text-muted text-small">Total Scholarship : {{ totalScholarShipCount }}</span>
+                    </div>
                 </div>
             </ng-template>
             <ng-template pTemplate="header">
@@ -101,7 +63,7 @@
                 </tr>
             </ng-template>
             <ng-template pTemplate="body" let-scholarship let-expanded="expanded">
-                <tr>
+                <tr class="scholarship-list-table-header">
                     <td class="border-cell">{{scholarship.home_country}}</td>
                     <td class="border-cell">{{scholarship.name}} </td>
                     <td class="border-cell">{{scholarship.country}} </td>
@@ -119,15 +81,27 @@
  
     </div>
 
-    <div class="text-center mt-5 mb-4" *ngIf="planExpired">
-        <img src="../../../uniprep-assets/images/smartloack.png" class="image" width="80">
-        <h3>Upgrade now to access invaluable tools</h3>
-        <p>Unlock the power of success with our exclusive events!<br> Upgrade your plan now to gain instant access.</p>
-        <p class="offer">Events offers:<br> Career growth, International Education, Life in your destination and more</p>
-        <button pButton type="button" class=" text-white p-ripple p-button-rounded p-button-warning p-button p-component"
-            (click)="upgradePlan()">Upgrade Plan<i class="pi pi-arrow-circle-right"></i></button>
+    <div *ngIf="planExpired">
+        <div class="row">
+            <div class="col-md-2 text-start"></div>
+            <div class="col-md-8 text-center">
+                <h5 class="select-title mb-1" tooltipPosition="top" pTooltip="">
+                    SCHOLARSHIP LIST
+                </h5>
+    
+            </div>
+            <div class="col-md-2"></div>
+        </div>
+        <div class="text-center mt-5 mb-4">
+            <img src="../../../uniprep-assets/images/smartloack.png" class="image" width="80">
+            <h3>Upgrade now to access invaluable tools</h3>
+            <p>Unlock the power of success with our exclusive Scholarship list! <br> Upgrade your plan now to gain instant access.</p>
+            <p class="offer">Scholarship list offers:<br>5000+ regional, national, international, university and fully funded scholarships to ease your
+            financial burden</p>
+            <button pButton type="button" class=" text-white p-ripple p-button-rounded p-button-warning p-button p-component p-2"
+                (click)="upgradePlan()">Upgrade Plan<i class="fa fa-arrow-right exhausted-plan-icon"></i></button>
+        </div>
     </div>
-
 </div>
 
 <div class="modal" tabindex="-1" role="dialog" [ngStyle]="{ display: isFilterVisible }">

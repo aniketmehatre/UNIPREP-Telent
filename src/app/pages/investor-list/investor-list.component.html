@@ -34,54 +34,49 @@
             </div>
         </div>
         <div class="mobile mt-2">
-<!--            <div class="text-center curve">-->
-
-<!--            </div>-->
             <div class="row">
-                <div class="col-8">
+                <div class="col-12">
                     <div class="p-input-icon-left w-100 mt-3">
                         <i class="pi pi-search"></i>
-                        <input class="w-100 px-5 py-2 b-6 h-100" type="text" placeholder="Search Events Near You..." pInputText
-                               [(ngModel)]="valueNearYouFilter" (input)="performSearch($event)"  />
+                        <input class="w-100 px-5 py-2" type="text" placeholder="Search Investors..." pInputText [(ngModel)]="valueNearYouFilter"
+                            (input)="performSearch($event)" />
                     </div>
                 </div>
-                <div class="col-4 mt-2">
-                     <span ><button class="btn btn-outline-light px-4 py-3 b-6" type="button">Filter
-							by</button></span>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-8">
-                    <div class="p-input-icon-left w-100 mt-3">
-                        <i class="pi pi-search"></i>
-                        <input class="w-100 px-5 py-2 b-6 h-100" type="text" placeholder="Search Events Near You..." pInputText
-                               [(ngModel)]="valueNearYouFilter" (input)="performSearch($event)"  />
+                <div class="row">
+                    <div class="col-6 mt-2">
+                        <button class="btn w-100 btn-primary ps-3 pe-3 pt-2 pb-2" (click)="filterBy()"
+                            style="background-color: var(--uniprep-primary);border-radius: 8px; border: aliceblue; color: #fff;"
+                            type="button">
+                            Filter
+                            by</button>
                     </div>
-                </div>
-                <div class="col-4 mt-2">
-                     <span ><button class="btn btn-outline-light px-4 py-3 b-6" (click)="filterBy()" type="button">Filter
-							by</button></span>
+                    <div class="col-6 mt-2">
+                        <button class="btn w-100 btn-danger ps-3 pe-3 pt-2 pb-2" (click)="resetFilter()"
+                            style="border-radius: 8px; color: #fff;" type="button">
+                            Reset</button>
+                    </div>
                 </div>
             </div>
         </div>
         <!-- upcomming event -->
         <p-table #table [value]="investorData" class="primary-header" styleClass="primary-header" [paginator]="false" (onPage)="pageChange($event)"
-                 [totalRecords]="totalInvestorsCount" [rows]="pageSize" [rowsPerPageOptions]="[500, 300, 100]">
+                 [totalRecords]="totalInvestorsCount" [rows]="pageSize" [rowsPerPageOptions]="[500, 300, 100]" responsiveLayout="scroll">
             <ng-template pTemplate="caption">
-                <div class="d-flex w-full align-items-end justify-content-end">
+                <div class="d-flex w-full align-items-end justify-content-end desktop">
                     <div class="pe-2">
                         <span class="text-muted text-small">Total Investors : {{ totalInvestorsCount }}</span>
                     </div>
                     <div class="ps-2">
-                        <!--                     <button pButton>Export &nbsp; <i class="pi pi-file"></i></button>-->
-<!--                        <button type="button" class="ps-3 pe-2 pt-2 pb-2" (click)="exportTable()"-->
-<!--                                pButton style="background-color: var(&#45;&#45;uniprep-primary);border-radius: 8px; border: aliceblue; color: #fff;">-->
-<!--                            Export &nbsp; <i class="pi pi-file"></i></button>-->
+                    </div>
+                </div>
+                <div class="text-center mobile">
+                    <div class="pe-2">
+                        <span class="text-muted text-small">Total Investors : {{ totalInvestorsCount }}</span>
                     </div>
                 </div>
             </ng-template>
             <ng-template pTemplate="header">
-                <tr>
+                <tr class="investor-list-table-header">
                     <th class="border-cell">Investor Name</th>
                     <th class="border-cell">Country</th>
                     <th class="border-cell">Headquarters</th>
@@ -91,7 +86,7 @@
                 </tr>
             </ng-template>
             <ng-template pTemplate="body" let-inv let-expanded="expanded">
-                <tr>
+                <tr class="investor-list-table-header">
                     <td class="border-cell">{{inv.org_name}}</td>
                     <td class="border-cell">{{inv.country}}</td>
                     <td class="border-cell">{{inv.head_quarters}}</td>
@@ -119,13 +114,26 @@
                      [rowsPerPageOptions]="[500, 300, 100]"></p-paginator>
     </div>
 
-    <div class="text-center mt-5 mb-4" *ngIf="planExpired">
-        <img src="../../../uniprep-assets/images/smartloack.png" class="image" width="80">
-        <h3>Upgrade now to access invaluable tools</h3>
-        <p>Unlock the power of success with our exclusive events!<br> Upgrade your plan now to gain instant access.</p>
-        <p class="offer">Events offers:<br> Career growth, International Education, Life in your destination and more</p>
-        <button pButton type="button" class=" text-white p-ripple p-button-rounded p-button-warning p-button p-component"
-            (click)="upgradePlan()">Upgrade Plan<i class="pi pi-arrow-circle-right"></i></button>
+    <div *ngIf="planExpired">
+        <div class="row justify-content-center">
+            <div class="col-md-2 text-start"></div>
+            <div class="col-md-8 text-center">
+                <h5 class="select-title mb-1" tooltipPosition="top" pTooltip="">
+                    INVESTOR LIST
+                </h5>
+        
+            </div>
+            <div class="col-md-2"></div>
+        </div>
+        <div class="text-center mt-5 mb-4">
+            <img src="../../../uniprep-assets/images/smartloack.png" class="image" width="80">
+            <h3>Upgrade now to access invaluable tools</h3>
+            <p>Unlock the power of success with our exclusive investor list!<br> Upgrade your plan now to gain instant access.</p>
+            <p class="offer">Investor list offers:<br>Information of over 1,00,000 investors including details about the company name, investor type,
+            contact details and much more!</p>
+            <button pButton type="button" class=" text-white p-ripple p-button-rounded p-button-warning p-button p-component p-2"
+                (click)="upgradePlan()">Upgrade Plan<i class="fa fa-arrow-right exhausted-plan-icon"></i></button>
+        </div>
     </div>
 
 </div>
