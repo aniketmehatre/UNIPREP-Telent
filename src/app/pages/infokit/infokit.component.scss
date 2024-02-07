@@ -154,9 +154,14 @@ i {
   font-size: small;
   font-weight: 600;
 }
-    @media screen and (max-width: 575.98px) {
-        .card-body {
-          padding: 0 !important;
-          overflow-y: scroll !important;
-        }
+@media screen and (max-width: 575.98px) {
+    .card-body {
+      padding: 0 !important;
+      overflow-y: scroll !important;
     }
+}
+
+.info-expired {
+  background: url('../../../uniprep-assets/images/Startup\ KIT@2x.jpg');
+  background-size: cover;
+}
