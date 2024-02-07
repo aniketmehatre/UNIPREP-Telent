@@ -1,3 +1,4 @@
+
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Billinginfo, OrderHistory, Subscription } from "../../../@Models/subscription";
 import { environment } from "@env/environment.prod";
@@ -10,11 +11,11 @@ import { LocalStorageService } from "ngx-localstorage";
 import { NgxUiLoaderService } from 'ngx-ui-loader';
 
 @Component({
-  selector: 'uni-subscription-data',
-  templateUrl: './subscription-data.component.html',
-  styleUrls: ['./subscription-data.component.scss'],
+  selector: 'uni-upgrade-subscription',
+  templateUrl: './upgrade-subscription.component.html',
+  styleUrls: ['./upgrade-subscription.component.scss']
 })
-export class SubscriptionDataComponent implements OnInit {
+export class UpgradeSubscriptionComponent implements OnInit {
   selectedButton: any;
   countryList: any;
   breadCrumb: MenuItem[] = [];
@@ -76,21 +77,7 @@ export class SubscriptionDataComponent implements OnInit {
     return `${environment.ApiUrl}/downloadinvoice`;
   }
 
-  buttonclicked1() {
-    this.basesubscription = true;
-    this.topupcountries = false;
-    this.topupvalidity = false;
-  }
-  buttonclicked2() {
-    this.basesubscription = false;
-    this.topupcountries = true;
-    this.topupvalidity = false;
-  }
-  buttonclicked3() {
-    this.basesubscription = false;
-    this.topupcountries = false;
-    this.topupvalidity = true;
-  }
+
   closeAllHome() {
     this.isInstructionVisible = false;
   }
@@ -104,10 +91,10 @@ export class SubscriptionDataComponent implements OnInit {
       perpage: 1000,
       studenttype: this.studentType
     }
-    
+
     this.subscriptionService.getSubscriptions(data).subscribe((response) => {
-      const mostPopularOnes = response.subscriptions.filter((item:any) => item.popular === 1);
-      const filteredData = response.subscriptions.filter((item:any) => item.popular !== 1);
+      const mostPopularOnes = response.subscriptions.filter((item: any) => item.popular === 1);
+      const filteredData = response.subscriptions.filter((item: any) => item.popular !== 1);
       filteredData.splice(1, 0, ...mostPopularOnes);
       this.subscriptionList = filteredData;
       this.subscriptionList.forEach((item: any) => {
@@ -117,7 +104,7 @@ export class SubscriptionDataComponent implements OnInit {
         item.selectedCountry = {};
         // item.filteredCountryList = this.countryList.filter((data: any) => filteredCountryIds.includes(data.id));
         item.filteredCountryList = this.countryList;
-        item.selectedCountry = this.countryList.find((country:any) => country.id === Number(this.user?.interested_country_id));
+        item.selectedCountry = this.countryList.find((country: any) => country.id === Number(this.user?.interested_country_id));
         item.isActive = item.popular == 1 ? true : false;
       });
     });
@@ -198,7 +185,7 @@ export class SubscriptionDataComponent implements OnInit {
       this.toast.add({ severity: 'error', summary: 'Error', detail: 'Coupon already used' });
       return;
     }
-    
+
     if (this.couponInput) {
       this.subscriptionService.usedCoupon = this.couponInput
       let data = {
@@ -299,14 +286,14 @@ export class SubscriptionDataComponent implements OnInit {
       }
     );
   }
-  
+
   onInput(event: any) {
     this.invalidCoupon = false;
-    if(this.couponInput=='' || this.couponInput==null){
+    if (this.couponInput == '' || this.couponInput == null) {
       this.toast.add({ severity: 'error', summary: 'Error', detail: 'Coupon Removed' });
       this.subscriptionTotal = this.subscriptionAmt;
       this.checkoutTotal = this.subscriptionTotal;
-      this.discountAmountEnable=false;
+      this.discountAmountEnable = false;
     }
   }
 

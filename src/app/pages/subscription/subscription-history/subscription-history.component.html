@@ -9,8 +9,11 @@
 			</div>
 			<div>
 				<div class="d-flex">
-					<div class="headercountry me-2" *ngFor="let flag of subscription.flag">
+					<!-- <div class="headercountry me-2" *ngFor="let flag of subscription.flag">
 						<img *ngIf="flag" [src]="flag" alt="Country Flag" height="auto" width="auto" />
+					</div> -->
+					<div class="text-end pt-3">
+						<button class="btn upgradeplan" (click)="upgradePlan()">Upgrade Plan</button>
 					</div>
 				</div>
 				<div class="text-end pt-3" *ngIf="showPlanBtn">

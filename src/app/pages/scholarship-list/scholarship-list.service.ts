@@ -8,43 +8,49 @@ import { environment } from '@env/environment';
 export class ScholarshipListService {
 
   constructor(
-    private http:HttpClient
+    private http: HttpClient
   ) { }
 
   getScholarshipList(val: any) {
     const headers = new HttpHeaders().set("Accept", "application/json");
-    return this.http.post<any>(environment.ApiUrl + "/getscholarshiplist",val, {
+    return this.http.post<any>(environment.ApiUrl + "/getscholarshiplist", val, {
       headers: headers,
     });
   }
-  getScholarshipCountry(scholarship_country:number){
+  getScholarshipCountry(scholarship_country: number) {
     let params = new HttpParams();
-    params=params.append("scholarship_country",scholarship_country)
+    params = params.append("scholarship_country", scholarship_country)
     const headers = new HttpHeaders().set("Accept", "application/json");
     return this.http.get<any>(environment.ApiUrl + "/country", {
-        headers: headers,params:params
+      headers: headers, params: params
     });
   }
   getScholarshipType() {
     const headers = new HttpHeaders().set("Accept", "application/json");
     return this.http.get<any>(environment.ApiUrl + "/getscholarshiptype", { headers: headers });
   }
-  getStudyLevel(){
+  getStudyLevel() {
     const headers = new HttpHeaders().set("Accept", "application/json");
     return this.http.get<any>(environment.ApiUrl + "/getstudylevel", {
-        headers: headers,
+      headers: headers,
     });
   }
-  
+
   getRegion() {
     const headers = new HttpHeaders().set("Accept", "application/json");
-    return this.http.get<any>(`${environment.ApiUrl}/GetRegions`,{headers: headers});
+    return this.http.get<any>(`${environment.ApiUrl}/GetRegions`, { headers: headers });
   }
-  getUniversity(countryId:number){
+  getUniversity(countryId: number) {
     let params = new HttpParams();
-    params=params.append("country_id",countryId);
+    params = params.append("country_id", countryId);
     const headers = new HttpHeaders().set("Accept", "application/json");
-    return this.http.get<any>(environment.ApiUrl +"/getuniversity",{headers: headers,params:params});
+    return this.http.get<any>(environment.ApiUrl + "/getuniversity", { headers: headers, params: params });
   }
 
+  getCoverList() {
+    const headers = new HttpHeaders().set("Accept", "application/json");
+    return this.http.get<any>(environment.ApiUrl + "/getcoverlist", {
+      headers: headers,
+    });
+  }
 }
