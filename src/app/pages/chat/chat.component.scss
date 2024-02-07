@@ -157,7 +157,8 @@
   }
   .p-card-footer {
     padding: 1rem !important;
-    position: sticky;background: white;
+    position: sticky;
+    background: white;
     bottom: 0 !important;
     .sendbtn {
       margin-top: 0.5rem;
@@ -324,13 +325,12 @@
   overflow-y: scroll !important;
   scrollbar-width: thin !important;
 }
-:host ::ng-deep .ql-editor{
+:host ::ng-deep .ql-editor {
   overflow: unset !important;
 }
 .mobile {
   display: none;
 }
-
 
 @media screen and (max-width: 575.98px) {
   .desktop {
@@ -392,29 +392,35 @@
     color: #485489;
     font-size: 9px;
   }
-  .msg-bubble{
+  .msg-bubble {
     font-size: 10px;
     .msg-text {
-        p {
-          margin-bottom: 0rem !important;
-        }
+      p {
+        margin-bottom: 0rem !important;
       }
+    }
   }
 
-        .togglediv {
-          padding: 7px 0px;
-          margin: 0px 5px;
-          .credits {
-            span {
-              padding: 3px 5px!important;
-              background: #ffddb7;
-              border-radius: 10px;
-              font-size: 12px;
-              font-weight: 700;
-            }
-          }
-        }
-        .chatcontainer{
-          max-height: -webkit-fill-available !important;
-        }
+  .togglediv {
+    padding: 7px 0px;
+    margin: 0px 5px;
+    .credits {
+      span {
+        padding: 3px 5px !important;
+        background: #ffddb7;
+        border-radius: 10px;
+        font-size: 12px;
+        font-weight: 700;
+      }
+    }
+  }
+  .chatcontainer {
+    max-height: -webkit-fill-available !important;
+  }
+}
+::ng-deep .p-overlaypanel-content {
+  span {
+    font-weight: 600;
+    text-align: center;
+  }
 }
