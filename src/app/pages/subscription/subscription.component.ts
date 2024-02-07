@@ -155,9 +155,9 @@ export class SubscriptionComponent implements OnInit {
             key: "rzp_live_YErYQVqDIrZn1D",
             amount: this.subscriptionDetails?.finalPrice * 100, // amount should be in paise format to display Rs 1255 without decimal point
             currency: "INR",
-            name: "UNIABROAD", // company name or product name
+            name: "Uniprep", // company name or product name
             description: "UNIPREP Subscription", // product description
-            image: "https://uniabroad.io/webassets/img/rplogo.svg", // company logo or product image
+            image: "https://uniprep.ai/uniprep-assets/images/icon-light.svg", // company logo or product image
             order_id: orderid, // order_id created by you in backend
             //callback_url: "http://localhost:4200/pages/subscriptions",
             prefill: {
@@ -166,14 +166,14 @@ export class SubscriptionComponent implements OnInit {
                 contact: this.authservice.user?.usertype_name,
             },
             notes: {
-                address: "Razorpay Corporate Office",
+                address: " 165/1,Opp Brahmasthana Kalyana Mantapa Sahukar Chenniah Road, TK Layout, Mysuru - 570023 ",
             },
             modal: {
                 // We should prevent closing of the form when esc key is pressed.
                 escape: false,
             },
             theme: {
-                color: "#9ABD38",
+                color: "#3f4c83",
             },
         };
         options.handler = (response: any, error: any) => {

@@ -20,7 +20,7 @@ export class ScholarshipListComponent implements OnInit {
   countryList: any;
   headQuartersList: any
   page = 1;
-  pageSize = 50;
+  pageSize = 100;
   searchScholarshpName: string = '';
   totalScholarShipCount: any;
   isFilterVisible: string = 'none';
@@ -95,7 +95,7 @@ export class ScholarshipListComponent implements OnInit {
 
 
   gethomeCountryList() {
-    this.locationService.getHomeCountry(2).subscribe(
+    this.scholarshipListService.getScholarshipCountry(2).subscribe(
       (res: any) => {
         this.homeCountryList = res;
       },
@@ -142,6 +142,7 @@ export class ScholarshipListComponent implements OnInit {
       data.university = this.filterForm.value.university
     }
     this.scholarshipListService.getScholarshipList(data).subscribe((response) => {
+      console.log(response.scholarship);
       this.scholarshipData = response.scholarship;
       this.totalScholarShipCount = response.count;
     });
@@ -153,7 +154,10 @@ export class ScholarshipListComponent implements OnInit {
     });
   }
   countryChange(event: any) {
-    if (event.value == 15) {
+     
+    let selectedCountry=this.countryList.filter((item:any)=>item.id==event.value);
+ 
+    if (selectedCountry[0].country == "India") {
       this.getRegionList();
     }
     else {
@@ -163,7 +167,7 @@ export class ScholarshipListComponent implements OnInit {
     this.getFilterUniversityList(event.value);
   }
   pageChange(event: any) {
-    this.page = event.page + 1;
+    this.page = event.first + 1;
     this.pageSize = event.rows;
     this.loadScholarShipData();
   }
@@ -190,7 +194,7 @@ export class ScholarshipListComponent implements OnInit {
     this.authService.getNewUserTimeLeft().subscribe((res) => {
       let data = res.time_left;
       let subscription_exists_status = res.subscription_details;
-      if (data.plan === "expired" || subscription_exists_status.subscription_plan === 'free_trail') {
+      if (data.plan === "expired" || subscription_exists_status?.subscription_plan === 'free_trail') {
         this.planExpired = true;
       } else {
         this.planExpired = false;

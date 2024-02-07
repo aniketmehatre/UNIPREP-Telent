@@ -318,3 +318,14 @@ form {
 .fa-hourglass-end{
   transform: rotate(346deg);
 }
+
+.firsttimelogin{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.firsttimeloginpopup{
+  backdrop-filter: blur(2px);
+  background-color: rgba(0, 0, 0, 0.5);
+}

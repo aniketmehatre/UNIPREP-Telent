@@ -89,3 +89,8 @@
     cursor: no-drop;
     pointer-events: none;
 }
+
+.subscriptionExhausted{
+    backdrop-filter: blur(2px);
+    background-color: rgba(0, 0, 0, 0.5);
+}

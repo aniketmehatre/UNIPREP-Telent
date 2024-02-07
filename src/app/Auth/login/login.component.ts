@@ -16,6 +16,7 @@ import {environment} from "@env/environment";
 import {LocalStorageService} from "ngx-localstorage";
 import {Observable} from "rxjs/internal/Observable";
 import {FacebookService} from "ngx-facebook";
+import {NgxLinkedinService} from "ngx-linkedin";
 @Component({
   selector: "app-login",
   templateUrl: "./login.component.html",
@@ -32,7 +33,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     private service: AuthService, private formBuilder: FormBuilder, private route: Router,
     private toast: MessageService, private dataService: DataService, private el: ElementRef,
     private dashboardService: DashboardService, private authService: SocialAuthService,
-    private storage: LocalStorageService, private fb: FacebookService
+    private storage: LocalStorageService, private fb: FacebookService, private ngxLinkedinService: NgxLinkedinService
   ) { }
 
   button1Clicked() {
@@ -116,6 +117,12 @@ export class LoginComponent implements OnInit, OnDestroy {
     }).catch(error => {
       console.error('Facebook login error:', error);
     });
+  }
+
+  loginWithLinkedIn(){
+      this.ngxLinkedinService.signIn().subscribe(user => {
+        console.info('signIn', user);
+      });
   }
 
 }

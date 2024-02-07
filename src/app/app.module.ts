@@ -44,6 +44,7 @@ import {
 import { MaintenanceComponent } from './Auth/maintenance/maintenance.component';
 import {FacebookInitService} from "./Auth/facebook-init.service";
 import {FacebookModule} from "ngx-facebook";
+import {NgxLinkedinModule} from "ngx-linkedin";
 
 const reducers = {
   pageSelector: pagesReducer
@@ -102,6 +103,9 @@ export function tokenGetter() {
         ConfirmDialogModule,
         SocialLoginModule,
         FacebookModule.forRoot(),
+        NgxLinkedinModule.forRoot({
+            clientId: ':clientId:'
+        })
     ],
   providers: [
       FacebookInitService,
