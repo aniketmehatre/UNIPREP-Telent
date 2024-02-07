@@ -65,7 +65,7 @@ export class UserManagementComponent implements OnInit {
         this.registrationForm = this.formBuilder.group({
             name: ['', [Validators.required]],
             location_id: ['', [Validators.required]],
-            // phone: ['', [Validators.required]],
+            phone: ['', [Validators.required]],
             // email: ['', [Validators.required, Validators.email]],
             interested_country_id: [''],
             home_country: ['', [Validators.required]],
@@ -73,6 +73,7 @@ export class UserManagementComponent implements OnInit {
             intake_year_looking: [''],
             intake_month_looking: [''],
             programlevel_id: [''],
+            
             // gender: ['', [Validators.required]],
         });
 
@@ -135,6 +136,7 @@ export class UserManagementComponent implements OnInit {
                 intake_year_looking: this.PersonalInfo?.intake_year_looking,
                 intake_month_looking: this.PersonalInfo?.intake_month_looking,
                 programlevel_id: this.PersonalInfo?.programlevel_id,
+                phone:this.PersonalInfo?.phone
             });
             this.selectedDate=new Date();
             this.selectedDate.setFullYear(this.registrationForm.get('intake_year_looking')?.value);
@@ -267,6 +269,7 @@ export class UserManagementComponent implements OnInit {
             interested_country_id: this.registrationForm.value?.interested_country_id == null ? "" : this.registrationForm.value?.interested_country_id,
             programlevel_id: this.registrationForm.value?.programlevel_id,
             home_country: this.registrationForm.value?.home_country,
+            phone:this.registrationForm.value?.phone
         };
 
         this.intrestedCountryList.forEach((element: any) => {
