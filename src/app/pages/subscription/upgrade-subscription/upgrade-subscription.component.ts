@@ -47,10 +47,12 @@ export class UpgradeSubscriptionComponent implements OnInit {
   discountAmountEnable!: boolean;
   usedCouponId: number = 0;
   confirmModal: boolean = false;
+  plansLoaded: boolean = false;
   user!: User | null;
   discountPercentage: any;
   @Output() showHistory = new EventEmitter();
   @Input() showHistoryBtn: any;
+  existingSubscription: any[] = [];
 
   constructor(private authService: AuthService,
     private subscriptionService: SubscriptionService,
@@ -67,7 +69,8 @@ export class UpgradeSubscriptionComponent implements OnInit {
       this.ngxService.stop();
       this.countryList = data;
       this.getSubscriptionList();
-      this.getSubscriptionTopupList();
+      // this.getSubscriptionTopupList();
+
     }, error => {
       this.ngxService.stop();
     });
@@ -97,41 +100,35 @@ export class UpgradeSubscriptionComponent implements OnInit {
       const filteredData = response.subscriptions.filter((item: any) => item.popular !== 1);
       filteredData.splice(1, 0, ...mostPopularOnes);
       this.subscriptionList = filteredData;
-      this.subscriptionList.forEach((item: any) => {
-        item.country = item.country.split(',').map(Number);
-        let filteredCountryIds = item.country;
-        item.selected = false;
-        item.selectedCountry = {};
-        // item.filteredCountryList = this.countryList.filter((data: any) => filteredCountryIds.includes(data.id));
-        item.filteredCountryList = this.countryList;
-        item.selectedCountry = this.countryList.find((country: any) => country.id === Number(this.user?.interested_country_id));
-        item.isActive = item.popular == 1 ? true : false;
-      });
+      console.log(this.subscriptionList)
+      this.plansLoaded = true;
+      this.loadExistingSubscription();
+
     });
   }
 
-  getSubscriptionTopupList() {
-    this.subscriptionService.getSubscriptionTopups().subscribe((response) => {
-      this.subscriptionTopupList = response.topups;
-      this.subscriptionTopupList.forEach((item: any) => {
-        item.price = Number(item.price);
-        item.countries = item.countries.split(',').map(Number);
-        let filteredCountryIds = item.countries;
-        item.selected = false;
-        item.selectedCoutriesList = [];
-        item.filteredCountryList = this.countryList.filter((data: any) => filteredCountryIds.includes(data.id));
-        item.isActive = item.popular == 1 ? true : false;
-      });
-    });
-  }
+  // getSubscriptionTopupList() {
+  //   this.subscriptionService.getSubscriptionTopups().subscribe((response) => {
+  //     this.subscriptionTopupList = response.topups;
+  //     this.subscriptionTopupList.forEach((item: any) => {
+  //       item.price = Number(item.price);
+  //       item.countries = item.countries.split(',').map(Number);
+  //       let filteredCountryIds = item.countries;
+  //       item.selected = false;
+  //       item.selectedCoutriesList = [];
+  //       item.filteredCountryList = this.countryList.filter((data: any) => filteredCountryIds.includes(data.id));
+  //       item.isActive = item.popular == 1 ? true : false;
+  //     });
+  //   });
+  // }
 
-  removeCountry(subId: number, selectedId: number) {
-    this.subscriptionTopupList.forEach((item: any) => {
-      if (subId == item.id) {
-        item.selectedCoutriesList = item.selectedCoutriesList.filter((data: any) => data.id !== selectedId);
-      }
-    });
-  }
+  // removeCountry(subId: number, selectedId: number) {
+  //   this.subscriptionTopupList.forEach((item: any) => {
+  //     if (subId == item.id) {
+  //       item.selectedCoutriesList = item.selectedCoutriesList.filter((data: any) => data.id !== selectedId);
+  //     }
+  //   });
+  // }
 
   selectedSubscriptionPlan(sub: any) {
     this.showCheckout = false;
@@ -149,155 +146,180 @@ export class UpgradeSubscriptionComponent implements OnInit {
     this.subscriptionTotal = this.subscriptionAmt;
   }
 
-  selectedTopupCountryPlan(sub: any) {
-    if (sub?.selectedCoutriesList?.length > 0) {
-      this.showCheckout = false;
-      this.checkoutTotal = '';
-      this.subscriptionTopupList.forEach((item: any) => {
+  // selectedTopupCountryPlan(sub: any) {
+  //   if (sub?.selectedCoutriesList?.length > 0) {
+  //     this.showCheckout = false;
+  //     this.checkoutTotal = '';
+  //     this.subscriptionTopupList.forEach((item: any) => {
+  //       item.selected = false;
+  //       item.isActive = false;
+  //       if (sub.id == item.id) {
+  //         item.selected = true;
+  //         item.isActive = true;
+  //       }
+  //     });
+  //     this.selectedTopupCountryDetails = sub;
+
+  //     this.subscriptionTotal = sub.finalamount * sub.selectedCoutriesList.length;
+
+  //   }
+  //   else {
+  //     this.toast.add({ severity: 'warn', summary: 'Warn', detail: 'Please Choose a country' });
+  //   }
+
+  // }
+
+
+  loadExistingSubscription() {
+    this.subscriptionService.getExistingSubscription().subscribe((response: any) => {
+      this.existingSubscription = response.subscription;
+      console.log(this.existingSubscription);
+      this.subscriptionList.forEach((item: any) => {
+        item.country = item.country.split(',').map(Number);
+
         item.selected = false;
-        item.isActive = false;
-        if (sub.id == item.id) {
-          item.selected = true;
-          item.isActive = true;
-        }
-      });
-      this.selectedTopupCountryDetails = sub;
-
-      this.subscriptionTotal = sub.finalamount * sub.selectedCoutriesList.length;
-
-    }
-    else {
-      this.toast.add({ severity: 'warn', summary: 'Warn', detail: 'Please Choose a country' });
-    }
-
-  }
-
-  applyCoupon() {
-    if (this.showCheckout) {
-      this.toast.add({ severity: 'error', summary: 'Error', detail: 'Please select the Plan!' });
-      return;
-    }
-    if (this.subscriptionService.usedCoupon == this.couponInput && this.invalidCoupon) {
-      this.toast.add({ severity: 'error', summary: 'Error', detail: 'Invalid Coupon Code' });
-      return;
-    }
-    if (this.subscriptionService.usedCoupon == this.couponInput) {
-      this.toast.add({ severity: 'error', summary: 'Error', detail: 'Coupon already used' });
-      return;
-    }
-
-    if (this.couponInput) {
-      this.subscriptionService.usedCoupon = this.couponInput
-      let data = {
-        couponCode: this.couponInput,
-        checkoutTotal: this.subscriptionTotal,
-        subscriptioncouponstatus: this.selectedSubscriptionDetails?.couponcode
+        item.selectedCountry = {};
+        item.filteredCountryList = this.countryList;
+        item.selectedCountry = this.countryList.find((country: any) => country.id === Number(this.user?.interested_country_id));
+        item.isActive = item.popular == 1 ? true : false;
+        item.available=false;
+         
+        if (this.existingSubscription[0].plan == "Student"){
+        item.available = true;
+      }
+      if (this.existingSubscription[0].plan == "Career" && item.subscription_plan!="Student"){
+        item.available = true;
       }
 
-      this.subscriptionService.applyCoupon(data).subscribe((response) => {
-        if (response.success) {
-          console.log(response);
-          this.checkoutTotal = Number(this.subscriptionTotal) - response.discountPrice;
-          this.discountAmount = response.discountPrice;
-          this.discountPercentage = response.discountPercentage;
-          this.discountAmountEnable = true;
-          this.usedCouponId = response.coupon_id;
-          this.toast.add({ severity: 'success', summary: 'Success', detail: "Coupon applied" });
-        }
-        else {
-          this.toast.add({ severity: 'error', summary: 'Error', detail: response.message });
-          this.invalidCoupon = true;
-          this.checkoutTotal = this.subscriptionTotal;
-          this.discountAmountEnable = false;
-        }
-      });
-    }
-    else {
-      this.toast.add({ severity: 'error', summary: 'Error', detail: 'Please make sure you have some Coupon Code!' });
-    }
+    });
+  });
+}
+
+applyCoupon() {
+  if (this.showCheckout) {
+    this.toast.add({ severity: 'error', summary: 'Error', detail: 'Please select the Plan!' });
+    return;
+  }
+  if (this.subscriptionService.usedCoupon == this.couponInput && this.invalidCoupon) {
+    this.toast.add({ severity: 'error', summary: 'Error', detail: 'Invalid Coupon Code' });
+    return;
+  }
+  if (this.subscriptionService.usedCoupon == this.couponInput) {
+    this.toast.add({ severity: 'error', summary: 'Error', detail: 'Coupon already used' });
+    return;
   }
 
-  checkout() {
-    this.confirmModal = false;
-    this.subscriptionService.getExtendedToken().subscribe(
-      response => {
-        if (response.token) {
-          this.storage.set(environment.tokenKey, response.token);
+  if (this.couponInput) {
+    this.subscriptionService.usedCoupon = this.couponInput
+    let data = {
+      couponCode: this.couponInput,
+      checkoutTotal: this.subscriptionTotal,
+      subscriptioncouponstatus: this.selectedSubscriptionDetails?.couponcode
+    }
+
+    this.subscriptionService.applyCoupon(data).subscribe((response) => {
+      if (response.success) {
+        this.checkoutTotal = Number(this.subscriptionTotal) - response.discountPrice;
+        this.discountAmount = response.discountPrice;
+        this.discountPercentage = response.discountPercentage;
+        this.discountAmountEnable = true;
+        this.usedCouponId = response.coupon_id;
+        this.toast.add({ severity: 'success', summary: 'Success', detail: "Coupon applied" });
+      }
+      else {
+        this.toast.add({ severity: 'error', summary: 'Error', detail: response.message });
+        this.invalidCoupon = true;
+        this.checkoutTotal = this.subscriptionTotal;
+        this.discountAmountEnable = false;
+      }
+    });
+  }
+  else {
+    this.toast.add({ severity: 'error', summary: 'Error', detail: 'Please make sure you have some Coupon Code!' });
+  }
+}
+
+checkout() {
+  this.confirmModal = false;
+  this.subscriptionService.getExtendedToken().subscribe(
+    response => {
+      if (response.token) {
+        this.storage.set(environment.tokenKey, response.token);
+      }
+      if (this.basesubscription && this.selectedSubscriptionDetails) {
+        let data = {
+          subscriptionId: this.selectedSubscriptionDetails.id,
+          countryId: this.selectedSubscriptionDetails.selectedCountry.id,
+          finalPrice: this.checkoutTotal,
+          couponApplied: this.couponInput ? 1 : 0,
+          coupon: this.couponInput,
+          coupon_id: this.usedCouponId,
         }
-        if (this.basesubscription && this.selectedSubscriptionDetails) {
+        if (this.checkoutTotal == '') {
+          data.finalPrice = this.subscriptionTotal;
+        }
+        this.subscriptionPlan.emit(data);
+      }
+      else {
+        if (this.selectedTopupCountryDetails) {
           let data = {
-            subscriptionId: this.selectedSubscriptionDetails.id,
-            countryId: this.selectedSubscriptionDetails.selectedCountry.id,
-            finalPrice: this.checkoutTotal,
-            couponApplied: this.couponInput ? 1 : 0,
-            coupon: this.couponInput,
-            coupon_id: this.usedCouponId,
-          }
-          if (this.checkoutTotal == '') {
-            data.finalPrice = this.subscriptionTotal;
-          }
-          this.subscriptionPlan.emit(data);
-        }
-        else {
-          if (this.selectedTopupCountryDetails) {
-            let data = {
-              topupid: this.selectedTopupCountryDetails.id,
-              countryId: this.selectedTopupCountryDetails.selectedCoutriesList.map((item: any) => item.id).toString(),
-              finalPrice: this.checkoutTotal,
-              couponApplied: this.couponInput ? 1 : 0,
-              coupon: this.couponInput,
-            }
-            this.subscriptionPlan.emit(data);
-          }
-          else {
-            this.toast.add({ severity: 'warn', summary: 'Warn', detail: 'Please Choose a plan' });
-          }
-        }
-      },
-      (error) => {
-        if (this.basesubscription && this.selectedSubscriptionDetails) {
-          let data = {
-            subscriptionId: this.selectedSubscriptionDetails.id,
-            countryId: this.selectedSubscriptionDetails.selectedCountry.id,
+            topupid: this.selectedTopupCountryDetails.id,
+            countryId: this.selectedTopupCountryDetails.selectedCoutriesList.map((item: any) => item.id).toString(),
             finalPrice: this.checkoutTotal,
             couponApplied: this.couponInput ? 1 : 0,
             coupon: this.couponInput,
           }
-          if (this.checkoutTotal == '') {
-            data.finalPrice = this.subscriptionTotal;
+          this.subscriptionPlan.emit(data);
+        }
+        else {
+          this.toast.add({ severity: 'warn', summary: 'Warn', detail: 'Please Choose a plan' });
+        }
+      }
+    },
+    (error) => {
+      if (this.basesubscription && this.selectedSubscriptionDetails) {
+        let data = {
+          subscriptionId: this.selectedSubscriptionDetails.id,
+          countryId: this.selectedSubscriptionDetails.selectedCountry.id,
+          finalPrice: this.checkoutTotal,
+          couponApplied: this.couponInput ? 1 : 0,
+          coupon: this.couponInput,
+        }
+        if (this.checkoutTotal == '') {
+          data.finalPrice = this.subscriptionTotal;
+        }
+        this.subscriptionPlan.emit(data);
+      }
+      else {
+        if (this.selectedTopupCountryDetails) {
+          let data = {
+            topupid: this.selectedTopupCountryDetails.id,
+            countryId: this.selectedTopupCountryDetails.selectedCoutriesList.map((item: any) => item.id).toString(),
+            finalPrice: this.checkoutTotal,
+            couponApplied: this.couponInput ? 1 : 0,
+            coupon: this.couponInput,
           }
           this.subscriptionPlan.emit(data);
         }
         else {
-          if (this.selectedTopupCountryDetails) {
-            let data = {
-              topupid: this.selectedTopupCountryDetails.id,
-              countryId: this.selectedTopupCountryDetails.selectedCoutriesList.map((item: any) => item.id).toString(),
-              finalPrice: this.checkoutTotal,
-              couponApplied: this.couponInput ? 1 : 0,
-              coupon: this.couponInput,
-            }
-            this.subscriptionPlan.emit(data);
-          }
-          else {
-            this.toast.add({ severity: 'warn', summary: 'Warn', detail: 'Please Choose a plan' });
-          }
+          this.toast.add({ severity: 'warn', summary: 'Warn', detail: 'Please Choose a plan' });
         }
       }
-    );
-  }
-
-  onInput(event: any) {
-    this.invalidCoupon = false;
-    if (this.couponInput == '' || this.couponInput == null) {
-      this.toast.add({ severity: 'error', summary: 'Error', detail: 'Coupon Removed' });
-      this.subscriptionTotal = this.subscriptionAmt;
-      this.checkoutTotal = this.subscriptionTotal;
-      this.discountAmountEnable = false;
     }
-  }
+  );
+}
 
-  gotoHistory() {
-    this.showHistory.emit(true);
+onInput(event: any) {
+  this.invalidCoupon = false;
+  if (this.couponInput == '' || this.couponInput == null) {
+    this.toast.add({ severity: 'error', summary: 'Error', detail: 'Coupon Removed' });
+    this.subscriptionTotal = this.subscriptionAmt;
+    this.checkoutTotal = this.subscriptionTotal;
+    this.discountAmountEnable = false;
   }
+}
+
+gotoHistory() {
+  this.showHistory.emit(true);
+}
 }
