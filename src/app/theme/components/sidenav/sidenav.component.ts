@@ -49,7 +49,7 @@ export class SidenavComponent {
       image: "fa-solid fa-crown",
     },
     {
-      title: "Study",
+      title: "Education",
       url: "",
       image: "",
     },
@@ -76,7 +76,17 @@ export class SidenavComponent {
     {
       title: 'Scholarship List',
       url: '/pages/scholarship-list',
-      image: 'fa-solid fa-building-columns',
+      image: 'fa-solid fa-diploma',
+    },
+    {
+      title: "Life",
+      url: "",
+      image: "",
+    },
+    {
+      title: "Life in",
+      url: "/pages/modules/life-at-country",
+      image: "fa-solid fa-earth-americas",
     },
     {
       title: 'Career',
@@ -89,64 +99,39 @@ export class SidenavComponent {
       image: "fa-solid fa-briefcase",
     },
     {
-      title: "Life",
-      url: "",
-      image: "",
-    },
-    {
-      title: "Life at",
-      url: "/pages/modules/life-at-country",
-      image: "fa-solid fa-earth-americas",
-    },
-    // {
-    //   title: "Explore",
-    //   url: "",
-    //   image: "",
-    // },
-    {
-      title: "Events",
-      url: "/pages/events",
-      image: "fa-solid fa-calendar-days",
-    },
-    {
       title: "Resources",
       url: "/pages/resource",
       image: "fa-solid fa-link",
     },
-    // {
-    //   title: "Subscriptions",
-    //   url: "",
-    //   image: "",
-    // },
-    // {
-    //   title: "Subscription",
-    //   url: "/pages/subscriptions",
-    //   image: "fa-solid fa-crown",
-    // },
     {
-      title: "Revenue",
+      title: "Company List",
+      url: "/pages/company-list",
+      image: "fa-solid fa-buildings",
+    },
+    {
+      title: "Entrepreneur",
       url: "",
       image: "",
     },
     {
       title: "Investor List",
       url: "/pages/investor-list",
-      image: "fa-solid fa-memo-circle-info",
-    },
-    {
-      title: "Company List",
-      url: "/pages/company-list",
-      image: "fa-solid fa-memo-circle-info",
-    },
-    {
-      title: "Support",
-      url: "",
-      image: "",
+      image: "fa-solid fa-chart-waterfall",
     },
     {
       title: "Startup Kit",
       url: "/pages/startup",
       image: "fa-solid fa-memo-circle-info",
+    },
+    {
+      title: "Events",
+      url: "/pages/events",
+      image: "fa-solid fa-calendar-days",
+    },
+    {
+      title: "Support",
+      url: "",
+      image: "",
     },
     {
       title: "Tutorials",
@@ -192,8 +177,8 @@ export class SidenavComponent {
   ) {
     this.dataService.countryNameSource.subscribe((countryName) => {
       this.menus.filter((data) => {
-        if (data.title.includes("Life at"))
-          data.title = "Life at " + countryName;
+        if (data.title.includes("Life in"))
+          data.title = "Life in " + countryName;
       });
     });
     router.events

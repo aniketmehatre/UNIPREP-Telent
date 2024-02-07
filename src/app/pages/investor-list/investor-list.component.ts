@@ -62,11 +62,11 @@ export class InvestorListComponent implements OnInit {
 
   loadMultiSelectData(){
     this.investorList.getMultiSelectData().subscribe((response) => {
+      console.log(response);
       this.investorIndustryInterested = response.investor_industry_interested;
       // this.investorOrgType = response.investor_org_type;
       this.investorType = response.investor_type;
       this.countryList = response.countries_list;
-      this.headQuartersList = response.head_quarters_list;
     });
   }
 
@@ -95,6 +95,7 @@ export class InvestorListComponent implements OnInit {
   }
 
   pageChange(event: any){
+    console.log(event);
     this.page = event.page + 1;
     this.pageSize = event.rows;
     this.loadInvestorData();
@@ -129,5 +130,11 @@ export class InvestorListComponent implements OnInit {
 
   upgradePlan(): void {
     this.router.navigate(["/pages/subscriptions"]);
+  }
+
+  loadHeadQuartersData(event: any){
+    this.investorList.getHeadQuartersList(event.value).subscribe((response) => {
+      this.headQuartersList = response;
+    });
   }
 }
