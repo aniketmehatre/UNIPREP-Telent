@@ -10,6 +10,7 @@ import {
     SearchCountryField,
     
   } from "ngx-intl-tel-input";
+import { FacebookService } from "ngx-facebook";
 
 @Component({
     selector: "app-registration",
@@ -97,7 +98,7 @@ export class RegistrationComponent implements OnInit {
     ];
 
     constructor(private service: AuthService, private router: Router, private formBuilder: FormBuilder,
-        private locationService: LocationService, private toastr: MessageService) {
+        private locationService: LocationService, private toastr: MessageService,private fb: FacebookService) {
     }
 
     dateTime = new Date();
@@ -290,6 +291,7 @@ export class RegistrationComponent implements OnInit {
             phone: this.registrationForm.value.contactNumber.number,
             country_code:this.registrationForm.value.contactNumber.dialCode
         };
+        console.log(val);
         if (this.registrationForm.value.fullName != null && this.registrationForm.value.contactNumber.number) {
             this.service.getSmsOTP(val).subscribe(
                 (res: any) => {
@@ -329,9 +331,10 @@ export class RegistrationComponent implements OnInit {
         if (!this.isMobileOTPValidated) {
             let val = {
                 phone: this.registrationForm.value.contactNumber.number,
-                country_code: this.registrationForm.value.country_code,
+                country_code: this.registrationForm.value.contactNumber.dialCode,
                 otp: _otp,
             };
+            console.log(val);
             this.service.verifySmsOTP(val).subscribe(
                 (res: any) => {
 
@@ -520,5 +523,13 @@ export class RegistrationComponent implements OnInit {
         let changeHomeCountry=this.countryList.find((data:any)=>data.country_code==event.value);
         this.registrationForm.get('country').setValue(changeHomeCountry.id);
         this.GetLocationList();
+    }
+
+    loginWithFacebook() {
+        this.fb.login().then(response => {
+            console.log('Facebook login response:', response);
+        }).catch(error => {
+            console.error('Facebook login error:', error);
+        });
     }
 }

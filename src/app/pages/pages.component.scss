@@ -67,3 +67,34 @@ uni-list-sub-modules {
   pointer-events: none;
   opacity: 0.5;
 }
+
+.icon-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 50px; /* Adjust the height as needed */
+}
+
+.thatDevice{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.thisDevice{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #858585;
+  font-weight: 400;
+}
+
+.dangericon {
+  font-size: 6em; /* Adjust the font-size to make the icon bigger */
+  color: rgb(250, 7, 7); /* Set the color to black */
+}
+
+.multiDeviceLogoutPopup{
+  backdrop-filter: blur(2px);
+  background-color: rgba(0, 0, 0, 0.5);
+}

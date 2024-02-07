@@ -1,5 +1,6 @@
 import {Component} from '@angular/core';
 import {  HostListener } from '@angular/core';
+import {DeviceDetectorService} from "ngx-device-detector";
 @Component({
   selector: 'app-root',
   template: `
@@ -20,6 +21,7 @@ export class AppComponent {
   // }
 
   child : Boolean=true;
+
 
   @HostListener('keydown', ['$event']) triggerEsc(e: KeyboardEvent) {
     

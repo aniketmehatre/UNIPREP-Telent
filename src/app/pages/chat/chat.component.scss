@@ -1,5 +1,5 @@
 ::ng-deep .p-card-header {
-  font-size: 1.4rem;
+  font-size: 18px;
   font-weight: 800;
   color: black;
   text-align: center;
@@ -8,7 +8,7 @@
     margin-top: 1rem;
     margin-bottom: 0;
     font-size: large;
-    font-weight: 700;
+    font-weight: 600;
   }
   .info {
     font-size: medium;
@@ -17,7 +17,6 @@
     .chat-info {
       text-align: -webkit-center;
       p {
-        width: 80%;
         font-size: 14px;
         font-weight: 500;
         color: #445364;
@@ -54,9 +53,7 @@
   overflow: unset !important;
   max-height: 80vh !important;
 }
-::ng-deep .p-overlaypanel {
-  width: 20% !important;
-}
+
 .msger {
   display: flex;
   flex-flow: column wrap;
@@ -114,7 +111,7 @@
   p {
     margin: 0;
     background: #faebdb;
-    border-radius: 5rem;
+    border-radius: 15px;
     font-size: 13px;
     font-weight: 700;
     padding: 0.3rem 1rem 0.3rem 1rem;
@@ -168,7 +165,7 @@
       button {
         padding: 0.2rem 1.2rem 0.2rem 1.2rem !important;
         font-size: 1rem !important;
-        border-radius: 5rem !important;
+        border-radius: 15px !important;
       }
     }
   }
@@ -218,7 +215,7 @@
 }
 .togglediv {
   cursor: pointer;
-  border-radius: 5rem;
+  border-radius: 15px;
   border: 1px solid #c7d6fb;
   padding: 0.7rem 0rem 0.7rem 0rem;
   margin: 0rem 0.5rem 0rem 0.5rem;
@@ -228,7 +225,7 @@
     span {
       padding: 0.3rem 1rem 0.3rem 1rem;
       background: #ffddb7;
-      border-radius: 5rem;
+      border-radius: 15px;
       font-size: small;
       font-weight: 700;
       span {
@@ -286,7 +283,7 @@
   .credits-span {
     padding: 0.3rem 1rem 0.3rem 1rem;
     background: #ffddb7;
-    border-radius: 5rem;
+    border-radius: 15px;
     font-size: small;
     font-weight: 700;
     .creditscore {
@@ -329,4 +326,95 @@
 }
 :host ::ng-deep .ql-editor{
   overflow: unset !important;
+}
+.mobile {
+  display: none;
+}
+
+
+@media screen and (max-width: 575.98px) {
+  .desktop {
+    display: none;
+  }
+
+  .mobile {
+    display: block;
+  }
+
+  .chat-info {
+    p {
+      font-size: 12px;
+      font-weight: 00;
+      color: #445364;
+    }
+  }
+
+  .chatguide {
+    text-align: left;
+
+    button {
+      background-color: #ebedf2;
+      color: #21344c;
+      padding: 0.5rem 2rem 0.5rem 2rem;
+      border: none;
+      border-radius: 5px;
+      font-size: 10px;
+      font-weight: 600;
+    }
+  }
+
+  .report {
+    button {
+      background-color: #c7d6fb;
+      color: #001631;
+      padding: 0.5rem 2rem 0.5rem 2rem;
+      border: none;
+      border-radius: 5px;
+      font-size: 10px;
+      font-weight: 600;
+    }
+
+    text-align: right;
+  }
+
+  .msg-img {
+    width: 25px;
+    height: 25px;
+    margin-right: 10px;
+    background: #e9ecfa;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    border-radius: 50%;
+    text-align: center;
+    padding-top: 0.5rem;
+    font-weight: 600;
+    color: #485489;
+    font-size: 9px;
+  }
+  .msg-bubble{
+    font-size: 10px;
+    .msg-text {
+        p {
+          margin-bottom: 0rem !important;
+        }
+      }
+  }
+
+        .togglediv {
+          padding: 7px 0px;
+          margin: 0px 5px;
+          .credits {
+            span {
+              padding: 3px 5px!important;
+              background: #ffddb7;
+              border-radius: 10px;
+              font-size: 12px;
+              font-weight: 700;
+            }
+          }
+        }
+        .chatcontainer{
+          max-height: -webkit-fill-available !important;
+        }
 }

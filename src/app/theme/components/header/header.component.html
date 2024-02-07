@@ -75,7 +75,17 @@
                             </div>
                         </div>
                     </div>
-
+                    <div class="d-flex gap-2 d-md-none">
+                        <button class="btn btn-primary p-3 m-0" alt="chat with notification" (click)="onClickSubscribe()"><i class="fa-solid fa-crown"></i></button>
+                        <button class="btn btn-secondary p-3 m-0" (click)="openReportModal(op, $event)" alt="reports"><i class="fa-solid fa-circle-exclamation"></i>
+                        </button>
+                    </div>
+                    <div class="d-none d-md-block">
+                        <button class="btn btn-primary btn-rounded me-2 ms-0 my-0" alt="chat with notification" (click)="onClickSubscribe()"><span class="text-small fw-normal px-3">Subscribe Now</span></button>
+                        <button class="btn btn-secondary btn-rounded me-2 ms-0 my-0" (click)="openReportModal(op, $event)" alt="reports">
+                            <span class="text-small fw-normal px-4"><i class="fa-solid fa-bug"></i> Report</span>
+                        </button>
+                    </div>
 					<div label="" role="button" class="headercountry me-2 d-md-block">
 						<img #openCountryPopup src="{{ headerFlag }}" alt="flag" height="auto" width="auto"  (click)="openFlagModal(totalCountryList, $event)" />
 						<!-- <img src="{{ headerFlag }}" alt="United Kingdom" height="auto" width="auto" (click)="openFlagModal(totalCountryList, $event)"/> -->

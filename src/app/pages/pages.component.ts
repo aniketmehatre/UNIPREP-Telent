@@ -19,6 +19,7 @@ export class PagesComponent implements OnInit, OnDestroy {
     showReportSuccess = false;
     conditionSubscribed = true;
     visibleExhasted!: boolean;
+    MultiLoginPopup:string = '';
     @Output() expandicon = !this.sidebarClass
         ? "pi-align-right"
         : "pi-align-justify";
@@ -60,6 +61,7 @@ export class PagesComponent implements OnInit, OnDestroy {
                 this.showReportSuccess = false;
             }
         });
+        this.MultiLoginPopup = 'none'; //If you want to show the popup change the value as "block"
     }
 
     onClickSubscribedUser(): void {

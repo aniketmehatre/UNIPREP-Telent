@@ -19,7 +19,8 @@ export class UserGuideComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getUserGuideLinks()
+    this.pdfUrl = this.sanitizer.bypassSecurityTrustResourceUrl('https://api.uniprep.ai/uniprepapi/storage/app/public/UniprepUserGuide/userguidealltopics.pdf');
+    // this.getUserGuideLinks();
   }
 
   changePdf(item: any) {
