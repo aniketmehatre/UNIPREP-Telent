@@ -76,6 +76,7 @@ export class DashboardComponent implements OnInit {
         this.selectedCountryId = Number(localStorage.getItem('countryId'));
         this.enableReadingData();
         //localStorage.setItem('selectedcountryId', this.selectedCountryId);
+        
         localStorage.setItem("currentmodulenameforrecently", '');
         this.dashboardService.getTrustedPartners().subscribe(partnerLogo => {
             this.partnerTrusterLogo = partnerLogo;
@@ -114,7 +115,7 @@ export class DashboardComponent implements OnInit {
         let data = {
             countryId: this.selectedCountryId,
         }
-
+ 
         this.dashboardService.countryList().subscribe(countryList => {
             this.countryLists = countryList;
             this.countryLists.forEach((element: any) => {
@@ -132,9 +133,7 @@ export class DashboardComponent implements OnInit {
                 }
               });            
         });
-        this.dashboardService.getModuleReadProgression(data).subscribe(response => {
-            this.readingProgressings = response.module;
-        });
+
         // const section = this.elRef.nativeElement.querySelector('#horizontalScrollSection');
         // this.renderer.listen(section, 'wheel', (event: WheelEvent) => {
         //     event.preventDefault();
@@ -205,7 +204,15 @@ export class DashboardComponent implements OnInit {
     }
 
     openReading(): void {
-        this.continueReading = "block";
+        let data = {
+            countryId: this.selectedCountryId,
+        }
+        console.log(data);
+        this.dashboardService.getModuleReadProgression(data).subscribe(response => {
+            this.readingProgressings = response.module;
+            this.continueReading = "block";
+        });
+       
     }
 
     closeQuiz(): void {
