@@ -36,70 +36,71 @@
 						</ul>
 					</div>
 
-					<div class="columns col-lg-2 col-md-2 p-0 bl-1 br-1">
+					<div class="columns col-lg-2 col-md-2 p-0 bl-1 br-1" *ngIf="plansLoaded">
 						<ul class="price text-center">
 							<li class="header mt-15">
 								<h6 class="plan_type">Free</h6>
-								<h3 class="amount orange">0 INR</h3>
+								<h3 class="amount grey">0 INR</h3>
 							</li>
-							<li class="mt-18"><i class="pi pi-check"></i></li>
-							<li><i class="pi pi-check"></i></li>
-							<li><i class="pi pi-check"></i></li>
-							<li><i class="pi pi-times"></i></li>
-							<li><i class="pi pi-times"></i></li>
-							<li><i class="pi pi-times"></i></li>
-							<li><i class="pi pi-times"></i></li>
-							<li><i class="pi pi-times"></i></li>
-							<li><i class="pi pi-times"></i></li>
+							<li class="mt-18"><i class="pi pi-check grey smallIcon"></i></li>
+							<li><i class="pi pi-check grey smallIcon" ></i></li>
+							<li><i class="pi pi-check grey smallIcon"></i></li>
+							<li><i class="pi pi-times grey smallIcon"></i></li>
+							<li><i class="pi pi-times grey smallIcon"></i></li>
+							<li><i class="pi pi-times grey smallIcon"></i></li>
+							<li><i class="pi pi-times grey smallIcon"></i></li>
+							<li><i class="pi pi-times grey smallIcon"></i></li>
+							<li><i class="pi pi-times grey smallIcon"></i></li>
 							<li>
 								<h5 class="fw-semibold">24 Hours Validity</h5>
 							</li>
 							<li>
 								<div class="getstartedbtn pb-2">
-									<button class="pt-3 pb-3 btn btn-basic w-100 m-0">Current</button>
+									<button class="pt-3 pb-3 btn btn-basic w-100 m-0">Unavailable</button>
 								</div>
 							</li>
 						</ul>
 					</div>
 
 					<div class="columns col-lg-2 col-md-2 p-0 br-1" *ngFor="let subscription of subscriptionList">
-						<ul class="price text-center">
+						<ul class="price text-center" >
 							<li style="background-color: #3F4C83;color: white;" *ngIf="subscription.popular == 1">Most
 								Popular
 								Plan</li>
+                                
 							<li class="header"
 								[ngClass]="{'header': subscription.popular === 1, 'mt-15': !(subscription.popular === 1)}">
-								<h6 class="plan_type">{{ subscription.subscription_plan }}</h6>
-								<h3 class="amount orange">{{
+								<h6 class="plan_type" >{{ subscription.subscription_plan }}</h6>
+								<h3 class="amount" [class]="subscription.available == false?'grey':'orange'">{{
 									subscription.givenprice | number :
 									".0" }} INR</h3>
-								<div class="d-flex" style="justify-content: space-evenly;">
+								<div class="d-flex" style="justify-content: space-evenly;" [class]="subscription.available == false?'grey':''">
 									<p style="font-size: 12px; font-weight: 500;" class="mb-0 mt-2"><s>INR {{
 											subscription.actualprice | number : ".2-2"
 											}}</s></p>
-									<div class="btn discountbutton-o btnCurser">Save
+									<div class="btn discountbutton-o btnCurser" [class]="subscription.available == false?'greyButton':''">Save
 										{{subscription.discountpercentage}}%</div>
 								</div>
 							</li>
-							<li><i class="pi pi-check"></i></li>
-							<li><i class="pi pi-check"></i></li>
-							<li><i class="pi pi-check"></i></li>
-							<li><i class="pi"
+							<li><i class="pi pi-check smallIcon" [ngClass]="{'grey':subscription.available == false}"></i></li>
+							<li><i class="pi pi-check smallIcon" [ngClass]="{'grey':subscription.available == false}"></i></li>
+							<li><i class="pi pi-check smallIcon" [ngClass]="{'grey':subscription.available == false}"></i></li>
+							<li><i class="pi smallIcon"
 									[ngClass]="{'pi-check': subscription.subscription_plan === 'Student' || subscription.subscription_plan === 'Career' || subscription.subscription_plan ==='Entrepreneur', 'pi-times': !(subscription.subscription_plan === 'Student' || subscription.subscription_plan === 'Career' || subscription.subscription_plan ==='Entrepreneur')}"></i>
 							</li>
-							<li><i class="pi"
+							<li><i class="pi smallIcon"
 									[ngClass]="{'pi-check': subscription.subscription_plan === 'Student' || subscription.subscription_plan === 'Career' || subscription.subscription_plan ==='Entrepreneur', 'pi-times': !(subscription.subscription_plan === 'Student' || subscription.subscription_plan === 'Career' || subscription.subscription_plan ==='Entrepreneur')}"></i>
 							</li>
-							<li><i class="pi"
+							<li><i class="pi smallIcon"
 									[ngClass]="{'pi-check': subscription.subscription_plan === 'Student' || subscription.subscription_plan === 'Career' || subscription.subscription_plan ==='Entrepreneur', 'pi-times': !(subscription.subscription_plan === 'Student' || subscription.subscription_plan === 'Career' || subscription.subscription_plan ==='Entrepreneur')}"></i>
 							</li>
-							<li><i class="pi"
+							<li><i class="pi smallIcon"
 									[ngClass]="{'pi-check': subscription.subscription_plan === 'Student' || subscription.subscription_plan === 'Career' || subscription.subscription_plan ==='Entrepreneur', 'pi-times': !(subscription.subscription_plan === 'Career' || subscription.subscription_plan ==='Entrepreneur')}"></i>
-							</li>
-							<li><i class="pi"
+							</li> 
+							<li><i class="pi smallIcon"
 									[ngClass]="{'pi-check': subscription.subscription_plan === 'Student' || subscription.subscription_plan === 'Career' || subscription.subscription_plan ==='Entrepreneur', 'pi-times': !(subscription.subscription_plan ==='Entrepreneur')}"></i>
 							</li>
-							<li><i class="pi"
+							<li><i class="pi smallIcon"
 									[ngClass]="{'pi-check': subscription.subscription_plan === 'Student' || subscription.subscription_plan === 'Career' || subscription.subscription_plan ==='Entrepreneur', 'pi-times': !(subscription.subscription_plan ==='Entrepreneur')}"></i>
 							</li>
 							<li>
@@ -111,7 +112,7 @@
 										*ngIf="subscription.selected"
 										(click)="selectedSubscriptionPlan(subscription)">Selected</button>
 									<button class="pt-3 pb-3 btn btn-basic w-100 m-0" *ngIf="!subscription.selected"
-										(click)="selectedSubscriptionPlan(subscription)">Select Plan</button>
+										(click)="selectedSubscriptionPlan(subscription)"><span *ngIf="existingSubscription[0]?.plan==subscription.subscription_plan">Current Plan</span><span *ngIf="existingSubscription[0]?.plan!=subscription.subscription_plan">Upgrade Plan</span></button>
 								</div>
 							</li>
 						</ul>
@@ -243,7 +244,7 @@
 		</ng-container>
 
 
-		<div class="row" *ngIf="topupcountries">
+		<!-- <div class="row" *ngIf="topupcountries">
 			<div *ngFor="let subscription of subscriptionTopupList" class="col-lg-4">
 				<div class="card-body">
 					<div class="container-fluid">
@@ -298,9 +299,9 @@
 					</div>
 				</div>
 			</div>
-		</div>
+		</div> -->
 		<!-- top up validity -->
-		<div class="row p-3" *ngIf="topupvalidity">
+		<!-- <div class="row p-3" *ngIf="topupvalidity">
 			<div class="d-flex justify-content-between">
 				<div class="mt-2">
 					<label for="" style="white-space: nowrap">Select Country for Validity</label>
@@ -319,33 +320,6 @@
 				<div class="container-fluid">
 					<div class="row gap-5 mt-4 d-flex">
 						<div class="card col px-0">
-							<!-- <div class="mostpopular">Most Popular Plan</div> -->
-							<div class="card-header p-4">
-								<div class="d-flex justify-content-between align-items-center">
-									<h6 class="fw-bold mb-0">1 Month <br />Validity</h6>
-									<div class="text-end">
-										<span class="mb-0"><s>INR 1000</s></span>
-										<div class="btn discountbutton">Save 20 %</div>
-									</div>
-								</div>
-							</div>
-							<div class="card-footer p-4 pt-5" style="text-align: center">
-								<h4 class="font-primarycolor fw-bold">INR 699.00</h4>
-								<div class="">
-									<button style="width: -webkit-fill-available" class="btn btn-primary"><span
-											style="color: #fff !important" class="ps-5 pe-5">Top Up</span></button>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-
-			<div class="card-body sameline">
-				<div class="container-fluid">
-					<div class="row gap-5 mt-4 d-flex">
-						<div class="card col px-0">
-							<!-- <div class="mostpopular">Most Popular Plan</div> -->
 							<div class="card-header p-4">
 								<div class="d-flex justify-content-between align-items-center">
 									<h6 class="fw-bold mb-0">1 Month <br />Validity</h6>
@@ -380,7 +354,6 @@
 									</div>
 								</div>
 							</div>
-
 							<div class="card-footer p-4 pt-5" style="text-align: center">
 								<h4 class="font-primarycolor fw-bold">INR 699.00</h4>
 								<div class="">
@@ -396,33 +369,6 @@
 				<div class="container-fluid">
 					<div class="row gap-5 mt-4 d-flex">
 						<div class="card col px-0">
-							<!-- <div class="mostpopular">Most Popular Plan</div> -->
-							<div class="card-header p-4">
-								<div class="d-flex justify-content-between align-items-center">
-									<h6 class="fw-bold mb-0">1 Month <br />Validity</h6>
-									<div class="text-end">
-										<span class="mb-0"><s>INR 1000</s></span>
-										<div class="btn discountbutton">Save 20 %</div>
-									</div>
-								</div>
-							</div>
-
-							<div class="card-footer p-4 pt-5" style="text-align: center">
-								<h4 class="font-primarycolor fw-bold">INR 699.00</h4>
-								<div class="">
-									<button style="width: -webkit-fill-available" class="btn btn-primary"><span
-											style="color: #fff !important" class="ps-5 pe-5">Top Up</span></button>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="card-body sameline">
-				<div class="container-fluid">
-					<div class="row gap-5 mt-4 d-flex">
-						<div class="card col px-0">
-							<!-- <div class="mostpopular">Most Popular Plan</div> -->
 							<div class="card-header p-4">
 								<div class="d-flex justify-content-between align-items-center">
 									<h6 class="fw-bold mb-0">1 Month <br />Validity</h6>
@@ -443,7 +389,55 @@
 					</div>
 				</div>
 			</div>
-		</div>
+			<div class="card-body sameline">
+				<div class="container-fluid">
+					<div class="row gap-5 mt-4 d-flex">
+						<div class="card col px-0">
+							<div class="card-header p-4">
+								<div class="d-flex justify-content-between align-items-center">
+									<h6 class="fw-bold mb-0">1 Month <br />Validity</h6>
+									<div class="text-end">
+										<span class="mb-0"><s>INR 1000</s></span>
+										<div class="btn discountbutton">Save 20 %</div>
+									</div>
+								</div>
+							</div>
+							<div class="card-footer p-4 pt-5" style="text-align: center">
+								<h4 class="font-primarycolor fw-bold">INR 699.00</h4>
+								<div class="">
+									<button style="width: -webkit-fill-available" class="btn btn-primary"><span
+											style="color: #fff !important" class="ps-5 pe-5">Top Up</span></button>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="card-body sameline">
+				<div class="container-fluid">
+					<div class="row gap-5 mt-4 d-flex">
+						<div class="card col px-0">
+							<div class="card-header p-4">
+								<div class="d-flex justify-content-between align-items-center">
+									<h6 class="fw-bold mb-0">1 Month <br />Validity</h6>
+									<div class="text-end">
+										<span class="mb-0"><s>INR 1000</s></span>
+										<div class="btn discountbutton">Save 20 %</div>
+									</div>
+								</div>
+							</div>
+							<div class="card-footer p-4 pt-5" style="text-align: center">
+								<h4 class="font-primarycolor fw-bold">INR 699.00</h4>
+								<div class="">
+									<button style="width: -webkit-fill-available" class="btn btn-primary"><span
+											style="color: #fff !important" class="ps-5 pe-5">Top Up</span></button>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div> -->
 	</div>
 </div>
 <div class="d-flex mt-3 gap-3 flex-column flex-md-row">
@@ -501,58 +495,6 @@
 
 	<!-- modeal -->
 
-	<p-dialog class="retrypopup" [modal]="true" [closable]="false" header="Header" footer="Footer"
-		[(visible)]="isInstructionVisible" [style]="{ width: '27vw' }" [breakpoints]="{ '960px': '75vw' }"
-		[draggable]="false" [resizable]="false">
-		<ng-template pTemplate="header" style="overflow: hidden"></ng-template>
-		<span style="float: right"><i (click)="closeAllHome()"
-				class="fa-solid fa-circle-xmark fa-2x custom-icon"></i></span>
-		<div style="margin: 10px 10px 10px 10px">
-			<div class="card text-center mt-1" style="background-color: #fbfbfb; padding: 10px">
-				<h3 class="p-2">What You Get With The Subscription</h3>
-			</div>
-		</div>
-
-		<div class="container-fluid bg-white">
-			<div class="row">
-				<div class="col-md-12">
-					<div class="font-secondarycolor fw-medium lh-lg">
-						<p>
-							<span><i class="fa-solid fa-circle-check custom-icon1"></i>&nbsp;</span>Discover Unexplored
-							Questions.
-						</p>
-						<p>
-							<span><i class="fa-solid fa-circle-check custom-icon1"></i>&nbsp;</span>Get access to smart
-							tools and resources to build your profile
-						</p>
-						<p>
-							<span><i class="fa-solid fa-circle-check custom-icon1"></i>&nbsp;</span>Alerts on upcoming
-							events
-						</p>
-						<p>
-							<span><i class="fa-solid fa-circle-check custom-icon1"></i>&nbsp;</span>Navigate Using Smart
-							Keyword Search
-						</p>
-						<p>
-							<span><i class="fa-solid fa-circle-check custom-icon1"></i>&nbsp;</span>Get Expert Answers
-							To Your Queries
-						</p>
-						<p>
-							<span><i class="fa-solid fa-circle-check custom-icon1"></i>&nbsp;</span>Find Answers To Your
-							Question With Verified Source Links
-						</p>
-						<p>
-							<span><i class="fa-solid fa-circle-check custom-icon1"></i>&nbsp;</span>Over half a million
-							Questions And Answers Throughout Platform
-						</p>
-						<p>
-							<span><i class="fa-solid fa-circle-check custom-icon1"></i>&nbsp;</span>Ask Any Personalized
-							Questions & Get Answer Within 8 Working Hours
-						</p>
-					</div>
-				</div>
-			</div>
-		</div>
-	</p-dialog>
+ 
 
 </div>

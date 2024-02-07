@@ -205,6 +205,6 @@ export class SubscriptionHistoryComponent implements OnInit {
     this.showPlan.emit(true);
   }
   upgradePlan() {
-    this.router.navigate(['pages/subscriptions/upgrade-subscription']);
+    this.router.navigate(['pages/subscriptions/upgrade-subscription',]);
   }
 }
