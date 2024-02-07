@@ -54,9 +54,9 @@
 			</div>
 		</div>
 		<!-- upcomming event -->
-		<div class="row mt-3 p-4 row-cols-1 row-cols-md-5 g-4" *ngIf="upcomingevent">
+		<div class="row mt-3 p-4 row-cols-1 row-cols-md-5 g-3" *ngIf="upcomingevent">
 			<div class="col mb-4" *ngFor="let event of upcommingevent;let i = index;">
-				<div class="card eventcard">
+				<div class="card eventcard" style="height: 100%;">
 					<span class="btn btn-primary eventcountdown">{{ event.daysago }}</span>
 					<div class="event-top card-body pb-0">
 						<div class="position-relative mt-2 p-2">
@@ -64,7 +64,7 @@
 								<img width="21%" height="141px;" src="{{ event.companylogo }}" alt="" />
 							</div>
 						</div>
-						<div class="mt-5 text-center">
+						<div class="mt-3 text-center ps-1 pe-2" style="transform: translateY(10px);">
 							<div class="eventtime" style="font-size: 10px;">
 								<span><i class="fa-regular fa-clock me-2"></i>{{ event.from }} - {{ event.to
 									}}</span>
@@ -74,43 +74,41 @@
 						</div>
 					</div>
 
-					<div class="event-bottom card-body">
-						<div *ngIf="event.registered===1?false:true">
+					<div class="event-bottom card-body" style="line-height: 1.2;">
+						<div>
 							<!-- befor registration -->
-							<h5 class="mb-0" tooltipPosition="top"
+							<h6 style="height: 40px;" class="mb-0" tooltipPosition="top"
 								[pTooltip]="event.eventname + '<br>Speaker - ' + event.speakername" [escape]="false">
-								{{ event.eventname.length >27 ? event.eventname.slice(0,27) +
-								'...':event.eventname
-								}} </h5>
-								<p class="small">{{ event.eventdescription.length > 43 ?
+								<b>{{ event.eventname.length >27 ? event.eventname.slice(0,100):event.eventname
+								}} </b></h6>
+								<!-- <p class="small">{{ event.eventdescription.length > 43 ?
 									event.eventdescription.slice(0,
-									43) + '...' : event.eventdescription }}</p>
+									150) + '...' : event.eventdescription }}</p> -->
 						</div>
 
-						<div class="row" *ngIf="event.registered===0?false:true">
-							<!-- after registration -->
+						<!-- <div class="row" *ngIf="event.registered===0?false:true">
+							after registration
 							<div class="col-12">
-								<h5 class="mb-0" tooltipPosition="top">
-									{{ event.eventname.length >15 ? event.eventname.slice(0,15) +
-									'...':event.eventname
+								<h6 class="mb-0" tooltipPosition="top">
+									<b></b>{{ event.eventname.length >15 ? event.eventname.slice(0,100) :event.eventname
 									}} 
-								</h5>
+								</h6>
 								<p class="small">{{ event.eventdescription.length > 25 ?
 									event.eventdescription.slice(0,
-									25) + '...' : event.eventdescription }}</p>
+									150)  : event.eventdescription }}</p>
 							</div>
-						</div>
-						<div class="row">
-							<div class="col-md-6 col-12 mb-md-0 mb-2 countryname">
+						</div> -->
+						<div class="row mt-1">
+							<div class="col-md-6 col-12 mb-md-0 mb-1 countryname">
 								<div class="d-flex align-items-center ">
 									<img class="me-1" style="width: 20px" src="{{ event.countrylog }}" alt="" />
 									<p style="white-space: nowrap;" class="small fw-semibold mb-0">{{
 										event.country }}</p>
 								</div>
 							</div>
-							<div class="col-md-6 col-12 mb-2 eventlink">
+							<div class="col-md-6 col-12 mb-1 eventlink" style="height: 29px;">
 								<span *ngIf="event.registered===0?false:true" target="_blank">
-									<div (click)="goingEventLink(event.eventlink)"><button
+									<div style="white-space: nowrap;" (click)="goingEventLink(event.eventlink)"><button
 											class="btn btn-primary registerbtn w-100 m-0"
 											type="button"><i class="fa-regular fa-clock"></i> &nbsp;Event
 											Link</button>
@@ -150,9 +148,9 @@
 			</div>
 		</div>
 		<!-- post event -->
-		<div class="row mt-3 p-4 row-cols-1 row-cols-md-5 g-4" *ngIf="postevent">
+		<div class="row mt-3 p-4 row-cols-1 row-cols-md-5 g-3" *ngIf="postevent">
 			<div class="col-mb-4" *ngFor="let events of postevetdetaisl">
-				<div class="card eventcard">
+				<div class="card eventcard" style="height: 100%;">
 					<span class="btn btn-primary eventcomplete">{{ events.date }}</span>
 					<div class="event-top card-body pb-0">
 						<div class="position-relative mt-3">
@@ -191,10 +189,11 @@
 						</div>
 						<div class="d-flex mt-2 align-items-center">
 							<i class="fa-regular fa-microphone-stand me-1 small"></i>
-							<p style="white-space: nowrap;" class="mb-0 small fw-semibold">Speaker-{{
-								events.speakername.length>20
-								?events.speakername.slice(0,20) + '...':events.speakername}}<span></span>
+							<p style="white-space: nowrap;" class="mb-0 small fw-semibold">Speaker-
 							</p>
+							<p class="mb-0 small fw-semibold">{{
+								events.speakername.length>20
+								?events.speakername.slice(0,20) + '...':events.speakername}}</p>
 						</div>
 					</div>
 
