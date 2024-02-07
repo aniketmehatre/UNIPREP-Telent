@@ -75,32 +75,30 @@
 					</div>
 
 					<div class="event-bottom card-body" style="line-height: 1.2;">
-						<div *ngIf="event.registered===1?false:true">
+						<div>
 							<!-- befor registration -->
-							<h5 class="mb-0" tooltipPosition="top"
+							<h6 style="height: 40px;" class="mb-0" tooltipPosition="top"
 								[pTooltip]="event.eventname + '<br>Speaker - ' + event.speakername" [escape]="false">
-								{{ event.eventname.length >27 ? event.eventname.slice(0,27) +
-								'...':event.eventname
-								}} </h5>
-								<p class="small">{{ event.eventdescription.length > 43 ?
+								<b>{{ event.eventname.length >27 ? event.eventname.slice(0,100):event.eventname
+								}} </b></h6>
+								<!-- <p class="small">{{ event.eventdescription.length > 43 ?
 									event.eventdescription.slice(0,
-									43) + '...' : event.eventdescription }}</p>
+									150) + '...' : event.eventdescription }}</p> -->
 						</div>
 
-						<div class="row" *ngIf="event.registered===0?false:true">
-							<!-- after registration -->
+						<!-- <div class="row" *ngIf="event.registered===0?false:true">
+							after registration
 							<div class="col-12">
-								<h5 class="mb-0" tooltipPosition="top">
-									{{ event.eventname.length >15 ? event.eventname.slice(0,15) +
-									'...':event.eventname
+								<h6 class="mb-0" tooltipPosition="top">
+									<b></b>{{ event.eventname.length >15 ? event.eventname.slice(0,100) :event.eventname
 									}} 
-								</h5>
+								</h6>
 								<p class="small">{{ event.eventdescription.length > 25 ?
 									event.eventdescription.slice(0,
-									25) + '...' : event.eventdescription }}</p>
+									150)  : event.eventdescription }}</p>
 							</div>
-						</div>
-						<div class="row">
+						</div> -->
+						<div class="row mt-1">
 							<div class="col-md-6 col-12 mb-md-0 mb-1 countryname">
 								<div class="d-flex align-items-center ">
 									<img class="me-1" style="width: 20px" src="{{ event.countrylog }}" alt="" />
