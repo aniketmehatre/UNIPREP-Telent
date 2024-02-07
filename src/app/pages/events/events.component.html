@@ -54,9 +54,9 @@
 			</div>
 		</div>
 		<!-- upcomming event -->
-		<div class="row mt-3 p-4 row-cols-1 row-cols-md-5 g-4" *ngIf="upcomingevent">
+		<div class="row mt-3 p-4 row-cols-1 row-cols-md-5 g-3" *ngIf="upcomingevent">
 			<div class="col mb-4" *ngFor="let event of upcommingevent;let i = index;">
-				<div class="card eventcard" >
+				<div class="card eventcard" style="height: 100%;">
 					<span class="btn btn-primary eventcountdown">{{ event.daysago }}</span>
 					<div class="event-top card-body pb-0">
 						<div class="position-relative mt-2 p-2">
@@ -64,7 +64,7 @@
 								<img width="21%" height="141px;" src="{{ event.companylogo }}" alt="" />
 							</div>
 						</div>
-						<div class="mt-4 text-center">
+						<div class="mt-4 text-center" style="transform: translateY(10px);">
 							<div class="eventtime" style="font-size: 10px;">
 								<span><i class="fa-regular fa-clock me-2"></i>{{ event.from }} - {{ event.to
 									}}</span>
@@ -74,7 +74,7 @@
 						</div>
 					</div>
 
-					<div class="event-bottom card-body">
+					<div class="event-bottom card-body" style="line-height: 1.2;">
 						<div *ngIf="event.registered===1?false:true">
 							<!-- befor registration -->
 							<h5 class="mb-0" tooltipPosition="top"
@@ -150,7 +150,7 @@
 			</div>
 		</div>
 		<!-- post event -->
-		<div class="row mt-3 p-4 row-cols-1 row-cols-md-5 g-4" *ngIf="postevent">
+		<div class="row mt-3 p-4 row-cols-1 row-cols-md-5 g-3" *ngIf="postevent">
 			<div class="col-mb-4" *ngFor="let events of postevetdetaisl">
 				<div class="card eventcard" style="height: 100%;">
 					<span class="btn btn-primary eventcomplete">{{ events.date }}</span>
