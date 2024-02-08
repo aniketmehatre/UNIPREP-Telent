@@ -10,7 +10,7 @@ import { DomSanitizer, SafeHtml, SafeUrl } from '@angular/platform-browser';
 export class UserGuideComponent implements OnInit {
   pdfUrl: SafeUrl | undefined;
   guideList: any[] = [];
-  selectedTopic:string="";
+  selectedTopic: string = "";
   constructor(
     private userGuideService: UserGuideService,
     private sanitizer: DomSanitizer
@@ -21,17 +21,19 @@ export class UserGuideComponent implements OnInit {
   ngOnInit(): void {
     this.pdfUrl = this.sanitizer.bypassSecurityTrustResourceUrl('https://api.uniprep.ai/uniprepapi/storage/app/public/UniprepUserGuide/userguidealltopics.pdf');
     // this.getUserGuideLinks();
+ 
+
   }
 
   changePdf(item: any) {
-    this.selectedTopic=item.topics
+    this.selectedTopic = item.topics
     this.pdfUrl = this.sanitizer.bypassSecurityTrustResourceUrl(item.url);
   }
 
   getUserGuideLinks() {
     this.userGuideService.getUserGuide().subscribe(response => {
       this.guideList = response;
-      this.selectedTopic=this.guideList[0].topics;
+      this.selectedTopic = this.guideList[0].topics;
       this.pdfUrl = this.sanitizer.bypassSecurityTrustResourceUrl('https://api.uniprep.ai/uniprepapi/storage/app/public/UniprepUserGuide/dashboard.pdf');
     })
   }

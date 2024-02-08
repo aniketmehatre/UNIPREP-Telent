@@ -29,6 +29,7 @@ import { SubscriptionHistoryComponent } from './subscription-history/subscriptio
 import { CardModule } from 'primeng/card';
 import { TabViewModule } from 'primeng/tabview';
 import { UpgradeSubscriptionComponent } from './upgrade-subscription/upgrade-subscription.component';
+import { SplitButtonModule } from 'primeng/splitbutton';
 
 @NgModule({
     declarations: [
@@ -60,7 +61,8 @@ import { UpgradeSubscriptionComponent } from './upgrade-subscription/upgrade-sub
         BreadcrumbModule,
         ChipModule,
         CardModule,
-        TabViewModule
+        TabViewModule,
+        SplitButtonModule
     ],
      providers: [],
 })

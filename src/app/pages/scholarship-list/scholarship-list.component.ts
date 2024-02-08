@@ -62,7 +62,7 @@ export class ScholarshipListComponent implements OnInit {
     this.checkplanExpire();
     this.getScholarshipType();
     this.getRegionList();
-    this.getCovers();
+    // this.getCovers();
   }
 
 
@@ -120,11 +120,11 @@ export class ScholarshipListComponent implements OnInit {
       this.scholarshipTypeList = response;
     })
   }
-  getCovers() {
-    this.scholarshipListService.getCoverList().subscribe(response => {
-      this.coverList = [...response];
-    });
-  }
+  // getCovers() {
+  //   this.scholarshipListService.getCoverList().subscribe(response => {
+  //     this.coverList = [...response];
+  //   });
+  // }
   loadScholarShipData() {
 
     let data: any = {
@@ -141,7 +141,7 @@ export class ScholarshipListComponent implements OnInit {
   applyFilter() {
     const formData = this.filterForm.value;
     if (!formData.home_country && !formData.country && !formData.study_level
-      && !formData.university && !formData.region && !formData.type && !formData.cover_id) {
+      && !formData.university && !formData.region && !formData.type) {
       this.toast.add({ severity: 'error', summary: 'Error', detail: 'Please make sure you have some filter!' });
       return;
     }
@@ -168,9 +168,9 @@ export class ScholarshipListComponent implements OnInit {
     if (this.filterForm.value.university && this.filterForm.value.university.length > 0) {
       data.university = this.filterForm.value.university
     }
-    if (this.filterForm.value.cover_id) {
-      data.cover_id = this.filterForm.value.cover_id
-    }
+    // if (this.filterForm.value.cover_id) {
+    //   data.cover_id = this.filterForm.value.cover_id
+    // }
     this.first = 0;
     this.scholarshipListService.getScholarshipList(data).subscribe((response) => {
       this.scholarshipData = response.scholarship;

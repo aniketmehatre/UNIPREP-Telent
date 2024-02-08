@@ -720,10 +720,22 @@ color: #9F9F9F;
     color:grey;
     background-color:rgb(213, 211, 211) ;
     border: 1px solid grey;
-    
+    font-size: 14px;
+    font-weight:600;
 }
 .smallIcon{
     font-size: 14px !important;
 }     
      
- 
+.historyBtn{
+  background: #FFA500;
+  color: white;
+  text-align: center;
+  padding: 6px 12px;
+  border-radius:100px !important;
+  width: 200px;
+}
+.fa-xmark-large{
+  padding:  10px;
+  font-weight: bold;
+}

@@ -475,7 +475,8 @@
 				<h6>Apply your coupon code here</h6>
 				<div class="p-inputgroup inputheight mt-1">
 					<input [(ngModel)]="couponInput" (keyup)="onInput($event)" pInputText
-						placeholder="Enter Your coupon code Here" type="text" />
+						placeholder="Enter Your coupon code Here" type="text" [readonly]="iscouponReadonly"/>
+						<i class="fa-solid fa-xmark-large" *ngIf="showCross" (click)="clearCoupon()"></i>
 					<button (click)="applyCoupon()" class="btn-primary" label="Apply" pButton pRipple
 						type="button"></button>
 				</div>
