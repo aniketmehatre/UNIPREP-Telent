@@ -28,6 +28,7 @@ import { ChipModule } from 'primeng/chip';
 import { SubscriptionHistoryComponent } from './subscription-history/subscription-history.component';
 import { CardModule } from 'primeng/card';
 import { TabViewModule } from 'primeng/tabview';
+import { UpgradeSubscriptionComponent } from './upgrade-subscription/upgrade-subscription.component';
 
 @NgModule({
     declarations: [
@@ -37,7 +38,8 @@ import { TabViewModule } from 'primeng/tabview';
         SubscriptionDataComponent,
         SubscriptionListComponent,
         SubscriptionSuccessComponent,
-        SubscriptionHistoryComponent
+        SubscriptionHistoryComponent,
+        UpgradeSubscriptionComponent
     ],
     imports: [
         CommonModule,

@@ -9,29 +9,42 @@
                 </h5>
 
             </div>
-            <div class="col-md-2"></div>
+            <div class="col-md-2 d-flex flex-column align-items-center">
+                <span >
+                    <button class="btn btn-primary ps-3 pe-3 pt-2 pb-2" (click)="filterBy()"
+                               style="background-color: var(--uniprep-primary);border-radius: 8px; border: aliceblue; color: #fff;"
+                               type="button">
+                    Filter
+						by</button>
+                </span>
+                <div class="pe-2">
+                    <span class="text-muted text-small"><strong>Total Investors : {{ totalInvestorsCount }}</strong></span>
+                </div>
+            </div>
         </div>
         <div class="row justify-content-center desktop">
-            <div class="col-md-3 col-5 text-md-start mb-3">
+            <!-- <div class="col-md-3 col-5 text-md-start mb-3">
                 <div class="p-input-icon-left w-100 mt-3">
                     <i class="pi pi-search"></i>
                     <input class="w-100 px-5 py-2" type="text" placeholder="Search Investors..." pInputText
                            [(ngModel)]="valueNearYouFilter" (input)="performSearch($event)"/>
                 </div>
-            </div>
+            </div> -->
             <div class="col-md-6 col-7 text-md-center text-end">
             </div>
-            <div class="col-md-3 col-12 text-end justify-content-end">
-                <span ><button class="btn btn-primary ps-3 pe-3 pt-2 pb-2" (click)="filterBy()"
+            <!-- <div class="col-md-3 col-12 text-end justify-content-end">
+                <span >
+                    <button class="btn btn-primary ps-3 pe-3 pt-2 pb-2" (click)="filterBy()"
                                style="background-color: var(--uniprep-primary);border-radius: 8px; border: aliceblue; color: #fff;"
                                type="button">
                     Filter
-						by</button></span>
+						by</button>
+                </span>
                 <span ><button class="btn btn-danger ps-3 pe-3 pt-2 pb-2" (click)="resetFilter()"
                                style="border-radius: 8px; color: #fff;"
                                type="button">
                     Reset</button></span>
-            </div>
+            </div> -->
         </div>
         <div class="mobile mt-2">
             <div class="row">
@@ -64,14 +77,14 @@
             <ng-template pTemplate="caption">
                 <div class="d-flex w-full align-items-end justify-content-end desktop">
                     <div class="pe-2">
-                        <span class="text-muted text-small">Total Investors : {{ totalInvestorsCount }}</span>
+                        <span class="text-muted text-small"><strong>Total Investors : {{ totalInvestorsCount }}</strong></span>
                     </div>
                     <div class="ps-2">
                     </div>
                 </div>
                 <div class="text-center mobile">
                     <div class="pe-2">
-                        <span class="text-muted text-small">Total Investors : {{ totalInvestorsCount }}</span>
+                        <span class="text-muted text-small"><strong>Total Investors : {{ totalInvestorsCount }}</strong></span>
                     </div>
                 </div>
             </ng-template>
@@ -110,11 +123,11 @@
                 </tr>
             </ng-template>
         </p-table>
-        <p-paginator [rows]="pageSize" [totalRecords]="totalInvestorsCount" (onPageChange)="pageChange($event)" [first]="page"
+        <p-paginator [rows]="pageSize" [totalRecords]="totalInvestorsCount" (onPageChange)="pageChange($event)" 
                      [rowsPerPageOptions]="[500, 300, 100]"></p-paginator>
     </div>
 
-    <div *ngIf="planExpired">
+    <div *ngIf="planExpired" class="investor-expired">
         <div class="row justify-content-center">
             <div class="col-md-2 text-start"></div>
             <div class="col-md-8 text-center">
@@ -187,7 +200,7 @@
                                         <div class="mb-3">
                                             <p-multiSelect [options]="countryList" styleClass="w-100"
                                                            formControlName="country"
-                                                           optionValue="id"
+                                                           optionValue="id" (onChange)="loadHeadQuartersData($event)"
                                                            defaultLabel="Select Country"
                                                            optionLabel="country" #InvestorCountryMultiSelect>
                                                 <ng-template pTemplate="selectedItems">
@@ -252,10 +265,11 @@
                         </div>
                     </div>
                     <span style="float: right">
-						<button type="submit" class="btn btn-dark"
-                                style="background-color: var(--uniprep-primary) !important">Apply Filter</button>
+						<button type="submit" class="btn btn-dark" style="background-color: var(--uniprep-primary) !important">Filter</button>
 					</span>
-
+                    <span style="float: right">
+                        <button class="btn btn-danger" (click)="resetFilter()"style="border-radius: 8px; color: #fff;"type="button">Reset</button>
+                    </span>
                 </div>
             </div>
         </form>

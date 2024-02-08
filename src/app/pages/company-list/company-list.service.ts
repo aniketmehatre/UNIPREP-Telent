@@ -20,7 +20,7 @@ export class CompanyListService {
 
   getMultiSelectData() {
     const headers = new HttpHeaders().set("Accept", "application/json");
-    return this.http.post<any>(environment.ApiUrl + "/SelectBoxValues",{}, {
+    return this.http.get<any>(environment.ApiUrl + "/CompanySelectValues", {
       headers: headers,
     });
   }
@@ -28,6 +28,13 @@ export class CompanyListService {
   export() {
     return this.http.post<ExportData>(environment.ApiUrl + '/ExportInvestors',{
     })
+  }
+
+  getHeadQuartersList(SelectedCountries: any){
+    const headers = new HttpHeaders().set("Accept", "application/json");
+    return this.http.post<any>(environment.ApiUrl + "/GetHeadQuartersForCompany",{selectedCountry: SelectedCountries}, {
+      headers: headers,
+    });
   }
 
 }

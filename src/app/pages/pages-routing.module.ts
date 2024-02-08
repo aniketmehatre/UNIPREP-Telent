@@ -17,6 +17,8 @@ import { InfoKitComponent } from './infokit/infokit.component';
 import {CompanyListComponent} from "./company-list/company-list.component";
 import { ScholarshipListComponent } from './scholarship-list/scholarship-list.component';
 
+
+
 const routes: Routes = [
     {
         path: '', component: PagesComponent,
@@ -55,6 +57,7 @@ const routes: Routes = [
 
                 component: PrivacypolicyComponent
             },
+            
             {
                 path: 'refundpolicy',
 
@@ -126,7 +129,7 @@ const routes: Routes = [
             {
                 path: 'startup',
                 component: InfoKitComponent
-            }
+            },
         ]
     }
 ];

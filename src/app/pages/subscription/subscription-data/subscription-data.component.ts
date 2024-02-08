@@ -209,6 +209,7 @@ export class SubscriptionDataComponent implements OnInit {
 
       this.subscriptionService.applyCoupon(data).subscribe((response) => {
         if (response.success) {
+          console.log(response);
           this.checkoutTotal = Number(this.subscriptionTotal) - response.discountPrice;
           this.discountAmount = response.discountPrice;
           this.discountPercentage = response.discountPercentage;

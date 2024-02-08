@@ -31,6 +31,8 @@ export class ChatComponent implements OnInit {
   reportForm: FormGroup;
   messages: any = [];
   reportOptions: any = [];
+  planstatus = "";
+  planmessage = "";
   constructor(
     private service: ChathistoryService,
     private authService: AuthService,
@@ -44,7 +46,18 @@ export class ChatComponent implements OnInit {
       reportOption: ["", Validators.required],
       comment: ["", Validators.required],
     });
-
+    this.authService.getNewUserTimeLeft().subscribe((res) => {
+      let data = res.time_left;
+      let subscription_exists_status = res.subscription_details;
+      if (subscription_exists_status.subscription_plan == "free_trail") {
+        this.planmessage = "Please subscribe and send the message";
+        this.planstatus == "freetrail";
+      } else if (subscription_exists_status.subscription_plan != "free_trail") {
+        this.planstatus == "expired";
+        this.planmessage =
+          "Your question credits are exhausted! Additional credits will be available at 12:00 AM tommorow.";
+      }
+    });
     this.modules = {
       toolbar: {
         container: [
@@ -148,7 +161,7 @@ export class ChatComponent implements OnInit {
   sendMessage() {
     if (this.totalcredits == 0) {
       this.textareavisbility = false;
-      this.creditspopupVisibility=true;
+      this.creditspopupVisibility = true;
       return;
     }
     if (this.textMessage == null || this.textMessage == "") {
@@ -196,7 +209,6 @@ export class ChatComponent implements OnInit {
       reject: () => {},
     });
   }
-
   reportSubmit() {
     if (this.reportForm.invalid) return;
     this.service.Reportchat(this.reportForm?.value).subscribe(
