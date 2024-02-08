@@ -154,9 +154,17 @@ i {
   font-size: small;
   font-weight: 600;
 }
-    @media screen and (max-width: 575.98px) {
-        .card-body {
-          padding: 0 !important;
-          overflow-y: scroll !important;
-        }
-    }
+@media screen and (max-width: 575.98px) {
+  .card-body {
+    padding: 0 !important;
+    overflow-y: scroll !important;
+  }
+}
+::ng-deep .p-dropdown {
+  position: relative !important;
+}
+.custompaginator{
+  position: relative;
+  bottom: 0;
+  left: 0;
+}

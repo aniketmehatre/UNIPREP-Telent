@@ -178,11 +178,11 @@ export class ChatComponent implements OnInit {
     };
     this.service.sendChatMessage(data).subscribe(
       (response) => {
-        this.toast.add({
-          severity: "success",
-          summary: "success",
-          detail: "Message sent successfully",
-        });
+        // this.toast.add({
+        //   severity: "success",
+        //   summary: "success",
+        //   detail: "Message sent successfully",
+        // });
         this.visibility = true;
         this.textMessage = "";
         this.textareavisbility = false;
