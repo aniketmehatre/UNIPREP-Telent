@@ -105,7 +105,7 @@ export function tokenGetter() {
         SocialLoginModule,
         FacebookModule.forRoot(),
         NgxLinkedinModule.forRoot({
-            clientId: ':clientId:'
+            clientId: environment.linkedinId
         })
     ],
   providers: [
@@ -130,7 +130,6 @@ export function tokenGetter() {
     ModalService,
       {
           provide: 'SocialAuthServiceConfig',
-
           useValue: {
               autoLogin: false,
               providers: [
