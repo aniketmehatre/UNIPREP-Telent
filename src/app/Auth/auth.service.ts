@@ -200,4 +200,10 @@ export class AuthService {
             headers: headers,
         });
     }
+    isExist(data: any){
+        const headers = new HttpHeaders().set("Accept", "application/json");
+        return this.http.post<any>(environment.ApiUrl + "/EmailExistOrNot", data,{
+            headers: headers,
+        });
+    }
 }

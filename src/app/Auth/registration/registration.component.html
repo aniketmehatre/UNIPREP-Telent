@@ -418,12 +418,15 @@
 													</div>
 												</form>
 													<div class="line mt-4 mb-4"></div>
-													<div class="social-media mt-3">
-														<div class="w-25">
-															<img src="../../../uniprep-assets/icons/google.svg" width="20">
-														</div>
-														<div class="ml-2 font-bold w-75">Continue with Google</div>
-													</div>
+<!--													<div class="social-media mt-3">-->
+<!--														<div class="w-25">-->
+<!--															<img src="../../../uniprep-assets/icons/google.svg" width="20">-->
+<!--														</div>-->
+<!--														<div class="ml-2 font-bold w-75">Continue with Google</div>-->
+<!--													</div>-->
+                                                <asl-google-signin-button class="ml-2 font-bold fullWidth" logo_alignment="center"
+                                                                          [width]="200"
+                                                                          type="standard" size="medium"></asl-google-signin-button>
 													<div class="social-media mt-3" (click)="loginWithFacebook()">
 														<div class="w-25">
 															<img src="../../../uniprep-assets/icons/facebook.svg" width="20">
@@ -757,12 +760,15 @@
 								Already have an account?<span><a class="font-primarycolor" href="login"> Login</a></span>
 							</p>
 							<div class="line"></div>
-							<div class="social-media mt-3">
-								<div class="w-25">
-									<img src="../../../uniprep-assets/icons/google.svg" width="20">
-								</div>
-								<div class="ml-2 font-bold w-75">Continue with Google</div>
-							</div>
+<!--							<div class="social-media mt-3">-->
+<!--								<div class="w-25">-->
+<!--									<img src="../../../uniprep-assets/icons/google.svg" width="20">-->
+<!--								</div>-->
+<!--								<div class="ml-2 font-bold w-75">Continue with Google</div>-->
+<!--							</div>-->
+                            <asl-google-signin-button class="ml-2 font-bold fullWidth" logo_alignment="center"
+                                                      [width]="200"
+                                                      type="standard" size="medium"></asl-google-signin-button>
 							<div class="social-media mt-3" (click)="loginWithFacebook()">
 								<div class="w-25">
 									<img src="../../../uniprep-assets/icons/facebook.svg" width="20">

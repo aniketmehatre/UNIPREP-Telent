@@ -105,8 +105,8 @@
 <!--													<div class="ml-2 font-bold w-75">Continue with Google</div>-->
 <!--												</div>-->
 
-                                                <asl-google-signin-button
-                                                                          class="ml-2 font-bold fullWidth" logo_alignment="center"
+                                                <asl-google-signin-button class="ml-2 font-bold fullWidth" logo_alignment="center"
+                                                                          [width]="200"
                                                                           type="standard" size="medium"></asl-google-signin-button>
 
                                                 <div class="social-media mt-3" (click)="loginWithFacebook()">
@@ -217,6 +217,7 @@
 <!--                                <asl-google-signin-button #button2 class="d-none" type="standard" size="medium"></asl-google-signin-button>-->
 <!--							</div>-->
                             <asl-google-signin-button class="ml-2 font-bold fullWidth" logo_alignment="center"
+                                                      [width]="200"
                                                       type="standard" size="medium"></asl-google-signin-button>
 
                             <div class="social-media mt-3" (click)="loginWithFacebook()">

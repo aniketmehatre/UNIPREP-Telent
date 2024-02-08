@@ -56,9 +56,18 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.authService.authState.subscribe((user) => {
-      this.service.gmailLogin(user).subscribe(data => {
-        this.storage.set(environment.tokenKey, data.token);
-        this.route.navigate(['/pages/dashboard']);
+      let data = {
+        email: user.email
+      }
+      this.service.isExist(data).subscribe(data => {
+        if (data == 'Exist'){
+          this.service.gmailLogin(user).subscribe(data => {
+            this.storage.set(environment.tokenKey, data.token);
+            this.route.navigate(['/pages/dashboard']);
+          });
+        }else{
+          this.toast.add({ severity: 'info', summary: 'Info', detail: 'Email not exist , Try Register' });
+        }
       });
       //var socialUser = user;
       //this.loggedIn = (user != null);
