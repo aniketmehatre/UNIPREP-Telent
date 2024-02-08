@@ -16,6 +16,7 @@ import { DropdownModule } from "primeng/dropdown";
 import { MultiSelectModule } from "primeng/multiselect";
 import { Router } from "@angular/router";
 import { AuthService } from "src/app/Auth/auth.service";
+import { PaginatorModule } from "primeng/paginator";
 @Component({
   selector: "uni-infokit",
   standalone: true,
@@ -28,6 +29,7 @@ import { AuthService } from "src/app/Auth/auth.service";
     DropdownModule,
     ReactiveFormsModule,
     MultiSelectModule,
+    PaginatorModule
   ],
   templateUrl: "./infokit.component.html",
   styleUrls: ["./infokit.component.scss"],
@@ -44,27 +46,36 @@ export class InfoKitComponent implements OnInit {
     this.authService.getNewUserTimeLeft().subscribe((res) => {
       let data = res.time_left;
       let subscription_exists_status = res.subscription_details;
-      if (data.plan === "expired" || subscription_exists_status.subscription_plan === 'free_trail' || subscription_exists_status.subscription_plan === 'Student' || subscription_exists_status.subscription_plan === 'Career') {
+      if (
+        data.plan === "expired" ||
+        subscription_exists_status.subscription_plan === "free_trail" ||
+        subscription_exists_status.subscription_plan === "Student" ||
+        subscription_exists_status.subscription_plan === "Career"
+      ) {
         this.planExpired = true;
       } else {
         this.planExpired = false;
       }
-    })
+    });
   }
   titletext = "STARTUP KIT";
-  folderdata: any = "0";
+  folderdata: any = {};
   routedata: any = [];
   parentfolderlists: any = [];
-  parentfilelists: any = [];
+  parentfilelists: any = [];totalcount=0;
   ngOnInit() {
-    this.getFolderData(this.folderdata);
+    this.folderdata = {
+      parent_id:0,
+      page: 1,
+      perpage: 10,
+    };
+    this.getFolderData();
   }
-  getFolderData(parent_id: any) {
+  getFolderData() {
     this.service
-      .GetFolderList({
-        parent_id: parent_id,
-      })
+      .GetFolderList(this.folderdata)
       .subscribe((res) => {
+        this.totalcount=res?.count;
         let responseData = res?.data;
         this.parentfolderlists = responseData.filter(
           (fdata: any) => fdata.isFolder == 1
@@ -74,11 +85,16 @@ export class InfoKitComponent implements OnInit {
         );
       });
   }
+  pageChange(event: any) {
+    this.folderdata.page = event.page + 1;
+    this.folderdata.perpage = event.rows;
+    this.getFolderData();
+  }
   getchildinfo(data: any) {
     if (data.isFolder == "2") {
       return;
     }
-    this.folderdata = data.id;
+    this.folderdata.parent_id = data.id;
     if (data.parent_id == "0") {
       this.titletext = data.name;
     }
@@ -88,12 +104,12 @@ export class InfoKitComponent implements OnInit {
       data: data,
       path: "country",
     });
-    this.getFolderData(this.folderdata);
+    this.getFolderData();
   }
   actionedrouteData: any = [];
   redirectTo(path: any, arrayindex: number) {
     if (path.path == "country") {
-      this.folderdata = path.id;
+      this.folderdata.parent_id = path.id;
       this.actionedrouteData = [];
       this.routedata.forEach((rdata: any, index: number) => {
         if (index <= arrayindex) {
@@ -101,17 +117,17 @@ export class InfoKitComponent implements OnInit {
         }
       });
       this.routedata = this.actionedrouteData;
-      this.getFolderData(path.id);
+      this.getFolderData();
     } else {
       if (path == "startup") {
-        this.folderdata = "0";
+        this.folderdata.parent_id = "0";
         this.routedata = [];
-        this.getFolderData("0");
+        this.getFolderData();
       }
       this.route.navigate(["pages/" + path]);
     }
   }
-  openFile(url:any) {
+  openFile(url: any) {
     window.open(url, "_blank");
   }
 

@@ -155,13 +155,16 @@ i {
   font-weight: 600;
 }
 @media screen and (max-width: 575.98px) {
-    .card-body {
-      padding: 0 !important;
-      overflow-y: scroll !important;
-    }
+  .card-body {
+    padding: 0 !important;
+    overflow-y: scroll !important;
+  }
 }
-
-.info-expired {
-  background: url('../../../uniprep-assets/images/Startup\ KIT@2x.jpg');
-  background-size: cover;
+::ng-deep .p-dropdown {
+  position: relative !important;
+}
+.custompaginator{
+  position: relative;
+  bottom: 0;
+  left: 0;
 }
