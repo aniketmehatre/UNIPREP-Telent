@@ -56,7 +56,7 @@
 							</li>
 							<li>
 								<div class="getstartedbtn pb-2">
-									<button class="pt-3 pb-3 btn btn-basic w-100 m-0">Unavailable</button>
+									<button class="pt-3 pb-3 btn btn-basic w-100 m-0 greyButton">Unavailable</button>
 								</div>
 							</li>
 						</ul>
@@ -86,22 +86,22 @@
 							<li><i class="pi pi-check smallIcon" [ngClass]="{'grey':subscription.available == false}"></i></li>
 							<li><i class="pi pi-check smallIcon" [ngClass]="{'grey':subscription.available == false}"></i></li>
 							<li><i class="pi smallIcon"
-									[ngClass]="{'pi-check': subscription.subscription_plan === 'Student' || subscription.subscription_plan === 'Career' || subscription.subscription_plan ==='Entrepreneur', 'pi-times': !(subscription.subscription_plan === 'Student' || subscription.subscription_plan === 'Career' || subscription.subscription_plan ==='Entrepreneur')}"></i>
+									[ngClass]="{'pi-check': subscription.subscription_plan === 'Student' || subscription.subscription_plan === 'Career' || subscription.subscription_plan ==='Entrepreneur', 'pi-times': !(subscription.subscription_plan === 'Student' || subscription.subscription_plan === 'Career' || subscription.subscription_plan ==='Entrepreneur'),'grey':subscription.available == false}"></i>
 							</li>
 							<li><i class="pi smallIcon"
-									[ngClass]="{'pi-check': subscription.subscription_plan === 'Student' || subscription.subscription_plan === 'Career' || subscription.subscription_plan ==='Entrepreneur', 'pi-times': !(subscription.subscription_plan === 'Student' || subscription.subscription_plan === 'Career' || subscription.subscription_plan ==='Entrepreneur')}"></i>
+									[ngClass]="{'pi-check': subscription.subscription_plan === 'Student' || subscription.subscription_plan === 'Career' || subscription.subscription_plan ==='Entrepreneur', 'pi-times': !(subscription.subscription_plan === 'Student' || subscription.subscription_plan === 'Career' || subscription.subscription_plan ==='Entrepreneur'),'grey':subscription.available == false}"></i>
 							</li>
 							<li><i class="pi smallIcon"
-									[ngClass]="{'pi-check': subscription.subscription_plan === 'Student' || subscription.subscription_plan === 'Career' || subscription.subscription_plan ==='Entrepreneur', 'pi-times': !(subscription.subscription_plan === 'Student' || subscription.subscription_plan === 'Career' || subscription.subscription_plan ==='Entrepreneur')}"></i>
+									[ngClass]="{'pi-check': subscription.subscription_plan === 'Student' || subscription.subscription_plan === 'Career' || subscription.subscription_plan ==='Entrepreneur', 'pi-times': !(subscription.subscription_plan === 'Student' || subscription.subscription_plan === 'Career' || subscription.subscription_plan ==='Entrepreneur'),'grey':subscription.available == false}"></i>
 							</li>
 							<li><i class="pi smallIcon"
-									[ngClass]="{'pi-check': subscription.subscription_plan === 'Student' || subscription.subscription_plan === 'Career' || subscription.subscription_plan ==='Entrepreneur', 'pi-times': !(subscription.subscription_plan === 'Career' || subscription.subscription_plan ==='Entrepreneur')}"></i>
+									[ngClass]="{'pi-check': subscription.subscription_plan === 'Student' || subscription.subscription_plan === 'Career' || subscription.subscription_plan ==='Entrepreneur', 'pi-times': !(subscription.subscription_plan === 'Career' || subscription.subscription_plan ==='Entrepreneur'),'grey':subscription.available == false}"></i>
 							</li> 
 							<li><i class="pi smallIcon"
-									[ngClass]="{'pi-check': subscription.subscription_plan === 'Student' || subscription.subscription_plan === 'Career' || subscription.subscription_plan ==='Entrepreneur', 'pi-times': !(subscription.subscription_plan ==='Entrepreneur')}"></i>
+									[ngClass]="{'pi-check': subscription.subscription_plan === 'Student' || subscription.subscription_plan === 'Career' || subscription.subscription_plan ==='Entrepreneur', 'pi-times': !(subscription.subscription_plan ==='Entrepreneur'),'grey':subscription.available == false}"></i>
 							</li>
 							<li><i class="pi smallIcon"
-									[ngClass]="{'pi-check': subscription.subscription_plan === 'Student' || subscription.subscription_plan === 'Career' || subscription.subscription_plan ==='Entrepreneur', 'pi-times': !(subscription.subscription_plan ==='Entrepreneur')}"></i>
+									[ngClass]="{'pi-check': subscription.subscription_plan === 'Student' || subscription.subscription_plan === 'Career' || subscription.subscription_plan ==='Entrepreneur', 'pi-times': !(subscription.subscription_plan ==='Entrepreneur'),'grey':subscription.available == false}"></i>
 							</li>
 							<li>
 								<h5 class="fw-semibold">{{ subscription.validity }} Months Validity</h5>
@@ -111,8 +111,11 @@
 									<button class="pt-3 pb-3 btn btn-primary w-100 m-0 text-white"
 										*ngIf="subscription.selected"
 										(click)="selectedSubscriptionPlan(subscription)">Selected</button>
-									<button class="pt-3 pb-3 btn btn-basic w-100 m-0" *ngIf="!subscription.selected"
-										(click)="selectedSubscriptionPlan(subscription)"><span *ngIf="existingSubscription[0]?.plan==subscription.subscription_plan">Current Plan</span><span *ngIf="existingSubscription[0]?.plan!=subscription.subscription_plan">Upgrade Plan</span></button>
+									<button class="pt-3 pb-3 btn btn-basic w-100 m-0" *ngIf="!subscription.selected" [ngClass]="{'btn btn-primary':existingSubscription[0]?.plan==subscription.subscription_plan,'greyButton':existingSubscription[0]?.plan!=subscription.subscription_plan && subscription.available==false}"
+										(click)="selectedSubscriptionPlan(subscription)"><span *ngIf="existingSubscription[0]?.plan==subscription.subscription_plan">Current Plan</span>
+										<span *ngIf="existingSubscription[0]?.plan!=subscription.subscription_plan && subscription.available==true">Upgrade Plan</span>
+										<span *ngIf="existingSubscription[0]?.plan!=subscription.subscription_plan && subscription.available==false">Unavailable</span>
+									</button>
 								</div>
 							</li>
 						</ul>
