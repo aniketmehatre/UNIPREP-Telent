@@ -1,6 +1,6 @@
 <div class="card readingcard">
   <div class="card-body pt-0">
-    <div class="row justify-content-center">
+    <div class="row justify-content-center" *ngIf="!planExpired">
       <div class="col-md-2 text-start">
       </div>
       <div class="col-md-8 text-center">
@@ -45,15 +45,28 @@
         </div>
       </div>
     </div>
-      <div class="text-center mt-5 mb-4" *ngIf="planExpired">
+    <div *ngIf="planExpired" class="resources-expired">
+      <div class="row">
+        <div class="col-md-2 text-start"></div>
+        <div class="col-md-8 text-center">
+          <h5 class="select-title mb-1" tooltipPosition="top" pTooltip="">
+            RESOURCES
+          </h5>
+    
+        </div>
+        <div class="col-md-2"></div>
+      </div>
+      <div class="text-center mt-5 mb-4">
         <img src="../../../uniprep-assets/images/smartloack.png" class="image" width="80">
         <h3>Upgrade now to access invaluable tools</h3>
-        <p>Unlock the power of success with our exclusive events!<br> Upgrade your plan now to gain instant access.</p>
-        <p class="offer">Events offers:<br> Career growth, International Education, Life in your destination and more</p>
+        <p>Unlock the power of success with our exclusive Resources! <br> Upgrade your plan now to gain instant
+          access.</p>
+        <p class="offer">Resources offer:<br>100+ tools like CV builder,LinkedIn profile samples,global job search toolsand many more to kickstart yoyr global journey</p>
         <button pButton type="button"
-          class=" text-white p-ripple p-button-rounded p-button-warning p-button p-component" (click)="upgradePlan()"> Upgrade Plan<i
-            class="pi pi-arrow-circle-right"></i></button>
+          class=" text-white p-ripple p-button-rounded p-button-warning p-button p-component p-2"
+          (click)="upgradePlan()">Upgrade Plan<i class="fa fa-arrow-right exhausted-plan-icon"></i></button>
       </div>
+    </div>
   </div>
 </div>
 

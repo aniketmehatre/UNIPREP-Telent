@@ -111,7 +111,7 @@
         <p-paginator [rows]="pageSize" [totalRecords]="totalCompanyCount" (onPageChange)="pageChange($event)" 
                      [rowsPerPageOptions]="[500, 300 ,100]"></p-paginator>
     </div>
-    <div *ngIf="planExpired">
+    <div *ngIf="planExpired" class="company-list-expired">
         <div class="row">
             <div class="col-md-2 text-start"></div>
             <div class="col-md-8 text-center">
