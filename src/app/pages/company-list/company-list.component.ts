@@ -61,9 +61,8 @@ export class CompanyListComponent implements OnInit {
 
   loadMultiSelectData(){
     this.companyListService.getMultiSelectData().subscribe((response) => {
-      this.industryInterested = response.investor_industry_interested;
+      this.industryInterested = response.company_industry;
       this.countryList = response.countries_list;
-      this.headQuartersList = response.head_quarters_list;
     });
   }
 
@@ -127,5 +126,11 @@ export class CompanyListComponent implements OnInit {
 
   upgradePlan(): void {
     this.router.navigate(["/pages/subscriptions"]);
+  }
+
+  loadHeadQuartersData(event: any){
+    this.companyListService.getHeadQuartersList(event.value).subscribe((response) => {
+      this.headQuartersList = response;
+    });
   }
 }

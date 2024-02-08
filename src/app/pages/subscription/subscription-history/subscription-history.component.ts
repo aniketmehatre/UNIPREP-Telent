@@ -48,6 +48,7 @@ export class SubscriptionHistoryComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    console.log(this.userSubscription);
   }
 
 
@@ -202,5 +203,8 @@ export class SubscriptionHistoryComponent implements OnInit {
 
   gotoPlan() {
     this.showPlan.emit(true);
+  }
+  upgradePlan() {
+    this.router.navigate(['pages/subscriptions/upgrade-subscription',]);
   }
 }

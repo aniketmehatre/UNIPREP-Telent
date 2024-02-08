@@ -4,6 +4,7 @@ import {AuthGuard} from "./Auth/auth.guard";
 import {UserResolver} from "./resolvers/user.resolver";
 import { LandingComponent } from "./pages/landing/landing.component";
 import { AppComponent } from "./app.component";
+import { PrivacyComponent } from "./pages/privacy/privacy.component";
 const routes: Routes = [
   {
     path: '',
@@ -13,6 +14,10 @@ const routes: Routes = [
   {
     path: 'home',
     component: LandingComponent
+  },
+  {
+    path: 'privacy',
+    component: PrivacyComponent
   },
   {
     path: 'pages',

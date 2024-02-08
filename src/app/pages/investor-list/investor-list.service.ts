@@ -29,4 +29,11 @@ export class InvestorListService {
     })
   }
 
+  getHeadQuartersList(selectedValue: any){
+    const headers = new HttpHeaders().set("Accept", "application/json");
+    return this.http.post<any>(environment.ApiUrl + "/GetHeadQuartersbyCountry",{selectedCountry: selectedValue}, {
+      headers: headers,
+    });
+  }
+
 }
