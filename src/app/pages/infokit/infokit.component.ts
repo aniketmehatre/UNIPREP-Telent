@@ -17,6 +17,7 @@ import { MultiSelectModule } from "primeng/multiselect";
 import { Router } from "@angular/router";
 import { AuthService } from "src/app/Auth/auth.service";
 import { PaginatorModule } from "primeng/paginator";
+import { TooltipModule } from "primeng/tooltip";
 @Component({
   selector: "uni-infokit",
   standalone: true,
@@ -29,7 +30,8 @@ import { PaginatorModule } from "primeng/paginator";
     DropdownModule,
     ReactiveFormsModule,
     MultiSelectModule,
-    PaginatorModule
+    PaginatorModule,
+    TooltipModule
   ],
   templateUrl: "./infokit.component.html",
   styleUrls: ["./infokit.component.scss"],

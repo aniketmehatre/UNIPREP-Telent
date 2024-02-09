@@ -89,6 +89,8 @@ input[type="text"] {
   align-items: flex-start;
   padding: 1rem;
   .folderinfo {
+    overflow: hidden;
+    width: 40%;
     h5 {
       margin: 0 !important;
       font-size: small;
@@ -163,7 +165,7 @@ i {
 ::ng-deep .p-dropdown {
   position: relative !important;
 }
-.custompaginator{
+.custompaginator {
   position: relative;
   bottom: 0;
   left: 0;
