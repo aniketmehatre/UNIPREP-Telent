@@ -36,6 +36,12 @@ export class LoginComponent implements OnInit, OnDestroy {
     private storage: LocalStorageService, private fb: FacebookService, private ngxLinkedinService: NgxLinkedinService
   ) { }
 
+  linkedInCredentials = {
+    clientId: environment.linkedinId,
+    redirectUrl: "http://localhost:4200/pages/dashboard",
+    scope: "r_liteprofile%20r_emailaddress%20w_member_social" // To read basic user profile data and email
+  };
+
   button1Clicked() {
     this.button2.nativeElement.click();
   }
@@ -129,9 +135,12 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
 
   loginWithLinkedIn(){
-      this.ngxLinkedinService.signIn().subscribe(user => {
-        console.info('signIn', user);
-      });
+      // this.ngxLinkedinService.signIn().subscribe(user => {
+      //   console.info('signIn', user);
+      // });
+    window.location.href = `https://www.linkedin.com/uas/oauth2/authorization?response_type=code&client_id=${
+        this.linkedInCredentials.clientId
+    }&redirect_uri=${this.linkedInCredentials.redirectUrl}&scope={this.linkedInCredentials.scope}`;
   }
 
 }
