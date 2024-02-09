@@ -268,7 +268,7 @@ export class SidenavComponent {
         newValue.title != "FAQ" &&
         newValue.title != "24x7 Support"
       ) {
-        this.visibleExhasted = true;
+        this.visibleExhasted = false;
       } else {
         this.visibleExhasted = false;
       }

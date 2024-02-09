@@ -6,6 +6,7 @@ import { ConfirmationService, MenuItem } from "primeng/api";
 import { ModuleServiceService } from "../../module-store/module-service.service";
 import { DataService } from "../../../data.service";
 import { LocationService } from "../../../location.service";
+import { AuthService } from 'src/app/Auth/auth.service';
 
 @Component({
   selector: 'uni-list-sub-modules',
@@ -39,9 +40,16 @@ export class ListSubModulesComponent implements OnInit {
   currentModuleId: any
   currentCountryId: any
   currentApiSlug: any;
+  infoMessage!: string;
+  unlockMessage!: string;
+  aboutModule!: string;
+  moduleDetails!: string;
+  upgradePlanMsg!: string;
+  selectedModule!: string;
+  planExpired!: boolean;
 
 
-  constructor(private moduleListService: ModuleServiceService, private router: Router, private dataService: DataService,
+  constructor(private moduleListService: ModuleServiceService, private router: Router, private dataService: DataService, private authService: AuthService,
     private locationService: LocationService, private route: ActivatedRoute,
     private confirmationService: ConfirmationService) {
     this.responsiveOptions = [
@@ -75,42 +83,71 @@ export class ListSubModulesComponent implements OnInit {
         this.currentModuleId = 1;
         this.currentModuleName = 'Pre-Application';
         this.currentApiSlug = 'GetQuestionsCount';
+        this.infoMessage = 'Upgrade to Access the Pre-application',
+        this.unlockMessage = 'Unlock the power of success with our exclusive Pre-application!',
+        this.upgradePlanMsg = 'Upgrade your plan now to gain instant access.';
+        this.aboutModule = 'Pre-application offers information about:',
+        this.moduleDetails = 'Scholarships, document checklist, Education loan, letter of Recommendation and more!'
         break;
       case 'post-application':
         this.currentModuleId = 2;
         this.currentModuleName = 'Post-Application';
         this.currentApiSlug = 'GetQuestionsCount';
+        this.infoMessage = 'Upgrade to Access the post-application',
+        this.unlockMessage = 'Unlock the power of success with our exclusive post-application!',
+        this.upgradePlanMsg = 'Upgrade your plan now to gain instant access.';
+        this.aboutModule = 'Post-application offers information about:',
+        this.moduleDetails = 'Visa, departure, healthcare, tuition fees and many more!'
         break;
       case 'post-admission':
         this.currentModuleId = 3;
         this.currentModuleName = 'Post-Admission';
         this.currentApiSlug = 'GetQuestionsCount';
+        this.infoMessage = 'Upgrade to Access the post-admission',
+        this.unlockMessage = 'Unlock the power of success with our exclusive post-admission!',
+        this.upgradePlanMsg = 'Upgrade your plan now to gain instant access.';
+        this.aboutModule = 'Post-admission offers information about:',
+        this.moduleDetails = ' Arrival, student discounts, banking, full time jobs, post study work and many more!'
         break;
       case 'career-hub':
         this.currentModuleId = 4;
         this.currentModuleName = 'Career Hub';
         this.currentApiSlug = 'GetQuestionsCount';
+        this.infoMessage = 'Upgrade to Access the post-admission',
+        this.unlockMessage = 'Unlock the power of success with our exclusive post-admission!',
+        this.upgradePlanMsg = 'Upgrade your plan now to gain instant access.';
+        this.aboutModule = 'Post-admission offers information about:',
+        this.moduleDetails = ' Arrival, student discounts, banking, full time jobs, post study work and many more!'
         break;
       case 'university':
         this.currentModuleId = 5;
         this.currentModuleName = 'University';
         this.currentApiSlug = 'GetQuestionsCount';
+        this.selectedModule = 'university'
         break;
       default:
         this.currentModuleId = 6;
         this.currentModuleName = 'Life At ' + countryName;
         this.currentApiSlug = 'GetQuestionsCount';
+        this.infoMessage = 'Upgrade to access information about life in your chosen destination',
+        this.unlockMessage = 'Unlock the power of success with our exclusive destination',
+        this.upgradePlanMsg = 'Upgrade your plan now to gain instant access.';
+        this.aboutModule = 'This section covers information about:',
+        this.moduleDetails = 'Festivals, events, currency, budget, housing and many more!',
+        this.selectedModule = 'life-at-country'
         break;
 
     }
-    if (this.currentModuleId == 5) {
-      return;
-    }
+    /*FU
+    // if (this.currentModuleId == 5) {
+    //   return;
+    // } */
     localStorage.setItem("currentmodulenameforrecently", this.currentModuleName);
     this.loadModuleAndSubModule();
     if (this.route.snapshot.paramMap.get('id') == '2') {
       this.startQuiz();
     }
+    this.checkplanExpire();
   }
 
   loadModuleAndSubModule() {
@@ -333,6 +370,18 @@ export class ListSubModulesComponent implements OnInit {
     this.isReviewVisible = true;
   }
 
+  checkplanExpire(): void {
+    this.authService.getNewUserTimeLeft().subscribe((res) => {
+      let data = res.time_left;
+      let subscription_exists_status = res.subscription_details;
+      if (data.plan === "expired" || subscription_exists_status.subscription_plan === 'free_trail' || subscription_exists_status.subscription_plan === 'Student') {
+        this.planExpired = true;
+      } else {
+        this.planExpired = false;
+      }
+    })
+  }
+
   retryQuiz() {
     this.isReviewVisible = false;
     this.isQuizSubmit = false;
@@ -343,5 +392,8 @@ export class ListSubModulesComponent implements OnInit {
     this.selectedQuiz = 1;
     this.positionNumber = 1;
     this.isInstructionVisible = true;
+  }
+  upgradePlan(): void {
+    this.router.navigate(["/pages/subscriptions"]);
   }
 }
