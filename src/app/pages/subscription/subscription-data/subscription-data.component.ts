@@ -50,6 +50,8 @@ export class SubscriptionDataComponent implements OnInit {
   discountPercentage: any;
   @Output() showHistory = new EventEmitter();
   @Input() showHistoryBtn: any;
+  showCross: boolean = false;
+  iscouponReadonly: boolean = false;
 
   constructor(private authService: AuthService,
     private subscriptionService: SubscriptionService,
@@ -104,10 +106,10 @@ export class SubscriptionDataComponent implements OnInit {
       perpage: 1000,
       studenttype: this.studentType
     }
-    
+
     this.subscriptionService.getSubscriptions(data).subscribe((response) => {
-      const mostPopularOnes = response.subscriptions.filter((item:any) => item.popular === 1);
-      const filteredData = response.subscriptions.filter((item:any) => item.popular !== 1);
+      const mostPopularOnes = response.subscriptions.filter((item: any) => item.popular === 1);
+      const filteredData = response.subscriptions.filter((item: any) => item.popular !== 1);
       filteredData.splice(1, 0, ...mostPopularOnes);
       this.subscriptionList = filteredData;
       this.subscriptionList.forEach((item: any) => {
@@ -117,7 +119,7 @@ export class SubscriptionDataComponent implements OnInit {
         item.selectedCountry = {};
         // item.filteredCountryList = this.countryList.filter((data: any) => filteredCountryIds.includes(data.id));
         item.filteredCountryList = this.countryList;
-        item.selectedCountry = this.countryList.find((country:any) => country.id === Number(this.user?.interested_country_id));
+        item.selectedCountry = this.countryList.find((country: any) => country.id === Number(this.user?.interested_country_id));
         item.isActive = item.popular == 1 ? true : false;
       });
     });
@@ -186,6 +188,8 @@ export class SubscriptionDataComponent implements OnInit {
   }
 
   applyCoupon() {
+    this.iscouponReadonly = true;
+    this.showCross = true;
     if (this.showCheckout) {
       this.toast.add({ severity: 'error', summary: 'Error', detail: 'Please select the Plan!' });
       return;
@@ -194,22 +198,22 @@ export class SubscriptionDataComponent implements OnInit {
       this.toast.add({ severity: 'error', summary: 'Error', detail: 'Invalid Coupon Code' });
       return;
     }
-    if (this.subscriptionService.usedCoupon == this.couponInput) {
-      this.toast.add({ severity: 'error', summary: 'Error', detail: 'Coupon already used' });
-      return;
-    }
-    
+    // if (this.subscriptionService.usedCoupon == this.couponInput) {
+    //   this.toast.add({ severity: 'error', summary: 'Error', detail: 'Coupon already used' });
+    //   return;
+    // }
+console.log(this.selectedSubscriptionDetails);
     if (this.couponInput) {
       this.subscriptionService.usedCoupon = this.couponInput
       let data = {
         couponCode: this.couponInput,
         checkoutTotal: this.subscriptionTotal,
-        subscriptioncouponstatus: this.selectedSubscriptionDetails?.couponcode
+        subscriptioncouponstatus: this.selectedSubscriptionDetails?.couponcode,
+        subscription_id: this.selectedSubscriptionDetails?.id
       }
 
       this.subscriptionService.applyCoupon(data).subscribe((response) => {
         if (response.success) {
-          console.log(response);
           this.checkoutTotal = Number(this.subscriptionTotal) - response.discountPrice;
           this.discountAmount = response.discountPrice;
           this.discountPercentage = response.discountPercentage;
@@ -299,15 +303,19 @@ export class SubscriptionDataComponent implements OnInit {
       }
     );
   }
-  
+
   onInput(event: any) {
     this.invalidCoupon = false;
-    if(this.couponInput=='' || this.couponInput==null){
-      this.toast.add({ severity: 'error', summary: 'Error', detail: 'Coupon Removed' });
-      this.subscriptionTotal = this.subscriptionAmt;
-      this.checkoutTotal = this.subscriptionTotal;
-      this.discountAmountEnable=false;
-    }
+
+  }
+  clearCoupon() {
+    this.toast.add({ severity: 'error', summary: 'Error', detail: 'Coupon Removed' });
+    this.subscriptionTotal = this.subscriptionAmt;
+    this.checkoutTotal = this.subscriptionTotal;
+    this.discountAmountEnable = false;
+    this.showCross = false;
+    this.iscouponReadonly = false;
+    this.couponInput = "";
   }
 
   gotoHistory() {
