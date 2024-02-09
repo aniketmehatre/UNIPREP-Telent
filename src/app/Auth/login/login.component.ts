@@ -11,7 +11,6 @@ import { SubSink } from "subsink";
 import { DataService } from "src/app/data.service";
 import {DashboardService} from "../../pages/dashboard/dashboard.service";
 import {FacebookLoginProvider, GoogleLoginProvider, SocialAuthService} from "@abacritt/angularx-social-login";
-import {BehaviorSubject, take} from "rxjs";
 import {environment} from "@env/environment";
 import {LocalStorageService} from "ngx-localstorage";
 import {Observable} from "rxjs/internal/Observable";
@@ -68,6 +67,10 @@ export class LoginComponent implements OnInit, OnDestroy {
       this.service.isExist(data).subscribe(data => {
         if (data == 'Exist'){
           this.service.gmailLogin(user).subscribe(data => {
+            if(data.status == 'error'){
+              this.toast.add({ severity: 'error', summary: 'Error', detail: data.message });
+              return;
+            }
             this.storage.set(environment.tokenKey, data.token);
             this.route.navigate(['/pages/dashboard']);
           });
