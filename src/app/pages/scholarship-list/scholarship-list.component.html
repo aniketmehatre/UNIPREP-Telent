@@ -2,9 +2,7 @@
     <div class="card-body pt-0" *ngIf="!planExpired">
         <div class="row justify-content-center">
             <div class="col-md-2 text-start">
-                <div class="p-2">
-                    <span class="text-muted text-small">Total Scholarship : {{ totalScholarShipCount }}</span>
-                </div>
+
             </div>
             <div class="col-md-8 text-center">
                 <h5 class="select-title mb-1" tooltipPosition="top" pTooltip="">
@@ -14,13 +12,17 @@
             </div>
             <div class="col-md-2">
                 <span><button class="btn btn-primary ps-3 pe-3 pt-2 pb-2" (click)="filterBy()"
-                    style="background-color: var(--uniprep-primary);border-radius: 8px; border: aliceblue; color: #fff;"
-                    type="button">
-                    Filter
-                    by</button></span>
-            <span><button class="btn btn-danger ps-3 pe-3 pt-2 pb-2" (click)="resetFilter()"
-                    style="border-radius: 8px; color: #fff;" type="button">
-                    Reset</button></span>
+                        style="background-color: var(--uniprep-primary);border-radius: 8px; border: aliceblue; color: #fff;"
+                        type="button">
+                        Filter
+                        by</button></span>
+                <span><button class="btn btn-danger ps-3 pe-3 pt-2 pb-2" (click)="resetFilter()"
+                        style="border-radius: 8px; color: #fff;" type="button">
+                        Reset</button></span>
+                <br>
+                <div class="p-2">
+                    <span class="text-muted text-small">Total Scholarship : {{ totalScholarShipCount }}</span>
+                </div>
             </div>
         </div>
         <br>
@@ -108,126 +110,131 @@
         <button pButton type="button"
             class=" text-white p-ripple p-button-rounded p-button-warning p-button p-component"
             (click)="upgradePlan()">Upgrade Plan<i class="pi pi-arrow-circle-right"></i></button>
-    <div *ngIf="planExpired" class="scholarship-expired">
-        <div class="row">
-            <div class="col-md-2 text-start"></div>
-            <div class="col-md-8 text-center">
-                <h5 class="select-title mb-1" tooltipPosition="top" pTooltip="">
-                    SCHOLARSHIP LIST
-                </h5>
-    
+        <div *ngIf="planExpired" class="scholarship-expired">
+            <div class="row">
+                <div class="col-md-2 text-start"></div>
+                <div class="col-md-8 text-center">
+                    <h5 class="select-title mb-1" tooltipPosition="top" pTooltip="">
+                        SCHOLARSHIP LIST
+                    </h5>
+
+                </div>
+                <div class="col-md-2"></div>
             </div>
-            <div class="col-md-2"></div>
-        </div>
-        <div class="text-center mt-5 mb-4">
-            <img src="../../../uniprep-assets/images/smartloack.png" class="image" width="80">
-            <h3>Upgrade now to access invaluable tools</h3>
-            <p>Unlock the power of success with our exclusive Scholarship list! <br> Upgrade your plan now to gain instant access.</p>
-            <p class="offer">Scholarship list offers:<br>5000+ regional, national, international, university and fully funded scholarships to ease your
-            financial burden</p>
-            <button pButton type="button" class=" text-white p-ripple p-button-rounded p-button-warning p-button p-component p-2"
-                (click)="upgradePlan()">Upgrade Plan<i class="fa fa-arrow-right exhausted-plan-icon"></i></button>
+            <div class="text-center mt-5 mb-4">
+                <img src="../../../uniprep-assets/images/smartloack.png" class="image" width="80">
+                <h3>Upgrade now to access invaluable tools</h3>
+                <p>Unlock the power of success with our exclusive Scholarship list! <br> Upgrade your plan now to gain
+                    instant access.</p>
+                <p class="offer">Scholarship list offers:<br>5000+ regional, national, international, university and
+                    fully funded scholarships to ease your
+                    financial burden</p>
+                <button pButton type="button"
+                    class=" text-white p-ripple p-button-rounded p-button-warning p-button p-component p-2"
+                    (click)="upgradePlan()">Upgrade Plan<i class="fa fa-arrow-right exhausted-plan-icon"></i></button>
+            </div>
         </div>
     </div>
-</div>
 
-<div class="modal" tabindex="-1" role="dialog" [ngStyle]="{ display: isFilterVisible }">
-    <div class="modal-dialog" role="document">
-        <form role="form" [formGroup]="filterForm" (ngSubmit)="applyFilter()">
-            <div class="modal-content" style="margin-top: 50% !important">
-                <div class="modal-header flex justify-content-between">
-                    <h4 class="modal-title">Filter Scholarship</h4>
-                    <span style="cursor: pointer;color: #3f4c83;"><i (click)="closePopup()"
-                            class="fa-solid fa-circle-xmark fa-2x"></i></span>
-                </div>
-                <div class="modal-body">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <label class="form-label" style="font-size: medium;font-weight:500">Filter by
-                                        Scholarship Country</label>
-                                    <div class="form-group">
-                                        <div class="mb-3">
-                                            <p-dropdown formControlName="country" optionValue="id" optionLabel="country"
-                                                styleClass="w-full" [options]="countryList" [filter]="true"
-                                                filterBy="country" (onChange)="countryChange($event)"
-                                                placeholder="Select  Country"></p-dropdown>
+    <div class="modal" tabindex="-1" role="dialog" [ngStyle]="{ display: isFilterVisible }">
+        <div class="modal-dialog" role="document">
+            <form role="form" [formGroup]="filterForm" (ngSubmit)="applyFilter()">
+                <div class="modal-content" style="margin-top: 50% !important">
+                    <div class="modal-header flex justify-content-between">
+                        <h4 class="modal-title">Filter Scholarship</h4>
+                        <span style="cursor: pointer;color: #3f4c83;"><i (click)="closePopup()"
+                                class="fa-solid fa-circle-xmark fa-2x"></i></span>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <label class="form-label" style="font-size: medium;font-weight:500">Filter by
+                                            Scholarship Country</label>
+                                        <div class="form-group">
+                                            <div class="mb-3">
+                                                <p-dropdown formControlName="country" optionValue="id"
+                                                    optionLabel="country" styleClass="w-full" [options]="countryList"
+                                                    [filter]="true" filterBy="country"
+                                                    (onChange)="countryChange($event)"
+                                                    placeholder="Select  Country"></p-dropdown>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="col-md-12">
-                                    <label class="form-label" style="font-size: medium;font-weight:500">Filter by
-                                        Home Country</label>
-                                    <div class="form-group">
-                                        <div class="mb-3">
-                                            <p-dropdown formControlName="home_country" optionValue="id"
-                                                optionLabel="country" styleClass="w-full" [options]="homeCountryList"
-                                                [filter]="true" filterBy="country"
-                                                placeholder="Select  Home Country"></p-dropdown>
+                                    <div class="col-md-12">
+                                        <label class="form-label" style="font-size: medium;font-weight:500">Filter by
+                                            Home Country</label>
+                                        <div class="form-group">
+                                            <div class="mb-3">
+                                                <p-dropdown formControlName="home_country" optionValue="id"
+                                                    optionLabel="country" styleClass="w-full"
+                                                    [options]="homeCountryList" [filter]="true" filterBy="country"
+                                                    placeholder="Select  Home Country"></p-dropdown>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="col-md-12">
-                                    <label class="form-label" style="font-size: medium;font-weight:500">Filter by
-                                        Scholarship Type</label>
-                                    <div class="form-group">
-                                        <div class="mb-3">
-                                            <p-dropdown formControlName="type" optionValue="id" optionLabel="type"
-                                                styleClass="w-full" [options]="scholarshipTypeList" [filter]="true"
-                                                filterBy="type" placeholder="Select  Scholarship Type"></p-dropdown>
+                                    <div class="col-md-12">
+                                        <label class="form-label" style="font-size: medium;font-weight:500">Filter by
+                                            Scholarship Type</label>
+                                        <div class="form-group">
+                                            <div class="mb-3">
+                                                <p-dropdown formControlName="type" optionValue="id" optionLabel="type"
+                                                    styleClass="w-full" [options]="scholarshipTypeList" [filter]="true"
+                                                    filterBy="type" placeholder="Select  Scholarship Type"></p-dropdown>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="col-md-12">
-                                    <label class="form-label" style="font-size: medium;font-weight:500">Filter by
-                                        Study Level</label>
-                                    <div class="form-group">
-                                        <div class="mb-3">
-                                            <p-multiSelect [options]="studyLevelList" styleClass="w-100"
-                                                formControlName="study_level" optionValue="id"
-                                                placeholder="Select Study Level" optionLabel="level" #StudylevelSelect>
-                                            </p-multiSelect>
+                                    <div class="col-md-12">
+                                        <label class="form-label" style="font-size: medium;font-weight:500">Filter by
+                                            Study Level</label>
+                                        <div class="form-group">
+                                            <div class="mb-3">
+                                                <p-multiSelect [options]="studyLevelList" styleClass="w-100"
+                                                    formControlName="study_level" optionValue="id"
+                                                    placeholder="Select Study Level" optionLabel="level"
+                                                    #StudylevelSelect>
+                                                </p-multiSelect>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="col-md-12">
-                                    <label class="form-label" style="font-size: medium;font-weight:500">Filter by
-                                        organizations/Institute</label>
-                                    <div class="form-group">
-                                        <div class="mb-3">
-                                            <p-multiSelect [options]="filterUniversityList" styleClass="w-100"
-                                                formControlName="university" optionValue="id"
-                                                placeholder="Select Organisation Or University" optionLabel="name">
-                                            </p-multiSelect>
+                                    <div class="col-md-12">
+                                        <label class="form-label" style="font-size: medium;font-weight:500">Filter by
+                                            organizations/Institute</label>
+                                        <div class="form-group">
+                                            <div class="mb-3">
+                                                <p-multiSelect [options]="filterUniversityList" styleClass="w-100"
+                                                    formControlName="university" optionValue="id"
+                                                    placeholder="Select Organisation Or University" optionLabel="name">
+                                                </p-multiSelect>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="col-md-12">
-                                    <label class="form-label" style="font-size: medium;font-weight:500">Filter by
-                                        Region</label>
-                                    <div class="form-group">
-                                        <div class="mb-3">
-                                            <p-multiSelect [options]="regionList" styleClass="w-100"
-                                                formControlName="region" optionValue="id" placeholder="Select Region"
-                                                optionLabel="state">
-                                            </p-multiSelect>
+                                    <div class="col-md-12">
+                                        <label class="form-label" style="font-size: medium;font-weight:500">Filter by
+                                            Region</label>
+                                        <div class="form-group">
+                                            <div class="mb-3">
+                                                <p-multiSelect [options]="regionList" styleClass="w-100"
+                                                    formControlName="region" optionValue="id"
+                                                    placeholder="Select Region" optionLabel="state">
+                                                </p-multiSelect>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                                <!-- <div class="col-md-12">
-                                    <label class="form-label" style="font-size: medium;font-weight:500">Filter by
-                                        Coverage Value</label>
-                                    <div class="form-group">
-                                        <div class="mb-3">
-                                            <p-dropdown formControlName="cover_id" optionValue="id"
-                                                optionLabel="cover_name" styleClass="w-full" [options]="coverList"
-                                                [filter]="true" filterBy="cover_name"
-                                                placeholder="Select  Coverage Value"></p-dropdown>
+                                    <div class="col-md-12">
+                                        <label class="form-label" style="font-size: medium;font-weight:500">Filter by
+                                            Coverage Value</label>
+                                        <div class="form-group">
+                                            <div class="mb-3">
+                                                <p-dropdown formControlName="cover_id" optionValue="id"
+                                                    optionLabel="cover_name" styleClass="w-full" [options]="coverList"
+                                                    [filter]="true" filterBy="cover_name"
+                                                    placeholder="Select  Coverage Value"></p-dropdown>
+                                            </div>
                                         </div>
                                     </div>
-                                </div> -->
-                                <!-- <div class="col-md-12">
+                                    <!-- <div class="col-md-12">
                                     <label class="form-label" style="font-size: medium;font-weight:500">Filter by
                                         Value</label>
                                     <div class="form-group">
@@ -244,16 +251,16 @@
                                         </div>
                                     </div>
                                 </div> -->
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <span style="float: right">
-                        <button type="submit" class="btn btn-dark"
-                            style="background-color: var(--uniprep-primary) !important">Apply Filter</button>
-                    </span>
+                        <span style="float: right">
+                            <button type="submit" class="btn btn-dark"
+                                style="background-color: var(--uniprep-primary) !important">Apply Filter</button>
+                        </span>
 
+                    </div>
                 </div>
-            </div>
-        </form>
+            </form>
+        </div>
     </div>
-</div>

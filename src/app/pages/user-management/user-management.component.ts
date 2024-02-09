@@ -314,8 +314,12 @@ export class UserManagementComponent implements OnInit {
             this.toast.add({ severity: 'success', summary: 'Success', detail: "Successfully Updated" });
         },
         error => {
+            if(error.message =="The phone has already been taken."){
+                return;
+            }
             this.ShowPersonalInfo = false;
-            this.toast.add({ severity: 'error', summary: 'Error', detail: "Error! While updating user details" });
+            
+            // this.toast.add({ severity: 'error', summary: 'Error', detail: "Error! While updating user details" });
         });
     }
 
