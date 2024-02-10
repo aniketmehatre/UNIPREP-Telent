@@ -338,12 +338,9 @@ export class UpgradeSubscriptionComponent implements OnInit {
 
   }
   payWithRazor(orderid: any) {
-    let razorKey='rzp_live_YErYQVqDIrZn1D';
-    if(environment.domain=="api.uniprep.ai"){
-        razorKey='rzp_test_Crpr7YkjPaCLEr';
-    }
+  
     const options: any = {
-      key: razorKey,
+      key: "rzp_live_YErYQVqDIrZn1D",
       amount: this.subscriptionDetails?.finalPrice * 100,
       currency: "INR",
       name: "Uniprep",

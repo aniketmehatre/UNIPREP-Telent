@@ -154,13 +154,9 @@ export class SubscriptionComponent implements OnInit {
             });
     }
     payWithRazor(orderid: any) {
-        
-        let razorKey='rzp_live_YErYQVqDIrZn1D';
-        if(environment.domain=="api.uniprep.ai"){
-            razorKey='rzp_test_Crpr7YkjPaCLEr';
-        }
+ 
         const options: any = {
-            key: razorKey,
+            key: "rzp_live_YErYQVqDIrZn1D",
             amount: this.subscriptionDetails?.finalPrice * 100, // amount should be in paise format to display Rs 1255 without decimal point
             currency: "INR",
             name: "Uniprep", // company name or product name
