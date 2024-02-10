@@ -298,4 +298,8 @@ export class SidenavComponent {
       this.router.navigateByUrl(item.url || "/");
     }
   }
+
+  closeQuiz(): void {
+    this.visibleExhasted = false;
+  }
 }

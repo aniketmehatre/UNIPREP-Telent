@@ -404,4 +404,8 @@ export class HeaderSearchComponent implements OnInit, OnDestroy {
     })
   }
 
+  closeQuiz(): void {
+    this.visibleExhastedData = false;
+  }
+
 }

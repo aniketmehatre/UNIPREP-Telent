@@ -141,11 +141,6 @@ export class ModalComponent implements OnInit {
         }
         //event.hide()
         this.showReportSuccess = true;
-        this.toast.add({
-          severity: "success",
-          summary: "Info",
-          detail: res.message,
-        });
       },
       (err) => {
         event.hide();

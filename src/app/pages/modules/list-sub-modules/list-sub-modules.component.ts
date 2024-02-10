@@ -113,11 +113,11 @@ export class ListSubModulesComponent implements OnInit {
         this.currentModuleId = 4;
         this.currentModuleName = 'Career Hub';
         this.currentApiSlug = 'GetQuestionsCount';
-        this.infoMessage = 'Upgrade to Access the post-admission',
-        this.unlockMessage = 'Unlock the power of success with our exclusive post-admission!',
+        this.infoMessage = 'Upgrade to Access the Career Hub',
+        this.unlockMessage = '',
         this.upgradePlanMsg = 'Upgrade your plan now to gain instant access.';
-        this.aboutModule = 'Post-admission offers information about:',
-        this.moduleDetails = ' Arrival, student discounts, banking, full time jobs, post study work and many more!'
+        this.aboutModule = 'Explore a vast database of Q&A about:',
+          this.moduleDetails = ' Arrival, student discounts, banking, full time jobs, post study work and many more!'
         break;
       case 'university':
         this.currentModuleId = 5;

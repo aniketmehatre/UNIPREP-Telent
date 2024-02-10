@@ -98,4 +98,8 @@ export class PagesComponent implements OnInit, OnDestroy {
     togleSidebar() {
         this.pageFacade.togleSideBar(!this.sidebarClass);
     }
+
+    closeQuiz(): void {
+        this.visibleExhasted = false;
+    }
 }

@@ -534,11 +534,11 @@ export class HeaderComponent implements OnInit, OnDestroy {
   onSubmit(op: any) {
     let data;
     if (this.reportSubmitForm.value.comment == null || this.reportSubmitForm.value.comment == '') {
-      this.toast.add({
-        severity: "error",
-        summary: "Error",
-        detail: "Add comments to submit report",
-      });
+      // this.toast.add({
+      //   severity: "error",
+      //   summary: "Error",
+      //   detail: "Add comments to submit report",
+      // });
       return;
     }
 
@@ -569,11 +569,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
         op.hide();
       }, 4000);
 
-      this.toast.add({
-        severity: "success",
-        summary: "Success",
-        detail: "FAQ Report submitted successfully",
-      });
     });
     this.getReportOption();
   }
