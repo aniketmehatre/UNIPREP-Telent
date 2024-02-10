@@ -188,22 +188,24 @@ export class SubscriptionDataComponent implements OnInit {
   }
 
   applyCoupon() {
-    this.iscouponReadonly = true;
-    this.showCross = true;
+
     if (this.showCheckout) {
       this.toast.add({ severity: 'error', summary: 'Error', detail: 'Please select the Plan!' });
       return;
     }
-    if (this.subscriptionService.usedCoupon == this.couponInput && this.invalidCoupon) {
-      this.toast.add({ severity: 'error', summary: 'Error', detail: 'Invalid Coupon Code' });
-      return;
-    }
+     
+    // if (this.subscriptionService.usedCoupon == this.couponInput && this.invalidCoupon) {
+    //   this.toast.add({ severity: 'error', summary: 'Error', detail: 'Invalid Coupon Code' });
+    //   return;
+    // }
     // if (this.subscriptionService.usedCoupon == this.couponInput) {
     //   this.toast.add({ severity: 'error', summary: 'Error', detail: 'Coupon already used' });
     //   return;
     // }
-console.log(this.selectedSubscriptionDetails);
+ 
     if (this.couponInput) {
+      this.iscouponReadonly = true;
+      this.showCross = true;
       this.subscriptionService.usedCoupon = this.couponInput
       let data = {
         couponCode: this.couponInput,
@@ -226,6 +228,9 @@ console.log(this.selectedSubscriptionDetails);
           this.invalidCoupon = true;
           this.checkoutTotal = this.subscriptionTotal;
           this.discountAmountEnable = false;
+          this.couponInput='';
+          this.showCross = false;
+          this.iscouponReadonly = false;
         }
       });
     }
@@ -244,10 +249,10 @@ console.log(this.selectedSubscriptionDetails);
         if (this.basesubscription && this.selectedSubscriptionDetails) {
           let data = {
             subscriptionId: this.selectedSubscriptionDetails.id,
-            countryId: this.selectedSubscriptionDetails.selectedCountry.id,
+            countryId: this.selectedSubscriptionDetails?.selectedCountry?.id,
             finalPrice: this.checkoutTotal,
-            couponApplied: this.couponInput ? 1 : 0,
-            coupon: this.couponInput,
+            couponApplied: this.iscouponReadonly? 1 : 0,
+            coupon: this.iscouponReadonly?this.couponInput:'',
             coupon_id: this.usedCouponId,
           }
           if (this.checkoutTotal == '') {

@@ -14,6 +14,7 @@ import { Observable } from "rxjs";
 import { selectBillingInfo$ } from "./store/selectors";
 import {select} from "@ngrx/store";
 import { DataService } from "src/app/data.service";
+import { environment } from "@env/environment";
 
 @Component({
     selector: "uni-subscription",
@@ -44,6 +45,7 @@ export class SubscriptionComponent implements OnInit {
     showSubscriptionedData: boolean = false;
     showPlanBtn: boolean = false;
     showHistoryBtn: boolean = false;
+ 
 
     constructor(
         private subscriptionService: SubscriptionService,
@@ -66,6 +68,7 @@ export class SubscriptionComponent implements OnInit {
                 this.showPlanBtn = false;
             }
         });
+         
     }
     start() {
         this.showPayLoading = false;
@@ -151,8 +154,13 @@ export class SubscriptionComponent implements OnInit {
             });
     }
     payWithRazor(orderid: any) {
+        
+        let razorKey='rzp_live_YErYQVqDIrZn1D';
+        if(environment.domain=="api.uniprep.ai"){
+            razorKey='rzp_test_Crpr7YkjPaCLEr';
+        }
         const options: any = {
-            key: "rzp_live_YErYQVqDIrZn1D",
+            key: razorKey,
             amount: this.subscriptionDetails?.finalPrice * 100, // amount should be in paise format to display Rs 1255 without decimal point
             currency: "INR",
             name: "Uniprep", // company name or product name
@@ -176,6 +184,7 @@ export class SubscriptionComponent implements OnInit {
                 color: "#3f4c83",
             },
         };
+         
         options.handler = (response: any, error: any) => {
             options.response = response;
             var paymentdata = {

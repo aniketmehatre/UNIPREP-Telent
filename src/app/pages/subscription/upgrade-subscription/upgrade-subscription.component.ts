@@ -204,21 +204,22 @@ export class UpgradeSubscriptionComponent implements OnInit {
   }
 
   applyCoupon() {
-    this.showCross = true;
-    this.iscouponReadonly = true;
+
     if (this.showCheckout) {
       this.toast.add({ severity: 'error', summary: 'Error', detail: 'Please select the Plan!' });
       return;
     }
-    if (this.subscriptionService.usedCoupon == this.couponInput && this.invalidCoupon) {
-      this.toast.add({ severity: 'error', summary: 'Error', detail: 'Invalid Coupon Code' });
-      return;
-    }
+    // if (this.subscriptionService.usedCoupon == this.couponInput && this.invalidCoupon) {
+    //   this.toast.add({ severity: 'error', summary: 'Error', detail: 'Invalid Coupon Code' });
+    //   return;
+    // }
     // if (this.subscriptionService.usedCoupon == this.couponInput) {
     //   this.toast.add({ severity: 'error', summary: 'Error', detail: 'Coupon already used' });
     //   return;
     // }
     if (this.couponInput) {
+      this.showCross = true;
+      this.iscouponReadonly = true;
       this.subscriptionService.usedCoupon = this.couponInput
       let data = {
         couponCode: this.couponInput,
@@ -241,6 +242,9 @@ export class UpgradeSubscriptionComponent implements OnInit {
           this.invalidCoupon = true;
           this.checkoutTotal = this.subscriptionTotal;
           this.discountAmountEnable = false;
+          this.couponInput='';
+          this.showCross = false;
+          this.iscouponReadonly = false;
         }
       });
     }
@@ -263,8 +267,8 @@ export class UpgradeSubscriptionComponent implements OnInit {
             subscriptionId: this.selectedSubscriptionDetails.id,
             countryId: this.selectedSubscriptionDetails.selectedCountry.id,
             finalPrice: this.checkoutTotal == '' ? this.subscriptionTotal : this.checkoutTotal,
-            couponApplied: this.couponInput ? 1 : 0,
-            coupon: this.couponInput,
+            couponApplied: this.iscouponReadonly? 1 : 0,
+            coupon: this.iscouponReadonly?this.couponInput:'',
             coupon_id: this.usedCouponId,
           }
           this.pay(data);
@@ -334,8 +338,12 @@ export class UpgradeSubscriptionComponent implements OnInit {
 
   }
   payWithRazor(orderid: any) {
+    let razorKey='rzp_live_YErYQVqDIrZn1D';
+    if(environment.domain=="api.uniprep.ai"){
+        razorKey='rzp_test_Crpr7YkjPaCLEr';
+    }
     const options: any = {
-      key: "rzp_live_YErYQVqDIrZn1D",
+      key: razorKey,
       amount: this.subscriptionDetails?.finalPrice * 100,
       currency: "INR",
       name: "Uniprep",

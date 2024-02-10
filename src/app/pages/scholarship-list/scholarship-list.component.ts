@@ -90,7 +90,12 @@ export class ScholarshipListComponent implements OnInit {
     this.getRegionList();
     this.getFilterUniversityList('');
   }
-
+  clearFilter(){
+    this.regionList = [];
+    this.filterForm.reset();
+    this.getRegionList();
+    this.getFilterUniversityList('');
+  }
   getScholarshipCountry() {
     this.scholarshipListService.getScholarshipCountry(1).subscribe((response) => {
       this.countryList = response;
