@@ -21,7 +21,7 @@
                         Reset</button> 
                     </span>
                 <br>
-                <div class="p-2">
+                <div class="p-1 text-end">
                     <span class="text-muted text-small fw-semibold">Total Scholarship : {{ totalScholarShipCount }}</span>
                                 </div>
             </div>
@@ -64,7 +64,10 @@
  
                 </div>
             </ng-template> -->
-            totalScholarShipCount				<tr class="scholarship-list-table-header">
+            <ng-template pTemplate="header">
+                <tr class="scholarship-list-table-header">
+
+                <tr class="scholarship-list-table-header">
                     <th class="border-cell text-small text-nowrap">Scholarship Name</th>
 					<th class="border-cell text-small text-center text-nowrap">Home Country</th>
 					<th class="border-cell text-small text-center text-nowrap">Scholarship Country</th>
