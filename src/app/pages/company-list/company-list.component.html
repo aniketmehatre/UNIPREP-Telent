@@ -1,6 +1,6 @@
 <div class="card readingcard" style="border-radius: 15px 15px 0px 0px !important;">
     <div class="card-body pt-0"  *ngIf="!planExpired">
-        <div class="row justify-content-center">
+        <div class="row justify-content-center mb-2">
             <div class="col-md-2 text-start"></div>
             <div class="col-md-8 text-center">
                 <h5 class="select-title mb-1" tooltipPosition="top" pTooltip="">
@@ -8,7 +8,7 @@
                 </h5>
             </div>
             
-            <div class="col-md-2 text-md-center text-end d-flex flex-column align-items-center">
+            <div class="col-md-2 text-end">
                 <span >
                     <button class="btn btn-primary ps-3 pe-3 pt-2 pb-2" (click)="filterBy()"
                     style="background-color: var(--uniprep-primary);border-radius: 8px; border: aliceblue; color: #fff;"
@@ -70,32 +70,32 @@
         </div>
         <!-- upcomming event -->
         <p-table responsiveLayout="scroll" #table [value]="companyData" [responsive]="true" class="primary-header" styleClass="primary-header" [paginator]="false" (onPage)="pageChange($event)"
-                 [totalRecords]="totalCompanyCount" [rows]="pageSize" [rowsPerPageOptions]="[500,300, 100]">
-            <ng-template pTemplate="caption">
+                 [totalRecords]="totalCompanyCount" [rows]="pageSize" [rowsPerPageOptions]="[100,300,500]">
+            <!-- <ng-template pTemplate="caption">
                 <div class="text-center mobile">
                     <div class="pe-2">
                         <span class="text-muted text-small">Total Companies : {{ totalCompanyCount }}</span>
                     </div>
                 </div>
-            </ng-template>
+            </ng-template> -->
             <ng-template pTemplate="header">
                 <tr class="company-list-table-header">
-                    <th class="border-cell">Company Name</th>
-                    <th class="border-cell">Country</th>
-                    <th class="border-cell">Headquarters</th>
+                    <th class="border-cell text-small text-nowrap">Company Name</th>
+                    <th class="border-cell text-small text-center text-nowrap">Country</th>
+                    <th class="border-cell text-small text-center text-nowrap">Headquarters</th>
                     <!-- <th class="border-cell">Estd. Date</th> -->
-                    <th class="border-cell">Industry</th>
-                    <th class="border-cell">Link</th>
+                    <th class="border-cell text-small text-nowrap w-25">Industry</th>
+                    <th class="border-cell text-small text-nowrap">Link</th>
                 </tr>
             </ng-template>
             <ng-template pTemplate="body" let-com let-expanded="expanded">
                 <tr>
-                    <td class="border-cell">{{com.company_name}}</td>
-                    <td class="border-cell">{{com.country_name}}</td>
-                    <td class="border-cell">{{com.head_quarters_name}}</td>
+                    <td class="border-cell fw-semibold text-small">{{com.company_name}}</td>
+                    <td class="border-cell text-small text-center text-nowrap">{{com.country_name}}</td>
+                    <td class="border-cell text-small text-center">{{com.head_quarters_name}}</td>
                     <!-- <td class="border-cell">{{com.estd_date}}</td> -->
-                    <td class="border-cell">{{com.industry_interested_name}}</td>
-                    <td class="border-cell" style="white-space: nowrap;">
+                    <td class="border-cell text-small">{{com.industry_interested_name}}</td>
+                    <td class="border-cell text-small text-nowrap py-1">
                         <div *ngIf="com.linked_in && com.linked_in.trim() !== ''">
                             <i class="fa-brands fa-linkedin"></i> <a class="ms-1" target="_blank" href="{{com.linked_in}}">Linked In</a><br>
                         </div>

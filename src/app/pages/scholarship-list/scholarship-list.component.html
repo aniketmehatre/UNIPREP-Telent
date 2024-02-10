@@ -22,8 +22,8 @@
                     </span>
                 <br>
                 <div class="p-2">
-                    <span class="text-muted text-small">Total Scholarship : {{ totalScholarShipCount }}</span>
-                </div>
+                    <span class="text-muted text-small fw-semibold">Total Scholarship : {{ totalScholarShipCount }}</span>
+                                </div>
             </div>
         </div>
         <br>
@@ -48,12 +48,9 @@
                         Reset</button></span>
             </div>
         </div> -->
-        <!-- upcomming event -->
-        <p-table #table class="custom-paginator" [value]="scholarshipData" class="primary-header" [first]="first"
-            styleClass="primary-header" [paginator]="true" (onPage)="pageChange($event)" [lazy]="true"
-            [totalRecords]="totalScholarShipCount" responsiveLayout="scroll" [rows]="pageSize"
-            [rowsPerPageOptions]="[100,250,500]">
-            <!-- <ng-template pTemplate="caption">
+		<!-- upcomming event -->
+		<p-table #table class="custom-paginator" [value]="scholarshipData" class="primary-header" [first]="first" styleClass="primary-header" [paginator]="true" (onPage)="pageChange($event)" [lazy]="true" [totalRecords]="totalScholarShipCount" responsiveLayout="scroll" [rows]="pageSize" [rowsPerPageOptions]="[100, 250, 500]">
+			<!-- <ng-template pTemplate="caption">
                  <div class="d-flex w-full align-items-end justify-content-end desktop">
                     <div class="pe-2">
                         <span class="text-muted text-small">Total Scholarship : {{ totalScholarShipCount }}</span>
@@ -67,40 +64,69 @@
  
                 </div>
             </ng-template> -->
-            <ng-template pTemplate="header">
-                <tr class="scholarship-list-table-header">
-                    <th class="border-cell">Home Country</th>
-                    <th class="border-cell">Scholarship Name</th>
-                    <th class="border-cell">Scholarship Country</th>
-                    <th class="border-cell">Scholarship Type</th>
-                    <th class="border-cell">Study Level</th>
-                    <th class="border-cell">Organisation/Institute</th>
-                    <th class="border-cell">Region</th>
-                    <th class="border-cell">value</th>
-                    <!-- <th class="border-cell">Coverage Value</th> -->
-                    <th class="border-cell">Links</th>
-                </tr>
-            </ng-template>
-            <ng-template pTemplate="body" let-scholarship let-expanded="expanded">
-                <tr class="scholarship-list-table-header">
-                    <td class="border-cell">{{scholarship.home_country}}</td>
-                    <td class="border-cell">{{scholarship.name}} </td>
-                    <td class="border-cell">{{scholarship.country}} </td>
-                    <td class="border-cell">{{scholarship.type}}</td>
-                    <td class="border-cell">{{scholarship.study_level}}</td>
-                    <td class="border-cell">{{scholarship.university}} </td>
-                    <td class="border-cell">{{scholarship.region==null?'null':scholarship.region}}</td>
-                    <td class="border-cell">{{scholarship.value}} </td>
-                    <!-- <td class="border-cell">{{scholarship.cover_name}} </td> -->
-                    <td class="border-cell">
-                        <a target="_blank" href="{{scholarship.website}}">Website <i
-                                class="fa-solid fa-link"></i></a><br>
-                    </td>
-                </tr>
-            </ng-template>
+            totalScholarShipCount				<tr class="scholarship-list-table-header">
+                    <th class="border-cell text-small text-nowrap">Scholarship Name</th>
+					<th class="border-cell text-small text-center text-nowrap">Home Country</th>
+					<th class="border-cell text-small text-center text-nowrap">Scholarship Country</th>
+					<th class="border-cell text-small text-center text-nowrap">Scholarship Type</th>
+					<th class="border-cell text-small text-center text-nowrap">Study Level</th>
+					<th class="border-cell text-small text-nowrap">Organisation/Institute</th>
+					<th class="border-cell text-small text-center text-nowrap">Region</th>
+					<th class="border-cell text-small text-center text-nowrap">Value</th>
+					<th class="border-cell text-small text-center text-nowrap">Coverage Value</th>
+					<th class="border-cell text-small text-center text-nowrap">Links</th>
+				</tr>
+			</ng-template>
+			<ng-template pTemplate="body" let-scholarship let-expanded="expanded">
+				<tr class="scholarship-list-table-header">
+                    <td class="border-cell fw-semibold text-small">{{ scholarship.name }}</td>
+					<td class="border-cell text-small text-center">{{ scholarship.home_country }}</td>
+					<td class="border-cell text-small text-center">{{ scholarship.country }}</td>
+					<td class="border-cell text-small text-center">{{ scholarship.type }}</td>
+					<td class="border-cell text-small text-center">{{ scholarship.study_level }}</td>
+					<td class="border-cell text-small">{{ scholarship.university }}</td>
+					<td class="border-cell text-small text-center">{{ scholarship.region == null ? "-" : scholarship.region }}</td>
+					<td class="border-cell text-small text-center">{{ scholarship.value }}</td>
+					<td class="border-cell text-small text-center">{{ scholarship.cover_name }}</td>
+					<td class="border-cell text-small text-center text-nowrap">
+						<a target="_blank" class="text-small" href="{{ scholarship.website }}"><i class="fa-solid fa-link me-2"></i>Website </a>
+					</td>
+				</tr>
+			</ng-template>
         </p-table>
 
-    </div>
+	<div class="text-center mt-5 mb-4" *ngIf="planExpired">
+		<img src="../../../uniprep-assets/images/smartloack.png" class="image" width="80" />
+		<h3>Upgrade now to access invaluable tools</h3>
+		<p>
+			Unlock the power of success with our exclusive events!<br />
+			Upgrade your plan now to gain instant access.
+		</p>
+		<p class="offer">
+			Events offers:<br />
+			Career growth, International Education, Life in your destination and more
+		</p>
+		<button pButton type="button" class="text-white p-ripple p-button-rounded p-button-warning p-button p-component" (click)="upgradePlan()">Upgrade Plan<i class="pi pi-arrow-circle-right"></i></button>
+		<div *ngIf="planExpired" class="scholarship-expired">
+			<div class="row">
+				<div class="col-md-2 text-start"></div>
+				<div class="col-md-8 text-center">
+					<h5 class="select-title mb-1" tooltipPosition="top" pTooltip="">SCHOLARSHIP LIST</h5>
+				</div>
+				<div class="col-md-2"></div>
+			</div>
+			<div class="text-center mt-5 mb-4">
+				<img src="../../../uniprep-assets/images/smartloack.png" class="image" width="80" />
+				<h3>Upgrade now to access invaluable tools</h3>
+				<p>
+					Unlock the power of success with our exclusive Scholarship list! <br />
+					Upgrade your plan now to gain instant access.
+				</p>
+				<p class="offer">Scholarship list offers:<br />5000+ regional, national, international, university and fully funded scholarships to ease your financial burden</p>
+				<button pButton type="button" class="text-white p-ripple p-button-rounded p-button-warning p-button p-component p-2" (click)="upgradePlan()">Upgrade Plan<i class="fa fa-arrow-right exhausted-plan-icon"></i></button>
+			</div>
+		</div>
+	</div>
 
     <div class="text-center mt-5 mb-4" *ngIf="planExpired">
         <img src="../../../uniprep-assets/images/smartloack.png" class="image" width="80">

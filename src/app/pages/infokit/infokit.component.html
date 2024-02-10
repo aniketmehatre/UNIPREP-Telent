@@ -1,8 +1,8 @@
 <div class="row p-3" *ngIf="!planExpired">
   <div style="display: flex" class="routedata">
-    <span (click)="redirectTo('dashboard', -1)">Dashboard / </span
-    ><span (click)="redirectTo('startup', -1)">Startup Kit / </span
-    ><span
+    <span (click)="redirectTo('dashboard', -1)" role="button">Dashboard / </span
+    ><span class="uniprep-primary" (click)="redirectTo('startup', -1)" role="button">Startup Kit / </span
+    ><span class="fw-semibold uniprep-primary"  role="button"
       *ngFor="let data of routedata; let i = index; let isLast = last"
       (click)="redirectTo(data, i)"
       [ngClass]="isLast ? 'fontcolor' : ''"
@@ -11,7 +11,7 @@
   </div>
 </div>
 <div class="card readingcard" *ngIf="!planExpired">
-  <div class="pt-0">
+  <div class="pt-0 h-100">
     <div class="row justify-content-center">
       <div class="col-md-2 text-start"></div>
       <div class="col-md-8 text-center">
