@@ -28,8 +28,8 @@ export class CompanyListComponent implements OnInit {
       company_name: [''],
       country: [''],
       head_quarters: [''],
-      fromdate: [''],
-      todate: [''],
+      // fromdate: [''],
+      // todate: [''],
       industry_interested: [''],
     });
   }
@@ -77,8 +77,8 @@ export class CompanyListComponent implements OnInit {
       company_name: this.filterForm.value.company_name ? this.filterForm.value.company_name : '',
       country: this.filterForm.value.country ? this.filterForm.value.country : '',
       head_quarters: this.filterForm.value.head_quarters ? this.filterForm.value.head_quarters : '',
-      fromdate: this.filterForm.value.fromdate ? this.filterForm.value.fromdate : '',
-      todate: this.filterForm.value.todate ? this.filterForm.value.todate : '',
+      // fromdate: this.filterForm.value.fromdate ? this.filterForm.value.fromdate : '',
+      // todate: this.filterForm.value.todate ? this.filterForm.value.todate : '',
       industry_interested: this.filterForm.value.industry_interested ? this.filterForm.value.industry_interested : '',
       page: this.page,
       perpage: this.pageSize,
