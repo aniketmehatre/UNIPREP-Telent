@@ -130,10 +130,7 @@ export class ScholarshipListComponent implements OnInit {
       this.coverList = [...response];
     });
   }
-  data: any = {
-    page: this.page,
-    perpage: this.pageSize,
-  };
+
   loadScholarShipData() {
     this.scholarshipListService
       .getScholarshipList(this.data)
@@ -160,6 +157,8 @@ export class ScholarshipListComponent implements OnInit {
       });
       return;
     }
+    this.data.page = 1;
+    this.data.perpage = 100;
     if (this.filterForm.value.country) {
       this.data.country = this.filterForm.value.country;
     }
@@ -213,10 +212,16 @@ export class ScholarshipListComponent implements OnInit {
     }
     this.getFilterUniversityList(event.value);
   }
+  data: any = {
+    page: this.page,
+    perpage: this.pageSize,
+  };
   pageChange(event: any) {
     this.page = event.first / this.pageSize + 1;
     this.pageSize = event.rows;
     this.first = event.first;
+    this.data.page = this.page;
+    this.data.perpage = this.pageSize;
     this.loadScholarShipData();
   }
 
