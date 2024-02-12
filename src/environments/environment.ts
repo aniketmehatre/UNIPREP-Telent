@@ -6,9 +6,9 @@ const stagingurl=`https://${staging}/uniprepapi/public/api`;
 const produrl=`https://${proddomain}/uniprepapi/public/api`;
 
 export const environment = {
-  domain:proddomain,
+  domain:devurl,
   production: false,
-  ApiUrl:produrl,
+  ApiUrl:devdomain,
   tokenKey: 'token',
   facebookAppId: '892925195633254',
   linkedinId: '86b55xx7n8zomc'

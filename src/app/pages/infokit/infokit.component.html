@@ -1,8 +1,14 @@
 <div class="row p-3" *ngIf="!planExpired">
   <div style="display: flex" class="routedata">
     <span (click)="redirectTo('dashboard', -1)" role="button">Dashboard / </span
-    ><span class="uniprep-primary" (click)="redirectTo('startup', -1)" role="button">Startup Kit / </span
-    ><span class="fw-semibold uniprep-primary"  role="button"
+    ><span
+      class="uniprep-primary"
+      (click)="redirectTo('startup', -1)"
+      role="button"
+      >Startup Kit / </span
+    ><span
+      class="fw-semibold uniprep-primary"
+      role="button"
       *ngFor="let data of routedata; let i = index; let isLast = last"
       (click)="redirectTo(data, i)"
       [ngClass]="isLast ? 'fontcolor' : ''"
@@ -30,7 +36,12 @@
     <div class="container-fluid">
       <div class="row p-3">
         <p class="info" *ngIf="parentfolderlists.length > 0">Folders</p>
-        <div class="col-4 folder-card" *ngFor="let folder of parentfolderlists" [appendTo]="'body'" [pTooltip]=folder?.name>
+        <div
+          class="col-4 folder-card"
+          *ngFor="let folder of parentfolderlists"
+          [appendTo]="'body'"
+          [pTooltip]="folder?.name"
+        >
           <div>
             <div
               class="d-flex justify-content-start folder"
@@ -39,8 +50,8 @@
               <div class="me-2 d-flex align-items-center">
                 <img class="img-responsive" [src]="folder?.img_path" />
               </div>
-              <div class="folderinfo" >
-                <h5 >{{ folder?.name }}</h5>
+              <div class="folderinfo">
+                <h5>{{ folder?.name }}</h5>
                 <p class="mb-0">
                   Last Updated:<span>{{ folder?.last_updated }}</span>
                 </p>
@@ -51,7 +62,12 @@
       </div>
       <div class="row p-3">
         <p class="info" *ngIf="parentfilelists.length > 0">Files</p>
-        <div class="col-4 folder-card" *ngFor="let folder of parentfilelists" [appendTo]="'body'" [pTooltip]=folder?.name>
+        <div
+          class="col-4 folder-card"
+          *ngFor="let folder of parentfilelists"
+          [appendTo]="'body'"
+          [pTooltip]="folder?.name"
+        >
           <a (click)="openFile(folder.img_path)">
             <div>
               <div class="d-flex justify-content-start folder">
@@ -102,14 +118,14 @@
       class="image"
       width="80"
     />
-    <h3>Upgrade to Access the Startup Kit!s</h3>
+    <h3>Upgrade to Access the Startup Kit!</h3>
     <p>
-      Unlock the power of success with our exclusive Startup Kit! <br />
+      <br />
       Upgrade your plan now to gain instant access.
     </p>
     <p class="offer">
-      The Startup Kit offers:<br />Over 1,000 business model samples, financial
-      model, Start-up guide and many more!
+      The Startup Kit offers:<br />Over 1,000 business model samples, pitch deck
+      samples, financial model, Start-up guide and many more!
     </p>
     <button
       pButton
