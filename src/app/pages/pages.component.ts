@@ -56,7 +56,8 @@ export class PagesComponent implements OnInit, OnDestroy {
         const isMobile = this.deviceService.isMobile();
         const isTablet = this.deviceService.isTablet();
         const isDesktopDevice = this.deviceService.isDesktop();
-        if(isMobile || isTablet){
+        var allowmobile = localStorage.getItem("allowmobile");
+        if((isMobile || isTablet) && (!allowmobile)){
           this.isDeviceStatus = 'block';
           this.isDeviceStatusPopupView = false;
         }else{
@@ -68,6 +69,7 @@ export class PagesComponent implements OnInit, OnDestroy {
       moveToDesktop(){
         this.isDeviceStatus = 'none';
         this.isDeviceStatusPopupView = true;
+        localStorage.setItem("allowmobile",'1');
       }
 
     ngOnInit(): void {
