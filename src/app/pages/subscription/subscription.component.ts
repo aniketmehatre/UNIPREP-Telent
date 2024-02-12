@@ -173,7 +173,7 @@ export class SubscriptionComponent implements OnInit {
                 contact: this.authservice.user?.usertype_name,
             },
             notes: {
-                address: " 165/1,Opp Brahmasthana Kalyana Mantapa Sahukar Chenniah Road, TK Layout, Mysuru - 570023 ",
+                address: " 165/1,Opp Brahmasthana Kalyana Mantapa Sahukar Chenniah Road, TK Layout, Mysuru - 570023",
             },
             modal: {
                 // We should prevent closing of the form when esc key is pressed.

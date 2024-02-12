@@ -72,7 +72,12 @@ export class LoginComponent implements OnInit, OnDestroy {
               return;
             }
             this.storage.set(environment.tokenKey, data.token);
-            this.route.navigate(['/pages/dashboard']);
+            this.service.getMe().subscribe((data) => {
+              this.loadCountryList(data);
+                  this.toast.add({ severity: 'success', summary: 'Success', detail: 'Login' });
+                  this.route.navigate(['/pages/dashboard']);
+
+            });
           });
         }else{
           this.toast.add({ severity: 'info', summary: 'Info', detail: 'Email not exist , Try Register' });
@@ -107,8 +112,9 @@ export class LoginComponent implements OnInit, OnDestroy {
     this.dashboardService.countryList().subscribe(countryList => {
       this.countryLists = countryList;
       this.countryLists.forEach((element: any) => {
-        if (element.id == Number(data.userdetails[0].interested_country_id)) {
-          localStorage.setItem('countryId', data.userdetails[0].interested_country_id);
+        let cont = Number(data.userdetails[0].interested_country_id)
+        if (element.id == cont) {
+          localStorage.setItem('countryId', cont.toString());
           this.dataService.changeCountryName(element.country);
           this.dataService.changeCountryFlag(element.flag);
           this.dataService.changeCountryId(element.id);
