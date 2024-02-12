@@ -349,6 +349,13 @@ input::-webkit-inner-spin-button {
   display: none;
 }
 
+.socialloginbutton
+{
+	background:white;
+	border:1px solid #dadce0;
+	border-radius:4px;
+}
+
 @media screen and (max-width: 480px) {
   .social-media {
       border: 1px solid #dadce0;

@@ -299,18 +299,16 @@
 												<!--														</div>-->
 												<!--														<div class="ml-2 font-bold w-75">Continue with Google</div>-->
 												<!--													</div>-->
-												<asl-google-signin-button text='signup_with' class="ml-2 font-bold fullWidth" logo_alignment="center" type="standard" size="large"></asl-google-signin-button>
-												<div class="social-media mt-3" (click)="loginWithFacebook()">
-													<div class="w-25">
+												<div class="d-flex gap-3">
+													<asl-google-signin-button text='signup_with' class="ml-2 font-bold fullWidth" logo_alignment="center" type="standard" size="large"></asl-google-signin-button>
+													<div class="socialloginbutton justify-content-center gap-3 w-100 flex-row align-items-center d-flex" (click)="loginWithFacebook()" role="button">
 														<img src="../../../uniprep-assets/icons/facebook.svg" width="20" />
+														<span class="text-small fw-semibold">Sign In with Facebook</span>
 													</div>
-													<div class="ml-2 font-bold w-75">Sign Up with Facebook</div>
-												</div>
-												<div class="social-media mt-3">
-													<div class="w-25">
-														<img src="../../../uniprep-assets/icons/linkedin.svg" width="20" style="border-radius: 25px" />
+													<div class="socialloginbutton justify-content-center gap-3 w-100 flex-row align-items-center d-flex" role="button">
+														<img src="../../../uniprep-assets/icons/linkedin.svg" width="20" />
+														<span class="text-small fw-semibold">Sign In with LinkedIn</span>
 													</div>
-													<div class="ml-2 font-bold w-75">Sign Up with LinkedIn</div>
 												</div>
 											</div>
 										</div>
