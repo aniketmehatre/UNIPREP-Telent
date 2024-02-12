@@ -33,6 +33,7 @@ export class ChatComponent implements OnInit {
   reportOptions: any = [];
   planstatus = "";
   planmessage = "";
+  canChat = true;
   constructor(
     private service: ChathistoryService,
     private authService: AuthService,
@@ -52,10 +53,12 @@ export class ChatComponent implements OnInit {
       if (subscription_exists_status.subscription_plan == "free_trail") {
         this.planmessage = "Please subscribe and send the message";
         this.planstatus == "freetrail";
+        this.canChat = false;
       } else if (subscription_exists_status.subscription_plan != "free_trail") {
         this.planstatus == "expired";
         this.planmessage =
           "Your question credits are exhausted! Additional credits will be available at 12:00 AM tommorow.";
+        this.canChat = false;
       }
     });
     this.modules = {
@@ -144,6 +147,7 @@ export class ChatComponent implements OnInit {
   totalquestionsasked = 0;
   questionsleft = 0;
   totalcredits = 0;
+  btnsendmessage = 3;
   getChatHistoryByUserId() {
     this.service.getChatHistoryByUser().subscribe((response) => {
       this.messages = response.messages;
@@ -153,6 +157,17 @@ export class ChatComponent implements OnInit {
     });
     this.authService.getMe().subscribe((response) => {
       this.totalcredits = Number(localStorage.getItem("questions_left"));
+      if (this.totalcredits == 0) {
+        this.btnsendmessage = 1;
+      } else if (this.totalcredits > 0) {
+        this.btnsendmessage = 2;
+      } else {
+        this.btnsendmessage = 3;
+      }
+      if ((this.planstatus = "freetrail" || this.planstatus == "expired")) {
+        console.log("Plan Status", this.planstatus);
+        this.btnsendmessage = 2;
+      }
     });
   }
   textMessage: string = "";

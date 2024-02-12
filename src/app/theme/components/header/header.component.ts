@@ -440,6 +440,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   onClickSubscribedUser(): void{
     this.freeTrial = false;
+    this.continueTrial();
     this.visibleExhasted = false;
     this.router.navigate(["/pages/subscriptions"]);
   }
