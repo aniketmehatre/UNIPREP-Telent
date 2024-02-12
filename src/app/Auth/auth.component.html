@@ -1,48 +1,5 @@
-<div *ngIf="isDeviceStatusPopupView">
+<div>
     <p-toast position="top-right"></p-toast>
     <router-outlet></router-outlet>
+</div>
 
-</div>
-<div *ngIf="!isDeviceStatusPopupView" [ngStyle]="{ display: isDeviceStatus }"
-     class="modal modal-bg multiDeviceLogoutPopup" role="dialog" tabindex="-1">
-    <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered" role="document">
-        <div class="modal-content card bg-light">
-            <div class="modal-body card-body">
-                <div class="container">
-                    <div class="row mb-2">
-                        <div class="col-md-12 px-4">
-                            <div class="d-flex flex-column">
-<!--                                <div class="icon-container mb-3">-->
-<!--                                    <i class="fa-solid fa-triangle-exclamation dangericon"></i>-->
-<!--                                </div>-->
-                                <div class="mt-3">
-									<span>
-										<strong class="thatDevice">
-											<img src="../../uniprep-assets/images/desktop-computer.svg" class="img-fluid">
-										</strong>
-										<strong class="thatDevice text-center">
-											<h3>Optimize Your User Experience.</h3>
-                                            <h2>Go Desktop or Laptop</h2>
-										</strong>
-									</span>
-                                </div>
-                                <div class="mt-3">
-									<span>
-										<p>For a superior journey, make the shift to desktop or laptop - enjoy
-                                        a seamless and user experience like never before.</p>
-									</span>
-                                </div>
-                                <div class="icon-container mt-3 text-center">
-                                    <button class="btn btn-secondary btn-rounded me-2 ms-0 my-0 text-center"
-                                            (click)="moveToDesktop()" alt="reports">
-                                        <span class="text-medium fw-normal px-4"> Continue</span>
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>

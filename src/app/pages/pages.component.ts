@@ -5,6 +5,7 @@ import { NavigationEnd, Router } from "@angular/router";
 import { DataService } from "../data.service";
 import {DashboardService} from "./dashboard/dashboard.service";
 import { AuthService } from "../Auth/auth.service";
+import {DeviceDetectorService} from "ngx-device-detector";
 
 @Component({
     selector: "uni-pages",
@@ -19,13 +20,17 @@ export class PagesComponent implements OnInit, OnDestroy {
     showReportSuccess = false;
     conditionSubscribed = true;
     visibleExhasted!: boolean;
+    isDeviceStatusPopupView: boolean = false;
     MultiLoginPopup:string = '';
+    isDeviceStatus: any = 'none';
+    deviceInfo: any;
     @Output() expandicon = !this.sidebarClass
         ? "pi-align-right"
         : "pi-align-justify";
     private subs = new SubSink();
     constructor(private pageFacade: PageFacadeService, private router: Router, private dataService: DataService,
-                private dashboardService: DashboardService,private service:AuthService) {
+                private dashboardService: DashboardService,private service:AuthService,private deviceService: DeviceDetectorService) {
+                    this.deviceCheck();
         router.events.subscribe((val) => {
             if(val instanceof NavigationEnd){
                 if(val.url.includes('subscriptions') || val.url.includes('support-help')
@@ -45,6 +50,25 @@ export class PagesComponent implements OnInit, OnDestroy {
     ngOnDestroy() {
         this.subs.unsubscribe();
     }
+
+    deviceCheck(){
+        this.deviceInfo = this.deviceService.getDeviceInfo();
+        const isMobile = this.deviceService.isMobile();
+        const isTablet = this.deviceService.isTablet();
+        const isDesktopDevice = this.deviceService.isDesktop();
+        if(isMobile || isTablet){
+          this.isDeviceStatus = 'block';
+          this.isDeviceStatusPopupView = false;
+        }else{
+          this.isDeviceStatus = 'none';
+          this.isDeviceStatusPopupView = true;
+        }
+      }
+    
+      moveToDesktop(){
+        this.isDeviceStatus = 'none';
+        this.isDeviceStatusPopupView = true;
+      }
 
     ngOnInit(): void {
         this.subScribedUserCount();
