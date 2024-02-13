@@ -170,7 +170,13 @@ i {
   left: 0;
 }
 
-.startup-expired{
-  background: url('../../../uniprep-assets/images/Startup\ KIT@2x.jpg');
-    background-size: cover;
+.startup-expired {
+  background: url("../../../uniprep-assets/images/Startup\ KIT@2x.jpg");
+  background-size: cover;
+}
+::ng-deep .p-paginator {
+  justify-content: center !important;
+}
+.card-footer{
+  background: white !important;
 }

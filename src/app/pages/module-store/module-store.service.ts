@@ -43,13 +43,17 @@ export class ModuleStoreService {
         params: {
             countryId: number,
             moduleId: number,
-            submoduleId: number
+            submoduleId: number,
+            page:number,
+            perpage:number
         }
     ): Observable<QuestionList> {
         let request = {
             countryId: params.countryId,
             moduleId: params.moduleId,
-            submoduleId: params.submoduleId
+            submoduleId: params.submoduleId,
+            page:params.page,
+            perpage:params.perpage
         }
         return this.http.post<QuestionList>(environment.ApiUrl + "/getmodulequestions", request);
     }

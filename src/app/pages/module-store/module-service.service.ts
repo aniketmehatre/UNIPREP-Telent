@@ -26,7 +26,9 @@ export class ModuleServiceService {
     this.store.dispatch(loadQuestionList({
       countryId: data.countryId,
       moduleId: data.moduleId,
-      submoduleId: data.submoduleId
+      submoduleId: data.submoduleId,
+      page:data.page,
+      perpage:data.perpage,
     }));
   }
 
