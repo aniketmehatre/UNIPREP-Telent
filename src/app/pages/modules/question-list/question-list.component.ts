@@ -25,7 +25,7 @@ export class QuestionListComponent implements OnInit {
   @ViewChild('refLinksContainer') refLinksContainer !: ElementRef;
 
   readQue$!: Observable<ReadQuestion[]>;
-  listQuestion$!: Observable<ListQuestion[]>;
+  listQuestion$!: Observable<QuestionList>;
   questionCount$!: Observable<QuestionList[]>;
   selectedQuestion: number = 0;
   selectedQuestionId: number = 0;
@@ -59,7 +59,7 @@ export class QuestionListComponent implements OnInit {
   tooltip: any;
   questionListData: any [] = []
   pageno:number = 1;
-  perpage:number = 10;
+  perpage:number = 50;
   totalQuestionCount:any
   constructor(private moduleListService: ModuleServiceService, private moduleStoreService: ModuleStoreService,
               private dataService: DataService, private route: ActivatedRoute, private _location: Location,
@@ -142,7 +142,7 @@ export class QuestionListComponent implements OnInit {
       }
     ];
 
-    this.listQuestion$ = this.moduleListService.questionList$();
+    //this.listQuestion$ = this.moduleListService.questionList$();
     let data = {
       countryId: Number(localStorage.getItem('countryId')),
       moduleId: this.currentModuleId,
@@ -151,10 +151,9 @@ export class QuestionListComponent implements OnInit {
       perpage:this.perpage,
     }
     this.moduleListService.loadQuestionList(data);
-    this.listQuestion$.subscribe((data: any) => {
-      this.questionListData = data;
-      // this.totalQuestionCount
-      console.log( this.questionListData);      
+    this.moduleListService.questionList$().subscribe((data: any) => {
+      this.questionListData = data?.questions;
+      this.totalQuestionCount= data?.questioncount    
     })
   }
 
@@ -196,8 +195,8 @@ export class QuestionListComponent implements OnInit {
   }
 
   onQuestionClick(selectedData: any) {
-    this.listQuestion$.subscribe(event => {
-      this.data = event
+    this.moduleListService.questionList$().subscribe((data: any) => {
+      this.data = data.questions
     })
     this.selectedQuestionData = selectedData;
     this.selectedModule = selectedData.module_id;
@@ -520,8 +519,9 @@ export class QuestionListComponent implements OnInit {
       perpage:this.perpage,
     }
     this.moduleListService.loadQuestionList(data);
-    this.listQuestion$.subscribe((data: any) => {
-      this.questionListData = data;
+    this.moduleListService.questionList$().subscribe((data: any) => {
+      this.questionListData = data?.questions;
+      this.totalQuestionCount= data?.questioncount    
     })
   }
 }
