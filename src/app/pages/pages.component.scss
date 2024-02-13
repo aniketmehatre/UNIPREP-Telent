@@ -37,7 +37,6 @@ section {
     padding: 1rem;
     scrollbar-width: thin !important;
     scrollbar-gutter: stable !important;
-    margin-bottom: 5rem;
   }
 
   #sidenav {
@@ -51,15 +50,6 @@ section {
     scrollbar-gutter: stable !important;
     height: 100vh !important;
   }
-}
-
-.footer-section {
-  position: fixed;
-  bottom: 0;
-  color: rgb(0, 0, 0);
-  width: -webkit-fill-available !important;
-  background-color: white;
-  z-index: 102;
 }
 
 .uppercase {
