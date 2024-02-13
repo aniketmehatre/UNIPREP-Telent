@@ -39,7 +39,11 @@ export class ModuleStoreEffects {
             perpage:payload.perpage
         }).pipe(
             map(response => {
-                return loadQuestionListSuccess({questionList: response.questions})
+                return loadQuestionListSuccess({questionList: {
+                    status: response.status,
+                    questioncount: response.questioncount,
+                    questions:response.questions
+                }})
             })
         ))
     ));

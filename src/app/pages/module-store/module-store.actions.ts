@@ -1,6 +1,6 @@
 import {createAction} from "@ngrx/store";
 import {ModuleListSub} from "../../@Models/module.model";
-import {ListQuestion} from "../../@Models/question-list.model";
+import {ListQuestion, QuestionList} from "../../@Models/question-list.model";
 import {QuizList} from "../../@Models/list-quiz.model";
 
 
@@ -26,7 +26,7 @@ export const loadQuestionList = createAction('[Modules] load question list',
 export const emptyQuestionList = createAction('[Modules] load question list');
 export const loadQuestionListSuccess = createAction('[Modules] load question list success',
     (payload: {
-        questionList: ListQuestion[]
+        questionList: QuestionList
     }) => payload);
 export const loadQuizList = createAction('[Modules] load quiz list',
     (payload: {
