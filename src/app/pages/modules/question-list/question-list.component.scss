@@ -247,3 +247,19 @@
 .badge {
   border-radius: 25px !important;
 }
+
+.scrollable-container {
+  display: flex;
+  overflow-x: hidden;
+  align-items: center;
+  max-width: 60%; 
+}
+
+.scroll-content {
+  display: flex;
+}
+
+.scroll-button {
+  border: none;
+  cursor: pointer;
+}
