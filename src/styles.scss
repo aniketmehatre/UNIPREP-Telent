@@ -1897,7 +1897,8 @@ uni-subscription {
 
 	.questionmodal {
 		.p-dialog-header-icons {
-			top: 5px;
+			top: -10px;
+			right: -10px;
 		}
 	}
 
@@ -2103,4 +2104,8 @@ p-accordion.plain .p-accordion-tab-active .p-accordion-header-link:after {
 
 button.p-dialog-header-icon.p-dialog-header-maximize.p-element.p-link.p-ripple{
 	display: none;
+}
+
+.theme-dark-blue{
+	background-color: #001631;
 }

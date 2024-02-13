@@ -50,7 +50,6 @@
 .readButton{
   filter: grayscale(1);
 }
-
 .questioncard {
   border: 3px solid var(--uniprep-primaryhighlight);
   width: 100%;
@@ -272,13 +271,47 @@
 
 .scroll-button {
   border: none;
+  border-radius: 20px;
   cursor: pointer;
+  background: #b4ceec;
+  cursor: pointer;
+  width: 25px !important;
+  height: 25px !important;
+}
+
+.scroll-button-warning{
+  border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    background: #ffd5b0;
+    cursor: pointer;
+    width: 25px !important;
+    height: 25px !important;
+    .fa-chevron-left {
+        color: #f0780e;
+      }
+    
+      .fa-chevron-right {
+        color: #f0780e;
+      }
+}
+
+.fa-chevron-left{
+  color: #26374b;
+}
+
+.fa-chevron-right{
+  color: #26374b;
 }
 
 .videolinkbutton {
   white-space: nowrap;
+  font-size: 12px;
+  font-weight: 400 !important;
 }
 
 .reflinkbutton {
   white-space: nowrap;
+  font-size: 12px;
+  font-weight: 400 !important;
 }
