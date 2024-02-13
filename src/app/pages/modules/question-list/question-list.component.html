@@ -118,12 +118,25 @@
 		<div class="d-flex justify-content-between flex-column flex-md-row px-4 my-4">
 			<div class="flex-full" *ngIf="videoLinks">
 				<h5 class="text-start">Recommended Videos</h5>
-				<div class="d-flex gap-2 pb-2" id="ref-links-container">
-					<a class="px-4 m-0 py-2 btn btn-primary btn-rounded" target="_blank" href="{{ videoL.link }}"
-						*ngFor="let videoL of videoLinks; let ind = index">Video {{ ind + 1 }} &nbsp;<i
-							class="fa-solid fa-video"></i></a>
+				<div class="d-flex align-items-center gap-2 pb-2">
+					<button class="scroll-button btn-primary btn-rounded" (click)="scrollLeftVideo()">
+						<i class="fa-solid fa-chevron-left"></i>
+					</button>
+					<div class="scrollable-container" id="video-links-container" #videoLinksContainer>
+						<div class="scroll-content">
+							<a class="px-4 py-2 btn btn-primary btn-rounded"
+							   target="_blank"
+							   href="{{ videoL.link }}"
+							   *ngFor="let videoL of videoLinks; let ind = index">Video {{ ind + 1 }} &nbsp;<i class="fa-solid fa-video"></i></a>
+						</div>
+					</div>
+					<button class="scroll-button btn-primary btn-rounded" (click)="scrollRightVideo()">
+						<i class="fa-solid fa-chevron-right"></i>
+					</button>
 				</div>
 			</div>
+			
+			
 			<div class="flex-full" *ngIf="refLink">
 				<h5 class="text-start">Recommended Links</h5>
 				<div class="d-flex gap-2 pb-2" id="ref-links-container">

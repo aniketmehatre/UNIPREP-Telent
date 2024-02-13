@@ -1,4 +1,4 @@
-import {AfterContentChecked, ChangeDetectorRef, Component, OnInit, ViewChild} from '@angular/core';
+import {AfterContentChecked, ChangeDetectorRef, Component, OnInit, ViewChild, ElementRef} from '@angular/core';
 import {Observable} from "rxjs";
 import {ModuleListSub} from "../../../@Models/module.model";
 import {ReadQuestion} from "../../../@Models/read-question.model";
@@ -21,6 +21,7 @@ export class QuestionListComponent implements OnInit {
   @ViewChild('carouselRefElm') carouselRefElm: any;
   @ViewChild('carouselPopupVideoElm') carouselPopupVideoElm: any;
   @ViewChild('carouselPopupRefElm') carouselPopupRefElm: any;
+  @ViewChild('videoLinksContainer') videoLinksContainer !: ElementRef;
 
   readQue$!: Observable<ReadQuestion[]>;
   listQuestion$!: Observable<ListQuestion[]>;
@@ -451,5 +452,17 @@ export class QuestionListComponent implements OnInit {
     this.moduleStoreService.GetReviewedByOrgLogo(request).subscribe((response) => {
       this.reviewedByOrgList = response;
     })
+  }
+
+  scrollRightVideo() {
+    const container = this.videoLinksContainer.nativeElement;
+    const scrollAmount = container.offsetWidth / 2;
+    container.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+  }
+
+  scrollLeftVideo() {
+    const container = this.videoLinksContainer.nativeElement;
+    const scrollAmount = -container.offsetWidth / 2;
+    container.scrollBy({ left: scrollAmount, behavior: 'smooth' });
   }
 }
