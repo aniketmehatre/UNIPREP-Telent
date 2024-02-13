@@ -48,7 +48,7 @@ export class SubscriptionHistoryComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log(this.userSubscription);
+   
   }
 
 
