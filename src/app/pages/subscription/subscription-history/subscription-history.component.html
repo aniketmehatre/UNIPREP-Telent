@@ -16,19 +16,19 @@
 						<button class="btn upgradeplan" (click)="upgradePlan()">Upgrade Plan</button>
 					</div>
 				</div>
-				<div class="text-end pt-3" *ngIf="showPlanBtn">
+				<!-- <div class="text-end pt-3" *ngIf="showPlanBtn">
 					<button class="btn btn-primary" (click)="gotoPlan()">Subscription Plan</button>
 				</div>
 				<div>
-					<!-- <div>
-                    <button (click)="buttonclicked1()" class="btn btn-basic mt-4"
-                        [class.active]="selectedButton === 'button1'" (click)="selectedButton = 'button1'"
-                        *ngIf="topupcountries">BASE SUBSCRIPTION</button>
-                    <button (click)="buttonclicked2()" class="btn btn-basic mt-4"
-                        [class.active]="selectedButton ==='button2'" (click)="selectedButton = 'button2'"
-                        *ngIf="basesubscription">TOP UP COUNTRIES</button>             
-                </div> -->
-				</div>
+					<div>
+						<button (click)="buttonclicked1()" class="btn btn-basic mt-4"
+							[class.active]="selectedButton === 'button1'" (click)="selectedButton = 'button1'"
+							*ngIf="topupcountries">BASE SUBSCRIPTION</button>
+						<button (click)="buttonclicked2()" class="btn btn-basic mt-4"
+							[class.active]="selectedButton ==='button2'" (click)="selectedButton = 'button2'"
+							*ngIf="basesubscription">TOP UP COUNTRIES</button>
+					</div>
+				</div> -->
 			</div>
 		</div>
 	</div>
@@ -36,7 +36,7 @@
 <div class="card historycard mb-2" *ngIf="basesubscription">
 	<div class="card-body">
 		<span class="sop-header mb-3">Subscription History</span>
-		<p-table [value]="subscribedHistoryList" class="subscriptiontable"  responsiveLayout="scroll">
+		<p-table [value]="subscribedHistoryList" class="subscriptiontable" responsiveLayout="scroll">
 			<ng-template pTemplate="header">
 				<tr>
 					<th>Product</th>
@@ -63,7 +63,7 @@
 <div class="card historycard" *ngIf="basesubscription">
 	<div class="card-body">
 		<span class="sop-header mb-3">Account Billing History</span>
-		<p-table [value]="accountBillingList" class="subscriptiontable"  responsiveLayout="scroll">
+		<p-table [value]="accountBillingList" class="subscriptiontable" responsiveLayout="scroll">
 			<ng-template pTemplate="header">
 				<tr>
 					<th>Product</th>

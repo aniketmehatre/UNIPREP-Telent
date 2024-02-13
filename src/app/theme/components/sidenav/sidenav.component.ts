@@ -39,7 +39,7 @@ export class SidenavComponent {
       image: "fa-solid fa-house",
     },
      {
-       title: "User Guide",
+       title: "About UNIPREP",
        url: "/pages/userguide",
        image: "fa-solid fa-book",
      },

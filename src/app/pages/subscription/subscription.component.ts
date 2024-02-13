@@ -12,7 +12,7 @@ import {
 } from "../../@Models/subscription";
 import { Observable } from "rxjs";
 import { selectBillingInfo$ } from "./store/selectors";
-import {select} from "@ngrx/store";
+import { select } from "@ngrx/store";
 import { DataService } from "src/app/data.service";
 import { environment } from "@env/environment";
 
@@ -35,9 +35,9 @@ export class SubscriptionComponent implements OnInit {
     user: any;
     countryList: any;
     isSubOrQuestion: number = 1;
-    subscribedCountryList: any [] = [];
-    subscribedHistoryData: any [] = [];
-    userSubscription: any  = [];
+    subscribedCountryList: any[] = [];
+    subscribedHistoryData: any[] = [];
+    userSubscription: any = [];
     subscriptionDetails: any;
     accountBillingData: any[] = [];
     loadingSubscriptionHistory: boolean = false;
@@ -45,7 +45,7 @@ export class SubscriptionComponent implements OnInit {
     showSubscriptionedData: boolean = false;
     showPlanBtn: boolean = false;
     showHistoryBtn: boolean = false;
- 
+
 
     constructor(
         private subscriptionService: SubscriptionService,
@@ -55,7 +55,7 @@ export class SubscriptionComponent implements OnInit {
         private dataService: DataService
     ) { }
     ngOnInit(): void {
-        if(!this.authservice?.user?.subscription) {
+        if (!this.authservice?.user?.subscription) {
             this.stage = 1;
             return;
         }
@@ -68,7 +68,7 @@ export class SubscriptionComponent implements OnInit {
                 this.showPlanBtn = false;
             }
         });
-         
+
     }
     start() {
         this.showPayLoading = false;
@@ -102,9 +102,9 @@ export class SubscriptionComponent implements OnInit {
         });
     }
     onSelectSubscription(event: any) {
-       let selectedPlanData = {... event.event};
+        let selectedPlanData = { ...event.event };
         selectedPlanData.country = event.selectedCountryList;
-        selectedPlanData.price = Number(selectedPlanData.price) + ((event.selectedCountryList.length -1) * 699);
+        selectedPlanData.price = Number(selectedPlanData.price) + ((event.selectedCountryList.length - 1) * 699);
 
         this.selectedSubscription = selectedPlanData;
         this.stage = 3;
@@ -154,19 +154,19 @@ export class SubscriptionComponent implements OnInit {
             });
     }
     payWithRazor(orderid: any) {
-        let razorKey='rzp_live_YErYQVqDIrZn1D';
-        if(environment.domain=="api.uniprep.ai"){
-            razorKey='rzp_test_Crpr7YkjPaCLEr';
+        let razorKey = 'rzp_live_YErYQVqDIrZn1D';
+        if (environment.domain == "api.uniprep.ai") {
+            razorKey = 'rzp_test_Crpr7YkjPaCLEr';
         }
         const options: any = {
             key: razorKey,
             amount: this.subscriptionDetails?.finalPrice * 100, // amount should be in paise format to display Rs 1255 without decimal point
             currency: "INR",
-            name: "Uniprep", // company name or product name
+            name: "UNIPREP", // company name or product name
             description: "UNIPREP Subscription", // product description
             image: "https://uniprep.ai/uniprep-assets/images/icon-light.svg", // company logo or product image
             order_id: orderid, // order_id created by you in backend
-            //callback_url: "http://localhost:4200/pages/subscriptions",
+
             prefill: {
                 name: this.selectedSubscription?.subscription,
                 email: this.authservice.user?.email,
@@ -183,7 +183,7 @@ export class SubscriptionComponent implements OnInit {
                 color: "#3f4c83",
             },
         };
-         
+
         options.handler = (response: any, error: any) => {
             options.response = response;
             var paymentdata = {
@@ -235,18 +235,25 @@ export class SubscriptionComponent implements OnInit {
         };
         options.modal.ondismiss = () => {
 
-            this.toastr.add({severity: 'error', summary: 'Error', detail: "Transaction cancelled"});
+            this.toastr.add({ severity: 'error', summary: 'Error', detail: "Transaction cancelled" });
 
         };
         const rzp = new this.winRef.nativeWindow.Razorpay(options);
         rzp.open();
     }
 
-    loadSubscriptionHistory(){
+    loadSubscriptionHistory() {
         this.subscriptionService.getSubscriptionHistory().subscribe((response: any) => {
             this.subscribedHistoryData = response.subscriptionhistory;
             this.accountBillingData = response.accountbillings;
-            if(this.subscribedHistoryData.length > 0 && this.accountBillingData.length > 0) {
+            
+            this.accountBillingData.map(function (currentelement, index, arrayobj) {
+                if (currentelement.product == "Free Add On" && arrayobj.length - 1 != index) {
+                    arrayobj.splice(index, 1);
+                }
+            })
+
+            if (this.subscribedHistoryData.length > 0 && this.accountBillingData.length > 0) {
                 this.loadingSubscriptionHistory = true;
                 this.loadSubscriptionedData();
             }
@@ -254,23 +261,23 @@ export class SubscriptionComponent implements OnInit {
         this.dataService.showPopup(true);
     }
 
-    loadExistingSubscription(){
+    loadExistingSubscription() {
         this.subscriptionService.getExistingSubscription().subscribe((response: any) => {
             this.userSubscription = response.subscription;
-            if(typeof this.userSubscription=='object' && this.userSubscription.countryName!=null){
+            if (typeof this.userSubscription == 'object' && this.userSubscription.countryName != null) {
                 this.loadingExistingSubscription = true;
                 this.loadSubscriptionedData();
                 return;
             }
             // if(this.userSubscription.length > 0) {
-                this.loadingExistingSubscription = true;
-                this.loadSubscriptionedData();
+            this.loadingExistingSubscription = true;
+            this.loadSubscriptionedData();
             // }
         });
     }
 
     loadSubscriptionedData() {
-        if(this.loadingSubscriptionHistory && this.loadingExistingSubscription) {
+        if (this.loadingSubscriptionHistory && this.loadingExistingSubscription) {
             this.showHistoryBtn = true;
             this.stage = 5;
         }
