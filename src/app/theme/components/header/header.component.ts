@@ -14,15 +14,15 @@ import { MenuItem, MessageService } from "primeng/api";
 import { ModalService } from "src/app/components/modal/modal.service";
 import { AuthService } from "../../../Auth/auth.service";
 import { SubSink } from "subsink";
-import {ActivatedRoute, Router} from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
 import { LocationService } from "../../../location.service";
 import { DataService } from "src/app/data.service";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { matchValidator } from "../../../@Supports/matchvalidator";
-import { ThemeService } from '../../../theme.service';
+import { ThemeService } from "../../../theme.service";
 import { DashboardService } from "src/app/pages/dashboard/dashboard.service";
-import {count} from "rxjs";
-import {SocialAuthService} from "@abacritt/angularx-social-login";
+import { count } from "rxjs";
+import { SocialAuthService } from "@abacritt/angularx-social-login";
 
 @Component({
   selector: "uni-header",
@@ -59,7 +59,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   visible: boolean = false;
   isShowFreeTrialStart: boolean = false;
   isChangePasswordWindowVisible: boolean = false;
-  day:any = 0;
+  day: any = 0;
   hrs: any = 0;
   min: any = 0;
   sec: any = 0;
@@ -93,14 +93,14 @@ export class HeaderComponent implements OnInit, OnDestroy {
     private themeService: ThemeService,
     route: ActivatedRoute,
     private dataService: DataService,
-    private dashboardService: DashboardService, private authService: SocialAuthService
-
+    private dashboardService: DashboardService,
+    private authService: SocialAuthService
   ) {
     this.subs.sink = this.dataService.countryIdSource.subscribe((data) => {
       this.selectedCountryId = Number(data);
       this.getModuleList();
     });
-    route.params.subscribe(val => {
+    route.params.subscribe((val) => {
       this.reportType = 1;
       this.getReportOption();
       // put the code from `ngOnInit` here
@@ -108,11 +108,11 @@ export class HeaderComponent implements OnInit, OnDestroy {
     });
   }
 
-  loadCountryList(){
-    this.dashboardService.countryList().subscribe(countryList => {
+  loadCountryList() {
+    this.dashboardService.countryList().subscribe((countryList) => {
       this.countryLists = countryList;
       this.countryLists.forEach((element: any) => {
-        if (element.id == Number(localStorage.getItem('countryId'))) {
+        if (element.id == Number(localStorage.getItem("countryId"))) {
           this.dataService.changeCountryName(element.country);
           this.dataService.changeCountryFlag(element.flag);
           this.dataService.changeCountryId(element.id);
@@ -182,13 +182,13 @@ export class HeaderComponent implements OnInit, OnDestroy {
       this.subs.sink = this.dataService.showTimeOutSource.subscribe((data) => {
         this.visible = data;
       });
-      this.dashboardService.countryList().subscribe(countryList => {
+      this.dashboardService.countryList().subscribe((countryList) => {
         this.countryLists = countryList;
         this.countryLists.forEach((element: any) => {
           if (element.id == this.selectedCountryId) {
             this.selectedCountryId = element.id;
-            localStorage.setItem('countryId', element.id);
-            this.dataService.changeCountryId(element.id)
+            localStorage.setItem("countryId", element.id);
+            this.dataService.changeCountryId(element.id);
             //this.dataService.changeCountryFlag(element.flag)
             this.dataService.changeCountryName(element.country);
           }
@@ -247,7 +247,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.dataService.showTimeOutSourceData.subscribe((res) => {
       this.checkNewUser();
       this.subScribedUserCount();
-    })
+    });
     this.dataService.countryFlagSource.subscribe((data) => {
       if (data != "") {
         this.headerFlag = data;
@@ -268,12 +268,11 @@ export class HeaderComponent implements OnInit, OnDestroy {
         this.selectedGenMod = 2;
         this.openReportModalFromMoudle(this.op, event);
         this.reportType = 3;
-        this.getReportOption()
+        this.getReportOption();
         this.isVisibleModulesMenu = true;
         this.moduleNgModel = data.moduleId;
         this.subModuleNgModel = data.subModuleId;
         this.questionIdNgModel = data.questionId;
-
       } else {
         this.isQuestionVisible = false;
       }
@@ -311,7 +310,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   openReportModal(op: any, event: any) {
-    this.reportType = 1
+    this.reportType = 1;
 
     this.reportSubmitForm.reset();
     // this.reportSubmitForm = this.formBuilder.group({
@@ -375,23 +374,28 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.subs.sink = this.locationService
       .getReportOptionList()
       .subscribe((data) => {
-         let reportTypeData = data.reportOptions.filter((value: any) => value.reporttype === this.reportType)
-        this.reportOptionList = [{ id: null, reportoption_name: 'Select' }, ...reportTypeData];
+        let reportTypeData = data.reportOptions.filter(
+          (value: any) => value.reporttype === this.reportType
+        );
+        this.reportOptionList = [
+          { id: null, reportoption_name: "Select" },
+          ...reportTypeData,
+        ];
       });
   }
-  isCountryPopupOpen: any
+  isCountryPopupOpen: any;
   openFlagModal(totalCountryList: any, event: any): void {
     this.isLondon = true;
     this.isCountryPopupOpen = event;
     totalCountryList.toggle(event);
-   // this.dataService.countryIdSource
+    // this.dataService.countryIdSource
   }
 
-  selectCountryInHeader(countryData: any, totalCountryList: any){
-    this.dataService.changeCountryId(countryData.id)
-    this.dataService.changeCountryName(countryData.country)
-    this.dataService.changeCountryFlag(countryData.flag)
-    localStorage.setItem('countryId', countryData.id)
+  selectCountryInHeader(countryData: any, totalCountryList: any) {
+    this.dataService.changeCountryId(countryData.id);
+    this.dataService.changeCountryName(countryData.country);
+    this.dataService.changeCountryFlag(countryData.flag);
+    localStorage.setItem("countryId", countryData.id);
     totalCountryList.toggle(false);
   }
 
@@ -438,7 +442,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.router.navigate(["/pages/subscriptions"]);
   }
 
-  onClickSubscribedUser(): void{
+  onClickSubscribedUser(): void {
     this.freeTrial = false;
     this.continueTrial();
     this.visibleExhasted = false;
@@ -446,19 +450,25 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   subScribedUserCount(): void {
-    this.service.getNewUserTimeLeft().subscribe(res => {
+    this.service.getNewUserTimeLeft().subscribe((res) => {
       let data = res.time_left;
-      if (data.plan === 'not_started') {
+      if (data.plan === "not_started") {
         this.visible = false;
       } else {
-        this.getTimer(data.minutes, data.seconds, data.hours, data.days, data.months);
+        this.getTimer(
+          data.minutes,
+          data.seconds,
+          data.hours,
+          data.days,
+          data.months
+        );
       }
     });
   }
 
   getTimer(minute: any, sec: any, hours: any, days: any, months: any): void {
     let totalSeconds: number = hours * 3600 + minute * 60 + sec;
-    let textSec: string | number = '0';
+    let textSec: string | number = "0";
 
     this.timerInterval = setInterval(() => {
       totalSeconds--;
@@ -467,8 +477,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
       const minutesLeft: number = Math.floor((totalSeconds % 3600) / 60);
       const secondsLeft: number = totalSeconds % 60;
 
-      const textMin: string = minutesLeft < 10 ? '0' + minutesLeft : minutesLeft.toString();
-      const textSec: string = secondsLeft < 10 ? '0' + secondsLeft : secondsLeft.toString();
+      const textMin: string =
+        minutesLeft < 10 ? "0" + minutesLeft : minutesLeft.toString();
+      const textSec: string =
+        secondsLeft < 10 ? "0" + secondsLeft : secondsLeft.toString();
 
       this.hrs = hoursLeft;
       this.min = textMin;
@@ -485,7 +497,13 @@ export class HeaderComponent implements OnInit, OnDestroy {
         this.sec = textSec;
       }
 
-      if (this.min <= 0 && this.hrs <= 0 && this.day <= 0 && this.sec <= 0 && this.month <= 0) {
+      if (
+        this.min <= 0 &&
+        this.hrs <= 0 &&
+        this.day <= 0 &&
+        this.sec <= 0 &&
+        this.month <= 0
+      ) {
         this.visibleExhasted = true;
         clearInterval(this.timerInterval);
       }
@@ -493,18 +511,18 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   checkNewUser(): void {
-    this.service.getNewUserTimeLeft().subscribe(res => {
+    this.service.getNewUserTimeLeft().subscribe((res) => {
       let data = res.time_left;
-      if (data.plan === 'on_progress') {
+      if (data.plan === "on_progress") {
         this.userLoginTimeLeftCount = false;
         this.timer(data.minutes, data.seconds, data.hours);
       }
-    })
+    });
   }
 
   timer(minute: any, sec: any, hours: any): void {
     let totalSeconds: number = hours * 3600 + minute * 60 + sec;
-    let textSec: string | number = '0';
+    let textSec: string | number = "0";
 
     this.timerInterval = setInterval(() => {
       totalSeconds--;
@@ -513,8 +531,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
       const minutesLeft: number = Math.floor((totalSeconds % 3600) / 60);
       const secondsLeft: number = totalSeconds % 60;
 
-      const textMin: string = minutesLeft < 10 ? '0' + minutesLeft : minutesLeft.toString();
-      const textSec: string = secondsLeft < 10 ? '0' + secondsLeft : secondsLeft.toString();
+      const textMin: string =
+        minutesLeft < 10 ? "0" + minutesLeft : minutesLeft.toString();
+      const textSec: string =
+        secondsLeft < 10 ? "0" + secondsLeft : secondsLeft.toString();
       if (minute <= 0 && hours <= 0 && sec <= 0) {
         this.timeHours = 0;
         this.timeLeftMins = 0;
@@ -525,7 +545,11 @@ export class HeaderComponent implements OnInit, OnDestroy {
         this.timeLeftSecs = textSec;
       }
 
-      if (this.timeLeftMins <= 0 && this.timeHours <= 0 && this.timeLeftSecs <= 0) {
+      if (
+        this.timeLeftMins <= 0 &&
+        this.timeHours <= 0 &&
+        this.timeLeftSecs <= 0
+      ) {
         this.visible = true;
         clearInterval(this.timerInterval);
       }
@@ -534,7 +558,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   onSubmit(op: any) {
     let data;
-    if (this.reportSubmitForm.value.comment == null || this.reportSubmitForm.value.comment == '') {
+    if (
+      this.reportSubmitForm.value.comment == null ||
+      this.reportSubmitForm.value.comment == ""
+    ) {
       // this.toast.add({
       //   severity: "error",
       //   summary: "Error",
@@ -548,27 +575,38 @@ export class HeaderComponent implements OnInit, OnDestroy {
     }
 
     data = {
-      moduleId: this.moduleQuestionReport.moduleId ? this.moduleQuestionReport.moduleId : this.reportSubmitForm.value.moduleId,
-      submoduleId: this.moduleQuestionReport.subModuleId ? this.moduleQuestionReport.subModuleId : this.reportSubmitForm.value.submoduleId,
-      questionId: this.moduleQuestionReport.questionId ? this.moduleQuestionReport.questionId : this.reportSubmitForm.value.questionId,
+      moduleId: this.moduleQuestionReport.moduleId
+        ? this.moduleQuestionReport.moduleId
+        : this.reportSubmitForm.value.moduleId,
+      submoduleId: this.moduleQuestionReport.subModuleId
+        ? this.moduleQuestionReport.subModuleId
+        : this.reportSubmitForm.value.submoduleId,
+      questionId: this.moduleQuestionReport.questionId
+        ? this.moduleQuestionReport.questionId
+        : this.reportSubmitForm.value.questionId,
       reportOption: this.reportSubmitForm.value.reportOption,
       comment: this.reportSubmitForm.value.comment,
-      countryId: this.selectedCountryId
+      countryId: this.selectedCountryId,
     };
-
-
-    this.reportSubmitForm.patchValue({ 'comment': null });
+    let maildata = {
+      reportOption: this.reportSubmitForm.value.reportOption,
+      comment: this.reportSubmitForm.value.comment,
+    };
+    this.reportSubmitForm.patchValue({ comment: null });
 
     this.locationService.reportFaqQuestion(data).subscribe((res) => {
       if (res.status == 404) {
       }
       this.dataService.showFeedBackPopup(true);
-      op.hide();
       // this.showReportSuccess = true;
       setTimeout(() => {
         this.dataService.showFeedBackPopup(false);
+        op.hide();
         // this.showReportSuccess = false;
       }, 3000);
+      this.locationService
+        .reportFaqQuestionaftersubmit(maildata)
+        .subscribe((res) => {});
     });
     this.getReportOption();
   }
@@ -586,7 +624,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   continueTrial(): void {
-    this.dashboardService.getContineTrial().subscribe(res => {
+    this.dashboardService.getContineTrial().subscribe((res) => {
       return res;
     });
     setTimeout(() => {

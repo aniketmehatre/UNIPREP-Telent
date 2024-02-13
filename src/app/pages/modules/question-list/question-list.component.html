@@ -123,18 +123,18 @@
 			<div class="flex-full" *ngIf="videoLinks">
 				<h5 class="text-start">Recommended Videos</h5>
 				<div class="d-flex align-items-center gap-2 pb-2">
-					<button class="scroll-button btn-primary btn-rounded" (click)="scrollLeftVideo()">
+					<button class="scroll-button btn-primary btn-rounded"  *ngIf="leftScrollButtonVisible" (click)="scrollLeftVideo()">
 						<i class="fa-solid fa-chevron-left"></i>
 					</button>
 					<div class="scrollable-container" id="video-links-container" #videoLinksContainer>
 						<div class="scroll-content">
-							<a class="px-4 py-2 btn btn-primary btn-rounded"
+							<a class="px-4 py-2 btn btn-primary videolinkbutton"
 							   target="_blank"
 							   href="{{ videoL.link }}"
 							   *ngFor="let videoL of videoLinks; let ind = index">Video {{ ind + 1 }} &nbsp;<i class="fa-solid fa-video"></i></a>
 						</div>
 					</div>
-					<button class="scroll-button btn-primary btn-rounded" (click)="scrollRightVideo()">
+					<button class="scroll-button btn-primary btn-rounded" *ngIf="rightScrollButtonVisible" (click)="scrollRightVideo()">
 						<i class="fa-solid fa-chevron-right"></i>
 					</button>
 				</div>
@@ -143,13 +143,25 @@
 			
 			<div class="flex-full" *ngIf="refLink">
 				<h5 class="text-start">Recommended Links</h5>
-				<div class="d-flex gap-2 pb-2" id="ref-links-container">
-					<a class="px-4 m-0 py-2 btn btn-secondary btn-rounded" target="_blank" href="{{ refL.link }}"
-						*ngFor="let refL of refLink; let ind = index">Link {{ ind + 1 }} &nbsp;<i
-							class="fa-solid fa-link"></i></a>
+				<div class="d-flex align-items-center gap-2 pb-2">
+					<button class="scroll-button btn-secondary btn-rounded"  *ngIf="leftScrollButtonVisibleRef" (click)="scrollLeftRef()">
+						<i class="fa-solid fa-chevron-left"></i>
+					</button>
+					<div class="scrollable-container" id="ref-links-container" #refLinksContainer>
+						<div class="scroll-content">
+							<a class="px-4 py-2 btn btn-secondary reflinkbutton"
+							   target="_blank"
+							   href="{{ refL.link }}"
+							   *ngFor="let refL of refLink; let ind = index">Link {{ ind + 1 }} &nbsp;<i class="fa-solid fa-link"></i></a>
+						</div>
+					</div>
+					<button class="scroll-button btn-secondary btn-rounded" *ngIf="rightScrollButtonVisibleRef" (click)="scrollRightRef()">
+						<i class="fa-solid fa-chevron-right"></i>
+					</button>
 				</div>
 			</div>
-			<div class="flex-shrink-0 align-items-center d-flex desktop">
+			
+			<div class="align-items-center d-flex desktop">
 				<button class="btn w-100 btn-primary homecardbtn mx-0 px-5 py-2" (click)="onClickAsk()">
 					<i class="fa-solid h5 fa-file-contract"></i>
 					<br />

@@ -69,7 +69,7 @@ export class RecentlyaddedquestionsComponent implements OnInit {
   ngOnInit(): void {
     this.countryId = Number(localStorage.getItem('countryId'));
     this.route.params.subscribe(params => {
-      this.perpage = 10;
+      this.perpage = 50;
       this.pageno = 1;
       this.type = this.route.snapshot.paramMap.get('type');
       this.loadInit();

@@ -44,7 +44,7 @@
 </div>
 <div class="event-paginator" style="background-color: #fff; border-radius: 0px 0px 15px 15px">
 	<p-paginator [rows]="10" [totalRecords]="listQuestionCount" (onPageChange)="paginate($event)"
-		[rowsPerPageOptions]="[10, 32, 72, 100]"></p-paginator>
+		[rowsPerPageOptions]="[50,100,200]"></p-paginator>
 </div>
 
 <p-dialog [(visible)]="isQuestionAnswerVisible" [draggable]="false" [modal]="true" class="questionmodal" header="Header"
