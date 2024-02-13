@@ -22,6 +22,7 @@ export class QuestionListComponent implements OnInit {
   @ViewChild('carouselPopupVideoElm') carouselPopupVideoElm: any;
   @ViewChild('carouselPopupRefElm') carouselPopupRefElm: any;
   @ViewChild('videoLinksContainer') videoLinksContainer !: ElementRef;
+  @ViewChild('refLinksContainer') refLinksContainer !: ElementRef;
 
   readQue$!: Observable<ReadQuestion[]>;
   listQuestion$!: Observable<ListQuestion[]>;
@@ -68,6 +69,8 @@ export class QuestionListComponent implements OnInit {
       //this.getSubmoduleName(this.countryId);
     });
     this.tooltip = 'Questions related to the application process are answered';
+    this.checkScrollPosition();
+    this.checkScrollPositionRef();
   }
 
   loadInit(){
@@ -458,11 +461,44 @@ export class QuestionListComponent implements OnInit {
     const container = this.videoLinksContainer.nativeElement;
     const scrollAmount = container.offsetWidth / 2;
     container.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+    this.checkScrollPosition();
   }
 
   scrollLeftVideo() {
     const container = this.videoLinksContainer.nativeElement;
     const scrollAmount = -container.offsetWidth / 2;
     container.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+    this.checkScrollPosition();
+  }
+
+  scrollLeftRef() {
+    const container = this.refLinksContainer.nativeElement;
+    const scrollAmount = -container.offsetWidth / 2;
+    container.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+    this.checkScrollPositionRef();
+  }
+
+  scrollRightRef() {
+    const container = this.refLinksContainer.nativeElement;
+    const scrollAmount = container.offsetWidth / 2;
+    container.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+    this.checkScrollPositionRef();
+  }
+
+  leftScrollButtonVisible: boolean = false;
+  rightScrollButtonVisible: boolean = true;
+  leftScrollButtonVisibleRef:boolean = false;
+  rightScrollButtonVisibleRef:boolean = true;
+
+  checkScrollPosition() {
+    const container = this.videoLinksContainer.nativeElement;
+    this.leftScrollButtonVisible = container.scrollLeft > 0;
+    this.rightScrollButtonVisible = container.scrollWidth - container.clientWidth > container.scrollLeft;
+  }
+
+  checkScrollPositionRef() {
+    const container = this.refLinksContainer.nativeElement;
+    this.leftScrollButtonVisibleRef = container.scrollLeft > 0;
+    this.rightScrollButtonVisibleRef = container.scrollWidth - container.clientWidth > container.scrollLeft;
   }
 }
