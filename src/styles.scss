@@ -785,8 +785,8 @@ uni-subscription {
 .questionmodal {
 	.p-dialog-header-icons {
 		position: absolute;
-		right: 0.5rem;
-		top: 1rem;
+		right: -15px;
+		top: -15px;
 	}
 	.p-dialog-mask {
 		background: #00000070;
@@ -2104,4 +2104,12 @@ p-accordion.plain .p-accordion-tab-active .p-accordion-header-link:after {
 	background-color: #DF7905;
 	color: white;
 	margin-left: 5px;
+}
+.p-dialog .p-dialog-header .p-dialog-header-icon{
+	background-color: #3f4c83 !important;
+	color: white !important;
+}
+
+button.p-dialog-header-icon.p-dialog-header-maximize.p-element.p-link.p-ripple{
+	display: none;
 }

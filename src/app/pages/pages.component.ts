@@ -28,6 +28,7 @@ export class PagesComponent implements OnInit, OnDestroy {
         ? "pi-align-right"
         : "pi-align-justify";
     private subs = new SubSink();
+    visibleExhastedUser!: boolean;
     constructor(private pageFacade: PageFacadeService, private router: Router, private dataService: DataService,
                 private dashboardService: DashboardService,private service:AuthService,private deviceService: DeviceDetectorService) {
                     this.deviceCheck();
@@ -92,6 +93,7 @@ export class PagesComponent implements OnInit, OnDestroy {
 
     onClickSubscribedUser(): void {
         this.visibleExhasted = false;
+        this.visibleExhastedUser = false;
         this.router.navigate(["/pages/subscriptions"]);
     }
 
@@ -100,8 +102,13 @@ export class PagesComponent implements OnInit, OnDestroy {
             let data = res.time_left;
             if (data.plan === 'expired') {
                 this.visibleExhasted = true;
+                this.visibleExhastedUser = false;
+            } else if (data.plan === 'subscription_expired') {
+                this.visibleExhastedUser = true;
+                this.visibleExhasted = false;
             } else {
                 this.visibleExhasted = false;
+                this.visibleExhastedUser = false;
             }
         });
     }
@@ -127,5 +134,6 @@ export class PagesComponent implements OnInit, OnDestroy {
 
     closeQuiz(): void {
         this.visibleExhasted = false;
+        this.visibleExhastedUser = false;
     }
 }

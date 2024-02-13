@@ -52,7 +52,8 @@ export class InfoKitComponent implements OnInit {
         data.plan === "expired" ||
         subscription_exists_status.subscription_plan === "free_trail" ||
         subscription_exists_status.subscription_plan === "Student" ||
-        subscription_exists_status.subscription_plan === "Career"
+        subscription_exists_status.subscription_plan === "Career" ||
+        data.plan === 'subscription_expired' 
       ) {
         this.planExpired = true;
       } else {
