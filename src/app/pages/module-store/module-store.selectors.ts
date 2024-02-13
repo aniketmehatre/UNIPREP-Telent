@@ -8,7 +8,7 @@ export const selectSubModule$ =
     createSelector(featureSelect, (state: ModuleStoreState) => state.subModules || []);
 
 export const selectQuestionList$ =
-    createSelector(featureSelect, (state: ModuleStoreState) => state.questionList || []);
+    createSelector(featureSelect, (state: ModuleStoreState) => state.questionList || [],);
 export const selectQuizList$ =
     createSelector(featureSelect, (state: ModuleStoreState) => state.quizList || []);
 

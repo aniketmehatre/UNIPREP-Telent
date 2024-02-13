@@ -14,6 +14,7 @@ import {SharedModule} from "primeng/api";
 import {TooltipModule} from "primeng/tooltip";
 import {PipesModule} from "@pipes/pipes.module";
 import {TagModule} from "primeng/tag";
+import { PaginatorModule } from 'primeng/paginator';
 
 
 @NgModule({
@@ -33,7 +34,8 @@ import {TagModule} from "primeng/tag";
     SharedModule,
     TooltipModule,
     PipesModule,
-    TagModule
+    TagModule,
+    PaginatorModule
   ]
 })
 export class ModulesModule { }
