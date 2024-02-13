@@ -169,8 +169,10 @@
                                                            formControlName="country"
                                                            optionValue="id"  (onChange)="loadHeadQuartersData($event)"
                                                            defaultLabel="Select Countries"
-                                                           display="chip" [showClear]="true"
                                                            optionLabel="country" #multiSelect>
+                                                <ng-template pTemplate="selectedItems">
+                                                    {{ multiSelect.defaultLabel }}
+                                                </ng-template>
                                             </p-multiSelect>
                                             <div *ngIf="filterForm.hasError('org_name')" class="text-danger">
                                                 {{ filterForm.getError('org_name') }}
@@ -187,8 +189,10 @@
                                                            formControlName="head_quarters"
                                                            defaultLabel="Select Head Quarters"
                                                            optionValue="id"
-                                                           display="chip" [showClear]="true"
                                                            optionLabel="head_quarters_name" #HeadMultiSelect>
+                                                <ng-template pTemplate="selectedItems">
+                                                    {{ HeadMultiSelect.defaultLabel }}
+                                                </ng-template>
                                             </p-multiSelect>
                                         </div>
                                     </div>
@@ -222,8 +226,10 @@
                                                            formControlName="industry_interested"
                                                            defaultLabel="Select Industry"
                                                            optionValue="id"
-                                                           display="chip" [showClear]="true"
                                                            optionLabel="industry_name" #IndustriesMultiSelect>
+                                                <ng-template pTemplate="selectedItems">
+                                                    {{ IndustriesMultiSelect.defaultLabel }}
+                                                </ng-template>
                                             </p-multiSelect>
                                         </div>
                                     </div>
