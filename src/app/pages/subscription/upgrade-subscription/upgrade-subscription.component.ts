@@ -346,7 +346,7 @@ export class UpgradeSubscriptionComponent implements OnInit {
       key: razorKey,
       amount: this.subscriptionDetails?.finalPrice * 100,
       currency: "INR",
-      name: "Uniprep",
+      name: "UNIPREP",
       description: "UNIPREP Subscription",
       image: "https://uniprep.ai/uniprep-assets/images/icon-light.svg",
       order_id: orderid,
@@ -436,6 +436,9 @@ export class UpgradeSubscriptionComponent implements OnInit {
 
   gotoHistory() {
     this.router.navigate(['pages/subscriptions']);
+    setTimeout(() => {
+      window.location.reload();
+    }, 500);
   }
 
 }
