@@ -563,13 +563,12 @@ export class HeaderComponent implements OnInit, OnDestroy {
       if (res.status == 404) {
       }
       this.dataService.showFeedBackPopup(true);
+      op.hide();
       // this.showReportSuccess = true;
       setTimeout(() => {
         this.dataService.showFeedBackPopup(false);
         // this.showReportSuccess = false;
-        op.hide();
-      }, 4000);
-
+      }, 3000);
     });
     this.getReportOption();
   }
