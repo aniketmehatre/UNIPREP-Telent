@@ -59,6 +59,12 @@ export class LocationService {
             headers: headers,
         });
     }
+    reportFaqQuestionaftersubmit(data: any) {
+        const headers = new HttpHeaders().set("Accept", "application/json");
+        return this.http.post<any>(environment.ApiUrl + "/SendMailGlobalReport", data, {
+            headers: headers,
+        });
+    }
 
     getReportOptionList() {
         const headers = new HttpHeaders().set("Accept", "application/json");
