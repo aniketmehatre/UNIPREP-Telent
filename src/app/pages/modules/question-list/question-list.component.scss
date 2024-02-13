@@ -252,14 +252,33 @@
   display: flex;
   overflow-x: hidden;
   align-items: center;
-  max-width: 60%; 
+  max-width: 500px; 
+}
+
+.scrollable-container-ref {
+  display: flex;
+  overflow-x: hidden;
+  align-items: center;
+  max-width: 80%; 
 }
 
 .scroll-content {
   display: flex;
 }
 
+.scroll-content-ref {
+  display: flex;
+}
+
 .scroll-button {
   border: none;
   cursor: pointer;
+}
+
+.videolinkbutton {
+  white-space: nowrap;
+}
+
+.reflinkbutton {
+  white-space: nowrap;
 }
