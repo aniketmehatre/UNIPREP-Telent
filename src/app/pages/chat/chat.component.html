@@ -1,6 +1,6 @@
 <p-card [style]="{ width: '100%', height: 'auto' }">
   <ng-template pTemplate="header">
-    CHAT
+    Personal Global Advisor
     <br />
     <p class="userinfo">Hello {{ username }}.</p>
     <div class="info row desktop">
@@ -151,15 +151,21 @@
     </div>
     <div class="d-flex justify-content-end sendbtn">
       <button
-        *ngIf="totalcredits > 0"
+        *ngIf="btnsendmessage == 1"
         (click)="confirm($event)"
         class="btn btn-primary px-4 py-2 h5 m-0"
       >
         Send Message
       </button>
       <button
-        *ngIf="totalcredits == 0"
+        *ngIf="btnsendmessage == 2"
         (click)="content.toggle($event)"
+        class="btn btn-primary px-4 py-2 h5 m-0"
+      >
+        Send Message
+      </button>
+      <button
+        *ngIf="btnsendmessage == 3"
         class="btn btn-primary px-4 py-2 h5 m-0"
       >
         Send Message

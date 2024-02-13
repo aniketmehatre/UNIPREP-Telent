@@ -148,7 +148,9 @@ export class ScholarshipListComponent implements OnInit {
       !formData.study_level &&
       !formData.university &&
       !formData.region &&
-      !formData.type
+      !formData.type &&
+      !formData.valueRange &&
+      !formData.cover_id
     ) {
       this.toast.add({
         severity: "error",

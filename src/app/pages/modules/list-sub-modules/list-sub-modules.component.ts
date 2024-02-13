@@ -83,27 +83,27 @@ export class ListSubModulesComponent implements OnInit {
         this.currentModuleId = 1;
         this.currentModuleName = 'Pre-Application';
         this.currentApiSlug = 'GetQuestionsCount';
-        this.infoMessage = 'Upgrade to Access the Pre-application',
+        this.infoMessage = 'Upgrade to access the Pre-application section',
         this.unlockMessage = 'Unlock the power of success with our exclusive Pre-application!',
         this.upgradePlanMsg = 'Upgrade your plan now to gain instant access.';
-        this.aboutModule = 'Pre-application offers information about:',
-        this.moduleDetails = 'Scholarships, document checklist, Education loan, letter of Recommendation and more!'
+        this.aboutModule = 'Explore a vast database of Q&A about:',
+        this.moduleDetails = 'Scholarships, document checklist, Education loan, letter of Recommendation and many more!'
         break;
       case 'post-application':
         this.currentModuleId = 2;
         this.currentModuleName = 'Post-Application';
         this.currentApiSlug = 'GetQuestionsCount';
-        this.infoMessage = 'Upgrade to Access the post-application',
+        this.infoMessage = 'Upgrade to access the post-application',
         this.unlockMessage = 'Unlock the power of success with our exclusive post-application!',
         this.upgradePlanMsg = 'Upgrade your plan now to gain instant access.';
-        this.aboutModule = 'Post-application offers information about:',
+        this.aboutModule = 'Explore a vast database of Q&A about:',
         this.moduleDetails = 'Visa, departure, healthcare, tuition fees and many more!'
         break;
       case 'post-admission':
         this.currentModuleId = 3;
         this.currentModuleName = 'Post-Admission';
         this.currentApiSlug = 'GetQuestionsCount';
-        this.infoMessage = 'Upgrade to Access the post-admission',
+        this.infoMessage = 'Upgrade to access the post-admission',
         this.unlockMessage = 'Unlock the power of success with our exclusive post-admission!',
         this.upgradePlanMsg = 'Upgrade your plan now to gain instant access.';
         this.aboutModule = 'Post-admission offers information about:',
@@ -113,7 +113,7 @@ export class ListSubModulesComponent implements OnInit {
         this.currentModuleId = 4;
         this.currentModuleName = 'Career Hub';
         this.currentApiSlug = 'GetQuestionsCount';
-        this.infoMessage = 'Upgrade to Access the Career Hub',
+        this.infoMessage = 'Upgrade to access the Career Hub',
         this.unlockMessage = '',
         this.upgradePlanMsg = 'Upgrade your plan now to gain instant access.';
         this.aboutModule = 'Explore a vast database of Q&A about:',
@@ -132,7 +132,7 @@ export class ListSubModulesComponent implements OnInit {
         this.infoMessage = 'Upgrade to access information about life in your chosen destination',
         this.unlockMessage = 'Unlock the power of success with our exclusive destination',
         this.upgradePlanMsg = 'Upgrade your plan now to gain instant access.';
-        this.aboutModule = 'This section covers information about:',
+        this.aboutModule = 'Explore a vast database of Q&A about:',
         this.moduleDetails = 'Festivals, events, currency, budget, housing and many more!',
         this.selectedModule = 'life-at-country'
         break;
