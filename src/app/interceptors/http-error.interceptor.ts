@@ -21,7 +21,7 @@ export class HttpErrorInterceptor implements HttpInterceptor {
   ) {}
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
-      if(!request.url.includes('country') && !request.url.includes('getuserdetails')){
+      if(!request.url.includes('country') && !request.url.includes('getuserdetails') && !request.url.includes('SendMailGlobalReport')){
           this.ngxService.start();
       }
     return next.handle(request).pipe(
