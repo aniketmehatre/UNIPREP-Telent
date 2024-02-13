@@ -420,15 +420,6 @@ uni-recentlyaddedquestions {
 		flex: 1;
 		overflow-y: auto;
 	}
-	.event-paginator {
-		.p-dropdown {
-			position: absolute;
-			right: 3rem;
-		}
-		.p-dropdown-panel .p-dropdown-items .p-dropdown-item {
-			padding: 0.25rem 1rem;
-		}
-	}
 }
 
 uni-subscription-history {
