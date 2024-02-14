@@ -167,3 +167,72 @@ li:last-of-type {
   text-align: right;
   margin: 5px;
 }
+
+.scrollable-container {
+  display: flex;
+  overflow-x: hidden;
+  align-items: center;
+  max-width: 500px; 
+}
+
+.scrollable-container-ref {
+  display: flex;
+  overflow-x: hidden;
+  align-items: center;
+  max-width: 80%; 
+}
+
+.scroll-content {
+  display: flex;
+}
+
+.scroll-content-ref {
+  display: flex;
+}
+
+.scroll-button {
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+  background: #b4ceec;
+  cursor: pointer;
+  width: 25px !important;
+  height: 25px !important;
+}
+
+.scroll-button-warning{
+  border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    background: #ffd5b0;
+    cursor: pointer;
+    width: 25px !important;
+    height: 25px !important;
+    .fa-chevron-left {
+        color: #f0780e;
+      }
+    
+      .fa-chevron-right {
+        color: #f0780e;
+      }
+}
+
+.fa-chevron-left{
+  color: #26374b;
+}
+
+.fa-chevron-right{
+  color: #26374b;
+}
+
+.videolinkbutton {
+  white-space: nowrap;
+  font-size: 12px;
+  font-weight: 400 !important;
+}
+
+.reflinkbutton {
+  white-space: nowrap;
+  font-size: 12px;
+  font-weight: 400 !important;
+}
