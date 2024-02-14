@@ -167,10 +167,10 @@
 									<label class="form-label" style="font-size: medium; font-weight: 500">Filter by Country</label>
 									<div class="form-group">
 										<div class="mb-3">
-											<p-multiSelect [options]="countryList" styleClass="w-100" formControlName="country" optionValue="id" (onChange)="loadHeadQuartersData($event)" defaultLabel="Select Country" optionLabel="country" #InvestorCountryMultiSelect>
-												<ng-template pTemplate="selectedItems">
+											<p-multiSelect [options]="countryList" styleClass="w-100" selectedItemsLabel="{0} Countires selected" formControlName="country" optionValue="id" (onChange)="loadHeadQuartersData($event)" placeholder="Select Country" optionLabel="country" #InvestorCountryMultiSelect>
+												<!-- <ng-template pTemplate="selectedItems">
 													{{ InvestorCountryMultiSelect.defaultLabel }}
-												</ng-template>
+												</ng-template> -->
 											</p-multiSelect>
 										</div>
 									</div>
@@ -179,10 +179,10 @@
 									<label class="form-label" style="font-size: medium; font-weight: 500">Filter by Headquarters</label>
 									<div class="form-group">
 										<div class="mb-3">
-											<p-multiSelect [options]="headQuartersList" styleClass="w-100" formControlName="head_quarters" defaultLabel="Select Head Quarters" optionValue="id" optionLabel="head_quarters_name" #InvestorHeadQuartersMultiSelect>
-												<ng-template pTemplate="selectedItems">
+											<p-multiSelect [options]="headQuartersList" styleClass="w-100" formControlName="head_quarters" placeholder="Select Head Quarters" optionValue="id" optionLabel="head_quarters_name" #InvestorHeadQuartersMultiSelect selectedItemsLabel="{0} HQ selected">
+												<!-- <ng-template pTemplate="selectedItems">
 													{{ InvestorHeadQuartersMultiSelect.defaultLabel }}
-												</ng-template>
+												</ng-template> -->
 											</p-multiSelect>
 										</div>
 									</div>
@@ -191,10 +191,10 @@
 									<label class="form-label" style="font-size: medium; font-weight: 500">Filter by Investor Type</label>
 									<div class="form-group">
 										<div class="mb-3">
-											<p-multiSelect [options]="investorType" styleClass="w-100" formControlName="investor_type" optionValue="id" defaultLabel="Select Investor Type" optionLabel="investor_type_name" #InvestorTypeMultiSelect>
-												<ng-template pTemplate="selectedItems">
+											<p-multiSelect [options]="investorType" styleClass="w-100" formControlName="investor_type" optionValue="id" placeholder="Select Investor Type" optionLabel="investor_type_name" #InvestorTypeMultiSelect selectedItemsLabel="{0} Industries selected">
+												<!-- <ng-template pTemplate="selectedItems">
 													{{ InvestorTypeMultiSelect.defaultLabel }}
-												</ng-template>
+												</ng-template> -->
 											</p-multiSelect>
 										</div>
 									</div>

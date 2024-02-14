@@ -264,20 +264,21 @@
                   >
                   <div class="form-group">
                     <div class="mb-3">
-                      <p-multiSelect
+                      <p-multiSelect placeholder="Select Country" formControlName="country"  (onChange)="loadHeadQuartersData($event)"    styleClass="w-100" [options]="countryList" optionValue="id" optionLabel="country" selectedItemsLabel="{0} Countires selected" ></p-multiSelect>
+                      <!-- <p-multiSelect
                         [options]="countryList"
                         styleClass="w-100"
                         formControlName="country"
                         optionValue="id"
                         (onChange)="loadHeadQuartersData($event)"
-                        defaultLabel="Select Countries"
+                        placeholder="Select Countries"
                         optionLabel="country"
                         #multiSelect
                       >
                         <ng-template pTemplate="selectedItems">
                           {{ multiSelect.defaultLabel }}
                         </ng-template>
-                      </p-multiSelect>
+                      </p-multiSelect> -->
                       <div
                         *ngIf="filterForm.hasError('org_name')"
                         class="text-danger"
@@ -299,14 +300,11 @@
                         [options]="headQuartersList"
                         styleClass="w-100"
                         formControlName="head_quarters"
-                        defaultLabel="Select Head Quarters"
+                        placeholder="Select Head Quarters"
                         optionValue="id"
                         optionLabel="head_quarters_name"
                         #HeadMultiSelect
                       >
-                        <ng-template pTemplate="selectedItems">
-                          {{ HeadMultiSelect.defaultLabel }}
-                        </ng-template>
                       </p-multiSelect>
                     </div>
                   </div>
@@ -339,7 +337,8 @@
                   >
                   <div class="form-group">
                     <div class="mb-3">
-                      <p-multiSelect
+                      <p-multiSelect placeholder="Select Industry" formControlName="industry_interested" styleClass="w-100" [options]="industryInterested" optionValue="id" optionLabel="industry_name" selectedItemsLabel="{0} Industries selected" ></p-multiSelect>
+                      <!-- <p-multiSelect
                         [options]="industryInterested"
                         styleClass="w-100"
                         formControlName="industry_interested"
@@ -351,7 +350,7 @@
                         <ng-template pTemplate="selectedItems">
                           {{ IndustriesMultiSelect.defaultLabel }}
                         </ng-template>
-                      </p-multiSelect>
+                      </p-multiSelect> -->
                     </div>
                   </div>
                 </div>
