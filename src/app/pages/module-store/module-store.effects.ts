@@ -34,10 +34,16 @@ export class ModuleStoreEffects {
         switchMap((payload) => this.preApplicationService.loadQuestionList({
             countryId: payload.countryId,
             moduleId: payload.moduleId,
-            submoduleId: payload.submoduleId
+            submoduleId: payload.submoduleId,
+            page:payload.page,
+            perpage:payload.perpage
         }).pipe(
             map(response => {
-                return loadQuestionListSuccess({questionList: response.questions})
+                return loadQuestionListSuccess({questionList: {
+                    status: response.status,
+                    questioncount: response.questioncount,
+                    questions:response.questions
+                }})
             })
         ))
     ));

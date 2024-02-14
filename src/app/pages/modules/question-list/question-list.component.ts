@@ -2,7 +2,7 @@ import {AfterContentChecked, ChangeDetectorRef, Component, OnInit, ViewChild, El
 import {Observable} from "rxjs";
 import {ModuleListSub} from "../../../@Models/module.model";
 import {ReadQuestion} from "../../../@Models/read-question.model";
-import {ListQuestion} from "../../../@Models/question-list.model";
+import {ListQuestion, QuestionList} from "../../../@Models/question-list.model";
 import {MenuItem} from "primeng/api";
 import {ModuleServiceService} from "../../module-store/module-service.service";
 import {ModuleStoreService} from "../../module-store/module-store.service";
@@ -25,7 +25,8 @@ export class QuestionListComponent implements OnInit {
   @ViewChild('refLinksContainer') refLinksContainer !: ElementRef;
 
   readQue$!: Observable<ReadQuestion[]>;
-  listQuestion$!: Observable<ListQuestion[]>;
+  listQuestion$!: Observable<QuestionList>;
+  questionCount$!: Observable<QuestionList[]>;
   selectedQuestion: number = 0;
   selectedQuestionId: number = 0;
   selectedModule: number = 0;
@@ -57,6 +58,9 @@ export class QuestionListComponent implements OnInit {
   currentApiSlug: any;
   tooltip: any;
   questionListData: any [] = []
+  pageno:number = 1;
+  perpage:number = 50;
+  totalQuestionCount:any
   constructor(private moduleListService: ModuleServiceService, private moduleStoreService: ModuleStoreService,
               private dataService: DataService, private route: ActivatedRoute, private _location: Location,
               private _sanitizer: DomSanitizer, private router: Router) {
@@ -138,15 +142,18 @@ export class QuestionListComponent implements OnInit {
       }
     ];
 
-    this.listQuestion$ = this.moduleListService.questionList$();
+    //this.listQuestion$ = this.moduleListService.questionList$();
     let data = {
       countryId: Number(localStorage.getItem('countryId')),
       moduleId: this.currentModuleId,
-      submoduleId: Number(this.subModuleId)
+      submoduleId: Number(this.subModuleId),
+      page:this.pageno,
+      perpage:this.perpage,
     }
     this.moduleListService.loadQuestionList(data);
-    this.listQuestion$.subscribe((data: any) => {
-      this.questionListData = data;
+    this.moduleListService.questionList$().subscribe((data: any) => {
+      this.questionListData = data?.questions;
+      this.totalQuestionCount= data?.questioncount    
     })
   }
 
@@ -188,8 +195,8 @@ export class QuestionListComponent implements OnInit {
   }
 
   onQuestionClick(selectedData: any) {
-    this.listQuestion$.subscribe(event => {
-      this.data = event
+    this.moduleListService.questionList$().subscribe((data: any) => {
+      this.data = data.questions
     })
     this.selectedQuestionData = selectedData;
     this.selectedModule = selectedData.module_id;
@@ -500,5 +507,21 @@ export class QuestionListComponent implements OnInit {
     const container = this.refLinksContainer.nativeElement;
     this.leftScrollButtonVisibleRef = container.scrollLeft > 0;
     this.rightScrollButtonVisibleRef = container.scrollWidth - container.clientWidth > container.scrollLeft;
+  }
+  paginatepost(event:any){
+    this.pageno = event.page + 1;
+    this.perpage = event.rows;
+    let data = {
+      countryId: Number(localStorage.getItem('countryId')),
+      moduleId: this.currentModuleId,
+      submoduleId: Number(this.subModuleId),
+      page:this.pageno,
+      perpage:this.perpage,
+    }
+    this.moduleListService.loadQuestionList(data);
+    this.moduleListService.questionList$().subscribe((data: any) => {
+      this.questionListData = data?.questions;
+      this.totalQuestionCount= data?.questioncount    
+    })
   }
 }

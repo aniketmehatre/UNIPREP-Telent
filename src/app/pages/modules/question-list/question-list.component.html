@@ -1,4 +1,4 @@
-<div class="card readingcard">
+<div class="card readingcard" style="border-radius: 15px 15px 0px 0px !important;">
 	<div class="card-body text-center pt-0 h-100">
 		<div class="row justify-content-center">
 			<div class="col-md-2 col-2 text-start">
@@ -47,6 +47,10 @@
 			</div>
 		</div>
 	</div>
+</div>
+<div class="card" style="background-color: #fff; border-radius: 0px 0px 15px 15px !important;">
+	<p-paginator [rows]="10" [totalRecords]="totalQuestionCount" (onPageChange)="paginatepost($event)"
+		[rowsPerPageOptions]="[50, 100, 200]" dropdownAppendTo="body"></p-paginator>
 </div>
 <p-dialog #dialogContent [(visible)]="isQuestionAnswerVisible" [draggable]="false" [modal]="true" class="questionmodal"
  header="Header" [maximizable]="true" [style]="{ height: '100vh' }">

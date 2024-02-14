@@ -1,5 +1,6 @@
 export interface QuestionList {
     status: string,
+    questioncount:number
     questions: ListQuestion[]
 }
 
