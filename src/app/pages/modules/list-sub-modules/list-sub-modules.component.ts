@@ -47,11 +47,15 @@ export class ListSubModulesComponent implements OnInit {
   upgradePlanMsg!: string;
   selectedModule!: string;
   planExpired!: boolean;
-
+  countryName!: string;
 
   constructor(private moduleListService: ModuleServiceService, private router: Router, private dataService: DataService, private authService: AuthService,
     private locationService: LocationService, private route: ActivatedRoute,
     private confirmationService: ConfirmationService) {
+    this.dataService.countryNameSource.subscribe((data) => {
+      this.countryName = data;
+      this.ngOnInit();
+    });
     this.responsiveOptions = [
       {
         breakpoint: '1199px',
@@ -73,10 +77,9 @@ export class ListSubModulesComponent implements OnInit {
 
   ngOnInit(): void {
     this.currentCountryId = Number(localStorage.getItem('countryId'));
-    let countryName: any
     this.currentModuleSlug = this.router.url.split('/').pop();
     this.dataService.countryNameSource.subscribe((data) => {
-      countryName = data;
+      this.countryName = data;
     });
     switch (this.currentModuleSlug) {
       case 'pre-application':
@@ -127,7 +130,7 @@ export class ListSubModulesComponent implements OnInit {
         break;
       default:
         this.currentModuleId = 6;
-        this.currentModuleName = 'Life At ' + countryName;
+        this.currentModuleName = 'Life At ' + this.countryName;
         this.currentApiSlug = 'GetQuestionsCount';
         this.infoMessage = 'Upgrade to access information about life in your chosen destination',
         this.unlockMessage = 'Unlock the power of success with our exclusive destination',
