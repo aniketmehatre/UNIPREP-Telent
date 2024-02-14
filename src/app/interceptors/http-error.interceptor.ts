@@ -31,13 +31,13 @@ export class HttpErrorInterceptor implements HttpInterceptor {
             }
         }),
       catchError((err: any) => {
-        if(err.error.message.includes('Call to a member function tokens() on null')){
-          window.sessionStorage.clear();
-          localStorage.clear();
-          this.router.navigateByUrl("/login");
-        }
+        // if(err.error.message.includes('Call to a member function tokens() on null')){
+        //   window.sessionStorage.clear();
+        //   localStorage.clear();
+        //   this.router.navigateByUrl("/login");
+        // }
         const msg = err?.error?.message || err?.error?.error?.message || 'Something wrong please try again!';
-          this.toastr.add({severity: 'error', summary: 'Error', detail: msg});
+        // this.toastr.add({severity: 'error', summary: 'Error', detail: msg});
           this.ngxService.stop();
           if(err?.status === 401){
             window.sessionStorage.clear();
@@ -48,6 +48,9 @@ export class HttpErrorInterceptor implements HttpInterceptor {
               window.sessionStorage.clear();
               localStorage.clear();
               this.router.navigateByUrl('/login');
+              //const msg = 'You have logged into the portal from another device , Please log back in from this device to use the portal again.'
+              this.toastr.add({severity: 'error', summary: 'Error', detail: "You have logged into the portal from another device , Please log back in from this device to use the portal again."});
+            //  console.log("bla");
           }
         return throwError(() => new Error(msg));
       })
