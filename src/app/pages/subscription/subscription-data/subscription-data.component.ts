@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, HostListener, Input, OnInit, Output } from '@angular/core';
 import { Billinginfo, OrderHistory, Subscription } from "../../../@Models/subscription";
 import { environment } from "@env/environment.prod";
 import { AuthService } from 'src/app/Auth/auth.service';
@@ -8,6 +8,7 @@ import { User } from 'src/app/@Models/user.model';
 
 import { LocalStorageService } from "ngx-localstorage";
 import { NgxUiLoaderService } from 'ngx-ui-loader';
+ 
 
 @Component({
   selector: 'uni-subscription-data',
@@ -193,7 +194,7 @@ export class SubscriptionDataComponent implements OnInit {
       this.toast.add({ severity: 'error', summary: 'Error', detail: 'Please select the Plan!' });
       return;
     }
-     
+
     // if (this.subscriptionService.usedCoupon == this.couponInput && this.invalidCoupon) {
     //   this.toast.add({ severity: 'error', summary: 'Error', detail: 'Invalid Coupon Code' });
     //   return;
@@ -202,7 +203,7 @@ export class SubscriptionDataComponent implements OnInit {
     //   this.toast.add({ severity: 'error', summary: 'Error', detail: 'Coupon already used' });
     //   return;
     // }
- 
+
     if (this.couponInput) {
       this.iscouponReadonly = true;
       this.showCross = true;
@@ -228,7 +229,7 @@ export class SubscriptionDataComponent implements OnInit {
           this.invalidCoupon = true;
           this.checkoutTotal = this.subscriptionTotal;
           this.discountAmountEnable = false;
-          this.couponInput='';
+          this.couponInput = '';
           this.showCross = false;
           this.iscouponReadonly = false;
         }
@@ -251,8 +252,8 @@ export class SubscriptionDataComponent implements OnInit {
             subscriptionId: this.selectedSubscriptionDetails.id,
             countryId: this.selectedSubscriptionDetails?.selectedCountry?.id,
             finalPrice: this.checkoutTotal,
-            couponApplied: this.iscouponReadonly? 1 : 0,
-            coupon: this.iscouponReadonly?this.couponInput:'',
+            couponApplied: this.iscouponReadonly ? 1 : 0,
+            coupon: this.iscouponReadonly ? this.couponInput : '',
             coupon_id: this.usedCouponId,
           }
           if (this.checkoutTotal == '') {
@@ -326,4 +327,10 @@ export class SubscriptionDataComponent implements OnInit {
   gotoHistory() {
     this.showHistory.emit(true);
   }
+
+  copyCoupon() {
+    let offerDiv:any = document.getElementById('offerId');
+    navigator.clipboard.writeText(offerDiv?.textContent);
+  }
 }
+ 

@@ -346,7 +346,6 @@ export class RegistrationComponent implements OnInit {
                 country_code: this.registrationForm.value.contactNumber.dialCode,
                 otp: _otp,
             };
-            console.log(val);
             this.service.verifySmsOTP(val).subscribe(
                 (res: any) => {
 

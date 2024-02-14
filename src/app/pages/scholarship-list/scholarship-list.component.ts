@@ -81,6 +81,10 @@ export class ScholarshipListComponent implements OnInit {
   resetFilter() {
     this.regionList = [];
     this.filterForm.reset();
+    this.data = {
+      page: this.page,
+      perpage: this.pageSize,
+    }
     this.loadScholarShipData();
     this.getRegionList();
     this.getFilterUniversityList("");
@@ -235,7 +239,7 @@ export class ScholarshipListComponent implements OnInit {
     this.isFilterVisible = "block";
   }
 
-  exportTable() {}
+  exportTable() { }
   getFilterUniversityList(value: any) {
     this.scholarshipListService.getUniversity(value).subscribe((response) => {
       this.filterUniversityList = response;

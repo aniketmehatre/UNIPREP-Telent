@@ -283,7 +283,7 @@
                                                 <div class="p-inputgroup-addon">
                                                     <i class="pi pi-phone"></i>
                                                 </div>
-                                                <input class="border-0" formControlName="phone" pInputText type="text" />
+                                                <input class="border-0" formControlName="phone" pInputText type="text" [readonly]="this.PersonalInfo?.phone" />
                                             </div>
                                             <div *ngIf="submitted && f['phone']['errors']" class="UserInfoValidation">
                                                 <div *ngIf="f['phone']['errors']['required']">

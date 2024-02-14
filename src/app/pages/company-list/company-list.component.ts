@@ -71,7 +71,10 @@ export class CompanyListComponent implements OnInit {
     this.loadInvestorData();
   }
 
-
+  clearFilter(){
+    this.filterForm.reset();
+  }
+  
   loadInvestorData(){
     let data = {
       company_name: this.filterForm.value.company_name ? this.filterForm.value.company_name : '',
