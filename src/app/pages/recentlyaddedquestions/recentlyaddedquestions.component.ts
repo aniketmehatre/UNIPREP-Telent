@@ -246,7 +246,7 @@ export class RecentlyaddedquestionsComponent implements OnInit {
     this.breadCrumb = [{
       label: this.currentModuleName,
       command: (event) => this.gotomodulebreadcrump()
-    }, {label: this.moduleName, command: (event) => this.goToHomebreadcrump()}, {label: `Question ${this.selectedQuestion + 1}`}];
+    }, { label: this.moduleName, command: (event) => this.goToHomebreadcrump() }, { label: `Question ${pageNum + 1}`}];
   }
 
   clickPrevious(carousel: any, event: any) {
