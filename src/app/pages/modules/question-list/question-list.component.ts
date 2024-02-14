@@ -1,8 +1,8 @@
-import {AfterContentChecked, ChangeDetectorRef, Component, OnInit, ViewChild} from '@angular/core';
+import {AfterContentChecked, ChangeDetectorRef, Component, OnInit, ViewChild, ElementRef} from '@angular/core';
 import {Observable} from "rxjs";
 import {ModuleListSub} from "../../../@Models/module.model";
 import {ReadQuestion} from "../../../@Models/read-question.model";
-import {ListQuestion} from "../../../@Models/question-list.model";
+import {ListQuestion, QuestionList} from "../../../@Models/question-list.model";
 import {MenuItem} from "primeng/api";
 import {ModuleServiceService} from "../../module-store/module-service.service";
 import {ModuleStoreService} from "../../module-store/module-store.service";
@@ -21,9 +21,12 @@ export class QuestionListComponent implements OnInit {
   @ViewChild('carouselRefElm') carouselRefElm: any;
   @ViewChild('carouselPopupVideoElm') carouselPopupVideoElm: any;
   @ViewChild('carouselPopupRefElm') carouselPopupRefElm: any;
+  @ViewChild('videoLinksContainer') videoLinksContainer !: ElementRef;
+  @ViewChild('refLinksContainer') refLinksContainer !: ElementRef;
 
   readQue$!: Observable<ReadQuestion[]>;
-  listQuestion$!: Observable<ListQuestion[]>;
+  listQuestion$!: Observable<QuestionList>;
+  questionCount$!: Observable<QuestionList[]>;
   selectedQuestion: number = 0;
   selectedQuestionId: number = 0;
   selectedModule: number = 0;
@@ -55,6 +58,9 @@ export class QuestionListComponent implements OnInit {
   currentApiSlug: any;
   tooltip: any;
   questionListData: any [] = []
+  pageno:number = 1;
+  perpage:number = 50;
+  totalQuestionCount:any
   constructor(private moduleListService: ModuleServiceService, private moduleStoreService: ModuleStoreService,
               private dataService: DataService, private route: ActivatedRoute, private _location: Location,
               private _sanitizer: DomSanitizer, private router: Router) {
@@ -67,6 +73,8 @@ export class QuestionListComponent implements OnInit {
       //this.getSubmoduleName(this.countryId);
     });
     this.tooltip = 'Questions related to the application process are answered';
+    this.checkScrollPosition();
+    this.checkScrollPositionRef();
   }
 
   loadInit(){
@@ -134,15 +142,18 @@ export class QuestionListComponent implements OnInit {
       }
     ];
 
-    this.listQuestion$ = this.moduleListService.questionList$();
+    //this.listQuestion$ = this.moduleListService.questionList$();
     let data = {
       countryId: Number(localStorage.getItem('countryId')),
       moduleId: this.currentModuleId,
-      submoduleId: Number(this.subModuleId)
+      submoduleId: Number(this.subModuleId),
+      page:this.pageno,
+      perpage:this.perpage,
     }
     this.moduleListService.loadQuestionList(data);
-    this.listQuestion$.subscribe((data: any) => {
-      this.questionListData = data;
+    this.moduleListService.questionList$().subscribe((data: any) => {
+      this.questionListData = data?.questions;
+      this.totalQuestionCount= data?.questioncount    
     })
   }
 
@@ -184,8 +195,8 @@ export class QuestionListComponent implements OnInit {
   }
 
   onQuestionClick(selectedData: any) {
-    this.listQuestion$.subscribe(event => {
-      this.data = event
+    this.moduleListService.questionList$().subscribe((data: any) => {
+      this.data = data.questions
     })
     this.selectedQuestionData = selectedData;
     this.selectedModule = selectedData.module_id;
@@ -450,6 +461,67 @@ export class QuestionListComponent implements OnInit {
     }
     this.moduleStoreService.GetReviewedByOrgLogo(request).subscribe((response) => {
       this.reviewedByOrgList = response;
+    })
+  }
+
+  scrollRightVideo() {
+    const container = this.videoLinksContainer.nativeElement;
+    const scrollAmount = container.offsetWidth / 2;
+    container.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+    this.checkScrollPosition();
+  }
+
+  scrollLeftVideo() {
+    const container = this.videoLinksContainer.nativeElement;
+    const scrollAmount = -container.offsetWidth / 2;
+    container.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+    this.checkScrollPosition();
+  }
+
+  scrollLeftRef() {
+    const container = this.refLinksContainer.nativeElement;
+    const scrollAmount = -container.offsetWidth / 2;
+    container.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+    this.checkScrollPositionRef();
+  }
+
+  scrollRightRef() {
+    const container = this.refLinksContainer.nativeElement;
+    const scrollAmount = container.offsetWidth / 2;
+    container.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+    this.checkScrollPositionRef();
+  }
+
+  leftScrollButtonVisible: boolean = false;
+  rightScrollButtonVisible: boolean = true;
+  leftScrollButtonVisibleRef:boolean = false;
+  rightScrollButtonVisibleRef:boolean = true;
+
+  checkScrollPosition() {
+    const container = this.videoLinksContainer.nativeElement;
+    this.leftScrollButtonVisible = container.scrollLeft > 0;
+    this.rightScrollButtonVisible = container.scrollWidth - container.clientWidth > container.scrollLeft;
+  }
+
+  checkScrollPositionRef() {
+    const container = this.refLinksContainer.nativeElement;
+    this.leftScrollButtonVisibleRef = container.scrollLeft > 0;
+    this.rightScrollButtonVisibleRef = container.scrollWidth - container.clientWidth > container.scrollLeft;
+  }
+  paginatepost(event:any){
+    this.pageno = event.page + 1;
+    this.perpage = event.rows;
+    let data = {
+      countryId: Number(localStorage.getItem('countryId')),
+      moduleId: this.currentModuleId,
+      submoduleId: Number(this.subModuleId),
+      page:this.pageno,
+      perpage:this.perpage,
+    }
+    this.moduleListService.loadQuestionList(data);
+    this.moduleListService.questionList$().subscribe((data: any) => {
+      this.questionListData = data?.questions;
+      this.totalQuestionCount= data?.questioncount    
     })
   }
 }

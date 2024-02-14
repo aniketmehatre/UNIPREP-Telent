@@ -11,19 +11,21 @@
 
             </div>
             <div class="col-md-2">
-                <span class="d-flex justify-content-end"><button class="btn btn-primary ps-3 pe-3 pt-2 pb-2" (click)="filterBy()"
+                <span class="d-flex justify-content-end"><button class="btn btn-primary ps-3 pe-3 pt-2 pb-2"
+                        (click)="filterBy()"
                         style="background-color: var(--uniprep-primary);border-radius: 8px; border: aliceblue; color: #fff;"
                         type="button">
                         Filter
                         by</button>
-                         <!-- <button class="btn btn-danger ps-3 pe-3 pt-2 pb-2" (click)="resetFilter()"
+                    <!-- <button class="btn btn-danger ps-3 pe-3 pt-2 pb-2" (click)="resetFilter()"
                         style="border-radius: 8px; color: #fff;" type="button">
                         Reset</button>  -->
-                    </span>
+                </span>
                 <br>
                 <div class="p-1 text-end">
-                    <span class="text-muted text-small fw-semibold">Total Scholarship : {{ totalScholarShipCount }}</span>
-                                </div>
+                    <span class="text-muted text-small fw-semibold">Total Scholarship : {{ totalScholarShipCount
+                        }}</span>
+                </div>
             </div>
         </div>
         <br>
@@ -48,9 +50,12 @@
                         Reset</button></span>
             </div>
         </div> -->
-		<!-- upcomming event -->
-		<p-table #table class="custom-paginator" [value]="scholarshipData" class="primary-header" [first]="first" styleClass="primary-header" [paginator]="true" (onPage)="pageChange($event)" [lazy]="true" [totalRecords]="totalScholarShipCount" responsiveLayout="scroll" [rows]="pageSize" [rowsPerPageOptions]="[100, 250, 500]">
-			<!-- <ng-template pTemplate="caption">
+        <!-- upcomming event -->
+        <p-table #table class="custom-paginator" [value]="scholarshipData" class="primary-header" [first]="first"
+            styleClass="primary-header" [paginator]="true" (onPage)="pageChange($event)" [lazy]="true"
+            [totalRecords]="totalScholarShipCount" responsiveLayout="scroll" [rows]="pageSize"
+            [rowsPerPageOptions]="[100, 250, 500]">
+            <!-- <ng-template pTemplate="caption">
                  <div class="d-flex w-full align-items-end justify-content-end desktop">
                     <div class="pe-2">
                         <span class="text-muted text-small">Total Scholarship : {{ totalScholarShipCount }}</span>
@@ -69,35 +74,37 @@
 
                 <tr class="scholarship-list-table-header">
                     <th class="border-cell text-small text-nowrap">Scholarship Name</th>
-					<th class="border-cell text-small text-center text-nowrap">Home Country</th>
-					<th class="border-cell text-small text-center text-nowrap">Scholarship Country</th>
-					<th class="border-cell text-small text-center text-nowrap">Scholarship Type</th>
-					<th class="border-cell text-small text-center text-nowrap">Study Level</th>
-					<th class="border-cell text-small text-nowrap">Organisation/Institute</th>
-					<th class="border-cell text-small text-center text-nowrap">Region</th>
-					<th class="border-cell text-small text-center text-nowrap">Value</th>
-					<th class="border-cell text-small text-center text-nowrap">Coverage Value</th>
-					<th class="border-cell text-small text-center text-nowrap">Links</th>
-				</tr>
-			</ng-template>
-			<ng-template pTemplate="body" let-scholarship let-expanded="expanded">
-				<tr class="scholarship-list-table-header">
+                    <th class="border-cell text-small text-center text-nowrap">Home Country</th>
+                    <th class="border-cell text-small text-center text-nowrap">Scholarship Country</th>
+                    <th class="border-cell text-small text-center text-nowrap">Scholarship Type</th>
+                    <th class="border-cell text-small text-center text-nowrap">Study Level</th>
+                    <th class="border-cell text-small text-nowrap">Organisation/Institute</th>
+                    <th class="border-cell text-small text-center text-nowrap">Region</th>
+                    <th class="border-cell text-small text-center text-nowrap">Value</th>
+                    <th class="border-cell text-small text-center text-nowrap">Coverage Value</th>
+                    <th class="border-cell text-small text-center text-nowrap">Links</th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-scholarship let-expanded="expanded">
+                <tr class="scholarship-list-table-header">
                     <td class="border-cell fw-semibold text-small">{{ scholarship.name }}</td>
-					<td class="border-cell text-small text-center">{{ scholarship.home_country }}</td>
-					<td class="border-cell text-small text-center">{{ scholarship.country }}</td>
-					<td class="border-cell text-small text-center">{{ scholarship.type }}</td>
-					<td class="border-cell text-small text-center">{{ scholarship.study_level }}</td>
-					<td class="border-cell text-small">{{ scholarship.university }}</td>
-					<td class="border-cell text-small text-center">{{ scholarship.region == null ? "-" : scholarship.region }}</td>
-					<td class="border-cell text-small text-center">{{ scholarship.value }}</td>
-					<td class="border-cell text-small text-center">{{ scholarship.cover_name }}</td>
-					<td class="border-cell text-small text-center text-nowrap">
-						<a target="_blank" class="text-small" href="{{ scholarship.website }}"><i class="fa-solid fa-link me-2"></i>Website </a>
-					</td>
-				</tr>
-			</ng-template>
+                    <td class="border-cell text-small text-center">{{ scholarship.home_country }}</td>
+                    <td class="border-cell text-small text-center">{{ scholarship.country }}</td>
+                    <td class="border-cell text-small text-center">{{ scholarship.type }}</td>
+                    <td class="border-cell text-small text-center">{{ scholarship.study_level }}</td>
+                    <td class="border-cell text-small">{{ scholarship.university }}</td>
+                    <td class="border-cell text-small text-center">{{ scholarship.region == null ? "-" :
+                        scholarship.region }}</td>
+                    <td class="border-cell text-small text-center">{{ scholarship.value }}</td>
+                    <td class="border-cell text-small text-center">{{ scholarship.cover_name }}</td>
+                    <td class="border-cell text-small text-center text-nowrap">
+                        <a target="_blank" class="text-small" href="{{ scholarship.website }}"><i
+                                class="fa-solid fa-link me-2"></i>Website </a>
+                    </td>
+                </tr>
+            </ng-template>
         </p-table>
-        </div>
+    </div>
 
     <div class="text-center mt-5 mb-4" *ngIf="planExpired">
         <div *ngIf="planExpired" class="scholarship-expired">
@@ -154,6 +161,18 @@
                                     </div>
                                     <div class="col-md-12">
                                         <label class="form-label" style="font-size: medium;font-weight:500">Filter by
+                                            Region</label>
+                                        <div class="form-group">
+                                            <div class="mb-3">
+                                                <p-multiSelect [options]="regionList" styleClass="w-100"
+                                                    formControlName="region" optionValue="id"
+                                                    placeholder="Select Region" optionLabel="state">
+                                                </p-multiSelect>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <label class="form-label" style="font-size: medium;font-weight:500">Filter by
                                             Home Country</label>
                                         <div class="form-group">
                                             <div class="mb-3">
@@ -202,18 +221,6 @@
                                     </div>
                                     <div class="col-md-12">
                                         <label class="form-label" style="font-size: medium;font-weight:500">Filter by
-                                            Region</label>
-                                        <div class="form-group">
-                                            <div class="mb-3">
-                                                <p-multiSelect [options]="regionList" styleClass="w-100"
-                                                    formControlName="region" optionValue="id"
-                                                    placeholder="Select Region" optionLabel="state">
-                                                </p-multiSelect>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-12">
-                                        <label class="form-label" style="font-size: medium;font-weight:500">Filter by
                                             Coverage Value</label>
                                         <div class="form-group">
                                             <div class="mb-3">
@@ -251,7 +258,6 @@
                                     style="border-radius: 8px; color: #fff;" type="button">
                                     Clear</button></span>
                         </span>
-
                     </div>
                 </div>
             </form>

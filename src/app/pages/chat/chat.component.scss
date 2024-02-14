@@ -424,3 +424,7 @@
     text-align: center;
   }
 }
+::ng-deep .p-dialog .p-dialog-header .p-dialog-header-icon {
+  background-color: transparent !important;
+  color: black !important;
+}

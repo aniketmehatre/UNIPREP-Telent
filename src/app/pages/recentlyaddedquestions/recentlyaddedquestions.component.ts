@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, OnInit, ViewChild, ElementRef} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {Observable} from 'rxjs';
 import {ListQuestion} from 'src/app/@Models/question-list.model';
@@ -23,6 +23,8 @@ export class RecentlyaddedquestionsComponent implements OnInit {
   @ViewChild('carouselRefElm') carouselRefElm: any;
   @ViewChild('carouselPopupVideoElm') carouselPopupVideoElm: any;
   @ViewChild('carouselPopupRefElm') carouselPopupRefElm: any;
+  @ViewChild('videoLinksContainer') videoLinksContainer !: ElementRef;
+  @ViewChild('refLinksContainer') refLinksContainer !: ElementRef;
 
   subModules$!: Observable<ModuleListSub[]>;
   readQue$!: Observable<ReadQuestion[]>;
@@ -59,6 +61,10 @@ export class RecentlyaddedquestionsComponent implements OnInit {
   currentApiSlug: any;
   listQuestions: any;
   listQuestionCount: any;
+  leftScrollButtonVisible: boolean = false;
+  rightScrollButtonVisible: boolean = true;
+  leftScrollButtonVisibleRef:boolean = false;
+  rightScrollButtonVisibleRef:boolean = true;
 
   constructor(private route: ActivatedRoute, private dataService: DataService,
               private moduleListService: ModuleServiceService, private service: RecentlyaddedquestionService,
@@ -455,6 +461,46 @@ export class RecentlyaddedquestionsComponent implements OnInit {
     this.pageno = event.page + 1;
     this.perpage = event.rows;
     this.loadInit();
+  }
+
+  scrollRightVideo() {
+    const container = this.videoLinksContainer.nativeElement;
+    const scrollAmount = container.offsetWidth / 2;
+    container.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+    this.checkScrollPosition();
+  }
+
+  scrollLeftVideo() {
+    const container = this.videoLinksContainer.nativeElement;
+    const scrollAmount = -container.offsetWidth / 2;
+    container.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+    this.checkScrollPosition();
+  }
+
+  scrollLeftRef() {
+    const container = this.refLinksContainer.nativeElement;
+    const scrollAmount = -container.offsetWidth / 2;
+    container.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+    this.checkScrollPositionRef();
+  }
+
+  scrollRightRef() {
+    const container = this.refLinksContainer.nativeElement;
+    const scrollAmount = container.offsetWidth / 2;
+    container.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+    this.checkScrollPositionRef();
+  }
+
+  checkScrollPosition() {
+    const container = this.videoLinksContainer.nativeElement;
+    this.leftScrollButtonVisible = container.scrollLeft > 0;
+    this.rightScrollButtonVisible = container.scrollWidth - container.clientWidth > container.scrollLeft;
+  }
+
+  checkScrollPositionRef() {
+    const container = this.refLinksContainer.nativeElement;
+    this.leftScrollButtonVisibleRef = container.scrollLeft > 0;
+    this.rightScrollButtonVisibleRef = container.scrollWidth - container.clientWidth > container.scrollLeft;
   }
 
 }

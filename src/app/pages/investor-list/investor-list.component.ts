@@ -18,7 +18,7 @@ export class InvestorListComponent implements OnInit {
   countryList: any;
   headQuartersList: any
   page = 1;
-  pageSize = 500;
+  pageSize = 100;
   valueNearYouFilter: string = '';
   totalInvestorsCount: any;
   isFilterVisible: string = 'none';
@@ -120,7 +120,7 @@ export class InvestorListComponent implements OnInit {
     this.authService.getNewUserTimeLeft().subscribe((res) => {
       let data = res.time_left;
       let subscription_exists_status = res.subscription_details;
-      if (data.plan === "expired" || subscription_exists_status.subscription_plan === 'free_trail' || subscription_exists_status.subscription_plan === 'Student' || subscription_exists_status.subscription_plan === 'Career') {
+      if (data.plan === "expired" || data.plan === 'subscription_expired' || subscription_exists_status.subscription_plan === 'free_trail' || subscription_exists_status.subscription_plan === 'Student' || subscription_exists_status.subscription_plan === 'Career') {
         this.planExpired = true;
       } else {
         this.planExpired = false;
