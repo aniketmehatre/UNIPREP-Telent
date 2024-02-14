@@ -234,18 +234,14 @@ export class ChatComponent implements OnInit {
       },
       reject: () => {},
     });
-  }
-  reportSubmit() {
+  }showReportSuccess=false;
+  reportSubmit(op:any) {
     if (this.reportForm.invalid) return;
     this.service.Reportchat(this.reportForm?.value).subscribe(
       (response) => {
-        this.toast.add({
-          severity: "success",
-          summary: "success",
-          detail: "Reported successfully",
-        });
-        window.location.reload();
+        this.showReportSuccess=true;
         this.reportForm.reset();
+        op.hide();
       },
       (error) => {}
     );
