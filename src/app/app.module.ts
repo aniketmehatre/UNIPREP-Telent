@@ -46,6 +46,7 @@ import {FacebookInitService} from "./Auth/facebook-init.service";
 import {FacebookModule} from "ngx-facebook";
 import {NgxLinkedinModule} from "ngx-linkedin";
 import { PrivacyComponent } from './pages/privacy/privacy.component';
+ 
 
 const reducers = {
   pageSelector: pagesReducer
@@ -67,7 +68,7 @@ export function tokenGetter() {
 
 @NgModule({
   declarations: [
-    AppComponent,LandingComponent, ModalComponent, BlockCopyPasteDirective, ScrollToBottomDirective, PrivacyComponent
+    AppComponent,LandingComponent, ModalComponent, BlockCopyPasteDirective, ScrollToBottomDirective, PrivacyComponent,
   ],
     schemas: [ CUSTOM_ELEMENTS_SCHEMA],
     imports: [

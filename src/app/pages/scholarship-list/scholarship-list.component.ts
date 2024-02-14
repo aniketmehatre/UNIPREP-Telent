@@ -44,7 +44,7 @@ export class ScholarshipListComponent implements OnInit {
       country: [null],
       home_country: [null],
       study_level: [null],
-      region: [null],
+      // region: [null],
       university: [null],
       valueRange: [null],
       type: [null],
@@ -81,14 +81,18 @@ export class ScholarshipListComponent implements OnInit {
   resetFilter() {
     this.regionList = [];
     this.filterForm.reset();
+    this.data = {
+      page: this.page,
+      perpage: this.pageSize,
+    }
     this.loadScholarShipData();
-    this.getRegionList();
+    // this.getRegionList();
     this.getFilterUniversityList("");
   }
   clearFilter() {
     this.regionList = [];
     this.filterForm.reset();
-    this.getRegionList();
+    // this.getRegionList();
     this.getFilterUniversityList("");
   }
   getScholarshipCountry() {
@@ -147,7 +151,7 @@ export class ScholarshipListComponent implements OnInit {
       !formData.country &&
       !formData.study_level &&
       !formData.university &&
-      !formData.region &&
+      // !formData.region &&
       !formData.type &&
       !formData.valueRange &&
       !formData.cover_id
@@ -176,12 +180,12 @@ export class ScholarshipListComponent implements OnInit {
     ) {
       this.data.study_level = this.filterForm.value.study_level;
     }
-    if (
-      this.filterForm.value.region &&
-      this.filterForm.value.region.length > 0
-    ) {
-      this.data.region = this.filterForm.value.region;
-    }
+    // if (
+    //   this.filterForm.value.region &&
+    //   this.filterForm.value.region.length > 0
+    // ) {
+    //   this.data.region = this.filterForm.value.region;
+    // }
     if (
       this.filterForm.value.university &&
       this.filterForm.value.university.length > 0
@@ -206,12 +210,12 @@ export class ScholarshipListComponent implements OnInit {
     });
   }
   countryChange(event: any) {
-    if (event.value == 105) {
-      this.getRegionList();
-    } else {
-      this.filterForm.value.region = null;
-      this.regionList = [];
-    }
+    // if (event.value == 105) {
+    //   this.getRegionList();
+    // } else {
+    //   this.filterForm.value.region = null;
+    //   this.regionList = [];
+    // }
     this.getFilterUniversityList(event.value);
   }
   data: any = {
@@ -235,7 +239,7 @@ export class ScholarshipListComponent implements OnInit {
     this.isFilterVisible = "block";
   }
 
-  exportTable() {}
+  exportTable() { }
   getFilterUniversityList(value: any) {
     this.scholarshipListService.getUniversity(value).subscribe((response) => {
       this.filterUniversityList = response;

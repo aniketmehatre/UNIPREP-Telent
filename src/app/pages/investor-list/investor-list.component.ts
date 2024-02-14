@@ -74,7 +74,9 @@ export class InvestorListComponent implements OnInit {
     this.filterForm.reset();
     this.loadInvestorData();
   }
-
+  clearFilter(){
+    this.filterForm.reset();
+  }
 
   loadInvestorData(){
     let data = {
