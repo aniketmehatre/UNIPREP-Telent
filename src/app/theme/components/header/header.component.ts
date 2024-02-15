@@ -100,6 +100,13 @@ export class HeaderComponent implements OnInit, OnDestroy {
       this.selectedCountryId = Number(data);
       this.getModuleList();
     });
+    this.dataService.castValue.subscribe((data) => {
+      if (data === true) {
+        this.checkNewUSerLogin();
+      } else {
+        this.freeTrial = false;
+      }
+    });
     route.params.subscribe((val) => {
       this.reportType = 1;
       this.getReportOption();
@@ -171,7 +178,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.getModuleList();
     this.getCountryList();
-    this.checkNewUSerLogin();
     this.onChangeModuleList(1);
     this.onChangeSubModuleList(1);
     if (this.service._checkExistsSubscription === 0) {
@@ -444,8 +450,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   onClickSubscribedUser(): void {
     this.freeTrial = false;
-    this.continueTrial();
     this.visibleExhasted = false;
+    this.dataService.sendValue(false);
     this.router.navigate(["/pages/subscriptions"]);
   }
 
@@ -632,15 +638,11 @@ export class HeaderComponent implements OnInit, OnDestroy {
       window.location.reload();
     }, 2000);
     this.service.contineStatus(false);
+    this.dataService.sendValue(false);
     this.freeTrial = false;
     this.service._userContineTrial = false;
   }
 
-  onClickSubscribeData(): void {
-    this.freeTrial = false;
-    this.continueTrial();
-    this.router.navigate(["/pages/subscriptions"]);
-  }
 
   checkNewUSerLogin(): void {
     let userLoginCount = this.service._userLoginCount;

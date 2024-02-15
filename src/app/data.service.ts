@@ -34,8 +34,11 @@ export class DataService {
     public showFeedBackSource = new BehaviorSubject<any>(false);
     showFeedback = this.showFeedBackSource.asObservable();
 
-    public showTimeOutSourceData = new BehaviorSubject(false);
+    public showTimeOutSourceData = new BehaviorSubject(true);
     showTimeOutStatusData = this.showTimeOutSourceData.asObservable();
+
+    public booleanValue = new BehaviorSubject<any>(true);
+    castValue = this.booleanValue.asObservable();
 
     constructor() {
     }
@@ -74,6 +77,10 @@ export class DataService {
 
     showPopup(data:any) {
         this.showTimeOutSourceData.next(data);
+    }
+
+    sendValue(newValue: boolean) {
+        this.booleanValue.next(newValue);
     }
     
     countDownFun: any
