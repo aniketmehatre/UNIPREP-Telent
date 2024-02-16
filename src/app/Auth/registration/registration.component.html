@@ -29,55 +29,20 @@
 												</p>
 												<form [formGroup]="registrationForm" (ngSubmit)="onSubmit()">
 													<div class="row registerForm">
-														<div class="col-md-6 col-12">
+														<div class="col-12">
 															<label for="fullName">Full Name<span class="required">*</span></label>
 															<div class="p-inputgroup">
 																<div class="p-inputgroup-addon">
 																	<i class="fa-regular fa-user"></i>
 																</div>
-																<input type="text" class="border-0" pInputText id="fullName" placeholder="Full Name" formControlName="fullName" [ngClass]="{ 'is-invalid': submitted && f.fullName.errors }" />
+																<input type="text" class="border-0" pInputText id="fullName" placeholder="Enter Full Name" formControlName="fullName" [ngClass]="{ 'is-invalid': submitted && f.fullName.errors }" />
 															</div>
 															<div *ngIf="submitted && f.fullName.errors" class="invalid-feedback">
 																<div *ngIf="f.fullName.errors.required">Full Name is required</div>
 															</div>
 														</div>
-														<div class="col-md-6 col-12">
-															<label for="contactNumber"
-																>Contact Number
-																<span *ngIf="!isMobileOTPValidated && showContactErrorIcon">
-																	<i class="fa-solid fa-circle-exclamation text-danger"></i>
-																</span>
-																<span *ngIf="isMobileOTPValidated">
-																	<i class="fa-solid fa-circle-check uniprep-primary"></i>
-																</span>
-																<span class="required">*</span>
-															</label>
-															<div class="w-100 position-relative">
-																<ngx-intl-tel-input
-																	class="intel-input w-100"
-																	[cssClass]="'custom'"
-																	[preferredCountries]="[CountryISO.India]"
-																	[enableAutoCountrySelect]="true"
-																	[enablePlaceholder]="true"
-																	[searchCountryFlag]="true"
-																	[maxLength]="15"
-																	[searchCountryField]="[SearchCountryField.Iso2, SearchCountryField.Name]"
-																	[phoneValidation]="true"
-																	customPlaceholder="9876543210"
-																	[selectedCountryISO]="CountryISO.India"
-																	name="phone"
-																	formControlName="contactNumber"
-																	[readonly]="isMobileOTPSend"
-																	(keyup)="onChangeContact($event)"
-																	[ngClass]="{ 'is-invalid': submitted && f.contactNumber.errors }">
-																</ngx-intl-tel-input>
-																<div class="edit-button" *ngIf="isMobileOTPEdit && !isMobileOTPValidated" (click)="editMobileNumberAgain()">Edit</div>
-															</div>
-															<div *ngIf="submitted && f.contactNumber.errors" class="invalid-feedback">
-																<div *ngIf="f.contactNumber.errors.required">Contact Number is required</div>
-															</div>
-														</div>
-														<div class="col-md-12 col-12" *ngIf="isMobileOTPValidated">
+
+														<div class="col-12" >
 															<label for="emailAddress"
 																>Email Address
 																<span *ngIf="!isEmailOTPValidated && showEmailErrorIcon">
@@ -93,15 +58,50 @@
 																	<div class="p-inputgroup-addon">
 																		<i class="fa-regular fa-envelope"></i>
 																	</div>
-																	<input type="email" pInputText class="border-0 w-full" id="emailAddress" [readonly]="isEmailOTPSend" formControlName="emailAddress" [ngClass]="{ 'is-invalid': submitted && f.emailAddress.errors }" (keyup)="onChangeEmail($event)" />
+																	<input type="email" placeholder="Enter Email Address" pInputText class="border-0 w-full" id="emailAddress" [readonly]="isEmailOTPSend" formControlName="emailAddress" [ngClass]="{ 'is-invalid': submitted && f.emailAddress.errors }" (keyup)="onChangeEmail($event)" />
 																</div>
-																<div class="edit-button" *ngIf="isEmailOTPSend && !isRemainingFieldVisible && isMobileOTPSend" (click)="editEmailAgain()">Edit</div>
+																<div class="edit-button" *ngIf="isEmailOTPSend && !isRemainingFieldVisible" (click)="editEmailAgain()">Edit</div>
 															</div>
 															<div *ngIf="submitted && f.emailAddress.errors" class="invalid-feedback">
 																<div *ngIf="f.emailAddress.errors.required">Email Address is required</div>
 															</div>
 														</div>
-														<div class="col-md-12" *ngIf="!isMobileOTPSend">
+														<div class="col-12" *ngIf="isRemainingFieldVisible"> 
+															<label for="contactNumber"
+																>Contact Number
+																<!-- <span *ngIf="!isMobileOTPValidated && showContactErrorIcon">
+																	<i class="fa-solid fa-circle-exclamation text-danger"></i>
+																</span>
+																<span *ngIf="isMobileOTPValidated">
+																	<i class="fa-solid fa-circle-check uniprep-primary"></i>
+																</span> -->
+																<span class="required">*</span>
+															</label>
+															<div class="w-100 position-relative">
+																<ngx-intl-tel-input
+																	class="intel-input w-100"
+																	[cssClass]="'custom'"
+																	[preferredCountries]="[CountryISO.India]"
+																	[enableAutoCountrySelect]="true"
+																	[enablePlaceholder]="true"
+																	[searchCountryFlag]="true"
+																	[maxLength]="15"
+																	[searchCountryField]="[SearchCountryField.Iso2, SearchCountryField.Name]"
+																	[phoneValidation]="true"
+																	[selectedCountryISO]="CountryISO.India"
+																	name="phone"
+																	formControlName="contactNumber"
+																	customPlaceholder="Enter Contact Number"
+																	(keyup)="onChangeContact($event)"
+																	[ngClass]="{ 'is-invalid': submitted && f.contactNumber.errors }">
+																</ngx-intl-tel-input>
+																<div class="edit-button" *ngIf="isMobileOTPEdit && !isMobileOTPValidated" (click)="editMobileNumberAgain()">Edit</div>
+															</div>
+															<div *ngIf="submitted && f.contactNumber.errors" class="invalid-feedback">
+																<div *ngIf="f.contactNumber.errors.required">Contact Number is required</div>
+															</div>
+														</div>
+														<!-- <div class="col-md-12" *ngIf="!isMobileOTPSend">
 															<div class="row">
 																<div class="col-md-12 col-12">
 																	<div class="text-center mt-3">
@@ -109,8 +109,8 @@
 																	</div>
 																</div>
 															</div>
-														</div>
-														<div class="col-md-12" *ngIf="isMobileOTPSend && !isMobileOTPValidated">
+														</div> -->
+														<!-- <div class="col-md-12" *ngIf="isMobileOTPSend && !isMobileOTPValidated">
 															<form [formGroup]="otpForm" class="formOTP" (ngSubmit)="onValidateMobileOTP()">
 																<h5 class="mt-3 text-center">Enter your OTP</h5>
 																<p class="text-center text-muted">We have sent you one time password to your contact number for verification</p>
@@ -141,8 +141,8 @@
 																	><br /><label>Back to Sign In</label>
 																</div>
 															</form>
-														</div>
-														<div class="col-md-12" *ngIf="!isEmailOTPSend && isMobileOTPValidated && !isRemainingFieldVisible">
+														</div> -->
+														<div class="col-md-12" *ngIf="!isEmailOTPSend && !isRemainingFieldVisible">
 															<div class="row g-3">
 																<div class="col-md-12 col-12">
 																	<div class="text-center mt-3">
@@ -183,7 +183,7 @@
 
 													<div *ngIf="isRemainingFieldVisible">
 														<div class="row">
-															<div class="col-md-6 col-12">
+															<!-- <div class="col-md-6 col-12">
 																<label for="gender">Gender</label>
 																<div class="p-inputgroup">
 																	<div class="p-inputgroup-addon">
@@ -228,7 +228,7 @@
 																<div *ngIf="submitted && f.location.errors" class="invalid-feedback">
 																	<div *ngIf="f.location.errors.required">Location is required</div>
 																</div>
-															</div>
+															</div> -->
 															<div class="col-md-6 col-12">
 																<label for="floatingPassword">Password<span class="required">*</span></label>
 																<div class="p-inputgroup">
@@ -240,7 +240,7 @@
 																		pInputText
 																		class="border-0"
 																		formControlName="password"
-																		placeholder="New Password"
+																		placeholder="Enter Password"
 																		[ngClass]="{
 																			'is-invalid': submitted && f.password.errors
 																		}" />
@@ -266,7 +266,7 @@
 																		[type]="confirmPassword"
 																		pInputText
 																		class="border-0"
-																		placeholder="Confirm Password"
+																		placeholder=" Enter Confirm Password"
 																		id="confirmPassword"
 																		formControlName="confirmPassword"
 																		[ngClass]="{

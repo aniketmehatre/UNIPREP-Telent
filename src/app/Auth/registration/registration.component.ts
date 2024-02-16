@@ -8,12 +8,12 @@ import { MessageService } from "primeng/api";
 import {
     CountryISO,
     SearchCountryField,
-    
-  } from "ngx-intl-tel-input";
+
+} from "ngx-intl-tel-input";
 import { FacebookService } from "ngx-facebook";
-import {environment} from "@env/environment";
-import {SocialAuthService} from "@abacritt/angularx-social-login";
-import {LocalStorageService} from "ngx-localstorage";
+import { environment } from "@env/environment";
+import { SocialAuthService } from "@abacritt/angularx-social-login";
+import { LocalStorageService } from "ngx-localstorage";
 
 @Component({
     selector: "app-registration",
@@ -68,7 +68,7 @@ export class RegistrationComponent implements OnInit {
     SearchCountryField = SearchCountryField;
     CountryISO = CountryISO;
     preferredCountries: CountryISO[] = [
-      CountryISO.India,
+        CountryISO.India,
     ];
     isMobileOTPEdit: boolean = false;
 
@@ -101,8 +101,8 @@ export class RegistrationComponent implements OnInit {
     ];
 
     constructor(private service: AuthService, private router: Router, private formBuilder: FormBuilder,
-        private locationService: LocationService, private toastr: MessageService,private fb: FacebookService,
-                private authService: SocialAuthService, private storage: LocalStorageService) {
+        private locationService: LocationService, private toastr: MessageService, private fb: FacebookService,
+        private authService: SocialAuthService, private storage: LocalStorageService) {
     }
 
     dateTime = new Date();
@@ -114,8 +114,8 @@ export class RegistrationComponent implements OnInit {
                 this.router.navigate(['/pages/dashboard']);
             });
         });
-            //var socialUser = user;
-            //this.loggedIn = (user != null);
+        //var socialUser = user;
+        //this.loggedIn = (user != null);
 
 
         // this.isMobileOTPSend = false;
@@ -129,17 +129,17 @@ export class RegistrationComponent implements OnInit {
         this.password = 'password';
         this.registrationForm = this.formBuilder.group({
             fullName: ["", [Validators.required]],
-            location: ["", [Validators.required]],
+            // location: ["", [Validators.required]],
             contactNumber: ['', [Validators.required]],
             emailAddress: ["", [Validators.required, Validators.email]],
-            country_code: ['+91', [Validators.required]],
-            interestedCountry: [null, [Validators.required]],
+            // country_code: ['+91', [Validators.required]],
+            // interestedCountry: [null, [Validators.required]],
 
             // lastDegreePassingYear: ["", [Validators.required]],
             // intakeYear: ["", [Validators.required]],
             // intakeMonth: ["", [Validators.required]],
             // programLevel: ["", [Validators.required]],
-            gender: [""],
+            // gender: [""],
             password: ["", [Validators.required, Validators.minLength(8), matchValidator('confirmPassword', true)]],
             confirmPassword: ["", [Validators.required, matchValidator('password')]],
             // terms: [false, [Validators.required]],
@@ -204,7 +204,7 @@ export class RegistrationComponent implements OnInit {
     gethomeCountryList() {
         this.locationService.getHomeCountry(2).subscribe(
             (res: any) => {
-                this.countryList = res;  
+                this.countryList = res;
             },
             (error: any) => {
                 this.toastr.add({ severity: 'warning', summary: 'Warning', detail: error.error.message });
@@ -255,21 +255,21 @@ export class RegistrationComponent implements OnInit {
         }
         var data = {
             name: this.registrationForm.value.fullName,
-            location_id: this.registrationForm.value.location,
+            // location_id: this.registrationForm.value.location,
             phone: this.registrationForm.value.contactNumber.number,
             email: this.registrationForm.value.emailAddress,
-            interested_country_id: this.registrationForm.value.interestedCountry,
+            // interested_country_id: this.registrationForm.value.interestedCountry,
             // last_degree_passing_year: this.registrationForm.value.lastDegreePassingYear.getFullYear(),
             // intake_year_looking: this.registrationForm.value.intakeYear.getFullYear(),
             // intake_month_looking: this.registrationForm.value.intakeMonth.getMonth() + 1,
             // programlevel_id: this.registrationForm.value.programLevel.id,
-            gender: this.registrationForm.value.gender.label,
+            // gender: this.registrationForm.value.gender.label,
             password: this.registrationForm.value.password,
             password_confirmation: this.registrationForm.value.password,
             platform_id: 1,
             usertype_id: 1,
-            country_id: this.registrationForm.value.country,
-            country_code:this.registrationForm.value.country_code
+            // country_id: this.registrationForm.value.country,
+            // country_code: this.registrationForm.value.country_code
         };
 
         this.service.Registraion(data).subscribe(
@@ -301,7 +301,7 @@ export class RegistrationComponent implements OnInit {
         // }
         let val = {
             phone: this.registrationForm.value.contactNumber.number,
-            country_code:this.registrationForm.value.contactNumber.dialCode
+            country_code: this.registrationForm.value.contactNumber.dialCode
         };
         console.log(val);
         if (this.registrationForm.value.fullName != null && this.registrationForm.value.contactNumber.number) {
@@ -377,16 +377,14 @@ export class RegistrationComponent implements OnInit {
         };
 
         this.service.sendEmailOTP(data).subscribe(
-            (res) => {
-
-
+            (res: any) => {
                 this.isEmailOTPSend = true;
                 this.registrationForm.controls['emailAddress'].readonly = true;
             },
             (error) => {
                 this.isEmailOTPSend = false;
-                const message = error.error.message;
-                this.toastr.add({ severity: 'error', summary: 'Failed', detail: error.error.message });
+                // const message = error.error.message;
+                this.toastr.add({ severity: 'error', summary: 'Failed', detail: error.message });
 
             }
         );
@@ -531,7 +529,7 @@ export class RegistrationComponent implements OnInit {
         this.GetLocationList();
     }
     changeCountryCode(event: any) {
-        let changeHomeCountry=this.countryList.find((data:any)=>data.country_code==event.value);
+        let changeHomeCountry = this.countryList.find((data: any) => data.country_code == event.value);
         this.registrationForm.get('country').setValue(changeHomeCountry.id);
         this.GetLocationList();
     }
