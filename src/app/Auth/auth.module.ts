@@ -21,7 +21,7 @@ import {EffectsModule} from "@ngrx/effects";
 import {AuthEffects} from "./store/effects";
 import {CalendarModule} from "primeng/calendar";
 import { NgxIntlTelInputModule } from 'ngx-intl-tel-input';
-import {GoogleSigninButtonModule} from "@abacritt/angularx-social-login";
+// import {GoogleSigninButtonModule} from "@abacritt/angularx-social-login";
 import {MaintenanceComponent} from "./maintenance/maintenance.component";
 
 @NgModule({
@@ -48,7 +48,7 @@ import {MaintenanceComponent} from "./maintenance/maintenance.component";
         EffectsModule.forFeature([AuthEffects]),
         CalendarModule,
         NgxIntlTelInputModule,
-        GoogleSigninButtonModule
+        // GoogleSigninButtonModule
     ],
     providers: [MessageService],
     schemas: [CUSTOM_ELEMENTS_SCHEMA],
