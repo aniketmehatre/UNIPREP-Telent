@@ -10,9 +10,9 @@ import {
     SearchCountryField,
 
 } from "ngx-intl-tel-input";
-import { FacebookService } from "ngx-facebook";
+// import { FacebookService } from "ngx-facebook";
 import { environment } from "@env/environment";
-import { SocialAuthService } from "@abacritt/angularx-social-login";
+// import { SocialAuthService } from "@abacritt/angularx-social-login";
 import { LocalStorageService } from "ngx-localstorage";
 
 @Component({
@@ -101,19 +101,21 @@ export class RegistrationComponent implements OnInit {
     ];
 
     constructor(private service: AuthService, private router: Router, private formBuilder: FormBuilder,
-        private locationService: LocationService, private toastr: MessageService, private fb: FacebookService,
-        private authService: SocialAuthService, private storage: LocalStorageService) {
+        private locationService: LocationService, private toastr: MessageService, 
+        // private fb: FacebookService,
+        // private authService: SocialAuthService, 
+        private storage: LocalStorageService) {
     }
 
     dateTime = new Date();
 
     ngOnInit() {
-        this.authService.authState.subscribe((user) => {
-            this.service.gmailLogin(user).subscribe(data => {
-                this.storage.set(environment.tokenKey, data.token);
-                this.router.navigate(['/pages/dashboard']);
-            });
-        });
+        // this.authService.authState.subscribe((user) => {
+        //     this.service.gmailLogin(user).subscribe(data => {
+        //         this.storage.set(environment.tokenKey, data.token);
+        //         this.router.navigate(['/pages/dashboard']);
+        //     });
+        // });
         //var socialUser = user;
         //this.loggedIn = (user != null);
 
@@ -535,10 +537,10 @@ export class RegistrationComponent implements OnInit {
     }
 
     loginWithFacebook() {
-        this.fb.login().then(response => {
-            console.log('Facebook login response:', response);
-        }).catch(error => {
-            console.error('Facebook login error:', error);
-        });
+        // this.fb.login().then(response => {
+        //     console.log('Facebook login response:', response);
+        // }).catch(error => {
+        //     console.error('Facebook login error:', error);
+        // });
     }
 }
