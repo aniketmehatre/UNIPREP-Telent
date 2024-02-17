@@ -135,7 +135,8 @@ li:last-of-type {
       border-radius: 10px;
 }
 .p-breadcrumb ul{
-  display: -webkit-box !important;
+  flex-wrap: wrap !important;
+  text-align: center !important;
 }
 .mobile{
   display: block;
@@ -143,7 +144,6 @@ li:last-of-type {
 
  :host ::ng-deep .p-breadcrumb {
    font-size: 10px;
-   padding-bottom: 5px;
  }
 
  .fa-file-contract {

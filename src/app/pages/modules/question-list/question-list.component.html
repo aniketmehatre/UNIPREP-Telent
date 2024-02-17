@@ -62,7 +62,7 @@
 			</div>
 			<div class="d-flex justify-content-between align-items-center">
 				<div>
-					<button (click)="goToHome($event)" class="btn btn-warning homecardbtn px-3 m-0">
+					<button (click)="goToHome($event)" class="btn btn-warning homecardbtn px-3">
 						<i class="fa-solid h5 fa-house"></i><br />
 						<span>Home</span>
 					</button>
@@ -160,7 +160,9 @@
 				</button>
 			</div>
 			<div class="mobile mt-4">
-				<button class="btn w-100 btn-primary theme-dark-blue mx-0 px-5 py-2" (click)="onClickAsk()">Click here to ask personalised <br>questions</button>
+				<button class="btn w-100 btn-primary theme-dark-blue d-flex" (click)="onClickAsk()"><i
+						class="fa-solid fa-comment f-20"></i><span class="comment">Click here to ask personalised
+						questions</span></button>
 			</div>
 		</div>
 	</ng-template>

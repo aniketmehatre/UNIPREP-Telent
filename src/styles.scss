@@ -342,6 +342,9 @@ uni-faq {
 	uni-faq {
 		overflow-y: scroll !important;
 	}
+button.p-dialog-header-icon.p-dialog-header-maximize.p-element.p-link.p-ripple {
+	display: block !important;
+}
 }
 
 uni-chat {
@@ -1837,6 +1840,9 @@ uni-subscription {
 	.quotesymbole {
 		margin-top: 5rem;
 	}
+		button.p-dialog-header-icon.p-dialog-header-maximize.p-element.p-link.p-ripple {
+			display: block !important;
+		}
 }
 
 @media (max-width: 575.98px) {
@@ -1845,6 +1851,9 @@ uni-subscription {
 			text-align: center !important;
 		}
 	}
+		button.p-dialog-header-icon.p-dialog-header-maximize.p-element.p-link.p-ripple {
+			display: block !important;
+		}
 
 	.p-paginator{
 		padding: 0px !important;
@@ -1972,7 +1981,8 @@ uni-subscription {
 	}
 
 	.p-breadcrumb ul {
-		display: -webkit-box !important;
+		flex-wrap: wrap !important;
+		text-align: center !important;
 	}
 }
 @media screen and (max-width: 480px) {
@@ -2108,4 +2118,16 @@ button.p-dialog-header-icon.p-dialog-header-maximize.p-element.p-link.p-ripple{
 
 .theme-dark-blue{
 	background-color: #001631;
+}
+.comment{
+	font-size: 14px;
+	margin-left: 12px;
+}
+
+.f-20{
+	font-size: 20px;
+}
+.pi-window-maximize:before {
+	font-size: 13px !important;
+	margin-left: 5px;
 }
