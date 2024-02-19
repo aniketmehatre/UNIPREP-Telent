@@ -180,8 +180,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
   formvisbility = false;
   mobileForm: any = FormGroup;
   ngOnInit() {
-    this.freeTrial=true;
-    this.formvisbility=true;
     this.mobileForm = this.formBuilder.group({
       phone: ["", Validators.required],
     });
