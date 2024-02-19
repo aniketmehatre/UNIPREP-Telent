@@ -17,16 +17,16 @@
   a
   {
     color:#001631;
-    padding: 30px;
+    padding-right: 10px;
     text-decoration: none;
   }
   &:hover
   {
-    background-color: var(--uniprep-primary);
+    background-color: var(--uniprep-primaryhighlight);
     color:#fff;
     a
     {
-      color:#fff;
+      color:black;
     }
   }
 }
@@ -218,4 +218,23 @@
 .company-list-expired {
   background: url('../../../uniprep-assets/images/Company\ List@2x.jpg');
   background-size: cover;
+}
+.pr-10 {
+  padding-right: 10px;
+}
+.fs-10{
+  font-size: 11px;
+}
+
+.social-media{
+  a{
+    color: black;
+  }
+}
+.companny-list{
+  background-color: white !important;
+  border: 1.5px solid orange;
+}
+.br-8{
+  border-radius: 25px !important;
 }
