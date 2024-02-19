@@ -1,28 +1,38 @@
-import {AfterContentChecked, ChangeDetectorRef, Component, OnInit, ViewChild, ElementRef} from '@angular/core';
-import {Observable} from "rxjs";
-import {ModuleListSub} from "../../../@Models/module.model";
-import {ReadQuestion} from "../../../@Models/read-question.model";
-import {ListQuestion, QuestionList} from "../../../@Models/question-list.model";
-import {MenuItem} from "primeng/api";
-import {ModuleServiceService} from "../../module-store/module-service.service";
-import {ModuleStoreService} from "../../module-store/module-store.service";
-import {DataService} from "../../../data.service";
-import {ActivatedRoute, Router} from "@angular/router";
-import {Location} from "@angular/common";
-import {DomSanitizer} from "@angular/platform-browser";
+import {
+  AfterContentChecked,
+  ChangeDetectorRef,
+  Component,
+  OnInit,
+  ViewChild,
+  ElementRef,
+} from "@angular/core";
+import { Observable } from "rxjs";
+import { ModuleListSub } from "../../../@Models/module.model";
+import { ReadQuestion } from "../../../@Models/read-question.model";
+import {
+  ListQuestion,
+  QuestionList,
+} from "../../../@Models/question-list.model";
+import { MenuItem } from "primeng/api";
+import { ModuleServiceService } from "../../module-store/module-service.service";
+import { ModuleStoreService } from "../../module-store/module-store.service";
+import { DataService } from "../../../data.service";
+import { ActivatedRoute, Router } from "@angular/router";
+import { Location } from "@angular/common";
+import { DomSanitizer } from "@angular/platform-browser";
 
 @Component({
-  selector: 'uni-question-list',
-  templateUrl: './question-list.component.html',
-  styleUrls: ['./question-list.component.scss']
+  selector: "uni-question-list",
+  templateUrl: "./question-list.component.html",
+  styleUrls: ["./question-list.component.scss"],
 })
 export class QuestionListComponent implements OnInit {
-  @ViewChild('carouselVideoElm') carouselVideoElm: any;
-  @ViewChild('carouselRefElm') carouselRefElm: any;
-  @ViewChild('carouselPopupVideoElm') carouselPopupVideoElm: any;
-  @ViewChild('carouselPopupRefElm') carouselPopupRefElm: any;
-  @ViewChild('videoLinksContainer') videoLinksContainer !: ElementRef;
-  @ViewChild('refLinksContainer') refLinksContainer !: ElementRef;
+  @ViewChild("carouselVideoElm") carouselVideoElm: any;
+  @ViewChild("carouselRefElm") carouselRefElm: any;
+  @ViewChild("carouselPopupVideoElm") carouselPopupVideoElm: any;
+  @ViewChild("carouselPopupRefElm") carouselPopupRefElm: any;
+  @ViewChild("videoLinksContainer") videoLinksContainer!: ElementRef;
+  @ViewChild("refLinksContainer") refLinksContainer!: ElementRef;
 
   readQue$!: Observable<ReadQuestion[]>;
   listQuestion$!: Observable<QuestionList>;
@@ -43,137 +53,151 @@ export class QuestionListComponent implements OnInit {
   isAnswerDialogVisiblePrev: boolean = false;
   isAnswerDialogVisibleNext: boolean = false;
   responsiveOptions: any[] = [];
-  message: string = '';
+  message: string = "";
   moduleName: any;
   subModuleId: any;
-  videoLinks: any [] = [];
-  refLink: any [] = [];
+  videoLinks: any[] = [];
+  refLink: any[] = [];
   countryId: any;
   selectedQuestionData: any;
   popUpItemVideoLink: any;
   reviewedByOrgList: any;
   currentSubModuleSlug: any;
   currentModuleName: any;
-  currentModuleId: any
+  currentModuleId: any;
   currentApiSlug: any;
   tooltip: any;
-  questionListData: any [] = []
-  pageno:number = 1;
-  perpage:number = 50;
-  totalQuestionCount:any
-  constructor(private moduleListService: ModuleServiceService, private moduleStoreService: ModuleStoreService,
-              private dataService: DataService, private route: ActivatedRoute, private _location: Location,
-              private _sanitizer: DomSanitizer, private router: Router) {
-  }
+  questionListData: any[] = [];
+  pageno: number = 1;
+  perpage: number = 50;
+  totalQuestionCount: any;
+  constructor(
+    private moduleListService: ModuleServiceService,
+    private moduleStoreService: ModuleStoreService,
+    private dataService: DataService,
+    private route: ActivatedRoute,
+    private _location: Location,
+    private _sanitizer: DomSanitizer,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
     this.moduleListService.emptyQuestionList$();
-    this.route.params.subscribe(params => {
+    this.route.params.subscribe((params) => {
       this.loadInit();
       //this.getSubmoduleName(this.countryId);
     });
-    this.tooltip = 'Questions related to the application process are answered';
+    this.tooltip = "Questions related to the application process are answered";
     this.checkScrollPosition();
     this.checkScrollPositionRef();
   }
 
-  loadInit(){
-    this.countryId = Number(localStorage.getItem('countryId'));
-    let countryName: any
-    this.subModuleId = this.route.snapshot.paramMap.get('id');
-    this.currentSubModuleSlug = this.route.snapshot.paramMap.get('module_name');
+  loadInit() {
+    this.countryId = Number(localStorage.getItem("countryId"));
+    let countryName: any;
+    this.subModuleId = this.route.snapshot.paramMap.get("id");
+    this.currentSubModuleSlug = this.route.snapshot.paramMap.get("module_name");
     this.dataService.countryName.subscribe((data) => {
       countryName = data;
     });
     switch (this.currentSubModuleSlug) {
-      case 'pre-application':
+      case "pre-application":
         this.currentModuleId = 1;
-        this.currentModuleName = 'Pre-Application';
-        this.currentApiSlug = 'getpreapplicationsubmoduleqcount';
+        this.currentModuleName = "Pre-Application";
+        this.currentApiSlug = "getpreapplicationsubmoduleqcount";
         break;
-      case 'post-application':
+      case "post-application":
         this.currentModuleId = 2;
-        this.currentModuleName = 'Post-Application';
-        this.currentApiSlug = 'getpostapplicationsubmoduleqcount';
+        this.currentModuleName = "Post-Application";
+        this.currentApiSlug = "getpostapplicationsubmoduleqcount";
         break;
-      case 'post-admission':
+      case "post-admission":
         this.currentModuleId = 3;
-        this.currentModuleName = 'Post-Admission';
-        this.currentApiSlug = 'getpostadmissionsubmoduleqcount';
+        this.currentModuleName = "Post-Admission";
+        this.currentApiSlug = "getpostadmissionsubmoduleqcount";
         break;
-      case 'career-hub':
+      case "career-hub":
         this.currentModuleId = 4;
-        this.currentModuleName = 'Career Hub';
-        this.currentApiSlug = 'getcareerhubsubmoduleqcount';
+        this.currentModuleName = "Career Hub";
+        this.currentApiSlug = "getcareerhubsubmoduleqcount";
         break;
-      case 'university':
+      case "university":
         this.currentModuleId = 5;
-        this.currentModuleName = 'University';
-        this.currentApiSlug = 'getuniversitysubmoduleqcount';
-        this.tooltip = '';
+        this.currentModuleName = "University";
+        this.currentApiSlug = "getuniversitysubmoduleqcount";
+        this.tooltip = "";
         break;
       default:
         this.currentModuleId = 6;
-        this.currentModuleName = 'Life At '+countryName;
-        this.currentApiSlug = 'getlifeincountrysubmoduleqcount';
-        this.tooltip = '';
+        this.currentModuleName = "Life At " + countryName;
+        this.currentApiSlug = "getlifeincountrysubmoduleqcount";
+        this.tooltip = "";
         break;
-    }   
+    }
     this.getSubmoduleName(this.countryId);
 
-    this.dataService.currentMessage.subscribe(message => this.message = message)
-    this.breadCrumb = [{ label: this.currentModuleName,command: (event) =>this.gotomodulebreadcrump() }, { label: this.moduleName, command: (event) =>this.goToHomebreadcrump() }, { label: 'Question' }];
+    this.dataService.currentMessage.subscribe(
+      (message) => (this.message = message)
+    );
+    this.breadCrumb = [
+      {
+        label: this.currentModuleName,
+        command: (event) => this.gotomodulebreadcrump(),
+      },
+      { label: this.moduleName, command: (event) => this.goToHomebreadcrump() },
+      { label: "Question" },
+    ];
 
     this.responsiveOptions = [
       {
-        breakpoint: '1199px',
+        breakpoint: "1199px",
         numVisible: 1,
-        numScroll: 1
+        numScroll: 1,
       },
       {
-        breakpoint: '991px',
+        breakpoint: "991px",
         numVisible: 2,
-        numScroll: 1
+        numScroll: 1,
       },
       {
-        breakpoint: '767px',
+        breakpoint: "767px",
         numVisible: 1,
-        numScroll: 1
-      }
+        numScroll: 1,
+      },
     ];
 
     //this.listQuestion$ = this.moduleListService.questionList$();
     let data = {
-      countryId: Number(localStorage.getItem('countryId')),
+      countryId: Number(localStorage.getItem("countryId")),
       moduleId: this.currentModuleId,
       submoduleId: Number(this.subModuleId),
-      page:this.pageno,
-      perpage:this.perpage,
-    }
+      page: this.pageno,
+      perpage: this.perpage,
+    };
     this.moduleListService.loadQuestionList(data);
     this.moduleListService.questionList$().subscribe((data: any) => {
       this.questionListData = data?.questions;
-      this.totalQuestionCount= data?.questioncount    
-    })
+      this.totalQuestionCount = data?.questioncount;
+    });
   }
 
-  goBack(){
+  goBack() {
     this._location.back();
   }
 
   getSubmoduleName(countryId: number) {
     let data = {
       countryId: countryId,
-      moduleId: this.currentModuleId
-    }
+      moduleId: this.currentModuleId,
+    };
     //this.moduleListService.loadQuestionList()
-    this.moduleStoreService.loadSubModuleData(data).subscribe(response => {
-      if(response){
+    this.moduleStoreService.loadSubModuleData(data).subscribe((response) => {
+      if (response) {
         response.filter((res: any) => {
           if (res.id == this.subModuleId) {
             this.moduleName = res.submodule_name;
           }
-        })
+        });
       }
     });
     // this.subModules$ = this.moduleListService.subModuleList$();
@@ -189,15 +213,16 @@ export class QuestionListComponent implements OnInit {
   }
 
   convertToSlug(text: any) {
-    return text.toLowerCase()
-        .replace(/ /g, '-')
-        .replace(/[^\w-]+/g, '');
+    return text
+      .toLowerCase()
+      .replace(/ /g, "-")
+      .replace(/[^\w-]+/g, "");
   }
 
   onQuestionClick(selectedData: any) {
     this.moduleListService.questionList$().subscribe((data: any) => {
-      this.data = data.questions
-    })
+      this.data = data.questions;
+    });
     this.selectedQuestionData = selectedData;
     this.selectedModule = selectedData.module_id;
     this.selectedSubModule = selectedData.submodule_id;
@@ -217,41 +242,47 @@ export class QuestionListComponent implements OnInit {
       questionId: selectedData.id,
       countryId: this.countryId,
       moduleId: this.currentModuleId,
-      submoduleId: Number(this.subModuleId)
-    }
+      submoduleId: Number(this.subModuleId),
+    };
     if (this.selectedQuestion < 1) {
       this.isAnswerDialogVisiblePrev = false;
-    }else{
+    } else {
       this.isAnswerDialogVisiblePrev = true;
     }
     if (this.selectedQuestion >= this.data.length - 1) {
       this.isAnswerDialogVisibleNext = false;
-    }else{
+    } else {
       this.isAnswerDialogVisibleNext = true;
     }
-    this.breadCrumb = [{ label: this.currentModuleName,command: (event) =>this.gotomodulebreadcrump() }, { label: this.moduleName, command: (event) => this.goToHomebreadcrump() }, { label: `Question ${index + 1}` }];
+    this.breadCrumb = [
+      {
+        label: this.currentModuleName,
+        command: (event) => this.gotomodulebreadcrump(),
+      },
+      { label: this.moduleName, command: (event) => this.goToHomebreadcrump() },
+      { label: `Question ${index + 1}` },
+    ];
 
     this.readQuestion(data);
   }
 
-  readQuestion(data: any){
+  readQuestion(data: any) {
     this.moduleListService.readQuestion(data);
     this.readQue$ = this.moduleListService.readQuestionMessage$();
-    this.questionListData = this.questionListData.map(item => {
+    this.questionListData = this.questionListData.map((item) => {
       if (item.id === data.questionId) {
         return { ...item, read: 1 };
       }
       return item;
     });
-
   }
 
   setPage(page: any) {
-    let pageNum: number = 0
+    let pageNum: number = 0;
     if (page.page < 0) {
       pageNum = this.data.length;
     } else {
-      pageNum = page.page
+      pageNum = page.page;
     }
     this.data.filter((res: any) => {
       if (res.id == pageNum + 1) {
@@ -260,7 +291,14 @@ export class QuestionListComponent implements OnInit {
       }
     });
     this.positionNumber = pageNum + 1;
-    this.breadCrumb = [{ label: this.currentModuleName,command: (event) =>this.gotomodulebreadcrump() }, { label: this.moduleName , command: (event) => this.goToHomebreadcrump()}, { label: `Question ${pageNum + 1}` }];
+    this.breadCrumb = [
+      {
+        label: this.currentModuleName,
+        command: (event) => this.gotomodulebreadcrump(),
+      },
+      { label: this.moduleName, command: (event) => this.goToHomebreadcrump() },
+      { label: `Question ${pageNum + 1}` },
+    ];
   }
 
   clickPrevious(carousel: any, event: any) {
@@ -272,7 +310,7 @@ export class QuestionListComponent implements OnInit {
     if (this.selectedQuestion <= 0) {
       return;
     }
-    let selectedData = this.data[this.selectedQuestion-1];
+    let selectedData = this.data[this.selectedQuestion - 1];
     let selectedDataReadAnswer = this.data[this.selectedQuestion];
     this.selectedQuestionData = selectedData;
     this.selectedModule = selectedData.module_id;
@@ -290,8 +328,8 @@ export class QuestionListComponent implements OnInit {
       questionId: selectedData.id,
       countryId: this.countryId,
       moduleId: this.currentModuleId,
-      submoduleId: Number(this.subModuleId)
-    }
+      submoduleId: Number(this.subModuleId),
+    };
 
     this.readQuestion(data);
   }
@@ -305,7 +343,7 @@ export class QuestionListComponent implements OnInit {
     if (this.selectedQuestion >= this.data.length - 1) {
       return;
     }
-    let selectedData = this.data[this.selectedQuestion+1];
+    let selectedData = this.data[this.selectedQuestion + 1];
     this.selectedQuestionData = selectedData;
     this.selectedModule = selectedData.module_id;
     this.selectedSubModule = selectedData.submodule_id;
@@ -317,13 +355,13 @@ export class QuestionListComponent implements OnInit {
         this.videoLinks = res.videolink;
       }
     });
-    carousel.navForward(event, this.selectedQuestion)
+    carousel.navForward(event, this.selectedQuestion);
     let data = {
       questionId: selectedData.id,
       countryId: this.countryId,
       moduleId: this.currentModuleId,
-      submoduleId: Number(this.subModuleId)
-    }
+      submoduleId: Number(this.subModuleId),
+    };
     this.readQuestion(data);
   }
 
@@ -332,7 +370,7 @@ export class QuestionListComponent implements OnInit {
       return;
     }
     this.selectedVideo = this.selectedVideo - 1;
-    this.carouselVideoElm.navBackward(event, this.selectedVideo)
+    this.carouselVideoElm.navBackward(event, this.selectedVideo);
   }
 
   clickNextVideo(event: any) {
@@ -341,7 +379,7 @@ export class QuestionListComponent implements OnInit {
     }
     this.selectedVideo += 1;
 
-    this.carouselVideoElm.navForward(event, this.selectedVideo)
+    this.carouselVideoElm.navForward(event, this.selectedVideo);
   }
 
   clickPreviousRef(event: any) {
@@ -350,22 +388,23 @@ export class QuestionListComponent implements OnInit {
     }
     this.selectedRefLink = this.selectedRefLink - 1;
 
-    this.carouselRefElm.navBackward(event, this.selectedRefLink)
+    this.carouselRefElm.navBackward(event, this.selectedRefLink);
   }
 
   clickNextRef(event: any) {
-    if (this.selectedRefLink >= (this.refLink.length/2) - 1) {
+    if (this.selectedRefLink >= this.refLink.length / 2 - 1) {
       return;
     }
     this.selectedRefLink += 1;
 
-    this.carouselRefElm.navForward(event, this.selectedRefLink)
+    this.carouselRefElm.navForward(event, this.selectedRefLink);
   }
 
   onClickRecommendedVideo(data: any) {
     this.isRecommendedVideoVisible = true;
     let url = encodeURIComponent(data[0].link);
-    this.popUpItemVideoLink = this._sanitizer.bypassSecurityTrustResourceUrl(url);
+    this.popUpItemVideoLink =
+      this._sanitizer.bypassSecurityTrustResourceUrl(url);
   }
 
   onClickRecommendedLinks(data: any) {
@@ -373,43 +412,41 @@ export class QuestionListComponent implements OnInit {
   }
 
   onClickAsk() {
-    this.router.navigateByUrl(`/pages/chat`)
+    this.router.navigateByUrl(`/pages/chat`);
     //this.dataService.changeChatOpenStatus("open chat window");
   }
 
   openReport() {
-
     let data = {
       isVisible: true,
       moduleId: this.selectedQuestionData.module_id,
       subModuleId: this.selectedQuestionData.submodule_id,
       questionId: this.selectedQuestionData.id,
-      from: 'module'
-    }
+      from: "module",
+    };
     this.dataService.openReportWindow(data);
   }
-
 
   goToHome(event: any) {
     this.isQuestionAnswerVisible = false;
   }
-  goToHomebreadcrump(){
+  goToHomebreadcrump() {
     this.isQuestionAnswerVisible = false;
   }
-  gotomodulebreadcrump(){
-   if( this.currentModuleId == 1){
-    this.router.navigate(['/pages/modules/pre-application'])
-   }else if(this.currentModuleId == 2){
-    this.router.navigate(['/pages/modules/post-application'])
-   }else if(this.currentModuleId == 3){
-    this.router.navigate(['//pages/modules/post-admission'])
-   }else if(this.currentModuleId == 4){
-    this.router.navigate(['/pages/modules/career-hub'])
-   }else if(this.currentModuleId == 5){
-    this.router.navigate(['/pages/modules/university'])
-   }else if(this.currentModuleId == 6){
-    this.router.navigate(['/pages/modules/life-at-country'])
-   }
+  gotomodulebreadcrump() {
+    if (this.currentModuleId == 1) {
+      this.router.navigate(["/pages/modules/pre-application"]);
+    } else if (this.currentModuleId == 2) {
+      this.router.navigate(["/pages/modules/post-application"]);
+    } else if (this.currentModuleId == 3) {
+      this.router.navigate(["//pages/modules/post-admission"]);
+    } else if (this.currentModuleId == 4) {
+      this.router.navigate(["/pages/modules/career-hub"]);
+    } else if (this.currentModuleId == 5) {
+      this.router.navigate(["/pages/modules/university"]);
+    } else if (this.currentModuleId == 6) {
+      this.router.navigate(["/pages/modules/life-at-country"]);
+    }
   }
 
   // popup video prev
@@ -419,7 +456,7 @@ export class QuestionListComponent implements OnInit {
     }
     this.selectedVideo = this.selectedVideo - 1;
 
-    this.carouselPopupRefElm.navBackward(event, this.selectedVideo)
+    this.carouselPopupRefElm.navBackward(event, this.selectedVideo);
   }
 
   // popup video next
@@ -427,12 +464,14 @@ export class QuestionListComponent implements OnInit {
     if (this.selectedVideo >= this.videoLinks.length - 1) {
       return;
     }
-    let vdoLinks = this.videoLinks.find((x : any) => x.id == this.selectedVideo)
-    this.popUpItemVideoLink = this._sanitizer.bypassSecurityTrustResourceUrl(data[0].link);
+    let vdoLinks = this.videoLinks.find((x: any) => x.id == this.selectedVideo);
+    this.popUpItemVideoLink = this._sanitizer.bypassSecurityTrustResourceUrl(
+      data[0].link
+    );
 
     this.selectedVideo += 1;
 
-    this.carouselPopupRefElm.navForward(event, this.selectedVideo)
+    this.carouselPopupRefElm.navForward(event, this.selectedVideo);
   }
 
   clickPreviousRefPopup(data: any) {
@@ -441,7 +480,7 @@ export class QuestionListComponent implements OnInit {
     }
     this.selectedRefLink = this.selectedRefLink - 1;
 
-    this.carouselPopupRefElm.navBackward(event, this.selectedRefLink)
+    this.carouselPopupRefElm.navBackward(event, this.selectedRefLink);
   }
 
   clickNextRefPopup(data: any) {
@@ -450,78 +489,86 @@ export class QuestionListComponent implements OnInit {
     }
     this.selectedRefLink += 1;
 
-    this.carouselPopupRefElm.navForward(event, this.selectedRefLink)
+    this.carouselPopupRefElm.navForward(event, this.selectedRefLink);
   }
 
-  reviewBy(){
+  reviewBy() {
     this.reviewedByOrgList = [];
     this.isReviewedByVisible = true;
     let request = {
-      question_id: this.selectedQuestionId
-    }
-    this.moduleStoreService.GetReviewedByOrgLogo(request).subscribe((response) => {
-      this.reviewedByOrgList = response;
-    })
+      question_id: this.selectedQuestionId,
+    };
+    this.moduleStoreService
+      .GetReviewedByOrgLogo(request)
+      .subscribe((response) => {
+        this.reviewedByOrgList = response;
+      });
   }
 
   scrollRightVideo() {
     const container = this.videoLinksContainer.nativeElement;
     const scrollAmount = container.offsetWidth / 2;
-    container.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+    container.scrollBy({ left: scrollAmount, behavior: "smooth" });
     this.checkScrollPosition();
   }
 
   scrollLeftVideo() {
     const container = this.videoLinksContainer.nativeElement;
     const scrollAmount = -container.offsetWidth / 2;
-    container.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+    container.scrollBy({ left: scrollAmount, behavior: "smooth" });
     this.checkScrollPosition();
   }
 
   scrollLeftRef() {
     const container = this.refLinksContainer.nativeElement;
     const scrollAmount = -container.offsetWidth / 2;
-    container.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+    container.scrollBy({ left: scrollAmount, behavior: "smooth" });
     this.checkScrollPositionRef();
   }
 
   scrollRightRef() {
     const container = this.refLinksContainer.nativeElement;
     const scrollAmount = container.offsetWidth / 2;
-    container.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+    container.scrollBy({ left: scrollAmount, behavior: "smooth" });
     this.checkScrollPositionRef();
   }
 
   leftScrollButtonVisible: boolean = false;
   rightScrollButtonVisible: boolean = true;
-  leftScrollButtonVisibleRef:boolean = false;
-  rightScrollButtonVisibleRef:boolean = true;
+  leftScrollButtonVisibleRef: boolean = false;
+  rightScrollButtonVisibleRef: boolean = true;
 
   checkScrollPosition() {
-    const container = this.videoLinksContainer.nativeElement;
-    this.leftScrollButtonVisible = container.scrollLeft > 0;
-    this.rightScrollButtonVisible = container.scrollWidth - container.clientWidth > container.scrollLeft;
+    const container = this.videoLinksContainer?.nativeElement;
+    if (container) {
+      this.leftScrollButtonVisible = container.scrollLeft > 0;
+      this.rightScrollButtonVisible =
+        container.scrollWidth - container.clientWidth > container.scrollLeft;
+    }
   }
 
   checkScrollPositionRef() {
-    const container = this.refLinksContainer.nativeElement;
-    this.leftScrollButtonVisibleRef = container.scrollLeft > 0;
-    this.rightScrollButtonVisibleRef = container.scrollWidth - container.clientWidth > container.scrollLeft;
+    const container = this.refLinksContainer?.nativeElement;
+    if (container) {
+      this.leftScrollButtonVisibleRef = container.scrollLeft > 0;
+      this.rightScrollButtonVisibleRef =
+        container.scrollWidth - container.clientWidth > container.scrollLeft;
+    }
   }
-  paginatepost(event:any){
+  paginatepost(event: any) {
     this.pageno = event.page + 1;
     this.perpage = event.rows;
     let data = {
-      countryId: Number(localStorage.getItem('countryId')),
+      countryId: Number(localStorage.getItem("countryId")),
       moduleId: this.currentModuleId,
       submoduleId: Number(this.subModuleId),
-      page:this.pageno,
-      perpage:this.perpage,
-    }
+      page: this.pageno,
+      perpage: this.perpage,
+    };
     this.moduleListService.loadQuestionList(data);
     this.moduleListService.questionList$().subscribe((data: any) => {
       this.questionListData = data?.questions;
-      this.totalQuestionCount= data?.questioncount    
-    })
+      this.totalQuestionCount = data?.questioncount;
+    });
   }
 }

@@ -815,7 +815,7 @@ uni-subscription {
 	.answersection {
 		/* Allow the carousel to take up all available space */
 		flex: 1;
-		overflow-y: auto; /* Enable vertical scrolling when content exceeds height */
+		overflow-y: visible; /* Enable vertical scrolling when content exceeds height */
 		background: var(--uniprep-primaryop10);
 		border: 2px solid var(--uniprep-primary);
 		border-radius: 20px;
