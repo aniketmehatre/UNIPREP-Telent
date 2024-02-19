@@ -43,12 +43,12 @@ export class HttpErrorInterceptor implements HttpInterceptor {
           if(err?.status === 401){
             window.sessionStorage.clear();
             localStorage.clear();
-            this.router.navigateByUrl('/login');
+            this.toastr.add({severity: 'error', summary: 'Error', detail:  err?.statusText});
+              this.router.navigateByUrl('/login');
           }
           if(err?.status === 408){
               // window.sessionStorage.clear();
               // localStorage.clear();
-              console.log('dddddd')
               this.dataService.loggedInAnotherDevice('block');
               //this.router.navigateByUrl('/login');
               //const msg = 'You have logged into the portal from another device , Please log back in from this device to use the portal again.'
