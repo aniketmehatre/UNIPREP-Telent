@@ -36,10 +36,10 @@ import { ScrollToBottomDirective } from './scroll-to-bottom.directive';
 import {ConfirmDialogModule} from "primeng/confirmdialog";
 import {PipesModule} from "@pipes/pipes.module";
 import { LandingComponent } from './pages/landing/landing.component';
-// import {
-//     SocialLoginModule,
-//     SocialAuthServiceConfig, GoogleLoginProvider, FacebookLoginProvider,
-// } from '@abacritt/angularx-social-login';
+import {
+    SocialLoginModule,
+    SocialAuthServiceConfig, GoogleLoginProvider,
+} from '@abacritt/angularx-social-login';
 
 import { MaintenanceComponent } from './Auth/maintenance/maintenance.component';
 // import {FacebookInitService} from "./Auth/facebook-init.service";
@@ -103,7 +103,7 @@ export function tokenGetter() {
         TooltipModule,
         PipesModule,
         ConfirmDialogModule,
-        // SocialLoginModule,
+       SocialLoginModule,
         // FacebookModule.forRoot(),
         // NgxLinkedinModule.forRoot({
         //     clientId: environment.linkedinId
@@ -129,25 +129,26 @@ export function tokenGetter() {
       useValue: ngxLocalstorageConfiguration
     },
     ModalService,
-      // {
-      //     provide: 'SocialAuthServiceConfig',
-      //     useValue: {
-      //         autoLogin: false,
-      //         providers: [
-      //             {
-      //                 id: GoogleLoginProvider.PROVIDER_ID,
-      //                 provider: new GoogleLoginProvider('32944187384-4jubeedmfdusvhk6n7ben61ce7u9ber8.apps.googleusercontent.com',
-      //                     {
-      //                         oneTapEnabled: false,
-      //                     }),
-      //             },
-      //             {
-      //                 id: FacebookLoginProvider.PROVIDER_ID,
-      //                 provider: new FacebookLoginProvider('892925195633254'),
-      //             },
-      //         ],
-      //     } as SocialAuthServiceConfig,
-      // },
+      {
+          provide: 'SocialAuthServiceConfig',
+          useValue: {
+              autoLogin: false,
+              providers: [
+                  {
+                      id: GoogleLoginProvider.PROVIDER_ID,
+                      provider: new GoogleLoginProvider('32944187384-4jubeedmfdusvhk6n7ben61ce7u9ber8.apps.googleusercontent.com',
+                          {
+                              oneTapEnabled: false,
+                          }),
+                  }
+                  // ,
+                  // {
+                  //     id: FacebookLoginProvider.PROVIDER_ID,
+                  //     provider: new FacebookLoginProvider('892925195633254'),
+                  // },
+              ],
+          } as SocialAuthServiceConfig,
+      },
   ],
   bootstrap: [AppComponent],
   entryComponents: [ModalComponent]

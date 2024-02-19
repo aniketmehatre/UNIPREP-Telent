@@ -12,8 +12,9 @@ import {
 } from "ngx-intl-tel-input";
 // import { FacebookService } from "ngx-facebook";
 import { environment } from "@env/environment";
-// import { SocialAuthService } from "@abacritt/angularx-social-login";
+import { SocialAuthService } from "@abacritt/angularx-social-login";
 import { LocalStorageService } from "ngx-localstorage";
+import { SubSink } from "subsink";
 
 @Component({
     selector: "app-registration",
@@ -103,19 +104,26 @@ export class RegistrationComponent implements OnInit {
     constructor(private service: AuthService, private router: Router, private formBuilder: FormBuilder,
         private locationService: LocationService, private toastr: MessageService, 
         // private fb: FacebookService,
-        // private authService: SocialAuthService, 
+        private authService: SocialAuthService, 
         private storage: LocalStorageService) {
     }
 
     dateTime = new Date();
-
+    private subs = new SubSink();
     ngOnInit() {
-        // this.authService.authState.subscribe((user) => {
-        //     this.service.gmailLogin(user).subscribe(data => {
-        //         this.storage.set(environment.tokenKey, data.token);
-        //         this.router.navigate(['/pages/dashboard']);
-        //     });
-        // });
+        this.authService.authState.subscribe((user) => {
+            this.service.gmailLogin(user).subscribe(data => {
+                this.storage.set(environment.tokenKey, data.token);
+                this.service.getMe().subscribe((data) => {
+                    this.subs.sink = this.service.selectMessage$().subscribe(message => {
+                      if (message == 'Login Success') {
+                        this.toastr.add({ severity: 'success', summary: 'Success', detail: message });
+                      }
+                    });
+                    this.router.navigate(['/pages/dashboard']);
+                  });
+            });
+        });
         //var socialUser = user;
         //this.loggedIn = (user != null);
 

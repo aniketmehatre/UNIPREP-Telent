@@ -10,7 +10,7 @@ import { MessageService } from "primeng/api";
 import { SubSink } from "subsink";
 import { DataService } from "src/app/data.service";
 import {DashboardService} from "../../pages/dashboard/dashboard.service";
-// import {FacebookLoginProvider, GoogleLoginProvider, SocialAuthService} from "@abacritt/angularx-social-login";
+import {GoogleLoginProvider, SocialAuthService} from "@abacritt/angularx-social-login";
 import {environment} from "@env/environment";
 import {LocalStorageService} from "ngx-localstorage";
 import {Observable} from "rxjs/internal/Observable";
@@ -32,7 +32,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     private service: AuthService, private formBuilder: FormBuilder, private route: Router,
     private toast: MessageService, private dataService: DataService, private el: ElementRef,
     private dashboardService: DashboardService, 
-    // private authService: SocialAuthService,
+    private authService: SocialAuthService,
     private storage: LocalStorageService, 
     // private fb: FacebookService, private ngxLinkedinService: NgxLinkedinService
   ) { }
@@ -62,32 +62,32 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    // this.authService.authState.subscribe((user) => {
-    //   let data = {
-    //     email: user.email
-    //   }
-    //   this.service.isExist(data).subscribe(data => {
-    //     if (data == 'Exist'){
-    //       this.service.gmailLogin(user).subscribe(data => {
-    //         if(data.status == 'error'){
-    //           this.toast.add({ severity: 'error', summary: 'Error', detail: data.message });
-    //           return;
-    //         }
-    //         this.storage.set(environment.tokenKey, data.token);
-    //         this.service.getMe().subscribe((data) => {
-    //           this.loadCountryList(data);
-    //               this.toast.add({ severity: 'success', summary: 'Success', detail: 'Login' });
-    //               this.route.navigate(['/pages/dashboard']);
+    this.authService.authState.subscribe((user) => {
+      let data = {
+        email: user.email
+      }
+      this.service.isExist(data).subscribe(data => {
+        if (data == 'Exist'){
+          this.service.gmailLogin(user).subscribe(data => {
+            if(data.status == 'error'){
+              this.toast.add({ severity: 'error', summary: 'Error', detail: data.message });
+              return;
+            }
+            this.storage.set(environment.tokenKey, data.token);
+            this.service.getMe().subscribe((data) => {
+              this.loadCountryList(data);
+                  this.toast.add({ severity: 'success', summary: 'Success', detail: 'Login' });
+                  this.route.navigate(['/pages/dashboard']);
 
-    //         });
-    //       });
-    //     }else{
-    //       this.toast.add({ severity: 'info', summary: 'Info', detail: 'Email not exist , Try Register' });
-    //     }
-    //   });
-    //   //var socialUser = user;
-    //   //this.loggedIn = (user != null);
-    // });
+            });
+          });
+        }else{
+          this.toast.add({ severity: 'info', summary: 'Info', detail: 'Email not exist , Try Register' });
+        }
+      });
+      //var socialUser = user;
+      //this.loggedIn = (user != null);
+    });
     this.loginForm = this.formBuilder.group({
       email: ["", [Validators.required, Validators.email]],
       password: ["", [Validators.required]],
