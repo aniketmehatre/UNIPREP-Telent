@@ -60,6 +60,7 @@ export class AuthService {
                 this._checkExistsSubscription = response.userdetails[0].subscription_exists;
                 localStorage.setItem("UserID",response.userdetails[0].id)
                 localStorage.setItem("Name",response.userdetails[0].name)
+                localStorage.setItem("phone",response.userdetails[0].phone)
                 localStorage.setItem("credit_plans",response.userdetails[0].credit_plans)
                 localStorage.setItem("questions_left",response.userdetails[0].questions_left)
                 localStorage.setItem("guidlineAccepted", response.userdetails[0].guidelineaccept)

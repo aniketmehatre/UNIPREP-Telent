@@ -55,7 +55,6 @@ import { ScholarshipListComponent } from "./scholarship-list/scholarship-list.co
 import { UserGuideComponent } from './user-guide/user-guide.component';
 import { DividerModule } from "primeng/divider";
 
-
 @NgModule({
     declarations: [
         PagesComponent,
