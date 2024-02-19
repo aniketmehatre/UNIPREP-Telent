@@ -318,7 +318,21 @@ export class RegistrationComponent implements OnInit {
             email: this.registrationForm.value.emailAddress,
             password: this.registrationForm.value.password,
           });
-        }, 2000);
+          this.service.getMe().subscribe((data) => {
+            this.subs.sink = this.service
+              .selectMessage$()
+              .subscribe((message) => {
+                if (message == "Login Success") {
+                  this.toastr.add({
+                    severity: "success",
+                    summary: "Success",
+                    detail: message,
+                  });
+                }
+              });
+            this.router.navigate(["/pages/dashboard"]);
+          });
+        }, 1000);
       },
       (error) => {
         const message = error.error.message;
