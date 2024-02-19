@@ -23,7 +23,7 @@ export class ScholarshipListComponent implements OnInit {
   first: number = 0;
   searchScholarshpName: string = "";
   totalScholarShipCount: any;
-  isFilterVisible: string = "none";
+  isFilterVisible: boolean = false;
   filterForm: FormGroup;
   homeCountryList: any[] = [];
   studyLevelList: any[] = [];
@@ -142,7 +142,7 @@ export class ScholarshipListComponent implements OnInit {
         this.scholarshipData = response.scholarship;
         this.totalScholarShipCount = response.count;
       });
-    this.isFilterVisible = "none";
+    this.isFilterVisible =false;
   }
   applyFilter() {
     const formData = this.filterForm.value;
@@ -202,7 +202,7 @@ export class ScholarshipListComponent implements OnInit {
         this.scholarshipData = response.scholarship;
         this.totalScholarShipCount = response.count;
       });
-    this.isFilterVisible = "none";
+    this.isFilterVisible = false;
   }
   getRegionList() {
     this.scholarshipListService.getRegion().subscribe((response) => {
@@ -232,11 +232,11 @@ export class ScholarshipListComponent implements OnInit {
   }
 
   closePopup() {
-    this.isFilterVisible = "none";
+    this.isFilterVisible = false;
   }
 
   filterBy() {
-    this.isFilterVisible = "block";
+    this.isFilterVisible =true;
   }
 
   exportTable() { }
