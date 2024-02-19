@@ -6,10 +6,10 @@ import { MessageService } from "primeng/api";
 import { User } from "../../@Models/user.model";
 import { UserManagementService } from "./user-management.service";
 import { SubSink } from "subsink";
-import {Router} from "@angular/router";
-import {DashboardService} from "../dashboard/dashboard.service";
-import {DataService} from "../../data.service";
-import {count} from "rxjs";
+import { Router } from "@angular/router";
+import { DashboardService } from "../dashboard/dashboard.service";
+import { DataService } from "../../data.service";
+import { count } from "rxjs";
 
 
 @Component({
@@ -34,21 +34,21 @@ export class UserManagementComponent implements OnInit {
     intrestedCountryList: any;
     currentDate = new Date();
     dateTime = new Date();
-    maximumTime=new Date();
-    selectedDate:any;
+    maximumTime = new Date();
+    selectedDate: any;
 
     updatedpasswords: FormGroup;
-    ShowCrntPass:boolean = false;
-    CrntPass:string = "password";
-    ShowNewPass:boolean = false;
-    NewPass:string = "password";
-    ShowCnfrmPass:boolean = false;
-    CnfrmPass:string = "password";
-    ShowPersonalInfo:boolean = false;
-    PasswordDivShow:boolean=false;
+    ShowCrntPass: boolean = false;
+    CrntPass: string = "password";
+    ShowNewPass: boolean = false;
+    NewPass: string = "password";
+    ShowCnfrmPass: boolean = false;
+    CnfrmPass: string = "password";
+    ShowPersonalInfo: boolean = false;
+    PasswordDivShow: boolean = false;
     PasswordSubmitted = false;
-    newsLetter:boolean = false;
-    PersonalInfo:any=[];
+    newsLetter: boolean = false;
+    PersonalInfo: any = [];
 
     private subs = new SubSink();
     constructor(
@@ -73,7 +73,7 @@ export class UserManagementComponent implements OnInit {
             intake_year_looking: [''],
             intake_month_looking: [''],
             programlevel_id: [''],
-            
+
             // gender: ['', [Validators.required]],
         });
 
@@ -88,18 +88,18 @@ export class UserManagementComponent implements OnInit {
         return this.registrationForm.controls;
     }
 
-    get updatepassword(){
+    get updatepassword() {
         return this.updatedpasswords.controls;
     }
 
     ngOnInit(): void {
         this.dateTime.setDate(this.dateTime.getDate());
-       
+
         this.getProgramLevelList();
         this.getCountryList();
         this.getIntrestedCountryList();
         this.authService.userData.subscribe(data => {
-            if(data){
+            if (data) {
                 this.user = data;
                 let mon = this.getMonthName(this.user?.intake_month_looking);
                 this.newsLetter = this.user.newsletter_consent == 1 ? true : false;
@@ -117,16 +117,16 @@ export class UserManagementComponent implements OnInit {
                 //     gender: [this.user?.gender, [Validators.required]],
                 //     // newsletter_consent: [this.user?.newsletter_consent == 1 ? true : false, [Validators.required]],
                 // });
-                
+
             }
         });
         this.GetPersonalProfileData();
-        
+
     }
-    GetPersonalProfileData(){
+    GetPersonalProfileData() {
         this.userManagementService.GetUserPersonalInfo().subscribe(data => {
             this.PersonalInfo = data;
-          //  let mon = this.PersonalInfo?.intake_month_looking == null ? null : this.getMonthName(this.PersonalInfo?.intake_month_looking);
+            //  let mon = this.PersonalInfo?.intake_month_looking == null ? null : this.getMonthName(this.PersonalInfo?.intake_month_looking);
             this.registrationForm.patchValue({
                 name: this.PersonalInfo?.name,
                 location_id: this.PersonalInfo?.location_id,
@@ -136,24 +136,24 @@ export class UserManagementComponent implements OnInit {
                 intake_year_looking: this.PersonalInfo?.intake_year_looking,
                 intake_month_looking: this.PersonalInfo?.intake_month_looking,
                 programlevel_id: this.PersonalInfo?.programlevel_id,
-                phone:this.PersonalInfo?.phone
+                phone: this.PersonalInfo?.phone
             });
-            this.selectedDate=new Date();
+            this.selectedDate = new Date();
             this.selectedDate.setFullYear(this.registrationForm.get('intake_year_looking')?.value);
             this.selectedDate.setMonth(this.registrationForm.get('intake_month_looking')?.value);
             this.GetLocationList();
             this.registrationForm.get('intake_month_looking')?.setValue((this.registrationForm.get('intake_month_looking')?.value || this.registrationForm.get('intake_month_looking')?.value == 0) ? this.selectedDate : '');
-            var selectedYear=this.registrationForm.get('intake_year_looking')?.value;
-             
+            var selectedYear = this.registrationForm.get('intake_year_looking')?.value;
+
             this.maximumTime.setFullYear(selectedYear);
             this.maximumTime.setMonth(11);
-            if(this.currentDate.getFullYear()!=selectedYear){
+            if (this.currentDate.getFullYear() != selectedYear) {
                 this.dateTime = new Date(selectedYear, 0, 1);
             }
             else {
                 this.dateTime.setFullYear(selectedYear);
             }
-        });    
+        });
     }
 
     getMonthName(monthNumber: any) {
@@ -169,7 +169,7 @@ export class UserManagementComponent implements OnInit {
     // using get location
     // test command
     GetLocationList() {
-        if(this.registrationForm.get('home_country')?.value==122){
+        if (this.registrationForm.get('home_country')?.value == 122) {
             this.locationService.getLocation().subscribe(
                 (res: any) => {
                     this.locationList = res;
@@ -183,8 +183,8 @@ export class UserManagementComponent implements OnInit {
                 }
             );
         }
-        else{
-            this.locationList=[{id:0,district:'Others'}];
+        else {
+            this.locationList = [{ id: 0, district: 'Others' }];
             this.registrationForm?.get('location_id')?.setValue(0);
         }
     }
@@ -210,7 +210,7 @@ export class UserManagementComponent implements OnInit {
                 this.intrestedCountryList = res;
             },
             (error: any) => {
-               
+
             }
         );
     }
@@ -218,13 +218,13 @@ export class UserManagementComponent implements OnInit {
     yearChage(event: any) {
         this.registrationForm.get('intake_month_looking')?.setValue('');
         // this.registrationForm?.get('intake_month_looking')?.setValue(event);
-       let intakeYearValue=this.registrationForm.get('intake_year_looking')?.value;
- 
-      let  intakeYear=intakeYearValue.toString().split(' ')[3];
+        let intakeYearValue = this.registrationForm.get('intake_year_looking')?.value;
+
+        let intakeYear = intakeYearValue.toString().split(' ')[3];
         this.maximumTime.setFullYear(intakeYear);
- 
+
         this.maximumTime.setMonth(11);
-        if(this.dateTime.getFullYear()!=intakeYear && this.currentDate.getFullYear()!=intakeYear){
+        if (this.dateTime.getFullYear() != intakeYear && this.currentDate.getFullYear() != intakeYear) {
             this.dateTime = new Date(intakeYear, 0, 1);
         }
         else {
@@ -254,22 +254,22 @@ export class UserManagementComponent implements OnInit {
             }
         });
 
-        
+
     }
 
     onSubmit() {
         this.submitted = true;
         if (this.registrationForm.invalid) {
-            return ;
+            return;
         }
-        var data : any = {
+        var data: any = {
             userId: this.PersonalInfo?.user_id,
             name: this.registrationForm.value?.name,
             location_id: this.registrationForm.value?.location_id,
             interested_country_id: this.registrationForm.value?.interested_country_id == null ? "" : this.registrationForm.value?.interested_country_id,
             programlevel_id: this.registrationForm.value?.programlevel_id,
             home_country: this.registrationForm.value?.home_country,
-            phone:this.registrationForm.value?.phone
+            phone: this.registrationForm.value?.phone
         };
 
         this.intrestedCountryList.forEach((element: any) => {
@@ -280,7 +280,7 @@ export class UserManagementComponent implements OnInit {
                 this.dataService.changeCountryFlag(element.flag);
             }
         });
-        if(this.registrationForm.value?.last_degree_passing_year == null) {
+        if (this.registrationForm.value?.last_degree_passing_year == null) {
             data.last_degree_passing_year = "";
         }
         else if (typeof this.registrationForm.value?.last_degree_passing_year == "string") {
@@ -289,7 +289,7 @@ export class UserManagementComponent implements OnInit {
         else {
             data.last_degree_passing_year = this.registrationForm.value?.last_degree_passing_year?.getFullYear();
         }
-        if(this.registrationForm.value?.intake_year_looking == null) {
+        if (this.registrationForm.value?.intake_year_looking == null) {
             data.intake_year_looking = "";
         }
         else if (typeof this.registrationForm.value?.intake_year_looking == "string") {
@@ -298,7 +298,7 @@ export class UserManagementComponent implements OnInit {
         else {
             data.intake_year_looking = this.registrationForm.value?.intake_year_looking?.getFullYear();
         }
-        if(this.registrationForm.value?.intake_month_looking == null) {
+        if (this.registrationForm.value?.intake_month_looking == null) {
             data.intake_month_looking = "";
         }
         else if (typeof this.registrationForm.value?.intake_month_looking == "string") {
@@ -306,31 +306,29 @@ export class UserManagementComponent implements OnInit {
         }
         else {
             data.intake_month_looking = this.registrationForm.value?.intake_month_looking?.getMonth();
-            
+
         }
         this.userManagementService.updateUserData(data).subscribe(data => {
             this.ShowPersonalInfo = false;
             this.GetPersonalProfileData();
             this.toast.add({ severity: 'success', summary: 'Success', detail: "Successfully Updated" });
+
         },
-        error => {
-            if(error.message =="The phone has already been taken."){
+            error => {
+                this.toast.add({ severity: 'error', summary: 'Error', detail: error.message });
+                this.ShowPersonalInfo = true;
                 return;
-            }
-            this.ShowPersonalInfo = false;
-            
-            // this.toast.add({ severity: 'error', summary: 'Error', detail: "Error! While updating user details" });
-        });
+            });
     }
 
-    UserUpdatePassword(updatedpasswords:any){
+    UserUpdatePassword(updatedpasswords: any) {
         let data = this.updatedpasswords.value;
         this.PasswordSubmitted = true;
         if (this.updatedpasswords.invalid) {
-            return ;
+            return;
         }
         this.subs.sink = this.userManagementService.CompareUserPassword(data).subscribe(passwordconfirmation => {
-            if(passwordconfirmation.severity == "success"){
+            if (passwordconfirmation.severity == "success") {
                 this.updatedpasswords.patchValue({
                     current_password: "",
                     new_password: "",
@@ -342,31 +340,31 @@ export class UserManagementComponent implements OnInit {
         this.PasswordSubmitted = false;
     }
 
-    ShowCurrentPassword(){
-        if(this.ShowCrntPass == true){
+    ShowCurrentPassword() {
+        if (this.ShowCrntPass == true) {
             this.ShowCrntPass = false;
             this.CrntPass = "password";
-        }else{
+        } else {
             this.ShowCrntPass = true;
             this.CrntPass = "text";
         }
     }
 
-    ShowNewPassword(){
-        if(this.ShowNewPass == true){
+    ShowNewPassword() {
+        if (this.ShowNewPass == true) {
             this.ShowNewPass = false;
             this.NewPass = "password";
-        }else{
+        } else {
             this.ShowNewPass = true;
             this.NewPass = "text";
         }
     }
 
-    ShowConfirmPassword(){
-        if(this.ShowCnfrmPass == true){
+    ShowConfirmPassword() {
+        if (this.ShowCnfrmPass == true) {
             this.ShowCnfrmPass = false;
             this.CnfrmPass = "password";
-        }else{
+        } else {
             this.ShowCnfrmPass = true;
             this.CnfrmPass = "text";
         }
@@ -380,24 +378,24 @@ export class UserManagementComponent implements OnInit {
     //     }
     // }
 
-    NewsLetterUpdate(e:any){
+    NewsLetterUpdate(e: any) {
         let isChecked = e.checked == true ? 1 : 0;
         let OnOrOff = isChecked == 1 ? "On" : "Off";
         this.subs.sink = this.userManagementService.UpdateNewsLetter(isChecked).subscribe(data => {
-            
-            return this.toast.add({ severity: 'success', summary: 'Success', detail: "Notification Turned "+OnOrOff+" successfully."});
+
+            return this.toast.add({ severity: 'success', summary: 'Success', detail: "Notification Turned " + OnOrOff + " successfully." });
         });
     }
 
-    ShowPasswordDiv(){
-        if(this.PasswordDivShow == true){
+    ShowPasswordDiv() {
+        if (this.PasswordDivShow == true) {
             this.PasswordDivShow = false;
-        }else{
+        } else {
             this.PasswordDivShow = true;
         }
     }
 
-    changeLocation(event:any){
+    changeLocation(event: any) {
         this.GetLocationList()
     }
 }
