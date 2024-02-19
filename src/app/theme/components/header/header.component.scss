@@ -19,7 +19,7 @@ nav {
     display: inline-block;
     background-color: unset;
     border-width: 0px;
-    font-size: .8rem;
+    font-size: 0.8rem;
 
     * :focus {
       box-shadow: none !important;
@@ -29,7 +29,7 @@ nav {
   }
 
   .p-breadcrumb-chevron {
-    font-size: .7rem;
+    font-size: 0.7rem;
   }
 
   .page-title {
@@ -88,15 +88,12 @@ nav {
   margin-right: 5px;
   margin-left: 5px;
 }
-.headercountry
-{
-  img
-  {
+.headercountry {
+  img {
     width: 40px;
     border: 2px solid var(--uniprep-primaryop10);
     border-radius: 100%;
   }
-  
 }
 form {
   input {
@@ -129,12 +126,10 @@ form {
   width: 100%;
   text-align: left;
 }
-.profile-dropdown
-{
-  button
-  {
+.profile-dropdown {
+  button {
     background: transparent;
-    border:none;
+    border: none;
     padding: 0;
   }
 }
@@ -147,7 +142,7 @@ form {
   color: #001631;
   background-color: var(--uniprep-primaryop10);
   text-align: center;
-  font-weight: 700!important;
+  font-weight: 700 !important;
   font-size: 1.2rem;
 }
 
@@ -164,7 +159,6 @@ form {
     }
 
     &:nth-child(2) {
-
       border: 1px solid #eee;
     }
 
@@ -183,7 +177,6 @@ form {
   font-size: 1rem;
   background-color: var(--uniprep-primaryop10);
   border-radius: 10px !important;
-
 }
 
 .dropbtn {
@@ -222,7 +215,7 @@ form {
 
 /* Change color of dropdown links on hover */
 .dropdown-content a:hover {
-  background-color: #f1f1f1
+  background-color: #f1f1f1;
 }
 
 /* Show the dropdown menu on hover */
@@ -281,18 +274,15 @@ form {
   justify-content: center;
   display: flex;
 }
-.timertext
-{
+.timertext {
   font-size: 8px;
-  font-weight:600;
-  color:#001631;
+  font-weight: 600;
+  color: #001631;
   text-align: center;
 }
 
-.menutoggle
-{
-  button
-  {
+.menutoggle {
+  button {
     border-radius: 100% !important;
     width: 30px;
     height: 30px;
@@ -304,28 +294,57 @@ form {
   }
 }
 
-.darkmode
-{
-  .menutoggle
-{
-  button
-  {
-    color:#fff;
-    background: #202124;
+.darkmode {
+  .menutoggle {
+    button {
+      color: #fff;
+      background: #202124;
+    }
   }
 }
-}
-.fa-hourglass-end{
+.fa-hourglass-end {
   transform: rotate(346deg);
 }
 
-.firsttimelogin{
+.firsttimelogin {
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-.firsttimeloginpopup{
+.firsttimeloginpopup {
   backdrop-filter: blur(2px);
   background-color: rgba(0, 0, 0, 0.5);
+}
+.modal-content {
+  overflow: initial !important;
+}
+.modal-body {
+  overflow: initial !important;
+}
+.iti .dropdown-menu.country-dropdown {
+  height: 200px !important;
+  overflow-y: scroll !important;
+  overflow-x: hidden !important;
+  background: white !important;
+}
+.phonenumberblock p{
+  font-size: small;
+    text-align: center;
+    font-weight: 600;
+}
+
+.btn-secondary:disabled {
+  background: linear-gradient(
+    0deg,
+    rgb(240 120 14) 0%,
+    rgb(240 120 14) 100%
+  ) !important;
+}
+.btn-primary:disabled {
+  background: linear-gradient(
+    0deg,
+    rgb(63 76 131) 0%,
+    rgb(63 76 131) 100%
+  ) !important;
 }
