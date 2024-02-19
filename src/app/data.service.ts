@@ -37,6 +37,9 @@ export class DataService {
     public showTimeOutSourceData = new BehaviorSubject(true);
     showTimeOutStatusData = this.showTimeOutSourceData.asObservable();
 
+    public showLoggedInAnotherDevice = new BehaviorSubject('none');
+    showLoggedInAnotherDeviceData = this.showLoggedInAnotherDevice.asObservable();
+
     public booleanValue = new BehaviorSubject<any>(true);
     castValue = this.booleanValue.asObservable();
 
@@ -77,6 +80,10 @@ export class DataService {
 
     showPopup(data:any) {
         this.showTimeOutSourceData.next(data);
+    }
+
+    loggedInAnotherDevice(data:any) {
+        this.showLoggedInAnotherDevice.next(data);
     }
 
     sendValue(newValue: boolean) {

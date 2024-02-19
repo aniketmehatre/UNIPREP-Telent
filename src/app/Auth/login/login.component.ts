@@ -14,8 +14,9 @@ import {GoogleLoginProvider, SocialAuthService} from "@abacritt/angularx-social-
 import {environment} from "@env/environment";
 import {LocalStorageService} from "ngx-localstorage";
 import {Observable} from "rxjs/internal/Observable";
+import {FacebookLoginProvider} from "angularx-social-login";
 // import {FacebookService} from "ngx-facebook";
-// import {NgxLinkedinService} from "ngx-linkedin";
+import {NgxLinkedinService} from "ngx-linkedin";
 @Component({
   selector: "app-login",
   templateUrl: "./login.component.html",
@@ -34,7 +35,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     private dashboardService: DashboardService, 
     private authService: SocialAuthService,
     private storage: LocalStorageService, 
-    // private fb: FacebookService, private ngxLinkedinService: NgxLinkedinService
+    private ngxLinkedinService: NgxLinkedinService
   ) { }
 
   linkedInCredentials = {
@@ -62,6 +63,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    this.dataService.loggedInAnotherDevice('none');
     this.authService.authState.subscribe((user) => {
       let data = {
         email: user.email
@@ -138,20 +140,16 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
 
   loginWithFacebook(){
-    // this.fb.login().then(response => {
-    //   console.log('Facebook login response:', response);
-    // }).catch(error => {
-    //   console.error('Facebook login error:', error);
-    // });
+    this.authService.signIn(FacebookLoginProvider.PROVIDER_ID);
   }
 
   loginWithLinkedIn(){
-      // this.ngxLinkedinService.signIn().subscribe(user => {
-      //   console.info('signIn', user);
-      // });
-    // window.location.href = `https://www.linkedin.com/uas/oauth2/authorization?response_type=code&client_id=${
-    //     this.linkedInCredentials.clientId
-    // }&redirect_uri=${this.linkedInCredentials.redirectUrl}&scope={this.linkedInCredentials.scope}`;
+      this.ngxLinkedinService.signIn().subscribe(user => {
+        console.info('signIn', user);
+      });
+    window.location.href = `https://www.linkedin.com/uas/oauth2/authorization?response_type=code&client_id=${
+        this.linkedInCredentials.clientId
+    }&redirect_uri=${this.linkedInCredentials.redirectUrl}&scope={this.linkedInCredentials.scope}`;
   }
 
 }

@@ -23,6 +23,7 @@ export class PagesComponent implements OnInit, OnDestroy {
     isDeviceStatusPopupView: boolean = false;
     MultiLoginPopup:string = '';
     isDeviceStatus: any = 'none';
+    isLoggedInAnotherDevice: any = 'none';
     deviceInfo: any;
     @Output() expandicon = !this.sidebarClass
         ? "pi-align-right"
@@ -87,6 +88,17 @@ export class PagesComponent implements OnInit, OnDestroy {
             } else {
                 this.showReportSuccess = false;
             }
+        });
+        this.dataService.showLoggedInAnotherDevice.subscribe((data) => {
+            if (data == 'block'){
+                this.isLoggedInAnotherDevice = data;
+                setTimeout(()=>{
+                    window.sessionStorage.clear();
+                    localStorage.clear();
+                    this.router.navigateByUrl('/login');
+                }, 5000);
+            }
+
         });
         this.MultiLoginPopup = 'none'; //If you want to show the popup change the value as "block"
     }

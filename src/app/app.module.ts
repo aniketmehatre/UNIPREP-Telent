@@ -46,6 +46,8 @@ import { MaintenanceComponent } from './Auth/maintenance/maintenance.component';
 // import {FacebookModule} from "ngx-facebook";
 // import {NgxLinkedinModule} from "ngx-linkedin";
 import { PrivacyComponent } from './pages/privacy/privacy.component';
+import {FacebookLoginProvider} from "angularx-social-login";
+import {NgxLinkedinModule} from "ngx-linkedin";
  
 
 const reducers = {
@@ -105,9 +107,9 @@ export function tokenGetter() {
         ConfirmDialogModule,
        SocialLoginModule,
         // FacebookModule.forRoot(),
-        // NgxLinkedinModule.forRoot({
-        //     clientId: environment.linkedinId
-        // })
+        NgxLinkedinModule.forRoot({
+            clientId: environment.linkedinId
+        })
     ],
   providers: [
       // FacebookInitService,
@@ -141,11 +143,11 @@ export function tokenGetter() {
                               oneTapEnabled: false,
                           }),
                   }
-                  // ,
-                  // {
-                  //     id: FacebookLoginProvider.PROVIDER_ID,
-                  //     provider: new FacebookLoginProvider('892925195633254'),
-                  // },
+                  ,
+                  {
+                      id: FacebookLoginProvider.PROVIDER_ID,
+                      provider: new FacebookLoginProvider('892925195633254'),
+                  },
               ],
           } as SocialAuthServiceConfig,
       },
