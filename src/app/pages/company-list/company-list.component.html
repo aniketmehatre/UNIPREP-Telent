@@ -1,5 +1,5 @@
 <div class="card readingcard" style="border-radius: 15px 15px 0px 0px !important">
-  <div class="card-body pt-0" *ngIf="!planExpired">
+  <div class="card-body pt-0"  >
     <div class="row justify-content-center mb-2">
       <div class="col-md-2 text-start"></div>
       <div class="col-md-8 text-center">
@@ -137,7 +137,23 @@
     <p-paginator [rows]="pageSize" [totalRecords]="totalCompanyCount" (onPageChange)="pageChange($event)"
       [rowsPerPageOptions]="[100, 300, 500, 1000]"></p-paginator>
   </div>
-  <div *ngIf="planExpired" class="company-list-expired">
+  <p-dialog [(visible)]="restrict" [style]="{ width: '30vw'}" [draggable]="false" [resizable]="false"
+  class="restrictionDialog" [breakpoints]="{ '960px': '30vw','959px': '60vw','425px': '90vw'}"
+  (onHide)="clearRestriction()">
+  <div class="text-center mt-5 mb-4">
+      <img src="../../../uniprep-assets/images/smartloack.png" class="image" width="60" />
+      <h3 class="offer">Upgrade Required</h3>
+      <p>
+          To access this exclusive module,please upgrade your plan now
+      </p>
+      <button pButton type="button"
+          class="text-white p-ripple p-button-rounded p-button-warning p-button p-component p-2"
+          (click)="upgradePlan()">
+          Upgrade Plan<i class="fa fa-arrow-right exhausted-plan-icon"></i>
+      </button>
+  </div>
+</p-dialog>
+  <!-- <div *ngIf="planExpired" class="company-list-expired">
     <div class="row">
       <div class="col-md-2 text-start"></div>
       <div class="col-md-8 text-center">
@@ -163,7 +179,7 @@
         Upgrade Plan<i class="fa fa-arrow-right exhausted-plan-icon"></i>
       </button>
     </div>
-  </div>
+  </div> -->
 </div>
 
 <div class="modal" tabindex="-1" role="dialog" [ngStyle]="{ display: isFilterVisible }">

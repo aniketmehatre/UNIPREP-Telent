@@ -22,6 +22,7 @@ export class ResourceComponent implements OnInit {
   newfile = "none";
   countries: country[] = [];
   planExpired!: boolean;
+  restrict:boolean=false;
 
   constructor(private fb: FormBuilder, private resourceService: ResourceService, private toast: MessageService, private authService: AuthService,
   private router:Router) {
@@ -89,6 +90,11 @@ export class ResourceComponent implements OnInit {
   }
   // filterpop-up
   filterPopUp() {
+     
+    if(this.planExpired){
+      this.restrict=true;
+      return;
+    }
     this.newfile = "block";
   }
   onLocationSelect(event: any) {
@@ -110,5 +116,14 @@ export class ResourceComponent implements OnInit {
   }
   upgradePlan(): void {
     this.router.navigate(["/pages/subscriptions"]);
+  }
+  clearRestriction() {
+    this.restrict = false;
+  }
+  canSeeResources(){
+    if(this.planExpired){
+      this.restrict=true;
+      return;
+    }
   }
 }
