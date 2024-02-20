@@ -22,10 +22,10 @@ export class ResourceComponent implements OnInit {
   newfile = "none";
   countries: country[] = [];
   planExpired!: boolean;
-  restrict:boolean=false;
+  restrict: boolean = false;
 
   constructor(private fb: FormBuilder, private resourceService: ResourceService, private toast: MessageService, private authService: AuthService,
-  private router:Router) {
+    private router: Router) {
     this.filterform = this.fb.group({
       coutryname: ['']
     });
@@ -90,9 +90,9 @@ export class ResourceComponent implements OnInit {
   }
   // filterpop-up
   filterPopUp() {
-     
-    if(this.planExpired){
-      this.restrict=true;
+
+    if (this.planExpired) {
+      this.restrict = true;
       return;
     }
     this.newfile = "block";
@@ -120,9 +120,13 @@ export class ResourceComponent implements OnInit {
   clearRestriction() {
     this.restrict = false;
   }
-  canSeeResources(){
-    if(this.planExpired){
-      this.restrict=true;
+  canSeeResources() {
+    if (this.planExpired) {
+      this.restrict = true;
+      const resourceLink = document.getElementById("resourceLink");
+      if (resourceLink !== null) {
+        resourceLink.style.pointerEvents = "none";
+      }
       return;
     }
   }
