@@ -8,6 +8,7 @@ import { TooltipModule } from 'primeng/tooltip';
 import { ReactiveFormsModule } from '@angular/forms';
 import { DropdownModule } from 'primeng/dropdown';
 import { MultiSelectModule } from 'primeng/multiselect';
+import { DialogModule } from 'primeng/dialog';
 
 
 @NgModule({
@@ -22,7 +23,8 @@ import { MultiSelectModule } from 'primeng/multiselect';
         ReactiveFormsModule,
         DropdownModule,
         TooltipModule,
-        MultiSelectModule
+        MultiSelectModule,
+        DialogModule
     ]
 })
 export class ResourceModule {

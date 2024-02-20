@@ -2131,3 +2131,9 @@ button.p-dialog-header-icon.p-dialog-header-maximize.p-element.p-link.p-ripple{
 	font-size: 13px !important;
 	margin-left: 5px;
 }
+ 
+p-dialog.restrictionDialog .p-dialog .p-dialog-header .p-dialog-header-icon{
+	position: fixed;
+	top: -8px;
+	right: -8px;
+  } 

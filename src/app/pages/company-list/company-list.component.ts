@@ -22,6 +22,8 @@ export class CompanyListComponent implements OnInit {
   isFilterVisible: string = 'none';
   filterForm:FormGroup;
   planExpired!: boolean;
+  restrict:boolean=false;
+  currentPlan:string=""
 
   constructor(private _location: Location, private fb: FormBuilder, private companyListService: CompanyListService, private authService: AuthService, private router:Router) {
     this.filterForm = this.fb.group({
@@ -35,7 +37,7 @@ export class CompanyListComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.loadInvestorData();
+    
     this.loadMultiSelectData();
     this.checkplanExpire();
   }
@@ -74,7 +76,9 @@ export class CompanyListComponent implements OnInit {
   clearFilter(){
     this.filterForm.reset();
   }
-  
+  clearRestriction() {
+    this.restrict = false;
+  }
   loadInvestorData(){
     let data = {
       company_name: this.filterForm.value.company_name ? this.filterForm.value.company_name : '',
@@ -85,6 +89,7 @@ export class CompanyListComponent implements OnInit {
       industry_interested: this.filterForm.value.industry_interested ? this.filterForm.value.industry_interested : '',
       page: this.page,
       perpage: this.pageSize,
+      planname:this.currentPlan?this.currentPlan:""
     }
     this.companyListService.getInvestorList(data).subscribe((response) => {
       this.companyData = response.data;
@@ -95,6 +100,10 @@ export class CompanyListComponent implements OnInit {
   }
 
   pageChange(event: any){
+    if(this.planExpired){
+      this.restrict=true;
+      return;
+    }
     this.page = event.page + 1;
     this.pageSize = event.rows;
     this.loadInvestorData();
@@ -106,6 +115,10 @@ export class CompanyListComponent implements OnInit {
   }
 
   filterBy(){
+    if(this.planExpired){
+      this.restrict=true;
+      return;
+    }
     this.isFilterVisible = 'block';
   }
 
@@ -119,11 +132,13 @@ export class CompanyListComponent implements OnInit {
     this.authService.getNewUserTimeLeft().subscribe((res) => {
       let data = res.time_left;
       let subscription_exists_status = res.subscription_details;
+      this.currentPlan=subscription_exists_status.subscription_plan;
       if (data.plan === "expired" || data.plan === 'subscription_expired' || subscription_exists_status.subscription_plan === 'free_trail' || subscription_exists_status.subscription_plan === 'Student') {
         this.planExpired = true;
       } else {
         this.planExpired = false;
       }
+      this.loadInvestorData();
     })
   }
 
