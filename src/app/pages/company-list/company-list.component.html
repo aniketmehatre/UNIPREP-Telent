@@ -1,7 +1,7 @@
 <div class="card readingcard">
   <div class="card-body pt-0">
     <div class="row justify-content-center" *ngIf="!planExpired">
-      <div class="col-md-3 text-start">
+      <div class="col-md-3 text-start desktop">
         <div class="p-input-icon-left w-100 mt-3">
           <i class="pi pi-search"></i>
           <input class="w-100 px-5 py-2" type="text" placeholder="Search in Company List .." pInputText
@@ -13,7 +13,7 @@
           COMPANY LIST
         </h5>
       </div>
-      <div class="col-md-3 text-end">
+      <div class="col-md-3 text-end desktop">
         <span class="d-flex justify-content-end">
           <button class="btn btn-primary ps-3 pe-3 pt-2 pb-2 br-8" (click)="filterBy()" type="button">
             Filter
@@ -29,10 +29,36 @@
         </div>
       </div>
     </div>
+    <div class="mobile">
+      <div class="row">
+        <div class="col-md-6 text-start">
+          <div class="p-input-icon-left w-100 mt-3">
+            <i class="pi pi-search"></i>
+            <input class="w-100 px-5 py-2" type="text" placeholder="Search in Company List .." pInputText
+              [(ngModel)]="valueNearYouFilter" (input)="performSearch($event)" />
+          </div>
+        </div>
+        <div class="col-md-6 text-end">
+          <span class="d-flex justify-content-end">
+            <button class="btn btn-primary ps-3 pe-3 pt-2 pb-2 br-8" (click)="filterBy()" type="button">
+              Filter
+              by</button>
+            <!-- <button class="btn btn-danger ps-3 pe-3 pt-2 pb-2" (click)="resetFilter()"
+                          style="border-radius: 8px; color: #fff;" type="button">
+                          Reset</button> -->
+          </span>
+          <div class="d-flex w-full align-items-center justify-content-end ">
+            <div class="pe-2">
+              <span class="text-muted text-small"><strong>Total Companies : {{ totalCompanyCount }}</strong></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
     <div class="container-fluid" *ngIf="!planExpired">
       <div class="row">
         <div *ngFor="let companyData of companyData" class="col-md-3 col-12 mt-3 ">
-          <div class="card justify-content-center card-style text-black p-2 h-100 companny-list">
+          <div class="cardcard-style text-black p-2 h-100 companny-list">
             <h6 class="mt-2 mb-2">{{companyData.company_name}}</h6>
             <div class="d-flex mt-2">
               <div class="col-6"><i class="fa fa-map-marker pr-10" aria-hidden="true"></i>{{ companyData.country_name }}
@@ -42,11 +68,11 @@
                 }}</div>
             </div>
             <div class="d-flex mt-2 mb-2">
-              <div class="col-6"><i class="fa-solid fa-industry pr-10 fs-10"></i>{{ companyData.country_name }}</div>
-              <div class="col-6">
+              <div class="col-11"><i class="fa-solid fa-industry pr-10 fs-10"></i>{{ companyData.industry_interested_name }}</div>
+              <div class="col-1">
                 <div class="d-flex justify-content-end social-media">
                   <div *ngIf="companyData.website && companyData.website.trim() !== ''">
-                    <a target="_blank" href="{{ companyData.website }}"><i class="fa-solid fa-globe"></i></a>
+                    <a target="_blank" href="{{ companyData.website }}"><i class="fa-solid fa-globe pr-2"></i></a>
                   </div>
                   <div *ngIf="companyData.linked_in && companyData.linked_in.trim() !== ''">
                     <a target="_blank" href="{{ companyData.linked_in }}"><i class="fa-brands fa-linkedin"></i></a>
@@ -90,108 +116,69 @@
   </div> -->
 </div>
 
-<!-- filter pop-up -->
-<div class="modal" tabindex="-1" role="dialog" [ngStyle]="{ display: isFilterVisible }">
-  <div class="modal-dialog" role="document">
+
+<p-dialog header="Filter Companies" [(visible)]="isFilterVisible" [modal]="true" [style]="{ width: '60rem' }"
+  [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }" [ngStyle]="{ display: isFilterVisible }">
+  <div class="m-5">
     <form role="form" [formGroup]="filterForm" (ngSubmit)="loadInvestorData()">
-      <div class="modal-content company-list-filter">
-        <div class="modal-header flex justify-content-between">
-          <h4 class="modal-title">Filter Companies</h4>
-          <span style="cursor: pointer; color: #3f4c83"><i (click)="closePopup()"
-              class="fa-solid fa-circle-xmark fa-2x"></i></span>
-        </div>
-        <div class="modal-body">
+      <div class="row">
+        <div class="col-md-12">
           <div class="row">
-            <div class="col-md-12">
-              <div class="row">
-                <div class="col-md-12">
-                  <label class="form-label" style="font-size: medium; font-weight: 500">Filter by Company Name</label>
-                  <div class="form-group">
-                    <div class="mb-3">
-                      <input placeholder="Company Name" type="text" formControlName="company_name"
-                        class="form-control border-black paddingfive" />
-                    </div>
-                  </div>
-                </div>
-                <div class="col-md-6">
-                  <label class="form-label" style="font-size: medium; font-weight: 500">Filter by Country</label>
-                  <div class="form-group">
-                    <div class="mb-3">
-                      <p-multiSelect [options]="countryList" styleClass="w-100" formControlName="country"
-                        optionValue="id" (onChange)="loadHeadQuartersData($event)" defaultLabel="Select Countries"
-                        optionLabel="country" #multiSelect>
-                        <ng-template pTemplate="selectedItems">
-                          {{ multiSelect.defaultLabel }}
-                        </ng-template>
-                      </p-multiSelect>
-                      <div *ngIf="filterForm.hasError('org_name')" class="text-danger">
-                        {{ filterForm.getError("org_name") }}
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-md-6">
-                  <label class="form-label" style="font-size: medium; font-weight: 500">Filter by Head Quarters</label>
-                  <div class="form-group">
-                    <div class="mb-3">
-                      <p-multiSelect [options]="headQuartersList" styleClass="w-100" formControlName="head_quarters"
-                        defaultLabel="Select Head Quarters" optionValue="id" optionLabel="head_quarters_name"
-                        #HeadMultiSelect>
-                        <ng-template pTemplate="selectedItems">
-                          {{ HeadMultiSelect.defaultLabel }}
-                        </ng-template>
-                      </p-multiSelect>
-                    </div>
-                  </div>
-                </div>
-                <!-- <div class="col-md-6">
-                    <label class="form-label" style="font-size: medium;font-weight:500">Filter by
-                        Est. Date</label>
-                    <div class="form-group">
-                        <div class="mb-3">
-                            <input placeholder="Start date" type="date" formControlName="fromdate"
-                                    class="form-control border-black paddingfive" />
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <label class="form-label" style="font-size: medium;font-weight:500">Filter by
-                        Est. Date</label>
-                    <div class="form-group">
-                        <div class="mb-3">
-                            <input placeholder="End date" type="date" formControlName="todate"
-                                    class="form-control border-black paddingfive" />
-                        </div>
-                    </div>
-                </div> -->
-                <div class="col-md-6">
-                  <label class="form-label" style="font-size: medium; font-weight: 500">Filter by Industry</label>
-                  <div class="form-group">
-                    <div class="mb-3">
-                      <p-multiSelect [options]="industryInterested" styleClass="w-100"
-                        formControlName="industry_interested" defaultLabel="Select Industry" optionValue="id"
-                        optionLabel="industry_name" #IndustriesMultiSelect>
-                        <ng-template pTemplate="selectedItems">
-                          {{ IndustriesMultiSelect.defaultLabel }}
-                        </ng-template>
-                      </p-multiSelect>
-                    </div>
+            <div class="col-md-6">
+              <label class="form-label" style="font-size: medium; font-weight: 500">Filter by Country</label>
+              <div class="form-group">
+                <div class="mb-3">
+                  <p-multiSelect [options]="countryList" styleClass="w-100" formControlName="country" optionValue="id"
+                    (onChange)="loadHeadQuartersData($event)" defaultLabel="Select Countries" optionLabel="country"
+                    #multiSelect>
+                    <ng-template pTemplate="selectedItems">
+                      {{ multiSelect.defaultLabel }}
+                    </ng-template>
+                  </p-multiSelect>
+                  <div *ngIf="filterForm.hasError('org_name')" class="text-danger">
+                    {{ filterForm.getError("org_name") }}
                   </div>
                 </div>
               </div>
             </div>
+            <div class="col-md-6">
+              <label class="form-label" style="font-size: medium; font-weight: 500">Filter by Head Quarters</label>
+              <div class="form-group">
+                <div class="mb-3">
+                  <p-multiSelect [options]="headQuartersList" styleClass="w-100" formControlName="head_quarters"
+                    defaultLabel="Select Head Quarters" optionValue="id" optionLabel="head_quarters_name" #HeadMultiSelect>
+                    <ng-template pTemplate="selectedItems">
+                      {{ HeadMultiSelect.defaultLabel }}
+                    </ng-template>
+                  </p-multiSelect>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-12">
+              <label class="form-label" style="font-size: medium; font-weight: 500">Filter by Industry</label>
+              <div class="form-group">
+                <div class="mb-3">
+                  <p-multiSelect [options]="industryInterested" styleClass="w-100" formControlName="industry_interested"
+                    defaultLabel="Select Industry" optionValue="id" optionLabel="industry_name" #IndustriesMultiSelect>
+                    <ng-template pTemplate="selectedItems">
+                      {{ IndustriesMultiSelect.defaultLabel }}
+                    </ng-template>
+                  </p-multiSelect>
+                </div>
+              </div>
+            </div>
           </div>
-          <span style="float: right">
-            <button type="submit" class="btn btn-dark" style="background-color: var(--uniprep-primary) !important">
-              Filter
-            </button>
-            <button class="btn btn-danger" (click)="clearFilter()" style="border-radius: 8px; color: #fff"
-              type="button">
-              Clear
-            </button>
-          </span>
         </div>
       </div>
     </form>
+    <div>
+      <button type="submit" class="btn btn-dark w-full" style="background-color: var(--uniprep-primary);border: none;">
+        Apply Filter
+      </button>
+      <button class="btn btn-dark w-full" (click)="clearFilter()"
+        style="background-color:white;border-radius: 8px; color: var(--uniprep-primary);border: none;" type="button">
+        Reset Filter
+      </button>
+    </div>
   </div>
-</div>
+</p-dialog>
