@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import {Location} from "@angular/common";
-import {FormBuilder, FormGroup} from "@angular/forms";
-import {InvestorListService} from "./investor-list.service";
+import { Location } from "@angular/common";
+import { FormBuilder, FormGroup } from "@angular/forms";
+import { InvestorListService } from "./investor-list.service";
 import { AuthService } from 'src/app/Auth/auth.service';
 import { Router } from '@angular/router';
 
@@ -11,7 +11,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./investor-list.component.scss']
 })
 export class InvestorListComponent implements OnInit {
-  investorData: any []= []
+  investorData: any[] = []
   investorIndustryInterested: any;
   // investorOrgType: any;
   investorType: any;
@@ -22,10 +22,12 @@ export class InvestorListComponent implements OnInit {
   valueNearYouFilter: string = '';
   totalInvestorsCount: any;
   isFilterVisible: string = 'none';
-  filterForm:FormGroup;
+  filterForm: FormGroup;
   planExpired!: boolean;
+  restrict: boolean = false;
+  currentPlan: string = "";
 
-  constructor(private _location: Location, private fb: FormBuilder, private investorList: InvestorListService, private authService: AuthService,private router:Router) {
+  constructor(private _location: Location, private fb: FormBuilder, private investorList: InvestorListService, private authService: AuthService, private router: Router) {
     this.filterForm = this.fb.group({
       org_name: [''],
       // org_type: [''],
@@ -38,15 +40,16 @@ export class InvestorListComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadMultiSelectData();
-    this.loadInvestorData();
     this.checkplanExpire();
+     
+
   }
 
-  goBack(){
+  goBack() {
     this._location.back();
   }
 
-  performSearch(events:any){
+  performSearch(events: any) {
     if (this.valueNearYouFilter == "") {
       this.loadInvestorData();
       return;
@@ -60,7 +63,7 @@ export class InvestorListComponent implements OnInit {
     this.investorData = [...investorSearchData];
   }
 
-  loadMultiSelectData(){
+  loadMultiSelectData() {
     this.investorList.getMultiSelectData().subscribe((response) => {
       console.log(response);
       this.investorIndustryInterested = response.investor_industry_interested;
@@ -70,15 +73,15 @@ export class InvestorListComponent implements OnInit {
     });
   }
 
-  resetFilter(){
+  resetFilter() {
     this.filterForm.reset();
     this.loadInvestorData();
   }
-  clearFilter(){
+  clearFilter() {
     this.filterForm.reset();
   }
 
-  loadInvestorData(){
+  loadInvestorData() {
     let data = {
       org_name: this.filterForm.value.org_name ? this.filterForm.value.org_name : '',
       org_type: this.filterForm.value.org_type ? this.filterForm.value.org_type : '',
@@ -88,7 +91,9 @@ export class InvestorListComponent implements OnInit {
       industry_interested: this.filterForm.value.industry_interested ? this.filterForm.value.industry_interested : '',
       page: this.page,
       perpage: this.pageSize,
+      planname:this.currentPlan?this.currentPlan:""
     }
+
     this.investorList.getInvestorList(data).subscribe((response) => {
       this.investorData = response.data;
       this.totalInvestorsCount = response.count;
@@ -96,23 +101,30 @@ export class InvestorListComponent implements OnInit {
     this.isFilterVisible = 'none'
   }
 
-  pageChange(event: any){
-    console.log(event);
+  pageChange(event: any) {
+    if (this.planExpired) {
+      this.restrict = true;
+      return;
+    }
     this.page = event.page + 1;
     this.pageSize = event.rows;
     this.loadInvestorData();
   }
 
-  closePopup(){
+  closePopup() {
     this.isFilterVisible = 'none'
 
   }
 
-  filterBy(){
+  filterBy() {
+    if (this.planExpired) {
+      this.restrict = true;
+      return;
+    }
     this.isFilterVisible = 'block';
   }
 
-  exportTable(){
+  exportTable() {
     this.investorList.export().subscribe((response) => {
       window.open(response.link, '_blank');
     });
@@ -122,11 +134,13 @@ export class InvestorListComponent implements OnInit {
     this.authService.getNewUserTimeLeft().subscribe((res) => {
       let data = res.time_left;
       let subscription_exists_status = res.subscription_details;
+      this.currentPlan = subscription_exists_status.subscription_plan;
       if (data.plan === "expired" || data.plan === 'subscription_expired' || subscription_exists_status.subscription_plan === 'free_trail' || subscription_exists_status.subscription_plan === 'Student' || subscription_exists_status.subscription_plan === 'Career') {
         this.planExpired = true;
       } else {
         this.planExpired = false;
       }
+      this.loadInvestorData();
     })
   }
 
@@ -134,9 +148,13 @@ export class InvestorListComponent implements OnInit {
     this.router.navigate(["/pages/subscriptions"]);
   }
 
-  loadHeadQuartersData(event: any){
+  loadHeadQuartersData(event: any) {
     this.investorList.getHeadQuartersList(event.value).subscribe((response) => {
       this.headQuartersList = response;
     });
   }
+  clearRestriction() {
+    this.restrict = false;
+  }
+
 }

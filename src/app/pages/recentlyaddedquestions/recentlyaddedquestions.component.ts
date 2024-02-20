@@ -389,9 +389,9 @@ export class RecentlyaddedquestionsComponent implements OnInit {
 
   gotomodulebreadcrump() {
     if (this.currentModuleId == 1) {
-      this.router.navigate(['/pages/modules/pre-application'])
-    } else if (this.currentModuleId == 2) {
-      this.router.navigate(['/pages/modules/post-application'])
+      this.router.navigate(['/pages/modules/pre-admission'])
+    } else if (this.currentModuleId == 7) {
+      this.router.navigate(['/pages/modules/travel-and-tourism'])
     } else if (this.currentModuleId == 3) {
       this.router.navigate(['//pages/modules/post-admission'])
     } else if (this.currentModuleId == 4) {

@@ -257,11 +257,11 @@ export class DashboardComponent implements OnInit {
     onClickReadProgression(data: any): void {
         let moduleName = "";
         switch (data.module_name) {
-            case "Pre Application":
-                moduleName = "pre-application"
+            case "Pre Admission":
+                moduleName = "pre-admission"
                 break;
-            case "Post Application":
-                moduleName = "post-application"
+            case "Travel and Tourism":
+                moduleName = "travel-and-tourism"
                 break;
             case "Post Admission":
                 moduleName = "post-admission"
@@ -282,8 +282,8 @@ export class DashboardComponent implements OnInit {
     onClickQuizProgression(data: any): void {
         let moduleName = "";
         switch (data.module_name) {
-            case "Pre-Application":
-                moduleName = "pre-application"
+            case "Pre-Admission":
+                moduleName = "pre-admission"
                 break;
             case "Post-Application":
                 moduleName = "post-application"
