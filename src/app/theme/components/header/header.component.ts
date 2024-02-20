@@ -184,8 +184,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
       phone: ["", Validators.required],
     });
     if (
-      !localStorage.getItem("phone") ||
-      localStorage.getItem("phone") == null
+      localStorage.getItem("phone")=="" ||
+      localStorage.getItem("phone") == null || localStorage.getItem("phone") == "null"
     ) {
       this.formvisbility = true;
     }
