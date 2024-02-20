@@ -20,6 +20,7 @@ import { DataService } from "../../../data.service";
 import { ActivatedRoute, Router } from "@angular/router";
 import { Location } from "@angular/common";
 import { DomSanitizer } from "@angular/platform-browser";
+import { Carousel } from "primeng/carousel";
 
 @Component({
   selector: "uni-question-list",
@@ -79,7 +80,9 @@ export class QuestionListComponent implements OnInit {
     private _location: Location,
     private _sanitizer: DomSanitizer,
     private router: Router
-  ) {}
+  ) {
+    Carousel.prototype.onTouchMove = () => { };
+  }
 
   ngOnInit(): void {
     this.moduleListService.emptyQuestionList$();
