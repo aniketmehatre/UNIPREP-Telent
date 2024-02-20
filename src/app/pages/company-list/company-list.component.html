@@ -1,7 +1,7 @@
 <div class="card readingcard">
   <div class="card-body pt-0">
     <div class="row justify-content-center" *ngIf="!planExpired">
-      <div class="col-md-3 text-start">
+      <div class="col-md-3 text-start desktop">
         <div class="p-input-icon-left w-100 mt-3">
           <i class="pi pi-search"></i>
           <input class="w-100 px-5 py-2" type="text" placeholder="Search in Company List .." pInputText
@@ -13,7 +13,7 @@
           COMPANY LIST
         </h5>
       </div>
-      <div class="col-md-3 text-end">
+      <div class="col-md-3 text-end desktop">
         <span class="d-flex justify-content-end">
           <button class="btn btn-primary ps-3 pe-3 pt-2 pb-2 br-8" (click)="filterBy()" type="button">
             Filter
@@ -25,6 +25,32 @@
         <div class="d-flex w-full align-items-center justify-content-end ">
           <div class="pe-2">
             <span class="text-muted text-small"><strong>Total Companies : {{ totalCompanyCount }}</strong></span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="mobile">
+      <div class="row">
+        <div class="col-md-6 text-start">
+          <div class="p-input-icon-left w-100 mt-3">
+            <i class="pi pi-search"></i>
+            <input class="w-100 px-5 py-2" type="text" placeholder="Search in Company List .." pInputText
+              [(ngModel)]="valueNearYouFilter" (input)="performSearch($event)" />
+          </div>
+        </div>
+        <div class="col-md-6 text-end">
+          <span class="d-flex justify-content-end">
+            <button class="btn btn-primary ps-3 pe-3 pt-2 pb-2 br-8" (click)="filterBy()" type="button">
+              Filter
+              by</button>
+            <!-- <button class="btn btn-danger ps-3 pe-3 pt-2 pb-2" (click)="resetFilter()"
+                          style="border-radius: 8px; color: #fff;" type="button">
+                          Reset</button> -->
+          </span>
+          <div class="d-flex w-full align-items-center justify-content-end ">
+            <div class="pe-2">
+              <span class="text-muted text-small"><strong>Total Companies : {{ totalCompanyCount }}</strong></span>
+            </div>
           </div>
         </div>
       </div>
