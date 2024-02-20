@@ -81,6 +81,7 @@ export class QuestionListComponent implements OnInit {
     private _sanitizer: DomSanitizer,
     private router: Router
   ) {
+    Carousel.prototype.changePageOnTouch = (e,diff) => {}
     Carousel.prototype.onTouchMove = () => { };
   }
 
@@ -94,7 +95,6 @@ export class QuestionListComponent implements OnInit {
     this.checkScrollPosition();
     this.checkScrollPositionRef();
   }
-
   loadInit() {
     this.countryId = Number(localStorage.getItem("countryId"));
     let countryName: any;
@@ -178,7 +178,7 @@ export class QuestionListComponent implements OnInit {
       perpage: this.perpage,
     };
     this.moduleListService.loadQuestionList(data);
-    this.moduleListService.questionList$().subscribe((data: any) => {
+    this.moduleListService.questionList$().subscribe((data: any) => {      
       this.questionListData = data?.questions;
       this.totalQuestionCount = data?.questioncount;
     });
