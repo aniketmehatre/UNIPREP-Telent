@@ -180,6 +180,14 @@
   #ref-links-container a {
       flex: 0 0 auto;
       margin-bottom: 0.5rem;
+} 
+
+#video-links-container {
+      overflow-x: auto;
+  }
+  #video-links-container a {
+      flex: 0 0 auto;
+      margin-bottom: 0.5rem;
 }
 }
 
@@ -250,14 +258,12 @@
   display: flex;
   overflow-x: hidden;
   align-items: center;
-  max-width: 500px; 
 }
 
 .scrollable-container-ref {
   display: flex;
   overflow-x: hidden;
   align-items: center;
-  max-width: 80%; 
 }
 
 .scroll-content {
