@@ -104,14 +104,14 @@ export class QuestionListComponent implements OnInit {
       countryName = data;
     });
     switch (this.currentSubModuleSlug) {
-      case "pre-application":
+      case "pre-admission":
         this.currentModuleId = 1;
-        this.currentModuleName = "Pre-Application";
+        this.currentModuleName = "Pre-Admission";
         this.currentApiSlug = "getpreapplicationsubmoduleqcount";
         break;
-      case "post-application":
-        this.currentModuleId = 2;
-        this.currentModuleName = "Post-Application";
+      case "travel-and-tourism":
+        this.currentModuleId = 7;
+        this.currentModuleName = "Travel-and-Tourism";
         this.currentApiSlug = "getpostapplicationsubmoduleqcount";
         break;
       case "post-admission":
@@ -438,9 +438,9 @@ export class QuestionListComponent implements OnInit {
   }
   gotomodulebreadcrump() {
     if (this.currentModuleId == 1) {
-      this.router.navigate(["/pages/modules/pre-application"]);
-    } else if (this.currentModuleId == 2) {
-      this.router.navigate(["/pages/modules/post-application"]);
+      this.router.navigate(["/pages/modules/pre-admission"]);
+    } else if (this.currentModuleId == 7) {
+      this.router.navigate(["/pages/modules/travel-and-tourism"]);
     } else if (this.currentModuleId == 3) {
       this.router.navigate(["//pages/modules/post-admission"]);
     } else if (this.currentModuleId == 4) {

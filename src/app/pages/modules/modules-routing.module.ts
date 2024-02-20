@@ -9,10 +9,10 @@ const routes: Routes = [  {
   path: '', component: ModulesComponent,
     children: [
   {
-    path: 'pre-application', component: ListSubModulesComponent,
+    path: 'pre-admission', component: ListSubModulesComponent,
   },
   {
-    path: 'post-application', component: ListSubModulesComponent,
+    path: 'travel-and-tourism', component: ListSubModulesComponent,
   },
   {
     path: 'post-admission', component: ListSubModulesComponent,
@@ -29,7 +29,7 @@ const routes: Routes = [  {
   {
     path: ':module_name/question-list/:id', component: QuestionListComponent,
   },
-  {path: '', redirectTo: 'pre-application', pathMatch: 'full'}
+  {path: '', redirectTo: 'pre-admission', pathMatch: 'full'}
 ]
 
 

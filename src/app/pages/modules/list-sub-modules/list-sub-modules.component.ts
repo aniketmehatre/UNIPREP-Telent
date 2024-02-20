@@ -82,22 +82,22 @@ export class ListSubModulesComponent implements OnInit {
       this.countryName = data;
     });
     switch (this.currentModuleSlug) {
-      case 'pre-application':
+      case 'pre-admission':
         this.currentModuleId = 1;
-        this.currentModuleName = 'Pre-Application';
+        this.currentModuleName = 'Pre-Admission';
         this.currentApiSlug = 'GetQuestionsCount';
-        this.infoMessage = 'Upgrade to access the Pre-application section',
-        this.unlockMessage = 'Unlock the power of success with our exclusive Pre-application!',
+        this.infoMessage = 'Upgrade to access the Pre-admission section',
+        this.unlockMessage = 'Unlock the power of success with our exclusive Pre-admission!',
         this.upgradePlanMsg = 'Upgrade your plan now to gain instant access.';
         this.aboutModule = 'Explore a vast database of Q&A about:',
         this.moduleDetails = 'Scholarships, document checklist, Education loan, letter of Recommendation and many more!'
         break;
-      case 'post-application':
-        this.currentModuleId = 2;
-        this.currentModuleName = 'Post-Application';
+      case 'travel-and-tourism':
+        this.currentModuleId = 7;
+        this.currentModuleName = 'Travel-and-Tourism';
         this.currentApiSlug = 'GetQuestionsCount';
-        this.infoMessage = 'Upgrade to access the post-application',
-        this.unlockMessage = 'Unlock the power of success with our exclusive post-application!',
+        this.infoMessage = 'Upgrade to access the travel-and-tourism',
+        this.unlockMessage = 'Unlock the power of success with our exclusive travel-and-tourism!',
         this.upgradePlanMsg = 'Upgrade your plan now to gain instant access.';
         this.aboutModule = 'Explore a vast database of Q&A about:',
         this.moduleDetails = 'Visa, departure, healthcare, tuition fees and many more!'
