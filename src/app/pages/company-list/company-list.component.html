@@ -1,25 +1,27 @@
-<div class="card readingcard" style="border-radius: 15px 15px 0px 0px !important">
-  <div class="card-body pt-0" *ngIf="!planExpired">
-    <div class="row justify-content-center mb-2">
-      <div class="col-md-2 text-start"></div>
-      <div class="col-md-8 text-center">
+<div class="card readingcard">
+  <div class="card-body pt-0">
+    <div class="row justify-content-center" *ngIf="!planExpired">
+      <div class="col-md-3 text-start">
+        <div class="p-input-icon-left w-100 mt-3">
+          <i class="pi pi-search"></i>
+          <input class="w-100 px-5 py-2" type="text" placeholder="Search in Company List .." pInputText
+            [(ngModel)]="valueNearYouFilter" (input)="performSearch($event)" />
+        </div>
+      </div>
+      <div class="col-md-6 text-center">
         <h5 class="select-title mb-1" tooltipPosition="top" pTooltip="">
           COMPANY LIST
         </h5>
       </div>
-
-      <div class="col-md-2 text-end">
-        <span class="d-flex justify-content-end"><button class="btn btn-primary ps-3 pe-3 pt-2 pb-2"
-            (click)="filterBy()"
-            style="background-color: var(--uniprep-primary);border-radius: 8px; border: aliceblue; color: #fff;"
-            type="button">
+      <div class="col-md-3 text-end">
+        <span class="d-flex justify-content-end">
+          <button class="btn btn-primary ps-3 pe-3 pt-2 pb-2 br-8" (click)="filterBy()" type="button">
             Filter
             by</button>
-          <button class="btn btn-danger ps-3 pe-3 pt-2 pb-2" (click)="resetFilter()"
-            style="border-radius: 8px; color: #fff;" type="button">
-            Reset</button>
+          <!-- <button class="btn btn-danger ps-3 pe-3 pt-2 pb-2" (click)="resetFilter()"
+                  style="border-radius: 8px; color: #fff;" type="button">
+                  Reset</button> -->
         </span>
-        <br>
         <div class="d-flex w-full align-items-center justify-content-end ">
           <div class="pe-2">
             <span class="text-muted text-small"><strong>Total Companies : {{ totalCompanyCount }}</strong></span>
@@ -27,145 +29,68 @@
         </div>
       </div>
     </div>
-    <div class="col-md-3 col-12 text-end justify-content-end">
-      <!-- <span ><button class="btn btn-primary ps-3 pe-3 pt-2 pb-2" (click)="filterBy()"
-                           style="background-color: var(--uniprep-primary);border-radius: 8px; border: aliceblue; color: #fff;"
-                           type="button">
-                Filter
-                    by</button></span> -->
-      <!-- <span ><button class="btn btn-danger ps-3 pe-3 pt-2 pb-2" (click)="resetFilter()"
-                           style="border-radius: 8px; color: #fff;"
-                           type="button">
-                Reset</button></span> -->
-    </div>
-    <div class="row justify-content-center desktop">
-      <!-- <div class="col-md-3 col-5 text-md-start mb-3">
-                <div class="p-input-icon-left w-100 mt-3">
-                    <i class="pi pi-search"></i>
-                    <input class="w-100 px-5 py-2" type="text" placeholder="Search Companies..." pInputText
-                           [(ngModel)]="valueNearYouFilter" (input)="performSearch($event)" />
-                </div>
-            </div>
-            <div class="col-md-6 col-7 text-md-center text-end">
-            </div> -->
-    </div>
-    <div class="mobile mt-2">
+    <div class="container-fluid" *ngIf="!planExpired">
       <div class="row">
-        <div class="col-12">
-          <div class="p-input-icon-left w-100 mt-3">
-            <i class="pi pi-search"></i>
-            <input class="w-100 px-5 py-2" type="text" placeholder="Search Companies..." pInputText
-              [(ngModel)]="valueNearYouFilter" (input)="performSearch($event)" />
+        <div *ngFor="let companyData of companyData" class="col-md-3 col-12 mt-3 ">
+          <div class="card justify-content-center card-style text-black p-2 h-100 companny-list">
+            <h6 class="mt-2 mb-2">{{companyData.company_name}}</h6>
+            <div class="d-flex mt-2">
+              <div class="col-6"><i class="fa fa-map-marker pr-10" aria-hidden="true"></i>{{ companyData.country_name }}
+              </div>
+              <div class="col-6"><i class="fa fa-building pr-10" aria-hidden="true"></i>{{
+                companyData.head_quarters_name
+                }}</div>
+            </div>
+            <div class="d-flex mt-2 mb-2">
+              <div class="col-6"><i class="fa-solid fa-industry pr-10 fs-10"></i>{{ companyData.country_name }}</div>
+              <div class="col-6">
+                <div class="d-flex justify-content-end social-media">
+                  <div *ngIf="companyData.website && companyData.website.trim() !== ''">
+                    <a target="_blank" href="{{ companyData.website }}"><i class="fa-solid fa-globe"></i></a>
+                  </div>
+                  <div *ngIf="companyData.linked_in && companyData.linked_in.trim() !== ''">
+                    <a target="_blank" href="{{ companyData.linked_in }}"><i class="fa-brands fa-linkedin"></i></a>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
-      <!-- <div class="row">
-        <div class="col-6 mt-2">
-          <button class="btn w-100 btn-primary ps-3 pe-3 pt-2 pb-2" (click)="filterBy()" style="
-              background-color: var(--uniprep-primary);
-              border-radius: 8px;
-              border: aliceblue;
-              color: #fff;
-            " type="button">
-            Filter by
-          </button>
-        </div>
-        <div class="col-6 mt-2">
-          <button class="btn w-100 btn-danger ps-3 pe-3 pt-2 pb-2" (click)="resetFilter()"
-            style="border-radius: 8px; color: #fff" type="button">
-            Reset
-          </button>
-        </div>
-      </div> -->
+      <p-paginator [rows]="pageSize" [totalRecords]="totalCompanyCount" (onPageChange)="pageChange($event)"
+        [rowsPerPageOptions]="[100, 300, 500, 1000]"></p-paginator>
     </div>
-    <br>
-    <!-- upcomming event -->
-    <p-table responsiveLayout="scroll" #table [value]="companyData" [responsive]="true" class="primary-header"
-      styleClass="primary-header" [paginator]="false" (onPage)="pageChange($event)" [totalRecords]="totalCompanyCount"
-      [rows]="pageSize" [rowsPerPageOptions]="[100, 300, 500]">
-      <!-- <ng-template pTemplate="caption">
-                <div class="text-center mobile">
-                    <div class="pe-2">
-                        <span class="text-muted text-small">Total Companies : {{ totalCompanyCount }}</span>
-                    </div>
-                </div>
-            </ng-template> -->
-      <ng-template pTemplate="header">
-        <tr class="company-list-table-header">
-          <th class="border-cell text-small text-nowrap">Company Name</th>
-          <th class="border-cell text-small text-center text-nowrap">
-            Country
-          </th>
-          <th class="border-cell text-small text-center text-nowrap">
-            Headquarters
-          </th>
-          <!-- <th class="border-cell">Estd. Date</th> -->
-          <th class="border-cell text-small text-nowrap w-25">Industry</th>
-          <th class="border-cell text-small text-nowrap">Link</th>
-        </tr>
-      </ng-template>
-      <ng-template pTemplate="body" let-com let-expanded="expanded">
-        <tr>
-          <td class="border-cell fw-semibold text-small">
-            {{ com.company_name }}
-          </td>
-          <td class="border-cell text-small text-center text-nowrap">
-            {{ com.country_name }}
-          </td>
-          <td class="border-cell text-small text-center">
-            {{ com.head_quarters_name }}
-          </td>
-          <!-- <td class="border-cell">{{com.estd_date}}</td> -->
-          <td class="border-cell text-small">
-            {{ com.industry_interested_name }}
-          </td>
-          <td class="border-cell text-small text-nowrap py-1">
-            <div *ngIf="com.linked_in && com.linked_in.trim() !== ''">
-              <i class="fa-brands fa-linkedin"></i>
-              <a class="ms-1" target="_blank" href="{{ com.linked_in }}">Linked In</a><br />
-            </div>
-            <div *ngIf="com.website && com.website.trim() !== ''">
-              <i class="fa-solid fa-globe"></i>
-              <a class="ms-1" target="_blank" href="{{ com.website }}">Website</a><br />
-            </div>
-
-            <!-- <i class="fa-solid fa-envelope"></i>&nbsp;<a href="mailto:{{com.email}}">Email</a><br> -->
-          </td>
-        </tr>
-      </ng-template>
-    </p-table>
-    <p-paginator [rows]="pageSize" [totalRecords]="totalCompanyCount" (onPageChange)="pageChange($event)"
-      [rowsPerPageOptions]="[100, 300, 500, 1000]"></p-paginator>
-  </div>
-  <div *ngIf="planExpired" class="company-list-expired">
-    <div class="row">
-      <div class="col-md-2 text-start"></div>
-      <div class="col-md-8 text-center">
-        <h5 class="select-title mb-1" tooltipPosition="top" pTooltip="">
-          COMPANY LIST
-        </h5>
+    <div *ngIf="planExpired" class="resources-expired">
+      <div class="row">
+        <div class="col-md-2 text-start"></div>
+        <div class="col-md-8 text-center">
+          <h5 class="select-title mb-1" tooltipPosition="top" pTooltip="">
+            COMPANY LIST
+          </h5>
+        </div>
+        <div class="col-md-2"></div>
       </div>
-      <div class="col-md-2"></div>
-    </div>
-    <div class="text-center mt-5 mb-4">
-      <img src="../../../uniprep-assets/images/smartloack.png" class="image" width="80" />
-      <h3>Upgrade now to access invaluable tools</h3>
-      <p><br />
-        Upgrade your plan now to gain instant access.
-      </p>
-      <p class="offer">
-        Company list offers:<br />
-        Access to over 1 million global companies database including company
-        name, headquarters, industry, contact details and more!
-      </p>
-      <button pButton type="button" class="text-white p-ripple p-button-rounded p-button-warning p-button p-component"
-        (click)="upgradePlan()">
-        Upgrade Plan<i class="fa fa-arrow-right exhausted-plan-icon"></i>
-      </button>
+      <div class="text-center mt-5 mb-4">
+        <img src="../../../uniprep-assets/images/smartloack.png" class="image" width="80" />
+        <h3>Upgrade now to access invaluable tools</h3>
+        <p><br />
+          Upgrade your plan now to gain instant access.
+        </p>
+        <p class="offer">
+          Company list offers:<br />
+          Access to over 1 million global companies database including company
+          name, headquarters, industry, contact details and more!
+        </p>
+        <button pButton type="button" class="text-white p-ripple p-button-rounded p-button-warning p-button p-component"
+          (click)="upgradePlan()">
+          Upgrade Plan<i class="fa fa-arrow-right exhausted-plan-icon"></i>
+        </button>
+      </div>
     </div>
   </div>
 </div>
 
+<!-- filter pop-up -->
 <div class="modal" tabindex="-1" role="dialog" [ngStyle]="{ display: isFilterVisible }">
   <div class="modal-dialog" role="document">
     <form role="form" [formGroup]="filterForm" (ngSubmit)="loadInvestorData()">
@@ -220,25 +145,25 @@
                   </div>
                 </div>
                 <!-- <div class="col-md-6">
-                                    <label class="form-label" style="font-size: medium;font-weight:500">Filter by
-                                        Est. Date</label>
-                                    <div class="form-group">
-                                        <div class="mb-3">
-                                            <input placeholder="Start date" type="date" formControlName="fromdate"
-                                                   class="form-control border-black paddingfive" />
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <label class="form-label" style="font-size: medium;font-weight:500">Filter by
-                                        Est. Date</label>
-                                    <div class="form-group">
-                                        <div class="mb-3">
-                                            <input placeholder="End date" type="date" formControlName="todate"
-                                                   class="form-control border-black paddingfive" />
-                                        </div>
-                                    </div>
-                                </div> -->
+                    <label class="form-label" style="font-size: medium;font-weight:500">Filter by
+                        Est. Date</label>
+                    <div class="form-group">
+                        <div class="mb-3">
+                            <input placeholder="Start date" type="date" formControlName="fromdate"
+                                    class="form-control border-black paddingfive" />
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label" style="font-size: medium;font-weight:500">Filter by
+                        Est. Date</label>
+                    <div class="form-group">
+                        <div class="mb-3">
+                            <input placeholder="End date" type="date" formControlName="todate"
+                                    class="form-control border-black paddingfive" />
+                        </div>
+                    </div>
+                </div> -->
                 <div class="col-md-6">
                   <label class="form-label" style="font-size: medium; font-weight: 500">Filter by Industry</label>
                   <div class="form-group">

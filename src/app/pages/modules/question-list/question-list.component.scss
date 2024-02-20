@@ -175,7 +175,15 @@
   #ref-links-container a {
     flex: 0 0 auto;
     margin-bottom: 0.5rem;
+  } 
+  #video-links-container {
+    overflow-x: auto;
   }
+  #video-links-container a {
+    flex: 0 0 auto;
+    margin-bottom: 0.5rem;
+  }
+
 }
 
 .desktop {
@@ -244,14 +252,12 @@
   display: flex;
   overflow-x: hidden;
   align-items: center;
-  max-width: 500px;
 }
 
 .scrollable-container-ref {
   display: flex;
   overflow-x: hidden;
   align-items: center;
-  max-width: 80%;
 }
 
 .scroll-content {
@@ -310,5 +316,5 @@
 }
 ::ng-deep .p-carousel-item {
   height: 100% !important;
-  overflow-y: scroll !important;
+  overflow-y: auto !important;
 }
