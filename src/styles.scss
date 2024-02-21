@@ -802,6 +802,7 @@ uni-subscription {
 	.p-breadcrumb {
 		ul {
 			justify-content: center;
+			flex-wrap: wrap;
 			li {
 				.p-menuitem-link .p-menuitem-text {
 					color: var(--uniprep-primary);
@@ -1973,10 +1974,6 @@ uni-subscription {
 
 	.quotesymbole {
 		margin-top: 5rem;
-	}
-
-	.p-breadcrumb ul {
-		display: -webkit-box !important;
 	}
 }
 @media screen and (max-width: 480px) {
