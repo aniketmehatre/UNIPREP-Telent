@@ -1,28 +1,26 @@
-<div class="card readingcard" style="border-radius: 15px 15px 0px 0px !important">
+<div class="card readingcard">
 	<div class="card-body text-center pt-0 h-100">
-		<div class="row justify-content-center">
-			<div class="col-md-2 col-2 text-start">
-				<p-button (click)="goBack()" icon="pi pi-arrow-left" styleClass="p-button-rounded p-button-text text-dark"></p-button>
+		<div class="row justify-content-center align-items-center">
+			<div class="col-md-1 col-1 text-start">
+				<i class="fa-solid fa-circle-chevron-left fa-2xl uniprep-primary" (click)="goBack()" role="button"></i>
 			</div>
-			<div class="col-md-8 col-8 text-center">
+			<div class="col-md-10 col-10 text-center">
 				<h5 class="select-title mb-1" tooltipPosition="top" pTooltip="{{ tooltip }}">
 					<span class="desktop">{{ currentModuleName }} -</span> {{ moduleName }}<i class="questiontooltip fa-solid fa-circle-question"></i>
 				</h5>
 			</div>
-			<div class="col-md-2 col-2">&nbsp;</div>
+			<div class="col-md-1 col-1">&nbsp;</div>
 		</div>
 		<div class="row">
-			<div *ngFor="let sub of questionListData; let i = index" class="col-lg-3 col-md-4 col-sm-4 col-xs-12 col-12">
+			<div *ngFor="let sub of questionListData; let i = index" class="col-lg-3 col-md-4 col-sm-4 col-xs-12 col-12 my-2">
 				<div class="row w-100 h-100 m-0 justify-content-center">
-					<div (click)="onQuestionClick(sub)" class="card questioncard {{ sub.read == 1 ? 'questionread' : '' }}">
+					<!-- <div (click)="onQuestionClick(sub)" class="card questioncard {{ sub.read == 1 ? 'questionread' : '' }}"> -->
+					<div (click)="viewOneQuestion(sub)" role="button" class="card questioncard {{ sub.read == 1 ? 'questionread' : '' }}">
 						<div class="card-body d-flex flex-md-column flex-row justify-content-md-between align-items-center px-0 py-2">
 							<div class="row justify-content-center w-100">
 								<div class="col">
 									<p class="text-start fw-medium questiontext mb-0 mb-md-2">{{ sub.question }}</p>
 								</div>
-								<!--<div class="col-md-4 text-center">
-                                            <p class="mb-3 circle text-center">{{i+1}}</p>
-                                        </div> -->
 								<div class="col-2 text-end" *ngIf="sub.popular == 1">
 									<i class="pi pi-star-fill text-danger" pTooltip="Most Popular Question" tooltipPosition="right" style="font-size: 1.5rem"></i>
 								</div>
@@ -51,19 +49,19 @@
 <div class="card" style="background-color: #fff; border-radius: 0px 0px 15px 15px !important">
 	<p-paginator [rows]="10" [totalRecords]="totalQuestionCount" (onPageChange)="paginatepost($event)" [rowsPerPageOptions]="[50, 100, 200]" dropdownAppendTo="body"></p-paginator>
 </div>
-<p-dialog #dialogContent [(visible)]="isQuestionAnswerVisible" [draggable]="false" [modal]="true" class="questionmodal" header="Header" [maximizable]="true" [style]="{ height: '100vh' }">
+<p-dialog #dialogContent [(visible)]="isQuestionAnswerVisible" [draggable]="false" [modal]="true" class="questionmodal" header="Header" [maximizable]="false" [style]="{ height: '100vh' }">
 	<ng-template pTemplate="header">
 		<div class="d-flex w-100 flex-column px-4">
 			<div class="d-flex flex-row justify-content-md-between justify-content-center">
 				<div class="d-md-block d-none">
-					<button (click)="goToHome($event)" class="btn btn-warning homecardbtn px-3">
+					<button (click)="goToHome($event)" class="btn btn-secondary homecardbtn px-3">
 						<i class="fa-solid h5 fa-house"></i><br />
 						<span>Home</span>
 					</button>
 				</div>
-				<div>
+				<div class="col-md-10 col-8">
 					<h5 class="select-title w-100 text-center mb-0">{{ currentModuleName }} - {{ moduleName }}</h5>
-					<p-breadcrumb [model]="breadCrumb" class="w-100 mt-2 d-md-block d-none"></p-breadcrumb>
+					<p-breadcrumb [model]="breadCrumb" class="w-100 mt-2 d-md-block d-none text-small"></p-breadcrumb>
 				</div>
 				<div class="d-md-block d-none">
 					<button (click)="openReport()" class="btn btn-primary px-3 homecardbtn">
@@ -71,105 +69,83 @@
 						<br />
 						<span>Report</span>
 					</button>
-					<button style="display: none" (click)="reviewBy()" class="btn btn-primary homecardbtn my-0 px-4 py-2">
+					<!-- <button (click)="reviewBy()" class="btn btn-primary homecardbtn my-0 px-4 py-2">
 						<i class="fa-regular fa-user h5"></i><br />
 						Reviewed By
-					</button>
+					</button> -->
 				</div>
 			</div>
 			<div class="d-flex justify-content-between d-md-none d-block align-items-center">
 				<div>
-					<button (click)="goToHome($event)" class="btn btn-warning homecardbtn px-3">
+					<button (click)="goToHome($event)" class="btn btn-secondary homecardbtn px-3">
 						<i class="fa-solid h5 fa-house"></i><br />
 						<span>Home</span>
 					</button>
 				</div>
-				<p-breadcrumb [model]="breadCrumb" class="w-100 mt-2"></p-breadcrumb>
+				<p-breadcrumb [model]="breadCrumb" class="w-100 mt-2 text-small"></p-breadcrumb>
 				<div>
 					<button (click)="openReport()" class="btn btn-primary px-3 homecardbtn">
 						<i class="fa-solid h5 fa-file-contract"></i>
 						<br />
 						<span>Report</span>
 					</button>
-					<button style="display: none" (click)="reviewBy()" class="btn btn-primary homecardbtn my-0 px-4 py-2">
+					<!-- <button (click)="reviewBy()" class="btn btn-primary homecardbtn my-0 px-4 py-2">
 						<i class="fa-regular fa-user h5"></i><br />
 						Reviewed By
-					</button>
+					</button> -->
 				</div>
 			</div>
-			
 		</div>
 	</ng-template>
 	<div class="carousel-container px-4">
-		<!--        <span class="badge" style="background-color: {{val.verified == 1 ? 'darkorchid' : '#F59E0B'}};">{{val.verified == 1 ? 'Verified' : 'Not Verified'}}-->
-		<!--                        </span>-->
-		<p-carousel #carousel (onPage)="setPage($event)" [circular]="true" [numScroll]="1" [numVisible]="1" [page]="selectedQuestion" [responsiveOptions]="responsiveOptions" [value]="data" class="answersection">
-			<ng-template [ngForOf]="data" let-i="index" let-val ngFor pTemplate="item">
-				<div class="card answercard">
-					<div class="card-body text-start">
-						<p class="text-small blockquote text-start mb-0">
-							Last updated at: {{ val.updated_at | date }} <span class="badge" [ngStyle]="{ 'background-color': val.pre_verified == 1 ? 'darkorchid' : '#3f4c83' }"> {{ val.pre_verified == 1 ? "Pre Verified" : "Non Pre-Verified" }}</span>
-						</p>
-						<h3 class="unselectable d-md-block d-none">{{ val.question }}</h3>
-						<h5 class="unselectable d-md-none d-block">{{ val.question }}</h5>
-						<div class="fw-medium worksans unselectable" style="white-space: pre-wrap" [innerHTML]="val.answer"></div>
-					</div>
-				</div>
-			</ng-template>
-		</p-carousel>
+		<div class="card flex-fill answercard">
+			<div class="card-body text-start">
+				<p class="text-small blockquote text-start mb-0">
+					Last updated at: {{ oneQuestionContent?.updated_at | date }} <span class="badge" [ngStyle]="{ 'background-color': oneQuestionContent?.pre_verified == 1 ? 'darkorchid' : '#3f4c83' }"> {{ oneQuestionContent?.pre_verified == 1 ? "Pre Verified" : "Non Pre-Verified" }}</span>
+				</p>
+				<h3 class="unselectable d-md-block d-none">{{ oneQuestionContent?.question }}</h3>
+				<h5 class="unselectable d-md-none d-block">{{ oneQuestionContent?.question }}</h5>
+				<div class="fw-medium worksans unselectable" style="white-space: pre-wrap" [innerHTML]="oneQuestionContent?.answer"></div>
+			</div>
+		</div>
 	</div>
 
 	<ng-template pTemplate="footer">
-		<div class="d-flex justify-content-between flex-nowrap flex-column flex-md-row px-4 my-4">
+		<div class="d-flex justify-content-between flex-nowrap flex-column flex-md-row px-4 mt-4 mb-2">
 			<div class="flex-full" *ngIf="videoLinks">
-				<h5 class="text-start">Recommended Videos</h5>
+				<h5 class="text-start mb-1">Recommended Videos</h5>
 				<div class="d-flex align-items-center gap-2 pb-2">
-					<!-- <button class="scroll-button btn-rounded d-md-block d-none" *ngIf="leftScrollButtonVisible" (click)="scrollLeftVideo()">
-						<i class="fa-solid fa-chevron-left"></i>
-					</button> -->
 					<div class="scrollable-container" id="video-links-container" #videoLinksContainer>
-						<div class="scroll-content flex-nowrap flex-md-wrap">
-							<a class="btn btn-primary videolinkbutton" target="_blank" href="{{ videoL.link }}" *ngFor="let videoL of videoLinks; let ind = index">Video {{ ind + 1 }} &nbsp;<i class="fa-solid fa-video"></i></a>
+						<div class="d-flex flex-nowrap flex-md-wrap overflow-x-auto">
+							<a class="btn btn-primary videolinkbutton flex-shrink-0" target="_blank" href="{{ videoL.link }}" *ngFor="let videoL of oneQuestionContent?.videolink; let ind = index">Video {{ ind + 1 }} &nbsp;<i class="fa-solid fa-video"></i></a>
 						</div>
 					</div>
-					<!-- <button class="scroll-button btn-rounded d-md-block d-none" *ngIf="rightScrollButtonVisible" (click)="scrollRightVideo()">
-						<i class="fa-solid fa-chevron-right"></i>
-					</button> -->
 				</div>
 			</div>
 
 			<div class="flex-full" *ngIf="refLink">
-				<h5 class="text-start">Recommended Links</h5>
+				<h5 class="text-start mb-1">Recommended Links</h5>
 				<div class="d-flex align-items-center gap-2 pb-2">
-					<!-- <button class="scroll-button-warning btn-secondary btn-rounded d-md-block d-none" *ngIf="leftScrollButtonVisibleRef" (click)="scrollLeftRef()">
-						<i class="fa-solid fa-chevron-left"></i>
-					</button> -->
 					<div class="scrollable-container" id="ref-links-container" #refLinksContainer>
-						<div class="scroll-content flex-nowrap flex-md-wrap">
-							<a class="btn btn-secondary reflinkbutton" target="_blank" href="{{ refL.link }}" *ngFor="let refL of refLink; let ind = index">Link {{ ind + 1 }} &nbsp;<i class="fa-solid fa-link"></i></a>
+						<div class="d-flex flex-nowrap flex-md-wrap overflow-x-auto">
+							<a class="btn btn-secondary reflinkbutton flex-shrink-0" target="_blank" href="{{ refL.link }}" *ngFor="let refL of oneQuestionContent?.reflink; let ind = index">Link {{ ind + 1 }} &nbsp;<i class="fa-solid fa-link"></i></a>
 						</div>
 					</div>
-					<!-- <button class="scroll-button-warning btn-secondary btn-rounded d-md-block d-none" *ngIf="rightScrollButtonVisibleRef" (click)="scrollRightRef()">
-						<i class="fa-solid fa-chevron-right"></i>
-					</button> -->
 				</div>
 			</div>
 
 			<div class="align-items-center d-flex desktop">
 				<button class="btn w-100 btn-primary theme-dark-blue mx-0 px-5 py-2" (click)="onClickAsk()">
 					<i class="fa-solid h5 fa-file-contract"></i>
-					<br />
-					Click here to ask<br />Personalised Questions
+					<br class="d-md-block d-none" />
+					Click here to ask<br class="d-md-block d-none" />Personalised Questions
 				</button>
-			</div>
-			<div class="mobile mt-4">
-				<button class="btn w-100 btn-primary theme-dark-blue d-flex" (click)="onClickAsk()"><i class="fa-solid fa-comment f-20"></i><span class="comment">Click here to ask personalised questions</span></button>
 			</div>
 		</div>
 	</ng-template>
 </p-dialog>
 
-<p-dialog [(visible)]="isRecommendedVideoVisible" class="questionvideopopup" [modal]="true" [style]="{ width: '80vw' }">
+<!-- <p-dialog [(visible)]="isRecommendedVideoVisible" class="questionvideopopup" [modal]="true" [style]="{ width: '80vw' }">
 	<div class="container-fluid">
 		<div class="row justify-content-center align-items-center">
 			<div class="col-md-1" *ngIf="videoLinks">
@@ -191,18 +167,14 @@
 			</div>
 		</div>
 	</div>
-</p-dialog>
+</p-dialog> -->
 
-<p-dialog [(visible)]="isRecommendedLinksVisible" [draggable]="false" [modal]="true" [style]="{ width: '30vw' }" header="Header">
+<!-- <p-dialog [(visible)]="isRecommendedLinksVisible" [draggable]="false" [modal]="true" [style]="{ width: '30vw' }" header="Header">
 	<ng-template pTemplate="header">
 		<span class="text-xl font-bold"></span>
 	</ng-template>
 	<div class="container-fluid">
-		<!-- <div class="row">
-            <div class="col-md-12 col-lg-12" *ngFor="let link of refLink">
-                <img src="link.image" height="100" width="100" [alt]="link.image" class="w-2 shadow-2"/>
-            </div>
-        </div> -->
+
 		<div class="row justify-content-center align-items-center">
 			<div class="col-md-2" *ngIf="refLink">
 				<a (click)="clickPreviousRefPopup($event)"><i class="text-green h4 mx-3 mb-0 fa-solid fa-circle-chevron-left"></i></a>
@@ -213,11 +185,6 @@
 						<div class="border-1 surface-border border-round m-2 text-center">
 							<div class="mb-1">
 								<img src="{{ item.imageurl }}" [alt]="item.imageurl" class="w-2 shadow-2 img-fluid" />
-								<!-- <video controls height="100" width="100">
-                                                <source src="item.reflink" type="video/mp4">
-                                                <source src="item.reflink" type="video/ogg">
-                                                Your browser does not support HTML video.
-                                            </video> -->
 							</div>
 						</div>
 					</ng-template>
@@ -228,9 +195,9 @@
 			</div>
 		</div>
 	</div>
-</p-dialog>
+</p-dialog> -->
 
-<p-dialog [(visible)]="isReviewedByVisible" [draggable]="false" label="Show" [modal]="true" [maximizable]="true" [style]="{ width: '30vw' }" header="Header">
+<!-- <p-dialog [(visible)]="isReviewedByVisible" [draggable]="false" label="Show" [modal]="true" [maximizable]="true" [style]="{ width: '30vw' }" header="Header">
 	<ng-template pTemplate="header">
 		<span class="text-xl fw-bold ms-2 pl-4">Reviewed By</span>
 	</ng-template>
@@ -241,4 +208,4 @@
 			</div>
 		</div>
 	</div>
-</p-dialog>
+</p-dialog> -->

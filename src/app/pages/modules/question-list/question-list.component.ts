@@ -72,6 +72,7 @@ export class QuestionListComponent implements OnInit {
   pageno: number = 1;
   perpage: number = 50;
   totalQuestionCount: any;
+  oneQuestionContent: any;
   constructor(
     private moduleListService: ModuleServiceService,
     private moduleStoreService: ModuleStoreService,
@@ -92,8 +93,6 @@ export class QuestionListComponent implements OnInit {
       //this.getSubmoduleName(this.countryId);
     });
     this.tooltip = "Questions related to the application process are answered";
-    this.checkScrollPosition();
-    this.checkScrollPositionRef();
   }
   loadInit() {
     this.countryId = Number(localStorage.getItem("countryId"));
@@ -368,41 +367,6 @@ export class QuestionListComponent implements OnInit {
     this.readQuestion(data);
   }
 
-  clickPreviousVideo(event: any) {
-    if (this.selectedVideo <= 0) {
-      return;
-    }
-    this.selectedVideo = this.selectedVideo - 1;
-    this.carouselVideoElm.navBackward(event, this.selectedVideo);
-  }
-
-  clickNextVideo(event: any) {
-    if (this.selectedVideo > this.videoLinks.length) {
-      return;
-    }
-    this.selectedVideo += 1;
-
-    this.carouselVideoElm.navForward(event, this.selectedVideo);
-  }
-
-  clickPreviousRef(event: any) {
-    if (this.selectedRefLink <= 0) {
-      return;
-    }
-    this.selectedRefLink = this.selectedRefLink - 1;
-
-    this.carouselRefElm.navBackward(event, this.selectedRefLink);
-  }
-
-  clickNextRef(event: any) {
-    if (this.selectedRefLink >= this.refLink.length / 2 - 1) {
-      return;
-    }
-    this.selectedRefLink += 1;
-
-    this.carouselRefElm.navForward(event, this.selectedRefLink);
-  }
-
   onClickRecommendedVideo(data: any) {
     this.isRecommendedVideoVisible = true;
     let url = encodeURIComponent(data[0].link);
@@ -452,49 +416,6 @@ export class QuestionListComponent implements OnInit {
     }
   }
 
-  // popup video prev
-  clickPreviousVideoPopup(data: any) {
-    if (this.selectedVideo <= 0) {
-      return;
-    }
-    this.selectedVideo = this.selectedVideo - 1;
-
-    this.carouselPopupRefElm.navBackward(event, this.selectedVideo);
-  }
-
-  // popup video next
-  clickNextVideoPopup(data: any) {
-    if (this.selectedVideo >= this.videoLinks.length - 1) {
-      return;
-    }
-    let vdoLinks = this.videoLinks.find((x: any) => x.id == this.selectedVideo);
-    this.popUpItemVideoLink = this._sanitizer.bypassSecurityTrustResourceUrl(
-      data[0].link
-    );
-
-    this.selectedVideo += 1;
-
-    this.carouselPopupRefElm.navForward(event, this.selectedVideo);
-  }
-
-  clickPreviousRefPopup(data: any) {
-    if (this.selectedRefLink <= 0) {
-      return;
-    }
-    this.selectedRefLink = this.selectedRefLink - 1;
-
-    this.carouselPopupRefElm.navBackward(event, this.selectedRefLink);
-  }
-
-  clickNextRefPopup(data: any) {
-    if (this.selectedRefLink >= this.refLink.length - 1) {
-      return;
-    }
-    this.selectedRefLink += 1;
-
-    this.carouselPopupRefElm.navForward(event, this.selectedRefLink);
-  }
-
   reviewBy() {
     this.reviewedByOrgList = [];
     this.isReviewedByVisible = true;
@@ -508,56 +429,6 @@ export class QuestionListComponent implements OnInit {
       });
   }
 
-  scrollRightVideo() {
-    const container = this.videoLinksContainer.nativeElement;
-    const scrollAmount = container.offsetWidth / 2;
-    container.scrollBy({ left: scrollAmount, behavior: "smooth" });
-    this.checkScrollPosition();
-  }
-
-  scrollLeftVideo() {
-    const container = this.videoLinksContainer.nativeElement;
-    const scrollAmount = -container.offsetWidth / 2;
-    container.scrollBy({ left: scrollAmount, behavior: "smooth" });
-    this.checkScrollPosition();
-  }
-
-  scrollLeftRef() {
-    const container = this.refLinksContainer.nativeElement;
-    const scrollAmount = -container.offsetWidth / 2;
-    container.scrollBy({ left: scrollAmount, behavior: "smooth" });
-    this.checkScrollPositionRef();
-  }
-
-  scrollRightRef() {
-    const container = this.refLinksContainer.nativeElement;
-    const scrollAmount = container.offsetWidth / 2;
-    container.scrollBy({ left: scrollAmount, behavior: "smooth" });
-    this.checkScrollPositionRef();
-  }
-
-  leftScrollButtonVisible: boolean = false;
-  rightScrollButtonVisible: boolean = true;
-  leftScrollButtonVisibleRef: boolean = false;
-  rightScrollButtonVisibleRef: boolean = true;
-
-  checkScrollPosition() {
-    const container = this.videoLinksContainer?.nativeElement;
-    if (container) {
-      this.leftScrollButtonVisible = container.scrollLeft > 0;
-      this.rightScrollButtonVisible =
-        container.scrollWidth - container.clientWidth > container.scrollLeft;
-    }
-  }
-
-  checkScrollPositionRef() {
-    const container = this.refLinksContainer?.nativeElement;
-    if (container) {
-      this.leftScrollButtonVisibleRef = container.scrollLeft > 0;
-      this.rightScrollButtonVisibleRef =
-        container.scrollWidth - container.clientWidth > container.scrollLeft;
-    }
-  }
   paginatepost(event: any) {
     this.pageno = event.page + 1;
     this.perpage = event.rows;
@@ -573,5 +444,27 @@ export class QuestionListComponent implements OnInit {
       this.questionListData = data?.questions;
       this.totalQuestionCount = data?.questioncount;
     });
+  }
+
+  viewOneQuestion(question:any){
+    this.oneQuestionContent = question
+    this.isQuestionAnswerVisible = true
+    this.getSubmoduleName(question.country_id)
+    this.breadCrumb = [
+      {
+        label: this.currentModuleName,
+        command: (event) => this.gotomodulebreadcrump(),
+      },
+      { label: this.moduleName, command: (event) => this.goToHomebreadcrump() },
+      { label: 'Question' },
+    ];
+    let data = {
+      questionId: this.oneQuestionContent.id,
+      countryId: this.oneQuestionContent.country_id,
+      moduleId: this.currentModuleId,
+      submoduleId: Number(this.subModuleId),
+    };
+    this.readQuestion(data);
+    this.selectedQuestionData = question;
   }
 }
