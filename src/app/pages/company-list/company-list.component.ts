@@ -47,6 +47,11 @@ export class CompanyListComponent implements OnInit {
   }
 
   performSearch(events:any){
+    if(this.planExpired){
+      this.restrict=true;
+      this.valueNearYouFilter = "";
+      return;
+    }
     if (this.valueNearYouFilter == "") {
       this.loadInvestorData();
       return;
@@ -60,7 +65,16 @@ export class CompanyListComponent implements OnInit {
     this.companyData = [...companySearchData];
   }
 
-
+  searchClick(){
+    if(this.planExpired){
+      this.restrict=true;
+      this.valueNearYouFilter = "";
+      let searchInput = document.getElementById("searchInput") as HTMLInputElement;;
+      if (searchInput !== null) {
+        searchInput.disabled = true;
+      }
+    }
+  }
   loadMultiSelectData(){
     this.companyListService.getMultiSelectData().subscribe((response) => {
       this.industryInterested = response.company_industry;
@@ -78,6 +92,10 @@ export class CompanyListComponent implements OnInit {
   }
   clearRestriction() {
     this.restrict = false;
+    let searchInput = document.getElementById("searchInput")as HTMLInputElement;;
+      if (searchInput !== null) {
+        searchInput.disabled = false;
+      }
   }
   loadInvestorData(){
     let data = {
@@ -145,7 +163,7 @@ export class CompanyListComponent implements OnInit {
   upgradePlan(): void {
     this.router.navigate(["/pages/subscriptions"]);
   }
-
+ 
   loadHeadQuartersData(event: any){
     this.companyListService.getHeadQuartersList(event.value).subscribe((response) => {
       this.headQuartersList = response;

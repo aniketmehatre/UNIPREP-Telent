@@ -1,11 +1,11 @@
 <div class="card readingcard">
   <div class="card-body pt-0">
-    <div class="row justify-content-center" *ngIf="!planExpired">
+    <div class="row justify-content-center">
       <div class="col-md-3 text-start desktop">
         <div class="p-input-icon-left w-100 mt-3">
           <i class="pi pi-search"></i>
           <input class="w-100 px-5 py-2" type="text" placeholder="Search in Company List .." pInputText
-            [(ngModel)]="valueNearYouFilter" (input)="performSearch($event)" />
+            [(ngModel)]="valueNearYouFilter" (input)="performSearch($event)" (click)="searchClick()" id="searchInput"/>
         </div>
       </div>
       <div class="col-md-6 text-center">
@@ -55,7 +55,7 @@
         </div>
       </div>
     </div>
-    <div class="container-fluid" *ngIf="!planExpired">
+    <div class="container-fluid">
       <div class="row">
         <div *ngFor="let companyData of companyData" class="col-md-3 col-12 mt-3 ">
           <div class="cardcard-style text-black p-2 h-100 companny-list">
@@ -68,7 +68,8 @@
                 }}</div>
             </div>
             <div class="d-flex mt-2 mb-2">
-              <div class="col-11"><i class="fa-solid fa-industry pr-10 fs-10"></i>{{ companyData.industry_interested_name }}</div>
+              <div class="col-11"><i class="fa-solid fa-industry pr-10 fs-10"></i>{{
+                companyData.industry_interested_name }}</div>
               <div class="col-1">
                 <div class="d-flex justify-content-end social-media">
                   <div *ngIf="companyData.website && companyData.website.trim() !== ''">
@@ -86,7 +87,7 @@
       <p-paginator [rows]="pageSize" [totalRecords]="totalCompanyCount" (onPageChange)="pageChange($event)"
         [rowsPerPageOptions]="[100, 300, 500, 1000]"></p-paginator>
     </div>
-    <div *ngIf="planExpired" class="resources-expired">
+    <!-- <div *ngIf="planExpired" class="resources-expired">
       <div class="row">
         <div class="col-md-2 text-start"></div>
         <div class="col-md-8 text-center">
@@ -112,13 +113,13 @@
           Upgrade Plan<i class="fa fa-arrow-right exhausted-plan-icon"></i>
         </button>
       </div>
-    </div>
-  </div> -->
+    </div> -->
+  </div>
 </div>
 
 
 <p-dialog header="Filter Companies" [(visible)]="isFilterVisible" [modal]="true" [style]="{ width: '60rem' }"
-  [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }" [ngStyle]="{ display: isFilterVisible }">
+  [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }" [ngStyle]="{ display: isFilterVisible }" class="filterDialog"> 
   <div class="m-5">
     <form role="form" [formGroup]="filterForm" (ngSubmit)="loadInvestorData()">
       <div class="row">
@@ -146,7 +147,8 @@
               <div class="form-group">
                 <div class="mb-3">
                   <p-multiSelect [options]="headQuartersList" styleClass="w-100" formControlName="head_quarters"
-                    defaultLabel="Select Head Quarters" optionValue="id" optionLabel="head_quarters_name" #HeadMultiSelect>
+                    defaultLabel="Select Head Quarters" optionValue="id" optionLabel="head_quarters_name"
+                    #HeadMultiSelect>
                     <ng-template pTemplate="selectedItems">
                       {{ HeadMultiSelect.defaultLabel }}
                     </ng-template>
@@ -181,4 +183,20 @@
       </button>
     </div>
   </div>
+</p-dialog>
+<p-dialog [(visible)]="restrict" [style]="{ width: '30vw'}" [draggable]="false" [resizable]="false"
+	class="restrictionDialog" [breakpoints]="{ '960px': '30vw','959px': '60vw','425px': '90vw'}"
+	(onHide)="clearRestriction()">
+	<div class="text-center mt-5 mb-4">
+		<img src="../../../uniprep-assets/images/smartloack.png" class="image" width="60" />
+		<h3 class="offer">Upgrade Required</h3>
+		<p>
+			To access this exclusive module,please upgrade your plan now
+		</p>
+		<button pButton type="button"
+			class="text-white p-ripple p-button-rounded p-button-warning p-button p-component p-2"
+			(click)="upgradePlan()">
+			Upgrade Plan<i class="fa fa-arrow-right exhausted-plan-icon"></i>
+		</button>
+	</div>
 </p-dialog>

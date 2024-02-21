@@ -150,7 +150,7 @@ export class ListSubModulesComponent implements OnInit {
     if (this.route.snapshot.paramMap.get('id') == '2') {
       this.startQuiz();
     }
-    this.checkplanExpire();
+    // this.checkplanExpire();
   }
 
   loadModuleAndSubModule() {
@@ -373,17 +373,17 @@ export class ListSubModulesComponent implements OnInit {
     this.isReviewVisible = true;
   }
 
-  checkplanExpire(): void {
-    this.authService.getNewUserTimeLeft().subscribe((res) => {
-      let data = res.time_left;
-      let subscription_exists_status = res.subscription_details;
-      if (data.plan === "expired" || data.plan === 'subscription_expired' || (data.plan === "expired" && subscription_exists_status.subscription_plan === 'free_trail')) {
-        this.planExpired = true;
-      } else {
-        this.planExpired = false;
-      }
-    })
-  }
+  // checkplanExpire(): void {
+  //   this.authService.getNewUserTimeLeft().subscribe((res) => {
+  //     let data = res.time_left;
+  //     let subscription_exists_status = res.subscription_details;
+  //     if (data.plan === "expired" || data.plan === 'subscription_expired' || (data.plan === "expired" && subscription_exists_status.subscription_plan === 'free_trail')) {
+  //       this.planExpired = true;
+  //     } else {
+  //       this.planExpired = false;
+  //     }
+  //   })
+  // }
 
   retryQuiz() {
     this.isReviewVisible = false;
@@ -396,7 +396,7 @@ export class ListSubModulesComponent implements OnInit {
     this.positionNumber = 1;
     this.isInstructionVisible = true;
   }
-  upgradePlan(): void {
-    this.router.navigate(["/pages/subscriptions"]);
-  }
+  // upgradePlan(): void {
+  //   this.router.navigate(["/pages/subscriptions"]);
+  // }
 }

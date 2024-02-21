@@ -239,7 +239,7 @@
   padding-right: 2px;
 }
 
-:host ::ng-deep .p-dialog-header{
+.filterDialog ::ng-deep .p-dialog-header{
   border: 1px solid gray !important;
   padding: 0px 5px !important;
 }

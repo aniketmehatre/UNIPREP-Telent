@@ -151,8 +151,8 @@ export class EventsComponent implements OnInit {
     this.newfile = "block";
   }
   paginate(event: any) {
-    if(this.planExpired){
-      this.restrict=true;
+    if (this.planExpired) {
+      this.restrict = true;
       return;
     }
     this.pageno = event.page + 1;
@@ -168,8 +168,8 @@ export class EventsComponent implements OnInit {
     this.getEventUpComming(data);
   }
   paginatepost(event: any) {
-    if(this.planExpired){
-      this.restrict=true;
+    if (this.planExpired) {
+      this.restrict = true;
       return;
     }
     this.pageno = event.page + 1;
@@ -272,6 +272,7 @@ export class EventsComponent implements OnInit {
   performSearch(events: any) {
     if (this.planExpired) {
       this.restrict = true;
+      this.valueNearYouFilter = "";
       return;
     }
     var data = {
@@ -281,6 +282,10 @@ export class EventsComponent implements OnInit {
     this.getPostEvent(data)
   }
   registerButton(event: any) {
+    if (this.planExpired) {
+      this.restrict = true;
+      return;
+    }
     if (event.registered == 1) {
       this.toast.add({ severity: 'error', summary: 'Error', detail: "Already Registered" });
       return;
@@ -317,5 +322,19 @@ export class EventsComponent implements OnInit {
   }
   clearRestriction() {
     this.restrict = false;
+    let searchInput = document.getElementById("searchInput") as HTMLInputElement;;
+      if (searchInput !== null) {
+        searchInput.disabled = false;
+      }
+  }
+  searchClick(){
+    if(this.planExpired){
+      this.restrict=true;
+      this.valueNearYouFilter = "";
+      let searchInput = document.getElementById("searchInput") as HTMLInputElement;;
+      if (searchInput !== null) {
+        searchInput.disabled = true;
+      }
+    }
   }
 }

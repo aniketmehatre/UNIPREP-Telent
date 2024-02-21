@@ -123,10 +123,6 @@ export class ResourceComponent implements OnInit {
   canSeeResources() {
     if (this.planExpired) {
       this.restrict = true;
-      const resourceLink = document.getElementById("resourceLink");
-      if (resourceLink !== null) {
-        resourceLink.style.pointerEvents = "none";
-      }
       return;
     }
   }
