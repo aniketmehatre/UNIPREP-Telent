@@ -13,7 +13,7 @@ import { Router } from '@angular/router';
 export class InvestorListComponent implements OnInit {
   investorData: any[] = []
   investorIndustryInterested: any;
-  // investorOrgType: any;
+  investorOrgType: any;
   investorType: any;
   countryList: any;
   headQuartersList: any
@@ -67,7 +67,7 @@ export class InvestorListComponent implements OnInit {
     this.investorList.getMultiSelectData().subscribe((response) => {
       console.log(response);
       this.investorIndustryInterested = response.investor_industry_interested;
-      // this.investorOrgType = response.investor_org_type;
+      this.investorOrgType = response.investor_org_type;
       this.investorType = response.investor_type;
       this.countryList = response.countries_list;
     });
