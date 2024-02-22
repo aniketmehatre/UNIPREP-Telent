@@ -109,21 +109,16 @@ export class RegistrationComponent implements OnInit {
   ngOnInit() {
     this.authService.authState.subscribe((user) => {
       this.service.gmailLogin(user).subscribe((data) => {
-        this.storage.set(environment.tokenKey, data.token);
-        this.service.getMe().subscribe((data) => {
-          this.subs.sink = this.service
-            .selectMessage$()
-            .subscribe((message) => {
-              if (message == "Login Success") {
-                this.toastr.add({
-                  severity: "success",
-                  summary: "Success",
-                  detail: message,
-                });
-              }
-            });
-          this.router.navigate(["/pages/dashboard"]);
-        });
+        if (data.token) {
+          this.storage.set(environment.tokenKey, data.token);
+        } else {
+          this.storage.set(environment.tokenKey, data?.authorisation?.token);
+        }
+        setTimeout(() => {
+          this.service.getMe().subscribe((data) => {
+            this.router.navigate(["/pages/dashboard"]);
+          });
+        }, 2000);
       });
     });
     //var socialUser = user;
@@ -313,26 +308,14 @@ export class RegistrationComponent implements OnInit {
           summary: "Success",
           detail: "User Registered",
         });
-        setTimeout(() => {
-          this.service.login({
-            email: this.registrationForm.value.emailAddress,
-            password: this.registrationForm.value.password,
-          });
-          this.service.getMe().subscribe((data) => {
-            this.subs.sink = this.service
-              .selectMessage$()
-              .subscribe((message) => {
-                if (message == "Login Success") {
-                  this.toastr.add({
-                    severity: "success",
-                    summary: "Success",
-                    detail: message,
-                  });
-                }
-              });
-            this.router.navigate(["/pages/dashboard"]);
-          });
-        }, 1000);
+        this.service.getMe().subscribe((data) => {
+          if (data.token) {
+            this.storage.set(environment.tokenKey, data.token);
+          } else {
+            this.storage.set(environment.tokenKey, data?.authorisation?.token);
+          }
+          this.router.navigate(["/pages/dashboard"]);
+        });
       },
       (error) => {
         const message = error.error.message;
