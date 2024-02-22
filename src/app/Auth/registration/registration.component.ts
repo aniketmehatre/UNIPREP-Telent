@@ -109,9 +109,9 @@ export class RegistrationComponent implements OnInit {
   ngOnInit() {
     this.authService.authState.subscribe((user) => {
       this.service.gmailLogin(user).subscribe((data) => {
-        if(data.token){
-        this.storage.set(environment.tokenKey, data.token);}
-        else{
+        if (data.token) {
+          this.storage.set(environment.tokenKey, data.token);
+        } else {
           this.storage.set(environment.tokenKey, data?.authorisation?.token);
         }
         setTimeout(() => {
@@ -309,7 +309,11 @@ export class RegistrationComponent implements OnInit {
           detail: "User Registered",
         });
         this.service.getMe().subscribe((data) => {
-          this.storage.set(environment.tokenKey, data.token);
+          if (data.token) {
+            this.storage.set(environment.tokenKey, data.token);
+          } else {
+            this.storage.set(environment.tokenKey, data?.authorisation?.token);
+          }
           this.router.navigate(["/pages/dashboard"]);
         });
       },
