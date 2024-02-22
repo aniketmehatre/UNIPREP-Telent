@@ -1700,7 +1700,7 @@ uni-subscription {
 @media (max-width: 1499.98px) {
 	html,
 	body {
-		font-size: 12px;
+		font-size: 14px;
 	}
 	// #sidenav {
 	// 	width: 210px;
@@ -1710,7 +1710,7 @@ uni-subscription {
 @media (max-width: 1399.98px) {
 	html,
 	body {
-		font-size: 12px;
+		font-size: 14px;
 	}
 	// #sidenav {
 	// 	width: 210px;
@@ -1726,7 +1726,7 @@ uni-subscription {
 @media (max-width: 1299.98px) {
 	html,
 	body {
-		font-size: 12px;
+		font-size: 14px;
 	}
 	// #sidenav {
 	// 	width: 200px;
@@ -1742,7 +1742,7 @@ uni-subscription {
 @media (max-width: 1199.98px) {
 	html,
 	body {
-		font-size: 12px;
+		font-size: 14px;
 	}
 	// #sidenav {
 	// 	width: 175px;
@@ -1773,7 +1773,7 @@ uni-subscription {
 	// }
 	html,
 	body {
-		font-size: 12px;
+		font-size: 14px;
 	}
 	.reportwidthfix {
 		width: 60vw !important;
@@ -1816,7 +1816,7 @@ uni-subscription {
 	// }
 	html,
 	body {
-		font-size: 12px;
+		font-size: 14px;
 	}
 	.reportwidthfix {
 		width: 90vw !important;
@@ -1855,6 +1855,11 @@ uni-subscription {
 		.historycard {
 			text-align: center !important;
 		}
+	}
+
+	html,
+	body {
+		font-size: 12px;
 	}
 
 	.p-paginator {
@@ -1977,6 +1982,11 @@ uni-subscription {
 	}
 }
 @media screen and (max-width: 480px) {
+
+	html,
+body {
+	font-size: 12px;
+}
 }
 .openlogo {
 	display: block;
