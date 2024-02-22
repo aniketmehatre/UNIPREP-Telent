@@ -111,17 +111,6 @@ export class RegistrationComponent implements OnInit {
       this.service.gmailLogin(user).subscribe((data) => {
         this.storage.set(environment.tokenKey, data.token);
         this.service.getMe().subscribe((data) => {
-          this.subs.sink = this.service
-            .selectMessage$()
-            .subscribe((message) => {
-              if (message == "Login Success") {
-                this.toastr.add({
-                  severity: "success",
-                  summary: "Success",
-                  detail: message,
-                });
-              }
-            });
           this.router.navigate(["/pages/dashboard"]);
         });
       });
