@@ -2116,3 +2116,8 @@ p-accordion.plain .p-accordion-tab-active .p-accordion-header-link:after {
 .theme-dark-blue {
 	background-color: #001631;
 }
+p-dialog.restrictionDialog .p-dialog .p-dialog-header .p-dialog-header-icon{
+	position: fixed;
+	top: -8px;
+	right: -8px;
+} 
