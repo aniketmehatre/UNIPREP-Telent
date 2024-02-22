@@ -54,6 +54,9 @@ import { CompanyListComponent } from './company-list/company-list.component';
 import { ScholarshipListComponent } from "./scholarship-list/scholarship-list.component";
 import { UserGuideComponent } from './user-guide/user-guide.component';
 import { DividerModule } from "primeng/divider";
+import { CompanyListGuidlinesComponent } from './company-list-guidlines/company-list-guidlines.component';
+import { ScholarshipListGuidlinesComponent } from './scholarship-list-guidlines/scholarship-list-guidlines.component';
+import { InvestorListGuidlinesComponent } from './investor-list-guidlines/investor-list-guidlines.component';
 
 @NgModule({
     declarations: [
@@ -77,6 +80,9 @@ import { DividerModule } from "primeng/divider";
         CompanyListComponent,
         ScholarshipListComponent,
         UserGuideComponent,
+        CompanyListGuidlinesComponent,
+        ScholarshipListGuidlinesComponent,
+        InvestorListGuidlinesComponent,
     ],
   exports: [FooterStatusBoxComponent, HeaderSearchComponent],
   imports: [
