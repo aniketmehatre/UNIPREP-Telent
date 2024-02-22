@@ -21,6 +21,7 @@ import { ActivatedRoute, Router } from "@angular/router";
 import { Location } from "@angular/common";
 import { DomSanitizer } from "@angular/platform-browser";
 import { Carousel } from "primeng/carousel";
+import { AuthService } from "src/app/Auth/auth.service";
 
 @Component({
   selector: "uni-question-list",
@@ -73,6 +74,8 @@ export class QuestionListComponent implements OnInit {
   perpage: number = 50;
   totalQuestionCount: any;
   oneQuestionContent: any;
+  restrict: boolean = false;
+  planExpired: boolean = false;
   constructor(
     private moduleListService: ModuleServiceService,
     private moduleStoreService: ModuleStoreService,
@@ -80,9 +83,10 @@ export class QuestionListComponent implements OnInit {
     private route: ActivatedRoute,
     private _location: Location,
     private _sanitizer: DomSanitizer,
-    private router: Router
+    private router: Router,
+    private authService: AuthService
   ) {
-    Carousel.prototype.changePageOnTouch = (e,diff) => {}
+    Carousel.prototype.changePageOnTouch = (e, diff) => { }
     Carousel.prototype.onTouchMove = () => { };
   }
 
@@ -102,6 +106,7 @@ export class QuestionListComponent implements OnInit {
     this.dataService.countryName.subscribe((data) => {
       countryName = data;
     });
+    this.checkplanExpire();
     switch (this.currentSubModuleSlug) {
       case "pre-admission":
         this.currentModuleId = 1;
@@ -177,12 +182,22 @@ export class QuestionListComponent implements OnInit {
       perpage: this.perpage,
     };
     this.moduleListService.loadQuestionList(data);
-    this.moduleListService.questionList$().subscribe((data: any) => {      
+    this.moduleListService.questionList$().subscribe((data: any) => {
       this.questionListData = data?.questions;
       this.totalQuestionCount = data?.questioncount;
     });
   }
-
+  checkplanExpire(): void {
+    this.authService.getNewUserTimeLeft().subscribe((res) => {
+      let data = res.time_left;
+      let subscription_exists_status = res.subscription_details;
+      if (data.plan === "expired" || data.plan === 'subscription_expired') {
+        this.planExpired = true;
+      } else {
+        this.planExpired = false;
+      }
+    })
+  }
   goBack() {
     this._location.back();
   }
@@ -222,6 +237,10 @@ export class QuestionListComponent implements OnInit {
   }
 
   onQuestionClick(selectedData: any) {
+     if(this.planExpired){
+       this.restrict=true;
+       return;
+     }
     this.moduleListService.questionList$().subscribe((data: any) => {
       this.data = data.questions;
     });
@@ -430,6 +449,10 @@ export class QuestionListComponent implements OnInit {
   }
 
   paginatepost(event: any) {
+    if(this.planExpired){
+      this.restrict=true;
+      return;
+    }
     this.pageno = event.page + 1;
     this.perpage = event.rows;
     let data = {
@@ -466,5 +489,11 @@ export class QuestionListComponent implements OnInit {
     };
     this.readQuestion(data);
     this.selectedQuestionData = question;
+  }
+  clearRestriction() {
+    this.restrict = false;
+  }
+  upgradePlan(): void {
+    this.router.navigate(["/pages/subscriptions"]);
   }
 }

@@ -1,43 +1,45 @@
 <div class="card readingcard">
 	<div class="card-body text-center pt-0 h-100">
-		<div class="row justify-content-center align-items-center">
-			<div class="col-md-1 col-1 text-start">
-				<i class="fa-solid fa-circle-chevron-left fa-2xl uniprep-primary" (click)="goBack()" role="button"></i>
+		<div class="row justify-content-center">
+			<div class="col-md-2 col-2 text-start">
+				<p-button (click)="goBack()" icon="pi pi-arrow-left"
+					styleClass="p-button-rounded p-button-text text-dark"></p-button>
 			</div>
 			<div class="col-md-10 col-10 text-center">
 				<h5 class="select-title mb-1" tooltipPosition="top" pTooltip="{{ tooltip }}">
-					<span class="desktop">{{ currentModuleName }} -</span> {{ moduleName }}<i class="questiontooltip fa-solid fa-circle-question"></i>
+					<span class="desktop">{{ currentModuleName }} -</span> {{ moduleName }}<i
+						class="questiontooltip fa-solid fa-circle-question"></i>
 				</h5>
 			</div>
 			<div class="col-md-1 col-1">&nbsp;</div>
 		</div>
 		<div class="row">
-			<div *ngFor="let sub of questionListData; let i = index" class="col-lg-3 col-md-4 col-sm-4 col-xs-12 col-12 my-2">
+			<div *ngFor="let sub of questionListData; let i = index"
+				class="col-lg-3 col-md-4 col-sm-4 col-xs-12 col-12 my-2">
 				<div class="row w-100 h-100 m-0 justify-content-center">
-					<!-- <div (click)="onQuestionClick(sub)" class="card questioncard {{ sub.read == 1 ? 'questionread' : '' }}"> -->
-					<div (click)="viewOneQuestion(sub)" role="button" class="card questioncard {{ sub.read == 1 ? 'questionread' : '' }}">
-						<div class="card-body d-flex flex-md-column flex-row justify-content-md-between align-items-center px-0 py-2 gap-2 gap-md-0">
+					<div (click)="onQuestionClick(sub)"
+						class="card questioncard {{ sub.read == 1 ? 'questionread' : '' }}">
+						<div
+							class="card-body d-flex flex-md-column flex-row justify-content-md-between align-items-center px-0 py-2 gap-2 gap-md-0">
 							<div class="row justify-content-center w-100">
 								<div class="col">
 									<p class="text-start fw-medium questiontext mb-0 mb-md-2">{{ sub.question }}</p>
 								</div>
+								<!--<div class="col-md-4 text-center">
+                                            <p class="mb-3 circle text-center">{{i+1}}</p>
+                                        </div> -->
 								<div class="col-2 d-flex align-items-center justify-content-center text-end" *ngIf="sub.popular == 1">
-									<i class="fa-solid fa-star text-danger" pTooltip="Most Popular Question" tooltipPosition="right" style="font-size: 1.5rem"></i>
+									<i class="pi pi-star-fill text-danger" pTooltip="Most Popular Question"
+										tooltipPosition="right" style="font-size: 1.5rem"></i>
 								</div>
 							</div>
-							<button
-								class="btn d-md-block d-none w-100 flex-shrink-0 btn-primary m-0 primary-btn
-                                        {{ sub.read == 1 ? 'readButton' : '' }}"
-								pButton
-								type="button">
-								Read Answer
+							<button class="btn d-md-block d-none w-100 flex-shrink-0 btn-primary m-0 primary-btn
+                                        {{ sub.read == 1 ? 'readButton' : '' }}" pButton type="button">
+								Read <span class="desktop-enable">Answer</span>
 							</button>
-							<button
-								class="btn d-md-none d-flex flex-shrink-0 btn-primary m-0 primary-btn
-                                        {{ sub.read == 1 ? 'readButton' : '' }}"
-								pButton
-								type="button">
-								Read Answer
+							<button class="btn d-md-none d-flex flex-shrink-0 btn-primary m-0 primary-btn
+                                        {{ sub.read == 1 ? 'readButton' : '' }}" pButton type="button">
+								Read <span class="desktop-enable">Answer</span>
 							</button>
 						</div>
 					</div>
@@ -47,9 +49,11 @@
 	</div>
 </div>
 <div class="card" style="background-color: #fff; border-radius: 0px 0px 15px 15px !important">
-	<p-paginator [rows]="10" [totalRecords]="totalQuestionCount" (onPageChange)="paginatepost($event)" [rowsPerPageOptions]="[50, 100, 200]" dropdownAppendTo="body"></p-paginator>
+	<p-paginator [rows]="10" [totalRecords]="totalQuestionCount" (onPageChange)="paginatepost($event)"
+		[rowsPerPageOptions]="[50, 100, 200]" dropdownAppendTo="body"></p-paginator>
 </div>
-<p-dialog #dialogContent [(visible)]="isQuestionAnswerVisible" [draggable]="false" [modal]="true" class="questionmodal" header="Header" [maximizable]="false" [style]="{ height: '100vh' }">
+<p-dialog #dialogContent [(visible)]="isQuestionAnswerVisible" [draggable]="false" [modal]="true" class="questionmodal"
+	header="Header" [maximizable]="true" [style]="{ height: '100vh' }">
 	<ng-template pTemplate="header">
 		<div class="d-flex w-100 flex-column px-4">
 			<div class="d-flex flex-row justify-content-md-between justify-content-center">
@@ -142,21 +146,28 @@
 	<div class="container-fluid">
 		<div class="row justify-content-center align-items-center">
 			<div class="col-md-1" *ngIf="videoLinks">
-				<a (click)="clickPreviousVideoPopup($event)"><i class="text-green h4 mx-3 mb-0 fa-solid fa-circle-chevron-left"></i></a>
+				<a (click)="clickPreviousVideoPopup($event)"><i
+						class="text-green h4 mx-3 mb-0 fa-solid fa-circle-chevron-left"></i></a>
 			</div>
 			<div class="col-md-10">
-				<p-carousel #carouselPopupVideoElm [circular]="false" [showNavigators]="false" [showIndicators]="false" [numScroll]="1" [numVisible]="1" [page]="selectedVideo" [responsiveOptions]="responsiveOptions" [value]="videoLinks" *ngIf="videoLinks">
+				<p-carousel #carouselPopupVideoElm [circular]="false" [showNavigators]="false" [showIndicators]="false"
+					[numScroll]="1" [numVisible]="1" [page]="selectedVideo" [responsiveOptions]="responsiveOptions"
+					[value]="videoLinks" *ngIf="videoLinks">
 					<ng-template let-item pTemplate="item">
 						<div class="border-1 surface-border border-round m-2 text-center">
 							<div class="mb-1">
-								<iframe allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen class="mb-2" frameborder="0" height="500px " [src]="" title="YouTube video player" width="100%"></iframe>
+								<iframe
+									allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+									allowfullscreen class="mb-2" frameborder="0" height="500px " [src]=""
+									title="YouTube video player" width="100%"></iframe>
 							</div>
 						</div>
 					</ng-template>
 				</p-carousel>
 			</div>
 			<div class="col-md-1" *ngIf="videoLinks">
-				<a (click)="clickNextVideoPopup($event)"><i class="text-green mx-3 h4 fa-solid mb-0 fa-circle-chevron-right"></i></a>
+				<a (click)="clickNextVideoPopup($event)"><i
+						class="text-green mx-3 h4 fa-solid mb-0 fa-circle-chevron-right"></i></a>
 			</div>
 		</div>
 	</div>
@@ -170,10 +181,12 @@
 
 		<div class="row justify-content-center align-items-center">
 			<div class="col-md-2" *ngIf="refLink">
-				<a (click)="clickPreviousRefPopup($event)"><i class="text-green h4 mx-3 mb-0 fa-solid fa-circle-chevron-left"></i></a>
+				<a (click)="clickPreviousRefPopup($event)"><i
+						class="text-green h4 mx-3 mb-0 fa-solid fa-circle-chevron-left"></i></a>
 			</div>
 			<div class="col-md-8">
-				<p-carousel #carouselPopupRefElm [circular]="false" [numScroll]="1" [numVisible]="1" [responsiveOptions]="responsiveOptions" [value]="refLink" *ngIf="refLink" [page]="selectedRefLink">
+				<p-carousel #carouselPopupRefElm [circular]="false" [numScroll]="1" [numVisible]="1"
+					[responsiveOptions]="responsiveOptions" [value]="refLink" *ngIf="refLink" [page]="selectedRefLink">
 					<ng-template let-item pTemplate="item">
 						<div class="border-1 surface-border border-round m-2 text-center">
 							<div class="mb-1">
@@ -184,7 +197,8 @@
 				</p-carousel>
 			</div>
 			<div class="col-md-2" *ngIf="refLink">
-				<a (click)="clickNextRefPopup($event)"><i class="text-green mx-3 h4 fa-solid mb-0 fa-circle-chevron-right"></i></a>
+				<a (click)="clickNextRefPopup($event)"><i
+						class="text-green mx-3 h4 fa-solid mb-0 fa-circle-chevron-right"></i></a>
 			</div>
 		</div>
 	</div>
@@ -202,3 +216,20 @@
 		</div>
 	</div>
 </p-dialog> -->
+</p-dialog>
+<p-dialog [(visible)]="restrict" [style]="{ width: '30vw'}" [draggable]="false" [resizable]="false"
+	class="restrictionDialog" [breakpoints]="{ '960px': '30vw','959px': '60vw','425px': '90vw'}"
+	(onHide)="clearRestriction()">
+	<div class="text-center mt-5 mb-4">
+		<img src="../../../uniprep-assets/images/smartloack.png" class="image" width="60" />
+		<h3 class="offer">Upgrade Required</h3>
+		<p>
+			To access this exclusive module,please upgrade your plan now
+		</p>
+		<button pButton type="button"
+			class="text-white p-ripple p-button-rounded p-button-warning p-button p-component p-2"
+			(click)="upgradePlan()">
+			Upgrade Plan<i class="fa fa-arrow-right exhausted-plan-icon"></i>
+		</button>
+	</div>
+</p-dialog>	

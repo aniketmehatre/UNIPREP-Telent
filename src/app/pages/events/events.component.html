@@ -28,7 +28,7 @@
 				<div class="p-input-icon-left w-100 mt-3">
 					<i class="pi pi-search"></i>
 					<input class="w-100 px-5 py-2" type="text" placeholder="Search Events Near You..." pInputText
-						[(ngModel)]="valueNearYouFilter" (input)="performSearch($event)" />
+						[(ngModel)]="valueNearYouFilter" (input)="performSearch($event)"  (click)="searchClick()" id="searchInput"/>
 				</div>
 			</div>
 		</div>
