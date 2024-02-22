@@ -96,7 +96,7 @@ export class PagesComponent implements OnInit, OnDestroy {
                     window.sessionStorage.clear();
                     localStorage.clear();
                     this.router.navigateByUrl('/login');
-                }, 5000);
+                }, 15000);
             }
 
         });
