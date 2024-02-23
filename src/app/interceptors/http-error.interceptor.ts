@@ -37,13 +37,13 @@ export class HttpErrorInterceptor implements HttpInterceptor {
         //   localStorage.clear();
         //   this.router.navigateByUrl("/login");
         // }
-        const msg = err?.error?.message || err?.error?.error?.message || 'Something wrong please try again!';
+        const msg = err?.error?.message || err?.error?.error?.message ||err?.message|| 'Something wrong please try again!';
         // this.toastr.add({severity: 'error', summary: 'Error', detail: msg});
           this.ngxService.stop();
           if(err?.status === 401){
             window.sessionStorage.clear();
             localStorage.clear();
-            this.toastr.add({severity: 'error', summary: 'Error', detail:  msg});
+            // this.toastr.add({severity: 'error', summary: 'Error', detail:  msg});
               this.router.navigateByUrl('/login');
           }
           if(err?.status === 408){
