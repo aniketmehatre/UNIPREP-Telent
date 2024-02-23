@@ -52,28 +52,28 @@
 						<div class="d-flex me-2">
 							<div class="col d-flex flex-column align-items-center px-1">
 								<div class="boxView fw-semibold text-green">
-									{{ month + "" }}
+									{{ month$ + "" }}
 								</div>
 								<span class="timertext text-uppercase">Months</span>
 							</div>
 							<div class="d-flex flex-column align-items-center justify-content-center"><span>:</span><span class="timertext">&nbsp;</span></div>
 							<div class="col d-flex flex-column align-items-center px-1">
-								<div class="boxView fw-semibold text-green">{{ day + "" }}</div>
+								<div class="boxView fw-semibold text-green">{{ day$?day$:'0' + "" }}</div>
 								<span class="timertext text-uppercase">Days</span>
 							</div>
 							<div class="d-flex flex-column align-items-center justify-content-center"><span>:</span><span class="timertext">&nbsp;</span></div>
 							<div class="col d-flex flex-column align-items-center px-1">
-								<div class="boxView fw-semibold text-green">{{ hrs + "" }}</div>
+								<div class="boxView fw-semibold text-green">{{ hrs$?hrs$:'0' + "" }}</div>
 								<span class="timertext text-uppercase">Hrs</span>
 							</div>
 							<div class="d-flex flex-column align-items-center justify-content-center"><span>:</span><span class="timertext">&nbsp;</span></div>
 							<div class="col d-flex flex-column align-items-center px-1">
-								<div class="boxView fw-semibold text-green">{{ min + "" }}</div>
+								<div class="boxView fw-semibold text-green">{{ min$?min$:'0' + "" }}</div>
 								<span class="timertext text-uppercase">Mins</span>
 							</div>
 							<div class="d-flex flex-column align-items-center justify-content-center"><span>:</span><span class="timertext">&nbsp;</span></div>
 							<div class="col d-flex flex-column align-items-center px-1">
-								<div class="boxView fw-semibold text-green">{{ sec + "" }}</div>
+								<div class="boxView fw-semibold text-green">{{ sec$?sec$:'0' + "" }}</div>
 								<span class="timertext text-uppercase">Sec</span>
 							</div>
 						</div>
@@ -147,17 +147,17 @@
 							<!--								<span class="timertext text-uppercase">Days</span>-->
 							<!--							</div>-->
 							<div class="col d-flex flex-column align-items-center px-1">
-								<div class="boxView fw-semibold text-green">{{ hrs + "" }}</div>
+								<div class="boxView fw-semibold text-green">{{ hrs$?hrs$:'0' + "" }}</div>
 								<span class="timertext text-uppercase">Hrs</span>
 							</div>
 							<div class="d-flex flex-column align-items-center justify-content-center"><span>:</span><span class="timertext">&nbsp;</span></div>
 							<div class="col d-flex flex-column align-items-center px-1">
-								<div class="boxView fw-semibold text-green">{{ min + "" }}</div>
+								<div class="boxView fw-semibold text-green">{{ min$?min$:'0' + "" }}</div>
 								<span class="timertext text-uppercase">Mins</span>
 							</div>
 							<div class="d-flex flex-column align-items-center justify-content-center"><span>:</span><span class="timertext">&nbsp;</span></div>
 							<div class="col d-flex flex-column align-items-center px-1">
-								<div class="boxView fw-semibold text-green">{{ sec + "" }}</div>
+								<div class="boxView fw-semibold text-green">{{ sec$?sec$:'0' + "" }}</div>
 								<span class="timertext text-uppercase">Sec</span>
 							</div>
 						</div>
