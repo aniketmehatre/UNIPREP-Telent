@@ -81,6 +81,10 @@ export class InvestorListComponent implements OnInit {
     this.filterForm.reset();
   }
 
+  investorGuidlines(): void {
+    this.router.navigate(["/pages/investor-guidlines"]);
+  }
+  
   loadInvestorData() {
     let data = {
       org_name: this.filterForm.value.org_name ? this.filterForm.value.org_name : '',
