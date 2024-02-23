@@ -113,7 +113,6 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   countryLists: any;
   loadCountryList(data: any){
-    console.log(data);
     this.dashboardService.countryList().subscribe(countryList => {
       this.countryLists = countryList;
       this.countryLists.forEach((element: any) => {
