@@ -108,18 +108,27 @@ export class RegistrationComponent implements OnInit {
   private subs = new SubSink();
   ngOnInit() {
     this.authService.authState.subscribe((user) => {
-      this.service.gmailLogin(user).subscribe((data) => {
-        if (data.token) {
-          this.storage.set(environment.tokenKey, data.token);
-        } else {
-          this.storage.set(environment.tokenKey, data?.authorisation?.token);
-        }
-        setTimeout(() => {
-          this.service.getMe().subscribe((data) => {
-            this.router.navigate(["/pages/dashboard"]);
+      this.service.googlesignUp(user).subscribe(
+        (data) => {
+          if (data.token) {
+            this.storage.set(environment.tokenKey, data.token);
+          } else {
+            this.storage.set(environment.tokenKey, data?.authorisation?.token);
+          }
+          setTimeout(() => {
+            this.service.getMe().subscribe((data) => {
+              this.router.navigate(["/pages/dashboard"]);
+            });
+          }, 2000);
+        },
+        (error: any) => {
+          this.toastr.add({
+            severity: "warning",
+            summary: "Warning",
+            detail: error.error.message,
           });
-        }, 2000);
-      });
+        }
+      );
     });
     //var socialUser = user;
     //this.loggedIn = (user != null);

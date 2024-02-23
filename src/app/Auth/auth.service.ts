@@ -201,6 +201,13 @@ export class AuthService {
             headers: headers,
         });
     }
+    googlesignUp(data: any){
+        const headers = new HttpHeaders().set("Accept", "application/json");
+        return this.http.post<any>(environment.ApiUrl + "/googlesignUp", data,{
+            headers: headers,
+        });
+    }
+    
     isExist(data: any){
         const headers = new HttpHeaders().set("Accept", "application/json");
         return this.http.post<any>(environment.ApiUrl + "/EmailExistOrNot", data,{
