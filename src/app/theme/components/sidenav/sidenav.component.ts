@@ -153,7 +153,6 @@ export class SidenavComponent {
       url: "/pages/support",
       image: "fa-solid fa-headset",
     },
-
     // {
     //   title: 'Help & Support',
     //   url: '/pages/help',
