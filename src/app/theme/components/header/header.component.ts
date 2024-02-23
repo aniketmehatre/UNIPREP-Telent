@@ -652,14 +652,15 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.dashboardService.getContineTrial(data).subscribe((res) => {
       return res;
     });
-    setTimeout(() => {
-      this.checkNewUser();
-      window.location.reload();
-    }, 2000);
     this.service.contineStatus(false);
     this.dataService.sendValue(false);
     this.freeTrial = false;
     this.service._userContineTrial = false;
+    setTimeout(() => {
+      this.checkNewUser();
+      window.location.reload();
+    }, 2000);
+    
   }
   onClickSubscribedUser(): void {
     let data: any = {};
