@@ -281,4 +281,8 @@ export class ScholarshipListComponent implements OnInit {
   clearRestriction() {
     this.restrict = false;
   }
+
+  scholarGuidlines(): void {
+    this.router.navigate(["/pages/scholarship-guidlines"]);
+  }
 }

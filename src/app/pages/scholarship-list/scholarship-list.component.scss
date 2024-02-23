@@ -231,16 +231,6 @@
   background-size: cover;
 }
 
- 
-
-.filterDialog ::ng-deep .p-dialog-header {
-  padding: 15px !important;
-}
-
-.filterDialog ::ng-deep .filterInput {
-  height: 50px !important;
-}
-
 .filterDialog ::ng-deep .filterInput .p-dropdown {
   display: flex !important;
   align-items: center !important;
@@ -262,4 +252,39 @@
 
 .fa-link{
   color: black;
+}
+
+.companny-list {
+  background-color: white !important;
+  border: 1.5px solid orange;
+  border-radius: 10px;
+}
+
+.br-8 {
+  border-radius: 25px !important;
+}
+
+.pr-2 {
+  padding-right: 2px;
+}
+
+.social-media {
+  a {
+    color: black;
+  }
+}
+
+:host ::ng-deep .p-dialog-header {
+  padding: 0px 5px !important;
+}
+
+:host ::ng-deep .p-dialog-title {
+  padding: 15px !important;
+}
+
+.scholarship-guidlines {
+  background-color: #EBEDF2;
+  color: #001631 !important;
+  border-radius: 20px !important;
+  border: none;
 }
