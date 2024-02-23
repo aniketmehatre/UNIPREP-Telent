@@ -470,6 +470,10 @@ export class QuestionListComponent implements OnInit {
   }
 
   viewOneQuestion(question:any){
+    if(this.planExpired){
+      this.restrict=true;
+      return;
+    }
     this.oneQuestionContent = question
     this.isQuestionAnswerVisible = true
     this.getSubmoduleName(question.country_id)

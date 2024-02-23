@@ -341,10 +341,10 @@ export class ListSubModulesComponent implements OnInit {
   }
 
   onSubModuleClick(id: any) {
-    if(this.planExpired){
-      this.restrict=true;
-      return;
-    }
+    // if(this.planExpired){
+    //   this.restrict=true;
+    //   return;
+    // }
     this.subModuleList.forEach((element: any) => {
       if (element.id === id) {
         this.selectedSubModule = element.country;
