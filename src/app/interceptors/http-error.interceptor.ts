@@ -43,7 +43,7 @@ export class HttpErrorInterceptor implements HttpInterceptor {
           if(err?.status === 401){
             window.sessionStorage.clear();
             localStorage.clear();
-            this.toastr.add({severity: 'error', summary: 'Error', detail:  err?.statusText});
+            this.toastr.add({severity: 'error', summary: 'Error', detail:  msg});
               this.router.navigateByUrl('/login');
           }
           if(err?.status === 408){
