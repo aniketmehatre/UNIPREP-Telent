@@ -111,14 +111,14 @@
 									<button class="pt-3 pb-3 btn btn-primary w-100 m-0 text-white"
 										*ngIf="subscription.selected"
 										(click)="selectedSubscriptionPlan(subscription)">Selected</button>
-										<button class="pt-3 pb-3 btn btn-basic w-100 m-0 btn btn-primary" *ngIf="existingSubscription[0]?.plan==subscription.subscription_plan">
+										<button class="pt-3 pb-3 btn btn-basic w-100 m-0 btn btn-primary" *ngIf="existingSubscription[0]?.plan==subscription.subscription_plan && !isPlanExpired">
 											Current Plan
 										</button>
-									<button class="pt-3 pb-3 btn btn-basic w-100 m-0" *ngIf="!subscription.selected && existingSubscription[0]?.plan!=subscription.subscription_plan" [ngClass]="{'greyButton':subscription.available==false}"
-									[disabled]="subscription.available==false"
+									<button class="pt-3 pb-3 btn btn-basic w-100 m-0" *ngIf="!subscription.selected && (existingSubscription[0]?.plan!=subscription.subscription_plan || existingSubscription[0]?.plan==subscription.subscription_plan && isPlanExpired)" [ngClass]="{'greyButton':!subscription.available}"
+									[disabled]="!subscription.available"
 										(click)="selectedSubscriptionPlan(subscription)"> 
-										<span *ngIf="existingSubscription[0]?.plan!=subscription.subscription_plan && subscription.available==true">Upgrade Plan</span>
-										<span *ngIf="subscription.available==false">Unavailable</span>
+										<span *ngIf="existingSubscription[0]?.plan!=subscription.subscription_plan && subscription.available || existingSubscription[0]?.plan==subscription.subscription_plan && isPlanExpired">Upgrade Plan</span>
+										<span *ngIf="!subscription.available">Unavailable</span>
 									</button>
 								</div>
 							</li>

@@ -18,7 +18,7 @@ export class InvestorListComponent implements OnInit {
   countryList: any;
   headQuartersList: any
   page = 1;
-  pageSize = 100;
+  pageSize = 50;
   valueNearYouFilter: string = '';
   totalInvestorsCount: any;
   isFilterVisible: string = 'none';
