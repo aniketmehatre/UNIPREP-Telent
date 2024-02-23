@@ -35,6 +35,8 @@ export class ChatComponent implements OnInit {
   planmessage = "";
   canChat = true;
   subscriptioninfo: any;
+  planExpired:boolean=false;
+  restrict:boolean=false;
   constructor(
     private service: ChathistoryService,
     private authService: AuthService,
@@ -132,6 +134,18 @@ export class ChatComponent implements OnInit {
     this.getChatHistoryByUserId();
     this.getOptions();
     this.username = localStorage.getItem("Name") || "";
+    this.checkplanExpire();
+  }
+  checkplanExpire(): void {
+    this.authService.getNewUserTimeLeft().subscribe((res) => {
+      let data = res.time_left;
+      let subscription_exists_status = res.subscription_details;
+      if (data.plan === "expired" || data.plan === 'subscription_expired' ) {
+        this.planExpired = true;
+      } else {
+        this.planExpired = false;
+      }
+    })
   }
   getOptions() {
     this.service.getReportoption().subscribe((response) => {
@@ -255,5 +269,18 @@ export class ChatComponent implements OnInit {
   creditspopupVisibility = false;
   openAttachment(url: any) {
     window.open(url);
+  }
+  canChangeChat(){
+    if(this.planExpired){
+      this.restrict=true;
+      return;
+    }
+    this.textareavisbility = !this.textareavisbility
+  }
+  clearRestriction() {
+    this.restrict = false;
+  }
+  upgradePlan(): void {
+    this.route.navigate(["/pages/subscriptions"]);
   }
 }

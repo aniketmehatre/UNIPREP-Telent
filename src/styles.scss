@@ -802,6 +802,7 @@ uni-subscription {
 	.p-breadcrumb {
 		ul {
 			justify-content: center;
+			flex-wrap: wrap;
 			li {
 				.p-menuitem-link .p-menuitem-text {
 					color: var(--uniprep-primary);
@@ -1699,7 +1700,7 @@ uni-subscription {
 @media (max-width: 1499.98px) {
 	html,
 	body {
-		font-size: 12px;
+		font-size: 14px;
 	}
 	// #sidenav {
 	// 	width: 210px;
@@ -1709,7 +1710,7 @@ uni-subscription {
 @media (max-width: 1399.98px) {
 	html,
 	body {
-		font-size: 12px;
+		font-size: 14px;
 	}
 	// #sidenav {
 	// 	width: 210px;
@@ -1725,7 +1726,7 @@ uni-subscription {
 @media (max-width: 1299.98px) {
 	html,
 	body {
-		font-size: 12px;
+		font-size: 14px;
 	}
 	// #sidenav {
 	// 	width: 200px;
@@ -1741,7 +1742,7 @@ uni-subscription {
 @media (max-width: 1199.98px) {
 	html,
 	body {
-		font-size: 12px;
+		font-size: 14px;
 	}
 	// #sidenav {
 	// 	width: 175px;
@@ -1770,6 +1771,10 @@ uni-subscription {
 	// .menuclosed {
 	// 	display: none;
 	// }
+	html,
+	body {
+		font-size: 14px;
+	}
 	.reportwidthfix {
 		width: 60vw !important;
 	}
@@ -1791,7 +1796,8 @@ uni-subscription {
 	}
 	.questionmodal {
 		.p-dialog {
-			width: 95%;
+			width: 100%;
+			max-height:100%
 		}
 	}
 }
@@ -1808,6 +1814,10 @@ uni-subscription {
 	// .menuclosed {
 	// 	display: none;
 	// }
+	html,
+	body {
+		font-size: 14px;
+	}
 	.reportwidthfix {
 		width: 90vw !important;
 	}
@@ -1820,7 +1830,8 @@ uni-subscription {
 	}
 	.questionmodal {
 		.p-dialog {
-			width: 95%;
+			width: 100%;
+			max-height:100%
 		}
 	}
 	#sidenav {
@@ -1846,11 +1857,16 @@ uni-subscription {
 		}
 	}
 
-	.p-paginator{
+	html,
+	body {
+		font-size: 12px;
+	}
+
+	.p-paginator {
 		padding: 0px !important;
 	}
 
-	.subscriptiontable .p-datatable .p-datatable-thead>tr>th {
+	.subscriptiontable .p-datatable .p-datatable-thead > tr > th {
 		font-size: 14px !important;
 		white-space: nowrap;
 		font-weight: 500;
@@ -1897,8 +1913,8 @@ uni-subscription {
 
 	.questionmodal {
 		.p-dialog-header-icons {
-			top: -10px;
-			right: -10px;
+			top: 0.5rem;
+			right: 0.5rem;
 		}
 	}
 
@@ -1961,21 +1977,16 @@ uni-subscription {
 		min-width: 125px !important;
 	}
 
-	.questionmodal {
-		.p-dialog {
-			width: 95%;
-		}
-	}
-
 	.quotesymbole {
 		margin-top: 5rem;
 	}
-
-	.p-breadcrumb ul {
-		display: -webkit-box !important;
-	}
 }
 @media screen and (max-width: 480px) {
+
+	html,
+body {
+	font-size: 12px;
+}
 }
 .openlogo {
 	display: block;
@@ -2087,25 +2098,26 @@ p-accordion.plain .p-accordion-tab-active .p-accordion-header-link:after {
 	padding-right: 4px;
 }
 .offer {
-	color: #FF9113;
+	color: #ff9113;
 }
 
-.exhausted-plan-icon{
+.exhausted-plan-icon {
 	padding: 10px;
 	border-radius: 25px;
-	background-color: #DF7905;
+	background-color: #df7905;
 	color: white;
 	margin-left: 5px;
 }
-.p-dialog .p-dialog-header .p-dialog-header-icon{
+.p-dialog .p-dialog-header .p-dialog-header-icon {
 	background-color: #3f4c83 !important;
 	color: white !important;
 }
 
-button.p-dialog-header-icon.p-dialog-header-maximize.p-element.p-link.p-ripple{
-	display: none;
-}
-
-.theme-dark-blue{
+.theme-dark-blue {
 	background-color: #001631;
 }
+p-dialog.restrictionDialog .p-dialog .p-dialog-header .p-dialog-header-icon{
+	position: fixed;
+	top: -8px;
+	right: -8px;
+} 

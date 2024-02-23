@@ -22,7 +22,8 @@ import { matchValidator } from "../../../@Supports/matchvalidator";
 import { ThemeService } from "../../../theme.service";
 import { DashboardService } from "src/app/pages/dashboard/dashboard.service";
 import { count } from "rxjs";
-import { SocialAuthService } from "@abacritt/angularx-social-login";
+import { CountryISO, SearchCountryField } from "ngx-intl-tel-input";
+// import { SocialAuthService } from "@abacritt/angularx-social-login";
 
 @Component({
   selector: "uni-header",
@@ -84,6 +85,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
   freeTrial!: boolean;
   visibleExhasted: boolean = false;
   reportType: number = 1;
+  SearchCountryField = SearchCountryField;
+  CountryISO = CountryISO;
+  preferredCountries: CountryISO[] = [CountryISO.India];
   constructor(
     private router: Router,
     private locationService: LocationService,
@@ -93,12 +97,18 @@ export class HeaderComponent implements OnInit, OnDestroy {
     private themeService: ThemeService,
     route: ActivatedRoute,
     private dataService: DataService,
-    private dashboardService: DashboardService,
-    private authService: SocialAuthService
+    private dashboardService: DashboardService // private authService: SocialAuthService
   ) {
     this.subs.sink = this.dataService.countryIdSource.subscribe((data) => {
       this.selectedCountryId = Number(data);
       this.getModuleList();
+    });
+    this.dataService.castValue.subscribe((data) => {
+      if (data === true) {
+        this.checkNewUSerLogin();
+      } else {
+        this.freeTrial = false;
+      }
     });
     route.params.subscribe((val) => {
       this.reportType = 1;
@@ -167,11 +177,20 @@ export class HeaderComponent implements OnInit, OnDestroy {
       }
     }
   }
-
+  formvisbility = false;
+  mobileForm: any = FormGroup;
   ngOnInit() {
+    this.mobileForm = this.formBuilder.group({
+      phone: ["", Validators.required],
+    });
+    if (
+      localStorage.getItem("phone")=="" ||
+      localStorage.getItem("phone") == null || localStorage.getItem("phone") == "null"
+    ) {
+      this.formvisbility = true;
+    }
     this.getModuleList();
     this.getCountryList();
-    this.checkNewUSerLogin();
     this.onChangeModuleList(1);
     this.onChangeSubModuleList(1);
     if (this.service._checkExistsSubscription === 0) {
@@ -347,7 +366,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   logout() {
-    this.authService.signOut();
+    // this.authService.signOut();
     this.subs.sink = this.service.logout().subscribe((data) => {
       this.toast.add({
         severity: "info",
@@ -443,10 +462,20 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   onClickSubscribedUser(): void {
-    this.freeTrial = false;
-    this.continueTrial();
-    this.visibleExhasted = false;
-    this.router.navigate(["/pages/subscriptions"]);
+    let data:any={};
+    if(this.mobileForm.valid){
+      data.phone=this.mobileForm.value.phone.number
+    }
+    this.dashboardService.getContineTrial(data).subscribe((res) => {
+      setTimeout(() => {
+        this.checkNewUser();
+      }, 2000);
+      this.freeTrial = false;
+      this.visibleExhasted = false;
+      this.dataService.sendValue(false);
+      this.router.navigate(["/pages/subscriptions"]);
+    });
+  
   }
 
   subScribedUserCount(): void {
@@ -624,7 +653,11 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   continueTrial(): void {
-    this.dashboardService.getContineTrial().subscribe((res) => {
+    let data:any={};
+    if(this.mobileForm.valid){
+      data.phone=this.mobileForm.value.phone.number
+    }
+    this.dashboardService.getContineTrial(data).subscribe((res) => {
       return res;
     });
     setTimeout(() => {
@@ -632,14 +665,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
       window.location.reload();
     }, 2000);
     this.service.contineStatus(false);
+    this.dataService.sendValue(false);
     this.freeTrial = false;
     this.service._userContineTrial = false;
-  }
-
-  onClickSubscribeData(): void {
-    this.freeTrial = false;
-    this.continueTrial();
-    this.router.navigate(["/pages/subscriptions"]);
   }
 
   checkNewUSerLogin(): void {

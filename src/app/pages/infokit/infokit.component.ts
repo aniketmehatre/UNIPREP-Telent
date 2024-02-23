@@ -18,6 +18,8 @@ import { Router } from "@angular/router";
 import { AuthService } from "src/app/Auth/auth.service";
 import { PaginatorModule } from "primeng/paginator";
 import { TooltipModule } from "primeng/tooltip";
+import { DialogModule } from "primeng/dialog";
+
 @Component({
   selector: "uni-infokit",
   standalone: true,
@@ -31,13 +33,16 @@ import { TooltipModule } from "primeng/tooltip";
     ReactiveFormsModule,
     MultiSelectModule,
     PaginatorModule,
-    TooltipModule
+    TooltipModule,
+    DialogModule,
+
   ],
   templateUrl: "./infokit.component.html",
   styleUrls: ["./infokit.component.scss"],
 })
 export class InfoKitComponent implements OnInit {
   planExpired!: boolean;
+  restrict: boolean = false;
   constructor(
     private fb: FormBuilder,
     private service: InformationService,
@@ -53,7 +58,7 @@ export class InfoKitComponent implements OnInit {
         subscription_exists_status.subscription_plan === "free_trail" ||
         subscription_exists_status.subscription_plan === "Student" ||
         subscription_exists_status.subscription_plan === "Career" ||
-        data.plan === 'subscription_expired' 
+        data.plan === 'subscription_expired'
       ) {
         this.planExpired = true;
       } else {
@@ -65,10 +70,10 @@ export class InfoKitComponent implements OnInit {
   folderdata: any = {};
   routedata: any = [];
   parentfolderlists: any = [];
-  parentfilelists: any = [];totalcount=0;
+  parentfilelists: any = []; totalcount = 0;
   ngOnInit() {
     this.folderdata = {
-      parent_id:0,
+      parent_id: 0,
       page: 1,
       perpage: 10,
     };
@@ -78,7 +83,7 @@ export class InfoKitComponent implements OnInit {
     this.service
       .GetFolderList(this.folderdata)
       .subscribe((res) => {
-        this.totalcount=res?.count;
+        this.totalcount = res?.count;
         let responseData = res?.data;
         this.parentfolderlists = responseData.filter(
           (fdata: any) => fdata.isFolder == 1
@@ -94,6 +99,10 @@ export class InfoKitComponent implements OnInit {
     this.getFolderData();
   }
   getchildinfo(data: any) {
+    if (this.planExpired) {
+      this.restrict = true;
+      return;
+    }
     if (data.isFolder == "2") {
       return;
     }
@@ -131,10 +140,17 @@ export class InfoKitComponent implements OnInit {
     }
   }
   openFile(url: any) {
+    if (this.planExpired) {
+      this.restrict = true;
+      return;
+    }
     window.open(url, "_blank");
   }
 
   upgradePlan(): void {
     this.route.navigate(["/pages/subscriptions"]);
+  }
+  clearRestriction() {
+    this.restrict = false;
   }
 }

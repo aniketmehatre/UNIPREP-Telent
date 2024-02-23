@@ -36,7 +36,7 @@ export class SidenavComponent {
     {
       title: "Dashboard",
       url: "/pages/dashboard",
-      image: "fa-solid fa-house",
+      image: "fa-solid fa-objects-column",
     },
      {
        title: "About UNIPREP",
@@ -54,15 +54,15 @@ export class SidenavComponent {
       image: "",
     },
     {
-      title: "Pre Application",
-      url: "/pages/modules/pre-application",
+      title: "Pre Admission",
+      url: "/pages/modules/pre-admission",
       image: "fa-solid fa-file-import",
     },
-    {
-      title: "Post Application",
-      url: "/pages/modules/post-application",
-      image: "fa-solid fa-file-export",
-    },
+    // {
+    //   title: "Post Application",
+    //   url: "/pages/modules/post-application",
+    //   image: "fa-solid fa-file-export",
+    // },
     {
       title: "Post Admission",
       url: "/pages/modules/post-admission",
@@ -87,6 +87,11 @@ export class SidenavComponent {
       title: "Life in",
       url: "/pages/modules/life-at-country",
       image: "fa-solid fa-earth-americas",
+    },
+    {
+      title: "Travel and Tourism",
+      url: "/pages/modules/travel-and-tourism",
+      image: "fa-solid fa-plane",
     },
     {
       title: 'Career',

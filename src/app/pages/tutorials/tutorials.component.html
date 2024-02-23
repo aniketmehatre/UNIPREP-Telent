@@ -1,39 +1,38 @@
-
-        <div class="card readingcard">
-            <div class="card-body pt-0">
-              <div class="row justify-content-center">
-                <div class="col-md-2 text-start">
-                </div>
-                <div class="col-md-8 text-center">
-                    <h5 class="select-title mb-1"  tooltipPosition="top"  pTooltip="This section provides a comprehensive walkthrough on the UNIPREP platform.">TUTORIALS<i class="questiontooltip fa-solid fa-circle-question"></i></h5>
-                </div>
-                <div class="col-md-2">
-                </div>
-            </div>
-            <div class="container-fluid">
-              <div class="row">
-                <div class="col-md-3 col-12" *ngFor="let tutorial of tutoriallist">
-                  <div class="text-decoration-none text-white"  (click)="openVideoPopup(tutorial.link)">
-                  <div class="card my-2 position-relative tutcard"> 
-                    <div class="tutgradient"></div>
-                    <img src="{{tutorial.coverimage}}">
-                    <div class="tutorialcontent">
-                      <h5 class="mb-0 text-white">{{tutorial.title}}</h5>
-                      <p class="mb-0 text-white small" title="{{tutorial.description}}">{{tutorial.description.length > 35 ? tutorial.description.slice(0, 35) + '...' : tutorial.description}}</p>
-                    </div>
-                  </div>
-                </div>
-                </div>
-              </div>
-              </div>
-        </div>
-    </div>
+<div class="card readingcard">
+	<div class="card-body pt-0">
+		<div class="row justify-content-center">
+			<div class="col-md-2 text-start"></div>
+			<div class="col-md-8 text-center">
+				<h5 class="select-title mb-1" tooltipPosition="top" pTooltip="This section provides a comprehensive walkthrough on the UNIPREP platform.">TUTORIALS<i class="questiontooltip fa-solid fa-circle-question"></i></h5>
+			</div>
+			<div class="col-md-2"></div>
+		</div>
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-md-3 col-12" *ngFor="let tutorial of tutoriallist">
+					<div class="text-decoration-none text-white" (click)="openVideoPopup(tutorial.link)">
+						<div class="card my-2 position-relative tutcard">
+							<div class="tutgradient"></div>
+							<img src="{{ tutorial.coverimage }}" />
+							<div class="tutorialcontent">
+								<h5 class="mb-0 text-white">{{ tutorial.title }}</h5>
+								<p class="mb-0 text-white small" title="{{ tutorial.description }}">{{ tutorial.description.length > 35 ? tutorial.description.slice(0, 35) + "..." : tutorial.description }}</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
 <!-- Modal Markup -->
 <div *ngIf="showVideoPopup" class="modal-overlay">
-  <div class="modal-container">
-    <button class="close-button"tooltipPosition="top"  pTooltip="Close" (click)="closeVideoPopup()"><b><i class="fa-solid fa-circle-xmark fa-1x"></i></b></button>
-    <button class="newwindow-button" tooltipPosition="top"  pTooltip="Open New Window" (click)="openNextVideo()"><b>+</b></button>
-    <!-- Use the safe pipe here for the src attribute -->
-    <iframe [src]="selectedVideoLink" width="560" height="315" frameborder="0" allowfullscreen></iframe> 
-  </div>
+	<div class="modal-container">
+		<button class="close-button" tooltipPosition="top" pTooltip="Close" (click)="closeVideoPopup()">
+			<b><i class="fa-solid fa-circle-xmark fa-1x"></i></b>
+		</button>
+		<button class="newwindow-button" tooltipPosition="top" pTooltip="Open New Window" (click)="openNextVideo()"><b>+</b></button>
+		<!-- Use the safe pipe here for the src attribute -->
+		<iframe [src]="selectedVideoLink" width="560" height="315" frameborder="0" allowfullscreen></iframe>
+	</div>
 </div>

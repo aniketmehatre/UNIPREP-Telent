@@ -10,6 +10,7 @@ import {MessageService} from "primeng/api";
 import {NgxUiLoaderService} from "ngx-ui-loader";
 import { Router } from '@angular/router';
 import { log } from 'console';
+import {DataService} from "../data.service";
 
 @Injectable()
 export class HttpErrorInterceptor implements HttpInterceptor {
@@ -17,7 +18,7 @@ export class HttpErrorInterceptor implements HttpInterceptor {
   constructor(
       private toastr: MessageService,
       private ngxService: NgxUiLoaderService,
-      private router: Router
+      private router: Router, private dataService: DataService
   ) {}
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
@@ -42,15 +43,16 @@ export class HttpErrorInterceptor implements HttpInterceptor {
           if(err?.status === 401){
             window.sessionStorage.clear();
             localStorage.clear();
-            this.toastr.add({severity: 'error', summary: 'Error', detail: "Incorrect username or password"});
-            this.router.navigateByUrl('/login');
+            this.toastr.add({severity: 'error', summary: 'Error', detail:  err?.statusText});
+              this.router.navigateByUrl('/login');
           }
           if(err?.status === 408){
-              window.sessionStorage.clear();
-              localStorage.clear();
-              this.router.navigateByUrl('/login');
+              // window.sessionStorage.clear();
+              // localStorage.clear();
+              this.dataService.loggedInAnotherDevice('block');
+              //this.router.navigateByUrl('/login');
               //const msg = 'You have logged into the portal from another device , Please log back in from this device to use the portal again.'
-              this.toastr.add({severity: 'error', summary: 'Error', detail: "You have logged into the portal from another device , Please log back in from this device to use the portal again."});
+              //this.toastr.add({severity: 'error', summary: 'Error', detail: "You have logged into the portal from another device , Please log back in from this device to use the portal again."});
             //  console.log("bla");
           }
         return throwError(() => new Error(msg));

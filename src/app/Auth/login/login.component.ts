@@ -10,11 +10,12 @@ import { MessageService } from "primeng/api";
 import { SubSink } from "subsink";
 import { DataService } from "src/app/data.service";
 import {DashboardService} from "../../pages/dashboard/dashboard.service";
-import {FacebookLoginProvider, GoogleLoginProvider, SocialAuthService} from "@abacritt/angularx-social-login";
+import {GoogleLoginProvider, SocialAuthService} from "@abacritt/angularx-social-login";
 import {environment} from "@env/environment";
 import {LocalStorageService} from "ngx-localstorage";
 import {Observable} from "rxjs/internal/Observable";
-import {FacebookService} from "ngx-facebook";
+import {FacebookLoginProvider} from "angularx-social-login";
+// import {FacebookService} from "ngx-facebook";
 import {NgxLinkedinService} from "ngx-linkedin";
 @Component({
   selector: "app-login",
@@ -31,8 +32,10 @@ export class LoginComponent implements OnInit, OnDestroy {
   constructor(
     private service: AuthService, private formBuilder: FormBuilder, private route: Router,
     private toast: MessageService, private dataService: DataService, private el: ElementRef,
-    private dashboardService: DashboardService, private authService: SocialAuthService,
-    private storage: LocalStorageService, private fb: FacebookService, private ngxLinkedinService: NgxLinkedinService
+    private dashboardService: DashboardService, 
+    private authService: SocialAuthService,
+    private storage: LocalStorageService, 
+    private ngxLinkedinService: NgxLinkedinService
   ) { }
 
   linkedInCredentials = {
@@ -60,6 +63,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    this.dataService.loggedInAnotherDevice('none');
     this.authService.authState.subscribe((user) => {
       let data = {
         email: user.email
@@ -136,17 +140,13 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
 
   loginWithFacebook(){
-    this.fb.login().then(response => {
-      console.log('Facebook login response:', response);
-    }).catch(error => {
-      console.error('Facebook login error:', error);
-    });
+    this.authService.signIn(FacebookLoginProvider.PROVIDER_ID);
   }
 
   loginWithLinkedIn(){
-      // this.ngxLinkedinService.signIn().subscribe(user => {
-      //   console.info('signIn', user);
-      // });
+      this.ngxLinkedinService.signIn().subscribe(user => {
+        console.info('signIn', user);
+      });
     window.location.href = `https://www.linkedin.com/uas/oauth2/authorization?response_type=code&client_id=${
         this.linkedInCredentials.clientId
     }&redirect_uri=${this.linkedInCredentials.redirectUrl}&scope={this.linkedInCredentials.scope}`;

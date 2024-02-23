@@ -22,6 +22,8 @@ export class CompanyListComponent implements OnInit {
   isFilterVisible: string = 'none';
   filterForm:FormGroup;
   planExpired!: boolean;
+  restrict:boolean=false;
+  currentPlan:string=""
 
   constructor(private _location: Location, private fb: FormBuilder, private companyListService: CompanyListService, private authService: AuthService, private router:Router) {
     this.filterForm = this.fb.group({
@@ -35,7 +37,7 @@ export class CompanyListComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.loadInvestorData();
+    
     this.loadMultiSelectData();
     this.checkplanExpire();
   }
@@ -45,6 +47,11 @@ export class CompanyListComponent implements OnInit {
   }
 
   performSearch(events:any){
+    if(this.planExpired){
+      this.restrict=true;
+      this.valueNearYouFilter = "";
+      return;
+    }
     if (this.valueNearYouFilter == "") {
       this.loadInvestorData();
       return;
@@ -58,7 +65,16 @@ export class CompanyListComponent implements OnInit {
     this.companyData = [...companySearchData];
   }
 
-
+  searchClick(){
+    if(this.planExpired){
+      this.restrict=true;
+      this.valueNearYouFilter = "";
+      let searchInput = document.getElementById("searchInput") as HTMLInputElement;;
+      if (searchInput !== null) {
+        searchInput.disabled = true;
+      }
+    }
+  }
   loadMultiSelectData(){
     this.companyListService.getMultiSelectData().subscribe((response) => {
       this.industryInterested = response.company_industry;
@@ -71,7 +87,16 @@ export class CompanyListComponent implements OnInit {
     this.loadInvestorData();
   }
 
-
+  clearFilter(){
+    this.filterForm.reset();
+  }
+  clearRestriction() {
+    this.restrict = false;
+    let searchInput = document.getElementById("searchInput")as HTMLInputElement;;
+      if (searchInput !== null) {
+        searchInput.disabled = false;
+      }
+  }
   loadInvestorData(){
     let data = {
       company_name: this.filterForm.value.company_name ? this.filterForm.value.company_name : '',
@@ -82,6 +107,7 @@ export class CompanyListComponent implements OnInit {
       industry_interested: this.filterForm.value.industry_interested ? this.filterForm.value.industry_interested : '',
       page: this.page,
       perpage: this.pageSize,
+      planname:this.currentPlan?this.currentPlan:""
     }
     this.companyListService.getInvestorList(data).subscribe((response) => {
       this.companyData = response.data;
@@ -92,6 +118,10 @@ export class CompanyListComponent implements OnInit {
   }
 
   pageChange(event: any){
+    if(this.planExpired){
+      this.restrict=true;
+      return;
+    }
     this.page = event.page + 1;
     this.pageSize = event.rows;
     this.loadInvestorData();
@@ -103,6 +133,10 @@ export class CompanyListComponent implements OnInit {
   }
 
   filterBy(){
+    if(this.planExpired){
+      this.restrict=true;
+      return;
+    }
     this.isFilterVisible = 'block';
   }
 
@@ -116,18 +150,20 @@ export class CompanyListComponent implements OnInit {
     this.authService.getNewUserTimeLeft().subscribe((res) => {
       let data = res.time_left;
       let subscription_exists_status = res.subscription_details;
+      this.currentPlan=subscription_exists_status.subscription_plan;
       if (data.plan === "expired" || data.plan === 'subscription_expired' || subscription_exists_status.subscription_plan === 'free_trail' || subscription_exists_status.subscription_plan === 'Student') {
         this.planExpired = true;
       } else {
         this.planExpired = false;
       }
+      this.loadInvestorData();
     })
   }
 
   upgradePlan(): void {
     this.router.navigate(["/pages/subscriptions"]);
   }
-
+ 
   loadHeadQuartersData(event: any){
     this.companyListService.getHeadQuartersList(event.value).subscribe((response) => {
       this.headQuartersList = response;

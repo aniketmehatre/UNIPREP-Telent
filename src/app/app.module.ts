@@ -38,23 +38,26 @@ import {PipesModule} from "@pipes/pipes.module";
 import { LandingComponent } from './pages/landing/landing.component';
 import {
     SocialLoginModule,
-    SocialAuthServiceConfig, GoogleLoginProvider, FacebookLoginProvider,
+    SocialAuthServiceConfig, GoogleLoginProvider,
 } from '@abacritt/angularx-social-login';
 
 import { MaintenanceComponent } from './Auth/maintenance/maintenance.component';
-import {FacebookInitService} from "./Auth/facebook-init.service";
-import {FacebookModule} from "ngx-facebook";
-import {NgxLinkedinModule} from "ngx-linkedin";
+// import {FacebookInitService} from "./Auth/facebook-init.service";
+// import {FacebookModule} from "ngx-facebook";
+// import {NgxLinkedinModule} from "ngx-linkedin";
 import { PrivacyComponent } from './pages/privacy/privacy.component';
+import {FacebookLoginProvider} from "angularx-social-login";
+import {NgxLinkedinModule} from "ngx-linkedin";
+ 
 
 const reducers = {
   pageSelector: pagesReducer
 }
 
 
-export function initFacebook(facebookInitService: FacebookInitService) {
-    return () => facebookInitService.init();
-}
+// export function initFacebook(facebookInitService: FacebookInitService) {
+//     return () => facebookInitService.init();
+// }
 
 const ngxLocalstorageConfiguration: NgxLocalstorageConfiguration = {
   delimiter: '@',
@@ -67,7 +70,7 @@ export function tokenGetter() {
 
 @NgModule({
   declarations: [
-    AppComponent,LandingComponent, ModalComponent, BlockCopyPasteDirective, ScrollToBottomDirective, PrivacyComponent
+    AppComponent,LandingComponent, ModalComponent, BlockCopyPasteDirective, ScrollToBottomDirective, PrivacyComponent,
   ],
     schemas: [ CUSTOM_ELEMENTS_SCHEMA],
     imports: [
@@ -102,20 +105,20 @@ export function tokenGetter() {
         TooltipModule,
         PipesModule,
         ConfirmDialogModule,
-        SocialLoginModule,
-        FacebookModule.forRoot(),
+       SocialLoginModule,
+        // FacebookModule.forRoot(),
         NgxLinkedinModule.forRoot({
             clientId: environment.linkedinId
         })
     ],
   providers: [
-      FacebookInitService,
-      {
-          provide: APP_INITIALIZER,
-          useFactory: initFacebook,
-          deps: [FacebookInitService],
-          multi: true,
-      },
+      // FacebookInitService,
+      // {
+      //     provide: APP_INITIALIZER,
+      //     useFactory: initFacebook,
+      //     deps: [FacebookInitService],
+      //     multi: true,
+      // },
     DatePipe,
     AuthService,
     {
@@ -139,7 +142,8 @@ export function tokenGetter() {
                           {
                               oneTapEnabled: false,
                           }),
-                  },
+                  }
+                  ,
                   {
                       id: FacebookLoginProvider.PROVIDER_ID,
                       provider: new FacebookLoginProvider('892925195633254'),

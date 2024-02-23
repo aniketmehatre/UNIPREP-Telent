@@ -8,7 +8,8 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { PaginatorModule } from 'primeng/paginator';
 import { DropdownModule } from 'primeng/dropdown';
 import { TooltipModule } from 'primeng/tooltip';
-
+import { DialogModule } from 'primeng/dialog';
+ 
 
 @NgModule({
     declarations: [
@@ -21,7 +22,8 @@ import { TooltipModule } from 'primeng/tooltip';
         ReactiveFormsModule,
         PaginatorModule,
         DropdownModule,
-        TooltipModule
+        TooltipModule,
+        DialogModule
     ]
 })
 export class EventsModule {

@@ -47,11 +47,15 @@ export class ListSubModulesComponent implements OnInit {
   upgradePlanMsg!: string;
   selectedModule!: string;
   planExpired!: boolean;
-
+  countryName!: string;
 
   constructor(private moduleListService: ModuleServiceService, private router: Router, private dataService: DataService, private authService: AuthService,
     private locationService: LocationService, private route: ActivatedRoute,
     private confirmationService: ConfirmationService) {
+    this.dataService.countryNameSource.subscribe((data) => {
+      this.countryName = data;
+      this.ngOnInit();
+    });
     this.responsiveOptions = [
       {
         breakpoint: '1199px',
@@ -73,28 +77,27 @@ export class ListSubModulesComponent implements OnInit {
 
   ngOnInit(): void {
     this.currentCountryId = Number(localStorage.getItem('countryId'));
-    let countryName: any
     this.currentModuleSlug = this.router.url.split('/').pop();
     this.dataService.countryNameSource.subscribe((data) => {
-      countryName = data;
+      this.countryName = data;
     });
     switch (this.currentModuleSlug) {
-      case 'pre-application':
+      case 'pre-admission':
         this.currentModuleId = 1;
-        this.currentModuleName = 'Pre-Application';
+        this.currentModuleName = 'Pre-Admission';
         this.currentApiSlug = 'GetQuestionsCount';
-        this.infoMessage = 'Upgrade to access the Pre-application section',
-        this.unlockMessage = 'Unlock the power of success with our exclusive Pre-application!',
+        this.infoMessage = 'Upgrade to access the Pre-admission section',
+        this.unlockMessage = 'Unlock the power of success with our exclusive Pre-admission!',
         this.upgradePlanMsg = 'Upgrade your plan now to gain instant access.';
         this.aboutModule = 'Explore a vast database of Q&A about:',
         this.moduleDetails = 'Scholarships, document checklist, Education loan, letter of Recommendation and many more!'
         break;
-      case 'post-application':
-        this.currentModuleId = 2;
-        this.currentModuleName = 'Post-Application';
+      case 'travel-and-tourism':
+        this.currentModuleId = 7;
+        this.currentModuleName = 'Travel-and-Tourism';
         this.currentApiSlug = 'GetQuestionsCount';
-        this.infoMessage = 'Upgrade to access the post-application',
-        this.unlockMessage = 'Unlock the power of success with our exclusive post-application!',
+        this.infoMessage = 'Upgrade to access the travel-and-tourism',
+        this.unlockMessage = 'Unlock the power of success with our exclusive travel-and-tourism!',
         this.upgradePlanMsg = 'Upgrade your plan now to gain instant access.';
         this.aboutModule = 'Explore a vast database of Q&A about:',
         this.moduleDetails = 'Visa, departure, healthcare, tuition fees and many more!'
@@ -127,7 +130,7 @@ export class ListSubModulesComponent implements OnInit {
         break;
       default:
         this.currentModuleId = 6;
-        this.currentModuleName = 'Life At ' + countryName;
+        this.currentModuleName = 'Life At ' + this.countryName;
         this.currentApiSlug = 'GetQuestionsCount';
         this.infoMessage = 'Upgrade to access information about life in your chosen destination',
         this.unlockMessage = 'Unlock the power of success with our exclusive destination',
@@ -147,7 +150,7 @@ export class ListSubModulesComponent implements OnInit {
     if (this.route.snapshot.paramMap.get('id') == '2') {
       this.startQuiz();
     }
-    this.checkplanExpire();
+    // this.checkplanExpire();
   }
 
   loadModuleAndSubModule() {
@@ -370,17 +373,17 @@ export class ListSubModulesComponent implements OnInit {
     this.isReviewVisible = true;
   }
 
-  checkplanExpire(): void {
-    this.authService.getNewUserTimeLeft().subscribe((res) => {
-      let data = res.time_left;
-      let subscription_exists_status = res.subscription_details;
-      if (data.plan === "expired" || data.plan === 'subscription_expired' || (data.plan === "expired" && subscription_exists_status.subscription_plan === 'free_trail')) {
-        this.planExpired = true;
-      } else {
-        this.planExpired = false;
-      }
-    })
-  }
+  // checkplanExpire(): void {
+  //   this.authService.getNewUserTimeLeft().subscribe((res) => {
+  //     let data = res.time_left;
+  //     let subscription_exists_status = res.subscription_details;
+  //     if (data.plan === "expired" || data.plan === 'subscription_expired' || (data.plan === "expired" && subscription_exists_status.subscription_plan === 'free_trail')) {
+  //       this.planExpired = true;
+  //     } else {
+  //       this.planExpired = false;
+  //     }
+  //   })
+  // }
 
   retryQuiz() {
     this.isReviewVisible = false;
@@ -393,7 +396,7 @@ export class ListSubModulesComponent implements OnInit {
     this.positionNumber = 1;
     this.isInstructionVisible = true;
   }
-  upgradePlan(): void {
-    this.router.navigate(["/pages/subscriptions"]);
-  }
+  // upgradePlan(): void {
+  //   this.router.navigate(["/pages/subscriptions"]);
+  // }
 }
