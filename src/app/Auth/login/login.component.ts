@@ -77,7 +77,7 @@ export class LoginComponent implements OnInit, OnDestroy {
             }
             this.storage.set(environment.tokenKey, data.token);
             this.service.getMe().subscribe((data) => {
-              this.loadCountryList(data);
+                  this.loadCountryList(data);
                   this.toast.add({ severity: 'success', summary: 'Success', detail: 'Login' });
                   this.route.navigate(['/pages/dashboard']);
 
@@ -113,6 +113,7 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   countryLists: any;
   loadCountryList(data: any){
+    console.log(data);
     this.dashboardService.countryList().subscribe(countryList => {
       this.countryLists = countryList;
       this.countryLists.forEach((element: any) => {
