@@ -23,6 +23,7 @@ import { ThemeService } from "../../../theme.service";
 import { DashboardService } from "src/app/pages/dashboard/dashboard.service";
 import { Observable, count } from "rxjs";
 import { CountryISO, SearchCountryField } from "ngx-intl-tel-input";
+import {SocialAuthService} from "@abacritt/angularx-social-login";
 // import { SocialAuthService } from "@abacritt/angularx-social-login";
 
 @Component({
@@ -95,7 +96,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     private service: AuthService,
     private toast: MessageService,
     private themeService: ThemeService,
-    route: ActivatedRoute,
+    route: ActivatedRoute, private authService: SocialAuthService,
     private dataService: DataService,
     private dashboardService: DashboardService // private authService: SocialAuthService
   ) {
@@ -374,7 +375,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   logout() {
-    // this.authService.signOut();
+    this.authService.signOut();
     this.subs.sink = this.service.logout().subscribe((data) => {
       this.toast.add({
         severity: "info",
@@ -660,6 +661,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.dataService.sendValue(false);
     this.freeTrial = false;
     this.service._userContineTrial = false;
+    setTimeout(() => {
+      this.checkNewUser();
+      window.location.reload();
+    }, 2000);
   }
   onClickSubscribedUser(): void {
     let data: any = {};
