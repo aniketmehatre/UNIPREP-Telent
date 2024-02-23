@@ -21,7 +21,7 @@ import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { matchValidator } from "../../../@Supports/matchvalidator";
 import { ThemeService } from "../../../theme.service";
 import { DashboardService } from "src/app/pages/dashboard/dashboard.service";
-import { count } from "rxjs";
+import { Observable, count } from "rxjs";
 import { CountryISO, SearchCountryField } from "ngx-intl-tel-input";
 // import { SocialAuthService } from "@abacritt/angularx-social-login";
 
@@ -60,11 +60,11 @@ export class HeaderComponent implements OnInit, OnDestroy {
   visible: boolean = false;
   isShowFreeTrialStart: boolean = false;
   isChangePasswordWindowVisible: boolean = false;
-  day: any = 0;
-  hrs: any = 0;
-  min: any = 0;
-  sec: any = 0;
-  month: any = 0;
+  day$: Observable<any> | any;
+  hrs$: Observable<any> | any;
+  min$: Observable<any> | any;
+  sec$: Observable<any> | any;
+  month$: Observable<any> | any;
   isVisibleModulesMenu: boolean = false;
   isChatWindowVisible: boolean = false;
   isQuestionVisible: boolean = true;
@@ -180,12 +180,20 @@ export class HeaderComponent implements OnInit, OnDestroy {
   formvisbility = false;
   mobileForm: any = FormGroup;
   ngOnInit() {
+    this.dashboardService.data$.subscribe((data) => {
+      this.min$ = data?.minutes;
+      this.sec$ = data?.seconds;
+      this.hrs$ = data?.hours;
+      this.day$ = data?.days;
+      this.month$ = data?.months;
+    });
     this.mobileForm = this.formBuilder.group({
       phone: ["", Validators.required],
     });
     if (
-      localStorage.getItem("phone")=="" ||
-      localStorage.getItem("phone") == null || localStorage.getItem("phone") == "null"
+      localStorage.getItem("phone") == "" ||
+      localStorage.getItem("phone") == null ||
+      localStorage.getItem("phone") == "null"
     ) {
       this.formvisbility = true;
     }
@@ -461,23 +469,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.router.navigate(["/pages/subscriptions"]);
   }
 
-  onClickSubscribedUser(): void {
-    let data:any={};
-    if(this.mobileForm.valid){
-      data.phone=this.mobileForm.value.phone.number
-    }
-    this.dashboardService.getContineTrial(data).subscribe((res) => {
-      setTimeout(() => {
-        this.checkNewUser();
-      }, 2000);
-      this.freeTrial = false;
-      this.visibleExhasted = false;
-      this.dataService.sendValue(false);
-      this.router.navigate(["/pages/subscriptions"]);
-    });
-  
-  }
-
   subScribedUserCount(): void {
     this.service.getNewUserTimeLeft().subscribe((res) => {
       let data = res.time_left;
@@ -511,27 +502,27 @@ export class HeaderComponent implements OnInit, OnDestroy {
       const textSec: string =
         secondsLeft < 10 ? "0" + secondsLeft : secondsLeft.toString();
 
-      this.hrs = hoursLeft;
-      this.min = textMin;
-      this.sec = textSec;
-      this.month = months;
-      this.day = days;
+      this.hrs$ = hoursLeft;
+      this.min$ = textMin;
+      this.sec$ = textSec;
+      this.month$ = months;
+      this.day$ = days;
       if (minute <= 0 && hours <= 0 && sec <= 0) {
-        this.hrs = 0;
-        this.min = 0;
-        this.sec = 0;
+        this.hrs$ = 0;
+        this.min$ = 0;
+        this.sec$ = 0;
       } else {
-        this.hrs = hoursLeft;
-        this.min = textMin;
-        this.sec = textSec;
+        this.hrs$ = hoursLeft;
+        this.min$ = textMin;
+        this.sec$ = textSec;
       }
 
       if (
-        this.min <= 0 &&
-        this.hrs <= 0 &&
-        this.day <= 0 &&
-        this.sec <= 0 &&
-        this.month <= 0
+        this.min$ <= 0 &&
+        this.hrs$ <= 0 &&
+        this.day$ <= 0 &&
+        this.sec$ <= 0 &&
+        this.month$ <= 0
       ) {
         this.visibleExhasted = true;
         clearInterval(this.timerInterval);
@@ -541,6 +532,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   checkNewUser(): void {
     this.service.getNewUserTimeLeft().subscribe((res) => {
+      this.dashboardService.updatedata(res.time_left);
       let data = res.time_left;
       if (data.plan === "on_progress") {
         this.userLoginTimeLeftCount = false;
@@ -653,9 +645,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   continueTrial(): void {
-    let data:any={};
-    if(this.mobileForm.valid){
-      data.phone=this.mobileForm.value.phone.number
+    let data: any = {};
+    if (this.mobileForm.valid) {
+      data.phone = this.mobileForm.value.phone.number;
     }
     this.dashboardService.getContineTrial(data).subscribe((res) => {
       return res;
@@ -668,6 +660,24 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.dataService.sendValue(false);
     this.freeTrial = false;
     this.service._userContineTrial = false;
+  }
+  onClickSubscribedUser(): void {
+    let data: any = {};
+    if (this.mobileForm.valid) {
+      data.phone = this.mobileForm.value.phone.number;
+    }
+    this.dashboardService.getContineTrial(data).subscribe((res) => {
+      this.freeTrial = false;
+      this.visibleExhasted = false;
+      this.service._userContineTrial = false;
+      this.service.contineStatus(false);
+      this.dataService.sendValue(false);
+      setTimeout(() => {
+        this.checkNewUser();
+        this.dashboardService.isinitialstart=true;
+        this.router.navigate(["/pages/subscriptions"]);
+      }, 1000);
+    });
   }
 
   checkNewUSerLogin(): void {
