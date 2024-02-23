@@ -378,9 +378,7 @@ export class ListSubModulesComponent implements OnInit {
   }
 
   checkplanExpire(): void {
-    console.log(">>")
     this.authService.getNewUserTimeLeft().subscribe((res) => {
-      console.log(">>>>",res)
       let data = res.time_left;
       let subscription_exists_status = res.subscription_details;
       if (data.plan === "expired" || data.plan === 'subscription_expired') {
