@@ -59,6 +59,7 @@ export class UpgradeSubscriptionComponent implements OnInit {
   existingSubscription: any[] = [];
   showCross: boolean = false;
   iscouponReadonly: boolean = false;
+  isPlanExpired:boolean=false;
 
   constructor(private authService: AuthService,
     private subscriptionService: SubscriptionService,
@@ -182,6 +183,15 @@ export class UpgradeSubscriptionComponent implements OnInit {
   loadExistingSubscription() {
     this.subscriptionService.getExistingSubscription().subscribe((response: any) => {
       this.existingSubscription = response.subscription;
+      this.getPlanexpire();
+    });
+
+  }
+  getPlanexpire(){
+    this.authservice.getNewUserTimeLeft().subscribe(res=>{
+      
+      this.isPlanExpired=res.time_left.plan=="subscription_expired"?true:false;
+       
       this.subscriptionList.forEach((item: any) => {
         item.country = item.country.split(',').map(Number);
 
@@ -200,9 +210,8 @@ export class UpgradeSubscriptionComponent implements OnInit {
         }
 
       });
-    });
+    })
   }
-
   applyCoupon() {
 
     if (this.showCheckout) {

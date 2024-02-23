@@ -274,6 +274,14 @@ export class RegistrationComponent implements OnInit {
     //     });
     //     return;
     // }
+    if (this.registrationForm.controls.contactNumber?.errors?.validatePhoneNumber?.valid==false) {
+      this.toastr.add({
+        severity: "error",
+        summary: "Alert!!!",
+        detail: "Please enter valid number",
+      });
+      return;
+    }
     if (this.registrationForm.invalid) {
       this.toastr.add({
         severity: "error",
@@ -344,7 +352,7 @@ export class RegistrationComponent implements OnInit {
       phone: this.registrationForm.value.contactNumber.number,
       country_code: this.registrationForm.value.contactNumber.dialCode,
     };
-    console.log(val);
+    
     if (
       this.registrationForm.value.fullName != null &&
       this.registrationForm.value.contactNumber.number
