@@ -123,9 +123,9 @@ export class RegistrationComponent implements OnInit {
         },
         (error: any) => {
           this.toastr.add({
-            severity: "warning",
-            summary: "Warning",
-            detail: error.error.message,
+            severity: "error",
+            summary: "Error",
+            detail: error,
           });
         }
       );
