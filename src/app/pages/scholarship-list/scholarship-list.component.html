@@ -165,7 +165,7 @@
                                 <p-dropdown formControlName="country" optionValue="id" optionLabel="country"
                                     styleClass="w-full" [options]="countryList" [filter]="true" filterBy="country"
                                     (onChange)="countryChange($event)" placeholder="Select  Country"
-                                    class="filterInput"></p-dropdown>
+                                    class="filterInput" [appendTo]="'body'"></p-dropdown>
                             </div>
                         </div>
                     </div>
@@ -176,7 +176,7 @@
                             <div class="mb-3">
                                 <p-dropdown formControlName="home_country" optionValue="id" optionLabel="country"
                                     styleClass="w-full" [options]="homeCountryList" [filter]="true" filterBy="country"
-                                    placeholder="Select  Home Country" class="filterInput"></p-dropdown>
+                                    placeholder="Select  Home Country" class="filterInput" [appendTo]="'body'"></p-dropdown>
                             </div>
                         </div>
                     </div>
@@ -187,7 +187,7 @@
                             <div class="mb-3">
                                 <p-dropdown formControlName="type" optionValue="id" optionLabel="type"
                                     styleClass="w-full" [options]="scholarshipTypeList" [filter]="true" filterBy="type"
-                                    placeholder="Select  Scholarship Type" class="filterInput"></p-dropdown>
+                                    placeholder="Select  Scholarship Type" class="filterInput" [appendTo]="'body'"></p-dropdown>
                             </div>
                         </div>
                     </div>
@@ -199,7 +199,7 @@
                             <div class="mb-3">
                                 <p-multiSelect [options]="studyLevelList" styleClass="w-100"
                                     formControlName="study_level" optionValue="id" placeholder="Select Study Level"
-                                    optionLabel="level" #StudylevelSelect class="filterInput">
+                                    optionLabel="level" #StudylevelSelect class="filterInput" [appendTo]="'body'">
                                 </p-multiSelect>
                             </div>
                         </div>
@@ -212,7 +212,7 @@
                                 <p-multiSelect [options]="filterUniversityList" styleClass="w-100"
                                     formControlName="university" optionValue="id"
                                     placeholder="Select Organisation Or University" optionLabel="name"
-                                    class="filterInput">
+                                    class="filterInput" [appendTo]="'body'">
                                 </p-multiSelect>
                             </div>
                         </div>
@@ -224,7 +224,7 @@
                             <div class="mb-3">
                                 <p-dropdown formControlName="cover_id" optionValue="id" optionLabel="cover_name"
                                     styleClass="w-full" [options]="coverList" [filter]="true" filterBy="cover_name"
-                                    placeholder="Select  Coverage Value" class="filterInput"></p-dropdown>
+                                    placeholder="Select  Coverage Value" class="filterInput" [appendTo]="'body'"></p-dropdown>
                             </div>
                         </div>
                     </div>
