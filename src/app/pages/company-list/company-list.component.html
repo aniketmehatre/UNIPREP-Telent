@@ -1,19 +1,19 @@
 <div class="card readingcard">
   <div class="card-body pt-0">
     <div class="row justify-content-center">
-      <div class="col-md-3 text-start desktop">
+      <div class="col-md-3 text-start order-md-1 order-2">
         <div class="p-input-icon-left w-100 mt-3">
           <i class="pi pi-search"></i>
           <input class="w-100 px-5 py-2" type="text" placeholder="Search in Company List .." pInputText
             [(ngModel)]="valueNearYouFilter" (input)="performSearch($event)" (click)="searchClick()" id="searchInput"/>
         </div>
       </div>
-      <div class="col-md-6 text-center">
+      <div class="col-md-6 text-center order-md-2 order-1">
         <h5 class="select-title mb-1" tooltipPosition="top" pTooltip="">
           COMPANY LIST
         </h5>
       </div>
-      <div class="col-md-3 text-end desktop">
+      <div class="col-md-3 text-end order-md-3 order-3">
         <span class="d-flex justify-content-end">
           <button class="btn btn-primary ps-3 pe-3 pt-2 pb-2 br-8" (click)="filterBy()" type="button">
             Filter
@@ -29,58 +29,30 @@
         </div>
       </div>
     </div>
-    <div class="mobile" *ngIf="!planExpired">
-      <div class="row">
-        <div class="col-md-6 text-start">
-          <div class="p-input-icon-left w-100 mt-3">
-            <i class="pi pi-search"></i>
-            <input class="w-100 px-5 py-2" type="text" placeholder="Search in Company List" pInputText
-              [(ngModel)]="valueNearYouFilter" (input)="performSearch($event)" />
-          </div>
-        </div>
-        <div class="col-md-6 text-end">
-          <span class="d-flex justify-content-end">
-            <button class="btn btn-primary ps-3 pe-3 pt-2 pb-2 br-8" (click)="filterBy()" type="button">
-              Filter
-              by</button>
-            <!-- <button class="btn btn-danger ps-3 pe-3 pt-2 pb-2" (click)="resetFilter()"
-                          style="border-radius: 8px; color: #fff;" type="button">
-                          Reset</button> -->
-          </span>
-          <div class="d-flex w-full align-items-center justify-content-end ">
-            <div class="pe-2">
-              <span class="text-muted text-small"><strong>Total Companies : {{ totalCompanyCount }}</strong></span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
     <div class="container-fluid">
       <div class="row">
         <div *ngFor="let companyData of companyData" class="col-md-3 col-12 mt-3 ">
-          <div class="cardcard-style text-black p-2 h-100 companny-list">
-            <h6 class="mt-2 mb-2">{{companyData.company_name}}</h6>
-            <div class="d-flex mt-2">
-              <div class="col-6"><i class="fa fa-map-marker pr-10" aria-hidden="true"></i>{{ companyData.country_name }}
+          <div class="card companycard h-100">
+          <div class="card-body d-flex flex-column justify-content-between">
+            <div>
+              <h5 class="uniprep-primary">{{companyData.company_name}}</h5>
+              <div class="d-flex mt-2 gap-5 align-items-center">
+                <div class="d-flex gap-2 align-items-center"><i class="fa fa-map-marker locationicon" aria-hidden="true"></i><p class="text-small mb-0">{{ companyData.country_name }}</p></div>
+                <div class="d-flex gap-2 align-items-center"><i class="fa fa-building headquartersicon" aria-hidden="true"></i><p class="text-small mb-0">{{companyData.head_quarters_name}}</p></div>
               </div>
-              <div class="col-6"><i class="fa fa-building pr-10" aria-hidden="true"></i>{{
-                companyData.head_quarters_name
-                }}</div>
-            </div>
-            <div class="d-flex mt-2 mb-2">
-              <div class="col-11"><i class="fa-solid fa-industry pr-10 fs-10"></i>{{
-                companyData.industry_interested_name }}</div>
-              <div class="col-1">
-                <div class="d-flex justify-content-end social-media">
-                  <div *ngIf="companyData.website && companyData.website.trim() !== ''">
-                    <a target="_blank" href="{{ companyData.website }}"><i class="fa-solid fa-globe pr-2"></i></a>
-                  </div>
-                  <div *ngIf="companyData.linked_in && companyData.linked_in.trim() !== ''">
-                    <a target="_blank" href="{{ companyData.linked_in }}"><i class="fa-brands fa-linkedin"></i></a>
-                  </div>
-                </div>
+              <div class="d-flex mt-2 gap-5">
+                <div class="d-flex gap-2 align-items-start"><i class="fa-solid fa-industry industryicon"></i><p class="industrytext text-break text-small mb-0">{{companyData.industry_interested_name }}</p></div>
               </div>
             </div>
+            <div class="d-flex gap-3 justify-content-end social-media">
+              <div *ngIf="companyData.website && companyData.website.trim() !== ''">
+                <a target="_blank" href="{{ companyData.website }}"><i class="fa-solid fa-globe"></i></a>
+              </div>
+              <div *ngIf="companyData.linked_in && companyData.linked_in.trim() !== ''">
+                <a target="_blank" href="{{ companyData.linked_in }}"><i class="fa-brands fa-linkedin uniprep-primary"></i></a>
+              </div>
+            </div>
+          </div>
           </div>
         </div>
       </div>
