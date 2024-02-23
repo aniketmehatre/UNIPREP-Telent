@@ -16,6 +16,9 @@ import {InvestorListComponent} from "./investor-list/investor-list.component";
 import { InfoKitComponent } from './infokit/infokit.component';
 import {CompanyListComponent} from "./company-list/company-list.component";
 import { ScholarshipListComponent } from './scholarship-list/scholarship-list.component';
+import { CompanyListGuidlinesComponent } from './company-list-guidlines/company-list-guidlines.component';
+import { InvestorListGuidlinesComponent } from './investor-list-guidlines/investor-list-guidlines.component';
+import { ScholarshipListGuidlinesComponent } from './scholarship-list-guidlines/scholarship-list-guidlines.component';
 
 
 
@@ -129,6 +132,18 @@ const routes: Routes = [
             {
                 path: 'startup',
                 component: InfoKitComponent
+            },
+            {
+                path: 'company-guidlines',
+                component: CompanyListGuidlinesComponent
+            },
+            {
+                path: 'scholarship-guidlines',
+                component: ScholarshipListGuidlinesComponent
+            },
+            {
+                path: 'investor-guidlines',
+                component: InvestorListGuidlinesComponent
             },
         ]
     }

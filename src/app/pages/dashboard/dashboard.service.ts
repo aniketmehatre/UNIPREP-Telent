@@ -1,14 +1,14 @@
 import { Injectable } from "@angular/core";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { environment } from "@env/environment";
-import { Observable } from "rxjs";
+import { BehaviorSubject, Observable } from "rxjs";
 
 @Injectable({
   providedIn: "root",
 })
 export class DashboardService {
   constructor(private http: HttpClient) {}
-
+  isinitialstart=false;
   getDashboardCounts() {
     const headers = new HttpHeaders().set("Accept", "application/json");
     return this.http.get<any>(
@@ -104,5 +104,12 @@ export class DashboardService {
         headers: headers,
       }
     );
+  }
+
+  public data$ = new BehaviorSubject<any>(null);
+  timerData$ = this.data$.asObservable();
+
+  updatedata(data: any) {
+    this.data$.next(data);
   }
 }

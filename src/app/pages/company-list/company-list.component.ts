@@ -160,6 +160,10 @@ export class CompanyListComponent implements OnInit {
     })
   }
 
+  companyGuidlines(): void{
+    this.router.navigate(["/pages/company-guidlines"]);
+  }
+
   upgradePlan(): void {
     this.router.navigate(["/pages/subscriptions"]);
   }
