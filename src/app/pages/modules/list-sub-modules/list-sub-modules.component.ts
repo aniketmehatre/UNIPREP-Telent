@@ -7,6 +7,7 @@ import { ModuleServiceService } from "../../module-store/module-service.service"
 import { DataService } from "../../../data.service";
 import { LocationService } from "../../../location.service";
 import { AuthService } from 'src/app/Auth/auth.service';
+import {NgxUiLoaderService} from "ngx-ui-loader";
 
 @Component({
   selector: 'uni-list-sub-modules',
@@ -50,7 +51,7 @@ export class ListSubModulesComponent implements OnInit {
   countryName!: string;
 
   constructor(private moduleListService: ModuleServiceService, private router: Router, private dataService: DataService, private authService: AuthService,
-    private locationService: LocationService, private route: ActivatedRoute,
+    private locationService: LocationService, private route: ActivatedRoute, private ngxService: NgxUiLoaderService,
     private confirmationService: ConfirmationService) {
     this.dataService.countryNameSource.subscribe((data) => {
       this.countryName = data;
@@ -154,6 +155,7 @@ export class ListSubModulesComponent implements OnInit {
   }
 
   loadModuleAndSubModule() {
+    this.ngxService.start();
     this.subModules$ = this.moduleListService.subModuleList$();
     let data = {
       countryId: this.currentCountryId,
@@ -162,10 +164,12 @@ export class ListSubModulesComponent implements OnInit {
     }
     this.moduleListService.loadSubModules(data);
     this.subModules$.subscribe(event => {
+      this.ngxService.stop();
       this.subModuleList = event;
     });
     this.locationService.getUniPerpModuleList().subscribe((data: any) => {
       this.moduleList = data.modules;
+      this.ngxService.stop();
     });
   }
 

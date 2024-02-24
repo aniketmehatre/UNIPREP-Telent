@@ -18,7 +18,7 @@ export class InvestorListComponent implements OnInit {
   countryList: any;
   headQuartersList: any
   page = 1;
-  pageSize = 100;
+  pageSize = 50;
   valueNearYouFilter: string = '';
   totalInvestorsCount: any;
   isFilterVisible: string = 'none';
@@ -81,6 +81,10 @@ export class InvestorListComponent implements OnInit {
     this.filterForm.reset();
   }
 
+  investorGuidlines(): void {
+    this.router.navigate(["/pages/investor-guidlines"]);
+  }
+  
   loadInvestorData() {
     let data = {
       org_name: this.filterForm.value.org_name ? this.filterForm.value.org_name : '',

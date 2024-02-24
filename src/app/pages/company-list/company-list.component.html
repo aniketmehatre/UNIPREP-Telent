@@ -89,8 +89,13 @@
           </div>
         </div>
       </div>
-      <p-paginator [rows]="pageSize" [totalRecords]="totalCompanyCount" (onPageChange)="pageChange($event)"
-        [rowsPerPageOptions]="[100, 300, 500, 1000]"></p-paginator>
+      <div *ngIf="totalCompanyCount == 0" class="text-center margin-auto">
+        <h3>No Results Found</h3>
+        <p>The applied filter did not provide any results,<br>
+          please try again by changing the parameters.</p>
+      </div>
+      <p-paginator *ngIf="totalCompanyCount != 0" [rows]="pageSize" [totalRecords]="totalCompanyCount" (onPageChange)="pageChange($event)"
+        [rowsPerPageOptions]="[50, 100, 300, 500, 1000]"></p-paginator>
     </div>
     <!-- <div *ngIf="planExpired" class="resources-expired">
       <div class="row">

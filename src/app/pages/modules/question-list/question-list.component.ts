@@ -22,6 +22,7 @@ import { Location } from "@angular/common";
 import { DomSanitizer } from "@angular/platform-browser";
 import { Carousel } from "primeng/carousel";
 import { AuthService } from "src/app/Auth/auth.service";
+import {NgxUiLoaderService} from "ngx-ui-loader";
 
 @Component({
   selector: "uni-question-list",
@@ -83,7 +84,7 @@ export class QuestionListComponent implements OnInit {
     private route: ActivatedRoute,
     private _location: Location,
     private _sanitizer: DomSanitizer,
-    private router: Router,
+    private router: Router, private ngxService: NgxUiLoaderService,
     private authService: AuthService
   ) {
     Carousel.prototype.changePageOnTouch = (e, diff) => { }
@@ -181,10 +182,12 @@ export class QuestionListComponent implements OnInit {
       page: this.pageno,
       perpage: this.perpage,
     };
+    this.ngxService.start();
     this.moduleListService.loadQuestionList(data);
     this.moduleListService.questionList$().subscribe((data: any) => {
       this.questionListData = data?.questions;
       this.totalQuestionCount = data?.questioncount;
+      //this.ngxService.stop();
     });
   }
   checkplanExpire(): void {
