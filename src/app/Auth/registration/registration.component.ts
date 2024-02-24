@@ -307,7 +307,7 @@ export class RegistrationComponent implements OnInit {
       platform_id: 1,
       usertype_id: 1,
       // country_id: this.registrationForm.value.country,
-      // country_code: this.registrationForm.value.country_code
+      country_code: this.registrationForm.value.contactNumber.dialCode,
     };
 
     this.service.Registraion(data).subscribe(
@@ -353,7 +353,6 @@ export class RegistrationComponent implements OnInit {
       phone: this.registrationForm.value.contactNumber.number,
       country_code: this.registrationForm.value.contactNumber.dialCode,
     };
-    console.log(val);
     if (
       this.registrationForm.value.fullName != null &&
       this.registrationForm.value.contactNumber.number

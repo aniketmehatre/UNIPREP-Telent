@@ -649,6 +649,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     let data: any = {};
     if (this.mobileForm.valid) {
       data.phone = this.mobileForm.value.phone.number;
+      data.country_code=this.mobileForm.value.phone.dialCode;
     }
     this.dashboardService.getContineTrial(data).subscribe((res) => {
       return res;
@@ -668,8 +669,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
   onClickSubscribedUser(): void {
     let data: any = {};
-    if (this.mobileForm.valid) {
+    if (this.mobileForm.valid) { 
       data.phone = this.mobileForm.value.phone.number;
+      data.country_code=this.mobileForm.value.phone.dialCode;
     }
     this.dashboardService.getContineTrial(data).subscribe((res) => {
       this.freeTrial = false;
