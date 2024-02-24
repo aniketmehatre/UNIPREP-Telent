@@ -55,6 +55,113 @@
 									}}</strong></span>
 						</div>
 					</div>
+					<div class="col-6 mt-2">
+						<button class="btn w-100 btn-danger ps-3 pe-3 pt-2 pb-2" (click)="resetFilter()" style="border-radius: 8px; color: #fff" type="button">Reset</button>
+					</div>
+				</div> -->
+			</div>
+		</div>
+		<br>
+		<!-- upcomming event -->
+		<p-table #table [value]="investorData" class="primary-header" styleClass="primary-header" [paginator]="false"
+			(onPage)="pageChange($event)" [totalRecords]="totalInvestorsCount" [rows]="pageSize" dropdownAppendTo="body"
+			[rowsPerPageOptions]="[100, 300, 500]" responsiveLayout="scroll" >
+			<!-- <ng-template pTemplate="caption">
+                <div class="d-flex w-full align-items-end justify-content-end desktop">
+                    <div class="pe-2">
+                        <span class="text-muted text-small"><strong>Total Investors : {{ totalInvestorsCount }}</strong></span>
+                    </div>
+                    <div class="ps-2">
+                    </div>
+                </div>
+                <div class="text-center mobile">
+                    <div class="pe-2">
+                        <span class="text-muted text-small"><strong>Total Investors : {{ totalInvestorsCount }}</strong></span>
+                    </div>
+                </div>
+            </ng-template> -->
+			<ng-template pTemplate="header">
+				<tr class="investor-list-table-header">
+					<th class="border-cell text-small text-nowrap w-25">Investor Name</th>
+					<th class="border-cell text-small text-center text-nowrap">Country</th>
+					<th class="border-cell text-small text-center text-nowrap">Headquarters</th>
+					<th class="border-cell text-small text-center text-nowrap">Investor Type</th>
+					<!-- <th class="border-cell">Industry Interested</th> -->
+					<th class="border-cell text-small text-nowrap">Link</th>
+				</tr>
+			</ng-template>
+			<ng-template pTemplate="body" let-inv let-expanded="expanded">
+				<tr class="investor-list-table-header">
+					<td class="border-cell fw-semibold text-small">{{ inv.org_name }}</td>
+					<td class="border-cell text-small text-center">{{ inv.country }}</td>
+					<td class="border-cell text-small text-center">{{ inv.head_quarters }}</td>
+					<td class="border-cell text-small text-center">{{ inv.investor_type }}</td>
+					<!-- <td class="border-cell">{{inv.industry_interested}}</td> -->
+					<td class="border-cell text-small py-1">
+						<div *ngIf="inv.linked_in && inv.linked_in.trim() !== ''"><i
+								class="fa-brands fa-linkedin"></i>&nbsp;<a target="_blank"
+								href="{{ inv.linked_in }}">Linked In</a><br /></div>
+
+						<div *ngIf="inv.website && inv.website.trim() !== ''"><i class="fa-solid fa-globe"></i>&nbsp;<a
+								target="_blank" href="{{ inv.website }}">Website</a><br /></div>
+
+						<div *ngIf="inv.email && inv.email.trim() !== ''"><i class="fa-solid fa-envelope"></i>&nbsp;<a
+								href="mailto:{{ inv.email }}">Email</a><br /></div>
+					</td>
+				</tr>
+			</ng-template>
+		</p-table>
+		<p-paginator [rows]="pageSize" [totalRecords]="totalInvestorsCount" (onPageChange)="pageChange($event)"
+			dropdownAppendTo="body" [rowsPerPageOptions]="[100, 300, 500]"></p-paginator>
+	</div>
+
+	<!-- <div *ngIf="planExpired" class="investor-expired">
+		<div class="row justify-content-center">
+			<div class="col-md-2 text-start"></div>
+			<div class="col-md-8 text-center">
+				<h5 class="select-title mb-1" tooltipPosition="top" pTooltip="">INVESTOR LIST</h5>
+			</div>
+			<div class="col-md-2"></div>
+		</div>
+		<div class="text-center mt-5 mb-4">
+			<img src="../../../uniprep-assets/images/smartloack.png" class="image" width="80" />
+			<h3>Upgrade now to access invaluable tools</h3>
+			<p><br />
+				Upgrade your plan now to gain instant access.
+			</p>
+			<p class="offer">Investor list offers:<br />Information of over 1,00,000 investors including details about
+				the investor name, investor type, contact details and much more!</p>
+			<button pButton type="button"
+				class="text-white p-ripple p-button-rounded p-button-warning p-button p-component p-2"
+				(click)="upgradePlan()">Upgrade Plan<i class="fa fa-arrow-right exhausted-plan-icon"></i></button>
+		</div>
+	</div> -->
+	<p-dialog [(visible)]="restrict" [modal]="true"  [style]="{ width: '30vw'}" [draggable]="false" [resizable]="false"
+		class="restrictionDialog" [breakpoints]="{ '960px': '30vw','959px': '60vw','425px': '90vw'}"
+		(onHide)="clearRestriction()">
+		<div class="text-center mt-5 mb-4">
+			<img src="../../../uniprep-assets/images/smartloack.png" class="image" width="60" />
+			<h3 class="offer">Upgrade Required</h3>
+			<p>
+				To access this exclusive module,please upgrade your plan now
+			</p>
+			<button pButton type="button"
+				class="text-white p-ripple p-button-rounded p-button-warning p-button p-component p-2"
+				(click)="upgradePlan()">
+				Upgrade Plan<i class="fa fa-arrow-right exhausted-plan-icon"></i>
+			</button>
+		</div>
+	</p-dialog>
+</div>
+
+<div class="modal" tabindex="-1" role="dialog" [ngStyle]="{ display: isFilterVisible }">
+	<div class="modal-dialog" role="document">
+		<form role="form" [formGroup]="filterForm" (ngSubmit)="loadInvestorData()">
+			<div class="modal-content" style="margin-top: 50% !important">
+				<div class="modal-header flex justify-content-between">
+					<h4 class="modal-title">Filter Investor</h4>
+					<span style="cursor: pointer; color: #3f4c83"><i (click)="closePopup()"
+							class="fa-solid fa-circle-xmark fa-2x"></i></span>
 				</div>
 			</div>
 		</div>

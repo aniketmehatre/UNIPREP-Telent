@@ -52,7 +52,7 @@
 						<div class="d-flex me-2">
 							<div class="col d-flex flex-column align-items-center px-1">
 								<div class="boxView fw-semibold text-green">
-									{{ month$ + "" }}
+									{{ month$?month$:'0' + ""  }}
 								</div>
 								<span class="timertext text-uppercase">Months</span>
 							</div>

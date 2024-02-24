@@ -96,8 +96,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
     private service: AuthService,
     private toast: MessageService,
     private themeService: ThemeService,
-    route: ActivatedRoute,
-    private dataService: DataService, private authService: SocialAuthService,
+    route: ActivatedRoute, private authService: SocialAuthService,
+    private dataService: DataService,
     private dashboardService: DashboardService // private authService: SocialAuthService
   ) {
     this.subs.sink = this.dataService.countryIdSource.subscribe((data) => {
@@ -661,7 +661,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
       this.checkNewUser();
       window.location.reload();
     }, 2000);
-    
   }
   onClickSubscribedUser(): void {
     let data: any = {};

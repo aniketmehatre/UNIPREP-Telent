@@ -151,7 +151,7 @@ export class ListSubModulesComponent implements OnInit {
     if (this.route.snapshot.paramMap.get('id') == '2') {
       this.startQuiz();
     }
-    // this.checkplanExpire();
+    this.checkplanExpire();
   }
 
   loadModuleAndSubModule() {
@@ -280,7 +280,7 @@ export class ListSubModulesComponent implements OnInit {
     { label: singleQuizData.sub_module_name }];
     carouselQuiz.navForward(event, this.selectedQuiz);
   }
-
+  restrict=false;
   clickSubmitQuiz() {
     this.quizData.forEach((data) => {
       if (data.answer == data.user_answered) {
@@ -345,6 +345,10 @@ export class ListSubModulesComponent implements OnInit {
   }
 
   onSubModuleClick(id: any) {
+    // if(this.planExpired){
+    //   this.restrict=true;
+    //   return;
+    // }
     this.subModuleList.forEach((element: any) => {
       if (element.id === id) {
         this.selectedSubModule = element.country;
@@ -377,18 +381,17 @@ export class ListSubModulesComponent implements OnInit {
     this.isReviewVisible = true;
   }
 
-  // checkplanExpire(): void {
-  //   this.authService.getNewUserTimeLeft().subscribe((res) => {
-  //     let data = res.time_left;
-  //     let subscription_exists_status = res.subscription_details;
-  //     if (data.plan === "expired" || data.plan === 'subscription_expired' || (data.plan === "expired" && subscription_exists_status.subscription_plan === 'free_trail')) {
-  //       this.planExpired = true;
-  //     } else {
-  //       this.planExpired = false;
-  //     }
-  //   })
-  // }
-
+  checkplanExpire(): void {
+    this.authService.getNewUserTimeLeft().subscribe((res) => {
+      let data = res.time_left;
+      let subscription_exists_status = res.subscription_details;
+      if (data.plan === "expired" || data.plan === 'subscription_expired') {
+        this.planExpired = true;
+      } else {
+        this.planExpired = false;
+      }
+    })
+  }
   retryQuiz() {
     this.isReviewVisible = false;
     this.isQuizSubmit = false;
@@ -400,7 +403,10 @@ export class ListSubModulesComponent implements OnInit {
     this.positionNumber = 1;
     this.isInstructionVisible = true;
   }
-  // upgradePlan(): void {
-  //   this.router.navigate(["/pages/subscriptions"]);
-  // }
+  upgradePlan(): void {
+    this.router.navigate(["/pages/subscriptions"]);
+  }
+  clearRestriction() {
+    this.restrict = false;
+  }
 }
