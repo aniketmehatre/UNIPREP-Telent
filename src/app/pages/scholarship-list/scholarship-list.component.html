@@ -1,119 +1,119 @@
-<div class="card readingcard" style="border-radius: 15px 15px 0px 0px !important;">
+<div class="card readingcard">
     <div class="card-body pt-0">
-        <div class="row justify-content-center">
-            <div class="col-md-2 text-start">
-
-            </div>
-            <div class="col-md-8 text-center">
-                <h5 class="select-title mb-1" tooltipPosition="top" pTooltip="">
-                    SCHOLARSHIP LIST
-                </h5>
-
-            </div>
-            <div class="col-md-2">
-                <span class="d-flex justify-content-end"><button class="btn btn-primary ps-3 pe-3 pt-2 pb-2"
-                        (click)="filterBy()"
-                        style="font-size: 12px;background-color: var(--uniprep-primary);border-radius: 8px; border: aliceblue; color: #fff;"
-                        type="button">
-                        Filter
-                        by</button>
-                    <button class="btn btn-danger ps-3 pe-3 pt-2 pb-2" (click)="resetFilter()"
-                        style="border-radius: 8px; color: #fff;font-size: 12px;" type="button">
-                        Reset</button>
-                </span>
-                <div class="p-1 text-end">
-                    <span class="text-muted text-small fw-semibold">Total Scholarship : {{ totalScholarShipCount
-                        }}</span>
-                </div>
-            </div>
-        </div>
-        <br>
-        <!-- <div class="row justify-content-center desktop">
-            <div class="col-md-3 col-5 text-md-start">
+        <div class="row justify-content-center" *ngIf="!planExpired">
+            <div class="col-md-3 text-start desktop">
                 <div class="p-input-icon-left w-100 mt-3">
                     <i class="pi pi-search"></i>
-                    <input class="w-100 px-5 py-2" type="text" placeholder="Search in Scholarship Name" pInputText
+                    <input class="w-100 px-5 py-2" type="text" placeholder="Search in Scholarship List" pInputText
                         [(ngModel)]="searchScholarshpName" (input)="performSearch()" />
                 </div>
             </div>
-            <div class="col-md-6 col-7 text-md-center text-end">
+            <div class="col-md-6 text-center">
+                <h5 class="select-title mb-1" tooltipPosition="top" pTooltip="">
+                    SCHOLARSHIP LIST
+                </h5>
             </div>
-            <div class="col-md-3 col-12 text-end justify-content-end">
-                <span><button class="btn btn-primary ps-3 pe-3 pt-2 pb-2" (click)="filterBy()"
-                        style="background-color: var(--uniprep-primary);border-radius: 8px; border: aliceblue; color: #fff;"
-                        type="button">
+            <div class="col-md-3 text-end desktop">
+                <span class="d-flex justify-content-end">
+                    <button class="btn btn-primary scholarship-guidlines" (click)="scholarGuidlines()" type="button">
+                        Scholasrship Guidelines</button>
+                    <button class="btn btn-primary ps-3 pe-3 pt-2 pb-2 br-8" (click)="filterBy()" type="button">
                         Filter
-                        by</button></span>
-                <span><button class="btn btn-danger ps-3 pe-3 pt-2 pb-2" (click)="resetFilter()"
-                        style="border-radius: 8px; color: #fff;" type="button">
-                        Reset</button></span>
-            </div>
-        </div> -->
-        <!-- upcomming event -->
-        <p-table #table class="custom-paginator" [value]="scholarshipData" class="primary-header" [first]="first"
-            styleClass="primary-header" [paginator]="true" (onPage)="pageChange($event)" [lazy]="true"
-            [totalRecords]="totalScholarShipCount" responsiveLayout="scroll" [rows]="pageSize"
-            [rowsPerPageOptions]="[50,100, 250, 500]">
-            <!-- <ng-template pTemplate="caption">
-                 <div class="d-flex w-full align-items-end justify-content-end desktop">
+                        by</button>
+                </span>
+                <div class="d-flex w-full align-items-center justify-content-end ">
                     <div class="pe-2">
-                        <span class="text-muted text-small">Total Scholarship : {{ totalScholarShipCount }}</span>
+                        <span class="text-muted text-small"><strong>Total Scholarship : {{ totalScholarShipCount
+                                }}</strong></span>
                     </div>
-                    <div class="ps-2"></div>  
-                </div> 
-                <div class="text-center mobile">
-                    <div class="pe-2">
-                        <span class="text-muted text-small">Total Scholarship : {{ totalScholarShipCount }}</span>
-                    </div>
- 
                 </div>
-            </ng-template> -->
-            <ng-template pTemplate="header">
-                <tr class="scholarship-list-table-header">
+            </div>
+        </div>
+        <div class="mobile" *ngIf="!planExpired">
+            <div class="row">
+                <div class="col-md-6 text-start">
+                    <div class="p-input-icon-left w-100 mt-3">
+                        <i class="pi pi-search"></i>
+                        <input class="w-100 px-5 py-2" type="text" placeholder="Search in Scholarship List" pInputText
+                            [(ngModel)]="searchScholarshpName" (input)="performSearch()" />
+                    </div>
+                </div>
+                <div class="col-md-6 text-end">
+                    <span class="d-flex justify-content-end">
+                        <button class="btn btn-primary scholarship-guidlines" (click)="scholarGuidlines()" type="button">
+                            Scholasrship Guidelines</button>
+                        <button class="btn btn-primary ps-3 pe-3 pt-2 pb-2 br-8" (click)="filterBy()" type="button">
+                            Filter
+                            by</button>
+                        <!-- <button class="btn btn-danger ps-3 pe-3 pt-2 pb-2" (click)="resetFilter()"
+                          style="border-radius: 8px; color: #fff;" type="button">
+                          Reset</button> -->
+                    </span>
+                    <div class="d-flex w-full align-items-center justify-content-end ">
+                        <div class="pe-2">
+                            <span class="text-muted text-small"><strong>Total Scholarship : {{ totalScholarShipCount
+                                    }}</strong></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container-fluid" *ngIf="!planExpired">
+            <div class="row">
+                <div *ngFor="let scholarshipData of scholarshipData" class="col-md-3 col-12 mt-3 ">
+                    <div class="cardcard-style text-black p-2 h-100 companny-list">
+                        <h6 class="mt-2 mb-2">{{scholarshipData.name}}</h6>
+                        <div class="d-flex mt-2">
+                            <div class="col-6"><i class="fa-solid fa-coin pr-2" aria-hidden="true"></i>{{
+                                scholarshipData.value }}
+                            </div>
+                            <div class="col-6"><i class="fa-solid fa-dollar-sign  pr-2" aria-hidden="true"></i>{{
+                                scholarshipData.cover_name
+                                }}</div>
+                        </div>
+                        <div class="d-flex mt-2">
+                            <div class="col-12">
+                                <i class="fa-solid fa-building-columns  pr-2" aria-hidden="true"></i>{{
+                                scholarshipData.university }}
+                            </div>
+                        </div>
+                        <div class="d-flex mt-2">
+                            <div class="col-6"><i class="fa-solid fa-globe pr-2" aria-hidden="true"></i>{{
+                                scholarshipData.region }}
+                            </div>
+                            <div class="col-6"><i class="fa-solid fa-house pr-2" aria-hidden="true"></i>{{
+                                scholarshipData.home_country
+                                }}</div>
+                        </div>
+                        <div class="d-flex mt-2">
+                            <div class="col-6"><i class="fa-solid fa-graduation-cap pr-2" aria-hidden="true"></i>{{
+                                scholarshipData.study_level }}
+                            </div>
+                            <div class="col-5"><i class="fa-solid fa-diploma pr-2" aria-hidden="true"></i>{{
+                                scholarshipData.type
+                                }}</div>
+                            <div class="col-1"><a target="_blank" href="{{ scholarshipData.website }}"><i
+                                        class="fa-solid fa-link pr-2" aria-hidden="true"></i></a></div>
+                        </div>
 
-                <tr class="scholarship-list-table-header">
-                    <th class="border-cell text-small text-nowrap">Scholarship Name</th>
-                    <th class="border-cell text-small text-center text-nowrap">Home Country</th>
-                    <th class="border-cell text-small text-center text-nowrap">Scholarship Country</th>
-                    <th class="border-cell text-small text-center text-nowrap">Scholarship Type</th>
-                    <th class="border-cell text-small text-center text-nowrap">Study Level</th>
-                    <th class="border-cell text-small text-nowrap">Organisation/Institute</th>
-                    <th class="border-cell text-small text-center text-nowrap">Region</th>
-                    <th class="border-cell text-small text-center text-nowrap">Value</th>
-                    <th class="border-cell text-small text-center text-nowrap">Coverage Value</th>
-                    <th class="border-cell text-small text-center text-nowrap">Links</th>
-                </tr>
-            </ng-template>
-            <ng-template pTemplate="body" let-scholarship let-expanded="expanded">
-                <tr class="scholarship-list-table-header">
-                    <td class="border-cell fw-semibold text-small">{{ scholarship.name }}</td>
-                    <td class="border-cell text-small text-center">{{ scholarship.home_country }}</td>
-                    <td class="border-cell text-small text-center">{{ scholarship.country }}</td>
-                    <td class="border-cell text-small text-center">{{ scholarship.type }}</td>
-                    <td class="border-cell text-small text-center">{{ scholarship.study_level }}</td>
-                    <td class="border-cell text-small">{{ scholarship.university }}</td>
-                    <td class="border-cell text-small text-center">{{ scholarship.region == null ? "-" :
-                        scholarship.region }}</td>
-                    <td class="border-cell text-small text-center">{{ scholarship.value }}</td>
-                    <td class="border-cell text-small text-center">{{ scholarship.cover_name }}</td>
-                    <td class="border-cell text-small text-center text-nowrap">
-                        <a target="_blank" class="text-small" href="{{ scholarship.website }}"><i
-                                class="fa-solid fa-link me-2"></i>Website </a>
-                    </td>
-                </tr>
-            </ng-template>
-        </p-table>
-    </div>
-
-    <!-- <div class="text-center mt-5 mb-4" *ngIf="planExpired">
-        <div *ngIf="planExpired" class="scholarship-expired">
+                    </div>
+                </div>
+            </div>
+            <div *ngIf="totalScholarShipCount == 0" class="text-center margin-auto">
+                <h3>No Results Found</h3>
+                <p>The applied filter did not provide any results,<br>
+                please try again by changing the parameters.</p>
+            </div>
+            <p-paginator *ngIf="totalScholarShipCount != 0" [rows]="pageSize" [totalRecords]="totalScholarShipCount" (onPageChange)="pageChange($event)"
+                [rowsPerPageOptions]="[100, 300, 500, 1000]"></p-paginator>
+        </div>
+        <div *ngIf="planExpired" class="resources-expired">
             <div class="row">
                 <div class="col-md-2 text-start"></div>
                 <div class="col-md-8 text-center">
                     <h5 class="select-title mb-1" tooltipPosition="top" pTooltip="">
                         SCHOLARSHIP LIST
                     </h5>
-
                 </div>
                 <div class="col-md-2"></div>
             </div>
@@ -130,146 +130,125 @@
                     (click)="upgradePlan()">Upgrade Plan<i class="fa fa-arrow-right exhausted-plan-icon"></i></button>
             </div>
         </div>
-    </div> -->
+    </div>
+</div>
 
-    <p-dialog [(visible)]="restrict" [modal]="true"  [style]="{ width: '30vw'}" [draggable]="false" [resizable]="false"
-        class="restrictionDialog" [breakpoints]="{ '960px': '30vw','959px': '60vw','425px': '90vw'}"
-        (onHide)="clearRestriction()">
-        <div class="text-center mt-5 mb-4">
-            <img src="../../../uniprep-assets/images/smartloack.png" class="image" width="60" />
-            <h3 class="offer">Upgrade Required</h3>
-            <p>
-                To access this exclusive module,please upgrade your plan now
-            </p>
-            <button pButton type="button"
-                class="text-white p-ripple p-button-rounded p-button-warning p-button p-component p-2"
-                (click)="upgradePlan()">
-                Upgrade Plan<i class="fa fa-arrow-right exhausted-plan-icon"></i>
-            </button>
-        </div>
-    </p-dialog>
-    <p-dialog header="Filter Scholarship" [(visible)]="isFilterVisible"
-        [breakpoints]="{ '2560px':'60vw','1030px':'75vw','850px':'85vw','450px': '90vw'}" [draggable]="false"
-        [resizable]="false" class="filterDialog">
-        <form role="form" [formGroup]="filterForm" (ngSubmit)="applyFilter()" [style]="{padding:'20px'}">
+<p-dialog [(visible)]="restrict" [modal]="true" [style]="{ width: '30vw'}" [draggable]="false" [resizable]="false"
+    class="restrictionDialog" [breakpoints]="{ '960px': '30vw','959px': '60vw','425px': '90vw'}"
+    (onHide)="clearRestriction()">
+    <div class="text-center mt-5 mb-4">
+        <img src="../../../uniprep-assets/images/smartloack.png" class="image" width="60" />
+        <h3 class="offer">Upgrade Required</h3>
+        <p>
+            To access this exclusive module,please upgrade your plan now
+        </p>
+        <button pButton type="button"
+            class="text-white p-ripple p-button-rounded p-button-warning p-button p-component p-2"
+            (click)="upgradePlan()">
+            Upgrade Plan<i class="fa fa-arrow-right exhausted-plan-icon"></i>
+        </button>
+    </div>
+</p-dialog>
+
+<p-dialog header="Filter Scholarship" [(visible)]="isFilterVisible" [modal]="true" [style]="{ width: '60rem' }"
+    [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }" [ngStyle]="{ display: isFilterVisible }" class="filterDialog">
+    <div class="m-5">
+        <form role="form" [formGroup]="filterForm" (ngSubmit)="applyFilter()">
             <div class="row">
-                <div class="col-md-12">
-                    <div class="row align-items-center">
-                        <div class="col-md-4">
-                            <label class="form-label" style="font-size: medium;font-weight:500">Filter by
-                                Scholarship Country</label>
-                            <div class="form-group">
-                                <div class="mb-3">
-                                    <p-dropdown formControlName="country" optionValue="id" optionLabel="country"
-                                        styleClass="w-full" [options]="countryList" [filter]="true" filterBy="country"
-                                        (onChange)="countryChange($event)" placeholder="Select  Country"
-                                        class="filterInput" [appendTo]="'body'"></p-dropdown>
-                                </div>
-                            </div>
+                <div class="col-4">
+                    <label class="form-label" style="font-size: medium;font-weight:500">Filter by
+                        Scholarship Country</label>
+                    <div class="form-group">
+                        <div class="mb-3">
+                            <p-dropdown formControlName="country" optionValue="id" optionLabel="country" styleClass="w-full"
+                                [options]="countryList" [filter]="true" filterBy="country" (onChange)="countryChange($event)"
+                                placeholder="Select Country" class="filterInput" [appendTo]="'body'"></p-dropdown>
                         </div>
-                        <!-- <div class="col-md-12">
-                                    <label class="form-label" style="font-size: medium;font-weight:500">Filter by
-                                        Region</label>
-                                    <div class="form-group">
-                                        <div class="mb-3">
-                                            <p-multiSelect [options]="regionList" styleClass="w-100"
-                                                formControlName="region" optionValue="id"
-                                                placeholder="Select Region" optionLabel="state">
-                                            </p-multiSelect>
-                                        </div>
-                                    </div>
-                                </div> -->
-                        <div class="col-md-4">
-                            <label class="form-label" style="font-size: medium;font-weight:500">Filter by
-                                Home Country</label>
-                            <div class="form-group">
-                                <div class="mb-3">
-                                    <p-dropdown formControlName="home_country" optionValue="id" optionLabel="country"
-                                        styleClass="w-full" [options]="homeCountryList" [filter]="true"
-                                        filterBy="country" placeholder="Select  Home Country"
-                                        class="filterInput" [appendTo]="'body'"></p-dropdown>
-                                </div>
-                            </div>
+                    </div>
+                </div>
+                <div class="col-4">
+                    <label class="form-label" style="font-size: medium;font-weight:500">Filter by
+                        Home Country</label>
+                    <div class="form-group">
+                        <div class="mb-3">
+                            <p-dropdown formControlName="home_country" optionValue="id" optionLabel="country" styleClass="w-full"
+                                [options]="homeCountryList" [filter]="true" filterBy="country" placeholder="Select Home Country"
+                                class="filterInput" [appendTo]="'body'"></p-dropdown>
                         </div>
-                        <div class="col-md-4">
-                            <label class="form-label" style="font-size: medium;font-weight:500">Filter by
-                                Scholarship Type</label>
-                            <div class="form-group">
-                                <div class="mb-3">
-                                    <p-dropdown formControlName="type" optionValue="id" optionLabel="type"
-                                        styleClass="w-full" [options]="scholarshipTypeList" [filter]="true"
-                                        filterBy="type" placeholder="Select  Scholarship Type"
-                                        class="filterInput" [appendTo]="'body'"></p-dropdown>
-                                </div>
-                            </div>
+                    </div>
+                </div>
+                <div class="col-4">
+                    <label class="form-label" style="font-size: medium;font-weight:500">Filter by
+                        Scholarship Type</label>
+                    <div class="form-group">
+                        <div class="mb-3">
+                            <p-dropdown formControlName="type" optionValue="id" optionLabel="type" styleClass="w-full"
+                                [options]="scholarshipTypeList" [filter]="true" filterBy="type" placeholder="Select Scholarship Type"
+                                class="filterInput" [appendTo]="'body'"></p-dropdown>
                         </div>
-                        <br>
-                        <div class="col-md-4">
-                            <label class="form-label" style="font-size: medium;font-weight:500">Filter by
-                                Study Level</label>
-                            <div class="form-group">
-                                <div class="mb-3">
-                                    <p-multiSelect [options]="studyLevelList" styleClass="w-100"
-                                        formControlName="study_level" optionValue="id" placeholder="Select Study Level"
-                                        optionLabel="level" #StudylevelSelect class="filterInput" [appendTo]="'body'">
-                                    </p-multiSelect>
-                                </div>
-                            </div>
+                    </div>
+                </div>
+                <div class="col-4">
+                    <label class="form-label" style="font-size: medium;font-weight:500">Filter by
+                        Study Level</label>
+                    <div class="form-group">
+                        <div class="mb-3">
+                            <p-multiSelect [options]="studyLevelList" styleClass="w-full" formControlName="study_level" optionValue="id"
+                                placeholder="Select Study Level" optionLabel="level" #StudylevelSelect class="filterInput"
+                                [appendTo]="'body'">
+                            </p-multiSelect>
                         </div>
-                        <div class="col-md-4">
-                            <label class="form-label" style="font-size: medium;font-weight:500">Filter by
-                                organizations/Institute</label>
-                            <div class="form-group">
-                                <div class="mb-3">
-                                    <p-multiSelect [options]="filterUniversityList" styleClass="w-100"
-                                        formControlName="university" optionValue="id"
-                                        placeholder="Select Organisation Or University" optionLabel="name"
-                                        class="filterInput" [appendTo]="'body'">
-                                    </p-multiSelect>
-                                </div>
-                            </div>
+                    </div>
+                </div>
+                <div class="col-4">
+                    <label class="form-label" style="font-size: medium;font-weight:500">Filter by
+                        organizations/Institute</label>
+                    <div class="form-group">
+                        <div class="mb-3">
+                            <p-multiSelect [options]="filterUniversityList" styleClass="w-full" formControlName="university"
+                                optionValue="id" placeholder="Select Organisation Or University" optionLabel="name" class="filterInput"
+                                [appendTo]="'body'">
+                            </p-multiSelect>
                         </div>
-                        <div class="col-md-4">
-                            <label class="form-label" style="font-size: medium;font-weight:500">Filter by
-                                Coverage Value</label>
-                            <div class="form-group">
-                                <div class="mb-3">
-                                    <p-dropdown formControlName="cover_id" optionValue="id" optionLabel="cover_name"
-                                        styleClass="w-full" [options]="coverList" [filter]="true" filterBy="cover_name"
-                                        placeholder="Select  Coverage Value" class="filterInput" [appendTo]="'body'"></p-dropdown>
-                                </div>
-                            </div>
+                    </div>
+                </div>
+                <div class="col-4">
+                    <label class="form-label" style="font-size: medium;font-weight:500">Filter by
+                        Value</label>
+                    <div class="form-group">
+                        <div class="mb-3">
+                            <p-multiSelect [options]="countryList" styleClass="w-100"
+                                            formControlName="valueRange"
+                                            optionValue=" "
+                                            placeholder="Select Value Range"
+                                            optionLabel=" " #value>
+                            </p-multiSelect>
                         </div>
-                        <!-- <div class="col-md-12">
-                                <label class="form-label" style="font-size: medium;font-weight:500">Filter by
-                                    Value</label>
-                                <div class="form-group">
-                                    <div class="mb-3">
-                                        <p-multiSelect [options]="countryList" styleClass="w-100"
-                                                       formControlName="valueRange"
-                                                       optionValue=" "
-                                                       placeholder="Select Value Range"
-                                                       optionLabel=" " #value>
-                                        </p-multiSelect>
-                                        <div *ngIf="filterForm.hasError('org_name')" class="text-danger">
-                                            {{ filterForm.getError('org_name') }}
-                                        </div>
-                                    </div>
-                                </div>
-                            </div> -->
+                    </div>
+                </div>
+                <div class="col-4">
+                    <label class="form-label" style="font-size: medium;font-weight:500">Filter by
+                        Coverage Value</label>
+                    <div class="form-group">
+                        <div class="mb-3">
+                            <p-dropdown formControlName="cover_id" optionValue="id" optionLabel="cover_name" styleClass="w-full"
+                                [options]="coverList" [filter]="true" filterBy="cover_name" placeholder="Select  Coverage Value"
+                                class="filterInput" [appendTo]="'body'"></p-dropdown>
+                        </div>
                     </div>
                 </div>
             </div>
-            <br><br>
-            <div class="row">
-                <div class="col-12"> <button type="submit" class="btn btn-dark w-full"
-                        style="background-color: var(--uniprep-primary) !important">Apply
-                        Filter</button></div>
-                <div class="col-12">
-                    <button class="btn btn-danger ps-3 pe-3 pt-2 pb-2 w-full" (click)="clearFilter()"
-                        style="border-radius: 8px; color: #fff;" type="button">
-                        Reset Filter</button>
-                </div>
+            <div>
+                <button type="submit" class="btn btn-dark w-full"
+                    style="background-color: var(--uniprep-primary);border: none;">
+                    Apply Filter
+                </button>
+                <button class="btn btn-dark w-full" (click)="clearFilter()"
+                    style="background-color:white;border-radius: 8px; color: var(--uniprep-primary);border: none;"
+                    type="button">
+                    Reset Filter
+                </button>
             </div>
         </form>
-    </p-dialog>
+    </div>
+</p-dialog>
