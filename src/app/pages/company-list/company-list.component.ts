@@ -16,7 +16,7 @@ export class CompanyListComponent implements OnInit {
   countryList: any;
   headQuartersList: any
   page = 1;
-  pageSize = 100;
+  pageSize = 50;
   valueNearYouFilter: string = '';
   totalCompanyCount: any;
   isFilterVisible: string = 'none';

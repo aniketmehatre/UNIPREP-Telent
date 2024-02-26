@@ -19,7 +19,7 @@ export class ScholarshipListComponent implements OnInit {
   countryList: any;
   headQuartersList: any;
   page = 1;
-  pageSize = 100;
+  pageSize = 50;
   first: number = 0;
   searchScholarshpName: string = "";
   totalScholarShipCount: any;
@@ -280,5 +280,9 @@ export class ScholarshipListComponent implements OnInit {
   }
   clearRestriction() {
     this.restrict = false;
+  }
+
+  scholarGuidlines(): void {
+    this.router.navigate(["/pages/scholarship-guidlines"]);
   }
 }
