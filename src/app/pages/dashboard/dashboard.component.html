@@ -2,7 +2,7 @@
 	<div class="card-header">
 		<h5 class="mb-0">SELECTED COUNTRY</h5>
 	</div>
-	<div class="card-body">
+	<div class="card-body pb-0">
 		<p-carousel #carousel [circular]="false" [numScroll]="7" [numVisible]="7" [responsiveOptions]="responsiveOptions" [value]="countryLists">
 			<ng-template let-v pTemplate="item">
 				<div (click)="selectCountry(v)" role="button" class="text-center card-body {{ selectedCountryId == v.id ? 'country-border px-2 py-2' : '' }}">
