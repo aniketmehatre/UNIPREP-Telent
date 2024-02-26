@@ -1,11 +1,17 @@
 <div class="card readingcard">
   <div class="card-body pt-0">
-    <div class="row justify-content-center" *ngIf="!planExpired">
+    <div class="row justify-content-center">
       <div class="col-md-3 text-start desktop">
         <div class="p-input-icon-left w-100 mt-3">
           <i class="pi pi-search"></i>
-          <input class="w-100 px-5 py-2" type="text" placeholder="Search in Investor List" pInputText
-            [(ngModel)]="valueNearYouFilter" (input)="performSearch($event)" />
+          <input
+            class="w-100 px-5 py-2"
+            type="text"
+            placeholder="Search in Investor List"
+            pInputText
+            [(ngModel)]="valueNearYouFilter"
+            (input)="performSearch($event)"
+          />
         </div>
       </div>
       <div class="col-md-6 text-center">
@@ -15,75 +21,135 @@
       </div>
       <div class="col-md-3 text-end desktop">
         <span class="d-flex justify-content-end">
-          <button class="btn btn-primary investor-guidlines" (click)="investorGuidlines()" type="button">
-            Investor Guidelines</button>
-          <button class="btn btn-primary ps-3 pe-3 pt-2 pb-2 br-8" (click)="filterBy()" type="button">
-            Filter
-            by</button>
+          <button
+            class="btn btn-primary investor-guidlines"
+            (click)="investorGuidlines()"
+            type="button"
+          >
+            Investor Guidelines
+          </button>
+          <button
+            class="btn btn-primary ps-3 pe-3 pt-2 pb-2 br-8"
+            (click)="filterBy()"
+            type="button"
+          >
+            Filter by
+          </button>
         </span>
-        <div class="d-flex w-full align-items-center justify-content-end ">
+        <div class="d-flex w-full align-items-center justify-content-end">
           <div class="pe-2">
-            <span class="text-muted text-small"><strong>Total Investors : {{ totalInvestorsCount
-                }}</strong></span>
+            <span class="text-muted text-small"
+              ><strong
+                >Total Investors : {{ totalInvestorsCount }}</strong
+              ></span
+            >
           </div>
         </div>
       </div>
     </div>
-    <div class="mobile" *ngIf="!planExpired">
+    <div class="mobile">
       <div class="row">
         <div class="col-md-6 text-start">
           <div class="p-input-icon-left w-100 mt-3">
             <i class="pi pi-search"></i>
-            <input class="w-100 px-5 py-2" type="text" placeholder="Search in Investor List" pInputText
-              [(ngModel)]="valueNearYouFilter" (input)="performSearch($event)" />
+            <input
+              class="w-100 px-5 py-2"
+              type="text"
+              placeholder="Search in Investor List"
+              pInputText
+              [(ngModel)]="valueNearYouFilter"
+              (input)="performSearch($event)"
+            />
           </div>
         </div>
         <div class="col-md-6 text-end">
           <span class="d-flex justify-content-end">
-            <button class="btn btn-primary investor-guidlines" (click)="investorGuidlines()" type="button">
-              Investor Guidelines</button>
-            <button class="btn btn-primary ps-3 pe-3 pt-2 pb-2 br-8" (click)="filterBy()" type="button">
-              Filter
-              by</button>
+            <button
+              class="btn btn-primary investor-guidlines"
+              (click)="investorGuidlines()"
+              type="button"
+            >
+              Investor Guidelines
+            </button>
+            <button
+              class="btn btn-primary ps-3 pe-3 pt-2 pb-2 br-8"
+              (click)="filterBy()"
+              type="button"
+            >
+              Filter by
+            </button>
             <!-- <button class="btn btn-danger ps-3 pe-3 pt-2 pb-2" (click)="resetFilter()"
                           style="border-radius: 8px; color: #fff;" type="button">
                           Reset</button> -->
           </span>
-          <div class="d-flex w-full align-items-center justify-content-end ">
+          <div class="d-flex w-full align-items-center justify-content-end">
             <div class="pe-2">
-              <span class="text-muted text-small"><strong>Total Investors : {{ totalInvestorsCount
-                  }}</strong></span>
+              <span class="text-muted text-small"
+                ><strong
+                  >Total Investors : {{ totalInvestorsCount }}</strong
+                ></span
+              >
             </div>
           </div>
         </div>
       </div>
     </div>
-    <div class="container-fluid" *ngIf="!planExpired">
+    <div class="container-fluid">
       <div class="row">
-        <div *ngFor="let investorListData of investorData" class="col-md-3 col-12 mt-3 ">
+        <div
+          *ngFor="let investorListData of investorData"
+          class="col-md-3 col-12 mt-3"
+        >
           <div class="cardcard-style text-black p-2 h-100 companny-list">
-            <h6 class="mt-2 mb-2 investor-name">{{investorListData.org_name}}</h6>
+            <h6 class="mt-2 mb-2 investor-name">
+              {{ investorListData.org_name }}
+            </h6>
             <div class="d-flex mt-2">
-              <div class="col-6"><i class="fa fa-map-marker pr-2" aria-hidden="true"></i>{{
-                investorListData.country }}
+              <div class="col-6">
+                <i class="fa fa-map-marker pr-2" aria-hidden="true"></i
+                >{{ investorListData.country }}
               </div>
-              <div class="col-6"><i class="fa-solid fa-building  pr-2" aria-hidden="true"></i>{{
-                investorListData.head_quarters
-                }}</div>
+              <div class="col-6">
+                <i class="fa-solid fa-building pr-2" aria-hidden="true"></i
+                >{{ investorListData.head_quarters }}
+              </div>
             </div>
             <div class="d-flex mt-2 mb-2">
-              <div class="col-11"><i class="fa-solid fa-list pr-2" aria-hidden="true"></i>{{
-                investorListData.investor_type }}</div>
+              <div class="col-11">
+                <i class="fa-solid fa-list pr-2" aria-hidden="true"></i
+                >{{ investorListData.investor_type }}
+              </div>
               <div class="col-1">
                 <div class="d-flex justify-content-end social-media">
-                  <div *ngIf="investorListData.website && investorListData.website.trim() !== ''">
-                    <a target="_blank" href="{{ investorListData.website }}"><i class="fa-solid fa-globe pr-2"></i></a>
+                  <div
+                    *ngIf="
+                      investorListData.website &&
+                      investorListData.website.trim() !== ''
+                    "
+                  >
+                    <a target="_blank" href="{{ investorListData.website }}"
+                      ><i class="fa-solid fa-globe pr-2"></i
+                    ></a>
                   </div>
-                  <div *ngIf="investorListData.email && investorListData.email.trim() !== ''">
-                    <a target="_blank" href="{{ investorListData.email }}"><i class="fa-solid fa-envelope pr-2"></i></a>
+                  <div
+                    *ngIf="
+                      investorListData.email &&
+                      investorListData.email.trim() !== ''
+                    "
+                  >
+                    <a target="_blank" href="{{ investorListData.email }}"
+                      ><i class="fa-solid fa-envelope pr-2"></i
+                    ></a>
                   </div>
-                  <div *ngIf="investorListData.linked_in && investorListData.linked_in.trim() !== ''">
-                    <a target="_blank" href="{{ investorListData.linked_in }}"><i class="fa-brands fa-linkedin"></i></a>
+                  <div
+                    *ngIf="
+                      investorListData.linked_in &&
+                      investorListData.linked_in.trim() !== ''
+                    "
+                  >
+                    <a target="_blank" href="{{ investorListData.linked_in }}"
+                      ><i class="fa-brands fa-linkedin"></i
+                    ></a>
                   </div>
                 </div>
               </div>
@@ -93,88 +159,120 @@
       </div>
       <div *ngIf="totalInvestorsCount == 0" class="text-center margin-auto">
         <h3>No Results Found</h3>
-        <p>The applied filter did not provide any results,<br>
-          please try again by changing the parameters.</p>
-      </div>
-      <p-paginator *ngIf="totalInvestorsCount != 0" [rows]="pageSize" [totalRecords]="totalInvestorsCount"
-        (onPageChange)="pageChange($event)" [rowsPerPageOptions]="[100, 300, 500, 1000]"></p-paginator>
-    </div>
-    <div *ngIf="planExpired" class="investor-expired">
-      <div class="row justify-content-center">
-        <div class="col-md-2 text-start"></div>
-        <div class="col-md-8 text-center">
-          <h5 class="select-title mb-1" tooltipPosition="top" pTooltip="">INVESTOR LIST</h5>
-        </div>
-        <div class="col-md-2"></div>
-      </div>
-      <div class="text-center mt-5 mb-4">
-        <img src="../../../uniprep-assets/images/smartloack.png" class="image" width="80" />
-        <h3>Upgrade now to access invaluable tools</h3>
-        <p><br />
-          Upgrade your plan now to gain instant access.
+        <p>
+          The applied filter did not provide any results,<br />
+          please try again by changing the parameters.
         </p>
-        <p class="offer">Investor list offers:<br />Information of over 1,00,000 investors including details
-          about
-          the investor name, investor type, contact details and much more!</p>
-        <button pButton type="button"
-          class="text-white p-ripple p-button-rounded p-button-warning p-button p-component p-2"
-          (click)="upgradePlan()">Upgrade Plan<i class="fa fa-arrow-right exhausted-plan-icon"></i></button>
       </div>
+      <p-paginator
+        *ngIf="totalInvestorsCount != 0"
+        [rows]="pageSize"
+        [totalRecords]="totalInvestorsCount"
+        (onPageChange)="pageChange($event)"
+        [rowsPerPageOptions]="[50, 100, 300, 500, 1000]"
+      ></p-paginator>
     </div>
   </div>
 </div>
 
-<p-dialog header="Filter Investors" [(visible)]="isFilterVisible" [modal]="true" [style]="{ width: '60rem' }"
-  [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }" [ngStyle]="{ display: isFilterVisible }" class="filterDialog">
+<p-dialog
+  header="Filter Investors"
+  [(visible)]="isFilterVisible"
+  [modal]="true"
+  [style]="{ width: '60rem' }"
+  [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }"
+  [ngStyle]="{ display: isFilterVisible }"
+  class="filterDialog"
+>
   <div class="m-5">
     <form role="form" [formGroup]="filterForm" (ngSubmit)="loadInvestorData()">
       <div class="row">
         <div class="col-md-12">
           <div class="row">
             <div class="col-md-6">
-              <label class="form-label" style="font-size: medium; font-weight: 500">Filter by
-                Country</label>
+              <label
+                class="form-label"
+                style="font-size: medium; font-weight: 500"
+                >Filter by Country</label
+              >
               <div class="form-group">
                 <div class="mb-3">
-                  <p-multiSelect [options]="countryList" styleClass="w-100" selectedItemsLabel="{0} Countires selected"
-                    formControlName="country" optionValue="id" (onChange)="loadHeadQuartersData($event)"
-                    placeholder="Select Country" optionLabel="country" #InvestorCountryMultiSelect>
+                  <p-multiSelect
+                    [options]="countryList"
+                    styleClass="w-100"
+                    selectedItemsLabel="{0} Countires selected"
+                    formControlName="country"
+                    optionValue="id"
+                    (onChange)="loadHeadQuartersData($event)"
+                    placeholder="Select Country"
+                    optionLabel="country"
+                    #InvestorCountryMultiSelect
+                  >
                   </p-multiSelect>
                 </div>
               </div>
             </div>
             <div class="col-md-6">
-              <label class="form-label" style="font-size: medium;font-weight:500">Filter by
-                Industry</label>
+              <label
+                class="form-label"
+                style="font-size: medium; font-weight: 500"
+                >Filter by Industry</label
+              >
               <div class="form-group">
                 <div class="mb-3">
-                  <p-multiSelect [options]="investorIndustryInterested" styleClass="w-100"
-                    formControlName="industry_interested" optionValue="id" defaultLabel="Select Industry"
-                    optionLabel="industry_name" #InvestorIndustryInterested>
+                  <p-multiSelect
+                    [options]="investorIndustryInterested"
+                    styleClass="w-100"
+                    formControlName="industry_interested"
+                    optionValue="id"
+                    defaultLabel="Select Industry"
+                    optionLabel="industry_name"
+                    #InvestorIndustryInterested
+                  >
                   </p-multiSelect>
                 </div>
               </div>
             </div>
             <div class="col-md-6">
-              <label class="form-label" style="font-size: medium; font-weight: 500">Filter by
-                Headquarters</label>
+              <label
+                class="form-label"
+                style="font-size: medium; font-weight: 500"
+                >Filter by Headquarters</label
+              >
               <div class="form-group">
                 <div class="mb-3">
-                  <p-multiSelect [options]="headQuartersList" styleClass="w-100" formControlName="head_quarters"
-                    placeholder="Select Head Quarters" optionValue="id" optionLabel="head_quarters_name"
-                    #InvestorHeadQuartersMultiSelect selectedItemsLabel="{0} HQ selected">
+                  <p-multiSelect
+                    [options]="headQuartersList"
+                    styleClass="w-100"
+                    formControlName="head_quarters"
+                    placeholder="Select Head Quarters"
+                    optionValue="id"
+                    optionLabel="head_quarters_name"
+                    #InvestorHeadQuartersMultiSelect
+                    selectedItemsLabel="{0} HQ selected"
+                  >
                   </p-multiSelect>
                 </div>
               </div>
             </div>
             <div class="col-md-6">
-              <label class="form-label" style="font-size: medium; font-weight: 500">Filter by
-                Investor Type</label>
+              <label
+                class="form-label"
+                style="font-size: medium; font-weight: 500"
+                >Filter by Investor Type</label
+              >
               <div class="form-group">
                 <div class="mb-3">
-                  <p-multiSelect [options]="investorType" styleClass="w-100" formControlName="investor_type"
-                    optionValue="id" placeholder="Select Investor Type" optionLabel="investor_type_name"
-                    #InvestorTypeMultiSelect selectedItemsLabel="{0} Industries selected">
+                  <p-multiSelect
+                    [options]="investorType"
+                    styleClass="w-100"
+                    formControlName="investor_type"
+                    optionValue="id"
+                    placeholder="Select Investor Type"
+                    optionLabel="investor_type_name"
+                    #InvestorTypeMultiSelect
+                    selectedItemsLabel="{0} Industries selected"
+                  >
                   </p-multiSelect>
                 </div>
               </div>
@@ -183,12 +281,24 @@
         </div>
       </div>
       <div>
-        <button type="submit" class="btn btn-dark w-full"
-          style="background-color: var(--uniprep-primary);border: none;">
+        <button
+          type="submit"
+          class="btn btn-dark w-full"
+          style="background-color: var(--uniprep-primary); border: none"
+        >
           Apply Filter
         </button>
-        <button class="btn btn-dark w-full" (click)="clearFilter()"
-          style="background-color:white;border-radius: 8px; color: var(--uniprep-primary);border: none;" type="button">
+        <button
+          class="btn btn-dark w-full"
+          (click)="clearFilter()"
+          style="
+            background-color: white;
+            border-radius: 8px;
+            color: var(--uniprep-primary);
+            border: none;
+          "
+          type="button"
+        >
           Reset Filter
         </button>
       </div>
@@ -196,17 +306,30 @@
   </div>
 </p-dialog>
 
-<p-dialog [(visible)]="restrict" [modal]="true" [style]="{ width: '30vw'}" [draggable]="false" [resizable]="false"
-  class="restrictionDialog" [breakpoints]="{ '960px': '30vw','959px': '60vw','425px': '90vw'}"
-  (onHide)="clearRestriction()">
+<p-dialog
+  [(visible)]="restrict"
+  [modal]="true"
+  [style]="{ width: '30vw' }"
+  [draggable]="false"
+  [resizable]="false"
+  class="restrictionDialog"
+  [breakpoints]="{ '960px': '30vw', '959px': '60vw', '425px': '90vw' }"
+  (onHide)="clearRestriction()"
+>
   <div class="text-center mt-5 mb-4">
-    <img src="../../../uniprep-assets/images/smartloack.png" class="image" width="60" />
+    <img
+      src="../../../uniprep-assets/images/smartloack.png"
+      class="image"
+      width="60"
+    />
     <h3 class="offer">Upgrade Required</h3>
-    <p>
-      To access this exclusive module,please upgrade your plan now
-    </p>
-    <button pButton type="button" class="text-white p-ripple p-button-rounded p-button-warning p-button p-component p-2"
-      (click)="upgradePlan()">
+    <p>To access this exclusive module,please upgrade your plan now</p>
+    <button
+      pButton
+      type="button"
+      class="text-white p-ripple p-button-rounded p-button-warning p-button p-component p-2"
+      (click)="upgradePlan()"
+    >
       Upgrade Plan<i class="fa fa-arrow-right exhausted-plan-icon"></i>
     </button>
   </div>
