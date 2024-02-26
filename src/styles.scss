@@ -1044,11 +1044,11 @@ p-accordion.plain .p-accordion-tab-active .p-accordion-header-link:after {
 .theme-dark-blue {
 	background-color: #001631;
 }
-p-dialog.restrictionDialog .p-dialog .p-dialog-header .p-dialog-header-icon{
+p-dialog.restrictionDialog .p-dialog .p-dialog-header .p-dialog-header-icon {
 	position: fixed;
 	top: -8px;
 	right: -8px;
-} 
+}
 @media (max-width: 1499.98px) {
 	html,
 	body {
@@ -1135,7 +1135,7 @@ p-dialog.restrictionDialog .p-dialog .p-dialog-header .p-dialog-header-icon{
 	.questionmodal {
 		.p-dialog {
 			width: 100%;
-			max-height:100%
+			max-height: 100%;
 		}
 	}
 }
@@ -1158,7 +1158,7 @@ p-dialog.restrictionDialog .p-dialog .p-dialog-header .p-dialog-header-icon{
 	.questionmodal {
 		.p-dialog {
 			width: 100%;
-			max-height:100%
+			max-height: 100%;
 		}
 	}
 	#sidenav {
@@ -1297,9 +1297,8 @@ p-dialog.restrictionDialog .p-dialog .p-dialog-header .p-dialog-header-icon{
 	}
 }
 @media screen and (max-width: 480px) {
-
 	html,
-body {
-	font-size: 12px;
-}
+	body {
+		font-size: 12px;
+	}
 }
