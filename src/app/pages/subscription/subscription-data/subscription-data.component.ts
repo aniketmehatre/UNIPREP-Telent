@@ -59,8 +59,10 @@ export class SubscriptionDataComponent implements OnInit {
     private storage: LocalStorageService,
     private toast: MessageService,
     private ngxService: NgxUiLoaderService,) { }
+  timeLeftInfoCard: any
 
   ngOnInit(): void {
+    this.timeLeftInfoCard = localStorage.getItem('time_card_info')
     this.discountAmountEnable = false;
     this.user = this.authService.user;
     this.studentType = this.user?.student_type_id || 0;

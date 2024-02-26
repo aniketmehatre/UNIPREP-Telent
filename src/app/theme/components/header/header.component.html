@@ -360,7 +360,7 @@
 <p-dialog [(visible)]="visible" [closable]="false" class="p-0 m-0" [modal]="true" [draggable]="false" [resizable]="false">
 	<div class="d-flex justify-content-between p-4">
 		<div>
-			<h4>Your 24 Hours<span class="text-xl font-bold p-1 fw-bold" style="color: #3f4c83"> Free Trial</span>Exhausted</h4>
+			<h4>Your {{localStorage.getItem('time_card_info')}}<span class="text-xl font-bold p-1 fw-bold" style="color: #3f4c83"> Free Trial</span>Exhausted</h4>
 			<p class="get-certificate">Explore all modules on UNIPREP and get a certificate.</p>
 		</div>
 		<div>
@@ -482,7 +482,7 @@
 											<h2 style="color: #f0780e; margin-bottom: 0">You have unlocked</h2>
 										</strong>
 										<strong class="firsttimelogin">
-											<h2 style="color: #f0780e; margin-top: 0">24 hours free trial.</h2>
+											<h2 style="color: #f0780e; margin-top: 0">{{localStorage.getItem('time_card_info')}} free trial.</h2>
 										</strong>
 									</span>
 								</div>

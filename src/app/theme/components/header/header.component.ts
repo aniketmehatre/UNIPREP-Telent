@@ -117,6 +117,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
       // put the code from `ngOnInit` here
       this.loadCountryList();
     });
+    this.service.getTimeInfoForCard().subscribe((data) => {
+        localStorage.setItem('time_card_info', data.card_message);
+    });
   }
 
   loadCountryList() {
@@ -723,4 +726,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
         });
       });
   }
+
+  protected readonly localStorage = localStorage;
 }

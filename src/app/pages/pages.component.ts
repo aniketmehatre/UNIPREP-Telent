@@ -31,7 +31,7 @@ export class PagesComponent implements OnInit, OnDestroy {
     private subs = new SubSink();
     visibleExhastedUser!: boolean;
     constructor(private pageFacade: PageFacadeService, private router: Router, private dataService: DataService,
-                private dashboardService: DashboardService,private service:AuthService,private deviceService: DeviceDetectorService) {
+                private dashboardService: DashboardService,private service:AuthService, private deviceService: DeviceDetectorService) {
                     this.deviceCheck();
         router.events.subscribe((val) => {
             if(val instanceof NavigationEnd){
@@ -75,6 +75,9 @@ export class PagesComponent implements OnInit, OnDestroy {
       }
 
     ngOnInit(): void {
+        this.service.getTimeInfoForCard().subscribe((data) => {
+            localStorage.setItem('time_card_info', data.card_message);
+        });
         this.subScribedUserCount();
 
         this.subs.sink = this.pageFacade.sideBarState$().subscribe({
