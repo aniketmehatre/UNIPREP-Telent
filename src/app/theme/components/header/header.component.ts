@@ -96,8 +96,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
     private service: AuthService,
     private toast: MessageService,
     private themeService: ThemeService,
-    route: ActivatedRoute,
-    private dataService: DataService, private authService: SocialAuthService,
+    route: ActivatedRoute, private authService: SocialAuthService,
+    private dataService: DataService,
     private dashboardService: DashboardService // private authService: SocialAuthService
   ) {
     this.subs.sink = this.dataService.countryIdSource.subscribe((data) => {
@@ -116,6 +116,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
       this.getReportOption();
       // put the code from `ngOnInit` here
       this.loadCountryList();
+    });
+    this.service.getTimeInfoForCard().subscribe((data) => {
+        localStorage.setItem('time_card_info', data.card_message);
     });
   }
 
@@ -649,10 +652,15 @@ export class HeaderComponent implements OnInit, OnDestroy {
     let data: any = {};
     if (this.mobileForm.valid) {
       data.phone = this.mobileForm.value.phone.number;
+      data.country_code=this.mobileForm.value.phone.dialCode;
     }
     this.dashboardService.getContineTrial(data).subscribe((res) => {
       return res;
     });
+    setTimeout(() => {
+      this.checkNewUser();
+      window.location.reload();
+    }, 2000);
     this.service.contineStatus(false);
     this.dataService.sendValue(false);
     this.freeTrial = false;
@@ -661,12 +669,12 @@ export class HeaderComponent implements OnInit, OnDestroy {
       this.checkNewUser();
       window.location.reload();
     }, 2000);
-    
   }
   onClickSubscribedUser(): void {
     let data: any = {};
-    if (this.mobileForm.valid) {
+    if (this.mobileForm.valid) { 
       data.phone = this.mobileForm.value.phone.number;
+      data.country_code=this.mobileForm.value.phone.dialCode;
     }
     this.dashboardService.getContineTrial(data).subscribe((res) => {
       this.freeTrial = false;
@@ -718,4 +726,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
         });
       });
   }
+
+  protected readonly localStorage = localStorage;
 }

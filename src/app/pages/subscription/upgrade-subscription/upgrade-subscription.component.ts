@@ -70,8 +70,10 @@ export class UpgradeSubscriptionComponent implements OnInit {
     private winRef: WindowRefService,
     private authservice: AuthService
   ) { }
+  timeLeftInfoCard: any
 
   ngOnInit(): void {
+    this.timeLeftInfoCard = localStorage.getItem('time_card_info');
     this.discountAmountEnable = false;
     this.user = this.authService.user;
     this.studentType = this.user?.student_type_id || 0;
@@ -450,4 +452,5 @@ export class UpgradeSubscriptionComponent implements OnInit {
     }, 500);
   }
 
+    protected readonly localStorage = localStorage;
 }
