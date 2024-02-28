@@ -15,6 +15,8 @@ import {TooltipModule} from "primeng/tooltip";
 import {PipesModule} from "@pipes/pipes.module";
 import {TagModule} from "primeng/tag";
 import { PaginatorModule } from 'primeng/paginator';
+import { ButtonModule } from 'primeng/button';
+import { CardModule } from 'primeng/card';
 
 
 @NgModule({
@@ -35,7 +37,9 @@ import { PaginatorModule } from 'primeng/paginator';
     TooltipModule,
     PipesModule,
     TagModule,
-    PaginatorModule
+    PaginatorModule,
+    ButtonModule,
+    CardModule,
   ]
 })
 export class ModulesModule { }

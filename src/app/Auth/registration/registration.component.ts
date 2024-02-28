@@ -283,14 +283,14 @@ export class RegistrationComponent implements OnInit {
     //     });
     //     return;
     // }
-    if (this.registrationForm.invalid) {
-      this.toastr.add({
-        severity: "error",
-        summary: "Alert!!!",
-        detail: "Fill all the information",
-      });
-      return;
-    }
+    // if (this.registrationForm.invalid) {
+    //   this.toastr.add({
+    //     severity: "error",
+    //     summary: "Alert!!!",
+    //     detail: "Fill all the information",
+    //   });
+    //   return;
+    // }
     var data = {
       name: this.registrationForm.value.fullName,
       // location_id: this.registrationForm.value.location,

@@ -503,4 +503,40 @@ export class QuestionListComponent implements OnInit {
   upgradePlan(): void {
     this.router.navigate(["/pages/subscriptions"]);
   }
+  showSocialSharingList(){
+    let socialShare:any=document.getElementById("socialSharingList");
+    socialShare.style.display=socialShare.style.display=="none"?"block":"none";
+  }
+  shareViaWhatsapp(){
+    const shareUrl = `whatsapp://send?text=${encodeURIComponent(this.router.url)}`;
+    window.open(shareUrl, '_blank');
+  }
+  shareViaInstagram(){
+    const shareUrl = `https://www.instagram.com?url=${encodeURIComponent(this.router.url)}`;
+    window.open(shareUrl, '_blank');
+  }
+  shareViaFacebook(){
+    const shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(this.router.url)}`;
+    window.open(shareUrl, '_blank');
+  }
+  shareViaLinkedIn(){
+    const shareUrl = `https://www.linkedin.com/shareArticle?url=${encodeURIComponent(this.router.url)}`;
+    window.open(shareUrl, '_blank');
+  }
+  shareViaTwitter(){
+    const shareUrl = `https://twitter.com/intent/tweet?url=${encodeURIComponent(this.router.url)}`;
+    window.open(shareUrl, '_blank');
+  }
+  shareViaMail(){
+    const shareUrl = `mailto:?body=${encodeURIComponent(this.router.url)}`;
+    window.open(shareUrl, '_blank');  
+  }
+  copyLink(){
+    const textarea = document.createElement('textarea');
+    textarea.textContent = this.router.url;
+    document.body.append(textarea);
+    textarea.select();
+    document.execCommand('copy');
+    textarea.remove();
+  }
 }
