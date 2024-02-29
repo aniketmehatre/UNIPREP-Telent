@@ -41,7 +41,7 @@
 															</div>
 														</div>
 
-														<div class="col-12" >
+														<div class="col-12">
 															<label for="emailAddress"
 																>Email Address
 																<span *ngIf="!isEmailOTPValidated && showEmailErrorIcon">
@@ -65,7 +65,7 @@
 																<div *ngIf="f.emailAddress.errors.required">Email Address is required</div>
 															</div>
 														</div>
-														<div class="col-12" *ngIf="isRemainingFieldVisible"> 
+														<div class="col-12" *ngIf="isRemainingFieldVisible">
 															<label for="contactNumber"
 																>Contact Number
 																<!-- <span *ngIf="!isMobileOTPValidated && showContactErrorIcon">
@@ -294,9 +294,9 @@
 												<div class="line mt-4 mb-4"></div>
 												<div class="d-flex justify-content-center">
 													<div class="w-100">
-														<asl-google-signin-button text='signup_with' class="ml-2 font-bold fullWidth" logo_alignment="center" type="standard" size="large"></asl-google-signin-button>
+														<asl-google-signin-button text="signup_with" class="ml-2 font-bold fullWidth" logo_alignment="center" type="standard" size="large"></asl-google-signin-button>
 													</div>
-													
+
 													<!-- <div class="socialloginbutton justify-content-center gap-3 py-2 w-100 flex-row align-items-center d-flex" role="button">
 														<img src="../../../uniprep-assets/icons/google.svg" width="20" />
 														<span class="text-small fw-semibold">Sign Up Coming Soon</span>
@@ -332,16 +332,16 @@
 											<div class="p-inputgroup-addon">
 												<i class="fa-regular fa-user"></i>
 											</div>
-											<input type="text" class="border-0" pInputText id="fullName" placeholder="Enter Full Name"
-												formControlName="fullName" [ngClass]="{ 'is-invalid': submitted && f.fullName.errors }" />
+											<input type="text" class="border-0" pInputText id="fullName" placeholder="Enter Full Name" formControlName="fullName" [ngClass]="{ 'is-invalid': submitted && f.fullName.errors }" />
 										</div>
 										<div *ngIf="submitted && f.fullName.errors" class="invalid-feedback">
 											<div *ngIf="f.fullName.errors.required">Full Name is required</div>
 										</div>
 									</div>
-								
+
 									<div class="col-12">
-										<label for="emailAddress">Email Address
+										<label for="emailAddress"
+											>Email Address
 											<span *ngIf="!isEmailOTPValidated && showEmailErrorIcon">
 												<i class="fa-solid fa-circle-exclamation text-danger"></i>
 											</span>
@@ -355,19 +355,17 @@
 												<div class="p-inputgroup-addon">
 													<i class="fa-regular fa-envelope"></i>
 												</div>
-												<input type="email" placeholder="Enter Email Address" pInputText class="border-0 w-full"
-													id="emailAddress" [readonly]="isEmailOTPSend" formControlName="emailAddress"
-													[ngClass]="{ 'is-invalid': submitted && f.emailAddress.errors }" (keyup)="onChangeEmail($event)" />
+												<input type="email" placeholder="Enter Email Address" pInputText class="border-0 w-full" id="emailAddress" [readonly]="isEmailOTPSend" formControlName="emailAddress" [ngClass]="{ 'is-invalid': submitted && f.emailAddress.errors }" (keyup)="onChangeEmail($event)" />
 											</div>
-											<div class="edit-button" *ngIf="isEmailOTPSend && !isRemainingFieldVisible" (click)="editEmailAgain()">Edit
-											</div>
+											<div class="edit-button" *ngIf="isEmailOTPSend && !isRemainingFieldVisible" (click)="editEmailAgain()">Edit</div>
 										</div>
 										<div *ngIf="submitted && f.emailAddress.errors" class="invalid-feedback">
 											<div *ngIf="f.emailAddress.errors.required">Email Address is required</div>
 										</div>
 									</div>
 									<div class="col-12" *ngIf="isRemainingFieldVisible">
-										<label for="contactNumber">Contact Number
+										<label for="contactNumber"
+											>Contact Number
 											<!-- <span *ngIf="!isMobileOTPValidated && showContactErrorIcon">
 																									<i class="fa-solid fa-circle-exclamation text-danger"></i>
 																								</span>
@@ -377,16 +375,24 @@
 											<span class="required">*</span>
 										</label>
 										<div class="w-100 position-relative">
-											<ngx-intl-tel-input class="intel-input w-100" [cssClass]="'custom'"
-												[preferredCountries]="[CountryISO.India]" [enableAutoCountrySelect]="true" [enablePlaceholder]="true"
-												[searchCountryFlag]="true" [maxLength]="15"
-												[searchCountryField]="[SearchCountryField.Iso2, SearchCountryField.Name]" [phoneValidation]="true"
-												[selectedCountryISO]="CountryISO.India" name="phone" formControlName="contactNumber"
-												customPlaceholder="Enter Contact Number" (keyup)="onChangeContact($event)"
+											<ngx-intl-tel-input
+												class="intel-input w-100"
+												[cssClass]="'custom'"
+												[preferredCountries]="[CountryISO.India]"
+												[enableAutoCountrySelect]="true"
+												[enablePlaceholder]="true"
+												[searchCountryFlag]="true"
+												[maxLength]="15"
+												[searchCountryField]="[SearchCountryField.Iso2, SearchCountryField.Name]"
+												[phoneValidation]="true"
+												[selectedCountryISO]="CountryISO.India"
+												name="phone"
+												formControlName="contactNumber"
+												customPlaceholder="Enter Contact Number"
+												(keyup)="onChangeContact($event)"
 												[ngClass]="{ 'is-invalid': submitted && f.contactNumber.errors }">
 											</ngx-intl-tel-input>
-											<div class="edit-button" *ngIf="isMobileOTPEdit && !isMobileOTPValidated" (click)="editMobileNumberAgain()">
-												Edit</div>
+											<div class="edit-button" *ngIf="isMobileOTPEdit && !isMobileOTPValidated" (click)="editMobileNumberAgain()">Edit</div>
 										</div>
 										<div *ngIf="submitted && f.contactNumber.errors" class="invalid-feedback">
 											<div *ngIf="f.contactNumber.errors.required">Contact Number is required</div>
@@ -437,8 +443,7 @@
 										<div class="row g-3">
 											<div class="col-md-12 col-12">
 												<div class="text-center mt-3">
-													<button class="btn m-0 mt-3 btn-primary send-btn" type="button" (click)="sendEmailOTP()">SEND
-														OTP</button>
+													<button class="btn m-0 mt-3 btn-primary send-btn" type="button" (click)="sendEmailOTP()">SEND OTP</button>
 												</div>
 											</div>
 										</div>
@@ -448,42 +453,31 @@
 											<h5 class="mt-3 text-center">Enter your OTP</h5>
 											<p class="text-center text-muted">We have sent you one time password to your email for verification</p>
 											<div class="text-center">
-												<input class="col form-control" [ngClass]="{ 'is-invalid': submitted && f.otp5.errors }"
-													formControlName="otp5" (keyup)="focusNextEmailInput($event, 5)" type="text" #otp5 autofocus
-													maxlength="1" />
-												<input class="col form-control" formControlName="otp6" (keyup)="focusNextEmailInput($event, 6)"
-													type="text" maxlength="1" autofocus #otp6
-													[ngClass]="{ 'is-invalid': submitted && f.otp6.errors }" />
-												<input class="col form-control" formControlName="otp7" (keyup)="focusNextEmailInput($event, 7)"
-													type="text" maxlength="1" #otp7 autofocus
-													[ngClass]="{ 'is-invalid': submitted && f.otp7.errors }" />
-												<input class="col form-control" formControlName="otp8" type="text"
-													(keyup)="focusNextEmailInput($event, 8)" #otp8 maxlength="1" autofocus
-													[ngClass]="{ 'is-invalid': submitted && f.otp8.errors }" />
-												<div *ngIf="submitted && f.otp5.errors && f.otp6.errors && f.otp7.errors && f.otp8.errors"
-													class="invalid-feedback">
-													<div
-														*ngIf="f.otp5.errors.required && f.otp6.errors.required && f.otp7.errors.required && f.otp8.errors.required">
-														OTP is required</div>
+												<input class="col form-control" [ngClass]="{ 'is-invalid': submitted && f.otp5.errors }" formControlName="otp5" (keyup)="focusNextEmailInput($event, 5)" type="text" #otp5 autofocus maxlength="1" />
+												<input class="col form-control" formControlName="otp6" (keyup)="focusNextEmailInput($event, 6)" type="text" maxlength="1" autofocus #otp6 [ngClass]="{ 'is-invalid': submitted && f.otp6.errors }" />
+												<input class="col form-control" formControlName="otp7" (keyup)="focusNextEmailInput($event, 7)" type="text" maxlength="1" #otp7 autofocus [ngClass]="{ 'is-invalid': submitted && f.otp7.errors }" />
+												<input class="col form-control" formControlName="otp8" type="text" (keyup)="focusNextEmailInput($event, 8)" #otp8 maxlength="1" autofocus [ngClass]="{ 'is-invalid': submitted && f.otp8.errors }" />
+												<div *ngIf="submitted && f.otp5.errors && f.otp6.errors && f.otp7.errors && f.otp8.errors" class="invalid-feedback">
+													<div *ngIf="f.otp5.errors.required && f.otp6.errors.required && f.otp7.errors.required && f.otp8.errors.required">OTP is required</div>
 												</div>
 											</div>
 											<br />
 											<div class="text-center">
-												<button class="pt-2 pb-2 btn btn-primary btn-login text-uppercase fw-bold m-0 w-50" type="submit">VERIFY
-													OTP</button>
+												<button class="pt-2 pb-2 btn btn-primary btn-login text-uppercase fw-bold m-0 w-50" type="submit">VERIFY OTP</button>
 											</div>
 											<p class="text-center mt-3">
-												Didn't receive the Email OTP?<br /><span class="font-primarycolor"><a (click)="sendEmailOTP()">Click to
-														resend.</a> </span>
+												Didn't receive the Email OTP?<br /><span class="font-primarycolor"><a (click)="sendEmailOTP()">Click to resend.</a> </span>
 											</p>
 											<div class="footer-part">
-												<a href="login"><span><i class="pi pi-chevron-left"></i></span></a><br />
+												<a href="login"
+													><span><i class="pi pi-chevron-left"></i></span></a
+												><br />
 												<label>Back to Sign In</label>
 											</div>
 										</form>
 									</div>
 								</div>
-								
+
 								<div *ngIf="isRemainingFieldVisible">
 									<div class="row">
 										<!-- <div class="col-md-6 col-12">
@@ -538,10 +532,15 @@
 												<div class="p-inputgroup-addon">
 													<i class="fa-regular fa-lock"></i>
 												</div>
-												<input [type]="password" pInputText class="border-0" formControlName="password"
-													placeholder="Enter Password" [ngClass]="{
-																											'is-invalid': submitted && f.password.errors
-																										}" />
+												<input
+													[type]="password"
+													pInputText
+													class="border-0"
+													formControlName="password"
+													placeholder="Enter Password"
+													[ngClass]="{
+														'is-invalid': submitted && f.password.errors
+													}" />
 												<div class="p-2" role="button">
 													<span (click)="showHidePassword()">
 														<i class="fa-regular fa-eye" aria-hidden="true" *ngIf="!show"></i>
@@ -560,10 +559,16 @@
 												<div class="p-inputgroup-addon">
 													<i class="fa-regular fa-lock-hashtag"></i>
 												</div>
-												<input [type]="confirmPassword" pInputText class="border-0" placeholder=" Enter Confirm Password"
-													id="confirmPassword" formControlName="confirmPassword" [ngClass]="{
-																											'is-invalid': submitted && f.confirmPassword.errors
-																										}" />
+												<input
+													[type]="confirmPassword"
+													pInputText
+													class="border-0"
+													placeholder=" Enter Confirm Password"
+													id="confirmPassword"
+													formControlName="confirmPassword"
+													[ngClass]="{
+														'is-invalid': submitted && f.confirmPassword.errors
+													}" />
 												<div class="p-2" role="button">
 													<span (click)="showHideConfirmPassword()">
 														<i class="fa-regular fa-eye" aria-hidden="true" *ngIf="!showConfirm"></i>
@@ -572,16 +577,14 @@
 												</div>
 											</div>
 											<div *ngIf="submitted && f.confirmPassword.errors" class="invalid-feedback">
-												<div style="width: 120%" *ngIf="f.confirmPassword.hasError('matching')">Password and confirm password
-													not match</div>
+												<div style="width: 120%" *ngIf="f.confirmPassword.hasError('matching')">Password and confirm password not match</div>
 												<div *ngIf="f.confirmPassword.errors.required">Confirm Password is required</div>
 											</div>
 										</div>
 									</div>
 									<div class="col-md-12 mt-4">
 										<div class="d-grid">
-											<button class="pt-3 pb-3 btn btn-primary btn-login text-uppercase fw-semibold h5 m-0 text-dark"
-												type="submit">Sign Up</button>
+											<button class="pt-3 pb-3 btn btn-primary btn-login text-uppercase fw-semibold h5 m-0 text-dark" type="submit">Sign Up</button>
 										</div>
 									</div>
 								</div>
@@ -592,7 +595,7 @@
 							<div class="line"></div>
 							<div class="d-flex justify-content-center">
 								<div class="w-100">
-									<asl-google-signin-button text='signup_with' class="ml-2 font-bold fullWidth" logo_alignment="center" type="standard" size="large"></asl-google-signin-button>
+									<asl-google-signin-button text="signup_with" class="ml-2 font-bold fullWidth" logo_alignment="center" type="standard" size="large"></asl-google-signin-button>
 								</div>
 								<!-- <div class="socialloginbutton justify-content-center gap-3 py-2 w-100 flex-row align-items-center d-flex" role="button">
 									<img src="../../../uniprep-assets/icons/google.svg" width="20" />
