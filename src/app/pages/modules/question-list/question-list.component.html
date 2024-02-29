@@ -251,10 +251,10 @@
 <div *ngIf="showVideoPopup" class="modal-overlay" dropdownAppendTo="body">
 	<div class="modal-container">
 		<button class="close-button" tooltipPosition="top" pTooltip="Close" (click)="closeVideoPopup()">
-			<b><i class="fa-solid fa-circle-xmark fa-1x"></i></b>
+			<b><i class="fa-solid fa-circle-xmark fa-2x"></i></b>
 		</button>
 		<button class="newwindow-button" tooltipPosition="top" pTooltip="Open New Window"
-			(click)="openNextVideo()"><b>+</b></button>
+			(click)="openNextVideo()"><b><i class="fa-solid fa-circle-plus fa-1x"></i></b></button>
 		<!-- Use the safe pipe here for the src attribute -->
 		<iframe [src]="selectedVideoLink" width="560" height="315" frameborder="0" allowfullscreen></iframe>
 	</div>
