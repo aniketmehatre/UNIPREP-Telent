@@ -19,7 +19,7 @@ export class ScholarshipListComponent implements OnInit {
   countryList: any;
   headQuartersList: any;
   page = 1;
-  pageSize = 50;
+  pageSize = 25;
   first: number = 0;
   searchScholarshpName: string = "";
   totalScholarShipCount: any;
