@@ -328,6 +328,11 @@ form {
   overflow-x: hidden !important;
   background: white !important;
 }
+.iti .dropdown-menu.country-dropdown .search-container{
+  top: 0px !important;
+  position:sticky !important;
+  z-index: 99;
+}
 .phonenumberblock p{
   font-size: small;
     text-align: center;
@@ -348,3 +353,4 @@ form {
     rgb(63 76 131) 100%
   ) !important;
 }
+
