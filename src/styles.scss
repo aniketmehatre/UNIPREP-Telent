@@ -263,42 +263,6 @@ small {
 		}
 	}
 }
-.darkmode {
-	.lightmodelogo {
-		display: none;
-	}
-	.darkmodelogo {
-		display: inline;
-	}
-	.smalllogowhite {
-		display: none;
-	}
-	.smalllogodark {
-		display: none;
-	}
-	.menuclosed {
-		.lightmodelogo {
-			display: none;
-		}
-		.darkmodelogo {
-			display: none;
-		}
-		.smalllogowhite {
-			display: none;
-		}
-		.smalllogodark {
-			display: inline;
-		}
-	}
-	.btn-basic {
-		color: #fff;
-		border-radius: 20px !important;
-		border: 1px solid #fff;
-		&:hover {
-			border: 1px solid #fff;
-		}
-	}
-}
 uni-modules {
 	display: flex;
 	flex: 1;
@@ -625,6 +589,10 @@ uni-subscription {
 		border-color: #708fb5 !important;
 		box-shadow: 0 0 0 0.25rem #708fb580;
 	}
+}
+
+.modal {
+	background: #00000080;
 }
 
 .btn-rounded {

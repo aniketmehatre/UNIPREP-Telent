@@ -186,6 +186,22 @@ Due to the split circle of progress-left and progress right, we must use the ani
   }
 }
 
+.trustedbylogo
+{
+  width:125px;
+}
+
+.certificatelock {
+  background-image: url(../../../uniprep-assets/images/uniprepcertificate.webp);
+  background-size: cover;
+  background-repeat: no-repeat;
+  filter: grayscale(1);
+  background-position: center;
+  border: 1px solid #343a40;
+  height: 100px;
+}
+
+
 
 // .card-body-main span {
 //   margin: 0.4rem 0 0 0 !important;
@@ -283,16 +299,6 @@ Due to the split circle of progress-left and progress right, we must use the ani
 
 // .homecardbtnquiz{
 //   background-color: black;
-// }
-
-// .certificatelock {
-//   background-image: url(../../../uniprep-assets/images/uniprepcertificate.webp);
-//   background-size: cover;
-//   background-repeat: no-repeat;
-//   filter: grayscale(1);
-//   background-position: center;
-//   border: 1px solid #343a40;
-//   height: 100px;
 // }
 
 // .terms_p {
