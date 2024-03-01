@@ -23,6 +23,7 @@ import { DomSanitizer } from "@angular/platform-browser";
 import { Carousel } from "primeng/carousel";
 import { AuthService } from "src/app/Auth/auth.service";
 import {NgxUiLoaderService} from "ngx-ui-loader";
+import { environment } from "@env/environment";
 
 @Component({
   selector: "uni-question-list",
@@ -77,6 +78,7 @@ export class QuestionListComponent implements OnInit {
   oneQuestionContent: any;
   restrict: boolean = false;
   planExpired: boolean = false;
+  questionUrl:string="";
   constructor(
     private moduleListService: ModuleServiceService,
     private moduleStoreService: ModuleStoreService,
@@ -98,6 +100,7 @@ export class QuestionListComponent implements OnInit {
       //this.getSubmoduleName(this.countryId);
     });
     this.tooltip = "Questions related to the application process are answered";
+    this.questionUrl=environment.ApiUrl+this.router.url;
   }
   loadInit() {
     this.countryId = Number(localStorage.getItem("countryId"));
@@ -508,32 +511,32 @@ export class QuestionListComponent implements OnInit {
     socialShare.style.display=socialShare.style.display=="none"?"block":"none";
   }
   shareViaWhatsapp(){
-    const shareUrl = `whatsapp://send?text=${encodeURIComponent(this.router.url)}`;
+    const shareUrl = `whatsapp://send?text=${encodeURIComponent(this.questionUrl)}`;
     window.open(shareUrl, '_blank');
   }
   shareViaInstagram(){
-    const shareUrl = `https://www.instagram.com?url=${encodeURIComponent(this.router.url)}`;
+    const shareUrl = `https://www.instagram.com?url=${encodeURIComponent(this.questionUrl)}`;
     window.open(shareUrl, '_blank');
   }
   shareViaFacebook(){
-    const shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(this.router.url)}`;
+    const shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(this.questionUrl)}`;
     window.open(shareUrl, '_blank');
   }
   shareViaLinkedIn(){
-    const shareUrl = `https://www.linkedin.com/shareArticle?url=${encodeURIComponent(this.router.url)}`;
+    const shareUrl = `https://www.linkedin.com/shareArticle?url=${encodeURIComponent(this.questionUrl)}`;
     window.open(shareUrl, '_blank');
   }
   shareViaTwitter(){
-    const shareUrl = `https://twitter.com/intent/tweet?url=${encodeURIComponent(this.router.url)}`;
+    const shareUrl = `https://twitter.com/intent/tweet?url=${encodeURIComponent(this.questionUrl)}`;
     window.open(shareUrl, '_blank');
   }
   shareViaMail(){
-    const shareUrl = `mailto:?body=${encodeURIComponent(this.router.url)}`;
+    const shareUrl = `mailto:?body=${encodeURIComponent(this.questionUrl)}`;
     window.open(shareUrl, '_blank');  
   }
   copyLink(){
     const textarea = document.createElement('textarea');
-    textarea.textContent = this.router.url;
+    textarea.textContent = this.questionUrl;
     document.body.append(textarea);
     textarea.select();
     document.execCommand('copy');

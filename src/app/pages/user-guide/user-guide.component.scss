@@ -9,3 +9,18 @@ li.active{
 .pdf-container {
     width: 100%;
 }
+@media (min-width:501px) {
+    .docMobile{
+        display: none;
+    }
+}
+
+@media (max-width:500px){
+    .docMobile{
+        display: block;
+    }
+    .pdfDiv{
+        display: none;
+    }
+}
+ 
