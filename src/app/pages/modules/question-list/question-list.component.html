@@ -13,7 +13,65 @@
 			</div>
 			<div class="col-md-1 col-1">&nbsp;</div>
 		</div>
-		<div class="row">
+        <div *ngIf="isSkeletonVisible">
+            <div class="row pt-4">
+                <div class="col-3 p-2">
+                    <p-skeleton width="15rem" height="12rem"></p-skeleton>
+                </div>
+                <div class="col-3 p-2">
+                    <p-skeleton width="15rem" height="12rem"></p-skeleton>
+                </div>
+                <div class="col-3 p-2">
+                    <p-skeleton width="15rem" height="12rem"></p-skeleton>
+                </div>
+                <div class="col-3 p-2">
+                    <p-skeleton width="15rem" height="12rem"></p-skeleton>
+                </div>
+            </div>
+            <div class="row pt-4">
+                <div class="col-3 p-2">
+                    <p-skeleton width="15rem" height="12rem"></p-skeleton>
+                </div>
+                <div class="col-3 p-2">
+                    <p-skeleton width="15rem" height="12rem"></p-skeleton>
+                </div>
+                <div class="col-3 p-2">
+                    <p-skeleton width="15rem" height="12rem"></p-skeleton>
+                </div>
+                <div class="col-3 p-2">
+                    <p-skeleton width="15rem" height="12rem"></p-skeleton>
+                </div>
+            </div>
+            <div class="row pt-4">
+                <div class="col-3 p-2">
+                    <p-skeleton width="15rem" height="12rem"></p-skeleton>
+                </div>
+                <div class="col-3 p-2">
+                    <p-skeleton width="15rem" height="12rem"></p-skeleton>
+                </div>
+                <div class="col-3 p-2">
+                    <p-skeleton width="15rem" height="12rem"></p-skeleton>
+                </div>
+                <div class="col-3 p-2">
+                    <p-skeleton width="15rem" height="12rem"></p-skeleton>
+                </div>
+            </div>
+            <div class="row pt-4">
+                <div class="col-3 p-2">
+                    <p-skeleton width="15rem" height="12rem"></p-skeleton>
+                </div>
+                <div class="col-3 p-2">
+                    <p-skeleton width="15rem" height="12rem"></p-skeleton>
+                </div>
+                <div class="col-3 p-2">
+                    <p-skeleton width="15rem" height="12rem"></p-skeleton>
+                </div>
+                <div class="col-3 p-2">
+                    <p-skeleton width="15rem" height="12rem"></p-skeleton>
+                </div>
+            </div>
+        </div>
+		<div class="row" *ngIf="!isSkeletonVisible">
 			<div *ngFor="let sub of questionListData; let i = index"
 				class="col-lg-3 col-md-4 col-sm-4 col-xs-12 col-12 my-2">
 				<div class="row w-100 h-100 m-0 justify-content-center">
@@ -246,4 +304,5 @@
 			Upgrade Plan<i class="fa fa-arrow-right exhausted-plan-icon"></i>
 		</button>
 	</div>
-</p-dialog>	
+</p-dialog>
+<ngx-ui-loader></ngx-ui-loader>

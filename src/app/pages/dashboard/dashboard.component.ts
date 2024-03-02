@@ -1,3 +1,4 @@
+
 import {Component, ElementRef, OnInit, Renderer2} from '@angular/core';
 import {DashboardService} from "./dashboard.service";
 import {AuthService} from "../../Auth/auth.service";
@@ -86,7 +87,7 @@ export class DashboardComponent implements OnInit {
                 this.headerFlag = data;
             }
         });
-        this.dataService.countryIdSource.subscribe((data) => {
+        this.dataService.countryId.subscribe((data) => {
             this.dashboardService.countryList().subscribe(countryList => {
                 this.countryLists = countryList;
                 this.countryLists.forEach((element: any) => {

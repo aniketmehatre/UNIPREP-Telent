@@ -7,6 +7,8 @@ import { AuthService } from "./Auth/auth.service";
     providedIn: "root",
 })
 export class DataService {
+
+
     public chatTriggerSource = new BehaviorSubject("not open");
     currentMessage = this.chatTriggerSource.asObservable();
 
@@ -44,10 +46,6 @@ export class DataService {
     castValue = this.booleanValue.asObservable();
 
     constructor() {
-    }
-
-    changeChatOpenStatus(message: string) {
-        this.chatTriggerSource.next(message);
     }
 
     changeCountryName(countryName: string) {

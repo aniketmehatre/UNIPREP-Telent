@@ -77,8 +77,10 @@ export class QuestionListComponent implements OnInit {
   oneQuestionContent: any;
   restrict: boolean = false;
   planExpired: boolean = false;
+  isSkeletonVisible: boolean = true;
   constructor(
     private moduleListService: ModuleServiceService,
+    private mService: ModuleServiceService,
     private moduleStoreService: ModuleStoreService,
     private dataService: DataService,
     private route: ActivatedRoute,
@@ -96,6 +98,12 @@ export class QuestionListComponent implements OnInit {
     this.route.params.subscribe((params) => {
       this.loadInit();
       //this.getSubmoduleName(this.countryId);
+    });
+    this.dataService.countryId.subscribe((data) => {
+      localStorage.setItem('countryId', data);
+      this.questionListData = [];
+      this.isSkeletonVisible = true
+      this.loadInit();
     });
     this.tooltip = "Questions related to the application process are answered";
   }
@@ -183,9 +191,10 @@ export class QuestionListComponent implements OnInit {
       perpage: this.perpage,
     };
     this.ngxService.start();
-    this.moduleListService.loadQuestionList(data);
-    this.moduleListService.questionList$().subscribe((data: any) => {
+    //this.moduleListService.loadQuestionList(data);
+    this.mService.getModuleQuestionList(data).subscribe((data: any) => {
       this.questionListData = data?.questions;
+      this.isSkeletonVisible = false
       this.totalQuestionCount = data?.questioncount;
       //this.ngxService.stop();
     });
@@ -240,11 +249,12 @@ export class QuestionListComponent implements OnInit {
   }
 
   onQuestionClick(selectedData: any) {
+    this.checkplanExpire();
      if(this.planExpired){
        this.restrict=true;
        return;
      }
-    this.moduleListService.questionList$().subscribe((data: any) => {
+    this.mService.questionList$().subscribe((data: any) => {
       this.data = data.questions;
     });
     this.selectedQuestionData = selectedData;

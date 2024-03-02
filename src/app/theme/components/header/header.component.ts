@@ -100,7 +100,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     private dataService: DataService,
     private dashboardService: DashboardService // private authService: SocialAuthService
   ) {
-    this.subs.sink = this.dataService.countryIdSource.subscribe((data) => {
+    this.subs.sink = this.dataService.countryId.subscribe((data) => {
       this.selectedCountryId = Number(data);
       this.getModuleList();
     });
@@ -184,6 +184,18 @@ export class HeaderComponent implements OnInit, OnDestroy {
   formvisbility = false;
   mobileForm: any = FormGroup;
   ngOnInit() {
+    this.dataService.countryId.subscribe((data: any) => {
+      if(!data){
+        let cntId = localStorage.getItem('countryId');
+        this.dataService.changeCountryId(cntId!.toString());
+      }
+    })
+    this.dataService.countryNameSource.subscribe((data: any) => {
+      console.log(data);
+    })
+    this.dataService.countryFlagSource.subscribe((data: any) => {
+      console.log(data);
+    })
     this.dashboardService.data$.subscribe((data) => {
       this.min$ = data?.minutes;
       this.sec$ = data?.seconds;
@@ -220,7 +232,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
             this.selectedCountryId = element.id;
             localStorage.setItem("countryId", element.id);
             this.dataService.changeCountryId(element.id);
-            //this.dataService.changeCountryFlag(element.flag)
+            this.dataService.changeCountryFlag(element.flag)
             this.dataService.changeCountryName(element.country);
           }
         });
