@@ -15,6 +15,10 @@ import {TooltipModule} from "primeng/tooltip";
 import {PipesModule} from "@pipes/pipes.module";
 import {TagModule} from "primeng/tag";
 import { PaginatorModule } from 'primeng/paginator';
+import { ButtonModule } from 'primeng/button';
+import { CardModule } from 'primeng/card';
+import {NgxUiLoaderModule} from "ngx-ui-loader";
+import {SkeletonModule} from "primeng/skeleton";
 
 
 @NgModule({
@@ -23,19 +27,23 @@ import { PaginatorModule } from 'primeng/paginator';
     ListSubModulesComponent,
     QuestionListComponent
   ],
-  imports: [
-    CommonModule,
-    ModulesRoutingModule,
-    BreadcrumbModule,
-    CarouselModule,
-    ConfirmDialogModule,
-    DialogModule,
-    ProgressBarModule,
-    SharedModule,
-    TooltipModule,
-    PipesModule,
-    TagModule,
-    PaginatorModule
-  ]
+    imports: [
+        CommonModule,
+        ModulesRoutingModule,
+        BreadcrumbModule,
+        CarouselModule,
+        ConfirmDialogModule,
+        DialogModule,
+        ProgressBarModule,
+        SharedModule,
+        TooltipModule,
+        PipesModule,
+        TagModule,
+        PaginatorModule,
+        ButtonModule,
+        CardModule,
+        NgxUiLoaderModule,
+        SkeletonModule,
+    ]
 })
 export class ModulesModule { }

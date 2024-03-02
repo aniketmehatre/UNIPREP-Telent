@@ -50,6 +50,13 @@ export class AuthService {
         }
     }
 
+    getTimeInfoForCard() {
+        const headers = new HttpHeaders().set("Accept", "application/json");
+        return this.http.get<any>(environment.ApiUrl + "/getfreetrailtime", {
+            headers: headers,
+        });
+    }
+
     getMe(): Observable<any> {
         // return of(Object.create({}));
         return this.http.get<any>(`${environment.ApiUrl}/getuserdetails`).pipe(

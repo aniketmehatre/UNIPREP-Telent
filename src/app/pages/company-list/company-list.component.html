@@ -163,7 +163,7 @@
                 </div>
               </div>
             </div>
-            <div class="col-md-12">
+            <div class="col-md-6">
               <label class="form-label" style="font-size: medium; font-weight: 500">Filter by Industry</label>
               <div class="form-group">
                 <div class="mb-3">
@@ -173,6 +173,14 @@
                       {{ IndustriesMultiSelect.defaultLabel }}
                     </ng-template>
                   </p-multiSelect>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <label class="form-label" style="font-size: medium; font-weight: 500">Filter by Company Name</label>
+              <div class="form-group">
+                <div class="mb-3">
+                  <input class="w-100 px-5 py-2" type="text" formControlName="company_name" placeholder="Search in Company Name" pInputText/>
                 </div>
               </div>
             </div>
@@ -191,7 +199,7 @@
     </form>
   </div>
 </p-dialog>
-<p-dialog [(visible)]="restrict" [style]="{ width: '30vw'}" [draggable]="false" [resizable]="false"
+<p-dialog [(visible)]="restrict" [modal]="true"  [style]="{ width: '30vw'}" [draggable]="false" [resizable]="false"
 	class="restrictionDialog" [breakpoints]="{ '960px': '30vw','959px': '60vw','425px': '90vw'}"
 	(onHide)="clearRestriction()">
 	<div class="text-center mt-5 mb-4">

@@ -70,4 +70,17 @@ export class ModuleServiceService {
     });
   }
 
+  getModuleQuestionList(data: any) {
+    const headers = new HttpHeaders().set("Accept", "application/json");
+    return this.http.post<any>(environment.ApiUrl + "/getmodulequestions", data, {
+      headers: headers,
+    });
+  }
+  getPreModuleQuestionList(data: any) {
+    const headers = new HttpHeaders().set("Accept", "application/json");
+    return this.http.post<any>(environment.ApiUrl + "/StudentsSubmoduleQuestions", data, {
+      headers: headers,
+    });
+  }
+
 }

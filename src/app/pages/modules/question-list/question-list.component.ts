@@ -78,10 +78,10 @@ export class QuestionListComponent implements OnInit {
   oneQuestionContent: any;
   restrict: boolean = false;
   planExpired: boolean = false;
-  showVideoPopup: boolean = false;
-  selectedVideoLink: any | null = null;
+  isSkeletonVisible: boolean = true;
   constructor(
     private moduleListService: ModuleServiceService,
+    private mService: ModuleServiceService,
     private moduleStoreService: ModuleStoreService,
     private dataService: DataService,
     private route: ActivatedRoute,
@@ -100,6 +100,12 @@ export class QuestionListComponent implements OnInit {
     this.route.params.subscribe((params) => {
       this.loadInit();
       //this.getSubmoduleName(this.countryId);
+    });
+    this.dataService.countryId.subscribe((data) => {
+      localStorage.setItem('countryId', data);
+      this.questionListData = [];
+      this.isSkeletonVisible = true
+      this.loadInit();
     });
     this.tooltip = "Questions related to the application process are answered";
   }
@@ -187,9 +193,10 @@ export class QuestionListComponent implements OnInit {
       perpage: this.perpage,
     };
     this.ngxService.start();
-    this.moduleListService.loadQuestionList(data);
-    this.moduleListService.questionList$().subscribe((data: any) => {
+    //this.moduleListService.loadQuestionList(data);
+    this.mService.getModuleQuestionList(data).subscribe((data: any) => {
       this.questionListData = data?.questions;
+      this.isSkeletonVisible = false
       this.totalQuestionCount = data?.questioncount;
       //this.ngxService.stop();
     });
@@ -244,11 +251,12 @@ export class QuestionListComponent implements OnInit {
   }
 
   onQuestionClick(selectedData: any) {
+    this.checkplanExpire();
      if(this.planExpired){
        this.restrict=true;
        return;
      }
-    this.moduleListService.questionList$().subscribe((data: any) => {
+    this.mService.questionList$().subscribe((data: any) => {
       this.data = data.questions;
     });
     this.selectedQuestionData = selectedData;
@@ -477,6 +485,10 @@ export class QuestionListComponent implements OnInit {
   }
 
   viewOneQuestion(question:any){
+    if(this.planExpired){
+      this.restrict=true;
+      return;
+    }
     this.oneQuestionContent = question
     this.isQuestionAnswerVisible = true
     this.getSubmoduleName(question.country_id)
@@ -503,48 +515,40 @@ export class QuestionListComponent implements OnInit {
   upgradePlan(): void {
     this.router.navigate(["/pages/subscriptions"]);
   }
-  // vedio pop-up code
-  openNextPageLink:any;
-  openVideoPopup(link: any): void {
-    const sanitizedLink = this.sanitizer.bypassSecurityTrustResourceUrl(link);
-    this.openNextPageLink=link
-    // Check if it's a YouTube video link
-    if (this.isYoutubeVideoLink(link)) {
-      // If it's a YouTube video link, extract the video ID and construct the embeddable URL
-      const videoId = this.extractYoutubeVideoId(link);
-      const embedUrl = `https://www.youtube.com/embed/${videoId}`;
-      this.selectedVideoLink = this.sanitizer.bypassSecurityTrustResourceUrl(embedUrl);
-    } else {
-      // If it's not a YouTube video link, use the URL directly
-      this.selectedVideoLink = sanitizedLink;
-    }
-
-    this.showVideoPopup = true;
+  showSocialSharingList(){
+    let socialShare:any=document.getElementById("socialSharingList");
+    socialShare.style.display=socialShare.style.display=="none"?"block":"none";
   }
-
-  private isYoutubeVideoLink(link: string): boolean {
-    // Check if the link is a YouTube video link based on a simple pattern
-    return link.includes('youtube.com') || link.includes('youtu.be');
+  shareViaWhatsapp(){
+    const shareUrl = `whatsapp://send?text=${encodeURIComponent(this.router.url)}`;
+    window.open(shareUrl, '_blank');
   }
-
-  private extractYoutubeVideoId(url: string): string {
-    const videoIdRegex = /(?:youtube\.com\/(?:[^\/\n\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|\S*?[?&]v=)|youtu\.be\/)([^"'&?\n\s]+)/;
-    const match = url.match(videoIdRegex);
-    return match ? match[1] : '';
+  shareViaInstagram(){
+    const shareUrl = `https://www.instagram.com?url=${encodeURIComponent(this.router.url)}`;
+    window.open(shareUrl, '_blank');
   }
-
-  @HostListener('document:keydown', ['$event'])
-  onKeyDown(event: KeyboardEvent): void {
-    // Check if the pressed key is the Escape key (code 27)
-    if (event.code === 'Escape') {
-      this.closeVideoPopup();
-    }
+  shareViaFacebook(){
+    const shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(this.router.url)}`;
+    window.open(shareUrl, '_blank');
   }
-  closeVideoPopup(): void {
-    this.selectedVideoLink = null;
-    this.showVideoPopup = false;
+  shareViaLinkedIn(){
+    const shareUrl = `https://www.linkedin.com/shareArticle?url=${encodeURIComponent(this.router.url)}`;
+    window.open(shareUrl, '_blank');
   }
-  openNextVideo(){
-    window.open(this.openNextPageLink)
+  shareViaTwitter(){
+    const shareUrl = `https://twitter.com/intent/tweet?url=${encodeURIComponent(this.router.url)}`;
+    window.open(shareUrl, '_blank');
+  }
+  shareViaMail(){
+    const shareUrl = `mailto:?body=${encodeURIComponent(this.router.url)}`;
+    window.open(shareUrl, '_blank');  
+  }
+  copyLink(){
+    const textarea = document.createElement('textarea');
+    textarea.textContent = this.router.url;
+    document.body.append(textarea);
+    textarea.select();
+    document.execCommand('copy');
+    textarea.remove();
   }
 }

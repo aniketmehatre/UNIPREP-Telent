@@ -22,6 +22,13 @@ export class LocationService {
         });
     }
 
+    getTimeInfoForCard() {
+        const headers = new HttpHeaders().set("Accept", "application/json");
+        return this.http.get<any>(environment.ApiUrl + "/getfreetrailtime", {
+            headers: headers,
+        });
+    }
+
     getUniPerpModuleList() {
         const headers = new HttpHeaders().set("Accept", "application/json");
         return this.http.post<any>(environment.ApiUrl + "/modulecountry", {countryId: Number(localStorage.getItem('countryId'))}, {
@@ -38,7 +45,12 @@ export class LocationService {
             headers: headers,
         });
     }
-
+    GetQuestionsCount(data: any) {
+        const headers = new HttpHeaders().set("Accept", "application/json");
+        return this.http.post<any>(environment.ApiUrl + "/GetQuestionsCount", data, {
+            headers: headers,
+        });
+    }
     getSubModuleByModule(data: any) {
         const headers = new HttpHeaders().set("Accept", "application/json");
         return this.http.post<any>(environment.ApiUrl + "/getsubmodulesbymodule", data, {

@@ -72,6 +72,7 @@ export class InfoKitComponent implements OnInit {
   parentfolderlists: any = [];
   parentfilelists: any = []; totalcount = 0;
   ngOnInit() {
+    this.checkplanExpire();
     this.folderdata = {
       parent_id: 0,
       page: 1,
@@ -99,10 +100,6 @@ export class InfoKitComponent implements OnInit {
     this.getFolderData();
   }
   getchildinfo(data: any) {
-    if (this.planExpired) {
-      this.restrict = true;
-      return;
-    }
     if (data.isFolder == "2") {
       return;
     }
@@ -152,5 +149,16 @@ export class InfoKitComponent implements OnInit {
   }
   clearRestriction() {
     this.restrict = false;
+  }
+  checkplanExpire(): void {
+    this.authService.getNewUserTimeLeft().subscribe((res) => {
+      let data = res.time_left;
+      let subscription_exists_status = res.subscription_details;
+      if (data.plan === "expired" || data.plan === 'subscription_expired') {
+        this.planExpired = true;
+      } else {
+        this.planExpired = false;
+      }
+    })
   }
 }

@@ -124,7 +124,7 @@ export class RegistrationComponent implements OnInit {
         (error: any) => {
           this.toastr.add({
             severity: "error",
-            summary: "Error",
+              summary: "Error",
             detail: error,
           });
         }
@@ -283,22 +283,14 @@ export class RegistrationComponent implements OnInit {
     //     });
     //     return;
     // }
-    if (this.registrationForm.controls.contactNumber?.errors?.validatePhoneNumber?.valid==false) {
-      this.toastr.add({
-        severity: "error",
-        summary: "Alert!!!",
-        detail: "Please enter valid number",
-      });
-      return;
-    }
-    if (this.registrationForm.invalid) {
-      this.toastr.add({
-        severity: "error",
-        summary: "Alert!!!",
-        detail: "Fill all the information",
-      });
-      return;
-    }
+    // if (this.registrationForm.invalid) {
+    //   this.toastr.add({
+    //     severity: "error",
+    //     summary: "Alert!!!",
+    //     detail: "Fill all the information",
+    //   });
+    //   return;
+    // }
     var data = {
       name: this.registrationForm.value.fullName,
       // location_id: this.registrationForm.value.location,
@@ -315,7 +307,7 @@ export class RegistrationComponent implements OnInit {
       platform_id: 1,
       usertype_id: 1,
       // country_id: this.registrationForm.value.country,
-      // country_code: this.registrationForm.value.country_code
+      country_code: this.registrationForm.value.contactNumber.dialCode,
     };
 
     this.service.Registraion(data).subscribe(
@@ -361,7 +353,6 @@ export class RegistrationComponent implements OnInit {
       phone: this.registrationForm.value.contactNumber.number,
       country_code: this.registrationForm.value.contactNumber.dialCode,
     };
-    
     if (
       this.registrationForm.value.fullName != null &&
       this.registrationForm.value.contactNumber.number
