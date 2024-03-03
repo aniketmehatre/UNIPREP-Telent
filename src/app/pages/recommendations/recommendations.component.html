@@ -1,0 +1,49 @@
+<div class="card">
+    <div class="card-body pt-0">
+        <div class="row justify-content-center">
+            <div class="col-md-2 text-start">
+            </div>
+            <div class="col-md-8 text-center">
+                <h5 class="select-title mb-1" tooltipPosition="top" pTooltip="Recommendations">RECOMMENDATIONS<i
+                        class="questiontooltip fa-solid fa-circle-question"></i></h5>
+            </div>
+            <div class="col-md-2">
+            </div>
+        </div>
+        <div>
+            <!-- <p-steps [model]="items"></p-steps> -->
+            <p-carousel [value]="products" [numVisible]="1" [numScroll]="1" [circular]="false">
+                <ng-template let-product let-i="index" pTemplate="item">
+                    <div class="product-item">
+                        <div class="product-item-content">
+                            <div class="p-mb-3"></div>
+                            <div class="text-center">
+                                <p class="question-number">Question Number {{ product.id }}</p>
+                                <h4 class="p-mb-1 question">{{ product.question }}</h4>
+                            </div>
+                            <div class="check-list">
+                                <div class="flex align-items-center b-1">
+                                    <p-checkbox label="Yes" name="yes" value="yes" [(ngModel)]="yes">Yes</p-checkbox>
+                                </div>
+                                <div class="flex align-items-center b-1">
+                                    <p-checkbox label="No" name="no" value="no" [(ngModel)]="no">No</p-checkbox>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- <div class="d-flex space-between" style="justify-content: space-between;">
+                        <button pButton type="button"
+                            class="text-white p-ripple p-button-rounded p-button-info-prev p-button p-component p-2">Previous<i
+                                class="fa fa-arrow-left exhausted-plan-icon-prev"></i>
+                        </button>
+                        <button pButton type="button"
+                            class="text-white p-ripple p-button-rounded p-button-info-next p-button p-component p-2">Next<i
+                                class="fa fa-arrow-right exhausted-plan-icon-next"></i>
+                        </button>
+                    </div> -->
+                </ng-template>
+            </p-carousel>
+        </div>
+        <router-outlet></router-outlet>
+    </div>
+</div>
