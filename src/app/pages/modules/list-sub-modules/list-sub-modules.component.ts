@@ -98,7 +98,7 @@ export class ListSubModulesComponent implements OnInit {
       case 'pre-admission':
         this.currentModuleId = 1;
         this.currentModuleName = 'Pre-Admission';
-        this.currentApiSlug = 'GetQuestionsCount';
+        this.currentApiSlug = 'SubmoduleListForStudents';
         this.infoMessage = 'Upgrade to access the Pre-admission section',
             this.unlockMessage = 'Unlock the power of success with our exclusive Pre-admission!',
             this.upgradePlanMsg = 'Upgrade your plan now to gain instant access.';
@@ -108,7 +108,7 @@ export class ListSubModulesComponent implements OnInit {
       case 'travel-and-tourism':
         this.currentModuleId = 7;
         this.currentModuleName = 'Travel-and-Tourism';
-        this.currentApiSlug = 'GetQuestionsCount';
+        this.currentApiSlug = 'SubmoduleListForStudents';
         this.infoMessage = 'Upgrade to access the travel-and-tourism',
             this.unlockMessage = 'Unlock the power of success with our exclusive travel-and-tourism!',
             this.upgradePlanMsg = 'Upgrade your plan now to gain instant access.';
@@ -118,7 +118,7 @@ export class ListSubModulesComponent implements OnInit {
       case 'post-admission':
         this.currentModuleId = 3;
         this.currentModuleName = 'Post-Admission';
-        this.currentApiSlug = 'GetQuestionsCount';
+        this.currentApiSlug = 'SubmoduleListForStudents';
         this.infoMessage = 'Upgrade to access the post-admission',
             this.unlockMessage = 'Unlock the power of success with our exclusive post-admission!',
             this.upgradePlanMsg = 'Upgrade your plan now to gain instant access.';
@@ -128,7 +128,7 @@ export class ListSubModulesComponent implements OnInit {
       case 'career-hub':
         this.currentModuleId = 4;
         this.currentModuleName = 'Career Hub';
-        this.currentApiSlug = 'GetQuestionsCount';
+        this.currentApiSlug = 'SubmoduleListForStudents';
         this.infoMessage = 'Upgrade to access the Career Hub',
             this.unlockMessage = '',
             this.upgradePlanMsg = 'Upgrade your plan now to gain instant access.';
@@ -138,13 +138,13 @@ export class ListSubModulesComponent implements OnInit {
       case 'university':
         this.currentModuleId = 5;
         this.currentModuleName = 'University';
-        this.currentApiSlug = 'GetQuestionsCount';
+        this.currentApiSlug = 'SubmoduleListForStudents';
         this.selectedModule = 'university'
         break;
       default:
         this.currentModuleId = 6;
         this.currentModuleName = 'Life At ' + this.countryName;
-        this.currentApiSlug = 'GetQuestionsCount';
+        this.currentApiSlug = 'SubmoduleListForStudents';
         this.infoMessage = 'Upgrade to access information about life in your chosen destination',
             this.unlockMessage = 'Unlock the power of success with our exclusive destination',
             this.upgradePlanMsg = 'Upgrade your plan now to gain instant access.';
