@@ -19,6 +19,7 @@ import { ScholarshipListComponent } from './scholarship-list/scholarship-list.co
 import { CompanyListGuidlinesComponent } from './company-list-guidlines/company-list-guidlines.component';
 import { InvestorListGuidlinesComponent } from './investor-list-guidlines/investor-list-guidlines.component';
 import { ScholarshipListGuidlinesComponent } from './scholarship-list-guidlines/scholarship-list-guidlines.component';
+import { RecommendationsComponent } from './recommendations/recommendations.component';
 
 
 
@@ -145,6 +146,10 @@ const routes: Routes = [
                 path: 'investor-guidlines',
                 component: InvestorListGuidlinesComponent
             },
+            {
+                path: 'recommendations',
+                component: RecommendationsComponent
+            }
         ]
     }
 ];

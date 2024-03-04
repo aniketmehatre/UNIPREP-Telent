@@ -1,0 +1,85 @@
+.p-button-info-prev {
+    background-color: #0E3361;
+    color: white;
+    border: none;
+}
+
+.p-button-info-next {
+    background-color: #4552A3;
+    color: white;
+    border: none;
+}
+
+.exhausted-plan-icon-prev {
+    padding: 10px;
+    border-radius: 25px;
+    background-color: #0E3361;
+    color: white;
+    margin-left: 5px;
+}
+
+.exhausted-plan-icon-next {
+    padding: 10px;
+    border-radius: 25px;
+    background-color: #4552A3;
+    color: white;
+    margin-left: 5px;
+}
+
+.question-number {
+    font-size: 18px;
+    color: #3F4C83;
+    font-weight: 500;
+}
+
+.question {
+    color: #001631;
+    font-size: 25px;
+}
+
+.product-item-content {
+    margin: auto;
+    width: 70%;
+    padding: 10px;
+}
+
+.b-1 {
+    border: 1px solid lightgray;
+    padding: 10px 5px;
+    margin: 5px 0px;
+    border-radius: 5px;
+}
+
+:host ::ng-deep .p-checkbox .p-checkbox-box {
+    border-radius: 25px !important;
+}
+
+:host ::ng-deep.p-checkbox .p-checkbox-box.p-highlight {
+    border-color: #0E3361;
+    background: #0E3361;
+}
+
+:host ::ng-deep .p-carousel .p-carousel-indicators .p-carousel-indicator button {
+    width: 10px;
+    height: 10px;
+    transition: background-color 0.2s, color 0.2s, box-shadow 0.2s;
+    border-radius: 20px;
+}
+
+@media (max-width: 575.98px) {
+    .product-item-content {
+        margin: auto;
+        padding: 10px;
+    }
+
+    .question-number {
+        font-size: 12px;
+        color: #3F4C83;
+        font-weight: 500;
+    }
+
+    .question {
+        color: #001631;
+        font-size: 14px;
+    }
+}
