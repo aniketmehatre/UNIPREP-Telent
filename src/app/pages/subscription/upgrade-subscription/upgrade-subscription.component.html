@@ -52,7 +52,7 @@
 							<li><i class="pi pi-times grey smallIcon"></i></li>
 							<li><i class="pi pi-times grey smallIcon"></i></li>
 							<li class="mt-1">
-								<h5 class="fw-semibold">24 Hours Validity</h5>
+								<h5 class="fw-semibold">{{localStorage.getItem('time_card_info')}} Validity</h5>
 							</li>
 							<li class="mt-1">
 								<div class="getstartedbtn pb-2">
@@ -149,9 +149,9 @@
 										</div>
 									</div>
 									<div class="card-footer py-2 px-4 mb-5">
-										<h5 class="fw-semibold">24 Hours Validity</h5>
+										<h5 class="fw-semibold">{{timeLeftInfoCard}} Validity</h5>
 										<div class="getstartedbtn pb-2">
-											<button class="pt-3 pb-3 btn btn-basic w-100 m-0 btn-basic">Current</button>
+											<button class="pt-3 pb-3 btn btn-basic w-100 m-0 greyButton" [disabled]="true">Unavailable</button>
 										</div>
 									</div>
 								</div>
@@ -233,10 +233,15 @@
 												<button class="pt-3 pb-3 btn btn-primary w-100 m-0 text-white"
 													*ngIf="subscription.selected"
 													(click)="selectedSubscriptionPlan(subscription)">Selected</button>
-												<button class="pt-3 pb-3 btn btn-grey w-100 m-0 text-white"
-													*ngIf="!subscription.selected"
-													(click)="selectedSubscriptionPlan(subscription)">Select
-													Plan</button>
+													<button class="pt-3 pb-3 btn btn-basic w-100 m-0 btn btn-primary" *ngIf="existingSubscription[0]?.plan==subscription.subscription_plan && !isPlanExpired">
+														Current Plan
+													</button>
+												<button class="pt-3 pb-3 btn btn-basic w-100 m-0" *ngIf="!subscription.selected && (existingSubscription[0]?.plan!=subscription.subscription_plan || existingSubscription[0]?.plan==subscription.subscription_plan && isPlanExpired)" [ngClass]="{'greyButton':!subscription.available}"
+												[disabled]="!subscription.available"
+													(click)="selectedSubscriptionPlan(subscription)"> 
+													<span *ngIf="existingSubscription[0]?.plan!=subscription.subscription_plan && subscription.available || existingSubscription[0]?.plan==subscription.subscription_plan && isPlanExpired">Upgrade Plan</span>
+													<span *ngIf="!subscription.available">Unavailable</span>
+												</button>
 											</div>
 										</div>
 									</div>
@@ -516,8 +521,8 @@
 			<div class="modal-body d-flex flex-column justify-content-center">
 			  
 			  <p class="btn btn-rounded mx-auto" style="    background: #9bc32935;
-			  border: 1px dashed #9bc329;width: 100px;">UNI20</p>
-			  <p class="text-center">Use this coupon code to unlock a 20% discount on your subscription.</p>
+			  border: 1px dashed #9bc329;width: 100px;">UNI25</p>
+			  <p class="text-center">Use this coupon code to unlock a 25% discount on your subscription.</p>
 			</div>
 			<!-- <div class="modal-footer">
 			  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>

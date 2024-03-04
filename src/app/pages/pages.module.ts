@@ -57,6 +57,9 @@ import { DividerModule } from "primeng/divider";
 import { CompanyListGuidlinesComponent } from './company-list-guidlines/company-list-guidlines.component';
 import { ScholarshipListGuidlinesComponent } from './scholarship-list-guidlines/scholarship-list-guidlines.component';
 import { InvestorListGuidlinesComponent } from './investor-list-guidlines/investor-list-guidlines.component';
+import { RecommendationsComponent } from './recommendations/recommendations.component';
+import { StepsModule } from 'primeng/steps';
+import { CheckboxModule } from "primeng/checkbox";
 
 @NgModule({
     declarations: [
@@ -83,6 +86,7 @@ import { InvestorListGuidlinesComponent } from './investor-list-guidlines/invest
         CompanyListGuidlinesComponent,
         ScholarshipListGuidlinesComponent,
         InvestorListGuidlinesComponent,
+        RecommendationsComponent,
     ],
   exports: [FooterStatusBoxComponent, HeaderSearchComponent],
   imports: [
@@ -117,7 +121,9 @@ import { InvestorListGuidlinesComponent } from './investor-list-guidlines/invest
     OverlayPanelModule,
     InputTextareaModule,
     TooltipModule,
-    DividerModule
+    DividerModule,
+    CheckboxModule,
+    StepsModule
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })

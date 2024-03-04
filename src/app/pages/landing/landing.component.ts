@@ -1,6 +1,8 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ThemeService } from '../../theme.service';
 import { FormBuilder, FormsModule, ReactiveFormsModule,FormControl,FormGroup,Validators } from '@angular/forms';
+import {AuthService} from "../../Auth/auth.service";
+import {LocationService} from "../../location.service";
 @Component({
   selector: 'uni-landing',
   templateUrl: './landing.component.html',
@@ -36,7 +38,7 @@ export class LandingComponent implements OnInit {
     this.displaycontactform = true;
   }
 
-  constructor(private themeService: ThemeService , private formbuilder: FormBuilder) {
+  constructor(private themeService: ThemeService , private formbuilder: FormBuilder, private service: LocationService) {
     // Initialize the isDarkMode property with the value from the service
     this.isDarkMode = this.themeService.getInitialSwitchState();
   }
@@ -68,8 +70,12 @@ export class LandingComponent implements OnInit {
       section.scrollIntoView({ behavior: 'smooth' });
     }
   }
-
+  timeLeftInfoCard: any
   ngOnInit() {
+    // this.service.getTimeInfoForCard().subscribe((data) => {
+    //   this.timeLeftInfoCard = localStorage.setItem('time_card_info', data.card_message);
+    // });
+    this.timeLeftInfoCard = "24 Hours"
     // Any additional initialization can go here
     this.currentImage = '/uniprep-assets/images/f1.png';
 

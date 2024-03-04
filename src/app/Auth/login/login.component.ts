@@ -72,7 +72,7 @@ export class LoginComponent implements OnInit, OnDestroy {
         if (data == 'Exist'){
           this.service.gmailLogin(user).subscribe(data => {
             if(data.status == 'error'){
-              this.toast.add({ severity: 'error', summary: 'Error', detail: data.message });
+              this.toast.add({ severity: 'error', summary: 'Error', detail: data });
               return;
             }
             this.storage.set(environment.tokenKey, data.token);
@@ -81,6 +81,13 @@ export class LoginComponent implements OnInit, OnDestroy {
                   this.toast.add({ severity: 'success', summary: 'Success', detail: 'Login' });
                   this.route.navigate(['/pages/dashboard']);
 
+            });
+          },
+          (error: any) => {
+            this.toast.add({
+              severity: "error",
+              summary: "Error",
+              detail: error,
             });
           });
         }else{

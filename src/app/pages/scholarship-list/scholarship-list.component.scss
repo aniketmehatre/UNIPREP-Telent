@@ -339,3 +339,14 @@
   margin: 5rem auto;
   padding: 10px;
 }
+
+@media (max-width:768px) {
+  .filterRow {
+    display: flex;
+    flex-direction: column;
+
+    div.col-4 {
+      width: 100%;
+    }
+  }
+}

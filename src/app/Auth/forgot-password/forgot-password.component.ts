@@ -36,7 +36,7 @@ export class ForgotPasswordComponent implements OnInit {
         this.router.navigate(["/verification", this.resetForm.value.email]);
       },
       (error: any) => {
-        this.toastr.add({severity:'error', summary: 'Error', detail: error.error.message});
+        this.toastr.add({severity:'error', summary: 'Error', detail: error});
 
       }
     );
