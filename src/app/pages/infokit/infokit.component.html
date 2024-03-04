@@ -1,90 +1,82 @@
-<div class="row p-3">
-  <div style="display: flex" class="routedata">
-    <span (click)="redirectTo('dashboard', -1)" role="button">Dashboard / </span><span class="uniprep-primary"
-      (click)="redirectTo('startup', -1)" role="button">Startup Kit / </span><span class="fw-semibold uniprep-primary"
-      role="button" *ngFor="let data of routedata; let i = index; let isLast = last" (click)="redirectTo(data, i)"
-      [ngClass]="isLast ? 'fontcolor' : ''">{{ data.name }} /
-    </span>
-  </div>
-</div>
 <div class="card readingcard">
-  <div class="card-body pt-0">
-    <div class="pt-0 h-100">
-      <div class="row justify-content-center">
-        <div class="col-md-2 text-start"></div>
-        <div class="col-md-8 text-center">
-          <h5 class="select-title mb-1" style="text-transform: uppercase" tooltipPosition="top"
-            pTooltip="This section provides a comprehensive walkthrough on the UNIPREP platform.">
-            {{ titletext
-            }}<i class="questiontooltip fa-solid fa-circle-question"></i>
-          </h5>
-        </div>
-        <div class="col-md-2"></div>
-      </div>
-      <div class="container-fluid">
-        <div class="row p-3">
-          <p class="info" *ngIf="parentfolderlists.length > 0">Folders</p>
-          <div class="col-4 folder-card" *ngFor="let folder of parentfolderlists" [appendTo]="'body'"
-            [pTooltip]="folder?.name">
-            <div>
-              <div class="d-flex justify-content-start folder" (click)="getchildinfo(folder)">
-                <div class="me-2 d-flex align-items-center">
-                  <img class="img-responsive" [src]="folder?.img_path" />
-                </div>
-                <div class="folderinfo">
-                  <h5>{{ folder?.name }}</h5>
-                  <p class="mb-0">
-                    Last Updated:<span>{{ folder?.last_updated }}</span>
-                  </p>
-                </div>
-              </div>
+	<div class="card-body pt-0">
+		<div class="pt-0 h-100">
+			<div class="row justify-content-center">
+				<div class="col-md-2 text-start"></div>
+				<div class="col-md-8 text-center">
+					<h5 class="select-title mb-1 text-uppercase" tooltipPosition="top" pTooltip="This section provides a comprehensive walkthrough on the UNIPREP platform.">Startup Kit<i class="questiontooltip fa-solid fa-circle-question"></i></h5>
+          <!-- {{ titletext }} -->
+				</div>
+				<div class="col-md-2"></div>
+			</div>
+			<div class="container-fluid">
+        <div class="row py-2">
+          <div class="card">
+            <div class="card-body d-flex gap-2 text-small">
+              <span (click)="redirectTo('dashboard', -1)" role="button"><i class="fa-regular fa-home"></i></span>
+              <span><i class="fa-solid fa-chevron-right"></i></span>
+              <span class="uniprep-primary fw-semibold" (click)="redirectTo('startup', -1)" role="button">Startup Kit</span>
+              <span class="fw-semibold uniprep-primary" role="button" *ngFor="let data of routedata; let i = index; let isLast = last" (click)="redirectTo(data, i)" [ngClass]="isLast ? 'fontcolor' : ''"><span><i class="fa-solid fa-chevron-right"></i></span> {{ data.name }}</span>
             </div>
           </div>
         </div>
-        <div class="row p-3">
-          <p class="info" *ngIf="parentfilelists.length > 0">Files</p>
-          <div class="col-4 folder-card" *ngFor="let folder of parentfilelists" [appendTo]="'body'"
-            [pTooltip]="folder?.name">
-            <a (click)="openFile(folder.img_path)">
-              <div>
-                <div class="d-flex justify-content-start folder">
-                  <div class="me-2 d-flex align-items-center">
-                    <img class="img-responsive" src="../../../uniprep-assets/images/pdf.svg" />
-                  </div>
-                  <div class="folderinfo">
-                    <h5>{{ folder?.name }}</h5>
-                    <p class="mb-0">
+				<div class="row">
+					<p class="fw-semibold mb-0 uniprep-primary" *ngIf="parentfolderlists.length > 0">Folders</p>
+					<div class="col-md-3 col-12" *ngFor="let folder of parentfolderlists" [appendTo]="'body'" [pTooltip]="folder?.name">
+						<div class="card startupkitcard my-2" role="button">
+							<div class="card-body">
+								<div class="d-flex gap-2 justify-content-start align-items-center" (click)="getchildinfo(folder)">
+									<div class="d-flex align-items-center">
+										<img class="img-responsive" [src]="folder?.img_path" />
+									</div>
+									<div class="d-flex flex-column">
+                    <h6 class="fw-semibold mb-0">{{ folder?.name }}</h6>
+										<p class="mb-0 text-small">
                       Last Updated:<span>{{ folder?.last_updated }}</span>
                     </p>
-                  </div>
-                </div>
-              </div>
-            </a>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="card-footer custompaginator">
-    <p-paginator dropdownAppendTo="body" appendTo="body" [rows]="folderdata.dataperpage" [totalRecords]="totalcount"
-      (onPageChange)="pageChange($event)" [rowsPerPageOptions]="[10, 25, 50, 100]"></p-paginator>
-  </div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<p class="fw-semibold mb-0 uniprep-primary" *ngIf="parentfilelists.length > 0">Files</p>
+					<div class="col-md-3 col-12" *ngFor="let folder of parentfilelists" [appendTo]="'body'" [pTooltip]="folder?.name">
+						<a (click)="openFile(folder.img_path)">
+							<div class="card startupkitcard my-2" role="button">
+								<div class="card-body">
+									<div class="d-flex gap-2 justify-content-start align-items-center">
+										<div class="d-flex align-items-center">
+											<img class="img-responsive" src="../../../uniprep-assets/images/pdf.svg" />
+										</div>
+										<div class="d-flex flex-column">
+											<h6 class="fw-semibold mb-0">{{ folder?.name }}</h6>
+											<p class="mb-0 text-small">
+												Last Updated:<span>{{ folder?.last_updated }}</span>
+											</p>
+										</div>
+									</div>
+								</div>
+							</div>
+						</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div>
+		<p-paginator dropdownAppendTo="body" appendTo="body" [rows]="folderdata.dataperpage" [totalRecords]="totalcount" (onPageChange)="pageChange($event)" [rowsPerPageOptions]="[10, 25, 50, 100]"></p-paginator>
+	</div>
 </div>
 
-<p-dialog [(visible)]="restrict" [style]="{ width: '30vw'}" [draggable]="false" [resizable]="false"
-  class="restrictionDialog" [breakpoints]="{ '960px': '30vw','959px': '60vw','425px': '90vw'}"
-  (onHide)="clearRestriction()">
-  <div class="text-center mt-5 mb-4">
-    <img src="../../../uniprep-assets/images/smartloack.png" class="image" width="60" />
-    <h3 class="offer">Upgrade Required</h3>
-    <p>
-      To access this exclusive module,please upgrade your plan now
-    </p>
-    <button pButton type="button" class="text-white p-ripple p-button-rounded p-button-warning p-button p-component p-2"
-      (click)="upgradePlan()">
-      Upgrade Plan<i class="fa fa-arrow-right exhausted-plan-icon"></i>
-    </button>
-  </div>
+<p-dialog [(visible)]="restrict" [modal]="true" [style]="{ width: '30vw' }" [draggable]="false" [resizable]="false" class="restrictionDialog" [breakpoints]="{ '960px': '30vw', '959px': '60vw', '425px': '90vw' }" (onHide)="clearRestriction()">
+	<div class="text-center mt-5 mb-4">
+		<img src="../../../uniprep-assets/images/smartloack.png" class="image" width="60" />
+		<h3 class="offer">Upgrade Required</h3>
+		<p>To access this exclusive module,please upgrade your plan now</p>
+		<button pButton type="button" class="text-white p-ripple p-button-rounded p-button-warning p-button p-component p-2" (click)="upgradePlan()">Upgrade Plan<i class="fa fa-arrow-right exhausted-plan-icon"></i></button>
+	</div>
 </p-dialog>
 <!-- <div *ngIf="planExpired" class="startup-expired readingcard">
   <div class="row">
