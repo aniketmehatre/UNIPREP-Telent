@@ -83,7 +83,7 @@ export class ListSubModulesComponent implements OnInit {
       }
     ];
   }
-
+  loopRange = Array.from({ length: 30 }).fill(0).map((_, index) => index);
   ngOnInit(): void {
     this.init();
 

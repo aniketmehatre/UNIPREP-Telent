@@ -98,7 +98,7 @@ export class QuestionListComponent implements OnInit {
     Carousel.prototype.changePageOnTouch = (e, diff) => { }
     Carousel.prototype.onTouchMove = () => { };
   }
-
+  loopRange = Array.from({ length: 30 }).fill(0).map((_, index) => index);
   ngOnInit(): void {
     //this.moduleListService.emptyQuestionList$();
     this.route.params.subscribe((params) => {
