@@ -18,17 +18,19 @@
   overflow-y: auto;
 }
 .socialShareBtn{
-  height:40px;
-  width:40px;
-  text-align: center;
+  height: 40px;
+  width: 40px;
   border-radius: 50px !important;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 #socialSharingList{
   display:none;
   position: absolute;
-  top:60px;
-  right:10px;
-  padding:0px !important;
+  right: 0rem;
+  top: 3rem;
   ::ng-deep.p-card-body{
     padding:0px;  
     .p-card-content{
@@ -37,6 +39,7 @@
   }
   ul{
     padding:10px !important;
+    margin-bottom: 0;
     li{
       display:flex;
       align-items: center;
