@@ -45,7 +45,12 @@ export class LocationService {
             headers: headers,
         });
     }
-
+    GetQuestionsCount(data: any) {
+        const headers = new HttpHeaders().set("Accept", "application/json");
+        return this.http.post<any>(environment.ApiUrl + "/SubmoduleListForStudents", data, {
+            headers: headers,
+        });
+    }
     getSubModuleByModule(data: any) {
         const headers = new HttpHeaders().set("Accept", "application/json");
         return this.http.post<any>(environment.ApiUrl + "/getsubmodulesbymodule", data, {

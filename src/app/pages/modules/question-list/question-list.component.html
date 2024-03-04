@@ -7,20 +7,36 @@
 			</div>
 			<div class="col-md-10 col-10 text-center">
 				<h5 class="select-title mb-1" tooltipPosition="top" pTooltip="{{ tooltip }}">
-					<span class="desktop">{{ currentModuleName }} -</span> {{ moduleName }}<i
-						class="questiontooltip fa-solid fa-circle-question"></i>
+					<span class="desktop">{{ currentModuleName }} -</span> {{ moduleName }}<i class="questiontooltip fa-solid fa-circle-question"></i>
 				</h5>
 			</div>
 			<div class="col-md-1 col-1">&nbsp;</div>
 		</div>
-		<div class="row">
-			<div *ngFor="let sub of questionListData; let i = index"
-				class="col-lg-3 col-md-4 col-sm-4 col-xs-12 col-12 my-2">
+		<div *ngIf="isSkeletonVisible">
+			<div class="row">
+				<div *ngFor="let index of loopRange" class="col-lg-3 col-md-4 col-sm-4 col-xs-12 col-12">
+					<div class="card my-2">
+						<div class="card-body">
+							<div class="row align-items-center">
+								<div class="col-8 col-md-12">
+									<p-skeleton width="100%" styleClass="mb-1"></p-skeleton>
+									<p-skeleton width="100%" styleClass="mb-1"></p-skeleton>
+									<p-skeleton width="80%" styleClass="mb-2"></p-skeleton>
+								</div>
+								<div class="col-4 col-md-12">
+									<p-skeleton width="100%" height="3rem"></p-skeleton>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row" *ngIf="!isSkeletonVisible">
+			<div *ngFor="let sub of questionListData; let i = index" class="col-lg-3 col-md-4 col-sm-4 col-xs-12 col-12 my-2">
 				<div class="row w-100 h-100 m-0 justify-content-center">
-					<div (click)="viewOneQuestion(sub)"
-						class="card questioncard {{ sub.read == 1 ? 'questionread' : '' }}">
-						<div
-							class="card-body d-flex flex-md-column flex-row justify-content-md-between align-items-center px-0 py-2 gap-2 gap-md-0">
+					<div (click)="viewOneQuestion(sub)" class="card questioncard {{ sub.read == 1 ? 'questionread' : '' }}">
+						<div class="card-body d-flex flex-md-column flex-row justify-content-md-between align-items-center px-0 py-2 gap-2 gap-md-0">
 							<div class="row justify-content-center w-100">
 								<div class="col">
 									<p class="text-start fw-medium questiontext mb-0 mb-md-2">{{ sub.question }}</p>
@@ -29,16 +45,21 @@
                                             <p class="mb-3 circle text-center">{{i+1}}</p>
                                         </div> -->
 								<div class="col-2 d-flex align-items-center justify-content-center text-end" *ngIf="sub.popular == 1">
-									<i class="pi pi-star-fill text-danger" pTooltip="Most Popular Question"
-										tooltipPosition="right" style="font-size: 1.5rem"></i>
+									<i class="pi pi-star-fill text-danger" pTooltip="Most Popular Question" tooltipPosition="right" style="font-size: 1.5rem"></i>
 								</div>
 							</div>
-							<button class="btn d-md-block d-none w-100 flex-shrink-0 btn-primary m-0 primary-btn
-                                        {{ sub.read == 1 ? 'readButton' : '' }}" pButton type="button">
+							<button
+								class="btn d-md-block d-none w-100 flex-shrink-0 btn-primary m-0 primary-btn
+                                        {{ sub.read == 1 ? 'readButton' : '' }}"
+								pButton
+								type="button">
 								Read <span class="desktop-enable">Answer</span>
 							</button>
-							<button class="btn d-md-none d-flex flex-shrink-0 btn-primary m-0 primary-btn
-                                        {{ sub.read == 1 ? 'readButton' : '' }}" pButton type="button">
+							<button
+								class="btn d-md-none d-flex flex-shrink-0 btn-primary m-0 primary-btn
+                                        {{ sub.read == 1 ? 'readButton' : '' }}"
+								pButton
+								type="button">
 								Read <span class="desktop-enable">Answer</span>
 							</button>
 						</div>
@@ -49,11 +70,9 @@
 	</div>
 </div>
 <div class="card" style="background-color: #fff; border-radius: 0px 0px 15px 15px !important">
-	<p-paginator [rows]="10" [totalRecords]="totalQuestionCount" (onPageChange)="paginatepost($event)"
-		[rowsPerPageOptions]="[50, 100, 200]" dropdownAppendTo="body"></p-paginator>
+	<p-paginator [rows]="10" [totalRecords]="totalQuestionCount" (onPageChange)="paginatepost($event)" [rowsPerPageOptions]="[50, 100, 200]" dropdownAppendTo="body"></p-paginator>
 </div>
-<p-dialog #dialogContent [(visible)]="isQuestionAnswerVisible" [draggable]="false" [modal]="true" class="questionmodal"
-	header="Header" [maximizable]="true" [style]="{ height: '100vh' }">
+<p-dialog #dialogContent [(visible)]="isQuestionAnswerVisible" [draggable]="false" [modal]="true" class="questionmodal" header="Header" [maximizable]="true" [style]="{ height: '100vh' }">
 	<ng-template pTemplate="header">
 		<div class="d-flex w-100 flex-column px-4">
 			<div class="d-flex flex-row justify-content-md-between justify-content-center">
@@ -97,24 +116,28 @@
 	<div class="carousel-container px-4">
 		<div class="card flex-fill answercard">
 			<div class="card-body">
-				<div class="d-flex align-items-center justify-content-between" style="position: relative;">
+				<div class="d-flex align-items-center justify-content-between" style="position: relative">
 					<span class="text-small blockquote text-start mb-0">
 						Last updated at: {{ oneQuestionContent?.updated_at | date }} <span class="badge" [ngStyle]="{ 'background-color': oneQuestionContent?.pre_verified == 1 ? 'darkorchid' : '#3f4c83' }"> {{ oneQuestionContent?.pre_verified == 1 ? "Pre Verified" : "Non Pre-Verified" }}</span>
 					</span>
-						<button class="btn btn-primary socialShareBtn" (click)="showSocialSharingList()"><i class="pi pi-share-alt"></i></button>
-						<p-card id="socialSharingList">
-							<ul style="list-style: none;">
-								<li (click)="shareViaWhatsapp()"><i class="pi pi-whatsapp"></i>Whatsapp </li>
-								<li (click)="shareViaMail()"><i class="pi pi-envelope"></i>Email</li>
-								<li (click)="shareViaFacebook()"><i class="pi pi-facebook"></i>Facebook</li>
-								<li (click)="shareViaTwitter()"><i class="pi pi-twitter"></i>Twitter</li>
-								<li (click)="shareViaInstagram()"><i class="pi pi-instagram"></i>Instagram</li>
-								<li (click)="shareViaLinkedIn()"><i class="pi pi-linkedin"></i>LinkedIn</li>
-								<li (click)="copyLink()"><i class="pi pi-link"></i>Copy Link</li>
-							</ul>
-						</p-card>
+					<button class="btn btn-primary socialShareBtn" (click)="showSocialSharingList()"><i class="pi pi-share-alt"></i></button>
+					<p-card id="socialSharingList">
+						<ul style="list-style: none">
+							<li (click)="shareViaWhatsapp()"><i class="pi pi-whatsapp"></i>Whatsapp</li>
+							<li (click)="shareViaMail()"><i class="pi pi-envelope"></i>Email</li>
+							<li (click)="shareViaFacebook()"><i class="pi pi-facebook"></i>Facebook</li>
+							<li (click)="shareViaTwitter()"><i class="pi pi-twitter"></i>Twitter</li>
+							<li (click)="shareViaInstagram()"><i class="pi pi-instagram"></i>Instagram</li>
+							<li (click)="shareViaLinkedIn()"><i class="pi pi-linkedin"></i>LinkedIn</li>
+							<li (click)="copyLink()"><i class="pi pi-link"></i>Copy Link</li>
+						</ul>
+					</p-card>
 				</div>
-
+			</div>
+			<div class="card-body text-start">
+				<p class="text-small blockquote text-start mb-0">
+					Last updated at: {{ oneQuestionContent?.updated_at | date }} <span class="badge" [ngStyle]="{ 'background-color': oneQuestionContent?.pre_verified == 1 ? 'darkorchid' : '#3f4c83' }"> {{ oneQuestionContent?.pre_verified == 1 ? "Pre Verified" : "Non Pre-Verified" }}</span>
+				</p>
 				<h3 class="unselectable d-md-block d-none">{{ oneQuestionContent?.question }}</h3>
 				<h5 class="unselectable d-md-none d-block">{{ oneQuestionContent?.question }}</h5>
 				<div class="fw-medium worksans unselectable" style="white-space: pre-wrap" [innerHTML]="oneQuestionContent?.answer"></div>
@@ -129,7 +152,7 @@
 				<div class="d-flex align-items-center gap-2 pb-2">
 					<div class="scrollable-container" id="video-links-container" #videoLinksContainer>
 						<div class="d-flex flex-nowrap flex-md-wrap overflow-x-auto">
-							<a class="btn btn-primary videolinkbutton flex-shrink-0" target="_blank" href="{{ videoL.link }}" *ngFor="let videoL of oneQuestionContent?.videolink; let ind = index">Video {{ ind + 1 }} &nbsp;<i class="fa-solid fa-video"></i></a>
+							<span class="btn btn-primary videolinkbutton flex-shrink-0" (click)="openVideoPopup(videoL.link)" *ngFor="let videoL of oneQuestionContent?.videolink; let ind = index">Video {{ ind + 1 }} &nbsp;<i class="fa-solid fa-video"></i></span>
 						</div>
 					</div>
 				</div>
@@ -231,19 +254,24 @@
 		</div>
 	</div>
 </p-dialog> -->
-<p-dialog [(visible)]="restrict" [modal]="true"  [style]="{ width: '30vw'}" [draggable]="false" [resizable]="false"
-	class="restrictionDialog" [breakpoints]="{ '960px': '30vw','959px': '60vw','425px': '90vw'}"
-	(onHide)="clearRestriction()">
+<p-dialog [(visible)]="restrict" [modal]="true" [style]="{ width: '30vw' }" [draggable]="false" [resizable]="false" class="restrictionDialog" [breakpoints]="{ '960px': '30vw', '959px': '60vw', '425px': '90vw' }" (onHide)="clearRestriction()">
 	<div class="text-center mt-5 mb-4">
 		<img src="../../../uniprep-assets/images/smartloack.png" class="image" width="60" />
 		<h3 class="offer">Upgrade Required</h3>
-		<p>
-			To access this exclusive module,please upgrade your plan now
-		</p>
-		<button pButton type="button"
-			class="text-white p-ripple p-button-rounded p-button-warning p-button p-component p-2"
-			(click)="upgradePlan()">
-			Upgrade Plan<i class="fa fa-arrow-right exhausted-plan-icon"></i>
-		</button>
+		<p>To access this exclusive module,please upgrade your plan now</p>
+		<button pButton type="button" class="text-white p-ripple p-button-rounded p-button-warning p-button p-component p-2" (click)="upgradePlan()">Upgrade Plan<i class="fa fa-arrow-right exhausted-plan-icon"></i></button>
 	</div>
-</p-dialog>	
+</p-dialog>
+<!-- vedio pop up -->
+<div *ngIf="showVideoPopup" class="modal-overlay" dropdownAppendTo="body">
+	<div class="modal-container">
+		<button class="close-button" tooltipPosition="top" pTooltip="Close" (click)="closeVideoPopup()">
+			<b><i class="fa-solid fa-circle-xmark fa-2x"></i></b>
+		</button>
+		<button class="newwindow-button" tooltipPosition="top" pTooltip="Open New Window" (click)="openNextVideo()">
+			<b><i class="fa-solid fa-circle-plus fa-1x"></i></b>
+		</button>
+		<!-- Use the safe pipe here for the src attribute -->
+		<iframe [src]="selectedVideoLink" width="560" height="315" frameborder="0" allowfullscreen></iframe>
+	</div>
+</div>

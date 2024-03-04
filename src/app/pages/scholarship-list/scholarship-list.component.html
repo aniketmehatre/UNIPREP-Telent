@@ -85,7 +85,7 @@
 										</div>
 									</div>
 								</div>
-								<div class="d-flex mt-2 gap-5 align-items-center justify-content-between">
+								<div class="d-flex mt-2 gap-3 align-items-center">
 									<div class="d-flex gap-2 align-items-center" title="Scholarship Country">
 										<i class="fa-solid fa-earth-americas countryicon" aria-hidden="true"></i>
 										<p class="text-small mb-0">{{ scholarshipData.country }}</p>
@@ -94,7 +94,7 @@
 										<i class="fa-solid fa-house homecountryicon" aria-hidden="true"></i>
 										<p class="text-small mb-0">{{ scholarshipData.home_country }}</p>
 									</div>
-									<div class="d-flex gap-2 align-items-center" title="Scholarship Region">
+									<div class="d-flex gap-2 align-items-center" *ngIf="scholarshipData.region" title="Scholarship Region">
 										<i class="fa-solid fa-location-dot locationicon" aria-hidden="true"></i>
 										<p class="text-small mb-0">{{ scholarshipData.region }}</p>
 									</div>
