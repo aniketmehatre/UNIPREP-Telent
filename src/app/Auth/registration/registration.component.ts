@@ -520,10 +520,10 @@ export class RegistrationComponent implements OnInit {
     }
   }
 
-  focusNextEmailInput(event: any, num: number) {
-    const code = (event.code || "").toLowerCase();
-
-    if (code.includes("backspace")) {
+  focusNextEmailInput(event: KeyboardEvent, num: number) {
+    const key = event.key.toLowerCase();
+  
+    if (key === "backspace") {
       switch (num) {
         case 6:
           this.otp5.nativeElement.focus();
@@ -535,7 +535,9 @@ export class RegistrationComponent implements OnInit {
           this.otp7.nativeElement.focus();
           break;
       }
-    } else if (code.includes("digit")) {
+      // Prevent the default backspace behavior
+      event.preventDefault();
+    } else if (/^\d$/.test(key)) {
       switch (num) {
         case 5:
           this.otp6.nativeElement.focus();

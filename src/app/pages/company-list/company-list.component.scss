@@ -1,33 +1,30 @@
-.upper-text {
-  width: auto;
-  font-size: 20px;
-  font-weight: normal;
-  padding: 20px 220px;
-  border-radius: 0px 0px 10px 10px;
-  margin-top: -13px;
-}
-.readingcard
+.industrytext
 {
-  height:75vh;
-  overflow-y:auto;
+  word-break:break-all !important;
 }
-.card-style {
-  border-radius: 0px 0px 10px 10px;
-  background-color: #F5F5F5;
-  a
-  {
-    color:#001631;
-    padding-right: 10px;
-    text-decoration: none;
-  }
+
+.industryicon
+{
+  color:var(--uniprep-secondary);
+}
+
+.locationicon
+{
+  color:#E90707;
+}
+
+.headquartersicon
+{
+  color:#9BC329;
+}
+
+.companycard
+{
+  border:1px solid var(--uniprep-secondary);
   &:hover
   {
-    background-color: var(--uniprep-primaryhighlight);
-    color:#fff;
-    a
-    {
-      color:black;
-    }
+    border:1px solid var(--uniprep-primaryhighlight);
+    background:var(--uniprep-primaryop10);
   }
 }
 
@@ -220,12 +217,6 @@
 }
 .fs-10{
   font-size: 11px;
-}
-
-.social-media{
-  a{
-    color: black;
-  }
 }
 .companny-list{
   background-color: white !important;

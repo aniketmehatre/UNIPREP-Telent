@@ -1,26 +1,4 @@
-.list {
-    li {
-        font-size: 18px;
-        color: #434343;
-        font-weight: 500;
-    }
-}
-
-.m-5 {
-    border: 1px solid #3F4C83;
-    border-radius: 10px;
-    margin-top: 5px !important;
-    margin-bottom: 10px !important;
-}
-
-.close-btn {
-    border-radius: 15px;
-    background: #3f4c83;
-    color: white;
-    border: none;
-    height: 25px;
-    font-size: 14px;
-    width: 25px;
-    margin-right: 20px;
-    margin-top: 10px;
+.guidelinecard
+{
+    border: 1px solid var(--uniprep-primary);
 }
