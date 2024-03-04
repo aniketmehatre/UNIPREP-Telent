@@ -1,3 +1,49 @@
+.universityicon
+{
+  color:var(--uniprep-secondary);
+}
+
+.locationicon
+{
+  color:#E90707;
+}
+
+.countryicon
+{
+  color:blue
+}
+
+.coinicon
+{
+  color:goldenrod
+}
+
+.homecountryicon
+{
+  color: green;
+}
+
+.studyicon
+{
+  color: blueviolet;
+}
+
+.scholarshiptypeicon
+{
+  color: brown;
+}
+
+.scholarshiplistcard
+{
+  border:1px solid var(--uniprep-secondary);
+  &:hover
+  {
+    border:1px solid var(--uniprep-primaryhighlight);
+    background:var(--uniprep-primaryop10);
+  }
+}
+
+
 .upper-text {
   width: auto;
   font-size: 20px;

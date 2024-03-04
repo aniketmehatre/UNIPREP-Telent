@@ -1,3 +1,33 @@
+.mailicon
+{
+  color:var(--uniprep-secondary);
+}
+
+.locationicon
+{
+  color:#E90707;
+}
+
+.countryicon
+{
+  color:#9BC329;
+}
+
+.investoricon
+{
+  color: blueviolet;
+}
+
+.investorcard
+{
+  border:1px solid var(--uniprep-secondary);
+  &:hover
+  {
+    border:1px solid var(--uniprep-primaryhighlight);
+    background:var(--uniprep-primaryop10);
+  }
+}
+
 .upper-text {
   width: auto;
   font-size: 20px;

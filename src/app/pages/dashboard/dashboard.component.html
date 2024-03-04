@@ -259,7 +259,7 @@
 	</div>
 </div>
 <div [ngStyle]="{ display: continueReading }" class="modal modal-bg" role="dialog" tabindex="-1">
-	<div class="modal-dialog modal-dialog-scrollable modal-dialog-centered" role="document">
+	<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
 		<div class="modal-content card bg-light">
 			<div class="modal-header">
 				<h3 class="mb-0 continue-reading-header" tooltipZIndex="auto" tooltipPosition="top" pTooltip="Complete the reading for all modules to get the certificate.">
@@ -267,14 +267,14 @@
 				</h3>
 				<div class="popupclose">
 					<a (click)="closeReading()" class="close" role="button">
-						<span aria-hidden="true"><i class="fa-solid fa-circle-x"></i></span>
+						<span aria-hidden="true"><i class="fa-solid fa-circle-x fa-2xl uniprep-primary"></i></span>
 					</a>
 				</div>
 			</div>
 			<div class="modal-body card-body">
 				<div class="container">
 					<div class="row mb-2">
-						<div class="col-md-12 px-4">
+						<div class="col-md-12">
 							<div class="row">
 								<div *ngFor="let readPro of readingProgressings" class="col-md-6 p-2">
 									<div class="card continuecard">
