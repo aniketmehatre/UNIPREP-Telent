@@ -54,9 +54,7 @@
   width: 100%;
   height: 100%;
   background-color: rgba(0, 0, 0, 0.5);
-  /* Semi-transparent background */
   z-index: 9999;
-  /* Ensure modal overlay appears on top of other content */
 }
 
 .modal-container {
@@ -69,7 +67,6 @@
   padding: 20px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   z-index: 10000;
-  /* Ensure modal container appears on top of modal overlay */
 }
 
 .newwindow-button {
@@ -100,4 +97,32 @@
 }
 .fa-1x {
   font-size: 1.5em;
+}
+.video-container {
+  position: relative;
+  min-width: 600px;
+  min-height: 350px;
+  overflow: hidden;
+}
+
+@media (max-width: 768px) {
+  .modal-container {
+    width: 80%; /* Adjust width for smaller screens */
+    padding: 10px; /* Adjust padding for smaller screens */
+  }
+  .video-container {
+    min-width: 100%;
+    min-height: 350px;
+  }
+}
+
+@media (max-width: 576px) {
+  .modal-container {
+    width: 90%; /* Further adjust width for extra small screens */
+    padding: 5px; /* Further adjust padding for extra small screens */
+  }
+  .video-container {
+    min-width: 100%;
+    min-height: 350px;
+  }
 }

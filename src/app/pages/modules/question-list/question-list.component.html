@@ -332,6 +332,7 @@
 		<button class="newwindow-button" tooltipPosition="top" pTooltip="Open New Window"
 			(click)="openNextVideo()"><b><i class="fa-solid fa-circle-plus fa-1x"></i></b></button>
 		<!-- Use the safe pipe here for the src attribute -->
-		<iframe [src]="selectedVideoLink" width="560" height="315" frameborder="0" allowfullscreen></iframe>
+			<iframe class="video-container" [src]="selectedVideoLink" frameborder="0" allowfullscreen></iframe>
+
 	</div>
 </div>
