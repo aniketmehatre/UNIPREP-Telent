@@ -21,6 +21,7 @@
 @media screen and (min-width: 500px) and (max-width: 1200px) {
 .sop-border:after {
     width: 350px !important;
+    margin:auto;
   }
 }
 @media screen and (min-width: 1200px) and (max-width: 1600px) {
@@ -32,12 +33,14 @@
 @media screen and (min-width: 380px) and (max-width: 500px) {
   .sop-border:after {
     width: 300px !important;
+    margin:auto;
   }
 }
 
 @media screen and (max-width: 380px) {
 .sop-border:after {
     width: 250px !important;
+    margin:auto;
   }
 }
 .scardFeatures {

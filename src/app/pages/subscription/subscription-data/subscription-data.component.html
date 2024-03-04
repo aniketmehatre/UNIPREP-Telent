@@ -1,17 +1,14 @@
 <p class="uniprep-primary mb-0">Subscription</p>
 <div class="card">
 	<div class="card-body">
-		<div class="d-flex justify-content-between">
-			<div>
+		<div class="d-flex flex-column flex-md-row justify-content-md-between justify-content-center">
+			<div class="text-md-start text-center">
 				<h5 class="sop-border sop-header">Ready To Get Started?</h5>
 				<span>Choose a plan tailored to your needs</span>
 			</div>
 			<div>
-				<!-- <button (click)="buttonclicked1()" class="btn btn-basic mt-4" [class.active]="selectedButton === 'button1'" (click)="selectedButton = 'button1'" *ngIf="topupcountries">BASE SUBSCRIPTION</button> -->
-				<!-- <button (click)="buttonclicked2()" class="btn btn-basic mt-4" [class.active]="selectedButton === 'button2'" (click)="selectedButton = 'button2'" *ngIf="basesubscription">TOP UP COUNTRIES</button> -->
-				<!-- <button (click)="buttonclicked3()" class="btn btn-primary" [class.active]="selectedButton === 'button3'" (click)="selectedButton = 'button3'" >TOP UP VALIDITY</button> -->
-				<div class="text-end pt-3" *ngIf="showHistoryBtn">
-					<button class="btn btn-primary" (click)="gotoHistory()">Subscription History</button>
+				<div class="text-md-end text-center pt-3" *ngIf="showHistoryBtn">
+					<button class="btn historyBtn" (click)="gotoHistory()">Subscription History</button>
 				</div>
 			</div>
 		</div>
