@@ -501,6 +501,7 @@ export class QuestionListComponent implements OnInit {
 
   viewOneQuestion(question:any){
     let questionData = this.allDataSet[question.id]
+    questionData['question'] = question.question;
     if(this.planExpired) {
       this.restrict=true;
       return;

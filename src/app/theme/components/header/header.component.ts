@@ -191,10 +191,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
       }
     })
     this.dataService.countryNameSource.subscribe((data: any) => {
-      console.log(data);
     })
     this.dataService.countryFlagSource.subscribe((data: any) => {
-      console.log(data);
     })
     this.dashboardService.data$.subscribe((data) => {
       this.min$ = data?.minutes;
