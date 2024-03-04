@@ -47,7 +47,7 @@ export class LocationService {
     }
     GetQuestionsCount(data: any) {
         const headers = new HttpHeaders().set("Accept", "application/json");
-        return this.http.post<any>(environment.ApiUrl + "/GetQuestionsCount", data, {
+        return this.http.post<any>(environment.ApiUrl + "/SubmoduleListForStudents", data, {
             headers: headers,
         });
     }
