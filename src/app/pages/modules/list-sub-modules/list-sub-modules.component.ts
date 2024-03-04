@@ -53,14 +53,17 @@ export class ListSubModulesComponent implements OnInit {
   constructor(private moduleListService: ModuleServiceService, private router: Router, private dataService: DataService, private authService: AuthService,
     private locationService: LocationService, private route: ActivatedRoute, private ngxService: NgxUiLoaderService,
     private confirmationService: ConfirmationService) {
-    this.dataService.countryNameSource.subscribe((data) => {
-      this.countryName = data;
-      this.ngOnInit();
-    });
+
     this.dataService.countryId.subscribe((data) => {
+      if(localStorage.getItem('countryId') != data){
+        this.ngOnInit();
+      }
       localStorage.setItem('countryId', data);
       this.isSkeletonVisible = true
-      this.ngOnInit();
+
+      this.dataService.countryNameSource.subscribe((data) => {
+        this.countryName = data;
+      });
     });
     this.responsiveOptions = [
       {

@@ -213,10 +213,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
     ) {
       this.formvisbility = true;
     }
-    this.getModuleList();
-    this.getCountryList();
-    this.onChangeModuleList(1);
-    this.onChangeSubModuleList(1);
+    // this.getModuleList();
+    // this.getCountryList();
+    // this.onChangeModuleList(1);
+    // this.onChangeSubModuleList(1);
     if (this.service._checkExistsSubscription === 0) {
       this.checkNewUser();
     } else {
@@ -354,7 +354,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   openReportModal(op: any, event: any) {
     this.reportType = 1;
-
     this.reportSubmitForm.reset();
     // this.reportSubmitForm = this.formBuilder.group({
     //   general: [1, [Validators.required]],

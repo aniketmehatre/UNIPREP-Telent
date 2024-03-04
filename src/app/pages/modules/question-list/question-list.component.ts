@@ -100,7 +100,7 @@ export class QuestionListComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.moduleListService.emptyQuestionList$();
+    //this.moduleListService.emptyQuestionList$();
     this.route.params.subscribe((params) => {
       this.loadInit();
       //this.getSubmoduleName(this.countryId);
@@ -109,12 +109,13 @@ export class QuestionListComponent implements OnInit {
       localStorage.setItem('countryId', data);
       this.questionListData = [];
       this.isSkeletonVisible = true
-      this.loadInit();
+      //this.loadInit();
     });
     this.tooltip = "Questions related to the application process are answered";
     this.questionUrl=environment.ApiUrl+this.router.url;
   }
   loadInit() {
+    this.questionListData = [];
     this.countryId = Number(localStorage.getItem("countryId"));
     let countryName: any;
     this.subModuleId = this.route.snapshot.paramMap.get("id");
