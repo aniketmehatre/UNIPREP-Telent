@@ -107,15 +107,6 @@ export class EventsComponent implements OnInit {
         'background-color': 'var(--uniprep-primary)',
         color: '#FFFFFF'
       };
-      let data = {
-        perpage: 10,
-        page: 1,
-        country: this.filterform.value.country,
-        to: this.filterform.value.to,
-        from: this.filterform.value.from,
-        nearby_search: this.valueNearYouFilter
-      }
-      this.getEventUpComming(data)
     } else if (buttonNumber === 2) {
       this.activeButton = 2;
       this.postevent = true;
@@ -124,16 +115,6 @@ export class EventsComponent implements OnInit {
         'background-color': 'var(--uniprep-primary)',
         color: '#FFFFFF'
       };
-      this.filterform.reset()
-      let postdata = {
-        perpage: 10,
-        page: 1,
-        country: this.filterform.value.country,
-        to: this.filterform.value.to,
-        from: this.filterform.value.from,
-        nearby_search: this.valueNearYouFilter
-      }
-      this.getPostEvent(postdata)
     }
   }
 
@@ -336,5 +317,19 @@ export class EventsComponent implements OnInit {
         searchInput.disabled = true;
       }
     }
+  }
+  resetFilter(){
+    this.filterform.reset()
+    let data = {
+      perpage: 10,
+      page: 1,
+      country: this.filterform.value.country,
+      to: this.filterform.value.to,
+      from: this.filterform.value.from,
+      nearby_search: this.valueNearYouFilter
+    }
+    this.getPostEvent(data)
+    this.getEventUpComming(data)
+    this.newfile = "none";
   }
 }
