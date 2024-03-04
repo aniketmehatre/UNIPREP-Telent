@@ -83,6 +83,7 @@ export class QuestionListComponent implements OnInit {
   showVideoPopup: boolean = false;
   selectedVideoLink: any | null = null;
   questionUrl:string="";
+  allDataSet: any [] = [];
   constructor(
     private moduleListService: ModuleServiceService,
     private mService: ModuleServiceService,
@@ -198,12 +199,20 @@ export class QuestionListComponent implements OnInit {
       page: this.pageno,
       perpage: this.perpage,
     };
-    this.ngxService.start();
+    //this.ngxService.start();
     //this.moduleListService.loadQuestionList(data);
-    this.mService.getModuleQuestionList(data).subscribe((data: any) => {
+    this.mService.studentsSubmoduleQuestions(data).subscribe((data: any) => {
       this.questionListData = data?.questions;
       this.isSkeletonVisible = false
       this.totalQuestionCount = data?.questioncount;
+      //this.ngxService.stop();
+    });
+    this.mService.studentFullQuestionData(data).subscribe((data: any) => {
+      this.allDataSet = data;
+
+      // this.questionListData = data?.questions;
+      // this.isSkeletonVisible = false
+      // this.totalQuestionCount = data?.questioncount;
       //this.ngxService.stop();
     });
   }
@@ -491,13 +500,14 @@ export class QuestionListComponent implements OnInit {
   }
 
   viewOneQuestion(question:any){
-    if(this.planExpired){
+    let questionData = this.allDataSet[question.id]
+    if(this.planExpired) {
       this.restrict=true;
       return;
     }
-    this.oneQuestionContent = question
+    this.oneQuestionContent = questionData
     this.isQuestionAnswerVisible = true
-    this.getSubmoduleName(question.country_id)
+    this.getSubmoduleName(questionData.country_id)
     this.breadCrumb = [
       {
         label: this.currentModuleName,
@@ -513,7 +523,7 @@ export class QuestionListComponent implements OnInit {
       submoduleId: Number(this.subModuleId),
     };
     this.readQuestion(data);
-    this.selectedQuestionData = question;
+    this.selectedQuestionData = questionData;
   }
   clearRestriction() {
     this.restrict = false;
