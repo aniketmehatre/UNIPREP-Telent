@@ -76,7 +76,7 @@
 		<div class="d-flex w-100 flex-column px-4">
 			<div class="d-flex flex-row justify-content-md-between justify-content-center">
 				<div class="d-md-block d-none">
-					<button (click)="goToHome($event)" class="btn btn-secondary homecardbtn px-3">
+					<button (click)="goToHome($event)" class="btn btn-secondary homecardbtn px-3 my-2">
 						<i class="fa-solid h5 fa-house"></i><br />
 						<span>Home</span>
 					</button>
@@ -86,7 +86,7 @@
 					<p-breadcrumb [model]="breadCrumb" class="w-100 mt-2 d-md-block d-none text-small"></p-breadcrumb>
 				</div>
 				<div class="d-md-block d-none">
-					<button (click)="openReport()" class="btn btn-primary px-3 homecardbtn">
+					<button (click)="openReport()" class="btn btn-primary px-3 homecardbtn my-2">
 						<i class="fa-solid h5 fa-file-contract"></i>
 						<br />
 						<span>Report</span>
@@ -145,8 +145,8 @@
 				<h5 class="text-start mb-1">Recommended Videos</h5>
 				<div class="d-flex align-items-center gap-2 pb-2">
 					<div class="scrollable-container" id="video-links-container" #videoLinksContainer>
-						<div class="d-flex flex-nowrap flex-md-wrap overflow-x-auto">
-							<span class="btn btn-primary videolinkbutton flex-shrink-0" (click)="openVideoPopup(videoL.link)" *ngFor="let videoL of oneQuestionContent?.videolink; let ind = index">Video {{ ind + 1 }} &nbsp;<i class="fa-solid fa-video"></i></span>
+						<div class="d-flex flex-nowrap flex-md-wrap overflow-x-auto gap-2">
+							<span class="btn btn-primary text-small videolinkbutton flex-shrink-0" (click)="openVideoPopup(videoL.link)" *ngFor="let videoL of oneQuestionContent?.videolink; let ind = index">Video {{ ind + 1 }} &nbsp;<i class="fa-solid fa-video"></i></span>
 						</div>
 					</div>
 				</div>
@@ -156,8 +156,8 @@
 				<h5 class="text-start mb-1">Recommended Links</h5>
 				<div class="d-flex align-items-center gap-2 pb-2">
 					<div class="scrollable-container" id="ref-links-container" #refLinksContainer>
-						<div class="d-flex flex-nowrap flex-md-wrap overflow-x-auto">
-							<a class="btn btn-secondary reflinkbutton flex-shrink-0" target="_blank" href="{{ refL.link }}" *ngFor="let refL of oneQuestionContent?.reflink; let ind = index">Link {{ ind + 1 }} &nbsp;<i class="fa-solid fa-link"></i></a>
+						<div class="d-flex flex-nowrap flex-md-wrap overflow-x-auto gap-2">
+							<a class="btn btn-secondary text-small reflinkbutton flex-shrink-0" target="_blank" href="{{ refL.link }}" *ngFor="let refL of oneQuestionContent?.reflink; let ind = index">Link {{ ind + 1 }} &nbsp;<i class="fa-solid fa-link"></i></a>
 						</div>
 					</div>
 				</div>
