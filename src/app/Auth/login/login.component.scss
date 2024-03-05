@@ -13,11 +13,21 @@
 	border: none;
 }
 
-
-.bg-image {
-	background-size: cover;
-	background-position: center;
-	display: flex;
+.p-inputgroup {
+	border: 1px solid var(--uniprep-primary);
+	border-radius: 10px;
 	align-items: center;
-	width: 100%;
+	.p-inputgroup-addon {
+		background: transparent;
+		border: none;
+		border-radius: 0;
+		border-right: 1px solid var(--uniprep-primary);
+	}
+}
+
+@media (max-width: 767.98px) {
+	.startbg
+	{
+		background-image: none;
+	}
 }

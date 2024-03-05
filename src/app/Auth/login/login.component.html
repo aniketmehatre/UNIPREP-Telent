@@ -6,14 +6,11 @@
 					<div class="card-body p-md-5 p-0 py-5">
 						<div class="row justify-content-center justify-content-md-between">
 							<div class="col-md-5 col-lg-5 align-items-center col-12">
-								<div class="row">
-									<img [routerLink]="['/']" style="cursor: pointer" class="small-image text-left mb-2" src="../../../uniprep-assets/images/uniprep-light.svg" />
-									<h1 class="fw-medium uniprep-primary mt-3 mb-0">
-										Welcome to
-										<span class="fw-semibold uniprep-primarydark">UNIPREP</span>
-									</h1>
-									<h4 class="uniprep-primarydark mb-3">A one-stop global platform.</h4>
-									<p class="uniprep-primary mb-5">Find answers to all your questions related to career, education, and life at your chosen destination.</p>
+								<div class="row justify-content-center justify-content-md-start">
+									<img [routerLink]="['/']" role="button" class="small-image text-left mb-2" src="../../../uniprep-assets/images/uniprep-light.svg" />
+									<h1 class="fw-medium uniprep-primary mt-3 mb-0 text-md-start text-center">Welcome to <span class="fw-semibold uniprep-primarydark">UNIPREP</span></h1>
+									<h4 class="uniprep-primarydark mb-3 text-md-start text-center">A one-stop global platform.</h4>
+									<p class="uniprep-primary mb-5 text-md-start text-center">Find answers to all your questions related to career, education, and life at your chosen destination.</p>
 									<div class="row justify-content-start">
 										<img src="../../../uniprep-assets/images/Uniprep_Icons_image.png" />
 									</div>
@@ -24,16 +21,13 @@
 									<div class="container">
 										<div class="row">
 											<div class="col-md-12 col-lg-12">
-												<h4 class="mt-3 mb-2 fw-semibold">Welcome, Please Login to your account.</h4>
-												<hr class="w-25 m-0" />
-												<p class="uniprep-lightgray mt-2">
-													Don't have an account?<span><a class="font-primarycolor text-decoration-none" href="register"> Register Now</a></span>
-												</p>
-
+												<h4 class="mt-3 mb-2 fw-semibold text-md-start text-center">Welcome, Please Login to your account.</h4>
+												<hr class="w-50 m-auto m-md-0" />
+												<p class="uniprep-lightgray mt-2 text-md-start text-center">Don't have an account?<span><a class="uniprep-primary text-decoration-none" href="register"> Register Now</a></span></p>
 												<form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="loginForm">
 													<div class="row">
 														<div class="col-md-12 mt-2">
-															<label for="floatingInput">Email Address</label>
+															<label class="text-muted text-small" for="floatingInput">Email Address</label>
 															<div class="p-inputgroup">
 																<div class="p-inputgroup-addon"> <i class="fa-regular fa-envelope"></i> </div>
 																<input type="email" pInputText id="floatingInput" class="border-0" placeholder="name@example.com" formControlName="email" [ngClass]="{ 'is-invalid': submitted && f.email.errors }" />
@@ -44,7 +38,7 @@
 															</div>
 														</div>
 														<div class="col-md-12 mt-3">
-															<label for="floatingPassword">Password</label>
+															<label class="text-muted text-small" for="floatingPassword">Password</label>
 															<div class="p-inputgroup">
 																<div class="p-inputgroup-addon"> <i class="fa-regular fa-lock"></i> </div>
 																<input [type]="password" class="border-0" pInputText id="floatingPassword" placeholder="Password" formControlName="password" autocomplete="Off" [ngClass]="{ 'is-invalid': submitted && f.password.errors }" id="inputPassword4" />
@@ -62,7 +56,7 @@
 														</div>
 														<div class="col-md-12 mt-4">
 															<div class="d-grid">
-																<button class="pt-3 pb-3 btn btn-primary btn-login text-uppercase fw-semibold h5 m-0 text-dark" type="submit">Sign in</button>
+																<button class="pt-3 pb-3 btn btn-primary btn-login text-uppercase fw-semibold m-0 text-dark" type="submit">Sign in</button>
 															</div>
 														</div>
 													</div>
@@ -75,7 +69,7 @@
 														&nbsp;
 													</div>
 													<div class="w-100">
-														<asl-google-signin-button logo_alignment="center" type="standard" size="large"></asl-google-signin-button>
+														<asl-google-signin-button width="350" logo_alignment="center" type="standard" size="large"></asl-google-signin-button>
 													</div>
 													<div class="w-100">
 														&nbsp;
