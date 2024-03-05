@@ -83,4 +83,19 @@ export class ModuleServiceService {
     });
   }
 
+
+  studentsSubmoduleQuestions(data: any) {
+    const headers = new HttpHeaders().set("Accept", "application/json");
+    return this.http.post<any>(environment.ApiUrl + "/StudentsSubmoduleQuestions", data, {
+      headers: headers,
+    });
+  }
+
+  studentFullQuestionData(data: any) {
+    const headers = new HttpHeaders().set("Accept", "application/json");
+    return this.http.post<any>(environment.ApiUrl + "/StudentFullQuestionData", data, {
+      headers: headers,
+    });
+  }
+
 }
