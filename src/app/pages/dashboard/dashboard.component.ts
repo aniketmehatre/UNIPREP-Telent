@@ -208,7 +208,7 @@ export class DashboardComponent implements OnInit {
         let data = {
             countryId: this.selectedCountryId,
         }
-        console.log(data);
+
         this.dashboardService.getModuleReadProgression(data).subscribe(response => {
             this.readingProgressings = response.module;
             this.continueReading = "block";
