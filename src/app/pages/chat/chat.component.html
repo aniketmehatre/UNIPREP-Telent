@@ -1,363 +1,168 @@
 <p-card [style]="{ width: '100%', height: 'auto' }">
-  <ng-template pTemplate="header">
-    Personal Global Advisor
-    <br />
-    <p class="userinfo">Hello {{ username }}.</p>
-    <div class="info row desktop">
-      <div class="col-2 chatguide">
-        <button routerLink="/pages/guideline">Chat Guidelines</button>
+	<ng-template pTemplate="header">
+		<div class="container-fluid">
+			<h3 class="text-center uniprep-primary mt-3">Personal Global Advisor</h3>
+			<h5 class="mb-0 uniprep-primary text-center">Hello {{ username }}.</h5>
+			<div class="row">
+				<div class="col-md-3 col-6 order-md-1 order-2">
+					<button class="btn guidebutton" routerLink="/pages/guideline">Chat Guidelines</button>
+				</div>
+				<div class="col-md-6 col-12 order-md-2 order-1">
+					<p class="text-center">Welcome to UNIPREP. You have 1 free question credit. Your personalised questions will be answered by the experts. Each message will be considered as 1 credit.</p>
+				</div>
+				<div class="col-md-3 col-6 order-md-3 order-3 text-end">
+					<button class="btn reportbutton" (click)="op?.toggle($event)">Report</button>
+				</div>
+			</div>
+		</div>
+		<p-divider></p-divider>
+	</ng-template>
+	<ng-template pTemplate="body">
+		<div class="chatcontainer">
+			<div *ngFor="let message of messages; let i = index">
+				<div class="message-container msger-chat">
+					<div class="d-flex gap-2 mb-2" *ngIf="message.admin_message != 0">
+						<div class="chatprofileuniprep">
+							<img src="../../../uniprep-assets/images/icon-light.svg" />
+						</div>
+						<div class="d-flex flex-column">
+							<h5 class="mb-0 uniprep-primary">UNIPREP</h5>
+							<div class="datebadge rounded-pill text-start px-3 py-1 d-flex text-small fw-medium">{{ message.created_at | date : "short" }}</div>
+						</div>
+					</div>
+					<div class="msg left-msg" *ngIf="message.admin_message != 0">
+						<div class="">
+							<div class="worksans fw-semibold replyfield mb-2" [innerHtml]="getData(message.answerForQuestion)"></div>
+							<div class="worksans fw-medium" *ngIf="message.message != 'undefined' && message.message != undefined" [innerHTML]="message.message"></div>
+							<!-- <div class="folder-card" *ngIf="message.attachment" (click)="openAttachment(message.attachment)">
+								<div class="d-flex folder">
+									<div class="me-2 d-flex align-items-center">
+										<img class="img-responsive" src="../../../uniprep-assets/images/pdf.svg" />
+									</div>
+									<div class="folderinfo" [pTooltip]="message.filename">
+										<h5>{{ message?.filename }}</h5>
+										<label>
+											Last Updated:<span>{{ message.created_at | date : "short" }}</span>
+										</label>
+									</div>
+								</div>
+							</div> -->
+						</div>
+					</div>
+					<div class="d-flex gap-2 mb-2" *ngIf="message.admin_message == 0">
+						<div class="chatprofileuser fw-bold">
+							{{ message.sendByName.slice(0, 1) }}
+						</div>
+						<div class="d-flex flex-column">
+							<h5 class="mb-0 uniprep-primary">{{ message.sendByName }}</h5>
+							<div class="datebadge rounded-pill text-start px-3 py-1 d-flex text-small fw-medium">{{ message.created_at | date : "short" }}</div>
+						</div>
+					</div>
+					<div class="msg left-msg" *ngIf="message.admin_message == 0">
+						<div class="msg-bubble">
+							<div class="worksans fw-medium" *ngIf="message.message != 'undefined' && message.message != undefined" [innerHTML]="message.message"></div>
+						</div>
+					</div>
+				</div>
+				<p-divider></p-divider>
+			</div>
+		</div>
+	</ng-template>
+	<ng-template pTemplate="footer">
+		<div>
+			<div class="row" *ngIf="!textareavisbility" (click)="canChangeChat()">
+				<div class="d-flex justify-content-between align-items-center chatbox py-1 pe-1 ps-3">
+					<div><p class="fw-semibold">Please ask your question...</p></div>
+					<div class="btn creditsbtn btn-rounded">Credits <span class="credits px-3 py-1 ms-1">{{ totalcredits }}</span></div>
+				</div>
+			</div>
+			<div class="position-relative" [class]="fullscreen" #fullscreeneditor>
+				<div *ngIf="textareavisbility" class="position-absolute end-0">
+					<div class="btn creditsbtn btn-rounded">Credits <span class="credits px-3 py-1 ms-1">{{ totalcredits }}</span></div>
+				</div>
+				<p-editor class="chattextarea rounded-4" *ngIf="textareavisbility" [(ngModel)]="textMessage" [modules]="modules">
+					<ng-template pTemplate="header"></ng-template>
+				</p-editor>
+			</div>
+      <div class="d-flex justify-content-end sendbtn mt-2">
+        <button *ngIf="btnsendmessage == 1" (click)="confirm($event)" class="btn btn-primary btn-rounded text-small px-4 py-2 h5 m-0">Send Message</button>
+        <button *ngIf="btnsendmessage == 2" (click)="content.toggle($event)" class="btn btn-primary btn-rounded text-small px-4 py-2 h5 m-0">Send Message</button>
+        <button *ngIf="btnsendmessage == 3" class="btn btn-primary btn-rounded text-small px-4 py-2 h5 m-0">Send Message</button>
       </div>
-      <div class="col-8 chat-info">
-        <p>
-          Welcome to UNIPREP. You have 1 free question credit. Your
-          personalised questions will be answered by the experts. Each message
-          will be considered as 1 credit.
-        </p>
-      </div>
-      <div class="col-2 report">
-        <button (click)="op?.toggle($event)">Report</button>
-      </div>
-    </div>
-    <div class="info row mobile">
-      <div class="chat-info">
-        <p>
-          Welcome to UNIPREP. You have 1 free question credit. Your
-          personalised questions will be answered by the experts. Each message
-          will be considered as 1 credit.
-        </p>
-      </div>
-      <div class="d-flex justify-content-between">
-        <div class="chatguide">
-          <button routerLink="/pages/guideline">Chat Guidelines</button>
-        </div>
-        <div class="report">
-          <button (click)="op?.toggle($event)">Report</button>
-        </div>
-      </div>
-    </div>
-    <p-divider></p-divider
-  ></ng-template>
-  <ng-template pTemplate="body">
-    <div class="chatcontainer">
-      <div *ngFor="let message of messages; let i = index">
-        <div class="message-container msger-chat">
-          <div class="msg left-msg" *ngIf="message.admin_message != 0">
-            <div class="msg-img-admin">
-              <img src="../../../uniprep-assets/images/icon-light.svg" />
-            </div>
-            <div class="msg-info">
-              <div class="msg-info-name">
-                UNIPREP
-                <div class="msg-info-time">
-                  {{ message.created_at | date : "short" }}
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="msg left-msg" *ngIf="message.admin_message != 0">
-            <div class="msg-bubble">
-              <p [innerHtml]="getData(message.answerForQuestion)"></p>
-              <div
-                class="msg-text"
-                *ngIf="
-                  message.message != 'undefined' && message.message != undefined
-                "
-                [innerHTML]="message.message"
-              ></div>
-              <div
-                class="folder-card"
-                *ngIf="message.attachment"
-                (click)="openAttachment(message.attachment)"
-              >
-                <div class="d-flex folder">
-                  <div class="me-2 d-flex align-items-center">
-                    <img
-                      class="img-responsive"
-                      src="../../../uniprep-assets/images/pdf.svg"
-                    />
-                  </div>
-                  <div class="folderinfo" [pTooltip]="message.filename">
-                    <h5>{{ message?.filename }}</h5>
-                    <label>
-                      Last Updated:<span>{{
-                        message.created_at | date : "short"
-                      }}</span>
-                    </label>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="msg left-msg" *ngIf="message.admin_message == 0">
-            <div class="msg-img">{{ message.sendByName.slice(0, 1) }}</div>
-            <div class="msg-info">
-              <div class="msg-info-name">
-                {{ message.sendByName }}
-                <div class="msg-info-time">
-                  {{ message.created_at | date : "short" }}
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="msg left-msg" *ngIf="message.admin_message == 0">
-            <div class="msg-bubble">
-              <div
-                class="msg-text"
-                *ngIf="
-                  message.message != 'undefined' && message.message != undefined
-                "
-                [innerHTML]="message.message"
-              ></div>
-            </div>
-          </div>
-        </div>
-        <p-divider></p-divider>
-      </div>
-    </div>
-  </ng-template>
-  <ng-template pTemplate="footer">
-    <div>
-      <div
-        class="row togglediv"
-        *ngIf="!textareavisbility"
-        (click)="canChangeChat()"
-      >
-        <div class="col-7 customplaceholder">Please ask your question...</div>
-        <div class="col-5 credits">
-          <span
-            >Credits <span>{{ totalcredits }}</span></span
-          >
-        </div>
-      </div>
-      <div [class]="fullscreen" #fullscreeneditor>
-        <div *ngIf="textareavisbility" class="col credits-div">
-          <span class="credits-span"
-            >Credits <span class="creditscore">{{ totalcredits }}</span></span
-          >
-        </div>
-        <p-editor
-          *ngIf="textareavisbility"
-          [(ngModel)]="textMessage"
-          [modules]="modules"
-        >
-          <ng-template pTemplate="header"></ng-template>
-        </p-editor>
-      </div>
-      <div class="text-end">
-        <p-confirmPopup
-          [style]="{ 'z-index': '999999 !important' }"
-        ></p-confirmPopup>
-      </div>
-    </div>
-    <div class="d-flex justify-content-end sendbtn">
-      <button
-        *ngIf="btnsendmessage == 1"
-        (click)="confirm($event)"
-        class="btn btn-primary px-4 py-2 h5 m-0"
-      >
-        Send Message
-      </button>
-      <button
-        *ngIf="btnsendmessage == 2"
-        (click)="content.toggle($event)"
-        class="btn btn-primary px-4 py-2 h5 m-0"
-      >
-        Send Message
-      </button>
-      <button
-        *ngIf="btnsendmessage == 3"
-        class="btn btn-primary px-4 py-2 h5 m-0"
-      >
-        Send Message
-      </button>
-    </div>
-    <div class="d-flex justify-content-end sendbtn"></div>
-  </ng-template>
+			<div class="text-end">
+				<p-confirmPopup [style]="{ 'z-index': '999999 !important' }"></p-confirmPopup>
+			</div>
+		</div>
+		<div class="d-flex justify-content-end sendbtn"></div>
+	</ng-template>
 </p-card>
-<p-overlayPanel
-  [position]="'top'"
-  styleClass="overlaypanel"
-  [style]="{ width: '245px' }"
-  #content
-  [appendTo]="'body'"
->
-  <ng-template pTemplate="content">
-    <span>{{ planmessage }}</span>
-  </ng-template>
+<p-overlayPanel [position]="'top'" styleClass="overlaypanel" [style]="{ width: '245px' }" #content [appendTo]="'body'">
+	<ng-template pTemplate="content">
+		<span>{{ planmessage }}</span>
+	</ng-template>
 </p-overlayPanel>
 <p-overlayPanel #op>
-  <form [formGroup]="reportForm" (ngSubmit)="reportSubmit(op)" #reportFormElm>
-    <div class="col-md-12 mt-1">
-      <div class="form-group">
-        <label
-          >Report Issues<span style="color: red; font-weight: bold"
-            >*</span
-          ></label
-        >
-        <p-dropdown
-          formControlName="reportOption"
-          optionValue="id"
-          optionLabel="reportoption_name"
-          styleClass="w-full"
-          [options]="reportOptions"
-        ></p-dropdown>
-      </div>
-    </div>
-    <br />
-    <div class="col-md-12 mt-1">
-      <div class="form-group">
-        <label
-          >Add Comment
-          <span style="color: red; font-weight: bold">*</span></label
-        >
-        <textarea
-          class="w-100"
-          rows="3"
-          cols="35"
-          required
-          pInputTextarea
-          formControlName="comment"
-        ></textarea>
-      </div>
-    </div>
-
-    <div class="row mt-3 mt-1">
-      <button
-        class="ps-3 pe-3 pt-2 pb-2"
-        pButton
-        type="submit"
-        style="
-          background-color: var(--uniprep-primary);
-          border-radius: 8px;
-          border: aliceblue;
-          color: #fff;
-        "
-        label="SUBMIT"
-      ></button>
-    </div>
-  </form>
+	<form [formGroup]="reportForm" (ngSubmit)="reportSubmit(op)" #reportFormElm>
+		<div class="col-md-12 mt-1">
+			<div class="form-group">
+				<label>Report Issues<span style="color: red; font-weight: bold">*</span></label>
+				<div>
+					<p-dropdown formControlName="reportOption" optionValue="id" optionLabel="reportoption_name" styleClass="w-100" [options]="reportOptions"></p-dropdown>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-12 mt-1">
+			<div class="form-group">
+				<label>Add Comment <span style="color: red; font-weight: bold">*</span></label>
+				<textarea class="w-100" rows="3" cols="35" required pInputTextarea formControlName="comment"></textarea>
+			</div>
+		</div>
+		<div class="row mt-3 mt-1">
+			<button class="ps-3 pe-3 pt-2 pb-2" pButton type="submit" style="background-color: var(--uniprep-primary); border-radius: 8px; border: aliceblue; color: #fff" label="SUBMIT"></button>
+		</div>
+	</form>
 </p-overlayPanel>
 <p-dialog [visible]="visibility" [closable]="false" [modal]="true">
-  <div
-    style="
-      background: var(--uniprep-primary) !important;
-      border-radius: 50% !important;
-      height: 25px !important;
-      width: 25px !important;
-      position: absolute;
-      right: -10px;
-      top: -10px;
-      text-align: center;
-      cursor: pointer;
-    "
-    (click)="visibility = !visibility"
-  >
-    <i style="color: #fff" class="fa fa-close"></i>
-  </div>
-  <div class="row mt-1">
-    <div class="col-2" style="margin: auto; padding: 1.5rem">
-      <span
-        style="
-          color: white;
-          text-align: center;
-          vertical-align: middle;
-          background-color: var(--uniprep-primary);
-          border-radius: 50%;
-        "
-        ><i style="height: 20px; width: 20px" class="fa fa-info"></i
-      ></span>
-    </div>
-    <div class="col-10 mb-4" style="margin: auto; padding: 1rem">
-      <b
-        >Thank you for reaching out to us.<br />
-        Please anticipate a response within<br />
-        8 working hours.</b
-      >
-    </div>
-  </div>
+	<div style="background: var(--uniprep-primary) !important; border-radius: 50% !important; height: 25px !important; width: 25px !important; position: absolute; right: -10px; top: -10px; text-align: center; cursor: pointer" (click)="visibility = !visibility">
+		<i style="color: #fff" class="fa fa-close"></i>
+	</div>
+	<div class="row mt-1">
+		<div class="col-2" style="margin: auto; padding: 1.5rem">
+			<span style="color: white; text-align: center; vertical-align: middle; background-color: var(--uniprep-primary); border-radius: 50%"><i style="height: 20px; width: 20px" class="fa fa-info"></i></span>
+		</div>
+		<div class="col-10 mb-4" style="margin: auto; padding: 1rem">
+			<b>Thank you for reaching out to us.<br />Please anticipate a response within<br />8 working hours.</b>
+		</div>
+	</div>
 </p-dialog>
-<p-dialog
-  [visible]="creditspopupVisibility"
-  [closable]="false"
-  [modal]="true"
-  [style]="{ width: '20vw' }"
->
-  <div
-    style="
-      background: var(--uniprep-primary) !important;
-      border-radius: 50% !important;
-      height: 25px !important;
-      width: 25px !important;
-      position: absolute;
-      right: -10px;
-      top: -10px;
-      text-align: center;
-      cursor: pointer;
-    "
-    (click)="creditspopupVisibility = !creditspopupVisibility"
-  >
-    <i style="color: #fff" class="fa fa-close"></i>
-  </div>
-  <div class="row mt-1">
-    <div class="col-2" style="margin: auto; padding: 1.5rem">
-      <span
-        style="
-          color: white;
-          text-align: center;
-          vertical-align: middle;
-          background-color: var(--uniprep-secondary);
-          border-radius: 50%;
-        "
-        ><i style="height: 20px; width: 20px" class="fa fa-info"></i
-      ></span>
-    </div>
-    <div class="col-10" style="margin: auto; padding: 1rem">
-      Your question credits are exhausted! Additional credits will be available
-      at 12:00 AM tommorow.
-    </div>
-  </div>
+<p-dialog [visible]="creditspopupVisibility" [closable]="false" [modal]="true" [style]="{ width: '20vw' }">
+	<div style="background: var(--uniprep-primary) !important; border-radius: 50% !important; height: 25px !important; width: 25px !important; position: absolute; right: -10px; top: -10px; text-align: center; cursor: pointer" (click)="creditspopupVisibility = !creditspopupVisibility">
+		<i style="color: #fff" class="fa fa-close"></i>
+	</div>
+	<div class="row mt-1">
+		<div class="col-2" style="margin: auto; padding: 1.5rem">
+			<span style="color: white; text-align: center; vertical-align: middle; background-color: var(--uniprep-secondary); border-radius: 50%"><i style="height: 20px; width: 20px" class="fa fa-info"></i></span>
+		</div>
+		<div class="col-10" style="margin: auto; padding: 1rem">Your question credits are exhausted! Additional credits will be available at 12:00 AM tommorow.</div>
+	</div>
 </p-dialog>
-<p-dialog
-  class="thankyoupopup"
-  [modal]="true"
-  header="Header"
-  [(visible)]="showReportSuccess"
-  [breakpoints]="{ '960px': '75vw' }"
-  [style]="{ width: 'auto' }"
-  [draggable]="false"
-  [resizable]="false"
->
-  <ng-template pTemplate="header">
-    <span class="text-xl font-bold"></span>
-  </ng-template>
-  <div class="px-3 pb-3 pt-2">
-    <div class="justify-content-center text-center">
-      <h4 class="text-center mb-2">
-        We have noted your feedback.<br />Our team will get back to you shortly.
-      </h4>
-      <h3 class="text-center mb-2 text-green">Thank You</h3>
-      <img
-        class="pb-5"
-        src="../../../uniprep-assets/images/icons/thumbsup.webp"
-        width="auto"
-        alt="thumbs up"
-      />
-    </div>
-  </div>
+<p-dialog class="thankyoupopup" [modal]="true" header="Header" [(visible)]="showReportSuccess" [breakpoints]="{ '960px': '75vw' }" [style]="{ width: 'auto' }" [draggable]="false" [resizable]="false">
+	<ng-template pTemplate="header">
+		<span class="text-xl font-bold"></span>
+	</ng-template>
+	<div class="px-3 pb-3 pt-2">
+		<div class="justify-content-center text-center">
+			<h4 class="text-center mb-2">We have noted your feedback.<br />Our team will get back to you shortly.</h4>
+			<h3 class="text-center mb-2 text-green">Thank You</h3>
+			<img class="pb-5" src="../../../uniprep-assets/images/icons/thumbsup.webp" width="auto" alt="thumbs up" />
+		</div>
+	</div>
 </p-dialog>
-<p-dialog [(visible)]="restrict" [modal]="true"  [style]="{ width: '30vw'}" [draggable]="false" [resizable]="false"
-	class="restrictionDialog" [breakpoints]="{ '960px': '30vw','959px': '60vw','425px': '90vw'}"
-	(onHide)="clearRestriction()">
+<p-dialog [(visible)]="restrict" [modal]="true" [style]="{ width: '30vw' }" [draggable]="false" [resizable]="false" class="restrictionDialog" [breakpoints]="{ '960px': '30vw', '959px': '60vw', '425px': '90vw' }" (onHide)="clearRestriction()">
 	<div class="text-center mt-5 mb-4">
 		<img src="../../../uniprep-assets/images/smartloack.png" class="image" width="60" />
 		<h3 class="offer">Upgrade Required</h3>
-		<p>
-			To access this exclusive module,please upgrade your plan now
-		</p>
-		<button pButton type="button"
-			class="text-white p-ripple p-button-rounded p-button-warning p-button p-component p-2"
-			(click)="upgradePlan()">
-			Upgrade Plan<i class="fa fa-arrow-right exhausted-plan-icon"></i>
-		</button>
+		<p>To access this exclusive module,please upgrade your plan now</p>
+		<button pButton type="button" class="text-white p-ripple p-button-rounded p-button-warning p-button p-component p-2" (click)="upgradePlan()">Upgrade Plan<i class="fa fa-arrow-right exhausted-plan-icon"></i></button>
 	</div>
-</p-dialog>	
+</p-dialog>
