@@ -68,10 +68,10 @@ export class VerificationComponent implements OnInit {
     );
   }
 
-  focusNextInput(event: any, num: number) {
-    const code = (event.code || '').toLowerCase();
-
-    if (code.includes('backspace')) {
+  focusNextInput(event: KeyboardEvent, num: number) {
+    const key = event.key.toLowerCase();
+  
+    if (key === "backspace") {
       switch (num) {
         case 2:
           this.otp1.nativeElement.focus();
@@ -83,7 +83,9 @@ export class VerificationComponent implements OnInit {
           this.otp3.nativeElement.focus();
           break;
       }
-    } else if (code.includes('digit')) {
+      // Prevent the default backspace behavior
+      event.preventDefault();
+    } else if (/^\d$/.test(key)) {
       switch (num) {
         case 1:
           this.otp2.nativeElement.focus();
