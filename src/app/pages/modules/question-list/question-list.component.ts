@@ -5,7 +5,7 @@ import {
   OnInit,
   ViewChild,
   ElementRef,
-  HostListener,
+  HostListener, Renderer2,
 } from "@angular/core";
 import { Observable } from "rxjs";
 import { ModuleListSub } from "../../../@Models/module.model";
@@ -84,6 +84,9 @@ export class QuestionListComponent implements OnInit {
   selectedVideoLink: any | null = null;
   questionUrl:string="";
   allDataSet: any [] = [];
+  @ViewChild('op', { static: false, read: ElementRef }) elRef: any;
+  isPopupVisible: boolean = false;
+
   constructor(
     private moduleListService: ModuleServiceService,
     private mService: ModuleServiceService,
@@ -94,15 +97,30 @@ export class QuestionListComponent implements OnInit {
     private _sanitizer: DomSanitizer,
     private router: Router, private ngxService: NgxUiLoaderService,
     private authService: AuthService,
-    private sanitizer: DomSanitizer
+    private sanitizer: DomSanitizer,
+    private renderer: Renderer2
   ) {
     Carousel.prototype.changePageOnTouch = (e, diff) => { }
     Carousel.prototype.onTouchMove = () => { };
+    // this.renderer.listen('window', 'click', (e: Event) => {
+    //   if (e.target !== this.elRef!.nativeElement) {
+    //     let socialShare:any=document.getElementById("socialSharingList");
+    //     if (socialShare) {
+    //       socialShare.style.display = "none";
+    //     }
+    //     //this.showSocialSharingList();
+    //   }
+    // });
   }
   loopRange = Array.from({ length: 30 }).fill(0).map((_, index) => index);
   ngOnInit(): void {
     //this.moduleListService.emptyQuestionList$();
     this.route.params.subscribe((params) => {
+      console.log('coming')
+      let socialShare:any=document.getElementById("socialSharingList");
+      if (socialShare){
+        socialShare.style.display = "none";
+      }
       this.loadInit();
       //this.getSubmoduleName(this.countryId);
     });
@@ -500,6 +518,7 @@ export class QuestionListComponent implements OnInit {
   }
 
   viewOneQuestion(question:any){
+
     let questionData = this.allDataSet[question.id]
     questionData['question'] = question.question;
     if(this.planExpired) {

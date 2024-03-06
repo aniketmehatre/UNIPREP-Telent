@@ -171,12 +171,12 @@ export class DashboardComponent implements OnInit {
         const data = {
             countryId: this.selectedCountryId,
         }
+        //this.dashboardService.getModuleQuizProgression(data))
+        //            this.dashboardService.getQuizProgression({ countryId: this.selectedCountryId }),
         combineLatest(
             this.dashboardService.getReadProgression({ countryId: this.selectedCountryId }),
-            this.dashboardService.getQuizProgression({ countryId: this.selectedCountryId }),
-            this.dashboardService.getModuleQuizProgression(data))
-            .subscribe(([readProgression, quizProgression,
-                getModuleQuizProgression]) => {
+            )
+            .subscribe(([readProgression]) => {
                 if (readProgression) {
                     if (!readProgression.success) {
 
@@ -184,15 +184,15 @@ export class DashboardComponent implements OnInit {
                     }
                     this.readProgressionPercentage = Math.round(readProgression.readpercentage);
                 }
-                if (quizProgression) {
-                    if (!quizProgression.success) {
-                        return;
-                    }
-                    this.readQuizProgressionPercentage = Math.round(quizProgression.quizpercentage);
-                }
-                if (getModuleQuizProgression) {
-                    this.quizProgressings = getModuleQuizProgression.module;
-                }
+                // if (quizProgression) {
+                //     if (!quizProgression.success) {
+                //         return;
+                //     }
+                //     this.readQuizProgressionPercentage = Math.round(quizProgression.quizpercentage);
+                // }
+                // if (getModuleQuizProgression) {
+                //     this.quizProgressings = getModuleQuizProgression.module;
+                // }
             })
     }
 
