@@ -311,20 +311,18 @@ export class RegistrationComponent implements OnInit {
     };
 
     this.service.Registraion(data).subscribe(
-      (_) => {
+      (res:any) => {
         this.toastr.add({
           severity: "success",
           summary: "Success",
           detail: "User Registered",
         });
-        this.service.getMe().subscribe((data) => {
-          if (data.token) {
-            this.storage.set(environment.tokenKey, data.token);
-          } else {
-            this.storage.set(environment.tokenKey, data?.authorisation?.token);
-          }
-          this.router.navigate(["/pages/dashboard"]);
-        });
+        if (res?.token) {
+          this.storage.set(environment.tokenKey, res.token);
+        } else {
+          this.storage.set(environment.tokenKey, res?.authorisation?.token);
+        }
+        this.router.navigate(["/pages/dashboard"]);
       },
       (error) => {
         const message = error.error.message;
