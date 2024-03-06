@@ -553,7 +553,12 @@ export class QuestionListComponent implements OnInit {
   }
   showSocialSharingList(){
     let socialShare:any=document.getElementById("socialSharingList");
-    socialShare.style.display=socialShare.style.display=="none"?"block":"none";
+    if(socialShare.style.display == "") {
+      socialShare.style.display = "block";
+    }
+    else {
+      socialShare.style.display = socialShare.style.display == "none" ? "block" : "none";
+    }
   }
   shareViaWhatsapp(){
     const shareUrl = `whatsapp://send?text=${encodeURIComponent(this.questionUrl)}`;
@@ -581,7 +586,7 @@ export class QuestionListComponent implements OnInit {
   }
   copyLink(){
     const textarea = document.createElement('textarea');
-    textarea.textContent = this.questionUrl;
+    textarea.textContent = window.location.href;
     document.body.append(textarea);
     textarea.select();
     document.execCommand('copy');
@@ -630,6 +635,10 @@ export class QuestionListComponent implements OnInit {
    }
    openNextVideo(){
      window.open(this.openNextPageLink)
+   }
+   onShowModal(value : any) {
+    let socialShare:any=document.getElementById("socialSharingList");
+    socialShare.style.display = "none";
    }
  }
  
