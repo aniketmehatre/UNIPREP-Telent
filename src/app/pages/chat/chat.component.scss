@@ -128,6 +128,25 @@
 	overflow: hidden;
 }
 
+.chatcard {
+	display: flex;
+	flex: 1;
+	height: 100%;
+	flex-direction: column; /* Ensure flex children stack vertically */
+	overflow: hidden;
+	border-radius: 10px;
+	p-card {
+		flex: 1;
+		overflow-y: auto; /* Enable vertical scrolling for overflowing content */
+		display: flex;
+		flex-direction: column;
+	}
+	.chatflexbody {
+		flex: 1;
+		overflow-y: auto;
+	}
+}
+
 // ::ng-deep .p-card-header {
 //   font-size: 18px;
 //   font-weight: 800;
@@ -279,30 +298,6 @@
 //   max-height: 47vh;
 //   overflow-y: scroll;
 //   scrollbar-width: thin;
-// }
-// ::ng-deep .p-card {
-//   .p-card-content {
-//     padding: 0 !important;
-//     height: 100vh;
-//   }
-//   .p-card-footer {
-//     padding: 1rem !important;
-//     position: sticky;
-//     background: white;
-//     bottom: 0 !important;
-//     .sendbtn {
-//       margin-top: 0.5rem;
-
-//       button {
-//         padding: 0.2rem 1.2rem 0.2rem 1.2rem !important;
-//         font-size: 1rem !important;
-//         border-radius: 15px !important;
-//       }
-//     }
-//   }
-//   .p-card-body {
-//     padding: 0 !important;
-//   }
 // }
 
 // .togglediv {
