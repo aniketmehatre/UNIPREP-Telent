@@ -491,6 +491,9 @@
 										<p style="font-size: x-small">Enter your number to continue the experience</p>
 										<ngx-intl-tel-input class="intel-input w-100" [cssClass]="'custom'" [preferredCountries]="[CountryISO.India]" [enableAutoCountrySelect]="true" [enablePlaceholder]="true" [searchCountryFlag]="true" [maxLength]="15" [searchCountryField]="[SearchCountryField.Iso2, SearchCountryField.Name]" [phoneValidation]="true" [selectedCountryISO]="CountryISO.India" customPlaceholder="Enter Contact Number" formControlName="phone"> </ngx-intl-tel-input>
 									</div>
+									<div *ngIf="freeTrialErrorMsg" class="text-danger">
+										{{freeTrialErrorMsg}}
+									</div>
 									<div class="icon-container mt-2 d-flex justify-content-center mb-2">
 										<h6 style="color: rgb(63 76 131)">Enjoy access to <strong>UNIPREP</strong> V 1.0</h6>
 									</div>
