@@ -111,7 +111,7 @@
                 <div class="mb-3">
                   <p-multiSelect [options]="countryList" styleClass="w-100" formControlName="country" optionValue="id"
                     (onChange)="loadHeadQuartersData($event)" defaultLabel="Select Countries" optionLabel="country"
-                    #multiSelect>
+                    #multiSelect [appendTo]="'body'">
                   </p-multiSelect>
                   <div *ngIf="filterForm.hasError('org_name')" class="text-danger">
                     {{ filterForm.getError("org_name") }}
@@ -125,7 +125,7 @@
                 <div class="mb-3">
                   <p-multiSelect [options]="headQuartersList" styleClass="w-100" formControlName="head_quarters"
                     defaultLabel="Select Head Quarters" optionValue="id" optionLabel="head_quarters_name"
-                    #HeadMultiSelect>
+                    #HeadMultiSelect [appendTo]="'body'">
                     <ng-template pTemplate="selectedItems">
                       {{ HeadMultiSelect.defaultLabel }}
                     </ng-template>
@@ -138,7 +138,7 @@
               <div class="form-group">
                 <div class="mb-3">
                   <p-multiSelect [options]="industryInterested" styleClass="w-100" formControlName="industry_interested"
-                    defaultLabel="Select Industry" optionValue="id" optionLabel="industry_name" #IndustriesMultiSelect>
+                    defaultLabel="Select Industry" optionValue="id" optionLabel="industry_name" #IndustriesMultiSelect [appendTo]="'body'">
                     <ng-template pTemplate="selectedItems">
                       {{ IndustriesMultiSelect.defaultLabel }}
                     </ng-template>

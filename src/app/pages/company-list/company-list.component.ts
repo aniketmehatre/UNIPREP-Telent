@@ -58,9 +58,9 @@ export class CompanyListComponent implements OnInit {
     }
     var companySearchData: any = [];
     this.companyData.filter(item => {
-      if (item.company_name?.includes(this.valueNearYouFilter)) {
+      if (item.company_name?.toLowerCase().includes(this.valueNearYouFilter.toLowerCase())) {
         companySearchData.push(item);
-      };
+      }
     });
     this.companyData = [...companySearchData];
   }
@@ -82,13 +82,14 @@ export class CompanyListComponent implements OnInit {
     });
   }
 
-  resetFilter(){
-    this.filterForm.reset();
-    this.loadInvestorData();
-  }
+  // resetFilter(){
+  //   this.filterForm.reset();
+  //   this.loadInvestorData();
+  // }
 
   clearFilter(){
     this.filterForm.reset();
+    this.loadInvestorData();
   }
   clearRestriction() {
     this.restrict = false;

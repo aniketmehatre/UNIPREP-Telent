@@ -30,7 +30,6 @@ export class InvestorListComponent implements OnInit {
   constructor(private _location: Location, private fb: FormBuilder, private investorList: InvestorListService, private authService: AuthService, private router: Router) {
     this.filterForm = this.fb.group({
       org_name: [''],
-      // org_type: [''],
       country: [''],
       head_quarters: [''],
       investor_type: [''],
@@ -56,7 +55,7 @@ export class InvestorListComponent implements OnInit {
     }
     var investorSearchData: any = [];
     this.investorData.filter(item => {
-      if (item.org_name?.includes(this.valueNearYouFilter)) {
+      if (item.org_name?.toLowerCase().includes(this.valueNearYouFilter.toLowerCase())) {
         investorSearchData.push(item);
       };
     });
@@ -73,12 +72,13 @@ export class InvestorListComponent implements OnInit {
     });
   }
 
-  resetFilter() {
-    this.filterForm.reset();
-    this.loadInvestorData();
-  }
+  // resetFilter() {
+  //   this.filterForm.reset();
+  //   this.loadInvestorData();
+  // }
   clearFilter() {
     this.filterForm.reset();
+    this.loadInvestorData();
   }
 
   investorGuidlines(): void {
