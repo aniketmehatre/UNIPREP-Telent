@@ -89,6 +89,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   SearchCountryField = SearchCountryField;
   CountryISO = CountryISO;
   preferredCountries: CountryISO[] = [CountryISO.India];
+  timeLeftInfo: any
   constructor(
     private router: Router,
     private locationService: LocationService,
@@ -119,7 +120,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
     });
     this.service.getTimeInfoForCard().subscribe((data) => {
         localStorage.setItem('time_card_info', data.card_message);
+
     });
+    this.timeLeftInfo = localStorage.getItem('time_card_info');
   }
 
   loadCountryList() {
@@ -681,7 +684,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
   onClickSubscribedUser(): void {
     let data: any = {};
-    if (this.mobileForm.valid) { 
+    if (this.mobileForm.valid) {
       data.phone = this.mobileForm.value.phone.number;
       data.country_code=this.mobileForm.value.phone.dialCode;
     }
@@ -735,6 +738,4 @@ export class HeaderComponent implements OnInit, OnDestroy {
         });
       });
   }
-
-  protected readonly localStorage = localStorage;
 }

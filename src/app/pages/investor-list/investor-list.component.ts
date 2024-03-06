@@ -65,7 +65,7 @@ export class InvestorListComponent implements OnInit {
 
   loadMultiSelectData() {
     this.investorList.getMultiSelectData().subscribe((response) => {
-      console.log(response);
+
       this.investorIndustryInterested = response.investor_industry_interested;
       this.investorOrgType = response.investor_org_type;
       this.investorType = response.investor_type;
@@ -139,10 +139,15 @@ export class InvestorListComponent implements OnInit {
       let data = res.time_left;
       let subscription_exists_status = res.subscription_details;
       this.currentPlan = subscription_exists_status.subscription_plan;
-      if (data.plan === "expired" || data.plan === 'subscription_expired' || subscription_exists_status.subscription_plan === 'free_trail' || subscription_exists_status.subscription_plan === 'Student' || subscription_exists_status.subscription_plan === 'Career') {
+      if (data.plan === "expired" || data.plan === 'subscription_expired' ||
+          subscription_exists_status.subscription_plan === 'free_trail' ||
+          subscription_exists_status.subscription_plan === 'Student' ||
+          subscription_exists_status.subscription_plan === 'Career') {
         this.planExpired = true;
+        //this.restrict = true;
       } else {
         this.planExpired = false;
+        //this.restrict = false;
       }
       this.loadInvestorData();
     })

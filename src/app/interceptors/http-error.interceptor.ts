@@ -25,6 +25,8 @@ export class HttpErrorInterceptor implements HttpInterceptor {
     request: HttpRequest<unknown>,
     next: HttpHandler
   ): Observable<HttpEvent<unknown>> {
+    // !request.url.includes('StudentFullQuestionData') &&
+    // !request.url.includes('SubmoduleListForStudents')
     if (
       !request.url.includes("country") &&
       !request.url.includes("getuserdetails") &&

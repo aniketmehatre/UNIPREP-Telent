@@ -19,6 +19,7 @@ import { AuthService } from "src/app/Auth/auth.service";
 import { PaginatorModule } from "primeng/paginator";
 import { TooltipModule } from "primeng/tooltip";
 import { DialogModule } from "primeng/dialog";
+import {ButtonModule} from "primeng/button";
 
 @Component({
   selector: "uni-infokit",
@@ -35,6 +36,7 @@ import { DialogModule } from "primeng/dialog";
     PaginatorModule,
     TooltipModule,
     DialogModule,
+    ButtonModule,
 
   ],
   templateUrl: "./infokit.component.html",
@@ -95,6 +97,10 @@ export class InfoKitComponent implements OnInit {
       });
   }
   pageChange(event: any) {
+    if (this.planExpired) {
+      this.restrict = true;
+      return;
+    }
     this.folderdata.page = event.page + 1;
     this.folderdata.perpage = event.rows;
     this.getFolderData();

@@ -1,6 +1,6 @@
 <div class="card readingcard">
 	<div class="card-body pt-0">
-		<div class="row justify-content-center" *ngIf="!planExpired">
+		<div class="row justify-content-center" *ngIf="!restrict">
 			<div class="col-md-3 text-start desktop">
 				<div class="p-input-icon-left w-100 mt-3">
 					<i class="pi pi-search"></i>
@@ -24,7 +24,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="mobile" *ngIf="!planExpired">
+		<div class="mobile" *ngIf="!restrict">
 			<div class="row">
 				<div class="col-md-6 text-start">
 					<div class="p-input-icon-left w-100 mt-3">
@@ -50,7 +50,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="container-fluid" *ngIf="!planExpired">
+		<div class="container-fluid" *ngIf="!restrict">
 			<div class="row">
 				<div *ngFor="let investorListData of investorData" class="col-md-3 col-12 mt-3">
 					<div class="card investorcard h-100">
@@ -77,7 +77,7 @@
 											<a target="_blank" href="{{ investorListData.website }}"><i class="fa-solid fa-globe pr-2"></i></a>
 										</div>
 										<div *ngIf="investorListData.email && investorListData.email.trim() !== ''">
-											<a target="_blank" href="{{ investorListData.email }}"><i class="fa-solid fa-envelope mailicon pr-2"></i></a>
+											<a target="_blank" href="mailto:{{ investorListData.email }}"><i class="fa-solid fa-envelope mailicon pr-2"></i></a>
 										</div>
 										<div *ngIf="investorListData.linked_in && investorListData.linked_in.trim() !== ''">
 											<a target="_blank" href="{{ investorListData.linked_in }}"><i class="fa-brands fa-linkedin uniprep-primary"></i></a>
@@ -96,27 +96,27 @@
 					please try again by changing the parameters.
 				</p>
 			</div>
-			<p-paginator *ngIf="totalInvestorsCount != 0" [rows]="pageSize" [totalRecords]="totalInvestorsCount" (onPageChange)="pageChange($event)" [rowsPerPageOptions]="[100, 300, 500, 1000]"></p-paginator>
+			<p-paginator *ngIf="totalInvestorsCount != 0" [rows]="pageSize" [totalRecords]="totalInvestorsCount" (onPageChange)="pageChange($event)" [rowsPerPageOptions]="[50, 100, 300, 500, 1000]"></p-paginator>
 		</div>
-		<div *ngIf="planExpired" class="investor-expired">
-			<div class="row justify-content-center">
-				<div class="col-md-2 text-start"></div>
-				<div class="col-md-8 text-center">
-					<h5 class="select-title mb-1" tooltipPosition="top" pTooltip="">INVESTOR LIST</h5>
-				</div>
-				<div class="col-md-2"></div>
-			</div>
-			<div class="text-center mt-5 mb-4">
-				<img src="../../../uniprep-assets/images/smartloack.png" class="image" width="80" />
-				<h3>Upgrade now to access invaluable tools</h3>
-				<p>
-					<br />
-					Upgrade your plan now to gain instant access.
-				</p>
-				<p class="offer">Investor list offers:<br />Information of over 1,00,000 investors including details about the investor name, investor type, contact details and much more!</p>
-				<button pButton type="button" class="text-white p-ripple p-button-rounded p-button-warning p-button p-component p-2" (click)="upgradePlan()">Upgrade Plan<i class="fa fa-arrow-right exhausted-plan-icon"></i></button>
-			</div>
-		</div>
+<!--		<div *ngIf="restrict" class="investor-expired">-->
+<!--			<div class="row justify-content-center">-->
+<!--				<div class="col-md-2 text-start"></div>-->
+<!--				<div class="col-md-8 text-center">-->
+<!--					<h5 class="select-title mb-1" tooltipPosition="top" pTooltip="">INVESTOR LIST</h5>-->
+<!--				</div>-->
+<!--				<div class="col-md-2"></div>-->
+<!--			</div>-->
+<!--			<div class="text-center mt-5 mb-4">-->
+<!--				<img src="../../../uniprep-assets/images/smartloack.png" class="image" width="80" />-->
+<!--				<h3>Upgrade now to access invaluable tools</h3>-->
+<!--				<p>-->
+<!--					<br />-->
+<!--					Upgrade your plan now to gain instant access.-->
+<!--				</p>-->
+<!--				<p class="offer">Investor list offers:<br />Information of over 1,00,000 investors including details about the investor name, investor type, contact details and much more!</p>-->
+<!--				<button pButton type="button" class="text-white p-ripple p-button-rounded p-button-warning p-button p-component p-2" (click)="upgradePlan()">Upgrade Plan<i class="fa fa-arrow-right exhausted-plan-icon"></i></button>-->
+<!--			</div>-->
+<!--		</div>-->
 	</div>
 </div>
 
