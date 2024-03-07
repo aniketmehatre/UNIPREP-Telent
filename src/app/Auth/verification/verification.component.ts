@@ -68,10 +68,10 @@ export class VerificationComponent implements OnInit {
     );
   }
 
-  focusNextInput(event: KeyboardEvent, num: number) {
-    const key = event.key.toLowerCase();
+  focusNextInput(event: KeyboardEvent | TouchEvent, num: number) {
+    const isBackspace = (event instanceof KeyboardEvent && (event as KeyboardEvent).key.toLowerCase() === "backspace");
   
-    if (key === "backspace") {
+    if (isBackspace) {
       switch (num) {
         case 2:
           this.otp1.nativeElement.focus();
@@ -85,7 +85,7 @@ export class VerificationComponent implements OnInit {
       }
       // Prevent the default backspace behavior
       event.preventDefault();
-    } else if (/^\d$/.test(key)) {
+    } else if (/^\d$/.test((event as KeyboardEvent).key)) {
       switch (num) {
         case 1:
           this.otp2.nativeElement.focus();
@@ -98,5 +98,11 @@ export class VerificationComponent implements OnInit {
           break;
       }
     }
+  
+    // Prevent the default behavior for touch events
+    if (event instanceof TouchEvent) {
+      event.preventDefault();
+    }
   }
+  
 }
