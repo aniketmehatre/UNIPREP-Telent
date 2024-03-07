@@ -273,6 +273,9 @@ export class DashboardComponent implements OnInit {
             case "University":
                 moduleName = "university"
                 break;
+            case "Travel And Tourism":
+                moduleName = "travel-and-tourism"
+                break;
             case "Life at ":
                 moduleName = "life-at-country"
                 break;
@@ -296,7 +299,10 @@ export class DashboardComponent implements OnInit {
                 moduleName = "career-hub"
                 break;
             case "University":
-                moduleName = "career-hub"
+                moduleName = "university"
+                break;
+            case "Travel And Tourism":
+                moduleName = "travel-and-tourism"
                 break;
             case "Life at ":
                 moduleName = "life-at"
