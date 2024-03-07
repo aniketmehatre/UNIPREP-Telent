@@ -57,7 +57,7 @@
 																	<div class="p-inputgroup-addon">
 																		<i class="fa-regular fa-envelope"></i>
 																	</div>
-																	<input type="email" placeholder="Enter Email Address" pInputText class="border-0 w-full" id="emailAddress" [readonly]="isEmailOTPSend" formControlName="emailAddress" [ngClass]="{ 'is-invalid': submitted && f.emailAddress.errors }" (keyup)="onChangeEmail($event)" />
+																	<input type="email" placeholder="Enter Email Address" pInputText class="border-0 w-100" id="emailAddress" [readonly]="isEmailOTPSend" formControlName="emailAddress" [ngClass]="{ 'is-invalid': submitted && f.emailAddress.errors }" (keyup)="onChangeEmail($event)" />
 																</div>
 																<div class="edit-button" *ngIf="isEmailOTPSend && !isRemainingFieldVisible" (click)="editEmailAgain()">Edit</div>
 															</div>

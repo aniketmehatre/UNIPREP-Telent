@@ -15,7 +15,7 @@
 					<button class="btn btn-primary scholarship-guidlines" (click)="scholarGuidlines()" type="button">Scholasrship Guidelines</button>
 					<button class="btn btn-primary ps-3 pe-3 pt-2 pb-2 br-8" (click)="filterBy()" type="button">Filter by</button>
 				</span>
-				<div class="d-flex w-full align-items-center justify-content-end">
+				<div class="d-flex w-100 align-items-center justify-content-end">
 					<div class="pe-2">
 						<span class="text-muted text-small"
 							><strong>Total Scholarship : {{ totalScholarShipCount }}</strong></span
@@ -40,7 +40,7 @@
                           style="border-radius: 8px; color: #fff;" type="button">
                           Reset</button> -->
 					</span>
-					<div class="d-flex w-full align-items-center justify-content-end">
+					<div class="d-flex w-100 align-items-center justify-content-end">
 						<div class="pe-2">
 							<span class="text-muted text-small"
 								><strong>Total Scholarship : {{ totalScholarShipCount }}</strong></span
@@ -152,7 +152,7 @@
 						<label class="form-label" style="font-size: medium; font-weight: 500">Filter by Scholarship Country</label>
 						<div class="form-group">
 							<div class="mb-3">
-								<p-dropdown formControlName="country" optionValue="id" optionLabel="country" styleClass="w-full" [options]="countryList" [filter]="true" filterBy="country" (onChange)="countryChange($event)" placeholder="Select  Country" class="filterInput"></p-dropdown>
+								<p-dropdown formControlName="country" optionValue="id" optionLabel="country" styleClass="w-100" [options]="countryList" [filter]="true" filterBy="country" (onChange)="countryChange($event)" placeholder="Select  Country" class="filterInput"></p-dropdown>
 							</div>
 						</div>
 					</div>
@@ -160,7 +160,7 @@
 						<label class="form-label" style="font-size: medium; font-weight: 500">Filter by Home Country</label>
 						<div class="form-group">
 							<div class="mb-3">
-								<p-dropdown formControlName="home_country" optionValue="id" optionLabel="country" styleClass="w-full" [options]="homeCountryList" [filter]="true" filterBy="country" placeholder="Select  Home Country" class="filterInput"></p-dropdown>
+								<p-dropdown formControlName="home_country" optionValue="id" optionLabel="country" styleClass="w-100" [options]="homeCountryList" [filter]="true" filterBy="country" placeholder="Select  Home Country" class="filterInput"></p-dropdown>
 							</div>
 						</div>
 					</div>
@@ -168,7 +168,7 @@
 						<label class="form-label" style="font-size: medium; font-weight: 500">Filter by Scholarship Type</label>
 						<div class="form-group">
 							<div class="mb-3">
-								<p-dropdown formControlName="type" optionValue="id" optionLabel="type" styleClass="w-full" [options]="scholarshipTypeList" [filter]="true" filterBy="type" placeholder="Select  Scholarship Type" class="filterInput"></p-dropdown>
+								<p-dropdown formControlName="type" optionValue="id" optionLabel="type" styleClass="w-100" [options]="scholarshipTypeList" [filter]="true" filterBy="type" placeholder="Select  Scholarship Type" class="filterInput"></p-dropdown>
 							</div>
 						</div>
 					</div>
@@ -193,7 +193,7 @@
 						<label class="form-label" style="font-size: medium; font-weight: 500">Filter by Coverage Value</label>
 						<div class="form-group">
 							<div class="mb-3">
-								<p-dropdown formControlName="cover_id" optionValue="id" optionLabel="cover_name" styleClass="w-full" [options]="coverList" [filter]="true" filterBy="cover_name" placeholder="Select  Coverage Value" class="filterInput"></p-dropdown>
+								<p-dropdown formControlName="cover_id" optionValue="id" optionLabel="cover_name" styleClass="w-100" [options]="coverList" [filter]="true" filterBy="cover_name" placeholder="Select  Coverage Value" class="filterInput"></p-dropdown>
 							</div>
 						</div>
 					</div>
@@ -201,9 +201,9 @@
 			</div>
 		</div>
 		<div class="row">
-			<div class="col-12"><button type="submit" class="btn btn-dark w-full" style="background-color: var(--uniprep-primary) !important">Apply Filter</button></div>
+			<div class="col-12"><button type="submit" class="btn btn-dark w-100" style="background-color: var(--uniprep-primary) !important">Apply Filter</button></div>
 			<div class="col-12">
-				<button class="btn btn-danger ps-3 pe-3 pt-2 pb-2 w-full" (click)="clearFilter()" style="border-radius: 8px; color: #fff" type="button">Reset Filter</button>
+				<button class="btn btn-danger ps-3 pe-3 pt-2 pb-2 w-100" (click)="clearFilter()" style="border-radius: 8px; color: #fff" type="button">Reset Filter</button>
 			</div>
 		</div>
 	</form>
