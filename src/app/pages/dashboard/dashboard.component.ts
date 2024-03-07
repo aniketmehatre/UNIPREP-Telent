@@ -1,11 +1,12 @@
 
-import {Component, ElementRef, OnInit, Renderer2} from '@angular/core';
+import {Component, ElementRef, OnInit, Renderer2, ViewChild} from '@angular/core';
 import {DashboardService} from "./dashboard.service";
 import {AuthService} from "../../Auth/auth.service";
 import {SubSink} from "subsink";
 import {Router} from "@angular/router";
 import {DataService} from 'src/app/data.service';
 import {combineLatest} from "rxjs";
+import {Carousel, CarouselModule} from "primeng/carousel";
 
 @Component({
     selector: 'uni-dashboard',
@@ -29,6 +30,7 @@ export class DashboardComponent implements OnInit {
     isViewMoreOrgVisible: boolean = false;
     partnerTrusterLogo: any;
     enableReading!: boolean;
+    @ViewChild('carousel') carousel!: Carousel;
     university: any[] = [
         {
             "image": "../../../uniprep-assets/images/icons/university1.svg",
@@ -89,6 +91,7 @@ export class DashboardComponent implements OnInit {
         });
         this.dataService.countryId.subscribe((data) => {
             this.dashboardService.countryList().subscribe(countryList => {
+                this.carousel.page = 0;
                 this.countryLists = countryList;
                 this.countryLists.forEach((element: any) => {
                     if (element.id == data) {
@@ -273,6 +276,9 @@ export class DashboardComponent implements OnInit {
             case "University":
                 moduleName = "university"
                 break;
+            case "Travel And Tourism":
+                moduleName = "travel-and-tourism"
+                break;
             case "Life at ":
                 moduleName = "life-at-country"
                 break;
@@ -296,7 +302,10 @@ export class DashboardComponent implements OnInit {
                 moduleName = "career-hub"
                 break;
             case "University":
-                moduleName = "career-hub"
+                moduleName = "university"
+                break;
+            case "Travel And Tourism":
+                moduleName = "travel-and-tourism"
                 break;
             case "Life at ":
                 moduleName = "life-at"
