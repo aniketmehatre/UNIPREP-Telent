@@ -15,7 +15,7 @@
 					<button class="btn btn-primary investor-guidlines" (click)="investorGuidlines()" type="button">Investor Guidelines</button>
 					<button class="btn btn-primary ps-3 pe-3 pt-2 pb-2 br-8" (click)="filterBy()" type="button">Filter by</button>
 				</span>
-				<div class="d-flex w-full align-items-center justify-content-end">
+				<div class="d-flex w-100 align-items-center justify-content-end">
 					<div class="pe-2">
 						<span class="text-muted text-small"
 							><strong>Total Investors : {{ totalInvestorsCount }}</strong></span
@@ -40,7 +40,7 @@
                           style="border-radius: 8px; color: #fff;" type="button">
                           Reset</button> -->
 					</span>
-					<div class="d-flex w-full align-items-center justify-content-end">
+					<div class="d-flex w-100 align-items-center justify-content-end">
 						<div class="pe-2">
 							<span class="text-muted text-small"
 								><strong>Total Investors : {{ totalInvestorsCount }}</strong></span
@@ -189,8 +189,8 @@
 				</div>
 			</div>
 			<div>
-				<button type="submit" class="btn btn-dark w-full" style="background-color: var(--uniprep-primary); border: none">Apply Filter</button>
-				<button class="btn btn-dark w-full" (click)="clearFilter()" style="background-color: white; border-radius: 8px; color: var(--uniprep-primary); border: none" type="button">Reset Filter</button>
+				<button type="submit" class="btn btn-dark w-100" style="background-color: var(--uniprep-primary); border: none">Apply Filter</button>
+				<button class="btn btn-dark w-100" (click)="clearFilter()" style="background-color: white; border-radius: 8px; color: var(--uniprep-primary); border: none" type="button">Reset Filter</button>
 			</div>
 		</form>
 	</div>

@@ -1,9 +1,15 @@
 <div class="card readingcard">
 	<div class="card-body pt-0">
-		<div class="row justify-content-center">
-			<div class="col-md-6">
+		<div class="row justify-content-center align-items-center">
+      <div class="col-md-3 col-2">
+        &nbsp;
+      </div>
+			<div class="col-md-6 col-8">
 				<div class="headingbar">Personal Advisor Guidelines</div>
 			</div>
+      <div class="col-md-3 col-2 text-end">
+        <button class="btn btn-primary btn-rounded"(click)="acceptguideline()" [disabled]="accepted"><i class="fa-solid fa-xmark"></i></button>
+      </div>
       <div class="col-md-12">
           <div class="content mt-3">
             <h4 class="uniprep-primary">What questions are accepted ?</h4>
@@ -48,9 +54,6 @@
             <p class="mb-0">Questions other than relevant modules like Career prospects, jobs, Pre application, Post admission and life abroad will be declined.<br>
             Do not club multiple questions at the same time<br>Irrelevent questions will be declined</p>
           </div>
-      </div>
-      <div class="col-md-12 text-end">
-        <button class="btn btn-primary"(click)="acceptguideline()" [disabled]="accepted">Accept & Continue to Chat ></button>
       </div>
 		</div>
 	</div>

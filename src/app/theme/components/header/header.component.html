@@ -264,7 +264,7 @@
 	<ng-template pTemplate="content">
 		<div *ngIf="isLondon">
 			<ul class="px-0">
-				<li class="list-group-item my-2" role="button" *ngFor="let v of countryLists">
+				<li class="list-group-item my-2 d-flex align-items-center gap-2" role="button" *ngFor="let v of countryLists">
 					<img alt="country" class="countryicon mr-2" src="{{ v.flag != '' ? v.flag : '../../uniprep-assets/images/mstile-150x150.png' }}" width="25" />
 					<span (click)="selectCountryInHeader(v, totalCountryList)">{{ v.country }}</span>
 				</li>

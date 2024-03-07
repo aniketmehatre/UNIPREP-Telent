@@ -561,6 +561,7 @@ export class RegistrationComponent implements OnInit {
       event.preventDefault();
     }
   }
+  
 
   processTimer() {
     if (this.interval) {

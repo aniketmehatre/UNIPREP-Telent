@@ -1,13 +1,11 @@
-.upper-text {
-    width: auto;
-    font-size: 20px;
-    font-weight: normal;
-    padding: 20px 220px;
-    border-radius: 0px 0px 10px 10px;
-    margin-top: -13px;
+.resourcecard
+{
+  border:1px solid var(--uniprep-primary);
+  &:hover
+  {
+    background-color: var(--uniprep-primaryop10);
   }
-
-  .resourceimg
+    .resourceimg
   {
     width:60px;
     height:60px;
@@ -17,55 +15,4 @@
       border-radius: 5px;
     }
   }
-
-.card-style {
-  border: 1px solid #3F4C83;
-  border-radius: 0px 0px 10px 10px;
-  background-color: #FFFFFF;
-  a
-  {
-    color:#001631;
-    text-decoration: none;
-  }
-  &:hover
-  {
-    background-color: #EBEDF2;
-    
-  }
-}
-.readingcard
-{
-  height:60vh;
-  overflow-y:auto;
-}
-
-
-// css
-/* Add more styles for larger screens if needed */
-@media only screen and (max-width: 768px) {
-  /* Adjust styles for smaller screens */
-  .card-style {
-    /* Add responsive styles here */
-  }
-  
-  .card-style img {
-    width: 100%; /* Make the image take 100% width of its container */
-    margin-right: 0; /* Remove margin for small screens */
-  }
-  
-  .card-style h6 {
-    font-size: small; /* Adjust font size for smaller screens */
-  }
-  
-  .card-style p {
-    font-size: x-small; /* Adjust font size for smaller screens */
-  }
-}
-.tooltip {
-  width: 200em;
-}
-
-.resources-expired{
-  background: url('../../../uniprep-assets/images/Resources@2x.jpg');
-    background-size: cover;
 }
