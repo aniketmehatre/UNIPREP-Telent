@@ -69,7 +69,7 @@
 	</div>
 </div>
 <div class="card" style="background-color: #fff; border-radius: 0px 0px 15px 15px !important">
-	<p-paginator [rows]="10" [totalRecords]="totalQuestionCount" (onPageChange)="paginatepost($event)" [rowsPerPageOptions]="[50, 100, 200]" dropdownAppendTo="body"></p-paginator>
+	<p-paginator [rows]="10" [totalRecords]="totalQuestionCount" (onPageChange)="paginatepost($event)" [rowsPerPageOptions]="[25, 50, 100, 200]" dropdownAppendTo="body"></p-paginator>
 </div>
 <p-dialog #dialogContent [(visible)]="isQuestionAnswerVisible" [draggable]="false" [modal]="true" class="questionmodal" header="Header" [maximizable]="true" [style]="{ height: '100vh' }" (onShow)="onShowModal($event)">
 	<ng-template pTemplate="header">
@@ -142,7 +142,7 @@
 	<ng-template pTemplate="footer">
 		<div class="d-flex justify-content-between flex-nowrap flex-column flex-md-row px-4 mt-4 mb-2">
 			<div class="flex-full" *ngIf="videoLinks">
-				<h5 class="text-start mb-1">Recommended Videos</h5>
+				<h5 class="text-start mb-1" *ngIf="refLink.length>0">Recommended Videos</h5>
 				<div class="d-flex align-items-center gap-2 pb-2">
 					<div class="scrollable-container" id="video-links-container" #videoLinksContainer>
 						<div class="d-flex flex-nowrap flex-md-wrap overflow-x-auto">
@@ -153,7 +153,7 @@
 			</div>
 
 			<div class="flex-full" *ngIf="refLink">
-				<h5 class="text-start mb-1">Recommended Links</h5>
+				<h5 class="text-start mb-1" *ngIf="refLink.length>0">Recommended Links</h5>
 				<div class="d-flex align-items-center gap-2 pb-2">
 					<div class="scrollable-container" id="ref-links-container" #refLinksContainer>
 						<div class="d-flex flex-nowrap flex-md-wrap overflow-x-auto">
