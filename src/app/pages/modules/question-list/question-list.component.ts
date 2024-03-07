@@ -74,7 +74,7 @@ export class QuestionListComponent implements OnInit {
   tooltip: any;
   questionListData: any[] = [];
   pageno: number = 1;
-  perpage: number = 50;
+  perpage: number = 25;
   totalQuestionCount: any;
   oneQuestionContent: any;
   restrict: boolean = false;
