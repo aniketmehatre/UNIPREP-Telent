@@ -490,10 +490,10 @@ export class RegistrationComponent implements OnInit {
     // this.isEmailOTPSend = true;
   }
 
-  focusNextInput(event: any, num: number) {
-    const code = (event.code || "").toLowerCase();
-
-    if (code.includes("backspace")) {
+  focusNextInput(event: KeyboardEvent | TouchEvent, num: number) {
+    const isBackspace = (event instanceof KeyboardEvent && (event as KeyboardEvent).key.toLowerCase() === "backspace");
+  
+    if (isBackspace) {
       switch (num) {
         case 2:
           this.otp1.nativeElement.focus();
@@ -505,7 +505,9 @@ export class RegistrationComponent implements OnInit {
           this.otp3.nativeElement.focus();
           break;
       }
-    } else if (code.includes("digit")) {
+      // Prevent the default backspace behavior
+      event.preventDefault();
+    } else if (/^\d$/.test((event as KeyboardEvent).key)) {
       switch (num) {
         case 1:
           this.otp2.nativeElement.focus();
@@ -518,12 +520,17 @@ export class RegistrationComponent implements OnInit {
           break;
       }
     }
+  
+    // Prevent the default behavior for touch events
+    if (event instanceof TouchEvent) {
+      event.preventDefault();
+    }
   }
 
-  focusNextEmailInput(event: KeyboardEvent, num: number) {
-    const key = event.key.toLowerCase();
+  focusNextEmailInput(event: KeyboardEvent | TouchEvent, num: number) {
+    const isBackspace = (event instanceof KeyboardEvent && (event as KeyboardEvent).key.toLowerCase() === "backspace");
   
-    if (key === "backspace") {
+    if (isBackspace) {
       switch (num) {
         case 6:
           this.otp5.nativeElement.focus();
@@ -537,7 +544,7 @@ export class RegistrationComponent implements OnInit {
       }
       // Prevent the default backspace behavior
       event.preventDefault();
-    } else if (/^\d$/.test(key)) {
+    } else if (/^\d$/.test((event as KeyboardEvent).key)) {
       switch (num) {
         case 5:
           this.otp6.nativeElement.focus();
@@ -549,6 +556,11 @@ export class RegistrationComponent implements OnInit {
           this.otp8.nativeElement.focus();
           break;
       }
+    }
+  
+    // Prevent the default behavior for touch events
+    if (event instanceof TouchEvent) {
+      event.preventDefault();
     }
   }
 
