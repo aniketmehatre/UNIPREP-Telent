@@ -89,7 +89,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
   SearchCountryField = SearchCountryField;
   CountryISO = CountryISO;
   preferredCountries: CountryISO[] = [CountryISO.India];
-  timeLeftInfo: any
+  timeLeftInfo: any;
+  freeTrialErrorMsg: string = '';
   constructor(
     private router: Router,
     private locationService: LocationService,
@@ -667,20 +668,20 @@ export class HeaderComponent implements OnInit, OnDestroy {
       data.country_code=this.mobileForm.value.phone.dialCode;
     }
     this.dashboardService.getContineTrial(data).subscribe((res) => {
+      this.service.contineStatus(false);
+      this.dataService.sendValue(false);
+      this.freeTrial = false;
+      this.service._userContineTrial = false;
+      setTimeout(() => {
+        this.checkNewUser();
+        window.location.reload();
+      }, 2000);
       return res;
+    },
+    error => {
+      this.freeTrialErrorMsg = error?.message;
     });
-    setTimeout(() => {
-      this.checkNewUser();
-      window.location.reload();
-    }, 2000);
-    this.service.contineStatus(false);
-    this.dataService.sendValue(false);
-    this.freeTrial = false;
-    this.service._userContineTrial = false;
-    setTimeout(() => {
-      this.checkNewUser();
-      window.location.reload();
-    }, 2000);
+
   }
   onClickSubscribedUser(): void {
     let data: any = {};
@@ -699,6 +700,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
         this.dashboardService.isinitialstart=true;
         this.router.navigate(["/pages/subscriptions"]);
       }, 1000);
+    },
+    error => {
+      this.freeTrialErrorMsg = error?.message;
     });
   }
 

@@ -5,7 +5,7 @@ import {
   OnInit,
   ViewChild,
   ElementRef,
-  HostListener,
+  HostListener, Renderer2,
 } from "@angular/core";
 import { Observable } from "rxjs";
 import { ModuleListSub } from "../../../@Models/module.model";
@@ -84,6 +84,9 @@ export class QuestionListComponent implements OnInit {
   selectedVideoLink: any | null = null;
   questionUrl:string="";
   allDataSet: any [] = [];
+  @ViewChild('op', { static: false, read: ElementRef }) elRef: any;
+  isPopupVisible: boolean = false;
+
   constructor(
     private moduleListService: ModuleServiceService,
     private mService: ModuleServiceService,
@@ -94,15 +97,30 @@ export class QuestionListComponent implements OnInit {
     private _sanitizer: DomSanitizer,
     private router: Router, private ngxService: NgxUiLoaderService,
     private authService: AuthService,
-    private sanitizer: DomSanitizer
+    private sanitizer: DomSanitizer,
+    private renderer: Renderer2
   ) {
     Carousel.prototype.changePageOnTouch = (e, diff) => { }
     Carousel.prototype.onTouchMove = () => { };
+    // this.renderer.listen('window', 'click', (e: Event) => {
+    //   if (e.target !== this.elRef!.nativeElement) {
+    //     let socialShare:any=document.getElementById("socialSharingList");
+    //     if (socialShare) {
+    //       socialShare.style.display = "none";
+    //     }
+    //     //this.showSocialSharingList();
+    //   }
+    // });
   }
   loopRange = Array.from({ length: 30 }).fill(0).map((_, index) => index);
   ngOnInit(): void {
     //this.moduleListService.emptyQuestionList$();
     this.route.params.subscribe((params) => {
+      console.log('coming')
+      let socialShare:any=document.getElementById("socialSharingList");
+      if (socialShare){
+        socialShare.style.display = "none";
+      }
       this.loadInit();
       //this.getSubmoduleName(this.countryId);
     });
@@ -500,6 +518,7 @@ export class QuestionListComponent implements OnInit {
   }
 
   viewOneQuestion(question:any){
+
     let questionData = this.allDataSet[question.id]
     questionData['question'] = question.question;
     if(this.planExpired) {
@@ -534,7 +553,12 @@ export class QuestionListComponent implements OnInit {
   }
   showSocialSharingList(){
     let socialShare:any=document.getElementById("socialSharingList");
-    socialShare.style.display=socialShare.style.display=="none"?"block":"none";
+    if(socialShare.style.display == "") {
+      socialShare.style.display = "block";
+    }
+    else {
+      socialShare.style.display = socialShare.style.display == "none" ? "block" : "none";
+    }
   }
   shareViaWhatsapp(){
     const shareUrl = `whatsapp://send?text=${encodeURIComponent(this.questionUrl)}`;
@@ -562,7 +586,7 @@ export class QuestionListComponent implements OnInit {
   }
   copyLink(){
     const textarea = document.createElement('textarea');
-    textarea.textContent = this.questionUrl;
+    textarea.textContent = window.location.href;
     document.body.append(textarea);
     textarea.select();
     document.execCommand('copy');
@@ -611,6 +635,10 @@ export class QuestionListComponent implements OnInit {
    }
    openNextVideo(){
      window.open(this.openNextPageLink)
+   }
+   onShowModal(value : any) {
+    let socialShare:any=document.getElementById("socialSharingList");
+    socialShare.style.display = "none";
    }
  }
  

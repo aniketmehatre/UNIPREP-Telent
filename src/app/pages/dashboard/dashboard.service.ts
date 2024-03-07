@@ -63,14 +63,14 @@ export class DashboardService {
     );
   }
 
-  getModuleQuizProgression(val: any) {
-    const headers = new HttpHeaders().set("Accept", "application/json");
-    return this.http.post<any>(
-      environment.ApiUrl + "/getmodulequizprogression",
-      val,
-      { headers: headers }
-    );
-  }
+  // getModuleQuizProgression(val: any) {
+  //   const headers = new HttpHeaders().set("Accept", "application/json");
+  //   return this.http.post<any>(
+  //     environment.ApiUrl + "/getmodulequizprogression",
+  //     val,
+  //     { headers: headers }
+  //   );
+  // }
 
   countryList() {
     const headers = new HttpHeaders().set("Accept", "application/json");

@@ -71,7 +71,7 @@
 <div class="card" style="background-color: #fff; border-radius: 0px 0px 15px 15px !important">
 	<p-paginator [rows]="10" [totalRecords]="totalQuestionCount" (onPageChange)="paginatepost($event)" [rowsPerPageOptions]="[50, 100, 200]" dropdownAppendTo="body"></p-paginator>
 </div>
-<p-dialog #dialogContent [(visible)]="isQuestionAnswerVisible" [draggable]="false" [modal]="true" class="questionmodal" header="Header" [maximizable]="true" [style]="{ height: '100vh' }">
+<p-dialog #dialogContent [(visible)]="isQuestionAnswerVisible" [draggable]="false" [modal]="true" class="questionmodal" header="Header" [maximizable]="true" [style]="{ height: '100vh' }" (onShow)="onShowModal($event)">
 	<ng-template pTemplate="header">
 		<div class="d-flex w-100 flex-column px-4">
 			<div class="d-flex flex-row justify-content-md-between justify-content-center">
@@ -121,7 +121,7 @@
 					</span>
 					<button class="btn btn-primary socialShareBtn" (click)="showSocialSharingList()"><i class="fa-light fa-xl fa-share-nodes"></i></button>
 					<p-card id="socialSharingList">
-						<ul style="list-style: none">
+						<ul style="list-style: none;cursor: pointer;">
 							<li (click)="shareViaWhatsapp()"><i class="pi pi-whatsapp"></i>Whatsapp</li>
 							<li (click)="shareViaMail()"><i class="pi pi-envelope"></i>Email</li>
 							<li (click)="shareViaFacebook()"><i class="pi pi-facebook"></i>Facebook</li>
