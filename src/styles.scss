@@ -702,7 +702,9 @@ uni-subscription {
 		backdrop-filter: blur(2px);
 	}
 	.p-dialog {
-		width: 95%;
+		width: 98%;
+    	height: 96%;
+		max-height:100%;
 		.p-dialog-header {
 			background: #fff;
 			padding: 0 !important;
