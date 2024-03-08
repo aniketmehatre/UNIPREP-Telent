@@ -79,11 +79,11 @@ export class TutorialsComponent implements OnInit {
     window.open(this.openNextPageLink)
   }
 }
-@Pipe({ name: 'safe' })
-export class SafePipe implements PipeTransform {
-  constructor(private sanitizer: DomSanitizer) { }
+// @Pipe({ name: 'safe' })
+// export class SafePipe implements PipeTransform {
+//   constructor(private sanitizer: DomSanitizer) { }
 
-  transform(url: string): SafeResourceUrl {
-    return this.sanitizer.bypassSecurityTrustResourceUrl(url);
-  }
-}
+//   transform(url: string): SafeResourceUrl {
+//     return this.sanitizer.bypassSecurityTrustResourceUrl(url);
+//   }
+// }
