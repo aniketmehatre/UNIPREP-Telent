@@ -113,7 +113,13 @@ export class LoginComponent implements OnInit, OnDestroy {
             this.toast.add({ severity: 'success', summary: 'Success', detail: message });
           }
         });
-        this.route.navigate(['/pages/dashboard']);
+        let url = localStorage.getItem('previousUrl') || '';
+        if(url) {
+          this.route.navigate([url]);
+        }
+        else {
+          this.route.navigate(['/pages/dashboard']);
+        }
       });
     });
   }

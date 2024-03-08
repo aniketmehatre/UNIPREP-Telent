@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'uni-modules',
@@ -7,9 +8,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ModulesComponent implements OnInit {
 
-  constructor() { }
+  constructor( private router: Router) { }
 
   ngOnInit(): void {
+    if(window.location.pathname.includes("&&")) {
+      let url = window.location.pathname.split("&&");
+      localStorage.setItem('questionId', url[1]);
+      this.router.navigateByUrl(url[0]);
+    }
   }
 
 }

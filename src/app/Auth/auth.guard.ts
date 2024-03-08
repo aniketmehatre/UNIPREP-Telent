@@ -63,6 +63,7 @@ export class AuthGuard implements CanActivate, CanLoad {
     if (!isExpired) {
       return true;
     }
+    localStorage.setItem('previousUrl', window.location.pathname);
     this.router.navigateByUrl('/login');
     return false;
   }
