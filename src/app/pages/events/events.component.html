@@ -161,12 +161,10 @@
 					</div>
 
 					<div class="event-bottom card-body">
-						<h5 class="mb-0" tooltipPosition="top"
+						<h5 style="line-height: 20px; height: 40px;" class="mb-0" tooltipPosition="top"
 							[pTooltip]="events.eventname + '<br>Speaker - ' + events.speakername" [escape]="false">
-							{{ events.eventname.length >15 ? events.eventname.slice(0,15) +
-							'...':events.eventname
-							}}</h5>
-						<p class="small">{{ events.eventdescription.length > 29 ?
+							{{ events.eventname}}</h5>
+						<p class="small" style="height: 35px;">{{ events.eventdescription.length > 29 ?
 							events.eventdescription.slice(0, 29) + '...' : events.eventdescription }}</p>
 
 						<div class="row">
