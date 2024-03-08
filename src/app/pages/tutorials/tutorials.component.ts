@@ -34,8 +34,6 @@ export class TutorialsComponent implements OnInit {
   }
   openNextPageLink:any;
   openVideoPopup(link: any): void {
-    const sanitizedLink = this.sanitizer.bypassSecurityTrustResourceUrl(link);
-    this.openNextPageLink=link
     // Check if it's a YouTube video link
     if (this.isYoutubeVideoLink(link)) {
       // If it's a YouTube video link, extract the video ID and construct the embeddable URL
@@ -44,11 +42,12 @@ export class TutorialsComponent implements OnInit {
       this.selectedVideoLink = this.sanitizer.bypassSecurityTrustResourceUrl(embedUrl);
     } else {
       // If it's not a YouTube video link, use the URL directly
-      this.selectedVideoLink = sanitizedLink;
+      this.selectedVideoLink = this.sanitizer.bypassSecurityTrustResourceUrl(link);
     }
-
+  
+    // Set the flag to show the modal
     this.showVideoPopup = true;
-  }
+  }  
 
   private isYoutubeVideoLink(link: string): boolean {
     // Check if the link is a YouTube video link based on a simple pattern
@@ -78,5 +77,13 @@ export class TutorialsComponent implements OnInit {
   }
   openNextVideo(){
     window.open(this.openNextPageLink)
+  }
+}
+@Pipe({ name: 'safe' })
+export class SafePipe implements PipeTransform {
+  constructor(private sanitizer: DomSanitizer) { }
+
+  transform(url: string): SafeResourceUrl {
+    return this.sanitizer.bypassSecurityTrustResourceUrl(url);
   }
 }

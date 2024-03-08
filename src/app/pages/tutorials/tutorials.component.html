@@ -10,7 +10,7 @@
 		<div class="container-fluid">
 			<div class="row">
 				<div class="col-md-3 col-12" *ngFor="let tutorial of tutoriallist">
-					<div class="text-decoration-none text-white" (click)="openVideoPopup(tutorial.link)">
+					<div class="text-decoration-none text-white" role="button" (click)="openVideoPopup(tutorial.link)">
 						<div class="card my-2 position-relative tutcard">
 							<div class="tutgradient"></div>
 							<img src="{{ tutorial.coverimage }}" />
@@ -25,14 +25,19 @@
 		</div>
 	</div>
 </div>
-<!-- Modal Markup -->
-<div *ngIf="showVideoPopup" class="modal-overlay">
-	<div class="modal-container">
-		<button class="close-button" tooltipPosition="top" pTooltip="Close" (click)="closeVideoPopup()">
-			<b><i class="fa-solid fa-circle-xmark fa-1x"></i></b>
-		</button>
-		<button class="newwindow-button" tooltipPosition="top" pTooltip="Open New Window" (click)="openNextVideo()"><b>+</b></button>
-		<!-- Use the safe pipe here for the src attribute -->
-		<iframe [src]="selectedVideoLink" width="560" height="315" frameborder="0" allowfullscreen></iframe>
+<!-- Bootstrap Modal Markup -->
+<div class="modal" tabindex="-1" role="dialog" [ngClass]="{ 'd-block': showVideoPopup }" (click)="closeVideoPopup()">
+	<div class="modal-dialog modal-xl modal-dialog-centered" role="document">
+		<div class="modal-content">
+			<div class="modal-body position-relative pt-4">
+				<div class="modalbuttons">
+					<div class="d-flex gap-2">
+						<button title="New Window" type="button" class="btn btn-primary btn-rounded" (click)="openNextVideo()"><i class="fa-solid fa-arrow-up-right-from-square"></i></button>
+						<button type="button" title="Close Popup" class="btn btn-primary btn-rounded" (click)="closeVideoPopup()"><i class="fa-solid fa-xmark"></i></button>
+					</div>
+				</div>
+				<div class="embed-responsive"><iframe [src]="selectedVideoLink" width="100%" frameborder="0" allowfullscreen></iframe></div>
+			</div>
+		</div>
 	</div>
 </div>
