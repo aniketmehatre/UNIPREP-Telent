@@ -105,8 +105,8 @@
 																<h5 class="mt-3 text-center">Enter your OTP</h5>
 																<p class="text-center text-muted">We have sent you one time password to your email for verification</p>
 																<div class="row">
-																	<div class="col-md-4 col-3">&nbsp;</div>
-																	<div class="col-md-4 col-6">
+																	<div class="col-lg-4 col-md-3 col-3">&nbsp;</div>
+																	<div class="col-lg-4 col-md-6 col-6">
 																		<div class="d-flex gap-3">
 																			<input class="text-center col form-control" inputmode="numeric" [ngClass]="{ 'is-invalid': submitted && f.otp5.errors }" formControlName="otp5" (keyup)="focusNextEmailInput($event, 5)" type="tel" #otp5 autofocus maxlength="1" />
 																			<input class="text-center col form-control" inputmode="numeric" formControlName="otp6" (keyup)="focusNextEmailInput($event, 6)" type="tel" maxlength="1" autofocus #otp6 [ngClass]="{ 'is-invalid': submitted && f.otp6.errors }" />
@@ -118,7 +118,7 @@
 																			<div *ngIf="submitted && f.otp5.errors && f.otp6.errors && f.otp7.errors && f.otp8.errors" class="invalid-feedback"><div *ngIf="f.otp5.errors.required && f.otp6.errors.required && f.otp7.errors.required && f.otp8.errors.required">OTP is required</div></div>
 																		</div>
 																	</div>
-																	<div class="col-md-4 col-3">&nbsp;</div>
+																	<div class="col-lg-4 col-md-3 col-3">&nbsp;</div>
 																</div>
 																<div class="text-center mt-3">
 																	<button class="pt-2 pb-2 btn btn-primary btn-login text-uppercase fw-bold m-0 w-50" type="submit">VERIFY OTP</button>
