@@ -27,12 +27,20 @@ export class HttpErrorInterceptor implements HttpInterceptor {
   ): Observable<HttpEvent<unknown>> {
     // !request.url.includes('StudentFullQuestionData') &&
     // !request.url.includes('SubmoduleListForStudents')
+
+    let currentUrl = window.location.href;
+
     if (
       !request.url.includes("country") &&
       !request.url.includes("getuserdetails") &&
-      !request.url.includes("SendMailGlobalReport")
+      !request.url.includes("SendMailGlobalReport") &&
+      !request.url.includes("SubmoduleListForStudents") &&
+      !request.url.includes("StudentsSubmoduleQuestions") &&
+      !request.url.includes("StudentFullQuestionData")
     ) {
-      this.ngxService.start();
+      if(!currentUrl.includes('modules')){
+        this.ngxService.start();
+      }
     }
     return next.handle(request).pipe(
       tap((res: any) => {

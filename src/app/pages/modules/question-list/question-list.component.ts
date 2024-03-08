@@ -116,7 +116,6 @@ export class QuestionListComponent implements OnInit {
   ngOnInit(): void {
     //this.moduleListService.emptyQuestionList$();
     this.route.params.subscribe((params) => {
-      console.log('coming')
       let socialShare:any=document.getElementById("socialSharingList");
       if (socialShare){
         socialShare.style.display = "none";
@@ -125,6 +124,9 @@ export class QuestionListComponent implements OnInit {
       //this.getSubmoduleName(this.countryId);
     });
     this.dataService.countryId.subscribe((data) => {
+      if(localStorage.getItem('countryId') != data){
+        this._location.back();
+      }
       localStorage.setItem('countryId', data);
       this.questionListData = [];
       this.isSkeletonVisible = true

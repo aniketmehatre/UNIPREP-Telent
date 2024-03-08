@@ -48,11 +48,11 @@ export class SidenavComponent {
       url: "/pages/subscriptions",
       image: "fa-solid fa-crown",
     },
-    {
-      title: "Recommendations",
-      url: "/pages/recommendations",
-      image: "fa fa-star"
-    },
+    // {
+    //   title: "Recommendations",
+    //   url: "/pages/recommendations",
+    //   image: "fa fa-star"
+    // },
     {
       title: "Education",
       url: "",

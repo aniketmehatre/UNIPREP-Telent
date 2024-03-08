@@ -162,8 +162,10 @@ export class InfoKitComponent implements OnInit {
       let subscription_exists_status = res.subscription_details;
       if (data.plan === "expired" || data.plan === 'subscription_expired') {
         this.planExpired = true;
+        // this.restrict = true;
       } else {
         this.planExpired = false;
+        // this.restrict = false;
       }
     })
   }
