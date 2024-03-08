@@ -188,7 +188,10 @@ Due to the split circle of progress-left and progress right, we must use the ani
 
 .trustedbylogo
 {
-  width:125px;
+  width: 100%;
+  object-fit: contain;
+  height: 100%;
+  padding:1.5rem;
 }
 
 .certificatelock {
