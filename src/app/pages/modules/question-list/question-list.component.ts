@@ -226,6 +226,11 @@ export class QuestionListComponent implements OnInit {
       this.isSkeletonVisible = false
       this.totalQuestionCount = data?.questioncount;
       //this.ngxService.stop();
+      let questionData =  {id: localStorage.getItem('questionId') || ''};
+      if(questionData.id) {
+        this.viewOneQuestion(questionData);
+        localStorage.removeItem('questionId');
+      }
     });
     this.mService.studentFullQuestionData(data).subscribe((data: any) => {
       this.allDataSet = data;
@@ -521,8 +526,14 @@ export class QuestionListComponent implements OnInit {
 
   viewOneQuestion(question:any){
 
-    let questionData = this.allDataSet[question.id]
-    questionData['question'] = question.question;
+    let questionData = this.allDataSet[question.id];
+    if(question && question?.question) {
+      questionData['question'] = question.question;
+    }
+    else {
+      let ques = this.questionListData.find((data: any) => data.id == question.id)
+      questionData['question'] = ques.question;
+    }
     if(this.planExpired) {
       this.restrict=true;
       return;
@@ -588,7 +599,7 @@ export class QuestionListComponent implements OnInit {
   }
   copyLink(){
     const textarea = document.createElement('textarea');
-    textarea.textContent = window.location.href;
+    textarea.textContent = window.location.href + '&&' + this.selectedQuestionData?.id;
     document.body.append(textarea);
     textarea.select();
     document.execCommand('copy');
