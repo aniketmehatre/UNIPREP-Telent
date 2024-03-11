@@ -24,19 +24,19 @@
 			</div>
 		</div>
 		<div class="d-flex flex-column align-items-center d-md-none mt-2">
-			<div class="text-center curve">
+			<div class="text-center d-flex gap-2 curve px-2 py-2">
 				<button class="btn btn-outline-light theme-blue mobileview" (click)="setActiveButton(1)" [ngStyle]="button1Style">UPCOMING</button>
 				<button class="btn btn-outline-light theme-blue mobileview" (click)="setActiveButton(2)" [ngStyle]="button2Style">PAST</button>
 			</div>
-			<div class="row align-items-center mt-3">
-				<div class="col-8">
+			<div class="row w-100 align-items-center mt-3">
+				<div class="col-9">
 					<div class="p-input-icon-left w-100">
 						<i class="pi pi-search"></i>
 						<input class="w-100 px-5 py-2 b-6 h-100" type="text" placeholder="Search Events Near You..." pInputText [(ngModel)]="valueNearYouFilter" (input)="performSearch($event)" />
 					</div>
 				</div>
-				<div class="col-4">
-					<span (click)="filterPopUp()"><button class="btn btn-primary text-small px-3 py-2 b-6" type="button">Filter by</button></span>
+				<div class="col-3">
+					<span (click)="filterPopUp()"><button class="btn btn-primary text-small w-100 py-2 b-6" type="button">Filter by</button></span>
 				</div>
 			</div>
 		</div>
