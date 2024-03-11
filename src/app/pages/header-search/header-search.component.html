@@ -96,7 +96,7 @@
 					</button>
 					<div class="scrollable-container" id="video-links-container" #videoLinksContainer>
 						<div class="scroll-content">
-							<a class="btn btn-primary videolinkbutton" target="_blank" href="{{ videoL.link }}" *ngFor="let videoL of videoLinks; let ind = index">Video {{ ind + 1 }} &nbsp;<i class="fa-solid fa-video"></i></a>
+							<span class="btn btn-primary text-small videolinkbutton flex-shrink-0" (click)="openVideoPopup(videoL.link)" *ngFor="let videoL of videoLinks; let ind = index">Video {{ ind + 1 }} &nbsp;<i class="fa-solid fa-video"></i></span>
 						</div>
 					</div>
 					<button class="scroll-button btn-rounded" *ngIf="rightScrollButtonVisible" (click)="scrollRightVideo()">
@@ -223,5 +223,18 @@
 				</div>
 			</div>
 		</div>
+	</div>
+</div>
+<!-- vedio pop up -->
+<div *ngIf="showVideoPopup" class="modal-overlay" dropdownAppendTo="body">
+	<div class="modal-container">
+		<button class="close-button" tooltipPosition="top" pTooltip="Close" (click)="closeVideoPopup()">
+			<b><i class="fa-solid fa-circle-xmark fa-2x"></i></b>
+		</button>
+		<button class="newwindow-button" tooltipPosition="top" pTooltip="Open New Window" (click)="openNextVideo()">
+			<b><i class="fa-solid fa-circle-plus fa-1x"></i></b>
+		</button>
+		<!-- Use the safe pipe here for the src attribute -->
+		<iframe class="video-container" [src]="selectedVideoLink" frameborder="0" allowfullscreen></iframe>
 	</div>
 </div>
