@@ -115,6 +115,7 @@ export class QuestionListComponent implements OnInit {
   loopRange = Array.from({ length: 30 }).fill(0).map((_, index) => index);
   ngOnInit(): void {
     //this.moduleListService.emptyQuestionList$();
+    this.countryId = Number(localStorage.getItem('countryId'));
     this.route.params.subscribe((params) => {
       let socialShare:any=document.getElementById("socialSharingList");
       if (socialShare){
@@ -124,8 +125,9 @@ export class QuestionListComponent implements OnInit {
       //this.getSubmoduleName(this.countryId);
     });
     this.dataService.countryId.subscribe((data) => {
-      if(localStorage.getItem('countryId') != data){
-        this._location.back();
+      if(this.countryId != data){
+        this.router.navigateByUrl(`/pages/modules/${this.currentSubModuleSlug}`);
+
       }
       localStorage.setItem('countryId', data);
       this.questionListData = [];
