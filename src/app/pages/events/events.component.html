@@ -28,21 +28,21 @@
 				<button class="btn btn-outline-light theme-blue mobileview" (click)="setActiveButton(1)" [ngStyle]="button1Style">UPCOMING</button>
 				<button class="btn btn-outline-light theme-blue mobileview" (click)="setActiveButton(2)" [ngStyle]="button2Style">PAST</button>
 			</div>
-			<div class="row">
+			<div class="row align-items-center mt-3">
 				<div class="col-8">
-					<div class="p-input-icon-left w-100 mt-3">
+					<div class="p-input-icon-left w-100">
 						<i class="pi pi-search"></i>
 						<input class="w-100 px-5 py-2 b-6 h-100" type="text" placeholder="Search Events Near You..." pInputText [(ngModel)]="valueNearYouFilter" (input)="performSearch($event)" />
 					</div>
 				</div>
-				<div class="col-4 mt-2">
-					<span (click)="filterPopUp()"><button class="btn btn-outline-light px-4 py-3 b-6" type="button">Filter by</button></span>
+				<div class="col-4">
+					<span (click)="filterPopUp()"><button class="btn btn-primary text-small px-3 py-2 b-6" type="button">Filter by</button></span>
 				</div>
 			</div>
 		</div>
 		<!-- upcomming event -->
 		<div class="row mt-3 p-4 row-cols-1 row-cols-md-5 g-3" *ngIf="upcomingevent">
-			<div class="col mb-4" *ngFor="let event of upcommingevent; let i = index">
+			<div class="col-xxl-3 col-xl-3 col-lg-4 col-md-4 col-sm-6 col-12 mb-4" *ngFor="let event of upcommingevent; let i = index">
 				<div class="card eventcard" style="height: 100%">
 					<span class="btn btn-primary text-small eventcountdown">{{ event.daysago }}</span>
 					<div class="event-top card-body pb-0">
@@ -93,7 +93,7 @@
 							<div class="col-md-6 col-12 mb-1 eventlink" style="height: 29px">
 								<span *ngIf="event.registered === 0 ? false : true" target="_blank">
 									<div style="white-space: nowrap" (click)="goingEventLink(event.eventlink)">
-										<button class="btn btn-primary registerbtn w-100 m-0" type="button"><i class="fa-regular fa-clock"></i> &nbsp;Event Link</button>
+										<button class="btn btn-primary text-small registerbtn w-100 m-0" type="button"><i class="fa-regular fa-clock"></i> &nbsp;Event Link</button>
 									</div>
 								</span>
 							</div>
@@ -122,7 +122,7 @@
 		</div>
 		<!-- post event -->
 		<div class="row mt-3 p-4 row-cols-1 row-cols-md-5 g-3" *ngIf="postevent">
-			<div class="col-mb-4" *ngFor="let events of postevetdetaisl">
+			<div class="col-xxl-3 col-xl-3 col-lg-4 col-md-4 col-sm-6 col-12 mb-4" *ngFor="let events of postevetdetaisl">
 				<div class="card eventcard" style="height: 100%">
 					<span class="btn btn-primary text-small eventcomplete">{{ events.date }}</span>
 					<div class="event-top card-body pb-0">
