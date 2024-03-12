@@ -74,7 +74,7 @@ export class ScholarshipListComponent implements OnInit {
     }
     var searchedScholarship: any = [];
     this.scholarshipData.filter((item) => {
-      if (item.name?.includes(this.searchScholarshpName)) {
+      if (item.name?.toLowerCase().includes(this.searchScholarshpName.toLowerCase())) {
         searchedScholarship.push(item);
       }
     });

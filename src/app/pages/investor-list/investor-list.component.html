@@ -46,7 +46,7 @@
 									</div>
 									<div class="gap-3 d-flex justify-content-end">
 										<div *ngIf="investorListData.website && investorListData.website.trim() !== ''">
-											<a target="_blank" href="{{ investorListData.website }}"><i class="fa-solid fa-globe pr-2"></i></a>
+											<a target="_blank" href="{{ !investorListData.website.startsWith('http://') && !investorListData.website.startsWith('https://') ? 'http://' + investorListData.website : investorListData.website }}" ><i class="fa-solid fa-globe pr-2"></i></a>
 										</div>
 										<div *ngIf="investorListData.email && investorListData.email.trim() !== ''">
 											<a target="_blank" href="mailto:{{ investorListData.email }}"><i class="fa-solid fa-envelope mailicon pr-2"></i></a>

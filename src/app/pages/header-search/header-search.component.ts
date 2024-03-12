@@ -341,7 +341,9 @@ export class HeaderSearchComponent implements OnInit, OnDestroy {
   }
 
   redirectModule(moduleName: any) {
+   
     let modName = this.convertToSlug(moduleName);
+    modName= modName == "life-at-" ? "life-at-country" : modName;
     this.searchInputText = "";
     this.isSearchResultFound = false;
     if (this.timeLeft.plan === 'expired' || this.timeLeft.plan === 'subscription_expired') {
