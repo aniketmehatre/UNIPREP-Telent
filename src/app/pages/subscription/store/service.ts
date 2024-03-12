@@ -26,4 +26,8 @@ export class SubStoreService {
     subDetails() {
         return this.http.get<SubscriptionDetailResponse>(environment.ApiUrl+'/subdetails');
     }
+
+    getRecommedationList() {
+        return this.http.get(environment.ApiUrl + '/getrecommendplans');
+    }
 }

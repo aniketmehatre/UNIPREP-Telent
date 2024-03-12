@@ -1,4 +1,4 @@
-<div class="card readingcard">
+<div class="card readingcard bg-white">
     <div class="card-body d-flex flex-column justify-content-between pt-0">
         <div class="row justify-content-center">
             <div class="col-md-2 text-start">
@@ -10,9 +10,8 @@
             <div class="col-md-2">
             </div>
         </div>
-        <div class="d-flex">
-            <!-- <p-steps [model]="items"></p-steps> -->
-            <p-carousel [value]="products" [numVisible]="1" [numScroll]="1" [circular]="false">
+        <div class="container">
+            <p-carousel [value]="products" [numVisible]="1" [numScroll]="1" [circular]="false" *ngIf="!enableModule">
                 <ng-template let-product let-i="index" pTemplate="item">
                     <div class="product-item">
                         <div class="product-item-content">
@@ -23,26 +22,70 @@
                             </div>
                             <div class="check-list">
                                 <div class="flex align-items-center b-1">
-                                    <p-checkbox label="Yes" name="yes" value="yes" [(ngModel)]="yes">Yes</p-checkbox>
+                                    <p-checkbox label="Yes" name="yes" value="{{product.user_selection === true}}"
+                                        (onChange)="onChange(true,product.id)"
+                                        [(ngModel)]="selectedData">Yes</p-checkbox>
                                 </div>
                                 <div class="flex align-items-center b-1">
-                                    <p-checkbox label="No" name="no" value="no" [(ngModel)]="no">No</p-checkbox>
+                                    <p-checkbox label="No" name="no" value="{{product.user_selection === false}}"
+                                        (onChange)="onChange(false,product.id)"
+                                        [(ngModel)]="selectedData">No</p-checkbox>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <!-- <div class="d-flex space-between" style="justify-content: space-between;">
-                        <button pButton type="button"
-                            class="text-white p-ripple p-button-rounded p-button-info-prev p-button p-component p-2">Previous<i
+                    <div class="d-flex space-between" style="justify-content: space-between;">
+                        <button pButton type="button" *ngIf="product.id != 1"
+                            class="text-white p-ripple p-button-rounded p-button-info-prev p-button p-component p-2"
+                            (click)="previous(product)">Previous<i
                                 class="fa fa-arrow-left exhausted-plan-icon-prev"></i>
                         </button>
-                        <button pButton type="button"
-                            class="text-white p-ripple p-button-rounded p-button-info-next p-button p-component p-2">Next<i
-                                class="fa fa-arrow-right exhausted-plan-icon-next"></i>
+                        <button pButton type="button" *ngIf="product.id != 4"
+                            class="text-white p-ripple p-button-rounded p-button-info-next p-button p-component p-2"
+                            (click)="next(product)">Next<i class="fa fa-arrow-right exhausted-plan-icon-next"></i>
                         </button>
-                    </div> -->
+                        <button pButton type="button" *ngIf="product.id == 4" class="text-white p-ripple p-button-rounded p-button-info-succes p-button p-component p-2"
+                            (click)="getRecommendation(product)">Get Recommendations<i class="fa fa-check-circle exhausted-plan-icon-success"></i>
+                        </button>
+                    </div>
                 </ng-template>
             </p-carousel>
+
+            <div class="container" *ngIf="enableModule">
+                <p-card class="bg-blue">
+                    <div class="row">
+                        <div class="col-8">
+                            <p class="info-recommend">We recommend the Entrepreneur plan based on your choices.Subscribe
+                                or Upgrade your plan to enjoy our services.</p>
+                        </div>
+                        <div class="col-4 text-align-right">
+                            <button pButton type="button"
+                                class="text-black b-none p-ripple p-button-rounded p-button p-component p-2 bg-white">Subscribe
+                                Now
+                            </button>
+                        </div>
+                    </div>
+                </p-card>
+                <h3 class="text-center">Recommended Student Modules</h3>
+                <div class="d-flex flex-wrap text-center">
+                    <p-card class="card m-2 module-list" *ngFor="let modulesList of recommended">
+                        <div class="list text-center">
+                            <img src="{{modulesList.image_link}}" class="img-fluid" alt="Module Image" width="100">
+                            <h4 class="module-name">{{modulesList.name}}</h4>
+                        </div>
+                    </p-card>
+                </div>
+                <div class="text-align-right" *ngIf="enableModule">
+                  <button pButton type="button"
+                    class="text-black b-none p-ripple p-button-rounded p-danger-button p-button p-component p-2 bg-white"
+                    (click)="resetRecommendation()">Reset
+                    Recommendations<span class="fa-stack">
+                      <i class="fa fa-circle fa-stack-2x"></i>
+                      <i class="fa fa-undo fa-stack-1x fa-inverse"></i>
+                    </span>
+                  </button>
+                </div>
+            </div>
         </div>
         <router-outlet></router-outlet>
     </div>
