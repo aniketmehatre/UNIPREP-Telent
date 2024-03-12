@@ -6,6 +6,7 @@ import { DataService } from "../data.service";
 import {DashboardService} from "./dashboard/dashboard.service";
 import { AuthService } from "../Auth/auth.service";
 import {DeviceDetectorService} from "ngx-device-detector";
+// import Contlo from 'contlo-web-sdk;'
 
 @Component({
     selector: "uni-pages",
@@ -32,7 +33,9 @@ export class PagesComponent implements OnInit, OnDestroy {
     visibleExhastedUser!: boolean;
     constructor(private pageFacade: PageFacadeService, private router: Router, private dataService: DataService,
                 private dashboardService: DashboardService,private service:AuthService, private deviceService: DeviceDetectorService) {
-                    this.deviceCheck();
+        // Contlo.init('<Public API Key>', '<Website URL>');
+
+        this.deviceCheck();
         router.events.subscribe((val) => {
             if(val instanceof NavigationEnd){
                 if(val.url.includes('subscriptions') || val.url.includes('support-help')

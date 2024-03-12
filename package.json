@@ -33,6 +33,7 @@
     "angularx-social-login": "^4.1.0",
     "bootstrap": "^5.3.3",
     "bootstrap-icons": "^1.11.3",
+    "contlo-web-sdk": "^1.0.1",
     "google-libphonenumber": "^3.2.33",
     "intl-tel-input": "^18.2.1",
     "jw-angular-social-buttons": "^1.0.0",

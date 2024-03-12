@@ -2,6 +2,7 @@ import {Injectable} from "@angular/core";
 import { environment } from "@env/environment";
 import {BehaviorSubject} from "rxjs";
 import { AuthService } from "./Auth/auth.service";
+import {LocationService} from "./location.service";
 
 @Injectable({
     providedIn: "root",
@@ -45,7 +46,7 @@ export class DataService {
     public booleanValue = new BehaviorSubject<any>(true);
     castValue = this.booleanValue.asObservable();
 
-    constructor() {
+    constructor(private locationService: LocationService) {
     }
 
     changeCountryName(countryName: string) {
@@ -57,7 +58,14 @@ export class DataService {
     }
 
     changeCountryId(countryId: string) {
-        this.countryIdSource.next(countryId);
+        let countryInfo = {
+            selected_country: countryId
+        }
+        this.locationService.UpdateSelectedCountry(countryInfo).subscribe(data =>{
+            this.countryFlagSource.next(data.flag);
+            this.countryNameSource.next(data.name);
+            this.countryIdSource.next(countryId);
+        })
     }
 
     changeTimeOutStatus(isValid: number) {

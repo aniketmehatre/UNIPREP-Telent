@@ -58,6 +58,13 @@ export class LocationService {
         });
     }
 
+    UpdateSelectedCountry(data: any) {
+        const headers = new HttpHeaders().set("Accept", "application/json");
+        return this.http.post<any>(environment.ApiUrl + "/UpdateSelectedCountry", data, {
+            headers: headers,
+        });
+    }
+
     getModuleQuestionList(data: any) {
         const headers = new HttpHeaders().set("Accept", "application/json");
         return this.http.post<any>(environment.ApiUrl + "/getmodulequestions", data, {

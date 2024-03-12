@@ -129,7 +129,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     this.dashboardService.countryList().subscribe(countryList => {
       this.countryLists = countryList;
       this.countryLists.forEach((element: any) => {
-        let cont = Number(data.userdetails[0].interested_country_id)
+        let cont = Number(data.userdetails[0].selected_country)
         if (element.id == cont) {
           localStorage.setItem('countryId', cont.toString());
           this.dataService.changeCountryName(element.country);
