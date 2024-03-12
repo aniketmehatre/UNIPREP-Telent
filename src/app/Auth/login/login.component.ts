@@ -106,7 +106,7 @@ export class LoginComponent implements OnInit, OnDestroy {
         return
       }
       this.dataService.showTimerInHeader(loggedIn);
-      this.service.getMe().subscribe((data) => {
+      this.subs.sink = this.service!.getMe().subscribe((data) => {
         this.loadCountryList(data);
         this.subs.sink = this.service.selectMessage$().subscribe(message => {
           if (message == 'Login Success') {

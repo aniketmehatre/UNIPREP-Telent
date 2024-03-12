@@ -50,12 +50,13 @@ export class ListSubModulesComponent implements OnInit {
   planExpired!: boolean;
   countryName!: string;
   isSkeletonVisible: boolean = true;
+  countryId: any
   constructor(private moduleListService: ModuleServiceService, private router: Router, private dataService: DataService, private authService: AuthService,
     private locationService: LocationService, private route: ActivatedRoute, private ngxService: NgxUiLoaderService,
     private confirmationService: ConfirmationService) {
-
+    this.countryId = Number(localStorage.getItem('countryId'));
     this.dataService.countryId.subscribe((data) => {
-      if(localStorage.getItem('countryId') != data){
+      if(this.countryId != data){
         this.ngOnInit();
       }
       localStorage.setItem('countryId', data);
