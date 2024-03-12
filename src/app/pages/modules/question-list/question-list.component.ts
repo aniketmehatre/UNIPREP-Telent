@@ -127,7 +127,7 @@ export class QuestionListComponent implements OnInit {
     this.dataService.countryId.subscribe((data) => {
       if(this.countryId != data){
         this.router.navigateByUrl(`/pages/modules/${this.currentSubModuleSlug}`);
-
+        this.loadInit();
       }
       localStorage.setItem('countryId', data);
       this.questionListData = [];
@@ -146,6 +146,7 @@ export class QuestionListComponent implements OnInit {
     this.dataService.countryName.subscribe((data) => {
       countryName = data;
     });
+    console.log(this.currentSubModuleSlug)
     this.checkplanExpire();
     switch (this.currentSubModuleSlug) {
       case "pre-admission":
