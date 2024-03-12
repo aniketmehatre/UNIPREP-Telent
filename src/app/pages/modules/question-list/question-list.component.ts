@@ -5,7 +5,7 @@ import {
   OnInit,
   ViewChild,
   ElementRef,
-  HostListener, Renderer2,
+  HostListener, Renderer2, PipeTransform, Pipe,
 } from "@angular/core";
 import { Observable } from "rxjs";
 import { ModuleListSub } from "../../../@Models/module.model";
@@ -20,7 +20,7 @@ import { ModuleStoreService } from "../../module-store/module-store.service";
 import { DataService } from "../../../data.service";
 import { ActivatedRoute, Router } from "@angular/router";
 import { Location } from "@angular/common";
-import { DomSanitizer } from "@angular/platform-browser";
+import { DomSanitizer, SafeResourceUrl } from "@angular/platform-browser";
 import { Carousel } from "primeng/carousel";
 import { AuthService } from "src/app/Auth/auth.service";
 import {NgxUiLoaderService} from "ngx-ui-loader";
@@ -654,13 +654,22 @@ export class QuestionListComponent implements OnInit {
      this.selectedVideoLink = null;
      this.showVideoPopup = false;
    }
-   openNextVideo(){
-     window.open(this.openNextPageLink)
-   }
+   openNextVideo(): void {
+    console.log('Opening next video:', this.openNextPageLink);
+    if (this.openNextPageLink) {
+      window.open(this.openNextPageLink);
+    }
+  }
    onShowModal(value : any) {
     let socialShare:any=document.getElementById("socialSharingList");
     socialShare.style.display = "none";
    }
  }
+ @Pipe({ name: 'safe' })
+ export class SafePipe implements PipeTransform {
+   constructor(private sanitizer: DomSanitizer) { }
  
-
+   transform(url: string): SafeResourceUrl {
+     return this.sanitizer.bypassSecurityTrustResourceUrl(url);
+   }
+ }

@@ -1,5 +1,5 @@
 <div class="search-dropdown px-0 mb-2">
-	<div class="col-12 md:col-4">
+	<div class="col-md-12">
 		<div class="p-inputgroup searchheight">
 			<div class="search-icon"><i class="fa-solid fa-magnifying-glass"></i></div>
 			<input #searchInput (keyup)="onKey(searchInput.value)" (keyup.enter)="searchKeyWord(searchInput)" [(ngModel)]="searchInputText" (input)="onSearchChange(searchInput.value)" pInputText placeholder="Enter Your Keywords Here" type="text" />
@@ -8,32 +8,27 @@
 			</span>
 			<button (click)="searchKeyWord(searchInput)" class="btn-primary" label="SEARCH" pButton pRipple type="button"></button>
 		</div>
-		<div>
-			<ul *ngIf="isSearchResultFound" (scroll)="scrollHandler($event)" scrollTracker (scrollingFinished)="onScrollingFinished()" class="multiselect-list list-group list-group-flush shadow-lg" #listgroup>
-				<li *ngFor="let c of searchResult" class="list-group-item border-0 pt-0 pb-0 mt-0 mb-0 multiselect-list--option">
-					<div class="row mb-1">
-						<div class="col-md-9" (click)="gerSelectedQuestion(c)">
-							<span [innerHTML]="dataContentChange(c.question)" class="pr-4 fa-sm" style="font-size: 13px; cursor: pointer"> </span>
-						</div>
-						<div class="col-md-3" style="cursor: pointer">
-							<a style="font-size: 10px" (click)="redirectModule(c.module_name)">{{ c.module_name }}</a> ->
-							<a style="font-size: 10px" (click)="redirectToSubmodule(c)">{{ c.submodule_name }}</a>
-						</div>
+		<div class="searchcard" *ngIf="isSearchResultFound">
+			<div (scroll)="scrollHandler($event)" scrollTracker (scrollingFinished)="onScrollingFinished()" *ngFor="let c of searchResult">
+				<div class="row mb-2">
+					<div class="col-xxl-9 col-xl-8 col-lg-7 col-md-7 col-sm-12 col-12" (click)="gerSelectedQuestion(c)">
+						<span [innerHTML]="dataContentChange(c.question)" role="button"> </span>
 					</div>
-				</li>
-				<li class="list-group-item border-0">
-					<div class="row mt-2">
-						<div class="col-md-6 text-start">
-							<p class="text-left fa-sm fw-bold">If you can't find your Question! <span (click)="openChat()" role="button" class="text-primary font-primarycolor">Ask Us</span></p>
-							<p></p>
-						</div>
-
-						<div class="col-md-6 text-end">
-							<p class="text-right fa-sm fw-bold">Total Related Questions: {{ searchKeywordTotalCount }}</p>
-						</div>
+					<div class="col-xxl-3 col-xl-4 col-lg-5 col-md-5 col-sm-12 col-12 d-flex align-items-center justify-content-start justify-content-md-end gap-2" role="button">
+						<a class="text-small uniprep-primary text-decoration-none" (click)="redirectModule(c.module_name)">{{ c.module_name }}</a>
+						<i class="fa-solid fa-chevron-right text-small uniprep-primary"></i>
+						<a class="text-small uniprep-primary text-decoration-none" (click)="redirectToSubmodule(c)">{{ c.submodule_name }}</a>
 					</div>
-				</li>
-			</ul>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6 col-12 text-md-start text-center order-2 order-md-1">
+					<p class="text-left fw-bold">If you can't find your Question! <span (click)="openChat()" role="button" class="text-primary font-primarycolor">Ask Us</span></p>
+				</div>
+				<div class="col-md-6 col-12 text-md-end text-center order-1 order-md-2">
+					<p class="text-right fw-bold">Total Related Questions: {{ searchKeywordTotalCount }}</p>
+				</div>
+			</div>
 		</div>
 	</div>
 </div>

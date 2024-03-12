@@ -1,11 +1,3 @@
-.upper-text {
-  width: auto;
-  font-size: 20px;
-  font-weight: normal;
-  padding: 20px 220px;
-  border-radius: 0px 0px 10px 10px;
-  margin-top: -13px;
-}
 .tutcard
 {
   overflow: hidden;
@@ -32,200 +24,33 @@
     left: 1rem;
   }
 }
-
-
-
-
-.card-style {
-  border-radius: 0px 0px 10px 10px;
-  background-color: #F5F5F5;
-
-  a {
-    color: #001631;
-    padding: 1.5rem 1rem;
-    text-decoration: none;
-  }
-
-  &:hover {
-    background-color: var(--uniprep-primary);
-    color: #fff;
-
-    a {
-      color: #fff;
-    }
-  }
-}
-
-/* styles.css (or your component-specific CSS) */
-
-.wrapper {
-  display: flex;
-  flex-flow: row;
-  flex-wrap: wrap;
-  justify-content: start;
-}
-
-.wrapper>* {
-  margin: 0 1rem 2rem;
-}
-
-/**************************************************
-  ** CARDS STYLING 
-  ***************************************************/
-/* Card outside box. Here is where the 
-  ** dimensions, shadows and borders are set 
-  ------------------------------------------ */
-.card1 {
-  position: relative;
-  overflow: hidden;
-  display: flex;
-
-  width: 270px;
-  /* Box dimensions */
-  height: 180px;
-
-  border-radius: 10px;
-  /* Styling */
-  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.12), 0 1px 5px 0 rgba(0, 0, 0, 0.2);
-  transition: box-shadow 0.56s ease-in-out;
-  /* Animation */
-   background-color: #3F4C83; /* for debugging */
-}
-
-/* Shows an outer shadow */
-.card1:hover {
-  /* Just for styling */
-  cursor: pointer;
-  box-shadow: 0 24px 38px 3px rgba(0, 0, 0, 0.14), 0 9px 46px 8px rgba(0, 0, 0, 0.12), 0 11px 15px -7px rgba(0, 0, 0, 0.2);
-}
-
-/* Cards titles styling
-  ------------------------------------------ */
-.card__title {
-  /* Just for styling */
-  align-self: flex-end;
-  padding: 0.5rem;
-  color: rgba(255, 255, 255, .90);
-  font-size: 1.0rem;
-  line-height: 1;
-  font-weight: 600;
-}
-
-.card__title2 {
-  align-self: flex-end;
-  padding: 0.5rem;
-  color: rgba(255, 255, 255, .90);
-  font-size: 0.7rem;
-  line-height: 1;
-  font-weight: 600;
-}
-
-
-/* Styles for:
-  ** - Using IMG tag inside a container
-  ------------------------------------------ */
-/* The image container */
-.card__thumbnail {
-  position: relative;
-  overflow: hidden;
-  display: flex;
-  justify-content: center;
-  /* horizontal center */
-  align-items: center;
-  /* vertical center */
-
-  width: 100%;
-  /* Thumbnail dimensions. */
-  height: 100%;
-  /*** Change the height to make the image smaller ***/
-  /* background-color: rgba(0,0,0,.2);  /* for debugging */
-
-}
-
-/* Sets the image dimensions */
-.card__thumbnail>img {
-  /* Tip: use 1:1 ratio images */
-  height: 100%;
-  /* or width when img.width > img.height */
-}
-
-/* Styles the title inside the img container */
-.card__thumbnail>.card__title {
-  /* Just for styling */
-  position: absolute;
-  left: 0;
-  bottom: 0;
-}
-
-
-/* Styles for:
-  ** - Using background-size on CSS
-  ** - Using background-size on HTML
-  ** - Using background-size on JS
-  ------------------------------------------ */
-/* Prepares a container to have cover background */
-.has-bg-img {
-  background-repeat: no-repeat;
-  background-position: center center;
-  background-size: cover;
-}
-.readingcard
+.modalbuttons
 {
-  height:60vh;
-  overflow-y:auto;
+  position: absolute;
+  top: -1rem;
+  right:-1rem;
 }
-.modal-overlay {
-  position: fixed;
+.embed-responsive {
+  position: relative;
+  display: block;
+  width: 100%;
+  padding: 0;
+  overflow: hidden;
+}
+
+.embed-responsive::before {
+  display: block;
+  content: "";
+  padding-top: 56.25%; /* 16:9 Aspect Ratio */
+}
+
+.embed-responsive iframe {
+  position: absolute;
   top: 0;
   left: 0;
+  bottom: 0;
+  right: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.5);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.modal-container {
-  background: #fff;
-  padding: 25px;
-  max-width: 100%;
-  max-height: 100%;
-  overflow: auto;
-  margin-bottom: 140px;
-  position: relative;
-}
-.newwindow-button {
-  position: absolute;
-  top: -7px; /* Adjust the top position as needed */
-  right: 32px; /* Adjust the right position as needed */
-  cursor: pointer;
-  background: none;
-  border: none;
-  font-size: 18px;
-  color: #3F4C83;
-}
-.close-button{
-  position: absolute;
-  top: -3px; /* Adjust the top position as needed */
-  right: 6px; /* Adjust the right position as needed */
-  cursor: pointer;
-  background: none;
-  border: none;
-  font-size: 18px;
-  color: #3F4C83;
-}
-.newwindow-button {
-  font-size: 24px;
-}
-
-@media (max-width: 575.98px) {
-  .modal-container {
-    max-width: -webkit-fill-available !important;
-  }
-
-  iframe {
-    width: auto !important;
-    height: 200px !important;
-  }
+  border: 0;
 }

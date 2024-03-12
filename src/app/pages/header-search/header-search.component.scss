@@ -1,238 +1,245 @@
 .search-dropdown {
-  width: 100%;
-  position: relative;
-}
-
-.search-icon {
-  justify-content: center;
-  align-items: center;
-  vertical-align: middle;
-  display: flex;
-  font-size: 1.5rem;
-  color: var(--uniprep-primary);
-  border-right: 1px solid var(--uniprep-primary);
-  padding: 10px;
-}
-
-.searchheight
-{
-  input
+	width: 100%;
+	position: relative;
+  .searchcard
   {
-    border:none;
+    position:absolute;
+    z-index: 999;
+    top: 4rem;
+    left: 0;
+    right: 0;
+    padding: 1rem;
+    background: white;
+    border-radius: 10px;
+    max-height: 50vh;
+    overflow-y: scroll;
   }
+	.p-inputgroup {
+		padding: 0px;
+		background: #fff;
+		border-radius: 10px;
+		.p-button {
+			border-radius: 0px 8px 8px 0 !important;
+		}
+	}
+	.searchheight {
+		input {
+			border: none;
+		}
+	}
+	.search-icon {
+		justify-content: center;
+		align-items: center;
+		vertical-align: middle;
+		display: flex;
+		font-size: 1.5rem;
+		color: var(--uniprep-primary);
+		border-right: 1px solid var(--uniprep-primary);
+		padding: 10px;
+	}
 }
 
-.p-inputgroup {
-  padding: 0px;
-  background: #fff;
-  border-radius: 10px;
-  .p-button
-    {
-      border-radius: 0px 8px 8px 0 !important;
-    }
-}
+// btn-primary {
+//   color: black !important;
+//   border-radius: 0 !important;
+// }
 
-btn-primary {
-  color: black !important;
-  border-radius: 0 !important;
-}
+// .list-group {
+//   position: absolute;
+//   z-index: 1 !important;
+//   right: 0;
+//   left: 0;
+//   top: 60px;
+//   overflow-y: auto;
+//   max-height: 400px;
+//   border-radius: 10px;
+// }
+// .answercard {
+//   background-color: transparent;
+//   border: none;
+//   // max-height: 50vh;
+//   overflow-y: auto;
+//   .readingheight
+//   {
+//     max-height:40vh;
+//     overflow-y:auto;
+//     min-height: 35vh;
+//   }
+// }
+// li:last-of-type {
+//   width: 100%;
+//   position: sticky;
+//   right: 0;
+//   bottom: 0;
+// }
 
-.list-group {
-  position: absolute;
-  z-index: 1 !important;
-  right: 0;
-  left: 0;
-  top: 60px;
-  overflow-y: auto;
-  max-height: 400px;
-  border-radius: 10px;
-}
-.answercard {
-  background-color: transparent;
-  border: none;
-  // max-height: 50vh;
-  overflow-y: auto;
-  .readingheight
-  {
-    max-height:40vh;
-    overflow-y:auto;
-    min-height: 35vh;
-  }
-}
-li:last-of-type {
-  width: 100%;
-  position: sticky;
-  right: 0;
-  bottom: 0;
-}
+// :host ::ng-deep p-carousel {
+//   //On later realease of PrimeNG, this can be done programmatically with [showIndicators | showNavigators]="false"
+//   .p-carousel-indicators {
+//     display: none !important;
+//   }
 
-:host ::ng-deep p-carousel {
-  //On later realease of PrimeNG, this can be done programmatically with [showIndicators | showNavigators]="false"
-  .p-carousel-indicators {
-    display: none !important;
-  }
+//   .p-carousel-next, .p-carousel-prev {
+//     display: none !important;
+//   }
+// }
 
-  .p-carousel-next, .p-carousel-prev {
-    display: none !important;
-  }
-}
+// :host ::ng-deep .p-carousel-item {
+//   max-height: 0;
+// }
 
-:host ::ng-deep .p-carousel-item {
-  max-height: 0;
-}
+// :host ::ng-deep .p-carousel-item-active {
+//   max-height: 100% !important;
+// }
 
-:host ::ng-deep .p-carousel-item-active {
-  max-height: 100% !important;
-}
+// .color-red{
+//   color: green !important;
+// }
+// .unselectable {
+//   -webkit-user-select: none;
+//   -webkit-touch-callout: none;
+//   -moz-user-select: none;
+//   -ms-user-select: none;
+//   user-select: none;
+// }
+// .fw-bold-yellow{
+//   font-weight: 700;
+//   color: #f0780c;
+//   text-transform: capitalize;
+// }
 
-.color-red{
-  color: green !important;
-}
-.unselectable {
-  -webkit-user-select: none;
-  -webkit-touch-callout: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-}
-.fw-bold-yellow{
-  font-weight: 700;
-  color: #f0780c;
-  text-transform: capitalize;
-}
+// @media screen and (max-width: 768px) {
+//   #ref-links-container {
+//       flex-wrap: nowrap !important;
+//       overflow-x: auto;
+//   }
+//   #ref-links-container a {
+//       flex: 0 0 auto;
+//       margin-bottom: 0.5rem;
+// }
+// }
 
-@media screen and (max-width: 768px) {
-  #ref-links-container {
-      flex-wrap: nowrap !important;
-      overflow-x: auto;
-  }
-  #ref-links-container a {
-      flex: 0 0 auto;
-      margin-bottom: 0.5rem;
-}
-}
+// .gap-2 {
+//   flex-wrap: wrap !important;
+// }
 
-.gap-2 {
-  flex-wrap: wrap !important;
-}
+// .mobile{
+//   display: none;
+// }
 
-.mobile{
-  display: none;
-}
+// @media (max-width: 575.98px) {
+//   .desktop{
+//     display: none !important;
+//   }
+//   .gap-2{
+//     flex-wrap: nowrap !important;
+//   }
+// .list-group{
+//     position: absolute;
+//       z-index: 1 !important;
+//       right: 0;
+//       left: 0;
+//       top: 40px;
+//       overflow-y: auto;
+//       max-height: 300px;
+//       border-radius: 10px;
+// }
+// .p-breadcrumb ul{
+//   flex-wrap: wrap !important;
+//   text-align: center !important;
+// }
+// .mobile{
+//   display: block;
+// }
 
-@media (max-width: 575.98px) {
-  .desktop{
-    display: none !important;
-  }
-  .gap-2{
-    flex-wrap: nowrap !important;
-  }
-.list-group{
-    position: absolute;
-      z-index: 1 !important;
-      right: 0;
-      left: 0;
-      top: 40px;
-      overflow-y: auto;
-      max-height: 300px;
-      border-radius: 10px;
-}
-.p-breadcrumb ul{
-  flex-wrap: wrap !important;
-  text-align: center !important;
-}
-.mobile{
-  display: block;
-}
+//  :host ::ng-deep .p-breadcrumb {
+//    font-size: 10px;
+//  }
 
- :host ::ng-deep .p-breadcrumb {
-   font-size: 10px;
- }
+//  .fa-file-contract {
+//    font-size: 10px;
+//  }
 
- .fa-file-contract {
-   font-size: 10px;
- }
+//  .fa-house {
+//    font-size: 10px;
+//  }
+// }
 
- .fa-house {
-   font-size: 10px;
- }
-}
+// .btn-warning {
+//   background-color: #F0780C;
+//   color: white;
+// }
 
-.btn-warning {
-  background-color: #F0780C;
-  color: white;
-}
+// .badge{
+//   border-radius: 25px !important;
+// }
+// .text-right-close{
+//   text-align: right;
+//   margin: 5px;
+// }
 
-.badge{
-  border-radius: 25px !important;
-}
-.text-right-close{
-  text-align: right;
-  margin: 5px;
-}
+// .scrollable-container {
+//   display: flex;
+//   overflow-x: hidden;
+//   align-items: center;
+//   max-width: 500px;
+// }
 
-.scrollable-container {
-  display: flex;
-  overflow-x: hidden;
-  align-items: center;
-  max-width: 500px; 
-}
+// .scrollable-container-ref {
+//   display: flex;
+//   overflow-x: hidden;
+//   align-items: center;
+//   max-width: 80%;
+// }
 
-.scrollable-container-ref {
-  display: flex;
-  overflow-x: hidden;
-  align-items: center;
-  max-width: 80%; 
-}
+// .scroll-content {
+//   display: flex;
+// }
 
-.scroll-content {
-  display: flex;
-}
+// .scroll-content-ref {
+//   display: flex;
+// }
 
-.scroll-content-ref {
-  display: flex;
-}
+// .scroll-button {
+//   border: none;
+//   border-radius: 20px;
+//   cursor: pointer;
+//   background: #b4ceec;
+//   cursor: pointer;
+//   width: 25px !important;
+//   height: 25px !important;
+// }
 
-.scroll-button {
-  border: none;
-  border-radius: 20px;
-  cursor: pointer;
-  background: #b4ceec;
-  cursor: pointer;
-  width: 25px !important;
-  height: 25px !important;
-}
+// .scroll-button-warning{
+//   border: none;
+//     border-radius: 20px;
+//     cursor: pointer;
+//     background: #ffd5b0;
+//     cursor: pointer;
+//     width: 25px !important;
+//     height: 25px !important;
+//     .fa-chevron-left {
+//         color: #f0780e;
+//       }
 
-.scroll-button-warning{
-  border: none;
-    border-radius: 20px;
-    cursor: pointer;
-    background: #ffd5b0;
-    cursor: pointer;
-    width: 25px !important;
-    height: 25px !important;
-    .fa-chevron-left {
-        color: #f0780e;
-      }
-    
-      .fa-chevron-right {
-        color: #f0780e;
-      }
-}
+//       .fa-chevron-right {
+//         color: #f0780e;
+//       }
+// }
 
-.fa-chevron-left{
-  color: #26374b;
-}
+// .fa-chevron-left{
+//   color: #26374b;
+// }
 
-.fa-chevron-right{
-  color: #26374b;
-}
+// .fa-chevron-right{
+//   color: #26374b;
+// }
 
-.videolinkbutton {
-  white-space: nowrap;
-  font-size: 12px;
-  font-weight: 400 !important;
-}
+// .videolinkbutton {
+//   white-space: nowrap;
+//   font-size: 12px;
+//   font-weight: 400 !important;
+// }
 
 .reflinkbutton {
   white-space: nowrap;
