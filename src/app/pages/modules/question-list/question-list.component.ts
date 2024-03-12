@@ -146,7 +146,7 @@ export class QuestionListComponent implements OnInit {
     this.dataService.countryName.subscribe((data) => {
       countryName = data;
     });
-    console.log(this.currentSubModuleSlug)
+    
     this.checkplanExpire();
     switch (this.currentSubModuleSlug) {
       case "pre-admission":
@@ -222,8 +222,12 @@ export class QuestionListComponent implements OnInit {
       page: this.pageno,
       perpage: this.perpage,
     };
+    this.loadQuestionList(data);
     //this.ngxService.start();
     //this.moduleListService.loadQuestionList(data);
+    
+  }
+  loadQuestionList(data: any){
     this.mService.studentsSubmoduleQuestions(data).subscribe((data: any) => {
       this.questionListData = data?.questions;
       this.isSkeletonVisible = false
@@ -520,11 +524,12 @@ export class QuestionListComponent implements OnInit {
       page: this.pageno,
       perpage: this.perpage,
     };
-    this.moduleListService.loadQuestionList(data);
-    this.moduleListService.questionList$().subscribe((data: any) => {
-      this.questionListData = data?.questions;
-      this.totalQuestionCount = data?.questioncount;
-    });
+    // this.moduleListService.loadQuestionList(data);
+    // this.moduleListService.questionList$().subscribe((data: any) => {
+    //   this.questionListData = data?.questions;
+    //   this.totalQuestionCount = data?.questioncount;
+    // });
+    this.loadQuestionList(data);
   }
 
   viewOneQuestion(question:any){
