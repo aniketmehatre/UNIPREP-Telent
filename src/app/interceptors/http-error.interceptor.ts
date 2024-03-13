@@ -36,7 +36,8 @@ export class HttpErrorInterceptor implements HttpInterceptor {
       !request.url.includes("SendMailGlobalReport") &&
       !request.url.includes("SubmoduleListForStudents") &&
       !request.url.includes("StudentsSubmoduleQuestions") &&
-      !request.url.includes("StudentFullQuestionData")
+      !request.url.includes("StudentFullQuestionData") &&
+      !request.url.includes("getlatestfaqquestions")
     ) {
       if(!currentUrl.includes('modules')){
         this.ngxService.start();
