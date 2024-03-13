@@ -85,7 +85,6 @@ export class QuestionListComponent implements OnInit {
   questionUrl:string="";
   allDataSet: any [] = [];
   @ViewChild('op', { static: false, read: ElementRef }) elRef: any;
-  isPopupVisible: boolean = false;
 
   constructor(
     private moduleListService: ModuleServiceService,
@@ -114,6 +113,7 @@ export class QuestionListComponent implements OnInit {
   }
   loopRange = Array.from({ length: 30 }).fill(0).map((_, index) => index);
   ngOnInit(): void {
+
     //this.moduleListService.emptyQuestionList$();
     this.countryId = Number(localStorage.getItem('countryId'));
     this.route.params.subscribe((params) => {

@@ -65,6 +65,8 @@ export class RecentlyaddedquestionsComponent implements OnInit {
   rightScrollButtonVisible: boolean = true;
   leftScrollButtonVisibleRef:boolean = false;
   rightScrollButtonVisibleRef:boolean = true;
+  isSkeletonVisible: boolean = true;
+  loopRange = Array.from({ length: 30 }).fill(0).map((_, index) => index);
 
   constructor(private route: ActivatedRoute, private dataService: DataService,
               private moduleListService: ModuleServiceService, private service: RecentlyaddedquestionService,
@@ -130,6 +132,7 @@ export class RecentlyaddedquestionsComponent implements OnInit {
     }
     let apiName = 'getlatestfaqquestions';
     this.service.getRecentlyAddedQuestions(req, apiName).subscribe((response) => {
+      this.isSkeletonVisible = false;
       this.listQuestions = response.latestaddedfaqquestions;
       this.listQuestionCount = response.count;
     })

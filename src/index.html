@@ -16,7 +16,7 @@
         <meta property="og:description"
               content="UNIPREP is a one-stop platform for students, graduates & entrepreneurs, seeking information on Career, Life and Study abroad. Sign-up Now - Free!">
         <script type='text/javascript' async=''
-                src='https://marketing.contlo.com/js/contlo_messaging_v3.js?v=3&shop_id=[your_public_key]'></script>
+                src='https://marketing.contlo.com/js/contlo_messaging_v3.js?v=3&shop_id=d7a84b3a1d83fa9f7e33f7396d57ac88'></script>
         <!-- Google Fonts -->
         <link rel="canonical" href="https://uniprep.ai/">
 
@@ -45,6 +45,12 @@
 		Google tag (gtag.js) -->
 		<script async src="https://www.googletagmanager.com/gtag/js?id=G-SKJT9ZL5LJ"></script>
 		<script>
+            // Example: Send a message
+            const contloWebSDK = window.ContloWebSDK;
+            console.log(contloWebSDK);
+            contloWebSDK.sendUserData('vivekbasvivek@gmail.com',  '7811047345', 'Vivek','BM',{subscribed_channels : ['Email']}
+            ,false)
+
 			window.dataLayer = window.dataLayer || []
 			function gtag() {
 				dataLayer.push(arguments)
