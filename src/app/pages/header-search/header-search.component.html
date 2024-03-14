@@ -215,15 +215,18 @@
 	</div>
 </div>
 <!-- vedio pop up -->
-<div *ngIf="showVideoPopup" class="modal-overlay" dropdownAppendTo="body">
-	<div class="modal-container">
-		<button class="close-button" tooltipPosition="top" pTooltip="Close" (click)="closeVideoPopup()">
-			<b><i class="fa-solid fa-circle-xmark fa-2x"></i></b>
-		</button>
-		<button class="newwindow-button" tooltipPosition="top" pTooltip="Open New Window" (click)="openNextVideo()">
-			<b><i class="fa-solid fa-circle-plus fa-1x"></i></b>
-		</button>
-		<!-- Use the safe pipe here for the src attribute -->
-		<iframe class="video-container" [src]="selectedVideoLink" frameborder="0" allowfullscreen></iframe>
+<div class="modal" tabindex="-1" role="dialog" [ngClass]="{ 'd-block': showVideoPopup }">
+	<div class="modal-dialog modal-xl modal-dialog-centered" role="document">
+		<div class="modal-content">
+			<div class="modal-body position-relative pt-4">
+				<div class="modalbuttons">
+					<div class="d-flex gap-2">
+						<button title="New Window" type="button" class="btn btn-primary btn-rounded" (click)="openNextVideo()"><i class="fa-solid fa-arrow-up-right-from-square"></i></button>
+						<button type="button" title="Close Popup" class="btn btn-primary btn-rounded" (click)="closeVideoPopup()"><i class="fa-solid fa-xmark"></i></button>
+					</div>
+				</div>
+				<div class="embed-responsive"><iframe #videoFrame [src]="selectedVideoLink" width="100%" frameborder="0" allowfullscreen></iframe></div>
+			</div>
+		</div>
 	</div>
 </div>
