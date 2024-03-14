@@ -38,7 +38,7 @@ export class QuestionListComponent implements OnInit {
   @ViewChild("carouselPopupRefElm") carouselPopupRefElm: any;
   @ViewChild("videoLinksContainer") videoLinksContainer!: ElementRef;
   @ViewChild("refLinksContainer") refLinksContainer!: ElementRef;
-
+  @ViewChild('videoFrame') videoFrame: ElementRef | undefined;
   readQue$!: Observable<ReadQuestion[]>;
   listQuestion$!: Observable<QuestionList>;
   questionCount$!: Observable<QuestionList[]>;
@@ -650,10 +650,14 @@ export class QuestionListComponent implements OnInit {
        this.closeVideoPopup();
      }
    }
-   closeVideoPopup(): void {
-     this.selectedVideoLink = null;
-     this.showVideoPopup = false;
-   }
+  closeVideoPopup(): void {
+    if (this.videoFrame && this.videoFrame.nativeElement) {
+      const player = this.videoFrame.nativeElement as HTMLIFrameElement;
+      player.src = '';
+    }
+    this.selectedVideoLink = null;
+    this.showVideoPopup = false;
+  }
    openNextVideo(): void {
     console.log('Opening next video:', this.openNextPageLink);
     if (this.openNextPageLink) {
