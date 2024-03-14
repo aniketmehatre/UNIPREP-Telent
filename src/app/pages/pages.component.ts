@@ -33,7 +33,7 @@ export class PagesComponent implements OnInit, OnDestroy {
     visibleExhastedUser!: boolean;
     constructor(private pageFacade: PageFacadeService, private router: Router, private dataService: DataService,
                 private dashboardService: DashboardService,private service:AuthService, private deviceService: DeviceDetectorService) {
-        Contlo.init('d7a84b3a1d83fa9f7e33f7396d57ac88', 'https://uniprep.ai');
+        // Contlo.init('d7a84b3a1d83fa9f7e33f7396d57ac88', 'https://uniprep.ai');
 
         // ContloWebSDK.sendUserData(email, phone no, first name, last name,{subscribed_channels : [channel list]}
         // is_profile_update)
