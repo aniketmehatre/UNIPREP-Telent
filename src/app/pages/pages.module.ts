@@ -60,6 +60,7 @@ import { InvestorListGuidlinesComponent } from './investor-list-guidlines/invest
 import { RecommendationsComponent } from './recommendations/recommendations.component';
 import { StepsModule } from 'primeng/steps';
 import { CheckboxModule } from "primeng/checkbox";
+import { RadioButtonModule } from 'primeng/radiobutton';
 
 @NgModule({
     declarations: [
@@ -123,7 +124,8 @@ import { CheckboxModule } from "primeng/checkbox";
     TooltipModule,
     DividerModule,
     CheckboxModule,
-    StepsModule
+    StepsModule,
+    RadioButtonModule
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
