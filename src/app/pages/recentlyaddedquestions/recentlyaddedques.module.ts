@@ -13,6 +13,7 @@ import { RecentlyaddedquestionsComponent } from './recentlyaddedquestions.compon
 import { RecentlyAddedQuesRoutingModule } from './recentlyaddedques-routing.module';
 import {PaginatorModule} from "primeng/paginator";
 import {SkeletonModule} from "primeng/skeleton";
+import {CardModule} from "primeng/card";
 
 
 @NgModule({
@@ -32,7 +33,8 @@ import {SkeletonModule} from "primeng/skeleton";
         PipesModule,
         TagModule,
         PaginatorModule,
-        SkeletonModule
+        SkeletonModule,
+        CardModule
     ]
 })
 export class RecentlyAddedQuestionsModule { }
