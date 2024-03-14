@@ -257,7 +257,7 @@
 	</div>
 </p-dialog>
 <!-- vedio pop up -->
-<div class="modal" tabindex="-1" role="dialog" [ngClass]="{ 'd-block': showVideoPopup }" (click)="closeVideoPopup()">
+<div class="modal" tabindex="-1" role="dialog" [ngClass]="{ 'd-block': showVideoPopup }">
 	<div class="modal-dialog modal-xl modal-dialog-centered" role="document">
 		<div class="modal-content">
 			<div class="modal-body position-relative pt-4">
@@ -267,7 +267,7 @@
 						<button type="button" title="Close Popup" class="btn btn-primary btn-rounded" (click)="closeVideoPopup()"><i class="fa-solid fa-xmark"></i></button>
 					</div>
 				</div>
-				<div class="embed-responsive"><iframe [src]="selectedVideoLink" width="100%" frameborder="0" allowfullscreen></iframe></div>
+				<div class="embed-responsive"><iframe #videoFrame [src]="selectedVideoLink" width="100%" frameborder="0" allowfullscreen></iframe></div>
 			</div>
 		</div>
 	</div>
