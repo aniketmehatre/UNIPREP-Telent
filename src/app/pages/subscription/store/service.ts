@@ -28,6 +28,19 @@ export class SubStoreService {
     }
 
     getRecommedationList() {
-        return this.http.get(environment.ApiUrl + '/getrecommendplans');
+        //return this.http.get(environment.ApiUrl + '/getrecommendplans');
+        return this.http.get<any>(environment.ApiUrl+'/getrecommendplans');
+    }
+    
+    storeUserRecommends(userRecommendations:any){
+        return this.http.post<any>(environment.ApiUrl+'/storeuserrecommends', {user_recommend : userRecommendations});
+    }
+
+    checkRecommendationExist(){
+        return this.http.get<any>(environment.ApiUrl+'/CheckExistRecommendation');
+    }
+
+    recommendationReset(){
+        return this.http.get<any>(environment.ApiUrl+'/ResetRecommendation');
     }
 }

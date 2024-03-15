@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { SubStoreService } from '../subscription/store/service';
-
+import { Router } from "@angular/router";
 
 interface Provider {
   modules: [],
@@ -22,55 +22,59 @@ export class RecommendationsComponent implements OnInit {
     {
       id: '1',
       question: 'Are you a student looking to study abroad?',
-      // user_selection: true
     },
     {
       id: '2',
       question: 'Are you a job seeker?',
-      // user_selection: false
     },
     {
       id: '3',
       question: 'Are you an Entrepreneur or looking to become one?',
-      // user_selection: false
     },
     {
       id: '4',
       question: 'Are you looking to travel abroad?',
-      // user_selection: false
     }
   ]
   recommended!: any;
   enableModule!: boolean;
 
-  constructor(private subStoreService: SubStoreService) { }
+  constructor(private subStoreService: SubStoreService,  private router: Router,) { }
 
   ngOnInit(): void {
-    this.getList();
     this.enableModule = false;
+    this.RecommendationExist();
+  }
+
+  RecommendationExist(){
+    this.subStoreService.checkRecommendationExist().subscribe(res => {
+      if(res.recommend_selected =="exist"){
+        this.enableModule = true;
+        this.getList();
+      }
+    })
   }
 
   getList(): void {
     this.subStoreService.getRecommedationList().subscribe(res => {
-      let data: Object = res;
-      this.recommended = data;
+      if(res.success){
+        this.recommended = res;
+      }
     })
   }
 
   previous(productId: number): void {
-    console.log(this.selectedData);
-    this.invalidClass = false;
-    if (productId in this.selectedData) {
+    //this.invalidClass = false;
+    //if (productId in this.selectedData) {
       if (this.activePageIndex > 0) {
         this.activePageIndex--; // Decrement the active page index if it's not the first page
       }
-    }else{
-      this.invalidClass = true;
-    }
+    //}else{
+      //this.invalidClass = true;
+   // }
   }
 
   next(productId: number): void {
-    console.log(this.selectedData);
     this.invalidClass = false;
     if (productId in this.selectedData) {
       if (this.activePageIndex < this.products.length - 1) {
@@ -85,27 +89,34 @@ export class RecommendationsComponent implements OnInit {
     this.invalidClass = false;
     if (productId in this.selectedData) {
       this.enableModule = true;
+      const selectedKeys = Object.keys(this.selectedData).filter(key => this.selectedData[key]);
+      const selectedValues = selectedKeys.join(',');
+      this.subStoreService.storeUserRecommends(selectedValues).subscribe(res => {
+        if(res.success){
+          this.enableModule = true;
+          this.getList();
+        }
+      });
     }else{
       this.invalidClass = true;
     }
-    console.log(this.activePageIndex);
-    console.log(this.selectedData);
-    console.log(this.products.length - 1);
   }
 
   resetRecommendation(): void{
     this.enableModule = false;
     this.selectedData = {};
-    console.log(this.selectedData);
-  }
-
-  onChange() {
-    
-    console.log(this.selectedData);
-
+    this.activePageIndex = 0;
+    this.subStoreService.recommendationReset().subscribe();
   }
 
   onClickRadioButton(){
     this.invalidClass = false;
+    if (this.activePageIndex < this.products.length - 1) {
+      this.activePageIndex++;
+    }
+  }
+
+  subscribeNow(){
+    this.router.navigate(["/pages/subscriptions"]);
   }
 }
