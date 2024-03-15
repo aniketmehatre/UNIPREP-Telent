@@ -263,6 +263,12 @@ small {
 		}
 	}
 }
+.country-dropdown
+{
+	max-height: 40vh;
+    overflow-y: auto;
+    background: white !important;
+}
 uni-modules {
 	display: flex;
 	flex: 1;
