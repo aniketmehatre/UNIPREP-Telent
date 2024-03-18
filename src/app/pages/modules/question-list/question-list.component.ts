@@ -25,7 +25,6 @@ import { Carousel } from "primeng/carousel";
 import { AuthService } from "src/app/Auth/auth.service";
 import {NgxUiLoaderService} from "ngx-ui-loader";
 import { environment } from "@env/environment";
-import { Console } from "console";
 
 @Component({
   selector: "uni-question-list",
@@ -237,7 +236,7 @@ export class QuestionListComponent implements OnInit {
 
     this.mService.studentFullQuestionData(data).subscribe((res: any) => {
       this.allDataSet = res;
-
+console.log(this.allDataSet);
       // this.questionListData = data?.questions;
       // this.isSkeletonVisible = false
       // this.totalQuestionCount = data?.questioncount;
@@ -541,6 +540,10 @@ export class QuestionListComponent implements OnInit {
 
   viewOneQuestion(question:any){
     let questionData = this.allDataSet[question.id];
+    console.log(questionData);
+    if(questionData==undefined){
+      questionData=[];
+    }
     if(question && question?.question) {
       questionData['question'] = question?.question;
     }
@@ -552,17 +555,17 @@ export class QuestionListComponent implements OnInit {
       this.restrict=true;
       return;
     }
-    this.oneQuestionContent = questionData
+    this.oneQuestionContent = questionData;
     this.isQuestionAnswerVisible = true
     this.getSubmoduleName(questionData.country_id)
-    // this.breadCrumb = [
-    //   {
-    //     label: this.currentModuleName,
-    //     command: (event) => this.gotomodulebreadcrump(),
-    //   },
-    //   { label: this.moduleName, command: (event) => this.goToHomebreadcrump() },
-    //   { label: 'Question' },
-    // ];
+     this.breadCrumb = [
+       {
+         label: this.currentModuleName,
+         command: (event) => this.gotomodulebreadcrump(),
+       },
+       { label: this.moduleName, command: (event) => this.goToHomebreadcrump() },
+       { label: 'Question' },
+     ];
      let data = {
        questionId: this.oneQuestionContent.id,
        countryId: this.oneQuestionContent.country_id,
