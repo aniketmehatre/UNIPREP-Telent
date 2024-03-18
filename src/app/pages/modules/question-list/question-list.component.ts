@@ -25,6 +25,7 @@ import { Carousel } from "primeng/carousel";
 import { AuthService } from "src/app/Auth/auth.service";
 import {NgxUiLoaderService} from "ngx-ui-loader";
 import { environment } from "@env/environment";
+import { Console } from "console";
 
 @Component({
   selector: "uni-question-list",
@@ -125,28 +126,33 @@ export class QuestionListComponent implements OnInit {
       //this.getSubmoduleName(this.countryId);
     });
     this.dataService.countryId.subscribe((data) => {
-      if(this.countryId != data){
-        this.router.navigateByUrl(`/pages/modules/${this.currentSubModuleSlug}`);
-        this.loadInit();
-      }
+      // if(this.countryId != data){
+      //   this.router.navigateByUrl(`/pages/modules/${this.currentSubModuleSlug}`);
+      //   this.loadInit();
+      // }
       localStorage.setItem('countryId', data);
       this.questionListData = [];
       this.isSkeletonVisible = true
       //this.loadInit();
     });
-    this.tooltip = "Questions related to the application process are answered";
-    this.questionUrl=environment.ApiUrl+this.router.url;
+    // this.tooltip = "Questions related to the application process are answered";
+    // this.questionUrl=environment.ApiUrl+this.router.url;
   }
   loadInit() {
     this.questionListData = [];
     this.countryId = Number(localStorage.getItem("countryId"));
     let countryName: any;
     this.subModuleId = this.route.snapshot.paramMap.get("id");
+ 
+   if(this.subModuleId.includes("&&")) {
+     let url = this.subModuleId.split("&&");
+     localStorage.setItem('questionId', url[1]);
+     this.subModuleId=url[0];
+   }
     this.currentSubModuleSlug = this.route.snapshot.paramMap.get("module_name");
     this.dataService.countryName.subscribe((data) => {
       countryName = data;
     });
-    
     this.checkplanExpire();
     switch (this.currentSubModuleSlug) {
       case "pre-admission":
@@ -228,24 +234,25 @@ export class QuestionListComponent implements OnInit {
     
   }
   loadQuestionList(data: any){
-    this.mService.studentsSubmoduleQuestions(data).subscribe((data: any) => {
-      this.questionListData = data?.questions;
-      this.isSkeletonVisible = false
-      this.totalQuestionCount = data?.questioncount;
-      //this.ngxService.stop();
-      let questionData =  {id: localStorage.getItem('questionId') || ''};
-      if(questionData.id) {
-        this.viewOneQuestion(questionData);
-        localStorage.removeItem('questionId');
-      }
-    });
-    this.mService.studentFullQuestionData(data).subscribe((data: any) => {
-      this.allDataSet = data;
+
+    this.mService.studentFullQuestionData(data).subscribe((res: any) => {
+      this.allDataSet = res;
 
       // this.questionListData = data?.questions;
       // this.isSkeletonVisible = false
       // this.totalQuestionCount = data?.questioncount;
       //this.ngxService.stop();
+      this.mService.studentsSubmoduleQuestions(data).subscribe((data: any) => {
+        this.questionListData = data?.questions;
+        this.isSkeletonVisible = false
+        this.totalQuestionCount = data?.questioncount;
+        //this.ngxService.stop();
+        let questionData =  {id: localStorage.getItem('questionId') || ''};
+        if(questionData.id) {
+          this.viewOneQuestion(questionData);
+          localStorage.removeItem('questionId');
+        }
+      });
     });
   }
   checkplanExpire(): void {
@@ -533,14 +540,13 @@ export class QuestionListComponent implements OnInit {
   }
 
   viewOneQuestion(question:any){
-
     let questionData = this.allDataSet[question.id];
     if(question && question?.question) {
-      questionData['question'] = question.question;
+      questionData['question'] = question?.question;
     }
     else {
       let ques = this.questionListData.find((data: any) => data.id == question.id)
-      questionData['question'] = ques.question;
+      questionData['question'] = ques?.question;
     }
     if(this.planExpired) {
       this.restrict=true;
@@ -549,21 +555,21 @@ export class QuestionListComponent implements OnInit {
     this.oneQuestionContent = questionData
     this.isQuestionAnswerVisible = true
     this.getSubmoduleName(questionData.country_id)
-    this.breadCrumb = [
-      {
-        label: this.currentModuleName,
-        command: (event) => this.gotomodulebreadcrump(),
-      },
-      { label: this.moduleName, command: (event) => this.goToHomebreadcrump() },
-      { label: 'Question' },
-    ];
-    let data = {
-      questionId: this.oneQuestionContent.id,
-      countryId: this.oneQuestionContent.country_id,
-      moduleId: this.currentModuleId,
-      submoduleId: Number(this.subModuleId),
-    };
-    this.readQuestion(data);
+    // this.breadCrumb = [
+    //   {
+    //     label: this.currentModuleName,
+    //     command: (event) => this.gotomodulebreadcrump(),
+    //   },
+    //   { label: this.moduleName, command: (event) => this.goToHomebreadcrump() },
+    //   { label: 'Question' },
+    // ];
+     let data = {
+       questionId: this.oneQuestionContent.id,
+       countryId: this.oneQuestionContent.country_id,
+       moduleId: this.currentModuleId,
+       submoduleId: Number(this.subModuleId),
+     };
+     this.readQuestion(data);
     this.selectedQuestionData = questionData;
   }
   clearRestriction() {
