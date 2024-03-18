@@ -11,7 +11,7 @@
             </div>
         </div>
         <div class="container">
-            <p-carousel [value]="products" [numVisible]="1" [numScroll]="1" [circular]="false" [showNavigators]="false" [page]="activePageIndex" *ngIf="!enableModule">
+            <p-carousel [value]="products" [numVisible]="1" [numScroll]="1" [circular]="false" [showNavigators]="false" [showIndicators] = "false" [page]="activePageIndex" *ngIf="!enableModule">
                 <ng-template let-product let-i="index" pTemplate="item">
                     <div class="product-item">
                         <div class="product-item-content">
