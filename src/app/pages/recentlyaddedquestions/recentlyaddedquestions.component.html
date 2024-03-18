@@ -132,10 +132,9 @@
 					</button>
 					<div class="scrollable-container" id="video-links-container" #videoLinksContainer>
 						<div class="scroll-content">
-							<a class="btn btn-primary videolinkbutton"
-							   target="_blank"
-							   href="{{ videoL.link }}"
-							   *ngFor="let videoL of videoLinks; let ind = index">Video {{ ind + 1 }} &nbsp;<i class="fa-solid fa-video"></i></a>
+							<span class="btn btn-primary text-small videolinkbutton flex-shrink-0" (click)="openVideoPopup(videoL.link)"
+								*ngFor="let videoL of videoLinks; let ind = index">Video {{ ind + 1 }} &nbsp;<i
+									class="fa-solid fa-video"></i></span>
 						</div>
 					</div>
 					<button class="scroll-button btn-rounded" *ngIf="rightScrollButtonVisible" (click)="scrollRightVideo()">
@@ -263,3 +262,20 @@
 		</div>
 	</div>
 </p-dialog>
+
+<!-- vedio pop up -->
+<div class="modal" tabindex="-1" role="dialog" [ngClass]="{ 'd-block': showVideoPopup }">
+	<div class="modal-dialog modal-xl modal-dialog-centered" role="document">
+		<div class="modal-content">
+			<div class="modal-body position-relative pt-4">
+				<div class="modalbuttons">
+					<div class="d-flex gap-2">
+						<button title="New Window" type="button" class="btn btn-primary btn-rounded" (click)="openNextVideo()"><i class="fa-solid fa-arrow-up-right-from-square"></i></button>
+						<button type="button" title="Close Popup" class="btn btn-primary btn-rounded" (click)="closeVideoPopup()"><i class="fa-solid fa-xmark"></i></button>
+					</div>
+				</div>
+				<div class="embed-responsive"><iframe #videoFrame [src]="selectedVideoLink" width="100%" frameborder="0" allowfullscreen></iframe></div>
+			</div>
+		</div>
+	</div>
+</div>
