@@ -113,7 +113,6 @@ export class QuestionListComponent implements OnInit {
   }
   loopRange = Array.from({ length: 30 }).fill(0).map((_, index) => index);
   ngOnInit(): void {
-
     //this.moduleListService.emptyQuestionList$();
     this.countryId = Number(localStorage.getItem('countryId'));
     this.route.params.subscribe((params) => {
@@ -124,18 +123,18 @@ export class QuestionListComponent implements OnInit {
       this.loadInit();
       //this.getSubmoduleName(this.countryId);
     });
-    this.dataService.countryId.subscribe((data) => {
-      // if(this.countryId != data){
-      //   this.router.navigateByUrl(`/pages/modules/${this.currentSubModuleSlug}`);
-      //   this.loadInit();
-      // }
-      localStorage.setItem('countryId', data);
-      this.questionListData = [];
-      this.isSkeletonVisible = true
-      //this.loadInit();
-    });
+    // this.dataService.countryId.subscribe((data) => {
+    //    if(this.countryId != data){
+    //      this.router.navigateByUrl(`/pages/modules/${this.currentSubModuleSlug}`);
+    //      this.loadInit();
+    //    }
+    //   localStorage.setItem('countryId', data);
+    //   this.questionListData = [];
+    //   this.isSkeletonVisible = true
+    //   this.loadInit();
+    // });
     // this.tooltip = "Questions related to the application process are answered";
-    // this.questionUrl=environment.ApiUrl+this.router.url;
+     this.questionUrl=environment.ApiUrl+this.router.url;
   }
   loadInit() {
     this.questionListData = [];
@@ -233,10 +232,8 @@ export class QuestionListComponent implements OnInit {
     
   }
   loadQuestionList(data: any){
-
     this.mService.studentFullQuestionData(data).subscribe((res: any) => {
       this.allDataSet = res;
-console.log(this.allDataSet);
       // this.questionListData = data?.questions;
       // this.isSkeletonVisible = false
       // this.totalQuestionCount = data?.questioncount;
@@ -540,7 +537,6 @@ console.log(this.allDataSet);
 
   viewOneQuestion(question:any){
     let questionData = this.allDataSet[question.id];
-    console.log(questionData);
     if(questionData==undefined){
       questionData=[];
     }
@@ -591,27 +587,27 @@ console.log(this.allDataSet);
     }
   }
   shareViaWhatsapp(){
-    const shareUrl = `whatsapp://send?text=${encodeURIComponent(this.questionUrl)}`;
+    const shareUrl = `whatsapp://send?text=${encodeURIComponent(window.location.href + '&&' + this.selectedQuestionData?.id)}`;
     window.open(shareUrl, '_blank');
   }
   shareViaInstagram(){
-    const shareUrl = `https://www.instagram.com?url=${encodeURIComponent(this.questionUrl)}`;
+    const shareUrl = `https://www.instagram.com?url=${encodeURIComponent(window.location.href + '&&' + this.selectedQuestionData?.id)}`;
     window.open(shareUrl, '_blank');
   }
   shareViaFacebook(){
-    const shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(this.questionUrl)}`;
+    const shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(window.location.href + '&&' + this.selectedQuestionData?.id)}`;
     window.open(shareUrl, '_blank');
   }
   shareViaLinkedIn(){
-    const shareUrl = `https://www.linkedin.com/shareArticle?url=${encodeURIComponent(this.questionUrl)}`;
+    const shareUrl = `https://www.linkedin.com/shareArticle?url=${encodeURIComponent(window.location.href + '&&' + this.selectedQuestionData?.id)}`;
     window.open(shareUrl, '_blank');
   }
   shareViaTwitter(){
-    const shareUrl = `https://twitter.com/intent/tweet?url=${encodeURIComponent(this.questionUrl)}`;
+    const shareUrl = `https://twitter.com/intent/tweet?url=${encodeURIComponent(window.location.href + '&&' + this.selectedQuestionData?.id)}`;
     window.open(shareUrl, '_blank');
   }
   shareViaMail(){
-    const shareUrl = `mailto:?body=${encodeURIComponent(this.questionUrl)}`;
+    const shareUrl = `mailto:?body=${encodeURIComponent(window.location.href + '&&' + this.selectedQuestionData?.id)}`;
     window.open(shareUrl, '_blank');  
   }
   copyLink(){
