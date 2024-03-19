@@ -61,6 +61,7 @@ import { RecommendationsComponent } from './recommendations/recommendations.comp
 import { StepsModule } from 'primeng/steps';
 import { CheckboxModule } from "primeng/checkbox";
 import { RadioButtonModule } from 'primeng/radiobutton';
+import { PitchDeskComponent } from './pitch-desk/pitch-desk.component';
 
 @NgModule({
     declarations: [
@@ -88,6 +89,7 @@ import { RadioButtonModule } from 'primeng/radiobutton';
         ScholarshipListGuidlinesComponent,
         InvestorListGuidlinesComponent,
         RecommendationsComponent,
+        PitchDeskComponent,
     ],
   exports: [FooterStatusBoxComponent, HeaderSearchComponent],
   imports: [

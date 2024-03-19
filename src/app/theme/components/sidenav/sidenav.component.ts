@@ -139,6 +139,11 @@ export class SidenavComponent {
       image: "fa-solid fa-calendar-days",
     },
     {
+      title: "Pitch Desks",
+      url: "/pages/pitch-desk",
+      image: "fa-solid fa-display",
+    },
+    {
       title: "Support",
       url: "",
       image: "",
