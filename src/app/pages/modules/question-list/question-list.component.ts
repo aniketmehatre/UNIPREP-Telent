@@ -127,8 +127,11 @@ export class QuestionListComponent implements OnInit {
     this.dataService.countryId.subscribe((data) => {
       if(this.countryId != data){
         console.log(window.location.href)
-        this.router.navigateByUrl(`/pages/modules/${this.currentSubModuleSlug}`);
-        this.loadInit();
+        if(window.location.href.includes('modules')){
+          this.router.navigateByUrl(`/pages/modules/${this.currentSubModuleSlug}`);
+          this.loadInit();
+        }
+
       }
       localStorage.setItem('countryId', data);
       this.questionListData = [];
