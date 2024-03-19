@@ -109,6 +109,26 @@
 				<div class="col-md-12">
 					<div class="row">
 						<div class="col-md-6">
+							<label class="form-label" style="font-size: medium; font-weight: 500">Filter by Company Name</label>
+							<div class="form-group">
+								<div class="mb-3">
+									<input class="w-100 px-5 py-2" style="height: 45px;" type="text" formControlName="company_name" placeholder="Search in Company Name" pInputText />
+								</div>
+							</div>
+						</div>
+						<div class="col-md-6">
+							<label class="form-label" style="font-size: medium; font-weight: 500">Filter by Industry</label>
+							<div class="form-group">
+								<div class="mb-3">
+									<p-multiSelect [options]="industryInterested" styleClass="w-100" formControlName="industry_interested" defaultLabel="Select Industry" optionValue="id" optionLabel="industry_name" #IndustriesMultiSelect [appendTo]="'body'">
+										<ng-template pTemplate="selectedItems">
+											{{ IndustriesMultiSelect.defaultLabel }}
+										</ng-template>
+									</p-multiSelect>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-6">
 							<label class="form-label" style="font-size: medium; font-weight: 500">Filter by Country</label>
 							<div class="form-group">
 								<div class="mb-3">
@@ -128,26 +148,6 @@
 											{{ HeadMultiSelect.defaultLabel }}
 										</ng-template>
 									</p-multiSelect>
-								</div>
-							</div>
-						</div>
-						<div class="col-md-6">
-							<label class="form-label" style="font-size: medium; font-weight: 500">Filter by Industry</label>
-							<div class="form-group">
-								<div class="mb-3">
-									<p-multiSelect [options]="industryInterested" styleClass="w-100" formControlName="industry_interested" defaultLabel="Select Industry" optionValue="id" optionLabel="industry_name" #IndustriesMultiSelect [appendTo]="'body'">
-										<ng-template pTemplate="selectedItems">
-											{{ IndustriesMultiSelect.defaultLabel }}
-										</ng-template>
-									</p-multiSelect>
-								</div>
-							</div>
-						</div>
-						<div class="col-md-6">
-							<label class="form-label" style="font-size: medium; font-weight: 500">Filter by Company Name</label>
-							<div class="form-group">
-								<div class="mb-3">
-									<input class="w-100 px-5 py-2" type="text" formControlName="company_name" placeholder="Search in Company Name" pInputText />
 								</div>
 							</div>
 						</div>
