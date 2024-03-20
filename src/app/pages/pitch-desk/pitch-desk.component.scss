@@ -1,0 +1,9 @@
+.deskcard
+{
+  border:1px solid var(--uniprep-secondary);
+  &:hover
+  {
+    border:1px solid var(--uniprep-primaryhighlight);
+    background:var(--uniprep-primaryop10);
+  }
+}

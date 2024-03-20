@@ -64,7 +64,7 @@ export class RecommendationsComponent implements OnInit {
   }
 
   previous(productId: number): void {
-    //this.invalidClass = false;
+    this.invalidClass = false;
     //if (productId in this.selectedData) {
       if (this.activePageIndex > 0) {
         this.activePageIndex--; // Decrement the active page index if it's not the first page
