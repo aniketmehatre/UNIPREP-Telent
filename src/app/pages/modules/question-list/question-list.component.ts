@@ -133,7 +133,7 @@ export class QuestionListComponent implements OnInit {
     //   this.isSkeletonVisible = true
     //   this.loadInit();
     // });
-    // this.tooltip = "Questions related to the application process are answered";
+     this.tooltip = "Questions related to the application process are answered";
      this.questionUrl=environment.ApiUrl+this.router.url;
   }
   loadInit() {

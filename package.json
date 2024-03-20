@@ -53,6 +53,7 @@
     "screenfull": "^6.0.2",
     "subsink": "^1.0.2",
     "tslib": "^2.4.1",
+    "web-push": "^3.6.7",
     "word-diff": "^1.0.1",
     "zone.js": "~0.11.4"
   },
