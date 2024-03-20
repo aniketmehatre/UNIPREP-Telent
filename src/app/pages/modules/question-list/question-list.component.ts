@@ -20,7 +20,7 @@ import { ModuleStoreService } from "../../module-store/module-store.service";
 import { DataService } from "../../../data.service";
 import { ActivatedRoute, Router } from "@angular/router";
 import { Location } from "@angular/common";
-import { DomSanitizer, SafeResourceUrl } from "@angular/platform-browser";
+import { DomSanitizer, SafeResourceUrl,Meta } from "@angular/platform-browser";
 import { Carousel } from "primeng/carousel";
 import { AuthService } from "src/app/Auth/auth.service";
 import {NgxUiLoaderService} from "ngx-ui-loader";
@@ -97,7 +97,8 @@ export class QuestionListComponent implements OnInit {
     private router: Router, private ngxService: NgxUiLoaderService,
     private authService: AuthService,
     private sanitizer: DomSanitizer,
-    private renderer: Renderer2
+    private renderer: Renderer2,
+    private meta: Meta
   ) {
     Carousel.prototype.changePageOnTouch = (e, diff) => { }
     Carousel.prototype.onTouchMove = () => { };
@@ -114,6 +115,13 @@ export class QuestionListComponent implements OnInit {
   loopRange = Array.from({ length: 30 }).fill(0).map((_, index) => index);
   ngOnInit(): void {
     //this.moduleListService.emptyQuestionList$();
+
+    this.meta.updateTag({ property:'og:title', content:'Study Abroad | Global opportunities | Life Abroad | Uniprep' });
+    this.meta.updateTag({ property:'og:description', content:'UNIPREP is a one-stop platform for students, graduates & entrepreneurs, seeking information on Career, Life and Study abroad' });
+    this.meta.updateTag({ property:'og:image', content:'https://api.uniprep.ai/uniprepapi/storage/app/public/country-flags/united-kingdom.svg' });
+    this.meta.updateTag({ property:'og:url', content:'https://dev-student.uniprep.ai/login'});
+
+
     this.countryId = Number(localStorage.getItem('countryId'));
     this.route.params.subscribe((params) => {
       let socialShare:any=document.getElementById("socialSharingList");
@@ -141,7 +149,7 @@ export class QuestionListComponent implements OnInit {
     this.countryId = Number(localStorage.getItem("countryId"));
     let countryName: any;
     this.subModuleId = this.route.snapshot.paramMap.get("id");
- 
+
    if(this.subModuleId.includes("&&")) {
      let url = this.subModuleId.split("&&");
      localStorage.setItem('questionId', url[1]);
@@ -229,7 +237,7 @@ export class QuestionListComponent implements OnInit {
     this.loadQuestionList(data);
     //this.ngxService.start();
     //this.moduleListService.loadQuestionList(data);
-    
+
   }
   loadQuestionList(data: any){
     this.mService.studentFullQuestionData(data).subscribe((res: any) => {
@@ -238,6 +246,7 @@ export class QuestionListComponent implements OnInit {
       // this.isSkeletonVisible = false
       // this.totalQuestionCount = data?.questioncount;
       //this.ngxService.stop();
+      this.meta.updateTag({ property:'og:image', content:res.country_flag});
       this.mService.studentsSubmoduleQuestions(data).subscribe((data: any) => {
         this.questionListData = data?.questions;
         this.isSkeletonVisible = false
@@ -587,28 +596,40 @@ export class QuestionListComponent implements OnInit {
     }
   }
   shareViaWhatsapp(){
-    const shareUrl = `whatsapp://send?text=${encodeURIComponent(window.location.href + '&&' + this.selectedQuestionData?.id)}`;
+    let url=window.location.href + '&&' + this.selectedQuestionData?.id
+    this.meta.updateTag({ property:'og:url', content:url});
+    const shareUrl = `whatsapp://send?text=${encodeURIComponent(url)}`;
     window.open(shareUrl, '_blank');
   }
   shareViaInstagram(){
-    const shareUrl = `https://www.instagram.com?url=${encodeURIComponent(window.location.href + '&&' + this.selectedQuestionData?.id)}`;
+    let url=window.location.href + '&&' + this.selectedQuestionData?.id
+    this.meta.updateTag({ property:'og:url', content:url});
+    const shareUrl = `https://www.instagram.com?url=${encodeURIComponent(url)}`;
     window.open(shareUrl, '_blank');
   }
   shareViaFacebook(){
-    const shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(window.location.href + '&&' + this.selectedQuestionData?.id)}`;
+    let url=window.location.href + '&&' + this.selectedQuestionData?.id
+    this.meta.updateTag({ property:'og:url', content:url});
+    const shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`;
     window.open(shareUrl, '_blank');
   }
   shareViaLinkedIn(){
-    const shareUrl = `https://www.linkedin.com/shareArticle?url=${encodeURIComponent(window.location.href + '&&' + this.selectedQuestionData?.id)}`;
+    let url=window.location.href + '&&' + this.selectedQuestionData?.id
+    this.meta.updateTag({ property:'og:url', content:url});
+    const shareUrl = `https://www.linkedin.com/shareArticle?url=${encodeURIComponent(url)}`;
     window.open(shareUrl, '_blank');
   }
   shareViaTwitter(){
-    const shareUrl = `https://twitter.com/intent/tweet?url=${encodeURIComponent(window.location.href + '&&' + this.selectedQuestionData?.id)}`;
+    let url=window.location.href + '&&' + this.selectedQuestionData?.id
+    this.meta.updateTag({ property:'og:url', content:url});
+    const shareUrl = `https://twitter.com/intent/tweet?url=${encodeURIComponent(url)}`;
     window.open(shareUrl, '_blank');
   }
   shareViaMail(){
-    const shareUrl = `mailto:?body=${encodeURIComponent(window.location.href + '&&' + this.selectedQuestionData?.id)}`;
-    window.open(shareUrl, '_blank');  
+    let url=window.location.href + '&&' + this.selectedQuestionData?.id
+    this.meta.updateTag({ property:'og:url', content:url});
+    const shareUrl = `mailto:?body=${encodeURIComponent(url)}`;
+    window.open(shareUrl, '_blank');
   }
   copyLink(){
     const textarea = document.createElement('textarea');
@@ -633,21 +654,21 @@ export class QuestionListComponent implements OnInit {
        // If it's not a YouTube video link, use the URL directly
        this.selectedVideoLink = sanitizedLink;
      }
- 
+
      this.showVideoPopup = true;
    }
- 
+
    private isYoutubeVideoLink(link: string): boolean {
      // Check if the link is a YouTube video link based on a simple pattern
      return link.includes('youtube.com') || link.includes('youtu.be');
    }
- 
+
    private extractYoutubeVideoId(url: string): string {
      const videoIdRegex = /(?:youtube\.com\/(?:[^\/\n\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|\S*?[?&]v=)|youtu\.be\/)([^"'&?\n\s]+)/;
      const match = url.match(videoIdRegex);
      return match ? match[1] : '';
    }
- 
+
    @HostListener('document:keydown', ['$event'])
    onKeyDown(event: KeyboardEvent): void {
      // Check if the pressed key is the Escape key (code 27)
@@ -677,7 +698,7 @@ export class QuestionListComponent implements OnInit {
  @Pipe({ name: 'safe' })
  export class SafePipe implements PipeTransform {
    constructor(private sanitizer: DomSanitizer) { }
- 
+
    transform(url: string): SafeResourceUrl {
      return this.sanitizer.bypassSecurityTrustResourceUrl(url);
    }

@@ -6,12 +6,17 @@ import {ModuleStoreState} from "./module-store.reducer";
 import {readQuestion$, selectQuestionList$, selectQuizList$, selectSubModule$} from './module-store.selectors';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { Meta } from '@angular/platform-browser';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ModuleServiceService {
-  constructor(private store: Store<ModuleStoreState>,private http:HttpClient) {
+  constructor(
+    private store: Store<ModuleStoreState>,
+    private http:HttpClient,
+    // private meta:Meta
+    ) {
   }
 
   loadSubModules(data: any) {

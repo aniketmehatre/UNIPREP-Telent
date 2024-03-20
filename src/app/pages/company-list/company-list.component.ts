@@ -4,6 +4,8 @@ import {Location} from "@angular/common";
 import {CompanyListService} from "./company-list.service";
 import { AuthService } from 'src/app/Auth/auth.service';
 import { Route, Router } from '@angular/router';
+import { UserManagementService } from '../user-management/user-management.service';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'uni-company-list',
@@ -23,9 +25,18 @@ export class CompanyListComponent implements OnInit {
   filterForm:FormGroup;
   planExpired!: boolean;
   restrict:boolean=false;
-  currentPlan:string=""
+  currentPlan:string="";
+  PersonalInfo!:any;
 
-  constructor(private _location: Location, private fb: FormBuilder, private companyListService: CompanyListService, private authService: AuthService, private router:Router) {
+  constructor(
+    private _location: Location, 
+    private fb: FormBuilder, 
+    private companyListService: CompanyListService, 
+    private authService: AuthService, 
+    private router:Router, 
+    private userManagementService:UserManagementService,
+    private toast: MessageService,
+    ) {
     this.filterForm = this.fb.group({
       company_name: [''],
       country: [''],
@@ -40,6 +51,7 @@ export class CompanyListComponent implements OnInit {
     
     this.loadMultiSelectData();
     this.checkplanExpire();
+    this.GetPersonalProfileData();
   }
 
   goBack(){
@@ -53,7 +65,7 @@ export class CompanyListComponent implements OnInit {
       return;
     }
     if (this.valueNearYouFilter == "") {
-      this.loadInvestorData();
+      this.loadCompanyData();
       return;
     }
     var companySearchData: any = [];
@@ -89,7 +101,7 @@ export class CompanyListComponent implements OnInit {
 
   clearFilter(){
     this.filterForm.reset();
-    this.loadInvestorData();
+    this.loadCompanyData();
   }
   clearRestriction() {
     this.restrict = false;
@@ -98,7 +110,7 @@ export class CompanyListComponent implements OnInit {
         searchInput.disabled = false;
       }
   }
-  loadInvestorData(){
+  loadCompanyData(){
     let data = {
       company_name: this.filterForm.value.company_name ? this.filterForm.value.company_name : '',
       country: this.filterForm.value.country ? this.filterForm.value.country : '',
@@ -110,10 +122,9 @@ export class CompanyListComponent implements OnInit {
       perpage: this.pageSize,
       planname:this.currentPlan?this.currentPlan:""
     }
-    this.companyListService.getInvestorList(data).subscribe((response) => {
+    this.companyListService.getCompanyList(data).subscribe((response) => {
       this.companyData = response.data;
       this.totalCompanyCount = response.count;
-      //this.totalCompanyCount = response.count;
     });
     this.isFilterVisible = 'none'
   }
@@ -125,7 +136,7 @@ export class CompanyListComponent implements OnInit {
     }
     this.page = event.page + 1;
     this.pageSize = event.rows;
-    this.loadInvestorData();
+    this.loadCompanyData();
   }
 
   closePopup(){
@@ -157,7 +168,7 @@ export class CompanyListComponent implements OnInit {
       } else {
         this.planExpired = false;
       }
-      this.loadInvestorData();
+      this.loadCompanyData();
     })
   }
 
@@ -173,5 +184,21 @@ export class CompanyListComponent implements OnInit {
     this.companyListService.getHeadQuartersList(event.value).subscribe((response) => {
       this.headQuartersList = response;
     });
+  }
+  GetPersonalProfileData() {
+    this.userManagementService.GetUserPersonalInfo().subscribe(data => {
+        this.PersonalInfo = data;
+    });
+}
+  bookmarkQuestion(investorId:any,isFav:any){
+    isFav=isFav!='1'?true:false;
+     this.companyListService.bookmarkCompanyData(investorId,this.PersonalInfo.user_id,isFav).subscribe((response) => {
+      this.toast.add({
+        severity: "success",
+        summary: "Success",
+        detail: response.message,
+      });
+      this.loadCompanyData();
+     });
   }
 }

@@ -35,5 +35,15 @@ export class InvestorListService {
       headers: headers,
     });
   }
-
+  bookmarkInvestorData(investor_id:any,user_id:any,fav:any){
+    let params={
+      investor_list_id:investor_id,
+      user_id :user_id,
+      updateFavourite:fav
+        }
+    const headers = new HttpHeaders().set("Accept", "application/json");
+    return this.http.post<any>(environment.ApiUrl + "/addinvestorlistfavourite", params, {
+      headers: headers,
+    });
+  }
 }
