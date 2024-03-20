@@ -1,9 +1,12 @@
-.deskcard
-{
+.deskcard{
   border:1px solid var(--uniprep-secondary);
   &:hover
   {
     border:1px solid var(--uniprep-primaryhighlight);
     background:var(--uniprep-primaryop10);
   }
+}
+
+.fontsizesmall{
+  font-size: 0.75rem;
 }
