@@ -44,9 +44,7 @@ export class PitchDeskComponent implements OnInit {
       page: this.page,
       perpage: this.pageSize,
     }
-    console.log(data);
     this.pitchDesk.getPitchDeskData(data).subscribe((responce)=>{
-      console.log(responce);
       this.totalPitchDeckCount = responce.total_count;
       this.pitchDeskList = responce.data;
     });
@@ -93,5 +91,9 @@ export class PitchDeskComponent implements OnInit {
 
   closeGuidelines(){
     this.showDiv = !this.showDiv;
+  }
+
+  showPdf(url: any){
+    window.open(url, "_blank");
   }
 }
