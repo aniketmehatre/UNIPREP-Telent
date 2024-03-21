@@ -131,16 +131,57 @@ export class QuestionListComponent implements OnInit {
       this.loadInit();
       //this.getSubmoduleName(this.countryId);
     });
-    // this.dataService.countryId.subscribe((data) => {
-    //    if(this.countryId != data){
-    //      this.router.navigateByUrl(`/pages/modules/${this.currentSubModuleSlug}`);
-    //      this.loadInit();
-    //    }
-    //   localStorage.setItem('countryId', data);
-    //   this.questionListData = [];
-    //   this.isSkeletonVisible = true
-    //   this.loadInit();
-    // });
+    this.dataService.countryId.subscribe((data) => {
+       if(this.countryId != data){
+        let countryName:any
+         this.currentSubModuleSlug = this.route.snapshot.paramMap.get("module_name");
+         this.dataService.countryName.subscribe((data) => {
+           countryName = data;
+         });
+         this.checkplanExpire();
+         switch (this.currentSubModuleSlug) {
+           case "pre-admission":
+             this.currentModuleId = 1;
+             this.currentModuleName = "Pre-Admission";
+             this.currentApiSlug = "getpreapplicationsubmoduleqcount";
+             break;
+           case "travel-and-tourism":
+             this.currentModuleId = 7;
+             this.currentModuleName = "Travel-and-Tourism";
+             this.currentApiSlug = "getpostapplicationsubmoduleqcount";
+             break;
+           case "post-admission":
+             this.currentModuleId = 3;
+             this.currentModuleName = "Post-Admission";
+             this.currentApiSlug = "getpostadmissionsubmoduleqcount";
+             break;
+           case "career-hub":
+             this.currentModuleId = 4;
+             this.currentModuleName = "Career Hub";
+             this.currentApiSlug = "getcareerhubsubmoduleqcount";
+             break;
+           case "university":
+             this.currentModuleId = 5;
+             this.currentModuleName = "University";
+             this.currentApiSlug = "getuniversitysubmoduleqcount";
+             this.tooltip = "";
+             break;
+           default:
+             this.currentModuleId = 6;
+             this.currentModuleName = "Life At " + countryName;
+             this.currentApiSlug = "getlifeincountrysubmoduleqcount";
+             this.tooltip = "";
+             break;
+         }
+         console.log(this.currentSubModuleSlug);
+         this.router.navigateByUrl(`/pages/modules/${this.currentSubModuleSlug}`);
+         this.loadInit();
+       }
+      localStorage.setItem('countryId', data);
+      this.questionListData = [];
+      this.isSkeletonVisible = true
+      this.loadInit();
+    });
      this.tooltip = "Questions related to the application process are answered";
      this.questionUrl=environment.ApiUrl+this.router.url;
   }
