@@ -291,6 +291,14 @@ export class RegistrationComponent implements OnInit {
     //   });
     //   return;
     // }
+    if(this.registrationForm.value.password!=this.registrationForm.value.confirmPassword){
+      this.toastr.add({
+             severity: "error",
+             summary: "Alert!!!",
+             detail: "Password and confirm password not matched",
+           });
+           return;
+    }
     var data = {
       name: this.registrationForm.value.fullName,
       // location_id: this.registrationForm.value.location,
@@ -325,11 +333,13 @@ export class RegistrationComponent implements OnInit {
         this.router.navigate(["/pages/dashboard"]);
       },
       (error) => {
-        const message = error.error.message;
+        
+        const message = error.error?.message!=undefined?error.error?.message:error?.message;
+         
         this.toastr.add({
           severity: "error",
           summary: "Failed",
-          detail: error.error.message,
+          detail: message,
         });
       }
     );
