@@ -10,3 +10,74 @@
 .fontsizesmall{
   font-size: 0.75rem;
 }
+
+:host ::ng-deep .p-dialog-header {
+  padding: 0px 5px !important;
+}
+
+:host ::ng-deep .p-dialog-title {
+  padding: 15px !important;
+}
+
+.p-paginator{
+  justify-content: left !important;
+}
+
+
+::ng-deep .p-datatable a
+{
+  text-decoration: none;
+  color:var(--uniprep-primaryhighlight);
+}
+
+::ng-deep .p-datatable th
+{
+  background-color: var(--uniprep-primaryhighlight) !important;
+  border-right: 1px solid var(--uniprep-primaryop30);
+}
+
+::ng-deep .p-datatable .p-datatable-tbody > tr > td
+{
+  border:1px solid var(--uniprep-primaryop10);
+}
+
+:host ::ng-deep .p-paginator .p-dropdown-panel {
+  left: auto !important;
+  right: 0; /* Adjust the right position as needed */
+  top: auto !important;
+  bottom: 100%; /* Position the dropdown above the paginator */
+  max-height: none !important; /* Prevent max-height from causing a scroll */
+  overflow: visible !important; /* Ensure the dropdown is not hidden */
+}
+
+.sectorColor{
+  color: #1b8b4f;
+}
+
+.fundTypeColor{
+  color: #9bc329;
+}
+
+.HeadQuartersColor{
+  color: #e90707;
+}
+
+.foundYearColor{
+  color: #2a4ad2;
+}
+
+.pitchDeskNameColor{
+  color:#3b579d;
+}
+
+.pitchdeck-guidlines {
+  background-color: #EBEDF2;
+  color: #001631 !important;
+  border-radius: 20px !important;
+  border: none;
+}
+
+.guidelinecard
+{
+    border: 1px solid var(--uniprep-primary);
+}

@@ -1,10 +1,10 @@
 <div class="card readingcard">
-	<div class="card-body pt-0">
+	<div class="card-body pt-0" [style.display]="showDiv ? 'block' : 'none'">
 		<div class="row justify-content-center">
 			<div class="col-md-3 text-start">
 				<div class="p-input-icon-left w-100 mt-3">
 					<i class="pi pi-search"></i>
-					<input class="w-100 px-5 py-2" type="text" placeholder="Search in Pitch Deck List" pInputText />
+					<input class="w-100 px-5 py-2" type="text" placeholder="Search in Pitch Deck List" pInputText [(ngModel)]="valueNearYouFilter" (input)="performSearch()"/>
 				</div>
 			</div>
 			<div class="col-md-6 text-center">
@@ -12,7 +12,7 @@
 			</div>
 			<div class="col-md-3 text-end">
 				<span class="d-flex justify-content-end mt-3 gap-2">
-					<button class="btn btn-primary text-small investor-guidlines" type="button">Pitch Deck Guidelines</button>
+					<button class="btn btn-primary text-small pitchdeck-guidlines" (click)="closeGuidelines()" type="button">Pitch Deck Guidelines</button>
 					<button class="btn btn-primary text-small ps-3 pe-3 pt-2 pb-2 br-8" (click)="filterBy()" type="button">Filter by</button>
 				</span>
 				<div class="d-flex w-100 align-items-center justify-content-end">
@@ -32,28 +32,28 @@
 									<img class="img-responsive" src="https://api.uniprep.ai/uniprepapi/storage/app/public/InformationKit/Facebook_icon.png" />
 								</div>
 								<div class="d-flex flex-column overflow-hidden">
-									<h6 class="mb-0 text-truncate" style="color:#3b579d">{{ pitchDeskListData.pitchdeck_name }}</h6>
+									<h6 class="mb-0 text-truncate pitchDeskNameColor" >{{ pitchDeskListData.pitchdeck_name }}</h6>
 									<h6 class="fw-semibold mb-0 text-truncate p-1">{{ pitchDeskListData.funding_amount }}</h6>
 								</div>
 							</div>
 							<div class="d-flex justify-content-between p-1">
 								<div class="col text-nowrap">
-									<i class="fa-solid fa-calendar fontsizesmall" style="color: #2a4ad2;"></i> 
+									<i class="fa-solid fa-calendar fontsizesmall foundYearColor"></i> 
 									<span class="fontsizesmall"> {{ pitchDeskListData.founding_year }}</span>
 								</div>
 								
 								<div class="col text-nowrap">
-									<i class="fa-solid fa-location-dot fontsizesmall" style="color: #e90707"></i> 
+									<i class="fa-solid fa-location-dot fontsizesmall HeadQuartersColor" ></i> 
 									<span class="fontsizesmall"> {{ pitchDeskListData.country_name }}, {{ pitchDeskListData.head_quarters_name }}</span>
 								</div>
 							</div>
 							<div class="d-flex justify-content-between p-1">
 								<div class="col text-nowrap">
-									<i class="fa-solid fa-seedling fontsizesmall" style="color: #9bc329"></i> 
+									<i class="fa-solid fa-seedling fontsizesmall fundTypeColor"></i> 
 									<span class="fontsizesmall"> {{ pitchDeskListData.funding_type_name }}</span>
 								</div>
 								<div class="col text-nowrap">
-									<i class="fa-solid fa-building fontsizesmall" style="color: #1b8b4f;"></i>
+									<i class="fa-solid fa-building fontsizesmall sectorColor"></i>
 									<span class="fontsizesmall"> {{ pitchDeskListData.sector_name }}</span>
 								</div>
 							</div>
@@ -125,10 +125,61 @@
 					</div>
 					<div>
 						<button type="submit" class="btn btn-dark w-100" style="background-color: var(--uniprep-primary); border: none">Apply Filter</button>
-						<button class="btn btn-dark w-100"  style="background-color: white; border-radius: 8px; color: var(--uniprep-primary); border: none" type="button">Reset Filter</button>
+						<button class="btn btn-dark w-100" (click)="clearFilter()"  style="background-color: white; border-radius: 8px; color: var(--uniprep-primary); border: none" type="button">Reset Filter</button>
 					</div>
 				</form>
 			</div>
 		</p-dialog>
 	</div>
+	<div class="card overflow-y-auto h-100" [style.display]="!showDiv ? 'block' : 'none'">
+		<div class="card-body pt-0">
+			<div class="row justify-content-center">
+				<div class="col-md-2 text-start"></div>
+				<div class="col-md-8 text-center">
+					<h5 class="select-title mb-1 text-capitalize" tooltipPosition="top" pTooltip="Pitch Deck Guidlines">PITCH DECK GUIDELINES<i class="questiontooltip fa-solid fa-circle-question"></i></h5>
+				</div>
+				<div class="col-md-2 text-end">
+					<button class="btn-rounded btn btn-primary" aria-label="Dismiss alert" type="button" data-close (click)="closeGuidelines()">
+						<span aria-hidden="true">X</span>
+					</button>
+				</div>
+			</div>
+			<div class="card guidelinecard mb-3 mt-2">
+				<div class="card-body">
+					<h5>Do's</h5>
+					<ol class="lh-lg ps-3">
+						<li>Research Before Contacting: Thoroughly research potential investors to ensure they align with your business
+							goals and values. </li>
+							<li>Personalize Communications: Tailor your messages to each investor, demonstrating your understanding
+							of their investment interests and preferences.</li>
+							<li>Provide Relevant Information: Offer clear and concise information
+							about your venture, highlighting key points that may resonate with the investor. </li>
+							<li>Be Professional: Maintain a
+							professional tone and demeanor in all communications, showcasing your commitment and credibility as an entrepreneur. </li>
+							<li>Follow-up appropriately: Follow up with investors in a timely manner, respecting their time and preferences for
+							communication.</li>
+					</ol>
+				</div>
+			</div>
+			<div class="card guidelinecard">
+				<div class="card-body">
+					<h5>Dont's</h5>
+					<ol class="lh-lg ps-3">
+						<li>Spamming: Avoid sending mass or unsolicited messages to investors, as this can be perceived as unprofessional
+							and may harm your reputation.</li>
+							<li>Overwhelming with Information: Refrain from overwhelming investors with excessive or
+							irrelevant information about your venture.</li>
+							<li>Being Pushy: Avoid being overly aggressive or pushy in your communications
+							with investors, as this can be off-putting and may damage your relationship with them. </li>
+							<li>Ignoring Feedback: Don't
+							dismiss or ignore feedback from investors, as it can provide valuable insights and opportunities for improvement.</li>
+							<li>
+							Misrepresentation: Avoid misrepresenting your venture or its potential to investors, as this can erode trust and
+							credibility in the long run.</li>
+					</ol>
+				</div>
+			</div>
+		</div>
+	</div>
+	
 </div>
