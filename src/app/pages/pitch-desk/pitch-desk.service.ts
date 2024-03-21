@@ -9,9 +9,9 @@ export class PitchDeskService {
 
   constructor(private http: HttpClient) { }
 
-  getPitchDeskData(){
+  getPitchDeskData(data:any){
     const headers = new HttpHeaders().set("Accept", "application/json");
-    return this.http.post<any>(environment.ApiUrl + "/PitchDeckList", {
+    return this.http.post<any>(environment.ApiUrl + "/PitchDeckList",data, {
       headers: headers,
     });
   }

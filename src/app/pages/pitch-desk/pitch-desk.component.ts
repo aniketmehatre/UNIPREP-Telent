@@ -10,7 +10,7 @@ import { FormBuilder, FormGroup } from "@angular/forms";
 })
 export class PitchDeskComponent implements OnInit {
   pitchDeskList: any[] = [];
-  page = 0;
+  page = 1;
   pageSize = 50;
   totalPitchDeckCount = 0;
   isFilterVisible: string = 'none';
@@ -18,6 +18,9 @@ export class PitchDeskComponent implements OnInit {
   countrySelectBox:any = [];
   fundingTypeSelectBox:any = [];
   sectorSelectBox:any = [];
+  valueNearYouFilter:string ="";
+  showDiv: boolean = true;
+
   constructor(private pitchDesk:PitchDeskService, private fb: FormBuilder) { 
     this.filterForm = this.fb.group({
       pitchdeck_name: [''],
@@ -33,10 +36,19 @@ export class PitchDeskComponent implements OnInit {
   }
 
   getPitchDeskList(){
-    this.pitchDesk.getPitchDeskData().subscribe((responce)=>{
+    let data = {
+      pitchdeck_name: this.filterForm.value.pitchdeck_name ? this.filterForm.value.pitchdeck_name : '',
+      country: this.filterForm.value.country ? this.filterForm.value.country : '',
+      funding_type: this.filterForm.value.funding_type ? this.filterForm.value.funding_type : '',
+      sector: this.filterForm.value.sector ? this.filterForm.value.sector : '',
+      page: this.page,
+      perpage: this.pageSize,
+    }
+    this.pitchDesk.getPitchDeskData(data).subscribe((responce)=>{
       this.totalPitchDeckCount = responce.total_count;
       this.pitchDeskList = responce.data;
     });
+    this.isFilterVisible = 'none'
   }
 
   selectBoxValues(){
@@ -56,5 +68,32 @@ export class PitchDeskComponent implements OnInit {
 
   filterBy(){
     this.isFilterVisible = 'block';
+  }
+
+  clearFilter() {
+    this.filterForm.reset();
+    this.getPitchDeskList();
+  }
+
+  performSearch() {
+    if (this.valueNearYouFilter == "") {
+      this.getPitchDeskList();
+      return;
+    }
+    var investorSearchData: any = [];
+    this.pitchDeskList.filter(item => {
+      if (item.pitchdeck_name?.toLowerCase().includes(this.valueNearYouFilter.toLowerCase())) {
+        investorSearchData.push(item);
+      };
+    });
+    this.pitchDeskList = [...investorSearchData];
+  }
+
+  closeGuidelines(){
+    this.showDiv = !this.showDiv;
+  }
+
+  showPdf(url: any){
+    window.open(url, "_blank");
   }
 }
