@@ -23,6 +23,7 @@ export class AuthService {
     public _userLoginCount!: number;
     public _userContineTrial!: boolean;
     userData = new BehaviorSubject<User | null>(null);
+    canDisableSignIn= new BehaviorSubject<boolean>(true)
     public _checkExistsSubscription!: number;
     constructor(
         private http: HttpClient,
@@ -71,6 +72,10 @@ export class AuthService {
                 localStorage.setItem("credit_plans",response.userdetails[0].credit_plans)
                 localStorage.setItem("questions_left",response.userdetails[0].questions_left)
                 localStorage.setItem("guidlineAccepted", response.userdetails[0].guidelineaccept)
+                setTimeout(() => {
+                    this.canDisableSignIn.next(false);
+                }, 5000);
+               
                 // this.getCountry().subscribe(data => {
                 //     data.filter((value: any) => {
                 //         if (2 == value.id) {
