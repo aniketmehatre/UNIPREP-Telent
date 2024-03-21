@@ -125,7 +125,7 @@ const routes: Routes = [
                 loadChildren: () => import('./tutorials/tutorials.module').then(m => m.TutorialsModule)
             },
             {
-                path: 'pitch-desk',
+                path: 'pitch-deck',
                 component: PitchDeskComponent  
             },
             {path: 'usermanagement', canActivate: [AuthGuard], component: UserManagementComponent},
