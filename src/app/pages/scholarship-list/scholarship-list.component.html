@@ -157,7 +157,7 @@
 						<label class="form-label" style="font-size: medium; font-weight: 500">Filter by Study Level</label>
 						<div class="form-group">
 							<div class="mb-3">
-								<p-multiSelect [options]="studyLevelList" styleClass="w-100" formControlName="study_level" optionValue="id" placeholder="Select Study Level" optionLabel="level" #StudylevelSelect class="filterInput"> </p-multiSelect>
+								<p-multiSelect [options]="studyLevelList" styleClass="w-100" formControlName="study_level" optionValue="id" placeholder="Select Study Level" optionLabel="level" #StudylevelSelect class="filterInput" [appendTo]="'body'"> </p-multiSelect>
 							</div>
 						</div>
 					</div>
@@ -165,7 +165,7 @@
 						<label class="form-label" style="font-size: medium; font-weight: 500">Filter by organizations/Institute</label>
 						<div class="form-group">
 							<div class="mb-3">
-								<p-multiSelect [options]="filterUniversityList" styleClass="w-100" formControlName="university" optionValue="id" placeholder="Select Organisation Or University" optionLabel="name" class="filterInput"> </p-multiSelect>
+								<p-multiSelect [options]="filterUniversityList" styleClass="w-100" formControlName="university" optionValue="id" placeholder="Select Organisation Or University" optionLabel="name" class="filterInput" [appendTo]="'body'"> </p-multiSelect>
 							</div>
 						</div>
 					</div>
@@ -173,7 +173,7 @@
 						<label class="form-label" style="font-size: medium; font-weight: 500">Filter by Coverage Value</label>
 						<div class="form-group">
 							<div class="mb-3">
-								<p-dropdown formControlName="cover_id" optionValue="id" optionLabel="cover_name" styleClass="w-100" [options]="coverList" [filter]="true" filterBy="cover_name" placeholder="Select  Coverage Value" class="filterInput"></p-dropdown>
+								<p-dropdown formControlName="cover_id" optionValue="id" optionLabel="cover_name" styleClass="w-100" [options]="coverList" [filter]="true" filterBy="cover_name" placeholder="Select  Coverage Value" class="filterInput" [appendTo]="'body'"></p-dropdown>
 							</div>
 						</div>
 					</div>

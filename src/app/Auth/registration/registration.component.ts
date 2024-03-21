@@ -291,14 +291,6 @@ export class RegistrationComponent implements OnInit {
     //   });
     //   return;
     // }
-    if(this.registrationForm.value.password!=this.registrationForm.value.confirmPassword){
-      this.toastr.add({
-             severity: "error",
-             summary: "Alert!!!",
-             detail: "Password and confirm password not matched",
-           });
-           return;
-    }
     var data = {
       name: this.registrationForm.value.fullName,
       // location_id: this.registrationForm.value.location,
@@ -311,7 +303,7 @@ export class RegistrationComponent implements OnInit {
       // programlevel_id: this.registrationForm.value.programLevel.id,
       // gender: this.registrationForm.value.gender.label,
       password: this.registrationForm.value.password,
-      password_confirmation: this.registrationForm.value.password,
+      password_confirmation: this.registrationForm.value.confirmPassword,
       platform_id: 1,
       usertype_id: 1,
       // country_id: this.registrationForm.value.country,
