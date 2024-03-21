@@ -48,11 +48,11 @@ export class SidenavComponent {
       url: "/pages/subscriptions",
       image: "fa-solid fa-crown",
     },
-    {
-      title: "Recommendations",
-      url: "/pages/recommendations",
-      image: "fa fa-star"
-    },
+    // {
+    //   title: "Recommendations",
+    //   url: "/pages/recommendations",
+    //   image: "fa fa-star"
+    // },
     {
       title: "Education",
       url: "",
@@ -138,11 +138,11 @@ export class SidenavComponent {
       url: "/pages/events",
       image: "fa-solid fa-calendar-days",
     },
-    {
-      title: "Pitch Desks",
-      url: "/pages/pitch-desk",
-      image: "fa-solid fa-display",
-    },
+    // {
+    //   title: "Pitch Desks",
+    //   url: "/pages/pitch-desk",
+    //   image: "fa-solid fa-display",
+    // },
     {
       title: "Support",
       url: "",

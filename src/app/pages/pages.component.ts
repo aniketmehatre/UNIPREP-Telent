@@ -34,12 +34,16 @@ export class PagesComponent implements OnInit, OnDestroy {
     visibleExhastedUser!: boolean;
     constructor(private pageFacade: PageFacadeService, private router: Router, private dataService: DataService,
                 private dashboardService: DashboardService,private service:AuthService, private deviceService: DeviceDetectorService) {
-       Contlo.init('d7a84b3a1d83fa9f7e33f7396d57ac88', 'https://dev-student.uniprep.ai');
+       // dev
+        Contlo.init('d7a84b3a1d83fa9f7e33f7396d57ac88', 'https://dev-student.uniprep.ai');
+
+        //prod
+        //Contlo.init('a98318a62995cdf7c078c3fcaf912e65', 'https://uniprep.ai');
 
 
 
 
-       // Contlo.User.sendUserData({
+        // Contlo.User.sendUserData({
        //      email: 'vivekbasvivek@gmail.com',
        //      name: 'Vivek BM'
        //  });
