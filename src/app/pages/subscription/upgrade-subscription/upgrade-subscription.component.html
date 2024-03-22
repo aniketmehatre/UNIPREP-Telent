@@ -18,19 +18,23 @@
 	<div class="card-body d-flex flex-column justify-content-center">
 		<ng-container>
 			<div class="desktop">
-				<div class="row d-flex card-body" style="background-color: white;">
+				<div class="row d-flex card-body" style="background-color: white">
 					<div class="columns col-lg-4 col-md-4 p-0">
 						<ul class="price text-left">
 							<li class="header">Pricing Table</li>
 							<li class="mt-25 fw-medium"><small>Features list</small></li>
-							<li class="fw-semibold">500,000+ Q&A - 13 Countries</li>
+							<li class="fw-semibold">
+								<span pTooltip="Pre Admission, Post Admission, Universities, Career Hub, Life at Destination, Travel & Tourism">500,000+ Q&A - 13 Countries <i class="text-small uniprep-primary fa-sharp fa-regular fa-circle-question"></i></span>
+							</li>
 							<li class="fw-semibold">Personal Advisory</li>
 							<li class="fw-semibold">Smart Keyword Search</li>
 							<li class="fw-semibold">International Events</li>
 							<li class="fw-semibold">Resources</li>
 							<li class="fw-semibold">5000+ Scholarship Data</li>
+							<li class="fw-semibold">100+ Resources</li>
 							<li class="fw-semibold">2M+ Companies Data</li>
 							<li class="fw-semibold">1000+ Start-up Kit Documents</li>
+							<li class="fw-semibold">1000+ Pitch Deck Samples</li>
 							<li class="fw-semibold">100,000+ Investor's Data</li>
 							<li></li>
 						</ul>
@@ -43,7 +47,7 @@
 								<h3 class="amount grey">0 INR</h3>
 							</li>
 							<li class="mt-18"><i class="pi pi-check grey smallIcon"></i></li>
-							<li><i class="pi pi-check grey smallIcon" ></i></li>
+							<li><i class="pi pi-check grey smallIcon"></i></li>
 							<li><i class="pi pi-check grey smallIcon"></i></li>
 							<li><i class="pi pi-times grey smallIcon"></i></li>
 							<li><i class="pi pi-times grey smallIcon"></i></li>
@@ -51,8 +55,10 @@
 							<li><i class="pi pi-times grey smallIcon"></i></li>
 							<li><i class="pi pi-times grey smallIcon"></i></li>
 							<li><i class="pi pi-times grey smallIcon"></i></li>
+							<li><i class="pi pi-times grey smallIcon"></i></li>
+							<li><i class="pi pi-times grey smallIcon"></i></li>
 							<li class="mt-1">
-								<h5 class="fw-semibold">{{localStorage.getItem('time_card_info')}} Validity</h5>
+								<h5 class="fw-semibold">{{ localStorage.getItem("time_card_info") }} Validity</h5>
 							</li>
 							<li class="mt-1">
 								<div class="getstartedbtn pb-2">
@@ -63,61 +69,39 @@
 					</div>
 
 					<div class="columns col-lg-2 col-md-2 p-0 br-1" *ngFor="let subscription of subscriptionList">
-						<ul class="price text-center" >
-							<li style="background-color: #3F4C83;color: white;" *ngIf="subscription.popular == 1">Most
-								Popular
-								Plan</li>
-                                
-							<li class="header"
-								[ngClass]="{'header': subscription.popular === 1, 'mt-15': !(subscription.popular === 1)}">
-								<h6 class="plan_type" >{{ subscription.subscription_plan }}</h6>
-								<h3 class="amount" [class]="subscription.available == false?'grey':'orange'">{{
-									subscription.givenprice | number :
-									".0" }} INR</h3>
-								<div class="d-flex" style="justify-content: space-evenly;" [class]="subscription.available == false?'grey':''">
-									<p style="font-size: 12px; font-weight: 500;" class="mb-0 mt-2"><s>INR {{
-											subscription.actualprice | number : ".2-2"
-											}}</s></p>
-									<div class="btn discountbutton-o btnCurser" [class]="subscription.available == false?'greyButton':''">Save
-										{{subscription.discountpercentage}}%</div>
+						<ul class="price text-center">
+							<li style="background-color: #3f4c83; color: white" *ngIf="subscription.popular == 1">Most Popular Plan</li>
+
+							<li class="header" [ngClass]="{ header: subscription.popular === 1, 'mt-15': !(subscription.popular === 1) }">
+								<h6 class="plan_type">{{ subscription.subscription_plan }}</h6>
+								<h3 class="amount" [class]="subscription.available == false ? 'grey' : 'orange'">{{ subscription.givenprice | number : ".0" }} INR</h3>
+								<div class="d-flex" style="justify-content: space-evenly" [class]="subscription.available == false ? 'grey' : ''">
+									<p style="font-size: 12px; font-weight: 500" class="mb-0 mt-2">
+										<s>INR {{ subscription.actualprice | number : ".2-2" }}</s>
+									</p>
+									<div class="btn discountbutton-o btnCurser" [class]="subscription.available == false ? 'greyButton' : ''">Save {{ subscription.discountpercentage }}%</div>
 								</div>
 							</li>
-							<li><i class="pi pi-check smallIcon" [ngClass]="{'grey':subscription.available == false}"></i></li>
-							<li><i class="pi pi-check smallIcon" [ngClass]="{'grey':subscription.available == false}"></i></li>
-							<li><i class="pi pi-check smallIcon" [ngClass]="{'grey':subscription.available == false}"></i></li>
-							<li><i class="pi smallIcon"
-									[ngClass]="{'pi-check': subscription.subscription_plan === 'Student' || subscription.subscription_plan === 'Career' || subscription.subscription_plan ==='Entrepreneur', 'pi-times': !(subscription.subscription_plan === 'Student' || subscription.subscription_plan === 'Career' || subscription.subscription_plan ==='Entrepreneur'),'grey':subscription.available == false}"></i>
-							</li>
-							<li><i class="pi smallIcon"
-									[ngClass]="{'pi-check': subscription.subscription_plan === 'Student' || subscription.subscription_plan === 'Career' || subscription.subscription_plan ==='Entrepreneur', 'pi-times': !(subscription.subscription_plan === 'Student' || subscription.subscription_plan === 'Career' || subscription.subscription_plan ==='Entrepreneur'),'grey':subscription.available == false}"></i>
-							</li>
-							<li><i class="pi smallIcon"
-									[ngClass]="{'pi-check': subscription.subscription_plan === 'Student' || subscription.subscription_plan === 'Career' || subscription.subscription_plan ==='Entrepreneur', 'pi-times': !(subscription.subscription_plan === 'Student' || subscription.subscription_plan === 'Career' || subscription.subscription_plan ==='Entrepreneur'),'grey':subscription.available == false}"></i>
-							</li>
-							<li><i class="pi smallIcon"
-									[ngClass]="{'pi-check': subscription.subscription_plan === 'Student' || subscription.subscription_plan === 'Career' || subscription.subscription_plan ==='Entrepreneur', 'pi-times': !(subscription.subscription_plan === 'Career' || subscription.subscription_plan ==='Entrepreneur'),'grey':subscription.available == false}"></i>
-							</li> 
-							<li><i class="pi smallIcon"
-									[ngClass]="{'pi-check': subscription.subscription_plan === 'Student' || subscription.subscription_plan === 'Career' || subscription.subscription_plan ==='Entrepreneur', 'pi-times': !(subscription.subscription_plan ==='Entrepreneur'),'grey':subscription.available == false}"></i>
-							</li>
-							<li><i class="pi smallIcon"
-									[ngClass]="{'pi-check': subscription.subscription_plan === 'Student' || subscription.subscription_plan === 'Career' || subscription.subscription_plan ==='Entrepreneur', 'pi-times': !(subscription.subscription_plan ==='Entrepreneur'),'grey':subscription.available == false}"></i>
-							</li>
+							<li><i class="pi pi-check smallIcon" [ngClass]="{ grey: subscription.available == false }"></i></li>
+							<li><i class="pi pi-check smallIcon" [ngClass]="{ grey: subscription.available == false }"></i></li>
+							<li><i class="pi pi-check smallIcon" [ngClass]="{ grey: subscription.available == false }"></i></li>
+							<li><i class="pi smallIcon" [ngClass]="{ 'pi-check': subscription.subscription_plan === 'Student' || subscription.subscription_plan === 'Career' || subscription.subscription_plan === 'Entrepreneur', 'pi-times': !(subscription.subscription_plan === 'Student' || subscription.subscription_plan === 'Career' || subscription.subscription_plan === 'Entrepreneur'), grey: subscription.available == false }"></i></li>
+							<li><i class="pi smallIcon" [ngClass]="{ 'pi-check': subscription.subscription_plan === 'Student' || subscription.subscription_plan === 'Career' || subscription.subscription_plan === 'Entrepreneur', 'pi-times': !(subscription.subscription_plan === 'Student' || subscription.subscription_plan === 'Career' || subscription.subscription_plan === 'Entrepreneur'), grey: subscription.available == false }"></i></li>
+							<li><i class="pi smallIcon" [ngClass]="{ 'pi-check': subscription.subscription_plan === 'Student' || subscription.subscription_plan === 'Career' || subscription.subscription_plan === 'Entrepreneur', 'pi-times': !(subscription.subscription_plan === 'Student' || subscription.subscription_plan === 'Career' || subscription.subscription_plan === 'Entrepreneur'), grey: subscription.available == false }"></i></li>
+							<li><i class="pi smallIcon" [ngClass]="{ 'pi-check': subscription.subscription_plan === 'Student' || subscription.subscription_plan === 'Career' || subscription.subscription_plan === 'Entrepreneur', 'pi-times': !(subscription.subscription_plan === 'Career' || subscription.subscription_plan === 'Entrepreneur'), grey: subscription.available == false }"></i></li>
+							<li><i class="pi smallIcon" [ngClass]="{ 'pi-check': subscription.subscription_plan === 'Student' || subscription.subscription_plan === 'Career' || subscription.subscription_plan === 'Entrepreneur', 'pi-times': !(subscription.subscription_plan === 'Career' || subscription.subscription_plan === 'Entrepreneur'), grey: subscription.available == false }"></i></li>
+							<li><i class="pi smallIcon" [ngClass]="{ 'pi-check': subscription.subscription_plan === 'Student' || subscription.subscription_plan === 'Career' || subscription.subscription_plan === 'Entrepreneur', 'pi-times': !(subscription.subscription_plan === 'Entrepreneur'), grey: subscription.available == false }"></i></li>
+							<li><i class="pi smallIcon" [ngClass]="{ 'pi-check': subscription.subscription_plan === 'Student' || subscription.subscription_plan === 'Career' || subscription.subscription_plan === 'Entrepreneur', 'pi-times': !(subscription.subscription_plan === 'Entrepreneur'), grey: subscription.available == false }"></i></li>
+							<li><i class="pi smallIcon" [ngClass]="{ 'pi-check': subscription.subscription_plan === 'Student' || subscription.subscription_plan === 'Career' || subscription.subscription_plan === 'Entrepreneur', 'pi-times': !(subscription.subscription_plan === 'Entrepreneur'), grey: subscription.available == false }"></i></li>
 							<li>
 								<h5 class="fw-semibold">{{ subscription.validity }} Months Validity</h5>
 							</li>
 							<li>
 								<div class="getstartedbtn pb-2">
-									<button class="pt-3 pb-3 btn btn-primary w-100 m-0 text-white"
-										*ngIf="subscription.selected"
-										(click)="selectedSubscriptionPlan(subscription)">Selected</button>
-										<button class="pt-3 pb-3 btn btn-basic w-100 m-0 btn btn-primary" *ngIf="existingSubscription[0]?.plan==subscription.subscription_plan && !isPlanExpired">
-											Current Plan
-										</button>
-									<button class="pt-3 pb-3 btn btn-basic w-100 m-0" *ngIf="!subscription.selected && (existingSubscription[0]?.plan!=subscription.subscription_plan || existingSubscription[0]?.plan==subscription.subscription_plan && isPlanExpired)" [ngClass]="{'greyButton':!subscription.available}"
-									[disabled]="!subscription.available"
-										(click)="selectedSubscriptionPlan(subscription)"> 
-										<span *ngIf="existingSubscription[0]?.plan!=subscription.subscription_plan && subscription.available || existingSubscription[0]?.plan==subscription.subscription_plan && isPlanExpired">Upgrade Plan</span>
+									<button class="pt-3 pb-3 btn btn-primary w-100 m-0 text-white" *ngIf="subscription.selected" (click)="selectedSubscriptionPlan(subscription)">Selected</button>
+									<button class="pt-3 pb-3 btn btn-basic w-100 m-0 btn btn-primary" *ngIf="existingSubscription[0]?.plan == subscription.subscription_plan && !isPlanExpired">Current Plan</button>
+									<button class="pt-3 pb-3 btn btn-basic w-100 m-0" *ngIf="!subscription.selected && (existingSubscription[0]?.plan != subscription.subscription_plan || (existingSubscription[0]?.plan == subscription.subscription_plan && isPlanExpired))" [ngClass]="{ greyButton: !subscription.available }" [disabled]="!subscription.available" (click)="selectedSubscriptionPlan(subscription)">
+										<span *ngIf="(existingSubscription[0]?.plan != subscription.subscription_plan && subscription.available) || (existingSubscription[0]?.plan == subscription.subscription_plan && isPlanExpired)">Upgrade Plan</span>
 										<span *ngIf="!subscription.available">Unavailable</span>
 									</button>
 								</div>
@@ -149,7 +133,7 @@
 										</div>
 									</div>
 									<div class="card-footer py-2 px-4 mb-5">
-										<h5 class="fw-semibold">{{timeLeftInfoCard}} Validity</h5>
+										<h5 class="fw-semibold">{{ timeLeftInfoCard }} Validity</h5>
 										<div class="getstartedbtn pb-2">
 											<button class="pt-3 pb-3 btn btn-basic w-100 m-0 greyButton" [disabled]="true">Unavailable</button>
 										</div>
@@ -158,38 +142,25 @@
 							</div>
 						</div>
 					</p-tabPanel>
-					<p-tabPanel header="{{subscription.subscription_plan }}"
-						*ngFor="let subscription of subscriptionList">
+					<p-tabPanel header="{{ subscription.subscription_plan }}" *ngFor="let subscription of subscriptionList">
 						<div class="card-body">
 							<div class="container-fluid">
 								<div class="row gap-5 d-flex">
-									<div class="card card-bg subscriptioncard col px-0"
-										[ngClass]="{ active: subscription.isActive }">
-										<div class="mostpopular subscription_list" *ngIf="subscription.popular == 1">
-											Most
-											Popular Plan</div>
+									<div class="card card-bg subscriptioncard col px-0" [ngClass]="{ active: subscription.isActive }">
+										<div class="mostpopular subscription_list" *ngIf="subscription.popular == 1">Most Popular Plan</div>
 										<div class="card-header py-2 px-4">
 											<div class="d-flex justify-content-between">
 												<div class="mt-4">
 													<h6 class="plan_type">{{ subscription.subscription_plan }}</h6>
-													<h3 class="amount" *ngIf="subscription.popular != 1">{{
-														subscription.givenprice | number :
-														".2" }} INR</h3>
-													<h3 class="amount orange" *ngIf="subscription.popular == 1">{{
-														subscription.givenprice | number :
-														".2" }} INR</h3>
+													<h3 class="amount" *ngIf="subscription.popular != 1">{{ subscription.givenprice | number : ".2" }} INR</h3>
+													<h3 class="amount orange" *ngIf="subscription.popular == 1">{{ subscription.givenprice | number : ".2" }} INR</h3>
 												</div>
 												<div class="mt-4">
-													<p><s>INR {{ subscription.actualprice | number : ".2-2" }}</s></p>
-													<div class="btn discountbutton-o btnCurser"
-														*ngIf="subscription.popular == 1">Save
-														{{subscription.discountpercentage}}%</div>
-													<div class="btn discountbutton btnCurser"
-														*ngIf="subscription.popular != 1">
-														Save {{
-														subscription.discountpercentage
-														}}%</div>
-
+													<p>
+														<s>INR {{ subscription.actualprice | number : ".2-2" }}</s>
+													</p>
+													<div class="btn discountbutton-o btnCurser" *ngIf="subscription.popular == 1">Save {{ subscription.discountpercentage }}%</div>
+													<div class="btn discountbutton btnCurser" *ngIf="subscription.popular != 1">Save {{ subscription.discountpercentage }}%</div>
 												</div>
 											</div>
 										</div>
@@ -199,47 +170,21 @@
 												<p><i class="pi pi-check"></i>500,000+ Q&A - 13 Countries</p>
 												<p><i class="pi pi-check"></i>Personal Advisory</p>
 												<p><i class="pi pi-check"></i>Smart Keyword Search</p>
-												<p
-													*ngIf="subscription.subscription_plan === 'Student'|| subscription.subscription_plan === 'Career' || subscription.subscription_plan ==='Entrepreneur'">
-													<i class="pi pi-check"></i>International Events
-												</p>
-												<p
-													*ngIf="subscription.subscription_plan === 'Student'|| subscription.subscription_plan === 'Career' || subscription.subscription_plan ==='Entrepreneur'">
-													<i class="pi pi-check"></i>Resources
-												</p>
-												<p
-													*ngIf="subscription.subscription_plan === 'Student'|| subscription.subscription_plan === 'Career' || subscription.subscription_plan ==='Entrepreneur'">
-													<i class="pi pi-check"></i>5000+ Scholarship Data
-												</p>
-												<p
-													*ngIf="subscription.subscription_plan === 'Career' || subscription.subscription_plan ==='Entrepreneur'">
-													<i class="pi pi-check"></i>2M+
-													Companies Data
-												</p>
-												<p
-													*ngIf="subscription.subscription_plan ==='Entrepreneur'">
-													<i class="pi pi-check"></i>1000+
-													Start-up Kit Documents
-												</p>
-												<p *ngIf="subscription.subscription_plan ==='Entrepreneur'"><i
-														class="pi pi-check"></i>100,000+
-													Investor's Data</p>
+												<p *ngIf="subscription.subscription_plan === 'Student' || subscription.subscription_plan === 'Career' || subscription.subscription_plan === 'Entrepreneur'"><i class="pi pi-check"></i>International Events</p>
+												<p *ngIf="subscription.subscription_plan === 'Student' || subscription.subscription_plan === 'Career' || subscription.subscription_plan === 'Entrepreneur'"><i class="pi pi-check"></i>Resources</p>
+												<p *ngIf="subscription.subscription_plan === 'Student' || subscription.subscription_plan === 'Career' || subscription.subscription_plan === 'Entrepreneur'"><i class="pi pi-check"></i>5000+ Scholarship Data</p>
+												<p *ngIf="subscription.subscription_plan === 'Career' || subscription.subscription_plan === 'Entrepreneur'"><i class="pi pi-check"></i>2M+ Companies Data</p>
+												<p *ngIf="subscription.subscription_plan === 'Entrepreneur'"><i class="pi pi-check"></i>1000+ Start-up Kit Documents</p>
+												<p *ngIf="subscription.subscription_plan === 'Entrepreneur'"><i class="pi pi-check"></i>100,000+ Investor's Data</p>
 											</div>
 										</div>
-										<div class="card-footer py-2 px-4"
-											[ngClass]="subscription.popular != 1 ? 'mb-5' : '' ">
+										<div class="card-footer py-2 px-4" [ngClass]="subscription.popular != 1 ? 'mb-5' : ''">
 											<h5 class="fw-semibold">{{ subscription.validity }} Month Validity</h5>
 											<div class="getstartedbtn pb-2">
-												<button class="pt-3 pb-3 btn btn-primary w-100 m-0 text-white"
-													*ngIf="subscription.selected"
-													(click)="selectedSubscriptionPlan(subscription)">Selected</button>
-													<button class="pt-3 pb-3 btn btn-basic w-100 m-0 btn btn-primary" *ngIf="existingSubscription[0]?.plan==subscription.subscription_plan && !isPlanExpired">
-														Current Plan
-													</button>
-												<button class="pt-3 pb-3 btn btn-basic w-100 m-0" *ngIf="!subscription.selected && (existingSubscription[0]?.plan!=subscription.subscription_plan || existingSubscription[0]?.plan==subscription.subscription_plan && isPlanExpired)" [ngClass]="{'greyButton':!subscription.available}"
-												[disabled]="!subscription.available"
-													(click)="selectedSubscriptionPlan(subscription)"> 
-													<span *ngIf="existingSubscription[0]?.plan!=subscription.subscription_plan && subscription.available || existingSubscription[0]?.plan==subscription.subscription_plan && isPlanExpired">Upgrade Plan</span>
+												<button class="pt-3 pb-3 btn btn-primary w-100 m-0 text-white" *ngIf="subscription.selected" (click)="selectedSubscriptionPlan(subscription)">Selected</button>
+												<button class="pt-3 pb-3 btn btn-basic w-100 m-0 btn btn-primary" *ngIf="existingSubscription[0]?.plan == subscription.subscription_plan && !isPlanExpired">Current Plan</button>
+												<button class="pt-3 pb-3 btn btn-basic w-100 m-0" *ngIf="!subscription.selected && (existingSubscription[0]?.plan != subscription.subscription_plan || (existingSubscription[0]?.plan == subscription.subscription_plan && isPlanExpired))" [ngClass]="{ greyButton: !subscription.available }" [disabled]="!subscription.available" (click)="selectedSubscriptionPlan(subscription)">
+													<span *ngIf="(existingSubscription[0]?.plan != subscription.subscription_plan && subscription.available) || (existingSubscription[0]?.plan == subscription.subscription_plan && isPlanExpired)">Upgrade Plan</span>
 													<span *ngIf="!subscription.available">Unavailable</span>
 												</button>
 											</div>
@@ -251,10 +196,8 @@
 					</p-tabPanel>
 				</p-tabView>
 			</div>
-			<br>
-
+			<br />
 		</ng-container>
-
 
 		<!-- <div class="row" *ngIf="topupcountries">
 			<div *ngFor="let subscription of subscriptionTopupList" class="col-lg-4">
@@ -458,19 +401,15 @@
 			<div class="w-100">
 				<div class="d-flex justify-content-between align-items-center">
 					<h6>Apply your coupon code here</h6>
-					<a class="btn btn-primary"  data-bs-toggle="modal" data-bs-target="#exampleModal">View Offers</a>
+					<a class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">View Offers</a>
 				</div>
-				
+
 				<div class="p-inputgroup inputheight mt-1">
-					<input [(ngModel)]="couponInput" (keyup)="onInput($event)" pInputText
-						placeholder="Enter Your coupon code Here" type="text" [readonly]="iscouponReadonly"/>
-						<i class="fa-solid fa-xmark-large" *ngIf="showCross" (click)="clearCoupon()"></i>
-					<button (click)="applyCoupon()" class="btn-primary" label="Apply" pButton pRipple
-						type="button"></button>
+					<input [(ngModel)]="couponInput" (keyup)="onInput($event)" pInputText placeholder="Enter Your coupon code Here" type="text" [readonly]="iscouponReadonly" />
+					<i class="fa-solid fa-xmark-large" *ngIf="showCross" (click)="clearCoupon()"></i>
+					<button (click)="applyCoupon()" class="btn-primary" label="Apply" pButton pRipple type="button"></button>
 				</div>
-				<p class="mb-0 small"><span class="uniprep-lightgray" *ngIf="!invalidCoupon">Please enter a discount
-						code to avail further discounts</span><span class="text-danger" *ngIf="invalidCoupon">You
-						entered an invalid discount code. Please check the code and try again</span>&nbsp;</p>
+				<p class="mb-0 small"><span class="uniprep-lightgray" *ngIf="!invalidCoupon">Please enter a discount code to avail further discounts</span><span class="text-danger" *ngIf="invalidCoupon">You entered an invalid discount code. Please check the code and try again</span>&nbsp;</p>
 			</div>
 		</div>
 	</div>
@@ -481,11 +420,9 @@
 					<div class="flex-grow-1">
 						<div>
 							<p class="fw-semibold mb-0">Total</p>
-							<h4 class="mb-0 uniprep-primary" *ngIf="checkoutTotal == ''">INR {{ subscriptionTotal |
-								number : ".2-2" }}</h4>
-							<h4 class="mb-0 uniprep-primary" *ngIf="subscriptionTotal != '0.00' && checkoutTotal != ''">
-								INR {{ checkoutTotal | number : ".2-2" }}</h4>
-							<p *ngIf="discountAmountEnable">Discount Percentage:{{discountPercentage}}%</p>
+							<h4 class="mb-0 uniprep-primary" *ngIf="checkoutTotal == ''">INR {{ subscriptionTotal | number : ".2-2" }}</h4>
+							<h4 class="mb-0 uniprep-primary" *ngIf="subscriptionTotal != '0.00' && checkoutTotal != ''">INR {{ checkoutTotal | number : ".2-2" }}</h4>
+							<p *ngIf="discountAmountEnable">Discount Percentage:{{ discountPercentage }}%</p>
 						</div>
 						<!-- <div *ngIf="topupcountries">
 							<h5 class="fw-semibold mb-0">Countries: <span class="uniprep-primary">{{
@@ -500,9 +437,8 @@
 						</div> -->
 					</div>
 					<div class="flex-full">
-						<button [disabled]="showCheckout" class="btn btn-primary w-100 py-3 px-5 h6 m-0"
-							(click)="checkout()">Checkout</button>
-						<p *ngIf="discountAmountEnable">Discount Amount: {{discountAmount}}</p>
+						<button [disabled]="showCheckout" class="btn btn-primary w-100 py-3 px-5 h6 m-0" (click)="checkout()">Checkout</button>
+						<p *ngIf="discountAmountEnable">Discount Amount: {{ discountAmount }}</p>
 					</div>
 				</div>
 			</div>
@@ -513,24 +449,20 @@
 	<!-- modeal -->
 	<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 		<div class="modal-dialog modal-dialog-centered">
-		  <div class="modal-content">
-			<div class="modal-header">
-			  <h1 class="modal-title fs-5" id="exampleModalLabel">Available Offers</h1>
-			  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-			</div>
-			<div class="modal-body d-flex flex-column justify-content-center">
-			  
-			  <p class="btn btn-rounded mx-auto" style="    background: #9bc32935;
-			  border: 1px dashed #9bc329;width: 100px;">UNI25</p>
-			  <p class="text-center">Use this coupon code to unlock a 25% discount on your subscription.</p>
-			</div>
-			<!-- <div class="modal-footer">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h1 class="modal-title fs-5" id="exampleModalLabel">Available Offers</h1>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-body d-flex flex-column justify-content-center">
+					<p class="btn btn-rounded mx-auto" style="background: #9bc32935; border: 1px dashed #9bc329; width: 100px">UNI25</p>
+					<p class="text-center">Use this coupon code to unlock a 25% discount on your subscription.</p>
+				</div>
+				<!-- <div class="modal-footer">
 			  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
 			  <button type="button" class="btn btn-primary">Save changes</button>
 			</div> -->
-		  </div>
+			</div>
 		</div>
-	  </div>
-	
-
+	</div>
 </div>
