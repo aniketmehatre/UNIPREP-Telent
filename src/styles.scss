@@ -263,6 +263,12 @@ small {
 		}
 	}
 }
+.country-dropdown
+{
+	max-height: 40vh;
+    overflow-y: auto;
+    background: white !important;
+}
 uni-modules {
 	display: flex;
 	flex: 1;
@@ -298,6 +304,7 @@ uni-scholarship-list,
 uni-scholarship-list-guidlines,
 uni-user-guide,
 uni-recommendations,
+uni-pitch-desk,
 uni-faq {
 	display: flex;
 	flex: 1;
