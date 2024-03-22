@@ -103,41 +103,10 @@
 				<div class="col-md-12">
 					<div class="row">
 						<div class="col-md-6">
-							<label class="form-label" style="font-size: medium; font-weight: 500">Filter by Country</label>
+							<label class="form-label" style="font-size: medium; font-weight: 500">Filter by Investor Name</label>
 							<div class="form-group">
 								<div class="mb-3">
-									<p-multiSelect [options]="countryList" styleClass="w-100" formControlName="country" optionValue="id" (onChange)="loadHeadQuartersData($event)" defaultLabel="Select Countries" optionLabel="country" #multiSelect [appendTo]="'body'">
-										<ng-template pTemplate="selectedItems">
-											{{ multiSelect.defaultLabel }}
-										</ng-template>
-									</p-multiSelect>
-									<div *ngIf="filterForm.hasError('org_name')" class="text-danger">
-										{{ filterForm.getError("org_name") }}
-									</div>
-								</div>
-							</div>
-						</div>
-						<!-- <div class="col-md-6">
-							<label class="form-label" style="font-size: medium; font-weight: 500">Filter by Industry</label>
-							<div class="form-group">
-								<div class="mb-3">
-									<p-multiSelect [options]="investorOrgType" styleClass="w-100" formControlName="org_type" optionValue="id" defaultLabel="Select Org. Type" optionLabel="org_type_name" #OrgTypeMultiSelect>
-										<ng-template pTemplate="selectedItems">
-											{{ OrgTypeMultiSelect.defaultLabel }}
-										</ng-template>
-									</p-multiSelect>
-								</div>
-							</div>
-						</div> -->
-						<div class="col-md-6">
-							<label class="form-label" style="font-size: medium; font-weight: 500">Filter by Headquarters</label>
-							<div class="form-group">
-								<div class="mb-3">
-									<p-multiSelect [options]="headQuartersList" styleClass="w-100" formControlName="head_quarters" defaultLabel="Select Head Quarters" optionValue="id" optionLabel="head_quarters_name" #InvestorHeadQuartersMultiSelect [appendTo]="'body'">
-										<ng-template pTemplate="selectedItems">
-											{{ InvestorHeadQuartersMultiSelect.defaultLabel }}
-										</ng-template>
-									</p-multiSelect>
+									<input class="w-100" type="text" placeholder="Search Investor Name" formControlName="org_name" pInputText />
 								</div>
 							</div>
 						</div>
@@ -154,10 +123,29 @@
 							</div>
 						</div>
 						<div class="col-md-6">
-							<label class="form-label" style="font-size: medium; font-weight: 500">Filter by Investor Name</label>
+							<label class="form-label" style="font-size: medium; font-weight: 500">Filter by Country</label>
 							<div class="form-group">
 								<div class="mb-3">
-									<input class="w-100" type="text" placeholder="Search Investor Name" formControlName="org_name" pInputText />
+									<p-multiSelect [options]="countryList" styleClass="w-100" formControlName="country" optionValue="id" (onChange)="loadHeadQuartersData($event)" defaultLabel="Select Countries" optionLabel="country" #multiSelect [appendTo]="'body'">
+										<ng-template pTemplate="selectedItems">
+											{{ multiSelect.defaultLabel }}
+										</ng-template>
+									</p-multiSelect>
+									<div *ngIf="filterForm.hasError('org_name')" class="text-danger">
+										{{ filterForm.getError("org_name") }}
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-6">
+							<label class="form-label" style="font-size: medium; font-weight: 500">Filter by Headquarters</label>
+							<div class="form-group">
+								<div class="mb-3">
+									<p-multiSelect [options]="headQuartersList" styleClass="w-100" formControlName="head_quarters" defaultLabel="Select Head Quarters" optionValue="id" optionLabel="head_quarters_name" #InvestorHeadQuartersMultiSelect [appendTo]="'body'">
+										<ng-template pTemplate="selectedItems">
+											{{ InvestorHeadQuartersMultiSelect.defaultLabel }}
+										</ng-template>
+									</p-multiSelect>
 								</div>
 							</div>
 						</div>
