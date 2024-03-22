@@ -303,7 +303,7 @@ export class RegistrationComponent implements OnInit {
       // programlevel_id: this.registrationForm.value.programLevel.id,
       // gender: this.registrationForm.value.gender.label,
       password: this.registrationForm.value.password,
-      password_confirmation: this.registrationForm.value.password,
+      password_confirmation: this.registrationForm.value.confirmPassword,
       platform_id: 1,
       usertype_id: 1,
       // country_id: this.registrationForm.value.country,
@@ -325,11 +325,13 @@ export class RegistrationComponent implements OnInit {
         this.router.navigate(["/pages/dashboard"]);
       },
       (error) => {
-        const message = error.error.message;
+        
+        const message = error.error?.message!=undefined?error.error?.message:error?.message;
+         
         this.toastr.add({
           severity: "error",
           summary: "Failed",
-          detail: error.error.message,
+          detail: message,
         });
       }
     );

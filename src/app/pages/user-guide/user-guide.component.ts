@@ -11,20 +11,31 @@ export class UserGuideComponent implements OnInit {
   pdfUrl: SafeUrl | undefined;
   guideList: any[] = [];
   selectedTopic: string = "";
+  isIos: boolean = false;
   constructor(
     private userGuideService: UserGuideService,
-    private sanitizer: DomSanitizer
+    private sanitizer: DomSanitizer,
   ) {
 
   }
 
   ngOnInit(): void {
-    this.pdfUrl = this.sanitizer.bypassSecurityTrustResourceUrl('https://api.uniprep.ai/uniprepapi/storage/app/public/UniprepUserGuide/userguidealltopics.pdf');
-    let iframeElement:any=document.getElementById("pdfIframe");
-    iframeElement.src="https://api.uniprep.ai/uniprepapi/storage/app/public/UniprepUserGuide/userguidealltopics.pdf#page=1&zoom=100";
+     this.getPlatform();
+  }
+  getPlatform() {
+    const userAgent = window.navigator.userAgent;
+    if (userAgent.match(/iPhone|iPad|iPod/i)) {
+       this.isIos = true;
+      this.pdfUrl = this.sanitizer.bypassSecurityTrustResourceUrl('https://api.uniprep.ai/uniprepapi/storage/app/public/UniprepUserGuide/UNIPREP.pdf');
+     } else{
+      this.pdfUrl = this.sanitizer.bypassSecurityTrustResourceUrl('https://api.uniprep.ai/uniprepapi/storage/app/public/UniprepUserGuide/UNIPREP.pdf');
+    let iframeElement: any = document.getElementById("pdfIframe");
+    if(iframeElement!=null){
+      iframeElement.src = "https://api.uniprep.ai/uniprepapi/storage/app/public/UniprepUserGuide/UNIPREP.pdf#page=1&zoom=100";
+    }
+     }
 
   }
-
   changePdf(item: any) {
     this.selectedTopic = item.topics
     this.pdfUrl = this.sanitizer.bypassSecurityTrustResourceUrl(item.url);

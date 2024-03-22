@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild, ElementRef} from '@angular/core';
+import {Component, OnInit, ViewChild, ElementRef, HostListener} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {Observable} from 'rxjs';
 import {ListQuestion} from 'src/app/@Models/question-list.model';
@@ -25,6 +25,7 @@ export class RecentlyaddedquestionsComponent implements OnInit {
   @ViewChild('carouselPopupRefElm') carouselPopupRefElm: any;
   @ViewChild('videoLinksContainer') videoLinksContainer !: ElementRef;
   @ViewChild('refLinksContainer') refLinksContainer !: ElementRef;
+  @ViewChild('videoFrame') videoFrame: ElementRef | undefined;
 
   subModules$!: Observable<ModuleListSub[]>;
   readQue$!: Observable<ReadQuestion[]>;
@@ -65,6 +66,10 @@ export class RecentlyaddedquestionsComponent implements OnInit {
   rightScrollButtonVisible: boolean = true;
   leftScrollButtonVisibleRef:boolean = false;
   rightScrollButtonVisibleRef:boolean = true;
+  isSkeletonVisible: boolean = true;
+  showVideoPopup: boolean = false;
+  selectedVideoLink: any | null = null;
+  loopRange = Array.from({ length: 30 }).fill(0).map((_, index) => index);
 
   constructor(private route: ActivatedRoute, private dataService: DataService,
               private moduleListService: ModuleServiceService, private service: RecentlyaddedquestionService,
@@ -130,6 +135,7 @@ export class RecentlyaddedquestionsComponent implements OnInit {
     }
     let apiName = 'getlatestfaqquestions';
     this.service.getRecentlyAddedQuestions(req, apiName).subscribe((response) => {
+      this.isSkeletonVisible = false;
       this.listQuestions = response.latestaddedfaqquestions;
       this.listQuestionCount = response.count;
     })
@@ -502,5 +508,59 @@ export class RecentlyaddedquestionsComponent implements OnInit {
     this.leftScrollButtonVisibleRef = container.scrollLeft > 0;
     this.rightScrollButtonVisibleRef = container.scrollWidth - container.clientWidth > container.scrollLeft;
   }
-
+   // vedio pop-up code
+   openNextPageLink:any;
+   openVideoPopup(link: any): void {
+     const sanitizedLink = this._sanitizer.bypassSecurityTrustResourceUrl(link);
+     this.openNextPageLink=link
+     // Check if it's a YouTube video link
+     if (this.isYoutubeVideoLink(link)) {
+       // If it's a YouTube video link, extract the video ID and construct the embeddable URL
+       const videoId = this.extractYoutubeVideoId(link);
+       const embedUrl = `https://www.youtube.com/embed/${videoId}`;
+       this.selectedVideoLink = this._sanitizer.bypassSecurityTrustResourceUrl(embedUrl);
+     } else {
+       // If it's not a YouTube video link, use the URL directly
+       this.selectedVideoLink = sanitizedLink;
+     }
+ 
+     this.showVideoPopup = true;
+   }
+ 
+   private isYoutubeVideoLink(link: string): boolean {
+     // Check if the link is a YouTube video link based on a simple pattern
+     return link.includes('youtube.com') || link.includes('youtu.be');
+   }
+ 
+   private extractYoutubeVideoId(url: string): string {
+     const videoIdRegex = /(?:youtube\.com\/(?:[^\/\n\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|\S*?[?&]v=)|youtu\.be\/)([^"'&?\n\s]+)/;
+     const match = url.match(videoIdRegex);
+     return match ? match[1] : '';
+   }
+ 
+   @HostListener('document:keydown', ['$event'])
+   onKeyDown(event: KeyboardEvent): void {
+     // Check if the pressed key is the Escape key (code 27)
+     if (event.code === 'Escape') {
+       this.closeVideoPopup();
+     }
+   }
+  closeVideoPopup(): void {
+    if (this.videoFrame && this.videoFrame.nativeElement) {
+      const player = this.videoFrame.nativeElement as HTMLIFrameElement;
+      player.src = '';
+    }
+    this.selectedVideoLink = null;
+    this.showVideoPopup = false;
+  }
+   openNextVideo(): void {
+    console.log('Opening next video:', this.openNextPageLink);
+    if (this.openNextPageLink) {
+      window.open(this.openNextPageLink);
+    }
+  }
+   onShowModal(value : any) {
+    let socialShare:any=document.getElementById("socialSharingList");
+    socialShare.style.display = "none";
+   }
 }

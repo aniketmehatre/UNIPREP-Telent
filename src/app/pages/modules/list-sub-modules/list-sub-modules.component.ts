@@ -55,13 +55,12 @@ export class ListSubModulesComponent implements OnInit {
     private locationService: LocationService, private route: ActivatedRoute, private ngxService: NgxUiLoaderService,
     private confirmationService: ConfirmationService) {
     this.countryId = Number(localStorage.getItem('countryId'));
-    this.dataService.countryId.subscribe((data) => {
+    this.dataService.countryIdSource.subscribe((data) => {
       if(this.countryId != data){
         this.ngOnInit();
       }
-      localStorage.setItem('countryId', data);
-      this.isSkeletonVisible = true
-
+      //localStorage.setItem('countryId', data);
+      //this.isSkeletonVisible = true
       this.dataService.countryNameSource.subscribe((data) => {
         this.countryName = data;
       });
@@ -85,10 +84,10 @@ export class ListSubModulesComponent implements OnInit {
     ];
   }
   loopRange = Array.from({ length: 30 }).fill(0).map((_, index) => index);
-  ngOnInit(): void {
+  ngOnInit(){
     this.init();
-
   }
+
   init(){
     this.currentCountryId = Number(localStorage.getItem('countryId'));
     this.currentModuleSlug = this.router.url.split('/').pop();
@@ -168,6 +167,8 @@ export class ListSubModulesComponent implements OnInit {
   }
 
   loadModuleAndSubModule() {
+    this.currentCountryId = Number(localStorage.getItem('countryId'));
+    //this.isSkeletonVisible = true;
     //this.subModules$ = this.moduleListService.subModuleList$();
     let data = {
       countryId: this.currentCountryId,
@@ -176,8 +177,8 @@ export class ListSubModulesComponent implements OnInit {
     }
     //this.moduleListService.loadSubModules(data);
     this.locationService.GetQuestionsCount(data).subscribe(data => {
-      this.subModuleList = data;
       this.isSkeletonVisible = false;
+      this.subModuleList = data;
     })
     // this.subModules$.subscribe(event => {
     //   this.subModuleList = event;

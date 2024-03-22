@@ -4,6 +4,8 @@ import { FormBuilder, FormGroup } from "@angular/forms";
 import { InvestorListService } from "./investor-list.service";
 import { AuthService } from 'src/app/Auth/auth.service';
 import { Router } from '@angular/router';
+import { UserManagementService } from '../user-management/user-management.service';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'uni-investor-list',
@@ -26,8 +28,18 @@ export class InvestorListComponent implements OnInit {
   planExpired!: boolean;
   restrict: boolean = false;
   currentPlan: string = "";
+  isBookmarked:boolean=false;
+  PersonalInfo!:any;
 
-  constructor(private _location: Location, private fb: FormBuilder, private investorList: InvestorListService, private authService: AuthService, private router: Router) {
+  constructor(
+    private _location: Location, 
+    private fb: FormBuilder, 
+    private investorList: InvestorListService, 
+    private authService: AuthService, 
+    private router: Router,
+    private userManagementService:UserManagementService,
+    private toast: MessageService,
+    ) {
     this.filterForm = this.fb.group({
       org_name: [''],
       country: [''],
@@ -40,7 +52,7 @@ export class InvestorListComponent implements OnInit {
   ngOnInit(): void {
     this.loadMultiSelectData();
     this.checkplanExpire();
-     
+    this.GetPersonalProfileData();
 
   }
 
@@ -102,7 +114,7 @@ export class InvestorListComponent implements OnInit {
       this.investorData = response.data;
       this.totalInvestorsCount = response.count;
     });
-    this.isFilterVisible = 'none'
+    this.isFilterVisible = 'none';
   }
 
   pageChange(event: any) {
@@ -165,5 +177,21 @@ export class InvestorListComponent implements OnInit {
   clearRestriction() {
     this.restrict = false;
   }
-
+  GetPersonalProfileData() {
+    this.userManagementService.GetUserPersonalInfo().subscribe(data => {
+        this.PersonalInfo = data;
+    });
+}
+  bookmarkQuestion(investorId:any,isFav:any){
+    console.log(investorId,isFav)
+    isFav=isFav!='1'?true:false;
+     this.investorList.bookmarkInvestorData(investorId,this.PersonalInfo.user_id,isFav).subscribe((response) => {
+      this.toast.add({
+        severity: "success",
+        summary: "Success",
+        detail: response.message,
+      });
+      this.loadInvestorData();
+     });
+  }
 }

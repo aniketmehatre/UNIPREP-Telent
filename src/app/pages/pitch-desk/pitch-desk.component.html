@@ -1,0 +1,185 @@
+<div class="card readingcard">
+	<div class="card-body pt-0" [style.display]="showDiv ? 'block' : 'none'">
+		<div class="row justify-content-center">
+			<div class="col-md-3 text-start">
+				<div class="p-input-icon-left w-100 mt-3">
+					<i class="pi pi-search"></i>
+					<input class="w-100 px-5 py-2" type="text" placeholder="Search in Pitch Deck List" pInputText [(ngModel)]="valueNearYouFilter" (input)="performSearch()"/>
+				</div>
+			</div>
+			<div class="col-md-6 text-center">
+				<h5 class="select-title mb-1" tooltipPosition="top" pTooltip="">PITCH DECK</h5>
+			</div>
+			<div class="col-md-3 text-end">
+				<span class="d-flex justify-content-end mt-3 gap-2">
+					<button class="btn btn-primary text-small pitchdeck-guidlines" (click)="closeGuidelines()" type="button">Pitch Deck Guidelines</button>
+					<button class="btn btn-primary text-small ps-3 pe-3 pt-2 pb-2 br-8" (click)="filterBy()" type="button">Filter by</button>
+				</span>
+				<div class="d-flex w-100 align-items-center justify-content-end">
+					<div class="pe-2">
+						<span class="text-muted text-small"><strong>Total Pitch Deck : {{ totalPitchDeckCount }}</strong></span>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="container-fluid">
+			<div class="row">
+				<div *ngFor="let pitchDeskListData of pitchDeskList" class="col-md-3 col-12 mt-3">
+					<div class="card deskcard h-100">
+						<div class="card-body">
+							<div class="d-flex gap-2 justify-content-start align-items-center" >
+								<div class="d-flex align-items-center">
+									<img class="img-responsive" src="https://api.uniprep.ai/uniprepapi/storage/app/public/InformationKit/Facebook_icon.png" />
+								</div>
+								<div class="d-flex flex-column overflow-hidden">
+									<a (click)="showPdf(pitchDeskListData.document_name)" style="cursor: pointer;" ><h6 class="mb-0 text-truncate pitchDeskNameColor" >{{ pitchDeskListData.pitchdeck_name }}</h6></a>
+									<h6 class="fw-semibold mb-0 text-truncate p-1">{{ pitchDeskListData.funding_amount }}</h6>
+								</div>
+							</div>
+							<div class="d-flex justify-content-between p-1">
+								<div class="col text-nowrap">
+									<i class="fa-solid fa-calendar fontsizesmall foundYearColor"></i> 
+									<span class="fontsizesmall"> {{ pitchDeskListData.founding_year }}</span>
+								</div>
+								
+								<div class="col text-nowrap">
+									<i class="fa-solid fa-location-dot fontsizesmall HeadQuartersColor" ></i> 
+									<span class="fontsizesmall"> {{ pitchDeskListData.country_name }}, {{ pitchDeskListData.head_quarters_name }}</span>
+								</div>
+							</div>
+							<div class="d-flex justify-content-between p-1">
+								<div class="col text-nowrap">
+									<i class="fa-solid fa-seedling fontsizesmall fundTypeColor"></i> 
+									<span class="fontsizesmall"> {{ pitchDeskListData.funding_type_name }}</span>
+								</div>
+								<div class="col text-nowrap">
+									<i class="fa-solid fa-building fontsizesmall sectorColor"></i>
+									<span class="fontsizesmall"> {{ pitchDeskListData.sector_name }}</span>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<p-paginator *ngIf="totalPitchDeckCount != 0" [rows]="pageSize" [totalRecords]="totalPitchDeckCount" (onPageChange)="pageChange($event)" [rowsPerPageOptions]="[50, 100, 300, 500, 1000]"></p-paginator>
+
+		<p-dialog header="Filter Pitch Deck" [(visible)]="isFilterVisible" [modal]="true" [style]="{ width: '60rem' }" [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }" [ngStyle]="{ display: isFilterVisible }">
+			<div class="m-5">
+				<form role="form" [formGroup]="filterForm" (ngSubmit)="getPitchDeskList()">
+					<div class="row">
+						<div class="col-md-12">
+							<div class="row">
+								<div class="col-md-6">
+									<label class="form-label" style="font-size: medium; font-weight: 500">Filter by Pitch Deck Name</label>
+									<div class="form-group">
+										<div class="mb-3">
+											<input class="w-100" type="text" placeholder="Search Pitch Deck Name" formControlName="pitchdeck_name" pInputText />
+										</div>
+									</div>
+								</div>
+								<div class="col-md-6">
+									<label class="form-label" style="font-size: medium; font-weight: 500">Filter by Country</label>
+									<div class="form-group">
+										<div class="mb-3">
+											<p-multiSelect [options]="countrySelectBox" styleClass="w-100" formControlName="country" optionValue="id"  defaultLabel="Select Countries" optionLabel="country" #multiSelect [appendTo]="'body'">
+												<ng-template pTemplate="selectedItems">
+													{{ multiSelect.defaultLabel }}
+												</ng-template>
+											</p-multiSelect>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-12">
+							<div class="row">
+								<div class="col-md-6">
+									<label class="form-label" style="font-size: medium; font-weight: 500">Filter by Fund Type</label>
+									<div class="form-group">
+										<div class="mb-3">
+											<p-multiSelect [options]="fundingTypeSelectBox" styleClass="w-100" formControlName="funding_type" optionValue="id"  defaultLabel="Select Fund Type" optionLabel="funding_type_name" #FundType [appendTo]="'body'">
+												<ng-template pTemplate="selectedItems">
+													{{ FundType.defaultLabel }}
+												</ng-template>
+											</p-multiSelect>
+										</div>
+									</div>
+								</div>
+								<div class="col-md-6">
+									<label class="form-label" style="font-size: medium; font-weight: 500">Filter by Sector</label>
+									<div class="form-group">
+										<div class="mb-3">
+											<p-multiSelect [options]="sectorSelectBox" styleClass="w-100" formControlName="sector" optionValue="id"  defaultLabel="Select Sector" optionLabel="sector_name" #Sector [appendTo]="'body'">
+												<ng-template pTemplate="selectedItems">
+													{{ Sector.defaultLabel }}
+												</ng-template>
+											</p-multiSelect>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div>
+						<button type="submit" class="btn btn-dark w-100" style="background-color: var(--uniprep-primary); border: none">Apply Filter</button>
+						<button class="btn btn-dark w-100" (click)="clearFilter()"  style="background-color: white; border-radius: 8px; color: var(--uniprep-primary); border: none" type="button">Reset Filter</button>
+					</div>
+				</form>
+			</div>
+		</p-dialog>
+	</div>
+	<div class="card overflow-y-auto h-100" [style.display]="!showDiv ? 'block' : 'none'">
+		<div class="card-body pt-0">
+			<div class="row justify-content-center">
+				<div class="col-md-2 text-start"></div>
+				<div class="col-md-8 text-center">
+					<h5 class="select-title mb-1 text-capitalize" tooltipPosition="top" pTooltip="Pitch Deck Guidlines">PITCH DECK GUIDELINES<i class="questiontooltip fa-solid fa-circle-question"></i></h5>
+				</div>
+				<div class="col-md-2 text-end">
+					<button class="btn-rounded btn btn-primary" aria-label="Dismiss alert" type="button" data-close (click)="closeGuidelines()">
+						<span aria-hidden="true">X</span>
+					</button>
+				</div>
+			</div>
+			<div class="card guidelinecard mb-3 mt-2">
+				<div class="card-body">
+					<h5>Do's</h5>
+					<ol class="lh-lg ps-3">
+						<li>Research Before Contacting: Thoroughly research potential investors to ensure they align with your business
+							goals and values. </li>
+							<li>Personalize Communications: Tailor your messages to each investor, demonstrating your understanding
+							of their investment interests and preferences.</li>
+							<li>Provide Relevant Information: Offer clear and concise information
+							about your venture, highlighting key points that may resonate with the investor. </li>
+							<li>Be Professional: Maintain a
+							professional tone and demeanor in all communications, showcasing your commitment and credibility as an entrepreneur. </li>
+							<li>Follow-up appropriately: Follow up with investors in a timely manner, respecting their time and preferences for
+							communication.</li>
+					</ol>
+				</div>
+			</div>
+			<div class="card guidelinecard">
+				<div class="card-body">
+					<h5>Dont's</h5>
+					<ol class="lh-lg ps-3">
+						<li>Spamming: Avoid sending mass or unsolicited messages to investors, as this can be perceived as unprofessional
+							and may harm your reputation.</li>
+							<li>Overwhelming with Information: Refrain from overwhelming investors with excessive or
+							irrelevant information about your venture.</li>
+							<li>Being Pushy: Avoid being overly aggressive or pushy in your communications
+							with investors, as this can be off-putting and may damage your relationship with them. </li>
+							<li>Ignoring Feedback: Don't
+							dismiss or ignore feedback from investors, as it can provide valuable insights and opportunities for improvement.</li>
+							<li>
+							Misrepresentation: Avoid misrepresenting your venture or its potential to investors, as this can erode trust and
+							credibility in the long run.</li>
+					</ol>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+</div>

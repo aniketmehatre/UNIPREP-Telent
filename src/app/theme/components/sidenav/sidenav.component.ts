@@ -134,6 +134,16 @@ export class SidenavComponent {
       image: "fa-solid fa-memo-circle-info",
     },
     {
+      title: "Pitch Deck",
+      url: "/pages/pitch-deck",
+      image: "fa-solid fa-presentation-screen",
+    },
+    {
+      title: "Others",
+      url: "",
+      image: "",
+    },
+    {
       title: "Events",
       url: "/pages/events",
       image: "fa-solid fa-calendar-days",

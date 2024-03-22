@@ -28,6 +28,7 @@ export class HeaderSearchComponent implements OnInit, OnDestroy {
   @ViewChild('searchInput', { static: false, read: ElementRef }) elRef: any;
   @ViewChild('videoLinksContainer') videoLinksContainer !: ElementRef;
   @ViewChild('refLinksContainer') refLinksContainer !: ElementRef;
+  @ViewChild('videoFrame') videoFrame: ElementRef | undefined;
   message: any
   countryName: any
   selectedGlobalData: any
@@ -496,6 +497,10 @@ export class HeaderSearchComponent implements OnInit, OnDestroy {
        }
      }
      closeVideoPopup(): void {
+      if (this.videoFrame && this.videoFrame.nativeElement) {
+        const player = this.videoFrame.nativeElement as HTMLIFrameElement;
+        player.src = '';
+      }
        this.selectedVideoLink = null;
        this.showVideoPopup = false;
      }

@@ -29,9 +29,13 @@
 				<div *ngFor="let scholarshipData of scholarshipData" class="col-md-3 col-12 mt-3">
 					<div class="card scholarshiplistcard h-100">
 						<div class="card-body d-flex flex-column justify-content-between">
-							<h5 class="uniprep-primary" title="Scholarship Name">
-								<a class="uniprep-primary text-decoration-none" target="_blank" href="{{ scholarshipData.website }}">{{ scholarshipData.name }} <i class="fa-solid fa-link uniprep-primary pr-2" aria-hidden="true"></i></a>
-							</h5>
+							<div class="d-flex justify-content-between align-items-start">
+								<h5 class="uniprep-primary" title="Scholarship Name">
+									<a class="uniprep-primary text-decoration-none" target="_blank" href="{{ scholarshipData.website }}">{{ scholarshipData.name }} <i class="fa-solid fa-link uniprep-primary pr-2" aria-hidden="true"></i></a>
+								</h5>
+								<i  [class]="scholarshipData.favourite==1?'fa-solid fa-bookmark':'fa-regular fa-bookmark'" style="color: #E90707;" (click)="bookmarkQuestion(scholarshipData.id,scholarshipData.favourite)"></i>
+							</div>
+							
 							<div>
 								<div class="d-flex mt-2 gap-5 align-items-center">
 									<div class="d-flex gap-2 align-items-center" title="Scholarship Value">
@@ -153,7 +157,7 @@
 						<label class="form-label" style="font-size: medium; font-weight: 500">Filter by Study Level</label>
 						<div class="form-group">
 							<div class="mb-3">
-								<p-multiSelect [options]="studyLevelList" styleClass="w-100" formControlName="study_level" optionValue="id" placeholder="Select Study Level" optionLabel="level" #StudylevelSelect class="filterInput"> </p-multiSelect>
+								<p-multiSelect [options]="studyLevelList" styleClass="w-100" formControlName="study_level" optionValue="id" placeholder="Select Study Level" optionLabel="level" #StudylevelSelect class="filterInput" [appendTo]="'body'"> </p-multiSelect>
 							</div>
 						</div>
 					</div>
@@ -161,7 +165,7 @@
 						<label class="form-label" style="font-size: medium; font-weight: 500">Filter by organizations/Institute</label>
 						<div class="form-group">
 							<div class="mb-3">
-								<p-multiSelect [options]="filterUniversityList" styleClass="w-100" formControlName="university" optionValue="id" placeholder="Select Organisation Or University" optionLabel="name" class="filterInput"> </p-multiSelect>
+								<p-multiSelect [options]="filterUniversityList" styleClass="w-100" formControlName="university" optionValue="id" placeholder="Select Organisation Or University" optionLabel="name" class="filterInput" [appendTo]="'body'"> </p-multiSelect>
 							</div>
 						</div>
 					</div>
@@ -169,7 +173,7 @@
 						<label class="form-label" style="font-size: medium; font-weight: 500">Filter by Coverage Value</label>
 						<div class="form-group">
 							<div class="mb-3">
-								<p-dropdown formControlName="cover_id" optionValue="id" optionLabel="cover_name" styleClass="w-100" [options]="coverList" [filter]="true" filterBy="cover_name" placeholder="Select  Coverage Value" class="filterInput"></p-dropdown>
+								<p-dropdown formControlName="cover_id" optionValue="id" optionLabel="cover_name" styleClass="w-100" [options]="coverList" [filter]="true" filterBy="cover_name" placeholder="Select  Coverage Value" class="filterInput" [appendTo]="'body'"></p-dropdown>
 							</div>
 						</div>
 					</div>

@@ -7,9 +7,12 @@
 			</div>
 			<div class="col-md-3">&nbsp;</div>
 			<div class="col-md-12">
-				<div class="d-flex">
-					<iframe [src]="pdfUrl" id="pdfIframe" class="userguide" zoom="100%"> </iframe>
+				 <div class="d-flex" *ngIf="!isIos">
+                     <iframe [src]="pdfUrl" id="pdfIframe" class="userguide" width="100%" height="100%" zoom="100%"> </iframe>
 				</div>
+				<div class="d-flex" *ngIf="isIos"> 
+					<ngx-extended-pdf-viewer [src]="'https://api.uniprep.ai/uniprepapi/storage/app/public/UniprepUserGuide/UNIPREP.pdf'"></ngx-extended-pdf-viewer>
+				 </div> 
 			</div>
 		</div>
 	</div>

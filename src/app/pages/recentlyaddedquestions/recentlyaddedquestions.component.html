@@ -13,7 +13,27 @@
 			</div>
 			<div class="col-md-2"></div>
 		</div>
-		<div class="row">
+        <div *ngIf="isSkeletonVisible">
+            <div class="row">
+                <div *ngFor="let index of loopRange" class="col-lg-3 col-md-4 col-sm-4 col-xs-12 col-12">
+                    <div class="card my-2">
+                        <div class="card-body">
+                            <div class="row align-items-center">
+                                <div class="col-8 col-md-12">
+                                    <p-skeleton width="100%" styleClass="mb-1"></p-skeleton>
+                                    <p-skeleton width="100%" styleClass="mb-1"></p-skeleton>
+                                    <p-skeleton width="80%" styleClass="mb-2"></p-skeleton>
+                                </div>
+                                <div class="col-4 col-md-12">
+                                    <p-skeleton width="100%" height="3rem"></p-skeleton>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+		<div class="row" *ngIf="!isSkeletonVisible">
 			<div *ngFor="let sub of listQuestions; let i = index" class="col-lg-3 col-md-4 col-sm-4 col-xs-6 col-12">
 				<div class="row w-100 h-100 m-0 justify-content-center">
 					<div (click)="onQuestionClick(sub)"
@@ -33,7 +53,7 @@
 							</div>
 							<button class="btn btn-rounded w-100 btn-primary m-0 primary-btn
                                         {{ sub.read == 1 ? 'readButton' : '' }}" pButton type="button">
-								Read Answer
+								Read&nbsp;Answer
 							</button>
 						</div>
 					</div>
@@ -112,10 +132,9 @@
 					</button>
 					<div class="scrollable-container" id="video-links-container" #videoLinksContainer>
 						<div class="scroll-content">
-							<a class="btn btn-primary videolinkbutton"
-							   target="_blank"
-							   href="{{ videoL.link }}"
-							   *ngFor="let videoL of videoLinks; let ind = index">Video {{ ind + 1 }} &nbsp;<i class="fa-solid fa-video"></i></a>
+							<span class="btn btn-primary text-small videolinkbutton flex-shrink-0" (click)="openVideoPopup(videoL.link)"
+								*ngFor="let videoL of videoLinks; let ind = index">Video {{ ind + 1 }} &nbsp;<i
+									class="fa-solid fa-video"></i></span>
 						</div>
 					</div>
 					<button class="scroll-button btn-rounded" *ngIf="rightScrollButtonVisible" (click)="scrollRightVideo()">
@@ -243,3 +262,20 @@
 		</div>
 	</div>
 </p-dialog>
+
+<!-- vedio pop up -->
+<div class="modal" tabindex="-1" role="dialog" [ngClass]="{ 'd-block': showVideoPopup }">
+	<div class="modal-dialog modal-xl modal-dialog-centered" role="document">
+		<div class="modal-content">
+			<div class="modal-body position-relative pt-4">
+				<div class="modalbuttons">
+					<div class="d-flex gap-2">
+						<button title="New Window" type="button" class="btn btn-primary btn-rounded" (click)="openNextVideo()"><i class="fa-solid fa-arrow-up-right-from-square"></i></button>
+						<button type="button" title="Close Popup" class="btn btn-primary btn-rounded" (click)="closeVideoPopup()"><i class="fa-solid fa-xmark"></i></button>
+					</div>
+				</div>
+				<div class="embed-responsive"><iframe #videoFrame [src]="selectedVideoLink" width="100%" frameborder="0" allowfullscreen></iframe></div>
+			</div>
+		</div>
+	</div>
+</div>

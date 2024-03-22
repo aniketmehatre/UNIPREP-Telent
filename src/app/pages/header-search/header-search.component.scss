@@ -256,76 +256,55 @@
   z-index: 9999;
 }
 
-.modal-container {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background-color: #ffffff;
-  border-radius: 10px;
-  padding: 20px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  z-index: 10000;
+.modal {
+	z-index: 9999;
+	.modalbuttons {
+		position: absolute;
+		top: -1rem;
+		right: -1rem;
+	}
 }
 
-.newwindow-button {
-  position: absolute;
-  top: -27px;
-  right: 14px;
-  /* Adjust the right position as needed */
-  cursor: pointer;
-  background: none;
-  border: none;
-  font-size: 18px;
-  color: #3F4C83;
+.embed-responsive {
+	position: relative;
+	display: block;
+	width: 100%;
+	padding: 0;
+	overflow: hidden;
 }
 
-.close-button {
-  position: absolute;
-  top: -27px;
-  right: -25px;
-  cursor: pointer;
-  background: none;
-  border: none;
-  font-size: 18px;
-  color: #3F4C83;
+.embed-responsive::before {
+	display: block;
+	content: "";
+	padding-top: 56.25%; /* 16:9 Aspect Ratio */
 }
 
-.newwindow-button {
-  font-size: 24px;
-}
-.fa-1x {
-  font-size: 1.5em;
-}
-.video-container {
-  position: relative;
-  min-width: 600px;
-  min-height: 350px;
-  overflow: hidden;
+.embed-responsive iframe {
+	position: absolute;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	right: 0;
+	width: 100%;
+	height: 100%;
+	border: 0;
 }
 
-@media (max-width: 768px) {
-  .modal-container {
-    width: 80%; /* Adjust width for smaller screens */
-    padding: 10px; /* Adjust padding for smaller screens */
-  }
-  .video-container {
-    min-width: 100%;
-    min-height: 350px;
-  }
-  ::ng-deep .p-dialog-header-maximize
-  {
-    display:none;
-  }
-}
+ :host ::ng-deep p-carousel {
+   //On later realease of PrimeNG, this can be done programmatically with [showIndicators | showNavigators]="false"
+   .p-carousel-indicators {
+     display: none !important;
+   }
 
-@media (max-width: 576px) {
-  .modal-container {
-    width: 90%; /* Further adjust width for extra small screens */
-    padding: 5px; /* Further adjust padding for extra small screens */
-  }
-  .video-container {
-    min-width: 100%;
-    min-height: 350px;
-  }
-}
+   .p-carousel-next, .p-carousel-prev {
+     display: none !important;
+   }
+ }
+
+ :host ::ng-deep .p-carousel-item {
+   max-height: 0;
+ }
+
+ :host ::ng-deep .p-carousel-item-active {
+   max-height: 100% !important;
+ }

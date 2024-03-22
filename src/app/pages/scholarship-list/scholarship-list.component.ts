@@ -5,6 +5,7 @@ import { LocationService } from "src/app/location.service";
 import { MessageService } from "primeng/api";
 import { AuthService } from "src/app/Auth/auth.service";
 import { Router } from "@angular/router";
+import { UserManagementService } from "../user-management/user-management.service";
 
 @Component({
   selector: "uni-scholarship-list",
@@ -34,6 +35,7 @@ export class ScholarshipListComponent implements OnInit {
   coverList: any[] = [];
   restrict:boolean=false;
   currentPlan:string="";
+  PersonalInfo!:any;
 
   constructor(
     private fb: FormBuilder,
@@ -41,7 +43,8 @@ export class ScholarshipListComponent implements OnInit {
     private locationService: LocationService,
     private toast: MessageService,
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    private userManagementService:UserManagementService
   ) {
     this.filterForm = this.fb.group({
       country: [null],
@@ -65,6 +68,7 @@ export class ScholarshipListComponent implements OnInit {
     this.getScholarshipType();
     this.getRegionList();
     this.getCovers();
+    this.GetPersonalProfileData();
   }
 
   performSearch() {
@@ -285,4 +289,20 @@ export class ScholarshipListComponent implements OnInit {
   scholarGuidlines(): void {
     this.router.navigate(["/pages/scholarship-guidlines"]);
   }
+  GetPersonalProfileData() {
+    this.userManagementService.GetUserPersonalInfo().subscribe(data => {
+        this.PersonalInfo = data;
+    });
+}
+bookmarkQuestion(scholarshipId:any,isFav:any){
+  isFav=isFav!='1'?true:false;
+   this.scholarshipListService.bookmarkScholarshipData(scholarshipId,this.PersonalInfo.user_id,isFav).subscribe((response) => {
+    this.toast.add({
+      severity: "success",
+      summary: "Success",
+      detail: response.message,
+    });
+    this.loadScholarShipData();
+   });
+}
 }

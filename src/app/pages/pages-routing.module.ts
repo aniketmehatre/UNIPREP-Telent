@@ -20,7 +20,7 @@ import { CompanyListGuidlinesComponent } from './company-list-guidlines/company-
 import { InvestorListGuidlinesComponent } from './investor-list-guidlines/investor-list-guidlines.component';
 import { ScholarshipListGuidlinesComponent } from './scholarship-list-guidlines/scholarship-list-guidlines.component';
 import { RecommendationsComponent } from './recommendations/recommendations.component';
-
+import { PitchDeskComponent } from './pitch-desk/pitch-desk.component';
 
 
 const routes: Routes = [
@@ -123,6 +123,10 @@ const routes: Routes = [
             {
                 path: 'tutorials',
                 loadChildren: () => import('./tutorials/tutorials.module').then(m => m.TutorialsModule)
+            },
+            {
+                path: 'pitch-deck',
+                component: PitchDeskComponent  
             },
             {path: 'usermanagement', canActivate: [AuthGuard], component: UserManagementComponent},
             {path: '', redirectTo: 'dashboard', pathMatch: 'full'},
