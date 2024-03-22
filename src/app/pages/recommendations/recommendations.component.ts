@@ -90,7 +90,12 @@ export class RecommendationsComponent implements OnInit {
     if (productId in this.selectedData) {
       this.enableModule = true;
       const selectedKeys = Object.keys(this.selectedData).filter(key => this.selectedData[key]);
-      const selectedValues = selectedKeys.join(',');
+      let selectedValues = "";
+      if (selectedKeys.length === 0) {
+        selectedValues = "1,2,3,4";
+      }else{
+        selectedValues = selectedKeys.join(',');
+      }
       this.subStoreService.storeUserRecommends(selectedValues).subscribe(res => {
         if(res.success){
           this.enableModule = true;
