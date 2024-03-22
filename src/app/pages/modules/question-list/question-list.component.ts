@@ -174,7 +174,9 @@ export class QuestionListComponent implements OnInit {
              break;
          }
          console.log(this.currentSubModuleSlug);
-         this.router.navigateByUrl(`/pages/modules/${this.currentSubModuleSlug}`);
+         if(!localStorage.getItem('questionId')){
+          this.router.navigateByUrl(`/pages/modules/${this.currentSubModuleSlug}`);
+         }
          this.loadInit();
        }
       localStorage.setItem('countryId', data);

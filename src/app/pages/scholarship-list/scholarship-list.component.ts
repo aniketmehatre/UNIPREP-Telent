@@ -297,12 +297,13 @@ export class ScholarshipListComponent implements OnInit {
 bookmarkQuestion(scholarshipId:any,isFav:any){
   isFav=isFav!='1'?true:false;
    this.scholarshipListService.bookmarkScholarshipData(scholarshipId,this.PersonalInfo.user_id,isFav).subscribe((response) => {
+    let scholarshipListData=this.scholarshipData.find(item=>item.id==scholarshipId);
+    isFav==true?scholarshipListData.favourite=1:scholarshipListData.favourite=null;
     this.toast.add({
       severity: "success",
       summary: "Success",
       detail: response.message,
     });
-    this.loadScholarShipData();
    });
 }
 }
