@@ -183,15 +183,15 @@ export class InvestorListComponent implements OnInit {
     });
 }
   bookmarkQuestion(investorId:any,isFav:any){
-    console.log(investorId,isFav)
     isFav=isFav!='1'?true:false;
      this.investorList.bookmarkInvestorData(investorId,this.PersonalInfo.user_id,isFav).subscribe((response) => {
+      let investorListData=this.investorData.find(item=>item.id==investorId);
+      isFav==true?investorListData.favourite=1:investorListData.favourite=null;
       this.toast.add({
         severity: "success",
         summary: "Success",
         detail: response.message,
       });
-      this.loadInvestorData();
      });
   }
 }
