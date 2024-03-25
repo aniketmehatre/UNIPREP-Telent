@@ -35,8 +35,9 @@ export class ChatComponent implements OnInit {
   planmessage = "";
   canChat = true;
   subscriptioninfo: any;
-  planExpired:boolean=false;
-  restrict:boolean=false;
+  planExpired: boolean = false;
+  restrict: boolean = false;
+  subtext: string = "";
   constructor(
     private service: ChathistoryService,
     private authService: AuthService,
@@ -140,12 +141,20 @@ export class ChatComponent implements OnInit {
     this.authService.getNewUserTimeLeft().subscribe((res) => {
       let data = res.time_left;
       let subscription_exists_status = res.subscription_details;
-      if (data.plan === "expired" || data.plan === 'subscription_expired' ) {
+      if (data.plan === "expired" || data.plan === "subscription_expired") {
         this.planExpired = true;
+        this.subtext =
+          "Welcome to UNIPREP. You have 1 free question credit. Your personalised questions will be answered by the experts. Each message will be considered as 1 credit.";
       } else {
         this.planExpired = false;
+        this.subtext =
+          "Welcome to UNIPREP.You have 2 question credits.Your personalised questions will be answered by the experts.Each message will be considered as 1 credit.";
       }
-    })
+      if (subscription_exists_status.subscription_plan == "free_trail") {
+        this.subtext =
+          "Welcome to UNIPREP. You have 1 free question credit. Your personalised questions will be answered by the experts. Each message will be considered as 1 credit.";
+      }
+    });
   }
   getOptions() {
     this.service.getReportoption().subscribe((response) => {
@@ -248,12 +257,13 @@ export class ChatComponent implements OnInit {
       },
       reject: () => {},
     });
-  }showReportSuccess=false;
-  reportSubmit(op:any) {
+  }
+  showReportSuccess = false;
+  reportSubmit(op: any) {
     if (this.reportForm.invalid) return;
     this.service.Reportchat(this.reportForm?.value).subscribe(
       (response) => {
-        this.showReportSuccess=true;
+        this.showReportSuccess = true;
         this.reportForm.reset();
         op.hide();
       },
@@ -270,12 +280,12 @@ export class ChatComponent implements OnInit {
   openAttachment(url: any) {
     window.open(url);
   }
-  canChangeChat(){
-    if(this.planExpired){
-      this.restrict=true;
+  canChangeChat() {
+    if (this.planExpired) {
+      this.restrict = true;
       return;
     }
-    this.textareavisbility = !this.textareavisbility
+    this.textareavisbility = !this.textareavisbility;
   }
   clearRestriction() {
     this.restrict = false;
