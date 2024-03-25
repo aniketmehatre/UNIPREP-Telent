@@ -150,6 +150,10 @@ export class ChatComponent implements OnInit {
         this.subtext =
           "Welcome to UNIPREP.You have 2 question credits.Your personalised questions will be answered by the experts.Each message will be considered as 1 credit.";
       }
+      if (subscription_exists_status.subscription_plan == "free_trail") {
+        this.subtext =
+          "Welcome to UNIPREP. You have 1 free question credit. Your personalised questions will be answered by the experts. Each message will be considered as 1 credit.";
+      }
     });
   }
   getOptions() {
