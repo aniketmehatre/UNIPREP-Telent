@@ -289,10 +289,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
     //     }
     //   });
     // });
-    this.dataService.showTimeOutSourceData.subscribe((res) => {
-      this.checkNewUser();
-      this.subScribedUserCount();
-    });
+      // this.dataService.showTimeOutSourceData.subscribe((res) => {
+      //   this.checkNewUser();
+      //  this.subScribedUserCount();
+      // });
     this.dataService.countryFlagSource.subscribe((data) => {
       if (data != "") {
         this.headerFlag = data;
@@ -514,31 +514,32 @@ export class HeaderComponent implements OnInit, OnDestroy {
       const minutesLeft: number = Math.floor((totalSeconds % 3600) / 60);
       const secondsLeft: number = totalSeconds % 60;
 
-      const textMin: string =
-        minutesLeft < 10 ? "0" + minutesLeft : minutesLeft.toString();
-      const textSec: string =
-        secondsLeft < 10 ? "0" + secondsLeft : secondsLeft.toString();
+      this.min$ =
+        minutesLeft < 10 && minutesLeft > 0 ? "0" +  minutesLeft.toString() : minutesLeft.toString();
+        this.sec$ =
+        secondsLeft < 10 && secondsLeft > 0 ? "0" + secondsLeft.toString() : secondsLeft.toString();
 
       this.hrs$ = hoursLeft;
-      this.min$ = textMin;
-      this.sec$ = textSec;
+      // this.min$ = textMin;
+      // this.sec$ = textSec;
       this.month$ = months;
       this.day$ = days;
       if (minute <= 0 && hours <= 0 && sec <= 0) {
         this.hrs$ = 0;
         this.min$ = 0;
         this.sec$ = 0;
-      } else {
-        this.hrs$ = hoursLeft;
-        this.min$ = textMin;
-        this.sec$ = textSec;
-      }
+      } 
+      //else {
+      //   this.hrs$ = hoursLeft;
+      //   this.min$ = textMin;
+      //   this.sec$ = textSec;
+      // }
 
       if (
-        this.min$ <= 0 &&
+        minutesLeft <= 0 &&
         this.hrs$ <= 0 &&
         this.day$ <= 0 &&
-        this.sec$ <= 0 &&
+        secondsLeft<=0 &&
         this.month$ <= 0
       ) {
         this.visibleExhasted = true;
@@ -569,24 +570,32 @@ export class HeaderComponent implements OnInit, OnDestroy {
       const minutesLeft: number = Math.floor((totalSeconds % 3600) / 60);
       const secondsLeft: number = totalSeconds % 60;
 
-      const textMin: string =
-        minutesLeft < 10 ? "0" + minutesLeft : minutesLeft.toString();
-      const textSec: string =
-        secondsLeft < 10 ? "0" + secondsLeft : secondsLeft.toString();
+      this.timeHours = hoursLeft;
+      this.timeLeftMins =
+        minutesLeft < 10 && minutesLeft > 0  ? "0" + minutesLeft : minutesLeft.toString();
+        this.timeLeftSecs =
+        secondsLeft < 10 && secondsLeft > 0  ? "0" + secondsLeft : secondsLeft.toString();
+        if(this.timeLeftMins=='00'){
+          this.timeLeftMins=0;
+        }
+        if(this.timeLeftSecs=='00'){
+          this.timeLeftSecs=0;
+        }
       if (minute <= 0 && hours <= 0 && sec <= 0) {
         this.timeHours = 0;
         this.timeLeftMins = 0;
         this.timeLeftSecs = 0;
-      } else {
-        this.timeHours = hoursLeft;
-        this.timeLeftMins = textMin;
-        this.timeLeftSecs = textSec;
-      }
+      } 
+      // else {
+      //   this.timeHours = hoursLeft;
+      //   this.timeLeftMins = textMin;
+      //   this.timeLeftSecs = textSec;
+      // }
 
       if (
-        this.timeLeftMins <= 0 &&
+        minutesLeft <= 0 &&
         this.timeHours <= 0 &&
-        this.timeLeftSecs <= 0
+        secondsLeft<= 0
       ) {
         this.visible = true;
         clearInterval(this.timerInterval);

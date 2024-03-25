@@ -12,6 +12,7 @@
 			</div>
 			<div class="col-md-3 text-end">
 				<span class="d-flex justify-content-end mt-3 gap-2">
+					<button class="btn btn-primary text-small" (click)="viewFavourites()" type="button">View Favourites</button>
 					<button class="btn btn-primary text-small investor-guidlines" (click)="investorGuidlines()" type="button">Investor Guidelines</button>
 					<button class="btn btn-primary text-small ps-3 pe-3 pt-2 pb-2 br-8" (click)="filterBy()" type="button">Filter by</button>
 				</span>
@@ -98,7 +99,7 @@
 
 <p-dialog header="Filter Investors" [(visible)]="isFilterVisible" [modal]="true" [style]="{ width: '60rem' }" [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }" [ngStyle]="{ display: isFilterVisible }">
 	<div class="m-5">
-		<form role="form" [formGroup]="filterForm" (ngSubmit)="loadInvestorData()">
+		<form role="form" [formGroup]="filterForm" (ngSubmit)="loadInvestorData(0)">
 			<div class="row">
 				<div class="col-md-12">
 					<div class="row">

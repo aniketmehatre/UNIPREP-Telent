@@ -65,7 +65,7 @@ export class CompanyListComponent implements OnInit {
       return;
     }
     if (this.valueNearYouFilter == "") {
-      this.loadCompanyData();
+      this.loadCompanyData(0);
       return;
     }
     var companySearchData: any = [];
@@ -101,7 +101,7 @@ export class CompanyListComponent implements OnInit {
 
   clearFilter(){
     this.filterForm.reset();
-    this.loadCompanyData();
+    this.loadCompanyData(0);
   }
   clearRestriction() {
     this.restrict = false;
@@ -110,8 +110,8 @@ export class CompanyListComponent implements OnInit {
         searchInput.disabled = false;
       }
   }
-  loadCompanyData(){
-    let data = {
+  loadCompanyData(isFavourite:number){
+    let data:any = {
       company_name: this.filterForm.value.company_name ? this.filterForm.value.company_name : '',
       country: this.filterForm.value.country ? this.filterForm.value.country : '',
       head_quarters: this.filterForm.value.head_quarters ? this.filterForm.value.head_quarters : '',
@@ -121,6 +121,9 @@ export class CompanyListComponent implements OnInit {
       page: this.page,
       perpage: this.pageSize,
       planname:this.currentPlan?this.currentPlan:""
+    }
+    if(isFavourite==1){
+      data['favourite']=1;
     }
     this.companyListService.getCompanyList(data).subscribe((response) => {
       this.companyListData = response.data;
@@ -136,7 +139,7 @@ export class CompanyListComponent implements OnInit {
     }
     this.page = event.page + 1;
     this.pageSize = event.rows;
-    this.loadCompanyData();
+    this.loadCompanyData(0);
   }
 
   closePopup(){
@@ -168,7 +171,7 @@ export class CompanyListComponent implements OnInit {
       } else {
         this.planExpired = false;
       }
-      this.loadCompanyData();
+      this.loadCompanyData(0);
     })
   }
 
@@ -202,4 +205,7 @@ export class CompanyListComponent implements OnInit {
       });
      });
   }
+  viewFavourites(){
+    this.loadCompanyData(1);
+      }
 }
