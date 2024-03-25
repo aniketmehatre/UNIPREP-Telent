@@ -57,6 +57,7 @@ export class RecommendationsComponent implements OnInit {
 
   getList(): void {
     this.subStoreService.getRecommedationList().subscribe(res => {
+      
       if(res.success){
         this.recommended = res;
       }
@@ -116,9 +117,9 @@ export class RecommendationsComponent implements OnInit {
 
   onClickRadioButton(){
     this.invalidClass = false;
-    if (this.activePageIndex < this.products.length - 1) {
-      this.activePageIndex++;
-    }
+    // if (this.activePageIndex < this.products.length - 1) {
+    //   this.activePageIndex++;
+    // }
   }
 
   subscribeNow(){
