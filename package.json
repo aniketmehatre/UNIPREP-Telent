@@ -28,6 +28,7 @@
     "@ngrx/effects": "^14.3.3",
     "@ngrx/store": "^14.3.2",
     "@ngrx/store-devtools": "^14.3.2",
+    "@ngx-meta/core": "^9.0.0",
     "@types/facebook-js-sdk": "^3.3.10",
     "angular-linkedin-sdk": "^0.2.0",
     "angularx-social-login": "^4.1.0",
