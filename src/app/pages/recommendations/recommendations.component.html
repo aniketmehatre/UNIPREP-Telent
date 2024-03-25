@@ -22,7 +22,7 @@
                             </div>
                             <div class="check-list">
                                 <div class="flex align-items-center b-1">
-                                  <p-radioButton id="yes_{{product.id}}" [ngClass]="{'ng-invalid ng-dirty': invalidClass === true}" (onClick)="onClickRadioButton()" name="selection_{{product.id}}" [value]="true"  [(ngModel)]="selectedData[product.id]" >
+                                  <p-radioButton id="yes_{{product.id}}" [ngClass]="{'ng-invalid ng-dirty': invalidClass === true}"  name="selection_{{product.id}}" [value]="true" (onClick)="onClickRadioButton()"  [(ngModel)]="selectedData[product.id]" >
                                   </p-radioButton>
                                   <label for="yes_{{product.id}}">&nbsp;&nbsp;Yes</label>
                                 </div>
@@ -66,17 +66,21 @@
                         </div>
                     </div>
                 </p-card>
-                <h3 class="text-center p-2">Recommended {{ recommended?.planname }} Modules</h3>
-                <div class="d-flex flex-wrap text-center">
-                    <ng-container *ngIf="recommended && recommended.modules && recommended.modules.length">
-                        <p-card class="card m-2 module-list" *ngFor="let modulesList of recommended.modules">
-                            <div class="list text-center">
-                                <img src="{{modulesList.image_link}}" class="img-fluid" alt="Module Image" width="100">
-                                <h4 class="module-name">{{modulesList.name}}</h4>
-                            </div>
-                        </p-card>
-                    </ng-container>
-                </div>
+                <ng-container *ngIf="recommended && recommended.recommends && recommended.recommends.length" >
+                    <div *ngFor="let recommendList of recommended.recommends">
+                        <h3 class="text-center p-2">Recommended {{ recommendList?.name }} Modules</h3>
+                        <div class="d-flex flex-wrap text-center justify-content-center">
+                            <ng-container *ngIf="recommendList.details && recommendList.details.length">
+                                <p-card class="card m-2 module-list" *ngFor="let modulesList of recommendList.details">
+                                    <div class="list text-center">
+                                        <img src="{{modulesList.image_link}}" class="img-fluid" alt="Module Image" width="100">
+                                        <h4 class="module-name">{{modulesList.name}}</h4>
+                                    </div>
+                                </p-card>
+                            </ng-container>
+                        </div>
+                    </div>
+                </ng-container>
                 <div class="text-align-right" *ngIf="enableModule">
                   <button pButton type="button"
                     class="text-black b-none p-ripple p-button-rounded p-danger-button p-button p-component p-2 bg-white"
