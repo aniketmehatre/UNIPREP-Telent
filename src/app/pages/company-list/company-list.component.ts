@@ -13,7 +13,7 @@ import { MessageService } from 'primeng/api';
   styleUrls: ['./company-list.component.scss']
 })
 export class CompanyListComponent implements OnInit {
-  companyData: any []= []
+  companyListData: any []= []
   industryInterested: any;
   countryList: any;
   headQuartersList: any
@@ -69,12 +69,12 @@ export class CompanyListComponent implements OnInit {
       return;
     }
     var companySearchData: any = [];
-    this.companyData.filter(item => {
+    this.companyListData.filter(item => {
       if (item.company_name?.toLowerCase().includes(this.valueNearYouFilter.toLowerCase())) {
         companySearchData.push(item);
       }
     });
-    this.companyData = [...companySearchData];
+    this.companyListData = [...companySearchData];
   }
 
   searchClick(){
@@ -123,7 +123,7 @@ export class CompanyListComponent implements OnInit {
       planname:this.currentPlan?this.currentPlan:""
     }
     this.companyListService.getCompanyList(data).subscribe((response) => {
-      this.companyData = response.data;
+      this.companyListData = response.data;
       this.totalCompanyCount = response.count;
     });
     this.isFilterVisible = 'none'
@@ -190,15 +190,16 @@ export class CompanyListComponent implements OnInit {
         this.PersonalInfo = data;
     });
 }
-  bookmarkQuestion(investorId:any,isFav:any){
+  bookmarkQuestion(companyId:any,isFav:any){
     isFav=isFav!='1'?true:false;
-     this.companyListService.bookmarkCompanyData(investorId,this.PersonalInfo.user_id,isFav).subscribe((response) => {
+     this.companyListService.bookmarkCompanyData(companyId,this.PersonalInfo.user_id,isFav).subscribe((response) => {
+      let companyData=this.companyListData.find(item=>item.id==companyId);
+      isFav==true?companyData.favourite=1:companyData.favourite=null;
       this.toast.add({
         severity: "success",
         summary: "Success",
         detail: response.message,
       });
-      this.loadCompanyData();
      });
   }
 }

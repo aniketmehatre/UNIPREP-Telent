@@ -84,6 +84,11 @@ export class QuestionListComponent implements OnInit {
   selectedVideoLink: any | null = null;
   questionUrl:string="";
   allDataSet: any [] = [];
+  countryFlag: any
+  ogTitle: any
+  ogDescription: any
+  ogImage: any
+
   @ViewChild('op', { static: false, read: ElementRef }) elRef: any;
 
   constructor(
@@ -115,11 +120,11 @@ export class QuestionListComponent implements OnInit {
   loopRange = Array.from({ length: 30 }).fill(0).map((_, index) => index);
   ngOnInit(): void {
     //this.moduleListService.emptyQuestionList$();
-
-    this.meta.updateTag({ property:'og:title', content:'Study Abroad | Global opportunities | Life Abroad | Uniprep' });
-    this.meta.updateTag({ property:'og:description', content:'UNIPREP is a one-stop platform for students, graduates & entrepreneurs, seeking information on Career, Life and Study abroad' });
-    this.meta.updateTag({ property:'og:image', content:'https://api.uniprep.ai/uniprepapi/storage/app/public/country-flags/united-kingdom.svg' });
-    this.meta.updateTag({ property:'og:url', content:'https://dev-student.uniprep.ai/login'});
+    //
+    // this.meta.updateTag({ property:'og:title', content:'Study Abroad | Global opportunities | Life Abroad | Uniprep' });
+    // this.meta.updateTag({ property:'og:description', content:'UNIPREP is a one-stop platform for students, graduates & entrepreneurs, seeking information on Career, Life and Study abroad' });
+    // this.meta.updateTag({ property:'og:image', content:'https://api.uniprep.ai/uniprepapi/storage/app/public/country-flags/united-kingdom.svg' });
+    // this.meta.updateTag({ property:'og:url', content:'https://dev-student.uniprep.ai/login'});
 
 
     this.countryId = Number(localStorage.getItem('countryId'));
@@ -131,6 +136,10 @@ export class QuestionListComponent implements OnInit {
       this.loadInit();
       //this.getSubmoduleName(this.countryId);
     });
+    this.dataService.countryFlagSource.subscribe(data => {
+      this.countryFlag = data;
+    });
+
     this.dataService.countryId.subscribe((data) => {
        if(this.countryId != data){
         let countryName:any
@@ -173,8 +182,9 @@ export class QuestionListComponent implements OnInit {
              this.tooltip = "";
              break;
          }
-         console.log(this.currentSubModuleSlug);
-         this.router.navigateByUrl(`/pages/modules/${this.currentSubModuleSlug}`);
+         if(!localStorage.getItem('questionId')){
+          this.router.navigateByUrl(`/pages/modules/${this.currentSubModuleSlug}`);
+         }
          this.loadInit();
        }
       localStorage.setItem('countryId', data);
@@ -601,6 +611,25 @@ export class QuestionListComponent implements OnInit {
       this.restrict=true;
       return;
     }
+    // this.ogTitle = questionData.question;
+    // this.ogDescription = 'UNIPREP is a one-stop platform for students, graduates & entrepreneurs, seeking information on Career, Life and Study abroad';
+    // this.ogImage = this.countryFlag;
+    // this.meta.updateTag({ name:"twitter:card", content:"country_image" });
+    // this.meta.updateTag({ name: "twitter:description", content: this.ogDescription });
+    // this.meta.updateTag({ name: "twitter:title", content: this.ogTitle });
+    // this.meta.updateTag({ name: "twitter:image", content: this.countryFlag });
+    // this.meta.updateTag({name:'twitter:url',content:'/login'});
+    //
+    // this.meta.updateTag({ name: "description", content: this.ogDescription });
+    // this.meta.updateTag({ name: "title", content: this.ogTitle });
+    // this.meta.updateTag({ name: "image", content: this.countryFlag });
+    // this.meta.updateTag({name:'url',content:'/login'})
+    //
+    //
+    // this.meta.updateTag({ property:'og:title', content: questionData.question });
+    // this.meta.updateTag({ property:'og:description', content: this.ogDescription});
+    // this.meta.updateTag({ property:'og:image', content: this.ogImage });
+    // this.meta.updateTag({ property:'og:url', content:'/login'});
     this.oneQuestionContent = questionData;
     this.isQuestionAnswerVisible = true
     this.getSubmoduleName(questionData.country_id)
