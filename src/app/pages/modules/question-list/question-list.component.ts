@@ -14,7 +14,7 @@ import {
   ListQuestion,
   QuestionList,
 } from "../../../@Models/question-list.model";
-import { MenuItem } from "primeng/api";
+import { MenuItem, MessageService } from "primeng/api";
 import { ModuleServiceService } from "../../module-store/module-service.service";
 import { ModuleStoreService } from "../../module-store/module-store.service";
 import { DataService } from "../../../data.service";
@@ -82,12 +82,13 @@ export class QuestionListComponent implements OnInit {
   isSkeletonVisible: boolean = true;
   showVideoPopup: boolean = false;
   selectedVideoLink: any | null = null;
-  questionUrl:string="";
   allDataSet: any [] = [];
   countryFlag: any
   ogTitle: any
   ogDescription: any
-  ogImage: any
+  ogImage: any;
+  sharedCountry:number=0;
+
 
   @ViewChild('op', { static: false, read: ElementRef }) elRef: any;
 
@@ -103,7 +104,8 @@ export class QuestionListComponent implements OnInit {
     private authService: AuthService,
     private sanitizer: DomSanitizer,
     private renderer: Renderer2,
-    private meta: Meta
+    private meta: Meta,
+    private toast: MessageService,
   ) {
     Carousel.prototype.changePageOnTouch = (e, diff) => { }
     Carousel.prototype.onTouchMove = () => { };
@@ -128,6 +130,7 @@ export class QuestionListComponent implements OnInit {
 
 
     this.countryId = Number(localStorage.getItem('countryId'));
+    this.sharedCountry= Number(localStorage.getItem('countryId'));
     this.route.params.subscribe((params) => {
       let socialShare:any=document.getElementById("socialSharingList");
       if (socialShare){
@@ -193,7 +196,6 @@ export class QuestionListComponent implements OnInit {
       this.loadInit();
     });
      this.tooltip = "Questions related to the application process are answered";
-     this.questionUrl=environment.ApiUrl+this.router.url;
   }
   loadInit() {
     this.questionListData = [];
@@ -279,7 +281,7 @@ export class QuestionListComponent implements OnInit {
 
     //this.listQuestion$ = this.moduleListService.questionList$();
     let data = {
-      countryId: Number(localStorage.getItem("countryId")),
+      countryId: this.sharedCountry!=0?this.sharedCountry:this.countryId,
       moduleId: this.currentModuleId,
       submoduleId: Number(this.subModuleId),
       page: this.pageno,
@@ -293,6 +295,7 @@ export class QuestionListComponent implements OnInit {
   loadQuestionList(data: any){
     this.mService.studentFullQuestionData(data).subscribe((res: any) => {
       this.allDataSet = res;
+      console.log(this.allDataSet)
       // this.questionListData = data?.questions;
       // this.isSkeletonVisible = false
       // this.totalQuestionCount = data?.questioncount;
@@ -703,11 +706,12 @@ export class QuestionListComponent implements OnInit {
   }
   copyLink(){
     const textarea = document.createElement('textarea');
-    textarea.textContent = window.location.href + '&&' + this.selectedQuestionData?.id;
+    textarea.textContent = window.location.href + '&&' + this.selectedQuestionData?.id + '&&' + this.countryId;
     document.body.append(textarea);
     textarea.select();
     document.execCommand('copy');
     textarea.remove();
+    this.toast.add({ severity: 'success', summary: 'Success', detail: 'Question Copied' });
   }
    // vedio pop-up code
    openNextPageLink:any;
