@@ -47,7 +47,7 @@
 					<h5 class="mb-0 mt-2">Associated with 350+ Educational Partners</h5>
 					<p-carousel [numScroll]="1" [numVisible]="4" [circular]="true" [responsiveOptions]="responsiveOptions" [showIndicators]="false" [value]="partnerTrusterLogo" class="text-center">
 						<ng-template let-uni pTemplate="item">
-							<img alt="{{ uni.logo }}" width="150px" class="carousel" src="{{ uni.logo }}" />
+							<img alt="{{ uni.logo }}" class="trustedbylogo" src="{{ uni.logo }}" />
 						</ng-template>
 					</p-carousel>
 					<button class="btn btn-primary btn-rounded text-small px-4 py-2 m-0 mb-2" (click)="openViewMoreOrg()">View More</button>
