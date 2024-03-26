@@ -48,6 +48,7 @@ import { MaintenanceComponent } from './Auth/maintenance/maintenance.component';
 import { PrivacyComponent } from './pages/privacy/privacy.component';
 import {FacebookLoginProvider} from "angularx-social-login";
 import {NgxLinkedinModule} from "ngx-linkedin";
+import {MetaModule} from "@ngx-meta/core";
  
 
 const reducers = {
@@ -109,7 +110,8 @@ export function tokenGetter() {
         // FacebookModule.forRoot(),
         NgxLinkedinModule.forRoot({
             clientId: environment.linkedinId
-        })
+        }),
+        MetaModule.forRoot(),
     ],
   providers: [
       // FacebookInitService,

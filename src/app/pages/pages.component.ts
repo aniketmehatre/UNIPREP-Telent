@@ -8,6 +8,7 @@ import { AuthService } from "../Auth/auth.service";
 import {DeviceDetectorService} from "ngx-device-detector";
 // @ts-ignore
 import Contlo from 'contlo-web-sdk';
+import {Meta} from "@angular/platform-browser";
 
 @Component({
     selector: "uni-pages",
@@ -27,13 +28,20 @@ export class PagesComponent implements OnInit, OnDestroy {
     isDeviceStatus: any = 'none';
     isLoggedInAnotherDevice: any = 'none';
     deviceInfo: any;
+
+    ogTitle = 'Study Abroad | Global opportunities | Life Abroad | UNIPREP';
+    ogDescription = 'UNIPREP is a one-stop platform for students, graduates & entrepreneurs, seeking information on Career, Life and Study abroad. Sign-up Now - Free!';
+    ogImage = '../../uniprep-assets/images/uniprep-light.svg';
+
     @Output() expandicon = !this.sidebarClass
         ? "pi-align-right"
         : "pi-align-justify";
     private subs = new SubSink();
     visibleExhastedUser!: boolean;
     constructor(private pageFacade: PageFacadeService, private router: Router, private dataService: DataService,
+                public meta: Meta,
                 private dashboardService: DashboardService,private service:AuthService, private deviceService: DeviceDetectorService) {
+
        // dev
         Contlo.init('d7a84b3a1d83fa9f7e33f7396d57ac88', 'https://dev-student.uniprep.ai');
 
