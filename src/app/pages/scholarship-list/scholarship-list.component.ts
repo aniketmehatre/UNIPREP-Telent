@@ -73,7 +73,7 @@ export class ScholarshipListComponent implements OnInit {
 
   performSearch() {
     if (this.searchScholarshpName == "") {
-      this.loadScholarShipData();
+      this.loadScholarShipData(0);
       return;
     }
     var searchedScholarship: any = [];
@@ -92,7 +92,7 @@ export class ScholarshipListComponent implements OnInit {
       page: this.page,
       perpage: this.pageSize,
     }
-    this.loadScholarShipData();
+    this.loadScholarShipData(0);
     // this.getRegionList();
     this.getFilterUniversityList("");
   }
@@ -142,8 +142,11 @@ export class ScholarshipListComponent implements OnInit {
     });
   }
 
-  loadScholarShipData() {
+  loadScholarShipData(isFavourite:number) {
     this.data.planname=this.currentPlan?this.currentPlan:"";
+    if(isFavourite==1){
+      this.data['favourite']=1;
+    }
     this.scholarshipListService
       .getScholarshipList(this.data)
       .subscribe((response) => {
@@ -240,7 +243,7 @@ export class ScholarshipListComponent implements OnInit {
     this.first = event.first;
     this.data.page = this.page;
     this.data.perpage = this.pageSize;
-    this.loadScholarShipData();
+    this.loadScholarShipData(0);
   }
 
   closePopup() {
@@ -275,7 +278,7 @@ export class ScholarshipListComponent implements OnInit {
       } else {
         this.planExpired = false;
       }
-      this.loadScholarShipData();
+      this.loadScholarShipData(0);
     });
   }
 
@@ -306,4 +309,7 @@ bookmarkQuestion(scholarshipId:any,isFav:any){
     });
    });
 }
+viewFavourites(){
+  this.loadScholarShipData(1);
+    }
 }

@@ -12,6 +12,7 @@
 			</div>
 			<div class="col-md-3 text-end order-md-3 order-3">
 				<span class="d-flex justify-content-end mt-3 gap-2">
+					<button class="btn btn-primary text-small" (click)="viewFavourites()" type="button">View Favourites</button>
 					<button class="btn btn-primary text-small company-guidlines" (click)="companyGuidlines()" type="button">Company Guidlines</button>
 					<button class="btn btn-primary text-small ps-3 pe-3 pt-2 pb-2 br-8" (click)="filterBy()" type="button">Filter by</button>
 					<!-- <button class="btn btn-danger ps-3 pe-3 pt-2 pb-2" (click)="resetFilter()"
@@ -107,7 +108,7 @@
 
 <p-dialog header="Filter Companies" [(visible)]="isFilterVisible" [modal]="true" [style]="{ width: '60rem' }" [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }" [ngStyle]="{ display: isFilterVisible }" class="filterDialog">
 	<div class="m-5">
-		<form role="form" [formGroup]="filterForm" (ngSubmit)="loadCompanyData()">
+		<form role="form" [formGroup]="filterForm" (ngSubmit)="loadCompanyData(0)">
 			<div class="row">
 				<div class="col-md-12">
 					<div class="row">

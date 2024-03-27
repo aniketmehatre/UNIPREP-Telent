@@ -1,225 +1,288 @@
 <div class="container-fluid mb-3">
-	<div class="container-fluid px-0">
-		<div class="card card-body">
-			<div class="container-fluid">
-				<div class="row">
-					<div class="col-md-9 col-6">
-						<div class="row">
-							<div class="col-md-3 col-12">
-								<div class="d-flex justify-content-start align-items-center gap-2">
-									<div class="profileImg d-md-flex d-none">
-										<span>{{ (PersonalInfo?.name || "").charAt(0) }}</span>
-									</div>
-									<div>
-										<small>User Name</small>
-										<p class="mb-0 fw-semibold">{{ PersonalInfo?.name }}</p>
-									</div>
-								</div>
-							</div>
-							<div class="col-md-3 col-12">
-								<small> Phone </small>
-								<p class="mb-0 fw-semibold">{{ PersonalInfo?.phone }}</p>
-							</div>
-							<div class="col-md-6 col-12">
-								<small> Email </small>
-								<p class="mb-0 fw-semibold">{{ PersonalInfo?.email }}</p>
-							</div>
-						</div>
-					</div>
-					<div class="col-md-3 col-6 text-end">
-						<a class="btn btn-primary" (click)="onClickSubscribe()"
-							><p class="mb-0"><i class="fa-sharp fa-regular fa-crown"></i> My Subscription</p></a
-						>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
+    <div class="container-fluid px-0">
+        <div class="card card-body">
+            <div class="container-fluid">
+                <div class="desktopuserdetails">
+                    <div class="row">
+                            <div class="col-9">
+                                <div class="row">
+                                    <div class="col-3 ">
+                                        <div class="d-flex justify-content-start align-items-center gap-2">
+                                            <div class="profileImg d-md-flex d-none">
+                                                <span>{{ (PersonalInfo?.name || "").charAt(0) }}</span>
+                                            </div>
+                                            <div classs="text-wrap">
+                                                <small>User Name</small>
+                                                <p class="mb-0 fw-semibold">{{ PersonalInfo?.name }}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-3">
+                                        <small> Phone </small>
+                                        <p class="mb-0 fw-semibold">{{ PersonalInfo?.phone }}</p>
+                                    </div>
+                                    <div class="col-6">
+                                        <small> Email </small>
+                                        <p class="mb-0 fw-semibold">{{ PersonalInfo?.email }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-3 text-end">
+                                <a class="btn btn-primary" (click)="onClickSubscribe()">
+                                    <p class="mb-0"><i class="fa-sharp fa-regular fa-crown"></i> My Subscription</p>
+                                </a>
+                            </div>
+                    </div>
+                </div>
+                <div class="mobileuserdetails">
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="col-12">
+                                <div>
+                                    <small>User Name</small>
+                                    <p class="mb-0 fw-semibold">{{ PersonalInfo?.name }}</p>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <small> Phone </small>
+                                <p class="mb-0 fw-semibold">{{ PersonalInfo?.phone }}</p>
+                            </div>
+                        </div>
+                        <div class="col-6 text-end">
+                            <a class="btn btn-primary" (click)="onClickSubscribe()">
+                                <p class="mb-0"><i class="fa-sharp fa-regular fa-crown"></i> My Subscription</p>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <small> Email </small>
+                            <p class="mb-0 fw-semibold">{{ PersonalInfo?.email }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 <div class="container-fluid">
-	<div class="row">
-		<div class="col-md-12">
-			<div class="container-fluid px-0 mb-3">
-				<div class="card card-body">
-					<div class="row">
-						<div class="d-flex justify-content-between">
-							<h4>Personal information</h4>
-							<p class="mb-0 fw-semibold" (click)="ShowPersonalInfo = true" style="cursor: pointer"><i class="fa-sharp fa-regular fa-edit mr-2"></i>Edit Request</p>
-						</div>
-						<!-- <div class="d-flex col-sm-5 col-md-6 justify-content-end">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="container-fluid px-0 mb-3">
+                <div class="card card-body">
+                    <div class="row">
+                        <div class="d-flex justify-content-between">
+                            <h4>Personal information</h4>
+                            <p class="mb-0 fw-semibold" (click)="ShowPersonalInfo = true" style="cursor: pointer"><i
+                                    class="fa-sharp fa-regular fa-edit mr-2"></i>Edit Request</p>
+                        </div>
+                        <!-- <div class="d-flex col-sm-5 col-md-6 justify-content-end">
                                 <button class="btn btn-primary" *ngIf="!ShowPersonalInfo" (click)="EditPageShowAndHide('Edit')" ><i class="mr-1 fa-regular fa-pen-to-square"></i> &nbsp; Edit &nbsp; </button>
                                 <button class="btn btn-danger" *ngIf="ShowPersonalInfo" (click)="EditPageShowAndHide('cancel')" ><i class="fa-sharp fa-solid fa-xmark " style="color: #ffffff;"></i> &nbsp; Cancel &nbsp; </button>
                             </div> -->
-					</div>
-					<div *ngIf="!ShowPersonalInfo">
-						<div class="row">
-							<div class="col-md-4 col-6">
-								<small>Full Name</small>
-								<p class="mb-0 fw-semibold">{{ PersonalInfo?.name }}</p>
-							</div>
-							<div class="col-md-4 col-6">
-								<small>Home Country</small>
-								<p class="mb-0 fw-semibold">{{ PersonalInfo?.home_country_name }}</p>
-							</div>
-							<div class="col-md-4 col-6 mt-3 mt-md-0">
-								<small>Location(district)</small>
-								<p class="mb-0 fw-semibold">{{ PersonalInfo?.district }} , {{ PersonalInfo?.state }}</p>
-							</div>
-							<div class="col-md-4 col-6 mt-3">
-								<small>Intrested Country</small>
-								<p class="mb-0 fw-semibold">{{ PersonalInfo?.intrested_country || "-" }}</p>
-							</div>
-							<div class="col-md-4 col-6 mt-3">
-								<small>Last Degree Passing Year</small>
-								<p class="mb-0 fw-semibold">{{ PersonalInfo?.last_degree_passing_year || "-" }}</p>
-							</div>
-							<div class="col-md-4 col-6 mt-3">
-								<small>Intake Month</small>
-								<p class="mb-0 fw-semibold" *ngIf="PersonalInfo?.intake_month_looking || PersonalInfo?.intake_month_looking == 0; else noMonth">{{ selectedDate | date : "MMM" || "-" }}</p>
-								<ng-template #noMonth>
-									<p class="mb-0 fw-semibold">-</p>
-								</ng-template>
-							</div>
-							<div class="col-md-4 col-6 mt-3">
-								<small>Intake Year</small>
-								<p class="mb-0 fw-semibold">{{ PersonalInfo?.intake_year_looking || "-" }}</p>
-							</div>
-							<div class="col-md-4 col-6 mt-3">
-								<small>Program Level</small>
-								<p class="mb-0 fw-semibold">{{ PersonalInfo?.programlevel || "-" }}</p>
-							</div>
-							<div class="col-md-4 col-6 mt-3">
-								<small>Phone Number</small>
-								<p class="mb-0 fw-semibold">{{ PersonalInfo?.phone || "-" }}</p>
-							</div>
-						</div>
-					</div>
-					<div *ngIf="ShowPersonalInfo">
-						<form (ngSubmit)="onSubmit()" [formGroup]="registrationForm">
-							<div class="container-fluid">
-								<div class="row">
-									<div class="col-md-4 p-2">
-										<label>Full Name</label>
-										<div class="p-inputgroup">
-											<div class="p-inputgroup-addon">
-												<i class="pi pi-user"></i>
-											</div>
-											<input class="border-0" formControlName="name" pInputText type="text" />
-										</div>
-										<div *ngIf="submitted && f['name']['errors']" class="UserInfoValidation">
-											<div *ngIf="f['name']['errors']['required']">First Name is required</div>
-										</div>
-									</div>
-									<div class="col-md-4 p-2">
-										<label>Home Country</label>
-										<div class="p-inputgroup">
-											<div class="p-inputgroup-addon">
-												<img class="bg-image text-center" src="../../../uniprep-assets/images/icons/Uniprep_Icons_select_country.png" />
-											</div>
-											<p-dropdown styleClass="w-100" formControlName="home_country" appendTo="body" [options]="countryList" [filter]="true" (onChange)="changeLocation($event)" filterBy="country" optionLabel="country" optionValue="id" [autoDisplayFirst]="false"></p-dropdown>
-										</div>
-										<div *ngIf="submitted && f['home_country']['errors']" class="UserInfoValidation">
-											<div *ngIf="f['home_country']['errors']['required']">Country is required</div>
-										</div>
-									</div>
-									<div class="col-md-4 p-2">
-										<label>Location</label>
-										<div class="p-inputgroup">
-											<div class="p-inputgroup-addon">
-												<img class="bg-image text-center" src="../../../uniprep-assets/images/icons/Uniprep_Icons_location.png" />
-											</div>
-											<p-dropdown styleClass="w-100" [filter]="true" appendTo="body" [options]="locationList" formControlName="location_id" optionLabel="district" optionValue="id" [autoDisplayFirst]="false" [readonly]="registrationForm.get('home_country')?.value == 122 ? false : true"> </p-dropdown>
-										</div>
-										<div *ngIf="submitted && f['location_id']['errors']" class="UserInfoValidation">
-											<div *ngIf="f['location_id']['errors']['required']">Location is required</div>
-										</div>
-									</div>
-									<div class="col-md-4 p-2">
-										<label>Intrested Country</label>
-										<div class="p-inputgroup">
-											<div class="p-inputgroup-addon">
-												<img class="bg-image text-center" src="../../../uniprep-assets/images/icons/Uniprep_Icons_select_country.png" />
-											</div>
-											<p-dropdown styleClass="w-100" formControlName="interested_country_id" appendTo="body" [options]="intrestedCountryList" optionValue="id" optionLabel="country" [autoDisplayFirst]="false"></p-dropdown>
-										</div>
-										<!-- <div *ngIf="submitted && f['interested_country_id']['errors']" class="UserInfoValidation">
+                    </div>
+                    <div *ngIf="!ShowPersonalInfo">
+                        <div class="row">
+                            <div class="col-md-4 col-6">
+                                <small>Full Name</small>
+                                <p class="mb-0 fw-semibold">{{ PersonalInfo?.name }}</p>
+                            </div>
+                            <div class="col-md-4 col-6">
+                                <small>Home Country</small>
+                                <p class="mb-0 fw-semibold">{{ PersonalInfo?.home_country_name }}</p>
+                            </div>
+                            <div class="col-md-4 col-6 mt-3 mt-md-0">
+                                <small>Location(district)</small>
+                                <p class="mb-0 fw-semibold">{{ PersonalInfo?.district }} , {{ PersonalInfo?.state }}</p>
+                            </div>
+                            <div class="col-md-4 col-6 mt-3">
+                                <small>Intrested Country</small>
+                                <p class="mb-0 fw-semibold">{{ PersonalInfo?.intrested_country || "-" }}</p>
+                            </div>
+                            <div class="col-md-4 col-6 mt-3">
+                                <small>Last Degree Passing Year</small>
+                                <p class="mb-0 fw-semibold">{{ PersonalInfo?.last_degree_passing_year || "-" }}</p>
+                            </div>
+                            <div class="col-md-4 col-6 mt-3">
+                                <small>Intake Month</small>
+                                <p class="mb-0 fw-semibold"
+                                    *ngIf="PersonalInfo?.intake_month_looking || PersonalInfo?.intake_month_looking == 0; else noMonth">
+                                    {{ selectedDate | date : "MMM" || "-" }}</p>
+                                <ng-template #noMonth>
+                                    <p class="mb-0 fw-semibold">-</p>
+                                </ng-template>
+                            </div>
+                            <div class="col-md-4 col-6 mt-3">
+                                <small>Intake Year</small>
+                                <p class="mb-0 fw-semibold">{{ PersonalInfo?.intake_year_looking || "-" }}</p>
+                            </div>
+                            <div class="col-md-4 col-6 mt-3">
+                                <small>Program Level</small>
+                                <p class="mb-0 fw-semibold">{{ PersonalInfo?.programlevel || "-" }}</p>
+                            </div>
+                            <div class="col-md-4 col-6 mt-3">
+                                <small>Phone Number</small>
+                                <p class="mb-0 fw-semibold">{{ PersonalInfo?.phone || "-" }}</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div *ngIf="ShowPersonalInfo">
+                        <form (ngSubmit)="onSubmit()" [formGroup]="registrationForm">
+                            <div class="container-fluid">
+                                <div class="row">
+                                    <div class="col-md-4 p-2">
+                                        <label>Full Name</label>
+                                        <div class="p-inputgroup">
+                                            <div class="p-inputgroup-addon">
+                                                <i class="pi pi-user"></i>
+                                            </div>
+                                            <input class="border-0" formControlName="name" pInputText type="text" />
+                                        </div>
+                                        <div *ngIf="submitted && f['name']['errors']" class="UserInfoValidation">
+                                            <div *ngIf="f['name']['errors']['required']">First Name is required</div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4 p-2">
+                                        <label>Home Country</label>
+                                        <div class="p-inputgroup">
+                                            <div class="p-inputgroup-addon">
+                                                <img class="bg-image text-center"
+                                                    src="../../../uniprep-assets/images/icons/Uniprep_Icons_select_country.png" />
+                                            </div>
+                                            <p-dropdown styleClass="w-100" formControlName="home_country"
+                                                appendTo="body" [options]="countryList" [filter]="true"
+                                                (onChange)="changeLocation($event)" filterBy="country"
+                                                optionLabel="country" optionValue="id"
+                                                [autoDisplayFirst]="false"></p-dropdown>
+                                        </div>
+                                        <div *ngIf="submitted && f['home_country']['errors']"
+                                            class="UserInfoValidation">
+                                            <div *ngIf="f['home_country']['errors']['required']">Country is required
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4 p-2">
+                                        <label>Location</label>
+                                        <div class="p-inputgroup">
+                                            <div class="p-inputgroup-addon">
+                                                <img class="bg-image text-center"
+                                                    src="../../../uniprep-assets/images/icons/Uniprep_Icons_location.png" />
+                                            </div>
+                                            <p-dropdown styleClass="w-100" [filter]="true" appendTo="body"
+                                                [options]="locationList" formControlName="location_id"
+                                                optionLabel="district" optionValue="id" [autoDisplayFirst]="false"
+                                                [readonly]="registrationForm.get('home_country')?.value == 122 ? false : true">
+                                            </p-dropdown>
+                                        </div>
+                                        <div *ngIf="submitted && f['location_id']['errors']" class="UserInfoValidation">
+                                            <div *ngIf="f['location_id']['errors']['required']">Location is required
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4 p-2">
+                                        <label>Intrested Country</label>
+                                        <div class="p-inputgroup">
+                                            <div class="p-inputgroup-addon">
+                                                <img class="bg-image text-center"
+                                                    src="../../../uniprep-assets/images/icons/Uniprep_Icons_select_country.png" />
+                                            </div>
+                                            <p-dropdown styleClass="w-100" formControlName="interested_country_id"
+                                                appendTo="body" [options]="intrestedCountryList" optionValue="id"
+                                                optionLabel="country" [autoDisplayFirst]="false"></p-dropdown>
+                                        </div>
+                                        <!-- <div *ngIf="submitted && f['interested_country_id']['errors']" class="UserInfoValidation">
                                                     <div *ngIf="f['interested_country_id']['errors']['required']">
                                                         Country is required
                                                     </div>
                                                 </div> -->
-									</div>
-									<div class="col-md-4 p-2">
-										<label>Last Degree Passing Year</label>
-										<div class="p-inputgroup">
-											<div class="p-inputgroup-addon">
-												<img class="bg-image text-center" src="../../../uniprep-assets/images/icons/Uniprep_Icons_calender.png" />
-											</div>
-											<p-calendar [maxDate]="today" appendTo="body" dateFormat="yy" formControlName="last_degree_passing_year" inputId="pickYear" view="year"> </p-calendar>
-										</div>
-										<!-- <div *ngIf="submitted && f['last_degree_passing_year']['errors']"
+                                    </div>
+                                    <div class="col-md-4 p-2">
+                                        <label>Last Degree Passing Year</label>
+                                        <div class="p-inputgroup">
+                                            <div class="p-inputgroup-addon">
+                                                <img class="bg-image text-center"
+                                                    src="../../../uniprep-assets/images/icons/Uniprep_Icons_calender.png" />
+                                            </div>
+                                            <p-calendar [maxDate]="today" appendTo="body" dateFormat="yy"
+                                                formControlName="last_degree_passing_year" inputId="pickYear"
+                                                view="year"> </p-calendar>
+                                        </div>
+                                        <!-- <div *ngIf="submitted && f['last_degree_passing_year']['errors']"
                                                     class="UserInfoValidation">
                                                     <div *ngIf="f['last_degree_passing_year']['errors']['required']">
                                                         Passing Year is required
                                                     </div>
                                                 </div> -->
-									</div>
-									<div class="col-md-4 p-2">
-										<label>Intake Year Looking</label>
-										<div class="p-inputgroup">
-											<div class="p-inputgroup-addon">
-												<img class="bg-image text-center" src="../../../uniprep-assets/images/icons/Uniprep_Icons_calender.png" />
-											</div>
-											<p-calendar (onSelect)="yearChage($event)" [minDate]="currentDate" appendTo="body" dateFormat="yy" formControlName="intake_year_looking" inputId="yearpicker" view="year"></p-calendar>
-										</div>
-										<!-- <div *ngIf="submitted && f['intake_year_looking']['errors']" class="UserInfoValidation">
+                                    </div>
+                                    <div class="col-md-4 p-2">
+                                        <label>Intake Year Looking</label>
+                                        <div class="p-inputgroup">
+                                            <div class="p-inputgroup-addon">
+                                                <img class="bg-image text-center"
+                                                    src="../../../uniprep-assets/images/icons/Uniprep_Icons_calender.png" />
+                                            </div>
+                                            <p-calendar (onSelect)="yearChage($event)" [minDate]="currentDate"
+                                                appendTo="body" dateFormat="yy" formControlName="intake_year_looking"
+                                                inputId="yearpicker" view="year"></p-calendar>
+                                        </div>
+                                        <!-- <div *ngIf="submitted && f['intake_year_looking']['errors']" class="UserInfoValidation">
                                                     <div *ngIf="f['intake_year_looking']['errors']['required']">
                                                         Intake Year is required
                                                     </div>
                                                 </div> -->
-									</div>
-									<div class="col-md-4 p-2">
-										<label>Intake Month Looking</label>
-										<div class="p-inputgroup">
-											<div class="p-inputgroup-addon">
-												<img class="bg-image text-center" src="../../../uniprep-assets/images/icons/Uniprep_Icons_calender.png" />
-											</div>
-											<p-calendar view="month" dateFormat="M" formControlName="intake_month_looking" incalendarputId="pickMonth" [readonlyInput]="false" [minDate]="dateTime" [maxDate]="maximumTime" placeholder=""> </p-calendar>
-										</div>
-										<!-- <div *ngIf="submitted && f['intake_month_looking']['errors']" class="UserInfoValidation">
+                                    </div>
+                                    <div class="col-md-4 p-2">
+                                        <label>Intake Month Looking</label>
+                                        <div class="p-inputgroup">
+                                            <div class="p-inputgroup-addon">
+                                                <img class="bg-image text-center"
+                                                    src="../../../uniprep-assets/images/icons/Uniprep_Icons_calender.png" />
+                                            </div>
+                                            <p-calendar view="month" dateFormat="M"
+                                                formControlName="intake_month_looking" incalendarputId="pickMonth"
+                                                [readonlyInput]="false" [minDate]="dateTime" [maxDate]="maximumTime"
+                                                placeholder=""> </p-calendar>
+                                        </div>
+                                        <!-- <div *ngIf="submitted && f['intake_month_looking']['errors']" class="UserInfoValidation">
                                                     <div *ngIf="f['intake_month_looking']['errors']['required']">
                                                         Intake Month Looking is required
                                                     </div>
                                                 </div> -->
-									</div>
-									<div class="col-md-4 p-2">
-										<label>Program Level</label>
-										<div class="p-inputgroup">
-											<div class="p-inputgroup-addon">
-												<img class="bg-image text-center" src="../../../uniprep-assets/images/icons/Uniprep_Icons_Program_Level.png" />
-											</div>
-											<p-dropdown styleClass="w-100" [filter]="true" [options]="programlevelList" appendTo="body" filterBy="programlevel" formControlName="programlevel_id" optionLabel="programlevel" optionValue="id" [autoDisplayFirst]="false"></p-dropdown>
-										</div>
-										<!-- <div *ngIf="submitted && f['programlevel_id']['errors']" class="UserInfoValidation">
+                                    </div>
+                                    <div class="col-md-4 p-2">
+                                        <label>Program Level</label>
+                                        <div class="p-inputgroup">
+                                            <div class="p-inputgroup-addon">
+                                                <img class="bg-image text-center"
+                                                    src="../../../uniprep-assets/images/icons/Uniprep_Icons_Program_Level.png" />
+                                            </div>
+                                            <p-dropdown styleClass="w-100" [filter]="true" [options]="programlevelList"
+                                                appendTo="body" filterBy="programlevel"
+                                                formControlName="programlevel_id" optionLabel="programlevel"
+                                                optionValue="id" [autoDisplayFirst]="false"></p-dropdown>
+                                        </div>
+                                        <!-- <div *ngIf="submitted && f['programlevel_id']['errors']" class="UserInfoValidation">
                                                     <div *ngIf="f['programlevel_id']['errors']['required']">
                                                         Program Level is required
                                                     </div>
                                                 </div> -->
-									</div>
-									<div class="col-md-4 p-2">
-										<label>Phone Number</label>
-										<div class="p-inputgroup">
-											<div class="p-inputgroup-addon">
-												<i class="pi pi-phone"></i>
-											</div>
-											<input class="border-0" formControlName="phone" pInputText type="text" [readonly]="this.PersonalInfo?.phone" />
-										</div>
-										<div *ngIf="submitted && f['phone']['errors']" class="UserInfoValidation">
-											<div *ngIf="f['phone']['errors']['required']">Phone Number is required</div>
-										</div>
-									</div>
-								</div>
+                                    </div>
+                                    <div class="col-md-4 p-2">
+                                        <label>Phone Number</label>
+                                        <div class="p-inputgroup">
+                                            <div class="p-inputgroup-addon">
+                                                <i class="pi pi-phone"></i>
+                                            </div>
+                                            <input class="border-0" formControlName="phone" pInputText type="text"
+                                                [readonly]="this.PersonalInfo?.phone" />
+                                        </div>
+                                        <div *ngIf="submitted && f['phone']['errors']" class="UserInfoValidation">
+                                            <div *ngIf="f['phone']['errors']['required']">Phone Number is required</div>
+                                        </div>
+                                    </div>
+                                </div>
 
-								<!-- <div class="col-md-4 p-2">
+                                <!-- <div class="col-md-4 p-2">
                                                 <label>Gender</label>
                                                 <div class="p-inputgroup">
                                                     <div class="p-inputgroup-addon">
@@ -236,80 +299,99 @@
                                                     </div>
                                                 </div>
                                             </div> -->
-							</div>
-							<div class="d-flex justify-content-end mt-2">
-								<button type="submit" class="btn btn-primary"><i class="fa-solid fa-circle-up mt-1" style="color: #ffffff"></i> &nbsp; Update Info &nbsp;</button>
-							</div>
-						</form>
-					</div>
-				</div>
-			</div>
-			<div class="accordion accordionpassword mb-3" id="accordionPanelsStayOpenExample">
-				<div class="accordion-item">
-					<h2 class="accordion-header">
-						<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="false" aria-controls="panelsStayOpen-collapseOne">
-							<h4 class="mb-0">Update Password</h4>
-						</button>
-					</h2>
-					<div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse">
-						<div class="accordion-body">
-							<div class="row">
-								<form [formGroup]="updatedpasswords" (ngSubmit)="UserUpdatePassword(updatedpasswords)">
-									<div class="container-fluid">
-										<div class="row">
-											<div class="col-md-4 col-12">
-												<label class="mb-1">Current Password</label>
-												<div class="position-relative">
-													<input [type]="CrntPass" class="form-control" formControlName="current_password" />
-													<span class="passwordvisibility" role="button" (click)="ShowCurrentPassword()">
-														<i class="fa-solid fa-eye" *ngIf="ShowCrntPass"></i>
-														<i class="fa-solid fa-eye-slash" *ngIf="!ShowCrntPass"></i>
-													</span>
-												</div>
-												<div *ngIf="PasswordSubmitted && updatepassword['current_password']['errors']" class="UserInfoValidation">
-													<div *ngIf="updatepassword['current_password']['errors']['required']">Current Password is required</div>
-												</div>
-											</div>
-
-											<div class="col-md-4 col-12">
-												<label class="mb-1">Set New Password</label>
-												<div class="position-relative">
-													<input [type]="NewPass" class="form-control" formControlName="new_password" />
-													<span class="passwordvisibility" role="button"  (click)="ShowNewPassword()">
-														<i class="fa-solid fa-eye" *ngIf="ShowNewPass"></i>
-														<i class="fa-solid fa-eye-slash" *ngIf="!ShowNewPass"></i>
-													</span>
-												</div>
-												<div *ngIf="PasswordSubmitted && updatepassword['new_password']['errors']" class="UserInfoValidation">
-													<div *ngIf="updatepassword['new_password']['errors']['required']">New Password is required</div>
-												</div>
-											</div>
-											<div class="col-md-4 col-12">
-												<label class="mb-1">Enter New Password Again</label>
-												<div class="position-relative">
-													<input [type]="CnfrmPass" class="form-control" formControlName="confirm_password" />
-													<span class="passwordvisibility" role="button"  (click)="ShowConfirmPassword()">
-														<i class="fa-solid fa-eye" *ngIf="ShowCnfrmPass"></i>
-														<i class="fa-solid fa-eye-slash" *ngIf="!ShowCnfrmPass"></i>
-													</span>
-												</div>
-												<div *ngIf="PasswordSubmitted && updatepassword['confirm_password']['errors']" class="UserInfoValidation">
-													<div *ngIf="updatepassword['confirm_password']['errors']['required']">Confirm Password is required</div>
-												</div>
-											</div>
-                                            <div class="col-md-12 text-md-end text-center mt-3">
-                                                <button type="submit" class="btn btn-primary"><i class="fa-solid fa-circle-up" style="color: #ffffff"></i> &nbsp; Update Password &nbsp;</button>
+                            </div>
+                            <div class="d-flex justify-content-end mt-2">
+                                <button type="submit" class="btn btn-primary"><i class="fa-solid fa-circle-up mt-1"
+                                        style="color: #ffffff"></i> &nbsp; Update Info &nbsp;</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="accordion accordionpassword mb-3" id="accordionPanelsStayOpenExample">
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="false"
+                            aria-controls="panelsStayOpen-collapseOne">
+                            <h4 class="mb-0">Update Password</h4>
+                        </button>
+                    </h2>
+                    <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse">
+                        <div class="accordion-body">
+                            <div class="row">
+                                <form [formGroup]="updatedpasswords" (ngSubmit)="UserUpdatePassword(updatedpasswords)">
+                                    <div class="container-fluid">
+                                        <div class="row">
+                                            <div class="col-md-4 col-12">
+                                                <label class="mb-1">Current Password</label>
+                                                <div class="position-relative">
+                                                    <input [type]="CrntPass" class="form-control"
+                                                        formControlName="current_password" />
+                                                    <span class="passwordvisibility" role="button"
+                                                        (click)="ShowCurrentPassword()">
+                                                        <i class="fa-solid fa-eye" *ngIf="ShowCrntPass"></i>
+                                                        <i class="fa-solid fa-eye-slash" *ngIf="!ShowCrntPass"></i>
+                                                    </span>
+                                                </div>
+                                                <div *ngIf="PasswordSubmitted && updatepassword['current_password']['errors']"
+                                                    class="UserInfoValidation">
+                                                    <div
+                                                        *ngIf="updatepassword['current_password']['errors']['required']">
+                                                        Current Password is required</div>
+                                                </div>
                                             </div>
-										</div>
-									</div>
-									
-								</form>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			<!-- <div class="container-fluid px-0 mb-3">
+
+                                            <div class="col-md-4 col-12">
+                                                <label class="mb-1">Set New Password</label>
+                                                <div class="position-relative">
+                                                    <input [type]="NewPass" class="form-control"
+                                                        formControlName="new_password" />
+                                                    <span class="passwordvisibility" role="button"
+                                                        (click)="ShowNewPassword()">
+                                                        <i class="fa-solid fa-eye" *ngIf="ShowNewPass"></i>
+                                                        <i class="fa-solid fa-eye-slash" *ngIf="!ShowNewPass"></i>
+                                                    </span>
+                                                </div>
+                                                <div *ngIf="PasswordSubmitted && updatepassword['new_password']['errors']"
+                                                    class="UserInfoValidation">
+                                                    <div *ngIf="updatepassword['new_password']['errors']['required']">
+                                                        New Password is required</div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4 col-12">
+                                                <label class="mb-1">Enter New Password Again</label>
+                                                <div class="position-relative">
+                                                    <input [type]="CnfrmPass" class="form-control"
+                                                        formControlName="confirm_password" />
+                                                    <span class="passwordvisibility" role="button"
+                                                        (click)="ShowConfirmPassword()">
+                                                        <i class="fa-solid fa-eye" *ngIf="ShowCnfrmPass"></i>
+                                                        <i class="fa-solid fa-eye-slash" *ngIf="!ShowCnfrmPass"></i>
+                                                    </span>
+                                                </div>
+                                                <div *ngIf="PasswordSubmitted && updatepassword['confirm_password']['errors']"
+                                                    class="UserInfoValidation">
+                                                    <div
+                                                        *ngIf="updatepassword['confirm_password']['errors']['required']">
+                                                        Confirm Password is required</div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12 text-md-end text-center mt-3">
+                                                <button type="submit" class="btn btn-primary"><i
+                                                        class="fa-solid fa-circle-up" style="color: #ffffff"></i> &nbsp;
+                                                    Update Password &nbsp;</button>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- <div class="container-fluid px-0 mb-3">
                     <div class="card card-body">
                         <div class="row">
                             <div class="d-flex col-sm-5 col-md-6 mb-2 justify-content-between">
@@ -325,28 +407,32 @@
                         
                     </div>
                 </div> -->
-			<div class="container-fluid px-0 mb-3">
-				<div class="card card-body">
-					<div class="row">
-						<div class="d-flex col-sm-5 col-md-6 mb-2 justify-content-between">
-							<h4>Notification Settings</h4>
-						</div>
-					</div>
-					<div class="row">
-						<div class="container-fluid">
-							<div class="d-flex">
-								<p class="text-muted">Basic information on Data Protection: uniabroad stores your data to improve the service and with your consent, offer news, promotion and raffles, as well as projects and releases form UNIABROAD</p>
-							</div>
-							<p class="notify d-flex justify-content-between align-items-center bg-light rounded-4 p-2">
-								<span style="vertical-align: center">I wish to receive newsletters, promotions and news from UNIABROAD</span>
-								<p-inputSwitch (onChange)="NewsLetterUpdate($event)" [(ngModel)]="newsLetter"></p-inputSwitch>
-							</p>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
+            <div class="container-fluid px-0 mb-3">
+                <div class="card card-body">
+                    <div class="row">
+                        <div class="d-flex col-sm-5 col-md-6 mb-2 justify-content-between">
+                            <h4>Notification Settings</h4>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="container-fluid">
+                            <div class="d-flex">
+                                <p class="text-muted">Basic information on Data Protection: uniabroad stores your data
+                                    to improve the service and with your consent, offer news, promotion and raffles, as
+                                    well as projects and releases form UNIABROAD</p>
+                            </div>
+                            <p class="notify d-flex justify-content-between align-items-center bg-light rounded-4 p-2">
+                                <span style="vertical-align: center">I wish to receive newsletters, promotions and news
+                                    from UNIABROAD</span>
+                                <p-inputSwitch (onChange)="NewsLetterUpdate($event)"
+                                    [(ngModel)]="newsLetter"></p-inputSwitch>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 <!-- Notification Panel Hidden Do Not Remove -->

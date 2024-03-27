@@ -14,7 +14,9 @@ export class ModulesComponent implements OnInit {
     if(window.location.pathname.includes("&&")) {
       let url = window.location.pathname.split("&&");
       localStorage.setItem('questionId', url[1]);
+      localStorage.setItem('countryId',url[2]);
       this.router.navigateByUrl(url[0]);
+      
     }
   }
 
