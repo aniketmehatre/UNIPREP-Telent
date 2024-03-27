@@ -93,7 +93,7 @@ export class RecommendationsComponent implements OnInit {
       const selectedKeys = Object.keys(this.selectedData).filter(key => this.selectedData[key]);
       let selectedValues = "";
       if (selectedKeys.length === 0) {
-        selectedValues = "1,2,3,4";
+        selectedValues = "no";
       }else{
         selectedValues = selectedKeys.join(',');
       }

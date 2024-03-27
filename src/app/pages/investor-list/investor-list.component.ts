@@ -97,6 +97,10 @@ export class InvestorListComponent implements OnInit {
     this.router.navigate(["/pages/investor-guidlines"]);
   }
   
+  buyCredits(): void{
+    this.router.navigate(["/pages/export-credit"]);
+  }
+
   loadInvestorData(isFavourite:number) {
   
     let data:any = {

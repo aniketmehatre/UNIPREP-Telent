@@ -63,6 +63,7 @@ import { CheckboxModule } from "primeng/checkbox";
 import { RadioButtonModule } from 'primeng/radiobutton';
 import { PitchDeskComponent } from './pitch-desk/pitch-desk.component';
 import {NgxExtendedPdfViewerModule} from "ngx-extended-pdf-viewer";
+import { ExportCreditComponent } from './export-credit/export-credit.component';
 
 @NgModule({
     declarations: [
@@ -91,6 +92,7 @@ import {NgxExtendedPdfViewerModule} from "ngx-extended-pdf-viewer";
         InvestorListGuidlinesComponent,
         RecommendationsComponent,
         PitchDeskComponent,
+        ExportCreditComponent,
     ],
   exports: [FooterStatusBoxComponent, HeaderSearchComponent],
     imports: [
