@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { PitchDeskService } from "./pitch-desk.service";
 import { FormBuilder, FormGroup } from "@angular/forms";
-
+import { AuthService } from 'src/app/Auth/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'uni-pitch-desk',
@@ -20,8 +21,11 @@ export class PitchDeskComponent implements OnInit {
   sectorSelectBox:any = [];
   valueNearYouFilter:string ="";
   showDiv: boolean = true;
+  restrict: boolean = false;
+  planExpired!: boolean;
+  currentPlan: string = "";
 
-  constructor(private pitchDesk:PitchDeskService, private fb: FormBuilder) { 
+  constructor(private pitchDesk:PitchDeskService, private fb: FormBuilder,private router: Router,private authService: AuthService,) { 
     this.filterForm = this.fb.group({
       pitchdeck_name: [''],
       country: [''],
@@ -32,6 +36,7 @@ export class PitchDeskComponent implements OnInit {
 
   ngOnInit(): void {
     this.getPitchDeskList();
+    this.checkplanExpire();
     this.selectBoxValues();
   }
 
@@ -43,6 +48,7 @@ export class PitchDeskComponent implements OnInit {
       sector: this.filterForm.value.sector ? this.filterForm.value.sector : '',
       page: this.page,
       perpage: this.pageSize,
+      planname:this.currentPlan?this.currentPlan:"",
     }
     this.pitchDesk.getPitchDeskData(data).subscribe((responce)=>{
       this.totalPitchDeckCount = responce.total_count;
@@ -61,12 +67,20 @@ export class PitchDeskComponent implements OnInit {
   }
 
   pageChange(event: any){
+    if (this.planExpired) {
+      this.restrict = true;
+      return;
+    }
     this.page = event.page + 1;
     this.pageSize = event.rows;
     this.getPitchDeskList();
   }
 
   filterBy(){
+    if (this.planExpired) {
+      this.restrict = true;
+      return;
+    }
     this.isFilterVisible = 'block';
   }
 
@@ -95,5 +109,32 @@ export class PitchDeskComponent implements OnInit {
 
   showPdf(url: any){
     window.open(url, "_blank");
+  }
+
+  clearRestriction() {
+    this.restrict = false;
+  }
+  
+  upgradePlan(): void {
+    this.router.navigate(["/pages/subscriptions"]);
+  }
+
+  checkplanExpire(): void {
+    this.authService.getNewUserTimeLeft().subscribe((res) => {
+      let data = res.time_left;
+      let subscription_exists_status = res.subscription_details;
+      this.currentPlan = subscription_exists_status.subscription_plan;
+      if (data.plan === "expired" || data.plan === 'subscription_expired' ||
+          subscription_exists_status.subscription_plan === 'free_trail' ||
+          subscription_exists_status.subscription_plan === 'Student' ||
+          subscription_exists_status.subscription_plan === 'Career') {
+        this.planExpired = true;
+        //this.restrict = true;
+      } else {
+        this.planExpired = false;
+        //this.restrict = false;
+      }
+      this.getPitchDeskList();
+    })
   }
 }
