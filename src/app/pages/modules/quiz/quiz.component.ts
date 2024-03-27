@@ -10,87 +10,61 @@ import { AuthService } from 'src/app/Auth/auth.service';
 import {NgxUiLoaderService} from "ngx-ui-loader";
 
 @Component({
-  selector: 'uni-list-sub-modules',
-  templateUrl: './list-sub-modules.component.html',
-  styleUrls: ['./list-sub-modules.component.scss'],
-  providers: [ConfirmationService]
+  selector: 'uni-quiz',
+  templateUrl: './quiz.component.html',
+  styleUrls: ['./quiz.component.scss']
 })
-export class ListSubModulesComponent implements OnInit {
-  subModules$!: Observable<ModuleListSub[]>;
-  quizList$!: Observable<any>;
-  selectedSubModule: any;
-  answeredCorrect: number = 0;
-  totalPercentage: number = 0;
-  percentageValue: string = '';
-  subModuleList: any[] = [];
-  isStartQuiz: boolean = false;
-  isQuizSubmit: boolean = false;
-  isReviewVisible: boolean = false;
-  responsiveOptions: any[] = [];
+export class QuizComponent implements OnInit {
+
   quizData: any[] = [];
-  moduleList: any[] = [];
-  selectedQuiz: number = 1;
-  selectedOptNumber: number = 1;
-  selectedOptValue: string = '';
-  positionNumber: number = 0;
-  breadCrumb: MenuItem[] = [];
-  answerOptionClicked: boolean = true
-  isInstructionVisible: boolean = false
-  currentModuleSlug: any;
-  currentModuleName: any;
-  currentModuleId: any
   currentCountryId: any
+  currentModuleId: any;
+  currentModuleSlug: any;
+  quizList$!: Observable<any>;
+  moduleList: any[] = [];
   currentApiSlug: any;
+  countryName!: string;
+  currentModuleName: any;
   infoMessage!: string;
   unlockMessage!: string;
   aboutModule!: string;
   moduleDetails!: string;
   upgradePlanMsg!: string;
   selectedModule!: string;
-  planExpired!: boolean;
-  countryName!: string;
   isSkeletonVisible: boolean = true;
-  countryId: any
-  constructor(private moduleListService: ModuleServiceService, private router: Router, private dataService: DataService, private authService: AuthService,
-    private locationService: LocationService, private route: ActivatedRoute, private ngxService: NgxUiLoaderService,
-    private confirmationService: ConfirmationService) {
-    this.countryId = Number(localStorage.getItem('countryId'));
-    this.dataService.countryIdSource.subscribe((data) => {
-      if(this.countryId != data){
-        this.ngOnInit();
-      }
-      //localStorage.setItem('countryId', data);
-      //this.isSkeletonVisible = true
-      this.dataService.countryNameSource.subscribe((data) => {
-        this.countryName = data;
-      });
-    });
-    this.responsiveOptions = [
-      {
-        breakpoint: '1199px',
-        numVisible: 1,
-        numScroll: 1
-      },
-      {
-        breakpoint: '991px',
-        numVisible: 2,
-        numScroll: 1
-      },
-      {
-        breakpoint: '767px',
-        numVisible: 1,
-        numScroll: 1,
-      }
-    ];
-  }
-  loopRange = Array.from({ length: 30 }).fill(0).map((_, index) => index);
-  ngOnInit(){
+  subModuleList: any[] = [];
+  selectedQuiz: number = 1;
+  positionNumber: number = 0;
+  isStartQuiz: boolean = false;
+  isInstructionVisible: boolean = false;
+  breadCrumb: MenuItem[] = [];
+  answerOptionClicked: boolean = true;
+  selectedOptNumber: number = 1;
+  selectedOptValue: string = '';
+  responsiveOptions: any[] = [];
+  answeredCorrect: number = 0;
+  totalPercentage: number = 0;
+  percentageValue: string = '';
+  isQuizSubmit: boolean = false;
+  constructor(private moduleListService: ModuleServiceService,private router: Router,private dataService: DataService,
+    private locationService: LocationService,private ngxService: NgxUiLoaderService) { }
+
+  ngOnInit(): void {
     this.init();
   }
 
   init(){
+    let cName = "";
+    this.dataService.countryNameSource.subscribe(countryName => {
+      cName = countryName;
+    });
+    this.quizData = [];
+    this.getQuizData();
+    this.selectedQuiz = 1;
+    this.positionNumber = 1;
+    this.isInstructionVisible = true;
     this.currentCountryId = Number(localStorage.getItem('countryId'));
-    this.currentModuleSlug = this.router.url.split('/').pop();
+    this.currentModuleSlug = this.router.url.split('/').slice(-2,-1).pop();
     this.dataService.countryNameSource.subscribe((data) => {
       this.countryName = data;
     });
@@ -154,40 +128,31 @@ export class ListSubModulesComponent implements OnInit {
         break;
 
     }
+    this.responsiveOptions = [
+      {
+        breakpoint: '1199px',
+        numVisible: 1,
+        numScroll: 1
+      },
+      {
+        breakpoint: '991px',
+        numVisible: 2,
+        numScroll: 1
+      },
+      {
+        breakpoint: '767px',
+        numVisible: 1,
+        numScroll: 1,
+      }
+    ];
     /*FU
     // if (this.currentModuleId == 5) {
     //   return;
     // } */
     localStorage.setItem("currentmodulenameforrecently", this.currentModuleName);
     this.loadModuleAndSubModule();
-    if (this.route.snapshot.paramMap.get('id') == '2') {
-      this.startQuiz();
-    }
-    this.checkplanExpire();
   }
 
-  loadModuleAndSubModule() {
-    this.currentCountryId = Number(localStorage.getItem('countryId'));
-    //this.isSkeletonVisible = true;
-    //this.subModules$ = this.moduleListService.subModuleList$();
-    let data = {
-      countryId: this.currentCountryId,
-      moduleId: this.currentModuleId,
-      api_module_name: this.currentApiSlug
-    }
-    //this.moduleListService.loadSubModules(data);
-    this.locationService.GetQuestionsCount(data).subscribe(data => {
-      this.isSkeletonVisible = false;
-      this.subModuleList = data;
-    })
-    // this.subModules$.subscribe(event => {
-    //   this.subModuleList = event;
-    // });
-    this.locationService.getUniPerpModuleList().subscribe((data: any) => {
-      this.moduleList = data.modules;
-      this.ngxService.stop();
-    });
-  }
 
   getQuizData() {
 
@@ -219,8 +184,27 @@ export class ListSubModulesComponent implements OnInit {
 
   }
 
-  nextModule() {
-    this.router.navigateByUrl(`/pages/modules/${this.currentModuleSlug}/question-list`)
+  loadModuleAndSubModule() {
+    this.currentCountryId = Number(localStorage.getItem('countryId'));
+    //this.isSkeletonVisible = true;
+    //this.subModules$ = this.moduleListService.subModuleList$();
+    let data = {
+      countryId: this.currentCountryId,
+      moduleId: this.currentModuleId,
+      api_module_name: this.currentApiSlug
+    }
+    //this.moduleListService.loadSubModules(data);
+    this.locationService.GetQuestionsCount(data).subscribe(data => {
+      this.isSkeletonVisible = false;
+      this.subModuleList = data;
+    })
+    // this.subModules$.subscribe(event => {
+    //   this.subModuleList = event;
+    // });
+    this.locationService.getUniPerpModuleList().subscribe((data: any) => {
+      this.moduleList = data.modules;
+      this.ngxService.stop();
+    });
   }
 
   runQuiz() {
@@ -232,6 +216,42 @@ export class ListSubModulesComponent implements OnInit {
     });
     this.breadCrumb = [{ label: cName }, { label: this.quizData[0]!.module_name },
     { label: this.quizData[0]!.sub_module_name }];
+  }
+
+  setPage(page: any) {
+    let pageNum: number = 0
+    if (page.page < 0) {
+      pageNum = this.quizData.length;
+    } else {
+      pageNum = page.page
+    }
+    this.positionNumber = pageNum + 1;
+
+  }
+
+  selectAnswer(selectedOption: any, singleData: any, optNumber: number) {
+    this.answerOptionClicked = false;
+    this.selectedOptNumber = optNumber;
+    this.selectedOptValue = selectedOption;
+    let mappedQuiz = this.quizData.map((data: any) => {
+      let dat = { ...data }
+      if (dat.id == singleData.id) {
+
+        dat.user_answered = optNumber;
+        dat.user_answered_value = selectedOption;
+        return dat;
+      }
+      return dat;
+    });
+    this.quizData = mappedQuiz;
+  }
+
+  closeQuiz() {
+    // this.confirmationService.confirm({
+    //   message: 'Are you sure you want to Quit, All your current progress will be lost.',
+    //   header: 'Confirmation',
+    //   icon: 'fa-solid fa-circle-exclamation',
+    // });
   }
 
   clickPreviousQuiz(carouselQuiz: any, event: any) {
@@ -296,7 +316,7 @@ export class ListSubModulesComponent implements OnInit {
     { label: singleQuizData.sub_module_name }];
     carouselQuiz.navForward(event, this.selectedQuiz);
   }
-  restrict=false;
+
   clickSubmitQuiz() {
     this.quizData.forEach((data) => {
       if (data.answer == data.user_answered) {
@@ -315,115 +335,4 @@ export class ListSubModulesComponent implements OnInit {
     this.isQuizSubmit = true;
   }
 
-  closeAllHome() {
-    this.isStartQuiz = false;
-    this.isInstructionVisible = false;
-    this.isQuizSubmit = false;
-  }
-
-  closeQuiz() {
-    this.confirmationService.confirm({
-      message: 'Are you sure you want to Quit, All your current progress will be lost.',
-      header: 'Confirmation',
-      icon: 'fa-solid fa-circle-exclamation',
-    });
-  }
-
-  quitQuiz(cd: any) {
-    this.isStartQuiz = false;
-    this.isInstructionVisible = false;
-    this.isQuizSubmit = false;
-    cd.accept();
-  }
-
-  startQuiz() {
-    this.router.navigate([`/pages/modules/${this.currentModuleSlug}/quiz`]);
-    // let cName = "";
-    // this.dataService.countryNameSource.subscribe(countryName => {
-    //   cName = countryName;
-    // });
-    // this.quizData = [];
-    // this.loadModuleAndSubModule();
-    // this.getQuizData();
-    // this.selectedQuiz = 1;
-    // this.positionNumber = 1;
-    // this.isInstructionVisible = true;
-  }
-
-  setPage(page: any) {
-    let pageNum: number = 0
-    if (page.page < 0) {
-      pageNum = this.quizData.length;
-    } else {
-      pageNum = page.page
-    }
-    this.positionNumber = pageNum + 1;
-
-  }
-
-  onSubModuleClick(id: any) {
-    // if(this.planExpired){
-    //   this.restrict=true;
-    //   return;
-    // }
-    this.subModuleList.forEach((element: any) => {
-      if (element.id === id) {
-        this.selectedSubModule = element.country;
-      }
-    });
-    this.selectedSubModule = id;
-    this.router.navigate([`/pages/modules/${this.currentModuleSlug}/question-list/${this.selectedSubModule}`]);
-
-  }
-
-  selectAnswer(selectedOption: any, singleData: any, optNumber: number) {
-    this.answerOptionClicked = false;
-    this.selectedOptNumber = optNumber;
-    this.selectedOptValue = selectedOption;
-    let mappedQuiz = this.quizData.map((data: any) => {
-      let dat = { ...data }
-      if (dat.id == singleData.id) {
-
-        dat.user_answered = optNumber;
-        dat.user_answered_value = selectedOption;
-        return dat;
-      }
-      return dat;
-    });
-    this.quizData = mappedQuiz;
-  }
-
-  openReviewPopup() {
-    this.isQuizSubmit = false;
-    this.isReviewVisible = true;
-  }
-
-  checkplanExpire(): void {
-    this.authService.getNewUserTimeLeft().subscribe((res) => {
-      let data = res.time_left;
-      let subscription_exists_status = res.subscription_details;
-      if (data.plan === "expired" || data.plan === 'subscription_expired') {
-        this.planExpired = true;
-      } else {
-        this.planExpired = false;
-      }
-    })
-  }
-  retryQuiz() {
-    this.isReviewVisible = false;
-    this.isQuizSubmit = false;
-    this.totalPercentage = 0;
-    this.percentageValue = '';
-    this.quizData = [];
-    this.getQuizData();
-    this.selectedQuiz = 1;
-    this.positionNumber = 1;
-    this.isInstructionVisible = true;
-  }
-  upgradePlan(): void {
-    this.router.navigate(["/pages/subscriptions"]);
-  }
-  clearRestriction() {
-    this.restrict = false;
-  }
 }
