@@ -37,6 +37,7 @@ export class QuizComponent implements OnInit {
   positionNumber: number = 0;
   isStartQuiz: boolean = false;
   isInstructionVisible: boolean = false;
+  isReviewVisible: boolean = false;
   breadCrumb: MenuItem[] = [];
   answerOptionClicked: boolean = true;
   selectedOptNumber: number = 1;
@@ -333,6 +334,24 @@ export class QuizComponent implements OnInit {
     }
     this.isStartQuiz = false;
     this.isQuizSubmit = true;
+  }
+
+  retryQuiz() {
+    this.isReviewVisible = false;
+    this.isQuizSubmit = false;
+    this.totalPercentage = 0;
+    this.percentageValue = '';
+    this.quizData = [];
+    this.getQuizData();
+    this.selectedQuiz = 1;
+    this.positionNumber = 1;
+    this.isInstructionVisible = true;
+  }
+
+  
+  openReviewPopup() {
+    this.isQuizSubmit = false;
+    this.isReviewVisible = true;
   }
 
 }

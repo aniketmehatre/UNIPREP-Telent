@@ -162,3 +162,134 @@
     </div>
 </div>
 
+<div class="card readingcard" *ngIf="isQuizSubmit">
+    <div class="card-body text-center pt-0 h-100">
+        <div class="row justify-content-center align-items-center">
+            <div class="col-md-10 col-10 text-center">
+                <h5 class="select-title mb-1">
+                    <span class="desktop">{{ currentModuleName }} Quiz</span>
+                </h5>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid bg-white" *ngIf="isQuizSubmit">
+    <div class="row">
+        <div class="col-md-12 text-center">
+            <img class="pb-2" src="/uniprep-assets/images/icons/quizcomplete.webp" alt="retry" />
+            <p class="text-center mb-2 fw-medium">You have completed {{ totalPercentage | number : "1.0-0" }} % of {{ currentModuleName }} module<br />To Claim your certificate please complete the pending modules</p>           
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid bg-white" *ngIf="isQuizSubmit">
+    <div class="row align-items-center">
+        <div class="col-md-8">
+            <div class="w-100 px-3 quizprogress">
+                <span class="font-secondarycolor fw-semibold">Progress: 100% Completed</span>
+                <p-progressBar [value]="100"></p-progressBar>
+            </div>
+        </div>
+        <div class="col-md-4 text-end">
+            <button (click)="retryQuiz()" class="btn btn-quit btn-rounded me-2 px-2 py-2">
+                <div class="d-flex align-items-center">
+                    <span class="fw-normal h6 mb-0">Retry</span>
+                    <div class="btn-icon"><i class="fa-solid fa-arrow-rotate-right"></i></div>
+                </div>
+            </button>
+            <button (click)="openReviewPopup()" class="btn btn-back btn-rounded px-2 py-2">
+                <div class="d-flex align-items-center">
+                    <span class="fw-normal h6 mb-0">Review</span>
+                    <div class="btn-icon"><i class="fa-solid fa-list-check"></i></div>
+                </div>
+            </button>
+        </div>
+    </div>
+</div>
+
+<div class="card readingcard" *ngIf="isReviewVisible">
+    <div class="card-body text-center pt-0 h-100">
+        <div class="row justify-content-center align-items-center">
+            <div class="col-md-10 col-10 text-center">
+                <h5 class="select-title mb-1">
+                    <span class="desktop">Your Quiz Review</span>
+                </h5>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid" *ngIf="isReviewVisible">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="row">
+                <div class="col-md-6" *ngFor="let val of quizData">
+                    <div class="card px-3 py-2 my-2">
+                        <h5 class="font-secondarycolor text-start pt-2 pb-3 text-capitalize">
+                            {{ val.question }}
+                        </h5>
+                        <div class="py-2">
+                            <input type="radio" value="{{ val.option1 }}" id="{{ val.otp1 }}" class="btn-check" name="options" autocomplete="off" [disabled]="true" />
+                            <label
+                                class="{{ 1 === val.answer ? 'optionreviewcorrect' : 1 === val.user_answered ? 'optionreviewwrong' : 'optionnotanswered' }} quiznotanswered
+                                             text-start  w-100 m-0"
+                                for="{{ val.otp1 }}"
+                                disabled="true">
+                                <h6 class="py-2 mb-0">{{ val.option1 }}</h6>
+                            </label>
+                        </div>
+                        <div class="py-2">
+                            <input type="radio" value="{{ val.option2 }}" id="{{ val.otp2 }}" class="btn-check" name="options" autocomplete="off" [disabled]="true" />
+                            <label
+                                class="{{ 2 === val.answer ? 'optionreviewcorrect' : 2 === val.user_answered ? 'optionreviewwrong' : 'optionnotanswered' }} quiznotanswered
+                                              text-start  w-100 m-0"
+                                for="{{ val.otp2 }}">
+                                <h6 class="py-2 mb-0">{{ val.option2 }}</h6>
+                            </label>
+                        </div>
+                        <div class="py-2">
+                            <input type="radio" value="{{ val.option3 }}" id="{{ val.otp3 }}" class="btn-check" name="options" autocomplete="off" [disabled]="true" />
+                            <label
+                                class="{{ 3 === val.answer ? 'optionreviewcorrect' : 3 === val.user_answered ? 'optionreviewwrong' : 'optionnotanswered' }} quiznotanswered
+                                             text-start  w-100 m-0"
+                                for="{{ val.otp3 }}">
+                                <h6 class="py-2 mb-0">{{ val.option3 }}</h6>
+                            </label>
+                        </div>
+                        <div class="py-2">
+                            <input type="radio" value="{{ val.option4 }}" id="{{ val.otp4 }}" class="btn-check" name="options" autocomplete="off" [disabled]="true" />
+                            <label class="{{ 4 === val.answer ? 'optionreviewcorrect' : 4 === val.user_answered ? 'optionreviewwrong' : 'optionnotanswered' }} quiznotanswered text-start  w-100 m-0" for="{{ val.otp4 }}">
+                                <h6 class="py-2 mb-0">{{ val.option4 }}</h6>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid" *ngIf="isReviewVisible">
+    <div class="row gap-2 justify-content-end mb-4">
+        <!--                    <button (click)="clickPreviousQuiz(carouselQuiz, $event)"-->
+        <!--                            class="btn btn-lg rounded-pill btn-tertiary m-0 px-2 py-2">-->
+        <!--                        <p class="mb-0 px-2">Previous <i class="fa-solid fa-circle-arrow-left"></i></p>-->
+        <!--                    </button>-->
+        <!--                    <button *ngIf="this.quizData.length > this.selectedQuiz" (click)="clickNextQuiz(carouselQuiz, $event)"-->
+        <!--                            class="btn btn-lg rounded-pill btn-secondary m-0 px-2 py-2">-->
+        <!--                        <p class="mb-0 px-2"> Next <i class="fa-solid fa-circle-arrow-right"></i></p>-->
+        <!--                    </button>-->
+        <button (click)="retryQuiz()" class="btn btn-quit btn-rounded me-2 px-2 py-2">
+            <div class="d-flex align-items-center">
+                <span class="fw-normal h6 mb-0 ps-3 pe-2">Retry</span>
+                <div class="btn-icon"><i class="fa-solid fa-arrow-rotate-right"></i></div>
+            </div>
+        </button>
+    </div>
+</div>
+
+
+
+
+
