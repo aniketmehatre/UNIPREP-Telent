@@ -11,53 +11,115 @@
 </div>
 <div class="row">
     <div class="col-sm-8">
-        <div class="card d-flex mt-2" style="flex: 1">
-            <div class="card-body d-flex flex-column justify-content-center" >
+        <div class="card d-flex mt-2"  style="height: 400px;overflow-y: scroll;">
+            <div class="card-body d-flex flex-column justify-content-center"  *ngFor="let modules of moduleList">
                 <div class="row" style="border: solid var(--bs-border-color);border-radius: 10px;">
                     <div class="col-md-8 col-8">
-                        <h5 class="card-title" style="color: #3f4c83;">Special title treatment</h5>
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Explicabo praesentium provident
-                            delectus nesciunt eligendi eius, non asperiores similique aliquid repellat cupiditate dolor
-                            corporis maiores inventore. Nostrum ab quae doloremque quas?</p>
+                        <h5 class="card-title p-2" style="color: #3f4c83;">{{modules.module_name}}</h5>
+                        <small>{{modules.module_description}}</small>
                     </div>
                     <div class="col-md-4 col-4 d-flex flex-column justify-content-center gap-3">
                         <div class="d-flex justify-content-center justify-content-md-end">
                             <p-inputNumber [(ngModel)]="value3" [showButtons]="true" buttonLayout="horizontal"
-                            spinnerMode="horizontal" style="color: #3f4c83;" incrementButtonIcon="pi pi-plus"
+                            spinnerMode="horizontal" incrementButtonIcon="pi pi-plus"
                             decrementButtonIcon="pi pi-minus" [min]="0" [max]="100" [size]="3"></p-inputNumber>
                         </div>
                         <div class="d-flex flex-row justify-content-md-between align-items-center">
-                            <h6 class="card-title" style="color: #3f4c83;"> 1 Rs/Credit</h6>
+                            <h6 class="card-title" style="color: #3f4c83;"> {{modules.price_per_credit}} Rs/Credit</h6>
                             <button type="button" style="background-color:rgb(14 51 97);color:white" class="btn">Update Credits</button>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="card-body d-flex flex-column justify-content-center" >
+            <!-- <div class="card-body d-flex flex-column justify-content-center" >
                 <div class="row" style="border: solid var(--bs-border-color);border-radius: 10px;">
                     <div class="col-md-8 col-8">
-                        <h5 class="card-title" style="color: #3f4c83;">Special title treatment</h5>
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Explicabo praesentium provident
+                        <h5 class="card-title p-2" style="color: #3f4c83;">Special title treatment</h5>
+                        <small>Lorem ipsum dolor sit amet consectetur adipisicing elit. Explicabo praesentium provident
                             delectus nesciunt eligendi eius, non asperiores similique aliquid repellat cupiditate dolor
-                            corporis maiores inventore. Nostrum ab quae doloremque quas?</p>
+                            corporis maiores inventore. Nostrum ab quae doloremque quas?</small>
                     </div>
-                    <div class="col-md-4 col-4 d-flex flex-column justify-content-center gap-3">
-                        <h5 class="card-title" style="color: #3f4c83;">Special title treatment</h5>
-                        <p>To access this exclusive module, please upgrade your subscription plan now.</p>
-                        <button type="button" style="background-color:rgb(14 51 97);color:white" class="btn">Update Credits</button>
+                    <div class="col-md-4 col-4 d-flex flex-column align-items-center">
+                        <h5 class="card-title mt-2" style="color: #f0780e;">Upgrade Required</h5>
+                        <small>To access this exclusive module, please upgrade your subscription plan now.</small>
+                        <button pButton type="button" class="text-white p-ripple p-button-rounded p-button-warning p-button p-component p-2 mb-2">Upgrade Plan<i class="fa fa-arrow-right exhausted-plan-icon"></i></button>
                     </div>
                 </div>
-            </div>
+            </div> -->
         </div>
     </div>
     <div class="col-sm-4">
         <div class="card d-flex mt-2" style="flex: 1">
-            <div class="card-body d-flex flex-column justify-content-center">
-                <div class="cardcontainer">
-                    <div class="card-body sameline">
+            <div class="card-body">
+                <h5 class="card-title p-2 d-flex justify-content-center" >Added Credits</h5>
+                <div class="d-flex justify-content-between p-2" *ngFor="let modules of moduleList">
+                    <div class="d-flex flex-column">
+                        <h6 class="card-title">{{modules.credit_name}}</h6>
+                        <small>{{modules.price_per_credit}} Credits</small>
+                    </div>
+                    <div>
+                        <h5 class="p-2">{{modules.price_per_credit}} Rs</h5>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+</div>
+<div class="d-flex mt-3 gap-3 flex-column flex-md-row">
+	<div class="card flex-fill h-100">
+		<div class="card-body d-flex align-items-center">
+			<div class="w-100">
+				<div class="d-flex justify-content-between align-items-center">
+					<h6>Apply your coupon code here</h6>
+					<a class="btn btn-primary"  data-bs-toggle="modal" data-bs-target="#exampleModal">View Offers</a>
+				</div>
+				
+				<div class="p-inputgroup inputheight mt-1">
+					<input  pInputText placeholder="Enter Your coupon code Here" type="text" />
+					<button  class="btn-primary" label="Apply" pButton pRipple type="button"></button>
+				</div>
+				<span class="text-danger" >You
+						entered an invalid discount code. Please check the code and try again</span>&nbsp;
+			</div>
+		</div>
+	</div>
+	<div class="card flex-fill h-100 justify-content-center">
+		<div class="card-body d-flex align-items-center">
+			<div class="w-100">
+				<div class="d-flex flex-row">
+					<div class="flex-grow-1">
+						<div>
+							<p class="fw-semibold mb-0">Total</p>
+							<h4 class="mb-0 uniprep-primary" >INR 200</h4>
+							<p>Discount Percentage:10%</p>
+						</div>
+					</div>
+					<div class="flex-full">
+						<button class="btn btn-primary w-100 py-3 px-5 h6 m-0"
+							>Checkout</button>
+						<p>Discount Amount: 10</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- last know more about section -->
+
+	<!-- modeal -->
+	<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered">
+		  <div class="modal-content">
+			<div class="modal-header">
+			  <h1 class="modal-title fs-5" id="exampleModalLabel">Available Offers</h1>
+			  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-body d-flex flex-column justify-content-center">
+			  
+			  <p class="btn btn-rounded mx-auto" style="    background: #9bc32935;
+			  border: 1px dashed #9bc329;width: 100px;">UNI25</p>
+			  <p class="text-center">Use this coupon code to unlock a 25% discount on your subscription.</p>
+			</div>
+		  </div>
+		</div>
+	  </div>
 </div>
