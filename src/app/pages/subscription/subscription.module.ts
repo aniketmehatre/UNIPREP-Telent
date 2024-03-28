@@ -30,6 +30,7 @@ import { CardModule } from 'primeng/card';
 import { TabViewModule } from 'primeng/tabview';
 import { UpgradeSubscriptionComponent } from './upgrade-subscription/upgrade-subscription.component';
 import { SplitButtonModule } from 'primeng/splitbutton';
+import { TooltipModule } from 'primeng/tooltip';
 
 @NgModule({
     declarations: [
@@ -62,7 +63,8 @@ import { SplitButtonModule } from 'primeng/splitbutton';
         ChipModule,
         CardModule,
         TabViewModule,
-        SplitButtonModule
+        SplitButtonModule,
+        TooltipModule 
     ],
      providers: [],
 })

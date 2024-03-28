@@ -43,3 +43,20 @@
   right: 1rem;
   transform: translateY(-50%);
 }
+ 
+@media (max-width: 768px) {
+	.desktopuserdetails{
+		 display: none;
+	}
+	.mobileuserdetails{
+		display: block;
+	}
+}
+@media (min-width: 769px) {
+	.desktopuserdetails{
+		 display: block;
+	}
+	.mobileuserdetails{
+		display: none;
+	}
+}

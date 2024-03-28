@@ -1,6 +1,6 @@
 <div class="card readingcard">
 	<div class="card-body pt-0" [style.display]="showDiv ? 'block' : 'none'">
-		<div class="row justify-content-center">
+		<div class="row justify-content-center" *ngIf="!restrict">
 			<div class="col-md-3 text-start">
 				<div class="p-input-icon-left w-100 mt-3">
 					<i class="pi pi-search"></i>
@@ -22,7 +22,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="container-fluid">
+		<div class="container-fluid" *ngIf="!restrict">
 			<div class="row">
 				<div *ngFor="let pitchDeskListData of pitchDeskList" class="col-md-3 col-12 mt-3">
 					<div class="card deskcard h-100">
@@ -182,3 +182,12 @@
 	</div>
 	
 </div>
+
+<p-dialog [(visible)]="restrict" [style]="{ width: '30vw' }" [draggable]="false" [resizable]="false" class="restrictionDialog" [breakpoints]="{ '960px': '30vw', '959px': '60vw', '425px': '90vw' }" (onHide)="clearRestriction()">
+	<div class="text-center mt-5 mb-4">
+		<img src="../../../uniprep-assets/images/smartloack.png" class="image" width="60" />
+		<h3 class="offer">Upgrade Required</h3>
+		<p>To access this exclusive module,please upgrade your plan now</p>
+		<button pButton type="button" class="text-white p-ripple p-button-rounded p-button-warning p-button p-component p-2" (click)="upgradePlan()">Upgrade Plan<i class="fa fa-arrow-right exhausted-plan-icon"></i></button>
+	</div>
+</p-dialog>

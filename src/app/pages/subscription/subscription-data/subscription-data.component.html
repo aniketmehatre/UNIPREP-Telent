@@ -29,7 +29,6 @@
 							<li class="fw-semibold">Personal Advisory</li>
 							<li class="fw-semibold">Smart Keyword Search</li>
 							<li class="fw-semibold">International Events</li>
-							<li class="fw-semibold">Resources</li>
 							<li class="fw-semibold">5000+ Scholarship Data</li>
 							<li class="fw-semibold">100+ Resources</li>
 							<li class="fw-semibold">2M+ Companies Data</li>
@@ -166,10 +165,15 @@
 												<p><i class="pi pi-check"></i>Personal Advisory</p>
 												<p><i class="pi pi-check"></i>Smart Keyword Search</p>
 												<p *ngIf="subscription.subscription_plan === 'Student' || subscription.subscription_plan === 'Career' || subscription.subscription_plan === 'Entrepreneur'"><i class="pi pi-check"></i>International Events</p>
-												<p *ngIf="subscription.subscription_plan === 'Student' || subscription.subscription_plan === 'Career' || subscription.subscription_plan === 'Entrepreneur'"><i class="pi pi-check"></i>Resources</p>
 												<p *ngIf="subscription.subscription_plan === 'Student' || subscription.subscription_plan === 'Career' || subscription.subscription_plan === 'Entrepreneur'"><i class="pi pi-check"></i>5000+ Scholarship Data</p>
+												<p *ngIf="subscription.subscription_plan === 'Career' || subscription.subscription_plan === 'Entrepreneur'">
+													<i class="pi pi-check"></i>
+													100+ Resources
+												</p>
 												<p *ngIf="subscription.subscription_plan === 'Career' || subscription.subscription_plan === 'Entrepreneur'"><i class="pi pi-check"></i>2M+ Companies Data</p>
+
 												<p *ngIf="subscription.subscription_plan === 'Entrepreneur'"><i class="pi pi-check"></i>1000+ Start-up Kit Documents</p>
+												<p *ngIf="subscription.subscription_plan === 'Entrepreneur'"><i class="pi pi-check"></i>1000+ Pitch Deck Samples</p>
 												<p *ngIf="subscription.subscription_plan === 'Entrepreneur'"><i class="pi pi-check"></i>100,000+ Investor's Data</p>
 											</div>
 										</div>

@@ -62,7 +62,7 @@ export class InvestorListComponent implements OnInit {
 
   performSearch(events: any) {
     if (this.valueNearYouFilter == "") {
-      this.loadInvestorData();
+      this.loadInvestorData(0);
       return;
     }
     var investorSearchData: any = [];
@@ -90,15 +90,16 @@ export class InvestorListComponent implements OnInit {
   // }
   clearFilter() {
     this.filterForm.reset();
-    this.loadInvestorData();
+    this.loadInvestorData(0);
   }
 
   investorGuidlines(): void {
     this.router.navigate(["/pages/investor-guidlines"]);
   }
   
-  loadInvestorData() {
-    let data = {
+  loadInvestorData(isFavourite:number) {
+  
+    let data:any = {
       org_name: this.filterForm.value.org_name ? this.filterForm.value.org_name : '',
       org_type: this.filterForm.value.org_type ? this.filterForm.value.org_type : '',
       country: this.filterForm.value.country ? this.filterForm.value.country : '',
@@ -107,7 +108,10 @@ export class InvestorListComponent implements OnInit {
       industry_interested: this.filterForm.value.industry_interested ? this.filterForm.value.industry_interested : '',
       page: this.page,
       perpage: this.pageSize,
-      planname:this.currentPlan?this.currentPlan:""
+      planname:this.currentPlan?this.currentPlan:"",
+    }
+    if(isFavourite==1){
+      data['favourite']=1;
     }
 
     this.investorList.getInvestorList(data).subscribe((response) => {
@@ -124,7 +128,7 @@ export class InvestorListComponent implements OnInit {
     }
     this.page = event.page + 1;
     this.pageSize = event.rows;
-    this.loadInvestorData();
+    this.loadInvestorData(0);
   }
 
   closePopup() {
@@ -161,7 +165,7 @@ export class InvestorListComponent implements OnInit {
         this.planExpired = false;
         //this.restrict = false;
       }
-      this.loadInvestorData();
+      this.loadInvestorData(0);
     })
   }
 
@@ -193,5 +197,8 @@ export class InvestorListComponent implements OnInit {
         detail: response.message,
       });
      });
+  }
+  viewFavourites(){
+this.loadInvestorData(1);
   }
 }
