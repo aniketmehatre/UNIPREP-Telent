@@ -1,22 +1,17 @@
 <div class="card readingcard" *ngIf="isInstructionVisible">
-    <div class="card-body text-center pt-0 h-100">
-        <div class="row justify-content-center">
-            <div class="col-md-10 col-10 text-center">
-                <h5 class="select-title mb-1">
-                    <span class="desktop">Quiz Instruction</span>
-                </h5>
+    <div class="card-body text-center pt-0">
+        <div class="row">
+            <div class="col-md-2">
+                <h5 class="mb-3 mt-3" style="font-size: 18px;">{{ quizData.length }}/{{ quizData.length }} Questions Left</h5>
             </div>
-            <div class="col-md-1 col-1">&nbsp;</div>
+			<div class="col-md-8 text-center">
+				<h5 class="select-title mb-3">Quiz Instructions</h5>
+			</div>
         </div>
     </div>
-</div>
-<div class="container-fluid bg-white" *ngIf="isInstructionVisible">
     <div class="row">
         <div class="col-md-12">
-            <h6 class="text-muted pb-4">{{ quizData.length }}/{{ quizData.length }} Questions Left</h6>
-        </div>
-        <div class="col-md-12">
-            <ul class="font-secondarycolor fw-medium lh-lg">
+            <ul class="font-secondarycolor fw-medium lh-lg instructionlist">
                 <li>There are {{ quizData.length }} MCQs in the quiz.</li>
                 <li>You can not skip any question / All question are mandatory to answer.</li>
                 <li>You can not access the other screens while taking the quiz.</li>
@@ -26,6 +21,23 @@
                 <li>Buffer? To qualify for the quiz you need to get __% correct.</li>
                 <li>There is no time limit.</li>
             </ul>
+        </div>
+    </div>
+</div>
+
+
+<div class="container-fluid bg-white" *ngIf="isInstructionVisible">
+    <div class="row justify-content-center">
+        <div class="col-md-6 d-flex align-items-center text-start">
+            <h4 class="font-primarycolor">ALL THE BEST!</h4>
+        </div>
+        <div class="col-md-6 text-end">
+            <button (click)="runQuiz()" class="btn btn-start btn-rounded m-0 px-2 py-2" [disabled]="!this.quizData">
+                <div class="d-flex align-items-center">
+                    <span class="fw-normal h6 mb-0 ps-3 pe-2">Start</span>
+                    <div class="btn-icon"><i class="fa-solid fa-arrow-right"></i></div>
+                </div>
+            </button>
         </div>
     </div>
 </div>
@@ -113,22 +125,6 @@
 			</div>
 		</div>
 	</div>
-</div>
-
-<div class="container-fluid bg-white" *ngIf="isInstructionVisible">
-    <div class="row justify-content-center">
-        <div class="col-md-6 d-flex align-items-center text-start">
-            <h4 class="font-primarycolor">ALL THE BEST!</h4>
-        </div>
-        <div class="col-md-6 text-end">
-            <button (click)="runQuiz()" class="btn btn-start btn-rounded m-0 px-2 py-2" [disabled]="!this.quizData">
-                <div class="d-flex align-items-center">
-                    <span class="fw-normal h6 mb-0 ps-3 pe-2">Start</span>
-                    <div class="btn-icon"><i class="fa-solid fa-arrow-right"></i></div>
-                </div>
-            </button>
-        </div>
-    </div>
 </div>
 
 <div class="container-fluid bg-white" *ngIf="isStartQuiz">
