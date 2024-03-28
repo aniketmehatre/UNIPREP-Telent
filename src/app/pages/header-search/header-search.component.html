@@ -88,10 +88,10 @@
 			</div>
 		</div>
 	</ng-template>
-	<p-carousel #carousel [circular]="true" [numScroll]="1" [numVisible]="1" [page]="selectedQuestion" [responsiveOptions]="responsiveOptions" [value]="searchResult" styleClass="h-100">
-		<ng-template pTemplate="item" let-val>
-			<div class="card-wrapper">
-				<div class="card flex-fill answercard">
+	<div class="carousel-container px-4">
+		<p-carousel #carousel [circular]="true" [numScroll]="1" [numVisible]="1" [page]="selectedQuestion" [responsiveOptions]="responsiveOptions" [value]="searchResult" class="answersection">
+			<ng-template [ngForOf]="searchResult" let-i="index" let-val ngFor pTemplate="item">
+				<div class="card cardnobg">
 					<div class="card-body text-start">
 						<p class="text-small blockquote text-start mb-0">
 							Last updated at: {{ val.updated_at | date }}
@@ -103,10 +103,9 @@
 						<div class="fw-medium worksans unselectable" style="white-space: pre-wrap" [innerHTML]="val.answer"></div>
 					</div>
 				</div>
-			</div>
-		</ng-template>
-	</p-carousel>
-	
+			</ng-template>
+		</p-carousel>
+	</div>
 	
 	<ng-template pTemplate="footer">
 		<div class="d-flex justify-content-between flex-column flex-md-row px-4 my-4">

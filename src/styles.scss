@@ -305,6 +305,7 @@ uni-scholarship-list-guidlines,
 uni-user-guide,
 uni-recommendations,
 uni-pitch-desk,
+uni-export-credit,
 uni-faq {
 	display: flex;
 	flex: 1;
@@ -313,7 +314,6 @@ uni-faq {
 	overflow: hidden;
 	border-radius: 10px;
 }
-
 @media screen and (max-width: 480px) {
 	uni-faq {
 		overflow-y: scroll !important;

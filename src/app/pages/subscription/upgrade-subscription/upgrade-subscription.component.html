@@ -23,8 +23,8 @@
 						<ul class="price text-left">
 							<li class="header">Pricing Table</li>
 							<li class="mt-25 fw-medium"><small>Features list</small></li>
-							<li class="fw-semibold" pTooltip="Pre Admission,Post Admission, Universities, Career Hub,Life at Destination,Travel & Tourism" tooltipPosition="bottom">
-								500,000+ Q&A - 13 Countries
+							<li class="fw-semibold">
+								500,000+ Q&A - 13 Countries	<span role="button" pTooltip="Pre Admission,Post Admission, Universities, Career Hub,Life at Destination,Travel & Tourism" tooltipPosition="bottom"><i class="fa-regular fa-circle-question"></i></span>
 						   </li>
 							<li class="fw-semibold">Personal Advisory</li>
 							<li class="fw-semibold">Smart Keyword Search</li>
@@ -92,19 +92,19 @@
 							<li><i class="pi pi-check smallIcon" [ngClass]="{'grey':subscription.available == false}"></i></li>
 							<li><i class="pi pi-check smallIcon" [ngClass]="{'grey':subscription.available == false}"></i></li>
 							<li><i class="pi smallIcon"
-								[ngClass]="{'pi-check':subscription.subscription_plan === 'Career' || subscription.subscription_plan ==='Entrepreneur', 'pi-times': subscription.subscription_plan != 'Career' && subscription.subscription_plan!='Entrepreneur'}"></i>
+								[ngClass]="{'pi-check':subscription.subscription_plan === 'Career' || subscription.subscription_plan ==='Entrepreneur', 'pi-times': subscription.subscription_plan != 'Career' && subscription.subscription_plan!='Entrepreneur','grey':subscription.available == false}"></i>
 						</li>
 							<li><i class="pi smallIcon"
-									[ngClass]="{'pi-check':subscription.subscription_plan === 'Career' || subscription.subscription_plan ==='Entrepreneur', 'pi-times': subscription.subscription_plan != 'Career' && subscription.subscription_plan!='Entrepreneur'}"></i>
+									[ngClass]="{'pi-check':subscription.subscription_plan === 'Career' || subscription.subscription_plan ==='Entrepreneur', 'pi-times': subscription.subscription_plan != 'Career' && subscription.subscription_plan!='Entrepreneur','grey':subscription.available == false}"></i>
 							</li>
 							<li><i class="pi smallIcon"
-									[ngClass]="{'pi-check':subscription.subscription_plan ==='Entrepreneur', 'pi-times': subscription.subscription_plan !='Entrepreneur'}"></i>
+									[ngClass]="{'pi-check':subscription.subscription_plan ==='Entrepreneur', 'pi-times': subscription.subscription_plan !='Entrepreneur','grey':subscription.available == false}"></i>
 							</li>
 							<li><i class="pi smallIcon"
-								[ngClass]="{'pi-check':subscription.subscription_plan ==='Entrepreneur', 'pi-times': subscription.subscription_plan !='Entrepreneur'}"></i>
+								[ngClass]="{'pi-check':subscription.subscription_plan ==='Entrepreneur', 'pi-times': subscription.subscription_plan !='Entrepreneur','grey':subscription.available == false}"></i>
 						</li>
 							<li><i class="pi smallIcon"
-									[ngClass]="{'pi-check':subscription.subscription_plan ==='Entrepreneur', 'pi-times': subscription.subscription_plan !='Entrepreneur'}"></i>
+									[ngClass]="{'pi-check':subscription.subscription_plan ==='Entrepreneur', 'pi-times': subscription.subscription_plan !='Entrepreneur','grey':subscription.available == false}"></i>
 							</li>
 							<li>
 								<h5 class="fw-semibold">{{ subscription.validity }} Months Validity</h5>
