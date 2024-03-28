@@ -30,7 +30,9 @@ export class InvestorListComponent implements OnInit {
   currentPlan: string = "";
   isBookmarked:boolean=false;
   PersonalInfo!:any;
-
+  viewFavouritesLabel: string = "View Favourites";
+  allInvestorList: any[] = [];
+  allInvestorCount:number=0;
   constructor(
     private _location: Location, 
     private fb: FormBuilder, 
@@ -116,6 +118,10 @@ export class InvestorListComponent implements OnInit {
 
     this.investorList.getInvestorList(data).subscribe((response) => {
       this.investorData = response.data;
+      if (isFavourite != 1) {
+        this.allInvestorList=response.data;
+        this.allInvestorCount = response.count;
+      }
       this.totalInvestorsCount = response.count;
     });
     this.isFilterVisible = 'none';
@@ -198,7 +204,23 @@ export class InvestorListComponent implements OnInit {
       });
      });
   }
-  viewFavourites(){
-this.loadInvestorData(1);
+  viewFavourites() {
+    this.viewFavouritesLabel = this.viewFavouritesLabel == 'View Favourites' ? 'View All' : 'View Favourites';
+    if (this.viewFavouritesLabel == "View All") {
+      this.loadInvestorData(1);
+    }
+    else {
+     let investorList=this.allInvestorList.map(investor=>{
+      let foundInvestor = this.investorData.find(s => s.id == investor.id);
+      if (foundInvestor) {
+        investor.favourite = foundInvestor.favourite;
+      }
+      return investor;
+     });
+     let favouriteInvestor = investorList.filter(investor => investor.favourite === 1);
+    let nonFavouriteInvestors = investorList.filter(investor => investor.favourite !== 1);
+     this.investorData=favouriteInvestor.concat(nonFavouriteInvestors);
+     this.totalInvestorsCount=this.allInvestorCount;
+  }
   }
 }

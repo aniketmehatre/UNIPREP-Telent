@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import {FormBuilder, FormGroup} from "@angular/forms";
-import {Location} from "@angular/common";
-import {CompanyListService} from "./company-list.service";
+import { FormBuilder, FormGroup } from "@angular/forms";
+import { Location } from "@angular/common";
+import { CompanyListService } from "./company-list.service";
 import { AuthService } from 'src/app/Auth/auth.service';
 import { Route, Router } from '@angular/router';
 import { UserManagementService } from '../user-management/user-management.service';
@@ -13,7 +13,7 @@ import { MessageService } from 'primeng/api';
   styleUrls: ['./company-list.component.scss']
 })
 export class CompanyListComponent implements OnInit {
-  companyListData: any []= []
+  companyListData: any[] = []
   industryInterested: any;
   countryList: any;
   headQuartersList: any
@@ -22,21 +22,23 @@ export class CompanyListComponent implements OnInit {
   valueNearYouFilter: string = '';
   totalCompanyCount: any;
   isFilterVisible: string = 'none';
-  filterForm:FormGroup;
+  filterForm: FormGroup;
   planExpired!: boolean;
-  restrict:boolean=false;
-  currentPlan:string="";
-  PersonalInfo!:any;
-
+  restrict: boolean = false;
+  currentPlan: string = "";
+  PersonalInfo!: any;
+  viewFavouritesLabel: string = "View Favourites";
+  allCompanyList: any[] = [];
+  allCompanyCount:number=0;
   constructor(
-    private _location: Location, 
-    private fb: FormBuilder, 
-    private companyListService: CompanyListService, 
-    private authService: AuthService, 
-    private router:Router, 
-    private userManagementService:UserManagementService,
+    private _location: Location,
+    private fb: FormBuilder,
+    private companyListService: CompanyListService,
+    private authService: AuthService,
+    private router: Router,
+    private userManagementService: UserManagementService,
     private toast: MessageService,
-    ) {
+  ) {
     this.filterForm = this.fb.group({
       company_name: [''],
       country: [''],
@@ -48,19 +50,19 @@ export class CompanyListComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    
+
     this.loadMultiSelectData();
     this.checkplanExpire();
     this.GetPersonalProfileData();
   }
 
-  goBack(){
+  goBack() {
     this._location.back();
   }
 
-  performSearch(events:any){
-    if(this.planExpired){
-      this.restrict=true;
+  performSearch(events: any) {
+    if (this.planExpired) {
+      this.restrict = true;
       this.valueNearYouFilter = "";
       return;
     }
@@ -77,9 +79,9 @@ export class CompanyListComponent implements OnInit {
     this.companyListData = [...companySearchData];
   }
 
-  searchClick(){
-    if(this.planExpired){
-      this.restrict=true;
+  searchClick() {
+    if (this.planExpired) {
+      this.restrict = true;
       this.valueNearYouFilter = "";
       let searchInput = document.getElementById("searchInput") as HTMLInputElement;;
       if (searchInput !== null) {
@@ -87,7 +89,7 @@ export class CompanyListComponent implements OnInit {
       }
     }
   }
-  loadMultiSelectData(){
+  loadMultiSelectData() {
     this.companyListService.getMultiSelectData().subscribe((response) => {
       this.industryInterested = response.company_industry;
       this.countryList = response.countries_list;
@@ -99,19 +101,19 @@ export class CompanyListComponent implements OnInit {
   //   this.loadInvestorData();
   // }
 
-  clearFilter(){
+  clearFilter() {
     this.filterForm.reset();
     this.loadCompanyData(0);
   }
   clearRestriction() {
     this.restrict = false;
-    let searchInput = document.getElementById("searchInput")as HTMLInputElement;;
-      if (searchInput !== null) {
-        searchInput.disabled = false;
-      }
+    let searchInput = document.getElementById("searchInput") as HTMLInputElement;;
+    if (searchInput !== null) {
+      searchInput.disabled = false;
+    }
   }
-  loadCompanyData(isFavourite:number){
-    let data:any = {
+  loadCompanyData(isFavourite: number) {
+    let data: any = {
       company_name: this.filterForm.value.company_name ? this.filterForm.value.company_name : '',
       country: this.filterForm.value.country ? this.filterForm.value.country : '',
       head_quarters: this.filterForm.value.head_quarters ? this.filterForm.value.head_quarters : '',
@@ -120,21 +122,25 @@ export class CompanyListComponent implements OnInit {
       industry_interested: this.filterForm.value.industry_interested ? this.filterForm.value.industry_interested : '',
       page: this.page,
       perpage: this.pageSize,
-      planname:this.currentPlan?this.currentPlan:""
+      planname: this.currentPlan ? this.currentPlan : ""
     }
-    if(isFavourite==1){
-      data['favourite']=1;
+    if (isFavourite == 1) {
+      data['favourite'] = 1;
     }
     this.companyListService.getCompanyList(data).subscribe((response) => {
       this.companyListData = response.data;
+      if (isFavourite != 1) {
+        this.allCompanyList=response.data;
+        this.allCompanyCount = response.count;
+      }
       this.totalCompanyCount = response.count;
     });
     this.isFilterVisible = 'none'
   }
 
-  pageChange(event: any){
-    if(this.planExpired){
-      this.restrict=true;
+  pageChange(event: any) {
+    if (this.planExpired) {
+      this.restrict = true;
       return;
     }
     this.page = event.page + 1;
@@ -142,20 +148,20 @@ export class CompanyListComponent implements OnInit {
     this.loadCompanyData(0);
   }
 
-  closePopup(){
+  closePopup() {
     this.isFilterVisible = 'none'
 
   }
 
-  filterBy(){
-    if(this.planExpired){
-      this.restrict=true;
+  filterBy() {
+    if (this.planExpired) {
+      this.restrict = true;
       return;
     }
     this.isFilterVisible = 'block';
   }
 
-  exportTable(){
+  exportTable() {
     this.companyListService.export().subscribe((response) => {
       window.open(response.link, '_blank');
     });
@@ -165,7 +171,7 @@ export class CompanyListComponent implements OnInit {
     this.authService.getNewUserTimeLeft().subscribe((res) => {
       let data = res.time_left;
       let subscription_exists_status = res.subscription_details;
-      this.currentPlan=subscription_exists_status.subscription_plan;
+      this.currentPlan = subscription_exists_status.subscription_plan;
       if (data.plan === "expired" || data.plan === 'subscription_expired' || subscription_exists_status.subscription_plan === 'free_trail' || subscription_exists_status.subscription_plan === 'Student') {
         this.planExpired = true;
       } else {
@@ -175,37 +181,55 @@ export class CompanyListComponent implements OnInit {
     })
   }
 
-  companyGuidlines(): void{
+  companyGuidlines(): void {
     this.router.navigate(["/pages/company-guidlines"]);
   }
 
   upgradePlan(): void {
     this.router.navigate(["/pages/subscriptions"]);
   }
- 
-  loadHeadQuartersData(event: any){
+
+  loadHeadQuartersData(event: any) {
     this.companyListService.getHeadQuartersList(event.value).subscribe((response) => {
       this.headQuartersList = response;
     });
   }
   GetPersonalProfileData() {
     this.userManagementService.GetUserPersonalInfo().subscribe(data => {
-        this.PersonalInfo = data;
+      this.PersonalInfo = data;
     });
-}
-  bookmarkQuestion(companyId:any,isFav:any){
-    isFav=isFav!='1'?true:false;
-     this.companyListService.bookmarkCompanyData(companyId,this.PersonalInfo.user_id,isFav).subscribe((response) => {
-      let companyData=this.companyListData.find(item=>item.id==companyId);
-      isFav==true?companyData.favourite=1:companyData.favourite=null;
+  }
+  bookmarkQuestion(companyId: any, isFav: any) {
+    isFav = isFav != '1' ? true : false;
+    this.companyListService.bookmarkCompanyData(companyId, this.PersonalInfo.user_id, isFav).subscribe((response) => {
+      let companyData = this.companyListData.find(item => item.id == companyId);
+      isFav == true ? companyData.favourite = 1 : companyData.favourite = null;
       this.toast.add({
         severity: "success",
         summary: "Success",
         detail: response.message,
       });
-     });
+    });
   }
-  viewFavourites(){
-    this.loadCompanyData(1);
-      }
+  viewFavourites() {
+    this.viewFavouritesLabel = this.viewFavouritesLabel == 'View Favourites' ? 'View All' : 'View Favourites';
+    if (this.viewFavouritesLabel == "View All") {
+      this.loadCompanyData(1);
+    }
+    else {
+      let companyList = this.allCompanyList.map(company => {
+        let foundCompany = this.companyListData.find(s => s.id == company.id);
+        if (foundCompany) {
+          company.favourite = foundCompany.favourite;
+        }
+        return company;
+      });
+      let favouriteCompany = companyList.filter(company => company.favourite === 1);
+      let nonFavouriteCompany = companyList.filter(company => company.favourite !== 1);
+      this.companyListData = favouriteCompany.concat(nonFavouriteCompany);
+      this.totalCompanyCount=this.companyListData.length;
+      this.totalCompanyCount=this.allCompanyCount;
+    }
+  }
 }
+
