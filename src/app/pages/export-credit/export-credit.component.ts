@@ -8,9 +8,10 @@ import { AuthService } from 'src/app/Auth/auth.service';
   styleUrls: ['./export-credit.component.scss']
 })
 export class ExportCreditComponent implements OnInit {
-  value3:number = 0;
+  creditValue: { [moduleId: string]: number } = {};
   moduleList:any[] = [];
   planName: string = "";
+  firstArray:any[] = [];
   constructor(private exportcreditservice:ExportCreditService,private authService: AuthService, ) { }
 
   ngOnInit(): void {
@@ -20,16 +21,39 @@ export class ExportCreditComponent implements OnInit {
 
   checkSubscriptionPlan(){
     this.authService.getNewUserTimeLeft().subscribe((res) => {
-      console.log(res);
-      this.planName = res.subscription_plan;
+      this.planName = res?.subscription_details?.subscription_plan;
     })
   }
 
-  loadModuleList(){
+  loadModuleList(): void{
+    console.log(this.planName);
     this.exportcreditservice.getModulesList().subscribe((responce) =>{
-      console.log(responce);
-      this.moduleList = responce;
+      this.firstArray = responce;
+      this.firstArray.forEach(item => {
+        this.creditValue[item.id] = 0;
+        if(this.planName == "Student"){
+          if(item.id == 3){
+            item.planValidation = 1;
+          }else{
+            item.planValidation = 0;
+          }
+        }else if(this.planName == "Career"){
+          if(item.id == 2 || item.id == 3){
+            item.planValidation = 1;
+          }else{
+            item.planValidation = 0;
+          }
+        }else if(this.planName == "Entrepreneur"){
+          item.planValidation = 1;
+        }
+      });
+      this.moduleList = this.firstArray;
+      console.log(this.moduleList);
     })
+  }
+
+  checkOut(){
+    console.log(this.creditValue);
   }
 
 }
