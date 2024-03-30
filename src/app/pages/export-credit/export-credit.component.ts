@@ -12,6 +12,8 @@ export class ExportCreditComponent implements OnInit {
   moduleList:any[] = [];
   planName: string = "";
   firstArray:any[] = [];
+  couponInput:string = "";
+  totalPayableAmount:number = 0;
   constructor(private exportcreditservice:ExportCreditService,private authService: AuthService, ) { }
 
   ngOnInit(): void {
@@ -22,11 +24,12 @@ export class ExportCreditComponent implements OnInit {
   checkSubscriptionPlan(){
     this.authService.getNewUserTimeLeft().subscribe((res) => {
       this.planName = res?.subscription_details?.subscription_plan;
+      // console.log(this.planName);
     })
   }
 
   loadModuleList(): void{
-    console.log(this.planName);
+    
     this.exportcreditservice.getModulesList().subscribe((responce) =>{
       this.firstArray = responce;
       this.firstArray.forEach(item => {
@@ -46,6 +49,8 @@ export class ExportCreditComponent implements OnInit {
         }else if(this.planName == "Entrepreneur"){
           item.planValidation = 1;
         }
+        item.addedCredits = 0;
+        item.added_credit_rupees = 0;
       });
       this.moduleList = this.firstArray;
       console.log(this.moduleList);
@@ -56,4 +61,16 @@ export class ExportCreditComponent implements OnInit {
     console.log(this.creditValue);
   }
 
+  updateCredits(){
+    this.totalPayableAmount = 0;
+    this.moduleList.forEach(item =>{
+      if(item.planValidation == 1){
+        item.addedCredits = item.inputvalue;
+        item.added_credit_rupees = item.inputvalue * item.price_per_credit;
+        this.totalPayableAmount += item.added_credit_rupees;
+      }
+    })
+    console.log(this.moduleList);
+    console.log(this.totalPayableAmount);
+  }
 }
