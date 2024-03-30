@@ -68,7 +68,9 @@
                 </p-card>
                 <ng-container *ngIf="recommended && recommended.recommends && recommended.recommends.length" >
                     <div *ngFor="let recommendList of recommended.recommends">
-                        <h3 class="text-center p-2">Recommended {{ recommendList?.name }} Modules</h3>
+                        <h3 class="text-center p-2" *ngIf="recommended.planname!='no'">Recommended {{ recommendList?.name }} Modules</h3>
+                        <h3 class="text-center p-2" *ngIf="recommended.planname=='no'">UNIPREP is not the right fit for you.</h3>
+                        
                         <div class="d-flex flex-wrap text-center justify-content-center">
                             <ng-container *ngIf="recommendList.details && recommendList.details.length">
                                 <p-card class="card m-2 module-list" *ngFor="let modulesList of recommendList.details">
