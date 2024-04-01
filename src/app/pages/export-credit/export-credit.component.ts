@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 import { ExportCreditService } from './export-credit.service';
 import { AuthService } from 'src/app/Auth/auth.service';
 
@@ -14,6 +14,8 @@ export class ExportCreditComponent implements OnInit {
   firstArray:any[] = [];
   couponInput:string = "";
   totalPayableAmount:number = 0;
+  @Output() pay = new EventEmitter();
+
   constructor(private exportcreditservice:ExportCreditService,private authService: AuthService, ) { }
 
   ngOnInit(): void {
@@ -23,8 +25,9 @@ export class ExportCreditComponent implements OnInit {
 
   checkSubscriptionPlan(){
     this.authService.getNewUserTimeLeft().subscribe((res) => {
-      this.planName = res?.subscription_details?.subscription_plan;
-      // console.log(this.planName);
+      // this.planName = res?.subscription_details?.subscription_plan;
+      this.planName = res.subscription_details.subscription_plan;
+        console.log(this.planName);
     })
   }
 
@@ -58,7 +61,17 @@ export class ExportCreditComponent implements OnInit {
   }
 
   checkOut(){
-    console.log(this.creditValue);
+    this.updateCredits();
+    // this.moduleList.push({total_amount: this.totalPayableAmount})
+    console.log(this.moduleList);
+    // let OrderDatas:any = [];
+    // OrderDatas = this.creditValue; 
+    // OrderDatas.push({ total_amount: this.totalPayableAmount });
+    // console.log(OrderDatas);
+    this.exportcreditservice.placeOrder(this.moduleList).subscribe((response)=>{
+      console.log(response);
+    });
+    
   }
 
   updateCredits(){

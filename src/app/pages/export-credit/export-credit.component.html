@@ -20,7 +20,8 @@
 								<h5 class="card-title uniprep-primary">{{ modules.module_name }}</h5>
 								<small>{{ modules.module_description }}</small>
 							</div>
-							<div class="col-md-4 col-4 d-flex flex-column justify-content-center gap-3" *ngIf="modules.planValidation == 1; else upgradeRequired">
+							<!-- *ngIf="modules.planValidation == 1; else upgradeRequired" -->
+							<div class="col-md-4 col-4 d-flex flex-column justify-content-center gap-3" *ngIf="modules.planValidation == 1">
 								<div class="d-flex justify-content-center justify-content-md-end">
 									<p-inputNumber [(ngModel)]="modules.inputvalue" [showButtons]="true" buttonLayout="horizontal" spinnerMode="horizontal" incrementButtonIcon="pi pi-plus" decrementButtonIcon="pi pi-minus" [min]="0" [size]="3"></p-inputNumber>
 								</div>
@@ -29,13 +30,13 @@
 									<button type="button" (click)="updateCredits()" class="btn btn-primary">Update Credits</button>
 								</div>
 							</div>
-                            <ng-template #upgradeRequired>
-                                <div class="col-md-4 col-4 d-flex flex-column align-items-center " >
+                            <!-- <ng-template #upgradeRequired> -->
+                                <div class="col-md-4 col-4 d-flex flex-column align-items-center " *ngIf="modules.planValidation == 0">
                                     <h6 class="card-title mt-2" style="color: #f0780e;">Upgrade Required</h6>
                                     <small>To access this exclusive module, please upgrade your subscription plan now.</small>
                                     <button pButton type="button" class="text-white p-ripple p-button-rounded p-button-warning p-button p-component p-2 mb-2">Upgrade Plan<i class="fa fa-arrow-right exhausted-plan-icon"></i></button>
                                 </div>
-                            </ng-template>
+                            <!-- </ng-template> -->
 						</div>
 					</div>
 				</div>
