@@ -40,6 +40,7 @@ export class ScholarshipListComponent implements OnInit {
   viewFavouritesLabel: string = "View Favourites";
   allScholarshipList: any[] = [];
   allScholarshipCount:number=0;
+  selectedIndex=[]
   constructor(
     private fb: FormBuilder,
     private scholarshipListService: ScholarshipListService,
@@ -47,7 +48,8 @@ export class ScholarshipListComponent implements OnInit {
     private toast: MessageService,
     private authService: AuthService,
     private router: Router,
-    private userManagementService: UserManagementService
+    private userManagementService: UserManagementService,
+    private dataService: DataService
   ) {
     this.filterForm = this.fb.group({
       country: [null],
@@ -335,4 +337,41 @@ export class ScholarshipListComponent implements OnInit {
      this.totalScholarShipCount=this.allScholarshipCount;
   }
   }
+  checkBoxopen() {
+
+  }
+  sholarshipquestionid: number[] = [];
+  selectedlistcount:number=0
+  questionSelectedCheckBox(event: any, index: number, ticketques: any) {
+    if (event.target.checked) {
+      this.sholarshipquestionid.push(ticketques.id);
+      console.log(this.sholarshipquestionid);
+    } else {
+      const indexToRemove = this.sholarshipquestionid.indexOf(ticketques.id);
+      if (indexToRemove !== -1) {
+        this.sholarshipquestionid.splice(indexToRemove, 1);
+        console.log(this.sholarshipquestionid);
+      }
+    }
+    this.selectedlistcount=this.sholarshipquestionid.length;
+  }
+  openReport() {
+    if(this.sholarshipquestionid.length!=0){
+      let data = {
+        isVisible: true,
+        moduleId: null,
+        subModuleId: null,
+        questionId: this.sholarshipquestionid,
+        from: "module",
+      };
+      this.dataService.openReportWindow(data);
+    }else{
+      this.toast.add({
+        severity: "error",
+        summary: "Error",
+        detail: "Please make sure you have select any question!",
+      });
+    }
+    }
+
 }
