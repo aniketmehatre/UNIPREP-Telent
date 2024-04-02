@@ -6,6 +6,7 @@ import { MessageService } from "primeng/api";
 import { AuthService } from "src/app/Auth/auth.service";
 import { Router } from "@angular/router";
 import { UserManagementService } from "../user-management/user-management.service";
+import { DataService } from "src/app/data.service";
 
 @Component({
   selector: "uni-scholarship-list",
@@ -36,7 +37,8 @@ export class ScholarshipListComponent implements OnInit {
   restrict:boolean=false;
   currentPlan:string="";
   PersonalInfo!:any;
-
+  selectedIndex: any;
+  toSend: boolean = false;
   constructor(
     private fb: FormBuilder,
     private scholarshipListService: ScholarshipListService,
@@ -44,7 +46,8 @@ export class ScholarshipListComponent implements OnInit {
     private toast: MessageService,
     private authService: AuthService,
     private router: Router,
-    private userManagementService:UserManagementService
+    private userManagementService:UserManagementService,
+    private dataService: DataService,
   ) {
     this.filterForm = this.fb.group({
       country: [null],
@@ -309,7 +312,44 @@ bookmarkQuestion(scholarshipId:any,isFav:any){
     });
    });
 }
-viewFavourites(){
-  this.loadScholarShipData(1);
+  viewFavourites() {
+    this.loadScholarShipData(1);
+  }
+  checkBoxopen() {
+
+  }
+  sholarshipquestionid: number[] = [];
+  selectedlistcount:number=0
+  questionSelectedCheckBox(event: any, index: number, ticketques: any) {
+    if (event.target.checked) {
+      this.sholarshipquestionid.push(ticketques.id);
+      console.log(this.sholarshipquestionid);
+    } else {
+      const indexToRemove = this.sholarshipquestionid.indexOf(ticketques.id);
+      if (indexToRemove !== -1) {
+        this.sholarshipquestionid.splice(indexToRemove, 1);
+        console.log(this.sholarshipquestionid);
+      }
     }
+    this.selectedlistcount=this.sholarshipquestionid.length;
+  }
+  openReport() {
+    if(this.sholarshipquestionid.length!=0){
+      let data = {
+        isVisible: true,
+        moduleId: null,
+        subModuleId: null,
+        questionId: this.sholarshipquestionid,
+        from: "module",
+      };
+      this.dataService.openReportWindow(data);
+    }else{
+      this.toast.add({
+        severity: "error",
+        summary: "Error",
+        detail: "Please make sure you have select any question!",
+      });
+    }
+    }
+
 }
