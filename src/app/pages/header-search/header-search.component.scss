@@ -306,16 +306,20 @@
 	align-items: center;
 }
 .answercard {
-	background-color: var(--uniprep-primaryop10);
-	border: 2px solid var(--uniprep-primary);
+	background-color: transparent;
+	border: none;
+	// max-height: 50vh;
 	overflow-y: auto;
-}
+	.readingheight
+	{
+	  max-height:40vh;
+	  overflow-y:auto;
+	  min-height: 35vh;
+	}
+  }
 
-.card-wrapper {
-    height: 100%;
-}
-
-.card {
-    height: 100%;
-    overflow-y: auto;
-}
+  .cardnobg
+  {
+	background: transparent;
+    border: none;
+  }

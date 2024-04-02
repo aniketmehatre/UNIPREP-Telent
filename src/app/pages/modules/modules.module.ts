@@ -19,13 +19,15 @@ import { ButtonModule } from 'primeng/button';
 import { CardModule } from 'primeng/card';
 import {NgxUiLoaderModule} from "ngx-ui-loader";
 import {SkeletonModule} from "primeng/skeleton";
+import { QuizComponent } from './quiz/quiz.component';
 
 
 @NgModule({
   declarations: [
     ModulesComponent,
     ListSubModulesComponent,
-    QuestionListComponent
+    QuestionListComponent,
+    QuizComponent
   ],
     imports: [
         CommonModule,

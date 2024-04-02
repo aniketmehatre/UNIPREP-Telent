@@ -617,7 +617,7 @@ export class QuestionListComponent implements OnInit {
     // this.ogTitle = questionData.question;
     // this.ogDescription = 'UNIPREP is a one-stop platform for students, graduates & entrepreneurs, seeking information on Career, Life and Study abroad';
     // this.ogImage = this.countryFlag;
-    // this.meta.updateTag({ name:"twitter:card", content:"country_image" });
+     //this.meta.updateTag({ name:"title", content: questionData.question });
     // this.meta.updateTag({ name: "twitter:description", content: this.ogDescription });
     // this.meta.updateTag({ name: "twitter:title", content: this.ogTitle });
     // this.meta.updateTag({ name: "twitter:image", content: this.countryFlag });

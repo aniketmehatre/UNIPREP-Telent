@@ -34,11 +34,12 @@ export class ScholarshipListComponent implements OnInit {
   planExpired!: boolean;
   scholarshipTypeList: any[] = [];
   coverList: any[] = [];
-  restrict:boolean=false;
-  currentPlan:string="";
-  PersonalInfo!:any;
-  selectedIndex: any;
-  toSend: boolean = false;
+  restrict: boolean = false;
+  currentPlan: string = "";
+  PersonalInfo!: any;
+  viewFavouritesLabel: string = "View Favourites";
+  allScholarshipList: any[] = [];
+  allScholarshipCount:number=0;
   constructor(
     private fb: FormBuilder,
     private scholarshipListService: ScholarshipListService,
@@ -46,8 +47,7 @@ export class ScholarshipListComponent implements OnInit {
     private toast: MessageService,
     private authService: AuthService,
     private router: Router,
-    private userManagementService:UserManagementService,
-    private dataService: DataService,
+    private userManagementService: UserManagementService
   ) {
     this.filterForm = this.fb.group({
       country: [null],
@@ -145,18 +145,22 @@ export class ScholarshipListComponent implements OnInit {
     });
   }
 
-  loadScholarShipData(isFavourite:number) {
-    this.data.planname=this.currentPlan?this.currentPlan:"";
-    if(isFavourite==1){
-      this.data['favourite']=1;
+  loadScholarShipData(isFavourite: number) {
+    this.data.planname = this.currentPlan ? this.currentPlan : "";
+    if (isFavourite == 1) {
+      this.data['favourite'] = 1;
     }
     this.scholarshipListService
       .getScholarshipList(this.data)
       .subscribe((response) => {
         this.scholarshipData = response.scholarship;
+        if (isFavourite != 1) {
+          this.allScholarshipList = response.scholarship;
+          this.allScholarshipCount = response.count;
+        }
         this.totalScholarShipCount = response.count;
       });
-    this.isFilterVisible =false;
+    this.isFilterVisible = false;
   }
   applyFilter() {
     const formData = this.filterForm.value;
@@ -237,8 +241,8 @@ export class ScholarshipListComponent implements OnInit {
     perpage: this.pageSize,
   };
   pageChange(event: any) {
-    if(this.planExpired){
-      this.restrict=true;
+    if (this.planExpired) {
+      this.restrict = true;
       return;
     }
     this.page = event.first / this.pageSize + 1;
@@ -254,11 +258,11 @@ export class ScholarshipListComponent implements OnInit {
   }
 
   filterBy() {
-    if(this.planExpired){
-      this.restrict=true;
+    if (this.planExpired) {
+      this.restrict = true;
       return;
     }
-    this.isFilterVisible =true;
+    this.isFilterVisible = true;
   }
 
   exportTable() { }
@@ -272,7 +276,7 @@ export class ScholarshipListComponent implements OnInit {
     this.authService.getNewUserTimeLeft().subscribe((res) => {
       let data = res.time_left;
       let subscription_exists_status = res.subscription_details;
-      this.currentPlan=subscription_exists_status?.subscription_plan;
+      this.currentPlan = subscription_exists_status?.subscription_plan;
       if (
         data.plan === "expired" || data.plan === 'subscription_expired' ||
         subscription_exists_status?.subscription_plan === "free_trail"
@@ -297,59 +301,38 @@ export class ScholarshipListComponent implements OnInit {
   }
   GetPersonalProfileData() {
     this.userManagementService.GetUserPersonalInfo().subscribe(data => {
-        this.PersonalInfo = data;
+      this.PersonalInfo = data;
     });
-}
-bookmarkQuestion(scholarshipId:any,isFav:any){
-  isFav=isFav!='1'?true:false;
-   this.scholarshipListService.bookmarkScholarshipData(scholarshipId,this.PersonalInfo.user_id,isFav).subscribe((response) => {
-    let scholarshipListData=this.scholarshipData.find(item=>item.id==scholarshipId);
-    isFav==true?scholarshipListData.favourite=1:scholarshipListData.favourite=null;
-    this.toast.add({
-      severity: "success",
-      summary: "Success",
-      detail: response.message,
-    });
-   });
-}
-  viewFavourites() {
-    this.loadScholarShipData(1);
   }
-  checkBoxopen() {
-
-  }
-  sholarshipquestionid: number[] = [];
-  selectedlistcount:number=0
-  questionSelectedCheckBox(event: any, index: number, ticketques: any) {
-    if (event.target.checked) {
-      this.sholarshipquestionid.push(ticketques.id);
-      console.log(this.sholarshipquestionid);
-    } else {
-      const indexToRemove = this.sholarshipquestionid.indexOf(ticketques.id);
-      if (indexToRemove !== -1) {
-        this.sholarshipquestionid.splice(indexToRemove, 1);
-        console.log(this.sholarshipquestionid);
-      }
-    }
-    this.selectedlistcount=this.sholarshipquestionid.length;
-  }
-  openReport() {
-    if(this.sholarshipquestionid.length!=0){
-      let data = {
-        isVisible: true,
-        moduleId: null,
-        subModuleId: null,
-        questionId: this.sholarshipquestionid,
-        from: "module",
-      };
-      this.dataService.openReportWindow(data);
-    }else{
+  bookmarkQuestion(scholarshipId: any, isFav: any) {
+    isFav = isFav != '1' ? true : false;
+    this.scholarshipListService.bookmarkScholarshipData(scholarshipId, this.PersonalInfo.user_id, isFav).subscribe((response) => {
+      let scholarshipListData = this.scholarshipData.find(item => item.id == scholarshipId);
+      isFav == true ? scholarshipListData.favourite = 1 : scholarshipListData.favourite = null;
       this.toast.add({
-        severity: "error",
-        summary: "Error",
-        detail: "Please make sure you have select any question!",
+        severity: "success",
+        summary: "Success",
+        detail: response.message,
       });
+    });
+  }
+  viewFavourites() {
+    this.viewFavouritesLabel = this.viewFavouritesLabel == 'View Favourites' ? 'View All' : 'View Favourites';
+    if (this.viewFavouritesLabel == "View All") {
+      this.loadScholarShipData(1);
     }
-    }
-
+    else {
+     let scholarshipList=this.allScholarshipList.map(scholarship=>{
+      let foundScholarship = this.scholarshipData.find(s => s.id == scholarship.id);
+      if (foundScholarship) {
+        scholarship.favourite = foundScholarship.favourite;
+      }
+      return scholarship;
+     });
+     let favouriteScholarships = scholarshipList.filter(scholarship => scholarship.favourite === 1);
+    let nonFavouriteScholarships = scholarshipList.filter(scholarship => scholarship.favourite !== 1);
+     this.scholarshipData=favouriteScholarships.concat(nonFavouriteScholarships);
+     this.totalScholarShipCount=this.allScholarshipCount;
+  }
+  }
 }

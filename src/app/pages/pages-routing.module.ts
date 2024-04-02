@@ -21,6 +21,7 @@ import { InvestorListGuidlinesComponent } from './investor-list-guidlines/invest
 import { ScholarshipListGuidlinesComponent } from './scholarship-list-guidlines/scholarship-list-guidlines.component';
 import { RecommendationsComponent } from './recommendations/recommendations.component';
 import { PitchDeskComponent } from './pitch-desk/pitch-desk.component';
+import { ExportCreditComponent } from './export-credit/export-credit.component';
 
 
 const routes: Routes = [
@@ -153,7 +154,12 @@ const routes: Routes = [
             {
                 path: 'recommendations',
                 component: RecommendationsComponent
+            },
+            {
+                path: 'export-credit',
+                component: ExportCreditComponent
             }
+            
         ]
     }
 ];
