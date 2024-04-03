@@ -267,6 +267,7 @@ export class SubscriptionDataComponent implements OnInit {
             couponApplied: this.iscouponReadonly ? 1 : 0,
             coupon: this.iscouponReadonly ? this.couponInput : '',
             coupon_id: this.usedCouponId,
+            subscription_plan_id: this.selectedSubscriptionDetails?.subscription_plan_id,
           }
           if (this.checkoutTotal == '') {
             data.finalPrice = this.subscriptionTotal;
@@ -281,6 +282,7 @@ export class SubscriptionDataComponent implements OnInit {
               finalPrice: this.checkoutTotal,
               couponApplied: this.couponInput ? 1 : 0,
               coupon: this.couponInput,
+              subscription_plan_id: this.selectedSubscriptionDetails?.subscription_plan_id,
             }
             this.subscriptionPlan.emit(data);
           }
@@ -297,6 +299,7 @@ export class SubscriptionDataComponent implements OnInit {
             finalPrice: this.checkoutTotal,
             couponApplied: this.couponInput ? 1 : 0,
             coupon: this.couponInput,
+            subscription_plan_id: this.selectedSubscriptionDetails?.subscription_plan_id,
           }
           if (this.checkoutTotal == '') {
             data.finalPrice = this.subscriptionTotal;
@@ -311,6 +314,7 @@ export class SubscriptionDataComponent implements OnInit {
               finalPrice: this.checkoutTotal,
               couponApplied: this.couponInput ? 1 : 0,
               coupon: this.couponInput,
+              subscription_plan_id: this.selectedSubscriptionDetails?.subscription_plan_id,
             }
             this.subscriptionPlan.emit(data);
           }
