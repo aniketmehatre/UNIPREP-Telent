@@ -60,12 +60,11 @@ export class QuizComponent implements OnInit {
       cName = countryName;
     });
     this.quizData = [];
-    this.getQuizData();
     this.selectedQuiz = 1;
     this.positionNumber = 1;
     this.isInstructionVisible = true;
-    this.currentCountryId = Number(localStorage.getItem('countryId'));
     this.currentModuleSlug = this.router.url.split('/').slice(-2,-1).pop();
+    this.currentCountryId = Number(localStorage.getItem('countryId'));
     this.dataService.countryNameSource.subscribe((data) => {
       this.countryName = data;
     });
@@ -153,11 +152,11 @@ export class QuizComponent implements OnInit {
     // } */
     localStorage.setItem("currentmodulenameforrecently", this.currentModuleName);
     this.loadModuleAndSubModule();
+    this.getQuizData();
   }
 
 
   getQuizData() {
-
     let data = {
       countryId: this.currentCountryId,
       moduleId: this.currentModuleId,
@@ -167,6 +166,9 @@ export class QuizComponent implements OnInit {
     this.quizList$ = this.moduleListService.quizList$();
 
     this.quizList$.subscribe((data) => {
+      console.log(data);
+      console.log(this.currentCountryId);
+      console.log(this.currentModuleId);
       if (data) {
         this.quizData = data.map((val: any) => {
           let moduleData = this.moduleList.filter(ind => ind.id == val.module_id)[0]!.module_name;

@@ -14,12 +14,16 @@ export class QuizmenuComponent implements OnInit {
   currentModuleSlug: any;
   filterUniversityList: any[] = [];
   countryId: any;
-  constructor(private router: Router,
+  countryName!: string;
+  constructor(private router: Router,private dataService: DataService,
     private locationService: LocationService,) { }
 
   ngOnInit(): void {
     this.countryId = Number(localStorage.getItem('countryId'));
     this.getFilterUniversityList(this.countryId)
+    this.dataService.countryNameSource.subscribe((data) => {
+      this.countryName = data;
+    });
   }
   startQuiz(modulename:any) {
     this.currentModuleSlug=modulename

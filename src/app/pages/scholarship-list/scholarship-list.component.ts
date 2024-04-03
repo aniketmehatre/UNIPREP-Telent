@@ -40,7 +40,8 @@ export class ScholarshipListComponent implements OnInit {
   viewFavouritesLabel: string = "View Favourites";
   allScholarshipList: any[] = [];
   allScholarshipCount:number=0;
-  selectedIndex=[]
+  selectedIndex: any;
+  toSend: boolean = false;
   constructor(
     private fb: FormBuilder,
     private scholarshipListService: ScholarshipListService,
@@ -343,26 +344,29 @@ export class ScholarshipListComponent implements OnInit {
   sholarshipquestionid: number[] = [];
   selectedlistcount:number=0
   questionSelectedCheckBox(event: any, index: number, ticketques: any) {
-    if (event.target.checked) {
-      this.sholarshipquestionid.push(ticketques.id);
+    // if (event.target.checked) {
+    //   this.sholarshipquestionid.push(ticketques.id);
+    //   console.log(this.sholarshipquestionid);
+    // } else {
+    //   const indexToRemove = this.sholarshipquestionid.indexOf(ticketques.id);
+    //   if (indexToRemove !== -1) {
+    //     this.sholarshipquestionid.splice(indexToRemove, 1);
+    //     console.log(this.sholarshipquestionid);
+    //   }
+    // }
+    // this.selectedlistcount=this.sholarshipquestionid.length;
+
+    this.selectedIndex = event.target.checked ? index : undefined;
+    this.toSend = event.target.checked;
+      this.sholarshipquestionid=ticketques.id
       console.log(this.sholarshipquestionid);
-    } else {
-      const indexToRemove = this.sholarshipquestionid.indexOf(ticketques.id);
-      if (indexToRemove !== -1) {
-        this.sholarshipquestionid.splice(indexToRemove, 1);
-        console.log(this.sholarshipquestionid);
-      }
-    }
-    this.selectedlistcount=this.sholarshipquestionid.length;
   }
   openReport() {
-    if(this.sholarshipquestionid.length!=0){
+    if(this.toSend){
       let data = {
         isVisible: true,
-        moduleId: null,
-        subModuleId: null,
         questionId: this.sholarshipquestionid,
-        from: "module",
+        reporttype:4
       };
       this.dataService.openReportWindow(data);
     }else{
