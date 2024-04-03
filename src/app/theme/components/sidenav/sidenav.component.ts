@@ -149,6 +149,11 @@ export class SidenavComponent {
       image: "fa-solid fa-calendar-days",
     },
     {
+      title: "Quiz",
+      url: "/pages/modules/quizmodule",
+      image: "fa-solid fa-calendar-days",
+    },
+    {
       title: "Support",
       url: "",
       image: "",

@@ -69,6 +69,7 @@ export class QuizComponent implements OnInit {
     this.dataService.countryNameSource.subscribe((data) => {
       this.countryName = data;
     });
+    console.log(this.currentModuleSlug);
     switch (this.currentModuleSlug) {
       case 'pre-admission':
         this.currentModuleId = 1;

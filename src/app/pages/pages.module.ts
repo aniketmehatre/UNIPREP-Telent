@@ -64,6 +64,7 @@ import { RadioButtonModule } from 'primeng/radiobutton';
 import { PitchDeskComponent } from './pitch-desk/pitch-desk.component';
 import {NgxExtendedPdfViewerModule} from "ngx-extended-pdf-viewer";
 import { ExportCreditComponent } from './export-credit/export-credit.component';
+import { QuizmenuComponent } from './quizmenu/quizmenu.component';
 
 @NgModule({
     declarations: [
