@@ -6,12 +6,18 @@
 					<i class="pi pi-search"></i>
 					<input class="w-100 px-5 py-2" type="text" placeholder="Search in Scholarship List" pInputText [(ngModel)]="searchScholarshpName" (input)="performSearch()" />
 				</div>
+				<div class="mt-3">
+				 <input type="checkbox" id="selectAllCheckbox">&nbsp;
+					<label for="selectAllCheckbox"><b>Select All</b></label>&nbsp;&nbsp;
+					<span><b>Selected:{{selectedlistcount}}</b></span>
+				</div>
 			</div>
 			<div class="col-md-6 text-center">
 				<h5 class="select-title mb-1" tooltipPosition="top" pTooltip="">SCHOLARSHIP LIST</h5>
 			</div>
 			<div class="col-md-3 text-end">
 				<span class="d-flex justify-content-end mt-3 gap-2">
+					<button class="btn btn-primary text-small" style="background-color: #FF9113 !important;" (click)="openReport()" type="button">Report</button>
 					<button class="btn btn-primary text-small" (click)="viewFavourites()" type="button">{{viewFavouritesLabel}}</button>
 					<button class="btn btn-primary text-small scholarship-guidlines" (click)="scholarGuidlines()" type="button">Scholarship Guidelines</button>
 					<button class="btn btn-primary text-small ps-3 pe-3 pt-2 pb-2 br-8" (click)="filterBy()" type="button">Filter by</button>
@@ -27,11 +33,13 @@
 		</div>
 		<div class="container-fluid" *ngIf="!restrict">
 			<div class="row">
-				<div *ngFor="let scholarshipData of scholarshipData" class="col-md-3 col-12 mt-3">
+				<div *ngFor="let scholarshipData of scholarshipData let index = index" class="col-md-3 col-12 mt-3">
 					<div class="card scholarshiplistcard h-100">
 						<div class="card-body d-flex flex-column justify-content-between">
 							<div class="d-flex justify-content-between align-items-start">
 								<h5 class="uniprep-primary" title="Scholarship Name">
+									<input [ngModel]="selectedIndex" type="checkbox" name="" id=""
+                                            (change)="questionSelectedCheckBox($event,index,scholarshipData)">&nbsp;
 									<a class="uniprep-primary text-decoration-none" target="_blank" href="{{ scholarshipData.website }}">{{ scholarshipData.name }} <i class="fa-solid fa-link uniprep-primary pr-2" aria-hidden="true"></i></a>
 								</h5>
 								<i  [class]="scholarshipData.favourite==1?'fa-solid fa-bookmark':'fa-regular fa-bookmark'" style="color: #E90707;" (click)="bookmarkQuestion(scholarshipData.id,scholarshipData.favourite)"></i>
