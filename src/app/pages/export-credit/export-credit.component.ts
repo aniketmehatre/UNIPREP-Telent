@@ -4,6 +4,7 @@ import { AuthService } from 'src/app/Auth/auth.service';
 import { MessageService } from 'primeng/api';
 import { environment } from '@env/environment';
 import { WindowRefService } from '../subscription/window-ref.service';
+import { Router } from '@angular/router';
 import { ResponsiveCSSClassPipe } from 'ngx-extended-pdf-viewer';
 @Component({
   selector: 'uni-export-credit',
@@ -14,9 +15,8 @@ export class ExportCreditComponent implements OnInit {
  
   moduleList:any[] = [];
   totalPayableAmount:number = 0;
-  @Output() pay = new EventEmitter();
 
-  constructor(private exportcreditservice:ExportCreditService,private authService: AuthService, private toastr:MessageService, private winRef: WindowRefService) { }
+  constructor(private exportcreditservice:ExportCreditService, private toastr:MessageService, private winRef: WindowRefService, private router: Router) { }
 
   ngOnInit(): void {
     this.loadModuleList();
@@ -26,12 +26,10 @@ export class ExportCreditComponent implements OnInit {
     this.exportcreditservice.getModulesList().subscribe((responce) =>{
       this.moduleList = responce;
     });
-    console.log(this.moduleList);
   }
 
   
   checkOut(){
-    this.updateCredits();
     if(this.totalPayableAmount == 0){
       this.toastr.add({severity:"error", summary: "error", detail: "Please add some Credits"});
       return;
@@ -90,7 +88,13 @@ export class ExportCreditComponent implements OnInit {
               summary: response.status,
               detail: response.message,
             });
-            console.log(response);
+            if(response.status == "success"){
+              this.router.navigate(["/pages/subscriptions"]);
+            }else{
+              return;
+            }
+            
+            //console.log(response);
             //window.location.reload();
           },(error: any)=>{
             this.toastr.add({
@@ -115,14 +119,15 @@ export class ExportCreditComponent implements OnInit {
     rzp.open();
   }
 
-  updateCredits(){
+  onInputChangeValue(event: any, module_id:number){
     this.totalPayableAmount = 0;
     this.moduleList.forEach(item =>{
-      if(item.planValidation == 1){
-        item.addedCredits = item.inputvalue;
-        item.added_credit_rupees = item.inputvalue * item.price_per_credit;
-        this.totalPayableAmount += item.added_credit_rupees;
+      if(module_id == item.id){
+        item.inputvalue = event.value;
       }
-    })
+      if(item.planValidation == 1){
+        this.totalPayableAmount += item.inputvalue * item.price_per_credit;
+      }
+    });
   }
 }

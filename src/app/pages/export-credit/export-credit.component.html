@@ -24,11 +24,11 @@
 								<!-- *ngIf="modules.planValidation == 1; else upgradeRequired" -->
 								<div class="col-md-4 col-4 d-flex flex-column justify-content-center gap-3" *ngIf="modules?.planValidation == 1">
 									<div class="d-flex justify-content-center justify-content-md-end">
-										<p-inputNumber [(ngModel)]="modules.inputvalue" [showButtons]="true" buttonLayout="horizontal" spinnerMode="horizontal" incrementButtonIcon="pi pi-plus" decrementButtonIcon="pi pi-minus" [min]="0" [size]="3"></p-inputNumber>
+										<p-inputNumber [(ngModel)]="modules.inputvalue" (onInput)="onInputChangeValue($event,modules.id)" [showButtons]="true" buttonLayout="horizontal" spinnerMode="horizontal" incrementButtonIcon="pi pi-plus" decrementButtonIcon="pi pi-minus" [min]="0" [size]="3"></p-inputNumber>
 									</div>
-									<div class="d-flex flex-row justify-content-md-end justify-content-between gap-3 align-items-center text-nowrap ">
+									<div class="d-flex flex-row justify-content-center gap-3 align-items-center text-nowrap ">
 										<h5 class="mb-0 uniprep-primary">{{ modules?.price_per_credit }} Rs/Credit</h5>                
-										<button type="button" (click)="updateCredits()" class="btn btn-primary">Update Credits</button>
+										<!-- <button type="button" (click)="updateCredits()" class="btn btn-primary">Update Credits</button> -->
 									</div>
 								</div>
 								<!-- <ng-template #upgradeRequired> -->
@@ -52,10 +52,10 @@
 				<div class="d-flex justify-content-between p-2" *ngFor="let modules of moduleList">
 					<div class="d-flex flex-column">
 						<h6 class="card-title">{{ modules.credit_name }}</h6>
-						<small>{{ modules.addedCredits }} Credits</small>
+						<small>{{ modules.inputvalue }} Credits</small>
 					</div>
 					<div>
-						<h5 class="p-2">{{ modules.added_credit_rupees }} Rs</h5>
+						<h5 class="p-2">{{ modules.inputvalue * modules.price_per_credit }} Rs</h5>
 					</div>
 				</div>
 			</div>
