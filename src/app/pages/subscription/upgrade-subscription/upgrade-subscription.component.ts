@@ -290,6 +290,7 @@ export class UpgradeSubscriptionComponent implements OnInit {
             couponApplied: this.iscouponReadonly? 1 : 0,
             coupon: this.iscouponReadonly?this.couponInput:'',
             coupon_id: this.usedCouponId,
+            subscription_plan_id: this.selectedSubscriptionDetails?.subscription_plan_id
           }
           this.pay(data);
         }
@@ -317,6 +318,7 @@ export class UpgradeSubscriptionComponent implements OnInit {
             finalPrice: this.checkoutTotal,
             couponApplied: this.couponInput ? 1 : 0,
             coupon: this.couponInput,
+            subscription_plan_id: this.selectedSubscriptionDetails?.subscription_plan_id
           }
           if (this.checkoutTotal == '') {
             data.finalPrice = this.subscriptionTotal;
@@ -342,11 +344,18 @@ export class UpgradeSubscriptionComponent implements OnInit {
     );
   }
   pay(value: any) {
-    console.log("pay", value);
     this.subscriptionDetails = value;
     // this.showPayLoading = true;
     if (value.subscriptionId) {
       this.subscriptionService.placeSubscriptionOrder(value).subscribe((data) => {
+        if(data.success==false){
+          this.toast.add({
+            severity: "error",
+            summary: "Error",
+            detail:data.message,
+          });
+          return;
+        }
         this.payWithRazor(data.orderid);
       });
     }
