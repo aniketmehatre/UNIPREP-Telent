@@ -207,6 +207,22 @@ export class QuestionListComponent implements OnInit {
      let url = this.subModuleId.split("&&");
      localStorage.setItem('questionId', url[1]);
      this.subModuleId=url[0];
+
+     // this.meta.updateTag({ property: 'og:url', content: 'https://dev-student.uniprep.ai/pages/modules/pre-admission/question-list/2' });
+     // this.meta.updateTag({ property: 'og:type', content: 'summary' });
+     // this.meta.updateTag({ property: 'og:title', content: 'asdf adsf asdfadsfasdf asdf' });
+     // this.meta.updateTag({ property: 'og:description', content: 'summary summary summary summary summary summary' });
+     // this.meta.updateTag({ name: 'image', property: 'og:image', content: 'https://api.uniprep.ai/uniprepapi/storage/app/public/submoduleicons/Language.png' });
+     //
+     //
+     // this.meta.updateTag({ name: 'twitter:card', content: 'summary' });
+     // this.meta.updateTag({ name: 'twitter:site', content: '@YourTwitterHandle' });
+     // this.meta.updateTag({ property: 'twitter:domain', content: 'dev-student.uniprep.ai' });
+     // this.meta.updateTag({ property: 'twitter:url', content: 'https://dev-student.uniprep.ai/pages/modules/pre-admission/question-list/2' });
+     // this.meta.updateTag({ name: 'twitter:title', content: 'Your Page Title' });
+     // this.meta.updateTag({ name: 'twitter:description', content: 'Your Page Description' });
+     // this.meta.updateTag({ name: 'twitter:image', content: 'https://api.uniprep.ai/uniprepapi/storage/app/public/submoduleicons/Language.png' });
+
    }
     this.currentSubModuleSlug = this.route.snapshot.paramMap.get("module_name");
     this.dataService.countryName.subscribe((data) => {
@@ -614,25 +630,22 @@ export class QuestionListComponent implements OnInit {
       this.restrict=true;
       return;
     }
-    // this.ogTitle = questionData.question;
-    // this.ogDescription = 'UNIPREP is a one-stop platform for students, graduates & entrepreneurs, seeking information on Career, Life and Study abroad';
-    // this.ogImage = this.countryFlag;
-     //this.meta.updateTag({ name:"title", content: questionData.question });
-    // this.meta.updateTag({ name: "twitter:description", content: this.ogDescription });
-    // this.meta.updateTag({ name: "twitter:title", content: this.ogTitle });
-    // this.meta.updateTag({ name: "twitter:image", content: this.countryFlag });
-    // this.meta.updateTag({name:'twitter:url',content:'/login'});
-    //
-    // this.meta.updateTag({ name: "description", content: this.ogDescription });
-    // this.meta.updateTag({ name: "title", content: this.ogTitle });
-    // this.meta.updateTag({ name: "image", content: this.countryFlag });
-    // this.meta.updateTag({name:'url',content:'/login'})
+
+    // this.meta.updateTag({ property: 'og:url', content: 'https://dev-student.uniprep.ai/pages/modules/pre-admission/question-list/2' });
+    // this.meta.updateTag({ property: 'og:type', content: 'summary' });
+    // this.meta.updateTag({ property: 'og:title', content: 'asdf adsf asdfadsfasdf asdf' });
+    // this.meta.updateTag({ property: 'og:description', content: 'summary summary summary summary summary summary' });
+    // this.meta.updateTag({ name: 'image', property: 'og:image', content: 'https://api.uniprep.ai/uniprepapi/storage/app/public/country-flags/united-kingdom.svg' });
     //
     //
-    // this.meta.updateTag({ property:'og:title', content: questionData.question });
-    // this.meta.updateTag({ property:'og:description', content: this.ogDescription});
-    // this.meta.updateTag({ property:'og:image', content: this.ogImage });
-    // this.meta.updateTag({ property:'og:url', content:'/login'});
+    // this.meta.updateTag({ name: 'twitter:card', content: 'summary' });
+    // this.meta.updateTag({ name: 'twitter:site', content: '@YourTwitterHandle' });
+    // this.meta.updateTag({ property: 'twitter:domain', content: 'dev-student.uniprep.ai' });
+    // this.meta.updateTag({ property: 'twitter:url', content: 'https://dev-student.uniprep.ai/pages/modules/pre-admission/question-list/2' });
+    // this.meta.updateTag({ name: 'twitter:title', content: 'Your Page Title' });
+    // this.meta.updateTag({ name: 'twitter:description', content: 'Your Page Description' });
+    // this.meta.updateTag({ name: 'twitter:image', content: 'https://api.uniprep.ai/uniprepapi/storage/app/public/country-flags/united-kingdom.svg' });
+
     this.oneQuestionContent = questionData;
     this.isQuestionAnswerVisible = true
     this.getSubmoduleName(questionData.country_id)
