@@ -11,6 +11,7 @@ import { LocalStorageService } from "ngx-localstorage";
 import { NgxUiLoaderService } from 'ngx-ui-loader';
 import { Router } from '@angular/router';
 import { WindowRefService } from '../window-ref.service';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'uni-upgrade-subscription',
@@ -60,6 +61,9 @@ export class UpgradeSubscriptionComponent implements OnInit {
   showCross: boolean = false;
   iscouponReadonly: boolean = false;
   isPlanExpired:boolean=false;
+  currentCountry:string="";
+  continent:string="";
+  currency:string="";
 
   constructor(private authService: AuthService,
     private subscriptionService: SubscriptionService,
@@ -68,11 +72,13 @@ export class UpgradeSubscriptionComponent implements OnInit {
     private ngxService: NgxUiLoaderService,
     private router: Router,
     private winRef: WindowRefService,
-    private authservice: AuthService
+    private authservice: AuthService,
+    private http:HttpClient
   ) { }
   timeLeftInfoCard: any
 
   ngOnInit(): void {
+    this.getLocation();
     this.timeLeftInfoCard = localStorage.getItem('time_card_info');
     this.discountAmountEnable = false;
     this.user = this.authService.user;
@@ -105,7 +111,9 @@ export class UpgradeSubscriptionComponent implements OnInit {
     let data = {
       page: 1,
       perpage: 1000,
-      studenttype: this.studentType
+      studenttype: this.studentType,
+      country:this.currentCountry,
+      continent:this.continent
     }
 
     this.subscriptionService.getSubscriptions(data).subscribe((response) => {
@@ -113,6 +121,7 @@ export class UpgradeSubscriptionComponent implements OnInit {
       const filteredData = response.subscriptions.filter((item: any) => item.popular !== 1);
       filteredData.splice(1, 0, ...mostPopularOnes);
       this.subscriptionList = filteredData;
+      this.subscriptionList.map((item:any)=>this.currency=item.currency)
       this.plansLoaded = true;
       this.loadExistingSubscription();
 
@@ -451,6 +460,47 @@ export class UpgradeSubscriptionComponent implements OnInit {
       window.location.reload();
     }, 500);
   }
+  getLocation(): void{
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition((position)=>{
+          const longitude = position.coords.longitude;
+          const latitude = position.coords.latitude;
+          this.findCountry(longitude, latitude);
+        });
+    } else {
+       console.log("No support for geolocation")
+    }
+  }
+
+  findCountry(longitude: number, latitude: number): void {
+    const url = `https://nominatim.openstreetmap.org/reverse?lat=${latitude}&lon=${longitude}&format=json`;
+    this.http.get<any>(url).subscribe(
+      (data:any) => {
+       this.currentCountry = data?.address?.country;
+       this.findContinent(this.currentCountry);
+      },
+      (error:any) => {
+        console.log('Error fetching location:', error);
+      }
+    );
+  }
+  findContinent(countryName:string) {
+    this.http.get(`https://restcountries.com/v3.1/name/${countryName}`).subscribe(
+      (data:any)=> {
+        if (data?.length > 0) {
+          this.continent = data[data?.length-1].continents[0];
+        } 
+        else {
+          this.continent = 'Not found';
+        }
+      },
+      error => {
+        console.error('Error:', error);
+        this.continent = 'Error';
+      }
+    );
+  }
+
 
     protected readonly localStorage = localStorage;
 }
