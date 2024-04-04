@@ -146,6 +146,7 @@ export class DashboardComponent implements OnInit {
         //this.openViewMoreOrg();
         this.isViewMoreOrgVisible = false;
         this.loadApiData();
+        this.checkquizquestionmodule()
     }
 
     enableReadingData(): void {
@@ -225,6 +226,7 @@ export class DashboardComponent implements OnInit {
 
     openQuiz(): void {
         this.continueQuiz = "block";
+        this.checkQuestionQuiz()
     }
 
 
@@ -316,5 +318,24 @@ export class DashboardComponent implements OnInit {
 
     openViewMoreOrg(): void {
         this.isViewMoreOrgVisible = true;
+    }
+    quizpercentage:any
+    checkquizquestionmodule(){
+      var data={
+        countryid: this.selectedCountryId
+      }
+      this.dashboardService.checkModuleQuizCompletion(data).subscribe((res) => {
+        console.log(res);
+        this.quizpercentage=res.progress
+      })
+    }
+    checkQuestionQuiz(){
+        var data={
+            countryid: this.selectedCountryId
+          }
+          this.dashboardService.checkModuleQuizProgressbar(data).subscribe((res) => {
+            console.log(res);
+            this.quizProgressings=res.modules
+          })
     }
 }

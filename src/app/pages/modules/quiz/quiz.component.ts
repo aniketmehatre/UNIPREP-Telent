@@ -160,18 +160,19 @@ export class QuizComponent implements OnInit {
     let data = {
       countryId: this.currentCountryId,
       moduleId: this.currentModuleId,
-      submoduleId: 1
+      // submoduleId: 1
     }
     this.moduleListService.quizList(data);
     this.quizList$ = this.moduleListService.quizList$();
 
     this.quizList$.subscribe((data) => {
-      console.log(data);
-      console.log(this.currentCountryId);
-      console.log(this.currentModuleId);
+      // console.log(data);
+      // console.log(this.moduleList);
+      console.log(this.subModuleList);
       if (data) {
         this.quizData = data.map((val: any) => {
           let moduleData = this.moduleList.filter(ind => ind.id == val.module_id)[0]!.module_name;
+          console.log(val.submodule_id);
           let subModuleName = this.subModuleList.filter(ind => ind.id == val.submodule_id)[0]!.submodule_name;
           let number = 1;
           let dd = { ...val };
@@ -356,5 +357,14 @@ export class QuizComponent implements OnInit {
     this.isQuizSubmit = false;
     this.isReviewVisible = true;
   }
-
+  quizcount:any
+  checkquizquestionmodule(){
+    var data={
+      countryid: this.currentCountryId,
+      moduleid:this.currentModuleId
+    }
+    this.locationService.quizCount(data).subscribe((res) => {
+      this.quizcount=res
+    })
+  }
 }
