@@ -35,6 +35,8 @@ export class InvestorListComponent implements OnInit {
   allInvestorCount:number=0;
   selectedInvestors:number = 0;
   selectAllCheckboxes = false;
+  exportDataIds:any[] = [];
+  exportCreditCount: number = 0;
 
   constructor(
     private _location: Location, 
@@ -160,6 +162,7 @@ export class InvestorListComponent implements OnInit {
 
     this.investorList.getInvestorList(data).subscribe((response) => {
       this.investorData = response.data;
+      this.exportCreditCount = response.credit_count;
       if (isFavourite != 1) {
         this.allInvestorList=response.data;
         this.allInvestorCount = response.count;
@@ -264,5 +267,40 @@ export class InvestorListComponent implements OnInit {
      this.investorData=favouriteInvestor.concat(nonFavouriteInvestors);
      this.totalInvestorsCount=this.allInvestorCount;
   }
+  }
+
+  exportData(){
+    if (this.planExpired) {
+      this.restrict = true;
+      return;
+    }else if(this.exportCreditCount != 0){
+      this.exportDataIds = [];
+      this.investorData.forEach(item=>{
+        if(item.isChecked == 1){
+          this.exportDataIds.push(item.id);
+        }
+      })
+      if(this.exportDataIds.length == 0){
+        this.toast.add({severity: "error",summary: "error",detail: "Select Some data for export!.",});
+        return;
+      }
+      if(this.exportCreditCount < this.exportDataIds.length){
+        this.toast.add({severity: "error",summary: "error",detail: "insufficient credits.Please Buy Some Credits.",});
+        this.router.navigate(["/pages/export-credit"]);
+        return;
+      }
+      let data={
+        module_id: 1,
+        export_id: this.exportDataIds
+      };
+      this.investorList.exportSelectedData(data).subscribe((response)=>{
+        window.open(response.link, '_blank');
+        this.loadInvestorData(0);
+      })
+    }else if(this.exportCreditCount == 0){
+      this.toast.add({severity: "error",summary: "error",detail: "Please Buy Some Credits.",});
+      this.router.navigate(["/pages/export-credit"]);
+    }
+    
   }
 }
