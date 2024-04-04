@@ -198,8 +198,10 @@ export class ListSubModulesComponent implements OnInit {
     }
     this.moduleListService.quizList(data);
     this.quizList$ = this.moduleListService.quizList$();
-
+    console.log(this.quizList$);
+    
     this.quizList$.subscribe((data) => {
+      console.log(data);
       if (data) {
         this.quizData = data.map((val: any) => {
           let moduleData = this.moduleList.filter(ind => ind.id == val.module_id)[0]!.module_name;
@@ -337,17 +339,17 @@ export class ListSubModulesComponent implements OnInit {
   }
 
   startQuiz() {
-    this.router.navigate([`/pages/modules/${this.currentModuleSlug}/quiz`]);
-    // let cName = "";
-    // this.dataService.countryNameSource.subscribe(countryName => {
-    //   cName = countryName;
-    // });
-    // this.quizData = [];
-    // this.loadModuleAndSubModule();
-    // this.getQuizData();
-    // this.selectedQuiz = 1;
-    // this.positionNumber = 1;
-    // this.isInstructionVisible = true;
+    // this.router.navigate([`/pages/modules/${this.currentModuleSlug}/quiz`]);
+    let cName = "";
+    this.dataService.countryNameSource.subscribe(countryName => {
+      cName = countryName;
+    });
+    this.quizData = [];
+    this.loadModuleAndSubModule();
+    this.getQuizData();
+    this.selectedQuiz = 1;
+    this.positionNumber = 1;
+    this.isInstructionVisible = true;
   }
 
   setPage(page: any) {

@@ -4,6 +4,7 @@ import {ModulesComponent} from "./modules.component";
 import {ListSubModulesComponent} from "./list-sub-modules/list-sub-modules.component";
 import {QuestionListComponent} from "./question-list/question-list.component";
 import { QuizComponent } from './quiz/quiz.component';
+import { QuizmenuComponent } from '../quizmenu/quizmenu.component';
  
 
 const routes: Routes = [  {
@@ -33,6 +34,10 @@ const routes: Routes = [  {
   {path: '', redirectTo: 'pre-admission', pathMatch: 'full'},
   {
     path: ':module_name/quiz', component: QuizComponent,
+  },
+  {
+    path: 'quizmodule', component: QuizmenuComponent,
+
   }
 ]
 

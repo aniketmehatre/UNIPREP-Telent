@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {environment} from '../environments/environment';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 import {LocationData} from './@Models/location.model'
 
 @Injectable({
@@ -105,4 +105,11 @@ export class LocationService {
             headers: headers,
         });
     }
+    getUniversity(countryId: number) {
+        let params = new HttpParams();
+        params = params.append("country_id", countryId);
+        const headers = new HttpHeaders().set("Accept", "application/json");
+        return this.http.get<any>(environment.ApiUrl + "/getuniversity", { headers: headers, params: params });
+      }
+    
 }

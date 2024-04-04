@@ -20,6 +20,7 @@ import { CardModule } from 'primeng/card';
 import {NgxUiLoaderModule} from "ngx-ui-loader";
 import {SkeletonModule} from "primeng/skeleton";
 import { QuizComponent } from './quiz/quiz.component';
+import { QuizmenuComponent } from '../quizmenu/quizmenu.component';
 
 
 @NgModule({
@@ -27,7 +28,8 @@ import { QuizComponent } from './quiz/quiz.component';
     ModulesComponent,
     ListSubModulesComponent,
     QuestionListComponent,
-    QuizComponent
+    QuizComponent,
+    QuizmenuComponent
   ],
     imports: [
         CommonModule,
