@@ -3,6 +3,7 @@ import { PitchDeskService } from "./pitch-desk.service";
 import { FormBuilder, FormGroup } from "@angular/forms";
 import { AuthService } from 'src/app/Auth/auth.service';
 import { Router } from '@angular/router';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'uni-pitch-desk',
@@ -24,8 +25,11 @@ export class PitchDeskComponent implements OnInit {
   restrict: boolean = false;
   planExpired!: boolean;
   currentPlan: string = "";
-
-  constructor(private pitchDesk:PitchDeskService, private fb: FormBuilder,private router: Router,private authService: AuthService,) { 
+  selectAllCheckboxes: boolean = false;
+  selectedCheckboxCount: number = 0;
+  exportCreditCount: number = 0;
+  exportDataIds:any = [];
+  constructor(private pitchDesk:PitchDeskService, private fb: FormBuilder,private router: Router,private authService: AuthService, private toast: MessageService,) { 
     this.filterForm = this.fb.group({
       pitchdeck_name: [''],
       country: [''],
@@ -53,6 +57,7 @@ export class PitchDeskComponent implements OnInit {
     this.pitchDesk.getPitchDeskData(data).subscribe((responce)=>{
       this.totalPitchDeckCount = responce.total_count;
       this.pitchDeskList = responce.data;
+      this.exportCreditCount = responce.credit_count;
     });
     this.isFilterVisible = 'none'
   }
@@ -136,5 +141,78 @@ export class PitchDeskComponent implements OnInit {
       }
       this.getPitchDeskList();
     })
+  }
+
+  buyCredits(): void{
+    if (this.planExpired) {
+      this.restrict = true;
+      return;
+    }
+    this.router.navigate(["/pages/export-credit"]);
+  }
+
+  onCheckboxChange(event: any){
+    const isChecked = (event.target as HTMLInputElement).checked;
+    this.selectedCheckboxCount = isChecked ? this.selectedCheckboxCount + 1 : this.selectedCheckboxCount - 1;
+
+    if(isChecked == false){
+      if(this.selectedCheckboxCount){
+        this.selectAllCheckboxes = false;
+      }
+    }else{
+      if(this.pitchDeskList.length == this.selectedCheckboxCount){
+        this.selectAllCheckboxes = true;
+      }
+    }
+  }
+
+  selectAllCheckbox(){
+    this.selectedCheckboxCount = 0;
+    this.selectAllCheckboxes = !this.selectAllCheckboxes;
+    if(this.selectAllCheckboxes){
+      this.pitchDeskList.forEach(item=>{
+        item.isChecked = 1;
+        this.selectedCheckboxCount +=1;
+      });
+    }else{
+      this.pitchDeskList.forEach(item=>{
+        item.isChecked = 0;
+      });
+    }
+  }
+
+  exportData(){
+    if (this.planExpired) {
+      this.restrict = true;
+      return;
+    }else if(this.exportCreditCount != 0){
+      this.exportDataIds = [];
+      this.pitchDeskList.forEach(item=>{
+        if(item.isChecked == 1){
+          this.exportDataIds.push(item.id);
+        }
+      })
+      if(this.exportDataIds.length == 0){
+        this.toast.add({severity: "error",summary: "error",detail: "Select Some data for export!.",});
+        return;
+      }
+      if(this.exportCreditCount < this.exportDataIds.length){
+        this.toast.add({severity: "error",summary: "error",detail: "insufficient credits.Please Buy Some Credits.",});
+        this.router.navigate(["/pages/export-credit"]);
+        return;
+      }
+      let data={
+        module_id: 6,
+        export_id: this.exportDataIds
+      };
+      this.pitchDesk.exportSelectedData(data).subscribe((response)=>{
+        window.open(response.link, '_blank');
+        this.getPitchDeskList();
+      })
+    }else if(this.exportCreditCount == 0){
+      this.toast.add({severity: "error",summary: "error",detail: "Please Buy Some Credits.",});
+      this.router.navigate(["/pages/export-credit"]);
+    }
+    
   }
 }
