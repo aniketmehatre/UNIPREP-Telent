@@ -33,6 +33,9 @@ export class InvestorListComponent implements OnInit {
   viewFavouritesLabel: string = "View Favourites";
   allInvestorList: any[] = [];
   allInvestorCount:number=0;
+  selectedInvestors:number = 0;
+  selectAllCheckboxes = false;
+
   constructor(
     private _location: Location, 
     private fb: FormBuilder, 
@@ -85,7 +88,38 @@ export class InvestorListComponent implements OnInit {
       this.countryList = response.countries_list;
     });
   }
+  
+  selectAllCheckbox(){
+    this.selectedInvestors = 0;
+    this.selectAllCheckboxes = !this.selectAllCheckboxes;
+    if(this.selectAllCheckboxes){
+      this.allInvestorList.forEach(item=>{
+        item.isChecked = 1;
+        this.selectedInvestors += 1;
+      })
+    }else{
+      this.allInvestorList.forEach(item=>{
+        item.isChecked = 0;
+      });
+    }
+    
+  }
 
+  onCheckboxChange(event: any){
+    const isChecked = (event.target as HTMLInputElement).checked;
+    this.selectedInvestors = isChecked ? this.selectedInvestors + 1 : this.selectedInvestors - 1;
+
+    if(isChecked == false){
+      if(this.selectedInvestors){
+        this.selectAllCheckboxes = false;
+      }
+    }else{
+      if(this.allInvestorList.length == this.selectedInvestors){
+        this.selectAllCheckboxes = true;
+      }
+    }
+  }
+  
   // resetFilter() {
   //   this.filterForm.reset();
   //   this.loadInvestorData();
@@ -100,6 +134,10 @@ export class InvestorListComponent implements OnInit {
   }
   
   buyCredits(): void{
+    if (this.planExpired) {
+      this.restrict = true;
+      return;
+    }
     this.router.navigate(["/pages/export-credit"]);
   }
 

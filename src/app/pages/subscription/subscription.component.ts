@@ -137,6 +137,14 @@ export class SubscriptionComponent implements OnInit {
       this.subscriptionService
         .placeSubscriptionOrder(value)
         .subscribe((data) => {
+          if(data.success==false){
+            this.toastr.add({
+              severity: "error",
+              summary: "Error",
+              detail:data.message,
+            });
+            return;
+          }
           this.payWithRazor(data.orderid);
         });
     } else {

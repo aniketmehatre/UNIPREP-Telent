@@ -22,4 +22,11 @@ export class ExportCreditService {
       headers: headers,
     });
   }
+
+  completePayment(data: any){
+    const headers = new HttpHeaders().set("Accept", "application/json");
+    return this.http.post<any>(environment.ApiUrl + "/BuyCreditCompleteOrder" ,data,{
+      headers: headers,
+    });
+  }
 }

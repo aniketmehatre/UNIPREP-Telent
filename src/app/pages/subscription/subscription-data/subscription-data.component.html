@@ -43,7 +43,7 @@
 						<ul class="price text-center">
 							<li class="header mt-15">
 								<h6 class="plan_type">Free</h6>
-								<h3 class="amount orange">0 INR</h3>
+								<h3 class="amount orange">0 {{currency}}</h3>
 							</li>
 							<li class="mt-18"><i class="pi pi-check"></i></li>
 							<li><i class="pi pi-check"></i></li>
@@ -71,10 +71,10 @@
 							<li style="background-color: #3f4c83; color: white" *ngIf="subscription.popular == 1">Most Popular Plan</li>
 							<li class="header" [ngClass]="{ header: subscription.popular === 1, 'mt-15': !(subscription.popular === 1) }">
 								<h6 class="plan_type">{{ subscription.subscription_plan }}</h6>
-								<h3 class="amount orange">{{ subscription.givenprice | number : ".0" }} INR</h3>
+								<h3 class="amount orange">{{ subscription.givenprice | number : ".0" }} {{ subscription.currency}} </h3>
 								<div class="d-flex" style="justify-content: space-evenly">
 									<p style="font-size: 12px; font-weight: 500" class="mb-0 mt-2">
-										<s>INR {{ subscription.actualprice | number : ".2-2" }}</s>
+										<s>{{ subscription.currency}} {{ subscription.actualprice | number : ".2-2" }}</s>
 									</p>
 									<div class="btn discountbutton-o btnCurser">Save {{ subscription.discountpercentage }}%</div>
 								</div>
@@ -112,7 +112,7 @@
 										<div class="d-flex justify-content-between">
 											<div class="mt-4">
 												<h6 class="plan_type">Free</h6>
-												<h3 class="amount">0 INR</h3>
+												<h3 class="amount">0 {{currency}}</h3>
 											</div>
 										</div>
 									</div>
@@ -144,12 +144,12 @@
 											<div class="d-flex justify-content-between">
 												<div class="mt-4">
 													<h6 class="plan_type">{{ subscription.subscription_plan }}</h6>
-													<h3 class="amount" *ngIf="subscription.popular != 1">{{ subscription.givenprice | number : ".2" }} INR</h3>
-													<h3 class="amount orange" *ngIf="subscription.popular == 1">{{ subscription.givenprice | number : ".2" }} INR</h3>
+													<h3 class="amount" *ngIf="subscription.popular != 1">{{ subscription.givenprice | number : ".2" }} {{ subscription.currency}}</h3>
+													<h3 class="amount orange" *ngIf="subscription.popular == 1">{{ subscription.givenprice | number : ".2" }} {{ subscription.currency}}</h3>
 												</div>
 												<div class="mt-4">
 													<p>
-														<s>INR {{ subscription.actualprice | number : ".2-2" }}</s>
+														<s>{{ subscription.currency}} {{ subscription.actualprice | number : ".2-2" }}</s>
 													</p>
 													<div class="btn discountbutton-o btnCurser" *ngIf="subscription.popular == 1">Save {{ subscription.discountpercentage }}%</div>
 													<div class="btn discountbutton btnCurser" *ngIf="subscription.popular != 1">Save {{ subscription.discountpercentage }}%</div>
@@ -422,8 +422,8 @@
 					<div class="flex-grow-1">
 						<div *ngIf="basesubscription">
 							<p class="fw-semibold mb-0">Total</p>
-							<h4 class="mb-0 uniprep-primary" *ngIf="checkoutTotal == ''">INR {{ subscriptionTotal | number : ".2-2" }}</h4>
-							<h4 class="mb-0 uniprep-primary" *ngIf="subscriptionTotal != '0.00' && checkoutTotal != ''">INR {{ checkoutTotal | number : ".2-2" }}</h4>
+							<h4 class="mb-0 uniprep-primary" *ngIf="checkoutTotal == ''">{{currency}} {{ subscriptionTotal | number : ".2-2" }}</h4>
+							<h4 class="mb-0 uniprep-primary" *ngIf="subscriptionTotal != '0.00' && checkoutTotal != ''">{{currency}} {{ checkoutTotal | number : ".2-2" }}</h4>
 							<p *ngIf="discountAmountEnable">Discount Percentage:{{ discountPercentage }}%</p>
 						</div>
 						<div *ngIf="topupcountries">
@@ -432,8 +432,8 @@
 							</h5>
 							<h5 class="fw-semibold mb-0">
 								Total:
-								<span class="uniprep-primary" *ngIf="checkoutTotal == ''"> INR {{ subscriptionTotal | number : ".2-2" }}</span>
-								<span class="uniprep-primary" *ngIf="subscriptionTotal != '0.00' && checkoutTotal != ''"> INR {{ checkoutTotal | number : ".2-2" }}</span>
+								<span class="uniprep-primary" *ngIf="checkoutTotal == ''"> {{currency}} {{ subscriptionTotal | number : ".2-2" }}</span>
+								<span class="uniprep-primary" *ngIf="subscriptionTotal != '0.00' && checkoutTotal != ''"> {{currency}} {{ checkoutTotal | number : ".2-2" }}</span>
 							</h5>
 						</div>
 					</div>

@@ -43,7 +43,7 @@
 						<ul class="price text-center">
 							<li class="header mt-15">
 								<h6 class="plan_type">Free</h6>
-								<h3 class="amount grey">0 INR</h3>
+								<h3 class="amount grey">0 {{currency}}</h3>
 							</li>
 							<li class="mt-18"><i class="pi pi-check grey smallIcon"></i></li>
 							<li><i class="pi pi-check grey smallIcon" ></i></li>
@@ -77,9 +77,9 @@
 								<h6 class="plan_type" >{{ subscription.subscription_plan }}</h6>
 								<h3 class="amount" [class]="subscription.available == false?'grey':'orange'">{{
 									subscription.givenprice | number :
-									".0" }} INR</h3>
+									".0" }} {{ subscription.currency}}</h3>
 								<div class="d-flex" style="justify-content: space-evenly;" [class]="subscription.available == false?'grey':''">
-									<p style="font-size: 12px; font-weight: 500;" class="mb-0 mt-2"><s>INR {{
+									<p style="font-size: 12px; font-weight: 500;" class="mb-0 mt-2"><s>{{ subscription.currency}} {{
 											subscription.actualprice | number : ".2-2"
 											}}</s></p>
 									<div class="btn discountbutton-o btnCurser" [class]="subscription.available == false?'greyButton':''">Save
@@ -139,7 +139,7 @@
 										<div class="d-flex justify-content-between">
 											<div class="mt-4">
 												<h6 class="plan_type">Free</h6>
-												<h3 class="amount">0 INR</h3>
+												<h3 class="amount">0 {{currency}}</h3>
 											</div>
 										</div>
 									</div>
@@ -177,13 +177,13 @@
 													<h6 class="plan_type">{{ subscription.subscription_plan }}</h6>
 													<h3 class="amount" *ngIf="subscription.popular != 1">{{
 														subscription.givenprice | number :
-														".2" }} INR</h3>
+														".2" }} {{ subscription.currency}}</h3>
 													<h3 class="amount orange" *ngIf="subscription.popular == 1">{{
 														subscription.givenprice | number :
-														".2" }} INR</h3>
+														".2" }} {{ subscription.currency}}</h3>
 												</div>
 												<div class="mt-4">
-													<p><s>INR {{ subscription.actualprice | number : ".2-2" }}</s></p>
+													<p><s>{{ subscription.currency}} {{ subscription.actualprice | number : ".2-2" }}</s></p>
 													<div class="btn discountbutton-o btnCurser"
 														*ngIf="subscription.popular == 1">Save
 														{{subscription.discountpercentage}}%</div>
@@ -490,10 +490,10 @@
 					<div class="flex-grow-1">
 						<div>
 							<p class="fw-semibold mb-0">Total</p>
-							<h4 class="mb-0 uniprep-primary" *ngIf="checkoutTotal == ''">INR {{ subscriptionTotal |
+							<h4 class="mb-0 uniprep-primary" *ngIf="checkoutTotal == ''">{{currency}} {{ subscriptionTotal |
 								number : ".2-2" }}</h4>
 							<h4 class="mb-0 uniprep-primary" *ngIf="subscriptionTotal != '0.00' && checkoutTotal != ''">
-								INR {{ checkoutTotal | number : ".2-2" }}</h4>
+								{{currency}} {{ checkoutTotal | number : ".2-2" }}</h4>
 							<p *ngIf="discountAmountEnable">Discount Percentage:{{discountPercentage}}%</p>
 						</div>
 						<!-- <div *ngIf="topupcountries">
