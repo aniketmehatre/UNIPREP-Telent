@@ -1,4 +1,4 @@
-import { Component, HostListener, NgModule, OnInit } from '@angular/core';
+import { Component, ElementRef, HostListener, NgModule, OnInit, ViewChild } from '@angular/core';
 import { TutorialsService } from './tutorials.service';
 import { DomSanitizer, SafeHtml, SafeResourceUrl, SafeScript, SafeStyle, SafeUrl } from '@angular/platform-browser';
 import { Pipe, PipeTransform } from '@angular/core';
@@ -11,6 +11,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 
 export class TutorialsComponent implements OnInit {
+  @ViewChild('videoFrame') videoFrame: ElementRef | undefined;
   tutorials:any=[];
   tutoriallist:any=[];
   showVideoPopup: boolean = false;
@@ -68,8 +69,12 @@ export class TutorialsComponent implements OnInit {
     }
   }
   closeVideoPopup(): void {
-    this.selectedVideoLink = null;
-    this.showVideoPopup = false;
+    if (this.videoFrame && this.videoFrame.nativeElement) {
+      const player = this.videoFrame.nativeElement as HTMLIFrameElement;
+      player.src = '';
+    }
+     this.selectedVideoLink = null;
+     this.showVideoPopup = false;
   }
 
   stopPropagation(event: Event): void {

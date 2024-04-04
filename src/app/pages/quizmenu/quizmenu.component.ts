@@ -24,6 +24,7 @@ export class QuizmenuComponent implements OnInit {
     this.dataService.countryNameSource.subscribe((data) => {
       this.countryName = data;
     });
+    this.checkquizquestionmodule()
   }
   startQuiz(modulename:any) {
     this.currentModuleSlug=modulename
@@ -35,5 +36,14 @@ export class QuizmenuComponent implements OnInit {
       console.log(this.filterUniversityList);
       
     });
+  }
+  quizpercentage:any
+  checkquizquestionmodule(){
+    var data={
+      countryid: this.countryId
+    }
+    this.locationService.checkModuleQuizCompletion(data).subscribe((res) => {
+      this.quizpercentage=res.progress
+    })
   }
 }

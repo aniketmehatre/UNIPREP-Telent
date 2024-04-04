@@ -164,6 +164,7 @@ export class ListSubModulesComponent implements OnInit {
       this.startQuiz();
     }
     this.checkplanExpire();
+    this.checkquizquestionmodule();
   }
 
   loadModuleAndSubModule() {
@@ -427,5 +428,16 @@ export class ListSubModulesComponent implements OnInit {
   }
   clearRestriction() {
     this.restrict = false;
+  }
+  quizpercentage:any
+  checkquizquestionmodule(){
+    var data={
+      moduleid:this.currentModuleId,
+      countryid: this.currentCountryId
+    }
+    this.locationService.checkModuleQuizCompletion(data).subscribe((res) => {
+      console.log(res);
+      this.quizpercentage=res.progress
+    })
   }
 }

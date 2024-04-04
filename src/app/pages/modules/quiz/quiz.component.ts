@@ -357,5 +357,14 @@ export class QuizComponent implements OnInit {
     this.isQuizSubmit = false;
     this.isReviewVisible = true;
   }
-
+  quizcount:any
+  checkquizquestionmodule(){
+    var data={
+      countryid: this.currentCountryId,
+      moduleid:this.currentModuleId
+    }
+    this.locationService.quizCount(data).subscribe((res) => {
+      this.quizcount=res
+    })
+  }
 }

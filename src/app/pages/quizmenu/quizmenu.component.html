@@ -25,7 +25,7 @@
                                     class="p-button-rounded p-2"
                                    ><span style="color: white; font-size: small;">Start</span><span class="fa-stack">
                                       <!-- <i class="fa fa-circle fa-stack-2x"></i> -->
-                                      <i class="fas fa-arrow-right fa-inverse"></i>                                        
+                                      <i style="color: white;" class="fas fa-arrow-right"></i>                                        
                                    </span>
                                   </button>
                                 </div>
@@ -38,7 +38,7 @@
                                     class="p-button-rounded p-2"
                                    ><span style="color: white; font-size: small;">Start</span><span class="fa-stack">
                                       <!-- <i class="fa fa-circle fa-stack-2x"></i> -->
-                                      <i class="fas fa-arrow-right fa-inverse"></i>                                        
+                                      <i style="color: white;" class="fas fa-arrow-right"></i>                                        
                                    </span>
                                   </button>
                                 </div>
@@ -51,7 +51,7 @@
                                     class="p-button-rounded p-2"
                                    ><span  style="color: white; font-size: small;">Start</span><span class="fa-stack">
                                       <!-- <i class="fa fa-circle fa-stack-2x"></i> -->
-                                      <i class="fas fa-arrow-right fa-inverse"></i>                                        
+                                      <i style="color: white;" class="fas fa-arrow-right"></i>                                        
                                    </span>
                                   </button>
                                 </div>
@@ -64,7 +64,7 @@
                                     class="p-button-rounded p-2"
                                    ><span style="color: white; font-size: small;">Start</span><span class="fa-stack">
                                       <!-- <i class="fa fa-circle fa-stack-2x"></i> -->
-                                      <i class="fas fa-arrow-right fa-inverse"></i>                                        
+                                      <i style="color: white;" class="fas fa-arrow-right"></i>                                        
                                    </span>
                                   </button>
                                 </div>
@@ -82,11 +82,12 @@
                                 <p-dropdown dropdownAppendTo="body" class="mt-2" placeholder="Select your university" [options]="filterUniversityList" optionValue="id" optionLabel="name" styleClass="w-100" [filter]="true"></p-dropdown>
                             </div>
                             <div class="col-md-1 col-1 text-center mt-1">
-                                <button pButton type="button" style="background-color: #3F4C83; color: #4552A3;"
+                                <button pButton type="button" style="background-color: #3F4C83; color: #4552A3;"[disabled]="quizpercentage === 100"
                                 class="p-button-rounded p-2"
-                               ><span  style="color: white; font-size: small;">Start</span><span class="fa-stack">
+                               ><span  style="color: white; font-size: small;">{{quizpercentage!=100?"Start":"Completed"}}</span>
+                               <span class="fa-stack" *ngIf="quizpercentage!=100?true:false">
                                   <!-- <i class="fa fa-circle fa-stack-2x"></i> -->
-                                  <i class="fas fa-arrow-right fa-inverse"></i>                                        
+                                  <i style="color: white;" class="fas fa-arrow-right"></i>                                        
                                </span>
                               </button> 
                             </div>

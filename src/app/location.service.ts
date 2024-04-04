@@ -1,7 +1,7 @@
-import {Injectable} from '@angular/core';
-import {environment} from '../environments/environment';
-import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
-import {LocationData} from './@Models/location.model'
+import { Injectable } from '@angular/core';
+import { environment } from '../environments/environment';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { LocationData } from './@Models/location.model'
 
 @Injectable({
     providedIn: "root",
@@ -31,7 +31,7 @@ export class LocationService {
 
     getUniPerpModuleList() {
         const headers = new HttpHeaders().set("Accept", "application/json");
-        return this.http.post<any>(environment.ApiUrl + "/modulecountry", {countryId: Number(localStorage.getItem('countryId'))}, {
+        return this.http.post<any>(environment.ApiUrl + "/modulecountry", { countryId: Number(localStorage.getItem('countryId')) }, {
             headers: headers,
         });
     }
@@ -99,7 +99,7 @@ export class LocationService {
             headers: headers,
         });
     }
-    getHomeCountry(homeCountryId:number) {
+    getHomeCountry(homeCountryId: number) {
         const headers = new HttpHeaders().set("Accept", "application/json");
         return this.http.get<any>(environment.ApiUrl + `/country?getHomeCountry=${homeCountryId}`, {
             headers: headers,
@@ -110,6 +110,17 @@ export class LocationService {
         params = params.append("country_id", countryId);
         const headers = new HttpHeaders().set("Accept", "application/json");
         return this.http.get<any>(environment.ApiUrl + "/getuniversity", { headers: headers, params: params });
-      }
-    
+    }
+    checkModuleQuizCompletion(data: any) {
+        const headers = new HttpHeaders().set("Accept", "application/json");
+        return this.http.post<any>(environment.ApiUrl + "/checkmodulequizcompletion", data, {
+            headers: headers,
+        });
+    }
+    quizCount(data: any) {
+        const headers = new HttpHeaders().set("Accept", "application/json");
+        return this.http.post<any>(environment.ApiUrl + "/checkmodulequizcompletion", data, {
+            headers: headers,
+        });
+    }
 }
