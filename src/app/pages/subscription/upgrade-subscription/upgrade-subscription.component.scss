@@ -738,3 +738,17 @@ color: #9F9F9F;
   padding:  10px;
   font-weight: bold;
 }
+.monthly-subscription ::ng-deep .p-tabview-nav-container{
+  ::ng-deep .p-tabview-nav-content{
+     height:50px !important;
+     ::ng-deep ul{
+       height:fitcontent !important;
+       ::ng-deep li {
+         height:fitcontent !important;
+   a{
+  height:35px;
+  }
+       }
+     }
+   }
+  }
