@@ -45,10 +45,10 @@
 			</div>
 
 			<div class="col-md-2 mt-2 text-end desktop justify-content-end d-none d-md-flex" *ngIf="currentModuleId != 5">
-				<button role="button" style="background-color: black" (click)="startQuiz()" class="btn w-75 m-0 px-2 py-2 homecardbtn homecardbtnquiz" [disabled]="quizpercentage === 100">
+				<button role="button" style="background-color: black" (click)="startQuiz()" class="btn w-75 m-0 px-2 py-2 homecardbtn homecardbtnquiz" [disabled]="true">
 					<i class="fa-regular h3 fa-lightbulb-on mb-1"></i>
 					<p class="mb-1">Start Quiz</p>
-					<p class="mb-1">{{quizpercentage+'%'}}</p>
+<!--					<p class="mb-1">{{quizpercentage+'%'}}</p>-->
 					<div class="row">
 						<div class="col-12">
 							<span class="ellipse-button fw-regular container-fluid">{{quizpercentage!=100?"Start":"Completed"}}</span>
