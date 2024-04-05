@@ -6,6 +6,11 @@
 					<i class="pi pi-search"></i>
 					<input class="w-100 px-5 py-2" type="text" placeholder="Search in Company List .." pInputText [(ngModel)]="valueNearYouFilter" (input)="performSearch($event)" (click)="searchClick()" id="searchInput" />
 				</div>
+				<span class="d-flex justify-content-start p-2">
+					<input type="checkbox" class="me-0" style="transform: scale(1.5);" [(ngModel)]="selectAllCheckboxes" (click)="selectAllCheckbox()" id="selectAllcheckbox">
+					<label class="p-2" for="selectAllcheckbox">Select All</label>
+					<span class="p-2">Selected : {{selectedCompanies}}</span>
+				</span>
 			</div>
 			<div class="col-md-6 text-center order-md-2 order-1">
 				<h5 class="select-title mb-1" tooltipPosition="top" pTooltip="">COMPANY LIST</h5>
@@ -14,7 +19,7 @@
 				<span class="d-flex justify-content-end mt-3 gap-2">
 					<button class="btn btn-primary text-small" (click)="viewFavourites()" type="button">{{viewFavouritesLabel}}</button>
 					<button class="btn btn-primary text-small company-guidlines" (click)="companyGuidlines()" type="button">Company Guidlines</button>
-					<button class="btn btn-primary text-small company-guidlines d-none" (click)="buyCredits()" type="button">Buy Credits</button>
+					<button class="btn btn-primary text-small company-guidlines" (click)="buyCredits()" type="button">Buy Credits</button>
 					<button class="btn btn-primary text-small ps-3 pe-3 pt-2 pb-2 br-8" (click)="filterBy()" type="button">Filter by</button>
 					<!-- <button class="btn btn-danger ps-3 pe-3 pt-2 pb-2" (click)="resetFilter()"
                   style="border-radius: 8px; color: #fff;" type="button">
@@ -26,6 +31,7 @@
 							><strong>Total Companies : {{ totalCompanyCount }}</strong></span
 						>
 					</div>
+					<button class="btn btn-primary text-small exportButton" (click)="exportData()" type="button">Export <span class="exportCount">{{exportCreditCount}}</span></button>
 				</div>
 			</div>
 		</div>
@@ -35,9 +41,14 @@
 					<div class="card companycard h-100">
 						<div class="card-body d-flex flex-column justify-content-between">
 							<div>
-								<div class="d-flex justify-content-between align-items-start">
-									<h5 class="uniprep-primary">{{ companyData.company_name }}</h5>
-									<i  [class]="companyData.favourite==1?'fa-solid fa-bookmark':'fa-regular fa-bookmark'" style="color: #E90707;" (click)="bookmarkQuestion(companyData.id,companyData.favourite)"></i>
+								<div class="d-flex justify-content-between">
+									<div class="d-flex">
+										<input type="checkbox" (change)="onCheckboxChange($event)" class="me-2 mb-3" style="transform: scale(1.5);" [(ngModel)]="companyData.isChecked">
+										<h5 class="uniprep-primary">{{ companyData.company_name }}</h5>
+									</div>
+									<div class="d-flex">
+										<i  [class]="companyData.favourite==1?'fa-solid fa-bookmark':'fa-regular fa-bookmark'" style="color: #E90707;" (click)="bookmarkQuestion(companyData.id,companyData.favourite)"></i>
+									</div>
 								</div>
 								<div class="d-flex mt-2 gap-5 align-items-center">
 									<div class="d-flex gap-2 align-items-center">
