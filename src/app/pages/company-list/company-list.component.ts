@@ -167,6 +167,14 @@ export class CompanyListComponent implements OnInit {
     });
   }
 
+  buyCredits(): void{
+    if (this.planExpired) {
+      this.restrict = true;
+      return;
+    }
+    this.router.navigate(["/pages/export-credit"]);
+  }
+
   checkplanExpire(): void {
     this.authService.getNewUserTimeLeft().subscribe((res) => {
       let data = res.time_left;

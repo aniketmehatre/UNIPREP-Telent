@@ -224,7 +224,8 @@ export class SubscriptionDataComponent implements OnInit {
         couponCode: this.couponInput,
         checkoutTotal: this.subscriptionTotal,
         subscriptioncouponstatus: this.selectedSubscriptionDetails?.couponcode,
-        subscription_id: this.selectedSubscriptionDetails?.id
+        subscription_id: this.selectedSubscriptionDetails?.id,
+        subscription_plan_id: this.selectedSubscriptionDetails?.subscription_plan_id,
       }
 
       this.subscriptionService.applyCoupon(data).subscribe((response) => {
