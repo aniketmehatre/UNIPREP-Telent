@@ -2,12 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from "@angular/router";
 import { Observable } from "rxjs";
 import { ModuleListSub } from "../../../@Models/module.model";
-import { ConfirmationService, MenuItem } from "primeng/api";
+import { ConfirmationService, MenuItem, MessageService } from "primeng/api";
 import { ModuleServiceService } from "../../module-store/module-service.service";
 import { DataService } from "../../../data.service";
 import { LocationService } from "../../../location.service";
 import { AuthService } from 'src/app/Auth/auth.service';
-import {NgxUiLoaderService} from "ngx-ui-loader";
+import { NgxUiLoaderService } from "ngx-ui-loader";
 
 @Component({
   selector: 'uni-quiz',
@@ -45,16 +45,18 @@ export class QuizComponent implements OnInit {
   responsiveOptions: any[] = [];
   answeredCorrect: number = 0;
   totalPercentage: number = 0;
+  claculatingSelectQuizPesrcentage:number=0
+  totalpercentagequiztime:number=0
   percentageValue: string = '';
   isQuizSubmit: boolean = false;
-  constructor(private moduleListService: ModuleServiceService,private router: Router,private dataService: DataService,
-    private locationService: LocationService,private ngxService: NgxUiLoaderService) { }
+  constructor(private moduleListService: ModuleServiceService, private router: Router, private dataService: DataService,
+    private locationService: LocationService, private ngxService: NgxUiLoaderService, private toast: MessageService,) { }
 
   ngOnInit(): void {
     this.init();
   }
 
-  init(){
+  init() {
     let cName = "";
     this.dataService.countryNameSource.subscribe(countryName => {
       cName = countryName;
@@ -63,7 +65,7 @@ export class QuizComponent implements OnInit {
     this.selectedQuiz = 1;
     this.positionNumber = 1;
     this.isInstructionVisible = true;
-    this.currentModuleSlug = this.router.url.split('/').slice(-2,-1).pop();
+    this.currentModuleSlug = this.router.url.split('/').slice(-2, -1).pop();
     this.currentCountryId = Number(localStorage.getItem('countryId'));
     this.dataService.countryNameSource.subscribe((data) => {
       this.countryName = data;
@@ -75,40 +77,40 @@ export class QuizComponent implements OnInit {
         this.currentModuleName = 'Pre-Admission';
         this.currentApiSlug = 'SubmoduleListForStudents';
         this.infoMessage = 'Upgrade to access the Pre-admission section',
-            this.unlockMessage = 'Unlock the power of success with our exclusive Pre-admission!',
-            this.upgradePlanMsg = 'Upgrade your plan now to gain instant access.';
+          this.unlockMessage = 'Unlock the power of success with our exclusive Pre-admission!',
+          this.upgradePlanMsg = 'Upgrade your plan now to gain instant access.';
         this.aboutModule = 'Explore a vast database of Q&A about:',
-            this.moduleDetails = 'Scholarships, document checklist, Education loan, letter of Recommendation and many more!'
+          this.moduleDetails = 'Scholarships, document checklist, Education loan, letter of Recommendation and many more!'
         break;
       case 'travel-and-tourism':
         this.currentModuleId = 7;
         this.currentModuleName = 'Travel-and-Tourism';
         this.currentApiSlug = 'SubmoduleListForStudents';
         this.infoMessage = 'Upgrade to access the travel-and-tourism',
-            this.unlockMessage = 'Unlock the power of success with our exclusive travel-and-tourism!',
-            this.upgradePlanMsg = 'Upgrade your plan now to gain instant access.';
+          this.unlockMessage = 'Unlock the power of success with our exclusive travel-and-tourism!',
+          this.upgradePlanMsg = 'Upgrade your plan now to gain instant access.';
         this.aboutModule = 'Explore a vast database of Q&A about:',
-            this.moduleDetails = 'Visa, departure, healthcare, tuition fees and many more!'
+          this.moduleDetails = 'Visa, departure, healthcare, tuition fees and many more!'
         break;
       case 'post-admission':
         this.currentModuleId = 3;
         this.currentModuleName = 'Post-Admission';
         this.currentApiSlug = 'SubmoduleListForStudents';
         this.infoMessage = 'Upgrade to access the post-admission',
-            this.unlockMessage = 'Unlock the power of success with our exclusive post-admission!',
-            this.upgradePlanMsg = 'Upgrade your plan now to gain instant access.';
+          this.unlockMessage = 'Unlock the power of success with our exclusive post-admission!',
+          this.upgradePlanMsg = 'Upgrade your plan now to gain instant access.';
         this.aboutModule = 'Post-admission offers information about:',
-            this.moduleDetails = ' Arrival, student discounts, banking, full time jobs, post study work and many more!'
+          this.moduleDetails = ' Arrival, student discounts, banking, full time jobs, post study work and many more!'
         break;
       case 'career-hub':
         this.currentModuleId = 4;
         this.currentModuleName = 'Career Hub';
         this.currentApiSlug = 'SubmoduleListForStudents';
         this.infoMessage = 'Upgrade to access the Career Hub',
-            this.unlockMessage = '',
-            this.upgradePlanMsg = 'Upgrade your plan now to gain instant access.';
+          this.unlockMessage = '',
+          this.upgradePlanMsg = 'Upgrade your plan now to gain instant access.';
         this.aboutModule = 'Explore a vast database of Q&A about:',
-            this.moduleDetails = ' Arrival, student discounts, banking, full time jobs, post study work and many more!'
+          this.moduleDetails = ' Arrival, student discounts, banking, full time jobs, post study work and many more!'
         break;
       case 'university':
         this.currentModuleId = 5;
@@ -121,11 +123,11 @@ export class QuizComponent implements OnInit {
         this.currentModuleName = 'Life At ' + this.countryName;
         this.currentApiSlug = 'SubmoduleListForStudents';
         this.infoMessage = 'Upgrade to access information about life in your chosen destination',
-            this.unlockMessage = 'Unlock the power of success with our exclusive destination',
-            this.upgradePlanMsg = 'Upgrade your plan now to gain instant access.';
+          this.unlockMessage = 'Unlock the power of success with our exclusive destination',
+          this.upgradePlanMsg = 'Upgrade your plan now to gain instant access.';
         this.aboutModule = 'Explore a vast database of Q&A about:',
-            this.moduleDetails = 'Festivals, events, currency, budget, housing and many more!',
-            this.selectedModule = 'life-at-country'
+          this.moduleDetails = 'Festivals, events, currency, budget, housing and many more!',
+          this.selectedModule = 'life-at-country'
         break;
 
     }
@@ -152,40 +154,9 @@ export class QuizComponent implements OnInit {
     // } */
     localStorage.setItem("currentmodulenameforrecently", this.currentModuleName);
     this.loadModuleAndSubModule();
-    this.getQuizData();
     this.checkquizquestioncount()
   }
 
-
-  getQuizData() {
-    let data = {
-      countryId: this.currentCountryId,
-      moduleId: this.currentModuleId,
-      submoduleId: null
-    }
-    this.moduleListService.quizList(data);
-    this.quizList$ = this.moduleListService.quizList$();
-
-    this.quizList$.subscribe((data) => {
-      console.log(data);
-      // if (data) {
-      //   this.quizData = data.map((val: any) => {
-      //     let moduleData = this.moduleList.filter(ind => ind.id == val.module_id)[0]!.module_name;
-      //     let subModuleName = this.subModuleList.filter(ind => ind.id == val.submodule_id)[0]!.submodule_name;
-      //     let number = 1;
-      //     let dd = { ...val };
-      //     dd.module_name = moduleData
-      //     dd.sub_module_name = subModuleName
-      //     dd.otp1 = dd.option1 + dd.id + number++;
-      //     dd.otp2 = dd.option2 + dd.id + number++;
-      //     dd.otp3 = dd.option3 + dd.id + number++;
-      //     dd.otp4 = dd.option4 + dd.id + number++;
-      //     return dd;
-      //   });
-      // }
-    });
-
-  }
 
   loadModuleAndSubModule() {
     this.currentCountryId = Number(localStorage.getItem('countryId'));
@@ -231,7 +202,6 @@ export class QuizComponent implements OnInit {
     this.positionNumber = pageNum + 1;
 
   }
-
   selectAnswer(selectedOption: any, singleData: any, optNumber: number) {
     this.answerOptionClicked = false;
     this.selectedOptNumber = optNumber;
@@ -242,14 +212,17 @@ export class QuizComponent implements OnInit {
     let mappedQuiz = this.quizData.map((data: any) => {
       let dat = { ...data }
       if (dat.id == singleData.id) {
-
         dat.user_answered = optNumber;
         dat.user_answered_value = selectedOption;
+        dat.useranswer = optNumber;
         return dat;
       }
       return dat;
     });
     this.quizData = mappedQuiz;
+    this.claculatingSelectQuizPesrcentage=mappedQuiz.filter(obj => obj.useranswer).length;
+    this.totalpercentagequiztime=(this.claculatingSelectQuizPesrcentage/ this.quizcount) * 100;
+    console.log(this.claculatingSelectQuizPesrcentage);
   }
 
   closeQuiz() {
@@ -324,21 +297,36 @@ export class QuizComponent implements OnInit {
   }
 
   clickSubmitQuiz() {
-    this.quizData.forEach((data) => {
-      if (data.answer == data.user_answered) {
-        this.answeredCorrect++;
-      }
+    this.quizData = this.quizData.map((data: any) => {
+      const { submodule_id, source_faqquestion, otp1, otp2, otp3, otp4, module_id, country_id, user_answered, user_answered_value, ...rest } = data;
+      return rest;
     });
-    this.totalPercentage = (this.answeredCorrect / this.quizData.length) * 100;
-    if (this.totalPercentage < 40) {
-      this.percentageValue = 'Average';
-    } else if (this.totalPercentage >= 40 && this.totalPercentage <= 80) {
-      this.percentageValue = 'Good';
-    } else {
-      this.percentageValue = 'Excellent';
+    console.log(this.quizData);
+    var data = {
+      country_id: this.currentCountryId,
+      module_id: this.currentModuleId,
+      submodule_id: null,
+      quizquestion: this.quizData
     }
-    this.isStartQuiz = false;
-    this.isQuizSubmit = true;
+    this.locationService.submitQuiz(data).subscribe((res) => {
+      console.log(res);
+      this.totalPercentage = res.percentageCompleted
+      if (this.totalPercentage < 40) {
+        this.percentageValue = 'Average';
+      } else if (this.totalPercentage >= 40 && this.totalPercentage <= 80) {
+        this.percentageValue = 'Good';
+      } else {
+        this.percentageValue = 'Excellent';
+      }
+      this.toast.add({
+        severity: "success",
+        summary: "success",
+        detail: res.message,
+      });
+      this.isStartQuiz = false;
+      this.isQuizSubmit = true;
+    })
+    // this.totalPercentage = (this.answeredCorrect / this.quizData.length) * 100;
   }
 
   retryQuiz() {
@@ -347,41 +335,56 @@ export class QuizComponent implements OnInit {
     this.totalPercentage = 0;
     this.percentageValue = '';
     this.quizData = [];
-    this.getQuizData();
     this.selectedQuiz = 1;
     this.positionNumber = 1;
     this.isInstructionVisible = true;
     this.checkquizquestioncount()
   }
-
-  
   openReviewPopup() {
+    this.quizData = [];
+    this.selectedQuiz=1
     this.isQuizSubmit = false;
     this.isReviewVisible = true;
-  }
-  quizcount:any
-  checkquizquestioncount(){
-    var data={
+    var data = {
       countryId: this.currentCountryId,
-      moduleId:this.currentModuleId,
+      moduleId: this.currentModuleId,
+      submoduleId: null
+    }
+    this.locationService.ReviewQuiz(data).subscribe((res) => {
+      console.log(res);
+      this.quizData = res.userquiz.map((val: any) => {
+        let number = 1;
+        let dd = { ...val };
+        dd.otp1 = dd.option1 + dd.id + number++;
+        dd.otp2 = dd.option2 + dd.id + number++;
+        dd.otp3 = dd.option3 + dd.id + number++;
+        dd.otp4 = dd.option4 + dd.id + number++;
+        return dd;
+      });
+    })
+  }
+  quizcount: any
+  checkquizquestioncount() {
+    this.quizData = [];
+    var data = {
+      countryId: this.currentCountryId,
+      moduleId: this.currentModuleId,
       submoduleId: null
     }
     this.locationService.quizCount(data).subscribe((res) => {
-      this.quizcount=res.count
+      this.quizcount = res.count
       console.log(res);
-            this.quizData = res.quizquestion.map((val: any) => {
-          // let moduleData = this.moduleList.filter(ind => ind.id == val.module_id)[0]!.module_name;
-          // let subModuleName = this.subModuleList.filter(ind => ind.id == val.submodule_id)[0]!.submodule_name;
-          let number = 1;
-          let dd = { ...val };
-          // dd.module_name = moduleData
-          // dd.sub_module_name = subModuleName
-          dd.otp1 = dd.option1 + dd.id + number++;
-          dd.otp2 = dd.option2 + dd.id + number++;
-          dd.otp3 = dd.option3 + dd.id + number++;
-          dd.otp4 = dd.option4 + dd.id + number++;
-          return dd;
-        });
+      this.quizData = res.quizquestion.map((val: any) => {
+        let number = 1;
+        let dd = { ...val };
+        dd.otp1 = dd.option1 + dd.id + number++;
+        dd.otp2 = dd.option2 + dd.id + number++;
+        dd.otp3 = dd.option3 + dd.id + number++;
+        dd.otp4 = dd.option4 + dd.id + number++;
+        return dd;
+      });
     })
   }
+
+
 }

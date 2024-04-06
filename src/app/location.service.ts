@@ -123,4 +123,16 @@ export class LocationService {
             headers: headers,
         });
     }
+    submitQuiz(data: any) {
+        const headers = new HttpHeaders().set("Accept", "application/json");
+        return this.http.post<any>(environment.ApiUrl + "/submitquizanswers", data, {
+            headers: headers,
+        });
+    }
+    ReviewQuiz(data: any) {
+        const headers = new HttpHeaders().set("Accept", "application/json");
+        return this.http.post<any>(environment.ApiUrl + "/reviewquiz", data, {
+            headers: headers,
+        });
+    }
 }
