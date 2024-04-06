@@ -153,6 +153,7 @@ export class QuizComponent implements OnInit {
     localStorage.setItem("currentmodulenameforrecently", this.currentModuleName);
     this.loadModuleAndSubModule();
     this.getQuizData();
+    this.checkquizquestioncount()
   }
 
 
@@ -160,31 +161,28 @@ export class QuizComponent implements OnInit {
     let data = {
       countryId: this.currentCountryId,
       moduleId: this.currentModuleId,
-      // submoduleId: 1
+      submoduleId: null
     }
     this.moduleListService.quizList(data);
     this.quizList$ = this.moduleListService.quizList$();
 
     this.quizList$.subscribe((data) => {
-      // console.log(data);
-      // console.log(this.moduleList);
-      console.log(this.subModuleList);
-      if (data) {
-        this.quizData = data.map((val: any) => {
-          let moduleData = this.moduleList.filter(ind => ind.id == val.module_id)[0]!.module_name;
-          console.log(val.submodule_id);
-          let subModuleName = this.subModuleList.filter(ind => ind.id == val.submodule_id)[0]!.submodule_name;
-          let number = 1;
-          let dd = { ...val };
-          dd.module_name = moduleData
-          dd.sub_module_name = subModuleName
-          dd.otp1 = dd.option1 + dd.id + number++;
-          dd.otp2 = dd.option2 + dd.id + number++;
-          dd.otp3 = dd.option3 + dd.id + number++;
-          dd.otp4 = dd.option4 + dd.id + number++;
-          return dd;
-        });
-      }
+      console.log(data);
+      // if (data) {
+      //   this.quizData = data.map((val: any) => {
+      //     let moduleData = this.moduleList.filter(ind => ind.id == val.module_id)[0]!.module_name;
+      //     let subModuleName = this.subModuleList.filter(ind => ind.id == val.submodule_id)[0]!.submodule_name;
+      //     let number = 1;
+      //     let dd = { ...val };
+      //     dd.module_name = moduleData
+      //     dd.sub_module_name = subModuleName
+      //     dd.otp1 = dd.option1 + dd.id + number++;
+      //     dd.otp2 = dd.option2 + dd.id + number++;
+      //     dd.otp3 = dd.option3 + dd.id + number++;
+      //     dd.otp4 = dd.option4 + dd.id + number++;
+      //     return dd;
+      //   });
+      // }
     });
 
   }
@@ -238,6 +236,9 @@ export class QuizComponent implements OnInit {
     this.answerOptionClicked = false;
     this.selectedOptNumber = optNumber;
     this.selectedOptValue = selectedOption;
+    console.log(selectedOption);
+    console.log(singleData);
+    console.log(optNumber);
     let mappedQuiz = this.quizData.map((data: any) => {
       let dat = { ...data }
       if (dat.id == singleData.id) {
@@ -350,6 +351,7 @@ export class QuizComponent implements OnInit {
     this.selectedQuiz = 1;
     this.positionNumber = 1;
     this.isInstructionVisible = true;
+    this.checkquizquestioncount()
   }
 
   
@@ -358,13 +360,28 @@ export class QuizComponent implements OnInit {
     this.isReviewVisible = true;
   }
   quizcount:any
-  checkquizquestionmodule(){
+  checkquizquestioncount(){
     var data={
-      countryid: this.currentCountryId,
-      moduleid:this.currentModuleId
+      countryId: this.currentCountryId,
+      moduleId:this.currentModuleId,
+      submoduleId: null
     }
     this.locationService.quizCount(data).subscribe((res) => {
-      this.quizcount=res
+      this.quizcount=res.count
+      console.log(res);
+            this.quizData = res.quizquestion.map((val: any) => {
+          // let moduleData = this.moduleList.filter(ind => ind.id == val.module_id)[0]!.module_name;
+          // let subModuleName = this.subModuleList.filter(ind => ind.id == val.submodule_id)[0]!.submodule_name;
+          let number = 1;
+          let dd = { ...val };
+          // dd.module_name = moduleData
+          // dd.sub_module_name = subModuleName
+          dd.otp1 = dd.option1 + dd.id + number++;
+          dd.otp2 = dd.option2 + dd.id + number++;
+          dd.otp3 = dd.option3 + dd.id + number++;
+          dd.otp4 = dd.option4 + dd.id + number++;
+          return dd;
+        });
     })
   }
 }

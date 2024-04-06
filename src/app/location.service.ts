@@ -119,7 +119,7 @@ export class LocationService {
     }
     quizCount(data: any) {
         const headers = new HttpHeaders().set("Accept", "application/json");
-        return this.http.post<any>(environment.ApiUrl + "/checkmodulequizcompletion", data, {
+        return this.http.post<any>(environment.ApiUrl + "/quizquestions", data, {
             headers: headers,
         });
     }
