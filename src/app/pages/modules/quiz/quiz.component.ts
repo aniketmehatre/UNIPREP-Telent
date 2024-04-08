@@ -19,6 +19,7 @@ export class QuizComponent implements OnInit {
   quizData: any[] = [];
   currentCountryId: any
   currentModuleId: any;
+  universityidforquiz:any=null;
   currentModuleSlug: any;
   quizList$!: Observable<any>;
   moduleList: any[] = [];
@@ -74,6 +75,7 @@ export class QuizComponent implements OnInit {
     switch (this.currentModuleSlug) {
       case 'pre-admission':
         this.currentModuleId = 1;
+        this.universityidforquiz=null;
         this.currentModuleName = 'Pre-Admission';
         this.currentApiSlug = 'SubmoduleListForStudents';
         this.infoMessage = 'Upgrade to access the Pre-admission section',
@@ -84,6 +86,7 @@ export class QuizComponent implements OnInit {
         break;
       case 'travel-and-tourism':
         this.currentModuleId = 7;
+        this.universityidforquiz=null;
         this.currentModuleName = 'Travel-and-Tourism';
         this.currentApiSlug = 'SubmoduleListForStudents';
         this.infoMessage = 'Upgrade to access the travel-and-tourism',
@@ -94,6 +97,7 @@ export class QuizComponent implements OnInit {
         break;
       case 'post-admission':
         this.currentModuleId = 3;
+        this.universityidforquiz=null;
         this.currentModuleName = 'Post-Admission';
         this.currentApiSlug = 'SubmoduleListForStudents';
         this.infoMessage = 'Upgrade to access the post-admission',
@@ -104,6 +108,7 @@ export class QuizComponent implements OnInit {
         break;
       case 'career-hub':
         this.currentModuleId = 4;
+        this.universityidforquiz=null;
         this.currentModuleName = 'Career Hub';
         this.currentApiSlug = 'SubmoduleListForStudents';
         this.infoMessage = 'Upgrade to access the Career Hub',
@@ -113,6 +118,7 @@ export class QuizComponent implements OnInit {
           this.moduleDetails = ' Arrival, student discounts, banking, full time jobs, post study work and many more!'
         break;
       case 'university':
+        this.universityidforquiz=localStorage.getItem('universityidforquiz')
         this.currentModuleId = 5;
         this.currentModuleName = 'University';
         this.currentApiSlug = 'SubmoduleListForStudents';
@@ -120,6 +126,7 @@ export class QuizComponent implements OnInit {
         break;
       default:
         this.currentModuleId = 6;
+        this.universityidforquiz=null;
         this.currentModuleName = 'Life At ' + this.countryName;
         this.currentApiSlug = 'SubmoduleListForStudents';
         this.infoMessage = 'Upgrade to access information about life in your chosen destination',
@@ -305,7 +312,7 @@ export class QuizComponent implements OnInit {
     var data = {
       country_id: this.currentCountryId,
       module_id: this.currentModuleId,
-      submodule_id: null,
+      submodule_id: this.universityidforquiz,
       quizquestion: this.quizData
     }
     this.moduleListService.submitQuiz(data).subscribe((res) => {
@@ -349,7 +356,7 @@ export class QuizComponent implements OnInit {
     var data = {
       countryId: this.currentCountryId,
       moduleId: this.currentModuleId,
-      submoduleId: null
+      submoduleId: this.universityidforquiz
     }
     this.moduleListService.ReviewQuiz(data).subscribe((res) => {
       console.log(res);
@@ -370,7 +377,7 @@ export class QuizComponent implements OnInit {
     var data = {
       countryId: this.currentCountryId,
       moduleId: this.currentModuleId,
-      submoduleId: null
+      submoduleId: this.universityidforquiz
     }
     this.moduleListService.quizCount(data).subscribe((res) => {
       this.quizcount = res.count
