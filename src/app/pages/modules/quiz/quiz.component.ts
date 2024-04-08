@@ -302,7 +302,7 @@ export class QuizComponent implements OnInit {
     { label: singleQuizData.sub_module_name }];
     carouselQuiz.navForward(event, this.selectedQuiz);
   }
-
+  certificatesurl:any=""
   clickSubmitQuiz() {
     this.quizData = this.quizData.map((data: any) => {
       const { submodule_id, source_faqquestion, otp1, otp2, otp3, otp4, module_id, country_id, user_answered, user_answered_value, ...rest } = data;
@@ -318,6 +318,7 @@ export class QuizComponent implements OnInit {
     this.moduleListService.submitQuiz(data).subscribe((res) => {
       console.log(res);
       this.totalPercentage = res.percentageCompleted
+      this.certificatesurl=res.certificate
       if (this.totalPercentage < 40) {
         this.percentageValue = 'Average';
       } else if (this.totalPercentage >= 40 && this.totalPercentage <= 80) {
@@ -403,5 +404,7 @@ export class QuizComponent implements OnInit {
       this.quizpercentage=res.progress
     })
   }
-
+  openCertificate(){
+    window.open(this.certificatesurl, '_blank');
+  }
 }
