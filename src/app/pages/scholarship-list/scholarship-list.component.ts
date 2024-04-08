@@ -385,8 +385,12 @@ export class ScholarshipListComponent implements OnInit {
     }
   }
 
-  buyCredits(){
-
+  buyCredits(): void{
+    if (this.planExpired) {
+      this.restrict = true;
+      return;
+    }
+    this.router.navigate(["/pages/export-credit"]);
   }
 
   selectAllCheckbox(){
@@ -425,7 +429,7 @@ export class ScholarshipListComponent implements OnInit {
         return;
       }
       let data={
-        module_id: 6,
+        module_id: 3,
         export_id: this.exportDataIds
       };
       this.scholarshipListService.exportSelectedData(data).subscribe((response)=>{
