@@ -204,7 +204,7 @@
                 </div>
             </div>
             <div class="col-md-4 text-end">
-                <button (click)="retryQuiz()" class="btn btn-quit btn-rounded me-2 px-2 py-2">
+                <button [disabled]="quizpercentage >= 80" (click)="retryQuiz()" class="btn btn-quit btn-rounded me-2 px-2 py-2">
                     <div class="d-flex align-items-center">
                         <span class="fw-normal h6 mb-0">Retry</span>
                         <div class="btn-icon"><i class="fa-solid fa-arrow-rotate-right"></i></div>
@@ -315,7 +315,7 @@
                 class="btn btn-lg rounded-pill btn-secondary m-0 px-2 py-2">
            <p class="mb-0 px-2"> Next <i class="fa-solid fa-circle-arrow-right"></i></p>
         </button>&nbsp;
-        <button (click)="retryQuiz()" class="btn btn-quit btn-rounded me-2 px-2 py-2">
+        <button [disabled]="quizpercentage >= 80" (click)="retryQuiz()" class="btn btn-quit btn-rounded me-2 px-2 py-2">
             <div class="d-flex align-items-center">
                 <span class="fw-normal h6 mb-0 ps-3 pe-2">Retry</span>
                 <div class="btn-icon"><i class="fa-solid fa-arrow-rotate-right"></i></div>

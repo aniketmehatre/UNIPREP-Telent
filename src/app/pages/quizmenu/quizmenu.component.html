@@ -17,56 +17,26 @@
                 <div>
                     <div class="d-flex flex-wrap text-center justify-content-center">
                         <ng-container>
-                            <p-card class="card m-2 module-list">
+                            <p-card class="card m-2 module-list h-100" *ngFor="let item of quizpercentagedata">
                                 <div class="list text-center">
-                                    <img src="../../../uniprep-assets/images/icons/preadmission.png" class="img-fluid" alt="Module Image" width="100">
-                                    <h4 class="module-name">Pre Admission</h4>
-                                    <button (click)="startQuiz('pre-admission')" pButton type="button" style="background-color: #3F4C83; color: #4552A3;"
+                                    <img *ngIf="item.id==4?true:false" src="../../../uniprep-assets/images/icons/careerhub.png" class="img-fluid" alt="Module Image" width="100">
+                                    <img *ngIf="item.id==6?true:false" src="../../../uniprep-assets/images/icons/lifeat.png" class="img-fluid" alt="Module Image" width="100">
+                                    <img *ngIf="item.id==3?true:false" src="../../../uniprep-assets/images/icons/postadmission.png" class="img-fluid" alt="Module Image" width="100">
+                                    <img *ngIf="item.id==1?true:false" src="../../../uniprep-assets/images/icons/preadmission.png" class="img-fluid" alt="Module Image" width="100">
+                                    <h4 class="module-name">{{item.module_name}}</h4>
+                                    <button *ngIf="item.progress>=80?false:true" (click)="startQuiz(item.id)" pButton type="button" style="background-color: #3F4C83; color: #4552A3;"
                                     class="p-button-rounded p-2"
                                    ><span style="color: white; font-size: small;">Start</span><span class="fa-stack">
                                       <!-- <i class="fa fa-circle fa-stack-2x"></i> -->
-                                      <i style="color: white;" class="fas fa-arrow-right"></i>                                        
+                                      <i *ngIf="item.progress>=80?false:true" style="color: white;" class="fas fa-arrow-right"></i>                                        
                                    </span>
                                   </button>
-                                </div>
-                            </p-card>
-                            <p-card class="card m-2 module-list">
-                                <div class="list text-center">
-                                    <img src="../../../uniprep-assets/images/icons/postadmission.png" class="img-fluid" alt="Module Image" width="100">
-                                    <h4 class="module-name">Post Admission</h4>
-                                    <button (click)="startQuiz('post-admission')" pButton type="button" style="background-color: #3F4C83; color: #4552A3;"
-                                    class="p-button-rounded p-2"
-                                   ><span style="color: white; font-size: small;">Start</span><span class="fa-stack">
-                                      <!-- <i class="fa fa-circle fa-stack-2x"></i> -->
-                                      <i style="color: white;" class="fas fa-arrow-right"></i>                                        
-                                   </span>
-                                  </button>
-                                </div>
-                            </p-card>
-                            <p-card class="card m-2 module-list">
-                                <div class="list text-center">
-                                    <img src="../../../uniprep-assets/images/icons/lifeat.png" class="img-fluid" alt="Module Image" width="100">
-                                    <h4 class="module-name">Life at Country</h4>
-                                    <button (click)="startQuiz('life-at-country')" pButton type="button" style="background-color: #3F4C83; color: #4552A3;"
-                                    class="p-button-rounded p-2"
-                                   ><span  style="color: white; font-size: small;">Start</span><span class="fa-stack">
-                                      <!-- <i class="fa fa-circle fa-stack-2x"></i> -->
-                                      <i style="color: white;" class="fas fa-arrow-right"></i>                                        
-                                   </span>
-                                  </button>
-                                </div>
-                            </p-card>
-                            <p-card class="card m-2 module-list">
-                                <div class="list text-center">
-                                    <img src="../../../uniprep-assets/images/icons/careerhub.png" class="img-fluid" alt="Module Image" width="100">
-                                    <h4 class="module-name">Career Hub</h4>
-                                    <button (click)="startQuiz('career-hub')" pButton type="button" style="background-color: #3F4C83; color: #4552A3;"
-                                    class="p-button-rounded p-2"
-                                   ><span style="color: white; font-size: small;">Start</span><span class="fa-stack">
-                                      <!-- <i class="fa fa-circle fa-stack-2x"></i> -->
-                                      <i style="color: white;" class="fas fa-arrow-right"></i>                                        
-                                   </span>
-                                  </button>
+                                  <button *ngIf="item.progress>=80?true:false" pButton type="button" style="background-color: #3F4C83; color: #4552A3;"
+                                  class="p-button-rounded p-2"
+                                 ><span style="color: white; font-size: small;">Completed</span><span class="fa-stack">
+                                    <!-- <i class="fa fa-circle fa-stack-2x"></i> -->
+                                 </span>
+                                </button>
                                 </div>
                             </p-card>
                         </ng-container>
@@ -82,10 +52,10 @@
                                 <p-dropdown dropdownAppendTo="body" class="mt-2" placeholder="Select your university" [options]="filterUniversityList" optionValue="id" optionLabel="name" styleClass="w-100" [filter]="true"></p-dropdown>
                             </div>
                             <div class="col-md-1 col-1 text-center mt-1">
-                                <button pButton type="button" style="background-color: #3F4C83; color: #4552A3;"[disabled]="quizpercentage === 100"
+                                <button pButton type="button" style="background-color: #3F4C83; color: #4552A3;"
                                 class="p-button-rounded p-2"
-                               ><span  style="color: white; font-size: small;">{{quizpercentage!=100?"Start":"Completed"}}</span>
-                               <span class="fa-stack" *ngIf="quizpercentage!=100?true:false">
+                               ><span  style="color: white; font-size: small;">{{"Completed"}}</span>
+                               <span class="fa-stack">
                                   <!-- <i class="fa fa-circle fa-stack-2x"></i> -->
                                   <i style="color: white;" class="fas fa-arrow-right"></i>                                        
                                </span>

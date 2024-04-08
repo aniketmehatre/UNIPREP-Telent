@@ -111,28 +111,4 @@ export class LocationService {
         const headers = new HttpHeaders().set("Accept", "application/json");
         return this.http.get<any>(environment.ApiUrl + "/getuniversity", { headers: headers, params: params });
     }
-    checkModuleQuizCompletion(data: any) {
-        const headers = new HttpHeaders().set("Accept", "application/json");
-        return this.http.post<any>(environment.ApiUrl + "/checkmodulequizcompletion", data, {
-            headers: headers,
-        });
-    }
-    quizCount(data: any) {
-        const headers = new HttpHeaders().set("Accept", "application/json");
-        return this.http.post<any>(environment.ApiUrl + "/quizquestions", data, {
-            headers: headers,
-        });
-    }
-    submitQuiz(data: any) {
-        const headers = new HttpHeaders().set("Accept", "application/json");
-        return this.http.post<any>(environment.ApiUrl + "/submitquizanswers", data, {
-            headers: headers,
-        });
-    }
-    ReviewQuiz(data: any) {
-        const headers = new HttpHeaders().set("Accept", "application/json");
-        return this.http.post<any>(environment.ApiUrl + "/reviewquiz", data, {
-            headers: headers,
-        });
-    }
 }

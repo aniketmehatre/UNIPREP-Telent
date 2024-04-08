@@ -219,7 +219,16 @@ Due to the split circle of progress-left and progress right, we must use the ani
 	cursor: not-allowed;
 	font-size: 10px;
 }
+.modal-header{
+  position: relative; 
+}
 
+.close {
+  position: absolute; 
+  top: 0; 
+  right: 0; 
+  padding: 0.5rem; 
+}
 // .card-body-main span {
 //   margin: 0.4rem 0 0 0 !important;
 //   font-weight: 800;

@@ -101,7 +101,7 @@
 				<div class="card-body d-flex justify-content-evenly flex-column">
 					<div class="row mb-3">
 						<div class="col-md-6 col-lg-6 d-flex order-2 order-md-1">
-							<button role="button" style="background-color: black" (click)="openQuiz()" class="btn w-75 m-0 px-2 py-2 homecardbtn homecardbtnquiz" [disabled]="quizpercentage === 100">
+							<button role="button" style="background-color: black" (click)="openQuiz()" class="btn w-75 m-0 px-2 py-2 homecardbtn homecardbtnquiz" [disabled]="quizpercentage >= 80">
 								<i class="fa-regular h3 fa-lightbulb-on mb-1"></i>
 								<p class="mb-1" style="font-size: small;">Start Quiz</p>
 								<p class="mb-1">{{quizpercentage+'%'}}</p>
@@ -234,7 +234,7 @@
 											<h6 class="fw-semibold">{{ quiz.module_name }}</h6>
 											<div class="d-flex justify-content-between">
 												<div>
-													<div [attr.data-percentage]="quiz.progression" class="progress1">
+													<div [attr.data-percentage]="quiz.progress" class="progress1">
 														<span class="progress1-left">
 															<span class="progress1-bar"></span>
 														</span>
@@ -242,17 +242,17 @@
 															<span class="progress1-bar"></span>
 														</span>
 														<div class="progress1-value">
-															<div *ngIf="quiz.progression>0?true:false">{{ quiz.progression | number : "1.0-0" }} %<br /></div>
-															<div *ngIf="quiz.progression>0?false:true" >0%<br /></div>
+															<div *ngIf="quiz.progress>0?true:false">{{ quiz.progress | number : "1.0-0" }} %<br /></div>
+															<div *ngIf="quiz.progress>0?false:true" >0%<br /></div>
 														</div>
 													</div>
 												</div>
 												<div class="mt-2">
 													<p  class="text-center text-small mb-0">
-														<strong>{{quiz.progression==100?"Completed":"Pending"}}</strong>
+														<strong>{{quiz.progress>=80?"Completed":"Pending"}}</strong>
 													</p>
-													<p *ngIf="quiz.progression==100?false:true" class="text-center text-small mb-0">
-														<button (click)="onClickQuizProgression(quiz)" style="font-size: small;" class="btn btn-dark">Start</button>
+													<p *ngIf="quiz.progress>=80?false:true" class="text-center text-small mb-0">
+														<button (click)="startQuiz(quiz.id)" style="font-size: small;" class="btn btn-dark">Start</button>
 													</p>
 												</div>
 											</div>

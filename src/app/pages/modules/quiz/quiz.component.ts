@@ -308,7 +308,7 @@ export class QuizComponent implements OnInit {
       submodule_id: null,
       quizquestion: this.quizData
     }
-    this.locationService.submitQuiz(data).subscribe((res) => {
+    this.moduleListService.submitQuiz(data).subscribe((res) => {
       console.log(res);
       this.totalPercentage = res.percentageCompleted
       if (this.totalPercentage < 40) {
@@ -325,6 +325,7 @@ export class QuizComponent implements OnInit {
       });
       this.isStartQuiz = false;
       this.isQuizSubmit = true;
+      this.checkquizquestionmodule()
     })
     // this.totalPercentage = (this.answeredCorrect / this.quizData.length) * 100;
   }
@@ -350,7 +351,7 @@ export class QuizComponent implements OnInit {
       moduleId: this.currentModuleId,
       submoduleId: null
     }
-    this.locationService.ReviewQuiz(data).subscribe((res) => {
+    this.moduleListService.ReviewQuiz(data).subscribe((res) => {
       console.log(res);
       this.quizData = res.userquiz.map((val: any) => {
         let number = 1;
@@ -371,7 +372,7 @@ export class QuizComponent implements OnInit {
       moduleId: this.currentModuleId,
       submoduleId: null
     }
-    this.locationService.quizCount(data).subscribe((res) => {
+    this.moduleListService.quizCount(data).subscribe((res) => {
       this.quizcount = res.count
       console.log(res);
       this.quizData = res.quizquestion.map((val: any) => {
@@ -385,6 +386,15 @@ export class QuizComponent implements OnInit {
       });
     })
   }
-
+  quizpercentage:any=0
+  checkquizquestionmodule(){
+    var data={
+      moduleid:this.currentModuleId,
+      countryid: this.currentCountryId
+    }
+    this.moduleListService.checkModuleQuizCompletion(data).subscribe((res) => {
+      this.quizpercentage=res.progress
+    })
+  }
 
 }

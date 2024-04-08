@@ -13,9 +13,10 @@ export class QuizmenuComponent implements OnInit {
   tooltip: any;
   currentModuleSlug: any;
   filterUniversityList: any[] = [];
+  quizpercentagedata:any[]=[]
   countryId: any;
   countryName!: string;
-  constructor(private router: Router,private dataService: DataService,
+  constructor(private moduleListService: ModuleServiceService,private router: Router,private dataService: DataService,
     private locationService: LocationService,) { }
 
   ngOnInit(): void {
@@ -26,24 +27,30 @@ export class QuizmenuComponent implements OnInit {
     });
     this.checkquizquestionmodule()
   }
-  startQuiz(modulename:any) {
-    this.currentModuleSlug=modulename
+  startQuiz(moduleid:any) {
+    if(moduleid==1){
+      this.currentModuleSlug="pre-admission"
+    }else if(moduleid==3){
+      this.currentModuleSlug="post-admission"
+    }else if(moduleid==4){
+      this.currentModuleSlug="career-hub"
+    }else if(moduleid==6){
+      this.currentModuleSlug="life-at-country"
+    }    
     this.router.navigate([`/pages/modules/${this.currentModuleSlug}/quiz`]);
   }
   getFilterUniversityList(value: any) {
     this.locationService.getUniversity(value).subscribe((response) => {
-      this.filterUniversityList = response;
-      console.log(this.filterUniversityList);
-      
+      this.filterUniversityList = response;      
     });
   }
-  quizpercentage:any
   checkquizquestionmodule(){
+    this.quizpercentagedata=[]
     var data={
       countryid: this.countryId
     }
-    this.locationService.checkModuleQuizCompletion(data).subscribe((res) => {
-      this.quizpercentage=res.progress
+    this.moduleListService.getQuizCompletion(data).subscribe((res) => {
+      this.quizpercentagedata=res.modules.filter((obj:any) => obj.module_name !== "Travel And Tourism") 
     })
   }
 }
