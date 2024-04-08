@@ -16,6 +16,7 @@ export class QuizmenuComponent implements OnInit {
   quizpercentagedata:any[]=[]
   countryId: any;
   countryName!: string;
+  universityId:any[] =[]
   constructor(private moduleListService: ModuleServiceService,private router: Router,private dataService: DataService,
     private locationService: LocationService,) { }
 
@@ -52,5 +53,14 @@ export class QuizmenuComponent implements OnInit {
     this.moduleListService.getQuizCompletion(data).subscribe((res) => {
       this.quizpercentagedata=res.modules.filter((obj:any) => obj.module_name !== "Travel And Tourism") 
     })
+  }
+  startQuizUniversity(){
+    console.log(this.universityId);
+    if(this.universityId.length>0){
+      console.log("hi");     
+    }else{
+      console.log("2");  
+    }
+
   }
 }

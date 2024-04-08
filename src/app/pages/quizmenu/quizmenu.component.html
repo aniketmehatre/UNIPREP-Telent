@@ -43,18 +43,17 @@
                     </div>
                 </div>
                 <div class="container ps-5 pe-5 mt-2">
-                    <form action="">
                         <h6 style="text-align: center;">Start your quiz on an university you are interested in.</h6>
                         <div class="row justify-content-center">
                             <div class="col-md-1 col-1 text-start">
                             </div>
                             <div class="col-md-9 col-9 text-center mt-1">
-                                <p-dropdown dropdownAppendTo="body" class="mt-2" placeholder="Select your university" [options]="filterUniversityList" optionValue="id" optionLabel="name" styleClass="w-100" [filter]="true"></p-dropdown>
+                                <p-dropdown [disabled]="true" dropdownAppendTo="body" class="mt-2" [(ngModel)]="universityId"  placeholder="Select your university" [options]="filterUniversityList" optionValue="id" optionLabel="name" styleClass="w-100" [filter]="true"></p-dropdown>
                             </div>
                             <div class="col-md-1 col-1 text-center mt-1">
-                                <button pButton type="button" style="background-color: #3F4C83; color: #4552A3;"
+                                <button [disabled]="true" (click)="startQuizUniversity()" pButton type="button" style="background-color: #3F4C83; color: #4552A3;"
                                 class="p-button-rounded p-2"
-                               ><span  style="color: white; font-size: small;">{{"Completed"}}</span>
+                               ><span style="color: white; font-size: small;">Start</span>
                                <span class="fa-stack">
                                   <!-- <i class="fa fa-circle fa-stack-2x"></i> -->
                                   <i style="color: white;" class="fas fa-arrow-right"></i>                                        
@@ -63,7 +62,6 @@
                             </div>
                             <div class="col-md-1 col-1">&nbsp;</div>
                         </div>
-                    </form>
                 </div>
             </ng-container>
         </div>

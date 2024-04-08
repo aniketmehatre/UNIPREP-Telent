@@ -107,24 +107,25 @@
 								<p class="mb-1">{{quizpercentage+'%'}}</p>
 								<div class="row">
 									<div class="col-12">
-										<span class="ellipse-button fw-regular container-fluid">{{quizpercentage!=100?"Start":"Completed"}}</span>
+										<span class="ellipse-button fw-regular container-fluid">{{quizpercentage>=80?"Completed":"Start"}}</span>
 									</div>
 								</div>
 							</button>
 						</div>
-						<!-- <div class="col-md-6 col-lg-6 d-flex align-items-center order-1 order-md-2">
-							<div [attr.data-percentage]="readQuizProgressionPercentage" class="progress">
-								<span class="progress-left">
-									<span class="progress-bar"></span>
-								</span>
-								<span class="progress-right">
-									<span class="progress-bar"></span>
-								</span>
-								<div class="progress-value quizcircle">
-									<div>{{ readQuizProgressionPercentage }}%<br /></div>
-								</div>
+						<div class="col-md-6 col-lg-6 d-flex order-2 order-md-1">
+						<div [attr.data-percentage]="quizpercentage" class="progress1">
+							<span class="progress1-left">
+								<span class="progress1-bar"></span>
+							</span>
+							<span class="progress1-right">
+								<span class="progress1-bar"></span>
+							</span>
+							<div class="progress1-value">
+								<div *ngIf="quizpercentage>0?true:false">{{ quizpercentage | number : "1.0-0" }} %<br /></div>
+								<div *ngIf="quizpercentage>0?false:true" >0%<br /></div>
 							</div>
-						</div> -->
+						</div>
+					</div>
 					</div>
 					<div>
 						<h5 class="mb-1 uppercase">Quiz</h5>
