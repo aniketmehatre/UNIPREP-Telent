@@ -147,6 +147,19 @@ export class UpgradeSubscriptionComponent implements OnInit {
       this.plansLoaded = true;
 
     });
+    this.authservice.getNewUserTimeLeft().subscribe(res => {
+
+      this.isPlanExpired = res.time_left.plan == "subscription_expired" ? true : false;
+
+      this.subscriptionList.forEach((item: any) => {
+        item.country = item.country.split(',').map(Number);
+        item.selected = false;
+        item.selectedCountry = {};
+        item.filteredCountryList = this.countryList;
+        item.selectedCountry = this.countryList.find((country: any) => country.id === Number(this.user?.interested_country_id));
+        item.isActive = item.popular == 1 ? true : false;
+      });
+    })
   }
 
   // getSubscriptionTopupList() {
@@ -243,7 +256,10 @@ export class UpgradeSubscriptionComponent implements OnInit {
         const filteredData = response.subscriptions.filter((item: any) => item.popular !== 1);
         filteredData.splice(1, 0, ...mostPopularOnes);
         this.subscriptionList = filteredData;
-        this.subscriptionList.map((item: any) => this.currency = item.currency);
+        this.subscriptionList.map((item: any) => {
+          this.currency = item.currency;
+          this.selectedCountry
+        });
         this.plansLoaded = true;
         this.getPlanexpire();
       })

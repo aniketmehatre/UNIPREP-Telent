@@ -69,7 +69,7 @@
 							<li><i class="pi pi-times grey smallIcon"></i></li>
 							<li><i class="pi pi-times grey smallIcon"></i></li>
 							<li class="mt-1">
-								<h5 class="fw-semibold">{{localStorage.getItem('time_card_info')}} Validity</h5>
+								<h5 class="fw-semibold freeValidity">{{localStorage.getItem('time_card_info')}} Validity</h5>
 							</li>
 							<li class="mt-1">
 								<div class="getstartedbtn pb-2">
@@ -122,7 +122,7 @@
 							<li>
 								<h5 class="fw-semibold">{{ subscription.validity }} Months Validity</h5>
 							</li>
-							<li>
+							<li class="mt-2">
 								<div class="getstartedbtn pb-2">
 									<button class="pt-3 pb-3 btn btn-primary w-100 m-0 text-white"
 										*ngIf="subscription.selected"
@@ -166,7 +166,7 @@
 										</div>
 									</div>
 									<div class="card-footer py-2 px-4 mb-5">
-										<h5 class="fw-semibold">{{timeLeftInfoCard}} Validity</h5>
+										<h5 class="fw-semibold freeValidity">{{timeLeftInfoCard}} Validity</h5>
 										<div class="getstartedbtn pb-2">
 											<button class="pt-3 pb-3 btn btn-basic w-100 m-0 greyButton" [disabled]="true">Unavailable</button>
 										</div>
