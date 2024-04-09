@@ -3,7 +3,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Billinginfo, OrderHistory, Subscription, SubscriptionSuccess } from "../../../@Models/subscription";
 import { environment } from "@env/environment.prod";
 import { AuthService } from 'src/app/Auth/auth.service';
-import { MenuItem, MessageService } from 'primeng/api';
+import { ConfirmationService, MenuItem, MessageService } from 'primeng/api';
 import { SubscriptionService } from '../subscription.service';
 import { User } from 'src/app/@Models/user.model';
 
@@ -75,7 +75,9 @@ export class UpgradeSubscriptionComponent implements OnInit {
     private router: Router,
     private winRef: WindowRefService,
     private authservice: AuthService,
-    private http: HttpClient
+    private http: HttpClient,
+    private confirmationService: ConfirmationService,
+    private messageService: MessageService
   ) { }
   timeLeftInfoCard: any
 
@@ -321,9 +323,17 @@ export class UpgradeSubscriptionComponent implements OnInit {
     }
   }
 
-  checkout() {
-
+  checkout(event: Event) {
+      
     this.confirmModal = false;
+    if (this.existingSubscription[0].monthlyPlan > this.monthlyPlan) {
+      this.confirmSubscription(event,"Are you sure you want to upgrade to the new "+this.monthlyPlan+" month "+this.selectedSubscriptionDetails.subscription_plan+" plan? Please note that your current "+this.existingSubscription[0].monthlyPlan+" month "+this.existingSubscription[0].plan +" plan will expire upon upgrading");
+    }
+    else {
+      this.subscribe();
+    }
+  }
+  subscribe() {
     this.subscriptionService.getExtendedToken().subscribe(
       response => {
         if (response.token) {
@@ -391,6 +401,23 @@ export class UpgradeSubscriptionComponent implements OnInit {
       }
     );
   }
+  confirmSubscription(event: Event,message:string) {
+    this.confirmationService.confirm({
+      target: event.target as EventTarget,
+      message: message,
+      header: 'Confirmation',
+      acceptIcon: "none",
+      rejectIcon: "none",
+      rejectButtonStyleClass: "p-button-text",
+      accept: () => {
+        this.subscribe();
+      },
+      reject: () => {
+        this.messageService.add({ severity: 'error', summary: 'Rejected', detail: 'You have rejected'});
+      }
+    });
+  }
+
   pay(value: any) {
     this.subscriptionDetails = value;
     // this.showPayLoading = true;

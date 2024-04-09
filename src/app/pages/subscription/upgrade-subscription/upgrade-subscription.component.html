@@ -524,8 +524,9 @@
 					</div>
 					<div class="flex-full">
 						<button [disabled]="showCheckout" class="btn btn-primary w-100 py-3 px-5 h6 m-0"
-							(click)="checkout()">Checkout</button>
+							(click)="checkout($event)">Checkout</button>
 						<p *ngIf="discountAmountEnable">Discount Amount: {{discountAmount}}</p>
+						
 					</div>
 				</div>
 			</div>
@@ -555,3 +556,5 @@
 		</div>
 	  </div>
 </div>
+<p-toast></p-toast>
+<p-confirmDialog></p-confirmDialog>

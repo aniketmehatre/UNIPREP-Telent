@@ -752,3 +752,22 @@ color: #9F9F9F;
      }
    }
   }
+  ::ng-deep .p-confirm-dialog{
+    width: 550px;
+    .p-dialog-header,.p-dialog-content,.p-dialog-footer{
+      padding:10px !important;
+    }
+    ::ng-deep .p-confirm-dialog-accept{
+      background-color: var(--uniprep-primary);
+    }
+    ::ng-deep .p-confirm-dialog-accept:focus{
+      box-shadow:none !important;
+    }
+    ::ng-deep .p-confirm-dialog-reject{
+      color: var(--uniprep-primary);
+    }
+     
+  }
+  ::ng-deep .p-tabview-panels{
+    display:none;
+  }
