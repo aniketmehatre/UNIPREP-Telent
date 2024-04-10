@@ -20,7 +20,7 @@ import { ModuleStoreService } from "../../module-store/module-store.service";
 import { DataService } from "../../../data.service";
 import { ActivatedRoute, Router } from "@angular/router";
 import { Location } from "@angular/common";
-import { DomSanitizer, SafeResourceUrl,Meta } from "@angular/platform-browser";
+import { DomSanitizer, SafeResourceUrl,Meta, Title } from "@angular/platform-browser";
 import { Carousel } from "primeng/carousel";
 import { AuthService } from "src/app/Auth/auth.service";
 import {NgxUiLoaderService} from "ngx-ui-loader";
@@ -106,6 +106,8 @@ export class QuestionListComponent implements OnInit {
     private renderer: Renderer2,
     private meta: Meta,
     private toast: MessageService,
+    private titleService: Title,
+    private cdRef: ChangeDetectorRef
   ) {
     Carousel.prototype.changePageOnTouch = (e, diff) => { }
     Carousel.prototype.onTouchMove = () => { };
@@ -217,6 +219,16 @@ export class QuestionListComponent implements OnInit {
      let url = this.subModuleId.split("&&");
      localStorage.setItem('questionId', url[1]);
      this.subModuleId=url[0];
+     // this.titleService.setTitle(this.selectedQuestionName.question)
+     // console.log('comes 123123')
+     //
+     // this.meta.updateTag({ name: 'og:title', content: this.selectedQuestionName.question });
+     // this.meta.updateTag({ property: 'og:url', content: 'https://dev-student.uniprep.ai/pages/modules/pre-admission/question-list/2' });
+     // this.meta.updateTag({ property: 'og:type', content: 'summary' });
+     // this.meta.updateTag({ property: 'og:description', content: 'summary summary summary summary summary summary' });
+     // this.meta.updateTag({ name: 'image', property: 'og:image', content: 'https://api.uniprep.ai/uniprepapi/storage/app/public/submoduleicons/Language.png' });
+     // this.cdRef.markForCheck();
+
 
      // this.meta.updateTag({ property: 'og:url', content: 'https://dev-student.uniprep.ai/pages/modules/pre-admission/question-list/2' });
      // this.meta.updateTag({ property: 'og:type', content: 'summary' });
@@ -624,8 +636,10 @@ export class QuestionListComponent implements OnInit {
     this.loadQuestionList(data);
   }
 
+ selectedQuestionName: any;
   viewOneQuestion(question:any){
     let questionData = this.allDataSet[question.id];
+    this.selectedQuestionName = question
     if(questionData==undefined){
       questionData=[];
     }
@@ -640,12 +654,14 @@ export class QuestionListComponent implements OnInit {
       this.restrict=true;
       return;
     }
+    console.log('comes')
 
-    // this.meta.updateTag({ property: 'og:url', content: 'https://dev-student.uniprep.ai/pages/modules/pre-admission/question-list/2' });
-    // this.meta.updateTag({ property: 'og:type', content: 'summary' });
-    // this.meta.updateTag({ property: 'og:title', content: 'asdf adsf asdfadsfasdf asdf' });
-    // this.meta.updateTag({ property: 'og:description', content: 'summary summary summary summary summary summary' });
-    // this.meta.updateTag({ name: 'image', property: 'og:image', content: 'https://api.uniprep.ai/uniprepapi/storage/app/public/country-flags/united-kingdom.svg' });
+    this.meta.updateTag({ name: 'og:title', content: questionData.question });
+    this.meta.updateTag({ property: 'og:url', content: 'https://dev-student.uniprep.ai/pages/modules/pre-admission/question-list/2' });
+    this.meta.updateTag({ property: 'og:type', content: 'summary' });
+    this.meta.updateTag({ property: 'og:description', content: 'summary summary summary summary summary summary' });
+    this.meta.updateTag({ name: 'image', property: 'og:image', content: 'https://api.uniprep.ai/uniprepapi/storage/app/public/country-flags/united-kingdom.svg' });
+    this.cdRef.markForCheck();
     //
     //
     // this.meta.updateTag({ name: 'twitter:card', content: 'summary' });
@@ -655,7 +671,16 @@ export class QuestionListComponent implements OnInit {
     // this.meta.updateTag({ name: 'twitter:title', content: 'Your Page Title' });
     // this.meta.updateTag({ name: 'twitter:description', content: 'Your Page Description' });
     // this.meta.updateTag({ name: 'twitter:image', content: 'https://api.uniprep.ai/uniprepapi/storage/app/public/country-flags/united-kingdom.svg' });
+    //this.titleService.setTitle(questionData.question);
+    // this.meta.addTag(
+    //   { property: 'og:title', content:  questionData.question},
+    // );
+    // this.meta.addTag(
+    //   { name: 'title', content:  questionData.question},
+    // );
 
+    // this.titleService.setTitle(questionData.question);
+    // this.cdRef.markForCheck();
     this.oneQuestionContent = questionData;
     this.isQuestionAnswerVisible = true
     this.getSubmoduleName(questionData.country_id)
@@ -729,6 +754,13 @@ export class QuestionListComponent implements OnInit {
   }
   copyLink(){
     const textarea = document.createElement('textarea');
+
+    // this.meta.updateTag(
+    //   { property: 'og:title', content:  this.selectedQuestionName.question},
+    // );
+    // this.meta.updateTag(
+    //   { name: 'title', content:  this.selectedQuestionName.question},
+    // );
     textarea.textContent = window.location.href + '&&' + this.selectedQuestionData?.id + '&&' + this.countryId;
     document.body.append(textarea);
     textarea.select();
