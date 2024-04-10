@@ -148,11 +148,16 @@ export class SidenavComponent {
       url: "/pages/events",
       image: "fa-solid fa-calendar-days",
     },
-    // {
-    //   title: "Quiz",
-    //   url: "/pages/modules/quizmodule",
-    //   image: "fa-solid fa-calendar-days",
-    // },
+    {
+      title: "Quiz",
+      url: "/pages/modules/quizmodule",
+      image: "fa-solid fa-calendar-days",
+    },
+    {
+      title: "My Certificate",
+      url: "/pages/mycertificate",
+      image: "fa-solid fa-calendar-days",
+    },
     {
       title: "Support",
       url: "",

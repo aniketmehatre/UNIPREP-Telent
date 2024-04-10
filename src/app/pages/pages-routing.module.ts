@@ -22,6 +22,7 @@ import { ScholarshipListGuidlinesComponent } from './scholarship-list-guidlines/
 import { RecommendationsComponent } from './recommendations/recommendations.component';
 import { PitchDeskComponent } from './pitch-desk/pitch-desk.component';
 import { ExportCreditComponent } from './export-credit/export-credit.component';
+import { MycertificateComponent } from './mycertificate/mycertificate.component';
 
 
 const routes: Routes = [
@@ -158,6 +159,10 @@ const routes: Routes = [
             {
                 path: 'export-credit',
                 component: ExportCreditComponent
+            },
+            {
+                path: 'mycertificate',
+                component: MycertificateComponent
             }
             
         ]

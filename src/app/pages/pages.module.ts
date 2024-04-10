@@ -65,6 +65,7 @@ import { PitchDeskComponent } from './pitch-desk/pitch-desk.component';
 import {NgxExtendedPdfViewerModule} from "ngx-extended-pdf-viewer";
 import { ExportCreditComponent } from './export-credit/export-credit.component';
 import { QuizmenuComponent } from './quizmenu/quizmenu.component';
+import { MycertificateComponent } from './mycertificate/mycertificate.component';
 
 @NgModule({
     declarations: [
@@ -94,6 +95,7 @@ import { QuizmenuComponent } from './quizmenu/quizmenu.component';
         RecommendationsComponent,
         PitchDeskComponent,
         ExportCreditComponent,
+        MycertificateComponent,
     ],
   exports: [FooterStatusBoxComponent, HeaderSearchComponent],
     imports: [
