@@ -111,16 +111,4 @@ export class LocationService {
         const headers = new HttpHeaders().set("Accept", "application/json");
         return this.http.get<any>(environment.ApiUrl + "/getuniversity", { headers: headers, params: params });
     }
-    checkModuleQuizCompletion(data: any) {
-        const headers = new HttpHeaders().set("Accept", "application/json");
-        return this.http.post<any>(environment.ApiUrl + "/checkmodulequizcompletion", data, {
-            headers: headers,
-        });
-    }
-    quizCount(data: any) {
-        const headers = new HttpHeaders().set("Accept", "application/json");
-        return this.http.post<any>(environment.ApiUrl + "/checkmodulequizcompletion", data, {
-            headers: headers,
-        });
-    }
 }
