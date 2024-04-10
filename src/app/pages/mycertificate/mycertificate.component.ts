@@ -11,7 +11,7 @@ import { DataService } from 'src/app/data.service';
 })
 export class MycertificateComponent implements OnInit {
 certificatesList:any[]=[]
-othercirtificatecountrylist:any[]=[]
+othercirtificatecountrylist:any=""
 countryname:any;
 restrict: boolean = false;
 planExpired: boolean = false;
@@ -59,12 +59,9 @@ planExpired: boolean = false;
       let data = res.time_left;
       let subscription_exists_status = res.subscription_details;
       if (data.plan === "expired" || data.plan === 'subscription_expired') {
-        this.planExpired = true;
-        console.log("hi11");
-        
+        this.planExpired = true;   
       } else {
         this.planExpired = false;
-        console.log("1111");
       }
     })
   }

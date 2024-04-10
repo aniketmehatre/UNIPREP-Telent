@@ -46,7 +46,7 @@
         </div>
     </div>
     <div style="text-align: center;">
-       <p *ngFor="let country of othercirtificatecountrylist; let last = last"> You have unlocked more certificates in {{ country }}{{ !last ? ', ' : '' }}</p>
+       <p > You have unlocked more certificates in {{ othercirtificatecountrylist }}</p>
     </div>
 </div>
 <p-dialog [(visible)]="restrict" [modal]="true" [style]="{ width: '30vw' }" [draggable]="false" [resizable]="false" class="restrictionDialog" [breakpoints]="{ '960px': '30vw', '959px': '60vw', '425px': '90vw' }" (onHide)="clearRestriction()">
