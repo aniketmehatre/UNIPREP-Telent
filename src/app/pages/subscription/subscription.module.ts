@@ -31,7 +31,8 @@ import { TabViewModule } from 'primeng/tabview';
 import { UpgradeSubscriptionComponent } from './upgrade-subscription/upgrade-subscription.component';
 import { SplitButtonModule } from 'primeng/splitbutton';
 import { TooltipModule } from 'primeng/tooltip';
-
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { ConfirmationService, MessageService } from 'primeng/api';
 @NgModule({
     declarations: [
         SubscriptionComponent,
@@ -64,9 +65,10 @@ import { TooltipModule } from 'primeng/tooltip';
         CardModule,
         TabViewModule,
         SplitButtonModule,
-        TooltipModule 
+        TooltipModule ,
+        ConfirmDialogModule
     ],
-     providers: [],
+     providers: [ConfirmationService,MessageService ],
 })
 export class SubscriptionModule {
 }
