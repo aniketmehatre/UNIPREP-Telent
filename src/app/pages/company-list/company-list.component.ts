@@ -125,12 +125,15 @@ export class CompanyListComponent implements OnInit {
       // fromdate: this.filterForm.value.fromdate ? this.filterForm.value.fromdate : '',
       // todate: this.filterForm.value.todate ? this.filterForm.value.todate : '',
       industry_interested: this.filterForm.value.industry_interested ? this.filterForm.value.industry_interested : '',
-      page: this.page,
-      perpage: this.pageSize,
       planname: this.currentPlan ? this.currentPlan : ""
     }
-    if (isFavourite == 1) {
-      data['favourite'] = 1;
+    if(isFavourite==1){
+      data['favourite']=1;
+    }
+    else{
+      data['favourite'] = 0;
+      data['page']=this.page;
+      data['perpage']=this.pageSize;
     }
     this.companyListService.getCompanyList(data).subscribe((response) => {
       this.companyListData = response.data;

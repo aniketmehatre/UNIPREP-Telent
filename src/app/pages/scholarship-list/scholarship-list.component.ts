@@ -107,6 +107,7 @@ export class ScholarshipListComponent implements OnInit {
     this.loadScholarShipData(0);
     // this.getRegionList();
     this.getFilterUniversityList("");
+    this.isFilterVisible = false;
   }
   clearFilter() {
     this.regionList = [];
@@ -155,10 +156,14 @@ export class ScholarshipListComponent implements OnInit {
   }
 
   loadScholarShipData(isFavourite: number) {
-    this.data.planname = this.currentPlan ? this.currentPlan : "";
     if (isFavourite == 1) {
+      this.data={}
       this.data['favourite'] = 1;
+    }else{
+      this.data['favourite'] = 0;
     }
+    this.data.planname = this.currentPlan ? this.currentPlan : "";
+
     this.scholarshipListService
       .getScholarshipList(this.data)
       .subscribe((response) => {
