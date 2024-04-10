@@ -295,6 +295,8 @@ export class InvestorListComponent implements OnInit {
       };
       this.investorList.exportSelectedData(data).subscribe((response)=>{
         window.open(response.link, '_blank');
+        this.selectAllCheckboxes = false;
+        this.selectedInvestors = 0;
         this.loadInvestorData(0);
       })
     }else if(this.exportCreditCount == 0){
