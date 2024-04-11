@@ -1305,3 +1305,36 @@ p-dialog.restrictionDialog .p-dialog .p-dialog-header .p-dialog-header-icon {
 	border: none;
 	padding: 10px;
 }
+.monthly-subscription {
+	.p-tabview-nav-content {
+	  border: 1px solid #3f4c83;
+	  border-radius:30px !important;
+	  padding: 5px 10px;
+	  cursor: pointer;
+	}
+  
+	.p-tabview .p-tabview-nav li .p-tabview-nav-link {
+	  border: 1px solid #3f4c83 !important;
+	  border-radius: 25px !important;
+	}
+  
+	.p-highlight {
+	  border: 1px solid #3f4c83;
+	  border-radius: 25px !important;
+	}
+  
+	.p-tabview .p-tabview-nav {
+	  border-width: 0;
+	}
+  
+	.p-tabview .p-tabview-nav li {
+	  margin-right: 8px;
+	}
+	.p-tabview .p-tabview-nav li.p-highlight .p-tabview-nav-link {
+		color: white;
+		background-color: #3f4c83;
+	}
+	.p-tabview .p-tabview-nav li .p-tabview-nav-link:not(.p-disabled):focus {
+		box-shadow: none;
+	}
+  }

@@ -6,6 +6,19 @@
 				<h5 class="sop-border sop-header">Ready To Get Started?</h5>
 				<span>Choose a plan tailored to your needs</span>
 			</div>
+			<div class="monthly-subscription mt-2">
+				<p-tabView (onChange)="changeMonthlyPlan($event)" [activeIndex]="activeTabIndex">
+					<p-tabPanel header="3 Month Plan">
+						 
+					</p-tabPanel>
+					<p-tabPanel header="6 Month Plan">
+						 
+					</p-tabPanel>
+					<p-tabPanel header="12 Month Plan">
+						 
+					</p-tabPanel>
+				</p-tabView>
+			</div>
 			<div>
 				<div class="text-md-end text-center pt-3">
 					<button class="btn historyBtn" (click)="gotoHistory()">Subscription History</button>
@@ -56,7 +69,7 @@
 							<li><i class="pi pi-times grey smallIcon"></i></li>
 							<li><i class="pi pi-times grey smallIcon"></i></li>
 							<li class="mt-1">
-								<h5 class="fw-semibold">{{localStorage.getItem('time_card_info')}} Validity</h5>
+								<h5 class="fw-semibold freeValidity">{{localStorage.getItem('time_card_info')}} Validity</h5>
 							</li>
 							<li class="mt-1">
 								<div class="getstartedbtn pb-2">
@@ -109,18 +122,19 @@
 							<li>
 								<h5 class="fw-semibold">{{ subscription.validity }} Months Validity</h5>
 							</li>
-							<li>
+							<li class="mt-2">
 								<div class="getstartedbtn pb-2">
 									<button class="pt-3 pb-3 btn btn-primary w-100 m-0 text-white"
 										*ngIf="subscription.selected"
 										(click)="selectedSubscriptionPlan(subscription)">Selected</button>
-										<button class="pt-3 pb-3 btn btn-basic w-100 m-0 btn btn-primary" *ngIf="existingSubscription[0]?.plan==subscription.subscription_plan && !isPlanExpired">
+										<button class="pt-3 pb-3 btn btn-basic w-100 m-0 btn btn-primary" *ngIf="existingSubscription[0]?.plan==subscription.subscription_plan && !isPlanExpired && existingSubscription[0]?.monthlyPlan==monthlyPlan">
 											Current Plan
 										</button>
-									<button class="pt-3 pb-3 btn btn-basic w-100 m-0" *ngIf="!subscription.selected && (existingSubscription[0]?.plan!=subscription.subscription_plan || existingSubscription[0]?.plan==subscription.subscription_plan && isPlanExpired)" [ngClass]="{'greyButton':!subscription.available}"
+									<button class="pt-3 pb-3 btn btn-basic w-100 m-0" *ngIf="!subscription.selected && (existingSubscription[0]?.plan!=subscription.subscription_plan || existingSubscription[0]?.plan==subscription.subscription_plan && isPlanExpired  
+									|| existingSubscription[0]?.monthlyPlan!=monthlyPlan && subscription.available || existingSubscription[0]?.plan==subscription.subscription_plan && existingSubscription[0]?.monthlyPlan!=monthlyPlan)" [ngClass]="{'greyButton':!subscription.available}"
 									[disabled]="!subscription.available"
 										(click)="selectedSubscriptionPlan(subscription)"> 
-										<span *ngIf="existingSubscription[0]?.plan!=subscription.subscription_plan && subscription.available || existingSubscription[0]?.plan==subscription.subscription_plan && isPlanExpired">Upgrade Plan</span>
+										<span *ngIf="subscription.available ">Upgrade Plan</span>
 										<span *ngIf="!subscription.available">Unavailable</span>
 									</button>
 								</div>
@@ -152,7 +166,7 @@
 										</div>
 									</div>
 									<div class="card-footer py-2 px-4 mb-5">
-										<h5 class="fw-semibold">{{timeLeftInfoCard}} Validity</h5>
+										<h5 class="fw-semibold freeValidity">{{timeLeftInfoCard}} Validity</h5>
 										<div class="getstartedbtn pb-2">
 											<button class="pt-3 pb-3 btn btn-basic w-100 m-0 greyButton" [disabled]="true">Unavailable</button>
 										</div>
@@ -242,7 +256,7 @@
 												<button class="pt-3 pb-3 btn btn-primary w-100 m-0 text-white"
 													*ngIf="subscription.selected"
 													(click)="selectedSubscriptionPlan(subscription)">Selected</button>
-													<button class="pt-3 pb-3 btn btn-basic w-100 m-0 btn btn-primary" *ngIf="existingSubscription[0]?.plan==subscription.subscription_plan && !isPlanExpired">
+													<button class="pt-3 pb-3 btn btn-basic w-100 m-0 btn btn-primary" *ngIf="existingSubscription[0]?.plan==subscription.subscription_plan && !isPlanExpired && existingSubscription[0]?.monthlyPlan==monthlyPlan">
 														Current Plan
 													</button>
 												<button class="pt-3 pb-3 btn btn-basic w-100 m-0" *ngIf="!subscription.selected && (existingSubscription[0]?.plan!=subscription.subscription_plan || existingSubscription[0]?.plan==subscription.subscription_plan && isPlanExpired)" [ngClass]="{'greyButton':!subscription.available}"
@@ -510,8 +524,9 @@
 					</div>
 					<div class="flex-full">
 						<button [disabled]="showCheckout" class="btn btn-primary w-100 py-3 px-5 h6 m-0"
-							(click)="checkout()">Checkout</button>
+							(click)="checkout($event)">Checkout</button>
 						<p *ngIf="discountAmountEnable">Discount Amount: {{discountAmount}}</p>
+						
 					</div>
 				</div>
 			</div>
@@ -540,6 +555,6 @@
 		  </div>
 		</div>
 	  </div>
-	
-
 </div>
+<p-toast></p-toast>
+<p-confirmDialog></p-confirmDialog>

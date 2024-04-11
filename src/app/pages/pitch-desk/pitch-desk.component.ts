@@ -207,6 +207,8 @@ export class PitchDeskComponent implements OnInit {
       };
       this.pitchDesk.exportSelectedData(data).subscribe((response)=>{
         window.open(response.link, '_blank');
+        this.selectAllCheckboxes = false;
+        this.selectedCheckboxCount = 0;
         this.getPitchDeskList();
       })
     }else if(this.exportCreditCount == 0){

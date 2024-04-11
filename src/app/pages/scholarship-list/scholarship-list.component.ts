@@ -42,6 +42,12 @@ export class ScholarshipListComponent implements OnInit {
   allScholarshipCount:number=0;
   selectedIndex: any;
   toSend: boolean = false;
+  selectAllCheckboxes: boolean = false;
+  selectedCheckboxCount: number = 0;
+  exportCreditCount: number = 0;
+  exportDataIds:any = [];
+  selectedScholarship: number = 0;
+
   constructor(
     private fb: FormBuilder,
     private scholarshipListService: ScholarshipListService,
@@ -101,6 +107,7 @@ export class ScholarshipListComponent implements OnInit {
     this.loadScholarShipData(0);
     // this.getRegionList();
     this.getFilterUniversityList("");
+    this.isFilterVisible = false;
   }
   clearFilter() {
     this.regionList = [];
@@ -149,10 +156,14 @@ export class ScholarshipListComponent implements OnInit {
   }
 
   loadScholarShipData(isFavourite: number) {
-    this.data.planname = this.currentPlan ? this.currentPlan : "";
     if (isFavourite == 1) {
+      this.data={}
       this.data['favourite'] = 1;
+    }else{
+      this.data['favourite'] = 0;
     }
+    this.data.planname = this.currentPlan ? this.currentPlan : "";
+
     this.scholarshipListService
       .getScholarshipList(this.data)
       .subscribe((response) => {
@@ -161,6 +172,7 @@ export class ScholarshipListComponent implements OnInit {
           this.allScholarshipList = response.scholarship;
           this.allScholarshipCount = response.count;
         }
+        this.exportCreditCount = response.credit_count;
         this.totalScholarShipCount = response.count;
       });
     this.isFilterVisible = false;
@@ -376,6 +388,81 @@ export class ScholarshipListComponent implements OnInit {
         detail: "Please make sure you have select any question!",
       });
     }
+  }
+
+  buyCredits(): void{
+    if (this.planExpired) {
+      this.restrict = true;
+      return;
     }
+    this.router.navigate(["/pages/export-credit"]);
+  }
+
+  selectAllCheckbox(){
+    this.selectedCheckboxCount = 0;
+    this.selectAllCheckboxes = !this.selectAllCheckboxes;
+    if(this.selectAllCheckboxes){
+      this.scholarshipData.forEach(item=>{
+        item.isChecked = 1;
+        this.selectedCheckboxCount +=1;
+      });
+    }else{
+      this.scholarshipData.forEach(item=>{
+        item.isChecked = 0;
+      });
+    }
+  }
+
+  exportData(){
+    if (this.planExpired) {
+      this.restrict = true;
+      return;
+    }else if(this.exportCreditCount != 0){
+      this.exportDataIds = [];
+      this.scholarshipData.forEach(item=>{
+        if(item.isChecked == 1){
+          this.exportDataIds.push(item.id);
+        }
+      })
+      if(this.exportDataIds.length == 0){
+        this.toast.add({severity: "error",summary: "error",detail: "Select Some data for export!.",});
+        return;
+      }
+      if(this.exportCreditCount < this.exportDataIds.length){
+        this.toast.add({severity: "error",summary: "error",detail: "insufficient credits.Please Buy Some Credits.",});
+        this.router.navigate(["/pages/export-credit"]);
+        return;
+      }
+      let data={
+        module_id: 3,
+        export_id: this.exportDataIds
+      };
+      this.scholarshipListService.exportSelectedData(data).subscribe((response)=>{
+        window.open(response.link, '_blank');
+        this.selectAllCheckboxes = false;
+        this.selectedCheckboxCount = 0;
+        this.loadScholarShipData(0);
+      })
+    }else if(this.exportCreditCount == 0){
+      this.toast.add({severity: "error",summary: "error",detail: "Please Buy Some Credits.",});
+      this.router.navigate(["/pages/export-credit"]);
+    }
+    
+  }
+
+  onCheckboxChange(event: any){
+    const isChecked = (event.target as HTMLInputElement).checked;
+    this.selectedScholarship = isChecked ? this.selectedScholarship + 1 : this.selectedScholarship - 1;
+
+    if(isChecked == false){
+      if(this.selectedScholarship){
+        this.selectAllCheckboxes = false;
+      }
+    }else{
+      if(this.scholarshipData.length == this.selectedScholarship){
+        this.selectAllCheckboxes = true;
+      }
+    }
+  }
 
 }

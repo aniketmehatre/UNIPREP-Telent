@@ -30,6 +30,11 @@ export class CompanyListComponent implements OnInit {
   viewFavouritesLabel: string = "View Favourites";
   allCompanyList: any[] = [];
   allCompanyCount:number=0;
+  selectedCompanies:number = 0;
+  selectAllCheckboxes = false;
+  exportDataIds:any[] = [];
+  exportCreditCount: number = 0;
+
   constructor(
     private _location: Location,
     private fb: FormBuilder,
@@ -120,15 +125,19 @@ export class CompanyListComponent implements OnInit {
       // fromdate: this.filterForm.value.fromdate ? this.filterForm.value.fromdate : '',
       // todate: this.filterForm.value.todate ? this.filterForm.value.todate : '',
       industry_interested: this.filterForm.value.industry_interested ? this.filterForm.value.industry_interested : '',
-      page: this.page,
-      perpage: this.pageSize,
       planname: this.currentPlan ? this.currentPlan : ""
     }
-    if (isFavourite == 1) {
-      data['favourite'] = 1;
+    if(isFavourite==1){
+      data['favourite']=1;
+    }
+    else{
+      data['favourite'] = 0;
+      data['page']=this.page;
+      data['perpage']=this.pageSize;
     }
     this.companyListService.getCompanyList(data).subscribe((response) => {
       this.companyListData = response.data;
+      this.exportCreditCount = response.credit_count;
       if (isFavourite != 1) {
         this.allCompanyList=response.data;
         this.allCompanyCount = response.count;
@@ -165,14 +174,6 @@ export class CompanyListComponent implements OnInit {
     this.companyListService.export().subscribe((response) => {
       window.open(response.link, '_blank');
     });
-  }
-
-  buyCredits(): void{
-    if (this.planExpired) {
-      this.restrict = true;
-      return;
-    }
-    this.router.navigate(["/pages/export-credit"]);
   }
 
   checkplanExpire(): void {
@@ -238,6 +239,81 @@ export class CompanyListComponent implements OnInit {
       this.totalCompanyCount=this.companyListData.length;
       this.totalCompanyCount=this.allCompanyCount;
     }
+  }
+
+  buyCredits(): void{
+    if (this.planExpired) {
+      this.restrict = true;
+      return;
+    }
+    this.router.navigate(["/pages/export-credit"]);
+  }
+
+  selectAllCheckbox(){
+    this.selectedCompanies = 0;
+    this.selectAllCheckboxes = !this.selectAllCheckboxes;
+    if(this.selectAllCheckboxes){
+      this.companyListData.forEach(item=>{
+        item.isChecked = 1;
+        this.selectedCompanies += 1;
+      })
+    }else{
+      this.companyListData.forEach(item=>{
+        item.isChecked = 0;
+      });
+    }
+  }
+
+  onCheckboxChange(event: any){
+    const isChecked = (event.target as HTMLInputElement).checked;
+    this.selectedCompanies = isChecked ? this.selectedCompanies + 1 : this.selectedCompanies - 1;
+
+    if(isChecked == false){
+      if(this.selectedCompanies){
+        this.selectAllCheckboxes = false;
+      }
+    }else{
+      if(this.companyListData.length == this.selectedCompanies){
+        this.selectAllCheckboxes = true;
+      }
+    }
+  }
+
+  exportData(){
+    if (this.planExpired) {
+      this.restrict = true;
+      return;
+    }else if(this.exportCreditCount != 0){
+      this.exportDataIds = [];
+      this.companyListData.forEach(item=>{
+        if(item.isChecked == 1){
+          this.exportDataIds.push(item.id);
+        }
+      })
+      if(this.exportDataIds.length == 0){
+        this.toast.add({severity: "error",summary: "error",detail: "Select Some data for export!.",});
+        return;
+      }
+      if(this.exportCreditCount < this.exportDataIds.length){
+        this.toast.add({severity: "error",summary: "error",detail: "insufficient credits.Please Buy Some Credits.",});
+        this.router.navigate(["/pages/export-credit"]);
+        return;
+      }
+      let data={
+        module_id: 2,
+        export_id: this.exportDataIds
+      };
+      this.companyListService.exportSelectedData(data).subscribe((response)=>{
+        window.open(response.link, '_blank');
+        this.selectAllCheckboxes = false;
+        this.selectedCompanies = 0;
+        this.loadCompanyData(0);
+      })
+    }else if(this.exportCreditCount == 0){
+      this.toast.add({severity: "error",summary: "error",detail: "Please Buy Some Credits.",});
+      this.router.navigate(["/pages/export-credit"]);
+    }
+    
   }
 }
 
