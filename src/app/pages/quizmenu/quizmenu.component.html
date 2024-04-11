@@ -1,77 +1,90 @@
-<div class="card readingcard">
-	<div class="card-body text-center pt-0 h-100">
-		<div class="row justify-content-center">
-			<div class="col-md-1 col-1 text-start">
-			</div>
-			<div class="col-md-10 col-10 text-center">
-				<h5 class="select-title mb-1" tooltipPosition="top" pTooltip="Quiz">
-					 QUIZ<i class="questiontooltip fa-solid fa-circle-question"></i>
-				</h5>
-			</div>
-			<div class="col-md-1 col-1">&nbsp;</div>
-		</div>
-        <div class="container">
-            <ng-container >
+<div class="card readingcard" style="overflow-y: auto;">
+    <div class="card-body pt-0">
+        <div class="row justify-content-center">
+            <div class="col-md-2 text-start"></div>
+            <div class="col-md-8 text-center">
+                <h5 class="select-title mb-1" tooltipPosition="top" pTooltip="Quiz">QUIZ<i
+                        class="questiontooltip fa-solid fa-circle-question"></i></h5>
+            </div>
+            <div class="col-md-2"></div>
+            <div class="" style="text-align: center;">
                 <h5 class="mt-2">Your currently attending Quiz on {{countryName}}</h5>
                 <h6 class="mt-3">Start your quiz on one of our modules</h6>
                 <div>
                     <div class="d-flex flex-wrap text-center justify-content-center">
-                        <ng-container>
                             <p-card class="card m-2 module-list h-100" *ngFor="let item of quizpercentagedata">
                                 <div class="list text-center">
-                                    <img *ngIf="item.id==4?true:false" src="../../../uniprep-assets/images/icons/careerhub.png" class="img-fluid" alt="Module Image" width="100">
-                                    <img *ngIf="item.id==6?true:false" src="../../../uniprep-assets/images/icons/lifeat.png" class="img-fluid" alt="Module Image" width="100">
-                                    <img *ngIf="item.id==3?true:false" src="../../../uniprep-assets/images/icons/postadmission.png" class="img-fluid" alt="Module Image" width="100">
-                                    <img *ngIf="item.id==1?true:false" src="../../../uniprep-assets/images/icons/preadmission.png" class="img-fluid" alt="Module Image" width="100">
+                                    <img *ngIf="item.id==4?true:false"
+                                        src="../../../uniprep-assets/images/icons/careerhub.png" class="img-fluid"
+                                        alt="Module Image" width="100">
+                                    <img *ngIf="item.id==6?true:false"
+                                        src="../../../uniprep-assets/images/icons/lifeat.png" class="img-fluid"
+                                        alt="Module Image" width="100">
+                                    <img *ngIf="item.id==3?true:false"
+                                        src="../../../uniprep-assets/images/icons/postadmission.png" class="img-fluid"
+                                        alt="Module Image" width="100">
+                                    <img *ngIf="item.id==1?true:false"
+                                        src="../../../uniprep-assets/images/icons/preadmission.png" class="img-fluid"
+                                        alt="Module Image" width="100">
                                     <h4 class="module-name">{{item.module_name}}</h4>
-                                    <button *ngIf="item.progress>=80?false:true" (click)="startQuiz(item.id)" pButton type="button" style="background-color: #3F4C83; color: #4552A3;"
-                                    class="p-button-rounded p-2"
-                                   ><span style="color: white; font-size: small;">Start</span><span class="fa-stack">
-                                      <!-- <i class="fa fa-circle fa-stack-2x"></i> -->
-                                      <i *ngIf="item.progress>=80?false:true" style="color: white;" class="fas fa-arrow-right"></i>                                        
-                                   </span>
-                                  </button>
-                                  <button *ngIf="item.progress>=80?true:false" pButton type="button" style="background-color: #3F4C83; color: #4552A3;"
-                                  class="p-button-rounded p-2"
-                                 ><span style="color: white; font-size: small;">Completed</span><span class="fa-stack">
-                                    <!-- <i class="fa fa-circle fa-stack-2x"></i> -->
-                                 </span>
-                                </button>
+                                    <button *ngIf="item.progress>=80?false:true" (click)="startQuiz(item.id)" pButton
+                                        type="button" style="background-color: #3F4C83; color: #4552A3;"
+                                        class="p-button-rounded p-2"><span
+                                            style="color: white; font-size: small;">Start</span><span class="fa-stack">
+                                            <!-- <i class="fa fa-circle fa-stack-2x"></i> -->
+                                            <i *ngIf="item.progress>=80?false:true" style="color: white;"
+                                                class="fas fa-arrow-right"></i>
+                                        </span>
+                                    </button>
+                                    <button *ngIf="item.progress>=80?true:false" pButton type="button"
+                                        style="background-color: #3F4C83; color: #4552A3;"
+                                        class="p-button-rounded p-2"><span
+                                            style="color: white; font-size: small;">Completed</span><span
+                                            class="fa-stack">
+                                        </span>
+                                    </button>
                                 </div>
                             </p-card>
-                        </ng-container>
                     </div>
-                </div>
-                <div class="container ps-5 pe-5 mt-2">
+                    <div class="container ps-5 pe-5 mt-2">
                         <h6 style="text-align: center;">Start your quiz on an university you are interested in.</h6>
                         <div class="row justify-content-center">
                             <div class="col-md-1 col-1 text-start">
                             </div>
                             <div class="col-md-9 col-9 text-center mt-1">
-                                <p-dropdown dropdownAppendTo="body" class="mt-2" (click)="universityButtonVisible()" [(ngModel)]="universityId"  placeholder="Select your university" [options]="filterUniversityList" optionValue="id" optionLabel="name" styleClass="w-100" [filter]="true"></p-dropdown>
+                                <p-dropdown dropdownAppendTo="body" class="mt-2" (click)="universityButtonVisible()"
+                                    [(ngModel)]="universityId" placeholder="Select your university"
+                                    [options]="filterUniversityList" optionValue="id" optionLabel="name" styleClass="w-100"
+                                    [filter]="true"></p-dropdown>
                             </div>
                             <div class="col-md-1 col-1 text-center mt-1">
-                                <button [disabled]="universityquizbutton" (click)="startQuizUniversity()" pButton type="button" style="background-color: #3F4C83; color: #4552A3;"
-                                class="p-button-rounded p-2"
-                               ><span style="color: white; font-size: small;">Start</span>
-                               <span class="fa-stack">
-                                  <!-- <i class="fa fa-circle fa-stack-2x"></i> -->
-                                  <i style="color: white;" class="fas fa-arrow-right"></i>                                        
-                               </span>
-                              </button> 
+                                <button [disabled]="universityquizbutton" (click)="startQuizUniversity()" pButton
+                                    type="button" style="background-color: #3F4C83; color: #4552A3;"
+                                    class="p-button-rounded p-2"><span style="color: white; font-size: small;">Start</span>
+                                    <span class="fa-stack">
+                                        <!-- <i class="fa fa-circle fa-stack-2x"></i> -->
+                                        <i style="color: white;" class="fas fa-arrow-right"></i>
+                                    </span>
+                                </button>
                             </div>
                             <div class="col-md-1 col-1">&nbsp;</div>
                         </div>
+                    </div>
                 </div>
-            </ng-container>
+        </div>
         </div>
     </div>
 </div>
-<p-dialog [(visible)]="restrict" [modal]="true" [style]="{ width: '30vw' }" [draggable]="false" [resizable]="false" class="restrictionDialog" [breakpoints]="{ '960px': '30vw', '959px': '60vw', '425px': '90vw' }" (onHide)="clearRestriction()">
-	<div class="text-center mt-5 mb-4">
-		<img src="../../../uniprep-assets/images/smartloack.png" class="image" width="60" />
-		<h3 class="offer">Upgrade Required</h3>
-		<p>To access this exclusive module,please upgrade your plan now</p>
-		<button pButton type="button" class="text-white p-ripple p-button-rounded p-button-warning p-button p-component p-2" (click)="upgradePlan()">Upgrade Plan<i class="fa fa-arrow-right exhausted-plan-icon"></i></button>
-	</div>
+
+<p-dialog [(visible)]="restrict" [modal]="true" [style]="{ width: '30vw' }" [draggable]="false" [resizable]="false"
+    class="restrictionDialog" [breakpoints]="{ '960px': '30vw', '959px': '60vw', '425px': '90vw' }"
+    (onHide)="clearRestriction()">
+    <div class="text-center mt-5 mb-4">
+        <img src="../../../uniprep-assets/images/smartloack.png" class="image" width="60" />
+        <h3 class="offer">Upgrade Required</h3>
+        <p>To access this exclusive module,please upgrade your plan now</p>
+        <button pButton type="button"
+            class="text-white p-ripple p-button-rounded p-button-warning p-button p-component p-2"
+            (click)="upgradePlan()">Upgrade Plan<i class="fa fa-arrow-right exhausted-plan-icon"></i></button>
+    </div>
 </p-dialog>

@@ -35,7 +35,18 @@
                                             style="background-color: #3F4C83; color: white; width: -webkit-fill-available; text-align: center;"
                                             class="p-button-rounded p-2">Download
                                         </button>&nbsp;
-                                        <span class="rounded-background"><i class="fa-solid fa-share-nodes"></i></span>
+                                        <button class="btn btn-primary socialShareBtn" (click)="showSocialSharingList()"><i class="fa-light fa-xl fa-share-nodes"></i></button>
+                                        <p-card id="socialSharingList">
+                                            <ul style="list-style: none; cursor: pointer">
+                                                <li (click)="shareViaWhatsapp(list.certificate_link)"><i class="pi pi-whatsapp"></i>Whatsapp</li>
+                                                <li (click)="shareViaMail(list.certificate_link)"><i class="pi pi-envelope"></i>Email</li>
+                                                <li (click)="shareViaFacebook(list.certificate_link)"><i class="pi pi-facebook"></i>Facebook</li>
+                                                <li (click)="shareViaTwitter(list.certificate_link)"><i class="pi pi-twitter"></i>Twitter</li>
+                                                <li (click)="shareViaInstagram(list.certificate_link)"><i class="pi pi-instagram"></i>Instagram</li>
+                                                <li (click)="shareViaLinkedIn(list.certificate_link)"><i class="pi pi-linkedin"></i>LinkedIn</li>
+                                                <li (click)="copyLink(list.certificate_link)"><i class="pi pi-link"></i>Copy Link</li>
+                                            </ul>
+                                        </p-card>
                                     </div>
                                 </div>
                             </div>
