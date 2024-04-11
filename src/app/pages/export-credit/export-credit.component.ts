@@ -35,7 +35,6 @@ export class ExportCreditComponent implements OnInit {
       return;
     }
     this.exportcreditservice.placeOrder(this.moduleList).subscribe((response)=>{
-      console.log(response);
       this.payWithRazor(response);
     });
     
@@ -102,7 +101,7 @@ export class ExportCreditComponent implements OnInit {
               summary: response.status,
               detail: response.message,
             });
-            console.log(error);
+            //console.log(error);
             //window.location.reload();
           }
         );

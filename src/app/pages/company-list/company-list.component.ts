@@ -134,7 +134,7 @@ export class CompanyListComponent implements OnInit {
     }
     this.companyListService.getCompanyList(data).subscribe((response) => {
       this.companyListData = response.data;
-      this.exportCreditCount = response.credit_count;
+      this.exportCreditCount = response.credit_count ? response.credit_count : 0;
       if (isFavourite != 1) {
         this.allCompanyList=response.data;
         this.allCompanyCount = response.count;

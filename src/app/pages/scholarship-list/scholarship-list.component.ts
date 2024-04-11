@@ -40,8 +40,8 @@ export class ScholarshipListComponent implements OnInit {
   viewFavouritesLabel: string = "View Favourites";
   allScholarshipList: any[] = [];
   allScholarshipCount:number=0;
-  selectedIndex: any;
-  toSend: boolean = false;
+  // selectedIndex: any;
+  // toSend: boolean = false;
   selectAllCheckboxes: boolean = false;
   selectedCheckboxCount: number = 0;
   exportCreditCount: number = 0;
@@ -167,7 +167,7 @@ export class ScholarshipListComponent implements OnInit {
           this.allScholarshipList = response.scholarship;
           this.allScholarshipCount = response.count;
         }
-        this.exportCreditCount = response.credit_count;
+        this.exportCreditCount = response.credit_count ? response.credit_count : 0;
         this.totalScholarShipCount = response.count;
       });
     this.isFilterVisible = false;
@@ -348,9 +348,9 @@ export class ScholarshipListComponent implements OnInit {
   checkBoxopen() {
 
   }
-  sholarshipquestionid: number[] = [];
-  selectedlistcount:number=0
-  questionSelectedCheckBox(event: any, index: number, ticketques: any) {
+  // sholarshipquestionid: number[] = [];
+  // selectedlistcount:number=0
+  // questionSelectedCheckBox(event: any, index: number, ticketques: any) {
     // if (event.target.checked) {
     //   this.sholarshipquestionid.push(ticketques.id);
     //   console.log(this.sholarshipquestionid);
@@ -363,26 +363,44 @@ export class ScholarshipListComponent implements OnInit {
     // }
     // this.selectedlistcount=this.sholarshipquestionid.length;
 
-    this.selectedIndex = event.target.checked ? index : undefined;
-    this.toSend = event.target.checked;
-      this.sholarshipquestionid=ticketques.id
-      console.log(this.sholarshipquestionid);
-  }
+  //   this.selectedIndex = event.target.checked ? index : undefined;
+  //   this.toSend = event.target.checked;
+  //     this.sholarshipquestionid=ticketques.id
+  //     console.log(this.sholarshipquestionid);
+  // }
+
   openReport() {
-    if(this.toSend){
+    console.log(this.selectedCheckboxCount);
+    console.log(this.exportCreditCount);
+    console.log(this.exportDataIds);
+    console.log(this.selectedScholarship);
+    if(this.selectedScholarship == 1){
       let data = {
         isVisible: true,
-        questionId: this.sholarshipquestionid,
+        questionId: this.exportDataIds[0],
         reporttype:4
       };
+      console.log(data);
       this.dataService.openReportWindow(data);
-    }else{
-      this.toast.add({
-        severity: "error",
-        summary: "Error",
-        detail: "Please make sure you have select any question!",
-      });
+    }else if(this.selectedScholarship == 0){
+      this.toast.add({severity: "error",summary: "Error",detail: "Please make sure you have select any Scholarship!",});
+    }else if(this.selectedScholarship > 1){
+      this.toast.add({severity: "error",summary: "Error",detail: "Please select only one scholarship at a time!",});
     }
+    // if(this.toSend){
+      // let data = {
+      //   isVisible: true,
+      //   //questionId: this.sholarshipquestionid,
+      //   reporttype:4
+      // };
+      // this.dataService.openReportWindow(data);
+    // }else{
+      // this.toast.add({
+      //   severity: "error",
+      //   summary: "Error",
+      //   detail: "Please make sure you have select any question!",
+      // });
+    // }
   }
 
   buyCredits(): void{

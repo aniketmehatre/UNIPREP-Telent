@@ -18,7 +18,7 @@
 						<div class="card-body">
 							<div class="row">
 								<div class="col-md-8 col-8">
-									<h5 class="card-title uniprep-primary">{{ modules?.module_name }} - {{modules?.alreadyaddedcredit}}</h5>
+									<h5 class="card-title uniprep-primary">{{ modules?.module_name }} - {{modules?.alreadyaddedcredit ? modules?.alreadyaddedcredit : 0}}</h5>
 									<small>{{ modules?.module_description }}</small>
 								</div>
 								<!-- *ngIf="modules.planValidation == 1; else upgradeRequired" -->

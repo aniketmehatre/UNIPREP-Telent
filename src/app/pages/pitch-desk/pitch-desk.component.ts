@@ -57,7 +57,7 @@ export class PitchDeskComponent implements OnInit {
     this.pitchDesk.getPitchDeskData(data).subscribe((responce)=>{
       this.totalPitchDeckCount = responce.total_count;
       this.pitchDeskList = responce.data;
-      this.exportCreditCount = responce.credit_count;
+      this.exportCreditCount = responce.credit_count ? responce.credit_count : 0;
     });
     this.isFilterVisible = 'none'
   }
