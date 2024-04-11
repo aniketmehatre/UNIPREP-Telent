@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MycertificateserviceService } from './mycertificateservice.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from 'src/app/Auth/auth.service';
 import { DataService } from 'src/app/data.service';
 import { Meta } from '@angular/platform-browser';
@@ -17,14 +17,21 @@ countryname:any;
 restrict: boolean = false;
 planExpired: boolean = false;
   constructor(private service:MycertificateserviceService,private router: Router,private authService: AuthService,private dataService: DataService,
-    private meta: Meta,private toast: MessageService) { }
+    private meta: Meta,private toast: MessageService,private route: ActivatedRoute,) { }
 
   ngOnInit(): void {
-    this.getCertificates();
-    this.getCertificateoOtherCountry();
-    this.checkplanExpire();
     this.dataService.countryNameSource.subscribe((data) => {
       this.countryname = data;
+    });
+    this.route.params.subscribe((params) => {
+      let socialShare:any=document.getElementById("socialSharingList");
+      if (socialShare){
+        socialShare.style.display = "none";
+      }
+      //this.getSubmoduleName(this.countryId);
+      this.getCertificates();
+      this.getCertificateoOtherCountry();
+      this.checkplanExpire();
     });
   }
   getCertificateoOtherCountry(){

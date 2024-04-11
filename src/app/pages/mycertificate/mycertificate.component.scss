@@ -23,3 +23,36 @@
     border-radius: 50%;
     color: white; 
   }
+  .socialShareBtn {
+    height: 40px;
+    width: 40px;
+    border-radius: 50px !important;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  #socialSharingList {
+    display: none;
+    position: absolute;
+    right: -6rem;
+    top: 6rem;
+    ::ng-deep.p-card-body {
+      padding: 0px;
+      .p-card-content {
+        padding: 0px;
+      }
+    }
+    ul {
+      padding: 10px !important;
+      margin-bottom: 0;
+      li {
+        display: flex;
+        align-items: center;
+        margin-bottom: 5px;
+      }
+      i {
+        margin-right: 10px;
+      }
+    }
+  }

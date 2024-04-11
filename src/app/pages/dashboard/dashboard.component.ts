@@ -30,6 +30,8 @@ export class DashboardComponent implements OnInit {
     isViewMoreOrgVisible: boolean = false;
     partnerTrusterLogo: any;
     enableReading!: boolean;
+    restrict: boolean = false;
+    planExpired: boolean = false;
     @ViewChild('carousel') carousel!: Carousel;
     university: any[] = [
         {
@@ -54,7 +56,7 @@ export class DashboardComponent implements OnInit {
     isCountryPopupOpen: any;
     currentModuleSlug: any;
     constructor(private dashboardService: DashboardService,private service: AuthService,
-        private router: Router, private dataService: DataService,
+        private router: Router, private dataService: DataService,private authService: AuthService,
                 private elRef: ElementRef, private renderer: Renderer2,
     ) {
         this.responsiveOptions = [
@@ -76,6 +78,7 @@ export class DashboardComponent implements OnInit {
         ];
     }
     ngOnInit(): void {
+        this.checkplanExpire()
         this.selectedCountryId = Number(localStorage.getItem('countryId'));
         this.enableReadingData();
         //localStorage.setItem('selectedcountryId', this.selectedCountryId);
@@ -225,6 +228,10 @@ export class DashboardComponent implements OnInit {
     }
 
     openQuiz(): void {
+        if(this.planExpired){
+            this.restrict=true;
+            return;
+          }
         this.continueQuiz = "block";
         this.checkQuestionQuiz()
     }
@@ -350,5 +357,22 @@ export class DashboardComponent implements OnInit {
             this.currentModuleSlug="travel-and-tourism"
           }
         this.router.navigate([`/pages/modules/${this.currentModuleSlug}/quiz`]);
+      }
+      checkplanExpire(): void {
+        this.authService.getNewUserTimeLeft().subscribe((res) => {
+          let data = res.time_left;
+          let subscription_exists_status = res.subscription_details;
+          if (data.plan === "expired" || data.plan === 'subscription_expired') {
+            this.planExpired = true;   
+          } else {
+            this.planExpired = false;
+          }
+        })
+      }
+      upgradePlan(): void {
+        this.router.navigate(["/pages/subscriptions"]);
+      }
+      clearRestriction() {
+        this.restrict = false;
       }
 }
