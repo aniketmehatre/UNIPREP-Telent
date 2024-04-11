@@ -302,6 +302,8 @@ export class CompanyListComponent implements OnInit {
       };
       this.companyListService.exportSelectedData(data).subscribe((response)=>{
         window.open(response.link, '_blank');
+        this.selectAllCheckboxes = false;
+        this.selectedCompanies = 0;
         this.loadCompanyData(0);
       })
     }else if(this.exportCreditCount == 0){
