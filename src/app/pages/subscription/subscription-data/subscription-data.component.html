@@ -1,13 +1,27 @@
 <p class="uniprep-primary mb-0">Subscription</p>
 <div class="card">
 	<div class="card-body">
-		<div class="d-flex flex-column flex-md-row justify-content-md-between justify-content-center">
+		<div class="d-flex flex-column flex-md-row justify-content-md-between">
 			<div class="text-md-start text-center">
 				<h5 class="sop-border sop-header">Ready To Get Started?</h5>
 				<span>Choose a plan tailored to your needs</span>
 			</div>
-			<div>
-				<div class="text-md-end text-center pt-3" *ngIf="showHistoryBtn">
+			<div class="monthly-subscription mt-2">
+				<p-tabView (onChange)="changeMonthlyPlan($event)">
+					<p-tabPanel header="3 Month Plan">
+						 
+					</p-tabPanel>
+					<p-tabPanel header="6 Month Plan">
+						 
+					</p-tabPanel>
+					<p-tabPanel header="12 Month Plan">
+						 
+					</p-tabPanel>
+				</p-tabView>
+			</div>
+
+			<div *ngIf="showHistoryBtn">
+				<div class="text-md-end text-center pt-3" >
 					<button class="btn historyBtn" (click)="gotoHistory()">Subscription History</button>
 				</div>
 			</div>
@@ -542,10 +556,6 @@
 				<p class="btn btn-rounded mx-auto" style="background: #9bc32935; border: 1px dashed #9bc329; width: 100px" (click)="copyCoupon()" id="offerId">UNI25</p>
 				<p class="text-center">Use this coupon code to unlock a 25% discount on your subscription.</p>
 			</div>
-			<!-- <div class="modal-footer">
-		  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-		  <button type="button" class="btn btn-primary">Save changes</button>
-		</div> -->
 		</div>
 	</div>
 </div>

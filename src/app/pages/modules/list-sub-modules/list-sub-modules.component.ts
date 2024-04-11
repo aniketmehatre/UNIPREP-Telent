@@ -340,17 +340,17 @@ export class ListSubModulesComponent implements OnInit {
   }
 
   startQuiz() {
-    // this.router.navigate([`/pages/modules/${this.currentModuleSlug}/quiz`]);
-    let cName = "";
-    this.dataService.countryNameSource.subscribe(countryName => {
-      cName = countryName;
-    });
-    this.quizData = [];
-    this.loadModuleAndSubModule();
-    this.getQuizData();
-    this.selectedQuiz = 1;
-    this.positionNumber = 1;
-    this.isInstructionVisible = true;
+    this.router.navigate([`/pages/modules/${this.currentModuleSlug}/quiz`]);
+    // let cName = "";
+    // this.dataService.countryNameSource.subscribe(countryName => {
+    //   cName = countryName;
+    // });
+    // this.quizData = [];
+    // this.loadModuleAndSubModule();
+    // this.getQuizData();
+    // this.selectedQuiz = 1;
+    // this.positionNumber = 1;
+    // this.isInstructionVisible = true;
   }
 
   setPage(page: any) {
@@ -429,14 +429,13 @@ export class ListSubModulesComponent implements OnInit {
   clearRestriction() {
     this.restrict = false;
   }
-  quizpercentage:any
+  quizpercentage:any=0
   checkquizquestionmodule(){
     var data={
       moduleid:this.currentModuleId,
       countryid: this.currentCountryId
     }
-    this.locationService.checkModuleQuizCompletion(data).subscribe((res) => {
-      console.log(res);
+    this.moduleListService.checkModuleQuizCompletion(data).subscribe((res) => {
       this.quizpercentage=res.progress
     })
   }

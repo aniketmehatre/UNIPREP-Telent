@@ -52,7 +52,7 @@ export class DashboardComponent implements OnInit {
     headerFlag!: string;
     isLondon!: boolean;
     isCountryPopupOpen: any;
-
+    currentModuleSlug: any;
     constructor(private dashboardService: DashboardService,private service: AuthService,
         private router: Router, private dataService: DataService,
                 private elRef: ElementRef, private renderer: Renderer2,
@@ -319,13 +319,12 @@ export class DashboardComponent implements OnInit {
     openViewMoreOrg(): void {
         this.isViewMoreOrgVisible = true;
     }
-    quizpercentage:any
+    quizpercentage:any=0;
     checkquizquestionmodule(){
       var data={
         countryid: this.selectedCountryId
       }
       this.dashboardService.checkModuleQuizCompletion(data).subscribe((res) => {
-        console.log(res);
         this.quizpercentage=res.progress
       })
     }
@@ -338,4 +337,18 @@ export class DashboardComponent implements OnInit {
             this.quizProgressings=res.modules
           })
     }
+    startQuiz(moduleid:any) {
+        if(moduleid==1){
+          this.currentModuleSlug="pre-admission"
+        }else if(moduleid==3){
+          this.currentModuleSlug="post-admission"
+        }else if(moduleid==4){
+          this.currentModuleSlug="career-hub"
+        }else if(moduleid==6){
+          this.currentModuleSlug="life-at-country"
+        }else if(moduleid==7){
+            this.currentModuleSlug="travel-and-tourism"
+          }
+        this.router.navigate([`/pages/modules/${this.currentModuleSlug}/quiz`]);
+      }
 }
