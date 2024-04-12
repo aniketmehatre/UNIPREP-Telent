@@ -267,9 +267,10 @@ export class SubscriptionComponent implements OnInit {
         this.accountBillingData = response.accountbillings;
 
         this.accountBillingData.map(function (currentelement, index, arrayobj) {
+         let  noofFreeAddOn=arrayobj.filter(item=>item.product=="Free Add On");
           if (
             currentelement.product == "Free Add On" &&
-            arrayobj.length - 1 != index
+            noofFreeAddOn.length>1
           ) {
             arrayobj.splice(index, 1);
           }

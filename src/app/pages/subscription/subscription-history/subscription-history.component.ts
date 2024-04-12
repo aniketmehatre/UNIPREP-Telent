@@ -48,7 +48,6 @@ export class SubscriptionHistoryComponent implements OnInit {
   }
 
   ngOnInit(): void {
-   
   }
 
 
@@ -193,8 +192,13 @@ export class SubscriptionHistoryComponent implements OnInit {
   }
 
   downloadInvoice(id: number): void {
-    let data = {
+    let data: any = {
       user_subscription_id: id
+    }
+    let creditObj = this.accountBillingList.find((item: any) => item.product == "Credit");
+
+    if (creditObj.id == id) {
+      data.payment_type = creditObj.payment_type;
     }
     this.subscriptionService.downloadInvoice(data).subscribe((response) => {
       window.open(response, '_blank');
