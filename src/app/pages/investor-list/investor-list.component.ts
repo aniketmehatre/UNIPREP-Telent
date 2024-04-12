@@ -152,14 +152,16 @@ export class InvestorListComponent implements OnInit {
       head_quarters: this.filterForm.value.head_quarters ? this.filterForm.value.head_quarters : '',
       investor_type: this.filterForm.value.investor_type ? this.filterForm.value.investor_type : '',
       industry_interested: this.filterForm.value.industry_interested ? this.filterForm.value.industry_interested : '',
-      page: this.page,
-      perpage: this.pageSize,
       planname:this.currentPlan?this.currentPlan:"",
     }
     if(isFavourite==1){
       data['favourite']=1;
     }
-
+    else{
+      data['favourite'] = 0;
+      data['page']=this.page;
+      data['perpage']=this.pageSize;
+    }
     this.investorList.getInvestorList(data).subscribe((response) => {
       this.investorData = response.data;
       this.exportCreditCount = response.credit_count ? response.credit_count : 0;

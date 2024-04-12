@@ -146,7 +146,7 @@
 						<label class="form-label" style="font-size: medium; font-weight: 500">Filter by Scholarship Country</label>
 						<div class="form-group">
 							<div class="mb-3">
-								<p-dropdown formControlName="country" optionValue="id" optionLabel="country" styleClass="w-100" [options]="countryList" [filter]="true" filterBy="country" (onChange)="countryChange($event)" placeholder="Select  Country" class="filterInput"></p-dropdown>
+								<p-dropdown formControlName="country" optionValue="id" optionLabel="country" styleClass="w-100" [options]="countryList" [filter]="true" filterBy="country" (onChange)="countryChange($event)" placeholder="Select  Country" class="filterInput" [appendTo]="'body'"></p-dropdown>
 							</div>
 						</div>
 					</div>
@@ -154,7 +154,7 @@
 						<label class="form-label" style="font-size: medium; font-weight: 500">Filter by Home Country</label>
 						<div class="form-group">
 							<div class="mb-3">
-								<p-dropdown formControlName="home_country" optionValue="id" optionLabel="country" styleClass="w-100" [options]="homeCountryList" [filter]="true" filterBy="country" placeholder="Select  Home Country" class="filterInput"></p-dropdown>
+								<p-dropdown formControlName="home_country" optionValue="id" optionLabel="country" styleClass="w-100" [options]="homeCountryList" [filter]="true" filterBy="country" placeholder="Select  Home Country" class="filterInput" [appendTo]="'body'"></p-dropdown>
 							</div>
 						</div>
 					</div>
@@ -162,7 +162,7 @@
 						<label class="form-label" style="font-size: medium; font-weight: 500">Filter by Scholarship Type</label>
 						<div class="form-group">
 							<div class="mb-3">
-								<p-dropdown formControlName="type" optionValue="id" optionLabel="type" styleClass="w-100" [options]="scholarshipTypeList" [filter]="true" filterBy="type" placeholder="Select  Scholarship Type" class="filterInput"></p-dropdown>
+								<p-dropdown formControlName="type" optionValue="id" optionLabel="type" styleClass="w-100" [options]="scholarshipTypeList" [filter]="true" filterBy="type" placeholder="Select  Scholarship Type" class="filterInput" [appendTo]="'body'"></p-dropdown>
 							</div>
 						</div>
 					</div>
@@ -199,6 +199,9 @@
 			<div class="col-12"><button type="submit" class="btn btn-dark w-100" style="background-color: var(--uniprep-primary) !important">Apply Filter</button></div>
 			<div class="col-12">
 				<button class="btn btn-danger ps-3 pe-3 pt-2 pb-2 w-100" (click)="clearFilter()" style="border-radius: 8px; color: #fff" type="button">Reset Filter</button>
+			</div>
+			<div class="col-12">
+				<button class="btn btn-danger ps-3 pe-3 pt-2 pb-2 w-100" (click)="resetFilter()" style="border-radius: 8px; color: #fff" type="button">Clear & Close Filter</button>
 			</div>
 		</div>
 	</form>
