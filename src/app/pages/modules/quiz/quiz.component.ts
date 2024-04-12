@@ -238,6 +238,7 @@ export class QuizComponent implements OnInit {
     //   header: 'Confirmation',
     //   icon: 'fa-solid fa-circle-exclamation',
     // });
+    this.router.navigate([`/pages/modules/${this.currentModuleSlug}`]);
   }
 
   clickPreviousQuiz(carouselQuiz: any, event: any) {
