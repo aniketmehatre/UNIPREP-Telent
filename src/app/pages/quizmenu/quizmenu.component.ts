@@ -4,11 +4,10 @@ import { ModuleServiceService } from '../module-store/module-service.service';
 import { LocationService } from 'src/app/location.service';
 import { DataService } from 'src/app/data.service';
 import { AuthService } from 'src/app/Auth/auth.service';
-
 @Component({
   selector: 'uni-quizmenu',
   templateUrl: './quizmenu.component.html',
-  styleUrls: ['./quizmenu.component.scss']
+  styleUrls: ['./quizmenu.component.scss'],
 })
 export class QuizmenuComponent implements OnInit {
   tooltip: any;
@@ -25,13 +24,14 @@ export class QuizmenuComponent implements OnInit {
     private locationService: LocationService,private authService: AuthService) { }
 
   ngOnInit(): void {
-    this.countryId = Number(localStorage.getItem('countryId'));
-    this.getFilterUniversityList(this.countryId)
     this.dataService.countryNameSource.subscribe((data) => {
       this.countryName = data;
+      this.countryId = Number(localStorage.getItem('countryId'));
+      this.checkquizquestionmodule();
+      this.checkplanExpire();
+      this.getFilterUniversityList(this.countryId)
     });
-    this.checkquizquestionmodule();
-    this.checkplanExpire();
+
   }
   startQuiz(moduleid: any) {
     if(this.planExpired){
