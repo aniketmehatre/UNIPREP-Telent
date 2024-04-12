@@ -277,202 +277,6 @@
 			<br>
 
 		</ng-container>
-
-
-		<!-- <div class="row" *ngIf="topupcountries">
-			<div *ngFor="let subscription of subscriptionTopupList" class="col-lg-4">
-				<div class="card-body">
-					<div class="container-fluid">
-						<div class="row gap-5 mt-4 d-flex">
-							<div class="card card-bg subscriptioncard col px-0"
-								[ngClass]="{ active: subscription.isActive }">
-								<div class="mostpopular" *ngIf="subscription.popular == 1">Most Popular Plan</div>
-								<div class="card-header p-4">
-									<div class="d-flex justify-content-between align-items-center">
-										<h3 class="fw-bold mb-0">{{ subscription.name }} <br />Plan</h3>
-										<div class="text-end">
-											<h4 class="mb-0">
-												<s>INR {{ subscription.price | number : ".2-2" }}</s>
-											</h4>
-											<div class="btn discountbutton">Save {{ subscription.discountPercentage }} %
-											</div>
-										</div>
-									</div>
-								</div>
-								<div class="card-body p-3">
-									<h5 style="font-size: 18px; text-align: center">Select Your Add On Countries</h5>
-									<p-multiSelect [options]="subscription.filteredCountryList" styleClass="w-100"
-										[(ngModel)]="subscription.selectedCoutriesList"
-										defaultLabel="Select a multiple countries as per your requirement"
-										optionLabel="country" #multiSelect>
-										<ng-template pTemplate="selectedItems">
-											{{ multiSelect.defaultLabel }}
-										</ng-template>
-									</p-multiSelect>
-									<div class="d-flex align-items-center gap-2 flex-wrap pt-2">
-										<div *ngFor="let data of subscription?.selectedCoutriesList">
-											<p-chip [label]="data.country" [image]="data.flag" [removable]="true"
-												(onRemove)="removeCountry(subscription.id, data.id)"
-												removeIcon="pi pi-times"></p-chip>
-										</div>
-									</div>
-								</div>
-								<div class="card-footer p-4" style="text-align: center">
-									<h2 class="font-primarycolor fw-bold">INR {{ subscription.finalamount | number :
-										".2-2" }}</h2>
-									<p class="fw-semibold">{{ subscription.validity }} Month Validity</p>
-									<div class="getstartedbtn">
-										<button *ngIf="!subscription.selected" class="btn btn-primary"
-											(click)="selectedTopupCountryPlan(subscription)">Select Plan</button>
-										<button *ngIf="subscription.selected" class="btn dark-btn"
-											(click)="selectedTopupCountryPlan(subscription)">You have selected {{
-											subscription.name }} Plan</button>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div> -->
-		<!-- top up validity -->
-		<!-- <div class="row p-3" *ngIf="topupvalidity">
-			<div class="d-flex justify-content-between">
-				<div class="mt-2">
-					<label for="" style="white-space: nowrap">Select Country for Validity</label>
-				</div>
-				<div class="ms-2" style="width: -webkit-fill-available">
-					<span class="p-float-label">
-						<p-multiSelect [options]="countryList" optionValue="id" placeholder="Select a country"
-							[(ngModel)]="selectedCountry" styleClass="w-100 custom-multiselect"
-							optionLabel="country"></p-multiSelect>
-					</span>
-				</div>
-			</div>
-		</div>
-		<div class="cardcontainer" *ngIf="topupvalidity">
-			<div class="card-body sameline">
-				<div class="container-fluid">
-					<div class="row gap-5 mt-4 d-flex">
-						<div class="card col px-0">
-							<div class="card-header p-4">
-								<div class="d-flex justify-content-between align-items-center">
-									<h6 class="fw-bold mb-0">1 Month <br />Validity</h6>
-									<div class="text-end">
-										<span class="mb-0"><s>INR 1000</s></span>
-										<div class="btn discountbutton">Save 20 %</div>
-									</div>
-								</div>
-							</div>
-							<div class="card-footer p-4 pt-5" style="text-align: center">
-								<h4 class="font-primarycolor fw-bold">INR 699.00</h4>
-								<div class="">
-									<button style="width: -webkit-fill-available" class="btn btn-primary"><span
-											style="color: #fff !important" class="ps-5 pe-5">Top Up</span></button>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-
-			<div class="card-body sameline">
-				<div class="container-fluid">
-					<div class="row gap-5 mt-4 d-flex">
-						<div class="card col px-0">
-							<div class="card-header p-4">
-								<div class="d-flex justify-content-between align-items-center">
-									<h6 class="fw-bold mb-0">1 Month <br />Validity</h6>
-									<div class="text-end">
-										<span class="mb-0"><s>INR 1000</s></span>
-										<div class="btn discountbutton">Save 20 %</div>
-									</div>
-								</div>
-							</div>
-							<div class="card-footer p-4 pt-5" style="text-align: center">
-								<h4 class="font-primarycolor fw-bold">INR 699.00</h4>
-								<div class="">
-									<button style="width: -webkit-fill-available" class="btn btn-primary"><span
-											style="color: #fff !important" class="ps-5 pe-5">Top Up</span></button>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="card-body sameline">
-				<div class="container-fluid">
-					<div class="row gap-5 mt-4 d-flex">
-						<div class="card col px-0">
-							<div class="card-header p-4">
-								<div class="d-flex justify-content-between align-items-center">
-									<h6 class="fw-bold mb-0">1 Month <br />Validity</h6>
-									<div class="text-end">
-										<span class="mb-0"><s>INR 1000</s></span>
-										<div class="btn discountbutton">Save 20 %</div>
-									</div>
-								</div>
-							</div>
-							<div class="card-footer p-4 pt-5" style="text-align: center">
-								<h4 class="font-primarycolor fw-bold">INR 699.00</h4>
-								<div class="">
-									<button style="width: -webkit-fill-available" class="btn btn-primary"><span
-											style="color: #fff !important" class="ps-5 pe-5">Top Up</span></button>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="card-body sameline">
-				<div class="container-fluid">
-					<div class="row gap-5 mt-4 d-flex">
-						<div class="card col px-0">
-							<div class="card-header p-4">
-								<div class="d-flex justify-content-between align-items-center">
-									<h6 class="fw-bold mb-0">1 Month <br />Validity</h6>
-									<div class="text-end">
-										<span class="mb-0"><s>INR 1000</s></span>
-										<div class="btn discountbutton">Save 20 %</div>
-									</div>
-								</div>
-							</div>
-							<div class="card-footer p-4 pt-5" style="text-align: center">
-								<h4 class="font-primarycolor fw-bold">INR 699.00</h4>
-								<div class="">
-									<button style="width: -webkit-fill-available" class="btn btn-primary"><span
-											style="color: #fff !important" class="ps-5 pe-5">Top Up</span></button>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="card-body sameline">
-				<div class="container-fluid">
-					<div class="row gap-5 mt-4 d-flex">
-						<div class="card col px-0">
-							<div class="card-header p-4">
-								<div class="d-flex justify-content-between align-items-center">
-									<h6 class="fw-bold mb-0">1 Month <br />Validity</h6>
-									<div class="text-end">
-										<span class="mb-0"><s>INR 1000</s></span>
-										<div class="btn discountbutton">Save 20 %</div>
-									</div>
-								</div>
-							</div>
-							<div class="card-footer p-4 pt-5" style="text-align: center">
-								<h4 class="font-primarycolor fw-bold">INR 699.00</h4>
-								<div class="">
-									<button style="width: -webkit-fill-available" class="btn btn-primary"><span
-											style="color: #fff !important" class="ps-5 pe-5">Top Up</span></button>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div> -->
 	</div>
 </div>
 <div class="d-flex mt-3 gap-3 flex-column flex-md-row">
@@ -510,17 +314,6 @@
 								{{currency}} {{ checkoutTotal | number : ".2-2" }}</h4>
 							<p *ngIf="discountAmountEnable">Discount Percentage:{{discountPercentage}}%</p>
 						</div>
-						<!-- <div *ngIf="topupcountries">
-							<h5 class="fw-semibold mb-0">Countries: <span class="uniprep-primary">{{
-									selectedTopupCountryDetails?.selectedCoutriesList?.length }}</span></h5>
-							<h5 class="fw-semibold mb-0">Total:
-								<span class="uniprep-primary" *ngIf="checkoutTotal == ''"> INR {{ subscriptionTotal |
-									number : ".2-2" }}</span>
-								<span class="uniprep-primary"
-									*ngIf="subscriptionTotal != '0.00' && checkoutTotal != ''"> INR {{ checkoutTotal |
-									number : ".2-2" }}</span>
-							</h5>
-						</div> -->
 					</div>
 					<div class="flex-full">
 						<button [disabled]="showCheckout" class="btn btn-primary w-100 py-3 px-5 h6 m-0"
@@ -532,9 +325,6 @@
 			</div>
 		</div>
 	</div>
-	<!-- last know more about section -->
-
-	<!-- modeal -->
 	<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 		<div class="modal-dialog modal-dialog-centered">
 		  <div class="modal-content">
@@ -548,10 +338,6 @@
 			  border: 1px dashed #9bc329;width: 100px;">UNI25</p>
 			  <p class="text-center">Use this coupon code to unlock a 25% discount on your subscription.</p>
 			</div>
-			<!-- <div class="modal-footer">
-			  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-			  <button type="button" class="btn btn-primary">Save changes</button>
-			</div> -->
 		  </div>
 		</div>
 	  </div>

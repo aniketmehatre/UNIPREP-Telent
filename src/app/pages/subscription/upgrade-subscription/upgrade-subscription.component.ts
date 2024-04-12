@@ -22,18 +22,11 @@ export class UpgradeSubscriptionComponent implements OnInit {
   selectedButton: any;
   countryList: any;
   breadCrumb: MenuItem[] = [];
-  selectedCountry: any[] = [2, 3];
   isInstructionVisible: boolean = false;
-  @Input() billing!: any | null;
-  @Input() subscriptions!: Subscription | null;
-  @Input() history: OrderHistory[] = [];
-  @Output() upgrade = new EventEmitter();
-
   topupcountries = false;
   topupvalidity = false;
   subscriptionList: any = [];
   showPayLoading = false;
-
   subscriptionTopupList: any = [];
   couponInput: any = '';
   subscriptionTotal: any = '0.00';
@@ -55,8 +48,6 @@ export class UpgradeSubscriptionComponent implements OnInit {
   subscriptionDetails: any;
   success!: SubscriptionSuccess;
   discountPercentage: any;
-  @Output() showHistory = new EventEmitter();
-  @Input() showHistoryBtn: any;
   existingSubscription: any[] = [];
   showCross: boolean = false;
   iscouponReadonly: boolean = false;
@@ -128,7 +119,15 @@ export class UpgradeSubscriptionComponent implements OnInit {
       this.subscriptionList = filteredData;
       this.subscriptionList.map((item: any) => this.currency = item.currency);
       if (canChangeSubscription == "canSubscribeAll") {
-        this.subscriptionList.map((item: any) => item.available = true);
+        this.subscriptionList.map((item: any) => {
+          item.available = true;
+          if(this.existingSubscription[0]?.plan == "Entrepreneur" && item.subscription_plan != "Entrepreneur"){
+            item.available = false;
+          }
+          if(this.existingSubscription[0]?.plan == "Career" && item.subscription_plan == "Student"){
+            item.available = false
+          }
+      });
       }
       if (canChangeSubscription == "canSubscribeSome") {
         this.subscriptionList.map((item: any) => {
@@ -136,7 +135,7 @@ export class UpgradeSubscriptionComponent implements OnInit {
           if (this.existingSubscription[0]?.plan == "Student" && item.subscription_plan != "Student") {
             item.available = true;
           }
-          if (this.existingSubscription[0]?.plan == "Career" && item.subscription_plan != "Student" && item.subscription_plan != "Career") {
+          if (this.existingSubscription[0]?.plan == "Career" && item.subscription_plan == "Entrepreneur") {
             item.available = true;
           }
           if (this.existingSubscription[0].plan == "Entrepreneur") {
@@ -147,19 +146,6 @@ export class UpgradeSubscriptionComponent implements OnInit {
       this.plansLoaded = true;
 
     });
-    this.authservice.getNewUserTimeLeft().subscribe(res => {
-
-      this.isPlanExpired = res.time_left.plan == "subscription_expired" ? true : false;
-
-      this.subscriptionList.forEach((item: any) => {
-        item.country = item.country.split(',').map(Number);
-        item.selected = false;
-        item.selectedCountry = {};
-        item.filteredCountryList = this.countryList;
-        item.selectedCountry = this.countryList.find((country: any) => country.id === Number(this.user?.interested_country_id));
-        item.isActive = item.popular == 1 ? true : false;
-      });
-    })
   }
 
   // getSubscriptionTopupList() {
@@ -256,10 +242,7 @@ export class UpgradeSubscriptionComponent implements OnInit {
         const filteredData = response.subscriptions.filter((item: any) => item.popular !== 1);
         filteredData.splice(1, 0, ...mostPopularOnes);
         this.subscriptionList = filteredData;
-        this.subscriptionList.map((item: any) => {
-          this.currency = item.currency;
-          this.selectedCountry
-        });
+        this.subscriptionList.map((item: any) => this.currency = item.currency);
         this.plansLoaded = true;
         this.getPlanexpire();
       })
@@ -271,14 +254,9 @@ export class UpgradeSubscriptionComponent implements OnInit {
       this.isPlanExpired = res.time_left.plan == "subscription_expired" ? true : false;
 
       this.subscriptionList.forEach((item: any) => {
-        item.country = item.country.split(',').map(Number);
         item.selected = false;
-        item.selectedCountry = {};
-        item.filteredCountryList = this.countryList;
-        item.selectedCountry = this.countryList.find((country: any) => country.id === Number(this.user?.interested_country_id));
         item.isActive = item.popular == 1 ? true : false;
         item.available = false;
-
         if (this.existingSubscription[0]?.plan == "Student") {
           item.available = true;
         }
@@ -359,7 +337,7 @@ export class UpgradeSubscriptionComponent implements OnInit {
         if (this.selectedSubscriptionDetails) {
           let data = {
             subscriptionId: this.selectedSubscriptionDetails.id,
-            countryId: this.selectedSubscriptionDetails.selectedCountry?.id,
+            countryId: Number(this.user?.interested_country_id),
             finalPrice: this.checkoutTotal == '' ? this.subscriptionTotal : this.checkoutTotal,
             couponApplied: this.iscouponReadonly ? 1 : 0,
             coupon: this.iscouponReadonly ? this.couponInput : '',
@@ -388,7 +366,7 @@ export class UpgradeSubscriptionComponent implements OnInit {
         if (this.selectedSubscriptionDetails) {
           let data = {
             subscriptionId: this.selectedSubscriptionDetails.id,
-            countryId: this.selectedSubscriptionDetails.selectedCountry.id,
+            countryId: Number(this.user?.interested_country_id),
             finalPrice: this.checkoutTotal,
             couponApplied: this.couponInput ? 1 : 0,
             coupon: this.couponInput,
