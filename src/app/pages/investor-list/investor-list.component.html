@@ -6,27 +6,28 @@
 					<i class="pi pi-search"></i>
 					<input class="w-100 px-5 py-2" type="text" placeholder="Search in Investor List" pInputText [(ngModel)]="valueNearYouFilter" (input)="performSearch($event)" />
 				</div>
-				<span class="d-flex justify-content-start p-2">
+				<span class="d-flex justify-content-start p-2" style="white-space: nowrap;">
 					<input type="checkbox" class="me-0" style="transform: scale(1.5);" [(ngModel)]="selectAllCheckboxes" (click)="selectAllCheckbox()" id="selectAllcheckbox">
 					<label class="p-2" for="selectAllcheckbox">Select All</label>
 					<span class="p-2">Selected : {{selectedInvestors}}</span>
+					<button class="btn btn-primary text-small" (click)="viewFavourites()" type="button">{{viewFavouritesLabel}}</button>
 				</span>
 			</div>
 			<div class="col-md-6 text-center">
 				<h5 class="select-title mb-1" tooltipPosition="top" pTooltip="">INVESTOR LIST</h5>
 			</div>
 			<div class="col-md-3 text-end">
-				<span class="d-flex justify-content-end mt-3 gap-2">
-					<button class="btn btn-primary text-small" (click)="viewFavourites()" type="button">{{viewFavouritesLabel}}</button>
+				<span class="d-flex justify-content-end mt-3 gap-2" style="white-space: nowrap;">
 					<button class="btn btn-primary text-small investor-guidlines" (click)="investorGuidlines()" type="button">Investor Guidelines</button>
 					<button class="btn btn-primary text-small investor-guidlines" (click)="buyCredits()" type="button">Buy Credits</button>
-					<button class="btn btn-primary text-small ps-3 pe-3 pt-2 pb-2 br-8" (click)="filterBy()" type="button">Filter by</button>
+					<button class="btn btn-primary text-small exportButton" (click)="exportData()" type="button">Export <span class="exportCount">{{exportCreditCount}}</span></button>
 				</span>
-				<div class="d-flex w-100 align-items-center justify-content-end p-2" style="white-space: nowrap;">
+				<div class="d-flex w-100 align-items-center justify-content-end p-2 gap-2" style="white-space: nowrap;">
+					<button class="btn btn-primary text-small ps-3 pe-3 pt-2 pb-2 br-8 p-1" style="background-color: #FF9113 !important;" (click)="openReport()" type="button">Report</button>
 					<div class="pe-2">
 						<span class="text-muted text-small"><strong>Total Investors : {{ totalInvestorsCount }}</strong></span>
 					</div>
-					<button class="btn btn-primary text-small exportButton" (click)="exportData()" type="button">Export <span class="exportCount">{{exportCreditCount}}</span></button>
+					<button class="btn btn-primary text-small ps-3 pe-3 pt-2 pb-2 br-8" (click)="filterBy()" type="button">Filter by</button>
 				</div>
 			</div>
 		</div>

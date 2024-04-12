@@ -6,6 +6,7 @@ import { AuthService } from 'src/app/Auth/auth.service';
 import { Route, Router } from '@angular/router';
 import { UserManagementService } from '../user-management/user-management.service';
 import { MessageService } from 'primeng/api';
+import { DataService } from 'src/app/data.service';
 
 @Component({
   selector: 'uni-company-list',
@@ -43,6 +44,7 @@ export class CompanyListComponent implements OnInit {
     private router: Router,
     private userManagementService: UserManagementService,
     private toast: MessageService,
+    private dataService: DataService,
   ) {
     this.filterForm = this.fb.group({
       company_name: [''],
@@ -314,6 +316,24 @@ export class CompanyListComponent implements OnInit {
       this.router.navigate(["/pages/export-credit"]);
     }
     
+  }
+
+  openReport(){
+    if(this.selectedCompanies == 1){
+      let reportId = this.companyListData.find(item=> item.isChecked == 1).id;
+      //console.log(reportId);
+      let data = {
+        isVisible: true,
+        questionId: reportId,
+        reporttype:6
+      };
+      //console.log(data);
+      this.dataService.openReportWindow(data);
+    }else if(this.selectedCompanies == 0){
+      this.toast.add({severity: "error",summary: "Error",detail: "Please make sure you have select any Scholarship!",});
+    }else if(this.selectedCompanies > 1){
+      this.toast.add({severity: "error",summary: "Error",detail: "Please select only one scholarship at a time!",});
+    }
   }
 }
 
