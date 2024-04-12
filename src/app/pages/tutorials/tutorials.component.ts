@@ -35,6 +35,7 @@ export class TutorialsComponent implements OnInit {
   }
   openNextPageLink:any;
   openVideoPopup(link: any): void {
+    this.openNextPageLink=link
     // Check if it's a YouTube video link
     if (this.isYoutubeVideoLink(link)) {
       // If it's a YouTube video link, extract the video ID and construct the embeddable URL

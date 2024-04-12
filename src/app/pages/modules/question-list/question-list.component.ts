@@ -718,36 +718,43 @@ export class QuestionListComponent implements OnInit {
   }
   shareViaWhatsapp(){
     let url=window.location.href + '&&' + this.selectedQuestionData?.id
+    console.log(this.selectedQuestionData);
+    console.log(url);
     this.meta.updateTag({ property:'og:url', content:url});
     const shareUrl = `whatsapp://send?text=${encodeURIComponent(url)}`;
     window.open(shareUrl, '_blank');
   }
   shareViaInstagram(){
     let url=window.location.href + '&&' + this.selectedQuestionData?.id
+    console.log(url);
     this.meta.updateTag({ property:'og:url', content:url});
     const shareUrl = `https://www.instagram.com?url=${encodeURIComponent(url)}`;
     window.open(shareUrl, '_blank');
   }
   shareViaFacebook(){
     let url=window.location.href + '&&' + this.selectedQuestionData?.id
+    console.log(url);
     this.meta.updateTag({ property:'og:url', content:url});
     const shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`;
     window.open(shareUrl, '_blank');
   }
   shareViaLinkedIn(){
     let url=window.location.href + '&&' + this.selectedQuestionData?.id
+    console.log(url);
     this.meta.updateTag({ property:'og:url', content:url});
     const shareUrl = `https://www.linkedin.com/shareArticle?url=${encodeURIComponent(url)}`;
     window.open(shareUrl, '_blank');
   }
   shareViaTwitter(){
     let url=window.location.href + '&&' + this.selectedQuestionData?.id
+    console.log(url);
     this.meta.updateTag({ property:'og:url', content:url});
     const shareUrl = `https://twitter.com/intent/tweet?url=${encodeURIComponent(url)}`;
     window.open(shareUrl, '_blank');
   }
   shareViaMail(){
     let url=window.location.href + '&&' + this.selectedQuestionData?.id
+    console.log(url);
     this.meta.updateTag({ property:'og:url', content:url});
     const shareUrl = `mailto:?body=${encodeURIComponent(url)}`;
     window.open(shareUrl, '_blank');

@@ -154,6 +154,11 @@ export class SidenavComponent {
       image: "fa-solid fa-calendar-days",
     },
     {
+      title: "My Certificate",
+      url: "/pages/mycertificate",
+      image: "fa-solid fa-calendar-days",
+    },
+    {
       title: "Support",
       url: "",
       image: "",
