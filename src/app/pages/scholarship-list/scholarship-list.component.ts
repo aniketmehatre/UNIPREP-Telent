@@ -375,17 +375,16 @@ export class ScholarshipListComponent implements OnInit {
   // }
 
   openReport() {
-    console.log(this.selectedCheckboxCount);
-    console.log(this.exportCreditCount);
-    console.log(this.exportDataIds);
-    console.log(this.selectedScholarship);
+    
     if(this.selectedScholarship == 1){
+      let reportId = this.scholarshipData.find(item=> item.isChecked == 1).id;
+      //console.log(reportId);
       let data = {
         isVisible: true,
-        questionId: this.exportDataIds[0],
+        questionId: reportId,
         reporttype:4
       };
-      console.log(data);
+      //console.log(data);
       this.dataService.openReportWindow(data);
     }else if(this.selectedScholarship == 0){
       this.toast.add({severity: "error",summary: "Error",detail: "Please make sure you have select any Scholarship!",});
@@ -419,6 +418,7 @@ export class ScholarshipListComponent implements OnInit {
   selectAllCheckbox(){
     this.selectedCheckboxCount = 0;
     this.selectAllCheckboxes = !this.selectAllCheckboxes;
+    console.log(this.scholarshipData);
     if(this.selectAllCheckboxes){
       this.scholarshipData.forEach(item=>{
         item.isChecked = 1;
@@ -471,7 +471,6 @@ export class ScholarshipListComponent implements OnInit {
   onCheckboxChange(event: any){
     const isChecked = (event.target as HTMLInputElement).checked;
     this.selectedScholarship = isChecked ? this.selectedScholarship + 1 : this.selectedScholarship - 1;
-
     if(isChecked == false){
       if(this.selectedScholarship){
         this.selectAllCheckboxes = false;

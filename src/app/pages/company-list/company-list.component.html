@@ -6,32 +6,30 @@
 					<i class="pi pi-search"></i>
 					<input class="w-100 px-5 py-2" type="text" placeholder="Search in Company List .." pInputText [(ngModel)]="valueNearYouFilter" (input)="performSearch($event)" (click)="searchClick()" id="searchInput" />
 				</div>
-				<span class="d-flex justify-content-start p-2">
+				<span class="d-flex justify-content-start p-2" style="white-space: nowrap;">
 					<input type="checkbox" class="me-0" style="transform: scale(1.5);" [(ngModel)]="selectAllCheckboxes" (click)="selectAllCheckbox()" id="selectAllcheckbox">
 					<label class="p-2" for="selectAllcheckbox">Select All</label>
 					<span class="p-2">Selected : {{selectedCompanies}}</span>
+					<button class="btn btn-primary text-small" (click)="viewFavourites()" type="button">{{viewFavouritesLabel}}</button>
 				</span>
 			</div>
 			<div class="col-md-6 text-center order-md-2 order-1">
 				<h5 class="select-title mb-1" tooltipPosition="top" pTooltip="">COMPANY LIST</h5>
 			</div>
-			<div class="col-md-3 text-end order-md-3 order-3">
+			<div class="col-md-3 text-end order-md-3 order-3" style="white-space: nowrap;">
 				<span class="d-flex justify-content-end mt-3 gap-2">
-					<button class="btn btn-primary text-small" (click)="viewFavourites()" type="button">{{viewFavouritesLabel}}</button>
 					<button class="btn btn-primary text-small company-guidlines" (click)="companyGuidlines()" type="button">Company Guidlines</button>
 					<button class="btn btn-primary text-small company-guidlines" (click)="buyCredits()" type="button">Buy Credits</button>
-					<button class="btn btn-primary text-small ps-3 pe-3 pt-2 pb-2 br-8" (click)="filterBy()" type="button">Filter by</button>
-					<!-- <button class="btn btn-danger ps-3 pe-3 pt-2 pb-2" (click)="resetFilter()"
-                  style="border-radius: 8px; color: #fff;" type="button">
-                  Reset</button> -->
+					<button class="btn btn-primary text-small exportButton" (click)="exportData()" type="button">Export <span class="exportCount">{{exportCreditCount}}</span></button>
 				</span>
-				<div class="d-flex w-100 align-items-center justify-content-end">
+				<div class="d-flex w-100 align-items-center justify-content-end gap-2 mt-3">
+					<button class="btn btn-primary text-small ps-3 pe-3 pt-2 pb-2 br-8 p-1" style="background-color: #FF9113 !important;" (click)="openReport()" type="button">Report</button>
+					<button class="btn btn-primary text-small ps-3 pe-3 pt-2 pb-2 br-8" (click)="filterBy()" type="button">Filter by</button>
 					<div class="pe-2">
 						<span class="text-muted text-small"
 							><strong>Total Companies : {{ totalCompanyCount }}</strong></span
 						>
 					</div>
-					<button class="btn btn-primary text-small exportButton" (click)="exportData()" type="button">Export <span class="exportCount">{{exportCreditCount}}</span></button>
 				</div>
 			</div>
 		</div>
