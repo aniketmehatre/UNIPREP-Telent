@@ -373,7 +373,7 @@ export class QuizComponent implements OnInit {
       });
     })
   }
-  quizcount: any
+  quizcount: number=0
   checkquizquestioncount() {
     this.quizData = [];
     var data = {
@@ -382,7 +382,7 @@ export class QuizComponent implements OnInit {
       submoduleId: this.universityidforquiz
     }
     this.moduleListService.quizCount(data).subscribe((res) => {
-      this.quizcount = res.count
+      this.quizcount = res.count>0? res.count:0;
       console.log(res);
       this.quizData = res.quizquestion.map((val: any) => {
         let number = 1;
