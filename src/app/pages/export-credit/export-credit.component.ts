@@ -24,6 +24,7 @@ export class ExportCreditComponent implements OnInit {
 
   loadModuleList(): void{
     this.exportcreditservice.getModulesList().subscribe((responce) =>{
+      console.log(responce);
       this.moduleList = responce;
     });
   }

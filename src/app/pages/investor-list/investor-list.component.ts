@@ -316,7 +316,9 @@ export class InvestorListComponent implements OnInit {
       let data = {
         isVisible: true,
         questionId: reportId,
-        reporttype:5
+        reporttype:5,
+        moduleId:5,
+        report_mode: "other_module"
       };
       this.dataService.openReportWindow(data);
     }else if(this.selectedInvestors == 0){

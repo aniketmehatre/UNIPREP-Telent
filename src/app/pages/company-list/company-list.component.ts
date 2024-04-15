@@ -325,7 +325,9 @@ export class CompanyListComponent implements OnInit {
       let data = {
         isVisible: true,
         questionId: reportId,
-        reporttype:6
+        reporttype:6,
+        moduleId:6,
+        report_mode: "other_module"
       };
       //console.log(data);
       this.dataService.openReportWindow(data);

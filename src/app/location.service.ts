@@ -93,6 +93,13 @@ export class LocationService {
         });
     }
 
+    getModuleReportOptionLists(data: any){
+        const headers = new HttpHeaders().set("Accept", "application/json");
+        return this.http.post<any>(environment.ApiUrl + "/getreportoptionforall", data, {
+            headers: headers,
+        });
+    }
+
     getCountry() {
         const headers = new HttpHeaders().set("Accept", "application/json");
         return this.http.get<any>(environment.ApiUrl + "/country", {

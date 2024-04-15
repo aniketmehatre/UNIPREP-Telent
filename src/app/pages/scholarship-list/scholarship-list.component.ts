@@ -382,7 +382,9 @@ export class ScholarshipListComponent implements OnInit {
       let data = {
         isVisible: true,
         questionId: reportId,
-        reporttype:4
+        reporttype:4,
+        moduleId:4,
+        report_mode: "other_module"
       };
       //console.log(data);
       this.dataService.openReportWindow(data);

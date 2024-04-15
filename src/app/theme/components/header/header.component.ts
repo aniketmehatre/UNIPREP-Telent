@@ -313,7 +313,18 @@ export class HeaderComponent implements OnInit, OnDestroy {
         this.selectedGenMod = 2;
         this.openReportModalFromMoudle(this.op, event);
         this.reportType = 3;
-        this.getReportOption();
+        
+        if(data.report_mode && data.report_mode == "other_module"){
+          this.subs.sink = this.locationService.getModuleReportOptionLists(data).subscribe((response) => {
+            this.reportOptionList = [
+              { id: null, reportoption_name: "Select" },
+              ...response.reportOptions,
+            ];
+            this.reportType = data.reporttype;
+          })
+        }else{
+          this.getReportOption();
+        }
         this.isVisibleModulesMenu = true;
         this.moduleNgModel = data.moduleId;
         this.subModuleNgModel = data.subModuleId;
@@ -634,7 +645,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
       reportOption: this.reportSubmitForm.value.reportOption,
       comment: this.reportSubmitForm.value.comment,
       countryId: this.selectedCountryId,
+      type_of_report: (this.reportType == 4 || this.reportType == 5 || this.reportType == 6 || this.reportType == 7) ? this.reportType : undefined
     };
+    
     let maildata = {
       reportOption: this.reportSubmitForm.value.reportOption,
       comment: this.reportSubmitForm.value.comment,
