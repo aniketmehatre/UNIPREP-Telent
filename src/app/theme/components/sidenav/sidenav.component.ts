@@ -151,12 +151,12 @@ export class SidenavComponent {
     {
       title: "Quiz",
       url: "/pages/modules/quizmodule",
-      image: "fa-solid fa-calendar-days",
+      image: "fa-solid fa-clock-desk",
     },
     {
       title: "My Certificate",
       url: "/pages/mycertificate",
-      image: "fa-solid fa-calendar-days",
+      image: "fa-solid fa-file-certificate",
     },
     {
       title: "Support",
