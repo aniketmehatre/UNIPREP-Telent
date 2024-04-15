@@ -82,7 +82,7 @@ export class UpgradeSubscriptionComponent implements OnInit {
     this.authService.getCountry().subscribe((data) => {
       this.ngxService.stop();
       this.countryList = data;
-      this.loadExistingSubscription();
+     
       // this.getSubscriptionTopupList();
 
     }, error => {
@@ -538,7 +538,7 @@ export class UpgradeSubscriptionComponent implements OnInit {
       window.location.reload();
     }, 500);
   }
-  getLocation(): void {
+   getLocation(): void {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition((position) => {
         const longitude = position.coords.longitude;
@@ -571,6 +571,7 @@ export class UpgradeSubscriptionComponent implements OnInit {
         else {
           this.continent = 'Not found';
         }
+        this.loadExistingSubscription();
       },
       error => {
         console.error('Error:', error);

@@ -197,7 +197,7 @@ export class SubscriptionHistoryComponent implements OnInit {
     }
     let creditObj = this.accountBillingList.find((item: any) => item.product == "Credit");
 
-    if (creditObj.id == id) {
+    if (creditObj?.id == id) {
       data.payment_type = creditObj.payment_type;
     }
     this.subscriptionService.downloadInvoice(data).subscribe((response) => {
