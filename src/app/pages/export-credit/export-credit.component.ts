@@ -1,11 +1,10 @@
-import { Component, OnInit, EventEmitter, Output } from '@angular/core';
+import { Component, OnInit} from '@angular/core';
 import { ExportCreditService } from './export-credit.service';
-import { AuthService } from 'src/app/Auth/auth.service';
 import { MessageService } from 'primeng/api';
 import { environment } from '@env/environment';
 import { WindowRefService } from '../subscription/window-ref.service';
 import { Router } from '@angular/router';
-import { ResponsiveCSSClassPipe } from 'ngx-extended-pdf-viewer';
+import { HttpClient } from '@angular/common/http';
 @Component({
   selector: 'uni-export-credit',
   templateUrl: './export-credit.component.html',
@@ -15,16 +14,62 @@ export class ExportCreditComponent implements OnInit {
  
   moduleList:any[] = [];
   totalPayableAmount:number = 0;
+  userLocation:any;
+  currentCountry: string = "";
+  continent: string = "";
 
-  constructor(private exportcreditservice:ExportCreditService, private toastr:MessageService, private winRef: WindowRefService, private router: Router) { }
+  constructor(private exportcreditservice:ExportCreditService, private toastr:MessageService, private winRef: WindowRefService, private router: Router, private http: HttpClient) { }
 
   ngOnInit(): void {
     this.loadModuleList();
+    this.getUserLocation();
+  }
+
+  getUserLocation(){
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition((position) => {
+        const longitude = position.coords.longitude;
+        const latitude = position.coords.latitude;
+        this.findCountry(longitude, latitude);
+      });
+    } else {
+      console.log("No support for geolocation")
+    }
+  }
+
+  findCountry(longitude: number, latitude: number): void {
+    const url = `https://nominatim.openstreetmap.org/reverse?lat=${latitude}&lon=${longitude}&format=json`;
+    this.http.get<any>(url).subscribe(
+      (data: any) => {
+        this.currentCountry = data?.address?.country;
+        this.findContinent(this.currentCountry);
+      },
+      (error: any) => {
+        console.log('Error fetching location:', error);
+      }
+    );
+  }
+
+  findContinent(countryName: string) {
+    this.http.get(`https://restcountries.com/v3.1/name/${countryName}`).subscribe(
+      (data: any) => {
+        if (data?.length > 0) {
+          this.continent = data[data?.length - 1].continents[0];
+        }
+        else {
+          this.continent = 'Not found';
+        }
+        //this.loadExistingSubscription();
+      },
+      error => {
+        console.error('Error:', error);
+        this.continent = 'Error';
+      }
+    );
   }
 
   loadModuleList(): void{
     this.exportcreditservice.getModulesList().subscribe((responce) =>{
-      console.log(responce);
       this.moduleList = responce;
     });
   }
@@ -34,6 +79,8 @@ export class ExportCreditComponent implements OnInit {
     if(this.totalPayableAmount == 0){
       this.toastr.add({severity:"error", summary: "error", detail: "Please add some Credits"});
       return;
+    }else{
+      console.log(this.moduleList);
     }
     this.exportcreditservice.placeOrder(this.moduleList).subscribe((response)=>{
       this.payWithRazor(response);
@@ -121,6 +168,7 @@ export class ExportCreditComponent implements OnInit {
 
   onInputChangeValue(event: any, module_id:number){
     this.totalPayableAmount = 0;
+    console.log(this.moduleList);
     this.moduleList.forEach(item =>{
       if(module_id == item.id){
         item.inputvalue = event.value;
