@@ -4,7 +4,7 @@ import { FormBuilder, FormGroup } from "@angular/forms";
 import { AuthService } from 'src/app/Auth/auth.service';
 import { Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
-
+import { DataService } from 'src/app/data.service';
 @Component({
   selector: 'uni-pitch-desk',
   templateUrl: './pitch-desk.component.html',
@@ -29,9 +29,7 @@ export class PitchDeskComponent implements OnInit {
   selectedCheckboxCount: number = 0;
   exportCreditCount: number = 0;
   exportDataIds:any = [];
-  isPdfLoaded: boolean = false;
-  constructor(private pitchDesk:PitchDeskService, private fb: FormBuilder,private router: Router,
-              private authService: AuthService, private toast: MessageService) {
+  constructor(private pitchDesk:PitchDeskService, private fb: FormBuilder,private router: Router,private authService: AuthService, private toast: MessageService, private dataService: DataService) { 
     this.filterForm = this.fb.group({
       pitchdeck_name: [''],
       country: [''],
@@ -238,5 +236,23 @@ export class PitchDeskComponent implements OnInit {
       this.router.navigate(["/pages/export-credit"]);
     }
     
+  }
+
+  openReport(){
+    if(this.selectedCheckboxCount == 1){
+      let reportId = this.pitchDeskList.find(item=> item.isChecked == 1).id;
+      let data = {
+        isVisible: true,
+        questionId: reportId,
+        reporttype:7,
+        moduleId:7,
+        report_mode: "other_module"
+      };
+      this.dataService.openReportWindow(data);
+    }else if(this.selectedCheckboxCount == 0){
+      this.toast.add({severity: "error",summary: "Error",detail: "Please select at least one pitch deck!",});
+    }else if(this.selectedCheckboxCount > 1){
+      this.toast.add({severity: "error",summary: "Error",detail: "Please select only one Pitch Deck at a time!",});
+    }
   }
 }
