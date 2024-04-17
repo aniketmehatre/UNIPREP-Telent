@@ -1,7 +1,15 @@
 <div class="card chatcard">
   <div class="card readingcard">
     <div class="card-body">
-      <h3 class="text-center uniprep-primary">Personal Global Advisor</h3>
+        <div class="row justify-content-center align-items-center">
+          <div class="col-md-1 col-1 text-start">
+            <p-button (click)="goBack()" icon="pi pi-arrow-left" styleClass="p-button-rounded p-button-text text-dark"></p-button>
+          </div>
+          <div class="col-md-10 col-10 text-center">
+            <h3 class="text-center uniprep-primary">Personal Global Advisor</h3>
+          </div>
+          <div class="col-md-1 col-1">&nbsp;</div>
+        </div>
       <h5 class="mb-0 uniprep-primary text-center">Hello {{ username }}.</h5>
       <div class="row">
         <div class="col-md-3 col-8 order-md-1 order-2">

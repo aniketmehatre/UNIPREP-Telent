@@ -99,7 +99,7 @@ export class DashboardService {
     const headers = new HttpHeaders().set("Accept", "application/json");
     return this.http.post<any>(
       environment.ApiUrl + "/freetrailcontinue",
-      data.phone ? data : null,
+      data,
       {
         headers: headers,
       }

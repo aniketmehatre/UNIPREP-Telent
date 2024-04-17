@@ -35,6 +35,7 @@ export class CompanyListComponent implements OnInit {
   selectAllCheckboxes = false;
   exportDataIds:any[] = [];
   exportCreditCount: number = 0;
+  favCount:number=0;
 
   constructor(
     private _location: Location,
@@ -139,6 +140,7 @@ export class CompanyListComponent implements OnInit {
     }
     this.companyListService.getCompanyList(data).subscribe((response) => {
       this.companyListData = response.data;
+      this.favCount=response.favourite_count;
       this.exportCreditCount = response.credit_count ? response.credit_count : 0;
       if (isFavourite != 1) {
         this.allCompanyList=response.data;
@@ -212,6 +214,7 @@ export class CompanyListComponent implements OnInit {
   }
   bookmarkQuestion(companyId: any, isFav: any) {
     isFav = isFav != '1' ? true : false;
+    this.favCount=isFav == true ? this.favCount+1 : this.favCount-1;
     this.companyListService.bookmarkCompanyData(companyId, this.PersonalInfo.user_id, isFav).subscribe((response) => {
       let companyData = this.companyListData.find(item => item.id == companyId);
       isFav == true ? companyData.favourite = 1 : companyData.favourite = null;
