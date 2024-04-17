@@ -18,6 +18,7 @@ export class RecommendationsComponent implements OnInit {
   selectedData: { [key: string]: boolean } = {};
   activePageIndex:number = 0;
   invalidClass:boolean = false;
+
   products = [
     {
       id: '1',
@@ -60,6 +61,7 @@ export class RecommendationsComponent implements OnInit {
       
       if(res.success){
         this.recommended = res;
+        console.log(res);
       }
     })
   }
@@ -123,6 +125,10 @@ export class RecommendationsComponent implements OnInit {
   }
 
   subscribeNow(){
-    this.router.navigate(["/pages/subscriptions"]);
+    this.router.navigate(["/pages/subscriptions/upgrade-subscription"]);
+  }
+
+  moduleRedirect(moduleLink: string){
+    this.router.navigate([`/pages/${moduleLink}`]);
   }
 }

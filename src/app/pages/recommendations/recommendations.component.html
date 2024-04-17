@@ -72,7 +72,7 @@
                         <h3 class="text-center p-2" *ngIf="recommended?.planname == 'no'">UNIPREP is not the right fit for you.</h3>
                         <div class="d-flex flex-wrap text-center justify-content-center">
                             <ng-container *ngIf="recommendList.details && recommendList.details.length">
-                                <p-card class="card m-2 module-list" *ngFor="let modulesList of recommendList.details">
+                                <p-card (click)="moduleRedirect(modulesList.module_link)" class="card m-2 module-list hyperlink" *ngFor="let modulesList of recommendList.details">
                                     <div class="list text-center">
                                         <img src="{{modulesList.image_link}}" class="img-fluid" alt="Module Image" width="100">
                                         <h4 class="module-name">{{modulesList.name}}</h4>

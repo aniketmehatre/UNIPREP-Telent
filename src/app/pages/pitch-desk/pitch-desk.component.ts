@@ -230,9 +230,9 @@ export class PitchDeskComponent implements OnInit {
       };
       this.dataService.openReportWindow(data);
     }else if(this.selectedCheckboxCount == 0){
-      this.toast.add({severity: "error",summary: "Error",detail: "Please make sure you have select any Scholarship!",});
+      this.toast.add({severity: "error",summary: "Error",detail: "Please select at least one pitch deck!",});
     }else if(this.selectedCheckboxCount > 1){
-      this.toast.add({severity: "error",summary: "Error",detail: "Please select only one scholarship at a time!",});
+      this.toast.add({severity: "error",summary: "Error",detail: "Please select only one Pitch Deck at a time!",});
     }
   }
 }

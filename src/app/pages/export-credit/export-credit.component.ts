@@ -5,6 +5,14 @@ import { environment } from '@env/environment';
 import { WindowRefService } from '../subscription/window-ref.service';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
+
+interface GeolocationPosition {
+  coords: {
+    latitude: number;
+    longitude: number;
+  };
+}
+
 @Component({
   selector: 'uni-export-credit',
   templateUrl: './export-credit.component.html',
@@ -17,14 +25,36 @@ export class ExportCreditComponent implements OnInit {
   userLocation:any;
   currentCountry: string = "";
   continent: string = "";
-
+  ipAddress:string = "";
+  
   constructor(private exportcreditservice:ExportCreditService, private toastr:MessageService, private winRef: WindowRefService, private router: Router, private http: HttpClient) { }
 
   ngOnInit(): void {
-    this.loadModuleList();
     this.getUserLocation();
+    // this.getLocationForUsers();
+    this.loadModuleList();
   }
 
+  // getLocationForUsers(){
+  //   navigator.geolocation.getCurrentPosition((position: GeolocationPosition) => {
+  //     const latitude = position.coords.latitude;
+  //     const longitude = position.coords.longitude;
+  //     // const userIp = getUserIpAddress();
+  //     // Use latitude and longitude to fetch country data (method 2)
+  //     this.http.get('http://http://localhost:4200/getIP').subscribe((res: any) => {
+  //       this.ipAddress = res;
+  //     });
+  //     console.log(this.ipAddress);
+  //     console.log(latitude);
+  //     console.log(longitude);
+  //   });
+  // }
+
+  // getUserIpAddress(){
+  //   this.http.get('http://localhost:3000/getIP').subscribe((res: any) => {
+  //     this.ipAddress = res;
+  //   });
+  // }
   getUserLocation(){
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition((position) => {
@@ -41,7 +71,9 @@ export class ExportCreditComponent implements OnInit {
     const url = `https://nominatim.openstreetmap.org/reverse?lat=${latitude}&lon=${longitude}&format=json`;
     this.http.get<any>(url).subscribe(
       (data: any) => {
+        console.log(data);
         this.currentCountry = data?.address?.country;
+        console.log(this.currentCountry);
         this.findContinent(this.currentCountry);
       },
       (error: any) => {
@@ -55,6 +87,7 @@ export class ExportCreditComponent implements OnInit {
       (data: any) => {
         if (data?.length > 0) {
           this.continent = data[data?.length - 1].continents[0];
+          console.log(this.continent);
         }
         else {
           this.continent = 'Not found';

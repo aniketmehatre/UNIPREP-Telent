@@ -332,9 +332,9 @@ export class CompanyListComponent implements OnInit {
       //console.log(data);
       this.dataService.openReportWindow(data);
     }else if(this.selectedCompanies == 0){
-      this.toast.add({severity: "error",summary: "Error",detail: "Please make sure you have select any Scholarship!",});
+      this.toast.add({severity: "error",summary: "Error",detail: "Please select at least one Company!",});
     }else if(this.selectedCompanies > 1){
-      this.toast.add({severity: "error",summary: "Error",detail: "Please select only one scholarship at a time!",});
+      this.toast.add({severity: "error",summary: "Error",detail: "Please select only one Company at a time!",});
     }
   }
 }
