@@ -52,8 +52,8 @@ export class UpgradeSubscriptionComponent implements OnInit {
   showCross: boolean = false;
   iscouponReadonly: boolean = false;
   isPlanExpired: boolean = false;
-  currentCountry: string = "";
-  continent: string = "";
+  currentCountry: string ="India";
+  continent: string = "Asia";
   currency: string = "";
   monthlyPlan: number = 3;
   activeTabIndex: number = 0;
@@ -82,7 +82,7 @@ export class UpgradeSubscriptionComponent implements OnInit {
     this.authService.getCountry().subscribe((data) => {
       this.ngxService.stop();
       this.countryList = data;
-     
+
       // this.getSubscriptionTopupList();
 
     }, error => {
@@ -121,13 +121,13 @@ export class UpgradeSubscriptionComponent implements OnInit {
       if (canChangeSubscription == "canSubscribeAll") {
         this.subscriptionList.map((item: any) => {
           item.available = true;
-          if(this.existingSubscription[0]?.plan == "Entrepreneur" && item.subscription_plan != "Entrepreneur"){
+          if (this.existingSubscription[0]?.plan == "Entrepreneur" && item.subscription_plan != "Entrepreneur") {
             item.available = false;
           }
-          if(this.existingSubscription[0]?.plan == "Career" && item.subscription_plan == "Student"){
+          if (this.existingSubscription[0]?.plan == "Career" && item.subscription_plan == "Student") {
             item.available = false
           }
-      });
+        });
       }
       if (canChangeSubscription == "canSubscribeSome") {
         this.subscriptionList.map((item: any) => {
@@ -236,7 +236,8 @@ export class UpgradeSubscriptionComponent implements OnInit {
         continent: this.continent,
         monthly_plan: this.monthlyPlan
       }
-
+      console.log(data);
+      console.log(this.existingSubscription);
       this.subscriptionService.getSubscriptions(data).subscribe((response) => {
         const mostPopularOnes = response.subscriptions.filter((item: any) => item.popular === 1);
         const filteredData = response.subscriptions.filter((item: any) => item.popular !== 1);
@@ -318,10 +319,10 @@ export class UpgradeSubscriptionComponent implements OnInit {
   }
 
   checkout(event: Event) {
-      
+
     this.confirmModal = false;
-    if (this.existingSubscription[0].monthlyPlan > this.monthlyPlan) {
-      this.confirmSubscription(event,"Are you sure you want to upgrade to the new "+this.monthlyPlan+" month "+this.selectedSubscriptionDetails.subscription_plan+" plan? Please note that your current "+this.existingSubscription[0].monthlyPlan+" month "+this.existingSubscription[0].plan +" plan will expire upon upgrading");
+    if (this.existingSubscription[0]?.monthlyPlan > this.monthlyPlan) {
+      this.confirmSubscription(event, "Are you sure you want to upgrade to the new " + this.monthlyPlan + " month " + this.selectedSubscriptionDetails.subscription_plan + " plan? Please note that your current " + this.existingSubscription[0].monthlyPlan + " month " + this.existingSubscription[0].plan + " plan will expire upon upgrading");
     }
     else {
       this.subscribe();
@@ -395,7 +396,7 @@ export class UpgradeSubscriptionComponent implements OnInit {
       }
     );
   }
-  confirmSubscription(event: Event,message:string) {
+  confirmSubscription(event: Event, message: string) {
     this.confirmationService.confirm({
       target: event.target as EventTarget,
       message: message,
@@ -407,7 +408,7 @@ export class UpgradeSubscriptionComponent implements OnInit {
         this.subscribe();
       },
       reject: () => {
-        this.messageService.add({ severity: 'error', summary: 'Rejected', detail: 'You have rejected'});
+        this.messageService.add({ severity: 'error', summary: 'Rejected', detail: 'You have rejected' });
       }
     });
   }
@@ -538,13 +539,19 @@ export class UpgradeSubscriptionComponent implements OnInit {
       window.location.reload();
     }, 500);
   }
-   getLocation(): void {
+  getLocation(): void {
+    
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition((position) => {
         const longitude = position.coords.longitude;
         const latitude = position.coords.latitude;
         this.findCountry(longitude, latitude);
-      });
+      },
+      error=>{
+        this.loadExistingSubscription();
+        console.log("location access blocked");
+      }
+    );
     } else {
       console.log("No support for geolocation")
     }
@@ -591,10 +598,10 @@ export class UpgradeSubscriptionComponent implements OnInit {
     else {
       this.monthlyPlan = 12;
     }
-    if (this.monthlyPlan > this.existingSubscription[0].monthlyPlan) {
+    if (this.monthlyPlan > this.existingSubscription[0]?.monthlyPlan) {
       data = "canSubscribeAll";
     }
-    else if (this.monthlyPlan == this.existingSubscription[0].monthlyPlan) {
+    else if (this.monthlyPlan == this.existingSubscription[0]?.monthlyPlan) {
       this.loadExistingSubscription();
       return;
     } else {

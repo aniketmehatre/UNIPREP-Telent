@@ -23,7 +23,7 @@ import { ThemeService } from "../../../theme.service";
 import { DashboardService } from "src/app/pages/dashboard/dashboard.service";
 import { Observable, count } from "rxjs";
 import { CountryISO, SearchCountryField } from "ngx-intl-tel-input";
-import {SocialAuthService} from "@abacritt/angularx-social-login";
+import { SocialAuthService } from "@abacritt/angularx-social-login";
 // import { SocialAuthService } from "@abacritt/angularx-social-login";
 
 @Component({
@@ -91,6 +91,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   preferredCountries: CountryISO[] = [CountryISO.India];
   timeLeftInfo: any;
   freeTrialErrorMsg: string = '';
+  demoTrial: boolean = false;
   constructor(
     private router: Router,
     private locationService: LocationService,
@@ -107,6 +108,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
       this.getModuleList();
     });
     this.dataService.castValue.subscribe((data) => {
+      console.log("newuser", data)
       if (data === true) {
         this.checkNewUSerLogin();
       } else {
@@ -120,7 +122,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
       this.loadCountryList();
     });
     this.service.getTimeInfoForCard().subscribe((data) => {
-        localStorage.setItem('time_card_info', data.card_message);
+      localStorage.setItem('time_card_info', data.card_message);
 
     });
     this.timeLeftInfo = localStorage.getItem('time_card_info');
@@ -189,7 +191,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   mobileForm: any = FormGroup;
   ngOnInit() {
     this.dataService.countryId.subscribe((data: any) => {
-      if(!data){
+      if (!data) {
         let cntId = localStorage.getItem('countryId');
         this.dataService.changeCountryId(cntId!.toString());
       }
@@ -289,10 +291,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
     //     }
     //   });
     // });
-      // this.dataService.showTimeOutSourceData.subscribe((res) => {
-      //   this.checkNewUser();
-      //  this.subScribedUserCount();
-      // });
+    // this.dataService.showTimeOutSourceData.subscribe((res) => {
+    //   this.checkNewUser();
+    //  this.subScribedUserCount();
+    // });
     this.dataService.countryFlagSource.subscribe((data) => {
       if (data != "") {
         this.headerFlag = data;
@@ -313,8 +315,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
         this.selectedGenMod = 2;
         this.openReportModalFromMoudle(this.op, event);
         this.reportType = 3;
-        
-        if(data.report_mode && data.report_mode == "other_module"){
+
+        if (data.report_mode && data.report_mode == "other_module") {
           this.subs.sink = this.locationService.getModuleReportOptionLists(data).subscribe((response) => {
             this.reportOptionList = [
               { id: null, reportoption_name: "Select" },
@@ -322,7 +324,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
             ];
             this.reportType = data.reporttype;
           })
-        }else{
+        } else {
           this.getReportOption();
         }
         this.isVisibleModulesMenu = true;
@@ -336,9 +338,13 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
     this.subs.sink = this.service.getMe().subscribe((data) => {
       if (data) {
+        console.log("userdetails", data)
         //localStorage.setItem('countryId', data.userdetails[0].interested_country_id);
         this.userName = data.userdetails[0].name.toString();
         this.firstChar = this.userName.charAt(0);
+        if (data.userdetails[0].status == "demo") {
+           this.demoTrial = true;
+         }
       }
     });
 
@@ -526,8 +532,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
       const secondsLeft: number = totalSeconds % 60;
 
       this.min$ =
-        minutesLeft < 10 && minutesLeft > 0 ? "0" +  minutesLeft.toString() : minutesLeft.toString();
-        this.sec$ =
+        minutesLeft < 10 && minutesLeft > 0 ? "0" + minutesLeft.toString() : minutesLeft.toString();
+      this.sec$ =
         secondsLeft < 10 && secondsLeft > 0 ? "0" + secondsLeft.toString() : secondsLeft.toString();
 
       this.hrs$ = hoursLeft;
@@ -539,7 +545,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
         this.hrs$ = 0;
         this.min$ = 0;
         this.sec$ = 0;
-      } 
+      }
       //else {
       //   this.hrs$ = hoursLeft;
       //   this.min$ = textMin;
@@ -550,7 +556,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
         minutesLeft <= 0 &&
         this.hrs$ <= 0 &&
         this.day$ <= 0 &&
-        secondsLeft<=0 &&
+        secondsLeft <= 0 &&
         this.month$ <= 0
       ) {
         this.visibleExhasted = true;
@@ -583,20 +589,20 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
       this.timeHours = hoursLeft;
       this.timeLeftMins =
-        minutesLeft < 10 && minutesLeft > 0  ? "0" + minutesLeft : minutesLeft.toString();
-        this.timeLeftSecs =
-        secondsLeft < 10 && secondsLeft > 0  ? "0" + secondsLeft : secondsLeft.toString();
-        if(this.timeLeftMins=='00'){
-          this.timeLeftMins=0;
-        }
-        if(this.timeLeftSecs=='00'){
-          this.timeLeftSecs=0;
-        }
+        minutesLeft < 10 && minutesLeft > 0 ? "0" + minutesLeft : minutesLeft.toString();
+      this.timeLeftSecs =
+        secondsLeft < 10 && secondsLeft > 0 ? "0" + secondsLeft : secondsLeft.toString();
+      if (this.timeLeftMins == '00') {
+        this.timeLeftMins = 0;
+      }
+      if (this.timeLeftSecs == '00') {
+        this.timeLeftSecs = 0;
+      }
       if (minute <= 0 && hours <= 0 && sec <= 0) {
         this.timeHours = 0;
         this.timeLeftMins = 0;
         this.timeLeftSecs = 0;
-      } 
+      }
       // else {
       //   this.timeHours = hoursLeft;
       //   this.timeLeftMins = textMin;
@@ -606,7 +612,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
       if (
         minutesLeft <= 0 &&
         this.timeHours <= 0 &&
-        secondsLeft<= 0
+        secondsLeft <= 0
       ) {
         this.visible = true;
         clearInterval(this.timerInterval);
@@ -652,7 +658,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
       countryId: this.selectedCountryId,
       type_of_report: (this.reportType == 4 || this.reportType == 5 || this.reportType == 6 || this.reportType == 7) ? this.reportType : undefined
     };
-    
+
     let maildata = {
       reportOption: this.reportSubmitForm.value.reportOption,
       comment: this.reportSubmitForm.value.comment,
@@ -671,7 +677,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
       }, 3000);
       this.locationService
         .reportFaqQuestionaftersubmit(maildata)
-        .subscribe((res) => {});
+        .subscribe((res) => { });
     });
     this.getReportOption();
   }
@@ -692,12 +698,25 @@ export class HeaderComponent implements OnInit, OnDestroy {
     let data: any = {};
     if (this.mobileForm.valid) {
       data.phone = this.mobileForm.value.phone.number;
-      data.country_code=this.mobileForm.value.phone.dialCode;
+      data.country_code = this.mobileForm.value.phone.dialCode;
     }
+    if (this.demoTrial == true) {
+      data.demo_user=1;
+    }  
     this.dashboardService.getContineTrial(data).subscribe((res) => {
+      console.log(res);
+      if(this.demoTrial==true){
+        this.toast.add({
+          severity: "success",
+          summary: "Success",
+          detail: "Demo Trail Started",
+        });
+      }
+
       this.service.contineStatus(false);
       this.dataService.sendValue(false);
       this.freeTrial = false;
+      this.demoTrial=false;
       this.service._userContineTrial = false;
       setTimeout(() => {
         this.checkNewUser();
@@ -705,32 +724,57 @@ export class HeaderComponent implements OnInit, OnDestroy {
       }, 2000);
       return res;
     },
-    error => {
-      this.freeTrialErrorMsg = error?.message;
-    });
+      error => {
+        if(this.demoTrial==true){
+          this.toast.add({
+            severity: "danger",
+            summary: "danger",
+            detail: "Demo Trail Not Started",
+          });
+        }
+        this.freeTrialErrorMsg = error?.message;
+      });
 
   }
   onClickSubscribedUser(): void {
     let data: any = {};
     if (this.mobileForm.valid) {
       data.phone = this.mobileForm.value.phone.number;
-      data.country_code=this.mobileForm.value.phone.dialCode;
+      data.country_code = this.mobileForm.value.phone.dialCode;
+    }
+    if(this.demoTrial==true){
+data.demo_user=1;
     }
     this.dashboardService.getContineTrial(data).subscribe((res) => {
+      if(this.demoTrial==true){
+        this.toast.add({
+          severity: "success",
+          summary: "Success",
+          detail: "Demo Trail Started",
+        });
+      }
       this.freeTrial = false;
+      this.demoTrial=false;
       this.visibleExhasted = false;
       this.service._userContineTrial = false;
       this.service.contineStatus(false);
       this.dataService.sendValue(false);
       setTimeout(() => {
         this.checkNewUser();
-        this.dashboardService.isinitialstart=true;
+        this.dashboardService.isinitialstart = true;
         this.router.navigate(["/pages/subscriptions"]);
       }, 1000);
     },
-    error => {
-      this.freeTrialErrorMsg = error?.message;
-    });
+      error => {
+        if(this.demoTrial==true){
+          this.toast.add({
+            severity: "error",
+            summary: "Error",
+            detail: "Demo Trail Not Started",
+          });
+        }
+        this.freeTrialErrorMsg = error?.message;
+      });
   }
 
   checkNewUSerLogin(): void {

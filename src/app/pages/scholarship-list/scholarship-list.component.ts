@@ -47,6 +47,7 @@ export class ScholarshipListComponent implements OnInit {
   exportCreditCount: number = 0;
   exportDataIds:any = [];
   selectedScholarship: number = 0;
+  favCount:number=0;
 
   constructor(
     private fb: FormBuilder,
@@ -168,6 +169,7 @@ export class ScholarshipListComponent implements OnInit {
       .getScholarshipList(this.data)
       .subscribe((response) => {
         this.scholarshipData = response.scholarship;
+        this.favCount=response.favourite_count;
         if (isFavourite != 1) {
           this.allScholarshipList = response.scholarship;
           this.allScholarshipCount = response.count;
@@ -321,6 +323,8 @@ export class ScholarshipListComponent implements OnInit {
   }
   bookmarkQuestion(scholarshipId: any, isFav: any) {
     isFav = isFav != '1' ? true : false;
+    this.favCount=isFav == true ? this.favCount+1 : this.favCount-1;
+    
     this.scholarshipListService.bookmarkScholarshipData(scholarshipId, this.PersonalInfo.user_id, isFav).subscribe((response) => {
       let scholarshipListData = this.scholarshipData.find(item => item.id == scholarshipId);
       isFav == true ? scholarshipListData.favourite = 1 : scholarshipListData.favourite = null;

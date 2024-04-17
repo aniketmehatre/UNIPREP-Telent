@@ -11,7 +11,7 @@
 						<input type="checkbox" class="me-0" style="transform: scale(1.5);" [(ngModel)]="selectAllCheckboxes" (click)="selectAllCheckbox()" id="selectAllcheckbox">
 						<label class="p-2" for="selectAllcheckbox">Select All</label>
 						<span class="p-2">Selected : {{selectedScholarship}}</span>
-						<button class="btn btn-primary text-small" (click)="viewFavourites()" type="button">{{viewFavouritesLabel}}</button>
+						<button class="btn btn-primary text-small" (click)="viewFavourites()" type="button">{{viewFavouritesLabel}}<span class="favCount" *ngIf="viewFavouritesLabel != 'View All'">{{favCount}}</span></button>
 					</span>
 				</div>
 			</div>
