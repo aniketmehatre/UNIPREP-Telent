@@ -29,6 +29,7 @@ export class PitchDeskComponent implements OnInit {
   selectedCheckboxCount: number = 0;
   exportCreditCount: number = 0;
   exportDataIds:any = [];
+  isPdfLoaded: boolean = false
   constructor(private pitchDesk:PitchDeskService, private fb: FormBuilder,private router: Router,private authService: AuthService, private toast: MessageService, private dataService: DataService) { 
     this.filterForm = this.fb.group({
       pitchdeck_name: [''],
