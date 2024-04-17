@@ -29,7 +29,9 @@ export class PitchDeskComponent implements OnInit {
   selectedCheckboxCount: number = 0;
   exportCreditCount: number = 0;
   exportDataIds:any = [];
-  constructor(private pitchDesk:PitchDeskService, private fb: FormBuilder,private router: Router,private authService: AuthService, private toast: MessageService,) { 
+  isPdfLoaded: boolean = false;
+  constructor(private pitchDesk:PitchDeskService, private fb: FormBuilder,private router: Router,
+              private authService: AuthService, private toast: MessageService) {
     this.filterForm = this.fb.group({
       pitchdeck_name: [''],
       country: [''],
@@ -111,9 +113,29 @@ export class PitchDeskComponent implements OnInit {
   closeGuidelines(){
     this.showDiv = !this.showDiv;
   }
-
+  pdfURL: any
+  isPdfDownloadOption: any
   showPdf(url: any){
-    window.open(url, "_blank");
+    this.pdfURL = url;
+    this.isPdfLoaded = true;
+
+    if (this.planExpired) {
+      this.isPdfDownloadOption = false
+    }else{
+      this.isPdfDownloadOption = true;
+    }
+
+    //window.open(url, "_blank");
+  }
+
+  download(){
+    const parts = this.pdfURL.split('/');
+    const lastPart = parts[parts.length - 1];
+    this.pitchDesk.downloadPdf(this.pdfURL, lastPart);
+  }
+
+  goBack(){
+    this.isPdfLoaded = false;
   }
 
   clearRestriction() {

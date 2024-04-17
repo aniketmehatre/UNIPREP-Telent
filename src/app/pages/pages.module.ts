@@ -66,6 +66,7 @@ import {NgxExtendedPdfViewerModule} from "ngx-extended-pdf-viewer";
 import { ExportCreditComponent } from './export-credit/export-credit.component';
 import { QuizmenuComponent } from './quizmenu/quizmenu.component';
 import { MycertificateComponent } from './mycertificate/mycertificate.component';
+import {PdfViewerModule} from "ng2-pdf-viewer";
 
 @NgModule({
     declarations: [
@@ -134,7 +135,8 @@ import { MycertificateComponent } from './mycertificate/mycertificate.component'
         CheckboxModule,
         StepsModule,
         RadioButtonModule,
-        NgxExtendedPdfViewerModule
+        NgxExtendedPdfViewerModule,
+        PdfViewerModule
     ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })

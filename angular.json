@@ -40,7 +40,8 @@
               "src/styles.scss"
             ],
             "scripts": [
-              "node_modules/quill/dist/quill.js"
+              "node_modules/quill/dist/quill.js",
+              "node_modules/file-saver/dist/FileSaver.js"
             ]
           },
           "configurations": {
@@ -116,7 +117,9 @@
             "styles": [
               "src/styles.scss"
             ],
-            "scripts": []
+            "scripts": [
+              "node_modules/file-saver/dist/FileSaver.js"
+            ]
           }
         }
       }
