@@ -9,9 +9,9 @@ export class ExportCreditService {
 
   constructor(private http: HttpClient) { }
 
-  getModulesList() {
+  getModulesList(data: any) {
     const headers = new HttpHeaders().set("Accept", "application/json");
-    return this.http.post<any>(environment.ApiUrl + "/BuyCreditModules" ,{
+    return this.http.post<any>(environment.ApiUrl + "/BuyCreditModules" ,{ data },{
       headers: headers,
     });
   }
@@ -29,4 +29,5 @@ export class ExportCreditService {
       headers: headers,
     });
   }
+
 }

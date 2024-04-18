@@ -6,12 +6,6 @@ import { WindowRefService } from '../subscription/window-ref.service';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 
-interface GeolocationPosition {
-  coords: {
-    latitude: number;
-    longitude: number;
-  };
-}
 
 @Component({
   selector: 'uni-export-credit',
@@ -25,41 +19,23 @@ export class ExportCreditComponent implements OnInit {
   userLocation:any;
   currentCountry: string = "";
   continent: string = "";
-  ipAddress:string = "";
-  
+  currentCurrencyCode:string = "";
+  perRupeePrice: number = 0;
+
   constructor(private exportcreditservice:ExportCreditService, private toastr:MessageService, private winRef: WindowRefService, private router: Router, private http: HttpClient) { }
 
   ngOnInit(): void {
     this.getUserLocation();
-    // this.getLocationForUsers();
-    this.loadModuleList();
+     this.loadModuleList();
   }
-
-  // getLocationForUsers(){
-  //   navigator.geolocation.getCurrentPosition((position: GeolocationPosition) => {
-  //     const latitude = position.coords.latitude;
-  //     const longitude = position.coords.longitude;
-  //     // const userIp = getUserIpAddress();
-  //     // Use latitude and longitude to fetch country data (method 2)
-  //     this.http.get('http://http://localhost:4200/getIP').subscribe((res: any) => {
-  //       this.ipAddress = res;
-  //     });
-  //     console.log(this.ipAddress);
-  //     console.log(latitude);
-  //     console.log(longitude);
-  //   });
-  // }
-
-  // getUserIpAddress(){
-  //   this.http.get('http://localhost:3000/getIP').subscribe((res: any) => {
-  //     this.ipAddress = res;
-  //   });
-  // }
+  
   getUserLocation(){
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition((position) => {
-        const longitude = position.coords.longitude;
-        const latitude = position.coords.latitude;
+        const longitude = 2.3522;
+        const latitude = 48.8566;
+        // const longitude = position.coords.longitude;
+        // const latitude = position.coords.latitude;
         this.findCountry(longitude, latitude);
       });
     } else {
@@ -74,7 +50,11 @@ export class ExportCreditComponent implements OnInit {
         console.log(data);
         this.currentCountry = data?.address?.country;
         console.log(this.currentCountry);
-        this.findContinent(this.currentCountry);
+        if(this.currentCountry == "India"){
+          this.loadModuleList();
+        }else{
+          this.findCurrencyCode(this.currentCountry);
+        }
       },
       (error: any) => {
         console.log('Error fetching location:', error);
@@ -82,27 +62,48 @@ export class ExportCreditComponent implements OnInit {
     );
   }
 
-  findContinent(countryName: string) {
+  findCurrencyCode(countryName: string) {
     this.http.get(`https://restcountries.com/v3.1/name/${countryName}`).subscribe(
       (data: any) => {
         if (data?.length > 0) {
-          this.continent = data[data?.length - 1].continents[0];
-          console.log(this.continent);
+          const currencies = data[0].currencies;
+          const currencyCode = Object.keys(currencies)[0]; //i get currency code because i need to check the currency converter array money is exist or not.
+          console.log(currencyCode);
+          this.currentCurrencyCode = currencyCode;
+          
+          //https://api.freecurrencyapi.com/v1/latest?apikey=fca_live_A2LNVUsC2t219iTqN3GO1AhLa1OYhVXqySiMJLFL&currencies=EUR%2CUSD%2CGBP&base_currency=INR if you want specific currencies give like this
+
+          this.http.get(`https://api.freecurrencyapi.com/v1/latest?apikey=fca_live_A2LNVUsC2t219iTqN3GO1AhLa1OYhVXqySiMJLFL&currencies=&base_currency=INR`).subscribe((res: any) =>{
+            
+            if(res && res.data && currencyCode in res.data){
+              console.log(res.data);
+              console.log(res.data[currencyCode],"current currency");
+              const number = res.data[currencyCode];
+              this.perRupeePrice = Number(number.toFixed(5));
+              this.loadModuleList();
+            }else{
+              console.log("currency Country not exist");
+            }
+          }) 
         }
         else {
-          this.continent = 'Not found';
+          console.error('Error:', "currency not found");
         }
-        //this.loadExistingSubscription();
       },
       error => {
         console.error('Error:', error);
-        this.continent = 'Error';
+        this.currentCurrencyCode = 'Error';
       }
     );
   }
 
   loadModuleList(): void{
-    this.exportcreditservice.getModulesList().subscribe((responce) =>{
+    let currencyData = {
+      currentCountry: this.currentCountry,
+      perRupeePrice: this.perRupeePrice,
+      currentCurrencyCode: this.currentCurrencyCode
+    };
+    this.exportcreditservice.getModulesList(currencyData).subscribe((responce) =>{
       this.moduleList = responce;
     });
   }
