@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { SubStoreService } from '../subscription/store/service';
 import { Router } from "@angular/router";
+import { SubscriptionService } from '../subscription/subscription.service';
 
 interface Provider {
   modules: [],
@@ -16,8 +17,8 @@ interface Provider {
 })
 export class RecommendationsComponent implements OnInit {
   selectedData: { [key: string]: boolean } = {};
-  activePageIndex:number = 0;
-  invalidClass:boolean = false;
+  activePageIndex: number = 0;
+  invalidClass: boolean = false;
 
   products = [
     {
@@ -40,16 +41,20 @@ export class RecommendationsComponent implements OnInit {
   recommended!: any;
   enableModule!: boolean;
 
-  constructor(private subStoreService: SubStoreService,  private router: Router,) { }
+  constructor(
+    private subStoreService: SubStoreService,
+    private router: Router,
+    private subscriptionService: SubscriptionService
+  ) { }
 
   ngOnInit(): void {
     this.enableModule = false;
     this.RecommendationExist();
   }
 
-  RecommendationExist(){
+  RecommendationExist() {
     this.subStoreService.checkRecommendationExist().subscribe(res => {
-      if(res.recommend_selected =="exist"){
+      if (res.recommend_selected == "exist") {
         this.enableModule = true;
         this.getList();
       }
@@ -58,8 +63,8 @@ export class RecommendationsComponent implements OnInit {
 
   getList(): void {
     this.subStoreService.getRecommedationList().subscribe(res => {
-      
-      if(res.success){
+
+      if (res.success) {
         this.recommended = res;
         console.log(res);
       }
@@ -69,12 +74,12 @@ export class RecommendationsComponent implements OnInit {
   previous(productId: number): void {
     this.invalidClass = false;
     //if (productId in this.selectedData) {
-      if (this.activePageIndex > 0) {
-        this.activePageIndex--; // Decrement the active page index if it's not the first page
-      }
+    if (this.activePageIndex > 0) {
+      this.activePageIndex--; // Decrement the active page index if it's not the first page
+    }
     //}else{
-      //this.invalidClass = true;
-   // }
+    //this.invalidClass = true;
+    // }
   }
 
   next(productId: number): void {
@@ -83,12 +88,12 @@ export class RecommendationsComponent implements OnInit {
       if (this.activePageIndex < this.products.length - 1) {
         this.activePageIndex++;
       }
-    }else{
+    } else {
       this.invalidClass = true;
     }
   }
 
-  getRecommendation(productId: any): void{
+  getRecommendation(productId: any): void {
     this.invalidClass = false;
     if (productId in this.selectedData) {
       this.enableModule = true;
@@ -96,39 +101,47 @@ export class RecommendationsComponent implements OnInit {
       let selectedValues = "";
       if (selectedKeys.length === 0) {
         selectedValues = "no";
-      }else{
+      } else {
         selectedValues = selectedKeys.join(',');
       }
       this.subStoreService.storeUserRecommends(selectedValues).subscribe(res => {
-        if(res.success){
+        if (res.success) {
           this.enableModule = true;
           this.getList();
         }
       });
-    }else{
+    } else {
       this.invalidClass = true;
     }
   }
 
-  resetRecommendation(): void{
+  resetRecommendation(): void {
     this.enableModule = false;
     this.selectedData = {};
     this.activePageIndex = 0;
     this.subStoreService.recommendationReset().subscribe();
   }
 
-  onClickRadioButton(){
+  onClickRadioButton() {
     this.invalidClass = false;
     // if (this.activePageIndex < this.products.length - 1) {
     //   this.activePageIndex++;
     // }
   }
 
-  subscribeNow(){
-    this.router.navigate(["/pages/subscriptions/upgrade-subscription"]);
+  subscribeNow() {
+    let existingSubscription = []
+    this.subscriptionService.getExistingSubscription().subscribe((response: any) => {
+      existingSubscription = response.subscription;
+      if (existingSubscription.length > 0) {
+        this.router.navigate(["/pages/subscriptions/upgrade-subscription"]);
+      }else{
+        this.router.navigate(["/pages/subscriptions"]);
+      }
+    });
   }
 
-  moduleRedirect(moduleLink: string){
+  moduleRedirect(moduleLink: string) {
     this.router.navigate([`/pages/${moduleLink}`]);
   }
 }
