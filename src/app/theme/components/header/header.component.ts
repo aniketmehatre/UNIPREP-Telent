@@ -342,7 +342,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
         //localStorage.setItem('countryId', data.userdetails[0].interested_country_id);
         this.userName = data.userdetails[0].name.toString();
         this.firstChar = this.userName.charAt(0);
-        if (data.userdetails[0].status == "demo") {
+        if (data.userdetails[0].login_status == "Demo") {
            this.demoTrial = true;
          }
       }
@@ -727,8 +727,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
       error => {
         if(this.demoTrial==true){
           this.toast.add({
-            severity: "danger",
-            summary: "danger",
+            severity: "error",
+            summary: "Error",
             detail: "Demo Trail Not Started",
           });
         }

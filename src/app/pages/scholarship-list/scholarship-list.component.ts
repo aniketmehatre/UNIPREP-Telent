@@ -98,18 +98,18 @@ export class ScholarshipListComponent implements OnInit {
     this.scholarshipData = [...searchedScholarship];
   }
 
-  resetFilter() {
-    this.regionList = [];
-    this.filterForm.reset();
-    this.data = {
-      page: this.page,
-      perpage: this.pageSize,
-    }
-    this.loadScholarShipData(0);
-    // this.getRegionList();
-    this.getFilterUniversityList("");
-    this.isFilterVisible = false;
-  }
+  // resetFilter() {
+  //   this.regionList = [];
+  //   this.filterForm.reset();
+  //   this.data = {
+  //     page: this.page,
+  //     perpage: this.pageSize,
+  //   }
+  //   this.loadScholarShipData(0);
+  //   // this.getRegionList();
+  //   this.getFilterUniversityList("");
+  //   this.isFilterVisible = false;
+  // }
   clearFilter() {
     this.regionList = [];
     this.filterForm.reset();
@@ -191,11 +191,21 @@ export class ScholarshipListComponent implements OnInit {
       !formData.valueRange &&
       !formData.cover_id
     ) {
-      this.toast.add({
-        severity: "error",
-        summary: "Error",
-        detail: "Please make sure you have some filter!",
-      });
+      // this.toast.add({
+      //   severity: "error",
+      //   summary: "Error",
+      //   detail: "Please make sure you have some filter!",
+      // });
+   this.regionList = [];
+     this.filterForm.reset();
+     this.data = {
+       page: this.page,
+       perpage: this.pageSize,
+     }
+     this.loadScholarShipData(0);
+     this.getRegionList();
+     this.getFilterUniversityList("");
+     this.isFilterVisible = false;
       return;
     }
     this.data.page = 1;
