@@ -50,7 +50,10 @@ export class QuizmenuComponent implements OnInit {
     this.router.navigate([`/pages/modules/${this.currentModuleSlug}/quiz`]);
   }
   getFilterUniversityList(value: any) {
-    this.locationService.getUniversity(value).subscribe((response) => {
+    var data={
+      country_id:value
+    }
+    this.moduleListService.getUniversity(data).subscribe((response) => {
       this.filterUniversityList = response;
     });
   }

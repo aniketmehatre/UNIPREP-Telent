@@ -46,6 +46,8 @@ export class QuizComponent implements OnInit {
   responsiveOptions: any[] = [];
   answeredCorrect: number = 0;
   totalPercentage: number = 0;
+  totalanswerquistionaftersubmited:number=0;
+  totalanswercorret:number=0
   claculatingSelectQuizPesrcentage:number=0
   totalpercentagequiztime:number=0
   percentageValue: string = '';
@@ -71,7 +73,6 @@ export class QuizComponent implements OnInit {
     this.dataService.countryNameSource.subscribe((data) => {
       this.countryName = data;
     });
-    console.log(this.currentModuleSlug);
     switch (this.currentModuleSlug) {
       case 'pre-admission':
         this.currentModuleId = 1;
@@ -320,6 +321,8 @@ export class QuizComponent implements OnInit {
       console.log(res);
       this.totalPercentage = res.percentageCompleted
       this.certificatesurl=res.certificate
+      this.totalanswerquistionaftersubmited=res.totalquestions
+      this.totalanswercorret=res.answered
       if (this.totalPercentage < 40) {
         this.percentageValue = 'Average';
       } else if (this.totalPercentage >= 40 && this.totalPercentage <= 80) {
@@ -343,6 +346,8 @@ export class QuizComponent implements OnInit {
     this.isReviewVisible = false;
     this.isQuizSubmit = false;
     this.totalPercentage = 0;
+    this.totalanswerquistionaftersubmited=0
+    this.totalanswercorret=0
     this.percentageValue = '';
     this.quizData = [];
     this.selectedQuiz = 1;
@@ -361,7 +366,6 @@ export class QuizComponent implements OnInit {
       submoduleId: this.universityidforquiz
     }
     this.moduleListService.ReviewQuiz(data).subscribe((res) => {
-      console.log(res);
       this.quizData = res.userquiz.map((val: any) => {
         let number = 1;
         let dd = { ...val };
@@ -407,5 +411,8 @@ export class QuizComponent implements OnInit {
   }
   openCertificate(){
     window.open(this.certificatesurl, '_blank');
+  }
+  takeAnotherquiz(){
+    this.router.navigate([`/pages/modules/quizmodule`]);
   }
 }
