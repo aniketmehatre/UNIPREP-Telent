@@ -18,7 +18,7 @@ export class ExportCreditService {
 
   placeOrder(data:any){
     const headers = new HttpHeaders().set("Accept", "application/json");
-    return this.http.post<any>(environment.ApiUrl + "/BuyCreditPlaceOrder" , {data : data} ,{
+    return this.http.post<any>(environment.ApiUrl + "/BuyCreditPlaceOrder" , data ,{
       headers: headers,
     });
   }
