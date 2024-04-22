@@ -21,12 +21,13 @@ export class ExportCreditComponent implements OnInit {
   continent: string = "";
   currentCurrencyCode:string = "";
   perRupeePrice: number = 0;
+  currentCurrencySymbol:string = "";
 
   constructor(private exportcreditservice:ExportCreditService, private toastr:MessageService, private winRef: WindowRefService, private router: Router, private http: HttpClient) { }
 
   ngOnInit(): void {
     this.getUserLocation();
-     this.loadModuleList();
+    //  this.loadModuleList();
   }
   
   getUserLocation(){
@@ -45,12 +46,13 @@ export class ExportCreditComponent implements OnInit {
 
   findCountry(longitude: number, latitude: number): void {
     const url = `https://nominatim.openstreetmap.org/reverse?lat=${latitude}&lon=${longitude}&format=json`;
-    this.http.get<any>(url).subscribe(
-      (data: any) => {
+    this.http.get<any>(url).subscribe((data: any) => {
         console.log(data);
         this.currentCountry = data?.address?.country;
         console.log(this.currentCountry);
         if(this.currentCountry == "India"){
+          this.currentCurrencyCode = "INR";
+          this.currentCurrencySymbol = "₹";
           this.loadModuleList();
         }else{
           this.findCurrencyCode(this.currentCountry);
@@ -65,11 +67,15 @@ export class ExportCreditComponent implements OnInit {
   findCurrencyCode(countryName: string) {
     this.http.get(`https://restcountries.com/v3.1/name/${countryName}`).subscribe(
       (data: any) => {
+        console.log(data, "restcountries");
         if (data?.length > 0) {
+          console.log(data);
           const currencies = data[0].currencies;
           const currencyCode = Object.keys(currencies)[0]; //i get currency code because i need to check the currency converter array money is exist or not.
           console.log(currencyCode);
           this.currentCurrencyCode = currencyCode;
+          this.currentCurrencySymbol = data[0].currencies[currencyCode].symbol;
+
           
           //https://api.freecurrencyapi.com/v1/latest?apikey=fca_live_A2LNVUsC2t219iTqN3GO1AhLa1OYhVXqySiMJLFL&currencies=EUR%2CUSD%2CGBP&base_currency=INR if you want specific currencies give like this
 
@@ -80,6 +86,7 @@ export class ExportCreditComponent implements OnInit {
               console.log(res.data[currencyCode],"current currency");
               const number = res.data[currencyCode];
               this.perRupeePrice = Number(number.toFixed(5));
+              console.log(this.perRupeePrice);
               this.loadModuleList();
             }else{
               console.log("currency Country not exist");
@@ -116,7 +123,14 @@ export class ExportCreditComponent implements OnInit {
     }else{
       console.log(this.moduleList);
     }
-    this.exportcreditservice.placeOrder(this.moduleList).subscribe((response)=>{
+    console.log(this.moduleList);
+    let currencyData = {
+      data: this.moduleList,
+      currentCountryPerRupeePrice: this.perRupeePrice,
+      currentCurrencyCode: this.currentCurrencyCode,
+      totalPayableAmount: this.totalPayableAmount
+    }
+    this.exportcreditservice.placeOrder(currencyData).subscribe((response)=>{
       this.payWithRazor(response);
     });
     
@@ -202,14 +216,27 @@ export class ExportCreditComponent implements OnInit {
 
   onInputChangeValue(event: any, module_id:number){
     this.totalPayableAmount = 0;
-    console.log(this.moduleList);
-    this.moduleList.forEach(item =>{
-      if(module_id == item.id){
-        item.inputvalue = event.value;
-      }
-      if(item.planValidation == 1){
-        this.totalPayableAmount += item.inputvalue * item.price_per_credit;
-      }
-    });
+    console.log(this.currentCountry,"current country");
+    if(this.currentCountry == "India"){
+      this.moduleList.forEach(item =>{
+        if(module_id == item.id){
+          item.inputvalue = event.value;
+        }
+        if(item.planValidation == 1){
+          this.totalPayableAmount += item.inputvalue * item.price_per_credit;
+        }
+      });
+    }else{
+      this.moduleList.forEach(item =>{
+        if(module_id == item.id){
+          item.inputvalue = event.value;
+        }
+        if(item.planValidation == 1){
+          console.log(item.inputvalue,"====", this.perRupeePrice);
+          this.totalPayableAmount += parseFloat((item.inputvalue * (item.price_per_credit * this.perRupeePrice)).toFixed(5));
+        }
+      });
+    }
+    
   }
 }
