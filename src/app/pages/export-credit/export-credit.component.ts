@@ -40,11 +40,11 @@ export class ExportCreditComponent implements OnInit {
         // const longitude = -95.7129; //USA(USD)
         // const latitude = 37.0902; //USA(USD)
 
-        const longitude = -3.4360; //UK(GBP)
-        const latitude = 55.3781; //UK(GBP)
+        // const longitude = -3.4360; //UK(GBP)
+        // const latitude = 55.3781; //UK(GBP)
 
-        // const longitude = position.coords.longitude;
-        // const latitude = position.coords.latitude;
+        const longitude = position.coords.longitude;
+        const latitude = position.coords.latitude;
         this.findCountry(longitude, latitude);
       },(error)=>{
         fetch('https://ipapi.co/json/').then(response => response.json()).then(data => {
