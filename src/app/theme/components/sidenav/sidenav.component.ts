@@ -153,11 +153,11 @@ export class SidenavComponent {
       url: "/pages/modules/quizmodule",
       image: "fa-solid fa-clock-desk",
     },
-    // {
-    //   title: "My Certificate",
-    //   url: "/pages/mycertificate",
-    //   image: "fa-solid fa-file-certificate",
-    // },
+    {
+      title: "My Certificate",
+      url: "/pages/mycertificate",
+      image: "fa-solid fa-file-certificate",
+    },
     {
       title: "Support",
       url: "",
