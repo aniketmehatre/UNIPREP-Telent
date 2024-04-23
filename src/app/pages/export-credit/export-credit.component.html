@@ -27,7 +27,7 @@
 										<p-inputNumber [(ngModel)]="modules.inputvalue" (onInput)="onInputChangeValue($event,modules.id)" [showButtons]="true" buttonLayout="horizontal" spinnerMode="horizontal" incrementButtonIcon="pi pi-plus" decrementButtonIcon="pi pi-minus" [min]="modules.min_credit" [max]="modules.max_credit" [size]="3"></p-inputNumber>
 									</div>
 									<div class="d-flex flex-row justify-content-center gap-3 align-items-center text-nowrap ">
-										<h5 *ngIf="currentCountry !='India'" class="mb-0 uniprep-primary">{{ modules.price_per_credit * perRupeePrice | number:'1.5-5' }} {{ currentCurrencySymbol }}/Credit</h5>                
+										<h5 *ngIf="currentCountry !='India'" class="mb-0 uniprep-primary">{{ modules.price_per_credit * perRupeePrice | number:'1.2-2' }} {{ currentCurrencySymbol }}/Credit</h5>                
 										<h5 *ngIf="currentCountry =='India'" class="mb-0 uniprep-primary">{{ modules.price_per_credit }} {{ currentCurrencySymbol }}/Credit</h5>                
 										<!-- <button type="button" (click)="updateCredits()" class="btn btn-primary">Update Credits</button> -->
 									</div>
@@ -56,8 +56,8 @@
 						<small>{{ modules.inputvalue }} Credits</small>
 					</div>
 					<div>
-						<h5 *ngIf="currentCountry !='India'" class="p-2">{{ (modules.inputvalue * (modules.price_per_credit * perRupeePrice)) | number:'1.5-5' }} {{ currentCurrencySymbol }}</h5>
-						<h5 *ngIf="currentCountry =='India'" class="p-2">{{ modules.inputvalue * modules.price_per_credit }} Rs</h5>
+						<h5 *ngIf="currentCountry !='India'" class="p-2">{{ (modules.inputvalue * (modules.price_per_credit * perRupeePrice)) | number:'1.2-2' }} {{ currentCurrencySymbol }}</h5>
+						<h5 *ngIf="currentCountry =='India'" class="p-2">{{ modules.inputvalue * modules.price_per_credit }} {{ currentCurrencySymbol }}</h5>
 					</div>
 				</div>
 			</div>

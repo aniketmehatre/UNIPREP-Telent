@@ -475,6 +475,7 @@ export class ScholarshipListComponent implements OnInit {
         window.open(response.link, '_blank');
         this.selectAllCheckboxes = false;
         this.selectedCheckboxCount = 0;
+        this.selectedScholarship = 0;
         this.loadScholarShipData(0);
       })
     }else if(this.exportCreditCount == 0){
