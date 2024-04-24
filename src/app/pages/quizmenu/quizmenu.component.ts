@@ -79,6 +79,8 @@ export class QuizmenuComponent implements OnInit {
     if (this.universityId != null) {
       this.universityquizbutton = false;
       localStorage.setItem('universityidforquiz', this.universityId)
+      console.log(this.universityId);
+      
     } else {
       this.universityquizbutton = true;
     }
