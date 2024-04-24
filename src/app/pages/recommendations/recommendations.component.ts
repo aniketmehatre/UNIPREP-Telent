@@ -133,7 +133,7 @@ export class RecommendationsComponent implements OnInit {
     let existingSubscription = []
     this.subscriptionService.getExistingSubscription().subscribe((response: any) => {
       existingSubscription = response.subscription;
-      if (existingSubscription.length > 0) {
+      if (existingSubscription[0]) {
         this.router.navigate(["/pages/subscriptions/upgrade-subscription"]);
       }else{
         this.router.navigate(["/pages/subscriptions"]);
