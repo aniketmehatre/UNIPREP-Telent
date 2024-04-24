@@ -118,10 +118,10 @@ export class PitchDeskComponent implements OnInit {
     this.pdfURL = url;
     this.isPdfLoaded = true;
 
-    if (this.planExpired) {
-      this.isPdfDownloadOption = false
-    }else{
+    if (!this.planExpired && this.exportCreditCount != 0) {
       this.isPdfDownloadOption = true;
+    }else{
+      this.isPdfDownloadOption = false
     }
 
     //window.open(url, "_blank");
@@ -131,6 +131,26 @@ export class PitchDeskComponent implements OnInit {
     const parts = this.pdfURL.split('/');
     const lastPart = parts[parts.length - 1];
     this.pitchDesk.downloadPdf(this.pdfURL, lastPart);
+    let data = {
+      module_id: 6
+    }
+    this.pitchDesk.singleCreditReduce(data);
+
+  //   this.pitchDesk.downloadPdf(this.pdfURL, lastPart).then(() => {
+  //   // After the PDF is downloaded, make the second API call
+  //   let data = {
+  //     module_id: 6
+  //   };
+  //   this.pitchDesk.singleCreditReduce(data).subscribe(() => {
+  //     // Both API calls completed successfully
+  //   }, error => {
+  //     // Handle errors from the second API call
+  //     console.error('Second API Error:', error);
+  //   });
+  // }).catch(error => {
+  //   // Handle errors from the first API call
+  //   console.error('First API Error:', error);
+  // });
   }
 
   goBack(){
