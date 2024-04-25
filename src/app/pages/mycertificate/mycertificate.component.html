@@ -14,7 +14,7 @@
             </div>
             <div class="container-fluid">
                 <div class="row">
-                    <div class="col-md-3 col-12 mt-3" *ngFor="let list of certificatesList">
+                    <div class="col-md-3 col-12 mt-3" *ngFor="let list of certificatesList; let i = index">
                         <div class="card resourcecard justify-content-center text-black h-100">
                             <div class="card-body h-100">
                                 <div class="" id="resourceLink">
@@ -35,8 +35,8 @@
                                             style="background-color: #3F4C83; color: white; width: -webkit-fill-available; text-align: center;"
                                             class="p-button-rounded p-2">Download
                                         </button>&nbsp;
-                                        <button class="btn btn-primary socialShareBtn" (click)="showSocialSharingList()"><i class="fa-light fa-xl fa-share-nodes"></i></button>
-                                        <p-card id="socialSharingList" class="socialSharingList">
+                                        <button class="btn btn-primary socialShareBtn" (click)="showSocialSharingList(i)"><i class="fa-light fa-xl fa-share-nodes"></i></button>
+                                        <p-card id="socialSharingList{{i}}" class="socialSharingList" [ngClass]="{'show': selectedIndex === i}">
                                             <ul style="list-style: none; cursor: pointer">
                                                 <li (click)="shareViaWhatsapp(list.certificate_link)"><i class="pi pi-whatsapp"></i>Whatsapp</li>
                                                 <li (click)="shareViaMail(list.certificate_link)"><i class="pi pi-envelope"></i>Email</li>
