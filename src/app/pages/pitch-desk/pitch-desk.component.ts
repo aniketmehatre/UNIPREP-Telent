@@ -118,19 +118,46 @@ export class PitchDeskComponent implements OnInit {
     this.pdfURL = url;
     this.isPdfLoaded = true;
 
-    if (this.planExpired) {
-      this.isPdfDownloadOption = false
-    }else{
+    if (!this.planExpired && this.exportCreditCount != 0) {
       this.isPdfDownloadOption = true;
+    }else{
+      this.isPdfDownloadOption = false
     }
 
     //window.open(url, "_blank");
   }
-
-  download(){
+  
+  download(): void {
     const parts = this.pdfURL.split('/');
     const lastPart = parts[parts.length - 1];
-    this.pitchDesk.downloadPdf(this.pdfURL, lastPart);
+  
+    // Wrap the asynchronous operation in a Promise
+    new Promise<void>((resolve) => {
+      this.pitchDesk.downloadPdf(this.pdfURL, lastPart);
+      resolve(); // Resolve the Promise once the operation is complete
+    }).then(() => {
+      // After the PDF is downloaded, make the second API call
+      if(this.exportCreditCount != 0){
+        let data = {
+          module_id: 6
+        };
+        this.pitchDesk.singleCreditReduce(data).subscribe(() => {
+          // Both API calls completed successfully
+          this.getPitchDeskList();
+          if (!this.planExpired && this.exportCreditCount != 0) {
+            this.isPdfDownloadOption = true;
+          }else{
+            this.isPdfDownloadOption = false
+          }
+        }, error => {
+          // Handle errors from the second API call
+          console.error('Error while downloading document:', error);
+        });
+      }
+    }).catch(error => {
+      // Handle errors from the first API call
+      console.error('Error while reduce the credit:', error);
+    });
   }
 
   goBack(){

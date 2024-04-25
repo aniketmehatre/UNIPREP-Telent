@@ -19,9 +19,9 @@ export class ExportCreditComponent implements OnInit {
   userLocation:any;
   currentCountry: string = "";
   continent: string = "";
-  currentCurrencyCode:string = "";
+  currentCurrencyCode:string = "INR";
   perRupeePrice: number = 0;
-  currentCurrencySymbol:string = "";
+  currentCurrencySymbol:string = "₹";
 
   constructor(private exportcreditservice:ExportCreditService, private toastr:MessageService, private winRef: WindowRefService, private router: Router, private http: HttpClient) { }
 
@@ -32,12 +32,26 @@ export class ExportCreditComponent implements OnInit {
   
   getUserLocation(){
     if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition((position) => {
-        const longitude = 2.3522;
-        const latitude = 48.8566;
-        // const longitude = position.coords.longitude;
-        // const latitude = position.coords.latitude;
+      navigator.geolocation.getCurrentPosition(
+      (position) => {
+        // const longitude = 2.3522;  //Europe(EUR)
+        // const latitude = 48.8566;  //Europe(EUR)
+
+        // const longitude = -95.7129; //USA(USD)
+        // const latitude = 37.0902; //USA(USD)
+
+        // const longitude = -3.4360; //UK(GBP)
+        // const latitude = 55.3781; //UK(GBP)
+
+        const longitude = position.coords.longitude;
+        const latitude = position.coords.latitude;
         this.findCountry(longitude, latitude);
+      },(error)=>{
+        fetch('https://ipapi.co/json/').then(response => response.json()).then(data => {
+          this.findCurrencyCode(data.country_name);
+        }).catch(error => {
+          console.error("Error getting country from IP:", error);
+        });
       });
     } else {
       console.log("No support for geolocation")
@@ -47,12 +61,10 @@ export class ExportCreditComponent implements OnInit {
   findCountry(longitude: number, latitude: number): void {
     const url = `https://nominatim.openstreetmap.org/reverse?lat=${latitude}&lon=${longitude}&format=json`;
     this.http.get<any>(url).subscribe((data: any) => {
-        console.log(data);
         this.currentCountry = data?.address?.country;
-        console.log(this.currentCountry);
         if(this.currentCountry == "India"){
-          this.currentCurrencyCode = "INR";
-          this.currentCurrencySymbol = "₹";
+          // this.currentCurrencyCode = "INR";
+          // this.currentCurrencySymbol = "₹";
           this.loadModuleList();
         }else{
           this.findCurrencyCode(this.currentCountry);
@@ -67,26 +79,21 @@ export class ExportCreditComponent implements OnInit {
   findCurrencyCode(countryName: string) {
     this.http.get(`https://restcountries.com/v3.1/name/${countryName}`).subscribe(
       (data: any) => {
-        console.log(data, "restcountries");
         if (data?.length > 0) {
-          console.log(data);
           const currencies = data[0].currencies;
           const currencyCode = Object.keys(currencies)[0]; //i get currency code because i need to check the currency converter array money is exist or not.
-          console.log(currencyCode);
           this.currentCurrencyCode = currencyCode;
           this.currentCurrencySymbol = data[0].currencies[currencyCode].symbol;
 
-          
           //https://api.freecurrencyapi.com/v1/latest?apikey=fca_live_A2LNVUsC2t219iTqN3GO1AhLa1OYhVXqySiMJLFL&currencies=EUR%2CUSD%2CGBP&base_currency=INR if you want specific currencies give like this
 
-          this.http.get(`https://api.freecurrencyapi.com/v1/latest?apikey=fca_live_A2LNVUsC2t219iTqN3GO1AhLa1OYhVXqySiMJLFL&currencies=&base_currency=INR`).subscribe((res: any) =>{
-            
-            if(res && res.data && currencyCode in res.data){
-              console.log(res.data);
-              console.log(res.data[currencyCode],"current currency");
-              const number = res.data[currencyCode];
+         //https://api.freecurrencyapi.com/v1/latest?apikey=fca_live_A2LNVUsC2t219iTqN3GO1AhLa1OYhVXqySiMJLFL&currencies=&base_currency=INR this api 5K requests only so using free api
+
+          this.http.get(`https://open.er-api.com/v6/latest/INR`).subscribe((res: any) =>{
+            let currentPrice = res.rates;
+            if(res && currentPrice && currencyCode in currentPrice){
+              const number = currentPrice[currencyCode];
               this.perRupeePrice = Number(number.toFixed(5));
-              console.log(this.perRupeePrice);
               this.loadModuleList();
             }else{
               console.log("currency Country not exist");
@@ -120,10 +127,7 @@ export class ExportCreditComponent implements OnInit {
     if(this.totalPayableAmount == 0){
       this.toastr.add({severity:"error", summary: "error", detail: "Please add some Credits"});
       return;
-    }else{
-      console.log(this.moduleList);
     }
-    console.log(this.moduleList);
     let currencyData = {
       data: this.moduleList,
       currentCountryPerRupeePrice: this.perRupeePrice,
@@ -188,17 +192,12 @@ export class ExportCreditComponent implements OnInit {
             }else{
               return;
             }
-            
-            //console.log(response);
-            //window.location.reload();
           },(error: any)=>{
             this.toastr.add({
               severity: response.status,
               summary: response.status,
               detail: response.message,
             });
-            //console.log(error);
-            //window.location.reload();
           }
         );
       }, 0);
@@ -216,7 +215,6 @@ export class ExportCreditComponent implements OnInit {
 
   onInputChangeValue(event: any, module_id:number){
     this.totalPayableAmount = 0;
-    console.log(this.currentCountry,"current country");
     if(this.currentCountry == "India"){
       this.moduleList.forEach(item =>{
         if(module_id == item.id){
@@ -232,8 +230,7 @@ export class ExportCreditComponent implements OnInit {
           item.inputvalue = event.value;
         }
         if(item.planValidation == 1){
-          console.log(item.inputvalue,"====", this.perRupeePrice);
-          this.totalPayableAmount += parseFloat((item.inputvalue * (item.price_per_credit * this.perRupeePrice)).toFixed(5));
+          this.totalPayableAmount += parseFloat((item.inputvalue * (item.price_per_credit * this.perRupeePrice)).toFixed(2));
         }
       });
     }

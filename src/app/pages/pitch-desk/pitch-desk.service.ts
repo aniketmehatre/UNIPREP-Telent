@@ -38,4 +38,11 @@ export class PitchDeskService {
       headers: headers,
     });
   }
+
+  singleCreditReduce(data: any){
+    const headers = new HttpHeaders().set("Accept", "application/json");
+    return this.http.post<any>(environment.ApiUrl + "/ReduceSingleCredits", data, {
+      headers: headers,
+    });
+  }
 }
