@@ -56,3 +56,34 @@
       }
     }
   }
+  
+  [id^="socialSharingList"] {
+    display: none;
+    position: absolute;
+    right: 1rem;
+    top: 8rem;
+    z-index: 999;
+    ::ng-deep.p-card-body {
+      padding: 0px;
+      .p-card-content {
+        padding: 0px;
+      }
+    }
+    ul {
+      padding: 10px !important;
+      margin-bottom: 0;
+      li {
+        display: flex;
+        align-items: center;
+        margin-bottom: 5px;
+      }
+      i {
+        margin-right: 10px;
+      }
+    }
+}
+
+[id^="socialSharingList"].show {
+    display: block;
+    
+}
