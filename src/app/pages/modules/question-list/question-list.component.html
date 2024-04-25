@@ -118,7 +118,10 @@
 			<div class="card-body text-start">
 				<div class="d-flex align-items-center justify-content-between position-relative">
 					<span class="text-small blockquote text-start mb-0">
-						Last updated at: {{ oneQuestionContent?.updated_at | date }} <span class="badge" [ngStyle]="{ 'background-color': oneQuestionContent?.pre_verified == 1 ? 'darkorchid' : '#3f4c83' }"> {{ oneQuestionContent?.pre_verified == 1 ? "Pre Verified" : "Non Pre-Verified" }}</span>
+						Last updated at: {{ oneQuestionContent?.updated_at | date }} 
+						<span *ngIf="oneQuestionContent?.verified === 1" class="badge" style="background-color:#4ffb05" >Verified</span>
+						<span *ngIf="oneQuestionContent?.pre_verified === 1 && oneQuestionContent?.verified !== 1" style="background-color:darkorchid" class="badge" >Pre Verified</span>
+						<span *ngIf="oneQuestionContent?.pre_verified !== 1 && oneQuestionContent?.verified !== 1" style="background-color:#3f4c83" class="badge" >Non Pre-Verified</span>
 					</span>
 					<button class="btn btn-primary socialShareBtn" (click)="showSocialSharingList()"><i class="fa-light fa-xl fa-share-nodes"></i></button>
 					<p-card id="socialSharingList">
