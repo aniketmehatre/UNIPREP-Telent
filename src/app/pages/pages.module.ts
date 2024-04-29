@@ -67,6 +67,7 @@ import { ExportCreditComponent } from './export-credit/export-credit.component';
 import { QuizmenuComponent } from './quizmenu/quizmenu.component';
 import { MycertificateComponent } from './mycertificate/mycertificate.component';
 import {PdfViewerModule} from "ng2-pdf-viewer";
+import { CareerPlannerComponent } from './career-planner/career-planner.component';
 
 @NgModule({
     declarations: [
@@ -97,6 +98,7 @@ import {PdfViewerModule} from "ng2-pdf-viewer";
         PitchDeskComponent,
         ExportCreditComponent,
         MycertificateComponent,
+        CareerPlannerComponent,
     ],
   exports: [FooterStatusBoxComponent, HeaderSearchComponent],
     imports: [
