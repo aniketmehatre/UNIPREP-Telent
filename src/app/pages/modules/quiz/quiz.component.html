@@ -30,7 +30,7 @@
             <h4 class="font-primarycolor">ALL THE BEST!</h4>
         </div>
         <div class="col-md-6 text-end">
-            <button (click)="runQuiz()" class="btn btn-start btn-rounded m-0 px-2 py-2" [disabled]="this.quizData.length<0">
+            <button (click)="runQuiz()" class="btn btn-start btn-rounded m-0 px-2 py-2" [disabled]="this.quizData.length == 0">
                 <div class="d-flex align-items-center">
                     <span class="fw-normal h6 mb-0 ps-3 pe-2">Start</span>
                     <div class="btn-icon"><i class="fa-solid fa-arrow-right"></i></div>
