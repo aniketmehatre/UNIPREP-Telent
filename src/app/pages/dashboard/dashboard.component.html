@@ -101,13 +101,13 @@
 				<div class="card-body d-flex justify-content-evenly flex-column">
 					<div class="row mb-3">
 						<div class="col-md-6 col-lg-6 d-flex order-2 order-md-1">
-							<button role="button" style="background-color: black" (click)="openQuiz()" class="btn w-75 m-0 px-2 py-2 homecardbtn homecardbtnquiz" [disabled]="quizpercentage >= 80">
+							<button role="button" style="background-color: black; cursor: pointer;" (click)="openQuiz()" class="btn w-75 m-0 px-2 py-2 homecardbtn homecardbtnquiz" [disabled]="quizpercentage >= 80">
 								<i class="fa-regular h3 fa-lightbulb-on mb-1"></i>
 								<p class="mb-1" style="font-size: small;">Start Quiz</p>
 								<p class="mb-1">{{quizpercentage+'%'}}</p>
 								<div class="row">
 									<div class="col-12">
-										<span class="ellipse-button fw-regular container-fluid">{{quizpercentage>=80?"Completed":"Start"}}</span>
+										<span style="cursor: pointer;" class="ellipse-button fw-regular container-fluid">{{quizpercentage>=80?"Completed":"Start"}}</span>
 									</div>
 								</div>
 							</button>
