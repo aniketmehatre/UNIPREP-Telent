@@ -109,6 +109,11 @@ export class SidenavComponent {
       image: "fa-solid fa-briefcase",
     },
     {
+      title: "Career Planner",
+      url: "/pages/career-planner",
+      image: "fa-solid fa-arrow-progress",
+    },
+    {
       title: "Resources",
       url: "/pages/resource",
       image: "fa-solid fa-link",
