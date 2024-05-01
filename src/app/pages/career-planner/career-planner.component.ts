@@ -194,6 +194,10 @@ export class CareerPlannerComponent implements OnInit {
       this.selectedData = Object.fromEntries(filteredEntries);
     }
     console.log(this.selectedData);
+
+    this.careerPlannerService.storeCareerPlans(this.selectedData).subscribe((res)=>{
+      console.log(res);
+    })
   }
 
   onClickRadioButton(productId: number) {

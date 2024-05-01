@@ -16,9 +16,9 @@ export class CareerPlannerService {
     });
   }
 
-  storeCareerPlans(){
+  storeCareerPlans(data: any){
     const headers = new HttpHeaders().set("Accept", "application/json");
-    return this.http.post<any>(environment.ApiUrl + "/StoreCareerPlanners", {
+    return this.http.post<any>(environment.ApiUrl + "/StoreCareerPlanners", { data },{
       headers: headers,
     });
   }
