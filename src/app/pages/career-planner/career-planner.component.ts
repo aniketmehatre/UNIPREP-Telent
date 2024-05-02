@@ -109,6 +109,8 @@ export class CareerPlannerComponent implements OnInit {
   invalidClass: boolean = false;
   specilisation:any = [];
   nxtOrRecommendBtn:boolean = false;
+  careerListData:any[] = [];
+  jobSiteData:any[] = [];
 
   arrayMap: any = {
     'highLevelStudy': this.highLevelStudy,
@@ -122,7 +124,20 @@ export class CareerPlannerComponent implements OnInit {
   constructor(private careerPlannerService:CareerPlannerService) { }
 
   ngOnInit(): void {
-   this.selectboxValueLoading();
+    this.checkCareerPlanExist();
+    
+  }
+
+  checkCareerPlanExist(){
+    this.careerPlannerService.checkCareerPlanExist().subscribe((res)=>{
+      console.log(res);
+      if(res == "Exist"){
+        this.enableModule = true;
+        this.listPageDataLoading();
+      }else{
+        this.selectboxValueLoading();
+      }
+    })
   }
 
   selectboxValueLoading(){
@@ -131,6 +146,14 @@ export class CareerPlannerComponent implements OnInit {
       this.specilisation = responce.specilisation;
       console.log(this.arrayMap);
     })
+  }
+
+  listPageDataLoading(){
+    this.careerPlannerService.loadListPageData().subscribe((res)=>{
+      console.log(res);
+      this.careerListData = res.career_data;
+      this.jobSiteData = res.job_site;
+    });
   }
 
   previous(productId: number): void {
