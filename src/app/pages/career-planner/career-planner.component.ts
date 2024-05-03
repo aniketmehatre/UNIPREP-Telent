@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CareerPlannerService } from './career-planner.service';
+
 interface Specialisation {
   id: number;
   subject_id: number;
@@ -110,7 +111,10 @@ export class CareerPlannerComponent implements OnInit {
   specilisation:any = [];
   nxtOrRecommendBtn:boolean = false;
   careerListData:any[] = [];
+  totalRowCount:number = 0;
   jobSiteData:any[] = [];
+  page = 1;
+  perPage = 30;
 
   arrayMap: any = {
     'highLevelStudy': this.highLevelStudy,
@@ -144,15 +148,24 @@ export class CareerPlannerComponent implements OnInit {
     this.careerPlannerService.loadSelectBoxValues().subscribe((responce)=>{
       this.arrayMap.subjects = responce.subject;
       this.specilisation = responce.specilisation;
-      console.log(this.arrayMap);
     })
   }
 
   listPageDataLoading(){
-    this.careerPlannerService.loadListPageData().subscribe((res)=>{
+    let data = {
+      page: this.page,
+      perPage: this.perPage,
+    }
+
+    this.careerPlannerService.loadListPageData(data).subscribe((res)=>{
       console.log(res);
-      this.careerListData = res.career_data;
-      this.jobSiteData = res.job_site;
+      const dataArray = Object.entries(res.data).map(([key, value]) => {
+        const newKey = key.split('_');
+        return { key: newKey[0], value: value };
+      });
+      console.log(dataArray[0]);
+      this.careerListData = dataArray;
+      this.totalRowCount = res.total_count;
     });
   }
 
@@ -236,5 +249,12 @@ export class CareerPlannerComponent implements OnInit {
     // if (this.activePageIndex < this.products.length - 1) {
     //   this.activePageIndex++;
     // }
+  }
+
+  paginate(event: any){
+    console.log(event);
+    this.page = event.page + 1;
+    this.perPage = event.row;
+    this.listPageDataLoading();
   }
 }

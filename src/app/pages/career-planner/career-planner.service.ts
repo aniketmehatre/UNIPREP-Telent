@@ -30,9 +30,9 @@ export class CareerPlannerService {
     });
   }
 
-  loadListPageData(){
+  loadListPageData(data: any){
     const headers = new HttpHeaders().set("Accept", "application/json");
-    return this.http.post<any>(environment.ApiUrl + "/ListPageDataLoading",{
+    return this.http.post<any>(environment.ApiUrl + "/ListPageDataLoading",{data},{
       headers: headers,
     });
   }
