@@ -32,7 +32,14 @@ export class CareerPlannerService {
 
   loadListPageData(data: any){
     const headers = new HttpHeaders().set("Accept", "application/json");
-    return this.http.post<any>(environment.ApiUrl + "/ListPageDataLoading",{data},{
+    return this.http.post<any>(environment.ApiUrl + "/ListPageDataLoading", data ,{
+      headers: headers,
+    });
+  }
+
+  resetRecommendation(){
+    const headers = new HttpHeaders().set("Accept", "application/json");
+    return this.http.post<any>(environment.ApiUrl + "/ResetRecommendation",{
       headers: headers,
     });
   }

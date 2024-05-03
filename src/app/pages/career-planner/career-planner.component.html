@@ -105,10 +105,11 @@
                     </div>
                 </div>
             </div>
+            <p-paginator *ngIf="totalRowCount != 0" [rows]="perPage" [totalRecords]="totalRowCount" [rowsPerPageOptions]="[10,20,30]" (onPageChange)="paginate($event)"></p-paginator>
         </div>
-        <p-paginator [rows]="perPage" [totalRecords]="totalRowCount" [rowsPerPageOptions]="[10,20,30]" (onPageChange)="paginate($event)"></p-paginator>
+        
         <div class="text-align-right p-2" *ngIf="enableModule">
-            <button pButton type="button"
+            <button pButton type="button" (click)="resetRecommendation()"
               class="text-black b-none p-ripple p-button-rounded p-danger-button p-button p-component p-2 bg-white">Reset
               Recommendations<span class="fa-stack">
                 <i class="fa fa-circle fa-stack-2x"></i>

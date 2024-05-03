@@ -114,7 +114,7 @@ export class CareerPlannerComponent implements OnInit {
   totalRowCount:number = 0;
   jobSiteData:any[] = [];
   page = 1;
-  perPage = 30;
+  perPage = 10;
 
   arrayMap: any = {
     'highLevelStudy': this.highLevelStudy,
@@ -134,7 +134,6 @@ export class CareerPlannerComponent implements OnInit {
 
   checkCareerPlanExist(){
     this.careerPlannerService.checkCareerPlanExist().subscribe((res)=>{
-      console.log(res);
       if(res == "Exist"){
         this.enableModule = true;
         this.listPageDataLoading();
@@ -156,14 +155,11 @@ export class CareerPlannerComponent implements OnInit {
       page: this.page,
       perPage: this.perPage,
     }
-
     this.careerPlannerService.loadListPageData(data).subscribe((res)=>{
-      console.log(res);
       const dataArray = Object.entries(res.data).map(([key, value]) => {
         const newKey = key.split('_');
         return { key: newKey[0], value: value };
       });
-      console.log(dataArray[0]);
       this.careerListData = dataArray;
       this.totalRowCount = res.total_count;
     });
@@ -194,6 +190,16 @@ export class CareerPlannerComponent implements OnInit {
             }
             this.activePageIndex += 3;
           }else{
+            this.activePageIndex++;
+          }
+        }else if(productId === 1){
+          if(this.selectedData[1] == 5){
+            this.products[1].question = "What subject are you interested in?";
+            this.products[2].question = "What specialization are you interested in?";
+            this.activePageIndex++;
+          }else{
+            this.products[1].question = "What subject did you study?";
+            this.products[2].question = "What was your specialisation?";
             this.activePageIndex++;
           }
         }else{
@@ -229,10 +235,12 @@ export class CareerPlannerComponent implements OnInit {
       const filteredEntries = entries.filter(([key, _]) => key !== '8' && key !== '9');
       this.selectedData = Object.fromEntries(filteredEntries);
     }
-    console.log(this.selectedData);
 
     this.careerPlannerService.storeCareerPlans(this.selectedData).subscribe((res)=>{
-      console.log(res);
+      if(res.status){
+        this.enableModule = true;
+        this.listPageDataLoading();
+      }
     })
   }
 
@@ -246,15 +254,23 @@ export class CareerPlannerComponent implements OnInit {
       }
       
     }
-    // if (this.activePageIndex < this.products.length - 1) {
-    //   this.activePageIndex++;
-    // }
   }
 
   paginate(event: any){
-    console.log(event);
     this.page = event.page + 1;
-    this.perPage = event.row;
+    this.perPage = event.rows;
     this.listPageDataLoading();
+  }
+
+  resetRecommendation(){
+    this.careerPlannerService.resetRecommendation().subscribe((res)=>{
+      this.enableModule = false;
+      this.selectboxValueLoading();
+      this.activePageIndex = 0;
+      this.selectedData = []; 
+      this.nxtOrRecommendBtn = false;
+      this.page = 1;
+      this.perPage = 10;
+    });
   }
 }
