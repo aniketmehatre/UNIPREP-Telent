@@ -138,7 +138,7 @@ import { CareerPlannerComponent } from './career-planner/career-planner.componen
         StepsModule,
         RadioButtonModule,
         NgxExtendedPdfViewerModule,
-        PdfViewerModule
+        PdfViewerModule,
     ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
