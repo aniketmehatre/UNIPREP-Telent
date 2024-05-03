@@ -12,6 +12,7 @@ import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { PageFacadeService } from "../page-facade.service";
 import { Router } from "@angular/router";
 import screenfull from "screenfull";
+import { Location } from "@angular/common";
 @Component({
   selector: "uni-chat",
   templateUrl: "./chat.component.html",
@@ -45,7 +46,8 @@ export class ChatComponent implements OnInit {
     private fb: FormBuilder,
     private pageService: PageFacadeService,
     private confirmationService: ConfirmationService,
-    private route: Router
+    private route: Router,
+    private location:Location
   ) {
     this.reportForm = fb.group({
       reportOption: ["", Validators.required],
@@ -292,5 +294,8 @@ export class ChatComponent implements OnInit {
   }
   upgradePlan(): void {
     this.route.navigate(["/pages/subscriptions"]);
+  }
+  goBack() {
+    this.location.back();
   }
 }

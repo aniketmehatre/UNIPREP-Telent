@@ -340,8 +340,7 @@ export class DashboardComponent implements OnInit {
             countryid: this.selectedCountryId
           }
           this.dashboardService.checkModuleQuizProgressbar(data).subscribe((res) => {
-            console.log(res);
-            this.quizProgressings=res.modules
+            this.quizProgressings=res.modules.filter((module:any) => module.id !== 7);
           })
     }
     startQuiz(moduleid:any) {

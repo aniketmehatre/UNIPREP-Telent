@@ -1,4 +1,4 @@
-<div class="card readingcard">
+<div class="card readingcard" *ngIf="!isPdfLoaded">
 	<div class="card-body pt-0" [style.display]="showDiv ? 'block' : 'none'">
 		<div class="row justify-content-center" *ngIf="!restrict">
 			<div class="col-md-3 text-start">
@@ -15,13 +15,14 @@
 			<div class="col-md-6 text-center">
 				<h5 class="select-title mb-1" tooltipPosition="top" pTooltip="">PITCH DECK</h5>
 			</div>
-			<div class="col-md-3 text-end">
-				<span class="d-flex justify-content-end mt-3 gap-2" style="white-space: nowrap;">
+			<div class="col-md-3 text-end" style="white-space: nowrap;">
+				<span class="d-flex justify-content-end mt-3 gap-2" >
 					<button class="btn btn-primary text-small pitchdeck-guidlines" (click)="closeGuidelines()" type="button">Pitch Deck Guidelines</button>
 					<button class="btn btn-primary text-small pitchdeck-guidlines" (click)="buyCredits()" type="button">Buy Credits</button>
 					<button class="btn btn-primary text-small exportButton" (click)="exportData()" type="button">Export <span class="exportCount">{{exportCreditCount}}</span></button>
 				</span>
-				<div class="d-flex w-100 align-items-center justify-content-end mt-3">
+				<div class="d-flex w-100 align-items-center justify-content-end mt-3 gap-2">
+					<button class="btn btn-primary text-small ps-3 pe-3 pt-2 pb-2 br-8 p-1" style="background-color: #FF9113 !important;" (click)="openReport()" type="button">Report</button>
 					<div class="pe-2">
 						<span class="text-muted text-small"><strong>Total Pitch Deck : {{ totalPitchDeckCount }}</strong></span>
 					</div>
@@ -192,3 +193,32 @@
 		<button pButton type="button" class="text-white p-ripple p-button-rounded p-button-warning p-button p-component p-2" (click)="upgradePlan()">Upgrade Plan<i class="fa fa-arrow-right exhausted-plan-icon"></i></button>
 	</div>
 </p-dialog>
+<div id="outerContainer" *ngIf="isPdfLoaded">
+    <div class="row justify-content-center">
+        <div class="col-md-1 col-1 text-start">
+            <p-button (click)="goBack()" icon="pi pi-arrow-left" styleClass="p-button-rounded p-button-text text-dark"></p-button>
+        </div>
+        <div class="col-md-10 col-10 text-center">
+            <button class="text-white p-ripple p-button-rounded p-button-warning p-button p-component p-2" *ngIf="isPdfDownloadOption"
+                    (click)="download()">Download PDF</button>
+        </div>
+        <div class="col-md-1 col-1">&nbsp;</div>
+    </div>
+    <div class="pdf-container">
+        <pdf-viewer
+                [src]="pdfURL"
+                [rotation]="0"
+                [original-size]="false"
+                [show-all]="true"
+                [fit-to-page]="false"
+                [zoom]="1"
+                [zoom-scale]="'page-width'"
+                [stick-to-page]="false"
+                [render-text]="true"
+                [external-link-target]="'blank'"
+                [autoresize]="true"
+                [show-borders]="false"
+                style="width: 100%; height: 100vh;"
+        ></pdf-viewer>
+    </div>
+</div>

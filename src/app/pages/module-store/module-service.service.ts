@@ -132,4 +132,10 @@ getQuizCompletion(data: any) {
         headers: headers,
     });
 }
+getUniversity(data:any) {
+  // let params = new HttpParams();
+  // params = params.append("country_id", countryId);
+  const headers = new HttpHeaders().set("Accept", "application/json");
+  return this.http.post<any>(environment.ApiUrl + "/getuniversitybycountry", data ,{ headers: headers,});
+}
 }

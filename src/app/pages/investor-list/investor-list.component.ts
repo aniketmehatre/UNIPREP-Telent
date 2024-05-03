@@ -38,6 +38,8 @@ export class InvestorListComponent implements OnInit {
   selectAllCheckboxes = false;
   exportDataIds:any[] = [];
   exportCreditCount: number = 0;
+  favCount:number=0;
+
 
   constructor(
     private _location: Location, 
@@ -166,6 +168,8 @@ export class InvestorListComponent implements OnInit {
     }
     this.investorList.getInvestorList(data).subscribe((response) => {
       this.investorData = response.data;
+      console.log(response);
+      this.favCount=response.favourite_count;
       this.exportCreditCount = response.credit_count ? response.credit_count : 0;
       if (isFavourite != 1) {
         this.allInvestorList=response.data;
@@ -243,6 +247,7 @@ export class InvestorListComponent implements OnInit {
 }
   bookmarkQuestion(investorId:any,isFav:any){
     isFav=isFav!='1'?true:false;
+    this.favCount=isFav == true ? this.favCount+1 : this.favCount-1;
      this.investorList.bookmarkInvestorData(investorId,this.PersonalInfo.user_id,isFav).subscribe((response) => {
       let investorListData=this.investorData.find(item=>item.id==investorId);
       isFav==true?investorListData.favourite=1:investorListData.favourite=null;
@@ -322,9 +327,9 @@ export class InvestorListComponent implements OnInit {
       };
       this.dataService.openReportWindow(data);
     }else if(this.selectedInvestors == 0){
-      this.toast.add({severity: "error",summary: "Error",detail: "Please make sure you have select any Scholarship!",});
+      this.toast.add({severity: "error",summary: "Error",detail: "Please select at least one Investor!",});
     }else if(this.selectedInvestors > 1){
-      this.toast.add({severity: "error",summary: "Error",detail: "Please select only one scholarship at a time!",});
+      this.toast.add({severity: "error",summary: "Error",detail: "Please select only one Investor at a time!",});
     }
   }
 }

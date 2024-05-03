@@ -74,14 +74,9 @@ planExpired: boolean = false;
       }
     })
   }
-  showSocialSharingList(){
-    let socialShare:any=document.getElementById("socialSharingList");
-    if(socialShare.style.display == "") {
-      socialShare.style.display = "block";
-    }
-    else {
-      socialShare.style.display = socialShare.style.display == "none" ? "block" : "none";
-    }
+  selectedIndex: any = null;
+  showSocialSharingList(index: any){
+    this.selectedIndex = this.selectedIndex === index ? null : index;
   }
   shareViaWhatsapp(link:any){
     let url=link

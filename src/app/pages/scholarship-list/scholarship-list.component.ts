@@ -47,6 +47,7 @@ export class ScholarshipListComponent implements OnInit {
   exportCreditCount: number = 0;
   exportDataIds:any = [];
   selectedScholarship: number = 0;
+  favCount:number=0;
 
   constructor(
     private fb: FormBuilder,
@@ -97,18 +98,18 @@ export class ScholarshipListComponent implements OnInit {
     this.scholarshipData = [...searchedScholarship];
   }
 
-  resetFilter() {
-    this.regionList = [];
-    this.filterForm.reset();
-    this.data = {
-      page: this.page,
-      perpage: this.pageSize,
-    }
-    this.loadScholarShipData(0);
-    // this.getRegionList();
-    this.getFilterUniversityList("");
-    this.isFilterVisible = false;
-  }
+  // resetFilter() {
+  //   this.regionList = [];
+  //   this.filterForm.reset();
+  //   this.data = {
+  //     page: this.page,
+  //     perpage: this.pageSize,
+  //   }
+  //   this.loadScholarShipData(0);
+  //   // this.getRegionList();
+  //   this.getFilterUniversityList("");
+  //   this.isFilterVisible = false;
+  // }
   clearFilter() {
     this.regionList = [];
     this.filterForm.reset();
@@ -168,6 +169,7 @@ export class ScholarshipListComponent implements OnInit {
       .getScholarshipList(this.data)
       .subscribe((response) => {
         this.scholarshipData = response.scholarship;
+        this.favCount=response.favourite_count;
         if (isFavourite != 1) {
           this.allScholarshipList = response.scholarship;
           this.allScholarshipCount = response.count;
@@ -189,11 +191,21 @@ export class ScholarshipListComponent implements OnInit {
       !formData.valueRange &&
       !formData.cover_id
     ) {
-      this.toast.add({
-        severity: "error",
-        summary: "Error",
-        detail: "Please make sure you have some filter!",
-      });
+      // this.toast.add({
+      //   severity: "error",
+      //   summary: "Error",
+      //   detail: "Please make sure you have some filter!",
+      // });
+   this.regionList = [];
+     this.filterForm.reset();
+     this.data = {
+       page: this.page,
+       perpage: this.pageSize,
+     }
+     this.loadScholarShipData(0);
+     this.getRegionList();
+     this.getFilterUniversityList("");
+     this.isFilterVisible = false;
       return;
     }
     this.data.page = 1;
@@ -321,6 +333,8 @@ export class ScholarshipListComponent implements OnInit {
   }
   bookmarkQuestion(scholarshipId: any, isFav: any) {
     isFav = isFav != '1' ? true : false;
+    this.favCount=isFav == true ? this.favCount+1 : this.favCount-1;
+    
     this.scholarshipListService.bookmarkScholarshipData(scholarshipId, this.PersonalInfo.user_id, isFav).subscribe((response) => {
       let scholarshipListData = this.scholarshipData.find(item => item.id == scholarshipId);
       isFav == true ? scholarshipListData.favourite = 1 : scholarshipListData.favourite = null;
@@ -389,7 +403,7 @@ export class ScholarshipListComponent implements OnInit {
       //console.log(data);
       this.dataService.openReportWindow(data);
     }else if(this.selectedScholarship == 0){
-      this.toast.add({severity: "error",summary: "Error",detail: "Please make sure you have select any Scholarship!",});
+      this.toast.add({severity: "error",summary: "Error",detail: "Please select at least one scholarship!",});
     }else if(this.selectedScholarship > 1){
       this.toast.add({severity: "error",summary: "Error",detail: "Please select only one scholarship at a time!",});
     }
@@ -461,6 +475,7 @@ export class ScholarshipListComponent implements OnInit {
         window.open(response.link, '_blank');
         this.selectAllCheckboxes = false;
         this.selectedCheckboxCount = 0;
+        this.selectedScholarship = 0;
         this.loadScholarShipData(0);
       })
     }else if(this.exportCreditCount == 0){

@@ -50,7 +50,10 @@ export class QuizmenuComponent implements OnInit {
     this.router.navigate([`/pages/modules/${this.currentModuleSlug}/quiz`]);
   }
   getFilterUniversityList(value: any) {
-    this.locationService.getUniversity(value).subscribe((response) => {
+    var data={
+      country_id:value
+    }
+    this.moduleListService.getUniversity(data).subscribe((response) => {
       this.filterUniversityList = response;
     });
   }
@@ -76,6 +79,8 @@ export class QuizmenuComponent implements OnInit {
     if (this.universityId != null) {
       this.universityquizbutton = false;
       localStorage.setItem('universityidforquiz', this.universityId)
+      console.log(this.universityId);
+      
     } else {
       this.universityquizbutton = true;
     }

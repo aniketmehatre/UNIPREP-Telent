@@ -4,7 +4,7 @@ import { FormBuilder, FormGroup } from "@angular/forms";
 import { AuthService } from 'src/app/Auth/auth.service';
 import { Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
-
+import { DataService } from 'src/app/data.service';
 @Component({
   selector: 'uni-pitch-desk',
   templateUrl: './pitch-desk.component.html',
@@ -29,7 +29,8 @@ export class PitchDeskComponent implements OnInit {
   selectedCheckboxCount: number = 0;
   exportCreditCount: number = 0;
   exportDataIds:any = [];
-  constructor(private pitchDesk:PitchDeskService, private fb: FormBuilder,private router: Router,private authService: AuthService, private toast: MessageService,) { 
+  isPdfLoaded: boolean = false
+  constructor(private pitchDesk:PitchDeskService, private fb: FormBuilder,private router: Router,private authService: AuthService, private toast: MessageService, private dataService: DataService) { 
     this.filterForm = this.fb.group({
       pitchdeck_name: [''],
       country: [''],
@@ -111,9 +112,56 @@ export class PitchDeskComponent implements OnInit {
   closeGuidelines(){
     this.showDiv = !this.showDiv;
   }
-
+  pdfURL: any
+  isPdfDownloadOption: any
   showPdf(url: any){
-    window.open(url, "_blank");
+    this.pdfURL = url;
+    this.isPdfLoaded = true;
+
+    if (!this.planExpired && this.exportCreditCount != 0) {
+      this.isPdfDownloadOption = true;
+    }else{
+      this.isPdfDownloadOption = false
+    }
+
+    //window.open(url, "_blank");
+  }
+  
+  download(): void {
+    const parts = this.pdfURL.split('/');
+    const lastPart = parts[parts.length - 1];
+  
+    // Wrap the asynchronous operation in a Promise
+    new Promise<void>((resolve) => {
+      this.pitchDesk.downloadPdf(this.pdfURL, lastPart);
+      resolve(); // Resolve the Promise once the operation is complete
+    }).then(() => {
+      // After the PDF is downloaded, make the second API call
+      if(this.exportCreditCount != 0){
+        let data = {
+          module_id: 6
+        };
+        this.pitchDesk.singleCreditReduce(data).subscribe(() => {
+          // Both API calls completed successfully
+          this.getPitchDeskList();
+          if (!this.planExpired && this.exportCreditCount != 0) {
+            this.isPdfDownloadOption = true;
+          }else{
+            this.isPdfDownloadOption = false
+          }
+        }, error => {
+          // Handle errors from the second API call
+          console.error('Error while downloading document:', error);
+        });
+      }
+    }).catch(error => {
+      // Handle errors from the first API call
+      console.error('Error while reduce the credit:', error);
+    });
+  }
+
+  goBack(){
+    this.isPdfLoaded = false;
   }
 
   clearRestriction() {
@@ -216,5 +264,23 @@ export class PitchDeskComponent implements OnInit {
       this.router.navigate(["/pages/export-credit"]);
     }
     
+  }
+
+  openReport(){
+    if(this.selectedCheckboxCount == 1){
+      let reportId = this.pitchDeskList.find(item=> item.isChecked == 1).id;
+      let data = {
+        isVisible: true,
+        questionId: reportId,
+        reporttype:7,
+        moduleId:7,
+        report_mode: "other_module"
+      };
+      this.dataService.openReportWindow(data);
+    }else if(this.selectedCheckboxCount == 0){
+      this.toast.add({severity: "error",summary: "Error",detail: "Please select at least one pitch deck!",});
+    }else if(this.selectedCheckboxCount > 1){
+      this.toast.add({severity: "error",summary: "Error",detail: "Please select only one Pitch Deck at a time!",});
+    }
   }
 }
