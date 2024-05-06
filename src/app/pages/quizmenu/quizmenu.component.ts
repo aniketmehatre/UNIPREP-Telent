@@ -17,7 +17,9 @@ export class QuizmenuComponent implements OnInit {
   countryId: any;
   countryName!: string;
   universityId: any=null;
+  moduleid:any=null
   universityquizbutton: boolean = true;
+  readingmodulestartbutton:boolean = true;
   restrict: boolean = false;
   planExpired: boolean = false;
   constructor(private moduleListService: ModuleServiceService, private router: Router, private dataService: DataService,
@@ -64,6 +66,8 @@ export class QuizmenuComponent implements OnInit {
     }
     this.moduleListService.getQuizCompletion(data).subscribe((res) => {
       this.quizpercentagedata = res.modules.filter((obj: any) => obj.module_name !== "Travel And Tourism")
+      console.log(this.quizpercentagedata);
+      
     })
   }
   startQuizUniversity() {
@@ -101,5 +105,23 @@ export class QuizmenuComponent implements OnInit {
   }
   clearRestriction() {
     this.restrict = false;
+  }
+  readingmoduleid:number=0;
+  moduleprogress:number=0;
+  changemodule(eve:any){
+    this.readingmoduleid=eve.value.id
+    this.moduleprogress=eve.value.progress
+    console.log(eve);
+    console.log(this.moduleid);
+    console.log(this.readingmoduleid);
+    console.log(this.moduleprogress);
+    if(this.moduleprogress >= 80){
+      this.readingmodulestartbutton=true;
+    }else{
+      this.readingmodulestartbutton=false; 
+    }
+  }
+  startModulule(){
+    this.startQuiz(this.readingmoduleid)
   }
 }
