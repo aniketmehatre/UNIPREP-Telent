@@ -168,7 +168,7 @@ export class InvestorListComponent implements OnInit {
     }
     this.investorList.getInvestorList(data).subscribe((response) => {
       this.investorData = response.data;
-      console.log(response);
+      // console.log(response);
       this.favCount=response.favourite_count;
       this.exportCreditCount = response.credit_count ? response.credit_count : 0;
       if (isFavourite != 1) {
