@@ -34,7 +34,7 @@
 
 									<ng-container *ngIf="product.id == 3 || product.id == 6 || product.id == 9">
 										<div class="flex align-items-center">
-											<p-multiSelect [options]="arrayMap[product.arrayName]" [filter]="true" styleClass="w-100" [(ngModel)]="selectedData[product.id]" optionValue="id" [showClear]="true" optionLabel="specialisation_name" [placeholder]="product.placeholder"></p-multiSelect>
+											<p-multiSelect [options]="arrayMap[product.arrayName]" [filter]="true" styleClass="w-100" [(ngModel)]="selectedData[product.id]" optionValue="id" [showClear]="true" optionLabel="specialisation_name" [placeholder]="product.placeholder" selectedItemsLabel="{} items selected"></p-multiSelect>
 										</div>
 									</ng-container>
 
@@ -53,7 +53,7 @@
 		</div>
 		<div class="container-fluid" *ngIf="enableModule">
 			<p-card class="bg-blue">
-				<p class="text-white text-center fw-bolder">We recommended 30 job roles based on your specialization, along with average salaries in the top 5 countries.</p>
+				<p class="text-white text-center fw-bolder">We recommended {{totalRowCount}} job roles based on your specialization, along with average salaries in the top 5 countries.</p>
 			</p-card>
 			<div class="border mt-2 rounded-2">
 				<div class="d-flex flex-column m-2" *ngFor="let item of careerListData">
@@ -97,7 +97,7 @@
 		<p-paginator [rows]="perPage" [totalRecords]="totalRowCount" [rowsPerPageOptions]="[10, 20, 30]" (onPageChange)="paginate($event)" *ngIf="enableModule"></p-paginator>
 		<div class="text-align-right p-2" *ngIf="enableModule">
 			<button pButton type="button" (click)="resetRecommendation()" class="text-black b-none p-ripple p-button-rounded p-danger-button p-button p-component p-2 bg-white">
-				Reset Recommendations<span class="fa-stack">
+				Reset Job Recommendations<span class="fa-stack">
 					<i class="fa fa-circle fa-stack-2x"></i>
 					<i class="fa fa-undo fa-stack-1x fa-inverse"></i>
 				</span>
