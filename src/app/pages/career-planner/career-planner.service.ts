@@ -16,9 +16,23 @@ export class CareerPlannerService {
     });
   }
 
-  storeCareerPlans(){
+  storeCareerPlans(data: any){
     const headers = new HttpHeaders().set("Accept", "application/json");
-    return this.http.post<any>(environment.ApiUrl + "/StoreCareerPlanners", {
+    return this.http.post<any>(environment.ApiUrl + "/StoreCareerPlanners", { data },{
+      headers: headers,
+    });
+  }
+
+  checkCareerPlanExist(){
+    const headers = new HttpHeaders().set("Accept", "application/json");
+    return this.http.post<any>(environment.ApiUrl + "/CareerPlanExist",{
+      headers: headers,
+    });
+  }
+
+  loadListPageData(){
+    const headers = new HttpHeaders().set("Accept", "application/json");
+    return this.http.post<any>(environment.ApiUrl + "/ListPageDataLoading",{
       headers: headers,
     });
   }
