@@ -5,6 +5,7 @@ import {UserResolver} from "./resolvers/user.resolver";
 import { LandingComponent } from "./pages/landing/landing.component";
 import { AppComponent } from "./app.component";
 import { PrivacyComponent } from "./pages/privacy/privacy.component";
+import { CertificatesComponent } from "./pages/certificates/certificates.component";
 const routes: Routes = [
   {
     path: '',
@@ -18,6 +19,10 @@ const routes: Routes = [
   {
     path: 'privacy',
     component: PrivacyComponent
+  },
+  {
+    path: 'certificates',
+    component: CertificatesComponent
   },
   {
     path: 'pages',
