@@ -182,14 +182,17 @@
 }
 
 .joblogos {
-    display: flex;
+	display: flex;
     align-items: center;
     justify-content: center;
+    background: white;
+    border-radius: 5px;
+    padding: 5px;
 	img {
-		width: 100%;
 		object-fit: contain;
-        max-height:50px;
+        max-height:30px;
         margin: auto;
+		width:100%;
 	}
 }
 .small-font-size {
