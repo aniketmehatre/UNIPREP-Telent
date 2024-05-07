@@ -267,20 +267,13 @@ export class PitchDeskComponent implements OnInit {
   }
 
   openReport(){
-    if(this.selectedCheckboxCount == 1){
-      let reportId = this.pitchDeskList.find(item=> item.isChecked == 1).id;
-      let data = {
-        isVisible: true,
-        questionId: reportId,
-        reporttype:7,
-        moduleId:7,
-        report_mode: "other_module"
-      };
-      this.dataService.openReportWindow(data);
-    }else if(this.selectedCheckboxCount == 0){
-      this.toast.add({severity: "error",summary: "Error",detail: "Please select at least one pitch deck!",});
-    }else if(this.selectedCheckboxCount > 1){
-      this.toast.add({severity: "error",summary: "Error",detail: "Please select only one Pitch Deck at a time!",});
-    }
+    
+    let data = {
+      isVisible: true,
+      reporttype:7,
+      moduleId:7,
+      report_mode: "other_module"
+    };
+    this.dataService.openReportWindow(data);
   }
 }

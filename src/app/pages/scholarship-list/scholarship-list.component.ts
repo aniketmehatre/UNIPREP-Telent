@@ -389,38 +389,14 @@ export class ScholarshipListComponent implements OnInit {
   // }
 
   openReport() {
+    let data = {
+      isVisible: true,
+      reporttype:4,
+      moduleId:4,
+      report_mode: "other_module"
+    };
+    this.dataService.openReportWindow(data);
     
-    if(this.selectedScholarship == 1){
-      let reportId = this.scholarshipData.find(item=> item.isChecked == 1).id;
-      //console.log(reportId);
-      let data = {
-        isVisible: true,
-        questionId: reportId,
-        reporttype:4,
-        moduleId:4,
-        report_mode: "other_module"
-      };
-      //console.log(data);
-      this.dataService.openReportWindow(data);
-    }else if(this.selectedScholarship == 0){
-      this.toast.add({severity: "error",summary: "Error",detail: "Please select at least one scholarship!",});
-    }else if(this.selectedScholarship > 1){
-      this.toast.add({severity: "error",summary: "Error",detail: "Please select only one scholarship at a time!",});
-    }
-    // if(this.toSend){
-      // let data = {
-      //   isVisible: true,
-      //   //questionId: this.sholarshipquestionid,
-      //   reporttype:4
-      // };
-      // this.dataService.openReportWindow(data);
-    // }else{
-      // this.toast.add({
-      //   severity: "error",
-      //   summary: "Error",
-      //   detail: "Please make sure you have select any question!",
-      // });
-    // }
   }
 
   buyCredits(): void{
