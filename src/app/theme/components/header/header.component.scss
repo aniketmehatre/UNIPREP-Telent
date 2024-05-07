@@ -348,3 +348,31 @@ form {
   ) !important;
 }
 
+.country-list {
+  list-style: none;
+  padding: 0;
+}
+
+.country-list li {
+  width: 33.33%; /* Three columns */
+  box-sizing: border-box;
+  float: left;
+}
+
+.p-overlaypanel{
+  width: 50%;
+}
+
+@media (max-width: 768px) {
+  .country-list li {
+      width: 50%; /* Two columns on smaller screens */
+  }
+}
+
+@media (max-width: 576px) {
+  .country-list li {
+      width: 100%; /* Single column on extra small screens */
+  }
+}
+
+
