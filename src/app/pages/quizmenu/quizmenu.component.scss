@@ -373,3 +373,28 @@ selctedQuizTiny {
 	margin-top: 20px;
 	color: #ff9113;
 }
+.vertical-line {
+    border-left: 2px solid #9b9090; 
+    height: 100%; 
+}
+::ng-deep .p-accordion-header-link {
+border: none !important;
+background-color: white !important;
+  }
+  ::ng-deep .p-accordion-header-link:after {
+	content: "+";
+	position: absolute;
+	right: 15px;
+	background: white !important;
+	padding: 5px 10px;
+	border-radius: 0px ;
+	color: #000000;
+  }
+  ::ng-deep .p-accordion .p-accordion-header:not(.p-disabled) .p-accordion-header-link:focus {
+    outline: 0 none;
+    outline-offset: 0;
+     box-shadow:none !important;
+}
+::ng-deep .p-accordion .p-accordion-content{
+border: none !important;
+}

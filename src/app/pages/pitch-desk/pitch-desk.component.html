@@ -4,27 +4,31 @@
 			<div class="col-md-3 text-start">
 				<div class="p-input-icon-left w-100 mt-3">
 					<i class="pi pi-search"></i>
-					<input class="w-100 px-5 py-2" type="text" placeholder="Search in Pitch Deck List" pInputText [(ngModel)]="valueNearYouFilter" (input)="performSearch()"/>
+					<input class="w-100 px-5 py-2" type="text" placeholder="Search in Pitch Deck List" pInputText [(ngModel)]="valueNearYouFilter" (input)="performSearch()" />
 				</div>
 				<span class="d-flex justify-content-start p-2">
-					<input type="checkbox" class="me-0" style="transform: scale(1.5);" [(ngModel)]="selectAllCheckboxes" (click)="selectAllCheckbox()" id="selectAllcheckbox">
+					<input type="checkbox" class="me-0" style="transform: scale(1.5)" [(ngModel)]="selectAllCheckboxes" (click)="selectAllCheckbox()" id="selectAllcheckbox" />
 					<label class="p-2" for="selectAllcheckbox">Select All</label>
-					<span class="p-2">Selected : {{selectedCheckboxCount}}</span>
+					<span class="p-2">Selected : {{ selectedCheckboxCount }}</span>
 				</span>
 			</div>
 			<div class="col-md-6 text-center">
 				<h5 class="select-title mb-1" tooltipPosition="top" pTooltip="">PITCH DECK</h5>
 			</div>
-			<div class="col-md-3 text-end" style="white-space: nowrap;">
-				<span class="d-flex justify-content-end mt-3 gap-2" >
+			<div class="col-md-3 text-end" style="white-space: nowrap">
+				<span class="d-flex justify-content-end mt-3 gap-2">
 					<button class="btn btn-primary text-small pitchdeck-guidlines" (click)="closeGuidelines()" type="button">Pitch Deck Guidelines</button>
 					<button class="btn btn-primary text-small pitchdeck-guidlines" (click)="buyCredits()" type="button">Buy Credits</button>
-					<button class="btn btn-primary text-small exportButton" (click)="exportData()" type="button">Export <span class="exportCount">{{exportCreditCount}}</span></button>
+					<button class="btn btn-primary text-small exportButton" (click)="exportData()" type="button">
+						Export <span class="exportCount">{{ exportCreditCount }}</span>
+					</button>
 				</span>
 				<div class="d-flex w-100 align-items-center justify-content-end mt-3 gap-2">
-					<button class="btn btn-primary text-small ps-3 pe-3 pt-2 pb-2 br-8 p-1" style="background-color: #FF9113 !important;" (click)="openReport()" type="button">Report</button>
+					<button class="btn btn-primary text-small ps-3 pe-3 pt-2 pb-2 br-8 p-1" style="background-color: #ff9113 !important" (click)="openReport()" type="button">Report</button>
 					<div class="pe-2">
-						<span class="text-muted text-small"><strong>Total Pitch Deck : {{ totalPitchDeckCount }}</strong></span>
+						<span class="text-muted text-small"
+							><strong>Total Pitch Deck : {{ totalPitchDeckCount }}</strong></span
+						>
 					</div>
 					<button class="btn btn-primary text-small ps-3 pe-3 pt-2 pb-2 br-8 p-1" (click)="filterBy()" type="button">Filter by</button>
 				</div>
@@ -36,37 +40,41 @@
 					<div class="card deskcard h-100">
 						<div class="card-body">
 							<div class="d-flex justify-content-between">
-								<div class="d-flex gap-2 justify-content-start align-items-center" >
-									<div class="d-flex align-items-center justify-content-center pitchicon" >
+								<div class="d-flex gap-2 justify-content-start align-items-center">
+									<div class="d-flex align-items-center justify-content-center pitchicon">
 										<img class="img-responsive" [src]="pitchDeskListData.image_name" />
 									</div>
 									<div class="d-flex flex-column overflow-hidden">
-										<a (click)="showPdf(pitchDeskListData.document_name)" style="cursor: pointer;" ><h6 class="mb-0 text-truncate pitchDeskNameColor" >{{ pitchDeskListData.pitchdeck_name }}</h6></a>
-										<h6 class="fw-semibold mb-0 text-truncate p-1">{{ pitchDeskListData.funding_amount }}</h6>
+										<a (click)="showPdf(pitchDeskListData.document_name)" style="cursor: pointer">
+											<h5 class="mb-0 fw-bold text-truncate uniprep-primary position-relative">{{ pitchDeskListData.pitchdeck_name }}
+												<span class="linkicon"><i class="fa-solid fa-arrow-up-right-from-square text-small"></i></span>
+											</h5>
+										</a>
+										<h4 class="fw-bold mb-0 text-truncate">{{ pitchDeskListData.funding_amount }}</h4>
 									</div>
 								</div>
 								<div class="d-flex justify-content-md-end">
-									<input type="checkbox" (change)="onCheckboxChange($event)" class="me-2" style="transform: scale(1.5);" [(ngModel)]="pitchDeskListData.isChecked">
+									<input type="checkbox" (change)="onCheckboxChange($event)" class="me-2" style="transform: scale(1.5)" [(ngModel)]="pitchDeskListData.isChecked" />
 								</div>
 							</div>
-							<div class="d-flex justify-content-between p-1">
+							<div class="d-flex justify-content-between mt-2 mb-1">
 								<div class="col text-nowrap">
-									<i class="fa-solid fa-calendar fontsizesmall foundYearColor"></i> 
-									<span class="fontsizesmall"> {{ pitchDeskListData.founding_year }}</span>
+									<i class="fa-solid fa-calendar text-small foundYearColor"></i>
+									<span class="text-small"> {{ pitchDeskListData.founding_year }}</span>
 								</div>
 								<div class="col text-nowrap">
-									<i class="fa-solid fa-seedling fontsizesmall fundTypeColor"></i> 
-									<span class="fontsizesmall"> {{ pitchDeskListData.funding_type_name }}</span>
+									<i class="fa-solid fa-seedling  text-small fundTypeColor"></i>
+									<span class=" text-small"> {{ pitchDeskListData.funding_type_name }}</span>
 								</div>
 								<div class="col text-nowrap">
-									<i class="fa-solid fa-building fontsizesmall sectorColor"></i>
-									<span class="fontsizesmall"> {{ pitchDeskListData.sector_name }}</span>
+									<i class="fa-solid fa-building  text-small sectorColor"></i>
+									<span class=" text-small"> {{ pitchDeskListData.sector_name }}</span>
 								</div>
 							</div>
-							<div class="d-flex justify-content-between p-1">
+							<div class="d-flex justify-content-between">
 								<div class="col text-nowrap">
-									<i class="fa-solid fa-location-dot fontsizesmall HeadQuartersColor" ></i> 
-									<span class="fontsizesmall"> {{ pitchDeskListData.country_name }}, {{ pitchDeskListData.head_quarters_name }}</span>
+									<i class="fa-solid fa-location-dot text-small  HeadQuartersColor"></i>
+									<span class=" text-small"> {{ pitchDeskListData.country_name }}, {{ pitchDeskListData.head_quarters_name }}</span>
 								</div>
 							</div>
 						</div>
@@ -94,7 +102,7 @@
 									<label class="form-label" style="font-size: medium; font-weight: 500">Filter by Country</label>
 									<div class="form-group">
 										<div class="mb-3">
-											<p-multiSelect [options]="countrySelectBox" styleClass="w-100" formControlName="country" optionValue="id"  defaultLabel="Select Countries" optionLabel="country" #multiSelect [appendTo]="'body'">
+											<p-multiSelect [options]="countrySelectBox" styleClass="w-100" formControlName="country" optionValue="id" defaultLabel="Select Countries" optionLabel="country" #multiSelect [appendTo]="'body'">
 												<ng-template pTemplate="selectedItems">
 													{{ multiSelect.defaultLabel }}
 												</ng-template>
@@ -112,7 +120,7 @@
 									<label class="form-label" style="font-size: medium; font-weight: 500">Filter by Fund Type</label>
 									<div class="form-group">
 										<div class="mb-3">
-											<p-multiSelect [options]="fundingTypeSelectBox" styleClass="w-100" formControlName="funding_type" optionValue="id"  defaultLabel="Select Fund Type" optionLabel="funding_type_name" #FundType [appendTo]="'body'">
+											<p-multiSelect [options]="fundingTypeSelectBox" styleClass="w-100" formControlName="funding_type" optionValue="id" defaultLabel="Select Fund Type" optionLabel="funding_type_name" #FundType [appendTo]="'body'">
 												<ng-template pTemplate="selectedItems">
 													{{ FundType.defaultLabel }}
 												</ng-template>
@@ -124,7 +132,7 @@
 									<label class="form-label" style="font-size: medium; font-weight: 500">Filter by Sector</label>
 									<div class="form-group">
 										<div class="mb-3">
-											<p-multiSelect [options]="sectorSelectBox" styleClass="w-100" formControlName="sector" optionValue="id"  defaultLabel="Select Sector" optionLabel="sector_name" #Sector [appendTo]="'body'">
+											<p-multiSelect [options]="sectorSelectBox" styleClass="w-100" formControlName="sector" optionValue="id" defaultLabel="Select Sector" optionLabel="sector_name" #Sector [appendTo]="'body'">
 												<ng-template pTemplate="selectedItems">
 													{{ Sector.defaultLabel }}
 												</ng-template>
@@ -137,7 +145,7 @@
 					</div>
 					<div>
 						<button type="submit" class="btn btn-dark w-100" style="background-color: var(--uniprep-primary); border: none">Apply Filter</button>
-						<button class="btn btn-dark w-100" (click)="clearFilter()"  style="background-color: white; border-radius: 8px; color: var(--uniprep-primary); border: none" type="button">Reset Filter</button>
+						<button class="btn btn-dark w-100" (click)="clearFilter()" style="background-color: white; border-radius: 8px; color: var(--uniprep-primary); border: none" type="button">Reset Filter</button>
 					</div>
 				</form>
 			</div>
@@ -160,11 +168,11 @@
 				<div class="card-body">
 					<h5>Do's</h5>
 					<ol class="lh-lg ps-3">
-						<li><strong>Use as a Template:</strong> Treat the investor decks as templates or examples to guide you in preparing your own pitch deck for potential investors. </li>
-						<li><strong>Study Industry Trends:</strong> Analyze the pitch decks of companies in your industry or similar sectors to gain insights into effective strategies and presentation styles. </li>
-						<li><strong>Tailor Content:</strong> Customize the content of your pitch deck to accurately reflect your company's unique value proposition, market opportunity, and growth potential. </li>
-						<li><strong>Highlight Key Metrics:</strong> Focus on highlighting key metrics, achievements, and milestones that demonstrate the traction and potential of your business.   </li>
-						<li><strong>Seek Feedback:</strong> Share your pitch deck with mentors, advisors, or peers for feedback and suggestions on how to improve clarity, effectiveness, and impact. </li>
+						<li><strong>Use as a Template:</strong> Treat the investor decks as templates or examples to guide you in preparing your own pitch deck for potential investors.</li>
+						<li><strong>Study Industry Trends:</strong> Analyze the pitch decks of companies in your industry or similar sectors to gain insights into effective strategies and presentation styles.</li>
+						<li><strong>Tailor Content:</strong> Customize the content of your pitch deck to accurately reflect your company's unique value proposition, market opportunity, and growth potential.</li>
+						<li><strong>Highlight Key Metrics:</strong> Focus on highlighting key metrics, achievements, and milestones that demonstrate the traction and potential of your business.</li>
+						<li><strong>Seek Feedback:</strong> Share your pitch deck with mentors, advisors, or peers for feedback and suggestions on how to improve clarity, effectiveness, and impact.</li>
 					</ol>
 				</div>
 			</div>
@@ -172,17 +180,16 @@
 				<div class="card-body">
 					<h5>Dont's</h5>
 					<ol class="lh-lg ps-3">
-							<li><strong>Copy Directly:</strong> Avoid copying content directly from the investor decks of other companies; instead, use them as inspiration to develop original and compelling narratives for your own pitch deck. </li>
-							<li><strong>Overlook Differentiators:</strong> Ensure your pitch deck emphasizes the unique aspects and competitive advantages of your company to differentiate yourself from others in the industry.  </li>
-							<li><strong>Neglect Customization:</strong> Resist the temptation to use a one-size-fits-all approach; tailor your pitch deck to suit the preferences and expectations of your target investors. </li>
-							<li><strong>Exaggerate or Mislead:</strong> Refrain from exaggerating achievements or making unrealistic projections in your pitch deck, as this can damage credibility and trust with potential investors. </li>
-							<li><strong>Misuse Data:</strong> Do not misuse or misrepresent any data obtained from the investor decks of other companies; ensure that all information is used ethically and appropriately in accordance with data privacy regulations. </li>
+						<li><strong>Copy Directly:</strong> Avoid copying content directly from the investor decks of other companies; instead, use them as inspiration to develop original and compelling narratives for your own pitch deck.</li>
+						<li><strong>Overlook Differentiators:</strong> Ensure your pitch deck emphasizes the unique aspects and competitive advantages of your company to differentiate yourself from others in the industry.</li>
+						<li><strong>Neglect Customization:</strong> Resist the temptation to use a one-size-fits-all approach; tailor your pitch deck to suit the preferences and expectations of your target investors.</li>
+						<li><strong>Exaggerate or Mislead:</strong> Refrain from exaggerating achievements or making unrealistic projections in your pitch deck, as this can damage credibility and trust with potential investors.</li>
+						<li><strong>Misuse Data:</strong> Do not misuse or misrepresent any data obtained from the investor decks of other companies; ensure that all information is used ethically and appropriately in accordance with data privacy regulations.</li>
 					</ol>
 				</div>
 			</div>
 		</div>
 	</div>
-	
 </div>
 
 <p-dialog [(visible)]="restrict" [style]="{ width: '30vw' }" [draggable]="false" [resizable]="false" class="restrictionDialog" [breakpoints]="{ '960px': '30vw', '959px': '60vw', '425px': '90vw' }" (onHide)="clearRestriction()">
@@ -194,31 +201,16 @@
 	</div>
 </p-dialog>
 <div id="outerContainer" *ngIf="isPdfLoaded">
-    <div class="row justify-content-center">
-        <div class="col-md-1 col-1 text-start">
-            <p-button (click)="goBack()" icon="pi pi-arrow-left" styleClass="p-button-rounded p-button-text text-dark"></p-button>
-        </div>
-        <div class="col-md-10 col-10 text-center">
-            <button class="text-white p-ripple p-button-rounded p-button-warning p-button p-component p-2" *ngIf="isPdfDownloadOption"
-                    (click)="download()">Download PDF</button>
-        </div>
-        <div class="col-md-1 col-1">&nbsp;</div>
-    </div>
-    <div class="pdf-container">
-        <pdf-viewer
-                [src]="pdfURL"
-                [rotation]="0"
-                [original-size]="false"
-                [show-all]="true"
-                [fit-to-page]="false"
-                [zoom]="1"
-                [zoom-scale]="'page-width'"
-                [stick-to-page]="false"
-                [render-text]="true"
-                [external-link-target]="'blank'"
-                [autoresize]="true"
-                [show-borders]="false"
-                style="width: 100%; height: 100vh;"
-        ></pdf-viewer>
-    </div>
+	<div class="row justify-content-center">
+		<div class="col-md-1 col-1 text-start">
+			<p-button (click)="goBack()" icon="pi pi-arrow-left" styleClass="p-button-rounded p-button-text text-dark"></p-button>
+		</div>
+		<div class="col-md-10 col-10 text-center">
+			<button class="text-white p-ripple p-button-rounded p-button-warning p-button p-component p-2" *ngIf="isPdfDownloadOption" (click)="download()">Download PDF</button>
+		</div>
+		<div class="col-md-1 col-1">&nbsp;</div>
+	</div>
+	<div class="pdf-container">
+		<pdf-viewer [src]="pdfURL" [rotation]="0" [original-size]="false" [show-all]="true" [fit-to-page]="false" [zoom]="1" [zoom-scale]="'page-width'" [stick-to-page]="false" [render-text]="true" [external-link-target]="'blank'" [autoresize]="true" [show-borders]="false" style="width: 100%; height: 100vh"></pdf-viewer>
+	</div>
 </div>

@@ -21,6 +21,7 @@ import {NgxUiLoaderModule} from "ngx-ui-loader";
 import {SkeletonModule} from "primeng/skeleton";
 import { QuizComponent } from './quiz/quiz.component';
 import { QuizmenuComponent } from '../quizmenu/quizmenu.component';
+import { AccordionModule } from 'primeng/accordion';
 
 
 @NgModule({
@@ -48,6 +49,7 @@ import { QuizmenuComponent } from '../quizmenu/quizmenu.component';
         CardModule,
         NgxUiLoaderModule,
         SkeletonModule,
+        AccordionModule
     ]
 })
 export class ModulesModule { }

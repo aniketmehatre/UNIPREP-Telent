@@ -64,7 +64,6 @@ import { RadioButtonModule } from 'primeng/radiobutton';
 import { PitchDeskComponent } from './pitch-desk/pitch-desk.component';
 import {NgxExtendedPdfViewerModule} from "ngx-extended-pdf-viewer";
 import { ExportCreditComponent } from './export-credit/export-credit.component';
-import { QuizmenuComponent } from './quizmenu/quizmenu.component';
 import { MycertificateComponent } from './mycertificate/mycertificate.component';
 import {PdfViewerModule} from "ng2-pdf-viewer";
 import { CareerPlannerComponent } from './career-planner/career-planner.component';
@@ -138,7 +137,7 @@ import { CareerPlannerComponent } from './career-planner/career-planner.componen
         StepsModule,
         RadioButtonModule,
         NgxExtendedPdfViewerModule,
-        PdfViewerModule
+        PdfViewerModule,
     ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
