@@ -121,11 +121,16 @@ selctedQuizTiny {
 
 .optionreviewcorrect {
 	border: 1px solid var(--uniprep-primary);
-	background: var(--uniprep-primary);
+	background: yellow;
 	border-radius: 8px;
 	color: #fff;
 }
-
+.answercorct{
+	border: 1px solid var(--uniprep-primary);
+	background: green;
+	border-radius: 8px;
+	color: #fff;
+}
 .optionreviewwrong {
 	border: 1px solid #df3e3e;
 	background: #df3e3e;

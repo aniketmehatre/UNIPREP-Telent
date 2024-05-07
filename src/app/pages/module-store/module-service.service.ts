@@ -138,4 +138,10 @@ getUniversity(data:any) {
   const headers = new HttpHeaders().set("Accept", "application/json");
   return this.http.post<any>(environment.ApiUrl + "/getuniversitybycountry", data ,{ headers: headers,});
 }
+getUserCompletedCertificate(val: any) {
+  const headers = new HttpHeaders().set("Accept", "application/json");
+  return this.http.post<any>(environment.ApiUrl + "/getusercompletedcertificates",val, {
+      headers: headers,
+  });
+}
 }
