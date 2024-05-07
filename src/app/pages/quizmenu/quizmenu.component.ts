@@ -55,10 +55,10 @@ export class QuizmenuComponent implements OnInit {
     })
   }
   startQuiz(moduleid: any) {
-    if(this.planExpired){
-      this.restrict=true;
-      return;
-    }
+    // if(this.planExpired){
+    //   this.restrict=true;
+    //   return;
+    // }
     if (moduleid == 1) {
       this.currentModuleSlug = "pre-admission"
     } else if (moduleid == 3) {
@@ -90,10 +90,10 @@ export class QuizmenuComponent implements OnInit {
     })
   }
   startQuizUniversity() {
-    if(this.planExpired){
-      this.restrict=true;
-      return;
-    }
+    // if(this.planExpired){
+    //   this.restrict=true;
+    //   return;
+    // }
     this.currentModuleSlug="university"
     this.router.navigate([`/pages/modules/${this.currentModuleSlug}/quiz`]);
   }
