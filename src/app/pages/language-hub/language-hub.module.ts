@@ -13,8 +13,8 @@ import {CarouselModule} from "primeng/carousel";
 import {DialogModule} from "primeng/dialog";
 import {ProgressBarModule} from "primeng/progressbar";
 import {SharedModule} from "primeng/api";
-import {SkeletonModule} from "primeng/skeleton";
 import {TooltipModule} from "primeng/tooltip";
+import {SkeletonModule} from "primeng/skeleton";
 
 
 @NgModule({
@@ -35,7 +35,8 @@ import {TooltipModule} from "primeng/tooltip";
     ProgressBarModule,
     SharedModule,
     SkeletonModule,
-    TooltipModule
+    TooltipModule,
+    SkeletonModule
   ]
 })
 export class LanguageHubModule { }

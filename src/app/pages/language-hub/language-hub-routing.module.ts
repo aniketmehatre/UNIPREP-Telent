@@ -1,14 +1,14 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
-import {ModulesComponent} from "../modules/modules.component";
 import {LevelsComponent} from "./levels/levels.component";
 import {CategoryListComponent} from "./category-list/category-list.component";
 import {QuestionListComponent} from "./question-list/question-list.component";
 import {LanguageListComponent} from "./language-list/language-list.component";
+import {LanguageHubComponent} from "./language-hub.component";
 
 const routes: Routes = [
     {
-        path: '', component: ModulesComponent,
+        path: '', component: LanguageHubComponent,
         children: [
             {
                 path: 'languages', component: LanguageListComponent,

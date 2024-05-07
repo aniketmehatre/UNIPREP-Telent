@@ -40,4 +40,13 @@ export class LanguageHubService {
     });
   }
 
+  getCategoryList() {
+    let req = {
+    }
+    const headers = new HttpHeaders().set("Accept", "application/json");
+    return this.http.post<any>(environment.ApiUrl + "/getlanguagesubmodule",  req, {
+      headers: headers,
+    });
+  }
+
 }

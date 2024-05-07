@@ -24,9 +24,9 @@ export class CategoryListComponent implements OnInit {
   loopRange = Array.from({length: 30}).fill(0).map((_, index) => index);
 
   ngOnInit(): void {
-    this.languageHubService.getLanguageList().subscribe((_res) => {
+    this.languageHubService.getCategoryList().subscribe((_res) => {
       this.isSkeletonVisible = false
-      this.categoryList = _res.languages
+      this.categoryList = _res.data
     });
   }
 

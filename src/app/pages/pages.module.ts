@@ -67,6 +67,7 @@ import { ExportCreditComponent } from './export-credit/export-credit.component';
 import { MycertificateComponent } from './mycertificate/mycertificate.component';
 import {PdfViewerModule} from "ng2-pdf-viewer";
 import { CareerPlannerComponent } from './career-planner/career-planner.component';
+import {LanguageHubModule} from "./language-hub/language-hub.module";
 
 @NgModule({
     declarations: [
@@ -138,6 +139,7 @@ import { CareerPlannerComponent } from './career-planner/career-planner.componen
         RadioButtonModule,
         NgxExtendedPdfViewerModule,
         PdfViewerModule,
+        LanguageHubModule
     ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
