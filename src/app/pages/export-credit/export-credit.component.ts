@@ -212,6 +212,10 @@ export class ExportCreditComponent implements OnInit {
     const rzp = new this.winRef.nativeWindow.Razorpay(options);
     rzp.open();
   }
+  
+  naviagateSubscriptionPage(){
+    this.router.navigate(["/pages/subscriptions/upgrade-subscription"]);
+  }
 
   onInputChangeValue(event: any, module_id:number){
     this.totalPayableAmount = 0;

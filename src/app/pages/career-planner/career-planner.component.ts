@@ -170,8 +170,10 @@ export class CareerPlannerComponent implements OnInit {
     if (this.activePageIndex > 0) {
       if(productId == 7 && this.selectedData[4] == 2){
         this.activePageIndex = 3;
+        this.nxtOrRecommendBtn = true;
       }else{
         this.activePageIndex--; // Decrement the active page index if it's not the first page
+        this.nxtOrRecommendBtn = false;
       }
     }
   }
@@ -203,6 +205,11 @@ export class CareerPlannerComponent implements OnInit {
             this.activePageIndex++;
           }
         }else{
+          if(productId == 6 && this.selectedData[7] == 2){
+            this.nxtOrRecommendBtn = true;
+          }else{
+            this.nxtOrRecommendBtn = false;
+          }
           this.activePageIndex++;
         }
       }
