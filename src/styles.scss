@@ -377,7 +377,16 @@ uni-events {
 		}
 	}
 }
-
+uni-certificates
+{
+	display: flex;
+	flex: 1;
+	height: 100vh;
+	flex-direction: column; /* Ensure flex children stack vertically */
+	overflow: hidden;
+	background: #07070B;
+	justify-content: space-between;
+}
 uni-recentlyaddedquestions {
 	display: flex;
 	flex: 1;
@@ -432,7 +441,7 @@ uni-subscription {
 	border-radius: 10px !important;
 	text-transform: inherit !important;
 	background-color: #fafafa;
-	border: 1px solid #efefef;
+	border: 1px solid #DFE4F8;
 }
 .btn {
 	font-weight: 600 !important;
