@@ -1,13 +1,14 @@
 const devdomain = 'api.uniprep.ai';
 const staging='staging.uniprep.ai'
 const proddomain='uniprep.ai'
-const devurl= `https://${devdomain}/uniprepapi/public/api`;
-const stagingurl=`https://${staging}/uniprepapi/public/api`;
-const produrl=`https://${proddomain}/uniprepapi/public/api`;
+const devurl= `https://${devdomain}/uniprepapi/public/`;
+const stagingurl=`https://${staging}/uniprepapi/public/`;
+const produrl=`https://${proddomain}/uniprepapi/public/`;
 export const environment = {
   domain:devdomain,
   production: false,
-  ApiUrl:devurl,
+  ApiUrl:devurl+'api',
+  imageUrl: devurl,
   tokenKey: 'token',
   facebookAppId: '892925195633254',
   linkedinId: '86b55xx7n8zomc'

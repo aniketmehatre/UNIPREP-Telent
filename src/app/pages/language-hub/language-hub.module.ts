@@ -3,15 +3,39 @@ import { CommonModule } from '@angular/common';
 
 import { LanguageHubRoutingModule } from './language-hub-routing.module';
 import { LanguageHubComponent } from './language-hub.component';
+import { LanguageListComponent } from './language-list/language-list.component';
+import { LevelsComponent } from './levels/levels.component';
+import { CategoryListComponent } from './category-list/category-list.component';
+import { QuestionListComponent } from './question-list/question-list.component';
+import {BreadcrumbModule} from "primeng/breadcrumb";
+import {ButtonModule} from "primeng/button";
+import {CarouselModule} from "primeng/carousel";
+import {DialogModule} from "primeng/dialog";
+import {ProgressBarModule} from "primeng/progressbar";
+import {SharedModule} from "primeng/api";
+import {SkeletonModule} from "primeng/skeleton";
+import {TooltipModule} from "primeng/tooltip";
 
 
 @NgModule({
   declarations: [
-    LanguageHubComponent
+    LanguageHubComponent,
+    LanguageListComponent,
+    LevelsComponent,
+    CategoryListComponent,
+    QuestionListComponent
   ],
   imports: [
     CommonModule,
-    LanguageHubRoutingModule
+    LanguageHubRoutingModule,
+    BreadcrumbModule,
+    ButtonModule,
+    CarouselModule,
+    DialogModule,
+    ProgressBarModule,
+    SharedModule,
+    SkeletonModule,
+    TooltipModule
   ]
 })
 export class LanguageHubModule { }
