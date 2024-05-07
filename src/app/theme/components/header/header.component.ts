@@ -343,8 +343,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
         this.userName = data.userdetails[0].name.toString();
         this.firstChar = this.userName.charAt(0);
         if (data.userdetails[0].login_status == "Demo") {
-           this.demoTrial = true;
-         }
+          this.demoTrial = true;
+        }
       }
     });
 
@@ -626,12 +626,12 @@ export class HeaderComponent implements OnInit, OnDestroy {
     //   this.reportSubmitForm.value.comment == null ||
     //   this.reportSubmitForm.value.comment == ""
     // ) {
-      // this.toast.add({
-      //   severity: "error",
-      //   summary: "Error",
-      //   detail: "Add comments to submit report",
-      // });
-      // return;
+    // this.toast.add({
+    //   severity: "error",
+    //   summary: "Error",
+    //   detail: "Add comments to submit report",
+    // });
+    // return;
     // }
 
     if (this.reportSubmitForm.value.reportOption == null) {
@@ -658,6 +658,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
       countryId: this.selectedCountryId,
       type_of_report: (this.reportType == 4 || this.reportType == 5 || this.reportType == 6 || this.reportType == 7) ? this.reportType : undefined
     };
+    if (data.moduleId == 8) {
+      data.countryId = 0;
+    }
 
     let maildata = {
       reportOption: this.reportSubmitForm.value.reportOption,
@@ -701,11 +704,11 @@ export class HeaderComponent implements OnInit, OnDestroy {
       data.country_code = this.mobileForm.value.phone.dialCode;
     }
     if (this.demoTrial == true) {
-      data.demo_user=1;
-    }  
+      data.demo_user = 1;
+    }
     this.dashboardService.getContineTrial(data).subscribe((res) => {
       console.log(res);
-      if(this.demoTrial==true){
+      if (this.demoTrial == true) {
         this.toast.add({
           severity: "success",
           summary: "Success",
@@ -716,7 +719,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
       this.service.contineStatus(false);
       this.dataService.sendValue(false);
       this.freeTrial = false;
-      this.demoTrial=false;
+      this.demoTrial = false;
       this.service._userContineTrial = false;
       setTimeout(() => {
         this.checkNewUser();
@@ -725,7 +728,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
       return res;
     },
       error => {
-        if(this.demoTrial==true){
+        if (this.demoTrial == true) {
           this.toast.add({
             severity: "error",
             summary: "Error",
@@ -742,11 +745,11 @@ export class HeaderComponent implements OnInit, OnDestroy {
       data.phone = this.mobileForm.value.phone.number;
       data.country_code = this.mobileForm.value.phone.dialCode;
     }
-    if(this.demoTrial==true){
-data.demo_user=1;
+    if (this.demoTrial == true) {
+      data.demo_user = 1;
     }
     this.dashboardService.getContineTrial(data).subscribe((res) => {
-      if(this.demoTrial==true){
+      if (this.demoTrial == true) {
         this.toast.add({
           severity: "success",
           summary: "Success",
@@ -754,7 +757,7 @@ data.demo_user=1;
         });
       }
       this.freeTrial = false;
-      this.demoTrial=false;
+      this.demoTrial = false;
       this.visibleExhasted = false;
       this.service._userContineTrial = false;
       this.service.contineStatus(false);
@@ -766,7 +769,7 @@ data.demo_user=1;
       }, 1000);
     },
       error => {
-        if(this.demoTrial==true){
+        if (this.demoTrial == true) {
           this.toast.add({
             severity: "error",
             summary: "Error",

@@ -29,6 +29,9 @@ const routes: Routes = [  {
     path: 'life-at-country', component: ListSubModulesComponent,
   },
   {
+    path: 'learning-hub', component: ListSubModulesComponent,
+  },
+  {
     path: ':module_name/question-list/:id', component: QuestionListComponent,
   },
   {path: '', redirectTo: 'pre-admission', pathMatch: 'full'},
