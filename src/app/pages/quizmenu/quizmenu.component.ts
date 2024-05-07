@@ -22,6 +22,9 @@ export class QuizmenuComponent implements OnInit {
   readingmodulestartbutton:boolean = true;
   restrict: boolean = false;
   planExpired: boolean = false;
+  certificatesList:any[]=[]
+  universityModulescertificate:any[] = [];
+  Modulequizlistcertificate:any[] = [];
   constructor(private moduleListService: ModuleServiceService, private router: Router, private dataService: DataService,
     private locationService: LocationService,private authService: AuthService) { }
 
@@ -32,8 +35,24 @@ export class QuizmenuComponent implements OnInit {
       this.checkquizquestionmodule();
       this.checkplanExpire();
       this.getFilterUniversityList(this.countryId)
+      this.getCertificates()
     });
 
+  }
+  getCertificates(){
+    this.certificatesList=[]
+    this.universityModulescertificate = [];
+    this.Modulequizlistcertificate = [];
+    var data={
+      countryid:this.countryId
+    }
+    this.moduleListService.getUserCompletedCertificate(data).subscribe((res)=>{
+      const modulesToRemove = ["Life at ", "Career Hub","Post Admission","pre-admission"];
+      const modulesToRemoveUniversity = ["University"];
+      this.certificatesList=res.certificates
+      this.universityModulescertificate = this.certificatesList.filter(module => !modulesToRemove.includes(module.module_name));
+      this.Modulequizlistcertificate = this.certificatesList.filter(module => !modulesToRemoveUniversity.includes(module.module_name));
+    })
   }
   startQuiz(moduleid: any) {
     if(this.planExpired){
@@ -108,20 +127,26 @@ export class QuizmenuComponent implements OnInit {
   }
   readingmoduleid:number=0;
   moduleprogress:number=0;
+  arrow:boolean=true;
   changemodule(eve:any){
     this.readingmoduleid=eve.value.id
     this.moduleprogress=eve.value.progress
-    console.log(eve);
-    console.log(this.moduleid);
-    console.log(this.readingmoduleid);
-    console.log(this.moduleprogress);
     if(this.moduleprogress >= 80){
       this.readingmodulestartbutton=true;
+      this.arrow=false;
     }else{
       this.readingmodulestartbutton=false; 
+      this.arrow=true;
     }
   }
   startModulule(){
     this.startQuiz(this.readingmoduleid)
+  }
+  downloadCertificate(link:any){
+    if(this.planExpired){
+      this.restrict=true;
+      return;
+    }
+    window.open(link, '_blank');
   }
 }

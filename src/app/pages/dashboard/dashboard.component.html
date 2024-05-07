@@ -215,9 +215,18 @@
 <div [ngStyle]="{ display: continueQuiz }" class="modal modal-bg" role="dialog" tabindex="-1">
 	<div class="modal-dialog modal-dialog-scrollable modal-dialog-centered" role="document">
 		<div class="modal-content card bg-light">
-			<div style="text-align: center;">
+			<!-- <div class=" justify-content-between">
+				<h3 class="mb-0 continue-reading-header" tooltipZIndex="auto" tooltipPosition="top" pTooltip="Complete the reading for all modules to get the certificate.">Continue Reading</h3>
+				<div class="popupclose">
+					<a (click)="closeQuiz()" class="close" role="button">
+						<span aria-hidden="true"><i class="fa-solid fa-circle-x fa-2xl uniprep-primary"></i></span>
+					</a>
+				</div>
+			</div> -->
+			<div class="mt-2" style="text-align: right;">
 				<a (click)="closeQuiz()" class="close" role="button">
-					<span aria-hidden="true"><img src="/uniprep-assets/images/icons/close_button.svg" /></span>
+					<!-- <span aria-hidden="true"><img src="/uniprep-assets/images/icons/close_button.svg" /></span> -->
+					<span aria-hidden="true"><i class="fa-solid fa-circle-x fa-2xl uniprep-primary"></i></span>
 				</a>
 			</div>
 			<div class="modal-body">
