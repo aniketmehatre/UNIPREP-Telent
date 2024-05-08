@@ -14,14 +14,16 @@ export class QuizmenuComponent implements OnInit {
   currentModuleSlug: any;
   filterUniversityList: any[] = [];
   subjectlistdropdown:any[]=[];
+  specializationlist:any[]=[];
   quizpercentagedata: any[] = [];
   countryId: any;
   countryName!: string;
   universityId: any=null;
-  subjectid:any=null
+  subjectid:any=[]
   specializationid:any=null
   moduleid:any=null
   universityquizbutton: boolean = true;
+  learningHubQuiz:boolean=true;
   readingmodulestartbutton:boolean = true;
   restrict: boolean = false;
   planExpired: boolean = false;
@@ -159,11 +161,30 @@ export class QuizmenuComponent implements OnInit {
     window.open(link, '_blank');
   }
   getSubjectlist() {
-    var data={
-      category_flag :1
-    }
-    this.moduleListService.getSubjectList(1).subscribe((response) => {
-      // this.subjectlistdropdown = response;
+    this.moduleListService.getSubjectList().subscribe((response) => {
+      this.subjectlistdropdown = response.data;
     });
+  }
+  specializationList(){
+   console.log(this.subjectid);
+   var data={
+    // category_flag:1,
+    category_id:this.subjectid
+   }
+   this.moduleListService.getSpecializationLists(data).subscribe((response) => {
+    this.specializationlist = response.data;
+  });
+  }
+  specializationdata(){
+    console.log(this.specializationid);
+    if (this.specializationid != null) {
+      this.learningHubQuiz=false;
+    }else{
+      this.learningHubQuiz=true;
+    }
+  
+  }
+  StartLearningHubQuiz(){
+
   }
 }
