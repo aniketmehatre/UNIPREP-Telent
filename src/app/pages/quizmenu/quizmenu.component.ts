@@ -13,12 +13,17 @@ export class QuizmenuComponent implements OnInit {
   tooltip: any;
   currentModuleSlug: any;
   filterUniversityList: any[] = [];
-  quizpercentagedata: any[] = []
+  subjectlistdropdown:any[]=[];
+  specializationlist:any[]=[];
+  quizpercentagedata: any[] = [];
   countryId: any;
   countryName!: string;
   universityId: any=null;
+  subjectid:any=[]
+  specializationid:any=null
   moduleid:any=null
   universityquizbutton: boolean = true;
+  learningHubQuiz:boolean=true;
   readingmodulestartbutton:boolean = true;
   restrict: boolean = false;
   planExpired: boolean = false;
@@ -26,7 +31,7 @@ export class QuizmenuComponent implements OnInit {
   universityModulescertificate:any[] = [];
   Modulequizlistcertificate:any[] = [];
   constructor(private moduleListService: ModuleServiceService, private router: Router, private dataService: DataService,
-    private locationService: LocationService,private authService: AuthService) { }
+    private locationService: LocationService,private authService: AuthService,) { }
 
   ngOnInit(): void {
     this.dataService.countryNameSource.subscribe((data) => {
@@ -37,7 +42,13 @@ export class QuizmenuComponent implements OnInit {
       this.getFilterUniversityList(this.countryId)
       this.getCertificates()
     });
-
+    this.getSubjectlist()
+    this.dataService.countryId.subscribe((data) => {
+      this.moduleListService.countryList().subscribe(countryList => {
+        console.log(countryList);
+        
+      });
+  });
   }
   getCertificates(){
     this.certificatesList=[]
@@ -148,5 +159,32 @@ export class QuizmenuComponent implements OnInit {
       return;
     }
     window.open(link, '_blank');
+  }
+  getSubjectlist() {
+    this.moduleListService.getSubjectList().subscribe((response) => {
+      this.subjectlistdropdown = response.data;
+    });
+  }
+  specializationList(){
+   console.log(this.subjectid);
+   var data={
+    // category_flag:1,
+    category_id:this.subjectid
+   }
+   this.moduleListService.getSpecializationLists(data).subscribe((response) => {
+    this.specializationlist = response.data;
+  });
+  }
+  specializationdata(){
+    console.log(this.specializationid);
+    if (this.specializationid != null) {
+      this.learningHubQuiz=false;
+    }else{
+      this.learningHubQuiz=true;
+    }
+  
+  }
+  StartLearningHubQuiz(){
+
   }
 }

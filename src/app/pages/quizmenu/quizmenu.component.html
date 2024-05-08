@@ -53,6 +53,34 @@
                             </div>
                         </div>
                         <hr style="height: 3px !important; background-color: black;">
+                        <div class="mt-2" >
+                            <h6>Choose a Learning Hub to get certified.Select a path you are intrested in to start the quiz</h6>
+                            <div style="display: flex;">
+                                <div class="row">
+                                    <div class="col-md-5 col-5 mt-1">
+                                        <p-dropdown dropdownAppendTo="body" class="mt-2" (onChange)="specializationList()"
+                                            [(ngModel)]="subjectid" placeholder="Select a subject"
+                                            [options]="subjectlistdropdown" optionValue="category_id" optionLabel="category" styleClass="w-100"
+                                            [filter]="true"></p-dropdown>
+                                    </div>&nbsp;
+                                    <div class="col-md-5 col-5 mt-1">
+                                        <p-dropdown dropdownAppendTo="body" class="mt-2" (onChange)="specializationdata()"
+                                            [(ngModel)]="specializationid" placeholder="Select a specialization"
+                                            [options]="specializationlist" optionValue="category_id" optionLabel="submodule_name" styleClass="w-100"
+                                            [filter]="true"></p-dropdown>
+                                    </div>
+                                <div class="col-md-1 col-1 mt-1">
+                                    <button [disabled]="learningHubQuiz" (click)="StartLearningHubQuiz()" pButton
+                                        type="button" style="background-color: #3F4C83; color: #4552A3;"
+                                        class="p-button-rounded p-2"><span style="color: white; font-size: small;">Start</span>
+                                        <span class="fa-stack">
+                                            <i style="color: white;" class="fas fa-arrow-right"></i>
+                                        </span>
+                                    </button>
+                                </div>
+                            </div>
+                            </div>
+                        </div>
                     </div>
                     <div class="col-1" style="display: flex; justify-content: right;">
                         <div class="vertical-line"></div>

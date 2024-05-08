@@ -4,7 +4,7 @@ import { environment } from '@env/environment';
 import {emptyQuestionList, loadQuestionList, loadQuizList, loadSubModules, readQuestion} from './module-store.actions';
 import {ModuleStoreState} from "./module-store.reducer";
 import {readQuestion$, selectQuestionList$, selectQuizList$, selectSubModule$} from './module-store.selectors';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Meta } from '@angular/platform-browser';
 
@@ -143,5 +143,20 @@ getUserCompletedCertificate(val: any) {
   return this.http.post<any>(environment.ApiUrl + "/getusercompletedcertificates",val, {
       headers: headers,
   });
+}
+countryList() {
+  const headers = new HttpHeaders().set("Accept", "application/json");
+  return this.http.get(environment.ApiUrl + "/country", { headers: headers });
+}
+getSubjectList() {
+  const headers = new HttpHeaders().set("Accept", "application/json");
+  return this.http.get<any>(environment.ApiUrl + `/getlearninghublists?category_flag=1`,{ headers: headers,});
+}
+getSpecializationLists(data:any) {
+  let params = new HttpParams();
+  // params = params.append("category_flag", data.category_flag);
+  params = params.append("category_id", data.category_id);
+  const headers = new HttpHeaders().set("Accept", "application/json");
+  return this.http.get<any>(environment.ApiUrl + `/getlearninghublists?`,{ headers: headers,params:params});
 }
 }
