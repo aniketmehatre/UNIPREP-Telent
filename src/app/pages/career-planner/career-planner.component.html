@@ -75,11 +75,11 @@
 												<img alt="{{ subItems.country_name }}" class="img-responsive" src="{{ subItems.storage_path }}country-flags/{{ subItems.flag }}" />
 											</div>
 											<h5 class="text-center d-md-block d-none pt-2">{{ subItems.country_name }}</h5>
-											<p class="fw-bold text-small">Average Salary</p>
-											<p class="fw-medium mb-3">{{ subItems.salary }}</p>
+											<p class="fw-bold" style="font-size:0.7rem;">Average Salary</p>
+											<p class="fw-medium mb-3 text-small">{{ subItems.salary }}</p>
 										</div>
 										<div>
-											<p class="fw-bold text-small">Top 4 Job Sites</p>
+											<p class="fw-bold"  style="font-size:0.7rem;">Top 4 Job Sites</p>
 											<div class="d-flex justify-content-center gap-2 my-1">
 												<ng-container *ngFor="let jobs of subItems.job_site_data">
 													<div class="joblogos">
