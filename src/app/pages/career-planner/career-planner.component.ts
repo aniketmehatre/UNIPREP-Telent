@@ -114,7 +114,7 @@ export class CareerPlannerComponent implements OnInit {
   totalRowCount:number = 0;
   jobSiteData:any[] = [];
   page = 1;
-  perPage = 10;
+  perPage = 30;
 
   arrayMap: any = {
     'highLevelStudy': this.highLevelStudy,
@@ -296,7 +296,7 @@ export class CareerPlannerComponent implements OnInit {
       this.selectedData = []; 
       this.nxtOrRecommendBtn = false;
       this.page = 1;
-      this.perPage = 10;
+      this.perPage = 30;
     });
   }
 }
