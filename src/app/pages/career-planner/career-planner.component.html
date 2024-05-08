@@ -62,7 +62,7 @@
 							<p class="text-start  fw-bold blue-color">{{ item.key }}</p>
 						</div>
 						<div class="col-8">
-							<p class="text-center fw-bold blue-color">Top 6 countries for {{ item.key }}</p>
+							<p class="text-center fw-bold blue-color">Top 5 countries for {{ item.key }}</p>
 						</div>
 					</div>
 					<div class="row justify-content-center mb-0">
@@ -76,7 +76,7 @@
 											</div>
 											<h5 class="text-center d-md-block d-none pt-2">{{ subItems.country_name }}</h5>
 											<p class="fw-bold text-small">Average Salary</p>
-											<p class="fw-medium mb-3">{{ subItems.salary }}</p>
+											<p class="fw-medium mb-2" [ngStyle]="{'font-size.px': subItems.salary.length > 19 ? 12 : 15}"  style="white-space: nowrap;">{{ subItems.salary }}</p>
 										</div>
 										<div>
 											<p class="fw-bold text-small">Top 4 Job Sites</p>
@@ -99,7 +99,7 @@
 				</div>
 			</div>
 		</div>
-		<p-paginator [rows]="perPage" [totalRecords]="totalRowCount" [rowsPerPageOptions]="[10, 20, 30]" (onPageChange)="paginate($event)" *ngIf="enableModule" dropdownAppendTo="body"></p-paginator>
+		<p-paginator [rows]="perPage" [totalRecords]="totalRowCount" [rowsPerPageOptions]="[30, 40, 50]" (onPageChange)="paginate($event)" *ngIf="enableModule" dropdownAppendTo="body"></p-paginator>
 		<div class="text-align-right p-2" *ngIf="enableModule">
 			<button pButton type="button" (click)="resetRecommendation()" class="text-black b-none p-ripple p-button-rounded p-danger-button p-button p-component p-2 bg-white">
 				Reset Job Recommendations<span class="fa-stack">
