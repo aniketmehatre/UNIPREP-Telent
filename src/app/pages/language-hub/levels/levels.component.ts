@@ -22,7 +22,6 @@ export class LevelsComponent implements OnInit {
 
     ngOnInit(): void {
         this.languageHubService.getLanguageTypeList().subscribe((_res) => {
-            console.log(_res)
             this.isSkeletonVisible = false
             this.languageTypeList = _res.data
         });

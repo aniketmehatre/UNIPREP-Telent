@@ -15,6 +15,8 @@ import {ProgressBarModule} from "primeng/progressbar";
 import {SharedModule} from "primeng/api";
 import {TooltipModule} from "primeng/tooltip";
 import {SkeletonModule} from "primeng/skeleton";
+import {CardModule} from "primeng/card";
+import {PaginatorModule} from "primeng/paginator";
 
 
 @NgModule({
@@ -36,7 +38,9 @@ import {SkeletonModule} from "primeng/skeleton";
     SharedModule,
     SkeletonModule,
     TooltipModule,
-    SkeletonModule
+    SkeletonModule,
+    CardModule,
+    PaginatorModule
   ]
 })
 export class LanguageHubModule { }

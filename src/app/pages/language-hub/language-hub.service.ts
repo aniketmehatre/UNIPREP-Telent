@@ -42,6 +42,8 @@ export class LanguageHubService {
 
   getCategoryList() {
     let req = {
+      languageid: 1,
+      languagetype: 1
     }
     const headers = new HttpHeaders().set("Accept", "application/json");
     return this.http.post<any>(environment.ApiUrl + "/getlanguagesubmodule",  req, {
