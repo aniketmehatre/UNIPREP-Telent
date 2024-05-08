@@ -228,10 +228,10 @@ export class DashboardComponent implements OnInit {
     }
 
     openQuiz(): void {
-        if(this.planExpired){
-            this.restrict=true;
-            return;
-          }
+        // if(this.planExpired){
+        //     this.restrict=true;
+        //     return;
+        //   }
         this.continueQuiz = "block";
         this.checkQuestionQuiz()
     }

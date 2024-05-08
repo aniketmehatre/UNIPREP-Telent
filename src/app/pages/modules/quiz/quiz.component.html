@@ -332,26 +332,36 @@
                 </p-carousel>
             </div>
         </div>
+        <div class="col-md-6 text-start" style="float: left;">
+            <!-- <p class="mb-0 fw-semibold">Reference</p>
+            <p-breadcrumb [model]="breadCrumb" class="max-w-100 quizreference"></p-breadcrumb> -->
+            <label style="font-size: 18px;" for=""><b>Source</b></label>&nbsp;&nbsp;
+            <button
+            class="btn btn-back btn-rounded px-2 py-2">
+            <p class="mb-0 px-2">Refer Answer <i class="fa-solid fa-paperclip"></i></p>
+        </button>&nbsp;
+        </div>
     </div>
-    <div class="card-footer p-2" style="background-color: #fff;">
+    <div class="card-footer p-2 mt-2" style="background-color: #fff;">
         <div class="row justify-content-center">
             <div class="col-md-6 text-start">
                 <!-- <p class="mb-0 fw-semibold">Reference</p>
                 <p-breadcrumb [model]="breadCrumb" class="max-w-100 quizreference"></p-breadcrumb> -->
-                <label style="font-size: 18px;" for=""><b>Source</b></label>&nbsp;&nbsp;
-                <button (click)="clickPreviousQuiz(carouselQuiz, $event)"
-                class="btn btn-back btn-rounded px-2 py-2">
-                <p class="mb-0 px-2">Refer Answer <i class="fa-solid fa-paperclip"></i></p>
-            </button>&nbsp;
             </div>
             <div class="col-md-6 text-end">
                 <button *ngIf="selectedQuiz != 1" (click)="clickPreviousQuiz(carouselQuiz, $event)"
                     class="btn btn-back btn-rounded px-2 py-2">
-                    <p class="mb-0 px-2">Previous <i class="fa-solid fa-circle-arrow-left"></i></p>
+                    <div class="d-flex align-items-center">
+                        <span class="fw-normal h6 mb-0 ps-3 pe-2">Previous</span>
+                        <div class="btn-icon"><i class="fa-solid fa-arrow-left"></i></div>
+                    </div>
                 </button>&nbsp;
                 <button *ngIf="this.quizData.length > this.selectedQuiz" (click)="clickNextQuiz(carouselQuiz, $event)"
-                    class="btn btn-lg rounded-pill btn-secondary m-0 px-2 py-2">
-                    <p class="mb-0 px-2"> Next <i class="fa-solid fa-circle-arrow-right"></i></p>
+                    class="btn btn-start btn-rounded m-0 px-2 py-2">
+                    <div class="d-flex align-items-center">
+                        <span class="fw-normal h6 mb-0 ps-3 pe-2">Next</span>
+                        <div class="btn-icon"><i class="fa-solid fa-arrow-right"></i></div>
+                    </div>
                 </button>&nbsp;
             </div>
         </div>
