@@ -38,6 +38,6 @@ export class CategoryListComponent implements OnInit {
     }
 
     onCategoryClick(categoryId: any) {
-        //this.router.navigate([`/pages/language-hub/levels/${languageId}`]);
+        this.router.navigate([`/pages/language-hub/question-list`]);
     }
 }
