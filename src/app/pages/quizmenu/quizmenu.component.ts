@@ -13,10 +13,13 @@ export class QuizmenuComponent implements OnInit {
   tooltip: any;
   currentModuleSlug: any;
   filterUniversityList: any[] = [];
-  quizpercentagedata: any[] = []
+  subjectlistdropdown:any[]=[];
+  quizpercentagedata: any[] = [];
   countryId: any;
   countryName!: string;
   universityId: any=null;
+  subjectid:any=null
+  specializationid:any=null
   moduleid:any=null
   universityquizbutton: boolean = true;
   readingmodulestartbutton:boolean = true;
@@ -26,7 +29,7 @@ export class QuizmenuComponent implements OnInit {
   universityModulescertificate:any[] = [];
   Modulequizlistcertificate:any[] = [];
   constructor(private moduleListService: ModuleServiceService, private router: Router, private dataService: DataService,
-    private locationService: LocationService,private authService: AuthService) { }
+    private locationService: LocationService,private authService: AuthService,) { }
 
   ngOnInit(): void {
     this.dataService.countryNameSource.subscribe((data) => {
@@ -37,7 +40,13 @@ export class QuizmenuComponent implements OnInit {
       this.getFilterUniversityList(this.countryId)
       this.getCertificates()
     });
-
+    this.getSubjectlist()
+    this.dataService.countryId.subscribe((data) => {
+      this.moduleListService.countryList().subscribe(countryList => {
+        console.log(countryList);
+        
+      });
+  });
   }
   getCertificates(){
     this.certificatesList=[]
@@ -148,5 +157,13 @@ export class QuizmenuComponent implements OnInit {
       return;
     }
     window.open(link, '_blank');
+  }
+  getSubjectlist() {
+    var data={
+      category_flag :1
+    }
+    this.moduleListService.getSubjectList(1).subscribe((response) => {
+      // this.subjectlistdropdown = response;
+    });
   }
 }

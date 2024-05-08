@@ -144,4 +144,12 @@ getUserCompletedCertificate(val: any) {
       headers: headers,
   });
 }
+countryList() {
+  const headers = new HttpHeaders().set("Accept", "application/json");
+  return this.http.get(environment.ApiUrl + "/country", { headers: headers });
+}
+getSubjectList(data:any) {
+  const headers = new HttpHeaders().set("Accept", "application/json");
+  return this.http.get<any>(environment.ApiUrl + `/getlearninghublists?category_flag=${data} `,{ headers: headers,});
+}
 }
