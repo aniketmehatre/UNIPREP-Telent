@@ -30,6 +30,7 @@ export class QuizmenuComponent implements OnInit {
   certificatesList:any[]=[]
   universityModulescertificate:any[] = [];
   Modulequizlistcertificate:any[] = [];
+  learningHubCirtificates:any[]=[];
   constructor(private moduleListService: ModuleServiceService, private router: Router, private dataService: DataService,
     private locationService: LocationService,private authService: AuthService,) { }
 
@@ -63,6 +64,13 @@ export class QuizmenuComponent implements OnInit {
       this.certificatesList=res.certificates
       this.universityModulescertificate = this.certificatesList.filter(module => !modulesToRemove.includes(module.module_name));
       this.Modulequizlistcertificate = this.certificatesList.filter(module => !modulesToRemoveUniversity.includes(module.module_name));
+    })
+    var data1={
+      countryid:0,
+      moduleid :8
+    }
+    this.moduleListService.getUserCompletedCertificate(data1).subscribe((res)=>{
+      this.learningHubCirtificates=res.certificates
     })
   }
   startQuiz(moduleid: any) {
@@ -178,6 +186,8 @@ export class QuizmenuComponent implements OnInit {
   specializationdata(){
     console.log(this.specializationid);
     if (this.specializationid != null) {
+      localStorage.setItem("learninghubsubmoduleid",this.specializationid);
+      console.log(this.specializationid);
       this.learningHubQuiz=false;
     }else{
       this.learningHubQuiz=true;
@@ -185,6 +195,7 @@ export class QuizmenuComponent implements OnInit {
   
   }
   StartLearningHubQuiz(){
-
+    this.currentModuleSlug="learning-hub"
+    this.router.navigate([`/pages/modules/${this.currentModuleSlug}/learninghubquiz`]);
   }
 }

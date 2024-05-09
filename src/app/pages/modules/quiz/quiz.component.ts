@@ -352,6 +352,7 @@ export class QuizComponent implements OnInit {
     this.quizData = [];
     this.selectedQuiz = 1;
     this.positionNumber = 1;
+    this.totalpercentagequiztime=0;
     this.isInstructionVisible = true;
     this.checkquizquestioncount()
   }

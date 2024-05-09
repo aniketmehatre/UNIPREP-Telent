@@ -159,4 +159,22 @@ getSpecializationLists(data:any) {
   const headers = new HttpHeaders().set("Accept", "application/json");
   return this.http.get<any>(environment.ApiUrl + `/getlearninghublists?`,{ headers: headers,params:params});
 }
+learninghubquiz(data: any) {
+  const headers = new HttpHeaders().set("Accept", "application/json");
+  return this.http.post<any>(environment.ApiUrl + "/getrandomquizlh", data, {
+      headers: headers,
+  });
+}
+submitQuizLearningHubQuiz(data: any) {
+  const headers = new HttpHeaders().set("Accept", "application/json");
+  return this.http.post<any>(environment.ApiUrl + "/submitquizanswers", data, {
+      headers: headers,
+  });
+}
+ReviewQuizLearningHub(data: any) {
+  const headers = new HttpHeaders().set("Accept", "application/json");
+  return this.http.post<any>(environment.ApiUrl + "/reviewquiz", data, {
+      headers: headers,
+  });
+}
 }
