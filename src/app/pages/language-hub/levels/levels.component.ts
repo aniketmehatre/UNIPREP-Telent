@@ -28,6 +28,7 @@ export class LevelsComponent implements OnInit {
     }
 
     onLanguageTypeClick(languageTypeId: any) {
+        this.languageHubService.setDataLanguageType(languageTypeId)
         this.router.navigate([`/pages/language-hub/category`]);
     }
 

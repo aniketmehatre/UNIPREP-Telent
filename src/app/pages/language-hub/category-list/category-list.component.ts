@@ -16,6 +16,7 @@ export class CategoryListComponent implements OnInit {
     restrict = false;
     languageImageUrl: any
     selectedLanguageId: any
+    selectedLanguageType: any
 
     constructor(private lhs: LanguageHubService, private languageHubService: LanguageHubService, private router: Router,
                 private location: Location) {
@@ -23,21 +24,29 @@ export class CategoryListComponent implements OnInit {
         this.lhs.data$.subscribe((data) => {
             this.selectedLanguageId = data
         })
+        this.lhs.dataLanguageType$.subscribe((data) => {
+            this.selectedLanguageType = data
+        })
     }
 
     loopRange = Array.from({length: 30}).fill(0).map((_, index) => index);
 
     ngOnInit(): void {
-        if (!this.selectedLanguageId) {
+        if (!this.selectedLanguageId || !this.selectedLanguageType) {
             this.location.back();
         }
-        this.languageHubService.getCategoryList().subscribe((_res) => {
+
+        let req = {
+            languageid: this.selectedLanguageId,
+            languagetype: this.selectedLanguageType
+        }
+        this.languageHubService.getCategoryList(req).subscribe((_res) => {
             this.isSkeletonVisible = false
             this.categoryList = _res.data
         });
     }
 
     onCategoryClick(categoryId: any) {
-        this.router.navigate([`/pages/language-hub/question-list`]);
+        this.router.navigate([`/pages/language-hub/question-list/${categoryId}`]);
     }
 }

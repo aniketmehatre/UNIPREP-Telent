@@ -1,6 +1,7 @@
-import {Component, Inject, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {LanguageHubService} from "../language-hub.service";
 import Speech from "speak-tts";
+import {Location} from "@angular/common";
 
 @Component({
     selector: 'uni-question-list',
@@ -14,29 +15,34 @@ export class QuestionListComponent implements OnInit {
     questionListData: any;
     totalQuestionCount: any
     oneQuestionContent: any
-    videoLinks: any;
-    refLink: any;
+    heading: string = ''
+    selectedLanguageName: any
 
-    constructor(private languageHubService: LanguageHubService,
-                ) {
+    constructor(private lhs: LanguageHubService,
+                private location: Location) {
+        this.lhs.dataLanguageName$.subscribe((data) => {
+            this.selectedLanguageName = data
+        })
     }
 
     loopRange = Array.from({length: 30}).fill(0).map((_, index) => index);
 
     ngOnInit(): void {
+        this.heading = this.selectedLanguageName
         const speech = new Speech()
         if (speech.hasBrowserSupport()) { // returns a boolean
             console.log("speech synthesis supported")
         }else {
             console.log('not supported')
         }
-        this.languageHubService.getQuestionList().subscribe((_res) => {
+        this.lhs.getQuestionList().subscribe((_res) => {
             this.isSkeletonVisible = false
             this.questionListData = _res.questions
         });
     }
 
     goToHome(event: any) {
+        this.location.back();
         //this.isQuestionAnswerVisible = false;
     }
 

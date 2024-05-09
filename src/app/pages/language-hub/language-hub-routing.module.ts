@@ -20,7 +20,7 @@ const routes: Routes = [
                 path: 'category', component: CategoryListComponent,
             },
             {
-                path: 'question-list', component: QuestionListComponent,
+                path: 'question-list/:id', component: QuestionListComponent,
             },
             {
                 path: '', redirectTo: 'languages', pathMatch: 'full'

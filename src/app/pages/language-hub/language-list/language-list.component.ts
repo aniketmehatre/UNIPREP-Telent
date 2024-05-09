@@ -28,9 +28,10 @@ export class LanguageListComponent implements OnInit {
         });
     }
 
-    onLanguageClick(languageId: any) {
-        this.languageHubService.setLanguageData(languageId)
-        this.router.navigate([`/pages/language-hub/levels/${languageId}`]);
+    onLanguageClick(data: any) {
+        this.languageHubService.setDataLanguageName(data.language)
+        this.languageHubService.setLanguageData(data.id)
+        this.router.navigate([`/pages/language-hub/levels/${data.id}`]);
     }
 
 }
