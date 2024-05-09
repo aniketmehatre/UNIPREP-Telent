@@ -322,23 +322,15 @@ export class CompanyListComponent implements OnInit {
   }
 
   openReport(){
-    if(this.selectedCompanies == 1){
-      let reportId = this.companyListData.find(item=> item.isChecked == 1).id;
-      //console.log(reportId);
-      let data = {
-        isVisible: true,
-        questionId: reportId,
-        reporttype:6,
-        moduleId:6,
-        report_mode: "other_module"
-      };
-      //console.log(data);
-      this.dataService.openReportWindow(data);
-    }else if(this.selectedCompanies == 0){
-      this.toast.add({severity: "error",summary: "Error",detail: "Please select at least one Company!",});
-    }else if(this.selectedCompanies > 1){
-      this.toast.add({severity: "error",summary: "Error",detail: "Please select only one Company at a time!",});
-    }
+    
+    let data = {
+      isVisible: true,
+      reporttype:6,
+      moduleId:6,
+      report_mode: "other_module"
+    };
+    this.dataService.openReportWindow(data);
+    
   }
 }
 

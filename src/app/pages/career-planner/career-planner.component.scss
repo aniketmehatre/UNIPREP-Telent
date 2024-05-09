@@ -168,9 +168,27 @@
 	color: var(--uniprep-primary);
 }
 
+.subjectcard
+{
+	background: white;
+	border: 1px solid var(--uniprep-primary);
+	padding:0px 5px
+}
+.careerdivider
+{
+	position: absolute;
+    right: -14px;
+    height: 100%;
+    border: 1px;
+    width: 2px !important;
+    padding: 0;
+	opacity: 0.5;
+	background-color:#3F4C83;
+	margin-top: 0;
+}
 .careerimage {
-	height: 50px;
-	width: 50px;
+	height: 40px;
+	width: 40px;
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -187,10 +205,10 @@
     justify-content: center;
     background: white;
     border-radius: 5px;
-    padding: 5px;
+    padding: 2px;
 	img {
 		object-fit: contain;
-        max-height:30px;
+        max-height:25px;
         margin: auto;
 		width:100%;
 	}

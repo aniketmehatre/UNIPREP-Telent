@@ -260,18 +260,29 @@
 		</div>
 	</ng-template>
 </p-overlayPanel>
-<p-overlayPanel #totalCountryList>
+<p-overlayPanel #totalCountryList [style]="{'width':'100%','max-width':'fit-content'}">
 	<ng-template pTemplate="content">
-		<div *ngIf="isLondon">
-			<ul class="px-0 country-list">
-				<li class="list-group-item my-2 d-flex align-items-center gap-2" role="button" *ngFor="let v of countryLists">
-					<img alt="country" class="countryicon mr-2" src="{{ v.flag != '' ? v.flag : '../../uniprep-assets/images/mstile-150x150.png' }}" width="25" />
-					<span (click)="selectCountryInHeader(v, totalCountryList)">{{ v.country }}</span>
+	  <div *ngIf="isLondon" class="mega-menu">
+		<div class="row">
+		  <div class="col" *ngFor="let column of [0, 1, 2]">
+			<ul class="px-0">
+			  <ng-container *ngFor="let v of countryLists.slice(column * 10, (column + 1) * 10); let i = index">
+				<li class="list-group-item my-2 d-flex align-items-center gap-2" role="button" (click)="selectCountryInHeader(v, totalCountryList)">
+				  <img alt="country" class="countryicon mr-2" [src]="v.flag || '../../uniprep-assets/images/mstile-150x150.png'" width="25" />
+				  <span class="text-nowrap">{{ v.country }}</span>
 				</li>
+			  </ng-container>
+			  <ng-container *ngIf="column === 2 && countryLists.length < 30">
+				<li *ngFor="let _ of [].constructor(30 - countryLists.length)" class="list-group-item"></li>
+			  </ng-container>
 			</ul>
+		  </div>
 		</div>
+	  </div>
 	</ng-template>
-</p-overlayPanel>
+  </p-overlayPanel>
+  
+  
 
 <p-dialog [(visible)]="visible" [closable]="true" [style]="{ width: 'auto' }" class="p-0 m-0 bg-white" class="timerpopup" [modal]="true" [draggable]="false" [resizable]="false">
 	<div class="px-5 pb-5 pt-3">

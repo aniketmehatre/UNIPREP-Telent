@@ -45,7 +45,7 @@
 						<div class="d-flex justify-content-between">
 							<button pButton type="button" [style.visibility]="product.id == 1 ? 'hidden' : 'visible'" class="text-white p-ripple p-button-rounded p-button-info-prev p-button p-component p-2" (click)="previous(product.id)"><i class="fa fa-arrow-left exhausted-plan-icon-prev"></i> Previous</button>
 							<button pButton type="button" *ngIf="product.id != 9 && !nxtOrRecommendBtn" class="text-white p-ripple p-button-rounded p-button-info-next p-button p-component p-2" (click)="next(product.id)">Next<i class="fa fa-arrow-right exhausted-plan-icon-next"></i></button>
-							<button pButton type="button" *ngIf="product.id == 9 || nxtOrRecommendBtn" class="text-white p-ripple p-button-rounded p-button-info-succes p-button p-component p-2" (click)="getRecommendation(product.id)">Get Recommendations<i class="fa fa-check-circle exhausted-plan-icon-success"></i></button>
+							<button pButton type="button" *ngIf="product.id == 9 || nxtOrRecommendBtn" class="text-white p-ripple p-button-rounded p-button-info-succes p-button p-component p-2" (click)="getRecommendation(product.id)">Get Job Recommendations<i class="fa fa-check-circle exhausted-plan-icon-success"></i></button>
 						</div>
 					</div>
 				</ng-template>
@@ -59,10 +59,10 @@
 				<div class="d-flex flex-column m-2" *ngFor="let item of careerListData">
 					<div class="row p-2">
 						<div class="col-4">
-							<p class="text-center fw-bold blue-color">{{ item.key }}</p>
+							<p class="text-start  fw-bold blue-color">{{ item.key }}</p>
 						</div>
 						<div class="col-8">
-							<p class="text-center fw-bold blue-color">Top 6 countries for {{ item.key }}</p>
+							<p class="text-center fw-bold blue-color">Top 5 countries for {{ item.key }}</p>
 						</div>
 					</div>
 					<div class="row justify-content-center mb-0">
@@ -76,21 +76,22 @@
 											</div>
 											<h5 class="text-center d-md-block d-none pt-2">{{ subItems.country_name }}</h5>
 											<p class="fw-bold text-small">Average Salary</p>
-											<p class="fw-medium mb-3">{{ subItems.salary }}</p>
+											<p class="fw-medium mb-2" [ngStyle]="{'font-size.px': subItems.salary.length > 19 ? 12 : 15}"  style="white-space: nowrap;">{{ subItems.salary }}</p>
 										</div>
 										<div>
 											<p class="fw-bold text-small">Top 4 Job Sites</p>
 											<div class="d-flex justify-content-center gap-2 my-1">
 												<ng-container *ngFor="let jobs of subItems.job_site_data">
-														<div class="joblogos">
-															<a target="_blank" title="{{ !jobs.job_site_url.startsWith('http://') && !jobs.job_site_url.startsWith('https://') ? 'http://' + jobs.job_site_url : jobs.job_site_url }}" href="{{ !jobs.job_site_url.startsWith('http://') && !jobs.job_site_url.startsWith('https://') ? 'http://' + jobs.job_site_url : jobs.job_site_url }}">
-																<img alt="{{ jobs.country }}" class="img-responsive" src="{{ subItems.storage_path }}JobSite/{{ jobs.job_site_logo }}" />
-															</a>
-														</div>
+													<div class="joblogos">
+														<a target="_blank" title="{{ !jobs.job_site_url.startsWith('http://') && !jobs.job_site_url.startsWith('https://') ? 'http://' + jobs.job_site_url : jobs.job_site_url }}" href="{{ !jobs.job_site_url.startsWith('http://') && !jobs.job_site_url.startsWith('https://') ? 'http://' + jobs.job_site_url : jobs.job_site_url }}">
+															<img alt="{{ jobs.country }}" class="img-responsive" src="{{ subItems.storage_path }}JobSite/{{ jobs.job_site_logo }}" />
+														</a>
+													</div>
 												</ng-container>
 											</div>
 										</div>
 									</div>
+									<hr class="vr careerdivider" *ngIf="subItems.country_name == 'India'">
 								</div>
 							</div>
 						</div>
@@ -98,7 +99,7 @@
 				</div>
 			</div>
 		</div>
-		<p-paginator [rows]="perPage" [totalRecords]="totalRowCount" [rowsPerPageOptions]="[10, 20, 30]" (onPageChange)="paginate($event)" *ngIf="enableModule"></p-paginator>
+		<p-paginator [rows]="perPage" [totalRecords]="totalRowCount" [rowsPerPageOptions]="[30, 40, 50]" (onPageChange)="paginate($event)" *ngIf="enableModule" dropdownAppendTo="body"></p-paginator>
 		<div class="text-align-right p-2" *ngIf="enableModule">
 			<button pButton type="button" (click)="resetRecommendation()" class="text-black b-none p-ripple p-button-rounded p-danger-button p-button p-component p-2 bg-white">
 				Reset Job Recommendations<span class="fa-stack">
