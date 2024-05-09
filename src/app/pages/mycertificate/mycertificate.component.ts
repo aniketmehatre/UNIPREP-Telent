@@ -59,7 +59,7 @@ planExpired: boolean = false;
     this.service.getUserCompletedCertificate(data1).subscribe((res)=>{
       this.learninghubcertificatelist.push(res.certificates)
     })
-    this.totalmodulecirtficatelist=[...this.certificatesList,...this.learninghubcertificatelist]
+    this.totalmodulecirtficatelist=[...this.certificatesList,...this.learninghubcertificatelist];
   }
   downloadCertificate(link:any){
     if(this.planExpired){
