@@ -183,8 +183,16 @@ export class QuizmenuComponent implements OnInit {
     this.specializationlist = response.data;
   });
   }
+  quizpercentage:number=0
   specializationdata(){
-    console.log(this.specializationid);
+    var data={
+      moduleid:8,
+      countryid: 0,
+      submoduleid:this.specializationid,
+    }
+    this.moduleListService.checkModuleQuizCompletion(data).subscribe((res) => {
+      this.quizpercentage=res.progress
+    })
     if (this.specializationid != null) {
       localStorage.setItem("learninghubsubmoduleid",this.specializationid);
       console.log(this.specializationid);

@@ -70,11 +70,17 @@
                                             [filter]="true"></p-dropdown>
                                     </div>
                                 <div class="col-md-1 col-1 mt-1">
-                                    <button [disabled]="learningHubQuiz" (click)="StartLearningHubQuiz()" pButton
+                                    <button *ngIf="quizpercentage<=79" [disabled]="learningHubQuiz" (click)="StartLearningHubQuiz()" pButton
                                         type="button" style="background-color: #3F4C83; color: #4552A3;"
                                         class="p-button-rounded p-2"><span style="color: white; font-size: small;">Start</span>
                                         <span class="fa-stack">
                                             <i style="color: white;" class="fas fa-arrow-right"></i>
+                                        </span>
+                                    </button>
+                                    <button *ngIf="quizpercentage>=80" [disabled]="quizpercentage>=80" pButton
+                                        type="button" style="background-color: #3F4C83; color: #4552A3;"
+                                        class="p-button-rounded p-2"><span style="color: white; font-size: small;">Completed</span>
+                                        <span class="fa-stack">
                                         </span>
                                     </button>
                                 </div>
