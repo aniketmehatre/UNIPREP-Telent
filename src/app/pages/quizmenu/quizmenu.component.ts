@@ -14,14 +14,18 @@ export class QuizmenuComponent implements OnInit {
   currentModuleSlug: any;
   filterUniversityList: any[] = [];
   subjectlistdropdown:any[]=[];
+  languagedropdownlist:any[]=[];
+  languagedropdownlisttype:any[]=[];
   specializationlist:any[]=[];
   quizpercentagedata: any[] = [];
   countryId: any;
   countryName!: string;
   universityId: any=null;
-  subjectid:any=[]
-  specializationid:any=null
-  moduleid:any=null
+  laguageid:any=null;
+  laguagetypeid:any=null;
+  subjectid:any=[];
+  specializationid:any=null;
+  moduleid:any=null;
   universityquizbutton: boolean = true;
   learningHubQuiz:boolean=true;
   readingmodulestartbutton:boolean = true;
@@ -43,7 +47,9 @@ export class QuizmenuComponent implements OnInit {
       this.getFilterUniversityList(this.countryId)
       this.getCertificates()
     });
-    this.getSubjectlist()
+    this.getLaguageList();
+    this.getSubjectlist();
+    this.getLaguageListType();
     this.dataService.countryId.subscribe((data) => {
       this.moduleListService.countryList().subscribe(countryList => {
         console.log(countryList);
@@ -205,5 +211,15 @@ export class QuizmenuComponent implements OnInit {
   StartLearningHubQuiz(){
     this.currentModuleSlug="learning-hub"
     this.router.navigate([`/pages/modules/${this.currentModuleSlug}/learninghubquiz`]);
+  }
+  getLaguageList() {
+    this.moduleListService.getLanguageist().subscribe((response) => {
+      this.languagedropdownlist = response.languages;
+    });
+  }
+  getLaguageListType() {
+    this.moduleListService.getLanguageistType().subscribe((response) => {
+      this.languagedropdownlisttype = response.data;
+    });
   }
 }

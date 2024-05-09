@@ -23,6 +23,7 @@ import { QuizComponent } from './quiz/quiz.component';
 import { QuizmenuComponent } from '../quizmenu/quizmenu.component';
 import { AccordionModule } from 'primeng/accordion';
 import { LearninghubquizComponent } from './learninghubquiz/learninghubquiz.component';
+import { LanguagetypequizComponent } from './languagetypequiz/languagetypequiz.component';
 
 
 @NgModule({
@@ -32,7 +33,8 @@ import { LearninghubquizComponent } from './learninghubquiz/learninghubquiz.comp
     QuestionListComponent,
     QuizComponent,
     QuizmenuComponent,
-    LearninghubquizComponent
+    LearninghubquizComponent,
+    LanguagetypequizComponent
   ],
     imports: [
         CommonModule,
