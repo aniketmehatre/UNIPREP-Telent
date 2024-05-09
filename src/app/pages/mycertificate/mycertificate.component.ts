@@ -51,15 +51,16 @@ planExpired: boolean = false;
       countryid:Number(localStorage.getItem('countryId'))
     }
     this.service.getUserCompletedCertificate(data).subscribe((res)=>{
-      this.certificatesList.push(res.certificates)
+      this.certificatesList=res.certificates
     })
     var data1={
       countryid:0
     }
     this.service.getUserCompletedCertificate(data1).subscribe((res)=>{
-      this.learninghubcertificatelist.push(res.certificates)
+      this.learninghubcertificatelist=res.certificates;
+      this.totalmodulecirtficatelist=[...this.certificatesList,...this.learninghubcertificatelist];
+      console.log(this.totalmodulecirtficatelist);
     })
-    this.totalmodulecirtficatelist=[...this.certificatesList,...this.learninghubcertificatelist];
   }
   downloadCertificate(link:any){
     if(this.planExpired){
