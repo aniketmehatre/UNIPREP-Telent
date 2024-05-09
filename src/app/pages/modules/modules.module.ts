@@ -22,6 +22,7 @@ import {SkeletonModule} from "primeng/skeleton";
 import { QuizComponent } from './quiz/quiz.component';
 import { QuizmenuComponent } from '../quizmenu/quizmenu.component';
 import { AccordionModule } from 'primeng/accordion';
+import { LearninghubquizComponent } from './learninghubquiz/learninghubquiz.component';
 
 
 @NgModule({
@@ -30,7 +31,8 @@ import { AccordionModule } from 'primeng/accordion';
     ListSubModulesComponent,
     QuestionListComponent,
     QuizComponent,
-    QuizmenuComponent
+    QuizmenuComponent,
+    LearninghubquizComponent
   ],
     imports: [
         CommonModule,

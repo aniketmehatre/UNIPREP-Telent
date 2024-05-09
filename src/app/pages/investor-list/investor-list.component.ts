@@ -316,20 +316,12 @@ export class InvestorListComponent implements OnInit {
   }
 
   openReport(){
-    if(this.selectedInvestors == 1){
-      let reportId = this.investorData.find(item=> item.isChecked == 1).id;
-      let data = {
-        isVisible: true,
-        questionId: reportId,
-        reporttype:5,
-        moduleId:5,
-        report_mode: "other_module"
-      };
-      this.dataService.openReportWindow(data);
-    }else if(this.selectedInvestors == 0){
-      this.toast.add({severity: "error",summary: "Error",detail: "Please select at least one Investor!",});
-    }else if(this.selectedInvestors > 1){
-      this.toast.add({severity: "error",summary: "Error",detail: "Please select only one Investor at a time!",});
-    }
+    let data = {
+      isVisible: true,
+      reporttype:5,
+      moduleId:5,
+      report_mode: "other_module"
+    };
+    this.dataService.openReportWindow(data);
   }
 }

@@ -13,17 +13,25 @@ export class QuizmenuComponent implements OnInit {
   tooltip: any;
   currentModuleSlug: any;
   filterUniversityList: any[] = [];
-  quizpercentagedata: any[] = []
+  subjectlistdropdown:any[]=[];
+  specializationlist:any[]=[];
+  quizpercentagedata: any[] = [];
   countryId: any;
   countryName!: string;
   universityId: any=null;
+  subjectid:any=[]
+  specializationid:any=null
   moduleid:any=null
   universityquizbutton: boolean = true;
+  learningHubQuiz:boolean=true;
   readingmodulestartbutton:boolean = true;
   restrict: boolean = false;
   planExpired: boolean = false;
+  certificatesList:any[]=[]
+  universityModulescertificate:any[] = [];
+  Modulequizlistcertificate:any[] = [];
   constructor(private moduleListService: ModuleServiceService, private router: Router, private dataService: DataService,
-    private locationService: LocationService,private authService: AuthService) { }
+    private locationService: LocationService,private authService: AuthService,) { }
 
   ngOnInit(): void {
     this.dataService.countryNameSource.subscribe((data) => {
@@ -32,14 +40,36 @@ export class QuizmenuComponent implements OnInit {
       this.checkquizquestionmodule();
       this.checkplanExpire();
       this.getFilterUniversityList(this.countryId)
+      this.getCertificates()
     });
-
+    this.getSubjectlist()
+    this.dataService.countryId.subscribe((data) => {
+      this.moduleListService.countryList().subscribe(countryList => {
+        console.log(countryList);
+        
+      });
+  });
+  }
+  getCertificates(){
+    this.certificatesList=[]
+    this.universityModulescertificate = [];
+    this.Modulequizlistcertificate = [];
+    var data={
+      countryid:this.countryId
+    }
+    this.moduleListService.getUserCompletedCertificate(data).subscribe((res)=>{
+      const modulesToRemove = ["Life at ", "Career Hub","Post Admission","pre-admission"];
+      const modulesToRemoveUniversity = ["University"];
+      this.certificatesList=res.certificates
+      this.universityModulescertificate = this.certificatesList.filter(module => !modulesToRemove.includes(module.module_name));
+      this.Modulequizlistcertificate = this.certificatesList.filter(module => !modulesToRemoveUniversity.includes(module.module_name));
+    })
   }
   startQuiz(moduleid: any) {
-    if(this.planExpired){
-      this.restrict=true;
-      return;
-    }
+    // if(this.planExpired){
+    //   this.restrict=true;
+    //   return;
+    // }
     if (moduleid == 1) {
       this.currentModuleSlug = "pre-admission"
     } else if (moduleid == 3) {
@@ -71,10 +101,10 @@ export class QuizmenuComponent implements OnInit {
     })
   }
   startQuizUniversity() {
-    if(this.planExpired){
-      this.restrict=true;
-      return;
-    }
+    // if(this.planExpired){
+    //   this.restrict=true;
+    //   return;
+    // }
     this.currentModuleSlug="university"
     this.router.navigate([`/pages/modules/${this.currentModuleSlug}/quiz`]);
   }
@@ -108,20 +138,53 @@ export class QuizmenuComponent implements OnInit {
   }
   readingmoduleid:number=0;
   moduleprogress:number=0;
+  arrow:boolean=true;
   changemodule(eve:any){
     this.readingmoduleid=eve.value.id
     this.moduleprogress=eve.value.progress
-    console.log(eve);
-    console.log(this.moduleid);
-    console.log(this.readingmoduleid);
-    console.log(this.moduleprogress);
     if(this.moduleprogress >= 80){
       this.readingmodulestartbutton=true;
+      this.arrow=false;
     }else{
       this.readingmodulestartbutton=false; 
+      this.arrow=true;
     }
   }
   startModulule(){
     this.startQuiz(this.readingmoduleid)
+  }
+  downloadCertificate(link:any){
+    if(this.planExpired){
+      this.restrict=true;
+      return;
+    }
+    window.open(link, '_blank');
+  }
+  getSubjectlist() {
+    this.moduleListService.getSubjectList().subscribe((response) => {
+      this.subjectlistdropdown = response.data;
+    });
+  }
+  specializationList(){
+   console.log(this.subjectid);
+   var data={
+    // category_flag:1,
+    category_id:this.subjectid
+   }
+   this.moduleListService.getSpecializationLists(data).subscribe((response) => {
+    this.specializationlist = response.data;
+  });
+  }
+  specializationdata(){
+    console.log(this.specializationid);
+    if (this.specializationid != null) {
+      this.learningHubQuiz=false;
+    }else{
+      this.learningHubQuiz=true;
+    }
+  
+  }
+  StartLearningHubQuiz(){
+
   }
 }

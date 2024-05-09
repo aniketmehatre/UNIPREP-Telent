@@ -136,7 +136,7 @@
         <div class="row justify-content-center">
             <div class="col-md-8 text-start">
                 <div class="w-100 px-3 quizprogress">
-                    <span class="font-secondarycolor fw-semibold">Progress: {{totalpercentagequiztime}}%
+                    <span class="font-secondarycolor fw-semibold">Progress: {{totalpercentagequiztime | number : '1.0-0'}}%
                         Completed</span>
                     <p-progressBar [value]="totalpercentagequiztime"></p-progressBar>
                 </div>
@@ -233,7 +233,7 @@
         <div class="row align-items-center">
             <div class="col-md-10">
                 <div class="w-100 px-3 quizprogress">
-                    <span class="font-secondarycolor fw-semibold">Progress: {{totalPercentage}}% Completed</span>
+                    <span class="font-secondarycolor fw-semibold">Progress: {{totalPercentage| number : '1.0-0'}}% Completed</span>
                     <p-progressBar [value]="totalPercentage"></p-progressBar>
                 </div>
             </div>
@@ -279,11 +279,11 @@
                                     <input type="radio" value="{{ val.option1 }}" id="{{ val.otp1 }}" class="btn-check"
                                         name="options" autocomplete="off" />
                                     <label
-                                        class="{{(1=== val.answer) ? 'optionreviewcorrect' : ((1 === val.useranswer) ? 'optionreviewwrong' : '') }} text-start quiznotanswered w-100 m-0"
+                                        class="{{(val.answer === val.useranswer && val.answer === 1 && val.useranswer === 1)?'answercorct':(1=== val.answer) ? 'optionreviewcorrect' : ((1 === val.useranswer) ? 'optionreviewwrong' : '') }} text-start quiznotanswered w-100 m-0"
                                         for="{{ val.otp1 }}">
                                         <h6 class="py-2 px-2 mb-0">
                                             <i
-                                                class="{{ (1 === val.answer||1 === val.useranswer) ? 'fa-sharp fa-solid fa-circle-check' : 'fa-regular fa-circle' }} pe-2"></i>
+                                                class="{{ ((1 === val.answer)||(1 === val.useranswer)||(val.answer === val.useranswer && val.answer === 1 && val.useranswer === 1)) ? 'fa-sharp fa-solid fa-circle-check' : 'fa-regular fa-circle' }} pe-2"></i>
                                             {{ val.option1 }}
                                         </h6>
                                     </label>
@@ -291,11 +291,11 @@
                                 <div class="py-1">
                                     <input type="radio" value="{{ val.option2 }}" id="{{ val.otp2 }}" class="btn-check"
                                         name="options" autocomplete="off" />
-                                    <label class="{{ (2 === val.answer) ? 'optionreviewcorrect' : ((2 === val.useranswer) ? 'optionreviewwrong' : '') }}
+                                    <label class="{{(val.answer === val.useranswer && val.answer === 2 && val.useranswer === 2)?'answercorct': (2 === val.answer) ? 'optionreviewcorrect' : ((2 === val.useranswer) ? 'optionreviewwrong' : '') }}
                                                     text-start quiznotanswered w-100 m-0" for="{{ val.otp2 }}">
                                         <h6 class="py-2 px-2 mb-0">
                                             <i
-                                                class="{{ (2 === val.answer||2 === val.useranswer) ? 'fa-sharp fa-solid fa-circle-check' : 'fa-regular fa-circle' }} pe-2"></i>
+                                                class="{{ ((2 === val.answer)||(2 === val.useranswer)||(val.answer === val.useranswer && val.answer === 2 && val.useranswer === 2)) ? 'fa-sharp fa-solid fa-circle-check' : 'fa-regular fa-circle' }} pe-2"></i>
                                             {{ val.option2 }}
                                         </h6>
                                     </label>
@@ -304,11 +304,11 @@
                                     <input type="radio" value="{{ val.option3 }}" id="{{ val.otp3 }}" class="btn-check"
                                         name="options" autocomplete="off" />
                                     <label
-                                        class="{{(3 === val.answer) ? 'optionreviewcorrect' : ((3 === val.useranswer) ? 'optionreviewwrong' : '') }} text-start quiznotanswered w-100 m-0"
+                                        class="{{(val.answer === val.useranswer && val.answer === 3 && val.useranswer === 3)?'answercorct':(3 === val.answer) ? 'optionreviewcorrect' : ((3 === val.useranswer) ? 'optionreviewwrong' : '') }} text-start quiznotanswered w-100 m-0"
                                         for="{{ val.otp3 }}">
                                         <h6 class="py-2 px-2 mb-0">
                                             <i
-                                                class="{{ (3 === val.answer||3 === val.useranswer) ? 'fa-sharp fa-solid fa-circle-check' : 'fa-regular fa-circle' }} pe-2"></i>
+                                                class="{{ ((3 === val.answer)||(3 === val.useranswer )||((val.answer === val.useranswer && val.answer === 3 && val.useranswer === 3))) ? 'fa-sharp fa-solid fa-circle-check' : 'fa-regular fa-circle' }} pe-2"></i>
                                             {{ val.option3 }}
                                         </h6>
                                     </label>
@@ -317,11 +317,11 @@
                                     <input type="radio" value="{{ val.option4 }}" id="{{ val.otp4 }}" class="btn-check"
                                         name="options" autocomplete="off" />
                                     <label
-                                        class="{{(4 === val.answer) ? 'optionreviewcorrect' : ((4 === val.useranswer) ? 'optionreviewwrong' : '')  }} text-start quiznotanswered w-100 m-0"
+                                        class="{{(val.answer === val.useranswer && val.answer === 4 && val.useranswer === 4)?'answercorct':(4 === val.answer) ? 'optionreviewcorrect' : ((4 === val.useranswer) ? 'optionreviewwrong' : '')  }} text-start quiznotanswered w-100 m-0"
                                         for="{{ val.otp4 }}">
                                         <h6 class="py-2 px-2 mb-0">
                                             <i
-                                                class="{{ (4 === val.answer||4 === val.useranswer) ? 'fa-sharp fa-solid fa-circle-check' : 'fa-regular fa-circle' }} pe-2"></i>
+                                                class="{{ ((4 === val.answer)||(4 === val.useranswer) ||(val.answer === val.useranswer && val.answer === 4 && val.useranswer === 4)) ? 'fa-sharp fa-solid fa-circle-check' : 'fa-regular fa-circle' }} pe-2"></i>
                                             {{ val.option4 }}
                                         </h6>
                                     </label>
@@ -332,8 +332,17 @@
                 </p-carousel>
             </div>
         </div>
+        <div class="col-md-6 text-start" style="float: left;">
+            <!-- <p class="mb-0 fw-semibold">Reference</p>
+            <p-breadcrumb [model]="breadCrumb" class="max-w-100 quizreference"></p-breadcrumb> -->
+            <label style="font-size: 18px;" for=""><b>Source</b></label>&nbsp;&nbsp;
+            <button
+            class="btn btn-back btn-rounded px-2 py-2">
+            <p class="mb-0 px-2">Refer Answer <i class="fa-solid fa-paperclip"></i></p>
+        </button>&nbsp;
+        </div>
     </div>
-    <div class="card-footer p-2" style="background-color: #fff;">
+    <div class="card-footer p-2 mt-2" style="background-color: #fff;">
         <div class="row justify-content-center">
             <div class="col-md-6 text-start">
                 <!-- <p class="mb-0 fw-semibold">Reference</p>
@@ -341,12 +350,18 @@
             </div>
             <div class="col-md-6 text-end">
                 <button *ngIf="selectedQuiz != 1" (click)="clickPreviousQuiz(carouselQuiz, $event)"
-                    class="btn btn-lg rounded-pill btn-tertiary m-0 px-2 py-2">
-                    <p class="mb-0 px-2">Previous <i class="fa-solid fa-circle-arrow-left"></i></p>
+                    class="btn btn-back btn-rounded px-2 py-2">
+                    <div class="d-flex align-items-center">
+                        <span class="fw-normal h6 mb-0 ps-3 pe-2">Previous</span>
+                        <div class="btn-icon"><i class="fa-solid fa-arrow-left"></i></div>
+                    </div>
                 </button>&nbsp;
                 <button *ngIf="this.quizData.length > this.selectedQuiz" (click)="clickNextQuiz(carouselQuiz, $event)"
-                    class="btn btn-lg rounded-pill btn-secondary m-0 px-2 py-2">
-                    <p class="mb-0 px-2"> Next <i class="fa-solid fa-circle-arrow-right"></i></p>
+                    class="btn btn-start btn-rounded m-0 px-2 py-2">
+                    <div class="d-flex align-items-center">
+                        <span class="fw-normal h6 mb-0 ps-3 pe-2">Next</span>
+                        <div class="btn-icon"><i class="fa-solid fa-arrow-right"></i></div>
+                    </div>
                 </button>&nbsp;
             </div>
         </div>

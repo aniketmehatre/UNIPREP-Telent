@@ -114,7 +114,7 @@ export class CareerPlannerComponent implements OnInit {
   totalRowCount:number = 0;
   jobSiteData:any[] = [];
   page = 1;
-  perPage = 10;
+  perPage = 30;
 
   arrayMap: any = {
     'highLevelStudy': this.highLevelStudy,
@@ -166,17 +166,25 @@ export class CareerPlannerComponent implements OnInit {
   }
 
   previous(productId: number): void {
+    this.nxtOrRecommendBtn = false;
     this.invalidClass = false;
     if (this.activePageIndex > 0) {
-      if(productId == 7 && this.selectedData[4] == 2){
+      if(productId == 7 && this.selectedData[4] == 2 ){
+        if(this.activePageIndex !=6){
+          this.nxtOrRecommendBtn = true;
+        }else{
+          this.nxtOrRecommendBtn = false;
+        }
         this.activePageIndex = 3;
       }else{
         this.activePageIndex--; // Decrement the active page index if it's not the first page
+        this.nxtOrRecommendBtn = false;
       }
     }
   }
 
   next(productId: number): void {
+
     this.invalidClass = false;
     if (productId in this.selectedData) {
       if (this.activePageIndex < this.products.length - 1) {
@@ -187,6 +195,9 @@ export class CareerPlannerComponent implements OnInit {
               const entries = Object.entries(this.selectedData);
               const filteredEntries = entries.filter(([key, _]) => key !== '5' && key !== '6');
               this.selectedData = Object.fromEntries(filteredEntries);
+              if(this.selectedData[7] == 2){
+                this.nxtOrRecommendBtn = true;
+              }
             }
             this.activePageIndex += 3;
           }else{
@@ -203,6 +214,11 @@ export class CareerPlannerComponent implements OnInit {
             this.activePageIndex++;
           }
         }else{
+          if(productId == 6 && this.selectedData[7] == 2){
+            this.nxtOrRecommendBtn = true;
+          }else{
+            this.nxtOrRecommendBtn = false;
+          }
           this.activePageIndex++;
         }
       }
@@ -228,6 +244,16 @@ export class CareerPlannerComponent implements OnInit {
   }
 
   getRecommendation(productId: number){
+    this.invalidClass = false;
+    if(productId === 9){
+      if (this.selectedData[9] === undefined ) {
+        this.invalidClass = true;
+        return;
+      }else if(this.selectedData[9].length === 0){
+        this.invalidClass = true;
+        return;
+      }
+    }
     
     if(productId == 7 && this.selectedData[productId] == 2){ //if 4th page value is no if i click the previous button needs to redirect direcly 4th page 
       // if the product id 8 and 9 is already choose so the values are stored. again i go to give the product id value is 7 the values are still exist in the array so i removed
@@ -270,7 +296,7 @@ export class CareerPlannerComponent implements OnInit {
       this.selectedData = []; 
       this.nxtOrRecommendBtn = false;
       this.page = 1;
-      this.perPage = 10;
+      this.perPage = 30;
     });
   }
 }
