@@ -224,11 +224,27 @@ export class QuizmenuComponent implements OnInit {
   }
   languageselectdrpodown:number=0;
   languageselecttypedrpodown:number=0;
+  quizlanguguageprogress:number=0
   languageListId(){
     localStorage.setItem("languageidforquiz",this.laguageid)
     this.languageselectdrpodown=1;
     if(this.languageselectdrpodown==this.languageselecttypedrpodown){
       this.languageHubQuiz=false;
+      var data={
+        moduleid:9,
+        languageId: this.languageselectdrpodown,
+        languagetype:this.languageselecttypedrpodown,
+      }
+      this.moduleListService.checkModuleQuizCompletion(data).subscribe((res) => {
+        this.quizlanguguageprogress=res.progress
+      })
+      if (this.specializationid != null) {
+        localStorage.setItem("learninghubsubmoduleid",this.specializationid);
+        this.learningHubQuiz=false;
+      }else{
+        this.learningHubQuiz=true;
+      }
+    
     }else{
       this.languageHubQuiz=true;
     }

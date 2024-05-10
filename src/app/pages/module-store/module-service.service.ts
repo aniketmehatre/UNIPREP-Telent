@@ -203,4 +203,10 @@ ReviewQuizLanguageHub(data: any) {
       headers: headers,
   });
 }
+checklanguageQuizCompletion(data: any) {
+  const headers = new HttpHeaders().set("Accept", "application/json");
+  return this.http.post<any>(environment.ApiUrl + "/languagehubquizcompletion", data, {
+      headers: headers,
+  });
+}
 }
