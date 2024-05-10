@@ -54,7 +54,6 @@ export class QuizmenuComponent implements OnInit {
     this.getLaguageListType();
     this.dataService.countryId.subscribe((data) => {
       this.moduleListService.countryList().subscribe(countryList => {
-        console.log(countryList);
         
       });
   });
@@ -119,7 +118,6 @@ export class QuizmenuComponent implements OnInit {
     }
     this.moduleListService.getQuizCompletion(data).subscribe((res) => {
       this.quizpercentagedata = res.modules.filter((obj: any) => obj.module_name !== "Travel And Tourism")
-      console.log(this.quizpercentagedata);
       
     })
   }
@@ -136,7 +134,6 @@ export class QuizmenuComponent implements OnInit {
     if (this.universityId != null) {
       this.universityquizbutton = false;
       localStorage.setItem('universityidforquiz', this.universityId)
-      console.log(this.universityId);
       
     } else {
       this.universityquizbutton = true;
@@ -189,7 +186,6 @@ export class QuizmenuComponent implements OnInit {
     });
   }
   specializationList(){
-   console.log(this.subjectid);
    var data={
     // category_flag:1,
     category_id:this.subjectid
