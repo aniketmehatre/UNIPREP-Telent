@@ -6,7 +6,7 @@
                     styleClass="p-button-rounded p-button-text text-dark"></p-button>
             </div>
             <div class="col-md-10 col-10 text-center">
-                <h5 class="select-title mb-1" tooltipPosition="top" pTooltip="testing tooltip">
+                <h5 class="select-title mb-1" tooltipPosition="top" pTooltip="Questions related to the application process are answered">
                     <span class="desktop">LANGUAGE HUB<i class="questiontooltip fa-solid fa-circle-question"></i>
                     </span>
                 </h5>
@@ -74,7 +74,7 @@
         [rowsPerPageOptions]="[25, 50, 100, 200]" dropdownAppendTo="body"></p-paginator>
 </div>
 <p-dialog #dialogContent [(visible)]="isQuestionAnswerVisible" [draggable]="false" [modal]="true" class="questionmodal"
-    header="Header" [maximizable]="true" (onShow)="onShowModal($event)">
+    header="Header" [maximizable]="true">
     <ng-template pTemplate="header">
         <div class="d-flex w-100 flex-column px-4">
             <div class="d-flex flex-row justify-content-md-between justify-content-center">
@@ -149,7 +149,7 @@
                 <h5 class="unselectable d-md-none d-block">{{ oneQuestionContent?.english }}&nbsp;&nbsp;<span
                         class="text-primary" (click)="voiceOver(oneQuestionContent.english)"> <i
                             class="fa-solid fa-volume-high"></i> Listen</span></h5>
-                            <br>
+
                 <div class="fw-medium">{{ oneQuestionContent?.englishanswer }}&nbsp;&nbsp;<span class="text-primary"
                         (click)="voiceOver(oneQuestionContent.englishanswer)"> <i class="fa-solid fa-volume-high"></i>
                         Listen</span></div>

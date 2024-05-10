@@ -26,7 +26,7 @@ export class LanguageListComponent implements OnInit {
     ngOnInit(): void {
         this.languageHubService.getLanguageList().subscribe((_res) => {
             this.isSkeletonVisible = false
-            this.languageList = _res.languages
+            this.languageList = _res.data
         });
     }
 
