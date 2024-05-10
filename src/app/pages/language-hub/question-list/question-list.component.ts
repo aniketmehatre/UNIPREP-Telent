@@ -3,7 +3,7 @@ import { LanguageHubService } from "../language-hub.service";
 import Speech from "speak-tts";
 import { Location } from "@angular/common";
 import { LanguageHubDataService } from "../language-hub-data.service";
-import { MenuItem } from 'primeng/api';
+import {MenuItem, MessageService} from 'primeng/api';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
@@ -26,7 +26,7 @@ export class QuestionListComponent implements OnInit {
     selectedCategoryId: any
 
     constructor(private languageHubService: LanguageHubService, private lhs: LanguageHubDataService,
-        private location: Location, private route: ActivatedRoute) {
+        private location: Location, private route: ActivatedRoute, private toast: MessageService) {
         this.lhs.data$.subscribe((data) => {
             this.selectedLanguageId = data
         })
