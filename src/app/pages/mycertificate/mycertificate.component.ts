@@ -52,6 +52,8 @@ planExpired: boolean = false;
     }
     this.service.getUserCompletedCertificate(data).subscribe((res)=>{
       this.certificatesList=res.certificates
+      this.totalmodulecirtficatelist=[...this.certificatesList,...this.learninghubcertificatelist];
+      console.log(this.totalmodulecirtficatelist);
     })
     var data1={
       countryid:0
