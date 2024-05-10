@@ -123,23 +123,6 @@ export class QuestionListComponent implements OnInit {
   }
   loopRange = Array.from({ length: 30 }).fill(0).map((_, index) => index);
   ngOnInit(): void {
-    //this.moduleListService.emptyQuestionList$();
-
-    // this.meta.updateTag({ property: 'title', content: 'test title asf asd asdf asdf asf asdf' });
-    // this.meta.updateTag({ property: 'og:url', content: 'https://dev-student.uniprep.ai/pages/modules/pre-admission/question-list/2' });
-    // this.meta.updateTag({ property: 'og:type', content: 'summary' });
-    // this.meta.updateTag({ property: 'og:title', content: 'asdf adsf asdfadsfasdf asdf' });
-    // this.meta.updateTag({ property: 'og:description', content: 'summary summary summary summary summary summary' });
-    // this.meta.updateTag({ itemprop: 'image', property: 'og:image', content: 'https://api.uniprep.ai/uniprepapi/storage/app/public/submoduleicons/PreDeparture.png' });
-    //
-    // this.meta.updateTag({ name: 'twitter:card', content: 'https://api.uniprep.ai/uniprepapi/storage/app/public/submoduleicons/PreDeparture.png' });
-    // this.meta.updateTag({ name: 'twitter:site', content: '@YourTwitterHandle' });
-    // this.meta.updateTag({ property: 'twitter:domain', content: 'dev-student.uniprep.ai' });
-    // this.meta.updateTag({ property: 'twitter:url', content: 'https://dev-student.uniprep.ai/pages/modules/pre-admission/question-list/2' });
-    // this.meta.updateTag({ name: 'twitter:title', content: 'Your Page Title' });
-    // this.meta.updateTag({ name: 'twitter:description', content: 'Your Page Description' });
-    // this.meta.updateTag({ name: 'twitter:image', content: 'https://api.uniprep.ai/uniprepapi/storage/app/public/submoduleicons/PreDeparture.png' });
-
 
     this.countryId = Number(localStorage.getItem('countryId'));
     this.sharedCountry = Number(localStorage.getItem('countryId'));
