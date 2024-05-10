@@ -36,6 +36,7 @@ export class QuizmenuComponent implements OnInit {
   universityModulescertificate:any[] = [];
   Modulequizlistcertificate:any[] = [];
   learningHubCirtificates:any[]=[];
+  languageHubCirtificates:any[]=[];
   constructor(private moduleListService: ModuleServiceService, private router: Router, private dataService: DataService,
     private locationService: LocationService,private authService: AuthService,) { }
 
@@ -78,6 +79,13 @@ export class QuizmenuComponent implements OnInit {
     }
     this.moduleListService.getUserCompletedCertificate(data1).subscribe((res)=>{
       this.learningHubCirtificates=res.certificates
+    })
+    var data2={
+      countryid:0,
+      moduleid :9
+    }
+    this.moduleListService.getUserCompletedCertificate(data2).subscribe((res)=>{
+      this.languageHubCirtificates=res.certificates
     })
   }
   startQuiz(moduleid: any) {
