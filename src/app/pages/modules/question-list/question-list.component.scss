@@ -83,3 +83,19 @@
 	height: 100%;
 	border: 0;
 }
+.homecardbtnquiz {
+	background-color: black;
+	color: white;
+}
+.ellipse-button {
+	width: auto;
+	padding: 6px 25px;
+	height: auto;
+	background-color: #f0780e;
+	border-radius: 25px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	cursor: not-allowed;
+	font-size: 10px;
+}

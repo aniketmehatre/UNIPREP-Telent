@@ -88,8 +88,8 @@ export class QuestionListComponent implements OnInit {
   ogDescription: any
   ogImage: any;
   sharedCountry: number = 0;
-
-
+  currentModuleSlug: any;
+  quizpercentage: any = 0
   @ViewChild('op', { static: false, read: ElementRef }) elRef: any;
 
   constructor(
@@ -265,6 +265,7 @@ export class QuestionListComponent implements OnInit {
         this.currentModuleId = 8;
         this.currentModuleName = "Learning Hub";
         this.currentApiSlug = "getlearninghubsubmoduleqcount";
+        this.currentModuleSlug="learning-hub"
         break;
       default:
         this.currentModuleId = 6;
@@ -319,7 +320,14 @@ export class QuestionListComponent implements OnInit {
     this.loadQuestionList(data);
     //this.ngxService.start();
     //this.moduleListService.loadQuestionList(data);
-
+    var data1={
+      moduleid:8,
+      countryid: 0,
+      submoduleid:this.subModuleId,
+    }
+    this.moduleListService.checkModuleQuizCompletion(data1).subscribe((res) => {
+      this.quizpercentage=res.progress
+    })
   }
   loadQuestionList(data: any) {
     this.mService.studentFullQuestionData(data).subscribe((res: any) => {
@@ -829,6 +837,12 @@ export class QuestionListComponent implements OnInit {
   onShowModal(value: any) {
     let socialShare: any = document.getElementById("socialSharingList");
     socialShare.style.display = "none";
+  }
+  startQuiz(){
+    console.log(this.currentModuleId);
+    console.log( Number(this.subModuleId));
+    localStorage.setItem("learninghubsubmoduleid",this.subModuleId);
+    this.router.navigate([`/pages/modules/${this.currentModuleSlug}/learninghubquiz`]);
   }
 }
 @Pipe({ name: 'safe' })

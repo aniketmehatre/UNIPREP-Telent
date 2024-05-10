@@ -14,22 +14,29 @@ export class QuizmenuComponent implements OnInit {
   currentModuleSlug: any;
   filterUniversityList: any[] = [];
   subjectlistdropdown:any[]=[];
+  languagedropdownlist:any[]=[];
+  languagedropdownlisttype:any[]=[];
   specializationlist:any[]=[];
   quizpercentagedata: any[] = [];
   countryId: any;
   countryName!: string;
   universityId: any=null;
-  subjectid:any=[]
-  specializationid:any=null
-  moduleid:any=null
+  laguageid:any=[];
+  laguagetypeid:any=[];
+  subjectid:any=[];
+  specializationid:any=null;
+  moduleid:any=null;
   universityquizbutton: boolean = true;
   learningHubQuiz:boolean=true;
+  languageHubQuiz:boolean=true;
   readingmodulestartbutton:boolean = true;
   restrict: boolean = false;
   planExpired: boolean = false;
   certificatesList:any[]=[]
   universityModulescertificate:any[] = [];
   Modulequizlistcertificate:any[] = [];
+  learningHubCirtificates:any[]=[];
+  languageHubCirtificates:any[]=[];
   constructor(private moduleListService: ModuleServiceService, private router: Router, private dataService: DataService,
     private locationService: LocationService,private authService: AuthService,) { }
 
@@ -42,7 +49,9 @@ export class QuizmenuComponent implements OnInit {
       this.getFilterUniversityList(this.countryId)
       this.getCertificates()
     });
-    this.getSubjectlist()
+    this.getLaguageList();
+    this.getSubjectlist();
+    this.getLaguageListType();
     this.dataService.countryId.subscribe((data) => {
       this.moduleListService.countryList().subscribe(countryList => {
         console.log(countryList);
@@ -63,6 +72,20 @@ export class QuizmenuComponent implements OnInit {
       this.certificatesList=res.certificates
       this.universityModulescertificate = this.certificatesList.filter(module => !modulesToRemove.includes(module.module_name));
       this.Modulequizlistcertificate = this.certificatesList.filter(module => !modulesToRemoveUniversity.includes(module.module_name));
+    })
+    var data1={
+      countryid:0,
+      moduleid :8
+    }
+    this.moduleListService.getUserCompletedCertificate(data1).subscribe((res)=>{
+      this.learningHubCirtificates=res.certificates
+    })
+    var data2={
+      countryid:0,
+      moduleid :9
+    }
+    this.moduleListService.getUserCompletedCertificate(data2).subscribe((res)=>{
+      this.languageHubCirtificates=res.certificates
     })
   }
   startQuiz(moduleid: any) {
@@ -175,9 +198,18 @@ export class QuizmenuComponent implements OnInit {
     this.specializationlist = response.data;
   });
   }
+  quizpercentage:number=0
   specializationdata(){
-    console.log(this.specializationid);
+    var data={
+      moduleid:8,
+      countryid: 0,
+      submoduleid:this.specializationid,
+    }
+    this.moduleListService.checkModuleQuizCompletion(data).subscribe((res) => {
+      this.quizpercentage=res.progress
+    })
     if (this.specializationid != null) {
+      localStorage.setItem("learninghubsubmoduleid",this.specializationid);
       this.learningHubQuiz=false;
     }else{
       this.learningHubQuiz=true;
@@ -185,6 +217,64 @@ export class QuizmenuComponent implements OnInit {
   
   }
   StartLearningHubQuiz(){
+    this.currentModuleSlug="learning-hub"
+    this.router.navigate([`/pages/modules/${this.currentModuleSlug}/learninghubquiz`]);
+  }
+  getLaguageList() {
+    this.moduleListService.getLanguageist().subscribe((response) => {
+      this.languagedropdownlist = response.data;
+    });
+  }
+  getLaguageListType() {
+    this.moduleListService.getLanguageistType().subscribe((response) => {
+      this.languagedropdownlisttype = response.data;
+    });
+  }
+  languageselectdrpodown:number=0;
+  languageselecttypedrpodown:number=0;
+  quizlanguguageprogress:number=0
+  languageListId(){
+    localStorage.setItem("languageidforquiz",this.laguageid)
+    this.languageselectdrpodown=1;
+    if(this.languageselectdrpodown==this.languageselecttypedrpodown){
 
+      var data={
+        moduleid:9,
+        languageId: this.laguageid,
+        languagetype:this.laguagetypeid,
+      }
+      this.moduleListService.checklanguageQuizCompletion(data).subscribe((res) => {
+        this.quizlanguguageprogress=res.progress
+        if(this.quizlanguguageprogress<=79){
+          this.languageHubQuiz=false;
+        }
+      })
+    }else{
+      this.languageHubQuiz=true;
+    }
+  }
+  languagrTypeId(){
+    localStorage.setItem("languagetypeidforquiz",this.laguagetypeid)
+    this.languageselecttypedrpodown=1;
+    if(this.languageselectdrpodown==this.languageselecttypedrpodown){
+   
+      var data={
+        moduleid:9,
+        languageId: this.laguageid,
+        languagetype:this.laguagetypeid,
+      }
+      this.moduleListService.checklanguageQuizCompletion(data).subscribe((res) => {
+        this.quizlanguguageprogress=res.progress
+        if(this.quizlanguguageprogress<=79){
+          this.languageHubQuiz=false;
+        }
+      })
+    }else{
+      this.languageHubQuiz=true;
+    }
+  }
+  StartLanguageHubQuiz(){
+    this.currentModuleSlug="language-hub"
+    this.router.navigate([`/pages/modules/${this.currentModuleSlug}/languagehubquiz`]);
   }
 }

@@ -12,6 +12,8 @@ import { MessageService } from 'primeng/api';
 })
 export class MycertificateComponent implements OnInit {
 certificatesList:any[]=[]
+learninghubcertificatelist:any[]=[];
+totalmodulecirtficatelist:any[]=[];
 othercirtificatecountrylist:any=""
 countryname:any;
 restrict: boolean = false;
@@ -43,11 +45,23 @@ planExpired: boolean = false;
     })
   }
   getCertificates(){
+    this.certificatesList=[];
+    this.learninghubcertificatelist=[];
     var data={
       countryid:Number(localStorage.getItem('countryId'))
     }
     this.service.getUserCompletedCertificate(data).subscribe((res)=>{
       this.certificatesList=res.certificates
+      this.totalmodulecirtficatelist=[...this.certificatesList,...this.learninghubcertificatelist];
+      console.log(this.totalmodulecirtficatelist);
+    })
+    var data1={
+      countryid:0
+    }
+    this.service.getUserCompletedCertificate(data1).subscribe((res)=>{
+      this.learninghubcertificatelist=res.certificates;
+      this.totalmodulecirtficatelist=[...this.certificatesList,...this.learninghubcertificatelist];
+      console.log(this.totalmodulecirtficatelist);
     })
   }
   downloadCertificate(link:any){

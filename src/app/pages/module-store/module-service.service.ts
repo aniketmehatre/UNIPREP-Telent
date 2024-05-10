@@ -159,4 +159,54 @@ getSpecializationLists(data:any) {
   const headers = new HttpHeaders().set("Accept", "application/json");
   return this.http.get<any>(environment.ApiUrl + `/getlearninghublists?`,{ headers: headers,params:params});
 }
+learninghubquiz(data: any) {
+  const headers = new HttpHeaders().set("Accept", "application/json");
+  return this.http.post<any>(environment.ApiUrl + "/getrandomquizlh", data, {
+      headers: headers,
+  });
+}
+submitQuizLearningHubQuiz(data: any) {
+  const headers = new HttpHeaders().set("Accept", "application/json");
+  return this.http.post<any>(environment.ApiUrl + "/submitquizanswers", data, {
+      headers: headers,
+  });
+}
+ReviewQuizLearningHub(data: any) {
+  const headers = new HttpHeaders().set("Accept", "application/json");
+  return this.http.post<any>(environment.ApiUrl + "/reviewquiz", data, {
+      headers: headers,
+  });
+}
+getLanguageist() {
+  const headers = new HttpHeaders().set("Accept", "application/json");
+  return this.http.post<any>(environment.ApiUrl + "/getlanguages",{ headers: headers,});
+}
+getLanguageistType() {
+  const headers = new HttpHeaders().set("Accept", "application/json");
+  return this.http.post<any>(environment.ApiUrl + "/getlanguagetype",{ headers: headers,});
+}
+languageghubquiz(data: any) {
+  const headers = new HttpHeaders().set("Accept", "application/json");
+  return this.http.post<any>(environment.ApiUrl + "/getlanguagehubquiz", data, {
+      headers: headers,
+  });
+}
+submitLanguageghubquiz(data: any) {
+  const headers = new HttpHeaders().set("Accept", "application/json");
+  return this.http.post<any>(environment.ApiUrl + "/submitlanguagequiz", data, {
+      headers: headers,
+  });
+}
+ReviewQuizLanguageHub(data: any) {
+  const headers = new HttpHeaders().set("Accept", "application/json");
+  return this.http.post<any>(environment.ApiUrl + "/reviewlanguagehubquiz", data, {
+      headers: headers,
+  });
+}
+checklanguageQuizCompletion(data: any) {
+  const headers = new HttpHeaders().set("Accept", "application/json");
+  return this.http.post<any>(environment.ApiUrl + "/languagehubquizcompletion", data, {
+      headers: headers,
+  });
+}
 }

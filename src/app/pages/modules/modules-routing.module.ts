@@ -5,6 +5,8 @@ import {ListSubModulesComponent} from "./list-sub-modules/list-sub-modules.compo
 import {QuestionListComponent} from "./question-list/question-list.component";
 import { QuizComponent } from './quiz/quiz.component';
 import { QuizmenuComponent } from '../quizmenu/quizmenu.component';
+import { LearninghubquizComponent } from './learninghubquiz/learninghubquiz.component';
+import { LanguagetypequizComponent } from './languagetypequiz/languagetypequiz.component';
  
 
 const routes: Routes = [  {
@@ -41,7 +43,13 @@ const routes: Routes = [  {
   {
     path: 'quizmodule', component: QuizmenuComponent,
 
-  }
+  },
+  {
+    path: ':module_name/learninghubquiz', component: LearninghubquizComponent,
+  },
+  {
+    path: ':module_name/languagehubquiz', component: LanguagetypequizComponent,
+  },
 ]
 
 

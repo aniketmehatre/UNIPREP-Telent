@@ -9,11 +9,12 @@ import { LocationService } from "../../../location.service";
 import { AuthService } from 'src/app/Auth/auth.service';
 import { NgxUiLoaderService } from "ngx-ui-loader";
 @Component({
-  selector: 'uni-learninghubquiz',
-  templateUrl: './learninghubquiz.component.html',
-  styleUrls: ['./learninghubquiz.component.scss']
+  selector: 'uni-languagetypequiz',
+  templateUrl: './languagetypequiz.component.html',
+  styleUrls: ['./languagetypequiz.component.scss']
 })
-export class LearninghubquizComponent implements OnInit {
+export class LanguagetypequizComponent implements OnInit {
+
   quizData: any[] = [];
   currentCountryId: any
   currentModuleId: any;
@@ -45,7 +46,7 @@ export class LearninghubquizComponent implements OnInit {
   answeredCorrect: number = 0;
   totalPercentage: number = 0;
   totalanswerquistionaftersubmited:number=0;
-  totalanswercorret:number=0
+  totalanswercorret:number=0;
   claculatingSelectQuizPesrcentage:number=0
   totalpercentagequiztime:number=0
   percentageValue: string = '';
@@ -68,13 +69,14 @@ export class LearninghubquizComponent implements OnInit {
     this.isInstructionVisible = true;
     this.currentModuleSlug = this.router.url.split('/').slice(-2, -1).pop();
     this.currentCountryId = 0;
+    console.log( this.currentModuleSlug);
     this.dataService.countryNameSource.subscribe((data) => {
       this.countryName = data;
     });
     switch (this.currentModuleSlug) {
-      case 'learning-hub':
-          this.currentModuleId = 8;
-          this.currentModuleName = 'Learning Hub';
+      case 'language-hub':
+          this.currentModuleId = 9;
+          this.currentModuleName = 'Language Hub';
           this.currentApiSlug = 'SubmoduleListForStudents';
           this.infoMessage = 'Upgrade to access the Learning Hub',
             this.unlockMessage = ' ',
@@ -157,6 +159,9 @@ export class LearninghubquizComponent implements OnInit {
     this.answerOptionClicked = false;
     this.selectedOptNumber = optNumber;
     this.selectedOptValue = selectedOption;
+    console.log(selectedOption);
+    console.log(singleData);
+    console.log(optNumber);
     let mappedQuiz = this.quizData.map((data: any) => {
       let dat = { ...data }
       if (dat.id == singleData.id) {
@@ -170,6 +175,7 @@ export class LearninghubquizComponent implements OnInit {
     this.quizData = mappedQuiz;
     this.claculatingSelectQuizPesrcentage=mappedQuiz.filter(obj => obj.useranswer).length;
     this.totalpercentagequiztime=(this.claculatingSelectQuizPesrcentage/ this.quizcount) * 100;
+    console.log(this.claculatingSelectQuizPesrcentage);
   }
 
   closeQuiz() {
@@ -250,12 +256,12 @@ export class LearninghubquizComponent implements OnInit {
       return rest;
     });
     var data = {
-      country_id: this.currentCountryId,
+      languagetype: localStorage.getItem("languagetypeidforquiz"),
       module_id: this.currentModuleId,
-      submodule_id: localStorage.getItem("learninghubsubmoduleid"),
+      language_id:localStorage.getItem("languageidforquiz"),
       quizquestion: this.quizData
     }
-    this.moduleListService.submitQuizLearningHubQuiz(data).subscribe((res) => {
+    this.moduleListService.submitLanguageghubquiz(data).subscribe((res) => {
       this.totalPercentage = res.percentageCompleted
       this.certificatesurl=res.certificate
       this.totalanswerquistionaftersubmited=res.totalquestions
@@ -299,11 +305,11 @@ export class LearninghubquizComponent implements OnInit {
     this.isQuizSubmit = false;
     this.isReviewVisible = true;
     var data = {
-      countryId : this.currentCountryId,
-      moduleId: this.currentModuleId,
-      submoduleId: localStorage.getItem("learninghubsubmoduleid")
+      languageId:localStorage.getItem("languageidforquiz"),
+      module_id: this.currentModuleId,
+      languagetype:localStorage.getItem("languagetypeidforquiz")
     }
-    this.moduleListService.ReviewQuizLearningHub(data).subscribe((res) => {
+    this.moduleListService.ReviewQuizLanguageHub(data).subscribe((res) => {
       this.quizData = res.userquiz.map((val: any) => {
         let number = 1;
         let dd = { ...val };
@@ -319,12 +325,14 @@ export class LearninghubquizComponent implements OnInit {
   checkquizquestioncount() {
     this.quizData = [];
     var data = {
-      // countryId: this.currentCountryId,
+      languageId:localStorage.getItem("languageidforquiz"),
       moduleId: this.currentModuleId,
-      submoduleId : localStorage.getItem("learninghubsubmoduleid")
+      languagetype : localStorage.getItem("languagetypeidforquiz")
     }
-    this.moduleListService.learninghubquiz(data).subscribe((res) => {
+    console.log(data);
+    this.moduleListService.languageghubquiz(data).subscribe((res) => {
       this.quizcount = res.count>0? res.count:0;
+      console.log(res);
       this.quizData = res.quizquestion.map((val: any) => {
         let number = 1;
         let dd = { ...val };
@@ -340,10 +348,10 @@ export class LearninghubquizComponent implements OnInit {
   checkquizquestionmodule(){
     var data={
       moduleid:this.currentModuleId,
-      countryid: this.currentCountryId,
-      submoduleid:localStorage.getItem("learninghubsubmoduleid")
+      languageId:localStorage.getItem("languageidforquiz"),
+      languagetype:localStorage.getItem("languagetypeidforquiz"),
     }
-    this.moduleListService.checkModuleQuizCompletion(data).subscribe((res) => {
+    this.moduleListService.checklanguageQuizCompletion(data).subscribe((res) => {
       this.quizpercentage=res.progress
     })
   }

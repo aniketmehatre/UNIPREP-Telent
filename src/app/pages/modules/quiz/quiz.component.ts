@@ -214,9 +214,6 @@ export class QuizComponent implements OnInit {
     this.answerOptionClicked = false;
     this.selectedOptNumber = optNumber;
     this.selectedOptValue = selectedOption;
-    console.log(selectedOption);
-    console.log(singleData);
-    console.log(optNumber);
     let mappedQuiz = this.quizData.map((data: any) => {
       let dat = { ...data }
       if (dat.id == singleData.id) {
@@ -230,7 +227,6 @@ export class QuizComponent implements OnInit {
     this.quizData = mappedQuiz;
     this.claculatingSelectQuizPesrcentage=mappedQuiz.filter(obj => obj.useranswer).length;
     this.totalpercentagequiztime=(this.claculatingSelectQuizPesrcentage/ this.quizcount) * 100;
-    console.log(this.claculatingSelectQuizPesrcentage);
   }
 
   closeQuiz() {
@@ -310,7 +306,6 @@ export class QuizComponent implements OnInit {
       const { submodule_id, source_faqquestion, otp1, otp2, otp3, otp4, module_id, country_id, user_answered, user_answered_value, ...rest } = data;
       return rest;
     });
-    console.log(this.quizData);
     var data = {
       country_id: this.currentCountryId,
       module_id: this.currentModuleId,
@@ -318,7 +313,6 @@ export class QuizComponent implements OnInit {
       quizquestion: this.quizData
     }
     this.moduleListService.submitQuiz(data).subscribe((res) => {
-      console.log(res);
       this.totalPercentage = res.percentageCompleted
       this.certificatesurl=res.certificate
       this.totalanswerquistionaftersubmited=res.totalquestions
@@ -352,6 +346,7 @@ export class QuizComponent implements OnInit {
     this.quizData = [];
     this.selectedQuiz = 1;
     this.positionNumber = 1;
+    this.totalpercentagequiztime=0;
     this.isInstructionVisible = true;
     this.checkquizquestioncount()
   }
@@ -387,7 +382,6 @@ export class QuizComponent implements OnInit {
     }
     this.moduleListService.quizCount(data).subscribe((res) => {
       this.quizcount = res.count>0? res.count:0;
-      console.log(res);
       this.quizData = res.quizquestion.map((val: any) => {
         let number = 1;
         let dd = { ...val };
