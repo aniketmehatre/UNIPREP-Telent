@@ -21,13 +21,14 @@ export class QuizmenuComponent implements OnInit {
   countryId: any;
   countryName!: string;
   universityId: any=null;
-  laguageid:any=null;
-  laguagetypeid:any=null;
+  laguageid:any=[];
+  laguagetypeid:any=[];
   subjectid:any=[];
   specializationid:any=null;
   moduleid:any=null;
   universityquizbutton: boolean = true;
   learningHubQuiz:boolean=true;
+  languageHubQuiz:boolean=true;
   readingmodulestartbutton:boolean = true;
   restrict: boolean = false;
   planExpired: boolean = false;
@@ -201,7 +202,6 @@ export class QuizmenuComponent implements OnInit {
     })
     if (this.specializationid != null) {
       localStorage.setItem("learninghubsubmoduleid",this.specializationid);
-      console.log(this.specializationid);
       this.learningHubQuiz=false;
     }else{
       this.learningHubQuiz=true;
@@ -214,12 +214,36 @@ export class QuizmenuComponent implements OnInit {
   }
   getLaguageList() {
     this.moduleListService.getLanguageist().subscribe((response) => {
-      this.languagedropdownlist = response.languages;
+      this.languagedropdownlist = response.data;
     });
   }
   getLaguageListType() {
     this.moduleListService.getLanguageistType().subscribe((response) => {
       this.languagedropdownlisttype = response.data;
     });
+  }
+  languageselectdrpodown:number=0;
+  languageselecttypedrpodown:number=0;
+  languageListId(){
+    localStorage.setItem("languageidforquiz",this.laguageid)
+    this.languageselectdrpodown=1;
+    if(this.languageselectdrpodown==this.languageselecttypedrpodown){
+      this.languageHubQuiz=false;
+    }else{
+      this.languageHubQuiz=true;
+    }
+  }
+  languagrTypeId(){
+    localStorage.setItem("languagetypeidforquiz",this.laguagetypeid)
+    this.languageselecttypedrpodown=1;
+    if(this.languageselectdrpodown==this.languageselecttypedrpodown){
+      this.languageHubQuiz=false;
+    }else{
+      this.languageHubQuiz=true;
+    }
+  }
+  StartLanguageHubQuiz(){
+    this.currentModuleSlug="language-hub"
+    this.router.navigate([`/pages/modules/${this.currentModuleSlug}/languagehubquiz`]);
   }
 }

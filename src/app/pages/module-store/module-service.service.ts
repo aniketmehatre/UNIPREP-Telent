@@ -185,4 +185,22 @@ getLanguageistType() {
   const headers = new HttpHeaders().set("Accept", "application/json");
   return this.http.post<any>(environment.ApiUrl + "/getlanguagetype",{ headers: headers,});
 }
+languageghubquiz(data: any) {
+  const headers = new HttpHeaders().set("Accept", "application/json");
+  return this.http.post<any>(environment.ApiUrl + "/getlanguagehubquiz", data, {
+      headers: headers,
+  });
+}
+submitLanguageghubquiz(data: any) {
+  const headers = new HttpHeaders().set("Accept", "application/json");
+  return this.http.post<any>(environment.ApiUrl + "/submitlanguagequiz", data, {
+      headers: headers,
+  });
+}
+ReviewQuizLanguageHub(data: any) {
+  const headers = new HttpHeaders().set("Accept", "application/json");
+  return this.http.post<any>(environment.ApiUrl + "/reviewlanguagehubquiz", data, {
+      headers: headers,
+  });
+}
 }

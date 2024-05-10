@@ -46,7 +46,7 @@ export class LanguagetypequizComponent implements OnInit {
   answeredCorrect: number = 0;
   totalPercentage: number = 0;
   totalanswerquistionaftersubmited:number=0;
-  totalanswercorret:number=0
+  totalanswercorret:number=0;
   claculatingSelectQuizPesrcentage:number=0
   totalpercentagequiztime:number=0
   percentageValue: string = '';
@@ -74,9 +74,9 @@ export class LanguagetypequizComponent implements OnInit {
       this.countryName = data;
     });
     switch (this.currentModuleSlug) {
-      case 'learning-hub':
-          this.currentModuleId = 8;
-          this.currentModuleName = 'Learning Hub';
+      case 'language-hub':
+          this.currentModuleId = 9;
+          this.currentModuleName = 'Language Hub';
           this.currentApiSlug = 'SubmoduleListForStudents';
           this.infoMessage = 'Upgrade to access the Learning Hub',
             this.unlockMessage = ' ',
@@ -255,16 +255,13 @@ export class LanguagetypequizComponent implements OnInit {
       const { submodule_id, source_faqquestion, otp1, otp2, otp3, otp4, module_id, country_id, user_answered, user_answered_value, ...rest } = data;
       return rest;
     });
-    console.log(this.quizData);
     var data = {
-      country_id: this.currentCountryId,
+      languagetype: localStorage.getItem("languagetypeidforquiz"),
       module_id: this.currentModuleId,
-      submodule_id: localStorage.getItem("learninghubsubmoduleid"),
+      language_id:localStorage.getItem("languageidforquiz"),
       quizquestion: this.quizData
     }
-    console.log(data);
-    this.moduleListService.submitQuizLearningHubQuiz(data).subscribe((res) => {
-      console.log(res);
+    this.moduleListService.submitLanguageghubquiz(data).subscribe((res) => {
       this.totalPercentage = res.percentageCompleted
       this.certificatesurl=res.certificate
       this.totalanswerquistionaftersubmited=res.totalquestions
@@ -308,11 +305,11 @@ export class LanguagetypequizComponent implements OnInit {
     this.isQuizSubmit = false;
     this.isReviewVisible = true;
     var data = {
-      countryId : this.currentCountryId,
-      moduleId: this.currentModuleId,
-      submoduleId: localStorage.getItem("learninghubsubmoduleid")
+      languageId:localStorage.getItem("languageidforquiz"),
+      module_id: this.currentModuleId,
+      languagetype:localStorage.getItem("languagetypeidforquiz")
     }
-    this.moduleListService.ReviewQuizLearningHub(data).subscribe((res) => {
+    this.moduleListService.ReviewQuizLanguageHub(data).subscribe((res) => {
       this.quizData = res.userquiz.map((val: any) => {
         let number = 1;
         let dd = { ...val };
@@ -328,12 +325,12 @@ export class LanguagetypequizComponent implements OnInit {
   checkquizquestioncount() {
     this.quizData = [];
     var data = {
-      // countryId: this.currentCountryId,
+      languageId:localStorage.getItem("languageidforquiz"),
       moduleId: this.currentModuleId,
-      submoduleId : localStorage.getItem("learninghubsubmoduleid")
+      languagetype : localStorage.getItem("languagetypeidforquiz")
     }
     console.log(data);
-    this.moduleListService.learninghubquiz(data).subscribe((res) => {
+    this.moduleListService.languageghubquiz(data).subscribe((res) => {
       this.quizcount = res.count>0? res.count:0;
       console.log(res);
       this.quizData = res.quizquestion.map((val: any) => {
