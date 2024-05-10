@@ -340,7 +340,8 @@ export class LearninghubquizComponent implements OnInit {
   checkquizquestionmodule(){
     var data={
       moduleid:this.currentModuleId,
-      countryid: this.currentCountryId
+      countryid: this.currentCountryId,
+      submoduleid:localStorage.getItem("learninghubsubmoduleid")
     }
     this.moduleListService.checkModuleQuizCompletion(data).subscribe((res) => {
       this.quizpercentage=res.progress

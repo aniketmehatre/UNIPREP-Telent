@@ -229,22 +229,18 @@ export class QuizmenuComponent implements OnInit {
     localStorage.setItem("languageidforquiz",this.laguageid)
     this.languageselectdrpodown=1;
     if(this.languageselectdrpodown==this.languageselecttypedrpodown){
-      this.languageHubQuiz=false;
+
       var data={
         moduleid:9,
-        languageId: this.languageselectdrpodown,
-        languagetype:this.languageselecttypedrpodown,
+        languageId: this.laguageid,
+        languagetype:this.laguagetypeid,
       }
-      this.moduleListService.checkModuleQuizCompletion(data).subscribe((res) => {
+      this.moduleListService.checklanguageQuizCompletion(data).subscribe((res) => {
         this.quizlanguguageprogress=res.progress
+        if(this.quizlanguguageprogress<=79){
+          this.languageHubQuiz=false;
+        }
       })
-      if (this.specializationid != null) {
-        localStorage.setItem("learninghubsubmoduleid",this.specializationid);
-        this.learningHubQuiz=false;
-      }else{
-        this.learningHubQuiz=true;
-      }
-    
     }else{
       this.languageHubQuiz=true;
     }
@@ -253,7 +249,18 @@ export class QuizmenuComponent implements OnInit {
     localStorage.setItem("languagetypeidforquiz",this.laguagetypeid)
     this.languageselecttypedrpodown=1;
     if(this.languageselectdrpodown==this.languageselecttypedrpodown){
-      this.languageHubQuiz=false;
+   
+      var data={
+        moduleid:9,
+        languageId: this.laguageid,
+        languagetype:this.laguagetypeid,
+      }
+      this.moduleListService.checklanguageQuizCompletion(data).subscribe((res) => {
+        this.quizlanguguageprogress=res.progress
+        if(this.quizlanguguageprogress<=79){
+          this.languageHubQuiz=false;
+        }
+      })
     }else{
       this.languageHubQuiz=true;
     }

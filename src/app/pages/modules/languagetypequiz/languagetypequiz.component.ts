@@ -348,9 +348,10 @@ export class LanguagetypequizComponent implements OnInit {
   checkquizquestionmodule(){
     var data={
       moduleid:this.currentModuleId,
-      countryid: this.currentCountryId
+      languageId:localStorage.getItem("languageidforquiz"),
+      languagetype:localStorage.getItem("languagetypeidforquiz"),
     }
-    this.moduleListService.checkModuleQuizCompletion(data).subscribe((res) => {
+    this.moduleListService.checklanguageQuizCompletion(data).subscribe((res) => {
       this.quizpercentage=res.progress
     })
   }
