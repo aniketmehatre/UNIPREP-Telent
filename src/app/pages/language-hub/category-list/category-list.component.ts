@@ -36,8 +36,7 @@ export class CategoryListComponent implements OnInit {
 
     ngOnInit(): void {
         if (!this.selectedLanguageId || !this.selectedLanguageType) {
-            this.toast.add({ severity: 'error', summary: 'Error', detail: 'No Data Found' });
-
+            this.toast.add({ severity: 'info', summary: 'Info', detail: 'No Data Found' });
             this.location.back();
         }
 
@@ -46,12 +45,14 @@ export class CategoryListComponent implements OnInit {
             languagetype: this.selectedLanguageType
         }
         this.languageHubService.getCategoryList(req).subscribe((_res) => {
+                console.log(_res)
             this.isSkeletonVisible = false
             this.categoryList = _res.data
         },
         (error) => {
                 // Handle error
                 this.location.back();
+                this.toast.add({ severity: 'info', summary: 'Info', detail: 'No Data Found' });
                 console.error('Error:', error);
             });
     }

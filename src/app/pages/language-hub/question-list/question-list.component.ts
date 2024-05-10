@@ -65,7 +65,8 @@ export class QuestionListComponent implements OnInit {
         },
         (error) => {
                 this.location.back();
-                console.error('Error:', error);
+            this.toast.add({ severity: 'info', summary: 'Info', detail: 'No Data Found' });
+            console.error('Error:', error);
             });
         console.log(typeof this.selectedLanguageType);
         var langType = ''
@@ -133,7 +134,7 @@ export class QuestionListComponent implements OnInit {
         const speech = new Speech()
         speech.init({
             'volume': 1,
-            'lang': 'hi-IN',
+            'lang': 'en-IN',
             'rate': 1,
             'pitch': 1,
             'voice': 'Google UK English Female',
@@ -147,6 +148,45 @@ export class QuestionListComponent implements OnInit {
         speech.setVoice('Google UK English Female');
         speech.speak({
             text: voiceData,
+        }).then(() => {
+            console.log("Success !")
+        }).catch((e: any) => {
+            console.error("An error occurred :", e)
+        })
+    }
+
+    voiceOverNative(voiceData: any, fullData: any) {
+        var langName = ''
+        var langCode = ''
+        switch (fullData.languageid) {
+            case 1:
+                langName = 'Flo (German (Germany)) (de-DE)';
+                langCode = 'de-DE'
+                break;
+            case 2:
+                langName = 'Google UK English Female';
+                langCode = 'hi-IN'
+                break;
+            default:
+                break;
+        }
+        const speech = new Speech()
+        speech.init({
+            'volume': 1,
+            'lang': langCode,
+            'rate': 1,
+            'pitch': 1,
+            'voice': langName,
+            'splitSentences': true,
+            'listeners': {
+                'onvoiceschanged': (voices: any) => {
+                    console.log("Event voiceschanged", voices)
+                }
+            }
+        })
+        speech.setVoice('Google UK English Female');
+        speech.speak({
+            text: 'हिंदी टाइपिंग',
         }).then(() => {
             console.log("Success !")
         }).catch((e: any) => {
