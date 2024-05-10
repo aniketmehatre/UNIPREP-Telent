@@ -39,11 +39,15 @@ const routes: Routes = [
                 path: 'userguide',
 
                 loadChildren: () => import('./user-guide/user-guide.module').then(m => m.UserGuideModule)
-            },            
+            },
             {
                 path: 'modules',
                 // canActivate: [PagesGuard],
                 loadChildren: () => import('./modules/modules.module').then(m => m.ModulesModule)
+            },
+            {
+                path: 'language-hub',
+                loadChildren: () => import('./language-hub/language-hub.module').then(m => m.LanguageHubModule)
             },
             {
                 path: 'subscriptions',

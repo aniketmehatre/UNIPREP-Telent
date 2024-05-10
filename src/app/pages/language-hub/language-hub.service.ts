@@ -1,0 +1,44 @@
+import { Injectable } from '@angular/core';
+import {HttpClient, HttpHeaders} from "@angular/common/http";
+import {environment} from "@env/environment";
+
+@Injectable({
+  providedIn: 'root'
+})
+export class LanguageHubService {
+
+  constructor(private http: HttpClient) { }
+
+  // language listing
+  getLanguageList() {
+    const headers = new HttpHeaders().set("Accept", "application/json");
+    return this.http.post<any>(environment.ApiUrl + "/getlanguages", {}, {
+      headers: headers,
+    });
+  }
+
+  getLanguageTypeList() {
+    let req = {
+      type_id: 1
+    }
+    const headers = new HttpHeaders().set("Accept", "application/json");
+    return this.http.post<any>(environment.ApiUrl + "/getlanguagetype",  req, {
+      headers: headers,
+    });
+  }
+
+  getCategoryList(req: any) {
+    const headers = new HttpHeaders().set("Accept", "application/json");
+    return this.http.post<any>(environment.ApiUrl + "/getlanguagesubmodule",  req, {
+      headers: headers,
+    });
+  }
+
+  getQuestionList(req: any) {
+    const headers = new HttpHeaders().set("Accept", "application/json");
+    return this.http.post<any>(environment.ApiUrl + "/getlanguagequestions",  req, {
+      headers: headers,
+    });
+  }
+
+}

@@ -139,7 +139,7 @@ import { CertificatesComponent } from './certificates/certificates.component';
         StepsModule,
         RadioButtonModule,
         NgxExtendedPdfViewerModule,
-        PdfViewerModule,
+        PdfViewerModule
     ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })

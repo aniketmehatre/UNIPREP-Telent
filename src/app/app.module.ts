@@ -40,7 +40,6 @@ import {
     SocialLoginModule,
     SocialAuthServiceConfig, GoogleLoginProvider,
 } from '@abacritt/angularx-social-login';
-
 import { MaintenanceComponent } from './Auth/maintenance/maintenance.component';
 // import {FacebookInitService} from "./Auth/facebook-init.service";
 // import {FacebookModule} from "ngx-facebook";
