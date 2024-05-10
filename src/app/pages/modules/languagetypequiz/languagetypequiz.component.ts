@@ -69,7 +69,6 @@ export class LanguagetypequizComponent implements OnInit {
     this.isInstructionVisible = true;
     this.currentModuleSlug = this.router.url.split('/').slice(-2, -1).pop();
     this.currentCountryId = 0;
-    console.log( this.currentModuleSlug);
     this.dataService.countryNameSource.subscribe((data) => {
       this.countryName = data;
     });
@@ -159,9 +158,6 @@ export class LanguagetypequizComponent implements OnInit {
     this.answerOptionClicked = false;
     this.selectedOptNumber = optNumber;
     this.selectedOptValue = selectedOption;
-    console.log(selectedOption);
-    console.log(singleData);
-    console.log(optNumber);
     let mappedQuiz = this.quizData.map((data: any) => {
       let dat = { ...data }
       if (dat.id == singleData.id) {
@@ -175,7 +171,6 @@ export class LanguagetypequizComponent implements OnInit {
     this.quizData = mappedQuiz;
     this.claculatingSelectQuizPesrcentage=mappedQuiz.filter(obj => obj.useranswer).length;
     this.totalpercentagequiztime=(this.claculatingSelectQuizPesrcentage/ this.quizcount) * 100;
-    console.log(this.claculatingSelectQuizPesrcentage);
   }
 
   closeQuiz() {
@@ -329,10 +324,8 @@ export class LanguagetypequizComponent implements OnInit {
       moduleId: this.currentModuleId,
       languagetype : localStorage.getItem("languagetypeidforquiz")
     }
-    console.log(data);
     this.moduleListService.languageghubquiz(data).subscribe((res) => {
       this.quizcount = res.count>0? res.count:0;
-      console.log(res);
       this.quizData = res.quizquestion.map((val: any) => {
         let number = 1;
         let dd = { ...val };
