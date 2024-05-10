@@ -24,7 +24,6 @@ export class QuestionListComponent implements OnInit {
     selectedLanguageType: any
     breadCrumb: MenuItem[] = []
     selectedCategoryId: any
-    totalCount: any
 
     constructor(private languageHubService: LanguageHubService, private lhs: LanguageHubDataService,
         private location: Location, private route: ActivatedRoute) {
@@ -61,14 +60,14 @@ export class QuestionListComponent implements OnInit {
         }
         this.languageHubService.getQuestionList(req).subscribe((_res) => {
             this.isSkeletonVisible = false
-            this.totalCount = _res.count;
+            this.totalQuestionCount = _res.count;
             this.questionListData = _res.questions
         },
         (error) => {
                 this.location.back();
                 console.error('Error:', error);
             });
-
+        console.log(typeof this.selectedLanguageType);
         var langType = ''
         switch (this.selectedLanguageType) {
             case '1':
