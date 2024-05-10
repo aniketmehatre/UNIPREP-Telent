@@ -3,6 +3,8 @@ import {LanguageHubService} from "../language-hub.service";
 import {Router} from "@angular/router";
 import {environment} from "@env/environment.prod";
 import {Location} from "@angular/common";
+import {LanguageHubDataService} from "../language-hub-data.service";
+import { MessageService } from 'primeng/api';
 
 @Component({
     selector: 'uni-category-list',
@@ -18,7 +20,8 @@ export class CategoryListComponent implements OnInit {
     selectedLanguageId: any
     selectedLanguageType: any
 
-    constructor(private lhs: LanguageHubService, private languageHubService: LanguageHubService, private router: Router,
+    constructor(private languageHubService: LanguageHubService, private lhs:LanguageHubDataService,
+                private router: Router, private toast: MessageService,
                 private location: Location) {
         this.languageImageUrl = environment.imageUrl
         this.lhs.data$.subscribe((data) => {
@@ -33,6 +36,8 @@ export class CategoryListComponent implements OnInit {
 
     ngOnInit(): void {
         if (!this.selectedLanguageId || !this.selectedLanguageType) {
+            this.toast.add({ severity: 'error', summary: 'Error', detail: 'No Data Found' });
+
             this.location.back();
         }
 
@@ -43,7 +48,12 @@ export class CategoryListComponent implements OnInit {
         this.languageHubService.getCategoryList(req).subscribe((_res) => {
             this.isSkeletonVisible = false
             this.categoryList = _res.data
-        });
+        },
+        (error) => {
+                // Handle error
+                this.location.back();
+                console.error('Error:', error);
+            });
     }
 
     onCategoryClick(categoryId: any) {

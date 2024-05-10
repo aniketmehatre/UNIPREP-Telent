@@ -1,7 +1,10 @@
-import {Component, OnInit} from '@angular/core';
-import {LanguageHubService} from "../language-hub.service";
+import { Component, OnInit } from '@angular/core';
+import { LanguageHubService } from "../language-hub.service";
 import Speech from "speak-tts";
-import {Location} from "@angular/common";
+import { Location } from "@angular/common";
+import { LanguageHubDataService } from "../language-hub-data.service";
+import { MenuItem } from 'primeng/api';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
     selector: 'uni-question-list',
@@ -17,36 +20,98 @@ export class QuestionListComponent implements OnInit {
     oneQuestionContent: any
     heading: string = ''
     selectedLanguageName: any
+    selectedLanguageId: any
+    selectedLanguageType: any
+    breadCrumb: MenuItem[] = []
+    selectedCategoryId: any
+    totalCount: any
 
-    constructor(private lhs: LanguageHubService,
-                private location: Location) {
+    constructor(private languageHubService: LanguageHubService, private lhs: LanguageHubDataService,
+        private location: Location, private route: ActivatedRoute) {
+        this.lhs.data$.subscribe((data) => {
+            this.selectedLanguageId = data
+        })
         this.lhs.dataLanguageName$.subscribe((data) => {
             this.selectedLanguageName = data
         })
+        this.lhs.dataLanguageType$.subscribe((data) => {
+            this.selectedLanguageType = data
+        })
+        this.route.params.subscribe(params => {
+            this.selectedCategoryId = params['id']
+
+          });
     }
 
-    loopRange = Array.from({length: 30}).fill(0).map((_, index) => index);
+    loopRange = Array.from({ length: 30 }).fill(0).map((_, index) => index);
 
     ngOnInit(): void {
         this.heading = this.selectedLanguageName
         const speech = new Speech()
         if (speech.hasBrowserSupport()) { // returns a boolean
             console.log("speech synthesis supported")
-        }else {
+        } else {
             console.log('not supported')
         }
-        this.lhs.getQuestionList().subscribe((_res) => {
+
+        let req = {
+            languageid: this.selectedLanguageId,
+            languagetype: this.selectedLanguageType,
+            submoduleid: this.selectedCategoryId
+        }
+        this.languageHubService.getQuestionList(req).subscribe((_res) => {
             this.isSkeletonVisible = false
+            this.totalCount = _res.count;
             this.questionListData = _res.questions
-        });
+        },
+        (error) => {
+                this.location.back();
+                console.error('Error:', error);
+            });
+
+        var langType = ''
+        switch (this.selectedLanguageType) {
+            case '1':
+                langType = 'Basics';
+                break;
+            case '2':
+                langType = 'Intermediate';
+                break;
+            case '3':
+                langType = 'Advanced';
+                break;
+            default:
+                break;
+        }
+
+        this.breadCrumb = [
+            {
+                label: 'LANGUAGE HUB',
+                command: (event: any) => this.gotoLanguageHubMain(),
+            },
+            {
+                label: this.selectedLanguageName.toUpperCase(),
+                command: (event: any) => this.goToHomebreadcrump()
+            },
+            { label: langType.toUpperCase() },
+            { label: `Question` },
+        ];
+    }
+
+    goToBack(event: any) {
+        this.isQuestionAnswerVisible = false;
     }
 
     goToHome(event: any) {
         this.location.back();
-        //this.isQuestionAnswerVisible = false;
+
     }
 
-    goBack() {
+    gotoLanguageHubMain() {
+
+    }
+
+    goToHomebreadcrump() {
 
     }
 
@@ -86,7 +151,7 @@ export class QuestionListComponent implements OnInit {
         }).then(() => {
             console.log("Success !")
         }).catch((e: any) => {
-                console.error("An error occurred :", e)
-            })
+            console.error("An error occurred :", e)
+        })
     }
 }

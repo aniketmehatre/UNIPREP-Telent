@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {LanguageHubService} from "../language-hub.service";
 import {Router} from "@angular/router";
 import {environment} from "@env/environment.prod";
+import {LanguageHubDataService} from "../language-hub-data.service";
 
 @Component({
     selector: 'uni-levels',
@@ -14,7 +15,7 @@ export class LevelsComponent implements OnInit {
     languageTypeList: any
     languageImageUrl: any
 
-    constructor(private languageHubService: LanguageHubService, private router: Router) {
+    constructor(private languageHubService: LanguageHubService, private lhs:LanguageHubDataService, private router: Router) {
         this.languageImageUrl = environment.imageUrl
     }
 
@@ -28,7 +29,7 @@ export class LevelsComponent implements OnInit {
     }
 
     onLanguageTypeClick(languageTypeId: any) {
-        this.languageHubService.setDataLanguageType(languageTypeId)
+        this.lhs.setDataLanguageType(languageTypeId)
         this.router.navigate([`/pages/language-hub/category`]);
     }
 

@@ -2,8 +2,8 @@
     <div class="card-body text-center pt-0 h-100">
         <div class="row justify-content-center">
             <div class="col-md-1 col-1 text-start">
-                <p-button (click)="goBack()" icon="pi pi-arrow-left"
-                          styleClass="p-button-rounded p-button-text text-dark"></p-button>
+                <p-button (click)="goToHome($event)" icon="pi pi-arrow-left"
+                    styleClass="p-button-rounded p-button-text text-dark"></p-button>
             </div>
             <div class="col-md-10 col-10 text-center">
                 <h5 class="select-title mb-1" tooltipPosition="top" pTooltip="testing tooltip">
@@ -35,11 +35,12 @@
         </div>
         <div class="row" *ngIf="!isSkeletonVisible">
             <div *ngFor="let sub of questionListData; let i = index"
-                 class="col-lg-3 col-md-4 col-sm-4 col-xs-12 col-12 my-2">
+                class="col-lg-3 col-md-4 col-sm-4 col-xs-12 col-12 my-2">
                 <div class="row w-100 h-100 m-0 justify-content-center">
                     <div (click)="viewOneQuestion(sub)"
-                         class="card questioncard {{ sub.read == 1 ? 'questionread' : '' }}">
-                        <div class="card-body d-flex flex-md-column flex-row justify-content-md-between align-items-center px-0 py-2 gap-2 gap-md-0">
+                        class="card questioncard {{ sub.read == 1 ? 'questionread' : '' }}">
+                        <div
+                            class="card-body d-flex flex-md-column flex-row justify-content-md-between align-items-center px-0 py-2 gap-2 gap-md-0">
                             <div class="row justify-content-center w-100">
                                 <div class="col">
                                     <p class="text-start fw-medium questiontext mb-0 mb-md-2">{{ sub.english }}</p>
@@ -48,23 +49,17 @@
                                             <p class="mb-3 circle text-center">{{i+1}}</p>
                                         </div> -->
                                 <div class="col-2 d-flex align-items-center justify-content-center text-end"
-                                     *ngIf="sub.popular == 1">
+                                    *ngIf="sub.popular == 1">
                                     <i class="pi pi-star-fill text-danger" pTooltip="Most Popular Question"
-                                       tooltipPosition="right" style="font-size: 1.5rem"></i>
+                                        tooltipPosition="right" style="font-size: 1.5rem"></i>
                                 </div>
                             </div>
-                            <button
-                                    class="btn d-md-block d-none w-100 flex-shrink-0 btn-primary m-0 primary-btn
-                                        {{ sub.read == 1 ? 'readButton' : '' }}"
-                                    pButton
-                                    type="button">
+                            <button class="btn d-md-block d-none w-100 flex-shrink-0 btn-primary m-0 primary-btn
+                                        {{ sub.read == 1 ? 'readButton' : '' }}" pButton type="button">
                                 Read &nbsp;<span class="desktop-enable">Answer</span>
                             </button>
-                            <button
-                                    class="btn d-md-none d-flex flex-shrink-0 btn-primary m-0 primary-btn
-                                        {{ sub.read == 1 ? 'readButton' : '' }}"
-                                    pButton
-                                    type="button">
+                            <button class="btn d-md-none d-flex flex-shrink-0 btn-primary m-0 primary-btn
+                                        {{ sub.read == 1 ? 'readButton' : '' }}" pButton type="button">
                                 Read &nbsp;<span class="desktop-enable">Answer</span>
                             </button>
                         </div>
@@ -76,22 +71,22 @@
 </div>
 <div class="card" style="background-color: #fff; border-radius: 0px 0px 15px 15px !important">
     <p-paginator [rows]="10" [totalRecords]="totalQuestionCount" (onPageChange)="paginate($event)"
-                 [rowsPerPageOptions]="[25, 50, 100, 200]" dropdownAppendTo="body"></p-paginator>
+        [rowsPerPageOptions]="[25, 50, 100, 200]" dropdownAppendTo="body"></p-paginator>
 </div>
 <p-dialog #dialogContent [(visible)]="isQuestionAnswerVisible" [draggable]="false" [modal]="true" class="questionmodal"
-          header="Header" [maximizable]="true" (onShow)="onShowModal($event)">
+    header="Header" [maximizable]="true" (onShow)="onShowModal($event)">
     <ng-template pTemplate="header">
         <div class="d-flex w-100 flex-column px-4">
             <div class="d-flex flex-row justify-content-md-between justify-content-center">
                 <div class="d-md-block d-none">
-                    <button (click)="goToHome($event)" class="btn btn-secondary homecardbtn px-3 my-2">
-                        <i class="fa-solid h5 fa-house"></i><br/>
+                    <button (click)="goToBack($event)" class="btn btn-secondary homecardbtn px-3 my-2">
+                        <i class="fa-solid h5 fa-house"></i><br />
                         <span>Home</span>
                     </button>
                 </div>
                 <div class="col-md-10 col-8">
-                    <h5 class="select-title w-100 text-center mb-0">LANGUAGE HUB - {{heading}}</h5>
-                    <!--                    <p-breadcrumb [model]="breadCrumb" class="w-100 mt-2 d-md-block d-none text-small"></p-breadcrumb>-->
+                    <h5 class="select-title w-100 text-center mb-0">LANGUAGE HUB - {{heading | uppercase}}</h5>
+                    <p-breadcrumb [model]="breadCrumb" class="w-100 mt-2 d-md-block d-none text-small"></p-breadcrumb>
                 </div>
                 <div class="d-md-block d-none">
                     <!--                    <button (click)="openReport()" class="btn btn-primary px-3 homecardbtn my-2">-->
@@ -108,7 +103,7 @@
             <div class="d-flex justify-content-between d-md-none d-block align-items-center">
                 <div>
                     <button (click)="goToHome($event)"
-                            class="btn btn-secondary px-3 d-flex justify-content-center align-items-center gap-3"><i
+                        class="btn btn-secondary px-3 d-flex justify-content-center align-items-center gap-3"><i
                             class="fa-solid mb-0 fa-house"></i><span>Home</span></button>
                 </div>
                 <!--                <p-breadcrumb [model]="breadCrumb" class="w-100 mt-2 text-small"></p-breadcrumb>-->
@@ -125,88 +120,93 @@
     <div class="carousel-container px-4">
         <div class="card flex-fill answercard">
             <div class="card-body text-center">
-<!--                <div class="d-flex align-items-center justify-content-center position-relative">-->
-<!--                    &lt;!&ndash;					<span class="text-small blockquote text-start mb-0">&ndash;&gt;-->
-<!--                    &lt;!&ndash;						Last updated at: {{ oneQuestionContent?.updated_at | date }}&ndash;&gt;-->
-<!--                    &lt;!&ndash;                        <span *ngIf="oneQuestionContent?.verified === 1" class="badge" style="background-color:#4ffb05" >Verified</span>&ndash;&gt;-->
-<!--                    &lt;!&ndash;						<span *ngIf="oneQuestionContent?.pre_verified === 1 && oneQuestionContent?.verified !== 1" style="background-color:darkorchid" class="badge" >Pre Verified</span>&ndash;&gt;-->
-<!--                    &lt;!&ndash;						<span *ngIf="oneQuestionContent?.pre_verified !== 1 && oneQuestionContent?.verified !== 1" style="background-color:#3f4c83" class="badge" >Non Pre-Verified</span>&ndash;&gt;-->
-<!--                    &lt;!&ndash;					</span>&ndash;&gt;-->
-<!--                    &lt;!&ndash;                    <button class="btn btn-primary socialShareBtn" (click)="showSocialSharingList()"><i class="fa-light fa-xl fa-share-nodes"></i></button>&ndash;&gt;-->
-<!--                    &lt;!&ndash;                    <p-card id="socialSharingList">&ndash;&gt;-->
-<!--                    &lt;!&ndash;                        <ul style="list-style: none; cursor: pointer">&ndash;&gt;-->
-<!--                    &lt;!&ndash;                            <li (click)="shareViaWhatsapp()"><i class="pi pi-whatsapp"></i>Whatsapp</li>&ndash;&gt;-->
-<!--                    &lt;!&ndash;                            <li (click)="shareViaMail()"><i class="pi pi-envelope"></i>Email</li>&ndash;&gt;-->
-<!--                    &lt;!&ndash;                            <li (click)="shareViaFacebook()"><i class="pi pi-facebook"></i>Facebook</li>&ndash;&gt;-->
-<!--                    &lt;!&ndash;                            <li (click)="shareViaTwitter()"><i class="pi pi-twitter"></i>Twitter</li>&ndash;&gt;-->
-<!--                    &lt;!&ndash;                            <li (click)="shareViaInstagram()"><i class="pi pi-instagram"></i>Instagram</li>&ndash;&gt;-->
-<!--                    &lt;!&ndash;                            <li (click)="shareViaLinkedIn()"><i class="pi pi-linkedin"></i>LinkedIn</li>&ndash;&gt;-->
-<!--                    &lt;!&ndash;                            <li (click)="copyLink()"><i class="pi pi-link"></i>Copy Link</li>&ndash;&gt;-->
-<!--                    &lt;!&ndash;                        </ul>&ndash;&gt;-->
-<!--                    &lt;!&ndash;                    </p-card>&ndash;&gt;-->
-<!--                </div>-->
-                <h3 class="unselectable d-md-block d-none">{{ oneQuestionContent?.english }}&nbsp;&nbsp;<span class="text-primary"
-                                                                                                   (click)="voiceOver(oneQuestionContent.english)">   <i
-                        class="fa-solid fa-volume-high"></i> Listen</span></h3>
-                <h5 class="unselectable d-md-none d-block">{{ oneQuestionContent?.english }}&nbsp;&nbsp;<span class="text-primary"
-                                                                                                   (click)="voiceOver(oneQuestionContent.english)">   <i
-                        class="fa-solid fa-volume-high"></i> Listen</span></h5>
+                <!--                <div class="d-flex align-items-center justify-content-center position-relative">-->
+                <!--                    &lt;!&ndash;					<span class="text-small blockquote text-start mb-0">&ndash;&gt;-->
+                <!--                    &lt;!&ndash;						Last updated at: {{ oneQuestionContent?.updated_at | date }}&ndash;&gt;-->
+                <!--                    &lt;!&ndash;                        <span *ngIf="oneQuestionContent?.verified === 1" class="badge" style="background-color:#4ffb05" >Verified</span>&ndash;&gt;-->
+                <!--                    &lt;!&ndash;						<span *ngIf="oneQuestionContent?.pre_verified === 1 && oneQuestionContent?.verified !== 1" style="background-color:darkorchid" class="badge" >Pre Verified</span>&ndash;&gt;-->
+                <!--                    &lt;!&ndash;						<span *ngIf="oneQuestionContent?.pre_verified !== 1 && oneQuestionContent?.verified !== 1" style="background-color:#3f4c83" class="badge" >Non Pre-Verified</span>&ndash;&gt;-->
+                <!--                    &lt;!&ndash;					</span>&ndash;&gt;-->
+                <!--                    &lt;!&ndash;                    <button class="btn btn-primary socialShareBtn" (click)="showSocialSharingList()"><i class="fa-light fa-xl fa-share-nodes"></i></button>&ndash;&gt;-->
+                <!--                    &lt;!&ndash;                    <p-card id="socialSharingList">&ndash;&gt;-->
+                <!--                    &lt;!&ndash;                        <ul style="list-style: none; cursor: pointer">&ndash;&gt;-->
+                <!--                    &lt;!&ndash;                            <li (click)="shareViaWhatsapp()"><i class="pi pi-whatsapp"></i>Whatsapp</li>&ndash;&gt;-->
+                <!--                    &lt;!&ndash;                            <li (click)="shareViaMail()"><i class="pi pi-envelope"></i>Email</li>&ndash;&gt;-->
+                <!--                    &lt;!&ndash;                            <li (click)="shareViaFacebook()"><i class="pi pi-facebook"></i>Facebook</li>&ndash;&gt;-->
+                <!--                    &lt;!&ndash;                            <li (click)="shareViaTwitter()"><i class="pi pi-twitter"></i>Twitter</li>&ndash;&gt;-->
+                <!--                    &lt;!&ndash;                            <li (click)="shareViaInstagram()"><i class="pi pi-instagram"></i>Instagram</li>&ndash;&gt;-->
+                <!--                    &lt;!&ndash;                            <li (click)="shareViaLinkedIn()"><i class="pi pi-linkedin"></i>LinkedIn</li>&ndash;&gt;-->
+                <!--                    &lt;!&ndash;                            <li (click)="copyLink()"><i class="pi pi-link"></i>Copy Link</li>&ndash;&gt;-->
+                <!--                    &lt;!&ndash;                        </ul>&ndash;&gt;-->
+                <!--                    &lt;!&ndash;                    </p-card>&ndash;&gt;-->
+                <!--                </div>-->
+                <div class="text-center">
+                    Last updated at: {{ oneQuestionContent?.updated_at | date }}
+                </div>
+                <h3 class="unselectable d-md-block d-none">{{ oneQuestionContent?.english }}&nbsp;&nbsp;<span
+                        class="text-primary" (click)="voiceOver(oneQuestionContent.english)"> <i
+                            class="fa-solid fa-volume-high"></i> Listen</span></h3>
+                <h5 class="unselectable d-md-none d-block">{{ oneQuestionContent?.english }}&nbsp;&nbsp;<span
+                        class="text-primary" (click)="voiceOver(oneQuestionContent.english)"> <i
+                            class="fa-solid fa-volume-high"></i> Listen</span></h5>
+                            <br>
                 <div class="fw-medium">{{ oneQuestionContent?.englishanswer }}&nbsp;&nbsp;<span class="text-primary"
-                                                                                    (click)="voiceOver(oneQuestionContent.englishanswer)">   <i
-                        class="fa-solid fa-volume-high"></i> Listen</span></div>
+                        (click)="voiceOver(oneQuestionContent.englishanswer)"> <i class="fa-solid fa-volume-high"></i>
+                        Listen</span></div>
                 <h3 class="unselectable d-md-block d-none">{{ oneQuestionContent?.languageenglish }}&nbsp;&nbsp;<span
-                        class="text-primary" (click)="voiceOver(oneQuestionContent.languageenglish)">   <i
-                        class="fa-solid fa-volume-high"></i> Listen</span></h3>
+                        class="text-primary" (click)="voiceOver(oneQuestionContent.languageenglish)"> <i
+                            class="fa-solid fa-volume-high"></i> Listen</span></h3>
                 <h5 class="unselectable d-md-none d-block">{{ oneQuestionContent?.languageenglish }}&nbsp;&nbsp;<span
-                        class="text-primary" (click)="voiceOver(oneQuestionContent.languageenglish)">   <i
-                        class="fa-solid fa-volume-high"></i> Listen</span></h5>
-                <div class="fw-medium">{{ oneQuestionContent?.languageenglishanswer }}&nbsp;&nbsp;<span class="text-primary"
-                         (click)="voiceOver(oneQuestionContent.languageenglishanswer)">   <i
-                        class="fa-solid fa-volume-high"></i> Listen</span></div>
-                <h3 class="unselectable d-md-block d-none">{{ oneQuestionContent?.languagenativequestion }}&nbsp;&nbsp;<span
-                        class="text-primary" (click)="voiceOver(oneQuestionContent.languagenativequestion)">   <i
-                        class="fa-solid fa-volume-high"></i> Listen</span></h3>
+                        class="text-primary" (click)="voiceOver(oneQuestionContent.languageenglish)"> <i
+                            class="fa-solid fa-volume-high"></i> Listen</span></h5>
+                <div class="fw-medium">{{ oneQuestionContent?.languageenglishanswer }}&nbsp;&nbsp;<span
+                        class="text-primary" (click)="voiceOver(oneQuestionContent.languageenglishanswer)"> <i
+                            class="fa-solid fa-volume-high"></i> Listen</span></div>
+                <h3 class="unselectable d-md-block d-none">{{ oneQuestionContent?.languagenativequestion
+                    }}&nbsp;&nbsp;<span class="text-primary"
+                        (click)="voiceOver(oneQuestionContent.languagenativequestion)"> <i
+                            class="fa-solid fa-volume-high"></i> Listen</span></h3>
                 <h5 class="unselectable d-md-none d-block">{{ oneQuestionContent?.languagenativequestion }} <span
-                        class="text-primary" (click)="voiceOver(oneQuestionContent.languagenativequestion)">   <i
-                        class="fa-solid fa-volume-high"></i> Listen</span></h5>
-                <div class="fw-medium">{{ oneQuestionContent?.languagenativeanswer }}&nbsp;&nbsp;<span class="text-primary"
-                        (click)="voiceOver(oneQuestionContent.languagenativeanswer)">
-                    <i class="fa-solid fa-volume-high"></i> Listen</span></div>
+                        class="text-primary" (click)="voiceOver(oneQuestionContent.languagenativequestion)"> <i
+                            class="fa-solid fa-volume-high"></i> Listen</span></h5>
+                <div class="fw-medium">{{ oneQuestionContent?.languagenativeanswer }}&nbsp;&nbsp;<span
+                        class="text-primary" (click)="voiceOver(oneQuestionContent.languagenativeanswer)">
+                        <i class="fa-solid fa-volume-high"></i> Listen</span></div>
             </div>
         </div>
     </div>
 
     <ng-template pTemplate="footer">
-                <div class="d-flex justify-content-between flex-nowrap flex-column flex-md-row px-4 mt-4 mb-2">
-<!--                    <div class="flex-full" *ngIf="videoLinks">-->
-<!--                        <h5 class="text-start mb-1" *ngIf="oneQuestionContent?.videolink?.length>0">Recommended Videos</h5>-->
-<!--                        <div class="d-flex align-items-center gap-2 pb-2">-->
-<!--                            <div class="scrollable-container" id="video-links-container" #videoLinksContainer>-->
-<!--                                <div class="d-flex flex-nowrap flex-md-wrap overflow-x-auto gap-2">-->
-<!--                                    <span class="btn btn-primary text-small videolinkbutton flex-shrink-0" *ngFor="let videoL of oneQuestionContent?.videolink; let ind = index">Video {{ ind + 1 }} &nbsp;<i class="fa-solid fa-video"></i></span>-->
-<!--                                </div>-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                    </div>-->
+        <div class="d-flex justify-content-between flex-nowrap flex-column flex-md-row px-4 mt-4 mb-2">
+            <!--                    <div class="flex-full" *ngIf="videoLinks">-->
+            <!--                        <h5 class="text-start mb-1" *ngIf="oneQuestionContent?.videolink?.length>0">Recommended Videos</h5>-->
+            <!--                        <div class="d-flex align-items-center gap-2 pb-2">-->
+            <!--                            <div class="scrollable-container" id="video-links-container" #videoLinksContainer>-->
+            <!--                                <div class="d-flex flex-nowrap flex-md-wrap overflow-x-auto gap-2">-->
+            <!--                                    <span class="btn btn-primary text-small videolinkbutton flex-shrink-0" *ngFor="let videoL of oneQuestionContent?.videolink; let ind = index">Video {{ ind + 1 }} &nbsp;<i class="fa-solid fa-video"></i></span>-->
+            <!--                                </div>-->
+            <!--                            </div>-->
+            <!--                        </div>-->
+            <!--                    </div>-->
 
-<!--                    <div class="flex-full" *ngIf="refLink">-->
-<!--                        <h5 class="text-start mb-1" *ngIf="oneQuestionContent?.reflink?.length>0">Recommended Links</h5>-->
-<!--                        <div class="d-flex align-items-center gap-2 pb-2">-->
-<!--                            <div class="scrollable-container" id="ref-links-container" #refLinksContainer>-->
-<!--                                <div class="d-flex flex-nowrap flex-md-wrap overflow-x-auto gap-2">-->
-<!--                                    <a class="btn btn-secondary text-small reflinkbutton flex-shrink-0" target="_blank" href="{{ refL.link }}" *ngFor="let refL of oneQuestionContent?.reflink; let ind = index">Link {{ ind + 1 }} &nbsp;<i class="fa-solid fa-link"></i></a>-->
-<!--                                </div>-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                    </div>-->
+            <!--                    <div class="flex-full" *ngIf="refLink">-->
+            <!--                        <h5 class="text-start mb-1" *ngIf="oneQuestionContent?.reflink?.length>0">Recommended Links</h5>-->
+            <!--                        <div class="d-flex align-items-center gap-2 pb-2">-->
+            <!--                            <div class="scrollable-container" id="ref-links-container" #refLinksContainer>-->
+            <!--                                <div class="d-flex flex-nowrap flex-md-wrap overflow-x-auto gap-2">-->
+            <!--                                    <a class="btn btn-secondary text-small reflinkbutton flex-shrink-0" target="_blank" href="{{ refL.link }}" *ngFor="let refL of oneQuestionContent?.reflink; let ind = index">Link {{ ind + 1 }} &nbsp;<i class="fa-solid fa-link"></i></a>-->
+            <!--                                </div>-->
+            <!--                            </div>-->
+            <!--                        </div>-->
+            <!--                    </div>-->
 
-                    <div class="align-items-center d-flex desktop">
-        <!--                <button class="btn w-100 btn-primary theme-dark-blue mx-0 px-5 py-2" (click)="onClickAsk()">-->
-        <!--                    <i class="fa-solid h5 fa-file-contract"></i>&nbsp;-->
-        <!--                    Click here to ask&nbsp;Personalised Questions-->
-<!--                        </button>-->
-                    </div>
-                </div>
+            <div class="align-items-center d-flex desktop">
+                <!--                <button class="btn w-100 btn-primary theme-dark-blue mx-0 px-5 py-2" (click)="onClickAsk()">-->
+                <!--                    <i class="fa-solid h5 fa-file-contract"></i>&nbsp;-->
+                <!--                    Click here to ask&nbsp;Personalised Questions-->
+                <!--                        </button>-->
+            </div>
+        </div>
     </ng-template>
 </p-dialog>
 

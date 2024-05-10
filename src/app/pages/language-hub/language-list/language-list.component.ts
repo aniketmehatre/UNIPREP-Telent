@@ -1,7 +1,8 @@
 import {Component, OnInit} from '@angular/core';
-import {LanguageHubService} from "../language-hub.service";
-import {environment} from "@env/environment.prod";
+
 import {Router} from "@angular/router";
+import {LanguageHubService} from "../language-hub.service";
+import {LanguageHubDataService} from "../language-hub-data.service";
 
 @Component({
     selector: 'uni-language-list',
@@ -15,8 +16,9 @@ export class LanguageListComponent implements OnInit {
     restrict = false;
     languageImageUrl: any
 
-    constructor(private languageHubService: LanguageHubService, private router: Router) {
-        this.languageImageUrl = environment.imageUrl
+    constructor(private languageHubService: LanguageHubService,
+                private lhs:LanguageHubDataService,
+                private router: Router) {
     }
 
     loopRange = Array.from({length: 30}).fill(0).map((_, index) => index);
@@ -29,8 +31,8 @@ export class LanguageListComponent implements OnInit {
     }
 
     onLanguageClick(data: any) {
-        this.languageHubService.setDataLanguageName(data.language)
-        this.languageHubService.setLanguageData(data.id)
+        this.lhs.setDataLanguageName(data.language)
+        this.lhs.setLanguageData(data.id)
         this.router.navigate([`/pages/language-hub/levels/${data.id}`]);
     }
 

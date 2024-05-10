@@ -66,7 +66,6 @@ import {NgxExtendedPdfViewerModule} from "ngx-extended-pdf-viewer";
 import { ExportCreditComponent } from './export-credit/export-credit.component';
 import { MycertificateComponent } from './mycertificate/mycertificate.component';
 import {PdfViewerModule} from "ng2-pdf-viewer";
-import {LanguageHubModule} from "./language-hub/language-hub.module";
 import { CareerPlannerComponent } from './career-planner/career-planner.component';
 import { CertificatesComponent } from './certificates/certificates.component';
 
@@ -140,8 +139,7 @@ import { CertificatesComponent } from './certificates/certificates.component';
         StepsModule,
         RadioButtonModule,
         NgxExtendedPdfViewerModule,
-        PdfViewerModule,
-        LanguageHubModule
+        PdfViewerModule
     ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })

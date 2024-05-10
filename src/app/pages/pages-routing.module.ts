@@ -24,7 +24,6 @@ import { PitchDeskComponent } from './pitch-desk/pitch-desk.component';
 import { ExportCreditComponent } from './export-credit/export-credit.component';
 import { MycertificateComponent } from './mycertificate/mycertificate.component';
 import { CareerPlannerComponent } from './career-planner/career-planner.component';
-import {LanguageHubModule} from "./language-hub/language-hub.module";
 
 
 const routes: Routes = [
