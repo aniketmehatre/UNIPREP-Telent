@@ -24,7 +24,6 @@ export class CategoryListComponent implements OnInit {
     constructor(private languageHubService: LanguageHubService, private lhs: LanguageHubDataService,
         private router: Router, private toast: MessageService,
         private location: Location) {
-        this.languageImageUrl = environment.imageUrl
         this.lhs.data$.subscribe((data) => {
             this.selectedLanguageId = data
         })

@@ -13,10 +13,8 @@ export class LevelsComponent implements OnInit {
 
     isSkeletonVisible: boolean = true;
     languageTypeList: any
-    languageImageUrl: any
 
     constructor(private languageHubService: LanguageHubService, private lhs:LanguageHubDataService, private router: Router) {
-        this.languageImageUrl = environment.imageUrl
     }
 
     loopRange = Array.from({length: 30}).fill(0).map((_, index) => index);
