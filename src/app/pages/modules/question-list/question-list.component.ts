@@ -662,7 +662,6 @@ export class QuestionListComponent implements OnInit {
       this.restrict = true;
       return;
     }
-    console.log('comes')
 
     this.meta.updateTag({ name: 'og:title', content: questionData.question });
     this.meta.updateTag({ property: 'og:url', content: 'https://dev-student.uniprep.ai/pages/modules/pre-admission/question-list/2' });
