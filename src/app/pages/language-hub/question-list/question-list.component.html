@@ -49,7 +49,7 @@
                                             <p class="mb-3 circle text-center">{{i+1}}</p>
                                         </div> -->
                                 <div class="col-2 d-flex align-items-center justify-content-center text-end"
-                                    *ngIf="sub.popular == 1">
+                                    *ngIf="sub.favourite == 1">
                                     <i class="pi pi-star-fill text-danger" pTooltip="Most Popular Question"
                                         tooltipPosition="right" style="font-size: 1.5rem"></i>
                                 </div>
@@ -143,36 +143,39 @@
                 <div class="text-center">
                     Last updated at: {{ oneQuestionContent?.updated_at | date }}
                 </div>
+                <br>
+                <br>
+
                 <h3 class="unselectable d-md-block d-none">{{ oneQuestionContent?.english }}&nbsp;&nbsp;<span
                         class="text-primary" (click)="voiceOver(oneQuestionContent.english)"> <i
                             class="fa-solid fa-volume-high"></i> Listen</span></h3>
-                <h5 class="unselectable d-md-none d-block">{{ oneQuestionContent?.english }}&nbsp;&nbsp;<span
+                <h4 class="unselectable d-md-none d-block">{{ oneQuestionContent?.english }}&nbsp;&nbsp;<span
                         class="text-primary" (click)="voiceOver(oneQuestionContent.english)"> <i
-                            class="fa-solid fa-volume-high"></i> Listen</span></h5>
+                            class="fa-solid fa-volume-high"></i> Listen</span></h4>
 
                 <div class="fw-medium">{{ oneQuestionContent?.englishanswer }}&nbsp;&nbsp;<span class="text-primary"
                         (click)="voiceOver(oneQuestionContent.englishanswer)"> <i class="fa-solid fa-volume-high"></i>
                         Listen</span></div>
 
-
+                <br>
                 <h3 class="unselectable d-md-block d-none">{{ oneQuestionContent?.languageenglish }}&nbsp;&nbsp;<span
                         class="text-primary" (click)="voiceOverNative(oneQuestionContent.languageenglish, oneQuestionContent)"> <i
                             class="fa-solid fa-volume-high"></i> Listen</span></h3>
-                <h5 class="unselectable d-md-none d-block">{{ oneQuestionContent?.languageenglish }}&nbsp;&nbsp;<span
+                <h4 class="unselectable d-md-none d-block">{{ oneQuestionContent?.languageenglish }}&nbsp;&nbsp;<span
                         class="text-primary" (click)="voiceOverNative(oneQuestionContent.languageenglish, oneQuestionContent)"> <i
-                            class="fa-solid fa-volume-high"></i> Listen</span></h5>
+                            class="fa-solid fa-volume-high"></i> Listen</span></h4>
                 <div class="fw-medium">{{ oneQuestionContent?.languageenglishanswer }}&nbsp;&nbsp;<span
                         class="text-primary" (click)="voiceOverNative(oneQuestionContent.languageenglishanswer, oneQuestionContent)"> <i
                             class="fa-solid fa-volume-high"></i> Listen</span></div>
 
-
+<br>
                 <h3 class="unselectable d-md-block d-none">{{ oneQuestionContent?.languagenativequestion
                     }}&nbsp;&nbsp;<span class="text-primary"
                         (click)="voiceOver(oneQuestionContent.languagenativequestion)"> <i
                             class="fa-solid fa-volume-high"></i> Listen</span></h3>
-                <h5 class="unselectable d-md-none d-block">{{ oneQuestionContent?.languagenativequestion }} <span
+                <h4 class="unselectable d-md-none d-block">{{ oneQuestionContent?.languagenativequestion }} <span
                         class="text-primary" (click)="voiceOver(oneQuestionContent.languagenativequestion)"> <i
-                            class="fa-solid fa-volume-high"></i> Listen</span></h5>
+                            class="fa-solid fa-volume-high"></i> Listen</span></h4>
                 <div class="fw-medium">{{ oneQuestionContent?.languagenativeanswer }}&nbsp;&nbsp;<span
                         class="text-primary" (click)="voiceOver(oneQuestionContent.languagenativeanswer)">
                         <i class="fa-solid fa-volume-high"></i> Listen</span></div>
