@@ -59,7 +59,6 @@ export class QuizmenuComponent implements OnInit {
   }
   countryDropdown(){
     this.moduleListService.countryList().subscribe((countryList:any) => {
-      console.log(countryList);
       this.countrydropdownlist=countryList
     });
   }
