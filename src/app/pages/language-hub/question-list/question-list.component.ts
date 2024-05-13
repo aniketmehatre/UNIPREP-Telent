@@ -192,7 +192,7 @@ export class QuestionListComponent implements OnInit {
                 }
             }
         })
-        speech.setLanguage('hi-IN')
+        speech.setLanguage(langCode)
         speech.setVoice('Google UK English Female');
         speech.speak({
             text: voiceData,
