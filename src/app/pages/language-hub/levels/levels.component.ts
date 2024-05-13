@@ -3,6 +3,7 @@ import {LanguageHubService} from "../language-hub.service";
 import {Router} from "@angular/router";
 import {environment} from "@env/environment.prod";
 import {LanguageHubDataService} from "../language-hub-data.service";
+import {Location} from "@angular/common";
 
 @Component({
     selector: 'uni-levels',
@@ -13,10 +14,9 @@ export class LevelsComponent implements OnInit {
 
     isSkeletonVisible: boolean = true;
     languageTypeList: any
-    languageImageUrl: any
 
-    constructor(private languageHubService: LanguageHubService, private lhs:LanguageHubDataService, private router: Router) {
-        this.languageImageUrl = environment.imageUrl
+    constructor(private languageHubService: LanguageHubService, private lhs:LanguageHubDataService, private router: Router,
+                private location: Location) {
     }
 
     loopRange = Array.from({length: 30}).fill(0).map((_, index) => index);
@@ -26,6 +26,10 @@ export class LevelsComponent implements OnInit {
             this.isSkeletonVisible = false
             this.languageTypeList = _res.data
         });
+    }
+
+    goToHome(event: any) {
+        this.location.back();
     }
 
     onLanguageTypeClick(languageTypeId: any) {

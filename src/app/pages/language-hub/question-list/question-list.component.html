@@ -3,10 +3,11 @@
         <div class="row justify-content-center">
             <div class="col-md-1 col-1 text-start">
                 <p-button (click)="goToHome($event)" icon="pi pi-arrow-left"
-                    styleClass="p-button-rounded p-button-text text-dark"></p-button>
+                          styleClass="p-button-rounded p-button-text text-dark"></p-button>
             </div>
             <div class="col-md-10 col-10 text-center">
-                <h5 class="select-title mb-1" tooltipPosition="top" pTooltip="Questions related to the application process are answered">
+                <h5 class="select-title mb-1" tooltipPosition="top"
+                    pTooltip="Questions related to the application process are answered">
                     <span class="desktop">LANGUAGE HUB<i class="questiontooltip fa-solid fa-circle-question"></i>
                     </span>
                 </h5>
@@ -35,12 +36,12 @@
         </div>
         <div class="row" *ngIf="!isSkeletonVisible">
             <div *ngFor="let sub of questionListData; let i = index"
-                class="col-lg-3 col-md-4 col-sm-4 col-xs-12 col-12 my-2">
+                 class="col-lg-3 col-md-4 col-sm-4 col-xs-12 col-12 my-2">
                 <div class="row w-100 h-100 m-0 justify-content-center">
                     <div (click)="viewOneQuestion(sub)"
-                        class="card questioncard {{ sub.read == 1 ? 'questionread' : '' }}">
+                         class="card questioncard {{ sub.read == 1 ? 'questionread' : '' }}">
                         <div
-                            class="card-body d-flex flex-md-column flex-row justify-content-md-between align-items-center px-0 py-2 gap-2 gap-md-0">
+                                class="card-body d-flex flex-md-column flex-row justify-content-md-between align-items-center px-0 py-2 gap-2 gap-md-0">
                             <div class="row justify-content-center w-100">
                                 <div class="col">
                                     <p class="text-start fw-medium questiontext mb-0 mb-md-2">{{ sub.english }}</p>
@@ -49,9 +50,9 @@
                                             <p class="mb-3 circle text-center">{{i+1}}</p>
                                         </div> -->
                                 <div class="col-2 d-flex align-items-center justify-content-center text-end"
-                                    *ngIf="sub.popular == 1">
+                                     *ngIf="sub.favourite == 1">
                                     <i class="pi pi-star-fill text-danger" pTooltip="Most Popular Question"
-                                        tooltipPosition="right" style="font-size: 1.5rem"></i>
+                                       tooltipPosition="right" style="font-size: 1.5rem"></i>
                                 </div>
                             </div>
                             <button class="btn d-md-block d-none w-100 flex-shrink-0 btn-primary m-0 primary-btn
@@ -71,21 +72,21 @@
 </div>
 <div class="card" style="background-color: #fff; border-radius: 0px 0px 15px 15px !important">
     <p-paginator [rows]="10" [totalRecords]="totalQuestionCount" (onPageChange)="paginate($event)"
-        [rowsPerPageOptions]="[25, 50, 100, 200]" dropdownAppendTo="body"></p-paginator>
+                 [rowsPerPageOptions]="[25, 50, 100, 200]" dropdownAppendTo="body"></p-paginator>
 </div>
 <p-dialog #dialogContent [(visible)]="isQuestionAnswerVisible" [draggable]="false" [modal]="true" class="questionmodal"
-    header="Header" [maximizable]="true">
+          header="Header" [maximizable]="true">
     <ng-template pTemplate="header">
         <div class="d-flex w-100 flex-column px-4">
             <div class="d-flex flex-row justify-content-md-between justify-content-center">
                 <div class="d-md-block d-none">
                     <button (click)="goToBack($event)" class="btn btn-secondary homecardbtn px-3 my-2">
-                        <i class="fa-solid h5 fa-house"></i><br />
+                        <i class="fa-solid h5 fa-house"></i><br/>
                         <span>Home</span>
                     </button>
                 </div>
                 <div class="col-md-10 col-8">
-                    <h5 class="select-title w-100 text-center mb-0">LANGUAGE HUB - {{heading | uppercase}}</h5>
+                    <h5 class="select-title w-100 text-center mb-0">LANGUAGE HUB - {{ heading | uppercase }}</h5>
                     <p-breadcrumb [model]="breadCrumb" class="w-100 mt-2 d-md-block d-none text-small"></p-breadcrumb>
                 </div>
                 <div class="d-md-block d-none">
@@ -94,25 +95,29 @@
                     <!--                        <br/>-->
                     <!--                        <span>Report</span>-->
                     <!--                    </button>-->
-                    <!-- <button (click)="reviewBy()" class="btn btn-primary homecardbtn my-0 px-4 py-2">
-                        <i class="fa-regular fa-user h5"></i><br />
-                        Reviewed By
-                    </button> -->
+                    <!--                    <button (click)="reviewBy()" class="btn btn-primary homecardbtn my-0 px-4 py-2">-->
+                    <!--                        <i class="fa-regular fa-user h5"></i><br />-->
+                    <!--                        Reviewed By-->
+                    <!--                    </button>-->
+                    <button class="btn w-100 btn-primary theme-dark-blue mx-0 px-5 py-2" (click)="onClickAsk()">
+                        <i class="fa-solid h5 fa-file-contract"></i>&nbsp;
+                        Click here to ask&nbsp;Personalised Questions
+                    </button>
                 </div>
             </div>
             <div class="d-flex justify-content-between d-md-none d-block align-items-center">
                 <div>
                     <button (click)="goToHome($event)"
-                        class="btn btn-secondary px-3 d-flex justify-content-center align-items-center gap-3"><i
+                            class="btn btn-secondary px-3 d-flex justify-content-center align-items-center gap-3"><i
                             class="fa-solid mb-0 fa-house"></i><span>Home</span></button>
                 </div>
                 <!--                <p-breadcrumb [model]="breadCrumb" class="w-100 mt-2 text-small"></p-breadcrumb>-->
                 <div>
                     <!--                    <button (click)="openReport()" class="btn btn-primary px-3 d-flex justify-content-center align-items-center gap-3"><i class="fa-solid mb-0 fa-file-contract"></i><span>Report</span></button>-->
-                    <!-- <button (click)="reviewBy()" class="btn btn-primary homecardbtn my-0 px-4 py-2">
-                        <i class="fa-regular fa-user h5"></i><br />
-                        Reviewed By
-                    </button> -->
+                    <!--                     <button (click)="reviewBy()" class="btn btn-primary homecardbtn my-0 px-4 py-2">-->
+                    <!--                        <i class="fa-regular fa-user h5"></i><br />-->
+                    <!--                        Reviewed By-->
+                    <!--                    </button>-->
                 </div>
             </div>
         </div>
@@ -143,34 +148,47 @@
                 <div class="text-center">
                     Last updated at: {{ oneQuestionContent?.updated_at | date }}
                 </div>
+                <br>
+                <br>
+
                 <h3 class="unselectable d-md-block d-none">{{ oneQuestionContent?.english }}&nbsp;&nbsp;<span
                         class="text-primary" (click)="voiceOver(oneQuestionContent.english)"> <i
-                            class="fa-solid fa-volume-high"></i> Listen</span></h3>
-                <h5 class="unselectable d-md-none d-block">{{ oneQuestionContent?.english }}&nbsp;&nbsp;<span
+                        class="fa-solid fa-volume-high"></i> Listen</span></h3>
+                <h4 class="unselectable d-md-none d-block">{{ oneQuestionContent?.english }}&nbsp;&nbsp;<span
                         class="text-primary" (click)="voiceOver(oneQuestionContent.english)"> <i
-                            class="fa-solid fa-volume-high"></i> Listen</span></h5>
+                        class="fa-solid fa-volume-high"></i> Listen</span></h4>
 
                 <div class="fw-medium">{{ oneQuestionContent?.englishanswer }}&nbsp;&nbsp;<span class="text-primary"
-                        (click)="voiceOver(oneQuestionContent.englishanswer)"> <i class="fa-solid fa-volume-high"></i>
+                                                                                                (click)="voiceOver(oneQuestionContent.englishanswer)"> <i
+                        class="fa-solid fa-volume-high"></i>
                         Listen</span></div>
+
+                <br>
                 <h3 class="unselectable d-md-block d-none">{{ oneQuestionContent?.languageenglish }}&nbsp;&nbsp;<span
-                        class="text-primary" (click)="voiceOver(oneQuestionContent.languageenglish)"> <i
-                            class="fa-solid fa-volume-high"></i> Listen</span></h3>
-                <h5 class="unselectable d-md-none d-block">{{ oneQuestionContent?.languageenglish }}&nbsp;&nbsp;<span
-                        class="text-primary" (click)="voiceOver(oneQuestionContent.languageenglish)"> <i
-                            class="fa-solid fa-volume-high"></i> Listen</span></h5>
+                        class="text-primary"
+                        (click)="voiceOver(oneQuestionContent.languageenglish)"> <i
+                        class="fa-solid fa-volume-high"></i> Listen</span></h3>
+                <h4 class="unselectable d-md-none d-block">{{ oneQuestionContent?.languageenglish }}&nbsp;&nbsp;<span
+                        class="text-primary"
+                        (click)="voiceOver(oneQuestionContent.languageenglish)"> <i
+                        class="fa-solid fa-volume-high"></i> Listen</span></h4>
                 <div class="fw-medium">{{ oneQuestionContent?.languageenglishanswer }}&nbsp;&nbsp;<span
                         class="text-primary" (click)="voiceOver(oneQuestionContent.languageenglishanswer)"> <i
-                            class="fa-solid fa-volume-high"></i> Listen</span></div>
-                <h3 class="unselectable d-md-block d-none">{{ oneQuestionContent?.languagenativequestion
+                        class="fa-solid fa-volume-high"></i> Listen</span></div>
+
+                <br>
+                <h3 class="unselectable d-md-block d-none">{{
+                        oneQuestionContent?.languagenativequestion
                     }}&nbsp;&nbsp;<span class="text-primary"
-                        (click)="voiceOver(oneQuestionContent.languagenativequestion)"> <i
-                            class="fa-solid fa-volume-high"></i> Listen</span></h3>
-                <h5 class="unselectable d-md-none d-block">{{ oneQuestionContent?.languagenativequestion }} <span
-                        class="text-primary" (click)="voiceOver(oneQuestionContent.languagenativequestion)"> <i
-                            class="fa-solid fa-volume-high"></i> Listen</span></h5>
+                                        (click)="voiceOverNative(oneQuestionContent.languagenativequestion, oneQuestionContent)">
+                    <i class="fa-solid fa-volume-high"></i> Listen</span></h3>
+                <h4 class="unselectable d-md-none d-block">{{ oneQuestionContent?.languagenativequestion }} <span
+                        class="text-primary"
+                        (click)="voiceOverNative(oneQuestionContent.languagenativequestion, oneQuestionContent)"> <i
+                        class="fa-solid fa-volume-high"></i> Listen</span></h4>
                 <div class="fw-medium">{{ oneQuestionContent?.languagenativeanswer }}&nbsp;&nbsp;<span
-                        class="text-primary" (click)="voiceOver(oneQuestionContent.languagenativeanswer)">
+                        class="text-primary"
+                        (click)="voiceOverNative(oneQuestionContent.languagenativeanswer, oneQuestionContent)">
                         <i class="fa-solid fa-volume-high"></i> Listen</span></div>
             </div>
         </div>
@@ -201,10 +219,10 @@
             <!--                    </div>-->
 
             <div class="align-items-center d-flex desktop">
-                <!--                <button class="btn w-100 btn-primary theme-dark-blue mx-0 px-5 py-2" (click)="onClickAsk()">-->
-                <!--                    <i class="fa-solid h5 fa-file-contract"></i>&nbsp;-->
-                <!--                    Click here to ask&nbsp;Personalised Questions-->
-                <!--                        </button>-->
+                <button class="btn w-100 btn-primary theme-dark-blue mx-0 px-5 py-2" (click)="onClickAsk()">
+                    <i class="fa-solid h5 fa-file-contract"></i>&nbsp;
+                    Click here to ask&nbsp;Personalised Questions
+                </button>
             </div>
         </div>
     </ng-template>

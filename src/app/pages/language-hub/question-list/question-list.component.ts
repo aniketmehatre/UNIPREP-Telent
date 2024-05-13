@@ -3,8 +3,8 @@ import { LanguageHubService } from "../language-hub.service";
 import Speech from "speak-tts";
 import { Location } from "@angular/common";
 import { LanguageHubDataService } from "../language-hub-data.service";
-import { MenuItem } from 'primeng/api';
-import { ActivatedRoute } from '@angular/router';
+import {MenuItem, MessageService} from 'primeng/api';
+import {ActivatedRoute, Router} from '@angular/router';
 
 @Component({
     selector: 'uni-question-list',
@@ -24,9 +24,12 @@ export class QuestionListComponent implements OnInit {
     selectedLanguageType: any
     breadCrumb: MenuItem[] = []
     selectedCategoryId: any
+    page: number = 1
+    perpage: number = 25
 
     constructor(private languageHubService: LanguageHubService, private lhs: LanguageHubDataService,
-        private location: Location, private route: ActivatedRoute) {
+        private location: Location, private route: ActivatedRoute, private toast: MessageService,
+                private router: Router) {
         this.lhs.data$.subscribe((data) => {
             this.selectedLanguageId = data
         })
@@ -53,21 +56,8 @@ export class QuestionListComponent implements OnInit {
             console.log('not supported')
         }
 
-        let req = {
-            languageid: this.selectedLanguageId,
-            languagetype: this.selectedLanguageType,
-            submoduleid: this.selectedCategoryId
-        }
-        this.languageHubService.getQuestionList(req).subscribe((_res) => {
-            this.isSkeletonVisible = false
-            this.totalQuestionCount = _res.count;
-            this.questionListData = _res.questions
-        },
-        (error) => {
-                this.location.back();
-                console.error('Error:', error);
-            });
-        console.log(typeof this.selectedLanguageType);
+        this.init();
+
         var langType = ''
         switch (this.selectedLanguageType) {
             case '1':
@@ -97,6 +87,26 @@ export class QuestionListComponent implements OnInit {
         ];
     }
 
+    init(){
+        let req = {
+            languageid: this.selectedLanguageId,
+            languagetype: this.selectedLanguageType,
+            submoduleid: this.selectedCategoryId,
+            perpage: this.perpage,
+            page: this.page
+        }
+        this.languageHubService.getQuestionList(req).subscribe((_res) => {
+                this.isSkeletonVisible = false
+                this.totalQuestionCount = _res.count;
+                this.questionListData = _res.questions
+            },
+            (error) => {
+                this.location.back();
+                this.toast.add({ severity: 'info', summary: 'Info', detail: 'No Data Found' });
+                console.error('Error:', error);
+            });
+    }
+
     goToBack(event: any) {
         this.isQuestionAnswerVisible = false;
     }
@@ -120,10 +130,6 @@ export class QuestionListComponent implements OnInit {
         console.log(data);
     }
 
-    paginate(event: any) {
-
-    }
-
     onShowModal(event: any) {
 
     }
@@ -133,7 +139,7 @@ export class QuestionListComponent implements OnInit {
         const speech = new Speech()
         speech.init({
             'volume': 1,
-            'lang': 'hi-IN',
+            'lang': 'en-IN',
             'rate': 1,
             'pitch': 1,
             'voice': 'Google UK English Female',
@@ -153,4 +159,63 @@ export class QuestionListComponent implements OnInit {
             console.error("An error occurred :", e)
         })
     }
+
+    voiceOverNative(voiceData: any, fullData: any) {
+        var langName = ''
+        var langCode = ''
+        switch (fullData.languageid) {
+            case 1:
+                langName = 'Flo';
+                langCode = 'de-DE'
+                break;
+            case 2:
+                langName = 'Lekha';
+                langCode = 'hi-IN'
+                break;
+            default:
+                break;
+        }
+
+        console.log('asdf', langCode)
+        console.log('qweq', langName)
+        const speech = new Speech()
+        speech.init({
+            'volume': 1,
+            'lang': langCode,
+            'rate': 1,
+            'pitch': 1,
+            // 'voice': langName,
+            // 'splitSentences': true,
+            'listeners': {
+                'onvoiceschanged': (voices: any) => {
+                    console.log("Event voiceschanged", voices)
+                }
+            }
+        })
+        speech.setLanguage(langCode)
+        speech.setVoice(langName);
+        speech.speak({
+            text: voiceData,
+        }).then(() => {
+            console.log("Success !")
+        }).catch((e: any) => {
+            console.error("An error occurred :", e)
+        })
+    }
+
+    onClickAsk() {
+        this.router.navigateByUrl(`/pages/chat`);
+    }
+
+    reviewBy(){
+
+    }
+
+    paginate(event: any) {
+        this.page = event.page + 1;
+        this.perpage = event.rows;
+        this.init();
+    }
+
+
 }

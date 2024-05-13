@@ -77,9 +77,10 @@
 											<h5 class="text-center d-md-block d-none pt-2">{{ subItems.country_name }}</h5>
 											<p class="fw-bold text-small">Average Salary</p>
 											<p class="fw-medium mb-2" [ngStyle]="{'font-size.px': subItems.salary.length > 19 ? 12 : 15}"  style="white-space: nowrap;">{{ subItems.salary }}</p>
+
 										</div>
 										<div>
-											<p class="fw-bold text-small">Top 4 Job Sites</p>
+											<p class="fw-bold"  style="font-size:0.7rem;">Top 4 Job Sites</p>
 											<div class="d-flex justify-content-center gap-2 my-1">
 												<ng-container *ngFor="let jobs of subItems.job_site_data">
 													<div class="joblogos">
