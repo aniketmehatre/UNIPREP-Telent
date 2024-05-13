@@ -22,6 +22,7 @@ export class QuizmenuComponent implements OnInit {
   countryName!: string;
   universityId: any=null;
   laguageid:any=[];
+  contrydropdownid:any=[]
   laguagetypeid:any=[];
   subjectid:any=[];
   specializationid:any=null;
@@ -37,6 +38,7 @@ export class QuizmenuComponent implements OnInit {
   Modulequizlistcertificate:any[] = [];
   learningHubCirtificates:any[]=[];
   languageHubCirtificates:any[]=[];
+  countrydropdownlist:any[]=[];
   constructor(private moduleListService: ModuleServiceService, private router: Router, private dataService: DataService,
     private locationService: LocationService,private authService: AuthService,) { }
 
@@ -44,6 +46,7 @@ export class QuizmenuComponent implements OnInit {
     this.dataService.countryNameSource.subscribe((data) => {
       this.countryName = data;
       this.countryId = Number(localStorage.getItem('countryId'));
+      this.contrydropdownid=this.countryId
       this.checkquizquestionmodule();
       this.checkplanExpire();
       this.getFilterUniversityList(this.countryId)
@@ -52,11 +55,13 @@ export class QuizmenuComponent implements OnInit {
     this.getLaguageList();
     this.getSubjectlist();
     this.getLaguageListType();
-    this.dataService.countryId.subscribe((data) => {
-      this.moduleListService.countryList().subscribe(countryList => {
-        
-      });
-  });
+    this.countryDropdown();
+  }
+  countryDropdown(){
+    this.moduleListService.countryList().subscribe((countryList:any) => {
+      console.log(countryList);
+      this.countrydropdownlist=countryList
+    });
   }
   getCertificates(){
     this.certificatesList=[]
@@ -272,5 +277,12 @@ export class QuizmenuComponent implements OnInit {
   StartLanguageHubQuiz(){
     this.currentModuleSlug="language-hub"
     this.router.navigate([`/pages/modules/${this.currentModuleSlug}/languagehubquiz`]);
+  }
+  CountryListId(){
+    this.countryId=this.contrydropdownid
+    this.checkquizquestionmodule();
+    this.checkplanExpire();
+    this.getFilterUniversityList(this.countryId)
+    this.getCertificates()
   }
 }
