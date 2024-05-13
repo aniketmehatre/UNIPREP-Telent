@@ -45,6 +45,10 @@ export class CategoryListComponent implements OnInit {
         this.checkLanguageQuizCompletedOrNot()
     }
 
+    goToHome(event: any) {
+        this.location.back();
+    }
+
     init(){
         let req = {
             languageid: this.selectedLanguageId,

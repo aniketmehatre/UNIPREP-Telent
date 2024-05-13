@@ -165,11 +165,11 @@ export class QuestionListComponent implements OnInit {
         var langCode = ''
         switch (fullData.languageid) {
             case 1:
-                langName = 'Flo (German (Germany)) (de-DE)';
+                langName = 'Flo';
                 langCode = 'de-DE'
                 break;
             case 2:
-                langName = 'Google हिन्दी (hi-IN)';
+                langName = 'Lekha';
                 langCode = 'hi-IN'
                 break;
             default:
@@ -193,7 +193,7 @@ export class QuestionListComponent implements OnInit {
             }
         })
         speech.setLanguage(langCode)
-        speech.setVoice('Google UK English Female');
+        speech.setVoice(langName);
         speech.speak({
             text: voiceData,
         }).then(() => {
