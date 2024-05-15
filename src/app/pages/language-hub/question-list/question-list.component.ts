@@ -22,6 +22,7 @@ export class QuestionListComponent implements OnInit {
     selectedLanguageName: any
     selectedLanguageId: any
     selectedLanguageType: any
+    selectedLanguageCode: any
     breadCrumb: MenuItem[] = []
     selectedCategoryId: any
     page: number = 1
@@ -38,6 +39,9 @@ export class QuestionListComponent implements OnInit {
         })
         this.lhs.dataLanguageType$.subscribe((data) => {
             this.selectedLanguageType = data
+        })
+        this.lhs.dataLanguageCode$.subscribe((data) => {
+            this.selectedLanguageCode = data
         })
         this.route.params.subscribe(params => {
             this.selectedCategoryId = params['id']
@@ -161,27 +165,11 @@ export class QuestionListComponent implements OnInit {
     }
 
     voiceOverNative(voiceData: any, fullData: any) {
-        var langName = ''
-        var langCode = ''
-        switch (fullData.languageid) {
-            case 1:
-                langName = 'Flo';
-                langCode = 'de-DE'
-                break;
-            case 2:
-                langName = 'Lekha';
-                langCode = 'hi-IN'
-                break;
-            default:
-                break;
-        }
-
-        console.log('asdf', langCode)
-        console.log('qweq', langName)
+    console.log(this.selectedLanguageCode)
         const speech = new Speech()
         speech.init({
             'volume': 1,
-            'lang': langCode,
+            'lang': this.selectedLanguageCode,
             'rate': 1,
             'pitch': 1,
             // 'voice': langName,
@@ -192,8 +180,8 @@ export class QuestionListComponent implements OnInit {
                 }
             }
         })
-        speech.setLanguage(langCode)
-        speech.setVoice(langName);
+        speech.setLanguage(this.selectedLanguageCode)
+        speech.setVoice('Majed');
         speech.speak({
             text: voiceData,
         }).then(() => {

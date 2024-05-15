@@ -18,6 +18,9 @@ export class LanguageHubDataService {
   dataLanguageType$ = this.languageType.asObservable();
 
 
+  private languageCode = new BehaviorSubject<any>(localStorage.getItem('languageCode') || '');
+  dataLanguageCode$ = this.languageCode.asObservable();
+
   setLanguageData(data: any) {
     localStorage.setItem('languageId', data);
     this.dataSubject.next(data);
@@ -30,6 +33,11 @@ export class LanguageHubDataService {
 
   setDataLanguageType(data: any) {
     localStorage.setItem('languageType', data);
+    this.languageType.next(data);
+  }
+
+  setLanguageCode(data: any) {
+    localStorage.setItem('languageCode', data);
     this.languageType.next(data);
   }
 }
