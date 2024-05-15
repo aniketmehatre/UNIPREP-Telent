@@ -277,7 +277,10 @@ export class QuizmenuComponent implements OnInit {
     this.currentModuleSlug="language-hub"
     this.router.navigate([`/pages/modules/${this.currentModuleSlug}/languagehubquiz`]);
   }
-  CountryListId(){
+  CountryListId(event:any){
+    console.log(event);
+    const countryname = this.countrydropdownlist.find(item => item.id === event);
+    this.countryName=countryname.country
     this.countryId=this.contrydropdownid
     this.checkquizquestionmodule();
     this.checkplanExpire();

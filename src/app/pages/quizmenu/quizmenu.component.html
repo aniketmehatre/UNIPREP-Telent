@@ -11,7 +11,7 @@
                 <div class="row mt-5">
                     <div class="col-6">
                         <div>
-                            <p-dropdown dropdownAppendTo="body" class="mt-2" (onChange)="CountryListId()" [(ngModel)]="contrydropdownid" placeholder="Select the country" [options]="countrydropdownlist" optionValue="id" optionLabel="country" styleClass="w-100" [filter]="true">
+                            <p-dropdown dropdownAppendTo="body" class="mt-2" (onChange)="CountryListId($event.value)" [(ngModel)]="contrydropdownid" placeholder="Select the country" [options]="countrydropdownlist" optionValue="id" optionLabel="country" styleClass="w-100" [filter]="true">
                                 <ng-template let-countryOption pTemplate="selectedItem" style="border-radius: 20px !important;">
                                     <div class="d-flex align-items-center">
                                         <img src="{{ countryOption.flag }}" alt="{{ countryOption.country }}" class="mr-2" style="width: 24px; height: 24px; padding-left: 5px;">
