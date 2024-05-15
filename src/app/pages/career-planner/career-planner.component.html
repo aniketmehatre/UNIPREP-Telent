@@ -1,11 +1,19 @@
 <div class="card readingcard bg-white">
 	<div class="card-body d-flex flex-column justify-content-between pt-0">
 		<div class="row justify-content-center">
-			<div class="col-md-2 text-start"></div>
+			<div class="col-md-1 text-start"></div>
 			<div class="col-md-8 text-center">
 				<h5 class="select-title mb-1" tooltipPosition="top" pTooltip="Career Planner">CAREER PLANNER<i class="questiontooltip fa-solid fa-circle-question"></i></h5>
 			</div>
-			<div class="col-md-2"></div>
+			<div class="col-md-3">
+				<div class="d-flex align-items-center justify-content-between">
+					<label for="exportButton" class="p-3">Currency in</label>
+					<div class="d-flex align-items-center p-1 gap-3" style="background-color: #EBEDF2;border-radius: 10rem;">
+						<button class="btn btn-primary text-small"  [ngClass]="{'inactiveButton': currencyButtonName == 'inr'}" (click)="toggleClass('Dollar')" style="border-radius: 20px !important;" type="button">$ Dollar</button>
+						<button class="btn btn-primary text-small"  [ngClass]="{'inactiveButton': currencyButtonName == 'Dollar'}" (click)="toggleClass('inr')" style="border-radius: 20px !important;" type="button">₹ INR</button>
+					</div>
+				</div>
+			</div>
 		</div>
 		<div class="container-fluid" *ngIf="!enableModule">
 			<p-carousel [value]="products" [numVisible]="1" [numScroll]="1" [circular]="false" [showNavigators]="false" [showIndicators]="false" [page]="activePageIndex" *ngIf="!enableModule">
@@ -76,8 +84,8 @@
 											</div>
 											<h5 class="text-center d-md-block d-none pt-2">{{ subItems.country_name }}</h5>
 											<p class="fw-bold text-small">Average Salary</p>
-											<p class="fw-medium mb-2" [ngStyle]="{'font-size.px': subItems.salary.length > 19 ? 12 : 15}"  style="white-space: nowrap;">{{ subItems.salary }}</p>
-
+											<p class="fw-medium mb-2" [ngClass]="{'d-none': currencyButtonName == 'inr'}" [ngStyle]="{'font-size.px': subItems.salary.length > 19 ? 12 : 15}"  style="white-space: nowrap;">{{ subItems.salary }}</p>
+											<p class="fw-medium mb-2" [ngClass]="{'d-none': currencyButtonName == 'Dollar'}" [ngStyle]="{'font-size.px': subItems.salary.length > 19 ? 12 : 15}"  style="white-space: nowrap;">{{ subItems.inr_salary }}</p>
 										</div>
 										<div>
 											<p class="fw-bold"  style="font-size:0.7rem;">Top 4 Job Sites</p>
