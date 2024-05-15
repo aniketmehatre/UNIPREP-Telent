@@ -74,6 +74,16 @@ export class HttpErrorInterceptor implements HttpInterceptor {
           }
           this.router.navigateByUrl("/login");
         }
+        if (err?.status === 422) {
+          console.log(msg)
+          if (msg.includes("Unprocessable")) {
+            this.toastr.add({
+              severity: "error",
+              summary: "Error",
+              detail: 'No Data Found.',
+            });
+          }
+        }
         if (err?.status === 408) {
           // window.sessionStorage.clear();
           // localStorage.clear();

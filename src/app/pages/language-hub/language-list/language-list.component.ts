@@ -33,6 +33,7 @@ export class LanguageListComponent implements OnInit {
     onLanguageClick(data: any) {
         this.lhs.setDataLanguageName(data.language)
         this.lhs.setLanguageData(data.id)
+        this.lhs.setLanguageCode(data.languagecode)
         this.router.navigate([`/pages/language-hub/levels/${data.id}`]);
     }
 

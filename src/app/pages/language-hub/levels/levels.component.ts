@@ -14,15 +14,19 @@ export class LevelsComponent implements OnInit {
 
     isSkeletonVisible: boolean = true;
     languageTypeList: any
+    selectedLanguageId: any
 
     constructor(private languageHubService: LanguageHubService, private lhs:LanguageHubDataService, private router: Router,
                 private location: Location) {
+        this.lhs.data$.subscribe((data) => {
+            this.selectedLanguageId = data
+        })
     }
 
     loopRange = Array.from({length: 30}).fill(0).map((_, index) => index);
 
     ngOnInit(): void {
-        this.languageHubService.getLanguageTypeList().subscribe((_res) => {
+        this.languageHubService.getLanguageTypeList(this.selectedLanguageId).subscribe((_res) => {
             this.isSkeletonVisible = false
             this.languageTypeList = _res.data
         });
