@@ -25,6 +25,7 @@ export class QuestionListComponent implements OnInit {
     selectedLanguageCode: any
     breadCrumb: MenuItem[] = []
     selectedCategoryId: any
+    langType: any
     page: number = 1
     perpage: number = 25
 
@@ -42,6 +43,9 @@ export class QuestionListComponent implements OnInit {
         })
         this.lhs.dataLanguageCode$.subscribe((data) => {
             this.selectedLanguageCode = data
+        })
+        this.lhs.dataLanguageTypeName$.subscribe((data) => {
+            this.langType = data
         })
         this.route.params.subscribe(params => {
             this.selectedCategoryId = params['id']
@@ -62,20 +66,6 @@ export class QuestionListComponent implements OnInit {
 
         this.init();
 
-        var langType = ''
-        switch (this.selectedLanguageType) {
-            case '1':
-                langType = 'Basics';
-                break;
-            case '2':
-                langType = 'Intermediate';
-                break;
-            case '3':
-                langType = 'Advanced';
-                break;
-            default:
-                break;
-        }
 
         this.breadCrumb = [
             {
@@ -86,7 +76,7 @@ export class QuestionListComponent implements OnInit {
                 label: this.selectedLanguageName.toUpperCase(),
                 command: (event: any) => this.goToHomebreadcrump()
             },
-            { label: langType.toUpperCase() },
+            { label: this.langType },
             { label: `Question` },
         ];
     }
@@ -181,7 +171,7 @@ export class QuestionListComponent implements OnInit {
             }
         })
         speech.setLanguage(this.selectedLanguageCode)
-        speech.setVoice('Majed');
+        speech.setVoice('Google UK English Female');
         speech.speak({
             text: voiceData,
         }).then(() => {
