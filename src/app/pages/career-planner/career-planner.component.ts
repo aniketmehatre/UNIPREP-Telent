@@ -115,6 +115,7 @@ export class CareerPlannerComponent implements OnInit {
   jobSiteData:any[] = [];
   page = 1;
   perPage = 30;
+  currencyButtonName: string = "Dollar";
 
   arrayMap: any = {
     'highLevelStudy': this.highLevelStudy,
@@ -130,6 +131,10 @@ export class CareerPlannerComponent implements OnInit {
   ngOnInit(): void {
     this.checkCareerPlanExist();
     
+  }
+
+  toggleClass(buttonName: string){
+    this.currencyButtonName = buttonName;
   }
 
   checkCareerPlanExist(){
