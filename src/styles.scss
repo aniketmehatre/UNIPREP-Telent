@@ -733,8 +733,8 @@ uni-subscription {
 	}
 	.p-dialog {
 		width: 98%;
-    	height: 96%;
-		max-height:100%;
+    	height: max-content;
+		max-height:98%;
 		.p-dialog-header {
 			background: #fff;
 			padding: 0 !important;
