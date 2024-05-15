@@ -45,6 +45,6 @@ export class LanguageHubDataService {
 
   setLanguageCode(data: any) {
     localStorage.setItem('languageCode', data);
-    this.languageTypeName.next(data);
+    this.languageCode.next(data);
   }
 }
