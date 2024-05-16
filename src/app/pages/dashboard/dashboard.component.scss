@@ -203,15 +203,23 @@ Due to the split circle of progress-left and progress right, we must use the ani
   border: 1px solid #343a40;
   height: 100px;
 }
+
+ //.homecardbtn {
+ //  padding: 10px !important;
+ //  color: #fff !important;
+ //  background-color: #f0780e;
+ //}
+
 .homecardbtnquiz {
-	background-color: black;
+	background-color: #f0780e;
 	color: white;
 }
 .ellipse-button {
 	width: auto;
 	padding: 6px 25px;
 	height: auto;
-	background-color: #f0780e;
+	//background-color: #f0780e;
+    background-color: #000;
 	border-radius: 25px;
 	display: flex;
 	justify-content: center;
