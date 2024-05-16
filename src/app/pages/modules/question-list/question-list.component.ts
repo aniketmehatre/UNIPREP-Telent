@@ -330,6 +330,10 @@ export class QuestionListComponent implements OnInit {
     })
   }
   loadQuestionList(data: any) {
+    let questionData = { id: localStorage.getItem('questionId') || '' };
+    if(questionData?.id){
+      data.share_link_question_id=questionData?.id;
+    }
     this.mService.studentFullQuestionData(data).subscribe((res: any) => {
       this.allDataSet = res;
       this.moduleName = res.submodule_name;
@@ -344,7 +348,6 @@ export class QuestionListComponent implements OnInit {
         this.isSkeletonVisible = false;
         this.totalQuestionCount = data?.questioncount;
         //this.ngxService.stop();
-        let questionData = { id: localStorage.getItem('questionId') || '' };
         if (questionData.id) {
           this.viewOneQuestion(questionData);
           localStorage.removeItem('questionId');
