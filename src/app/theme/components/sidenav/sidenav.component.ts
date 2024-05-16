@@ -169,7 +169,7 @@ export class SidenavComponent {
       image: "fa-solid fa-clock-desk",
     },
     {
-      title: "My Certificate",
+      title: "Certificates",
       url: "/pages/mycertificate",
       image: "fa-solid fa-file-certificate",
     },
