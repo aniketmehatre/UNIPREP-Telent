@@ -17,9 +17,9 @@ export class LanguageHubService {
     });
   }
 
-  getLanguageTypeList() {
+  getLanguageTypeList(data: any) {
     let req = {
-      type_id: 1
+      languageid: data
     }
     const headers = new HttpHeaders().set("Accept", "application/json");
     return this.http.post<any>(environment.ApiUrl + "/getlanguagetype",  req, {
