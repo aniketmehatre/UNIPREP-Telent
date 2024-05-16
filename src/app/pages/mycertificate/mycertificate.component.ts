@@ -14,6 +14,7 @@ export class MycertificateComponent implements OnInit {
 certificatesList:any[]=[]
 learninghubcertificatelist:any[]=[];
 totalmodulecirtficatelist:any[]=[];
+laguageCertificate:any[]=[];
 othercirtificatecountrylist:any=""
 countryname:any;
 restrict: boolean = false;
@@ -37,11 +38,14 @@ planExpired: boolean = false;
     });
   }
   getCertificateoOtherCountry(){
+    this.othercirtificatecountrylist="";
     var data={
       countryid:Number(localStorage.getItem('countryId'))
     }
     this.service.getCertificateInOtherCountry(data).subscribe((res)=>{
       this.othercirtificatecountrylist=res.countries
+      console.log(res);
+      
     })
   }
   getCertificates(){
@@ -52,15 +56,25 @@ planExpired: boolean = false;
     }
     this.service.getUserCompletedCertificate(data).subscribe((res)=>{
       this.certificatesList=res.certificates
-      this.totalmodulecirtficatelist=[...this.certificatesList,...this.learninghubcertificatelist];
+      this.totalmodulecirtficatelist=[...this.certificatesList,...this.learninghubcertificatelist,...this.laguageCertificate];
       console.log(this.totalmodulecirtficatelist);
     })
     var data1={
-      countryid:0
+      countryid:0,
+      moduleid :8
     }
     this.service.getUserCompletedCertificate(data1).subscribe((res)=>{
       this.learninghubcertificatelist=res.certificates;
-      this.totalmodulecirtficatelist=[...this.certificatesList,...this.learninghubcertificatelist];
+      this.totalmodulecirtficatelist=[...this.certificatesList,...this.learninghubcertificatelist,...this.laguageCertificate];
+      console.log(this.totalmodulecirtficatelist);
+    })
+    var data2={
+      countryid:0,
+      moduleid :9
+    }
+    this.service.getUserCompletedCertificate(data2).subscribe((res)=>{
+      this.laguageCertificate=res.certificates;
+      this.totalmodulecirtficatelist=[...this.certificatesList,...this.learninghubcertificatelist,...this.laguageCertificate];
       console.log(this.totalmodulecirtficatelist);
     })
   }
