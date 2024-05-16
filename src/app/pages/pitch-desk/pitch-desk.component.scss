@@ -49,6 +49,16 @@
   max-height: none !important; /* Prevent max-height from causing a scroll */
   overflow: visible !important; /* Ensure the dropdown is not hidden */
 }
+::ng-deep .ng2-pdf-viewer-container
+{
+  overflow-x: hidden !important;
+}
+
+.pdf-container
+{
+  width:70%;
+  margin: auto;
+}
 
 .sectorColor{
   color: #1b8b4f;

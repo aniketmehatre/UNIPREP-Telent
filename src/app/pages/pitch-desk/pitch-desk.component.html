@@ -46,7 +46,8 @@
 									</div>
 									<div class="d-flex flex-column overflow-hidden">
 										<a (click)="showPdf(pitchDeskListData.document_name)" style="cursor: pointer">
-											<h5 class="mb-0 fw-bold text-truncate uniprep-primary position-relative">{{ pitchDeskListData.pitchdeck_name }}
+											<h5 class="mb-0 fw-bold text-truncate uniprep-primary position-relative">
+												{{ pitchDeskListData.pitchdeck_name }}
 												<span class="linkicon"><i class="fa-solid fa-arrow-up-right-from-square text-small"></i></span>
 											</h5>
 										</a>
@@ -63,18 +64,18 @@
 									<span class="text-small"> {{ pitchDeskListData.founding_year }}</span>
 								</div>
 								<div class="col text-nowrap">
-									<i class="fa-solid fa-seedling  text-small fundTypeColor"></i>
-									<span class=" text-small"> {{ pitchDeskListData.funding_type_name }}</span>
+									<i class="fa-solid fa-seedling text-small fundTypeColor"></i>
+									<span class="text-small"> {{ pitchDeskListData.funding_type_name }}</span>
 								</div>
 								<div class="col text-nowrap">
-									<i class="fa-solid fa-building  text-small sectorColor"></i>
-									<span class=" text-small"> {{ pitchDeskListData.sector_name }}</span>
+									<i class="fa-solid fa-building text-small sectorColor"></i>
+									<span class="text-small"> {{ pitchDeskListData.sector_name }}</span>
 								</div>
 							</div>
 							<div class="d-flex justify-content-between">
 								<div class="col text-nowrap">
-									<i class="fa-solid fa-location-dot text-small  HeadQuartersColor"></i>
-									<span class=" text-small"> {{ pitchDeskListData.country_name }}, {{ pitchDeskListData.head_quarters_name }}</span>
+									<i class="fa-solid fa-location-dot text-small HeadQuartersColor"></i>
+									<span class="text-small"> {{ pitchDeskListData.country_name }}, {{ pitchDeskListData.head_quarters_name }}</span>
 								</div>
 							</div>
 						</div>
@@ -200,17 +201,22 @@
 		<button pButton type="button" class="text-white p-ripple p-button-rounded p-button-warning p-button p-component p-2" (click)="upgradePlan()">Upgrade Plan<i class="fa fa-arrow-right exhausted-plan-icon"></i></button>
 	</div>
 </p-dialog>
-<div id="outerContainer" *ngIf="isPdfLoaded">
-	<div class="row justify-content-center">
-		<div class="col-md-1 col-1 text-start">
-			<p-button (click)="goBack()" icon="pi pi-arrow-left" styleClass="p-button-rounded p-button-text text-dark"></p-button>
+<div id="outerContainer" class="card h-100" *ngIf="isPdfLoaded">
+	<div class="card-body h-100">
+		<div class="container-fluid h-100 d-flex flex-column">
+			<div class="row justify-content-center">
+				<div class="col-md-1 col-1 text-start">
+					<p-button (click)="goBack()" icon="pi pi-arrow-left" styleClass="p-button-rounded p-button-text text-dark"></p-button>
+				</div>
+				<div class="col-md-11 col-11 text-end">
+					<button class="text-white p-ripple p-button-rounded p-button-warning p-button p-component p-2" *ngIf="isPdfDownloadOption" (click)="download()">Download PDF</button>
+				</div>
+			</div>
+			<div class="row justify-content-center h-100">
+				<div class="col-md-8 col-12 h-100">
+					<pdf-viewer class="w-100 h-100 overflow-x-hidden" [src]="pdfURL" [rotation]="0" [original-size]="false" [show-all]="true" [fit-to-page]="true" [zoom]="1" [zoom-scale]="'page-width'" [stick-to-page]="true" [render-text]="true" [external-link-target]="'blank'" [autoresize]="true" [show-borders]="false"></pdf-viewer>
+				</div>
+			</div>
 		</div>
-		<div class="col-md-10 col-10 text-center">
-			<button class="text-white p-ripple p-button-rounded p-button-warning p-button p-component p-2" *ngIf="isPdfDownloadOption" (click)="download()">Download PDF</button>
-		</div>
-		<div class="col-md-1 col-1">&nbsp;</div>
-	</div>
-	<div class="pdf-container">
-		<pdf-viewer [src]="pdfURL" [rotation]="0" [original-size]="false" [show-all]="true" [fit-to-page]="false" [zoom]="1" [zoom-scale]="'page-width'" [stick-to-page]="false" [render-text]="true" [external-link-target]="'blank'" [autoresize]="true" [show-borders]="false" style="width: 100%; height: 100vh"></pdf-viewer>
 	</div>
 </div>
