@@ -263,11 +263,10 @@ small {
 		}
 	}
 }
-.country-dropdown
-{
+.country-dropdown {
 	max-height: 40vh;
-    overflow-y: auto;
-    background: white !important;
+	overflow-y: auto;
+	background: white !important;
 }
 uni-modules {
 	display: flex;
@@ -293,7 +292,7 @@ uni-modules {
 		display: flex;
 		flex-direction: column;
 	}
-	uni-quiz{
+	uni-quiz {
 		flex: 1;
 		overflow-y: auto; /* Enable vertical scrolling for overflowing content */
 		display: flex;
@@ -321,10 +320,12 @@ uni-pitch-desk,
 uni-export-credit,
 uni-mycertificate,
 uni-language-hub,
+uni-languagetypequiz,
 uni-language-list,
 uni-levels,
 uni-category-list,
 uni-question-list,
+uni-learninghubquiz,
 uni-faq {
 	display: flex;
 	flex: 1;
@@ -383,14 +384,13 @@ uni-events {
 		}
 	}
 }
-uni-certificates
-{
+uni-certificates {
 	display: flex;
 	flex: 1;
 	height: 100vh;
 	flex-direction: column; /* Ensure flex children stack vertically */
 	overflow: hidden;
-	background: #07070B;
+	background: #07070b;
 	justify-content: space-between;
 }
 uni-recentlyaddedquestions {
@@ -447,7 +447,7 @@ uni-subscription {
 	border-radius: 10px !important;
 	text-transform: inherit !important;
 	background-color: #fafafa;
-	border: 1px solid #DFE4F8;
+	border: 1px solid #dfe4f8;
 }
 .btn {
 	font-weight: 600 !important;
@@ -738,8 +738,8 @@ uni-subscription {
 	}
 	.p-dialog {
 		width: 98%;
-    	height: max-content;
-		max-height:98%;
+		height: max-content;
+		max-height: 98%;
 		.p-dialog-header {
 			background: #fff;
 			padding: 0 !important;
@@ -1306,16 +1306,16 @@ p-dialog.restrictionDialog .p-dialog .p-dialog-header .p-dialog-header-icon {
 	}
 }
 
-.exportCount{
+.exportCount {
 	padding: 6px;
 	border-radius: 25px;
-	background-color:#3F4C83;
+	background-color: #3f4c83;
 	color: white;
 	margin-left: 5px;
 }
 
-.exportButton{
-	background-color: #EBEDF2;
+.exportButton {
+	background-color: #ebedf2;
 	color: #001631 !important;
 	border-radius: 20px !important;
 	border: none;
@@ -1323,28 +1323,28 @@ p-dialog.restrictionDialog .p-dialog .p-dialog-header .p-dialog-header-icon {
 }
 .monthly-subscription {
 	.p-tabview-nav-content {
-	  border: 1px solid #3f4c83;
-	  border-radius:30px !important;
-	  padding: 5px 10px;
-	  cursor: pointer;
+		border: 1px solid #3f4c83;
+		border-radius: 30px !important;
+		padding: 5px 10px;
+		cursor: pointer;
 	}
-  
+
 	.p-tabview .p-tabview-nav li .p-tabview-nav-link {
-	  border: 1px solid #3f4c83 !important;
-	  border-radius: 25px !important;
+		border: 1px solid #3f4c83 !important;
+		border-radius: 25px !important;
 	}
-  
+
 	.p-highlight {
-	  border: 1px solid #3f4c83;
-	  border-radius: 25px !important;
+		border: 1px solid #3f4c83;
+		border-radius: 25px !important;
 	}
-  
+
 	.p-tabview .p-tabview-nav {
-	  border-width: 0;
+		border-width: 0;
 	}
-  
+
 	.p-tabview .p-tabview-nav li {
-	  margin-right: 8px;
+		margin-right: 8px;
 	}
 	.p-tabview .p-tabview-nav li.p-highlight .p-tabview-nav-link {
 		color: white;
@@ -1353,4 +1353,4 @@ p-dialog.restrictionDialog .p-dialog .p-dialog-header .p-dialog-header-icon {
 	.p-tabview .p-tabview-nav li .p-tabview-nav-link:not(.p-disabled):focus {
 		box-shadow: none;
 	}
-  }
+}
