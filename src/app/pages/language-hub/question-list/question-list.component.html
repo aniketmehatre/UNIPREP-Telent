@@ -16,7 +16,7 @@
         </div>
         <div *ngIf="isSkeletonVisible">
             <div class="row">
-                <div *ngFor="let index of loopRange" class="col-lg-3 col-md-4 col-sm-4 col-xs-12 col-12">
+                <div *ngFor="let index of loopRange" class="col-xxl-2 col-xl-3 col-lg-3 col-md-4 col-sm-6 col-xs-12 col-12">
                     <div class="card my-2">
                         <div class="card-body">
                             <div class="row align-items-center">
@@ -36,12 +36,12 @@
         </div>
         <div class="row" *ngIf="!isSkeletonVisible">
             <div *ngFor="let sub of questionListData; let i = index"
-                 class="col-lg-3 col-md-4 col-sm-4 col-xs-12 col-12 my-2">
+                 class="col-xxl-2 col-xl-3 col-lg-3 col-md-4 col-sm-6 col-xs-12 col-12 my-2">
                 <div class="row w-100 h-100 m-0 justify-content-center">
                     <div (click)="viewOneQuestion(sub)"
                          class="card questioncard {{ sub.read == 1 ? 'questionread' : '' }}">
                         <div
-                                class="card-body d-flex flex-md-column flex-row justify-content-md-between align-items-center px-0 py-2 gap-2 gap-md-0">
+                                class="card-body d-flex flex-sm-column flex-row justify-content-sm-between align-items-center px-0 py-2 gap-2 gap-md-0">
                             <div class="row justify-content-center w-100">
                                 <div class="col">
                                     <p class="text-start fw-medium questiontext mb-0 mb-md-2">{{ sub.english }}</p>

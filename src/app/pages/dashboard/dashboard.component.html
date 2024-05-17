@@ -1,10 +1,10 @@
-<div class="card countrycard d-none d-lg-block">
+<div class="card countrycard d-none d-lg-block mt-4">
 	<div class="card-body text-center pb-0">
 		<h5 class="mb-0">SELECTED COUNTRY</h5>
 		<p-carousel #carousel [circular]="false" [numScroll]="7" [numVisible]="7" [responsiveOptions]="responsiveOptions" [value]="countryLists">
 			<ng-template let-v pTemplate="item">
 				<div (click)="selectCountry(v)" role="button" class="text-center card-body {{ selectedCountryId == v.id ? 'country-border' : '' }}">
-					<img alt="country" class="countryicon" src="{{ v.flag != '' ? v.flag : '../../uniprep-assets/images/mstile-150x150.png' }}" />
+					<img alt="country" class="countryicon mb-2" src="{{ v.flag != '' ? v.flag : '../../uniprep-assets/images/mstile-150x150.png' }}" />
 					<p class="mb-0 text-center text-sm text-capitalize {{ selectedCountryId == v.id ? 'country-text' : 'country-text-small' }}">
 						{{ v.country | uppercase }}
 					</p>
@@ -14,7 +14,7 @@
 		<div class="badge bg-dark text-wrap bottom-text text-capitalize">You Have Currently Selected {{ selectedCountryName }}. If you're intrigued by details about other countries, start exploring them now!</div>
 	</div>
 </div>
-<div class="d-flex d-lg-none row align-items-center mb-3">
+<div class="d-flex d-lg-none row align-items-center mb-4">
 	<div class="col-4">
 		<h5 class="mb-0">Country Selection</h5>
 	</div>
@@ -25,7 +25,6 @@
 					<img [src]="headerFlag" class="base-country-flag" width="15" />
 					<span>{{ selectedCountryName }}</span>
 				</div>
-				
 			</ng-template>
 			<ng-template let-country pTemplate="item">
 				<div class="country-item">
@@ -35,7 +34,7 @@
 		</p-dropdown>
 	</div>
 </div>
-<div class="container-fluid mt-2">
+<div class="container-fluid mt-4">
 	<div class="row align-items-center text-center text-lg-start">
 		<div class="col-md-5 col-12">
 			<h3 class="fw-semibold mb-0">Hey {{ userName }},</h3>
@@ -56,7 +55,7 @@
 		</div>
 	</div>
 </div>
-<div class="container-fluid px-0 mt-2">
+<div class="container-fluid px-0 mt-4 mb-4">
 	<div class="row">
 		<div class="col-md-3 col-12 my-md-0 my-2">
 			<div class="card h-100">
@@ -72,15 +71,14 @@
 						<div class="col-md-7 col-lg-7 col-7 d-flex order-1 order-md-1">
 							<button (click)="openReading()" class="btn w-100 btn-primary m-0 px-4 py-3">
 								<i class="fa-regular fa-book-open fa-2xl"></i>
-<!--								<p class="mb-0">Start<br />Reading</p>-->
+								<!--								<p class="mb-0">Start<br />Reading</p>-->
 
-                                <div class="row mt-4">
-                                    <div class="col-12">
-                                        <span style="cursor: pointer;" class="ellipse-button fw-regular container-fluid">{{quizpercentage>=80?"Completed":"Start Reading"}}</span>
-                                    </div>
-                                </div>
+								<div class="row mt-4">
+									<div class="col-12">
+										<span style="cursor: pointer" class="ellipse-button fw-regular container-fluid">{{ quizpercentage >= 80 ? "Completed" : "Start Reading" }}</span>
+									</div>
+								</div>
 							</button>
-
 						</div>
 						<div class="col-md-5 col-lg-5 col-5 d-flex align-items-center order-2 order-md-2">
 							<div [attr.data-percentage]="readProgressionPercentage" class="progress1">
@@ -107,33 +105,32 @@
 			<div class="card h-100">
 				<div class="card-body d-flex justify-content-evenly flex-column">
 					<div class="row mb-3">
-                        <div class="col-md-12 col-lg-12 d-flex">
-							<button role="button" style="background-color: #f0780e; cursor: pointer;" (click)="openQuiz()"
-                                    class="btn w-100 m-0 px-4 py-3 homecardbtn homecardbtnquiz" [disabled]="quizpercentage >= 80">
+						<div class="col-md-12 col-lg-12 d-flex">
+							<button role="button" style="background-color: #f0780e; cursor: pointer" (click)="openQuiz()" class="btn w-100 m-0 px-4 py-3 homecardbtn homecardbtnquiz" [disabled]="quizpercentage >= 80">
 								<i class="fa-regular fa-lightbulb-on fa-2xl"></i>
-<!--								<p class="mb-1" style="font-size: small;">Start Quiz</p>-->
-<!--								<p class="mb-1">{{quizpercentage+'%'}}</p>-->
+								<!--								<p class="mb-1" style="font-size: small;">Start Quiz</p>-->
+								<!--								<p class="mb-1">{{quizpercentage+'%'}}</p>-->
 								<div class="row mt-4">
 									<div class="col-12">
-										<span style="cursor: pointer;" class="ellipse-button fw-regular container-fluid">{{quizpercentage>=80?"Completed":"Start"}}</span>
+										<span style="cursor: pointer" class="ellipse-button fw-regular container-fluid">{{ quizpercentage >= 80 ? "Completed" : "Start" }}</span>
 									</div>
 								</div>
 							</button>
 						</div>
-<!--						<div class="col-md-6 col-lg-6 d-flex order-2 order-md-1">-->
-<!--						<div [attr.data-percentage]="quizpercentage" class="progress1">-->
-<!--							<span class="progress1-left">-->
-<!--								<span class="progress1-bar"></span>-->
-<!--							</span>-->
-<!--							<span class="progress1-right">-->
-<!--								<span class="progress1-bar"></span>-->
-<!--							</span>-->
-<!--							<div class="progress1-value">-->
-<!--								<div *ngIf="quizpercentage>0?true:false">{{ quizpercentage | number : "1.0-0" }} %<br /></div>-->
-<!--								<div *ngIf="quizpercentage>0?false:true" >0%<br /></div>-->
-<!--							</div>-->
-<!--						</div>-->
-<!--					</div>-->
+						<!--						<div class="col-md-6 col-lg-6 d-flex order-2 order-md-1">-->
+						<!--						<div [attr.data-percentage]="quizpercentage" class="progress1">-->
+						<!--							<span class="progress1-left">-->
+						<!--								<span class="progress1-bar"></span>-->
+						<!--							</span>-->
+						<!--							<span class="progress1-right">-->
+						<!--								<span class="progress1-bar"></span>-->
+						<!--							</span>-->
+						<!--							<div class="progress1-value">-->
+						<!--								<div *ngIf="quizpercentage>0?true:false">{{ quizpercentage | number : "1.0-0" }} %<br /></div>-->
+						<!--								<div *ngIf="quizpercentage>0?false:true" >0%<br /></div>-->
+						<!--							</div>-->
+						<!--						</div>-->
+						<!--					</div>-->
 					</div>
 					<div>
 						<h5 class="mb-1 uppercase">Quiz</h5>
@@ -147,19 +144,19 @@
 				<div class="card-body d-flex justify-content-evenly flex-column">
 					<div class="row mb-3">
 						<div class="col-md-12 col-lg-12 d-flex">
-<!--							<button class="btn w-100 btn-secondary m-0 px-4 py-3 homecardbtn certificatelock">-->
-<!--								<i class="fa-solid h2 fa-unlock-keyhole certificatelocked"></i>-->
-<!--							</button>-->
-                            <button (click)="openCertificate()" class="btn w-100 btn-primary m-0 px-4 py-3">
-                                <i class="fa-solid fa-file-certificate fa-2xl"></i>
-                                <!--								<p class="mb-0">Start<br />Reading</p>-->
+							<!--							<button class="btn w-100 btn-secondary m-0 px-4 py-3 homecardbtn certificatelock">-->
+							<!--								<i class="fa-solid h2 fa-unlock-keyhole certificatelocked"></i>-->
+							<!--							</button>-->
+							<button (click)="openCertificate()" class="btn w-100 btn-primary m-0 px-4 py-3">
+								<i class="fa-solid fa-file-certificate fa-2xl"></i>
+								<!--								<p class="mb-0">Start<br />Reading</p>-->
 
-                                <div class="row mt-4">
-                                    <div class="col-12">
-                                        <span style="cursor: pointer;" class="ellipse-button fw-regular container-fluid">My Certificates</span>
-                                    </div>
-                                </div>
-                            </button>
+								<div class="row mt-4">
+									<div class="col-12">
+										<span style="cursor: pointer" class="ellipse-button fw-regular container-fluid">My Certificates</span>
+									</div>
+								</div>
+							</button>
 						</div>
 					</div>
 					<div>
@@ -241,7 +238,7 @@
 					</a>
 				</div>
 			</div> -->
-			<div class="mt-2" style="text-align: right;">
+			<div class="mt-2" style="text-align: right">
 				<a (click)="closeQuiz()" class="close" role="button">
 					<!-- <span aria-hidden="true"><img src="/uniprep-assets/images/icons/close_button.svg" /></span> -->
 					<span aria-hidden="true"><i class="fa-solid fa-circle-x fa-2xl uniprep-primary"></i></span>
@@ -270,17 +267,17 @@
 															<span class="progress1-bar"></span>
 														</span>
 														<div class="progress1-value">
-															<div *ngIf="quiz.progress>0?true:false">{{ quiz.progress | number : "1.0-0" }} %<br /></div>
-															<div *ngIf="quiz.progress>0?false:true" >0%<br /></div>
+															<div *ngIf="quiz.progress > 0 ? true : false">{{ quiz.progress | number : "1.0-0" }} %<br /></div>
+															<div *ngIf="quiz.progress > 0 ? false : true">0%<br /></div>
 														</div>
 													</div>
 												</div>
 												<div class="mt-2">
-													<p  class="text-center text-small mb-0">
-														<strong>{{quiz.progress>=80?"Completed":"Pending"}}</strong>
+													<p class="text-center text-small mb-0">
+														<strong>{{ quiz.progress >= 80 ? "Completed" : "Pending" }}</strong>
 													</p>
-													<p *ngIf="quiz.progress>=80?false:true" class="text-center text-small mb-0">
-														<button (click)="startQuiz(quiz.id)" style="font-size: small;" class="btn btn-dark">Start</button>
+													<p *ngIf="quiz.progress >= 80 ? false : true" class="text-center text-small mb-0">
+														<button (click)="startQuiz(quiz.id)" style="font-size: small" class="btn btn-dark">Start</button>
 													</p>
 												</div>
 											</div>
