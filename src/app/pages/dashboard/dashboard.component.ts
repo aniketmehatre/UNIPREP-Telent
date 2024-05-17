@@ -228,12 +228,14 @@ export class DashboardComponent implements OnInit {
     }
 
     openQuiz(): void {
+        // dont remove comments
         // if(this.planExpired){
         //     this.restrict=true;
         //     return;
         //   }
-        this.continueQuiz = "block";
-        this.checkQuestionQuiz()
+        // this.continueQuiz = "block";
+        // this.checkQuestionQuiz()
+        this.router.navigateByUrl('/pages/modules/quizmodule')
     }
 
 
