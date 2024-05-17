@@ -6,24 +6,28 @@
 					<i class="pi pi-search"></i>
 					<input class="w-100 px-5 py-2" type="text" placeholder="Search in Company List .." pInputText [(ngModel)]="valueNearYouFilter" (input)="performSearch($event)" (click)="searchClick()" id="searchInput" />
 				</div>
-				<span class="d-flex justify-content-start p-2" style="white-space: nowrap;">
-					<input type="checkbox" class="me-0" style="transform: scale(1.5);" [(ngModel)]="selectAllCheckboxes" (click)="selectAllCheckbox()" id="selectAllcheckbox">
+				<span class="d-flex justify-content-start p-2" style="white-space: nowrap">
+					<input type="checkbox" class="me-0" style="transform: scale(1.5)" [(ngModel)]="selectAllCheckboxes" (click)="selectAllCheckbox()" id="selectAllcheckbox" />
 					<label class="p-2" for="selectAllcheckbox">Select All</label>
-					<span class="p-2">Selected : {{selectedCompanies}}</span>
-					<button class="btn btn-primary text-small" (click)="viewFavourites()" type="button">{{viewFavouritesLabel}}<span class="favCount" *ngIf="viewFavouritesLabel != 'View All'">{{favCount}}</span></button>
+					<span class="p-2">Selected : {{ selectedCompanies }}</span>
+					<button class="btn btn-primary text-small" (click)="viewFavourites()" type="button">
+						{{ viewFavouritesLabel }}<span class="favCount" *ngIf="viewFavouritesLabel != 'View All'">{{ favCount }}</span>
+					</button>
 				</span>
 			</div>
 			<div class="col-md-6 text-center order-md-2 order-1">
 				<h5 class="select-title mb-1" tooltipPosition="top" pTooltip="">COMPANY LIST</h5>
 			</div>
-			<div class="col-md-3 text-end order-md-3 order-3" style="white-space: nowrap;">
+			<div class="col-md-3 text-end order-md-3 order-3" style="white-space: nowrap">
 				<span class="d-flex justify-content-end mt-3 gap-2">
 					<button class="btn btn-primary text-small company-guidlines" (click)="companyGuidlines()" type="button">Company Guidlines</button>
 					<button class="btn btn-primary text-small company-guidlines" (click)="buyCredits()" type="button">Buy Credits</button>
-					<button class="btn btn-primary text-small exportButton" (click)="exportData()" type="button">Export <span class="exportCount">{{exportCreditCount}}</span></button>
+					<button class="btn btn-primary text-small exportButton" (click)="exportData()" type="button">
+						Export <span class="exportCount">{{ exportCreditCount }}</span>
+					</button>
 				</span>
 				<div class="d-flex w-100 align-items-center justify-content-end gap-2 mt-3">
-					<button class="btn btn-primary text-small ps-3 pe-3 pt-2 pb-2 br-8 p-1" style="background-color: #FF9113 !important;" (click)="openReport()" type="button">Report</button>
+					<button class="btn btn-primary text-small ps-3 pe-3 pt-2 pb-2 br-8 p-1" style="background-color: #ff9113 !important" (click)="openReport()" type="button">Report</button>
 					<button class="btn btn-primary text-small ps-3 pe-3 pt-2 pb-2 br-8" (click)="filterBy()" type="button">Filter by</button>
 					<div class="pe-2">
 						<span class="text-muted text-small"
@@ -40,13 +44,11 @@
 						<div class="card-body d-flex flex-column justify-content-between">
 							<div>
 								<div class="d-flex justify-content-between">
-									<div class="d-flex">
-										<input type="checkbox" (change)="onCheckboxChange($event)" class="me-2 mb-3" style="transform: scale(1.5);" [(ngModel)]="companyData.isChecked">
+									<div class="d-flex gap-2 align-items-start">
+										<input type="checkbox" (change)="onCheckboxChange($event)" class="mt-1" style="transform: scale(1.5)" [(ngModel)]="companyData.isChecked" />
 										<h5 class="uniprep-primary">{{ companyData.company_name }}</h5>
 									</div>
-									<div class="d-flex">
-										<i  [class]="companyData.favourite==1?'fa-solid fa-bookmark':'fa-regular fa-bookmark'" style="color: #E90707;" (click)="bookmarkQuestion(companyData.id,companyData.favourite)"></i>
-									</div>
+										<i [class]="companyData.favourite == 1 ? 'fa-solid fa-bookmark' : 'fa-regular fa-bookmark'" style="color: #e90707" (click)="bookmarkQuestion(companyData.id, companyData.favourite)"></i>
 								</div>
 								<div class="d-flex mt-2 gap-5 align-items-center">
 									<div class="d-flex gap-2 align-items-center">
@@ -126,7 +128,7 @@
 							<label class="form-label" style="font-size: medium; font-weight: 500">Filter by Company Name</label>
 							<div class="form-group">
 								<div class="mb-3">
-									<input class="w-100 px-5 py-2" style="height: 45px;" type="text" formControlName="company_name" placeholder="Search in Company Name" pInputText />
+									<input class="w-100 px-5 py-2" style="height: 45px" type="text" formControlName="company_name" placeholder="Search in Company Name" pInputText />
 								</div>
 							</div>
 						</div>
