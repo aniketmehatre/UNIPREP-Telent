@@ -363,6 +363,13 @@ uni-landing {
 	position: absolute;
 	width: 100%;
 }
+uni-sidenav
+{
+	flex: 1;
+	display: flex;
+    flex-direction: column;
+    height: 100%;
+}
 
 uni-events {
 	display: flex;

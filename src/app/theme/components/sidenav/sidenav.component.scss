@@ -9,6 +9,8 @@
     list-style-type: none;
     // overflow: hidden;
     padding-bottom: 10px;
+    overflow-y: auto;
+    scrollbar-width: thin;
     .menutoggle
     {
         .btn
