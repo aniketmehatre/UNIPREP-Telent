@@ -118,30 +118,34 @@ export class UpgradeSubscriptionComponent implements OnInit {
       filteredData.splice(1, 0, ...mostPopularOnes);
       this.subscriptionList = filteredData;
       this.subscriptionList.map((item: any) => this.currency = item.currency);
-      if (canChangeSubscription == "canSubscribeAll") {
-        this.subscriptionList.map((item: any) => {
-          item.available = true;
-          if (this.existingSubscription[0]?.plan == "Entrepreneur" && item.subscription_plan != "Entrepreneur") {
-            item.available = false;
-          }
-          if (this.existingSubscription[0]?.plan == "Career" && item.subscription_plan == "Student") {
-            item.available = false
-          }
-        });
-      }
-      if (canChangeSubscription == "canSubscribeSome") {
-        this.subscriptionList.map((item: any) => {
-          item.available = false;
-          if (this.existingSubscription[0]?.plan == "Student" && item.subscription_plan != "Student") {
+      if(!this.isPlanExpired){
+        if (canChangeSubscription == "canSubscribeAll") {
+          this.subscriptionList.map((item: any) => {
             item.available = true;
-          }
-          if (this.existingSubscription[0]?.plan == "Career" && item.subscription_plan == "Entrepreneur") {
-            item.available = true;
-          }
-          if (this.existingSubscription[0].plan == "Entrepreneur") {
+            if (this.existingSubscription[0]?.plan == "Entrepreneur" && item.subscription_plan != "Entrepreneur") {
+              item.available = false;
+            }
+            if (this.existingSubscription[0]?.plan == "Career" && item.subscription_plan == "Student") {
+              item.available = false
+            }
+          });
+        }
+        if (canChangeSubscription == "canSubscribeSome") {
+          this.subscriptionList.map((item: any) => {
             item.available = false;
-          }
-        });
+            if (this.existingSubscription[0]?.plan == "Student" && item.subscription_plan != "Student") {
+              item.available = true;
+            }
+            if (this.existingSubscription[0]?.plan == "Career" && item.subscription_plan == "Entrepreneur") {
+              item.available = true;
+            }
+            if (this.existingSubscription[0].plan == "Entrepreneur") {
+              item.available = false;
+            }
+          });
+        }
+      }else{
+        this.subscriptionList.map((item: any) => item.available=true);
       }
       this.plansLoaded = true;
 
@@ -236,8 +240,6 @@ export class UpgradeSubscriptionComponent implements OnInit {
         continent: this.continent,
         monthly_plan: this.monthlyPlan
       }
-      console.log(data);
-      console.log(this.existingSubscription);
       this.subscriptionService.getSubscriptions(data).subscribe((response) => {
         const mostPopularOnes = response.subscriptions.filter((item: any) => item.popular === 1);
         const filteredData = response.subscriptions.filter((item: any) => item.popular !== 1);
@@ -253,18 +255,21 @@ export class UpgradeSubscriptionComponent implements OnInit {
     this.authservice.getNewUserTimeLeft().subscribe(res => {
 
       this.isPlanExpired = res.time_left.plan == "subscription_expired" ? true : false;
-
-      this.subscriptionList.forEach((item: any) => {
-        item.selected = false;
-        item.isActive = item.popular == 1 ? true : false;
-        item.available = false;
-        if (this.existingSubscription[0]?.plan == "Student") {
-          item.available = true;
-        }
-        if (this.existingSubscription[0]?.plan == "Career" && item.subscription_plan != "Student") {
-          item.available = true;
-        }
-      });
+      if(this.isPlanExpired){
+        this.subscriptionList.map((item:any)=>item.available = true);
+      }else{
+        this.subscriptionList.forEach((item: any) => {
+          item.selected = false;
+          item.isActive = item.popular == 1 ? true : false;
+          item.available = false;
+          if (this.existingSubscription[0]?.plan == "Student") {
+            item.available = true;
+          }
+          if (this.existingSubscription[0]?.plan == "Career" && item.subscription_plan != "Student") {
+            item.available = true;
+          }
+        });
+      }
     })
   }
   applyCoupon() {

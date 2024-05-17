@@ -659,7 +659,6 @@ export class QuestionListComponent implements OnInit {
     viewOneQuestion(data: any) {
         this.isQuestionAnswerVisible = true
         this.oneQuestionContent = data;
-        console.log(data);
     }
 
     onShowModal(event: any) {
@@ -686,7 +685,6 @@ export class QuestionListComponent implements OnInit {
         speech.speak({
             text: voiceData,
         }).then(() => {
-            console.log("Success !")
         }).catch((e: any) => {
             console.error("An error occurred :", e)
         })
@@ -694,8 +692,6 @@ export class QuestionListComponent implements OnInit {
 
     voiceOverNative(voiceData: any, fullData: any) {
         var voiceName = '';
-        console.log(this.jsonData)
-    console.log(this.selectedLanguageCode)
         const speech = new Speech()
         speech.init({
             'volume': 1,

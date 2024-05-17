@@ -69,13 +69,20 @@
 			<div class="card h-100">
 				<div class="card-body d-flex justify-content-evenly flex-column">
 					<div class="row mb-3">
-						<div class="col-md-6 col-lg-6 col-6 d-flex order-1 order-md-1">
+						<div class="col-md-7 col-lg-7 col-7 d-flex order-1 order-md-1">
 							<button (click)="openReading()" class="btn w-100 btn-primary m-0 px-4 py-3">
-								<i class="fa-regular fa-book-open"></i>
-								<p class="mb-0">Start<br />Reading</p>
+								<i class="fa-regular fa-book-open fa-2xl"></i>
+<!--								<p class="mb-0">Start<br />Reading</p>-->
+
+                                <div class="row mt-4">
+                                    <div class="col-12">
+                                        <span style="cursor: pointer;" class="ellipse-button fw-regular container-fluid">{{quizpercentage>=80?"Completed":"Start Reading"}}</span>
+                                    </div>
+                                </div>
 							</button>
+
 						</div>
-						<div class="col-md-6 col-lg-6 col-6 d-flex align-items-center order-2 order-md-2">
+						<div class="col-md-5 col-lg-5 col-5 d-flex align-items-center order-2 order-md-2">
 							<div [attr.data-percentage]="readProgressionPercentage" class="progress1">
 								<span class="progress1-left">
 									<span class="progress1-bar"></span>
@@ -100,32 +107,33 @@
 			<div class="card h-100">
 				<div class="card-body d-flex justify-content-evenly flex-column">
 					<div class="row mb-3">
-						<div class="col-md-6 col-lg-6 d-flex order-2 order-md-1">
-							<button role="button" style="background-color: black; cursor: pointer;" (click)="openQuiz()" class="btn w-75 m-0 px-2 py-2 homecardbtn homecardbtnquiz" [disabled]="quizpercentage >= 80">
-								<i class="fa-regular h3 fa-lightbulb-on mb-1"></i>
-								<p class="mb-1" style="font-size: small;">Start Quiz</p>
-								<p class="mb-1">{{quizpercentage+'%'}}</p>
-								<div class="row">
+                        <div class="col-md-12 col-lg-12 d-flex">
+							<button role="button" style="background-color: #f0780e; cursor: pointer;" (click)="openQuiz()"
+                                    class="btn w-100 m-0 px-4 py-3 homecardbtn homecardbtnquiz" [disabled]="quizpercentage >= 80">
+								<i class="fa-regular fa-lightbulb-on fa-2xl"></i>
+<!--								<p class="mb-1" style="font-size: small;">Start Quiz</p>-->
+<!--								<p class="mb-1">{{quizpercentage+'%'}}</p>-->
+								<div class="row mt-4">
 									<div class="col-12">
 										<span style="cursor: pointer;" class="ellipse-button fw-regular container-fluid">{{quizpercentage>=80?"Completed":"Start"}}</span>
 									</div>
 								</div>
 							</button>
 						</div>
-						<div class="col-md-6 col-lg-6 d-flex order-2 order-md-1">
-						<div [attr.data-percentage]="quizpercentage" class="progress1">
-							<span class="progress1-left">
-								<span class="progress1-bar"></span>
-							</span>
-							<span class="progress1-right">
-								<span class="progress1-bar"></span>
-							</span>
-							<div class="progress1-value">
-								<div *ngIf="quizpercentage>0?true:false">{{ quizpercentage | number : "1.0-0" }} %<br /></div>
-								<div *ngIf="quizpercentage>0?false:true" >0%<br /></div>
-							</div>
-						</div>
-					</div>
+<!--						<div class="col-md-6 col-lg-6 d-flex order-2 order-md-1">-->
+<!--						<div [attr.data-percentage]="quizpercentage" class="progress1">-->
+<!--							<span class="progress1-left">-->
+<!--								<span class="progress1-bar"></span>-->
+<!--							</span>-->
+<!--							<span class="progress1-right">-->
+<!--								<span class="progress1-bar"></span>-->
+<!--							</span>-->
+<!--							<div class="progress1-value">-->
+<!--								<div *ngIf="quizpercentage>0?true:false">{{ quizpercentage | number : "1.0-0" }} %<br /></div>-->
+<!--								<div *ngIf="quizpercentage>0?false:true" >0%<br /></div>-->
+<!--							</div>-->
+<!--						</div>-->
+<!--					</div>-->
 					</div>
 					<div>
 						<h5 class="mb-1 uppercase">Quiz</h5>
@@ -138,14 +146,24 @@
 			<div class="card h-100">
 				<div class="card-body d-flex justify-content-evenly flex-column">
 					<div class="row mb-3">
-						<div class="col-md-6 col-lg-6 d-flex">
-							<button class="btn w-100 btn-secondary m-0 px-4 py-3 homecardbtn certificatelock">
-								<i class="fa-solid h2 fa-unlock-keyhole certificatelocked"></i>
-							</button>
+						<div class="col-md-12 col-lg-12 d-flex">
+<!--							<button class="btn w-100 btn-secondary m-0 px-4 py-3 homecardbtn certificatelock">-->
+<!--								<i class="fa-solid h2 fa-unlock-keyhole certificatelocked"></i>-->
+<!--							</button>-->
+                            <button (click)="openCertificate()" class="btn w-100 btn-primary m-0 px-4 py-3">
+                                <i class="fa-solid fa-file-certificate fa-2xl"></i>
+                                <!--								<p class="mb-0">Start<br />Reading</p>-->
+
+                                <div class="row mt-4">
+                                    <div class="col-12">
+                                        <span style="cursor: pointer;" class="ellipse-button fw-regular container-fluid">My Certificates</span>
+                                    </div>
+                                </div>
+                            </button>
 						</div>
 					</div>
 					<div>
-						<h5 class="mb-1 uppercase">Launching Soon</h5>
+						<h5 class="mb-1 uppercase">Certification</h5>
 						<p class="mb-0">Get certified for completing the quiz with an extraordinary score.</p>
 					</div>
 				</div>

@@ -297,6 +297,11 @@ export class DashboardComponent implements OnInit {
         this.router.navigate([`pages/modules/${moduleName}/`]);
     }
 
+
+    openCertificate(){
+        this.router.navigate([`pages/mycertificate`]);
+    }
+
     onClickQuizProgression(data: any): void {
         let moduleName = "";
         switch (data.module_name) {

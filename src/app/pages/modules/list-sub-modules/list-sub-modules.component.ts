@@ -409,7 +409,6 @@ export class ListSubModulesComponent implements OnInit {
     });
     this.selectedSubModule = id;
     this.router.navigate([`/pages/modules/${this.currentModuleSlug}/question-list/${this.selectedSubModule}`]);
-
   }
 
   selectAnswer(selectedOption: any, singleData: any, optNumber: number) {
