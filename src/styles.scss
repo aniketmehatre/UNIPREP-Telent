@@ -298,6 +298,18 @@ uni-modules {
 		display: flex;
 		flex-direction: column;
 	}
+	uni-learninghubquiz{
+		flex: 1;
+		overflow-y: auto; /* Enable vertical scrolling for overflowing content */
+		display: flex;
+		flex-direction: column;
+	}
+	uni-languagetypequiz{
+		flex: 1;
+		overflow-y: auto; /* Enable vertical scrolling for overflowing content */
+		display: flex;
+		flex-direction: column;
+	}
 }
 uni-tutorials,
 uni-guidelines,
