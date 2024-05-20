@@ -5,11 +5,7 @@ import { Location } from "@angular/common";
 import { LanguageHubDataService } from "../language-hub-data.service";
 import {MenuItem, MessageService} from 'primeng/api';
 import {ActivatedRoute, Router} from '@angular/router';
-import {JsonReaderService} from "../json-reader.service";
-import * as languageData from "../language.json";
-import {map} from "rxjs/operators";
-import {of} from "rxjs";
-import {Observable} from "rxjs/internal/Observable";
+import {translate, Translator} from "google-translate-api-x";
 
 @Component({
     selector: 'uni-question-list',
@@ -562,7 +558,6 @@ export class QuestionListComponent implements OnInit {
 
     constructor(private languageHubService: LanguageHubService, private lhs: LanguageHubDataService,
         private location: Location, private route: ActivatedRoute, private toast: MessageService,
-                private jsonReaderService: JsonReaderService,
                 private router: Router) {
         this.lhs.data$.subscribe((data) => {
             this.selectedLanguageId = data
@@ -691,6 +686,8 @@ export class QuestionListComponent implements OnInit {
     }
 
     voiceOverNative(voiceData: any, fullData: any) {
+        this.loadLang(voiceData);
+        return;
         var voiceName = '';
         const speech = new Speech()
         speech.init({
@@ -715,6 +712,11 @@ export class QuestionListComponent implements OnInit {
         }).catch((e: any) => {
             console.error("An error occurred :", e)
         })
+    }
+
+    async loadLang(voiceData: any){
+        const translator = await translate(voiceData, {to: 'hi', forceBatch: false});
+        const cat =  translate('cat');
     }
 
     onClickAsk() {

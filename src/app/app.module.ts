@@ -48,6 +48,7 @@ import { PrivacyComponent } from './pages/privacy/privacy.component';
 import {FacebookLoginProvider} from "angularx-social-login";
 import {NgxLinkedinModule} from "ngx-linkedin";
 import {MetaModule} from "@ngx-meta/core";
+import {DeviceDetectorService} from "ngx-device-detector";
  
 
 const reducers = {
@@ -113,6 +114,7 @@ export function tokenGetter() {
         MetaModule.forRoot(),
     ],
   providers: [
+      DeviceDetectorService,
       // FacebookInitService,
       // {
       //     provide: APP_INITIALIZER,
