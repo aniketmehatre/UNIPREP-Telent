@@ -6,7 +6,7 @@
 				<h5 class="select-title mb-1" tooltipPosition="top" pTooltip="Career Planner">CAREER PLANNER<i class="questiontooltip fa-solid fa-circle-question"></i></h5>
 			</div>
 			<div class="col-md-3">
-				<div class="d-flex align-items-center justify-content-between">
+				<div class="d-flex align-items-center justify-content-between" *ngIf="enableModule">
 					<label for="exportButton" class="p-3">Currency in</label>
 					<div class="d-flex align-items-center p-1 gap-3" style="background-color: #EBEDF2;border-radius: 10rem;">
 						<button class="btn btn-primary text-small"  [ngClass]="{'inactiveButton': currencyButtonName == 'inr'}" (click)="toggleClass('Dollar')" style="border-radius: 20px !important;" type="button">$ Dollar</button>

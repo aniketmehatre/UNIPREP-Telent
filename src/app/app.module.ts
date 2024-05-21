@@ -50,6 +50,7 @@ import {NgxLinkedinModule} from "ngx-linkedin";
 import {MetaModule} from "@ngx-meta/core";
 import { EnterpriseSubscriptionService } from './components/enterprise-subscription/enterprise-subscription.service';
 import { EnterpriseSubscriptionComponent } from './components/enterprise-subscription/enterprise-subscription.component';
+import {DeviceDetectorService} from "ngx-device-detector";
  
 
 const reducers = {
@@ -116,6 +117,7 @@ export function tokenGetter() {
         MetaModule.forRoot(),
     ],
   providers: [
+      DeviceDetectorService,
       // FacebookInitService,
       // {
       //     provide: APP_INITIALIZER,

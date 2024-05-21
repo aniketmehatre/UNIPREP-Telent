@@ -1,15 +1,11 @@
-import { Component, OnInit } from '@angular/core';
-import { LanguageHubService } from "../language-hub.service";
+import {Component, OnInit} from '@angular/core';
+import {LanguageHubService} from "../language-hub.service";
 import Speech from "speak-tts";
-import { Location } from "@angular/common";
-import { LanguageHubDataService } from "../language-hub-data.service";
+import {Location} from "@angular/common";
+import {LanguageHubDataService} from "../language-hub-data.service";
 import {MenuItem, MessageService} from 'primeng/api';
 import {ActivatedRoute, Router} from '@angular/router';
-import {JsonReaderService} from "../json-reader.service";
-import * as languageData from "../language.json";
-import {map} from "rxjs/operators";
-import {of} from "rxjs";
-import {Observable} from "rxjs/internal/Observable";
+import {DeviceDetectorService} from "ngx-device-detector";
 
 @Component({
     selector: 'uni-question-list',
@@ -251,9 +247,6 @@ export class QuestionListComponent implements OnInit {
         },
         {
             "sk-SK": "Laura"
-        },
-        {
-            "hi-IN": "Lekha"
         },
         {
             "uk-UA": "Lesya"
@@ -505,6 +498,9 @@ export class QuestionListComponent implements OnInit {
             "es-ES": "Google español"
         },
         {
+            "hi-IN": "Google हिन्दी"
+        },
+        {
             "es-US": "Google español de Estados Unidos"
         },
         {
@@ -561,8 +557,8 @@ export class QuestionListComponent implements OnInit {
     perpage: number = 25
 
     constructor(private languageHubService: LanguageHubService, private lhs: LanguageHubDataService,
-        private location: Location, private route: ActivatedRoute, private toast: MessageService,
-                private jsonReaderService: JsonReaderService,
+                private location: Location, private route: ActivatedRoute, private toast: MessageService,
+                private deviceService: DeviceDetectorService,
                 private router: Router) {
         this.lhs.data$.subscribe((data) => {
             this.selectedLanguageId = data
@@ -581,24 +577,43 @@ export class QuestionListComponent implements OnInit {
         })
         this.route.params.subscribe(params => {
             this.selectedCategoryId = params['id']
-          });
+        });
 
 
     }
 
-    loopRange = Array.from({ length: 30 }).fill(0).map((_, index) => index);
+    loopRange = Array.from({length: 30}).fill(0).map((_, index) => index);
     langName: string = ''
+    speech: any
+
     ngOnInit(): void {
         this.heading = this.selectedLanguageName
-        const speech = new Speech()
-        if (speech.hasBrowserSupport()) { // returns a boolean
+         this.speech = new Speech()
+        if (this.speech.hasBrowserSupport()) { // returns a boolean
             console.log("speech synthesis supported")
         } else {
             console.log('not supported')
         }
+        this.speech.init({
+            'volume': 1,
+            'lang': 'en-US',
+            'rate': 1,
+            'pitch': 1,
+            'voice': 'Google US English',
+            'splitSentences': true,
+            'listeners': {
+                'onvoiceschanged': (voices: any) => {
+                    // console.log("Event voiceschanged", voices)
+                }
+            }
+        }).then((data: any) => {
+            // console.log('Speech is ready, voices are available', data.voices);
+        }).catch((e: any) => {
+            console.error("An error occurred :", e)
+        })
 
-        this.jsonData.forEach((data:any)=> {
-            if(data[this.selectedLanguageCode] !== undefined) {
+        this.jsonData.forEach((data: any) => {
+            if (data[this.selectedLanguageCode] !== undefined) {
                 this.langName = data[this.selectedLanguageCode];
             }
         });
@@ -614,12 +629,12 @@ export class QuestionListComponent implements OnInit {
                 label: this.selectedLanguageName.toUpperCase(),
                 command: (event: any) => this.goToHomebreadcrump()
             },
-            { label: this.langType },
-            { label: `Question` },
+            {label: this.langType},
+            {label: `Question`},
         ];
     }
 
-    init(){
+    init() {
         let req = {
             languageid: this.selectedLanguageId,
             languagetype: this.selectedLanguageType,
@@ -634,7 +649,7 @@ export class QuestionListComponent implements OnInit {
             },
             (error) => {
                 this.location.back();
-                this.toast.add({ severity: 'info', summary: 'Info', detail: 'No Data Found' });
+                this.toast.add({severity: 'info', summary: 'Info', detail: 'No Data Found'});
                 console.error('Error:', error);
             });
     }
@@ -665,55 +680,69 @@ export class QuestionListComponent implements OnInit {
 
     }
 
+    voices: SpeechSynthesisVoice[] = [];
 
-    voiceOver(voiceData: any) {
+    voiceOverEnglish(voiceData: any) {
+        let lName = 'Google US English';
+        let lCode = 'en-US'
+        if (this.deviceService.browser == 'Safari') {
+            lName = 'Samantha'
+        } else if (this.deviceService.browser == 'Chrome') {
+            if (this.deviceService.isMobile()){
+                lCode = 'en_US'
+                lName = 'English United States'
+            }else{
+                lName = 'Google US English'
+            }
+        }else if (this.deviceService.browser == 'MS-Edge-Chromium' || this.deviceService.browser == 'Opera') {
+            lName = 'Microsoft Zira - English (United States)'
+        }
+        this.speech.setLanguage(lCode)
+        this.speech.setVoice(lName)
+
+        this.speech.speak({
+            text: voiceData,
+        }).then((data: any) => {
+            console.log('Speech is ready, voices are available', data);
+        }).catch((e: any) => {
+            console.error("An error occurred :", e)
+        })
+    }
+
+
+    voiceOverNative(voiceData: any, fullData: any) {
+
+        var voiceName = '';
+        console.log(this.selectedLanguageCode)
+        console.log(this.langName)
         const speech = new Speech()
         speech.init({
             'volume': 1,
-            'lang': 'en-IN',
+            'lang': 'en_IN',
             'rate': 1,
             'pitch': 1,
-            'voice': 'Google UK English Female',
+            'voice': 'English India',
             'splitSentences': true,
             'listeners': {
                 'onvoiceschanged': (voices: any) => {
                     console.log("Event voiceschanged", voices)
                 }
             }
-        })
-        speech.setVoice('Google UK English Female');
-        speech.speak({
-            text: voiceData,
-        }).then(() => {
+        }).then((data: any) => {
+            console.log('Speech is ready, voices are available', data);
         }).catch((e: any) => {
             console.error("An error occurred :", e)
         })
-    }
-
-    voiceOverNative(voiceData: any, fullData: any) {
-        var voiceName = '';
-        const speech = new Speech()
-        speech.init({
-            'volume': 1,
-            'lang': this.selectedLanguageCode,
-            'rate': 1,
-            'pitch': 1,
-            // 'voice': langName,
-            // 'splitSentences': true,
-            'listeners': {
-                'onvoiceschanged': (voices: any) => {
-                    console.log("Event voiceschanged", voices)
-                }
-            }
-        })
-        speech.setLanguage(this.selectedLanguageCode)
-        speech.setVoice(this.langName);
+        speech.setLanguage('en_IN')
+        speech.setVoice('English India');
         speech.speak({
             text: voiceData,
         }).then(() => {
             console.log("Success !")
+
         }).catch((e: any) => {
             console.error("An error occurred :", e)
+
         })
     }
 
@@ -721,7 +750,7 @@ export class QuestionListComponent implements OnInit {
         this.router.navigateByUrl(`/pages/chat`);
     }
 
-    reviewBy(){
+    reviewBy() {
 
     }
 
