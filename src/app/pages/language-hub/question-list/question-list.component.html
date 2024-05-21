@@ -152,43 +152,49 @@
                 <br>
 
                 <h3 class="unselectable d-md-block d-none">{{ oneQuestionContent?.english }}&nbsp;&nbsp;<span
-                        class="text-primary" (click)="voiceOver(oneQuestionContent.english)"> <i
+                        class="text-primary" (click)="voiceOverEnglish(oneQuestionContent.english)"> <i
                         class="fa-solid fa-volume-high"></i> Listen</span></h3>
                 <h4 class="unselectable d-md-none d-block">{{ oneQuestionContent?.english }}&nbsp;&nbsp;<span
-                        class="text-primary" (click)="voiceOver(oneQuestionContent.english)"> <i
+                        class="text-primary" (click)="voiceOverEnglish(oneQuestionContent.english)"> <i
                         class="fa-solid fa-volume-high"></i> Listen</span></h4>
 
                 <div class="fw-medium">{{ oneQuestionContent?.englishanswer }}&nbsp;&nbsp;<span class="text-primary"
-                                                                                                (click)="voiceOver(oneQuestionContent.englishanswer)"> <i
+                                                                                                (click)="voiceOverEnglish(oneQuestionContent.englishanswer)"> <i
                         class="fa-solid fa-volume-high"></i>
                         Listen</span></div>
 
                 <br>
                 <h3 class="unselectable d-md-block d-none">{{ oneQuestionContent?.languageenglish }}&nbsp;&nbsp;<span
                         class="text-primary"
-                        (click)="voiceOver(oneQuestionContent.languageenglish)"> <i
+                        (click)="voiceOverEnglish(oneQuestionContent.languageenglish)"> <i
                         class="fa-solid fa-volume-high"></i> Listen</span></h3>
                 <h4 class="unselectable d-md-none d-block">{{ oneQuestionContent?.languageenglish }}&nbsp;&nbsp;<span
                         class="text-primary"
-                        (click)="voiceOver(oneQuestionContent.languageenglish)"> <i
+                        (click)="voiceOverEnglish(oneQuestionContent.languageenglish)"> <i
                         class="fa-solid fa-volume-high"></i> Listen</span></h4>
                 <div class="fw-medium">{{ oneQuestionContent?.languageenglishanswer }}&nbsp;&nbsp;<span
-                        class="text-primary" (click)="voiceOver(oneQuestionContent.languageenglishanswer)"> <i
+                        class="text-primary" (click)="voiceOverEnglish(oneQuestionContent.languageenglishanswer)"> <i
                         class="fa-solid fa-volume-high"></i> Listen</span></div>
 
                 <br>
+<!--                <h3 class="unselectable d-md-block d-none">{{-->
+<!--                        oneQuestionContent?.languagenativequestion-->
+<!--                    }}</h3>-->
+<!--                <h4 class="unselectable d-md-none d-block">{{ oneQuestionContent?.languagenativequestion }} </h4>-->
+<!--                <div class="fw-medium">{{ oneQuestionContent?.languagenativeanswer }}</div>-->
+
                 <h3 class="unselectable d-md-block d-none">{{
                         oneQuestionContent?.languagenativequestion
                     }}&nbsp;&nbsp;<span class="text-primary"
-                                        (click)="voiceOverNative(oneQuestionContent.languagenativequestion, oneQuestionContent)">
+                                        (click)="voiceOverEnglish(oneQuestionContent.languageenglish)">
                     <i class="fa-solid fa-volume-high"></i> Listen</span></h3>
-                <h4 class="unselectable d-md-none d-block">{{ oneQuestionContent?.languagenativequestion }} <span
+                <h4 class="unselectable d-md-none d-block">{{ oneQuestionContent?.languageenglish }} <span
                         class="text-primary"
-                        (click)="voiceOverNative(oneQuestionContent.languagenativequestion, oneQuestionContent)"> <i
+                        (click)="voiceOverEnglish(oneQuestionContent.languageenglish)"> <i
                         class="fa-solid fa-volume-high"></i> Listen</span></h4>
-                <div class="fw-medium">{{ oneQuestionContent?.languagenativeanswer }}&nbsp;&nbsp;<span
+                <div class="fw-medium">{{ oneQuestionContent?.languageenglishanswer }}&nbsp;&nbsp;<span
                         class="text-primary"
-                        (click)="voiceOverNative(oneQuestionContent.languagenativeanswer, oneQuestionContent)">
+                        (click)="voiceOverEnglish(oneQuestionContent.languageenglishanswer)">
                         <i class="fa-solid fa-volume-high"></i> Listen</span></div>
             </div>
         </div>
