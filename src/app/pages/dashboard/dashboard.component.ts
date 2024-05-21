@@ -235,7 +235,7 @@ export class DashboardComponent implements OnInit {
         //   }
         // this.continueQuiz = "block";
         // this.checkQuestionQuiz()
-        this.router.navigateByUrl('/pages/modules/quizmodule')
+        this.router.navigate([`pages/modules/quizmodule`]);
     }
 
 
