@@ -48,6 +48,8 @@ import { PrivacyComponent } from './pages/privacy/privacy.component';
 import {FacebookLoginProvider} from "angularx-social-login";
 import {NgxLinkedinModule} from "ngx-linkedin";
 import {MetaModule} from "@ngx-meta/core";
+import { EnterpriseSubscriptionService } from './components/enterprise-subscription/enterprise-subscription.service';
+import { EnterpriseSubscriptionComponent } from './components/enterprise-subscription/enterprise-subscription.component';
 import {DeviceDetectorService} from "ngx-device-detector";
  
 
@@ -71,7 +73,7 @@ export function tokenGetter() {
 
 @NgModule({
   declarations: [
-    AppComponent,LandingComponent, ModalComponent, BlockCopyPasteDirective, ScrollToBottomDirective, PrivacyComponent,
+    AppComponent,LandingComponent, ModalComponent, BlockCopyPasteDirective, ScrollToBottomDirective, PrivacyComponent,EnterpriseSubscriptionComponent
   ],
     schemas: [ CUSTOM_ELEMENTS_SCHEMA],
     imports: [
@@ -106,6 +108,7 @@ export function tokenGetter() {
         TooltipModule,
         PipesModule,
         ConfirmDialogModule,
+        ToastModule,
        SocialLoginModule,
         // FacebookModule.forRoot(),
         NgxLinkedinModule.forRoot({
@@ -124,6 +127,7 @@ export function tokenGetter() {
       // },
     DatePipe,
     AuthService,
+    EnterpriseSubscriptionService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: HttpErrorInterceptor,
