@@ -5,3 +5,4 @@ package.json
 package-lock.json
 /.idea
 /.angular
+/src/environments/
