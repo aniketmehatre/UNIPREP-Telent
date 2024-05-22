@@ -62,7 +62,13 @@
 		</script>
     
 	</head>
-	<body oncontextmenu="return false;">
-		<app-root></app-root>
+	<body oncontextmenu="return onLoadFunc()">
+		<app-root ></app-root>
+        <script>
+            function onLoadFunc() {
+                const currentUrl = window.location.href;
+                return currentUrl.includes('/home');
+            }
+        </script>
 	</body>
 </html>

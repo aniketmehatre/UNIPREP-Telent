@@ -6,26 +6,32 @@
 					<i class="pi pi-search"></i>
 					<input class="w-100 px-5 py-2" type="text" placeholder="Search in Investor List" pInputText [(ngModel)]="valueNearYouFilter" (input)="performSearch($event)" />
 				</div>
-				<span class="d-flex justify-content-start p-2" style="white-space: nowrap;">
-					<input type="checkbox" class="me-0" style="transform: scale(1.5);" [(ngModel)]="selectAllCheckboxes" (click)="selectAllCheckbox()" id="selectAllcheckbox">
+				<span class="d-flex justify-content-start p-2" style="white-space: nowrap">
+					<input type="checkbox" class="me-0" style="transform: scale(1.5)" [(ngModel)]="selectAllCheckboxes" (click)="selectAllCheckbox()" id="selectAllcheckbox" />
 					<label class="p-2" for="selectAllcheckbox">Select All</label>
-					<span class="p-2">Selected : {{selectedInvestors}}</span>
-					<button class="btn btn-primary text-small" (click)="viewFavourites()" type="button">{{viewFavouritesLabel}}<span class="favCount" *ngIf="viewFavouritesLabel != 'View All'">{{favCount}}</span></button>
+					<span class="p-2">Selected : {{ selectedInvestors }}</span>
+					<button class="btn btn-primary text-small" (click)="viewFavourites()" type="button">
+						{{ viewFavouritesLabel }}<span class="favCount" *ngIf="viewFavouritesLabel != 'View All'">{{ favCount }}</span>
+					</button>
 				</span>
 			</div>
 			<div class="col-md-6 text-center">
 				<h5 class="select-title mb-1" tooltipPosition="top" pTooltip="">INVESTOR LIST</h5>
 			</div>
 			<div class="col-md-3 text-end">
-				<span class="d-flex justify-content-end mt-3 gap-2" style="white-space: nowrap;">
+				<span class="d-flex justify-content-end mt-3 gap-2" style="white-space: nowrap">
 					<button class="btn btn-primary text-small investor-guidlines" (click)="investorGuidlines()" type="button">Investor Guidelines</button>
 					<button class="btn btn-primary text-small investor-guidlines" (click)="buyCredits()" type="button">Buy Credits</button>
-					<button class="btn btn-primary text-small exportButton" (click)="exportData()" type="button">Export <span class="exportCount">{{exportCreditCount}}</span></button>
+					<button class="btn btn-primary text-small exportButton" (click)="exportData()" type="button">
+						Export <span class="exportCount">{{ exportCreditCount }}</span>
+					</button>
 				</span>
-				<div class="d-flex w-100 align-items-center justify-content-end p-2 gap-2" style="white-space: nowrap;">
-					<button class="btn btn-primary text-small ps-3 pe-3 pt-2 pb-2 br-8 p-1" style="background-color: #FF9113 !important;" (click)="openReport()" type="button">Report</button>
+				<div class="d-flex w-100 align-items-center justify-content-end p-2 gap-2" style="white-space: nowrap">
+					<button class="btn btn-primary text-small ps-3 pe-3 pt-2 pb-2 br-8 p-1" style="background-color: #ff9113 !important" (click)="openReport()" type="button">Report</button>
 					<div class="pe-2">
-						<span class="text-muted text-small"><strong>Total Investors : {{ totalInvestorsCount }}</strong></span>
+						<span class="text-muted text-small"
+							><strong>Total Investors : {{ totalInvestorsCount }}</strong></span
+						>
 					</div>
 					<button class="btn btn-primary text-small ps-3 pe-3 pt-2 pb-2 br-8" (click)="filterBy()" type="button">Filter by</button>
 				</div>
@@ -37,9 +43,12 @@
 					<div class="card investorcard h-100">
 						<div class="card-body d-flex flex-column justify-content-between">
 							<div class="d-flex justify-content-between align-items-start">
-								<input type="checkbox" (change)="onCheckboxChange($event)" class="me-2" style="transform: scale(1.5);" [(ngModel)]="investorListData.isChecked">
-								<h5 class="uniprep-primary" title="Investor Name">{{ investorListData.org_name }}</h5>
-								<i  [class]="investorListData.favourite==1?'fa-solid fa-bookmark':'fa-regular fa-bookmark'" style="color: #E90707;" (click)="bookmarkQuestion(investorListData.id,investorListData.favourite)"></i>
+								<div class="d-flex gap-2 align-items-start">
+									<input type="checkbox" (change)="onCheckboxChange($event)" class="mt-1" style="transform: scale(1.5)" [(ngModel)]="investorListData.isChecked" />
+									<h5 class="uniprep-primary" title="Investor Name">{{ investorListData.org_name }}</h5>
+								</div>
+
+								<i [class]="investorListData.favourite == 1 ? 'fa-solid fa-bookmark' : 'fa-regular fa-bookmark'" style="color: #e90707" (click)="bookmarkQuestion(investorListData.id, investorListData.favourite)"></i>
 							</div>
 							<div>
 								<div class="d-flex mt-2 gap-5 align-items-center">
@@ -59,7 +68,7 @@
 									</div>
 									<div class="gap-3 d-flex justify-content-end">
 										<div *ngIf="investorListData.website && investorListData.website.trim() !== ''">
-											<a target="_blank" href="{{ !investorListData.website.startsWith('http://') && !investorListData.website.startsWith('https://') ? 'http://' + investorListData.website : investorListData.website }}" ><i class="fa-solid fa-globe pr-2"></i></a>
+											<a target="_blank" href="{{ !investorListData.website.startsWith('http://') && !investorListData.website.startsWith('https://') ? 'http://' + investorListData.website : investorListData.website }}"><i class="fa-solid fa-globe pr-2"></i></a>
 										</div>
 										<div *ngIf="investorListData.email && investorListData.email.trim() !== ''">
 											<a target="_blank" href="mailto:{{ investorListData.email }}"><i class="fa-solid fa-envelope mailicon pr-2"></i></a>
@@ -82,7 +91,7 @@
 				</p>
 			</div>
 		</div>
-		
+
 		<p-paginator *ngIf="totalInvestorsCount != 0" [rows]="pageSize" [totalRecords]="totalInvestorsCount" (onPageChange)="pageChange($event)" [rowsPerPageOptions]="[50, 100, 300, 500, 1000]"></p-paginator>
 		<!--		<div *ngIf="restrict" class="investor-expired">-->
 		<!--			<div class="row justify-content-center">-->

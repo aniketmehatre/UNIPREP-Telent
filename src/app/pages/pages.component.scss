@@ -44,7 +44,7 @@ section {
     position: relative;
     transition: width 150ms ease-in-out;
     flex: 1 1 auto !important;
-    overflow-y: auto;
+    overflow-y: unset;
     width: 15%;
     scrollbar-width: thin !important;
     scrollbar-gutter: stable !important;

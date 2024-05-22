@@ -6,6 +6,7 @@ import { LandingComponent } from "./pages/landing/landing.component";
 import { AppComponent } from "./app.component";
 import { PrivacyComponent } from "./pages/privacy/privacy.component";
 import { CertificatesComponent } from "./pages/certificates/certificates.component";
+import { EnterpriseSubscriptionComponent } from "./components/enterprise-subscription/enterprise-subscription.component";
 const routes: Routes = [
   {
     path: '',
@@ -15,6 +16,10 @@ const routes: Routes = [
   {
     path: 'home',
     component: LandingComponent
+  },
+  {
+    path: 'enterprisepayment/:id',
+    component: EnterpriseSubscriptionComponent
   },
   {
     path: 'privacy',

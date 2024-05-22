@@ -1,14 +1,14 @@
 <div class="card readingcard bg-white">
 	<div class="card-body d-flex flex-column justify-content-between pt-0">
 		<div class="row justify-content-center">
-			<div class="col-md-1 text-start"></div>
-			<div class="col-md-8 text-center">
-				<h5 class="select-title mb-1" tooltipPosition="top" pTooltip="Career Planner">CAREER PLANNER<i class="questiontooltip fa-solid fa-circle-question"></i></h5>
+			<div class="col-md-3 text-start"></div>
+			<div class="col-md-6 text-center">
+				<h5 class="select-title w-100 mb-1" tooltipPosition="top" pTooltip="Career Planner">CAREER PLANNER<i class="questiontooltip fa-solid fa-circle-question"></i></h5>
 			</div>
 			<div class="col-md-3">
-				<div class="d-flex align-items-center justify-content-between" *ngIf="enableModule">
-					<label for="exportButton" class="p-3">Currency in</label>
-					<div class="d-flex align-items-center p-1 gap-3" style="background-color: #EBEDF2;border-radius: 10rem;">
+				<div class="d-flex gap-1 my-2 align-items-center justify-content-end">
+					<label for="exportButton" class="text-small">Currency in</label>
+					<div class="d-flex align-items-center p-1 gap-1" style="background-color: #EBEDF2;border-radius: 10rem;">
 						<button class="btn btn-primary text-small"  [ngClass]="{'inactiveButton': currencyButtonName == 'inr'}" (click)="toggleClass('Dollar')" style="border-radius: 20px !important;" type="button">$ Dollar</button>
 						<button class="btn btn-primary text-small"  [ngClass]="{'inactiveButton': currencyButtonName == 'Dollar'}" (click)="toggleClass('inr')" style="border-radius: 20px !important;" type="button">₹ INR</button>
 					</div>
@@ -76,7 +76,7 @@
 					<div class="row justify-content-center mb-0">
 						<div *ngFor="let subItems of item.value" class="col-xxl-2 col-xl-3 col-lg-4 col-md-4 col-sm-6 col-xs-12 col-12 mb-3">
 							<div class="row w-100 m-0 justify-content-center h-100">
-								<div class="card subjectcard" role="button">
+								<div class="card subjectcard">
 									<div class="card-body d-flex flex-column justify-content-between text-center py-2 px-0">
 										<div>
 											<div class="careerimage m-auto">
