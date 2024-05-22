@@ -577,13 +577,18 @@ export class QuestionListComponent implements OnInit {
   }
 
   openReport() {
-    let data = {
+    let data:any = {
       isVisible: true,
       moduleId: this.selectedQuestionData.module_id,
       subModuleId: this.selectedQuestionData.submodule_id,
       questionId: this.selectedQuestionData.id,
       from: "module",
     };
+    if(this.currentModuleId == 8){
+      data.reporttype=8;
+      // data.report_mode="other_module"
+      // delete data.from;
+    }
     this.dataService.openReportWindow(data);
   }
 
