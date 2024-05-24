@@ -14,7 +14,10 @@ export class LanguageListComponent implements OnInit {
     isSkeletonVisible: boolean = true;
     languageList: any
     restrict = false;
-    languageImageUrl: any
+    totalQuestionCount: any
+    page: number = 1
+    perpage: number = 25
+
 
     constructor(private languageHubService: LanguageHubService,
                 private lhs:LanguageHubDataService,
@@ -24,9 +27,18 @@ export class LanguageListComponent implements OnInit {
     loopRange = Array.from({length: 30}).fill(0).map((_, index) => index);
 
     ngOnInit(): void {
-        this.languageHubService.getLanguageList().subscribe((_res) => {
+       this.init()
+    }
+
+    init(){
+        let req = {
+            perpage: this.perpage,
+            page: this.page
+        }
+        this.languageHubService.getLanguageList(req).subscribe((_res) => {
             this.isSkeletonVisible = false
             this.languageList = _res.data
+            this.totalQuestionCount = _res.count
         });
     }
 
@@ -35,6 +47,13 @@ export class LanguageListComponent implements OnInit {
         this.lhs.setLanguageData(data.id)
         this.lhs.setLanguageCode(data.languagecode)
         this.router.navigate([`/pages/language-hub/levels/${data.id}`]);
+    }
+
+    paginatePost(event: any) {
+        console.log('comess')
+        this.page = event.page + 1;
+        this.perpage = event.rows;
+        this.init();
     }
 
 }

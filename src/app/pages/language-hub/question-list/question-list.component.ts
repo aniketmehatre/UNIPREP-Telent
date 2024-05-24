@@ -6,6 +6,7 @@ import {LanguageHubDataService} from "../language-hub-data.service";
 import {MenuItem, MessageService} from 'primeng/api';
 import {ActivatedRoute, Router} from '@angular/router';
 import {DeviceDetectorService} from "ngx-device-detector";
+import {AuthService} from "../../../Auth/auth.service";
 
 @Component({
     selector: 'uni-question-list',
@@ -555,10 +556,12 @@ export class QuestionListComponent implements OnInit {
     langType: any
     page: number = 1
     perpage: number = 25
+    planExpired: boolean = false;
+    restrict: boolean = false;
 
     constructor(private languageHubService: LanguageHubService, private lhs: LanguageHubDataService,
                 private location: Location, private route: ActivatedRoute, private toast: MessageService,
-                private deviceService: DeviceDetectorService,
+                private deviceService: DeviceDetectorService, private authService: AuthService,
                 private router: Router) {
         this.lhs.data$.subscribe((data) => {
             this.selectedLanguageId = data
@@ -587,6 +590,7 @@ export class QuestionListComponent implements OnInit {
     speech: any
 
     ngOnInit(): void {
+        this.checkPlanExpiry()
         this.heading = this.selectedLanguageName
          this.speech = new Speech()
         if (this.speech.hasBrowserSupport()) { // returns a boolean
@@ -672,6 +676,11 @@ export class QuestionListComponent implements OnInit {
     }
 
     viewOneQuestion(data: any) {
+        this.checkPlanExpiry();
+        if (this.planExpired) {
+            this.restrict = true;
+            return;
+        }
         this.isQuestionAnswerVisible = true
         this.oneQuestionContent = data;
     }
@@ -760,5 +769,23 @@ export class QuestionListComponent implements OnInit {
         this.init();
     }
 
+    checkPlanExpiry(): void {
+        this.authService.getNewUserTimeLeft().subscribe((res) => {
+            let data = res.time_left;
+            let subscription_exists_status = res.subscription_details;
+            if (data.plan === "expired" || data.plan === 'subscription_expired') {
+                this.planExpired = true;
+            } else {
+                this.planExpired = false;
+            }
+        })
+    }
+    upgradePlan(): void {
+        this.router.navigate(["/pages/subscriptions"]);
+    }
+
+    clearRestriction() {
+        this.restrict = false;
+    }
 
 }

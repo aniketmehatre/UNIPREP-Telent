@@ -62,6 +62,9 @@
             </div>
         </div>
     </div>
+    <div class="card" style="background-color: #fff; border-radius: 0px 0px 15px 15px !important">
+        <p-paginator [rows]="perpage" [totalRecords]="totalQuestionCount" (onPageChange)="paginatePost($event)" [rowsPerPageOptions]="[25, 50, 100, 200]" dropdownAppendTo="body"></p-paginator>
+    </div>
 </div>
 <!--<p-dialog class="quizmodal" header="Header" footer="Footer" [draggable]="false" [modal]="true" [(visible)]="isStartQuiz" [style]="{ width: '70vw' }" [closable]="false">-->
 <!--    <ng-template pTemplate="header">-->

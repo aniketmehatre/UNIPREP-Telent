@@ -31,7 +31,7 @@
                 </div>
             </div>
         </div>
-        <div class="row mb-0" *ngIf="!isSkeletonVisible">
+        <div class="row mb-0 justify-content-center" *ngIf="!isSkeletonVisible">
             <div *ngFor="let sub of languageTypeList" class="col-lg-2 col-md-3 col-sm-4 col-xs-12 col-12">
                 <div class="row w-100 m-0 justify-content-center h-100">
                     <div (click)="onLanguageTypeClick(sub.id, sub)"  class="card subjectcard" role="button">

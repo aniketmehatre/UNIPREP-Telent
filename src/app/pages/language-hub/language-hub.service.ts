@@ -10,9 +10,9 @@ export class LanguageHubService {
   constructor(private http: HttpClient) { }
 
   // language listing
-  getLanguageList() {
+  getLanguageList(req: any) {
     const headers = new HttpHeaders().set("Accept", "application/json");
-    return this.http.post<any>(environment.ApiUrl + "/getlanguages", {}, {
+    return this.http.post<any>(environment.ApiUrl + "/getlanguages", req, {
       headers: headers,
     });
   }
