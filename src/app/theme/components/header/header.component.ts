@@ -92,6 +92,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   timeLeftInfo: any;
   freeTrialErrorMsg: string = '';
   demoTrial: boolean = false;
+  reportlearnlanguagetype:number=0;
   constructor(
     private router: Router,
     private locationService: LocationService,
@@ -303,7 +304,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.dataService.openReportWindowSource.subscribe((data) => {
       // if(data.from == 'module'){
       //   this.isQuestionVisible = false
-      // }
+      // }      
       if (data.isVisible) {
         this.moduleQuestionReport = data;
         this.moduleList = [];
@@ -315,9 +316,15 @@ export class HeaderComponent implements OnInit, OnDestroy {
         this.selectedGenMod = 2;
         this.openReportModalFromMoudle(this.op, event);
         this.reportType = 3;
-
+        //pass type_of_report  parameter for learning hub 
+        if(data.reporttype==8){
+          this.reportlearnlanguagetype = 8;
+        }else{
+          this.reportlearnlanguagetype = 0;
+        }
         if (data.report_mode && data.report_mode == "other_module") {
           this.subs.sink = this.locationService.getModuleReportOptionLists(data).subscribe((response) => {
+            
             this.reportOptionList = [
               { id: null, reportoption_name: "Select" },
               ...response.reportOptions,
@@ -441,7 +448,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
         this.reportOptionList = [
           { id: null, reportoption_name: "Select" },
           ...reportTypeData,
-        ];
+        ];   
       });
   }
   isCountryPopupOpen: any;
@@ -642,7 +649,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
       });
       return;
     }
-
     data = {
       moduleId: this.moduleQuestionReport.moduleId
         ? this.moduleQuestionReport.moduleId
@@ -656,7 +662,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
       reportOption: this.reportSubmitForm.value.reportOption,
       comment: this.reportSubmitForm.value.comment,
       countryId: this.selectedCountryId,
-      type_of_report: (this.reportType == 4 || this.reportType == 5 || this.reportType == 6 || this.reportType == 7) ? this.reportType : undefined
+      type_of_report: (this.reportType == 4 || this.reportType == 5 || this.reportType == 6 || this.reportType == 7) ? this.reportType : this.reportlearnlanguagetype==8 ? this.reportlearnlanguagetype: undefined
     };
     if (data.moduleId == 8) {
       data.countryId = 0;
@@ -707,7 +713,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
       data.demo_user = 1;
     }
     this.dashboardService.getContineTrial(data).subscribe((res) => {
-      console.log(res);
       if (this.demoTrial == true) {
         this.toast.add({
           severity: "success",

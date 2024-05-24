@@ -343,7 +343,6 @@ export class QuestionListComponent implements OnInit {
       //this.ngxService.stop();
       this.meta.updateTag({ property: 'og:image', content: res.country_flag });
       this.mService.studentsSubmoduleQuestions(data).subscribe((data: any) => {
-        console.log(data);
         this.questionListData = data?.questions;
         this.isSkeletonVisible = false;
         this.totalQuestionCount = data?.questioncount;
@@ -577,13 +576,16 @@ export class QuestionListComponent implements OnInit {
   }
 
   openReport() {
-    let data = {
+    let data:any = {
       isVisible: true,
       moduleId: this.selectedQuestionData.module_id,
       subModuleId: this.selectedQuestionData.submodule_id,
       questionId: this.selectedQuestionData.id,
       from: "module",
     };
+    if(this.currentModuleId == 8){
+      data.reporttype=8;
+    }
     this.dataService.openReportWindow(data);
   }
 
