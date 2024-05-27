@@ -300,11 +300,26 @@
      display: none !important;
    }
  }
+ .scrollable-container {
+	display: flex;
+	overflow-x: hidden;
+	align-items: center;
+}
+.answercard {
+	background-color: transparent;
+	border: none;
+	// max-height: 50vh;
+	overflow-y: auto;
+	.readingheight
+	{
+	  max-height:40vh;
+	  overflow-y:auto;
+	  min-height: 35vh;
+	}
+  }
 
- :host ::ng-deep .p-carousel-item {
-   max-height: 0;
- }
-
- :host ::ng-deep .p-carousel-item-active {
-   max-height: 100% !important;
- }
+  .cardnobg
+  {
+	background: transparent;
+    border: none;
+  }

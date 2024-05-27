@@ -36,6 +36,9 @@ export class RegistrationComponent implements OnInit {
   programLevelList: any;
   intrestedCountryList: any;
   countryCodes: any;
+  currentLocationCountry:string = "";
+  currentLocationCity:string = "";
+  currentLocationState:string = "";
 
   public otpForm: any = FormGroup;
   public emailOTPForm: any = FormGroup;
@@ -197,6 +200,7 @@ export class RegistrationComponent implements OnInit {
       { label: "2026", value: "2026" },
       { label: "2027", value: "2027" },
     ];
+    this.getUserLocation(); //while registering the user needs to get the location based city, state, region, country.
   }
 
   yearChage(event: any) {
@@ -303,11 +307,14 @@ export class RegistrationComponent implements OnInit {
       // programlevel_id: this.registrationForm.value.programLevel.id,
       // gender: this.registrationForm.value.gender.label,
       password: this.registrationForm.value.password,
-      password_confirmation: this.registrationForm.value.password,
+      password_confirmation: this.registrationForm.value.confirmPassword,
       platform_id: 1,
       usertype_id: 1,
       // country_id: this.registrationForm.value.country,
       country_code: this.registrationForm.value.contactNumber.dialCode,
+      current_country_location: this.currentLocationCountry,
+      current_city_location: this.currentLocationCity,
+      current_state_location: this.currentLocationState,
     };
 
     this.service.Registraion(data).subscribe(
@@ -325,14 +332,40 @@ export class RegistrationComponent implements OnInit {
         this.router.navigate(["/pages/dashboard"]);
       },
       (error) => {
-        const message = error.error.message;
+        
+        const message = error.error?.message!=undefined?error.error?.message:error?.message;
+         
         this.toastr.add({
           severity: "error",
           summary: "Failed",
-          detail: error.error.message,
+          detail: message,
         });
       }
     );
+  }
+
+  getUserLocation(){
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+      (position) => {
+        const longitude = position.coords.longitude;
+        const latitude = position.coords.latitude;
+        fetch(`https://nominatim.openstreetmap.org/reverse?lat=${latitude}&lon=${longitude}&format=json`).then(response => response.json()).then(data => {
+          this.currentLocationCountry = data.address.country;
+          this.currentLocationCity = data.address.city;
+          this.currentLocationState = data.address.state;
+        })
+      },(error)=>{
+        //if you're not giving the location access get the current country name using IP address
+        fetch('https://ipapi.co/json/').then(response => response.json()).then(data => {
+          this.currentLocationCountry = data.country_name;
+          this.currentLocationCity = data.city;
+          this.currentLocationState = data.region;
+        });
+      });
+    } else {
+      console.log("No support for geolocation")
+    }
   }
 
   openTermsPopup() {

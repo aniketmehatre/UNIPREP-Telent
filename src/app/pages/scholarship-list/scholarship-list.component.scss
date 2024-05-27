@@ -282,6 +282,10 @@
   align-items: center !important;
   height: 100%;
 }
+p-dialog ::ng-deep.p-dialog.p-component{
+  box-shadow: 0 0 0 100000px rgba(0,0,0,.2);
+}
+
 .companny-list {
   background-color: white !important;
   border: 1.5px solid orange;
@@ -349,4 +353,17 @@
       width: 100%;
     }
   }
+::ng-deep.p-multiselect-panel {
+    width: 80vw !important;
+    .p-multiselect-item span{
+      text-wrap: pretty !important;
+    }
+  }
+}
+.favCount{
+	padding: 6px;
+	border-radius: 25px;
+	color:#3F4C83;
+	background-color: white;
+	margin-left: 5px;
 }

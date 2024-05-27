@@ -7,7 +7,7 @@ import { ModuleServiceService } from "../../module-store/module-service.service"
 import { DataService } from "../../../data.service";
 import { LocationService } from "../../../location.service";
 import { AuthService } from 'src/app/Auth/auth.service';
-import {NgxUiLoaderService} from "ngx-ui-loader";
+import { NgxUiLoaderService } from "ngx-ui-loader";
 
 @Component({
   selector: 'uni-list-sub-modules',
@@ -50,13 +50,14 @@ export class ListSubModulesComponent implements OnInit {
   planExpired!: boolean;
   countryName!: string;
   isSkeletonVisible: boolean = true;
-  countryId: any
+  countryId: any;
+  canShowQuestionList: boolean = false;
   constructor(private moduleListService: ModuleServiceService, private router: Router, private dataService: DataService, private authService: AuthService,
     private locationService: LocationService, private route: ActivatedRoute, private ngxService: NgxUiLoaderService,
     private confirmationService: ConfirmationService) {
     this.countryId = Number(localStorage.getItem('countryId'));
     this.dataService.countryIdSource.subscribe((data) => {
-      if(this.countryId != data){
+      if (this.countryId != data) {
         this.ngOnInit();
       }
       //localStorage.setItem('countryId', data);
@@ -84,11 +85,11 @@ export class ListSubModulesComponent implements OnInit {
     ];
   }
   loopRange = Array.from({ length: 30 }).fill(0).map((_, index) => index);
-  ngOnInit(){
+  ngOnInit() {
     this.init();
   }
 
-  init(){
+  init() {
     this.currentCountryId = Number(localStorage.getItem('countryId'));
     this.currentModuleSlug = this.router.url.split('/').pop();
     this.dataService.countryNameSource.subscribe((data) => {
@@ -100,40 +101,40 @@ export class ListSubModulesComponent implements OnInit {
         this.currentModuleName = 'Pre-Admission';
         this.currentApiSlug = 'SubmoduleListForStudents';
         this.infoMessage = 'Upgrade to access the Pre-admission section',
-            this.unlockMessage = 'Unlock the power of success with our exclusive Pre-admission!',
-            this.upgradePlanMsg = 'Upgrade your plan now to gain instant access.';
+          this.unlockMessage = 'Unlock the power of success with our exclusive Pre-admission!',
+          this.upgradePlanMsg = 'Upgrade your plan now to gain instant access.';
         this.aboutModule = 'Explore a vast database of Q&A about:',
-            this.moduleDetails = 'Scholarships, document checklist, Education loan, letter of Recommendation and many more!'
+          this.moduleDetails = 'Scholarships, document checklist, Education loan, letter of Recommendation and many more!'
         break;
       case 'travel-and-tourism':
         this.currentModuleId = 7;
         this.currentModuleName = 'Travel-and-Tourism';
         this.currentApiSlug = 'SubmoduleListForStudents';
         this.infoMessage = 'Upgrade to access the travel-and-tourism',
-            this.unlockMessage = 'Unlock the power of success with our exclusive travel-and-tourism!',
-            this.upgradePlanMsg = 'Upgrade your plan now to gain instant access.';
+          this.unlockMessage = 'Unlock the power of success with our exclusive travel-and-tourism!',
+          this.upgradePlanMsg = 'Upgrade your plan now to gain instant access.';
         this.aboutModule = 'Explore a vast database of Q&A about:',
-            this.moduleDetails = 'Visa, departure, healthcare, tuition fees and many more!'
+          this.moduleDetails = 'Visa, departure, healthcare, tuition fees and many more!'
         break;
       case 'post-admission':
         this.currentModuleId = 3;
         this.currentModuleName = 'Post-Admission';
         this.currentApiSlug = 'SubmoduleListForStudents';
         this.infoMessage = 'Upgrade to access the post-admission',
-            this.unlockMessage = 'Unlock the power of success with our exclusive post-admission!',
-            this.upgradePlanMsg = 'Upgrade your plan now to gain instant access.';
+          this.unlockMessage = 'Unlock the power of success with our exclusive post-admission!',
+          this.upgradePlanMsg = 'Upgrade your plan now to gain instant access.';
         this.aboutModule = 'Post-admission offers information about:',
-            this.moduleDetails = ' Arrival, student discounts, banking, full time jobs, post study work and many more!'
+          this.moduleDetails = ' Arrival, student discounts, banking, full time jobs, post study work and many more!'
         break;
       case 'career-hub':
         this.currentModuleId = 4;
         this.currentModuleName = 'Career Hub';
         this.currentApiSlug = 'SubmoduleListForStudents';
         this.infoMessage = 'Upgrade to access the Career Hub',
-            this.unlockMessage = '',
-            this.upgradePlanMsg = 'Upgrade your plan now to gain instant access.';
+          this.unlockMessage = '',
+          this.upgradePlanMsg = 'Upgrade your plan now to gain instant access.';
         this.aboutModule = 'Explore a vast database of Q&A about:',
-            this.moduleDetails = ' Arrival, student discounts, banking, full time jobs, post study work and many more!'
+          this.moduleDetails = ' Arrival, student discounts, banking, full time jobs, post study work and many more!'
         break;
       case 'university':
         this.currentModuleId = 5;
@@ -141,16 +142,26 @@ export class ListSubModulesComponent implements OnInit {
         this.currentApiSlug = 'SubmoduleListForStudents';
         this.selectedModule = 'university'
         break;
+      case 'learning-hub':
+        this.currentModuleId = 8;
+        this.currentModuleName = 'Learning Hub';
+        this.currentApiSlug = 'SubmoduleListForStudents';
+        this.infoMessage = 'Upgrade to access the Learning Hub',
+          this.unlockMessage = ' ',
+          this.upgradePlanMsg = 'Upgrade your plan now to gain instant access.';
+        this.aboutModule = 'Explore a vast database of Q&A about:',
+          this.moduleDetails = ' Arrival, student discounts, banking, full time jobs, post study work and many more!'
+        break;
       default:
         this.currentModuleId = 6;
         this.currentModuleName = 'Life At ' + this.countryName;
         this.currentApiSlug = 'SubmoduleListForStudents';
         this.infoMessage = 'Upgrade to access information about life in your chosen destination',
-            this.unlockMessage = 'Unlock the power of success with our exclusive destination',
-            this.upgradePlanMsg = 'Upgrade your plan now to gain instant access.';
+          this.unlockMessage = 'Unlock the power of success with our exclusive destination',
+          this.upgradePlanMsg = 'Upgrade your plan now to gain instant access.';
         this.aboutModule = 'Explore a vast database of Q&A about:',
-            this.moduleDetails = 'Festivals, events, currency, budget, housing and many more!',
-            this.selectedModule = 'life-at-country'
+          this.moduleDetails = 'Festivals, events, currency, budget, housing and many more!',
+          this.selectedModule = 'life-at-country'
         break;
 
     }
@@ -164,22 +175,32 @@ export class ListSubModulesComponent implements OnInit {
       this.startQuiz();
     }
     this.checkplanExpire();
+    this.checkquizquestionmodule();
   }
 
   loadModuleAndSubModule() {
     this.currentCountryId = Number(localStorage.getItem('countryId'));
     //this.isSkeletonVisible = true;
     //this.subModules$ = this.moduleListService.subModuleList$();
-    let data = {
-      countryId: this.currentCountryId,
+    let data: any = {
       moduleId: this.currentModuleId,
-      api_module_name: this.currentApiSlug
+    }
+    if (this.currentModuleId == 8) {
+      data.category_flag = 1;
+    }else{
+      data.country_id=this.currentCountryId;
+      data.api_module_name=this.currentApiSlug;
     }
     //this.moduleListService.loadSubModules(data);
     this.locationService.GetQuestionsCount(data).subscribe(data => {
+
       this.isSkeletonVisible = false;
       this.subModuleList = data;
-    })
+      if (this.currentModuleId == 8) {
+        this.subModuleList.map(list => list.submodule_name = list.category);
+      }
+
+    });
     // this.subModules$.subscribe(event => {
     //   this.subModuleList = event;
     // });
@@ -198,8 +219,10 @@ export class ListSubModulesComponent implements OnInit {
     }
     this.moduleListService.quizList(data);
     this.quizList$ = this.moduleListService.quizList$();
+    console.log(this.quizList$);
 
     this.quizList$.subscribe((data) => {
+      console.log(data);
       if (data) {
         this.quizData = data.map((val: any) => {
           let moduleData = this.moduleList.filter(ind => ind.id == val.module_id)[0]!.module_name;
@@ -296,7 +319,7 @@ export class ListSubModulesComponent implements OnInit {
     { label: singleQuizData.sub_module_name }];
     carouselQuiz.navForward(event, this.selectedQuiz);
   }
-  restrict=false;
+  restrict = false;
   clickSubmitQuiz() {
     this.quizData.forEach((data) => {
       if (data.answer == data.user_answered) {
@@ -337,16 +360,17 @@ export class ListSubModulesComponent implements OnInit {
   }
 
   startQuiz() {
-    let cName = "";
-    this.dataService.countryNameSource.subscribe(countryName => {
-      cName = countryName;
-    });
-    this.quizData = [];
-    this.loadModuleAndSubModule();
-    this.getQuizData();
-    this.selectedQuiz = 1;
-    this.positionNumber = 1;
-    this.isInstructionVisible = true;
+    this.router.navigate([`/pages/modules/${this.currentModuleSlug}/quiz`]);
+    // let cName = "";
+    // this.dataService.countryNameSource.subscribe(countryName => {
+    //   cName = countryName;
+    // });
+    // this.quizData = [];
+    // this.loadModuleAndSubModule();
+    // this.getQuizData();
+    // this.selectedQuiz = 1;
+    // this.positionNumber = 1;
+    // this.isInstructionVisible = true;
   }
 
   setPage(page: any) {
@@ -365,6 +389,19 @@ export class ListSubModulesComponent implements OnInit {
     //   this.restrict=true;
     //   return;
     // }
+    if (this.currentModuleId == 8 && !this.canShowQuestionList) {
+      let data: any = {
+        moduleId: this.currentModuleId,
+        category_id :this.subModuleList.find(list=>list.submodule_id==id)?.category_id
+      }
+      this.isSkeletonVisible = true;
+      this.locationService.GetQuestionsCount(data).subscribe(data => {
+        this.isSkeletonVisible = false;
+        this.subModuleList = data;
+      });
+      this.canShowQuestionList = true;
+      return;
+    }
     this.subModuleList.forEach((element: any) => {
       if (element.id === id) {
         this.selectedSubModule = element.country;
@@ -372,7 +409,6 @@ export class ListSubModulesComponent implements OnInit {
     });
     this.selectedSubModule = id;
     this.router.navigate([`/pages/modules/${this.currentModuleSlug}/question-list/${this.selectedSubModule}`]);
-
   }
 
   selectAnswer(selectedOption: any, singleData: any, optNumber: number) {
@@ -422,7 +458,22 @@ export class ListSubModulesComponent implements OnInit {
   upgradePlan(): void {
     this.router.navigate(["/pages/subscriptions"]);
   }
+  goBack(){
+    this.isSkeletonVisible = true;
+    this.loadModuleAndSubModule();
+    this.canShowQuestionList=false;
+  }
   clearRestriction() {
     this.restrict = false;
+  }
+  quizpercentage: any = 0
+  checkquizquestionmodule() {
+    var data = {
+      moduleid: this.currentModuleId,
+      countryid: this.currentCountryId
+    }
+    this.moduleListService.checkModuleQuizCompletion(data).subscribe((res) => {
+      this.quizpercentage = res.progress
+    })
   }
 }

@@ -33,8 +33,7 @@
 	</div>
 </div>
 
-
-<p-dialog #dialogContent [(visible)]="isQuestionAnswerVisible" [draggable]="false" [modal]="true" class="questionmodal" header="Header" [maximizable]="true" >
+<p-dialog #dialogContent [(visible)]="isQuestionAnswerVisible" [draggable]="false" [modal]="true" class="questionmodal" header="Header" [maximizable]="true">
 	<ng-template pTemplate="header">
 		<div class="d-flex w-100 flex-column px-4">
 			<div class="d-flex flex-row justify-content-md-between justify-content-center">
@@ -46,26 +45,22 @@
 				</div>
 
 				<div class="col-md-10 col-8">
-                    <h5 class="select-title w-100 text-center mb-0">Searched For - {{ searchInputValue | uppercase }}</h5>
-                    <div class="row justify-content-center">
-                        <div class="col">
-                            <div class="d-flex justify-content-end">
-                                <a role="button" *ngIf="isAnswerDialogVisiblePrev" (click)="clickPrevious(carousel, $event)"> <i class="text-green h4 mx-3 mb-0 fa-solid fa-circle-chevron-left"></i></a>
-                            </div>
-                        </div>
-                        <div class="col">
-                            <p-breadcrumb [model]="breadCrumb" class="w-100 mt-2 d-md-block d-none text-small"></p-breadcrumb>
-<!--                            <p class="mb-0 fw-semibold">Question Number {{ selectedQuestion + 1 }}</p>-->
-                        </div>
-                        <div class="col">
-                            <a role="button" *ngIf="isAnswerDialogVisibleNext" (click)="clickNext(carousel, $event)"><i class="text-green mx-3 h4 fa-solid mb-0 fa-circle-chevron-right"></i></a>
-
-                        </div>
-
-                    </div>
-
-
-                </div>
+					<h5 class="select-title w-100 text-center mb-0">Searched For - {{ searchInputValue | uppercase }}</h5>
+					<div class="row justify-content-center">
+						<div class="col">
+							<div class="d-flex justify-content-end">
+								<a role="button" *ngIf="isAnswerDialogVisiblePrev" (click)="clickPrevious(carousel, $event)"> <i class="text-green h4 mx-3 mb-0 fa-solid fa-circle-chevron-left"></i></a>
+							</div>
+						</div>
+						<div class="col">
+							<p-breadcrumb [model]="breadCrumb" class="w-100 mt-2 d-md-block d-none text-small"></p-breadcrumb>
+							<!--                            <p class="mb-0 fw-semibold">Question Number {{ selectedQuestion + 1 }}</p>-->
+						</div>
+						<div class="col">
+							<a role="button" *ngIf="isAnswerDialogVisibleNext" (click)="clickNext(carousel, $event)"><i class="text-green mx-3 h4 fa-solid mb-0 fa-circle-chevron-right"></i></a>
+						</div>
+					</div>
+				</div>
 				<div class="d-md-block d-none">
 					<button (click)="openReport()" class="btn btn-primary px-3 homecardbtn my-2">
 						<i class="fa-solid h5 fa-file-contract"></i>
@@ -94,12 +89,15 @@
 		</div>
 	</ng-template>
 	<div class="carousel-container px-4">
-		<p-carousel #carousel [circular]="true" [numScroll]="1" [numVisible]="1" [page]="selectedQuestion" [responsiveOptions]="responsiveOptions" [value]="searchResult" class="">
+		<p-carousel #carousel [circular]="true" [numScroll]="1" [numVisible]="1" [page]="selectedQuestion" [responsiveOptions]="responsiveOptions" [value]="searchResult" class="answersection">
 			<ng-template [ngForOf]="searchResult" let-i="index" let-val ngFor pTemplate="item">
-				<div class="card answercard answersection">
+				<div class="card cardnobg">
 					<div class="card-body text-start">
 						<p class="text-small blockquote text-start mb-0">
-							Last updated at: {{ val.updated_at | date }} <span class="badge" style="background-color: {{ val.pre_verified == 1 ? 'darkorchid' : '#3f4c83' }};"> {{ val.pre_verified == 1 ? "Pre Verified" : "Non Pre-Verified" }}</span>
+							Last updated at: {{ val.updated_at | date }}
+							<span class="badge" [ngStyle]="{'background-color': val.pre_verified == 1 ? 'darkorchid' : '#3f4c83'}">
+								{{ val.pre_verified == 1 ? "Pre Verified" : "Non Pre-Verified" }}
+							</span>
 						</p>
 						<h3 class="unselectable" [innerHTML]="val.question"></h3>
 						<div class="fw-medium worksans unselectable" style="white-space: pre-wrap" [innerHTML]="val.answer"></div>
@@ -108,13 +106,14 @@
 			</ng-template>
 		</p-carousel>
 	</div>
+	
 	<ng-template pTemplate="footer">
 		<div class="d-flex justify-content-between flex-column flex-md-row px-4 my-4">
 			<div class="flex-full" *ngIf="videoLinks">
-				<h5 class="text-start">Recommended Videos</h5>
+				<h5 class="text-start mb-1">Recommended Videos</h5>
 				<div class="d-flex align-items-center gap-2 pb-2">
 					<div class="scrollable-container" id="video-links-container" #videoLinksContainer>
-						<div class="scroll-content">
+						<div class="d-flex flex-nowrap flex-md-wrap overflow-x-auto gap-2">
 							<span class="btn btn-primary text-small videolinkbutton flex-shrink-0" (click)="openVideoPopup(videoL.link)" *ngFor="let videoL of videoLinks; let ind = index">Video {{ ind + 1 }} &nbsp;<i class="fa-solid fa-video"></i></span>
 						</div>
 					</div>
@@ -124,17 +123,17 @@
 				<h5 class="text-start">Recommended Links</h5>
 				<div class="d-flex align-items-center gap-2 pb-2">
 					<div class="scrollable-container" id="ref-links-container" #refLinksContainer>
-						<div class="scroll-content">
+						<div class="d-flex flex-nowrap flex-md-wrap overflow-x-auto gap-2">
 							<a class="btn btn-secondary reflinkbutton" target="_blank" href="{{ refL.link }}" *ngFor="let refL of refLink; let ind = index">Link {{ ind + 1 }} &nbsp;<i class="fa-solid fa-link"></i></a>
 						</div>
 					</div>
 				</div>
 			</div>
-			<div class="flex-shrink-0 align-items-center d-flex">
+			<div class="align-items-center d-flex desktop">
 				<button class="btn w-100 btn-primary theme-dark-blue mx-0 px-5 py-2" (click)="onClickAsk()">
 					<i class="fa-solid h5 fa-file-contract"></i>
-					<br />
-					Click here to ask<br />Personalised Questions
+					<br class="d-md-block d-none" />
+					Click here to ask<br class="d-md-block d-none" />Personalised Questions
 				</button>
 			</div>
 		</div>

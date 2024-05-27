@@ -1,13 +1,14 @@
 import {Component, HostListener, OnDestroy, OnInit, Output} from "@angular/core";
 import {PageFacadeService} from "./page-facade.service";
 import {SubSink} from "subsink";
-import { NavigationEnd, Router } from "@angular/router";
+import {ActivatedRoute, NavigationEnd, Router} from "@angular/router";
 import { DataService } from "../data.service";
 import {DashboardService} from "./dashboard/dashboard.service";
 import { AuthService } from "../Auth/auth.service";
 import {DeviceDetectorService} from "ngx-device-detector";
 // @ts-ignore
 import Contlo from 'contlo-web-sdk';
+import {Meta, Title} from "@angular/platform-browser";
 
 @Component({
     selector: "uni-pages",
@@ -27,31 +28,41 @@ export class PagesComponent implements OnInit, OnDestroy {
     isDeviceStatus: any = 'none';
     isLoggedInAnotherDevice: any = 'none';
     deviceInfo: any;
+
+    ogTitle = '';
+    ogDescription = 'UNIPREP is a one-stop platform for students, graduates & entrepreneurs, seeking information on Career, Life and Study abroad. Sign-up Now - Free!';
+    ogImage = '../../uniprep-assets/images/uniprep-light.svg';
+
     @Output() expandicon = !this.sidebarClass
         ? "pi-align-right"
         : "pi-align-justify";
     private subs = new SubSink();
     visibleExhastedUser!: boolean;
     constructor(private pageFacade: PageFacadeService, private router: Router, private dataService: DataService,
+                public meta: Meta, private titleService: Title, private route: ActivatedRoute,
                 private dashboardService: DashboardService,private service:AuthService, private deviceService: DeviceDetectorService) {
-       Contlo.init('d7a84b3a1d83fa9f7e33f7396d57ac88', 'https://dev-student.uniprep.ai');
+       // dev
+        Contlo.init('d7a84b3a1d83fa9f7e33f7396d57ac88', 'https://dev-student.uniprep.ai');
 
+        //prod
+        //Contlo.init('a98318a62995cdf7c078c3fcaf912e65', 'https://uniprep.ai');
 
-
-
-       // Contlo.User.sendUserData({
+        // Contlo.User.sendUserData({
        //      email: 'vivekbasvivek@gmail.com',
        //      name: 'Vivek BM'
        //  });
         // contlo.ContloWebSDK.sendUserData(email, phone no, first name, last name,{subscribed_channels : [channel list]}
         // is_profile_update)s
+        //this.titleService.setTitle('Study Abroad | Global opportunities | Life Abroad | UNIPREP');
+       
+
         this.deviceCheck();
         router.events.subscribe((val) => {
             if(val instanceof NavigationEnd){
                 if(val.url.includes('subscriptions') || val.url.includes('support-help')
                 || val.url.includes('usermanagement')|| val.url.includes('chat') || val.url.includes('guideline')
                 ||val.url.includes('termsandcondition')||val.url.includes('privacypolicy')||val.url.includes('refundpolicy')
-                ||val.url.includes('cancellationpolicy')){
+                ||val.url.includes('cancellationpolicy') ||val.url.includes('export-credit')){
                     this.showSearch = false;
                     this.isFooterBoxVisible = false;
                 }else{

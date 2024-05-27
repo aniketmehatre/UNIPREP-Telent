@@ -61,6 +61,13 @@ import { RecommendationsComponent } from './recommendations/recommendations.comp
 import { StepsModule } from 'primeng/steps';
 import { CheckboxModule } from "primeng/checkbox";
 import { RadioButtonModule } from 'primeng/radiobutton';
+import { PitchDeskComponent } from './pitch-desk/pitch-desk.component';
+import {NgxExtendedPdfViewerModule} from "ngx-extended-pdf-viewer";
+import { ExportCreditComponent } from './export-credit/export-credit.component';
+import { MycertificateComponent } from './mycertificate/mycertificate.component';
+import {PdfViewerModule} from "ng2-pdf-viewer";
+import { CareerPlannerComponent } from './career-planner/career-planner.component';
+import { CertificatesComponent } from './certificates/certificates.component';
 
 @NgModule({
     declarations: [
@@ -88,45 +95,52 @@ import { RadioButtonModule } from 'primeng/radiobutton';
         ScholarshipListGuidlinesComponent,
         InvestorListGuidlinesComponent,
         RecommendationsComponent,
+        PitchDeskComponent,
+        ExportCreditComponent,
+        MycertificateComponent,
+        CareerPlannerComponent,
+        CertificatesComponent,
     ],
   exports: [FooterStatusBoxComponent, HeaderSearchComponent],
-  imports: [
-    CommonModule,
-    PagesRoutingModule,
-    ThemeModule,
-    StoreModule.forFeature(pagesFeatureKey, pagesReducer),
-    StoreModule.forFeature(appFeatureKey, ModuleStoreReducer),
-    EffectsModule.forFeature([ModuleStoreEffects]),
-    TableModule,
-    ButtonModule,
-    InputTextModule,
-    RippleModule,
-    ReactiveFormsModule,
-    DropdownModule,
-    CalendarModule,
-    TabViewModule,
-    MultiSelectModule,
-    CarouselModule,
-    DialogModule,
-    PaginatorModule,
-    BreadcrumbModule,
-    FormsModule,
-    InputSwitchModule,
-    ProgressBarModule,
-    ConfirmDialogModule,
-    CardModule,
-    EditorModule,
-    ConfirmPopupModule,
-    ConfirmDialogModule,
-    AccordionModule,
-    OverlayPanelModule,
-    InputTextareaModule,
-    TooltipModule,
-    DividerModule,
-    CheckboxModule,
-    StepsModule,
-    RadioButtonModule
-  ],
+    imports: [
+        CommonModule,
+        PagesRoutingModule,
+        ThemeModule,
+        StoreModule.forFeature(pagesFeatureKey, pagesReducer),
+        StoreModule.forFeature(appFeatureKey, ModuleStoreReducer),
+        EffectsModule.forFeature([ModuleStoreEffects]),
+        TableModule,
+        ButtonModule,
+        InputTextModule,
+        RippleModule,
+        ReactiveFormsModule,
+        DropdownModule,
+        CalendarModule,
+        TabViewModule,
+        MultiSelectModule,
+        CarouselModule,
+        DialogModule,
+        PaginatorModule,
+        BreadcrumbModule,
+        FormsModule,
+        InputSwitchModule,
+        ProgressBarModule,
+        ConfirmDialogModule,
+        CardModule,
+        EditorModule,
+        ConfirmPopupModule,
+        ConfirmDialogModule,
+        AccordionModule,
+        OverlayPanelModule,
+        InputTextareaModule,
+        TooltipModule,
+        DividerModule,
+        CheckboxModule,
+        StepsModule,
+        RadioButtonModule,
+        NgxExtendedPdfViewerModule,
+        PdfViewerModule
+    ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class PagesModule {}

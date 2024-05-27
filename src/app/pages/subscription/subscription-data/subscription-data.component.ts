@@ -8,7 +8,8 @@ import { User } from 'src/app/@Models/user.model';
 
 import { LocalStorageService } from "ngx-localstorage";
 import { NgxUiLoaderService } from 'ngx-ui-loader';
- 
+import { HttpClient } from '@angular/common/http';
+
 
 @Component({
   selector: 'uni-subscription-data',
@@ -53,15 +54,22 @@ export class SubscriptionDataComponent implements OnInit {
   @Input() showHistoryBtn: any;
   showCross: boolean = false;
   iscouponReadonly: boolean = false;
+  currentCountry: string = "";
+  continent: string = "";
+  currency: string = "";
+  monthlyPlan: number = 3;
 
   constructor(private authService: AuthService,
     private subscriptionService: SubscriptionService,
     private storage: LocalStorageService,
     private toast: MessageService,
-    private ngxService: NgxUiLoaderService,) { }
+    private ngxService: NgxUiLoaderService,
+    private http: HttpClient
+  ) { }
   timeLeftInfoCard: any
 
   ngOnInit(): void {
+    this.getLocation();
     this.timeLeftInfoCard = localStorage.getItem('time_card_info')
     this.discountAmountEnable = false;
     this.user = this.authService.user;
@@ -107,7 +115,10 @@ export class SubscriptionDataComponent implements OnInit {
     let data = {
       page: 1,
       perpage: 1000,
-      studenttype: this.studentType
+      studenttype: this.studentType,
+      country: this.currentCountry,
+      continent: this.continent,
+      monthly_plan: this.monthlyPlan
     }
 
     this.subscriptionService.getSubscriptions(data).subscribe((response) => {
@@ -124,6 +135,7 @@ export class SubscriptionDataComponent implements OnInit {
         item.filteredCountryList = this.countryList;
         item.selectedCountry = this.countryList.find((country: any) => country.id === Number(this.user?.interested_country_id));
         item.isActive = item.popular == 1 ? true : false;
+        this.currency = item.currency;
       });
     });
   }
@@ -214,7 +226,8 @@ export class SubscriptionDataComponent implements OnInit {
         couponCode: this.couponInput,
         checkoutTotal: this.subscriptionTotal,
         subscriptioncouponstatus: this.selectedSubscriptionDetails?.couponcode,
-        subscription_id: this.selectedSubscriptionDetails?.id
+        subscription_id: this.selectedSubscriptionDetails?.id,
+        subscription_plan_id: this.selectedSubscriptionDetails?.subscription_plan_id,
       }
 
       this.subscriptionService.applyCoupon(data).subscribe((response) => {
@@ -257,6 +270,7 @@ export class SubscriptionDataComponent implements OnInit {
             couponApplied: this.iscouponReadonly ? 1 : 0,
             coupon: this.iscouponReadonly ? this.couponInput : '',
             coupon_id: this.usedCouponId,
+            subscription_plan_id: this.selectedSubscriptionDetails?.subscription_plan_id,
           }
           if (this.checkoutTotal == '') {
             data.finalPrice = this.subscriptionTotal;
@@ -271,6 +285,7 @@ export class SubscriptionDataComponent implements OnInit {
               finalPrice: this.checkoutTotal,
               couponApplied: this.couponInput ? 1 : 0,
               coupon: this.couponInput,
+              subscription_plan_id: this.selectedSubscriptionDetails?.subscription_plan_id,
             }
             this.subscriptionPlan.emit(data);
           }
@@ -287,6 +302,7 @@ export class SubscriptionDataComponent implements OnInit {
             finalPrice: this.checkoutTotal,
             couponApplied: this.couponInput ? 1 : 0,
             coupon: this.couponInput,
+            subscription_plan_id: this.selectedSubscriptionDetails?.subscription_plan_id,
           }
           if (this.checkoutTotal == '') {
             data.finalPrice = this.subscriptionTotal;
@@ -301,6 +317,7 @@ export class SubscriptionDataComponent implements OnInit {
               finalPrice: this.checkoutTotal,
               couponApplied: this.couponInput ? 1 : 0,
               coupon: this.couponInput,
+              subscription_plan_id: this.selectedSubscriptionDetails?.subscription_plan_id,
             }
             this.subscriptionPlan.emit(data);
           }
@@ -331,8 +348,62 @@ export class SubscriptionDataComponent implements OnInit {
   }
 
   copyCoupon() {
-    let offerDiv:any = document.getElementById('offerId');
+    let offerDiv: any = document.getElementById('offerId');
     navigator.clipboard.writeText(offerDiv?.textContent);
   }
+  getLocation(): void {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition((position) => {
+        const longitude = position.coords.longitude;
+        const latitude = position.coords.latitude;
+        this.findCountry(longitude, latitude);
+      });
+    } else {
+      console.log("No support for geolocation")
+    }
+  }
+
+  findCountry(longitude: number, latitude: number): void {
+
+    const url = `https://nominatim.openstreetmap.org/reverse?lat=${latitude}&lon=${longitude}&format=json`;
+    this.http.get<any>(url).subscribe(
+      (data: any) => {
+        this.currentCountry = data?.address?.country;
+        this.findContinent(this.currentCountry);
+      },
+      (error: any) => {
+        console.log('Error fetching location:', error);
+      }
+    );
+  }
+  findContinent(countryName: string) {
+    this.http.get(`https://restcountries.com/v3.1/name/${countryName}`).subscribe(
+      (data: any) => {
+        if (data?.length > 0) {
+          this.continent = data[data?.length - 1].continents[0];
+        }
+        else {
+          this.continent = 'Not found';
+        }
+      },
+      error => {
+        console.error('Error:', error);
+        this.continent = 'Error';
+      }
+    );
+  }
+  changeMonthlyPlan(event: any) {
+    let tabIndex = event.index;
+    if (tabIndex == 0) {
+      this.monthlyPlan = 3;
+    }
+    else if (tabIndex == 1) {
+      this.monthlyPlan = 6;
+    }
+    else {
+      this.monthlyPlan = 12;
+    }
+    this.getSubscriptionList();
+  }
 }
- 
+

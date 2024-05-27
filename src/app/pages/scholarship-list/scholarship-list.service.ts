@@ -53,4 +53,23 @@ export class ScholarshipListService {
       headers: headers,
     });
   }
+
+  bookmarkScholarshipData(scholarship_id:any,user_id:any,fav:any){
+    let params={
+      scholarship_id:scholarship_id,
+      user_id :user_id,
+      updateFavourite:fav
+        }
+    const headers = new HttpHeaders().set("Accept", "application/json");
+    return this.http.post<any>(environment.ApiUrl + "/addscholarshipfavourite", params, {
+      headers: headers,
+    });
+  }
+
+  exportSelectedData(data: any){
+    const headers = new HttpHeaders().set("Accept", "application/json");
+    return this.http.post<any>(environment.ApiUrl + "/BuyCreditexportData", data, {
+      headers: headers,
+    });
+  }
 }

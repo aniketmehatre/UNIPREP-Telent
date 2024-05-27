@@ -15,7 +15,7 @@
                             </button>
                         </div> -->
 						<div class="btn btn-secondary m-0 px-2 py-1" style="cursor: default; pointer-events: none">
-							<span class="small fw-regular">V 1.0</span>
+							<span class="small fw-regular">V 2.0</span>
 						</div>
 						<!-- <label class="me-2">
                             <i class="fa-solid fa-sun"></i>
@@ -260,18 +260,29 @@
 		</div>
 	</ng-template>
 </p-overlayPanel>
-<p-overlayPanel #totalCountryList>
+<p-overlayPanel #totalCountryList [style]="{'width':'100%','max-width':'fit-content'}">
 	<ng-template pTemplate="content">
-		<div *ngIf="isLondon">
+	  <div *ngIf="isLondon" class="mega-menu">
+		<div class="row">
+		  <div class="col" *ngFor="let column of [0, 1, 2]">
 			<ul class="px-0">
-				<li class="list-group-item my-2 d-flex align-items-center gap-2" role="button" *ngFor="let v of countryLists">
-					<img alt="country" class="countryicon mr-2" src="{{ v.flag != '' ? v.flag : '../../uniprep-assets/images/mstile-150x150.png' }}" width="25" />
-					<span (click)="selectCountryInHeader(v, totalCountryList)">{{ v.country }}</span>
+			  <ng-container *ngFor="let v of countryLists.slice(column * 10, (column + 1) * 10); let i = index">
+				<li class="list-group-item my-2 d-flex align-items-center gap-2" role="button" (click)="selectCountryInHeader(v, totalCountryList)">
+				  <img alt="country" class="countryicon mr-2" [src]="v.flag || '../../uniprep-assets/images/mstile-150x150.png'" width="25" />
+				  <span class="text-nowrap">{{ v.country }}</span>
 				</li>
+			  </ng-container>
+			  <ng-container *ngIf="column === 2 && countryLists.length < 30">
+				<li *ngFor="let _ of [].constructor(30 - countryLists.length)" class="list-group-item"></li>
+			  </ng-container>
 			</ul>
+		  </div>
 		</div>
+	  </div>
 	</ng-template>
-</p-overlayPanel>
+  </p-overlayPanel>
+  
+  
 
 <p-dialog [(visible)]="visible" [closable]="true" [style]="{ width: 'auto' }" class="p-0 m-0 bg-white" class="timerpopup" [modal]="true" [draggable]="false" [resizable]="false">
 	<div class="px-5 pb-5 pt-3">
@@ -509,6 +520,50 @@
 										</button>
 									</div>
 								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div [ngStyle]="{ display: demoTrial ? 'block' : 'none' }" class="modal modal-bg firsttimeloginpopup" role="dialog" tabindex="-1">
+	<div class="modal-dialog modal-dialog-scrollable modal-dialog-centered" role="document">
+		<div class="modal-content card bg-light">
+			<div class="modal-body card-body">
+				<div class="container">
+					<div class="row mb-2">
+						<div class="col-md-12 px-4">
+							<div class="d-flex flex-column">
+								<div class="icon-container d-flex justify-content-center p-2">
+									<img src="../../../uniprep-assets/images/TrialStart.png" alt="clock" width="100" />
+								</div>
+								<div class="mt-1 mb-1">
+									<span>
+										<strong class="firsttimelogin">
+											<h5 style="color: rgb(63 76 131)">Congratulations</h5>
+										</strong>
+									</span>
+								</div>
+								<div class="mt-1">
+									<span>
+										<strong class="firsttimelogin">
+											<h2 style="color: #f0780e; margin-bottom: 0">You have unlocked</h2>
+										</strong>
+										<strong class="firsttimelogin">
+											<h2 style="color: #f0780e; margin-top: 0">3 Days Free Demo.</h2>
+										</strong>
+									</span>
+								</div>
+									<div class="d-flex justify-content-center">
+										<button [disabled]="formvisbility && mobileForm.invalid" class="btn btn-primary btn-rounded me-2 ms-0 my-0" (click)="onClickSubscribedUser()" alt="chat with notification">
+											<span class="text-small fw-normal px-3">Subscribe Now</span>
+										</button>
+										<button [disabled]="formvisbility && mobileForm.invalid" class="btn btn-secondary btn-rounded me-2 ms-0 my-0" alt="reports">
+											<span class="text-small fw-normal px-2" (click)="continueTrial()">Continue Demo Trial</span>
+										</button>
+									</div>
 							</div>
 						</div>
 					</div>

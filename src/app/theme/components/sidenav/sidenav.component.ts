@@ -109,6 +109,21 @@ export class SidenavComponent {
       image: "fa-solid fa-briefcase",
     },
     {
+      title: "Language Hub",
+      url: "/pages/language-hub",
+      image: "fa-solid fa-books",
+    },
+    {
+      title: "Learning Hub",
+      url: "/pages/modules/learning-hub",
+      image: "fa-solid fa-road-circle-check",
+    },
+    {
+      title: "Career Planner",
+      url: "/pages/career-planner",
+      image: "fa-solid fa-arrow-progress",
+    },
+    {
       title: "Resources",
       url: "/pages/resource",
       image: "fa-solid fa-link",
@@ -134,9 +149,29 @@ export class SidenavComponent {
       image: "fa-solid fa-memo-circle-info",
     },
     {
+      title: "Pitch Deck",
+      url: "/pages/pitch-deck",
+      image: "fa-solid fa-presentation-screen",
+    },
+    {
+      title: "Others",
+      url: "",
+      image: "",
+    },
+    {
       title: "Events",
       url: "/pages/events",
       image: "fa-solid fa-calendar-days",
+    },
+    {
+      title: "Quiz",
+      url: "/pages/modules/quizmodule",
+      image: "fa-solid fa-clock-desk",
+    },
+    {
+      title: "Certificates",
+      url: "/pages/mycertificate",
+      image: "fa-solid fa-file-certificate",
     },
     {
       title: "Support",

@@ -61,7 +61,7 @@
 				<tr class="account-history-header">
 					<td>{{ data.product }}</td>
 					<td>{{ data.countryNames }}</td>
-					<td>{{ data.validity }} months</td>
+					<td>{{ data.validity }} <span *ngIf="data.validity!='-'">months</span></td>
 					<td>{{ data.reference }}</td>
 					<td>{{ data.date }}</td>
 					<td>{{ data.amount }}</td>

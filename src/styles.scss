@@ -83,7 +83,7 @@ input:-webkit-autofill:active {
 html,
 body {
 	font-family: "Poppins", sans-serif;
-	font-size: 1rem;
+	font-size: 14px;
 }
 .p-tooltip.p-tooltip-top {
 	position: fixed !important;
@@ -263,6 +263,11 @@ small {
 		}
 	}
 }
+.country-dropdown {
+	max-height: 40vh;
+	overflow-y: auto;
+	background: white !important;
+}
 uni-modules {
 	display: flex;
 	flex: 1;
@@ -276,6 +281,30 @@ uni-modules {
 		flex-direction: column;
 	}
 	uni-question-list {
+		flex: 1;
+		overflow-y: auto; /* Enable vertical scrolling for overflowing content */
+		display: flex;
+		flex-direction: column;
+	}
+	uni-quizmenu {
+		flex: 1;
+		overflow-y: auto; /* Enable vertical scrolling for overflowing content */
+		display: flex;
+		flex-direction: column;
+	}
+	uni-quiz {
+		flex: 1;
+		overflow-y: auto; /* Enable vertical scrolling for overflowing content */
+		display: flex;
+		flex-direction: column;
+	}
+	uni-learninghubquiz{
+		flex: 1;
+		overflow-y: auto; /* Enable vertical scrolling for overflowing content */
+		display: flex;
+		flex-direction: column;
+	}
+	uni-languagetypequiz{
 		flex: 1;
 		overflow-y: auto; /* Enable vertical scrolling for overflowing content */
 		display: flex;
@@ -295,9 +324,20 @@ uni-investor-list-guidlines,
 uni-company-list,
 uni-company-list-guidlines,
 uni-scholarship-list,
+uni-career-planner,
 uni-scholarship-list-guidlines,
 uni-user-guide,
 uni-recommendations,
+uni-pitch-desk,
+uni-export-credit,
+uni-mycertificate,
+uni-language-hub,
+uni-languagetypequiz,
+uni-language-list,
+uni-levels,
+uni-category-list,
+uni-question-list,
+uni-learninghubquiz,
 uni-faq {
 	display: flex;
 	flex: 1;
@@ -306,7 +346,6 @@ uni-faq {
 	overflow: hidden;
 	border-radius: 10px;
 }
-
 @media screen and (max-width: 480px) {
 	uni-faq {
 		overflow-y: scroll !important;
@@ -336,6 +375,13 @@ uni-landing {
 	position: absolute;
 	width: 100%;
 }
+uni-sidenav
+{
+	flex: 1;
+	display: flex;
+    flex-direction: column;
+    height: 100%;
+}
 
 uni-events {
 	display: flex;
@@ -357,7 +403,15 @@ uni-events {
 		}
 	}
 }
-
+uni-certificates {
+	display: flex;
+	flex: 1;
+	height: 100vh;
+	flex-direction: column; /* Ensure flex children stack vertically */
+	overflow: hidden;
+	background: #07070b;
+	justify-content: space-between;
+}
 uni-recentlyaddedquestions {
 	display: flex;
 	flex: 1;
@@ -412,7 +466,7 @@ uni-subscription {
 	border-radius: 10px !important;
 	text-transform: inherit !important;
 	background-color: #fafafa;
-	border: 1px solid #efefef;
+	border: 1px solid #dfe4f8;
 }
 .btn {
 	font-weight: 600 !important;
@@ -703,8 +757,8 @@ uni-subscription {
 	}
 	.p-dialog {
 		width: 98%;
-    	height: 96%;
-		max-height:100%;
+		height: max-content;
+		max-height: 98%;
 		.p-dialog-header {
 			background: #fff;
 			padding: 0 !important;
@@ -1268,5 +1322,54 @@ p-dialog.restrictionDialog .p-dialog .p-dialog-header .p-dialog-header-icon {
 	html,
 	body {
 		font-size: 12px;
+	}
+}
+
+.exportCount {
+	padding: 6px;
+	border-radius: 25px;
+	background-color: #3f4c83;
+	color: white;
+	margin-left: 5px;
+}
+
+.exportButton {
+	background-color: #ebedf2;
+	color: #001631 !important;
+	border-radius: 20px !important;
+	border: none;
+	padding: 10px;
+}
+.monthly-subscription {
+	.p-tabview-nav-content {
+		border: 1px solid #3f4c83;
+		border-radius: 30px !important;
+		padding: 5px 10px;
+		cursor: pointer;
+	}
+
+	.p-tabview .p-tabview-nav li .p-tabview-nav-link {
+		border: 1px solid #3f4c83 !important;
+		border-radius: 25px !important;
+	}
+
+	.p-highlight {
+		border: 1px solid #3f4c83;
+		border-radius: 25px !important;
+	}
+
+	.p-tabview .p-tabview-nav {
+		border-width: 0;
+	}
+
+	.p-tabview .p-tabview-nav li {
+		margin-right: 8px;
+	}
+	.p-tabview .p-tabview-nav li.p-highlight .p-tabview-nav-link {
+		color: white;
+		background-color: #3f4c83;
+	}
+	.p-tabview .p-tabview-nav li .p-tabview-nav-link:not(.p-disabled):focus {
+		box-shadow: none;
 	}
 }

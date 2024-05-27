@@ -24,7 +24,6 @@ export class UserGuideComponent implements OnInit {
   }
   getPlatform() {
     const userAgent = window.navigator.userAgent;
-    console.log(userAgent);
     if (userAgent.match(/iPhone|iPad|iPod/i)) {
        this.isIos = true;
       this.pdfUrl = this.sanitizer.bypassSecurityTrustResourceUrl('https://api.uniprep.ai/uniprepapi/storage/app/public/UniprepUserGuide/UNIPREP.pdf');

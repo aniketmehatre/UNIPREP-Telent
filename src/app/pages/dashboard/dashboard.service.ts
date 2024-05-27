@@ -99,7 +99,7 @@ export class DashboardService {
     const headers = new HttpHeaders().set("Accept", "application/json");
     return this.http.post<any>(
       environment.ApiUrl + "/freetrailcontinue",
-      data.phone ? data : null,
+      data,
       {
         headers: headers,
       }
@@ -112,4 +112,16 @@ export class DashboardService {
   updatedata(data: any) {
     this.data$.next(data);
   }
+  checkModuleQuizCompletion(data: any) {
+    const headers = new HttpHeaders().set("Accept", "application/json");
+    return this.http.post<any>(environment.ApiUrl + "/checkmodulequizcompletion", data, {
+        headers: headers,
+    });
+}
+checkModuleQuizProgressbar(data: any) {
+  const headers = new HttpHeaders().set("Accept", "application/json");
+  return this.http.post<any>(environment.ApiUrl + "/getquizcompletion", data, {
+      headers: headers,
+  });
+}
 }

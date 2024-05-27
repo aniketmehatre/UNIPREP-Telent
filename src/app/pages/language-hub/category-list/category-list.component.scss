@@ -1,0 +1,252 @@
+.application-text-small {
+  color: black;
+  font-size: 0.8rem;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.application-border {
+  border: 3px solid var(--uniprep-primary);
+  border-radius: 5%;
+  font-size: 0.8rem;
+}
+
+.unselected-border {
+  border: 3px solid var(--uniprep-primaryhighlight);
+  border-radius: 5px;
+  font-size: 0.8rem;
+}
+
+.selected-border {
+  background-color: var(--uniprep-primary);
+  border: 0;
+}
+
+.application-text {
+  font-size: 0.8rem;
+}
+
+.subjectcard {
+  border: 3px solid #f0780c;
+  width: 100%;
+  margin: 10px 0px;
+
+  .submoduleicon {
+    height: 100px;
+    width: 100px;
+    margin: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .selectimage {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+  }
+
+  &:focus {
+    background-color: var(--uniprep-primaryop10);
+    border: 3px solid var(--uniprep-primary);
+  }
+
+  &:hover {
+    background-color: var(--uniprep-primaryop10);
+    border: 3px solid var(--uniprep-primary);
+  }
+
+  // .subjecttitle {
+  //   height: 50px;
+  //   font-size: 16px;
+  // }
+}
+
+.sub-data {
+  font-size: 12px;
+}
+
+:host ::ng-deep p-carousel {
+  //On later realease of PrimeNG, this can be done programmatically with [showIndicators | showNavigators]="false"
+  .p-carousel-indicators {
+    display: none !important;
+  }
+
+  .p-carousel-next,
+  .p-carousel-prev {
+    display: none !important;
+  }
+}
+
+selctedQuizTiny {
+  font-size: 10px;
+  color: var(--uniprep-primary);
+}
+
+.quizprogress {
+  .p-progressbar {
+    height: 10px;
+    margin-top: 5px;
+  }
+}
+
+.quiznotanswered {
+  border: 1px solid #e3e3e3;
+  border-radius: 8px;
+  width: 100%;
+  padding: 8px;
+  text-align: start;
+  color: #001631;
+}
+
+.optionanswered {
+  border: 1px solid var(--uniprep-primary);
+  border-radius: 8px;
+  color: #001631;
+}
+
+.optionreviewcorrect {
+  border: 1px solid var(--uniprep-primary);
+  background: var(--uniprep-primary);
+  border-radius: 8px;
+  color: #fff;
+}
+
+.optionreviewwrong {
+  border: 1px solid #df3e3e;
+  background: #df3e3e;
+  border-radius: 8px;
+  color: #fff;
+}
+
+@media (max-width: 1199.98px) {
+  .subjectcard {
+    .submoduleicon {
+      height: 70px;
+      width: 70px;
+    }
+  }
+}
+
+@media (max-width: 991.98px) {
+  .subjectcard {
+    .submoduleicon {
+      height: 70px;
+      width: 70px;
+      margin-right: 1rem;
+    }
+  }
+}
+
+@media (max-width: 767.98px) {
+  .subjectcard {
+    .submoduleicon {
+      height: 65px;
+      width: 65px;
+      margin-right: 1rem;
+    }
+  }
+}
+
+@media (max-width: 575.98px) {
+  .subjectcard {
+    .submoduleicon {
+      height: 60px;
+      width: 60px;
+      margin-right: 1rem;
+    }
+  }
+}
+
+.homecardbtnquiz {
+  background-color: black;
+  color: white;
+}
+
+.ellipse-button {
+  width: auto;
+  padding: 6px 25px;
+  height: auto;
+  background-color: #f0780e;
+  border-radius: 25px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: not-allowed;
+  font-size: 10px;
+}
+
+.desktop {
+  display: flex;
+}
+
+.primary-btn {
+  border-radius: 25px !important;
+}
+
+.readButton {
+  border-radius: 25px !important;
+}
+
+.float-right {
+  float: right;
+
+  .warning {
+    background-color: #f0780c !important;
+    border-radius: 25px !important;
+    color: white;
+    font-weight: 300;
+    font-size: 10px;
+  }
+}
+
+.mobile {
+  display: none;
+}
+
+@media screen and (max-width: 480px) {
+  .desktop {
+    display: none;
+  }
+  .mobile {
+    display: block;
+  }
+}
+
+.offer {
+  color: #df7905;
+}
+
+.Pre-Admission {
+  background: url("../../../../uniprep-assets/images/Pre-Application@2x.png");
+  background-size: cover;
+}
+
+.Travel-and-Tourism {
+  background: url("../../../../uniprep-assets/images/Post-Application@2x.png");
+  background-size: cover;
+}
+
+.Post-Admission {
+  background: url("../../../../uniprep-assets/images/Post-Admission@2x.png");
+  background-size: cover;
+}
+
+.Career {
+  background: url("../../../../uniprep-assets/images/Career\ Hub@2x.png");
+  background-size: cover;
+}
+
+.life-at-country {
+  background: url("../../../../uniprep-assets/images/chosen\ destination@2x.png");
+  background-size: cover;
+}
+
+.select-title {
+  margin-bottom: 20px;
+}
+
+.soon-university {
+  margin-top: 20px;
+  color: #ff9113;
+}

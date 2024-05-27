@@ -6,16 +6,31 @@
 					<i class="pi pi-search"></i>
 					<input class="w-100 px-5 py-2" type="text" placeholder="Search in Scholarship List" pInputText [(ngModel)]="searchScholarshpName" (input)="performSearch()" />
 				</div>
+				<div class="mt-3">
+					<span class="d-flex justify-content-start p-2" style="white-space: nowrap">
+						<input type="checkbox" class="me-0" style="transform: scale(1.5)" [(ngModel)]="selectAllCheckboxes" (click)="selectAllCheckbox()" id="selectAllcheckbox" />
+						<label class="p-2" for="selectAllcheckbox">Select All</label>
+						<span class="p-2">Selected : {{ selectedScholarship }}</span>
+						<button class="btn btn-primary text-small" (click)="viewFavourites()" type="button">
+							{{ viewFavouritesLabel }}<span class="favCount" *ngIf="viewFavouritesLabel != 'View All'">{{ favCount }}</span>
+						</button>
+					</span>
+				</div>
 			</div>
 			<div class="col-md-6 text-center">
 				<h5 class="select-title mb-1" tooltipPosition="top" pTooltip="">SCHOLARSHIP LIST</h5>
 			</div>
-			<div class="col-md-3 text-end">
+			<div class="col-md-3 text-end" style="white-space: nowrap">
 				<span class="d-flex justify-content-end mt-3 gap-2">
 					<button class="btn btn-primary text-small scholarship-guidlines" (click)="scholarGuidlines()" type="button">Scholarship Guidelines</button>
-					<button class="btn btn-primary text-small ps-3 pe-3 pt-2 pb-2 br-8" (click)="filterBy()" type="button">Filter by</button>
+					<button class="btn btn-primary text-small scholarship-guidlines" (click)="buyCredits()" type="button">Buy Credits</button>
+					<button class="btn btn-primary text-small exportButton" (click)="exportData()" type="button">
+						Export <span class="exportCount">{{ exportCreditCount }}</span>
+					</button>
 				</span>
-				<div class="d-flex w-100 align-items-center justify-content-end">
+				<div class="d-flex w-100 align-items-center justify-content-end gap-1 mt-3">
+					<button class="btn btn-primary text-small ps-3 pe-3 pt-2 pb-2 br-8 p-1" style="background-color: #ff9113 !important" (click)="openReport()" type="button">Report</button>
+					<button class="btn btn-primary text-small ps-3 pe-3 pt-2 pb-2 br-8 p-1" (click)="filterBy()" type="button">Filter by</button>
 					<div class="pe-2">
 						<span class="text-muted text-small"
 							><strong>Total Scholarship : {{ totalScholarShipCount }}</strong></span
@@ -26,12 +41,19 @@
 		</div>
 		<div class="container-fluid" *ngIf="!restrict">
 			<div class="row">
-				<div *ngFor="let scholarshipData of scholarshipData" class="col-md-3 col-12 mt-3">
+				<div *ngFor="let scholarshipData of scholarshipData; let index = index" class="col-md-3 col-12 mt-3">
 					<div class="card scholarshiplistcard h-100">
 						<div class="card-body d-flex flex-column justify-content-between">
-							<h5 class="uniprep-primary" title="Scholarship Name">
-								<a class="uniprep-primary text-decoration-none" target="_blank" href="{{ scholarshipData.website }}">{{ scholarshipData.name }} <i class="fa-solid fa-link uniprep-primary pr-2" aria-hidden="true"></i></a>
-							</h5>
+							<div class="d-flex justify-content-between align-items-start">
+								<div class="d-flex gap-2 align-items-start" title="Scholarship Name">
+									<!-- <input  type="checkbox" name="" id="" [ngModel]="selectedIndex === index"
+                                            (change)="questionSelectedCheckBox($event,index,scholarshipData)">&nbsp; -->
+									<input type="checkbox" (change)="onCheckboxChange($event)" class="mt-1" style="transform: scale(1.5)" [(ngModel)]="scholarshipData.isChecked" />
+									<a class="uniprep-primary text-decoration-none h5" target="_blank" href="{{ scholarshipData.website }}">{{ scholarshipData.name }} <i class="fa-solid fa-link text-small uniprep-primary pr-2" aria-hidden="true"></i></a>
+									</div>
+								<i [class]="scholarshipData.favourite == 1 ? 'fa-solid fa-bookmark' : 'fa-regular fa-bookmark'" style="color: #e90707" (click)="bookmarkQuestion(scholarshipData.id, scholarshipData.favourite)"></i>
+							</div>
+
 							<div>
 								<div class="d-flex mt-2 gap-5 align-items-center">
 									<div class="d-flex gap-2 align-items-center" title="Scholarship Value">
@@ -119,7 +141,7 @@
 		<button pButton type="button" class="text-white p-ripple p-button-rounded p-button-warning p-button p-component p-2" (click)="upgradePlan()">Upgrade Plan<i class="fa fa-arrow-right exhausted-plan-icon"></i></button>
 	</div>
 </p-dialog>
-<p-dialog header="Filter Scholarship" [(visible)]="isFilterVisible" [breakpoints]="{ '2560px': '60vw', '1030px': '75vw', '850px': '85vw', '450px': '90vw' }" [draggable]="false" [resizable]="false" class="filterDialog">
+<p-dialog header="Filter Scholarship" [(visible)]="isFilterVisible" [breakpoints]="{ '2560px': '80vw', '1030px': '90vw', '850px': '85vw', '450px': '90vw' }" [draggable]="false" [resizable]="false" class="filterDialog">
 	<form role="form" [formGroup]="filterForm" (ngSubmit)="applyFilter()" [style]="{ padding: '20px' }">
 		<div class="row">
 			<div class="col-md-12">
@@ -128,7 +150,7 @@
 						<label class="form-label" style="font-size: medium; font-weight: 500">Filter by Scholarship Country</label>
 						<div class="form-group">
 							<div class="mb-3">
-								<p-dropdown formControlName="country" optionValue="id" optionLabel="country" styleClass="w-100" [options]="countryList" [filter]="true" filterBy="country" (onChange)="countryChange($event)" placeholder="Select  Country" class="filterInput"></p-dropdown>
+								<p-dropdown formControlName="country" optionValue="id" optionLabel="country" styleClass="w-100" [options]="countryList" [filter]="true" filterBy="country" (onChange)="countryChange($event)" placeholder="Select  Country" class="filterInput" [appendTo]="'body'"></p-dropdown>
 							</div>
 						</div>
 					</div>
@@ -136,7 +158,7 @@
 						<label class="form-label" style="font-size: medium; font-weight: 500">Filter by Home Country</label>
 						<div class="form-group">
 							<div class="mb-3">
-								<p-dropdown formControlName="home_country" optionValue="id" optionLabel="country" styleClass="w-100" [options]="homeCountryList" [filter]="true" filterBy="country" placeholder="Select  Home Country" class="filterInput"></p-dropdown>
+								<p-dropdown formControlName="home_country" optionValue="id" optionLabel="country" styleClass="w-100" [options]="homeCountryList" [filter]="true" filterBy="country" placeholder="Select  Home Country" class="filterInput" [appendTo]="'body'"></p-dropdown>
 							</div>
 						</div>
 					</div>
@@ -144,7 +166,7 @@
 						<label class="form-label" style="font-size: medium; font-weight: 500">Filter by Scholarship Type</label>
 						<div class="form-group">
 							<div class="mb-3">
-								<p-dropdown formControlName="type" optionValue="id" optionLabel="type" styleClass="w-100" [options]="scholarshipTypeList" [filter]="true" filterBy="type" placeholder="Select  Scholarship Type" class="filterInput"></p-dropdown>
+								<p-dropdown formControlName="type" optionValue="id" optionLabel="type" styleClass="w-100" [options]="scholarshipTypeList" [filter]="true" filterBy="type" placeholder="Select  Scholarship Type" class="filterInput" [appendTo]="'body'"></p-dropdown>
 							</div>
 						</div>
 					</div>
@@ -153,7 +175,7 @@
 						<label class="form-label" style="font-size: medium; font-weight: 500">Filter by Study Level</label>
 						<div class="form-group">
 							<div class="mb-3">
-								<p-multiSelect [options]="studyLevelList" styleClass="w-100" formControlName="study_level" optionValue="id" placeholder="Select Study Level" optionLabel="level" #StudylevelSelect class="filterInput"> </p-multiSelect>
+								<p-multiSelect [options]="studyLevelList" styleClass="w-100" formControlName="study_level" optionValue="id" placeholder="Select Study Level" optionLabel="level" #StudylevelSelect class="filterInput" [appendTo]="'body'"> </p-multiSelect>
 							</div>
 						</div>
 					</div>
@@ -161,7 +183,7 @@
 						<label class="form-label" style="font-size: medium; font-weight: 500">Filter by organizations/Institute</label>
 						<div class="form-group">
 							<div class="mb-3">
-								<p-multiSelect [options]="filterUniversityList" styleClass="w-100" formControlName="university" optionValue="id" placeholder="Select Organisation Or University" optionLabel="name" class="filterInput"> </p-multiSelect>
+								<p-multiSelect [options]="filterUniversityList" styleClass="w-100" formControlName="university" optionValue="id" placeholder="Select Organisation Or University" optionLabel="name" class="filterInput" [appendTo]="'body'"> </p-multiSelect>
 							</div>
 						</div>
 					</div>
@@ -169,18 +191,22 @@
 						<label class="form-label" style="font-size: medium; font-weight: 500">Filter by Coverage Value</label>
 						<div class="form-group">
 							<div class="mb-3">
-								<p-dropdown formControlName="cover_id" optionValue="id" optionLabel="cover_name" styleClass="w-100" [options]="coverList" [filter]="true" filterBy="cover_name" placeholder="Select  Coverage Value" class="filterInput"></p-dropdown>
+								<p-dropdown formControlName="cover_id" optionValue="id" optionLabel="cover_name" styleClass="w-100" [options]="coverList" [filter]="true" filterBy="cover_name" placeholder="Select  Coverage Value" class="filterInput" [appendTo]="'body'"></p-dropdown>
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
-		<div class="row">
+		<br />
+		<div class="row gap-3">
 			<div class="col-12"><button type="submit" class="btn btn-dark w-100" style="background-color: var(--uniprep-primary) !important">Apply Filter</button></div>
 			<div class="col-12">
 				<button class="btn btn-danger ps-3 pe-3 pt-2 pb-2 w-100" (click)="clearFilter()" style="border-radius: 8px; color: #fff" type="button">Reset Filter</button>
 			</div>
+			<!-- <div class="col-12">
+				<button class="btn btn-danger ps-3 pe-3 pt-2 pb-2 w-100" (click)="resetFilter()" style="border-radius: 8px; color: #fff" type="button">Clear & Close Filter</button>
+			</div> -->
 		</div>
 	</form>
 </p-dialog>

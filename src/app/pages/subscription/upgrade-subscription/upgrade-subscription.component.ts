@@ -3,7 +3,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Billinginfo, OrderHistory, Subscription, SubscriptionSuccess } from "../../../@Models/subscription";
 import { environment } from "@env/environment.prod";
 import { AuthService } from 'src/app/Auth/auth.service';
-import { MenuItem, MessageService } from 'primeng/api';
+import { ConfirmationService, MenuItem, MessageService } from 'primeng/api';
 import { SubscriptionService } from '../subscription.service';
 import { User } from 'src/app/@Models/user.model';
 
@@ -11,6 +11,7 @@ import { LocalStorageService } from "ngx-localstorage";
 import { NgxUiLoaderService } from 'ngx-ui-loader';
 import { Router } from '@angular/router';
 import { WindowRefService } from '../window-ref.service';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'uni-upgrade-subscription',
@@ -21,18 +22,11 @@ export class UpgradeSubscriptionComponent implements OnInit {
   selectedButton: any;
   countryList: any;
   breadCrumb: MenuItem[] = [];
-  selectedCountry: any[] = [2, 3];
   isInstructionVisible: boolean = false;
-  @Input() billing!: any | null;
-  @Input() subscriptions!: Subscription | null;
-  @Input() history: OrderHistory[] = [];
-  @Output() upgrade = new EventEmitter();
-
   topupcountries = false;
   topupvalidity = false;
   subscriptionList: any = [];
   showPayLoading = false;
-
   subscriptionTopupList: any = [];
   couponInput: any = '';
   subscriptionTotal: any = '0.00';
@@ -54,12 +48,15 @@ export class UpgradeSubscriptionComponent implements OnInit {
   subscriptionDetails: any;
   success!: SubscriptionSuccess;
   discountPercentage: any;
-  @Output() showHistory = new EventEmitter();
-  @Input() showHistoryBtn: any;
   existingSubscription: any[] = [];
   showCross: boolean = false;
   iscouponReadonly: boolean = false;
-  isPlanExpired:boolean=false;
+  isPlanExpired: boolean = false;
+  currentCountry: string ="India";
+  continent: string = "Asia";
+  currency: string = "";
+  monthlyPlan: number = 3;
+  activeTabIndex: number = 0;
 
   constructor(private authService: AuthService,
     private subscriptionService: SubscriptionService,
@@ -68,11 +65,15 @@ export class UpgradeSubscriptionComponent implements OnInit {
     private ngxService: NgxUiLoaderService,
     private router: Router,
     private winRef: WindowRefService,
-    private authservice: AuthService
+    private authservice: AuthService,
+    private http: HttpClient,
+    private confirmationService: ConfirmationService,
+    private messageService: MessageService
   ) { }
   timeLeftInfoCard: any
 
   ngOnInit(): void {
+    this.getLocation();
     this.timeLeftInfoCard = localStorage.getItem('time_card_info');
     this.discountAmountEnable = false;
     this.user = this.authService.user;
@@ -81,7 +82,7 @@ export class UpgradeSubscriptionComponent implements OnInit {
     this.authService.getCountry().subscribe((data) => {
       this.ngxService.stop();
       this.countryList = data;
-      this.getSubscriptionList();
+
       // this.getSubscriptionTopupList();
 
     }, error => {
@@ -101,11 +102,14 @@ export class UpgradeSubscriptionComponent implements OnInit {
     this.isInstructionVisible = true;
   }
 
-  getSubscriptionList() {
+  getSubscriptionList(canChangeSubscription: string) {
     let data = {
       page: 1,
       perpage: 1000,
-      studenttype: this.studentType
+      studenttype: this.studentType,
+      country: this.currentCountry,
+      continent: this.continent,
+      monthly_plan: this.monthlyPlan
     }
 
     this.subscriptionService.getSubscriptions(data).subscribe((response) => {
@@ -113,8 +117,37 @@ export class UpgradeSubscriptionComponent implements OnInit {
       const filteredData = response.subscriptions.filter((item: any) => item.popular !== 1);
       filteredData.splice(1, 0, ...mostPopularOnes);
       this.subscriptionList = filteredData;
+      this.subscriptionList.map((item: any) => this.currency = item.currency);
+      if(!this.isPlanExpired){
+        if (canChangeSubscription == "canSubscribeAll") {
+          this.subscriptionList.map((item: any) => {
+            item.available = true;
+            if (this.existingSubscription[0]?.plan == "Entrepreneur" && item.subscription_plan != "Entrepreneur") {
+              item.available = false;
+            }
+            if (this.existingSubscription[0]?.plan == "Career" && item.subscription_plan == "Student") {
+              item.available = false
+            }
+          });
+        }
+        if (canChangeSubscription == "canSubscribeSome") {
+          this.subscriptionList.map((item: any) => {
+            item.available = false;
+            if (this.existingSubscription[0]?.plan == "Student" && item.subscription_plan != "Student") {
+              item.available = true;
+            }
+            if (this.existingSubscription[0]?.plan == "Career" && item.subscription_plan == "Entrepreneur") {
+              item.available = true;
+            }
+            if (this.existingSubscription[0].plan == "Entrepreneur") {
+              item.available = false;
+            }
+          });
+        }
+      }else{
+        this.subscriptionList.map((item: any) => item.available=true);
+      }
       this.plansLoaded = true;
-      this.loadExistingSubscription();
 
     });
   }
@@ -185,33 +218,58 @@ export class UpgradeSubscriptionComponent implements OnInit {
   loadExistingSubscription() {
     this.subscriptionService.getExistingSubscription().subscribe((response: any) => {
       this.existingSubscription = response.subscription;
-      this.getPlanexpire();
+      this.existingSubscription.map(plan => plan.subscriptionDays = plan.remainingdays.split('-')[0].trim().replace(/\D/g, ''));
+      if (this.existingSubscription[0].subscriptionDays == 90) {
+        this.monthlyPlan = 3;
+        this.existingSubscription[0].monthlyPlan = 3;
+        this.activeTabIndex = 0;
+      } else if (this.existingSubscription[0].subscriptionDays == 180) {
+        this.monthlyPlan = 6;
+        this.existingSubscription[0].monthlyPlan = 6;
+        this.activeTabIndex = 1;
+      } else {
+        this.monthlyPlan = 12;
+        this.existingSubscription[0].monthlyPlan = 12;
+        this.activeTabIndex = 2;
+      }
+      let data = {
+        page: 1,
+        perpage: 1000,
+        studenttype: this.studentType,
+        country: this.currentCountry,
+        continent: this.continent,
+        monthly_plan: this.monthlyPlan
+      }
+      this.subscriptionService.getSubscriptions(data).subscribe((response) => {
+        const mostPopularOnes = response.subscriptions.filter((item: any) => item.popular === 1);
+        const filteredData = response.subscriptions.filter((item: any) => item.popular !== 1);
+        filteredData.splice(1, 0, ...mostPopularOnes);
+        this.subscriptionList = filteredData;
+        this.subscriptionList.map((item: any) => this.currency = item.currency);
+        this.plansLoaded = true;
+        this.getPlanexpire();
+      })
     });
-
   }
-  getPlanexpire(){
-    this.authservice.getNewUserTimeLeft().subscribe(res=>{
-      
-      this.isPlanExpired=res.time_left.plan=="subscription_expired"?true:false;
-       
-      this.subscriptionList.forEach((item: any) => {
-        item.country = item.country.split(',').map(Number);
+  getPlanexpire() {
+    this.authservice.getNewUserTimeLeft().subscribe(res => {
 
-        item.selected = false;
-        item.selectedCountry = {};
-        item.filteredCountryList = this.countryList;
-        item.selectedCountry = this.countryList.find((country: any) => country.id === Number(this.user?.interested_country_id));
-        item.isActive = item.popular == 1 ? true : false;
-        item.available = false;
-
-        if (this.existingSubscription[0]?.plan == "Student") {
-          item.available = true;
-        }
-        if (this.existingSubscription[0]?.plan == "Career" && item.subscription_plan != "Student") {
-          item.available = true;
-        }
-
-      });
+      this.isPlanExpired = res.time_left.plan == "subscription_expired" ? true : false;
+      if(this.isPlanExpired){
+        this.subscriptionList.map((item:any)=>item.available = true);
+      }else{
+        this.subscriptionList.forEach((item: any) => {
+          item.selected = false;
+          item.isActive = item.popular == 1 ? true : false;
+          item.available = false;
+          if (this.existingSubscription[0]?.plan == "Student") {
+            item.available = true;
+          }
+          if (this.existingSubscription[0]?.plan == "Career" && item.subscription_plan != "Student") {
+            item.available = true;
+          }
+        });
+      }
     })
   }
   applyCoupon() {
@@ -236,7 +294,8 @@ export class UpgradeSubscriptionComponent implements OnInit {
         couponCode: this.couponInput,
         checkoutTotal: this.subscriptionTotal,
         subscriptioncouponstatus: this.selectedSubscriptionDetails?.couponcode,
-        subscription_id: this.selectedSubscriptionDetails?.id
+        subscription_id: this.selectedSubscriptionDetails?.id,
+        subscription_plan_id: this.selectedSubscriptionDetails?.subscription_plan_id,
       }
 
       this.subscriptionService.applyCoupon(data).subscribe((response) => {
@@ -253,7 +312,7 @@ export class UpgradeSubscriptionComponent implements OnInit {
           this.invalidCoupon = true;
           this.checkoutTotal = this.subscriptionTotal;
           this.discountAmountEnable = false;
-          this.couponInput='';
+          this.couponInput = '';
           this.showCross = false;
           this.iscouponReadonly = false;
         }
@@ -264,9 +323,17 @@ export class UpgradeSubscriptionComponent implements OnInit {
     }
   }
 
-  checkout() {
+  checkout(event: Event) {
 
     this.confirmModal = false;
+    if (this.existingSubscription[0]?.monthlyPlan > this.monthlyPlan) {
+      this.confirmSubscription(event, "Are you sure you want to upgrade to the new " + this.monthlyPlan + " month " + this.selectedSubscriptionDetails.subscription_plan + " plan? Please note that your current " + this.existingSubscription[0].monthlyPlan + " month " + this.existingSubscription[0].plan + " plan will expire upon upgrading");
+    }
+    else {
+      this.subscribe();
+    }
+  }
+  subscribe() {
     this.subscriptionService.getExtendedToken().subscribe(
       response => {
         if (response.token) {
@@ -276,11 +343,12 @@ export class UpgradeSubscriptionComponent implements OnInit {
         if (this.selectedSubscriptionDetails) {
           let data = {
             subscriptionId: this.selectedSubscriptionDetails.id,
-            countryId: this.selectedSubscriptionDetails.selectedCountry.id,
+            countryId: Number(this.user?.interested_country_id),
             finalPrice: this.checkoutTotal == '' ? this.subscriptionTotal : this.checkoutTotal,
-            couponApplied: this.iscouponReadonly? 1 : 0,
-            coupon: this.iscouponReadonly?this.couponInput:'',
+            couponApplied: this.iscouponReadonly ? 1 : 0,
+            coupon: this.iscouponReadonly ? this.couponInput : '',
             coupon_id: this.usedCouponId,
+            subscription_plan_id: this.selectedSubscriptionDetails?.subscription_plan_id
           }
           this.pay(data);
         }
@@ -304,10 +372,11 @@ export class UpgradeSubscriptionComponent implements OnInit {
         if (this.selectedSubscriptionDetails) {
           let data = {
             subscriptionId: this.selectedSubscriptionDetails.id,
-            countryId: this.selectedSubscriptionDetails.selectedCountry.id,
+            countryId: Number(this.user?.interested_country_id),
             finalPrice: this.checkoutTotal,
             couponApplied: this.couponInput ? 1 : 0,
             coupon: this.couponInput,
+            subscription_plan_id: this.selectedSubscriptionDetails?.subscription_plan_id
           }
           if (this.checkoutTotal == '') {
             data.finalPrice = this.subscriptionTotal;
@@ -332,12 +401,36 @@ export class UpgradeSubscriptionComponent implements OnInit {
       }
     );
   }
+  confirmSubscription(event: Event, message: string) {
+    this.confirmationService.confirm({
+      target: event.target as EventTarget,
+      message: message,
+      header: 'Confirmation',
+      acceptIcon: "none",
+      rejectIcon: "none",
+      rejectButtonStyleClass: "p-button-text",
+      accept: () => {
+        this.subscribe();
+      },
+      reject: () => {
+        this.messageService.add({ severity: 'error', summary: 'Rejected', detail: 'You have rejected' });
+      }
+    });
+  }
+
   pay(value: any) {
-    console.log("pay", value);
     this.subscriptionDetails = value;
     // this.showPayLoading = true;
     if (value.subscriptionId) {
       this.subscriptionService.placeSubscriptionOrder(value).subscribe((data) => {
+        if (data.success == false) {
+          this.toast.add({
+            severity: "error",
+            summary: "Error",
+            detail: data.message,
+          });
+          return;
+        }
         this.payWithRazor(data.orderid);
       });
     }
@@ -349,9 +442,9 @@ export class UpgradeSubscriptionComponent implements OnInit {
 
   }
   payWithRazor(orderid: any) {
-    let razorKey='rzp_live_YErYQVqDIrZn1D';
-    if(environment.domain=="api.uniprep.ai"){
-      razorKey='rzp_test_Crpr7YkjPaCLEr';
+    let razorKey = 'rzp_live_YErYQVqDIrZn1D';
+    if (environment.domain == "api.uniprep.ai") {
+      razorKey = 'rzp_test_Crpr7YkjPaCLEr';
     }
     const options: any = {
       key: razorKey,
@@ -451,6 +544,76 @@ export class UpgradeSubscriptionComponent implements OnInit {
       window.location.reload();
     }, 500);
   }
+  getLocation(): void {
+    
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition((position) => {
+        const longitude = position.coords.longitude;
+        const latitude = position.coords.latitude;
+        this.findCountry(longitude, latitude);
+      },
+      error=>{
+        this.loadExistingSubscription();
+        console.log("location access blocked");
+      }
+    );
+    } else {
+      console.log("No support for geolocation")
+    }
+  }
 
-    protected readonly localStorage = localStorage;
+  findCountry(longitude: number, latitude: number): void {
+    const url = `https://nominatim.openstreetmap.org/reverse?lat=${latitude}&lon=${longitude}&format=json`;
+    this.http.get<any>(url).subscribe(
+      (data: any) => {
+        this.currentCountry = data?.address?.country;
+        this.findContinent(this.currentCountry);
+      },
+      (error: any) => {
+        console.log('Error fetching location:', error);
+      }
+    );
+  }
+  findContinent(countryName: string) {
+    this.http.get(`https://restcountries.com/v3.1/name/${countryName}`).subscribe(
+      (data: any) => {
+        if (data?.length > 0) {
+          this.continent = data[data?.length - 1].continents[0];
+        }
+        else {
+          this.continent = 'Not found';
+        }
+        this.loadExistingSubscription();
+      },
+      error => {
+        console.error('Error:', error);
+        this.continent = 'Error';
+      }
+    );
+  }
+  changeMonthlyPlan(event: any) {
+    let tabIndex = event.index;
+    let data = "";
+    if (tabIndex == 0) {
+      this.monthlyPlan = 3;
+    }
+    else if (tabIndex == 1) {
+      this.monthlyPlan = 6;
+    }
+    else {
+      this.monthlyPlan = 12;
+    }
+    if (this.monthlyPlan > this.existingSubscription[0]?.monthlyPlan) {
+      data = "canSubscribeAll";
+    }
+    else if (this.monthlyPlan == this.existingSubscription[0]?.monthlyPlan) {
+      this.loadExistingSubscription();
+      return;
+    } else {
+      data = "canSubscribeSome";
+    }
+    this.getSubscriptionList(data);
+  }
+
+  protected readonly localStorage = localStorage;
 }

@@ -14,16 +14,16 @@ import {
   ListQuestion,
   QuestionList,
 } from "../../../@Models/question-list.model";
-import { MenuItem } from "primeng/api";
+import { MenuItem, MessageService } from "primeng/api";
 import { ModuleServiceService } from "../../module-store/module-service.service";
 import { ModuleStoreService } from "../../module-store/module-store.service";
 import { DataService } from "../../../data.service";
 import { ActivatedRoute, Router } from "@angular/router";
 import { Location } from "@angular/common";
-import { DomSanitizer, SafeResourceUrl } from "@angular/platform-browser";
+import { DomSanitizer, SafeResourceUrl, Meta, Title } from "@angular/platform-browser";
 import { Carousel } from "primeng/carousel";
 import { AuthService } from "src/app/Auth/auth.service";
-import {NgxUiLoaderService} from "ngx-ui-loader";
+import { NgxUiLoaderService } from "ngx-ui-loader";
 import { environment } from "@env/environment";
 
 @Component({
@@ -82,8 +82,14 @@ export class QuestionListComponent implements OnInit {
   isSkeletonVisible: boolean = true;
   showVideoPopup: boolean = false;
   selectedVideoLink: any | null = null;
-  questionUrl:string="";
-  allDataSet: any [] = [];
+  allDataSet: any[] = [];
+  countryFlag: any
+  ogTitle: any
+  ogDescription: any
+  ogImage: any;
+  sharedCountry: number = 0;
+  currentModuleSlug: any;
+  quizpercentage: any = 0
   @ViewChild('op', { static: false, read: ElementRef }) elRef: any;
 
   constructor(
@@ -97,7 +103,11 @@ export class QuestionListComponent implements OnInit {
     private router: Router, private ngxService: NgxUiLoaderService,
     private authService: AuthService,
     private sanitizer: DomSanitizer,
-    private renderer: Renderer2
+    private renderer: Renderer2,
+    private meta: Meta,
+    private toast: MessageService,
+    private titleService: Title,
+    private cdRef: ChangeDetectorRef
   ) {
     Carousel.prototype.changePageOnTouch = (e, diff) => { }
     Carousel.prototype.onTouchMove = () => { };
@@ -114,43 +124,115 @@ export class QuestionListComponent implements OnInit {
   loopRange = Array.from({ length: 30 }).fill(0).map((_, index) => index);
   ngOnInit(): void {
 
-    //this.moduleListService.emptyQuestionList$();
     this.countryId = Number(localStorage.getItem('countryId'));
+    this.sharedCountry = Number(localStorage.getItem('countryId'));
     this.route.params.subscribe((params) => {
-      let socialShare:any=document.getElementById("socialSharingList");
-      if (socialShare){
+      let socialShare: any = document.getElementById("socialSharingList");
+      if (socialShare) {
         socialShare.style.display = "none";
       }
       this.loadInit();
       //this.getSubmoduleName(this.countryId);
     });
-    this.dataService.countryId.subscribe((data) => {
-      if(this.countryId != data){
-        console.log(window.location.href)
-        if(window.location.href.includes('modules')){
-          this.router.navigateByUrl(`/pages/modules/${this.currentSubModuleSlug}`);
-          this.loadInit();
-        }
+    this.dataService.countryFlagSource.subscribe(data => {
+      this.countryFlag = data;
+    });
 
+    this.dataService.countryId.subscribe((data) => {
+      if (this.countryId != data) {
+        let countryName: any
+        this.currentSubModuleSlug = this.route.snapshot.paramMap.get("module_name");
+        this.dataService.countryName.subscribe((data) => {
+          countryName = data;
+        });
+        this.checkplanExpire();
+        switch (this.currentSubModuleSlug) {
+          case "pre-admission":
+            this.currentModuleId = 1;
+            this.currentModuleName = "Pre-Admission";
+            this.currentApiSlug = "getpreapplicationsubmoduleqcount";
+            break;
+          case "travel-and-tourism":
+            this.currentModuleId = 7;
+            this.currentModuleName = "Travel-and-Tourism";
+            this.currentApiSlug = "getpostapplicationsubmoduleqcount";
+            break;
+          case "post-admission":
+            this.currentModuleId = 3;
+            this.currentModuleName = "Post-Admission";
+            this.currentApiSlug = "getpostadmissionsubmoduleqcount";
+            break;
+          case "career-hub":
+            this.currentModuleId = 4;
+            this.currentModuleName = "Career Hub";
+            this.currentApiSlug = "getcareerhubsubmoduleqcount";
+            break;
+          case "university":
+            this.currentModuleId = 5;
+            this.currentModuleName = "University";
+            this.currentApiSlug = "getuniversitysubmoduleqcount";
+            this.tooltip = "";
+            break;
+          default:
+            this.currentModuleId = 6;
+            this.currentModuleName = "Life At " + countryName;
+            this.currentApiSlug = "getlifeincountrysubmoduleqcount";
+            this.tooltip = "";
+            break;
+        }
+        if (!localStorage.getItem('questionId')) {
+          this.router.navigateByUrl(`/pages/modules/${this.currentSubModuleSlug}`);
+        }
+        this.loadInit();
       }
       localStorage.setItem('countryId', data);
       this.questionListData = [];
       this.isSkeletonVisible = true
-      //this.loadInit();
+      this.loadInit();
     });
     this.tooltip = "Questions related to the application process are answered";
-    this.questionUrl=environment.ApiUrl+this.router.url;
   }
   loadInit() {
     this.questionListData = [];
     this.countryId = Number(localStorage.getItem("countryId"));
     let countryName: any;
     this.subModuleId = this.route.snapshot.paramMap.get("id");
+
+    if (this.subModuleId.includes("&&")) {
+      let url = this.subModuleId.split("&&");
+      localStorage.setItem('questionId', url[1]);
+      this.subModuleId = url[0];
+      // this.titleService.setTitle(this.selectedQuestionName.question)
+      // console.log('comes 123123')
+      //
+      // this.meta.updateTag({ name: 'og:title', content: this.selectedQuestionName.question });
+      // this.meta.updateTag({ property: 'og:url', content: 'https://dev-student.uniprep.ai/pages/modules/pre-admission/question-list/2' });
+      // this.meta.updateTag({ property: 'og:type', content: 'summary' });
+      // this.meta.updateTag({ property: 'og:description', content: 'summary summary summary summary summary summary' });
+      // this.meta.updateTag({ name: 'image', property: 'og:image', content: 'https://api.uniprep.ai/uniprepapi/storage/app/public/submoduleicons/Language.png' });
+      // this.cdRef.markForCheck();
+
+
+      // this.meta.updateTag({ property: 'og:url', content: 'https://dev-student.uniprep.ai/pages/modules/pre-admission/question-list/2' });
+      // this.meta.updateTag({ property: 'og:type', content: 'summary' });
+      // this.meta.updateTag({ property: 'og:title', content: 'asdf adsf asdfadsfasdf asdf' });
+      // this.meta.updateTag({ property: 'og:description', content: 'summary summary summary summary summary summary' });
+      // this.meta.updateTag({ name: 'image', property: 'og:image', content: 'https://api.uniprep.ai/uniprepapi/storage/app/public/submoduleicons/Language.png' });
+      //
+      //
+      // this.meta.updateTag({ name: 'twitter:card', content: 'summary' });
+      // this.meta.updateTag({ name: 'twitter:site', content: '@YourTwitterHandle' });
+      // this.meta.updateTag({ property: 'twitter:domain', content: 'dev-student.uniprep.ai' });
+      // this.meta.updateTag({ property: 'twitter:url', content: 'https://dev-student.uniprep.ai/pages/modules/pre-admission/question-list/2' });
+      // this.meta.updateTag({ name: 'twitter:title', content: 'Your Page Title' });
+      // this.meta.updateTag({ name: 'twitter:description', content: 'Your Page Description' });
+      // this.meta.updateTag({ name: 'twitter:image', content: 'https://api.uniprep.ai/uniprepapi/storage/app/public/submoduleicons/Language.png' });
+
+    }
     this.currentSubModuleSlug = this.route.snapshot.paramMap.get("module_name");
     this.dataService.countryName.subscribe((data) => {
       countryName = data;
     });
-    
     this.checkplanExpire();
     switch (this.currentSubModuleSlug) {
       case "pre-admission":
@@ -178,6 +260,12 @@ export class QuestionListComponent implements OnInit {
         this.currentModuleName = "University";
         this.currentApiSlug = "getuniversitysubmoduleqcount";
         this.tooltip = "";
+        break;
+      case "learning-hub":
+        this.currentModuleId = 8;
+        this.currentModuleName = "Learning Hub";
+        this.currentApiSlug = "getlearninghubsubmoduleqcount";
+        this.currentModuleSlug="learning-hub"
         break;
       default:
         this.currentModuleId = 6;
@@ -220,36 +308,50 @@ export class QuestionListComponent implements OnInit {
 
     //this.listQuestion$ = this.moduleListService.questionList$();
     let data = {
-      countryId: Number(localStorage.getItem("countryId")),
+      countryId: this.sharedCountry != 0 ? this.sharedCountry : this.countryId,
       moduleId: this.currentModuleId,
       submoduleId: Number(this.subModuleId),
       page: this.pageno,
       perpage: this.perpage,
     };
+    if (this.currentModuleId == 8) {
+      data.countryId = 0;
+    }
     this.loadQuestionList(data);
     //this.ngxService.start();
     //this.moduleListService.loadQuestionList(data);
-    
+    var data1={
+      moduleid:8,
+      countryid: 0,
+      submoduleid:this.subModuleId,
+    }
+    this.moduleListService.checkModuleQuizCompletion(data1).subscribe((res) => {
+      this.quizpercentage=res.progress
+    })
   }
-  loadQuestionList(data: any){
-    this.mService.studentsSubmoduleQuestions(data).subscribe((data: any) => {
-      this.questionListData = data?.questions;
-      this.isSkeletonVisible = false
-      this.totalQuestionCount = data?.questioncount;
-      //this.ngxService.stop();
-      let questionData =  {id: localStorage.getItem('questionId') || ''};
-      if(questionData.id) {
-        this.viewOneQuestion(questionData);
-        localStorage.removeItem('questionId');
-      }
-    });
-    this.mService.studentFullQuestionData(data).subscribe((data: any) => {
-      this.allDataSet = data;
-
+  loadQuestionList(data: any) {
+    let questionData = { id: localStorage.getItem('questionId') || '' };
+    if(questionData?.id){
+      data.share_link_question_id=questionData?.id;
+    }
+    this.mService.studentFullQuestionData(data).subscribe((res: any) => {
+      this.allDataSet = res;
+      this.moduleName = res.submodule_name;
       // this.questionListData = data?.questions;
       // this.isSkeletonVisible = false
       // this.totalQuestionCount = data?.questioncount;
       //this.ngxService.stop();
+      this.meta.updateTag({ property: 'og:image', content: res.country_flag });
+      this.mService.studentsSubmoduleQuestions(data).subscribe((data: any) => {
+        this.questionListData = data?.questions;
+        this.isSkeletonVisible = false;
+        this.totalQuestionCount = data?.questioncount;
+        //this.ngxService.stop();
+        if (questionData.id) {
+          this.viewOneQuestion(questionData);
+          localStorage.removeItem('questionId');
+        }
+      });
     });
   }
   checkplanExpire(): void {
@@ -268,20 +370,25 @@ export class QuestionListComponent implements OnInit {
   }
 
   getSubmoduleName(countryId: number) {
+
     let data = {
       countryId: countryId,
       moduleId: this.currentModuleId,
     };
+    if (this.currentModuleId == 8) {
+      data.countryId = 0
+    }
     //this.moduleListService.loadQuestionList()
-    this.moduleStoreService.loadSubModuleData(data).subscribe((response) => {
-      if (response) {
-        response.filter((res: any) => {
-          if (res.id == this.subModuleId) {
-            this.moduleName = res.submodule_name;
-          }
-        });
-      }
-    });
+    // this.moduleStoreService.loadSubModuleData(data).subscribe((response) => {
+    //   console.log(response);
+    //   if (response) {
+    //     response.filter((res: any) => {
+    //       if (res.id == this.subModuleId) {
+    //         this.moduleName = res.submodule_name;
+    //       }
+    //     });
+    //   }
+    // });
     // this.subModules$ = this.moduleListService.subModuleList$();
     // this.subModules$.subscribe(event => {
     //   if(event){
@@ -303,10 +410,10 @@ export class QuestionListComponent implements OnInit {
 
   onQuestionClick(selectedData: any) {
     this.checkplanExpire();
-     if(this.planExpired){
-       this.restrict=true;
-       return;
-     }
+    if (this.planExpired) {
+      this.restrict = true;
+      return;
+    }
     this.mService.questionList$().subscribe((data: any) => {
       this.data = data.questions;
     });
@@ -469,13 +576,16 @@ export class QuestionListComponent implements OnInit {
   }
 
   openReport() {
-    let data = {
+    let data:any = {
       isVisible: true,
       moduleId: this.selectedQuestionData.module_id,
       subModuleId: this.selectedQuestionData.submodule_id,
       questionId: this.selectedQuestionData.id,
       from: "module",
     };
+    if(this.currentModuleId == 8){
+      data.reporttype=8;
+    }
     this.dataService.openReportWindow(data);
   }
 
@@ -491,12 +601,15 @@ export class QuestionListComponent implements OnInit {
     } else if (this.currentModuleId == 7) {
       this.router.navigate(["/pages/modules/travel-and-tourism"]);
     } else if (this.currentModuleId == 3) {
-      this.router.navigate(["//pages/modules/post-admission"]);
+      this.router.navigate(["/pages/modules/post-admission"]);
     } else if (this.currentModuleId == 4) {
       this.router.navigate(["/pages/modules/career-hub"]);
     } else if (this.currentModuleId == 5) {
       this.router.navigate(["/pages/modules/university"]);
-    } else if (this.currentModuleId == 6) {
+    }
+    else if (this.currentModuleId == 8) {
+      this.router.navigate(["/pages/modules/learning-hub"]);
+    } else {
       this.router.navigate(["/pages/modules/life-at-country"]);
     }
   }
@@ -515,8 +628,8 @@ export class QuestionListComponent implements OnInit {
   }
 
   paginatepost(event: any) {
-    if(this.planExpired){
-      this.restrict=true;
+    if (this.planExpired) {
+      this.restrict = true;
       return;
     }
     this.pageno = event.page + 1;
@@ -536,21 +649,51 @@ export class QuestionListComponent implements OnInit {
     this.loadQuestionList(data);
   }
 
-  viewOneQuestion(question:any){
-
+  selectedQuestionName: any;
+  viewOneQuestion(question: any) {
     let questionData = this.allDataSet[question.id];
-    if(question && question?.question) {
-      questionData['question'] = question.question;
+    this.selectedQuestionName = question
+    if (questionData == undefined) {
+      questionData = [];
+    }
+    if (question && question?.question) {
+      questionData['question'] = question?.question;
     }
     else {
       let ques = this.questionListData.find((data: any) => data.id == question.id)
-      questionData['question'] = ques.question;
+      questionData['question'] = ques?.question;
     }
-    if(this.planExpired) {
-      this.restrict=true;
+    if (this.planExpired) {
+      this.restrict = true;
       return;
     }
-    this.oneQuestionContent = questionData
+
+    this.meta.updateTag({ name: 'og:title', content: questionData.question });
+    this.meta.updateTag({ property: 'og:url', content: 'https://dev-student.uniprep.ai/pages/modules/pre-admission/question-list/2' });
+    this.meta.updateTag({ property: 'og:type', content: 'summary' });
+    this.meta.updateTag({ property: 'og:description', content: 'summary summary summary summary summary summary' });
+    this.meta.updateTag({ name: 'image', property: 'og:image', content: 'https://api.uniprep.ai/uniprepapi/storage/app/public/country-flags/united-kingdom.svg' });
+    this.cdRef.markForCheck();
+    //
+    //
+    // this.meta.updateTag({ name: 'twitter:card', content: 'summary' });
+    // this.meta.updateTag({ name: 'twitter:site', content: '@YourTwitterHandle' });
+    // this.meta.updateTag({ property: 'twitter:domain', content: 'dev-student.uniprep.ai' });
+    // this.meta.updateTag({ property: 'twitter:url', content: 'https://dev-student.uniprep.ai/pages/modules/pre-admission/question-list/2' });
+    // this.meta.updateTag({ name: 'twitter:title', content: 'Your Page Title' });
+    // this.meta.updateTag({ name: 'twitter:description', content: 'Your Page Description' });
+    // this.meta.updateTag({ name: 'twitter:image', content: 'https://api.uniprep.ai/uniprepapi/storage/app/public/country-flags/united-kingdom.svg' });
+    //this.titleService.setTitle(questionData.question);
+    // this.meta.addTag(
+    //   { property: 'og:title', content:  questionData.question},
+    // );
+    // this.meta.addTag(
+    //   { name: 'title', content:  questionData.question},
+    // );
+
+    // this.titleService.setTitle(questionData.question);
+    // this.cdRef.markForCheck();
+    this.oneQuestionContent = questionData;
     this.isQuestionAnswerVisible = true
     this.getSubmoduleName(questionData.country_id)
     this.breadCrumb = [
@@ -576,84 +719,111 @@ export class QuestionListComponent implements OnInit {
   upgradePlan(): void {
     this.router.navigate(["/pages/subscriptions"]);
   }
-  showSocialSharingList(){
-    let socialShare:any=document.getElementById("socialSharingList");
-    if(socialShare.style.display == "") {
+  showSocialSharingList() {
+    let socialShare: any = document.getElementById("socialSharingList");
+    if (socialShare.style.display == "") {
       socialShare.style.display = "block";
     }
     else {
       socialShare.style.display = socialShare.style.display == "none" ? "block" : "none";
     }
   }
-  shareViaWhatsapp(){
-    const shareUrl = `whatsapp://send?text=${encodeURIComponent(this.questionUrl)}`;
+  shareViaWhatsapp() {
+    let url = window.location.href + '&&' + this.selectedQuestionData?.id
+    console.log(this.selectedQuestionData);
+    console.log(url);
+    this.meta.updateTag({ property: 'og:url', content: url });
+    const shareUrl = `whatsapp://send?text=${encodeURIComponent(url)}`;
     window.open(shareUrl, '_blank');
   }
-  shareViaInstagram(){
-    const shareUrl = `https://www.instagram.com?url=${encodeURIComponent(this.questionUrl)}`;
+  shareViaInstagram() {
+    let url = window.location.href + '&&' + this.selectedQuestionData?.id
+    console.log(url);
+    this.meta.updateTag({ property: 'og:url', content: url });
+    const shareUrl = `https://www.instagram.com?url=${encodeURIComponent(url)}`;
     window.open(shareUrl, '_blank');
   }
-  shareViaFacebook(){
-    const shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(this.questionUrl)}`;
+  shareViaFacebook() {
+    let url = window.location.href + '&&' + this.selectedQuestionData?.id
+    console.log(url);
+    this.meta.updateTag({ property: 'og:url', content: url });
+    const shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`;
     window.open(shareUrl, '_blank');
   }
-  shareViaLinkedIn(){
-    const shareUrl = `https://www.linkedin.com/shareArticle?url=${encodeURIComponent(this.questionUrl)}`;
+  shareViaLinkedIn() {
+    let url = window.location.href + '&&' + this.selectedQuestionData?.id
+    console.log(url);
+    this.meta.updateTag({ property: 'og:url', content: url });
+    const shareUrl = `https://www.linkedin.com/shareArticle?url=${encodeURIComponent(url)}`;
     window.open(shareUrl, '_blank');
   }
-  shareViaTwitter(){
-    const shareUrl = `https://twitter.com/intent/tweet?url=${encodeURIComponent(this.questionUrl)}`;
+  shareViaTwitter() {
+    let url = window.location.href + '&&' + this.selectedQuestionData?.id
+    console.log(url);
+    this.meta.updateTag({ property: 'og:url', content: url });
+    const shareUrl = `https://twitter.com/intent/tweet?url=${encodeURIComponent(url)}`;
     window.open(shareUrl, '_blank');
   }
-  shareViaMail(){
-    const shareUrl = `mailto:?body=${encodeURIComponent(this.questionUrl)}`;
-    window.open(shareUrl, '_blank');  
+  shareViaMail() {
+    let url = window.location.href + '&&' + this.selectedQuestionData?.id
+    console.log(url);
+    this.meta.updateTag({ property: 'og:url', content: url });
+    const shareUrl = `mailto:?body=${encodeURIComponent(url)}`;
+    window.open(shareUrl, '_blank');
   }
-  copyLink(){
+  copyLink() {
     const textarea = document.createElement('textarea');
-    textarea.textContent = window.location.href + '&&' + this.selectedQuestionData?.id;
+
+    // this.meta.updateTag(
+    //   { property: 'og:title', content:  this.selectedQuestionName.question},
+    // );
+    // this.meta.updateTag(
+    //   { name: 'title', content:  this.selectedQuestionName.question},
+    // );
+    textarea.textContent = window.location.href + '&&' + this.selectedQuestionData?.id + '&&' + this.countryId;
     document.body.append(textarea);
     textarea.select();
     document.execCommand('copy');
     textarea.remove();
+    this.toast.add({ severity: 'success', summary: 'Success', detail: 'Question Copied' });
   }
-   // vedio pop-up code
-   openNextPageLink:any;
-   openVideoPopup(link: any): void {
-     const sanitizedLink = this.sanitizer.bypassSecurityTrustResourceUrl(link);
-     this.openNextPageLink=link
-     // Check if it's a YouTube video link
-     if (this.isYoutubeVideoLink(link)) {
-       // If it's a YouTube video link, extract the video ID and construct the embeddable URL
-       const videoId = this.extractYoutubeVideoId(link);
-       const embedUrl = `https://www.youtube.com/embed/${videoId}`;
-       this.selectedVideoLink = this.sanitizer.bypassSecurityTrustResourceUrl(embedUrl);
-     } else {
-       // If it's not a YouTube video link, use the URL directly
-       this.selectedVideoLink = sanitizedLink;
-     }
- 
-     this.showVideoPopup = true;
-   }
- 
-   private isYoutubeVideoLink(link: string): boolean {
-     // Check if the link is a YouTube video link based on a simple pattern
-     return link.includes('youtube.com') || link.includes('youtu.be');
-   }
- 
-   private extractYoutubeVideoId(url: string): string {
-     const videoIdRegex = /(?:youtube\.com\/(?:[^\/\n\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|\S*?[?&]v=)|youtu\.be\/)([^"'&?\n\s]+)/;
-     const match = url.match(videoIdRegex);
-     return match ? match[1] : '';
-   }
- 
-   @HostListener('document:keydown', ['$event'])
-   onKeyDown(event: KeyboardEvent): void {
-     // Check if the pressed key is the Escape key (code 27)
-     if (event.code === 'Escape') {
-       this.closeVideoPopup();
-     }
-   }
+  // vedio pop-up code
+  openNextPageLink: any;
+  openVideoPopup(link: any): void {
+    const sanitizedLink = this.sanitizer.bypassSecurityTrustResourceUrl(link);
+    this.openNextPageLink = link
+    // Check if it's a YouTube video link
+    if (this.isYoutubeVideoLink(link)) {
+      // If it's a YouTube video link, extract the video ID and construct the embeddable URL
+      const videoId = this.extractYoutubeVideoId(link);
+      const embedUrl = `https://www.youtube.com/embed/${videoId}`;
+      this.selectedVideoLink = this.sanitizer.bypassSecurityTrustResourceUrl(embedUrl);
+    } else {
+      // If it's not a YouTube video link, use the URL directly
+      this.selectedVideoLink = sanitizedLink;
+    }
+
+    this.showVideoPopup = true;
+  }
+
+  private isYoutubeVideoLink(link: string): boolean {
+    // Check if the link is a YouTube video link based on a simple pattern
+    return link.includes('youtube.com') || link.includes('youtu.be');
+  }
+
+  private extractYoutubeVideoId(url: string): string {
+    const videoIdRegex = /(?:youtube\.com\/(?:[^\/\n\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|\S*?[?&]v=)|youtu\.be\/)([^"'&?\n\s]+)/;
+    const match = url.match(videoIdRegex);
+    return match ? match[1] : '';
+  }
+
+  @HostListener('document:keydown', ['$event'])
+  onKeyDown(event: KeyboardEvent): void {
+    // Check if the pressed key is the Escape key (code 27)
+    if (event.code === 'Escape') {
+      this.closeVideoPopup();
+    }
+  }
   closeVideoPopup(): void {
     if (this.videoFrame && this.videoFrame.nativeElement) {
       const player = this.videoFrame.nativeElement as HTMLIFrameElement;
@@ -662,22 +832,28 @@ export class QuestionListComponent implements OnInit {
     this.selectedVideoLink = null;
     this.showVideoPopup = false;
   }
-   openNextVideo(): void {
+  openNextVideo(): void {
     console.log('Opening next video:', this.openNextPageLink);
     if (this.openNextPageLink) {
       window.open(this.openNextPageLink);
     }
   }
-   onShowModal(value : any) {
-    let socialShare:any=document.getElementById("socialSharingList");
+  onShowModal(value: any) {
+    let socialShare: any = document.getElementById("socialSharingList");
     socialShare.style.display = "none";
-   }
- }
- @Pipe({ name: 'safe' })
- export class SafePipe implements PipeTransform {
-   constructor(private sanitizer: DomSanitizer) { }
- 
-   transform(url: string): SafeResourceUrl {
-     return this.sanitizer.bypassSecurityTrustResourceUrl(url);
-   }
- }
+  }
+  startQuiz(){
+    console.log(this.currentModuleId);
+    console.log( Number(this.subModuleId));
+    localStorage.setItem("learninghubsubmoduleid",this.subModuleId);
+    this.router.navigate([`/pages/modules/${this.currentModuleSlug}/learninghubquiz`]);
+  }
+}
+@Pipe({ name: 'safe' })
+export class SafePipe implements PipeTransform {
+  constructor(private sanitizer: DomSanitizer) { }
+
+  transform(url: string): SafeResourceUrl {
+    return this.sanitizer.bypassSecurityTrustResourceUrl(url);
+  }
+}

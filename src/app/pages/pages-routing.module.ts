@@ -20,7 +20,10 @@ import { CompanyListGuidlinesComponent } from './company-list-guidlines/company-
 import { InvestorListGuidlinesComponent } from './investor-list-guidlines/investor-list-guidlines.component';
 import { ScholarshipListGuidlinesComponent } from './scholarship-list-guidlines/scholarship-list-guidlines.component';
 import { RecommendationsComponent } from './recommendations/recommendations.component';
-
+import { PitchDeskComponent } from './pitch-desk/pitch-desk.component';
+import { ExportCreditComponent } from './export-credit/export-credit.component';
+import { MycertificateComponent } from './mycertificate/mycertificate.component';
+import { CareerPlannerComponent } from './career-planner/career-planner.component';
 
 
 const routes: Routes = [
@@ -36,11 +39,15 @@ const routes: Routes = [
                 path: 'userguide',
 
                 loadChildren: () => import('./user-guide/user-guide.module').then(m => m.UserGuideModule)
-            },            
+            },
             {
                 path: 'modules',
                 // canActivate: [PagesGuard],
                 loadChildren: () => import('./modules/modules.module').then(m => m.ModulesModule)
+            },
+            {
+                path: 'language-hub',
+                loadChildren: () => import('./language-hub/language-hub.module').then(m => m.LanguageHubModule)
             },
             {
                 path: 'subscriptions',
@@ -124,6 +131,10 @@ const routes: Routes = [
                 path: 'tutorials',
                 loadChildren: () => import('./tutorials/tutorials.module').then(m => m.TutorialsModule)
             },
+            {
+                path: 'pitch-deck',
+                component: PitchDeskComponent  
+            },
             {path: 'usermanagement', canActivate: [AuthGuard], component: UserManagementComponent},
             {path: '', redirectTo: 'dashboard', pathMatch: 'full'},
             {
@@ -149,7 +160,19 @@ const routes: Routes = [
             {
                 path: 'recommendations',
                 component: RecommendationsComponent
+            },
+            {
+                path: 'export-credit',
+                component: ExportCreditComponent
+            },
+            {
+                path: 'mycertificate',
+                component: MycertificateComponent
+            },{
+                path: 'career-planner',
+                component: CareerPlannerComponent
             }
+            
         ]
     }
 ];

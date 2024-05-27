@@ -30,6 +30,8 @@ export class DashboardComponent implements OnInit {
     isViewMoreOrgVisible: boolean = false;
     partnerTrusterLogo: any;
     enableReading!: boolean;
+    restrict: boolean = false;
+    planExpired: boolean = false;
     @ViewChild('carousel') carousel!: Carousel;
     university: any[] = [
         {
@@ -52,9 +54,9 @@ export class DashboardComponent implements OnInit {
     headerFlag!: string;
     isLondon!: boolean;
     isCountryPopupOpen: any;
-
+    currentModuleSlug: any;
     constructor(private dashboardService: DashboardService,private service: AuthService,
-        private router: Router, private dataService: DataService,
+        private router: Router, private dataService: DataService,private authService: AuthService,
                 private elRef: ElementRef, private renderer: Renderer2,
     ) {
         this.responsiveOptions = [
@@ -76,6 +78,7 @@ export class DashboardComponent implements OnInit {
         ];
     }
     ngOnInit(): void {
+        this.checkplanExpire()
         this.selectedCountryId = Number(localStorage.getItem('countryId'));
         this.enableReadingData();
         //localStorage.setItem('selectedcountryId', this.selectedCountryId);
@@ -146,6 +149,7 @@ export class DashboardComponent implements OnInit {
         //this.openViewMoreOrg();
         this.isViewMoreOrgVisible = false;
         this.loadApiData();
+        this.checkquizquestionmodule()
     }
 
     enableReadingData(): void {
@@ -224,7 +228,14 @@ export class DashboardComponent implements OnInit {
     }
 
     openQuiz(): void {
-        this.continueQuiz = "block";
+        // dont remove comments
+        // if(this.planExpired){
+        //     this.restrict=true;
+        //     return;
+        //   }
+        // this.continueQuiz = "block";
+        // this.checkQuestionQuiz()
+        this.router.navigate([`pages/modules/quizmodule`]);
     }
 
 
@@ -286,6 +297,11 @@ export class DashboardComponent implements OnInit {
         this.router.navigate([`pages/modules/${moduleName}/`]);
     }
 
+
+    openCertificate(){
+        this.router.navigate([`pages/mycertificate`]);
+    }
+
     onClickQuizProgression(data: any): void {
         let moduleName = "";
         switch (data.module_name) {
@@ -317,4 +333,52 @@ export class DashboardComponent implements OnInit {
     openViewMoreOrg(): void {
         this.isViewMoreOrgVisible = true;
     }
+    quizpercentage:any=0;
+    checkquizquestionmodule(){
+      var data={
+        countryid: this.selectedCountryId
+      }
+      this.dashboardService.checkModuleQuizCompletion(data).subscribe((res) => {
+        this.quizpercentage=res.progress
+      })
+    }
+    checkQuestionQuiz(){
+        var data={
+            countryid: this.selectedCountryId
+          }
+          this.dashboardService.checkModuleQuizProgressbar(data).subscribe((res) => {
+            this.quizProgressings=res.modules.filter((module:any) => module.id !== 7);
+          })
+    }
+    startQuiz(moduleid:any) {
+        if(moduleid==1){
+          this.currentModuleSlug="pre-admission"
+        }else if(moduleid==3){
+          this.currentModuleSlug="post-admission"
+        }else if(moduleid==4){
+          this.currentModuleSlug="career-hub"
+        }else if(moduleid==6){
+          this.currentModuleSlug="life-at-country"
+        }else if(moduleid==7){
+            this.currentModuleSlug="travel-and-tourism"
+          }
+        this.router.navigate([`/pages/modules/${this.currentModuleSlug}/quiz`]);
+      }
+      checkplanExpire(): void {
+        this.authService.getNewUserTimeLeft().subscribe((res) => {
+          let data = res.time_left;
+          let subscription_exists_status = res.subscription_details;
+          if (data.plan === "expired" || data.plan === 'subscription_expired') {
+            this.planExpired = true;   
+          } else {
+            this.planExpired = false;
+          }
+        })
+      }
+      upgradePlan(): void {
+        this.router.navigate(["/pages/subscriptions"]);
+      }
+      clearRestriction() {
+        this.restrict = false;
+      }
 }

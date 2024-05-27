@@ -19,13 +19,22 @@ import { ButtonModule } from 'primeng/button';
 import { CardModule } from 'primeng/card';
 import {NgxUiLoaderModule} from "ngx-ui-loader";
 import {SkeletonModule} from "primeng/skeleton";
+import { QuizComponent } from './quiz/quiz.component';
+import { QuizmenuComponent } from '../quizmenu/quizmenu.component';
+import { AccordionModule } from 'primeng/accordion';
+import { LearninghubquizComponent } from './learninghubquiz/learninghubquiz.component';
+import { LanguagetypequizComponent } from './languagetypequiz/languagetypequiz.component';
 
 
 @NgModule({
   declarations: [
     ModulesComponent,
     ListSubModulesComponent,
-    QuestionListComponent
+    QuestionListComponent,
+    QuizComponent,
+    QuizmenuComponent,
+    LearninghubquizComponent,
+    LanguagetypequizComponent
   ],
     imports: [
         CommonModule,
@@ -44,6 +53,7 @@ import {SkeletonModule} from "primeng/skeleton";
         CardModule,
         NgxUiLoaderModule,
         SkeletonModule,
+        AccordionModule
     ]
 })
 export class ModulesModule { }
