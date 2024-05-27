@@ -44,7 +44,7 @@
 			</div>
 		</div>
 		<div class="row" *ngIf="!isSkeletonVisible">
-			<div *ngFor="let sub of questionListData; let i = index" class="col-xxl-3 col-xl-3 col-lg-3 col-md-4 col-sm-6 col-xs-12 col-12 my-2">
+			<div *ngFor="let sub of questionListData; let i = index" class="readingcardgrid my-2">
 				<div class="row w-100 h-100 m-0 justify-content-center">
 					<div (click)="viewOneQuestion(sub)" class="card questioncard {{ sub.read == 1 ? 'questionread' : '' }}">
 						<div class="card-body d-flex flex-sm-column flex-row justify-content-sm-between align-items-center px-0 py-2 gap-2 gap-md-0">
