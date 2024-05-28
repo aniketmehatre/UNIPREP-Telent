@@ -190,7 +190,11 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
   formvisbility = false;
   mobileForm: any = FormGroup;
+  preferredCountry: any
   ngOnInit() {
+    fetch('https://ipapi.co/json/').then(response => response.json()).then(data => {
+      this.preferredCountry = data.country_code.toLocaleLowerCase()
+    });
     this.dataService.countryId.subscribe((data: any) => {
       if (!data) {
         let cntId = localStorage.getItem('countryId');
