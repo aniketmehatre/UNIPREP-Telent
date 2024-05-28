@@ -194,6 +194,7 @@ export class QuizmenuComponent implements OnInit {
     // category_flag:1,
     category_id:this.subjectid
    }
+   localStorage.setItem("learningsubjectidforquiz",this.subjectid);
    this.moduleListService.getSpecializationLists(data).subscribe((response) => {
     this.specializationlist = response.data;
   });

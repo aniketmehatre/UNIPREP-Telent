@@ -253,6 +253,7 @@ export class LearninghubquizComponent implements OnInit {
       country_id: this.currentCountryId,
       module_id: this.currentModuleId,
       submodule_id: localStorage.getItem("learninghubsubmoduleid"),
+      category_id:localStorage.getItem("learningsubjectidforquiz"),
       quizquestion: this.quizData
     }
     this.moduleListService.submitQuizLearningHubQuiz(data).subscribe((res) => {
