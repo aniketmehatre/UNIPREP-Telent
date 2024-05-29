@@ -257,3 +257,20 @@
 			</div>
 		</div>
 	</div>
+
+<!-- module how it works vedio pop up -->
+<div class="modal" tabindex="-1" role="dialog" [ngClass]="{ 'd-block': howItWorksVideoModal }">
+	<div class="modal-dialog modal-xl modal-dialog-centered" role="document">
+		<div class="modal-content">
+			<div class="modal-body position-relative pt-4">
+				<div class="modalbuttons">
+					<div class="d-flex gap-2">
+						<button title="New Window" type="button" class="btn btn-primary btn-rounded" (click)="openVideoInYoutube()"><i class="fa-solid fa-arrow-up-right-from-square"></i></button>
+						<button type="button" title="Close Popup" class="btn btn-primary btn-rounded" (click)="closeVideoPopup()"><i class="fa-solid fa-xmark"></i></button>
+					</div>
+				</div>
+				<div class="embed-responsive"><iframe #videoFrame [src]="howItWorksVideoLink" width="100%" frameborder="0" allowfullscreen></iframe></div>
+			</div>
+		</div>
+	</div>
+</div>

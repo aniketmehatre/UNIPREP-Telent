@@ -1,4 +1,4 @@
-import {Component, HostListener, OnDestroy, OnInit, Output} from "@angular/core";
+import {Component, HostListener, OnDestroy, OnInit, Output, ViewChild,ElementRef,} from "@angular/core";
 import {PageFacadeService} from "./page-facade.service";
 import {SubSink} from "subsink";
 import {ActivatedRoute, NavigationEnd, Router} from "@angular/router";
@@ -6,9 +6,10 @@ import { DataService } from "../data.service";
 import {DashboardService} from "./dashboard/dashboard.service";
 import { AuthService } from "../Auth/auth.service";
 import {DeviceDetectorService} from "ngx-device-detector";
+
 // @ts-ignore
 import Contlo from 'contlo-web-sdk';
-import {Meta, Title} from "@angular/platform-browser";
+import {DomSanitizer,Meta, Title} from "@angular/platform-browser";
 
 @Component({
     selector: "uni-pages",
@@ -16,6 +17,8 @@ import {Meta, Title} from "@angular/platform-browser";
     styleUrls: ["./pages.component.scss"],
 })
 export class PagesComponent implements OnInit, OnDestroy {
+    @ViewChild('videoFrame') videoFrame: ElementRef | undefined;
+
     sidebarClass = "";
     stickHeader = false;
     showSearch = false;
@@ -28,6 +31,9 @@ export class PagesComponent implements OnInit, OnDestroy {
     isDeviceStatus: any = 'none';
     isLoggedInAnotherDevice: any = 'none';
     deviceInfo: any;
+    howItWorksVideoModal: boolean = false;
+    howItWorksVideoLink: any | null = null;
+
 
     ogTitle = '';
     ogDescription = 'UNIPREP is a one-stop platform for students, graduates & entrepreneurs, seeking information on Career, Life and Study abroad. Sign-up Now - Free!';
@@ -40,7 +46,7 @@ export class PagesComponent implements OnInit, OnDestroy {
     visibleExhastedUser!: boolean;
     constructor(private pageFacade: PageFacadeService, private router: Router, private dataService: DataService,
                 public meta: Meta, private titleService: Title, private route: ActivatedRoute,
-                private dashboardService: DashboardService,private service:AuthService, private deviceService: DeviceDetectorService) {
+                private dashboardService: DashboardService,private service:AuthService, private deviceService: DeviceDetectorService,private sanitizer:DomSanitizer) {
        // dev
         Contlo.init('d7a84b3a1d83fa9f7e33f7396d57ac88', 'https://dev-student.uniprep.ai');
 
@@ -103,7 +109,7 @@ export class PagesComponent implements OnInit, OnDestroy {
             localStorage.setItem('time_card_info', data.card_message);
         });
         this.subScribedUserCount();
-
+        this.videoPopupTrigger('refresh');
         this.subs.sink = this.pageFacade.sideBarState$().subscribe({
             next: (state) => {
                 this.sidebarClass = state ? "active" : "";
@@ -174,5 +180,59 @@ export class PagesComponent implements OnInit, OnDestroy {
     closeQuiz(): void {
         this.visibleExhasted = false;
         this.visibleExhastedUser = false;
+    }
+
+    selectedLink:string = "https://www.youtube.com/watch?v=3-5YyylOgKw";
+    openVideoInYoutube(){
+        console.log('Opening next video:', this.selectedLink);
+        if (this.selectedLink) {
+            window.open(this.selectedLink);
+        }
+    }
+
+    closeVideoPopup(){
+        if (this.videoFrame && this.videoFrame.nativeElement) {
+            const player = this.videoFrame.nativeElement as HTMLIFrameElement;
+            player.src = '';
+        }
+        this.howItWorksVideoLink = null;
+        this.howItWorksVideoModal = false;
+    }
+
+    videoPopupTrigger(mode: string){
+        console.log(mode,"video popup trigger");
+        // if(mode != 'refresh'){
+            this.pageFacade.videoPopupTrigger$.subscribe(() => {
+                this.openVideoPopup();
+              });
+        // }
+    }
+
+    // vedio pop-up code
+    openVideoPopup(): void {
+        var link = "https://www.youtube.com/embed/3-5YyylOgKw?si=5QiGijrze5j370y5";
+        const sanitizedLink = this.sanitizer.bypassSecurityTrustResourceUrl(link);
+        // Check if it's a YouTube video link
+        if (this.isYoutubeVideoLink(link)) {
+            // If it's a YouTube video link, extract the video ID and construct the embeddable URL
+            const videoId = this.extractYoutubeVideoId(link);
+            const embedUrl = `https://www.youtube.com/embed/${videoId}`;
+            this.howItWorksVideoLink = this.sanitizer.bypassSecurityTrustResourceUrl(embedUrl);
+        } else {
+            // If it's not a YouTube video link, use the URL directly
+            this.howItWorksVideoLink = sanitizedLink;
+        }
+        this.howItWorksVideoModal = false;
+    }
+
+    private isYoutubeVideoLink(link: string): boolean {
+        // Check if the link is a YouTube video link based on a simple pattern
+        return link.includes('youtube.com') || link.includes('youtu.be');
+    }
+
+    private extractYoutubeVideoId(url: string): string {
+        const videoIdRegex = /(?:youtube\.com\/(?:[^\/\n\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|\S*?[?&]v=)|youtu\.be\/)([^"'&?\n\s]+)/;
+        const match = url.match(videoIdRegex);
+        return match ? match[1] : '';
     }
 }
