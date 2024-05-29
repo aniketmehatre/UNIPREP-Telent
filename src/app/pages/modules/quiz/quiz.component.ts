@@ -317,6 +317,7 @@ export class QuizComponent implements OnInit {
       const { submodule_id, source_faqquestion, otp1, otp2, otp3, otp4, module_id, country_id, user_answered, user_answered_value, ...rest } = data;
       return rest;
     });
+    this.stopTimer();
     var data = {
       country_id: this.currentCountryId,
       module_id: this.currentModuleId,
@@ -443,5 +444,10 @@ export class QuizComponent implements OnInit {
   }
   timeIsOver() {
     this.router.navigate(['/pages/modules/quizmodule'])
+  }
+  stopTimer(): void {
+    if (this.timerSubscription) {
+      this.timerSubscription.unsubscribe();
+    }
   }
 }
