@@ -77,7 +77,9 @@ export class ExportCreditComponent implements OnInit {
   }
 
   findCurrencyCode(countryName: string) {
-    this.http.get(`https://restcountries.com/v3.1/name/${countryName}`).subscribe(
+    //in the rest countries api accept only the first letter needs to upper case then only we can get the responce.so modify the country name like "United states"
+    var modCountry = countryName[0].toUpperCase() + countryName.slice(1).toLowerCase(); 
+    this.http.get(`https://restcountries.com/v3.1/name/${modCountry}`).subscribe(
       (data: any) => {
         if (data?.length > 0) {
           const currencies = data[0].currencies;

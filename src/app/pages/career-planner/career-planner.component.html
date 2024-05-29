@@ -5,8 +5,20 @@
 			<div class="col-md-6 text-center">
 				<h5 class="select-title w-100 mb-1" tooltipPosition="top" pTooltip="Career Planner">CAREER PLANNER<i class="questiontooltip fa-solid fa-circle-question"></i></h5>
 			</div>
+			<!-- select-title css also needs to change the width -->
+			<!-- <div class="col-md-6 text-center">
+				<div class="select-title text-nowrap d-flex justify-content-between align-items-center">
+					<div>
+						<h5 class="w-100 mb-1" tooltipPosition="top" pTooltip="Career Planner">CAREER PLANNER<i class="questiontooltip fa-solid fa-circle-question"></i></h5>
+					</div>
+					<div>
+						<button class="how-it-works-button">how it works? &nbsp;&nbsp;<i class="fa-solid fa-play"></i></button>
+					</div>
+				</div>
+			</div> -->
+			
 			<div class="col-md-3">
-				<div class="d-flex gap-1 my-2 align-items-center justify-content-end">
+				<div class="d-flex gap-1 my-2 align-items-center justify-content-end" *ngIf="enableModule">
 					<label for="exportButton" class="text-small">Currency in</label>
 					<div class="d-flex align-items-center p-1 gap-1" style="background-color: #EBEDF2;border-radius: 10rem;">
 						<button class="btn btn-primary text-small"  [ngClass]="{'inactiveButton': currencyButtonName == 'inr'}" (click)="toggleClass('Dollar')" style="border-radius: 20px !important;" type="button">$ Dollar</button>
