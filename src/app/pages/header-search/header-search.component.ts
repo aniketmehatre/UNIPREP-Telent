@@ -172,8 +172,11 @@ export class HeaderSearchComponent implements OnInit, OnDestroy {
         let searchedResult = this.searchInputValue;
         searchedResult = searchedResult.split(" ");
         searchedResult.forEach((element: any) => {
-          const small = new RegExp(element, "i");
-          data.question = data.question.replace(small, '<span class="fw-bold sec-color" style="color:#F0780C">' + element + '</span>');
+          //if (element !== 'an'){
+            const small = new RegExp(`\\b${element}\\b`, "g");
+            const tagData = '<span class="fw-bold sec-color" style="color:#F0780C">' + element + '</span>'
+            data.question = data.question.replace(small, tagData);
+          //}
         });
         // for (let x in searchedResult) {
         //   ans = ans.replace(new RegExp(x, 'g'), '<span class="fw-bold">' + x + '</span>');
