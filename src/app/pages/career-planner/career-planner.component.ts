@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CareerPlannerService } from './career-planner.service';
+import { PageFacadeService } from '../page-facade.service';
 
 interface Specialisation {
   id: number;
@@ -126,7 +127,7 @@ export class CareerPlannerComponent implements OnInit {
     'wrkExpSpecilisation': [],
   };
 
-  constructor(private careerPlannerService:CareerPlannerService) { }
+  constructor(private careerPlannerService:CareerPlannerService, private pageFacade:PageFacadeService) { }
 
   ngOnInit(): void {
     this.checkCareerPlanExist();
@@ -304,4 +305,11 @@ export class CareerPlannerComponent implements OnInit {
       this.perPage = 30;
     });
   }
+
+  openVideoPopup() {
+    console.log("button works");
+    this.pageFacade.openHowitWorksVideoPopup('button_click');
+  }
+
+  
 }
