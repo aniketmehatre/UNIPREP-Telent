@@ -23,9 +23,8 @@ export class PageFacadeService {
     public videoPopupTrigger = new BehaviorSubject<any>("");
     videoPopupTrigger$ = this.videoPopupTrigger.asObservable();
 
-    openHowitWorksVideoPopup(mode:any) {
-        // console.log(mode,"page facade");
-        this.videoPopupTrigger.next(mode);
+    openHowitWorksVideoPopup(data: any) {
+        this.videoPopupTrigger.next(data);
     }
     
 }

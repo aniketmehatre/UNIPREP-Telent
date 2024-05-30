@@ -109,7 +109,7 @@ export class PagesComponent implements OnInit, OnDestroy {
             localStorage.setItem('time_card_info', data.card_message);
         });
         this.subScribedUserCount();
-        this.videoPopupTrigger('refresh');
+        // this.videoPopupTrigger('refresh');
         this.subs.sink = this.pageFacade.sideBarState$().subscribe({
             next: (state) => {
                 this.sidebarClass = state ? "active" : "";
@@ -134,6 +134,13 @@ export class PagesComponent implements OnInit, OnDestroy {
 
         });
         this.MultiLoginPopup = 'none'; //If you want to show the popup change the value as "block"
+        this.pageFacade.videoPopupTrigger$.subscribe((data) => {
+            console.log(data);
+            if(data){
+                this.openVideoPopup(data);
+            }
+            
+        });
     }
 
     onClickSubscribedUser(): void {
@@ -184,7 +191,6 @@ export class PagesComponent implements OnInit, OnDestroy {
 
     selectedLink:string = "https://www.youtube.com/watch?v=3-5YyylOgKw";
     openVideoInYoutube(){
-        console.log('Opening next video:', this.selectedLink);
         if (this.selectedLink) {
             window.open(this.selectedLink);
         }
@@ -199,18 +205,9 @@ export class PagesComponent implements OnInit, OnDestroy {
         this.howItWorksVideoModal = false;
     }
 
-    videoPopupTrigger(mode: string){
-        console.log(mode,"video popup trigger");
-        // if(mode != 'refresh'){
-            this.pageFacade.videoPopupTrigger$.subscribe(() => {
-                this.openVideoPopup();
-              });
-        // }
-    }
-
     // vedio pop-up code
-    openVideoPopup(): void {
-        var link = "https://www.youtube.com/embed/3-5YyylOgKw?si=5QiGijrze5j370y5";
+    openVideoPopup(link: string): void {
+
         const sanitizedLink = this.sanitizer.bypassSecurityTrustResourceUrl(link);
         // Check if it's a YouTube video link
         if (this.isYoutubeVideoLink(link)) {
@@ -222,7 +219,7 @@ export class PagesComponent implements OnInit, OnDestroy {
             // If it's not a YouTube video link, use the URL directly
             this.howItWorksVideoLink = sanitizedLink;
         }
-        this.howItWorksVideoModal = false;
+        this.howItWorksVideoModal = true;
     }
 
     private isYoutubeVideoLink(link: string): boolean {
