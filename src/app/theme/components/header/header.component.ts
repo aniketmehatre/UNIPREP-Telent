@@ -93,6 +93,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
   freeTrialErrorMsg: string = '';
   demoTrial: boolean = false;
   reportlearnlanguagetype:number=0;
+  countryList: any;
+  locationList: any;
+
   constructor(
     private router: Router,
     private locationService: LocationService,
@@ -132,6 +135,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   loadCountryList() {
     this.dashboardService.countryList().subscribe((countryList) => {
       this.countryLists = countryList;
+      this.countryList = countryList;
       this.countryLists.forEach((element: any) => {
         if (element.id == Number(localStorage.getItem("countryId"))) {
           this.dataService.changeCountryName(element.country);
@@ -214,6 +218,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     });
     this.mobileForm = this.formBuilder.group({
       phone: ["", Validators.required],
+      home_country: ["", Validators.required]
     });
     if (
       localStorage.getItem("phone") == "" ||
@@ -365,6 +370,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     // this.darkModeSwitch.addEventListener("change", () => {
     //   this.themeService.toggleTheme();
     // });
+    this.getCountryList();
   }
 
   ngOnDestroy() {
@@ -711,8 +717,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
     let data: any = {};
     if (this.mobileForm.valid) {
       data.phone = this.mobileForm.value.phone.number;
+      data.home_country = this.mobileForm.value.home_country;
       data.country_code = this.mobileForm.value.phone.dialCode;
     }
+
     if (this.demoTrial == true) {
       data.demo_user = 1;
     }
@@ -752,6 +760,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     let data: any = {};
     if (this.mobileForm.valid) {
       data.phone = this.mobileForm.value.phone.number;
+      data.home_country = this.mobileForm.value.home_country;
       data.country_code = this.mobileForm.value.phone.dialCode;
     }
     if (this.demoTrial == true) {
@@ -824,5 +833,32 @@ export class HeaderComponent implements OnInit, OnDestroy {
           detail: "Password Updated Successfully.",
         });
       });
+  }
+
+  changeLocation(event: any) {
+    this.GetLocationList()
+  }
+
+  GetLocationList() {
+    this.locationList = [{ id: 0, district: 'Others' }];
+    this.mobileForm?.get('location_id')?.setValue(0);
+    if (this.mobileForm.get('home_country')?.value == 122) {
+      this.locationService.getLocation().subscribe(
+          (res: any) => {
+            this.locationList = res;
+          },
+          (error: any) => {
+            this.toast.add({
+              severity: "warning",
+              summary: "Warning",
+              detail: error.error.message,
+            });
+          }
+      );
+    }
+    else {
+      this.locationList = [{ id: 0, district: 'Others' }];
+      this.mobileForm?.get('location_id')?.setValue(0);
+    }
   }
 }

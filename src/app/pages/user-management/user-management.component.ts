@@ -308,6 +308,7 @@ export class UserManagementComponent implements OnInit {
             data.intake_month_looking = this.registrationForm.value?.intake_month_looking?.getMonth();
 
         }
+        delete this.registrationForm.value.phone;
         this.userManagementService.updateUserData(data).subscribe(data => {
             this.ShowPersonalInfo = false;
             this.GetPersonalProfileData();

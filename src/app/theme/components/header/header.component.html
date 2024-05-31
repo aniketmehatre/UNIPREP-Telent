@@ -518,6 +518,17 @@
                                                             [phoneValidation]="true" [selectedCountryISO]="preferredCountry"
                                                             customPlaceholder="Enter Contact Number" formControlName="phone"> </ngx-intl-tel-input>
 									</div>
+                                    <div class="w-100 phonenumberblock mt-2" *ngIf="formvisbility">
+                                        <p style="font-size: x-small">Select Your Home Country</p>
+                                        <div class="p-inputgroup">
+                                            <p-dropdown styleClass="w-100"  class="w-100" formControlName="home_country"
+                                                        appendTo="body" [options]="countryList" [filter]="true"
+                                                        placeholder="Country Dropdown"
+                                                        (onChange)="changeLocation($event)" filterBy="country"
+                                                        optionLabel="country" optionValue="id"
+                                                        [autoDisplayFirst]="false"></p-dropdown>
+                                        </div>
+                                    </div>
 									<div *ngIf="freeTrialErrorMsg" class="text-danger">
 										{{freeTrialErrorMsg}}
 									</div>
