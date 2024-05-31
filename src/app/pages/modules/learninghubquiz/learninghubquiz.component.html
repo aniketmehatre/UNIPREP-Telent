@@ -61,6 +61,12 @@
             </div>
         </div>
         <div class="container-fluid bg-white mt-2">
+            <div class="row">
+                <div class="text-end text-small font-primarycolor mt-3" style="font-size: 18px; text-align: end;">  
+                    <span style="border: 1px solid black; color: black; padding: 5px 18px; border-radius: 10px;">
+                    <b>{{ timer }} Sec | 30 Sec</b>
+                  </span> </div>
+            </div>
             <div class="row justify-content-center">
                 <div class="col-md-12">
                     <p-carousel #carouselQuiz (onPage)="setPage($event)" [circular]="true" [numScroll]="1"
@@ -167,12 +173,6 @@
         </div>
     </div>
 </div>
-
-
-
-
-
-
 <div class="card readingcard" *ngIf="isQuizSubmit" style="background-color: #fff;">
     <div class="card-body text-center pt-0 h-100">
         <div class="row justify-content-center align-items-center">
@@ -208,7 +208,7 @@
                         Better Luck Next Time<br />{{totalanswercorret}}/{{totalanswerquistionaftersubmited}}</h3>
                 <p *ngIf="totalPercentage>=80" class="text-center mb-2 fw-medium">You have completed the quiz on <br>{{currentModuleName}} module</p>
                 <p *ngIf="totalPercentage<=79" class="text-center mb-2 fw-medium">Completion of this module requires<br>a minimum score of 80%</p>
-                <button [disabled]="totalPercentage<=79" style="background-color: #98B73F !important;" (click)="openCertificate()" class="btn btn-back btn-rounded px-2 py-2">
+                <button *ngIf="totalPercentage>=80" style="background-color: #98B73F !important;" (click)="openCertificate()" class="btn btn-back btn-rounded px-2 py-2">
                     <div class="d-flex align-items-center">
                         <span class="fw-normal h6 mb-0">View Certificate</span>
                         <div class="btn-icon" style="background-color: #7e963e;"><i class="fa fa-file" aria-hidden="true"></i></div>
@@ -367,3 +367,11 @@
         </div>
     </div>
 </div>
+<p-dialog [(visible)]="restrict" [modal]="true"  [closable]="false" [style]="{ width: '30vw' }" [draggable]="false" [resizable]="false" class="restrictionDialog" [breakpoints]="{ '960px': '30vw', '959px': '60vw', '425px': '90vw' }">
+	<div class="text-center mt-5 mb-4">
+		<!-- <img src="../../../uniprep-assets/images/smartloack.png" class="image" width="60" /> -->
+		<h3 class="offer">Time's Up!</h3>
+		<p>You have run out of time for this quiz. Unfortunately,this means the quiz is marked as failed.try the quiz again."</p>
+		<button pButton type="button" class="text-white p-ripple p-button-rounded p-button-warning p-button p-component p-2 mt-2" (click)="timeIsOver()"><i class="fa fa-arrow-right exhausted-plan-icon"></i></button>
+	</div>
+</p-dialog>

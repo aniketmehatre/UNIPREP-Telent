@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from "@angular/router";
-import { Observable } from "rxjs";
+import { Observable, Subscription, interval, takeWhile } from "rxjs";
 import { ModuleListSub } from "../../../@Models/module.model";
 import { ConfirmationService, MenuItem, MessageService } from "primeng/api";
 import { ModuleServiceService } from "../../module-store/module-service.service";
@@ -50,6 +50,10 @@ export class LearninghubquizComponent implements OnInit {
   totalpercentagequiztime:number=0
   percentageValue: string = '';
   isQuizSubmit: boolean = false;
+  timer: number = 0;
+  timerSubscription: Subscription | null = null;
+  restrict: boolean = false;
+  selectedQuizArrayForTimer: any[] = [];
   constructor(private moduleListService: ModuleServiceService, private router: Router, private dataService: DataService,
     private locationService: LocationService, private ngxService: NgxUiLoaderService, private toast: MessageService,) { }
 
@@ -141,6 +145,7 @@ export class LearninghubquizComponent implements OnInit {
     });
     this.breadCrumb = [{ label: cName }, { label: this.quizData[0]!.module_name },
     { label: this.quizData[0]!.sub_module_name }];
+    this.startTimer();
   }
 
   setPage(page: any) {
@@ -212,7 +217,6 @@ export class LearninghubquizComponent implements OnInit {
     if (this.selectedQuiz > this.quizData.length - 1) {
       return;
     }
-
     let singleQuizData = this.quizData[this.selectedQuiz - 1];
     this.quizData = this.quizData.map((data: any) => {
       let dat = { ...data }
@@ -228,12 +232,17 @@ export class LearninghubquizComponent implements OnInit {
       }
       return dat;
     });
+    // time checking for same question or different quesion
+    const exists = this.selectedQuizArrayForTimer.some(item => item.id === singleQuizData.id);
+    if (!exists) {
+      this.selectedQuizArrayForTimer.push(singleQuizData);
+      this.resetTimer();
+    }
     let sing = this.quizData[this.selectedQuiz];
     if (!sing.user_answered_value) {
       this.answerOptionClicked = true;
     }
     this.selectedQuiz = this.selectedQuiz + 1;
-
     let cName = "";
     this.dataService.countryNameSource.subscribe(countryName => {
       cName = countryName;
@@ -249,6 +258,7 @@ export class LearninghubquizComponent implements OnInit {
       const { submodule_id, source_faqquestion, otp1, otp2, otp3, otp4, module_id, country_id, user_answered, user_answered_value, ...rest } = data;
       return rest;
     });
+    this.stopTimer();
     var data = {
       country_id: this.currentCountryId,
       module_id: this.currentModuleId,
@@ -356,5 +366,31 @@ export class LearninghubquizComponent implements OnInit {
   }
   openReferAnswer(link:any){
     window.open(link, '_blank');
+  }
+  startTimer(): void {
+    this.timer = 0;
+    if (this.timerSubscription) {
+      this.timerSubscription.unsubscribe();
+    }
+    this.timerSubscription = interval(1000).pipe(
+      takeWhile(() => this.timer < 30)
+    ).subscribe(() => {
+      this.timer++;
+      // console.log(`Timer: ${this.timer} seconds`);
+      if (this.timer === 30) {
+        this.restrict=true;    
+      }
+    });
+  }
+  resetTimer(): void {
+    this.startTimer();
+  }
+  timeIsOver(){
+    this.router.navigate(['/pages/modules/quizmodule'])
+  }
+  stopTimer(): void {
+    if (this.timerSubscription) {
+      this.timerSubscription.unsubscribe();
+    }
   }
 }

@@ -115,6 +115,14 @@ export class ScholarshipListComponent implements OnInit {
     this.filterForm.reset();
     // this.getRegionList();
     this.getFilterUniversityList("");
+    //this.data = {}
+    delete this.data.country;
+    delete this.data.home_country;
+    delete this.data.type;
+    delete this.data.study_level;
+    delete this.data.university;
+    delete this.data.cover_id;
+
   }
   getScholarshipCountry() {
     this.scholarshipListService
