@@ -306,9 +306,8 @@ export class CareerPlannerComponent implements OnInit {
     });
   }
 
-  openVideoPopup() {
-    console.log("button works");
-    this.pageFacade.openHowitWorksVideoPopup('button_click');
+  openVideoPopup(videoLink: string) {
+    this.pageFacade.openHowitWorksVideoPopup(videoLink);
   }
 
   

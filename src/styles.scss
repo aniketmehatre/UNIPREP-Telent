@@ -890,6 +890,15 @@ uni-subscription {
 		margin-left: 0.5rem;
 	}
 }
+
+.how-it-works-button{
+	background-color: var(--uniprep-secondary);
+	color: white;
+	padding: 5px;
+	border-radius: 25px;
+	border: none;
+}
+
 .form-switch .form-check-input:focus {
 	background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3e%3ccircle r='3' fill='%233f4c83'/%3e%3c/svg%3e") !important;
 }

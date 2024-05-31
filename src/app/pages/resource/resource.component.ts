@@ -4,6 +4,8 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { MessageService } from 'primeng/api';
 import { AuthService } from 'src/app/Auth/auth.service';
 import { Router } from '@angular/router';
+import { PageFacadeService } from '../page-facade.service';
+
 interface country {
   id: number,
   country: string,
@@ -24,7 +26,7 @@ export class ResourceComponent implements OnInit {
   planExpired!: boolean;
   restrict: boolean = false;
 
-  constructor(private fb: FormBuilder, private resourceService: ResourceService, private toast: MessageService, private authService: AuthService,
+  constructor(private fb: FormBuilder, private resourceService: ResourceService, private toast: MessageService, private authService: AuthService,private pageFacade:PageFacadeService,
     private router: Router) {
     this.filterform = this.fb.group({
       coutryname: ['']
@@ -125,5 +127,8 @@ export class ResourceComponent implements OnInit {
       this.restrict = true;
       return;
     }
+  }
+  openVideoPopup(videoLink: string) {
+    this.pageFacade.openHowitWorksVideoPopup(videoLink);
   }
 }

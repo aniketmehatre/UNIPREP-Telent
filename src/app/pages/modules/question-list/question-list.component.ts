@@ -25,6 +25,7 @@ import { Carousel } from "primeng/carousel";
 import { AuthService } from "src/app/Auth/auth.service";
 import { NgxUiLoaderService } from "ngx-ui-loader";
 import { environment } from "@env/environment";
+import { PageFacadeService } from "../../page-facade.service";
 
 @Component({
   selector: "uni-question-list",
@@ -89,7 +90,8 @@ export class QuestionListComponent implements OnInit {
   ogImage: any;
   sharedCountry: number = 0;
   currentModuleSlug: any;
-  quizpercentage: any = 0
+  quizpercentage: any = 0;
+  howItWorksVideoLink: string = "";
   @ViewChild('op', { static: false, read: ElementRef }) elRef: any;
 
   constructor(
@@ -107,7 +109,8 @@ export class QuestionListComponent implements OnInit {
     private meta: Meta,
     private toast: MessageService,
     private titleService: Title,
-    private cdRef: ChangeDetectorRef
+    private cdRef: ChangeDetectorRef,
+    private pageFacade:PageFacadeService,
   ) {
     Carousel.prototype.changePageOnTouch = (e, diff) => { }
     Carousel.prototype.onTouchMove = () => { };
@@ -151,32 +154,38 @@ export class QuestionListComponent implements OnInit {
             this.currentModuleId = 1;
             this.currentModuleName = "Pre-Admission";
             this.currentApiSlug = "getpreapplicationsubmoduleqcount";
+            this.howItWorksVideoLink = "https://www.youtube.com/embed/KUYo58tlZ_o?si=flhjt5olW44nprRA";
             break;
           case "travel-and-tourism":
             this.currentModuleId = 7;
             this.currentModuleName = "Travel-and-Tourism";
             this.currentApiSlug = "getpostapplicationsubmoduleqcount";
+            this.howItWorksVideoLink = "https://www.youtube.com/embed/wKSGANfejt4?si=NCfkhPqebe_eJX1p";
             break;
           case "post-admission":
             this.currentModuleId = 3;
             this.currentModuleName = "Post-Admission";
             this.currentApiSlug = "getpostadmissionsubmoduleqcount";
+            this.howItWorksVideoLink = "https://www.youtube.com/embed/N_RrppY_6TI?si=O6SIceD5sKs5XoMO";
             break;
           case "career-hub":
             this.currentModuleId = 4;
             this.currentModuleName = "Career Hub";
             this.currentApiSlug = "getcareerhubsubmoduleqcount";
+            this.howItWorksVideoLink = "https://www.youtube.com/embed/wKSGANfejt4?si=NCfkhPqebe_eJX1p";
             break;
           case "university":
             this.currentModuleId = 5;
             this.currentModuleName = "University";
             this.currentApiSlug = "getuniversitysubmoduleqcount";
+            this.howItWorksVideoLink = "https://www.youtube.com/embed/wDwFCww7qQ4?si=VLh8jZxs6xidQ-AM";
             this.tooltip = "";
             break;
           default:
             this.currentModuleId = 6;
             this.currentModuleName = "Life At " + countryName;
             this.currentApiSlug = "getlifeincountrysubmoduleqcount";
+            this.howItWorksVideoLink = "https://www.youtube.com/embed/McVKK5wwqEM?si=EbGjR-CRBFZpQxkx";
             this.tooltip = "";
             break;
         }
@@ -239,38 +248,45 @@ export class QuestionListComponent implements OnInit {
         this.currentModuleId = 1;
         this.currentModuleName = "Pre-Admission";
         this.currentApiSlug = "getpreapplicationsubmoduleqcount";
+        this.howItWorksVideoLink = "https://www.youtube.com/embed/KUYo58tlZ_o?si=flhjt5olW44nprRA";
         break;
       case "travel-and-tourism":
         this.currentModuleId = 7;
         this.currentModuleName = "Travel-and-Tourism";
         this.currentApiSlug = "getpostapplicationsubmoduleqcount";
+        this.howItWorksVideoLink = "https://www.youtube.com/embed/wKSGANfejt4?si=NCfkhPqebe_eJX1p";
         break;
       case "post-admission":
         this.currentModuleId = 3;
         this.currentModuleName = "Post-Admission";
         this.currentApiSlug = "getpostadmissionsubmoduleqcount";
+        this.howItWorksVideoLink = "https://www.youtube.com/embed/N_RrppY_6TI?si=O6SIceD5sKs5XoMO";
         break;
       case "career-hub":
         this.currentModuleId = 4;
         this.currentModuleName = "Career Hub";
         this.currentApiSlug = "getcareerhubsubmoduleqcount";
+        this.howItWorksVideoLink = "https://www.youtube.com/embed/KUYo58tlZ_o?si=flhjt5olW44nprRA";
         break;
       case "university":
         this.currentModuleId = 5;
         this.currentModuleName = "University";
         this.currentApiSlug = "getuniversitysubmoduleqcount";
+        this.howItWorksVideoLink = "https://www.youtube.com/embed/KUYo58tlZ_o?si=flhjt5olW44nprRA";
         this.tooltip = "";
         break;
       case "learning-hub":
         this.currentModuleId = 8;
         this.currentModuleName = "Learning Hub";
         this.currentApiSlug = "getlearninghubsubmoduleqcount";
+        this.howItWorksVideoLink = "https://www.youtube.com/embed/KUYo58tlZ_o?si=flhjt5olW44nprRA";
         this.currentModuleSlug="learning-hub"
         break;
       default:
         this.currentModuleId = 6;
         this.currentModuleName = "Life At " + countryName;
         this.currentApiSlug = "getlifeincountrysubmoduleqcount";
+        this.howItWorksVideoLink = "https://www.youtube.com/embed/KUYo58tlZ_o?si=flhjt5olW44nprRA";
         this.tooltip = "";
         break;
     }
@@ -848,6 +864,11 @@ export class QuestionListComponent implements OnInit {
     localStorage.setItem("learninghubsubmoduleid",this.subModuleId);
     this.router.navigate([`/pages/modules/${this.currentModuleSlug}/learninghubquiz`]);
   }
+  openHowItWorksVideoPopup(videoLink: string) {
+    console.log(videoLink," video link");
+    this.pageFacade.openHowitWorksVideoPopup(videoLink);
+  }
+
 }
 @Pipe({ name: 'safe' })
 export class SafePipe implements PipeTransform {
