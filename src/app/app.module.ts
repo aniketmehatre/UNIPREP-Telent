@@ -36,6 +36,7 @@ import { ScrollToBottomDirective } from './scroll-to-bottom.directive';
 import {ConfirmDialogModule} from "primeng/confirmdialog";
 import {PipesModule} from "@pipes/pipes.module";
 import { LandingComponent } from './pages/landing/landing.component';
+import { BlogdetailComponent } from './pages/blogdetail/blogdetail.component';
 import {
     SocialLoginModule,
     SocialAuthServiceConfig, GoogleLoginProvider,
@@ -73,7 +74,7 @@ export function tokenGetter() {
 
 @NgModule({
   declarations: [
-    AppComponent,LandingComponent, ModalComponent, BlockCopyPasteDirective, ScrollToBottomDirective, PrivacyComponent,EnterpriseSubscriptionComponent
+    AppComponent,LandingComponent, ModalComponent, BlockCopyPasteDirective, ScrollToBottomDirective, PrivacyComponent,EnterpriseSubscriptionComponent,BlogdetailComponent
   ],
     schemas: [ CUSTOM_ELEMENTS_SCHEMA],
     imports: [

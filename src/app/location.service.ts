@@ -106,6 +106,12 @@ export class LocationService {
             headers: headers,
         });
     }
+    getBlogs() {
+        const headers = new HttpHeaders().set("Accept", "application/json");
+        return this.http.get<any>(environment.ApiUrl + "/blogs", {
+            headers: headers,
+        });
+    }
     getHomeCountry(homeCountryId: number) {
         const headers = new HttpHeaders().set("Accept", "application/json");
         return this.http.get<any>(environment.ApiUrl + `/country?getHomeCountry=${homeCountryId}`, {

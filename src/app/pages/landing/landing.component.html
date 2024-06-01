@@ -673,6 +673,32 @@
 		</div>
 	</div>
 </section> -->
+<section class="darksection py-5">
+	<div class="container-fluid">
+		<div class="row justify-content-center">
+			<div class="col-md-12 text-center">
+				<h2 class="text-white fw-light mb-4">Everything About Studying Abroad</h2>
+			</div>
+			<div class="col-md-10 mt-4">
+			<div class="row">
+				<div class="col-md-4" *ngFor="let blog of blogs">
+					<div class="card">
+						<div class="card-body">
+							<img class="w-100 rounded" src="{{blog.featured_img}}">
+							<h5 class="text-white pt-3 fw-bold">{{blog.title}}</h5>
+							<p class="text-white fw-light"><i class="fa-solid fa-calendar me-2"></i>{{blog.date}}</p>
+							<p class="pt-1 text-white ">
+								{{blog.desc}}
+							</p>
+						</div>
+					</div>
+				</div>
+				
+			</div>
+			</div>
+		</div>
+	</div>
+</section>
 <section class="marquee-container darksection pb-5 pt-5">
 	<div class="container-fluid">
 		<div class="row justify-content-center">
