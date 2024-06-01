@@ -112,6 +112,18 @@ export class LocationService {
             headers: headers,
         });
     }
+    getFeatBlogs() {
+        const headers = new HttpHeaders().set("Accept", "application/json");
+        return this.http.get<any>(environment.ApiUrl + "/featuredBlog", {
+            headers: headers,
+        });
+    }
+    oneBlog(data: any) {
+        const headers = new HttpHeaders().set("Accept", "application/json");
+        return this.http.post<any>(environment.ApiUrl + "/showblog", data, {
+            headers: headers,
+        });
+    }
     getHomeCountry(homeCountryId: number) {
         const headers = new HttpHeaders().set("Accept", "application/json");
         return this.http.get<any>(environment.ApiUrl + `/country?getHomeCountry=${homeCountryId}`, {

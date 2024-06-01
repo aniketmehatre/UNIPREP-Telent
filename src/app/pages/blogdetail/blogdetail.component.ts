@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import {LocationService} from "../../location.service";
 @Component({
   selector: 'uni-blogdetail',
   templateUrl: './blogdetail.component.html',
@@ -7,13 +8,21 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class BlogdetailComponent implements OnInit {
   slug: any;
-  constructor(private route: ActivatedRoute, private router: Router) { }
+  blog: any;
+  constructor(private route: ActivatedRoute, private router: Router, private service: LocationService) { }
 
   ngOnInit(): void {
     this.route.paramMap.subscribe(params => {
       this.slug = params.get('slug');
   });
-    alert(this.slug)
+  let data = {
+    slug:this.slug
+  }
+  this.service.oneBlog(data).subscribe((response) => {
+    console.log(response);
+    this.blog = response;
+  }); 
+    //alert(this.slug)
   }
 
 }

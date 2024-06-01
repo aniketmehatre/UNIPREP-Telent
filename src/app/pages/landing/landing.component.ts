@@ -77,7 +77,7 @@ export class LandingComponent implements OnInit {
     //   this.timeLeftInfoCard = localStorage.setItem('time_card_info', data.card_message);
     // });
 
-    this.service.getBlogs().subscribe((response) => {
+    this.service.getFeatBlogs().subscribe((response) => {
         console.log(response);
         this.blogs = response;
       }); 

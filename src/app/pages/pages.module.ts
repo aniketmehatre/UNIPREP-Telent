@@ -70,6 +70,7 @@ import { CareerPlannerComponent } from './career-planner/career-planner.componen
 import { CertificatesComponent } from './certificates/certificates.component';
 
 
+
 @NgModule({
     declarations: [
         PagesComponent,

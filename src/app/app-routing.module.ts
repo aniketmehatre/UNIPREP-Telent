@@ -8,6 +8,9 @@ import { PrivacyComponent } from "./pages/privacy/privacy.component";
 import { CertificatesComponent } from "./pages/certificates/certificates.component";
 import { EnterpriseSubscriptionComponent } from "./components/enterprise-subscription/enterprise-subscription.component";
 import { BlogdetailComponent } from "./pages/blogdetail/blogdetail.component";
+import { BloglistComponent } from "./pages/bloglist/bloglist.component";
+
+
 const routes: Routes = [
   {
     path: '',
@@ -25,6 +28,10 @@ const routes: Routes = [
   {
     path: 'blogs/:slug',
     component: BlogdetailComponent
+  },
+  {
+    path: 'blogs',
+    component: BloglistComponent
   },
   {
     path: 'privacy',
