@@ -9,6 +9,7 @@ import {LocationService} from "../../location.service";
 export class BlogdetailComponent implements OnInit {
   slug: any;
   blog: any;
+  blogs: any;
   constructor(private route: ActivatedRoute, private router: Router, private service: LocationService) { }
 
   ngOnInit(): void {
@@ -21,6 +22,11 @@ export class BlogdetailComponent implements OnInit {
   this.service.oneBlog(data).subscribe((response) => {
     console.log(response);
     this.blog = response;
+  }); 
+
+  this.service.getFeatBlogs().subscribe((response) => {
+    console.log(response);
+    this.blogs = response;
   }); 
     //alert(this.slug)
   }
