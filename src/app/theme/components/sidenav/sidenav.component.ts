@@ -119,6 +119,11 @@ export class SidenavComponent {
       image: "fa-solid fa-road-circle-check",
     },
     {
+      title: "Skill Mastery",
+      url: "/pages/modules/skill-mastery",
+      image: "fa-solid fa-road-circle-check",
+    },
+    {
       title: "Career Planner",
       url: "/pages/career-planner",
       image: "fa-solid fa-arrow-progress",
