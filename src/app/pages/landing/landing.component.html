@@ -26,7 +26,10 @@
 				<a class="nav-link text-white fw-regular" aria-label="Key Features" href="#keyfeatures" (click)="scrollToSection($event, 'keyfeatures')">Key Features</a>
 			</li>
 			<li class="nav-item">
-				<a class="nav-link text-white fw-regular" aria-label="Key Features" href="/certificates">Certificates</a>
+				<a class="nav-link text-white fw-regular" aria-label="Certificates" href="/certificates">Certificates</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link text-white fw-regular" aria-label="Blogs" href="/blogs">Blogs</a>
 			</li>
 			<li class="nav-item">
 				<a class="nav-link text-white fw-regular" aria-label="FAQ" href="#faq" (click)="scrollToSection($event, 'faq')">F.A.Q</a>
@@ -73,6 +76,12 @@
 					</li>
 					<li class="nav-item" data-bs-dismiss="offcanvas">
 						<a class="nav-link text-white fw-medium text-center h4" aria-label="FAQ" href="#faq" (click)="scrollToSection($event, 'faq')">F.A.Q</a>
+					</li>
+					<li class="nav-item" data-bs-dismiss="offcanvas">
+						<a class="nav-link text-white fw-medium text-center h4" aria-label="FAQ" href="/certificates" >Certificates</a>
+					</li>
+					<li class="nav-item" data-bs-dismiss="offcanvas">
+						<a class="nav-link text-white fw-medium text-center h4" aria-label="FAQ" href="/blogs" >Blogs</a>
 					</li>
 					<!-- Add other mobile menu items as needed -->
 					<li class="nav-item text-center">
@@ -673,6 +682,38 @@
 		</div>
 	</div>
 </section> -->
+<section class="darksection py-5">
+	<div class="container-fluid">
+		<div class="row justify-content-center">
+			<div class="col-md-12 text-center">
+				<h2 class="text-white fw-light mb-4">Blogs</h2>
+			</div>
+			<div class="col-md-10 mt-4">
+			<div class="row">
+				<div class="col-md-4" *ngFor="let blog of blogs">
+					<a style="text-decoration: none;" href="blogs/{{blog.slug}}">
+					<div class="card">
+						<div class="card-body">
+							<div class="card rounded-4 blogimage" style="background-image: url('{{blog.featured_img}}');"></div>
+							<h5 class="text-white pt-3 fw-bold">{{blog.title}}</h5>
+							<p class="text-white fw-light"><i class="fa-solid fa-calendar me-2"></i>{{blog.date}}</p>
+							<p class="pt-1 text-white line-clamp">
+								{{blog.desc}}
+							</p>
+						</div>
+					</div>
+					</a>
+				</div>
+				
+			</div>
+			<div class="d-flex justify-content-center">
+				<a [routerLink]="['/blogs']" class="text-decoration-none "><button type="button" class="btn btn-secondary px-4 py-2 m-0 text-center mt-4">LOAD MORE</button></a>
+			</div>
+	
+			</div>
+		</div>
+	</div>
+</section>
 <section class="marquee-container darksection pb-5 pt-5">
 	<div class="container-fluid">
 		<div class="row justify-content-center">
