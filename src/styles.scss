@@ -298,13 +298,13 @@ uni-modules {
 		display: flex;
 		flex-direction: column;
 	}
-	uni-learninghubquiz{
+	uni-learninghubquiz {
 		flex: 1;
 		overflow-y: auto; /* Enable vertical scrolling for overflowing content */
 		display: flex;
 		flex-direction: column;
 	}
-	uni-languagetypequiz{
+	uni-languagetypequiz {
 		flex: 1;
 		overflow-y: auto; /* Enable vertical scrolling for overflowing content */
 		display: flex;
@@ -351,7 +351,15 @@ uni-faq {
 		overflow-y: scroll !important;
 	}
 }
-
+uni-bloglist,
+uni-blogdetail {
+	display: flex;
+	flex: 1;
+	height: 100%;
+	flex-direction: column; /* Ensure flex children stack vertically */
+	overflow: hidden;
+	min-height: 100vh;
+}
 uni-chat {
 	display: flex;
 	flex: 1;
@@ -375,12 +383,11 @@ uni-landing {
 	position: absolute;
 	width: 100%;
 }
-uni-sidenav
-{
+uni-sidenav {
 	flex: 1;
 	display: flex;
-    flex-direction: column;
-    height: 100%;
+	flex-direction: column;
+	height: 100%;
 }
 
 uni-events {
@@ -891,7 +898,7 @@ uni-subscription {
 	}
 }
 
-.how-it-works-button{
+.how-it-works-button {
 	background-color: var(--uniprep-secondary);
 	color: white;
 	padding: 5px;

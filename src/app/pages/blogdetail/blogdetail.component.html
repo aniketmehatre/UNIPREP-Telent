@@ -11,7 +11,6 @@
 		<!-- Your brand/logo (optional) -->
 		<a class="navbar-brand py-0" href="#">
 			<img class="lightmodelogo" src="/uniprep-assets/images/uniprep-dark.svg" />
-			<img class="darkmodelogo" src="/uniprep-assets/images/uniprep-dark.svg" />
 		</a>
 
 		<!-- Inside your component's template -->
@@ -47,7 +46,6 @@
 		<!-- Your brand/logo (optional) -->
 		<a class="navbar-brand py-0" href="#">
 			<img class="lightmodelogo" src="/uniprep-assets/images/uniprep-dark.svg" />
-			<img class="darkmodelogo" src="/uniprep-assets/images/uniprep-dark.svg" />
 		</a>
 
 		<!-- Hamburger button for mobile -->
@@ -75,15 +73,15 @@
 						<a class="nav-link text-white fw-medium text-center h4" aria-label="keyfeatures" href="/home#keyfeatures">Key Features</a>
 					</li>
 					<li class="nav-item" data-bs-dismiss="offcanvas">
-						<a class="nav-link text-white fw-medium text-center h4" aria-label="Certificates" href="/certificates" >Certificates</a>
+						<a class="nav-link text-white fw-medium text-center h4" aria-label="Certificates" href="/certificates">Certificates</a>
 					</li>
 					<li class="nav-item" data-bs-dismiss="offcanvas">
-						<a class="nav-link text-white fw-medium text-center h4" aria-label="Blogs" href="/blogs" >Blogs</a>
+						<a class="nav-link text-white fw-medium text-center h4" aria-label="Blogs" href="/blogs">Blogs</a>
 					</li>
 					<li class="nav-item" data-bs-dismiss="offcanvas">
 						<a class="nav-link text-white fw-medium text-center h4" aria-label="FAQ" href="/home#faq">F.A.Q</a>
 					</li>
-					
+
 					<!-- Add other mobile menu items as needed -->
 					<li class="nav-item text-center">
 						<a [routerLink]="['/login']" class="text-decoration-none text-center h4 text-white fw-regular">Login</a>
@@ -109,37 +107,37 @@
 	</div> -->
 </nav>
 
-<section class="darksection">
-	<div class="row justify-content-center">
-		<div class="col-md-10">
-			<h3 class="text-white">{{blog.title}}</h3>
-			<img src="{{blog.featured_img}}">
-
-			<p class="text-white">{{blog.body}}</p>
+<section class="darksection flex-fill">
+	<div class="container-fluid">
+		<div class="row justify-content-center">
+			<div class="col-md-10">
+				<h3 class="text-white">{{ blog.title }}</h3>
+				<div class="card blogimage" style="background-image:url('{{ blog.featured_img }}')"></div>
+				<p class="text-white">{{ blog.body }}</p>
+			</div>
 		</div>
 	</div>
 </section>
 
-
 <footer>
-<section class="bg-black">
-    <div class="container-fluid py-3">
-        <div class="row align-items-center">
-            <div class="col-md-6">
-                <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-start gap-2 text-white">
-                    <p  role="button" aria-label="Contact Form" class="mb-0 text-white text-decoration-none small">Contact Us</p>
-                    |
-                    <p  role="button" aria-label="Privacy Policy" class="mb-0 text-white text-decoration-none small">Privacy Policy</p>
-                    |
-                    <p  role="button" aria-label="Terms Conditions" class="mb-0 text-white text-decoration-none small">Terms & Conditions</p>
-                    |
-                    <p  role="button" aria-label="Cancellation Policy" class="mb-0 text-white text-decoration-none small">Cancellation & Refund Policy</p>
-                </div>
-            </div>
-            <div class="col-md-6 text-md-end text-center">
-                <p class="mb-0 text-white">2023 © All rights reserved by UNIABROAD TECHNOLOGY Pvt. Ltd.</p>
-            </div>
-        </div>
-    </div>
-</section>
+	<section class="bg-black">
+		<div class="container-fluid py-3">
+			<div class="row align-items-center">
+				<div class="col-md-6">
+					<div class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-start gap-2 text-white">
+						<p role="button" aria-label="Contact Form" class="mb-0 text-white text-decoration-none small">Contact Us</p>
+						|
+						<p role="button" aria-label="Privacy Policy" class="mb-0 text-white text-decoration-none small">Privacy Policy</p>
+						|
+						<p role="button" aria-label="Terms Conditions" class="mb-0 text-white text-decoration-none small">Terms & Conditions</p>
+						|
+						<p role="button" aria-label="Cancellation Policy" class="mb-0 text-white text-decoration-none small">Cancellation & Refund Policy</p>
+					</div>
+				</div>
+				<div class="col-md-6 text-md-end text-center">
+					<p class="mb-0 text-white">2023 © All rights reserved by UNIABROAD TECHNOLOGY Pvt. Ltd.</p>
+				</div>
+			</div>
+		</div>
+	</section>
 </footer>

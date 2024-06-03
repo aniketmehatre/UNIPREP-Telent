@@ -11,7 +11,6 @@
 		<!-- Your brand/logo (optional) -->
 		<a class="navbar-brand py-0" href="#">
 			<img class="lightmodelogo" src="/uniprep-assets/images/uniprep-dark.svg" />
-			<img class="darkmodelogo" src="/uniprep-assets/images/uniprep-dark.svg" />
 		</a>
 
 		<!-- Inside your component's template -->
@@ -47,7 +46,6 @@
 		<!-- Your brand/logo (optional) -->
 		<a class="navbar-brand py-0" href="#">
 			<img class="lightmodelogo" src="/uniprep-assets/images/uniprep-dark.svg" />
-			<img class="darkmodelogo" src="/uniprep-assets/images/uniprep-dark.svg" />
 		</a>
 
 		<!-- Hamburger button for mobile -->
@@ -109,7 +107,7 @@
 	</div> -->
 </nav>
 
-<section class="darksection py-5">
+<section class="darksection flex-fill py-5">
 	<div class="container-fluid">
 		<div class="row justify-content-center">
 			<div class="col-md-12 text-center">
@@ -121,10 +119,12 @@
 					<a style="text-decoration: none;" href="blogs/{{blog.slug}}">
 					<div class="card">
 						<div class="card-body">
-							<img class="w-100 rounded" src="{{blog.featured_img}}">
+							<div class="card rounded-4 blogimage" style="background-image: url('{{blog.featured_img}}');">
+								<!-- <img class="w-100 rounded" src="{{blog.featured_img}}"> -->
+							</div>
 							<h5 class="text-white pt-3 fw-bold">{{blog.title}}</h5>
 							<p class="text-white fw-light"><i class="fa-solid fa-calendar me-2"></i>{{blog.date}}</p>
-							<p class="pt-1 text-white ">
+							<p class="pt-1 text-white line-clamp">
 								{{blog.desc}}
 							</p>
 						</div>
