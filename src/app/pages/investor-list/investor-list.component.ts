@@ -7,6 +7,7 @@ import { Router } from '@angular/router';
 import { UserManagementService } from '../user-management/user-management.service';
 import { MessageService } from 'primeng/api';
 import { DataService } from 'src/app/data.service';
+import { PageFacadeService } from '../page-facade.service';
 
 @Component({
   selector: 'uni-investor-list',
@@ -49,7 +50,8 @@ export class InvestorListComponent implements OnInit {
     private router: Router,
     private userManagementService:UserManagementService,
     private toast: MessageService,
-    private dataService: DataService
+    private dataService: DataService,
+    private pageFacade:PageFacadeService,
     ) {
     this.filterForm = this.fb.group({
       org_name: [''],
@@ -323,5 +325,9 @@ export class InvestorListComponent implements OnInit {
       report_mode: "other_module"
     };
     this.dataService.openReportWindow(data);
+  }
+
+  openVideoPopup(videoLink: string) {
+    this.pageFacade.openHowitWorksVideoPopup(videoLink);
   }
 }

@@ -60,3 +60,49 @@
 		display: none;
 	}
 }
+
+.tooltips {
+	position: relative;
+	display: inline-block;
+}
+  
+.tooltips .tooltiptexts {
+	visibility: hidden;
+	width: 250px;
+	background-color: #000;
+	color: #fff;
+	text-align: center;
+	padding: 5px 0;
+	border-radius: 6px;
+	position: absolute;
+	z-index: 1;
+	bottom: 125%;
+	left: 0%;
+	margin-left: -133px;
+	opacity: 0;
+	transition: opacity 0.3s;
+	white-space: nowrap;
+}
+
+.tooltips .tooltiptexts::after {
+	content: "";
+	position: absolute;
+	top: 100%;
+	left: 50%;
+	margin-left: 75px;
+	border-width: 9px;
+	border-style: solid;
+	border-color: #000 transparent transparent transparent;
+}
+
+.tooltips:hover .tooltiptexts {
+	visibility: visible;
+	opacity: 1;
+}
+
+.tooltipautovisible{
+	.tooltiptexts {
+		visibility: visible;
+		opacity: 1;
+	}
+}

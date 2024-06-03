@@ -7,6 +7,7 @@ import { Route, Router } from '@angular/router';
 import { UserManagementService } from '../user-management/user-management.service';
 import { MessageService } from 'primeng/api';
 import { DataService } from 'src/app/data.service';
+import { PageFacadeService } from '../page-facade.service';
 
 @Component({
   selector: 'uni-company-list',
@@ -46,6 +47,7 @@ export class CompanyListComponent implements OnInit {
     private userManagementService: UserManagementService,
     private toast: MessageService,
     private dataService: DataService,
+    private pageFacade:PageFacadeService,
   ) {
     this.filterForm = this.fb.group({
       company_name: [''],
@@ -331,6 +333,10 @@ export class CompanyListComponent implements OnInit {
     };
     this.dataService.openReportWindow(data);
     
+  }
+
+  openVideoPopup(videoLink: string) {
+    this.pageFacade.openHowitWorksVideoPopup(videoLink);
   }
 }
 

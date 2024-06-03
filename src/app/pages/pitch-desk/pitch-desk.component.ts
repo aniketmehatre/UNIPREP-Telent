@@ -5,6 +5,8 @@ import { AuthService } from 'src/app/Auth/auth.service';
 import { Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
 import { DataService } from 'src/app/data.service';
+import { PageFacadeService } from '../page-facade.service';
+
 @Component({
   selector: 'uni-pitch-desk',
   templateUrl: './pitch-desk.component.html',
@@ -30,7 +32,7 @@ export class PitchDeskComponent implements OnInit {
   exportCreditCount: number = 0;
   exportDataIds:any = [];
   isPdfLoaded: boolean = false
-  constructor(private pitchDesk:PitchDeskService, private fb: FormBuilder,private router: Router,private authService: AuthService, private toast: MessageService, private dataService: DataService) { 
+  constructor(private pitchDesk:PitchDeskService, private fb: FormBuilder,private router: Router,private authService: AuthService, private toast: MessageService, private dataService: DataService, private pageFacade: PageFacadeService) { 
     this.filterForm = this.fb.group({
       pitchdeck_name: [''],
       country: [''],
@@ -275,5 +277,9 @@ export class PitchDeskComponent implements OnInit {
       report_mode: "other_module"
     };
     this.dataService.openReportWindow(data);
+  }
+
+  openVideoPopup(videoLink: string) {
+    this.pageFacade.openHowitWorksVideoPopup(videoLink);
   }
 }

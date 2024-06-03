@@ -49,6 +49,8 @@ export class UserManagementComponent implements OnInit {
     PasswordSubmitted = false;
     newsLetter: boolean = false;
     PersonalInfo: any = [];
+    tooltipContent: string = "<strong>Complete your Profile</strong><br><div class='text-center mt-1 mb-1'><small>update your profile details for more<br>personalized results in our Portal</small></div>";
+    hideToolTip: boolean = true;
 
     private subs = new SubSink();
     constructor(
@@ -121,7 +123,9 @@ export class UserManagementComponent implements OnInit {
             }
         });
         this.GetPersonalProfileData();
-
+        setTimeout(() => {
+            this.hideToolTip = false;
+        }, 10000); 
     }
     GetPersonalProfileData() {
         this.userManagementService.GetUserPersonalInfo().subscribe(data => {
@@ -308,6 +312,7 @@ export class UserManagementComponent implements OnInit {
             data.intake_month_looking = this.registrationForm.value?.intake_month_looking?.getMonth();
 
         }
+        delete this.registrationForm.value.phone;
         this.userManagementService.updateUserData(data).subscribe(data => {
             this.ShowPersonalInfo = false;
             this.GetPersonalProfileData();
