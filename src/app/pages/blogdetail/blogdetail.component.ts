@@ -24,5 +24,4 @@ export class BlogdetailComponent implements OnInit {
   }); 
     //alert(this.slug)
   }
-
 }

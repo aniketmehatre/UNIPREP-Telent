@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-md flex-column navbar-light sticky-top pt-0 darksection" id="mainmenu">
+<nav class="navbar navbar-expand-md flex-column navbar-light sticky-top pt-0" id="mainmenu">
 	<div class="topmarquee container-fluid justify-content-center">
 		<div class="row">
 			<div class="col-md-12">
@@ -10,26 +10,29 @@
 	<div class="container-fluid d-md-flex d-none">
 		<!-- Your brand/logo (optional) -->
 		<a class="navbar-brand py-0" href="#">
-			<!-- <img class="lightmodelogo" src="/uniprep-assets/images/uniprep-dark.svg" /> -->
+			<img class="lightmodelogo" src="/uniprep-assets/images/uniprep-dark.svg" />
 			<img class="darkmodelogo" src="/uniprep-assets/images/uniprep-dark.svg" />
 		</a>
 
 		<!-- Inside your component's template -->
 		<ul class="nav flex-row gap-2">
 			<li class="nav-item">
-				<a class="nav-link active text-white fw-regular" aria-current="page" href="#home" >Home</a>
+				<a class="nav-link active text-white fw-regular" aria-current="page" href="/home">Home</a>
 			</li>
 			<li class="nav-item">
-				<a class="nav-link text-white fw-regular" aria-label="About UNIPREP" href="#about" >About UNIPREP</a>
+				<a class="nav-link text-white fw-regular" aria-label="About UNIPREP" href="/home#about">About UNIPREP</a>
 			</li>
 			<li class="nav-item">
-				<a class="nav-link text-white fw-regular" aria-label="Key Features" href="#keyfeatures" >Key Features</a>
+				<a class="nav-link text-white fw-regular" aria-label="Key Features" href="/home#keyfeatures">Key Features</a>
 			</li>
 			<li class="nav-item">
-				<a class="nav-link text-white fw-regular" aria-label="Key Features" href="/certificates">Certificates</a>
+				<a class="nav-link text-white fw-regular" aria-label="Certificates" href="/certificates">Certificates</a>
 			</li>
 			<li class="nav-item">
-				<a class="nav-link text-white fw-regular" aria-label="FAQ" href="#faq" >F.A.Q</a>
+				<a class="nav-link text-white fw-regular" aria-label="Blogs" href="/blogs">Blogs</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link text-white fw-regular" aria-label="FAQ" href="/home#faq">F.A.Q</a>
 			</li>
 			<!-- Add other desktop menu items as needed -->
 		</ul>
@@ -43,7 +46,7 @@
 	<div class="container-fluid d-md-none">
 		<!-- Your brand/logo (optional) -->
 		<a class="navbar-brand py-0" href="#">
-			<!-- <img class="lightmodelogo" src="/uniprep-assets/images/uniprep-dark.svg" /> -->
+			<img class="lightmodelogo" src="/uniprep-assets/images/uniprep-dark.svg" />
 			<img class="darkmodelogo" src="/uniprep-assets/images/uniprep-dark.svg" />
 		</a>
 
@@ -63,17 +66,24 @@
 				<!-- Mobile menu items -->
 				<ul class="nav flex-column gap-5 w-100">
 					<li class="nav-item" data-bs-dismiss="offcanvas">
-						<a class="nav-link active text-white fw-medium text-center h4" aria-current="page" href="#home">Home</a>
+						<a class="nav-link active text-white fw-medium text-center h4" aria-current="page" href="/home">Home</a>
 					</li>
 					<li class="nav-item" data-bs-dismiss="offcanvas">
-						<a class="nav-link text-white fw-medium text-center h4" aria-label="About" href="#about" >About</a>
+						<a class="nav-link text-white fw-medium text-center h4" aria-label="About" href="/home#about">About</a>
 					</li>
 					<li class="nav-item" data-bs-dismiss="offcanvas">
-						<a class="nav-link text-white fw-medium text-center h4" aria-label="keyfeatures" href="#keyfeatures">Key Features</a>
+						<a class="nav-link text-white fw-medium text-center h4" aria-label="keyfeatures" href="/home#keyfeatures">Key Features</a>
 					</li>
 					<li class="nav-item" data-bs-dismiss="offcanvas">
-						<a class="nav-link text-white fw-medium text-center h4" aria-label="FAQ" href="#faq" >F.A.Q</a>
+						<a class="nav-link text-white fw-medium text-center h4" aria-label="Certificates" href="/certificates" >Certificates</a>
 					</li>
+					<li class="nav-item" data-bs-dismiss="offcanvas">
+						<a class="nav-link text-white fw-medium text-center h4" aria-label="Blogs" href="/blogs" >Blogs</a>
+					</li>
+					<li class="nav-item" data-bs-dismiss="offcanvas">
+						<a class="nav-link text-white fw-medium text-center h4" aria-label="FAQ" href="/home#faq">F.A.Q</a>
+					</li>
+					
 					<!-- Add other mobile menu items as needed -->
 					<li class="nav-item text-center">
 						<a [routerLink]="['/login']" class="text-decoration-none text-center h4 text-white fw-regular">Login</a>
