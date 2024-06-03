@@ -69,6 +69,8 @@ import {PdfViewerModule} from "ng2-pdf-viewer";
 import { CareerPlannerComponent } from './career-planner/career-planner.component';
 import { CertificatesComponent } from './certificates/certificates.component';
 
+
+
 @NgModule({
     declarations: [
         PagesComponent,
