@@ -151,7 +151,7 @@ h5,
 
 small,
 .text-small {
-  font-size: 0.5em;
+  font-size: 0.833em;
 }
 
 
@@ -277,4 +277,12 @@ p {
 	background-size: cover;
 	background-repeat: no-repeat;
 	border-radius: 1.5rem !important;
+}
+.popularimg
+{
+	background-position: center;
+	background-size: cover;
+	background-repeat: no-repeat;
+	border-radius: 1.0rem !important;
+	width:200px;
 }
