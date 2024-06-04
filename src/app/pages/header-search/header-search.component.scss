@@ -323,3 +323,10 @@
 	background: transparent;
     border: none;
   }
+
+:host ::ng-deep .p-carousel-item {
+	max-height: 600px;
+	min-height: 600px;
+	height: 600px;
+	overflow-y: auto !important;
+}
