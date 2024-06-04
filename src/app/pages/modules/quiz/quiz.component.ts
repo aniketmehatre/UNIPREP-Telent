@@ -129,6 +129,13 @@ export class QuizComponent implements OnInit {
         this.currentApiSlug = 'SubmoduleListForStudents';
         this.selectedModule = 'university'
         break;
+      case 'skill-mastery':
+        this.universityidforquiz = null;
+        this.currentModuleId = 10;
+        this.currentModuleName = 'Skill Mastery';
+        this.currentApiSlug = 'SubmoduleListForStudents';
+        this.selectedModule = 'skill-mastery'
+        break;
       default:
         this.currentModuleId = 6;
         this.universityidforquiz = null;
@@ -175,7 +182,7 @@ export class QuizComponent implements OnInit {
     //this.isSkeletonVisible = true;
     //this.subModules$ = this.moduleListService.subModuleList$();
     let data = {
-      countryId: this.currentCountryId,
+      countryId: this.currentModuleId==10?0:this.currentCountryId,
       moduleId: this.currentModuleId,
       api_module_name: this.currentApiSlug
     }
@@ -319,7 +326,7 @@ export class QuizComponent implements OnInit {
     });
     this.stopTimer();
     var data = {
-      country_id: this.currentCountryId,
+      country_id: this.currentModuleId==10?0:this.currentCountryId,
       module_id: this.currentModuleId,
       submodule_id: this.universityidforquiz,
       quizquestion: this.quizData
@@ -388,7 +395,7 @@ export class QuizComponent implements OnInit {
   checkquizquestioncount() {
     this.quizData = [];
     var data = {
-      countryId: this.currentCountryId,
+      countryId: this.currentModuleId==10?0:this.currentCountryId,
       moduleId: this.currentModuleId,
       submoduleId: this.universityidforquiz
     }
