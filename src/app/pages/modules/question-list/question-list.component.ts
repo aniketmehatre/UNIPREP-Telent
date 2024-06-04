@@ -181,6 +181,13 @@ export class QuestionListComponent implements OnInit {
             this.howItWorksVideoLink = "https://www.youtube.com/embed/wDwFCww7qQ4?si=VLh8jZxs6xidQ-AM";
             this.tooltip = "";
             break;
+            case "skill-mastery":
+              this.currentModuleId = 10;
+              this.currentModuleName = "Skill Mastery";
+              this.currentApiSlug = "";
+              this.howItWorksVideoLink = "https://www.youtube.com/embed/wDwFCww7qQ4?si=VLh8jZxs6xidQ-AM";
+              this.tooltip = "";
+              break;
           default:
             this.currentModuleId = 6;
             this.currentModuleName = "Life At " + countryName;
@@ -282,6 +289,13 @@ export class QuestionListComponent implements OnInit {
         this.howItWorksVideoLink = "https://www.youtube.com/embed/KUYo58tlZ_o?si=flhjt5olW44nprRA";
         this.currentModuleSlug="learning-hub"
         break;
+        case "learning-hub":
+          this.currentModuleId = 10;
+          this.currentModuleName = "Skill Mastery";
+          this.currentApiSlug = "getlearninghubsubmoduleqcount";
+          this.howItWorksVideoLink = "https://www.youtube.com/embed/KUYo58tlZ_o?si=flhjt5olW44nprRA";
+          this.currentModuleSlug="skill-mastery"
+          break;
       default:
         this.currentModuleId = 6;
         this.currentModuleName = "Life At " + countryName;
@@ -330,6 +344,7 @@ export class QuestionListComponent implements OnInit {
       page: this.pageno,
       perpage: this.perpage,
     };
+    
     if (this.currentModuleId == 8) {
       data.countryId = 0;
     }

@@ -50,6 +50,9 @@ const routes: Routes = [  {
   {
     path: ':module_name/languagehubquiz', component: LanguagetypequizComponent,
   },
+  {
+    path: 'skill-mastery', component: ListSubModulesComponent,
+  },
 ]
 
 
