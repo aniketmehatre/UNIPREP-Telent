@@ -291,11 +291,11 @@ export class QuizComponent implements OnInit {
       return dat;
     });
     // time checking for same question or different quesion
-    const exists = this.selectedQuizArrayForTimer.some(item => item.id === singleQuizData.id);
-    if (!exists) {
-      this.selectedQuizArrayForTimer.push(singleQuizData);
-      this.resetTimer();
-    }
+    // const exists = this.selectedQuizArrayForTimer.some(item => item.id === singleQuizData.id);
+    // if (!exists) {
+    //   this.selectedQuizArrayForTimer.push(singleQuizData);
+    //   this.resetTimer();
+    // }
     let sing = this.quizData[this.selectedQuiz];
     if (!sing.user_answered_value) {
       this.answerOptionClicked = true;
@@ -430,11 +430,11 @@ export class QuizComponent implements OnInit {
       this.timerSubscription.unsubscribe();
     }
     this.timerSubscription = interval(1000).pipe(
-      takeWhile(() => this.timer < 30)
+      takeWhile(() => this.timer < 60)
     ).subscribe(() => {
       this.timer++;
       // console.log(`Timer: ${this.timer} seconds`);
-      if (this.timer === 30) {
+      if (this.timer === 60) {
         this.restrict = true;
       }
     });
