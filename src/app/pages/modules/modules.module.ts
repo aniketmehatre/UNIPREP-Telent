@@ -34,7 +34,7 @@ import { LanguagetypequizComponent } from './languagetypequiz/languagetypequiz.c
     QuizComponent,
     QuizmenuComponent,
     LearninghubquizComponent,
-    LanguagetypequizComponent
+    LanguagetypequizComponent,
   ],
     imports: [
         CommonModule,
