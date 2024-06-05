@@ -161,16 +161,16 @@ export class ListSubModulesComponent implements OnInit {
           this.moduleDetails = ' Arrival, student discounts, banking, full time jobs, post study work and many more!'
         this.howItWorksVideoLink = "https://www.youtube.com/embed/McVKK5wwqEM?si=EbGjR-CRBFZpQxkx";
         break;
-      case 'pre-admission':
-        this.currentModuleId = 1;
-        this.currentModuleName = 'Pre-Admission';
+      case 'learning-hub':
+        this.currentModuleId = 8;
+        this.currentModuleName = 'Learning Hub';
         this.currentApiSlug = 'SubmoduleListForStudents';
-        this.infoMessage = 'Upgrade to access the Pre-admission section',
+        this.infoMessage = 'Upgrade to access the Learning Hub',
           this.unlockMessage = 'Unlock the power of success with our exclusive Pre-admission!',
           this.upgradePlanMsg = 'Upgrade your plan now to gain instant access.';
         this.aboutModule = 'Explore a vast database of Q&A about:',
           this.moduleDetails = 'Scholarships, document checklist, Education loan, letter of Recommendation and many more!'
-        this.howItWorksVideoLink = "https://www.youtube.com/embed/KUYo58tlZ_o?si=flhjt5olW44nprRA";
+        this.howItWorksVideoLink = "https://www.youtube.com/embed/McVKK5wwqEM?si=EbGjR-CRBFZpQxkx";
         break;
       default:
         this.currentModuleId = 6;
@@ -200,7 +200,7 @@ export class ListSubModulesComponent implements OnInit {
   }
 
   loadModuleAndSubModule() {
-    
+
     this.currentCountryId = Number(localStorage.getItem('countryId'));
     //this.isSkeletonVisible = true;
     //this.subModules$ = this.moduleListService.subModuleList$();
