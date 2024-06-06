@@ -9,24 +9,37 @@ import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
   styleUrls: ['./certificates.component.scss']
 })
 export class CertificatesComponent implements OnInit {
-  certificateValidOrInvalid:any;
+  certificateValidOrInvalid: SafeResourceUrl | null = null;
   form!: FormGroup;
-  constructor(private service:ValidcertificatesService,public fb: FormBuilder,private sanitizer: DomSanitizer) { }
+  certificateAvailable: boolean = false;
+
+  constructor(
+    private service: ValidcertificatesService,
+    public fb: FormBuilder,
+    private sanitizer: DomSanitizer
+  ) { }
 
   ngOnInit(): void {
     this.form = this.fb.group({
-      certificateid: ["",Validators.required],
+      certificateid: ["", Validators.required],
     });
+  }
 
-  }
-  certificateValid(){
-    var data={
-      certificateID:this.form.value.certificateid
-    }
+  certificateValid(): void {
+    const data = {
+      certificateID: this.form.value.certificateid
+    };
+    
     this.service.getValidCertificates(data).subscribe((res) => {
-      this.certificateValidOrInvalid = this.sanitizer.bypassSecurityTrustResourceUrl(res.certificatelink);
-    })
+      if (res && res.certificatelink) {
+        this.certificateValidOrInvalid = this.sanitizer.bypassSecurityTrustResourceUrl(res.certificatelink);
+        this.certificateAvailable = true;
+      } else {
+        this.certificateAvailable = false;
+      }
+    });
   }
+
   get f() {
     return this.form.controls;
   }
