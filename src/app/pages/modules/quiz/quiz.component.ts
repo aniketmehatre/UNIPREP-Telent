@@ -130,7 +130,7 @@ export class QuizComponent implements OnInit {
         this.selectedModule = 'university'
         break;
       case 'skill-mastery':
-        this.universityidforquiz = null;
+        this.universityidforquiz = localStorage.getItem('skillmasteryquizsubmoduleid');
         this.currentModuleId = 10;
         this.currentModuleName = 'Skill Mastery';
         this.currentApiSlug = 'SubmoduleListForStudents';
