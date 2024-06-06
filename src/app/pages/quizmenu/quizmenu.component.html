@@ -60,6 +60,33 @@
 								</div>
 							</div>
 						</div>
+						<!-- skill mastery -->
+						<div class="mt-2">
+							<h6>Start your quiz on one of our Skill Mastery.</h6>
+							<div class="row">
+								<div class="col-md-10 col-9 mt-1">
+									<p-dropdown dropdownAppendTo="body" class="mt-2" (onChange)="skillMasteryButtonVisible($event)" [(ngModel)]="skillsmasteryId" placeholder="Select" [options]="skillsmasteryList" optionValue="id" optionLabel="submodule_name" styleClass="w-100" [filter]="true"></p-dropdown>
+								</div>
+								<div class="col-md-2 col-3 mt-1">
+									<!-- <button [disabled]="skillunivertybutton" (click)="startModululeSkillmastery()" type="button" class="w-100 h-100 btn btn-primary btn-rounded text-white">
+										<span class="me-1">{{ moduleprogress >= 90 ? "Completed" : "Start" }}</span>
+										<span *ngIf="arrow">
+											<i class="fas fa-arrow-right"></i>
+										</span>
+									</button> -->
+									<button *ngIf="skillmasteryquizpercentage <= 89" [disabled]="skillunivertybutton" (click)="startModululeSkillmastery()" type="button" class="w-100 h-100 btn btn-primary btn-rounded text-white">
+										<span>Start</span>
+										<span class="fa-stack">
+											<i style="color: white" class="fas fa-arrow-right"></i>
+										</span>
+									</button>
+									<button *ngIf="skillmasteryquizpercentage >= 90" [disabled]="skillmasteryquizpercentage >= 90" type="button" class="w-100 h-100 btn btn-primary btn-rounded text-white">
+										<span>Completed</span>
+										<span class="fa-stack"> </span>
+									</button>
+								</div>
+							</div>
+						</div>
 						<hr style="height: 3px !important; background-color: black" />
 						<div class="mt-2">
 							<h6>Choose a Learning Hub to get certified.Select a path you are intrested in to start the quiz</h6>

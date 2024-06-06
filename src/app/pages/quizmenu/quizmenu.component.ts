@@ -17,6 +17,7 @@ export class QuizmenuComponent implements OnInit {
   languagedropdownlist:any[]=[];
   languagedropdownlisttype:any[]=[];
   specializationlist:any[]=[];
+  skillsmasteryList:any[]=[];
   quizpercentagedata: any[] = [];
   countryId: any;
   countryName!: string;
@@ -28,6 +29,7 @@ export class QuizmenuComponent implements OnInit {
   specializationid:any=null;
   moduleid:any=null;
   universityquizbutton: boolean = true;
+  skillunivertybutton:boolean=true;
   learningHubQuiz:boolean=true;
   languageHubQuiz:boolean=true;
   readingmodulestartbutton:boolean = true;
@@ -39,6 +41,7 @@ export class QuizmenuComponent implements OnInit {
   learningHubCirtificates:any[]=[];
   languageHubCirtificates:any[]=[];
   countrydropdownlist:any[]=[];
+  skillsmasteryId:any=null;
   constructor(private moduleListService: ModuleServiceService, private router: Router, private dataService: DataService,
     private locationService: LocationService,private authService: AuthService,) { }
 
@@ -56,6 +59,7 @@ export class QuizmenuComponent implements OnInit {
     this.getSubjectlist();
     this.getLaguageListType();
     this.countryDropdown();
+    this.skillMastery();
   }
   countryDropdown(){
     this.moduleListService.countryList().subscribe((countryList:any) => {
@@ -105,6 +109,10 @@ export class QuizmenuComponent implements OnInit {
     } else if (moduleid == 6) {
       this.currentModuleSlug = "life-at-country"
     }
+    this.router.navigate([`/pages/modules/${this.currentModuleSlug}/quiz`]);
+  }
+  startModululeSkillmastery(){
+    this.currentModuleSlug = "skill-mastery"
     this.router.navigate([`/pages/modules/${this.currentModuleSlug}/quiz`]);
   }
   getFilterUniversityList(value: any) {
@@ -215,7 +223,6 @@ export class QuizmenuComponent implements OnInit {
     }else{
       this.learningHubQuiz=true;
     }
-  
   }
   StartLearningHubQuiz(){
     this.currentModuleSlug="learning-hub"
@@ -288,4 +295,33 @@ export class QuizmenuComponent implements OnInit {
     this.getFilterUniversityList(this.countryId)
     this.getCertificates()
   }
+  skillMastery(){
+    this.skillsmasteryList=[];
+    var data={
+     // category_flag:1,
+     country_id:0,
+     module_id :10
+    }
+    this.moduleListService.getSkillMasteryLists(data).subscribe((response) => {
+     this.skillsmasteryList = response;
+   });
+   }
+   skillmasteryquizpercentage:number=0
+   skillMasteryButtonVisible(eve:any){
+    console.log(eve);
+    var data={
+      moduleid:10,
+      countryid: 0,
+      submoduleid:eve.value,
+    }
+    this.moduleListService.checkModuleQuizCompletion(data).subscribe((res) => {
+      this.skillmasteryquizpercentage=res.progress
+    })
+    if (this.skillsmasteryId != null) {
+      this.skillunivertybutton = false;
+      localStorage.setItem('skillmasteryquizsubmoduleid',eve.value)  
+    } else {
+      this.skillunivertybutton = true;
+    }
+   }
 }

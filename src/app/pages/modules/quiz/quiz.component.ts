@@ -247,6 +247,7 @@ export class QuizComponent implements OnInit {
     //   header: 'Confirmation',
     //   icon: 'fa-solid fa-circle-exclamation',
     // });
+    this.stopTimer();
     this.router.navigate([`/pages/modules/${this.currentModuleSlug}`]);
   }
 
@@ -368,14 +369,16 @@ export class QuizComponent implements OnInit {
     this.totalpercentagequiztime = 0;
     this.isInstructionVisible = true;
     this.checkquizquestioncount()
+    this.stopTimer();
   }
   openReviewPopup() {
     this.quizData = [];
     this.selectedQuiz = 1
     this.isQuizSubmit = false;
     this.isReviewVisible = true;
+    this.stopTimer();
     var data = {
-      countryId: this.currentCountryId,
+      countryId:this.currentModuleId==10?0:this.currentCountryId,
       moduleId: this.currentModuleId,
       submoduleId: this.universityidforquiz
     }
@@ -397,7 +400,7 @@ export class QuizComponent implements OnInit {
     var data = {
       countryId: this.currentModuleId==10?0:this.currentCountryId,
       moduleId: this.currentModuleId,
-      submoduleId: this.universityidforquiz
+      submoduleid: this.universityidforquiz
     }
     this.moduleListService.quizCount(data).subscribe((res) => {
       this.quizcount = res.count > 0 ? res.count : 0;
@@ -416,13 +419,15 @@ export class QuizComponent implements OnInit {
   checkquizquestionmodule() {
     var data = {
       moduleid: this.currentModuleId,
-      countryid: this.currentCountryId
+      countryid:this.currentModuleId==10? 0:this.currentCountryId,
+      submoduleid: this.universityidforquiz
     }
     this.moduleListService.checkModuleQuizCompletion(data).subscribe((res) => {
       this.quizpercentage = res.progress
     })
   }
   openCertificate() {
+    this.stopTimer();
     window.open(this.certificatesurl, '_blank');
   }
   takeAnotherquiz() {
