@@ -32,15 +32,17 @@ planExpired: boolean = false;
         socialShare.style.display = "none";
       }
       //this.getSubmoduleName(this.countryId);
-      this.getCertificates();
-      this.getCertificateoOtherCountry();
-      this.checkplanExpire();
+
     });
+    this.getCertificates();
+    this.getCertificateoOtherCountry();
+    this.checkplanExpire();
   }
   getCertificateoOtherCountry(){
     this.othercirtificatecountrylist="";
     var data={
       countryid:Number(localStorage.getItem('countryId'))
+      // countryid:null
     }
     this.service.getCertificateInOtherCountry(data).subscribe((res)=>{
       this.othercirtificatecountrylist=res.countries
@@ -52,7 +54,7 @@ planExpired: boolean = false;
     this.certificatesList=[];
     this.learninghubcertificatelist=[];
     var data={
-      countryid:Number(localStorage.getItem('countryId'))
+      // countryid:null
     }
     this.service.getUserCompletedCertificate(data).subscribe((res)=>{
       this.certificatesList=res.certificates
