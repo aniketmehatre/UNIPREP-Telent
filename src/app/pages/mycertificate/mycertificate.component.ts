@@ -61,24 +61,24 @@ planExpired: boolean = false;
       this.totalmodulecirtficatelist=[...this.certificatesList,...this.learninghubcertificatelist,...this.laguageCertificate];
       console.log(this.totalmodulecirtficatelist);
     })
-    var data1={
-      countryid:0,
-      moduleid :8
-    }
-    this.service.getUserCompletedCertificate(data1).subscribe((res)=>{
-      this.learninghubcertificatelist=res.certificates;
-      this.totalmodulecirtficatelist=[...this.certificatesList,...this.learninghubcertificatelist,...this.laguageCertificate];
-      console.log(this.totalmodulecirtficatelist);
-    })
-    var data2={
-      countryid:0,
-      moduleid :9
-    }
-    this.service.getUserCompletedCertificate(data2).subscribe((res)=>{
-      this.laguageCertificate=res.certificates;
-      this.totalmodulecirtficatelist=[...this.certificatesList,...this.learninghubcertificatelist,...this.laguageCertificate];
-      console.log(this.totalmodulecirtficatelist);
-    })
+    // var data1={
+    //   countryid:0,
+    //   moduleid :8
+    // }
+    // this.service.getUserCompletedCertificate(data1).subscribe((res)=>{
+    //   this.learninghubcertificatelist=res.certificates;
+    //   this.totalmodulecirtficatelist=[...this.certificatesList,...this.learninghubcertificatelist,...this.laguageCertificate];
+    //   console.log(this.totalmodulecirtficatelist);
+    // })
+    // var data2={
+    //   countryid:0,
+    //   moduleid :9
+    // }
+    // this.service.getUserCompletedCertificate(data2).subscribe((res)=>{
+    //   this.laguageCertificate=res.certificates;
+    //   this.totalmodulecirtficatelist=[...this.certificatesList,...this.learninghubcertificatelist,...this.laguageCertificate];
+    //   console.log(this.totalmodulecirtficatelist);
+    // })
   }
   downloadCertificate(link:any){
     if(this.planExpired){
