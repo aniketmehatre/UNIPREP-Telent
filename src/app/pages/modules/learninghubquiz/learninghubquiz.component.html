@@ -17,7 +17,7 @@
                     <li>You cannot save and submit later.</li>
                     <li>Restart - will display new set of questions.</li>
                     <li>You will get a certificate for completing all the quiz modules.</li>
-                    <li>Buffer? To qualify for the quiz you need to get 80% correct.</li>
+                    <li>Buffer? To qualify for the quiz you need to get 90% correct.</li>
                     <li>There is no time limit.</li>
                 </ul>
             </div>
@@ -64,7 +64,7 @@
             <div class="row">
                 <div class="text-end text-small font-primarycolor mt-3" style="font-size: 18px; text-align: end;">  
                     <span style="border: 1px solid black; color: black; padding: 5px 18px; border-radius: 10px;">
-                    <b>{{ timer }} Sec | 30 Sec</b>
+                    <b>{{ timer }} Sec |60 Sec</b>
                   </span> </div>
             </div>
             <div class="row justify-content-center">
@@ -186,7 +186,7 @@
                 </h5>
             </div>
             <div class="col-md-2 col-2 text-end">
-                <button [disabled]="quizpercentage >= 80" (click)="retryQuiz()"
+                <button [disabled]="quizpercentage >= 90" (click)="retryQuiz()"
                     class="btn btn-quit btn-rounded me-2 px-2 py-2">
                     <div class="d-flex align-items-center">
                         <span class="fw-normal h6 mb-0">Retry</span>
@@ -200,15 +200,15 @@
         </div>
         <div class="row">
             <div class="col-md-12 text-center">
-                <img *ngIf="totalPercentage>=80" class="pb-2" src="/uniprep-assets/images/icons/quizcomplete.webp" alt="retry" />
-                <img *ngIf="totalPercentage<=79" class="pb-2" src="/uniprep-assets/images/icons/quizfailed.png" alt="retry" />
-                <h3 class="text-center mb-2" *ngIf="totalPercentage>=80">
+                <img *ngIf="totalPercentage>=90" class="pb-2" src="/uniprep-assets/images/icons/quizcomplete.webp" alt="retry" />
+                <img *ngIf="totalPercentage<=89" class="pb-2" src="/uniprep-assets/images/icons/quizfailed.png" alt="retry" />
+                <h3 class="text-center mb-2" *ngIf="totalPercentage>=90">
                     Congratulations<br />{{totalanswercorret}}/{{totalanswerquistionaftersubmited}}</h3>
-                    <h3 class="text-center mb-2" *ngIf="totalPercentage<=79">
+                    <h3 class="text-center mb-2" *ngIf="totalPercentage<=89">
                         Better Luck Next Time<br />{{totalanswercorret}}/{{totalanswerquistionaftersubmited}}</h3>
-                <p *ngIf="totalPercentage>=80" class="text-center mb-2 fw-medium">You have completed the quiz on <br>{{currentModuleName}} module</p>
-                <p *ngIf="totalPercentage<=79" class="text-center mb-2 fw-medium">Completion of this module requires<br>a minimum score of 80%</p>
-                <button *ngIf="totalPercentage>=80" style="background-color: #98B73F !important;" (click)="openCertificate()" class="btn btn-back btn-rounded px-2 py-2">
+                <p *ngIf="totalPercentage>=90" class="text-center mb-2 fw-medium">You have completed the quiz on <br>{{currentModuleName}} module</p>
+                <p *ngIf="totalPercentage<=89" class="text-center mb-2 fw-medium">Completion of this module requires<br>a minimum score of 90%</p>
+                <button *ngIf="totalPercentage>=90" style="background-color: #98B73F !important;" (click)="openCertificate()" class="btn btn-back btn-rounded px-2 py-2">
                     <div class="d-flex align-items-center">
                         <span class="fw-normal h6 mb-0">View Certificate</span>
                         <div class="btn-icon" style="background-color: #7e963e;"><i class="fa fa-file" aria-hidden="true"></i></div>
@@ -254,7 +254,7 @@
                 </h5>
             </div>
             <div class="col-md-2 col-2 text-end">
-                <button [disabled]="quizpercentage >= 80" (click)="retryQuiz()"
+                <button [disabled]="quizpercentage >= 90" (click)="retryQuiz()"
                     class="btn btn-quit btn-rounded me-2 px-2 py-2">
                     <div class="d-flex align-items-center">
                         <span class="fw-normal h6 mb-0 ps-3 pe-2">Retry</span>

@@ -35,7 +35,7 @@
 								</div>
 								<div class="col-md-2 col-3 mt-1">
 									<button [disabled]="readingmodulestartbutton" (click)="startModulule()" type="button" class="w-100 h-100 btn btn-primary btn-rounded text-white">
-										<span class="me-1">{{ moduleprogress >= 80 ? "Completed" : "Start" }}</span>
+										<span class="me-1">{{ moduleprogress >= 90 ? "Completed" : "Start" }}</span>
 										<span *ngIf="arrow">
 											<i class="fas fa-arrow-right"></i>
 										</span>
@@ -71,13 +71,13 @@
 										<p-dropdown dropdownAppendTo="body" class="mt-2" (onChange)="specializationdata()" [(ngModel)]="specializationid" placeholder="Select a specialization" [options]="specializationlist" optionValue="submodule_id" optionLabel="submodule_name" styleClass="w-100" [filter]="true"></p-dropdown>
 									</div>
 									<div class="col-md-2 col-4 mt-1">
-										<button *ngIf="quizpercentage <= 79" [disabled]="learningHubQuiz" (click)="StartLearningHubQuiz()" type="button" class="w-100 h-100 btn btn-primary btn-rounded text-white">
+										<button *ngIf="quizpercentage <= 89" [disabled]="learningHubQuiz" (click)="StartLearningHubQuiz()" type="button" class="w-100 h-100 btn btn-primary btn-rounded text-white">
 											<span>Start</span>
 											<span class="fa-stack">
 												<i style="color: white" class="fas fa-arrow-right"></i>
 											</span>
 										</button>
-										<button *ngIf="quizpercentage >= 80" [disabled]="quizpercentage >= 80" type="button" class="w-100 h-100 btn btn-primary btn-rounded text-white">
+										<button *ngIf="quizpercentage >= 90" [disabled]="quizpercentage >= 90" type="button" class="w-100 h-100 btn btn-primary btn-rounded text-white">
 											<span>Completed</span>
 											<span class="fa-stack"> </span>
 										</button>
@@ -94,13 +94,13 @@
 										<p-dropdown dropdownAppendTo="body" class="mt-2" (onChange)="languagrTypeId()" [(ngModel)]="laguagetypeid" placeholder="Select proficiency level" [options]="languagedropdownlisttype" optionValue="id" optionLabel="type" styleClass="w-100" [filter]="true"></p-dropdown>
 									</div>
 									<div class="col-md-2 col-4 mt-1">
-										<button *ngIf="quizlanguguageprogress <= 79" [disabled]="languageHubQuiz" (click)="StartLanguageHubQuiz()" type="button" class="w-100 h-100 btn btn-primary btn-rounded text-white">
+										<button *ngIf="quizlanguguageprogress <= 89" [disabled]="languageHubQuiz" (click)="StartLanguageHubQuiz()" type="button" class="w-100 h-100 btn btn-primary btn-rounded text-white">
 											<span>Start</span>
 											<span class="fa-stack">
 												<i class="fas fa-arrow-right"></i>
 											</span>
 										</button>
-										<button *ngIf="quizlanguguageprogress >= 80" [disabled]="quizpercentage >= 80" type="button" class="w-100 h-100 btn btn-primary btn-rounded text-white">
+										<button *ngIf="quizlanguguageprogress >= 90" [disabled]="quizpercentage >= 90" type="button" class="w-100 h-100 btn btn-primary btn-rounded text-white">
 											<span>Completed</span>
 											<span class="fa-stack"> </span>
 										</button>

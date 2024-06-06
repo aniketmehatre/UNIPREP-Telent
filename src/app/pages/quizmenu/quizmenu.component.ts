@@ -166,7 +166,7 @@ export class QuizmenuComponent implements OnInit {
   changemodule(eve:any){
     this.readingmoduleid=eve.value.id
     this.moduleprogress=eve.value.progress
-    if(this.moduleprogress >= 80){
+    if(this.moduleprogress >= 90){
       this.readingmodulestartbutton=true;
       this.arrow=false;
     }else{
@@ -246,7 +246,7 @@ export class QuizmenuComponent implements OnInit {
       }
       this.moduleListService.checklanguageQuizCompletion(data).subscribe((res) => {
         this.quizlanguguageprogress=res.progress
-        if(this.quizlanguguageprogress<=79){
+        if(this.quizlanguguageprogress<=89){
           this.languageHubQuiz=false;
         }
       })
@@ -266,7 +266,7 @@ export class QuizmenuComponent implements OnInit {
       }
       this.moduleListService.checklanguageQuizCompletion(data).subscribe((res) => {
         this.quizlanguguageprogress=res.progress
-        if(this.quizlanguguageprogress<=79){
+        if(this.quizlanguguageprogress<=89){
           this.languageHubQuiz=false;
         }
       })
