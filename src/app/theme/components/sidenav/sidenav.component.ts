@@ -79,6 +79,11 @@ export class SidenavComponent {
       image: "fa-solid fa-building-columns",
     },
     {
+      title: "Course List",
+      url: "/pages/course-list",
+      image: "fa-solid fa-pencil", 
+    },
+    {
       title: 'Scholarship List',
       url: '/pages/scholarship-list',
       image: 'fa-solid fa-diploma',
