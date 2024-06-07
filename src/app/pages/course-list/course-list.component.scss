@@ -1,0 +1,34 @@
+.dataCard{
+    background-color: white;
+    border: 1px solid var(--uniprep-primary);
+    // padding: 5px;
+}
+
+.courseImage{
+    height: 50px;
+    width: 50px;
+    display: flex;
+    justify-content: center;
+    img{
+        object-fit: contain;
+        width: 100%;
+        height: 100%;
+        border-radius: 5px;
+    }
+}
+
+.course-guidelines{
+    background-color: #EBEDF2;
+    color: #001631 !important;
+    border-radius: 20px !important;
+    border: none;
+}
+
+
+.exportButton{
+    background-color: #EBEDF2;
+    color: #001631 !important;
+    border-radius: 20px !important;
+    border: none;
+    padding: 10px;
+}
