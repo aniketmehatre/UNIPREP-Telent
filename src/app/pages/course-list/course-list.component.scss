@@ -32,3 +32,20 @@
     border: none;
     padding: 10px;
 }
+
+.courseNameTag{
+    background-color: var(--uniprep-primary);
+    font-weight: 600;
+    color: white;
+    padding: 5px;
+    border-radius: 25px;
+    white-space: wrap;
+    text-align: center;
+}
+
+.shortlistedCourseTag{
+    background-color: black;
+    color: white;
+    padding: 5px;
+    border-radius: 25px;
+}

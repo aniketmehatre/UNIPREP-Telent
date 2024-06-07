@@ -17,16 +17,14 @@
 			</div>
             <div class="col-md-3 text-end" style="white-space: nowrap">
 				<span class="d-flex justify-content-end mt-3 gap-2">
-					<button class="btn btn-primary text-small course-guidelines" (click)="closeGuidelines()" type="button">Pitch Deck Guidelines</button>
+					<button class="btn btn-primary text-small course-guidelines" (click)="closeGuidelines()" type="button">Course Guidelines</button>
 					<button class="btn btn-primary text-small exportButton" (click)="exportData()" type="button">
-						Export <span class="exportCount">1000</span>
+						Export <span class="exportCount">0</span>
 					</button>
 				</span>
 				<div class="d-flex w-100 align-items-center justify-content-end mt-3 gap-2">
 					<div class="pe-2">
-						<span class="text-muted text-small"
-							><strong>Total Pitch Deck : 1010 </strong></span
-						>
+						<span class="text-muted text-small"><strong>Total Courses: {{ totalCourseCount }} </strong></span>
 					</div>
 					<button class="btn btn-primary text-small ps-3 pe-3 pt-2 pb-2 br-8 p-1" (click)="filterBy()" type="button">Filter by</button>
                     <button class="btn btn-primary text-small course-guidelines" (click)="buyCredits()" type="button">Buy Credits</button>
@@ -35,123 +33,43 @@
         </div>
     </div>
     <div class="container-fluid"> 
-        <div class="d-flex justify-content-between text-nowrap gap-1">
-            <div class="col-lg-3 col-md-4 col-sm-6 col-xs-6 col-12 col-12 mt-3">
+        <div class="row d-flex justify-content-center text-nowrap">
+            <div class="col-lg-3 col-md-4 col-sm-6 col-xs-6 col-12 col-12 mt-3" *ngFor="let course of courseListData">
                 <div class="card dataCard" >
                     <div class="card-body">
                         <div class="d-flex justify-content-around">
                             <input type="checkbox" style="transform: scale(1.5)" name="summa" id="summa">
-                            <p style="background-color: var(--uniprep-primary);font-weight: 600;color: white;padding: 5px;border-radius: 25px;">M.des in Graphic Design</p>
+                            <!-- <p style="background-color: var(--uniprep-primary);font-weight: 600;color: white;padding: 5px;border-radius: 25px;">{{course.course_name.substr(0, 25)}}{{ course.course_name.length > 25 ? '...' : '' }}</p> -->
+                            <p class="courseNameTag">{{course.course_name}}</p>
                         </div>
                         <div class="d-flex justify-content-around m-3">
                             <div class="courseImage">
                                 <img src="https://api.uniprep.ai/uniprepapi/storage/app/public/Pitch-deck-images/Airbnb.webp" alt="Airbnb">
                             </div>
                             <div class="courseUniversity">
-                                <p style="color: var(--uniprep-primary);font-weight: 600;">Bath Spa University</p>
-                                <p style="background-color: black;color: white;padding: 5px;border-radius: 25px;">Shortlisted Course</p>
+                                <a [href]="course.university_url" target="_blank" class="text-decoration-none"><p style="color: var(--uniprep-primary);font-weight: 600;">{{course.university_name}}</p></a>
+                                <p class="shortlistedCourseTag">Shortlisted Course</p>
                             </div>
                         </div>
                         <div class="row text-start" >
-                            <div class="col-6"><small><i class="fa-solid fa-graduation-cap"></i> Graphic Design</small></div>
+                            <div [ngClass]="{ 'col-12': course.subject_name.length > 18, 'col-6': true }" >
+                                <small>
+                                    <i class="fa-solid fa-graduation-cap"></i> {{course.subject_name}}
+                                </small>
+                            </div>
                             <div class="col-6"><small><i class="fa-regular fa-clock"></i> 1975</small></div>
-                            <div class="col-6"><small><i class="fa-solid fa-globe"></i> Canada</small></div>
-                            <div class="col-6"><small><i class="fa-solid fa-location-crosshairs"></i> Toronto</small></div>
-                            <div class="col-6"><small><i class="fa-solid fa-clock"></i> 1 Year</small></div>
-                            <div class="col-6"><small><i class="fa-solid fa-calendar"></i> Aug, Sept</small></div>
-                            <div class="col-6"><small><i class="fa-regular fa-hourglass"></i> 1 Year</small></div>
+                            <div class="col-6"><small><i class="fa-solid fa-globe"></i> {{course.country}}</small></div>
+                            <div class="col-6"><small><i class="fa-solid fa-location-crosshairs"></i> {{ course.location_name }}</small></div>
+                            <div class="col-6"><small><i class="fa-solid fa-clock"></i> {{ course.duration}}</small></div>
+                            <div class="col-6"><small><i class="fa-solid fa-calendar"></i> {{ course.intake_month }}</small></div>
+                            <div class="col-6"><small><i class="fa-regular fa-hourglass"></i> {{ course.duration}}</small></div>
                             <div class="col-6"><small><i class="fa-solid fa-chart-simple"></i> 1025</small></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-4 col-sm-6 col-xs-6 col-12 col-12 mt-3">
-                <div class="card dataCard" >
-                    <div class="card-body">
-                        <div class="d-flex justify-content-around">
-                            <input type="checkbox" style="transform: scale(1.5)" name="summa" id="summa">
-                            <p style="background-color: var(--uniprep-primary);font-weight: 600;color: white;padding: 5px;border-radius: 25px;">M.des in Graphic Design</p>
-                        </div>
-                        <div class="d-flex justify-content-around m-3">
-                            <div class="courseImage">
-                                <img src="https://api.uniprep.ai/uniprepapi/storage/app/public/Pitch-deck-images/Airbnb.webp" alt="Airbnb">
-                            </div>
-                            <div class="courseUniversity">
-                                <p style="color: var(--uniprep-primary);font-weight: 600;">Bath Spa University</p>
-                                <p style="background-color: black;color: white;padding: 5px;border-radius: 25px;">Shortlisted Course</p>
-                            </div>
-                        </div>
-                        <div class="row text-start" >
-                            <div class="col-6"><small><i class="fa-solid fa-graduation-cap"></i> Graphic Design</small></div>
-                            <div class="col-6"><small><i class="fa-regular fa-clock"></i> 1975</small></div>
-                            <div class="col-6"><small><i class="fa-solid fa-globe"></i> Canada</small></div>
-                            <div class="col-6"><small><i class="fa-solid fa-location-crosshairs"></i> Toronto</small></div>
-                            <div class="col-6"><small><i class="fa-solid fa-clock"></i> 1 Year</small></div>
-                            <div class="col-6"><small><i class="fa-solid fa-calendar"></i> Aug, Sept</small></div>
-                            <div class="col-6"><small><i class="fa-regular fa-hourglass"></i> 1 Year</small></div>
-                            <div class="col-6"><small><i class="fa-solid fa-chart-simple"></i> 1025</small></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-4 col-sm-6 col-xs-6 col-12 col-12 mt-3">
-                <div class="card dataCard" >
-                    <div class="card-body">
-                        <div class="d-flex justify-content-around">
-                            <input type="checkbox" style="transform: scale(1.5)" name="summa" id="summa">
-                            <p style="background-color: var(--uniprep-primary);font-weight: 600;color: white;padding: 5px;border-radius: 25px;">M.des in Graphic Design</p>
-                        </div>
-                        <div class="d-flex justify-content-around m-3">
-                            <div class="courseImage">
-                                <img src="https://api.uniprep.ai/uniprepapi/storage/app/public/Pitch-deck-images/Airbnb.webp" alt="Airbnb">
-                            </div>
-                            <div class="courseUniversity">
-                                <p style="color: var(--uniprep-primary);font-weight: 600;">Bath Spa University</p>
-                                <p style="background-color: black;color: white;padding: 5px;border-radius: 25px;">Shortlisted Course</p>
-                            </div>
-                        </div>
-                        <div class="row text-start" >
-                            <div class="col-6"><small><i class="fa-solid fa-graduation-cap"></i> Graphic Design</small></div>
-                            <div class="col-6"><small><i class="fa-regular fa-clock"></i> 1975</small></div>
-                            <div class="col-6"><small><i class="fa-solid fa-globe"></i> Canada</small></div>
-                            <div class="col-6"><small><i class="fa-solid fa-location-crosshairs"></i> Toronto</small></div>
-                            <div class="col-6"><small><i class="fa-solid fa-clock"></i> 1 Year</small></div>
-                            <div class="col-6"><small><i class="fa-solid fa-calendar"></i> Aug, Sept</small></div>
-                            <div class="col-6"><small><i class="fa-regular fa-hourglass"></i> 1 Year</small></div>
-                            <div class="col-6"><small><i class="fa-solid fa-chart-simple"></i> 1025</small></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-4 col-sm-6 col-xs-6 col-12 col-12 mt-3">
-                <div class="card dataCard" >
-                    <div class="card-body">
-                        <div class="d-flex justify-content-around">
-                            <input type="checkbox" style="transform: scale(1.5)" name="summa" id="summa">
-                            <p style="background-color: var(--uniprep-primary);font-weight: 600;color: white;padding: 5px;border-radius: 25px;">M.des in Graphic Design</p>
-                        </div>
-                        <div class="d-flex justify-content-around m-3">
-                            <div class="courseImage">
-                                <img src="https://api.uniprep.ai/uniprepapi/storage/app/public/Pitch-deck-images/Airbnb.webp" alt="Airbnb">
-                            </div>
-                            <div class="courseUniversity">
-                                <p style="color: var(--uniprep-primary);font-weight: 600;">Bath Spa University</p>
-                                <p style="background-color: black;color: white;padding: 5px;border-radius: 25px;">Shortlisted Course</p>
-                            </div>
-                        </div>
-                        <div class="row text-start" >
-                            <div class="col-6"><small><i class="fa-solid fa-graduation-cap"></i> Graphic Design</small></div>
-                            <div class="col-6"><small><i class="fa-regular fa-clock"></i> 1975</small></div>
-                            <div class="col-6"><small><i class="fa-solid fa-globe"></i> Canada</small></div>
-                            <div class="col-6"><small><i class="fa-solid fa-location-crosshairs"></i> Toronto</small></div>
-                            <div class="col-6"><small><i class="fa-solid fa-clock"></i> 1 Year</small></div>
-                            <div class="col-6"><small><i class="fa-solid fa-calendar"></i> Aug, Sept</small></div>
-                            <div class="col-6"><small><i class="fa-regular fa-hourglass"></i> 1 Year</small></div>
-                            <div class="col-6"><small><i class="fa-solid fa-chart-simple"></i> 1025</small></div>
+                            <div class="col-6"><small><i class="fa-solid fa-stairs"></i> {{ course.study_level }}</small></div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>  
     </div>
+    <p-paginator *ngIf="totalCourseCount != 0" [rows]="perPage" [totalRecords]="totalCourseCount" (onPageChange)="pageChange($event)" [rowsPerPageOptions]="[50, 100, 300, 500, 1000]"></p-paginator>
 </div>
