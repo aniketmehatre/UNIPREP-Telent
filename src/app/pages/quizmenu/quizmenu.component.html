@@ -35,7 +35,7 @@
 								</div>
 								<div class="col-md-2 col-3 mt-1">
 									<button [disabled]="readingmodulestartbutton" (click)="startModulule()" type="button" class="w-100 h-100 btn btn-primary btn-rounded text-white">
-										<span class="me-1">{{ moduleprogress >= 80 ? "Completed" : "Start" }}</span>
+										<span class="me-1">{{ moduleprogress >= 90 ? "Completed" : "Start" }}</span>
 										<span *ngIf="arrow">
 											<i class="fas fa-arrow-right"></i>
 										</span>
@@ -60,6 +60,33 @@
 								</div>
 							</div>
 						</div>
+						<!-- skill mastery -->
+						<div class="mt-2">
+							<h6>Start your quiz on one of our Skill Mastery.</h6>
+							<div class="row">
+								<div class="col-md-10 col-9 mt-1">
+									<p-dropdown dropdownAppendTo="body" class="mt-2" (onChange)="skillMasteryButtonVisible($event)" [(ngModel)]="skillsmasteryId" placeholder="Select" [options]="skillsmasteryList" optionValue="id" optionLabel="submodule_name" styleClass="w-100" [filter]="true"></p-dropdown>
+								</div>
+								<div class="col-md-2 col-3 mt-1">
+									<!-- <button [disabled]="skillunivertybutton" (click)="startModululeSkillmastery()" type="button" class="w-100 h-100 btn btn-primary btn-rounded text-white">
+										<span class="me-1">{{ moduleprogress >= 90 ? "Completed" : "Start" }}</span>
+										<span *ngIf="arrow">
+											<i class="fas fa-arrow-right"></i>
+										</span>
+									</button> -->
+									<button *ngIf="skillmasteryquizpercentage <= 89" [disabled]="skillunivertybutton" (click)="startModululeSkillmastery()" type="button" class="w-100 h-100 btn btn-primary btn-rounded text-white">
+										<span>Start</span>
+										<span class="fa-stack">
+											<i style="color: white" class="fas fa-arrow-right"></i>
+										</span>
+									</button>
+									<button *ngIf="skillmasteryquizpercentage >= 90" [disabled]="skillmasteryquizpercentage >= 90" type="button" class="w-100 h-100 btn btn-primary btn-rounded text-white">
+										<span>Completed</span>
+										<span class="fa-stack"> </span>
+									</button>
+								</div>
+							</div>
+						</div>
 						<hr style="height: 3px !important; background-color: black" />
 						<div class="mt-2">
 							<h6>Choose a Learning Hub to get certified.Select a path you are intrested in to start the quiz</h6>
@@ -71,13 +98,13 @@
 										<p-dropdown dropdownAppendTo="body" class="mt-2" (onChange)="specializationdata()" [(ngModel)]="specializationid" placeholder="Select a specialization" [options]="specializationlist" optionValue="submodule_id" optionLabel="submodule_name" styleClass="w-100" [filter]="true"></p-dropdown>
 									</div>
 									<div class="col-md-2 col-4 mt-1">
-										<button *ngIf="quizpercentage <= 79" [disabled]="learningHubQuiz" (click)="StartLearningHubQuiz()" type="button" class="w-100 h-100 btn btn-primary btn-rounded text-white">
+										<button *ngIf="quizpercentage <= 89" [disabled]="learningHubQuiz" (click)="StartLearningHubQuiz()" type="button" class="w-100 h-100 btn btn-primary btn-rounded text-white">
 											<span>Start</span>
 											<span class="fa-stack">
 												<i style="color: white" class="fas fa-arrow-right"></i>
 											</span>
 										</button>
-										<button *ngIf="quizpercentage >= 80" [disabled]="quizpercentage >= 80" type="button" class="w-100 h-100 btn btn-primary btn-rounded text-white">
+										<button *ngIf="quizpercentage >= 90" [disabled]="quizpercentage >= 90" type="button" class="w-100 h-100 btn btn-primary btn-rounded text-white">
 											<span>Completed</span>
 											<span class="fa-stack"> </span>
 										</button>
@@ -94,13 +121,13 @@
 										<p-dropdown dropdownAppendTo="body" class="mt-2" (onChange)="languagrTypeId()" [(ngModel)]="laguagetypeid" placeholder="Select proficiency level" [options]="languagedropdownlisttype" optionValue="id" optionLabel="type" styleClass="w-100" [filter]="true"></p-dropdown>
 									</div>
 									<div class="col-md-2 col-4 mt-1">
-										<button *ngIf="quizlanguguageprogress <= 79" [disabled]="languageHubQuiz" (click)="StartLanguageHubQuiz()" type="button" class="w-100 h-100 btn btn-primary btn-rounded text-white">
+										<button *ngIf="quizlanguguageprogress <= 89" [disabled]="languageHubQuiz" (click)="StartLanguageHubQuiz()" type="button" class="w-100 h-100 btn btn-primary btn-rounded text-white">
 											<span>Start</span>
 											<span class="fa-stack">
 												<i class="fas fa-arrow-right"></i>
 											</span>
 										</button>
-										<button *ngIf="quizlanguguageprogress >= 80" [disabled]="quizpercentage >= 80" type="button" class="w-100 h-100 btn btn-primary btn-rounded text-white">
+										<button *ngIf="quizlanguguageprogress >= 90" [disabled]="quizpercentage >= 90" type="button" class="w-100 h-100 btn btn-primary btn-rounded text-white">
 											<span>Completed</span>
 											<span class="fa-stack"> </span>
 										</button>
@@ -193,6 +220,29 @@
 								<p-accordionTab header="Completed Quiz On Language Hub">
 									<div class="row">
 										<div class="col-4 mt-1" *ngFor="let list of languageHubCirtificates; let i = index">
+											<div class="card resourcecard justify-content-center text-black h-100">
+												<div class="card-body h-100">
+													<div class="" id="resourceLink">
+														<div style="text-align: center">
+															<div class="resourceimg"><img width="50" height="50" src="{{ list.module_image }}" alt="" /></div>
+														</div>
+													</div>
+													<div style="text-align: center">
+														<h6 title="hi">{{ list.module_name }}</h6>
+													</div>
+													<div class="p-2" id="resourceLink">
+														<div style="text-align: center">
+															<button pButton type="button" (click)="downloadCertificate(list.certificate_link)" style="background-color: #3f4c83; color: white; width: -webkit-fill-available; text-align: center; font-size: 10px; white-space: nowrap" class="p-button-rounded p-2">View Certificates</button>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</p-accordionTab>
+								<p-accordionTab header="Completed Quiz On Skill Mastery">
+									<div class="row">
+										<div class="col-4 mt-1" *ngFor="let list of skillMasteryCirtificates; let i = index">
 											<div class="card resourcecard justify-content-center text-black h-100">
 												<div class="card-body h-100">
 													<div class="" id="resourceLink">

@@ -882,7 +882,12 @@ export class QuestionListComponent implements OnInit {
     console.log(this.currentModuleId);
     console.log(Number(this.subModuleId));
     localStorage.setItem("learninghubsubmoduleid", this.subModuleId);
-    this.router.navigate([`/pages/modules/${this.currentModuleSlug}/learninghubquiz`]);
+    localStorage.setItem("skillmasteryquizsubmoduleid",this.subModuleId);
+    if(this.currentModuleId==10){
+      this.router.navigate([`/pages/modules/${this.currentModuleSlug}/quiz`]);
+    }else{
+      this.router.navigate([`/pages/modules/${this.currentModuleSlug}/learninghubquiz`]);
+    }
   }
   openHowItWorksVideoPopup(videoLink: string) {
     console.log(videoLink, " video link");

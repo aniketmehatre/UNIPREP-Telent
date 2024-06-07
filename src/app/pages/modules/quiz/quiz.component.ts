@@ -130,7 +130,7 @@ export class QuizComponent implements OnInit {
         this.selectedModule = 'university'
         break;
       case 'skill-mastery':
-        this.universityidforquiz = null;
+        this.universityidforquiz = localStorage.getItem('skillmasteryquizsubmoduleid');
         this.currentModuleId = 10;
         this.currentModuleName = 'Skill Mastery';
         this.currentApiSlug = 'SubmoduleListForStudents';
@@ -247,6 +247,7 @@ export class QuizComponent implements OnInit {
     //   header: 'Confirmation',
     //   icon: 'fa-solid fa-circle-exclamation',
     // });
+    this.stopTimer();
     this.router.navigate([`/pages/modules/${this.currentModuleSlug}`]);
   }
 
@@ -298,11 +299,11 @@ export class QuizComponent implements OnInit {
       return dat;
     });
     // time checking for same question or different quesion
-    const exists = this.selectedQuizArrayForTimer.some(item => item.id === singleQuizData.id);
-    if (!exists) {
-      this.selectedQuizArrayForTimer.push(singleQuizData);
-      this.resetTimer();
-    }
+    // const exists = this.selectedQuizArrayForTimer.some(item => item.id === singleQuizData.id);
+    // if (!exists) {
+    //   this.selectedQuizArrayForTimer.push(singleQuizData);
+    //   this.resetTimer();
+    // }
     let sing = this.quizData[this.selectedQuiz];
     if (!sing.user_answered_value) {
       this.answerOptionClicked = true;
@@ -368,14 +369,16 @@ export class QuizComponent implements OnInit {
     this.totalpercentagequiztime = 0;
     this.isInstructionVisible = true;
     this.checkquizquestioncount()
+    this.stopTimer();
   }
   openReviewPopup() {
     this.quizData = [];
     this.selectedQuiz = 1
     this.isQuizSubmit = false;
     this.isReviewVisible = true;
+    this.stopTimer();
     var data = {
-      countryId: this.currentCountryId,
+      countryId:this.currentModuleId==10?0:this.currentCountryId,
       moduleId: this.currentModuleId,
       submoduleId: this.universityidforquiz
     }
@@ -397,7 +400,7 @@ export class QuizComponent implements OnInit {
     var data = {
       countryId: this.currentModuleId==10?0:this.currentCountryId,
       moduleId: this.currentModuleId,
-      submoduleId: this.universityidforquiz
+      submoduleid: this.universityidforquiz
     }
     this.moduleListService.quizCount(data).subscribe((res) => {
       this.quizcount = res.count > 0 ? res.count : 0;
@@ -416,13 +419,15 @@ export class QuizComponent implements OnInit {
   checkquizquestionmodule() {
     var data = {
       moduleid: this.currentModuleId,
-      countryid: this.currentCountryId
+      countryid:this.currentModuleId==10? 0:this.currentCountryId,
+      submoduleid: this.universityidforquiz
     }
     this.moduleListService.checkModuleQuizCompletion(data).subscribe((res) => {
       this.quizpercentage = res.progress
     })
   }
   openCertificate() {
+    this.stopTimer();
     window.open(this.certificatesurl, '_blank');
   }
   takeAnotherquiz() {
@@ -437,11 +442,11 @@ export class QuizComponent implements OnInit {
       this.timerSubscription.unsubscribe();
     }
     this.timerSubscription = interval(1000).pipe(
-      takeWhile(() => this.timer < 30)
+      takeWhile(() => this.timer < 60)
     ).subscribe(() => {
       this.timer++;
       // console.log(`Timer: ${this.timer} seconds`);
-      if (this.timer === 30) {
+      if (this.timer === 60) {
         this.restrict = true;
       }
     });

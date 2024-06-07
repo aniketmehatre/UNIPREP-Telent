@@ -209,4 +209,9 @@ checklanguageQuizCompletion(data: any) {
       headers: headers,
   });
 }
+getSkillMasteryLists(data:any) {
+  let params = new HttpParams();
+  const headers = new HttpHeaders().set("Accept", "application/json");
+  return this.http.post<any>(environment.ApiUrl + "/getuniversitybycountry",data,{ headers: headers});
+}
 }
