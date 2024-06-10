@@ -1,5 +1,5 @@
 
-import {Component, ElementRef, OnInit, Renderer2, ViewChild} from '@angular/core';
+import {Component, ElementRef, Input, OnChanges, OnInit, Renderer2, SimpleChanges, ViewChild} from '@angular/core';
 import {DashboardService} from "./dashboard.service";
 import {AuthService} from "../../Auth/auth.service";
 import {SubSink} from "subsink";
@@ -13,7 +13,7 @@ import {Carousel, CarouselModule} from "primeng/carousel";
     templateUrl: './dashboard.component.html',
     styleUrls: ['./dashboard.component.scss']
 })
-export class DashboardComponent implements OnInit {
+export class DashboardComponent implements OnInit, OnChanges {
     private subs = new SubSink();
     userName: any;
     readProgressionPercentage: any;
@@ -55,9 +55,10 @@ export class DashboardComponent implements OnInit {
     isLondon!: boolean;
     isCountryPopupOpen: any;
     currentModuleSlug: any;
+    userData: any
+    myProfilePercentage: any
     constructor(private dashboardService: DashboardService,private service: AuthService,
         private router: Router, private dataService: DataService,private authService: AuthService,
-                private elRef: ElementRef, private renderer: Renderer2,
     ) {
         this.responsiveOptions = [
             {
@@ -114,8 +115,12 @@ export class DashboardComponent implements OnInit {
 
         this.subs.sink = this.service.getMe().subscribe((data) => {
             if (data) {
-              //localStorage.setItem('countryId', data.userdetails[0].interested_country_id);
-              this.userName = data.userdetails[0].name.toString();
+              this.userName = data.userdetails[0].name.toString()
+              this.userData = data.userdetails[0]
+              let nullCount = this.countNullValues(this.userData)
+               let calValue = Math.round((nullCount / 75) * 100)
+                this.progress = 100 - calValue
+                this.setProgress(Math.round(this.progress))
             }
         });
 
@@ -152,6 +157,16 @@ export class DashboardComponent implements OnInit {
         this.checkquizquestionmodule()
     }
 
+    countNullValues(obj: { [key: string]: any }): number {
+        let nullCnt = 0;
+        for (const key in obj) {
+            if (obj.hasOwnProperty(key) && obj[key] === null) {
+                nullCnt++;
+            }
+        }
+        return nullCnt;
+    }
+
     enableReadingData(): void {
         this.service.getNewUserTimeLeft().subscribe(res => {
             let data = res.time_left;
@@ -186,10 +201,11 @@ export class DashboardComponent implements OnInit {
             .subscribe(([readProgression]) => {
                 if (readProgression) {
                     if (!readProgression.success) {
-
                         return;
                     }
-                    this.readProgressionPercentage = Math.round(readProgression.readpercentage);
+                    //this.readProgressionPercentage = Math.round(readProgression.readpercentage);
+                    this.setProgress1(Math.round(readProgression.readpercentage))
+                    this.progressReading = Math.round(readProgression.readpercentage)
                 }
                 // if (quizProgression) {
                 //     if (!quizProgression.success) {
@@ -381,4 +397,38 @@ export class DashboardComponent implements OnInit {
       clearRestriction() {
         this.restrict = false;
       }
+
+    openMyProfile(){
+
+    }
+
+    @Input() progress: number = 0;
+    @Input() progressReading: number = 0;
+
+    ngOnChanges(changes: SimpleChanges): void {
+        if (changes['progress']) {
+            this.setProgress(this.progress);
+        }
+        if (changes['progressReading']) {
+            this.setProgress1(this.progressReading);
+        }
+    }
+
+    setProgress(progress: number) {
+        const circle = document.querySelector('.progress-ring__circle') as SVGCircleElement;
+        const radius = circle.r.baseVal.value;
+        const circumference = 2 * Math.PI * radius;
+        const offset = circumference - (progress / 100) * circumference;
+        circle.style.strokeDasharray = `${circumference} ${circumference}`;
+        circle.style.strokeDashoffset = `${offset}`;
+    }
+
+    setProgress1(progress: number) {
+        const circle = document.querySelector('.progress1-ring__circle') as SVGCircleElement;
+        const radius = circle.r.baseVal.value;
+        const circumference = 2 * Math.PI * radius;
+        const offset = circumference - (progress / 100) * circumference;
+        circle.style.strokeDasharray = `${circumference} ${circumference}`;
+        circle.style.strokeDashoffset = `${offset}`;
+    }
 }

@@ -1,6 +1,5 @@
 import {Component} from '@angular/core';
-import {  HostListener } from '@angular/core';
-import {DeviceDetectorService} from "ngx-device-detector";
+
 @Component({
   selector: 'app-root',
   template: `
@@ -10,30 +9,4 @@ import {DeviceDetectorService} from "ngx-device-detector";
 })
 export class AppComponent {
 
-  // @HostListener('window:unload', [ '$event' ])
-  // unloadHandler(event: any) {
-  //   alert(event);
-  // }
-  //
-  // @HostListener('window:beforeunload', [ '$event' ])
-  // beforeUnloadHandler(event: any) {
-  //   alert(event);
-  // }
-
-  child : Boolean=true;
-
-
-  @HostListener('keydown', ['$event']) triggerEsc(e: KeyboardEvent) {
-    
-    if(e.keyCode===27 && this.child===true){
-
-
-    }else{
-      this.child=true;
-    }
-  }
-
-  public doSomething(child: any):void {
-    this.child=child;
-}
 }
