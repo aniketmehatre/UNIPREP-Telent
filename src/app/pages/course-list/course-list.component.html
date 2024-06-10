@@ -50,7 +50,7 @@
 									<div class="courseImage" style="background-image: url('https://api.uniprep.ai/uniprepapi/storage/app/public/Pitch-deck-images/Airbnb.webp')"></div>
 									<div class="courseUniversity flex-fill">
 										<a [href]="course.university_url" target="_blank" class="text-decoration-none uniprep-primary">
-											<h5 class="uniprep-primary">{{ course.university_name }}</h5>
+											<h5 class="uniprep-primary text-wrap">{{ course.university_name }}</h5>
 										</a>
 										<div class="btn btn-dark w-100 btn-rounded">Shortlist</div>
 									</div>
@@ -59,7 +59,7 @@
 
 							<div class="row text-start">
 								<div [ngClass]="{ 'col-12 mb-1': course.subject_name.length > 18, 'col-6 mb-1': true }">
-									<p><i class="fa-solid fa-graduation-cap"></i> {{ course.subject_name }}</p>
+									<p class="text-wrap"><i class="fa-solid fa-graduation-cap"></i> {{ course.subject_name }}</p>
 								</div>
 								<div class="col-6 mb-1">
 									<p><i class="fa-regular fa-clock"></i> 1975</p>
