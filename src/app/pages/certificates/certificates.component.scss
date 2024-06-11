@@ -7,3 +7,37 @@
 	}
 	
 }
+#socialSharingList {
+	display: none;
+	position: absolute;
+	right: 11rem;
+	top:11rem;
+	z-index: 999;
+  }
+  
+  ::ng-deep .p-card-body {
+	padding: 0px;
+  }
+  
+  ::ng-deep .p-card-content {
+	padding: 0px;
+  }
+  
+  #socialSharingList ul {
+	padding: 10px !important;
+	margin-bottom: 0;
+  }
+  
+  #socialSharingList ul li {
+	display: flex;
+	align-items: center;
+	margin-bottom: 5px;
+  }
+  
+  #socialSharingList ul li i {
+	margin-right: 10px;
+  }
+  
+  #socialSharingList.show {
+	display: block;
+  }

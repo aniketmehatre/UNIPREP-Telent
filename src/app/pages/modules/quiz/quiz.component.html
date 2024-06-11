@@ -12,6 +12,7 @@
         <div class="row mt-4">
             <div class="col-md-12 text-start">
                 <ul class="font-secondarycolor fw-medium lh-lg instructionlist">
+                    <li>The overall quiz time is {{quizcount}} minutes.</li>
                     <li>You can not skip any question / All question are mandatory to answer.</li>
                     <li>You can not access the other screens while taking the quiz.</li>
                     <li>You cannot save and submit later.</li>
@@ -64,7 +65,7 @@
             <div class="row">
                 <div class="text-end text-small font-primarycolor mt-3" style="font-size: 18px; text-align: end;">  
                     <span style="border: 1px solid black; color: black; padding: 5px 18px; border-radius: 10px;">
-                    <b>{{ timer }} Sec | 60 Sec</b>
+                    <b>{{ formatTime(timer) }}</b>
                   </span> </div>
             </div>
             <div class="row justify-content-center">
