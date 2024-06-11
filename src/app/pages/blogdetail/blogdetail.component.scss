@@ -284,5 +284,7 @@ p {
 	background-size: cover;
 	background-repeat: no-repeat;
 	border-radius: 1.0rem !important;
-	width:200px;
+	width:120px;
+	min-width: 120px;
+    min-height: 70px;
 }
