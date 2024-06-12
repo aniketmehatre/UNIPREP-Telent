@@ -129,6 +129,13 @@ export class QuizComponent implements OnInit {
         this.currentApiSlug = 'SubmoduleListForStudents';
         this.selectedModule = 'university'
         break;
+      case 'skill-mastery':
+        this.universityidforquiz = localStorage.getItem('skillmasteryquizsubmoduleid');
+        this.currentModuleId = 10;
+        this.currentModuleName = 'Skill Mastery';
+        this.currentApiSlug = 'SubmoduleListForStudents';
+        this.selectedModule = 'skill-mastery'
+        break;
       default:
         this.currentModuleId = 6;
         this.universityidforquiz = null;
@@ -175,7 +182,7 @@ export class QuizComponent implements OnInit {
     //this.isSkeletonVisible = true;
     //this.subModules$ = this.moduleListService.subModuleList$();
     let data = {
-      countryId: this.currentCountryId,
+      countryId: this.currentModuleId==10?0:this.currentCountryId,
       moduleId: this.currentModuleId,
       api_module_name: this.currentApiSlug
     }
@@ -240,6 +247,7 @@ export class QuizComponent implements OnInit {
     //   header: 'Confirmation',
     //   icon: 'fa-solid fa-circle-exclamation',
     // });
+    this.stopTimer();
     this.router.navigate([`/pages/modules/${this.currentModuleSlug}`]);
   }
 
@@ -291,11 +299,11 @@ export class QuizComponent implements OnInit {
       return dat;
     });
     // time checking for same question or different quesion
-    const exists = this.selectedQuizArrayForTimer.some(item => item.id === singleQuizData.id);
-    if (!exists) {
-      this.selectedQuizArrayForTimer.push(singleQuizData);
-      this.resetTimer();
-    }
+    // const exists = this.selectedQuizArrayForTimer.some(item => item.id === singleQuizData.id);
+    // if (!exists) {
+    //   this.selectedQuizArrayForTimer.push(singleQuizData);
+    //   this.resetTimer();
+    // }
     let sing = this.quizData[this.selectedQuiz];
     if (!sing.user_answered_value) {
       this.answerOptionClicked = true;
@@ -319,7 +327,7 @@ export class QuizComponent implements OnInit {
     });
     this.stopTimer();
     var data = {
-      country_id: this.currentCountryId,
+      country_id: this.currentModuleId==10?0:this.currentCountryId,
       module_id: this.currentModuleId,
       submodule_id: this.universityidforquiz,
       quizquestion: this.quizData
@@ -361,14 +369,16 @@ export class QuizComponent implements OnInit {
     this.totalpercentagequiztime = 0;
     this.isInstructionVisible = true;
     this.checkquizquestioncount()
+    this.stopTimer();
   }
   openReviewPopup() {
     this.quizData = [];
     this.selectedQuiz = 1
     this.isQuizSubmit = false;
     this.isReviewVisible = true;
+    this.stopTimer();
     var data = {
-      countryId: this.currentCountryId,
+      countryId:this.currentModuleId==10?0:this.currentCountryId,
       moduleId: this.currentModuleId,
       submoduleId: this.universityidforquiz
     }
@@ -388,9 +398,9 @@ export class QuizComponent implements OnInit {
   checkquizquestioncount() {
     this.quizData = [];
     var data = {
-      countryId: this.currentCountryId,
+      countryId: this.currentModuleId==10?0:this.currentCountryId,
       moduleId: this.currentModuleId,
-      submoduleId: this.universityidforquiz
+      submoduleid: this.universityidforquiz
     }
     this.moduleListService.quizCount(data).subscribe((res) => {
       this.quizcount = res.count > 0 ? res.count : 0;
@@ -409,13 +419,15 @@ export class QuizComponent implements OnInit {
   checkquizquestionmodule() {
     var data = {
       moduleid: this.currentModuleId,
-      countryid: this.currentCountryId
+      countryid:this.currentModuleId==10? 0:this.currentCountryId,
+      submoduleid: this.universityidforquiz
     }
     this.moduleListService.checkModuleQuizCompletion(data).subscribe((res) => {
       this.quizpercentage = res.progress
     })
   }
   openCertificate() {
+    this.stopTimer();
     window.open(this.certificatesurl, '_blank');
   }
   takeAnotherquiz() {
@@ -430,14 +442,22 @@ export class QuizComponent implements OnInit {
       this.timerSubscription.unsubscribe();
     }
     this.timerSubscription = interval(1000).pipe(
-      takeWhile(() => this.timer < 30)
+      takeWhile(() => this.timer < (this.quizcount*60))
     ).subscribe(() => {
       this.timer++;
       // console.log(`Timer: ${this.timer} seconds`);
-      if (this.timer === 30) {
-        this.restrict = true;
+      if (this.timer === this.quizcount*60) {
+        this.restrict=true;    
       }
     });
+  }
+  formatTime(seconds: number): string {
+    const minutes: number = Math.floor(seconds / 60);
+    const remainingSeconds: number = seconds % 60;
+    return `${this.padZero(minutes)}:${this.padZero(remainingSeconds)}`;
+  }
+  padZero(num: number): string {
+    return num < 10 ? '0' + num : num.toString();
   }
   resetTimer(): void {
     this.startTimer();

@@ -135,7 +135,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
   loadCountryList() {
     this.dashboardService.countryList().subscribe((countryList) => {
       this.countryLists = countryList;
-      this.countryList = countryList;
       this.countryLists.forEach((element: any) => {
         if (element.id == Number(localStorage.getItem("countryId"))) {
           this.dataService.changeCountryName(element.country);
@@ -371,6 +370,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     //   this.themeService.toggleTheme();
     // });
     this.getCountryList();
+    this.getHomeCountryList();
   }
 
   ngOnDestroy() {
@@ -860,5 +860,15 @@ export class HeaderComponent implements OnInit, OnDestroy {
       this.locationList = [{ id: 0, district: 'Others' }];
       this.mobileForm?.get('location_id')?.setValue(0);
     }
+  }
+
+  getHomeCountryList() {
+    this.locationService.getHomeCountry(2).subscribe(
+        (res: any) => {
+          this.countryList = res;
+        },
+        (error: any) => {
+        }
+    );
   }
 }

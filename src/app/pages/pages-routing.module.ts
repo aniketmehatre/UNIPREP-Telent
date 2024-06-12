@@ -24,6 +24,7 @@ import { PitchDeskComponent } from './pitch-desk/pitch-desk.component';
 import { ExportCreditComponent } from './export-credit/export-credit.component';
 import { MycertificateComponent } from './mycertificate/mycertificate.component';
 import { CareerPlannerComponent } from './career-planner/career-planner.component';
+import { CourseListComponent } from './course-list/course-list.component';
 
 
 const routes: Routes = [
@@ -168,9 +169,14 @@ const routes: Routes = [
             {
                 path: 'mycertificate',
                 component: MycertificateComponent
-            },{
+            },
+            {
                 path: 'career-planner',
                 component: CareerPlannerComponent
+            },
+            {
+                path: 'course-list',
+                component: CourseListComponent
             }
             
         ]

@@ -17,6 +17,7 @@ export class QuizmenuComponent implements OnInit {
   languagedropdownlist:any[]=[];
   languagedropdownlisttype:any[]=[];
   specializationlist:any[]=[];
+  skillsmasteryList:any[]=[];
   quizpercentagedata: any[] = [];
   countryId: any;
   countryName!: string;
@@ -28,6 +29,7 @@ export class QuizmenuComponent implements OnInit {
   specializationid:any=null;
   moduleid:any=null;
   universityquizbutton: boolean = true;
+  skillunivertybutton:boolean=true;
   learningHubQuiz:boolean=true;
   languageHubQuiz:boolean=true;
   readingmodulestartbutton:boolean = true;
@@ -38,7 +40,9 @@ export class QuizmenuComponent implements OnInit {
   Modulequizlistcertificate:any[] = [];
   learningHubCirtificates:any[]=[];
   languageHubCirtificates:any[]=[];
+  skillMasteryCirtificates:any[]=[];
   countrydropdownlist:any[]=[];
+  skillsmasteryId:any=null;
   constructor(private moduleListService: ModuleServiceService, private router: Router, private dataService: DataService,
     private locationService: LocationService,private authService: AuthService,) { }
 
@@ -56,6 +60,7 @@ export class QuizmenuComponent implements OnInit {
     this.getSubjectlist();
     this.getLaguageListType();
     this.countryDropdown();
+    this.skillMastery();
   }
   countryDropdown(){
     this.moduleListService.countryList().subscribe((countryList:any) => {
@@ -90,6 +95,13 @@ export class QuizmenuComponent implements OnInit {
     this.moduleListService.getUserCompletedCertificate(data2).subscribe((res)=>{
       this.languageHubCirtificates=res.certificates
     })
+    var data3={
+      countryid:0,
+      moduleid :10
+    }
+    this.moduleListService.getUserCompletedCertificate(data3).subscribe((res)=>{
+      this.skillMasteryCirtificates=res.certificates
+    })
   }
   startQuiz(moduleid: any) {
     // if(this.planExpired){
@@ -105,6 +117,10 @@ export class QuizmenuComponent implements OnInit {
     } else if (moduleid == 6) {
       this.currentModuleSlug = "life-at-country"
     }
+    this.router.navigate([`/pages/modules/${this.currentModuleSlug}/quiz`]);
+  }
+  startModululeSkillmastery(){
+    this.currentModuleSlug = "skill-mastery"
     this.router.navigate([`/pages/modules/${this.currentModuleSlug}/quiz`]);
   }
   getFilterUniversityList(value: any) {
@@ -166,7 +182,7 @@ export class QuizmenuComponent implements OnInit {
   changemodule(eve:any){
     this.readingmoduleid=eve.value.id
     this.moduleprogress=eve.value.progress
-    if(this.moduleprogress >= 80){
+    if(this.moduleprogress >= 90){
       this.readingmodulestartbutton=true;
       this.arrow=false;
     }else{
@@ -215,7 +231,6 @@ export class QuizmenuComponent implements OnInit {
     }else{
       this.learningHubQuiz=true;
     }
-  
   }
   StartLearningHubQuiz(){
     this.currentModuleSlug="learning-hub"
@@ -246,7 +261,7 @@ export class QuizmenuComponent implements OnInit {
       }
       this.moduleListService.checklanguageQuizCompletion(data).subscribe((res) => {
         this.quizlanguguageprogress=res.progress
-        if(this.quizlanguguageprogress<=79){
+        if(this.quizlanguguageprogress<=89){
           this.languageHubQuiz=false;
         }
       })
@@ -266,7 +281,7 @@ export class QuizmenuComponent implements OnInit {
       }
       this.moduleListService.checklanguageQuizCompletion(data).subscribe((res) => {
         this.quizlanguguageprogress=res.progress
-        if(this.quizlanguguageprogress<=79){
+        if(this.quizlanguguageprogress<=89){
           this.languageHubQuiz=false;
         }
       })
@@ -288,4 +303,33 @@ export class QuizmenuComponent implements OnInit {
     this.getFilterUniversityList(this.countryId)
     this.getCertificates()
   }
+  skillMastery(){
+    this.skillsmasteryList=[];
+    var data={
+     // category_flag:1,
+     country_id:0,
+     module_id :10
+    }
+    this.moduleListService.getSkillMasteryLists(data).subscribe((response) => {
+     this.skillsmasteryList = response;
+   });
+   }
+   skillmasteryquizpercentage:number=0
+   skillMasteryButtonVisible(eve:any){
+    console.log(eve);
+    var data={
+      moduleid:10,
+      countryid: 0,
+      submoduleid:eve.value,
+    }
+    this.moduleListService.checkModuleQuizCompletion(data).subscribe((res) => {
+      this.skillmasteryquizpercentage=res.progress
+    })
+    if (this.skillsmasteryId != null) {
+      this.skillunivertybutton = false;
+      localStorage.setItem('skillmasteryquizsubmoduleid',eve.value)  
+    } else {
+      this.skillunivertybutton = true;
+    }
+   }
 }

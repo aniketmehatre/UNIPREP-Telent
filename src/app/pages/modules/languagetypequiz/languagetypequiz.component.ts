@@ -235,11 +235,11 @@ export class LanguagetypequizComponent implements OnInit {
       return dat;
     });
     // time checking for same question or different quesion
-    const exists = this.selectedQuizArrayForTimer.some(item => item.id === singleQuizData.id);
-    if (!exists) {
-      this.selectedQuizArrayForTimer.push(singleQuizData);
-      this.resetTimer();
-    }
+    // const exists = this.selectedQuizArrayForTimer.some(item => item.id === singleQuizData.id);
+    // if (!exists) {
+    //   this.selectedQuizArrayForTimer.push(singleQuizData);
+    //   this.resetTimer();
+    // }
     let sing = this.quizData[this.selectedQuiz];
     if (!sing.user_answered_value) {
       this.answerOptionClicked = true;
@@ -375,14 +375,22 @@ export class LanguagetypequizComponent implements OnInit {
       this.timerSubscription.unsubscribe();
     }
     this.timerSubscription = interval(1000).pipe(
-      takeWhile(() => this.timer < 30)
+      takeWhile(() => this.timer < (this.quizcount*60))
     ).subscribe(() => {
       this.timer++;
       // console.log(`Timer: ${this.timer} seconds`);
-      if (this.timer === 30) {
-        this.restrict = true;
+      if (this.timer === this.quizcount*60) {
+        this.restrict=true;    
       }
     });
+  }
+  formatTime(seconds: number): string {
+    const minutes: number = Math.floor(seconds / 60);
+    const remainingSeconds: number = seconds % 60;
+    return `${this.padZero(minutes)}:${this.padZero(remainingSeconds)}`;
+  }
+  padZero(num: number): string {
+    return num < 10 ? '0' + num : num.toString();
   }
   resetTimer(): void {
     this.startTimer();

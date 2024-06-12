@@ -31,7 +31,6 @@ import {OverlayPanelModule} from "primeng/overlaypanel";
 import {DialogModule} from "primeng/dialog";
 import {CardModule} from "primeng/card";
 import {TooltipModule} from "primeng/tooltip";
-import { BlockCopyPasteDirective } from './block-copy-paste.directive';
 import { ScrollToBottomDirective } from './scroll-to-bottom.directive';
 import {ConfirmDialogModule} from "primeng/confirmdialog";
 import {PipesModule} from "@pipes/pipes.module";
@@ -76,7 +75,7 @@ export function tokenGetter() {
 
 @NgModule({
   declarations: [
-    AppComponent,LandingComponent, ModalComponent, BlockCopyPasteDirective, ScrollToBottomDirective, PrivacyComponent,EnterpriseSubscriptionComponent,BlogdetailComponent,BloglistComponent
+    AppComponent,LandingComponent, ModalComponent, ScrollToBottomDirective, PrivacyComponent,EnterpriseSubscriptionComponent,BlogdetailComponent,BloglistComponent
   ],
     schemas: [ CUSTOM_ELEMENTS_SCHEMA],
     imports: [

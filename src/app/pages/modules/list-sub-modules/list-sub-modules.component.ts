@@ -108,7 +108,7 @@ export class ListSubModulesComponent implements OnInit {
           this.upgradePlanMsg = 'Upgrade your plan now to gain instant access.';
         this.aboutModule = 'Explore a vast database of Q&A about:',
           this.moduleDetails = 'Scholarships, document checklist, Education loan, letter of Recommendation and many more!'
-          this.howItWorksVideoLink = "https://www.youtube.com/embed/KUYo58tlZ_o?si=flhjt5olW44nprRA";
+        this.howItWorksVideoLink = "https://www.youtube.com/embed/KUYo58tlZ_o?si=flhjt5olW44nprRA";
         break;
       case 'travel-and-tourism':
         this.currentModuleId = 7;
@@ -119,7 +119,7 @@ export class ListSubModulesComponent implements OnInit {
           this.upgradePlanMsg = 'Upgrade your plan now to gain instant access.';
         this.aboutModule = 'Explore a vast database of Q&A about:',
           this.moduleDetails = 'Visa, departure, healthcare, tuition fees and many more!'
-          this.howItWorksVideoLink = "https://www.youtube.com/embed/wKSGANfejt4?si=NCfkhPqebe_eJX1p";
+        this.howItWorksVideoLink = "https://www.youtube.com/embed/wKSGANfejt4?si=NCfkhPqebe_eJX1p";
         break;
       case 'post-admission':
         this.currentModuleId = 3;
@@ -130,7 +130,7 @@ export class ListSubModulesComponent implements OnInit {
           this.upgradePlanMsg = 'Upgrade your plan now to gain instant access.';
         this.aboutModule = 'Post-admission offers information about:',
           this.moduleDetails = ' Arrival, student discounts, banking, full time jobs, post study work and many more!'
-          this.howItWorksVideoLink = "https://www.youtube.com/embed/N_RrppY_6TI?si=O6SIceD5sKs5XoMO";
+        this.howItWorksVideoLink = "https://www.youtube.com/embed/N_RrppY_6TI?si=O6SIceD5sKs5XoMO";
         break;
       case 'career-hub':
         this.currentModuleId = 4;
@@ -141,7 +141,7 @@ export class ListSubModulesComponent implements OnInit {
           this.upgradePlanMsg = 'Upgrade your plan now to gain instant access.';
         this.aboutModule = 'Explore a vast database of Q&A about:',
           this.moduleDetails = ' Arrival, student discounts, banking, full time jobs, post study work and many more!'
-          this.howItWorksVideoLink = "https://www.youtube.com/embed/wKSGANfejt4?si=NCfkhPqebe_eJX1p";
+        this.howItWorksVideoLink = "https://www.youtube.com/embed/wKSGANfejt4?si=NCfkhPqebe_eJX1p";
         break;
       case 'university':
         this.currentModuleId = 5;
@@ -150,16 +150,27 @@ export class ListSubModulesComponent implements OnInit {
         this.selectedModule = 'university'
         this.howItWorksVideoLink = "https://www.youtube.com/embed/wDwFCww7qQ4?si=VLh8jZxs6xidQ-AM";
         break;
+      case 'skill-mastery':
+        this.currentModuleId = 10;
+        this.currentModuleName = 'Skill Mastery';
+        this.currentApiSlug = 'SubmoduleListForStudents';
+        this.infoMessage = 'Upgrade to access the Skill Mastery',
+          this.unlockMessage = ' ',
+          this.upgradePlanMsg = 'Upgrade your plan now to gain instant access.';
+        this.aboutModule = 'Explore a vast database of Q&A about:',
+          this.moduleDetails = ' Arrival, student discounts, banking, full time jobs, post study work and many more!'
+        this.howItWorksVideoLink = "https://www.youtube.com/embed/McVKK5wwqEM?si=EbGjR-CRBFZpQxkx";
+        break;
       case 'learning-hub':
         this.currentModuleId = 8;
         this.currentModuleName = 'Learning Hub';
         this.currentApiSlug = 'SubmoduleListForStudents';
         this.infoMessage = 'Upgrade to access the Learning Hub',
-          this.unlockMessage = ' ',
+          this.unlockMessage = 'Unlock the power of success with our exclusive Pre-admission!',
           this.upgradePlanMsg = 'Upgrade your plan now to gain instant access.';
         this.aboutModule = 'Explore a vast database of Q&A about:',
-          this.moduleDetails = ' Arrival, student discounts, banking, full time jobs, post study work and many more!'
-          this.howItWorksVideoLink = "https://www.youtube.com/embed/McVKK5wwqEM?si=EbGjR-CRBFZpQxkx";
+          this.moduleDetails = 'Scholarships, document checklist, Education loan, letter of Recommendation and many more!'
+        this.howItWorksVideoLink = "https://www.youtube.com/embed/McVKK5wwqEM?si=EbGjR-CRBFZpQxkx";
         break;
       default:
         this.currentModuleId = 6;
@@ -171,7 +182,7 @@ export class ListSubModulesComponent implements OnInit {
         this.aboutModule = 'Explore a vast database of Q&A about:',
           this.moduleDetails = 'Festivals, events, currency, budget, housing and many more!',
           this.selectedModule = 'life-at-country'
-          this.howItWorksVideoLink = "https://www.youtube.com/embed/McVKK5wwqEM?si=EbGjR-CRBFZpQxkx";
+        this.howItWorksVideoLink = "https://www.youtube.com/embed/McVKK5wwqEM?si=EbGjR-CRBFZpQxkx";
         break;
 
     }
@@ -189,6 +200,7 @@ export class ListSubModulesComponent implements OnInit {
   }
 
   loadModuleAndSubModule() {
+
     this.currentCountryId = Number(localStorage.getItem('countryId'));
     //this.isSkeletonVisible = true;
     //this.subModules$ = this.moduleListService.subModuleList$();
@@ -197,9 +209,13 @@ export class ListSubModulesComponent implements OnInit {
     }
     if (this.currentModuleId == 8) {
       data.category_flag = 1;
-    }else{
-      data.country_id=this.currentCountryId;
-      data.api_module_name=this.currentApiSlug;
+    }
+    else if (this.currentModuleId == 10) {
+      data.country_id = 0;
+    }
+    else {
+      data.country_id = this.currentCountryId;
+      data.api_module_name = this.currentApiSlug;
     }
     //this.moduleListService.loadSubModules(data);
     this.locationService.GetQuestionsCount(data).subscribe(data => {
@@ -395,6 +411,7 @@ export class ListSubModulesComponent implements OnInit {
   }
 
   onSubModuleClick(id: any) {
+    console.log(id);
     // if(this.planExpired){
     //   this.restrict=true;
     //   return;
@@ -402,7 +419,7 @@ export class ListSubModulesComponent implements OnInit {
     if (this.currentModuleId == 8 && !this.canShowQuestionList) {
       let data: any = {
         moduleId: this.currentModuleId,
-        category_id :this.subModuleList.find(list=>list.submodule_id==id)?.category_id
+        category_id: this.subModuleList.find(list => list.submodule_id == id)?.category_id
       }
       this.isSkeletonVisible = true;
       this.locationService.GetQuestionsCount(data).subscribe(data => {
@@ -468,10 +485,10 @@ export class ListSubModulesComponent implements OnInit {
   upgradePlan(): void {
     this.router.navigate(["/pages/subscriptions"]);
   }
-  goBack(){
+  goBack() {
     this.isSkeletonVisible = true;
     this.loadModuleAndSubModule();
-    this.canShowQuestionList=false;
+    this.canShowQuestionList = false;
   }
   clearRestriction() {
     this.restrict = false;

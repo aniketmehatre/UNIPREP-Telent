@@ -7,6 +7,7 @@ import {
   TemplateRef,
 } from "@angular/core";
 import { ActivatedRoute, NavigationEnd, Router } from "@angular/router";
+import { error } from "console";
 import { filter } from "rxjs";
 import { map } from "rxjs/operators";
 import { AuthService } from "src/app/Auth/auth.service";
@@ -38,11 +39,11 @@ export class SidenavComponent {
       url: "/pages/dashboard",
       image: "fa-solid fa-objects-column",
     },
-     {
-       title: "About UNIPREP",
-       url: "/pages/userguide",
-       image: "fa-solid fa-book",
-     },
+    {
+      title: "About UNIPREP",
+      url: "/pages/userguide",
+      image: "fa-solid fa-book",
+    },
     {
       title: "Subscription",
       url: "/pages/subscriptions",
@@ -77,6 +78,11 @@ export class SidenavComponent {
       title: "University",
       url: "/pages/modules/university",
       image: "fa-solid fa-building-columns",
+    },
+    {
+      title: "Course List",
+      url: "/pages/course-list",
+      image: "fa-solid fa-pencil", 
     },
     {
       title: 'Scholarship List',
@@ -117,6 +123,11 @@ export class SidenavComponent {
       title: "Learning Hub",
       url: "/pages/modules/learning-hub",
       image: "fa-solid fa-road-circle-check",
+    },
+    {
+      title: "Skill Mastery",
+      url: "/pages/modules/skill-mastery",
+      image: "fa-solid fa-swatchbook",
     },
     {
       title: "Career Planner",
@@ -210,6 +221,9 @@ export class SidenavComponent {
     //   image: 'pi pi-briefcase',
     // }
   ];
+  studentMenus = ['Company List', 'Career Planner', 'Learning Hub', 'Entrepreneur', 'Investor List', 'Startup Kit', 'Pitch Deck'];
+  careerMenus = ['Entrepreneur', 'Investor List', 'Startup Kit', 'Pitch Deck'];
+
   conditionSubscribed!: boolean;
   currentTitle: any;
   visibleExhasted!: boolean;
@@ -253,6 +267,19 @@ export class SidenavComponent {
         this.conditionSubscribed = true;
       }
     });
+    this.authService.getMe().subscribe(
+      res => {
+        if (res.userdetails[0].student_type_id == 2) {
+          if (res.userdetails[0].subscription_plan == 'Student') {
+            this.menus = this.menus.filter(item => !this.studentMenus.includes(item.title));
+
+          }
+          if (res.userdetails[0].subscription_plan == 'Career') {
+            this.menus = this.menus.filter(item => !this.careerMenus.includes(item.title));
+          }
+        }
+      });
+
     //this.changeSubscriptionUrl();
   }
 
@@ -323,7 +350,7 @@ export class SidenavComponent {
     this.visibleExhasted = false;
     this.router.navigate(["/pages/subscriptions"]);
   }
- 
+
   onexpand(item: SideMenu) {
     if (item.header) {
       return;

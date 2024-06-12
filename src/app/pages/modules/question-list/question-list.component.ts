@@ -110,7 +110,7 @@ export class QuestionListComponent implements OnInit {
     private toast: MessageService,
     private titleService: Title,
     private cdRef: ChangeDetectorRef,
-    private pageFacade:PageFacadeService,
+    private pageFacade: PageFacadeService,
   ) {
     Carousel.prototype.changePageOnTouch = (e, diff) => { }
     Carousel.prototype.onTouchMove = () => { };
@@ -181,6 +181,13 @@ export class QuestionListComponent implements OnInit {
             this.howItWorksVideoLink = "https://www.youtube.com/embed/wDwFCww7qQ4?si=VLh8jZxs6xidQ-AM";
             this.tooltip = "";
             break;
+          case "skill-mastery":
+            this.currentModuleId = 10;
+            this.currentModuleName = "Skill Mastery";
+            this.currentApiSlug = "";
+            this.howItWorksVideoLink = "https://www.youtube.com/embed/wDwFCww7qQ4?si=VLh8jZxs6xidQ-AM";
+            this.tooltip = "";
+            break;
           default:
             this.currentModuleId = 6;
             this.currentModuleName = "Life At " + countryName;
@@ -243,6 +250,7 @@ export class QuestionListComponent implements OnInit {
       countryName = data;
     });
     this.checkplanExpire();
+
     switch (this.currentSubModuleSlug) {
       case "pre-admission":
         this.currentModuleId = 1;
@@ -280,7 +288,14 @@ export class QuestionListComponent implements OnInit {
         this.currentModuleName = "Learning Hub";
         this.currentApiSlug = "getlearninghubsubmoduleqcount";
         this.howItWorksVideoLink = "https://www.youtube.com/embed/KUYo58tlZ_o?si=flhjt5olW44nprRA";
-        this.currentModuleSlug="learning-hub"
+        this.currentModuleSlug = "learning-hub"
+        break;
+      case "skill-mastery":
+        this.currentModuleId = 10;
+        this.currentModuleName = "Skill Mastery";
+        this.currentApiSlug = "getskillmasterysubmoduleqcount";
+        this.howItWorksVideoLink = "https://www.youtube.com/embed/KUYo58tlZ_o?si=flhjt5olW44nprRA";
+        this.currentModuleSlug = "skill-mastery"
         break;
       default:
         this.currentModuleId = 6;
@@ -290,7 +305,7 @@ export class QuestionListComponent implements OnInit {
         this.tooltip = "";
         break;
     }
-    this.getSubmoduleName(this.countryId);
+    // this.getSubmoduleName(this.countryId);
 
     this.dataService.currentMessage.subscribe(
       (message) => (this.message = message)
@@ -330,26 +345,28 @@ export class QuestionListComponent implements OnInit {
       page: this.pageno,
       perpage: this.perpage,
     };
-    if (this.currentModuleId == 8) {
+
+    if (this.currentModuleId == 8 || this.currentModuleId == 10) {
       data.countryId = 0;
     }
     this.loadQuestionList(data);
     //this.ngxService.start();
     //this.moduleListService.loadQuestionList(data);
-    var data1={
-      moduleid:8,
-      countryid: 0,
-      submoduleid:this.subModuleId,
+    var data1 = {
+      moduleid: this.currentModuleId,
+      countryid: this.currentModuleId == 8 || this.currentModuleId == 10 ? 0 : this.countryId,
+      submoduleid: this.subModuleId,
     }
     this.moduleListService.checkModuleQuizCompletion(data1).subscribe((res) => {
-      this.quizpercentage=res.progress
+      this.quizpercentage = res.progress
     })
   }
   loadQuestionList(data: any) {
     let questionData = { id: localStorage.getItem('questionId') || '' };
-    if(questionData?.id){
-      data.share_link_question_id=questionData?.id;
+    if (questionData?.id) {
+      data.share_link_question_id = questionData?.id;
     }
+
     this.mService.studentFullQuestionData(data).subscribe((res: any) => {
       this.allDataSet = res;
       this.moduleName = res.submodule_name;
@@ -385,37 +402,36 @@ export class QuestionListComponent implements OnInit {
     this._location.back();
   }
 
-  getSubmoduleName(countryId: number) {
-
-    let data = {
-      countryId: countryId,
-      moduleId: this.currentModuleId,
-    };
-    if (this.currentModuleId == 8) {
-      data.countryId = 0
-    }
-    //this.moduleListService.loadQuestionList()
-    // this.moduleStoreService.loadSubModuleData(data).subscribe((response) => {
-    //   console.log(response);
-    //   if (response) {
-    //     response.filter((res: any) => {
-    //       if (res.id == this.subModuleId) {
-    //         this.moduleName = res.submodule_name;
-    //       }
-    //     });
-    //   }
-    // });
-    // this.subModules$ = this.moduleListService.subModuleList$();
-    // this.subModules$.subscribe(event => {
-    //   if(event){
-    //     event.filter(data => {
-    //       if (data.id == this.subModuleId) {
-    //         this.moduleName = data.submodule_name;
-    //       }
-    //     })
-    //   }
-    // })
-  }
+  // getSubmoduleName(countryId: number) {
+  //   let data = {
+  //     countryId: countryId,
+  //     moduleId: this.currentModuleId,
+  //   };
+  //   if (this.currentModuleId == 8) {
+  //     data.countryId = 0
+  //   }
+  //   //this.moduleListService.loadQuestionList()
+  //   // this.moduleStoreService.loadSubModuleData(data).subscribe((response) => {
+  //   //   console.log(response);
+  //   //   if (response) {
+  //   //     response.filter((res: any) => {
+  //   //       if (res.id == this.subModuleId) {
+  //   //         this.moduleName = res.submodule_name;
+  //   //       }
+  //   //     });
+  //   //   }
+  //   // });
+  //   // this.subModules$ = this.moduleListService.subModuleList$();
+  //   // this.subModules$.subscribe(event => {
+  //   //   if(event){
+  //   //     event.filter(data => {
+  //   //       if (data.id == this.subModuleId) {
+  //   //         this.moduleName = data.submodule_name;
+  //   //       }
+  //   //     })
+  //   //   }
+  //   // })
+  // }
 
   convertToSlug(text: any) {
     return text
@@ -592,15 +608,15 @@ export class QuestionListComponent implements OnInit {
   }
 
   openReport() {
-    let data:any = {
+    let data: any = {
       isVisible: true,
       moduleId: this.selectedQuestionData.module_id,
       subModuleId: this.selectedQuestionData.submodule_id,
       questionId: this.selectedQuestionData.id,
       from: "module",
     };
-    if(this.currentModuleId == 8){
-      data.reporttype=8;
+    if (this.currentModuleId == 8) {
+      data.reporttype = 8;
     }
     this.dataService.openReportWindow(data);
   }
@@ -625,7 +641,11 @@ export class QuestionListComponent implements OnInit {
     }
     else if (this.currentModuleId == 8) {
       this.router.navigate(["/pages/modules/learning-hub"]);
-    } else {
+    } 
+    else if (this.currentModuleId == 10) {
+      this.router.navigate(["/pages/modules/skill-mastery"]);
+    }
+    else {
       this.router.navigate(["/pages/modules/life-at-country"]);
     }
   }
@@ -651,7 +671,7 @@ export class QuestionListComponent implements OnInit {
     this.pageno = event.page + 1;
     this.perpage = event.rows;
     let data = {
-      countryId: Number(localStorage.getItem("countryId")),
+      countryId: this.currentModuleId == 8 || this.currentModuleId == 10 ? 0 : Number(localStorage.getItem("countryId")),
       moduleId: this.currentModuleId,
       submoduleId: Number(this.subModuleId),
       page: this.pageno,
@@ -711,7 +731,7 @@ export class QuestionListComponent implements OnInit {
     // this.cdRef.markForCheck();
     this.oneQuestionContent = questionData;
     this.isQuestionAnswerVisible = true
-    this.getSubmoduleName(questionData.country_id)
+   // this.getSubmoduleName(questionData.country_id)
     this.breadCrumb = [
       {
         label: this.currentModuleName,
@@ -858,14 +878,19 @@ export class QuestionListComponent implements OnInit {
     let socialShare: any = document.getElementById("socialSharingList");
     socialShare.style.display = "none";
   }
-  startQuiz(){
+  startQuiz() {
     console.log(this.currentModuleId);
-    console.log( Number(this.subModuleId));
-    localStorage.setItem("learninghubsubmoduleid",this.subModuleId);
-    this.router.navigate([`/pages/modules/${this.currentModuleSlug}/learninghubquiz`]);
+    console.log(Number(this.subModuleId));
+    localStorage.setItem("learninghubsubmoduleid", this.subModuleId);
+    localStorage.setItem("skillmasteryquizsubmoduleid",this.subModuleId);
+    if(this.currentModuleId==10){
+      this.router.navigate([`/pages/modules/${this.currentModuleSlug}/quiz`]);
+    }else{
+      this.router.navigate([`/pages/modules/${this.currentModuleSlug}/learninghubquiz`]);
+    }
   }
   openHowItWorksVideoPopup(videoLink: string) {
-    console.log(videoLink," video link");
+    console.log(videoLink, " video link");
     this.pageFacade.openHowitWorksVideoPopup(videoLink);
   }
 

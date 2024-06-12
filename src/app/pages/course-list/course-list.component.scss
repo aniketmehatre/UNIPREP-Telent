@@ -1,0 +1,65 @@
+.dataCard{
+    background-color: white;
+    border: 1px solid var(--uniprep-primary);
+    // padding: 5px;
+}
+
+.courseImage{
+    height: 5rem;
+    width: 8rem;
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    border-radius: 10px;
+    background-color: white;
+    border: 1px solid #f0f0f0;
+}
+
+.course-guidelines{
+    background-color: #EBEDF2;
+    color: #001631 !important;
+    border-radius: 20px !important;
+    border: none;
+}
+
+
+.exportButton{
+    background-color: #EBEDF2;
+    color: #001631 !important;
+    border-radius: 20px !important;
+    border: none;
+    padding: 10px;
+}
+
+.courseNameTag{
+    background-color: var(--uniprep-primary);
+    font-weight: 600;
+    color: white;
+    border-radius: 10px;
+    white-space: wrap;
+}
+
+.shortlistedCourseTag{
+    background-color: black;
+    color: white;
+    padding: 5px;
+    border-radius: 25px;
+}
+.inputselectbox
+{
+    width:20px;
+    height:20px;
+    min-width:20px;
+    min-height:20px;
+}
+
+
+.filterDialog ::ng-deep .p-dialog-header{
+    border: 1px solid gray !important;
+    padding: 0px 5px !important;
+}
+
+.filterField{
+    font-size: medium;
+    font-weight: 500;
+}

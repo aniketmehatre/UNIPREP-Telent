@@ -73,15 +73,15 @@
 						<a class="nav-link text-white fw-medium text-center h4" aria-label="keyfeatures" href="/home#keyfeatures">Key Features</a>
 					</li>
 					<li class="nav-item" data-bs-dismiss="offcanvas">
-						<a class="nav-link text-white fw-medium text-center h4" aria-label="Certificates" href="/certificates" >Certificates</a>
+						<a class="nav-link text-white fw-medium text-center h4" aria-label="Certificates" href="/certificates">Certificates</a>
 					</li>
 					<li class="nav-item" data-bs-dismiss="offcanvas">
-						<a class="nav-link text-white fw-medium text-center h4" aria-label="Blogs" href="/blogs" >Blogs</a>
+						<a class="nav-link text-white fw-medium text-center h4" aria-label="Blogs" href="/blogs">Blogs</a>
 					</li>
 					<li class="nav-item" data-bs-dismiss="offcanvas">
 						<a class="nav-link text-white fw-medium text-center h4" aria-label="FAQ" href="/home#faq">F.A.Q</a>
 					</li>
-					
+
 					<!-- Add other mobile menu items as needed -->
 					<li class="nav-item text-center">
 						<a [routerLink]="['/login']" class="text-decoration-none text-center h4 text-white fw-regular">Login</a>
@@ -114,25 +114,24 @@
 				<h2 class="text-white fw-light mb-4">Everything About Studying Abroad</h2>
 			</div>
 			<div class="col-md-10 mt-4">
-			<div class="row">
-				<div class="col-md-3" *ngFor="let blog of blogs">
-					<a style="text-decoration: none;" href="blogs/{{blog.slug}}">
-					<div class="card">
-						<div class="card-body">
-							<div class="card rounded-4 blogimage" style="background-image: url('{{blog.featured_img}}');">
-								<!-- <img class="w-100 rounded" src="{{blog.featured_img}}"> -->
+				<div class="row">
+					<div class="col-md-3 mb-3" *ngFor="let blog of blogs">
+						<a style="text-decoration: none" href="blogs/{{ blog.slug }}">
+							<div class="card h-100">
+								<div class="card-body">
+									<div class="card rounded-4 blogimage" style="background-image: url('{{ blog.featured_img }}');">
+										<!-- <img class="w-100 rounded" src="{{blog.featured_img}}"> -->
+									</div>
+									<h5 class="text-white pt-3 fw-bold line-clamp" title="{{ blog.title }}">{{ blog.title }}</h5>
+									<p class="text-white fw-light"><i class="fa-solid fa-calendar me-2"></i>{{ blog.date }}</p>
+									<p class="pt-1 text-white line-clamp">
+										{{ blog.desc }}
+									</p>
+								</div>
 							</div>
-							<h5 class="text-white pt-3 fw-bold">{{blog.title}}</h5>
-							<p class="text-white fw-light"><i class="fa-solid fa-calendar me-2"></i>{{blog.date}}</p>
-							<p class="pt-1 text-white line-clamp">
-								{{blog.desc}}
-							</p>
-						</div>
+						</a>
 					</div>
-					</a>
 				</div>
-				
-			</div>
 			</div>
 		</div>
 		<div class="mt-5">
@@ -142,26 +141,25 @@
 	</div>
 </section>
 
-
 <footer>
-<section class="bg-black">
-    <div class="container-fluid py-3">
-        <div class="row align-items-center">
-            <div class="col-md-6">
-                <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-start gap-2 text-white">
-                    <p  role="button" aria-label="Contact Form" class="mb-0 text-white text-decoration-none small">Contact Us</p>
-                    |
-                    <p  role="button" aria-label="Privacy Policy" class="mb-0 text-white text-decoration-none small">Privacy Policy</p>
-                    |
-                    <p  role="button" aria-label="Terms Conditions" class="mb-0 text-white text-decoration-none small">Terms & Conditions</p>
-                    |
-                    <p  role="button" aria-label="Cancellation Policy" class="mb-0 text-white text-decoration-none small">Cancellation & Refund Policy</p>
-                </div>
-            </div>
-            <div class="col-md-6 text-md-end text-center">
-                <p class="mb-0 text-white">2023 © All rights reserved by UNIABROAD TECHNOLOGY Pvt. Ltd.</p>
-            </div>
-        </div>
-    </div>
-</section>
+	<section class="bg-black">
+		<div class="container-fluid py-3">
+			<div class="row align-items-center">
+				<div class="col-md-6">
+					<div class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-start gap-2 text-white">
+						<p role="button" aria-label="Contact Form" class="mb-0 text-white text-decoration-none small">Contact Us</p>
+						|
+						<p role="button" aria-label="Privacy Policy" class="mb-0 text-white text-decoration-none small">Privacy Policy</p>
+						|
+						<p role="button" aria-label="Terms Conditions" class="mb-0 text-white text-decoration-none small">Terms & Conditions</p>
+						|
+						<p role="button" aria-label="Cancellation Policy" class="mb-0 text-white text-decoration-none small">Cancellation & Refund Policy</p>
+					</div>
+				</div>
+				<div class="col-md-6 text-md-end text-center">
+					<p class="mb-0 text-white">2023 © All rights reserved by UNIABROAD TECHNOLOGY Pvt. Ltd.</p>
+				</div>
+			</div>
+		</div>
+	</section>
 </footer>

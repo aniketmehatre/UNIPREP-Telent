@@ -272,7 +272,7 @@ p {
 }
 .blogimage
 {
-	height:250px;
+	height:70vh;
 	background-position: center;
 	background-size: cover;
 	background-repeat: no-repeat;
@@ -284,5 +284,7 @@ p {
 	background-size: cover;
 	background-repeat: no-repeat;
 	border-radius: 1.0rem !important;
-	width:200px;
+	width:120px;
+	min-width: 120px;
+    min-height: 70px;
 }

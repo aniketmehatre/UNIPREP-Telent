@@ -68,7 +68,7 @@ import { MycertificateComponent } from './mycertificate/mycertificate.component'
 import {PdfViewerModule} from "ng2-pdf-viewer";
 import { CareerPlannerComponent } from './career-planner/career-planner.component';
 import { CertificatesComponent } from './certificates/certificates.component';
-
+import { CourseListComponent } from "./course-list/course-list.component";
 
 
 @NgModule({
@@ -102,6 +102,7 @@ import { CertificatesComponent } from './certificates/certificates.component';
         MycertificateComponent,
         CareerPlannerComponent,
         CertificatesComponent,
+        CourseListComponent,
     ],
   exports: [FooterStatusBoxComponent, HeaderSearchComponent],
     imports: [

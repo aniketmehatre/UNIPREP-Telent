@@ -90,7 +90,7 @@
 	</ng-template>
 	<div class="carousel-container px-4">
 		<p-carousel #carousel [circular]="true" [numScroll]="1" [numVisible]="1" [page]="selectedQuestion" [responsiveOptions]="responsiveOptions" [value]="searchResult" class="answersection">
-			<ng-template [ngForOf]="searchResult" let-i="index" let-val ngFor pTemplate="item">
+			<ng-template class="h-80" [ngForOf]="searchResult" let-i="index" let-val ngFor pTemplate="item">
 				<div class="card cardnobg">
 					<div class="card-body text-start">
 						<p class="text-small blockquote text-start mb-0">
@@ -100,7 +100,7 @@
 							</span>
 						</p>
 						<h3 class="unselectable" [innerHTML]="val.question"></h3>
-						<div class="fw-medium worksans unselectable" style="white-space: pre-wrap" [innerHTML]="val.answer"></div>
+						<div class="fw-medium worksans unselectable" style="white-space: inherit" [innerHTML]="val.answer"></div>
 					</div>
 				</div>
 			</ng-template>
