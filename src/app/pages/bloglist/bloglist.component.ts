@@ -9,7 +9,7 @@ export class BloglistComponent implements OnInit {
   blogs: any;
   page: number = 1;
   perpage: number = 20;
-  total: number | undefined;
+  total: number = 0;
 
   constructor( private service: LocationService) { }
 
@@ -21,6 +21,7 @@ export class BloglistComponent implements OnInit {
     this.service.getBlogs(data).subscribe((response) => {
       // console.log(response.blogs);
       this.blogs = response.blogs;
+      this.total = response.total;
     });
   }
 
@@ -32,6 +33,7 @@ export class BloglistComponent implements OnInit {
     this.service.getBlogs(data).subscribe((response) => {
       // console.log(response.blogs);
       this.blogs = response.blogs;
+      this.total = response.total;
     });
   }
 
