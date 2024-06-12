@@ -399,7 +399,7 @@ export class DashboardComponent implements OnInit, OnChanges {
       }
 
     openMyProfile(){
-
+        this.router.navigate(["/pages/usermanagement"]);
     }
 
     @Input() progress: number = 0;
