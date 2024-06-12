@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import {LocationService} from "../../location.service";
+
 @Component({
   selector: 'uni-blogdetail',
   templateUrl: './blogdetail.component.html',
@@ -10,6 +11,8 @@ export class BlogdetailComponent implements OnInit {
   slug: any;
   blog: any;
   blogs: any;
+
+
   constructor(private route: ActivatedRoute, private router: Router, private service: LocationService) { }
 
   ngOnInit(): void {

@@ -135,6 +135,10 @@
 			</div>
 			</div>
 		</div>
+		<div class="mt-5">
+			<p-paginator [rows]="10" [totalRecords]="120" [rowsPerPageOptions]="[20,50]" (onPageChange)="paginate($event)"></p-paginator>
+		</div>
+
 	</div>
 </section>
 

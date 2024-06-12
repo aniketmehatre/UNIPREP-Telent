@@ -53,6 +53,7 @@ import {MetaModule} from "@ngx-meta/core";
 import { EnterpriseSubscriptionService } from './components/enterprise-subscription/enterprise-subscription.service';
 import { EnterpriseSubscriptionComponent } from './components/enterprise-subscription/enterprise-subscription.component';
 import {DeviceDetectorService} from "ngx-device-detector";
+import {PaginatorModule} from 'primeng/paginator';
  
 
 const reducers = {
@@ -111,6 +112,7 @@ export function tokenGetter() {
         PipesModule,
         ConfirmDialogModule,
         ToastModule,
+        PaginatorModule,
        SocialLoginModule,
         // FacebookModule.forRoot(),
         NgxLinkedinModule.forRoot({
