@@ -48,12 +48,22 @@
 							<h6>Start your quiz on an university you are interested in.</h6>
 							<div class="row">
 								<div class="col-md-10 col-9 mt-1">
-									<p-dropdown dropdownAppendTo="body" class="mt-2" (click)="universityButtonVisible()" [(ngModel)]="universityId" placeholder="Select your university" [options]="filterUniversityList" optionValue="id" optionLabel="submodule_name" styleClass="w-100" [filter]="true"></p-dropdown>
+									<p-dropdown dropdownAppendTo="body" class="mt-2" (onChange)="universityButtonVisible()" [(ngModel)]="universityId" placeholder="Select your university" [options]="filterUniversityList" optionValue="id" optionLabel="submodule_name" styleClass="w-100" [filter]="true"></p-dropdown>
 								</div>
 								<div class="col-md-2 col-3 mt-1">
-									<button [disabled]="universityquizbutton" (click)="startQuizUniversity()" type="button"  class="w-100 h-100 btn btn-primary btn-rounded text-white">
+									<!-- <button *ngIf="universityquizpercentagecompletion <= 89" [disabled]="universityquizbutton" (click)="startQuizUniversity()" type="button"  class="w-100 h-100 btn btn-primary btn-rounded text-white">
 										<span class="me-1">Start</span>
 										<span>
+											<i class="fas fa-arrow-right"></i>
+										</span>
+									</button>
+									<button *ngIf="universityquizpercentagecompletion >= 90" [disabled]="universityquizpercentagecompletion >= 90" type="button" class="w-100 h-100 btn btn-primary btn-rounded text-white">
+										<span>Completed</span>
+										<span class="fa-stack"> </span>
+									</button> -->
+									<button [disabled]="universityquizbutton" (click)="startModulule()" type="button" class="w-100 h-100 btn btn-primary btn-rounded text-white">
+										<span class="me-1">{{ universityquizpercentagecompletion >= 90 ? "Completed" : "Start" }}</span>
+										<span *ngIf="universityquizpercentagecompletion <= 89">
 											<i class="fas fa-arrow-right"></i>
 										</span>
 									</button>
@@ -159,7 +169,7 @@
 													</div>
 													<div class="p-2" id="resourceLink">
 														<div style="text-align: center">
-															<button type="button" (click)="downloadCertificate(list.certificate_link)" class="w-100 h-100 btn btn-primary btn-rounded text-white text-small">View Certificates</button>
+															<button type="button" (click)="downloadCertificate(list.certificate_link)" class="w-100 h-100 btn btn-primary btn-rounded text-white text-small text-center ">View Certificates</button>
 														</div>
 													</div>
 												</div>
@@ -186,7 +196,7 @@
 													</div>
 													<div class="p-2" id="resourceLink">
 														<div style="text-align: center">
-															<button pButton type="button" (click)="downloadCertificate(list.certificate_link)" style="background-color: #3f4c83; color: white; width: -webkit-fill-available; text-align: center; font-size: 10px; white-space: nowrap" class="p-button-rounded p-2">View Certificates</button>
+															<button type="button" (click)="downloadCertificate(list.certificate_link)" class="w-100 h-100 btn btn-primary btn-rounded text-white text-small text-center ">View Certificates</button>
 														</div>
 													</div>
 												</div>
@@ -209,7 +219,7 @@
 													</div>
 													<div class="p-2" id="resourceLink">
 														<div style="text-align: center">
-															<button pButton type="button" (click)="downloadCertificate(list.certificate_link)" style="background-color: #3f4c83; color: white; width: -webkit-fill-available; text-align: center; font-size: 10px; white-space: nowrap" class="p-button-rounded p-2">View Certificates</button>
+															<button type="button" (click)="downloadCertificate(list.certificate_link)" class="w-100 h-100 btn btn-primary btn-rounded text-white text-small text-center ">View Certificates</button>
 														</div>
 													</div>
 												</div>
@@ -232,7 +242,7 @@
 													</div>
 													<div class="p-2" id="resourceLink">
 														<div style="text-align: center">
-															<button pButton type="button" (click)="downloadCertificate(list.certificate_link)" style="background-color: #3f4c83; color: white; width: -webkit-fill-available; text-align: center; font-size: 10px; white-space: nowrap" class="p-button-rounded p-2">View Certificates</button>
+															<button type="button" (click)="downloadCertificate(list.certificate_link)" class="w-100 h-100 btn btn-primary btn-rounded text-white text-small text-center ">View Certificates</button>
 														</div>
 													</div>
 												</div>
@@ -255,7 +265,7 @@
 													</div>
 													<div class="p-2" id="resourceLink">
 														<div style="text-align: center">
-															<button pButton type="button" (click)="downloadCertificate(list.certificate_link)" style="background-color: #3f4c83; color: white; width: -webkit-fill-available; text-align: center; font-size: 10px; white-space: nowrap" class="p-button-rounded p-2">View Certificates</button>
+															<button type="button" (click)="downloadCertificate(list.certificate_link)" class="w-100 h-100 btn btn-primary btn-rounded text-white text-small text-center ">View Certificates</button>
 														</div>
 													</div>
 												</div>
