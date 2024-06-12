@@ -12,6 +12,7 @@
         <div class="row mt-4">
             <div class="col-md-12 text-start">
                 <ul class="font-secondarycolor fw-medium lh-lg instructionlist">
+                    <li>The overall quiz time is {{quizcount}} minutes.</li>
                     <li>You can not skip any question / All question are mandatory to answer.</li>
                     <li>You can not access the other screens while taking the quiz.</li>
                     <li>You cannot save and submit later.</li>
@@ -64,7 +65,7 @@
             <div class="row">
                 <div class="text-end text-small font-primarycolor mt-3" style="font-size: 18px; text-align: end;">  
                     <span style="border: 1px solid black; color: black; padding: 5px 18px; border-radius: 10px;">
-                    <b>{{ timer }} Sec | 60 Sec</b>
+                    <b>{{ formatTime(timer) }}</b>
                   </span> </div>
             </div>
             <div class="row justify-content-center">
@@ -179,7 +180,7 @@
 
 
 
-<div class="card readingcard" *ngIf="isQuizSubmit" style="background-color: #fff;">
+<div class="card readingcard" *ngIf="isQuizSubmit" style="background-color: #fff; border-radius: 0px 0px 15px 15px !important;">
     <div class="card-body text-center pt-0 h-100">
         <div class="row justify-content-center align-items-center">
             <div class="col-md-2">
@@ -235,18 +236,16 @@
             </div>
         </div>
     </div>
-    <div class="card">
-        <div class="card-footer" *ngIf="isQuizSubmit" style="background-color: #fff;">
-            <div class="row align-items-center">
-                <div class="col-md-10">
-                    <div class="w-100 px-3 quizprogress">
-                        <span class="font-secondarycolor fw-semibold">Progress: {{totalPercentage| number : '1.0-0'}}% Completed</span>
-                        <p-progressBar [value]="totalPercentage"></p-progressBar>
-                    </div>
-                </div>
-                <div class="col-md-2 text-end">
-                </div>
+</div>
+<div class="card" *ngIf="isQuizSubmit" style="background-color: #fff; border-radius: 0px 0px 15px 15px !important;">
+    <div class="row align-items-center">
+        <div class="col-md-10">
+            <div class="w-100 px-3 quizprogress">
+                <span class="font-secondarycolor fw-semibold">Progress: {{totalPercentage| number : '1.0-0'}}% Completed</span>
+                <p-progressBar [value]="totalPercentage"></p-progressBar>
             </div>
+        </div>
+        <div class="col-md-2 text-end">
         </div>
     </div>
 </div>

@@ -442,14 +442,22 @@ export class QuizComponent implements OnInit {
       this.timerSubscription.unsubscribe();
     }
     this.timerSubscription = interval(1000).pipe(
-      takeWhile(() => this.timer < 60)
+      takeWhile(() => this.timer < (this.quizcount*60))
     ).subscribe(() => {
       this.timer++;
       // console.log(`Timer: ${this.timer} seconds`);
-      if (this.timer === 60) {
-        this.restrict = true;
+      if (this.timer === this.quizcount*60) {
+        this.restrict=true;    
       }
     });
+  }
+  formatTime(seconds: number): string {
+    const minutes: number = Math.floor(seconds / 60);
+    const remainingSeconds: number = seconds % 60;
+    return `${this.padZero(minutes)}:${this.padZero(remainingSeconds)}`;
+  }
+  padZero(num: number): string {
+    return num < 10 ? '0' + num : num.toString();
   }
   resetTimer(): void {
     this.startTimer();
