@@ -170,6 +170,11 @@ export class SidenavComponent {
       image: "",
     },
     {
+      title: "Success Stories",
+      url: "/pages/success-stories",  
+      image: "fa-solid fa-thumbs-up",
+    },
+    {
       title: "Events",
       url: "/pages/events",
       image: "fa-solid fa-calendar-days",
