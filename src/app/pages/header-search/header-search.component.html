@@ -45,36 +45,29 @@
                 </div>
                 <div class="col-md-10 col-8">
                     <h5 class="select-title w-100 text-center mb-0">Searched For - {{ searchInputValue | uppercase }}</h5>
-                    <div class="row">
-                        <p-breadcrumb [model]="breadCrumb" class="w-100 mt-2 text-small"></p-breadcrumb>
-                    </div>
+                    <p-breadcrumb [model]="breadCrumb" class="w-100 mt-2 text-small"></p-breadcrumb>
+
+                    <!--                    <div class="row">-->
+<!--                        <p-breadcrumb [model]="breadCrumb" class="w-100 mt-2 d-md-block d-none text-small"></p-breadcrumb>-->
+<!--                    </div>-->
                     <div class="row justify-content-center">
                         <div class="col">
                             <div class="d-flex justify-content-end">
-                                <a role="button" > <i class="text-green h4 mx-3 mb-0 fa-solid fa-circle-chevron-left"></i></a>
+                                <a role="button" *ngIf="isAnswerDialogVisiblePrev" (click)="clickPrevious()">
+                                    <i class="text-green h4 mx-3 mb-0 fa-solid fa-circle-chevron-left"></i></a>
                             </div>
-                        </div>
-                        <div class="col d-flex justify-content-end">
+
                         </div>
                         <div class="col">
-                            <a role="button" ><i class="text-green mx-3 h4 fa-solid mb-0 fa-circle-chevron-right"></i></a>
+<!--                            <p-breadcrumb [model]="breadCrumb" class="w-100 mt-2 d-md-block d-none text-small"></p-breadcrumb>-->
+<!--                            <p-breadcrumb [model]="breadCrumb" class="w-100 mt-2 text-small"></p-breadcrumb>-->
+                        </div>
+                        <div class="col">
+                            <a role="button"*ngIf="isAnswerDialogVisibleNext" (click)="clickNext()"
+                            ><i class="text-green mx-3 h4 fa-solid mb-0 fa-circle-chevron-right"></i></a>
                         </div>
                     </div>
-
-                    <!--                    <p-breadcrumb [model]="breadCrumb" class="w-100 mt-2 d-md-block d-none text-small"></p-breadcrumb>-->
                     <div class="row justify-content-center">
-<!--                        <div class="col">-->
-<!--                            <div class="d-flex justify-content-end">-->
-<!--                                <a role="button" > <i class="text-green h4 mx-3 mb-0 fa-solid fa-circle-chevron-left"></i>sd</a>-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                        <div class="col">-->
-<!--&lt;!&ndash;                            <p-breadcrumb [model]="breadCrumb" class="w-100 mt-2 d-md-block d-none text-small"></p-breadcrumb>&ndash;&gt;-->
-<!--                            &lt;!&ndash;                            <p class="mb-0 fw-semibold">Question Number {{ selectedQuestion + 1 }}</p>&ndash;&gt;-->
-<!--                        </div>-->
-<!--                        <div class="col">-->
-<!--                            <a role="button" ><i class="text-green mx-3 h4 fa-solid mb-0 fa-circle-chevron-right"></i>gfd</a>-->
-<!--                        </div>-->
                     </div>
                 </div>
                 <div class="d-md-block d-none">
@@ -83,23 +76,8 @@
                         <br />
                         <span>Report</span>
                     </button>
-                    <!-- <button (click)="reviewBy()" class="btn btn-primary homecardbtn my-0 px-4 py-2">
-                        <i class="fa-regular fa-user h5"></i><br />
-                        Reviewed By
-                    </button> -->
                 </div>
             </div>
-<!--                <div>-->
-<!--                    <button (click)="goToHome($event)" class="btn btn-secondary px-3 d-flex justify-content-center align-items-center gap-3"><i class="fa-solid mb-0 fa-house"></i><span>Home</span></button>-->
-<!--                </div>-->
-<!--                <p-breadcrumb [model]="breadCrumb" class="w-100 mt-2 text-small"></p-breadcrumb>-->
-<!--                <div>-->
-<!--                    <button (click)="openReport()" class="btn btn-primary px-3 d-flex justify-content-center align-items-center gap-3"><i class="fa-solid mb-0 fa-file-contract"></i><span>Report</span></button>-->
-<!--                    &lt;!&ndash; <button (click)="reviewBy()" class="btn btn-primary homecardbtn my-0 px-4 py-2">-->
-<!--                        <i class="fa-regular fa-user h5"></i><br />-->
-<!--                        Reviewed By-->
-<!--                    </button> &ndash;&gt;-->
-<!--                </div>-->
             <div class="d-flex justify-content-between d-md-none d-block align-items-center">
                     <div>
                         <button (click)="goToHome($event)" class="btn btn-secondary homecardbtn px-3 my-2">
@@ -110,18 +88,6 @@
 
                     <div class="col-md-10 col-8">
                         <div class="row justify-content-center">
-<!--                            <div class="col">-->
-<!--                                <div class="d-flex justify-content-end">-->
-<!--                                    <a role="button" > <i class="text-green h4 mx-3 mb-0 fa-solid fa-circle-chevron-left"></i>sd</a>-->
-<!--                                </div>-->
-<!--                            </div>-->
-<!--                            <div class="col d-flex justify-content-end">-->
-<!--&lt;!&ndash;                                <p-breadcrumb [model]="breadCrumb" class="w-100 mt-2 text-small"></p-breadcrumb>&ndash;&gt;-->
-<!--                                &lt;!&ndash;                            <p class="mb-0 fw-semibold">Question Number {{ selectedQuestion + 1 }}</p>&ndash;&gt;-->
-<!--                            </div>-->
-<!--                            <div class="col">-->
-<!--                                <a role="button" ><i class="text-green mx-3 h4 fa-solid mb-0 fa-circle-chevron-right"></i>gfd</a>-->
-<!--                            </div>-->
                         </div>
                     </div>
                     <div>
@@ -130,10 +96,6 @@
                             <br />
                             <span>Report</span>
                         </button>
-                        <!-- <button (click)="reviewBy()" class="btn btn-primary homecardbtn my-0 px-4 py-2">
-                            <i class="fa-regular fa-user h5"></i><br />
-                            Reviewed By
-                        </button> -->
                     </div>
             </div>
         </div>
