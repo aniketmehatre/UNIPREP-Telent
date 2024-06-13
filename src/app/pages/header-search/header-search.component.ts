@@ -186,9 +186,11 @@ export class HeaderSearchComponent implements OnInit, OnDestroy {
       this.toastr.add({ severity: 'error', summary: 'Error', detail: err });
     });
   }
-
+  oneQuestionContent: any
   gerSelectedQuestion(selectedQuestionData: any) {
+    this.isQuestionAnswerVisible = true;
     this.selectedGlobalData = selectedQuestionData
+    this.oneQuestionContent = selectedQuestionData
     this.selectedQuestionData = selectedQuestionData;
     this.selectedQuestionId = selectedQuestionData.id;
     this.readQuestion(selectedQuestionData);
