@@ -149,16 +149,6 @@ export class QuizmenuComponent implements OnInit {
     this.currentModuleSlug="university"
     this.router.navigate([`/pages/modules/${this.currentModuleSlug}/quiz`]);
   }
-  universityidcheck:[]=[]
-  universityButtonVisible() {
-    if (this.universityId != null) {
-      this.universityquizbutton = false;
-      localStorage.setItem('universityidforquiz', this.universityId)
-      
-    } else {
-      this.universityquizbutton = true;
-    }
-  }
   checkplanExpire(): void {
     this.authService.getNewUserTimeLeft().subscribe((res) => {
       let data = res.time_left;
@@ -331,5 +321,23 @@ export class QuizmenuComponent implements OnInit {
     } else {
       this.skillunivertybutton = true;
     }
+   }
+   universityidcheck:[]=[]
+   universityquizpercentagecompletion:number=0;
+   universityButtonVisible() {
+    var data={
+      moduleid:5,
+      countryid: this.countryId,
+      submoduleid:this.universityId,
+    }
+    this.moduleListService.checkModuleQuizCompletion(data).subscribe((res) => {
+      this.universityquizpercentagecompletion=res.progress;
+      if (this.universityquizpercentagecompletion <=89) {
+         this.universityquizbutton = false;
+         localStorage.setItem('universityidforquiz', this.universityId)
+       } else {
+         this.universityquizbutton = true;
+       }
+    })
    }
 }
