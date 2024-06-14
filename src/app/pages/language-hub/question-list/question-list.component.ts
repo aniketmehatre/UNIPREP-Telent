@@ -613,7 +613,7 @@ export class QuestionListComponent implements OnInit {
             'splitSentences': true,
             'listeners': {
                 'onvoiceschanged': (voices: any) => {
-                    // console.log("Event voiceschanged", voices)
+                    // console.log("Event voiceschanged", voices
                 }
             }
         }).then((data: any) => {
@@ -687,7 +687,7 @@ export class QuestionListComponent implements OnInit {
             this.restrict = true;
             return;
         }
-        //this.readQuestion(data);
+        this.readQuestion(data);
         this.isQuestionAnswerVisible = true
         this.oneQuestionContent = data;
     }
@@ -727,10 +727,7 @@ export class QuestionListComponent implements OnInit {
 
 
     voiceOverNative(voiceData: any, fullData: any) {
-
         var voiceName = '';
-        console.log(this.selectedLanguageCode)
-        console.log(this.langName)
         const speech = new Speech()
         speech.init({
             'volume': 1,
@@ -800,13 +797,14 @@ export class QuestionListComponent implements OnInit {
     }
 
     readQuestion(data: any) {
-        this.moduleListService.readQuestion(data);
+        let req = {
+            countryId: 0,
+            questionId: data.id,
+            moduleId: 9,
+            submoduleId: data.submodule_id
+        }
+        this.moduleListService.readQuestion(req);
         this.readQue$ = this.moduleListService.readQuestionMessage$();
-        this.questionListData = this.questionListData.map((item: any) => {
-            if (item.id === data.questionId) {
-                return { ...item, read: 1 };
-            }
-            return item;
-        });
+        this.init();
     }
 }

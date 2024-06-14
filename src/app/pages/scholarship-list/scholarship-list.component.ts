@@ -420,7 +420,6 @@ export class ScholarshipListComponent implements OnInit {
   selectAllCheckbox(){
     this.selectedCheckboxCount = 0;
     this.selectAllCheckboxes = !this.selectAllCheckboxes;
-    console.log(this.scholarshipData);
     if(this.selectAllCheckboxes){
       this.scholarshipData.forEach(item=>{
         item.isChecked = 1;

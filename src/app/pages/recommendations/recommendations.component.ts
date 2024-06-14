@@ -68,7 +68,6 @@ export class RecommendationsComponent implements OnInit {
 
       if (res.success) {
         this.recommended = res;
-        console.log(res);
       }
     })
   }

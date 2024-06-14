@@ -41,7 +41,6 @@ export class CourseListComponent implements OnInit {
     }
 
     this.courseList.getListOfCourses(data).subscribe(response=> {
-      console.log(response.data);
       this.courseListData = response.data;
       this.totalCourseCount = response.total_count;
     })

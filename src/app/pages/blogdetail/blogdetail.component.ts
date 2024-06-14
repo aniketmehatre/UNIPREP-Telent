@@ -20,12 +20,10 @@ export class BlogdetailComponent implements OnInit {
     slug:this.slug
   }
   this.service.oneBlog(data).subscribe((response) => {
-    console.log(response);
     this.blog = response;
   }); 
 
   this.service.getFeatBlogs().subscribe((response) => {
-    console.log(response);
     this.blogs = response;
   }); 
     //alert(this.slug)

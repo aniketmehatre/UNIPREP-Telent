@@ -75,7 +75,6 @@ export class HttpErrorInterceptor implements HttpInterceptor {
           this.router.navigateByUrl("/login");
         }
         if (err?.status === 422) {
-          console.log(msg)
           if (msg.includes("Unprocessable")) {
             this.toastr.add({
               severity: "error",

@@ -307,8 +307,6 @@ export class QuizmenuComponent implements OnInit {
     }
     this.moduleListService.checkModuleQuizCompletion(data).subscribe((res) => {
       this.preadmissionpercentage = res.progress
-      console.log(this.preadmissionpercentage);
-
     })
   }
   postAdmissionCountryListId(event: any) {
@@ -319,7 +317,6 @@ export class QuizmenuComponent implements OnInit {
     }
     this.moduleListService.checkModuleQuizCompletion(data).subscribe((res) => {
       this.postadmissionpercentage = res.progress
-      console.log(this.postadmissionpercentage);
     })
   }
   lifeAtCountryListId(event: any) {
@@ -330,7 +327,6 @@ export class QuizmenuComponent implements OnInit {
     }
     this.moduleListService.checkModuleQuizCompletion(data).subscribe((res) => {
       this.lifeatcountrypercentage = res.progress
-      console.log(this.lifeatcountrypercentage);
     })
   }
   careerHubCountryListId(event: any) {
@@ -341,7 +337,6 @@ export class QuizmenuComponent implements OnInit {
     }
     this.moduleListService.checkModuleQuizCompletion(data).subscribe((res) => {
       this.careerhubpercentage = res.progress
-      console.log(this.careerhubpercentage);
     })
   }
   // CountryListId(event:any){

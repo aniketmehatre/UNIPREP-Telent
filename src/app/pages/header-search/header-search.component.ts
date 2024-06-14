@@ -295,7 +295,6 @@ export class HeaderSearchComponent implements OnInit, OnDestroy {
 
     let index = this.findIndexById(this.searchResult, this.oneQuestionContent.id);
     this.oneQuestionContent = this.searchResult[index - 1]
-    console.log(this.oneQuestionContent)
 
     if (this.selectedQuestion <= 1) {
       this.isAnswerDialogVisiblePrev = false;
