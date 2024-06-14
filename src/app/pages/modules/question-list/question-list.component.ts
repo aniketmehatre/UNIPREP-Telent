@@ -92,6 +92,7 @@ export class QuestionListComponent implements OnInit {
   currentModuleSlug: any;
   quizpercentage: any = 0;
   howItWorksVideoLink: string = "";
+  quizmoduleselectcountryidsetzero:any=0;
   @ViewChild('op', { static: false, read: ElementRef }) elRef: any;
 
   constructor(
@@ -126,7 +127,7 @@ export class QuestionListComponent implements OnInit {
   }
   loopRange = Array.from({ length: 30 }).fill(0).map((_, index) => index);
   ngOnInit(): void {
-
+    localStorage.setItem("modalcountryid",this.quizmoduleselectcountryidsetzero);
     this.countryId = Number(localStorage.getItem('countryId'));
     this.sharedCountry = Number(localStorage.getItem('countryId'));
     this.route.params.subscribe((params) => {

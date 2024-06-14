@@ -181,9 +181,9 @@ getLanguageist() {
   const headers = new HttpHeaders().set("Accept", "application/json");
   return this.http.post<any>(environment.ApiUrl + "/getlanguages",{ headers: headers,});
 }
-getLanguageistType() {
+getLanguageistType(data:any) {
   const headers = new HttpHeaders().set("Accept", "application/json");
-  return this.http.post<any>(environment.ApiUrl + "/getlanguagetype",{ headers: headers,});
+  return this.http.post<any>(environment.ApiUrl + "/getlanguagetype",data,{ headers: headers,});
 }
 languageghubquiz(data: any) {
   const headers = new HttpHeaders().set("Accept", "application/json");
