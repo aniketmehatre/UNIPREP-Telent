@@ -184,7 +184,7 @@ export class LanguagetypequizComponent implements OnInit {
     //   header: 'Confirmation',
     //   icon: 'fa-solid fa-circle-exclamation',
     // });
-    this.router.navigate([`/pages/modules/${this.currentModuleSlug}`]);
+    this.router.navigate(["/pages/language-hub/languages"]);
   }
 
   clickPreviousQuiz(carouselQuiz: any, event: any) {
