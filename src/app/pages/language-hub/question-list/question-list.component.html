@@ -81,7 +81,7 @@
     </div>
 </div>
 <div class="card" style="background-color: #fff; border-radius: 0px 0px 15px 15px !important">
-    <p-paginator [rows]="10" [totalRecords]="totalQuestionCount" (onPageChange)="paginate($event)"
+    <p-paginator [rows]="perpage" [totalRecords]="totalQuestionCount" (onPageChange)="paginate($event)"
                  [rowsPerPageOptions]="[25, 50, 100, 200]" dropdownAppendTo="body"></p-paginator>
 </div>
 <p-dialog #dialogContent [(visible)]="isQuestionAnswerVisible" [draggable]="false" [modal]="true" class="questionmodal"
