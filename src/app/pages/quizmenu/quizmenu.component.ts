@@ -4,6 +4,8 @@ import { ModuleServiceService } from '../module-store/module-service.service';
 import { LocationService } from 'src/app/location.service';
 import { DataService } from 'src/app/data.service';
 import { AuthService } from 'src/app/Auth/auth.service';
+import { PageFacadeService } from '../page-facade.service';
+
 @Component({
   selector: 'uni-quizmenu',
   templateUrl: './quizmenu.component.html',
@@ -49,7 +51,7 @@ export class QuizmenuComponent implements OnInit {
   countrydropdownlist: any[] = [];
   skillsmasteryId: any = null;
   constructor(private moduleListService: ModuleServiceService, private router: Router, private dataService: DataService,
-    private locationService: LocationService, private authService: AuthService,) { }
+    private locationService: LocationService, private authService: AuthService, private pageFacade: PageFacadeService) { }
 
   ngOnInit(): void {
     this.dataService.countryNameSource.subscribe((data) => {
@@ -396,5 +398,8 @@ export class QuizmenuComponent implements OnInit {
         this.universityquizbutton = true;
       }
     })
+  }
+  openVideoPopup(videoLink: string) {
+    this.pageFacade.openHowitWorksVideoPopup(videoLink);
   }
 }

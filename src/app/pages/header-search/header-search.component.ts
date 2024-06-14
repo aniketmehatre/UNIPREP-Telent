@@ -186,9 +186,11 @@ export class HeaderSearchComponent implements OnInit, OnDestroy {
       this.toastr.add({ severity: 'error', summary: 'Error', detail: err });
     });
   }
-
+  oneQuestionContent: any
   gerSelectedQuestion(selectedQuestionData: any) {
+    this.isQuestionAnswerVisible = true;
     this.selectedGlobalData = selectedQuestionData
+    this.oneQuestionContent = selectedQuestionData
     this.selectedQuestionData = selectedQuestionData;
     this.selectedQuestionId = selectedQuestionData.id;
     this.readQuestion(selectedQuestionData);
@@ -286,7 +288,26 @@ export class HeaderSearchComponent implements OnInit, OnDestroy {
     this.route.navigate([`/pages/chat`]);
   }
 
-  clickPrevious(carousel: any, event: any): void {
+  clickPrevious(): void {
+    this.isAnswerDialogVisiblePrev = true;
+    this.isAnswerDialogVisibleNext = true;
+    let currentData = this.oneQuestionContent
+
+    let index = this.findIndexById(this.searchResult, this.oneQuestionContent.id);
+    this.oneQuestionContent = this.searchResult[index - 1]
+    console.log(this.oneQuestionContent)
+
+    if (this.selectedQuestion <= 1) {
+      this.isAnswerDialogVisiblePrev = false;
+    }
+    if (this.selectedQuestion <= 0) {
+      return;
+    }
+    this.getModuleName(this.oneQuestionContent);
+    this.readQuestion(currentData);
+    return;
+
+
     this.isAnswerDialogVisiblePrev = true;
     this.isAnswerDialogVisibleNext = true;
     if (this.selectedQuestion <= 1) {
@@ -306,11 +327,29 @@ export class HeaderSearchComponent implements OnInit, OnDestroy {
       }
     });
     this.getModuleName(data);
-    carousel.navBackward(event, this.selectedQuestion);
+    // carousel.navBackward(event, this.selectedQuestion);
     this.readQuestion(data);
   }
 
-  clickNext(carousel: any, event: any) {
+  findIndexById(items: any, id: number): number {
+    return items.findIndex((item: any) => item.id === id);
+  }
+
+  clickNext() {
+    this.isAnswerDialogVisiblePrev = true;
+    this.isAnswerDialogVisibleNext = true;
+    let index = this.findIndexById(this.searchResult, this.oneQuestionContent.id);
+    let currentData = this.oneQuestionContent
+    this.oneQuestionContent = this.searchResult[index + 1]
+    if (this.selectedQuestion >= this.searchResult.length - 2) {
+      this.isAnswerDialogVisibleNext = false;
+    }
+    if (this.selectedQuestion >= this.searchResult.length - 1) {
+      return;
+    }
+    this.getModuleName(this.oneQuestionContent);
+    this.readQuestion(currentData);
+    return;
     this.isAnswerDialogVisiblePrev = true;
     this.isAnswerDialogVisibleNext = true;
     if (this.selectedQuestion >= this.searchResult.length - 2) {
@@ -331,7 +370,7 @@ export class HeaderSearchComponent implements OnInit, OnDestroy {
       }
     });
     this.getModuleName(data);
-    carousel.navForward(event, this.selectedQuestion);
+    // carousel.navForward(event, this.selectedQuestion);
     this.readQuestion(data);
   }
 

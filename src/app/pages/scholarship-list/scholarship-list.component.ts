@@ -7,6 +7,7 @@ import { AuthService } from "src/app/Auth/auth.service";
 import { Router } from "@angular/router";
 import { UserManagementService } from "../user-management/user-management.service";
 import { DataService } from "src/app/data.service";
+import { PageFacadeService } from "../page-facade.service";
 
 @Component({
   selector: "uni-scholarship-list",
@@ -57,7 +58,8 @@ export class ScholarshipListComponent implements OnInit {
     private authService: AuthService,
     private router: Router,
     private userManagementService: UserManagementService,
-    private dataService: DataService
+    private dataService: DataService,
+    private pageFacade: PageFacadeService
   ) {
     this.filterForm = this.fb.group({
       country: [null],
@@ -483,4 +485,8 @@ export class ScholarshipListComponent implements OnInit {
     }
   }
 
+  openHowItWorksVideoPopup(videoLink: string) {
+    this.pageFacade.openHowitWorksVideoPopup(videoLink);
+  }
+  
 }

@@ -4,6 +4,7 @@ import {Router} from "@angular/router";
 import {Location} from "@angular/common";
 import {LanguageHubDataService} from "../language-hub-data.service";
 import {MessageService} from 'primeng/api';
+import { PageFacadeService } from '../../page-facade.service';
 
 @Component({
     selector: 'uni-category-list',
@@ -25,7 +26,7 @@ export class CategoryListComponent implements OnInit {
 
     constructor(private languageHubService: LanguageHubService, private lhs: LanguageHubDataService,
                 private router: Router, private toast: MessageService,
-                private location: Location) {
+                private location: Location, private pageFacade:PageFacadeService) {
         this.lhs.data$.subscribe((data) => {
             this.selectedLanguageId = data
         })
@@ -95,5 +96,9 @@ export class CategoryListComponent implements OnInit {
         this.page = event.page + 1;
         this.perpage = event.rows;
         this.init();
+    }
+
+    openVideoPopup(videoLink: string) {
+        this.pageFacade.openHowitWorksVideoPopup(videoLink);
     }
 }

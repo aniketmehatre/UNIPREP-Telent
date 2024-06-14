@@ -7,6 +7,7 @@ import {MenuItem, MessageService} from 'primeng/api';
 import {ActivatedRoute, Router} from '@angular/router';
 import {DeviceDetectorService} from "ngx-device-detector";
 import {AuthService} from "../../../Auth/auth.service";
+import { PageFacadeService } from '../../page-facade.service';
 
 @Component({
     selector: 'uni-question-list',
@@ -562,7 +563,7 @@ export class QuestionListComponent implements OnInit {
     constructor(private languageHubService: LanguageHubService, private lhs: LanguageHubDataService,
                 private location: Location, private route: ActivatedRoute, private toast: MessageService,
                 private deviceService: DeviceDetectorService, private authService: AuthService,
-                private router: Router) {
+                private router: Router, private pageFacade: PageFacadeService) {
         this.lhs.data$.subscribe((data) => {
             this.selectedLanguageId = data
         })
@@ -788,4 +789,7 @@ export class QuestionListComponent implements OnInit {
         this.restrict = false;
     }
 
+    openVideoPopup(videoLink: string) {
+        this.pageFacade.openHowitWorksVideoPopup(videoLink);
+    }
 }
