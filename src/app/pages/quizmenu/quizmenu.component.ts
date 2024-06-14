@@ -24,6 +24,11 @@ export class QuizmenuComponent implements OnInit {
   universityId: any=null;
   laguageid:any=[];
   contrydropdownid:any=[]
+  preaddimissioncontrydropdownid:any=[];
+  postadmiisioncontrydropdownid:any=[];
+  lifeatcontrydropdownid:any=[];
+  careerhubcontrydropdownid:any=[];
+  unversitycontrydropdownid:any=[];
   laguagetypeid:any=[];
   subjectid:any=[];
   specializationid:any=null;
@@ -50,15 +55,23 @@ export class QuizmenuComponent implements OnInit {
     this.dataService.countryNameSource.subscribe((data) => {
       this.countryName = data;
       this.countryId = Number(localStorage.getItem('countryId'));
-      this.contrydropdownid=this.countryId
-      this.checkquizquestionmodule();
+      this.contrydropdownid=this.countryId;
+      this.preaddimissioncontrydropdownid=this.countryId;
+      this.postadmiisioncontrydropdownid=this.countryId;
+      this.lifeatcontrydropdownid=this.countryId;
+      this.careerhubcontrydropdownid=this.countryId;
+      this.unversitycontrydropdownid=this.countryId;
+      // this.checkquizquestionmodule();
       this.checkplanExpire();
-      this.getFilterUniversityList(this.countryId)
-      this.getCertificates()
+      this.getFilterUniversityList(this.unversitycontrydropdownid)
+      // this.getCertificates()
+      this.preAdmissionCountryListId(this.preaddimissioncontrydropdownid);
+      this.postAdmissionCountryListId(this.postadmiisioncontrydropdownid);
+      this.lifeAtCountryListId(this.lifeatcontrydropdownid);
+      this.careerHubCountryListId(this.careerhubcontrydropdownid);
     });
     this.getLaguageList();
     this.getSubjectlist();
-    this.getLaguageListType();
     this.countryDropdown();
     this.skillMastery();
   }
@@ -67,58 +80,43 @@ export class QuizmenuComponent implements OnInit {
       this.countrydropdownlist=countryList
     });
   }
-  getCertificates(){
-    this.certificatesList=[]
-    this.universityModulescertificate = [];
-    this.Modulequizlistcertificate = [];
-    var data={
-      countryid:this.countryId
-    }
-    this.moduleListService.getUserCompletedCertificate(data).subscribe((res)=>{
-      const modulesToRemove = ["Life at ", "Career Hub","Post Admission","pre-admission"];
-      const modulesToRemoveUniversity = ["University"];
-      this.certificatesList=res.certificates
-      this.universityModulescertificate = this.certificatesList.filter(module => !modulesToRemove.includes(module.module_name));
-      this.Modulequizlistcertificate = this.certificatesList.filter(module => !modulesToRemoveUniversity.includes(module.module_name));
-    })
-    var data1={
-      countryid:0,
-      moduleid :8
-    }
-    this.moduleListService.getUserCompletedCertificate(data1).subscribe((res)=>{
-      this.learningHubCirtificates=res.certificates
-    })
-    var data2={
-      countryid:0,
-      moduleid :9
-    }
-    this.moduleListService.getUserCompletedCertificate(data2).subscribe((res)=>{
-      this.languageHubCirtificates=res.certificates
-    })
-    var data3={
-      countryid:0,
-      moduleid :10
-    }
-    this.moduleListService.getUserCompletedCertificate(data3).subscribe((res)=>{
-      this.skillMasteryCirtificates=res.certificates
-    })
-  }
-  startQuiz(moduleid: any) {
-    // if(this.planExpired){
-    //   this.restrict=true;
-    //   return;
-    // }
-    if (moduleid == 1) {
-      this.currentModuleSlug = "pre-admission"
-    } else if (moduleid == 3) {
-      this.currentModuleSlug = "post-admission"
-    } else if (moduleid == 4) {
-      this.currentModuleSlug = "career-hub"
-    } else if (moduleid == 6) {
-      this.currentModuleSlug = "life-at-country"
-    }
-    this.router.navigate([`/pages/modules/${this.currentModuleSlug}/quiz`]);
-  }
+  // getCertificates(){
+  //   this.certificatesList=[]
+  //   this.universityModulescertificate = [];
+  //   this.Modulequizlistcertificate = [];
+  //   var data={
+  //     countryid:this.countryId
+  //   }
+  //   this.moduleListService.getUserCompletedCertificate(data).subscribe((res)=>{
+  //     const modulesToRemove = ["Life at ", "Career Hub","Post Admission","pre-admission"];
+  //     const modulesToRemoveUniversity = ["University"];
+  //     this.certificatesList=res.certificates
+  //     this.universityModulescertificate = this.certificatesList.filter(module => !modulesToRemove.includes(module.module_name));
+  //     this.Modulequizlistcertificate = this.certificatesList.filter(module => !modulesToRemoveUniversity.includes(module.module_name));
+  //   })
+  //   var data1={
+  //     countryid:0,
+  //     moduleid :8
+  //   }
+  //   this.moduleListService.getUserCompletedCertificate(data1).subscribe((res)=>{
+  //     this.learningHubCirtificates=res.certificates
+  //   })
+  //   var data2={
+  //     countryid:0,
+  //     moduleid :9
+  //   }
+  //   this.moduleListService.getUserCompletedCertificate(data2).subscribe((res)=>{
+  //     this.languageHubCirtificates=res.certificates
+  //   })
+  //   var data3={
+  //     countryid:0,
+  //     moduleid :10
+  //   }
+  //   this.moduleListService.getUserCompletedCertificate(data3).subscribe((res)=>{
+  //     this.skillMasteryCirtificates=res.certificates
+  //   })
+  // }
+
   startModululeSkillmastery(){
     this.currentModuleSlug = "skill-mastery"
     this.router.navigate([`/pages/modules/${this.currentModuleSlug}/quiz`]);
@@ -131,21 +129,22 @@ export class QuizmenuComponent implements OnInit {
       this.filterUniversityList = response;
     });
   }
-  checkquizquestionmodule() {
-    this.quizpercentagedata = []
-    var data = {
-      countryid: this.countryId
-    }
-    this.moduleListService.getQuizCompletion(data).subscribe((res) => {
-      this.quizpercentagedata = res.modules.filter((obj: any) => obj.module_name !== "Travel And Tourism")
+  // checkquizquestionmodule() {
+  //   this.quizpercentagedata = []
+  //   var data = {
+  //     countryid: this.countryId
+  //   }
+  //   this.moduleListService.getQuizCompletion(data).subscribe((res) => {
+  //     this.quizpercentagedata = res.modules.filter((obj: any) => obj.module_name !== "Travel And Tourism")
       
-    })
-  }
+  //   })
+  // }
   startQuizUniversity() {
     // if(this.planExpired){
     //   this.restrict=true;
     //   return;
     // }
+    localStorage.setItem("modalcountryid",this.unversitycontrydropdownid)
     this.currentModuleSlug="university"
     this.router.navigate([`/pages/modules/${this.currentModuleSlug}/quiz`]);
   }
@@ -166,22 +165,42 @@ export class QuizmenuComponent implements OnInit {
   clearRestriction() {
     this.restrict = false;
   }
-  readingmoduleid:number=0;
-  moduleprogress:number=0;
-  arrow:boolean=true;
-  changemodule(eve:any){
-    this.readingmoduleid=eve.value.id
-    this.moduleprogress=eve.value.progress
-    if(this.moduleprogress >= 90){
-      this.readingmodulestartbutton=true;
-      this.arrow=false;
-    }else{
-      this.readingmodulestartbutton=false; 
-      this.arrow=true;
-    }
+  // readingmoduleid:number=0;
+  // moduleprogress:number=0;
+  // arrow:boolean=true;
+  // changemodule(eve:any){
+  //   this.readingmoduleid=eve.value.id
+  //   this.moduleprogress=eve.value.progress
+  //   if(this.moduleprogress >= 90){
+  //     this.readingmodulestartbutton=true;
+  //     this.arrow=false;
+  //   }else{
+  //     this.readingmodulestartbutton=false; 
+  //     this.arrow=true;
+  //   }
+  // }
+  startModulule(eve:any){
+    this.startQuiz(eve)
   }
-  startModulule(){
-    this.startQuiz(this.readingmoduleid)
+  startQuiz(moduleid: any) {
+    // if(this.planExpired){
+    //   this.restrict=true;
+    //   return;
+    // }
+    if (moduleid == 1) {
+      this.currentModuleSlug = "pre-admission"
+      localStorage.setItem("modalcountryid",this.preaddimissioncontrydropdownid)
+    } else if (moduleid == 3) {
+      this.currentModuleSlug = "post-admission"
+      localStorage.setItem("modalcountryid",this.postadmiisioncontrydropdownid)
+    } else if (moduleid == 4) {
+      this.currentModuleSlug = "career-hub"
+      localStorage.setItem("modalcountryid",this.lifeatcontrydropdownid)
+    } else if (moduleid == 6) {
+      this.currentModuleSlug = "life-at-country"
+      localStorage.setItem("modalcountryid",this.careerhubcontrydropdownid)
+    }
+    this.router.navigate([`/pages/modules/${this.currentModuleSlug}/quiz`]);
   }
   downloadCertificate(link:any){
     if(this.planExpired){
@@ -196,6 +215,7 @@ export class QuizmenuComponent implements OnInit {
     });
   }
   specializationList(){
+    this.specializationlist=[];
    var data={
     // category_flag:1,
     category_id:this.subjectid
@@ -227,12 +247,17 @@ export class QuizmenuComponent implements OnInit {
     this.router.navigate([`/pages/modules/${this.currentModuleSlug}/learninghubquiz`]);
   }
   getLaguageList() {
+    this.languagedropdownlist=[];
     this.moduleListService.getLanguageist().subscribe((response) => {
       this.languagedropdownlist = response.data;
     });
   }
   getLaguageListType() {
-    this.moduleListService.getLanguageistType().subscribe((response) => {
+    this.languagedropdownlisttype=[];
+    var data={
+      languageid:this.laguageid
+    }
+    this.moduleListService.getLanguageistType(data).subscribe((response) => {
       this.languagedropdownlisttype = response.data;
     });
   }
@@ -242,22 +267,7 @@ export class QuizmenuComponent implements OnInit {
   languageListId(){
     localStorage.setItem("languageidforquiz",this.laguageid)
     this.languageselectdrpodown=1;
-    if(this.languageselectdrpodown==this.languageselecttypedrpodown){
-
-      var data={
-        moduleid:9,
-        languageId: this.laguageid,
-        languagetype:this.laguagetypeid,
-      }
-      this.moduleListService.checklanguageQuizCompletion(data).subscribe((res) => {
-        this.quizlanguguageprogress=res.progress
-        if(this.quizlanguguageprogress<=89){
-          this.languageHubQuiz=false;
-        }
-      })
-    }else{
-      this.languageHubQuiz=true;
-    }
+    this.getLaguageListType()
   }
   languagrTypeId(){
     localStorage.setItem("languagetypeidforquiz",this.laguagetypeid)
@@ -283,16 +293,64 @@ export class QuizmenuComponent implements OnInit {
     this.currentModuleSlug="language-hub"
     this.router.navigate([`/pages/modules/${this.currentModuleSlug}/languagehubquiz`]);
   }
-  CountryListId(event:any){
-    console.log(event);
-    const countryname = this.countrydropdownlist.find(item => item.id === event);
-    this.countryName=countryname.country
-    this.countryId=this.contrydropdownid
-    this.checkquizquestionmodule();
+  preadmissionpercentage:number=0;
+  postadmissionpercentage:number=0;
+  lifeatcountrypercentage:number=0;
+  careerhubpercentage:number=0;
+  preAdmissionCountryListId(event:any){
     this.checkplanExpire();
-    this.getFilterUniversityList(this.countryId)
-    this.getCertificates()
+    var data={
+      moduleid:1,
+      countryid: this.preaddimissioncontrydropdownid,
+    }
+    this.moduleListService.checkModuleQuizCompletion(data).subscribe((res) => {
+      this.preadmissionpercentage=res.progress
+      console.log(this.preadmissionpercentage);
+      
+    })
   }
+  postAdmissionCountryListId(event:any){
+    this.checkplanExpire();
+    var data={
+      moduleid:3,
+      countryid: this.postadmiisioncontrydropdownid,
+    }
+    this.moduleListService.checkModuleQuizCompletion(data).subscribe((res) => {
+      this.postadmissionpercentage=res.progress
+      console.log(this.postadmissionpercentage);
+    })
+  }
+  lifeAtCountryListId(event:any){
+    this.checkplanExpire();
+    var data={
+      moduleid:6,
+      countryid: this.lifeatcontrydropdownid,
+    }
+    this.moduleListService.checkModuleQuizCompletion(data).subscribe((res) => {
+      this.lifeatcountrypercentage=res.progress
+      console.log(this.lifeatcountrypercentage);
+    })
+  }
+  careerHubCountryListId(event:any){
+       this.checkplanExpire();
+    var data={
+      moduleid:4,
+      countryid: this.careerhubcontrydropdownid,
+    }
+    this.moduleListService.checkModuleQuizCompletion(data).subscribe((res) => {
+      this.careerhubpercentage=res.progress
+      console.log(this.careerhubpercentage);
+    })
+  }
+  // CountryListId(event:any){
+  //   const countryname = this.countrydropdownlist.find(item => item.id === event);
+  //   this.countryName=countryname.country
+  //   this.countryId=this.contrydropdownid
+  //   // this.checkquizquestionmodule();
+ 
+  //   this.getFilterUniversityList(this.countryId)
+  //   // this.getCertificates()
+  // }
   skillMastery(){
     this.skillsmasteryList=[];
     var data={
@@ -306,7 +364,6 @@ export class QuizmenuComponent implements OnInit {
    }
    skillmasteryquizpercentage:number=0
    skillMasteryButtonVisible(eve:any){
-    console.log(eve);
     var data={
       moduleid:10,
       countryid: 0,
@@ -327,7 +384,7 @@ export class QuizmenuComponent implements OnInit {
    universityButtonVisible() {
     var data={
       moduleid:5,
-      countryid: this.countryId,
+      countryid: this.unversitycontrydropdownid,
       submoduleid:this.universityId,
     }
     this.moduleListService.checkModuleQuizCompletion(data).subscribe((res) => {
