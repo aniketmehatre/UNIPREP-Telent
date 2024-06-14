@@ -5,10 +5,11 @@ section {
   display: flex;
   width: 100%;
   height: 100%;
+
   /* Ensure the #page element fills the entire viewport */
   #page {
     display: flex;
-    flex-direction: column;    
+    flex-direction: column;
     height: 100vh;
     width: 100%;
     overflow: hidden;
@@ -22,7 +23,8 @@ section {
 
   uni-list-sub-modules {
     flex: 1;
-    overflow: hidden; /* Hide overflowing content initially */
+    overflow: hidden;
+    /* Hide overflowing content initially */
   }
 
   /* Adjust the #page-container to take remaining space */
@@ -30,8 +32,10 @@ section {
     flex: 1 1 auto;
     display: flex;
     flex-direction: column;
-    min-height: 0; /* Ensure content can shrink */
-    overflow-y: auto; /* Allow scrolling within #page-container */
+    min-height: 0;
+    /* Ensure content can shrink */
+    overflow-y: auto;
+    /* Allow scrolling within #page-container */
     background: #efefef;
     border-radius: 20px;
     padding: 1rem;
@@ -55,6 +59,7 @@ section {
 .uppercase {
   text-transform: uppercase;
 }
+
 .unsidebarClass {
   cursor: no-drop;
   pointer-events: none;
@@ -65,7 +70,8 @@ section {
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 50px; /* Adjust the height as needed */
+  height: 50px;
+  /* Adjust the height as needed */
 }
 
 .thatDevice {
@@ -83,17 +89,17 @@ section {
 }
 
 .dangericon {
-  font-size: 6em; /* Adjust the font-size to make the icon bigger */
-  color: rgb(250, 7, 7); /* Set the color to black */
+  font-size: 6em;
+  /* Adjust the font-size to make the icon bigger */
+  color: rgb(250, 7, 7);
+  /* Set the color to black */
 }
 
-.multiDeviceLogoutPopup
-{
+.multiDeviceLogoutPopup {
   background: #00000080;
 }
 
-.notesize
-{
+.notesize {
   font-size: 0.7rem;
 }
 
@@ -106,9 +112,11 @@ section {
   text-align: right;
   margin: 10px;
 }
+
 .btncontinue {
   background: #f89634;
   padding: 5px 5px 5px 0px;
+
   .btnarrowspan {
     float: right;
     background: #d57e26;
@@ -118,35 +126,46 @@ section {
 }
 
 .modal {
-	z-index: 9999;
-	.modalbuttons {
-		position: absolute;
-		top: -1rem;
-		right: -1rem;
-	}
+  z-index: 9999;
+
+  .modalbuttons {
+    position: absolute;
+    top: -1rem;
+    right: -1rem;
+  }
 }
 
 .embed-responsive {
-	position: relative;
-	display: block;
-	width: 100%;
-	padding: 0;
-	overflow: hidden;
+  position: relative;
+  display: block;
+  width: 100%;
+  padding: 0;
+  overflow: hidden;
 }
 
 .embed-responsive::before {
-	display: block;
-	content: "";
-	padding-top: 56.25%; /* 16:9 Aspect Ratio */
+  display: block;
+  content: "";
+  padding-top: 56.25%;
+  /* 16:9 Aspect Ratio */
 }
 
 .embed-responsive iframe {
-	position: absolute;
-	top: 0;
-	left: 0;
-	bottom: 0;
-	right: 0;
-	width: 100%;
-	height: 100%;
-	border: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+#page-container {
+  position: relative;
+}
+.fixedFooter {
+  position: absolute;
+  bottom: 10px;
+  width: 97%;
 }

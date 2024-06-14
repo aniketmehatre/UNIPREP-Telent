@@ -130,7 +130,7 @@ const routes: Routes = [
             },
             {
                 path: 'success-stories',
-                loadChildren: () => import('./success-stories/success-stories.module').then(m => m.TutorialsModule)
+                loadChildren: () => import('./success-stories/success-stories.module').then(m => m.SuccessStoriesModule)
             },
             {
                 path: 'tutorials',

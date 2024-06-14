@@ -13,7 +13,7 @@
 					<div class="text-decoration-none text-white" role="button" (click)="openVideoPopup(tutorial.link)">
 						<div class="card my-2 position-relative tutcard">
 							<div class="tutgradient"></div>
-							<img src="{{ tutorial.coverimage }}" />
+							<img src="{{ tutorial.coverimage }}" style="height: 200px;"/>
 							<div class="tutorialcontent">
 								<h5 class="mb-0 text-white">{{ tutorial.title }}</h5>
 								<p class="mb-0 text-white small" title="{{ tutorial.description }}">{{ tutorial.description.length > 35 ? tutorial.description.slice(0, 35) + "..." : tutorial.description }}</p>
