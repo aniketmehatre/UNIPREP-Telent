@@ -54,7 +54,7 @@ export class ListSubModulesComponent implements OnInit {
   countryId: any;
   canShowQuestionList: boolean = false;
   howItWorksVideoLink: string = "";
-
+  quizmoduleselectcountryidsetzero:any=0;
   constructor(private moduleListService: ModuleServiceService, private router: Router, private dataService: DataService, private authService: AuthService,
     private locationService: LocationService, private route: ActivatedRoute, private ngxService: NgxUiLoaderService,
     private confirmationService: ConfirmationService, private pageFacade: PageFacadeService) {
@@ -89,9 +89,9 @@ export class ListSubModulesComponent implements OnInit {
   }
   loopRange = Array.from({ length: 30 }).fill(0).map((_, index) => index);
   ngOnInit() {
+    localStorage.setItem("modalcountryid",this.quizmoduleselectcountryidsetzero);
     this.init();
   }
-
   init() {
     this.currentCountryId = Number(localStorage.getItem('countryId'));
     this.currentModuleSlug = this.router.url.split('/').pop();

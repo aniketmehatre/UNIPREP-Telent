@@ -18,6 +18,7 @@ export class QuizComponent implements OnInit {
 
   quizData: any[] = [];
   currentCountryId: any
+  quizmoduleredirectcountryid:number=0;
   currentModuleId: any;
   universityidforquiz: any = null;
   currentModuleSlug: any;
@@ -61,6 +62,7 @@ export class QuizComponent implements OnInit {
 
   ngOnInit(): void {
     this.init();
+    this.quizmoduleredirectcountryid=Number(localStorage.getItem('modalcountryid'))
   }
 
   init() {
@@ -73,7 +75,7 @@ export class QuizComponent implements OnInit {
     this.positionNumber = 1;
     this.isInstructionVisible = true;
     this.currentModuleSlug = this.router.url.split('/').slice(-2, -1).pop();
-    this.currentCountryId = Number(localStorage.getItem('countryId'));
+    this.currentCountryId =this.quizmoduleredirectcountryid==0? Number(localStorage.getItem('countryId')):Number(localStorage.getItem('modalcountryid'));
     this.dataService.countryNameSource.subscribe((data) => {
       this.countryName = data;
     });
@@ -178,7 +180,7 @@ export class QuizComponent implements OnInit {
 
 
   loadModuleAndSubModule() {
-    this.currentCountryId = Number(localStorage.getItem('countryId'));
+    this.currentCountryId = this.quizmoduleredirectcountryid==0? Number(localStorage.getItem('countryId')):Number(localStorage.getItem('modalcountryid'))
     //this.isSkeletonVisible = true;
     //this.subModules$ = this.moduleListService.subModuleList$();
     let data = {

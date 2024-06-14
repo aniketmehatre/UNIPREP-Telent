@@ -13,58 +13,58 @@ export class QuizmenuComponent implements OnInit {
   tooltip: any;
   currentModuleSlug: any;
   filterUniversityList: any[] = [];
-  subjectlistdropdown:any[]=[];
-  languagedropdownlist:any[]=[];
-  languagedropdownlisttype:any[]=[];
-  specializationlist:any[]=[];
-  skillsmasteryList:any[]=[];
+  subjectlistdropdown: any[] = [];
+  languagedropdownlist: any[] = [];
+  languagedropdownlisttype: any[] = [];
+  specializationlist: any[] = [];
+  skillsmasteryList: any[] = [];
   quizpercentagedata: any[] = [];
   countryId: any;
   countryName!: string;
-  universityId: any=null;
-  laguageid:any=[];
-  contrydropdownid:any=[]
-  preaddimissioncontrydropdownid:any=[];
-  postadmiisioncontrydropdownid:any=[];
-  lifeatcontrydropdownid:any=[];
-  careerhubcontrydropdownid:any=[];
-  unversitycontrydropdownid:any=[];
-  laguagetypeid:any=[];
-  subjectid:any=[];
-  specializationid:any=null;
-  moduleid:any=null;
+  universityId: any = null;
+  laguageid: any = [];
+  contrydropdownid: any = []
+  preaddimissioncontrydropdownid: any = [];
+  postadmiisioncontrydropdownid: any = [];
+  lifeatcontrydropdownid: any = [];
+  careerhubcontrydropdownid: any = [];
+  unversitycontrydropdownid: any = [];
+  laguagetypeid: any = [];
+  subjectid: any = [];
+  specializationid: any = null;
+  moduleid: any = null;
   universityquizbutton: boolean = true;
-  skillunivertybutton:boolean=true;
-  learningHubQuiz:boolean=true;
-  languageHubQuiz:boolean=true;
-  readingmodulestartbutton:boolean = true;
+  skillunivertybutton: boolean = true;
+  learningHubQuiz: boolean = true;
+  languageHubQuiz: boolean = true;
+  readingmodulestartbutton: boolean = true;
   restrict: boolean = false;
   planExpired: boolean = false;
-  certificatesList:any[]=[]
-  universityModulescertificate:any[] = [];
-  Modulequizlistcertificate:any[] = [];
-  learningHubCirtificates:any[]=[];
-  languageHubCirtificates:any[]=[];
-  skillMasteryCirtificates:any[]=[];
-  countrydropdownlist:any[]=[];
-  skillsmasteryId:any=null;
+  certificatesList: any[] = []
+  universityModulescertificate: any[] = [];
+  Modulequizlistcertificate: any[] = [];
+  learningHubCirtificates: any[] = [];
+  languageHubCirtificates: any[] = [];
+  skillMasteryCirtificates: any[] = [];
+  countrydropdownlist: any[] = [];
+  skillsmasteryId: any = null;
   constructor(private moduleListService: ModuleServiceService, private router: Router, private dataService: DataService,
-    private locationService: LocationService,private authService: AuthService,) { }
+    private locationService: LocationService, private authService: AuthService,) { }
 
   ngOnInit(): void {
     this.dataService.countryNameSource.subscribe((data) => {
       this.countryName = data;
       this.countryId = Number(localStorage.getItem('countryId'));
-      this.contrydropdownid=this.countryId;
-      this.preaddimissioncontrydropdownid=this.countryId;
-      this.postadmiisioncontrydropdownid=this.countryId;
-      this.lifeatcontrydropdownid=this.countryId;
-      this.careerhubcontrydropdownid=this.countryId;
-      this.unversitycontrydropdownid=this.countryId;
+      this.contrydropdownid = this.countryId;
+      this.preaddimissioncontrydropdownid = this.countryId;
+      this.postadmiisioncontrydropdownid = this.countryId;
+      this.lifeatcontrydropdownid = this.countryId;
+      this.careerhubcontrydropdownid = this.countryId;
+      this.unversitycontrydropdownid = this.countryId;
       // this.checkquizquestionmodule();
+      // this.getCertificates()
       this.checkplanExpire();
       this.getFilterUniversityList(this.unversitycontrydropdownid)
-      // this.getCertificates()
       this.preAdmissionCountryListId(this.preaddimissioncontrydropdownid);
       this.postAdmissionCountryListId(this.postadmiisioncontrydropdownid);
       this.lifeAtCountryListId(this.lifeatcontrydropdownid);
@@ -75,9 +75,9 @@ export class QuizmenuComponent implements OnInit {
     this.countryDropdown();
     this.skillMastery();
   }
-  countryDropdown(){
-    this.moduleListService.countryList().subscribe((countryList:any) => {
-      this.countrydropdownlist=countryList
+  countryDropdown() {
+    this.moduleListService.countryList().subscribe((countryList: any) => {
+      this.countrydropdownlist = countryList
     });
   }
   // getCertificates(){
@@ -117,13 +117,13 @@ export class QuizmenuComponent implements OnInit {
   //   })
   // }
 
-  startModululeSkillmastery(){
+  startModululeSkillmastery() {
     this.currentModuleSlug = "skill-mastery"
     this.router.navigate([`/pages/modules/${this.currentModuleSlug}/quiz`]);
   }
   getFilterUniversityList(value: any) {
-    var data={
-      country_id:value
+    var data = {
+      country_id: value
     }
     this.moduleListService.getUniversity(data).subscribe((response) => {
       this.filterUniversityList = response;
@@ -136,7 +136,7 @@ export class QuizmenuComponent implements OnInit {
   //   }
   //   this.moduleListService.getQuizCompletion(data).subscribe((res) => {
   //     this.quizpercentagedata = res.modules.filter((obj: any) => obj.module_name !== "Travel And Tourism")
-      
+
   //   })
   // }
   startQuizUniversity() {
@@ -144,8 +144,8 @@ export class QuizmenuComponent implements OnInit {
     //   this.restrict=true;
     //   return;
     // }
-    localStorage.setItem("modalcountryid",this.unversitycontrydropdownid)
-    this.currentModuleSlug="university"
+    localStorage.setItem("modalcountryid", this.unversitycontrydropdownid)
+    this.currentModuleSlug = "university"
     this.router.navigate([`/pages/modules/${this.currentModuleSlug}/quiz`]);
   }
   checkplanExpire(): void {
@@ -153,7 +153,7 @@ export class QuizmenuComponent implements OnInit {
       let data = res.time_left;
       let subscription_exists_status = res.subscription_details;
       if (data.plan === "expired" || data.plan === 'subscription_expired') {
-        this.planExpired = true;   
+        this.planExpired = true;
       } else {
         this.planExpired = false;
       }
@@ -179,7 +179,7 @@ export class QuizmenuComponent implements OnInit {
   //     this.arrow=true;
   //   }
   // }
-  startModulule(eve:any){
+  startModulule(eve: any) {
     this.startQuiz(eve)
   }
   startQuiz(moduleid: any) {
@@ -189,22 +189,22 @@ export class QuizmenuComponent implements OnInit {
     // }
     if (moduleid == 1) {
       this.currentModuleSlug = "pre-admission"
-      localStorage.setItem("modalcountryid",this.preaddimissioncontrydropdownid)
+      localStorage.setItem("modalcountryid", this.preaddimissioncontrydropdownid)
     } else if (moduleid == 3) {
       this.currentModuleSlug = "post-admission"
-      localStorage.setItem("modalcountryid",this.postadmiisioncontrydropdownid)
+      localStorage.setItem("modalcountryid", this.postadmiisioncontrydropdownid)
     } else if (moduleid == 4) {
       this.currentModuleSlug = "career-hub"
-      localStorage.setItem("modalcountryid",this.lifeatcontrydropdownid)
+      localStorage.setItem("modalcountryid", this.lifeatcontrydropdownid)
     } else if (moduleid == 6) {
       this.currentModuleSlug = "life-at-country"
-      localStorage.setItem("modalcountryid",this.careerhubcontrydropdownid)
+      localStorage.setItem("modalcountryid", this.careerhubcontrydropdownid)
     }
     this.router.navigate([`/pages/modules/${this.currentModuleSlug}/quiz`]);
   }
-  downloadCertificate(link:any){
-    if(this.planExpired){
-      this.restrict=true;
+  downloadCertificate(link: any) {
+    if (this.planExpired) {
+      this.restrict = true;
       return;
     }
     window.open(link, '_blank');
@@ -214,131 +214,131 @@ export class QuizmenuComponent implements OnInit {
       this.subjectlistdropdown = response.data;
     });
   }
-  specializationList(){
-    this.specializationlist=[];
-   var data={
-    // category_flag:1,
-    category_id:this.subjectid
-   }
-   localStorage.setItem("learningsubjectidforquiz",this.subjectid);
-   this.moduleListService.getSpecializationLists(data).subscribe((response) => {
-    this.specializationlist = response.data;
-  });
+  specializationList() {
+    this.specializationlist = [];
+    var data = {
+      // category_flag:1,
+      category_id: this.subjectid
+    }
+    localStorage.setItem("learningsubjectidforquiz", this.subjectid);
+    this.moduleListService.getSpecializationLists(data).subscribe((response) => {
+      this.specializationlist = response.data;
+    });
   }
-  quizpercentage:number=0
-  specializationdata(){
-    var data={
-      moduleid:8,
+  quizpercentage: number = 0
+  specializationdata() {
+    var data = {
+      moduleid: 8,
       countryid: 0,
-      submoduleid:this.specializationid,
+      submoduleid: this.specializationid,
     }
     this.moduleListService.checkModuleQuizCompletion(data).subscribe((res) => {
-      this.quizpercentage=res.progress
+      this.quizpercentage = res.progress
     })
     if (this.specializationid != null) {
-      localStorage.setItem("learninghubsubmoduleid",this.specializationid);
-      this.learningHubQuiz=false;
-    }else{
-      this.learningHubQuiz=true;
+      localStorage.setItem("learninghubsubmoduleid", this.specializationid);
+      this.learningHubQuiz = false;
+    } else {
+      this.learningHubQuiz = true;
     }
   }
-  StartLearningHubQuiz(){
-    this.currentModuleSlug="learning-hub"
+  StartLearningHubQuiz() {
+    this.currentModuleSlug = "learning-hub"
     this.router.navigate([`/pages/modules/${this.currentModuleSlug}/learninghubquiz`]);
   }
   getLaguageList() {
-    this.languagedropdownlist=[];
+    this.languagedropdownlist = [];
     this.moduleListService.getLanguageist().subscribe((response) => {
       this.languagedropdownlist = response.data;
     });
   }
   getLaguageListType() {
-    this.languagedropdownlisttype=[];
-    var data={
-      languageid:this.laguageid
+    this.languagedropdownlisttype = [];
+    var data = {
+      languageid: this.laguageid
     }
     this.moduleListService.getLanguageistType(data).subscribe((response) => {
       this.languagedropdownlisttype = response.data;
     });
   }
-  languageselectdrpodown:number=0;
-  languageselecttypedrpodown:number=0;
-  quizlanguguageprogress:number=0
-  languageListId(){
-    localStorage.setItem("languageidforquiz",this.laguageid)
-    this.languageselectdrpodown=1;
+  languageselectdrpodown: number = 0;
+  languageselecttypedrpodown: number = 0;
+  quizlanguguageprogress: number = 0
+  languageListId() {
+    localStorage.setItem("languageidforquiz", this.laguageid)
+    this.languageselectdrpodown = 1;
     this.getLaguageListType()
   }
-  languagrTypeId(){
-    localStorage.setItem("languagetypeidforquiz",this.laguagetypeid)
-    this.languageselecttypedrpodown=1;
-    if(this.languageselectdrpodown==this.languageselecttypedrpodown){
-   
-      var data={
-        moduleid:9,
+  languagrTypeId() {
+    localStorage.setItem("languagetypeidforquiz", this.laguagetypeid)
+    this.languageselecttypedrpodown = 1;
+    if (this.languageselectdrpodown == this.languageselecttypedrpodown) {
+
+      var data = {
+        moduleid: 9,
         languageId: this.laguageid,
-        languagetype:this.laguagetypeid,
+        languagetype: this.laguagetypeid,
       }
       this.moduleListService.checklanguageQuizCompletion(data).subscribe((res) => {
-        this.quizlanguguageprogress=res.progress
-        if(this.quizlanguguageprogress<=89){
-          this.languageHubQuiz=false;
+        this.quizlanguguageprogress = res.progress
+        if (this.quizlanguguageprogress <= 89) {
+          this.languageHubQuiz = false;
         }
       })
-    }else{
-      this.languageHubQuiz=true;
+    } else {
+      this.languageHubQuiz = true;
     }
   }
-  StartLanguageHubQuiz(){
-    this.currentModuleSlug="language-hub"
+  StartLanguageHubQuiz() {
+    this.currentModuleSlug = "language-hub"
     this.router.navigate([`/pages/modules/${this.currentModuleSlug}/languagehubquiz`]);
   }
-  preadmissionpercentage:number=0;
-  postadmissionpercentage:number=0;
-  lifeatcountrypercentage:number=0;
-  careerhubpercentage:number=0;
-  preAdmissionCountryListId(event:any){
+  preadmissionpercentage: number = 0;
+  postadmissionpercentage: number = 0;
+  lifeatcountrypercentage: number = 0;
+  careerhubpercentage: number = 0;
+  preAdmissionCountryListId(event: any) {
     this.checkplanExpire();
-    var data={
-      moduleid:1,
+    var data = {
+      moduleid: 1,
       countryid: this.preaddimissioncontrydropdownid,
     }
     this.moduleListService.checkModuleQuizCompletion(data).subscribe((res) => {
-      this.preadmissionpercentage=res.progress
+      this.preadmissionpercentage = res.progress
       console.log(this.preadmissionpercentage);
-      
+
     })
   }
-  postAdmissionCountryListId(event:any){
+  postAdmissionCountryListId(event: any) {
     this.checkplanExpire();
-    var data={
-      moduleid:3,
+    var data = {
+      moduleid: 3,
       countryid: this.postadmiisioncontrydropdownid,
     }
     this.moduleListService.checkModuleQuizCompletion(data).subscribe((res) => {
-      this.postadmissionpercentage=res.progress
+      this.postadmissionpercentage = res.progress
       console.log(this.postadmissionpercentage);
     })
   }
-  lifeAtCountryListId(event:any){
+  lifeAtCountryListId(event: any) {
     this.checkplanExpire();
-    var data={
-      moduleid:6,
+    var data = {
+      moduleid: 6,
       countryid: this.lifeatcontrydropdownid,
     }
     this.moduleListService.checkModuleQuizCompletion(data).subscribe((res) => {
-      this.lifeatcountrypercentage=res.progress
+      this.lifeatcountrypercentage = res.progress
       console.log(this.lifeatcountrypercentage);
     })
   }
-  careerHubCountryListId(event:any){
-       this.checkplanExpire();
-    var data={
-      moduleid:4,
+  careerHubCountryListId(event: any) {
+    this.checkplanExpire();
+    var data = {
+      moduleid: 4,
       countryid: this.careerhubcontrydropdownid,
     }
     this.moduleListService.checkModuleQuizCompletion(data).subscribe((res) => {
-      this.careerhubpercentage=res.progress
+      this.careerhubpercentage = res.progress
       console.log(this.careerhubpercentage);
     })
   }
@@ -347,54 +347,54 @@ export class QuizmenuComponent implements OnInit {
   //   this.countryName=countryname.country
   //   this.countryId=this.contrydropdownid
   //   // this.checkquizquestionmodule();
- 
+
   //   this.getFilterUniversityList(this.countryId)
   //   // this.getCertificates()
   // }
-  skillMastery(){
-    this.skillsmasteryList=[];
-    var data={
-     // category_flag:1,
-     country_id:0,
-     module_id :10
+  skillMastery() {
+    this.skillsmasteryList = [];
+    var data = {
+      // category_flag:1,
+      country_id: 0,
+      module_id: 10
     }
     this.moduleListService.getSkillMasteryLists(data).subscribe((response) => {
-     this.skillsmasteryList = response;
-   });
-   }
-   skillmasteryquizpercentage:number=0
-   skillMasteryButtonVisible(eve:any){
-    var data={
-      moduleid:10,
+      this.skillsmasteryList = response;
+    });
+  }
+  skillmasteryquizpercentage: number = 0
+  skillMasteryButtonVisible(eve: any) {
+    var data = {
+      moduleid: 10,
       countryid: 0,
-      submoduleid:eve.value,
+      submoduleid: eve.value,
     }
     this.moduleListService.checkModuleQuizCompletion(data).subscribe((res) => {
-      this.skillmasteryquizpercentage=res.progress
+      this.skillmasteryquizpercentage = res.progress
     })
     if (this.skillsmasteryId != null) {
       this.skillunivertybutton = false;
-      localStorage.setItem('skillmasteryquizsubmoduleid',eve.value)  
+      localStorage.setItem('skillmasteryquizsubmoduleid', eve.value)
     } else {
       this.skillunivertybutton = true;
     }
-   }
-   universityidcheck:[]=[]
-   universityquizpercentagecompletion:number=0;
-   universityButtonVisible() {
-    var data={
-      moduleid:5,
+  }
+  universityidcheck: [] = []
+  universityquizpercentagecompletion: number = 0;
+  universityButtonVisible() {
+    var data = {
+      moduleid: 5,
       countryid: this.unversitycontrydropdownid,
-      submoduleid:this.universityId,
+      submoduleid: this.universityId,
     }
     this.moduleListService.checkModuleQuizCompletion(data).subscribe((res) => {
-      this.universityquizpercentagecompletion=res.progress;
-      if (this.universityquizpercentagecompletion <=89) {
-         this.universityquizbutton = false;
-         localStorage.setItem('universityidforquiz', this.universityId)
-       } else {
-         this.universityquizbutton = true;
-       }
+      this.universityquizpercentagecompletion = res.progress;
+      if (this.universityquizpercentagecompletion <= 89) {
+        this.universityquizbutton = false;
+        localStorage.setItem('universityidforquiz', this.universityId)
+      } else {
+        this.universityquizbutton = true;
+      }
     })
-   }
+  }
 }
