@@ -1,12 +1,12 @@
-import {NgModule} from '@angular/core';
-import {CommonModule} from '@angular/common';
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
 
-import {AccordionModule} from "primeng/accordion";
+import { AccordionModule } from "primeng/accordion";
 import { SuccessStoriesComponent } from './success-stories.component';
 import { SuccessStoryRoutingModule } from './succes-stories-routing.module';
 import { TooltipModule } from 'primeng/tooltip';
 import { CardModule } from 'primeng/card';
-import { SafePipe } from '@pipes/safe.pipe';
+
 
 @NgModule({
     declarations: [
@@ -17,8 +17,8 @@ import { SafePipe } from '@pipes/safe.pipe';
         SuccessStoryRoutingModule,
         AccordionModule,
         TooltipModule,
-        CardModule, 
+        CardModule,
     ]
 })
-export class TutorialsModule {
+export class SuccessStoriesModule {
 }
