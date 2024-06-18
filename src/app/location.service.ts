@@ -106,9 +106,9 @@ export class LocationService {
             headers: headers,
         });
     }
-    getBlogs() {
+    getBlogs(data:any) {
         const headers = new HttpHeaders().set("Accept", "application/json");
-        return this.http.get<any>(environment.ApiUrl + "/blogs", {
+        return this.http.post<any>(environment.ApiUrl + "/blogs", data, {
             headers: headers,
         });
     }

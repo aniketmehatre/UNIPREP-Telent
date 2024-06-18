@@ -7,12 +7,33 @@ import {LocationService} from "../../location.service";
 })
 export class BloglistComponent implements OnInit {
   blogs: any;
+  page: number = 1;
+  perpage: number = 20;
+  total: number = 0;
 
   constructor( private service: LocationService) { }
 
   ngOnInit(): void {
-    this.service.getBlogs().subscribe((response) => {
-      this.blogs = response;
+    let data = {
+      page : this.page,
+      perpage: this.perpage,
+    }
+    this.service.getBlogs(data).subscribe((response) => {
+      // console.log(response.blogs);
+      this.blogs = response.blogs;
+      this.total = response.total;
+    });
+  }
+
+  paginate(event:any){
+    let data = {
+      page : event.page + 1,
+      perpage: event.rows,
+    }
+    this.service.getBlogs(data).subscribe((response) => {
+      // console.log(response.blogs);
+      this.blogs = response.blogs;
+      this.total = response.total;
     });
   }
 

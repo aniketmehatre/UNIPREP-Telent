@@ -127,7 +127,7 @@ export class SidenavComponent {
     {
       title: "Skill Mastery",
       url: "/pages/modules/skill-mastery",
-      image: "fa-solid fa-road-circle-check",
+      image: "fa-solid fa-swatchbook",
     },
     {
       title: "Career Planner",
