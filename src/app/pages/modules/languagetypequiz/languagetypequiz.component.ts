@@ -184,7 +184,7 @@ export class LanguagetypequizComponent implements OnInit {
     //   header: 'Confirmation',
     //   icon: 'fa-solid fa-circle-exclamation',
     // });
-    this.router.navigate([`/pages/modules/${this.currentModuleSlug}`]);
+    this.router.navigate(["/pages/language-hub/languages"]);
   }
 
   clickPreviousQuiz(carouselQuiz: any, event: any) {
@@ -258,7 +258,7 @@ export class LanguagetypequizComponent implements OnInit {
   certificatesurl: any = ""
   clickSubmitQuiz() {
     this.quizData = this.quizData.map((data: any) => {
-      const { submodule_id, source_faqquestion, otp1, otp2, otp3, otp4, module_id, country_id, user_answered, user_answered_value, ...rest } = data;
+      const {languagetype,language_id, submodule_id, source_faqquestion, otp1, otp2, otp3, otp4, module_id, country_id, user_answered, user_answered_value, ...rest } = data;
       return rest;
     });
     this.stopTimer();

@@ -129,6 +129,10 @@ const routes: Routes = [
                 loadChildren: () => import('./events/event.module').then(m => m.EventsModule)
             },
             {
+                path: 'success-stories',
+                loadChildren: () => import('./success-stories/success-stories.module').then(m => m.SuccessStoriesModule)
+            },
+            {
                 path: 'tutorials',
                 loadChildren: () => import('./tutorials/tutorials.module').then(m => m.TutorialsModule)
             },

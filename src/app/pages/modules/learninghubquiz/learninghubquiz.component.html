@@ -19,7 +19,6 @@
                     <li>Restart - will display new set of questions.</li>
                     <li>You will get a certificate for completing all the quiz modules.</li>
                     <li>Buffer? To qualify for the quiz you need to get 90% correct.</li>
-                    <li>There is no time limit.</li>
                 </ul>
             </div>
         </div>
@@ -174,7 +173,7 @@
         </div>
     </div>
 </div>
-<div class="card readingcard" *ngIf="isQuizSubmit" style="background-color: #fff;">
+<div class="card readingcard" *ngIf="isQuizSubmit" style="background-color: #fff;border-radius: 15px 15px  0px 0px !important;">
     <div class="card-body text-center pt-0 h-100">
         <div class="row justify-content-center align-items-center">
             <div class="col-md-2">
@@ -230,20 +229,19 @@
             </div>
         </div>
     </div>
-    <div class="card-footer" style="background-color: #fff;">
-        <div class="row align-items-center">
-            <div class="col-md-10">
-                <div class="w-100 px-3 quizprogress">
-                    <span class="font-secondarycolor fw-semibold">Progress: {{totalPercentage| number : '1.0-0'}}% Completed</span>
-                    <p-progressBar [value]="totalPercentage"></p-progressBar>
-                </div>
+</div>
+<div *ngIf="isQuizSubmit" class="card" style="background-color: #fff;padding: 20px;border-radius: 0px 0px 15px 15px !important;">
+    <div class="row align-items-center">
+        <div class="col-md-10">
+            <div class="w-100 px-3 quizprogress">
+                <span class="font-secondarycolor fw-semibold">Progress: {{totalPercentage| number : '1.0-0'}}% Completed</span>
+                <p-progressBar [value]="totalPercentage"></p-progressBar>
             </div>
-            <div class="col-md-2 text-end">
-            </div>
+        </div>
+        <div class="col-md-2 text-end">
         </div>
     </div>
 </div>
-
 <div class="card readingcard" *ngIf="isReviewVisible">
     <div class="card-body text-center pt-0 h-100">
         <div class="row justify-content-center align-items-center">

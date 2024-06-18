@@ -112,7 +112,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
       this.getModuleList();
     });
     this.dataService.castValue.subscribe((data) => {
-      console.log("newuser", data)
       if (data === true) {
         this.checkNewUSerLogin();
       } else {
@@ -353,7 +352,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
     this.subs.sink = this.service.getMe().subscribe((data) => {
       if (data) {
-        console.log("userdetails", data)
         //localStorage.setItem('countryId', data.userdetails[0].interested_country_id);
         this.userName = data.userdetails[0].name.toString();
         this.firstChar = this.userName.charAt(0);

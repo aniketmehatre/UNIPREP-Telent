@@ -7,6 +7,10 @@ import {MenuItem, MessageService} from 'primeng/api';
 import {ActivatedRoute, Router} from '@angular/router';
 import {DeviceDetectorService} from "ngx-device-detector";
 import {AuthService} from "../../../Auth/auth.service";
+import { PageFacadeService } from '../../page-facade.service';
+import {ModuleServiceService} from "../../module-store/module-service.service";
+import {Observable} from "rxjs";
+import {ReadQuestion} from "../../../@Models/read-question.model";
 
 @Component({
     selector: 'uni-question-list',
@@ -558,11 +562,13 @@ export class QuestionListComponent implements OnInit {
     perpage: number = 25
     planExpired: boolean = false;
     restrict: boolean = false;
+    readQue$!: Observable<ReadQuestion[]>;
 
     constructor(private languageHubService: LanguageHubService, private lhs: LanguageHubDataService,
                 private location: Location, private route: ActivatedRoute, private toast: MessageService,
                 private deviceService: DeviceDetectorService, private authService: AuthService,
-                private router: Router) {
+                private router: Router, private pageFacade: PageFacadeService,
+                private moduleListService: ModuleServiceService,) {
         this.lhs.data$.subscribe((data) => {
             this.selectedLanguageId = data
         })
@@ -607,7 +613,7 @@ export class QuestionListComponent implements OnInit {
             'splitSentences': true,
             'listeners': {
                 'onvoiceschanged': (voices: any) => {
-                    // console.log("Event voiceschanged", voices)
+                    // console.log("Event voiceschanged", voices
                 }
             }
         }).then((data: any) => {
@@ -681,6 +687,7 @@ export class QuestionListComponent implements OnInit {
             this.restrict = true;
             return;
         }
+        this.readQuestion(data);
         this.isQuestionAnswerVisible = true
         this.oneQuestionContent = data;
     }
@@ -720,10 +727,7 @@ export class QuestionListComponent implements OnInit {
 
 
     voiceOverNative(voiceData: any, fullData: any) {
-
         var voiceName = '';
-        console.log(this.selectedLanguageCode)
-        console.log(this.langName)
         const speech = new Speech()
         speech.init({
             'volume': 1,
@@ -788,4 +792,19 @@ export class QuestionListComponent implements OnInit {
         this.restrict = false;
     }
 
+    openVideoPopup(videoLink: string) {
+        this.pageFacade.openHowitWorksVideoPopup(videoLink);
+    }
+
+    readQuestion(data: any) {
+        let req = {
+            countryId: 0,
+            questionId: data.id,
+            moduleId: 9,
+            submoduleId: data.submodule_id
+        }
+        this.moduleListService.readQuestion(req);
+        this.readQue$ = this.moduleListService.readQuestionMessage$();
+        this.init();
+    }
 }

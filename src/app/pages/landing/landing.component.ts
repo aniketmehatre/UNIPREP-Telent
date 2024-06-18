@@ -78,7 +78,6 @@ export class LandingComponent implements OnInit {
     // });
 
     this.service.getFeatBlogs().subscribe((response) => {
-        console.log(response);
         this.blogs = response;
       }); 
 

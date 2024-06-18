@@ -306,17 +306,22 @@
 	align-items: center;
 }
 .answercard {
-	background-color: transparent;
-	border: none;
-	// max-height: 50vh;
+	background-color: var(--uniprep-primaryop10);
+	border: 2px solid var(--uniprep-primary);
 	overflow-y: auto;
-	.readingheight
-	{
-	  max-height:40vh;
-	  overflow-y:auto;
-	  min-height: 35vh;
-	}
-  }
+}
+//.answercard {
+//	background-color: transparent;
+//	border: none;
+//	// max-height: 50vh;
+//	overflow-y: auto;
+//	.readingheight
+//	{
+//	  max-height:40vh;
+//	  overflow-y:auto;
+//	  min-height: 35vh;
+//	}
+//  }
 
   .cardnobg
   {
@@ -324,9 +329,34 @@
     border: none;
   }
 
-:host ::ng-deep .p-carousel-item {
-	max-height: 600px;
-	min-height: 600px;
-	height: 600px;
-	overflow-y: auto !important;
+//:host ::ng-deep .p-carousel-item {
+//	//max-height: 600px;
+//	//min-height: 600px;
+//	height: auto !important;
+//	overflow-y: auto !important;
+//}
+//::ng-deep .answersection .p-carousel-content ng-star-inserted p-carousel-item p-carousel-item-active p-carousel-item-start {
+//	height: auto !important;
+//}
+
+.heightauto{
+	height: auto !important;
+}
+#pr_id_14 .p-carousel-item {
+	flex: 1 0 auto !important; /* Allow items to grow and shrink, and their base size is determined by the content */
+	height: auto;   /* Ensure height adjusts based on content */
+	display: flex;  /* Use flexbox to allow for flexible layout */
+	flex-direction: column; /* Stack items vertically */
+}
+::ng-deep .p-carousel-content {
+	display: flex;
+	flex-direction: column;
+	align-items: stretch;
+	height: auto !important; /* Ensure the carousel container can grow based on its content */
+}
+
+::ng-deep .p-carousel-item {
+	height: auto !important; /* Ensure each carousel item has auto height */
+	display: flex;
+	flex-direction: column;
 }

@@ -54,7 +54,7 @@ export class ListSubModulesComponent implements OnInit {
   countryId: any;
   canShowQuestionList: boolean = false;
   howItWorksVideoLink: string = "";
-
+  quizmoduleselectcountryidsetzero:any=0;
   constructor(private moduleListService: ModuleServiceService, private router: Router, private dataService: DataService, private authService: AuthService,
     private locationService: LocationService, private route: ActivatedRoute, private ngxService: NgxUiLoaderService,
     private confirmationService: ConfirmationService, private pageFacade: PageFacadeService) {
@@ -89,9 +89,9 @@ export class ListSubModulesComponent implements OnInit {
   }
   loopRange = Array.from({ length: 30 }).fill(0).map((_, index) => index);
   ngOnInit() {
+    localStorage.setItem("modalcountryid",this.quizmoduleselectcountryidsetzero);
     this.init();
   }
-
   init() {
     this.currentCountryId = Number(localStorage.getItem('countryId'));
     this.currentModuleSlug = this.router.url.split('/').pop();
@@ -108,7 +108,7 @@ export class ListSubModulesComponent implements OnInit {
           this.upgradePlanMsg = 'Upgrade your plan now to gain instant access.';
         this.aboutModule = 'Explore a vast database of Q&A about:',
           this.moduleDetails = 'Scholarships, document checklist, Education loan, letter of Recommendation and many more!'
-        this.howItWorksVideoLink = "https://www.youtube.com/embed/KUYo58tlZ_o?si=flhjt5olW44nprRA";
+        this.howItWorksVideoLink = "https://www.youtube.com/embed/um38R1IY2Qk?si=tMCDgFTaeq4mDCYo";
         break;
       case 'travel-and-tourism':
         this.currentModuleId = 7;
@@ -119,7 +119,7 @@ export class ListSubModulesComponent implements OnInit {
           this.upgradePlanMsg = 'Upgrade your plan now to gain instant access.';
         this.aboutModule = 'Explore a vast database of Q&A about:',
           this.moduleDetails = 'Visa, departure, healthcare, tuition fees and many more!'
-        this.howItWorksVideoLink = "https://www.youtube.com/embed/wKSGANfejt4?si=NCfkhPqebe_eJX1p";
+        this.howItWorksVideoLink = "https://www.youtube.com/embed/s35R5o7cOOU?si=DvR3LyQ1C8uRaAN3";
         break;
       case 'post-admission':
         this.currentModuleId = 3;
@@ -130,7 +130,7 @@ export class ListSubModulesComponent implements OnInit {
           this.upgradePlanMsg = 'Upgrade your plan now to gain instant access.';
         this.aboutModule = 'Post-admission offers information about:',
           this.moduleDetails = ' Arrival, student discounts, banking, full time jobs, post study work and many more!'
-        this.howItWorksVideoLink = "https://www.youtube.com/embed/N_RrppY_6TI?si=O6SIceD5sKs5XoMO";
+        this.howItWorksVideoLink = "https://www.youtube.com/embed/SqyflSNu6_o?si=fs1ISjcx7qlxVvI-";
         break;
       case 'career-hub':
         this.currentModuleId = 4;
@@ -141,14 +141,14 @@ export class ListSubModulesComponent implements OnInit {
           this.upgradePlanMsg = 'Upgrade your plan now to gain instant access.';
         this.aboutModule = 'Explore a vast database of Q&A about:',
           this.moduleDetails = ' Arrival, student discounts, banking, full time jobs, post study work and many more!'
-        this.howItWorksVideoLink = "https://www.youtube.com/embed/wKSGANfejt4?si=NCfkhPqebe_eJX1p";
+        this.howItWorksVideoLink = "https://www.youtube.com/embed/lJ_KfBPeGuk?si=edgaP5ovw52HCBBR";
         break;
       case 'university':
         this.currentModuleId = 5;
         this.currentModuleName = 'University';
         this.currentApiSlug = 'SubmoduleListForStudents';
         this.selectedModule = 'university'
-        this.howItWorksVideoLink = "https://www.youtube.com/embed/wDwFCww7qQ4?si=VLh8jZxs6xidQ-AM";
+        this.howItWorksVideoLink = "https://www.youtube.com/embed/Bsg1CTnVmYc?si=cWYQIexHAoeXvsyR";
         break;
       case 'skill-mastery':
         this.currentModuleId = 10;
@@ -170,7 +170,7 @@ export class ListSubModulesComponent implements OnInit {
           this.upgradePlanMsg = 'Upgrade your plan now to gain instant access.';
         this.aboutModule = 'Explore a vast database of Q&A about:',
           this.moduleDetails = 'Scholarships, document checklist, Education loan, letter of Recommendation and many more!'
-        this.howItWorksVideoLink = "https://www.youtube.com/embed/McVKK5wwqEM?si=EbGjR-CRBFZpQxkx";
+        this.howItWorksVideoLink = "https://www.youtube.com/embed/n9ECpsB6IoI?si=4coiypva6WZfr3NL";
         break;
       default:
         this.currentModuleId = 6;
@@ -182,7 +182,7 @@ export class ListSubModulesComponent implements OnInit {
         this.aboutModule = 'Explore a vast database of Q&A about:',
           this.moduleDetails = 'Festivals, events, currency, budget, housing and many more!',
           this.selectedModule = 'life-at-country'
-        this.howItWorksVideoLink = "https://www.youtube.com/embed/McVKK5wwqEM?si=EbGjR-CRBFZpQxkx";
+        this.howItWorksVideoLink = "https://www.youtube.com/embed/-rixFswQsX8?si=hvUj9CVFF7svnEcx";
         break;
 
     }

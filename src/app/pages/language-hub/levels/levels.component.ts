@@ -4,6 +4,7 @@ import {Router} from "@angular/router";
 import {environment} from "@env/environment.prod";
 import {LanguageHubDataService} from "../language-hub-data.service";
 import {Location} from "@angular/common";
+import { PageFacadeService } from '../../page-facade.service';
 
 @Component({
     selector: 'uni-levels',
@@ -17,7 +18,7 @@ export class LevelsComponent implements OnInit {
     selectedLanguageId: any
 
     constructor(private languageHubService: LanguageHubService, private lhs:LanguageHubDataService, private router: Router,
-                private location: Location) {
+                private location: Location, private pageFacade:PageFacadeService) {
         this.lhs.data$.subscribe((data) => {
             this.selectedLanguageId = data
         })
@@ -42,4 +43,7 @@ export class LevelsComponent implements OnInit {
         this.router.navigate([`/pages/language-hub/category`]);
     }
 
+    openVideoPopup(videoLink: string) {
+        this.pageFacade.openHowitWorksVideoPopup(videoLink);
+    }
 }
