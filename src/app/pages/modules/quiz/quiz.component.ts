@@ -57,6 +57,7 @@ export class QuizComponent implements OnInit {
   timerSubscription: Subscription | null = null;
   restrict: boolean = false;
   selectedQuizArrayForTimer: any[] = [];
+  totalquiztime:any=0;
   constructor(private moduleListService: ModuleServiceService, private router: Router, private dataService: DataService,
     private locationService: LocationService, private ngxService: NgxUiLoaderService, private toast: MessageService,) { }
 
@@ -441,6 +442,7 @@ export class QuizComponent implements OnInit {
   }
   startTimer(): void {
     this.timer = 0;
+    this.totalquiztime=this.quizcount*60;
     if (this.timerSubscription) {
       this.timerSubscription.unsubscribe();
     }
