@@ -92,6 +92,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   timeLeftInfo: any;
   freeTrialErrorMsg: string = '';
   demoTrial: boolean = false;
+  demoDays: any;
   reportlearnlanguagetype:number=0;
   countryList: any;
   locationList: any;
@@ -355,9 +356,14 @@ export class HeaderComponent implements OnInit, OnDestroy {
         //localStorage.setItem('countryId', data.userdetails[0].interested_country_id);
         this.userName = data.userdetails[0].name.toString();
         this.firstChar = this.userName.charAt(0);
-        if (data.userdetails[0].login_status == "Demo") {
+        
+        if(data.userdetails[0].login_status.includes('Demo') == true) {
           this.demoTrial = true;
+          this.demoDays =  data.userdetails[0].login_status.replace('Demo-', '') ;
         }
+        /*if (data.userdetails[0].login_status == "Demo") {
+          this.demoTrial = true;
+        } */
       }
     });
 
