@@ -9,10 +9,9 @@
 }
 #socialSharingList {
 	display: none;
-	position: absolute;
-	right: 11rem;
-	top:11rem;
-	z-index: 999;
+    position: absolute;
+    top: 3rem;
+    right: 0;
   }
   
   ::ng-deep .p-card-body {
@@ -20,18 +19,19 @@
   }
   
   ::ng-deep .p-card-content {
-	padding: 0px;
+	padding: 0px !important;
   }
   
   #socialSharingList ul {
-	padding: 10px !important;
+	padding: 0px !important;
 	margin-bottom: 0;
   }
   
   #socialSharingList ul li {
 	display: flex;
 	align-items: center;
-	margin-bottom: 5px;
+	margin-bottom: 8px;
+	font-size: 1.2rem;
   }
   
   #socialSharingList ul li i {
