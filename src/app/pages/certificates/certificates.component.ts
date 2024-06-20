@@ -55,7 +55,9 @@ export class CertificatesComponent implements OnInit {
     let url=link
     this.meta.updateTag({ property:'og:url', content:url});
     const shareUrl = `whatsapp://send?text=${encodeURIComponent(url)}`;
-    window.open(shareUrl, '_blank');
+    // window.open(shareUrl, '_blank');
+    console.log(shareUrl);
+    
   }
   shareViaInstagram(link:any){
     let url=link
