@@ -880,8 +880,10 @@ export class QuestionListComponent implements OnInit {
     socialShare.style.display = "none";
   }
   startQuiz() {
-    console.log(this.currentModuleId);
-    console.log(Number(this.subModuleId));
+    if(this.planExpired){
+      this.restrict=true;
+      return;
+    }
     localStorage.setItem("learninghubsubmoduleid", this.subModuleId);
     localStorage.setItem("skillmasteryquizsubmoduleid",this.subModuleId);
     if(this.currentModuleId==10){
