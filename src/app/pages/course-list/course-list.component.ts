@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { PageFacadeService } from '../page-facade.service';
 import { CourseListService } from './course-list.service';
 import { FormBuilder, FormGroup } from "@angular/forms";
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'uni-course-list',
@@ -18,24 +19,61 @@ export class CourseListComponent implements OnInit {
   filterForm: FormGroup;
   selectAllCheckboxes = false;
   selectedCourses: number = 0;
+  countryList:any = [];
+  locationList:any = [];
+  courseNameList:any = [];
+  subjectNameList:any = [];
+  universityNameList:any = [];
+  monthList:any = [{id:"Jan",name: "January"},{id:"Feb",name: "February"},{id:"Mar",name: "March"},{id:"Apr",name: "April"},{id:"May ",name: "May"},{id:"Jun",name: "June"},{id:"Jul",name: "July"},{id:"Aug",name: "August"},{id:"Sep",name: "September"},{id:"Oct",name: "October"},{id:"Nov",name: "November"},{id:"Dec",name: "December"}];
+  campusList:any = [];
+  guidelinesDiv: boolean = true;
 
-  constructor(private pageFacade: PageFacadeService, private courseList: CourseListService, private fb: FormBuilder,) { 
+  constructor(private pageFacade: PageFacadeService, private courseList: CourseListService, private fb: FormBuilder,private toastr: MessageService) { 
     this.filterForm = this.fb.group({
-
-    })
+      course_name:[''],
+      college_name:[''],
+      country:[''],
+      campus:[''],
+      subject:[''],
+      duration:[''],
+      intake_months:[''],
+      stay_back:[''],
+      world_rank:[''],
+    });
   }
 
   ngOnInit(): void {
     this.getCourseLists();
+    this.getSelectBoxValues();
   }
 
   openVideoPopup(videoLink: string) {
     this.pageFacade.openHowitWorksVideoPopup(videoLink);
   }
   
-  getCourseLists(){
+  getSelectBoxValues(){
+    this.courseList.loadDropdownValues().subscribe(res =>{
+      console.log(res);
+      this.countryList = res.country;
+      this.campusList = res.locations;
+      this.courseNameList = res.course_name;
+      this.subjectNameList = res.subject_name;
+      this.universityNameList = res.university_name;
+    });
+  }
 
+  getCourseLists(){
+    let formValues = this.filterForm.value;
     let data = {
+      course_name: formValues.course_name ? formValues.course_name : "",
+      college_name: formValues.college_name ? formValues.college_name : "",
+      country: formValues.country ? formValues.country : "",
+      campus: formValues.campus ? formValues.campus : "",
+      subject: formValues.subject ? formValues.subject : "",
+      duration: formValues.duration ? formValues.duration : "",
+      intake_months: formValues.intake_months ? formValues.intake_months : "",
+      stay_back: formValues.stay_back ? formValues.stay_back : "",
+      world_rank: formValues.world_rank ? formValues.world_rank : "",
       page: this.page,
       perPage: this.perPage,
     }
@@ -44,6 +82,16 @@ export class CourseListComponent implements OnInit {
       this.courseListData = response.data;
       this.totalCourseCount = response.total_count;
     })
+  }
+  
+  submitFilter(){
+    let formValues = this.filterForm.value;
+    if (!formValues.course_name  && !formValues.college_name  && !formValues.country && !formValues.campus && !formValues.subject && !formValues.duration && !formValues.intake_months && !formValues.stay_back  && !formValues.world_rank ) {
+      this.toastr.add({ severity: 'error', summary: 'Error', detail: 'Please make sure you have some filter!' });
+      return;
+    }
+    this.getCourseLists();
+    this.isFilterVisible = 'none';
   }
 
   pageChange(event: any){
@@ -54,7 +102,7 @@ export class CourseListComponent implements OnInit {
   }
 
   closeGuidelines(){
-
+    this.guidelinesDiv = !this.guidelinesDiv;
   }
 
   buyCredits(){
@@ -70,7 +118,8 @@ export class CourseListComponent implements OnInit {
   }
 
   clearFilter(){
-
+    this.filterForm.reset();
+    this.getCourseLists();
   }
 
   selectAllCheckbox(){
@@ -101,5 +150,12 @@ export class CourseListComponent implements OnInit {
         this.selectAllCheckboxes = true;
       }
     }
+  }
+
+  countryOnchange(){
+    let country = this.filterForm.value.country;
+
+    let campusList:any = this.campusList.filter((item:any)=> item.country_id == country);
+    this.locationList = campusList;
   }
 }

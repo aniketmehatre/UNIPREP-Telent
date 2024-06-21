@@ -8,11 +8,18 @@ import { environment } from "@env/environment";
 export class CourseListService {
 
   constructor(private http: HttpClient) { }
+  headers:any = new HttpHeaders().set("Accept", "application/json");
 
   getListOfCourses(data: any) {
-    const headers = new HttpHeaders().set("Accept", "application/json");
+    // const headers = new HttpHeaders().set("Accept", "application/json");
     return this.http.post<any>(environment.ApiUrl + "/CourseList" ,data,{
-      headers: headers,
+      headers: this.headers,
+    });
+  }
+
+  loadDropdownValues() {
+    return this.http.post<any>(environment.ApiUrl + "/CourseListSelectBox",{
+      headers: this.headers,
     });
   }
 }

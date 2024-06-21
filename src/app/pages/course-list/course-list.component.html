@@ -1,94 +1,96 @@
 <div class="card readingcard bg-white">
-	<div class="card-body d-flex flex-column justify-content-between pt-0">
-		<div class="row justify-content-center">
-			<div class="col-md-3 text-start">
-				<span class="d-flex justify-content-start p-2" style="white-space: nowrap">
-					<input type="checkbox" class="me-0" style="transform: scale(1.5)" [(ngModel)]="selectAllCheckboxes" (click)="selectAllCheckbox()" id="selectAllcheckbox" />
-					<label class="p-2" for="selectAllcheckbox">Select All</label>
-					<span class="p-2">Selected : {{ selectedCourses }}</span>
-				</span>
-			</div>
-			<!-- <div class="col-md-6 text-center">
-				<h5 class="select-title w-100 mb-1" tooltipPosition="top" pTooltip="Course List">COURSE LIST<i class="questiontooltip fa-solid fa-circle-question"></i></h5>
-			</div> -->
-			<div class="col-md-6 text-center">
-				<div class="select-title text-nowrap d-flex justify-content-between align-items-center" style="width: 100%">
-					<div>
-						<h5 class="w-100 mb-1" tooltipPosition="top" pTooltip="Course List">COURSE LIST<i class="questiontooltip fa-solid fa-circle-question"></i></h5>
-					</div>
-					<div>
-						<button class="how-it-works-button" (click)="openVideoPopup('https://www.youtube.com/embed/3-5YyylOgKw?si=5QiGijrze5j370y5')">How it works? <i class="fa-solid fa-play"></i></button>
+	<div [style.display]="guidelinesDiv ? 'block' : 'none'">
+		<div class="card-body d-flex flex-column justify-content-between pt-0" >
+			<div class="row justify-content-center">
+				<div class="col-md-3 text-start">
+					<span class="d-flex justify-content-start p-2" style="white-space: nowrap">
+						<input type="checkbox" class="me-0" style="transform: scale(1.5)" [(ngModel)]="selectAllCheckboxes" (click)="selectAllCheckbox()" id="selectAllcheckbox" />
+						<label class="p-2" for="selectAllcheckbox">Select All</label>
+						<span class="p-2">Selected : {{ selectedCourses }}</span>
+					</span>
+				</div>
+				<!-- <div class="col-md-6 text-center">
+					<h5 class="select-title w-100 mb-1" tooltipPosition="top" pTooltip="Course List">COURSE LIST<i class="questiontooltip fa-solid fa-circle-question"></i></h5>
+				</div> -->
+				<div class="col-md-6 text-center">
+					<div class="select-title text-nowrap d-flex justify-content-between align-items-center" style="width: 100%">
+						<div>
+							<h5 class="w-100 mb-1" tooltipPosition="top" pTooltip="Course List">COURSE LIST<i class="questiontooltip fa-solid fa-circle-question"></i></h5>
+						</div>
+						<div>
+							<button class="how-it-works-button" (click)="openVideoPopup('https://www.youtube.com/embed/broH-JjV-B4?si=xqN69X_Wu9J0mdpu')">How it works? <i class="fa-solid fa-play"></i></button>
+						</div>
 					</div>
 				</div>
-			</div>
-			<div class="col-md-3 text-end" style="white-space: nowrap">
-				<span class="d-flex justify-content-end mt-3 gap-2">
-					<button class="btn btn-primary text-small course-guidelines" (click)="closeGuidelines()" type="button">Course Guidelines</button>
-					<button class="btn btn-primary text-small exportButton" (click)="exportData()" type="button">Export <span class="exportCount">0</span></button>
-				</span>
-				<div class="d-flex w-100 align-items-center justify-content-end mt-3 gap-2">
-					<div class="pe-2">
-						<span class="text-muted text-small"
-							><strong>Total Courses: {{ totalCourseCount }} </strong></span
-						>
+				<div class="col-md-3 text-end" style="white-space: nowrap">
+					<span class="d-flex justify-content-end mt-3 gap-2">
+						<button class="btn btn-primary text-small course-guidelines" (click)="closeGuidelines()" type="button">Course Guidelines</button>
+						<button class="btn btn-primary text-small exportButton" (click)="exportData()" type="button">Export <span class="exportCount">0</span></button>
+					</span>
+					<div class="d-flex w-100 align-items-center justify-content-end mt-3 gap-2">
+						<div class="pe-2">
+							<span class="text-muted text-small"
+								><strong>Total Courses: {{ totalCourseCount }} </strong></span
+							>
+						</div>
+						<button class="btn btn-primary text-small ps-3 pe-3 pt-2 pb-2 br-8 p-1" (click)="filterBy()" type="button">Filter by</button>
+						<button class="btn btn-primary text-small course-guidelines" (click)="buyCredits()" type="button">Buy Credits</button>
 					</div>
-					<button class="btn btn-primary text-small ps-3 pe-3 pt-2 pb-2 br-8 p-1" (click)="filterBy()" type="button">Filter by</button>
-					<button class="btn btn-primary text-small course-guidelines" (click)="buyCredits()" type="button">Buy Credits</button>
 				</div>
 			</div>
 		</div>
-	</div>
-	<div class="container-fluid">
-		<div class="row d-flex justify-content-center text-nowrap">
-			<div class="col-lg-3 col-md-4 col-sm-6 col-xs-6 col-12 col-12 mt-3" *ngFor="let course of courseListData">
-				<div class="card h-100 dataCard">
-					<div class="card-body">
-						<div class="flex-column d-flex justify-content-between h-100">
-							<div class="d-flex flex-fill flex-column justify-content-between">
-								<div class="d-flex flex-fill justify-content-start align-items-center gap-2 mb-2">
-									<input type="checkbox" (change)="onCheckboxChange($event)" class="mt-1 inputselectbox"  [(ngModel)]="course.isChecked" />
-									<div class="courseNameTag flex-fill h-100 d-flex align-items-center">
-										<p class="mb-0 p-3">{{ course.course_name }}</p>
+		<div class="container-fluid">
+			<div class="row d-flex justify-content-center text-nowrap">
+				<div class="col-lg-3 col-md-4 col-sm-6 col-xs-6 col-12 col-12 mt-3" *ngFor="let course of courseListData">
+					<div class="card h-100 dataCard">
+						<div class="card-body">
+							<div class="flex-column d-flex justify-content-between h-100">
+								<div class="d-flex flex-fill flex-column justify-content-between">
+									<div class="d-flex flex-fill justify-content-start align-items-center gap-2 mb-2">
+										<input type="checkbox" (change)="onCheckboxChange($event)" class="mt-1 inputselectbox"  [(ngModel)]="course.isChecked" />
+										<div class="courseNameTag flex-fill h-100 d-flex align-items-center">
+											<p class="mb-0 p-3">{{ course.course_name }}</p>
+										</div>
+									</div>
+									<div class="d-flex justify-content-start gap-3 mb-2">
+										<div class="courseImage" style="background-image: url('https://api.uniprep.ai/uniprepapi/storage/app/public/Pitch-deck-images/Airbnb.webp')"></div>
+										<div class="courseUniversity flex-fill">
+											<a [href]="course.university_url" target="_blank" class="text-decoration-none uniprep-primary">
+												<h5 class="uniprep-primary text-wrap">{{ course.university_name }}</h5>
+											</a>
+											<div class="btn btn-dark w-100 btn-rounded">Shortlist</div>
+										</div>
 									</div>
 								</div>
-								<div class="d-flex justify-content-start gap-3 mb-2">
-									<div class="courseImage" style="background-image: url('https://api.uniprep.ai/uniprepapi/storage/app/public/Pitch-deck-images/Airbnb.webp')"></div>
-									<div class="courseUniversity flex-fill">
-										<a [href]="course.university_url" target="_blank" class="text-decoration-none uniprep-primary">
-											<h5 class="uniprep-primary text-wrap">{{ course.university_name }}</h5>
-										</a>
-										<div class="btn btn-dark w-100 btn-rounded">Shortlist</div>
+	
+								<div class="row text-start">
+									<div [ngClass]="{ 'col-12 mb-1': course.subject_name?.length > 18, 'col-6 mb-1': true }">
+										<p class=" text-wrap"><i class="fa-solid fa-graduation-cap"></i> {{ course.subject_name }}</p>
 									</div>
-								</div>
-							</div>
-
-							<div class="row text-start">
-								<div [ngClass]="{ 'col-12 mb-1': course.subject_name.length > 18, 'col-6 mb-1': true }">
-									<p class=" text-wrap"><i class="fa-solid fa-graduation-cap"></i> {{ course.subject_name }}</p>
-								</div>
-								<div class="col-6 mb-1">
-									<p><i class="fa-regular fa-clock"></i> 1975</p>
-								</div>
-								<div class="col-6 mb-1">
-									<p><i class="fa-solid fa-globe"></i> {{ course.country }}</p>
-								</div>
-								<div class="col-6 mb-1">
-									<p><i class="fa-solid fa-location-crosshairs"></i> {{ course.location_name }}</p>
-								</div>
-								<div class="col-6 mb-1">
-									<p><i class="fa-solid fa-clock"></i> {{ course.duration }}</p>
-								</div>
-								<div class="col-6 mb-1">
-									<p><i class="fa-solid fa-calendar"></i> {{ course.intake_month }}</p>
-								</div>
-								<div class="col-6 mb-1">
-									<p><i class="fa-regular fa-hourglass"></i> {{ course.duration }}</p>
-								</div>
-								<div class="col-6 mb-1">
-									<p><i class="fa-solid fa-chart-simple"></i> 1025</p>
-								</div>
-								<div class="col-6 mb-1">
-									<p><i class="fa-solid fa-stairs"></i> {{ course.study_level }}</p>
+									<div class="col-6 mb-1">
+										<p><i class="fa-regular fa-clock"></i> 1975</p>
+									</div>
+									<div class="col-6 mb-1">
+										<p><i class="fa-solid fa-globe"></i> {{ course.country }}</p>
+									</div>
+									<div class="col-6 mb-1">
+										<p><i class="fa-solid fa-location-crosshairs"></i> {{ course.location_name }}</p>
+									</div>
+									<div class="col-6 mb-1">
+										<p><i class="fa-solid fa-clock"></i> {{ course.duration }}</p>
+									</div>
+									<div class="col-6 mb-1">
+										<p><i class="fa-solid fa-calendar"></i> {{ course.intake_month }}</p>
+									</div>
+									<div class="col-6 mb-1">
+										<p><i class="fa-regular fa-hourglass"></i> {{ course.duration }}</p>
+									</div>
+									<div class="col-6 mb-1">
+										<p><i class="fa-solid fa-chart-simple"></i> 1025</p>
+									</div>
+									<div class="col-6 mb-1">
+										<p><i class="fa-solid fa-stairs"></i> {{ course.study_level }}</p>
+									</div>
 								</div>
 							</div>
 						</div>
@@ -96,28 +98,60 @@
 				</div>
 			</div>
 		</div>
+		<p-paginator *ngIf="totalCourseCount != 0" [rows]="perPage" [totalRecords]="totalCourseCount" (onPageChange)="pageChange($event)" [rowsPerPageOptions]="[50, 100, 300, 500, 1000]"></p-paginator>
 	</div>
-	<p-paginator *ngIf="totalCourseCount != 0" [rows]="perPage" [totalRecords]="totalCourseCount" (onPageChange)="pageChange($event)" [rowsPerPageOptions]="[50, 100, 300, 500, 1000]"></p-paginator>
+	<div class="card overflow-y-auto h-100" [style.display]="!guidelinesDiv ? 'block' : 'none'">
+		<div class="card-body pt-0">
+			<div class="row justify-content-center">
+				<div class="col-md-2 text-start"></div>
+				<div class="col-md-8 text-center">
+					<h5 class="select-title mb-1 text-uppercase" tooltipPosition="top" pTooltip="course guidelines">course guidelines<i class="questiontooltip fa-solid fa-circle-question"></i></h5>
+				</div>
+				<div class="col-md-2 text-end">
+					<button class="btn-rounded btn btn-primary" aria-label="Dismiss alert" type="button" data-close (click)="closeGuidelines()">
+						<span aria-hidden="true">X</span>
+					</button>
+				</div>
+			</div>
+			<div class="card guidelinecard mb-3 mt-2">
+				<div class="card-body">
+					<h5>Do's</h5>
+					<ol class="lh-lg ps-3">
+						<li><strong>Thoroughly Review Course Details:</strong> Carefully review the information provided including university names, URLs, countries, locations, courses, study levels, and fields of study.</li>
+						<li><strong>Research University Reputation:</strong> Conduct additional research on universities listed to ensure they align with your academic and career goals.</li>
+						<li><strong>Visit Course URLs:</strong> Visit provided URLs to gather more information about courses, admission requirements, faculty, and facilities.</li>
+						<li><strong> Consider Study Level and Field of Study: </strong> Choose courses matching your desired study level (e.g., undergraduate, graduate) and field of study for academic interests.</li>
+						<li><strong>Contact Universities for Clarifications:</strong> Reach out to universities directly for clarification or additional information about courses or admission procedures.</li>
+					</ol>
+				</div>
+			</div>
+			<div class="card guidelinecard">
+				<div class="card-body">
+					<h5>Dont's</h5>
+					<ol class="lh-lg ps-3">
+						<li><strong>Mislead or Misuse Data: </strong> Do not mislead or misuse any data obtained from university course lists on UNIPREP, such as using it for inaccurate representations or for purposes unrelated to academic inquiry.
+						</li>
+						<li><strong>Sell Data:</strong> Avoid selling or commercially exploiting any data obtained from the course lists, as this may violate terms of service and ethical guidelines.</li>
+						<li><strong> Apply Without Verification:</strong> Refrain from applying to courses based on incomplete or inaccurate information without verifying details directly from universities.</li>
+						<li><strong>Disregard Ethical Use:</strong> Use all information from course lists ethically and responsibly, respecting privacy and confidentiality agreements.</li>
+						<li><strong> Engage in Unethical Practices: </strong>  Do not engage in unethical practices such as plagiarism or misrepresentation of qualifications when using information from course lists.</li>
+					</ol>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>
 <p-dialog header="Filter Courses" [(visible)]="isFilterVisible" [modal]="true" [style]="{ width: '60rem' }" [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }" [ngStyle]="{ display: isFilterVisible }" class="filterDialog">
 	<div class="m-5">
-		<form role="form" [formGroup]="filterForm" (ngSubmit)="getCourseLists()">
+		<form role="form" [formGroup]="filterForm" (ngSubmit)="submitFilter()">
 			<div class="row">
 				<div class="col-md-12">
 					<div class="row">
 						<div class="col-md-4">
-							<label class="form-label filterField">Filter by Country</label>
+							<label class="form-label filterField">Filter by Course</label>
 							<div class="form-group">
 								<div class="mb-3">
-									<input class="w-100 px-5 py-2" style="height: 45px" type="text" formControlName="company_name" placeholder="Search in Country" pInputText />
-								</div>
-							</div>
-						</div>
-						<div class="col-md-4">
-							<label class="form-label filterField">Filter by Location</label>
-							<div class="form-group">
-								<div class="mb-3">
-									<input class="w-100 px-5 py-2" style="height: 45px" type="text" formControlName="location_name" placeholder="Search in Location" pInputText />
+									<p-dropdown styleClass="w-100" [options]="courseNameList" placeholder="Search in Course" optionLabel="course_name" formControlName="course_name" optionValue="id"></p-dropdown>
 								</div>
 							</div>
 						</div>
@@ -125,7 +159,23 @@
 							<label class="form-label filterField">Filter by University</label>
 							<div class="form-group">
 								<div class="mb-3">
-									<input class="w-100 px-5 py-2" style="height: 45px" type="text" formControlName="university_name" placeholder="Search in University" pInputText />
+									<p-dropdown styleClass="w-100" [options]="universityNameList" placeholder="Search in University" optionLabel="university_name" formControlName="college_name" optionValue="id"></p-dropdown>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-4">
+							<label class="form-label filterField">Filter by Country</label>
+							<div class="form-group">
+								<div class="mb-3">
+									<p-dropdown styleClass="w-100" [options]="countryList" (onChange)="countryOnchange()" placeholder="Search in Country" optionLabel="country" formControlName="country" optionValue="id"></p-dropdown>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-4">
+							<label class="form-label filterField">Filter by Location</label>
+							<div class="form-group">
+								<div class="mb-3">
+									<p-dropdown styleClass="w-100" [options]="locationList" placeholder="Search in Location" optionLabel="location_name" formControlName="campus" optionValue="id"></p-dropdown>
 								</div>
 							</div>
 						</div>
@@ -133,7 +183,7 @@
 							<label class="form-label filterField">Filter by Subject</label>
 							<div class="form-group">
 								<div class="mb-3">
-									<input class="w-100 px-5 py-2" style="height: 45px" type="text" formControlName="subject_name" placeholder="Search in Subject" pInputText />
+									<p-dropdown styleClass="w-100" [options]="subjectNameList" placeholder="Search in Subject" optionLabel="subject_name" formControlName="subject" optionValue="id"></p-dropdown>
 								</div>
 							</div>
 						</div>
@@ -149,7 +199,8 @@
 							<label class="form-label filterField">Filter by Intake</label>
 							<div class="form-group">
 								<div class="mb-3">
-									<input class="w-100 px-5 py-2" style="height: 45px" type="text" formControlName="intake" placeholder="Search in Intake" pInputText />
+									<p-multiSelect styleClass="w-100" formControlName="stay_back" placeholder="Search in Intake" [options]="monthList" display="chip" optionLabel="name"  optionValue="id" formControlName="intake_months"></p-multiSelect>
+									<!-- <p-dropdown styleClass="w-100" [options]="monthList" placeholder="Search in Intake" optionLabel="name" formControlName="intake_months" optionValue="id"></p-dropdown> -->
 								</div>
 							</div>
 						</div>
@@ -169,14 +220,14 @@
 								</div>
 							</div>
 						</div>
-						<div class="col-md-4">
+						<!-- <div class="col-md-4">
 							<label class="form-label filterField">Filter by Tution Fees Range</label>
 							<div class="form-group">
 								<div class="mb-3">
 									<input class="w-100 px-5 py-2" style="height: 45px" type="text" formControlName="fees_range" placeholder="Search in Tution Fees Range" pInputText />
 								</div>
 							</div>
-						</div>
+						</div> -->
 					</div>
 				</div>
 			</div>
