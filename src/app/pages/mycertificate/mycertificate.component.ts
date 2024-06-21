@@ -146,7 +146,8 @@ planExpired: boolean = false;
   }
   copyLink(link:any){
     const textarea = document.createElement('textarea');
-
+    console.log(textarea);
+    
     // this.meta.updateTag(
     //   { property: 'og:title', content:  this.selectedQuestionName.question},
     // );
