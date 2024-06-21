@@ -58,6 +58,11 @@
 		</div>
 	</div>
 </section>
+<section *ngIf="!certificateAvailable">
+	<div class="container py-2 text-center h-100">
+	<h2 style="color: #fff;">{{certificateforcopy}}</h2>
+</div>
+</section>
 <footer class="text-center">
 	<section class="bg-black">
 		<div class="container-fluid py-3">

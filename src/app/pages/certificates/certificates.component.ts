@@ -15,6 +15,7 @@ export class CertificatesComponent implements OnInit {
   form!: FormGroup;
   certificateAvailable: boolean = false;
   certificateStatus:any
+  certificatecount:number=0;
   constructor(
     private service: ValidcertificatesService,
     public fb: FormBuilder,
@@ -40,7 +41,12 @@ export class CertificatesComponent implements OnInit {
         this.certificateValidOrInvalid = this.sanitizer.bypassSecurityTrustResourceUrl(res.certificatelink);
         this.certificateforcopy=res.certificatelink
         this.certificateStatus=res.status;
-        this.certificateAvailable = true;
+        this.certificatecount=res.count
+        if(res.count==1){
+          this.certificateAvailable = true;
+        }else{
+          this.certificateAvailable = false;
+        }
       } else {
         this.certificateAvailable = false;
       }
