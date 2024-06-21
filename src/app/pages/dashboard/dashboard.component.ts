@@ -245,10 +245,10 @@ export class DashboardComponent implements OnInit, OnChanges {
 
     openQuiz(): void {
         // dont remove comments
-        // if(this.planExpired){
-        //     this.restrict=true;
-        //     return;
-        //   }
+        if(this.planExpired){
+            this.restrict=true;
+            return;
+          }
         // this.continueQuiz = "block";
         // this.checkQuestionQuiz()
         this.router.navigate([`pages/modules/quizmodule`]);

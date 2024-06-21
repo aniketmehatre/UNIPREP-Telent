@@ -386,6 +386,10 @@ export class ListSubModulesComponent implements OnInit {
   }
 
   startQuiz() {
+    if(this.planExpired){
+      this.restrict=true;
+      return;
+    }
     this.router.navigate([`/pages/modules/${this.currentModuleSlug}/quiz`]);
     // let cName = "";
     // this.dataService.countryNameSource.subscribe(countryName => {
