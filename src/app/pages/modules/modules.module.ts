@@ -24,6 +24,7 @@ import { QuizmenuComponent } from '../quizmenu/quizmenu.component';
 import { AccordionModule } from 'primeng/accordion';
 import { LearninghubquizComponent } from './learninghubquiz/learninghubquiz.component';
 import { LanguagetypequizComponent } from './languagetypequiz/languagetypequiz.component';
+import {InputTextModule} from "primeng/inputtext";
 
 
 @NgModule({
@@ -53,7 +54,8 @@ import { LanguagetypequizComponent } from './languagetypequiz/languagetypequiz.c
         CardModule,
         NgxUiLoaderModule,
         SkeletonModule,
-        AccordionModule
+        AccordionModule,
+        InputTextModule
     ]
 })
 export class ModulesModule { }

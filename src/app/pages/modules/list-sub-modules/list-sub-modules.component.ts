@@ -87,10 +87,15 @@ export class ListSubModulesComponent implements OnInit {
       }
     ];
   }
+
+  allSearchedResult: any[] = []
   loopRange = Array.from({ length: 30 }).fill(0).map((_, index) => index);
   ngOnInit() {
     localStorage.setItem("modalcountryid",this.quizmoduleselectcountryidsetzero);
     this.init();
+    this.moduleListService.getSubmodulesAndSpecialization().subscribe((res: any) => {
+      this.allSearchedResult = res
+    })
   }
   init() {
     this.currentCountryId = Number(localStorage.getItem('countryId'));
@@ -510,5 +515,34 @@ export class ListSubModulesComponent implements OnInit {
 
   openVideoPopup(videoLink: string) {
     this.pageFacade.openHowitWorksVideoPopup(videoLink);
+  }
+
+  searchLearning: any
+  filteredData: any[] = []
+  performSearch(){
+    if (this.searchLearning) {
+      this.filteredData = this.allSearchedResult
+          .filter((item: any) =>
+              item.submodule_name.toLowerCase().includes(this.searchLearning.toLowerCase()) ||
+              item.category_name.toLowerCase().includes(this.searchLearning.toLowerCase())
+          )
+          .map(item => ({
+            title: item.category_name,
+            subtitle: item.submodule_name,
+            category_id: item.category_id,
+            submodule_id: item.submodule_id
+          }));
+    } else {
+      this.filteredData = [];
+    }
+  }
+
+  takeMeToQuestion(data: any){
+    this.router.navigate([`/pages/modules/learning-hub/question-list/${data.submodule_id}`]);
+  }
+
+  clearSearch() {
+    this.searchLearning = '';
+    this.filteredData = [];
   }
 }

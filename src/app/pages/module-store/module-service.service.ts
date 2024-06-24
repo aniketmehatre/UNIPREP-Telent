@@ -108,6 +108,13 @@ export class ModuleServiceService {
         headers: headers,
     });
 }
+
+  getSubmodulesAndSpecialization() {
+    const headers = new HttpHeaders().set("Accept", "application/json");
+    return this.http.get(environment.ApiUrl + "/getSubmodulesAndSpecialization", {
+      headers: headers,
+    });
+  }
 quizCount(data: any) {
     const headers = new HttpHeaders().set("Accept", "application/json");
     return this.http.post<any>(environment.ApiUrl + "/quizquestions", data, {
