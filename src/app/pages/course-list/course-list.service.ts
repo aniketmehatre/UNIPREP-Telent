@@ -22,4 +22,11 @@ export class CourseListService {
       headers: this.headers,
     });
   }
+
+  exportSelectedData(data: any){
+    const headers = new HttpHeaders().set("Accept", "application/json");
+    return this.http.post<any>(environment.ApiUrl + "/BuyCreditexportData", data, {
+      headers: headers,
+    });
+  }
 }
