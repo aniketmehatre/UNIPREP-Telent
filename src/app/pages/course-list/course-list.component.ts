@@ -3,6 +3,7 @@ import { PageFacadeService } from '../page-facade.service';
 import { CourseListService } from './course-list.service';
 import { FormBuilder, FormGroup } from "@angular/forms";
 import { MessageService } from 'primeng/api';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'uni-course-list',
@@ -27,8 +28,11 @@ export class CourseListComponent implements OnInit {
   monthList:any = [{id:"Jan",name: "January"},{id:"Feb",name: "February"},{id:"Mar",name: "March"},{id:"Apr",name: "April"},{id:"May ",name: "May"},{id:"Jun",name: "June"},{id:"Jul",name: "July"},{id:"Aug",name: "August"},{id:"Sep",name: "September"},{id:"Oct",name: "October"},{id:"Nov",name: "November"},{id:"Dec",name: "December"}];
   campusList:any = [];
   guidelinesDiv: boolean = true;
+  viewFavourites: boolean = false;
+  buyCreditsCount: number = 0;
+  exportDataIds:any = [];
 
-  constructor(private pageFacade: PageFacadeService, private courseList: CourseListService, private fb: FormBuilder,private toastr: MessageService) { 
+  constructor(private pageFacade: PageFacadeService, private courseList: CourseListService, private fb: FormBuilder,private toastr: MessageService, private router: Router) { 
     this.filterForm = this.fb.group({
       course_name:[''],
       college_name:[''],
@@ -53,7 +57,6 @@ export class CourseListComponent implements OnInit {
   
   getSelectBoxValues(){
     this.courseList.loadDropdownValues().subscribe(res =>{
-      console.log(res);
       this.countryList = res.country;
       this.campusList = res.locations;
       this.courseNameList = res.course_name;
@@ -74,6 +77,7 @@ export class CourseListComponent implements OnInit {
       intake_months: formValues.intake_months ? formValues.intake_months : "",
       stay_back: formValues.stay_back ? formValues.stay_back : "",
       world_rank: formValues.world_rank ? formValues.world_rank : "",
+      favourites: this.viewFavourites ? this.viewFavourites : "",
       page: this.page,
       perPage: this.perPage,
     }
@@ -81,6 +85,7 @@ export class CourseListComponent implements OnInit {
     this.courseList.getListOfCourses(data).subscribe(response=> {
       this.courseListData = response.data;
       this.totalCourseCount = response.total_count;
+      this.buyCreditsCount = response.credit_count;
     })
   }
   
@@ -105,12 +110,42 @@ export class CourseListComponent implements OnInit {
     this.guidelinesDiv = !this.guidelinesDiv;
   }
 
-  buyCredits(){
-
-  }
-
   exportData(){
+    if(this.buyCreditsCount == 0){
+      this.toastr.add({severity: "error",summary: "error",detail: "Please Buy Some Credits.",});
+      setTimeout(() => {
+        this.router.navigate(["/pages/export-credit"]);
+      }, 300);
+    }else{
+      this.exportDataIds = [];
+      this.courseListData.forEach((item:any)=>{
+        if(item.isChecked == 1){
+          this.exportDataIds.push(item.id);
+        }
+      });
+      if(this.exportDataIds.length == 0){
+        this.toastr.add({severity: "error",summary: "error",detail: "Select Some data for export!.",});
+        return;
+      }
+      if(this.buyCreditsCount < this.exportDataIds.length){
+        this.toastr.add({severity: "error",summary: "error",detail: "insufficient credits.Please Buy Some Credits.",});
+        setTimeout(() => {
+          this.router.navigate(["/pages/export-credit"]);
+        }, 300);
+        return;
+      }
+      let data={
+        module_id: 4,
+        export_id: this.exportDataIds
+      };
 
+      this.courseList.exportSelectedData(data).subscribe((response)=>{
+        window.open(response.link, '_blank');
+        this.selectAllCheckboxes = false;
+        this.selectedCourses = 0;
+        this.getCourseLists();
+      })
+    }
   }
 
   filterBy(){
@@ -157,5 +192,10 @@ export class CourseListComponent implements OnInit {
 
     let campusList:any = this.campusList.filter((item:any)=> item.country_id == country);
     this.locationList = campusList;
+  }
+
+  viewFav(){
+    this.viewFavourites = !this.viewFavourites;
+    this.getCourseLists();
   }
 }
