@@ -150,7 +150,7 @@
 							<label class="form-label filterField">Filter by Course</label>
 							<div class="form-group">
 								<div class="mb-3">
-									<p-dropdown styleClass="w-100" [options]="courseNameList" placeholder="Search in Course" optionLabel="course_name" formControlName="course_name" optionValue="id"></p-dropdown>
+									<p-dropdown styleClass="w-100" [filter]="true" [filterBy]="'course_name'" [options]="courseNameList" placeholder="Search in Course" optionLabel="course_name" formControlName="course_name" optionValue="id"></p-dropdown>
 								</div>
 							</div>
 						</div>
@@ -158,7 +158,7 @@
 							<label class="form-label filterField">Filter by University</label>
 							<div class="form-group">
 								<div class="mb-3">
-									<p-dropdown styleClass="w-100" [options]="universityNameList" placeholder="Search in University" optionLabel="university_name" formControlName="college_name" optionValue="id"></p-dropdown>
+									<p-dropdown styleClass="w-100" [filter]="true" [filterBy]="'university_name'" [options]="universityNameList" placeholder="Search in University" optionLabel="university_name" formControlName="college_name" optionValue="id"></p-dropdown>
 								</div>
 							</div>
 						</div>
@@ -166,7 +166,7 @@
 							<label class="form-label filterField">Filter by Country</label>
 							<div class="form-group">
 								<div class="mb-3">
-									<p-dropdown styleClass="w-100" [options]="countryList" (onChange)="countryOnchange()" placeholder="Search in Country" optionLabel="country" formControlName="country" optionValue="id"></p-dropdown>
+									<p-dropdown styleClass="w-100" [filter]="true" [filterBy]="'country'" [options]="countryList" (onChange)="countryOnchange()" placeholder="Search in Country" optionLabel="country" formControlName="country" optionValue="id"></p-dropdown>
 								</div>
 							</div>
 						</div>
@@ -174,7 +174,7 @@
 							<label class="form-label filterField">Filter by Location</label>
 							<div class="form-group">
 								<div class="mb-3">
-									<p-dropdown styleClass="w-100" [options]="locationList" placeholder="Search in Location" optionLabel="location_name" formControlName="campus" optionValue="id"></p-dropdown>
+									<p-dropdown styleClass="w-100" [filter]="true" [filterBy]="'country'"  [options]="locationList" placeholder="Search in Location" optionLabel="location_name" formControlName="campus" optionValue="id"></p-dropdown>
 								</div>
 							</div>
 						</div>
@@ -182,7 +182,7 @@
 							<label class="form-label filterField">Filter by Subject</label>
 							<div class="form-group">
 								<div class="mb-3">
-									<p-dropdown styleClass="w-100" [options]="subjectNameList" placeholder="Search in Subject" optionLabel="subject_name" formControlName="subject" optionValue="id"></p-dropdown>
+									<p-dropdown styleClass="w-100" [filter]="true" [filterBy]="'subject_name'" [options]="subjectNameList" placeholder="Search in Subject" optionLabel="subject_name" formControlName="subject" optionValue="id"></p-dropdown>
 								</div>
 							</div>
 						</div>
@@ -198,7 +198,7 @@
 							<label class="form-label filterField">Filter by Intake</label>
 							<div class="form-group">
 								<div class="mb-3">
-									<p-multiSelect styleClass="w-100" formControlName="stay_back" placeholder="Search in Intake" [options]="monthList" display="chip" optionLabel="name"  optionValue="id" formControlName="intake_months"></p-multiSelect>
+									<p-multiSelect styleClass="w-100" placeholder="Search in Intake" [options]="monthList" display="chip" optionLabel="name"  optionValue="id" formControlName="intake_months"></p-multiSelect>
 									<!-- <p-dropdown styleClass="w-100" [options]="monthList" placeholder="Search in Intake" optionLabel="name" formControlName="intake_months" optionValue="id"></p-dropdown> -->
 								</div>
 							</div>
