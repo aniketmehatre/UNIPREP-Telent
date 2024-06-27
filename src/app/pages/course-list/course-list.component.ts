@@ -4,6 +4,7 @@ import { CourseListService } from './course-list.service';
 import { FormBuilder, FormGroup } from "@angular/forms";
 import { MessageService } from 'primeng/api';
 import { Router } from '@angular/router';
+import { AuthService } from 'src/app/Auth/auth.service';
 
 @Component({
   selector: 'uni-course-list',
@@ -31,8 +32,11 @@ export class CourseListComponent implements OnInit {
   viewFavourites: boolean = false;
   buyCreditsCount: number = 0;
   exportDataIds:any = [];
+  currentPlan:string = "";
+  planExpired!: boolean;
+  restrict:boolean =  false;
 
-  constructor(private pageFacade: PageFacadeService, private courseList: CourseListService, private fb: FormBuilder,private toastr: MessageService, private router: Router) { 
+  constructor(private pageFacade: PageFacadeService, private courseList: CourseListService, private fb: FormBuilder,private toastr: MessageService, private router: Router, private authService: AuthService) { 
     this.filterForm = this.fb.group({
       course_name:[''],
       college_name:[''],
@@ -47,6 +51,7 @@ export class CourseListComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.checkplanExpire();
     this.getCourseLists();
     this.getSelectBoxValues();
   }
@@ -100,7 +105,10 @@ export class CourseListComponent implements OnInit {
   }
 
   pageChange(event: any){
-
+    if (this.planExpired) {
+      this.restrict = true;
+      return;
+    }
     this.page = event.page + 1;
     this.perPage = event.rows;
     this.getCourseLists();
@@ -111,6 +119,11 @@ export class CourseListComponent implements OnInit {
   }
 
   exportData(){
+    if (this.planExpired) {
+      this.restrict = true;
+      return;
+    }
+
     if(this.buyCreditsCount == 0){
       this.toastr.add({severity: "error",summary: "error",detail: "Please Buy Some Credits.",});
       setTimeout(() => {
@@ -149,7 +162,31 @@ export class CourseListComponent implements OnInit {
   }
 
   filterBy(){
+    if (this.planExpired) {
+      this.restrict = true;
+      return;
+    }
     this.isFilterVisible = "block";
+  }
+
+  handleClick(event: Event) {
+    if (this.planExpired) {
+      this.restrict = true;
+      event.preventDefault();  // Prevent the default action of the anchor tag
+    }
+  }
+
+  buyCredits(){
+    if (this.planExpired) {
+      this.restrict = true;
+      return;
+    }
+    this.router.navigate(["/pages/export-credit"]);
+  }
+
+  getHref(jobSiteURL: string): string {
+    const url = jobSiteURL;
+    return !url.startsWith('http://') && !url.startsWith('https://') ? 'http://' + url : url;
   }
 
   clearFilter(){
@@ -195,7 +232,25 @@ export class CourseListComponent implements OnInit {
   }
 
   viewFav(){
+    if (this.planExpired) {
+      this.restrict = true;
+      return;
+    }
+
     this.viewFavourites = !this.viewFavourites;
     this.getCourseLists();
+  }
+
+  checkplanExpire(): void {
+    this.authService.getNewUserTimeLeft().subscribe((res) => {
+      let data = res.time_left;
+      let subscription_exists_status = res.subscription_details;
+      this.currentPlan = subscription_exists_status.subscription_plan;
+      if (data.plan === "expired" || data.plan === 'subscription_expired' || subscription_exists_status.subscription_plan === 'free_trail' || subscription_exists_status.subscription_plan === 'Student') {
+        this.planExpired = true;
+      } else {
+        this.planExpired = false;
+      }
+    });
   }
 }

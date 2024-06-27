@@ -16,12 +16,17 @@ export class LevelsComponent implements OnInit {
     isSkeletonVisible: boolean = true;
     languageTypeList: any
     selectedLanguageId: any
-
+    selectedLanguageName: string =  "";
+    
     constructor(private languageHubService: LanguageHubService, private lhs:LanguageHubDataService, private router: Router,
                 private location: Location, private pageFacade:PageFacadeService) {
         this.lhs.data$.subscribe((data) => {
             this.selectedLanguageId = data
-        })
+        });
+
+        this.lhs.dataLanguageName$.subscribe((data) => {
+            this.selectedLanguageName = data
+        });
     }
 
     loopRange = Array.from({length: 30}).fill(0).map((_, index) => index);
@@ -38,6 +43,8 @@ export class LevelsComponent implements OnInit {
     }
 
     onLanguageTypeClick(languageTypeId: any, sub: any) {
+        // console.log(sub, "sub");
+        // console.log(languageTypeId, "languageTypeId");
         this.lhs.setDataLanguageTypeName(sub.type)
         this.lhs.setDataLanguageType(languageTypeId)
         this.router.navigate([`/pages/language-hub/category`]);

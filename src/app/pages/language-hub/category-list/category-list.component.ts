@@ -25,6 +25,8 @@ export class CategoryListComponent implements OnInit {
     page: number = 1
     perpage: number = 25
     planExpired: boolean = false;
+    selectedLevelName: string = "";
+
     constructor(private languageHubService: LanguageHubService, private lhs: LanguageHubDataService,
                 private router: Router, private toast: MessageService,
                 private location: Location, private pageFacade:PageFacadeService,private authService: AuthService) {
@@ -34,6 +36,10 @@ export class CategoryListComponent implements OnInit {
         this.lhs.dataLanguageType$.subscribe((data) => {
             this.selectedLanguageType = data
         })
+        this.lhs.dataLanguageTypeName$.subscribe((data) => {
+            this.selectedLevelName = data
+        })
+
     }
 
     loopRange = Array.from({length: 30}).fill(0).map((_, index) => index);
