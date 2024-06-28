@@ -147,18 +147,11 @@
 				<div class="col-md-12">
 					<div class="row">
 						<div class="col-md-4">
-							<label class="form-label filterField">Filter by Course</label>
+							<label class="form-label filterField">Filter by Subject</label>
 							<div class="form-group">
 								<div class="mb-3">
-									<p-dropdown styleClass="w-100" [filter]="true" [filterBy]="'course_name'" [options]="courseNameList" placeholder="Search in Course" optionLabel="course_name" formControlName="course_name" optionValue="id"></p-dropdown>
-								</div>
-							</div>
-						</div>
-						<div class="col-md-4">
-							<label class="form-label filterField">Filter by University</label>
-							<div class="form-group">
-								<div class="mb-3">
-									<p-dropdown styleClass="w-100" [filter]="true" [filterBy]="'university_name'" [options]="universityNameList" placeholder="Search in University" optionLabel="university_name" formControlName="college_name" optionValue="id"></p-dropdown>
+									<!-- <p-dropdown styleClass="w-100" [filter]="true" [filterBy]="'subject_name'" [options]="subjectNameList" placeholder="Search in Subject" optionLabel="subject_name" formControlName="subject" optionValue="id"></p-dropdown> -->
+									<input class="w-100 px-5 py-2" style="height: 45px" type="text" formControlName="subject" placeholder="Search in Subject" pInputText />
 								</div>
 							</div>
 						</div>
@@ -179,10 +172,18 @@
 							</div>
 						</div>
 						<div class="col-md-4">
-							<label class="form-label filterField">Filter by Subject</label>
+							<label class="form-label filterField">Filter by University</label>
 							<div class="form-group">
 								<div class="mb-3">
-									<p-dropdown styleClass="w-100" [filter]="true" [filterBy]="'subject_name'" [options]="subjectNameList" placeholder="Search in Subject" optionLabel="subject_name" formControlName="subject" optionValue="id"></p-dropdown>
+									<p-dropdown styleClass="w-100" [filter]="true" [filterBy]="'university_name'" [options]="universityNameList" placeholder="Search in University" optionLabel="university_name" formControlName="college_name" optionValue="id"></p-dropdown>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-4">
+							<label class="form-label filterField">Filter by Study Level</label>
+							<div class="form-group">
+								<div class="mb-3">
+									<p-dropdown styleClass="w-100" [options]="studyLevel" placeholder="Search in Study Level" optionLabel="value" formControlName="study_level" optionValue="id"></p-dropdown>
 								</div>
 							</div>
 						</div>
@@ -215,7 +216,8 @@
 							<label class="form-label filterField">Filter by World Rank</label>
 							<div class="form-group">
 								<div class="mb-3">
-									<input class="w-100 px-5 py-2" style="height: 45px" type="text" formControlName="world_rank" placeholder="Search in World Rank" pInputText />
+									<!-- <input class="w-100 px-5 py-2" style="height: 45px" type="text" formControlName="world_rank" placeholder="Search in World Rank" pInputText /> -->
+									<p-dropdown styleClass="w-100" [options]="worldRank" placeholder="Search in World Rank" optionLabel="value" formControlName="world_rank" optionValue="id" [appendTo]="'body'"></p-dropdown>
 								</div>
 							</div>
 						</div>

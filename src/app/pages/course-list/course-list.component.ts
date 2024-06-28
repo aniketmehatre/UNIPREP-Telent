@@ -27,6 +27,8 @@ export class CourseListComponent implements OnInit {
   subjectNameList:any = [];
   universityNameList:any = [];
   monthList:any = [{id:"Jan",name: "January"},{id:"Feb",name: "February"},{id:"Mar",name: "March"},{id:"Apr",name: "April"},{id:"May ",name: "May"},{id:"Jun",name: "June"},{id:"Jul",name: "July"},{id:"Aug",name: "August"},{id:"Sep",name: "September"},{id:"Oct",name: "October"},{id:"Nov",name: "November"},{id:"Dec",name: "December"}];
+  studyLevel: any = [{id: "UG", value:"UG"}, {id: "PG", value:"PG"}];
+  worldRank: any = [{id: "100", value:"Top 100"}, {id: "200", value:"Top 200"},  {id: "500", value:"Top 500"},{id: null, value:"All Range"}];
   campusList:any = [];
   guidelinesDiv: boolean = true;
   viewFavourites: boolean = false;
@@ -38,7 +40,7 @@ export class CourseListComponent implements OnInit {
 
   constructor(private pageFacade: PageFacadeService, private courseList: CourseListService, private fb: FormBuilder,private toastr: MessageService, private router: Router, private authService: AuthService) { 
     this.filterForm = this.fb.group({
-      course_name:[''],
+      study_level:[''],
       college_name:[''],
       country:[''],
       campus:[''],
