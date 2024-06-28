@@ -55,6 +55,8 @@ export class ListSubModulesComponent implements OnInit {
   canShowQuestionList: boolean = false;
   howItWorksVideoLink: string = "";
   quizmoduleselectcountryidsetzero:any=0;
+  selectSubmoduleName:string = "";
+
   constructor(private moduleListService: ModuleServiceService, private router: Router, private dataService: DataService, private authService: AuthService,
     private locationService: LocationService, private route: ActivatedRoute, private ngxService: NgxUiLoaderService,
     private confirmationService: ConfirmationService, private pageFacade: PageFacadeService) {
@@ -419,8 +421,10 @@ export class ListSubModulesComponent implements OnInit {
 
   }
 
-  onSubModuleClick(id: any) {
-    console.log(id);
+  onSubModuleClick(id: any, submodule: any) {
+    console.log(id, "submodule-id");
+    console.log(submodule, "submodule");
+    this.selectSubmoduleName = submodule.submodule_name;
     // if(this.planExpired){
     //   this.restrict=true;
     //   return;

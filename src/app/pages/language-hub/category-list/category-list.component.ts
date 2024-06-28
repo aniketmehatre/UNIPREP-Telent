@@ -78,7 +78,8 @@ export class CategoryListComponent implements OnInit {
             });
     }
 
-    onCategoryClick(categoryId: any) {
+    onCategoryClick(categoryId: any, submoduleName: any) {
+        localStorage.setItem("selectedSubmoduleName", submoduleName)
         this.router.navigate([`/pages/language-hub/question-list/${categoryId}`]);
     }
 

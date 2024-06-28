@@ -557,6 +557,7 @@ export class QuestionListComponent implements OnInit {
     selectedLanguageCode: any
     breadCrumb: MenuItem[] = []
     selectedCategoryId: any
+    selectedSubmoduleName:any = "";
     langType: any
     page: number = 1
     perpage: number = 25
@@ -587,7 +588,9 @@ export class QuestionListComponent implements OnInit {
         this.route.params.subscribe(params => {
             this.selectedCategoryId = params['id']
         });
-
+        this.lhs.dataSubmoduleName$.subscribe((data) => {
+            this.selectedSubmoduleName = data
+        })
 
     }
 

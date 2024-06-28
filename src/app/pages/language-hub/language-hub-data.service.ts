@@ -23,6 +23,9 @@ export class LanguageHubDataService {
   private languageCode = new BehaviorSubject<any>(localStorage.getItem('languageCode') || '');
   dataLanguageCode$ = this.languageCode.asObservable();
 
+  private submoduleName = new BehaviorSubject<any>(localStorage.getItem('selectedSubmoduleName') || '');
+  dataSubmoduleName$ = this.submoduleName.asObservable();
+
   setLanguageData(data: any) {
     localStorage.setItem('languageId', data);
     this.dataSubject.next(data);
