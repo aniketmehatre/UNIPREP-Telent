@@ -80,7 +80,7 @@ export class SidenavComponent {
       image: "fa-solid fa-building-columns",
     },
     {
-      title: "Course List",
+      title: "UNIFINDER",
       url: "/pages/course-list",
       image: "fa-solid fa-pencil", 
     },

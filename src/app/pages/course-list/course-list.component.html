@@ -73,7 +73,7 @@
 										<p><i class="fa-solid fa-globe"></i> {{ course.country }}</p>
 									</div>
 									<div class="col-6 mb-1">
-										<p><i class="fa-solid fa-location-crosshairs"></i> {{ course.location_name }}</p>
+										<p><i class="fa-solid fa-location-crosshairs"></i> {{ course.location }}</p>
 									</div>
 									<div class="col-6 mb-1">
 										<p><i class="fa-solid fa-clock"></i> {{ course.duration }}</p>
@@ -159,7 +159,7 @@
 							<label class="form-label filterField">Filter by Country</label>
 							<div class="form-group">
 								<div class="mb-3">
-									<p-dropdown styleClass="w-100" [filter]="true" [filterBy]="'country'" [options]="countryList" (onChange)="countryOnchange()" placeholder="Search in Country" optionLabel="country" formControlName="country" optionValue="id"></p-dropdown>
+									<p-dropdown styleClass="w-100" [filter]="true" [options]="countryList" (onChange)="countryOnchange()" placeholder="Search in Country" formControlName="country"></p-dropdown>
 								</div>
 							</div>
 						</div>
