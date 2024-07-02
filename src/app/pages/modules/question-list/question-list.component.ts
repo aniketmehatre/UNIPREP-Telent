@@ -155,7 +155,7 @@ export class QuestionListComponent implements OnInit {
             this.currentModuleId = 1;
             this.currentModuleName = "Pre-Admission";
             this.currentApiSlug = "getpreapplicationsubmoduleqcount";
-            this.howItWorksVideoLink = "https://www.youtube.com/embed/um38R1IY2Qk?si=tMCDgFTaeq4mDCYo";
+            this.howItWorksVideoLink = "https://www.youtube.com/embed/Kae2KQnmWko?si=vjUQ7eyurP2Mbg-n";
             break;
           case "travel-and-tourism":
             this.currentModuleId = 7;
@@ -167,13 +167,13 @@ export class QuestionListComponent implements OnInit {
             this.currentModuleId = 3;
             this.currentModuleName = "Post-Admission";
             this.currentApiSlug = "getpostadmissionsubmoduleqcount";
-            this.howItWorksVideoLink = "https://www.youtube.com/embed/SqyflSNu6_o?si=fs1ISjcx7qlxVvI-";
+            this.howItWorksVideoLink = "https://www.youtube.com/embed/Q9-cUbwFNZI?si=LIdazrVO_qAQKiFk";
             break;
           case "career-hub":
             this.currentModuleId = 4;
             this.currentModuleName = "Career Hub";
             this.currentApiSlug = "getcareerhubsubmoduleqcount";
-            this.howItWorksVideoLink = "https://www.youtube.com/embed/lJ_KfBPeGuk?si=edgaP5ovw52HCBBR";
+            this.howItWorksVideoLink = "https://www.youtube.com/embed/7ogHhrekZjE?si=NADxga9qB4_RkCtw";
             break;
           case "university":
             this.currentModuleId = 5;
@@ -186,14 +186,14 @@ export class QuestionListComponent implements OnInit {
             this.currentModuleId = 10;
             this.currentModuleName = "Skill Mastery";
             this.currentApiSlug = "";
-            this.howItWorksVideoLink = "https://www.youtube.com/embed/McVKK5wwqEM?si=EbGjR-CRBFZpQxkx";
+            this.howItWorksVideoLink = "https://www.youtube.com/embed/dHhq2xrBn5s?si=2dMsQcwwOY17dDHi";
             this.tooltip = "";
             break;
           default:
             this.currentModuleId = 6;
             this.currentModuleName = "Life At " + countryName;
             this.currentApiSlug = "getlifeincountrysubmoduleqcount";
-            this.howItWorksVideoLink = "https://www.youtube.com/embed/-rixFswQsX8?si=hvUj9CVFF7svnEcx";
+            this.howItWorksVideoLink = "https://www.youtube.com/embed/O35ypi2WJVI?si=CSxuFC1Zma9gk8SG";
             this.tooltip = "";
             break;
         }
@@ -257,7 +257,7 @@ export class QuestionListComponent implements OnInit {
         this.currentModuleId = 1;
         this.currentModuleName = "Pre-Admission";
         this.currentApiSlug = "getpreapplicationsubmoduleqcount";
-        this.howItWorksVideoLink = "https://www.youtube.com/embed/um38R1IY2Qk?si=tMCDgFTaeq4mDCYo";
+        this.howItWorksVideoLink = "https://www.youtube.com/embed/Kae2KQnmWko?si=vjUQ7eyurP2Mbg-n";
         break;
       case "travel-and-tourism":
         this.currentModuleId = 7;
@@ -269,13 +269,13 @@ export class QuestionListComponent implements OnInit {
         this.currentModuleId = 3;
         this.currentModuleName = "Post-Admission";
         this.currentApiSlug = "getpostadmissionsubmoduleqcount";
-        this.howItWorksVideoLink = "https://www.youtube.com/embed/SqyflSNu6_o?si=fs1ISjcx7qlxVvI-";
+        this.howItWorksVideoLink = "https://www.youtube.com/embed/Q9-cUbwFNZI?si=LIdazrVO_qAQKiFk";
         break;
       case "career-hub":
         this.currentModuleId = 4;
         this.currentModuleName = "Career Hub";
         this.currentApiSlug = "getcareerhubsubmoduleqcount";
-        this.howItWorksVideoLink = "https://www.youtube.com/embed/lJ_KfBPeGuk?si=edgaP5ovw52HCBBR";
+        this.howItWorksVideoLink = "https://www.youtube.com/embed/7ogHhrekZjE?si=NADxga9qB4_RkCtw";
         break;
       case "university":
         this.currentModuleId = 5;
@@ -295,14 +295,14 @@ export class QuestionListComponent implements OnInit {
         this.currentModuleId = 10;
         this.currentModuleName = "Skill Mastery";
         this.currentApiSlug = "getskillmasterysubmoduleqcount";
-        this.howItWorksVideoLink = "https://www.youtube.com/embed/KUYo58tlZ_o?si=flhjt5olW44nprRA";
+        this.howItWorksVideoLink = "https://www.youtube.com/embed/dHhq2xrBn5s?si=2dMsQcwwOY17dDHi";
         this.currentModuleSlug = "skill-mastery"
         break;
       default:
         this.currentModuleId = 6;
         this.currentModuleName = "Life At " + countryName;
         this.currentApiSlug = "getlifeincountrysubmoduleqcount";
-        this.howItWorksVideoLink = "https://www.youtube.com/embed/-rixFswQsX8?si=hvUj9CVFF7svnEcx";
+        this.howItWorksVideoLink = "https://www.youtube.com/embed/O35ypi2WJVI?si=CSxuFC1Zma9gk8SG";
         this.tooltip = "";
         break;
     }
@@ -880,8 +880,10 @@ export class QuestionListComponent implements OnInit {
     socialShare.style.display = "none";
   }
   startQuiz() {
-    console.log(this.currentModuleId);
-    console.log(Number(this.subModuleId));
+    if(this.planExpired){
+      this.restrict=true;
+      return;
+    }
     localStorage.setItem("learninghubsubmoduleid", this.subModuleId);
     localStorage.setItem("skillmasteryquizsubmoduleid",this.subModuleId);
     if(this.currentModuleId==10){

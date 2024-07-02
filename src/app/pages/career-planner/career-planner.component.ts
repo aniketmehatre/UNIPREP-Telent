@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CareerPlannerService } from './career-planner.service';
 import { PageFacadeService } from '../page-facade.service';
+import { AuthService } from 'src/app/Auth/auth.service';
 
 interface Specialisation {
   id: number;
@@ -117,6 +118,9 @@ export class CareerPlannerComponent implements OnInit {
   page = 1;
   perPage = 30;
   currencyButtonName: string = "Dollar";
+  currentPlan:string = "";
+  planExpired!: boolean;
+  restrict:boolean =  false;
 
   arrayMap: any = {
     'highLevelStudy': this.highLevelStudy,
@@ -127,11 +131,11 @@ export class CareerPlannerComponent implements OnInit {
     'wrkExpSpecilisation': [],
   };
 
-  constructor(private careerPlannerService:CareerPlannerService, private pageFacade:PageFacadeService) { }
+  constructor(private careerPlannerService:CareerPlannerService, private pageFacade:PageFacadeService, private authService: AuthService) { }
 
   ngOnInit(): void {
     this.checkCareerPlanExist();
-    
+    this.checkplanExpire();
   }
 
   toggleClass(buttonName: string){
@@ -289,9 +293,26 @@ export class CareerPlannerComponent implements OnInit {
   }
 
   paginate(event: any){
+    if (this.planExpired) {
+      this.restrict = true;
+      return;
+    }
+
     this.page = event.page + 1;
     this.perPage = event.rows;
     this.listPageDataLoading();
+  }
+
+  handleClick(event: Event) {
+    if (this.planExpired) {
+      this.restrict = true;
+      event.preventDefault();  // Prevent the default action of the anchor tag
+    }
+  }
+
+  getHref(jobSiteURL: string): string {
+    const url = jobSiteURL;
+    return !url.startsWith('http://') && !url.startsWith('https://') ? 'http://' + url : url;
   }
 
   resetRecommendation(){
@@ -310,5 +331,17 @@ export class CareerPlannerComponent implements OnInit {
     this.pageFacade.openHowitWorksVideoPopup(videoLink);
   }
 
+  checkplanExpire(): void {
+    this.authService.getNewUserTimeLeft().subscribe((res) => {
+      let data = res.time_left;
+      let subscription_exists_status = res.subscription_details;
+      this.currentPlan = subscription_exists_status.subscription_plan;
+      if (data.plan === "expired" || data.plan === 'subscription_expired' || subscription_exists_status.subscription_plan === 'free_trail' || subscription_exists_status.subscription_plan === 'Student') {
+        this.planExpired = true;
+      } else {
+        this.planExpired = false;
+      }
+    });
+  }
   
 }

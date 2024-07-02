@@ -55,6 +55,8 @@ export class ListSubModulesComponent implements OnInit {
   canShowQuestionList: boolean = false;
   howItWorksVideoLink: string = "";
   quizmoduleselectcountryidsetzero:any=0;
+  selectSubmoduleName:string = "";
+
   constructor(private moduleListService: ModuleServiceService, private router: Router, private dataService: DataService, private authService: AuthService,
     private locationService: LocationService, private route: ActivatedRoute, private ngxService: NgxUiLoaderService,
     private confirmationService: ConfirmationService, private pageFacade: PageFacadeService) {
@@ -87,10 +89,15 @@ export class ListSubModulesComponent implements OnInit {
       }
     ];
   }
+
+  allSearchedResult: any[] = []
   loopRange = Array.from({ length: 30 }).fill(0).map((_, index) => index);
   ngOnInit() {
     localStorage.setItem("modalcountryid",this.quizmoduleselectcountryidsetzero);
     this.init();
+    this.moduleListService.getSubmodulesAndSpecialization().subscribe((res: any) => {
+      this.allSearchedResult = res
+    })
   }
   init() {
     this.currentCountryId = Number(localStorage.getItem('countryId'));
@@ -108,7 +115,7 @@ export class ListSubModulesComponent implements OnInit {
           this.upgradePlanMsg = 'Upgrade your plan now to gain instant access.';
         this.aboutModule = 'Explore a vast database of Q&A about:',
           this.moduleDetails = 'Scholarships, document checklist, Education loan, letter of Recommendation and many more!'
-        this.howItWorksVideoLink = "https://www.youtube.com/embed/um38R1IY2Qk?si=tMCDgFTaeq4mDCYo";
+        this.howItWorksVideoLink = "https://www.youtube.com/embed/Kae2KQnmWko?si=vjUQ7eyurP2Mbg-n";
         break;
       case 'travel-and-tourism':
         this.currentModuleId = 7;
@@ -130,7 +137,7 @@ export class ListSubModulesComponent implements OnInit {
           this.upgradePlanMsg = 'Upgrade your plan now to gain instant access.';
         this.aboutModule = 'Post-admission offers information about:',
           this.moduleDetails = ' Arrival, student discounts, banking, full time jobs, post study work and many more!'
-        this.howItWorksVideoLink = "https://www.youtube.com/embed/SqyflSNu6_o?si=fs1ISjcx7qlxVvI-";
+        this.howItWorksVideoLink = "https://www.youtube.com/embed/Q9-cUbwFNZI?si=LIdazrVO_qAQKiFk";
         break;
       case 'career-hub':
         this.currentModuleId = 4;
@@ -141,7 +148,7 @@ export class ListSubModulesComponent implements OnInit {
           this.upgradePlanMsg = 'Upgrade your plan now to gain instant access.';
         this.aboutModule = 'Explore a vast database of Q&A about:',
           this.moduleDetails = ' Arrival, student discounts, banking, full time jobs, post study work and many more!'
-        this.howItWorksVideoLink = "https://www.youtube.com/embed/lJ_KfBPeGuk?si=edgaP5ovw52HCBBR";
+        this.howItWorksVideoLink = "https://www.youtube.com/embed/7ogHhrekZjE?si=NADxga9qB4_RkCtw";
         break;
       case 'university':
         this.currentModuleId = 5;
@@ -159,7 +166,7 @@ export class ListSubModulesComponent implements OnInit {
           this.upgradePlanMsg = 'Upgrade your plan now to gain instant access.';
         this.aboutModule = 'Explore a vast database of Q&A about:',
           this.moduleDetails = ' Arrival, student discounts, banking, full time jobs, post study work and many more!'
-        this.howItWorksVideoLink = "https://www.youtube.com/embed/McVKK5wwqEM?si=EbGjR-CRBFZpQxkx";
+        this.howItWorksVideoLink = "https://www.youtube.com/embed/dHhq2xrBn5s?si=2dMsQcwwOY17dDHi";
         break;
       case 'learning-hub':
         this.currentModuleId = 8;
@@ -182,7 +189,7 @@ export class ListSubModulesComponent implements OnInit {
         this.aboutModule = 'Explore a vast database of Q&A about:',
           this.moduleDetails = 'Festivals, events, currency, budget, housing and many more!',
           this.selectedModule = 'life-at-country'
-        this.howItWorksVideoLink = "https://www.youtube.com/embed/-rixFswQsX8?si=hvUj9CVFF7svnEcx";
+        this.howItWorksVideoLink = "https://www.youtube.com/embed/O35ypi2WJVI?si=CSxuFC1Zma9gk8SG";
         break;
 
     }
@@ -386,6 +393,10 @@ export class ListSubModulesComponent implements OnInit {
   }
 
   startQuiz() {
+    if(this.planExpired){
+      this.restrict=true;
+      return;
+    }
     this.router.navigate([`/pages/modules/${this.currentModuleSlug}/quiz`]);
     // let cName = "";
     // this.dataService.countryNameSource.subscribe(countryName => {
@@ -410,8 +421,10 @@ export class ListSubModulesComponent implements OnInit {
 
   }
 
-  onSubModuleClick(id: any) {
-    console.log(id);
+  onSubModuleClick(id: any, submodule: any) {
+    console.log(id, "submodule-id");
+    console.log(submodule, "submodule");
+    this.selectSubmoduleName = submodule.submodule_name;
     // if(this.planExpired){
     //   this.restrict=true;
     //   return;
@@ -506,5 +519,34 @@ export class ListSubModulesComponent implements OnInit {
 
   openVideoPopup(videoLink: string) {
     this.pageFacade.openHowitWorksVideoPopup(videoLink);
+  }
+
+  searchLearning: any
+  filteredData: any[] = []
+  performSearch(){
+    if (this.searchLearning) {
+      this.filteredData = this.allSearchedResult
+          .filter((item: any) =>
+              item.submodule_name.toLowerCase().includes(this.searchLearning.toLowerCase()) ||
+              item.category_name.toLowerCase().includes(this.searchLearning.toLowerCase())
+          )
+          .map(item => ({
+            title: item.category_name,
+            subtitle: item.submodule_name,
+            category_id: item.category_id,
+            submodule_id: item.submodule_id
+          }));
+    } else {
+      this.filteredData = [];
+    }
+  }
+
+  takeMeToQuestion(data: any){
+    this.router.navigate([`/pages/modules/learning-hub/question-list/${data.submodule_id}`]);
+  }
+
+  clearSearch() {
+    this.searchLearning = '';
+    this.filteredData = [];
   }
 }

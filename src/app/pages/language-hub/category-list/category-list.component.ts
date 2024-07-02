@@ -5,6 +5,7 @@ import {Location} from "@angular/common";
 import {LanguageHubDataService} from "../language-hub-data.service";
 import {MessageService} from 'primeng/api';
 import { PageFacadeService } from '../../page-facade.service';
+import { AuthService } from 'src/app/Auth/auth.service';
 
 @Component({
     selector: 'uni-category-list',
@@ -23,16 +24,22 @@ export class CategoryListComponent implements OnInit {
     quizpercentage: any = 0
     page: number = 1
     perpage: number = 25
+    planExpired: boolean = false;
+    selectedLevelName: string = "";
 
     constructor(private languageHubService: LanguageHubService, private lhs: LanguageHubDataService,
                 private router: Router, private toast: MessageService,
-                private location: Location, private pageFacade:PageFacadeService) {
+                private location: Location, private pageFacade:PageFacadeService,private authService: AuthService) {
         this.lhs.data$.subscribe((data) => {
             this.selectedLanguageId = data
         })
         this.lhs.dataLanguageType$.subscribe((data) => {
             this.selectedLanguageType = data
         })
+        this.lhs.dataLanguageTypeName$.subscribe((data) => {
+            this.selectedLevelName = data
+        })
+
     }
 
     loopRange = Array.from({length: 30}).fill(0).map((_, index) => index);
@@ -44,6 +51,7 @@ export class CategoryListComponent implements OnInit {
         }
         this.init();
         this.checkLanguageQuizCompletedOrNot()
+        this.checkplanExpire();
     }
 
     goToHome(event: any) {
@@ -70,7 +78,8 @@ export class CategoryListComponent implements OnInit {
             });
     }
 
-    onCategoryClick(categoryId: any) {
+    onCategoryClick(categoryId: any, submoduleName: any) {
+        localStorage.setItem("selectedSubmoduleName", submoduleName)
         this.router.navigate([`/pages/language-hub/question-list/${categoryId}`]);
     }
 
@@ -86,6 +95,10 @@ export class CategoryListComponent implements OnInit {
     }
 
     startQuiz() {
+        if(this.planExpired){
+            this.restrict=true;
+            return;
+          }
         localStorage.setItem("languagetypeidforquiz", this.selectedLanguageType)
         localStorage.setItem("languageidforquiz", this.selectedLanguageId)
         this.currentModuleSlug = "language-hub"
@@ -101,4 +114,21 @@ export class CategoryListComponent implements OnInit {
     openVideoPopup(videoLink: string) {
         this.pageFacade.openHowitWorksVideoPopup(videoLink);
     }
+    clearRestriction() {
+        this.restrict = false;
+      }
+      upgradePlan(): void {
+        this.router.navigate(["/pages/subscriptions"]);
+      }
+      checkplanExpire(): void {
+        this.authService.getNewUserTimeLeft().subscribe((res) => {
+          let data = res.time_left;
+          let subscription_exists_status = res.subscription_details;
+          if (data.plan === "expired" || data.plan === 'subscription_expired') {
+            this.planExpired = true;
+          } else {
+            this.planExpired = false;
+          }
+        })
+      }
 }

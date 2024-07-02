@@ -22,12 +22,18 @@
     border: none;
 }
 
+.buy-credits-button{
+    background-color: var(--uniprep-secondary);
+    color: white;
+    border-radius: 20px !important;
+    border: none;
+}
 
 .exportButton{
     background-color: #EBEDF2;
     color: #001631 !important;
     border-radius: 20px !important;
-    border: none;
+    border: 1px solid blue;
     padding: 10px;
 }
 
@@ -62,4 +68,9 @@
 .filterField{
     font-size: medium;
     font-weight: 500;
+}
+
+.guidelinecard
+{
+    border: 1px solid var(--uniprep-primary);
 }

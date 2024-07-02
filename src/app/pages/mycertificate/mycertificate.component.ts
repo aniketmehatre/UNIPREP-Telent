@@ -97,7 +97,8 @@ planExpired: boolean = false;
     this.authService.getNewUserTimeLeft().subscribe((res) => {
       let data = res.time_left;
       let subscription_exists_status = res.subscription_details;
-      if (data.plan === "expired" || data.plan === 'subscription_expired') {
+      if (data.plan === "expired" || data.plan === 'subscription_expired' ||
+        subscription_exists_status?.subscription_plan === "free_trail") {
         this.planExpired = true;   
       } else {
         this.planExpired = false;
@@ -146,13 +147,6 @@ planExpired: boolean = false;
   }
   copyLink(link:any){
     const textarea = document.createElement('textarea');
-
-    // this.meta.updateTag(
-    //   { property: 'og:title', content:  this.selectedQuestionName.question},
-    // );
-    // this.meta.updateTag(
-    //   { name: 'title', content:  this.selectedQuestionName.question},
-    // );
     textarea.textContent = link
     document.body.append(textarea);
     textarea.select();

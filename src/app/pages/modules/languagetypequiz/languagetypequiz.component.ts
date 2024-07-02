@@ -56,11 +56,14 @@ export class LanguagetypequizComponent implements OnInit {
   restrict: boolean = false;
   selectedQuizArrayForTimer: any[] = [];
   totalquiztime:any=0;
-  constructor(private moduleListService: ModuleServiceService, private router: Router, private dataService: DataService,
+  restrict1: boolean = false;
+  planExpired: boolean = false;
+  constructor(private moduleListService: ModuleServiceService,private authService: AuthService, private router: Router, private dataService: DataService,
     private locationService: LocationService, private ngxService: NgxUiLoaderService, private toast: MessageService,) { }
 
   ngOnInit(): void {
     this.init();
+    this.checkplanExpire();
   }
 
   init() {
@@ -115,6 +118,25 @@ export class LanguagetypequizComponent implements OnInit {
     this.checkquizquestioncount()
   }
 
+
+  upgradePlan(): void {
+    this.router.navigate(["/pages/subscriptions"]);
+  }
+  clearRestriction() {
+    this.restrict1 = false;
+  }
+  checkplanExpire(): void {
+    this.authService.getNewUserTimeLeft().subscribe((res) => {
+      let data = res.time_left;
+      let subscription_exists_status = res.subscription_details;
+      if (data.plan === "expired" || data.plan === 'subscription_expired' ||
+        subscription_exists_status?.subscription_plan === "free_trail") {
+        this.planExpired = true;   
+      } else {
+        this.planExpired = false;
+      }
+    })
+  }
 
   loadModuleAndSubModule() {
     //this.isSkeletonVisible = true;
@@ -362,6 +384,10 @@ export class LanguagetypequizComponent implements OnInit {
     })
   }
   openCertificate() {
+    if(this.planExpired){
+      this.restrict1=true;
+      return;
+    }
     window.open(this.certificatesurl, '_blank');
   }
   takeAnotherquiz() {

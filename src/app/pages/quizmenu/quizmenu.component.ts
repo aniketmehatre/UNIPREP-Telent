@@ -120,6 +120,10 @@ export class QuizmenuComponent implements OnInit {
   // }
 
   startModululeSkillmastery() {
+    if(this.planExpired){
+      this.restrict=true;
+      return;
+    }
     this.currentModuleSlug = "skill-mastery"
     this.router.navigate([`/pages/modules/${this.currentModuleSlug}/quiz`]);
   }
@@ -142,10 +146,10 @@ export class QuizmenuComponent implements OnInit {
   //   })
   // }
   startQuizUniversity() {
-    // if(this.planExpired){
-    //   this.restrict=true;
-    //   return;
-    // }
+    if(this.planExpired){
+      this.restrict=true;
+      return;
+    }
     localStorage.setItem("modalcountryid", this.unversitycontrydropdownid)
     this.currentModuleSlug = "university"
     this.router.navigate([`/pages/modules/${this.currentModuleSlug}/quiz`]);
@@ -185,10 +189,10 @@ export class QuizmenuComponent implements OnInit {
     this.startQuiz(eve)
   }
   startQuiz(moduleid: any) {
-    // if(this.planExpired){
-    //   this.restrict=true;
-    //   return;
-    // }
+    if(this.planExpired){
+      this.restrict=true;
+      return;
+    }
     if (moduleid == 1) {
       this.currentModuleSlug = "pre-admission"
       localStorage.setItem("modalcountryid", this.preaddimissioncontrydropdownid)
@@ -245,6 +249,10 @@ export class QuizmenuComponent implements OnInit {
     }
   }
   StartLearningHubQuiz() {
+    if(this.planExpired){
+      this.restrict=true;
+      return;
+    }
     this.currentModuleSlug = "learning-hub"
     this.router.navigate([`/pages/modules/${this.currentModuleSlug}/learninghubquiz`]);
   }
@@ -292,6 +300,10 @@ export class QuizmenuComponent implements OnInit {
     }
   }
   StartLanguageHubQuiz() {
+    if(this.planExpired){
+      this.restrict=true;
+      return;
+    }
     this.currentModuleSlug = "language-hub"
     this.router.navigate([`/pages/modules/${this.currentModuleSlug}/languagehubquiz`]);
   }
