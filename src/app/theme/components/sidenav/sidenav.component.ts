@@ -135,6 +135,11 @@ export class SidenavComponent {
       image: "fa-solid fa-arrow-progress",
     },
     {
+      title: "Job Search",
+      url: "/pages/job-search/job-hunt",
+      image: "fa-solid fa-briefcase",
+    },
+    {
       title: "Resources",
       url: "/pages/resource",
       image: "fa-solid fa-link",

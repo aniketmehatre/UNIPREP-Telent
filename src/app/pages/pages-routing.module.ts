@@ -181,8 +181,11 @@ const routes: Routes = [
             {
                 path: 'course-list',
                 component: CourseListComponent
+            },
+            {
+                path: 'job-search',
+                loadChildren: () => import('./job-search/job-search.module').then(m => m.JobSearchModule)
             }
-            
         ]
     }
 ];

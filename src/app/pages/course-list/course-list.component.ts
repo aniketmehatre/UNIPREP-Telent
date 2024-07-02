@@ -13,7 +13,7 @@ import { AuthService } from 'src/app/Auth/auth.service';
 })
 export class CourseListComponent implements OnInit {
 
-  page:number = 1;
+  page: number = 1;
   perPage: number = 50;
   courseListData: any;
   totalCourseCount: number = 0;
@@ -21,34 +21,34 @@ export class CourseListComponent implements OnInit {
   filterForm: FormGroup;
   selectAllCheckboxes = false;
   selectedCourses: number = 0;
-  countryList:any = [];
-  locationList:any = [];
-  courseNameList:any = [];
-  subjectNameList:any = [];
-  universityNameList:any = [];
-  monthList:any = [{id:"January",name: "January"},{id:"February",name: "February"},{id:"March",name: "March"},{id:"April",name: "April"},{id:"May ",name: "May"},{id:"June",name: "June"},{id:"July",name: "July"},{id:"August",name: "August"},{id:"September",name: "September"},{id:"October",name: "October"},{id:"November",name: "November"},{id:"December",name: "December"}];
-  studyLevel: any = [{id: "UG", value:"UG"}, {id: "PG", value:"PG"}];
-  worldRank: any = [{id: "100", value:"Top 100"}, {id: "200", value:"Top 200"},  {id: "500", value:"Top 500"},{id: null, value:"All Range"}];
-  campusList:any = [];
+  countryList: any = [];
+  locationList: any = [];
+  courseNameList: any = [];
+  subjectNameList: any = [];
+  universityNameList: any = [];
+  monthList: any = [{ id: "January", name: "January" }, { id: "February", name: "February" }, { id: "March", name: "March" }, { id: "April", name: "April" }, { id: "May ", name: "May" }, { id: "June", name: "June" }, { id: "July", name: "July" }, { id: "August", name: "August" }, { id: "September", name: "September" }, { id: "October", name: "October" }, { id: "November", name: "November" }, { id: "December", name: "December" }];
+  studyLevel: any = [{ id: "UG", value: "UG" }, { id: "PG", value: "PG" }];
+  worldRank: any = [{ id: "100", value: "Top 100" }, { id: "200", value: "Top 200" }, { id: "500", value: "Top 500" }, { id: null, value: "All Range" }];
+  campusList: any = [];
   guidelinesDiv: boolean = true;
   viewFavourites: boolean = false;
   buyCreditsCount: number = 0;
-  exportDataIds:any = [];
-  currentPlan:string = "";
+  exportDataIds: any = [];
+  currentPlan: string = "";
   planExpired!: boolean;
-  restrict:boolean =  false;
+  restrict: boolean = false;
 
-  constructor(private pageFacade: PageFacadeService, private courseList: CourseListService, private fb: FormBuilder,private toastr: MessageService, private router: Router, private authService: AuthService) { 
+  constructor(private pageFacade: PageFacadeService, private courseList: CourseListService, private fb: FormBuilder, private toastr: MessageService, private router: Router, private authService: AuthService) {
     this.filterForm = this.fb.group({
-      study_level:[''],
-      college_name:[''],
-      country:[''],
-      campus:[''],
-      subject:[''],
-      duration:[''],
-      intake_months:[''],
-      stay_back:[''],
-      world_rank:[''],
+      study_level: [''],
+      college_name: [''],
+      country: [''],
+      campus: [''],
+      subject: [''],
+      duration: [''],
+      intake_months: [''],
+      stay_back: [''],
+      world_rank: [''],
     });
   }
 
@@ -61,21 +61,19 @@ export class CourseListComponent implements OnInit {
   openVideoPopup(videoLink: string) {
     this.pageFacade.openHowitWorksVideoPopup(videoLink);
   }
-  
-  getSelectBoxValues(){
-    this.courseList.loadDropdownValues().subscribe(res =>{
-      this.countryList = res.country;
-      this.campusList = res.locations;
-      this.courseNameList = res.course_name;
-      this.subjectNameList = res.subject_name;
+
+  getSelectBoxValues() {
+    this.courseList.loadDropdownValues().subscribe(res => {
+      this.countryList = res.country.map((country: any) => ({ id: country, value: country }));
+      this.locationList = res.locations.map((locations: any) => ({ id: locations, value: locations }));
       this.universityNameList = res.university_name;
     });
   }
 
-  getCourseLists(){
+  getCourseLists() {
     let formValues = this.filterForm.value;
     let data = {
-      course_name: formValues.course_name ? formValues.course_name : "",
+      // course_name: formValues.course_name ? formValues.course_name : "",
       college_name: formValues.college_name ? formValues.college_name : "",
       country: formValues.country ? formValues.country : "",
       campus: formValues.campus ? formValues.campus : "",
@@ -89,16 +87,16 @@ export class CourseListComponent implements OnInit {
       perPage: this.perPage,
     }
 
-    this.courseList.getListOfCourses(data).subscribe(response=> {
+    this.courseList.getListOfCourses(data).subscribe(response => {
       this.courseListData = response.data;
       this.totalCourseCount = response.total_count;
       this.buyCreditsCount = response.credit_count;
     })
   }
-  
-  submitFilter(){
+
+  submitFilter() {
     let formValues = this.filterForm.value;
-    if (!formValues.course_name  && !formValues.college_name  && !formValues.country && !formValues.campus && !formValues.subject && !formValues.duration && !formValues.intake_months && !formValues.stay_back  && !formValues.world_rank ) {
+    if (!formValues.course_name && !formValues.college_name && !formValues.country && !formValues.campus && !formValues.subject && !formValues.duration && !formValues.intake_months && !formValues.stay_back && !formValues.world_rank) {
       this.toastr.add({ severity: 'error', summary: 'Error', detail: 'Please make sure you have some filter!' });
       return;
     }
@@ -106,7 +104,7 @@ export class CourseListComponent implements OnInit {
     this.isFilterVisible = 'none';
   }
 
-  pageChange(event: any){
+  pageChange(event: any) {
     if (this.planExpired) {
       this.restrict = true;
       return;
@@ -116,45 +114,45 @@ export class CourseListComponent implements OnInit {
     this.getCourseLists();
   }
 
-  closeGuidelines(){
+  closeGuidelines() {
     this.guidelinesDiv = !this.guidelinesDiv;
   }
 
-  exportData(){
+  exportData() {
     if (this.planExpired) {
       this.restrict = true;
       return;
     }
 
-    if(this.buyCreditsCount == 0){
-      this.toastr.add({severity: "error",summary: "error",detail: "Please Buy Some Credits.",});
+    if (this.buyCreditsCount == 0) {
+      this.toastr.add({ severity: "error", summary: "error", detail: "Please Buy Some Credits.", });
       setTimeout(() => {
         this.router.navigate(["/pages/export-credit"]);
       }, 300);
-    }else{
+    } else {
       this.exportDataIds = [];
-      this.courseListData.forEach((item:any)=>{
-        if(item.isChecked == 1){
+      this.courseListData.forEach((item: any) => {
+        if (item.isChecked == 1) {
           this.exportDataIds.push(item.id);
         }
       });
-      if(this.exportDataIds.length == 0){
-        this.toastr.add({severity: "error",summary: "error",detail: "Select Some data for export!.",});
+      if (this.exportDataIds.length == 0) {
+        this.toastr.add({ severity: "error", summary: "error", detail: "Select Some data for export!.", });
         return;
       }
-      if(this.buyCreditsCount < this.exportDataIds.length){
-        this.toastr.add({severity: "error",summary: "error",detail: "insufficient credits.Please Buy Some Credits.",});
+      if (this.buyCreditsCount < this.exportDataIds.length) {
+        this.toastr.add({ severity: "error", summary: "error", detail: "insufficient credits.Please Buy Some Credits.", });
         setTimeout(() => {
           this.router.navigate(["/pages/export-credit"]);
         }, 300);
         return;
       }
-      let data={
+      let data = {
         module_id: 4,
         export_id: this.exportDataIds
       };
 
-      this.courseList.exportSelectedData(data).subscribe((response)=>{
+      this.courseList.exportSelectedData(data).subscribe((response) => {
         window.open(response.link, '_blank');
         this.selectAllCheckboxes = false;
         this.selectedCourses = 0;
@@ -163,7 +161,7 @@ export class CourseListComponent implements OnInit {
     }
   }
 
-  filterBy(){
+  filterBy() {
     if (this.planExpired) {
       this.restrict = true;
       return;
@@ -178,7 +176,7 @@ export class CourseListComponent implements OnInit {
     }
   }
 
-  buyCredits(){
+  buyCredits() {
     if (this.planExpired) {
       this.restrict = true;
       return;
@@ -191,49 +189,42 @@ export class CourseListComponent implements OnInit {
     return !url.startsWith('http://') && !url.startsWith('https://') ? 'http://' + url : url;
   }
 
-  clearFilter(){
+  clearFilter() {
     this.filterForm.reset();
     this.getCourseLists();
   }
 
-  selectAllCheckbox(){
+  selectAllCheckbox() {
     this.selectedCourses = 0;
     this.selectAllCheckboxes = !this.selectAllCheckboxes;
-    if(this.selectAllCheckboxes){
-      this.courseListData.forEach((item:any)=>{
+    if (this.selectAllCheckboxes) {
+      this.courseListData.forEach((item: any) => {
         item.isChecked = 1;
         this.selectedCourses += 1;
       })
-    }else{
-      this.courseListData.forEach((item:any)=>{
+    } else {
+      this.courseListData.forEach((item: any) => {
         item.isChecked = 0;
       });
     }
   }
 
-  onCheckboxChange(event: any){
+  onCheckboxChange(event: any) {
     const isChecked = (event.target as HTMLInputElement).checked;
     this.selectedCourses = isChecked ? this.selectedCourses + 1 : this.selectedCourses - 1;
 
-    if(isChecked == false){
-      if(this.selectedCourses){
+    if (isChecked == false) {
+      if (this.selectedCourses) {
         this.selectAllCheckboxes = false;
       }
-    }else{
-      if(this.courseListData.length == this.selectedCourses){
+    } else {
+      if (this.courseListData.length == this.selectedCourses) {
         this.selectAllCheckboxes = true;
       }
     }
   }
 
-  countryOnchange(){
-    let country = this.filterForm.value.country;
-
-    let campusList:any = this.campusList.filter((item:any)=> item.country_id == country);
-    this.locationList = campusList;
-  }
-
-  viewFav(){
+  viewFav() {
     if (this.planExpired) {
       this.restrict = true;
       return;
