@@ -4,6 +4,7 @@ import { JobSearchRoutingModule } from './job-search-routing.module';
 import { JobSearchComponent } from './job-search.component';
 import { JobHuntComponent } from './job-hunt/job-hunt.component';
 import { JobBoardComponent } from './job-board/job-board.component';
+import {InputTextModule} from 'primeng/inputtext';
 
 @NgModule({
   declarations: [
@@ -13,7 +14,8 @@ import { JobBoardComponent } from './job-board/job-board.component';
   ],
   imports: [
     CommonModule,
-    JobSearchRoutingModule
+    JobSearchRoutingModule,
+    InputTextModule
   ]
 })
 export class JobSearchModule { }

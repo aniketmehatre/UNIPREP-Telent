@@ -1,0 +1,28 @@
+.spanButtons{
+    border: 1px solid grey;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+
+.searchButton{
+    background-color: #EBEDF2;
+    color: #001631 !important;
+    border-radius: 20px !important;
+    border: none;
+    padding: 10px;
+}
+
+.searchIcon {
+	padding: 6px;
+	border-radius: 25px;
+	background-color: #3f4c83;
+	color: white;
+	margin-left: 5px;
+}
+
+::ng-deep .p-inputtext{
+    border-radius: 20px;
+    border-color: var(--uniprep-secondary);
+    width: 200%;
+}
