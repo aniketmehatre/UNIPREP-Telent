@@ -16,10 +16,10 @@ export class FaqService {
   //     headers: headers,
   // });
   // }
-  Getfaqlist(): Observable<any> {
+  Getfaqlist(val:any): Observable<any> {
     const headers= new HttpHeaders()
     .set('Accept', "application/json")
-    return this.http.get(environment.ApiUrl + "/faqcategories", {
+    return this.http.post(environment.ApiUrl + "/faqcategories",val, {
       headers: headers,
   });
   }
