@@ -6,7 +6,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./job-board.component.scss']
 })
 export class JobBoardComponent implements OnInit {
-
+  numbers: number[] = Array(20).fill(0).map((x, i) => i + 1);
+  
   constructor() { }
 
   ngOnInit(): void {

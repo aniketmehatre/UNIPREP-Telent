@@ -1,0 +1,27 @@
+.scholarshiplistcard{
+  border:1px solid var(--uniprep-secondary);
+  border-radius: 15px;
+  &:hover
+  {
+    border:1px solid var(--uniprep-primaryhighlight);
+    background:var(--uniprep-primaryop10);
+  }
+}
+
+.courseImage{
+    height: 3rem;
+    width: 3rem;
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    border-radius: 10px;
+    background-color: white;
+    border: 1px solid #f0f0f0;
+}
+
+.headerButtons{
+    border-color: var(--uniprep-primary);
+    border-radius: 25px;
+    color: var(--uniprep-primary);
+    font-weight: 700;
+}
