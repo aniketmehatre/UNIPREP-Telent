@@ -420,6 +420,7 @@ border: none !important;
     box-sizing: border-box;
     max-width: calc(25% - 1rem); /* Adjust this to fit four cards per row */
     background-color: #fff !important;
+	border: 2px solid orange !important;
 }
 
 .responsivecard img {
