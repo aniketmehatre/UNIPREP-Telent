@@ -1,0 +1,59 @@
+.cvBuilderSampleImg{
+    height: 350px;
+    width: 250px;
+    cursor: pointer;
+    img{
+        height: 100%;
+        width: 100%;
+        border-radius: 9px;
+        border: 1px solid;
+    }
+    &:hover
+    {
+        // border: 5px solid royalblue;
+        // border-radius: 15px;
+        filter: drop-shadow(0px 0px 35px black);
+    }
+}
+
+.center-button {
+    position: absolute;
+    transform: translate(60%, -450%);
+    padding: 5px 10px 5px 10px;
+    background-color: var(--uniprep-primary);
+    color: white;
+    border: none;
+    border-radius: 25px;
+}
+
+.tickIcon{
+    background-color: #5a5aed;
+    padding: 8px;
+    border-radius: 25px;
+}
+
+.selectedResumeLevel{
+    border: 5px solid royalblue;
+    border-radius: 15px;
+}
+
+.createResumeButton{
+    background-color: var(--uniprep-primary);
+    color: white;
+    padding: 15px 75px 15px 75px;
+    border: none;
+    border-radius: 50px;
+}
+
+@keyframes shake {
+    0% { transform: translateX(0) }
+    25% { transform: translateX(5px) }
+    50% { transform: translateX(-5px) }
+    75% { transform: translateX(5px) }
+    100% { transform: translateX(0) }
+}
+
+.shake {
+    animation: shake 0.3s;
+    background-color: red;
+}
