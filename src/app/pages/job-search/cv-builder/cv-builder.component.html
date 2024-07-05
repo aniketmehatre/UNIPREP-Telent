@@ -1,0 +1,37 @@
+<div class="body">
+    <div class="card-body" style="color: var(--uniprep-primary);">
+        <p class="d-flex justify-content-center p-1 fw-bold fs-4" >Select your CV style to get started</p>
+        <div class="col-md-12 d-flex justify-content-center">
+            <div class="col-md-1"></div>
+            <div class="col-md-10 p-3 fw-bold d-flex justify-content-around">
+                <div>
+                    <p class="d-flex justify-content-center m-2">Basic</p>
+                    <div class="cvBuilderSampleImg" [ngClass]="{selectedResumeLevel : selectedResumeLevel == 'basic'}" (click)="imgOnclick('basic')">
+                        <img src="https://api.uniprep.ai/uniprepapi/storage/app/public/job-search/basic.webp" alt="basic">
+                    </div>
+                    <button *ngIf="selectedResumeLevel == 'basic'" class="center-button">Selected <i class="fa-solid fa-check tickIcon"></i></button>
+                </div>
+                <div>
+                    <p class="d-flex justify-content-center m-2">Fancy</p>
+                    <div class="cvBuilderSampleImg" [ngClass]="{selectedResumeLevel : selectedResumeLevel == 'intermediate'}" (click)="imgOnclick('intermediate')">
+                        <img src="https://api.uniprep.ai/uniprepapi/storage/app/public/job-search/intermediate.webp" alt="intermediate">
+                    </div>
+                    <button *ngIf="selectedResumeLevel == 'intermediate'" class="center-button">Selected <i class="fa-solid fa-check tickIcon"></i></button>
+                </div>
+                <div>
+                    <p class="d-flex justify-content-center m-2">Colorful</p>
+                    <div class="cvBuilderSampleImg" [ngClass]="{selectedResumeLevel : selectedResumeLevel == 'colorfull'}" (click)="imgOnclick('colorfull')">
+                        <img src="https://api.uniprep.ai/uniprepapi/storage/app/public/job-search/colorfull.webp" alt="colorfull">
+                    </div>
+                    <button *ngIf="selectedResumeLevel == 'colorfull'" class="center-button">Selected <i class="fa-solid fa-check tickIcon"></i></button>
+                </div>
+            </div>
+            <div class="col-md-1"></div>
+        </div>
+        <div class="d-flex justify-content-center" style="margin: 50px;">
+            <button class="createResumeButton" (click)="shakeButton($event)">Create your Resume &nbsp;&nbsp;&nbsp;<i class="fa-solid fa-arrow-right tickIcon"></i></button>
+        </div>
+        
+    </div>
+</div>
+
