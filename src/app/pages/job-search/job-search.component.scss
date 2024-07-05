@@ -1,8 +1,9 @@
 .headerButtons{
-    border-color: var(--uniprep-primary);
-    border-radius: 5px;
     color: var(--uniprep-primary);
     font-weight: 700;
+    border: 1px solid var(--uniprep-primary);
+    border-radius: 5px;
+    padding: 0.8rem 1.5rem !important;
 }
 
 .active{
