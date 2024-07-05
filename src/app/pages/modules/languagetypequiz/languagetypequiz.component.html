@@ -162,7 +162,7 @@
                         <div class="btn-icon"><i class="fa-solid fa-arrow-right"></i></div>
                     </div>
                 </button>&nbsp;
-                <button *ngIf="this.quizData.length <= this.selectedQuiz" (click)="clickSubmitQuiz()"
+                <button [disabled]="answerOptionClicked" *ngIf="this.quizData.length <= this.selectedQuiz" (click)="clickSubmitQuiz()"
                     class="btn btn-start btn-rounded m-0 px-2 py-2">
                     <div class="d-flex align-items-center">
                         <span class="fw-normal h6 mb-0 ps-3 pe-2">Submit</span>
