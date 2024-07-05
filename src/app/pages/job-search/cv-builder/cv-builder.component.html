@@ -1,5 +1,5 @@
 <div class="body">
-	<div class="card-body" style="color: var(--uniprep-primary)">
+	<div class="card-body" style="color: var(--uniprep-primary)" *ngIf="!enableModule">
 		<div class="row justify-content-center">
 			<h3 class="text-center">Select your CV style to get started</h3>
 			<div class="col-md-12">
@@ -38,4 +38,90 @@
 			</div>
 		</div>
 	</div>
+    <div class="container-fluid" *ngIf="enableModule">
+        <p-carousel [value]="pages" [numVisible]="1" [numScroll]="1" [circular]="false" [showNavigators]="false" [showIndicators]="false" [page]="activePageIndex" >
+            <ng-template let-pages let-i="index" pTemplate="item">
+                <div class="d-flex flex-column h-100 justify-content-between">
+                    <div class="product-item">
+                        <div class="product-item-content">
+                            <div class="p-mb-3"></div>
+                            <div class="text-center">
+                                <h4 class="p-mb-1 PageTitle p-2">{{ pages.pageTitle }}</h4>
+                            </div>
+                            <ng-container *ngIf="activePageIndex == 0">
+                                <form role="form" [formGroup]="personalInfoFrom" (ngSubmit)="personsonInfoFormSubmit()">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <label class="form-label labelFont">Your Name</label>
+                                                    <div class="form-group">
+                                                        <div class="mb-3">
+                                                            <input class="w-100" type="text" placeholder="Full Name" formControlName="your_name" pInputText />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label class="form-label labelFont">Your Email</label>
+                                                    <div class="form-group">
+                                                        <div class="mb-3">
+                                                            <input class="w-100" type="text" placeholder="Email Address" formControlName="your_email" pInputText />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label class="form-label labelFont">Phone Number</label>
+                                                    <div class="form-group">
+                                                        <div class="mb-3">
+                                                            <input class="w-100" type="text" placeholder="Phone Number" formControlName="phone_number" pInputText />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label class="form-label labelFont">Website</label>
+                                                    <div class="form-group">
+                                                        <div class="mb-3">
+                                                            <input class="w-100" type="text" placeholder="Website or portfolio Link" formControlName="website" pInputText />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label class="form-label labelFont">Job Title</label>
+                                                    <div class="form-group">
+                                                        <div class="mb-3">
+                                                            <input class="w-100" type="text" placeholder="your Job Title" formControlName="job_title" pInputText />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label class="form-label labelFont">Location</label>
+                                                    <div class="form-group">
+                                                        <div class="mb-3">
+                                                            <input class="w-100" type="text" placeholder="Your Location" formControlName="location" pInputText />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label class="form-label labelFont">Summary</label>
+                                                    <div class="form-group">
+                                                        <div class="mb-3">
+                                                            <textarea [rows]="3" [cols]="100" pInputTextarea placeholder="About yourself"  [autoResize]="true" formControlName="summary"></textarea>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </ng-container>
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-between">
+                        <button pButton type="button" class="text-white p-ripple p-button-rounded p-button-info-prev p-button p-component p-2" (click)="previous(pages.id)"><i class="fa fa-arrow-left exhausted-plan-icon-prev"></i> Previous</button>
+                        <button pButton type="button" class="text-white p-ripple p-button-rounded p-button-info-next p-button p-component p-2" (click)="next(pages.id)">Next<i class="fa fa-arrow-right exhausted-plan-icon-next"></i></button>
+                    </div>
+                </div>
+            </ng-template>
+        </p-carousel>
+    </div>
 </div>

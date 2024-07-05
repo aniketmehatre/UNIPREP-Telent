@@ -60,3 +60,58 @@
     animation: shake 0.3s;
     background-color: red;
 }
+
+.p-button-info-prev {
+	background-color: #0e3361;
+	color: white;
+	border: none;
+}
+
+.p-button-info-next {
+	background-color: #4552a3;
+	color: white;
+	border: none;
+}
+
+.p-button-info-succes {
+	background-color: #9bc329;
+	color: white;
+	border: none;
+}
+
+:host ::ng-deep .fa-check-circle {
+	color: #83a81a !important;
+}
+:host ::ng-deep .p-carousel-prev {
+	align-self: end !important;
+}
+
+:host ::ng-deep .p-carousel-next {
+	align-self: end !important;
+}
+
+.exhausted-plan-icon-prev {
+	padding: 10px;
+	border-radius: 25px;
+	background-color: #0e3361;
+	color: white;
+	margin-left: 5px;
+}
+
+.exhausted-plan-icon-next {
+	padding: 10px;
+	border-radius: 25px;
+	background-color: #4552a3;
+	color: white;
+	margin-left: 5px;
+}
+
+.labelFont{
+    font-size: medium; 
+    font-weight: 900;
+}
+
+.PageTitle{
+    color: var(--uniprep-primary);
+    margin: 10px;
+}

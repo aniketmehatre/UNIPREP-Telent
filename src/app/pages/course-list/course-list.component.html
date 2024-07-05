@@ -4,9 +4,9 @@
 			<div class="row justify-content-center">
 				<div class="col-md-3 text-start">
 					<span class="d-flex justify-content-start p-2" style="white-space: nowrap">
-						<input type="checkbox" class="me-0" style="transform: scale(1.5)"
+						<input type="checkbox" class="me-0" style="transform: scale(1.5);cursor: pointer;"
 							[(ngModel)]="selectAllCheckboxes" (click)="selectAllCheckbox()" id="selectAllcheckbox" />
-						<label class="p-2" for="selectAllcheckbox">Select All</label>
+						<label class="p-2" for="selectAllcheckbox" style="cursor: pointer;">Select All</label>
 						<span class="p-2">Selected : {{ selectedCourses }}</span>
 					</span>
 				</div>

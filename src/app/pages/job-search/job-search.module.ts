@@ -7,6 +7,10 @@ import { JobBoardComponent } from './job-board/job-board.component';
 import {InputTextModule} from 'primeng/inputtext';
 import { CvBuilderComponent } from './cv-builder/cv-builder.component';
 import { CoverLetterBuilderComponent } from './cover-letter-builder/cover-letter-builder.component';
+import {CarouselModule} from 'primeng/carousel';
+import {ButtonModule} from 'primeng/button';
+import { ReactiveFormsModule } from '@angular/forms';
+import {InputTextareaModule} from 'primeng/inputtextarea';
 
 @NgModule({
   declarations: [
@@ -19,7 +23,11 @@ import { CoverLetterBuilderComponent } from './cover-letter-builder/cover-letter
   imports: [
     CommonModule,
     JobSearchRoutingModule,
-    InputTextModule
+    InputTextModule,
+    CarouselModule,
+    ButtonModule,
+    ReactiveFormsModule,
+    InputTextareaModule,
   ]
 })
 export class JobSearchModule { }
