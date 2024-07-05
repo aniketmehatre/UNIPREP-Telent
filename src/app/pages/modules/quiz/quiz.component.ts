@@ -261,6 +261,7 @@ export class QuizComponent implements OnInit {
       }
       return dat;
     });
+    console.log(mappedQuiz);
     this.quizData = mappedQuiz;
     this.claculatingSelectQuizPesrcentage = mappedQuiz.filter(obj => obj.useranswer).length;
     this.totalpercentagequiztime = (this.claculatingSelectQuizPesrcentage / this.quizcount) * 100;

@@ -19,7 +19,7 @@ export class FaqService {
   Getfaqlist(val:any): Observable<any> {
     const headers= new HttpHeaders()
     .set('Accept', "application/json")
-    return this.http.post(environment.ApiUrl + "/faqcategories",val, {
+    return this.http.post(environment.ApiUrl + "/faqcategorylist",val, {
       headers: headers,
   });
   }

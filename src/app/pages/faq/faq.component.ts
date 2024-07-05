@@ -19,7 +19,9 @@ export class FaqComponent implements OnInit {
     getfaqlist() {
         this.faqcatlist=[];
         var data={
-          usertype:1
+          usertype:1,
+          page:1,
+          perpage:10000
         }
         this.service.Getfaqlist(data).subscribe((res) => {
           this.faqcatlist = res.data;      
