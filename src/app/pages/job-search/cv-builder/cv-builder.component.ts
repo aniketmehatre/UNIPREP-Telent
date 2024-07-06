@@ -35,7 +35,10 @@ export class CvBuilderComponent implements OnInit {
   enableModule:boolean = false;
   activePageIndex: number = 0;
   personalInfoFrom: FormGroup;
-
+  educationalInfoFrom: FormGroup;
+  workInfoForm: FormGroup;
+  skillForm: FormGroup;
+  
   constructor(private toaster: MessageService,  private fb: FormBuilder, ) { 
     this.personalInfoFrom = this.fb.group({
       your_name: [''],
@@ -47,6 +50,30 @@ export class CvBuilderComponent implements OnInit {
       summary: [''],
     });
 
+    this.educationalInfoFrom = this.fb.group({
+      college_name: [''],
+      education_start_year: [''],
+      education_end_year: [''],
+      specialization: [''],
+      education_location: [''],
+    });
+
+    this.workInfoForm = this.fb.group({
+      org_name: [''],
+      work_start_year: [''],
+      work_end_year: [''],
+      work_designation: [''],
+      work_location: [''],
+      job_description: [''],
+    });
+
+    this.skillForm = this.fb.group({
+      skills: [''],
+      ref_name: [''],
+      ref_email: [''],
+      ref_contact: [''],
+    });
+
   }
 
   ngOnInit(): void {
@@ -56,6 +83,18 @@ export class CvBuilderComponent implements OnInit {
 
   }
 
+  educationalInfoFromSubmit(){
+
+  }
+  
+  workInfoFormSubmit(){
+
+  }
+
+  skillFormSubmit(){
+
+  }
+  
   imgOnclick(resumeLevel: any){
     // console.log(resumeLevel);
     this.selectedResumeLevel = resumeLevel;

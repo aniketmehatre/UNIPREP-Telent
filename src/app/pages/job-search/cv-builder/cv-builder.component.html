@@ -114,6 +114,168 @@
                                     </div>
                                 </form>
                             </ng-container>
+                            <ng-container *ngIf="activePageIndex == 1">
+                                <form role="form" [formGroup]="educationalInfoFrom" (ngSubmit)="personsonInfoFormSubmit()">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <label class="form-label labelFont">College Name</label>
+                                                    <div class="form-group">
+                                                        <div class="mb-3">
+                                                            <input class="w-100" type="text" placeholder="College Name" formControlName="college_name" pInputText />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label class="form-label labelFont">Education Year </label>
+                                                    <div class="row">
+                                                        <div class="col-md-6">
+                                                            <div class="form-group">
+                                                                <div class="mb-3">
+                                                                    <input class="w-100" type="text" placeholder="Start Year" formControlName="education_start_year" pInputText />
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <div class="form-group">
+                                                                <div class="mb-3">
+                                                                    <input class="w-100" type="text" placeholder="End Year" formControlName="education_end_year" pInputText />
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label class="form-label labelFont">Specialization</label>
+                                                    <div class="form-group">
+                                                        <div class="mb-3">
+                                                            <input class="w-100" type="text" placeholder="your Specialization" formControlName="specialization" pInputText />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label class="form-label labelFont">Location</label>
+                                                    <div class="form-group">
+                                                        <div class="mb-3">
+                                                            <input class="w-100" type="text" placeholder="Education Location" formControlName="education_location" pInputText />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </ng-container>
+                            <ng-container *ngIf="activePageIndex == 2">
+                                <form role="form" [formGroup]="workInfoForm" (ngSubmit)="workInfoFormSubmit()">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <label class="form-label labelFont">Organization Name</label>
+                                                    <div class="form-group">
+                                                        <div class="mb-3">
+                                                            <input class="w-100" type="text" placeholder="Organization Name" formControlName="org_name" pInputText />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label class="form-label labelFont">Experience Year </label>
+                                                    <div class="row">
+                                                        <div class="col-md-6">
+                                                            <div class="form-group">
+                                                                <div class="mb-3">
+                                                                    <input class="w-100" type="text" placeholder="Start Year" formControlName="work_start_year" pInputText />
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <div class="form-group">
+                                                                <div class="mb-3">
+                                                                    <input class="w-100" type="text" placeholder="End Year" formControlName="work_end_year" pInputText />
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label class="form-label labelFont">Designation</label>
+                                                    <div class="form-group">
+                                                        <div class="mb-3">
+                                                            <input class="w-100" type="text" placeholder="your Designation" formControlName="work_designation" pInputText />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label class="form-label labelFont">Location</label>
+                                                    <div class="form-group">
+                                                        <div class="mb-3">
+                                                            <input class="w-100" type="text" placeholder="Education Location" formControlName="work_location" pInputText />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label class="form-label labelFont">Job Description</label>
+                                                    <div class="form-group">
+                                                        <div class="mb-3">
+                                                            <textarea [rows]="3" [cols]="100" pInputTextarea placeholder="About Job Description"  [autoResize]="true" formControlName="job_description"></textarea>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </ng-container>
+                            <ng-container *ngIf="activePageIndex == 3">
+                                <form role="form" [formGroup]="skillForm" (ngSubmit)="skillFormSubmit()">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <label class="form-label labelFont">Skills </label>
+                                                    <div class="form-group">
+                                                        <div class="mb-3">
+                                                            <input class="w-100" type="text" placeholder="Skills" formControlName="skills" pInputText />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label class="form-label labelFont">Reference </label>
+                                                    <div class="form-group">
+                                                        <div class="mb-3">
+                                                            <input class="w-100" type="text" placeholder="Name" formControlName="ref_name" pInputText />
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-6">
+                                                            <div class="form-group">
+                                                                <div class="mb-3">
+                                                                    <input class="w-100" type="text" placeholder="Email ID" formControlName="ref_email" pInputText />
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <div class="form-group">
+                                                                <div class="mb-3">
+                                                                    <input class="w-100" type="text" placeholder="Contact Number" formControlName="ref_contact" pInputText />
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </ng-container>
+                            <ng-container *ngIf="activePageIndex == 4">
+                                <p class="text-center" style="font-weight: 500;color: var(--uniprep-primary);">Basic</p>
+                                <div class="cvBuilderSampleImg">
+									<img src="https://api.uniprep.ai/uniprepapi/storage/app/public/job-search/intermediate.webp" alt="intermediate" />
+								</div>
+                            </ng-container>
                         </div>
                     </div>
                     <div class="d-flex justify-content-between">
