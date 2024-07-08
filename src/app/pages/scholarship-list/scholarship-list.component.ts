@@ -44,7 +44,7 @@ export class ScholarshipListComponent implements OnInit {
   // selectedIndex: any;
   // toSend: boolean = false;
   selectAllCheckboxes: boolean = false;
-  selectedCheckboxCount: number = 0;
+  // selectedCheckboxCount: number = 0;
   exportCreditCount: number = 0;
   exportDataIds:any = [];
   selectedScholarship: number = 0;
@@ -418,12 +418,12 @@ export class ScholarshipListComponent implements OnInit {
   }
 
   selectAllCheckbox(){
-    this.selectedCheckboxCount = 0;
+    this.selectedScholarship = 0;
     this.selectAllCheckboxes = !this.selectAllCheckboxes;
     if(this.selectAllCheckboxes){
       this.scholarshipData.forEach(item=>{
         item.isChecked = 1;
-        this.selectedCheckboxCount +=1;
+        this.selectedScholarship +=1;
       });
     }else{
       this.scholarshipData.forEach(item=>{
@@ -459,7 +459,7 @@ export class ScholarshipListComponent implements OnInit {
       this.scholarshipListService.exportSelectedData(data).subscribe((response)=>{
         window.open(response.link, '_blank');
         this.selectAllCheckboxes = false;
-        this.selectedCheckboxCount = 0;
+        // this.selectedCheckboxCount = 0;
         this.selectedScholarship = 0;
         this.loadScholarShipData(0);
       })

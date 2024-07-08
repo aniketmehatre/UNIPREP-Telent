@@ -20,10 +20,10 @@
 			<div class="col-md-3 text-start"></div>
 			<div class="col-md-6 text-center">
 				<div class="d-flex justify-content-center gap-2">
-					<button class="headerButtons text-small ps-3 pe-3 pt-2 pb-2 br-8" [ngClass]="{ active: currentEndpoint == 'job-hunt' }" type="button" (click)="headerMenuClick('job-hunt')">Job Hunt</button>
-					<button class="headerButtons text-small ps-3 pe-3 pt-2 pb-2 br-8" [ngClass]="{ active: currentEndpoint == 'job-board' }" type="button" (click)="headerMenuClick('job-board')">Job Board</button>
-					<button class="headerButtons text-small ps-3 pe-3 pt-2 pb-2 br-8" [ngClass]="{ active: currentEndpoint == 'cv-builder' }" type="button" (click)="headerMenuClick('cv-builder')">CV Builder</button>
-					<button class="headerButtons text-small ps-3 pe-3 pt-2 pb-2 br-8" [ngClass]="{ active: currentEndpoint == 'coverletter-builder' }" type="button" (click)="headerMenuClick('coverletter-builder')">Cover Letter Builder</button>
+					<button class="headerButtons" [ngClass]="{ active: currentEndpoint == 'job-hunt' }" type="button" (click)="headerMenuClick('job-hunt')">Job Hunt</button>
+					<button class="headerButtons" [ngClass]="{ active: currentEndpoint == 'job-board' }" type="button" (click)="headerMenuClick('job-board')">Job Board</button>
+					<button class="headerButtons" [ngClass]="{ active: currentEndpoint == 'cv-builder' }" type="button" (click)="headerMenuClick('cv-builder')">CV Builder</button>
+					<button class="headerButtons" [ngClass]="{ active: currentEndpoint == 'coverletter-builder' }" type="button" (click)="headerMenuClick('coverletter-builder')">Cover Letter Builder</button>
 				</div>
 			</div>
 			<div class="col-md-3 text-end"></div>

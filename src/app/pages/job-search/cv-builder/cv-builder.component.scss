@@ -1,24 +1,26 @@
 .cvBuilderSampleImg{
-    height: 350px;
-    width: 250px;
     cursor: pointer;
+    margin: auto;
+    text-align: center;
+    width: fit-content;
     img{
-        height: 100%;
-        width: 100%;
+        height: 350px;
         border-radius: 9px;
         border: 1px solid;
     }
     &:hover
     {
-        // border: 5px solid royalblue;
-        // border-radius: 15px;
-        filter: drop-shadow(0px 0px 35px black);
+        -webkit-box-shadow: 0px 0px 50px 0px var(--uniprep-primaryop10);
+        -moz-box-shadow: 0px 0px 50px 0px var(--uniprep-primaryop10);
+        box-shadow: 0px 0px 50px 0px var(--uniprep-primaryop10);
     }
 }
 
 .center-button {
     position: absolute;
-    transform: translate(60%, -450%);
+    top:50%;
+    left:50%;
+    transform: translateY(-50%) translateX(-50%);
     padding: 5px 10px 5px 10px;
     background-color: var(--uniprep-primary);
     color: white;
@@ -33,8 +35,9 @@
 }
 
 .selectedResumeLevel{
-    border: 5px solid royalblue;
-    border-radius: 15px;
+    border: 2px solid #404d82;
+    border-radius: 12px;
+    position: relative;
 }
 
 .createResumeButton{
@@ -56,4 +59,59 @@
 .shake {
     animation: shake 0.3s;
     background-color: red;
+}
+
+.p-button-info-prev {
+	background-color: #0e3361;
+	color: white;
+	border: none;
+}
+
+.p-button-info-next {
+	background-color: #4552a3;
+	color: white;
+	border: none;
+}
+
+.p-button-info-succes {
+	background-color: #9bc329;
+	color: white;
+	border: none;
+}
+
+:host ::ng-deep .fa-check-circle {
+	color: #83a81a !important;
+}
+:host ::ng-deep .p-carousel-prev {
+	align-self: end !important;
+}
+
+:host ::ng-deep .p-carousel-next {
+	align-self: end !important;
+}
+
+.exhausted-plan-icon-prev {
+	padding: 10px;
+	border-radius: 25px;
+	background-color: #0e3361;
+	color: white;
+	margin-left: 5px;
+}
+
+.exhausted-plan-icon-next {
+	padding: 10px;
+	border-radius: 25px;
+	background-color: #4552a3;
+	color: white;
+	margin-left: 5px;
+}
+
+.labelFont{
+    font-size: medium; 
+    font-weight: 900;
+}
+
+.PageTitle{
+    color: var(--uniprep-primary);
+    margin: 10px;
 }

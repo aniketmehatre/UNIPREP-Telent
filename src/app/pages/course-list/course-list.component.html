@@ -4,9 +4,9 @@
 			<div class="row justify-content-center">
 				<div class="col-md-3 text-start">
 					<span class="d-flex justify-content-start p-2" style="white-space: nowrap">
-						<input type="checkbox" class="me-0" style="transform: scale(1.5)"
+						<input type="checkbox" class="me-0" style="transform: scale(1.5);cursor: pointer;"
 							[(ngModel)]="selectAllCheckboxes" (click)="selectAllCheckbox()" id="selectAllcheckbox" />
-						<label class="p-2" for="selectAllcheckbox">Select All</label>
+						<label class="p-2" for="selectAllcheckbox" style="cursor: pointer;">Select All</label>
 						<span class="p-2">Selected : {{ selectedCourses }}</span>
 					</span>
 				</div>
@@ -70,9 +70,10 @@
 										</div>
 									</div>
 									<div class="d-flex justify-content-start gap-3 mb-2">
-										<div class="courseImage"
-											style="background-image: url('https://api.uniprep.ai/uniprepapi/storage/app/public/Pitch-deck-images/Airbnb.webp')">
-										</div>
+										<!-- <div class="courseImage"
+										[ngStyle]="{'background-image': 'url(' + course.icon + ')'}">
+										</div> -->
+										<img [src]="course.icon" class="courseImage" alt="course.icon">
 										<div class="courseUniversity flex-fill">
 											<a [href]="course.university_url" (click)="handleClick($event)"
 												target="_blank" class="text-decoration-none uniprep-primary">

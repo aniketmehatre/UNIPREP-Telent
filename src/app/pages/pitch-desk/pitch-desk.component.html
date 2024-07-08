@@ -7,8 +7,8 @@
 					<input class="w-100 px-5 py-2" type="text" placeholder="Search in Pitch Deck List" pInputText [(ngModel)]="valueNearYouFilter" (input)="performSearch()" />
 				</div>
 				<span class="d-flex justify-content-start p-2">
-					<input type="checkbox" class="me-0" style="transform: scale(1.5)" [(ngModel)]="selectAllCheckboxes" (click)="selectAllCheckbox()" id="selectAllcheckbox" />
-					<label class="p-2" for="selectAllcheckbox">Select All</label>
+					<input type="checkbox" class="me-0" style="transform: scale(1.5);cursor: pointer;" [(ngModel)]="selectAllCheckboxes" (click)="selectAllCheckbox()" id="selectAllcheckbox" />
+					<label class="p-2" for="selectAllcheckbox" style="cursor: pointer;">Select All</label>
 					<span class="p-2">Selected : {{ selectedCheckboxCount }}</span>
 				</span>
 			</div>
