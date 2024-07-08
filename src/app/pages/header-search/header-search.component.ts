@@ -324,31 +324,6 @@ export class HeaderSearchComponent implements OnInit, OnDestroy {
     this.breadCrumb = [{ label:  this.countryName}, { label: this.moduleName,command: (event) => this.gBC(this.selectedQuestionData) },
       { label: this.subModuleName, command: (event) => this.gBC1(this.selectedQuestionData) }];    this.readQuestion(currentData);
     return;
-
-
-    this.isAnswerDialogVisiblePrev = true;
-    this.isAnswerDialogVisibleNext = true;
-    if (this.selectedQuestion <= 1) {
-      this.isAnswerDialogVisiblePrev = false;
-    }
-    if (this.selectedQuestion <= 0) {
-      return;
-    }
-    this.selectedQuestionId = this.selectedQuestion;
-    this.selectedGlobalData = this.searchResult[this.selectedQuestion - 1];
-    this.selectedQuestion = this.selectedQuestion - 1;
-    let data = this.searchResult[this.selectedQuestion]
-    this.searchResult.filter((res: any) => {
-      if (res.id == data.id) {
-        this.refLink = res.reflink;
-        this.videoLinks = res.videolink;
-      }
-    });
-    this.moduleName = currentData.module_name;
-    this.subModuleName = currentData.submodule_name;
-    this.breadCrumb = [{ label:  this.countryName}, { label: this.moduleName }, { label: this.subModuleName }];
-    // carousel.navBackward(event, this.selectedQuestion);
-    this.readQuestion(data);
   }
 
   findIndexById(items: any, id: number): number {
@@ -372,28 +347,6 @@ export class HeaderSearchComponent implements OnInit, OnDestroy {
     this.breadCrumb = [{ label:  this.countryName}, { label: this.moduleName,command: (event) => this.gBC(this.selectedQuestionData) },
       { label: this.subModuleName, command: (event) => this.gBC1(this.selectedQuestionData) }];
     this.readQuestion(currentData);
-    return;
-    this.isAnswerDialogVisiblePrev = true;
-    this.isAnswerDialogVisibleNext = true;
-    if (this.selectedQuestion >= this.searchResult.length - 2) {
-      this.isAnswerDialogVisibleNext = false;
-    }
-    if (this.selectedQuestion >= this.searchResult.length - 1) {
-      return;
-    }
-
-    this.selectedQuestionId = this.selectedQuestion;
-    this.selectedGlobalData = this.searchResult[this.selectedQuestion + 1];
-    this.selectedQuestion = this.selectedQuestion + 1;
-    let data = this.searchResult[this.selectedQuestion];
-    this.searchResult.filter((res: any) => {
-      if (res.id == data.id) {
-        this.refLink = res.reflink;
-        this.videoLinks = res.videolink;
-      }
-    });
-    // carousel.navForward(event, this.selectedQuestion);
-    this.readQuestion(data);
   }
 
   // goToHome() {
