@@ -206,7 +206,7 @@ export class HeaderSearchComponent implements OnInit, OnDestroy {
         this.videoLinks = res.videolink;
       }
     });
-    this.getModuleName(selectedQuestionData);
+
     if (this.selectedQuestion < 1) {
       this.isAnswerDialogVisiblePrev = false;
     } else {
@@ -217,6 +217,23 @@ export class HeaderSearchComponent implements OnInit, OnDestroy {
     } else {
       this.isAnswerDialogVisibleNext = true;
     }
+    this.moduleName = this.selectedQuestionData.module_name;
+    this.subModuleName = this.selectedQuestionData.submodule_name;
+    this.breadCrumb = [{ label:  this.countryName}, { label: this.moduleName,command: (event) => this.gBC(this.selectedQuestionData) },
+      { label: this.subModuleName, command: (event) => this.gBC1(this.selectedQuestionData) }];
+  }
+
+
+  gBC(data: any){
+    let slug = this.convertToSlug(data.module_name);
+    this.isQuestionAnswerVisible = false;
+    this.route.navigate([`/pages/modules/${slug}`]);
+  }
+
+  gBC1(data: any){
+    let slug = this.convertToSlug(data.module_name);
+    this.isQuestionAnswerVisible = false;
+    this.route.navigate([`/pages/modules/${slug}/question-list/${this.selectedGlobalData.submodule_id}`]);
   }
 
   clearText(): void {
@@ -234,39 +251,39 @@ export class HeaderSearchComponent implements OnInit, OnDestroy {
     this.readQue$ = this.moduleListService.readQuestionMessage$();
   }
 
-  getModuleName(selectedQuestionModule: any): void {
-    this.selectedQuestion = this.searchResult.findIndex((x: any) => x.id === selectedQuestionModule.id);
-    let moduleData: any;
-    this.subs.sink = this.locationService.getUniPerpModuleList().subscribe(data => {
-      this.moduleList = data.modules;
-      data.modules.forEach((value: any) => {
-        if (selectedQuestionModule.module_id == value.id) {
-          moduleData = value;
-          this.moduleName = value.module_name;
-        }
-      });
-      this.getSubModuleByModule(moduleData, selectedQuestionModule);
-    });
-  }
+  // getModuleName(selectedQuestionModule: any): void {
+  //   this.selectedQuestion = this.searchResult.findIndex((x: any) => x.id === selectedQuestionModule.id);
+  //   let moduleData: any;
+  //   this.subs.sink = this.locationService.getUniPerpModuleList().subscribe(data => {
+  //     this.moduleList = data.modules;
+  //     data.modules.forEach((value: any) => {
+  //       if (selectedQuestionModule.module_id == value.id) {
+  //         moduleData = value;
+  //         this.moduleName = value.module_name;
+  //       }
+  //     });
+  //     this.getSubModuleByModule(moduleData, selectedQuestionModule);
+  //   });
+  // }
 
-  getSubModuleByModule(module: any, selectedQuestionModule: any): void {
-    let data = {
-      moduleid: module.id
-    }
-    this.locationService.getSubModuleByModule(data).subscribe(res => {
-      if (res.status == 404) {
-
-      }
-      this.subModuleList = res.submodules;
-      res.submodules.forEach((value: any) => {
-        if (selectedQuestionModule.submodule_id == value.id) {
-          this.subModuleName = value.submodule_name;
-        }
-      })
-      this.breadCrumb = [{ label:  this.countryName}, { label: this.moduleName },
-      { label: this.subModuleName }];
-    })
-  }
+  // getSubModuleByModule(module: any, selectedQuestionModule: any): void {
+  //   let data = {
+  //     moduleid: module.id
+  //   }
+  //   this.locationService.getSubModuleByModule(data).subscribe(res => {
+  //     if (res.status == 404) {
+  //
+  //     }
+  //     this.subModuleList = res.submodules;
+  //     res.submodules.forEach((value: any) => {
+  //       console.log(selectedQuestionModule)
+  //       if (selectedQuestionModule.submodule_id == value.id) {
+  //         this.subModuleName = value.submodule_name;
+  //       }
+  //     })
+  //     this.breadCrumb = [{ label:  this.countryName}, { label: this.moduleName }, { label: this.subModuleName }];
+  //   })
+  // }
 
   breadCrumbClick(event: any, defaultEvent: any){
     if (defaultEvent.item.label == this.countryName){
@@ -302,8 +319,10 @@ export class HeaderSearchComponent implements OnInit, OnDestroy {
     if (this.selectedQuestion <= 0) {
       return;
     }
-    this.getModuleName(this.oneQuestionContent);
-    this.readQuestion(currentData);
+    this.moduleName = currentData.module_name;
+    this.subModuleName = currentData.submodule_name;
+    this.breadCrumb = [{ label:  this.countryName}, { label: this.moduleName,command: (event) => this.gBC(this.selectedQuestionData) },
+      { label: this.subModuleName, command: (event) => this.gBC1(this.selectedQuestionData) }];    this.readQuestion(currentData);
     return;
 
 
@@ -325,7 +344,9 @@ export class HeaderSearchComponent implements OnInit, OnDestroy {
         this.videoLinks = res.videolink;
       }
     });
-    this.getModuleName(data);
+    this.moduleName = currentData.module_name;
+    this.subModuleName = currentData.submodule_name;
+    this.breadCrumb = [{ label:  this.countryName}, { label: this.moduleName }, { label: this.subModuleName }];
     // carousel.navBackward(event, this.selectedQuestion);
     this.readQuestion(data);
   }
@@ -346,7 +367,10 @@ export class HeaderSearchComponent implements OnInit, OnDestroy {
     if (this.selectedQuestion >= this.searchResult.length - 1) {
       return;
     }
-    this.getModuleName(this.oneQuestionContent);
+    this.moduleName = currentData.module_name;
+    this.subModuleName = currentData.submodule_name;
+    this.breadCrumb = [{ label:  this.countryName}, { label: this.moduleName,command: (event) => this.gBC(this.selectedQuestionData) },
+      { label: this.subModuleName, command: (event) => this.gBC1(this.selectedQuestionData) }];
     this.readQuestion(currentData);
     return;
     this.isAnswerDialogVisiblePrev = true;
@@ -368,7 +392,6 @@ export class HeaderSearchComponent implements OnInit, OnDestroy {
         this.videoLinks = res.videolink;
       }
     });
-    this.getModuleName(data);
     // carousel.navForward(event, this.selectedQuestion);
     this.readQuestion(data);
   }

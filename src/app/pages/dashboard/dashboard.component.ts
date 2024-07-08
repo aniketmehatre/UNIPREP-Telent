@@ -78,6 +78,12 @@ export class DashboardComponent implements OnInit, OnChanges {
             }
         ];
     }
+
+    fieldsToCheck = [
+        'name', 'email', 'phone', 'country', 'selected_country', 'location_id',
+        'last_degree_passing_year', 'intake_year_looking', 'intake_month_looking', 'programlevel_id'
+    ];
+
     ngOnInit(): void {
         this.checkplanExpire()
         this.selectedCountryId = Number(localStorage.getItem('countryId'));
@@ -117,10 +123,21 @@ export class DashboardComponent implements OnInit, OnChanges {
             if (data) {
               this.userName = data.userdetails[0].name.toString()
               this.userData = data.userdetails[0]
-              let nullCount = this.countNullValues(this.userData)
-               let calValue = Math.round((nullCount / 75) * 100)
-                this.progress = 100 - calValue
-                this.setProgress(Math.round(this.progress))
+              // let nullCount = this.countNullValues(this.userData)
+              //  let calValue = Math.round((nullCount / 75) * 100)
+              //   this.progress = 100 - calValue
+              //
+              //
+                let filledCount = 0;
+                const totalCount = this.fieldsToCheck.length;
+
+                this.fieldsToCheck.forEach(field => {
+                    if (this.userData[field] !== null && this.userData[field] !== undefined && this.userData[field] !== "") {
+                        filledCount++;
+                    }
+                });
+                this.progress = Math.round((filledCount/ totalCount) * 100)
+                this.setProgress(Math.round((filledCount/ totalCount) * 100))
             }
         });
 
