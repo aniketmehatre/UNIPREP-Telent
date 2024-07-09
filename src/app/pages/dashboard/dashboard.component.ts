@@ -128,11 +128,10 @@ export class DashboardComponent implements OnInit, OnChanges {
               //   this.progress = 100 - calValue
               //
               //
-                let filledCount = 0;
+                let filledCount = 1;
                 const totalCount = this.fieldsToCheck.length;
-
                 this.fieldsToCheck.forEach(field => {
-                    if (this.userData[field] !== null && this.userData[field] !== undefined && this.userData[field] !== "") {
+                    if (this.userData[field] != null && this.userData[field] !== undefined && this.userData[field] !== "") {
                         filledCount++;
                     }
                 });
