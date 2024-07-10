@@ -140,11 +140,6 @@ export class SidenavComponent {
       image: "fa-solid fa-briefcase",
     },
     {
-      title: "Resources",
-      url: "/pages/resource",
-      image: "fa-solid fa-link",
-    },
-    {
       title: "Company List",
       url: "/pages/company-list",
       image: "fa-solid fa-buildings",
@@ -175,9 +170,9 @@ export class SidenavComponent {
       image: "",
     },
     {
-      title: "Success Stories",
-      url: "/pages/success-stories",  
-      image: "fa-solid fa-thumbs-up",
+      title: "Resources",
+      url: "/pages/resource",
+      image: "fa-solid fa-link",
     },
     {
       title: "Events",
@@ -193,6 +188,11 @@ export class SidenavComponent {
       title: "Certificates",
       url: "/pages/mycertificate",
       image: "fa-solid fa-file-certificate",
+    },
+    {
+      title: "Success Stories",
+      url: "/pages/success-stories",
+      image: "fa-solid fa-thumbs-up",
     },
     {
       title: "Support",
