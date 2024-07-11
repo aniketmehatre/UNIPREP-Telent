@@ -130,13 +130,18 @@ export class SidenavComponent {
       image: "fa-solid fa-swatchbook",
     },
     {
+      title: "Career Tools",
+      url: "/pages/job-tool",
+      image: "fa-solid fa-file-user",
+    },
+    {
       title: "Career Planner",
       url: "/pages/career-planner",
       image: "fa-solid fa-arrow-progress",
     },
     {
-      title: "Job Search",
-      url: "/pages/job-search/job-hunt",
+      title: "Job Portal",
+      url: "/pages/job-portal/job-search",
       image: "fa-solid fa-briefcase",
     },
     {
