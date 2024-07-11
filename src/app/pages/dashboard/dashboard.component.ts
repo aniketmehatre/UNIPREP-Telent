@@ -325,6 +325,12 @@ export class DashboardComponent implements OnInit, OnChanges {
             case "Life at ":
                 moduleName = "life-at-country"
                 break;
+            case "Skill Mastery":
+                moduleName = "skill-mastery"
+                break;
+            case "Learning Hub":
+                moduleName = "learning-hub"
+                break;
         }
         this.router.navigate([`pages/modules/${moduleName}/`]);
     }
@@ -357,6 +363,12 @@ export class DashboardComponent implements OnInit, OnChanges {
                 break;
             case "Life at ":
                 moduleName = "life-at"
+                break;
+            case "Skill Mastery":
+                moduleName = "skill-mastery"
+                break;
+            case "Learning Hub":
+                moduleName = "learning-hub"
                 break;
         }
         this.router.navigate([`pages/${moduleName}/sub-modules/2`]);

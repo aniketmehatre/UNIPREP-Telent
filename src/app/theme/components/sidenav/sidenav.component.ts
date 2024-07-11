@@ -266,23 +266,33 @@ export class SidenavComponent {
         },
       });
   }
-
+  enterpriseSubscriptionLink: any
   ngOnInit(): void {
     this.markCurrentMenu();
     this.authService.getNewUserTimeLeft().subscribe((res) => {
       let data = res.time_left;
+
       if (data.plan === "expired" || data.plan === "subscription_expired") {
         this.conditionSubscribed = false;
       } else {
         this.conditionSubscribed = true;
       }
+
+      if (res.subscription_details.subscription_plan == 'free_trail') {
+        this.enterpriseSubscriptionLink = res.enterprise_subscription_link;
+        if(res.enterprise_subscription_plan == 'Student'){
+          this.menus = this.menus.filter(item => !this.studentMenus.includes(item.title));
+        }else if(res.enterprise_subscription_plan == 'Career'){
+          this.menus = this.menus.filter(item => !this.careerMenus.includes(item.title));
+        }
+      }
     });
     this.authService.getMe().subscribe(
       res => {
+
         if (res.userdetails[0].student_type_id == 2) {
           if (res.userdetails[0].subscription_plan == 'Student') {
             this.menus = this.menus.filter(item => !this.studentMenus.includes(item.title));
-
           }
           if (res.userdetails[0].subscription_plan == 'Career') {
             this.menus = this.menus.filter(item => !this.careerMenus.includes(item.title));
@@ -358,6 +368,10 @@ export class SidenavComponent {
 
   onClickSubscribedUser(): void {
     this.visibleExhasted = false;
+    if(this.enterpriseSubscriptionLink !== ''){
+      window.open(this.enterpriseSubscriptionLink, '_target');
+      return;
+    }
     this.router.navigate(["/pages/subscriptions"]);
   }
 
@@ -376,6 +390,12 @@ export class SidenavComponent {
         item.expanded = false;
       }
     } else {
+      if(item.title == "Subscription"){
+        if(this.enterpriseSubscriptionLink  != undefined){
+          window.open(this.enterpriseSubscriptionLink, '_target');
+          return;
+        }
+      }
       this.router.navigateByUrl(item.url || "/");
     }
   }

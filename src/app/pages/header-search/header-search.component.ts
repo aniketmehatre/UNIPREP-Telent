@@ -371,15 +371,20 @@ export class HeaderSearchComponent implements OnInit, OnDestroy {
       this.route.navigate([`/pages/modules/${modName}`]);
     }
   }
-
+  enterpriseSubscriptionLink: any
   enableReadingData(): void {
     this.service.getNewUserTimeLeft().subscribe(res => {
       this.timeLeft = res.time_left;
+      this.enterpriseSubscriptionLink = res.enterprise_subscription_link;
     });
   }
 
   onClickSubscribedUser(): void {
     this.visibleExhastedData = false;
+    if(this.enterpriseSubscriptionLink != undefined){
+      window.open(this.enterpriseSubscriptionLink, '_target');
+      return;
+    }
     this.route.navigate(["/pages/subscriptions"]);
   }
 
