@@ -521,6 +521,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   onClickSubscribe() {
     this.visible = false;
+    if(this.enterpriseSubscriptionLink  != undefined){
+      window.open(this.enterpriseSubscriptionLink, '_target');
+      return;
+    }
     this.router.navigate(["/pages/subscriptions"]);
   }
 
