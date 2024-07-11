@@ -6,10 +6,10 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./job-tool.component.scss']
 })
 export class JobToolComponent implements OnInit {
-
   constructor() { }
 
   ngOnInit(): void {
   }
 
+  
 }

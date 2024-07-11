@@ -131,7 +131,7 @@ export class SidenavComponent {
     },
     {
       title: "Career Tools",
-      url: "/pages/job-tool",
+      url: "/pages/job-tool/career-tool",
       image: "fa-solid fa-file-user",
     },
     {
