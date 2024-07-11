@@ -27,14 +27,15 @@ export class JobSearchComponent implements OnInit {
   headerMenuClick(menuName: string){
     // console.log(menuName);
     this.currentEndpoint = menuName;
-    if(menuName == "job-hunt"){
-      this.router.navigate(['/pages/job-search/job-hunt']);
-    }else if(menuName == "job-board"){
-      this.router.navigate(['/pages/job-search/job-board']);
-    }else if(menuName == "cv-builder"){
-      this.router.navigate(['/pages/job-search/cv-builder']);
-    }else if(menuName == "coverletter-builder"){
-      this.router.navigate(['/pages/job-search/coverletter-builder']);
+    if(menuName == "job-search"){
+      this.router.navigate(['/pages/job-portal/job-search']);
+    }else if(menuName == "job-tracker"){
+      this.router.navigate(['/pages/job-portal/job-tracker']);
     }
+    // else if(menuName == "cv-builder"){
+    //   this.router.navigate(['/pages/job-portal/cv-builder']);
+    // }else if(menuName == "coverletter-builder"){
+    //   this.router.navigate(['/pages/job-portal/coverletter-builder']);
+    // }
   }
 }
