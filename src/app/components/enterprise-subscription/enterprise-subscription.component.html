@@ -12,8 +12,26 @@
                                             <div class="col-md-12 col-lg-12 text-center"  *ngIf="!isPaymentCompleted">
                                                 <img role="button" class="small-image text-left mb-2"
                                                     src="../../../uniprep-assets/images/uniprep-light.svg" />
-                                                <h1>Enterprise Subscription</h1><br><br>
-                                                <h5>College : {{collegeName}}</h5><br> 
+                                                    <h1>Enterprise Subscription</h1><br><br>
+                                                    <h5> 
+                                                        <table style="margin:0 auto">
+                                                        <tr>
+                                                            <td style="width:100px; text-align: right;">College :</td>
+                                                            <td style="text-align: center; ">{{collegeName}} </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td style="width:100px; text-align: right;">Name :</td>
+                                                            <td style="text-align: center; ">{{name}} </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td style="width:100px; text-align: right;"s>Price :</td>
+                                                            <td style="text-align: center;">{{price}} </td>
+                                                        </tr>
+                                                    </table></h5><br> 
+                                                   
+                                                <!--<h5>College : {{collegeName}} <br> 
+                                                Name : {{name}} <br> 
+                                                 Price : {{price}}</h5><br>  -->
                                                 <button (click)="pay()"
                                                     class="pt-3 pb-3 btn btn-primary btn-login text-uppercase fw-semibold m-0 text-dark" [disabled]="collegeName == ''">Pay
                                                     Now</button>

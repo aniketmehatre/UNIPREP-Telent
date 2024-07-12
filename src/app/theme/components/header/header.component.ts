@@ -518,14 +518,19 @@ export class HeaderComponent implements OnInit, OnDestroy {
       });
     });
   }
-
+  enterpriseSubscriptionLink: any
   onClickSubscribe() {
     this.visible = false;
+    if(this.enterpriseSubscriptionLink  != undefined){
+      window.open(this.enterpriseSubscriptionLink, '_target');
+      return;
+    }
     this.router.navigate(["/pages/subscriptions"]);
   }
 
   subScribedUserCount(): void {
     this.service.getNewUserTimeLeft().subscribe((res) => {
+      this.enterpriseSubscriptionLink = res.enterprise_subscription_link;
       let data = res.time_left;
       if (data.plan === "not_started") {
         this.visible = false;
@@ -588,6 +593,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   checkNewUser(): void {
     this.service.getNewUserTimeLeft().subscribe((res) => {
+      this.enterpriseSubscriptionLink = res.enterprise_subscription_link;
       this.dashboardService.updatedata(res.time_left);
       let data = res.time_left;
       if (data.plan === "on_progress") {

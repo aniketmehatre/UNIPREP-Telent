@@ -19,7 +19,7 @@
 		<h5 class="mb-0">Country Selection</h5>
 	</div>
 	<div class="col-8">
-		<p-dropdown [options]="countryLists" styleClass="w-100" optionLabel="country" (onChange)="selectCountryInHeader($event.value)" class="country-dropdown">
+		<p-dropdown [options]="countryLists" styleClass="w-100" optionLabel="country" (onChange)="selectCountry($event.value)" class="country-dropdown">
 			<ng-template pTemplate="selectedItem">
 				<div class="d-flex align-items-center gap-2">
 					<img [src]="headerFlag" class="base-country-flag" width="15" />
