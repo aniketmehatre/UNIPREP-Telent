@@ -521,7 +521,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   enterpriseSubscriptionLink: any
   onClickSubscribe() {
     this.visible = false;
-    if(this.enterpriseSubscriptionLink  != undefined){
+    if(this.enterpriseSubscriptionLink  != ''){
       window.open(this.enterpriseSubscriptionLink, '_target');
       return;
     }
@@ -793,6 +793,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
       setTimeout(() => {
         this.checkNewUser();
         this.dashboardService.isinitialstart = true;
+        if(this.enterpriseSubscriptionLink  != ""){
+          window.open(this.enterpriseSubscriptionLink, '_target');
+          return;
+      }
         this.router.navigate(["/pages/subscriptions"]);
       }, 1000);
     },
