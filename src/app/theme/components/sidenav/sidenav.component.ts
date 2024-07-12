@@ -283,7 +283,7 @@ export class SidenavComponent {
         this.conditionSubscribed = true;
       }
 
-      if (res.subscription_details.subscription_plan == 'free_trail') {
+      if (res.subscription_details.subscription_plan == 'free_trail' && res.enterprise_subscription_link!= "") {
         this.enterpriseSubscriptionLink = res.enterprise_subscription_link;
         if(res.enterprise_subscription_plan == 'Student'){
           this.menus = this.menus.filter(item => !this.studentMenus.includes(item.title));

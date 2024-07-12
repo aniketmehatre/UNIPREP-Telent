@@ -381,7 +381,7 @@ export class HeaderSearchComponent implements OnInit, OnDestroy {
 
   onClickSubscribedUser(): void {
     this.visibleExhastedData = false;
-    if(this.enterpriseSubscriptionLink != undefined){
+    if(this.enterpriseSubscriptionLink != ""){
       window.open(this.enterpriseSubscriptionLink, '_target');
       return;
     }
