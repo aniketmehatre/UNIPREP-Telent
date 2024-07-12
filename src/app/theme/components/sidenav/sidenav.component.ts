@@ -130,19 +130,19 @@ export class SidenavComponent {
       image: "fa-solid fa-swatchbook",
     },
     {
+      title: "Career Tools",
+      url: "/pages/job-tool/career-tool",
+      image: "fa-solid fa-file-user",
+    },
+    {
       title: "Career Planner",
       url: "/pages/career-planner",
       image: "fa-solid fa-arrow-progress",
     },
     {
-      title: "Job Search",
-      url: "/pages/job-search/job-hunt",
+      title: "Job Portal",
+      url: "/pages/job-portal/job-search",
       image: "fa-solid fa-briefcase",
-    },
-    {
-      title: "Resources",
-      url: "/pages/resource",
-      image: "fa-solid fa-link",
     },
     {
       title: "Company List",
@@ -175,9 +175,9 @@ export class SidenavComponent {
       image: "",
     },
     {
-      title: "Success Stories",
-      url: "/pages/success-stories",  
-      image: "fa-solid fa-thumbs-up",
+      title: "Resources",
+      url: "/pages/resource",
+      image: "fa-solid fa-link",
     },
     {
       title: "Events",
@@ -193,6 +193,11 @@ export class SidenavComponent {
       title: "Certificates",
       url: "/pages/mycertificate",
       image: "fa-solid fa-file-certificate",
+    },
+    {
+      title: "Success Stories",
+      url: "/pages/success-stories",
+      image: "fa-solid fa-thumbs-up",
     },
     {
       title: "Support",
@@ -266,23 +271,33 @@ export class SidenavComponent {
         },
       });
   }
-
+  enterpriseSubscriptionLink: any
   ngOnInit(): void {
     this.markCurrentMenu();
     this.authService.getNewUserTimeLeft().subscribe((res) => {
       let data = res.time_left;
+
       if (data.plan === "expired" || data.plan === "subscription_expired") {
         this.conditionSubscribed = false;
       } else {
         this.conditionSubscribed = true;
       }
+
+      if (res.subscription_details.subscription_plan == 'free_trail' && res.enterprise_subscription_link!= "") {
+        this.enterpriseSubscriptionLink = res.enterprise_subscription_link;
+        if(res.enterprise_subscription_plan == 'Student'){
+          this.menus = this.menus.filter(item => !this.studentMenus.includes(item.title));
+        }else if(res.enterprise_subscription_plan == 'Career'){
+          this.menus = this.menus.filter(item => !this.careerMenus.includes(item.title));
+        }
+      }
     });
     this.authService.getMe().subscribe(
       res => {
+
         if (res.userdetails[0].student_type_id == 2) {
           if (res.userdetails[0].subscription_plan == 'Student') {
             this.menus = this.menus.filter(item => !this.studentMenus.includes(item.title));
-
           }
           if (res.userdetails[0].subscription_plan == 'Career') {
             this.menus = this.menus.filter(item => !this.careerMenus.includes(item.title));
@@ -358,6 +373,10 @@ export class SidenavComponent {
 
   onClickSubscribedUser(): void {
     this.visibleExhasted = false;
+    if(this.enterpriseSubscriptionLink !== ''){
+      window.open(this.enterpriseSubscriptionLink, '_target');
+      return;
+    }
     this.router.navigate(["/pages/subscriptions"]);
   }
 
@@ -376,6 +395,12 @@ export class SidenavComponent {
         item.expanded = false;
       }
     } else {
+      if(item.title == "Subscription"){
+        if(this.enterpriseSubscriptionLink  != undefined){
+          window.open(this.enterpriseSubscriptionLink, '_target');
+          return;
+        }
+      }
       this.router.navigateByUrl(item.url || "/");
     }
   }

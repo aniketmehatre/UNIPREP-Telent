@@ -69,6 +69,7 @@ import {PdfViewerModule} from "ng2-pdf-viewer";
 import { CareerPlannerComponent } from './career-planner/career-planner.component';
 import { CertificatesComponent } from './certificates/certificates.component';
 import { CourseListComponent } from "./course-list/course-list.component";
+// import { JobToolComponent } from './job-tool/job-tool.component';
 @NgModule({
     declarations: [
         PagesComponent,
@@ -101,6 +102,7 @@ import { CourseListComponent } from "./course-list/course-list.component";
         CareerPlannerComponent,
         CertificatesComponent,
         CourseListComponent,
+        // JobToolComponent,
         
     ],
   exports: [FooterStatusBoxComponent, HeaderSearchComponent],

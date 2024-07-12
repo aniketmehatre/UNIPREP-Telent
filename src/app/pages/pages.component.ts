@@ -103,7 +103,7 @@ export class PagesComponent implements OnInit, OnDestroy {
         this.isDeviceStatusPopupView = true;
         localStorage.setItem("allowmobile",'1');
       }
-
+    enterpriseSubscriptionLink: any
     ngOnInit(): void {
         this.service.getTimeInfoForCard().subscribe((data) => {
             localStorage.setItem('time_card_info', data.card_message);
@@ -146,11 +146,16 @@ export class PagesComponent implements OnInit, OnDestroy {
     onClickSubscribedUser(): void {
         this.visibleExhasted = false;
         this.visibleExhastedUser = false;
+        if(this.enterpriseSubscriptionLink  != ""){
+            window.open(this.enterpriseSubscriptionLink, '_target');
+            return;
+        }
         this.router.navigate(["/pages/subscriptions"]);
     }
 
     subScribedUserCount(): void {
         this.service.getNewUserTimeLeft().subscribe(res => {
+            this.enterpriseSubscriptionLink = res.enterprise_subscription_link;
             let data = res.time_left;
             if (data.plan === 'expired') {
                 this.visibleExhasted = true;

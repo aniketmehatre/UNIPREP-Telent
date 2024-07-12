@@ -17,7 +17,7 @@
 					<div class="select-title text-nowrap d-flex justify-content-between align-items-center"
 						style="width: 80%">
 						<div>
-							<h5 class="w-100 mb-1" tooltipPosition="top" pTooltip="Course List">COURSE LIST<i
+							<h5 class="w-100 mb-1" tooltipPosition="top" pTooltip="UNIFINDER">UNIFINDER<i
 									class="questiontooltip fa-solid fa-circle-question"></i></h5>
 						</div>
 						<div>
@@ -62,10 +62,10 @@
 									<div class="d-flex flex-fill justify-content-start align-items-center gap-2 mb-2">
 										<input type="checkbox" (change)="onCheckboxChange($event)"
 											class="mt-1 inputselectbox" [(ngModel)]="course.isChecked" />
-										<div class="courseNameTag flex-fill h-100 d-flex align-items-center">
-											<p class="mb-0 p-3"><a [href]="course.course_url"
+										<div class="courseNameTag flex-fill h-100 d-flex align-items-center" title="Course Name">
+											<p class="mb-0 p-2"><a [href]="course.course_url"
 													(click)="handleClick($event)" target="_blank"
-													class="text-decoration-none text-white">{{ course.course_name }}</a>
+													class="text-decoration-none text-white">{{ course.course_name }}</a> &nbsp;<i class="fa-solid fa-link"></i>
 											</p>
 										</div>
 									</div>
@@ -74,52 +74,62 @@
 										[ngStyle]="{'background-image': 'url(' + course.icon + ')'}">
 										</div> -->
 										<img [src]="course.icon" class="courseImage" alt="course.icon">
-										<div class="courseUniversity flex-fill">
+										<div class="courseUniversity flex-fill" title="University Name">
 											<a [href]="course.university_url" (click)="handleClick($event)"
 												target="_blank" class="text-decoration-none uniprep-primary">
-												<h5 class="uniprep-primary text-wrap">{{ course.university_name }}</h5>
+												<h5 class="uniprep-primary text-wrap universityName">{{ course.university_name }} <i class="fa-solid fa-arrow-up-right-from-square text-small"></i></h5>
 											</a>
-											<div class="btn btn-dark w-100 btn-rounded">{{ course.favourite == 1 ?
-												"Shortlisted" : "Shortlist"}} Course</div>
+											<!-- <div class="btn btn-dark w-100 btn-rounded">{{ course.favourite == 1 ?
+												"Shortlisted" : "Shortlist"}} Course</div> -->
+											<!-- <div class="btn btn-dark w-100 btn-rounded" style="font-size: small;"> Apply</div> -->
+											<div class="d-flex justify-content-between align-items-center">
+												<div class="btn btn-dark applyButton btn-rounded"> Apply</div>
+												<i [class]="course.favourite == 1 ? 'fa-solid fa-bookmark' : 'fa-regular fa-bookmark'" class="favIcon" ></i>
+											</div>
 										</div>
 									</div>
 								</div>
 
 								<div class="row text-start">
-									<div
+									<!-- <div
 										[ngClass]="{ 'col-12 mb-1': course.subject_name?.length > 18, 'col-6 mb-1': true }">
 										<p class=" text-wrap"><i class="fa-solid fa-graduation-cap"></i> &nbsp;<small>{{
 												course.subject_name }}</small></p>
-									</div>
-									<div class="col-6 mb-1">
+									</div> -->
+									<!-- <div class="col-12 mb-1" title="{{course.subject_name}}">
+										<p class=" text-wrap"><i class="fa-solid fa-graduation-cap"></i> &nbsp;<small>
+											{{ course.subject_name | slice:0:30 }}{{ course.subject_name.length > 30 ? '...' : '' }}
+										</small></p>
+									</div> -->
+									<div class="col-6 mb-1" title="Estd Year">
 										<p><i class="fa-regular fa-clock"></i> &nbsp;<small>{{
 												course.estd_year}}</small></p>
 									</div>
-									<div class="col-6 mb-1">
+									<div class="col-6 mb-1" title="Campus Country">
 										<p><i class="fa-solid fa-globe"></i> &nbsp;<small>{{ course.country}}</small>
 										</p>
 									</div>
-									<div class="col-6 mb-1">
+									<div class="col-6 mb-1" title="Campus Location">
 										<p><i class="fa-solid fa-location-crosshairs"></i> &nbsp;<small>{{
 												course.location}}</small></p>
 									</div>
-									<div class="col-6 mb-1">
+									<div class="col-6 mb-1" title="Duration">
 										<p><i class="fa-solid fa-clock"></i> &nbsp;<small>{{ course.duration}}</small>
 										</p>
 									</div>
-									<div class="col-6 mb-1">
+									<div class="col-6 mb-1" title="Intake Month">
 										<p><i class="fa-solid fa-calendar"></i> &nbsp;<small>{{
 												course.intake_month}}</small></p>
 									</div>
-									<div class="col-6 mb-1" *ngIf="course.stay_back">
+									<div class="col-6 mb-1"  title="Stay Back">
 										<p><i class="fa-regular fa-hourglass"></i> &nbsp;<small>{{
 												course.stay_back}}</small></p>
 									</div>
-									<div class="col-6 mb-1">
+									<div class="col-6 mb-1" title="World Rank">
 										<p><i class="fa-solid fa-chart-simple"></i> &nbsp;<small>{{
 												course.world_rank}}</small></p>
 									</div>
-									<div class="col-6 mb-1">
+									<div class="col-6 mb-1" title="Study Level">
 										<p><i class="fa-solid fa-stairs"></i> &nbsp;<small>{{
 												course.study_level}}</small></p>
 									</div>

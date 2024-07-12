@@ -5,8 +5,6 @@ import { JobSearchComponent } from './job-search.component';
 import { JobHuntComponent } from './job-hunt/job-hunt.component';
 import { JobBoardComponent } from './job-board/job-board.component';
 import {InputTextModule} from 'primeng/inputtext';
-import { CvBuilderComponent } from './cv-builder/cv-builder.component';
-import { CoverLetterBuilderComponent } from './cover-letter-builder/cover-letter-builder.component';
 import {CarouselModule} from 'primeng/carousel';
 import {ButtonModule} from 'primeng/button';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -17,8 +15,6 @@ import {InputTextareaModule} from 'primeng/inputtextarea';
     JobSearchComponent,
     JobHuntComponent,
     JobBoardComponent,
-    CvBuilderComponent,
-    CoverLetterBuilderComponent
   ],
   imports: [
     CommonModule,

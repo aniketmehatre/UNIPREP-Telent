@@ -25,7 +25,7 @@ import { ExportCreditComponent } from './export-credit/export-credit.component';
 import { MycertificateComponent } from './mycertificate/mycertificate.component';
 import { CareerPlannerComponent } from './career-planner/career-planner.component';
 import { CourseListComponent } from './course-list/course-list.component';
-
+import { JobToolComponent } from './job-tool/job-tool.component';
 
 const routes: Routes = [
     {
@@ -183,8 +183,12 @@ const routes: Routes = [
                 component: CourseListComponent
             },
             {
-                path: 'job-search',
+                path: 'job-portal',
                 loadChildren: () => import('./job-search/job-search.module').then(m => m.JobSearchModule)
+            },
+            {
+                path: 'job-tool',
+                loadChildren: () => import('./job-tool/job-tool.module').then(m => m.JobToolModule)
             }
         ]
     }

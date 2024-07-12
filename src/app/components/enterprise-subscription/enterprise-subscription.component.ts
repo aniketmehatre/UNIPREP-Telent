@@ -13,6 +13,8 @@ import { BehaviorSubject } from 'rxjs';
 })
 export class EnterpriseSubscriptionComponent implements OnInit {
   collegeName: string = "";
+  name: string = "";
+  price: string = "";
   orderLink: string | null = "";
 
   isPaymentCompleted: boolean = false;
@@ -36,6 +38,8 @@ export class EnterpriseSubscriptionComponent implements OnInit {
       if (this.collegeName == '') {
         this.toast.add({ severity: 'error', summary: 'Error', detail: res.college_name });
       }
+      this.name = res.name;
+      this.price = res.price;
     });
   }
   pay() {
