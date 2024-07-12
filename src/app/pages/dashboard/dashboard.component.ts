@@ -204,7 +204,7 @@ export class DashboardComponent implements OnInit, OnChanges {
         this.headerFlag = countryData.flag;
         this.ngOnInit();
     }
-
+    certificatecountstudent:number=0;
     loadApiData(): void {
         const data = {
             countryId: this.selectedCountryId,
@@ -222,6 +222,7 @@ export class DashboardComponent implements OnInit, OnChanges {
                     //this.readProgressionPercentage = Math.round(readProgression.readpercentage);
                     this.setProgress1(Math.round(readProgression.readpercentage))
                     this.progressReading = Math.round(readProgression.readpercentage)
+                    this.certificatecountstudent=readProgression.certificatecount
                 }
                 // if (quizProgression) {
                 //     if (!quizProgression.success) {
