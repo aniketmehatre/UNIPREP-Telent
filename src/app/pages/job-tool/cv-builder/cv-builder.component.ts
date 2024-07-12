@@ -1,13 +1,20 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { MessageService } from 'primeng/api';
 import { FormBuilder, FormGroup } from "@angular/forms";
-
 @Component({
   selector: 'uni-cv-builder',
   templateUrl: './cv-builder.component.html',
   styleUrls: ['./cv-builder.component.scss']
 })
 export class CvBuilderComponent implements OnInit {
+  previewImage: string = "";
+
+  cvData = {
+    name: 'John Doe',
+    email: 'john.doe@example.com'
+    // Add more fields as needed
+  };
+
   selectedResumeLevel: string = "";
   pages:any = [
     {
@@ -31,23 +38,78 @@ export class CvBuilderComponent implements OnInit {
       pageTitle: "Your Resume"
     }
   ];
-  
+  experienceLevel: any = [
+    {id: 1, level: "Fresher"},
+    {id: 2, level: "1-2 Years"},
+    {id: 3, level: "3-5 Years"},
+    {id: 4, level: "5+ Years"},
+  ];
+  cgpaPercentage: any = [
+    {id:1, value: "CGPA"},
+    {id:2, value: "Percentage"}
+  ];
   enableModule:boolean = false;
   activePageIndex: number = 0;
-  personalInfoFrom: FormGroup;
+  resumeFormInfoData: FormGroup;
+  // personalInfoFrom: FormGroup;
   educationalInfoFrom: FormGroup;
   workInfoForm: FormGroup;
   skillForm: FormGroup;
-  
+  submittedFormData: any = [];
+  selectedExpLevel:number = 0;
+
+  //formValues
+  userName: string = "vivek";
+  userJobTitle: string = "senior software developer";
+  userEmail: string = "vivek.uniaborad@gmail.com";
+  userLocation: string = "mysore";
+  userPhone: string = "9524999563";
+  userLinkedIn: string = "http://localhost:4200/pages/job-tool/cv-builder";
+  userWebsite: string = "http://localhost:4200/pages/job-tool/cv-builder";
+  userSummary: string = "waste";
+  eduCollegeName: string = "dhanlakshmi srinivasan engineering college";
+  eduStartYear: number = 2015;
+  eduEndYear: number = 2019;
+  eduDegree: string = "BE-computer science and engineering";
+  eduPercentage: string = "78";
+  eduCgpaPercentage: number = 1;
+  eduLocation: string = "Perambalur";
+  workOrgName: string = "Uniabroad technologies pvt limited";
+  workStartYear: number = 2023;
+  workEndYear: number = 2024;
+  workDesignation: string = "senior software developer";
+  workLocation: string = "Mysore";
+  workJobDescription: string = "developer";
+  skills: any= ['php','laravel','Angular'];
+  refName: string= "madhusudhan";
+  refEmail: string= "madhu.uniabroad@gmail.com";
+  refContact: string= "9787430045";
+
   constructor(private toaster: MessageService,  private fb: FormBuilder, ) { 
-    this.personalInfoFrom = this.fb.group({
+    this.resumeFormInfoData = this.fb.group({
       your_name: [''],
+      your_job_title: [''],
       your_email: [''],
-      phone_number: [''],
-      website: [''],
-      job_title: [''],
-      location: [''],
-      summary: [''],
+      your_location: [''],
+      your_phone_number: [''],
+      your_linkedin_link:[''],
+      your_website: [''],
+      your_summary: [''],
+      edu_college_name: [''],
+      edu_start_year: [''],
+      edu_end_year: [''],
+      edu_specialization: [''],
+      edu_location: [''],
+      work_org_name: [''],
+      work_start_year: [''],
+      work_end_year: [''],
+      work_designation: [''],
+      work_location: [''],
+      work_job_description:[''],
+      skills: [''],
+      ref_name: [''],
+      ref_email: [''],
+      ref_contact: [''],
     });
 
     this.educationalInfoFrom = this.fb.group({
@@ -79,8 +141,10 @@ export class CvBuilderComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  personsonInfoFormSubmit(){
-
+  resumeFormSubmit(){
+    console.log(this.resumeFormInfoData.value);
+    // this.generateImage();
+    this.submittedFormData = this.resumeFormInfoData.value;
   }
 
   educationalInfoFromSubmit(){
@@ -99,6 +163,20 @@ export class CvBuilderComponent implements OnInit {
     // console.log(resumeLevel);
     this.selectedResumeLevel = resumeLevel;
   }
+
+  // generateImage() {
+  //   const cvPreviewContainer = document.getElementById('cv-preview-container');
+  //   console.log(cvPreviewContainer, "cvPreviewContainer");
+  //   if (cvPreviewContainer) {
+  //     html2canvas(cvPreviewContainer, { useCORS: true })
+  //       .then((canvas) => {
+  //         this.previewImage = canvas.toDataURL('image/png');
+  //       })
+  //       .catch((error) => {
+  //         console.error('Failed to generate image', error);
+  //       });
+  //   }
+  // }
 
   shakeButton(event: Event) {
     if(!this.selectedResumeLevel){

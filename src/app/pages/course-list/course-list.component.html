@@ -74,10 +74,10 @@
 										[ngStyle]="{'background-image': 'url(' + course.icon + ')'}">
 										</div> -->
 										<img [src]="course.icon" class="courseImage" alt="course.icon">
-										<div class="courseUniversity flex-fill" title="University Name">
+										<div class="courseUniversity flex-fill" >
 											<a [href]="course.university_url" (click)="handleClick($event)"
 												target="_blank" class="text-decoration-none uniprep-primary">
-												<h5 class="uniprep-primary text-wrap universityName">{{ course.university_name }} <i class="fa-solid fa-arrow-up-right-from-square text-small"></i></h5>
+												<h5 class="uniprep-primary text-wrap universityName" title="University Name">{{ course.university_name }} <i class="fa-solid fa-arrow-up-right-from-square text-small"></i></h5>
 											</a>
 											<!-- <div class="btn btn-dark w-100 btn-rounded">{{ course.favourite == 1 ?
 												"Shortlisted" : "Shortlist"}} Course</div> -->

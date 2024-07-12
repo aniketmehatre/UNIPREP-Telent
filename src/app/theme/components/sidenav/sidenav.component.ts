@@ -85,7 +85,7 @@ export class SidenavComponent {
       image: "fa-solid fa-pencil", 
     },
     {
-      title: 'Scholarship List',
+      title: 'UNISCHOLAR',
       url: '/pages/scholarship-list',
       image: 'fa-solid fa-diploma',
     },

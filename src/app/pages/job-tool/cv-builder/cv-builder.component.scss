@@ -115,3 +115,15 @@
     color: var(--uniprep-primary);
     // margin: 10px;
 }
+
+.borderClass{
+    border: 1px solid lightgray;
+    border-radius: 10px;
+    padding: 10px;
+}
+
+.previewDiv{
+    background-color: gainsboro;
+    border: 1px solid whitesmoke;
+    border-radius: 10px;
+}

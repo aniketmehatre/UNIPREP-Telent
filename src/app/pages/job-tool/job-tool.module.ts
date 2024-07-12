@@ -10,6 +10,9 @@ import { JobToolComponent } from './job-tool.component';
 import { CareerToolComponent } from './career-tool/career-tool.component';
 import { CvBuilderComponent } from './cv-builder/cv-builder.component';
 import { CoverLetterBuilderComponent } from './cover-letter-builder/cover-letter-builder.component';
+import { ChipsModule } from 'primeng/chips';
+import { FormsModule } from '@angular/forms';
+import { DropdownModule } from 'primeng/dropdown';
 
 @NgModule({
   declarations: [
@@ -26,6 +29,9 @@ import { CoverLetterBuilderComponent } from './cover-letter-builder/cover-letter
     ReactiveFormsModule,
     InputTextareaModule,
     JobToolRoutingModule,
+    ChipsModule,
+    FormsModule,
+    DropdownModule,
   ],
 })
 export class JobToolModule{ }

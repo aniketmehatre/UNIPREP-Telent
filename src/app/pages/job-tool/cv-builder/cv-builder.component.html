@@ -52,13 +52,19 @@
         </div>
     </div>
     <div class="container-fluid" *ngIf="enableModule">
-        <div class="col-md-12">
+        <div class="col-md-12 d-flex">
             <div class="col-md-6">
-                <form role="form" [formGroup]="personalInfoFrom" (ngSubmit)="personsonInfoFormSubmit()">
+                <!-- <form role="form" [formGroup]="resumeFormInfoData" (ngSubmit)="resumeFormSubmit()"> -->
                     <div class="d-flex flex-column h-100 justify-content-between">
                         <div class="p-mb-3"></div>
-                        <div class="text-start">
-                            <h4 class="p-mb-1 PageTitle">Enter Your Personal Information</h4>
+                        <div class="text-center m-3">
+                            <h4 class="p-mb-2 PageTitle">Your Experience Level</h4>
+                        </div>
+                        <div class="col-md-12">
+                            <p-dropdown [options]="experienceLevel" styleClass="w-100" [(ngModel)]="selectedExpLevel" optionLabel="level" optionValue="id"></p-dropdown>
+                        </div>
+                        <div class="text-center m-3">
+                            <h4 class="p-mb-2 PageTitle">Enter Your Personal Information</h4>
                         </div>
                         <div class="row">
                             <div class="col-md-12">
@@ -67,35 +73,9 @@
                                         <label class="form-label labelFont">Your Name</label>
                                         <div class="form-group">
                                             <div class="mb-3">
-                                                <input class="w-100" type="text" placeholder="Full Name"
-                                                    formControlName="your_name" pInputText />
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <label class="form-label labelFont">Your Email</label>
-                                        <div class="form-group">
-                                            <div class="mb-3">
-                                                <input class="w-100" type="text" placeholder="Email Address"
-                                                    formControlName="your_email" pInputText />
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <label class="form-label labelFont">Phone Number</label>
-                                        <div class="form-group">
-                                            <div class="mb-3">
-                                                <input class="w-100" type="text" placeholder="Phone Number"
-                                                    formControlName="phone_number" pInputText />
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <label class="form-label labelFont">Website</label>
-                                        <div class="form-group">
-                                            <div class="mb-3">
-                                                <input class="w-100" type="text" placeholder="Website or portfolio Link"
-                                                    formControlName="website" pInputText />
+                                                <!-- <input class="w-100" type="text" placeholder="Full Name" formControlName="your_name" pInputText /> -->
+                                                <input class="w-100" type="text" placeholder="Full Name" [(ngModel)]="userName" pInputText />
+                                                    
                                             </div>
                                         </div>
                                     </div>
@@ -103,45 +83,80 @@
                                         <label class="form-label labelFont">Job Title</label>
                                         <div class="form-group">
                                             <div class="mb-3">
-                                                <input class="w-100" type="text" placeholder="your Job Title"
-                                                    formControlName="job_title" pInputText />
+                                                <!-- <input class="w-100" type="text" placeholder="your Job Title" formControlName="your_job_title" pInputText /> -->
+                                                <input class="w-100" type="text" placeholder="your Job Title"  [(ngModel)]="userJobTitle" pInputText />
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
-                                        <label class="form-label labelFont">Location</label>
+                                        <label class="form-label labelFont">Your Email</label>
                                         <div class="form-group">
                                             <div class="mb-3">
-                                                <input class="w-100" type="text" placeholder="Your Location"
-                                                    formControlName="location" pInputText />
+                                                <!-- <input class="w-100" type="text" placeholder="Email Address" formControlName="your_email" pInputText /> -->
+                                                <input class="w-100" type="text" placeholder="Email Address" [(ngModel)]="userEmail" pInputText />
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
+                                        <label class="form-label labelFont">Current Address</label>
+                                        <div class="form-group">
+                                            <div class="mb-3">
+                                                <!-- <input class="w-100" type="text" placeholder="Your Location" formControlName="your_location" pInputText /> -->
+                                                <input class="w-100" type="text" placeholder="Your Location" [(ngModel)]="userLocation" pInputText />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="form-label labelFont">Phone Number</label>
+                                        <div class="form-group">
+                                            <div class="mb-3">
+                                                <!-- <input class="w-100" type="text" placeholder="Phone Number" formControlName="your_phone_number" pInputText /> -->
+                                                <input class="w-100" type="text" placeholder="Phone Number" [(ngModel)]="userPhone" pInputText />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="form-label labelFont">LinkedIn Link</label>
+                                        <div class="form-group">
+                                            <div class="mb-3">
+                                                <!-- <input class="w-100" type="text" placeholder="LinkedIn profile link" formControlName="your_linkedin_link" pInputText /> -->
+                                                <input class="w-100" type="text" placeholder="LinkedIn profile link" [(ngModel)]="userLinkedIn" pInputText />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <label class="form-label labelFont">Website</label>
+                                        <div class="form-group">
+                                            <div class="mb-3">
+                                                <!-- <input class="w-100" type="text" placeholder="Website or portfolio Link" formControlName="your_website" pInputText /> -->
+                                                <input class="w-100" type="text" placeholder="Website or portfolio Link"  [(ngModel)]="userWebsite" pInputText />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
                                         <label class="form-label labelFont">Summary</label>
                                         <div class="form-group">
                                             <div class="mb-3">
-                                                <textarea [rows]="3" [cols]="75" pInputTextarea
-                                                    placeholder="About yourself" [autoResize]="true"
-                                                    formControlName="summary"></textarea>
+                                                <!-- <textarea [rows]="3" [cols]="85" pInputTextarea placeholder="About yourself" [autoResize]="true" formControlName="your_summary"></textarea> -->
+                                                <textarea [rows]="3" [cols]="85" pInputTextarea placeholder="About yourself" [autoResize]="true"  [(ngModel)]="userSummary"></textarea>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="text-start">
+                        <div class="text-center m-3">
                             <h4 class="p-mb-1 PageTitle">Enter Your Educational Details</h4>
                         </div>
-                        <div class="row">
+                        <div class="row borderClass">
                             <div class="col-md-12">
                                 <div class="row">
                                     <div class="col-md-6">
-                                        <label class="form-label labelFont">College Name</label>
+                                        <label class="form-label labelFont">College/School Name</label>
                                         <div class="form-group">
                                             <div class="mb-3">
-                                                <input class="w-100" type="text" placeholder="College Name"
-                                                    formControlName="college_name" pInputText />
+                                                <!-- <input class="w-100" type="text" placeholder="College Name" formControlName="edu_college_name" pInputText /> -->
+                                                <input class="w-100" type="text" placeholder="College Name" [(ngModel)]="eduCollegeName" pInputText />
                                             </div>
                                         </div>
                                     </div>
@@ -151,27 +166,27 @@
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <div class="mb-3">
-                                                        <input class="w-100" type="text" placeholder="Start Year"
-                                                            formControlName="education_start_year" pInputText />
+                                                        <!-- <input class="w-100" type="text" placeholder="Start Year" formControlName="edu_start_year" pInputText /> -->
+                                                        <input class="w-100" type="text" placeholder="Start Year" [(ngModel)]="eduStartYear" pInputText />
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <div class="mb-3">
-                                                        <input class="w-100" type="text" placeholder="End Year"
-                                                            formControlName="education_end_year" pInputText />
+                                                        <!-- <input class="w-100" type="text" placeholder="End Year" formControlName="edu_end_year" pInputText /> -->
+                                                        <input class="w-100" type="text" placeholder="End Year" [(ngModel)]="eduEndYear" pInputText />
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
-                                        <label class="form-label labelFont">Specialization</label>
+                                        <label class="form-label labelFont">Degree</label>
                                         <div class="form-group">
                                             <div class="mb-3">
-                                                <input class="w-100" type="text" placeholder="your Specialization"
-                                                    formControlName="specialization" pInputText />
+                                                <!-- <input class="w-100" type="text" placeholder="your Specialization" formControlName="edu_specialization" pInputText /> -->
+                                                <input class="w-100" type="text" placeholder="your Degree" [(ngModel)]="eduDegree" pInputText />
                                             </div>
                                         </div>
                                     </div>
@@ -179,25 +194,42 @@
                                         <label class="form-label labelFont">Location</label>
                                         <div class="form-group">
                                             <div class="mb-3">
-                                                <input class="w-100" type="text" placeholder="Education Location"
-                                                    formControlName="education_location" pInputText />
+                                                <!-- <input class="w-100" type="text" placeholder="Education Location" formControlName="eduLocation" pInputText /> -->
+                                                <input class="w-100" type="text" placeholder="Education Location" [(ngModel)]="eduLocation" pInputText />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-9">
+                                        <label class="form-label labelFont">Percentage</label>
+                                        <div class="form-group">
+                                            <div class="mb-3">
+                                                <!-- <input class="w-100" type="text" placeholder="Education Location" formControlName="eduLocation" pInputText /> -->
+                                                <input class="w-100" type="text" placeholder="Achieved Score" [(ngModel)]="eduPercentage" pInputText />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3 d-flex align-items-end">
+                                        <div class="form-group">
+                                            <div class="mb-3">
+                                                <p-dropdown [options]="cgpaPercentage" styleClass="w-100" [(ngModel)]="eduCgpaPercentage" optionLabel="value" optionValue="id"></p-dropdown>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="text-start">
+                        <div class="text-center m-3">
                             <h4 class="p-mb-1 PageTitle">Enter Your Work Experience</h4>
                         </div>
-                        <div class="row">
+                        <div class="row borderClass">
                             <div class="col-md-12">
                                 <div class="row">
                                     <div class="col-md-6">
                                         <label class="form-label labelFont">Organization Name</label>
                                         <div class="form-group">
                                             <div class="mb-3">
-                                                <input class="w-100" type="text" placeholder="Organization Name" formControlName="org_name" pInputText />
+                                                <!-- <input class="w-100" type="text" placeholder="Organization Name" formControlName="work_org_name" pInputText /> -->
+                                                <input class="w-100" type="text" placeholder="Organization Name" [(ngModel)]="workOrgName" pInputText />
                                             </div>
                                         </div>
                                     </div>
@@ -207,14 +239,15 @@
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <div class="mb-3">
-                                                        <input class="w-100" type="text" placeholder="Start Year" formControlName="work_start_year" pInputText />
+                                                        <!-- <input class="w-100" type="text" placeholder="Start Year" formControlName="work_start_year" pInputText /> -->
+                                                        <input class="w-100" type="text" placeholder="Start Year" [(ngModel)]="workStartYear" pInputText />
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <div class="mb-3">
-                                                        <input class="w-100" type="text" placeholder="End Year" formControlName="work_end_year" pInputText />
+                                                        <input class="w-100" type="text" placeholder="End Year" [(ngModel)]="workEndYear" pInputText />
                                                     </div>
                                                 </div>
                                             </div>
@@ -224,7 +257,8 @@
                                         <label class="form-label labelFont">Designation</label>
                                         <div class="form-group">
                                             <div class="mb-3">
-                                                <input class="w-100" type="text" placeholder="your Designation" formControlName="work_designation" pInputText />
+                                                <!-- <input class="w-100" type="text" placeholder="your Designation" formControlName="work_designation" pInputText /> -->
+                                                <input class="w-100" type="text" placeholder="your Designation" [(ngModel)]="workDesignation" pInputText />
                                             </div>
                                         </div>
                                     </div>
@@ -232,7 +266,8 @@
                                         <label class="form-label labelFont">Location</label>
                                         <div class="form-group">
                                             <div class="mb-3">
-                                                <input class="w-100" type="text" placeholder="Education Location" formControlName="work_location" pInputText />
+                                                <!-- <input class="w-100" type="text" placeholder="Education Location" formControlName="work_location" pInputText /> -->
+                                                <input class="w-100" type="text" placeholder="Education Location" [(ngModel)]="workLocation" pInputText />
                                             </div>
                                         </div>
                                     </div>
@@ -240,41 +275,43 @@
                                         <label class="form-label labelFont">Job Description</label>
                                         <div class="form-group">
                                             <div class="mb-3">
-                                                <textarea [rows]="3" [cols]="100" pInputTextarea placeholder="About Job Description"  [autoResize]="true" formControlName="job_description"></textarea>
+                                                <!-- <textarea [rows]="3" [cols]="85" pInputTextarea placeholder="About Job Description" [autoResize]="true" formControlName="work_job_description"></textarea> -->
+                                                <textarea [rows]="3" [cols]="85" pInputTextarea placeholder="About Job Description" [autoResize]="true" [(ngModel)]="workJobDescription"></textarea>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="text-start">
+                        <div class="text-center m-3">
                             <h4 class="p-mb-1 PageTitle">Your Skills</h4>
                         </div>
-                        <div class="row">
+                        <div class="row borderClass">
                             <div class="col-md-12">
                                 <div class="row">
                                     <div class="col-md-12">
                                         <label class="form-label labelFont">Skills </label>
                                         <div class="form-group">
                                             <div class="mb-3">
-                                                <input class="w-100" type="text" placeholder="Skills" formControlName="skills" pInputText />
+                                                <p-chips styleClass="w-100" type="text" placeholder="Skills" [(ngModel)]="skills" [max]="20"></p-chips>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="text-start">
+                        <div class="text-center m-3">
                             <h4 class="p-mb-1 PageTitle">References</h4>
                         </div>
-                        <div class="row">
+                        <div class="row borderClass">
                             <div class="col-md-12">
                                 <div class="row">
                                     <div class="col-md-12">
                                         <label class="form-label labelFont">Reference Name</label>
                                         <div class="form-group">
                                             <div class="mb-3">
-                                                <input class="w-100" type="text" placeholder="Name" formControlName="ref_name" pInputText />
+                                                <!-- <input class="w-100" type="text" placeholder="Name" formControlName="ref_name" pInputText /> -->
+                                                <input class="w-100" type="text" placeholder="Name" [(ngModel)]="refName" pInputText />
                                             </div>
                                         </div>
                                         <div class="row">
@@ -282,7 +319,8 @@
                                                 <label class="form-label labelFont">Reference Contact Email</label>
                                                 <div class="form-group">
                                                     <div class="mb-3">
-                                                        <input class="w-100" type="text" placeholder="Email ID" formControlName="ref_email" pInputText />
+                                                        <!-- <input class="w-100" type="text" placeholder="Email ID" formControlName="ref_email" pInputText /> -->
+                                                        <input class="w-100" type="text" placeholder="Email ID" [(ngModel)]="refEmail" pInputText />
                                                     </div>
                                                 </div>
                                             </div>
@@ -290,7 +328,8 @@
                                                 <label class="form-label labelFont">Reference Contact Number</label>
                                                 <div class="form-group">
                                                     <div class="mb-3">
-                                                        <input class="w-100" type="text" placeholder="Contact Number" formControlName="ref_contact" pInputText />
+                                                        <!-- <input class="w-100" type="text" placeholder="Contact Number" formControlName="ref_contact" pInputText /> -->
+                                                        <input class="w-100" type="text" placeholder="Contact Number" [(ngModel)]="refContact" pInputText />
                                                     </div>
                                                 </div>
                                             </div>
@@ -300,9 +339,44 @@
                             </div>
                         </div>
                     </div>
-                </form>
+                    <div class="d-flex justify-content-center align-items-center m-3">
+                        <button type="submit" class="btn btn-dark w-50"
+                            style="background-color: var(--uniprep-primary); border: none">Preview</button>
+                    </div>
+
+                <!-- </form> -->
             </div>
-            <div class="col-md-6"></div>
+            <div class="col-md-6 previewDiv m-3">
+                <div class="text-center m-1">
+                    <h4 class="p-mb-1 PageTitle">Preview</h4>
+                </div>
+                <div class="container">
+                   <p>name: {{ userName }}</p>
+                   <p>job title: {{ userJobTitle }}</p>
+                   <p>email: {{ userEmail }}</p>
+                   <p>location: {{ userLocation }}</p>
+                   <p>phone number: {{ userPhone }}</p>
+                   <p>LinkedIn profile: {{ userLinkedIn }}</p>
+                   <p>website: {{ userWebsite }}</p>
+                   <p>summary: {{ userSummary }}</p>
+                   <p>College name: {{ eduCollegeName }}</p>
+                   <p>Education start Year: {{ eduStartYear }}</p>
+                   <p>Education end Year: {{ eduEndYear }}</p>
+                   <p>Degree: {{ eduDegree }}</p>
+                   <p>Location: {{ eduLocation }}</p>
+                   <p>Percentage: {{ eduPercentage }}</p>
+                   <p>cgpaPercentage: {{ cgpaPercentage }}</p>
+                   <p>Organization Name: {{ workOrgName }}</p>
+                   <p>Experience staring year: {{ workStartYear }}</p>
+                   <p>Experience ending year: {{ workEndYear }}</p>
+                   <p>Designation: {{ workDesignation }}</p>
+                   <p>work location: {{ workLocation }}</p>
+                   <p>job Description: {{ workJobDescription }}</p>
+                   <p>skills: {{ skills }}</p>
+                   <p>Reference name: {{ refName }}</p>
+                   <p>Reference Email: {{ refEmail }}</p>
+                   <p>Reference phone: {{ refContact }}</p>
+                </div>
+            </div>
         </div>
     </div>
-</div>
