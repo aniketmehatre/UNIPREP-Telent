@@ -127,3 +127,29 @@
     border: 1px solid whitesmoke;
     border-radius: 10px;
 }
+
+.addMoreButton{
+    background-color: var(--uniprep-primary);
+    color: white;
+    padding: 5px 5px;
+    border: none;
+    border-radius: 50px;
+}
+
+.deleteDivButton{
+    background-color: #d80027;
+    color: white;
+    padding: 5px 5px;
+    border: none;
+    border-radius: 50px;
+}
+
+.trashIcon{
+    background-color: #fa3e61;
+    padding: 8px;
+    border-radius: 25px;
+}
+
+.subtitleMargin{
+    margin: 10px 0px;
+}

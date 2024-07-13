@@ -82,7 +82,7 @@ export class SidenavComponent {
     {
       title: "UNIFINDER",
       url: "/pages/course-list",
-      image: "fa-solid fa-pencil", 
+      image: "fa-solid fa-landmark-magnifying-glass",
     },
     {
       title: 'UNISCHOLAR',

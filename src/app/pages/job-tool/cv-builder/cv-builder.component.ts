@@ -38,16 +38,11 @@ export class CvBuilderComponent implements OnInit {
       pageTitle: "Your Resume"
     }
   ];
-  experienceLevel: any = [
-    {id: 1, level: "Fresher"},
-    {id: 2, level: "1-2 Years"},
-    {id: 3, level: "3-5 Years"},
-    {id: 4, level: "5+ Years"},
-  ];
-  cgpaPercentage: any = [
-    {id:1, value: "CGPA"},
-    {id:2, value: "Percentage"}
-  ];
+  experienceLevel: any = [{id: 1, level: "Fresher"},{id: 2, level: "1-2 Years"},{id: 3, level: "3-5 Years"},{id: 4, level: "5+ Years"},];
+  cgpaPercentage: any = [{id:1, value: "CGPA"},{id:2, value: "Percentage"}];
+  workTypeValue: any = [{id: 1, value: "Fulltime"}, {id: 2, value: "Parttime"}, {id: 3, value: "Internship"},{id: 4, value: "Freelance"}];
+  languageProficiency: any = [{id:1, value:"Basic"},{id:2, value: "Intermediate"}, { id:3, value:"Advance"}];
+  skillProficiency: any = [{id:1, value:"Basic"},{id:2, value: "Intermediate"}, { id:3, value:"Advance"}];
   enableModule:boolean = false;
   activePageIndex: number = 0;
   resumeFormInfoData: FormGroup;
@@ -78,14 +73,30 @@ export class CvBuilderComponent implements OnInit {
   workStartYear: number = 2023;
   workEndYear: number = 2024;
   workDesignation: string = "senior software developer";
+  workType:number = 1;
   workLocation: string = "Mysore";
   workJobDescription: string = "developer";
-  skills: any= ['php','laravel','Angular'];
+  projectName: string = "";
+  projectStartName: string = "";
+  projectEndName: string = "";
+  projectDescription: string = "";
+  language:string = "";
+  langProficiency:number = 0;
+  skills: any= [];
+  skillsProficiency:string = "";
+  hobbies: string[] = [''];
+  certificateName:string = "";
+  certificateIssued:string = "";
+  certificateId:string = "";
+  certicateLink:string = "";
   refName: string= "madhusudhan";
+  refPosition: string = "";
+  refOrganization: string = "";
   refEmail: string= "madhu.uniabroad@gmail.com";
   refContact: string= "9787430045";
 
   constructor(private toaster: MessageService,  private fb: FormBuilder, ) { 
+    console.log(this.hobbies);
     this.resumeFormInfoData = this.fb.group({
       your_name: [''],
       your_job_title: [''],
@@ -202,5 +213,14 @@ export class CvBuilderComponent implements OnInit {
     if (this.activePageIndex < this.pages.length - 1) {
       this.activePageIndex++;
     }
+  }
+
+  addHobby(): void {
+    console.log(this.hobbies);
+    this.hobbies.push('');
+  }
+
+  remove(index: number): void {
+    this.hobbies.splice(index, 1);
   }
 }
