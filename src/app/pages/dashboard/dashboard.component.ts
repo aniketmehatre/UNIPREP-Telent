@@ -80,7 +80,7 @@ export class DashboardComponent implements OnInit, OnChanges {
     }
 
     fieldsToCheck = [
-        'name', 'email', 'phone', 'country', 'selected_country', 'location_id',
+        'name', 'email', 'phone', 'home_country_id', 'selected_country', 'location_id',
         'last_degree_passing_year', 'intake_year_looking', 'intake_month_looking', 'programlevel_id'
     ];
 
@@ -129,7 +129,7 @@ export class DashboardComponent implements OnInit, OnChanges {
               //
               //
                 let filledCount = 0;
-                const totalCount = this.fieldsToCheck.length + 1;
+                const totalCount = this.fieldsToCheck.length;
                 this.fieldsToCheck.forEach(field => {
                     if (this.userData[field] != null && this.userData[field] !== undefined && this.userData[field] !== "") {
                         filledCount++;
@@ -331,6 +331,13 @@ export class DashboardComponent implements OnInit, OnChanges {
             case "Learning Hub":
                 moduleName = "learning-hub"
                 break;
+            case "Language Hub":
+                moduleName = "language-hub"
+                break;
+        }
+        if(moduleName == 'language-hub'){
+            this.router.navigate([`pages/${moduleName}/`]);
+            return;
         }
         this.router.navigate([`pages/modules/${moduleName}/`]);
     }
@@ -369,6 +376,9 @@ export class DashboardComponent implements OnInit, OnChanges {
                 break;
             case "Learning Hub":
                 moduleName = "learning-hub"
+                break;
+            case "Language Hub":
+                moduleName = "language-hub"
                 break;
         }
         this.router.navigate([`pages/${moduleName}/sub-modules/2`]);

@@ -146,7 +146,7 @@ export class PagesComponent implements OnInit, OnDestroy {
     onClickSubscribedUser(): void {
         this.visibleExhasted = false;
         this.visibleExhastedUser = false;
-        if(this.enterpriseSubscriptionLink  != undefined){
+        if(this.enterpriseSubscriptionLink  != ""){
             window.open(this.enterpriseSubscriptionLink, '_target');
             return;
         }

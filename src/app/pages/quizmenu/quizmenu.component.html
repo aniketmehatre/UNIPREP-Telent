@@ -20,7 +20,7 @@
 				<!-- new upadted design -->
 				<div class="responsiveconatainer">
 					<!-- Pre Admission -->
-					<div class="card responsivecard p-4">
+					<div class="card responsivecard p-2">
 						<div class="card-content">
 							<img height="60" width="60" src="../../../uniprep-assets/images/icons/preadmission.png"
 								alt="Pre Admission">
@@ -65,7 +65,7 @@
 					</div>
 
 					<!-- Post Admission -->
-					<div class="card responsivecard p-4">
+					<div class="card responsivecard p-2">
 						<div class="card-content">
 							<img height="60" width="60" src="../../../uniprep-assets/images/icons/postadmission.png"
 								alt="Post Admission">
@@ -110,7 +110,7 @@
 					</div>
 
 					<!-- Life at Country -->
-					<div class="card responsivecard p-4">
+					<div class="card responsivecard p-2">
 						<div class="card-content">
 							<img height="60" width="60" src="../../../uniprep-assets/images/icons/lifeat.png"
 								alt="Life at Country">
@@ -155,7 +155,7 @@
 					</div>
 
 					<!-- Career Hub -->
-					<div class="card responsivecard p-4">
+					<div class="card responsivecard p-2">
 						<div class="card-content">
 							<img height="60" width="60" src="../../../uniprep-assets/images/icons/careerhub.png"
 								alt="Career Hub">
@@ -198,11 +198,39 @@
 							</div>
 						</div>
 					</div>
+
+					<!-- skill Mastery -->
+						<div class="card responsivecard p-2">
+							<div class="card-content">
+								<img height="60" width="60" src="../../../uniprep-assets/images/icons/preadmission.png"
+									alt="Pre Admission">
+								<h4>Skill Mastery Quiz</h4>
+								<div class="row" style="width: -webkit-fill-available !important;">
+									<div class="col-8">
+										<p-dropdown dropdownAppendTo="body" class="mt-2"
+											(onChange)="skillMasteryButtonVisible($event)" [(ngModel)]="skillsmasteryId"
+											placeholder="Select" [options]="skillsmasteryList" optionValue="id"
+											optionLabel="submodule_name" styleClass="w-100" [filter]="true"></p-dropdown>
+									</div>
+									<div class="col-4">
+										<button style="padding: 3px; font-size: small;" [disabled]="skillunivertybutton"
+											(click)="startModululeSkillmastery()" type="button"
+											class="w-100 h-100 btn btn-primary btn-rounded text-white">
+											<span class="me-1">{{ skillmasteryquizpercentage >= 90 ? "Completed" : "Start Quiz"
+												}}</span>
+											<span *ngIf="skillmasteryquizpercentage <= 89">
+												<i class="fas fa-arrow-right"></i>
+											</span>
+										</button>
+									</div>
+								</div>
+							</div>
+						</div>
 				</div>
 				<!-- socond line -->
 				<div class="responsiveconatainer1">
 					<!-- unversity -->
-					<div class="card responsivecard p-4">
+					<div class="card responsivecard p-2">
 						<div class="card-content">
 							<img height="60" width="60" src="../../../uniprep-assets/images/icons/Universities.png"
 								alt="Pre Admission">
@@ -321,35 +349,6 @@
 					</div>
 				</div>
 				<!-- third line -->
-				<div class="responsiveconatainer1">
-					<!-- unversity -->
-					<div class="card responsivecard p-4">
-						<div class="card-content">
-							<img height="60" width="60" src="../../../uniprep-assets/images/icons/preadmission.png"
-								alt="Pre Admission">
-							<h4>Skill Mastery Quiz</h4>
-							<div class="row" style="width: -webkit-fill-available !important;">
-								<div class="col-8">
-									<p-dropdown dropdownAppendTo="body" class="mt-2"
-										(onChange)="skillMasteryButtonVisible($event)" [(ngModel)]="skillsmasteryId"
-										placeholder="Select" [options]="skillsmasteryList" optionValue="id"
-										optionLabel="submodule_name" styleClass="w-100" [filter]="true"></p-dropdown>
-								</div>
-								<div class="col-4">
-									<button style="padding: 3px; font-size: small;" [disabled]="skillunivertybutton"
-										(click)="startModululeSkillmastery()" type="button"
-										class="w-100 h-100 btn btn-primary btn-rounded text-white">
-										<span class="me-1">{{ skillmasteryquizpercentage >= 90 ? "Completed" : "Start Quiz"
-											}}</span>
-										<span *ngIf="skillmasteryquizpercentage <= 89">
-											<i class="fas fa-arrow-right"></i>
-										</span>
-									</button>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
 			</div>
 		</div>
 	</div>

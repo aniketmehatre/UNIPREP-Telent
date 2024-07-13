@@ -13,30 +13,37 @@
                 </h5>
             </div> -->
             <div class="col-md-8 col-8 text-center">
-				<div class="select-title text-nowrap d-flex justify-content-between align-items-center" style="width: 95%;">
-					<div>
-						<h5 class="select-title mb-3" tooltipPosition="top" pTooltip="Questions related to the application process are answered">{{ 'Language Hub' | uppercase }} - {{ selectedSubmoduleName }}<i class="questiontooltip fa-solid fa-circle-question"></i></h5>
-					</div>
-					<div>
-						<button class="how-it-works-button" (click)="openVideoPopup('https://www.youtube.com/embed/01xivveciUI?si=Cdi3e7ycApMa8sWO')"> &nbsp;How it works? &nbsp;&nbsp;<i class="fa-solid fa-play"></i></button>
-					</div>
-				</div>
-			</div>
+                <div class="select-title text-nowrap d-flex justify-content-between align-items-center"
+                     style="width: 95%;">
+                    <div>
+                        <h5 class="select-title mb-3" pTooltip="Questions related to the application process are answered"
+                            tooltipPosition="top">{{ 'Language Hub' | uppercase }}
+                            - {{ selectedSubmoduleName }}<i class="questiontooltip fa-solid fa-circle-question"></i>
+                        </h5>
+                    </div>
+                    <div>
+                        <button (click)="openVideoPopup('https://www.youtube.com/embed/01xivveciUI?si=Cdi3e7ycApMa8sWO')"
+                                class="how-it-works-button">
+                            &nbsp;How it works? &nbsp;&nbsp;<i class="fa-solid fa-play"></i></button>
+                    </div>
+                </div>
+            </div>
             <div class="col-md-1 col-1">&nbsp;</div>
         </div>
         <div *ngIf="isSkeletonVisible">
             <div class="row">
-                <div *ngFor="let index of loopRange" class="col-xxl-2 col-xl-3 col-lg-3 col-md-4 col-sm-6 col-xs-12 col-12">
+                <div *ngFor="let index of loopRange"
+                     class="col-xxl-2 col-xl-3 col-lg-3 col-md-4 col-sm-6 col-xs-12 col-12">
                     <div class="card my-2">
                         <div class="card-body">
                             <div class="row align-items-center">
                                 <div class="col-8 col-md-12">
-                                    <p-skeleton width="100%" styleClass="mb-1"></p-skeleton>
-                                    <p-skeleton width="100%" styleClass="mb-1"></p-skeleton>
-                                    <p-skeleton width="80%" styleClass="mb-2"></p-skeleton>
+                                    <p-skeleton styleClass="mb-1" width="100%"></p-skeleton>
+                                    <p-skeleton styleClass="mb-1" width="100%"></p-skeleton>
+                                    <p-skeleton styleClass="mb-2" width="80%"></p-skeleton>
                                 </div>
                                 <div class="col-4 col-md-12">
-                                    <p-skeleton width="100%" height="3rem"></p-skeleton>
+                                    <p-skeleton height="3rem" width="100%"></p-skeleton>
                                 </div>
                             </div>
                         </div>
@@ -44,7 +51,7 @@
                 </div>
             </div>
         </div>
-        <div class="row" *ngIf="!isSkeletonVisible">
+        <div *ngIf="!isSkeletonVisible" class="row">
             <div *ngFor="let sub of questionListData; let i = index"
                  class="col-xxl-2 col-xl-3 col-lg-3 col-md-4 col-sm-6 col-xs-12 col-12 my-2">
                 <div class="row w-100 h-100 m-0 justify-content-center">
@@ -59,10 +66,10 @@
                                 <!--<div class="col-md-4 text-center">
                                             <p class="mb-3 circle text-center">{{i+1}}</p>
                                         </div> -->
-                                <div class="col-2 d-flex align-items-center justify-content-center text-end"
-                                     *ngIf="sub.favourite == 1">
+                                <div *ngIf="sub.favourite == 1"
+                                     class="col-2 d-flex align-items-center justify-content-center text-end">
                                     <i class="pi pi-star-fill text-danger" pTooltip="Most Popular Question"
-                                       tooltipPosition="right" style="font-size: 1.5rem"></i>
+                                       style="font-size: 1.5rem" tooltipPosition="right"></i>
                                 </div>
                             </div>
                             <button class="btn d-md-block d-none w-100 flex-shrink-0 btn-primary m-0 primary-btn
@@ -81,11 +88,11 @@
     </div>
 </div>
 <div class="card" style="background-color: #fff; border-radius: 0px 0px 15px 15px !important">
-    <p-paginator [rows]="perpage" [totalRecords]="totalQuestionCount" (onPageChange)="paginate($event)"
-                 [rowsPerPageOptions]="[25, 50, 100, 200]" dropdownAppendTo="body"></p-paginator>
+    <p-paginator (onPageChange)="paginate($event)" [rowsPerPageOptions]="[25, 50, 100, 200]" [rows]="perpage"
+                 [totalRecords]="totalQuestionCount" dropdownAppendTo="body"></p-paginator>
 </div>
-<p-dialog #dialogContent [(visible)]="isQuestionAnswerVisible" [draggable]="false" [modal]="true" class="questionmodal"
-          header="Header" [maximizable]="true">
+<p-dialog #dialogContent [(visible)]="isQuestionAnswerVisible" [draggable]="false" [maximizable]="true" [modal]="true"
+          class="questionmodal" header="Header">
     <ng-template pTemplate="header">
         <div class="d-flex w-100 flex-column px-4">
             <div class="d-flex flex-row justify-content-md-between justify-content-center">
@@ -109,10 +116,10 @@
                     <!--                        <i class="fa-regular fa-user h5"></i><br />-->
                     <!--                        Reviewed By-->
                     <!--                    </button>-->
-<!--                    <button class="btn w-100 btn-primary theme-dark-blue mx-0 px-5 py-2" (click)="onClickAsk()">-->
-<!--                        <i class="fa-solid h5 fa-file-contract"></i>&nbsp;-->
-<!--                        Click here to ask&nbsp;Personalised Questions-->
-<!--                    </button>-->
+                    <!--                    <button class="btn w-100 btn-primary theme-dark-blue mx-0 px-5 py-2" (click)="onClickAsk()">-->
+                    <!--                        <i class="fa-solid h5 fa-file-contract"></i>&nbsp;-->
+                    <!--                        Click here to ask&nbsp;Personalised Questions-->
+                    <!--                    </button>-->
                 </div>
             </div>
             <div class="d-flex justify-content-between d-md-none d-block align-items-center">
@@ -161,51 +168,176 @@
                 <br>
                 <br>
 
-                <h3 class="unselectable d-md-block d-none">{{ oneQuestionContent?.english }}&nbsp;&nbsp;<span
-                        class="text-primary" (click)="voiceOverEnglish(oneQuestionContent.english)"> <i
-                        class="fa-solid fa-volume-high"></i> Listen</span></h3>
-                <h4 class="unselectable d-md-none d-block">{{ oneQuestionContent?.english }}&nbsp;&nbsp;<span
-                        class="text-primary" (click)="voiceOverEnglish(oneQuestionContent.english)"> <i
-                        class="fa-solid fa-volume-high"></i> Listen</span></h4>
+                <!--                <h3 class="unselectable d-md-block d-none">{{ oneQuestionContent?.english }}&nbsp;&nbsp;<span-->
+                <!--                        class="text-primary" (click)="voiceOverEnglish(oneQuestionContent.english)"> <i-->
+                <!--                        class="fa-solid fa-volume-high"></i> Listen</span></h3>-->
+                <!--                <h4 class="unselectable d-md-none d-block">{{ oneQuestionContent?.english }}&nbsp;&nbsp;<span-->
+                <!--                        class="text-primary" (click)="voiceOverEnglish(oneQuestionContent.english)"> <i-->
+                <!--                        class="fa-solid fa-volume-high"></i> Listen</span></h4>-->
+                <!--                <div class="fw-medium">{{ oneQuestionContent?.englishanswer }}&nbsp;&nbsp;<span class="text-primary"-->
+                <!--                                                                                                (click)="voiceOverEnglish(oneQuestionContent.englishanswer)"> <i-->
+                <!--                        class="fa-solid fa-volume-high"></i>-->
+                <!--                        Listen</span></div>-->
+                <!--                <br>-->
+                <!--                <h3 class="unselectable d-md-block d-none">{{ oneQuestionContent?.languageenglish }}&nbsp;&nbsp;<span-->
+                <!--                        class="text-primary"-->
+                <!--                        (click)="voiceOverEnglish(oneQuestionContent.languageenglish)"> <i-->
+                <!--                        class="fa-solid fa-volume-high"></i> Listen</span></h3>-->
+                <!--                <h4 class="unselectable d-md-none d-block">{{ oneQuestionContent?.languageenglish }}&nbsp;&nbsp;<span-->
+                <!--                        class="text-primary"-->
+                <!--                        (click)="voiceOverEnglish(oneQuestionContent.languageenglish)"> <i-->
+                <!--                        class="fa-solid fa-volume-high"></i> Listen</span></h4>-->
+                <!--                <div class="fw-medium">{{ oneQuestionContent?.languageenglishanswer }}&nbsp;&nbsp;<span-->
+                <!--                        class="text-primary" (click)="voiceOverEnglish(oneQuestionContent.languageenglishanswer)"> <i-->
+                <!--                        class="fa-solid fa-volume-high"></i> Listen</span></div>-->
+                <!--                <br>-->
+                <!--                <h3 class="unselectable d-md-block d-none">{{-->
+                <!--                        oneQuestionContent?.languagenativequestion-->
+                <!--                    }}&nbsp;&nbsp;<span class="text-primary"-->
+                <!--                                        (click)="voiceOverEnglish(oneQuestionContent.languageenglish)">-->
+                <!--                    <i class="fa-solid fa-volume-high"></i> Listen</span></h3>-->
+                <!--                <h4 class="unselectable d-md-none d-block">{{ oneQuestionContent?.languageenglish }} <span-->
+                <!--                        class="text-primary"-->
+                <!--                        (click)="voiceOverEnglish(oneQuestionContent.languageenglish)"> <i-->
+                <!--                        class="fa-solid fa-volume-high"></i> Listen</span></h4>-->
+                <!--                <div class="fw-medium">{{ oneQuestionContent?.languagenativeanswer }}&nbsp;&nbsp;<span-->
+                <!--                        class="text-primary"-->
+                <!--                        (click)="voiceOverEnglish(oneQuestionContent.languageenglishanswer)">-->
+                <!--                        <i class="fa-solid fa-volume-high"></i> Listen</span></div>-->
 
-                <div class="fw-medium">{{ oneQuestionContent?.englishanswer }}&nbsp;&nbsp;<span class="text-primary"
-                                                                                                (click)="voiceOverEnglish(oneQuestionContent.englishanswer)"> <i
-                        class="fa-solid fa-volume-high"></i>
-                        Listen</span></div>
+
+                <h3 class="unselectable d-md-block d-none">
+                    {{ oneQuestionContent?.english }}&nbsp;&nbsp;
+                    <span (click)="voiceOverEnglish('english', oneQuestionContent.english)" class="text-primary">
+ <i [ngClass]="{
+      'fa-solid': true,
+      'fa-play': !isPlaying || isPaused || currentId !== 'english',
+      'fa-pause': isPlaying && !isPaused && currentId === 'english'
+    }"></i>
+                        {{ isPlaying && !isPaused && currentId === 'english' ? 'Pause' : 'Listen' }}
+  </span>
+                </h3>
+
+                <h4 class="unselectable d-md-none d-block">
+                    {{ oneQuestionContent?.english }}&nbsp;&nbsp;
+                    <span (click)="voiceOverEnglish('english', oneQuestionContent.english)" class="text-primary">
+   <i [ngClass]="{
+      'fa-solid': true,
+      'fa-play': !isPlaying || isPaused || currentId !== 'english',
+      'fa-pause': isPlaying && !isPaused && currentId === 'english'
+    }"></i>
+                        {{ isPlaying && !isPaused && currentId === 'english' ? 'Pause' : 'Listen' }}
+  </span>
+                </h4>
+
+                <div class="fw-medium">
+                    {{ oneQuestionContent?.englishanswer }}&nbsp;&nbsp;
+                    <span (click)="voiceOverEnglish('englishanswer', oneQuestionContent.englishanswer)"
+                          class="text-primary">
+    <i [ngClass]="{
+      'fa-solid': true,
+      'fa-play': !isPlaying || isPaused || currentId !== 'englishanswer',
+      'fa-pause': isPlaying && !isPaused && currentId === 'englishanswer'
+    }"></i>
+                        {{ isPlaying && !isPaused && currentId === 'englishanswer' ? 'Pause' : 'Listen' }}
+  </span>
+                </div>
 
                 <br>
-                <h3 class="unselectable d-md-block d-none">{{ oneQuestionContent?.languageenglish }}&nbsp;&nbsp;<span
-                        class="text-primary"
-                        (click)="voiceOverEnglish(oneQuestionContent.languageenglish)"> <i
-                        class="fa-solid fa-volume-high"></i> Listen</span></h3>
-                <h4 class="unselectable d-md-none d-block">{{ oneQuestionContent?.languageenglish }}&nbsp;&nbsp;<span
-                        class="text-primary"
-                        (click)="voiceOverEnglish(oneQuestionContent.languageenglish)"> <i
-                        class="fa-solid fa-volume-high"></i> Listen</span></h4>
-                <div class="fw-medium">{{ oneQuestionContent?.languageenglishanswer }}&nbsp;&nbsp;<span
-                        class="text-primary" (click)="voiceOverEnglish(oneQuestionContent.languageenglishanswer)"> <i
-                        class="fa-solid fa-volume-high"></i> Listen</span></div>
+
+                <h3 class="unselectable d-md-block d-none">
+                    {{ oneQuestionContent?.languageenglish }}&nbsp;&nbsp;
+                    <span (click)="voiceOverEnglish('languageenglish', oneQuestionContent.languageenglish)"
+                          class="text-primary">
+  <i [ngClass]="{
+      'fa-solid': true,
+      'fa-play': !isPlaying || isPaused || currentId !== 'languageenglish',
+      'fa-pause': isPlaying && !isPaused && currentId === 'languageenglish'
+    }"></i>
+                        {{ isPlaying && !isPaused && currentId === 'languageenglish' ? 'Pause' : 'Listen' }}
+  </span>
+                </h3>
+
+                <h4 class="unselectable d-md-none d-block">
+                    {{ oneQuestionContent?.languageenglish }}&nbsp;&nbsp;
+                    <span (click)="voiceOverEnglish('languageenglish', oneQuestionContent.languageenglish)"
+                          class="text-primary">
+  <i [ngClass]="{
+      'fa-solid': true,
+      'fa-play': !isPlaying || isPaused || currentId !== 'languageenglish',
+      'fa-pause': isPlaying && !isPaused && currentId === 'languageenglish'
+    }"></i>
+                        {{ isPlaying && !isPaused && currentId === 'languageenglish' ? 'Pause' : 'Listen' }}
+  </span>
+                </h4>
+
+                <!--                <div class="fw-medium">-->
+                <!--                    {{ oneQuestionContent?.languageenglishanswer }}&nbsp;&nbsp;-->
+                <!--                    <span class="text-primary" (click)="voiceOverEnglish('languageenglishanswer1', oneQuestionContent.languageenglishanswer)">-->
+                <!--    <i [ngClass]="{-->
+                <!--      'fa-solid': true,-->
+                <!--      'fa-play': !isPlaying || isPaused || currentId !== 'languageenglishanswer1',-->
+                <!--      'fa-pause': isPlaying && !isPaused && currentId === 'languageenglishanswer1'-->
+                <!--    }"></i>-->
+                <!--                        {{ isPlaying && !isPaused && currentId === 'languageenglishanswer1' ? 'Pause' : 'Listen' }}-->
+                <!--  </span>-->
+                <!--                </div>-->
+
+                <div class="fw-medium">
+                    {{ oneQuestionContent?.languageenglishanswer }}&nbsp;&nbsp;
+                    <span (click)="voiceOverEnglish('languageenglishanswer2', oneQuestionContent.languageenglishanswer)"
+                          class="text-primary">
+    <i [ngClass]="{
+      'fa-solid': true,
+      'fa-play': !isPlaying || isPaused || currentId !== 'languageenglishanswer2',
+      'fa-pause': isPlaying && !isPaused && currentId === 'languageenglishanswer2'
+    }"></i>
+                        {{ isPlaying && !isPaused && currentId === 'languageenglishanswer2' ? 'Pause' : 'Listen' }}
+  </span>
+                </div>
 
                 <br>
-<!--                <h3 class="unselectable d-md-block d-none">{{-->
-<!--                        oneQuestionContent?.languagenativequestion-->
-<!--                    }}</h3>-->
-<!--                <h4 class="unselectable d-md-none d-block">{{ oneQuestionContent?.languagenativequestion }} </h4>-->
-<!--                <div class="fw-medium">{{ oneQuestionContent?.languagenativeanswer }}</div>-->
 
-                <h3 class="unselectable d-md-block d-none">{{
-                        oneQuestionContent?.languagenativequestion
-                    }}&nbsp;&nbsp;<span class="text-primary"
-                                        (click)="voiceOverEnglish(oneQuestionContent.languageenglish)">
-                    <i class="fa-solid fa-volume-high"></i> Listen</span></h3>
-                <h4 class="unselectable d-md-none d-block">{{ oneQuestionContent?.languageenglish }} <span
-                        class="text-primary"
-                        (click)="voiceOverEnglish(oneQuestionContent.languageenglish)"> <i
-                        class="fa-solid fa-volume-high"></i> Listen</span></h4>
-                <div class="fw-medium">{{ oneQuestionContent?.languagenativeanswer }}&nbsp;&nbsp;<span
-                        class="text-primary"
-                        (click)="voiceOverEnglish(oneQuestionContent.languageenglishanswer)">
-                        <i class="fa-solid fa-volume-high"></i> Listen</span></div>
+                <h3 class="unselectable d-md-block d-none">
+                    {{ oneQuestionContent?.languagenativequestion }}&nbsp;&nbsp;
+                    <span (click)="voiceOverEnglish('languagenativequestion', oneQuestionContent.languageenglish)"
+                          class="text-primary">
+      <i [ngClass]="{
+      'fa-solid': true,
+      'fa-play': !isPlaying || isPaused || currentId !== 'languagenativequestion',
+      'fa-pause': isPlaying && !isPaused && currentId === 'languagenativequestion'
+    }"></i>
+                        {{ isPlaying && !isPaused && currentId === 'languagenativequestion' ? 'Pause' : 'Listen' }}
+  </span>
+                </h3>
+
+                <h4 class="unselectable d-md-none d-block">
+                    {{ oneQuestionContent?.languagenativequestion }}&nbsp;&nbsp;
+                    <span (click)="voiceOverEnglish('languagenativequestion', oneQuestionContent.languageenglish)"
+                          class="text-primary">
+     <i [ngClass]="{
+      'fa-solid': true,
+      'fa-play': !isPlaying || isPaused || currentId !== 'languagenativequestion',
+      'fa-pause': isPlaying && !isPaused && currentId === 'languagenativequestion'
+    }"></i>
+                        {{ isPlaying && !isPaused && currentId === 'languagenativequestion' ? 'Pause' : 'Listen' }}
+  </span>
+                </h4>
+
+                <div class="fw-medium">
+                    {{ oneQuestionContent?.languagenativeanswer }}&nbsp;&nbsp;
+                    <span (click)="voiceOverEnglish('languagenativeanswer', oneQuestionContent.languageenglishanswer)"
+                          class="text-primary">
+    <i [ngClass]="{
+      'fa-solid': true,
+      'fa-play': !isPlaying || isPaused || currentId !== 'languagenativeanswer',
+      'fa-pause': isPlaying && !isPaused && currentId === 'languagenativeanswer'
+    }"></i>
+                        {{ isPlaying && !isPaused && currentId === 'languagenativeanswer' ? 'Pause' : 'Listen' }}
+  </span>
+                </div>
+
+
             </div>
         </div>
     </div>
@@ -234,21 +366,25 @@
             <!--                        </div>-->
             <!--                    </div>-->
 
-<!--            <div class="align-items-center d-flex desktop">-->
-<!--                <button class="btn w-100 btn-primary theme-dark-blue mx-0 px-5 py-2" (click)="onClickAsk()">-->
-<!--                    <i class="fa-solid h5 fa-file-contract"></i>&nbsp;-->
-<!--                    Click here to ask&nbsp;Personalised Questions-->
-<!--                </button>-->
-<!--            </div>-->
+            <!--            <div class="align-items-center d-flex desktop">-->
+            <!--                <button class="btn w-100 btn-primary theme-dark-blue mx-0 px-5 py-2" (click)="onClickAsk()">-->
+            <!--                    <i class="fa-solid h5 fa-file-contract"></i>&nbsp;-->
+            <!--                    Click here to ask&nbsp;Personalised Questions-->
+            <!--                </button>-->
+            <!--            </div>-->
         </div>
     </ng-template>
 </p-dialog>
-<p-dialog [(visible)]="restrict" [modal]="true" [style]="{ width: '30vw' }" [draggable]="false" [resizable]="false" class="restrictionDialog" [breakpoints]="{ '960px': '30vw', '959px': '60vw', '425px': '90vw' }" (onHide)="clearRestriction()">
+<p-dialog (onHide)="clearRestriction()" [(visible)]="restrict" [breakpoints]="{ '960px': '30vw', '959px': '60vw', '425px': '90vw' }" [draggable]="false" [modal]="true"
+          [resizable]="false" [style]="{ width: '30vw' }"
+          class="restrictionDialog">
     <div class="text-center mt-5 mb-4">
-        <img src="../../../uniprep-assets/images/smartloack.png" class="image" width="60" />
+        <img class="image" src="../../../uniprep-assets/images/smartloack.png" width="60"/>
         <h3 class="offer">Upgrade Required</h3>
         <p>To access this exclusive module,please upgrade your plan now</p>
-        <button pButton type="button" class="text-white p-ripple p-button-rounded p-button-warning p-button p-component p-2" (click)="upgradePlan()">Upgrade Plan<i class="fa fa-arrow-right exhausted-plan-icon"></i></button>
+        <button (click)="upgradePlan()" class="text-white p-ripple p-button-rounded p-button-warning p-button p-component p-2"
+                pButton
+                type="button">Upgrade Plan<i class="fa fa-arrow-right exhausted-plan-icon"></i></button>
     </div>
 </p-dialog>
 <!-- <p-dialog [(visible)]="isRecommendedVideoVisible" class="questionvideopopup" [modal]="true" [style]="{ width: '80vw' }">
