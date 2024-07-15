@@ -1,6 +1,6 @@
 import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { MessageService } from 'primeng/api';
-import { FormBuilder, FormGroup } from "@angular/forms";
+import { FormBuilder, FormGroup, FormArray} from "@angular/forms";
 @Component({
   selector: 'uni-cv-builder',
   templateUrl: './cv-builder.component.html',
@@ -54,71 +54,93 @@ export class CvBuilderComponent implements OnInit {
   selectedExpLevel:number = 0;
 
   //formValues
-  userName: string = "vivek";
-  userJobTitle: string = "senior software developer";
-  userEmail: string = "vivek.uniaborad@gmail.com";
-  userLocation: string = "mysore";
-  userPhone: string = "9524999563";
-  userLinkedIn: string = "http://localhost:4200/pages/job-tool/cv-builder";
-  userWebsite: string = "http://localhost:4200/pages/job-tool/cv-builder";
-  userSummary: string = "waste";
-  eduCollegeName: string = "dhanlakshmi srinivasan engineering college";
-  eduStartYear: number = 2015;
-  eduEndYear: number = 2019;
-  eduDegree: string = "BE-computer science and engineering";
-  eduPercentage: string = "78";
-  eduCgpaPercentage: number = 1;
-  eduLocation: string = "Perambalur";
-  workOrgName: string = "Uniabroad technologies pvt limited";
-  workStartYear: number = 2023;
-  workEndYear: number = 2024;
-  workDesignation: string = "senior software developer";
-  workType:number = 1;
-  workLocation: string = "Mysore";
-  workJobDescription: string = "developer";
-  projectName: string = "";
-  projectStartName: string = "";
-  projectEndName: string = "";
-  projectDescription: string = "";
-  language:string = "";
-  langProficiency:number = 0;
-  skills: any= [];
-  skillsProficiency:string = "";
-  hobbies: string[] = [''];
-  certificateName:string = "";
-  certificateIssued:string = "";
-  certificateId:string = "";
-  certicateLink:string = "";
-  refName: string= "madhusudhan";
-  refPosition: string = "";
-  refOrganization: string = "";
-  refEmail: string= "madhu.uniabroad@gmail.com";
-  refContact: string= "9787430045";
+  // userName: string = "vivek";
+  // userJobTitle: string = "senior software developer";
+  // userEmail: string = "vivek.uniaborad@gmail.com";
+  // userLocation: string = "mysore";
+  // userPhone: string = "9524999563";
+  // userLinkedIn: string = "http://localhost:4200/pages/job-tool/cv-builder";
+  // userWebsite: string = "http://localhost:4200/pages/job-tool/cv-builder";
+  // userSummary: string = "waste";
+  // eduCollegeName: string = "dhanlakshmi srinivasan engineering college";
+  // eduStartYear: number = 2015;
+  // eduEndYear: number = 2019;
+  // eduDegree: string = "BE-computer science and engineering";
+  // eduPercentage: string = "78";
+  // eduCgpaPercentage: number = 1;
+  // eduLocation: string = "Perambalur";
+  // workOrgName: string = "Uniabroad technologies pvt limited";
+  // workStartYear: number = 2023;
+  // workEndYear: number = 2024;
+  // workDesignation: string = "senior software developer";
+  // workType:number = 1;
+  // workLocation: string = "Mysore";
+  // workJobDescription: string = "developer";
+  // projectName: string = "";
+  // projectStartName: string = "";
+  // projectEndName: string = "";
+  // projectDescription: string = "";
+  // language:string = "";
+  // langProficiency:number = 0;
+  // skills: any= [];
+  // skillsProficiency:string = "";
+  // hobbiesArray: string[] = [''];
+  // certificateName:string = "";
+  // certificateIssued:string = "";
+  // certificateId:string = "";
+  // certicateLink:string = "";
+  // refName: string= "madhusudhan";
+  // refPosition: string = "";
+  // refOrganization: string = "";
+  // refEmail: string= "madhu.uniabroad@gmail.com";
+  // refContact: string= "9787430045";
 
   constructor(private toaster: MessageService,  private fb: FormBuilder, ) { 
-    console.log(this.hobbies);
+    
     this.resumeFormInfoData = this.fb.group({
-      your_name: [''],
-      your_job_title: [''],
-      your_email: [''],
-      your_location: [''],
-      your_phone_number: [''],
-      your_linkedin_link:[''],
-      your_website: [''],
-      your_summary: [''],
+      selected_exp_level:[''],
+      user_name: [''],
+      user_job_title: [''],
+      user_email: [''],
+      user_location: [''],
+      user_phone: [''],
+      user_linkedin:[''],
+      user_website: [''],
+      user_summary: [''],
       edu_college_name: [''],
       edu_start_year: [''],
       edu_end_year: [''],
-      edu_specialization: [''],
+      edu_degree: [''],
       edu_location: [''],
+      edu_percentage: [''],
+      edu_cgpa_percentage: [''],
       work_org_name: [''],
       work_start_year: [''],
       work_end_year: [''],
-      work_designation: [''],
+      work_designation:[''],
+      work_type: [''],
       work_location: [''],
-      work_job_description:[''],
+      work_job_description: [''],
+      project_name: [''],
+      project_start_name: [''],
+      project_end_name: [''],
+      project_description: [''],
+      language: [''],
+      lang_proficiency: [''],
       skills: [''],
+      skills_proficiency: [''],
+      hobbies: [''],
+      EduDetailsArray: this.fb.array([]),
+      skillsArray:this.fb.array([]),
+      hobbiesArray: this.fb.array([]),
+      extra_curricular_activites: [''],
+      certificate_name: [''],
+      certificate_issued: [''],
+      certificate_id: [''],
+      certicate_link: [''],
       ref_name: [''],
+      ref_position: [''],
+      ref_organization: [''],
       ref_email: [''],
       ref_contact: [''],
     });
@@ -150,10 +172,16 @@ export class CvBuilderComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.triggerAddMoreButton();
+  }
+
+  get f() {
+    // console.log(this.resumeFormInfoData.value);
+    return this.resumeFormInfoData.controls;
   }
 
   resumeFormSubmit(){
-    console.log(this.resumeFormInfoData.value);
+    // console.log(this.resumeFormInfoData.value);
     // this.generateImage();
     this.submittedFormData = this.resumeFormInfoData.value;
   }
@@ -215,12 +243,87 @@ export class CvBuilderComponent implements OnInit {
     }
   }
 
-  addHobby(): void {
-    console.log(this.hobbies);
-    this.hobbies.push('');
+  get getEduDetailsArray(): FormArray {
+    return this.resumeFormInfoData.get('EduDetailsArray') as FormArray;
   }
 
-  remove(index: number): void {
-    this.hobbies.splice(index, 1);
+  get getWorkExpArray(): FormArray{
+    return this.resumeFormInfoData.get('workExpArray') as FormArray;
   }
+
+  get getHobbiesArray(): FormArray {
+    return this.resumeFormInfoData.get('hobbiesArray') as FormArray;
+  }
+
+  get getSkillsArray():FormArray {
+    return this.resumeFormInfoData.get('skillsArray') as FormArray;
+  }
+
+  clickAddMoreButton(fieldName: string){
+    if(fieldName == "education_detail"){
+
+      console.log(this.getEduDetailsArray,"education_detail");
+      this.getEduDetailsArray.push(this.fb.group({
+        edu_college_name: [''],
+        edu_start_year: [''],
+        edu_end_year: [''],
+        edu_degree: [''],
+        edu_location: [''],
+        edu_percentage: [''],
+        edu_cgpa_percentage: [''],
+      }));
+
+    }else if(fieldName == "Hobby"){
+
+      console.log(this.getHobbiesArray,"hobbies");
+        this.getHobbiesArray.push(this.fb.group({
+          hobbies: ['']
+        }));
+
+    }else if(fieldName == "skills"){
+
+      console.log(this.getSkillsArray,"getSkillsArray");
+      this.getSkillsArray.push(this.fb.group({
+        skills: [''],
+        skills_proficiency: ['']
+      }));
+
+    }
+  }
+
+  clickDeleteButton(fieldName: string, index: number){
+
+    if(fieldName == "education_detail"){
+      this.getEduDetailsArray.removeAt(index);
+    }else if(fieldName == "Hobby"){
+      this.getHobbiesArray.removeAt(index);
+    }else if(fieldName == "skills"){
+      this.getSkillsArray.removeAt(index);
+    }
+
+  }
+
+  triggerAddMoreButton(){ //initially the cloning array is an empty so trigger and make the array as an not empty
+
+    this.getEduDetailsArray.push(this.fb.group({
+      edu_college_name: [''],
+      edu_start_year: [''],
+      edu_end_year: [''],
+      edu_degree: [''],
+      edu_location: [''],
+      edu_percentage: [''],
+      edu_cgpa_percentage: [''],
+    }));
+
+    this.getHobbiesArray.push(this.fb.group({
+      hobbies: [''],
+    }));
+
+    this.getSkillsArray.push(this.fb.group({
+      skills: [''],
+      skills_proficiency: ['']
+    }));
+
+  }
+
 }

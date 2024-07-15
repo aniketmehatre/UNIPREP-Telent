@@ -54,15 +54,15 @@
     <div class="container-fluid" *ngIf="enableModule">
         <div class="col-md-12 d-flex">
             <div class="col-md-6">
-                <!-- <form role="form" [formGroup]="resumeFormInfoData" (ngSubmit)="resumeFormSubmit()"> -->
+                <form role="form" [formGroup]="resumeFormInfoData" (ngSubmit)="resumeFormSubmit()">
                 <div class="d-flex flex-column h-100 justify-content-between">
                     <div class="p-mb-3"></div>
                     <div class="text-start subtitleMargin">
                         <h4 class="p-mb-2 PageTitle">Your Experience Level</h4>
                     </div>
                     <div class="col-md-12">
-                        <p-dropdown [options]="experienceLevel" styleClass="w-100" [(ngModel)]="selectedExpLevel"
-                            optionLabel="level" optionValue="id"></p-dropdown>
+                        <p-dropdown [options]="experienceLevel" styleClass="w-100"  formControlName="selected_exp_level" optionLabel="level" optionValue="id"></p-dropdown>
+                            <!-- //formControlName="selectedExpLevel" -->
                     </div>
                     <div class="text-start subtitleMargin">
                         <h4 class="p-mb-2 PageTitle">Enter Your Personal Information</h4>
@@ -75,9 +75,8 @@
                                     <div class="form-group">
                                         <div class="mb-3">
                                             <!-- <input class="w-100" type="text" placeholder="Full Name" formControlName="your_name" pInputText /> -->
-                                            <input class="w-100" type="text" placeholder="Full Name"
-                                                [(ngModel)]="userName" pInputText />
-
+                                            <input class="w-100" type="text" placeholder="Full Name" formControlName="user_name" pInputText />
+                                            <!-- //formControlName="userName" -->
                                         </div>
                                     </div>
                                 </div>
@@ -86,8 +85,8 @@
                                     <div class="form-group">
                                         <div class="mb-3">
                                             <!-- <input class="w-100" type="text" placeholder="your Job Title" formControlName="your_job_title" pInputText /> -->
-                                            <input class="w-100" type="text" placeholder="your Job Title"
-                                                [(ngModel)]="userJobTitle" pInputText />
+                                            <input class="w-100" type="text" placeholder="your Job Title" formControlName="user_job_title"  pInputText />
+                                            <!-- formControlName="userJobTitle" -->
                                         </div>
                                     </div>
                                 </div>
@@ -96,8 +95,8 @@
                                     <div class="form-group">
                                         <div class="mb-3">
                                             <!-- <input class="w-100" type="text" placeholder="Email Address" formControlName="your_email" pInputText /> -->
-                                            <input class="w-100" type="text" placeholder="Email Address"
-                                                [(ngModel)]="userEmail" pInputText />
+                                            <input class="w-100" type="text" placeholder="Email Address" formControlName="user_email" pInputText />
+                                            <!-- formControlName="userEmail" -->
                                         </div>
                                     </div>
                                 </div>
@@ -106,8 +105,7 @@
                                     <div class="form-group">
                                         <div class="mb-3">
                                             <!-- <input class="w-100" type="text" placeholder="Your Location" formControlName="your_location" pInputText /> -->
-                                            <input class="w-100" type="text" placeholder="Your Location"
-                                                [(ngModel)]="userLocation" pInputText />
+                                            <input class="w-100" type="text" placeholder="Your Location" formControlName="user_location"  pInputText />
                                         </div>
                                     </div>
                                 </div>
@@ -116,8 +114,7 @@
                                     <div class="form-group">
                                         <div class="mb-3">
                                             <!-- <input class="w-100" type="text" placeholder="Phone Number" formControlName="your_phone_number" pInputText /> -->
-                                            <input class="w-100" type="text" placeholder="Phone Number"
-                                                [(ngModel)]="userPhone" pInputText />
+                                            <input class="w-100" type="text" placeholder="Phone Number" formControlName="user_phone" pInputText />
                                         </div>
                                     </div>
                                 </div>
@@ -126,8 +123,7 @@
                                     <div class="form-group">
                                         <div class="mb-3">
                                             <!-- <input class="w-100" type="text" placeholder="LinkedIn profile link" formControlName="your_linkedin_link" pInputText /> -->
-                                            <input class="w-100" type="text" placeholder="LinkedIn profile link"
-                                                [(ngModel)]="userLinkedIn" pInputText />
+                                            <input class="w-100" type="text" placeholder="LinkedIn profile link" formControlName="user_linkedin" pInputText />
                                         </div>
                                     </div>
                                 </div>
@@ -136,8 +132,7 @@
                                     <div class="form-group">
                                         <div class="mb-3">
                                             <!-- <input class="w-100" type="text" placeholder="Website or portfolio Link" formControlName="your_website" pInputText /> -->
-                                            <input class="w-100" type="text" placeholder="Website or portfolio Link"
-                                                [(ngModel)]="userWebsite" pInputText />
+                                            <input class="w-100" type="text" placeholder="Website or portfolio Link" formControlName="user_website" pInputText />
                                         </div>
                                     </div>
                                 </div>
@@ -146,8 +141,7 @@
                                     <div class="form-group">
                                         <div class="mb-3">
                                             <!-- <textarea [rows]="3" [cols]="85" pInputTextarea placeholder="About yourself" [autoResize]="true" formControlName="your_summary"></textarea> -->
-                                            <textarea [rows]="3" [cols]="85" pInputTextarea placeholder="About yourself"
-                                                [autoResize]="true" [(ngModel)]="userSummary"></textarea>
+                                            <textarea [rows]="3" [cols]="85" pInputTextarea placeholder="About yourself" [autoResize]="true" formControlName="user_summary"></textarea>
                                         </div>
                                     </div>
                                 </div>
@@ -158,103 +152,89 @@
                         <h4 class="p-mb-1 PageTitle">Enter Your Educational Details</h4>
                     </div>
                     <div class="row borderClass">
-                        <div class="col-md-12">
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <label class="form-label labelFont">College/School Name</label>
-                                    <div class="form-group">
-                                        <div class="mb-3">
-                                            <!-- <input class="w-100" type="text" placeholder="College Name" formControlName="edu_college_name" pInputText /> -->
-                                            <input class="w-100" type="text" placeholder="College Name"
-                                                [(ngModel)]="eduCollegeName" pInputText />
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <label class="form-label labelFont">Education Year </label>
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <div class="mb-3">
-                                                    <!-- <input class="w-100" type="text" placeholder="Start Year" formControlName="edu_start_year" pInputText /> -->
-                                                    <input class="w-100" type="text" placeholder="Start Year"
-                                                        [(ngModel)]="eduStartYear" pInputText />
-                                                </div>
+                        <div class="col-md-12" *ngFor="let hobby of getEduDetailsArray.controls; let i = index" formArrayName="EduDetailsArray">
+                            <div [formGroupName]="i">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label class="form-label labelFont">College/School Name</label>
+                                        <div class="form-group">
+                                            <div class="mb-3">
+                                                <input class="w-100" type="text" placeholder="College Name" formControlName="edu_college_name" pInputText />
                                             </div>
                                         </div>
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <div class="mb-3">
-                                                    <!-- <input class="w-100" type="text" placeholder="End Year" formControlName="edu_end_year" pInputText /> -->
-                                                    <input class="w-100" type="text" placeholder="End Year"
-                                                        [(ngModel)]="eduEndYear" pInputText />
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="form-label labelFont">Education Year </label>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <div class="mb-3">
+                                                        <input class="w-100" type="text" placeholder="Start Year" formControlName="edu_start_year" pInputText />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <div class="mb-3">
+                                                        <input class="w-100" type="text" placeholder="End Year" formControlName="edu_end_year" pInputText />
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <label class="form-label labelFont">Degree</label>
-                                    <div class="form-group">
-                                        <div class="mb-3">
-                                            <!-- <input class="w-100" type="text" placeholder="your Specialization" formControlName="edu_specialization" pInputText /> -->
-                                            <input class="w-100" type="text" placeholder="your Degree"
-                                                [(ngModel)]="eduDegree" pInputText />
+                                    <div class="col-md-6">
+                                        <label class="form-label labelFont">Degree</label>
+                                        <div class="form-group">
+                                            <div class="mb-3">
+                                                <input class="w-100" type="text" placeholder="your Degree" formControlName="edu_degree" pInputText />
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <label class="form-label labelFont">Location</label>
-                                    <div class="form-group">
-                                        <div class="mb-3">
-                                            <!-- <input class="w-100" type="text" placeholder="Education Location" formControlName="eduLocation" pInputText /> -->
-                                            <input class="w-100" type="text" placeholder="Education Location"
-                                                [(ngModel)]="eduLocation" pInputText />
+                                    <div class="col-md-6">
+                                        <label class="form-label labelFont">Location</label>
+                                        <div class="form-group">
+                                            <div class="mb-3">
+                                                <input class="w-100" type="text" placeholder="Education Location" formControlName="edu_location" pInputText />
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="col-md-9">
-                                    <label class="form-label labelFont">Percentage</label>
-                                    <div class="form-group">
-                                        <div class="mb-3">
-                                            <!-- <input class="w-100" type="text" placeholder="Education Location" formControlName="eduLocation" pInputText /> -->
-                                            <input class="w-100" type="text" placeholder="Achieved Score"
-                                                [(ngModel)]="eduPercentage" pInputText />
+                                    <div class="col-md-9">
+                                        <label class="form-label labelFont">Percentage</label>
+                                        <div class="form-group">
+                                            <div class="mb-3">
+                                                <input class="w-100" type="text" placeholder="Achieved Score" formControlName="edu_percentage" pInputText />
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="col-md-3 d-flex align-items-end">
-                                    <div class="form-group">
-                                        <div class="mb-3">
-                                            <p-dropdown [options]="cgpaPercentage" styleClass="w-100"
-                                                [(ngModel)]="eduCgpaPercentage" optionLabel="value"
-                                                optionValue="id"></p-dropdown>
+                                    <div class="col-md-3 d-flex align-items-end">
+                                        <div class="form-group">
+                                            <div class="mb-3">
+                                                <p-dropdown [options]="cgpaPercentage" styleClass="w-100" formControlName="edu_cgpa_percentage" optionLabel="value"
+                                                    optionValue="id"></p-dropdown>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="d-flex justify-content-end align-items-center">
-                            <button class="deleteDivButton">Delete &nbsp;<i
-                                    class="fa-solid fa-trash trashIcon"></i></button>
+                            <div class="d-flex justify-content-end align-items-center">
+                                <button class="deleteDivButton" (click)="clickDeleteButton('education_detail',i)">Delete &nbsp;<i class="fa-solid fa-trash trashIcon"></i></button>
+                            </div>
                         </div>
                     </div>
-                    <div class="d-flex justify-content-center align-items-center">
-                        <button class="addMoreButton">Add More &nbsp;<i class="fa-solid fa-plus tickIcon"></i></button>
+                    <div class="d-flex justify-content-center align-items-center m-3">
+                        <button class="addMoreButton" (click)="clickAddMoreButton('education_detail')">Add More &nbsp;<i class="fa-solid fa-plus tickIcon"></i></button>
                     </div>
                     <div class="text-start subtitleMargin">
                         <h4 class="p-mb-1 PageTitle">Enter Your Work Experience</h4>
                     </div>
                     <div class="row borderClass">
-                        <div class="col-md-12">
+                        <div class="col-md-12" *ngFor="let hobby of getWorkExpArray.controls; let i = index" formArrayName="workExpArray">
                             <div class="row">
                                 <div class="col-md-6">
                                     <label class="form-label labelFont">Organization Name</label>
                                     <div class="form-group">
                                         <div class="mb-3">
-                                            <!-- <input class="w-100" type="text" placeholder="Organization Name" formControlName="work_org_name" pInputText /> -->
-                                            <input class="w-100" type="text" placeholder="Organization Name"
-                                                [(ngModel)]="workOrgName" pInputText />
+                                            <input class="w-100" type="text" placeholder="Organization Name" formControlName="work_org_name" pInputText />
                                         </div>
                                     </div>
                                 </div>
@@ -264,17 +244,14 @@
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <div class="mb-3">
-                                                    <!-- <input class="w-100" type="text" placeholder="Start Year" formControlName="work_start_year" pInputText /> -->
-                                                    <input class="w-100" type="text" placeholder="Start Year"
-                                                        [(ngModel)]="workStartYear" pInputText />
+                                                    <input class="w-100" type="text" placeholder="Start Year" formControlName="work_start_year" pInputText />
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <div class="mb-3">
-                                                    <input class="w-100" type="text" placeholder="End Year"
-                                                        [(ngModel)]="workEndYear" pInputText />
+                                                    <input class="w-100" type="text" placeholder="End Year" formControlName="work_end_year" pInputText />
                                                 </div>
                                             </div>
                                         </div>
@@ -284,9 +261,7 @@
                                     <label class="form-label labelFont">Designation</label>
                                     <div class="form-group">
                                         <div class="mb-3">
-                                            <!-- <input class="w-100" type="text" placeholder="your Designation" formControlName="work_designation" pInputText /> -->
-                                            <input class="w-100" type="text" placeholder="your Designation"
-                                                [(ngModel)]="workDesignation" pInputText />
+                                            <input class="w-100" type="text" placeholder="your Designation" formControlName="work_designation" pInputText />
                                         </div>
                                     </div>
                                 </div>
@@ -294,10 +269,7 @@
                                     <label class="form-label labelFont">Work Type</label>
                                     <div class="form-group">
                                         <div class="mb-3">
-                                            <!-- <input class="w-100" type="text" placeholder="Education Location" formControlName="work_location" pInputText /> -->
-                                            <!-- <input class="w-100" type="text" placeholder="Education Location" [(ngModel)]="workype" pInputText /> -->
-                                            <p-dropdown [options]="workTypeValue" styleClass="w-100"
-                                                [(ngModel)]="workType" optionLabel="value"
+                                            <p-dropdown [options]="workTypeValue" styleClass="w-100" formControlName="work_type" optionLabel="value"
                                                 optionValue="id"></p-dropdown>
                                         </div>
                                     </div>
@@ -306,9 +278,7 @@
                                     <label class="form-label labelFont">Location</label>
                                     <div class="form-group">
                                         <div class="mb-3">
-                                            <!-- <input class="w-100" type="text" placeholder="Education Location" formControlName="work_location" pInputText /> -->
-                                            <input class="w-100" type="text" placeholder="Education Location"
-                                                [(ngModel)]="workLocation" pInputText />
+                                            <input class="w-100" type="text" placeholder="Education Location" formControlName="work_location" pInputText />
                                         </div>
                                     </div>
                                 </div>
@@ -316,21 +286,18 @@
                                     <label class="form-label labelFont">Job Description</label>
                                     <div class="form-group">
                                         <div class="mb-3">
-                                            <!-- <textarea [rows]="3" [cols]="85" pInputTextarea placeholder="About Job Description" [autoResize]="true" formControlName="work_job_description"></textarea> -->
-                                            <textarea [rows]="3" [cols]="85" pInputTextarea
-                                                placeholder="About Job Description" [autoResize]="true"
-                                                [(ngModel)]="workJobDescription"></textarea>
+                                            <textarea [rows]="3" [cols]="85" pInputTextarea placeholder="About Job Description" [autoResize]="true"
+                                                formControlName="work_job_description"></textarea>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="d-flex justify-content-end align-items-center">
-                            <button class="deleteDivButton">Delete &nbsp;<i
-                                    class="fa-solid fa-trash trashIcon"></i></button>
+                            <div class="d-flex justify-content-end align-items-center">
+                                <button (click)="clickDeleteButton()" class="deleteDivButton">Delete &nbsp;<i class="fa-solid fa-trash trashIcon"></i></button>
+                            </div>
                         </div>
                     </div>
-                    <div class="d-flex justify-content-center align-items-center">
+                    <div class="d-flex justify-content-center align-items-center m-3">
                         <button class="addMoreButton">Add More &nbsp;<i class="fa-solid fa-plus tickIcon"></i></button>
                     </div>
                     <div class="text-start subtitleMargin">
@@ -344,8 +311,7 @@
                                     <div class="form-group">
                                         <div class="mb-3">
                                             <!-- <input class="w-100" type="text" placeholder="Organization Name" formControlName="work_org_name" pInputText /> -->
-                                            <input class="w-100" type="text" placeholder="Project Name"
-                                                [(ngModel)]="projectName" pInputText />
+                                            <input class="w-100" type="text" placeholder="Project Name" formControlName="project_name" pInputText />
                                         </div>
                                     </div>
                                 </div>
@@ -357,7 +323,7 @@
                                                 <div class="mb-3">
                                                     <!-- <input class="w-100" type="text" placeholder="Start Year" formControlName="work_start_year" pInputText /> -->
                                                     <input class="w-100" type="text" placeholder="Start Year"
-                                                        [(ngModel)]="projectStartName" pInputText />
+                                                        formControlName="project_start_name" pInputText />
                                                 </div>
                                             </div>
                                         </div>
@@ -365,7 +331,7 @@
                                             <div class="form-group">
                                                 <div class="mb-3">
                                                     <input class="w-100" type="text" placeholder="End Year"
-                                                        [(ngModel)]="projectEndName" pInputText />
+                                                        formControlName="project_end_name" pInputText />
                                                 </div>
                                             </div>
                                         </div>
@@ -375,9 +341,7 @@
                                     <label class="form-label labelFont">Project Description</label>
                                     <div class="form-group">
                                         <div class="mb-3">
-                                            <textarea [rows]="3" [cols]="85" pInputTextarea
-                                                placeholder="Project Description" [autoResize]="true"
-                                                [(ngModel)]="projectDescription"></textarea>
+                                            <textarea [rows]="3" [cols]="85" pInputTextarea placeholder="Project Description" [autoResize]="true" formControlName="project_description"></textarea>
                                         </div>
                                     </div>
                                 </div>
@@ -397,8 +361,7 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <div class="mb-3">
-                                            <input class="w-100" type="text" placeholder="Language"
-                                                [(ngModel)]="language" pInputText />
+                                            <input class="w-100" type="text" placeholder="Language" formControlName="language" pInputText />
                                         </div>
                                     </div>
                                 </div>
@@ -407,9 +370,8 @@
                                         <div class="col-md-7">
                                             <div class="form-group">
                                                 <div class="mb-3">
-                                                    <p-dropdown [options]="languageProficiency"
-                                                        placeholder="Proficiency Level" styleClass="w-100"
-                                                        [(ngModel)]="langProficiency" optionLabel="value"
+                                                    <p-dropdown [options]="languageProficiency" placeholder="Proficiency Level" styleClass="w-100"
+                                                        formControlName="lang_proficiency" optionLabel="value"
                                                         optionValue="id"></p-dropdown>
                                                 </div>
                                             </div>
@@ -422,7 +384,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="d-flex justify-content-center align-items-center">
+                        <div class="d-flex justify-content-center align-items-center m-3">
                             <button class="addMoreButton">Add More &nbsp;<i
                                     class="fa-solid fa-plus tickIcon"></i></button>
                         </div>
@@ -431,60 +393,59 @@
                         <h4 class="p-mb-1 PageTitle">Your Technical Skills</h4>
                     </div>
                     <div class="row borderClass">
-                        <div class="col-md-12">
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <div class="mb-3">
-                                            <input class="w-100" type="text" placeholder="Add Your Skills"
-                                                [(ngModel)]="skills" pInputText />
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="row">
-                                        <div class="col-md-7">
-                                            <div class="form-group">
-                                                <div class="mb-3">
-                                                    <p-dropdown [options]="skillProficiency" styleClass="w-100"
-                                                        placeholder="Proficiency Level" [(ngModel)]="skillsProficiency"
-                                                        optionLabel="value" optionValue="id"></p-dropdown>
-                                                </div>
+                        <div class="col-md-12" *ngFor="let hobby of getSkillsArray.controls; let i = index" formArrayName="skillsArray">
+                            <div [formGroupName]="i">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <div class="mb-3">
+                                                <input class="w-100" type="text" placeholder="Add Your Skills" formControlName="skills" pInputText />
                                             </div>
                                         </div>
-                                        <div class="col-md-5">
-                                            <button class="deleteDivButton">Delete &nbsp;<i
-                                                    class="fa-solid fa-trash trashIcon"></i></button>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="row">
+                                            <div class="col-md-7">
+                                                <div class="form-group">
+                                                    <div class="mb-3">
+                                                        <p-dropdown [options]="skillProficiency" styleClass="w-100" placeholder="Proficiency Level" formControlName="skills_proficiency" optionLabel="value" optionValue="id"></p-dropdown>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-5">
+                                                <button (click)="clickDeleteButton('skills',i)" *ngIf="getSkillsArray.length != 1" class="deleteDivButton">Delete &nbsp;<i class="fa-solid fa-trash trashIcon"></i></button>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="d-flex justify-content-center align-items-center">
-                            <button class="addMoreButton">Add More &nbsp;<i
-                                    class="fa-solid fa-plus tickIcon"></i></button>
+                        <div class="d-flex justify-content-center align-items-center m-3">
+                            <button class="addMoreButton"  *ngIf="getSkillsArray.length < 5" (click)="clickAddMoreButton('skills')" >Add More &nbsp;<i class="fa-solid fa-plus tickIcon"></i></button>
                         </div>
                     </div>
                     <div class="text-start subtitleMargin">
                         <h4 class="p-mb-1 PageTitle">Your Hobbies</h4>
                     </div>
                     <div class="row borderClass" >
-                        <div class="col-md-12" *ngFor="let hobby of hobbies; let i = index" >
-                            <div class="row">
-                                <div class="col-md-9">
-                                    <div class="form-group">
-                                        <div class="mb-3">
-                                            <input class="w-100" type="text" placeholder="Add Your Hobbies"  [(ngModel)]="hobbies[i]" name="hobby{{i}}" pInputText />
+                        <div class="col-md-12" *ngFor="let hobby of getHobbiesArray.controls; let i = index" formArrayName="hobbiesArray">
+                            <div [formGroupName]="i">
+                                <div class="row">
+                                    <div class="col-md-9">
+                                        <div class="form-group">
+                                            <div class="mb-3">
+                                                <input class="w-100" type="text" placeholder="Add Your Hobbies"  formControlName="hobbies" name="hobby{{i}}" pInputText />
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="col-md-3">
-                                    <button (click)="remove(i)" class="deleteDivButton">Delete &nbsp;<i class="fa-solid fa-trash trashIcon"></i></button>
+                                    <div class="col-md-3">
+                                        <button  class="deleteDivButton" *ngIf="getHobbiesArray.length != 1" (click)="clickDeleteButton('Hobby',i)">Delete &nbsp;<i class="fa-solid fa-trash trashIcon"></i></button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="d-flex justify-content-center align-items-center">
-                            <button *ngIf="hobbies.length < 5" class="addMoreButton" (click)="addHobby()">Add More &nbsp;<i class="fa-solid fa-plus tickIcon"></i></button>
+                        <div class="d-flex justify-content-center align-items-center m-3">
+                            <button  *ngIf="getHobbiesArray.length < 5" (click)="clickAddMoreButton('Hobby')" class="addMoreButton" >Add More &nbsp;<i class="fa-solid fa-plus tickIcon"></i></button>
                         </div>
                     </div>
                     <div class="text-start subtitleMargin">
@@ -496,8 +457,7 @@
                                 <div class="col-md-9">
                                     <div class="form-group">
                                         <div class="mb-3">
-                                            <input class="w-100" type="text" placeholder="Extra Activities"
-                                                [(ngModel)]="language" pInputText />
+                                            <input class="w-100" type="text" placeholder="Extra Activities" formControlName="extra_curricular_activites" pInputText />
                                         </div>
                                     </div>
                                 </div>
@@ -507,7 +467,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="d-flex justify-content-center align-items-center">
+                        <div class="d-flex justify-content-center align-items-center m-3">
                             <button class="addMoreButton">Add More &nbsp;<i
                                     class="fa-solid fa-plus tickIcon"></i></button>
                         </div>
@@ -523,7 +483,7 @@
                                     <div class="form-group">
                                         <div class="mb-3">
                                             <input class="w-100" type="text" placeholder="Name"
-                                                [(ngModel)]="certificateName" pInputText />
+                                                formControlName="certificate_name" pInputText />
                                         </div>
                                     </div>
                                 </div>
@@ -532,7 +492,7 @@
                                     <div class="form-group">
                                         <div class="mb-3">
                                             <input class="w-100" type="text" placeholder="Issue Date"
-                                                [(ngModel)]="certificateIssued" pInputText />
+                                                formControlName="certificate_issued" pInputText />
                                         </div>
                                     </div>
                                 </div>
@@ -543,7 +503,7 @@
                                     <div class="form-group">
                                         <div class="mb-3">
                                             <input class="w-100" type="text" placeholder="Certificate ID"
-                                                [(ngModel)]="certificateId" pInputText />
+                                                formControlName="certificate_id" pInputText />
                                         </div>
                                     </div>
                                 </div>
@@ -552,7 +512,7 @@
                                     <div class="form-group">
                                         <div class="mb-3">
                                             <input class="w-100" type="text" placeholder="certificate Link"
-                                                [(ngModel)]="certicateLink" pInputText />
+                                                formControlName="certicate_link" pInputText />
                                         </div>
                                     </div>
                                 </div>
@@ -563,7 +523,7 @@
                                     class="fa-solid fa-trash trashIcon"></i></button>
                         </div>
                     </div>
-                    <div class="d-flex justify-content-center align-items-center">
+                    <div class="d-flex justify-content-center align-items-center m-3">
                         <button class="addMoreButton">Add More &nbsp;<i class="fa-solid fa-plus tickIcon"></i></button>
                     </div>
                     <div class="text-start subtitleMargin">
@@ -576,8 +536,7 @@
                                     <label class="form-label labelFont">Reference Name</label>
                                     <div class="form-group">
                                         <div class="mb-3">
-                                            <input class="w-100" type="text" placeholder="Name" [(ngModel)]="refName"
-                                                pInputText />
+                                            <input class="w-100" type="text" placeholder="Name" formControlName="ref_name" pInputText />
                                         </div>
                                     </div>
                                     <div class="row">
@@ -585,8 +544,7 @@
                                             <label class="form-label labelFont">Reference Position</label>
                                             <div class="form-group">
                                                 <div class="mb-3">
-                                                    <input class="w-100" type="text" placeholder="Position"
-                                                        [(ngModel)]="refPosition" pInputText />
+                                                    <input class="w-100" type="text" placeholder="Position" formControlName="ref_position" pInputText />
                                                 </div>
                                             </div>
                                         </div>
@@ -595,7 +553,7 @@
                                             <div class="form-group">
                                                 <div class="mb-3">
                                                     <input class="w-100" type="text" placeholder="Organization Name"
-                                                        [(ngModel)]="refOrganization" pInputText />
+                                                        formControlName="ref_organization" pInputText />
                                                 </div>
                                             </div>
                                         </div>
@@ -606,7 +564,7 @@
                                             <div class="form-group">
                                                 <div class="mb-3">
                                                     <input class="w-100" type="text" placeholder="Email ID"
-                                                        [(ngModel)]="refEmail" pInputText />
+                                                        formControlName="ref_email" pInputText />
                                                 </div>
                                             </div>
                                         </div>
@@ -615,7 +573,7 @@
                                             <div class="form-group">
                                                 <div class="mb-3">
                                                     <input class="w-100" type="text" placeholder="Contact Number"
-                                                        [(ngModel)]="refContact" pInputText />
+                                                        formControlName="ref_contact" pInputText />
                                                 </div>
                                             </div>
                                         </div>
@@ -628,10 +586,11 @@
                                     class="fa-solid fa-trash trashIcon"></i></button>
                         </div>
                     </div>
-                    <div class="d-flex justify-content-center align-items-center">
+                    <div class="d-flex justify-content-center align-items-center m-3">
                         <button class="addMoreButton">Add More &nbsp;<i class="fa-solid fa-plus tickIcon"></i></button>
                     </div>
                 </div>
+                </form>
                 <div class="d-flex justify-content-center align-items-center m-3">
                     <button type="submit" class="btn btn-dark w-50"
                         style="background-color: var(--uniprep-primary); border: none">Preview</button>
@@ -642,31 +601,39 @@
                     <h4 class="p-mb-1 PageTitle">Preview</h4>
                 </div>
                 <div class="container">
-                    <p>name: {{ userName }}</p>
-                    <p>job title: {{ userJobTitle }}</p>
-                    <p>email: {{ userEmail }}</p>
-                    <p>location: {{ userLocation }}</p>
-                    <p>phone number: {{ userPhone }}</p>
-                    <p>LinkedIn profile: {{ userLinkedIn }}</p>
-                    <p>website: {{ userWebsite }}</p>
-                    <p>summary: {{ userSummary }}</p>
-                    <p>College name: {{ eduCollegeName }}</p>
-                    <p>Education start Year: {{ eduStartYear }}</p>
-                    <p>Education end Year: {{ eduEndYear }}</p>
-                    <p>Degree: {{ eduDegree }}</p>
-                    <p>Location: {{ eduLocation }}</p>
-                    <p>Percentage: {{ eduPercentage }}</p>
-                    <p>cgpaPercentage: {{ cgpaPercentage }}</p>
-                    <p>Organization Name: {{ workOrgName }}</p>
-                    <p>Experience staring year: {{ workStartYear }}</p>
-                    <p>Experience ending year: {{ workEndYear }}</p>
-                    <p>Designation: {{ workDesignation }}</p>
-                    <p>work location: {{ workLocation }}</p>
-                    <p>job Description: {{ workJobDescription }}</p>
-                    <p>skills: {{ skills }}</p>
-                    <p>Reference name: {{ refName }}</p>
-                    <p>Reference Email: {{ refEmail }}</p>
-                    <p>Reference phone: {{ refContact }}</p>
+                    <p>selected Exp Level: {{ f['selected_exp_level'].value  }}</p>
+                    <p>name: {{ f['user_name'].value  }}</p>
+                    <p>job title: {{ f['user_job_title'].value }}</p>
+                    <p>email: {{ f['user_email'].value }}</p>
+                    <p>location: {{ f['user_location'].value }}</p>
+                    <p>phone number: {{ f['user_phone'].value }}</p>
+                    <p>LinkedIn profile: {{ f['user_linkedin'].value }}</p>
+                    <p>website: {{ f['user_website'].value }}</p>
+                    <p>summary: {{ f['user_summary'].value }}</p>
+                    <p>College name: {{ f['edu_college_name'].value }}</p>
+                    <p>Education start Year: {{ f['edu_start_year'].value }}</p>
+                    <p>Education end Year: {{ f['edu_end_year'].value  }}</p>
+                    <p>Degree: {{ f['edu_degree'].value }}</p>
+                    <p>Location: {{ f['edu_location'].value  }}</p>
+                    <p>Percentage: {{ f['edu_percentage'].value }}</p>
+                    <p>cgpaPercentage: {{ f['edu_cgpa_percentage'].value }}</p>
+                    <p>Organization Name: {{ f['work_org_name'].value }}</p>
+                    <p>Experience staring year: {{ f['work_start_year'].value }}</p>
+                    <p>Experience ending year: {{ f['work_end_year'].value }}</p>
+                    <p>Designation: {{ f['work_designation'].value }}</p>
+                    <p>work Type: {{ f['work_type'].value }}</p>
+                    <p>work location: {{ f['work_location'].value }}</p>
+                    <p>job Description: {{ f['work_job_description'].value }}</p>
+                    <p>project Name: {{ f['project_name'].value  }}</p>
+                    <p>project project_start_name: {{ f['project_start_name'].value  }}</p>
+                    <p>project_end_name: {{ f['project_end_name'].value  }}</p>
+                    <p>project_description: {{ f['project_description'].value  }}</p>
+                    <p>language: {{ f['language'].value }}</p>
+                    <p>lang_proficiency: {{ f['lang_proficiency'].value }}</p>
+                    <p>skills:</p> 
+                    <p *ngFor="let hobby of getHobbiesArray.controls" >
+                        {{ hobby.value.hobbies }}
+                    </p>
                 </div>
             </div>
         </div>
