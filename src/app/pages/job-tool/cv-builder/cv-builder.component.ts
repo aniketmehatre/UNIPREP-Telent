@@ -131,6 +131,7 @@ export class CvBuilderComponent implements OnInit {
       skills_proficiency: [''],
       hobbies: [''],
       EduDetailsArray: this.fb.array([]),
+      getWorkExpArray: this.fb.array([]),
       skillsArray:this.fb.array([]),
       hobbiesArray: this.fb.array([]),
       extra_curricular_activites: [''],
