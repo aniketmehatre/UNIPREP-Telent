@@ -24,11 +24,6 @@
 		hr {
 			margin: 2px;
 		}
-		ul {
-			li {
-				list-style: none;
-			}
-		}
 		h1,
 		h2,
 		h3,
@@ -38,8 +33,12 @@
 		p,
 		a,
 		span,
+		ul,
 		li {
-			font-size: calc(0.2vw + 0.2vh);
+			font-size: 50%;
+			list-style: none;
+			padding: 0px;
+            padding-left:0px;
 		}
 	}
 }
