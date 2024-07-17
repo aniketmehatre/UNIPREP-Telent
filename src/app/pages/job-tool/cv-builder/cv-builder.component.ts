@@ -13,7 +13,7 @@ export class CvBuilderComponent implements OnInit {
   workTypeValue: any = [{id: "Fulltime", value: "Fulltime"}, {id: "Parttime", value: "Parttime"}, {id: "Internship", value: "Internship"},{id: "Freelance", value: "Freelance"}];
   languageProficiency: any = [{id:"Beginner", value:"Beginner"},{id:"Fluent", value: "Fluent"}, { id:"Proficient", value:"Proficient"}, { id:"Native", value:"Native"}];
   skillProficiency: any = [{id:"Basic", value:"Basic"},{id: "Intermediate", value: "Intermediate"}, { id:"Advance", value:"Advance"}];
-  enableModule:boolean = false;
+  enableModule:boolean = true;
   activePageIndex: number = 0;
   resumeFormInfoData: FormGroup;
 
@@ -76,7 +76,7 @@ export class CvBuilderComponent implements OnInit {
   constructor(private toaster: MessageService,  private fb: FormBuilder, ) { 
     
     this.resumeFormInfoData = this.fb.group({
-      selected_exp_level:[''],
+      selected_exp_level:['1'],
       user_name: ['Saurabh Nakkarike'],
       user_job_title: ['Senior UI/UX Designer'],
       user_email: ['saurab@uniabroad.co.in'],
@@ -162,6 +162,17 @@ export class CvBuilderComponent implements OnInit {
   get f() {
     // console.log(this.resumeFormInfoData.value);
     return this.resumeFormInfoData.controls;
+  }
+
+  changeExperience(event: any){
+    if(event.value != 1){
+      this.eduDetailsLimit = 2;
+      this.wrkExpLimit = 5;
+
+    }else{
+      this.eduDetailsLimit = 3;
+      this.wrkExpLimit = 3;
+    }
   }
 
   resumeFormSubmit(){
