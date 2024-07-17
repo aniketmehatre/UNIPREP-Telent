@@ -581,7 +581,7 @@
 				<div class="card-body h-100 overflow-hidden">
 					<div class="previewcontainer">
 						<div class="previewbody">
-							<!-- <head>
+							<head>
 								<meta charset="UTF-8" />
 								<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 								<meta http-equiv="X-UA-Compatible" content="ie=edge" />
@@ -683,23 +683,17 @@
 										margin: 0;
 									}
 								</style>
-							</head> -->
+							</head>
 							<body class="h-100 previewBodyForm">
 								<div class="text-center" id="personalinfo">
 									<h1 class="m-0">{{ f["user_name"].value }}</h1>
 									<p class="m-0">{{ f["user_job_title"].value }}</p>
 									<hr />
 									<div class="d-flex justify-content-between font-12">
-										<span
-											><a [href]="'tel:' + f['user_phone'].value" target="_Blank">{{ f["user_phone"].value }}</a></span
-										>
-										<span
-											><a [href]="'tel:' + f['user_email'].value" target="_Blank">{{ f["user_email"].value }}</a></span
-										>
-										<span><a [href]="f['user_linkedin'].value" target="_Blank">LinkedIn</a></span>
-										<span
-											><a [href]="f['user_website'].value" target="_Blank">{{ f["user_website"].value }}</a></span
-										>
+										<a [href]="'tel:' + f['user_phone'].value" target="_Blank">{{ f["user_phone"].value }}</a>
+										<a [href]="'tel:' + f['user_email'].value" target="_Blank">{{ f["user_email"].value }}</a>
+										<a [href]="f['user_linkedin'].value" target="_Blank">LinkedIn</a>
+										<a [href]="f['user_website'].value" target="_Blank">{{ f["user_website"].value }}</a>
 										<span>{{ f["user_location"].value }}</span>
 									</div>
 									<hr />
