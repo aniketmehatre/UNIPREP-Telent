@@ -52,7 +52,8 @@
         </div>
     </div>
     <div class="container-fluid" *ngIf="enableModule">
-        <div class="col-md-12 d-flex">
+        <div class="col-md-12 ">
+            
             <div class="col-md-6 ">
                 <form role="form" [formGroup]="resumeFormInfoData" (ngSubmit)="resumeFormSubmit()">
                 <div class="d-flex flex-column h-100 justify-content-between">
@@ -217,12 +218,12 @@
                                 </div>
                             </div>
                             <div class="d-flex justify-content-end align-items-center">
-                                <button class="deleteDivButton" (click)="clickDeleteButton('education_detail',i)">Delete &nbsp;<i class="fa-solid fa-trash trashIcon"></i></button>
+                                <button class="deleteDivButton" *ngIf="getEduDetailsArray.length != 1" (click)="clickDeleteButton('education_detail',i)">Delete &nbsp;<i class="fa-solid fa-trash trashIcon"></i></button>
                             </div>
                         </div>
                     </div>
                     <div class="d-flex justify-content-center align-items-center m-3">
-                        <button class="addMoreButton" (click)="clickAddMoreButton('education_detail')">Add More &nbsp;<i class="fa-solid fa-plus tickIcon"></i></button>
+                        <button class="addMoreButton" *ngIf="getEduDetailsArray.length < eduDetailsLimit" (click)="clickAddMoreButton('education_detail')">Add More &nbsp;<i class="fa-solid fa-plus tickIcon"></i></button>
                     </div>
                     <div class="text-start subtitleMargin">
                         <h4 class="p-mb-1 PageTitle">Enter Your Work Experience</h4>
@@ -295,12 +296,12 @@
                                 </div>
                             </div>
                             <div class="d-flex justify-content-end align-items-center">
-                                <button (click)="clickDeleteButton('work_experience',i)"  class="deleteDivButton">Delete &nbsp;<i class="fa-solid fa-trash trashIcon"></i></button>
+                                <button (click)="clickDeleteButton('work_experience',i)" *ngIf="getWorkExpArray.length != 1"  class="deleteDivButton">Delete &nbsp;<i class="fa-solid fa-trash trashIcon"></i></button>
                             </div>
                         </div>
                     </div>
                     <div class="d-flex justify-content-center align-items-center m-3">
-                        <button class="addMoreButton" (click)="clickAddMoreButton('work_experience')" >Add More &nbsp;<i class="fa-solid fa-plus tickIcon"></i></button>
+                        <button  class="addMoreButton" *ngIf="getWorkExpArray.length < wrkExpLimit" (click)="clickAddMoreButton('work_experience')" >Add More &nbsp;<i class="fa-solid fa-plus tickIcon"></i></button>
                     </div>
                     <div class="text-start subtitleMargin">
                         <h4 class="p-mb-1 PageTitle">Enter Your Project Details</h4>
@@ -349,11 +350,11 @@
                                 </div>
                             </div>
                             <div class="d-flex justify-content-end align-items-center">
-                                <button class="deleteDivButton" (click)="clickDeleteButton('project_details',i)">Delete &nbsp;<i class="fa-solid fa-trash trashIcon"></i></button>
+                                <button class="deleteDivButton" *ngIf="getProjectDetailsArray.length != 1" (click)="clickDeleteButton('project_details',i)">Delete &nbsp;<i class="fa-solid fa-trash trashIcon"></i></button>
                             </div>
                         </div>
                         <div class="d-flex justify-content-center align-items-center m-3">
-                            <button  (click)="clickAddMoreButton('project_details')" class="addMoreButton">Add More &nbsp;<i class="fa-solid fa-plus tickIcon"></i></button>
+                            <button *ngIf="getProjectDetailsArray.length < projectLimit"  (click)="clickAddMoreButton('project_details')" class="addMoreButton">Add More &nbsp;<i class="fa-solid fa-plus tickIcon"></i></button>
                         </div>
                     </div>
                     <div class="text-start subtitleMargin">
@@ -376,13 +377,12 @@
                                                 <div class="form-group">
                                                     <div class="mb-3">
                                                         <p-dropdown [options]="languageProficiency" placeholder="Proficiency Level" styleClass="w-100"
-                                                            formControlName="lang_proficiency" optionLabel="value"
-                                                            optionValue="id"></p-dropdown>
+                                                            formControlName="lang_proficiency" optionLabel="value" optionValue="id"></p-dropdown>
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="col-md-5">
-                                                <button class="deleteDivButton" (click)="clickDeleteButton('language_known',i)">Delete &nbsp;<i class="fa-solid fa-trash trashIcon"></i></button>
+                                                <button class="deleteDivButton" *ngIf="getLanguagesKnownArray.length != 1" (click)="clickDeleteButton('language_known',i)">Delete &nbsp;<i class="fa-solid fa-trash trashIcon"></i></button>
                                             </div>
                                         </div>
                                     </div>
@@ -390,7 +390,7 @@
                             </div>
                         </div>
                         <div class="d-flex justify-content-center align-items-center m-3">
-                            <button class="addMoreButton" (click)="clickAddMoreButton('language_known')">Add More &nbsp;<i class="fa-solid fa-plus tickIcon"></i></button>
+                            <button class="addMoreButton" *ngIf="getLanguagesKnownArray.length < languageLimit" (click)="clickAddMoreButton('language_known')">Add More &nbsp;<i class="fa-solid fa-plus tickIcon"></i></button>
                         </div>
                     </div>
                     <div class="text-start subtitleMargin">
@@ -425,7 +425,7 @@
                             </div>
                         </div>
                         <div class="d-flex justify-content-center align-items-center m-3">
-                            <button class="addMoreButton"  *ngIf="getSkillsArray.length < 5" (click)="clickAddMoreButton('skills')" >Add More &nbsp;<i class="fa-solid fa-plus tickIcon"></i></button>
+                            <button class="addMoreButton"  *ngIf="getSkillsArray.length < techSkillLimit" (click)="clickAddMoreButton('skills')" >Add More &nbsp;<i class="fa-solid fa-plus tickIcon"></i></button>
                         </div>
                     </div>
                     <div class="text-start subtitleMargin">
@@ -449,7 +449,7 @@
                             </div>
                         </div>
                         <div class="d-flex justify-content-center align-items-center m-3">
-                            <button  *ngIf="getHobbiesArray.length < 5" (click)="clickAddMoreButton('Hobby')" class="addMoreButton" >Add More &nbsp;<i class="fa-solid fa-plus tickIcon"></i></button>
+                            <button  *ngIf="getHobbiesArray.length < hobbyLimit" (click)="clickAddMoreButton('Hobby')" class="addMoreButton" >Add More &nbsp;<i class="fa-solid fa-plus tickIcon"></i></button>
                         </div>
                     </div>
                     <div class="text-start subtitleMargin">
@@ -467,13 +467,13 @@
                                         </div>
                                     </div>
                                     <div class="col-md-3">
-                                        <button class="deleteDivButton" (click)="clickDeleteButton('extra_curricular',i)">Delete &nbsp;<i class="fa-solid fa-trash trashIcon"></i></button>
+                                        <button class="deleteDivButton" *ngIf="getExtraCurricularArray.length != 1" (click)="clickDeleteButton('extra_curricular',i)">Delete &nbsp;<i class="fa-solid fa-trash trashIcon"></i></button>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="d-flex justify-content-center align-items-center m-3">
-                            <button class="addMoreButton" (click)="clickAddMoreButton('extra_curricular')">Add More &nbsp;<i class="fa-solid fa-plus tickIcon"></i></button>
+                            <button class="addMoreButton" *ngIf="getExtraCurricularArray.length < extraCurriLimit" (click)="clickAddMoreButton('extra_curricular')">Add More &nbsp;<i class="fa-solid fa-plus tickIcon"></i></button>
                         </div>
                     </div>
                     <div class="text-start subtitleMargin">
@@ -520,12 +520,12 @@
                                 </div>
                             </div>
                             <div class="d-flex justify-content-end align-items-center">
-                                <button class="deleteDivButton" (click)="clickDeleteButton('certificate',i)">Delete &nbsp;<i class="fa-solid fa-trash trashIcon"></i></button>
+                                <button class="deleteDivButton" *ngIf="getCertificatesArray.length != 1" (click)="clickDeleteButton('certificate',i)">Delete &nbsp;<i class="fa-solid fa-trash trashIcon"></i></button>
                             </div>
                         </div>
                     </div>
                     <div class="d-flex justify-content-center align-items-center m-3">
-                        <button class="addMoreButton" (click)="clickAddMoreButton('certificate')">Add More &nbsp;<i class="fa-solid fa-plus tickIcon"></i></button>
+                        <button class="addMoreButton" *ngIf="getCertificatesArray.length < certificateLimit" (click)="clickAddMoreButton('certificate')">Add More &nbsp;<i class="fa-solid fa-plus tickIcon"></i></button>
                     </div>
                     <div class="text-start subtitleMargin">
                         <h4 class="p-mb-1 PageTitle">References</h4>
@@ -581,11 +581,11 @@
                                 </div>
                             </div>
                             <div class="d-flex justify-content-end align-items-center">
-                                <button class="deleteDivButton" (click)="clickDeleteButton('reference',i)">Delete &nbsp;<i class="fa-solid fa-trash trashIcon"></i></button>
+                                <button class="deleteDivButton" *ngIf="getReferenceArray.length != 1" (click)="clickDeleteButton('reference',i)">Delete &nbsp;<i class="fa-solid fa-trash trashIcon"></i></button>
                             </div>
                         </div>
                         <div class="d-flex justify-content-center align-items-center m-3">
-                            <button class="addMoreButton" (click)="clickAddMoreButton('reference')" >Add More &nbsp;<i class="fa-solid fa-plus tickIcon"></i></button>
+                            <button class="addMoreButton" *ngIf="getReferenceArray.length < referenceLimit" (click)="clickAddMoreButton('reference')" >Add More &nbsp;<i class="fa-solid fa-plus tickIcon"></i></button>
                         </div>
                     </div>
                 </div>

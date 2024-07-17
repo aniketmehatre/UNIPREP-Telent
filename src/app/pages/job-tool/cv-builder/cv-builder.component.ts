@@ -7,48 +7,27 @@ import { FormBuilder, FormGroup, FormArray, Form} from "@angular/forms";
   styleUrls: ['./cv-builder.component.scss']
 })
 export class CvBuilderComponent implements OnInit {
-  // previewImage: string = "";
-
-  // cvData = {
-  //   name: 'John Doe',
-  //   email: 'john.doe@example.com'
-  //   // Add more fields as needed
-  // };
-
   selectedResumeLevel: string = "";
-  // pages:any = [
-  //   {
-  //     id: 1,
-  //     pageTitle: "Enter your personal information"
-  //   },
-  //   {
-  //     id: 2,
-  //     pageTitle: "Enter your Education Details"
-  //   },
-  //   {
-  //     id: 3,
-  //     pageTitle: "Enter your Work Experience Details"
-  //   },
-  //   {
-  //     id: 4,
-  //     pageTitle: "Enter your Skills & References"
-  //   },
-  //   {
-  //     id: 5,
-  //     pageTitle: "Your Resume"
-  //   }
-  // ];
   experienceLevel: any = [{id: 1, level: "Fresher"},{id: 2, level: "1-2 Years"},{id: 3, level: "3-5 Years"},{id: 4, level: "5+ Years"},];
   cgpaPercentage: any = [{id:"CGPA", value: "CGPA"},{id:"%", value: "Percentage"}];
   workTypeValue: any = [{id: "Fulltime", value: "Fulltime"}, {id: "Parttime", value: "Parttime"}, {id: "Internship", value: "Internship"},{id: "Freelance", value: "Freelance"}];
   languageProficiency: any = [{id:"Beginner", value:"Beginner"},{id:"Fluent", value: "Fluent"}, { id:"Proficient", value:"Proficient"}, { id:"Native", value:"Native"}];
   skillProficiency: any = [{id:"Basic", value:"Basic"},{id: "Intermediate", value: "Intermediate"}, { id:"Advance", value:"Advance"}];
-  enableModule:boolean = true;
+  enableModule:boolean = false;
   activePageIndex: number = 0;
   resumeFormInfoData: FormGroup;
-  // educationalInfoFrom: FormGroup;
-  // workInfoForm: FormGroup;
-  // skillForm: FormGroup;
+
+  //cloning limit
+  eduDetailsLimit: number = 3;
+  wrkExpLimit: number = 3;
+  projectLimit: number = 3;
+  languageLimit: number = 5;
+  techSkillLimit: number = 5;
+  hobbyLimit: number = 5;
+  extraCurriLimit: number = 5;
+  certificateLimit: number = 4;
+  referenceLimit: number = 4;
+
   submittedFormData: any = [];
   selectedExpLevel:number = 0;
 
