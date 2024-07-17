@@ -1,64 +1,101 @@
-.cvBuilderSampleImg{
-    cursor: pointer;
-    margin: auto;
-    text-align: center;
-    width: fit-content;
-    img{
-        height: 350px;
-        border-radius: 9px;
-        border: 1px solid;
-    }
-    &:hover
-    {
-        -webkit-box-shadow: 0px 0px 50px 0px var(--uniprep-primaryop10);
-        -moz-box-shadow: 0px 0px 50px 0px var(--uniprep-primaryop10);
-        box-shadow: 0px 0px 50px 0px var(--uniprep-primaryop10);
-    }
+.cvBuilderSampleImg {
+	cursor: pointer;
+	margin: auto;
+	text-align: center;
+	width: fit-content;
+	img {
+		height: 350px;
+		border-radius: 9px;
+		border: 1px solid;
+	}
+	&:hover {
+		-webkit-box-shadow: 0px 0px 50px 0px var(--uniprep-primaryop10);
+		-moz-box-shadow: 0px 0px 50px 0px var(--uniprep-primaryop10);
+		box-shadow: 0px 0px 50px 0px var(--uniprep-primaryop10);
+	}
 }
-
+.previewcontainer {
+	height: 100%;
+	width: 100%;
+	display: flex;
+	justify-content: center;
+	.previewbody {
+		aspect-ratio: 1/1.41;
+		hr {
+			margin: 2px;
+		}
+		ul {
+			li {
+				list-style: none;
+			}
+		}
+		h1,
+		h2,
+		h3,
+		h4,
+		h5,
+		h6,
+		p,
+		a,
+		span,
+		li {
+			font-size: calc(0.2vw + 0.2vh);
+		}
+	}
+}
 .center-button {
-    position: absolute;
-    top:50%;
-    left:50%;
-    transform: translateY(-50%) translateX(-50%);
-    padding: 5px 10px 5px 10px;
-    background-color: var(--uniprep-primary);
-    color: white;
-    border: none;
-    border-radius: 25px;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translateY(-50%) translateX(-50%);
+	padding: 5px 10px 5px 10px;
+	background-color: var(--uniprep-primary);
+	color: white;
+	border: none;
+	border-radius: 25px;
 }
 
-.tickIcon{
-    background-color: #5a5aed;
-    padding: 8px;
-    border-radius: 25px;
+.tickIcon {
+	background-color: #5a5aed;
+	padding: 8px;
+	border-radius: 25px;
 }
 
-.selectedResumeLevel{
-    border: 2px solid #404d82;
-    border-radius: 12px;
-    position: relative;
+.selectedResumeLevel {
+	border: 2px solid #404d82;
+	border-radius: 12px;
+	position: relative;
 }
 
-.createResumeButton{
-    background-color: var(--uniprep-primary);
-    color: white;
-    padding: 15px 75px 15px 75px;
-    border: none;
-    border-radius: 50px;
+.createResumeButton {
+	background-color: var(--uniprep-primary);
+	color: white;
+	padding: 15px 75px 15px 75px;
+	border: none;
+	border-radius: 50px;
 }
 
 @keyframes shake {
-    0% { transform: translateX(0) }
-    25% { transform: translateX(5px) }
-    50% { transform: translateX(-5px) }
-    75% { transform: translateX(5px) }
-    100% { transform: translateX(0) }
+	0% {
+		transform: translateX(0);
+	}
+	25% {
+		transform: translateX(5px);
+	}
+	50% {
+		transform: translateX(-5px);
+	}
+	75% {
+		transform: translateX(5px);
+	}
+	100% {
+		transform: translateX(0);
+	}
 }
 
 .shake {
-    animation: shake 0.3s;
-    background-color: red;
+	animation: shake 0.3s;
+	background-color: red;
 }
 
 .p-button-info-prev {
@@ -106,52 +143,52 @@
 	margin-left: 5px;
 }
 
-.labelFont{
-    font-size: medium; 
-    font-weight: 900;
+.labelFont {
+	font-size: medium;
+	font-weight: 900;
 }
 
-.PageTitle{
-    color: var(--uniprep-primary);
-    // margin: 10px;
+.PageTitle {
+	color: var(--uniprep-primary);
+	// margin: 10px;
 }
 
-.borderClass{
-    border: 1px solid lightgray;
-    border-radius: 10px;
-    padding: 10px;
+.borderClass {
+	border: 1px solid lightgray;
+	border-radius: 10px;
+	padding: 10px;
 }
 
-.previewDiv{
-    background-color: gainsboro;
-    border: 1px solid whitesmoke;
-    border-radius: 10px;
+.previewDiv {
+	background-color: gainsboro;
+	border: 1px solid whitesmoke;
+	border-radius: 10px;
 }
 
-.addMoreButton{
-    background-color: var(--uniprep-primary);
-    color: white;
-    padding: 5px 5px;
-    border: none;
-    border-radius: 50px;
+.addMoreButton {
+	background-color: var(--uniprep-primary);
+	color: white;
+	padding: 5px 5px;
+	border: none;
+	border-radius: 50px;
 }
 
-.deleteDivButton{
-    background-color: #d80027;
-    color: white;
-    padding: 5px 5px;
-    border: none;
-    border-radius: 50px;
+.deleteDivButton {
+	background-color: #d80027;
+	color: white;
+	padding: 5px 5px;
+	border: none;
+	border-radius: 50px;
 }
 
-.trashIcon{
-    background-color: #fa3e61;
-    padding: 8px;
-    border-radius: 25px;
+.trashIcon {
+	background-color: #fa3e61;
+	padding: 8px;
+	border-radius: 25px;
 }
 
-.subtitleMargin{
-    margin: 10px 0px;
+.subtitleMargin {
+	margin: 10px 0px;
 }
 
 // .scrollDivide{
@@ -160,9 +197,9 @@
 //     overflow-y: scroll;
 // }
 
-.previewBodyForm{
-    margin: 10px;
-    padding: 10px;
-    border: 1px solid lightslategrey;
-    border-radius: 10px;
+.previewBodyForm {
+	margin: 10px;
+	padding: 10px;
+	border: 1px solid lightslategrey;
+	border-radius: 10px;
 }
