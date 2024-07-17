@@ -48,7 +48,6 @@
 					</div>
 					<div class="col-md-12">
 						<p-dropdown [options]="experienceLevel" (onChange)= "changeExperience($event)" styleClass="w-100" formControlName="selected_exp_level" optionLabel="level" optionValue="id"></p-dropdown>
-						<!-- //formControlName="selectedExpLevel" -->
 					</div>
 					<div class="text-start subtitleMargin">
 						<h4 class="p-mb-2 PageTitle">Enter Your Personal Information</h4>
@@ -60,9 +59,7 @@
 									<label class="form-label labelFont">Your Name</label>
 									<div class="form-group">
 										<div class="mb-3">
-											<!-- <input class="w-100" type="text" placeholder="Full Name" formControlName="your_name" pInputText /> -->
 											<input class="w-100" type="text" placeholder="Full Name" formControlName="user_name" pInputText />
-											<!-- //formControlName="userName" -->
 										</div>
 									</div>
 								</div>
@@ -70,9 +67,7 @@
 									<label class="form-label labelFont">Job Title</label>
 									<div class="form-group">
 										<div class="mb-3">
-											<!-- <input class="w-100" type="text" placeholder="your Job Title" formControlName="your_job_title" pInputText /> -->
 											<input class="w-100" type="text" placeholder="your Job Title" formControlName="user_job_title" pInputText />
-											<!-- formControlName="userJobTitle" -->
 										</div>
 									</div>
 								</div>
@@ -80,9 +75,7 @@
 									<label class="form-label labelFont">Your Email</label>
 									<div class="form-group">
 										<div class="mb-3">
-											<!-- <input class="w-100" type="text" placeholder="Email Address" formControlName="your_email" pInputText /> -->
 											<input class="w-100" type="text" placeholder="Email Address" formControlName="user_email" pInputText />
-											<!-- formControlName="userEmail" -->
 										</div>
 									</div>
 								</div>
@@ -90,7 +83,6 @@
 									<label class="form-label labelFont">Current Address</label>
 									<div class="form-group">
 										<div class="mb-3">
-											<!-- <input class="w-100" type="text" placeholder="Your Location" formControlName="your_location" pInputText /> -->
 											<input class="w-100" type="text" placeholder="Your Location" formControlName="user_location" pInputText />
 										</div>
 									</div>
@@ -99,7 +91,6 @@
 									<label class="form-label labelFont">Phone Number</label>
 									<div class="form-group">
 										<div class="mb-3">
-											<!-- <input class="w-100" type="text" placeholder="Phone Number" formControlName="your_phone_number" pInputText /> -->
 											<input class="w-100" type="text" placeholder="Phone Number" formControlName="user_phone" pInputText />
 										</div>
 									</div>
@@ -108,7 +99,6 @@
 									<label class="form-label labelFont">LinkedIn Link</label>
 									<div class="form-group">
 										<div class="mb-3">
-											<!-- <input class="w-100" type="text" placeholder="LinkedIn profile link" formControlName="your_linkedin_link" pInputText /> -->
 											<input class="w-100" type="text" placeholder="LinkedIn profile link" formControlName="user_linkedin" pInputText />
 										</div>
 									</div>
@@ -117,7 +107,6 @@
 									<label class="form-label labelFont">Website</label>
 									<div class="form-group">
 										<div class="mb-3">
-											<!-- <input class="w-100" type="text" placeholder="Website or portfolio Link" formControlName="your_website" pInputText /> -->
 											<input class="w-100" type="text" placeholder="Website or portfolio Link" formControlName="user_website" pInputText />
 										</div>
 									</div>
@@ -126,8 +115,7 @@
 									<label class="form-label labelFont">Summary</label>
 									<div class="form-group">
 										<div class="mb-3">
-											<!-- <textarea [rows]="3" [cols]="85" pInputTextarea placeholder="About yourself" [autoResize]="true" formControlName="your_summary"></textarea> -->
-											<textarea [rows]="3" [cols]="85" pInputTextarea placeholder="About yourself" [autoResize]="true" formControlName="user_summary"></textarea>
+											<p-editor formControlName="user_summary" placeholder="About yourself"></p-editor>
 										</div>
 									</div>
 								</div>
@@ -267,11 +255,11 @@
 											</div>
 										</div>
 									</div>
-									<div class="col-md-6">
+									<div class="col-md-12">
 										<label class="form-label labelFont">Job Description</label>
 										<div class="form-group">
 											<div class="mb-3">
-												<textarea [rows]="3" [cols]="85" pInputTextarea placeholder="About Job Description" [autoResize]="true" formControlName="work_job_description"></textarea>
+												<p-editor  formControlName="work_job_description" placeholder="About Job Description"></p-editor>
 											</div>
 										</div>
 									</div>
@@ -297,7 +285,6 @@
                                             <label class="form-label labelFont">Project Name</label>
                                             <div class="form-group">
                                                 <div class="mb-3">
-                                                    <!-- <input class="w-100" type="text" placeholder="Organization Name" formControlName="work_org_name" pInputText /> -->
                                                     <input class="w-100" type="text" placeholder="Project Name" formControlName="project_name" pInputText />
                                                 </div>
                                             </div>
@@ -308,7 +295,6 @@
                                                 <div class="col-md-6">
                                                     <div class="form-group">
                                                         <div class="mb-3">
-                                                            <!-- <input class="w-100" type="text" placeholder="Start Year" formControlName="work_start_year" pInputText /> -->
                                                             <input class="w-100" type="text" placeholder="Start Year" formControlName="project_start_name" pInputText />
                                                         </div>
                                                     </div>
@@ -326,7 +312,7 @@
                                             <label class="form-label labelFont">Project Description</label>
                                             <div class="form-group">
                                                 <div class="mb-3">
-                                                    <textarea [rows]="3" [cols]="85" pInputTextarea placeholder="Project Description" [autoResize]="true" formControlName="project_description"></textarea>
+													<p-editor formControlName="project_description" placeholder="Project Description"></p-editor>
                                                 </div>
                                             </div>
                                         </div>
@@ -574,7 +560,7 @@
 				</div>
 			</form>
 			<div class="d-flex justify-content-center align-items-center m-3">
-				<button type="submit" class="btn btn-dark w-50" style="background-color: var(--uniprep-primary); border: none">Preview</button>
+				<button type="button" (click)="downloadResume()" class="btn btn-dark w-50" style="background-color: var(--uniprep-primary); border: none">Preview</button>
 			</div>
 		</div>
 		<div class="col-md-6 h-100">
@@ -598,7 +584,7 @@
 									<hr />
 									<div>
 										<h2>Summary</h2>
-										<p>{{ f["user_summary"].value }}</p>
+										<p class="m-0" [innerHTML]="f['user_summary'].value"></p>
 									</div>
 								</div>
 								<hr />

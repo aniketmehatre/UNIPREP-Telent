@@ -1,6 +1,7 @@
 import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { MessageService } from 'primeng/api';
 import { FormBuilder, FormGroup, FormArray, Form} from "@angular/forms";
+import { CourseListService } from '../../course-list/course-list.service';
 @Component({
   selector: 'uni-cv-builder',
   templateUrl: './cv-builder.component.html',
@@ -73,7 +74,7 @@ export class CvBuilderComponent implements OnInit {
   // refEmail: string= "madhu.uniabroad@gmail.com";
   // refContact: string= "9787430045";
 
-  constructor(private toaster: MessageService,  private fb: FormBuilder, ) { 
+  constructor(private toaster: MessageService,  private fb: FormBuilder, private resumeService:CourseListService) { 
     
     this.resumeFormInfoData = this.fb.group({
       selected_exp_level:['1'],
@@ -432,4 +433,9 @@ export class CvBuilderComponent implements OnInit {
     }));
   }
 
+  downloadResume(){
+    this.resumeService.downloadResume().subscribe(res => {
+      console.log(res);
+    })
+  }
 }

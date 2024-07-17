@@ -14,6 +14,7 @@ import { ChipsModule } from 'primeng/chips';
 import { FormsModule } from '@angular/forms';
 import { DropdownModule } from 'primeng/dropdown';
 import { AngularFittextModule } from 'angular-fittext';
+import { EditorModule } from 'primeng/editor';
 
 @NgModule({
   declarations: [
@@ -34,6 +35,7 @@ import { AngularFittextModule } from 'angular-fittext';
     FormsModule,
     DropdownModule,
     AngularFittextModule,
+    EditorModule,
   ],
 })
 export class JobToolModule{ }
