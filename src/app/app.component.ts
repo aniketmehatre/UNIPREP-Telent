@@ -14,20 +14,39 @@ import {LocalStorageService} from "ngx-localstorage";
     <ngx-ui-loader overlayColor="rgba(0,0,0,0.8)" logoUrl="uniprep-assets/images/icon-loader.svg" [fgsSize]="75" fgsType="circle" fgsColor="#f0780e" [hasProgressBar]="false"></ngx-ui-loader>`
 })
 export class AppComponent {
-  constructor(private sessionService: SessionService, private locationService: LocationService,
-              private http: HttpClient, private storage: LocalStorageService) {}
+  constructor(private storage: LocalStorageService) {}
+  private isPageHidden = false;
 
   ngOnInit() {
-    this.sessionService.startSession();
+    document.addEventListener('visibilitychange', () => {
+      this.isPageHidden = document.hidden;
+    });
   }
 
   @HostListener('window:beforeunload', ['$event'])
   unloadHandler(event: BeforeUnloadEvent) {
+    const token = this.storage.get<string>('token');
     const sessionData = {
-      token: this.storage.get<string>('token')
+      token: token
     };
-    const blob = new Blob([JSON.stringify(sessionData)], { type: 'application/json' });
-    navigator.sendBeacon(`${environment.ApiUrl}/updatetracking`, blob);
+
+    // Use fetch with keepalive to send data
+    fetch(`${environment.ApiUrl}/updatetracking`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        'Authorization': `Bearer ${token}`
+      },
+      body: JSON.stringify(sessionData),
+      keepalive: true
+    });
+
+    if (this.isPageHidden) {
+      console.log('Tab closed');
+    } else {
+      console.log('Tab refreshed or navigated away');
+    }
 
     event.preventDefault();
     event.returnValue = ''; // Most browsers will display a generic message here
