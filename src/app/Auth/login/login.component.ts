@@ -17,6 +17,7 @@ import {Observable} from "rxjs/internal/Observable";
 import {FacebookLoginProvider} from "angularx-social-login";
 // import {FacebookService} from "ngx-facebook";
 import {NgxLinkedinService} from "ngx-linkedin";
+import {LocationService} from "../../location.service";
 @Component({
   selector: "app-login",
   templateUrl: "./login.component.html",
@@ -30,10 +31,12 @@ export class LoginComponent implements OnInit, OnDestroy {
   show: boolean = true;
   password: string = 'password';
   isDisabled:boolean=false;
+  locationData: any
+
   constructor(
     private service: AuthService, private formBuilder: FormBuilder, private route: Router,
     private toast: MessageService, private dataService: DataService, private el: ElementRef,
-    private dashboardService: DashboardService, 
+    private dashboardService: DashboardService, private locationService: LocationService,
     private authService: SocialAuthService,
     private storage: LocalStorageService, 
     private ngxLinkedinService: NgxLinkedinService
@@ -65,6 +68,9 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.dataService.loggedInAnotherDevice('none');
+    fetch('https://ipapi.co/json/').then(response => response.json()).then(data => {
+      this.locationData = data
+    });
     this.authService.authState.subscribe((user) => {
       let data = {
         email: user.email
@@ -106,11 +112,20 @@ export class LoginComponent implements OnInit, OnDestroy {
       if (!loggedIn) {
         return
       }
+
       this.dataService.showTimerInHeader(loggedIn);
       this.subs.sink = this.service!.getMe().subscribe((data) => {
         this.loadCountryList(data);
         this.subs.sink = this.service.selectMessage$().subscribe(message => {
           if (message == 'Login Success') {
+            let req = {
+              userId: data.userdetails[0].user_id,
+              location: this.locationData.city,
+              country: this.locationData.country_name,
+            }
+            this.locationService.sendSessionData(req, "login").subscribe(response => {
+              console.log('addtrack', response);
+            });
             this.toast.add({ severity: 'success', summary: 'Success', detail: message });
           }
         });

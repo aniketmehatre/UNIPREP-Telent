@@ -430,6 +430,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   logout() {
     this.authService.signOut();
+    this.locationService.sessionEndApiCall().subscribe((data: any) => {
+
+    })
     this.subs.sink = this.service.logout().subscribe((data) => {
       this.toast.add({
         severity: "info",
