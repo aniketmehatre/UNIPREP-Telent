@@ -2,6 +2,7 @@ import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { MessageService } from 'primeng/api';
 import { FormBuilder, FormGroup, FormArray, Form} from "@angular/forms";
 import { CourseListService } from '../../course-list/course-list.service';
+
 @Component({
   selector: 'uni-cv-builder',
   templateUrl: './cv-builder.component.html',
@@ -17,6 +18,7 @@ export class CvBuilderComponent implements OnInit {
   enableModule:boolean = true;
   activePageIndex: number = 0;
   resumeFormInfoData: FormGroup;
+  fullScreenVisible:boolean = false;
 
   //cloning limit
   eduDetailsLimit: number = 3;
@@ -31,6 +33,7 @@ export class CvBuilderComponent implements OnInit {
 
   submittedFormData: any = [];
   selectedExpLevel:number = 0;
+  template1: any;
 
   //formValues
   // userName: string = "vivek";
@@ -158,6 +161,23 @@ export class CvBuilderComponent implements OnInit {
 
   ngOnInit(): void {
     this.triggerAddMoreButton();
+    this.loadTemplates();
+  }
+  toggleFullScreen(){
+    // if (screenfull.isEnabled) {
+    //   screenfull.toggle();
+    // }
+    this.fullScreenVisible = !this.fullScreenVisible;
+  }
+  
+  loadTemplates(): void {
+    
+    this.resumeService.getTemplate().subscribe(data => {
+      console.log(data);
+      this.template1 = data;
+    });
+    
+    // Load more templates as needed
   }
 
   get f() {
