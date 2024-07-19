@@ -222,4 +222,30 @@
 	padding: 10px;
 	border: 1px solid lightslategrey;
 	border-radius: 10px;
+	background-color: whitesmoke;
+}
+
+.cvPreview{
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	color: white;
+	background-color: #2d3764;
+}
+
+.templateButton{
+	background-color: #5e6eb3;
+	color: #EBEDF2 !important;
+	border-radius: 20px !important;
+	border: none;
+	padding: 10px;
+	font-weight: 600;
+}
+
+.templateName{
+	padding: 6px;
+	border-radius: 25px;
+	background-color: #EBEDF2;
+	color: black;
+	margin-left: 5px;
 }

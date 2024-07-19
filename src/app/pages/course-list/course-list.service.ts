@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { environment } from "@env/environment";
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -35,5 +36,10 @@ export class CourseListService {
     return this.http.post<any>(environment.ApiUrl + "/downloadResume", {
       headers: headers,
     });
+  }
+
+  getTemplate(): Observable<string> {
+    // return this.http.get('templates/resumetemplate.html', { responseType: 'text' });
+    return this.http.get('/templates/resumetemplate.html', { responseType: 'text' });
   }
 }
