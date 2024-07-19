@@ -84,10 +84,10 @@ export class AuthService {
                 //     })
                 // })
             }),
-            catchError(() => {
+            catchError((error: any) => {
                 // this.storage.clear();
                 this.router.navigateByUrl('/login');
-                return throwError(new Error(''));
+                return throwError(new Error(error));
             })
         );
     }

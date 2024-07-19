@@ -237,6 +237,9 @@ export class UserManagementComponent implements OnInit {
     }
 
     logout() {
+        this.locationService.sessionEndApiCall().subscribe((data: any) => {
+
+        })
         this.authService.logout().subscribe(data => {
             this.toast.add({
                 severity: "info",
