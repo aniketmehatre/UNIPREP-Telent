@@ -21,46 +21,6 @@
 	justify-content: center;
 	.previewbody {
 		aspect-ratio: 1/1.41;
-        ul
-        {
-            padding-left:0px !important;
-        }
-        h1
-        {
-            font-size: 70%;
-        }
-        h2
-        {
-            font-size: 65%;
-        }
-        h3
-        {
-            font-size: 60%;
-        }
-        h4
-        {
-            font-size: 55%;
-        }
-        h5
-        {
-            font-size: 50%;
-        }
-        h6
-        {
-            font-size: 45%;
-        }
-		hr {
-			margin: 2px;
-		}
-		p,
-		a,
-		span,
-		li {
-			font-size: 40%;
-			list-style: none;
-			padding: 0px;
-            padding-left:0px;
-		}
 	}
 }
 .center-button {
@@ -218,14 +178,88 @@
 // }
 
 .previewBodyForm {
-	margin: 10px;
 	padding: 10px;
 	border: 1px solid lightslategrey;
 	border-radius: 10px;
 	background-color: whitesmoke;
+	font-size: calc(0.2vw + 0.2vh);
+	ul {
+		padding-left: 0px !important;
+	}
+	h1 {
+		font-size: 1.5em;
+	}
+	h2 {
+		font-size: 1.3em;
+	}
+	h3 {
+		font-size: 1.2em;
+	}
+	h4 {
+		font-size: 1.1em;
+	}
+	h5 {
+		font-size: 1.05em;
+	}
+	h6 {
+		font-size: 1em;
+	}
+	hr {
+		margin: 2px;
+	}
+	p,
+	a,
+	span,
+	li {
+		font-size: 1em;
+		list-style: none;
+		padding: 0px;
+		padding-left: 0px;
+	}
+}
+.previewBodyFormFull {
+	padding: 10px;
+	border: 1px solid lightslategrey;
+	border-radius: 10px;
+	background-color: whitesmoke;
+	font-size: calc(0.3vw + 0.3vh);
+	ul {
+		padding-left: 0px !important;
+		margin-bottom:10px;
+	}
+	h1 {
+		font-size: 1.5em;
+	}
+	h2 {
+		font-size: 1.3em;
+	}
+	h3 {
+		font-size: 1.2em;
+	}
+	h4 {
+		font-size: 1.1em;
+	}
+	h5 {
+		font-size: 1.05em;
+	}
+	h6 {
+		font-size: 1em;
+	}
+	hr {
+		margin: 2px;
+	}
+	p,
+	a,
+	span,
+	li {
+		font-size: 1em;
+		list-style: none;
+		padding: 0px;
+		padding-left: 0px;
+	}
 }
 
-.cvPreview{
+.cvPreview {
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
@@ -233,19 +267,81 @@
 	background-color: #2d3764;
 }
 
-.templateButton{
+.templateButton {
 	background-color: #5e6eb3;
-	color: #EBEDF2 !important;
+	color: #ebedf2 !important;
 	border-radius: 20px !important;
 	border: none;
 	padding: 10px;
 	font-weight: 600;
 }
 
-.templateName{
+.templateName {
 	padding: 6px;
 	border-radius: 25px;
-	background-color: #EBEDF2;
+	background-color: #ebedf2;
 	color: black;
 	margin-left: 5px;
+}
+
+@media (max-width: 1499.98px) {
+	.previewBodyForm {
+		font-size: calc(0.2vw + 0.2vh);
+	}
+	.previewBodyFormFull {
+		font-size: calc(0.3vw + 0.3vh);
+	}
+}
+
+@media (max-width: 1399.98px) {
+	.previewBodyForm {
+		font-size: calc(0.15vw + 0.15vh);
+	}
+	.previewBodyFormFull {
+		font-size: calc(0.25vw + 0.25vh);
+	}
+}
+
+@media (max-width: 1299.98px) {
+	.previewBodyForm {
+		font-size: calc(0.15vw + 0.15vh);
+	}
+	.previewBodyFormFull {
+		font-size: calc(0.25vw + 0.25vh);
+	}
+}
+
+@media (max-width: 1199.98px) {
+	.previewBodyForm {
+		font-size: calc(0.15vw + 0.15vh);
+	}
+	.previewBodyFormFull {
+		font-size: calc(0.25vw + 0.25vh);
+	}
+}
+
+@media (max-width: 991.98px) {
+	.previewBodyForm {
+		font-size: calc(0.2vw + 0.2vh);
+	}
+	.previewBodyFormFull {
+		font-size: calc(0.3vw + 0.3vh);
+	}
+}
+
+@media (max-width: 575.98px) {
+	.previewBodyForm {
+		font-size: calc(0.2vw + 0.2vh);
+	}
+	.previewBodyFormFull {
+		font-size: calc(0.3vw + 0.3vh);
+	}
+}
+@media screen and (max-width: 480px) {
+	.previewBodyForm {
+		font-size: calc(0.2vw + 0.2vh);
+	}
+	.previewBodyFormFull {
+		font-size: calc(0.3vw + 0.3vh);
+	}
 }
