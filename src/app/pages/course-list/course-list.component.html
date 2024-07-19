@@ -222,8 +222,8 @@
 							<label class="form-label filterField">Filter by Country</label>
 							<div class="form-group">
 								<div class="mb-3">
-									<p-dropdown styleClass="w-100" [filter]="true" [filterBy]="'value'"
-										optionLabel="value" optionValue="id" [options]="countryList"
+									<p-dropdown styleClass="w-100" [filter]="true" [filterBy]="'country'" (onChange)="countrySelect()"
+										optionLabel="country" optionValue="id" [options]="countryList"
 										placeholder="Search in Country" formControlName="country"></p-dropdown>
 								</div>
 							</div>
@@ -232,8 +232,8 @@
 							<label class="form-label filterField">Filter by Location</label>
 							<div class="form-group">
 								<div class="mb-3">
-									<p-dropdown styleClass="w-100" [filter]="true" [filterBy]="'value'"
-										[options]="locationList" placeholder="Search in Location" optionLabel="value"
+									<p-dropdown styleClass="w-100" [filter]="true" [filterBy]="'location_name'" (onChange)="locationSelect()"
+										[options]="locationList" placeholder="Search in Location" optionLabel="location_name"
 										formControlName="campus" optionValue="id"></p-dropdown>
 								</div>
 							</div>

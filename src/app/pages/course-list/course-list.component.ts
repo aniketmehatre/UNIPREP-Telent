@@ -23,9 +23,11 @@ export class CourseListComponent implements OnInit {
   selectedCourses: number = 0;
   countryList: any = [];
   locationList: any = [];
+  allLocations: any = [];
   courseNameList: any = [];
   subjectNameList: any = [];
   universityNameList: any = [];
+  allUniversityList: any = [];
   monthList: any = [{ id: "January", name: "January" }, { id: "February", name: "February" }, { id: "March", name: "March" }, { id: "April", name: "April" }, { id: "May ", name: "May" }, { id: "June", name: "June" }, { id: "July", name: "July" }, { id: "August", name: "August" }, { id: "September", name: "September" }, { id: "October", name: "October" }, { id: "November", name: "November" }, { id: "December", name: "December" }];
   studyLevel: any = [{ id: "UG", value: "UG" }, { id: "PG", value: "PG" }];
   worldRank: any = [{ id: "100", value: "Top 100" }, { id: "200", value: "Top 200" }, { id: "500", value: "Top 500" }, { id: null, value: "All Range" }];
@@ -64,9 +66,29 @@ export class CourseListComponent implements OnInit {
 
   getSelectBoxValues() {
     this.courseList.loadDropdownValues().subscribe(res => {
-      this.countryList = res.country.map((country: any) => ({ id: country, value: country }));
-      this.locationList = res.locations.map((locations: any) => ({ id: locations, value: locations }));
-      this.universityNameList = res.university_name;
+      this.countryList = res.country;
+      this.allLocations = res.locations;
+      this.allUniversityList = res.university_name;
+      this.universityNameList = this.allUniversityList;
+    });
+  }
+
+  countrySelect(){
+    let selectedCountry = this.filterForm.value.country;
+    this.locationList = this.allLocations.filter((item:any) =>{
+      return selectedCountry === item.country_id;
+    });
+
+    this.universityNameList = this.universityNameList.filter((item:any) =>{
+      return selectedCountry === item.country_id;
+    });
+  }
+
+  locationSelect(){
+    let selectedLocation = this.filterForm.value.campus;
+    console.log(selectedLocation);
+    this.universityNameList = this.universityNameList.filter((item:any) =>{
+      return selectedLocation === item.location_id;
     });
   }
 
@@ -192,6 +214,7 @@ export class CourseListComponent implements OnInit {
   clearFilter() {
     this.filterForm.reset();
     this.getCourseLists();
+    this.getSelectBoxValues();
   }
 
   selectAllCheckbox() {
