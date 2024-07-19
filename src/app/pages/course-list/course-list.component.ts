@@ -39,6 +39,7 @@ export class CourseListComponent implements OnInit {
   currentPlan: string = "";
   planExpired!: boolean;
   restrict: boolean = false;
+  stayBackList:any = [];
 
   constructor(private pageFacade: PageFacadeService, private courseList: CourseListService, private fb: FormBuilder, private toastr: MessageService, private router: Router, private authService: AuthService) {
     this.filterForm = this.fb.group({
@@ -69,6 +70,7 @@ export class CourseListComponent implements OnInit {
       this.countryList = res.country;
       this.allLocations = res.locations;
       this.allUniversityList = res.university_name;
+      this.stayBackList = res.stay_back;
       this.universityNameList = this.allUniversityList;
     });
   }
@@ -79,23 +81,25 @@ export class CourseListComponent implements OnInit {
       return selectedCountry === item.country_id;
     });
 
-    this.universityNameList = this.universityNameList.filter((item:any) =>{
+    this.universityNameList = this.allUniversityList.filter((item:any) =>{
       return selectedCountry === item.country_id;
     });
+    // console.log(this.universityNameList);
   }
 
   locationSelect(){
     let selectedLocation = this.filterForm.value.campus;
     console.log(selectedLocation);
-    this.universityNameList = this.universityNameList.filter((item:any) =>{
+    this.universityNameList = this.allUniversityList.filter((item:any) =>{
       return selectedLocation === item.location_id;
     });
+    // console.log(this.universityNameList);
   }
 
   getCourseLists() {
     let formValues = this.filterForm.value;
     let data = {
-      // course_name: formValues.course_name ? formValues.course_name : "",
+      study_level: formValues.study_level ? formValues.study_level : "",
       college_name: formValues.college_name ? formValues.college_name : "",
       country: formValues.country ? formValues.country : "",
       campus: formValues.campus ? formValues.campus : "",
@@ -213,8 +217,11 @@ export class CourseListComponent implements OnInit {
 
   clearFilter() {
     this.filterForm.reset();
+    this.universityNameList = [];
+    this.locationList = [];
     this.getCourseLists();
     this.getSelectBoxValues();
+    
   }
 
   selectAllCheckbox() {
