@@ -8,7 +8,6 @@
     top: 4rem;
     left: 0;
     right: 0;
-    padding: 1rem;
     background: white;
     border-radius: 10px;
     max-height: 50vh;
@@ -359,4 +358,15 @@
 	height: auto !important; /* Ensure each carousel item has auto height */
 	display: flex;
 	flex-direction: column;
+}
+.searchcard {
+	position: relative;
+}
+
+.sticky-bottom {
+	position: -webkit-sticky;
+	position: sticky;
+	bottom: 0;
+	background-color: white; /* Ensure background color to cover other content */
+	z-index: 10; /* Adjust z-index as necessary */
 }

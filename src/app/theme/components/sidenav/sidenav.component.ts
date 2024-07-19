@@ -90,6 +90,11 @@ export class SidenavComponent {
       image: 'fa-solid fa-diploma',
     },
     {
+      title: "Career Hub",
+      url: "/pages/modules/career-hub",
+      image: "fa-solid fa-briefcase",
+    },
+    {
       title: "Life",
       url: "",
       image: "",
@@ -110,15 +115,15 @@ export class SidenavComponent {
       image: '',
     },
     {
-      title: "Career Hub",
-      url: "/pages/modules/career-hub",
+      title: "Job Portal",
+      url: "/pages/job-portal/job-search",
       image: "fa-solid fa-briefcase",
     },
-    {
-      title: "Language Hub",
-      url: "/pages/language-hub",
-      image: "fa-solid fa-books",
-    },
+    // {
+    //   title: "Language Hub",
+    //   url: "/pages/language-hub",
+    //   image: "fa-solid fa-books",
+    // },
     {
       title: "Learning Hub",
       url: "/pages/modules/learning-hub",
@@ -138,11 +143,6 @@ export class SidenavComponent {
       title: "Career Planner",
       url: "/pages/career-planner",
       image: "fa-solid fa-arrow-progress",
-    },
-    {
-      title: "Job Portal",
-      url: "/pages/job-portal/job-search",
-      image: "fa-solid fa-briefcase",
     },
     {
       title: "Company List",
