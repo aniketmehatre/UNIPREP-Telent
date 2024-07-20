@@ -8,28 +8,29 @@
 			</span>
 			<button (click)="searchKeyWord(searchInput)" class="btn-primary" label="SEARCH" pButton pRipple type="button"></button>
 		</div>
-		<div class="searchcard" *ngIf="isSearchResultFound">
-			<div (scroll)="scrollHandler($event)" scrollTracker (scrollingFinished)="onScrollingFinished()" *ngFor="let c of searchResult">
-				<div class="row mb-2">
-					<div class="col-xxl-9 col-xl-8 col-lg-7 col-md-7 col-sm-12 col-12" (click)="gerSelectedQuestion(c)">
-						<span [innerHTML]="dataContentChange(c.question)" role="button"> </span>
-					</div>
-					<div class="col-xxl-3 col-xl-4 col-lg-5 col-md-5 col-sm-12 col-12 d-flex align-items-center justify-content-start justify-content-md-end gap-2" role="button">
-						<a class="text-small uniprep-primary text-decoration-none" (click)="redirectModule(c.module_name)">{{ c.module_name }}</a>
-						<i class="fa-solid fa-chevron-right text-small uniprep-primary"></i>
-						<a class="text-small uniprep-primary text-decoration-none" (click)="redirectToSubmodule(c)">{{ c.submodule_name }}</a>
-					</div>
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-md-6 col-12 text-md-start text-center order-2 order-md-1">
-					<p class="text-left fw-bold">If you can't find your Question! <span (click)="openChat()" role="button" class="text-primary font-primarycolor">Ask Us</span></p>
-				</div>
-				<div class="col-md-6 col-12 text-md-end text-center order-1 order-md-2">
-					<p class="text-right fw-bold">Total Related Questions: {{ searchKeywordTotalCount }}</p>
-				</div>
-			</div>
-		</div>
+        <div class="searchcard" *ngIf="isSearchResultFound">
+            <div (scroll)="scrollHandler($event)" scrollTracker (scrollingFinished)="onScrollingFinished()" *ngFor="let c of searchResult"
+            class="p-2">
+                <div class="row mb-2">
+                    <div class="col-xxl-9 col-xl-8 col-lg-7 col-md-7 col-sm-12 col-12" (click)="gerSelectedQuestion(c)">
+                        <span [innerHTML]="dataContentChange(c.question)" role="button"> </span>
+                    </div>
+                    <div class="col-xxl-3 col-xl-4 col-lg-5 col-md-5 col-sm-12 col-12 d-flex align-items-center justify-content-start justify-content-md-end gap-2" role="button">
+                        <a class="text-small uniprep-primary text-decoration-none" (click)="redirectModule(c.module_name)">{{ c.module_name }}</a>
+                        <i class="fa-solid fa-chevron-right text-small uniprep-primary"></i>
+                        <a class="text-small uniprep-primary text-decoration-none" (click)="redirectToSubmodule(c)">{{ c.submodule_name }}</a>
+                    </div>
+                </div>
+            </div>
+            <div class="row sticky-bottom px-3 py-4 ">
+                <div class="col-md-6 col-12 text-md-start text-center order-2 order-md-1">
+                    <p class="text-left fw-bold">If you can't find your Question! <span (click)="openChat()" role="button" class="text-primary font-primarycolor">Ask Us</span></p>
+                </div>
+                <div class="col-md-6 col-12 text-md-end text-center order-1 order-md-2">
+                    <p class="text-right fw-bold">Total Related Questions: {{ searchKeywordTotalCount }}</p>
+                </div>
+            </div>
+        </div>
 	</div>
 </div>
 
