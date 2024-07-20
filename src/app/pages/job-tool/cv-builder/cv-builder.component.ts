@@ -16,9 +16,27 @@ export class CvBuilderComponent implements OnInit {
   languageProficiency: any = [{id:"Beginner", value:"Beginner"},{id:"Fluent", value: "Fluent"}, { id:"Proficient", value:"Proficient"}, { id:"Native", value:"Native"}];
   skillProficiency: any = [{id:"Basic", value:"Basic"},{id: "Intermediate", value: "Intermediate"}, { id:"Advance", value:"Advance"}];
   enableModule:boolean = true;
-  activePageIndex: number = 0;
+  activePageIndex: number = 3;
   resumeFormInfoData: FormGroup;
   fullScreenVisible:boolean = false;
+  products:any = [
+    {
+      id: 1,
+      name: "Select your template to get started",
+    },
+    {
+      id:2,
+      name: "",
+    },
+    {
+      id:3,
+      name: "Your Resume",
+    },
+    {
+      id:4,
+      name: "Your Resumes"
+    },
+  ];
 
   //cloning limit
   eduDetailsLimit: number = 3;
@@ -33,49 +51,9 @@ export class CvBuilderComponent implements OnInit {
 
   submittedFormData: any = [];
   selectedExpLevel:number = 0;
+  selectedThemeColor:string = "black";
+  selectedColorCode:number = 1;
   template1: any;
-
-  //formValues
-  // userName: string = "vivek";
-  // userJobTitle: string = "senior software developer";
-  // userEmail: string = "vivek.uniaborad@gmail.com";
-  // userLocation: string = "mysore";
-  // userPhone: string = "9524999563";
-  // userLinkedIn: string = "http://localhost:4200/pages/job-tool/cv-builder";
-  // userWebsite: string = "http://localhost:4200/pages/job-tool/cv-builder";
-  // userSummary: string = "waste";
-  // eduCollegeName: string = "dhanlakshmi srinivasan engineering college";
-  // eduStartYear: number = 2015;
-  // eduEndYear: number = 2019;
-  // eduDegree: string = "BE-computer science and engineering";
-  // eduPercentage: string = "78";
-  // eduCgpaPercentage: number = 1;
-  // eduLocation: string = "Perambalur";
-  // workOrgName: string = "Uniabroad technologies pvt limited";
-  // workStartYear: number = 2023;
-  // workEndYear: number = 2024;
-  // workDesignation: string = "senior software developer";
-  // workType:number = 1;
-  // workLocation: string = "Mysore";
-  // workJobDescription: string = "developer";
-  // projectName: string = "";
-  // projectStartName: string = "";
-  // projectEndName: string = "";
-  // projectDescription: string = "";
-  // language:string = "";
-  // langProficiency:number = 0;
-  // skills: any= [];
-  // skillsProficiency:string = "";
-  // hobbiesArray: string[] = [''];
-  // certificateName:string = "";
-  // certificateIssued:string = "";
-  // certificateId:string = "";
-  // certicateLink:string = "";
-  // refName: string= "madhusudhan";
-  // refPosition: string = "";
-  // refOrganization: string = "";
-  // refEmail: string= "madhu.uniabroad@gmail.com";
-  // refContact: string= "9787430045";
 
   constructor(private toaster: MessageService,  private fb: FormBuilder, private resumeService:CourseListService) { 
     
@@ -133,30 +111,6 @@ export class CvBuilderComponent implements OnInit {
       referenceArray: this.fb.array([]),
     });
 
-    // this.educationalInfoFrom = this.fb.group({
-    //   college_name: [''],
-    //   education_start_year: [''],
-    //   education_end_year: [''],
-    //   specialization: [''],
-    //   education_location: [''],
-    // });
-
-    // this.workInfoForm = this.fb.group({
-    //   org_name: [''],
-    //   work_start_year: [''],
-    //   work_end_year: [''],
-    //   work_designation: [''],
-    //   work_location: [''],
-    //   job_description: [''],
-    // });
-
-    // this.skillForm = this.fb.group({
-    //   skills: [''],
-    //   ref_name: [''],
-    //   ref_email: [''],
-    //   ref_contact: [''],
-    // });
-
   }
 
   ngOnInit(): void {
@@ -164,9 +118,6 @@ export class CvBuilderComponent implements OnInit {
     this.loadTemplates();
   }
   toggleFullScreen(){
-    // if (screenfull.isEnabled) {
-    //   screenfull.toggle();
-    // }
     this.fullScreenVisible = !this.fullScreenVisible;
   }
   
@@ -176,12 +127,14 @@ export class CvBuilderComponent implements OnInit {
       console.log(data);
       this.template1 = data;
     });
-    
-    // Load more templates as needed
+  }
+
+  selectColor(selectedColor:string, selectedColorCode: number){
+    this.selectedThemeColor = selectedColor;
+    this.selectedColorCode = selectedColorCode;
   }
 
   get f() {
-    // console.log(this.resumeFormInfoData.value);
     return this.resumeFormInfoData.controls;
   }
 
@@ -197,8 +150,6 @@ export class CvBuilderComponent implements OnInit {
   }
 
   resumeFormSubmit(){
-    // console.log(this.resumeFormInfoData.value);
-    // this.generateImage();
     this.submittedFormData = this.resumeFormInfoData.value;
   }
 
@@ -215,23 +166,9 @@ export class CvBuilderComponent implements OnInit {
   }
   
   imgOnclick(resumeLevel: any){
-    // console.log(resumeLevel);
     this.selectedResumeLevel = resumeLevel;
   }
 
-  // generateImage() {
-  //   const cvPreviewContainer = document.getElementById('cv-preview-container');
-  //   console.log(cvPreviewContainer, "cvPreviewContainer");
-  //   if (cvPreviewContainer) {
-  //     html2canvas(cvPreviewContainer, { useCORS: true })
-  //       .then((canvas) => {
-  //         this.previewImage = canvas.toDataURL('image/png');
-  //       })
-  //       .catch((error) => {
-  //         console.error('Failed to generate image', error);
-  //       });
-  //   }
-  // }
 
   shakeButton(event: Event) {
     if(!this.selectedResumeLevel){
@@ -243,17 +180,20 @@ export class CvBuilderComponent implements OnInit {
 
       this.toaster.add({severity: "error",summary: "Error",detail: "Please Select any one Resume model..!"})
     }else{
+      this.activePageIndex = 2;
       this.enableModule = true;
     }
   }
 
-  previous(pageId: number){
-    if (this.activePageIndex > 0) {
-      this.activePageIndex--;
-    }
+  previous(){
+    this.activePageIndex = 1;
+    // if (this.activePageIndex > 0) {
+    //   this.activePageIndex--;
+    // }
   }
 
-  next(pageId: number){
+  next(){
+    this.activePageIndex = 3;
     // if (this.activePageIndex < this.pages.length - 1) {
     //   this.activePageIndex++;
     // }

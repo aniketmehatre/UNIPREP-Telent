@@ -68,7 +68,7 @@ export class PagesComponent implements OnInit, OnDestroy {
                 if(val.url.includes('subscriptions') || val.url.includes('support-help')
                 || val.url.includes('usermanagement')|| val.url.includes('chat') || val.url.includes('guideline')
                 ||val.url.includes('termsandcondition')||val.url.includes('privacypolicy')||val.url.includes('refundpolicy')
-                ||val.url.includes('cancellationpolicy') ||val.url.includes('export-credit')){
+                ||val.url.includes('cancellationpolicy') ||val.url.includes('export-credit') ||val.url.includes('cv-builder')){
                     this.showSearch = false;
                     this.isFooterBoxVisible = false;
                 }else{
