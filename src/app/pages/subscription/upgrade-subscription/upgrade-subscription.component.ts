@@ -222,15 +222,17 @@ export class UpgradeSubscriptionComponent implements OnInit {
       if (this.existingSubscription[0].subscriptionDays == 90) {
         this.monthlyPlan = 3;
         this.existingSubscription[0].monthlyPlan = 3;
-        this.activeTabIndex = 0;
+        //this.activeTabIndex = 0;
       } else if (this.existingSubscription[0].subscriptionDays == 180) {
         this.monthlyPlan = 6;
         this.existingSubscription[0].monthlyPlan = 6;
-        this.activeTabIndex = 1;
+        //this.activeTabIndex = 1;
+        this.activeTabIndex = 0;
       } else {
         this.monthlyPlan = 12;
         this.existingSubscription[0].monthlyPlan = 12;
-        this.activeTabIndex = 2;
+        //this.activeTabIndex = 2;
+        this.activeTabIndex = 1;
       }
       let data = {
         page: 1,
@@ -594,6 +596,7 @@ export class UpgradeSubscriptionComponent implements OnInit {
   changeMonthlyPlan(event: any) {
     let tabIndex = event.index;
     let data = "";
+    /*
     if (tabIndex == 0) {
       this.monthlyPlan = 3;
     }
@@ -601,6 +604,13 @@ export class UpgradeSubscriptionComponent implements OnInit {
       this.monthlyPlan = 6;
     }
     else {
+      this.monthlyPlan = 12;
+    }
+    */
+    if (tabIndex == 0) {
+      this.monthlyPlan = 6;
+    }
+    else if (tabIndex == 1) {
       this.monthlyPlan = 12;
     }
     if (this.monthlyPlan > this.existingSubscription[0]?.monthlyPlan) {

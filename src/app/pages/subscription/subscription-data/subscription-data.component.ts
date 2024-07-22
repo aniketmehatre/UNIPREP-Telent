@@ -57,7 +57,7 @@ export class SubscriptionDataComponent implements OnInit {
   currentCountry: string = "";
   continent: string = "";
   currency: string = "";
-  monthlyPlan: number = 3;
+  monthlyPlan: number = 6;
 
   constructor(private authService: AuthService,
     private subscriptionService: SubscriptionService,
@@ -394,10 +394,11 @@ export class SubscriptionDataComponent implements OnInit {
   }
   changeMonthlyPlan(event: any) {
     let tabIndex = event.index;
-    if (tabIndex == 0) {
+  /*  if (tabIndex == 0) {
       this.monthlyPlan = 3;
     }
-    else if (tabIndex == 1) {
+    else*/
+     if (tabIndex == 0) {
       this.monthlyPlan = 6;
     }
     else {
