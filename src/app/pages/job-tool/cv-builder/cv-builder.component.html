@@ -1,62 +1,123 @@
 <div class="container-fluid" *ngIf="activePageIndex == 1">
-	<div class="row justify-content-center">
-		<h3 class="text-center">Select your CV style to get started</h3>
-		<div class="col-md-12">
-			<div class="row justify-content-center">
-				<div class="col-md-8">
-					<div class="row">
-						<div class="col-md-4">
-							<h5 class="text-center">Basic</h5>
-							<div class="cvBuilderSampleImg"
-								[ngClass]="{ selectedResumeLevel: selectedResumeLevel == 'basic' }"
-								(click)="imgOnclick('basic')">
-								<img src="https://api.uniprep.ai/uniprepapi/storage/app/public/job-search/basic.webp"
-									alt="basic" />
-								<button *ngIf="selectedResumeLevel == 'basic'" class="center-button">Selected <i
-										class="fa-solid fa-check tickIcon"></i></button>
-							</div>
-						</div>
-						<div class="col-md-4">
-							<h5 class="text-center">Fancy</h5>
-							<div class="cvBuilderSampleImg"
-								[ngClass]="{ selectedResumeLevel: selectedResumeLevel == 'intermediate' }"
-								(click)="imgOnclick('intermediate')">
-								<img src="https://api.uniprep.ai/uniprepapi/storage/app/public/job-search/intermediate.webp"
-									alt="intermediate" />
-								<button *ngIf="selectedResumeLevel == 'intermediate'" class="center-button">Selected <i
-										class="fa-solid fa-check tickIcon"></i></button>
-							</div>
-						</div>
-						<div class="col-md-4">
-							<h5 class="text-center">Colorful</h5>
-							<div class="cvBuilderSampleImg"
-								[ngClass]="{ selectedResumeLevel: selectedResumeLevel == 'colorfull' }"
-								(click)="imgOnclick('colorfull')">
-								<img src="https://api.uniprep.ai/uniprepapi/storage/app/public/job-search/colorfull.webp"
-									alt="colorfull" />
-								<button *ngIf="selectedResumeLevel == 'colorfull'" class="center-button">Selected <i
-										class="fa-solid fa-check tickIcon"></i></button>
-							</div>
-						</div>
-					</div>
-				</div>
+	<h3 class="text-center uniprep-primary">Select your CV style to get started</h3>
+	<div class="d-flex justify-content-between">
+		<div>
+			<h5 class="text-center uniprep-primary">Traditional</h5>
+			<div class="cvBuilderSampleImg"
+				[ngClass]="{ selectedResumeLevel: selectedResumeLevel == 'Traditional' }"
+				(click)="imgOnclick('Traditional')">
+				<img src="https://api.uniprep.ai/uniprepapi/storage/app/public/job-search/basic.webp"
+					alt="Traditional" />
+				<button *ngIf="selectedResumeLevel == 'Traditional'" class="center-button">Selected <i
+						class="fa-solid fa-check tickIcon"></i></button>
 			</div>
 		</div>
-		<div class="col-md-4 mt-5">
-			<div class="row justify-content-center">
-				<button class="createResumeButton" (click)="shakeButton($event)">Create your Resume &nbsp;&nbsp;&nbsp;<i
-						class="fa-solid fa-arrow-right tickIcon"></i></button>
+		<div>
+			<h5 class="text-center uniprep-primary">Modern</h5>
+			<div class="cvBuilderSampleImg"
+				[ngClass]="{ selectedResumeLevel: selectedResumeLevel == 'Modern' }"
+				(click)="imgOnclick('Modern')">
+				<img src="https://api.uniprep.ai/uniprepapi/storage/app/public/job-search/intermediate.webp"
+					alt="Modern" />
+				<button *ngIf="selectedResumeLevel == 'Modern'" class="center-button">Selected <i class="fa-solid fa-check tickIcon"></i></button>
 			</div>
+		</div>
+		<div>
+			<h5 class="text-center uniprep-primary">Creative</h5>
+			<div class="cvBuilderSampleImg"
+				[ngClass]="{ selectedResumeLevel: selectedResumeLevel == 'Creative' }"
+				(click)="imgOnclick('Creative')">
+				<img src="https://api.uniprep.ai/uniprepapi/storage/app/public/job-search/colorfull.webp"
+					alt="Functional" />
+				<button *ngIf="selectedResumeLevel == 'Creative'" class="center-button">Selected <i
+						class="fa-solid fa-check tickIcon"></i></button>
+			</div>
+		</div>
+		<div>
+			<h5 class="text-center uniprep-primary">Functional</h5>
+			<div class="cvBuilderSampleImg"
+				[ngClass]="{ selectedResumeLevel: selectedResumeLevel == 'Functional' }"
+				(click)="imgOnclick('Functional')">
+				<img src="https://api.uniprep.ai/uniprepapi/storage/app/public/job-search/intermediate.webp"
+					alt="Creative" />
+				<button *ngIf="selectedResumeLevel == 'Functional'" class="center-button">Selected <i
+						class="fa-solid fa-check tickIcon"></i></button>
+			</div>
+		</div>
+		<div>
+			<h5 class="text-center uniprep-primary">Academic</h5>
+			<div class="cvBuilderSampleImg"
+				[ngClass]="{ selectedResumeLevel: selectedResumeLevel == 'Academic' }"
+				(click)="imgOnclick('Academic')">
+				<img src="https://api.uniprep.ai/uniprepapi/storage/app/public/job-search/colorfull.webp"
+					alt="Academic" />
+				<button *ngIf="selectedResumeLevel == 'Academic'" class="center-button">Selected <i
+						class="fa-solid fa-check tickIcon"></i></button>
+			</div>
+		</div>
+	</div>
+	<div class="row justify-content-center">
+		<div class="col-md-4 mt-5">
+			<button class="createResumeButton" (click)="shakeButton($event)">Create your Resume &nbsp;&nbsp;&nbsp;<i class="fa-solid fa-arrow-right tickIcon"></i></button>
 		</div>
 	</div>
 </div>
 <div class="container-fluid" *ngIf="activePageIndex == 3">
-	<div class="d-flex p-2 flex-fill">
-		<div class="justify-content-center ">
-			<h3 class="text-center">Your Resume</h3>
-			<h5 class="text-center">Creative</h5>
-			<div class="cvBuilderSampleImg">
-				<img src="https://api.uniprep.ai/uniprepapi/storage/app/public/job-search/basic.webp" alt="basic" />
+	<div class="row justify-content-center">
+		<div class="flex-column">
+			<div>
+				<h3 class="text-center uniprep-primary">Your Resume</h3>
+				<h5 class="text-center uniprep-primary">Creative</h5>
+				<div class="cvBuilderSampleImg">
+					<img src="https://api.uniprep.ai/uniprepapi/storage/app/public/job-search/basic.webp" alt="basic" />
+				</div>
+			</div>
+			<div class="d-flex justify-content-center align-items-center">
+				<button class="downloadButton" >Download &nbsp;&nbsp;&nbsp;<i class="fa-solid fa-download tickIcon"></i></button>
+			</div>
+			<div class="d-flex justify-content-end" >
+				<button class="downloadButton" style="margin: 0px;" (click)="next()">CV Builder &nbsp;&nbsp;&nbsp;<i class="fa-sharp fa-regular fa-house tickIcon"></i></button>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="container-fluid" *ngIf="activePageIndex == 4">
+	<div class="row justify-content-center">
+		<div class="flex-column">
+			<div>
+				<h3 class="text-center uniprep-primary">Your Resumes</h3>
+				<div class="cvSampleImg">
+					<div class="flex-column">
+						<img src="https://api.uniprep.ai/uniprepapi/storage/app/public/job-search/basic.webp" alt="basic" />
+						<p>Version 1</p>
+						<small>02-07-2024 12:38PM</small>
+					</div>
+					<div class="flex-column">
+						<img src="https://api.uniprep.ai/uniprepapi/storage/app/public/job-search/basic.webp" alt="basic" />
+						<p>Version 2</p>
+						<small>02-07-2024 12:38PM</small>
+					</div>
+					<div class="flex-column">
+						<img src="https://api.uniprep.ai/uniprepapi/storage/app/public/job-search/basic.webp" alt="basic" />
+						<p>Version 3</p>
+						<small>02-07-2024 12:38PM</small>
+					</div>
+					<div class="flex-column">
+						<img src="https://api.uniprep.ai/uniprepapi/storage/app/public/job-search/basic.webp" alt="basic" />
+						<p>Version 4</p>
+						<small>02-07-2024 12:38PM</small>
+					</div>
+					<div class="flex-column">
+						<img src="https://api.uniprep.ai/uniprepapi/storage/app/public/job-search/basic.webp" alt="basic" />
+						<p>Version 5</p>
+						<small>02-07-2024 12:38PM</small>
+					</div>
+				</div>
+			</div>
+			<div class="row justify-content-center">
+				<div class="col-md-4 mt-5">
+					<button class="createResumeButton" (click)="shakeButton($event)">Create your Resume &nbsp;&nbsp;&nbsp;<i class="fa-solid fa-arrow-right tickIcon"></i></button>
+				</div>
 			</div>
 		</div>
 	</div>
@@ -667,47 +728,7 @@
 					<h4 class="p-mb-1">Preview</h4>
 					<div class="gap-2">
 						<span class="templateButton">Template<span class="templateName">Basic</span></span>
-						<div class="dropdown">
-							<div class="colorDiv d-flex colorButton align-items-center gap-2">
-								<p>Color</p>
-								<div style="background-color: black;"
-									[ngStyle]="{ 'background-color': selectedThemeColor }" class="selectedColor"></div>
-							</div>
-							<div class="dropdown-content">
-								<div class="d-flex justify-content-center">
-									<a (click)="selectColor('black',1)" class="p-2 cursorPointer">
-										<div style="background-color: black;" class="colorSelector"></div>
-										<i *ngIf="selectedColorCode == 1" class="fa-solid fa-check ColorCheckBox colorWhite" ></i>
-									</a>
-									<a (click)="selectColor('blue',2)" class="p-2 cursorPointer">
-										<div style="background-color: blue;" class="colorSelector"></div>
-										<i *ngIf="selectedColorCode == 2" class="fa-solid fa-check ColorCheckBox colorWhite"></i>
-									</a>
-									<a (click)="selectColor('white',3)" class="p-2 cursorPointer">
-										<div style="background-color: white;" class="colorSelector"></div>
-										<i *ngIf="selectedColorCode == 3" class="fa-solid fa-check ColorCheckBox" ></i>
-									</a>
-									<a (click)="selectColor('brown',4)" class="p-2 cursorPointer">
-										<div style="background-color: brown;" class="colorSelector"></div>
-										<i *ngIf="selectedColorCode == 4" class="fa-solid fa-check ColorCheckBox colorWhite" ></i>
-									</a>
-								</div>
-								<div class="d-flex justify-content-center">
-									<a (click)="selectColor('red',5)" class="p-2 cursorPointer">
-										<div style="background-color: red;" class="colorSelector"></div>
-										<i *ngIf="selectedColorCode == 5" class="fa-solid fa-check ColorCheckBox colorWhite" ></i>
-									</a>
-									<a (click)="selectColor('yellow',6)" class="p-2 cursorPointer">
-										<div style="background-color:yellow;" class="colorSelector"></div>
-										<i *ngIf="selectedColorCode == 6" class="fa-solid fa-check ColorCheckBox" ></i>
-									</a>
-									<a (click)="selectColor('purple',7)" class="p-2 cursorPointer">
-										<div style="background-color:purple;" class="colorSelector"></div>
-										<i *ngIf="selectedColorCode == 7" class="fa-solid fa-check ColorCheckBox colorWhite" ></i>
-									</a>
-								</div>
-							</div>
-						</div>
+						<ng-container *ngTemplateOutlet="colorPickerContent"></ng-container>
 					</div>
 					<i class="fa-sharp fa-solid fa-expand" style="cursor: pointer" (click)="toggleFullScreen()"></i>
 				</div>
@@ -732,8 +753,9 @@
 		<div class="card h-100">
 			<div class="card-header cvPreview">
 				<h4 class="p-mb-1">CV Preview</h4>
-				<div>
+				<div >
 					<span class="templateButton">Template<span class="templateName">Basic</span></span>
+					<ng-container *ngTemplateOutlet="colorPickerContent"></ng-container>
 				</div>
 				<i class="fa-sharp fa-solid fa-compress" style="cursor: pointer" (click)="toggleFullScreen()"></i>
 			</div>
@@ -747,6 +769,50 @@
 		</div>
 	</div>
 </p-sidebar>
+
+<ng-template #colorPickerContent>
+	<div class="dropdown">
+		<div class="colorDiv d-flex colorButton align-items-center gap-2">
+			<p>Color</p>
+			<div style="background-color: black;"
+				[ngStyle]="{ 'background-color': selectedThemeColor }" class="selectedColor"></div>
+		</div>
+		<div class="dropdown-content">
+			<div class="d-flex justify-content-center">
+				<a (click)="selectColor('black',1)" class="p-2 cursorPointer">
+					<div style="background-color: black;" class="colorSelector"></div>
+					<i *ngIf="selectedColorCode == 1" class="fa-solid fa-check ColorCheckBox colorWhite" ></i>
+				</a>
+				<a (click)="selectColor('blue',2)" class="p-2 cursorPointer">
+					<div style="background-color: blue;" class="colorSelector"></div>
+					<i *ngIf="selectedColorCode == 2" class="fa-solid fa-check ColorCheckBox colorWhite"></i>
+				</a>
+				<a (click)="selectColor('white',3)" class="p-2 cursorPointer">
+					<div style="background-color: white;" class="colorSelector"></div>
+					<i *ngIf="selectedColorCode == 3" class="fa-solid fa-check ColorCheckBox" ></i>
+				</a>
+				<a (click)="selectColor('brown',4)" class="p-2 cursorPointer">
+					<div style="background-color: brown;" class="colorSelector"></div>
+					<i *ngIf="selectedColorCode == 4" class="fa-solid fa-check ColorCheckBox colorWhite" ></i>
+				</a>
+			</div>
+			<div class="d-flex justify-content-center">
+				<a (click)="selectColor('red',5)" class="p-2 cursorPointer">
+					<div style="background-color: red;" class="colorSelector"></div>
+					<i *ngIf="selectedColorCode == 5" class="fa-solid fa-check ColorCheckBox colorWhite" ></i>
+				</a>
+				<a (click)="selectColor('yellow',6)" class="p-2 cursorPointer">
+					<div style="background-color:yellow;" class="colorSelector"></div>
+					<i *ngIf="selectedColorCode == 6" class="fa-solid fa-check ColorCheckBox" ></i>
+				</a>
+				<a (click)="selectColor('purple',7)" class="p-2 cursorPointer">
+					<div style="background-color:purple;" class="colorSelector"></div>
+					<i *ngIf="selectedColorCode == 7" class="fa-solid fa-check ColorCheckBox colorWhite" ></i>
+				</a>
+			</div>
+		</div>
+	</div>
+</ng-template>
 
 <ng-template #sharedContent>
 	<div class="h-100" [ngClass]="{ previewBodyForm: !fullScreenVisible, previewBodyFormFull: fullScreenVisible }">

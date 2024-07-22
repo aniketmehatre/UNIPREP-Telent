@@ -4,7 +4,7 @@
 	text-align: center;
 	width: fit-content;
 	img {
-		height: 350px;
+		height: 300px;
 		border-radius: 9px;
 		border: 1px solid;
 	}
@@ -32,6 +32,7 @@
 	background-color: var(--uniprep-primary);
 	color: white;
 	border: none;
+	white-space: nowrap;
 	border-radius: 25px;
 }
 
@@ -417,4 +418,28 @@
 
 .colorDiv{
 	cursor: pointer;
+}
+
+.downloadButton{
+	background-color: var(--uniprep-primary);
+	color: white;
+	padding: 5px 15px;
+	border: none;
+	border-radius: 50px;
+	margin: 15px;
+}
+
+.cvSampleImg{
+	cursor: pointer;
+	margin: auto;
+	text-align: center;
+	display: flex;
+	justify-content: space-around;
+	color: var(--uniprep-primary);
+	font-weight: 700;
+	img {
+		height: 250px;
+		border-radius: 9px;
+		border: 1px solid;
+	}
 }

@@ -16,7 +16,7 @@ export class CvBuilderComponent implements OnInit {
   languageProficiency: any = [{id:"Beginner", value:"Beginner"},{id:"Fluent", value: "Fluent"}, { id:"Proficient", value:"Proficient"}, { id:"Native", value:"Native"}];
   skillProficiency: any = [{id:"Basic", value:"Basic"},{id: "Intermediate", value: "Intermediate"}, { id:"Advance", value:"Advance"}];
   enableModule:boolean = true;
-  activePageIndex: number = 3;
+  activePageIndex: number = 1;
   resumeFormInfoData: FormGroup;
   fullScreenVisible:boolean = false;
   products:any = [
@@ -180,20 +180,22 @@ export class CvBuilderComponent implements OnInit {
 
       this.toaster.add({severity: "error",summary: "Error",detail: "Please Select any one Resume model..!"})
     }else{
-      this.activePageIndex = 2;
-      this.enableModule = true;
+      
+      this.activePageIndex++;
+      // this.enableModule = true;
+      this.activePageIndex = this.activePageIndex == 5 ? 1 : this.activePageIndex;
     }
   }
 
   previous(){
-    this.activePageIndex = 1;
+    this.activePageIndex--;
     // if (this.activePageIndex > 0) {
     //   this.activePageIndex--;
     // }
   }
 
   next(){
-    this.activePageIndex = 3;
+    this.activePageIndex++;
     // if (this.activePageIndex < this.pages.length - 1) {
     //   this.activePageIndex++;
     // }
