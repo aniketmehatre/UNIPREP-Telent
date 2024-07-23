@@ -1,0 +1,23 @@
+.centerDiv {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 50vh;
+}
+
+.dropdown{
+    display:flex;
+}
+i{
+    margin-left:5px;
+}
+.costofliving{
+    background-color: var(--uniprep-primary);
+    border-radius: 10px;
+    color: white;
+    font-size: 16px;
+}
+.outline-card{
+    border:2px solid var(--uniprep-primary);
+    border-radius: 10px;
+}
