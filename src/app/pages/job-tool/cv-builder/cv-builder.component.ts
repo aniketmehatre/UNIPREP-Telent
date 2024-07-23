@@ -180,7 +180,6 @@ export class CvBuilderComponent implements OnInit {
 
       this.toaster.add({severity: "error",summary: "Error",detail: "Please Select any one Resume model..!"})
     }else{
-      
       this.activePageIndex++;
       // this.enableModule = true;
       this.activePageIndex = this.activePageIndex == 5 ? 1 : this.activePageIndex;
