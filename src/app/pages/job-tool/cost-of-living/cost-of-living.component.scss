@@ -5,19 +5,52 @@
     height: 50vh;
 }
 
-.dropdown{
-    display:flex;
+.dropdown {
+    display: flex;
 }
-i{
-    margin-left:5px;
+
+i {
+    margin-left: 5px;
 }
-.costofliving{
+
+.card {
+    height: 65px;
+}
+
+.costofliving {
     background-color: var(--uniprep-primary);
     border-radius: 10px;
     color: white;
     font-size: 16px;
 }
-.outline-card{
-    border:2px solid var(--uniprep-primary);
+
+.outline-card {
+    border: 2px solid var(--uniprep-primary);
     border-radius: 10px;
+    padding: 10px;
 }
+
+.prices {
+    height: 60px;
+}
+
+.count {
+    height: 30px;
+    width: 30px;
+    border: 1px solid var(--uniprep-primary);
+    border-radius: 5px;
+}
+ img{
+    height:30px;
+    width:30px;
+ }
+ .smallText{
+    font-size: 10px;
+ }
+ .p-minus,.p-plus{
+    font-size: 12px !important;
+ }
+ .fs-12{
+    font-size: 12px;
+    font-weight:600;
+ }

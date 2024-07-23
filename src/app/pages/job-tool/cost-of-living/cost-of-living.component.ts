@@ -38,7 +38,7 @@ customFilterFunction(event: KeyboardEvent, options: any) {
     options.filter(event);
 }
 compare(){
-  
+   
 }
 
 }
