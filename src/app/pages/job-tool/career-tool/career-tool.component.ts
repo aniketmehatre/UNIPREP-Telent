@@ -23,4 +23,8 @@ export class CareerToolComponent implements OnInit {
       this.router.navigate(['/pages/job-tool/coverletter-builder']);
     }
   }
+
+  openSalaryConverter(){
+    this.router.navigate(['/pages/salary-converter']);
+  }
 }
