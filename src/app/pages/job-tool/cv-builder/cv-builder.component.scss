@@ -443,3 +443,166 @@
 		border: 1px solid;
 	}
 }
+
+@page {
+	size: A4;
+	margin: 10mm;
+}
+
+html {
+	margin: 0;
+	font-family: Poppins, sans-serif;
+	font-size: 10px;
+	line-height: 1.1;
+	height: 100%;
+}
+
+body {
+	margin: 0;
+	padding: 0;
+}
+
+.headingStyle {
+	color: white;
+	background-color: #172a99;
+	font-size: 14px;
+	font-weight: 700;
+	text-transform: uppercase;
+	padding: 0px 0px 5px 9px;
+	margin-bottom: 5px;
+}
+
+.fw-700 {
+	font-weight: 700;
+}
+
+.fw-600 {
+	font-weight: 600;
+}
+
+.fw-500 {
+	font-weight: 500;
+}
+
+.upperCase {
+	text-transform: uppercase;
+}
+
+.content {
+	margin-bottom: 10px;
+}
+
+.contentText {
+	font-size: 10px;
+}
+
+.tg {
+	padding: 10px;
+}
+
+.resumeIcons {
+	height: 5px;
+	width: 5px;
+	background-size: contain;
+	background-position: center;
+	background-repeat: no-repeat;
+	object-fit: contain;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	margin-right: 10px;
+}
+
+.separator {
+	background-color: #172a99;
+	width: 10%;
+	height: 2px;
+}
+
+.userName {
+	font-size: 30px;
+	font-weight: 700;
+	white-space: nowrap;
+	letter-spacing: 5px;
+	margin-bottom: 5px;
+}
+
+.profession {
+	font-size: 15px;
+	font-weight: 700;
+}
+
+.contactItem {
+	display: flex;
+	align-items: center;
+	margin-bottom: 5px;
+}
+
+.contactItem img {
+	height: 1rem;
+	width: auto;
+	margin-right: 10px;
+}
+
+.languageItem {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	margin-bottom: 5px;
+}
+
+.languageItem img {
+	height: 1rem;
+	width: auto;
+	margin-right: 10px;
+}
+
+.certificationItem {
+	margin-bottom: 5px;
+}
+
+.certificationItem a {
+	font-size: smaller;
+}
+
+.technicalSkillItem {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	margin-bottom: 5px;
+}
+
+.technicalSkillItem img {
+	height: 1rem;
+	width: auto;
+	margin-right: 10px;
+}
+
+.experienceItem {
+	display: flex;
+	margin-bottom: 10px;
+}
+
+.educationItem {
+	display: flex;
+	margin-bottom: 10px;
+}
+
+.projectItem {
+	display: flex;
+	margin-bottom: 10px;
+}
+
+.referenceItem {
+	display: flex;
+	justify-content: space-between;
+	margin-bottom: 10px;
+}
+
+.referenceItem b {
+	font-weight: 700;
+}
+
+.aboutMe {
+	margin-bottom: 10px;
+}
