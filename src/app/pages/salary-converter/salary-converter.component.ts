@@ -10,7 +10,13 @@ export class SalaryConverterComponent implements OnInit {
 
   salary: number = 0
   selectedCurrencyCode: string = 'INR'
+  selectedCountryName: any
+  selectedCountryCode: any
   selectedToCurrencyCode: string = 'INR'
+  selectedToCountryCode: any
+  selectedToCountryName: any
+  xValue: any
+  baseValue: any
   fromCountry: string = 'India'
   toCountry: string = ''
   countries: any[] = []
@@ -35,24 +41,31 @@ export class SalaryConverterComponent implements OnInit {
 
   convert(): void {
     if (this.fromCountry && this.toCountry && this.salary) {
-      const fromPpp = this.selectedCurrencyCode;
-      const toPpp = this.selectedToCurrencyCode;
-      this.salaryConverterService.convertSalary(fromPpp, toPpp).subscribe((res: any) => {
-          this.salaryValueConverted = this.salary * res.data[toPpp].value;
-        // this.exchangeRate = this.salary / this.salary * res.data[toPpp].value;
-        // this.pppFactorFrom = fromCurrencyData.pppFactor;
-        // this.pppFactorTo = toCurrencyData.pppFactor;
+      const fromPpp = this.selectedCountryCode;
+      const toPpp = this.selectedToCountryCode;
+      this.salaryConverterService.convertSalaryFrom(fromPpp).subscribe((fromResponse: any) => {
+
+        this.salaryConverterService.convertSalaryTo(toPpp).subscribe((toResponse: any) => {
+          console.log(fromResponse.price_in_usd);
+          console.log(toResponse.price_in_usd);
+          this.xValue = toResponse.price_in_usd/fromResponse.price_in_usd
+          this.salaryValueConverted = toResponse.price_in_usd/fromResponse.price_in_usd * this.salary
+          this.isPPPCardVisible = true
+        })
       })
     }
-    this.isPPPCardVisible = true
   }
 
   onCountryChange(event: any){
-    this.selectedCurrencyCode = event.value.currency_code
+    this.selectedCountryCode = event.value.countryCode
+    this.selectedCurrencyCode = event.value.currencyCode
+    this.selectedCountryName = event.value.countryName
   }
 
   onCountryToChange(event: any){
-    this.selectedToCurrencyCode = event.value.currency_code
+    this.selectedToCountryCode = event.value.countryCode
+    this.selectedToCurrencyCode = event.value.currencyCode
+    this.selectedToCountryName = event.value.countryName
   }
 
   goBack(){

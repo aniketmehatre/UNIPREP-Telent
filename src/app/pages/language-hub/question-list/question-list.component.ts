@@ -691,6 +691,8 @@ export class QuestionListComponent implements OnInit {
     }
 
     viewOneQuestion(data: any) {
+        this.router.navigateByUrl(`/pages/language-hub/translate-view`);
+        return;
         this.checkPlanExpiry();
         if (this.planExpired) {
             this.restrict = true;

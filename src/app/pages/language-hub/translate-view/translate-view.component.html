@@ -1,0 +1,117 @@
+<div class="card readingcard">
+    <div class="card-body pt-0">
+        <div class="row justify-content-center">
+            <div class="col-md-1 col-1 text-center">
+                <p-button (click)="goBack()" icon="pi pi-arrow-left"
+                          styleClass="p-button-rounded p-button-text text-dark"></p-button>
+            </div>
+            <div class="col-md-9 col-9 text-center">
+                <div class="select-title text-nowrap d-flex justify-content-center align-items-center"
+                     style="width: 100%;">
+                    <div>
+                        <h5 class="select-title mb-3" pTooltip="Questions related to the application process are answered"
+                            tooltipPosition="top">{{ 'Language Hub' | uppercase }}
+                            - {{ selectedSubmoduleName }}<i class="questiontooltip fa-solid fa-circle-question"></i>
+                        </h5>
+                    </div>
+                    <div>
+                        <button
+                                class="how-it-works-button">
+                            &nbsp;How it works? &nbsp;&nbsp;<i class="fa-solid fa-play"></i></button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-2 mt-2 text-end desktop justify-content-end d-none d-md-flex">
+            </div>
+        </div>
+<!--        <div class="row">-->
+<!--            <div class="p-grid p-align-center p-justify-center">-->
+<!--                <div class="p-col-12 p-md-6">-->
+<!--                    <p-card>-->
+<!--                        <div class="p-fluid">-->
+<!--                            <div class="p-field">-->
+<!--                                <label for="question">How do you typically greet someone in English?</label>-->
+<!--                                <input id="question" type="text" pInputText [(ngModel)]="greetingQuestion">-->
+<!--                            </div>-->
+<!--                            <div class="p-field">-->
+<!--                                <label for="answer">Hello, how are you.</label>-->
+<!--                                <input id="answer" type="text" pInputText [(ngModel)]="greetingAnswer">-->
+<!--                            </div>-->
+<!--                            <button pButton type="button" label="Translate"></button>-->
+<!--                        </div>-->
+<!--                    </p-card>-->
+<!--                </div>-->
+<!--                <div class="p-col-12 p-md-6">-->
+<!--                    <p-card>-->
+<!--                        <div class="p-fluid">-->
+<!--                            <div class="p-field">-->
+<!--                                <label for="kannadaQuestion">ನೀವು ಸಾಮಾನ್ಯವಾಗಿ ಯಾರನ್ನಾದರೂ ಇಂಗ್ಲಿಷ್ನಲ್ಲಿ ಹೇಗೆ ಸ್ವಾಗತಿಸುತ್ತೀರಿ?</label>-->
+<!--                                <input id="kannadaQuestion" type="text" pInputText [(ngModel)]="kannadaGreetingQuestion">-->
+<!--                            </div>-->
+<!--                            <div class="p-field">-->
+<!--                                <label for="kannadaAnswer">ನಮಸ್ಕಾರ, ಹೇಗಿದ್ದೀಯ.</label>-->
+<!--                                <input id="kannadaAnswer" type="text" pInputText [(ngModel)]="kannadaGreetingAnswer">-->
+<!--                            </div>-->
+<!--                            <button pButton type="button" label="Translate"></button>-->
+<!--                        </div>-->
+<!--                    </p-card>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--        <div>-->
+
+<!--            <h1>Google Cloud Translation and Text-to-Speech</h1>-->
+<!--            <textarea [(ngModel)]="text" rows="4" cols="50"></textarea>-->
+<!--            <br/>-->
+<!--            <button (click)="translateText()">Translate</button>-->
+<!--            <button (click)="synthesizeSpeech()">Speak</button>-->
+<!--            <br/>-->
+<!--            <p>Translated Text: {{ translatedText }}</p>-->
+<!--            <audio *ngIf="audioUrl" controls [src]="audioUrl"></audio>-->
+<!--        </div>-->
+<!--        <div class="row w-100 h-100 m-0 justify-content-center align-items-center">-->
+<!--            <div class="col-md-12 pt-4">-->
+<!--                <h3 style="color:var(&#45;&#45;uniprep-primary);" class="text-center">Convert your salary across countries using PPP</h3>-->
+<!--                <div class="dropdown-container">-->
+<!--                    <div class="form-group">-->
+<!--                        <div class="mb-3">-->
+<!--                            <p-dropdown id="fromCountry" styleClass="w-100" style="width: 100% !important;"-->
+<!--                                        [(ngModel)]="fromCountry" [options]="countries"-->
+<!--                                        [filter]="true"-->
+<!--                                        filterBy="country"-->
+<!--                                        [showClear]="true"-->
+<!--                                        optionLabel="country" (onChange)="onCountryChange($event)"-->
+<!--                                        placeholder="Choose your Location"></p-dropdown>-->
+<!--                        </div>-->
+<!--                    </div>-->
+
+<!--                    <div class="form-group">-->
+<!--                        <div class="mb-3">-->
+<!--                            <p-inputNumber id="salary" styleClass="w-100" style="width: 100% !important;" [(ngModel)]="salary" mode="currency"-->
+<!--                                           currency="{{selectedCurrencyCode}}"-->
+<!--                                           class="custom-input-number full-width-input"></p-inputNumber>-->
+<!--                        </div>-->
+<!--                    </div>-->
+
+<!--                    <div class="form-group">-->
+<!--                        <div class="mb-3">-->
+<!--                            <p-dropdown id="toCountry" styleClass="w-100" [(ngModel)]="toCountry" [options]="countries"-->
+<!--                                        optionLabel="country"-->
+<!--                                        [filter]="true"-->
+<!--                                        filterBy="country"-->
+<!--                                        [showClear]="true"-->
+<!--                                        (onChange)="onCountryToChange($event)"-->
+<!--                                        placeholder="Enter your Destination"></p-dropdown>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                    <div class="row justify-content-center text-center">-->
+<!--                        <button pButton type="button"-->
+<!--                                class="small-button text-white p-ripple p-button-rounded p-button-primary p-button p-component p-2"-->
+<!--                                (click)="convert()">Calculate <i class="fa fa-calculator exhausted-plan-icon"></i></button>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--           -->
+<!--        </div>-->
+    </div>
+</div>
