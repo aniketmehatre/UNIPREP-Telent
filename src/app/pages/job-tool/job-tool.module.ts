@@ -18,13 +18,16 @@ import { EditorModule } from 'primeng/editor';
 import { SidebarModule } from 'primeng/sidebar';
 import { CostOfLivingComponent } from './cost-of-living/cost-of-living.component';
 import { CardModule } from 'primeng/card';
+import { ComparisionComponent } from './cost-of-living/comparision/comparision.component';
+import { SplitButtonModule } from 'primeng/splitbutton';
 @NgModule({
   declarations: [
     JobToolComponent,
     CareerToolComponent,
     CvBuilderComponent,
     CoverLetterBuilderComponent,
-    CostOfLivingComponent
+    CostOfLivingComponent,
+    ComparisionComponent
   ],
   imports: [
     CommonModule,
@@ -40,7 +43,8 @@ import { CardModule } from 'primeng/card';
     AngularFittextModule,
     EditorModule,
     SidebarModule,
-    CardModule
+    CardModule,
+    SplitButtonModule
   ],
 })
 export class JobToolModule{ }

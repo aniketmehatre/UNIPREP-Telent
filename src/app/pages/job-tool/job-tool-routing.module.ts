@@ -5,6 +5,7 @@ import { CvBuilderComponent } from './cv-builder/cv-builder.component';
 import { CoverLetterBuilderComponent } from './cover-letter-builder/cover-letter-builder.component';
 import { CareerToolComponent } from './career-tool/career-tool.component';
 import { CostOfLivingComponent } from './cost-of-living/cost-of-living.component';
+import { ComparisionComponent } from './cost-of-living/comparision/comparision.component';
 
 const routes: Routes = [
   {

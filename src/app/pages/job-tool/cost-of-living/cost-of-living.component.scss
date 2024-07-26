@@ -5,52 +5,21 @@
     height: 50vh;
 }
 
-.dropdown {
-    display: flex;
-}
 
-i {
+.pi-sync {
     margin-left: 5px;
 }
 
-.card {
-    height: 65px;
-}
-
-.costofliving {
-    background-color: var(--uniprep-primary);
-    border-radius: 10px;
-    color: white;
-    font-size: 16px;
-}
-
-.outline-card {
-    border: 2px solid var(--uniprep-primary);
-    border-radius: 10px;
-    padding: 10px;
-}
-
-.prices {
-    height: 60px;
-}
-
-.count {
+img {
     height: 30px;
     width: 30px;
-    border: 1px solid var(--uniprep-primary);
-    border-radius: 5px;
+    margin-right: 10px;
 }
- img{
-    height:30px;
-    width:30px;
- }
- .smallText{
-    font-size: 10px;
- }
- .p-minus,.p-plus{
-    font-size: 12px !important;
- }
- .fs-12{
-    font-size: 12px;
-    font-weight:600;
- }
+::ng-deep .p-dropdown{
+    width:100% !important;
+}
+@media (max-width: 575.98px) {
+    .gap-two{
+        gap: 0.5rem;
+    }
+}

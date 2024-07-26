@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { DashboardService } from '../../dashboard/dashboard.service';
 interface City {
   name: string;
   code: string;
+  flag: string;
 }
 @Component({
   selector: 'uni-cost-of-living',
@@ -9,36 +11,34 @@ interface City {
   styleUrls: ['./cost-of-living.component.scss']
 })
 export class CostOfLivingComponent implements OnInit {
-  countries: City[] =[];
-  selectedCountry: City ={name:'',code:''};
-  filterValue: string = ''
-  constructor() { }
+  countries: any[] = [];
+  sourceCountry: City = { name: '', code: '', flag: '' };
+  targetCountry: City = { name: '', code: '', flag: '' };
+  filterValue: string = '';
+  canShowComparision: boolean = false;
+  comparisionDetails: any;
+
+  constructor(
+    private dashboardService: DashboardService
+  ) { }
 
   ngOnInit() {
-    this.countries = [
-        { name: 'Australia', code: 'AU' },
-        { name: 'Brazil', code: 'BR' },
-        { name: 'China', code: 'CN' },
-        { name: 'Egypt', code: 'EG' },
-        { name: 'France', code: 'FR' },
-        { name: 'Germany', code: 'DE' },
-        { name: 'India', code: 'IN' },
-        { name: 'Japan', code: 'JP' },
-        { name: 'Spain', code: 'ES' },
-        { name: 'United States', code: 'US' }
-    ];
-}
+    this.dashboardService.countryList().subscribe((countryList:any) => {
+      this.countries=countryList;
+    });
+  }
 
-resetFunction(options: any) {
+  resetFunction(options: any) {
     options.reset();
     this.filterValue = '';
-}
+  }
 
-customFilterFunction(event: KeyboardEvent, options: any) {
+  customFilterFunction(event: KeyboardEvent, options: any) {
     options.filter(event);
-}
-compare(){
-   
-}
+  }
+  compare() {
+    this.canShowComparision = true;
+    this.comparisionDetails = {};
+  }
 
 }
