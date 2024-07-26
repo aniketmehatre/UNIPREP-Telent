@@ -48,7 +48,6 @@ export class CvBuilderComponent implements OnInit {
   extraCurriLimit: number = 5;
   certificateLimit: number = 4;
   referenceLimit: number = 4;
-
   submittedFormData: any = [];
   selectedExpLevel:number = 0;
   selectedThemeColor:string = "black";
