@@ -36,7 +36,7 @@
                                         filterBy="countryName"
                                         [showClear]="true"
                                         optionLabel="countryName" (onChange)="onCountryChange($event)"
-                                        placeholder="Choose your Location"></p-dropdown>
+                                        placeholder="Choose your Country"></p-dropdown>
                         </div>
                     </div>
 
@@ -45,6 +45,7 @@
                             <p-inputNumber id="salary" styleClass="w-100" style="width: 100% !important;"
                                            [(ngModel)]="salary" mode="currency"
                                            currency="{{selectedCurrencyCode}}"
+                                           placeholder="Enter your salary (in local currency)"
                                            class="custom-input-number full-width-input"></p-inputNumber>
                         </div>
                     </div>

@@ -13,6 +13,7 @@ export class TranslateViewComponent implements OnInit {
   audioUrl: string | null = null;
   selectedLanguage: any
   selectedSubmoduleName: any = "";
+  selectedLanguageName: any = "";
 
   greetingQuestion: string = '';
   greetingAnswer: string = '';
@@ -27,6 +28,9 @@ export class TranslateViewComponent implements OnInit {
     });
     this.lhs.dataSubmoduleName$.subscribe((data) => {
       this.selectedSubmoduleName = data
+    })
+    this.lhs.dataLanguageName$.subscribe((data) => {
+      this.selectedLanguageName = data
     })
   }
 
