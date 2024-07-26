@@ -75,7 +75,8 @@
 			<div class="d-flex justify-content-center align-items-center">
 				<button class="downloadButton" (click)="downloadResume()">Download &nbsp;&nbsp;&nbsp;<i class="fa-solid fa-download tickIcon"></i></button>
 			</div>
-			<div class="d-flex justify-content-end" >
+			<div class="d-flex justify-content-between" >
+				<button pButton type="button" (click)="previous()"  class="text-white p-ripple p-button-rounded p-button-info-prev p-button p-component p-2" ><i class="fa fa-arrow-left exhausted-plan-icon-prev"></i> Previous</button>
 				<button class="downloadButton" style="margin: 0px;" (click)="next()">CV Builder &nbsp;&nbsp;&nbsp;<i class="fa-sharp fa-regular fa-house tickIcon"></i></button>
 			</div>
 		</div>
@@ -125,7 +126,7 @@
 <div class="container-fluid h-100" *ngIf="activePageIndex == 2">
 	<div class="row h-100">
 		<div class="col-md-6 h-100 overflow-y-auto">
-			<form role="form" class="row" [formGroup]="resumeFormInfoData" (ngSubmit)="resumeFormSubmit()">
+			<form role="form" class="row" [formGroup]="resumeFormInfoData" #form="ngForm" >
 				<div class="col-md-12 mb-3">
 					<h4 class="p-mb-2 PageTitle">Your Experience Level</h4>
 					<p-dropdown [options]="experienceLevel" (onChange)="changeExperience($event)" styleClass="w-100"
@@ -512,10 +513,8 @@
 										<div [ngClass]="getSkillsArray.length === 1 ? 'col-md-12' : 'col-md-7'">
 											<div class="form-group">
 												<div class="mb-3">
-													<p-dropdown [options]="skillProficiency" styleClass="w-100"
-														placeholder="Proficiency Level"
-														formControlName="skills_proficiency" optionLabel="value"
-														optionValue="id"></p-dropdown>
+													<p-dropdown [options]="skillProficiency" styleClass="w-100" placeholder="Proficiency Level"
+														formControlName="skills_proficiency" optionLabel="value" optionValue="id"></p-dropdown>
 												</div>
 											</div>
 										</div>
@@ -740,7 +739,7 @@
 	</div>
 	<div class="d-flex space-between" style="justify-content: space-between">
 		<button pButton type="button" (click)="previous()"  class="text-white p-ripple p-button-rounded p-button-info-prev p-button p-component p-2" ><i class="fa fa-arrow-left exhausted-plan-icon-prev"></i> Previous</button>
-		<button pButton type="button" (click)="next()" class="text-white p-ripple p-button-rounded p-button-info-next p-button p-component p-2" >Next<i class="fa fa-arrow-right exhausted-plan-icon-next"></i></button>
+		<button pButton type="button" (click)="resumeFormSubmit()" class="text-white p-ripple p-button-rounded p-button-info-next p-button p-component p-2" >Next<i class="fa fa-arrow-right exhausted-plan-icon-next"></i></button>
 	</div>
 </div>
 
@@ -960,7 +959,7 @@
 						<img class="resumeIcons" src="../../../uniprep-assets/resume-icons/Linkedin.svg">
 						<p><a href="https://www.linkedin.com/public-profile/settings?trk=d_flagship3_profile_self_view_public_profile">{{ f['user_linkedin'].value }}/</a></p>
 					</div>
-					<div class="contactItem fw-600">
+					<div class="contactItem fw-600" *ngIf="f['user_website'].value">
 						<img class="resumeIcons" src="../../../uniprep-assets/resume-icons/Web.svg">
 						<p>{{ f['user_website'].value }}</p>
 					</div>
@@ -970,7 +969,12 @@
 					<p class="headingStyle">language</p>
 					<div class="languageItem fw-600" *ngFor="let lang of getLanguagesKnownArray.controls">
 						<p>{{ lang.value.language }} </p>
-						<img class="resumeIcons" src="../../../uniprep-assets/resume-icons/STARS-004.svg">
+						<ng-container [ngSwitch]="lang.value.lang_proficiency">
+							<img *ngSwitchCase="'Beginner'" class="resumeIcons" src="../../../uniprep-assets/resume-icons/STARS-002.svg">
+							<img *ngSwitchCase="'Fluent'" class="resumeIcons" src="../../../uniprep-assets/resume-icons/STARS-003.svg">
+							<img *ngSwitchCase="'Proficient'" class="resumeIcons" src="../../../uniprep-assets/resume-icons/STARS-004.svg">
+							<img *ngSwitchCase="'Native'" class="resumeIcons" src="../../../uniprep-assets/resume-icons/STARS-005.svg">
+						</ng-container>
 					</div>
 				</div>
 	
@@ -987,7 +991,11 @@
 					<p class="headingStyle">technical skills</p>
 					<div class="technicalSkillItem" *ngFor="let skill of getSkillsArray.controls">
 						<p class="upperCase">{{ skill.value.skills }}</p>
-						<img class="resumeIcons" src="../../../uniprep-assets/resume-icons/STARS-002.svg">
+						<ng-container [ngSwitch]="skill.value.skills_proficiency">
+							<img *ngSwitchCase="'Basic'" class="resumeIcons" src="../../../uniprep-assets/resume-icons/STARS-002.svg">
+							<img *ngSwitchCase="'Intermediate'" class="resumeIcons" src="../../../uniprep-assets/resume-icons/STARS-003.svg">
+							<img *ngSwitchCase="'Advance'" class="resumeIcons" src="../../../uniprep-assets/resume-icons/STARS-005.svg">
+						</ng-container>
 					</div>
 				</div>
 				<div class="content" *ngIf="getHobbiesArray.length != 0">
@@ -1041,7 +1049,7 @@
 						</div>
 					</div>
 				</div>
-				<div class="content" *ngIf="getProjectDetailsArray.length != 0">
+				<div class="content" *ngIf="getProjectDetailsArray.length != 0 && f['selected_exp_level'].value == 1">
 					<p class="headingStyle">projects</p>
 					<div class="projectItem" *ngFor="let project of getProjectDetailsArray.controls">
 						<div style="width: 20%;">

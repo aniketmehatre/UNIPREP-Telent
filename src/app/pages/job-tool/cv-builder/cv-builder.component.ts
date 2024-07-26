@@ -1,6 +1,6 @@
-import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MessageService } from 'primeng/api';
-import { FormBuilder, FormGroup, FormArray, Form} from "@angular/forms";
+import { FormBuilder, FormGroup, FormArray, Validators} from "@angular/forms";
 import { CourseListService } from '../../course-list/course-list.service';
 
 @Component({
@@ -59,14 +59,14 @@ export class CvBuilderComponent implements OnInit {
     
     this.resumeFormInfoData = this.fb.group({
       selected_exp_level:['1'],
-      user_name: ['vivek kaliyaperumal'],
-      user_job_title: ['Full Stack Developer'],
-      user_email: ['saurab@uniabroad.co.in'],
-      user_location: ['Mysore, Karnataka, India'],
-      user_phone: ['+91 9448055424'],
-      user_linkedin:['https://www.linkedin.com/in/vivek-kaliyaperumal-066943289/'],
-      user_website: ['www.gradelabs.in'],
-      user_summary: ['Experienced Senior Visual Designer with a proven track record in the design industry. Proficient in Web Design, UI/UX Design, and Graphic Design. Strong entrepreneurial mindset with a Bachelor of Engineering (B.E.) in Computer Science from Vidyavardhaka College of Engineering.'],
+      user_name: ['vivek kaliyaperumal', [Validators.required]],
+      user_job_title: ['Full Stack Developer', [Validators.required]],
+      user_email: ['vivek@uniabroad.co.in', [Validators.required]],
+      user_location: ['Mysore, Karnataka, India', [Validators.required]],
+      user_phone: ['+91 9524999563', [Validators.required]],
+      user_linkedin:['Vivek Kaliyaperumal'],
+      user_website: ['www.ownwebsite.com'],
+      user_summary: ['Experienced Senior Visual Designer with a proven track record in the design industry. Proficient in Web Design, UI/UX Design, and Graphic Design. Strong entrepreneurial mindset with a Bachelor of Engineering (B.E.) in Computer Science from Vidyavardhaka College of Engineering.', [Validators.required]],
       // edu_college_name: ['Vidyavardhaka College of Engg'],
       // edu_start_year: ['2015'],
       // edu_end_year: ['2019'],
@@ -115,18 +115,10 @@ export class CvBuilderComponent implements OnInit {
 
   ngOnInit(): void {
     this.triggerAddMoreButton();
-    this.loadTemplates();
   }
+
   toggleFullScreen(){
     this.fullScreenVisible = !this.fullScreenVisible;
-  }
-  
-  loadTemplates(): void {
-    
-    this.resumeService.getTemplate().subscribe(data => {
-      console.log(data);
-      this.template1 = data;
-    });
   }
 
   selectColor(selectedColor:string, selectedColorCode: number){
@@ -151,6 +143,12 @@ export class CvBuilderComponent implements OnInit {
 
   resumeFormSubmit(){
     this.submittedFormData = this.resumeFormInfoData.value;
+    if (!this.resumeFormInfoData.valid) {
+      console.log('Form is invalid, please correct the errors.');
+      this.resumeFormInfoData.markAllAsTouched(); // Trigger validation messages if needed
+    }else{
+      this.next();
+    }
   }
 
   educationalInfoFromSubmit(){
@@ -185,6 +183,23 @@ export class CvBuilderComponent implements OnInit {
       this.activePageIndex = this.activePageIndex == 5 ? 1 : this.activePageIndex;
     }
   }
+
+  // getIconUrl(proficiency: string): string {
+  //   let iconFileName: string;
+  //   switch (proficiency) {
+  //     case 'Intermediate':
+  //       iconFileName = 'STARS-003.svg';
+  //       break;
+  //     case 'Advance':
+  //       iconFileName = 'STARS-005.svg';
+  //       break;
+  //     default:
+  //       iconFileName = 'STARS-002.svg'; 
+  //       break;
+  //   }
+  //   console.log(iconFileName);
+  //   return `../../../uniprep-assets/resume-icons/${iconFileName}`;
+  // }
 
   previous(){
     this.activePageIndex--;
@@ -237,7 +252,6 @@ export class CvBuilderComponent implements OnInit {
 
   clickAddMoreButton(fieldName: string){
     if(fieldName == "education_detail"){
-      console.log(this.getEduDetailsArray,"education_detail");
       this.getEduDetailsArray.push(this.fb.group({
         edu_college_name: [''],
         edu_start_year: [''],
@@ -248,7 +262,6 @@ export class CvBuilderComponent implements OnInit {
         edu_cgpa_percentage: [''],
       }));
     }else if(fieldName == "work_experience"){
-      console.log(this.getWorkExpArray,"work_experience");
       this.getWorkExpArray.push(this.fb.group({
         work_org_name: [''],
         work_start_year: [''],
@@ -259,7 +272,6 @@ export class CvBuilderComponent implements OnInit {
         work_job_description: [''],
       }));
     }else if(fieldName == "project_details"){
-      console.log(this.getProjectDetailsArray,"getProjectDetailsArray");
       this.getProjectDetailsArray.push(this.fb.group({
         project_name: [''],
         project_start_name: [''],
@@ -267,13 +279,11 @@ export class CvBuilderComponent implements OnInit {
         project_description: [''],
       }));
     }else if(fieldName == "language_known"){
-      console.log(this.getLanguagesKnownArray,"getLanguagesKnownArray");
       this.getLanguagesKnownArray.push(this.fb.group({
         language: [''],
         lang_proficiency: [''],
       }));
     }else if(fieldName == "skills"){
-      console.log(this.getSkillsArray,"getSkillsArray");
       this.getSkillsArray.push(this.fb.group({
         skills: [''],
         skills_proficiency: ['']
@@ -331,11 +341,11 @@ export class CvBuilderComponent implements OnInit {
   triggerAddMoreButton(){ //initially the cloning array is an empty so trigger and make the array as an not empty
 
     this.getEduDetailsArray.push(this.fb.group({
-      edu_college_name: ['Vidyavardhaka College of Engg'],
+      edu_college_name: ['Srinivasan Engg College'],
       edu_start_year: ['2015'],
       edu_end_year: ['2019'],
       edu_degree: ['Bachelor of Engineering in C.S'],
-      edu_location: ['Mysore'],
+      edu_location: ['Perambalur'],
       edu_percentage: ['65'],
       edu_cgpa_percentage: ['%'],
     }));

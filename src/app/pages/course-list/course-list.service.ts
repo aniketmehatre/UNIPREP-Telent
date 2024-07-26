@@ -37,9 +37,4 @@ export class CourseListService {
       headers: headers,
     });
   }
-
-  getTemplate(): Observable<string> {
-    // return this.http.get('templates/resumetemplate.html', { responseType: 'text' });
-    return this.http.get('/templates/resumetemplate.html', { responseType: 'text' });
-  }
 }
