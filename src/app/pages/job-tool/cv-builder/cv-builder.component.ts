@@ -16,7 +16,7 @@ export class CvBuilderComponent implements OnInit {
   languageProficiency: any = [{id:"Beginner", value:"Beginner"},{id:"Fluent", value: "Fluent"}, { id:"Proficient", value:"Proficient"}, { id:"Native", value:"Native"}];
   skillProficiency: any = [{id:"Basic", value:"Basic"},{id: "Intermediate", value: "Intermediate"}, { id:"Advance", value:"Advance"}];
   enableModule:boolean = true;
-  activePageIndex: number = 1;
+  activePageIndex: number = 2;
   resumeFormInfoData: FormGroup;
   fullScreenVisible:boolean = false;
   products:any = [
@@ -58,12 +58,12 @@ export class CvBuilderComponent implements OnInit {
     
     this.resumeFormInfoData = this.fb.group({
       selected_exp_level:['1'],
-      user_name: ['Saurabh Nakkarike'],
-      user_job_title: ['Senior UI/UX Designer'],
+      user_name: ['vivek kaliyaperumal'],
+      user_job_title: ['Full Stack Developer'],
       user_email: ['saurab@uniabroad.co.in'],
       user_location: ['Mysore, Karnataka, India'],
       user_phone: ['+91 9448055424'],
-      user_linkedin:['https://www.linkedin.com/in/saurabhnakkarike-uiuxdeveloper-mysore/'],
+      user_linkedin:['https://www.linkedin.com/in/vivek-kaliyaperumal-066943289/'],
       user_website: ['www.gradelabs.in'],
       user_summary: ['Experienced Senior Visual Designer with a proven track record in the design industry. Proficient in Web Design, UI/UX Design, and Graphic Design. Strong entrepreneurial mindset with a Bachelor of Engineering (B.E.) in Computer Science from Vidyavardhaka College of Engineering.'],
       // edu_college_name: ['Vidyavardhaka College of Engg'],
@@ -278,31 +278,28 @@ export class CvBuilderComponent implements OnInit {
         skills_proficiency: ['']
       }));
     }else if(fieldName == "Hobby"){
-      console.log(this.getHobbiesArray,"hobbies");
-        this.getHobbiesArray.push(this.fb.group({
-          hobbies: ['']
-        }));
+      this.getHobbiesArray.push(this.fb.group({
+        hobbies: ['Painting'],
+      }));
     }else if(fieldName == "extra_curricular"){
-      console.log(this.getExtraCurricularArray,"getExtraCurricularArray");
       this.getExtraCurricularArray.push(this.fb.group({
-        extra_curricular_activites: ['']
+        extra_curricular_activites: ['Game Development']
       }));
     }else if(fieldName == "certificate"){
-      console.log(this.getCertificatesArray,"getCertificatesArray");
       this.getCertificatesArray.push(this.fb.group({
-        certificate_name: [''],
-        certificate_issued: [''],
-        certificate_id: [''],
-        certicate_link: [''],
+        certificate_name: ['Web Development'],
+        certificate_issued: ['UNIPREP'],
+        certificate_id: ['ID: UNI077'],
+        certicate_link: ['https://uniprep.ai/certificates'],
       }));
     }else if(fieldName == "reference"){
-      console.log(this.getReferenceArray,"getReferenceArray");
       this.getReferenceArray.push(this.fb.group({
-        ref_position: [''],
-        ref_organization: [''],
-        ref_email: [''],
-        ref_contact: [''],
-      }));
+          ref_name: ['Adithya M'],
+          ref_position: ['CEO'],
+          ref_organization: ['Mediamonk'],
+          ref_email: ['adithya@uniabroad.co.in'],
+          ref_contact: ['+91 7019267853'],
+        }));
     }
   }
 
@@ -343,13 +340,13 @@ export class CvBuilderComponent implements OnInit {
     }));
 
     this.getWorkExpArray.push(this.fb.group({
-      work_org_name: ['Senior Visual Designer'],
+      work_org_name: ['Uniabroad Private Ltd'],
       work_start_year: ['2013'],
       work_end_year: ['2015'],
-      work_designation: ['Senior UI/UX Developer'],
+      work_designation: ['Full stack developer'],
       work_type: ['Fulltime'],
       work_location: ['Mysore'],
-      work_job_description: ['<ul><li>Spearheaded the UI/UX redesign of UNIPREP, UNIAPPLY, SOPEXPERT, and the UNIABROAD website, resulting in a cohesive and user-friendly experience across all platforms.</li><li>Implemented innovative design solutions for the frontend of the products, enhancing user engagement and satisfaction.</li><li>Designed and optimized the CRM admin panel, improving internal workflows and user interactions with the system.</li><li>Collaborated closely with development teams to ensure seamless integration of design elements and adherence to design guidelines across all products.</li></ul>'],
+      work_job_description: ['<ul><li>Spearheaded the UI/UX redesign of UNIPREP, UNIAPPLY, SOPEXPERT, and the UNIABROAD website, resulting in a cohesive and user-friendly experience across all platforms.</li><li>Implemented innovative design solutions for the frontend of the products, enhancing user engagement and satisfaction.</li></ul>'],
     }));
 
     this.getProjectDetailsArray.push(this.fb.group({
@@ -359,17 +356,9 @@ export class CvBuilderComponent implements OnInit {
       project_description: ['<li>Together with developers, collect and assess user requirements.</li><li>Using storyboards, process flows, and sitemaps, illustrate design concepts.</li><li>Create visual user interface components such as menus, tabs, and widgets.</li><li>Create UI mockups and prototypes that clearly show how websites work and appear.</li><li>Determine and address UX issues (e.g., responsiveness).</li>'],
     }));
 
-    this.getHobbiesArray.push(this.fb.group({
-      hobbies: ['Painting'],
-    }));
-
     this.getSkillsArray.push(this.fb.group({
       skills: ['HTML'],
       skills_proficiency: ['Basic'],
-    }));
-
-    this.getExtraCurricularArray.push(this.fb.group({
-      extra_curricular_activites: ['Game Development']
     }));
 
     this.getLanguagesKnownArray.push(this.fb.group({
@@ -377,24 +366,12 @@ export class CvBuilderComponent implements OnInit {
       lang_proficiency: ['Native'],
     }));
 
-    this.getCertificatesArray.push(this.fb.group({
-      certificate_name: ['Web Development'],
-      certificate_issued: ['UNIPREP'],
-      certificate_id: ['ID: UNI077'],
-      certicate_link: ['https://uniprep.ai/certificates'],
-    }));
-
-    this.getReferenceArray.push(this.fb.group({
-      ref_name: ['Adithya M'],
-      ref_position: ['CEO'],
-      ref_organization: ['Mediamonk'],
-      ref_email: ['adithya@uniabroad.co.in'],
-      ref_contact: ['+91 7019267853'],
-    }));
   }
 
   downloadResume(){
-    this.resumeService.downloadResume().subscribe(res => {
+    console.log(this.resumeFormInfoData.value);
+    let formData = this.resumeFormInfoData.value;
+    this.resumeService.downloadResume(formData).subscribe(res => {
       console.log(res);
     })
   }

@@ -73,7 +73,7 @@
 				</div>
 			</div>
 			<div class="d-flex justify-content-center align-items-center">
-				<button class="downloadButton" >Download &nbsp;&nbsp;&nbsp;<i class="fa-solid fa-download tickIcon"></i></button>
+				<button class="downloadButton" (click)="downloadResume()">Download &nbsp;&nbsp;&nbsp;<i class="fa-solid fa-download tickIcon"></i></button>
 			</div>
 			<div class="d-flex justify-content-end" >
 				<button class="downloadButton" style="margin: 0px;" (click)="next()">CV Builder &nbsp;&nbsp;&nbsp;<i class="fa-sharp fa-regular fa-house tickIcon"></i></button>
@@ -189,7 +189,7 @@
 							</div>
 						</div>
 						<div class="col-md-12">
-							<label class="form-label labelFont">Website</label>
+							<label class="form-label labelFont">Website (Optional)</label>
 							<div class="form-group">
 								<div class="mb-3">
 									<input class="w-100" type="text" placeholder="Website or portfolio Link"
@@ -536,11 +536,12 @@
 					</div>
 				</div>
 				<div class="col-md-12">
-					<h4 class="p-mb-1 PageTitle">Your Hobbies</h4>
+					<h4 class="p-mb-1 PageTitle">Your Hobbies (Optional)</h4>
 					<div *ngFor="let hobby of getHobbiesArray.controls; let i = index" formArrayName="hobbiesArray">
 						<div [formGroupName]="i">
 							<div class="row">
-								<div [ngClass]="getHobbiesArray.length === 1 ? 'col-md-12' : 'col-md-9'">
+								<!-- <div [ngClass]="getHobbiesArray.length === 1 ? 'col-md-12' : 'col-md-9'"> -->
+								<div class="col-md-9">
 									<div class="form-group">
 										<div class="mb-3">
 											<input class="w-100" type="text" placeholder="Add Your Hobbies"
@@ -548,26 +549,25 @@
 										</div>
 									</div>
 								</div>
+								<!-- *ngIf="getHobbiesArray.length != 1" -->
 								<div class="col-md-3">
-									<button class="deleteDivButton" *ngIf="getHobbiesArray.length != 1"
-										(click)="clickDeleteButton('Hobby', i)">Delete &nbsp;<i
-											class="fa-solid fa-trash trashIcon"></i></button>
+									<button class="deleteDivButton"  (click)="clickDeleteButton('Hobby', i)">Delete &nbsp;<i class="fa-solid fa-trash trashIcon"></i></button>
 								</div>
 							</div>
 						</div>
 					</div>
 					<div class="d-flex justify-content-center align-items-center m-3">
-						<button *ngIf="getHobbiesArray.length < hobbyLimit" (click)="clickAddMoreButton('Hobby')"
-							class="addMoreButton">Add More &nbsp;<i class="fa-solid fa-plus tickIcon"></i></button>
+						<button (click)="clickAddMoreButton('Hobby')" *ngIf="getHobbiesArray.length < hobbyLimit" class="addMoreButton">Add More &nbsp;<i class="fa-solid fa-plus tickIcon"></i></button>
 					</div>
 				</div>
 				<div class="col-md-12">
-					<h4 class="p-mb-1 PageTitle">Extra Curricular Activities</h4>
+					<h4 class="p-mb-1 PageTitle">Extra Curricular Activities (Optional)</h4>
 					<div *ngFor="let hobby of getExtraCurricularArray.controls; let i = index"
 						formArrayName="extraCurricularArray">
 						<div [formGroupName]="i">
 							<div class="row">
-								<div [ngClass]="getExtraCurricularArray.length === 1 ? 'col-md-12' : 'col-md-9'">
+								<!-- <div [ngClass]="getExtraCurricularArray.length === 1 ? 'col-md-12' : 'col-md-9'"> -->
+								<div class="col-md-9">
 									<div class="form-group">
 										<div class="mb-3">
 											<input class="w-100" type="text" placeholder="Extra Activities"
@@ -576,21 +576,19 @@
 									</div>
 								</div>
 								<div class="col-md-3">
-									<button class="deleteDivButton" *ngIf="getExtraCurricularArray.length != 1"
-										(click)="clickDeleteButton('extra_curricular', i)">Delete &nbsp;<i
-											class="fa-solid fa-trash trashIcon"></i></button>
+									<!-- *ngIf="getExtraCurricularArray.length != 1" -->
+									<button class="deleteDivButton"  (click)="clickDeleteButton('extra_curricular', i)">Delete &nbsp;<i class="fa-solid fa-trash trashIcon"></i>
+									</button>
 								</div>
 							</div>
 						</div>
 					</div>
 					<div class="d-flex justify-content-center align-items-center m-3">
-						<button class="addMoreButton" *ngIf="getExtraCurricularArray.length < extraCurriLimit"
-							(click)="clickAddMoreButton('extra_curricular')">Add More &nbsp;<i
-								class="fa-solid fa-plus tickIcon"></i></button>
+						<button class="addMoreButton"  *ngIf="getExtraCurricularArray.length < extraCurriLimit" (click)="clickAddMoreButton('extra_curricular')">Add More &nbsp;<i class="fa-solid fa-plus tickIcon"></i></button>
 					</div>
 				</div>
 				<div class="col-md-12">
-					<h4 class="p-mb-1 PageTitle">Certifications</h4>
+					<h4 class="p-mb-1 PageTitle">Certifications (Optional)</h4>
 					<div class="card mb-2" *ngFor="let hobby of getCertificatesArray.controls; let i = index"
 						formArrayName="certificatesArray">
 						<div class="card-body">
@@ -617,7 +615,7 @@
 								</div>
 								<div class="row">
 									<div class="col-md-6">
-										<label class="form-label labelFont">Certificate ID(Optional)</label>
+										<label class="form-label labelFont">Certificate ID (Optional)</label>
 										<div class="form-group">
 											<div class="mb-3">
 												<input class="w-100" type="text" placeholder="Certificate ID"
@@ -626,7 +624,7 @@
 										</div>
 									</div>
 									<div class="col-md-6">
-										<label class="form-label labelFont">Certificate Link(Optional)</label>
+										<label class="form-label labelFont">Certificate Link (Optional)</label>
 										<div class="form-group">
 											<div class="mb-3">
 												<input class="w-100" type="text" placeholder="certificate Link"
@@ -636,10 +634,9 @@
 									</div>
 								</div>
 							</div>
+							<!-- *ngIf="getCertificatesArray.length != 1" -->
 							<div class="d-flex justify-content-end align-items-center">
-								<button class="deleteDivButton" *ngIf="getCertificatesArray.length != 1"
-									(click)="clickDeleteButton('certificate', i)">Delete &nbsp;<i
-										class="fa-solid fa-trash trashIcon"></i></button>
+								<button class="deleteDivButton" (click)="clickDeleteButton('certificate', i)">Delete &nbsp;<i class="fa-solid fa-trash trashIcon"></i></button>
 							</div>
 						</div>
 					</div>
@@ -650,7 +647,7 @@
 					</div>
 				</div>
 				<div class="col-md-12">
-					<h4 class="p-mb-1 PageTitle">References</h4>
+					<h4 class="p-mb-1 PageTitle">References (Optional)</h4>
 					<div class="card mb-2" *ngFor="let hobby of getReferenceArray.controls; let i = index"
 						formArrayName="referenceArray">
 						<div class="card-body">
@@ -707,10 +704,9 @@
 									</div>
 								</div>
 							</div>
+							<!-- *ngIf="getReferenceArray.length != 1"  -->
 							<div class="d-flex justify-content-end align-items-center">
-								<button class="deleteDivButton" *ngIf="getReferenceArray.length != 1"
-									(click)="clickDeleteButton('reference', i)">Delete &nbsp;<i
-										class="fa-solid fa-trash trashIcon"></i></button>
+								<button class="deleteDivButton"(click)="clickDeleteButton('reference', i)">Delete &nbsp;<i class="fa-solid fa-trash trashIcon"></i></button>
 							</div>
 						</div>
 					</div>
@@ -814,7 +810,7 @@
 	</div>
 </ng-template>
 
-<ng-template #sharedContent>
+<!-- <ng-template #sharedContent>
 	<div class="h-100" [ngClass]="{ previewBodyForm: !fullScreenVisible, previewBodyFormFull: fullScreenVisible }">
 		<div class="text-center" id="personalinfo">
 			<h1 class="m-0">{{ f["user_name"].value }}</h1>
@@ -925,6 +921,148 @@
 						<p class="m-0">{{ refer.value.ref_organization }} {{ refer.value.ref_contact ? " | " +
 							refer.value.ref_contact : "" }}</p>
 						<p>{{ refer.value.ref_email }}</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</ng-template> -->
+
+<ng-template #sharedContent>
+	<div class="h-100" [ngClass]="{ previewBodyForm: !fullScreenVisible, previewBodyFormFull: fullScreenVisible }">
+		<div style=" margin-bottom: 10px;">
+			<div style="width: 65%;">
+			<h1 class="userName upperCase">{{ f["user_name"].value }} 
+				<!-- <span style="color:#172a99;">kaliyaperumal</span> -->
+			</h1>
+				<p class="profession upperCase">{{ f["user_job_title"].value }}</p>
+			</div>
+			<div class="separator"></div>
+		</div>
+	
+		<div style="display: flex;">
+			<div style="width: 35%; margin-right: 5%;">
+				<div class="content">
+					<p class="headingStyle">contact me</p>
+					<div class="contactItem fw-600">
+						<img class="resumeIcons" src="../../../uniprep-assets/resume-icons/Location.svg">
+						<p>{{ f["user_location"].value }}</p>
+					</div>
+					<div class="contactItem fw-600">
+						<img class="resumeIcons" src="../../../uniprep-assets/resume-icons/Phone.svg">
+						<p>{{ f["user_phone"].value }}</p>
+					</div>
+					<div class="contactItem fw-600">
+						<img class="resumeIcons" src="../../../uniprep-assets/resume-icons/Email.svg">
+						<p>{{ f["user_email"].value }}</p>
+					</div>
+					<div class="contactItem fw-600">
+						<img class="resumeIcons" src="../../../uniprep-assets/resume-icons/Linkedin.svg">
+						<p><a href="https://www.linkedin.com/public-profile/settings?trk=d_flagship3_profile_self_view_public_profile">{{ f['user_linkedin'].value }}/</a></p>
+					</div>
+					<div class="contactItem fw-600">
+						<img class="resumeIcons" src="../../../uniprep-assets/resume-icons/Web.svg">
+						<p>{{ f['user_website'].value }}</p>
+					</div>
+				</div>
+	
+				<div class="content">
+					<p class="headingStyle">language</p>
+					<div class="languageItem fw-600" *ngFor="let lang of getLanguagesKnownArray.controls">
+						<p>{{ lang.value.language }} </p>
+						<img class="resumeIcons" src="../../../uniprep-assets/resume-icons/STARS-004.svg">
+					</div>
+				</div>
+	
+				<div class="content" *ngIf="getCertificatesArray.length !=0">
+					<p class="headingStyle">certifications</p>
+					<div class="certificationItem" *ngFor="let certificate of getCertificatesArray.controls">
+						<p><b>{{ certificate.value.certificate_name }}</b> {{ certificate.value.certificate_issued ? " - " + certificate.value.certificate_issued : "" }}</p>
+						<p>{{ certificate.value.certificate_id ? "ID:" + certificate.value.certificate_id : "" }} </p>
+						<a [href]="certificate.value.certicate_link" target="_Blank">{{ certificate.value.certicate_link }}</a>
+					</div>
+				</div>
+	
+				<div class="content">
+					<p class="headingStyle">technical skills</p>
+					<div class="technicalSkillItem" *ngFor="let skill of getSkillsArray.controls">
+						<p class="upperCase">{{ skill.value.skills }}</p>
+						<img class="resumeIcons" src="../../../uniprep-assets/resume-icons/STARS-002.svg">
+					</div>
+				</div>
+				<div class="content" *ngIf="getHobbiesArray.length != 0">
+					<p class="headingStyle">Hobbies</p>
+					<div class="technicalSkillItem" *ngFor="let hobby of getHobbiesArray.controls">
+						<p class="upperCase">{{ hobby.value.hobbies }}</p>
+					</div>
+				</div>
+				<div class="content" *ngIf="getExtraCurricularArray.length != 0">
+					<p class="headingStyle">Extra Curricular Activities</p>
+					<div class="technicalSkillItem" *ngFor="let extra of getExtraCurricularArray.controls">
+						<p class="upperCase">{{ extra.value.extra_curricular_activites }}</p>
+					</div>
+				</div>
+			</div>
+	
+			<div style="width: 65%;">
+				<div class="aboutMe">
+					<p class="headingStyle">about me</p>
+					<p class="small-text" [innerHTML]="f['user_summary'].value"></p>
+				</div>
+				<div class="content">
+					<p class="headingStyle">experience</p>
+					<div class="experienceItem" *ngFor="let exp of getWorkExpArray.controls">
+						<div style="width: 30%;">
+							<p class="fw-700">{{ exp.value.work_start_year }} {{ exp.value.work_end_year ? " - " +
+								exp.value.work_end_year : "" }}</p>
+							<p class="fw-700">{{ exp.value.work_org_name }}</p>
+							<p class="fw-700">{{ exp.value.work_location }} </p>
+						</div>
+						<div style="width: 70%;">
+							<p class="upperCase fw-600">{{ exp.value.work_designation }} {{ exp.value.work_type ? " - " +
+								exp.value.work_type : "" }}</p>
+							<p class="small-text" [innerHTML]="exp.value.work_job_description"></p>
+						</div>
+					</div>
+				</div>
+				<div class="content">
+					<p class="headingStyle">education</p>
+					<div class="educationItem" *ngFor="let edu of getEduDetailsArray.controls">
+						<div style="width: 50%;">
+							<p>{{ edu.value.edu_start_year }} {{ edu.value.edu_end_year ? " - " + edu.value.edu_end_year : "" }}</p>
+							<p class="upperCase fw-500">{{ edu.value.edu_degree }} </p>
+						</div>
+						<div style="width: 30%;">
+							<p>{{ edu.value.edu_college_name }}</p>
+							<p>{{ edu.value.edu_percentage }} {{ edu.value.edu_cgpa_percentage }}</p>
+						</div>
+						<div style="width: 20%;">
+							<p>{{ edu.value.edu_location }}</p>
+						</div>
+					</div>
+				</div>
+				<div class="content" *ngIf="getProjectDetailsArray.length != 0">
+					<p class="headingStyle">projects</p>
+					<div class="projectItem" *ngFor="let project of getProjectDetailsArray.controls">
+						<div style="width: 20%;">
+							<p class="fw-700">{{ project.value.project_start_name }} {{ project.value.project_end_name ? " - "
+								+ project.value.project_end_name : "" }}</p>
+						</div>
+						<div style="width: 80%;">
+							<p class="upperCase fw-600">{{ project.value.project_name }}</p>
+							<p class="small-text" [innerHTML]="project.value.project_description"></p>
+						</div>
+					</div>
+				</div>
+				<div class="content" *ngIf="getReferenceArray.length != 0">
+					<p class="headingStyle">reference</p>
+					<div class="referenceItem" >
+						<div style="width: 50%;" *ngFor="let refer of getReferenceArray.controls">
+							<p><b>{{ refer.value.ref_name }}</b></p>
+							<p><b>{{ refer.value.ref_position }}, {{ refer.value.ref_organization }}</b></p>
+							<p>{{ refer.value.ref_email }}</p>
+							<p><b>phone:</b> {{ refer.value.ref_contact }}</p>
+						</div>
 					</div>
 				</div>
 			</div>
