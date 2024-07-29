@@ -6,7 +6,19 @@ import { CourseListService } from '../../course-list/course-list.service';
 @Component({
   selector: 'uni-cv-builder',
   templateUrl: './cv-builder.component.html',
-  styleUrls: ['./cv-builder.component.scss']
+  styleUrls: ['./cv-builder.component.scss'],
+  // animations: [
+  //   trigger('backgroundChange', [
+  //     state('1', style({ backgroundColor: '#134B70' })),
+  //     state('2', style({ backgroundColor: '#172a99' })),
+  //     state('3', style({ backgroundColor: '#708871' })),
+  //     state('4', style({ backgroundColor: '#973131' })),
+  //     state('5', style({ backgroundColor: '#C80036' })),
+  //     state('6', style({ backgroundColor: '#373A40' })),
+  //     state('7', style({ backgroundColor: '#686D76' })),
+  //     transition('* => *', animate('300ms'))
+  //   ])
+  // ]
 })
 export class CvBuilderComponent implements OnInit {
   selectedResumeLevel: string = "";
@@ -16,7 +28,7 @@ export class CvBuilderComponent implements OnInit {
   languageProficiency: any = [{id:"Beginner", value:"Beginner"},{id:"Fluent", value: "Fluent"}, { id:"Proficient", value:"Proficient"}, { id:"Native", value:"Native"}];
   skillProficiency: any = [{id:"Basic", value:"Basic"},{id: "Intermediate", value: "Intermediate"}, { id:"Advance", value:"Advance"}];
   enableModule:boolean = true;
-  activePageIndex: number = 2;
+  activePageIndex: number = 1;
   resumeFormInfoData: FormGroup;
   fullScreenVisible:boolean = false;
   products:any = [
@@ -50,9 +62,10 @@ export class CvBuilderComponent implements OnInit {
   referenceLimit: number = 4;
   submittedFormData: any = [];
   selectedExpLevel:number = 0;
-  selectedThemeColor:string = "black";
-  selectedColorCode:number = 1;
+  selectedThemeColor:string = "#172a99";
+  selectedColorCode:number = 2;
   template1: any;
+  userNameSplit: { firstWord: string, secondWord: string } = { firstWord: '', secondWord: ''};
 
   constructor(private toaster: MessageService,  private fb: FormBuilder, private resumeService:CourseListService) { 
     
@@ -114,6 +127,18 @@ export class CvBuilderComponent implements OnInit {
 
   ngOnInit(): void {
     this.triggerAddMoreButton();
+    let currentuserName = this.resumeFormInfoData.value.user_name;
+    this.splitUserName(currentuserName); // it calls when the page refresh
+    this.resumeFormInfoData.get('user_name')?.valueChanges.subscribe(value=>{
+      this.splitUserName(value); // it calls when the user enters the user name
+    })
+  }
+
+  splitUserName(currentUserName: string){
+    const words = currentUserName.trim().split(/\s+/);
+    this.userNameSplit.firstWord = words[0] || '';
+    words.shift();
+    this.userNameSplit.secondWord = words.join(' ') || '';
   }
 
   toggleFullScreen(){
@@ -149,18 +174,6 @@ export class CvBuilderComponent implements OnInit {
       this.next();
     }
   }
-
-  educationalInfoFromSubmit(){
-
-  }
-  
-  workInfoFormSubmit(){
-
-  }
-
-  skillFormSubmit(){
-
-  }
   
   imgOnclick(resumeLevel: any){
     this.selectedResumeLevel = resumeLevel;
@@ -182,23 +195,6 @@ export class CvBuilderComponent implements OnInit {
       this.activePageIndex = this.activePageIndex == 5 ? 1 : this.activePageIndex;
     }
   }
-
-  // getIconUrl(proficiency: string): string {
-  //   let iconFileName: string;
-  //   switch (proficiency) {
-  //     case 'Intermediate':
-  //       iconFileName = 'STARS-003.svg';
-  //       break;
-  //     case 'Advance':
-  //       iconFileName = 'STARS-005.svg';
-  //       break;
-  //     default:
-  //       iconFileName = 'STARS-002.svg'; 
-  //       break;
-  //   }
-  //   console.log(iconFileName);
-  //   return `../../../uniprep-assets/resume-icons/${iconFileName}`;
-  // }
 
   previous(){
     this.activePageIndex--;
@@ -379,10 +375,13 @@ export class CvBuilderComponent implements OnInit {
   }
 
   downloadResume(){
-    console.log(this.resumeFormInfoData.value);
     let formData = this.resumeFormInfoData.value;
-    this.resumeService.downloadResume(formData).subscribe(res => {
-      console.log(res);
+    let data = {
+      ...formData, // Spread operator for formData
+      selectedResumeLevel: this.selectedResumeLevel // Adding a new property
+    };
+    this.resumeService.downloadResume(data).subscribe(res => {
+      window.open(res, '_blank');
     })
   }
 }
