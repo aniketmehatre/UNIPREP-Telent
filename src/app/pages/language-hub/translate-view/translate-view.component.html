@@ -24,40 +24,30 @@
             <div class="col-md-2 mt-2 text-end desktop justify-content-end d-none d-md-flex">
             </div>
         </div>
-<!--        <div class="row">-->
-<!--            <div class="p-grid p-align-center p-justify-center">-->
-<!--                <div class="p-col-12 p-md-6">-->
-<!--                    <p-card>-->
-<!--                        <div class="p-fluid">-->
-<!--                            <div class="p-field">-->
-<!--                                <label for="question">How do you typically greet someone in English?</label>-->
-<!--                                <input id="question" type="text" pInputText [(ngModel)]="greetingQuestion">-->
-<!--                            </div>-->
-<!--                            <div class="p-field">-->
-<!--                                <label for="answer">Hello, how are you.</label>-->
-<!--                                <input id="answer" type="text" pInputText [(ngModel)]="greetingAnswer">-->
-<!--                            </div>-->
-<!--                            <button pButton type="button" label="Translate"></button>-->
-<!--                        </div>-->
-<!--                    </p-card>-->
-<!--                </div>-->
-<!--                <div class="p-col-12 p-md-6">-->
-<!--                    <p-card>-->
-<!--                        <div class="p-fluid">-->
-<!--                            <div class="p-field">-->
-<!--                                <label for="kannadaQuestion">ನೀವು ಸಾಮಾನ್ಯವಾಗಿ ಯಾರನ್ನಾದರೂ ಇಂಗ್ಲಿಷ್ನಲ್ಲಿ ಹೇಗೆ ಸ್ವಾಗತಿಸುತ್ತೀರಿ?</label>-->
-<!--                                <input id="kannadaQuestion" type="text" pInputText [(ngModel)]="kannadaGreetingQuestion">-->
-<!--                            </div>-->
-<!--                            <div class="p-field">-->
-<!--                                <label for="kannadaAnswer">ನಮಸ್ಕಾರ, ಹೇಗಿದ್ದೀಯ.</label>-->
-<!--                                <input id="kannadaAnswer" type="text" pInputText [(ngModel)]="kannadaGreetingAnswer">-->
-<!--                            </div>-->
-<!--                            <button pButton type="button" label="Translate"></button>-->
-<!--                        </div>-->
-<!--                    </p-card>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--        </div>-->
+        <div class="row mt-4">
+            <div class="col-md-6">
+                <input
+                        id="disabled-input"
+                        type="text"
+                        class="w-100 form-control px-4 py-4"
+                        pInputText
+                        style="border: 1px solid #f0780e"
+                        value="English"
+                        [disabled]="true"
+                         />
+            </div>
+            <div class="col-md-6">
+                <input
+                        id="disabled-input1"
+                        type="text"
+                        style="border: 1px solid #f0780e"
+                        class="w-100 form-control px-4 py-4"
+                        pInputText
+                        [value]="selectedLanguageName"
+                        [disabled]="true"
+                />
+            </div>
+        </div>
 <!--        <div>-->
 
 <!--            <h1>Google Cloud Translation and Text-to-Speech</h1>-->
