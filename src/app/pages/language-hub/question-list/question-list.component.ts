@@ -691,6 +691,7 @@ export class QuestionListComponent implements OnInit {
     }
 
     viewOneQuestion(data: any) {
+        localStorage.setItem('languageHubData', JSON.stringify(data));
         this.router.navigateByUrl(`/pages/language-hub/translate-view`);
         return;
         this.checkPlanExpiry();

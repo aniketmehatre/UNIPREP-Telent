@@ -1,13 +1,14 @@
 <div class="card readingcard">
-    <div class="card-body pt-0">
+    <div class="card-body text-center pt-0 h-100">
         <div class="row justify-content-center">
-            <div class="col-md-1 col-1 text-center">
+            <div class="col-md-2 col-2 text-start">
                 <p-button (click)="goBack()" icon="pi pi-arrow-left"
                           styleClass="p-button-rounded p-button-text text-dark"></p-button>
             </div>
-            <div class="col-md-9 col-9 text-center">
-                <div class="select-title text-nowrap d-flex justify-content-center align-items-center"
-                     style="width: 100%;">
+
+            <div class="col-md-8 col-8 text-center">
+                <div class="select-title text-nowrap d-flex justify-content-between align-items-center"
+                     style="width: 95%;">
                     <div>
                         <h5 class="select-title mb-3" pTooltip="Questions related to the application process are answered"
                             tooltipPosition="top">{{ 'Language Hub' | uppercase }}
@@ -21,8 +22,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-2 mt-2 text-end desktop justify-content-end d-none d-md-flex">
-            </div>
+            <div class="col-md-2 col-2">&nbsp;</div>
         </div>
         <div class="row mt-4">
             <div class="col-md-6">
@@ -34,7 +34,7 @@
                         style="border: 1px solid #f0780e"
                         value="English"
                         [disabled]="true"
-                         />
+                />
             </div>
             <div class="col-md-6">
                 <input
@@ -47,61 +47,42 @@
                         [disabled]="true"
                 />
             </div>
+            <div class="col-md-6 mt-4">
+                <div class="textarea-container">
+                    <textarea [(ngModel)]="text1" placeholder="Type here..."></textarea>
+                    <button (click)="togglePlayPause(1, text1)"  class="button1">
+                        <i [ngClass]="{'fa': true, 'fa-volume-up': isPlaying1, 'fa-play': !isPlaying1}"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="col-md-6 mt-4">
+                <div class="textarea-container">
+                    <textarea [(ngModel)]="text2" placeholder="" ></textarea>
+                    <button (click)="togglePlayPause(2, text2)" class="button1">
+                        <i [ngClass]="{'fa': true, 'fa-volume-up': isPlaying2, 'fa-play': !isPlaying2}"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="col-md-6 mt-4">
+                <div class="textarea-container">
+                    <textarea [(ngModel)]="text3" placeholder="Type here..."></textarea>
+                    <button (click)="togglePlayPause(3, text3)"  class="button1">
+                        <i [ngClass]="{'fa': true, 'fa-volume-up': isPlaying3, 'fa-play': !isPlaying3}"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="col-md-6 mt-4">
+                <div class="textarea-container">
+                    <textarea [(ngModel)]="text4" placeholder="" [disabled]="true"></textarea>
+                    <button (click)="togglePlayPause(4, text4)" class="button1">
+                        <i [ngClass]="{'fa': true, 'fa-volume-up': isPlaying4, 'fa-play': !isPlaying4}"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="col-md-12 mt-4">
+                <button class="how-it-works-button" (click)="translate(text1, text3)">&nbsp;Translate &nbsp;&nbsp;<i class="fa-solid fa-play"></i></button>
+            </div>
         </div>
-<!--        <div>-->
 
-<!--            <h1>Google Cloud Translation and Text-to-Speech</h1>-->
-<!--            <textarea [(ngModel)]="text" rows="4" cols="50"></textarea>-->
-<!--            <br/>-->
-<!--            <button (click)="translateText()">Translate</button>-->
-<!--            <button (click)="synthesizeSpeech()">Speak</button>-->
-<!--            <br/>-->
-<!--            <p>Translated Text: {{ translatedText }}</p>-->
-<!--            <audio *ngIf="audioUrl" controls [src]="audioUrl"></audio>-->
-<!--        </div>-->
-<!--        <div class="row w-100 h-100 m-0 justify-content-center align-items-center">-->
-<!--            <div class="col-md-12 pt-4">-->
-<!--                <h3 style="color:var(&#45;&#45;uniprep-primary);" class="text-center">Convert your salary across countries using PPP</h3>-->
-<!--                <div class="dropdown-container">-->
-<!--                    <div class="form-group">-->
-<!--                        <div class="mb-3">-->
-<!--                            <p-dropdown id="fromCountry" styleClass="w-100" style="width: 100% !important;"-->
-<!--                                        [(ngModel)]="fromCountry" [options]="countries"-->
-<!--                                        [filter]="true"-->
-<!--                                        filterBy="country"-->
-<!--                                        [showClear]="true"-->
-<!--                                        optionLabel="country" (onChange)="onCountryChange($event)"-->
-<!--                                        placeholder="Choose your Location"></p-dropdown>-->
-<!--                        </div>-->
-<!--                    </div>-->
-
-<!--                    <div class="form-group">-->
-<!--                        <div class="mb-3">-->
-<!--                            <p-inputNumber id="salary" styleClass="w-100" style="width: 100% !important;" [(ngModel)]="salary" mode="currency"-->
-<!--                                           currency="{{selectedCurrencyCode}}"-->
-<!--                                           class="custom-input-number full-width-input"></p-inputNumber>-->
-<!--                        </div>-->
-<!--                    </div>-->
-
-<!--                    <div class="form-group">-->
-<!--                        <div class="mb-3">-->
-<!--                            <p-dropdown id="toCountry" styleClass="w-100" [(ngModel)]="toCountry" [options]="countries"-->
-<!--                                        optionLabel="country"-->
-<!--                                        [filter]="true"-->
-<!--                                        filterBy="country"-->
-<!--                                        [showClear]="true"-->
-<!--                                        (onChange)="onCountryToChange($event)"-->
-<!--                                        placeholder="Enter your Destination"></p-dropdown>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                    <div class="row justify-content-center text-center">-->
-<!--                        <button pButton type="button"-->
-<!--                                class="small-button text-white p-ripple p-button-rounded p-button-primary p-button p-component p-2"-->
-<!--                                (click)="convert()">Calculate <i class="fa fa-calculator exhausted-plan-icon"></i></button>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--           -->
-<!--        </div>-->
     </div>
 </div>
