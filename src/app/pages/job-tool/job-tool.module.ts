@@ -20,6 +20,7 @@ import { CostOfLivingComponent } from './cost-of-living/cost-of-living.component
 import { CardModule } from 'primeng/card';
 import { ComparisionComponent } from './cost-of-living/comparision/comparision.component';
 import { SplitButtonModule } from 'primeng/splitbutton';
+import { PipesModule } from '@pipes/pipes.module';
 @NgModule({
   declarations: [
     JobToolComponent,
@@ -44,7 +45,9 @@ import { SplitButtonModule } from 'primeng/splitbutton';
     EditorModule,
     SidebarModule,
     CardModule,
-    SplitButtonModule
+    SplitButtonModule,
+    ReactiveFormsModule,
+    PipesModule
   ],
 })
 export class JobToolModule{ }
