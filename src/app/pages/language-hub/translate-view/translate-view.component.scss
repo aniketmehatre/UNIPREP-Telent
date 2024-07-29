@@ -44,8 +44,16 @@ textarea {
   font-size: 16px;
 }
 
-.how-it-works-button {
+.how-it-works-button1 {
   background-color: var(--uniprep-primary);
+  color: white;
+  padding: 10px;
+  border-radius: 25px;
+  border: none;
+}
+
+.how-it-works-button {
+  background-color: var(--uniprep-secondary);
   color: white;
   padding: 10px;
   border-radius: 25px;
