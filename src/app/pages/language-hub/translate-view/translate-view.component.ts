@@ -50,6 +50,7 @@ export class TranslateViewComponent implements OnInit {
     translateText(text1: any, text2: any) {
         if (text1) {
             this.translateViewService.translate(text1, this.selectedLanguage).subscribe((response: any) => {
+                console.log(response)
                 this.text2 = response.data.translations[0].translatedText;
             });
         }

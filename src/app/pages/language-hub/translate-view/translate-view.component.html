@@ -57,8 +57,8 @@
             </div>
             <div class="col-md-6 mt-4">
                 <div class="textarea-container">
-                    <textarea [(ngModel)]="text2" placeholder="" ></textarea>
-                    <button (click)="togglePlayPause(2, text2)" [disabled]="true" class="button1">
+                    <textarea [(ngModel)]="text2" placeholder="" [disabled]="true" ></textarea>
+                    <button (click)="togglePlayPause(2, text2)"  class="button1">
                         <i [ngClass]="{'fa': true, 'fa-volume-up': isPlaying2, 'fa-play': !isPlaying2}"></i>
                     </button>
                 </div>
