@@ -34,7 +34,7 @@
             <div class="card-body p-3">
                 <div class="row gap-two">
                     <div class="d-flex align-items-center justify-content-between col-md-2"><i class="pi pi-minus" (click)="remove(price.from)"></i>
-                        <div class="count">1</div><i class="pi pi-plus" (click)="addMore(price.from)"></i>
+                        <div class="count">{{price.from.itemCount}}</div><i class="pi pi-plus" (click)="addMore(price.from)"></i>
                     </div>
                     <div class="col-md-7 d-flex align-items-center"><img
                             src="https://fastfood.theringer.com/img/items/3.jpg" alt="">
@@ -43,11 +43,11 @@
                     <div class="col-md-3 d-flex align-items-center justify-content-between">
                         <div>
                             <div class="smallText">{{sourceCountryPrices?.country_name}}</div>
-                            <div class="smallText">${{price.from?.usd?.avg}}</div>
+                            <div class="smallText">${{price.from?.usd?.avg | number: '1.2-2'}}</div>
                         </div>
                         <div>
                             <div class="smallText">{{targetCountryPrices?.country_name}}</div>
-                            <div class="smallText">${{price.to?.usd?.avg}}</div>
+                            <div class="smallText">${{price.to?.usd?.avg | number: '1.2-2'}}</div>
                         </div>
                         <div><i class="pi pi-chart-bar"></i></div>
                     </div>

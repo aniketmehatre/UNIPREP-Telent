@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { CostOfLivingService } from './cost-of-living.service';
-import { City, CostOfLiving } from 'src/app/@Models/cost-of-living';
+import { City, CostOfLiving, Price } from 'src/app/@Models/cost-of-living';
 
 @Component({
   selector: 'uni-cost-of-living',
@@ -45,8 +45,14 @@ export class CostOfLivingComponent implements OnInit {
     var targetCityDetails = this.cities.find(city => city.city_id === this.form.value.targetCity);
     this.costOfLivingService.calculatePrices(sourceCityDetails).subscribe(response => {
       this.sourceCountryPrices = response;
+      this.sourceCountryPrices.prices.forEach((price:Price) => {
+        price.itemCount = 1;
+      })
       this.costOfLivingService.calculatePrices(targetCityDetails).subscribe(response => {
         this.targetCountryPrices = response;
+        this.sourceCountryPrices.prices.forEach((price:Price) => {
+          price.itemCount = 1;
+        })
         this.canShowComparision = true;
       });
     });
