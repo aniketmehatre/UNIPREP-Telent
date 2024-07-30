@@ -67,10 +67,12 @@ export class TranslateViewComponent implements OnInit {
             const audioUrl = 'data:audio/mp3;base64,' + audioContent;
             const audio = new Audio(audioUrl);
             audio.play();
-            this.isPlaying1 = false;
-            this.isPlaying2 = false;
-            this.isPlaying3 = false;
-            this.isPlaying4 = false;
+            audio.addEventListener('ended', () => {
+                this.isPlaying1 = false;
+                this.isPlaying2 = false;
+                this.isPlaying3 = false;
+                this.isPlaying4 = false;
+            });
         });
     }
 
