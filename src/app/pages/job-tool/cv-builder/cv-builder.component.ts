@@ -21,14 +21,14 @@ import { CourseListService } from '../../course-list/course-list.service';
   // ]
 })
 export class CvBuilderComponent implements OnInit {
-  selectedResumeLevel: string = "";
+  selectedResumeLevel: string = "Creative";
   experienceLevel: any = [{id: 1, level: "Fresher"},{id: 2, level: "1-2 Years"},{id: 3, level: "3-5 Years"},{id: 4, level: "5+ Years"},];
   cgpaPercentage: any = [{id:"CGPA", value: "CGPA"},{id:"%", value: "Percentage"}];
   workTypeValue: any = [{id: "Fulltime", value: "Fulltime"}, {id: "Parttime", value: "Parttime"}, {id: "Internship", value: "Internship"},{id: "Freelance", value: "Freelance"}];
   languageProficiency: any = [{id:"Beginner", value:"Beginner"},{id:"Fluent", value: "Fluent"}, { id:"Proficient", value:"Proficient"}, { id:"Native", value:"Native"}];
   skillProficiency: any = [{id:"Basic", value:"Basic"},{id: "Intermediate", value: "Intermediate"}, { id:"Advance", value:"Advance"}];
   enableModule:boolean = true;
-  activePageIndex: number = 1;
+  activePageIndex: number = 2;
   resumeFormInfoData: FormGroup;
   fullScreenVisible:boolean = false;
   products:any = [
@@ -74,7 +74,7 @@ export class CvBuilderComponent implements OnInit {
       user_name: ['vivek kaliyaperumal', [Validators.required]],
       user_job_title: ['Full Stack Developer', [Validators.required]],
       user_email: ['vivek@uniabroad.co.in', [Validators.required]],
-      user_location: ['Mysore, Karnataka, India', [Validators.required]],
+      user_location: ['Mysore, Karnataka', [Validators.required]],
       user_phone: ['+91 9524999563', [Validators.required]],
       user_linkedin:['Vivek Kaliyaperumal'],
       user_website: ['www.ownwebsite.com'],
@@ -177,6 +177,7 @@ export class CvBuilderComponent implements OnInit {
   
   imgOnclick(resumeLevel: any){
     this.selectedResumeLevel = resumeLevel;
+    console.log(this.selectedResumeLevel);
   }
 
 
@@ -377,8 +378,8 @@ export class CvBuilderComponent implements OnInit {
   downloadResume(){
     let formData = this.resumeFormInfoData.value;
     let data = {
-      ...formData, // Spread operator for formData
-      selectedResumeLevel: this.selectedResumeLevel // Adding a new property
+      ...formData, 
+      selectedResumeLevel: this.selectedResumeLevel 
     };
     this.resumeService.downloadResume(data).subscribe(res => {
       window.open(res, '_blank');
