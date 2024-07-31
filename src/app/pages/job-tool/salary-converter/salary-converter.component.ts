@@ -23,7 +23,7 @@ export class SalaryConverterComponent implements OnInit {
   rates: any
   salaryValueConverted: any
   convertedSalary: number | null = null
-  isPPPCardVisible: boolean = true
+  isPPPCardVisible: boolean = false
 
   vvv = [[
       {
@@ -95,10 +95,10 @@ export class SalaryConverterComponent implements OnInit {
   pppFactorFrom: number = 1; // PPP factor for from currency
   pppFactorTo: number = 1; // PPP factor for to currency
   get fromValue() {
-    return this.vvv[0];
+    return this.taxData[0];
   }
   get toValue() {
-    return this.vvv[1];
+    return this.taxData[1];
   }
 
   constructor(private salaryConverterService: SalaryConverterService) {}
@@ -135,12 +135,16 @@ export class SalaryConverterComponent implements OnInit {
     this.selectedCountryCode = event.value.countryCode
     this.selectedCurrencyCode = event.value.currencyCode
     this.selectedCountryName = event.value.countryName
+    this.isPPPCardVisible = false
+    this.taxData = []
   }
 
   onCountryToChange(event: any){
     this.selectedToCountryCode = event.value.countryCode
     this.selectedToCurrencyCode = event.value.currencyCode
     this.selectedToCountryName = event.value.countryName
+    this.isPPPCardVisible = false
+    this.taxData = []
   }
 
   goBack(){

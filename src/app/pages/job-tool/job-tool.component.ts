@@ -38,6 +38,8 @@ export class JobToolComponent implements OnInit {
       this.title = "Cost of living";
     } else if (this.currentRoute.includes("cv-builder")) {
       this.title = "CV Builder";
+    } else if (this.currentRoute.includes("salary-converter")) {
+      this.title = "Global Salary Converter";
     } else {
       this.title = "Coverletter Builder";
     }

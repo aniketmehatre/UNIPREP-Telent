@@ -21,6 +21,8 @@ import { CardModule } from 'primeng/card';
 import { ComparisionComponent } from './cost-of-living/comparision/comparision.component';
 import { SplitButtonModule } from 'primeng/splitbutton';
 import { PipesModule } from '@pipes/pipes.module';
+import {SalaryConverterComponent} from "./salary-converter/salary-converter.component";
+import {PaginatorModule} from "primeng/paginator";
 @NgModule({
   declarations: [
     JobToolComponent,
@@ -28,7 +30,8 @@ import { PipesModule } from '@pipes/pipes.module';
     CvBuilderComponent,
     CoverLetterBuilderComponent,
     CostOfLivingComponent,
-    ComparisionComponent
+    ComparisionComponent,
+      SalaryConverterComponent
   ],
   imports: [
     CommonModule,
@@ -47,7 +50,8 @@ import { PipesModule } from '@pipes/pipes.module';
     CardModule,
     SplitButtonModule,
     ReactiveFormsModule,
-    PipesModule
+    PipesModule,
+    PaginatorModule
   ],
 })
 export class JobToolModule{ }

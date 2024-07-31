@@ -26,6 +26,7 @@ import { MycertificateComponent } from './mycertificate/mycertificate.component'
 import { CareerPlannerComponent } from './career-planner/career-planner.component';
 import { CourseListComponent } from './course-list/course-list.component';
 import { JobToolComponent } from './job-tool/job-tool.component';
+import {SalaryConverterComponent} from "./job-tool/salary-converter/salary-converter.component";
 
 const routes: Routes = [
     {

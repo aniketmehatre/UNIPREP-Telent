@@ -24,4 +24,7 @@ export class CareerToolComponent implements OnInit {
       this.router.navigate(['/pages/job-tool/cost-of-living']);
     }
   }
+  openSalaryConverter(){
+    this.router.navigate(['/pages/job-tool/salary-converter']);
+  }
 }
