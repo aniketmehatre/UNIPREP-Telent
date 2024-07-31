@@ -23,7 +23,32 @@
             </div>
         </div>
         <div class="row w-100 h-100 m-0 justify-content-center align-items-center">
-            <div class="col-md-12 pt-4">
+            <div class="col-3" *ngIf="selectedCountryName">
+                <div class="card responsivecard p-2 text-center">
+                    <div class="card-content">
+                        <h4>{{selectedCountryName}}</h4>
+                        <div class="row" style="width: -webkit-fill-available !important;">
+                            <table class="custom-table">
+                                <thead>
+                                <tr>
+                                    <th>Income</th>
+                                    <th>Tax Rate</th>
+                                    <th>Tax Type</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr *ngFor="let item of fromValue">
+                                    <td>{{item.income}}</td>
+                                    <td>{{item.tax}}</td>
+                                    <td>{{item.type}}</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6">
                 <h3 style="color:var(--uniprep-primary);" class="text-center">Convert your salary across countries using
                     PPP</h3>
                 <div class="dropdown-container">
@@ -68,6 +93,31 @@
                     </div>
                 </div>
             </div>
+            <div class="col-3" *ngIf="selectedToCountryName">
+                <div class="card responsivecard p-2 text-center">
+                    <div class="card-content">
+                        <h4>{{selectedToCountryName}}</h4>
+                        <div class="row" style="width: -webkit-fill-available !important;">
+                            <table class="custom-table">
+                                <thead>
+                                <tr>
+                                    <th>Income</th>
+                                    <th>Tax Rate</th>
+                                    <th>Tax Type</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr *ngFor="let item of toValue">
+                                    <td>{{item.income}}</td>
+                                    <td>{{item.tax}}</td>
+                                    <td>{{item.type}}</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <div class="col-md-12" *ngIf="isPPPCardVisible">
                 <div class="card primary-color w-100" style="position: relative;">
                     <button type="button" class="btn-close text-white" aria-label="Close"
@@ -83,14 +133,14 @@
                                     USD {{ salaryValueConverted | number:'1.2-2' }}
                                     in the {{ selectedToCountryName }}.
                                 </h5>
-<!--                                <h5 class="mt-3 fw-bold">A Salary-->
-<!--                                    of {{ selectedCurrencyCode }} {{ salary | number:'1.2-2' }}-->
-<!--                                    in {{ selectedCountryName }} is-->
-<!--                                    equivalent-->
-<!--                                    to {{ selectedToCurrencyCode }} {{ salaryValueConverted | number:'1.2-2' }}-->
-<!--                                    in {{ selectedToCountryName }}. That's {{ xValue | number:'1.2-2' }} times the-->
-<!--                                    amount your make-->
-<!--                                    in {{ selectedCountryName }}.</h5>-->
+                                <!--                                <h5 class="mt-3 fw-bold">A Salary-->
+                                <!--                                    of {{ selectedCurrencyCode }} {{ salary | number:'1.2-2' }}-->
+                                <!--                                    in {{ selectedCountryName }} is-->
+                                <!--                                    equivalent-->
+                                <!--                                    to {{ selectedToCurrencyCode }} {{ salaryValueConverted | number:'1.2-2' }}-->
+                                <!--                                    in {{ selectedToCountryName }}. That's {{ xValue | number:'1.2-2' }} times the-->
+                                <!--                                    amount your make-->
+                                <!--                                    in {{ selectedCountryName }}.</h5>-->
                             </div>
                         </div>
                     </div>

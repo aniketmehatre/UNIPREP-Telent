@@ -78,3 +78,21 @@
 .custom-input-number .p-inputtext {
   width: 100% !important;
 }
+
+.responsivecard {
+  flex: 1 1 calc(20% - 1rem); /* Adjust this to fit five cards per row */
+  box-sizing: border-box;
+  background-color: #fff !important;
+  border: 2px solid #5664A6FF !important;
+  padding: 0;
+}
+.custom-table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.custom-table th, .custom-table td {
+  border: none;
+  padding: 8px;
+  text-align: left;
+}

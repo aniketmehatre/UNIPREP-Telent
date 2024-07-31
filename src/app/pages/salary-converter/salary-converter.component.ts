@@ -94,7 +94,12 @@ export class SalaryConverterComponent implements OnInit {
   exchangeRate: number = 1; // Default exchange rate
   pppFactorFrom: number = 1; // PPP factor for from currency
   pppFactorTo: number = 1; // PPP factor for to currency
-
+  get fromValue() {
+    return this.vvv[0];
+  }
+  get toValue() {
+    return this.vvv[1];
+  }
 
   constructor(private salaryConverterService: SalaryConverterService) {}
 
