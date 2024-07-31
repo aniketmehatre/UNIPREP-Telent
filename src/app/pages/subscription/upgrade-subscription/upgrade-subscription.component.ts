@@ -55,7 +55,7 @@ export class UpgradeSubscriptionComponent implements OnInit {
   currentCountry: string ="India";
   continent: string = "Asia";
   currency: string = "";
-  monthlyPlan: number = 6;
+  monthlyPlan: number = 3;
   activeTabIndex: number = 0;
 
   constructor(private authService: AuthService,
@@ -219,12 +219,11 @@ export class UpgradeSubscriptionComponent implements OnInit {
     this.subscriptionService.getExistingSubscription().subscribe((response: any) => {
       this.existingSubscription = response.subscription;
       this.existingSubscription.map(plan => plan.subscriptionDays = plan.remainingdays.split('-')[0].trim().replace(/\D/g, ''));
-     /* if (this.existingSubscription[0].subscriptionDays == 90) {
+      if (this.existingSubscription[0].subscriptionDays == 90) {
         this.monthlyPlan = 3;
         this.existingSubscription[0].monthlyPlan = 3;
         //this.activeTabIndex = 0;
-      } else */
-       if (this.existingSubscription[0].subscriptionDays == 90 || this.existingSubscription[0].subscriptionDays == 180) {
+      } else if (this.existingSubscription[0].subscriptionDays == 180) {
         this.monthlyPlan = 6;
         this.existingSubscription[0].monthlyPlan = 6;
         //this.activeTabIndex = 1;

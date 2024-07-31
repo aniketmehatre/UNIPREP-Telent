@@ -14,17 +14,14 @@ export class CareerToolComponent implements OnInit {
   }
 
   chooseOneOption(mode: string){
-    console.log(mode);
-
     this.currentEndpoint = mode;
     if(mode == "cv-builder"){
       this.router.navigate(['/pages/job-tool/cv-builder']);
     }else if(mode == "coverletter-builder"){
       this.router.navigate(['/pages/job-tool/coverletter-builder']);
     }
-  }
-
-  openSalaryConverter(){
-    this.router.navigate(['/pages/salary-converter']);
+    else{
+      this.router.navigate(['/pages/job-tool/cost-of-living']);
+    }
   }
 }

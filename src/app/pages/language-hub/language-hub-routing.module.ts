@@ -5,7 +5,6 @@ import {CategoryListComponent} from "./category-list/category-list.component";
 import {QuestionListComponent} from "./question-list/question-list.component";
 import {LanguageListComponent} from "./language-list/language-list.component";
 import {LanguageHubComponent} from "./language-hub.component";
-import {TranslateViewComponent} from "./translate-view/translate-view.component";
 
 const routes: Routes = [
     {
@@ -22,9 +21,6 @@ const routes: Routes = [
             },
             {
                 path: 'question-list/:id', component: QuestionListComponent,
-            },
-            {
-                path: 'translate-view', component: TranslateViewComponent,
             },
             {
                 path: '', redirectTo: 'languages', pathMatch: 'full'

@@ -69,7 +69,6 @@ import {PdfViewerModule} from "ng2-pdf-viewer";
 import { CareerPlannerComponent } from './career-planner/career-planner.component';
 import { CertificatesComponent } from './certificates/certificates.component';
 import { CourseListComponent } from "./course-list/course-list.component";
-import { SalaryConverterComponent } from './salary-converter/salary-converter.component';
 // import { JobToolComponent } from './job-tool/job-tool.component';
 @NgModule({
     declarations: [
@@ -103,7 +102,6 @@ import { SalaryConverterComponent } from './salary-converter/salary-converter.co
         CareerPlannerComponent,
         CertificatesComponent,
         CourseListComponent,
-        SalaryConverterComponent,
         // JobToolComponent,
         
     ],

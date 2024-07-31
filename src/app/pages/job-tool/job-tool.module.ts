@@ -16,13 +16,19 @@ import { DropdownModule } from 'primeng/dropdown';
 import { AngularFittextModule } from 'angular-fittext';
 import { EditorModule } from 'primeng/editor';
 import { SidebarModule } from 'primeng/sidebar';
-
+import { CostOfLivingComponent } from './cost-of-living/cost-of-living.component';
+import { CardModule } from 'primeng/card';
+import { ComparisionComponent } from './cost-of-living/comparision/comparision.component';
+import { SplitButtonModule } from 'primeng/splitbutton';
+import { PipesModule } from '@pipes/pipes.module';
 @NgModule({
   declarations: [
     JobToolComponent,
     CareerToolComponent,
     CvBuilderComponent,
-    CoverLetterBuilderComponent
+    CoverLetterBuilderComponent,
+    CostOfLivingComponent,
+    ComparisionComponent
   ],
   imports: [
     CommonModule,
@@ -38,6 +44,10 @@ import { SidebarModule } from 'primeng/sidebar';
     AngularFittextModule,
     EditorModule,
     SidebarModule,
+    CardModule,
+    SplitButtonModule,
+    ReactiveFormsModule,
+    PipesModule
   ],
 })
 export class JobToolModule{ }

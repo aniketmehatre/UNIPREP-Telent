@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { TranslateViewComponent } from './translate-view.component';
+import { ComparisionComponent } from './comparision.component';
 
-describe('TranslateViewComponent', () => {
-  let component: TranslateViewComponent;
-  let fixture: ComponentFixture<TranslateViewComponent>;
+describe('ComparisionComponent', () => {
+  let component: ComparisionComponent;
+  let fixture: ComponentFixture<ComparisionComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ TranslateViewComponent ]
+      declarations: [ ComparisionComponent ]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(TranslateViewComponent);
+    fixture = TestBed.createComponent(ComparisionComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
