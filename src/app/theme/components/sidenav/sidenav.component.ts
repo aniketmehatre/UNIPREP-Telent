@@ -119,11 +119,11 @@ export class SidenavComponent {
       url: "/pages/job-portal/job-search",
       image: "fa-solid fa-briefcase",
     },
-    // {
-    //   title: "Language Hub",
-    //   url: "/pages/language-hub",
-    //   image: "fa-solid fa-books",
-    // },
+    {
+      title: "Language Hub",
+      url: "/pages/language-hub",
+      image: "fa-solid fa-books",
+    },
     {
       title: "Learning Hub",
       url: "/pages/modules/learning-hub",
