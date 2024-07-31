@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
-import {TranslateViewService} from "./translate-view.service";
 import {LanguageHubDataService} from "../language-hub-data.service";
 import { Location } from "@angular/common";
+import {TranslateViewService} from "./translate-view.service";
 
 @Component({
     selector: 'uni-translate-view',

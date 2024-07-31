@@ -17,6 +17,7 @@ import {TooltipModule} from "primeng/tooltip";
 import {SkeletonModule} from "primeng/skeleton";
 import {CardModule} from "primeng/card";
 import {PaginatorModule} from "primeng/paginator";
+import {TranslateViewComponent} from "./translate-view/translate-view.component";
 
 
 @NgModule({
@@ -25,7 +26,8 @@ import {PaginatorModule} from "primeng/paginator";
     LanguageListComponent,
     LevelsComponent,
     CategoryListComponent,
-    QuestionListComponent
+    QuestionListComponent,
+      TranslateViewComponent
   ],
   imports: [
     CommonModule,
