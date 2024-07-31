@@ -31,9 +31,9 @@ export class CourseListService {
     });
   }
 
-  downloadResume(){
+  downloadResume(data: any){
     const headers = new HttpHeaders().set("Accept", "application/json");
-    return this.http.post<any>(environment.ApiUrl + "/downloadResume", {
+    return this.http.post<any>(environment.ApiUrl + "/downloadResume", data ,{
       headers: headers,
     });
   }
