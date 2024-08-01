@@ -5,7 +5,7 @@
 			<h5 class="text-center uniprep-primary">Traditional</h5>
 			<div class="cvBuilderSampleImg" [ngClass]="{ selectedResumeLevel: selectedResumeLevel == 'Traditional' }"
 				(click)="imgOnclick('Traditional')">
-				<img src="https://api.uniprep.ai/uniprepapi/storage/app/public/job-search/Traditional.webp"
+				<img src="../../../uniprep-assets/resume-images/Traditional.webp"
 					alt="Traditional" />
 				<button *ngIf="selectedResumeLevel == 'Traditional'" class="center-button">Selected <i
 						class="fa-solid fa-check tickIcon"></i></button>
@@ -15,7 +15,7 @@
 			<h5 class="text-center uniprep-primary">Modern</h5>
 			<div class="cvBuilderSampleImg" [ngClass]="{ selectedResumeLevel: selectedResumeLevel == 'Modern' }"
 				(click)="imgOnclick('Modern')">
-				<img src="https://api.uniprep.ai/uniprepapi/storage/app/public/job-search/Modern.webp"
+				<img src="../../../uniprep-assets/resume-images/Modern.webp"
 					alt="Modern" />
 				<button *ngIf="selectedResumeLevel == 'Modern'" class="center-button">Selected <i
 						class="fa-solid fa-check tickIcon"></i></button>
@@ -25,7 +25,7 @@
 			<h5 class="text-center uniprep-primary">Creative</h5>
 			<div class="cvBuilderSampleImg" [ngClass]="{ selectedResumeLevel: selectedResumeLevel == 'Creative' }"
 				(click)="imgOnclick('Creative')">
-				<img src="https://api.uniprep.ai/uniprepapi/storage/app/public/job-search/Creative.webp"
+				<img src="../../../uniprep-assets/resume-images/Creative.webp"
 					alt="Functional" />
 				<button *ngIf="selectedResumeLevel == 'Creative'" class="center-button">Selected <i
 						class="fa-solid fa-check tickIcon"></i></button>
@@ -35,7 +35,7 @@
 			<h5 class="text-center uniprep-primary">Functional</h5>
 			<div class="cvBuilderSampleImg" [ngClass]="{ selectedResumeLevel: selectedResumeLevel == 'Functional' }"
 				(click)="imgOnclick('Functional')">
-				<img src="https://api.uniprep.ai/uniprepapi/storage/app/public/job-search/functional.webp"
+				<img src="../../../uniprep-assets/resume-images/functional.webp"
 					alt="Creative" />
 				<button *ngIf="selectedResumeLevel == 'Functional'" class="center-button">Selected <i
 						class="fa-solid fa-check tickIcon"></i></button>
@@ -45,7 +45,7 @@
 			<h5 class="text-center uniprep-primary">Academic</h5>
 			<div class="cvBuilderSampleImg" [ngClass]="{ selectedResumeLevel: selectedResumeLevel == 'Academic' }"
 				(click)="imgOnclick('Academic')">
-				<img src="https://api.uniprep.ai/uniprepapi/storage/app/public/job-search/academic.webp"
+				<img src="../../../uniprep-assets/resume-images/academic.webp"
 					alt="Academic" />
 				<button *ngIf="selectedResumeLevel == 'Academic'" class="center-button">Selected <i
 						class="fa-solid fa-check tickIcon"></i></button>
@@ -66,11 +66,11 @@
 				<h3 class="text-center uniprep-primary">Your Resume</h3>
 				<h5 class="text-center uniprep-primary">{{ selectedResumeLevel }}</h5>
 				<div class="cvBuilderSampleImg">
-					<img *ngIf="selectedResumeLevel == 'Traditional'" src="https://api.uniprep.ai/uniprepapi/storage/app/public/job-search/Traditional.webp"/>
-					<img *ngIf="selectedResumeLevel == 'Modern'" src="https://api.uniprep.ai/uniprepapi/storage/app/public/job-search/Modern.webp"/>
-					<img *ngIf="selectedResumeLevel == 'Creative'" src="https://api.uniprep.ai/uniprepapi/storage/app/public/job-search/Creative.webp"/>
-					<img *ngIf="selectedResumeLevel == 'Functional'" src="https://api.uniprep.ai/uniprepapi/storage/app/public/job-search/functional.webp"/>
-					<img *ngIf="selectedResumeLevel == 'Academic'" src="https://api.uniprep.ai/uniprepapi/storage/app/public/job-search/academic.webp"/>
+					<img *ngIf="selectedResumeLevel == 'Traditional'" src="../../../uniprep-assets/resume-images/Traditional.webp"/>
+					<img *ngIf="selectedResumeLevel == 'Modern'" src="../../../uniprep-assets/resume-images/Modern.webp"/>
+					<img *ngIf="selectedResumeLevel == 'Creative'" src="../../../uniprep-assets/resume-images/Creative.webp"/>
+					<img *ngIf="selectedResumeLevel == 'Functional'" src="../../../uniprep-assets/resume-images/functional.webp"/>
+					<img *ngIf="selectedResumeLevel == 'Academic'" src="../../../uniprep-assets/resume-images/academic.webp"/>
 				</div>
 			</div>
 			<div class="d-flex justify-content-center align-items-center">
