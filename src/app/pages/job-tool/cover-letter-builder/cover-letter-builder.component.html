@@ -1,1 +1,933 @@
-<p>cover-letter-builder works!</p>
+<div class="container-fluid" *ngIf="activePageIndex == 1">
+	<h3 class="text-center uniprep-primary">Select your CV style to get started</h3>
+	<div class="d-flex justify-content-between">
+		<div>
+			<h5 class="text-center uniprep-primary">Traditional</h5>
+			<div class="cvBuilderSampleImg"
+				[ngClass]="{ selectedResumeLevel: selectedResumeLevel == 'Traditional' }"
+				(click)="imgOnclick('Traditional')">
+				<img src="https://api.uniprep.ai/uniprepapi/storage/app/public/SampleUploadDocuments/cover_letter/traditional.png"
+					alt="Traditional" />
+				<button *ngIf="selectedResumeLevel == 'Traditional'" class="center-button">Selected <i
+						class="fa-solid fa-check tickIcon"></i></button>
+			</div>
+		</div>
+		<div>
+			<h5 class="text-center uniprep-primary">Modern</h5>
+			<div class="cvBuilderSampleImg"
+				[ngClass]="{ selectedResumeLevel: selectedResumeLevel == 'Modern' }"
+				(click)="imgOnclick('Modern')">
+				<img src="https://api.uniprep.ai/uniprepapi/storage/app/public/SampleUploadDocuments/cover_letter/modern.png"
+					alt="Modern" />
+				<button *ngIf="selectedResumeLevel == 'Modern'" class="center-button">Selected <i class="fa-solid fa-check tickIcon"></i></button>
+			</div>
+		</div>
+		<div>
+			<h5 class="text-center uniprep-primary">Creative</h5>
+			<div class="cvBuilderSampleImg"
+				[ngClass]="{ selectedResumeLevel: selectedResumeLevel == 'Creative' }"
+				(click)="imgOnclick('Creative')">
+				<img src="https://api.uniprep.ai/uniprepapi/storage/app/public/SampleUploadDocuments/cover_letter/creative.png"
+					alt="Functional" />
+				<button *ngIf="selectedResumeLevel == 'Creative'" class="center-button">Selected <i
+						class="fa-solid fa-check tickIcon"></i></button>
+			</div>
+		</div>
+		<div>
+			<h5 class="text-center uniprep-primary">Functional</h5>
+			<div class="cvBuilderSampleImg"
+				[ngClass]="{ selectedResumeLevel: selectedResumeLevel == 'Functional' }"
+				(click)="imgOnclick('Functional')">
+				<img src="https://api.uniprep.ai/uniprepapi/storage/app/public/SampleUploadDocuments/cover_letter/functional.png"
+					alt="Creative" />
+				<button *ngIf="selectedResumeLevel == 'Functional'" class="center-button">Selected <i
+						class="fa-solid fa-check tickIcon"></i></button>
+			</div>
+		</div>
+		<div>
+			<h5 class="text-center uniprep-primary">Academic</h5>
+			<div class="cvBuilderSampleImg"
+				[ngClass]="{ selectedResumeLevel: selectedResumeLevel == 'Academic' }"
+				(click)="imgOnclick('Academic')">
+				<img src="https://api.uniprep.ai/uniprepapi/storage/app/public/SampleUploadDocuments/cover_letter/academic.png"
+					alt="Academic" />
+				<button *ngIf="selectedResumeLevel == 'Academic'" class="center-button">Selected <i
+						class="fa-solid fa-check tickIcon"></i></button>
+			</div>
+		</div>
+	</div>
+	<div class="row justify-content-center">
+		<div class="col-md-4 mt-5">
+			<button class="createResumeButton" (click)="shakeButton($event)">Create your Resume &nbsp;&nbsp;&nbsp;<i class="fa-solid fa-arrow-right tickIcon"></i></button>
+		</div>
+	</div>
+</div>
+<div class="container-fluid" *ngIf="activePageIndex == 3">
+	<div class="row justify-content-center">
+		<div class="flex-column">
+			<div>
+				<h3 class="text-center uniprep-primary">Your Resume</h3>
+				<h5 class="text-center uniprep-primary">Creative</h5>
+				<div class="cvBuilderSampleImg">
+					<img src="https://api.uniprep.ai/uniprepapi/storage/app/public/job-search/basic.webp" alt="basic" />
+				</div>
+			</div>
+			<div class="d-flex justify-content-center align-items-center">
+				<button class="downloadButton" >Download &nbsp;&nbsp;&nbsp;<i class="fa-solid fa-download tickIcon"></i></button>
+			</div>
+			<div class="d-flex justify-content-end" >
+				<button class="downloadButton" style="margin: 0px;" (click)="next()">CV Builder &nbsp;&nbsp;&nbsp;<i class="fa-sharp fa-regular fa-house tickIcon"></i></button>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="container-fluid" *ngIf="activePageIndex == 4">
+	<div class="row justify-content-center">
+		<div class="flex-column">
+			<div>
+				<h3 class="text-center uniprep-primary">Your Resumes</h3>
+				<div class="cvSampleImg">
+					<div class="flex-column">
+						<img src="https://api.uniprep.ai/uniprepapi/storage/app/public/job-search/basic.webp" alt="basic" />
+						<p>Version 1</p>
+						<small>02-07-2024 12:38PM</small>
+					</div>
+					<div class="flex-column">
+						<img src="https://api.uniprep.ai/uniprepapi/storage/app/public/job-search/basic.webp" alt="basic" />
+						<p>Version 2</p>
+						<small>02-07-2024 12:38PM</small>
+					</div>
+					<div class="flex-column">
+						<img src="https://api.uniprep.ai/uniprepapi/storage/app/public/job-search/basic.webp" alt="basic" />
+						<p>Version 3</p>
+						<small>02-07-2024 12:38PM</small>
+					</div>
+					<div class="flex-column">
+						<img src="https://api.uniprep.ai/uniprepapi/storage/app/public/job-search/basic.webp" alt="basic" />
+						<p>Version 4</p>
+						<small>02-07-2024 12:38PM</small>
+					</div>
+					<div class="flex-column">
+						<img src="https://api.uniprep.ai/uniprepapi/storage/app/public/job-search/basic.webp" alt="basic" />
+						<p>Version 5</p>
+						<small>02-07-2024 12:38PM</small>
+					</div>
+				</div>
+			</div>
+			<div class="row justify-content-center">
+				<div class="col-md-4 mt-5">
+					<button class="createResumeButton" (click)="shakeButton($event)">Create your Resume &nbsp;&nbsp;&nbsp;<i class="fa-solid fa-arrow-right tickIcon"></i></button>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="container-fluid h-100" *ngIf="activePageIndex == 2">
+	<div class="row h-100">
+		<div class="col-md-6 h-100 overflow-y-auto">
+			<form role="form" class="row" [formGroup]="resumeFormInfoData" (ngSubmit)="resumeFormSubmit()">
+				<div class="col-md-12 mb-3">
+					<h4 class="p-mb-2 PageTitle">Your Experience Level</h4>
+					<p-dropdown [options]="experienceLevel" (onChange)="changeExperience($event)" styleClass="w-100"
+						formControlName="selected_exp_level" optionLabel="level" optionValue="id"></p-dropdown>
+				</div>
+				<div class="col-md-12 mb-3">
+					<h4 class="p-mb-2 PageTitle">Enter Your Personal Information</h4>
+					<div class="row">
+						<div class="col-md-6">
+							<label class="form-label labelFont">Your Name</label>
+							<div class="form-group">
+								<div class="mb-3">
+									<input class="w-100" type="text" placeholder="Full Name" formControlName="user_name"
+										pInputText />
+								</div>
+							</div>
+						</div>
+						<div class="col-md-6">
+							<label class="form-label labelFont">Job Title</label>
+							<div class="form-group">
+								<div class="mb-3">
+									<input class="w-100" type="text" placeholder="your Job Title"
+										formControlName="user_job_title" pInputText />
+								</div>
+							</div>
+						</div>
+						<div class="col-md-6">
+							<label class="form-label labelFont">Your Email</label>
+							<div class="form-group">
+								<div class="mb-3">
+									<input class="w-100" type="text" placeholder="Email Address"
+										formControlName="user_email" pInputText />
+								</div>
+							</div>
+						</div>
+						<div class="col-md-6">
+							<label class="form-label labelFont">Current Address</label>
+							<div class="form-group">
+								<div class="mb-3">
+									<input class="w-100" type="text" placeholder="Your Location"
+										formControlName="user_location" pInputText />
+								</div>
+							</div>
+						</div>
+						<div class="col-md-6">
+							<label class="form-label labelFont">Phone Number</label>
+							<div class="form-group">
+								<div class="mb-3">
+									<input class="w-100" type="text" placeholder="Phone Number"
+										formControlName="user_phone" pInputText />
+								</div>
+							</div>
+						</div>
+						<div class="col-md-6">
+							<label class="form-label labelFont">LinkedIn Link</label>
+							<div class="form-group">
+								<div class="mb-3">
+									<input class="w-100" type="text" placeholder="LinkedIn profile link"
+										formControlName="user_linkedin" pInputText />
+								</div>
+							</div>
+						</div>
+						<div class="col-md-12">
+							<label class="form-label labelFont">Website</label>
+							<div class="form-group">
+								<div class="mb-3">
+									<input class="w-100" type="text" placeholder="Website or portfolio Link"
+										formControlName="user_website" pInputText />
+								</div>
+							</div>
+						</div>
+						<div class="col-md-12">
+							<label class="form-label labelFont">Summary</label>
+							<div class="form-group">
+								<div class="mb-3">
+									<p-editor formControlName="user_summary" placeholder="About yourself"></p-editor>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-12">
+					<h4 class="p-mb-1 PageTitle">Enter Your Educational Details</h4>
+					<div class="col-md-12">
+						<div class="card mb-2" *ngFor="let hobby of getEduDetailsArray.controls; let i = index"
+							formArrayName="EduDetailsArray">
+							<div class="card-body">
+								<div [formGroupName]="i">
+									<div class="row">
+										<div class="col-md-6">
+											<label class="form-label labelFont">College/School Name</label>
+											<div class="form-group">
+												<div class="mb-3">
+													<input class="w-100" type="text" placeholder="College Name"
+														formControlName="edu_college_name" pInputText />
+												</div>
+											</div>
+										</div>
+										<div class="col-md-6">
+											<label class="form-label labelFont">Education Year </label>
+											<div class="row">
+												<div class="col-md-6">
+													<div class="form-group">
+														<div class="mb-3">
+															<input class="w-100" type="text" placeholder="Start Year"
+																formControlName="edu_start_year" pInputText />
+														</div>
+													</div>
+												</div>
+												<div class="col-md-6">
+													<div class="form-group">
+														<div class="mb-3">
+															<input class="w-100" type="text" placeholder="End Year"
+																formControlName="edu_end_year" pInputText />
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="col-md-6">
+											<label class="form-label labelFont">Degree</label>
+											<div class="form-group">
+												<div class="mb-3">
+													<input class="w-100" type="text" placeholder="your Degree"
+														formControlName="edu_degree" pInputText />
+												</div>
+											</div>
+										</div>
+										<div class="col-md-6">
+											<label class="form-label labelFont">Location</label>
+											<div class="form-group">
+												<div class="mb-3">
+													<input class="w-100" type="text" placeholder="Education Location"
+														formControlName="edu_location" pInputText />
+												</div>
+											</div>
+										</div>
+										<div class="col-md-9">
+											<label class="form-label labelFont">Percentage</label>
+											<div class="form-group">
+												<div class="mb-3">
+													<input class="w-100" type="text" placeholder="Achieved Score"
+														formControlName="edu_percentage" pInputText />
+												</div>
+											</div>
+										</div>
+										<div class="col-md-3">
+											<label class="form-label labelFont">&nbsp;</label>
+											<div class="form-group">
+												<div class="mb-3">
+													<p-dropdown [options]="cgpaPercentage" styleClass="w-100"
+														formControlName="edu_cgpa_percentage" optionLabel="value"
+														optionValue="id"></p-dropdown>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="d-flex justify-content-end align-items-center">
+									<button class="deleteDivButton" *ngIf="getEduDetailsArray.length != 1"
+										(click)="clickDeleteButton('education_detail', i)">Delete &nbsp;<i
+											class="fa-solid fa-trash trashIcon"></i></button>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-12">
+					<div class="d-flex justify-content-center align-items-center m-3">
+						<button class="addMoreButton" *ngIf="getEduDetailsArray.length < eduDetailsLimit"
+							(click)="clickAddMoreButton('education_detail')">Add More &nbsp;<i
+								class="fa-solid fa-plus tickIcon"></i></button>
+					</div>
+					<h4 class="p-mb-1 PageTitle">Enter Your Work Experience</h4>
+					<div class="col-md-12">
+						<div class="card mb-2" *ngFor="let hobby of getWorkExpArray.controls; let i = index"
+							formArrayName="workExpArray">
+							<div class="card-body">
+								<div [formGroupName]="i">
+									<div class="row">
+										<div class="col-md-6">
+											<label class="form-label labelFont">Organization Name</label>
+											<div class="form-group">
+												<div class="mb-3">
+													<input class="w-100" type="text" placeholder="Organization Name"
+														formControlName="work_org_name" pInputText />
+												</div>
+											</div>
+										</div>
+										<div class="col-md-6">
+											<label class="form-label labelFont">Experience Year </label>
+											<div class="row">
+												<div class="col-md-6">
+													<div class="form-group">
+														<div class="mb-3">
+															<input class="w-100" type="text" placeholder="Start Year"
+																formControlName="work_start_year" pInputText />
+														</div>
+													</div>
+												</div>
+												<div class="col-md-6">
+													<div class="form-group">
+														<div class="mb-3">
+															<input class="w-100" type="text" placeholder="End Year"
+																formControlName="work_end_year" pInputText />
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="col-md-12">
+											<label class="form-label labelFont">Designation</label>
+											<div class="form-group">
+												<div class="mb-3">
+													<input class="w-100" type="text" placeholder="your Designation"
+														formControlName="work_designation" pInputText />
+												</div>
+											</div>
+										</div>
+										<div class="col-md-6">
+											<label class="form-label labelFont">Work Type</label>
+											<div class="form-group">
+												<div class="mb-3">
+													<p-dropdown [options]="workTypeValue" placeholder="select Work Type"
+														styleClass="w-100" formControlName="work_type"
+														optionLabel="value" optionValue="id"></p-dropdown>
+												</div>
+											</div>
+										</div>
+										<div class="col-md-6">
+											<label class="form-label labelFont">Location</label>
+											<div class="form-group">
+												<div class="mb-3">
+													<input class="w-100" type="text" placeholder="Education Location"
+														formControlName="work_location" pInputText />
+												</div>
+											</div>
+										</div>
+										<div class="col-md-12">
+											<label class="form-label labelFont">Job Description</label>
+											<div class="form-group">
+												<div class="mb-3">
+													<p-editor formControlName="work_job_description"
+														placeholder="About Job Description"></p-editor>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="d-flex justify-content-end align-items-center">
+									<button (click)="clickDeleteButton('work_experience', i)"
+										*ngIf="getWorkExpArray.length != 1" class="deleteDivButton">Delete &nbsp;<i
+											class="fa-solid fa-trash trashIcon"></i></button>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="d-flex justify-content-center align-items-center m-3">
+						<button class="addMoreButton" *ngIf="getWorkExpArray.length < wrkExpLimit"
+							(click)="clickAddMoreButton('work_experience')">Add More &nbsp;<i
+								class="fa-solid fa-plus tickIcon"></i></button>
+					</div>
+				</div>
+				<div class="col-md-12">
+					<ng-container *ngIf="f['selected_exp_level'].value == 1">
+						<h4 class="p-mb-1 PageTitle">Enter Your Project Details</h4>
+						<div class="card mb-2" *ngFor="let hobby of getProjectDetailsArray.controls; let i = index"
+							formArrayName="projectDetailsArray">
+							<div class="card-body">
+								<div [formGroupName]="i">
+									<div class="row">
+										<div class="col-md-6">
+											<label class="form-label labelFont">Project Name</label>
+											<div class="form-group">
+												<div class="mb-3">
+													<input class="w-100" type="text" placeholder="Project Name"
+														formControlName="project_name" pInputText />
+												</div>
+											</div>
+										</div>
+										<div class="col-md-6">
+											<label class="form-label labelFont">project Time </label>
+											<div class="row">
+												<div class="col-md-6">
+													<div class="form-group">
+														<div class="mb-3">
+															<input class="w-100" type="text" placeholder="Start Year"
+																formControlName="project_start_name" pInputText />
+														</div>
+													</div>
+												</div>
+												<div class="col-md-6">
+													<div class="form-group">
+														<div class="mb-3">
+															<input class="w-100" type="text" placeholder="End Year"
+																formControlName="project_end_name" pInputText />
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="col-md-12">
+											<label class="form-label labelFont">Project Description</label>
+											<div class="form-group">
+												<div class="mb-3">
+													<p-editor formControlName="project_description"
+														placeholder="Project Description"></p-editor>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="d-flex justify-content-end align-items-center">
+									<button class="deleteDivButton" *ngIf="getProjectDetailsArray.length != 1"
+										(click)="clickDeleteButton('project_details', i)">Delete &nbsp;<i
+											class="fa-solid fa-trash trashIcon"></i></button>
+								</div>
+							</div>
+						</div>
+						<div class="d-flex justify-content-center align-items-center m-3">
+							<button *ngIf="getProjectDetailsArray.length < projectLimit"
+								(click)="clickAddMoreButton('project_details')" class="addMoreButton">Add More &nbsp;<i
+									class="fa-solid fa-plus tickIcon"></i></button>
+						</div>
+					</ng-container>
+				</div>
+				<div class="col-md-12">
+					<h4 class="p-mb-1 PageTitle">Languages Known</h4>
+					<div *ngFor="let hobby of getLanguagesKnownArray.controls; let i = index"
+						formArrayName="languagesKnownArray">
+						<div [formGroupName]="i">
+							<div class="row">
+								<div [ngClass]="getLanguagesKnownArray.length === 1 ? 'col-md-9' : 'col-md-6'">
+									<div class="form-group">
+										<div class="mb-3">
+											<input class="w-100" type="text" placeholder="Language"
+												formControlName="language" pInputText />
+										</div>
+									</div>
+								</div>
+								<div [ngClass]="getLanguagesKnownArray.length === 1 ? 'col-md-3' : 'col-md-6'">
+									<div class="row">
+										<div [ngClass]="getLanguagesKnownArray.length === 1 ? 'col-md-12' : 'col-md-7'">
+											<div class="form-group">
+												<div class="mb-3">
+													<p-dropdown [options]="languageProficiency"
+														placeholder="Proficiency Level" styleClass="w-100"
+														formControlName="lang_proficiency" optionLabel="value"
+														optionValue="id"></p-dropdown>
+												</div>
+											</div>
+										</div>
+										<div class="col-md-5">
+											<button class="deleteDivButton" *ngIf="getLanguagesKnownArray.length != 1"
+												(click)="clickDeleteButton('language_known', i)">Delete &nbsp;<i
+													class="fa-solid fa-trash trashIcon"></i></button>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="d-flex justify-content-center align-items-center m-3">
+						<button class="addMoreButton" *ngIf="getLanguagesKnownArray.length < languageLimit"
+							(click)="clickAddMoreButton('language_known')">Add More &nbsp;<i
+								class="fa-solid fa-plus tickIcon"></i></button>
+					</div>
+				</div>
+				<div class="col-md-12">
+					<h4 class="p-mb-1 PageTitle">Your Technical Skills</h4>
+					<div *ngFor="let hobby of getSkillsArray.controls; let i = index" formArrayName="skillsArray">
+						<div [formGroupName]="i">
+							<div class="row">
+								<div [ngClass]="getSkillsArray.length === 1 ? 'col-md-9' : 'col-md-6'">
+									<div class="form-group">
+										<div class="mb-3">
+											<input class="w-100" type="text" placeholder="Add Your Skills"
+												formControlName="skills" pInputText />
+										</div>
+									</div>
+								</div>
+								<div [ngClass]="getSkillsArray.length === 1 ? 'col-md-3' : 'col-md-6'">
+									<div class="row">
+										<div [ngClass]="getSkillsArray.length === 1 ? 'col-md-12' : 'col-md-7'">
+											<div class="form-group">
+												<div class="mb-3">
+													<p-dropdown [options]="skillProficiency" styleClass="w-100"
+														placeholder="Proficiency Level"
+														formControlName="skills_proficiency" optionLabel="value"
+														optionValue="id"></p-dropdown>
+												</div>
+											</div>
+										</div>
+										<div class="col-md-5">
+											<button (click)="clickDeleteButton('skills', i)"
+												*ngIf="getSkillsArray.length != 1" class="deleteDivButton">Delete
+												&nbsp;<i class="fa-solid fa-trash trashIcon"></i></button>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="d-flex justify-content-center align-items-center m-3">
+						<button class="addMoreButton" *ngIf="getSkillsArray.length < techSkillLimit"
+							(click)="clickAddMoreButton('skills')">Add More &nbsp;<i
+								class="fa-solid fa-plus tickIcon"></i></button>
+					</div>
+				</div>
+				<div class="col-md-12">
+					<h4 class="p-mb-1 PageTitle">Your Hobbies</h4>
+					<div *ngFor="let hobby of getHobbiesArray.controls; let i = index" formArrayName="hobbiesArray">
+						<div [formGroupName]="i">
+							<div class="row">
+								<div [ngClass]="getHobbiesArray.length === 1 ? 'col-md-12' : 'col-md-9'">
+									<div class="form-group">
+										<div class="mb-3">
+											<input class="w-100" type="text" placeholder="Add Your Hobbies"
+												formControlName="hobbies" name="hobby{{ i }}" pInputText />
+										</div>
+									</div>
+								</div>
+								<div class="col-md-3">
+									<button class="deleteDivButton" *ngIf="getHobbiesArray.length != 1"
+										(click)="clickDeleteButton('Hobby', i)">Delete &nbsp;<i
+											class="fa-solid fa-trash trashIcon"></i></button>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="d-flex justify-content-center align-items-center m-3">
+						<button *ngIf="getHobbiesArray.length < hobbyLimit" (click)="clickAddMoreButton('Hobby')"
+							class="addMoreButton">Add More &nbsp;<i class="fa-solid fa-plus tickIcon"></i></button>
+					</div>
+				</div>
+				<div class="col-md-12">
+					<h4 class="p-mb-1 PageTitle">Extra Curricular Activities</h4>
+					<div *ngFor="let hobby of getExtraCurricularArray.controls; let i = index"
+						formArrayName="extraCurricularArray">
+						<div [formGroupName]="i">
+							<div class="row">
+								<div [ngClass]="getExtraCurricularArray.length === 1 ? 'col-md-12' : 'col-md-9'">
+									<div class="form-group">
+										<div class="mb-3">
+											<input class="w-100" type="text" placeholder="Extra Activities"
+												formControlName="extra_curricular_activites" pInputText />
+										</div>
+									</div>
+								</div>
+								<div class="col-md-3">
+									<button class="deleteDivButton" *ngIf="getExtraCurricularArray.length != 1"
+										(click)="clickDeleteButton('extra_curricular', i)">Delete &nbsp;<i
+											class="fa-solid fa-trash trashIcon"></i></button>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="d-flex justify-content-center align-items-center m-3">
+						<button class="addMoreButton" *ngIf="getExtraCurricularArray.length < extraCurriLimit"
+							(click)="clickAddMoreButton('extra_curricular')">Add More &nbsp;<i
+								class="fa-solid fa-plus tickIcon"></i></button>
+					</div>
+				</div>
+				<div class="col-md-12">
+					<h4 class="p-mb-1 PageTitle">Certifications</h4>
+					<div class="card mb-2" *ngFor="let hobby of getCertificatesArray.controls; let i = index"
+						formArrayName="certificatesArray">
+						<div class="card-body">
+							<div [formGroupName]="i">
+								<div class="row">
+									<div class="col-md-6">
+										<label class="form-label labelFont">Certificate Name</label>
+										<div class="form-group">
+											<div class="mb-3">
+												<input class="w-100" type="text" placeholder="Name"
+													formControlName="certificate_name" pInputText />
+											</div>
+										</div>
+									</div>
+									<div class="col-md-6">
+										<label class="form-label labelFont">Certificate Issued</label>
+										<div class="form-group">
+											<div class="mb-3">
+												<input class="w-100" type="text" placeholder="Issue Date"
+													formControlName="certificate_issued" pInputText />
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-md-6">
+										<label class="form-label labelFont">Certificate ID(Optional)</label>
+										<div class="form-group">
+											<div class="mb-3">
+												<input class="w-100" type="text" placeholder="Certificate ID"
+													formControlName="certificate_id" pInputText />
+											</div>
+										</div>
+									</div>
+									<div class="col-md-6">
+										<label class="form-label labelFont">Certificate Link(Optional)</label>
+										<div class="form-group">
+											<div class="mb-3">
+												<input class="w-100" type="text" placeholder="certificate Link"
+													formControlName="certicate_link" pInputText />
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="d-flex justify-content-end align-items-center">
+								<button class="deleteDivButton" *ngIf="getCertificatesArray.length != 1"
+									(click)="clickDeleteButton('certificate', i)">Delete &nbsp;<i
+										class="fa-solid fa-trash trashIcon"></i></button>
+							</div>
+						</div>
+					</div>
+					<div class="d-flex justify-content-center align-items-center m-3">
+						<button class="addMoreButton" *ngIf="getCertificatesArray.length < certificateLimit"
+							(click)="clickAddMoreButton('certificate')">Add More &nbsp;<i
+								class="fa-solid fa-plus tickIcon"></i></button>
+					</div>
+				</div>
+				<div class="col-md-12">
+					<h4 class="p-mb-1 PageTitle">References</h4>
+					<div class="card mb-2" *ngFor="let hobby of getReferenceArray.controls; let i = index"
+						formArrayName="referenceArray">
+						<div class="card-body">
+							<div [formGroupName]="i">
+								<div class="row">
+									<div class="col-md-12">
+										<label class="form-label labelFont">Reference Name</label>
+										<div class="form-group">
+											<div class="mb-3">
+												<input class="w-100" type="text" placeholder="Name"
+													formControlName="ref_name" pInputText />
+											</div>
+										</div>
+										<div class="row">
+											<div class="col-md-6">
+												<label class="form-label labelFont">Reference Position</label>
+												<div class="form-group">
+													<div class="mb-3">
+														<input class="w-100" type="text" placeholder="Position"
+															formControlName="ref_position" pInputText />
+													</div>
+												</div>
+											</div>
+											<div class="col-md-6">
+												<label class="form-label labelFont">Reference Organization</label>
+												<div class="form-group">
+													<div class="mb-3">
+														<input class="w-100" type="text" placeholder="Organization Name"
+															formControlName="ref_organization" pInputText />
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="row">
+											<div class="col-md-6">
+												<label class="form-label labelFont">Reference Contact Email</label>
+												<div class="form-group">
+													<div class="mb-3">
+														<input class="w-100" type="text" placeholder="Email ID"
+															formControlName="ref_email" pInputText />
+													</div>
+												</div>
+											</div>
+											<div class="col-md-6">
+												<label class="form-label labelFont">Reference Contact Number</label>
+												<div class="form-group">
+													<div class="mb-3">
+														<input class="w-100" type="text" placeholder="Contact Number"
+															formControlName="ref_contact" pInputText />
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="d-flex justify-content-end align-items-center">
+								<button class="deleteDivButton" *ngIf="getReferenceArray.length != 1"
+									(click)="clickDeleteButton('reference', i)">Delete &nbsp;<i
+										class="fa-solid fa-trash trashIcon"></i></button>
+							</div>
+						</div>
+					</div>
+					<div class="d-flex justify-content-center align-items-center m-3">
+						<button class="addMoreButton" *ngIf="getReferenceArray.length < referenceLimit"
+							(click)="clickAddMoreButton('reference')">Add More &nbsp;<i
+								class="fa-solid fa-plus tickIcon"></i></button>
+					</div>
+				</div>
+			</form>
+		</div>
+		<div class="col-md-6 h-100">
+			<div class="card h-100">
+				<div class="card-header d-flex justify-content-between align-items-center PageTitle">
+					<h4 class="p-mb-1">Preview</h4>
+					<div class="gap-2">
+						<span class="templateButton">Template<span class="templateName">Basic</span></span>
+						<ng-container *ngTemplateOutlet="colorPickerContent"></ng-container>
+					</div>
+					<i class="fa-sharp fa-solid fa-expand" style="cursor: pointer" (click)="toggleFullScreen()"></i>
+				</div>
+				<div class="card-body h-100 overflow-hidden">
+					<div class="previewcontainer">
+						<div class="previewbody">
+							<ng-container *ngTemplateOutlet="sharedContent"></ng-container>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="d-flex space-between" style="justify-content: space-between">
+		<button pButton type="button" (click)="previous()"  class="text-white p-ripple p-button-rounded p-button-info-prev p-button p-component p-2" ><i class="fa fa-arrow-left exhausted-plan-icon-prev"></i> Previous</button>
+		<button pButton type="button" (click)="next()" class="text-white p-ripple p-button-rounded p-button-info-next p-button p-component p-2" >Next<i class="fa fa-arrow-right exhausted-plan-icon-next"></i></button>
+	</div>
+</div>
+
+<p-sidebar [(visible)]="fullScreenVisible" [fullScreen]="true" [showCloseIcon]="false">
+	<div class="col-md-12 h-100">
+		<div class="card h-100">
+			<div class="card-header cvPreview">
+				<h4 class="p-mb-1">CV Preview</h4>
+				<div >
+					<span class="templateButton">Template<span class="templateName">Basic</span></span>
+					<ng-container *ngTemplateOutlet="colorPickerContent"></ng-container>
+				</div>
+				<i class="fa-sharp fa-solid fa-compress" style="cursor: pointer" (click)="toggleFullScreen()"></i>
+			</div>
+			<div class="card-body h-100 overflow-hidden" style="background-color: #3f4c83">
+				<div class="previewcontainer">
+					<div class="previewbody">
+						<ng-container *ngTemplateOutlet="sharedContent"></ng-container>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</p-sidebar>
+
+<ng-template #colorPickerContent>
+	<div class="dropdown">
+		<div class="colorDiv d-flex colorButton align-items-center gap-2">
+			<p>Color</p>
+			<div style="background-color: black;"
+				[ngStyle]="{ 'background-color': selectedThemeColor }" class="selectedColor"></div>
+		</div>
+		<div class="dropdown-content">
+			<div class="d-flex justify-content-center">
+				<a (click)="selectColor('black',1)" class="p-2 cursorPointer">
+					<div style="background-color: black;" class="colorSelector"></div>
+					<i *ngIf="selectedColorCode == 1" class="fa-solid fa-check ColorCheckBox colorWhite" ></i>
+				</a>
+				<a (click)="selectColor('blue',2)" class="p-2 cursorPointer">
+					<div style="background-color: blue;" class="colorSelector"></div>
+					<i *ngIf="selectedColorCode == 2" class="fa-solid fa-check ColorCheckBox colorWhite"></i>
+				</a>
+				<a (click)="selectColor('white',3)" class="p-2 cursorPointer">
+					<div style="background-color: white;" class="colorSelector"></div>
+					<i *ngIf="selectedColorCode == 3" class="fa-solid fa-check ColorCheckBox" ></i>
+				</a>
+				<a (click)="selectColor('brown',4)" class="p-2 cursorPointer">
+					<div style="background-color: brown;" class="colorSelector"></div>
+					<i *ngIf="selectedColorCode == 4" class="fa-solid fa-check ColorCheckBox colorWhite" ></i>
+				</a>
+			</div>
+			<div class="d-flex justify-content-center">
+				<a (click)="selectColor('red',5)" class="p-2 cursorPointer">
+					<div style="background-color: red;" class="colorSelector"></div>
+					<i *ngIf="selectedColorCode == 5" class="fa-solid fa-check ColorCheckBox colorWhite" ></i>
+				</a>
+				<a (click)="selectColor('yellow',6)" class="p-2 cursorPointer">
+					<div style="background-color:yellow;" class="colorSelector"></div>
+					<i *ngIf="selectedColorCode == 6" class="fa-solid fa-check ColorCheckBox" ></i>
+				</a>
+				<a (click)="selectColor('purple',7)" class="p-2 cursorPointer">
+					<div style="background-color:purple;" class="colorSelector"></div>
+					<i *ngIf="selectedColorCode == 7" class="fa-solid fa-check ColorCheckBox colorWhite" ></i>
+				</a>
+			</div>
+		</div>
+	</div>
+</ng-template>
+
+<ng-template #sharedContent>
+	<div class="h-100" [ngClass]="{ previewBodyForm: !fullScreenVisible, previewBodyFormFull: fullScreenVisible }">
+		<div class="text-center" id="personalinfo">
+			<h1 class="m-0">{{ f["user_name"].value }}</h1>
+			<p class="m-0">{{ f["user_job_title"].value }}</p>
+			<hr />
+			<div class="d-flex justify-content-between font-12">
+				<a [href]="'tel:' + f['user_phone'].value" target="_Blank">{{ f["user_phone"].value }}</a>
+				<a [href]="'tel:' + f['user_email'].value" target="_Blank">{{ f["user_email"].value }}</a>
+				<a [href]="f['user_linkedin'].value" target="_Blank">LinkedIn</a>
+				<a [href]="f['user_website'].value" target="_Blank">{{ f["user_website"].value }}</a>
+				<span>{{ f["user_location"].value }}</span>
+			</div>
+			<hr />
+			<div>
+				<h2>Summary</h2>
+				<p class="m-0" [innerHTML]="f['user_summary'].value"></p>
+			</div>
+		</div>
+		<hr />
+		<div class="d-flex gap-1">
+			<div class="w-75 d-flex flex-column">
+				<div id="education">
+					<h2 class="m-0">Education</h2>
+					<div class="d-flex flex-wrap">
+						<div class="w-50" *ngFor="let edu of getEduDetailsArray.controls">
+							<h3 class="m-0">{{ edu.value.edu_degree }}</h3>
+							<h4 class="m-0">{{ edu.value.edu_college_name }} {{ edu.value.edu_percentage ? " | " +
+								edu.value.edu_percentage : "" }} {{ edu.value.edu_cgpa_percentage }}</h4>
+							<p class="m-0">{{ edu.value.edu_location }} {{ edu.value.edu_start_year }} {{
+								edu.value.edu_end_year ? " - " + edu.value.edu_end_year : "" }}</p>
+						</div>
+					</div>
+				</div>
+				<hr />
+				<div id="experience">
+					<h2 class="m-0">Experience</h2>
+					<div class="mb-1" *ngFor="let exp of getWorkExpArray.controls">
+						<h3 class="m-0">{{ exp.value.work_designation }} {{ exp.value.work_type ? " - " +
+							exp.value.work_type : "" }}</h3>
+						<h4 class="m-0">{{ exp.value.work_org_name }} {{ exp.value.work_location ? " | " +
+							exp.value.work_location : "" }} {{ exp.value.work_start_year ? " | " +
+							exp.value.work_start_year : "" }} {{ exp.value.work_end_year ? " - " +
+							exp.value.work_end_year : "" }}</h4>
+						<p class="m-0" [innerHTML]="exp.value.work_job_description"></p>
+					</div>
+				</div>
+				<hr />
+				<div id="project">
+					<h2 class="m-0">Project</h2>
+					<div class="mb-1" *ngFor="let project of getProjectDetailsArray.controls">
+						<h3 class="m-0">{{ project.value.project_name }}</h3>
+						<h4 class="m-0">{{ project.value.project_start_name }} {{ project.value.project_end_name ? " - "
+							+ project.value.project_end_name : "" }}</h4>
+						<p class="m-0" [innerHTML]="project.value.project_description"></p>
+					</div>
+				</div>
+			</div>
+			<div>
+				<hr class="h-100" />
+			</div>
+			<div class="w-25 d-flex flex-column">
+				<div id="certificates">
+					<h2 class="m-0">Certificates</h2>
+					<div *ngFor="let certificate of getCertificatesArray.controls">
+						<h3 class="m-0">{{ certificate.value.certificate_name }}</h3>
+						<h4 class="m-0">{{ certificate.value.certificate_issued }}</h4>
+						<p class="m-0">{{ certificate.value.certificate_id }}</p>
+						<a [href]="certificate.value.certicate_link" target="_Blank">Certificate Link</a>
+					</div>
+				</div>
+				<hr />
+				<div id="language">
+					<h2 class="m-0">Languages Known</h2>
+					<ul>
+						<li *ngFor="let lang of getLanguagesKnownArray.controls">{{ lang.value.language }} {{
+							lang.value.lang_proficiency ? " - " + lang.value.lang_proficiency : "" }}</li>
+					</ul>
+				</div>
+				<hr />
+				<div id="skills">
+					<h2 class="m-0">Skills</h2>
+					<ul>
+						<li *ngFor="let skill of getSkillsArray.controls">{{ skill.value.skills }} {{
+							skill.value.skills_proficiency ? " - " + skill.value.skills_proficiency : "" }}</li>
+					</ul>
+				</div>
+				<hr />
+				<div id="hobbies">
+					<h2 class="m-0">Hobbies</h2>
+					<ul>
+						<li *ngFor="let hobby of getHobbiesArray.controls">{{ hobby.value.hobbies }}</li>
+					</ul>
+				</div>
+				<hr />
+				<div id="achievements">
+					<h2 class="m-0">Other Achievements</h2>
+					<ul>
+						<li *ngFor="let extra of getExtraCurricularArray.controls">{{
+							extra.value.extra_curricular_activites }}</li>
+					</ul>
+				</div>
+				<hr />
+				<div id="references">
+					<h2 class="m-0">References</h2>
+					<div *ngFor="let refer of getReferenceArray.controls">
+						<h4 class="m-0">{{ refer.value.ref_name }} {{ refer.value.ref_position ? " | " +
+							refer.value.ref_position : "" }}</h4>
+						<p class="m-0">{{ refer.value.ref_organization }} {{ refer.value.ref_contact ? " | " +
+							refer.value.ref_contact : "" }}</p>
+						<p>{{ refer.value.ref_email }}</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</ng-template>

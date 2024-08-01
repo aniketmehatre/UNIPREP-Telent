@@ -42,4 +42,10 @@ export class CourseListService {
     // return this.http.get('templates/resumetemplate.html', { responseType: 'text' });
     return this.http.get('/templates/resumetemplate.html', { responseType: 'text' });
   }
+  getcoverletterdummy(){
+    const headers = new HttpHeaders().set("Accept", "application/json");
+    return this.http.get<any>(environment.ApiUrl + "/samplecoverletter",{
+      headers: headers,
+    });
+  }
 }
