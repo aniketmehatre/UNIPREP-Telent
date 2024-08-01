@@ -19,6 +19,7 @@ export class JobToolComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.getCurrentEndpoint();
     this.currentRoute = this.router.url;
     this.changeTitle();
     this.router
@@ -51,5 +52,13 @@ export class JobToolComponent implements OnInit {
       this.router.navigate(['/pages/job-tool/career-tool'])
     }
   }
+  currentEndpoint: string = "";
+
+  getCurrentEndpoint(): void {
+    const url = this.router.url;
+    const urlSegments = url.split('/');
+    this.currentEndpoint = urlSegments[urlSegments.length - 1];
+  }
+
 
 }
