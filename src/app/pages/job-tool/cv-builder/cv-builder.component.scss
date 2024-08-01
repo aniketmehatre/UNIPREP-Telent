@@ -226,7 +226,7 @@
 	font-size: calc(0.3vw + 0.3vh);
 	ul {
 		padding-left: 0px !important;
-		margin-bottom:10px;
+		margin-bottom:5px;
 	}
 	h1 {
 		font-size: 1.5em;
@@ -275,7 +275,7 @@
 	border: none;
 	padding: 10px;
 	font-weight: 600;
-	margin: 0px 5px 0px 5px;
+	margin: 0px 5px;
 }
 
 .colorButton{
@@ -463,13 +463,20 @@ body {
 }
 
 .headingStyle {
-	color: white;
-	background-color: #172a99;
+	
 	font-size: 14px;
 	font-weight: 700;
 	text-transform: uppercase;
 	padding: 0px 0px 5px 9px;
 	margin-bottom: 5px;
+}
+
+.text-color-white{
+	color: white;
+}
+
+.text-color-liteBlue{
+	color: #339499;
 }
 
 .fw-700 {
@@ -489,7 +496,7 @@ body {
 }
 
 .content {
-	margin-bottom: 10px;
+	margin: 5px;
 }
 
 .contentText {
@@ -514,28 +521,26 @@ body {
 }
 
 .separator {
-	background-color: #172a99;
 	width: 10%;
 	height: 2px;
 }
 
 .userName {
-	font-size: 30px;
+	font-size: 15px !important;
 	font-weight: 700;
 	white-space: nowrap;
-	letter-spacing: 5px;
-	margin-bottom: 5px;
+	letter-spacing: 3px;
 }
 
 .profession {
-	font-size: 15px;
+	font-size: 10px !important;
 	font-weight: 700;
 }
 
 .contactItem {
 	display: flex;
 	align-items: center;
-	margin-bottom: 5px;
+	margin: 5px;
 }
 
 .contactItem img {
@@ -548,7 +553,7 @@ body {
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
-	margin-bottom: 5px;
+	margin: 5px;
 }
 
 .languageItem img {
@@ -558,7 +563,7 @@ body {
 }
 
 .certificationItem {
-	margin-bottom: 5px;
+	margin: 5px;
 }
 
 .certificationItem a {
@@ -569,7 +574,7 @@ body {
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
-	margin-bottom: 5px;
+	margin: 5px;
 }
 
 .technicalSkillItem img {
@@ -580,23 +585,23 @@ body {
 
 .experienceItem {
 	display: flex;
-	margin-bottom: 10px;
+	margin: 5px;
 }
 
 .educationItem {
 	display: flex;
-	margin-bottom: 10px;
+	margin: 5px;
 }
 
 .projectItem {
 	display: flex;
-	margin-bottom: 10px;
+	margin: 5px;
 }
 
 .referenceItem {
 	display: flex;
 	justify-content: space-between;
-	margin-bottom: 10px;
+	margin: 5px;
 }
 
 .referenceItem b {
@@ -604,5 +609,25 @@ body {
 }
 
 .aboutMe {
-	margin-bottom: 10px;
+	margin: 5px;
+}
+
+.nowrapClass{
+	white-space: nowrap;
+}
+
+.small-text {
+	font-size: smaller !important;
+}
+.zeroMarginPadding{
+	margin: 0px !important;
+	padding: 0px !important;
+}
+
+.hr-custom {
+	height: 1px;
+	border-width: 0;
+	color: #339499;
+	background-color: #339499;
+	margin-left: 10px;
 }

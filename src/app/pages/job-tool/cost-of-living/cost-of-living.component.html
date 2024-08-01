@@ -1,0 +1,39 @@
+<div class="d-flex justify-content-center" [ngClass]="{'centerDiv':!canShowComparision}">
+    <div>
+        <div class="uniprep-primary h4  fw-semibold">
+            Compare the cost of living between countries around the world
+        </div>
+        <br>
+        <form [formGroup]="form" (ngSubmit)="compare()">
+            <div class="row justify-content-center gap-two">
+                <div class="col-md-4 col-sm-12">
+                    <div class="card flex justify-content-center">
+                        <p-dropdown [options]="cities" optionLabel="city_name" optionValue="city_id"
+                            formControlName="sourceCity" placeholder="Select City" [virtualScroll]="true"
+                            [virtualScrollItemSize]="50" [filter]="true" filterBy="city_name" [showClear]="true">
+                        </p-dropdown>
+                    </div>
+
+                </div>
+                <div class="col-md-4 col-sm-12">
+                    <div class="card flex justify-content-center">
+                        <p-dropdown [options]="cities" optionLabel="city_name" optionValue="city_id"
+                            formControlName="targetCity" placeholder="Select City" [virtualScroll]="true"
+                            [virtualScrollItemSize]="50" [filter]="true" filterBy="city_name" [showClear]="true">
+                        </p-dropdown>
+                    </div>
+
+                </div>
+                <div class="col-md-4 col-sm-12">
+                    <button class="btn btn-primary h6 ps-3 pe-3 pt-2 pb-2 br-20" type="submit"
+                        [disabled]="!form.value.sourceCity || !form.value.targetCity || canShowComparision">Compare
+                        <i class="pi pi-sync"></i> </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<br>
+<div *ngIf="canShowComparision">
+    <uni-comparision [sourceCountryPrices]="sourceCountryPrices" [targetCountryPrices]="targetCountryPrices"></uni-comparision>
+</div>

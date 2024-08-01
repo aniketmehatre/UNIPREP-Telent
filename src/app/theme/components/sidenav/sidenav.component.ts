@@ -238,7 +238,7 @@ export class SidenavComponent {
   ];
   studentMenus = ['Company List', 'Career Planner', 'Learning Hub', 'Entrepreneur', 'Investor List', 'Startup Kit', 'Pitch Deck'];
   careerMenus = ['Entrepreneur', 'Investor List', 'Startup Kit', 'Pitch Deck'];
-  collegeStudentMenus = ['Subscription'];
+
   conditionSubscribed!: boolean;
   currentTitle: any;
   visibleExhasted!: boolean;
@@ -302,8 +302,6 @@ export class SidenavComponent {
           if (res.userdetails[0].subscription_plan == 'Career') {
             this.menus = this.menus.filter(item => !this.careerMenus.includes(item.title));
           }
-          this.menus = this.menus.filter(item => !this.collegeStudentMenus.includes(item.title));
-          
         }
       });
 

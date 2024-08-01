@@ -1,0 +1,25 @@
+.centerDiv {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 50vh;
+}
+
+
+.pi-sync {
+    margin-left: 5px;
+}
+
+img {
+    height: 30px;
+    width: 30px;
+    margin-right: 10px;
+}
+::ng-deep .p-dropdown{
+    width:100% !important;
+}
+@media (max-width: 575.98px) {
+    .gap-two{
+        gap: 0.5rem;
+    }
+}
