@@ -1244,7 +1244,7 @@
 		<div class="container-fluid">
 			<div class="row">
 				<div class="col-12 text-left" style="background-color: black; padding: 20px 10px;">
-					<h1 class="userName upperCase" style="color: #f8d44c;margin: 0px;">{{ f["user_name"].value }}</h1>
+					<h1 class="userName upperCase" style="color: #f8d44c;">{{ f["user_name"].value }}</h1>
 					<p class="profession upperCase" style="color: white;">{{ f["user_job_title"].value }}</p>
 				</div>
 			</div>
@@ -1254,7 +1254,7 @@
 					<p class="headingStyle" style="margin:0px;"><span>about me</span></p>
 					<hr>
 					<div class="content">
-						<p class="small-text" [innerHTML]="f['user_summary'].value"></p>
+						<p class="m-0" [innerHTML]="f['user_summary'].value"></p>
 					</div>
 					<p class="headingStyle" style="margin:0px;"><span>experience</span></p>
 					<hr>
@@ -1288,7 +1288,7 @@
 							<p>{{ edu.value.edu_location }}</p>
 						</div>
 					</div>
-					<ng-container *ngIf="getProjectDetailsArray.length != 0 && f['selected_exp_level'].value == 1">
+					<ng-template *ngIf="getProjectDetailsArray.length != 0 && f['selected_exp_level'].value == 1">
 						<p class="headingStyle" style="margin:0px;"><span>project details</span></p>
 						<hr>
 						<div class="content fw-600" *ngFor="let project of getProjectDetailsArray.controls">
@@ -1303,218 +1303,87 @@
 								</div>
 							</div>
 						</div>
-					</ng-container>
-					<ng-container *ngIf="getCertificatesArray.length !=0">
-						<p class="headingStyle" style="margin:0px;">certifications</p>
-						<hr>
-						<div class="certificationItem" *ngFor="let certificate of getCertificatesArray.controls">
-							<p><b>{{ certificate.value.certificate_name }}</b> {{ certificate.value.certificate_issued ? " - " + certificate.value.certificate_issued : "" }}</p>
-							<p>{{ certificate.value.certificate_id ? "ID:" + certificate.value.certificate_id : "" }} </p>
-							<a [href]="certificate.value.certicate_link" target="_Blank">{{ certificate.value.certicate_link }}</a>
+					</ng-template>
+					
+	
+					<p class="headingStyle" style="margin:0px;">certifications</p>
+					<hr>
+					<div class="content" style="line-height: 1">
+						<div>
+							<p><b>AWS</b> - Jan 2023</p>
+							<p>ID: 202542542524</p>
+							<p>Link: <a href="https://dev-student.uniprep.ai/certificates"><p>https://dev-student.uniprep.ai/certificates</p></a></p>
 						</div>
-					</ng-container>
-					<ng-container *ngIf="getReferenceArray.length !=0">
-						<p class="headingStyle" style="margin:0px;">references</p>
-						<hr>
-						<div class="content" style="line-height: 1">
-							<div class="referenceItem" >
-								<div style="width: 50%;" *ngFor="let refer of getReferenceArray.controls">
-									<p><b>{{ refer.value.ref_name }}</b></p>
-									<p><b>{{ refer.value.ref_position }}, {{ refer.value.ref_organization }}</b></p>
-									<p>{{ refer.value.ref_email }}</p>
-									<p><b>phone:</b> {{ refer.value.ref_contact }}</p>
-								</div>
+						<div>
+							<p><b>AWS</b> - Jan 2023</p>
+							<p>ID: 202542542524</p>
+							<p>Link: <a href="https://dev-student.uniprep.ai/certificates"><p>https://dev-student.uniprep.ai/certificates</p></a></p>
+						</div>
+					</div>
+	
+					<p class="headingStyle" style="margin:0px;">references</p>
+					<hr>
+					<div class="content" style="line-height: 1">
+						<div class="referenceItem">
+							<div width="50%">
+								<p><b>Jonathon Deo</b></p>
+								<p>Director, Lenova</p>
+								<p>Phone: +555 123 5566</p>
+								<p>Email: jonathondeo@gmail.com</p>
+							</div>
+							<div  width="50%">
+								<p><b>Jonathon Deo</b></p>
+								<p>Director, Lenova</p>
+								<p>Phone: +555 123 5566</p>
+								<p>Email: jonathondeo@gmail.com</p>
 							</div>
 						</div>
-					</ng-container>
+					</div>
 				</div>
+	
 				<div class="col-md-5" style="background-color: #f8d44c;">
-					<p class="headingStyle" style="margin:0px;">contact me</p>
-					<hr>
-					<div class="content fw-600">
-						<div class="d-flex align-items-center mb-2">
-							<img class="resumeIcons" src="../../../uniprep-assets/resume-icons/Location.svg">
-							<p>{{ f["user_location"].value }}</p>
-						</div>
-						<div class="d-flex align-items-center mb-2">
-							<img class="resumeIcons" src="../../../uniprep-assets/resume-icons/Phone.svg">
-							<p>{{ f["user_phone"].value }}</p>
-						</div>
-						<div class="d-flex align-items-center mb-2">
-							<img class="resumeIcons" src="../../../uniprep-assets/resume-icons/Email.svg">
-							<p>{{ f["user_email"].value }}</p>
-						</div>
-						<div class="d-flex align-items-center mb-2">
-							<img class="resumeIcons" src="../../../uniprep-assets/resume-icons/Web.svg">
-							<p>{{ f["user_website"].value }}</p>
-						</div>
-						<div class="d-flex align-items-center mb-2">
-							<img class="resumeIcons" src="../../../uniprep-assets/resume-icons/Linkedin.svg">
-							<p>{{ f["user_linkedin"].value }}</p>
-						</div>
-					</div>
-
-					<p class="headingStyle" style="margin:0px;">Skills</p>
-					<hr>
-					<div class="content fw-600">
-						<div class="technicalSkillItem" *ngFor="let skill of getSkillsArray.controls">
-							<p class="upperCase">{{ skill.value.skills }}</p>
-							<ng-container [ngSwitch]="skill.value.skills_proficiency">
-								<img *ngSwitchCase="'Basic'" class="resumeIcons" src="../../../uniprep-assets/resume-icons/STARS-002.svg">
-								<img *ngSwitchCase="'Intermediate'" class="resumeIcons" src="../../../uniprep-assets/resume-icons/STARS-003.svg">
-								<img *ngSwitchCase="'Advance'" class="resumeIcons" src="../../../uniprep-assets/resume-icons/STARS-005.svg">
-							</ng-container>
-						</div>
-					</div>
-					<p class="headingStyle" style="margin:0px;">languages known</p>
-					<hr>
-					<div class="languageItem fw-600" *ngFor="let lang of getLanguagesKnownArray.controls">
-						<p>{{ lang.value.language }} </p>
-						<ng-container [ngSwitch]="lang.value.lang_proficiency">
-							<img *ngSwitchCase="'Beginner'" class="resumeIcons" src="../../../uniprep-assets/resume-icons/STARS-002.svg">
-							<img *ngSwitchCase="'Fluent'" class="resumeIcons" src="../../../uniprep-assets/resume-icons/STARS-003.svg">
-							<img *ngSwitchCase="'Proficient'" class="resumeIcons" src="../../../uniprep-assets/resume-icons/STARS-004.svg">
-							<img *ngSwitchCase="'Native'" class="resumeIcons" src="../../../uniprep-assets/resume-icons/STARS-005.svg">
-						</ng-container>
-					</div>
-					<ng-container *ngIf="getExtraCurricularArray.length != 0">
-						<p class="headingStyle">Extra Curricular Activities</p>
+					<!-- <div class="p-1"> -->
+						<p class="headingStyle" style="margin:0px;">contact me</p>
 						<hr>
-						<div class="technicalSkillItem fw-600" *ngFor="let extra of getExtraCurricularArray.controls">
-							<p class="upperCase">{{ extra.value.extra_curricular_activites }}</p>
+						<div class="content fw-600">
+							<div class="d-flex align-items-center mb-2">
+								<img class="resumeIcons" src="../../../uniprep-assets/resume-icons/Location.svg">
+								<p class="ml-2">Mysore, Karnataka</p>
+							</div>
+							<div class="d-flex align-items-center mb-2">
+								<img class="resumeIcons" src="../../../uniprep-assets/resume-icons/Phone.svg">
+								<p class="ml-2">+91 9524999563</p>
+							</div>
+							<div class="d-flex align-items-center mb-2">
+								<img class="resumeIcons" src="../../../uniprep-assets/resume-icons/Email.svg">
+								<p class="ml-2">Henrymadison@gmail.com</p>
+							</div>
+							<div class="d-flex align-items-center mb-2">
+								<img class="resumeIcons" src="../../../uniprep-assets/resume-icons/Web.svg">
+								<p class="ml-2">Henrymadison.com</p>
+							</div>
+							<div class="d-flex align-items-center mb-2">
+								<img class="resumeIcons" src="../../../uniprep-assets/resume-icons/Linkedin.svg">
+								<p class="ml-2">linkedin.com/henrymadison</p>
+							</div>
 						</div>
-					</ng-container>
-					<ng-container *ngIf="getHobbiesArray.length != 0">
+	
+						<p class="headingStyle" style="margin:0px;">Skills</p>
+						<hr>
+						<div class="content fw-600">
+							<p class="mb-1">HTML</p>
+							<p class="mb-1">JavaScript</p>
+							<p class="mb-1">Angular</p>
+							<p class="mb-1">CSS</p>
+							<p class="mb-1">Laravel</p>
+						</div>
 						<p class="headingStyle" style="margin:0px;">Hobbies</p>
 						<hr>
 						<div class="content fw-600">
-							<div class="technicalSkillItem" *ngFor="let hobby of getHobbiesArray.controls">
-								<p class="upperCase">{{ hobby.value.hobbies }}</p>
-							</div>
+							<p class="mb-1">Reading</p>
+							<p class="mb-1">writing</p>
 						</div>
-					</ng-container>
-				</div>
-			</div>
-		</div>
-	</div>
-	<div class="h-100" [ngClass]="{ previewBodyForm: !fullScreenVisible, previewBodyFormFull: fullScreenVisible }" *ngIf="selectedResumeLevel=='Functional'">
-		<div class="container">
-			<div class="row" style="background-color: #339499; padding: 5px 10px 15px 10px;">
-				<div class="col-12">
-					<h1 class="userName upperCase" style="color: white;margin: 0px;">{{ f["user_name"].value }}</h1>
-					<p class="profession upperCase" style="color: white;">{{ f["user_job_title"].value }}</p>
-					<p style="line-height: 1;color: white;" [innerHTML]="f['user_summary'].value"></p>
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-md-4">
-					<div class="content fw-600">
-						<div class="d-flex align-items-center mb-2">
-							<img class="resumeIcons" src="../../../uniprep-assets/resume-icons/Location.svg">
-							<p>{{ f["user_location"].value }}</p>
-						</div>
-						<div class="d-flex align-items-center mb-2">
-							<img class="resumeIcons" src="../../../uniprep-assets/resume-icons/Phone.svg">
-							<p>{{ f["user_phone"].value }}</p>
-						</div>
-						<div class="d-flex align-items-center mb-2">
-							<img class="resumeIcons" src="../../../uniprep-assets/resume-icons/Email.svg">
-							<p>{{ f["user_email"].value }}</p>
-						</div>
-						<div class="d-flex align-items-center mb-2">
-							<img class="resumeIcons" src="../../../uniprep-assets/resume-icons/Web.svg">
-							<p>{{ f["user_website"].value }}</p>
-						</div>
-						<div class="d-flex align-items-center mb-2">
-							<img class="resumeIcons" src="../../../uniprep-assets/resume-icons/Linkedin.svg">
-							<p>{{ f["user_linkedin"].value }}</p>
-						</div>
-					</div>
-					<p class="headingStyle text-color-liteBlue zeroMarginPadding">languages</p>
-					<hr class="hr-custom">
-					<div class="languageItem fw-600" *ngFor="let lang of getLanguagesKnownArray.controls">
-						<p>{{ lang.value.language }} </p>
-						<ng-container [ngSwitch]="lang.value.lang_proficiency">
-							<img *ngSwitchCase="'Beginner'" class="resumeIcons" src="../../../uniprep-assets/resume-icons/STARS-002.svg">
-							<img *ngSwitchCase="'Fluent'" class="resumeIcons" src="../../../uniprep-assets/resume-icons/STARS-003.svg">
-							<img *ngSwitchCase="'Proficient'" class="resumeIcons" src="../../../uniprep-assets/resume-icons/STARS-004.svg">
-							<img *ngSwitchCase="'Native'" class="resumeIcons" src="../../../uniprep-assets/resume-icons/STARS-005.svg">
-						</ng-container>
-					</div>
-					<ng-container *ngIf="getCertificatesArray.length !=0">
-						<p class="headingStyle text-color-liteBlue zeroMarginPadding">certifications</p>
-						<hr class="hr-custom">
-						<div class="content" style="line-height:1" >
-							<div class="mb-2"  *ngFor="let certificate of getCertificatesArray.controls">
-								<p><b>{{ certificate.value.certificate_name }}</b>{{ certificate.value.certificate_issued ? " - " + certificate.value.certificate_issued : "" }}</p>
-								<p>{{ certificate.value.certificate_id ? "ID:" + certificate.value.certificate_id : "" }} </p>
-								<a [href]="certificate.value.certicate_link" target="_Blank">{{ certificate.value.certicate_link }}</a>
-							</div>
-						</div>
-					</ng-container>
-					<p class="headingStyle text-color-liteBlue zeroMarginPadding">technical skills</p>
-					<hr class="hr-custom">
-					<div class="content fw-600 technicalSkillItem" *ngFor="let skill of getSkillsArray.controls">
-						<p class="upperCase mr-2">{{ skill.value.skills }}</p>
-						<ng-container [ngSwitch]="skill.value.skills_proficiency">
-							<img *ngSwitchCase="'Basic'" class="resumeIcons" src="../../../uniprep-assets/resume-icons/STARS-002.svg">
-							<img *ngSwitchCase="'Intermediate'" class="resumeIcons" src="../../../uniprep-assets/resume-icons/STARS-003.svg">
-							<img *ngSwitchCase="'Advance'" class="resumeIcons" src="../../../uniprep-assets/resume-icons/STARS-005.svg">
-						</ng-container>
-					</div>
-					<ng-container *ngIf="getExtraCurricularArray.length != 0">
-						<p class="headingStyle text-color-liteBlue zeroMarginPadding">technical skills</p>
-						<hr class="hr-custom">
-						<div class="content">
-							<div class="technicalSkillItem" *ngFor="let extra of getExtraCurricularArray.controls">
-								<p class="upperCase">{{ extra.value.extra_curricular_activites }}</p>
-							</div>
-						</div>
-					</ng-container>
-				</div>
-	
-				<div class="col-md-8">
-					<p class="headingStyle text-color-liteBlue zeroMarginPadding">experience</p>
-					<hr class="hr-custom">
-					<div class="content">
-						<div class="mb-3" *ngFor="let exp of getWorkExpArray.controls">
-							<p class="fw-600">{{ exp.value.work_designation }} {{ exp.value.work_type ? " - " + exp.value.work_type : "" }}</p>
-							<p class="fw-500 small-text">{{ exp.value.work_org_name }} | {{ exp.value.work_location }} | {{ exp.value.work_start_year }} {{ exp.value.work_end_year ? " - " + exp.value.work_end_year : "" }}</p>
-							<p class="small-text" [innerHTML]="exp.value.work_job_description"></p>
-						</div>
-					</div>
-					<p class="headingStyle text-color-liteBlue zeroMarginPadding">education</p>
-					<hr class="hr-custom">
-					<div class="content">
-						<div class="mb-4" *ngFor="let edu of getEduDetailsArray.controls">
-							<p class="fw-600">{{ edu.value.edu_degree }}</p>
-							<p class="fw-500 small-text">{{ edu.value.edu_college_name }} | {{ edu.value.edu_location }} | {{ edu.value.edu_start_year }} {{ edu.value.edu_end_year ? " - " + edu.value.edu_end_year : "" }}</p>
-						</div>
-					</div>
-					<ng-container *ngIf="getProjectDetailsArray.length != 0 && f['selected_exp_level'].value == 1">
-						<p class="headingStyle text-color-liteBlue zeroMarginPadding">projects</p>
-						<hr class="hr-custom">
-						<div class="content">
-							<div class="mb-4" *ngFor="let project of getProjectDetailsArray.controls">
-								<p class="fw-600">{{ project.value.project_start_name }} {{ project.value.project_end_name ? " - " + project.value.project_end_name : "" }}</p>
-								<p class="fw-500 small-text" [innerHTML]="project.value.project_description"></p>
-							</div>
-						</div>
-					</ng-container>
-					<ng-container *ngIf="getReferenceArray.length !=0">
-						<p class="headingStyle" style="margin:0px;">references</p>
-						<hr class="hr-custom">
-						<div class="content" style="line-height: 1">
-							<div class="referenceItem" >
-								<div style="width: 50%;" *ngFor="let refer of getReferenceArray.controls">
-									<p><b>{{ refer.value.ref_name }}</b></p>
-									<p><b>{{ refer.value.ref_position }}, {{ refer.value.ref_organization }}</b></p>
-									<p>{{ refer.value.ref_email }}</p>
-									<p><b>phone:</b> {{ refer.value.ref_contact }}</p>
-								</div>
-							</div>
-						</div>
-					</ng-container>
+					<!-- </div> -->
 				</div>
 			</div>
 		</div>
