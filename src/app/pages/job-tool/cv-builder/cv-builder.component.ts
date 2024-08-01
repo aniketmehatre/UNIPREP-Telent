@@ -21,7 +21,7 @@ import { CourseListService } from '../../course-list/course-list.service';
   // ]
 })
 export class CvBuilderComponent implements OnInit {
-  selectedResumeLevel: string = "Functional";
+  selectedResumeLevel: string = "Creative";
   experienceLevel: any = [{id: 1, level: "Fresher"},{id: 2, level: "1-2 Years"},{id: 3, level: "3-5 Years"},{id: 4, level: "5+ Years"},];
   cgpaPercentage: any = [{id:"CGPA", value: "CGPA"},{id:"%", value: "Percentage"}];
   workTypeValue: any = [{id: "Fulltime", value: "Fulltime"}, {id: "Parttime", value: "Parttime"}, {id: "Internship", value: "Internship"},{id: "Freelance", value: "Freelance"}];
@@ -301,7 +301,7 @@ export class CvBuilderComponent implements OnInit {
       this.getCertificatesArray.push(this.fb.group({
         certificate_name: ['Web Development'],
         certificate_issued: ['UNIPREP'],
-        certificate_id: ['UNI077'],
+        certificate_id: ['ID: UNI077'],
         certicate_link: ['https://uniprep.ai/certificates'],
       }));
     }else if(fieldName == "reference"){
