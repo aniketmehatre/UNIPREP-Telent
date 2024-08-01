@@ -201,7 +201,7 @@
 							</div>
 						</div>
 						<div class="col-md-12">
-							<label class="form-label labelFont">Website (Optional)</label>
+							<label class="form-label labelFont">Website</label>
 							<div class="form-group">
 								<div class="mb-3">
 									<input class="w-100" type="text" placeholder="Website or portfolio Link"
@@ -548,12 +548,11 @@
 					</div>
 				</div>
 				<div class="col-md-12">
-					<h4 class="p-mb-1 PageTitle">Your Hobbies (Optional)</h4>
+					<h4 class="p-mb-1 PageTitle">Your Hobbies</h4>
 					<div *ngFor="let hobby of getHobbiesArray.controls; let i = index" formArrayName="hobbiesArray">
 						<div [formGroupName]="i">
 							<div class="row">
-								<!-- <div [ngClass]="getHobbiesArray.length === 1 ? 'col-md-12' : 'col-md-9'"> -->
-								<div class="col-md-9">
+								<div [ngClass]="getHobbiesArray.length === 1 ? 'col-md-12' : 'col-md-9'">
 									<div class="form-group">
 										<div class="mb-3">
 											<input class="w-100" type="text" placeholder="Add Your Hobbies"
@@ -561,7 +560,6 @@
 										</div>
 									</div>
 								</div>
-								<!-- *ngIf="getHobbiesArray.length != 1" -->
 								<div class="col-md-3">
 									<button class="deleteDivButton" (click)="clickDeleteButton('Hobby', i)">Delete
 										&nbsp;<i class="fa-solid fa-trash trashIcon"></i></button>
@@ -575,13 +573,12 @@
 					</div>
 				</div>
 				<div class="col-md-12">
-					<h4 class="p-mb-1 PageTitle">Extra Curricular Activities (Optional)</h4>
+					<h4 class="p-mb-1 PageTitle">Extra Curricular Activities</h4>
 					<div *ngFor="let hobby of getExtraCurricularArray.controls; let i = index"
 						formArrayName="extraCurricularArray">
 						<div [formGroupName]="i">
 							<div class="row">
-								<!-- <div [ngClass]="getExtraCurricularArray.length === 1 ? 'col-md-12' : 'col-md-9'"> -->
-								<div class="col-md-9">
+								<div [ngClass]="getExtraCurricularArray.length === 1 ? 'col-md-12' : 'col-md-9'">
 									<div class="form-group">
 										<div class="mb-3">
 											<input class="w-100" type="text" placeholder="Extra Activities"
@@ -606,7 +603,7 @@
 					</div>
 				</div>
 				<div class="col-md-12">
-					<h4 class="p-mb-1 PageTitle">Certifications (Optional)</h4>
+					<h4 class="p-mb-1 PageTitle">Certifications</h4>
 					<div class="card mb-2" *ngFor="let hobby of getCertificatesArray.controls; let i = index"
 						formArrayName="certificatesArray">
 						<div class="card-body">
@@ -633,7 +630,7 @@
 								</div>
 								<div class="row">
 									<div class="col-md-6">
-										<label class="form-label labelFont">Certificate ID (Optional)</label>
+										<label class="form-label labelFont">Certificate ID(Optional)</label>
 										<div class="form-group">
 											<div class="mb-3">
 												<input class="w-100" type="text" placeholder="Certificate ID"
@@ -642,7 +639,7 @@
 										</div>
 									</div>
 									<div class="col-md-6">
-										<label class="form-label labelFont">Certificate Link (Optional)</label>
+										<label class="form-label labelFont">Certificate Link(Optional)</label>
 										<div class="form-group">
 											<div class="mb-3">
 												<input class="w-100" type="text" placeholder="certificate Link"
@@ -652,7 +649,6 @@
 									</div>
 								</div>
 							</div>
-							<!-- *ngIf="getCertificatesArray.length != 1" -->
 							<div class="d-flex justify-content-end align-items-center">
 								<button class="deleteDivButton" (click)="clickDeleteButton('certificate', i)">Delete
 									&nbsp;<i class="fa-solid fa-trash trashIcon"></i></button>
@@ -666,7 +662,7 @@
 					</div>
 				</div>
 				<div class="col-md-12">
-					<h4 class="p-mb-1 PageTitle">References (Optional)</h4>
+					<h4 class="p-mb-1 PageTitle">References</h4>
 					<div class="card mb-2" *ngFor="let hobby of getReferenceArray.controls; let i = index"
 						formArrayName="referenceArray">
 						<div class="card-body">
@@ -723,7 +719,6 @@
 									</div>
 								</div>
 							</div>
-							<!-- *ngIf="getReferenceArray.length != 1"  -->
 							<div class="d-flex justify-content-end align-items-center">
 								<button class="deleteDivButton" (click)="clickDeleteButton('reference', i)">Delete
 									&nbsp;<i class="fa-solid fa-trash trashIcon"></i></button>
@@ -834,7 +829,7 @@
 	</div>
 </ng-template>
 
-<!-- <ng-template #sharedContent>
+<ng-template #sharedContent>
 	<div class="h-100" [ngClass]="{ previewBodyForm: !fullScreenVisible, previewBodyFormFull: fullScreenVisible }">
 		<div class="text-center" id="personalinfo">
 			<h1 class="m-0">{{ f["user_name"].value }}</h1>

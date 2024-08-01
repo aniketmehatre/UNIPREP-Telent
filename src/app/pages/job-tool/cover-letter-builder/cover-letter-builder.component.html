@@ -1,1 +1,1522 @@
-<p>cover-letter-builder works!</p>
+<div class="container-fluid" *ngIf="activePageIndex == 1">
+	<h3 class="text-center uniprep-primary">Select your CV style to get started</h3>
+	<div class="d-flex justify-content-center gap-5">
+		<div>
+			<h5 class="text-center uniprep-primary">Traditional</h5>
+			<div class="cvBuilderSampleImg" [ngClass]="{ selectedResumeLevel: selectedResumeLevel == 'Traditional' }"
+				(click)="imgOnclick('Traditional')">
+				<img src="https://api.uniprep.ai/uniprepapi/storage/app/public/job-search/Traditional.webp"
+					alt="Traditional" />
+				<button *ngIf="selectedResumeLevel == 'Traditional'" class="center-button">Selected <i
+						class="fa-solid fa-check tickIcon"></i></button>
+			</div>
+		</div>
+		<div>
+			<h5 class="text-center uniprep-primary">Modern</h5>
+			<div class="cvBuilderSampleImg" [ngClass]="{ selectedResumeLevel: selectedResumeLevel == 'Modern' }"
+				(click)="imgOnclick('Modern')">
+				<img src="https://api.uniprep.ai/uniprepapi/storage/app/public/job-search/Modern.webp"
+					alt="Modern" />
+				<button *ngIf="selectedResumeLevel == 'Modern'" class="center-button">Selected <i
+						class="fa-solid fa-check tickIcon"></i></button>
+			</div>
+		</div>
+		<div>
+			<h5 class="text-center uniprep-primary">Creative</h5>
+			<div class="cvBuilderSampleImg" [ngClass]="{ selectedResumeLevel: selectedResumeLevel == 'Creative' }"
+				(click)="imgOnclick('Creative')">
+				<img src="https://api.uniprep.ai/uniprepapi/storage/app/public/job-search/Creative.webp"
+					alt="Functional" />
+				<button *ngIf="selectedResumeLevel == 'Creative'" class="center-button">Selected <i
+						class="fa-solid fa-check tickIcon"></i></button>
+			</div>
+		</div>
+		<div>
+			<h5 class="text-center uniprep-primary">Functional</h5>
+			<div class="cvBuilderSampleImg" [ngClass]="{ selectedResumeLevel: selectedResumeLevel == 'Functional' }"
+				(click)="imgOnclick('Functional')">
+				<img src="https://api.uniprep.ai/uniprepapi/storage/app/public/job-search/functional.webp"
+					alt="Creative" />
+				<button *ngIf="selectedResumeLevel == 'Functional'" class="center-button">Selected <i
+						class="fa-solid fa-check tickIcon"></i></button>
+			</div>
+		</div>
+		<div>
+			<h5 class="text-center uniprep-primary">Academic</h5>
+			<div class="cvBuilderSampleImg" [ngClass]="{ selectedResumeLevel: selectedResumeLevel == 'Academic' }"
+				(click)="imgOnclick('Academic')">
+				<img src="https://api.uniprep.ai/uniprepapi/storage/app/public/job-search/academic.webp"
+					alt="Academic" />
+				<button *ngIf="selectedResumeLevel == 'Academic'" class="center-button">Selected <i
+						class="fa-solid fa-check tickIcon"></i></button>
+			</div>
+		</div>
+	</div>
+	<div class="row justify-content-center">
+		<div class="col-md-4 mt-5">
+			<button class="createResumeButton" (click)="shakeButton($event)">Create your Resume &nbsp;&nbsp;&nbsp;<i
+					class="fa-solid fa-arrow-right tickIcon"></i></button>
+		</div>
+	</div>
+</div>
+<div class="container-fluid" *ngIf="activePageIndex == 3">
+	<div class="row justify-content-center">
+		<div class="flex-column">
+			<div>
+				<h3 class="text-center uniprep-primary">Your Resume</h3>
+				<h5 class="text-center uniprep-primary">{{ selectedResumeLevel }}</h5>
+				<div class="cvBuilderSampleImg">
+					<img *ngIf="selectedResumeLevel == 'Traditional'" src="https://api.uniprep.ai/uniprepapi/storage/app/public/job-search/Traditional.webp"/>
+					<img *ngIf="selectedResumeLevel == 'Modern'" src="https://api.uniprep.ai/uniprepapi/storage/app/public/job-search/Modern.webp"/>
+					<img *ngIf="selectedResumeLevel == 'Creative'" src="https://api.uniprep.ai/uniprepapi/storage/app/public/job-search/Creative.webp"/>
+					<img *ngIf="selectedResumeLevel == 'Functional'" src="https://api.uniprep.ai/uniprepapi/storage/app/public/job-search/functional.webp"/>
+					<img *ngIf="selectedResumeLevel == 'Academic'" src="https://api.uniprep.ai/uniprepapi/storage/app/public/job-search/academic.webp"/>
+				</div>
+			</div>
+			<div class="d-flex justify-content-center align-items-center">
+				<button class="downloadButton" (click)="downloadResume()">Download &nbsp;&nbsp;&nbsp;<i
+						class="fa-solid fa-download tickIcon"></i></button>
+			</div>
+			<div class="d-flex justify-content-between">
+				<button pButton type="button" (click)="previous()"
+					class="text-white p-ripple p-button-rounded p-button-info-prev p-button p-component p-2"><i
+						class="fa fa-arrow-left exhausted-plan-icon-prev"></i> Previous</button>
+				<button class="downloadButton" style="margin: 0px;" (click)="next()">CV Builder &nbsp;&nbsp;&nbsp;<i
+						class="fa-sharp fa-regular fa-house tickIcon"></i></button>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="container-fluid" *ngIf="activePageIndex == 4">
+	<div class="row justify-content-center">
+		<div class="flex-column">
+			<div>
+				<h3 class="text-center uniprep-primary">Your Resumes</h3>
+				<div class="cvSampleImg">
+					<div class="flex-column">
+						<img src="https://api.uniprep.ai/uniprepapi/storage/app/public/job-search/basic.webp"
+							alt="basic" />
+						<p>Version 1</p>
+						<small>02-07-2024 12:38PM</small>
+					</div>
+					<div class="flex-column">
+						<img src="https://api.uniprep.ai/uniprepapi/storage/app/public/job-search/basic.webp"
+							alt="basic" />
+						<p>Version 2</p>
+						<small>02-07-2024 12:38PM</small>
+					</div>
+					<div class="flex-column">
+						<img src="https://api.uniprep.ai/uniprepapi/storage/app/public/job-search/basic.webp"
+							alt="basic" />
+						<p>Version 3</p>
+						<small>02-07-2024 12:38PM</small>
+					</div>
+					<div class="flex-column">
+						<img src="https://api.uniprep.ai/uniprepapi/storage/app/public/job-search/basic.webp"
+							alt="basic" />
+						<p>Version 4</p>
+						<small>02-07-2024 12:38PM</small>
+					</div>
+					<div class="flex-column">
+						<img src="https://api.uniprep.ai/uniprepapi/storage/app/public/job-search/basic.webp"
+							alt="basic" />
+						<p>Version 5</p>
+						<small>02-07-2024 12:38PM</small>
+					</div>
+				</div>
+			</div>
+			<div class="row justify-content-center">
+				<div class="col-md-4 mt-5">
+					<button class="createResumeButton" (click)="shakeButton($event)">Create your Resume
+						&nbsp;&nbsp;&nbsp;<i class="fa-solid fa-arrow-right tickIcon"></i></button>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="container-fluid h-100" *ngIf="activePageIndex == 2">
+	<div class="row h-100">
+		<div class="col-md-6 h-100 overflow-y-auto">
+			<form role="form" class="row" [formGroup]="resumeFormInfoData" #form="ngForm">
+				<div class="col-md-12 mb-3">
+					<h4 class="p-mb-2 PageTitle">Your Experience Level</h4>
+					<p-dropdown [options]="experienceLevel" (onChange)="changeExperience($event)" styleClass="w-100"
+						formControlName="selected_exp_level" optionLabel="level" optionValue="id"></p-dropdown>
+				</div>
+				<div class="col-md-12 mb-3">
+					<h4 class="p-mb-2 PageTitle">Enter Your Personal Information</h4>
+					<div class="row">
+						<div class="col-md-6">
+							<label class="form-label labelFont">Your Name</label>
+							<div class="form-group">
+								<div class="mb-3">
+									<input class="w-100" type="text" placeholder="Full Name" formControlName="user_name"
+										pInputText />
+								</div>
+							</div>
+						</div>
+						<div class="col-md-6">
+							<label class="form-label labelFont">Job Title</label>
+							<div class="form-group">
+								<div class="mb-3">
+									<input class="w-100" type="text" placeholder="your Job Title"
+										formControlName="user_job_title" pInputText />
+								</div>
+							</div>
+						</div>
+						<div class="col-md-6">
+							<label class="form-label labelFont">Your Email</label>
+							<div class="form-group">
+								<div class="mb-3">
+									<input class="w-100" type="text" placeholder="Email Address"
+										formControlName="user_email" pInputText />
+								</div>
+							</div>
+						</div>
+						<div class="col-md-6">
+							<label class="form-label labelFont">Current Address</label>
+							<div class="form-group">
+								<div class="mb-3">
+									<input class="w-100" type="text" placeholder="Your Location"
+										formControlName="user_location" pInputText />
+								</div>
+							</div>
+						</div>
+						<div class="col-md-6">
+							<label class="form-label labelFont">Phone Number</label>
+							<div class="form-group">
+								<div class="mb-3">
+									<input class="w-100" type="text" placeholder="Phone Number"
+										formControlName="user_phone" pInputText />
+								</div>
+							</div>
+						</div>
+						<div class="col-md-6">
+							<label class="form-label labelFont">LinkedIn Link</label>
+							<div class="form-group">
+								<div class="mb-3">
+									<input class="w-100" type="text" placeholder="LinkedIn profile link"
+										formControlName="user_linkedin" pInputText />
+								</div>
+							</div>
+						</div>
+						<div class="col-md-12">
+							<label class="form-label labelFont">Website</label>
+							<div class="form-group">
+								<div class="mb-3">
+									<input class="w-100" type="text" placeholder="Website or portfolio Link"
+										formControlName="user_website" pInputText />
+								</div>
+							</div>
+						</div>
+						<div class="col-md-12">
+							<label class="form-label labelFont">Summary</label>
+							<div class="form-group">
+								<div class="mb-3">
+									<p-editor formControlName="user_summary" placeholder="About yourself"></p-editor>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-12">
+					<h4 class="p-mb-1 PageTitle">Enter Your Educational Details</h4>
+					<div class="col-md-12">
+						<div class="card mb-2" *ngFor="let hobby of getEduDetailsArray.controls; let i = index"
+							formArrayName="EduDetailsArray">
+							<div class="card-body">
+								<div [formGroupName]="i">
+									<div class="row">
+										<div class="col-md-6">
+											<label class="form-label labelFont">College/School Name</label>
+											<div class="form-group">
+												<div class="mb-3">
+													<input class="w-100" type="text" placeholder="College Name"
+														formControlName="edu_college_name" pInputText />
+												</div>
+											</div>
+										</div>
+										<div class="col-md-6">
+											<label class="form-label labelFont">Education Year </label>
+											<div class="row">
+												<div class="col-md-6">
+													<div class="form-group">
+														<div class="mb-3">
+															<input class="w-100" type="text" placeholder="Start Year"
+																formControlName="edu_start_year" pInputText />
+														</div>
+													</div>
+												</div>
+												<div class="col-md-6">
+													<div class="form-group">
+														<div class="mb-3">
+															<input class="w-100" type="text" placeholder="End Year"
+																formControlName="edu_end_year" pInputText />
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="col-md-6">
+											<label class="form-label labelFont">Degree</label>
+											<div class="form-group">
+												<div class="mb-3">
+													<input class="w-100" type="text" placeholder="your Degree"
+														formControlName="edu_degree" pInputText />
+												</div>
+											</div>
+										</div>
+										<div class="col-md-6">
+											<label class="form-label labelFont">Location</label>
+											<div class="form-group">
+												<div class="mb-3">
+													<input class="w-100" type="text" placeholder="Education Location"
+														formControlName="edu_location" pInputText />
+												</div>
+											</div>
+										</div>
+										<div class="col-md-9">
+											<label class="form-label labelFont">Percentage</label>
+											<div class="form-group">
+												<div class="mb-3">
+													<input class="w-100" type="text" placeholder="Achieved Score"
+														formControlName="edu_percentage" pInputText />
+												</div>
+											</div>
+										</div>
+										<div class="col-md-3">
+											<label class="form-label labelFont">&nbsp;</label>
+											<div class="form-group">
+												<div class="mb-3">
+													<p-dropdown [options]="cgpaPercentage" styleClass="w-100"
+														formControlName="edu_cgpa_percentage" optionLabel="value"
+														optionValue="id"></p-dropdown>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="d-flex justify-content-end align-items-center">
+									<button class="deleteDivButton" *ngIf="getEduDetailsArray.length != 1"
+										(click)="clickDeleteButton('education_detail', i)">Delete &nbsp;<i
+											class="fa-solid fa-trash trashIcon"></i></button>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-12">
+					<div class="d-flex justify-content-center align-items-center m-3">
+						<button class="addMoreButton" *ngIf="getEduDetailsArray.length < eduDetailsLimit"
+							(click)="clickAddMoreButton('education_detail')">Add More &nbsp;<i
+								class="fa-solid fa-plus tickIcon"></i></button>
+					</div>
+					<h4 class="p-mb-1 PageTitle">Enter Your Work Experience</h4>
+					<div class="col-md-12">
+						<div class="card mb-2" *ngFor="let hobby of getWorkExpArray.controls; let i = index"
+							formArrayName="workExpArray">
+							<div class="card-body">
+								<div [formGroupName]="i">
+									<div class="row">
+										<div class="col-md-6">
+											<label class="form-label labelFont">Organization Name</label>
+											<div class="form-group">
+												<div class="mb-3">
+													<input class="w-100" type="text" placeholder="Organization Name"
+														formControlName="work_org_name" pInputText />
+												</div>
+											</div>
+										</div>
+										<div class="col-md-6">
+											<label class="form-label labelFont">Experience Year </label>
+											<div class="row">
+												<div class="col-md-6">
+													<div class="form-group">
+														<div class="mb-3">
+															<input class="w-100" type="text" placeholder="Start Year"
+																formControlName="work_start_year" pInputText />
+														</div>
+													</div>
+												</div>
+												<div class="col-md-6">
+													<div class="form-group">
+														<div class="mb-3">
+															<input class="w-100" type="text" placeholder="End Year"
+																formControlName="work_end_year" pInputText />
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="col-md-12">
+											<label class="form-label labelFont">Designation</label>
+											<div class="form-group">
+												<div class="mb-3">
+													<input class="w-100" type="text" placeholder="your Designation"
+														formControlName="work_designation" pInputText />
+												</div>
+											</div>
+										</div>
+										<div class="col-md-6">
+											<label class="form-label labelFont">Work Type</label>
+											<div class="form-group">
+												<div class="mb-3">
+													<p-dropdown [options]="workTypeValue" placeholder="select Work Type"
+														styleClass="w-100" formControlName="work_type"
+														optionLabel="value" optionValue="id"></p-dropdown>
+												</div>
+											</div>
+										</div>
+										<div class="col-md-6">
+											<label class="form-label labelFont">Location</label>
+											<div class="form-group">
+												<div class="mb-3">
+													<input class="w-100" type="text" placeholder="Education Location"
+														formControlName="work_location" pInputText />
+												</div>
+											</div>
+										</div>
+										<div class="col-md-12">
+											<label class="form-label labelFont">Job Description</label>
+											<div class="form-group">
+												<div class="mb-3">
+													<p-editor formControlName="work_job_description"
+														placeholder="About Job Description"></p-editor>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="d-flex justify-content-end align-items-center">
+									<button (click)="clickDeleteButton('work_experience', i)"
+										*ngIf="getWorkExpArray.length != 1" class="deleteDivButton">Delete &nbsp;<i
+											class="fa-solid fa-trash trashIcon"></i></button>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="d-flex justify-content-center align-items-center m-3">
+						<button class="addMoreButton" *ngIf="getWorkExpArray.length < wrkExpLimit"
+							(click)="clickAddMoreButton('work_experience')">Add More &nbsp;<i
+								class="fa-solid fa-plus tickIcon"></i></button>
+					</div>
+				</div>
+				<div class="col-md-12">
+					<ng-container *ngIf="f['selected_exp_level'].value == 1">
+						<h4 class="p-mb-1 PageTitle">Enter Your Project Details</h4>
+						<div class="card mb-2" *ngFor="let hobby of getProjectDetailsArray.controls; let i = index"
+							formArrayName="projectDetailsArray">
+							<div class="card-body">
+								<div [formGroupName]="i">
+									<div class="row">
+										<div class="col-md-6">
+											<label class="form-label labelFont">Project Name</label>
+											<div class="form-group">
+												<div class="mb-3">
+													<input class="w-100" type="text" placeholder="Project Name"
+														formControlName="project_name" pInputText />
+												</div>
+											</div>
+										</div>
+										<div class="col-md-6">
+											<label class="form-label labelFont">project Time </label>
+											<div class="row">
+												<div class="col-md-6">
+													<div class="form-group">
+														<div class="mb-3">
+															<input class="w-100" type="text" placeholder="Start Year"
+																formControlName="project_start_name" pInputText />
+														</div>
+													</div>
+												</div>
+												<div class="col-md-6">
+													<div class="form-group">
+														<div class="mb-3">
+															<input class="w-100" type="text" placeholder="End Year"
+																formControlName="project_end_name" pInputText />
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="col-md-12">
+											<label class="form-label labelFont">Project Description</label>
+											<div class="form-group">
+												<div class="mb-3">
+													<p-editor formControlName="project_description"
+														placeholder="Project Description"></p-editor>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="d-flex justify-content-end align-items-center">
+									<button class="deleteDivButton" *ngIf="getProjectDetailsArray.length != 1"
+										(click)="clickDeleteButton('project_details', i)">Delete &nbsp;<i
+											class="fa-solid fa-trash trashIcon"></i></button>
+								</div>
+							</div>
+						</div>
+						<div class="d-flex justify-content-center align-items-center m-3">
+							<button *ngIf="getProjectDetailsArray.length < projectLimit"
+								(click)="clickAddMoreButton('project_details')" class="addMoreButton">Add More &nbsp;<i
+									class="fa-solid fa-plus tickIcon"></i></button>
+						</div>
+					</ng-container>
+				</div>
+				<div class="col-md-12">
+					<h4 class="p-mb-1 PageTitle">Languages Known</h4>
+					<div *ngFor="let hobby of getLanguagesKnownArray.controls; let i = index"
+						formArrayName="languagesKnownArray">
+						<div [formGroupName]="i">
+							<div class="row">
+								<div [ngClass]="getLanguagesKnownArray.length === 1 ? 'col-md-9' : 'col-md-6'">
+									<div class="form-group">
+										<div class="mb-3">
+											<input class="w-100" type="text" placeholder="Language"
+												formControlName="language" pInputText />
+										</div>
+									</div>
+								</div>
+								<div [ngClass]="getLanguagesKnownArray.length === 1 ? 'col-md-3' : 'col-md-6'">
+									<div class="row">
+										<div [ngClass]="getLanguagesKnownArray.length === 1 ? 'col-md-12' : 'col-md-7'">
+											<div class="form-group">
+												<div class="mb-3">
+													<p-dropdown [options]="languageProficiency"
+														placeholder="Proficiency Level" styleClass="w-100"
+														formControlName="lang_proficiency" optionLabel="value"
+														optionValue="id"></p-dropdown>
+												</div>
+											</div>
+										</div>
+										<div class="col-md-5">
+											<button class="deleteDivButton" *ngIf="getLanguagesKnownArray.length != 1"
+												(click)="clickDeleteButton('language_known', i)">Delete &nbsp;<i
+													class="fa-solid fa-trash trashIcon"></i></button>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="d-flex justify-content-center align-items-center m-3">
+						<button class="addMoreButton" *ngIf="getLanguagesKnownArray.length < languageLimit"
+							(click)="clickAddMoreButton('language_known')">Add More &nbsp;<i
+								class="fa-solid fa-plus tickIcon"></i></button>
+					</div>
+				</div>
+				<div class="col-md-12">
+					<h4 class="p-mb-1 PageTitle">Your Technical Skills</h4>
+					<div *ngFor="let hobby of getSkillsArray.controls; let i = index" formArrayName="skillsArray">
+						<div [formGroupName]="i">
+							<div class="row">
+								<div [ngClass]="getSkillsArray.length === 1 ? 'col-md-9' : 'col-md-6'">
+									<div class="form-group">
+										<div class="mb-3">
+											<input class="w-100" type="text" placeholder="Add Your Skills"
+												formControlName="skills" pInputText />
+										</div>
+									</div>
+								</div>
+								<div [ngClass]="getSkillsArray.length === 1 ? 'col-md-3' : 'col-md-6'">
+									<div class="row">
+										<div [ngClass]="getSkillsArray.length === 1 ? 'col-md-12' : 'col-md-7'">
+											<div class="form-group">
+												<div class="mb-3">
+													<p-dropdown [options]="skillProficiency" styleClass="w-100"
+														placeholder="Proficiency Level"
+														formControlName="skills_proficiency" optionLabel="value"
+														optionValue="id"></p-dropdown>
+												</div>
+											</div>
+										</div>
+										<div class="col-md-5">
+											<button (click)="clickDeleteButton('skills', i)"
+												*ngIf="getSkillsArray.length != 1" class="deleteDivButton">Delete
+												&nbsp;<i class="fa-solid fa-trash trashIcon"></i></button>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="d-flex justify-content-center align-items-center m-3">
+						<button class="addMoreButton" *ngIf="getSkillsArray.length < techSkillLimit"
+							(click)="clickAddMoreButton('skills')">Add More &nbsp;<i
+								class="fa-solid fa-plus tickIcon"></i></button>
+					</div>
+				</div>
+				<div class="col-md-12">
+					<h4 class="p-mb-1 PageTitle">Your Hobbies</h4>
+					<div *ngFor="let hobby of getHobbiesArray.controls; let i = index" formArrayName="hobbiesArray">
+						<div [formGroupName]="i">
+							<div class="row">
+								<div [ngClass]="getHobbiesArray.length === 1 ? 'col-md-12' : 'col-md-9'">
+									<div class="form-group">
+										<div class="mb-3">
+											<input class="w-100" type="text" placeholder="Add Your Hobbies"
+												formControlName="hobbies" name="hobby{{ i }}" pInputText />
+										</div>
+									</div>
+								</div>
+								<div class="col-md-3">
+									<button class="deleteDivButton" (click)="clickDeleteButton('Hobby', i)">Delete
+										&nbsp;<i class="fa-solid fa-trash trashIcon"></i></button>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="d-flex justify-content-center align-items-center m-3">
+						<button (click)="clickAddMoreButton('Hobby')" *ngIf="getHobbiesArray.length < hobbyLimit"
+							class="addMoreButton">Add More &nbsp;<i class="fa-solid fa-plus tickIcon"></i></button>
+					</div>
+				</div>
+				<div class="col-md-12">
+					<h4 class="p-mb-1 PageTitle">Extra Curricular Activities</h4>
+					<div *ngFor="let hobby of getExtraCurricularArray.controls; let i = index"
+						formArrayName="extraCurricularArray">
+						<div [formGroupName]="i">
+							<div class="row">
+								<div [ngClass]="getExtraCurricularArray.length === 1 ? 'col-md-12' : 'col-md-9'">
+									<div class="form-group">
+										<div class="mb-3">
+											<input class="w-100" type="text" placeholder="Extra Activities"
+												formControlName="extra_curricular_activites" pInputText />
+										</div>
+									</div>
+								</div>
+								<div class="col-md-3">
+									<!-- *ngIf="getExtraCurricularArray.length != 1" -->
+									<button class="deleteDivButton"
+										(click)="clickDeleteButton('extra_curricular', i)">Delete &nbsp;<i
+											class="fa-solid fa-trash trashIcon"></i>
+									</button>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="d-flex justify-content-center align-items-center m-3">
+						<button class="addMoreButton" *ngIf="getExtraCurricularArray.length < extraCurriLimit"
+							(click)="clickAddMoreButton('extra_curricular')">Add More &nbsp;<i
+								class="fa-solid fa-plus tickIcon"></i></button>
+					</div>
+				</div>
+				<div class="col-md-12">
+					<h4 class="p-mb-1 PageTitle">Certifications</h4>
+					<div class="card mb-2" *ngFor="let hobby of getCertificatesArray.controls; let i = index"
+						formArrayName="certificatesArray">
+						<div class="card-body">
+							<div [formGroupName]="i">
+								<div class="row">
+									<div class="col-md-6">
+										<label class="form-label labelFont">Certificate Name</label>
+										<div class="form-group">
+											<div class="mb-3">
+												<input class="w-100" type="text" placeholder="Name"
+													formControlName="certificate_name" pInputText />
+											</div>
+										</div>
+									</div>
+									<div class="col-md-6">
+										<label class="form-label labelFont">Certificate Issued</label>
+										<div class="form-group">
+											<div class="mb-3">
+												<input class="w-100" type="text" placeholder="Issue Date"
+													formControlName="certificate_issued" pInputText />
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-md-6">
+										<label class="form-label labelFont">Certificate ID(Optional)</label>
+										<div class="form-group">
+											<div class="mb-3">
+												<input class="w-100" type="text" placeholder="Certificate ID"
+													formControlName="certificate_id" pInputText />
+											</div>
+										</div>
+									</div>
+									<div class="col-md-6">
+										<label class="form-label labelFont">Certificate Link(Optional)</label>
+										<div class="form-group">
+											<div class="mb-3">
+												<input class="w-100" type="text" placeholder="certificate Link"
+													formControlName="certicate_link" pInputText />
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="d-flex justify-content-end align-items-center">
+								<button class="deleteDivButton" (click)="clickDeleteButton('certificate', i)">Delete
+									&nbsp;<i class="fa-solid fa-trash trashIcon"></i></button>
+							</div>
+						</div>
+					</div>
+					<div class="d-flex justify-content-center align-items-center m-3">
+						<button class="addMoreButton" *ngIf="getCertificatesArray.length < certificateLimit"
+							(click)="clickAddMoreButton('certificate')">Add More &nbsp;<i
+								class="fa-solid fa-plus tickIcon"></i></button>
+					</div>
+				</div>
+				<div class="col-md-12">
+					<h4 class="p-mb-1 PageTitle">References</h4>
+					<div class="card mb-2" *ngFor="let hobby of getReferenceArray.controls; let i = index"
+						formArrayName="referenceArray">
+						<div class="card-body">
+							<div [formGroupName]="i">
+								<div class="row">
+									<div class="col-md-12">
+										<label class="form-label labelFont">Reference Name</label>
+										<div class="form-group">
+											<div class="mb-3">
+												<input class="w-100" type="text" placeholder="Name"
+													formControlName="ref_name" pInputText />
+											</div>
+										</div>
+										<div class="row">
+											<div class="col-md-6">
+												<label class="form-label labelFont">Reference Position</label>
+												<div class="form-group">
+													<div class="mb-3">
+														<input class="w-100" type="text" placeholder="Position"
+															formControlName="ref_position" pInputText />
+													</div>
+												</div>
+											</div>
+											<div class="col-md-6">
+												<label class="form-label labelFont">Reference Organization</label>
+												<div class="form-group">
+													<div class="mb-3">
+														<input class="w-100" type="text" placeholder="Organization Name"
+															formControlName="ref_organization" pInputText />
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="row">
+											<div class="col-md-6">
+												<label class="form-label labelFont">Reference Contact Email</label>
+												<div class="form-group">
+													<div class="mb-3">
+														<input class="w-100" type="text" placeholder="Email ID"
+															formControlName="ref_email" pInputText />
+													</div>
+												</div>
+											</div>
+											<div class="col-md-6">
+												<label class="form-label labelFont">Reference Contact Number</label>
+												<div class="form-group">
+													<div class="mb-3">
+														<input class="w-100" type="text" placeholder="Contact Number"
+															formControlName="ref_contact" pInputText />
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="d-flex justify-content-end align-items-center">
+								<button class="deleteDivButton" (click)="clickDeleteButton('reference', i)">Delete
+									&nbsp;<i class="fa-solid fa-trash trashIcon"></i></button>
+							</div>
+						</div>
+					</div>
+					<div class="d-flex justify-content-center align-items-center m-3">
+						<button class="addMoreButton" *ngIf="getReferenceArray.length < referenceLimit"
+							(click)="clickAddMoreButton('reference')">Add More &nbsp;<i
+								class="fa-solid fa-plus tickIcon"></i></button>
+					</div>
+				</div>
+			</form>
+		</div>
+		<div class="col-md-6 h-100">
+			<div class="card h-100">
+				<div class="card-header d-flex justify-content-between align-items-center PageTitle">
+					<h4 class="p-mb-1">Preview</h4>
+					<div class="gap-2">
+						<span class="templateButton">Template<span class="templateName">Basic</span></span>
+						<ng-container *ngTemplateOutlet="colorPickerContent"></ng-container>
+					</div>
+					<i class="fa-sharp fa-solid fa-expand" style="cursor: pointer" (click)="toggleFullScreen()"></i>
+				</div>
+				<div class="card-body h-100 overflow-hidden">
+					<div class="previewcontainer">
+						<div class="previewbody">
+							<ng-container *ngTemplateOutlet="sharedContent"></ng-container>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="d-flex space-between" style="justify-content: space-between">
+		<button pButton type="button" (click)="previous()"
+			class="text-white p-ripple p-button-rounded p-button-info-prev p-button p-component p-2"><i
+				class="fa fa-arrow-left exhausted-plan-icon-prev"></i> Previous</button>
+		<button pButton type="button" (click)="resumeFormSubmit()"
+			class="text-white p-ripple p-button-rounded p-button-info-next p-button p-component p-2">Next<i
+				class="fa fa-arrow-right exhausted-plan-icon-next"></i></button>
+	</div>
+</div>
+
+<p-sidebar [(visible)]="fullScreenVisible" [fullScreen]="true" [showCloseIcon]="false">
+	<div class="col-md-12 h-100">
+		<div class="card h-100">
+			<div class="card-header cvPreview">
+				<h4 class="p-mb-1">CV Preview</h4>
+				<div>
+					<span class="templateButton">Template<span class="templateName">Basic</span></span>
+					<ng-container *ngTemplateOutlet="colorPickerContent"></ng-container>
+				</div>
+				<i class="fa-sharp fa-solid fa-compress" style="cursor: pointer" (click)="toggleFullScreen()"></i>
+			</div>
+			<div class="card-body h-100 overflow-hidden" style="background-color: #3f4c83">
+				<div class="previewcontainer">
+					<div class="previewbody">
+						<ng-container *ngTemplateOutlet="sharedContent"></ng-container>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</p-sidebar>
+
+<ng-template #colorPickerContent>
+	<div class="dropdown">
+		<div class="colorDiv d-flex colorButton align-items-center gap-2">
+			<p>Color</p>
+			<div style="background-color: black;" [ngStyle]="{ 'background-color': selectedThemeColor }"
+				class="selectedColor"></div>
+		</div>
+		<div class="dropdown-content">
+			<div class="d-flex justify-content-center">
+				<a (click)="selectColor('#134B70',1)" class="p-2 cursorPointer">
+					<div style="background-color: #134B70;" class="colorSelector"></div>
+					<i *ngIf="selectedColorCode == 1" class="fa-solid fa-check ColorCheckBox colorWhite"></i>
+				</a>
+				<a (click)="selectColor('#172a99',2)" class="p-2 cursorPointer">
+					<div style="background-color: #172a99;" class="colorSelector"></div>
+					<i *ngIf="selectedColorCode == 2" class="fa-solid fa-check ColorCheckBox colorWhite"></i>
+				</a>
+				<a (click)="selectColor('#708871',3)" class="p-2 cursorPointer">
+					<div style="background-color: #708871;" class="colorSelector"></div>
+					<i *ngIf="selectedColorCode == 3" class="fa-solid fa-check ColorCheckBox"></i>
+				</a>
+				<a (click)="selectColor('#973131',4)" class="p-2 cursorPointer">
+					<div style="background-color: #973131;" class="colorSelector"></div>
+					<i *ngIf="selectedColorCode == 4" class="fa-solid fa-check ColorCheckBox colorWhite"></i>
+				</a>
+			</div>
+			<div class="d-flex justify-content-center">
+				<a (click)="selectColor('#C80036',5)" class="p-2 cursorPointer">
+					<div style="background-color: #C80036;" class="colorSelector"></div>
+					<i *ngIf="selectedColorCode == 5" class="fa-solid fa-check ColorCheckBox colorWhite"></i>
+				</a>
+				<a (click)="selectColor('#373A40',6)" class="p-2 cursorPointer">
+					<div style="background-color:#373A40;" class="colorSelector"></div>
+					<i *ngIf="selectedColorCode == 6" class="fa-solid fa-check ColorCheckBox"></i>
+				</a>
+				<a (click)="selectColor('#686D76',7)" class="p-2 cursorPointer">
+					<div style="background-color:#686D76;" class="colorSelector"></div>
+					<i *ngIf="selectedColorCode == 7" class="fa-solid fa-check ColorCheckBox colorWhite"></i>
+				</a>
+			</div>
+		</div>
+	</div>
+</ng-template>
+
+<ng-template #sharedContent>
+	<div class="h-100" [ngClass]="{ previewBodyForm: !fullScreenVisible, previewBodyFormFull: fullScreenVisible }">
+		<div class="text-center" id="personalinfo">
+			<h1 class="m-0">{{ f["user_name"].value }}</h1>
+			<p class="m-0">{{ f["user_job_title"].value }}</p>
+			<hr />
+			<div class="d-flex justify-content-between font-12">
+				<a [href]="'tel:' + f['user_phone'].value" target="_Blank">{{ f["user_phone"].value }}</a>
+				<a [href]="'tel:' + f['user_email'].value" target="_Blank">{{ f["user_email"].value }}</a>
+				<a [href]="f['user_linkedin'].value" target="_Blank">LinkedIn</a>
+				<a [href]="f['user_website'].value" target="_Blank">{{ f["user_website"].value }}</a>
+				<span>{{ f["user_location"].value }}</span>
+			</div>
+			<hr />
+			<div>
+				<h2>Summary</h2>
+				<p class="m-0" [innerHTML]="f['user_summary'].value"></p>
+			</div>
+		</div>
+		<hr />
+		<div class="d-flex gap-1">
+			<div class="w-75 d-flex flex-column">
+				<div id="education">
+					<h2 class="m-0">Education</h2>
+					<div class="d-flex flex-wrap">
+						<div class="w-50" *ngFor="let edu of getEduDetailsArray.controls">
+							<h3 class="m-0">{{ edu.value.edu_degree }}</h3>
+							<h4 class="m-0">{{ edu.value.edu_college_name }} {{ edu.value.edu_percentage ? " | " +
+								edu.value.edu_percentage : "" }} {{ edu.value.edu_cgpa_percentage }}</h4>
+							<p class="m-0">{{ edu.value.edu_location }} {{ edu.value.edu_start_year }} {{
+								edu.value.edu_end_year ? " - " + edu.value.edu_end_year : "" }}</p>
+						</div>
+					</div>
+				</div>
+				<hr />
+				<div id="experience">
+					<h2 class="m-0">Experience</h2>
+					<div class="mb-1" *ngFor="let exp of getWorkExpArray.controls">
+						<h3 class="m-0">{{ exp.value.work_designation }} {{ exp.value.work_type ? " - " +
+							exp.value.work_type : "" }}</h3>
+						<h4 class="m-0">{{ exp.value.work_org_name }} {{ exp.value.work_location ? " | " +
+							exp.value.work_location : "" }} {{ exp.value.work_start_year ? " | " +
+							exp.value.work_start_year : "" }} {{ exp.value.work_end_year ? " - " +
+							exp.value.work_end_year : "" }}</h4>
+						<p class="m-0" [innerHTML]="exp.value.work_job_description"></p>
+					</div>
+				</div>
+				<hr />
+				<div id="project">
+					<h2 class="m-0">Project</h2>
+					<div class="mb-1" *ngFor="let project of getProjectDetailsArray.controls">
+						<h3 class="m-0">{{ project.value.project_name }}</h3>
+						<h4 class="m-0">{{ project.value.project_start_name }} {{ project.value.project_end_name ? " - "
+							+ project.value.project_end_name : "" }}</h4>
+						<p class="m-0" [innerHTML]="project.value.project_description"></p>
+					</div>
+				</div>
+			</div>
+			<div>
+				<hr class="h-100" />
+			</div>
+			<div class="w-25 d-flex flex-column">
+				<div id="certificates">
+					<h2 class="m-0">Certificates</h2>
+					<div *ngFor="let certificate of getCertificatesArray.controls">
+						<h3 class="m-0">{{ certificate.value.certificate_name }}</h3>
+						<h4 class="m-0">{{ certificate.value.certificate_issued }}</h4>
+						<p class="m-0">{{ certificate.value.certificate_id }}</p>
+						<a [href]="certificate.value.certicate_link" target="_Blank">Certificate Link</a>
+					</div>
+				</div>
+				<hr />
+				<div id="language">
+					<h2 class="m-0">Languages Known</h2>
+					<ul>
+						<li *ngFor="let lang of getLanguagesKnownArray.controls">{{ lang.value.language }} {{
+							lang.value.lang_proficiency ? " - " + lang.value.lang_proficiency : "" }}</li>
+					</ul>
+				</div>
+				<hr />
+				<div id="skills">
+					<h2 class="m-0">Skills</h2>
+					<ul>
+						<li *ngFor="let skill of getSkillsArray.controls">{{ skill.value.skills }} {{
+							skill.value.skills_proficiency ? " - " + skill.value.skills_proficiency : "" }}</li>
+					</ul>
+				</div>
+				<hr />
+				<div id="hobbies">
+					<h2 class="m-0">Hobbies</h2>
+					<ul>
+						<li *ngFor="let hobby of getHobbiesArray.controls">{{ hobby.value.hobbies }}</li>
+					</ul>
+				</div>
+				<hr />
+				<div id="achievements">
+					<h2 class="m-0">Other Achievements</h2>
+					<ul>
+						<li *ngFor="let extra of getExtraCurricularArray.controls">{{
+							extra.value.extra_curricular_activites }}</li>
+					</ul>
+				</div>
+				<hr />
+				<div id="references">
+					<h2 class="m-0">References</h2>
+					<div *ngFor="let refer of getReferenceArray.controls">
+						<h4 class="m-0">{{ refer.value.ref_name }} {{ refer.value.ref_position ? " | " +
+							refer.value.ref_position : "" }}</h4>
+						<p class="m-0">{{ refer.value.ref_organization }} {{ refer.value.ref_contact ? " | " +
+							refer.value.ref_contact : "" }}</p>
+						<p>{{ refer.value.ref_email }}</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</ng-template> -->
+
+<ng-template #sharedContent>
+	<div class="h-100" [ngClass]="{ previewBodyForm: !fullScreenVisible, previewBodyFormFull: fullScreenVisible }" *ngIf="selectedResumeLevel=='Modern'">
+		<div style=" margin-bottom: 10px;">
+			<div style="width: 65%;">
+			<h1 class="userName upperCase">{{ userNameSplit.firstWord }} 
+				<span [ngStyle] = "{'color': selectedThemeColor }" style="color:#172a99;">{{ userNameSplit.secondWord }}</span>
+			</h1>
+				<p class="profession upperCase">{{ f["user_job_title"].value }}</p>
+			</div>
+			<div class="separator" [ngStyle]="{'background-color': selectedThemeColor}"></div>
+		</div>
+		<div style="display: flex;">
+			<div style="width: 35%; margin-right: 5%;">
+				<div class="content">
+					<p class="headingStyle text-color-white" [ngStyle]="{'background-color': selectedThemeColor}">contact me</p>
+					<div class="contactItem fw-600">
+						<img class="resumeIcons" src="../../../uniprep-assets/resume-icons/Location.svg">
+						<p>{{ f["user_location"].value }}</p>
+					</div>
+					<div class="contactItem fw-600">
+						<img class="resumeIcons" src="../../../uniprep-assets/resume-icons/Phone.svg">
+						<p>{{ f["user_phone"].value }}</p>
+					</div>
+					<div class="contactItem fw-600">
+						<img class="resumeIcons" src="../../../uniprep-assets/resume-icons/Email.svg">
+						<p>{{ f["user_email"].value }}</p>
+					</div>
+					<div class="contactItem fw-600">
+						<img class="resumeIcons" src="../../../uniprep-assets/resume-icons/Linkedin.svg">
+						<p><a href="https://www.linkedin.com/public-profile/settings?trk=d_flagship3_profile_self_view_public_profile">{{ f['user_linkedin'].value }}/</a></p>
+					</div>
+					<div class="contactItem fw-600" *ngIf="f['user_website'].value">
+						<img class="resumeIcons" src="../../../uniprep-assets/resume-icons/Web.svg">
+						<p>{{ f['user_website'].value }}</p>
+					</div>
+				</div>
+	
+				<div class="content">
+					<p class="headingStyle text-color-white" [ngStyle]="{'background-color': selectedThemeColor}">language</p>
+					<div class="languageItem fw-600" *ngFor="let lang of getLanguagesKnownArray.controls">
+						<p>{{ lang.value.language }} </p>
+						<ng-container [ngSwitch]="lang.value.lang_proficiency">
+							<img *ngSwitchCase="'Beginner'" class="resumeIcons" src="../../../uniprep-assets/resume-icons/STARS-002.svg">
+							<img *ngSwitchCase="'Fluent'" class="resumeIcons" src="../../../uniprep-assets/resume-icons/STARS-003.svg">
+							<img *ngSwitchCase="'Proficient'" class="resumeIcons" src="../../../uniprep-assets/resume-icons/STARS-004.svg">
+							<img *ngSwitchCase="'Native'" class="resumeIcons" src="../../../uniprep-assets/resume-icons/STARS-005.svg">
+						</ng-container>
+					</div>
+				</div>
+	
+				<div class="content" *ngIf="getCertificatesArray.length !=0">
+					<p class="headingStyle text-color-white" [ngStyle]="{'background-color': selectedThemeColor}">certifications</p>
+					<div class="certificationItem" *ngFor="let certificate of getCertificatesArray.controls">
+						<p><b>{{ certificate.value.certificate_name }}</b> {{ certificate.value.certificate_issued ? " - " + certificate.value.certificate_issued : "" }}</p>
+						<p>{{ certificate.value.certificate_id ? "ID:" + certificate.value.certificate_id : "" }} </p>
+						<a [href]="certificate.value.certicate_link" target="_Blank">{{ certificate.value.certicate_link }}</a>
+					</div>
+				</div>
+	
+				<div class="content">
+					<p class="headingStyle text-color-white" [ngStyle]="{'background-color': selectedThemeColor}">technical skills</p>
+					<div class="technicalSkillItem" *ngFor="let skill of getSkillsArray.controls">
+						<p class="upperCase">{{ skill.value.skills }}</p>
+						<ng-container [ngSwitch]="skill.value.skills_proficiency">
+							<img *ngSwitchCase="'Basic'" class="resumeIcons" src="../../../uniprep-assets/resume-icons/STARS-002.svg">
+							<img *ngSwitchCase="'Intermediate'" class="resumeIcons" src="../../../uniprep-assets/resume-icons/STARS-003.svg">
+							<img *ngSwitchCase="'Advance'" class="resumeIcons" src="../../../uniprep-assets/resume-icons/STARS-005.svg">
+						</ng-container>
+					</div>
+				</div>
+				<div class="content" *ngIf="getHobbiesArray.length != 0">
+					<p class="headingStyle text-color-white" [ngStyle]="{'background-color': selectedThemeColor}">Hobbies</p>
+					<div class="technicalSkillItem" *ngFor="let hobby of getHobbiesArray.controls">
+						<p class="upperCase">{{ hobby.value.hobbies }}</p>
+					</div>
+				</div>
+				<div class="content" *ngIf="getExtraCurricularArray.length != 0">
+					<p class="headingStyle text-color-white" [ngStyle]="{'background-color': selectedThemeColor}">Extra Curricular Activities</p>
+					<div class="technicalSkillItem" *ngFor="let extra of getExtraCurricularArray.controls">
+						<p class="upperCase">{{ extra.value.extra_curricular_activites }}</p>
+					</div>
+				</div>
+			</div>
+	
+			<div style="width: 65%;">
+				<div class="aboutMe">
+					<p class="headingStyle text-color-white" [ngStyle]="{'background-color': selectedThemeColor}">about me</p>
+					<p class="small-text" [innerHTML]="f['user_summary'].value"></p>
+				</div>
+				<div class="content">
+					<p class="headingStyle text-color-white" [ngStyle]="{'background-color': selectedThemeColor}">experience</p>
+					<div class="experienceItem" *ngFor="let exp of getWorkExpArray.controls">
+						<div style="width: 30%;">
+							<p class="fw-700">{{ exp.value.work_start_year }} {{ exp.value.work_end_year ? " - " +
+								exp.value.work_end_year : "" }}</p>
+							<p class="fw-700">{{ exp.value.work_org_name }}</p>
+							<p class="fw-700">{{ exp.value.work_location }} </p>
+						</div>
+						<div style="width: 70%;">
+							<p class="upperCase fw-600">{{ exp.value.work_designation }} {{ exp.value.work_type ? " - " +
+								exp.value.work_type : "" }}</p>
+							<p class="small-text" [innerHTML]="exp.value.work_job_description"></p>
+						</div>
+					</div>
+				</div>
+				<div class="content">
+					<p class="headingStyle text-color-white" [ngStyle]="{'background-color': selectedThemeColor}">education</p>
+					<div class="educationItem" *ngFor="let edu of getEduDetailsArray.controls">
+						<div style="width: 50%;">
+							<p>{{ edu.value.edu_start_year }} {{ edu.value.edu_end_year ? " - " + edu.value.edu_end_year : "" }}</p>
+							<p class="upperCase fw-500">{{ edu.value.edu_degree }} </p>
+						</div>
+						<div style="width: 30%;">
+							<p>{{ edu.value.edu_college_name }}</p>
+							<p>{{ edu.value.edu_percentage }} {{ edu.value.edu_cgpa_percentage }}</p>
+						</div>
+						<div style="width: 20%;">
+							<p>{{ edu.value.edu_location }}</p>
+						</div>
+					</div>
+				</div>
+				<div class="content" *ngIf="getProjectDetailsArray.length != 0 && f['selected_exp_level'].value == 1">
+					<p class="headingStyle text-color-white" [ngStyle]="{'background-color': selectedThemeColor}">projects</p>
+					<div class="projectItem" *ngFor="let project of getProjectDetailsArray.controls">
+						<div style="width: 20%;">
+							<p class="fw-700">{{ project.value.project_start_name }} {{ project.value.project_end_name ? " - "
+								+ project.value.project_end_name : "" }}</p>
+						</div>
+						<div style="width: 80%;">
+							<p class="upperCase fw-600">{{ project.value.project_name }}</p>
+							<p class="small-text" [innerHTML]="project.value.project_description"></p>
+						</div>
+					</div>
+				</div>
+				<div class="content" *ngIf="getReferenceArray.length != 0">
+					<p class="headingStyle text-color-white" [ngStyle]="{'background-color': selectedThemeColor}">reference</p>
+					<div class="referenceItem" >
+						<div style="width: 50%;" *ngFor="let refer of getReferenceArray.controls">
+							<p><b>{{ refer.value.ref_name }}</b></p>
+							<p><b>{{ refer.value.ref_position }}, {{ refer.value.ref_organization }}</b></p>
+							<p>{{ refer.value.ref_email }}</p>
+							<p><b>phone:</b> {{ refer.value.ref_contact }}</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="h-100" [ngClass]="{ previewBodyForm: !fullScreenVisible, previewBodyFormFull: fullScreenVisible }" *ngIf="selectedResumeLevel=='Academic'">
+		<div class="container mt-2">
+			<div class="row">
+				<div class="col-12">
+					<h1 class="userName upperCase">{{ f["user_name"].value }}</h1>
+					<p class="profession upperCase">{{ f["user_job_title"].value }}</p>
+				</div>
+			</div>
+			<div class="row mb-1">
+				<div class="col-12">
+					<div class="d-flex justify-content-around align-items-center">
+						<div class="contactItem fw-600">
+							<div class="resumeIcons" style="margin: 0px;">
+								<img src="../../../uniprep-assets/resume-icons/Location.svg">
+							</div>
+							<p>{{ f["user_location"].value }}</p>
+						</div>
+						<div class="contactItem fw-600">
+							<div class="resumeIcons" style="margin: 0px;">
+								<img src="../../../uniprep-assets/resume-icons/Phone.svg">
+							</div>
+							<p>{{ f["user_phone"].value }}</p>
+						</div>
+						<div class="contactItem fw-600">
+							<div class="resumeIcons" style="margin: 0px;">
+								<img src="../../../uniprep-assets/resume-icons/Email.svg">
+							</div>
+							<p>{{ f["user_email"].value }}</p>
+						</div>
+						<div class="contactItem fw-600">
+							<div class="resumeIcons" style="margin: 0px;">
+								<img src="../../../uniprep-assets/resume-icons/Linkedin.svg">
+							</div>
+							<p>{{ f["user_linkedin"].value }}</p>
+						</div>
+						<div class="contactItem fw-600" *ngIf="f['user_website'].value">
+							<div class="resumeIcons" style="margin: 0px;">
+								<img src="../../../uniprep-assets/resume-icons/Web.svg">
+							</div>
+							<p>{{ f["user_website"].value }}</p>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-lg-7">
+					<div class="content">
+						<p class="headingStyle"><span>about me</span></p>
+						<p [innerHTML]="f['user_summary'].value"></p>
+					</div>
+					<div class="content">
+						<p class="headingStyle"><span>experience</span></p>
+						<div class="experienceItem" *ngFor="let exp of getWorkExpArray.controls">
+							<div style="width: 30%;">
+								<p class="fw-700">{{ exp.value.work_start_year }} {{ exp.value.work_end_year ? " - " +
+									exp.value.work_end_year : "" }}</p>
+								<p class="fw-700">{{ exp.value.work_org_name }}</p>
+								<p class="fw-700">{{ exp.value.work_location }} </p>
+							</div>
+							<div style="width: 70%;">
+								<p class="upperCase fw-600">{{ exp.value.work_designation }} {{ exp.value.work_type ? " - " +
+									exp.value.work_type : "" }}</p>
+								<p class="small-text" [innerHTML]="exp.value.work_job_description"></p>
+							</div>
+						</div>
+					</div>
+					<div class="content">
+						<p class="headingStyle" >education</p>
+						<hr>
+						<div class="educationItem" *ngFor="let edu of getEduDetailsArray.controls">
+							<div style="width: 50%;">
+								<p>{{ edu.value.edu_start_year }} {{ edu.value.edu_end_year ? " - " + edu.value.edu_end_year : "" }}</p>
+								<p class="upperCase fw-500">{{ edu.value.edu_degree }} </p>
+							</div>
+							<div style="width: 30%;">
+								<p>{{ edu.value.edu_college_name }}</p>
+								<p>{{ edu.value.edu_percentage }} {{ edu.value.edu_cgpa_percentage }}</p>
+							</div>
+							<div style="width: 20%;">
+								<p>{{ edu.value.edu_location }}</p>
+							</div>
+						</div>
+					</div>
+					<div class="content">
+						<p class="headingStyle">technical skills</p>
+						<div class="technicalSkillItem" *ngFor="let skill of getSkillsArray.controls">
+							<p class="upperCase">{{ skill.value.skills }}</p>
+							<ng-container [ngSwitch]="skill.value.skills_proficiency">
+								<img *ngSwitchCase="'Basic'" class="resumeIcons" src="../../../uniprep-assets/resume-icons/STARS-002.svg">
+								<img *ngSwitchCase="'Intermediate'" class="resumeIcons" src="../../../uniprep-assets/resume-icons/STARS-003.svg">
+								<img *ngSwitchCase="'Advance'" class="resumeIcons" src="../../../uniprep-assets/resume-icons/STARS-005.svg">
+							</ng-container>
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-5">
+					<div class="content" *ngIf="getCertificatesArray.length !=0">
+						<p class="headingStyle">certifications</p>
+						<div class="certificationItem" *ngFor="let certificate of getCertificatesArray.controls">
+							<p><b>{{ certificate.value.certificate_name }}</b> {{ certificate.value.certificate_issued ? " - " + certificate.value.certificate_issued : "" }}</p>
+							<p>{{ certificate.value.certificate_id ? "ID:" + certificate.value.certificate_id : "" }} </p>
+							<a [href]="certificate.value.certicate_link" target="_Blank">{{ certificate.value.certicate_link }}</a>
+						</div>
+					</div>
+					<div class="content">
+						<p class="headingStyle"><span>languages Known</span></p>
+						<div class="languageItem fw-600" *ngFor="let lang of getLanguagesKnownArray.controls">
+							<p>{{ lang.value.language }} </p>
+							<ng-container [ngSwitch]="lang.value.lang_proficiency">
+								<img *ngSwitchCase="'Beginner'" class="resumeIcons" src="../../../uniprep-assets/resume-icons/STARS-002.svg">
+								<img *ngSwitchCase="'Fluent'" class="resumeIcons" src="../../../uniprep-assets/resume-icons/STARS-003.svg">
+								<img *ngSwitchCase="'Proficient'" class="resumeIcons" src="../../../uniprep-assets/resume-icons/STARS-004.svg">
+								<img *ngSwitchCase="'Native'" class="resumeIcons" src="../../../uniprep-assets/resume-icons/STARS-005.svg">
+							</ng-container>
+						</div>
+					</div>
+					<div class="content" *ngIf="getProjectDetailsArray.length != 0 && f['selected_exp_level'].value == 1">
+						<p class="headingStyle">projects</p>
+						<div class="projectItem" *ngFor="let project of getProjectDetailsArray.controls">
+							<div style="width: 20%;">
+								<p class="fw-700">{{ project.value.project_start_name }} {{ project.value.project_end_name ? " - "
+									+ project.value.project_end_name : "" }}</p>
+							</div>
+							<div style="width: 80%;">
+								<p class="upperCase fw-600">{{ project.value.project_name }}</p>
+								<p class="small-text" [innerHTML]="project.value.project_description"></p>
+							</div>
+						</div>
+					</div>
+					<div class="content" *ngIf="getHobbiesArray.length != 0">
+						<p class="headingStyle">Hobbies</p>
+						<div class="technicalSkillItem" *ngFor="let hobby of getHobbiesArray.controls">
+							<p class="upperCase">{{ hobby.value.hobbies }}</p>
+						</div>
+					</div>
+					<div class="content" *ngIf="getExtraCurricularArray.length != 0">
+						<p class="headingStyle">Extra Curricular Activities</p>
+						<div class="technicalSkillItem" *ngFor="let extra of getExtraCurricularArray.controls">
+							<p class="upperCase">{{ extra.value.extra_curricular_activites }}</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="h-100" [ngClass]="{ previewBodyForm: !fullScreenVisible, previewBodyFormFull: fullScreenVisible }" *ngIf="selectedResumeLevel=='Creative'">
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-12 text-left" style="background-color: black; padding: 20px 10px;">
+					<h1 class="userName upperCase" style="color: #f8d44c;margin: 0px;">{{ f["user_name"].value }}</h1>
+					<p class="profession upperCase" style="color: white;">{{ f["user_job_title"].value }}</p>
+				</div>
+			</div>
+	
+			<div class="row">
+				<div class="col-md-7">
+					<p class="headingStyle" style="margin:0px;"><span>about me</span></p>
+					<hr>
+					<div class="content">
+						<p class="small-text" [innerHTML]="f['user_summary'].value"></p>
+					</div>
+					<p class="headingStyle" style="margin:0px;"><span>experience</span></p>
+					<hr>
+					<div class="content">
+						<div class="experienceItem" *ngFor="let exp of getWorkExpArray.controls">
+							<div style="width: 30%;">
+								<p class="fw-700">{{ exp.value.work_start_year }} {{ exp.value.work_end_year ? " - " +
+									exp.value.work_end_year : "" }}</p>
+								<p class="fw-700">{{ exp.value.work_org_name }}</p>
+								<p class="fw-700">{{ exp.value.work_location }}</p>
+							</div>
+							<div style="width: 70%;">
+								<p class="upperCase fw-600">{{ exp.value.work_designation }} {{ exp.value.work_type ? " - " +
+									exp.value.work_type : "" }}</p>
+								<p class="small-text" [innerHTML]="exp.value.work_job_description"></p>
+							</div>
+						</div>
+					</div>
+					<p class="headingStyle" style="margin:0px;"><span>education</span></p>
+					<hr>
+					<div class="content fw-600 educationItem" *ngFor="let edu of getEduDetailsArray.controls">
+						<div style="width: 50%;">
+							<p>{{ edu.value.edu_start_year }} {{ edu.value.edu_end_year ? " - " + edu.value.edu_end_year : "" }}</p>
+							<p class="upperCase fw-500">{{ edu.value.edu_degree }} </p>
+						</div>
+						<div style="width: 30%;">
+							<p>{{ edu.value.edu_college_name }}</p>
+							<p>{{ edu.value.edu_percentage }} {{ edu.value.edu_cgpa_percentage }}</p>
+						</div>
+						<div style="width: 20%;">
+							<p>{{ edu.value.edu_location }}</p>
+						</div>
+					</div>
+					<ng-container *ngIf="getProjectDetailsArray.length != 0 && f['selected_exp_level'].value == 1">
+						<p class="headingStyle" style="margin:0px;"><span>project details</span></p>
+						<hr>
+						<div class="content fw-600" *ngFor="let project of getProjectDetailsArray.controls">
+							<div class="projectItem" >
+								<div style="width: 20%;">
+									<p class="fw-700">{{ project.value.project_start_name }} {{ project.value.project_end_name ? " - "
+										+ project.value.project_end_name : "" }}</p>
+								</div>
+								<div style="width: 80%;">
+									<p class="upperCase fw-600">{{ project.value.project_name }}</p>
+									<p class="small-text" [innerHTML]="project.value.project_description"></p>
+								</div>
+							</div>
+						</div>
+					</ng-container>
+					<ng-container *ngIf="getCertificatesArray.length !=0">
+						<p class="headingStyle" style="margin:0px;">certifications</p>
+						<hr>
+						<div class="certificationItem" *ngFor="let certificate of getCertificatesArray.controls">
+							<p><b>{{ certificate.value.certificate_name }}</b> {{ certificate.value.certificate_issued ? " - " + certificate.value.certificate_issued : "" }}</p>
+							<p>{{ certificate.value.certificate_id ? "ID:" + certificate.value.certificate_id : "" }} </p>
+							<a [href]="certificate.value.certicate_link" target="_Blank">{{ certificate.value.certicate_link }}</a>
+						</div>
+					</ng-container>
+					<ng-container *ngIf="getReferenceArray.length !=0">
+						<p class="headingStyle" style="margin:0px;">references</p>
+						<hr>
+						<div class="content" style="line-height: 1">
+							<div class="referenceItem" >
+								<div style="width: 50%;" *ngFor="let refer of getReferenceArray.controls">
+									<p><b>{{ refer.value.ref_name }}</b></p>
+									<p><b>{{ refer.value.ref_position }}, {{ refer.value.ref_organization }}</b></p>
+									<p>{{ refer.value.ref_email }}</p>
+									<p><b>phone:</b> {{ refer.value.ref_contact }}</p>
+								</div>
+							</div>
+						</div>
+					</ng-container>
+				</div>
+				<div class="col-md-5" style="background-color: #f8d44c;">
+					<p class="headingStyle" style="margin:0px;">contact me</p>
+					<hr>
+					<div class="content fw-600">
+						<div class="d-flex align-items-center mb-2">
+							<img class="resumeIcons" src="../../../uniprep-assets/resume-icons/Location.svg">
+							<p>{{ f["user_location"].value }}</p>
+						</div>
+						<div class="d-flex align-items-center mb-2">
+							<img class="resumeIcons" src="../../../uniprep-assets/resume-icons/Phone.svg">
+							<p>{{ f["user_phone"].value }}</p>
+						</div>
+						<div class="d-flex align-items-center mb-2">
+							<img class="resumeIcons" src="../../../uniprep-assets/resume-icons/Email.svg">
+							<p>{{ f["user_email"].value }}</p>
+						</div>
+						<div class="d-flex align-items-center mb-2">
+							<img class="resumeIcons" src="../../../uniprep-assets/resume-icons/Web.svg">
+							<p>{{ f["user_website"].value }}</p>
+						</div>
+						<div class="d-flex align-items-center mb-2">
+							<img class="resumeIcons" src="../../../uniprep-assets/resume-icons/Linkedin.svg">
+							<p>{{ f["user_linkedin"].value }}</p>
+						</div>
+					</div>
+
+					<p class="headingStyle" style="margin:0px;">Skills</p>
+					<hr>
+					<div class="content fw-600">
+						<div class="technicalSkillItem" *ngFor="let skill of getSkillsArray.controls">
+							<p class="upperCase">{{ skill.value.skills }}</p>
+							<ng-container [ngSwitch]="skill.value.skills_proficiency">
+								<img *ngSwitchCase="'Basic'" class="resumeIcons" src="../../../uniprep-assets/resume-icons/STARS-002.svg">
+								<img *ngSwitchCase="'Intermediate'" class="resumeIcons" src="../../../uniprep-assets/resume-icons/STARS-003.svg">
+								<img *ngSwitchCase="'Advance'" class="resumeIcons" src="../../../uniprep-assets/resume-icons/STARS-005.svg">
+							</ng-container>
+						</div>
+					</div>
+					<p class="headingStyle" style="margin:0px;">languages known</p>
+					<hr>
+					<div class="languageItem fw-600" *ngFor="let lang of getLanguagesKnownArray.controls">
+						<p>{{ lang.value.language }} </p>
+						<ng-container [ngSwitch]="lang.value.lang_proficiency">
+							<img *ngSwitchCase="'Beginner'" class="resumeIcons" src="../../../uniprep-assets/resume-icons/STARS-002.svg">
+							<img *ngSwitchCase="'Fluent'" class="resumeIcons" src="../../../uniprep-assets/resume-icons/STARS-003.svg">
+							<img *ngSwitchCase="'Proficient'" class="resumeIcons" src="../../../uniprep-assets/resume-icons/STARS-004.svg">
+							<img *ngSwitchCase="'Native'" class="resumeIcons" src="../../../uniprep-assets/resume-icons/STARS-005.svg">
+						</ng-container>
+					</div>
+					<ng-container *ngIf="getExtraCurricularArray.length != 0">
+						<p class="headingStyle">Extra Curricular Activities</p>
+						<hr>
+						<div class="technicalSkillItem fw-600" *ngFor="let extra of getExtraCurricularArray.controls">
+							<p class="upperCase">{{ extra.value.extra_curricular_activites }}</p>
+						</div>
+					</ng-container>
+					<ng-container *ngIf="getHobbiesArray.length != 0">
+						<p class="headingStyle" style="margin:0px;">Hobbies</p>
+						<hr>
+						<div class="content fw-600">
+							<div class="technicalSkillItem" *ngFor="let hobby of getHobbiesArray.controls">
+								<p class="upperCase">{{ hobby.value.hobbies }}</p>
+							</div>
+						</div>
+					</ng-container>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="h-100" [ngClass]="{ previewBodyForm: !fullScreenVisible, previewBodyFormFull: fullScreenVisible }" *ngIf="selectedResumeLevel=='Functional'">
+		<div class="container">
+			<div class="row" style="background-color: #339499; padding: 5px 10px 15px 10px;">
+				<div class="col-12">
+					<h1 class="userName upperCase" style="color: white;margin: 0px;">{{ f["user_name"].value }}</h1>
+					<p class="profession upperCase" style="color: white;">{{ f["user_job_title"].value }}</p>
+					<p style="line-height: 1;color: white;" [innerHTML]="f['user_summary'].value"></p>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-4">
+					<div class="content fw-600">
+						<div class="d-flex align-items-center mb-2">
+							<img class="resumeIcons" src="../../../uniprep-assets/resume-icons/Location.svg">
+							<p>{{ f["user_location"].value }}</p>
+						</div>
+						<div class="d-flex align-items-center mb-2">
+							<img class="resumeIcons" src="../../../uniprep-assets/resume-icons/Phone.svg">
+							<p>{{ f["user_phone"].value }}</p>
+						</div>
+						<div class="d-flex align-items-center mb-2">
+							<img class="resumeIcons" src="../../../uniprep-assets/resume-icons/Email.svg">
+							<p>{{ f["user_email"].value }}</p>
+						</div>
+						<div class="d-flex align-items-center mb-2">
+							<img class="resumeIcons" src="../../../uniprep-assets/resume-icons/Web.svg">
+							<p>{{ f["user_website"].value }}</p>
+						</div>
+						<div class="d-flex align-items-center mb-2">
+							<img class="resumeIcons" src="../../../uniprep-assets/resume-icons/Linkedin.svg">
+							<p>{{ f["user_linkedin"].value }}</p>
+						</div>
+					</div>
+					<p class="headingStyle text-color-liteBlue zeroMarginPadding">languages</p>
+					<hr class="hr-custom">
+					<div class="languageItem fw-600" *ngFor="let lang of getLanguagesKnownArray.controls">
+						<p>{{ lang.value.language }} </p>
+						<ng-container [ngSwitch]="lang.value.lang_proficiency">
+							<img *ngSwitchCase="'Beginner'" class="resumeIcons" src="../../../uniprep-assets/resume-icons/STARS-002.svg">
+							<img *ngSwitchCase="'Fluent'" class="resumeIcons" src="../../../uniprep-assets/resume-icons/STARS-003.svg">
+							<img *ngSwitchCase="'Proficient'" class="resumeIcons" src="../../../uniprep-assets/resume-icons/STARS-004.svg">
+							<img *ngSwitchCase="'Native'" class="resumeIcons" src="../../../uniprep-assets/resume-icons/STARS-005.svg">
+						</ng-container>
+					</div>
+					<ng-container *ngIf="getCertificatesArray.length !=0">
+						<p class="headingStyle text-color-liteBlue zeroMarginPadding">certifications</p>
+						<hr class="hr-custom">
+						<div class="content" style="line-height:1" >
+							<div class="mb-2"  *ngFor="let certificate of getCertificatesArray.controls">
+								<p><b>{{ certificate.value.certificate_name }}</b>{{ certificate.value.certificate_issued ? " - " + certificate.value.certificate_issued : "" }}</p>
+								<p>{{ certificate.value.certificate_id ? "ID:" + certificate.value.certificate_id : "" }} </p>
+								<a [href]="certificate.value.certicate_link" target="_Blank">{{ certificate.value.certicate_link }}</a>
+							</div>
+						</div>
+					</ng-container>
+					<p class="headingStyle text-color-liteBlue zeroMarginPadding">technical skills</p>
+					<hr class="hr-custom">
+					<div class="content fw-600 technicalSkillItem" *ngFor="let skill of getSkillsArray.controls">
+						<p class="upperCase mr-2">{{ skill.value.skills }}</p>
+						<ng-container [ngSwitch]="skill.value.skills_proficiency">
+							<img *ngSwitchCase="'Basic'" class="resumeIcons" src="../../../uniprep-assets/resume-icons/STARS-002.svg">
+							<img *ngSwitchCase="'Intermediate'" class="resumeIcons" src="../../../uniprep-assets/resume-icons/STARS-003.svg">
+							<img *ngSwitchCase="'Advance'" class="resumeIcons" src="../../../uniprep-assets/resume-icons/STARS-005.svg">
+						</ng-container>
+					</div>
+					<ng-container *ngIf="getExtraCurricularArray.length != 0">
+						<p class="headingStyle text-color-liteBlue zeroMarginPadding">technical skills</p>
+						<hr class="hr-custom">
+						<div class="content">
+							<div class="technicalSkillItem" *ngFor="let extra of getExtraCurricularArray.controls">
+								<p class="upperCase">{{ extra.value.extra_curricular_activites }}</p>
+							</div>
+						</div>
+					</ng-container>
+				</div>
+	
+				<div class="col-md-8">
+					<p class="headingStyle text-color-liteBlue zeroMarginPadding">experience</p>
+					<hr class="hr-custom">
+					<div class="content">
+						<div class="mb-3" *ngFor="let exp of getWorkExpArray.controls">
+							<p class="fw-600">{{ exp.value.work_designation }} {{ exp.value.work_type ? " - " + exp.value.work_type : "" }}</p>
+							<p class="fw-500 small-text">{{ exp.value.work_org_name }} | {{ exp.value.work_location }} | {{ exp.value.work_start_year }} {{ exp.value.work_end_year ? " - " + exp.value.work_end_year : "" }}</p>
+							<p class="small-text" [innerHTML]="exp.value.work_job_description"></p>
+						</div>
+					</div>
+					<p class="headingStyle text-color-liteBlue zeroMarginPadding">education</p>
+					<hr class="hr-custom">
+					<div class="content">
+						<div class="mb-4" *ngFor="let edu of getEduDetailsArray.controls">
+							<p class="fw-600">{{ edu.value.edu_degree }}</p>
+							<p class="fw-500 small-text">{{ edu.value.edu_college_name }} | {{ edu.value.edu_location }} | {{ edu.value.edu_start_year }} {{ edu.value.edu_end_year ? " - " + edu.value.edu_end_year : "" }}</p>
+						</div>
+					</div>
+					<ng-container *ngIf="getProjectDetailsArray.length != 0 && f['selected_exp_level'].value == 1">
+						<p class="headingStyle text-color-liteBlue zeroMarginPadding">projects</p>
+						<hr class="hr-custom">
+						<div class="content">
+							<div class="mb-4" *ngFor="let project of getProjectDetailsArray.controls">
+								<p class="fw-600">{{ project.value.project_start_name }} {{ project.value.project_end_name ? " - " + project.value.project_end_name : "" }}</p>
+								<p class="fw-500 small-text" [innerHTML]="project.value.project_description"></p>
+							</div>
+						</div>
+					</ng-container>
+					<ng-container *ngIf="getReferenceArray.length !=0">
+						<p class="headingStyle" style="margin:0px;">references</p>
+						<hr class="hr-custom">
+						<div class="content" style="line-height: 1">
+							<div class="referenceItem" >
+								<div style="width: 50%;" *ngFor="let refer of getReferenceArray.controls">
+									<p><b>{{ refer.value.ref_name }}</b></p>
+									<p><b>{{ refer.value.ref_position }}, {{ refer.value.ref_organization }}</b></p>
+									<p>{{ refer.value.ref_email }}</p>
+									<p><b>phone:</b> {{ refer.value.ref_contact }}</p>
+								</div>
+							</div>
+						</div>
+					</ng-container>
+				</div>
+			</div>
+		</div>
+	</div>
+</ng-template>
