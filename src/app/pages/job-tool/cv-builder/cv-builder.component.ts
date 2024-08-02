@@ -353,14 +353,18 @@ export class CvBuilderComponent implements OnInit {
       work_designation: ['Full stack developer'],
       work_type: ['Fulltime'],
       work_location: ['Mysore'],
-      work_job_description: ['<ul><li>Spearheaded the UI/UX redesign of UNIPREP, UNIAPPLY, SOPEXPERT, and the UNIABROAD website, resulting in a cohesive and user-friendly experience across all platforms.</li><li>Implemented innovative design solutions for the frontend of the products, enhancing user engagement and satisfaction.</li></ul>'],
+      work_job_description: ['Spearheaded the UI/UX redesign of UNIPREP, UNIAPPLY, SOPEXPERT, and the UNIABROAD website, resulting in a cohesive and user-friendly experience across all platforms.Implemented innovative design solutions for the frontend of the products, enhancing user engagement and satisfaction.Designed and optimized the CRM admin panel, improving internal workflows and user interactions with the system.Collaborated closely with development teams to ensure seamless integration of design elements and adherence to design guidelines across all products.'],
     }));
 
     this.getProjectDetailsArray.push(this.fb.group({
       project_name: ['Anonymity'],
       project_start_name: ['2015'],
       project_end_name: ['2019'],
-      project_description: ['Together with developers, collect and assess user requirements.Using storyboards, process flows, and sitemaps, illustrate design concepts.Create visual user interface components such as menus, tabs, and widgets.Create UI mockups and prototypes that clearly show how websites work and appear.Determine and address UX issues (e.g., responsiveness).'],
+      project_description: ['<li>Together with developers, collect and assess user requirements.</li><li>Using storyboards, process flows, and sitemaps, illustrate design concepts.</li><li>Create visual user interface components such as menus, tabs, and widgets.</li><li>Create UI mockups and prototypes that clearly show how websites work and appear.</li><li>Determine and address UX issues (e.g., responsiveness).</li>'],
+    }));
+
+    this.getHobbiesArray.push(this.fb.group({
+      hobbies: ['Painting'],
     }));
 
     this.getSkillsArray.push(this.fb.group({
