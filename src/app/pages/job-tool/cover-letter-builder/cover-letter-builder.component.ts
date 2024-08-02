@@ -9,6 +9,7 @@ import { CourseListService } from '../../course-list/course-list.service';
 })
 export class CoverLetterBuilderComponent implements OnInit {
   selectedResumeLevel: string = "Functional";
+  experienceLevel: any = [{id: 1, level: "Fresher"},{id: 2, level: "1-2 Years"},{id: 3, level: "3-5 Years"},{id: 4, level: "5+ Years"},];
   cgpaPercentage: any = [{id:"CGPA", value: "CGPA"},{id:"%", value: "Percentage"}];
   workTypeValue: any = [{id: "Fulltime", value: "Fulltime"}, {id: "Parttime", value: "Parttime"}, {id: "Internship", value: "Internship"},{id: "Freelance", value: "Freelance"}];
   languageProficiency: any = [{id:"Beginner", value:"Beginner"},{id:"Fluent", value: "Fluent"}, { id:"Proficient", value:"Proficient"}, { id:"Native", value:"Native"}];
@@ -37,6 +38,8 @@ export class CoverLetterBuilderComponent implements OnInit {
   ];
 
   //cloning limit
+  eduDetailsLimit: number = 3;
+  wrkExpLimit: number = 3;
   projectLimit: number = 3;
   languageLimit: number = 5;
   techSkillLimit: number = 5;
@@ -44,7 +47,6 @@ export class CoverLetterBuilderComponent implements OnInit {
   extraCurriLimit: number = 5;
   certificateLimit: number = 4;
   referenceLimit: number = 4;
-
   submittedFormData: any = [];
   selectedExpLevel:number = 0;
   selectedThemeColor:string = "#172a99";
@@ -52,8 +54,8 @@ export class CoverLetterBuilderComponent implements OnInit {
   template1: any;
   userNameSplit: { firstWord: string, secondWord: string } = { firstWord: '', secondWord: ''};
 
-  constructor(private toaster: MessageService,  private fb: FormBuilder, private resumeService:CourseListService) { 
-    
+  constructor(private toaster: MessageService,  private fb: FormBuilder, private resumeService:CourseListService) {
+
     this.resumeFormInfoData = this.fb.group({
       selected_exp_level:['1'],
       user_name: ['vivek kaliyaperumal', [Validators.required]],
@@ -64,60 +66,21 @@ export class CoverLetterBuilderComponent implements OnInit {
       user_linkedin:['Vivek Kaliyaperumal'],
       user_website: ['www.ownwebsite.com'],
       user_summary: ['Experienced Senior Visual Designer with a proven track record in the design industry. Proficient in Web Design, UI/UX Design, and Graphic Design. Strong entrepreneurial mindset with a Bachelor of Engineering (B.E.) in Computer Science from Vidyavardhaka College of Engineering.', [Validators.required]],
-      // edu_college_name: ['Vidyavardhaka College of Engg'],
-      // edu_start_year: ['2015'],
-      // edu_end_year: ['2019'],
-      // edu_degree: ['Bachelor of Engineering in C.S'],
-      // edu_location: ['Mysore'],
-      // edu_percentage: ['65'],
-      // edu_cgpa_percentage: ['%'],
-      work_org_name: [''],
-      work_start_year: [''],
-      work_end_year: [''],
-      work_designation:[''],
-      work_type: [''],
-      work_location: [''],
-      work_job_description: [''],
-      project_name: [''],
-      project_start_name: [''],
-      project_end_name: [''],
-      project_description: [''],
-      language: [''],
-      lang_proficiency: [''],
-      skills: [''],
-      skills_proficiency: [''],
-      hobbies: [''],
-      extra_curricular_activites: [''],
-      certificate_name: [''],
-      certificate_issued: [''],
-      certificate_id: [''],
-      certicate_link: [''],
-      ref_name: [''],
-      ref_position: [''],
-      ref_organization: [''],
-      ref_email: [''],
-      ref_contact: [''],
-      EduDetailsArray: this.fb.array([]),
-      workExpArray: this.fb.array([]),
-      projectDetailsArray: this.fb.array([]),
-      languagesKnownArray: this.fb.array([]),
-      skillsArray:this.fb.array([]),
-      hobbiesArray: this.fb.array([]),
-      extraCurricularArray: this.fb.array([]),
-      certificatesArray: this.fb.array([]),
-      referenceArray: this.fb.array([]),
+      edu_college_name: ['Srinivasan Engg College'],
+      edu_location: ['Perambalur'],
+      jobposition: ['Bachelor of Engineering in C.S'],
+      managername: ['siva'],
+      getknowaboutas: ['65'],
     });
 
   }
 
   ngOnInit(): void {
-    this.triggerAddMoreButton();
     let currentuserName = this.resumeFormInfoData.value.user_name;
     this.splitUserName(currentuserName); // it calls when the page refresh
     this.resumeFormInfoData.get('user_name')?.valueChanges.subscribe(value=>{
       this.splitUserName(value); // it calls when the user enters the user name
     })
-    this.dummy()
   }
 
   splitUserName(currentUserName: string){
@@ -140,6 +103,17 @@ export class CoverLetterBuilderComponent implements OnInit {
     return this.resumeFormInfoData.controls;
   }
 
+  changeExperience(event: any){
+    if(event.value != 1){
+      this.eduDetailsLimit = 2;
+      this.wrkExpLimit = 5;
+
+    }else{
+      this.eduDetailsLimit = 3;
+      this.wrkExpLimit = 3;
+    }
+  }
+
   resumeFormSubmit(){
     this.submittedFormData = this.resumeFormInfoData.value;
     if (!this.resumeFormInfoData.valid) {
@@ -149,7 +123,7 @@ export class CoverLetterBuilderComponent implements OnInit {
       this.next();
     }
   }
-  
+
   imgOnclick(resumeLevel: any){
     this.selectedResumeLevel = resumeLevel;
     console.log(this.selectedResumeLevel);
@@ -166,7 +140,6 @@ export class CoverLetterBuilderComponent implements OnInit {
 
       this.toaster.add({severity: "error",summary: "Error",detail: "Please Select any one Resume model..!"})
     }else{
-      
       this.activePageIndex++;
       // this.enableModule = true;
       this.activePageIndex = this.activePageIndex == 5 ? 1 : this.activePageIndex;
@@ -199,104 +172,39 @@ export class CoverLetterBuilderComponent implements OnInit {
     return this.resumeFormInfoData.get('projectDetailsArray') as FormArray;
   }
 
-  // get getLanguagesKnownArray(): FormArray{
-  //   return this.resumeFormInfoData.get('languagesKnownArray') as FormArray;
-  // }
-  // get getHobbiesArray(): FormArray {
-  //   return this.resumeFormInfoData.get('hobbiesArray') as FormArray;
-  // }
-
-  // get getSkillsArray():FormArray {
-  //   return this.resumeFormInfoData.get('skillsArray') as FormArray;
-  // }
-
-  // get getExtraCurricularArray(): FormArray{
-  //   return this.resumeFormInfoData.get('extraCurricularArray') as FormArray;
-  // }
-
-  // get getCertificatesArray(): FormArray{
-  //   return this.resumeFormInfoData.get('certificatesArray') as FormArray;
-  // }
-
-  // get getReferenceArray(): FormArray{
-  //   return this.resumeFormInfoData.get('referenceArray') as FormArray;
-  // }
-
-  triggerAddMoreButton(){ //initially the cloning array is an empty so trigger and make the array as an not empty
-
-    this.getEduDetailsArray.push(this.fb.group({
-      edu_college_name: ['Srinivasan Engg College'],
-      edu_start_year: ['2015'],
-      edu_end_year: ['2019'],
-      edu_degree: ['Bachelor of Engineering in C.S'],
-      edu_location: ['Perambalur'],
-      edu_percentage: ['65'],
-      edu_cgpa_percentage: ['%'],
-    }));
-
-    this.getWorkExpArray.push(this.fb.group({
-      work_org_name: ['Senior Visual Designer'],
-      work_start_year: ['2013'],
-      work_end_year: ['2015'],
-      work_designation: ['Senior UI/UX Developer'],
-      work_type: ['Fulltime'],
-      work_location: ['Mysore'],
-      work_job_description: ['<ul><li>Spearheaded the UI/UX redesign of UNIPREP, UNIAPPLY, SOPEXPERT, and the UNIABROAD website, resulting in a cohesive and user-friendly experience across all platforms.</li><li>Implemented innovative design solutions for the frontend of the products, enhancing user engagement and satisfaction.</li><li>Designed and optimized the CRM admin panel, improving internal workflows and user interactions with the system.</li><li>Collaborated closely with development teams to ensure seamless integration of design elements and adherence to design guidelines across all products.</li></ul>'],
-    }));
-
-    this.getProjectDetailsArray.push(this.fb.group({
-      project_name: ['Anonymity'],
-      project_start_name: ['2015'],
-      project_end_name: ['2019'],
-      project_description: ['<li>Together with developers, collect and assess user requirements.</li><li>Using storyboards, process flows, and sitemaps, illustrate design concepts.</li><li>Create visual user interface components such as menus, tabs, and widgets.</li><li>Create UI mockups and prototypes that clearly show how websites work and appear.</li><li>Determine and address UX issues (e.g., responsiveness).</li>'],
-    }));
-
-    // this.getHobbiesArray.push(this.fb.group({
-    //   hobbies: ['Painting'],
-    // }));
-
-    // this.getSkillsArray.push(this.fb.group({
-    //   skills: ['HTML'],
-    //   skills_proficiency: ['Basic'],
-    // }));
-
-    // this.getExtraCurricularArray.push(this.fb.group({
-    //   extra_curricular_activites: ['Game Development']
-    // }));
-
-    // this.getLanguagesKnownArray.push(this.fb.group({
-    //   language: ['Tamil'],
-    //   lang_proficiency: ['Native'],
-    // }));
-
-    // this.getCertificatesArray.push(this.fb.group({
-    //   certificate_name: ['Web Development'],
-    //   certificate_issued: ['UNIPREP'],
-    //   certificate_id: ['ID: UNI077'],
-    //   certicate_link: ['https://uniprep.ai/certificates'],
-    // }));
-
-    // this.getReferenceArray.push(this.fb.group({
-    //   ref_name: ['Adithya M'],
-    //   ref_position: ['CEO'],
-    //   ref_organization: ['Mediamonk'],
-    //   ref_email: ['adithya@uniabroad.co.in'],
-    //   ref_contact: ['+91 7019267853'],
-    // }));
+  get getLanguagesKnownArray(): FormArray{
+    return this.resumeFormInfoData.get('languagesKnownArray') as FormArray;
   }
+  get getHobbiesArray(): FormArray {
+    return this.resumeFormInfoData.get('hobbiesArray') as FormArray;
+  }
+
+  get getSkillsArray():FormArray {
+    return this.resumeFormInfoData.get('skillsArray') as FormArray;
+  }
+
+  get getExtraCurricularArray(): FormArray{
+    return this.resumeFormInfoData.get('extraCurricularArray') as FormArray;
+  }
+
+  get getCertificatesArray(): FormArray{
+    return this.resumeFormInfoData.get('certificatesArray') as FormArray;
+  }
+
+  get getReferenceArray(): FormArray{
+    return this.resumeFormInfoData.get('referenceArray') as FormArray;
+  }
+
+
+ 
 
   downloadResume(){
     let formData = this.resumeFormInfoData.value;
     let data = {
-      ...formData, 
-      selectedResumeLevel: this.selectedResumeLevel 
+      ...formData,
+      selectedResumeLevel: this.selectedResumeLevel
     };
     this.resumeService.downloadResume(data).subscribe(res => {
-      window.open(res, '_blank');
-    })
-  }
-  dummy(){
-    this.resumeService.getcoverletterdummy().subscribe(res => {
       window.open(res, '_blank');
     })
   }
