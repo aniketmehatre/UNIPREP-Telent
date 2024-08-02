@@ -9,7 +9,6 @@ import { CourseListService } from '../../course-list/course-list.service';
 })
 export class CoverLetterBuilderComponent implements OnInit {
   selectedResumeLevel: string = "Functional";
-  experienceLevel: any = [{id: 1, level: "Fresher"},{id: 2, level: "1-2 Years"},{id: 3, level: "3-5 Years"},{id: 4, level: "5+ Years"},];
   cgpaPercentage: any = [{id:"CGPA", value: "CGPA"},{id:"%", value: "Percentage"}];
   workTypeValue: any = [{id: "Fulltime", value: "Fulltime"}, {id: "Parttime", value: "Parttime"}, {id: "Internship", value: "Internship"},{id: "Freelance", value: "Freelance"}];
   languageProficiency: any = [{id:"Beginner", value:"Beginner"},{id:"Fluent", value: "Fluent"}, { id:"Proficient", value:"Proficient"}, { id:"Native", value:"Native"}];
@@ -38,8 +37,6 @@ export class CoverLetterBuilderComponent implements OnInit {
   ];
 
   //cloning limit
-  eduDetailsLimit: number = 3;
-  wrkExpLimit: number = 3;
   projectLimit: number = 3;
   languageLimit: number = 5;
   techSkillLimit: number = 5;
@@ -120,6 +117,7 @@ export class CoverLetterBuilderComponent implements OnInit {
     this.resumeFormInfoData.get('user_name')?.valueChanges.subscribe(value=>{
       this.splitUserName(value); // it calls when the user enters the user name
     })
+    this.dummy()
   }
 
   splitUserName(currentUserName: string){
@@ -140,17 +138,6 @@ export class CoverLetterBuilderComponent implements OnInit {
 
   get f() {
     return this.resumeFormInfoData.controls;
-  }
-
-  changeExperience(event: any){
-    if(event.value != 1){
-      this.eduDetailsLimit = 2;
-      this.wrkExpLimit = 5;
-
-    }else{
-      this.eduDetailsLimit = 3;
-      this.wrkExpLimit = 3;
-    }
   }
 
   resumeFormSubmit(){
@@ -212,119 +199,28 @@ export class CoverLetterBuilderComponent implements OnInit {
     return this.resumeFormInfoData.get('projectDetailsArray') as FormArray;
   }
 
-  get getLanguagesKnownArray(): FormArray{
-    return this.resumeFormInfoData.get('languagesKnownArray') as FormArray;
-  }
-  get getHobbiesArray(): FormArray {
-    return this.resumeFormInfoData.get('hobbiesArray') as FormArray;
-  }
+  // get getLanguagesKnownArray(): FormArray{
+  //   return this.resumeFormInfoData.get('languagesKnownArray') as FormArray;
+  // }
+  // get getHobbiesArray(): FormArray {
+  //   return this.resumeFormInfoData.get('hobbiesArray') as FormArray;
+  // }
 
-  get getSkillsArray():FormArray {
-    return this.resumeFormInfoData.get('skillsArray') as FormArray;
-  }
+  // get getSkillsArray():FormArray {
+  //   return this.resumeFormInfoData.get('skillsArray') as FormArray;
+  // }
 
-  get getExtraCurricularArray(): FormArray{
-    return this.resumeFormInfoData.get('extraCurricularArray') as FormArray;
-  }
+  // get getExtraCurricularArray(): FormArray{
+  //   return this.resumeFormInfoData.get('extraCurricularArray') as FormArray;
+  // }
 
-  get getCertificatesArray(): FormArray{
-    return this.resumeFormInfoData.get('certificatesArray') as FormArray;
-  }
+  // get getCertificatesArray(): FormArray{
+  //   return this.resumeFormInfoData.get('certificatesArray') as FormArray;
+  // }
 
-  get getReferenceArray(): FormArray{
-    return this.resumeFormInfoData.get('referenceArray') as FormArray;
-  }
-
-  clickAddMoreButton(fieldName: string){
-    if(fieldName == "education_detail"){
-      this.getEduDetailsArray.push(this.fb.group({
-        edu_college_name: [''],
-        edu_start_year: [''],
-        edu_end_year: [''],
-        edu_degree: [''],
-        edu_location: [''],
-        edu_percentage: [''],
-        edu_cgpa_percentage: [''],
-      }));
-    }else if(fieldName == "work_experience"){
-      this.getWorkExpArray.push(this.fb.group({
-        work_org_name: [''],
-        work_start_year: [''],
-        work_end_year: [''],
-        work_designation: [''],
-        work_type: [''],
-        work_location: [''],
-        work_job_description: [''],
-      }));
-    }else if(fieldName == "project_details"){
-      this.getProjectDetailsArray.push(this.fb.group({
-        project_name: [''],
-        project_start_name: [''],
-        project_end_name: [''],
-        project_description: [''],
-      }));
-    }else if(fieldName == "language_known"){
-      this.getLanguagesKnownArray.push(this.fb.group({
-        language: [''],
-        lang_proficiency: [''],
-      }));
-    }else if(fieldName == "skills"){
-      this.getSkillsArray.push(this.fb.group({
-        skills: [''],
-        skills_proficiency: ['']
-      }));
-    }else if(fieldName == "Hobby"){
-      console.log(this.getHobbiesArray,"hobbies");
-        this.getHobbiesArray.push(this.fb.group({
-          hobbies: ['']
-        }));
-    }else if(fieldName == "extra_curricular"){
-      console.log(this.getExtraCurricularArray,"getExtraCurricularArray");
-      this.getExtraCurricularArray.push(this.fb.group({
-        extra_curricular_activites: ['']
-      }));
-    }else if(fieldName == "certificate"){
-      console.log(this.getCertificatesArray,"getCertificatesArray");
-      this.getCertificatesArray.push(this.fb.group({
-        certificate_name: ['Web Development'],
-        certificate_issued: ['UNIPREP'],
-        certificate_id: ['UNI077'],
-        certicate_link: ['https://uniprep.ai/certificates'],
-      }));
-    }else if(fieldName == "reference"){
-      console.log(this.getReferenceArray,"getReferenceArray");
-      this.getReferenceArray.push(this.fb.group({
-        ref_position: [''],
-        ref_organization: [''],
-        ref_email: [''],
-        ref_contact: [''],
-      }));
-    }
-  }
-
-  clickDeleteButton(fieldName: string, index: number){
-
-    if(fieldName == "education_detail"){
-      this.getEduDetailsArray.removeAt(index);
-    }else if(fieldName == "work_experience"){
-      this.getWorkExpArray.removeAt(index);
-    }else if(fieldName == "project_details"){
-      this.getProjectDetailsArray.removeAt(index);
-    }else if(fieldName == "language_known"){
-      this.getLanguagesKnownArray.removeAt(index);
-    }else if(fieldName == "skills"){
-      this.getSkillsArray.removeAt(index);
-    }else if(fieldName == "Hobby"){
-      this.getHobbiesArray.removeAt(index);
-    }else if(fieldName == "extra_curricular"){
-      this.getExtraCurricularArray.removeAt(index);
-    }else if(fieldName == "certificate"){
-      this.getCertificatesArray.removeAt(index);
-    }else if(fieldName == "reference"){
-      this.getReferenceArray.removeAt(index);
-    }
-
-  }
+  // get getReferenceArray(): FormArray{
+  //   return this.resumeFormInfoData.get('referenceArray') as FormArray;
+  // }
 
   triggerAddMoreButton(){ //initially the cloning array is an empty so trigger and make the array as an not empty
 
@@ -355,38 +251,38 @@ export class CoverLetterBuilderComponent implements OnInit {
       project_description: ['<li>Together with developers, collect and assess user requirements.</li><li>Using storyboards, process flows, and sitemaps, illustrate design concepts.</li><li>Create visual user interface components such as menus, tabs, and widgets.</li><li>Create UI mockups and prototypes that clearly show how websites work and appear.</li><li>Determine and address UX issues (e.g., responsiveness).</li>'],
     }));
 
-    this.getHobbiesArray.push(this.fb.group({
-      hobbies: ['Painting'],
-    }));
+    // this.getHobbiesArray.push(this.fb.group({
+    //   hobbies: ['Painting'],
+    // }));
 
-    this.getSkillsArray.push(this.fb.group({
-      skills: ['HTML'],
-      skills_proficiency: ['Basic'],
-    }));
+    // this.getSkillsArray.push(this.fb.group({
+    //   skills: ['HTML'],
+    //   skills_proficiency: ['Basic'],
+    // }));
 
-    this.getExtraCurricularArray.push(this.fb.group({
-      extra_curricular_activites: ['Game Development']
-    }));
+    // this.getExtraCurricularArray.push(this.fb.group({
+    //   extra_curricular_activites: ['Game Development']
+    // }));
 
-    this.getLanguagesKnownArray.push(this.fb.group({
-      language: ['Tamil'],
-      lang_proficiency: ['Native'],
-    }));
+    // this.getLanguagesKnownArray.push(this.fb.group({
+    //   language: ['Tamil'],
+    //   lang_proficiency: ['Native'],
+    // }));
 
-    this.getCertificatesArray.push(this.fb.group({
-      certificate_name: ['Web Development'],
-      certificate_issued: ['UNIPREP'],
-      certificate_id: ['ID: UNI077'],
-      certicate_link: ['https://uniprep.ai/certificates'],
-    }));
+    // this.getCertificatesArray.push(this.fb.group({
+    //   certificate_name: ['Web Development'],
+    //   certificate_issued: ['UNIPREP'],
+    //   certificate_id: ['ID: UNI077'],
+    //   certicate_link: ['https://uniprep.ai/certificates'],
+    // }));
 
-    this.getReferenceArray.push(this.fb.group({
-      ref_name: ['Adithya M'],
-      ref_position: ['CEO'],
-      ref_organization: ['Mediamonk'],
-      ref_email: ['adithya@uniabroad.co.in'],
-      ref_contact: ['+91 7019267853'],
-    }));
+    // this.getReferenceArray.push(this.fb.group({
+    //   ref_name: ['Adithya M'],
+    //   ref_position: ['CEO'],
+    //   ref_organization: ['Mediamonk'],
+    //   ref_email: ['adithya@uniabroad.co.in'],
+    //   ref_contact: ['+91 7019267853'],
+    // }));
   }
 
   downloadResume(){
@@ -396,6 +292,11 @@ export class CoverLetterBuilderComponent implements OnInit {
       selectedResumeLevel: this.selectedResumeLevel 
     };
     this.resumeService.downloadResume(data).subscribe(res => {
+      window.open(res, '_blank');
+    })
+  }
+  dummy(){
+    this.resumeService.getcoverletterdummy().subscribe(res => {
       window.open(res, '_blank');
     })
   }
