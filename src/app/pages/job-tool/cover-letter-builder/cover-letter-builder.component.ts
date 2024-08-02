@@ -2,6 +2,8 @@ import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { MessageService } from 'primeng/api';
 import { FormBuilder, FormGroup, FormArray, Form, Validators} from "@angular/forms";
 import { CourseListService } from '../../course-list/course-list.service';
+import { HttpHeaders,HttpClient } from '@angular/common/http';
+
 @Component({
   selector: 'uni-cover-letter-builder',
   templateUrl: './cover-letter-builder.component.html',
@@ -54,10 +56,9 @@ export class CoverLetterBuilderComponent implements OnInit {
   template1: any;
   userNameSplit: { firstWord: string, secondWord: string } = { firstWord: '', secondWord: ''};
 
-  constructor(private toaster: MessageService,  private fb: FormBuilder, private resumeService:CourseListService) {
+  constructor(private toaster: MessageService,  private fb: FormBuilder, private resumeService:CourseListService,private http: HttpClient) {
 
     this.resumeFormInfoData = this.fb.group({
-      selected_exp_level:['1'],
       user_name: ['vivek kaliyaperumal', [Validators.required]],
       user_job_title: ['Full Stack Developer', [Validators.required]],
       user_email: ['vivek@uniabroad.co.in', [Validators.required]],
@@ -207,5 +208,36 @@ export class CoverLetterBuilderComponent implements OnInit {
     this.resumeService.downloadResume(data).subscribe(res => {
       window.open(res, '_blank');
     })
+  }
+  chatGPTIntegration() {
+    const apiKey = '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'; 
+    let formData = this.resumeFormInfoData.value;
+    let prompt: string = "replace steffi given prompt";
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${apiKey}`
+    });
+  
+    const body = {
+      model: "gpt-3.5-turbo",
+      messages: [
+        { role: "system", content: "You are a helpful assistant." },
+        { role: "user", content: prompt }
+      ],
+      max_tokens: 1000
+    };
+  
+    this.http.post<any>('https://api.openai.com/v1/chat/completions', body, { headers: headers }).subscribe(response => {
+      if (response.choices && response.choices.length > 0) {
+        const GPTResponse = response.choices[0].message.content.trim();
+        this.resumeFormInfoData.patchValue({
+          user_summary: GPTResponse
+        });
+      }else {
+        console.error('Unexpected response structure:', response);
+      }
+    }, error => {
+      console.error('Error:', error);
+    });
   }
 }
