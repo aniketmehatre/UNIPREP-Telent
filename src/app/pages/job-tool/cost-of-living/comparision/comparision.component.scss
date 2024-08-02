@@ -14,7 +14,7 @@
     padding: 10px;
 }
 
-@media (min-width: 575.98px) {
+@media (min-width: 768px) {
 
     .headerCard {
         height: 65px;
@@ -23,11 +23,12 @@
             height: 100%;
         }
     }
-    
+
 
 }
-@media (max-width: 575.98px) {
-    .gap-two{
+
+@media (max-width: 767px) {
+    .gap-two {
         gap: 0.5rem;
     }
 }
@@ -71,3 +72,5 @@ img {
     height: 20px;
     width: 20px;
 }
+ 
+ 
