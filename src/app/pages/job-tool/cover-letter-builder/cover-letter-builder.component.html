@@ -374,7 +374,7 @@
 	<div class="h-100" [ngClass]="{ previewBodyForm: !fullScreenVisible, previewBodyFormFull: fullScreenVisible }"
 		*ngIf="selectedResumeLevel=='Modern'">
 		<div class="container mt-2">
-
+			<p></p>
 		</div>
 	</div>
 	<div class="h-100" [ngClass]="{ previewBodyForm: !fullScreenVisible, previewBodyFormFull: fullScreenVisible }"
@@ -387,6 +387,7 @@
 				<div>
 					<p class="userName upperCase">{{ f["user_name"].value }}</p>
 					<p class="profession upperCase">{{ f["user_job_title"].value }}</p>
+					<h3 [innerHTML]="f['user_summary'].value"></h3>
 				</div>
 			</div>
 		</div>

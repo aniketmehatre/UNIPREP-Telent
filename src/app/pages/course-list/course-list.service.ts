@@ -37,6 +37,13 @@ export class CourseListService {
       headers: headers,
     });
   }
+  downloadCoverletter(data: any){
+    const headers = new HttpHeaders().set("Accept", "application/json");
+    return this.http.post<any>(environment.ApiUrl + "/generatecoverletter", data ,{
+      headers: headers,
+    });
+  }
+
 
   getTemplate(): Observable<string> {
     // return this.http.get('templates/resumetemplate.html', { responseType: 'text' });

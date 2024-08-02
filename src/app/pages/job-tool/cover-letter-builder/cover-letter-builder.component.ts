@@ -203,16 +203,17 @@ export class CoverLetterBuilderComponent implements OnInit {
     let formData = this.resumeFormInfoData.value;
     let data = {
       ...formData,
-      selectedResumeLevel: this.selectedResumeLevel
+      cover_name: this.selectedResumeLevel
     };
-    this.resumeService.downloadResume(data).subscribe(res => {
+    console.log(data);
+    this.resumeService.downloadCoverletter(data).subscribe(res => {
       window.open(res, '_blank');
     })
   }
   chatGPTIntegration() {
     const apiKey = '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'; 
     let formData = this.resumeFormInfoData.value;
-    let prompt: string = "replace steffi given prompt";
+    let prompt: string = `Provide the body of the  cover letter for ${this.resumeFormInfoData.value.user_name} who is a ${this.resumeFormInfoData.value.user_job_title} applying to ${this.resumeFormInfoData.value.edu_college_name} for the position of ${this.resumeFormInfoData.value.jobposition}`;
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${apiKey}`
