@@ -15,85 +15,15 @@ export class SalaryConverterComponent implements OnInit {
   selectedToCurrencyCode: string = 'INR'
   selectedToCountryCode: any
   selectedToCountryName: any
-  xValue: any
   taxData: any
   fromCountry: string = 'India'
   toCountry: string = ''
   countries: any[] = []
   rates: any
-  salaryValueConverted: any
-  convertedSalary: number | null = null
+  statementText: any
+  inHomeCurrency: any
   isPPPCardVisible: boolean = false
 
-  vvv = [[
-      {
-        "id": 204,
-        "country": "IN",
-        "income": "Up to ?250,000",
-        "tax": "0%",
-        "type": "Cumulative",
-        "status": null,
-        "created_at": null,
-        "updated_at": null
-      },
-      {
-        "id": 205,
-        "country": "IN",
-        "income": "?250,001 to ?500,000",
-        "tax": "5%",
-        "type": "Cumulative",
-        "status": null,
-        "created_at": null,
-        "updated_at": null
-      },
-      {
-        "id": 206,
-        "country": "IN",
-        "income": "Above ?500,000",
-        "tax": "30%",
-        "type": "Cumulative",
-        "status": null,
-        "created_at": null,
-        "updated_at": null
-      }
-    ],
-    [
-      {
-        "id": 449,
-        "country": "US",
-        "income": "Up to USD 10,275",
-        "tax": "10%",
-        "type": "Cumulative",
-        "status": null,
-        "created_at": null,
-        "updated_at": null
-      },
-      {
-        "id": 450,
-        "country": "US",
-        "income": "USD 10,276 to 41,775",
-        "tax": "12%",
-        "type": "Cumulative",
-        "status": null,
-        "created_at": null,
-        "updated_at": null
-      },
-      {
-        "id": 451,
-        "country": "US",
-        "income": "Above USD 41,775",
-        "tax": "37%",
-        "type": "Cumulative",
-        "status": null,
-        "created_at": null,
-        "updated_at": null
-      }
-    ]
-      ]
-
-  exchangeRate: number = 1; // Default exchange rate
-  pppFactorFrom: number = 1; // PPP factor for from currency
-  pppFactorTo: number = 1; // PPP factor for to currency
   get fromValue() {
     return this.taxData[0];
   }
@@ -115,19 +45,23 @@ export class SalaryConverterComponent implements OnInit {
       const fromPpp = this.selectedCountryCode;
       const toPpp = this.selectedToCountryCode;
       let req = {
-        codes: `${fromPpp},${toPpp}`
+        codes: `${fromPpp},${toPpp}`,
+        amt: this.salary
       }
       this.salaryConverterService.getTaxData(req).subscribe((resp: any) => {
-        this.taxData = resp
+        this.taxData = resp.data
+        this.statementText = resp.statement
+        this.inHomeCurrency = resp.inHomeCurrency
+        this.isPPPCardVisible = true
       });
 
-      this.salaryConverterService.convertSalaryFrom(fromPpp).subscribe((fromResponse: any) => {
-        this.salaryConverterService.convertSalaryTo(toPpp).subscribe((toResponse: any) => {
-          this.xValue = toResponse.price_in_usd/fromResponse.price_in_usd
-          this.salaryValueConverted = toResponse.price_in_usd/fromResponse.price_in_usd * this.salary
-          this.isPPPCardVisible = true
-        })
-      })
+      // this.salaryConverterService.convertSalaryFrom(fromPpp).subscribe((fromResponse: any) => {
+      //   this.salaryConverterService.convertSalaryTo(toPpp).subscribe((toResponse: any) => {
+      //     this.xValue = toResponse.price_in_usd/fromResponse.price_in_usd
+      //     this.salaryValueConverted = toResponse.price_in_usd/fromResponse.price_in_usd * this.salary
+      //     this.isPPPCardVisible = true
+      //   })
+      // })
     }
   }
 
