@@ -373,9 +373,9 @@
 <ng-template #sharedContent>
 	<div class="h-100" [ngClass]="{ previewBodyForm: !fullScreenVisible, previewBodyFormFull: fullScreenVisible }"
 		*ngIf="selectedResumeLevel=='Modern'">
-		
-			<div class="container mt-2">
-				<div class="body">
+
+		<div class="container mt-2">
+			<div class="body">
 				<table style="width:100%;border-collapse: collapse; ">
 					<tr>
 						<td style="width:70%; background-color: #002B98;height:30px;  ">
@@ -392,10 +392,10 @@
 
 
 					<br> <br>
-					<span >
+					<span>
 						<h1 style="font-size: 14px; font-weight: 750px;">{{ f["user_name"].value }}</h1>
 					</span>
-					
+
 					<p>{{ f["user_job_title"].value }}</p> <br><br>
 
 					<p><span>Dear {{f["managername"].value }},</span></p><br>
@@ -428,27 +428,48 @@
 	<div class="h-100" [ngClass]="{ previewBodyForm: !fullScreenVisible, previewBodyFormFull: fullScreenVisible }"
 		*ngIf="selectedResumeLevel=='Academic'">
 		<div class="container mt-2">
-			<!-- code -->
-			<hr class="line1">
-			<br><br>
-			<div>
-				<div style="margin:5px;">
-					<h1 style="font-size: 14px; font-weight: 750px;">{{ f["user_name"].value }}</h1>
-					<p>&nbsp;{{ f["user_job_title"].value }}</p>
-					<p>&nbsp;</p>
-					<p>Dear {{f["managername"].value }},</p>
-					<p>&nbsp;</p>
-					<p [innerHTML]="f['user_summary'].value"></p>
-					<p>&nbsp;</p>
-					<p>&nbsp;</p>
-					<p>Warm regards,</p>
-					<p>&nbsp;</p>
-					<p>{{ f["user_name"].value }}</p>
+			<div class="body">
+				<table style="width:100%;border-collapse: collapse; ">
+					<tr>
+						<td style=" width:30%;  height:30px;  ">
+							<div style="  height:15px;background-color:black">
+
+							</div>
+						</td>
+					</tr>
+				</table>
+
+				<div style="margin:5px; padding:7px; font-size: 5px;">
+
+
+					<br> <br>
+					<span>
+						<h1 style="font-size: 14px; font-weight: 750px;">{{ f["user_name"].value }}</h1>
+					</span>
+
+					<p>{{ f["user_job_title"].value }}</p> <br><br>
+
+					<p><span>Dear {{f["managername"].value }},</span></p><br>
+
+					<p><span [innerHTML]="f['user_summary'].value"></span></p>
+					<br>
+					<p><span>Warm regards,&nbsp;</span></p>
+					<p style="margin-top:8px;">{{ f["user_name"].value }}
 				</div>
-				<p>&nbsp;</p>
-				<p>&nbsp;</p>
-				<p>&nbsp;</p>
-				<hr class="line1">
+				<br>
+
+				<br>
+				<div style=" position: absolute;  bottom: 40px; width: 50%;   ">
+					<table style="width:100%;border-collapse: collapse; ">
+						<tr>
+							<td style=" width:30%;  height:30px;  ">
+								<div style="  height:15px;background-color:black">
+								</div>
+							</td>
+
+						</tr>
+					</table>
+				</div>
 			</div>
 		</div>
 	</div>
@@ -465,14 +486,42 @@
 	</div>
 	<div class="h-100" [ngClass]="{ previewBodyForm: !fullScreenVisible, previewBodyFormFull: fullScreenVisible }"
 		*ngIf="selectedResumeLevel=='Functional'">
-		<div class="container">
-			<div class="row" style="background-color: #339499; padding: 5px 10px 15px 10px;">
-				<div class="col-12">
-					<h1 class="userName upperCase" style="color: white;margin: 0px;">{{ f["user_name"].value }}</h1>
-					<p class="profession upperCase" style="color: white;">{{ f["user_job_title"].value }}</p>
-					<p style="line-height: 1;color: white;" [innerHTML]="f['user_summary'].value"></p>
+		<div class="container" style="font-size: 5px;">
+			<!-- <div class="header headercolour">
+				<div style ="bottom:0px; ;height:100%;color:white">
+				  <br><br>
+					<span  ><h1 style="padding: 5px; font-size: 14px; font-weight: 750px;">{{ f["user_name"].value }}</h1></span>
+					<p >&nbsp;{{ f["user_job_title"].value }}</p>
 				</div>
+		  </div> -->
+		  <div class="row">
+			<div class="col-12 text-left" style="background-color: #00939B; padding: 20px 10px;">
+				<h1 class="userName upperCase" style="color: white;margin: 0px; font-size:14px ;">{{ f["user_name"].value }}</h1>
+				<p class="profession upperCase" style="color: white;">{{ f["user_job_title"].value }}</p>
 			</div>
+		</div>
+		  <div style="margin:5px; padding:25px;">  
+		 <br>      
+		 <p><span [innerHTML]="f['user_summary'].value"></span></p>
+		 <br>
+		  <p><span  >Warm regards,&nbsp;</span></p> 
+		  <p  style="margin-top:8px;" >{{ f["user_name"].value }}</p> 
+	   
+			  </div >
+		   
+		   <!-- <div style="   position: fixed; bottom: 0; width: 100%; height: 20px; background: #00939B;  "> -->
+			<div style=" position: absolute; width: 50%;   ">
+				<table style="width:100%;border-collapse: collapse; ">
+					<tr>
+						<td style=" width:30%;  height:30px;  ">
+							<div style="  height:15px;background-color:#00939B">
+							</div>
+						</td>
+
+					</tr>
+				</table>
+			</div>
+		   <!-- </div> -->
 		</div>
 	</div>
 </ng-template>
