@@ -1,5 +1,5 @@
 <div class="container-fluid" *ngIf="activePageIndex == 1">
-	<h3 class="text-center uniprep-primary">Select your CV style to get started</h3>
+	<h3 class="text-center uniprep-primary">Select your Coverletter style to get started</h3>
 	<div class="d-flex justify-content-center gap-5">
 		<div>
 			<h5 class="text-center uniprep-primary">Traditional</h5>
@@ -54,8 +54,8 @@
 	</div>
 	<div class="row justify-content-center">
 		<div class="col-md-4 mt-5">
-			<button class="createResumeButton" (click)="shakeButton($event)">Create your Resume &nbsp;&nbsp;&nbsp;<i
-					class="fa-solid fa-arrow-right tickIcon"></i></button>
+			<button class="createResumeButton" (click)="shakeButton($event)">Create your Coverletter
+				&nbsp;&nbsp;&nbsp;<i class="fa-solid fa-arrow-right tickIcon"></i></button>
 		</div>
 	</div>
 </div>
@@ -63,7 +63,7 @@
 	<div class="row justify-content-center">
 		<div class="flex-column">
 			<div>
-				<h3 class="text-center uniprep-primary">Your Resume</h3>
+				<h3 class="text-center uniprep-primary">Your Coverletter</h3>
 				<h5 class="text-center uniprep-primary">{{ selectedResumeLevel }}</h5>
 				<div class="cvBuilderSampleImg">
 					<img *ngIf="selectedResumeLevel == 'Traditional'"
@@ -432,7 +432,7 @@
 				<table style="width:100%;border-collapse: collapse; ">
 					<tr>
 						<td style=" width:30%;  height:30px;  ">
-							<div style="  height:15px;background-color:black">
+							<div style="  height:15px; background-color:black">
 
 							</div>
 						</td>
@@ -440,8 +440,6 @@
 				</table>
 
 				<div style="margin:5px; padding:7px; font-size: 5px;">
-
-
 					<br> <br>
 					<span>
 						<h1 style="font-size: 14px; font-weight: 750px;">{{ f["user_name"].value }}</h1>
@@ -475,13 +473,27 @@
 	</div>
 	<div class="h-100" [ngClass]="{ previewBodyForm: !fullScreenVisible, previewBodyFormFull: fullScreenVisible }"
 		*ngIf="selectedResumeLevel=='Creative'">
-		<div class="container-fluid">
-			<div class="row">
-				<div class="col-12 text-left" style="background-color: black; padding: 20px 10px;">
-					<h1 class="userName upperCase" style="color: #f8d44c;margin: 0px;">{{ f["user_name"].value }}</h1>
-					<p class="profession upperCase" style="color: white;">{{ f["user_job_title"].value }}</p>
-				</div>
+		<div style="font-size:5px;font-family:'Times New Roman', Times, serif;box-sizing: border-box;min-height: 100vh;margin: 0;">
+			<!-- <div class="vertical-linecreative"></div>
+			<div class="vertical-line1creative"></div>
+			<div class="vertical-line_right_top"></div>
+			<div class="vertical-line_right_bottom"></div> -->
+			<br>
+			<div style="padding:5px;">
+				<span >
+					<h1 style="font-size: 14px;">{{f["user_name"].value}}</h1>
+				</span>
+		
+				<p >&nbsp;{{f["user_job_title"].value}}</p> <br><br>
+				<br><br>
+				<p><span>Dear {{f["managername"].value }},</span></p><br>
+				<p><span [innerHTML]="f['user_summary'].value"></span></p>
+				<br>
+				<p><span>Warm regards,&nbsp;</span></p>
+				<p style="margin-top:8px;">{{f["user_name"].value}}</p>
+
 			</div>
+
 		</div>
 	</div>
 	<div class="h-100" [ngClass]="{ previewBodyForm: !fullScreenVisible, previewBodyFormFull: fullScreenVisible }"
@@ -494,23 +506,26 @@
 					<p >&nbsp;{{ f["user_job_title"].value }}</p>
 				</div>
 		  </div> -->
-		  <div class="row">
-			<div class="col-12 text-left" style="background-color: #00939B; padding: 20px 10px;">
-				<h1 class="userName upperCase" style="color: white;margin: 0px; font-size:14px ;">{{ f["user_name"].value }}</h1>
-				<p class="profession upperCase" style="color: white;">{{ f["user_job_title"].value }}</p>
+			<div class="row" style="background-color: #00939B; padding: 5px 10px 15px 10px;">
+				<div class="col-12 text-left">
+					<h1 class="userName upperCase" style="color: white;margin: 0px; font-size:14px ;">{{
+						f["user_name"].value }}</h1>
+					<p class="profession upperCase" style="color: white;">{{ f["user_job_title"].value }}</p>
+				</div>
 			</div>
-		</div>
-		  <div style="margin:5px; padding:25px;">  
-		 <br>      
-		 <p><span [innerHTML]="f['user_summary'].value"></span></p>
-		 <br>
-		  <p><span  >Warm regards,&nbsp;</span></p> 
-		  <p  style="margin-top:8px;" >{{ f["user_name"].value }}</p> 
-	   
-			  </div >
-		   
-		   <!-- <div style="   position: fixed; bottom: 0; width: 100%; height: 20px; background: #00939B;  "> -->
-			<div style=" position: absolute; width: 50%;   ">
+			<div style="margin:5px; padding:5px;">
+				<br>
+				<p><span>Dear {{f["managername"].value }},</span></p><br>
+				<br>
+				<p><span [innerHTML]="f['user_summary'].value"></span></p>
+				<br>
+				<p><span>Warm regards,&nbsp;</span></p>
+				<p style="margin-top:8px;">{{ f["user_name"].value }}</p>
+
+			</div>
+
+			<!-- <div style="   position: fixed; bottom: 0; width: 100%; height: 20px; background: #00939B;  "> -->
+			<div style=" position: absolute; width: 40%; ">
 				<table style="width:100%;border-collapse: collapse; ">
 					<tr>
 						<td style=" width:30%;  height:30px;  ">
@@ -521,7 +536,44 @@
 					</tr>
 				</table>
 			</div>
-		   <!-- </div> -->
+			<!-- </div> -->
+		</div>
+	</div>
+	<div class="h-100" [ngClass]="{ previewBodyForm: !fullScreenVisible, previewBodyFormFull: fullScreenVisible }"
+		*ngIf="selectedResumeLevel=='Traditional'">
+		<div class="container">
+			<div class="vertical-line"></div>
+			<div class="horizontal-line"></div>
+			<div class="circle"></div>
+		</div>
+
+		<div style=" padding:5px; font-family:'Times New Roman', Times, serif; font-size: 5px;">
+			<span>
+				<h1 style="font-size: 14px;">{{ f["user_name"].value }}</h1>
+			</span>
+
+			<p>&nbsp;{{ f["user_job_title"].value }}</p> <br><br>
+			<p><span>Dear {{f["managername"].value }},</span></p><br>
+			<p><span [innerHTML]="f['user_summary'].value"></span></p>
+			<br>
+			<p><span>Warm regards,&nbsp;</span></p>
+			<p>{{ f["user_name"].value }}</p>
+
+		</div>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+
+		<div style="  bottom:0px;position:sticky; width: 100%;   ">
+
+			<div class="container1">
+				<div class="vertical-line1"></div>
+				<div class="horizontal-line1"></div>
+				<div class="circle1"></div>
+			</div>
 		</div>
 	</div>
 </ng-template>
