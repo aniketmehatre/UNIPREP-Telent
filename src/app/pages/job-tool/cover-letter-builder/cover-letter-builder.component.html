@@ -380,15 +380,27 @@
 	<div class="h-100" [ngClass]="{ previewBodyForm: !fullScreenVisible, previewBodyFormFull: fullScreenVisible }"
 		*ngIf="selectedResumeLevel=='Academic'">
 		<div class="container mt-2">
+			<!-- code -->
+				<hr class="line1">
+			<br><br>
 			<div>
-				<div class="line1"></div>
-			</div>
-			<div class="row mt-4">
-				<div>
-					<p class="userName upperCase">{{ f["user_name"].value }}</p>
-					<p class="profession upperCase">{{ f["user_job_title"].value }}</p>
-					<h3 [innerHTML]="f['user_summary'].value"></h3>
+				<div style="margin:5px;">
+					<h1 style="font-size: 14px; font-weight: 750px;">{{ f["user_name"].value }}</h1>
+					<p >&nbsp;{{ f["user_job_title"].value }}</p>
+					<p>&nbsp;</p>
+					<p>Dear {{f["managername"].value }},</p>
+					<p>&nbsp;</p>
+					<p [innerHTML]="f['user_summary'].value"></p>
+					<p>&nbsp;</p>
+					<p>&nbsp;</p>
+					<p>Warm regards,</p>
+					<p>&nbsp;</p>
+					<p >{{ f["user_name"].value }}</p>
 				</div>
+				<p>&nbsp;</p>	
+				<p>&nbsp;</p>
+				<p>&nbsp;</p>
+					<hr class="line1">
 			</div>
 		</div>
 	</div>

@@ -231,6 +231,8 @@ export class CoverLetterBuilderComponent implements OnInit {
     this.http.post<any>('https://api.openai.com/v1/chat/completions', body, { headers: headers }).subscribe(response => {
       if (response.choices && response.choices.length > 0) {
         const GPTResponse = response.choices[0].message.content.trim();
+        console.log(GPTResponse.split('\n\n'));
+        
         this.resumeFormInfoData.patchValue({
           user_summary: GPTResponse
         });
