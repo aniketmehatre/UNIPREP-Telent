@@ -66,14 +66,14 @@
 				<h3 class="text-center uniprep-primary">Your Resume</h3>
 				<h5 class="text-center uniprep-primary">{{ selectedResumeLevel }}</h5>
 				<div class="cvBuilderSampleImg">
-                    <ng-container *ngIf="!previewImage">
+                    <!-- <ng-container *ngIf="!previewImage"> -->
                         <img *ngIf="selectedResumeLevel == 'Traditional'" src="https://api.uniprep.ai/uniprepapi/storage/app/public/job-search/Traditional.webp"/>
                         <img *ngIf="selectedResumeLevel == 'Modern'" src="https://api.uniprep.ai/uniprepapi/storage/app/public/job-search/Modern.webp"/>
                         <img *ngIf="selectedResumeLevel == 'Creative'" src="https://api.uniprep.ai/uniprepapi/storage/app/public/job-search/Creative.webp"/>
                         <img *ngIf="selectedResumeLevel == 'Functional'" src="https://api.uniprep.ai/uniprepapi/storage/app/public/job-search/functional.webp"/>
                         <img *ngIf="selectedResumeLevel == 'Academic'" src="https://api.uniprep.ai/uniprepapi/storage/app/public/job-search/academic.webp"/>
-                    </ng-container>
-                    <img *ngIf="previewImage" [src]="previewImage" alt="">
+                    <!-- </ng-container> -->
+                    <!-- <img *ngIf="previewImage" [src]="previewImage" alt=""> -->
 				</div>
 			</div>
 			<div class="d-flex justify-content-center align-items-center">
@@ -82,7 +82,7 @@
 			</div>
 			<div class="d-flex justify-content-between">
 				<button pButton type="button" (click)="previous()"
-					class="text-white p-ripple p-button-rounded p-button-info-prev p-button p-component p-2"><i
+					class="text-white p-ripple p-button-rounded p-button-info-prev p-button p-component p-2" style="visibility:hidden;"><i
 						class="fa fa-arrow-left exhausted-plan-icon-prev"></i> Previous</button>
 				<button class="downloadButton" style="margin: 0px;" (click)="next()">CV Builder &nbsp;&nbsp;&nbsp;<i
 						class="fa-sharp fa-regular fa-house tickIcon"></i></button>
@@ -95,36 +95,16 @@
         <div class="flex-column">
             <div>
                 <h3 class="text-center uniprep-primary">Your Resumes</h3>
-                <div class="cvSampleImg">
-                    <div class="flex-column">
-                        <img src="https://api.uniprep.ai/uniprepapi/storage/app/public/job-search/basic.webp"
-                             alt="basic" />
-                        <p>Version 1</p>
-                        <small>02-07-2024 12:38PM</small>
-                    </div>
-                    <div class="flex-column">
-                        <img src="https://api.uniprep.ai/uniprepapi/storage/app/public/job-search/basic.webp"
-                             alt="basic" />
-                        <p>Version 2</p>
-                        <small>02-07-2024 12:38PM</small>
-                    </div>
-                    <div class="flex-column">
-                        <img src="https://api.uniprep.ai/uniprepapi/storage/app/public/job-search/basic.webp"
-                             alt="basic" />
-                        <p>Version 3</p>
-                        <small>02-07-2024 12:38PM</small>
-                    </div>
-                    <div class="flex-column">
-                        <img src="https://api.uniprep.ai/uniprepapi/storage/app/public/job-search/basic.webp"
-                             alt="basic" />
-                        <p>Version 4</p>
-                        <small>02-07-2024 12:38PM</small>
-                    </div>
-                    <div class="flex-column">
-                        <img src="https://api.uniprep.ai/uniprepapi/storage/app/public/job-search/basic.webp"
-                             alt="basic" />
-                        <p>Version 5</p>
-                        <small>02-07-2024 12:38PM</small>
+                <div class="cvSampleImg" >
+                    <div class="flex-column" *ngFor="let resumes of resumeHistory; let i = index">
+                        <img *ngIf="resumes.template_name == 'Traditional'" src="https://api.uniprep.ai/uniprepapi/storage/app/public/job-search/Traditional.webp"/>
+                        <img *ngIf="resumes.template_name == 'Modern'" src="https://api.uniprep.ai/uniprepapi/storage/app/public/job-search/Modern.webp"/>
+                        <img *ngIf="resumes.template_name == 'Creative'" src="https://api.uniprep.ai/uniprepapi/storage/app/public/job-search/Creative.webp"/>
+                        <img *ngIf="resumes.template_name == 'Functional'" src="https://api.uniprep.ai/uniprepapi/storage/app/public/job-search/functional.webp"/>
+                        <img *ngIf="resumes.template_name == 'Academic'" src="https://api.uniprep.ai/uniprepapi/storage/app/public/job-search/academic.webp"/>
+                        <i class="fa-solid fa-download HistoryDownloadIcon" (click)="downloadOldResume(resumes.pdf_name)"></i>
+                        <p>Version {{ i+1 }}</p>
+                        <small>{{ resumes.created_at }}</small>
                     </div>
                 </div>
             </div>
