@@ -1,8 +1,8 @@
-import {Injectable} from "@angular/core";
+import { Injectable } from "@angular/core";
 import { environment } from "@env/environment";
-import {BehaviorSubject} from "rxjs";
+import { BehaviorSubject } from "rxjs";
 import { AuthService } from "./Auth/auth.service";
-import {LocationService} from "./location.service";
+import { LocationService } from "./location.service";
 
 @Injectable({
     providedIn: "root",
@@ -46,8 +46,19 @@ export class DataService {
     public booleanValue = new BehaviorSubject<any>(true);
     castValue = this.booleanValue.asObservable();
 
+
+    private jobSearchDataSource = new BehaviorSubject<any>({});
+    currentData = this.jobSearchDataSource.asObservable();
+
+
     constructor(private locationService: LocationService) {
     }
+
+
+    changeData(data: any) {
+        this.jobSearchDataSource.next(data);
+    }
+
 
     changeCountryName(countryName: string) {
         this.countryNameSource.next(countryName);
@@ -61,7 +72,7 @@ export class DataService {
         let countryInfo = {
             selected_country: countryId
         }
-        this.locationService.UpdateSelectedCountry(countryInfo).subscribe(data =>{
+        this.locationService.UpdateSelectedCountry(countryInfo).subscribe(data => {
             this.countryFlagSource.next(data.flag);
             this.countryNameSource.next(data.name);
             this.countryIdSource.next(countryId);
@@ -84,18 +95,18 @@ export class DataService {
         this.showFeedBackSource.next(data);
     }
 
-    showPopup(data:any) {
+    showPopup(data: any) {
         this.showTimeOutSourceData.next(data);
     }
 
-    loggedInAnotherDevice(data:any) {
+    loggedInAnotherDevice(data: any) {
         this.showLoggedInAnotherDevice.next(data);
     }
 
     sendValue(newValue: boolean) {
         this.booleanValue.next(newValue);
     }
-    
+
     countDownFun: any
 
     showTimerInHeader(data: any) {

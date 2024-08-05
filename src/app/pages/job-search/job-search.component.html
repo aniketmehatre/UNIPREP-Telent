@@ -28,7 +28,10 @@
 			</div>
 			<div class="col-md-3 text-end"></div>
 		</div>
-		<div [ngClass]="{ 'd-flex flex-fill align-items-center' : currentEndpoint == 'job-search' }" class="w-100">
+		<div [ngClass]="{
+			'd-flex flex-fill': currentEndpoint === 'job-listing', 
+			'd-flex flex-fill align-items-center': currentEndpoint === 'job-search'
+		  }" class="w-100">
 			<router-outlet></router-outlet>
 		</div>
 	</div>

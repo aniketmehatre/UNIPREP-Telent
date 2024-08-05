@@ -208,4 +208,6 @@ export class CoverLetterBuilderComponent implements OnInit {
       window.open(res, '_blank');
     })
   }
+  chatGPTIntegration(){
+  }
 }

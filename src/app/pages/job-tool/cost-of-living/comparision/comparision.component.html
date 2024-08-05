@@ -2,11 +2,11 @@
     <div class="col-md-8 col-sm-12">
         <div class="card">
             <div class="card-body costofliving">
-                Cost of Living In {{sourceCountryPrices?.city_name}}, {{sourceCountryPrices?.country_name}} is
+                Cost of Living In {{sourceCountryPrices.city_name}}, {{sourceCountryPrices.country_name}} is
                 {{ targetPriceTotal > sourcePriceTotal ?(getDiffrencePercentage(targetPriceTotal, sourcePriceTotal) |
                 number: '1.2-2') :(getDiffrencePercentage(sourcePriceTotal, targetPriceTotal) | number: '1.2-2')}}%
-                {{targetPriceTotal>sourcePriceTotal?'lower':'greater'}} than in {{targetCountryPrices?.city_name}},
-                {{targetCountryPrices?.country_name}}.
+                {{targetPriceTotal>sourcePriceTotal?'lower':'greater'}} than in {{targetCountryPrices.city_name}},
+                {{targetCountryPrices.country_name}}.
             </div>
         </div>
     </div>
@@ -14,11 +14,11 @@
         <div class="card">
             <div class="card-body outline-card">
                 <div class="d-flex justify-content-between">
-                    <span>{{sourceCountryPrices?.city_name}}, {{sourceCountryPrices?.country_name}}</span>
+                    <span>{{sourceCountryPrices.city_name}}, {{sourceCountryPrices.country_name}}</span>
                     <span>{{sourcePriceTotal| number: '1.2-2'}}$</span>
                 </div>
                 <div class="d-flex justify-content-between border-0">
-                    <span>{{targetCountryPrices?.city_name}}, {{targetCountryPrices?.country_name}}</span>
+                    <span>{{targetCountryPrices.city_name}}, {{targetCountryPrices.country_name}}</span>
                     <span>{{targetPriceTotal| number: '1.2-2'}}$</span>
                 </div>
             </div>
@@ -38,16 +38,16 @@
                     </div>
                     <div class="col-md-7 d-flex align-items-center"><img
                             src="https://fastfood.theringer.com/img/items/3.jpg" alt="">
-                        <div class="ml-5">{{price.from?.item_name}}</div>
+                        <div class="ml-5">{{price.from.item_name}}</div>
                     </div>
                     <div class="col-md-3 d-flex align-items-center justify-content-between">
                         <div>
-                            <div class="smallText">{{sourceCountryPrices?.country_name}}</div>
-                            <div class="smallText">${{price.from?.usd?.avg | number: '1.2-2'}}</div>
+                            <div class="smallText">{{sourceCountryPrices.country_name}}</div>
+                            <div class="smallText" *ngIf="price?.from?.usd?.avg !== undefined">${{price.from.usd.avg | number: '1.2-2'}}</div>
                         </div>
                         <div>
-                            <div class="smallText">{{targetCountryPrices?.country_name}}</div>
-                            <div class="smallText">${{price.to?.usd?.avg | number: '1.2-2'}}</div>
+                            <div class="smallText">{{targetCountryPrices.country_name}}</div>
+                            <div class="smallText" *ngIf="price?.to?.usd?.avg !== undefined">${{price.to.usd.avg | number: '1.2-2'}}</div>
                         </div>
                         <div><i class="pi pi-chart-bar"></i></div>
                     </div>

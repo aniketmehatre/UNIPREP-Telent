@@ -16,8 +16,8 @@ export class SalaryConverterComponent implements OnInit {
   selectedToCountryCode: any
   selectedToCountryName: any
   taxData: any
-  fromCountry: string = 'India'
-  toCountry: string = ''
+  fromCountry: any
+  toCountry: any
   countries: any[] = []
   rates: any
   statementText: any
