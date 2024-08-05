@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { environment } from "@env/environment";
 import { Observable } from 'rxjs';
-
+import { BehaviorSubject } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
@@ -54,5 +54,12 @@ export class CourseListService {
     return this.http.get<any>(environment.ApiUrl + "/samplecoverletter",{
       headers: headers,
     });
+  }
+
+  private dataSubject = new BehaviorSubject<boolean>(true);
+  data$ = this.dataSubject.asObservable();
+
+  setData(data: boolean) {
+    this.dataSubject.next(data);
   }
 }
