@@ -2,26 +2,16 @@ import { Component, OnInit } from '@angular/core';
 import { MessageService } from 'primeng/api';
 import { FormBuilder, FormGroup, FormArray, Validators} from "@angular/forms";
 import { CourseListService } from '../../course-list/course-list.service';
-
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Router } from '@angular/router';
+import html2canvas from 'html2canvas'; 
 @Component({
   selector: 'uni-cv-builder',
   templateUrl: './cv-builder.component.html',
   styleUrls: ['./cv-builder.component.scss'],
-  // animations: [
-  //   trigger('backgroundChange', [
-  //     state('1', style({ backgroundColor: '#134B70' })),
-  //     state('2', style({ backgroundColor: '#172a99' })),
-  //     state('3', style({ backgroundColor: '#708871' })),
-  //     state('4', style({ backgroundColor: '#973131' })),
-  //     state('5', style({ backgroundColor: '#C80036' })),
-  //     state('6', style({ backgroundColor: '#373A40' })),
-  //     state('7', style({ backgroundColor: '#686D76' })),
-  //     transition('* => *', animate('300ms'))
-  //   ])
-  // ]
 })
 export class CvBuilderComponent implements OnInit {
-  selectedResumeLevel: string = "Functional";
+  selectedResumeLevel: string = "";
   experienceLevel: any = [{id: 1, level: "Fresher"},{id: 2, level: "1-2 Years"},{id: 3, level: "3-5 Years"},{id: 4, level: "5+ Years"},];
   cgpaPercentage: any = [{id:"CGPA", value: "CGPA"},{id:"%", value: "Percentage"}];
   workTypeValue: any = [{id: "Fulltime", value: "Fulltime"}, {id: "Parttime", value: "Parttime"}, {id: "Internship", value: "Internship"},{id: "Freelance", value: "Freelance"}];
@@ -31,25 +21,7 @@ export class CvBuilderComponent implements OnInit {
   activePageIndex: number = 1;
   resumeFormInfoData: FormGroup;
   fullScreenVisible:boolean = false;
-  products:any = [
-    {
-      id: 1,
-      name: "Select your template to get started",
-    },
-    {
-      id:2,
-      name: "",
-    },
-    {
-      id:3,
-      name: "Your Resume",
-    },
-    {
-      id:4,
-      name: "Your Resumes"
-    },
-  ];
-
+  previewImage:string = "";
   //cloning limit
   eduDetailsLimit: number = 3;
   wrkExpLimit: number = 3;
@@ -60,6 +32,7 @@ export class CvBuilderComponent implements OnInit {
   extraCurriLimit: number = 5;
   certificateLimit: number = 4;
   referenceLimit: number = 4;
+  submitted:boolean = false;
   submittedFormData: any = [];
   selectedExpLevel:number = 0;
   selectedThemeColor:string = "#172a99";
@@ -67,51 +40,26 @@ export class CvBuilderComponent implements OnInit {
   template1: any;
   userNameSplit: { firstWord: string, secondWord: string } = { firstWord: '', secondWord: ''};
 
-  constructor(private toaster: MessageService,  private fb: FormBuilder, private resumeService:CourseListService) {
+  constructor(private toaster: MessageService,  private fb: FormBuilder, private resumeService:CourseListService, private http: HttpClient, private router: Router) {
 
     this.resumeFormInfoData = this.fb.group({
       selected_exp_level:['1'],
+      // user_name: ['', [Validators.required]],
+      // user_job_title: ['', [Validators.required]],
+      // user_email: ['', [Validators.required]],
+      // user_location: ['', [Validators.required]],
+      // user_phone: ['', [Validators.required]],
+      // user_linkedin:[''],
+      // user_website: [''],
+      // user_summary: ['', [Validators.required]],
       user_name: ['vivek kaliyaperumal', [Validators.required]],
-      user_job_title: ['Full Stack Developer', [Validators.required]],
+      user_job_title: ['full stack developer', [Validators.required]],
       user_email: ['vivek@uniabroad.co.in', [Validators.required]],
-      user_location: ['Mysore, Karnataka', [Validators.required]],
-      user_phone: ['+91 9524999563', [Validators.required]],
-      user_linkedin:['Vivek Kaliyaperumal'],
+      user_location: ['mysore,karnataka', [Validators.required]],
+      user_phone: ['9524999563', [Validators.required]],
+      user_linkedin:['vivek kaliyaperumal'],
       user_website: ['www.ownwebsite.com'],
-      user_summary: ['Experienced Senior Visual Designer with a proven track record in the design industry. Proficient in Web Design, UI/UX Design, and Graphic Design. Strong entrepreneurial mindset with a Bachelor of Engineering (B.E.) in Computer Science from Vidyavardhaka College of Engineering.', [Validators.required]],
-      // edu_college_name: ['Vidyavardhaka College of Engg'],
-      // edu_start_year: ['2015'],
-      // edu_end_year: ['2019'],
-      // edu_degree: ['Bachelor of Engineering in C.S'],
-      // edu_location: ['Mysore'],
-      // edu_percentage: ['65'],
-      // edu_cgpa_percentage: ['%'],
-      work_org_name: [''],
-      work_start_year: [''],
-      work_end_year: [''],
-      work_designation:[''],
-      work_type: [''],
-      work_location: [''],
-      work_job_description: [''],
-      project_name: [''],
-      project_start_name: [''],
-      project_end_name: [''],
-      project_description: [''],
-      language: [''],
-      lang_proficiency: [''],
-      skills: [''],
-      skills_proficiency: [''],
-      hobbies: [''],
-      extra_curricular_activites: [''],
-      certificate_name: [''],
-      certificate_issued: [''],
-      certificate_id: [''],
-      certicate_link: [''],
-      ref_name: [''],
-      ref_position: [''],
-      ref_organization: [''],
-      ref_email: [''],
-      ref_contact: [''],
+      user_summary: ['Dedicated full stack developer with proficiency in front-end and back-end technologies, effective problem-solving skills, and a passion for creating innovative web applications.', [Validators.required]],
       EduDetailsArray: this.fb.array([]),
       workExpArray: this.fb.array([]),
       projectDetailsArray: this.fb.array([]),
@@ -127,11 +75,21 @@ export class CvBuilderComponent implements OnInit {
 
   ngOnInit(): void {
     this.triggerAddMoreButton();
+    this.hideHeader();
     let currentuserName = this.resumeFormInfoData.value.user_name;
     this.splitUserName(currentuserName); // it calls when the page refresh
     this.resumeFormInfoData.get('user_name')?.valueChanges.subscribe(value=>{
       this.splitUserName(value); // it calls when the user enters the user name
     })
+  }
+
+  hideHeader(){
+    const url = this.router.url;
+    if(this.activePageIndex == 2 && url.endsWith('/cv-builder')){
+      this.resumeService.setData(true);
+    }else{
+      this.resumeService.setData(false);
+    }
   }
 
   splitUserName(currentUserName: string){
@@ -167,8 +125,9 @@ export class CvBuilderComponent implements OnInit {
 
   resumeFormSubmit(){
     this.submittedFormData = this.resumeFormInfoData.value;
+    this.submitted = true;
     if (!this.resumeFormInfoData.valid) {
-      console.log('Form is invalid, please correct the errors.');
+      this.toaster.add({severity: "error",summary: "Error",detail: "Please fill all the required fields."})
       this.resumeFormInfoData.markAllAsTouched(); // Trigger validation messages if needed
     }else{
       this.next();
@@ -177,9 +136,21 @@ export class CvBuilderComponent implements OnInit {
 
   imgOnclick(resumeLevel: any){
     this.selectedResumeLevel = resumeLevel;
-    console.log(this.selectedResumeLevel);
   }
 
+  generateImage() {
+    const cvPreviewContainer = document.getElementById('cv-preview-container');
+    console.log(cvPreviewContainer, "cvPreviewContainer");
+    if (cvPreviewContainer) {
+      html2canvas(cvPreviewContainer, { useCORS: true })
+        .then((canvas) => {
+          this.previewImage = canvas.toDataURL('image/png');
+        })
+        .catch((error) => {
+          console.error('Failed to generate image', error);
+        });
+    }
+  }
 
   shakeButton(event: Event) {
     if(!this.selectedResumeLevel){
@@ -194,6 +165,7 @@ export class CvBuilderComponent implements OnInit {
       this.activePageIndex++;
       // this.enableModule = true;
       this.activePageIndex = this.activePageIndex == 5 ? 1 : this.activePageIndex;
+      this.hideHeader();
     }
   }
 
@@ -202,6 +174,7 @@ export class CvBuilderComponent implements OnInit {
     // if (this.activePageIndex > 0) {
     //   this.activePageIndex--;
     // }
+    this.hideHeader();
   }
 
   next(){
@@ -209,6 +182,10 @@ export class CvBuilderComponent implements OnInit {
     // if (this.activePageIndex < this.pages.length - 1) {
     //   this.activePageIndex++;
     // }
+    if(this.activePageIndex == 3){
+      this.generateImage();
+    }
+    this.hideHeader();
   }
 
   get getEduDetailsArray(): FormArray {
@@ -249,63 +226,84 @@ export class CvBuilderComponent implements OnInit {
   clickAddMoreButton(fieldName: string){
     if(fieldName == "education_detail"){
       this.getEduDetailsArray.push(this.fb.group({
-        edu_college_name: [''],
-        edu_start_year: [''],
-        edu_end_year: [''],
-        edu_degree: [''],
-        edu_location: [''],
-        edu_percentage: [''],
+        edu_college_name: ['',Validators.required],
+        edu_still_pursuing:[''],
+        edu_start_year: ['', Validators.required],
+        edu_end_year: ['', Validators.required],
+        edu_degree: ['', Validators.required],
+        edu_location: ['', Validators.required],
+        edu_percentage: ['', Validators.required],
         edu_cgpa_percentage: [''],
       }));
     }else if(fieldName == "work_experience"){
       this.getWorkExpArray.push(this.fb.group({
-        work_org_name: [''],
-        work_start_year: [''],
-        work_end_year: [''],
-        work_designation: [''],
-        work_type: [''],
-        work_location: [''],
-        work_job_description: [''],
+        work_org_name: ['',Validators.required],
+        work_currently_working:[''],
+        work_start_year: ['',Validators.required],
+        work_end_year: ['',Validators.required],
+        work_designation: ['',Validators.required],
+        work_type: ['',Validators.required],
+        work_location: ['',Validators.required],
+        work_job_description: ['',Validators.required],
       }));
     }else if(fieldName == "project_details"){
       this.getProjectDetailsArray.push(this.fb.group({
-        project_name: [''],
-        project_start_name: [''],
-        project_end_name: [''],
-        project_description: [''],
+        project_name: ['',Validators.required],
+        project_start_name: ['',Validators.required],
+        project_end_name: ['',Validators.required],
+        project_description: ['',Validators.required],
       }));
     }else if(fieldName == "language_known"){
       this.getLanguagesKnownArray.push(this.fb.group({
-        language: [''],
-        lang_proficiency: [''],
+        language: ['',Validators.required],
+        lang_proficiency: ['',Validators.required],
       }));
     }else if(fieldName == "skills"){
       this.getSkillsArray.push(this.fb.group({
-        skills: [''],
-        skills_proficiency: ['']
+        skills: ['',Validators.required],
+        skills_proficiency: ['',Validators.required]
       }));
     }else if(fieldName == "Hobby"){
+      // this.getHobbiesArray.push(this.fb.group({
+      //   hobbies: ['Painting'],
+      // }));
       this.getHobbiesArray.push(this.fb.group({
-        hobbies: ['Painting'],
+        hobbies: ['',Validators.required],
       }));
     }else if(fieldName == "extra_curricular"){
+      // this.getExtraCurricularArray.push(this.fb.group({
+      //   extra_curricular_activites: ['Game Development']
+      // }));
       this.getExtraCurricularArray.push(this.fb.group({
-        extra_curricular_activites: ['Game Development']
+        extra_curricular_activites: ['',Validators.required]
       }));
     }else if(fieldName == "certificate"){
-      this.getCertificatesArray.push(this.fb.group({
-        certificate_name: ['Web Development'],
-        certificate_issued: ['UNIPREP'],
-        certificate_id: ['UNI077'],
-        certicate_link: ['https://uniprep.ai/certificates'],
+      // this.getCertificatesArray.push(this.fb.group({
+      //   certificate_name: ['Web Development'],
+      //   certificate_issued: ['UNIPREP'],
+      //   certificate_id: ['UNI077'],
+      //   certicate_link: ['https://uniprep.ai/certificates'],
+      // }));
+       this.getCertificatesArray.push(this.fb.group({
+        certificate_name: ['',Validators.required],
+        certificate_issued: ['',Validators.required],
+        certificate_id: [''],
+        certicate_link: [''],
       }));
     }else if(fieldName == "reference"){
+      // this.getReferenceArray.push(this.fb.group({
+      //   ref_name: ['Adithya M'],
+      //   ref_position: ['CEO'],
+      //   ref_organization: ['Mediamonk'],
+      //   ref_email: ['adithya@uniabroad.co.in'],
+      //   ref_contact: ['+91 7019267853'],
+      // }));
       this.getReferenceArray.push(this.fb.group({
-        ref_name: ['Adithya M'],
-        ref_position: ['CEO'],
-        ref_organization: ['Mediamonk'],
-        ref_email: ['adithya@uniabroad.co.in'],
-        ref_contact: ['+91 7019267853'],
+        ref_name: ['',Validators.required],
+        ref_position: ['',Validators.required],
+        ref_organization: ['',Validators.required],
+        ref_email: ['',Validators.required],
+        ref_contact: ['',Validators.required],
       }));
     }
   }
@@ -334,10 +332,42 @@ export class CvBuilderComponent implements OnInit {
 
   }
 
+  stillPursuing(fieldName:string, index: number, event: Event){
+    const isChecked = (event.target as HTMLInputElement).checked;
+    
+    if(fieldName == "work_currently_working"){
+      const workExpArray = this.getWorkExpArray;
+      const workExpGroup = workExpArray.at(index) as FormGroup;
+      if (isChecked) {
+        workExpGroup.patchValue({
+          work_end_year: 'Present'
+        });
+      } else {
+        workExpGroup.patchValue({
+          work_end_year: ''
+        });
+      }
+    }else{
+      const getEduDetailsArray = this.getEduDetailsArray;
+      const getEduDetailsGroup = getEduDetailsArray.at(index) as FormGroup;
+      if (isChecked) {
+        getEduDetailsGroup.patchValue({
+          edu_end_year: 'Present'
+        });
+      } else {
+        getEduDetailsGroup.patchValue({
+          edu_end_year: ''
+        });
+      }
+    }
+    
+  }
+
   triggerAddMoreButton(){ //initially the cloning array is an empty so trigger and make the array as an not empty
 
     this.getEduDetailsArray.push(this.fb.group({
       edu_college_name: ['Srinivasan Engg College'],
+      edu_still_pursuing:[''],
       edu_start_year: ['2015'],
       edu_end_year: ['2019'],
       edu_degree: ['Bachelor of Engineering in C.S'],
@@ -348,6 +378,7 @@ export class CvBuilderComponent implements OnInit {
 
     this.getWorkExpArray.push(this.fb.group({
       work_org_name: ['Uniabroad Private Ltd'],
+      work_currently_working:[''],
       work_start_year: ['2013'],
       work_end_year: ['2015'],
       work_designation: ['Full stack developer'],
@@ -361,10 +392,6 @@ export class CvBuilderComponent implements OnInit {
       project_start_name: ['2015'],
       project_end_name: ['2019'],
       project_description: ['<li>Together with developers, collect and assess user requirements.</li><li>Using storyboards, process flows, and sitemaps, illustrate design concepts.</li><li>Create visual user interface components such as menus, tabs, and widgets.</li><li>Create UI mockups and prototypes that clearly show how websites work and appear.</li><li>Determine and address UX issues (e.g., responsiveness).</li>'],
-    }));
-
-    this.getHobbiesArray.push(this.fb.group({
-      hobbies: ['Painting'],
     }));
 
     this.getSkillsArray.push(this.fb.group({
@@ -389,4 +416,75 @@ export class CvBuilderComponent implements OnInit {
       window.open(res, '_blank');
     })
   }
+
+  chatGPTIntegration(fieldName: string, iteration:number) {
+    
+    const apiKey = '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'; 
+    let formData = this.resumeFormInfoData.value;
+    let prompt: string = "";
+    if(fieldName == 'user_summary'){
+      if (formData.selected_exp_level == 1) {
+        prompt = `Provide a professional summary for a ${ formData.user_job_title } role, up to 30 words, suitable for a resume for freshers.`;
+      } else {
+        const selectedExp = this.experienceLevel[formData.selected_exp_level - 1];
+        prompt = `Provide a professional summary for a resume, up to 30 words, tailored to a ${ formData.user_job_title } role with ${ selectedExp.level } of experience.`;
+      }
+    }else if(fieldName == 'work_job_description'){
+      const work_designation = this.getWorkExpArray.value[iteration].work_designation;
+      prompt = `Provide five roles and responsibilities for a ${ work_designation } role without using headings.`;
+    }else if(fieldName == 'project_description'){
+      const project_name = this.getProjectDetailsArray.value[iteration].project_name;
+      prompt = `Provide a project description for ${ project_name }, up to 30 words.`;
+    }
+    
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${apiKey}`
+    });
+  
+    const body = {
+      model: "gpt-3.5-turbo",
+      messages: [
+        { role: "system", content: "You are a helpful assistant." },
+        { role: "user", content: prompt }
+      ],
+      max_tokens: 300
+    };
+  
+    this.http.post<any>('https://api.openai.com/v1/chat/completions', body, { headers: headers }).subscribe(response => {
+      if (response.choices && response.choices.length > 0) {
+        const GPTResponse = response.choices[0].message.content.trim();
+        if(fieldName == 'user_summary'){
+          this.resumeFormInfoData.patchValue({
+            user_summary: GPTResponse
+          });
+        }else if(fieldName == 'work_job_description'){
+          const workExpArray = this.getWorkExpArray;
+          if (workExpArray.length > 0) {
+            const firstWorkExpGroup = workExpArray.at(iteration) as FormGroup;
+            firstWorkExpGroup.patchValue({
+              work_job_description: GPTResponse
+            });
+          } else {
+            console.error('No work experience entries found.');
+          }
+        }else if(fieldName == 'project_description'){
+          const projectDetArray = this.getProjectDetailsArray;
+          if (projectDetArray.length > 0) {
+            const firstWorkExpGroup = projectDetArray.at(iteration) as FormGroup;
+            firstWorkExpGroup.patchValue({
+              project_description: GPTResponse
+            });
+          } else {
+            console.error('No Project details entries found.');
+          }
+        }
+      } else {
+        console.error('Unexpected response structure:', response);
+      }
+    }, error => {
+      console.error('Error:', error);
+    });
+  }
+  
 }
