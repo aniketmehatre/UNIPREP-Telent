@@ -2,6 +2,8 @@ import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { MessageService } from 'primeng/api';
 import { FormBuilder, FormGroup, FormArray, Form, Validators} from "@angular/forms";
 import { CourseListService } from '../../course-list/course-list.service';
+import { HttpHeaders,HttpClient } from '@angular/common/http';
+
 @Component({
   selector: 'uni-cover-letter-builder',
   templateUrl: './cover-letter-builder.component.html',
@@ -54,10 +56,9 @@ export class CoverLetterBuilderComponent implements OnInit {
   template1: any;
   userNameSplit: { firstWord: string, secondWord: string } = { firstWord: '', secondWord: ''};
 
-  constructor(private toaster: MessageService,  private fb: FormBuilder, private resumeService:CourseListService) {
+  constructor(private toaster: MessageService,  private fb: FormBuilder, private resumeService:CourseListService,private http: HttpClient) {
 
     this.resumeFormInfoData = this.fb.group({
-      selected_exp_level:['1'],
       user_name: ['vivek kaliyaperumal', [Validators.required]],
       user_job_title: ['Full Stack Developer', [Validators.required]],
       user_email: ['vivek@uniabroad.co.in', [Validators.required]],
@@ -202,12 +203,56 @@ export class CoverLetterBuilderComponent implements OnInit {
     let formData = this.resumeFormInfoData.value;
     let data = {
       ...formData,
-      selectedResumeLevel: this.selectedResumeLevel
+      cover_name: this.selectedResumeLevel
     };
-    this.resumeService.downloadResume(data).subscribe(res => {
+    console.log(data);
+    this.resumeService.downloadCoverletter(data).subscribe(res => {
       window.open(res, '_blank');
     })
   }
-  chatGPTIntegration(){
+  chatGPTIntegration() {
+    const apiKey = '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'; 
+    let formData = this.resumeFormInfoData.value;
+    let prompt: string = `Provide the body of the  cover letter for ${this.resumeFormInfoData.value.user_name} who is a ${this.resumeFormInfoData.value.user_job_title} applying to ${this.resumeFormInfoData.value.edu_college_name} for the position of ${this.resumeFormInfoData.value.jobposition}`;
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${apiKey}`
+    });
+  
+    const body = {
+      model: "gpt-3.5-turbo",
+      messages: [
+        { role: "system", content: "You are a helpful assistant." },
+        { role: "user", content: prompt }
+      ],
+      max_tokens: 1000
+    };
+  
+    this.http.post<any>('https://api.openai.com/v1/chat/completions', body, { headers: headers }).subscribe(response => {
+      if (response.choices && response.choices.length > 0) {
+        const GPTResponse = response.choices[0].message.content.trim();
+        console.log(GPTResponse.split('\n\n'));
+         // Split the response into an array of paragraphs
+    const paragraphs = GPTResponse.split('\n\n');
+    
+    // Remove the first two elements
+    if (paragraphs.length > 2) {
+      paragraphs.splice(0, 2);
+    }
+    
+    // Join the remaining elements back into a string
+    let modifiedResponse = paragraphs.join('\n\n');
+    // Replace commas with newline characters to create new paragraphs
+    modifiedResponse = modifiedResponse.replace(/,/g, '<br>');
+    // Update the form field with the modified response
+    this.resumeFormInfoData.patchValue({
+      user_summary: modifiedResponse
+    });
+      }else {
+        console.error('Unexpected response structure:', response);
+      }
+    }, error => {
+      console.error('Error:', error);
+    });
   }
 }
