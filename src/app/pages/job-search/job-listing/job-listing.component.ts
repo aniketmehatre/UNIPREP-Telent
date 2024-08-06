@@ -3,6 +3,7 @@ import { JobSearchService } from "../job-search.service";
 import { SalaryConverterService } from '../../job-tool/salary-converter/salary-converter.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { DataService } from 'src/app/data.service';
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'uni-job-listing',
@@ -12,12 +13,15 @@ import { DataService } from 'src/app/data.service';
 export class JobListingComponent implements OnInit {
   jobs: any[] = [];
   fG: FormGroup;
+  filterForm: FormGroup;
   query: string = 'developer';
   location: string = 'in'; // Default location
   numbers: number[] = Array(20).fill(0).map((x, i) => i + 1);
-  fromCountry: string = 'India'
+  fromCountry: any
+  selectedFlag: any
   isDetailedPageClicked: boolean = false
   selectedCountryCode: any
+  selectedCountryCodeFilter: any
   count: any
   singleData: any
   page = 1
@@ -26,25 +30,36 @@ export class JobListingComponent implements OnInit {
   categoryList: any
   jobTypeList: any[] = [{
     code: 'full_time', name: 'Full time'
-  },{
+  }, {
     code: 'part_time', name: 'Part time'
-  },{
+  }, {
     code: 'contract', name: 'Contract'
   },
   {
     code: 'permanent', name: 'Permanent'
   }]
+
+  distanceList: any[] = [
+    { "code": "5km", "name": "5 km" },
+    { "code": "10km", "name": "10 km" },
+    { "code": "30km", "name": "30 km" },
+    { "code": "50km", "name": "50 km" }
+  ]
+  distanceValue: any
+
+
+
   vvv = {
     "title": "Product Manager",
     "adref": "eyJhbGciOiJIUzI1NiJ9.eyJpIjoiNDU1ODkwNTYxMCIsInMiOiJxSDVMazFKUzd4R0xfdVJaemJVeTZ3In0.8R8Q6ZxJ540aWkUo3ZxtROdc3zCEiLcPthfo7gwK1f8",
     "location": {
-        "__CLASS__": "Adzuna::API::Response::Location",
-        "display_name": "Chennai, Tamil Nadu",
-        "area": [
-            "India",
-            "Tamil Nadu",
-            "Chennai"
-        ]
+      "__CLASS__": "Adzuna::API::Response::Location",
+      "display_name": "Chennai, Tamil Nadu",
+      "area": [
+        "India",
+        "Tamil Nadu",
+        "Chennai"
+      ]
     },
     "latitude": 13.06041,
     "description": "We are looking for a Product Manager for a Seed Funded Sales Enablement Platform. Job Profile: Responsible for defining and executing the product roadmap, working closely with cross-functional teams to ensure the product meets customer needs, and driving business growth through innovation and continuous improvement. Prioritize and manage the sprint backlogs. Organize and facilitate Sprint planning workshops, sprint retrospectives/ demo sessions, Conduct stand-ups, Publish Sprint burn-down chart…",
@@ -53,57 +68,67 @@ export class JobListingComponent implements OnInit {
     "redirect_url": "https://www.adzuna.in/details/4558905610?utm_medium=api&utm_source=5be5ff77",
     "created": "2024-02-06T04:51:47Z",
     "company": {
-        "display_name": "NetSysCon Consulting",
-        "__CLASS__": "Adzuna::API::Response::Company"
+      "display_name": "NetSysCon Consulting",
+      "__CLASS__": "Adzuna::API::Response::Company"
     },
     "__CLASS__": "Adzuna::API::Response::Job",
     "category": {
-        "tag": "it-jobs",
-        "__CLASS__": "Adzuna::API::Response::Category",
-        "label": "IT Jobs"
+      "tag": "it-jobs",
+      "__CLASS__": "Adzuna::API::Response::Category",
+      "label": "IT Jobs"
     },
     "id": "4558905610"
-};
+  };
 
   constructor(private jobService: JobSearchService, private sConvert: SalaryConverterService,
-    private dataService: DataService
+              private dataService: DataService, private router: Router
   ) {
     this.countryCodes = [
-      { "name": "Austria", "code": "at" },
-      { "name": "Australia", "code": "au" },
-      { "name": "Belgium", "code": "be" },
-      { "name": "Brazil", "code": "br" },
-      { "name": "Canada", "code": "ca" },
-      { "name": "Switzerland", "code": "ch" },
-      { "name": "Germany", "code": "de" },
-      { "name": "Spain", "code": "es" },
-      { "name": "France", "code": "fr" },
-      { "name": "United Kingdom", "code": "gb" },
-      { "name": "India", "code": "in" },
-      { "name": "Italy", "code": "it" },
-      { "name": "Mexico", "code": "mx" },
-      { "name": "Netherlands", "code": "nl" },
-      { "name": "New Zealand", "code": "nz" },
-      { "name": "Poland", "code": "pl" },
-      { "name": "Singapore", "code": "sg" },
-      { "name": "United States", "code": "us" },
-      { "name": "South Africa", "code": "za" }
-  ]
-      this.fG = new FormGroup({
-        countryCode: new FormControl('', Validators.required),
-        location: new FormControl(''),
-        title: new FormControl(''),
-        company: new FormControl('')
-      });
+      { "name": "Austria", "code": "at", "flag": "https://flagcdn.com/at.svg" },
+      { "name": "Australia", "code": "au", "flag": "https://flagcdn.com/au.svg" },
+      { "name": "Belgium", "code": "be", "flag": "https://flagcdn.com/be.svg" },
+      { "name": "Brazil", "code": "br", "flag": "https://flagcdn.com/br.svg" },
+      { "name": "Canada", "code": "ca", "flag": "https://flagcdn.com/ca.svg" },
+      { "name": "Switzerland", "code": "ch", "flag": "https://flagcdn.com/ch.svg" },
+      { "name": "Germany", "code": "de", "flag": "https://flagcdn.com/de.svg" },
+      { "name": "Spain", "code": "es", "flag": "https://flagcdn.com/es.svg" },
+      { "name": "France", "code": "fr", "flag": "https://flagcdn.com/fr.svg" },
+      { "name": "United Kingdom", "code": "gb", "flag": "https://flagcdn.com/gb.svg" },
+      { "name": "India", "code": "in", "flag": "https://flagcdn.com/in.svg" },
+      { "name": "Italy", "code": "it", "flag": "https://flagcdn.com/it.svg" },
+      { "name": "Mexico", "code": "mx", "flag": "https://flagcdn.com/mx.svg" },
+      { "name": "Netherlands", "code": "nl", "flag": "https://flagcdn.com/nl.svg" },
+      { "name": "New Zealand", "code": "nz", "flag": "https://flagcdn.com/nz.svg" },
+      { "name": "Poland", "code": "pl", "flag": "https://flagcdn.com/pl.svg" },
+      { "name": "Singapore", "code": "sg", "flag": "https://flagcdn.com/sg.svg" },
+      { "name": "United States", "code": "us", "flag": "https://flagcdn.com/us.svg" },
+      { "name": "South Africa", "code": "za", "flag": "https://flagcdn.com/za.svg" }
+    ];
+    this.fG = new FormGroup({
+      countryCode: new FormControl('', Validators.required),
+      location: new FormControl(''),
+      title: new FormControl(''),
+      company: new FormControl('')
+    });
+    this.filterForm = new FormGroup({
+      countryCode: new FormControl(''),
+      category: new FormControl(''),
+      location: new FormControl(''),
+      distance: new FormControl(''),
+      job_type: new FormControl(''),
+      salary_min: new FormControl(''),
+      salary_max: new FormControl(''),
+      company: new FormControl('')
+    });
     this.dataService.currentData.subscribe(data => {
       this.selectedCountryCode = data.countryCode.code
       this.fG.setValue({
         countryCode: this.selectedCountryCode,
         title: data.title,
         location: data.location,
-        company: data.company 
-      }); 
-      console.log(this.fG.value); 
+        company: data.company
+      });
+      console.log(this.fG.value);
       this.onSubmit();
     });
   }
@@ -113,20 +138,20 @@ export class JobListingComponent implements OnInit {
     //this.searchJobsAdzuna()
   }
 
- 
-
   onCountryChange(event: any) {
     this.selectedCountryCode = event.value.code
-    
-  }
-  onCountryChangeFilter(event: any){
-    this.selectedCountryCode = event.value.code
-    this.fetchCategoryData();
+    this.selectedFlag = event.value.flag
   }
 
-  fetchCategoryData(){
+  onCountryChangeFilter(event: any) {
+    this.selectedCountryCodeFilter = event.value.code
+    this.fetchCategoryData()
+    this.selectedFlag = event.value.flag
+  }
+
+  fetchCategoryData() {
     let req = {
-      location: this.selectedCountryCode,
+      location: this.selectedCountryCodeFilter,
     }
     this.jobService.fetchCategory(req).subscribe(
       (data: any) => {
@@ -137,10 +162,6 @@ export class JobListingComponent implements OnInit {
         console.error('Error fetching job listings:', error);
       }
     );
-  }
-
-  onClickSearch() {
-    console.log(this.fG.value.countryCode.code)
   }
 
   onSubmit() {
@@ -164,15 +185,80 @@ export class JobListingComponent implements OnInit {
     );
   }
 
-  onClickDetails(job: any){
+  onClickDetails(job: any) {
     this.singleData = job
     this.isDetailedPageClicked = true
   }
 
-  paginate(event: any){
-
+  paginate(event: any) {
+    this.page = event.page + 1;
+    this.resultPerPage = event.rows;
+    if (this.fG.value){
+      this.onSubmit()
+    }else{
+      this.onFilterSubmit()
+    }
   }
 
-  onClickClear(){}
+  onClickClear() {
+    this.filterForm.reset()
+   }
+
+  onFilterSubmit(){
+    console.log(this.filterForm.value)
+    let req = {
+      location: this.filterForm.value.countryCode.code,
+      page: this.page,
+      result_per_page: this.resultPerPage,
+      where: this.filterForm.value.location,
+      category: this.filterForm.value.category.tag,
+      full_time : this.filterForm.value.job_type.code == 'full_time' ? 1 : '',
+      part_time: this.filterForm.value.job_type.code == 'part_time' ? 1 : '',
+      contract: this.filterForm.value.job_type.code == 'contract' ? 1 : '',
+      permanent: this.filterForm.value.job_type.code == 'permanent' ? 1 : '',
+      distance: this.filterForm.value.distance.code,
+      salary_min: this.filterForm.value.salary_min,
+      salary_max: this.filterForm.value.salary_max,
+      company: this.filterForm.value.company
+    }
+    this.jobService.searchJobs(req).subscribe(
+      (data: any) => {
+        this.jobs = data.results
+        this.count = data.count
+      },
+      (error) => {
+        console.error('Error fetching job listings:', error);
+      }
+    );
+  }
+
+  onClickApply(job: any, type: any){
+    const jobDetails = {
+      company_name: job.company.display_name,
+      company_url: '',
+      job_title: job.title,
+      job_url: job.redirect_url,
+      list_date: job.created,
+      location: job.location.display_name,
+      price: job.salary_is_predicted,
+      work_type: job.contract_type,
+      experience: '',
+      time: job.created,
+      type: type,
+      country_flag: this.selectedFlag
+    };
+    this.jobService.addJobStatusList(jobDetails).subscribe(
+        (data: any) => {
+          if(type === 'apply'){
+            window.open(job.redirect_url, '_blank');
+          }else{
+            this.router.navigateByUrl(`/pages/job-portal/job-tracker`);
+          }
+        },
+        (error) => {
+          console.error('not able to apply:', error);
+        }
+    );
+  }
 
 }
