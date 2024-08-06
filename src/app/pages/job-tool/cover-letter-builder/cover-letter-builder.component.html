@@ -66,16 +66,53 @@
 				<h3 class="text-center uniprep-primary">Your Coverletter</h3>
 				<h5 class="text-center uniprep-primary">{{ selectedResumeLevel }}</h5>
 				<div class="cvBuilderSampleImg">
-					<img *ngIf="selectedResumeLevel == 'Traditional'"
-						src="https://api.uniprep.ai/uniprepapi/storage/app/public/SampleUploadDocuments/cover_letter/traditional.png" />
-					<img *ngIf="selectedResumeLevel == 'Modern'"
+					<!-- <img *ngIf="selectedResumeLevel == 'Traditional'"
+						src="https://api.uniprep.ai/uniprepapi/storage/app/public/SampleUploadDocuments/cover_letter/traditional.png" /> -->
+						<div *ngIf="selectedResumeLevel == 'Traditional'">
+							<div class="container">
+								<div class="vertical-line"></div>
+								<div class="horizontal-line"></div>
+								<div class="circle"></div>
+							</div>
+					
+							<div style=" padding:5px; font-family:'Times New Roman', Times, serif; font-size: 5px;">
+								<span>
+									<h1 style="font-size: 14px;">{{ f["user_name"].value }}</h1>
+								</span>
+					
+								<p>&nbsp;{{ f["user_job_title"].value }}</p> <br><br>
+								<p><span>Dear {{f["managername"].value }},</span></p><br>
+								<p><span [innerHTML]="f['user_summary'].value"></span></p>
+								<br>
+								<p><span>Warm regards,&nbsp;</span></p>
+								<p>{{ f["user_name"].value }}</p>
+					
+							</div>
+							<br>
+							<br>
+							<br>
+							<br>
+							<br>
+							<br>
+					
+							<div style="  bottom:0px;position:sticky; width: 100%;   ">
+					
+								<div class="container1">
+									<div class="vertical-line1"></div>
+									<div class="horizontal-line1"></div>
+									<div class="circle1"></div>
+								</div>
+							</div>
+						</div>
+						
+					<!-- <img *ngIf="selectedResumeLevel == 'Modern'"
 						src="https://api.uniprep.ai/uniprepapi/storage/app/public/SampleUploadDocuments/cover_letter/modern.png" />
 					<img *ngIf="selectedResumeLevel == 'Creative'"
 						src="https://api.uniprep.ai/uniprepapi/storage/app/public/SampleUploadDocuments/cover_letter/creative.png" />
 					<img *ngIf="selectedResumeLevel == 'Functional'"
 						src="https://api.uniprep.ai/uniprepapi/storage/app/public/SampleUploadDocuments/cover_letter/functional.png" />
 					<img *ngIf="selectedResumeLevel == 'Academic'"
-						src="https://api.uniprep.ai/uniprepapi/storage/app/public/SampleUploadDocuments/cover_letter/academic.png" />
+						src="https://api.uniprep.ai/uniprepapi/storage/app/public/SampleUploadDocuments/cover_letter/academic.png" /> -->
 				</div>
 			</div>
 			<div class="d-flex justify-content-center align-items-center">
