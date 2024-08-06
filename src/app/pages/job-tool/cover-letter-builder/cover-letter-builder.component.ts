@@ -20,6 +20,7 @@ export class CoverLetterBuilderComponent implements OnInit {
   activePageIndex: number = 1;
   resumeFormInfoData: FormGroup;
   fullScreenVisible:boolean = false;
+  isButtonDisabledSelectTemplate:boolean=false;
   products:any = [
     {
       id: 1,
@@ -126,6 +127,7 @@ export class CoverLetterBuilderComponent implements OnInit {
   }
 
   imgOnclick(resumeLevel: any){
+    this.isButtonDisabledSelectTemplate=true;
     this.selectedResumeLevel = resumeLevel;
     console.log(this.selectedResumeLevel);
   }

@@ -52,23 +52,23 @@
 			</div>
 		</div> -->
 	</div>
-	<div class="row justify-content-center">
-		<div class="col-md-4 mt-5">
-			<button class="createResumeButton" (click)="shakeButton($event)">Create your Coverletter
+	<div *ngIf="isButtonDisabledSelectTemplate" class="row justify-content-center">
+		<div class="col-md-12 mt-5" style="text-align: center;">
+			<button class="createResumeButton"  (click)="shakeButton($event)">Create your Coverletter
 				&nbsp;&nbsp;&nbsp;<i class="fa-solid fa-arrow-right tickIcon"></i></button>
 		</div>
 	</div>
 </div>
-<div class="container-fluid" *ngIf="activePageIndex == 3">
-	<div class="row justify-content-center" style="overflow: auto;">
-		<div class="flex-column">
+<div class="" *ngIf="activePageIndex == 3" style="overflow: auto !important;">
+	<div class="row justify-content-center"  style="overflow: auto !important;">
+		<div class="flex-column"  style="overflow: auto !important;">
 			<div>
 				<h3 class="text-center uniprep-primary">Your Coverletter</h3>
 				<h5 class="text-center uniprep-primary">{{ selectedResumeLevel }}</h5>
 				<div class="cvBuilderSampleImg">
 					<!-- <img *ngIf="selectedResumeLevel == 'Traditional'"
 						src="https://api.uniprep.ai/uniprepapi/storage/app/public/SampleUploadDocuments/cover_letter/traditional.png" /> -->
-						<div class="h-100" [ngClass]="{ previewBodyForm: !fullScreenVisible, previewBodyFormFull: fullScreenVisible }"
+					<div class="h-100" [ngClass]="{ previewBodyForm: !fullScreenVisible, previewBodyFormFull: fullScreenVisible }"
 		               *ngIf="selectedResumeLevel=='Traditional'">
 						<div style="text-align: left;">
 							<div class="container">
@@ -116,17 +116,17 @@
 					<img *ngIf="selectedResumeLevel == 'Academic'"
 						src="https://api.uniprep.ai/uniprepapi/storage/app/public/SampleUploadDocuments/cover_letter/academic.png" /> -->
 				</div>
-			</div>
-			<div class="d-flex justify-content-center align-items-center">
-				<button class="downloadButton" (click)="downloadResume()">Download &nbsp;&nbsp;&nbsp;<i
-						class="fa-solid fa-download tickIcon"></i></button>
-			</div>
-			<div class="d-flex justify-content-between">
-				<button pButton type="button" (click)="previous()"
-					class="text-white p-ripple p-button-rounded p-button-info-prev p-button p-component p-2"><i
-						class="fa fa-arrow-left exhausted-plan-icon-prev"></i> Previous</button>
-				<button class="downloadButton" style="margin: 0px;" (click)="next()">Coverletter Builder &nbsp;&nbsp;&nbsp;<i
-						class="fa-sharp fa-regular fa-house tickIcon"></i></button>
+				<div class="d-flex justify-content-center align-items-center">
+					<button class="downloadButton" (click)="downloadResume()">Download &nbsp;&nbsp;&nbsp;<i
+							class="fa-solid fa-download tickIcon"></i></button>
+				</div>
+				<div class="d-flex justify-content-between">
+					<button pButton type="button" (click)="previous()"
+						class="text-white p-ripple p-button-rounded p-button-info-prev p-button p-component p-2"><i
+							class="fa fa-arrow-left exhausted-plan-icon-prev"></i> Previous</button>
+					<button class="downloadButton" style="margin: 0px;" (click)="next()">Coverletter Builder &nbsp;&nbsp;&nbsp;<i
+							class="fa-sharp fa-regular fa-house tickIcon"></i></button>
+				</div>
 			</div>
 		</div>
 	</div>
