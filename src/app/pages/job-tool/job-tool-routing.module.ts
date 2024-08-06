@@ -7,6 +7,8 @@ import { CareerToolComponent } from './career-tool/career-tool.component';
 import { CostOfLivingComponent } from './cost-of-living/cost-of-living.component';
 import { ComparisionComponent } from './cost-of-living/comparision/comparision.component';
 import {SalaryConverterComponent} from "./salary-converter/salary-converter.component";
+import { CareerPlannerComponent } from '../career-planner/career-planner.component';
+import { CompanyListComponent } from '../company-list/company-list.component';
 
 const routes: Routes = [
   {
@@ -17,6 +19,8 @@ const routes: Routes = [
       { path: 'career-tool', component: CareerToolComponent },
       { path: 'cost-of-living', component: CostOfLivingComponent },
       { path: 'salary-converter', component: SalaryConverterComponent },
+      { path: 'career-planner', component: CareerPlannerComponent},
+      { path: 'company-list', component: CompanyListComponent}
     ]
   }
 ];

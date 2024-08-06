@@ -210,7 +210,20 @@
 							</div>
                             <div class="form-group">
                                 <div class="mb-3">
-                                    <p-editor formControlName="user_summary" placeholder="About yourself"></p-editor>
+                                    <p-editor formControlName="user_summary" placeholder="About yourself">
+                                        <ng-template pTemplate="header">
+                                            <span class="ql-format-group">
+                                                <span title="Bold" class="ql-format-button ql-bold"></span>
+                                                <span class="ql-format-separator"></span>
+                                                <span title="Italic" class="ql-format-button ql-italic"></span>
+                                                <span class="ql-format-separator"></span>
+                                                <span title="Underline" class="ql-format-button ql-underline"></span>
+                                                <span class="ql-format-separator"></span>
+                                                <span title="Strikethrough" class="ql-format-button ql-strike"></span>
+                                            </span>
+                                        </ng-template>
+                                    </p-editor>
+                                    
                                     <div *ngIf="submitted && f['user_summary'].errors" class="text-danger text-xs">
                                         <div style="margin-left:10px;" >User Summary Required</div>
                                     </div>
