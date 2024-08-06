@@ -45,40 +45,7 @@ export class JobListingComponent implements OnInit {
     { "code": "30km", "name": "30 km" },
     { "code": "50km", "name": "50 km" }
   ]
-  distanceValue: any
 
-
-
-  vvv = {
-    "title": "Product Manager",
-    "adref": "eyJhbGciOiJIUzI1NiJ9.eyJpIjoiNDU1ODkwNTYxMCIsInMiOiJxSDVMazFKUzd4R0xfdVJaemJVeTZ3In0.8R8Q6ZxJ540aWkUo3ZxtROdc3zCEiLcPthfo7gwK1f8",
-    "location": {
-      "__CLASS__": "Adzuna::API::Response::Location",
-      "display_name": "Chennai, Tamil Nadu",
-      "area": [
-        "India",
-        "Tamil Nadu",
-        "Chennai"
-      ]
-    },
-    "latitude": 13.06041,
-    "description": "We are looking for a Product Manager for a Seed Funded Sales Enablement Platform. Job Profile: Responsible for defining and executing the product roadmap, working closely with cross-functional teams to ensure the product meets customer needs, and driving business growth through innovation and continuous improvement. Prioritize and manage the sprint backlogs. Organize and facilitate Sprint planning workshops, sprint retrospectives/ demo sessions, Conduct stand-ups, Publish Sprint burn-down chart…",
-    "longitude": 80.24963,
-    "salary_is_predicted": "0",
-    "redirect_url": "https://www.adzuna.in/details/4558905610?utm_medium=api&utm_source=5be5ff77",
-    "created": "2024-02-06T04:51:47Z",
-    "company": {
-      "display_name": "NetSysCon Consulting",
-      "__CLASS__": "Adzuna::API::Response::Company"
-    },
-    "__CLASS__": "Adzuna::API::Response::Job",
-    "category": {
-      "tag": "it-jobs",
-      "__CLASS__": "Adzuna::API::Response::Category",
-      "label": "IT Jobs"
-    },
-    "id": "4558905610"
-  };
 
   constructor(private jobService: JobSearchService, private sConvert: SalaryConverterService,
               private dataService: DataService, private router: Router
@@ -118,7 +85,8 @@ export class JobListingComponent implements OnInit {
       job_type: new FormControl(''),
       salary_min: new FormControl(''),
       salary_max: new FormControl(''),
-      company: new FormControl('')
+      company: new FormControl(''),
+      max_days_old: new FormControl('')
     });
     this.dataService.currentData.subscribe(data => {
       this.selectedCountryCode = data.countryCode.code
@@ -134,7 +102,6 @@ export class JobListingComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.singleData = this.vvv
     //this.searchJobsAdzuna()
   }
 
@@ -219,7 +186,8 @@ export class JobListingComponent implements OnInit {
       distance: this.filterForm.value.distance.code,
       salary_min: this.filterForm.value.salary_min,
       salary_max: this.filterForm.value.salary_max,
-      company: this.filterForm.value.company
+      company: this.filterForm.value.company,
+      max_days_old: this.filterForm.value.max_days_old
     }
     this.jobService.searchJobs(req).subscribe(
       (data: any) => {
