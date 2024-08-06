@@ -1,4 +1,4 @@
-import { Component, NgZone, OnInit } from '@angular/core';
+import { Component, NgZone, OnInit,OnDestroy  } from '@angular/core';
 import { EnterpriseSubscriptionService } from './enterprise-subscription.service';
 import { ActivatedRoute, Route, Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
@@ -11,13 +11,17 @@ import { BehaviorSubject } from 'rxjs';
   templateUrl: './enterprise-subscription.component.html',
   styleUrls: ['./enterprise-subscription.component.scss']
 })
-export class EnterpriseSubscriptionComponent implements OnInit {
+export class EnterpriseSubscriptionComponent implements OnInit,OnDestroy {
   collegeName: string = "";
   name: string = "";
   price: string = "";
   orderLink: string | null = "";
-
+  timeLeft = 5;
+  interval: any;
+  newTab:any;
   isPaymentCompleted: boolean = false;
+  isPaymentProgress: boolean = false;
+
   constructor(
     private enterPriseSubscription: EnterpriseSubscriptionService,
     private route: ActivatedRoute,
@@ -30,18 +34,71 @@ export class EnterpriseSubscriptionComponent implements OnInit {
   ngOnInit(): void {
     this.orderLink = this.route.snapshot.paramMap.get("id");
     this.getCollege();
-
+   // this.openAndCloseTab();
+   // this.openLink('h');
   }
+  ngOnDestroy() {
+    clearInterval(this.interval); // Clean up the interval
+}
+ 
   getCollege() {
     this.enterPriseSubscription.getCollege({ 'order_link': this.orderLink }).subscribe(res => {
       this.collegeName = res.college_name !== 'Something went wrong on payment details, please contact team' ? res.college_name : '';
-      if (this.collegeName == '') {
+      
+     if (this.collegeName == '' || this.collegeName == 'Something went wrong on payment details, please contact team' ) {
         this.toast.add({ severity: 'error', summary: 'Error', detail: res.college_name });
+        //this.isPaymentCompleted = true;
+        //this.startTimer();
       }
+ 
+      if (res.message == "Paid") {
+        this.toast.add({ severity: 'error', summary: 'Alert', detail: "Already Paid!, please close this tab" });
+        this.isPaymentCompleted = true;
+        //this.startTimer();
+      }
+  
       this.name = res.name;
       this.price = res.price;
     });
   }
+
+  openAndCloseTab() {
+   
+   // this.newTab = window.open(window.location.href, '_self');
+
+    /*
+    console.log(window.location.href);
+    this.newTab = window.open("https://stackoverflow.com/questions/17711146/how-to-open-link-in-a-new-tab-in-html", '_blank');
+    
+
+    
+    const newTab = window.open(window.location.href, '_blank');
+    setTimeout(() => {
+      if (newTab) {
+        newTab.close();
+      }
+    }, 1000); // 10000 milliseconds = 10 seconds
+    */
+    
+  }
+
+  startTimer() {
+    //this.newTab = window.open(window.location.href, '_self');
+    this.interval = setInterval(() => {
+        if (this.timeLeft > 0) {
+            this.timeLeft--;
+        } else {
+            // When the timer reaches 0, close the tab
+          //  window.open('', '_self').close();
+         // window.open('', '_self').close();
+        
+            window.close();
+        //  this.newTab.close();
+  
+        }
+    }, 3000); // Update every second
+}
+
   pay() {
     if (this.orderLink) {
       this.enterPriseSubscription.placeOrder({ 'order_link': this.orderLink }).subscribe((data) => {
@@ -58,6 +115,7 @@ export class EnterpriseSubscriptionComponent implements OnInit {
     }
   }
   payWithRazor(orderid: any) {
+    this.isPaymentProgress = true;
     let razorKey = 'rzp_live_YErYQVqDIrZn1D';
     if (environment.domain == "api.uniprep.ai") {
       razorKey = 'rzp_test_Crpr7YkjPaCLEr';
@@ -99,6 +157,7 @@ export class EnterpriseSubscriptionComponent implements OnInit {
     };
     options.modal.ondismiss = () => {
       this.toast.add({ severity: 'error', summary: 'Error', detail: "Transaction cancelled" });
+      this.isPaymentProgress = false;
     };
     const rzp = new this.winRef.nativeWindow.Razorpay(options);
     rzp.open();
