@@ -66,4 +66,5 @@ export interface City {
   lat: number
   lng: number
   state_code?: string
+  label?:string;
 }

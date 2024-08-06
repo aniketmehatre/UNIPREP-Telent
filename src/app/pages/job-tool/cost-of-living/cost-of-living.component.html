@@ -1,35 +1,67 @@
 <div class="d-flex justify-content-center" [ngClass]="{'centerDiv':!canShowComparision}">
-    <div class="w-100">
+    <div>
         <div class="uniprep-primary h4  text-center fw-semibold">
             Compare the cost of living between countries around the world
         </div>
         <br>
         <form [formGroup]="form" (ngSubmit)="compare()">
-            <div class="row ">
+            <!-- <div class="row ">
                 <div class="col-md-10 col-sm-12">
-                    <div class="row ">
-                        <div class="col-md-3 col-sm-12">
+                    <div class="row "> -->
+            <!-- <div class="col-md-3 col-sm-12">
                             <div class="card flex justify-content-center">
                                 <p-dropdown [options]="countries" optionLabel="label" optionValue="value"
                                     formControlName="sourceCountry" placeholder="Source Country" [filter]="true"
-                                    filterBy="label" [showClear]="true" (onChange)="loadCity('sourceCountry')" [appendTo]="'body'">
+                                    filterBy="label" [showClear]="true" (onChange)="loadCity('sourceCountry')"
+                                    [appendTo]="'body'">
+
                                 </p-dropdown>
                             </div>
 
-                        </div>
-                        <div class="col-md-3 col-sm-12">
-                            <div class="card flex justify-content-center">
-                                <p-dropdown [options]="sourceCities" optionLabel="city_name" optionValue="city_id"
-                                    formControlName="sourceCity" placeholder="Source City" [filter]="true"
-                                    filterBy="city_name" [showClear]="true" [appendTo]="'body'">
-                                </p-dropdown>
-                            </div>
-                        </div>
-                        <div class="col-md-3 col-sm-12">
+                        </div> -->
+
+            <div class="row justify-content-center gap-two">
+                <div class="col-md-4 col-sm-12">
+                    <div class="card flex justify-content-center">
+                        <p-dropdown [options]="cities"   optionValue="city_id"
+                            formControlName="sourceCity" placeholder="Source Country" [filter]="true"
+                            filterBy="city_name" [showClear]="true" [appendTo]="'body'">
+                            <ng-template pTemplate="selectedItem" let-selectedOption>
+                                <div class="flex align-items-center gap-2">
+                                    <div>{{selectedOption.city_name}}, {{ selectedOption.country_name }}
+                                    </div>
+                                </div>
+                            </ng-template>
+                        </p-dropdown>
+                    </div>
+
+                </div>
+                <div class="col-md-4 col-sm-12">
+                    <div class="card flex justify-content-center">
+                        <p-dropdown [options]="cities" optionLabel="label" optionValue="city_id"
+                            formControlName="targetCity" placeholder="Target Country" [filter]="true"
+                            filterBy="city_name" [showClear]="true" [appendTo]="'body'">
+                            <ng-template pTemplate="selectedItem" let-selectedOption>
+                                <div class="flex align-items-center gap-2">
+                                    <div>{{selectedOption.city_name}}, {{ selectedOption.country_name }}
+                                    </div>
+                                </div>
+                            </ng-template>
+                        </p-dropdown>
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-12">
+                    <button class="btn btn-primary h6 ps-3 pe-3 pt-2 pb-2 br-20" type="submit"
+                        [disabled]="!form.value.sourceCity || !form.value.targetCity">Compare
+                        <i class="pi pi-sync"></i> </button>
+                </div>
+            </div>
+            <!-- <div class="col-md-3 col-sm-12">
                             <div class="card flex justify-content-center">
                                 <p-dropdown [options]="countries" optionLabel="label" optionValue="value"
                                     formControlName="targetCountry" placeholder="Target Country" [filter]="true"
-                                    filterBy="label" [showClear]="true" (onChange)="loadCity('targetCountry')" [appendTo]="'body'">
+                                    filterBy="label" [showClear]="true" (onChange)="loadCity('targetCountry')"
+                                    [appendTo]="'body'">
                                 </p-dropdown>
                             </div>
 
@@ -41,8 +73,8 @@
                                     filterBy="city_name" [showClear]="true" [appendTo]="'body'">
                                 </p-dropdown>
                             </div>
-                        </div>
-                    </div>
+                        </div> 
+             </div>
 
                 </div>
                 <div class="col-md-2 col-sm-12 ">
@@ -50,7 +82,7 @@
                         [disabled]="!form.value.sourceCity || !form.value.targetCity">Compare
                         <i class="pi pi-sync"></i> </button>
                 </div>
-            </div>
+             </div> -->
         </form>
     </div>
 </div>

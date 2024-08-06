@@ -38,8 +38,7 @@ export class ComparisionComponent implements OnInit {
         this.sourcePriceTotal += Number(price.usd.avg);
       }
       this.targetCountryPrices.prices.forEach((targetCountryPrice: Price) => {
-        if (price.good_id == targetCountryPrice.good_id) {
-
+        if (price.good_id == targetCountryPrice.good_id && price.usd?.avg && targetCountryPrice.usd?.avg) {
           this.priceVariations.push({ from: price, to: targetCountryPrice });
         }
         const priceIndex = this.sourceCountryPrices.prices.findIndex(p => p.good_id === price.good_id);
@@ -51,6 +50,7 @@ export class ComparisionComponent implements OnInit {
   }
   getDiffrencePercentage(original_value: number, new_value: number) {
     const difference = original_value - new_value;
+    debugger
     return (difference / original_value) * 100
   }
   // addMore(price: Price) {
