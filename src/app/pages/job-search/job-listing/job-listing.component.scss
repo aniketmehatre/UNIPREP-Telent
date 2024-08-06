@@ -23,7 +23,7 @@
 
 ::ng-deep .p-inputtext{
   border-radius: 20px;
-  border-color: var(--uniprep-secondary);
+  border-color: grey;
   width:100%;
 }
 .sharp-edges {
@@ -32,4 +32,13 @@
 
 .form-label{
   color: #3f4c83
+}
+.flex {
+  display: flex;
+  align-items: center;
+  gap: 8px; /* Adjust the gap as needed */
+}
+
+.flag {
+  width: 18px;
 }

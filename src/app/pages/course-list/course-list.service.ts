@@ -62,4 +62,11 @@ export class CourseListService {
   setData(data: boolean) {
     this.dataSubject.next(data);
   }
+
+  getAlreadyCreatedResumes(){
+    const headers = new HttpHeaders().set("Accept", "application/json");
+    return this.http.post<any>(environment.ApiUrl + "/resumeHistories",{
+      headers: headers,
+    });
+  }
 }
