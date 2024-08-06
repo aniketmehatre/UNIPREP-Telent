@@ -121,7 +121,7 @@ export class CoverLetterBuilderComponent implements OnInit {
       console.log('Form is invalid, please correct the errors.');
       this.resumeFormInfoData.markAllAsTouched(); // Trigger validation messages if needed
     }else{
-      this.next();
+      this.activePageIndex=3;
     }
   }
 
@@ -155,7 +155,7 @@ export class CoverLetterBuilderComponent implements OnInit {
   }
 
   next(){
-    this.activePageIndex++;
+    this.activePageIndex=1;
     // if (this.activePageIndex < this.pages.length - 1) {
     //   this.activePageIndex++;
     // }

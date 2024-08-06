@@ -11,7 +11,7 @@
 						class="fa-solid fa-check tickIcon"></i></button>
 			</div>
 		</div>
-		<div>
+		<!-- <div>
 			<h5 class="text-center uniprep-primary">Modern</h5>
 			<div class="cvBuilderSampleImg" [ngClass]="{ selectedResumeLevel: selectedResumeLevel == 'Modern' }"
 				(click)="imgOnclick('Modern')">
@@ -50,7 +50,7 @@
 				<button *ngIf="selectedResumeLevel == 'Academic'" class="center-button">Selected <i
 						class="fa-solid fa-check tickIcon"></i></button>
 			</div>
-		</div>
+		</div> -->
 	</div>
 	<div class="row justify-content-center">
 		<div class="col-md-4 mt-5">
@@ -60,7 +60,7 @@
 	</div>
 </div>
 <div class="container-fluid" *ngIf="activePageIndex == 3">
-	<div class="row justify-content-center">
+	<div class="row justify-content-center" style="overflow: auto;">
 		<div class="flex-column">
 			<div>
 				<h3 class="text-center uniprep-primary">Your Coverletter</h3>
@@ -68,7 +68,9 @@
 				<div class="cvBuilderSampleImg">
 					<!-- <img *ngIf="selectedResumeLevel == 'Traditional'"
 						src="https://api.uniprep.ai/uniprepapi/storage/app/public/SampleUploadDocuments/cover_letter/traditional.png" /> -->
-						<div *ngIf="selectedResumeLevel == 'Traditional'">
+						<div class="h-100" [ngClass]="{ previewBodyForm: !fullScreenVisible, previewBodyFormFull: fullScreenVisible }"
+		               *ngIf="selectedResumeLevel=='Traditional'">
+						<div style="text-align: left;">
 							<div class="container">
 								<div class="vertical-line"></div>
 								<div class="horizontal-line"></div>
@@ -104,7 +106,7 @@
 								</div>
 							</div>
 						</div>
-						
+					</div>
 					<!-- <img *ngIf="selectedResumeLevel == 'Modern'"
 						src="https://api.uniprep.ai/uniprepapi/storage/app/public/SampleUploadDocuments/cover_letter/modern.png" />
 					<img *ngIf="selectedResumeLevel == 'Creative'"
@@ -123,13 +125,13 @@
 				<button pButton type="button" (click)="previous()"
 					class="text-white p-ripple p-button-rounded p-button-info-prev p-button p-component p-2"><i
 						class="fa fa-arrow-left exhausted-plan-icon-prev"></i> Previous</button>
-				<button class="downloadButton" style="margin: 0px;" (click)="next()">CV Builder &nbsp;&nbsp;&nbsp;<i
+				<button class="downloadButton" style="margin: 0px;" (click)="next()">Coverletter Builder &nbsp;&nbsp;&nbsp;<i
 						class="fa-sharp fa-regular fa-house tickIcon"></i></button>
 			</div>
 		</div>
 	</div>
 </div>
-<div class="container-fluid" *ngIf="activePageIndex == 4">
+<!-- <div class="container-fluid" *ngIf="activePageIndex == 4">
 	<div class="row justify-content-center">
 		<div class="flex-column">
 			<div>
@@ -175,7 +177,7 @@
 			</div>
 		</div>
 	</div>
-</div>
+</div> -->
 <div class="container-fluid h-100" *ngIf="activePageIndex == 2">
 	<div class="row h-100">
 		<div class="col-md-6 h-100 overflow-y-auto">
