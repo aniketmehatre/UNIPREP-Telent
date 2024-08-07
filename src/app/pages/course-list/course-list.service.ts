@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { environment } from "@env/environment";
 import { Observable } from 'rxjs';
-
+import { BehaviorSubject } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
@@ -43,15 +43,42 @@ export class CourseListService {
     });
   }
 
-  downloadResume(){
+  downloadResume(data: any){
     const headers = new HttpHeaders().set("Accept", "application/json");
-    return this.http.post<any>(environment.ApiUrl + "/downloadResume", {
+    return this.http.post<any>(environment.ApiUrl + "/downloadResume", data ,{
+      headers: headers,
+    });
+  }
+  downloadCoverletter(data: any){
+    const headers = new HttpHeaders().set("Accept", "application/json");
+    return this.http.post<any>(environment.ApiUrl + "/generatecoverletter", data ,{
       headers: headers,
     });
   }
 
+
   getTemplate(): Observable<string> {
     // return this.http.get('templates/resumetemplate.html', { responseType: 'text' });
     return this.http.get('/templates/resumetemplate.html', { responseType: 'text' });
+  }
+  getcoverletterdummy(){
+    const headers = new HttpHeaders().set("Accept", "application/json");
+    return this.http.get<any>(environment.ApiUrl + "/samplecoverletter",{
+      headers: headers,
+    });
+  }
+
+  private dataSubject = new BehaviorSubject<boolean>(true);
+  data$ = this.dataSubject.asObservable();
+
+  setData(data: boolean) {
+    this.dataSubject.next(data);
+  }
+
+  getAlreadyCreatedResumes(){
+    const headers = new HttpHeaders().set("Accept", "application/json");
+    return this.http.post<any>(environment.ApiUrl + "/resumeHistories",{
+      headers: headers,
+    });
   }
 }

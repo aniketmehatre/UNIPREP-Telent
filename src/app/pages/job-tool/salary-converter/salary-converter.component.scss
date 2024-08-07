@@ -1,0 +1,115 @@
+//.custom-input-number .p-inputtext {
+//  border-radius: 0 !important;
+//  width: 100% !important;
+//}
+
+.readingcard {
+  height: 78vh;
+  overflow-y: auto;
+}
+
+.p-dropdown {
+  width: 100% !important;
+  display: inline-flex;
+  cursor: pointer;
+  position: relative;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+
+.p-inputNumber {
+  width: 100% !important;
+  display: inline-flex;
+  cursor: pointer;
+  position: relative;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+.p-button {
+  background: var(--uniprep-primary);
+}
+
+.exhausted-plan-icon {
+  background: #7b8acc;
+}
+
+.p-button-primary {
+  background: var(--uniprep-primary);
+
+}
+.p-button:enabled:hover {
+  background: #5664A6FF !important;
+  color: #ffffff;
+  border-color: #5664A6FF;
+}
+
+.primary-color{
+  background: #5664A6FF !important;
+  color: white;
+}
+
+.full-width-dropdown {
+  width: 100% !important;
+}
+.p-inputnumber, .p-inputnumber {
+  display: inline-flex;
+}
+.small-button {
+  width: 112px;
+  /* Adjust width as needed */
+}
+
+
+.dropdown-container {
+  width: 80%;
+  margin: 0 auto;
+}
+
+.full-width-dropdown .p-dropdown {
+  width: 100% !important;
+}
+
+.full-width-input .p-inputnumber {
+  width: 100% !important;
+}
+
+.custom-input-number .p-inputtext {
+  width: 100% !important;
+}
+
+.responsivecard {
+  flex: 1 1 calc(20% - 1rem); /* Adjust this to fit five cards per row */
+  box-sizing: border-box;
+  background-color: #fff !important;
+  border: 2px solid #5664A6FF !important;
+  padding: 0;
+  height: 300px;
+}
+.custom-table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.custom-table th, .custom-table td {
+  border: none;
+  padding: 8px;
+  text-align: left;
+}
+.flex {
+  display: flex;
+  align-items: center;
+  gap: 8px; /* Adjust the gap as needed */
+}
+
+.flag {
+  width: 18px;
+}
+.custom-input-number .p-inputnumber-input {
+  text-align: left;
+}
+
+.full-width-input {
+  width: 100% !important;
+}

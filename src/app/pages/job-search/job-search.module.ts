@@ -9,21 +9,33 @@ import {CarouselModule} from 'primeng/carousel';
 import {ButtonModule} from 'primeng/button';
 import { ReactiveFormsModule } from '@angular/forms';
 import {InputTextareaModule} from 'primeng/inputtextarea';
+import { JobListingComponent } from './job-listing/job-listing.component';
+import { DropdownModule } from 'primeng/dropdown';
+import { PaginatorModule } from 'primeng/paginator';
+import { TimeAgoPipe } from './time-ago.pipe';
+import {CardModule} from "primeng/card";
+import {DialogModule} from "primeng/dialog";
 
 @NgModule({
   declarations: [
     JobSearchComponent,
     JobHuntComponent,
     JobBoardComponent,
+    JobListingComponent,
+    TimeAgoPipe
   ],
-  imports: [
-    CommonModule,
-    JobSearchRoutingModule,
-    InputTextModule,
-    CarouselModule,
-    ButtonModule,
-    ReactiveFormsModule,
-    InputTextareaModule,
-  ]
+    imports: [
+        CommonModule,
+        JobSearchRoutingModule,
+        InputTextModule,
+        CarouselModule,
+        ButtonModule,
+        ReactiveFormsModule,
+        InputTextareaModule,
+        DropdownModule,
+        PaginatorModule,
+        CardModule,
+        DialogModule,
+    ]
 })
 export class JobSearchModule { }

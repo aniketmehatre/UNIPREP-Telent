@@ -6,7 +6,6 @@ import { DataService } from "../data.service";
 import {DashboardService} from "./dashboard/dashboard.service";
 import { AuthService } from "../Auth/auth.service";
 import {DeviceDetectorService} from "ngx-device-detector";
-import { MessageService } from 'primeng/api';
 
 // @ts-ignore
 import Contlo from 'contlo-web-sdk';
@@ -45,7 +44,7 @@ export class PagesComponent implements OnInit, OnDestroy {
         : "pi-align-justify";
     private subs = new SubSink();
     visibleExhastedUser!: boolean;
-    constructor(private pageFacade: PageFacadeService,private toast: MessageService, private router: Router, private dataService: DataService,
+    constructor(private pageFacade: PageFacadeService, private router: Router, private dataService: DataService,
                 public meta: Meta, private titleService: Title, private route: ActivatedRoute,
                 private dashboardService: DashboardService,private service:AuthService, private deviceService: DeviceDetectorService,private sanitizer:DomSanitizer) {
        // dev
@@ -69,7 +68,7 @@ export class PagesComponent implements OnInit, OnDestroy {
                 if(val.url.includes('subscriptions') || val.url.includes('support-help')
                 || val.url.includes('usermanagement')|| val.url.includes('chat') || val.url.includes('guideline')
                 ||val.url.includes('termsandcondition')||val.url.includes('privacypolicy')||val.url.includes('refundpolicy')
-                ||val.url.includes('cancellationpolicy') ||val.url.includes('export-credit')){
+                ||val.url.includes('cancellationpolicy') ||val.url.includes('export-credit') ||val.url.includes('cv-builder')){
                     this.showSearch = false;
                     this.isFooterBoxVisible = false;
                 }else{
@@ -105,7 +104,6 @@ export class PagesComponent implements OnInit, OnDestroy {
         localStorage.setItem("allowmobile",'1');
       }
     enterpriseSubscriptionLink: any
-    enterpriseSubscriptionPlan: any
     ngOnInit(): void {
         this.service.getTimeInfoForCard().subscribe((data) => {
             localStorage.setItem('time_card_info', data.card_message);
@@ -148,25 +146,16 @@ export class PagesComponent implements OnInit, OnDestroy {
     onClickSubscribedUser(): void {
         this.visibleExhasted = false;
         this.visibleExhastedUser = false;
-        if(this.enterpriseSubscriptionPlan  != ""){
-
-            if(this.enterpriseSubscriptionLink  != ""){
-                  window.open(this.enterpriseSubscriptionLink, '_target'); 
-                }
-            else {
-                this.toast.add({ severity: 'error', summary: 'Error', detail: 'College Payment link is not assigned, Please contact team for further assistance' });
-            }
+        if(this.enterpriseSubscriptionLink  != ""){
+            window.open(this.enterpriseSubscriptionLink, '_target');
             return;
         }
-       
-        // return;
         this.router.navigate(["/pages/subscriptions"]);
     }
 
     subScribedUserCount(): void {
         this.service.getNewUserTimeLeft().subscribe(res => {
             this.enterpriseSubscriptionLink = res.enterprise_subscription_link;
-            this.enterpriseSubscriptionPlan = res.enterprise_subscription_plan;
             let data = res.time_left;
             if (data.plan === 'expired') {
                 this.visibleExhasted = true;

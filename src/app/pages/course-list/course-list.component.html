@@ -14,10 +14,9 @@
 					<h5 class="select-title w-100 mb-1" tooltipPosition="top" pTooltip="Course List">COURSE LIST<i class="questiontooltip fa-solid fa-circle-question"></i></h5>
 				</div> -->
 				<div class="col-md-6 text-center">
-					<div class="select-title text-nowrap d-flex justify-content-between align-items-center"
-						style="width: 80%">
+					<div class="select-title text-nowrap d-flex justify-content-between align-items-center">
 						<div>
-							<h5 class="w-100 mb-1" tooltipPosition="top" pTooltip="UNIFINDER">UNIFINDER<i
+							<h5 class="w-100 mb-0" tooltipPosition="top" pTooltip="UNIFINDER">UNIFINDER<i
 									class="questiontooltip fa-solid fa-circle-question"></i></h5>
 						</div>
 						<div>
@@ -222,9 +221,9 @@
 							<label class="form-label filterField">Filter by Country</label>
 							<div class="form-group">
 								<div class="mb-3">
-									<p-dropdown styleClass="w-100" [filter]="true" [filterBy]="'value'"
-										optionLabel="value" optionValue="id" [options]="countryList"
-										placeholder="Search in Country" formControlName="country"></p-dropdown>
+									<p-dropdown styleClass="w-100" [filter]="true" [filterBy]="'country'" (onChange)="countrySelect()"
+										optionLabel="country" optionValue="id" [options]="countryList"
+										placeholder="Search in Country" formControlName="country" [appendTo]="'body'"></p-dropdown>
 								</div>
 							</div>
 						</div>
@@ -232,9 +231,9 @@
 							<label class="form-label filterField">Filter by Location</label>
 							<div class="form-group">
 								<div class="mb-3">
-									<p-dropdown styleClass="w-100" [filter]="true" [filterBy]="'value'"
-										[options]="locationList" placeholder="Search in Location" optionLabel="value"
-										formControlName="campus" optionValue="id"></p-dropdown>
+									<p-dropdown styleClass="w-100" [filter]="true" [filterBy]="'location_name'" (onChange)="locationSelect()"
+										[options]="locationList" placeholder="Search in Location" optionLabel="location_name"
+										formControlName="campus" optionValue="id" [appendTo]="'body'"></p-dropdown>
 								</div>
 							</div>
 						</div>
@@ -245,7 +244,7 @@
 									<p-dropdown styleClass="w-100" [filter]="true" [filterBy]="'university_name'"
 										[options]="universityNameList" placeholder="Search in University"
 										optionLabel="university_name" formControlName="college_name"
-										optionValue="university_name"></p-dropdown>
+										optionValue="id" [appendTo]="'body'"></p-dropdown>
 								</div>
 							</div>
 						</div>
@@ -274,7 +273,7 @@
 								<div class="mb-3">
 									<p-multiSelect styleClass="w-100" placeholder="Search in Intake"
 										[options]="monthList" display="chip" optionLabel="name" optionValue="id"
-										formControlName="intake_months"></p-multiSelect>
+										formControlName="intake_months" [appendTo]="'body'"></p-multiSelect>
 									<!-- <p-dropdown styleClass="w-100" [options]="monthList" placeholder="Search in Intake" optionLabel="name" formControlName="intake_months" optionValue="id"></p-dropdown> -->
 								</div>
 							</div>
@@ -283,8 +282,12 @@
 							<label class="form-label filterField">Filter by Stay Back</label>
 							<div class="form-group">
 								<div class="mb-3">
-									<input class="w-100 px-5 py-2" style="height: 45px" type="text"
-										formControlName="stay_back" placeholder="Search in Stay Back" pInputText />
+									<!-- <input class="w-100 px-5 py-2" style="height: 45px" type="text"
+										formControlName="stay_back" placeholder="Search in Stay Back" pInputText /> -->
+
+										<p-dropdown styleClass="w-100" [options]="stayBackList"
+										placeholder="Search in Stay Back" optionLabel="key"
+										formControlName="stay_back" optionValue="key" [appendTo]="'body'"></p-dropdown>
 								</div>
 							</div>
 						</div>

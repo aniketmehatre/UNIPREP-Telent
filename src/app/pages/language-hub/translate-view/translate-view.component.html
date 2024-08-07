@@ -1,0 +1,88 @@
+<div class="card readingcard">
+    <div class="card-body text-center pt-0 h-100">
+        <div class="row justify-content-center">
+            <div class="col-md-2 col-2 text-start">
+                <p-button (click)="goBack()" icon="pi pi-arrow-left"
+                          styleClass="p-button-rounded p-button-text text-dark"></p-button>
+            </div>
+
+            <div class="col-md-8 col-8 text-center">
+                <div class="select-title text-nowrap d-flex justify-content-between align-items-center">
+                    <div>
+                        <h5 class="mb-0" pTooltip="Questions related to the application process are answered"
+                            tooltipPosition="top">{{ 'Language Hub' | uppercase }}
+                            - {{ selectedSubmoduleName }}<i class="questiontooltip fa-solid fa-circle-question"></i>
+                        </h5>
+                    </div>
+                    <div>
+                        <button
+                                class="how-it-works-button">
+                            &nbsp;How it works? &nbsp;&nbsp;<i class="fa-solid fa-play"></i></button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-2 col-2">&nbsp;</div>
+        </div>
+        <div class="row mt-4">
+            <div class="col-md-6">
+                <input
+                        id="disabled-input"
+                        type="text"
+                        class="w-100 form-control px-4 py-4"
+                        pInputText
+                        style="border: 1px solid #f0780e"
+                        value="English"
+                        [disabled]="true"
+                />
+            </div>
+            <div class="col-md-6">
+                <input
+                        id="disabled-input1"
+                        type="text"
+                        style="border: 1px solid #f0780e"
+                        class="w-100 form-control px-4 py-4"
+                        pInputText
+                        [value]="selectedLanguageName"
+                        [disabled]="true"
+                />
+            </div>
+            <div class="col-md-6 mt-4">
+                <div class="textarea-container">
+                    <textarea [(ngModel)]="text1" placeholder="Type here..."></textarea>
+                    <button (click)="togglePlayPause(1, text1)"  class="button1">
+                        <i [ngClass]="{'fa': true, 'fa-volume-up': isPlaying1, 'fa-play': !isPlaying1}"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="col-md-6 mt-4">
+                <div class="textarea-container">
+                    <textarea [(ngModel)]="text2" placeholder="" [disabled]="true" ></textarea>
+                    <button (click)="togglePlayPause(2, text2)"  class="button1">
+                        <i [ngClass]="{'fa': true, 'fa-volume-up': isPlaying2, 'fa-play': !isPlaying2}"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="col-md-6 mt-4">
+                <div class="textarea-container">
+                    <textarea [(ngModel)]="text3" placeholder="Type here..."></textarea>
+                    <button (click)="togglePlayPause(3, text3)"  class="button1">
+                        <i [ngClass]="{'fa': true, 'fa-volume-up': isPlaying3, 'fa-play': !isPlaying3}"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="col-md-6 mt-4">
+                <div class="textarea-container">
+                    <textarea [(ngModel)]="text4" placeholder="" [disabled]="true"></textarea>
+                    <button (click)="togglePlayPause(4, text4)" class="button1">
+                        <i [ngClass]="{'fa': true, 'fa-volume-up': isPlaying4, 'fa-play': !isPlaying4}"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="col-md-12 mt-4">
+                <button class="how-it-works-button1" (click)="translate(text1, text3)">
+                    &nbsp;Translate &nbsp;&nbsp;<i class="fa-solid fa-play"></i></button>
+            </div>
+        </div>
+
+    </div>
+</div>
