@@ -10,4 +10,9 @@
     background-color: var(--uniprep-primary);
     color: white;
 }
-
+.custom-button-container {
+    display: flex;
+    justify-content: flex-end; /* Aligns the button to the right */
+    align-items: flex-end;     /* Aligns the button to the bottom */
+    padding-end: 10px;
+}

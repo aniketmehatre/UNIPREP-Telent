@@ -50,8 +50,16 @@ export class DataService {
     private jobSearchDataSource = new BehaviorSubject<any>({});
     currentData = this.jobSearchDataSource.asObservable();
 
+    private triggerManualJobAdd = new BehaviorSubject<any>(false);
+    manualJobAdd = this.triggerManualJobAdd.asObservable();
+
 
     constructor(private locationService: LocationService) {
+    }
+
+
+    changeManualAdd(data: any) {
+        this.triggerManualJobAdd.next(data);
     }
 
 

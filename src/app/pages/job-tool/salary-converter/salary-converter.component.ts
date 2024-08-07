@@ -8,7 +8,7 @@ import {SalaryConverterService} from "./salary-converter.service";
 })
 export class SalaryConverterComponent implements OnInit {
 
-  salary: number = 0
+  salary: any
   selectedCurrencyCode: string = 'INR'
   selectedCountryName: any
   selectedCountryCode: any

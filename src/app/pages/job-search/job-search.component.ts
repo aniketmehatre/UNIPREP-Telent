@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import {DataService} from "../../data.service";
 @Component({
   selector: 'uni-job-search',
   templateUrl: './job-search.component.html',
@@ -10,7 +11,7 @@ export class JobSearchComponent implements OnInit {
 
   currentEndpoint:string = '';
 
-  constructor(private router: Router) { }
+  constructor(private router: Router, private dataService: DataService) { }
 
   ngOnInit(): void {
     this.getCurrentEndpoint();
@@ -37,5 +38,9 @@ export class JobSearchComponent implements OnInit {
     // }else if(menuName == "coverletter-builder"){
     //   this.router.navigate(['/pages/job-portal/coverletter-builder']);
     // }
+  }
+
+  onClickAddManually(){
+    this.dataService.changeManualAdd(true)
   }
 }

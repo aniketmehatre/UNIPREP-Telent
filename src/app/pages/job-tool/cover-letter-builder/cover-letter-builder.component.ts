@@ -20,6 +20,7 @@ export class CoverLetterBuilderComponent implements OnInit {
   activePageIndex: number = 1;
   resumeFormInfoData: FormGroup;
   fullScreenVisible:boolean = false;
+  isButtonDisabledSelectTemplate:boolean=false;
   products:any = [
     {
       id: 1,
@@ -121,11 +122,12 @@ export class CoverLetterBuilderComponent implements OnInit {
       console.log('Form is invalid, please correct the errors.');
       this.resumeFormInfoData.markAllAsTouched(); // Trigger validation messages if needed
     }else{
-      this.next();
+      this.activePageIndex=3;
     }
   }
 
   imgOnclick(resumeLevel: any){
+    this.isButtonDisabledSelectTemplate=true;
     this.selectedResumeLevel = resumeLevel;
     console.log(this.selectedResumeLevel);
   }
@@ -155,7 +157,7 @@ export class CoverLetterBuilderComponent implements OnInit {
   }
 
   next(){
-    this.activePageIndex++;
+    this.activePageIndex=1;
     // if (this.activePageIndex < this.pages.length - 1) {
     //   this.activePageIndex++;
     // }
