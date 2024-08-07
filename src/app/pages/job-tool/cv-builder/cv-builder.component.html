@@ -210,7 +210,7 @@
 							</div>
                             <div class="form-group">
                                 <div class="mb-3">
-                                    <p-editor formControlName="user_summary" placeholder="About yourself">
+                                    <!-- <p-editor formControlName="user_summary" placeholder="About yourself" (ngModelChange)="onEditorChange($event)">
                                         <ng-template pTemplate="header">
                                             <span class="ql-format-group">
                                                 <span title="Bold" class="ql-format-button ql-bold"></span>
@@ -222,10 +222,14 @@
                                                 <span title="Strikethrough" class="ql-format-button ql-strike"></span>
                                             </span>
                                         </ng-template>
-                                    </p-editor>
+                                    </p-editor> -->
+                                    <textarea pInputTextarea formControlName="user_summary" class="mt-2" placeholder="About yourself" [rows]="3" [cols]="80" (ngModelChange)="onTextModelChange($event)" ></textarea>
                                     
-                                    <div *ngIf="submitted && f['user_summary'].errors" class="text-danger text-xs">
+                                    <div *ngIf="submitted && f['user_summary'].errors?.['required']" class="text-danger text-xs">
                                         <div style="margin-left:10px;" >User Summary Required</div>
+                                    </div>
+                                    <div *ngIf="f['user_summary'].errors?.['maxWordsExceeded']" class="text-danger text-xs">
+                                        <div style="margin-left:10px;" >User Summary exceeds the maximum word limit.</div>
                                     </div>
                                 </div>
                             </div>
@@ -432,9 +436,12 @@
 											</div>
                                             <div class="form-group">
                                                 <div class="mb-3">
-                                                    <p-editor formControlName="work_job_description" placeholder="About Job Description"></p-editor>
+                                                    <p-editor formControlName="work_job_description" placeholder="About Job Description" (ngModelChange)="onEditorModelChange($event, i)"></p-editor>
                                                     <div *ngIf="wrkExp.get('work_job_description')?.invalid && wrkExp.get('work_job_description')?.touched && submitted" class="text-danger text-xs">
-                                                        <div style="margin-left:10px;" >Job Description required.</div>
+                                                        <div style="margin-left:10px;" *ngIf="wrkExp.get('work_job_description')?.errors?.['required']">Job Description required.</div>
+                                                    </div>
+                                                    <div *ngIf="wrkExp.get('work_job_description')?.errors?.['maxWordsExceeded']" class="text-danger text-xs">
+                                                        <div style="margin-left:10px;">Job Description exceeds the maximum word limit.</div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -502,7 +509,7 @@
                                         <div class="col-md-12">
 											<div class="d-flex justify-content-between align-items-center">
 												<label class="form-label labelFont">Project Description</label>
-												<button class="deleteDivButton" (click) = "chatGPTIntegration('project_description', i)" style="background-color: #9bc329;">Generate &nbsp;<i class="fa-solid fa-line-columns trashIcon"  style="background-color: #9bc329;"></i></button>
+												<!-- <button class="deleteDivButton" (click) = "chatGPTIntegration('project_description', i)" style="background-color: #9bc329;">Generate &nbsp;<i class="fa-solid fa-line-columns trashIcon"  style="background-color: #9bc329;"></i></button> -->
 											</div>
                                             <div class="form-group">
                                                 <div class="mb-3">
