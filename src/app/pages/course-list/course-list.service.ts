@@ -18,18 +18,6 @@ export class CourseListService {
     });
   }
 
-  bookmarkCourseData(courseId:any,user_id:any,fav:any){
-    let params={ 
-      course_list_id:courseId,
-      user_id :user_id,
-      updateFavourite:fav
-        }
-    const headers = new HttpHeaders().set("Accept", "application/json");
-    return this.http.post<any>(environment.ApiUrl + "/addcourselistfavourite", params, {
-      headers: headers,
-    });
-  }
-
   loadDropdownValues() {
     return this.http.post<any>(environment.ApiUrl + "/CourseListSelectBox",{
       headers: this.headers,

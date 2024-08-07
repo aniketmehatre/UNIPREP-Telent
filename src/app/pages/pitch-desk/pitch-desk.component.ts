@@ -6,7 +6,6 @@ import { Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
 import { DataService } from 'src/app/data.service';
 import { PageFacadeService } from '../page-facade.service';
-import { UserManagementService } from "../user-management/user-management.service";
 
 @Component({
   selector: 'uni-pitch-desk',
@@ -32,11 +31,8 @@ export class PitchDeskComponent implements OnInit {
   selectedCheckboxCount: number = 0;
   exportCreditCount: number = 0;
   exportDataIds:any = [];
-  isPdfLoaded: boolean = false;
-  favCount:number=0;
-  PersonalInfo!: any;
-  viewFavourites: boolean = false;
-  constructor(private pitchDesk:PitchDeskService,  private userManagementService: UserManagementService, private fb: FormBuilder,private router: Router,private authService: AuthService, private toast: MessageService, private dataService: DataService, private pageFacade: PageFacadeService) { 
+  isPdfLoaded: boolean = false
+  constructor(private pitchDesk:PitchDeskService, private fb: FormBuilder,private router: Router,private authService: AuthService, private toast: MessageService, private dataService: DataService, private pageFacade: PageFacadeService) { 
     this.filterForm = this.fb.group({
       pitchdeck_name: [''],
       country: [''],
@@ -49,38 +45,8 @@ export class PitchDeskComponent implements OnInit {
     this.getPitchDeskList();
     this.checkplanExpire();
     this.selectBoxValues();
-    this.GetPersonalProfileData();
   }
 
-  GetPersonalProfileData() {
-    this.userManagementService.GetUserPersonalInfo().subscribe(data => {
-      this.PersonalInfo = data;
-    });
-  }
-
-  bookmarkQuestion(courseId: any, isFav: any) {
-    isFav = isFav != '1' ? true : false;
-    this.favCount=isFav == true ? this.favCount+1 : this.favCount-1;
-    console.log( this.PersonalInfo.user_id);
-    this.pitchDesk.bookmarkCourseData(courseId, this.PersonalInfo.user_id, isFav).subscribe((response) => {
-      console.log(31);
-      let pitchListData = this.pitchDeskList.find((item : any) => item.id == courseId);
-      isFav == true ? pitchListData.favourite = 1 : pitchListData.favourite = null;
-      this.toast.add({
-        severity: "success",
-        summary: "Success",
-        detail: response.message,
-      });
-    });
-  }
-  viewFav() {
-    //if (this.planExpired) {
-   //   this.restrict = true;
-   //   return;
-   // }
-    this.viewFavourites = !this.viewFavourites;
-    this.getPitchDeskList();
-  }
   getPitchDeskList(){
     let data = {
       pitchdeck_name: this.filterForm.value.pitchdeck_name ? this.filterForm.value.pitchdeck_name : '',
@@ -90,7 +56,6 @@ export class PitchDeskComponent implements OnInit {
       page: this.page,
       perpage: this.pageSize,
       planname:this.currentPlan?this.currentPlan:"",
-      favourites: this.viewFavourites ? this.viewFavourites : "",
     }
     this.pitchDesk.getPitchDeskData(data).subscribe((responce)=>{
       this.totalPitchDeckCount = responce.total_count;

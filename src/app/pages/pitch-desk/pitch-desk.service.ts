@@ -18,18 +18,6 @@ export class PitchDeskService {
     });
   }
 
-  bookmarkCourseData(pitchId:any,user_id:any,fav:any){
-    let params={ 
-      pitch_id:pitchId,
-      user_id :user_id,
-      updateFavourite:fav
-        }
-    const headers = new HttpHeaders().set("Accept", "application/json");
-    return this.http.post<any>(environment.ApiUrl + "/addpitchfavourite", params, {
-      headers: headers,
-    });
-  }
-
   downloadPdf(pdfUrl: string, fileName: string): void {
     this.http.get(pdfUrl, { responseType: 'blob' })
         .subscribe((blob: Blob) => {
