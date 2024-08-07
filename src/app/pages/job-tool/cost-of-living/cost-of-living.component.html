@@ -23,9 +23,9 @@
             <div class="row justify-content-center gap-two">
                 <div class="col-md-4 col-sm-12">
                     <div class="card flex justify-content-center">
-                        <p-dropdown [options]="cities"   optionValue="city_id"
-                            formControlName="sourceCity" placeholder="Source Country" [filter]="true"
-                            filterBy="city_name" [showClear]="true" [appendTo]="'body'">
+                        <p-dropdown [options]="cities" optionValue="city_id" formControlName="sourceCity"
+                            placeholder="Source Country" [filter]="true" filterBy="city_name" [showClear]="true"
+                            [appendTo]="'body'">
                             <ng-template pTemplate="selectedItem" let-selectedOption>
                                 <div class="flex align-items-center gap-2">
                                     <div>{{selectedOption.city_name}}, {{ selectedOption.country_name }}
@@ -56,6 +56,12 @@
                         <i class="pi pi-sync"></i> </button>
                 </div>
             </div>
+             <div class="imageClass">
+
+             </div>
+             
+            
+
             <!-- <div class="col-md-3 col-sm-12">
                             <div class="card flex justify-content-center">
                                 <p-dropdown [options]="countries" optionLabel="label" optionValue="value"

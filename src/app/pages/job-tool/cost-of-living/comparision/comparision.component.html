@@ -45,26 +45,27 @@
                     <div class="col-md-4 d-flex align-items-center justify-content-between">
                         <div>
                             <div class="smallText">{{sourceCountryPrices.country_name}}</div>
-                            <div class="smallText">${{price.from.usd?.avg | number: '1.2-2'}}</div>
+                            <div class="smallText">{{price.from.currency_code}} {{price.from.usd?.avg | number: '1.2-2'}}</div>
+                            <div class="smallText">INR {{price.from.usd?.avg | number: '1.2-2'}}</div>
                         </div>
                         <div>
                             <div class="smallText">{{targetCountryPrices.country_name}}</div>
-                            <div class="smallText">${{price.to.usd?.avg | number: '1.2-2'}}</div>
+                            <div class="smallText">{{price.to.currency_code}} {{price.to.usd?.avg | number: '1.2-2'}}</div>
+                            <div class="smallText">INR {{price.from.usd?.avg | number: '1.2-2'}}</div>
                         </div>
-                        <!-- <div [ngSwitch]="getDiffrencePercentage(price.from.usd?.avg,price.to.usd?.avg)">
-                            <div *ngSwitchCase="greater">
-                                <div class="greenBar">greater</div>
-                                <div class="redBar"></div>
-                            </div>
-                            <div *ngSwitchCase="lesser">
-                                <div class="greenBar">lesser</div>
-                                <div class="redBar"></div>
-                            </div>
-                            <div *ngSwitchDefault>
-                                <div class="greenBar">equal</div>
-                                <div class="redBar"></div>
-                            </div>
-                        </div> -->
+
+                        <div [ngSwitch]="compareValues(price.from.usd.avg,price.to.usd.avg)">
+                            <span *ngSwitchCase="'greater'">
+                                <img src="/uniprep-assets/images/greaterThanBars.png" alt="" class="barImage">
+                            </span>
+                            <span *ngSwitchCase="'smaller'">
+                                <img src="/uniprep-assets/images/lessThanBars.png" alt="" class="barImage">
+                            </span>
+                            <span *ngSwitchDefault>
+                                <img src="/uniprep-assets/images/equalBars.png" alt="" class="barImage">
+                            </span>
+                        </div>  
+ 
                     </div>
                 </div>
 
