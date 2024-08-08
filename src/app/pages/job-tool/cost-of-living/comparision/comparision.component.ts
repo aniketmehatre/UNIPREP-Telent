@@ -46,9 +46,7 @@ export class ComparisionComponent implements OnInit {
 
       // this.sourcePrices = JSON.parse(JSON.stringify(this.sourceCountryPrices));
       // this.targetPrices = JSON.parse(JSON.stringify(this.targetCountryPrices));
-      if (sourceCountry !== 'India' && targetCountry !== 'India' && this.inrRate == '') {
-        this.getCurrencyConvertions('United States,India', '');
-      }
+
     }
 
   }
@@ -59,14 +57,14 @@ export class ComparisionComponent implements OnInit {
     this.priceVariations = [];
     this.sourceCountryPrices.prices.forEach((price: Price) => {
       if (price.usd && price.usd.avg) {
-        price.rate = Number(price.usd.avg) * Number(this.sourceCountryRate);
-        price.inr = Number(price.usd.avg) * Number(this.inrRate);
+        price.inSourceRate = Number(price.usd.avg) * Number(this.sourceCountryRate);
+        price.inTargetRate = Number(price.usd.avg) * Number(this.targetCountryRate);
         this.sourcePriceTotal += Number(price.usd.avg);
       }
       this.targetCountryPrices.prices.forEach((targetCountryPrice: Price) => {
         if (price.good_id == targetCountryPrice.good_id && targetCountryPrice.usd?.avg) {
-          targetCountryPrice.rate = Number(targetCountryPrice.usd?.avg) * Number(this.targetCountryRate);
-          targetCountryPrice.inr = Number(targetCountryPrice.usd?.avg) * Number(this.inrRate);
+          targetCountryPrice.inTargetRate = Number(targetCountryPrice.usd?.avg) * Number(this.targetCountryRate);
+          targetCountryPrice.inSourceRate = Number(targetCountryPrice.usd?.avg) * Number(this.sourceCountryRate);
           this.priceVariations.push({ from: price, to: targetCountryPrice });
           this.targetPriceTotal += Number(targetCountryPrice?.usd.avg);
         }
@@ -145,23 +143,12 @@ export class ComparisionComponent implements OnInit {
   }
   getCurrencyConvertions(comparingCountries: string, countryType: string) {
     this.costOfLivingService.currencyConvert({ countries: comparingCountries }).subscribe(res => {
-
       if (countryType === 'sourceCountry') {
         this.sourceCountryRate = res.rate;
-        if (this.sourceCountryPrices.country_name == 'India') {
-          this.inrRate = res.rate;
-        }
-      } else if (countryType === 'targetCountry') {
-        this.targetCountryRate = res.rate;
-        if (this.targetCountryPrices.country_name == 'India') {
-          this.inrRate = res.rate;
-        }
       } else {
-        this.inrRate = res.rate;
+        this.targetCountryRate = res.rate;
       }
-
       this.calculatePriceVariations();
-
     },
       error => {
         this.toaster.add({ severity: "error", summary: "Error", detail: "Data not available" });

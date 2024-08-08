@@ -46,8 +46,8 @@ export interface Price {
   measure: string
   currency_code?: string
   itemCount: number
-  inr?: number
-  rate?: number
+  inTargetRate?: number
+  inSourceRate?: number
 }
 
 export interface Usd {

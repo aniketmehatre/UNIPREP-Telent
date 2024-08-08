@@ -45,18 +45,13 @@
                     <div class="col-md-5 d-flex align-items-center justify-content-between">
                         <div>
                             <div class="smallText">{{sourceCountryPrices.country_name}}</div>
-                            <div class="smallText">{{price.from.currency_code}} {{price.from.rate | number: '1.2-2'}}
-                            </div>
-                            <div class="smallText"
-                                *ngIf="price.from.currency_code!='INR'||price.to.currency_code!='INR'">INR
-                                {{price.from.inr | number: '1.2-2'}}</div>
+                            <div class="smallText">{{price.to.currency_code}} {{price.from.inTargetRate | number:'1.2-2'}}</div>
+                            <div class="smallText">{{price.from.currency_code}} {{price.from.inSourceRate | number: '1.2-2'}}</div>
                         </div>
                         <div>
                             <div class="smallText">{{targetCountryPrices.country_name}}</div>
-                            <div class="smallText">{{price.to.currency_code}} {{price.to.rate | number: '1.2-2'}}</div>
-                            <div class="smallText"
-                                *ngIf="price.from.currency_code!='INR'||price.to.currency_code!='INR'">INR
-                                {{price.to.inr | number: '1.2-2'}}</div>
+                            <div class="smallText">{{price.to.currency_code}} {{price.to.inTargetRate | number:'1.2-2'}}</div>
+                            <div class="smallText">{{price.from.currency_code}} {{price.to.inSourceRate | number: '1.2-2'}}</div>
                         </div>
                         <div [ngSwitch]="compareValues(price.from.usd.avg,price.to.usd.avg)">
                             <span *ngSwitchCase="'greater'">
