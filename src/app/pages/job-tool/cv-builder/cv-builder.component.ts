@@ -42,6 +42,7 @@ export class CvBuilderComponent implements OnInit {
   stableFileName = Math.floor(100000000 + Math.random() * 900000);
   resumeHistory: any = [];
   clickedDownloadButton: boolean = false;
+  isUpdating: boolean = false;
 
   constructor(private toaster: MessageService,  private fb: FormBuilder, private resumeService:CourseListService, private http: HttpClient, private router: Router) {
 
@@ -484,10 +485,11 @@ export class CvBuilderComponent implements OnInit {
     }else if(fieldName == 'work_job_description'){
       const work_designation = this.getWorkExpArray.value[iteration].work_designation;
       prompt = `Provide five roles and responsibilities for a ${ work_designation } role without using headings.`;
-    }else if(fieldName == 'project_description'){
-      const project_name = this.getProjectDetailsArray.value[iteration].project_name;
-      prompt = `Provide a project description for ${ project_name }, up to 30 words.`;
     }
+    // else if(fieldName == 'project_description'){
+    //   const project_name = this.getProjectDetailsArray.value[iteration].project_name;
+    //   prompt = `Provide a project description for ${ project_name }, up to 30 words.`;
+    // }
     
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
@@ -520,17 +522,18 @@ export class CvBuilderComponent implements OnInit {
           } else {
             console.error('No work experience entries found.');
           }
-        }else if(fieldName == 'project_description'){
-          const projectDetArray = this.getProjectDetailsArray;
-          if (projectDetArray.length > 0) {
-            const firstWorkExpGroup = projectDetArray.at(iteration) as FormGroup;
-            firstWorkExpGroup.patchValue({
-              project_description: GPTResponse
-            });
-          } else {
-            console.error('No Project details entries found.');
-          }
         }
+        // else if(fieldName == 'project_description'){
+        //   const projectDetArray = this.getProjectDetailsArray;
+        //   if (projectDetArray.length > 0) {
+        //     const firstWorkExpGroup = projectDetArray.at(iteration) as FormGroup;
+        //     firstWorkExpGroup.patchValue({
+        //       project_description: GPTResponse
+        //     });
+        //   } else {
+        //     console.error('No Project details entries found.');
+        //   }
+        // }
       } else {
         console.error('Unexpected response structure:', response);
       }
@@ -542,4 +545,42 @@ export class CvBuilderComponent implements OnInit {
   downloadOldResume(resumeLink: string){
     window.open(resumeLink, '_blank')
   }
+
+  onTextModelChange(value: string){
+    const words = value.trim().split(/\s+/);
+    if (words.length > 50) {
+      let joinedText = words.slice(0, 50).join(' ');
+      this.resumeFormInfoData.patchValue({
+        user_summary: joinedText
+      });
+      this.resumeFormInfoData.get('user_summary')?.setErrors({ maxWordsExceeded: true });
+    }else{
+      this.resumeFormInfoData.get('user_summary')?.setErrors(null);
+    }
+    this.resumeFormInfoData.updateValueAndValidity();
+  }
+
+  onEditorModelChange(value: string, index: number) {
+    if (this.isUpdating) {
+      return;  
+    }
+    const words = value.trim().split(/\s+/);
+    const control = this.getWorkExpArray.at(index).get('work_job_description');
+    this.isUpdating = true;  
+    console.log(words.length);
+    if (words.length > 50) {
+      console.log("if ");
+      let joinedText = words.slice(0, 50).join(' ');
+      control?.setValue(joinedText, { emitEvent: false });
+      control?.setErrors({ maxWordsExceeded: true });
+      console.log(control);
+    } else {
+      console.log("else ");
+      // control?.patchValue(value);
+      control?.setErrors(null);
+    }
+    control?.updateValueAndValidity();
+    this.isUpdating = false;
+  }
+
 }

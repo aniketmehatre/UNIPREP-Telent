@@ -44,8 +44,7 @@ export class CourseListComponent implements OnInit {
   favCount:number=0;
   PersonalInfo!: any;
 
-
-  constructor(private pageFacade: PageFacadeService,     private userManagementService: UserManagementService,private courseList: CourseListService, private fb: FormBuilder, private toastr: MessageService, private router: Router, private authService: AuthService) {
+  constructor(private pageFacade: PageFacadeService,  private userManagementService: UserManagementService, private courseList: CourseListService, private fb: FormBuilder, private toastr: MessageService, private router: Router, private authService: AuthService) {
     this.filterForm = this.fb.group({
       study_level: [''],
       college_name: [''],
@@ -65,7 +64,6 @@ export class CourseListComponent implements OnInit {
     this.getSelectBoxValues();
     this.GetPersonalProfileData();
   }
-
   GetPersonalProfileData() {
     this.userManagementService.GetUserPersonalInfo().subscribe(data => {
       this.PersonalInfo = data;
@@ -86,7 +84,6 @@ export class CourseListComponent implements OnInit {
       });
     });
   }
-
   openVideoPopup(videoLink: string) {
     this.pageFacade.openHowitWorksVideoPopup(videoLink);
   }
