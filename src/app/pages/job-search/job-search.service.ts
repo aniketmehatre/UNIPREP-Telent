@@ -12,7 +12,7 @@ export class JobSearchService {
     private appKey = '8c20f3e26f4df3630e037182b7b31f42'; // Replace with your App Key
 
 
-    private apiUrlCore = 'https://api.coresignal.com/v1/job-search';
+    private apiUrlCore = 'https://api.coresignal.com/cdapi/v1/linkedin/job/search/filter';
     private apiKeyCore = 'eyJhbGciOiJFZERTQSIsImtpZCI6Ijk5NWRkYjhlLTQ3NmYtMGI0Yy1hMGNmLTk0MjBlNzNlYTVmMiJ9.eyJhdWQiOiJ1bmlhYnJvYWQuY28uaW4iLCJleHAiOjE3NTQ1MjEzNTQsImlhdCI6MTcyMjk2NDQwMiwiaXNzIjoiaHR0cHM6Ly9vcHMuY29yZXNpZ25hbC5jb206ODMwMC92MS9pZGVudGl0eS9vaWRjIiwibmFtZXNwYWNlIjoicm9vdCIsInByZWZlcnJlZF91c2VybmFtZSI6InVuaWFicm9hZC5jby5pbiIsInN1YiI6ImZhMGM0YzljLWMyMWMtZmZkZi1jMGI5LTQ4YWVkNWFmOWMxNiIsInVzZXJpbmZvIjp7InNjb3BlcyI6ImNkYXBpIn19.c4JsNhAuYmwn_UxiLuLkpZW5_EdLyMMkfqvb3WZsZeYICydRQcOs2awcb6EZrGrEcmZJtT1MEWNAPIduO3__DA';
 
     constructor(private http: HttpClient) {
@@ -66,20 +66,17 @@ export class JobSearchService {
         });
     }
 
+    private getHeaders(): HttpHeaders {
+        return new HttpHeaders({
+            'Authorization': `Bearer ${this.apiKeyCore}`,
+            'Content-Type': 'application/json'
+        });
+    }
     // core signal
     searchJobsCoreSignal(query: string, location?: string, page: number = 1, limit: number = 10): Observable<any> {
-        const headers = new HttpHeaders({
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${this.apiKeyCore}`
+        const endpoint = `https://api.coresignal.com/cdapi/v1/linkedin/job/collect/46`;
+        return this.http.get<any>(endpoint, {
+            headers: this.getHeaders()
         });
-
-        const body = {
-            query: query,
-            filters: {
-                // Add your filters here
-            }
-        };
-
-        return this.http.post<any>(this.apiUrlCore, body, { headers });
     }
 }
