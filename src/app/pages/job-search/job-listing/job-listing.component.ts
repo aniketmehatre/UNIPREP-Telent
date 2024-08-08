@@ -15,7 +15,7 @@ export class JobListingComponent implements OnInit {
   fG: FormGroup;
   filterForm: FormGroup;
   query: string = 'developer';
-  location: string = 'in'; // Default location
+  location: string = ''; // Default location
   numbers: number[] = Array(20).fill(0).map((x, i) => i + 1);
   fromCountry: any
   selectedFlag: any
@@ -101,8 +101,20 @@ export class JobListingComponent implements OnInit {
     });
   }
 
+  limit: number = 10;
+  totalResults: number = 0;
   ngOnInit(): void {
     //this.searchJobsAdzuna()
+      this.jobService.searchJobsCoreSignal(this.query, this.location, this.page, this.resultPerPage).subscribe(
+          (response: any) => {
+            this.jobs = response.results;
+            console.log(response.results)
+          },
+          (error: any) => {
+            console.error('Error fetching job data:', error);
+          }
+      );
+
   }
 
   onCountryChange(event: any) {
