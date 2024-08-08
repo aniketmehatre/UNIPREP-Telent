@@ -5,6 +5,7 @@ import { FormBuilder, FormGroup } from "@angular/forms";
 import { MessageService } from 'primeng/api';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/Auth/auth.service';
+import { UserManagementService } from "../user-management/user-management.service";
 
 @Component({
   selector: 'uni-course-list',
@@ -40,8 +41,11 @@ export class CourseListComponent implements OnInit {
   planExpired!: boolean;
   restrict: boolean = false;
   stayBackList:any = [];
+  favCount:number=0;
+  PersonalInfo!: any;
 
-  constructor(private pageFacade: PageFacadeService, private courseList: CourseListService, private fb: FormBuilder, private toastr: MessageService, private router: Router, private authService: AuthService) {
+
+  constructor(private pageFacade: PageFacadeService,     private userManagementService: UserManagementService,private courseList: CourseListService, private fb: FormBuilder, private toastr: MessageService, private router: Router, private authService: AuthService) {
     this.filterForm = this.fb.group({
       study_level: [''],
       college_name: [''],
@@ -59,6 +63,28 @@ export class CourseListComponent implements OnInit {
     this.checkplanExpire();
     this.getCourseLists();
     this.getSelectBoxValues();
+    this.GetPersonalProfileData();
+  }
+
+  GetPersonalProfileData() {
+    this.userManagementService.GetUserPersonalInfo().subscribe(data => {
+      this.PersonalInfo = data;
+    });
+  }
+  bookmarkQuestion(courseId: any, isFav: any) {
+    isFav = isFav != '1' ? true : false;
+    this.favCount=isFav == true ? this.favCount+1 : this.favCount-1;
+    console.log(312);
+    this.courseList.bookmarkCourseData(courseId, this.PersonalInfo.user_id, isFav).subscribe((response) => {
+      console.log(31);
+      let courseListData = this.courseListData.find((item : any) => item.id == courseId);
+      isFav == true ? courseListData.favourite = 1 : courseListData.favourite = null;
+      this.toastr.add({
+        severity: "success",
+        summary: "Success",
+        detail: response.message,
+      });
+    });
   }
 
   openVideoPopup(videoLink: string) {
