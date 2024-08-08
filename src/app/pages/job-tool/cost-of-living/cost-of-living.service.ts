@@ -1,6 +1,7 @@
 import { Injectable } from "@angular/core";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Cities, CostOfLiving } from "src/app/@Models/cost-of-living";
+import { environment } from "@env/environment";
 
 @Injectable({
     providedIn: "root",
@@ -20,4 +21,9 @@ export class CostOfLivingService {
             `https://cost-of-living-and-prices.p.rapidapi.com/cities`, { headers: headers }
         );
     }
+    currencyConvert(data:any) {
+        const headers = new HttpHeaders().set("Accept", "application/json");
+        return this.http.post<any>(environment.ApiUrl + "/currencyConvert",data,{ headers: headers });
+    }
+  
 }

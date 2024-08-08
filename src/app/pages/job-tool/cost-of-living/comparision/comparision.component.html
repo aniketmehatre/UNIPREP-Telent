@@ -1,5 +1,5 @@
 <div class="row gap-two headerCard">
-    <div class="col-md-8 col-sm-12">
+    <div class="col-12">
         <div class="card">
             <div class="card-body costofliving">
                 Cost of Living In {{sourceCountryPrices.city_name}}, {{sourceCountryPrices.country_name}} is
@@ -10,7 +10,7 @@
             </div>
         </div>
     </div>
-    <div class="col-md-4 col-sm-12">
+    <!-- <div class="col-md-4 col-sm-12">
         <div class="card">
             <div class="card-body outline-card">
                 <div class="d-flex justify-content-between">
@@ -23,7 +23,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> -->
 </div>
 <br>
 <div class="row">
@@ -38,20 +38,34 @@
                         <div class="count">{{price.from.itemCount}}</div><i class="pi pi-plus"
                             (click)="addMore(price.from)"></i>
                     </div> -->
-                    <div class="col-md-7 d-flex align-items-center"><img
+                    <div class="col-md-8 d-flex align-items-center"><img
                             src="https://fastfood.theringer.com/img/items/3.jpg" alt="">
                         <div class="ml-5">{{price.from.item_name}}</div>
                     </div>
-                    <div class="col-md-5 d-flex align-items-center justify-content-between">
+                    <div class="col-md-4 d-flex align-items-center justify-content-between">
                         <div>
                             <div class="smallText">{{sourceCountryPrices.country_name}}</div>
-                            <div class="smallText" *ngIf="price?.from?.usd?.avg !== undefined">${{price.from.usd.avg | number: '1.2-2'}}</div>
+                            <div class="smallText">{{price.from.currency_code}} {{price.from.usd?.avg | number: '1.2-2'}}</div>
+                            <div class="smallText">INR {{price.from.usd?.avg | number: '1.2-2'}}</div>
                         </div>
                         <div>
                             <div class="smallText">{{targetCountryPrices.country_name}}</div>
-                            <div class="smallText" *ngIf="price?.to?.usd?.avg !== undefined">${{price.to.usd.avg | number: '1.2-2'}}</div>
+                            <div class="smallText">{{price.to.currency_code}} {{price.to.usd?.avg | number: '1.2-2'}}</div>
+                            <div class="smallText">INR {{price.from.usd?.avg | number: '1.2-2'}}</div>
                         </div>
-                        <div><i class="pi pi-chart-bar"></i></div>
+
+                        <div [ngSwitch]="compareValues(price.from.usd.avg,price.to.usd.avg)">
+                            <span *ngSwitchCase="'greater'">
+                                <img src="/uniprep-assets/images/greaterThanBars.png" alt="" class="barImage">
+                            </span>
+                            <span *ngSwitchCase="'smaller'">
+                                <img src="/uniprep-assets/images/lessThanBars.png" alt="" class="barImage">
+                            </span>
+                            <span *ngSwitchDefault>
+                                <img src="/uniprep-assets/images/equalBars.png" alt="" class="barImage">
+                            </span>
+                        </div>  
+ 
                     </div>
                 </div>
 

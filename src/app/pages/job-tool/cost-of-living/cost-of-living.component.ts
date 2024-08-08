@@ -11,10 +11,10 @@ import { City, CostOfLiving, Price } from 'src/app/@Models/cost-of-living';
 export class CostOfLivingComponent implements OnInit {
 
   cities: City[] = [];
-  sourceCities: City[] = [];
-  targetCities: City[] = [];
+  // sourceCities: City[] = [];
+  // targetCities: City[] = [];
 
-  countries: { label: string, value: string }[] = [];
+  // countries: { label: string, value: string }[] = [];
   form!: FormGroup;
 
   canShowComparision: boolean = false;
@@ -35,15 +35,16 @@ export class CostOfLivingComponent implements OnInit {
 
   ngOnInit() {
     this.costOfLivingService.getCities().subscribe(res => {
-
-      this.cities = res?.cities;
-      this.cities.forEach((city: City) => {
-        const country = this.countries.find((item: any) => item.label === city.country_name);
-        if (!country) {
-          this.countries.push({ label: city.country_name, value: city.country_name });
-        }
-
+      const citiesList = res?.cities;
+      citiesList.forEach(city => {
+        this.cities.push({...city,label:city.city_name+', '+city.country_name})
       });
+      // this.cities.forEach((city: City) => {
+      //   const country = this.countries.find((item: any) => item.label === city.country_name);
+      //   if (!country) {
+      //     this.countries.push({ label: city.country_name, value: city.country_name });
+      //   }
+      // });
     });
   }
 
@@ -64,11 +65,12 @@ export class CostOfLivingComponent implements OnInit {
       });
     });
   }
-  loadCity(countryField: string) {
-    if (countryField == 'sourceCountry') {
-      this.sourceCities = this.cities.filter(city => city.country_name == this.form.get('sourceCountry')?.value);
-      return;
-    }
-    this.targetCities = this.cities.filter(city => city.country_name == this.form.get('targetCountry')?.value);
-  }
+  // loadCity(countryField: string) {
+  //   if (countryField == 'sourceCountry') {
+  //     this.sourceCities = this.cities.filter(city => city.country_name == this.form.get('sourceCountry')?.value);
+  //     return;
+  //   }
+  //   this.targetCities = this.cities.filter(city => city.country_name == this.form.get('targetCountry')?.value);
+  // }
+ 
 }
