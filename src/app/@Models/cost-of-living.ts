@@ -47,8 +47,7 @@ export interface Price {
   currency_code?: string
   itemCount: number
   inr?: number
-  source_rate?: number
-  target_rate?: number
+  rate?: number
 }
 
 export interface Usd {

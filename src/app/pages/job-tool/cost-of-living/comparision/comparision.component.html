@@ -38,22 +38,26 @@
                         <div class="count">{{price.from.itemCount}}</div><i class="pi pi-plus"
                             (click)="addMore(price.from)"></i>
                     </div> -->
-                    <div class="col-md-8 d-flex align-items-center"><img
+                    <div class="col-md-7 d-flex align-items-center"><img
                             src="https://fastfood.theringer.com/img/items/3.jpg" alt="">
                         <div class="ml-5">{{price.from.item_name}}</div>
                     </div>
-                    <div class="col-md-4 d-flex align-items-center justify-content-between">
+                    <div class="col-md-5 d-flex align-items-center justify-content-between">
                         <div>
                             <div class="smallText">{{sourceCountryPrices.country_name}}</div>
-                            <div class="smallText">{{price.from.currency_code}} {{price.from.usd?.avg | number: '1.2-2'}}</div>
-                            <div class="smallText">INR {{price.from.usd?.avg | number: '1.2-2'}}</div>
+                            <div class="smallText">{{price.from.currency_code}} {{price.from.rate | number: '1.2-2'}}
+                            </div>
+                            <div class="smallText"
+                                *ngIf="price.from.currency_code!='INR'||price.to.currency_code!='INR'">INR
+                                {{price.from.inr | number: '1.2-2'}}</div>
                         </div>
                         <div>
                             <div class="smallText">{{targetCountryPrices.country_name}}</div>
-                            <div class="smallText">{{price.to.currency_code}} {{price.to.usd?.avg | number: '1.2-2'}}</div>
-                            <div class="smallText">INR {{price.from.usd?.avg | number: '1.2-2'}}</div>
+                            <div class="smallText">{{price.to.currency_code}} {{price.to.rate | number: '1.2-2'}}</div>
+                            <div class="smallText"
+                                *ngIf="price.from.currency_code!='INR'||price.to.currency_code!='INR'">INR
+                                {{price.to.inr | number: '1.2-2'}}</div>
                         </div>
-
                         <div [ngSwitch]="compareValues(price.from.usd.avg,price.to.usd.avg)">
                             <span *ngSwitchCase="'greater'">
                                 <img src="/uniprep-assets/images/greaterThanBars.png" alt="" class="barImage">
@@ -64,8 +68,8 @@
                             <span *ngSwitchDefault>
                                 <img src="/uniprep-assets/images/equalBars.png" alt="" class="barImage">
                             </span>
-                        </div>  
- 
+                        </div>
+
                     </div>
                 </div>
 

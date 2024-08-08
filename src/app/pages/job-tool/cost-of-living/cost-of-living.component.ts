@@ -37,14 +37,8 @@ export class CostOfLivingComponent implements OnInit {
     this.costOfLivingService.getCities().subscribe(res => {
       const citiesList = res?.cities;
       citiesList.forEach(city => {
-        this.cities.push({...city,label:city.city_name+', '+city.country_name})
+        this.cities.push({ ...city, label: city.city_name + ', ' + city.country_name })
       });
-      // this.cities.forEach((city: City) => {
-      //   const country = this.countries.find((item: any) => item.label === city.country_name);
-      //   if (!country) {
-      //     this.countries.push({ label: city.country_name, value: city.country_name });
-      //   }
-      // });
     });
   }
 
@@ -72,5 +66,5 @@ export class CostOfLivingComponent implements OnInit {
   //   }
   //   this.targetCities = this.cities.filter(city => city.country_name == this.form.get('targetCountry')?.value);
   // }
- 
+
 }
