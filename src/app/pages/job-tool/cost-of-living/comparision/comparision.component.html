@@ -44,12 +44,12 @@
                     </div>
                     <div class="col-md-5 d-flex align-items-center justify-content-between">
                         <div>
-                            <div class="smallText">{{sourceCountryPrices.country_name}}</div>
+                            <div class="smallText"><span *ngIf="sourceCountryPrices.country_name==targetCountryPrices.country_name">{{sourceCountryPrices.city_name}}, </span>{{sourceCountryPrices.country_name}}</div>
                             <div class="smallText">{{price.to.currency_code}} {{price.from.inTargetRate | number:'1.2-2'}}</div>
                             <div class="smallText">{{price.from.currency_code}} {{price.from.inSourceRate | number: '1.2-2'}}</div>
                         </div>
                         <div>
-                            <div class="smallText">{{targetCountryPrices.country_name}}</div>
+                            <div class="smallText"><span *ngIf="sourceCountryPrices.country_name==targetCountryPrices.country_name">{{targetCountryPrices.city_name}}, </span>{{targetCountryPrices.country_name}}</div>
                             <div class="smallText">{{price.to.currency_code}} {{price.to.inTargetRate | number:'1.2-2'}}</div>
                             <div class="smallText">{{price.from.currency_code}} {{price.to.inSourceRate | number: '1.2-2'}}</div>
                         </div>
