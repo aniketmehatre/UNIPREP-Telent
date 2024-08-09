@@ -15,12 +15,11 @@
 	}
 }
 .previewcontainer {
-	height: 100%;
-	width: 100%;
 	display: flex;
 	justify-content: center;
 	.previewbody {
 		aspect-ratio: 1/1.41;
+		width:100%;
 	}
 }
 .center-button {
@@ -196,22 +195,22 @@
 		padding-left: 0px !important;
 	}
 	h1 {
-		font-size: 1.5em;
+		font-size: 4.5em;
 	}
 	h2 {
-		font-size: 1.3em;
+		font-size: 3.5em;
 	}
 	h3 {
-		font-size: 1.2em;
+		font-size: 3.0em;
 	}
 	h4 {
-		font-size: 1.1em;
+		font-size: 2.5em;
 	}
 	h5 {
-		font-size: 1.05em;
+		font-size: 2.0em;
 	}
 	h6 {
-		font-size: 1em;
+		font-size: 1.5em;
 	}
 	hr {
 		margin: 2px;
@@ -220,7 +219,6 @@
 	a,
 	span,
 	li {
-		font-size: 1em;
 		list-style: none;
 		padding: 0px;
 		padding-left: 0px;
