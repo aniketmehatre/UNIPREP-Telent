@@ -64,4 +64,9 @@ export class JobToolComponent implements OnInit {
       this.hideTitleForPreviewPage = data;
     });
   }
+
+  isCostOfLivingRoute(): boolean {
+    console.log(this.currentRoute.includes('cost-of-living'))
+    return this.currentRoute.includes('cost-of-living');
+  }
 }
