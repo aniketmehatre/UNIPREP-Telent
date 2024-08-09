@@ -70,3 +70,12 @@ export interface City {
   state_code?: string
   label?:string;
 }
+export interface CategoryWiseComparison{
+  category_name: string, 
+  prices: PricesComparison[],
+  category_id:number
+}
+export interface PricesComparison{
+  from:Price
+  to:Price
+}
