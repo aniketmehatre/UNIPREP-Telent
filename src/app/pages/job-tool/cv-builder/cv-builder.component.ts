@@ -82,22 +82,22 @@ export class CvBuilderComponent implements OnInit {
 
     this.resumeFormInfoData = this.fb.group({
       selected_exp_level:['1'],
-      // user_name: ['', Validators.required],
-      // user_job_title: ['', Validators.required],
-      // user_email: ['', Validators.required],
-      // user_location: ['', Validators.required],
-      // user_phone: ['', Validators.required],
-      // user_linkedin:['', Validators.required],
-      // user_website: [''],
-      // user_summary: ['', Validators.required],
-      user_name: ['vivek kaliyaperumal', [Validators.required]],
-      user_job_title: ['full stack developer', [Validators.required]],
-      user_email: ['vivek@uniabroad.co.in', [Validators.required]],
-      user_location: ['mysore,karnataka', [Validators.required]],
-      user_phone: ['9524999563', [Validators.required]],
-      user_linkedin:['vivek kaliyaperumal'],
-      user_website: ['www.ownwebsite.com'],
-      user_summary: ['Dedicated full stack developer with proficiency in front-end and back-end technologies, effective problem-solving skills, and a passion for creating innovative web applications.', [Validators.required]],
+      user_name: ['', Validators.required],
+      user_job_title: ['', Validators.required],
+      user_email: ['', Validators.required],
+      user_location: ['', Validators.required],
+      user_phone: ['', Validators.required],
+      user_linkedin:['', Validators.required],
+      user_website: [''],
+      user_summary: ['', Validators.required],
+      // user_name: ['vivek kaliyaperumal', [Validators.required]],
+      // user_job_title: ['full stack developer', [Validators.required]],
+      // user_email: ['vivek@uniabroad.co.in', [Validators.required]],
+      // user_location: ['mysore,karnataka', [Validators.required]],
+      // user_phone: ['9524999563', [Validators.required]],
+      // user_linkedin:['vivek kaliyaperumal'],
+      // user_website: ['www.ownwebsite.com'],
+      // user_summary: ['Dedicated full stack developer with proficiency in front-end and back-end technologies, effective problem-solving skills, and a passion for creating innovative web applications.', [Validators.required]],
       EduDetailsArray: this.fb.array([]),
       workExpArray: this.fb.array([]),
       projectDetailsArray: this.fb.array([]),
@@ -458,83 +458,83 @@ export class CvBuilderComponent implements OnInit {
 
   triggerAddMoreButton(){ //initially the cloning array is an empty so trigger and make the array as an not empty
 
-    this.getEduDetailsArray.push(this.fb.group({
-      edu_college_name: ['Srinivasan Engg College'],
-      edu_still_pursuing:[''],
-      edu_start_year: ['2015'],
-      edu_end_year: ['2019'],
-      edu_degree: ['Bachelor of Engineering in C.S'],
-      edu_location: ['Perambalur'],
-      edu_percentage: ['65'],
-      edu_cgpa_percentage: ['%'],
-    }));
-
     // this.getEduDetailsArray.push(this.fb.group({
-    //   edu_college_name: ['',Validators.required],
+    //   edu_college_name: ['Srinivasan Engg College'],
     //   edu_still_pursuing:[''],
-    //   edu_start_year: ['',Validators.required],
-    //   edu_end_year: ['',Validators.required],
-    //   edu_degree: ['',Validators.required],
-    //   edu_location: ['',Validators.required],
-    //   edu_percentage: ['',Validators.required],
+    //   edu_start_year: ['2015'],
+    //   edu_end_year: ['2019'],
+    //   edu_degree: ['Bachelor of Engineering in C.S'],
+    //   edu_location: ['Perambalur'],
+    //   edu_percentage: ['65'],
     //   edu_cgpa_percentage: ['%'],
     // }));
 
-    this.getWorkExpArray.push(this.fb.group({
-      work_org_name: ['Uniabroad Private Ltd'],
-      work_currently_working:[''],
-      work_start_year: ['2013'],
-      work_end_year: ['2015'],
-      work_designation: ['Full stack developer'],
-      work_type: ['Fulltime'],
-      work_location: ['Mysore'],
-      work_job_description: ['Spearheaded the UI/UX redesign of UNIPREP, UNIAPPLY, SOPEXPERT, and the UNIABROAD website, resulting in a cohesive and user-friendly experience across all platforms.Implemented innovative design solutions for the frontend of the products, enhancing user engagement and satisfaction.Designed and optimized the CRM admin panel, improving internal workflows and user interactions with the system.Collaborated closely with development teams to ensure seamless integration of design elements and adherence to design guidelines across all products.'],
+    this.getEduDetailsArray.push(this.fb.group({
+      edu_college_name: ['',Validators.required],
+      edu_still_pursuing:[''],
+      edu_start_year: ['',Validators.required],
+      edu_end_year: ['',Validators.required],
+      edu_degree: ['',Validators.required],
+      edu_location: ['',Validators.required],
+      edu_percentage: ['',Validators.required],
+      edu_cgpa_percentage: ['%'],
     }));
 
     // this.getWorkExpArray.push(this.fb.group({
-    //   work_org_name: ['',Validators.required],
+    //   work_org_name: ['Uniabroad Private Ltd'],
     //   work_currently_working:[''],
-    //   work_start_year: ['',Validators.required],
-    //   work_end_year: ['',Validators.required],
-    //   work_designation: ['',Validators.required],
-    //   work_type: ['',Validators.required],
-    //   work_location: ['',Validators.required],
-    //   work_job_description: ['',Validators.required],
+    //   work_start_year: ['2013'],
+    //   work_end_year: ['2015'],
+    //   work_designation: ['Full stack developer'],
+    //   work_type: ['Fulltime'],
+    //   work_location: ['Mysore'],
+    //   work_job_description: ['Spearheaded the UI/UX redesign of UNIPREP, UNIAPPLY, SOPEXPERT, and the UNIABROAD website, resulting in a cohesive and user-friendly experience across all platforms.Implemented innovative design solutions for the frontend of the products, enhancing user engagement and satisfaction.Designed and optimized the CRM admin panel, improving internal workflows and user interactions with the system.Collaborated closely with development teams to ensure seamless integration of design elements and adherence to design guidelines across all products.'],
     // }));
 
-    this.getProjectDetailsArray.push(this.fb.group({
-      project_name: ['Anonymity'],
-      project_start_name: ['2015'],
-      project_end_name: ['2019'],
-      project_description: ['<li>Together with developers, collect and assess user requirements.</li><li>Using storyboards, process flows, and sitemaps, illustrate design concepts.</li><li>Create visual user interface components such as menus, tabs, and widgets.</li><li>Create UI mockups and prototypes that clearly show how websites work and appear.</li><li>Determine and address UX issues (e.g., responsiveness).</li>'],
+    this.getWorkExpArray.push(this.fb.group({
+      work_org_name: ['',Validators.required],
+      work_currently_working:[''],
+      work_start_year: ['',Validators.required],
+      work_end_year: ['',Validators.required],
+      work_designation: ['',Validators.required],
+      work_type: ['',Validators.required],
+      work_location: ['',Validators.required],
+      work_job_description: ['',Validators.required],
     }));
 
     // this.getProjectDetailsArray.push(this.fb.group({
-    //   project_name: ['',Validators.required],
-    //   project_start_name: ['',Validators.required],
-    //   project_end_name: ['',Validators.required],
-    //   project_description: ['',Validators.required],
+    //   project_name: ['Anonymity'],
+    //   project_start_name: ['2015'],
+    //   project_end_name: ['2019'],
+    //   project_description: ['<li>Together with developers, collect and assess user requirements.</li><li>Using storyboards, process flows, and sitemaps, illustrate design concepts.</li><li>Create visual user interface components such as menus, tabs, and widgets.</li><li>Create UI mockups and prototypes that clearly show how websites work and appear.</li><li>Determine and address UX issues (e.g., responsiveness).</li>'],
     // }));
 
-    this.getSkillsArray.push(this.fb.group({
-      skills: ['HTML'],
-      skills_proficiency: ['Basic'],
+    this.getProjectDetailsArray.push(this.fb.group({
+      project_name: ['',Validators.required],
+      project_start_name: ['',Validators.required],
+      project_end_name: ['',Validators.required],
+      project_description: ['',Validators.required],
     }));
 
     // this.getSkillsArray.push(this.fb.group({
-    //   skills: ['',Validators.required],
-    //   skills_proficiency: ['',Validators.required],
+    //   skills: ['HTML'],
+    //   skills_proficiency: ['Basic'],
     // }));
 
-    this.getLanguagesKnownArray.push(this.fb.group({
-      language: ['Tamil'],
-      lang_proficiency: ['Native'],
+    this.getSkillsArray.push(this.fb.group({
+      skills: ['',Validators.required],
+      skills_proficiency: ['',Validators.required],
     }));
 
     // this.getLanguagesKnownArray.push(this.fb.group({
-    //   language: ['',Validators.required],
-    //   lang_proficiency: ['',Validators.required],
+    //   language: ['Tamil'],
+    //   lang_proficiency: ['Native'],
     // }));
+
+    this.getLanguagesKnownArray.push(this.fb.group({
+      language: ['',Validators.required],
+      lang_proficiency: ['',Validators.required],
+    }));
 
   }
 
