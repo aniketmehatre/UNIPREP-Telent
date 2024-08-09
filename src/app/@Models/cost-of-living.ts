@@ -44,8 +44,10 @@ export interface Price {
   max: number
   usd: Usd
   measure: string
-  currency_code?: string,
-  itemCount: number;
+  currency_code?: string
+  itemCount: number
+  inr?: number
+  rate?: number
 }
 
 export interface Usd {
@@ -66,4 +68,5 @@ export interface City {
   lat: number
   lng: number
   state_code?: string
+  label?:string;
 }
