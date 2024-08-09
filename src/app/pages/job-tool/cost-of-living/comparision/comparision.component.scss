@@ -45,11 +45,11 @@
     justify-content: center;
 }
 
-    img {
-        height: 30px;
-        width: 30px;
-        margin-right: 10px;
-    }
+img {
+    height: 30px;
+    width: 30px;
+    margin-right: 10px;
+}
 
 .smallText {
     font-size: 10px;
@@ -73,7 +73,24 @@
     height: 20px;
     width: 20px;
 }
+
 .barImage {
-	height: 60px !important;
-	width: 50px !important;
+    height: 60px !important;
+    width: 50px !important;
+}
+.graphs{
+    display: flex;
+    width:50px;
+    justify-content: space-between;
+    .graph-container {
+        height: 60px;
+        width: 15px;
+        display: flex;
+        flex-direction: column;
+        justify-content: end;
+        margin-bottom:15px;
+        span{
+            width:15px;
+        }
+    }
 }

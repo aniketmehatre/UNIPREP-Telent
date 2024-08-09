@@ -4,43 +4,30 @@
             Compare the cost of living between countries around the world
         </div>
         <br>
-        <form [formGroup]="form" (ngSubmit)="compare()">
-            <div class="row justify-content-center gap-two">
-                <div class="col-md-4 col-sm-12">
-                    <div class="card flex justify-content-center">
-                        <p-dropdown [options]="cities" optionLabel="label" optionValue="city_id" formControlName="sourceCity"
-                            placeholder="Source Country" [filter]="true" filterBy="city_name" [showClear]="true"
-                            [appendTo]="'body'">
-                            <ng-template pTemplate="selectedItem" let-selectedOption>
-                                <div class="flex align-items-center gap-2">
-                                    <div>{{selectedOption.city_name}}, {{ selectedOption.country_name }}
-                                    </div>
-                                </div>
-                            </ng-template>
-                        </p-dropdown>
+        <form [formGroup]="form" (ngSubmit)="compare()" class="d-flex justify-content-center g-10">
+            <p-dropdown [options]="cities" optionLabel="label" optionValue="city_id" formControlName="sourceCity"
+                placeholder="Source Country" [filter]="true" filterBy="city_name" [showClear]="true"
+                [appendTo]="'body'">
+                <ng-template pTemplate="selectedItem" let-selectedOption>
+                    <div class="flex align-items-center gap-2">
+                        <div>{{selectedOption.city_name}}, {{ selectedOption.country_name }}
+                        </div>
                     </div>
-
-                </div>
-                <div class="col-md-4 col-sm-12">
-                    <div class="card flex justify-content-center">
-                        <p-dropdown [options]="cities" optionLabel="label" optionValue="city_id"
-                            formControlName="targetCity" placeholder="Target Country" [filter]="true"
-                            filterBy="city_name" [showClear]="true" [appendTo]="'body'">
-                            <ng-template pTemplate="selectedItem" let-selectedOption>
-                                <div class="flex align-items-center gap-2">
-                                    <div>{{selectedOption.city_name}}, {{ selectedOption.country_name }}
-                                    </div>
-                                </div>
-                            </ng-template>
-                        </p-dropdown>
+                </ng-template>
+            </p-dropdown>
+            <p-dropdown [options]="cities" optionLabel="label" optionValue="city_id" formControlName="targetCity"
+                placeholder="Target Country" [filter]="true" filterBy="city_name" [showClear]="true"
+                [appendTo]="'body'">
+                <ng-template pTemplate="selectedItem" let-selectedOption>
+                    <div class="flex align-items-center gap-2">
+                        <div>{{selectedOption.city_name}}, {{ selectedOption.country_name }}
+                        </div>
                     </div>
-                </div>
-                <div class="col-md-4 col-sm-12">
-                    <button class="btn btn-primary h6 ps-3 pe-3 pt-2 pb-2 br-20" type="submit"
-                        [disabled]="!form.value.sourceCity || !form.value.targetCity">Compare
-                        <i class="pi pi-sync"></i> </button>
-                </div>
-            </div>
+                </ng-template>
+            </p-dropdown>
+            <button class="btn btn-primary h6 ps-3 pe-3 pt-2 pb-2 br-20" type="submit"
+                [disabled]="!form.value.sourceCity || !form.value.targetCity">Compare
+                <i class="pi pi-sync"></i> </button>
         </form>
     </div>
 </div>
