@@ -66,7 +66,7 @@ export class JobToolComponent implements OnInit {
   }
 
   isCostOfLivingRoute(): boolean {
-    console.log(this.currentRoute.includes('cost-of-living'))
+    // console.log(this.currentRoute.includes('cost-of-living')) 
     return this.currentRoute.includes('cost-of-living');
   }
 }
