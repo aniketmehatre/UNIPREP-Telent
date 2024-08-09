@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule,CUSTOM_ELEMENTS_SCHEMA  } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {InputTextModule} from 'primeng/inputtext';
 import {CarouselModule} from 'primeng/carousel';
@@ -23,6 +23,7 @@ import { SplitButtonModule } from 'primeng/splitbutton';
 import { PipesModule } from '@pipes/pipes.module';
 import {SalaryConverterComponent} from "./salary-converter/salary-converter.component";
 import {PaginatorModule} from "primeng/paginator";
+import { SlickCarouselModule } from 'ngx-slick-carousel';
 @NgModule({
   declarations: [
     JobToolComponent,
@@ -51,7 +52,9 @@ import {PaginatorModule} from "primeng/paginator";
     SplitButtonModule,
     ReactiveFormsModule,
     PipesModule,
-    PaginatorModule
+    PaginatorModule,
+    SlickCarouselModule,
   ],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class JobToolModule{ }

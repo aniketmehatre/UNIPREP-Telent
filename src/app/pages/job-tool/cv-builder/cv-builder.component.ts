@@ -44,27 +44,60 @@ export class CvBuilderComponent implements OnInit {
   clickedDownloadButton: boolean = false;
   isUpdating: boolean = false;
   errorMessages: string[] = [];
+   resumeSlider: any = [
+    {
+      id: 1,
+      templateName: "Traditional",
+      imageLink: "../../../uniprep-assets/resume-images/Traditional.webp",
+    },
+    {
+      id: 2,
+      templateName: "Modern",
+      imageLink: "../../../uniprep-assets/resume-images/Modern.webp",
+    },
+    {
+      id: 3,
+      templateName: "Creative",
+      imageLink: "../../../uniprep-assets/resume-images/Creative.webp",
+    },
+    {
+      id: 4,
+      templateName: "Functional",
+      imageLink: "../../../uniprep-assets/resume-images/functional.webp",
+    },
+    {
+      id: 5,
+      templateName: "Academic",
+      imageLink: "../../../uniprep-assets/resume-images/academic.webp",
+    },
+  ];
 
+  slideConfig = {
+    "slidesToShow": 4,
+    "slidesToScroll": 1,
+    "infinite": true,
+    "dots": false
+  }
   constructor(private toaster: MessageService,  private fb: FormBuilder, private resumeService:CourseListService, private http: HttpClient, private router: Router) {
 
     this.resumeFormInfoData = this.fb.group({
       selected_exp_level:['1'],
-      // user_name: ['', Validators.required],
-      // user_job_title: ['', Validators.required],
-      // user_email: ['', Validators.required],
-      // user_location: ['', Validators.required],
-      // user_phone: ['', Validators.required],
-      // user_linkedin:['', Validators.required],
-      // user_website: [''],
-      // user_summary: ['', Validators.required],
-      user_name: ['vivek kaliyaperumal', [Validators.required]],
-      user_job_title: ['full stack developer', [Validators.required]],
-      user_email: ['vivek@uniabroad.co.in', [Validators.required]],
-      user_location: ['mysore,karnataka', [Validators.required]],
-      user_phone: ['9524999563', [Validators.required]],
-      user_linkedin:['vivek kaliyaperumal'],
-      user_website: ['www.ownwebsite.com'],
-      user_summary: ['Dedicated full stack developer with proficiency in front-end and back-end technologies, effective problem-solving skills, and a passion for creating innovative web applications.', [Validators.required]],
+      user_name: ['', Validators.required],
+      user_job_title: ['', Validators.required],
+      user_email: ['', Validators.required],
+      user_location: ['', Validators.required],
+      user_phone: ['', Validators.required],
+      user_linkedin:['', Validators.required],
+      user_website: [''],
+      user_summary: ['', Validators.required],
+      // user_name: ['vivek kaliyaperumal', [Validators.required]],
+      // user_job_title: ['full stack developer', [Validators.required]],
+      // user_email: ['vivek@uniabroad.co.in', [Validators.required]],
+      // user_location: ['mysore,karnataka', [Validators.required]],
+      // user_phone: ['9524999563', [Validators.required]],
+      // user_linkedin:['vivek kaliyaperumal'],
+      // user_website: ['www.ownwebsite.com'],
+      // user_summary: ['Dedicated full stack developer with proficiency in front-end and back-end technologies, effective problem-solving skills, and a passion for creating innovative web applications.', [Validators.required]],
       EduDetailsArray: this.fb.array([]),
       workExpArray: this.fb.array([]),
       projectDetailsArray: this.fb.array([]),
@@ -323,47 +356,47 @@ export class CvBuilderComponent implements OnInit {
         skills_proficiency: ['',Validators.required]
       }));
     }else if(fieldName == "Hobby"){
-      // this.getHobbiesArray.push(this.fb.group({
-      //   hobbies: ['Painting'],
-      // }));
       this.getHobbiesArray.push(this.fb.group({
-        hobbies: ['',Validators.required],
+        hobbies: ['Painting'],
       }));
+      // this.getHobbiesArray.push(this.fb.group({
+      //   hobbies: ['',Validators.required],
+      // }));
     }else if(fieldName == "extra_curricular"){
-      // this.getExtraCurricularArray.push(this.fb.group({
-      //   extra_curricular_activites: ['Game Development']
-      // }));
       this.getExtraCurricularArray.push(this.fb.group({
-        extra_curricular_activites: ['',Validators.required]
+        extra_curricular_activites: ['Game Development']
       }));
+      // this.getExtraCurricularArray.push(this.fb.group({
+      //   extra_curricular_activites: ['',Validators.required]
+      // }));
     }else if(fieldName == "certificate"){
-      // this.getCertificatesArray.push(this.fb.group({
-      //   certificate_name: ['Web Development'],
-      //   certificate_issued: ['UNIPREP'],
-      //   certificate_id: ['UNI077'],
-      //   certicate_link: ['https://uniprep.ai/certificates'],
-      // }));
-       this.getCertificatesArray.push(this.fb.group({
-        certificate_name: ['',Validators.required],
-        certificate_issued: ['',Validators.required],
-        certificate_id: [''],
-        certicate_link: [''],
+      this.getCertificatesArray.push(this.fb.group({
+        certificate_name: ['Web Development'],
+        certificate_issued: ['UNIPREP'],
+        certificate_id: ['UNI077'],
+        certicate_link: ['https://uniprep.ai/certificates'],
       }));
+      //  this.getCertificatesArray.push(this.fb.group({
+      //   certificate_name: ['',Validators.required],
+      //   certificate_issued: ['',Validators.required],
+      //   certificate_id: [''],
+      //   certicate_link: [''],
+      // }));
     }else if(fieldName == "reference"){
-      // this.getReferenceArray.push(this.fb.group({
-      //   ref_name: ['Adithya M'],
-      //   ref_position: ['CEO'],
-      //   ref_organization: ['Mediamonk'],
-      //   ref_email: ['adithya@uniabroad.co.in'],
-      //   ref_contact: ['+91 7019267853'],
-      // }));
       this.getReferenceArray.push(this.fb.group({
-        ref_name: ['',Validators.required],
-        ref_position: ['',Validators.required],
-        ref_organization: ['',Validators.required],
-        ref_email: ['',Validators.required],
-        ref_contact: ['',Validators.required],
+        ref_name: ['Adithya M'],
+        ref_position: ['CEO'],
+        ref_organization: ['Mediamonk'],
+        ref_email: ['adithya@uniabroad.co.in'],
+        ref_contact: ['+91 7019267853'],
       }));
+      // this.getReferenceArray.push(this.fb.group({
+      //   ref_name: ['',Validators.required],
+      //   ref_position: ['',Validators.required],
+      //   ref_organization: ['',Validators.required],
+      //   ref_email: ['',Validators.required],
+      //   ref_contact: ['',Validators.required],
+      // }));
     }
   }
 

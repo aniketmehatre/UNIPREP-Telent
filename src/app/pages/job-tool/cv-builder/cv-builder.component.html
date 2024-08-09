@@ -1,12 +1,11 @@
 <div class="container-fluid" *ngIf="activePageIndex == 1">
-	<h3 class="text-center uniprep-primary">Select your CV style to get started</h3>
-	<div class="d-flex justify-content-center gap-5">
+    <h3 class="text-center uniprep-primary">Select your CV style to get started</h3>
+	<!-- <div class="d-flex justify-content-center gap-5">
 		<div>
 			<h5 class="text-center uniprep-primary">Traditional</h5>
 			<div class="cvBuilderSampleImg" [ngClass]="{ selectedResumeLevel: selectedResumeLevel == 'Traditional' }"
 				(click)="imgOnclick('Traditional')">
-				<img src="../../../uniprep-assets/resume-images/Traditional.webp"
-					alt="Traditional" />
+				<img src="../../../uniprep-assets/resume-images/Traditional.webp" alt="Traditional" />
 				<button *ngIf="selectedResumeLevel == 'Traditional'" class="center-button">Selected <i
 						class="fa-solid fa-check tickIcon"></i></button>
 			</div>
@@ -15,8 +14,7 @@
 			<h5 class="text-center uniprep-primary">Modern</h5>
 			<div class="cvBuilderSampleImg" [ngClass]="{ selectedResumeLevel: selectedResumeLevel == 'Modern' }"
 				(click)="imgOnclick('Modern')">
-				<img src="../../../uniprep-assets/resume-images/Modern.webp"
-					alt="Modern" />
+				<img src="../../../uniprep-assets/resume-images/Modern.webp" alt="Modern" />
 				<button *ngIf="selectedResumeLevel == 'Modern'" class="center-button">Selected <i
 						class="fa-solid fa-check tickIcon"></i></button>
 			</div>
@@ -25,8 +23,7 @@
 			<h5 class="text-center uniprep-primary">Creative</h5>
 			<div class="cvBuilderSampleImg" [ngClass]="{ selectedResumeLevel: selectedResumeLevel == 'Creative' }"
 				(click)="imgOnclick('Creative')">
-				<img src="../../../uniprep-assets/resume-images/Creative.webp"
-					alt="Functional" />
+				<img src="../../../uniprep-assets/resume-images/Creative.webp" alt="Functional" />
 				<button *ngIf="selectedResumeLevel == 'Creative'" class="center-button">Selected <i
 						class="fa-solid fa-check tickIcon"></i></button>
 			</div>
@@ -51,14 +48,51 @@
 						class="fa-solid fa-check tickIcon"></i></button>
 			</div>
 		</div>
-	</div>
-	<div class="row justify-content-center">
+	</div> -->
+    <!-- <p-carousel [value]="resumeSlider" [numVisible]="4" [numScroll]="1" [circular]="true" [showIndicators]="false" [page]="1" styleClass="h-100">
+        <ng-template let-product let-i="index" pTemplate="item">
+            <div class="d-flex justify-content-center">
+                <div>
+                    <h5 class="text-center uniprep-primary">{{ product.templateName }}</h5>
+                    <div class="cvBuilderSampleImg" 
+                         [ngClass]="{ 'selectedResumeLevel': selectedResumeLevel == product.templateName }"
+                         (click)="imgOnclick(product.templateName)">
+                        <img [src]="product.imageLink" alt="{{ product.templateName }}" />
+                        <button *ngIf="selectedResumeLevel == product.templateName" class="center-button">
+                            Selected <i class="fa-solid fa-check tickIcon"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </ng-template>
+    </p-carousel>     -->
+	<!-- <div class="row justify-content-center">
 		<div class="col-md-4 mt-5">
 			<button class="createResumeButton" (click)="shakeButton($event)">Create your Resume &nbsp;&nbsp;&nbsp;<i
 					class="fa-solid fa-arrow-right tickIcon"></i></button>
 		</div>
-	</div>
+	</div> -->
+    <!-- <div class="ma-fix"> -->
+        <ngx-slick-carousel class="carousel d-flex align-items-center" #slickModal="slick-carousel" [config]="slideConfig">
+            <div ngxSlickItem *ngFor="let slide of resumeSlider" class="slide">
+                <div class="d-flex justify-content-center">
+                    <div>
+                        <h5 class="text-center uniprep-primary">{{ slide.templateName }}</h5>
+                        <div class="cvBuilderSampleImg" 
+                            [ngClass]="{ 'selectedResumeLevel': selectedResumeLevel == slide.templateName }"
+                            (click)="imgOnclick(slide.templateName)">
+                            <img [src]="slide.imageLink" alt="{{ slide.templateName }}" />
+                            <button *ngIf="selectedResumeLevel == slide.templateName" class="center-button">
+                            Selected <i class="fa-solid fa-check tickIcon"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </ngx-slick-carousel>    
+    <!-- </div> -->
 </div>
+
 <div class="container-fluid" *ngIf="activePageIndex == 3">
 	<div class="row justify-content-center">
 		<div class="flex-column">
