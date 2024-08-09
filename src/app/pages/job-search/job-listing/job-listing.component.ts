@@ -4,6 +4,7 @@ import {SalaryConverterService} from '../../job-tool/salary-converter/salary-con
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {DataService} from 'src/app/data.service';
 import {Router} from "@angular/router";
+import {MessageService} from "primeng/api";
 
 @Component({
     selector: 'uni-job-listing',
@@ -28,7 +29,7 @@ export class JobListingComponent implements OnInit {
     resultPerPage = 20
     countryCodes: any
     categoryList: any
-    selectedCountry: string = 'India'
+    selectedCountry: any
     jobTypeList: any[] = [{
         code: 'full_time', name: 'Full time'
     }, {
@@ -49,7 +50,7 @@ export class JobListingComponent implements OnInit {
 
 
     constructor(private jobService: JobSearchService, private sConvert: SalaryConverterService,
-                private dataService: DataService, private router: Router
+                private dataService: DataService, private router: Router, private toastr: MessageService
     ) {
         this.countryCodes = [
             {"name": "Austria", "code": "at", "flag": "https://flagcdn.com/at.svg"},
@@ -79,7 +80,7 @@ export class JobListingComponent implements OnInit {
             company: new FormControl('')
         });
         this.filterForm = new FormGroup({
-            countryCode: new FormControl(''),
+            countryCode: new FormControl('', Validators.required),
             category: new FormControl(''),
             location: new FormControl(''),
             distance: new FormControl(''),
@@ -90,6 +91,7 @@ export class JobListingComponent implements OnInit {
             max_days_old: new FormControl('')
         });
         this.dataService.currentData.subscribe(data => {
+            console.log(data);
             this.selectedCountryCode = data.countryCode.code
             this.fG.setValue({
                 countryCode: data.countryCode.code,
@@ -144,23 +146,28 @@ export class JobListingComponent implements OnInit {
     }
 
     onSubmit() {
-        let req = {
-            location: this.selectedCountryCode,
-            page: this.page,
-            result_per_page: this.resultPerPage,
-            what: this.fG.value.title,
-            where: this.fG.value.location,
-            company: this.fG.value.company
-        }
-        this.jobService.searchJobs(req).subscribe(
-            (data: any) => {
-                this.jobs = data.results;
-                this.count = data.count
-            },
-            (error) => {
-                console.error('Error fetching job listings:', error);
+        this.filterForm.reset()
+        if (this.fG.valid) {
+            let req = {
+                location: this.fG.value.countryCode.code,
+                page: this.page,
+                result_per_page: this.resultPerPage,
+                what: this.fG.value.title,
+                where: this.fG.value.location,
+                company: this.fG.value.company
             }
-        );
+            this.jobService.searchJobs(req).subscribe(
+                (data: any) => {
+                    this.jobs = data.results;
+                    this.count = data.count
+                },
+                (error) => {
+                    console.error('Error fetching job listings:', error);
+                }
+            );
+        } else {
+            this.toastr.add({severity: 'error', summary: 'Error', detail: "Fill required Filed"});
+        }
     }
 
     onClickDetails(job: any) {
@@ -183,32 +190,37 @@ export class JobListingComponent implements OnInit {
     }
 
     onFilterSubmit() {
-        console.log(this.filterForm.value)
-        let req = {
-            location: this.filterForm.value.countryCode.code,
-            page: this.page,
-            result_per_page: this.resultPerPage,
-            where: this.filterForm.value.location,
-            category: this.filterForm.value.category.tag,
-            full_time: this.filterForm.value.job_type.code == 'full_time' ? 1 : '',
-            part_time: this.filterForm.value.job_type.code == 'part_time' ? 1 : '',
-            contract: this.filterForm.value.job_type.code == 'contract' ? 1 : '',
-            permanent: this.filterForm.value.job_type.code == 'permanent' ? 1 : '',
-            distance: this.filterForm.value.distance.code,
-            salary_min: this.filterForm.value.salary_min,
-            salary_max: this.filterForm.value.salary_max,
-            company: this.filterForm.value.company,
-            max_days_old: this.filterForm.value.max_days_old
-        }
-        this.jobService.searchJobs(req).subscribe(
-            (data: any) => {
-                this.jobs = data.results
-                this.count = data.count
-            },
-            (error) => {
-                console.error('Error fetching job listings:', error);
+        this.fG.reset();
+        if (this.filterForm.valid) {
+            let req = {
+                location: this.filterForm.value.countryCode.code,
+                page: this.page,
+                result_per_page: this.resultPerPage,
+                where: this.filterForm.value.location,
+                category: this.filterForm.value.category.tag,
+                full_time: this.filterForm.value.job_type.code == 'full_time' ? 1 : '',
+                part_time: this.filterForm.value.job_type.code == 'part_time' ? 1 : '',
+                contract: this.filterForm.value.job_type.code == 'contract' ? 1 : '',
+                permanent: this.filterForm.value.job_type.code == 'permanent' ? 1 : '',
+                distance: this.filterForm.value.distance.code,
+                salary_min: this.filterForm.value.salary_min,
+                salary_max: this.filterForm.value.salary_max,
+                company: this.filterForm.value.company,
+                max_days_old: this.filterForm.value.max_days_old
             }
-        );
+            this.jobService.searchJobs(req).subscribe(
+                (data: any) => {
+                    this.jobs = data.results
+                    this.count = data.count
+                },
+                (error) => {
+                    console.error('Error fetching job listings:', error);
+                }
+            );
+        } else {
+            this.toastr.add({severity: 'error', summary: 'Error', detail: "Fill required Filed"});
+        }
+
     }
 
     onClickApply(job: any, type: any) {
@@ -238,6 +250,10 @@ export class JobListingComponent implements OnInit {
                 console.error('not able to apply:', error);
             }
         );
+    }
+
+    goBack(){
+        this.isDetailedPageClicked = false
     }
 
 }

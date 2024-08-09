@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from "@angular/router";
 import { DataService } from 'src/app/data.service';
+import {MessageService} from "primeng/api";
 
 @Component({
   selector: 'uni-job-hunt',
@@ -13,7 +14,7 @@ export class JobHuntComponent implements OnInit {
   countryCodes: any
 
 
-  constructor(private router: Router, private dataService: DataService,) {
+  constructor(private router: Router, private dataService: DataService, private toastr: MessageService) {
     this.countryCodes = [
       { "name": "Austria", "code": "at", "flag": "https://flagcdn.com/at.svg" },
       { "name": "Australia", "code": "au", "flag": "https://flagcdn.com/au.svg" },
@@ -49,8 +50,12 @@ export class JobHuntComponent implements OnInit {
   }
 
   onSubmit() {
-    this.dataService.changeData(this.fG.value)
-    this.router.navigateByUrl(`/pages/job-portal/job-listing`);
+    if (this.fG.valid) {
+      this.dataService.changeData(this.fG.value)
+      this.router.navigateByUrl(`/pages/job-portal/job-listing`);
+    }else{
+      this.toastr.add({severity:'error', summary: 'Error', detail: "Fill required Filed"});
+    }
   }
 
 }

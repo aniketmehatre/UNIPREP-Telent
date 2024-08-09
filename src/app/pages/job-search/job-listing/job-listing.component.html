@@ -4,21 +4,21 @@
             <div class="d-flex justify-content-center align-items-center gap-2 mt-2">
                 <div class="w-30">
                     <p-dropdown id="fromCountry" styleClass="w-100" style="width: 100% !important;"
-                                formControlName="countryCode" [options]="countryCodes" [filter]="true"
-                                filterBy="name" [(ngModel)]="selectedCountry"
-                                [showClear]="true" optionLabel="name" placeholder="Source Country"></p-dropdown>
+                        formControlName="countryCode" [options]="countryCodes" [filter]="true" filterBy="name"
+                        [(ngModel)]="selectedCountry" [showClear]="true" optionLabel="name"
+                        placeholder="Source Country"></p-dropdown>
                 </div>
                 <div class="w-30">
                     <input type="text" formControlName="location" class="sharp-edges" pInputText
-                           placeholder="Search by Location"/>
+                        placeholder="Search by Location" />
                 </div>
                 <div class="w-30">
                     <input type="text" formControlName="title" class="sharp-edges" pInputText
-                           placeholder="Search by Job Title"/>
+                        placeholder="Search by Job Title" />
                 </div>
                 <div class="w-30">
                     <input type="text" formControlName="company" class="sharp-edges" pInputText
-                           placeholder="Search by Company"/>
+                        placeholder="Search by Company" />
                 </div>
                 <div>
                     <button class="btn btn-primary text-small btn-rounded" type="submit">
@@ -29,7 +29,7 @@
         </div>
     </form>
 </div>
-<div class="row mt-4" *ngIf="!isDetailedPageClicked">
+<div class="row mt-4">
     <div class="col-3 card p-4">
         <form [formGroup]="filterForm" (ngSubmit)="onFilterSubmit()">
             <div class="form-group">
@@ -41,15 +41,15 @@
                         <span (click)="onClickClear()">Clear</span>
                     </div>
                     <div class="col-md-12">
-                        <label class="form-label" style="font-size: small; font-weight: 500">Country</label>
+                        <label class="form-label" style="font-size: small; font-weight: 500">Country
+                            <span class="mandatory">*</span></label>
                         <div class="form-group">
                             <div class="mb-3">
                                 <p-dropdown id="countryCode" styleClass="w-100" style="width: 100% !important;"
-                                            formControlName="countryCode" [options]="countryCodes" [filter]="true"
-                                            filterBy="name" [showClear]="true" optionLabel="name"
-                                            [(ngModel)]="fromCountry"
-                                            (onChange)="onCountryChangeFilter($event)"
-                                            placeholder="Source Country"></p-dropdown>
+                                    formControlName="countryCode" [options]="countryCodes" [filter]="true"
+                                    filterBy="name" [showClear]="true" optionLabel="name" [(ngModel)]="fromCountry"
+                                    (onChange)="onCountryChangeFilter($event)"
+                                    placeholder="Source Country"></p-dropdown>
                             </div>
                         </div>
                     </div>
@@ -60,9 +60,9 @@
                                 <span class="p-input-icon-left w-100">
                                     <i class="pi pi-search"></i>
                                     <p-dropdown id="category" styleClass="w-100" style="width: 100% !important;"
-                                                formControlName="category" [options]="categoryList" [filter]="true"
-                                                filterBy="label" [showClear]="true" optionLabel="label"
-                                                placeholder="Category"></p-dropdown>
+                                        formControlName="category" [options]="categoryList" [filter]="true"
+                                        filterBy="label" [showClear]="true" optionLabel="label"
+                                        placeholder="Category"></p-dropdown>
 
                                 </span>
                             </div>
@@ -73,7 +73,7 @@
                         <div class="form-group">
                             <div class="mb-3">
                                 <input type="text" formControlName="location" class="sharp-edges" pInputText
-                                       placeholder="Search by Location"/>
+                                    placeholder="Search by Location" />
                             </div>
                         </div>
                     </div>
@@ -84,27 +84,14 @@
                                 <span class="p-input-icon-left w-100">
                                     <i class="pi pi-search"></i>
                                     <p-dropdown id="job_type" styleClass="w-100" style="width: 100% !important;"
-                                                formControlName="job_type" [options]="jobTypeList" [filter]="true"
-                                                filterBy="name" [showClear]="true" optionLabel="name"
-                                                placeholder="Job Type"></p-dropdown>
+                                        formControlName="job_type" [options]="jobTypeList" [filter]="true"
+                                        filterBy="name" [showClear]="true" optionLabel="name"
+                                        placeholder="Job Type"></p-dropdown>
                                 </span>
                             </div>
                         </div>
                     </div>
-                    <!-- <div class="col-md-12">
-                        <label class="form-label" style="font-size: small; font-weight: 500">Job Type</label>
-                        <div class="form-group">
-                            <div class="mb-3">
-                                <span class="p-input-icon-left w-100">
-                                    <i class="pi pi-search"></i>
-                                    <p-dropdown id="job_type" styleClass="w-100" style="width: 100% !important;"
-                                        formControlName="distance" [options]="jobTypeList" [filter]="true"
-                                        filterBy="name" [showClear]="true" optionLabel="name"
-                                        (onChange)="onChagangeDistanceList($event)" placeholder="Job Type"></p-dropdown>
-                                </span>
-                            </div>
-                        </div>
-                    </div> -->
+                   
                     <div class="col-md-12">
                         <label class="form-label" style="font-size: small; font-weight: 500">Distance</label>
                         <div class="form-group">
@@ -112,9 +99,9 @@
                                 <span class="p-input-icon-left w-100">
                                     <i class="pi pi-search"></i>
                                     <p-dropdown id="distance" styleClass="w-100" style="width: 100% !important;"
-                                                formControlName="distance" [options]="distanceList" [filter]="true"
-                                                filterBy="name" [showClear]="true" optionLabel="name"
-                                                placeholder="Distance"></p-dropdown>
+                                        formControlName="distance" [options]="distanceList" [filter]="true"
+                                        filterBy="name" [showClear]="true" optionLabel="name"
+                                        placeholder="Distance"></p-dropdown>
                                 </span>
                             </div>
                         </div>
@@ -124,7 +111,7 @@
                         <div class="form-group">
                             <div class="mb-3">
                                 <input type="text" formControlName="company" class="sharp-edges" pInputText
-                                       placeholder="Search by Company"/>
+                                    placeholder="Search by Company" />
                             </div>
                         </div>
                     </div>
@@ -133,7 +120,7 @@
                         <div class="form-group">
                             <div class="mb-3">
                                 <input type="text" formControlName="max_days_old" class="sharp-edges" pInputText
-                                       placeholder="Enter Maximum Days Old"/>
+                                    placeholder="Enter Maximum Days Old" />
                             </div>
                         </div>
                     </div>
@@ -142,7 +129,7 @@
                         <div class="form-group">
                             <div class="mb-3">
                                 <input type="text" formControlName="salary_min" class="sharp-edges" pInputText
-                                       placeholder="Minimum Salary"/>
+                                    placeholder="Minimum Salary" />
                             </div>
                         </div>
                     </div>
@@ -151,7 +138,7 @@
                         <div class="form-group">
                             <div class="mb-3">
                                 <input type="text" formControlName="salary_max" class="sharp-edges" pInputText
-                                       placeholder="Maximum Salary"/>
+                                    placeholder="Maximum Salary" />
                             </div>
                         </div>
                     </div>
@@ -164,14 +151,14 @@
             </div>
         </form>
     </div>
-    <div class="col-9">
+    <div class="col-9" *ngIf="!isDetailedPageClicked">
         <div class="row">
             <div *ngFor="let job of jobs; let i = index" class="col-md-6 col-12 mb-3">
                 <div class="card scholarshiplistcard h-100">
                     <div class="card-body">
                         <div class="d-flex justify-content-start gap-2 mb-2">
                             <div class="courseImage"
-                                 style="background-image: url('https://api.uniprep.ai/uniprepapi/storage/app/public/Pitch-deck-images/Airbnb.webp')">
+                                style="background-image: url('https://api.uniprep.ai/uniprepapi/storage/app/public/Pitch-deck-images/Airbnb.webp')">
                             </div>
                             <div class="d-flex flex-column h-100 w-100">
                                 <div class="job-card d-flex flex-column h-100 w-100">
@@ -183,7 +170,8 @@
                                             <div class="row">
                                                 <div class="col" *ngIf="job.contract_type">
                                                     <small><i class="fa-regular fa-briefcase"></i>&nbsp;
-                                                        {{ job.contract_type ? job.contract_type : job.contract_time }}</small>
+                                                        {{ job.contract_type ? job.contract_type : job.contract_time
+                                                        }}</small>
                                                 </div>
                                                 <div class="col">
                                                     <small></small>
@@ -191,7 +179,7 @@
                                             </div>
                                             <div class="row" *ngIf="job.salary_max || job.salary_min">
                                                 <div class="col">
-                                                    <small> Salary: {{ job.salary_max }} - {{ job.salary_min }}</small>
+                                                    <small> Salary: {{ job.salary_min }} - {{ job.salary_max }}</small>
                                                 </div>
                                             </div>
                                             <div class="row">
@@ -211,13 +199,13 @@
                                     </div>
                                     <div class="button-container mt-auto ustify-content-end gap-3">
                                         <button class="text-small btn btn-primary btn-rounded px-3"
-                                                (click)="onClickDetails(job)">Details
+                                            (click)="onClickDetails(job)">Details
                                         </button>
                                         <button class="text-small btn btn-dark btn-rounded px-3"
-                                                (click)="onClickApply(job, 'shortlist')">Shortlist
+                                            (click)="onClickApply(job, 'shortlist')">Shortlist
                                         </button>
                                         <button class="text-small btn btn-danger btn-rounded px-3"
-                                                (click)="onClickApply(job,'apply')">Apply
+                                            (click)="onClickApply(job,'apply')">Apply
                                         </button>
                                     </div>
                                 </div>
@@ -228,68 +216,69 @@
             </div>
         </div>
     </div>
-    <div class="row mt-2" *ngIf="isDetailedPageClicked">
-        <div class="col-3">
+    <div class="col-9" *ngIf="isDetailedPageClicked">
+        <div class="row">
+            <div class="card scholarshiplistcard h-100">
+                <div class="card-body">
+                    <div class="justify-content-start">
+                        <div class="row mt-2 bg-light  p-0 m-0">
+                            <div class="col-md-12 text-start p-0 m-0">
+                                <div class="backIcon">
+                                    <span class="pi pi-angle-left" (click)="goBack()"></span>
+                                </div>
+                
+                            </div>
+                            <div class="col-9">
+                                <h5 class="uniprep-primary text-wrap mb-0">{{ singleData.title }}</h5>
+                                <h6>{{ singleData.company.display_name }} · {{
+                                    singleData.location.display_name
+                                    }}</h6>
+                                <div class="flex-column lh-lg mb-2">
 
-        </div>
-        <div class="col-9">
-            <div class="row">
-                <div class="card scholarshiplistcard h-100">
-                    <div class="card-body">
-                        <div class="justify-content-start mb-2">
-                            <div class="row mt-2 bg-light">
-                                <div class="col-9">
-                                    <h5 class="uniprep-primary text-wrap mb-0">{{ singleData.title }}</h5>
-                                    <h6>{{ singleData.company.display_name }} · {{
-                                            singleData.location.display_name
-                                        }}</h6>
-                                    <div class="flex-column lh-lg mb-2">
-
-                                    </div>
-                                </div>
-                                <div class="col-3">
-                                    <div class="d-flex align-items-end justify-content-end gap-2">
-                                        <button class="text-small btn btn-dark btn-rounded px-5">Shortlist</button>
-                                        <button class="text-small btn btn-danger btn-rounded px-5">Apply</button>
-                                    </div>
-                                </div>
-                                <div class="col-6">
-                                    <h5><small>{{ singleData.contract_type }}</small></h5>
-                                </div>
-                                <div class="col-6 text-end">
-                                    <h5><small>{{ singleData.created | timeAgo }}</small></h5>
                                 </div>
                             </div>
-                            <!-- <div class="d-flex align-items-center justify-content-between gap-1">
+                            <div class="col-3">
+                                <div class="d-flex align-items-end justify-content-end gap-2">
+                                    <button class="text-small btn btn-dark btn-rounded px-5">Shortlist</button>
+                                    <button class="text-small btn btn-danger btn-rounded px-5">Apply</button>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <h5><small>{{ singleData.contract_type }}</small></h5>
+                            </div>
+                            <div class="col-6 text-end">
+                                <h5><small>{{ singleData.created | timeAgo }}</small></h5>
+                            </div>
+                        </div>
+                        <!-- <div class="d-flex align-items-center justify-content-between gap-1">
                                                 <button class="text-small btn btn-primary btn-rounded px-5">Details</button>
                                                 <button
                                                     class="text-small btn btn-secondary btn-rounded px-5">Shortlist</button>
                                                 <button class="text-small btn btn-primary btn-rounded px-5">Apply</button>
                                             </div> -->
-                        </div>
                     </div>
-
                 </div>
-                <div class="card scholarshiplistcard h-100 mt-2">
-                    <div class="card-body">
-                        <div class="row mt-2 bg-light">
-                            <div class="col-12 fw-bold">
-                                Job Description
-                            </div>
-                            <div class="col-12">
-                                <small>
-                                    {{ singleData.description }}</small>
-                            </div>
+
+            </div>
+            <div class="card scholarshiplistcard h-100 mt-2">
+                <div class="card-body">
+                    <div class="row mt-2 bg-light">
+                        <div class="col-12 fw-bold">
+                            Job Description
+                        </div>
+                        <div class="col-12">
+                            <small>
+                                {{ singleData.description }}</small>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <div class="col-12" *ngIf="!isDetailedPageClicked">
-        <div class="mt-5">
-            <p-paginator *ngIf="count > 0" [rows]="resultPerPage" [totalRecords]="count"
-                         [rowsPerPageOptions]="[10,20,50]"
-                         (onPageChange)="paginate($event)" dropdownAppendTo="body"></p-paginator>
-        </div>
+</div>
+<div class="col-12" *ngIf="!isDetailedPageClicked">
+    <div class="mt-5">
+        <p-paginator *ngIf="count > 0" [rows]="resultPerPage" [totalRecords]="count" [rowsPerPageOptions]="[10,20,50]"
+            (onPageChange)="paginate($event)" dropdownAppendTo="body"></p-paginator>
     </div>
+</div>
