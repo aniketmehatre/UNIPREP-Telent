@@ -11,7 +11,7 @@
 						class="fa-solid fa-check tickIcon"></i></button>
 			</div>
 		</div>
-		<!-- <div>
+		<div>
 			<h5 class="text-center uniprep-primary">Modern</h5>
 			<div class="cvBuilderSampleImg" [ngClass]="{ selectedResumeLevel: selectedResumeLevel == 'Modern' }"
 				(click)="imgOnclick('Modern')">
@@ -21,7 +21,7 @@
 						class="fa-solid fa-check tickIcon"></i></button>
 			</div>
 		</div>
-		<div>
+		<!-- <div>
 			<h5 class="text-center uniprep-primary">Creative</h5>
 			<div class="cvBuilderSampleImg" [ngClass]="{ selectedResumeLevel: selectedResumeLevel == 'Creative' }"
 				(click)="imgOnclick('Creative')">
@@ -30,8 +30,8 @@
 				<button *ngIf="selectedResumeLevel == 'Creative'" class="center-button">Selected <i
 						class="fa-solid fa-check tickIcon"></i></button>
 			</div>
-		</div>
-		<div>
+		</div> -->
+		 <!-- <div>
 			<h5 class="text-center uniprep-primary">Functional</h5>
 			<div class="cvBuilderSampleImg" [ngClass]="{ selectedResumeLevel: selectedResumeLevel == 'Functional' }"
 				(click)="imgOnclick('Functional')">
@@ -40,7 +40,7 @@
 				<button *ngIf="selectedResumeLevel == 'Functional'" class="center-button">Selected <i
 						class="fa-solid fa-check tickIcon"></i></button>
 			</div>
-		</div>
+		</div> -->
 		<div>
 			<h5 class="text-center uniprep-primary">Academic</h5>
 			<div class="cvBuilderSampleImg" [ngClass]="{ selectedResumeLevel: selectedResumeLevel == 'Academic' }"
@@ -50,7 +50,7 @@
 				<button *ngIf="selectedResumeLevel == 'Academic'" class="center-button">Selected <i
 						class="fa-solid fa-check tickIcon"></i></button>
 			</div>
-		</div> -->
+		</div>
 	</div>
 	<div *ngIf="isButtonDisabledSelectTemplate" class="row justify-content-center">
 		<div class="col-md-12 mt-5" style="text-align: center;">
@@ -66,47 +66,10 @@
 				<h3 class="text-center uniprep-primary">Your Coverletter</h3>
 				<h5 class="text-center uniprep-primary">{{ selectedResumeLevel }}</h5>
 				<div class="cvBuilderSampleImg">
+					<img *ngIf="selectedResumeLevel == 'Modern'"
+						src="{{previewImage}}" />
 					<!-- <img *ngIf="selectedResumeLevel == 'Traditional'"
 						src="https://api.uniprep.ai/uniprepapi/storage/app/public/SampleUploadDocuments/cover_letter/traditional.png" /> -->
-					<div class="h-100" [ngClass]="{ previewBodyForm: !fullScreenVisible, previewBodyFormFull: fullScreenVisible }"
-		               *ngIf="selectedResumeLevel=='Traditional'">
-						<div style="text-align: left;">
-							<div class="container">
-								<div class="vertical-line"></div>
-								<div class="horizontal-line"></div>
-								<div class="circle"></div>
-							</div>
-					
-							<div style=" padding:5px; font-family:'Times New Roman', Times, serif; font-size: 5px;">
-								<span>
-									<h1 style="font-size: 14px;">{{ f["user_name"].value }}</h1>
-								</span>
-					
-								<p>&nbsp;{{ f["user_job_title"].value }}</p> <br><br>
-								<p><span>Dear {{f["managername"].value }},</span></p><br>
-								<p><span [innerHTML]="f['user_summary'].value"></span></p>
-								<br>
-								<p><span>Warm regards,&nbsp;</span></p>
-								<p>{{ f["user_name"].value }}</p>
-					
-							</div>
-							<br>
-							<br>
-							<br>
-							<br>
-							<br>
-							<br>
-					
-							<div style="  bottom:0px;position:sticky; width: 100%;   ">
-					
-								<div class="container1">
-									<div class="vertical-line1"></div>
-									<div class="horizontal-line1"></div>
-									<div class="circle1"></div>
-								</div>
-							</div>
-						</div>
-					</div>
 					<!-- <img *ngIf="selectedResumeLevel == 'Modern'"
 						src="https://api.uniprep.ai/uniprepapi/storage/app/public/SampleUploadDocuments/cover_letter/modern.png" />
 					<img *ngIf="selectedResumeLevel == 'Creative'"
@@ -411,102 +374,97 @@
 
 <ng-template #sharedContent>
 	<div class="h-100" [ngClass]="{ previewBodyForm: !fullScreenVisible, previewBodyFormFull: fullScreenVisible }"
-		*ngIf="selectedResumeLevel=='Modern'">
+		*ngIf="selectedResumeLevel=='Modern'" id="cv-preview-container">
+		<!-- code -->
+		<div class="containermodern">
 
-		<div class="container mt-2">
-			<div class="body">
-				<table style="width:100%;border-collapse: collapse; ">
-					<tr>
-						<td style="width:70%; background-color: #002B98;height:30px;  ">
-						</td>
-						<td style=" width:30%;  height:30px;  ">
-							<div style="  height:15px;background-color:black">
+			 <div class="horizontal-lineacmodern1"></div>
+			 <div class="horizontal-lineacmodern2"></div>
+		</div>
 
-							</div>
-						</td>
-					</tr>
-				</table>
+		<div  class="mt-5 customfontstyles" style=" padding:5px; font-family:'Times New Roman', Times, serif;">
+			<span>
+				<h1 class=" customfontstylesname">{{ f["user_name"].value }}</h1>
+			</span>
 
-				<div style="margin:5px; padding:7px; font-size: 5px;">
+			<p>&nbsp;{{ f["user_job_title"].value }}</p> <br><br>
+			<p><span>Dear {{f["managername"].value }},</span></p><br>
+			<p><span [innerHTML]="f['user_summary'].value"></span></p>
+			<br>
+			<p><span>Warm regards,&nbsp;</span></p>
+			<p>{{ f["user_name"].value }}</p>
 
+		</div>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
 
-					<br> <br>
+		<div style="  bottom:0px;position:sticky; width: 100%;   ">
+
+			<div class="container1">
+				<div class="horizontal-linemodern11"></div>
+				<div class="horizontal-lineamodern22"></div>
+
+			</div>
+		</div>
+		<!-- code checking -->
+		<!-- <div class="rectangle-container">
+			<div class="header-line"></div>
+			<div class="content">
+				<div  class="mt-5 customfontstyles" style=" padding:5px; font-family:'Times New Roman', Times, serif;">
 					<span>
-						<h1 style="font-size: 14px; font-weight: 750px;">{{ f["user_name"].value }}</h1>
+						<h1 class=" customfontstylesname">{{ f["user_name"].value }}</h1>
 					</span>
-
-					<p>{{ f["user_job_title"].value }}</p> <br><br>
-
+		
+					<p>&nbsp;{{ f["user_job_title"].value }}</p> <br><br>
 					<p><span>Dear {{f["managername"].value }},</span></p><br>
-
 					<p><span [innerHTML]="f['user_summary'].value"></span></p>
 					<br>
 					<p><span>Warm regards,&nbsp;</span></p>
-					<p style="margin-top:8px;">{{ f["user_name"].value }}
-				</div>
-				<br>
-
-				<br>
-				<div style=" position: absolute;  bottom: 40px; width: 70%;   ">
-					<table style="width:100%;border-collapse: collapse; ">
-						<tr>
-							<td style=" width:30%;  height:30px;  ">
-								<div style="  height:15px;background-color:black">
-
-								</div>
-							</td>
-							<td style="width:70%; background-color: #002B98;height:30px;  ">
-							</td>
-
-						</tr>
-					</table>
+					<p>{{ f["user_name"].value }}</p>
+		
 				</div>
 			</div>
-		</div>
+			<div class="footer-line"></div>
+		  </div> -->
 	</div>
 	<div class="h-100" [ngClass]="{ previewBodyForm: !fullScreenVisible, previewBodyFormFull: fullScreenVisible }"
 		*ngIf="selectedResumeLevel=='Academic'">
-		<div class="container mt-2">
-			<div class="body">
-				<table style="width:100%;border-collapse: collapse; ">
-					<tr>
-						<td style=" width:30%;  height:30px;  ">
-							<div style="  height:15px; background-color:black">
+		<div class="containeracadamic ">
+			<!-- <div class="vertical-lineacadamic"></div> -->
+			 <div class="horizontal-lineacadamic"></div>
+			<!-- <div class="circle"></div> -->
+		</div>
 
-							</div>
-						</td>
-					</tr>
-				</table>
+		<div class="mt-5" style=" padding:5px; font-family:'Times New Roman', Times, serif; font-size: 5px;">
+			<span>
+				<h1 style="font-size: 14px;">{{ f["user_name"].value }}</h1>
+			</span>
 
-				<div style="margin:5px; padding:7px; font-size: 5px;">
-					<br> <br>
-					<span>
-						<h1 style="font-size: 14px; font-weight: 750px;">{{ f["user_name"].value }}</h1>
-					</span>
+			<p>&nbsp;{{ f["user_job_title"].value }}</p> <br><br>
+			<p><span>Dear {{f["managername"].value }},</span></p><br>
+			<p><span [innerHTML]="f['user_summary'].value"></span></p>
+			<br>
+			<p><span>Warm regards,&nbsp;</span></p>
+			<p>{{ f["user_name"].value }}</p>
 
-					<p>{{ f["user_job_title"].value }}</p> <br><br>
+		</div>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
 
-					<p><span>Dear {{f["managername"].value }},</span></p><br>
+		<div style="  bottom:0px;position:sticky; width: 100%;   ">
 
-					<p><span [innerHTML]="f['user_summary'].value"></span></p>
-					<br>
-					<p><span>Warm regards,&nbsp;</span></p>
-					<p style="margin-top:8px;">{{ f["user_name"].value }}
-				</div>
-				<br>
-
-				<br>
-				<div style=" position: absolute;  bottom: 40px; width: 50%;   ">
-					<table style="width:100%;border-collapse: collapse; ">
-						<tr>
-							<td style=" width:30%;  height:30px;  ">
-								<div style="  height:15px;background-color:black">
-								</div>
-							</td>
-
-						</tr>
-					</table>
-				</div>
+			<div class="container1">
+				<!-- <div class="vertical-lineacadamic1"></div> -->
+				<div class="horizontal-lineacadamic1"></div>
+				<!-- <div class="circle1"></div> -->
 			</div>
 		</div>
 	</div>

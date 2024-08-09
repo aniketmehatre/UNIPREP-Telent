@@ -3,6 +3,7 @@ import { MessageService } from 'primeng/api';
 import { FormBuilder, FormGroup, FormArray, Form, Validators} from "@angular/forms";
 import { CourseListService } from '../../course-list/course-list.service';
 import { HttpHeaders,HttpClient } from '@angular/common/http';
+import html2canvas from 'html2canvas';
 
 @Component({
   selector: 'uni-cover-letter-builder',
@@ -56,7 +57,8 @@ export class CoverLetterBuilderComponent implements OnInit {
   selectedColorCode:number = 2;
   template1: any;
   userNameSplit: { firstWord: string, secondWord: string } = { firstWord: '', secondWord: ''};
-
+  @ViewChild('capture', { static: false }) captureElement!: ElementRef;
+  previewImage:string = "";
   constructor(private toaster: MessageService,  private fb: FormBuilder, private resumeService:CourseListService,private http: HttpClient) {
 
     this.resumeFormInfoData = this.fb.group({
@@ -122,10 +124,23 @@ export class CoverLetterBuilderComponent implements OnInit {
       console.log('Form is invalid, please correct the errors.');
       this.resumeFormInfoData.markAllAsTouched(); // Trigger validation messages if needed
     }else{
+      this.generateImage();
       this.activePageIndex=3;
     }
   }
-
+  generateImage() {
+    const cvPreviewContainer = document.getElementById('cv-preview-container');
+    console.log(cvPreviewContainer, "cvPreviewContainer");
+    if (cvPreviewContainer) {
+      html2canvas(cvPreviewContainer, { useCORS: true })
+        .then((canvas) => {
+          this.previewImage = canvas.toDataURL('image/png');
+        })
+        .catch((error) => {
+          console.error('Failed to generate image', error);
+        });
+    }
+  }
   imgOnclick(resumeLevel: any){
     this.isButtonDisabledSelectTemplate=true;
     this.selectedResumeLevel = resumeLevel;
