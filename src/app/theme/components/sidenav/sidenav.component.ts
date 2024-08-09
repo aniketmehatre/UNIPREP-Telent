@@ -139,16 +139,16 @@ export class SidenavComponent {
       url: "/pages/job-tool/career-tool",
       image: "fa-solid fa-file-user",
     },
-    {
-      title: "Career Planner",
-      url: "/pages/career-planner",
-      image: "fa-solid fa-arrow-progress",
-    },
-    {
-      title: "Company List",
-      url: "/pages/company-list",
-      image: "fa-solid fa-buildings",
-    },
+    // {
+    //   title: "Career Planner",
+    //   url: "/pages/career-planner",
+    //   image: "fa-solid fa-arrow-progress",
+    // },
+    // {
+    //   title: "Company List",
+    //   url: "/pages/company-list",
+    //   image: "fa-solid fa-buildings",
+    // },
     {
       title: "Entrepreneur",
       url: "",

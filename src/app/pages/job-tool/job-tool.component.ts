@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { filter } from 'rxjs';
 import { Location } from '@angular/common';
-
+import { CourseListService } from '../course-list/course-list.service';
 @Component({
   selector: 'uni-job-tool',
   templateUrl: './job-tool.component.html',
@@ -12,16 +12,19 @@ export class JobToolComponent implements OnInit {
   currentRoute: string = '';
   title: string = 'Career Tools';
   items:string[]=[" ₹ INR", "$ Dollers"];
+  hideTitleForPreviewPage: boolean = false;
+
   constructor(
     private router: Router,
     private activatedRoute: ActivatedRoute,
-    private location: Location
+    private location: Location,
+    private resumeService: CourseListService
   ) { }
 
   ngOnInit(): void {
-    this.getCurrentEndpoint();
     this.currentRoute = this.router.url;
     this.changeTitle();
+    this.hideHeaderForPreviewPage();
     this.router
       .events.pipe(
         filter(event => event instanceof NavigationEnd),
@@ -34,15 +37,18 @@ export class JobToolComponent implements OnInit {
   changeTitle() {
     if (this.currentRoute.includes("career-tool")) {
       this.title = "Career Tools";
-    }
-    else if (this.currentRoute.includes("cost-of-living")) {
+    } else if (this.currentRoute.includes("cost-of-living")) {
       this.title = "Cost of living";
     } else if (this.currentRoute.includes("cv-builder")) {
       this.title = "CV Builder";
     } else if (this.currentRoute.includes("salary-converter")) {
       this.title = "Global Salary Converter";
-    } else {
-      this.title = "Coverletter Builder";
+    } else if (this.currentRoute.includes("company-list")) {
+      this.title = "company-list";
+    } else if(this.currentRoute.includes("coverletter-builder")){
+      this.title = "Coverletter-Builder";
+    } else if(this.currentRoute.includes("career-planner")){
+      this.title = "career-planner";
     }
   }
   goBack() {
@@ -52,13 +58,15 @@ export class JobToolComponent implements OnInit {
       this.router.navigate(['/pages/job-tool/career-tool'])
     }
   }
-  currentEndpoint: string = "";
 
-  getCurrentEndpoint(): void {
-    const url = this.router.url;
-    const urlSegments = url.split('/');
-    this.currentEndpoint = urlSegments[urlSegments.length - 1];
+  hideHeaderForPreviewPage(){
+    this.resumeService.data$.subscribe(data => {
+      this.hideTitleForPreviewPage = data;
+    });
   }
 
-
+  isCostOfLivingRoute(): boolean {
+    console.log(this.currentRoute.includes('cost-of-living'))
+    return this.currentRoute.includes('cost-of-living');
+  }
 }

@@ -26,3 +26,64 @@
     font-weight: 700;
     padding: 0px 10px 0px 10px;
 }
+
+.container {
+  display: flex;
+  justify-content: space-between;
+  padding: 20px;
+}
+
+.column {
+  width: 24%;
+  position: relative;
+  padding-left: 10px;
+}
+
+.column:nth-child(n+2)::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background-color: grey;
+}
+
+.card-container {
+  margin-bottom: 20px;
+}
+
+.flex {
+  display: flex;
+  align-items: center;
+}
+
+.gap-2 {
+  gap: 8px;
+}
+.icon-gray {
+  color: gray;
+  margin-right: 8px;
+}
+.flex-align-center {
+  display: flex;
+  align-items: center;
+}
+.company{
+  color:var(--uniprep-primary)
+}
+
+.sharp-edges {
+  border-radius: 0;
+  width: 100%
+}
+.formGroup{
+  padding: 10px
+}
+:host ::ng-deep.p-dropdown {
+  width: 100% !important;
+  z-index: 1050;
+}
+:host ::ng-deep .p-dialog .p-dialog-content {
+  overflow: visible !important; /* Allow overflow for dropdown */
+}

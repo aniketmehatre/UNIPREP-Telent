@@ -39,27 +39,31 @@ export class CvBuilderComponent implements OnInit {
   selectedColorCode:number = 2;
   template1: any;
   userNameSplit: { firstWord: string, secondWord: string } = { firstWord: '', secondWord: ''};
+  stableFileName = Math.floor(100000000 + Math.random() * 900000);
+  resumeHistory: any = [];
+  clickedDownloadButton: boolean = false;
+  isUpdating: boolean = false;
 
   constructor(private toaster: MessageService,  private fb: FormBuilder, private resumeService:CourseListService, private http: HttpClient, private router: Router) {
 
     this.resumeFormInfoData = this.fb.group({
       selected_exp_level:['1'],
-      // user_name: ['', [Validators.required]],
-      // user_job_title: ['', [Validators.required]],
-      // user_email: ['', [Validators.required]],
-      // user_location: ['', [Validators.required]],
-      // user_phone: ['', [Validators.required]],
-      // user_linkedin:[''],
-      // user_website: [''],
-      // user_summary: ['', [Validators.required]],
-      user_name: ['vivek kaliyaperumal', [Validators.required]],
-      user_job_title: ['full stack developer', [Validators.required]],
-      user_email: ['vivek@uniabroad.co.in', [Validators.required]],
-      user_location: ['mysore,karnataka', [Validators.required]],
-      user_phone: ['9524999563', [Validators.required]],
-      user_linkedin:['vivek kaliyaperumal'],
-      user_website: ['www.ownwebsite.com'],
-      user_summary: ['Dedicated full stack developer with proficiency in front-end and back-end technologies, effective problem-solving skills, and a passion for creating innovative web applications.', [Validators.required]],
+      user_name: ['', Validators.required],
+      user_job_title: ['', Validators.required],
+      user_email: ['', Validators.required],
+      user_location: ['', Validators.required],
+      user_phone: ['', Validators.required],
+      user_linkedin:['', Validators.required],
+      user_website: [''],
+      user_summary: ['', Validators.required],
+      // user_name: ['vivek kaliyaperumal', [Validators.required]],
+      // user_job_title: ['full stack developer', [Validators.required]],
+      // user_email: ['vivek@uniabroad.co.in', [Validators.required]],
+      // user_location: ['mysore,karnataka', [Validators.required]],
+      // user_phone: ['9524999563', [Validators.required]],
+      // user_linkedin:['vivek kaliyaperumal'],
+      // user_website: ['www.ownwebsite.com'],
+      // user_summary: ['Dedicated full stack developer with proficiency in front-end and back-end technologies, effective problem-solving skills, and a passion for creating innovative web applications.', [Validators.required]],
       EduDetailsArray: this.fb.array([]),
       workExpArray: this.fb.array([]),
       projectDetailsArray: this.fb.array([]),
@@ -80,7 +84,7 @@ export class CvBuilderComponent implements OnInit {
     this.splitUserName(currentuserName); // it calls when the page refresh
     this.resumeFormInfoData.get('user_name')?.valueChanges.subscribe(value=>{
       this.splitUserName(value); // it calls when the user enters the user name
-    })
+    });
   }
 
   hideHeader(){
@@ -138,19 +142,19 @@ export class CvBuilderComponent implements OnInit {
     this.selectedResumeLevel = resumeLevel;
   }
 
-  generateImage() {
-    const cvPreviewContainer = document.getElementById('cv-preview-container');
-    console.log(cvPreviewContainer, "cvPreviewContainer");
-    if (cvPreviewContainer) {
-      html2canvas(cvPreviewContainer, { useCORS: true })
-        .then((canvas) => {
-          this.previewImage = canvas.toDataURL('image/png');
-        })
-        .catch((error) => {
-          console.error('Failed to generate image', error);
-        });
-    }
-  }
+  // generateImage() {
+  //   this.previewImage = "";
+  //   const cvPreviewContainer = document.getElementById('cv-preview-container');
+  //   if (cvPreviewContainer) {
+  //     html2canvas(cvPreviewContainer, { useCORS: true })
+  //       .then((canvas) => {
+  //         this.previewImage = canvas.toDataURL('image/png');
+  //       })
+  //       .catch((error) => {
+  //         console.error('Failed to generate image', error);
+  //       });
+  //   }
+  // }
 
   shakeButton(event: Event) {
     if(!this.selectedResumeLevel){
@@ -178,12 +182,20 @@ export class CvBuilderComponent implements OnInit {
   }
 
   next(){
+    // console.log(this.resumeFormInfoData);
     this.activePageIndex++;
-    // if (this.activePageIndex < this.pages.length - 1) {
-    //   this.activePageIndex++;
+    // if(this.activePageIndex == 3){
+    //   this.generateImage();
     // }
-    if(this.activePageIndex == 3){
-      this.generateImage();
+    if(this.activePageIndex == 4){
+      if(this.clickedDownloadButton){ //if the user not donwload the resume,in the presently created resume is not visible in the resume history page.
+        this.resumeService.getAlreadyCreatedResumes().subscribe(res=>{
+          this.resumeHistory = res;
+        });
+      }else{
+        this.activePageIndex--; 
+        this.toaster.add({severity: "error",summary: "Error",detail: "Please Download the Resume First!!"})
+      }
     }
     this.hideHeader();
   }
@@ -365,52 +377,93 @@ export class CvBuilderComponent implements OnInit {
 
   triggerAddMoreButton(){ //initially the cloning array is an empty so trigger and make the array as an not empty
 
+    // this.getEduDetailsArray.push(this.fb.group({
+    //   edu_college_name: ['Srinivasan Engg College'],
+    //   edu_still_pursuing:[''],
+    //   edu_start_year: ['2015'],
+    //   edu_end_year: ['2019'],
+    //   edu_degree: ['Bachelor of Engineering in C.S'],
+    //   edu_location: ['Perambalur'],
+    //   edu_percentage: ['65'],
+    //   edu_cgpa_percentage: ['%'],
+    // }));
+
     this.getEduDetailsArray.push(this.fb.group({
-      edu_college_name: ['Srinivasan Engg College'],
+      edu_college_name: ['',Validators.required],
       edu_still_pursuing:[''],
-      edu_start_year: ['2015'],
-      edu_end_year: ['2019'],
-      edu_degree: ['Bachelor of Engineering in C.S'],
-      edu_location: ['Perambalur'],
-      edu_percentage: ['65'],
+      edu_start_year: ['',Validators.required],
+      edu_end_year: ['',Validators.required],
+      edu_degree: ['',Validators.required],
+      edu_location: ['',Validators.required],
+      edu_percentage: ['',Validators.required],
       edu_cgpa_percentage: ['%'],
     }));
 
+    // this.getWorkExpArray.push(this.fb.group({
+    //   work_org_name: ['Uniabroad Private Ltd'],
+    //   work_currently_working:[''],
+    //   work_start_year: ['2013'],
+    //   work_end_year: ['2015'],
+    //   work_designation: ['Full stack developer'],
+    //   work_type: ['Fulltime'],
+    //   work_location: ['Mysore'],
+    //   work_job_description: ['Spearheaded the UI/UX redesign of UNIPREP, UNIAPPLY, SOPEXPERT, and the UNIABROAD website, resulting in a cohesive and user-friendly experience across all platforms.Implemented innovative design solutions for the frontend of the products, enhancing user engagement and satisfaction.Designed and optimized the CRM admin panel, improving internal workflows and user interactions with the system.Collaborated closely with development teams to ensure seamless integration of design elements and adherence to design guidelines across all products.'],
+    // }));
+
     this.getWorkExpArray.push(this.fb.group({
-      work_org_name: ['Uniabroad Private Ltd'],
+      work_org_name: ['',Validators.required],
       work_currently_working:[''],
-      work_start_year: ['2013'],
-      work_end_year: ['2015'],
-      work_designation: ['Full stack developer'],
-      work_type: ['Fulltime'],
-      work_location: ['Mysore'],
-      work_job_description: ['Spearheaded the UI/UX redesign of UNIPREP, UNIAPPLY, SOPEXPERT, and the UNIABROAD website, resulting in a cohesive and user-friendly experience across all platforms.Implemented innovative design solutions for the frontend of the products, enhancing user engagement and satisfaction.Designed and optimized the CRM admin panel, improving internal workflows and user interactions with the system.Collaborated closely with development teams to ensure seamless integration of design elements and adherence to design guidelines across all products.'],
+      work_start_year: ['',Validators.required],
+      work_end_year: ['',Validators.required],
+      work_designation: ['',Validators.required],
+      work_type: ['',Validators.required],
+      work_location: ['',Validators.required],
+      work_job_description: ['',Validators.required],
     }));
+
+    // this.getProjectDetailsArray.push(this.fb.group({
+    //   project_name: ['Anonymity'],
+    //   project_start_name: ['2015'],
+    //   project_end_name: ['2019'],
+    //   project_description: ['<li>Together with developers, collect and assess user requirements.</li><li>Using storyboards, process flows, and sitemaps, illustrate design concepts.</li><li>Create visual user interface components such as menus, tabs, and widgets.</li><li>Create UI mockups and prototypes that clearly show how websites work and appear.</li><li>Determine and address UX issues (e.g., responsiveness).</li>'],
+    // }));
 
     this.getProjectDetailsArray.push(this.fb.group({
-      project_name: ['Anonymity'],
-      project_start_name: ['2015'],
-      project_end_name: ['2019'],
-      project_description: ['<li>Together with developers, collect and assess user requirements.</li><li>Using storyboards, process flows, and sitemaps, illustrate design concepts.</li><li>Create visual user interface components such as menus, tabs, and widgets.</li><li>Create UI mockups and prototypes that clearly show how websites work and appear.</li><li>Determine and address UX issues (e.g., responsiveness).</li>'],
+      project_name: ['',Validators.required],
+      project_start_name: ['',Validators.required],
+      project_end_name: ['',Validators.required],
+      project_description: ['',Validators.required],
     }));
+
+    // this.getSkillsArray.push(this.fb.group({
+    //   skills: ['HTML'],
+    //   skills_proficiency: ['Basic'],
+    // }));
 
     this.getSkillsArray.push(this.fb.group({
-      skills: ['HTML'],
-      skills_proficiency: ['Basic'],
+      skills: ['',Validators.required],
+      skills_proficiency: ['',Validators.required],
     }));
 
+    // this.getLanguagesKnownArray.push(this.fb.group({
+    //   language: ['Tamil'],
+    //   lang_proficiency: ['Native'],
+    // }));
+
     this.getLanguagesKnownArray.push(this.fb.group({
-      language: ['Tamil'],
-      lang_proficiency: ['Native'],
+      language: ['',Validators.required],
+      lang_proficiency: ['',Validators.required],
     }));
 
   }
 
   downloadResume(){
+    this.clickedDownloadButton = true;
     let formData = this.resumeFormInfoData.value;
     let data = {
       ...formData,
-      selectedResumeLevel: this.selectedResumeLevel
+      selectedResumeLevel: this.selectedResumeLevel,
+      file_name: this.stableFileName,
     };
     this.resumeService.downloadResume(data).subscribe(res => {
       window.open(res, '_blank');
@@ -432,10 +485,11 @@ export class CvBuilderComponent implements OnInit {
     }else if(fieldName == 'work_job_description'){
       const work_designation = this.getWorkExpArray.value[iteration].work_designation;
       prompt = `Provide five roles and responsibilities for a ${ work_designation } role without using headings.`;
-    }else if(fieldName == 'project_description'){
-      const project_name = this.getProjectDetailsArray.value[iteration].project_name;
-      prompt = `Provide a project description for ${ project_name }, up to 30 words.`;
     }
+    // else if(fieldName == 'project_description'){
+    //   const project_name = this.getProjectDetailsArray.value[iteration].project_name;
+    //   prompt = `Provide a project description for ${ project_name }, up to 30 words.`;
+    // }
     
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
@@ -468,17 +522,18 @@ export class CvBuilderComponent implements OnInit {
           } else {
             console.error('No work experience entries found.');
           }
-        }else if(fieldName == 'project_description'){
-          const projectDetArray = this.getProjectDetailsArray;
-          if (projectDetArray.length > 0) {
-            const firstWorkExpGroup = projectDetArray.at(iteration) as FormGroup;
-            firstWorkExpGroup.patchValue({
-              project_description: GPTResponse
-            });
-          } else {
-            console.error('No Project details entries found.');
-          }
         }
+        // else if(fieldName == 'project_description'){
+        //   const projectDetArray = this.getProjectDetailsArray;
+        //   if (projectDetArray.length > 0) {
+        //     const firstWorkExpGroup = projectDetArray.at(iteration) as FormGroup;
+        //     firstWorkExpGroup.patchValue({
+        //       project_description: GPTResponse
+        //     });
+        //   } else {
+        //     console.error('No Project details entries found.');
+        //   }
+        // }
       } else {
         console.error('Unexpected response structure:', response);
       }
@@ -487,4 +542,45 @@ export class CvBuilderComponent implements OnInit {
     });
   }
   
+  downloadOldResume(resumeLink: string){
+    window.open(resumeLink, '_blank')
+  }
+
+  onTextModelChange(value: string){
+    const words = value.trim().split(/\s+/);
+    if (words.length > 50) {
+      let joinedText = words.slice(0, 50).join(' ');
+      this.resumeFormInfoData.patchValue({
+        user_summary: joinedText
+      });
+      this.resumeFormInfoData.get('user_summary')?.setErrors({ maxWordsExceeded: true });
+    }else{
+      this.resumeFormInfoData.get('user_summary')?.setErrors(null);
+    }
+    this.resumeFormInfoData.updateValueAndValidity();
+  }
+
+  onEditorModelChange(value: string, index: number) {
+    if (this.isUpdating) {
+      return;  
+    }
+    const words = value.trim().split(/\s+/);
+    const control = this.getWorkExpArray.at(index).get('work_job_description');
+    this.isUpdating = true;  
+    console.log(words.length);
+    if (words.length > 50) {
+      console.log("if ");
+      let joinedText = words.slice(0, 50).join(' ');
+      control?.setValue(joinedText, { emitEvent: false });
+      control?.setErrors({ maxWordsExceeded: true });
+      console.log(control);
+    } else {
+      console.log("else ");
+      // control?.patchValue(value);
+      control?.setErrors(null);
+    }
+    control?.updateValueAndValidity();
+    this.isUpdating = false;
+  }
+
 }

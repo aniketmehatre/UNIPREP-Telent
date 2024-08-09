@@ -1,37 +1,188 @@
-<div class="card mt-3">
-	<div class="card-body">
-		<div class="row">
-			<div *ngFor="let number of numbers; let i = index" class="col-md-3 col-12 mb-3">
-				<div class="card scholarshiplistcard h-100">
-					<div class="card-body">
-						<div class="d-flex justify-content-start gap-2 mb-2">
-							<div class="courseImage" style="background-image: url('https://api.uniprep.ai/uniprepapi/storage/app/public/Pitch-deck-images/Airbnb.webp')"></div>
-							<div class="flex-fill">
-								<h5 class="uniprep-primary text-wrap mb-0">Senior UI Designer</h5>
-								<small style="color: lightslategrey">Dribble • Banglore,India</small>
-								<div class="flex-column lh-lg mb-2">
-									<div>
-										<small><i class="fa-regular fa-briefcase"></i> &nbsp;part-Time</small>
-									</div>
-									<div>
-										<small><i class="fa-regular fa-user"></i> &nbsp;1-2 Year Experience</small>
-									</div>
-									<div>
-										<small><i class="fa-regular fa-location-pin"></i> &nbsp;Remote</small>
-									</div>
-									<div>
-										<small><i class="fa-regular fa-dollar-sign"></i> &nbsp;INR 10,000,000 - 15,000,000</small>
-									</div>
-								</div>
-								<div class="d-flex align-items-center justify-content-between gap-1">
-									<button class="text-small btn btn-primary btn-rounded px-5">Applied</button>
-									<p style="font-size: x-small; color: lightslategrey">5 Days Ago. 20 Applicants</p>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
+<!--<div class="card mt-3">-->
+<!--	<div class="card-body">-->
+<!--		<div class="row">-->
+<!--			<div *ngFor="let number of numbers; let i = index" class="col-md-3 col-12 mb-3">-->
+<!--				<div class="card scholarshiplistcard h-100">-->
+<!--					<div class="card-body">-->
+<!--						<div class="d-flex justify-content-start gap-2 mb-2">-->
+<!--							<div class="courseImage" style="background-image: url('https://api.uniprep.ai/uniprepapi/storage/app/public/Pitch-deck-images/Airbnb.webp')"></div>-->
+<!--							<div class="flex-fill">-->
+<!--								<h5 class="uniprep-primary text-wrap mb-0">Senior UI Designer</h5>-->
+<!--								<small style="color: lightslategrey">Dribble • Banglore,India</small>-->
+<!--								<div class="flex-column lh-lg mb-2">-->
+<!--									<div>-->
+<!--										<small><i class="fa-regular fa-briefcase"></i> &nbsp;part-Time</small>-->
+<!--									</div>-->
+<!--									<div>-->
+<!--										<small><i class="fa-regular fa-user"></i> &nbsp;1-2 Year Experience</small>-->
+<!--									</div>-->
+<!--									<div>-->
+<!--										<small><i class="fa-regular fa-location-pin"></i> &nbsp;Remote</small>-->
+<!--									</div>-->
+<!--									<div>-->
+<!--										<small><i class="fa-regular fa-dollar-sign"></i> &nbsp;INR 10,000,000 - 15,000,000</small>-->
+<!--									</div>-->
+<!--								</div>-->
+<!--								<div class="d-flex align-items-center justify-content-between gap-1">-->
+<!--									<button class="text-small btn btn-primary btn-rounded px-5">Applied</button>-->
+<!--									<p style="font-size: x-small; color: lightslategrey">5 Days Ago. 20 Applicants</p>-->
+<!--								</div>-->
+<!--							</div>-->
+<!--						</div>-->
+<!--					</div>-->
+<!--				</div>-->
+<!--			</div>-->
+<!--		</div>-->
+<!--	</div>-->
+<!--</div>-->
+<div class="card mt-3 bg-white">
+    <div class="card-body bg-white">
+        <div class="row">
+            <div class="container">
+                <div class="column" *ngFor="let status of statuses; let i = index">
+                    <h6><strong>{{ status.label }}({{ getJobsByStatus(status.value).length }})</strong></h6>
+                    <ng-container *ngFor="let job of getJobsByStatus(status.value)">
+                        <div class="card-container bg-light p-3">
+                            <!--                            <ng-template pTemplate="header">-->
+                            <!--                                <div class="flex align-items-center gap-2">-->
+                            <!--                                    <img [src]="job.country_flag" alt="logo" style="width: 30px; height: 30px;" />-->
+                            <!--                                </div>-->
+                            <!--                                <p>{{job.country_flag}}</p>-->
+                            <!--                            </ng-template>-->
+                            <div class="card-content">
+                                <div class="row p-0 m-0">
+                                    <div class="col-10 p-0 m-0">
+                                        <p class="company">
+                                            <strong> {{ job.job_title || 'No Title' }}</strong>
+                                        </p>
+                                    </div>
+                                    <div class="col-2 p-0 m-0" *ngIf="job.country_flag">
+                                        <img [src]="job.country_flag" alt="logo" class="p-2"
+                                             style="width: 30px; height: 30px;"/>
+                                    </div>
+                                </div>
+
+                                <p class="company">{{ job.company_name || 'No Company' }}
+                                    · {{ job.location || 'No Location' }}</p>
+                                <!--                                <p class="flex-align-center">-->
+                                <!--                                    &nbsp;&nbsp;<i class="fas fa-map-marker-alt icon-gray"></i>-->
+                                <!--                                    {{job.location || 'No Location'}}-->
+                                <!--                                </p>-->
+                                <p class="flex-align-center">
+                                    &nbsp;&nbsp;<i class="fas fa-briefcase icon-gray"></i>
+                                    {{ job.work_type || 'No Work Type' }}
+                                </p>
+                                <p class="flex-align-center">
+                                    &nbsp;&nbsp;<i class="fas fa-user-clock icon-gray"></i>
+                                    {{ job.experience || 'No Experience' }}
+                                </p>
+                                <p class="flex-align-center">
+                                    &nbsp;&nbsp;<i class="fas fa-dollar-sign icon-gray"></i>
+                                    {{ job.price || 'No Salary' }}
+                                </p>
+                                <div class="row p-0 m-0">
+                                    <div class="col-6 p-0 m-0">
+                                        <p-dropdown [(ngModel)]="job.type" [options]="statuses" placeholder="Status"
+                                                    (onChange)="onStatusChange(job, $event)"></p-dropdown>
+                                    </div>
+                                    <div class="col-6 p-0 m-0 text-end flex-align-end" >
+                                        {{ job.created_at | timeAgo }}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </ng-container>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
+<p-dialog [(visible)]="isVisibleAddManually" [modal]="true" [style]="{ width: '50vw' }" [draggable]="false"
+          [resizable]="false"
+          [breakpoints]="{ '960px': '30vw', '959px': '60vw', '425px': '90vw' }" (onHide)="clearRestriction()">
+    <div class="text-center mt-5 mb-4 formGroup">
+        <form [formGroup]="addManual" (ngSubmit)="onSubmit()">
+            <div class="row">
+                <div class="col-md-6">
+                    <label class="form-label" style="font-size: small; font-weight: 500">Organization</label>
+                    <div class="form-group">
+                        <div class="mb-3">
+                            <input type="text" formControlName="company_name" class="sharp-edges" pInputText
+                                   placeholder="Enter Organization"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label" style="font-size: small; font-weight: 500">Job Title</label>
+                    <div class="form-group">
+                        <div class="mb-3">
+                            <input type="text" formControlName="job_title" class="sharp-edges" pInputText
+                                   placeholder="Enter Job Title"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label" style="font-size: small; font-weight: 500">Job Type</label>
+                    <div class="form-group">
+                        <div class="mb-3">
+                            <input type="text" formControlName="job_type" class="sharp-edges" pInputText
+                                   placeholder="Enter Job Type"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label" style="font-size: small; font-weight: 500">Experience</label>
+                    <div class="form-group">
+                        <div class="mb-3">
+                            <input type="text" formControlName="experience" class="sharp-edges" pInputText
+                                   placeholder="Enter Experience"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label" style="font-size: small; font-weight: 500">Work Mode</label>
+                    <div class="form-group">
+                        <div class="mb-3">
+                            <input type="text" formControlName="work_mode" class="sharp-edges" pInputText
+                                   placeholder="Enter Work Mode"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label" style="font-size: small; font-weight: 500">Salary Range</label>
+                    <div class="form-group">
+                        <div class="mb-3">
+                            <input type="text" formControlName="salary_range" class="sharp-edges" pInputText
+                                   placeholder="Enter Salary Range"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label" style="font-size: small; font-weight: 500">Application Link</label>
+                    <div class="form-group">
+                        <div class="mb-3">
+                            <input type="text" formControlName="application_link" class="sharp-edges" pInputText
+                                   placeholder="Enter Application Link"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label" style="font-size: small; font-weight: 500">Status</label>
+                    <div class="form-group w-100">
+                        <div class="mb-3">
+                            <p-dropdown [options]="statuses" class="w-100" filterBy="label" [showClear]="true"
+                                        optionLabel="label" formControlName="status"
+                                        placeholder="Status" style="width: 100%;"></p-dropdown>
+                        </div>
+                    </div>
+                </div>
+                <div class="text-center">
+                    <button class="btn btn-primary text-small btn-rounded" type="submit">
+                        Filter
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</p-dialog>
+
