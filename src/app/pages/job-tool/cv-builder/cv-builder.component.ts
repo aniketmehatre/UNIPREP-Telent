@@ -36,34 +36,35 @@ export class CvBuilderComponent implements OnInit {
   submittedFormData: any = [];
   selectedExpLevel:number = 0;
   selectedThemeColor:string = "#172a99";
-  selectedColorCode:number = 2;
+  selectedColorCode:number = 1;
   template1: any;
   userNameSplit: { firstWord: string, secondWord: string } = { firstWord: '', secondWord: ''};
   stableFileName = Math.floor(100000000 + Math.random() * 900000);
   resumeHistory: any = [];
   clickedDownloadButton: boolean = false;
   isUpdating: boolean = false;
+  errorMessages: string[] = [];
 
   constructor(private toaster: MessageService,  private fb: FormBuilder, private resumeService:CourseListService, private http: HttpClient, private router: Router) {
 
     this.resumeFormInfoData = this.fb.group({
       selected_exp_level:['1'],
-      user_name: ['', Validators.required],
-      user_job_title: ['', Validators.required],
-      user_email: ['', Validators.required],
-      user_location: ['', Validators.required],
-      user_phone: ['', Validators.required],
-      user_linkedin:['', Validators.required],
-      user_website: [''],
-      user_summary: ['', Validators.required],
-      // user_name: ['vivek kaliyaperumal', [Validators.required]],
-      // user_job_title: ['full stack developer', [Validators.required]],
-      // user_email: ['vivek@uniabroad.co.in', [Validators.required]],
-      // user_location: ['mysore,karnataka', [Validators.required]],
-      // user_phone: ['9524999563', [Validators.required]],
-      // user_linkedin:['vivek kaliyaperumal'],
-      // user_website: ['www.ownwebsite.com'],
-      // user_summary: ['Dedicated full stack developer with proficiency in front-end and back-end technologies, effective problem-solving skills, and a passion for creating innovative web applications.', [Validators.required]],
+      // user_name: ['', Validators.required],
+      // user_job_title: ['', Validators.required],
+      // user_email: ['', Validators.required],
+      // user_location: ['', Validators.required],
+      // user_phone: ['', Validators.required],
+      // user_linkedin:['', Validators.required],
+      // user_website: [''],
+      // user_summary: ['', Validators.required],
+      user_name: ['vivek kaliyaperumal', [Validators.required]],
+      user_job_title: ['full stack developer', [Validators.required]],
+      user_email: ['vivek@uniabroad.co.in', [Validators.required]],
+      user_location: ['mysore,karnataka', [Validators.required]],
+      user_phone: ['9524999563', [Validators.required]],
+      user_linkedin:['vivek kaliyaperumal'],
+      user_website: ['www.ownwebsite.com'],
+      user_summary: ['Dedicated full stack developer with proficiency in front-end and back-end technologies, effective problem-solving skills, and a passion for creating innovative web applications.', [Validators.required]],
       EduDetailsArray: this.fb.array([]),
       workExpArray: this.fb.array([]),
       projectDetailsArray: this.fb.array([]),
@@ -85,6 +86,12 @@ export class CvBuilderComponent implements OnInit {
     this.resumeFormInfoData.get('user_name')?.valueChanges.subscribe(value=>{
       this.splitUserName(value); // it calls when the user enters the user name
     });
+    if (this.resumeFormInfoData.invalid) {
+      this.errorMessages = this.getWorkExpArray.controls.map(control => 
+          control.get('work_job_description')?.errors?.['maxWordsExceeded']  ? 'Job Description exceeds the maximum word limit.'  : ''
+      );
+      return;
+    }
   }
 
   hideHeader(){
@@ -117,14 +124,43 @@ export class CvBuilderComponent implements OnInit {
   }
 
   changeExperience(event: any){
+
     if(event.value != 1){
       this.eduDetailsLimit = 2;
       this.wrkExpLimit = 5;
-
     }else{
       this.eduDetailsLimit = 3;
       this.wrkExpLimit = 3;
     }
+    this.updateValidatorsForAllProjects();
+  }
+
+  updateValidatorsForAllProjects() {
+    this.getProjectDetailsArray.controls.forEach(control => {
+      const projectFormGroup = control as FormGroup;
+      this.updateValidators(projectFormGroup);
+    });
+  }
+
+  updateValidators(formGroup: FormGroup) {
+    
+    if (this.resumeFormInfoData.value.selected_exp_level === 1) {
+      formGroup.get('project_name')?.setValidators(Validators.required);
+      formGroup.get('project_start_name')?.setValidators(Validators.required);
+      formGroup.get('project_end_name')?.setValidators(Validators.required);
+      formGroup.get('project_description')?.setValidators(Validators.required);
+    } else {
+      formGroup.get('project_name')?.clearValidators();
+      formGroup.get('project_start_name')?.clearValidators();
+      formGroup.get('project_end_name')?.clearValidators();
+      formGroup.get('project_description')?.clearValidators();
+    }
+
+    // Update value and validity
+    formGroup.get('project_name')?.updateValueAndValidity();
+    formGroup.get('project_start_name')?.updateValueAndValidity();
+    formGroup.get('project_end_name')?.updateValueAndValidity();
+    formGroup.get('project_description')?.updateValueAndValidity();
   }
 
   resumeFormSubmit(){
@@ -140,6 +176,16 @@ export class CvBuilderComponent implements OnInit {
 
   imgOnclick(resumeLevel: any){
     this.selectedResumeLevel = resumeLevel;
+    if(resumeLevel == 'Modern'){
+      this.selectedThemeColor = '#172a99';
+      this.selectedColorCode = 1;
+    }else if(resumeLevel == 'Creative'){
+      this.selectedThemeColor = '#E2C742';
+      this.selectedColorCode = 5;
+    }else if(resumeLevel == 'Functional'){
+      this.selectedThemeColor = '#469199';
+      this.selectedColorCode = 2;
+    }
   }
 
   // generateImage() {
@@ -258,6 +304,7 @@ export class CvBuilderComponent implements OnInit {
         work_location: ['',Validators.required],
         work_job_description: ['',Validators.required],
       }));
+      this.errorMessages.push('');
     }else if(fieldName == "project_details"){
       this.getProjectDetailsArray.push(this.fb.group({
         project_name: ['',Validators.required],
@@ -326,6 +373,7 @@ export class CvBuilderComponent implements OnInit {
       this.getEduDetailsArray.removeAt(index);
     }else if(fieldName == "work_experience"){
       this.getWorkExpArray.removeAt(index);
+      this.errorMessages.splice(index, 1);
     }else if(fieldName == "project_details"){
       this.getProjectDetailsArray.removeAt(index);
     }else if(fieldName == "language_known"){
@@ -562,25 +610,23 @@ export class CvBuilderComponent implements OnInit {
 
   onEditorModelChange(value: string, index: number) {
     if (this.isUpdating) {
-      return;  
+        return;
     }
     const words = value.trim().split(/\s+/);
     const control = this.getWorkExpArray.at(index).get('work_job_description');
-    this.isUpdating = true;  
-    console.log(words.length);
+    this.isUpdating = true;
+    this.errorMessages[index] = '';
+
     if (words.length > 50) {
-      console.log("if ");
-      let joinedText = words.slice(0, 50).join(' ');
-      control?.setValue(joinedText, { emitEvent: false });
-      control?.setErrors({ maxWordsExceeded: true });
-      console.log(control);
+        let joinedText = words.slice(0, 50).join(' ');
+        control?.setValue(joinedText, { emitEvent: false });
+        this.errorMessages[index] = 'Job Description exceeds the maximum word limit.';
+        control?.setErrors({ maxWordsExceeded: true });
     } else {
-      console.log("else ");
-      // control?.patchValue(value);
-      control?.setErrors(null);
+        control?.setErrors(null);
     }
+
     control?.updateValueAndValidity();
     this.isUpdating = false;
   }
-
 }
