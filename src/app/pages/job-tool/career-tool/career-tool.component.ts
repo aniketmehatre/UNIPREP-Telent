@@ -12,7 +12,7 @@ export class CareerToolComponent implements OnInit {
     {
       id:1,
       moduleName: "CV Builder",
-      Description: "With the CV builder you can get yourself ready for a job easily",
+      Description: "Craft a standout CV that highlights your skills and experience, ready for any job application.",
       tooltip: "Craft personalized and compelling cover letters for job applications.",
       imageLink: "https://api.uniprep.ai/uniprepapi/storage/app/public/resources-coverimage/cv.svg",
       refLink: "https://novoresume.com/",
@@ -21,7 +21,7 @@ export class CareerToolComponent implements OnInit {
     {
       id:2,
       moduleName: "Cover Letter Builder",
-      Description: "This tool lets you build a cover letter with the help of few easy steps",
+      Description: "Generate a cover letter that strengthens your job application.",
       tooltip: "Craft personalized and compelling cover letters for job applications.",
       imageLink: "https://api.uniprep.ai/uniprepapi/storage/app/public/resources-coverimage/CoverLetter.svg",
       refLink: "https://resumaker.ai/cover-letter/",
@@ -30,7 +30,7 @@ export class CareerToolComponent implements OnInit {
     {
       id:3,
       moduleName: "Career Planner",
-      Description: "This tool lets you build a cover letter with the help of few easy steps",
+      Description: "Plan your career path by exploring job opportunities worldwide",
       tooltip: "Craft personalized and compelling cover letters for job applications.",
       imageLink: "https://api.uniprep.ai/uniprepapi/storage/app/public/resume_icons/careerplanner.svg",
       refLink: "",
@@ -39,7 +39,7 @@ export class CareerToolComponent implements OnInit {
     {
       id:4,
       moduleName: "Cost Of Living Comparision",
-      Description: "This tool lets you build a cover letter with the help of few easy steps",
+      Description: "Compare living expenses across countries to make informed decisions.",
       tooltip: "Craft personalized and compelling cover letters for job applications.",
       imageLink: "https://api.uniprep.ai/uniprepapi/storage/app/public/resume_icons/cost-of-living.svg",
       refLink: "",
@@ -48,7 +48,7 @@ export class CareerToolComponent implements OnInit {
     {
       id:5,
       moduleName: "Global Salary Converter",
-      Description: "This tool lets you build a cover letter with the help of few easy steps",
+      Description: "Calculate your salary across different countries.",
       tooltip: "Craft personalized and compelling cover letters for job applications.",
       imageLink: "https://api.uniprep.ai/uniprepapi/storage/app/public/resume_icons/salaryconverter.svg",
       refLink: "",
@@ -56,7 +56,7 @@ export class CareerToolComponent implements OnInit {
     },{
       id:6,
       moduleName: "Company List",
-      Description: "This tool lets you build a cover letter with the help of few easy steps",
+      Description: "Access company details to research potential employers.",
       tooltip: "Craft personalized and compelling cover letters for job applications.",
       imageLink: "https://api.uniprep.ai/uniprepapi/storage/app/public/resume_icons/companylist.svg",
       refLink: "",
