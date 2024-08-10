@@ -57,27 +57,45 @@ export class CvBuilderComponent implements OnInit {
     },
     {
       id: 3,
+      templateName: "Academic",
+      imageLink: "../../../uniprep-assets/resume-images/academic.webp",
+    },
+    {
+      id: 4,
       templateName: "Creative",
       imageLink: "../../../uniprep-assets/resume-images/Creative.webp",
     },
     {
-      id: 4,
+      id: 5,
       templateName: "Functional",
       imageLink: "../../../uniprep-assets/resume-images/functional.webp",
     },
-    {
-      id: 5,
-      templateName: "Academic",
-      imageLink: "../../../uniprep-assets/resume-images/academic.webp",
-    },
   ];
+  // slideConfig = {
+  //   "slidesToShow": 4,
+  //   "slidesToScroll": 1,
+  //   "infinite": true,
+  //   "dots": false,
+  //   "centerMode": true,   
+  //   "centerPadding": "0", 
+  //   "variableWidth": true,
+  //   "focusOnSelect": true,
+  //   "initialSlide":1
+  // };
 
   slideConfig = {
     "slidesToShow": 4,
     "slidesToScroll": 1,
     "infinite": true,
-    "dots": false
-  }
+    "dots": false,
+    "centerMode": true,           
+    "centerPadding": "0",
+    "variableWidth": true,
+    "focusOnSelect": true,
+    "initialSlide":1
+  };
+  
+  
   constructor(private toaster: MessageService,  private fb: FormBuilder, private resumeService:CourseListService, private http: HttpClient, private router: Router) {
 
     this.resumeFormInfoData = this.fb.group({
@@ -250,6 +268,22 @@ export class CvBuilderComponent implements OnInit {
       this.activePageIndex = this.activePageIndex == 5 ? 1 : this.activePageIndex;
       this.hideHeader();
     }
+  }
+
+  selectResumeTemplate(resumeTemplate: string){
+    this.selectedResumeLevel = resumeTemplate;
+    if(resumeTemplate == 'Modern'){
+      this.selectedThemeColor = '#172a99';
+      this.selectedColorCode = 1;
+    }else if(resumeTemplate == 'Creative'){
+      this.selectedThemeColor = '#E2C742';
+      this.selectedColorCode = 5;
+    }else if(resumeTemplate == 'Functional'){
+      this.selectedThemeColor = '#469199';
+      this.selectedColorCode = 2;
+    }
+    this.activePageIndex++;
+    this.hideHeader();
   }
 
   previous(){

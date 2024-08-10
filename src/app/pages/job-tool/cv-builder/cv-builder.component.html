@@ -1,5 +1,21 @@
 <div class="container-fluid" *ngIf="activePageIndex == 1">
     <h3 class="text-center uniprep-primary">Select your CV style to get started</h3>
+    <ngx-slick-carousel class="carousel" #slickModal="slick-carousel" [config]="slideConfig">
+      <div ngxSlickItem *ngFor="let slide of resumeSlider" class="slide">
+        <div class="d-flex flex-column">
+          <h5 class="text-center uniprep-primary">{{ slide.templateName }}</h5>
+          <div class="cvBuilderSampleImg" 
+               [ngClass]="{ 'selectedResumeLevel': selectedResumeLevel == slide.templateName }">
+            <img [src]="slide.imageLink" alt="{{ slide.templateName }}" />
+            <button class="center-button" (click)="selectResumeTemplate(slide.templateName)">Select</button>
+          </div>
+        </div>
+      </div>
+    </ngx-slick-carousel>
+  </div>
+  
+  
+     
 	<!-- <div class="d-flex justify-content-center gap-5">
 		<div>
 			<h5 class="text-center uniprep-primary">Traditional</h5>
@@ -73,25 +89,8 @@
 		</div>
 	</div> -->
     <!-- <div class="ma-fix"> -->
-        <ngx-slick-carousel class="carousel d-flex align-items-center" #slickModal="slick-carousel" [config]="slideConfig">
-            <div ngxSlickItem *ngFor="let slide of resumeSlider" class="slide">
-                <div class="d-flex justify-content-center">
-                    <div>
-                        <h5 class="text-center uniprep-primary">{{ slide.templateName }}</h5>
-                        <div class="cvBuilderSampleImg" 
-                            [ngClass]="{ 'selectedResumeLevel': selectedResumeLevel == slide.templateName }"
-                            (click)="imgOnclick(slide.templateName)">
-                            <img [src]="slide.imageLink" alt="{{ slide.templateName }}" />
-                            <button *ngIf="selectedResumeLevel == slide.templateName" class="center-button">
-                            Selected <i class="fa-solid fa-check tickIcon"></i>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </ngx-slick-carousel>    
     <!-- </div> -->
-</div>
+<!-- </div> -->
 
 <div class="container-fluid" *ngIf="activePageIndex == 3">
 	<div class="row justify-content-center">
