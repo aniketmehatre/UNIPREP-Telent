@@ -251,20 +251,20 @@ export class CoverLetterBuilderComponent implements OnInit {
         const GPTResponse = response.choices[0].message.content.trim();
         console.log(GPTResponse.split('\n\n'));
          // Split the response into an array of paragraphs
-    const paragraphs = GPTResponse.split('\n\n');
+    // const paragraphs = GPTResponse.split('\n\n');
     
     // Remove the first two elements
-    if (paragraphs.length > 2) {
-      paragraphs.splice(0, 2);
-    }
+    // if (paragraphs.length > 2) {
+    //   paragraphs.splice(0, 2);
+    // }
     
-    // Join the remaining elements back into a string
-    let modifiedResponse = paragraphs.join('\n\n');
-    // Replace commas with newline characters to create new paragraphs
-    modifiedResponse = modifiedResponse.replace(/,/g, '<br>');
+    // // Join the remaining elements back into a string
+    // let modifiedResponse = paragraphs.join('\n\n');
+    // // Replace commas with newline characters to create new paragraphs
+    // modifiedResponse = modifiedResponse.replace(/,/g, '<br>');
     // Update the form field with the modified response
     this.resumeFormInfoData.patchValue({
-      user_summary: modifiedResponse
+      user_summary: GPTResponse
     });
       }else {
         console.error('Unexpected response structure:', response);
