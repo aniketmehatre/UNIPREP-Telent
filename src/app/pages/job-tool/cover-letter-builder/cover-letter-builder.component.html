@@ -142,7 +142,7 @@
 	</div>
 </div> -->
 <div class="container-fluid h-100" *ngIf="activePageIndex == 2">
-	<div class="row h-100">
+	<div class="row" style="height: 93%;">
 		<div class="col-md-6 h-100 overflow-y-auto">
 			<form role="form" class="row" [formGroup]="resumeFormInfoData" #form="ngForm">
 				<div class="col-md-12 mb-3">
@@ -154,6 +154,9 @@
 								<div class="mb-3">
 									<input class="w-100" type="text" placeholder="Full Name" formControlName="user_name"
 										pInputText />
+										<div *ngIf="submitted && f['user_name'].errors" class="text-danger text-xs">
+											<div style="margin-left:10px;" *ngIf="f['user_name'].errors">Your Name Required</div>
+										</div>
 								</div>
 							</div>
 						</div>
@@ -431,7 +434,7 @@
 			<div class="footer-line"></div>
 		  </div> -->
 	</div>
-	<div class="h-100" [ngClass]="{ previewBodyForm: !fullScreenVisible, previewBodyFormFull: fullScreenVisible }"
+	<div class="h-100" id="cv-preview-container" [ngClass]="{ previewBodyForm: !fullScreenVisible, previewBodyFormFull: fullScreenVisible }"
 		*ngIf="selectedResumeLevel=='Academic'">
 		<div class="containeracadamic ">
 			<!-- <div class="vertical-lineacadamic"></div> -->
@@ -468,7 +471,7 @@
 			</div>
 		</div>
 	</div>
-	<div class="h-100" [ngClass]="{ previewBodyForm: !fullScreenVisible, previewBodyFormFull: fullScreenVisible }"
+	<div class="h-100" id="cv-preview-container" [ngClass]="{ previewBodyForm: !fullScreenVisible, previewBodyFormFull: fullScreenVisible }"
 		*ngIf="selectedResumeLevel=='Creative'">
 		<div style="font-size:5px;font-family:'Times New Roman', Times, serif;box-sizing: border-box;min-height: 100vh;margin: 0;">
 			<!-- <div class="vertical-linecreative"></div>
@@ -493,7 +496,7 @@
 
 		</div>
 	</div>
-	<div class="h-100" [ngClass]="{ previewBodyForm: !fullScreenVisible, previewBodyFormFull: fullScreenVisible }"
+	<div class="h-100" id="cv-preview-container" [ngClass]="{ previewBodyForm: !fullScreenVisible, previewBodyFormFull: fullScreenVisible }"
 		*ngIf="selectedResumeLevel=='Functional'">
 		<div class="container" style="font-size: 5px;">
 			<!-- <div class="header headercolour">
@@ -536,7 +539,7 @@
 			<!-- </div> -->
 		</div>
 	</div>
-	<div class="h-100" [ngClass]="{ previewBodyForm: !fullScreenVisible, previewBodyFormFull: fullScreenVisible }"
+	<div class="h-100" id="cv-preview-container" [ngClass]="{ previewBodyForm: !fullScreenVisible, previewBodyFormFull: fullScreenVisible }"
 		*ngIf="selectedResumeLevel=='Traditional'">
 		<div class="container">
 			<div class="vertical-line"></div>

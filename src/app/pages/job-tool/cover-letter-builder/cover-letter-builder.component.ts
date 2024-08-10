@@ -22,6 +22,7 @@ export class CoverLetterBuilderComponent implements OnInit {
   resumeFormInfoData: FormGroup;
   fullScreenVisible:boolean = false;
   isButtonDisabledSelectTemplate:boolean=false;
+  submitted:boolean = false;
   products:any = [
     {
       id: 1,

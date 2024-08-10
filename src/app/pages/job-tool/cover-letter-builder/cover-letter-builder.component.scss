@@ -36,6 +36,14 @@
 	border-radius: 25px;
 }
 
+.HistoryDownloadIcon {
+	transform: translateY(350%) translateX(-150%);
+	padding: 5px;
+	background-color: var(--uniprep-primary);
+	color: white;
+	border-radius: 25px;
+}
+
 .tickIcon {
 	background-color: #5a5aed;
 	padding: 8px;
@@ -184,39 +192,7 @@
 	border-radius: 10px;
 	background-color: whitesmoke;
 	font-size: calc(0.2vw + 0.2vh);
-	ul {
-		padding-left: 0px !important;
-	}
-	h1 {
-		font-size: 1.5em;
-	}
-	h2 {
-		font-size: 1.3em;
-	}
-	h3 {
-		font-size: 1.2em;
-	}
-	h4 {
-		font-size: 1.1em;
-	}
-	h5 {
-		font-size: 1.05em;
-	}
-	h6 {
-		font-size: 1em;
-	}
-	hr {
-		margin: 2px;
-	}
-	p,
-	a,
-	span,
-	li {
-		font-size: 1em;
-		list-style: none;
-		padding: 0px;
-		padding-left: 0px;
-	}
+	
 }
 .previewBodyFormFull {
 	padding: 10px;
@@ -224,40 +200,6 @@
 	border-radius: 10px;
 	background-color: whitesmoke;
 	font-size: calc(0.3vw + 0.3vh);
-	ul {
-		padding-left: 0px !important;
-		margin-bottom:5px;
-	}
-	h1 {
-		font-size: 1.5em;
-	}
-	h2 {
-		font-size: 1.3em;
-	}
-	h3 {
-		font-size: 1.2em;
-	}
-	h4 {
-		font-size: 1.1em;
-	}
-	h5 {
-		font-size: 1.05em;
-	}
-	h6 {
-		font-size: 1em;
-	}
-	hr {
-		margin: 2px;
-	}
-	p,
-	a,
-	span,
-	li {
-		font-size: 1em;
-		list-style: none;
-		padding: 0px;
-		padding-left: 0px;
-	}
 }
 
 .cvPreview {
@@ -529,10 +471,12 @@ body {
 	font-size: 15px !important;
 	font-weight: 700;
 	white-space: nowrap;
+	letter-spacing: 3px;
 }
 
 .profession {
-	font-size: 7px !important;
+	font-size: 10px !important;
+	font-weight: 700;
 }
 
 .contactItem {
@@ -629,47 +573,15 @@ body {
 	background-color: #339499;
 	margin-left: 10px;
 }
-.line1 {
-	border: 5px black solid;
-    margin-left: 0px;
-}
-.line2 {
-	border: 5px black solid;
-    margin-left: 0px;
-}
-hr {
-    border: 5px black solid;
-    margin-left: 0px;
+
+.content-contact{
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }
 
-.header {
-    background-color: black;
-}
-
-.footer {
-    // position: fixed;
-    width: 100%;
-    left: 0;
-    bottom: 0;
-}
-
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-  
- 
-   body {
-   font-size:17px;
-   font-family:'Times New Roman', Times, serif;
-   margin:0;
-  padding:0px;
-
-   }
-   .headercolour{
-	height:150px;
-	background-color:#00939B;
+.text-xs {
+	font-size: 0.7rem;
 }
 // traditional
  
