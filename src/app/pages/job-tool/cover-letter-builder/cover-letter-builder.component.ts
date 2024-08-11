@@ -136,6 +136,8 @@ export class CoverLetterBuilderComponent implements OnInit {
       html2canvas(cvPreviewContainer, { useCORS: true })
         .then((canvas) => {
           this.previewImage = canvas.toDataURL('image/png');
+          console.log(this.previewImage);
+          
         })
         .catch((error) => {
           console.error('Failed to generate image', error);
