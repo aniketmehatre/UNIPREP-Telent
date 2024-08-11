@@ -42,3 +42,36 @@
 .flag {
   width: 18px;
 }
+
+.job-card {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: 15px;
+}
+
+.content {
+  flex-grow: 1;
+}
+
+.button-container {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  padding-top: 10px; /* Optional: Adds some space between content and buttons */
+}
+.backIcon {
+  height: 40px;
+  width: 40px;
+  border-radius: 20px;
+  background-color: var(--uniprep-primary);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700px;
+  .pi-angle-left{
+      font-size: 16px;
+  }
+  margin:10px 10px;
+}

@@ -1,5 +1,5 @@
 import { Component, Input, OnInit, SimpleChanges } from '@angular/core';
-import { CostOfLiving, Price } from 'src/app/@Models/cost-of-living';
+import { CategoryWiseComparison, CostOfLiving, Price } from 'src/app/@Models/cost-of-living';
 import { CostOfLivingService } from '../cost-of-living.service';
 import { MessageService } from 'primeng/api';
 
@@ -11,7 +11,7 @@ import { MessageService } from 'primeng/api';
 export class ComparisionComponent implements OnInit {
   @Input() sourceCountryPrices!: CostOfLiving;
   @Input() targetCountryPrices!: CostOfLiving;
-  priceVariations: { from: Price, to: Price }[] = [];
+  categorywisePrices: CategoryWiseComparison[] = [];
   sourcePriceTotal: number = 0;
   targetPriceTotal: number = 0;
   sourcePrices!: CostOfLiving;
@@ -46,28 +46,31 @@ export class ComparisionComponent implements OnInit {
 
       // this.sourcePrices = JSON.parse(JSON.stringify(this.sourceCountryPrices));
       // this.targetPrices = JSON.parse(JSON.stringify(this.targetCountryPrices));
-      if (sourceCountry !== 'India' && targetCountry !== 'India' && this.inrRate == '') {
-        this.getCurrencyConvertions('United States,India', '');
-      }
+
     }
 
   }
 
-  calculatePriceVariations() {
+  calculatecategorywisePrices() {
     this.sourcePriceTotal = 0;
     this.targetPriceTotal = 0;
-    this.priceVariations = [];
+    this.categorywisePrices = [];
     this.sourceCountryPrices.prices.forEach((price: Price) => {
       if (price.usd && price.usd.avg) {
-        price.rate = Number(price.usd.avg) * Number(this.sourceCountryRate);
-        price.inr = Number(price.usd.avg) * Number(this.inrRate);
+        price.inSourceRate = Number(price.usd.avg) * Number(this.sourceCountryRate);
+        price.inTargetRate = Number(price.usd.avg) * Number(this.targetCountryRate);
         this.sourcePriceTotal += Number(price.usd.avg);
       }
       this.targetCountryPrices.prices.forEach((targetCountryPrice: Price) => {
         if (price.good_id == targetCountryPrice.good_id && targetCountryPrice.usd?.avg) {
-          targetCountryPrice.rate = Number(targetCountryPrice.usd?.avg) * Number(this.targetCountryRate);
-          targetCountryPrice.inr = Number(targetCountryPrice.usd?.avg) * Number(this.inrRate);
-          this.priceVariations.push({ from: price, to: targetCountryPrice });
+          targetCountryPrice.inTargetRate = Number(targetCountryPrice.usd?.avg) * Number(this.targetCountryRate);
+          targetCountryPrice.inSourceRate = Number(targetCountryPrice.usd?.avg) * Number(this.sourceCountryRate);
+          const variationPrice = this.categorywisePrices.find(variationPrice => variationPrice.category_id == price.category_id);
+          if (variationPrice) {
+            variationPrice.prices.push({ from: price, to: targetCountryPrice });
+          } else {
+            this.categorywisePrices.push({ category_id: price.category_id, category_name: price.category_name, prices: [{ from: price, to: targetCountryPrice }] });
+          }
           this.targetPriceTotal += Number(targetCountryPrice?.usd.avg);
         }
       });
@@ -102,7 +105,7 @@ export class ComparisionComponent implements OnInit {
   //     }
   //     return rate;
   //   });
-  //   this.calculatePriceVariations();
+  //   this.calculatecategorywisePrices();
   // }
   // remove(price: Price) {
   //   if (price.itemCount == 0) {
@@ -130,7 +133,7 @@ export class ComparisionComponent implements OnInit {
   //     }
   //     return rate;
   //   });
-  //   this.calculatePriceVariations();
+  //   this.calculatecategorywisePrices();
   // }
   compareValues(sourcePrice: string, targetPrice: string) {
     const difference = Number(sourcePrice) - Number(targetPrice);
@@ -145,23 +148,12 @@ export class ComparisionComponent implements OnInit {
   }
   getCurrencyConvertions(comparingCountries: string, countryType: string) {
     this.costOfLivingService.currencyConvert({ countries: comparingCountries }).subscribe(res => {
-
       if (countryType === 'sourceCountry') {
         this.sourceCountryRate = res.rate;
-        if (this.sourceCountryPrices.country_name == 'India') {
-          this.inrRate = res.rate;
-        }
-      } else if (countryType === 'targetCountry') {
-        this.targetCountryRate = res.rate;
-        if (this.targetCountryPrices.country_name == 'India') {
-          this.inrRate = res.rate;
-        }
       } else {
-        this.inrRate = res.rate;
+        this.targetCountryRate = res.rate;
       }
-
-      this.calculatePriceVariations();
-
+      this.calculatecategorywisePrices();
     },
       error => {
         this.toaster.add({ severity: "error", summary: "Error", detail: "Data not available" });
@@ -169,5 +161,15 @@ export class ComparisionComponent implements OnInit {
           window.location.reload();
         }, 2000);
       });
+  }
+  calculatePercentage(sourceRate: string, targetRate: string, type: string) {
+    var percentage = 0;
+    const totalValue = Number(sourceRate) + Number(targetRate);
+    if (type !== 'target') {
+      percentage = (Number(sourceRate) / totalValue) * 100
+      return percentage;
+    }
+    percentage = (Number(targetRate) / totalValue) * 100
+    return Math.round(percentage);
   }
 }

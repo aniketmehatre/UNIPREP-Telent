@@ -36,14 +36,66 @@ export class CvBuilderComponent implements OnInit {
   submittedFormData: any = [];
   selectedExpLevel:number = 0;
   selectedThemeColor:string = "#172a99";
-  selectedColorCode:number = 2;
+  selectedColorCode:number = 1;
   template1: any;
   userNameSplit: { firstWord: string, secondWord: string } = { firstWord: '', secondWord: ''};
   stableFileName = Math.floor(100000000 + Math.random() * 900000);
   resumeHistory: any = [];
   clickedDownloadButton: boolean = false;
   isUpdating: boolean = false;
+  errorMessages: string[] = [];
+   resumeSlider: any = [
+    {
+      id: 1,
+      templateName: "Traditional",
+      imageLink: "../../../uniprep-assets/resume-images/Traditional.webp",
+    },
+    {
+      id: 2,
+      templateName: "Modern",
+      imageLink: "../../../uniprep-assets/resume-images/Modern.webp",
+    },
+    {
+      id: 3,
+      templateName: "Academic",
+      imageLink: "../../../uniprep-assets/resume-images/academic.webp",
+    },
+    {
+      id: 4,
+      templateName: "Creative",
+      imageLink: "../../../uniprep-assets/resume-images/Creative.webp",
+    },
+    {
+      id: 5,
+      templateName: "Functional",
+      imageLink: "../../../uniprep-assets/resume-images/functional.webp",
+    },
+  ];
+  // slideConfig = {
+  //   "slidesToShow": 4,
+  //   "slidesToScroll": 1,
+  //   "infinite": true,
+  //   "dots": false,
+  //   "centerMode": true,   
+  //   "centerPadding": "0", 
+  //   "variableWidth": true,
+  //   "focusOnSelect": true,
+  //   "initialSlide":1
+  // };
 
+  slideConfig = {
+    "slidesToShow": 4,
+    "slidesToScroll": 1,
+    "infinite": true,
+    "dots": false,
+    "centerMode": true,           
+    "centerPadding": "0",
+    "variableWidth": true,
+    "focusOnSelect": true,
+    "initialSlide":1
+  };
+  
+  
   constructor(private toaster: MessageService,  private fb: FormBuilder, private resumeService:CourseListService, private http: HttpClient, private router: Router) {
 
     this.resumeFormInfoData = this.fb.group({
@@ -85,6 +137,12 @@ export class CvBuilderComponent implements OnInit {
     this.resumeFormInfoData.get('user_name')?.valueChanges.subscribe(value=>{
       this.splitUserName(value); // it calls when the user enters the user name
     });
+    if (this.resumeFormInfoData.invalid) {
+      this.errorMessages = this.getWorkExpArray.controls.map(control => 
+          control.get('work_job_description')?.errors?.['maxWordsExceeded']  ? 'Job Description exceeds the maximum word limit.'  : ''
+      );
+      return;
+    }
   }
 
   hideHeader(){
@@ -117,14 +175,43 @@ export class CvBuilderComponent implements OnInit {
   }
 
   changeExperience(event: any){
+
     if(event.value != 1){
       this.eduDetailsLimit = 2;
       this.wrkExpLimit = 5;
-
     }else{
       this.eduDetailsLimit = 3;
       this.wrkExpLimit = 3;
     }
+    this.updateValidatorsForAllProjects();
+  }
+
+  updateValidatorsForAllProjects() {
+    this.getProjectDetailsArray.controls.forEach(control => {
+      const projectFormGroup = control as FormGroup;
+      this.updateValidators(projectFormGroup);
+    });
+  }
+
+  updateValidators(formGroup: FormGroup) {
+    
+    if (this.resumeFormInfoData.value.selected_exp_level === 1) {
+      formGroup.get('project_name')?.setValidators(Validators.required);
+      formGroup.get('project_start_name')?.setValidators(Validators.required);
+      formGroup.get('project_end_name')?.setValidators(Validators.required);
+      formGroup.get('project_description')?.setValidators(Validators.required);
+    } else {
+      formGroup.get('project_name')?.clearValidators();
+      formGroup.get('project_start_name')?.clearValidators();
+      formGroup.get('project_end_name')?.clearValidators();
+      formGroup.get('project_description')?.clearValidators();
+    }
+
+    // Update value and validity
+    formGroup.get('project_name')?.updateValueAndValidity();
+    formGroup.get('project_start_name')?.updateValueAndValidity();
+    formGroup.get('project_end_name')?.updateValueAndValidity();
+    formGroup.get('project_description')?.updateValueAndValidity();
   }
 
   resumeFormSubmit(){
@@ -140,6 +227,16 @@ export class CvBuilderComponent implements OnInit {
 
   imgOnclick(resumeLevel: any){
     this.selectedResumeLevel = resumeLevel;
+    if(resumeLevel == 'Modern'){
+      this.selectedThemeColor = '#172a99';
+      this.selectedColorCode = 1;
+    }else if(resumeLevel == 'Creative'){
+      this.selectedThemeColor = '#E2C742';
+      this.selectedColorCode = 5;
+    }else if(resumeLevel == 'Functional'){
+      this.selectedThemeColor = '#469199';
+      this.selectedColorCode = 2;
+    }
   }
 
   // generateImage() {
@@ -171,6 +268,22 @@ export class CvBuilderComponent implements OnInit {
       this.activePageIndex = this.activePageIndex == 5 ? 1 : this.activePageIndex;
       this.hideHeader();
     }
+  }
+
+  selectResumeTemplate(resumeTemplate: string){
+    this.selectedResumeLevel = resumeTemplate;
+    if(resumeTemplate == 'Modern'){
+      this.selectedThemeColor = '#172a99';
+      this.selectedColorCode = 1;
+    }else if(resumeTemplate == 'Creative'){
+      this.selectedThemeColor = '#E2C742';
+      this.selectedColorCode = 5;
+    }else if(resumeTemplate == 'Functional'){
+      this.selectedThemeColor = '#469199';
+      this.selectedColorCode = 2;
+    }
+    this.activePageIndex++;
+    this.hideHeader();
   }
 
   previous(){
@@ -258,6 +371,7 @@ export class CvBuilderComponent implements OnInit {
         work_location: ['',Validators.required],
         work_job_description: ['',Validators.required],
       }));
+      this.errorMessages.push('');
     }else if(fieldName == "project_details"){
       this.getProjectDetailsArray.push(this.fb.group({
         project_name: ['',Validators.required],
@@ -276,47 +390,47 @@ export class CvBuilderComponent implements OnInit {
         skills_proficiency: ['',Validators.required]
       }));
     }else if(fieldName == "Hobby"){
-      // this.getHobbiesArray.push(this.fb.group({
-      //   hobbies: ['Painting'],
-      // }));
       this.getHobbiesArray.push(this.fb.group({
-        hobbies: ['',Validators.required],
+        hobbies: ['Painting'],
       }));
+      // this.getHobbiesArray.push(this.fb.group({
+      //   hobbies: ['',Validators.required],
+      // }));
     }else if(fieldName == "extra_curricular"){
-      // this.getExtraCurricularArray.push(this.fb.group({
-      //   extra_curricular_activites: ['Game Development']
-      // }));
       this.getExtraCurricularArray.push(this.fb.group({
-        extra_curricular_activites: ['',Validators.required]
+        extra_curricular_activites: ['Game Development']
       }));
+      // this.getExtraCurricularArray.push(this.fb.group({
+      //   extra_curricular_activites: ['',Validators.required]
+      // }));
     }else if(fieldName == "certificate"){
-      // this.getCertificatesArray.push(this.fb.group({
-      //   certificate_name: ['Web Development'],
-      //   certificate_issued: ['UNIPREP'],
-      //   certificate_id: ['UNI077'],
-      //   certicate_link: ['https://uniprep.ai/certificates'],
-      // }));
-       this.getCertificatesArray.push(this.fb.group({
-        certificate_name: ['',Validators.required],
-        certificate_issued: ['',Validators.required],
-        certificate_id: [''],
-        certicate_link: [''],
+      this.getCertificatesArray.push(this.fb.group({
+        certificate_name: ['Web Development'],
+        certificate_issued: ['UNIPREP'],
+        certificate_id: ['UNI077'],
+        certicate_link: ['https://uniprep.ai/certificates'],
       }));
+      //  this.getCertificatesArray.push(this.fb.group({
+      //   certificate_name: ['',Validators.required],
+      //   certificate_issued: ['',Validators.required],
+      //   certificate_id: [''],
+      //   certicate_link: [''],
+      // }));
     }else if(fieldName == "reference"){
-      // this.getReferenceArray.push(this.fb.group({
-      //   ref_name: ['Adithya M'],
-      //   ref_position: ['CEO'],
-      //   ref_organization: ['Mediamonk'],
-      //   ref_email: ['adithya@uniabroad.co.in'],
-      //   ref_contact: ['+91 7019267853'],
-      // }));
       this.getReferenceArray.push(this.fb.group({
-        ref_name: ['',Validators.required],
-        ref_position: ['',Validators.required],
-        ref_organization: ['',Validators.required],
-        ref_email: ['',Validators.required],
-        ref_contact: ['',Validators.required],
+        ref_name: ['Adithya M'],
+        ref_position: ['CEO'],
+        ref_organization: ['Mediamonk'],
+        ref_email: ['adithya@uniabroad.co.in'],
+        ref_contact: ['+91 7019267853'],
       }));
+      // this.getReferenceArray.push(this.fb.group({
+      //   ref_name: ['',Validators.required],
+      //   ref_position: ['',Validators.required],
+      //   ref_organization: ['',Validators.required],
+      //   ref_email: ['',Validators.required],
+      //   ref_contact: ['',Validators.required],
+      // }));
     }
   }
 
@@ -326,6 +440,7 @@ export class CvBuilderComponent implements OnInit {
       this.getEduDetailsArray.removeAt(index);
     }else if(fieldName == "work_experience"){
       this.getWorkExpArray.removeAt(index);
+      this.errorMessages.splice(index, 1);
     }else if(fieldName == "project_details"){
       this.getProjectDetailsArray.removeAt(index);
     }else if(fieldName == "language_known"){
@@ -562,25 +677,23 @@ export class CvBuilderComponent implements OnInit {
 
   onEditorModelChange(value: string, index: number) {
     if (this.isUpdating) {
-      return;  
+        return;
     }
     const words = value.trim().split(/\s+/);
     const control = this.getWorkExpArray.at(index).get('work_job_description');
-    this.isUpdating = true;  
-    console.log(words.length);
+    this.isUpdating = true;
+    this.errorMessages[index] = '';
+
     if (words.length > 50) {
-      console.log("if ");
-      let joinedText = words.slice(0, 50).join(' ');
-      control?.setValue(joinedText, { emitEvent: false });
-      control?.setErrors({ maxWordsExceeded: true });
-      console.log(control);
+        let joinedText = words.slice(0, 50).join(' ');
+        control?.setValue(joinedText, { emitEvent: false });
+        this.errorMessages[index] = 'Job Description exceeds the maximum word limit.';
+        control?.setErrors({ maxWordsExceeded: true });
     } else {
-      console.log("else ");
-      // control?.patchValue(value);
-      control?.setErrors(null);
+        control?.setErrors(null);
     }
+
     control?.updateValueAndValidity();
     this.isUpdating = false;
   }
-
 }

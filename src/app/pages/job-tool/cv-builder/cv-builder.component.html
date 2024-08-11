@@ -1,12 +1,27 @@
 <div class="container-fluid" *ngIf="activePageIndex == 1">
-	<h3 class="text-center uniprep-primary">Select your CV style to get started</h3>
-	<div class="d-flex justify-content-center gap-5">
+    <h3 class="text-center uniprep-primary">Select your CV style to get started</h3>
+    <ngx-slick-carousel class="carousel" #slickModal="slick-carousel" [config]="slideConfig">
+      <div ngxSlickItem *ngFor="let slide of resumeSlider" class="slide">
+        <div class="d-flex flex-column">
+          <h5 class="text-center uniprep-primary">{{ slide.templateName }}</h5>
+          <div class="cvBuilderSampleImg" 
+               [ngClass]="{ 'selectedResumeLevel': selectedResumeLevel == slide.templateName }">
+            <img [src]="slide.imageLink" alt="{{ slide.templateName }}" />
+            <button class="center-button" (click)="selectResumeTemplate(slide.templateName)">Select</button>
+          </div>
+        </div>
+      </div>
+    </ngx-slick-carousel>
+  </div>
+  
+  
+     
+	<!-- <div class="d-flex justify-content-center gap-5">
 		<div>
 			<h5 class="text-center uniprep-primary">Traditional</h5>
 			<div class="cvBuilderSampleImg" [ngClass]="{ selectedResumeLevel: selectedResumeLevel == 'Traditional' }"
 				(click)="imgOnclick('Traditional')">
-				<img src="../../../uniprep-assets/resume-images/Traditional.webp"
-					alt="Traditional" />
+				<img src="../../../uniprep-assets/resume-images/Traditional.webp" alt="Traditional" />
 				<button *ngIf="selectedResumeLevel == 'Traditional'" class="center-button">Selected <i
 						class="fa-solid fa-check tickIcon"></i></button>
 			</div>
@@ -15,8 +30,7 @@
 			<h5 class="text-center uniprep-primary">Modern</h5>
 			<div class="cvBuilderSampleImg" [ngClass]="{ selectedResumeLevel: selectedResumeLevel == 'Modern' }"
 				(click)="imgOnclick('Modern')">
-				<img src="../../../uniprep-assets/resume-images/Modern.webp"
-					alt="Modern" />
+				<img src="../../../uniprep-assets/resume-images/Modern.webp" alt="Modern" />
 				<button *ngIf="selectedResumeLevel == 'Modern'" class="center-button">Selected <i
 						class="fa-solid fa-check tickIcon"></i></button>
 			</div>
@@ -25,8 +39,7 @@
 			<h5 class="text-center uniprep-primary">Creative</h5>
 			<div class="cvBuilderSampleImg" [ngClass]="{ selectedResumeLevel: selectedResumeLevel == 'Creative' }"
 				(click)="imgOnclick('Creative')">
-				<img src="../../../uniprep-assets/resume-images/Creative.webp"
-					alt="Functional" />
+				<img src="../../../uniprep-assets/resume-images/Creative.webp" alt="Functional" />
 				<button *ngIf="selectedResumeLevel == 'Creative'" class="center-button">Selected <i
 						class="fa-solid fa-check tickIcon"></i></button>
 			</div>
@@ -51,14 +64,34 @@
 						class="fa-solid fa-check tickIcon"></i></button>
 			</div>
 		</div>
-	</div>
-	<div class="row justify-content-center">
+	</div> -->
+    <!-- <p-carousel [value]="resumeSlider" [numVisible]="4" [numScroll]="1" [circular]="true" [showIndicators]="false" [page]="1" styleClass="h-100">
+        <ng-template let-product let-i="index" pTemplate="item">
+            <div class="d-flex justify-content-center">
+                <div>
+                    <h5 class="text-center uniprep-primary">{{ product.templateName }}</h5>
+                    <div class="cvBuilderSampleImg" 
+                         [ngClass]="{ 'selectedResumeLevel': selectedResumeLevel == product.templateName }"
+                         (click)="imgOnclick(product.templateName)">
+                        <img [src]="product.imageLink" alt="{{ product.templateName }}" />
+                        <button *ngIf="selectedResumeLevel == product.templateName" class="center-button">
+                            Selected <i class="fa-solid fa-check tickIcon"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </ng-template>
+    </p-carousel>     -->
+	<!-- <div class="row justify-content-center">
 		<div class="col-md-4 mt-5">
 			<button class="createResumeButton" (click)="shakeButton($event)">Create your Resume &nbsp;&nbsp;&nbsp;<i
 					class="fa-solid fa-arrow-right tickIcon"></i></button>
 		</div>
-	</div>
-</div>
+	</div> -->
+    <!-- <div class="ma-fix"> -->
+    <!-- </div> -->
+<!-- </div> -->
+
 <div class="container-fluid" *ngIf="activePageIndex == 3">
 	<div class="row justify-content-center">
 		<div class="flex-column">
@@ -440,8 +473,8 @@
                                                     <div *ngIf="wrkExp.get('work_job_description')?.invalid && wrkExp.get('work_job_description')?.touched && submitted" class="text-danger text-xs">
                                                         <div style="margin-left:10px;" *ngIf="wrkExp.get('work_job_description')?.errors?.['required']">Job Description required.</div>
                                                     </div>
-                                                    <div *ngIf="wrkExp.get('work_job_description')?.errors?.['maxWordsExceeded']" class="text-danger text-xs">
-                                                        <div style="margin-left:10px;">Job Description exceeds the maximum word limit.</div>
+                                                    <div *ngIf="errorMessages[i]" class="text-danger text-xs" style="margin-left:10px;">
+                                                        {{ errorMessages[i] }}
                                                     </div>
                                                 </div>
                                             </div>
@@ -834,13 +867,24 @@
             <div class="card h-100">
                 <div class="card-header d-flex justify-content-between align-items-center PageTitle">
                     <h4 class="p-mb-1">Preview</h4>
-                    <div class="gap-2">
-                        <span class="templateButton">Template<span class="templateName">{{ selectedResumeLevel }}</span></span>
+                    <div class="d-flex">
+                        <span class="templateButton">Template 
+                            <div class="template-dropdown">
+                                <span class="templateName">{{ selectedResumeLevel }} <i class="fa fa-caret-down"></i></span>
+                                <div class="template-dropdown-content">
+                                    <a class="cursorPointer" [ngClass]="{'activeTemplate': selectedResumeLevel === 'Traditional'}" (click)="imgOnclick('Traditional')">Traditional</a>
+                                    <a class="cursorPointer" [ngClass]="{'activeTemplate': selectedResumeLevel === 'Creative'}" (click)="imgOnclick('Creative')">Creative</a>
+                                    <a class="cursorPointer" [ngClass]="{'activeTemplate': selectedResumeLevel === 'Modern'}" (click)="imgOnclick('Modern')">Modern</a>
+                                    <a class="cursorPointer" [ngClass]="{'activeTemplate': selectedResumeLevel === 'Functional'}" (click)="imgOnclick('Functional')">Functional</a>
+                                    <a class="cursorPointer" [ngClass]="{'activeTemplate': selectedResumeLevel === 'Academic'}" (click)="imgOnclick('Academic')">Academic</a>
+                                </div>
+                            </div>
+                        </span>
                         <ng-container *ngTemplateOutlet="colorPickerContent"></ng-container>
-                    </div>
+                    </div>                      
                     <i class="fa-sharp fa-solid fa-expand" style="cursor: pointer" (click)="toggleFullScreen()"></i>
                 </div>
-                <div class="card-body h-100 overflow-hidden">
+                <div class="card-body overflow-y-auto">
                     <div class="previewcontainer">
                         <div class="previewbody">
                             <ng-container *ngTemplateOutlet="sharedContent"></ng-container>
@@ -860,7 +904,6 @@
                     class="fa fa-arrow-right exhausted-plan-icon-next"></i></button>
         </div>
     </div>
-    
 </div>
 
 <p-sidebar [(visible)]="fullScreenVisible" [fullScreen]="true" [showCloseIcon]="false">
@@ -868,18 +911,36 @@
         <div class="card h-100">
             <div class="card-header cvPreview">
                 <h4 class="p-mb-1">CV Preview</h4>
-                <div>
-                    <span class="templateButton">Template<span class="templateName">{{ selectedResumeLevel }}</span></span>
+                <div class="d-flex">
+                    <span class="templateButton">Template 
+                        <div class="template-dropdown">
+                            <span class="templateName">{{ selectedResumeLevel }} <i class="fa fa-caret-down"></i></span>
+                            <div class="template-dropdown-content">
+                                <a class="cursorPointer" [ngClass]="{'activeTemplate': selectedResumeLevel === 'Traditional'}" (click)="imgOnclick('Traditional')">Traditional</a>
+                                <a class="cursorPointer" [ngClass]="{'activeTemplate': selectedResumeLevel === 'Creative'}" (click)="imgOnclick('Creative')">Creative</a>
+                                <a class="cursorPointer" [ngClass]="{'activeTemplate': selectedResumeLevel === 'Modern'}" (click)="imgOnclick('Modern')">Modern</a>
+                                <a class="cursorPointer" [ngClass]="{'activeTemplate': selectedResumeLevel === 'Functional'}" (click)="imgOnclick('Functional')">Functional</a>
+                                <a class="cursorPointer" [ngClass]="{'activeTemplate': selectedResumeLevel === 'Academic'}" (click)="imgOnclick('Academic')">Academic</a>
+                            </div>
+                        </div>
+                    </span>
                     <ng-container *ngTemplateOutlet="colorPickerContent"></ng-container>
-                </div>
+                </div>              
                 <i class="fa-sharp fa-solid fa-compress" style="cursor: pointer" (click)="toggleFullScreen()"></i>
             </div>
-            <div class="card-body h-100 overflow-hidden" style="background-color: #3f4c83">
-                <div class="previewcontainer">
+            <div class="card-body overflow-y-auto" style="background-color: #3f4c83">
+                <div class="row justify-content-center">
+
+                    <div class="col-md-6">
+                    <div class="previewcontainer">
                     <div class="previewbody">
                         <ng-container *ngTemplateOutlet="sharedContent"></ng-container>
                     </div>
+                    </div>
+
                 </div>
+                </div>
+                
             </div>
         </div>
     </div>
@@ -894,34 +955,34 @@
         </div>
         <div class="dropdown-content">
             <div class="d-flex justify-content-center">
-                <a (click)="selectColor('#134B70',1)" class="p-2 cursorPointer">
-                    <div style="background-color: #134B70;" class="colorSelector"></div>
+                <a (click)="selectColor('#172a99',1)" class="p-2 cursorPointer">
+                    <div style="background-color: #172a99;" class="colorSelector"></div>
                     <i *ngIf="selectedColorCode == 1" class="fa-solid fa-check ColorCheckBox colorWhite"></i>
                 </a>
-                <a (click)="selectColor('#172a99',2)" class="p-2 cursorPointer">
-                    <div style="background-color: #172a99;" class="colorSelector"></div>
+                <a (click)="selectColor('#469199',2)" class="p-2 cursorPointer">
+                    <div style="background-color: #469199;" class="colorSelector"></div>
                     <i *ngIf="selectedColorCode == 2" class="fa-solid fa-check ColorCheckBox colorWhite"></i>
                 </a>
-                <a (click)="selectColor('#708871',3)" class="p-2 cursorPointer">
-                    <div style="background-color: #708871;" class="colorSelector"></div>
+                <a (click)="selectColor('#973131',3)" class="p-2 cursorPointer">
+                    <div style="background-color: #973131;" class="colorSelector"></div>
                     <i *ngIf="selectedColorCode == 3" class="fa-solid fa-check ColorCheckBox"></i>
                 </a>
-                <a (click)="selectColor('#973131',4)" class="p-2 cursorPointer">
-                    <div style="background-color: #973131;" class="colorSelector"></div>
+                <a (click)="selectColor('#C80036',4)" class="p-2 cursorPointer">
+                    <div style="background-color: #C80036;" class="colorSelector"></div>
                     <i *ngIf="selectedColorCode == 4" class="fa-solid fa-check ColorCheckBox colorWhite"></i>
                 </a>
             </div>
             <div class="d-flex justify-content-center">
-                <a (click)="selectColor('#C80036',5)" class="p-2 cursorPointer">
-                    <div style="background-color: #C80036;" class="colorSelector"></div>
+                <a (click)="selectColor('#E2C742',5)" class="p-2 cursorPointer">
+                    <div style="background-color: #E2C742;" class="colorSelector"></div>
                     <i *ngIf="selectedColorCode == 5" class="fa-solid fa-check ColorCheckBox colorWhite"></i>
                 </a>
-                <a (click)="selectColor('#373A40',6)" class="p-2 cursorPointer">
-                    <div style="background-color:#373A40;" class="colorSelector"></div>
+                <a (click)="selectColor('#686D76',6)" class="p-2 cursorPointer">
+                    <div style="background-color:#686D76;" class="colorSelector"></div>
                     <i *ngIf="selectedColorCode == 6" class="fa-solid fa-check ColorCheckBox"></i>
                 </a>
-                <a (click)="selectColor('#686D76',7)" class="p-2 cursorPointer">
-                    <div style="background-color:#686D76;" class="colorSelector"></div>
+                <a (click)="selectColor('#373A40',7)" class="p-2 cursorPointer">
+                    <div style="background-color:#373A40;" class="colorSelector"></div>
                     <i *ngIf="selectedColorCode == 7" class="fa-solid fa-check ColorCheckBox colorWhite"></i>
                 </a>
             </div>
@@ -1136,7 +1197,7 @@
                     <p class="headingStyle text-color-white" [ngStyle]="{'background-color': selectedThemeColor}">about me</p>
                     <p class="small-text" [innerHTML]="f['user_summary'].value"></p>
                 </div>
-                <div class="content" *ngIf="getHobbiesArray.length != 0">
+                <div class="content" *ngIf="getWorkExpArray.length != 0">
                     <p class="headingStyle text-color-white" [ngStyle]="{'background-color': selectedThemeColor}">experience</p>
                     <div class="experienceItem" *ngFor="let exp of getWorkExpArray.controls">
                         <div style="width: 30%;">
@@ -1354,7 +1415,7 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-12 text-left" style="background-color: black; padding: 20px 10px;">
-                    <h1 class="userName upperCase" style="color: #f8d44c;margin: 0px;">{{ f["user_name"].value }}</h1>
+                    <h1 class="userName upperCase" [ngStyle] = "{'color': selectedThemeColor }" style="margin: 0px;">{{ f["user_name"].value }}</h1>
                     <p class="profession upperCase" style="color: white;">{{ f["user_job_title"].value }}</p>
                 </div>
             </div>
@@ -1443,7 +1504,7 @@
                         </div>
                     </ng-container>
                 </div>
-                <div class="col-md-5" style="background-color: #f8d44c;">
+                <div class="col-md-5" [ngStyle] = "{'background-color': selectedThemeColor }">
 					<ng-container *ngIf='f["user_location"].value || f["user_phone"].value || f["user_email"].value || f["user_website"].value || f["user_linkedin"].value'>
                     	<p class="headingStyle" style="margin:0px;">contact me</p>
                     	<hr>
@@ -1519,7 +1580,7 @@
     </div>
     <div class="h-100" id="cv-preview-container" [ngClass]="{ previewBodyForm: !fullScreenVisible, previewBodyFormFull: fullScreenVisible }" *ngIf="selectedResumeLevel=='Functional'">
         <div class="container">
-            <div class="row" style="background-color: #339499; padding: 5px 10px 15px 10px;">
+            <div class="row" [ngStyle] = "{'background-color': selectedThemeColor }" style="padding: 5px 10px 15px 10px;">
                 <div class="col-12">
                     <h1 class="userName upperCase" style="color: white;margin: 0px;">{{ f["user_name"].value }}</h1>
                     <p class="profession upperCase" style="color: white;">{{ f["user_job_title"].value }}</p>
@@ -1553,8 +1614,8 @@
 						</div>
 					</ng-container>
 					<ng-container *ngIf="getLanguagesKnownArray.length !=0">
-						<p class="headingStyle text-color-liteBlue zeroMarginPadding">languages</p>
-						<hr class="hr-custom">
+						<p class="headingStyle zeroMarginPadding" [ngStyle] = "{'color': selectedThemeColor }">languages</p>
+						<hr class="hr-custom" [ngStyle] = "{'color': selectedThemeColor, 'background-color':  selectedThemeColor}">
 						<div class="languageItem fw-600" *ngFor="let lang of getLanguagesKnownArray.controls">
 							<p>{{ lang.value.language }} </p>
 							<ng-container [ngSwitch]="lang.value.lang_proficiency">
@@ -1566,8 +1627,8 @@
 						</div>
 					</ng-container>
                     <ng-container *ngIf="getCertificatesArray.length !=0">
-                        <p class="headingStyle text-color-liteBlue zeroMarginPadding">certifications</p>
-                        <hr class="hr-custom">
+                        <p class="headingStyle zeroMarginPadding" [ngStyle] = "{'color': selectedThemeColor }">certifications</p>
+                        <hr class="hr-custom" [ngStyle] = "{'color': selectedThemeColor, 'background-color':  selectedThemeColor}">
                         <div class="content" style="line-height:1" >
                             <div class="mb-2"  *ngFor="let certificate of getCertificatesArray.controls">
                                 <p><b>{{ certificate.value.certificate_name }}</b>{{ certificate.value.certificate_issued ? " - " + certificate.value.certificate_issued : "" }}</p>
@@ -1577,8 +1638,8 @@
                         </div>
                     </ng-container>
 					<ng-container *ngIf="getSkillsArray.length !=0">
-						<p class="headingStyle text-color-liteBlue zeroMarginPadding">technical skills</p>
-						<hr class="hr-custom">
+						<p class="headingStyle zeroMarginPadding" [ngStyle] = "{'color': selectedThemeColor }">technical skills</p>
+						<hr class="hr-custom" [ngStyle] = "{'color': selectedThemeColor, 'background-color':  selectedThemeColor}">
 						<div class="content fw-600 technicalSkillItem" *ngFor="let skill of getSkillsArray.controls">
 							<p class="upperCase mr-2">{{ skill.value.skills }}</p>
 							<ng-container [ngSwitch]="skill.value.skills_proficiency">
@@ -1589,8 +1650,8 @@
 						</div>
 					</ng-container>
                     <ng-container *ngIf="getExtraCurricularArray.length != 0">
-                        <p class="headingStyle text-color-liteBlue zeroMarginPadding">technical skills</p>
-                        <hr class="hr-custom">
+                        <p class="headingStyle zeroMarginPadding" [ngStyle] = "{'color': selectedThemeColor }">technical skills</p>
+                        <hr class="hr-custom" [ngStyle] = "{'color': selectedThemeColor, 'background-color':  selectedThemeColor}">
                         <div class="content">
                             <div class="technicalSkillItem" *ngFor="let extra of getExtraCurricularArray.controls">
                                 <p class="upperCase">{{ extra.value.extra_curricular_activites }}</p>
@@ -1601,8 +1662,8 @@
 
                 <div class="col-md-8">
 					<ng-container *ngIf='getWorkExpArray.length != 0'>
-						<p class="headingStyle text-color-liteBlue zeroMarginPadding" >experience</p>
-                    	<hr class="hr-custom">
+						<p class="headingStyle zeroMarginPadding" [ngStyle] = "{'color': selectedThemeColor }">experience</p>
+                    	<hr class="hr-custom" [ngStyle] = "{'color': selectedThemeColor, 'background-color':  selectedThemeColor}">
 						<div class="content">
 							<div class="mb-1" *ngFor="let exp of getWorkExpArray.controls">
 								<!-- <p class="headingStyle text-color-liteBlue zeroMarginPadding" >{{exp.value.work_still_pursing}}</p> -->
@@ -1613,8 +1674,8 @@
 						</div>
 					</ng-container>
 					<ng-container *ngIf='getEduDetailsArray.length != 0'>
-						<p class="headingStyle text-color-liteBlue zeroMarginPadding">education</p>
-						<hr class="hr-custom">
+						<p class="headingStyle zeroMarginPadding" [ngStyle] = "{'color': selectedThemeColor }">education</p>
+						<hr class="hr-custom" [ngStyle] = "{'color': selectedThemeColor, 'background-color':  selectedThemeColor}">
 						<div class="content">
 							<div class="mb-1" *ngFor="let edu of getEduDetailsArray.controls">
 								<p class="fw-600">{{ edu.value.edu_degree }}</p>
@@ -1623,8 +1684,8 @@
 						</div>
 					</ng-container>
                     <ng-container *ngIf="getProjectDetailsArray.length != 0 && f['selected_exp_level'].value == 1">
-                        <p class="headingStyle text-color-liteBlue zeroMarginPadding">projects</p>
-                        <hr class="hr-custom">
+                        <p class="headingStyle zeroMarginPadding" [ngStyle] = "{'color': selectedThemeColor }">projects</p>
+                        <hr class="hr-custom" [ngStyle] = "{'color': selectedThemeColor, 'background-color':  selectedThemeColor}">
                         <div class="content">
                             <div class="mb-1" *ngFor="let project of getProjectDetailsArray.controls">
                                 <p class="fw-600">{{ project.value.project_name }} - {{ project.value.project_start_name }} {{ project.value.project_end_name ? " - " + project.value.project_end_name : "" }}</p>
@@ -1633,8 +1694,8 @@
                         </div>
                     </ng-container>
                     <ng-container *ngIf="getReferenceArray.length !=0">
-                        <p class="headingStyle" style="margin:0px;">references</p>
-                        <hr class="hr-custom">
+                        <p class="headingStyle" style="margin:0px;" [ngStyle] = "{'color': selectedThemeColor }">references</p>
+                        <hr class="hr-custom" [ngStyle] = "{'color': selectedThemeColor, 'background-color':  selectedThemeColor}">
                         <div class="content" style="line-height: 1">
                             <div class="referenceItem" >
                                 <div style="width: 50%;" *ngFor="let refer of getReferenceArray.controls">

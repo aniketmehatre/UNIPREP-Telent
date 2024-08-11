@@ -1,12 +1,48 @@
+::ng-deep .slick-prev:before, ::ng-deep .slick-next:before {
+    color: black !important;
+    font-size: 50px;
+    background: rgba(0, 0, 0, 0.1); 
+    border-radius: 50%; 
+	position: absolute;
+}
+
+::ng-deep .slick-prev {
+	z-index: 1000;
+}
+
+::ng-deep .slick-next {
+    right: 3%; 
+}
+
+  
+.slick-center .cvBuilderSampleImg img {
+	height: 275px;  
+	transform: scale(1);  
+	transition: transform 0.3s ease, height 0.3s ease;
+  }
+
+  .slick-center .center-button {
+	display: block;
+  }
+
+  .slick-slide:not(.slick-center) .cvBuilderSampleImg img {
+	transform: scale(0.8);
+  }
+  
+  .slick-slide:nth-child(n+3):not(.slick-center) .cvBuilderSampleImg img {
+	transform: scale(0.6); 
+  }
+  
 .cvBuilderSampleImg {
 	cursor: pointer;
-	margin: auto;
+	margin: 5px;
 	text-align: center;
 	width: fit-content;
 	img {
 		height: 300px;
 		border-radius: 9px;
 		border: 1px solid;
+		transition: transform 0.3s ease, height 0.3s ease;
 	}
 	&:hover {
 		-webkit-box-shadow: 0px 0px 50px 0px var(--uniprep-primaryop10);
@@ -15,25 +51,25 @@
 	}
 }
 .previewcontainer {
-	height: 100%;
-	width: 100%;
 	display: flex;
 	justify-content: center;
 	.previewbody {
 		aspect-ratio: 1/1.41;
+		width:100%;
 	}
 }
 .center-button {
 	position: absolute;
-	top: 50%;
-	left: 50%;
-	transform: translateY(-50%) translateX(-50%);
-	padding: 5px 10px 5px 10px;
+	top: 75%;
+	padding: 5px 50px;
 	background-color: var(--uniprep-primary);
 	color: white;
 	border: none;
 	white-space: nowrap;
-	border-radius: 25px;
+	border-radius: 15px;
+	font-size: large;
+	margin: 0px 18px;
+	display: none; 
 }
 
 .HistoryDownloadIcon {
@@ -196,22 +232,22 @@
 		padding-left: 0px !important;
 	}
 	h1 {
-		font-size: 1.5em;
+		font-size: 4.5em;
 	}
 	h2 {
-		font-size: 1.3em;
+		font-size: 3.5em;
 	}
 	h3 {
-		font-size: 1.2em;
+		font-size: 3.0em;
 	}
 	h4 {
-		font-size: 1.1em;
+		font-size: 2.5em;
 	}
 	h5 {
-		font-size: 1.05em;
+		font-size: 2.0em;
 	}
 	h6 {
-		font-size: 1em;
+		font-size: 1.5em;
 	}
 	hr {
 		margin: 2px;
@@ -220,7 +256,6 @@
 	a,
 	span,
 	li {
-		font-size: 1em;
 		list-style: none;
 		padding: 0px;
 		padding-left: 0px;
@@ -237,22 +272,22 @@
 		margin-bottom:5px;
 	}
 	h1 {
-		font-size: 1.5em;
+		font-size: 4.5em;
 	}
 	h2 {
-		font-size: 1.3em;
+		font-size: 3.5em;
 	}
 	h3 {
-		font-size: 1.2em;
+		font-size: 3em;
 	}
 	h4 {
-		font-size: 1.1em;
+		font-size: 2.5em;
 	}
 	h5 {
-		font-size: 1.05em;
+		font-size: 2em;
 	}
 	h6 {
-		font-size: 1em;
+		font-size: 1.5em;
 	}
 	hr {
 		margin: 2px;
@@ -261,7 +296,6 @@
 	a,
 	span,
 	li {
-		font-size: 1em;
 		list-style: none;
 		padding: 0px;
 		padding-left: 0px;
@@ -284,6 +318,8 @@
 	padding: 10px;
 	font-weight: 600;
 	margin: 0px 5px;
+	position: relative;
+	display: flex;
 }
 
 .colorButton{
@@ -372,6 +408,40 @@
 	font-size: 16px;
 	border: none;
 }
+
+// .templateButton {
+// 	position: relative;
+// 	display: inline-block;
+// }
+  
+.template-dropdown-content {
+	display: none;
+	position: absolute;
+	background-color: white;
+	min-width: 125px;
+	box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+	z-index: 1;
+	border-radius: 20px;
+}
+
+.template-dropdown-content a {
+	color: black;
+	text-decoration: none;
+	display: block;
+	padding: 8px 10px;
+}
+
+.template-dropdown-content a:hover {
+	background-color: #5e6eb3;
+	color: white;
+	border-radius: 25px;
+}
+
+/* Show dropdown on hover */
+.templateButton:hover .template-dropdown-content {
+	display: block;
+}
+  
 
 .dropdown {
 	position: relative;
@@ -635,8 +705,8 @@ body {
 .hr-custom {
 	height: 1px;
 	border-width: 0;
-	color: #339499;
-	background-color: #339499;
+	// color: #339499;
+	// background-color: #339499;
 	margin-left: 10px;
 }
 
@@ -648,4 +718,22 @@ body {
 
 .text-xs {
 	font-size: 0.7rem;
+}
+
+.activeTemplate{
+	background-color: #5e6eb3;
+	border-radius: 25px;
+	color:white !important;
+}
+
+:host ::ng-deep .p-sidebar-header {
+    padding: 0px !important;
+}
+
+:host ::ng-deep .p-sidebar-content {
+    padding: 0px !important;
+}
+
+:host ::ng-deep .p-sidebar-footer {
+    padding: 0px !important;
 }
