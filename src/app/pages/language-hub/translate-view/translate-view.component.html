@@ -24,63 +24,76 @@
             <div class="col-md-2 col-2">&nbsp;</div>
         </div>
         <div class="row mt-4">
-            <div class="col-md-6">
-                <input
-                        id="disabled-input"
-                        type="text"
-                        class="w-100 form-control px-4 py-4"
-                        pInputText
-                        style="border: 1px solid #f0780e"
-                        value="English"
-                        [disabled]="true"
-                />
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="input-group custom-input w-100">
+                    <span class="input-group-text icon">
+                      <i class="fa-solid fa-language"></i>
+                    </span>
+                        <input
+                                type="text"
+                                class="form-control"
+                                value="English"
+                                disabled
+                        />
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="input-group custom-input w-100">
+                    <span class="input-group-text icon">
+                      <i class="fa-solid fa-language"></i>
+                    </span>
+                        <input
+                                type="text"
+                                class="form-control"
+                                value="{{selectedLanguageName}}"
+                                disabled
+                        />
+                    </div>
+                </div>
             </div>
-            <div class="col-md-6">
-                <input
-                        id="disabled-input1"
-                        type="text"
-                        style="border: 1px solid #f0780e"
-                        class="w-100 form-control px-4 py-4"
-                        pInputText
-                        [value]="selectedLanguageName"
-                        [disabled]="true"
-                />
-            </div>
-            <div class="col-md-6 mt-4">
+            <div class="col-md-6 mt-4 text-start">
+                <p>Enter the text to be translated</p>
                 <div class="textarea-container">
                     <textarea [(ngModel)]="text1" placeholder="Type here..."></textarea>
-                    <button (click)="togglePlayPause(1, text1)"  class="button1">
+                    <button (click)="togglePlayPause(1, text1)" class="button1">
                         <i [ngClass]="{'fa': true, 'fa-volume-up': isPlaying1, 'fa-play': !isPlaying1}"></i>
                     </button>
+                    <button (click)="translate(text1, '')" class="button2">
+                        Translate <i class="fa-solid fa-language"></i>
+                    </button>
                 </div>
             </div>
-            <div class="col-md-6 mt-4">
+            <div class="col-md-6 mt-4 text-start">
+                <p>Your translated content</p>
                 <div class="textarea-container">
-                    <textarea [(ngModel)]="text2" placeholder="" [disabled]="true" ></textarea>
-                    <button (click)="togglePlayPause(2, text2)"  class="button1">
+                    <textarea [(ngModel)]="text2" placeholder="" [disabled]="true"></textarea>
+                    <button (click)="togglePlayPause(2, text2)" class="button1">
                         <i [ngClass]="{'fa': true, 'fa-volume-up': isPlaying2, 'fa-play': !isPlaying2}"></i>
                     </button>
+
                 </div>
             </div>
-            <div class="col-md-6 mt-4">
+            <div class="col-md-6 mt-4 text-start">
+                <p>Enter the text to be translated</p>
                 <div class="textarea-container">
                     <textarea [(ngModel)]="text3" placeholder="Type here..."></textarea>
-                    <button (click)="togglePlayPause(3, text3)"  class="button1">
+                    <button (click)="togglePlayPause(3, text3)" class="button1">
                         <i [ngClass]="{'fa': true, 'fa-volume-up': isPlaying3, 'fa-play': !isPlaying3}"></i>
+                    </button>
+                    <button (click)="translate('', text3)" class="button2">
+                        Translate <i class="fa-solid fa-language"></i>
                     </button>
                 </div>
             </div>
-            <div class="col-md-6 mt-4">
+            <div class="col-md-6 mt-4 text-start">
+                <p>Your translated content</p>
                 <div class="textarea-container">
                     <textarea [(ngModel)]="text4" placeholder="" [disabled]="true"></textarea>
                     <button (click)="togglePlayPause(4, text4)" class="button1">
                         <i [ngClass]="{'fa': true, 'fa-volume-up': isPlaying4, 'fa-play': !isPlaying4}"></i>
                     </button>
                 </div>
-            </div>
-            <div class="col-md-12 mt-4">
-                <button class="how-it-works-button1" (click)="translate(text1, text3)">
-                    &nbsp;Translate &nbsp;&nbsp;<i class="fa-solid fa-play"></i></button>
             </div>
         </div>
 
