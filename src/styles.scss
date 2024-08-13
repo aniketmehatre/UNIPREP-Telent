@@ -1592,4 +1592,8 @@ p-dialog.restrictionDialog .p-dialog .p-dialog-header .p-dialog-header-icon {
 .br-20 {
 	border-radius: 20px !important;
 }
- 
+@media (min-width: 575.98px) {
+	.costofliving-dropdown .p-dropdown{
+		min-width: 300px !important;
+	 }
+}

@@ -46,8 +46,8 @@ export interface Price {
   measure: string
   currency_code?: string
   itemCount: number
-  inTargetRate?: number
-  inSourceRate?: number
+  rate?: number
+  inr?: number
 }
 
 export interface Usd {
@@ -65,9 +65,7 @@ export interface City {
   city_id: number
   city_name: string
   country_name: string
-  lat: number
-  lng: number
-  state_code?: string
+  flag:string
   label?:string;
 }
 export interface CategoryWiseComparison{

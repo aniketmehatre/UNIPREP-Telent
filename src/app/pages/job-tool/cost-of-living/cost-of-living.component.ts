@@ -30,11 +30,11 @@ export class CostOfLivingComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.costOfLivingService.getCities().subscribe(res => {
-      const citiesList = res?.cities;
-      citiesList.forEach(city => {
-        this.cities.push({ ...city, label: city.city_name + ', ' + city.country_name })
-      });
+    this.costOfLivingService.getCities().subscribe((res: City[]) => {
+      this.cities=res;
+      // res.forEach(city => {
+      //   this.cities.push({ ...city, label: city.city_name + ', ' + city.country_name })
+      // });
     });
   }
 
@@ -55,6 +55,6 @@ export class CostOfLivingComponent implements OnInit {
       });
     });
   }
- 
+
 
 }
