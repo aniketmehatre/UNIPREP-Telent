@@ -24,6 +24,9 @@
                     <button class="btn btn-primary text-small btn-rounded" type="submit">
                         Search <span class="searchIcon"><i class="fa-regular fa-magnifying-glass"></i></span>
                     </button>
+                    <button class="btn btn-danger text-small btn-rounded text-white ms-2" type="button" (click)="resetSearch()">
+                        Reset
+                    </button>
                 </div>
             </div>
         </div>
@@ -239,8 +242,10 @@
                             </div>
                             <div class="col-3">
                                 <div class="d-flex align-items-end justify-content-end gap-2">
-                                    <button class="text-small btn btn-dark btn-rounded px-5">Shortlist</button>
-                                    <button class="text-small btn btn-danger btn-rounded px-5">Apply</button>
+                                    <button class="text-small btn btn-dark btn-rounded px-5"
+                                            (click)="onClickApply(singleData, 'shortlist')">Shortlist</button>
+                                    <button class="text-small btn btn-danger btn-rounded px-5"
+                                            (click)="onClickApply(singleData,'apply')">Apply</button>
                                 </div>
                             </div>
                             <div class="col-6">
