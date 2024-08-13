@@ -24,6 +24,8 @@ import { PipesModule } from '@pipes/pipes.module';
 import {SalaryConverterComponent} from "./salary-converter/salary-converter.component";
 import {PaginatorModule} from "primeng/paginator";
 import { SlickCarouselModule } from 'ngx-slick-carousel';
+import {StepsModule} from 'primeng/steps';
+
 @NgModule({
   declarations: [
     JobToolComponent,
@@ -54,6 +56,7 @@ import { SlickCarouselModule } from 'ngx-slick-carousel';
     PipesModule,
     PaginatorModule,
     SlickCarouselModule,
+    StepsModule,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
