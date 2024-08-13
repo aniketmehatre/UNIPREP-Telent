@@ -78,10 +78,12 @@ img {
     height: 60px !important;
     width: 50px !important;
 }
+ 
 .graphs{
     display: flex;
-    width:50px;
+    width:35px;
     justify-content: space-between;
+    margin-bottom:10px;
     .graph-container {
         height: 60px;
         width: 15px;

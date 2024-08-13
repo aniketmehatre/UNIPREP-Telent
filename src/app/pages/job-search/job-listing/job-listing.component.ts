@@ -17,7 +17,6 @@ export class JobListingComponent implements OnInit {
     filterForm: FormGroup;
     query: string = 'developer';
     location: string = ''; // Default location
-    numbers: number[] = Array(20).fill(0).map((x, i) => i + 1);
     fromCountry: any
     selectedFlag: any
     isDetailedPageClicked: boolean = false
@@ -91,21 +90,32 @@ export class JobListingComponent implements OnInit {
             max_days_old: new FormControl('')
         });
         this.dataService.currentData.subscribe(data => {
-            console.log(data);
-            this.selectedCountryCode = data.countryCode.code
-            this.fG.setValue({
-                countryCode: data.countryCode.code,
-                title: data.title,
-                location: data.location,
-                company: data.company
-            });
-            this.selectedCountry = this.countryCodes.find((country: any) => country.code.toLowerCase() == data.countryCode.code);
-            this.onSubmit();
+            if (data) {
+                this.selectedCountryCode = data.countryCode.code
+                this.fG.setValue({
+                    countryCode: data.countryCode.code,
+                    title: data.title,
+                    location: data.location,
+                    company: data.company
+                });
+                this.selectedCountry = this.countryCodes.find((country: any) => country.code.toLowerCase() == data.countryCode.code);
+                this.onSubmit();
+            }
         });
+        const filterData = this.getFilterData();
+        if (filterData) {
+            this.fG.setValue({
+                countryCode: filterData.countryCode,
+                title: filterData.title,
+                location: filterData.location,
+                company: filterData.company
+            });
+            this.selectedCountry = this.countryCodes.find((country: any) => country.code.toLowerCase() == filterData.countryCode.code);
+            this.onSubmit();
+        }
     }
 
     limit: number = 10;
-    totalResults: number = 0;
 
     ngOnInit(): void {
         //this.searchJobsAdzuna()
@@ -120,9 +130,11 @@ export class JobListingComponent implements OnInit {
         //   );
     }
 
-    onCountryChange(event: any) {
-        this.selectedCountryCode = event.value.code
-        this.selectedFlag = event.value.flag
+    resetSearch() {
+        this.fG.reset()
+        this.filterForm.reset()
+        this.resetFilterData()
+        this.jobs = []
     }
 
     onCountryChangeFilter(event: any) {
@@ -146,7 +158,24 @@ export class JobListingComponent implements OnInit {
     }
 
     onSubmit() {
-        this.filterForm.reset()
+        console.log(this.fG.value)
+        this.filterForm.setValue({
+            countryCode: this.fG.value.countryCode.code,
+            location: this.fG.value.location,
+            company: this.fG.value.company,
+            category: '',
+            distance: '',
+            job_type: '',
+            salary_min: '',
+            salary_max: '',
+            max_days_old: ''
+        });
+        this.saveFilterData(this.fG.value)
+        this.fromCountry = this.countryCodes.find((country: any) => country.code.toLowerCase() == this.fG.value.countryCode.code);
+        if (this.fG.value.countryCode.code) {
+            this.selectedCountryCodeFilter = this.fG.value.countryCode.code
+            this.fetchCategoryData()
+        }
         if (this.fG.valid) {
             let req = {
                 location: this.fG.value.countryCode.code,
@@ -190,7 +219,6 @@ export class JobListingComponent implements OnInit {
     }
 
     onFilterSubmit() {
-        this.fG.reset();
         if (this.filterForm.valid) {
             let req = {
                 location: this.filterForm.value.countryCode.code,
@@ -198,17 +226,19 @@ export class JobListingComponent implements OnInit {
                 result_per_page: this.resultPerPage,
                 where: this.filterForm.value.location,
                 category: this.filterForm.value.category.tag,
-                full_time: this.filterForm.value.job_type.code == 'full_time' ? 1 : '',
-                part_time: this.filterForm.value.job_type.code == 'part_time' ? 1 : '',
-                contract: this.filterForm.value.job_type.code == 'contract' ? 1 : '',
-                permanent: this.filterForm.value.job_type.code == 'permanent' ? 1 : '',
-                distance: this.filterForm.value.distance.code,
+                full_time: this.filterForm.value.job_type?.code == 'full_time' ? '1' : '',
+                part_time: this.filterForm.value.job_type?.code == 'part_time' ? '1' : '',
+                contract: this.filterForm.value.job_type?.code == 'contract' ? '1' : '',
+                permanent: this.filterForm.value.job_type?.code == 'permanent' ? '1' : '',
+                distance: this.filterForm.value.distance ? this.filterForm.value.distance.code : '',
                 salary_min: this.filterForm.value.salary_min,
                 salary_max: this.filterForm.value.salary_max,
                 company: this.filterForm.value.company,
-                max_days_old: this.filterForm.value.max_days_old
+                max_days_old: this.filterForm.value.max_days_old,
+                what: this.fG.value.title
             }
-            this.jobService.searchJobs(req).subscribe(
+
+            this.jobService.filter(req).subscribe(
                 (data: any) => {
                     this.jobs = data.results
                     this.count = data.count
@@ -252,8 +282,26 @@ export class JobListingComponent implements OnInit {
         );
     }
 
-    goBack(){
+    goBack() {
         this.isDetailedPageClicked = false
+    }
+
+    getFilterData(): any {
+        const storedData = localStorage.getItem('filterFormData');
+        if (storedData) {
+            return JSON.parse(storedData);
+        }
+        return null;
+    }
+
+    saveFilterData(formData: any): void {
+        const filterData = JSON.stringify(formData);
+        localStorage.setItem('filterFormData', filterData);
+    }
+
+
+    resetFilterData(): void {
+        localStorage.setItem('filterFormData', '');
     }
 
 }

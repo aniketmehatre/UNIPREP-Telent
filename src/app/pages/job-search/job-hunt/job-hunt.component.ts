@@ -49,13 +49,28 @@ export class JobHuntComponent implements OnInit {
 
   }
 
+  resetSearch() {
+    this.fG.reset()
+    this.resetFilterData()
+  }
+
   onSubmit() {
     if (this.fG.valid) {
       this.dataService.changeData(this.fG.value)
+      this.saveFilterData(this.fG.value)
       this.router.navigateByUrl(`/pages/job-portal/job-listing`);
     }else{
       this.toastr.add({severity:'error', summary: 'Error', detail: "Fill required Filed"});
     }
+  }
+
+  saveFilterData(formData: any): void {
+    const filterData = JSON.stringify(formData);
+    localStorage.setItem('filterFormData', filterData);
+  }
+
+  resetFilterData(): void {
+    localStorage.setItem('filterFormData', '');
   }
 
 }
