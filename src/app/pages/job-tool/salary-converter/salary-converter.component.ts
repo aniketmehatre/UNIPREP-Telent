@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {SalaryConverterService} from "./salary-converter.service";
+import {Location} from "@angular/common";
 
 @Component({
   selector: 'uni-salary-converter',
@@ -31,7 +32,7 @@ export class SalaryConverterComponent implements OnInit {
     return this.taxData[1];
   }
 
-  constructor(private salaryConverterService: SalaryConverterService) {}
+  constructor(private salaryConverterService: SalaryConverterService, private _location: Location) {}
 
   ngOnInit(): void {
     this.salaryConverterService.getCountries().subscribe(data => {
@@ -82,7 +83,7 @@ export class SalaryConverterComponent implements OnInit {
   }
 
   goBack(){
-
+    this._location.back();
   }
 
   closeCard(){

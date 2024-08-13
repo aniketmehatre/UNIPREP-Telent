@@ -3,7 +3,9 @@
 //  width: 100% !important;
 //}
 
-
+.new-color{
+  border: 1px solid #f0780c;
+}
 
 .p-dropdown {
   width: 100% !important;
@@ -82,7 +84,7 @@
   background-color: #fff !important;
   border: 2px solid #5664A6FF !important;
   padding: 0;
-  height: 300px;
+  height: auto;
 }
 .custom-table {
   border-collapse: collapse;
@@ -109,4 +111,19 @@
 
 .full-width-input {
   width: 100% !important;
+}
+
+.round-info-icon {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  background-color: #000; /* Replace with your desired color */
+  color: white; /* Icon color */
+}
+
+.round-info-icon i {
+  font-size: 10px; /* Adjust icon size */
 }

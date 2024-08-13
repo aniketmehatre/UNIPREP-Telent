@@ -1,5 +1,27 @@
 <div class="card readingcard">
     <div class="card-body pt-0">
+        <div class="card-header p-0 bg-transparent border-0" >
+            <div class="row justify-content-center align-items-center">
+                <div class="col-md-3 text-start">
+                    <div class="backIcon">
+                        <span class="pi pi-angle-left" (click)="goBack()"></span>
+                    </div>
+
+                </div>
+                <div class="col-md-6 text-center">
+                    <div class="select-title text-nowrap d-flex justify-content-between align-items-center">
+                        <div>
+                            <h5 class="w-100 mb-0" tooltipPosition="top" pTooltip="Global Salary converter">Salary Converter<i class="questiontooltip fa-solid fa-circle-question"></i></h5>
+                        </div>
+                        <div>
+                            <button class="how-it-works-button">&nbsp;How it works? &nbsp;&nbsp;<i
+                                    class="fa-solid fa-play"></i></button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 text-end"></div>
+            </div>
+        </div>
         <div class="row w-100 h-100 m-0 justify-content-center align-items-center">
             <div class="col-6">
                 <h3 style="color:var(--uniprep-primary);" class="text-center">Compare your earnings across different
@@ -79,7 +101,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-12" *ngIf="isPPPCardVisible">
+            <div class="col-md-12 mt-2" *ngIf="isPPPCardVisible">
                 <div class="row">
                     <div class="col-3">
                         <div class="card responsivecard p-2 text-center">
@@ -91,7 +113,14 @@
                                         <tr>
                                             <th>Income</th>
                                             <th>Tax Rate</th>
-                                            <th>Tax Type</th>
+                                            <th>Tax Type
+                                                <div class="round-info-icon" pTooltip="In a non-cumulative tax system, each portion of income is taxed independently at the rate applicable to that specific portion without progressive accumulation.
+
+In a cumulative tax system, the taxpayer's income is divided into brackets, and each portion of income is taxed at the rate applicable to that bracket. The total tax liability is the sum of the taxes calculated for each bracket."
+                                                     tooltipPosition="top">
+                                                    <i class="fa-regular fa-info"></i>
+                                                </div>
+                                            </th>
                                         </tr>
                                         </thead>
                                         <tbody>
@@ -107,10 +136,10 @@
                         </div>
                     </div>
                     <div class="col-6">
-                        <div class="card primary-color w-100" style="position: relative;">
-                            <button type="button" class="btn-close text-white" aria-label="Close"
-                                    style="color:white !important; position: absolute; top: 10px; right: 10px;"
-                                    (click)="closeCard()"></button>
+                        <div class="card new-color w-100" style="position: relative;">
+                            <!--                            <button type="button" class="btn-close text-white" aria-label="Close"-->
+                            <!--                                    style="color:white !important; position: absolute; top: 10px; right: 10px;"-->
+                            <!--                                    (click)="closeCard()"></button>-->
                             <div class="card-body pt-0 h-50">
                                 <div class="row justify-content-center px-4 py-4">
                                     <div class="col-md-12 text-center">
@@ -118,7 +147,7 @@
                                         <h4 style="font-weight: unset !important;" class="mt-4"
                                             [innerHTML]="statementText">
                                         </h4>
-                                        <h6 class="text-center mt-4">Note</h6>
+                                        <h6 class="text-center mt-4" style="color: #f0780c"><strong>Note</strong></h6>
                                         <h6 style="font-weight: unset !important;" class="mt-2"
                                             [innerHTML]="inHomeCurrency">
                                         </h6>
@@ -145,7 +174,14 @@
                                         <tr>
                                             <th>Income</th>
                                             <th>Tax Rate</th>
-                                            <th>Tax Type</th>
+                                            <th>Tax Type
+                                                <div class="round-info-icon" pTooltip="In a non-cumulative tax system, each portion of income is taxed independently at the rate applicable to that specific portion without progressive accumulation.
+
+In a cumulative tax system, the taxpayer's income is divided into brackets, and each portion of income is taxed at the rate applicable to that bracket. The total tax liability is the sum of the taxes calculated for each bracket."
+                                                     tooltipPosition="top">
+                                                    <i class="fa-regular fa-info"></i>
+                                                </div>
+                                            </th>
                                         </tr>
                                         </thead>
                                         <tbody>
