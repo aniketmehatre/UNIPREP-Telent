@@ -18,6 +18,7 @@ import {SkeletonModule} from "primeng/skeleton";
 import {CardModule} from "primeng/card";
 import {PaginatorModule} from "primeng/paginator";
 import {TranslateViewComponent} from "./translate-view/translate-view.component";
+import {ChipsModule} from "primeng/chips";
 
 
 @NgModule({
@@ -29,20 +30,21 @@ import {TranslateViewComponent} from "./translate-view/translate-view.component"
     QuestionListComponent,
       TranslateViewComponent
   ],
-  imports: [
-    CommonModule,
-    LanguageHubRoutingModule,
-    BreadcrumbModule,
-    ButtonModule,
-    CarouselModule,
-    DialogModule,
-    ProgressBarModule,
-    SharedModule,
-    SkeletonModule,
-    TooltipModule,
-    SkeletonModule,
-    CardModule,
-    PaginatorModule
-  ]
+    imports: [
+        CommonModule,
+        LanguageHubRoutingModule,
+        BreadcrumbModule,
+        ButtonModule,
+        CarouselModule,
+        DialogModule,
+        ProgressBarModule,
+        SharedModule,
+        SkeletonModule,
+        TooltipModule,
+        SkeletonModule,
+        CardModule,
+        PaginatorModule,
+        ChipsModule
+    ]
 })
 export class LanguageHubModule { }
