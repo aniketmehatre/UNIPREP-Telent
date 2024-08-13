@@ -31,7 +31,7 @@
 						class="fa-solid fa-check tickIcon"></i></button>
 			</div>
 		</div> -->
-		 <!-- <div>
+		<!-- <div>
 			<h5 class="text-center uniprep-primary">Functional</h5>
 			<div class="cvBuilderSampleImg" [ngClass]="{ selectedResumeLevel: selectedResumeLevel == 'Functional' }"
 				(click)="imgOnclick('Functional')">
@@ -54,28 +54,23 @@
 	</div>
 	<div *ngIf="isButtonDisabledSelectTemplate" class="row justify-content-center">
 		<div class="col-md-12 mt-5" style="text-align: center;">
-			<button class="createResumeButton"  (click)="shakeButton($event)">Create your Coverletter
+			<button class="createResumeButton" (click)="shakeButton($event)">Create your Coverletter
 				&nbsp;&nbsp;&nbsp;<i class="fa-solid fa-arrow-right tickIcon"></i></button>
 		</div>
 	</div>
 </div>
 <div class="" *ngIf="activePageIndex == 3" style="overflow: auto !important;">
-	<div class="row justify-content-center"  style="overflow: auto !important;">
+	<div class="row justify-content-center" style="overflow: auto !important;">
 		<div class="flex-column">
 			<div>
 				<h3 class="text-center uniprep-primary">Your Coverletter</h3>
 				<h5 class="text-center uniprep-primary">{{ selectedResumeLevel }}</h5>
 				<div class="cvBuilderSampleImg">
-					<img *ngIf="selectedResumeLevel == 'Modern'"
-						src="{{previewImage}}" />
-						<img *ngIf="selectedResumeLevel == 'Traditional'"
-						src="{{previewImage}}" />
-						<img *ngIf="selectedResumeLevel == 'Creative'"
-						src="{{previewImage}}" />
-						<img *ngIf="selectedResumeLevel == 'Functional'"
-						src="{{previewImage}}" />
-						<img *ngIf="selectedResumeLevel == 'Academic'"
-						src="{{previewImage}}" />
+					<img *ngIf="selectedResumeLevel == 'Modern'" src="{{previewImage}}" />
+					<img *ngIf="selectedResumeLevel == 'Traditional'" src="{{previewImage}}" />
+					<img *ngIf="selectedResumeLevel == 'Creative'" src="{{previewImage}}" />
+					<img *ngIf="selectedResumeLevel == 'Functional'" src="{{previewImage}}" />
+					<img *ngIf="selectedResumeLevel == 'Academic'" src="{{previewImage}}" />
 					<!-- <img *ngIf="selectedResumeLevel == 'Traditional'"
 						src="https://api.uniprep.ai/uniprepapi/storage/app/public/SampleUploadDocuments/cover_letter/traditional.png" /> -->
 					<!-- <img *ngIf="selectedResumeLevel == 'Modern'"
@@ -95,8 +90,8 @@
 					<button pButton type="button" (click)="previous()"
 						class="text-white p-ripple p-button-rounded p-button-info-prev p-button p-component p-2"><i
 							class="fa fa-arrow-left exhausted-plan-icon-prev"></i> Previous</button>
-					<button class="downloadButton" style="margin: 0px;" (click)="next()">Coverletter Builder &nbsp;&nbsp;&nbsp;<i
-							class="fa-sharp fa-regular fa-house tickIcon"></i></button>
+					<button class="downloadButton" style="margin: 0px;" (click)="next()">Coverletter Builder
+						&nbsp;&nbsp;&nbsp;<i class="fa-sharp fa-regular fa-house tickIcon"></i></button>
 				</div>
 			</div>
 		</div>
@@ -162,9 +157,10 @@
 								<div class="mb-3">
 									<input class="w-100" type="text" placeholder="Full Name" formControlName="user_name"
 										pInputText />
-										<div *ngIf="submitted && f['user_name'].errors" class="text-danger text-xs">
-											<div style="margin-left:10px;" *ngIf="f['user_name'].errors">Your Name Required</div>
+									<div *ngIf="submitted && f['user_name'].errors" class="text-danger text-xs">
+										<div style="margin-left:10px;" *ngIf="f['user_name'].errors">Your Name Required
 										</div>
+									</div>
 								</div>
 							</div>
 						</div>
@@ -290,24 +286,35 @@
 		<div class="col-md-6 h-100">
 			<div class="card h-100">
 				<div class="card-header d-flex justify-content-between align-items-center PageTitle">
-                    <h4 class="p-mb-1">Preview</h4>
-                    <div class="d-flex">
-                        <span class="templateButton">Template 
-                            <div class="template-dropdown">
-                                <span class="templateName">{{ selectedResumeLevel }} <i class="fa fa-caret-down"></i></span>
-                                <div class="template-dropdown-content">
-                                    <a class="cursorPointer" [ngClass]="{'activeTemplate': selectedResumeLevel === 'Traditional'}" (click)="imgOnclick('Traditional')">Traditional</a>
-                                    <a class="cursorPointer" [ngClass]="{'activeTemplate': selectedResumeLevel === 'Creative'}" (click)="imgOnclick('Creative')">Creative</a>
-                                    <a class="cursorPointer" [ngClass]="{'activeTemplate': selectedResumeLevel === 'Modern'}" (click)="imgOnclick('Modern')">Modern</a>
-                                    <a class="cursorPointer" [ngClass]="{'activeTemplate': selectedResumeLevel === 'Functional'}" (click)="imgOnclick('Functional')">Functional</a>
-                                    <a class="cursorPointer" [ngClass]="{'activeTemplate': selectedResumeLevel === 'Academic'}" (click)="imgOnclick('Academic')">Academic</a>
-                                </div>
-                            </div>
-                        </span>
-                        <ng-container *ngTemplateOutlet="colorPickerContent"></ng-container>
-                    </div>                      
-                    <i class="fa-sharp fa-solid fa-expand" style="cursor: pointer" (click)="toggleFullScreen()"></i>
-                </div>
+					<h4 class="p-mb-1">Preview</h4>
+					<div class="d-flex">
+						<span class="templateButton">Template
+							<div class="template-dropdown">
+								<span class="templateName">{{ selectedResumeLevel }} <i
+										class="fa fa-caret-down"></i></span>
+								<div class="template-dropdown-content">
+									<a class="cursorPointer"
+										[ngClass]="{'activeTemplate': selectedResumeLevel === 'Traditional'}"
+										(click)="imgOnclick('Traditional')">Traditional</a>
+									<a class="cursorPointer"
+										[ngClass]="{'activeTemplate': selectedResumeLevel === 'Creative'}"
+										(click)="imgOnclick('Creative')">Creative</a>
+									<a class="cursorPointer"
+										[ngClass]="{'activeTemplate': selectedResumeLevel === 'Modern'}"
+										(click)="imgOnclick('Modern')">Modern</a>
+									<a class="cursorPointer"
+										[ngClass]="{'activeTemplate': selectedResumeLevel === 'Functional'}"
+										(click)="imgOnclick('Functional')">Functional</a>
+									<a class="cursorPointer"
+										[ngClass]="{'activeTemplate': selectedResumeLevel === 'Academic'}"
+										(click)="imgOnclick('Academic')">Academic</a>
+								</div>
+							</div>
+						</span>
+						<ng-container *ngTemplateOutlet="colorPickerContent"></ng-container>
+					</div>
+					<i class="fa-sharp fa-solid fa-expand" style="cursor: pointer" (click)="toggleFullScreen()"></i>
+				</div>
 				<div class="card-body h-100 overflow-y-auto">
 					<div class="previewcontainer">
 						<div class="previewbody">
@@ -328,128 +335,143 @@
 	</div>
 </div>
 <!-- templates -->
- 
+
 <p-sidebar [(visible)]="fullScreenVisible" [fullScreen]="true" [showCloseIcon]="false">
-    <div class="col-md-12 h-100">
-        <div class="card h-100">
-            <div class="card-header cvPreview">
-                <h4 class="p-mb-1">Coverletter Preview</h4>
-                <div class="d-flex">
-                    <span class="templateButton">Template 
-                        <div class="template-dropdown">
-                            <span class="templateName">{{ selectedResumeLevel }} <i class="fa fa-caret-down"></i></span>
-                            <div class="template-dropdown-content">
-                                <a class="cursorPointer" [ngClass]="{'activeTemplate': selectedResumeLevel === 'Traditional'}" (click)="imgOnclick('Traditional')">Traditional</a>
-                                <a class="cursorPointer" [ngClass]="{'activeTemplate': selectedResumeLevel === 'Creative'}" (click)="imgOnclick('Creative')">Creative</a>
-                                <a class="cursorPointer" [ngClass]="{'activeTemplate': selectedResumeLevel === 'Modern'}" (click)="imgOnclick('Modern')">Modern</a>
-                                <a class="cursorPointer" [ngClass]="{'activeTemplate': selectedResumeLevel === 'Functional'}" (click)="imgOnclick('Functional')">Functional</a>
-                                <a class="cursorPointer" [ngClass]="{'activeTemplate': selectedResumeLevel === 'Academic'}" (click)="imgOnclick('Academic')">Academic</a>
-                            </div>
-                        </div>
-                    </span>
-                    <ng-container *ngTemplateOutlet="colorPickerContent"></ng-container>
-                </div>              
-                <i class="fa-sharp fa-solid fa-compress" style="cursor: pointer" (click)="toggleFullScreen()"></i>
-            </div>
-            <div class="card-body overflow-y-auto" style="background-color: #3f4c83">
-                <div class="row justify-content-center">
+	<div class="col-md-12 h-100">
+		<div class="card h-100">
+			<div class="card-header cvPreview">
+				<h4 class="p-mb-1">Coverletter Preview</h4>
+				<div class="d-flex">
+					<span class="templateButton">Template
+						<div class="template-dropdown">
+							<span class="templateName">{{ selectedResumeLevel }} <i class="fa fa-caret-down"></i></span>
+							<div class="template-dropdown-content">
+								<a class="cursorPointer"
+									[ngClass]="{'activeTemplate': selectedResumeLevel === 'Traditional'}"
+									(click)="imgOnclick('Traditional')">Traditional</a>
+								<a class="cursorPointer"
+									[ngClass]="{'activeTemplate': selectedResumeLevel === 'Creative'}"
+									(click)="imgOnclick('Creative')">Creative</a>
+								<a class="cursorPointer"
+									[ngClass]="{'activeTemplate': selectedResumeLevel === 'Modern'}"
+									(click)="imgOnclick('Modern')">Modern</a>
+								<a class="cursorPointer"
+									[ngClass]="{'activeTemplate': selectedResumeLevel === 'Functional'}"
+									(click)="imgOnclick('Functional')">Functional</a>
+								<a class="cursorPointer"
+									[ngClass]="{'activeTemplate': selectedResumeLevel === 'Academic'}"
+									(click)="imgOnclick('Academic')">Academic</a>
+							</div>
+						</div>
+					</span>
+					<ng-container *ngTemplateOutlet="colorPickerContent"></ng-container>
+				</div>
+				<i class="fa-sharp fa-solid fa-compress" style="cursor: pointer" (click)="toggleFullScreen()"></i>
+			</div>
+			<div class="card-body overflow-y-auto" style="background-color: #3f4c83">
+				<div class="row justify-content-center">
 
-                    <div class="col-md-6">
-                    <div class="previewcontainer">
-                    <div class="previewbody">
-                        <ng-container *ngTemplateOutlet="sharedContent"></ng-container>
-                    </div>
-                    </div>
+					<div class="col-md-6">
+						<div class="previewcontainer">
+							<div class="previewbody">
+								<ng-container *ngTemplateOutlet="sharedContent"></ng-container>
+							</div>
+						</div>
 
-                </div>
-                </div>
-                
-            </div>
-        </div>
-    </div>
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</div>
 </p-sidebar>
 
 <ng-template #colorPickerContent>
-    <div class="dropdown">
-        <div class="colorDiv d-flex colorButton align-items-center gap-2">
-            <p>Color</p>
-            <div style="background-color: black;" [ngStyle]="{ 'background-color': selectedThemeColor }"
-                 class="selectedColor"></div>
-        </div>
-        <div class="dropdown-content">
-            <div class="d-flex justify-content-center">
-                <a (click)="selectColor('#172a99',1)" class="p-2 cursorPointer">
-                    <div style="background-color: #172a99;" class="colorSelector"></div>
-                    <i *ngIf="selectedColorCode == 1" class="fa-solid fa-check ColorCheckBox colorWhite"></i>
-                </a>
-                <a (click)="selectColor('#469199',2)" class="p-2 cursorPointer">
-                    <div style="background-color: #469199;" class="colorSelector"></div>
-                    <i *ngIf="selectedColorCode == 2" class="fa-solid fa-check ColorCheckBox colorWhite"></i>
-                </a>
-                <a (click)="selectColor('#973131',3)" class="p-2 cursorPointer">
-                    <div style="background-color: #973131;" class="colorSelector"></div>
-                    <i *ngIf="selectedColorCode == 3" class="fa-solid fa-check ColorCheckBox"></i>
-                </a>
-                <a (click)="selectColor('#C80036',4)" class="p-2 cursorPointer">
-                    <div style="background-color: #C80036;" class="colorSelector"></div>
-                    <i *ngIf="selectedColorCode == 4" class="fa-solid fa-check ColorCheckBox colorWhite"></i>
-                </a>
-            </div>
-            <div class="d-flex justify-content-center">
-                <a (click)="selectColor('#E2C742',5)" class="p-2 cursorPointer">
-                    <div style="background-color: #E2C742;" class="colorSelector"></div>
-                    <i *ngIf="selectedColorCode == 5" class="fa-solid fa-check ColorCheckBox colorWhite"></i>
-                </a>
-                <a (click)="selectColor('#686D76',6)" class="p-2 cursorPointer">
-                    <div style="background-color:#686D76;" class="colorSelector"></div>
-                    <i *ngIf="selectedColorCode == 6" class="fa-solid fa-check ColorCheckBox"></i>
-                </a>
-                <a (click)="selectColor('#373A40',7)" class="p-2 cursorPointer">
-                    <div style="background-color:#373A40;" class="colorSelector"></div>
-                    <i *ngIf="selectedColorCode == 7" class="fa-solid fa-check ColorCheckBox colorWhite"></i>
-                </a>
-            </div>
-        </div>
-    </div>
+	<div class="dropdown">
+		<div class="colorDiv d-flex colorButton align-items-center gap-2">
+			<p>Color</p>
+			<div style="background-color: black;" [ngStyle]="{ 'background-color': selectedThemeColor }"
+				class="selectedColor"></div>
+		</div>
+		<div class="dropdown-content">
+			<div class="d-flex justify-content-center">
+				<a (click)="selectColor('#172a99',1)" class="p-2 cursorPointer">
+					<div style="background-color: #172a99;" class="colorSelector"></div>
+					<i *ngIf="selectedColorCode == 1" class="fa-solid fa-check ColorCheckBox colorWhite"></i>
+				</a>
+				<a (click)="selectColor('#469199',2)" class="p-2 cursorPointer">
+					<div style="background-color: #469199;" class="colorSelector"></div>
+					<i *ngIf="selectedColorCode == 2" class="fa-solid fa-check ColorCheckBox colorWhite"></i>
+				</a>
+				<a (click)="selectColor('#973131',3)" class="p-2 cursorPointer">
+					<div style="background-color: #973131;" class="colorSelector"></div>
+					<i *ngIf="selectedColorCode == 3" class="fa-solid fa-check ColorCheckBox"></i>
+				</a>
+				<a (click)="selectColor('#C80036',4)" class="p-2 cursorPointer">
+					<div style="background-color: #C80036;" class="colorSelector"></div>
+					<i *ngIf="selectedColorCode == 4" class="fa-solid fa-check ColorCheckBox colorWhite"></i>
+				</a>
+			</div>
+			<div class="d-flex justify-content-center">
+				<a (click)="selectColor('#E2C742',5)" class="p-2 cursorPointer">
+					<div style="background-color: #E2C742;" class="colorSelector"></div>
+					<i *ngIf="selectedColorCode == 5" class="fa-solid fa-check ColorCheckBox colorWhite"></i>
+				</a>
+				<a (click)="selectColor('#686D76',6)" class="p-2 cursorPointer">
+					<div style="background-color:#686D76;" class="colorSelector"></div>
+					<i *ngIf="selectedColorCode == 6" class="fa-solid fa-check ColorCheckBox"></i>
+				</a>
+				<a (click)="selectColor('#373A40',7)" class="p-2 cursorPointer">
+					<div style="background-color:#373A40;" class="colorSelector"></div>
+					<i *ngIf="selectedColorCode == 7" class="fa-solid fa-check ColorCheckBox colorWhite"></i>
+				</a>
+			</div>
+		</div>
+	</div>
 </ng-template>
 
 <ng-template #sharedContent>
-    <div class="h-100" id="cv-preview-container"  [ngClass]="{ previewBodyForm: !fullScreenVisible, previewBodyFormFull: fullScreenVisible }" *ngIf="selectedResumeLevel=='Modern'">
+	<div class="h-100" id="cv-preview-container"
+		[ngClass]="{ previewBodyForm: !fullScreenVisible, previewBodyFormFull: fullScreenVisible }"
+		*ngIf="selectedResumeLevel=='Modern'">
 		<div class="containermodern">
 
 			<div class="horizontal-lineacmodern1"></div>
 			<div class="horizontal-lineacmodern2"></div>
-	   </div>
-
-	   <div  class="mt-5 customfontstyles" style=" padding:5px; font-family:'Times New Roman', Times, serif;">
-		   <span>
-			   <h1 class=" customfontstylesname">{{ f["user_name"].value }}</h1>
-		   </span>
-
-		   <p>&nbsp;{{ f["user_job_title"].value }}</p> <br><br>
-		   <p><span>Dear {{f["managername"].value }},</span></p><br>
-		   <p><span [innerHTML]="f['user_summary'].value"></span></p>
-		   <br>
-		   <p><span>Warm regards,&nbsp;</span></p>
-		   <p>{{ f["user_name"].value }}</p>
-
-	   </div>
-
-	   <div style="  bottom:0px;position:relative; width: 100%;   ">
-
-		   <div class="container1">
-			   <div class="horizontal-linemodern11"></div>
-			   <div class="horizontal-lineamodern22"></div>
-
-		   </div>
-	   </div>
-    </div>
-    <div class="h-100" id="cv-preview-container" [ngClass]="{ previewBodyForm: !fullScreenVisible, previewBodyFormFull: fullScreenVisible }" *ngIf="selectedResumeLevel=='Academic'">
-		<div class="containeracadamic ">
-			 <div class="horizontal-lineacadamic"></div>
 		</div>
 
-		<div class="mt-5 customfontstyles" style=" padding:5px; font-family:'Times New Roman', Times, serif; font-size: 5px;">
+		<div class="mt-5 customfontstyles" style=" padding:5px; font-family:'Times New Roman', Times, serif;">
+			<span>
+				<h1 class=" customfontstylesname">{{ f["user_name"].value }}</h1>
+			</span>
+
+			<p>&nbsp;{{ f["user_job_title"].value }}</p> <br><br>
+			<p><span>Dear {{f["managername"].value }},</span></p><br>
+			<p><span [innerHTML]="f['user_summary'].value"></span></p>
+			<br>
+			<p><span>Warm regards,&nbsp;</span></p>
+			<p>{{ f["user_name"].value }}</p>
+
+		</div>
+
+		<div style="  bottom:0px;position:relative; width: 100%;   ">
+
+			<div class="container1">
+				<div class="horizontal-linemodern11"></div>
+				<div class="horizontal-lineamodern22"></div>
+
+			</div>
+		</div>
+	</div>
+	<div class="h-100" id="cv-preview-container"
+		[ngClass]="{ previewBodyForm: !fullScreenVisible, previewBodyFormFull: fullScreenVisible }"
+		*ngIf="selectedResumeLevel=='Academic'">
+		<div class="containeracadamic ">
+			<div class="horizontal-lineacadamic"></div>
+		</div>
+
+		<div class="mt-5 customfontstyles"
+			style=" padding:5px; font-family:'Times New Roman', Times, serif; font-size: 5px;">
 			<span>
 				<h1 style="font-size: 14px;">{{ f["user_name"].value }}</h1>
 			</span>
@@ -468,17 +490,51 @@
 				<div class="horizontal-lineacadamic1"></div>
 			</div>
 		</div>
-    </div>
-    <div class="h-100" id="cv-preview-container" [ngClass]="{ previewBodyForm: !fullScreenVisible, previewBodyFormFull: fullScreenVisible }" *ngIf="selectedResumeLevel=='Creative'">
-        <div class="container-fluid">
-    
-        </div>
-    </div>
-    <div class="h-100" id="cv-preview-container" [ngClass]="{ previewBodyForm: !fullScreenVisible, previewBodyFormFull: fullScreenVisible }" *ngIf="selectedResumeLevel=='Functional'">
-        <div class="container">
-    
-        </div>
-    </div>
-    <div class="h-100" id="cv-preview-container" [ngClass]="{ previewBodyForm: !fullScreenVisible, previewBodyFormFull: fullScreenVisible }" *ngIf="selectedResumeLevel=='Traditional'">
-    </div>
+	</div>
+	<div class="h-100" id="cv-preview-container"
+		[ngClass]="{ previewBodyForm: !fullScreenVisible, previewBodyFormFull: fullScreenVisible }"
+		*ngIf="selectedResumeLevel=='Creative'">
+		<div class="container-fluid">
+
+		</div>
+	</div>
+	<div class="h-100" id="cv-preview-container"
+		[ngClass]="{ previewBodyForm: !fullScreenVisible, previewBodyFormFull: fullScreenVisible }"
+		*ngIf="selectedResumeLevel=='Functional'">
+		<div class="container">
+
+		</div>
+	</div>
+	<div class="h-100" id="cv-preview-container"
+		[ngClass]="{ previewBodyForm: !fullScreenVisible, previewBodyFormFull: fullScreenVisible }"
+		*ngIf="selectedResumeLevel=='Traditional'">
+		<div class="container">
+			<div class="vertical-line"></div>
+			<div class="horizontal-line"></div>
+			<div class="circle"></div>
+		</div>
+	
+		<div class="customfontstyles" style=" padding:5px; font-family:'Times New Roman', Times, serif; font-size: 5px;">
+			<span>
+				<h1 style="font-size: 14px;">{{ f["user_name"].value }}</h1>
+			</span>
+	
+			<p>&nbsp;{{ f["user_job_title"].value }}</p> <br><br>
+			<p><span>Dear {{f["managername"].value }},</span></p><br>
+			<p><span [innerHTML]="f['user_summary'].value"></span></p>
+			<br>
+			<p><span>Warm regards,&nbsp;</span></p>
+			<p>{{ f["user_name"].value }}</p>
+	
+		</div>
+		<div style="  bottom:0px;position:relative; width: 100%;   ">
+	
+			<div class="container1">
+				<div class="vertical-line1"></div>
+				<div class="horizontal-line1"></div>
+				<div class="circle1"></div>
+			</div>
+		</div>
+	</div>
+	
 </ng-template>
