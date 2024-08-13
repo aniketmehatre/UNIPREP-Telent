@@ -55,7 +55,7 @@
             <div class="col-md-6 mt-4 text-start">
                 <p>Enter the text to be translated</p>
                 <div class="textarea-container">
-                    <textarea [(ngModel)]="text1" placeholder="Type here..."></textarea>
+                    <textarea [(ngModel)]="text1" class="text-large" placeholder="Type here..."></textarea>
                     <button (click)="togglePlayPause(1, text1)" class="button1">
                         <i [ngClass]="{'fa': true, 'fa-volume-up': isPlaying1, 'fa-play': !isPlaying1}"></i>
                     </button>
@@ -67,7 +67,7 @@
             <div class="col-md-6 mt-4 text-start">
                 <p>Your translated content</p>
                 <div class="textarea-container">
-                    <textarea [(ngModel)]="text2" placeholder="" [disabled]="true"></textarea>
+                    <textarea [(ngModel)]="text2" class="text-large" placeholder="" [disabled]="true"></textarea>
                     <button (click)="togglePlayPause(2, text2)" class="button1">
                         <i [ngClass]="{'fa': true, 'fa-volume-up': isPlaying2, 'fa-play': !isPlaying2}"></i>
                     </button>
@@ -77,7 +77,7 @@
             <div class="col-md-6 mt-4 text-start">
                 <p>Enter the text to be translated</p>
                 <div class="textarea-container">
-                    <textarea [(ngModel)]="text3" placeholder="Type here..."></textarea>
+                    <textarea [(ngModel)]="text3" class="text-large" placeholder="Type here..."></textarea>
                     <button (click)="togglePlayPause(3, text3)" class="button1">
                         <i [ngClass]="{'fa': true, 'fa-volume-up': isPlaying3, 'fa-play': !isPlaying3}"></i>
                     </button>
@@ -89,7 +89,7 @@
             <div class="col-md-6 mt-4 text-start">
                 <p>Your translated content</p>
                 <div class="textarea-container">
-                    <textarea [(ngModel)]="text4" placeholder="" [disabled]="true"></textarea>
+                    <textarea [(ngModel)]="text4" class="text-large" placeholder="" [disabled]="true"></textarea>
                     <button (click)="togglePlayPause(4, text4)" class="button1">
                         <i [ngClass]="{'fa': true, 'fa-volume-up': isPlaying4, 'fa-play': !isPlaying4}"></i>
                     </button>
