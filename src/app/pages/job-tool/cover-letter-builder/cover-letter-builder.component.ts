@@ -233,7 +233,7 @@ export class CoverLetterBuilderComponent implements OnInit {
   chatGPTIntegration() {
     const apiKey = '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'; 
     let formData = this.resumeFormInfoData.value;
-    let prompt: string = `Provide the body of the  cover letter for ${this.resumeFormInfoData.value.user_name} who is a ${this.resumeFormInfoData.value.user_job_title} applying to ${this.resumeFormInfoData.value.edu_college_name} for the position of ${this.resumeFormInfoData.value.jobposition}`;
+    let prompt: string = `Provide the body of the  cover letter for  ${this.resumeFormInfoData.value.user_name} who is a ${this.resumeFormInfoData.value.user_job_title} applying to ${this.resumeFormInfoData.value.edu_college_name} for the position of ${this.resumeFormInfoData.value.jobposition}`;
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${apiKey}`
@@ -242,10 +242,11 @@ export class CoverLetterBuilderComponent implements OnInit {
     const body = {
       model: "gpt-3.5-turbo",
       messages: [
-        { role: "system", content: "You are a helpful assistant." },
-        { role: "user", content: prompt }
+        { role: "system", content: "You are an assistant who writes professional cover letters. without from and to, i need only body for my cover letter." },
+          { role: "user", content: prompt }
       ],
-      max_tokens: 1000
+      max_tokens: 150,
+      n: 1
     };
   
     this.http.post<any>('https://api.openai.com/v1/chat/completions', body, { headers: headers }).subscribe(response => {

@@ -1,6 +1,4 @@
  .centerDiv {
-     display: flex;
-     justify-content: center;
      align-items: center;
      height: 50vh;
  }
@@ -11,8 +9,8 @@
  }
 
  img {
-     height: 30px;
-     width: 30px;
+     height: 25px !important;
+     width: 25px !important;
      margin-right: 10px;
  }
 
@@ -30,6 +28,11 @@
              margin-bottom: 5px;
          }
      }
+
+     form {
+         display: flex;
+         flex-direction: column;
+     }
  }
 
  @media (min-width: 575.98px) {
@@ -38,8 +41,18 @@
              text-align: center;
          }
      }
+
+     .dropdown-container {
+         width: 750px;
+
+         form {
+             display: flex;
+             justify-content: space-between;
+         }
+     }
+
  }
 
- .g-10{
-    gap:10px;
+ .g-10 {
+     gap: 10px;
  }

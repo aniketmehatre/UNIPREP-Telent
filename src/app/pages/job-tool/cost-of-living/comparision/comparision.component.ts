@@ -19,7 +19,8 @@ export class ComparisionComponent implements OnInit {
   sourceCountryRate: string = '';
   targetCountryRate: string = '';
   inrRate: string = '';
-
+  categoryOrderList: string[] = ["Markets", "Restaurants", "Transportation", "Clothing And Shoes", "Rent Per Month", "Utilities Per Month", "Buy Apartment", "Salaries And Financing", "Childcare", "Sports And Leisure",]
+ 
   constructor(
     private costOfLivingService: CostOfLivingService,
     private toaster: MessageService
@@ -46,25 +47,36 @@ export class ComparisionComponent implements OnInit {
 
       // this.sourcePrices = JSON.parse(JSON.stringify(this.sourceCountryPrices));
       // this.targetPrices = JSON.parse(JSON.stringify(this.targetCountryPrices));
+      if (sourceCountry !== 'India' && targetCountry !== 'India' && this.inrRate == '') {
+        this.getCurrencyConvertions('United States,India', '');
+      }
 
     }
 
   }
 
-  calculatecategorywisePrices() {
+  calculatecategorywisePrices(responseStatus: string) {
     this.sourcePriceTotal = 0;
     this.targetPriceTotal = 0;
     this.categorywisePrices = [];
     this.sourceCountryPrices.prices.forEach((price: Price) => {
       if (price.usd && price.usd.avg) {
-        price.inSourceRate = Number(price.usd.avg) * Number(this.sourceCountryRate);
-        price.inTargetRate = Number(price.usd.avg) * Number(this.targetCountryRate);
+        if (responseStatus == 'success') {
+          price.rate = Number(price.usd.avg) * Number(this.sourceCountryRate);
+          price.inr = Number(price.usd.avg) * Number(this.inrRate);
+        } else {
+          price.inr = Number(price.usd.avg)* Number(this.inrRate);
+        }
         this.sourcePriceTotal += Number(price.usd.avg);
       }
       this.targetCountryPrices.prices.forEach((targetCountryPrice: Price) => {
         if (price.good_id == targetCountryPrice.good_id && targetCountryPrice.usd?.avg) {
-          targetCountryPrice.inTargetRate = Number(targetCountryPrice.usd?.avg) * Number(this.targetCountryRate);
-          targetCountryPrice.inSourceRate = Number(targetCountryPrice.usd?.avg) * Number(this.sourceCountryRate);
+          if (responseStatus == 'success') {
+            targetCountryPrice.rate = Number(targetCountryPrice.usd?.avg) * Number(this.targetCountryRate);
+            targetCountryPrice.inr = Number(targetCountryPrice.usd?.avg) * Number(this.inrRate);
+          } else {
+            targetCountryPrice.inr = Number(targetCountryPrice.usd?.avg) * Number(this.inrRate);
+          }
           const variationPrice = this.categorywisePrices.find(variationPrice => variationPrice.category_id == price.category_id);
           if (variationPrice) {
             variationPrice.prices.push({ from: price, to: targetCountryPrice });
@@ -75,6 +87,7 @@ export class ComparisionComponent implements OnInit {
         }
       });
     });
+    this.sortCategorywisePrices();
   }
   getDiffrencePercentage(original_value: number, new_value: number) {
     const difference = original_value - new_value;
@@ -150,16 +163,21 @@ export class ComparisionComponent implements OnInit {
     this.costOfLivingService.currencyConvert({ countries: comparingCountries }).subscribe(res => {
       if (countryType === 'sourceCountry') {
         this.sourceCountryRate = res.rate;
-      } else {
+        if (this.sourceCountryPrices.country_name == 'India') {
+          this.inrRate = res.rate;
+        }
+      } else if (countryType === 'targetCountry') {
         this.targetCountryRate = res.rate;
+        if (this.targetCountryPrices.country_name == 'India') {
+          this.inrRate = res.rate;
+        }
+      } else {
+        this.inrRate = res.rate;
       }
-      this.calculatecategorywisePrices();
+      this.calculatecategorywisePrices('success');
     },
       error => {
-        this.toaster.add({ severity: "error", summary: "Error", detail: "Data not available" });
-        setTimeout(() => {
-          window.location.reload();
-        }, 2000);
+        this.calculatecategorywisePrices('error');
       });
   }
   calculatePercentage(sourceRate: string, targetRate: string, type: string) {
@@ -171,5 +189,10 @@ export class ComparisionComponent implements OnInit {
     }
     percentage = (Number(targetRate) / totalValue) * 100
     return Math.round(percentage);
+  }
+  sortCategorywisePrices() {
+    this.categorywisePrices.sort((a, b) => {
+      return this.categoryOrderList.indexOf(a.category_name) - this.categoryOrderList.indexOf(b.category_name);
+    });
   }
 }
