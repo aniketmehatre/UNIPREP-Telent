@@ -5,7 +5,9 @@
                 <h3 class="text-center uniprep-primary">Your Resumes</h3>
                 <div class="cvSampleImg d-flex flex-wrap">
                     <div class="flex-column" *ngFor="let resumes of resumeHistory; let i = index">
-                        <img *ngIf="resumes.template_name == 'Traditional'"
+                        <pdf-viewer [src]="resumes.pdf_name" [autoresize]="true" [render-text]="true" [show-all]="false" [original-size]="false"></pdf-viewer>
+
+                        <!-- <img *ngIf="resumes.template_name == 'Traditional'"
                             src="https://api.uniprep.ai/uniprepapi/storage/app/public/job-search/Traditional.webp" />
                         <img *ngIf="resumes.template_name == 'Modern'"
                             src="https://api.uniprep.ai/uniprepapi/storage/app/public/job-search/Modern.webp" />
@@ -14,7 +16,7 @@
                         <img *ngIf="resumes.template_name == 'Functional'"
                             src="https://api.uniprep.ai/uniprepapi/storage/app/public/job-search/functional.webp" />
                         <img *ngIf="resumes.template_name == 'Academic'"
-                            src="https://api.uniprep.ai/uniprepapi/storage/app/public/job-search/academic.webp" />
+                            src="https://api.uniprep.ai/uniprepapi/storage/app/public/job-search/academic.webp" /> -->
                         <i class="fa-solid fa-download HistoryDownloadIcon"
                             (click)="downloadOldResume(resumes.pdf_name)"></i>
                         <p>Version {{ i+1 }}</p>
@@ -123,14 +125,17 @@
 <!-- </div> -->
 <!-- </div> -->
 
-<div class="container-fluid" *ngIf="activePageIndex == 3">
+<div class="container-fluid h-100" *ngIf="activePageIndex == 3" style="overflow-y: auto;">
     <div class="row justify-content-center">
-        <div class="flex-column">
-            <div>
+        <div class="flex-column" >
+            <div style="height: 15%;">
                 <h3 class="text-center uniprep-primary">Your Resume</h3>
                 <h5 class="text-center uniprep-primary">{{ selectedResumeLevel }}</h5>
-                <div class="cvBuilderSampleImg" style="width: auto;">
-                    <!-- <ng-container *ngIf="!previewImage"> -->
+                <div class="d-flex justify-content-center align-items-center">
+                    <button class="downloadButton" (click)="downloadResume()">Download &nbsp;&nbsp;&nbsp;<i
+                            class="fa-solid fa-download tickIcon"></i></button>
+                </div>
+                <!-- <div class="cvBuilderSampleImg" style="width: auto;">
                     <img *ngIf="selectedResumeLevel == 'Traditional'"
                         src="https://api.uniprep.ai/uniprepapi/storage/app/public/job-search/Traditional.webp" />
                     <img *ngIf="selectedResumeLevel == 'Modern'"
@@ -141,15 +146,20 @@
                         src="https://api.uniprep.ai/uniprepapi/storage/app/public/job-search/functional.webp" />
                     <img *ngIf="selectedResumeLevel == 'Academic'"
                         src="https://api.uniprep.ai/uniprepapi/storage/app/public/job-search/academic.webp" />
-                    <!-- </ng-container> -->
-                    <!-- <img *ngIf="previewImage" [src]="previewImage" alt=""> -->
+                </div> -->
+            </div>
+            <!-- <div style="width: 20%;"></div> -->
+            <div class="col-md-12 d-flex justify-content-center" style="height: 80%;">
+                <div class="col-md-6">
+                    <div class="previewcontainer">
+                        <div class="previewbody" >
+                            <ng-container *ngTemplateOutlet="sharedContent"></ng-container>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div class="d-flex justify-content-center align-items-center">
-                <button class="downloadButton" (click)="downloadResume()">Download &nbsp;&nbsp;&nbsp;<i
-                        class="fa-solid fa-download tickIcon"></i></button>
-            </div>
-            <div class="d-flex justify-content-between">
+            <!-- <div style="width: 20%;"></div> -->
+            <div class="d-flex justify-content-between" style="height: 5%;">
                 <button pButton type="button" (click)="previous()" style="visibility:hidden;"
                     class="text-white p-ripple p-button-rounded p-button-info-prev p-button p-component p-2"
                     ><i class="fa fa-arrow-left exhausted-plan-icon-prev"></i>
@@ -1045,9 +1055,11 @@
                             class="text-white p-ripple p-button-rounded p-button-info-prev p-button p-component p-2"><i
                                 class="fa fa-arrow-left exhausted-plan-icon-prev"></i> Previous</button>
                         <!-- (click)="resumeFormSubmit()" -->
-                        <button pButton type="button" (click)="resumeFormSubmit()"
+                        <button pButton type="button" (click)="resumeFormSubmit()" *ngIf="moduleActiveIndex != 5"
                             class="text-white p-ripple p-button-rounded p-button-info-next p-button p-component p-2">Next<i
                                 class="fa fa-arrow-right exhausted-plan-icon-next"></i></button>
+                        <button pButton type="button" (click)="resumeFormSubmit()" *ngIf="moduleActiveIndex == 5" class="text-white p-ripple p-button-rounded p-button-info-next p-button p-component p-2">Generate
+                        <i class="fa-duotone fa-solid fa-check exhausted-plan-icon-next"></i></button>
                     </div>
                 </form>
             </div>

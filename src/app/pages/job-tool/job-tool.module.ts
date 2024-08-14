@@ -25,6 +25,7 @@ import {SalaryConverterComponent} from "./salary-converter/salary-converter.comp
 import {PaginatorModule} from "primeng/paginator";
 import { SlickCarouselModule } from 'ngx-slick-carousel';
 import {StepsModule} from 'primeng/steps';
+import { PdfViewerModule } from 'ng2-pdf-viewer';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,7 @@ import {StepsModule} from 'primeng/steps';
     CoverLetterBuilderComponent,
     CostOfLivingComponent,
     ComparisionComponent,
-      SalaryConverterComponent
+    SalaryConverterComponent
   ],
   imports: [
     CommonModule,
@@ -57,6 +58,7 @@ import {StepsModule} from 'primeng/steps';
     PaginatorModule,
     SlickCarouselModule,
     StepsModule,
+    PdfViewerModule,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
