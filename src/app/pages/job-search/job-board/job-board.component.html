@@ -80,13 +80,23 @@
                                     &nbsp;&nbsp;<i class="fas fa-dollar-sign icon-gray"></i>
                                     {{ job.price || 'No Salary' }}
                                 </p>
-                                <div class="row p-0 m-0">
+                                <p class="flex-align-end">
+                                    {{ job.created_at | timeAgo }}
+                                </p>
+                                <div class="row p-0 m-0 justify-content-center flex-align-center">
                                     <div class="col-6 p-0 m-0">
                                         <p-dropdown [(ngModel)]="job.type" [options]="statuses" placeholder="Status"
                                                     (onChange)="onStatusChange(job, $event)"></p-dropdown>
                                     </div>
-                                    <div class="col-6 p-0 m-0 text-end flex-align-end" >
-                                        {{ job.created_at | timeAgo }}
+                                    <div class="col-3 p-0 m-0 text-center item-align-center justify-content-center">
+<!--                                        <button class="text-small btn btn-primary btn-rounded px-3"-->
+<!--                                                (click)="onClickDetails(job)">Details-->
+<!--                                        </button>-->
+                                    </div>
+                                    <div class="col-3 p-0 m-0 text-center item-align-center">
+                                        <button type="button" class="btn btn-danger" (click)="onClickDelete(job)">
+                                            <i class="fas fa-trash-alt"></i>
+                                        </button>
                                     </div>
                                 </div>
                             </div>

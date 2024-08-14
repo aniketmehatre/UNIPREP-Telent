@@ -2,6 +2,7 @@ import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders, HttpParams} from "@angular/common/http";
 import {Observable} from "rxjs/internal/Observable";
 import {environment} from "@env/environment";
+import {City} from "../../@Models/cost-of-living";
 
 @Injectable({
     providedIn: 'root'
@@ -15,22 +16,13 @@ export class JobSearchService {
     }
 
     searchJobs(query: any): Observable<any> {
-        let params: any
-        if (query.company) {
-            params = new HttpParams()
-                .set('app_id', this.appId)
-                .set('app_key', this.appKey)
-                .set('what', query.what)
-                .set('where', query.where)
-                .set('results_per_page', query.result_per_page)
-        } else {
-            params = new HttpParams()
-                .set('app_id', this.appId)
-                .set('app_key', this.appKey)
-                .set('what', query.what)
-                .set('where', query.where)
-                .set('results_per_page', query.result_per_page)
-        }
+        console.log(query);
+        let params = new HttpParams()
+            .set('app_id', this.appId)
+            .set('app_key', this.appKey)
+            .set('what_and', query.what_and)
+            .set('where', query.where)
+            .set('results_per_page', query.result_per_page)
         return this.http.get(`${this.apiUrl}/${query.location}/search/${query.page}`, {params});
     }
 
@@ -39,11 +31,8 @@ export class JobSearchService {
             .set('app_id', this.appId)
             .set('app_key', this.appKey);
 
-        if (query.what) {
-            params = params.set('what', query.what);
-        }
-        if (query.where) {
-            params = params.set('where', query.where);
+        if (query.what_and) {
+            params = params.set('what_and', query.what_and);
         }
         if (query.result_per_page) {
             params = params.set('results_per_page', query.result_per_page);
@@ -63,20 +52,8 @@ export class JobSearchService {
         if (query.permanent) {
             params = params.set('permanent', query.permanent);
         }
-        if (query.distance) {
-            params = params.set('distance', query.distance);
-        }
-        if (query.salary_min) {
-            params = params.set('salary_min', query.salary_min);
-        }
-        if (query.salary_max) {
-            params = params.set('salary_max', query.salary_max);
-        }
-        if (query.max_days_old) {
-            params = params.set('max_days_old', query.max_days_old);
-        }
 
-        return this.http.get(`${this.apiUrl}/${query.location}/search/${query.page}`, {params});
+            return this.http.get(`${this.apiUrl}/${query.location.country_code}/search/${query.page}`, {params});
     }
 
     fetchCategory(query: any): Observable<any> {
@@ -105,5 +82,17 @@ export class JobSearchService {
         return this.http.post<any>(environment.ApiUrl + "/updatejobtracker", values, {
             headers: headers,
         });
+    }
+
+    deletejobtracker(values: any) {
+        const headers = new HttpHeaders().set("Accept", "application/json");
+        return this.http.post<any>(environment.ApiUrl + "/deletejobtracker", values, {
+            headers: headers,
+        });
+    }
+
+    getCities() {
+        const headers = new HttpHeaders().set("Accept", "application/json");
+        return this.http.post<City[]>(environment.ApiUrl + "/getcitywithflag", {headers: headers});
     }
 }
