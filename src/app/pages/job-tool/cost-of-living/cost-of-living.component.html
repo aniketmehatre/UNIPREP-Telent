@@ -6,7 +6,7 @@
         <br>
         <form [formGroup]="form" (ngSubmit)="compare()" class="g-10">
             <p-dropdown [options]="cities"   optionValue="city_id" formControlName="sourceCity"
-                placeholder="Source Country" [filter]="true" filterBy="city_name" [showClear]="true" [appendTo]="'body'"
+                placeholder="Source Country" [filter]="true" [virtualScroll]="true" [virtualScrollItemSize]="50" filterBy="city_name" [showClear]="true" [appendTo]="'body'"
                 class="costofliving-dropdown">
 
                 <ng-template pTemplate="selectedItem" let-selectedOption>
@@ -24,7 +24,7 @@
 
             </p-dropdown>
             <p-dropdown [options]="cities"  optionValue="city_id" formControlName="targetCity"
-                placeholder="Target Country" [filter]="true" filterBy="city_name" [showClear]="true" [appendTo]="'body'"
+                placeholder="Target Country" [filter]="true" [virtualScroll]="true" [virtualScrollItemSize]="50" filterBy="city_name" [showClear]="true" [appendTo]="'body'"
                 class="costofliving-dropdown">
                 <ng-template pTemplate="selectedItem" let-selectedOption>
                     <div class="d-flex align-items-center gap-2">
