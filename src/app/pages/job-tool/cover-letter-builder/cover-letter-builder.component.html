@@ -59,10 +59,10 @@
 		</div>
 	</div>
 </div>
-<div class="" *ngIf="activePageIndex == 3" style="overflow: auto !important;">
-	<div class="row justify-content-center" style="overflow: auto !important;">
+<div class="" *ngIf="activePageIndex == 3" >
+	<div class="row justify-content-center">
 		<div class="flex-column">
-			<div>
+			<div style="justify-content: center;">
 				<h3 class="text-center uniprep-primary">Your Coverletter</h3>
 				<h5 class="text-center uniprep-primary">{{ selectedResumeLevel }}</h5>
 				<div class="cvBuilderSampleImg">
@@ -71,16 +71,6 @@
 					<img *ngIf="selectedResumeLevel == 'Creative'" src="{{previewImage}}" />
 					<img *ngIf="selectedResumeLevel == 'Functional'" src="{{previewImage}}" />
 					<img *ngIf="selectedResumeLevel == 'Academic'" src="{{previewImage}}" />
-					<!-- <img *ngIf="selectedResumeLevel == 'Traditional'"
-						src="https://api.uniprep.ai/uniprepapi/storage/app/public/SampleUploadDocuments/cover_letter/traditional.png" /> -->
-					<!-- <img *ngIf="selectedResumeLevel == 'Modern'"
-						src="https://api.uniprep.ai/uniprepapi/storage/app/public/SampleUploadDocuments/cover_letter/modern.png" />
-					<img *ngIf="selectedResumeLevel == 'Creative'"
-						src="https://api.uniprep.ai/uniprepapi/storage/app/public/SampleUploadDocuments/cover_letter/creative.png" />
-					<img *ngIf="selectedResumeLevel == 'Functional'"
-						src="https://api.uniprep.ai/uniprepapi/storage/app/public/SampleUploadDocuments/cover_letter/functional.png" />
-					<img *ngIf="selectedResumeLevel == 'Academic'"
-						src="https://api.uniprep.ai/uniprepapi/storage/app/public/SampleUploadDocuments/cover_letter/academic.png" /> -->
 				</div>
 				<div class="d-flex justify-content-center align-items-center">
 					<button class="downloadButton" (click)="downloadResume()">Download &nbsp;&nbsp;&nbsp;<i
