@@ -922,9 +922,24 @@ body {
 	height: 70px;
 	top:-10px
 }
-.containerfuctional1{
-	margin-top: auto; /* Pushes the footer to the bottom of the container */
-	width: 100%;
-	position: relative;
+#cv-preview-container {
+    position: relative;
+    min-height: 100vh; /* Adjust based on the content */
+}
+
+/* Adjust containerfuctional1 to stick to the bottom */
+.containerfuctional1 {
+    position: absolute;
+    bottom: 0; /* Stick to the bottom of the container */
+    left: 0;
+    width: 100%; /* Full width of the container */
+    height: 15px; /* Height of the footer */
+    background-color: #00939B; /* Background color of the footer */
+	border-radius: 0px 0px 10px 10px;
+}
+
+/* Add some padding to the cv-preview-container to ensure content is not hidden by the footer */
+#cv-preview-container .containerfuctional {
+    padding-bottom: 20px; /* Adjust based on the height of the footer */
 }
 

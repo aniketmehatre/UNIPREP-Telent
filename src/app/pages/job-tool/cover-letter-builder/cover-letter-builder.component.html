@@ -516,25 +516,22 @@
 					<p class="profession upperCase" style="color: white;">{{ f["user_job_title"].value }}</p>
 				</div>
 			</div>
-			<div class="mt-5 customfontstyles" style=" padding:5px; margin: auto;">
-				<br>
-				<p><span>Dear {{f["managername"].value }},</span></p><br>
-				<br>
-				<p><span [innerHTML]="f['user_summary'].value"></span></p>
-				<br>
-				<p><span>Warm regards,&nbsp;</span></p>
-				<p style="margin-top:8px;">{{ f["user_name"].value }}</p>
+		</div>
+		<div class="mt-5 customfontstyles" style=" padding:5px; margin: auto;">
+			<br>
+			<p><span>Dear {{f["managername"].value }},</span></p><br>
+			<br>
+			<p><span [innerHTML]="f['user_summary'].value"></span></p>
+			<br>
+			<p><span>Warm regards,&nbsp;</span></p>
+			<p style="margin-top:8px;">{{ f["user_name"].value }}</p>
 
-			</div>
-	
-		<div style="bottom:0px;position:relative; width: 100%;   ">
-		<div class="containerfuctional1">
-			<div style="height:15px;background-color:#00939B;position: absolute; height: 5px">
-			</div>
-		</div>
-		</div>
 		</div>
 
+	<div class="containerfuctional1">
+		<div style="height:15px;background-color:#00939B;position: absolute; height: 5px">
+		</div>
+	</div>
 	</div>
 	<div class="h-100" id="cv-preview-container"
 		[ngClass]="{ previewBodyForm: !fullScreenVisible, previewBodyFormFull: fullScreenVisible }"
