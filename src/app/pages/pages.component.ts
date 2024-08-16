@@ -10,6 +10,7 @@ import {DeviceDetectorService} from "ngx-device-detector";
 // @ts-ignore
 import Contlo from 'contlo-web-sdk';
 import {DomSanitizer,Meta, Title} from "@angular/platform-browser";
+import { LocationService } from "../location.service";
 
 @Component({
     selector: "uni-pages",
@@ -33,7 +34,7 @@ export class PagesComponent implements OnInit, OnDestroy {
     deviceInfo: any;
     howItWorksVideoModal: boolean = false;
     howItWorksVideoLink: any | null = null;
-
+    imageUrlWhitelabel: string | null = null;
 
     ogTitle = '';
     ogDescription = 'UNIPREP is a one-stop platform for students, graduates & entrepreneurs, seeking information on Career, Life and Study abroad. Sign-up Now - Free!';
@@ -45,7 +46,7 @@ export class PagesComponent implements OnInit, OnDestroy {
     private subs = new SubSink();
     visibleExhastedUser!: boolean;
     constructor(private pageFacade: PageFacadeService, private router: Router, private dataService: DataService,
-                public meta: Meta, private titleService: Title, private route: ActivatedRoute,
+                public meta: Meta, private titleService: Title, private route: ActivatedRoute,private locationService: LocationService,
                 private dashboardService: DashboardService,private service:AuthService, private deviceService: DeviceDetectorService,private sanitizer:DomSanitizer) {
        // dev
         Contlo.init('d7a84b3a1d83fa9f7e33f7396d57ac88', 'https://dev-student.uniprep.ai');
@@ -105,6 +106,11 @@ export class PagesComponent implements OnInit, OnDestroy {
       }
     enterpriseSubscriptionLink: any
     ngOnInit(): void {
+        this.locationService.getImage().subscribe(imageUrl => {
+            this.imageUrlWhitelabel = imageUrl;
+            console.log(this.imageUrlWhitelabel);
+            
+          });
         this.service.getTimeInfoForCard().subscribe((data) => {
             localStorage.setItem('time_card_info', data.card_message);
         });

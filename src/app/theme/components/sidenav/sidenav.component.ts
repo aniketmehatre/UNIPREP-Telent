@@ -12,6 +12,7 @@ import { filter } from "rxjs";
 import { map } from "rxjs/operators";
 import { AuthService } from "src/app/Auth/auth.service";
 import { DataService } from "src/app/data.service";
+import { LocationService } from "src/app/location.service";
 
 export interface SideMenu {
   title: string;
@@ -32,7 +33,6 @@ export class SidenavComponent {
   @ContentChild("appTitle") appTitle!: TemplateRef<any>;
   @Output() active = new EventEmitter<SideMenu>();
   @Input() isOverlap = false;
-
   @Input() menus: SideMenu[] = [
     {
       title: "Dashboard",
@@ -238,15 +238,17 @@ export class SidenavComponent {
   ];
   studentMenus = ['Company List', 'Career Planner', 'Learning Hub', 'Entrepreneur', 'Investor List', 'Startup Kit', 'Pitch Deck'];
   careerMenus = ['Entrepreneur', 'Investor List', 'Startup Kit', 'Pitch Deck'];
+  whitlabelmenu=['Subscription']
   collegeStudentMenus = ['Subscription'];
   conditionSubscribed!: boolean;
   currentTitle: any;
   visibleExhasted!: boolean;
+  imagewhitlabeldomainname:any
   constructor(
     private router: Router,
     private activatedRoute: ActivatedRoute,
     private dataService: DataService,
-    private authService: AuthService
+    private authService: AuthService,
   ) {
     this.dataService.countryNameSource.subscribe((countryName) => {
       this.menus.filter((data) => {
@@ -292,6 +294,11 @@ export class SidenavComponent {
         }
       }
     });
+    this.imagewhitlabeldomainname=window.location.hostname;
+    if (this.imagewhitlabeldomainname === "dev-student.uniprep.ai" || this.imagewhitlabeldomainname === "uniprep.ai" || this.imagewhitlabeldomainname === "localhost") {
+    }else{
+      this.menus = this.menus.filter(item => !this.whitlabelmenu.includes(item.title));
+    }
     this.authService.getMe().subscribe(
       res => {
 

@@ -226,9 +226,4 @@ export class AuthService {
             headers: headers,
         });
     }
-    getWhitlabelData(data:any) {
-        const headers = new HttpHeaders().set("Accept", "application/json");
-        return this.http.post(environment.ApiUrl + "/getorganizationlogobydomain",data, { headers: headers });
-      }
-      
 }
