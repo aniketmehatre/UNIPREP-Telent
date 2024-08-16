@@ -265,7 +265,7 @@ export class JobListingComponent implements OnInit {
             job_url: job.redirect_url,
             list_date: job.created,
             location: job.location.display_name,
-            price: job.salary_is_predicted,
+            price: '',
             work_type: job.contract_type,
             experience: '',
             time: job.created,
