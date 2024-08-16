@@ -65,15 +65,28 @@ export interface City {
   city_id: number
   city_name: string
   country_name: string
-  flag:string
-  label?:string;
+  flag: string
+  label?: string;
 }
-export interface CategoryWiseComparison{
-  category_name: string, 
+export interface CategoryWiseComparison {
+  category_name: string,
   prices: PricesComparison[],
-  category_id:number
+  category_id: number
 }
-export interface PricesComparison{
-  from:Price
-  to:Price
+export interface PricesComparison {
+  from: Price
+  to: Price,
+  icon?:string
+}
+export interface CurrencyConvert {
+  baseCountry: string
+  targetCountry: string
+  rate: string
+}
+export interface GoodWithIcon{
+  good_id:string
+  item_name:string
+  category_id:string
+  category_name:string
+  icon:string
 }

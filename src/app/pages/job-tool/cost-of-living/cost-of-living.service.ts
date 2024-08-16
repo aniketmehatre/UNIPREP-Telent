@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
-import { City, CostOfLiving } from "src/app/@Models/cost-of-living";
+import { City, CostOfLiving, CurrencyConvert, GoodWithIcon } from "src/app/@Models/cost-of-living";
 import { environment } from "@env/environment";
 
 @Injectable({
@@ -21,7 +21,11 @@ export class CostOfLivingService {
     }
     currencyConvert(data:any) {
         const headers = new HttpHeaders().set("Accept", "application/json");
-        return this.http.post<any>(environment.ApiUrl + "/currencyConvert",data,{ headers: headers });
+        return this.http.post<CurrencyConvert>(environment.ApiUrl + "/currencyConvert",data,{ headers: headers });
     }
-  
+    getItemIconsList() {
+        const headers = new HttpHeaders().set("Accept", "application/json");
+        return this.http.post<GoodWithIcon[]>(environment.ApiUrl + "/getitemicons",{ headers: headers });
+    }
+
 }

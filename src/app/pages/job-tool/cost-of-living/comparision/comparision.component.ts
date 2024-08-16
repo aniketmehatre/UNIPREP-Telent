@@ -1,5 +1,5 @@
 import { Component, Input, OnInit, SimpleChanges } from '@angular/core';
-import { CategoryWiseComparison, CostOfLiving, Price } from 'src/app/@Models/cost-of-living';
+import { CategoryWiseComparison, CostOfLiving, GoodWithIcon, Price } from 'src/app/@Models/cost-of-living';
 import { CostOfLivingService } from '../cost-of-living.service';
 import { MessageService } from 'primeng/api';
 
@@ -20,13 +20,14 @@ export class ComparisionComponent implements OnInit {
   targetCountryRate: string = '';
   inrRate: string = '';
   categoryOrderList: string[] = ["Markets", "Restaurants", "Transportation", "Clothing And Shoes", "Rent Per Month", "Utilities Per Month", "Buy Apartment", "Salaries And Financing", "Childcare", "Sports And Leisure",]
- 
+  iconsList: GoodWithIcon[] = [];
   constructor(
     private costOfLivingService: CostOfLivingService,
     private toaster: MessageService
   ) { }
 
   ngOnInit() {
+    this.getItemIcons();
   }
   ngOnChanges(changes: SimpleChanges) {
     if (changes) {
@@ -35,12 +36,14 @@ export class ComparisionComponent implements OnInit {
 
       if (changes['sourceCountryPrices'] && changes['sourceCountryPrices'].currentValue) {
         if (changes['sourceCountryPrices'].previousValue?.country_name !== changes['sourceCountryPrices'].currentValue.country_name) {
+          this.sourceCountryRate = '';
           this.getCurrencyConvertions(`United States,${sourceCountry}`, 'sourceCountry');
         }
       }
 
       if (changes['targetCountryPrices'] && changes['targetCountryPrices'].currentValue) {
         if (changes['targetCountryPrices'].previousValue?.country_name !== changes['targetCountryPrices'].currentValue.country_name) {
+          this.targetCountryRate = '';
           this.getCurrencyConvertions(`United States,${targetCountry}`, 'targetCountry');
         }
       }
@@ -61,138 +64,149 @@ export class ComparisionComponent implements OnInit {
     this.categorywisePrices = [];
     this.sourceCountryPrices.prices.forEach((price: Price) => {
       if (price.usd && price.usd.avg) {
-        if (responseStatus == 'success') {
+        if (this.sourceCountryRate != '') {
           price.rate = Number(price.usd.avg) * Number(this.sourceCountryRate);
-          price.inr = Number(price.usd.avg) * Number(this.inrRate);
-        } else {
-          price.inr = Number(price.usd.avg)* Number(this.inrRate);
         }
+        price.inr = Number(price.usd.avg) * Number(this.inrRate);
         this.sourcePriceTotal += Number(price.usd.avg);
       }
       this.targetCountryPrices.prices.forEach((targetCountryPrice: Price) => {
         if (price.good_id == targetCountryPrice.good_id && targetCountryPrice.usd?.avg) {
-          if (responseStatus == 'success') {
+          if (this.targetCountryRate != '') {
             targetCountryPrice.rate = Number(targetCountryPrice.usd?.avg) * Number(this.targetCountryRate);
-            targetCountryPrice.inr = Number(targetCountryPrice.usd?.avg) * Number(this.inrRate);
-          } else {
-            targetCountryPrice.inr = Number(targetCountryPrice.usd?.avg) * Number(this.inrRate);
           }
+          const itemIcon = this.iconsList.find((item: GoodWithIcon) => Number(item.good_id) == price.good_id)?.icon;
+          targetCountryPrice.inr = Number(targetCountryPrice.usd?.avg) * Number(this.inrRate);
           const variationPrice = this.categorywisePrices.find(variationPrice => variationPrice.category_id == price.category_id);
           if (variationPrice) {
-            variationPrice.prices.push({ from: price, to: targetCountryPrice });
+            if (itemIcon) {
+              variationPrice.prices.push({ from: price, to: targetCountryPrice, icon: itemIcon });
+            } else {
+              variationPrice.prices.push({ from: price, to: targetCountryPrice });
+            }
           } else {
-            this.categorywisePrices.push({ category_id: price.category_id, category_name: price.category_name, prices: [{ from: price, to: targetCountryPrice }] });
+            if (itemIcon) {
+              this.categorywisePrices.push({ category_id: price.category_id, category_name: price.category_name, prices: [{ from: price, to: targetCountryPrice, icon: itemIcon }] });
+    }else {
+      this.categorywisePrices.push({ category_id: price.category_id, category_name: price.category_name, prices: [{ from: price, to: targetCountryPrice }] });
+    }
           }
           this.targetPriceTotal += Number(targetCountryPrice?.usd.avg);
         }
       });
     });
-    this.sortCategorywisePrices();
+this.sortCategorywisePrices();
   }
-  getDiffrencePercentage(original_value: number, new_value: number) {
-    const difference = original_value - new_value;
-    return (difference / original_value) * 100
+getDiffrencePercentage(original_value: number, new_value: number) {
+  const difference = original_value - new_value;
+  return (difference / original_value) * 100
+}
+
+// addMore(price: Price) {
+//   this.sourceCountryPrices.prices = this.sourceCountryPrices.prices.map((rate: Price) => {
+//     if (rate.good_id == price.good_id) {
+//       this.sourcePrices.prices.forEach((sourcePrice: Price) => {
+//         if (rate.good_id == sourcePrice.good_id) {
+//           rate.usd.avg = (Number(rate.usd.avg) + Number(sourcePrice.usd.avg)).toString();
+//           rate.itemCount += 1;
+//         }
+//       });
+//     }
+//     return rate;
+//   });
+
+//   this.targetCountryPrices.prices = this.targetCountryPrices.prices.map((rate: Price) => {
+//     if (rate.good_id == price.good_id) {
+//       this.targetPrices.prices.forEach((targetPrice: Price) => {
+//         if (rate.good_id == targetPrice.good_id) {
+//           rate.usd.avg = (Number(rate.usd.avg) + Number(targetPrice.usd.avg)).toString();
+//           rate.itemCount += 1;
+//         }
+//       });
+//     }
+//     return rate;
+//   });
+//   this.calculatecategorywisePrices();
+// }
+// remove(price: Price) {
+//   if (price.itemCount == 0) {
+//     return;
+//   }
+//   this.sourceCountryPrices.prices = this.sourceCountryPrices.prices.map((rate: Price) => {
+//     if (rate.good_id == price.good_id) {
+//       this.sourcePrices.prices.forEach((sourcePrice: Price) => {
+//         if (rate.good_id == sourcePrice.good_id) {
+//           rate.usd.avg = (Number(rate.usd.avg) - Number(sourcePrice.usd.avg)).toString();
+//           rate.itemCount -= 1;
+//         }
+//       });
+//     }
+//     return rate;
+//   });
+//   this.targetCountryPrices.prices = this.targetCountryPrices.prices.map((rate: Price) => {
+//     if (rate.good_id == price.good_id) {
+//       this.targetPrices.prices.forEach((targetPrice: Price) => {
+//         if (rate.good_id == targetPrice.good_id) {
+//           rate.usd.avg = (Number(rate.usd.avg) - Number(targetPrice.usd.avg)).toString();
+//           rate.itemCount -= 1;
+//         }
+//       });
+//     }
+//     return rate;
+//   });
+//   this.calculatecategorywisePrices();
+// }
+compareValues(sourcePrice: string, targetPrice: string) {
+  const difference = Number(sourcePrice) - Number(targetPrice);
+  if (difference < 0) {
+    return 'smaller';
+  } else if (difference > 0) {
+    return 'greater';
+
+  } else {
+    return 'equal';
   }
-
-  // addMore(price: Price) {
-  //   this.sourceCountryPrices.prices = this.sourceCountryPrices.prices.map((rate: Price) => {
-  //     if (rate.good_id == price.good_id) {
-  //       this.sourcePrices.prices.forEach((sourcePrice: Price) => {
-  //         if (rate.good_id == sourcePrice.good_id) {
-  //           rate.usd.avg = (Number(rate.usd.avg) + Number(sourcePrice.usd.avg)).toString();
-  //           rate.itemCount += 1;
-  //         }
-  //       });
-  //     }
-  //     return rate;
-  //   });
-
-  //   this.targetCountryPrices.prices = this.targetCountryPrices.prices.map((rate: Price) => {
-  //     if (rate.good_id == price.good_id) {
-  //       this.targetPrices.prices.forEach((targetPrice: Price) => {
-  //         if (rate.good_id == targetPrice.good_id) {
-  //           rate.usd.avg = (Number(rate.usd.avg) + Number(targetPrice.usd.avg)).toString();
-  //           rate.itemCount += 1;
-  //         }
-  //       });
-  //     }
-  //     return rate;
-  //   });
-  //   this.calculatecategorywisePrices();
-  // }
-  // remove(price: Price) {
-  //   if (price.itemCount == 0) {
-  //     return;
-  //   }
-  //   this.sourceCountryPrices.prices = this.sourceCountryPrices.prices.map((rate: Price) => {
-  //     if (rate.good_id == price.good_id) {
-  //       this.sourcePrices.prices.forEach((sourcePrice: Price) => {
-  //         if (rate.good_id == sourcePrice.good_id) {
-  //           rate.usd.avg = (Number(rate.usd.avg) - Number(sourcePrice.usd.avg)).toString();
-  //           rate.itemCount -= 1;
-  //         }
-  //       });
-  //     }
-  //     return rate;
-  //   });
-  //   this.targetCountryPrices.prices = this.targetCountryPrices.prices.map((rate: Price) => {
-  //     if (rate.good_id == price.good_id) {
-  //       this.targetPrices.prices.forEach((targetPrice: Price) => {
-  //         if (rate.good_id == targetPrice.good_id) {
-  //           rate.usd.avg = (Number(rate.usd.avg) - Number(targetPrice.usd.avg)).toString();
-  //           rate.itemCount -= 1;
-  //         }
-  //       });
-  //     }
-  //     return rate;
-  //   });
-  //   this.calculatecategorywisePrices();
-  // }
-  compareValues(sourcePrice: string, targetPrice: string) {
-    const difference = Number(sourcePrice) - Number(targetPrice);
-    if (difference < 0) {
-      return 'smaller';
-    } else if (difference > 0) {
-      return 'greater';
-
-    } else {
-      return 'equal';
-    }
-  }
-  getCurrencyConvertions(comparingCountries: string, countryType: string) {
-    this.costOfLivingService.currencyConvert({ countries: comparingCountries }).subscribe(res => {
-      if (countryType === 'sourceCountry') {
-        this.sourceCountryRate = res.rate;
-        if (this.sourceCountryPrices.country_name == 'India') {
-          this.inrRate = res.rate;
-        }
-      } else if (countryType === 'targetCountry') {
-        this.targetCountryRate = res.rate;
-        if (this.targetCountryPrices.country_name == 'India') {
-          this.inrRate = res.rate;
-        }
-      } else {
+}
+getCurrencyConvertions(comparingCountries: string, countryType: string) {
+  this.costOfLivingService.currencyConvert({ countries: comparingCountries }).subscribe(res => {
+    if (countryType === 'sourceCountry') {
+      this.sourceCountryRate = res.rate;
+      if (this.sourceCountryPrices.country_name == 'India') {
         this.inrRate = res.rate;
       }
-      this.calculatecategorywisePrices('success');
-    },
-      error => {
-        this.calculatecategorywisePrices('error');
-      });
-  }
-  calculatePercentage(sourceRate: string, targetRate: string, type: string) {
-    var percentage = 0;
-    const totalValue = Number(sourceRate) + Number(targetRate);
-    if (type !== 'target') {
-      percentage = (Number(sourceRate) / totalValue) * 100
-      return percentage;
+    } else if (countryType === 'targetCountry') {
+      this.targetCountryRate = res.rate;
+      if (this.targetCountryPrices.country_name == 'India') {
+        this.inrRate = res.rate;
+      }
+    } else {
+      this.inrRate = res.rate;
     }
-    percentage = (Number(targetRate) / totalValue) * 100
-    return Math.round(percentage);
-  }
-  sortCategorywisePrices() {
-    this.categorywisePrices.sort((a, b) => {
-      return this.categoryOrderList.indexOf(a.category_name) - this.categoryOrderList.indexOf(b.category_name);
+    this.calculatecategorywisePrices('success');
+  },
+    error => {
+      this.calculatecategorywisePrices('error');
     });
+}
+calculatePercentage(sourceRate: string, targetRate: string, type: string) {
+  var percentage = 0;
+  const totalValue = Number(sourceRate) + Number(targetRate);
+  if (type !== 'target') {
+    percentage = (Number(sourceRate) / totalValue) * 100
+    return percentage;
   }
+  percentage = (Number(targetRate) / totalValue) * 100
+  return Math.round(percentage);
+}
+sortCategorywisePrices() {
+  this.categorywisePrices.sort((a, b) => {
+    return this.categoryOrderList.indexOf(a.category_name) - this.categoryOrderList.indexOf(b.category_name);
+  });
+}
+getItemIcons(){
+  this.costOfLivingService.getItemIconsList().subscribe(res => {
+    this.iconsList = res;
+    console.log(this.iconsList);
+  })
+}
 }

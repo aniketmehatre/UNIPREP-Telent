@@ -32,9 +32,6 @@ export class CostOfLivingComponent implements OnInit {
   ngOnInit() {
     this.costOfLivingService.getCities().subscribe((res: City[]) => {
       this.cities=res;
-      // res.forEach(city => {
-      //   this.cities.push({ ...city, label: city.city_name + ', ' + city.country_name })
-      // });
     });
   }
 
@@ -48,7 +45,7 @@ export class CostOfLivingComponent implements OnInit {
       })
       this.costOfLivingService.calculatePrices(targetCityDetails).subscribe(response => {
         this.targetCountryPrices = response;
-        this.sourceCountryPrices.prices.forEach((price: Price) => {
+        this.targetCountryPrices.prices.forEach((price: Price) => {
           price.itemCount = 1;
         })
         this.canShowComparision = true;

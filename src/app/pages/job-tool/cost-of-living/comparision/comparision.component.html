@@ -39,7 +39,7 @@
                                 (click)="addMore(price.from)"></i>
                         </div> -->
                         <div class="col-md-7 col-lg-8 d-flex align-items-center"><img
-                                src="https://fastfood.theringer.com/img/items/3.jpg" alt="">
+                                [src]="price.icon" alt="">
                             <div class="ml-5">{{price.from.item_name}}</div>
                         </div>
                         <div class="col-md-5 col-lg-4  d-flex align-items-center justify-content-between">
