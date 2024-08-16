@@ -238,10 +238,12 @@ export class SidenavComponent {
   ];
   studentMenus = ['Company List', 'Career Planner', 'Learning Hub', 'Entrepreneur', 'Investor List', 'Startup Kit', 'Pitch Deck'];
   careerMenus = ['Entrepreneur', 'Investor List', 'Startup Kit', 'Pitch Deck'];
+  whitlabelmenu=['Subscription']
   collegeStudentMenus = ['Subscription'];
   conditionSubscribed!: boolean;
   currentTitle: any;
   visibleExhasted!: boolean;
+  imagewhitlabeldomainname:any
   constructor(
     private router: Router,
     private activatedRoute: ActivatedRoute,
@@ -292,6 +294,11 @@ export class SidenavComponent {
         }
       }
     });
+    this.imagewhitlabeldomainname=window.location.hostname;
+    if (this.imagewhitlabeldomainname === "dev-student.uniprep.ai" || this.imagewhitlabeldomainname === "uniprep.ai" || this.imagewhitlabeldomainname === "localhost") {
+    }else{
+      this.menus = this.menus.filter(item => !this.whitlabelmenu.includes(item.title));
+    }
     this.authService.getMe().subscribe(
       res => {
 
