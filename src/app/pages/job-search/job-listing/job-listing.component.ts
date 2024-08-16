@@ -86,7 +86,8 @@ export class JobListingComponent implements OnInit {
             job_type: new FormControl(''),
         });
         this.dataService.currentData.subscribe(data => {
-            if (data) {
+            if (typeof data === 'object' && !Array.isArray(data) && data !== null && Object.keys(data).length === 0) {
+            } else {
                 this.selectedCountryCode = data.countryCode.country_code
                 this.selectedFlag = data.countryCode.flag
                 this.fG.setValue({
@@ -104,7 +105,6 @@ export class JobListingComponent implements OnInit {
         });
         const filterData = this.getFilterData()
         if (filterData) {
-            console.log(filterData)
             this.selectedCountryCode = filterData.countryCode.country_code
             this.selectedFlag = filterData.countryCode.flag
             this.fG.setValue({
@@ -145,7 +145,6 @@ export class JobListingComponent implements OnInit {
         //   this.jobService.searchJobsCoreSignal(this.query, this.location, this.page, this.resultPerPage).subscribe(
         //       (response: any) => {
         //         this.jobs = response.results;
-        //         console.log(response.results)
         //       },
         //       (error: any) => {
         //         console.error('Error fetching job data:', error);
@@ -159,12 +158,6 @@ export class JobListingComponent implements OnInit {
         this.resetFilterData()
         this.jobs = []
         this.router.navigateByUrl(`/pages/job-portal/job-search`);
-    }
-
-    onCountryChangeFilter(event: any) {
-        this.selectedCountryCodeFilter = event.value.code
-        this.fetchCategoryData()
-        this.selectedFlag = event.value.flag
     }
 
     fetchCategoryData() {
@@ -186,7 +179,9 @@ export class JobListingComponent implements OnInit {
             countryCode: this.fG.value.countryCode,
             category: '',
             job_type: '',
-        });
+        })
+        this.whatAnd = this.fG.value.what_and
+            this.selectedFlag = this.fG.value.countryCode.flag
         this.saveFilterData(this.fG.value)
         this.fromCountry = this.countryCodes.find((country: any) => country.code.toLowerCase() == this.fG.value.countryCode.code);
         if (this.fG.value.countryCode.code) {
@@ -235,7 +230,6 @@ export class JobListingComponent implements OnInit {
     }
 
     onFilterSubmit() {
-        console.log(this.filterForm.value)
         if (this.filterForm.valid) {
             let req = {
                 location: this.filterForm.value.countryCode,
@@ -247,7 +241,7 @@ export class JobListingComponent implements OnInit {
                 contract: this.filterForm.value.job_type?.code == 'contract' ? '1' : '',
                 permanent: this.filterForm.value.job_type?.code == 'permanent' ? '1' : '',
             }
-
+            this.selectedFlag = this.filterForm.value.countryCode.flag
             this.jobService.filter(req).subscribe(
                 (data: any) => {
                     this.jobs = data.results
@@ -313,11 +307,6 @@ export class JobListingComponent implements OnInit {
 
     resetFilterData(): void {
         localStorage.setItem('filterFormData', '');
-    }
-
-    onChangeCountry(event: any){
-        this.selectedCountryCodeFilter = event.value.code
-        this.selectedFlag = event.value.flag
     }
 
 }

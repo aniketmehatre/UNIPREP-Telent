@@ -16,10 +16,9 @@
                                 formControlName="countryCode"
                                 placeholder="Location"
                                 [filter]="true"
-                                filterBy="city_name"
+                                filterBy="city_name,country_name"
                                 [showClear]="true"
                                 [appendTo]="'body'"
-                                (onChange)="onChangeCountry($event)"
                                 [style]="{'minWidth': '100%'}"
                                 class="w-100 text-start">
 
@@ -67,15 +66,9 @@
                             <span class="mandatory">*</span></label>
                         <div class="form-group">
                             <div class="mb-3">
-                                <!--                                <p-dropdown id="countryCode" styleClass="w-100" style="width: 100% !important;"-->
-                                <!--                                    formControlName="countryCode" [options]="countryCodes" [filter]="true"-->
-                                <!--                                    filterBy="name" [showClear]="true" optionLabel="name" [(ngModel)]="fromCountry"-->
-                                <!--                                    (onChange)="onCountryChangeFilter($event)"-->
-                                <!--                                    placeholder="Source Country"></p-dropdown>-->
                                 <p-dropdown [options]="cities" styleClass="w-100" optionLabel="city_name"
-                                            formControlName="countryCode"
-                                            placeholder="Source Country" [filter]="true" filterBy="city_name"
-                                            (onChange)="onCountryChangeFilter($event)"
+                                            formControlName="countryCode" filterBy="city_name,country_name"
+                                            placeholder="Source Country" [filter]="true"
                                             [showClear]="true" [appendTo]="'body'" style="width: 100% !important;"
                                             class="">
                                     <ng-template pTemplate="selectedItem" let-selectedOption>
@@ -86,7 +79,7 @@
                                     </ng-template>
                                     <ng-template let-country pTemplate="item">
                                         <div class="d-flex align-items-center gap-2">
-                                            <img [src]="country.flag"/>
+                                            <img [src]="country.flag" [alt]="country.country_name"/>
                                             <div>{{ country.city_name }}, {{ country.country_name }}</div>
                                         </div>
                                     </ng-template>
@@ -240,8 +233,8 @@
                                                 <div class="col">
                                                 </div>
                                                 <div class="col text-end">
-                                                    <small>&nbsp;
-                                                        {{ job.created | timeAgo }}</small>
+<!--                                                    <small>&nbsp;-->
+<!--                                                        {{ job.created | timeAgo }}</small>-->
                                                 </div>
                                             </div>
                                         </div>
@@ -300,7 +293,7 @@
                                 <h5><small>{{ singleData.contract_type }}</small></h5>
                             </div>
                             <div class="col-6 text-end">
-                                <h5><small>{{ singleData.created | timeAgo }}</small></h5>
+<!--                                <h5><small>{{ singleData.created | timeAgo }}</small></h5>-->
                             </div>
                         </div>
                         <!-- <div class="d-flex align-items-center justify-content-between gap-1">

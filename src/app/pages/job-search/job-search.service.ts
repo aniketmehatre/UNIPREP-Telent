@@ -16,7 +16,6 @@ export class JobSearchService {
     }
 
     searchJobs(query: any): Observable<any> {
-        console.log(query);
         let params = new HttpParams()
             .set('app_id', this.appId)
             .set('app_key', this.appKey)
