@@ -39,7 +39,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     private dashboardService: DashboardService, private locationService: LocationService,
     private authService: SocialAuthService,
     private storage: LocalStorageService, 
-    private ngxLinkedinService: NgxLinkedinService
+    private ngxLinkedinService: NgxLinkedinService,
   ) { }
 
   linkedInCredentials = {
@@ -67,6 +67,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    this.loginwhitlabelurl();
     this.dataService.loggedInAnotherDevice('none');
     fetch('https://ipapi.co/json/').then(response => response.json()).then(data => {
       this.locationData = data
@@ -184,6 +185,14 @@ export class LoginComponent implements OnInit, OnDestroy {
     window.location.href = `https://www.linkedin.com/uas/oauth2/authorization?response_type=code&client_id=${
         this.linkedInCredentials.clientId
     }&redirect_uri=${this.linkedInCredentials.redirectUrl}&scope={this.linkedInCredentials.scope}`;
+  }
+  loginwhitlabelurl(){
+    var data={
+      domainname:"uniprep.ai"
+    }
+    this.service.getWhitlabelData(data).subscribe(res => {
+      console.log(res);
+    });
   }
 
 }
