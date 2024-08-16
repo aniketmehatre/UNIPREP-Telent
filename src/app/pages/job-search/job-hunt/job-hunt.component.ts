@@ -3,6 +3,8 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from "@angular/router";
 import { DataService } from 'src/app/data.service';
 import {MessageService} from "primeng/api";
+import {City} from "../../../@Models/cost-of-living";
+import {JobSearchService} from "../job-search.service";
 
 @Component({
   selector: 'uni-job-hunt',
@@ -12,9 +14,10 @@ import {MessageService} from "primeng/api";
 export class JobHuntComponent implements OnInit {
   fG: FormGroup;
   countryCodes: any
+  cities: City[] = [];
 
-
-  constructor(private router: Router, private dataService: DataService, private toastr: MessageService) {
+  constructor(private router: Router, private dataService: DataService, private toastr: MessageService,
+              private jobService: JobSearchService) {
     this.countryCodes = [
       { "name": "Austria", "code": "at", "flag": "https://flagcdn.com/at.svg" },
       { "name": "Australia", "code": "au", "flag": "https://flagcdn.com/au.svg" },
@@ -39,14 +42,27 @@ export class JobHuntComponent implements OnInit {
 
     this.fG = new FormGroup({
       countryCode: new FormControl('', Validators.required),
-      location: new FormControl(''),
-      title: new FormControl(''),
-      company: new FormControl('')
+      what_and: new FormControl(''),
     });
   }
 
   ngOnInit(): void {
-
+    this.jobService.getCities().subscribe((res: City[]) => {
+      this.cities = res.filter(city => {
+        return this.countryCodes.some((country: any) => country.name === city.country_name);
+      }).map(city => {
+        const matchedCountry = this.countryCodes.find((country: any) => country.name === city.country_name);
+        return {
+          ...city,
+          country_code: matchedCountry ? matchedCountry.code : null,
+          flag: matchedCountry ? matchedCountry.flag : city.flag // Use the flag from countryCodes if matched, otherwise keep original
+        };
+      });
+      // this.cities=res;
+      // // res.forEach(city => {
+      // //   this.cities.push({ ...city, label: city.city_name + ', ' + city.country_name })
+      // // });
+    });
   }
 
   resetSearch() {

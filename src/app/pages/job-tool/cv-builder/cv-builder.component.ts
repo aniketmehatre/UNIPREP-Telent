@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { MessageService } from 'primeng/api';
-import { FormBuilder, FormGroup, FormArray, Validators, AbstractControl} from "@angular/forms";
+import { FormBuilder, FormGroup, FormArray, Validators, AbstractControl } from "@angular/forms";
 import { CourseListService } from '../../course-list/course-list.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
-import html2canvas from 'html2canvas'; 
+import html2canvas from 'html2canvas';
+import { MenuItem } from 'primeng/api';
+
 @Component({
   selector: 'uni-cv-builder',
   templateUrl: './cv-builder.component.html',
@@ -12,17 +14,17 @@ import html2canvas from 'html2canvas';
 })
 export class CvBuilderComponent implements OnInit {
   selectedResumeLevel: string = "";
-  experienceLevel: any = [{id: 1, level: "Fresher"},{id: 2, level: "1-2 Years"},{id: 3, level: "3-5 Years"},{id: 4, level: "5+ Years"},];
-  cgpaPercentage: any = [{id:"CGPA", value: "CGPA"},{id:"%", value: "Percentage"}];
-  workTypeValue: any = [{id: "Full-Time", value: "Full-Time"}, {id: "Part-Time", value: "Part-Time"}, {id: "Internship", value: "Internship"},{id: "Freelancer", value: "Freelancer"}];
-  languageProficiency: any = [{id:"Beginner", value:"Beginner"},{id:"Fluent", value: "Fluent"}, { id:"Proficient", value:"Proficient"}, { id:"Native", value:"Native"}];
-  skillProficiency: any = [{id:"Basic", value:"Basic"},{id: "Intermediate", value: "Intermediate"}, { id:"Advance", value:"Advance"}];
-  enableModule:boolean = true;
-  activePageIndex: number = 1;
-  moduleActiveIndex: number = 1;
+  experienceLevel: any = [{ id: 1, level: "Fresher" }, { id: 2, level: "1-2 Years" }, { id: 3, level: "3-5 Years" }, { id: 4, level: "5+ Years" },];
+  cgpaPercentage: any = [{ id: "CGPA", value: "CGPA" }, { id: "%", value: "Percentage" }];
+  workTypeValue: any = [{ id: "Full-Time", value: "Full-Time" }, { id: "Part-Time", value: "Part-Time" }, { id: "Internship", value: "Internship" }, { id: "Freelancer", value: "Freelancer" }];
+  languageProficiency: any = [{ id: "Beginner", value: "Beginner" }, { id: "Fluent", value: "Fluent" }, { id: "Proficient", value: "Proficient" }, { id: "Native", value: "Native" }];
+  skillProficiency: any = [{ id: "Basic", value: "Basic" }, { id: "Intermediate", value: "Intermediate" }, { id: "Advance", value: "Advance" }];
+  enableModule: boolean = true;
+  activePageIndex: number = 0;
+  moduleActiveIndex: number = 0;
   resumeFormInfoData: FormGroup;
-  fullScreenVisible:boolean = false;
-  previewImage:string = "";
+  fullScreenVisible: boolean = false;
+  previewImage: string = "";
   //cloning limit
   eduDetailsLimit: number = 3;
   wrkExpLimit: number = 3;
@@ -33,19 +35,20 @@ export class CvBuilderComponent implements OnInit {
   extraCurriLimit: number = 5;
   certificateLimit: number = 4;
   referenceLimit: number = 4;
-  submitted:boolean = false;
+  submitted: boolean = false;
   submittedFormData: any = [];
-  selectedExpLevel:number = 0;
-  selectedThemeColor:string = "#172a99";
-  selectedColorCode:number = 1;
+  selectedExpLevel: number = 0;
+  selectedThemeColor: string = "#172a99";
+  selectedColorCode: number = 1;
   template1: any;
-  userNameSplit: { firstWord: string, secondWord: string } = { firstWord: '', secondWord: ''};
-  stableFileName = Math.floor(100000000 + Math.random() * 900000);
+  userNameSplit: { firstWord: string, secondWord: string } = { firstWord: '', secondWord: '' };
+  stableFileName: number = 0;
   resumeHistory: any = [];
   clickedDownloadButton: boolean = false;
   isUpdating: boolean = false;
   errorMessages: string[] = [];
-   resumeSlider: any = [
+  items!: MenuItem[];
+  resumeSlider: any = [
     {
       id: 1,
       templateName: "Traditional",
@@ -78,39 +81,39 @@ export class CvBuilderComponent implements OnInit {
     "slidesToScroll": 1,
     "infinite": true,
     "dots": false,
-    "centerMode": true,           
+    "centerMode": true,
     "centerPadding": "0",
     "variableWidth": true,
     "focusOnSelect": true,
-    "initialSlide":1
+    "initialSlide": 3,
   };
-  
-  
-  constructor(private toaster: MessageService,  private fb: FormBuilder, private resumeService:CourseListService, private http: HttpClient, private router: Router) {
+
+
+  constructor(private toaster: MessageService, private fb: FormBuilder, private resumeService: CourseListService, private http: HttpClient, private router: Router) {
 
     this.resumeFormInfoData = this.fb.group({
-      selected_exp_level:['1'],
-      // user_name: ['', Validators.required],
-      // user_job_title: ['', Validators.required],
-      // user_email: ['', [Validators.required, Validators.email]],
-      // user_location: ['', Validators.required],
-      // user_phone: ['',[Validators.required, Validators.pattern('^\\+?[1-9]\\d{1,14}$')]],
-      // user_linkedin:['', Validators.required],
-      // user_website: [''],
-      // user_summary: ['', Validators.required],
-      user_name: ['vivek kaliyaperumal', [Validators.required]],
-      user_job_title: ['full stack developer', [Validators.required]],
-      user_email: ['vivek@uniabroad.co.in', [Validators.required]],
-      user_location: ['mysore,karnataka', [Validators.required]],
-      user_phone: ['9524999563', [Validators.required]],
-      user_linkedin:['vivek kaliyaperumal'],
-      user_website: ['www.ownwebsite.com'],
-      user_summary: ['Dedicated full stack developer with proficiency in front-end and back-end technologies, effective problem-solving skills, and a passion for creating innovative web applications.', [Validators.required]],
+      selected_exp_level: ['1'],
+      user_name: ['Your Full Name', Validators.required],
+      user_job_title: ['Your Job Title', Validators.required],
+      user_email: ['Email Address', [Validators.required, Validators.email]],
+      user_location: ['Your Location', Validators.required],
+      user_phone: ['Phone Number',[Validators.required, Validators.pattern('^\\+?[1-9]\\d{1,14}$')]],
+      user_linkedin:['LinkedIn Name', Validators.required],
+      user_website: ['website Link'],
+      user_summary: ['About Yourself', Validators.required],
+      // user_name: ['vivek kaliyaperumal', [Validators.required]],
+      // user_job_title: ['full stack developer', [Validators.required]],
+      // user_email: ['vivek@uniabroad.co.in', [Validators.required]],
+      // user_location: ['mysore,karnataka', [Validators.required]],
+      // user_phone: ['9524999563', [Validators.required]],
+      // user_linkedin: ['vivek kaliyaperumal'],
+      // user_website: ['www.ownwebsite.com'],
+      // user_summary: ['Dedicated full stack developer with proficiency in front-end and back-end technologies, effective problem-solving skills, and a passion for creating innovative web applications.', [Validators.required]],
       EduDetailsArray: this.fb.array([]),
       workExpArray: this.fb.array([]),
       projectDetailsArray: this.fb.array([]),
       languagesKnownArray: this.fb.array([]),
-      skillsArray:this.fb.array([]),
+      skillsArray: this.fb.array([]),
       hobbiesArray: this.fb.array([]),
       extraCurricularArray: this.fb.array([]),
       certificatesArray: this.fb.array([]),
@@ -120,42 +123,56 @@ export class CvBuilderComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.triggerAddMoreButton();
+    // this.triggerAddMoreButton();
+    this.previousResumes();
     this.hideHeader();
     let currentuserName = this.resumeFormInfoData.value.user_name;
     this.splitUserName(currentuserName); // it calls when the page refresh
-    this.resumeFormInfoData.get('user_name')?.valueChanges.subscribe(value=>{
+    this.resumeFormInfoData.get('user_name')?.valueChanges.subscribe(value => {
       this.splitUserName(value); // it calls when the user enters the user name
     });
     if (this.resumeFormInfoData.invalid) {
-      this.errorMessages = this.getWorkExpArray.controls.map(control => 
-          control.get('work_job_description')?.errors?.['maxWordsExceeded']  ? 'Job Description exceeds the maximum word limit.'  : ''
+      this.errorMessages = this.getWorkExpArray.controls.map(control =>
+        control.get('work_job_description')?.errors?.['maxWordsExceeded'] ? 'Job Description exceeds the maximum word limit.' : ''
       );
       return;
     }
+    this.items = [
+      { label: 'Personal Information' },
+      { label: 'Work Experience' },
+      { label: 'Your Education' },
+      { label: 'Skills & Certifications' },
+      { label: 'Additional Information' },
+      { label: 'Your References' },
+    ];
+    this.stableFileCreation();
   }
 
-  hideHeader(){
+  stableFileCreation(){
+    this.stableFileName = Math.floor(100000000 + Math.random() * 900000);
+  }
+
+  hideHeader() {
     const url = this.router.url;
-    if(this.activePageIndex == 2 && url.endsWith('/cv-builder')){
+    if (this.activePageIndex == 2 && url.endsWith('/cv-builder')) {
       this.resumeService.setData(true);
-    }else{
+    } else {
       this.resumeService.setData(false);
     }
   }
 
-  splitUserName(currentUserName: string){
+  splitUserName(currentUserName: string) {
     const words = currentUserName.trim().split(/\s+/);
     this.userNameSplit.firstWord = words[0] || '';
     words.shift();
     this.userNameSplit.secondWord = words.join(' ') || '';
   }
 
-  toggleFullScreen(){
+  toggleFullScreen() {
     this.fullScreenVisible = !this.fullScreenVisible;
   }
 
-  selectColor(selectedColor:string, selectedColorCode: number){
+  selectColor(selectedColor: string, selectedColorCode: number) {
     this.selectedThemeColor = selectedColor;
     this.selectedColorCode = selectedColorCode;
   }
@@ -164,12 +181,12 @@ export class CvBuilderComponent implements OnInit {
     return this.resumeFormInfoData.controls;
   }
 
-  changeExperience(event: any){
+  changeExperience(event: any) {
 
-    if(event.value != 1){
+    if (event.value != 1) {
       this.eduDetailsLimit = 2;
       this.wrkExpLimit = 5;
-    }else{
+    } else {
       this.eduDetailsLimit = 3;
       this.wrkExpLimit = 3;
     }
@@ -184,7 +201,7 @@ export class CvBuilderComponent implements OnInit {
   }
 
   updateValidators(formGroup: FormGroup) {
-    
+
     if (this.resumeFormInfoData.value.selected_exp_level === 1) {
       formGroup.get('project_name')?.setValidators(Validators.required);
       formGroup.get('project_start_name')?.setValidators(Validators.required);
@@ -204,7 +221,7 @@ export class CvBuilderComponent implements OnInit {
     formGroup.get('project_description')?.updateValueAndValidity();
   }
 
-  resumeFormSubmit(){
+  resumeFormSubmit() {
     // this.submittedFormData = this.resumeFormInfoData.value;
     // this.submitted = true;
     // if (!this.resumeFormInfoData.valid) {
@@ -216,7 +233,7 @@ export class CvBuilderComponent implements OnInit {
     const visibleFormControls = this.getVisibleFormControls();
     this.submitted = true;
     if (!visibleFormControls.every(control => control.valid)) {
-      this.toaster.add({severity: "error", summary: "Error", detail: "Please fill all the required fields."});
+      this.toaster.add({ severity: "error", summary: "Error", detail: "Please fill all the required fields." });
       visibleFormControls.forEach(control => control.markAsTouched());
     } else {
       // this.next();
@@ -224,17 +241,73 @@ export class CvBuilderComponent implements OnInit {
     }
   }
 
-  fieldNextButton(){
+  fieldNextButton() {
     this.moduleActiveIndex++;
+    if(this.moduleActiveIndex > 5){
+      this.activePageIndex++;
+      return;
+    }
+    const fieldNameArray: string[] = [];
+    switch (this.moduleActiveIndex) {
+      case 1:
+        if (this.getWorkExpArray.length === 0) {
+          fieldNameArray.push('work_experience');
+        }
+        break;
+
+      case 2:
+        if (this.getEduDetailsArray.length === 0) {
+          fieldNameArray.push('education_detail');
+        }
+        if (this.resumeFormInfoData.value.selected_exp_level == 1 && this.getProjectDetailsArray.length === 0) {
+          fieldNameArray.push('project_details');
+        }
+        break;
+
+      case 3:
+        if (this.getCertificatesArray.length === 0) {
+          fieldNameArray.push('certificate');
+        }
+        if (this.getSkillsArray.length === 0) {
+          fieldNameArray.push('skills');
+        }
+        break;
+
+      case 4:
+        if (this.getExtraCurricularArray.length === 0) {
+          fieldNameArray.push('extra_curricular');
+        }
+        if (this.getHobbiesArray.length === 0) {
+          fieldNameArray.push('Hobby');
+        }
+        if (this.getLanguagesKnownArray.length === 0) {
+          fieldNameArray.push('language_known');
+        }
+        break;
+
+      case 5:
+        if (this.getReferenceArray.length === 0) {
+          fieldNameArray.push('reference');
+        }
+        break;
+
+      default:
+        break;
+    }
+    if (fieldNameArray.length > 0) {
+      fieldNameArray.forEach((element: string) => {
+        this.clickAddMoreButton(element);
+      });
+    }
   }
 
-  fieldPreviousButton(){
+  fieldPreviousButton() {
     this.moduleActiveIndex--;
   }
 
   getVisibleFormControls(): AbstractControl[] {
     const controls: AbstractControl[] = [];
-    if (this.moduleActiveIndex === 1) {
+    if (this.moduleActiveIndex === 0) {
       const controlNames = ['user_name', 'user_email', 'user_job_title', 'user_location', 'user_phone', 'user_summary'];
       controlNames.forEach(controlName => {
         const control = this.resumeFormInfoData.get(controlName);
@@ -242,54 +315,54 @@ export class CvBuilderComponent implements OnInit {
           controls.push(control);
         }
       });
-    }else if(this.moduleActiveIndex === 2 || this.moduleActiveIndex === 3 || this.moduleActiveIndex === 4 || this.moduleActiveIndex === 5 || this.moduleActiveIndex === 6){
-        let controlNames: string[] = [];
-        let formControlFields: FormArray[] = [];
-    
-        if (this.moduleActiveIndex === 2) {
-          controlNames = ['work_org_name', 'work_currently_working', 'work_start_year', 'work_end_year', 'work_designation', 'work_type', 'work_location', 'work_job_description'];
-          formControlFields.push(this.resumeFormInfoData.get('workExpArray') as FormArray);
-        } else if (this.moduleActiveIndex === 3) {
-          controlNames = ['edu_college_name', 'edu_start_year', 'edu_end_year', 'edu_degree', 'edu_location', 'edu_percentage','project_name', 'project_start_name', 'project_end_name', 'project_description'];
-          formControlFields.push(this.resumeFormInfoData.get('EduDetailsArray') as FormArray);
-          formControlFields.push(this.resumeFormInfoData.get('projectDetailsArray') as FormArray);
-        } else if (this.moduleActiveIndex === 4) {
-          controlNames = ['certificate_name', 'certificate_issued', 'skills', 'skills_proficiency'];
-          formControlFields.push(this.resumeFormInfoData.get('certificatesArray') as FormArray);
-          formControlFields.push(this.resumeFormInfoData.get('skillsArray') as FormArray);
-        } else if (this.moduleActiveIndex === 5) {
-          controlNames = ['language', 'lang_proficiency', 'extra_curricular_activites', 'hobbies'];
-          formControlFields.push(this.resumeFormInfoData.get('languagesKnownArray') as FormArray);
-          formControlFields.push(this.resumeFormInfoData.get('extraCurricularArray') as FormArray);
-          formControlFields.push(this.resumeFormInfoData.get('hobbiesArray') as FormArray);
-        } else if (this.moduleActiveIndex === 6) {
-          controlNames = ['ref_name', 'ref_position', 'ref_organization', 'ref_email', 'ref_contact'];
-          formControlFields.push(this.resumeFormInfoData.get('referenceArray') as FormArray);
-        }
-    
-        formControlFields.forEach(formArray => {
-            formArray.controls.forEach((eduGroup: AbstractControl) => {
-                controlNames.forEach(controlName => {
-                    const control = eduGroup.get(controlName);
-                    if (control) {
-                        controls.push(control);
-                    }
-                });
-            });
-        });
+    } else if (this.moduleActiveIndex === 1 || this.moduleActiveIndex === 2 || this.moduleActiveIndex === 3 || this.moduleActiveIndex === 4 || this.moduleActiveIndex === 5) {
+      let controlNames: string[] = [];
+      let formControlFields: FormArray[] = [];
+
+      if (this.moduleActiveIndex === 1) {
+        controlNames = ['work_org_name', 'work_currently_working', 'work_start_year', 'work_end_year', 'work_designation', 'work_type', 'work_location', 'work_job_description'];
+        formControlFields.push(this.resumeFormInfoData.get('workExpArray') as FormArray);
+      } else if (this.moduleActiveIndex === 2) {
+        controlNames = ['edu_college_name', 'edu_start_year', 'edu_end_year', 'edu_degree', 'edu_location', 'edu_percentage', 'project_name', 'project_start_name', 'project_end_name', 'project_description'];
+        formControlFields.push(this.resumeFormInfoData.get('EduDetailsArray') as FormArray);
+        formControlFields.push(this.resumeFormInfoData.get('projectDetailsArray') as FormArray);
+      } else if (this.moduleActiveIndex === 3) {
+        controlNames = ['certificate_name', 'certificate_issued', 'skills', 'skills_proficiency'];
+        formControlFields.push(this.resumeFormInfoData.get('certificatesArray') as FormArray);
+        formControlFields.push(this.resumeFormInfoData.get('skillsArray') as FormArray);
+      } else if (this.moduleActiveIndex === 4) {
+        controlNames = ['language', 'lang_proficiency', 'extra_curricular_activites', 'hobbies'];
+        formControlFields.push(this.resumeFormInfoData.get('languagesKnownArray') as FormArray);
+        formControlFields.push(this.resumeFormInfoData.get('extraCurricularArray') as FormArray);
+        formControlFields.push(this.resumeFormInfoData.get('hobbiesArray') as FormArray);
+      } else if (this.moduleActiveIndex === 5) {
+        controlNames = ['ref_name', 'ref_position', 'ref_organization', 'ref_email', 'ref_contact'];
+        formControlFields.push(this.resumeFormInfoData.get('referenceArray') as FormArray);
       }
+
+      formControlFields.forEach(formArray => {
+        formArray.controls.forEach((eduGroup: AbstractControl) => {
+          controlNames.forEach(controlName => {
+            const control = eduGroup.get(controlName);
+            if (control) {
+              controls.push(control);
+            }
+          });
+        });
+      });
+    }
     return controls;
   }
 
-  imgOnclick(resumeLevel: any){
+  imgOnclick(resumeLevel: any) {
     this.selectedResumeLevel = resumeLevel;
-    if(resumeLevel == 'Modern'){
+    if (resumeLevel == 'Modern') {
       this.selectedThemeColor = '#172a99';
       this.selectedColorCode = 1;
-    }else if(resumeLevel == 'Creative'){
+    } else if (resumeLevel == 'Creative') {
       this.selectedThemeColor = '#E2C742';
       this.selectedColorCode = 5;
-    }else if(resumeLevel == 'Functional'){
+    } else if (resumeLevel == 'Functional') {
       this.selectedThemeColor = '#469199';
       this.selectedColorCode = 2;
     }
@@ -310,15 +383,15 @@ export class CvBuilderComponent implements OnInit {
   // }
 
   shakeButton(event: Event) {
-    if(!this.selectedResumeLevel){
+    if (!this.selectedResumeLevel) {
       const button = event.target as HTMLElement;
       button.classList.add('shake');
       setTimeout(() => {
         button.classList.remove('shake');
       }, 300);
 
-      this.toaster.add({severity: "error",summary: "Error",detail: "Please Select any one Resume model..!"})
-    }else{
+      this.toaster.add({ severity: "error", summary: "Error", detail: "Please Select any one Resume model..!" })
+    } else {
       this.activePageIndex++;
       // this.enableModule = true;
       this.activePageIndex = this.activePageIndex == 5 ? 1 : this.activePageIndex;
@@ -326,15 +399,15 @@ export class CvBuilderComponent implements OnInit {
     }
   }
 
-  selectResumeTemplate(resumeTemplate: string){
+  selectResumeTemplate(resumeTemplate: string) {
     this.selectedResumeLevel = resumeTemplate;
-    if(resumeTemplate == 'Modern'){
+    if (resumeTemplate == 'Modern') {
       this.selectedThemeColor = '#172a99';
       this.selectedColorCode = 1;
-    }else if(resumeTemplate == 'Creative'){
+    } else if (resumeTemplate == 'Creative') {
       this.selectedThemeColor = '#E2C742';
       this.selectedColorCode = 5;
-    }else if(resumeTemplate == 'Functional'){
+    } else if (resumeTemplate == 'Functional') {
       this.selectedThemeColor = '#469199';
       this.selectedColorCode = 2;
     }
@@ -342,7 +415,7 @@ export class CvBuilderComponent implements OnInit {
     this.hideHeader();
   }
 
-  previous(){
+  previous() {
     this.activePageIndex--;
     // if (this.activePageIndex > 0) {
     //   this.activePageIndex--;
@@ -350,137 +423,166 @@ export class CvBuilderComponent implements OnInit {
     this.hideHeader();
   }
 
-  next(){
-    // console.log(this.resumeFormInfoData);
+  next() {
     this.activePageIndex++;
-    // if(this.activePageIndex == 3){
-    //   this.generateImage();
-    // }
-    if(this.activePageIndex == 4){
-      if(this.clickedDownloadButton){ //if the user not donwload the resume,in the presently created resume is not visible in the resume history page.
-        this.resumeService.getAlreadyCreatedResumes().subscribe(res=>{
-          this.resumeHistory = res;
-        });
-      }else{
-        this.activePageIndex--; 
-        this.toaster.add({severity: "error",summary: "Error",detail: "Please Download the Resume First!!"})
+    if (this.activePageIndex == 4) {
+      if (this.clickedDownloadButton) { //if the user not donwload the resume,in the presently created resume is not visible in the resume history page.
+        this.previousResumes();
+      } else {
+        this.activePageIndex--;
+        this.toaster.add({ severity: "error", summary: "Error", detail: "Please Download the Resume First!!" })
       }
+    }else if(this.activePageIndex > 4){
+      this.activePageIndex = 1;
+      this.moduleActiveIndex = 0;
+      this.clickedDownloadButton =  false;
+      this.selectedResumeLevel = "";
+      // this.resumeFormInfoData.reset();
+      this.submitted = false;
+      this.stableFileCreation();
+      window.location.reload();
     }
     this.hideHeader();
   }
 
+  previousResumes(){
+    this.resumeService.getAlreadyCreatedResumes().subscribe(res => {
+      this.resumeHistory = res;
+      if(res.length == 0){
+        this.activePageIndex = 1;
+      }
+    });
+  }
   get getEduDetailsArray(): FormArray {
     return this.resumeFormInfoData.get('EduDetailsArray') as FormArray;
   }
 
-  get getWorkExpArray(): FormArray{
+  get getWorkExpArray(): FormArray {
     return this.resumeFormInfoData.get('workExpArray') as FormArray;
   }
 
-  get getProjectDetailsArray(): FormArray{
+  get getProjectDetailsArray(): FormArray {
     return this.resumeFormInfoData.get('projectDetailsArray') as FormArray;
   }
 
-  get getLanguagesKnownArray(): FormArray{
+  get getLanguagesKnownArray(): FormArray {
     return this.resumeFormInfoData.get('languagesKnownArray') as FormArray;
   }
   get getHobbiesArray(): FormArray {
     return this.resumeFormInfoData.get('hobbiesArray') as FormArray;
   }
 
-  get getSkillsArray():FormArray {
+  get getSkillsArray(): FormArray {
     return this.resumeFormInfoData.get('skillsArray') as FormArray;
   }
 
-  get getExtraCurricularArray(): FormArray{
+  get getExtraCurricularArray(): FormArray {
     return this.resumeFormInfoData.get('extraCurricularArray') as FormArray;
   }
 
-  get getCertificatesArray(): FormArray{
+  get getCertificatesArray(): FormArray {
     return this.resumeFormInfoData.get('certificatesArray') as FormArray;
   }
 
-  get getReferenceArray(): FormArray{
+  get getReferenceArray(): FormArray {
     return this.resumeFormInfoData.get('referenceArray') as FormArray;
   }
 
-  clickAddMoreButton(fieldName: string){
-    if(fieldName == "education_detail"){
+  clickAddMoreButton(fieldName: string) {
+    if (fieldName == "education_detail") {
       this.getEduDetailsArray.push(this.fb.group({
-        edu_college_name: ['',Validators.required],
+        edu_college_name: ['College Name',Validators.required],
         edu_still_pursuing:[''],
-        edu_start_year: ['', Validators.required],
-        edu_end_year: ['', Validators.required],
-        edu_degree: ['', Validators.required],
-        edu_location: ['', Validators.required],
+        edu_start_year: ['Start Year', Validators.required],
+        edu_end_year: ['End Year', Validators.required],
+        edu_degree: ['Degree Name', Validators.required],
+        edu_location: ['Location', Validators.required],
         edu_percentage: ['', Validators.required],
         edu_cgpa_percentage: [''],
       }));
-    }else if(fieldName == "work_experience"){
-      // this.getWorkExpArray.push(this.fb.group({
-      //   work_org_name: ['',Validators.required],
-      //   work_currently_working:[''],
-      //   work_start_year: ['',Validators.required],
-      //   work_end_year: ['',Validators.required],
-      //   work_designation: ['',Validators.required],
-      //   work_type: ['',Validators.required],
-      //   work_location: ['',Validators.required],
-      //   work_job_description: ['',Validators.required],
+      // this.getEduDetailsArray.push(this.fb.group({
+      //   edu_college_name: ['Srinivasan Engg College', Validators.required],
+      //   edu_still_pursuing: [''],
+      //   edu_start_year: ['2015', Validators.required],
+      //   edu_end_year: ['2019', Validators.required],
+      //   edu_degree: ['Bachelor of Engineering in C.S', Validators.required],
+      //   edu_location: ['Perambalur', Validators.required],
+      //   edu_percentage: ['65', Validators.required],
+      //   edu_cgpa_percentage: ['%', Validators.required],
       // }));
+    } else if (fieldName == "work_experience") {
       this.getWorkExpArray.push(this.fb.group({
-        work_org_name: ['Uniabroad Private Ltd',Validators.required],
+        work_org_name: ['Organization Name',Validators.required],
         work_currently_working:[''],
-        work_start_year: ['2013',Validators.required],
-        work_end_year: ['2015',Validators.required],
-        work_designation: ['Full stack developer',Validators.required],
-        work_type: ['Ful-Time',Validators.required],
-        work_location: ['Mysore',Validators.required],
-        work_job_description: ['Spearheaded the UI/UX redesign of UNIPREP, UNIAPPLY, SOPEXPERT, and the UNIABROAD website, resulting in a cohesive and user-friendly experience across all platforms.Implemented innovative design solutions for the frontend of the products, enhancing user engagement and satisfaction.Designed and optimized the CRM admin panel, improving internal workflows and user interactions with the system.Collaborated closely with development teams to ensure seamless integration of design elements and adherence to design guidelines across all products.',Validators.required],
+        work_start_year: ['Start Year',Validators.required],
+        work_end_year: ['End Year',Validators.required],
+        work_designation: ['Work Designation',Validators.required],
+        work_type: ['',Validators.required],
+        work_location: ['Work Location',Validators.required],
+        work_job_description: ['Description About Your job and roles and responsibilities',Validators.required],
       }));
-      this.errorMessages.push('');
-    }else if(fieldName == "project_details"){
-      // this.getProjectDetailsArray.push(this.fb.group({
-      //   project_name: ['',Validators.required],
-      //   project_start_name: ['',Validators.required],
-      //   project_end_name: ['',Validators.required],
-      //   project_description: ['',Validators.required],
+      // this.getWorkExpArray.push(this.fb.group({
+      //   work_org_name: ['Uniabroad Private Ltd', Validators.required],
+      //   work_currently_working: [''],
+      //   work_start_year: ['2013', Validators.required],
+      //   work_end_year: ['2015', Validators.required],
+      //   work_designation: ['Full stack developer', Validators.required],
+      //   work_type: ['Ful-Time', Validators.required],
+      //   work_location: ['Mysore', Validators.required],
+      //   work_job_description: ['Spearheaded the UI/UX redesign of UNIPREP, UNIAPPLY, SOPEXPERT, and the UNIABROAD website, resulting in a cohesive and user-friendly experience across all platforms.Implemented innovative design solutions for the frontend of the products, enhancing user engagement and satisfaction.Designed and optimized the CRM admin panel, improving internal workflows and user interactions with the system.Collaborated closely with development teams to ensure seamless integration of design elements and adherence to design guidelines across all products.', Validators.required],
       // }));
+      this.errorMessages.push('');
+    } else if (fieldName == "project_details") {
       this.getProjectDetailsArray.push(this.fb.group({
-        project_name: ['Anonymity',Validators.required],
-        project_start_name: ['2015',Validators.required],
-        project_end_name: ['2019',Validators.required],
-        project_description: ['Together with developers, collect and assess user requirements.Using storyboards, process flows, and sitemaps, illustrate design concepts.Create visual user interface components such as menus, tabs, and widgets.Create UI mockups and prototypes that clearly show how websites work and appear.Determine and address UX issues (e.g., responsiveness).',Validators.required],
+        project_name: ['Project Name',Validators.required],
+        project_start_name: ['Start Year',Validators.required],
+        project_end_name: ['End Time',Validators.required],
+        project_description: ['Describe About Your Project',Validators.required],
       }));
-    }else if(fieldName == "language_known"){
+      // this.getProjectDetailsArray.push(this.fb.group({
+      //   project_name: ['Anonymity', Validators.required],
+      //   project_start_name: ['2015', Validators.required],
+      //   project_end_name: ['2019', Validators.required],
+      //   project_description: ['Together with developers, collect and assess user requirements.Using storyboards, process flows, and sitemaps, illustrate design concepts.Create visual user interface components such as menus, tabs, and widgets.Create UI mockups and prototypes that clearly show how websites work and appear.Determine and address UX issues (e.g., responsiveness).', Validators.required],
+      // }));
+    } else if (fieldName == "language_known") {
+      // this.getLanguagesKnownArray.push(this.fb.group({
+      //   language: ['',Validators.required],
+      //   lang_proficiency: ['',Validators.required],
+      // }));
       this.getLanguagesKnownArray.push(this.fb.group({
-        language: ['',Validators.required],
-        lang_proficiency: ['',Validators.required],
+        language: ['Language Name', Validators.required],
+        lang_proficiency: ['Native', Validators.required],
       }));
-    }else if(fieldName == "skills"){
+    } else if (fieldName == "skills") {
+      // this.getSkillsArray.push(this.fb.group({
+      //   skills: ['',Validators.required],
+      //   skills_proficiency: ['',Validators.required]
+      // }));
       this.getSkillsArray.push(this.fb.group({
-        skills: ['',Validators.required],
-        skills_proficiency: ['',Validators.required]
+        skills: ['Skill Name', Validators.required],
+        skills_proficiency: ['Advance', Validators.required],
       }));
-    }else if(fieldName == "Hobby"){
+    } else if (fieldName == "Hobby") {
       this.getHobbiesArray.push(this.fb.group({
-        hobbies: ['Painting',Validators.required],
+        hobbies: ['Hobby', Validators.required],
       }));
       // this.getHobbiesArray.push(this.fb.group({
       //   hobbies: ['',Validators.required],
       // }));
-    }else if(fieldName == "extra_curricular"){
+    } else if (fieldName == "extra_curricular") {
       this.getExtraCurricularArray.push(this.fb.group({
-        extra_curricular_activites: ['Game Development',Validators.required]
+        extra_curricular_activites: ['Extra Curricular Activity', Validators.required]
       }));
       // this.getExtraCurricularArray.push(this.fb.group({
       //   extra_curricular_activites: ['',Validators.required]
       // }));
-    }else if(fieldName == "certificate"){
+    } else if (fieldName == "certificate") {
       this.getCertificatesArray.push(this.fb.group({
-        certificate_name: ['Web Development',Validators.required],
-        certificate_issued: ['UNIPREP',Validators.required],
-        certificate_id: ['UNI077'],
-        certicate_link: ['https://uniprep.ai/certificates'],
+        certificate_name: ['Certificate Name', Validators.required],
+        certificate_issued: ['Issued by', Validators.required],
+        certificate_id: ['certificate Id'],
+        certicate_link: ['certificate link'],
       }));
       //  this.getCertificatesArray.push(this.fb.group({
       //   certificate_name: ['',Validators.required],
@@ -488,13 +590,13 @@ export class CvBuilderComponent implements OnInit {
       //   certificate_id: [''],
       //   certicate_link: [''],
       // }));
-    }else if(fieldName == "reference"){
+    } else if (fieldName == "reference") {
       this.getReferenceArray.push(this.fb.group({
-        ref_name: ['Adithya M',Validators.required],
-        ref_position: ['CEO',Validators.required],
-        ref_organization: ['Mediamonk',Validators.required],
-        ref_email: ['adithya@uniabroad.co.in',Validators.required],
-        ref_contact: ['+91 7019267853',Validators.required],
+        ref_name: ['Reference Name', Validators.required],
+        ref_position: ['Reference Position', Validators.required],
+        ref_organization: ['Organization Name', Validators.required],
+        ref_email: ['Reference Email', Validators.required],
+        ref_contact: ['Contact Number', Validators.required],
       }));
       // this.getReferenceArray.push(this.fb.group({
       //   ref_name: ['',Validators.required],
@@ -506,35 +608,35 @@ export class CvBuilderComponent implements OnInit {
     }
   }
 
-  clickDeleteButton(fieldName: string, index: number){
+  clickDeleteButton(fieldName: string, index: number) {
 
-    if(fieldName == "education_detail"){
+    if (fieldName == "education_detail") {
       this.getEduDetailsArray.removeAt(index);
-    }else if(fieldName == "work_experience"){
+    } else if (fieldName == "work_experience") {
       this.getWorkExpArray.removeAt(index);
       this.errorMessages.splice(index, 1);
-    }else if(fieldName == "project_details"){
+    } else if (fieldName == "project_details") {
       this.getProjectDetailsArray.removeAt(index);
-    }else if(fieldName == "language_known"){
+    } else if (fieldName == "language_known") {
       this.getLanguagesKnownArray.removeAt(index);
-    }else if(fieldName == "skills"){
+    } else if (fieldName == "skills") {
       this.getSkillsArray.removeAt(index);
-    }else if(fieldName == "Hobby"){
+    } else if (fieldName == "Hobby") {
       this.getHobbiesArray.removeAt(index);
-    }else if(fieldName == "extra_curricular"){
+    } else if (fieldName == "extra_curricular") {
       this.getExtraCurricularArray.removeAt(index);
-    }else if(fieldName == "certificate"){
+    } else if (fieldName == "certificate") {
       this.getCertificatesArray.removeAt(index);
-    }else if(fieldName == "reference"){
+    } else if (fieldName == "reference") {
       this.getReferenceArray.removeAt(index);
     }
 
   }
 
-  stillPursuing(fieldName:string, index: number, event: Event){
+  stillPursuing(fieldName: string, index: number, event: Event) {
     const isChecked = (event.target as HTMLInputElement).checked;
-    
-    if(fieldName == "work_currently_working"){
+
+    if (fieldName == "work_currently_working") {
       const workExpArray = this.getWorkExpArray;
       const workExpGroup = workExpArray.at(index) as FormGroup;
       if (isChecked) {
@@ -546,7 +648,7 @@ export class CvBuilderComponent implements OnInit {
           work_end_year: ''
         });
       }
-    }else{
+    } else {
       const getEduDetailsArray = this.getEduDetailsArray;
       const getEduDetailsGroup = getEduDetailsArray.at(index) as FormGroup;
       if (isChecked) {
@@ -559,114 +661,114 @@ export class CvBuilderComponent implements OnInit {
         });
       }
     }
-    
+
   }
 
-  triggerAddMoreButton(){ //initially the cloning array is an empty so trigger and make the array as an not empty
+  // triggerAddMoreButton() { //initially the cloning array is an empty so trigger and make the array as an not empty
 
-    this.getEduDetailsArray.push(this.fb.group({
-      edu_college_name: ['Srinivasan Engg College',Validators.required],
-      edu_still_pursuing:[''],
-      edu_start_year: ['2015',Validators.required],
-      edu_end_year: ['2019',Validators.required],
-      edu_degree: ['Bachelor of Engineering in C.S',Validators.required],
-      edu_location: ['Perambalur',Validators.required],
-      edu_percentage: ['65',Validators.required],
-      edu_cgpa_percentage: ['%',Validators.required],
-    }));
+  //   this.getEduDetailsArray.push(this.fb.group({
+  //     edu_college_name: ['Srinivasan Engg College', Validators.required],
+  //     edu_still_pursuing: [''],
+  //     edu_start_year: ['2015', Validators.required],
+  //     edu_end_year: ['2019', Validators.required],
+  //     edu_degree: ['Bachelor of Engineering in C.S', Validators.required],
+  //     edu_location: ['Perambalur', Validators.required],
+  //     edu_percentage: ['65', Validators.required],
+  //     edu_cgpa_percentage: ['%', Validators.required],
+  //   }));
 
-    // this.getEduDetailsArray.push(this.fb.group({
-    //   edu_college_name: ['',Validators.required],
-    //   edu_still_pursuing:[''],
-    //   edu_start_year: ['',Validators.required],
-    //   edu_end_year: ['',Validators.required],
-    //   edu_degree: ['',Validators.required],
-    //   edu_location: ['',Validators.required],
-    //   edu_percentage: ['',Validators.required],
-    //   edu_cgpa_percentage: ['%'],
-    // }));
+  //   // this.getEduDetailsArray.push(this.fb.group({
+  //   //   edu_college_name: ['',Validators.required],
+  //   //   edu_still_pursuing:[''],
+  //   //   edu_start_year: ['',Validators.required],
+  //   //   edu_end_year: ['',Validators.required],
+  //   //   edu_degree: ['',Validators.required],
+  //   //   edu_location: ['',Validators.required],
+  //   //   edu_percentage: ['',Validators.required],
+  //   //   edu_cgpa_percentage: ['%'],
+  //   // }));
 
-    this.getWorkExpArray.push(this.fb.group({
-      work_org_name: ['Uniabroad Private Ltd',Validators.required],
-      work_currently_working:[''],
-      work_start_year: ['2013',Validators.required],
-      work_end_year: ['2015',Validators.required],
-      work_designation: ['Full stack developer',Validators.required],
-      work_type: ['Full-Time',Validators.required],
-      work_location: ['Mysore',Validators.required],
-      work_job_description: ['Spearheaded the UI/UX redesign of UNIPREP, UNIAPPLY, SOPEXPERT, and the UNIABROAD website, resulting in a cohesive and user-friendly experience across all platforms.Implemented innovative design solutions for the frontend of the products, enhancing user engagement and satisfaction.Designed and optimized the CRM admin panel, improving internal workflows and user interactions with the system.Collaborated closely with development teams to ensure seamless integration of design elements and adherence to design guidelines across all products.',Validators.required],
-    }));
+  //   this.getWorkExpArray.push(this.fb.group({
+  //     work_org_name: ['Uniabroad Private Ltd', Validators.required],
+  //     work_currently_working: [''],
+  //     work_start_year: ['2013', Validators.required],
+  //     work_end_year: ['2015', Validators.required],
+  //     work_designation: ['Full stack developer', Validators.required],
+  //     work_type: ['Full-Time', Validators.required],
+  //     work_location: ['Mysore', Validators.required],
+  //     work_job_description: ['Spearheaded the UI/UX redesign of UNIPREP, UNIAPPLY, SOPEXPERT, and the UNIABROAD website, resulting in a cohesive and user-friendly experience across all platforms.Implemented innovative design solutions for the frontend of the products, enhancing user engagement and satisfaction.Designed and optimized the CRM admin panel, improving internal workflows and user interactions with the system.Collaborated closely with development teams to ensure seamless integration of design elements and adherence to design guidelines across all products.', Validators.required],
+  //   }));
 
-    // this.getWorkExpArray.push(this.fb.group({
-    //   work_org_name: ['',Validators.required],
-    //   work_currently_working:[''],
-    //   work_start_year: ['',Validators.required],
-    //   work_end_year: ['',Validators.required],
-    //   work_designation: ['',Validators.required],
-    //   work_type: ['',Validators.required],
-    //   work_location: ['',Validators.required],
-    //   work_job_description: ['',Validators.required],
-    // }));
+  //   // this.getWorkExpArray.push(this.fb.group({
+  //   //   work_org_name: ['',Validators.required],
+  //   //   work_currently_working:[''],
+  //   //   work_start_year: ['',Validators.required],
+  //   //   work_end_year: ['',Validators.required],
+  //   //   work_designation: ['',Validators.required],
+  //   //   work_type: ['',Validators.required],
+  //   //   work_location: ['',Validators.required],
+  //   //   work_job_description: ['',Validators.required],
+  //   // }));
 
-    this.getProjectDetailsArray.push(this.fb.group({
-      project_name: ['Anonymity',Validators.required],
-      project_start_name: ['2015',Validators.required],
-      project_end_name: ['2019',Validators.required],
-      project_description: ['Together with developers, collect and assess user requirements.Using storyboards, process flows, and sitemaps, illustrate design concepts.Create visual user interface components such as menus, tabs, and widgets.Create UI mockups and prototypes that clearly show how websites work and appear.Determine and address UX issues (e.g., responsiveness).',Validators.required],
-    }));
+  //   this.getProjectDetailsArray.push(this.fb.group({
+  //     project_name: ['Anonymity', Validators.required],
+  //     project_start_name: ['2015', Validators.required],
+  //     project_end_name: ['2019', Validators.required],
+  //     project_description: ['Together with developers, collect and assess user requirements.Using storyboards, process flows, and sitemaps, illustrate design concepts.Create visual user interface components such as menus, tabs, and widgets.Create UI mockups and prototypes that clearly show how websites work and appear.Determine and address UX issues (e.g., responsiveness).', Validators.required],
+  //   }));
 
-    // this.getProjectDetailsArray.push(this.fb.group({
-    //   project_name: ['',Validators.required],
-    //   project_start_name: ['',Validators.required],
-    //   project_end_name: ['',Validators.required],
-    //   project_description: ['',Validators.required],
-    // }));
+  //   // this.getProjectDetailsArray.push(this.fb.group({
+  //   //   project_name: ['',Validators.required],
+  //   //   project_start_name: ['',Validators.required],
+  //   //   project_end_name: ['',Validators.required],
+  //   //   project_description: ['',Validators.required],
+  //   // }));
 
-    // this.getSkillsArray.push(this.fb.group({
-    //   skills: ['HTML'],
-    //   skills_proficiency: ['Basic'],
-    // }));
+  //   // this.getSkillsArray.push(this.fb.group({
+  //   //   skills: ['HTML'],
+  //   //   skills_proficiency: ['Basic'],
+  //   // }));
 
-    this.getSkillsArray.push(this.fb.group({
-      skills: ['Angular',Validators.required],
-      skills_proficiency: ['Advance',Validators.required],
-    }));
+  //   this.getSkillsArray.push(this.fb.group({
+  //     skills: ['Angular', Validators.required],
+  //     skills_proficiency: ['Advance', Validators.required],
+  //   }));
 
-    // this.getLanguagesKnownArray.push(this.fb.group({
-    //   language: ['Tamil'],
-    //   lang_proficiency: ['Native'],
-    // }));
+  //   // this.getLanguagesKnownArray.push(this.fb.group({
+  //   //   language: ['Tamil'],
+  //   //   lang_proficiency: ['Native'],
+  //   // }));
 
-    this.getLanguagesKnownArray.push(this.fb.group({
-      language: ['Tamil',Validators.required],
-      lang_proficiency: ['Native',Validators.required],
-    }));
+  //   this.getLanguagesKnownArray.push(this.fb.group({
+  //     language: ['Tamil', Validators.required],
+  //     lang_proficiency: ['Native', Validators.required],
+  //   }));
 
-    this.getHobbiesArray.push(this.fb.group({
-      hobbies: ['Painting',Validators.required],
-    }));
+  //   this.getHobbiesArray.push(this.fb.group({
+  //     hobbies: ['Painting', Validators.required],
+  //   }));
 
-    this.getExtraCurricularArray.push(this.fb.group({
-      extra_curricular_activites: ['Game Development',Validators.required]
-    }));
+  //   this.getExtraCurricularArray.push(this.fb.group({
+  //     extra_curricular_activites: ['Game Development', Validators.required]
+  //   }));
 
-    this.getCertificatesArray.push(this.fb.group({
-      certificate_name: ['Web Development',Validators.required],
-      certificate_issued: ['UNIPREP',Validators.required],
-      certificate_id: ['UNI077'],
-      certicate_link: ['https://uniprep.ai/certificates'],
-    }));
+  //   this.getCertificatesArray.push(this.fb.group({
+  //     certificate_name: ['Web Development', Validators.required],
+  //     certificate_issued: ['UNIPREP', Validators.required],
+  //     certificate_id: ['UNI077'],
+  //     certicate_link: ['https://uniprep.ai/certificates'],
+  //   }));
 
-    this.getReferenceArray.push(this.fb.group({
-      ref_name: ['Adithya M',Validators.required],
-      ref_position: ['CEO',Validators.required],
-      ref_organization: ['Mediamonk',Validators.required],
-      ref_email: ['adithya@uniabroad.co.in',Validators.required],
-      ref_contact: ['+91 7019267853',Validators.required],
-    }));
-  }
+  //   this.getReferenceArray.push(this.fb.group({
+  //     ref_name: ['Adithya M', Validators.required],
+  //     ref_position: ['CEO', Validators.required],
+  //     ref_organization: ['Mediamonk', Validators.required],
+  //     ref_email: ['adithya@uniabroad.co.in', Validators.required],
+  //     ref_contact: ['+91 7019267853', Validators.required],
+  //   }));
+  // }
 
-  downloadResume(){
+  downloadResume() {
     this.clickedDownloadButton = true;
     let formData = this.resumeFormInfoData.value;
     let data = {
@@ -679,32 +781,32 @@ export class CvBuilderComponent implements OnInit {
     })
   }
 
-  chatGPTIntegration(fieldName: string, iteration:number) {
-    
-    const apiKey = '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'; 
+  chatGPTIntegration(fieldName: string, iteration: number) {
+
+    const apiKey = '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';
     let formData = this.resumeFormInfoData.value;
     let prompt: string = "";
-    if(fieldName == 'user_summary'){
+    if (fieldName == 'user_summary') {
       if (formData.selected_exp_level == 1) {
-        prompt = `Provide a professional summary for a ${ formData.user_job_title } role, up to 30 words, suitable for a resume for freshers.`;
+        prompt = `Provide a professional summary for a ${formData.user_job_title} role, up to 30 words, suitable for a resume for freshers.`;
       } else {
         const selectedExp = this.experienceLevel[formData.selected_exp_level - 1];
-        prompt = `Provide a professional summary for a resume, up to 30 words, tailored to a ${ formData.user_job_title } role with ${ selectedExp.level } of experience.`;
+        prompt = `Provide a professional summary for a resume, up to 30 words, tailored to a ${formData.user_job_title} role with ${selectedExp.level} of experience.`;
       }
-    }else if(fieldName == 'work_job_description'){
+    } else if (fieldName == 'work_job_description') {
       const work_designation = this.getWorkExpArray.value[iteration].work_designation;
-      prompt = `Provide five roles and responsibilities for a ${ work_designation } role without using headings.`;
+      prompt = `Provide five roles and responsibilities for a ${work_designation} role without using headings.`;
     }
     // else if(fieldName == 'project_description'){
     //   const project_name = this.getProjectDetailsArray.value[iteration].project_name;
     //   prompt = `Provide a project description for ${ project_name }, up to 30 words.`;
     // }
-    
+
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${apiKey}`
     });
-  
+
     const body = {
       model: "gpt-3.5-turbo",
       messages: [
@@ -713,15 +815,15 @@ export class CvBuilderComponent implements OnInit {
       ],
       max_tokens: 300
     };
-  
+
     this.http.post<any>('https://api.openai.com/v1/chat/completions', body, { headers: headers }).subscribe(response => {
       if (response.choices && response.choices.length > 0) {
         const GPTResponse = response.choices[0].message.content.trim();
-        if(fieldName == 'user_summary'){
+        if (fieldName == 'user_summary') {
           this.resumeFormInfoData.patchValue({
             user_summary: GPTResponse
           });
-        }else if(fieldName == 'work_job_description'){
+        } else if (fieldName == 'work_job_description') {
           const workExpArray = this.getWorkExpArray;
           if (workExpArray.length > 0) {
             const firstWorkExpGroup = workExpArray.at(iteration) as FormGroup;
@@ -750,12 +852,12 @@ export class CvBuilderComponent implements OnInit {
       console.error('Error:', error);
     });
   }
-  
-  downloadOldResume(resumeLink: string){
+
+  downloadOldResume(resumeLink: string) {
     window.open(resumeLink, '_blank')
   }
 
-  onTextModelChange(value: string){
+  onTextModelChange(value: string) {
     const words = value.trim().split(/\s+/);
     if (words.length > 50) {
       let joinedText = words.slice(0, 50).join(' ');
@@ -763,7 +865,7 @@ export class CvBuilderComponent implements OnInit {
         user_summary: joinedText
       });
       this.resumeFormInfoData.get('user_summary')?.setErrors({ maxWordsExceeded: true });
-    }else{
+    } else {
       this.resumeFormInfoData.get('user_summary')?.setErrors(null);
     }
     this.resumeFormInfoData.updateValueAndValidity();
@@ -771,7 +873,7 @@ export class CvBuilderComponent implements OnInit {
 
   onEditorModelChange(value: string, index: number) {
     if (this.isUpdating) {
-        return;
+      return;
     }
     const words = value.trim().split(/\s+/);
     const control = this.getWorkExpArray.at(index).get('work_job_description');
@@ -779,12 +881,12 @@ export class CvBuilderComponent implements OnInit {
     this.errorMessages[index] = '';
 
     if (words.length > 50) {
-        let joinedText = words.slice(0, 50).join(' ');
-        control?.setValue(joinedText, { emitEvent: false });
-        this.errorMessages[index] = 'Job Description exceeds the maximum word limit.';
-        control?.setErrors({ maxWordsExceeded: true });
+      let joinedText = words.slice(0, 50).join(' ');
+      control?.setValue(joinedText, { emitEvent: false });
+      this.errorMessages[index] = 'Job Description exceeds the maximum word limit.';
+      control?.setErrors({ maxWordsExceeded: true });
     } else {
-        control?.setErrors(null);
+      control?.setErrors(null);
     }
 
     control?.updateValueAndValidity();

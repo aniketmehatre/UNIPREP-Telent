@@ -5,6 +5,7 @@ import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {DataService} from 'src/app/data.service';
 import {Router} from "@angular/router";
 import {MessageService} from "primeng/api";
+import {City} from "../../../@Models/cost-of-living";
 
 @Component({
     selector: 'uni-job-listing',
@@ -13,6 +14,7 @@ import {MessageService} from "primeng/api";
 })
 export class JobListingComponent implements OnInit {
     jobs: any[] = [];
+    cities: City[] = [];
     fG: FormGroup;
     filterForm: FormGroup;
     query: string = 'developer';
@@ -74,50 +76,65 @@ export class JobListingComponent implements OnInit {
         ];
         this.fG = new FormGroup({
             countryCode: new FormControl('', Validators.required),
-            location: new FormControl(''),
-            title: new FormControl(''),
-            company: new FormControl('')
+            what_and: new FormControl(''),
         });
         this.filterForm = new FormGroup({
             countryCode: new FormControl('', Validators.required),
             category: new FormControl(''),
-            location: new FormControl(''),
-            distance: new FormControl(''),
             job_type: new FormControl(''),
-            salary_min: new FormControl(''),
-            salary_max: new FormControl(''),
-            company: new FormControl(''),
-            max_days_old: new FormControl('')
         });
         this.dataService.currentData.subscribe(data => {
             if (data) {
-                this.selectedCountryCode = data.countryCode.code
+                this.selectedCountryCode = data.countryCode.country_code
                 this.fG.setValue({
-                    countryCode: data.countryCode.code,
-                    title: data.title,
-                    location: data.location,
-                    company: data.company
+                    countryCode: data.countryCode,
+                    what_and: data.what_and,
+                })
+                this.filterForm.setValue({
+                    countryCode: data.countryCode,
+                    category: '',
+                    job_type: '',
                 });
-                this.selectedCountry = this.countryCodes.find((country: any) => country.code.toLowerCase() == data.countryCode.code);
-                this.onSubmit();
+                this.onSubmit()
+                this.fetchCategoryData()
             }
         });
-        const filterData = this.getFilterData();
+        const filterData = this.getFilterData()
         if (filterData) {
+            this.selectedCountryCode = filterData.countryCode.country_code
             this.fG.setValue({
                 countryCode: filterData.countryCode,
-                title: filterData.title,
-                location: filterData.location,
-                company: filterData.company
+                what_and: filterData.what_and,
+            })
+            this.filterForm.setValue({
+                countryCode: filterData.countryCode,
+                category: '',
+                job_type: '',
             });
-            this.selectedCountry = this.countryCodes.find((country: any) => country.code.toLowerCase() == filterData.countryCode.code);
-            this.onSubmit();
+            this.onSubmit()
+            this.fetchCategoryData()
         }
     }
 
     limit: number = 10;
 
     ngOnInit(): void {
+        this.jobService.getCities().subscribe((res: City[]) => {
+            this.cities = res.filter(city => {
+                return this.countryCodes.some((country: any) => country.name === city.country_name);
+            }).map(city => {
+                const matchedCountry = this.countryCodes.find((country: any) => country.name === city.country_name);
+                return {
+                    ...city,
+                    country_code: matchedCountry ? matchedCountry.code : null,
+                    flag: matchedCountry ? matchedCountry.flag : city.flag // Use the flag from countryCodes if matched, otherwise keep original
+                };
+            });
+            // this.cities=res;
+            // // res.forEach(city => {
+            // //   this.cities.push({ ...city, label: city.city_name + ', ' + city.country_name })
+            // // });
+        });
         //this.searchJobsAdzuna()
         //   this.jobService.searchJobsCoreSignal(this.query, this.location, this.page, this.resultPerPage).subscribe(
         //       (response: any) => {
@@ -135,6 +152,7 @@ export class JobListingComponent implements OnInit {
         this.filterForm.reset()
         this.resetFilterData()
         this.jobs = []
+        this.router.navigateByUrl(`/pages/job-portal/job-search`);
     }
 
     onCountryChangeFilter(event: any) {
@@ -145,7 +163,7 @@ export class JobListingComponent implements OnInit {
 
     fetchCategoryData() {
         let req = {
-            location: this.selectedCountryCodeFilter,
+            location: this.selectedCountryCode,
         }
         this.jobService.fetchCategory(req).subscribe(
             (data: any) => {
@@ -158,17 +176,10 @@ export class JobListingComponent implements OnInit {
     }
 
     onSubmit() {
-        console.log(this.fG.value)
         this.filterForm.setValue({
-            countryCode: this.fG.value.countryCode.code,
-            location: this.fG.value.location,
-            company: this.fG.value.company,
+            countryCode: this.fG.value.countryCode,
             category: '',
-            distance: '',
             job_type: '',
-            salary_min: '',
-            salary_max: '',
-            max_days_old: ''
         });
         this.saveFilterData(this.fG.value)
         this.fromCountry = this.countryCodes.find((country: any) => country.code.toLowerCase() == this.fG.value.countryCode.code);
@@ -178,12 +189,11 @@ export class JobListingComponent implements OnInit {
         }
         if (this.fG.valid) {
             let req = {
-                location: this.fG.value.countryCode.code,
+                location: this.fG.value.countryCode.country_code,
                 page: this.page,
                 result_per_page: this.resultPerPage,
-                what: this.fG.value.title,
-                where: this.fG.value.location,
-                company: this.fG.value.company
+                what_and: this.fG.value.what_and,
+                where: this.fG.value.countryCode.city_name,
             }
             this.jobService.searchJobs(req).subscribe(
                 (data: any) => {
@@ -219,23 +229,17 @@ export class JobListingComponent implements OnInit {
     }
 
     onFilterSubmit() {
+        console.log(this.filterForm.value)
         if (this.filterForm.valid) {
             let req = {
-                location: this.filterForm.value.countryCode.code,
+                location: this.filterForm.value.countryCode,
                 page: this.page,
                 result_per_page: this.resultPerPage,
-                where: this.filterForm.value.location,
-                category: this.filterForm.value.category.tag,
+                what_and: this.fG.value.what_and,
                 full_time: this.filterForm.value.job_type?.code == 'full_time' ? '1' : '',
                 part_time: this.filterForm.value.job_type?.code == 'part_time' ? '1' : '',
                 contract: this.filterForm.value.job_type?.code == 'contract' ? '1' : '',
                 permanent: this.filterForm.value.job_type?.code == 'permanent' ? '1' : '',
-                distance: this.filterForm.value.distance ? this.filterForm.value.distance.code : '',
-                salary_min: this.filterForm.value.salary_min,
-                salary_max: this.filterForm.value.salary_max,
-                company: this.filterForm.value.company,
-                max_days_old: this.filterForm.value.max_days_old,
-                what: this.fG.value.title
             }
 
             this.jobService.filter(req).subscribe(

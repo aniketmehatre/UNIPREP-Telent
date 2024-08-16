@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {Router} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {DataService} from "../../data.service";
 
 @Component({
@@ -12,7 +12,13 @@ export class JobSearchComponent implements OnInit {
 
     currentEndpoint: string = '';
 
-    constructor(private router: Router, private dataService: DataService) {
+    constructor(private router: Router,
+                private route: ActivatedRoute, private dataService: DataService) {
+        this.route.params.subscribe(params => {
+            const url = this.router.url;
+            const urlSegments = url.split('/');
+            this.currentEndpoint = urlSegments[urlSegments.length - 1];
+        });
     }
 
     ngOnInit(): void {

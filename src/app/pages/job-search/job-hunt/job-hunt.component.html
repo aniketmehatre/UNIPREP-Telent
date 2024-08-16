@@ -4,23 +4,38 @@
             <div class="form-group">
                 <div class="d-flex justify-content-center align-items-center gap-2">
                     <div class="w-30">
-                        <p-dropdown id="fromCountry" styleClass="w-100" style="width: 100% !important;"
-                                    formControlName="countryCode" [options]="countryCodes" [filter]="true"
-                                    filterBy="name"
-                                    [showClear]="true" optionLabel="name" placeholder="Source Country"></p-dropdown>
+<!--                        <p-dropdown id="fromCountry" styleClass="w-100" style="width: 100% !important;"-->
+<!--                                    formControlName="countryCode" [options]="countryCodes" [filter]="true"-->
+<!--                                    filterBy="name"-->
+<!--                                    [showClear]="true" optionLabel="name" placeholder="Source Country"></p-dropdown>-->
+
+
+                        <p-dropdown [options]="cities"  optionLabel="city_name" formControlName="countryCode"
+                                    placeholder="Source Country" [filter]="true" filterBy="city_name" [showClear]="true" [appendTo]="'body'"
+                                    class="costofliving-dropdown">
+
+                            <ng-template pTemplate="selectedItem" let-selectedOption>
+                                <div class="d-flex align-items-center gap-2">
+                                    <img [src]="selectedOption.flag" />
+                                    <div>{{selectedOption.city_name}}, {{ selectedOption.country_name }}</div>
+                                </div>
+                            </ng-template>
+                            <ng-template let-country pTemplate="item">
+                                <div class="d-flex align-items-center gap-2">
+                                    <img [src]="country.flag" />
+                                    <div>{{country.city_name}}, {{ country.country_name }}</div>
+                                </div>
+                            </ng-template>
+                        </p-dropdown>
                     </div>
                     <div class="w-30">
-                        <input type="text" formControlName="location" class="form-control w-100"
-                               placeholder="Search by Location"/>
-                    </div>
-                    <div class="w-30">
-                        <input type="text" formControlName="title" class="form-control w-100"
+                        <input type="text" formControlName="what_and" class="form-control w-100"
                                placeholder="Search by Job Title"/>
                     </div>
-                    <div class="w-30">
-                        <input type="text" formControlName="company" class="form-control w-100"
-                               placeholder="Search by Company"/>
-                    </div>
+<!--                    <div class="w-30">-->
+<!--                        <input type="text" formControlName="company" class="form-control w-100"-->
+<!--                               placeholder="Search by Company"/>-->
+<!--                    </div>-->
                     <div>
                         <button class="btn btn-primary text-small btn-rounded" type="submit">
                             Search <span class="searchIcon"><i class="fa-regular fa-magnifying-glass"></i></span>

@@ -115,4 +115,22 @@ export class JobBoardComponent implements OnInit {
             }
         );
     }
+
+    onClickDetails(data: any){
+        console.log(data)
+    }
+
+    onClickDelete(data: any){
+        const jobDetails = {
+            jobtracker_id: data.id,
+        };
+        this.jobService.deletejobtracker(jobDetails).subscribe(
+            (data: any) => {
+                this.init()
+            },
+            (error) => {
+                console.error('not able to apply:', error);
+            }
+        );
+    }
 }
