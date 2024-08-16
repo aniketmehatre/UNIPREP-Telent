@@ -6,6 +6,7 @@ import {DataService} from 'src/app/data.service';
 import {Router} from "@angular/router";
 import {MessageService} from "primeng/api";
 import {City} from "../../../@Models/cost-of-living";
+import {filter} from "rxjs";
 
 @Component({
     selector: 'uni-job-listing',
@@ -25,6 +26,7 @@ export class JobListingComponent implements OnInit {
     selectedCountryCode: any
     selectedCountryCodeFilter: any
     count: any
+    whatAnd: any
     singleData: any
     page = 1
     resultPerPage = 20
@@ -86,6 +88,7 @@ export class JobListingComponent implements OnInit {
         this.dataService.currentData.subscribe(data => {
             if (data) {
                 this.selectedCountryCode = data.countryCode.country_code
+                this.selectedFlag = data.countryCode.flag
                 this.fG.setValue({
                     countryCode: data.countryCode,
                     what_and: data.what_and,
@@ -101,11 +104,14 @@ export class JobListingComponent implements OnInit {
         });
         const filterData = this.getFilterData()
         if (filterData) {
+            console.log(filterData)
             this.selectedCountryCode = filterData.countryCode.country_code
+            this.selectedFlag = filterData.countryCode.flag
             this.fG.setValue({
                 countryCode: filterData.countryCode,
                 what_and: filterData.what_and,
             })
+            this.whatAnd = filterData.what_and
             this.filterForm.setValue({
                 countryCode: filterData.countryCode,
                 category: '',
@@ -270,7 +276,8 @@ export class JobListingComponent implements OnInit {
             experience: '',
             time: job.created,
             type: type,
-            country_flag: this.selectedFlag
+            country_flag: this.selectedFlag,
+            description: job.description,
         };
         this.jobService.addJobStatusList(jobDetails).subscribe(
             (data: any) => {
@@ -306,6 +313,11 @@ export class JobListingComponent implements OnInit {
 
     resetFilterData(): void {
         localStorage.setItem('filterFormData', '');
+    }
+
+    onChangeCountry(event: any){
+        this.selectedCountryCodeFilter = event.value.code
+        this.selectedFlag = event.value.flag
     }
 
 }

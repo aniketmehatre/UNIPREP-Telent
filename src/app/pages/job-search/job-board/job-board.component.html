@@ -1,54 +1,9 @@
-<!--<div class="card mt-3">-->
-<!--	<div class="card-body">-->
-<!--		<div class="row">-->
-<!--			<div *ngFor="let number of numbers; let i = index" class="col-md-3 col-12 mb-3">-->
-<!--				<div class="card scholarshiplistcard h-100">-->
-<!--					<div class="card-body">-->
-<!--						<div class="d-flex justify-content-start gap-2 mb-2">-->
-<!--							<div class="courseImage" style="background-image: url('https://api.uniprep.ai/uniprepapi/storage/app/public/Pitch-deck-images/Airbnb.webp')"></div>-->
-<!--							<div class="flex-fill">-->
-<!--								<h5 class="uniprep-primary text-wrap mb-0">Senior UI Designer</h5>-->
-<!--								<small style="color: lightslategrey">Dribble • Banglore,India</small>-->
-<!--								<div class="flex-column lh-lg mb-2">-->
-<!--									<div>-->
-<!--										<small><i class="fa-regular fa-briefcase"></i> &nbsp;part-Time</small>-->
-<!--									</div>-->
-<!--									<div>-->
-<!--										<small><i class="fa-regular fa-user"></i> &nbsp;1-2 Year Experience</small>-->
-<!--									</div>-->
-<!--									<div>-->
-<!--										<small><i class="fa-regular fa-location-pin"></i> &nbsp;Remote</small>-->
-<!--									</div>-->
-<!--									<div>-->
-<!--										<small><i class="fa-regular fa-dollar-sign"></i> &nbsp;INR 10,000,000 - 15,000,000</small>-->
-<!--									</div>-->
-<!--								</div>-->
-<!--								<div class="d-flex align-items-center justify-content-between gap-1">-->
-<!--									<button class="text-small btn btn-primary btn-rounded px-5">Applied</button>-->
-<!--									<p style="font-size: x-small; color: lightslategrey">5 Days Ago. 20 Applicants</p>-->
-<!--								</div>-->
-<!--							</div>-->
-<!--						</div>-->
-<!--					</div>-->
-<!--				</div>-->
-<!--			</div>-->
-<!--		</div>-->
-<!--	</div>-->
-<!--</div>-->
-<div class="card mt-3 bg-white">
-    <div class="card-body bg-white">
-        <div class="row">
+<div class="row" *ngIf="!isDetailsCardVisible">
             <div class="container">
                 <div class="column" *ngFor="let status of statuses; let i = index">
                     <h6><strong>{{ status.label }}({{ getJobsByStatus(status.value).length }})</strong></h6>
                     <ng-container *ngFor="let job of getJobsByStatus(status.value)">
                         <div class="card-container bg-light p-3">
-                            <!--                            <ng-template pTemplate="header">-->
-                            <!--                                <div class="flex align-items-center gap-2">-->
-                            <!--                                    <img [src]="job.country_flag" alt="logo" style="width: 30px; height: 30px;" />-->
-                            <!--                                </div>-->
-                            <!--                                <p>{{job.country_flag}}</p>-->
-                            <!--                            </ng-template>-->
                             <div class="card-content">
                                 <div class="row p-0 m-0">
                                     <div class="col-10 p-0 m-0">
@@ -89,12 +44,12 @@
                                                     (onChange)="onStatusChange(job, $event)"></p-dropdown>
                                     </div>
                                     <div class="col-3 p-0 m-0 text-center item-align-center justify-content-center">
-<!--                                        <button class="text-small btn btn-primary btn-rounded px-3"-->
-<!--                                                (click)="onClickDetails(job)">Details-->
-<!--                                        </button>-->
+                                        <button class="text-small btn btn-primary btn-rounded px-3"
+                                                (click)="onClickDetails(job)">Details
+                                        </button>
                                     </div>
                                     <div class="col-3 p-0 m-0 text-center item-align-center">
-                                        <button type="button" class="btn btn-danger" (click)="onClickDelete(job)">
+                                        <button type="button" class="btn btn-danger" (click)="onClickDeleteDialog(job)">
                                             <i class="fas fa-trash-alt"></i>
                                         </button>
                                     </div>
@@ -105,8 +60,71 @@
                 </div>
             </div>
         </div>
+<div class="row" *ngIf="isDetailsCardVisible">
+    <div class="card h-100">
+        <div class="card-body">
+            <div class="justify-content-start">
+                <div class="row mt-2 bg-light  p-0 m-0">
+                    <div class="col-md-6 text-start p-0 m-0">
+                        <div class="backIcon">
+                            <span class="pi pi-angle-left" (click)="goBack()"></span>
+                        </div>
+
+                    </div>
+                    <div class="col-md-6 text-end p-0 m-0">
+<!--                        <div class="backIcon">-->
+<!--                            <span class="pi pi-angle-left" (click)="goBack()"></span>-->
+<!--                        </div>-->
+                    </div>
+                    <div class="col-9">
+                        <h5 class="uniprep-primary text-wrap mb-0">{{ singleData.job_title }}</h5>
+                        <h6>{{ singleData.company_name }} · {{
+                                singleData.location
+                            }}</h6>
+                        <div class="flex-column lh-lg mb-2">
+                        </div>
+                    </div>
+                    <div class="col-3">
+                    </div>
+                    <div class="col-12" *ngIf="singleData.work_type">
+                        <h5><small>Work Mode: {{ singleData.work_type }}</small></h5>
+                    </div>
+                    <div class="col-12" *ngIf="singleData.type">
+                        <p><small>status: {{singleData.type}}</small></p>
+                    </div>
+                    <div class="col-6">
+
+                    </div>
+                    <div class="col-6 text-end">
+                        <h5><small>{{ singleData.list_date | timeAgo }}</small></h5>
+                    </div>
+
+                </div>
+                <!-- <div class="d-flex align-items-center justify-content-between gap-1">
+                                        <button class="text-small btn btn-primary btn-rounded px-5">Details</button>
+                                        <button
+                                            class="text-small btn btn-secondary btn-rounded px-5">Shortlist</button>
+                                        <button class="text-small btn btn-primary btn-rounded px-5">Apply</button>
+                                    </div> -->
+            </div>
+        </div>
+
+    </div>
+    <div class="card  h-100 mt-2">
+        <div class="card-body">
+            <div class="row mt-2 bg-light">
+                <div class="col-12 fw-bold">
+                    Job Description
+                </div>
+                <div class="col-12">
+                    <small>
+                        {{ singleData.description }}</small>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
+
 <p-dialog [(visible)]="isVisibleAddManually" [modal]="true" [style]="{ width: '50vw' }" [draggable]="false"
           [resizable]="false"
           [breakpoints]="{ '960px': '30vw', '959px': '60vw', '425px': '90vw' }" (onHide)="clearRestriction()">
@@ -140,15 +158,15 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-6">
-                    <label class="form-label" style="font-size: small; font-weight: 500">Experience</label>
-                    <div class="form-group">
-                        <div class="mb-3">
-                            <input type="text" formControlName="experience" class="sharp-edges" pInputText
-                                   placeholder="Enter Experience"/>
-                        </div>
-                    </div>
-                </div>
+<!--                <div class="col-md-6">-->
+<!--                    <label class="form-label" style="font-size: small; font-weight: 500">Experience</label>-->
+<!--                    <div class="form-group">-->
+<!--                        <div class="mb-3">-->
+<!--                            <input type="text" formControlName="experience" class="sharp-edges" pInputText-->
+<!--                                   placeholder="Enter Experience"/>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
                 <div class="col-md-6">
                     <label class="form-label" style="font-size: small; font-weight: 500">Work Mode</label>
                     <div class="form-group">
@@ -168,21 +186,21 @@
                     </div>
                 </div>
                 <div class="col-md-6">
-                    <label class="form-label" style="font-size: small; font-weight: 500">Application Link</label>
-                    <div class="form-group">
-                        <div class="mb-3">
-                            <input type="text" formControlName="application_link" class="sharp-edges" pInputText
-                                   placeholder="Enter Application Link"/>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6">
                     <label class="form-label" style="font-size: small; font-weight: 500">Status</label>
                     <div class="form-group w-100">
                         <div class="mb-3">
                             <p-dropdown [options]="statuses" class="w-100" filterBy="label" [showClear]="true"
                                         optionLabel="label" formControlName="status"
                                         placeholder="Status" style="width: 100%;"></p-dropdown>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <label class="form-label" style="font-size: small; font-weight: 500">Application Link</label>
+                    <div class="form-group">
+                        <div class="mb-3">
+                            <input type="text" formControlName="application_link" class="sharp-edges" pInputText
+                                   placeholder="Enter Application Link"/>
                         </div>
                     </div>
                 </div>
@@ -193,6 +211,23 @@
                 </div>
             </div>
         </form>
+    </div>
+</p-dialog>
+<p-dialog [(visible)]="isDeleteVisible" [modal]="true" [style]="{ width: '30vw' }" [draggable]="false"
+          [resizable]="false"
+          class="restrictionDialog" [breakpoints]="{ '960px': '30vw', '959px': '60vw', '425px': '90vw' }"
+          (onHide)="clearRestriction()">
+    <div class="text-center mt-5 mb-4">
+        <i class="fas fa-trash fa-3x" style="color: red;"></i>
+        <h4 class="mt-2">Are you sure want to delete </h4>
+        <h4>the job?</h4>
+        <!--        <button pButton type="button"-->
+        <!--                class="mt-2 text-white p-ripple p-button-rounded btn-primary p-button p-component p-3"-->
+        <!--                (click)="onClickDeleteDialog()">Delete</button>-->
+        <button class="btn btn-primary text-small btn-rounded p-3 mt-2" type="button"
+                (click)="onClickDelete()">
+            Delete
+        </button>
     </div>
 </p-dialog>
 

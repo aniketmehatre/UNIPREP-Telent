@@ -25,31 +25,33 @@ export class AppComponent {
 
   @HostListener('window:beforeunload', ['$event'])
   unloadHandler(event: BeforeUnloadEvent) {
-    const token = this.storage.get<string>('token');
-    const sessionData = {
-      token: token
-    };
+    if(window.location.hostname !== "localhost") {
+      const token = this.storage.get<string>('token');
+      const sessionData = {
+        token: token
+      };
 
-    // Use fetch with keepalive to send data
-    fetch(`${environment.ApiUrl}/updatetracking`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json',
-        'Authorization': `Bearer ${token}`
-      },
-      body: JSON.stringify(sessionData),
-      keepalive: true
-    });
+      // Use fetch with keepalive to send data
+      fetch(`${environment.ApiUrl}/updatetracking`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify(sessionData),
+        keepalive: true
+      });
 
-    if (this.isPageHidden) {
-      console.log('Tab closed');
-    } else {
-      console.log('Tab refreshed or navigated away');
+      if (this.isPageHidden) {
+        console.log('Tab closed');
+      } else {
+        console.log('Tab refreshed or navigated away');
+      }
+
+      event.preventDefault();
+      event.returnValue = '';
     }
-
-    event.preventDefault();
-    event.returnValue = ''; // Most browsers will display a generic message here
   }
   // @HostListener('window:beforeunload', ['$event'])
   // beforeunloadHandler(event: any) {
