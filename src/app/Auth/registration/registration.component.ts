@@ -68,7 +68,7 @@ export class RegistrationComponent implements OnInit {
   CountryISO = CountryISO;
   preferredCountries: CountryISO[] = [CountryISO.India];
   isMobileOTPEdit: boolean = false;
-
+  imageUrlWhitelabel: string | null = null;
   showHidePassword() {
     if (this.password === "password") {
       this.password = "text";
@@ -111,6 +111,9 @@ export class RegistrationComponent implements OnInit {
   dateTime = new Date();
   private subs = new SubSink();
   ngOnInit() {
+    this.locationService.getImage().subscribe(imageUrl => {
+      this.imageUrlWhitelabel = imageUrl;
+    });
     this.authService.authState.subscribe((user) => {
       this.service.googlesignUp(user).subscribe(
         (data) => {

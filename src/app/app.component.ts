@@ -14,10 +14,11 @@ import {LocalStorageService} from "ngx-localstorage";
     <ngx-ui-loader overlayColor="rgba(0,0,0,0.8)" logoUrl="uniprep-assets/images/icon-loader.svg" [fgsSize]="75" fgsType="circle" fgsColor="#f0780e" [hasProgressBar]="false"></ngx-ui-loader>`
 })
 export class AppComponent {
-  constructor(private storage: LocalStorageService) {}
+  constructor(private storage: LocalStorageService,private whitelabelservice:LocationService) {}
   private isPageHidden = false;
 
   ngOnInit() {
+    this.getImageWhitelabel()
     document.addEventListener('visibilitychange', () => {
       this.isPageHidden = document.hidden;
     });
@@ -71,4 +72,23 @@ export class AppComponent {
   //     // Optionally handle API response or further actions
   //   });
   // }
+  // loginwhitlabelurl(){
+  //   var data={
+  //     domainname:"uniprep.ai"
+  //   }
+  //   this.storage.getWhitlabelData(data).subscribe(res => {
+  //     console.log(res);
+  //   });
+  // }
+  imagewhitlabeldomainname:any
+  getImageWhitelabel(){
+    console.log("hostname",window.location.hostname);
+    this.imagewhitlabeldomainname=window.location.hostname;
+    var data={
+      domainname:this.imagewhitlabeldomainname
+    }
+    this.whitelabelservice.getWhitlabelData(data).subscribe(res => {
+      console.log(res);
+    });
+  }
 }

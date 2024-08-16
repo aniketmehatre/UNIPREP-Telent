@@ -12,6 +12,7 @@ import { filter } from "rxjs";
 import { map } from "rxjs/operators";
 import { AuthService } from "src/app/Auth/auth.service";
 import { DataService } from "src/app/data.service";
+import { LocationService } from "src/app/location.service";
 
 export interface SideMenu {
   title: string;
@@ -32,7 +33,6 @@ export class SidenavComponent {
   @ContentChild("appTitle") appTitle!: TemplateRef<any>;
   @Output() active = new EventEmitter<SideMenu>();
   @Input() isOverlap = false;
-
   @Input() menus: SideMenu[] = [
     {
       title: "Dashboard",
@@ -246,7 +246,7 @@ export class SidenavComponent {
     private router: Router,
     private activatedRoute: ActivatedRoute,
     private dataService: DataService,
-    private authService: AuthService
+    private authService: AuthService,
   ) {
     this.dataService.countryNameSource.subscribe((countryName) => {
       this.menus.filter((data) => {

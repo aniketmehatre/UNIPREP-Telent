@@ -5,11 +5,14 @@ import {LocationData} from './@Models/location.model'
 import {SessionService} from "./session.service";
 import {DeviceDetectorService} from "ngx-device-detector";
 import {LocalStorageService} from "ngx-localstorage";
+import { BehaviorSubject, Observable, of, tap } from 'rxjs';
 
 @Injectable({
     providedIn: "root",
 })
 export class LocationService {
+    private imageSubject = new BehaviorSubject<string | null>(null);
+    public image$: Observable<string | null> = this.imageSubject.asObservable();
     constructor(private http: HttpClient, private sessionService: SessionService,
                 private deviceService: DeviceDetectorService, private storage: LocalStorageService) {
     }
@@ -172,4 +175,23 @@ export class LocationService {
             headers: headers,
         });
     }
+    // getwhitlabel website image
+    getWhitlabelData(data: any): Observable<any> {
+        if (data.domainname === "dev-student.uniprep.ai" || data.domainname === "uniprep.ai" || data.domainname === "localhost") {
+          // Emit a default image URL and return an observable of `null` or an empty observable
+          this.imageSubject.next("../../../uniprep-assets/images/uniprep-light.svg");
+          return of(null); // Returning an empty observable or `null`
+        } else {
+          const headers = new HttpHeaders().set("Accept", "application/json");
+          return this.http.post<any>(environment.ApiUrl + "/getorganizationlogobydomain", data, { headers }).pipe(
+            tap((response) => {
+              console.log(response);
+              this.imageSubject.next(response.organization_logo_url);
+            })
+          );
+        }
+      }
+      getImage(): Observable<string | null> {
+        return this.image$;
+      }   
 }
