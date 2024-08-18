@@ -82,13 +82,11 @@ export class AppComponent {
   // }
   imagewhitlabeldomainname:any
   getImageWhitelabel(){
-    console.log("hostname",window.location.hostname);
     this.imagewhitlabeldomainname=window.location.hostname;
     var data={
       domainname:this.imagewhitlabeldomainname
     }
     this.whitelabelservice.getWhitlabelData(data).subscribe(res => {
-      console.log(res);
     });
   }
 }
