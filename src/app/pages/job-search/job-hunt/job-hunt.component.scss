@@ -29,3 +29,15 @@ img {
   width: 25px !important;
   margin-right: 10px;
 }
+.headColor{
+ color: #3f4c83
+}
+.costofliving-dropdown .p-dropdown {
+  min-width: 100% !important;
+}
+.rounded-input {
+  border-radius: 25px; /* Adjust this value for more or less rounding */
+  width: 100% !important;
+  border: 1px solid var(--uniprep-secondary);
+  padding-left: 2.5rem; /* Ensures the text doesn't overlap with the icon */
+}

@@ -1,43 +1,43 @@
-<div class="row mt-2">
+<div class="row mt-2" *ngIf="!isDetailedPageClicked">
     <form [formGroup]="fG" (ngSubmit)="onSubmit()">
         <div class="form-group">
-            <div class="d-flex justify-content-center align-items-center gap-2 mt-2">
-                <div class="w-30">
-                    <!--                    <p-dropdown id="fromCountry" styleClass="w-100" style="width: 100% !important;"-->
-                    <!--                        formControlName="countryCode" [options]="countryCodes" [filter]="true" filterBy="name"-->
-                    <!--                        [(ngModel)]="selectedCountry" [showClear]="true" optionLabel="name"-->
-                    <!--                        placeholder="Source Country"></p-dropdown>-->
-                    <p-dropdown [options]="cities" optionLabel="city_name" formControlName="countryCode"
-                                [showClear]="true" [appendTo]="'body'"
-                                placeholder="Source Country" [filter]="true" filterBy="city_name"
-                                class="costofliving-dropdown">
+            <div class="row justify-content-center align-items-center mt-2">
+                <div class="col-6">
+                            <span class="p-input-icon-left w-100">
+                                <i class="pi pi-search"></i>
+                                <input type="text" formControlName="what_and"
+                                       class="form-control w-100 rounded-input" style="width: 100% !important;"
+                                       pInputText placeholder="  Search by Job Title, Skill, Company"/>
+                            </span>
+                </div>
+                <div class="col-3">
+                    <p-dropdown [options]="cities"
+                                optionLabel="city_name"
+                                formControlName="countryCode"
+                                placeholder="Location"
+                                [filter]="true"
+                                filterBy="city_name,country_name"
+                                [showClear]="true"
+                                [appendTo]="'body'"
+                                [style]="{'minWidth': '100%'}"
+                                class="w-100 text-start">
+
+                        <!-- Template for Selected Item -->
                         <ng-template pTemplate="selectedItem" let-selectedOption>
                             <div class="d-flex align-items-center gap-2">
-                                <img [src]="selectedOption.flag"/>
+                                <img [src]="selectedOption.flag" alt="Flag"/>
                                 <div>{{ selectedOption.city_name }}, {{ selectedOption.country_name }}</div>
                             </div>
                         </ng-template>
                         <ng-template let-country pTemplate="item">
                             <div class="d-flex align-items-center gap-2">
-                                <img [src]="country.flag"/>
+                                <img [src]="country.flag" alt="Flag"/>
                                 <div>{{ country.city_name }}, {{ country.country_name }}</div>
                             </div>
                         </ng-template>
                     </p-dropdown>
                 </div>
-                <div class="w-30">
-                    <input type="text" formControlName="what_and" class="sharp-edges" pInputText
-                           placeholder="Search by Job Title, Skill, Company"/>
-                </div>
-                <!--                <div class="w-30">-->
-                <!--                    <input type="text" formControlName="title" class="sharp-edges" pInputText-->
-                <!--                        placeholder="Search by Job Title" />-->
-                <!--                </div>-->
-                <!--                <div class="w-30">-->
-                <!--                    <input type="text" formControlName="company" class="sharp-edges" pInputText-->
-                <!--                        placeholder="Search by Company" />-->
-                <!--                </div>-->
-                <div>
+                <div class="col-3">
                     <button class="btn btn-primary text-small btn-rounded" type="submit">
                         Search <span class="searchIcon"><i class="fa-regular fa-magnifying-glass"></i></span>
                     </button>
@@ -66,15 +66,9 @@
                             <span class="mandatory">*</span></label>
                         <div class="form-group">
                             <div class="mb-3">
-                                <!--                                <p-dropdown id="countryCode" styleClass="w-100" style="width: 100% !important;"-->
-                                <!--                                    formControlName="countryCode" [options]="countryCodes" [filter]="true"-->
-                                <!--                                    filterBy="name" [showClear]="true" optionLabel="name" [(ngModel)]="fromCountry"-->
-                                <!--                                    (onChange)="onCountryChangeFilter($event)"-->
-                                <!--                                    placeholder="Source Country"></p-dropdown>-->
                                 <p-dropdown [options]="cities" styleClass="w-100" optionLabel="city_name"
-                                            formControlName="countryCode"
-                                            placeholder="Source Country" [filter]="true" filterBy="city_name"
-                                            (onChange)="onCountryChangeFilter($event)"
+                                            formControlName="countryCode" filterBy="city_name,country_name"
+                                            placeholder="Source Country" [filter]="true"
                                             [showClear]="true" [appendTo]="'body'" style="width: 100% !important;"
                                             class="">
                                     <ng-template pTemplate="selectedItem" let-selectedOption>
@@ -85,7 +79,7 @@
                                     </ng-template>
                                     <ng-template let-country pTemplate="item">
                                         <div class="d-flex align-items-center gap-2">
-                                            <img [src]="country.flag"/>
+                                            <img [src]="country.flag" [alt]="country.country_name"/>
                                             <div>{{ country.city_name }}, {{ country.country_name }}</div>
                                         </div>
                                     </ng-template>
@@ -192,16 +186,24 @@
     </div>
     <div class="col-9" *ngIf="!isDetailedPageClicked">
         <div class="row">
+            <div class="row">
+                <div class="col-6">
+                    <span *ngIf="whatAnd">Searching For {{ whatAnd }}</span>
+                </div>
+                <div class="col-6 text-end">
+                    <p *ngIf="count > 0">Total Jobs: {{ count }}</p>
+                </div>
+            </div>
             <div *ngFor="let job of jobs; let i = index" class="col-md-6 col-12 mb-3">
                 <div class="card scholarshiplistcard h-100">
                     <div class="card-body">
                         <div class="d-flex justify-content-start gap-2 mb-2">
-                            <div class="courseImage"
-                                 style="background-image: url('https://api.uniprep.ai/uniprepapi/storage/app/public/Pitch-deck-images/Airbnb.webp')">
-                            </div>
                             <div class="d-flex flex-column h-100 w-100">
                                 <div class="job-card d-flex flex-column h-100 w-100">
                                     <div class="content flex-grow-1">
+                                        <div class="text-end">
+                                            <img [src]="selectedFlag"  alt="Uniprep" class="rounded-image"/>
+                                        </div>
                                         <h5 class="uniprep-primary text-wrap mb-0">{{ job.title }}</h5>
                                         <small style="color: lightslategrey">{{ job.company.display_name }} ·
                                             {{ job.location.display_name }}</small>
@@ -231,8 +233,8 @@
                                                 <div class="col">
                                                 </div>
                                                 <div class="col text-end">
-                                                    <small>&nbsp;
-                                                        {{ job.created | timeAgo }}</small>
+<!--                                                    <small>&nbsp;-->
+<!--                                                        {{ job.created | timeAgo }}</small>-->
                                                 </div>
                                             </div>
                                         </div>
@@ -257,7 +259,7 @@
         </div>
     </div>
     <div class="col-9" *ngIf="isDetailedPageClicked">
-        <div class="row">
+        <div class="row p-2">
             <div class="card scholarshiplistcard h-100">
                 <div class="card-body">
                     <div class="justify-content-start">
@@ -291,7 +293,7 @@
                                 <h5><small>{{ singleData.contract_type }}</small></h5>
                             </div>
                             <div class="col-6 text-end">
-                                <h5><small>{{ singleData.created | timeAgo }}</small></h5>
+<!--                                <h5><small>{{ singleData.created | timeAgo }}</small></h5>-->
                             </div>
                         </div>
                         <!-- <div class="d-flex align-items-center justify-content-between gap-1">

@@ -6,6 +6,7 @@ import {DataService} from 'src/app/data.service';
 import {Router} from "@angular/router";
 import {MessageService} from "primeng/api";
 import {City} from "../../../@Models/cost-of-living";
+import {filter} from "rxjs";
 
 @Component({
     selector: 'uni-job-listing',
@@ -25,6 +26,7 @@ export class JobListingComponent implements OnInit {
     selectedCountryCode: any
     selectedCountryCodeFilter: any
     count: any
+    whatAnd: any
     singleData: any
     page = 1
     resultPerPage = 20
@@ -84,8 +86,10 @@ export class JobListingComponent implements OnInit {
             job_type: new FormControl(''),
         });
         this.dataService.currentData.subscribe(data => {
-            if (data) {
+            if (typeof data === 'object' && !Array.isArray(data) && data !== null && Object.keys(data).length === 0) {
+            } else {
                 this.selectedCountryCode = data.countryCode.country_code
+                this.selectedFlag = data.countryCode.flag
                 this.fG.setValue({
                     countryCode: data.countryCode,
                     what_and: data.what_and,
@@ -102,10 +106,12 @@ export class JobListingComponent implements OnInit {
         const filterData = this.getFilterData()
         if (filterData) {
             this.selectedCountryCode = filterData.countryCode.country_code
+            this.selectedFlag = filterData.countryCode.flag
             this.fG.setValue({
                 countryCode: filterData.countryCode,
                 what_and: filterData.what_and,
             })
+            this.whatAnd = filterData.what_and
             this.filterForm.setValue({
                 countryCode: filterData.countryCode,
                 category: '',
@@ -139,7 +145,6 @@ export class JobListingComponent implements OnInit {
         //   this.jobService.searchJobsCoreSignal(this.query, this.location, this.page, this.resultPerPage).subscribe(
         //       (response: any) => {
         //         this.jobs = response.results;
-        //         console.log(response.results)
         //       },
         //       (error: any) => {
         //         console.error('Error fetching job data:', error);
@@ -153,12 +158,6 @@ export class JobListingComponent implements OnInit {
         this.resetFilterData()
         this.jobs = []
         this.router.navigateByUrl(`/pages/job-portal/job-search`);
-    }
-
-    onCountryChangeFilter(event: any) {
-        this.selectedCountryCodeFilter = event.value.code
-        this.fetchCategoryData()
-        this.selectedFlag = event.value.flag
     }
 
     fetchCategoryData() {
@@ -180,7 +179,9 @@ export class JobListingComponent implements OnInit {
             countryCode: this.fG.value.countryCode,
             category: '',
             job_type: '',
-        });
+        })
+        this.whatAnd = this.fG.value.what_and
+            this.selectedFlag = this.fG.value.countryCode.flag
         this.saveFilterData(this.fG.value)
         this.fromCountry = this.countryCodes.find((country: any) => country.code.toLowerCase() == this.fG.value.countryCode.code);
         if (this.fG.value.countryCode.code) {
@@ -229,7 +230,6 @@ export class JobListingComponent implements OnInit {
     }
 
     onFilterSubmit() {
-        console.log(this.filterForm.value)
         if (this.filterForm.valid) {
             let req = {
                 location: this.filterForm.value.countryCode,
@@ -241,7 +241,7 @@ export class JobListingComponent implements OnInit {
                 contract: this.filterForm.value.job_type?.code == 'contract' ? '1' : '',
                 permanent: this.filterForm.value.job_type?.code == 'permanent' ? '1' : '',
             }
-
+            this.selectedFlag = this.filterForm.value.countryCode.flag
             this.jobService.filter(req).subscribe(
                 (data: any) => {
                     this.jobs = data.results
@@ -265,12 +265,13 @@ export class JobListingComponent implements OnInit {
             job_url: job.redirect_url,
             list_date: job.created,
             location: job.location.display_name,
-            price: job.salary_is_predicted,
+            price: '',
             work_type: job.contract_type,
             experience: '',
             time: job.created,
             type: type,
-            country_flag: this.selectedFlag
+            country_flag: this.selectedFlag,
+            description: job.description,
         };
         this.jobService.addJobStatusList(jobDetails).subscribe(
             (data: any) => {

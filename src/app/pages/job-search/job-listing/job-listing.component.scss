@@ -80,3 +80,16 @@ img {
   width: 25px !important;
   margin-right: 10px;
 }
+.rounded-input {
+  border-radius: 25px; /* Adjust this value for more or less rounding */
+  width: 100% !important;
+  border: 1px solid var(--uniprep-secondary);
+  padding-left: 2.5rem; /* Ensures the text doesn't overlap with the icon */
+}
+
+.rounded-image {
+  border-radius: 50%; /* Makes the image circular */
+  width: 20px; /* Adjust the width as needed */
+  height: 20px; /* Adjust the height as needed */
+  object-fit: cover; /* Ensures the image fits within the circle */
+}
