@@ -38,15 +38,17 @@
                             <div class="count">{{price.from.itemCount}}</div><i class="pi pi-plus"
                                 (click)="addMore(price.from)"></i>
                         </div> -->
-                        <div class="col-md-7 col-lg-8 d-flex align-items-center"><img
-                                [src]="price.icon" alt="">
+                        <div class="col-md-7 col-lg-8 d-flex align-items-center"><img [src]="price.icon" alt="">
                             <div class="ml-5">{{price.from.item_name}}</div>
                         </div>
                         <div class="col-md-5 col-lg-4  d-flex align-items-center justify-content-between">
                             <div>
-                                <div class="smallText"><span
+                                <!-- <div class="smallText"><span
                                         *ngIf="sourceCountryPrices.country_name==targetCountryPrices.country_name">{{sourceCountryPrices.city_name}},
-                                    </span>{{sourceCountryPrices.country_name}}</div>
+                                    </span>{{sourceCountryPrices.country_name}}</div> -->
+                                <div class="smallText">
+                                    {{sourceCountryPrices.city_name}}
+                                </div>
                                 <div class="smallText"><span *ngIf="price.from.rate">{{price.from.currency_code}}
                                         {{price.from.rate | number:'1.2-2'}}</span> <span *ngIf="!price.from.rate">USD
                                         {{price.from.usd.avg | number:'1.2-2'}}</span>
@@ -56,9 +58,12 @@
                                     {{price.from.inr | number: '1.2-2'}}</div>
                             </div>
                             <div>
-                                <div class="smallText"><span
+                                <!-- <div class="smallText"><span
                                         *ngIf="sourceCountryPrices.country_name==targetCountryPrices.country_name">{{targetCountryPrices.city_name}},
-                                    </span>{{targetCountryPrices.country_name}}</div>
+                                    </span>{{targetCountryPrices.country_name}}</div> -->
+                                <div class="smallText">
+                                    {{targetCountryPrices.city_name}}
+                                </div>
                                 <div class="smallText"><span *ngIf="price.to.rate">{{price.to.currency_code}}
                                         {{price.to.rate | number:'1.2-2'}}</span> <span *ngIf="!price.to.rate">USD
                                         {{price.to.usd.avg |
