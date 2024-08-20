@@ -10,35 +10,36 @@
                                         <p class="company">
                                             <strong> {{ job.job_title || 'No Title' }}</strong>
                                         </p>
+                                        <p class="company">{{ job.company_name || 'No Company' }}
+                                            · {{ job.location || 'No Location' }}</p>
                                     </div>
-                                    <div class="col-2 p-0 m-0" *ngIf="job.country_flag">
-                                        <img [src]="job.country_flag" alt="logo" class="p-2"
-                                             style="width: 30px; height: 30px;"/>
+                                    <div class="col-2 p-0 m-0 text-end" *ngIf="job.country_flag">
+                                        <img [src]="job.country_flag" alt="logo" class="rounded-image"
+                                            />
                                     </div>
                                 </div>
 
-                                <p class="company">{{ job.company_name || 'No Company' }}
-                                    · {{ job.location || 'No Location' }}</p>
+
                                 <!--                                <p class="flex-align-center">-->
                                 <!--                                    &nbsp;&nbsp;<i class="fas fa-map-marker-alt icon-gray"></i>-->
                                 <!--                                    {{job.location || 'No Location'}}-->
                                 <!--                                </p>-->
-                                <p class="flex-align-center">
-                                    &nbsp;&nbsp;<i class="fas fa-briefcase icon-gray"></i>
-                                    {{ job.work_type || 'No Work Type' }}
-                                </p>
-                                <p class="flex-align-center">
-                                    &nbsp;&nbsp;<i class="fas fa-user-clock icon-gray"></i>
-                                    {{ job.experience || 'No Experience' }}
-                                </p>
-                                <p class="flex-align-center">
-                                    &nbsp;&nbsp;<i class="fas fa-dollar-sign icon-gray"></i>
-                                    {{ job.price || 'No Salary' }}
-                                </p>
-                                <p class="flex-align-end">
-                                    <!-- {{ job.created_at | timeAgo }}-->
-                                </p>
-                                <div class="row p-0 m-0 justify-content-center flex-align-center">
+<!--                                <p class="flex-align-center">-->
+<!--                                    &nbsp;&nbsp;<i class="fas fa-briefcase icon-gray"></i>-->
+<!--                                    {{ job.work_type || 'No Work Type' }}-->
+<!--                                </p>-->
+<!--                                <p class="flex-align-center">-->
+<!--                                    &nbsp;&nbsp;<i class="fas fa-user-clock icon-gray"></i>-->
+<!--                                    {{ job.experience || 'No Experience' }}-->
+<!--                                </p>-->
+<!--                                <p class="flex-align-center">-->
+<!--                                    &nbsp;&nbsp;<i class="fas fa-dollar-sign icon-gray"></i>-->
+<!--                                    {{ job.price || 'No Salary' }}-->
+<!--                                </p>-->
+<!--                                <p class="flex-align-end">-->
+<!--                                    &lt;!&ndash; {{ job.created_at | timeAgo }}&ndash;&gt;-->
+<!--                                </p>-->
+                                <div class="row p-0 m-0 mt-2 justify-content-center flex-align-center">
                                     <div class="col-6 p-0 m-0">
                                         <p-dropdown [(ngModel)]="job.type" [options]="statuses" placeholder="Status"
                                                     (onChange)="onStatusChange(job, $event)"></p-dropdown>
@@ -125,7 +126,7 @@
     </div>
 </div>
 
-<p-dialog [(visible)]="isVisibleAddManually" [modal]="true" [style]="{ width: '50vw' }" [draggable]="false"
+<p-dialog [(visible)]="isVisibleAddManually" [modal]="true" [style]="{ width: '30vw' }" [draggable]="false"
           [resizable]="false"
           [breakpoints]="{ '960px': '30vw', '959px': '60vw', '425px': '90vw' }" (onHide)="clearRestriction()">
     <div class="text-center mt-5 mb-4 formGroup">
@@ -153,8 +154,8 @@
                     <label class="form-label" style="font-size: small; font-weight: 500">Job Type</label>
                     <div class="form-group">
                         <div class="mb-3">
-                            <input type="text" formControlName="job_type" class="sharp-edges" pInputText
-                                   placeholder="Enter Job Type"/>
+                            <input type="text" formControlName="location" class="sharp-edges" pInputText
+                                   placeholder="Enter Location"/>
                         </div>
                     </div>
                 </div>
@@ -167,24 +168,24 @@
 <!--                        </div>-->
 <!--                    </div>-->
 <!--                </div>-->
-                <div class="col-md-6">
-                    <label class="form-label" style="font-size: small; font-weight: 500">Work Mode</label>
-                    <div class="form-group">
-                        <div class="mb-3">
-                            <input type="text" formControlName="work_mode" class="sharp-edges" pInputText
-                                   placeholder="Enter Work Mode"/>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <label class="form-label" style="font-size: small; font-weight: 500">Salary Range</label>
-                    <div class="form-group">
-                        <div class="mb-3">
-                            <input type="text" formControlName="salary_range" class="sharp-edges" pInputText
-                                   placeholder="Enter Salary Range"/>
-                        </div>
-                    </div>
-                </div>
+<!--                <div class="col-md-6">-->
+<!--                    <label class="form-label" style="font-size: small; font-weight: 500">Work Mode</label>-->
+<!--                    <div class="form-group">-->
+<!--                        <div class="mb-3">-->
+<!--                            <input type="text" formControlName="work_mode" class="sharp-edges" pInputText-->
+<!--                                   placeholder="Enter Work Mode"/>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--                <div class="col-md-6">-->
+<!--                    <label class="form-label" style="font-size: small; font-weight: 500">Salary Range</label>-->
+<!--                    <div class="form-group">-->
+<!--                        <div class="mb-3">-->
+<!--                            <input type="text" formControlName="salary_range" class="sharp-edges" pInputText-->
+<!--                                   placeholder="Enter Salary Range"/>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
                 <div class="col-md-6">
                     <label class="form-label" style="font-size: small; font-weight: 500">Status</label>
                     <div class="form-group w-100">

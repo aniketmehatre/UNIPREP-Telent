@@ -102,3 +102,9 @@
   }
   margin:10px 10px;
 }
+.rounded-image {
+  border-radius: 50%; /* Makes the image circular */
+  width: 20px; /* Adjust the width as needed */
+  height: 20px; /* Adjust the height as needed */
+  object-fit: cover; /* Ensures the image fits within the circle */
+}
