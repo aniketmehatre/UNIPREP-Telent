@@ -501,9 +501,35 @@
 	<div class="h-100" id="cv-preview-container"
 		[ngClass]="{ previewBodyForm: !fullScreenVisible, previewBodyFormFull: fullScreenVisible }"
 		*ngIf="selectedResumeLevel=='Creative'">
-		<div class="container-fluid">
+		<div class="containercreative" style="font-size: 5px;">
+			<div class="row" style="background-color: yellow; padding: 5px 10px 15px 10px; border-radius: 8px 8px 0px 0px;">
+			</div>
+		</div>
+		<div class="container">
+			<div class="vertical-linecreative"></div>
+			<div class="vertical-linecreatives"></div>
+		</div>
+		<div class="customfontstyles" style=" padding:7px; margin: auto;">
+			<h1 class="userName upperCase" style="font-size:14px ;">{{
+				f["user_name"].value }}</h1>
+			<p class="profession upperCase">{{ f["user_job_title"].value }}</p>
+			<br>
+			<p><span>Dear {{f["managername"].value }},</span></p><br>
+			<br>
+			<p><span [innerHTML]="f['user_summary'].value"></span></p>
+			<br>
+			<p><span>Warm regards,&nbsp;</span></p>
+			<p style="margin-top:8px;">{{ f["user_name"].value }}</p>
 
 		</div>
+		<div class="container1">
+			<div class="vertical-linecreative1"></div>
+			<div class="vertical-linecreative2"></div>
+		</div>
+	<div class="containercreative1">
+		<div style="height:15px;background-color:black;position: absolute; height: 5px">
+		</div>
+	</div>
 	</div>
 	<div class="h-100" id="cv-preview-container"
 		[ngClass]="{ previewBodyForm: !fullScreenVisible, previewBodyFormFull: fullScreenVisible }"

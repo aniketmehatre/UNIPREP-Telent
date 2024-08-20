@@ -57,11 +57,11 @@ export class CoverLetterBuilderComponent implements OnInit {
       templateName: "Academic",
       imageLink: "../../../../uniprep-assets/coverletter-images/Academic Cover Letter.webp",
     },
-    // {
-    //   id: 4,
-    //   templateName: "Creative",
-    //   imageLink: "../../../../uniprep-assets/coverletter-images/Creative Cover Letter.webp",
-    // },
+    {
+      id: 4,
+      templateName: "Creative",
+      imageLink: "../../../../uniprep-assets/coverletter-images/Creative Cover Letter.webp",
+    },
     {
       id: 5,
       templateName: "Functional",
