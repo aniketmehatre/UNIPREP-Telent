@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { CostOfLivingService } from './cost-of-living.service';
 import { City, CostOfLiving, Price } from 'src/app/@Models/cost-of-living';
+import { DropdownFilterOptions } from 'primeng/dropdown';
+import { debounceTime } from 'rxjs';
 
 @Component({
   selector: 'uni-cost-of-living',
@@ -11,6 +13,8 @@ import { City, CostOfLiving, Price } from 'src/app/@Models/cost-of-living';
 export class CostOfLivingComponent implements OnInit {
 
   cities: City[] = [];
+  sourceCities: City[] = [];
+  targetCities: City[] = [];
   form!: FormGroup;
 
   canShowComparision: boolean = false;
@@ -24,14 +28,16 @@ export class CostOfLivingComponent implements OnInit {
     this.form = this.fb.group({
       sourceCity: [null],
       targetCity: [null],
-      sourceCountry: [null],
-      targetCountry: [null],
+      sourceFilter: [''],
+      targetFilter: ['']
     });
   }
 
   ngOnInit() {
     this.costOfLivingService.getCities().subscribe((res: City[]) => {
-      this.cities=res;
+      this.cities = res;
+      this.sourceCities = this.cities;
+      this.targetCities=this.cities;
     });
   }
 
@@ -52,6 +58,34 @@ export class CostOfLivingComponent implements OnInit {
       });
     });
   }
+
+  customFilter(search: string, city: any): boolean {
+    const searchTerm = search.toLowerCase();
+    return city.city_name.toLowerCase().includes(searchTerm) || city.country_name.toLowerCase().includes(searchTerm);
+  }
+  resetFunction(typeOfField:string) {
+    if(typeOfField=='source'){
+      this.sourceCities = this.cities;
+      this.form.get('sourceFilter')?.setValue('');
+      return;
+    }
+    this.targetCities = this.cities;
+    this.form.get('targetFilter')?.setValue('');
+  }
+
+
+  customFilterFunction(typeOfField:string) {
+    if(typeOfField=='source'){
+      this.sourceCities = this.cities.filter(city =>
+        city.city_name.toLowerCase().includes(this.form.get('sourceFilter')?.value) || city.country_name.toLowerCase().includes(this.form.get('sourceFilter')?.value)
+      );
+      return;
+    }
+    this.targetCities = this.cities.filter(city =>
+      city.city_name.toLowerCase().includes(this.form.get('targetFilter')?.value) || city.country_name.toLowerCase().includes(this.form.get('targetFilter')?.value)
+    );
+  }
+
 
 
 }
