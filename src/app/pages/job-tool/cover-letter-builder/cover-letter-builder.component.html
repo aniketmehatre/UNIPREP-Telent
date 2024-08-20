@@ -2,18 +2,18 @@
 	<h3 class="text-center uniprep-primary">Select your Coverletter style to get started</h3>
 	<ngx-slick-carousel class="carousel" #slickModal="slick-carousel" [config]="slideConfig">
 		<div ngxSlickItem *ngFor="let slide of resumeSlider" class="slide">
-		  <div class="d-flex flex-column">
-			<h5 class="text-center uniprep-primary">{{ slide.templateName }}</h5>
-			<div class="cvBuilderSampleImg" 
-				 [ngClass]="{ 'selectedResumeLevel': selectedResumeLevel === slide.templateName }">
-			  <img [src]="slide.imageLink" alt="{{ slide.templateName }}" />
-			  <button class="center-button" (click)="selectResumeTemplate(slide.templateName)">
-				{{ selectedResumeLevel === slide.templateName ? 'Selected' : 'Select' }}
-			  </button>
+			<div class="d-flex flex-column">
+				<h5 class="text-center uniprep-primary">{{ slide.templateName }}</h5>
+				<div class="cvBuilderSampleImg"
+					[ngClass]="{ 'selectedResumeLevel': selectedResumeLevel === slide.templateName }">
+					<img [src]="slide.imageLink" alt="{{ slide.templateName }}" />
+					<button class="center-button" (click)="selectResumeTemplate(slide.templateName)">
+						{{ selectedResumeLevel === slide.templateName ? 'Selected' : 'Select' }}
+					</button>
+				</div>
 			</div>
-		  </div>
 		</div>
-	  </ngx-slick-carousel>
+	</ngx-slick-carousel>
 	<!-- <h3 class="text-center uniprep-primary">Select your Coverletter style to get started</h3>
 	<div class="d-flex justify-content-center gap-5">
 		<div>
@@ -36,7 +36,7 @@
 						class="fa-solid fa-check tickIcon"></i></button>
 			</div>
 		</div> -->
-		<!-- <div>
+	<!-- <div>
 			<h5 class="text-center uniprep-primary">Creative</h5>
 			<div class="cvBuilderSampleImg" [ngClass]="{ selectedResumeLevel: selectedResumeLevel == 'Creative' }"
 				(click)="imgOnclick('Creative')">
@@ -46,7 +46,7 @@
 						class="fa-solid fa-check tickIcon"></i></button>
 			</div>
 		</div> -->
-		<!-- <div>
+	<!-- <div>
 			<h5 class="text-center uniprep-primary">Functional</h5>
 			<div class="cvBuilderSampleImg" [ngClass]="{ selectedResumeLevel: selectedResumeLevel == 'Functional' }"
 				(click)="imgOnclick('Functional')">
@@ -56,7 +56,7 @@
 						class="fa-solid fa-check tickIcon"></i></button>
 			</div>
 		</div> -->
-		<!-- <div>
+	<!-- <div>
 			<h5 class="text-center uniprep-primary">Academic</h5>
 			<div class="cvBuilderSampleImg" [ngClass]="{ selectedResumeLevel: selectedResumeLevel == 'Academic' }"
 				(click)="imgOnclick('Academic')">
@@ -74,7 +74,7 @@
 		</div>
 	</div>
 </div>
-<div class="" *ngIf="activePageIndex == 3" >
+<div class="" *ngIf="activePageIndex == 3">
 	<div class="row justify-content-center">
 		<div class="flex-column">
 			<div style="justify-content: center;">
@@ -82,12 +82,12 @@
 				<h5 class="text-center uniprep-primary">{{ selectedResumeLevel }}</h5>
 				<div class="cvBuilderSampleImg d-flex justify-content-center align-items-center">
 					<span>
-					<img *ngIf="selectedResumeLevel == 'Modern'" src="{{previewImage}}" />
-					<img *ngIf="selectedResumeLevel == 'Traditional'" src="{{previewImage}}" />
-					<img *ngIf="selectedResumeLevel == 'Creative'" src="{{previewImage}}" />
-					<img *ngIf="selectedResumeLevel == 'Functional'" src="{{previewImage}}" />
-					<img *ngIf="selectedResumeLevel == 'Academic'" src="{{previewImage}}" />
-				</span>
+						<img *ngIf="selectedResumeLevel == 'Modern'" src="{{previewImage}}" />
+						<img *ngIf="selectedResumeLevel == 'Traditional'" src="{{previewImage}}" />
+						<img *ngIf="selectedResumeLevel == 'Creative'" src="{{previewImage}}" />
+						<img *ngIf="selectedResumeLevel == 'Functional'" src="{{previewImage}}" />
+						<img *ngIf="selectedResumeLevel == 'Academic'" src="{{previewImage}}" />
+					</span>
 				</div>
 				<div class="d-flex justify-content-center align-items-center">
 					<button class="downloadButton" (click)="downloadResume()">Download &nbsp;&nbsp;&nbsp;<i
@@ -278,12 +278,10 @@
 						<div class="col-md-12">
 							<label class="form-label labelFont">Cover Letter Section</label>
 							<div class="form-group">
-								<div class="mb-3">
-									<div style="text-align: right;">
-										<button pButton type="button" (click)="chatGPTIntegration()"
+								<div class="mb-3" style="text-align: right;">
+									<button pButton type="button" (click)="chatGPTIntegration()"
 										class="text-white p-ripple p-button-rounded p-button-info-prev p-button p-component p-2"><i
 											class="fa fa-arrow-left exhausted-plan-icon-prev"></i> Generate</button>
-									</div>
 									<p-editor formControlName="user_summary" placeholder="About yourself"></p-editor>
 								</div>
 							</div>
@@ -479,8 +477,7 @@
 			<div class="horizontal-lineacadamic"></div>
 		</div>
 
-		<div class="mt-5 customfontstyles"
-			style=" padding:5px; font-family:'Times New Roman', Times, serif;">
+		<div class="mt-5 customfontstyles" style=" padding:5px; font-family:'Times New Roman', Times, serif;">
 			<span>
 				<h1>{{ f["user_name"].value }}</h1>
 			</span>
@@ -501,28 +498,28 @@
 		</div>
 	</div>
 	<div class="h-100" id="cv-preview-container"
-    [ngClass]="{ previewBodyForm: !fullScreenVisible, previewBodyFormFull: fullScreenVisible }"
-    *ngIf="selectedResumeLevel === 'Creative'">
-    
-    <div class="vertical-linecreative"></div>
-    <div class="vertical-linecreative1"></div>
-    <div class="vertical-line_right_topcreative"></div>
-    <div class="vertical-line_right_bottomcreative"></div>
-	<div class="horizontal-line-top"></div>
-    <div class="horizontal-line-bottom"></div>
-	<div class="customfontstyles" style=" padding:7px; margin: 0px; margin-top: 15px;">
-		<h1 class="userName upperCase">{{
-			f["user_name"].value }}</h1>
-		<p class="profession upperCase">{{ f["user_job_title"].value }}</p>
-		<br>
-		<p><span>Dear {{f["managername"].value }},</span></p><br>
-		<br>
-		<p><span [innerHTML]="f['user_summary'].value"></span></p>
-		<br>
-		<p><span>Warm regards,&nbsp;</span></p>
-		<p style="margin-top:8px;">{{ f["user_name"].value }}</p>
+		[ngClass]="{ previewBodyForm: !fullScreenVisible, previewBodyFormFull: fullScreenVisible }"
+		*ngIf="selectedResumeLevel === 'Creative'">
+
+		<div class="vertical-linecreative"></div>
+		<div class="vertical-linecreative1"></div>
+		<div class="vertical-line_right_topcreative"></div>
+		<div class="vertical-line_right_bottomcreative"></div>
+		<div class="horizontal-line-top"></div>
+		<div class="horizontal-line-bottom"></div>
+		<div class="customfontstyles" style=" padding:7px; margin: 0px; margin-top: 15px;">
+			<h1 class="userName upperCase">{{
+				f["user_name"].value }}</h1>
+			<p class="profession upperCase">{{ f["user_job_title"].value }}</p>
+			<br>
+			<p><span>Dear {{f["managername"].value }},</span></p><br>
+			<br>
+			<p><span [innerHTML]="f['user_summary'].value"></span></p>
+			<br>
+			<p><span>Warm regards,&nbsp;</span></p>
+			<p style="margin-top:8px;">{{ f["user_name"].value }}</p>
+		</div>
 	</div>
-</div>
 	<!-- <div class="h-100" id="cv-preview-container"
 		[ngClass]="{ previewBodyForm: !fullScreenVisible, previewBodyFormFull: fullScreenVisible }"
 		*ngIf="selectedResumeLevel=='Creative'">
@@ -560,7 +557,8 @@
 		[ngClass]="{ previewBodyForm: !fullScreenVisible, previewBodyFormFull: fullScreenVisible }"
 		*ngIf="selectedResumeLevel=='Functional'">
 		<div class="containerfuctional">
-			<div class="row" style="background-color: #00939B; padding: 5px 10px 15px 10px; border-radius: 8px 8px 0px 0px;">
+			<div class="row"
+				style="background-color: #00939B; padding: 5px 10px 15px 10px; border-radius: 8px 8px 0px 0px;">
 				<div class="col-12 text-left mt-5">
 					<h1 class="userName upperCase" style="color: white;margin: 0px;">{{
 						f["user_name"].value }}</h1>
@@ -579,10 +577,10 @@
 
 		</div>
 
-	<div class="containerfuctional1">
-		<div style="height:15px;background-color:#00939B;position: absolute; height: 5px">
+		<div class="containerfuctional1">
+			<div style="height:15px;background-color:#00939B;position: absolute; height: 5px">
+			</div>
 		</div>
-	</div>
 	</div>
 	<div class="h-100" id="cv-preview-container"
 		[ngClass]="{ previewBodyForm: !fullScreenVisible, previewBodyFormFull: fullScreenVisible }"
@@ -592,22 +590,23 @@
 			<div class="horizontal-line"></div>
 			<div class="circle"></div>
 		</div>
-	
-		<div class="customfontstyles" style=" padding:5px; font-family:'Times New Roman', Times, serif; margin-top: 25px;">
+
+		<div class="customfontstyles"
+			style=" padding:5px; font-family:'Times New Roman', Times, serif; margin-top: 25px;">
 			<span>
 				<h1>{{ f["user_name"].value }}</h1>
 			</span>
-	
+
 			<p>&nbsp;{{ f["user_job_title"].value }}</p> <br><br>
 			<p><span>Dear {{f["managername"].value }},</span></p><br>
 			<p><span [innerHTML]="f['user_summary'].value"></span></p>
 			<br>
 			<p><span>Warm regards,&nbsp;</span></p>
 			<p>{{ f["user_name"].value }}</p>
-	
+
 		</div>
 		<div style="bottom:0px;position:relative; width: 100%;   ">
-	
+
 			<div class="container1">
 				<div class="vertical-line1"></div>
 				<div class="horizontal-line1"></div>
@@ -615,5 +614,5 @@
 			</div>
 		</div>
 	</div>
-	
+
 </ng-template>

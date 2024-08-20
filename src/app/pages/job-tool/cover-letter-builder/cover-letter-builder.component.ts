@@ -252,7 +252,7 @@ export class CoverLetterBuilderComponent implements OnInit {
     })
   }
   chatGPTIntegration() {
-    this.resumeFormInfoData.value.user_summary.reset()
+    // this.resumeFormInfoData.value.user_summary.reset()
     const apiKey = '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';
     let formData = this.resumeFormInfoData.value;
     let prompt: string = `Provide the body of the  cover letter for  ${this.resumeFormInfoData.value.user_name} who is a ${this.resumeFormInfoData.value.user_job_title} applying to ${this.resumeFormInfoData.value.edu_college_name} for the position of ${this.resumeFormInfoData.value.jobposition}`;
