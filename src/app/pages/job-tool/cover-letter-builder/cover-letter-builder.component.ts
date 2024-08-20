@@ -263,30 +263,16 @@ export class CoverLetterBuilderComponent implements OnInit {
     const body = {
       model: "gpt-3.5-turbo",
       messages: [
-        { role: "system", content: "You are an assistant who writes professional cover letters. without from and to, i need only body for my cover letter ,and three paragraph." },
+        { role: "system", content: "You are an assistant who writes professional cover letters. without from and to, i need only body for my cover letter." },
         { role: "user", content: prompt }
       ],
-      max_tokens: 1000,
+      max_tokens: 1500,
       n: 1
     };
 
     this.http.post<any>('https://api.openai.com/v1/chat/completions', body, { headers: headers }).subscribe(response => {
       if (response.choices && response.choices.length > 0) {
         const GPTResponse = response.choices[0].message.content.trim();
-        console.log(GPTResponse.split('\n\n'));
-        // Split the response into an array of paragraphs
-        // const paragraphs = GPTResponse.split('\n\n');
-
-        // Remove the first two elements
-        // if (paragraphs.length > 2) {
-        //   paragraphs.splice(0, 2);
-        // }
-
-        // // Join the remaining elements back into a string
-        // let modifiedResponse = paragraphs.join('\n\n');
-        // // Replace commas with newline characters to create new paragraphs
-        // modifiedResponse = modifiedResponse.replace(/,/g, '<br>');
-        // Update the form field with the modified response
         this.resumeFormInfoData.patchValue({
           user_summary: GPTResponse
         });
