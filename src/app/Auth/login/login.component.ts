@@ -33,7 +33,8 @@ export class LoginComponent implements OnInit, OnDestroy {
   isDisabled:boolean=false;
   locationData: any
   imageUrlWhitelabel: string | null = null;
-  domainname:any
+  domainname:any;
+  domainnamecondition:any;
   constructor(
     private service: AuthService, private formBuilder: FormBuilder, private route: Router,
     private toast: MessageService, private dataService: DataService, private el: ElementRef,
@@ -72,7 +73,12 @@ export class LoginComponent implements OnInit, OnDestroy {
       this.imageUrlWhitelabel = imageUrl;
       console.log(this.imageUrlWhitelabel);  
     });
-    this.domainname=window.location.hostname
+    this.domainnamecondition=window.location.hostname
+    if ( this.domainnamecondition === "dev-student.uniprep.ai" ||  this.domainnamecondition === "uniprep.ai" ||  this.domainnamecondition === "localhost") {
+      this.domainname="main"
+    }else{
+      this.domainname="sub"
+    }
     this.dataService.loggedInAnotherDevice('none');
     fetch('https://ipapi.co/json/').then(response => response.json()).then(data => {
       this.locationData = data
