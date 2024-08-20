@@ -37,7 +37,7 @@ export class CoverLetterBuilderComponent implements OnInit {
   submittedFormData: any = [];
   selectedExpLevel: number = 0;
   selectedThemeColor: string = "#172a99";
-  selectedColorCode: number = 2;
+  selectedColorCode: number = 1;
   template1: any;
   userNameSplit: { firstWord: string, secondWord: string } = { firstWord: '', secondWord: '' };
   @ViewChild('capture', { static: false }) captureElement!: ElementRef;
@@ -245,37 +245,35 @@ export class CoverLetterBuilderComponent implements OnInit {
     let formData = this.resumeFormInfoData.value;
     let data = {
       ...formData,
-      cover_name: this.selectedResumeLevel
+      cover_name: this.selectedResumeLevel,
+      selectedThemeColor:this.selectedThemeColor
     };
     console.log(data);
     this.resumeService.downloadCoverletter(data).subscribe(res => {
       window.open(res, '_blank');
     })
   }    
-  // this.resumeFormInfoData = this.fb.group({
-  //   user_name: ['vivek kaliyaperumal', [Validators.required]],
-  //   user_job_title: ['Full Stack Developer', [Validators.required]],
-  //   user_email: ['vivek@uniabroad.co.in', [Validators.required]],
-  //   user_location: ['Mysore, Karnataka', [Validators.required]],
-  //   user_phone: ['+91 9524999563', [Validators.required]],
-  //   user_linkedin: ['Vivek Kaliyaperumal'],
-  //   user_website: ['www.ownwebsite.com'],
-  //   user_summary: ['', [Validators.required]],
-  //   edu_college_name: ['Srinivasan Engg College',[Validators.required]],
-  //   edu_location: ['Perambalur',[Validators.required]],
-  //   jobposition: ['Bachelor of Engineering in C.S',[Validators.required]],
-  //   managername: ['siva',[Validators.required]],
-  //   getknowaboutas: ['65',[Validators.required]],
-  // });
+
   chatGPTIntegration() {
-    if(!this.resumeFormInfoData.value.user_name.valid||!this.resumeFormInfoData.value.user_job_title.valid||!this.resumeFormInfoData.value.user_email.valid
-      ||!this.resumeFormInfoData.value.user_location.valid||!this.resumeFormInfoData.value.user_phone.valid||!this.resumeFormInfoData.value.edu_college_name.valid
-      ||!this.resumeFormInfoData.value.edu_location.valid||!this.resumeFormInfoData.value.jobposition.valid||this.resumeFormInfoData.value.managername.valid
-      ||!this.resumeFormInfoData.value.getknowaboutas.valid
-    ){
-      this.submitted=true;
-      return;
-    }
+    const userNameControl = this.resumeFormInfoData.get('user_name');
+    const userJobTitleControl = this.resumeFormInfoData.get('user_job_title');
+    const userEmailControl = this.resumeFormInfoData.get('user_email');
+    const userLocationControl = this.resumeFormInfoData.get('user_location');
+    const userPhoneControl = this.resumeFormInfoData.get('user_phone');
+    const eduCollegeNameControl = this.resumeFormInfoData.get('edu_college_name');
+    const eduLocationControl = this.resumeFormInfoData.get('edu_location');
+    const jobPositionControl = this.resumeFormInfoData.get('jobposition');
+    const managerNameControl = this.resumeFormInfoData.get('managername');
+    const getKnowAboutAsControl = this.resumeFormInfoData.get('getknowaboutas');
+
+    if (!userNameControl?.valid || !userJobTitleControl?.valid || !userEmailControl?.valid ||
+      !userLocationControl?.valid || !userPhoneControl?.valid || !eduCollegeNameControl?.valid ||
+      !eduLocationControl?.valid || !jobPositionControl?.valid || !managerNameControl?.valid ||
+      !getKnowAboutAsControl?.valid) {
+    this.submitted = true; // Set the form as submitted if any field is invalid
+    console.log('Form is invalid');
+    return;
+  }
     this.resumeFormInfoData.patchValue({
       user_summary: ''
     });

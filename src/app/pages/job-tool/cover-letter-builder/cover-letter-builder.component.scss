@@ -736,7 +736,13 @@ body {
 :host ::ng-deep .p-sidebar-footer {
     padding: 0px !important;
 }
-
+.deleteDivButton {
+	background-color: #d80027;
+	color: white;
+	padding: 5px 5px;
+	border: none;
+	border-radius: 50px;
+}
 // modern
 // modern
 #cv-preview-container {
@@ -769,7 +775,6 @@ body {
 	height: 15px;
 	top: 15%;
 	left: -10px;
-	background-color: blue;
   }
   
   .customfontstyles {
@@ -800,7 +805,6 @@ body {
     height: 15px;
     bottom: 0px;
     right: -10px;
-	background-color: blue;
   }
   // acadamic
   #cv-preview-container {
@@ -824,7 +828,6 @@ body {
 	height: 5px;
 	top: 51%;
 	left: 0px;
-	background-color: black;
   }
   
   
@@ -840,7 +843,6 @@ body {
   
   .horizontal-lineacadamic1 {
 	position: absolute;
-	background-color: black;
   }
   
   .horizontal-lineacadamic1 {
@@ -857,7 +859,6 @@ body {
 }
 .vertical-line, .horizontal-line {
 	position: absolute;
-	background-color: #616C7B;
 	box-shadow:  0px 0px 1px 1px grey; 
 }
 .vertical-line {
@@ -867,10 +868,10 @@ body {
     top: -10px;
 }
 .horizontal-line {
-    width: 106%;
+	width: 104%;
     height: 1px;
     top: 50%;
-    left: -10px;
+    left: -2%;
 }
 .circle {
 	position: absolute;
@@ -888,7 +889,6 @@ body {
 }
 .vertical-line1, .horizontal-line1 {
 	position: absolute;
-	background-color: #616C7B;
 	box-shadow:  0px 0px 1px 1px grey; 
 }
 .vertical-line1 {
@@ -899,10 +899,10 @@ body {
 	box-shadow:  0px 0px 1px 1px grey; 
 }
 .horizontal-line1 {
-    width: 106%;
+    width: 104%;
     height: 1px;
     bottom: 25%;
-    left: -10px;
+    left: -2%;
 	box-shadow:  0px 0px 1px 1px grey; 
 }
 .circle1 {
@@ -934,7 +934,6 @@ body {
     left: 0;
     width: 100%; /* Full width of the container */
     height: 15px; /* Height of the footer */
-    background-color: #00939B; /* Background color of the footer */
 	border-radius: 0px 0px 8px 8px;
 }
 
@@ -961,7 +960,6 @@ body {
     height: 29%;
 	left: 0%;
 	bottom: 70%;
-	background-color: #FFBC41; 
   }
   
   .vertical-line_right_topcreative {
@@ -969,7 +967,6 @@ body {
     height: 29%;
     right: 0%;
     bottom: 70%;
-	background-color: #FFBC41; 
   }
   
   .vertical-line_right_bottomcreative {
@@ -989,7 +986,6 @@ body {
   
   .horizontal-line-top {
 	top: 0;
-	background-color: #FFBC41; /* Color for the top horizontal line */
   }
   
   .horizontal-line-bottom {

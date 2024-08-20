@@ -315,10 +315,14 @@
 							<label class="form-label labelFont">Cover Letter Section</label>
 							<div class="form-group">
 								<div class="mb-3" style="text-align: right;">
-									<button pButton type="button" (click)="chatGPTIntegration()"
+									<!-- <button pButton type="button" (click)="chatGPTIntegration()"
 										class="text-white p-ripple p-button-rounded p-button-info-prev p-button p-component p-2"><i
-											class="fa fa-arrow-left exhausted-plan-icon-prev"></i> Generate</button>
-									<p-editor formControlName="user_summary" placeholder="About yourself"></p-editor>
+											class="fa fa-arrow-left exhausted-plan-icon-prev"></i> Generate</button> -->
+											<button  pButton type="button" class="deleteDivButton" (click)="chatGPTIntegration()"
+                                            style="background-color: #9bc329;">Generate &nbsp;<i
+                                                class="fa-solid fa-line-columns trashIcon"
+                                                style="background-color: #9bc329;"></i></button>		
+									<p-editor class="mt-2" formControlName="user_summary" placeholder="About yourself"></p-editor>
 									<div *ngIf="submittedsummery && f['user_summary'].errors" class="text-danger text-xs">
 										<div style="margin-left:10px;" *ngIf="f['user_summary'].errors">Required
 										</div>
@@ -358,7 +362,7 @@
 								</div>
 							</div>
 						</span>
-						<!-- <ng-container *ngTemplateOutlet="colorPickerContent"></ng-container> -->
+						<ng-container *ngTemplateOutlet="colorPickerContent"></ng-container>
 					</div>
 					<i class="fa-sharp fa-solid fa-expand" style="cursor: pointer" (click)="toggleFullScreen()"></i>
 				</div>
@@ -411,7 +415,7 @@
 							</div>
 						</div>
 					</span>
-					<!-- <ng-container *ngTemplateOutlet="colorPickerContent"></ng-container> -->
+					<ng-container *ngTemplateOutlet="colorPickerContent"></ng-container>
 				</div>
 				<i class="fa-sharp fa-solid fa-compress" style="cursor: pointer" (click)="toggleFullScreen()"></i>
 			</div>
@@ -484,7 +488,7 @@
 		<div class="containermodern">
 
 			<div class="horizontal-lineacmodern1"></div>
-			<div class="horizontal-lineacmodern2"></div>
+			<div class="horizontal-lineacmodern2" [ngStyle]="{'background-color': selectedThemeColor}"></div>
 		</div>
 
 		<div class="mt-5 customfontstyles" style=" padding:5px; font-family:'Times New Roman', Times, serif; margin-left: 2px;">
@@ -505,7 +509,7 @@
 
 			<div class="container1">
 				<div class="horizontal-linemodern11"></div>
-				<div class="horizontal-lineamodern22"></div>
+				<div class="horizontal-lineamodern22" [ngStyle]="{'background-color': selectedThemeColor}"></div>
 
 			</div>
 		</div>
@@ -514,7 +518,7 @@
 		[ngClass]="{ previewBodyForm: !fullScreenVisible, previewBodyFormFull: fullScreenVisible }"
 		*ngIf="selectedResumeLevel=='Academic'">
 		<div class="containeracadamic ">
-			<div class="horizontal-lineacadamic"></div>
+			<div class="horizontal-lineacadamic" [ngStyle]="{'background-color': selectedThemeColor}"></div>
 		</div>
 
 		<div class="mt-5 customfontstyles" style=" padding:5px; font-family:'Times New Roman', Times, serif; margin-left: 2px;">
@@ -533,7 +537,7 @@
 		<div style="  bottom:0px;position:relative; width: 100%;   ">
 
 			<div class="containeracademic1">
-				<div class="horizontal-lineacadamic1"></div>
+				<div class="horizontal-lineacadamic1" [ngStyle]="{'background-color': selectedThemeColor}"></div>
 			</div>
 		</div>
 	</div>
@@ -541,11 +545,11 @@
 		[ngClass]="{ previewBodyForm: !fullScreenVisible, previewBodyFormFull: fullScreenVisible }"
 		*ngIf="selectedResumeLevel === 'Creative'">
 
-		<div class="vertical-linecreative"></div>
+		<div class="vertical-linecreative" [ngStyle]="{'background-color': selectedThemeColor}"></div>
 		<div class="vertical-linecreative1"></div>
-		<div class="vertical-line_right_topcreative"></div>
+		<div class="vertical-line_right_topcreative" [ngStyle]="{'background-color': selectedThemeColor}"></div>
 		<div class="vertical-line_right_bottomcreative"></div>
-		<div class="horizontal-line-top"></div>
+		<div class="horizontal-line-top" [ngStyle]="{'background-color': selectedThemeColor}"></div>
 		<div class="horizontal-line-bottom"></div>
 		<div class="customfontstyles" style=" padding:7px; margin: 0px; margin-top: 15px; margin-left: 2px;">
 			<h1 class="userName upperCase">{{
@@ -566,7 +570,7 @@
 		*ngIf="selectedResumeLevel=='Functional'">
 		<div class="containerfuctional">
 			<div class="row"
-				style="background-color: #00939B; padding: 5px 10px 15px 10px; border-radius: 8px 8px 0px 0px;">
+				style="padding: 5px 10px 15px 10px; border-radius: 8px 8px 0px 0px;" [ngStyle]="{'background-color': selectedThemeColor}">
 				<div class="col-12 text-left mt-5">
 					<h1 class="userName upperCase" style="color: white;margin: 0px;">{{
 						f["user_name"].value }}</h1>
@@ -585,8 +589,8 @@
 
 		</div>
 
-		<div class="containerfuctional1">
-			<div style="height:15px;background-color:#00939B;position: absolute; height: 5px">
+		<div class="containerfuctional1"  [ngStyle]="{'background-color': selectedThemeColor}">
+			<div style="height:15px;position: absolute; height: 5px">
 			</div>
 		</div>
 	</div>
@@ -594,8 +598,8 @@
 		[ngClass]="{ previewBodyForm: !fullScreenVisible, previewBodyFormFull: fullScreenVisible }"
 		*ngIf="selectedResumeLevel=='Traditional'">
 		<div class="container">
-			<div class="vertical-line"></div>
-			<div class="horizontal-line"></div>
+			<div class="vertical-line" [ngStyle]="{'background-color': selectedThemeColor}"></div>
+			<div class="horizontal-line" [ngStyle]="{'background-color': selectedThemeColor}"></div>
 			<div class="circle"></div>
 		</div>
 
@@ -616,8 +620,8 @@
 		<div style="bottom:0px;position:relative; width: 100%;   ">
 
 			<div class="container1">
-				<div class="vertical-line1"></div>
-				<div class="horizontal-line1"></div>
+				<div class="vertical-line1" [ngStyle]="{'background-color': selectedThemeColor}"></div>
+				<div class="horizontal-line1" [ngStyle]="{'background-color': selectedThemeColor}"></div>
 				<div class="circle1"></div>
 			</div>
 		</div>
