@@ -91,7 +91,7 @@ export class CoverLetterBuilderComponent implements OnInit {
       user_phone: ['+91 9524999563', [Validators.required]],
       user_linkedin: ['Vivek Kaliyaperumal'],
       user_website: ['www.ownwebsite.com'],
-      user_summary: ['Experienced Senior Visual Designer with a proven track record in the design industry. Proficient in Web Design, UI/UX Design, and Graphic Design. Strong entrepreneurial mindset with a Bachelor of Engineering (B.E.) in Computer Science from Vidyavardhaka College of Engineering.', [Validators.required]],
+      user_summary: ['', [Validators.required]],
       edu_college_name: ['Srinivasan Engg College'],
       edu_location: ['Perambalur'],
       jobposition: ['Bachelor of Engineering in C.S'],
@@ -252,7 +252,9 @@ export class CoverLetterBuilderComponent implements OnInit {
     })
   }
   chatGPTIntegration() {
-    // this.resumeFormInfoData.value.user_summary.reset()
+    this.resumeFormInfoData.patchValue({
+      user_summary: ''
+    });
     const apiKey = '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';
     let formData = this.resumeFormInfoData.value;
     let prompt: string = `Provide the body of the  cover letter for  ${this.resumeFormInfoData.value.user_name} who is a ${this.resumeFormInfoData.value.user_job_title} applying to ${this.resumeFormInfoData.value.edu_college_name} for the position of ${this.resumeFormInfoData.value.jobposition}`;
