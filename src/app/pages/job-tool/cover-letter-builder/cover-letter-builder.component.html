@@ -279,9 +279,11 @@
 							<label class="form-label labelFont">Cover Letter Section</label>
 							<div class="form-group">
 								<div class="mb-3">
-									<button pButton type="button" (click)="chatGPTIntegration()"
+									<div style="text-align: right;">
+										<button pButton type="button" (click)="chatGPTIntegration()"
 										class="text-white p-ripple p-button-rounded p-button-info-prev p-button p-component p-2"><i
 											class="fa fa-arrow-left exhausted-plan-icon-prev"></i> Generate</button>
+									</div>
 									<p-editor formControlName="user_summary" placeholder="About yourself"></p-editor>
 								</div>
 							</div>
