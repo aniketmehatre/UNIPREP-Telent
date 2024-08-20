@@ -266,7 +266,7 @@ export class CoverLetterBuilderComponent implements OnInit {
         { role: "system", content: "You are an assistant who writes professional cover letters. without from and to, i need only body for my cover letter." },
         { role: "user", content: prompt }
       ],
-      max_tokens: 150,
+      max_tokens: 1000,
       n: 1
     };
 
