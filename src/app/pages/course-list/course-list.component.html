@@ -90,11 +90,11 @@
 								</div>
 
 								<div class="row text-start">
-									<!-- <div
+									<div
 										[ngClass]="{ 'col-12 mb-1': course.subject_name?.length > 18, 'col-6 mb-1': true }">
 										<p class=" text-wrap"><i class="fa-solid fa-graduation-cap"></i> &nbsp;<small>{{
 												course.subject_name }}</small></p>
-									</div> -->
+									</div>
 									<!-- <div class="col-12 mb-1" title="{{course.subject_name}}">
 										<p class=" text-wrap"><i class="fa-solid fa-graduation-cap"></i> &nbsp;<small>
 											{{ course.subject_name | slice:0:30 }}{{ course.subject_name.length > 30 ? '...' : '' }}
@@ -208,16 +208,6 @@
 				<div class="col-md-12">
 					<div class="row">
 						<div class="col-md-4">
-							<label class="form-label filterField">Filter by Subject</label>
-							<div class="form-group">
-								<div class="mb-3">
-									<!-- <p-dropdown styleClass="w-100" [filter]="true" [filterBy]="'subject_name'" [options]="subjectNameList" placeholder="Search in Subject" optionLabel="subject_name" formControlName="subject" optionValue="id"></p-dropdown> -->
-									<input class="w-100 px-5 py-2" style="height: 45px" type="text"
-										formControlName="subject" placeholder="Search in Subject" pInputText />
-								</div>
-							</div>
-						</div>
-						<div class="col-md-4">
 							<label class="form-label filterField">Filter by Country</label>
 							<div class="form-group">
 								<div class="mb-3">
@@ -241,10 +231,19 @@
 							<label class="form-label filterField">Filter by University</label>
 							<div class="form-group">
 								<div class="mb-3">
-									<p-dropdown styleClass="w-100" [filter]="true" [filterBy]="'university_name'"
-										[options]="universityNameList" placeholder="Search in University"
-										optionLabel="university_name" formControlName="college_name"
-										optionValue="id" [appendTo]="'body'"></p-dropdown>
+									<p-dropdown styleClass="w-100" [filter]="true" [filterBy]="'university_name'" [options]="universityNameList" placeholder="Search in University"
+										optionLabel="university_name" formControlName="college_name" optionValue="id" [appendTo]="'body'"></p-dropdown>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-4">
+							<label class="form-label filterField">Filter by Subject</label>
+							<div class="form-group">
+								<div class="mb-3">
+									<p-multiSelect styleClass="w-100" placeholder="Search in Subject" [options]="subjectNameList" display="chip" optionLabel="category_name" optionValue="id" formControlName="subject" [appendTo]="'body'"></p-multiSelect>
+									<!-- <p-dropdown styleClass="w-100" [filter]="true" [filterBy]="'category_name'" [options]="subjectNameList" [appendTo]="'body'" placeholder="Search in Subject" optionLabel="category_name" formControlName="subject" optionValue="id"></p-dropdown> -->
+									<!-- <input class="w-100 px-5 py-2" style="height: 45px" type="text"
+										formControlName="subject" placeholder="Search in Subject" pInputText /> -->
 								</div>
 							</div>
 						</div>
@@ -262,8 +261,10 @@
 							<label class="form-label filterField">Filter by Duration</label>
 							<div class="form-group">
 								<div class="mb-3">
-									<input class="w-100 px-5 py-2" style="height: 45px" type="text"
-										formControlName="duration" placeholder="Search in Duration" pInputText />
+									<!-- <input class="w-100 px-5 py-2" style="height: 45px" type="text"
+										formControlName="duration" placeholder="Search in Duration" pInputText /> -->
+										<p-dropdown styleClass="w-100" [options]="durationList" placeholder="Search in Duration" optionLabel="duration"
+										formControlName="study_level" optionValue="duration" [appendTo]="'body'" ></p-dropdown>
 								</div>
 							</div>
 						</div>

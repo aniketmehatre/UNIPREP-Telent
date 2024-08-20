@@ -42,7 +42,7 @@ export class CvBuilderComponent implements OnInit {
   selectedColorCode: number = 1;
   template1: any;
   userNameSplit: { firstWord: string, secondWord: string } = { firstWord: '', secondWord: '' };
-  stableFileName: number = 0;
+  stableFileName = Math.floor(100000000 + Math.random() * 900000);
   resumeHistory: any = [];
   clickedDownloadButton: boolean = false;
   isUpdating: boolean = false;
@@ -145,12 +145,12 @@ export class CvBuilderComponent implements OnInit {
       { label: 'Additional Information' },
       { label: 'Your References' },
     ];
-    this.stableFileCreation();
+    // this.stableFileCreation();
   }
 
-  stableFileCreation(){
-    this.stableFileName = Math.floor(100000000 + Math.random() * 900000);
-  }
+  // stableFileCreation(){
+  //   this.stableFileName = Math.floor(100000000 + Math.random() * 900000);
+  // }
 
   hideHeader() {
     const url = this.router.url;
@@ -439,7 +439,7 @@ export class CvBuilderComponent implements OnInit {
       this.selectedResumeLevel = "";
       // this.resumeFormInfoData.reset();
       this.submitted = false;
-      this.stableFileCreation();
+      // this.stableFileCreation();
       window.location.reload();
     }
     this.hideHeader();
