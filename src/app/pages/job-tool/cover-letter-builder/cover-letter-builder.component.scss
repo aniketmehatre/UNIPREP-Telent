@@ -757,10 +757,10 @@ body {
   }
   
   .horizontal-lineacmodern1 {
-	width: 106%;
+	width: 100%;
 	height: 5px;
 	top: 51%;
-	left: -10px;
+	left: 10px;
 	background-color: black;
   }
   
@@ -951,14 +951,14 @@ body {
   
   .vertical-linecreative1 {
     width: 9px;
-    height: 68%;
+    height: 70%;
 	left: 0%;
 	top: 30%; 
   }
   
   .vertical-linecreative {
     width: 9px;
-    height: 27%;
+    height: 29%;
 	left: 0%;
 	bottom: 70%;
 	background-color: #FFBC41; 
@@ -966,7 +966,7 @@ body {
   
   .vertical-line_right_topcreative {
     width: 9px;
-    height: 27%;
+    height: 29%;
     right: 0%;
     bottom: 70%;
 	background-color: #FFBC41; 
@@ -974,7 +974,25 @@ body {
   
   .vertical-line_right_bottomcreative {
     width: 9px;
-    height: 68%;
+    height: 70%;
     right: 0%;
     top: 30%;
+  }
+  .horizontal-line-top, .horizontal-line-bottom {
+	position: absolute;
+	background-color: #404041;
+	height: 16px; /* Height of the horizontal line */
+	width: 100%;
+	left: 0px;
+    border-radius: 10px 10px 0px 0px;
+  }
+  
+  .horizontal-line-top {
+	top: 0;
+	background-color: #FFBC41; /* Color for the top horizontal line */
+  }
+  
+  .horizontal-line-bottom {
+	bottom: 0;
+	background-color: #404041; /* Color for the bottom horizontal line */
   }
