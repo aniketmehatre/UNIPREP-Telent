@@ -185,7 +185,6 @@ export class LocationService {
           const headers = new HttpHeaders().set("Accept", "application/json");
           return this.http.post<any>(environment.ApiUrl + "/getorganizationlogobydomain", data, { headers }).pipe(
             tap((response) => {
-              console.log(response);
               this.imageSubject.next(response.organization_logo_url);
             })
           );

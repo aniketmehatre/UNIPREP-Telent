@@ -23,6 +23,7 @@ export class CoverLetterBuilderComponent implements OnInit {
   fullScreenVisible: boolean = false;
   isButtonDisabledSelectTemplate: boolean = false;
   submitted: boolean = false;
+  submittedsummery:boolean=false;
   //cloning limit
   eduDetailsLimit: number = 3;
   wrkExpLimit: number = 3;
@@ -36,7 +37,7 @@ export class CoverLetterBuilderComponent implements OnInit {
   submittedFormData: any = [];
   selectedExpLevel: number = 0;
   selectedThemeColor: string = "#172a99";
-  selectedColorCode: number = 2;
+  selectedColorCode: number = 1;
   template1: any;
   userNameSplit: { firstWord: string, secondWord: string } = { firstWord: '', secondWord: '' };
   @ViewChild('capture', { static: false }) captureElement!: ElementRef;
@@ -57,11 +58,11 @@ export class CoverLetterBuilderComponent implements OnInit {
       templateName: "Academic",
       imageLink: "../../../../uniprep-assets/coverletter-images/Academic Cover Letter.webp",
     },
-    // {
-    //   id: 4,
-    //   templateName: "Creative",
-    //   imageLink: "../../../../uniprep-assets/coverletter-images/Creative Cover Letter.webp",
-    // },
+    {
+      id: 4,
+      templateName: "Creative",
+      imageLink: "../../../../uniprep-assets/coverletter-images/Creative Cover Letter.webp",
+    },
     {
       id: 5,
       templateName: "Functional",
@@ -91,12 +92,12 @@ export class CoverLetterBuilderComponent implements OnInit {
       user_phone: ['+91 9524999563', [Validators.required]],
       user_linkedin: ['Vivek Kaliyaperumal'],
       user_website: ['www.ownwebsite.com'],
-      user_summary: ['Experienced Senior Visual Designer with a proven track record in the design industry. Proficient in Web Design, UI/UX Design, and Graphic Design. Strong entrepreneurial mindset with a Bachelor of Engineering (B.E.) in Computer Science from Vidyavardhaka College of Engineering.', [Validators.required]],
-      edu_college_name: ['Srinivasan Engg College'],
-      edu_location: ['Perambalur'],
-      jobposition: ['Bachelor of Engineering in C.S'],
-      managername: ['siva'],
-      getknowaboutas: ['65'],
+      user_summary: ['', [Validators.required]],
+      edu_college_name: ['Srinivasan Engg College',[Validators.required]],
+      edu_location: ['Perambalur',[Validators.required]],
+      jobposition: ['Bachelor of Engineering in C.S',[Validators.required]],
+      managername: ['siva',[Validators.required]],
+      getknowaboutas: ['65',[Validators.required]],
     });
 
   }
@@ -141,14 +142,14 @@ export class CoverLetterBuilderComponent implements OnInit {
   }
 
   resumeFormSubmit() {
-    this.submittedFormData = this.resumeFormInfoData.value;
-    if (!this.resumeFormInfoData.valid) {
-      console.log('Form is invalid, please correct the errors.');
-      this.resumeFormInfoData.markAllAsTouched(); // Trigger validation messages if needed
-    } else {
+    if(!this.resumeFormInfoData.valid){
+      this.submitted=true;
+      this.submittedsummery=true;
+      return;
+    }
       this.generateImage();
       this.activePageIndex = 3;
-    }
+ 
   }
   generateImage() {
     const cvPreviewContainer = document.getElementById('cv-preview-container');
@@ -244,14 +245,38 @@ export class CoverLetterBuilderComponent implements OnInit {
     let formData = this.resumeFormInfoData.value;
     let data = {
       ...formData,
-      cover_name: this.selectedResumeLevel
+      cover_name: this.selectedResumeLevel,
+      selectedThemeColor:this.selectedThemeColor
     };
     console.log(data);
     this.resumeService.downloadCoverletter(data).subscribe(res => {
       window.open(res, '_blank');
     })
-  }
+  }    
+
   chatGPTIntegration() {
+    const userNameControl = this.resumeFormInfoData.get('user_name');
+    const userJobTitleControl = this.resumeFormInfoData.get('user_job_title');
+    const userEmailControl = this.resumeFormInfoData.get('user_email');
+    const userLocationControl = this.resumeFormInfoData.get('user_location');
+    const userPhoneControl = this.resumeFormInfoData.get('user_phone');
+    const eduCollegeNameControl = this.resumeFormInfoData.get('edu_college_name');
+    const eduLocationControl = this.resumeFormInfoData.get('edu_location');
+    const jobPositionControl = this.resumeFormInfoData.get('jobposition');
+    const managerNameControl = this.resumeFormInfoData.get('managername');
+    const getKnowAboutAsControl = this.resumeFormInfoData.get('getknowaboutas');
+
+    if (!userNameControl?.valid || !userJobTitleControl?.valid || !userEmailControl?.valid ||
+      !userLocationControl?.valid || !userPhoneControl?.valid || !eduCollegeNameControl?.valid ||
+      !eduLocationControl?.valid || !jobPositionControl?.valid || !managerNameControl?.valid ||
+      !getKnowAboutAsControl?.valid) {
+    this.submitted = true; // Set the form as submitted if any field is invalid
+    console.log('Form is invalid');
+    return;
+  }
+    this.resumeFormInfoData.patchValue({
+      user_summary: ''
+    });
     const apiKey = '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';
     let formData = this.resumeFormInfoData.value;
     let prompt: string = `Provide the body of the  cover letter for  ${this.resumeFormInfoData.value.user_name} who is a ${this.resumeFormInfoData.value.user_job_title} applying to ${this.resumeFormInfoData.value.edu_college_name} for the position of ${this.resumeFormInfoData.value.jobposition}`;
@@ -266,27 +291,13 @@ export class CoverLetterBuilderComponent implements OnInit {
         { role: "system", content: "You are an assistant who writes professional cover letters. without from and to, i need only body for my cover letter." },
         { role: "user", content: prompt }
       ],
-      max_tokens: 150,
+      max_tokens: 1500,
       n: 1
     };
 
     this.http.post<any>('https://api.openai.com/v1/chat/completions', body, { headers: headers }).subscribe(response => {
       if (response.choices && response.choices.length > 0) {
         const GPTResponse = response.choices[0].message.content.trim();
-        console.log(GPTResponse.split('\n\n'));
-        // Split the response into an array of paragraphs
-        // const paragraphs = GPTResponse.split('\n\n');
-
-        // Remove the first two elements
-        // if (paragraphs.length > 2) {
-        //   paragraphs.splice(0, 2);
-        // }
-
-        // // Join the remaining elements back into a string
-        // let modifiedResponse = paragraphs.join('\n\n');
-        // // Replace commas with newline characters to create new paragraphs
-        // modifiedResponse = modifiedResponse.replace(/,/g, '<br>');
-        // Update the form field with the modified response
         this.resumeFormInfoData.patchValue({
           user_summary: GPTResponse
         });
