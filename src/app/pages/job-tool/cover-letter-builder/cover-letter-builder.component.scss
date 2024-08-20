@@ -944,67 +944,37 @@ body {
 }
 
 // creative
-.vertical-linecreative1 {
+.vertical-linecreative, .vertical-linecreative1, .vertical-line_right_topcreative, .vertical-line_right_bottomcreative {
 	position: absolute;
-	background-color: black;
-	box-shadow:  0px 0px 1px 1px black; 
-}
-.vertical-linecreative1 {
-	width: 10px;
-    height: 295%;
-    left: 100%;
-    top:  -290px;
-	box-shadow:  0px 0px 1px 1px black; 
-}
-.vertical-linecreative2 {
-	position: absolute;
-	background-color: black;
-	box-shadow:  0px 0px 1px 1px black; 
-}
-.vertical-linecreative2 {
-    width: 10px;
-    height: 295%;
-    left: -9px;
-    top: -290px;
-	box-shadow:  0px 0px 1px 1px black; 
-}
-.vertical-linecreative{
-	position: absolute;
-	background-color: yellow;
-	box-shadow:  0px 0px 1px 1px yellow; 
-}
-.vertical-linecreative {
-	width: 10px;
-    height: 350%;
-    left: -9px;
-    top: -61px;
-}
-.containercreative1 {
-    position: absolute;
-    bottom: 0; /* Stick to the bottom of the container */
-    left: 0;
-    width: 100%; /* Full width of the container */
-    height: 15px; /* Height of the footer */
-    background-color: black; /* Background color of the footer */
-	border-radius: 0px 0px 8px 8px;
-}
-.containercreative{
-	position: relative;
-	width: 100%;
-	height: 70px;
-	top:-10px
-}
-#cv-preview-container .containercreative {
-    padding-bottom: 20px; /* Adjust based on the height of the footer */
-}
-.vertical-linecreatives{
-	position: absolute;
-	background-color: yellow;
-	box-shadow:  0px 0px 1px 1px yellow; 
-}
-.vertical-linecreatives {
-	width: 10px;
-    height: 350%;
-    left: 100%;
-    top: -61px;
-}
+	background-color: #404041;
+  }
+  
+  .vertical-linecreative1 {
+    width: 9px;
+    height: 68%;
+	left: 0%;
+	top: 30%; 
+  }
+  
+  .vertical-linecreative {
+    width: 9px;
+    height: 27%;
+	left: 0%;
+	bottom: 70%;
+	background-color: #FFBC41; 
+  }
+  
+  .vertical-line_right_topcreative {
+    width: 9px;
+    height: 27%;
+    right: 0%;
+    bottom: 70%;
+	background-color: #FFBC41; 
+  }
+  
+  .vertical-line_right_bottomcreative {
+    width: 9px;
+    height: 68%;
+    right: 0%;
+    top: 30%;
+  }
