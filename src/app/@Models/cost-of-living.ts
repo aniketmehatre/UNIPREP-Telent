@@ -82,6 +82,7 @@ export interface CurrencyConvert {
   baseCountry: string
   targetCountry: string
   rate: string
+  targetcountry_flag:string;
 }
 export interface GoodWithIcon{
   good_id:string
