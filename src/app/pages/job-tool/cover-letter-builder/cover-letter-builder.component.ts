@@ -23,6 +23,7 @@ export class CoverLetterBuilderComponent implements OnInit {
   fullScreenVisible: boolean = false;
   isButtonDisabledSelectTemplate: boolean = false;
   submitted: boolean = false;
+  submittedsummery:boolean=false;
   //cloning limit
   eduDetailsLimit: number = 3;
   wrkExpLimit: number = 3;
@@ -92,11 +93,11 @@ export class CoverLetterBuilderComponent implements OnInit {
       user_linkedin: ['Vivek Kaliyaperumal'],
       user_website: ['www.ownwebsite.com'],
       user_summary: ['', [Validators.required]],
-      edu_college_name: ['Srinivasan Engg College'],
-      edu_location: ['Perambalur'],
-      jobposition: ['Bachelor of Engineering in C.S'],
-      managername: ['siva'],
-      getknowaboutas: ['65'],
+      edu_college_name: ['Srinivasan Engg College',[Validators.required]],
+      edu_location: ['Perambalur',[Validators.required]],
+      jobposition: ['Bachelor of Engineering in C.S',[Validators.required]],
+      managername: ['siva',[Validators.required]],
+      getknowaboutas: ['65',[Validators.required]],
     });
 
   }
@@ -141,14 +142,14 @@ export class CoverLetterBuilderComponent implements OnInit {
   }
 
   resumeFormSubmit() {
-    this.submittedFormData = this.resumeFormInfoData.value;
-    if (!this.resumeFormInfoData.valid) {
-      console.log('Form is invalid, please correct the errors.');
-      this.resumeFormInfoData.markAllAsTouched(); // Trigger validation messages if needed
-    } else {
+    if(!this.resumeFormInfoData.valid){
+      this.submitted=true;
+      this.submittedsummery=true;
+      return;
+    }
       this.generateImage();
       this.activePageIndex = 3;
-    }
+ 
   }
   generateImage() {
     const cvPreviewContainer = document.getElementById('cv-preview-container');
@@ -250,8 +251,31 @@ export class CoverLetterBuilderComponent implements OnInit {
     this.resumeService.downloadCoverletter(data).subscribe(res => {
       window.open(res, '_blank');
     })
-  }
+  }    
+  // this.resumeFormInfoData = this.fb.group({
+  //   user_name: ['vivek kaliyaperumal', [Validators.required]],
+  //   user_job_title: ['Full Stack Developer', [Validators.required]],
+  //   user_email: ['vivek@uniabroad.co.in', [Validators.required]],
+  //   user_location: ['Mysore, Karnataka', [Validators.required]],
+  //   user_phone: ['+91 9524999563', [Validators.required]],
+  //   user_linkedin: ['Vivek Kaliyaperumal'],
+  //   user_website: ['www.ownwebsite.com'],
+  //   user_summary: ['', [Validators.required]],
+  //   edu_college_name: ['Srinivasan Engg College',[Validators.required]],
+  //   edu_location: ['Perambalur',[Validators.required]],
+  //   jobposition: ['Bachelor of Engineering in C.S',[Validators.required]],
+  //   managername: ['siva',[Validators.required]],
+  //   getknowaboutas: ['65',[Validators.required]],
+  // });
   chatGPTIntegration() {
+    if(!this.resumeFormInfoData.value.user_name.valid||!this.resumeFormInfoData.value.user_job_title.valid||!this.resumeFormInfoData.value.user_email.valid
+      ||!this.resumeFormInfoData.value.user_location.valid||!this.resumeFormInfoData.value.user_phone.valid||!this.resumeFormInfoData.value.edu_college_name.valid
+      ||!this.resumeFormInfoData.value.edu_location.valid||!this.resumeFormInfoData.value.jobposition.valid||this.resumeFormInfoData.value.managername.valid
+      ||!this.resumeFormInfoData.value.getknowaboutas.valid
+    ){
+      this.submitted=true;
+      return;
+    }
     this.resumeFormInfoData.patchValue({
       user_summary: ''
     });

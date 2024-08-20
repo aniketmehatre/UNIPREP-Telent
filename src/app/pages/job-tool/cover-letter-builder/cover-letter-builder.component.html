@@ -165,7 +165,7 @@
 									<input class="w-100" type="text" placeholder="Full Name" formControlName="user_name"
 										pInputText />
 									<div *ngIf="submitted && f['user_name'].errors" class="text-danger text-xs">
-										<div style="margin-left:10px;" *ngIf="f['user_name'].errors">Your Name Required
+										<div style="margin-left:10px;" *ngIf="f['user_name'].errors">Required
 										</div>
 									</div>
 								</div>
@@ -177,6 +177,10 @@
 								<div class="mb-3">
 									<input class="w-100" type="text" placeholder="your Job Title"
 										formControlName="user_job_title" pInputText />
+										<div *ngIf="submitted && f['user_job_title'].errors" class="text-danger text-xs">
+											<div style="margin-left:10px;" *ngIf="f['user_job_title'].errors">Required
+											</div>
+										</div>
 								</div>
 							</div>
 						</div>
@@ -186,6 +190,10 @@
 								<div class="mb-3">
 									<input class="w-100" type="text" placeholder="Email Address"
 										formControlName="user_email" pInputText />
+										<div *ngIf="submitted && f['user_email'].errors" class="text-danger text-xs">
+											<div style="margin-left:10px;" *ngIf="f['user_email'].errors">Required
+											</div>
+										</div>
 								</div>
 							</div>
 						</div>
@@ -195,6 +203,10 @@
 								<div class="mb-3">
 									<input class="w-100" type="text" placeholder="Your Location"
 										formControlName="user_location" pInputText />
+										<div *ngIf="submitted && f['user_location'].errors" class="text-danger text-xs">
+											<div style="margin-left:10px;" *ngIf="f['user_location'].errors">Required
+											</div>
+										</div>
 								</div>
 							</div>
 						</div>
@@ -204,6 +216,10 @@
 								<div class="mb-3">
 									<input class="w-100" type="text" placeholder="Phone Number"
 										formControlName="user_phone" pInputText />
+										<div *ngIf="submitted && f['user_phone'].errors" class="text-danger text-xs">
+											<div style="margin-left:10px;" *ngIf="f['user_phone'].errors">Required
+											</div>
+										</div>
 								</div>
 							</div>
 						</div>
@@ -232,6 +248,10 @@
 								<div class="mb-3">
 									<input class="w-100" type="text" placeholder="College Name"
 										formControlName="edu_college_name" pInputText />
+										<div *ngIf="submitted && f['edu_college_name'].errors" class="text-danger text-xs">
+											<div style="margin-left:10px;" *ngIf="f['edu_college_name'].errors">Required
+											</div>
+										</div>
 								</div>
 							</div>
 						</div>
@@ -242,6 +262,10 @@
 									<div class="mb-3">
 										<input class="w-100" type="text" placeholder="Start Year"
 											formControlName="managername" pInputText />
+											<div *ngIf="submitted && f['managername'].errors" class="text-danger text-xs">
+												<div style="margin-left:10px;" *ngIf="f['managername'].errors">Required
+												</div>
+											</div>
 									</div>
 								</div>
 
@@ -253,6 +277,10 @@
 								<div class="mb-3">
 									<input class="w-100" type="text" placeholder="Education Location"
 										formControlName="edu_location" pInputText />
+										<div *ngIf="submitted && f['edu_location'].errors" class="text-danger text-xs">
+											<div style="margin-left:10px;" *ngIf="f['edu_location'].errors">Required
+											</div>
+										</div>
 								</div>
 							</div>
 						</div>
@@ -262,6 +290,10 @@
 								<div class="mb-3">
 									<input class="w-100" type="text" placeholder="your Degree"
 										formControlName="jobposition" pInputText />
+										<div *ngIf="submitted && f['jobposition'].errors" class="text-danger text-xs">
+											<div style="margin-left:10px;" *ngIf="f['jobposition'].errors">Required
+											</div>
+										</div>
 								</div>
 							</div>
 						</div>
@@ -272,6 +304,10 @@
 								<div class="mb-3">
 									<input class="w-100" type="text" placeholder="Achieved Score"
 										formControlName="getknowaboutas" pInputText />
+										<div *ngIf="submitted && f['getknowaboutas'].errors" class="text-danger text-xs">
+											<div style="margin-left:10px;" *ngIf="f['getknowaboutas'].errors">Required
+											</div>
+										</div>
 								</div>
 							</div>
 						</div>
@@ -283,6 +319,10 @@
 										class="text-white p-ripple p-button-rounded p-button-info-prev p-button p-component p-2"><i
 											class="fa fa-arrow-left exhausted-plan-icon-prev"></i> Generate</button>
 									<p-editor formControlName="user_summary" placeholder="About yourself"></p-editor>
+									<div *ngIf="submittedsummery && f['user_summary'].errors" class="text-danger text-xs">
+										<div style="margin-left:10px;" *ngIf="f['user_summary'].errors">Required
+										</div>
+									</div>
 								</div>
 							</div>
 						</div>
