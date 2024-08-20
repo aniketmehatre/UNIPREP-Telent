@@ -14,7 +14,7 @@ export class AuthEffects {
 
     login$ = createEffect(() => this.actions$.pipe(
         ofType(login),
-        switchMap((payload) => this.service.login({email: payload.email, password: payload.password}).pipe(
+        switchMap((payload) => this.service.login({email: payload.email, password: payload.password,domain_type:payload.domain_type}).pipe(
             map(response => loginSuccess(response)),
             catchError(error => of(loginFailure()))
         ))

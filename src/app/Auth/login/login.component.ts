@@ -33,6 +33,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   isDisabled:boolean=false;
   locationData: any
   imageUrlWhitelabel: string | null = null;
+  domainname:any
   constructor(
     private service: AuthService, private formBuilder: FormBuilder, private route: Router,
     private toast: MessageService, private dataService: DataService, private el: ElementRef,
@@ -69,9 +70,9 @@ export class LoginComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.locationService.getImage().subscribe(imageUrl => {
       this.imageUrlWhitelabel = imageUrl;
-      console.log(this.imageUrlWhitelabel);
-      
+      console.log(this.imageUrlWhitelabel);  
     });
+    this.domainname=window.location.hostname
     this.dataService.loggedInAnotherDevice('none');
     fetch('https://ipapi.co/json/').then(response => response.json()).then(data => {
       this.locationData = data
@@ -112,6 +113,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     this.loginForm = this.formBuilder.group({
       email: ["", [Validators.required, Validators.email]],
       password: ["", [Validators.required]],
+      domain_type:[this.domainname]
     });
     this.subs.sink = this.service.selectloggedIn$().subscribe(loggedIn => {
       if (!loggedIn) {
