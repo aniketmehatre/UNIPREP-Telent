@@ -7,7 +7,7 @@
         <form [formGroup]="form" (ngSubmit)="compare()" class="g-10">
             <p-dropdown [options]="sourceCities" optionValue="city_id" formControlName="sourceCity"
                 placeholder="Source Country" [filter]="true" [virtualScroll]="true" [virtualScrollItemSize]="50"
-                [filterFunction]="customFilter" [showClear]="true" [appendTo]="'body'" class="costofliving-dropdown">
+                [showClear]="true" [appendTo]="'body'" class="costofliving-dropdown">
                 <ng-template pTemplate="filter" let-options="options">
                     <div class="d-flex gap-2">
                         <div class="p-inputgroup" (click)="$event.stopPropagation()">
@@ -22,20 +22,22 @@
                 <ng-template pTemplate="selectedItem" let-selectedOption>
                     <div class="d-flex align-items-center gap-2">
                         <img [src]="selectedOption.flag" />
-                        <div>{{selectedOption.city_name}}, {{ selectedOption.country_name }}</div>
+                        <div><span *ngIf="selectedOption.city_name!=''">{{selectedOption.city_name}}, </span>{{
+                            selectedOption.country_name }}</div>
                     </div>
                 </ng-template>
                 <ng-template let-country pTemplate="item">
-                    <div class="d-flex align-items-center gap-2">
+                    <div class="d-flex align-items-center gap-2" (click)="cityChange('source',country)">
                         <img [src]="country.flag" />
-                        <div>{{country.city_name}}, {{ country.country_name }}</div>
+                        <div><span *ngIf="country.city_name!=''">{{country.city_name}}, </span>{{ country.country_name
+                            }}</div>
                     </div>
                 </ng-template>
 
             </p-dropdown>
             <p-dropdown [options]="targetCities" optionValue="city_id" formControlName="targetCity"
                 placeholder="Target Country" [filter]="true" [virtualScroll]="true" [virtualScrollItemSize]="50"
-                filterBy="city_name" [showClear]="true" [appendTo]="'body'" class="costofliving-dropdown">
+                [showClear]="true" [appendTo]="'body'" class="costofliving-dropdown" >
                 <ng-template pTemplate="filter" let-options="options">
                     <div class="d-flex gap-2">
                         <div class="p-inputgroup" (click)="$event.stopPropagation()">
@@ -50,18 +52,20 @@
                 <ng-template pTemplate="selectedItem" let-selectedOption>
                     <div class="d-flex align-items-center gap-2">
                         <img [src]="selectedOption.flag" />
-                        <div>{{selectedOption.city_name}}, {{ selectedOption.country_name }}</div>
+                        <div><span *ngIf="selectedOption.city_name!=''">{{selectedOption.city_name}}, </span>{{
+                            selectedOption.country_name }}</div>
                     </div>
                 </ng-template>
-                <ng-template let-country pTemplate="item">
-                    <div class="d-flex align-items-center gap-2">
+                <ng-template let-country pTemplate="item" >
+                    <div class="d-flex align-items-center gap-2" (click)="cityChange('target',country)">
                         <img [src]="country.flag" />
-                        <div>{{country.city_name}}, {{ country.country_name }}</div>
+                        <div><span *ngIf="country.city_name!=''">{{country.city_name}}, </span>{{ country.country_name
+                            }}</div>
                     </div>
                 </ng-template>
             </p-dropdown>
             <button class="btn btn-primary h6 ps-3 pe-3 pt-2 pb-2 br-20" type="submit"
-                [disabled]="!form.value.sourceCity || !form.value.targetCity">Compare
+                [disabled]="form.value.sourceCity==null || form.value.targetCity==null">Compare
                 <i class="pi pi-sync"></i> </button>
         </form>
     </div>

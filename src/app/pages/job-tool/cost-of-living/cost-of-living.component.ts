@@ -20,7 +20,8 @@ export class CostOfLivingComponent implements OnInit {
   canShowComparision: boolean = false;
   sourceCountryPrices!: CostOfLiving;
   targetCountryPrices!: CostOfLiving;
-
+  sourceCountry: string = '';
+  targetCountry: string = '';
   constructor(
     private fb: FormBuilder,
     private costOfLivingService: CostOfLivingService
@@ -37,13 +38,16 @@ export class CostOfLivingComponent implements OnInit {
     this.costOfLivingService.getCities().subscribe((res: City[]) => {
       this.cities = res;
       this.sourceCities = this.cities;
-      this.targetCities=this.cities;
+      this.targetCities = this.cities;
     });
   }
 
   compare() {
-    var sourceCityDetails = this.cities.find(city => city.city_id === this.form.value.sourceCity);
-    var targetCityDetails = this.cities.find(city => city.city_id === this.form.value.targetCity);
+    var sourceCityDetails = this.cities.find(city => city.city_id === this.form.value.sourceCity&&city.country_name==this.sourceCountry);
+    var targetCityDetails = this.cities.find(city => city.city_id === this.form.value.targetCity&&city.country_name==this.targetCountry);
+     
+    console.log(sourceCityDetails);
+    console.log(targetCityDetails);
     this.costOfLivingService.calculatePrices(sourceCityDetails).subscribe(response => {
       this.sourceCountryPrices = response;
       this.sourceCountryPrices.prices.forEach((price: Price) => {
@@ -53,18 +57,15 @@ export class CostOfLivingComponent implements OnInit {
         this.targetCountryPrices = response;
         this.targetCountryPrices.prices.forEach((price: Price) => {
           price.itemCount = 1;
-        })
+        });
         this.canShowComparision = true;
       });
     });
   }
 
-  customFilter(search: string, city: any): boolean {
-    const searchTerm = search.toLowerCase();
-    return city.city_name.toLowerCase().includes(searchTerm) || city.country_name.toLowerCase().includes(searchTerm);
-  }
-  resetFunction(typeOfField:string) {
-    if(typeOfField=='source'){
+
+  resetFunction(typeOfField: string) {
+    if (typeOfField == 'source') {
       this.sourceCities = this.cities;
       this.form.get('sourceFilter')?.setValue('');
       return;
@@ -74,18 +75,24 @@ export class CostOfLivingComponent implements OnInit {
   }
 
 
-  customFilterFunction(typeOfField:string) {
-    if(typeOfField=='source'){
+  customFilterFunction(typeOfField: string) {
+    if (typeOfField == 'source') {
       this.sourceCities = this.cities.filter(city =>
-        city.city_name.toLowerCase().includes(this.form.get('sourceFilter')?.value) || city.country_name.toLowerCase().includes(this.form.get('sourceFilter')?.value)
+        city?.city_name?.toLowerCase().includes(this.form.get('sourceFilter')?.value) || city.country_name.toLowerCase().includes(this.form.get('sourceFilter')?.value)
       );
       return;
     }
     this.targetCities = this.cities.filter(city =>
-      city.city_name.toLowerCase().includes(this.form.get('targetFilter')?.value) || city.country_name.toLowerCase().includes(this.form.get('targetFilter')?.value)
+      city?.city_name.toLowerCase().includes(this.form.get('targetFilter')?.value) || city.country_name.toLowerCase().includes(this.form.get('targetFilter')?.value)
     );
   }
-
+  cityChange(typeOfField: string, cityDetails: any) {
+    if (typeOfField == 'source') {
+      this.sourceCountry = cityDetails.country_name;
+      return;
+    }
+    this.targetCountry = cityDetails.country_name
+  }
 
 
 }
