@@ -29,6 +29,7 @@ export class CourseListComponent implements OnInit {
   subjectNameList: any = [];
   universityNameList: any = [];
   allUniversityList: any = [];
+  durationList: any = [];
   monthList: any = [{ id: "January", name: "January" }, { id: "February", name: "February" }, { id: "March", name: "March" }, { id: "April", name: "April" }, { id: "May ", name: "May" }, { id: "June", name: "June" }, { id: "July", name: "July" }, { id: "August", name: "August" }, { id: "September", name: "September" }, { id: "October", name: "October" }, { id: "November", name: "November" }, { id: "December", name: "December" }];
   studyLevel: any = [{ id: "UG", value: "UG" }, { id: "PG", value: "PG" }];
   worldRank: any = [{ id: "100", value: "Top 100" }, { id: "200", value: "Top 200" }, { id: "500", value: "Top 500" }, { id: null, value: "All Range" }];
@@ -72,9 +73,9 @@ export class CourseListComponent implements OnInit {
   bookmarkQuestion(courseId: any, isFav: any) {
     isFav = isFav != '1' ? true : false;
     this.favCount=isFav == true ? this.favCount+1 : this.favCount-1;
-    console.log(312);
+    // console.log(312);
     this.courseList.bookmarkCourseData(courseId, this.PersonalInfo.user_id, isFav).subscribe((response) => {
-      console.log(31);
+      // console.log(31);
       let courseListData = this.courseListData.find((item : any) => item.id == courseId);
       isFav == true ? courseListData.favourite = 1 : courseListData.favourite = null;
       this.toastr.add({
@@ -90,11 +91,14 @@ export class CourseListComponent implements OnInit {
 
   getSelectBoxValues() {
     this.courseList.loadDropdownValues().subscribe(res => {
+      // console.log(res);
       this.countryList = res.country;
       this.allLocations = res.locations;
       this.allUniversityList = res.university_name;
       this.stayBackList = res.stay_back;
       this.universityNameList = this.allUniversityList;
+      this.subjectNameList = res.subject;
+      this.durationList = res.duration;
     });
   }
 

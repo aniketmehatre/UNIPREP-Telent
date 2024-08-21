@@ -6,7 +6,6 @@
                 <div class="cvSampleImg d-flex flex-wrap">
                     <div class="flex-column" *ngFor="let resumes of resumeHistory; let i = index">
                         <pdf-viewer [src]="resumes.pdf_name" [autoresize]="true" [render-text]="true" [show-all]="false" [original-size]="false"></pdf-viewer>
-
                         <!-- <img *ngIf="resumes.template_name == 'Traditional'"
                             src="https://api.uniprep.ai/uniprepapi/storage/app/public/job-search/Traditional.webp" />
                         <img *ngIf="resumes.template_name == 'Modern'"
@@ -37,10 +36,9 @@
     <h3 class="text-center uniprep-primary">Select your CV style to get started</h3>
     <ngx-slick-carousel class="carousel" #slickModal="slick-carousel" [config]="slideConfig">
         <div ngxSlickItem *ngFor="let slide of resumeSlider" class="slide">
-            <div class="d-flex flex-column">
-                <h5 class="text-center uniprep-primary">{{ slide.templateName }}</h5>
-                <div class="cvBuilderSampleImg"
-                    [ngClass]="{ 'selectedResumeLevel': selectedResumeLevel == slide.templateName }">
+            <div class="d-flex flex-column slider-carousel">
+                <div class="cvBuilderSampleImg" [ngClass]="{ 'selectedResumeLevel': selectedResumeLevel == slide.templateName }">
+                    <h5 class="text-center uniprep-primary">{{ slide.templateName }}</h5>
                     <img [src]="slide.imageLink" alt="{{ slide.templateName }}" />
                     <button class="center-button" (click)="selectResumeTemplate(slide.templateName)">Select</button>
                 </div>
@@ -439,21 +437,22 @@
                                                                 class="fa-solid fa-line-columns trashIcon"
                                                                 style="background-color: #9bc329;"></i></button>
                                                     </div>
+                                                    <!-- (ngModelChange)="onEditorModelChange($event, i)" -->
                                                     <div class="form-group">
                                                         <div class="mb-3">
                                                             <p-editor formControlName="work_job_description"
                                                                 placeholder="About Job Description"
-                                                                (ngModelChange)="onEditorModelChange($event, i)"></p-editor>
+                                                                ></p-editor>
                                                             <div *ngIf="wrkExp.get('work_job_description')?.invalid && wrkExp.get('work_job_description')?.touched && submitted"
                                                                 class="text-danger text-xs">
                                                                 <div style="margin-left:10px;"
                                                                     *ngIf="wrkExp.get('work_job_description')?.errors?.['required']">
                                                                     Job Description required.</div>
                                                             </div>
-                                                            <div *ngIf="errorMessages[i]" class="text-danger text-xs"
+                                                            <!-- <div *ngIf="errorMessages[i]" class="text-danger text-xs"
                                                                 style="margin-left:10px;">
                                                                 {{ errorMessages[i] }}
-                                                            </div>
+                                                            </div> -->
                                                         </div>
                                                     </div>
                                                 </div>

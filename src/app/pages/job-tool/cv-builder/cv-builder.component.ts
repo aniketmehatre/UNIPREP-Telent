@@ -14,7 +14,8 @@ import { MenuItem } from 'primeng/api';
 })
 export class CvBuilderComponent implements OnInit {
   selectedResumeLevel: string = "";
-  experienceLevel: any = [{ id: 1, level: "Fresher" }, { id: 2, level: "1-2 Years" }, { id: 3, level: "3-5 Years" }, { id: 4, level: "5+ Years" },];
+  experienceLevel: any = [{ id: 1, level: "Fresher" }, { id: 2, level: "Experience" }];
+  // experienceLevel: any = [{ id: 1, level: "Fresher" }, { id: 2, level: "1-2 Years" }, { id: 3, level: "3-5 Years" }, { id: 4, level: "5+ Years" },];
   cgpaPercentage: any = [{ id: "CGPA", value: "CGPA" }, { id: "%", value: "Percentage" }];
   workTypeValue: any = [{ id: "Full-Time", value: "Full-Time" }, { id: "Part-Time", value: "Part-Time" }, { id: "Internship", value: "Internship" }, { id: "Freelancer", value: "Freelancer" }];
   languageProficiency: any = [{ id: "Beginner", value: "Beginner" }, { id: "Fluent", value: "Fluent" }, { id: "Proficient", value: "Proficient" }, { id: "Native", value: "Native" }];
@@ -42,11 +43,11 @@ export class CvBuilderComponent implements OnInit {
   selectedColorCode: number = 1;
   template1: any;
   userNameSplit: { firstWord: string, secondWord: string } = { firstWord: '', secondWord: '' };
-  stableFileName: number = 0;
+  stableFileName = Math.floor(100000000 + Math.random() * 900000);
   resumeHistory: any = [];
   clickedDownloadButton: boolean = false;
   isUpdating: boolean = false;
-  errorMessages: string[] = [];
+  // errorMessages: string[] = [];
   items!: MenuItem[];
   resumeSlider: any = [
     {
@@ -77,7 +78,7 @@ export class CvBuilderComponent implements OnInit {
   ];
 
   slideConfig = {
-    "slidesToShow": 4,
+    "slidesToShow": 3,
     "slidesToScroll": 1,
     "infinite": true,
     "dots": false,
@@ -131,12 +132,12 @@ export class CvBuilderComponent implements OnInit {
     this.resumeFormInfoData.get('user_name')?.valueChanges.subscribe(value => {
       this.splitUserName(value); // it calls when the user enters the user name
     });
-    if (this.resumeFormInfoData.invalid) {
-      this.errorMessages = this.getWorkExpArray.controls.map(control =>
-        control.get('work_job_description')?.errors?.['maxWordsExceeded'] ? 'Job Description exceeds the maximum word limit.' : ''
-      );
-      return;
-    }
+    // if (this.resumeFormInfoData.invalid) {
+    //   this.errorMessages = this.getWorkExpArray.controls.map(control =>
+    //     control.get('work_job_description')?.errors?.['maxWordsExceeded'] ? 'Job Description exceeds the maximum word limit.' : ''
+    //   );
+    //   return;
+    // }
     this.items = [
       { label: 'Personal Information' },
       { label: 'Work Experience' },
@@ -145,12 +146,12 @@ export class CvBuilderComponent implements OnInit {
       { label: 'Additional Information' },
       { label: 'Your References' },
     ];
-    this.stableFileCreation();
+    // this.stableFileCreation();
   }
 
-  stableFileCreation(){
-    this.stableFileName = Math.floor(100000000 + Math.random() * 900000);
-  }
+  // stableFileCreation(){
+  //   this.stableFileName = Math.floor(100000000 + Math.random() * 900000);
+  // }
 
   hideHeader() {
     const url = this.router.url;
@@ -439,7 +440,7 @@ export class CvBuilderComponent implements OnInit {
       this.selectedResumeLevel = "";
       // this.resumeFormInfoData.reset();
       this.submitted = false;
-      this.stableFileCreation();
+      // this.stableFileCreation();
       window.location.reload();
     }
     this.hideHeader();
@@ -531,7 +532,7 @@ export class CvBuilderComponent implements OnInit {
       //   work_location: ['Mysore', Validators.required],
       //   work_job_description: ['Spearheaded the UI/UX redesign of UNIPREP, UNIAPPLY, SOPEXPERT, and the UNIABROAD website, resulting in a cohesive and user-friendly experience across all platforms.Implemented innovative design solutions for the frontend of the products, enhancing user engagement and satisfaction.Designed and optimized the CRM admin panel, improving internal workflows and user interactions with the system.Collaborated closely with development teams to ensure seamless integration of design elements and adherence to design guidelines across all products.', Validators.required],
       // }));
-      this.errorMessages.push('');
+      // this.errorMessages.push('');
     } else if (fieldName == "project_details") {
       this.getProjectDetailsArray.push(this.fb.group({
         project_name: ['Project Name',Validators.required],
@@ -614,7 +615,7 @@ export class CvBuilderComponent implements OnInit {
       this.getEduDetailsArray.removeAt(index);
     } else if (fieldName == "work_experience") {
       this.getWorkExpArray.removeAt(index);
-      this.errorMessages.splice(index, 1);
+      // this.errorMessages.splice(index, 1);
     } else if (fieldName == "project_details") {
       this.getProjectDetailsArray.removeAt(index);
     } else if (fieldName == "language_known") {
@@ -795,7 +796,8 @@ export class CvBuilderComponent implements OnInit {
       }
     } else if (fieldName == 'work_job_description') {
       const work_designation = this.getWorkExpArray.value[iteration].work_designation;
-      prompt = `Provide five roles and responsibilities for a ${work_designation} role without using headings.`;
+      // prompt = `Provide five roles and responsibilities for a ${work_designation} role without using headings.`;
+      prompt = `Provide five bullet points detailing the roles and responsibilities for a ${work_designation} role, without any headings.`;
     }
     // else if(fieldName == 'project_description'){
     //   const project_name = this.getProjectDetailsArray.value[iteration].project_name;
@@ -819,6 +821,7 @@ export class CvBuilderComponent implements OnInit {
     this.http.post<any>('https://api.openai.com/v1/chat/completions', body, { headers: headers }).subscribe(response => {
       if (response.choices && response.choices.length > 0) {
         const GPTResponse = response.choices[0].message.content.trim();
+        console.log(GPTResponse);
         if (fieldName == 'user_summary') {
           this.resumeFormInfoData.patchValue({
             user_summary: GPTResponse
@@ -878,12 +881,12 @@ export class CvBuilderComponent implements OnInit {
     const words = value.trim().split(/\s+/);
     const control = this.getWorkExpArray.at(index).get('work_job_description');
     this.isUpdating = true;
-    this.errorMessages[index] = '';
+    // this.errorMessages[index] = '';
 
     if (words.length > 50) {
       let joinedText = words.slice(0, 50).join(' ');
       control?.setValue(joinedText, { emitEvent: false });
-      this.errorMessages[index] = 'Job Description exceeds the maximum word limit.';
+      // this.errorMessages[index] = 'Job Description exceeds the maximum word limit.';
       control?.setErrors({ maxWordsExceeded: true });
     } else {
       control?.setErrors(null);

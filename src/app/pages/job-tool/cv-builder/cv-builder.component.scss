@@ -1,3 +1,19 @@
+
+.slick-slide:not(.slick-center).slick-active .cvBuilderSampleImg img {
+    height: 275px; 
+    transform: scale(1);
+}
+
+.slick-slide.slick-active:nth-child(n+3):not(.slick-center) .cvBuilderSampleImg img {
+    height: 230px;
+    transform: scale(0.9);
+}
+
+.slick-slide:not(.slick-center):not(.slick-active) .cvBuilderSampleImg img {
+    height: 200px;
+    transform: scale(0.8);
+}
+
 ::ng-deep .slick-prev:before, ::ng-deep .slick-next:before {
     color: black !important;
     font-size: 50px;
@@ -19,20 +35,27 @@
 	height: 275px;  
 	transform: scale(1);  
 	transition: transform 0.3s ease, height 0.3s ease;
-  }
+}
 
-  .slick-center .center-button {
+.slick-center .center-button {
 	display: block;
-  }
+}
 
-  .slick-slide:not(.slick-center) .cvBuilderSampleImg img {
-	transform: scale(0.8);
-  }
-  
-  .slick-slide:nth-child(n+3):not(.slick-center) .cvBuilderSampleImg img {
-	transform: scale(0.6); 
-  }
-  
+.slick-slide:not(.slick-center) .cvBuilderSampleImg img {
+	transform: scale(0.9);
+}
+
+.slick-slide:nth-child(n+3):not(.slick-center) .cvBuilderSampleImg img {
+	transform: scale(0.8); 
+}
+
+.slider-carousel{
+	display: flex;
+    justify-content: center;
+    align-items: center; 
+    height: 50vh;
+}
+
 .cvBuilderSampleImg {
 	cursor: pointer;
 	margin: 5px;
