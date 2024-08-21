@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {LanguageHubDataService} from "../language-hub-data.service";
 import { Location } from "@angular/common";
 import {TranslateViewService} from "./translate-view.service";
-
+import {transliterate as tr} from 'transliteration'
 @Component({
     selector: 'uni-translate-view',
     templateUrl: './translate-view.component.html',
@@ -52,11 +52,13 @@ export class TranslateViewComponent implements OnInit {
             this.translateViewService.translate(text1, this.selectedLanguage).subscribe((response: any) => {
                 console.log(response)
                 this.text2 = response.data.translations[0].translatedText;
+                this.transliterate2 = tr(response.data.translations[0].translatedText);
             });
         }
         if (text2) {
             this.translateViewService.translate(text2, this.selectedLanguage).subscribe((response: any) => {
                 this.text4 = response.data.translations[0].translatedText;
+                this.transliterate4 = tr(response.data.translations[0].translatedText);
             });
         }
     }
@@ -72,19 +74,25 @@ export class TranslateViewComponent implements OnInit {
                 this.isPlaying2 = false;
                 this.isPlaying3 = false;
                 this.isPlaying4 = false;
+                this.isPlaying5 = false;
+                this.isPlaying6 = false;
             });
         });
     }
 
     text1: string = '';
     text2: string = '';
+    transliterate2: string = '';
     text3: string = '';
     text4: string = '';
+    transliterate4: string = '';
 
     isPlaying1: boolean = false;
     isPlaying2: boolean = false;
     isPlaying3: boolean = false;
     isPlaying4: boolean = false;
+    isPlaying5: boolean = false;
+    isPlaying6: boolean = false;
 
     togglePlayPause(textAreaNumber: number, content: any) {
         switch (textAreaNumber) {
@@ -102,6 +110,14 @@ export class TranslateViewComponent implements OnInit {
                 break;
             case 4:
                 this.isPlaying4 = !this.isPlaying4;
+                this.synthesizeSpeech(content)
+                break;
+            case 5:
+                this.isPlaying5 = !this.isPlaying5;
+                this.synthesizeSpeech(content)
+                break;
+            case 6:
+                this.isPlaying6 = !this.isPlaying6;
                 this.synthesizeSpeech(content)
                 break;
         }

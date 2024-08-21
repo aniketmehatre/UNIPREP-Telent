@@ -63,6 +63,7 @@
     "slick-carousel": "^1.8.1",
     "speak-tts": "^2.0.8",
     "subsink": "^1.0.2",
+    "transliteration": "^2.3.5",
     "tslib": "^2.4.1",
     "web-push": "^3.6.7",
     "word-diff": "^1.0.1",
