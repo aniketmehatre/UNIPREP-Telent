@@ -736,7 +736,13 @@ body {
 :host ::ng-deep .p-sidebar-footer {
     padding: 0px !important;
 }
-
+.deleteDivButton {
+	background-color: #d80027;
+	color: white;
+	padding: 5px 5px;
+	border: none;
+	border-radius: 50px;
+}
 // modern
 // modern
 #cv-preview-container {
@@ -757,10 +763,10 @@ body {
   }
   
   .horizontal-lineacmodern1 {
-	width: 106%;
+	width: 100%;
 	height: 5px;
 	top: 51%;
-	left: -10px;
+	left: 10px;
 	background-color: black;
   }
   
@@ -769,7 +775,6 @@ body {
 	height: 15px;
 	top: 15%;
 	left: -10px;
-	background-color: blue;
   }
   
   .customfontstyles {
@@ -800,7 +805,6 @@ body {
     height: 15px;
     bottom: 0px;
     right: -10px;
-	background-color: blue;
   }
   // acadamic
   #cv-preview-container {
@@ -824,7 +828,6 @@ body {
 	height: 5px;
 	top: 51%;
 	left: 0px;
-	background-color: black;
   }
   
   
@@ -840,7 +843,6 @@ body {
   
   .horizontal-lineacadamic1 {
 	position: absolute;
-	background-color: black;
   }
   
   .horizontal-lineacadamic1 {
@@ -857,7 +859,6 @@ body {
 }
 .vertical-line, .horizontal-line {
 	position: absolute;
-	background-color: #616C7B;
 	box-shadow:  0px 0px 1px 1px grey; 
 }
 .vertical-line {
@@ -867,10 +868,10 @@ body {
     top: -10px;
 }
 .horizontal-line {
-    width: 106%;
+	width: 104%;
     height: 1px;
     top: 50%;
-    left: -10px;
+    left: -2%;
 }
 .circle {
 	position: absolute;
@@ -888,7 +889,6 @@ body {
 }
 .vertical-line1, .horizontal-line1 {
 	position: absolute;
-	background-color: #616C7B;
 	box-shadow:  0px 0px 1px 1px grey; 
 }
 .vertical-line1 {
@@ -899,10 +899,10 @@ body {
 	box-shadow:  0px 0px 1px 1px grey; 
 }
 .horizontal-line1 {
-    width: 106%;
+    width: 104%;
     height: 1px;
     bottom: 25%;
-    left: -10px;
+    left: -2%;
 	box-shadow:  0px 0px 1px 1px grey; 
 }
 .circle1 {
@@ -934,7 +934,6 @@ body {
     left: 0;
     width: 100%; /* Full width of the container */
     height: 15px; /* Height of the footer */
-    background-color: #00939B; /* Background color of the footer */
 	border-radius: 0px 0px 8px 8px;
 }
 
@@ -943,3 +942,53 @@ body {
     padding-bottom: 20px; /* Adjust based on the height of the footer */
 }
 
+// creative
+.vertical-linecreative, .vertical-linecreative1, .vertical-line_right_topcreative, .vertical-line_right_bottomcreative {
+	position: absolute;
+	background-color: #404041;
+  }
+  
+  .vertical-linecreative1 {
+    width: 9px;
+    height: 70%;
+	left: 0%;
+	top: 30%; 
+  }
+  
+  .vertical-linecreative {
+    width: 9px;
+    height: 29%;
+	left: 0%;
+	bottom: 70%;
+  }
+  
+  .vertical-line_right_topcreative {
+    width: 9px;
+    height: 29%;
+    right: 0%;
+    bottom: 70%;
+  }
+  
+  .vertical-line_right_bottomcreative {
+    width: 9px;
+    height: 70%;
+    right: 0%;
+    top: 30%;
+  }
+  .horizontal-line-top, .horizontal-line-bottom {
+	position: absolute;
+	background-color: #404041;
+	height: 16px; /* Height of the horizontal line */
+	width: 100%;
+	left: 0px;
+    border-radius: 10px 10px 0px 0px;
+  }
+  
+  .horizontal-line-top {
+	top: 0;
+  }
+  
+  .horizontal-line-bottom {
+	bottom: 0;
+	background-color: #404041; /* Color for the bottom horizontal line */
+  }

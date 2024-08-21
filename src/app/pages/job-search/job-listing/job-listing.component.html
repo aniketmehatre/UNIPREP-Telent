@@ -194,59 +194,68 @@
                     <p *ngIf="count > 0">Total Jobs: {{ count }}</p>
                 </div>
             </div>
-            <div *ngFor="let job of jobs; let i = index" class="col-md-6 col-12 mb-3">
-                <div class="card scholarshiplistcard h-100">
-                    <div class="card-body">
+            <div *ngFor="let job of jobs; let i = index" class="col-md-4 col-12 mb-3">
+                <div class="card h-100">
+                    <div class="card-body p-0 m-0">
                         <div class="d-flex justify-content-start gap-2 mb-2">
                             <div class="d-flex flex-column h-100 w-100">
                                 <div class="job-card d-flex flex-column h-100 w-100">
                                     <div class="content flex-grow-1">
-                                        <div class="text-end">
-                                            <img [src]="selectedFlag"  alt="Uniprep" class="rounded-image"/>
-                                        </div>
-                                        <h5 class="uniprep-primary text-wrap mb-0">{{ job.title }}</h5>
-                                        <small style="color: lightslategrey">{{ job.company.display_name }} ·
-                                            {{ job.location.display_name }}</small>
-                                        <div class="flex-column lh-lg mb-2">
-                                            <div class="row">
-                                                <div class="col" *ngIf="job.contract_type">
-                                                    <small><i class="fa-regular fa-briefcase"></i>&nbsp;
-                                                        {{
-                                                            job.contract_type ? job.contract_type : job.contract_time
-                                                        }}</small>
-                                                </div>
-                                                <div class="col">
-                                                    <small></small>
+                                        <div class="row">
+                                            <div class="col-10">
+                                                <div class="row">
+                                                    <h5 class="uniprep-primary text-wrap mb-0">{{ job.title }}</h5>
+                                                    <small style="color: lightslategrey">{{ job.company.display_name }} ·
+                                                        {{ job.location.display_name }}</small>
                                                 </div>
                                             </div>
-                                            <div class="row" *ngIf="job.salary_max || job.salary_min">
-                                                <div class="col">
-                                                    <small> Salary: {{ job.salary_min }} - {{ job.salary_max }}</small>
+                                            <div class="col-2">
+                                                <div class="text-end">
+                                                    <img [src]="selectedFlag"  alt="Uniprep" class="rounded-image"/>
                                                 </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col">
-                                                    <!-- Optional content -->
-                                                </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col">
-                                                </div>
-                                                <div class="col text-end">
-<!--                                                    <small>&nbsp;-->
-<!--                                                        {{ job.created | timeAgo }}</small>-->
-                                                </div>
+
                                             </div>
                                         </div>
+<!--                                        <div class="flex-column lh-lg mb-2">-->
+<!--                                            <div class="row">-->
+<!--                                                <div class="col" *ngIf="job.contract_type">-->
+<!--                                                    <small><i class="fa-regular fa-briefcase"></i>&nbsp;-->
+<!--                                                        {{-->
+<!--                                                            job.contract_type ? job.contract_type : job.contract_time-->
+<!--                                                        }}</small>-->
+<!--                                                </div>-->
+<!--                                                <div class="col">-->
+<!--                                                    <small></small>-->
+<!--                                                </div>-->
+<!--                                            </div>-->
+<!--                                            <div class="row" *ngIf="job.salary_max || job.salary_min">-->
+<!--                                                <div class="col">-->
+<!--                                                    <small> Salary: {{ job.salary_min }} - {{ job.salary_max }}</small>-->
+<!--                                                </div>-->
+<!--                                            </div>-->
+<!--                                            <div class="row">-->
+<!--                                                <div class="col">-->
+<!--                                                    &lt;!&ndash; Optional content &ndash;&gt;-->
+<!--                                                </div>-->
+<!--                                            </div>-->
+<!--                                            <div class="row">-->
+<!--                                                <div class="col">-->
+<!--                                                </div>-->
+<!--                                                <div class="col text-end">-->
+<!--&lt;!&ndash;                                                    <small>&nbsp;&ndash;&gt;-->
+<!--&lt;!&ndash;                                                        {{ job.created | timeAgo }}</small>&ndash;&gt;-->
+<!--                                                </div>-->
+<!--                                            </div>-->
+<!--                                        </div>-->
                                     </div>
-                                    <div class="button-container mt-auto ustify-content-end gap-3">
+                                    <div class="button-container mt-auto justify-content-start gap-3">
                                         <button class="text-small btn btn-primary btn-rounded px-3"
                                                 (click)="onClickDetails(job)">Details
                                         </button>
                                         <button class="text-small btn btn-dark btn-rounded px-3"
                                                 (click)="onClickApply(job, 'shortlist')">Shortlist
                                         </button>
-                                        <button class="text-small btn btn-danger btn-rounded px-3"
+                                        <button class="text-small btn btn-secondary btn-rounded px-3"
                                                 (click)="onClickApply(job,'apply')">Apply
                                         </button>
                                     </div>

@@ -1,7 +1,7 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Router } from "@angular/router";
-import { DataService } from 'src/app/data.service';
+import {Component, OnInit} from '@angular/core';
+import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {Router} from "@angular/router";
+import {DataService} from 'src/app/data.service';
 import {MessageService} from "primeng/api";
 import {City} from "../../../@Models/cost-of-living";
 import {JobSearchService} from "../job-search.service";
@@ -63,6 +63,7 @@ export class JobHuntComponent implements OnInit {
       // //   this.cities.push({ ...city, label: city.city_name + ', ' + city.country_name })
       // // });
     });
+
   }
 
   resetSearch() {
