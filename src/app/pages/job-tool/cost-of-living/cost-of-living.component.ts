@@ -43,8 +43,8 @@ export class CostOfLivingComponent implements OnInit {
   }
 
   compare() {
-    var sourceCityDetails = this.cities.find(city => city.city_id === this.form.value.sourceCity&&city.country_name==this.sourceCountry);
-    var targetCityDetails = this.cities.find(city => city.city_id === this.form.value.targetCity&&city.country_name==this.targetCountry);
+    var sourceCityDetails = this.cities.find(city => city.city_id === this.form.value.sourceCity);
+    var targetCityDetails = this.cities.find(city => city.city_id === this.form.value.targetCity);
      
     console.log(sourceCityDetails);
     console.log(targetCityDetails);

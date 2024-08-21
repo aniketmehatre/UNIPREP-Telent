@@ -3,9 +3,6 @@
     border-radius: 10px;
     color: white;
     font-size: 16px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
 }
 
 .outline-card,
@@ -14,7 +11,9 @@
     border-radius: 10px;
     padding: 10px;
 }
-
+.pr-10{
+    padding-right: 10px;
+}
 @media (min-width: 768px) {
 
     .headerCard {
@@ -24,13 +23,20 @@
             height: 100%;
         }
     }
-
+    .costofliving {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
 
 }
 
 @media (max-width: 767px) {
     .gap-two {
         gap: 0.5rem;
+    }
+    .flagIconDiv{
+        display:none;
     }
 }
 
@@ -100,4 +106,9 @@ img {
     width:35px !important;
     height:35px !important;
     border-radius: 20px !important;
+    object-fit: cover;
+}
+.flagIconDiv{
+    position:absolute;
+    top:-40px;
 }

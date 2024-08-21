@@ -11,7 +11,7 @@ export class CostOfLivingService {
 
     calculatePrices(cityDetails: any) {
         const headers = new HttpHeaders().set("X-RapidApi-Key", "09dff7af89msh193627b79d4f967p12d174jsn905ad1176841");
-        if (cityDetails.city_name==null) {
+        if (cityDetails.city_name=="") {
             return this.http.get<CostOfLiving>(`https://cost-of-living-and-prices.p.rapidapi.com/prices?country_name=${cityDetails.country_name}`, { headers: headers });
         }
         return this.http.get<CostOfLiving>(`https://cost-of-living-and-prices.p.rapidapi.com/prices?city_name=${cityDetails.city_name}&country_name=${cityDetails.country_name}`, { headers: headers });

@@ -65,7 +65,7 @@
                 </ng-template>
             </p-dropdown>
             <button class="btn btn-primary h6 ps-3 pe-3 pt-2 pb-2 br-20" type="submit"
-                [disabled]="form.value.sourceCity==null || form.value.targetCity==null">Compare
+                [disabled]="form.value.sourceCity=='' || form.value.targetCity==''">Compare
                 <i class="pi pi-sync"></i> </button>
         </form>
     </div>
