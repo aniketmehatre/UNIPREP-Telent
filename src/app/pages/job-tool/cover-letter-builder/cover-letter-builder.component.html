@@ -162,7 +162,7 @@
 							<label class="form-label labelFont">Your Name</label>
 							<div class="form-group">
 								<div class="mb-3">
-									<input class="w-100" type="text" placeholder="Full Name" formControlName="user_name"
+									<input class="w-100" type="text" placeholder="Your Full Name" formControlName="user_name"
 										pInputText />
 									<div *ngIf="submitted && f['user_name'].errors" class="text-danger text-xs">
 										<div style="margin-left:10px;" *ngIf="f['user_name'].errors">Required
@@ -175,7 +175,7 @@
 							<label class="form-label labelFont">Job Title</label>
 							<div class="form-group">
 								<div class="mb-3">
-									<input class="w-100" type="text" placeholder="your Job Title"
+									<input class="w-100" type="text" placeholder="Your Job Title"
 										formControlName="user_job_title" pInputText />
 										<div *ngIf="submitted && f['user_job_title'].errors" class="text-danger text-xs">
 											<div style="margin-left:10px;" *ngIf="f['user_job_title'].errors">Required
@@ -260,7 +260,7 @@
 							<div class="row">
 								<div class="form-group">
 									<div class="mb-3">
-										<input class="w-100" type="text" placeholder="Start Year"
+										<input class="w-100" type="text" placeholder="Manger Name"
 											formControlName="managername" pInputText />
 											<div *ngIf="submitted && f['managername'].errors" class="text-danger text-xs">
 												<div style="margin-left:10px;" *ngIf="f['managername'].errors">Required
@@ -288,7 +288,7 @@
 							<label class="form-label labelFont">Job Position</label>
 							<div class="form-group">
 								<div class="mb-3">
-									<input class="w-100" type="text" placeholder="your Degree"
+									<input class="w-100" type="text" placeholder="Your Job Position"
 										formControlName="jobposition" pInputText />
 										<div *ngIf="submitted && f['jobposition'].errors" class="text-danger text-xs">
 											<div style="margin-left:10px;" *ngIf="f['jobposition'].errors">Required
@@ -302,7 +302,7 @@
 							<label class="form-label labelFont">How did you get to know about us</label>
 							<div class="form-group">
 								<div class="mb-3">
-									<input class="w-100" type="text" placeholder="Achieved Score"
+									<input class="w-100" type="text" placeholder="About as"
 										formControlName="getknowaboutas" pInputText />
 										<div *ngIf="submitted && f['getknowaboutas'].errors" class="text-danger text-xs">
 											<div style="margin-left:10px;" *ngIf="f['getknowaboutas'].errors">Required
@@ -322,7 +322,7 @@
                                             style="background-color: #9bc329;">Generate &nbsp;<i
                                                 class="fa-solid fa-line-columns trashIcon"
                                                 style="background-color: #9bc329;"></i></button>		
-									<p-editor class="mt-2" formControlName="user_summary" placeholder="About yourself"></p-editor>
+									<p-editor class="mt-2" formControlName="user_summary" placeholder="Generate Your Content"></p-editor>
 									<div *ngIf="submittedsummery && f['user_summary'].errors" class="text-danger text-xs">
 										<div style="margin-left:10px;" *ngIf="f['user_summary'].errors">Required
 										</div>
@@ -491,12 +491,12 @@
 			<div class="horizontal-lineacmodern2" [ngStyle]="{'background-color': selectedThemeColor}"></div>
 		</div>
 
-		<div class="mt-5 customfontstyles" style=" padding:5px; font-family:'Times New Roman', Times, serif; margin-left: 2px;">
+		<div class="mt-5 customfontstyles fontsizeset" style=" padding:5px; font-family:'Times New Roman', Times, serif; margin-left: 2px;">
 			<span>
 				<h1 class="customfontstylesname">{{ f["user_name"].value }}</h1>
 			</span>
 
-			<p>&nbsp;{{ f["user_job_title"].value }}</p> <br><br>
+			<p class="profession upperCase">&nbsp;{{ f["user_job_title"].value }}</p> <br><br>
 			<p><span>Dear {{f["managername"].value }},</span></p><br>
 			<p><span [innerHTML]="f['user_summary'].value"></span></p>
 			<br>
@@ -521,12 +521,12 @@
 			<div class="horizontal-lineacadamic" [ngStyle]="{'background-color': selectedThemeColor}"></div>
 		</div>
 
-		<div class="mt-5 customfontstyles" style=" padding:5px; font-family:'Times New Roman', Times, serif; margin-left: 2px;">
+		<div class="mt-5 customfontstyles fontsizeset" style=" padding:5px; font-family:'Times New Roman', Times, serif; margin-left: 2px;">
 			<span>
 				<h1>{{ f["user_name"].value }}</h1>
 			</span>
 
-			<p>&nbsp;{{ f["user_job_title"].value }}</p> <br><br>
+			<p class="profession upperCase">&nbsp;{{ f["user_job_title"].value }}</p> <br><br>
 			<p><span>Dear {{f["managername"].value }},</span></p><br>
 			<p><span [innerHTML]="f['user_summary'].value"></span></p>
 			<br>
@@ -551,7 +551,7 @@
 		<div class="vertical-line_right_bottomcreative"></div>
 		<div class="horizontal-line-top" [ngStyle]="{'background-color': selectedThemeColor}"></div>
 		<div class="horizontal-line-bottom"></div>
-		<div class="customfontstyles" style=" padding:7px; margin: 0px; margin-top: 15px; margin-left: 2px;">
+		<div class="customfontstyles fontsizeset" style=" padding:7px; margin: 0px; margin-top: 15px; margin-left: 2px;">
 			<h1 class="userName upperCase">{{
 				f["user_name"].value }}</h1>
 			<p class="profession upperCase">{{ f["user_job_title"].value }}</p>
@@ -578,7 +578,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="mt-5 customfontstyles" style=" padding:5px; margin: auto; margin-left: 2px;">
+		<div class="mt-5 customfontstyles fontsizeset" style=" padding:5px; margin: auto; margin-left: 2px;">
 			<br>
 			<p><span>Dear {{f["managername"].value }},</span></p><br>
 			<br>
@@ -603,13 +603,13 @@
 			<div class="circle"></div>
 		</div>
 
-		<div class="customfontstyles"
+		<div class="customfontstyles fontsizeset"
 			style=" padding:5px; font-family:'Times New Roman', Times, serif; margin-top: 25px; margin-left: 2px;">
 			<span>
 				<h1>{{ f["user_name"].value }}</h1>
 			</span>
 
-			<p>&nbsp;{{ f["user_job_title"].value }}</p> <br><br>
+			<p class="profession upperCase">&nbsp;{{ f["user_job_title"].value }}</p> <br><br>
 			<p><span>Dear {{f["managername"].value }},</span></p><br>
 			<p><span [innerHTML]="f['user_summary'].value"></span></p>
 			<br>

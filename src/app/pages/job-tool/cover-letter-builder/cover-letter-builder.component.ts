@@ -85,19 +85,19 @@ export class CoverLetterBuilderComponent implements OnInit {
   constructor(private toaster: MessageService, private fb: FormBuilder, private resumeService: CourseListService, private http: HttpClient) {
 
     this.resumeFormInfoData = this.fb.group({
-      user_name: ['vivek kaliyaperumal', [Validators.required]],
-      user_job_title: ['Full Stack Developer', [Validators.required]],
-      user_email: ['vivek@uniabroad.co.in', [Validators.required]],
-      user_location: ['Mysore, Karnataka', [Validators.required]],
-      user_phone: ['+91 9524999563', [Validators.required]],
-      user_linkedin: ['Vivek Kaliyaperumal'],
-      user_website: ['www.ownwebsite.com'],
+      user_name: ['', [Validators.required]],
+      user_job_title: ['', [Validators.required]],
+      user_email: ['', [Validators.required]],
+      user_location: ['', [Validators.required]],
+      user_phone: ['', [Validators.required]],
+      user_linkedin: [''],
+      user_website: [''],
       user_summary: ['', [Validators.required]],
-      edu_college_name: ['Srinivasan Engg College',[Validators.required]],
-      edu_location: ['Perambalur',[Validators.required]],
-      jobposition: ['Bachelor of Engineering in C.S',[Validators.required]],
-      managername: ['siva',[Validators.required]],
-      getknowaboutas: ['65',[Validators.required]],
+      edu_college_name: ['',[Validators.required]],
+      edu_location: ['',[Validators.required]],
+      jobposition: ['',[Validators.required]],
+      managername: ['',[Validators.required]],
+      getknowaboutas: ['',[Validators.required]],
     });
 
   }
