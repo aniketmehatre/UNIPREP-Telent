@@ -2,7 +2,7 @@
     <form [formGroup]="fG" (ngSubmit)="onSubmit()">
         <div class="form-group">
             <div class="row justify-content-center align-items-center mt-2">
-                <div class="col-6">
+                <div class="col-md-6 col-lg-4">
                             <span class="p-input-icon-left w-100">
                                 <i class="pi pi-search"></i>
                                 <input type="text" formControlName="what_and"
@@ -10,7 +10,7 @@
                                        pInputText placeholder="  Search by Job Title, Skill, Company"/>
                             </span>
                 </div>
-                <div class="col-3">
+                <div class="col-md-3 col-lg-4">
                     <p-dropdown [options]="cities"
                                 optionLabel="city_name"
                                 formControlName="countryCode"
@@ -37,7 +37,7 @@
                         </ng-template>
                     </p-dropdown>
                 </div>
-                <div class="col-3">
+                <div class="col-md-3 col-lg-4">
                     <button class="btn btn-primary text-small btn-rounded" type="submit">
                         Search <span class="searchIcon"><i class="fa-regular fa-magnifying-glass"></i></span>
                     </button>

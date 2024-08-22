@@ -71,10 +71,16 @@ export class PagesComponent implements OnInit, OnDestroy {
                 ||val.url.includes('termsandcondition')||val.url.includes('privacypolicy')||val.url.includes('refundpolicy')
                 ||val.url.includes('cancellationpolicy') ||val.url.includes('export-credit') ||val.url.includes('cv-builder')){
                     this.showSearch = false;
-                    this.isFooterBoxVisible = false;
+                    //this.isFooterBoxVisible = false;
                 }else{
                     this.showSearch = true;
+                    //this.isFooterBoxVisible = true;
+                }
+
+                if(val.url.includes('dashboard')){
                     this.isFooterBoxVisible = true;
+                }else {
+                    this.isFooterBoxVisible = false
                 }
             }
         })
