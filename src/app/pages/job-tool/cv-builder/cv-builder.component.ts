@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { MessageService } from 'primeng/api';
+import { MessageService, ConfirmationService } from 'primeng/api';
 import { FormBuilder, FormGroup, FormArray, Validators, AbstractControl } from "@angular/forms";
 import { CourseListService } from '../../course-list/course-list.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
@@ -90,7 +90,7 @@ export class CvBuilderComponent implements OnInit {
   };
 
 
-  constructor(private toaster: MessageService, private fb: FormBuilder, private resumeService: CourseListService, private http: HttpClient, private router: Router) {
+  constructor(private toaster: MessageService, private fb: FormBuilder, private resumeService: CourseListService, private http: HttpClient, private router: Router, private confirmService: ConfirmationService) {
 
     this.resumeFormInfoData = this.fb.group({
       selected_exp_level: ['1'],
@@ -895,4 +895,29 @@ export class CvBuilderComponent implements OnInit {
     control?.updateValueAndValidity();
     this.isUpdating = false;
   }
+
+  confirm(event: Event, resumeLink: string, resumeId: number) {
+    console.log(resumeLink, "resume link");
+    console.log(resumeId, "resume id");
+    this.confirmService.confirm({
+        target: event.target as EventTarget, // Use type assertion here
+        message: 'Are you sure that you want to proceed?',
+        icon: 'pi pi-exclamation-triangle',
+        accept: () => {
+          const data = {
+            resumeLink: resumeLink,
+            resumeId: resumeId,
+          };
+          this.resumeService.deleteResumes(data).subscribe(res => {
+            console.log(res);
+            this.previousResumes();
+            this.toaster.add({ severity: res.status, summary: res.status, detail: res.message });
+          });
+        },
+        reject: () => {
+          this.toaster.add({ severity: "error", summary: "Error", detail: "you declined." });
+        }
+    });
+  }
+
 }
