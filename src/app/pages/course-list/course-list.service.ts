@@ -80,4 +80,11 @@ export class CourseListService {
       headers: headers,
     });
   }
+
+  deleteResumes(data: any){
+    const headers = new HttpHeaders().set("Accept", "application/json");
+    return this.http.post<any>(environment.ApiUrl + "/deleteUserResumes", data ,{
+      headers: headers,
+    });
+  }
 }

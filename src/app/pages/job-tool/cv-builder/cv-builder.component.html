@@ -6,18 +6,9 @@
                 <div class="cvSampleImg d-flex flex-wrap">
                     <div class="flex-column" *ngFor="let resumes of resumeHistory; let i = index">
                         <pdf-viewer [src]="resumes.pdf_name" [autoresize]="true" [render-text]="true" [show-all]="false" [original-size]="false"></pdf-viewer>
-                        <!-- <img *ngIf="resumes.template_name == 'Traditional'"
-                            src="https://api.uniprep.ai/uniprepapi/storage/app/public/job-search/Traditional.webp" />
-                        <img *ngIf="resumes.template_name == 'Modern'"
-                            src="https://api.uniprep.ai/uniprepapi/storage/app/public/job-search/Modern.webp" />
-                        <img *ngIf="resumes.template_name == 'Creative'"
-                            src="https://api.uniprep.ai/uniprepapi/storage/app/public/job-search/Creative.webp" />
-                        <img *ngIf="resumes.template_name == 'Functional'"
-                            src="https://api.uniprep.ai/uniprepapi/storage/app/public/job-search/functional.webp" />
-                        <img *ngIf="resumes.template_name == 'Academic'"
-                            src="https://api.uniprep.ai/uniprepapi/storage/app/public/job-search/academic.webp" /> -->
-                        <i class="fa-solid fa-download HistoryDownloadIcon"
-                            (click)="downloadOldResume(resumes.pdf_name)"></i>
+                        <i class="fa-solid fa-trash HistoryDeleteIcon" (click)="confirm($event,resumes.pdf_name, resumes.id)"></i>
+                        <p-confirmPopup></p-confirmPopup>
+                        <i class="fa-solid fa-download HistoryDownloadIcon" (click)="downloadOldResume(resumes.pdf_name)"></i>
                         <p>Version {{ i+1 }}</p>
                         <small>{{ resumes.created_at }}</small>
                     </div>
@@ -157,6 +148,7 @@
                 </div>
             </div>
             <!-- <div style="width: 20%;"></div> -->
+            <!-- style="visibility:hidden;" -->
             <div class="d-flex justify-content-between" style="height: 5%;">
                 <button pButton type="button" (click)="previous()" style="visibility:hidden;"
                     class="text-white p-ripple p-button-rounded p-button-info-prev p-button p-component p-2"

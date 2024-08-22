@@ -26,6 +26,8 @@ import {PaginatorModule} from "primeng/paginator";
 import { SlickCarouselModule } from 'ngx-slick-carousel';
 import {StepsModule} from 'primeng/steps';
 import { PdfViewerModule } from 'ng2-pdf-viewer';
+import { ConfirmPopupModule } from 'primeng/confirmpopup';
+import {ConfirmationService} from 'primeng/api';
 
 @NgModule({
   declarations: [
@@ -59,7 +61,9 @@ import { PdfViewerModule } from 'ng2-pdf-viewer';
     SlickCarouselModule,
     StepsModule,
     PdfViewerModule,
+    ConfirmPopupModule,
   ],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA]
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
+  providers: [ConfirmationService], 
 })
 export class JobToolModule{ }
