@@ -23,6 +23,7 @@ export class ComparisionComponent implements OnInit {
   iconsList: GoodWithIcon[] = [];
   sourceFlag: string = "";
   targetFlag: string = "";
+  totalDiffPercentage: string = '';
   constructor(
     private costOfLivingService: CostOfLivingService,
     private toaster: MessageService
@@ -65,17 +66,17 @@ export class ComparisionComponent implements OnInit {
     this.targetPriceTotal = 0;
     this.categorywisePrices = [];
     this.sourceCountryPrices.prices.forEach((price: Price) => {
-      if (price.usd && price.usd.avg) {
-        if (this.sourceCountryRate != '') {
-          price.rate = Number(price.usd.avg) * Number(this.sourceCountryRate);
-        }
-        price.inr = Number(price.usd.avg) * Number(this.inrRate);
-        this.sourcePriceTotal += Number(price.usd.avg);
-      }
       this.targetCountryPrices.prices.forEach((targetCountryPrice: Price) => {
         if (price.good_id == targetCountryPrice.good_id && targetCountryPrice.usd?.avg) {
           if (this.targetCountryRate != '') {
             targetCountryPrice.rate = Number(targetCountryPrice.usd?.avg) * Number(this.targetCountryRate);
+          }
+          if (price.usd && price.usd.avg) {
+            if (this.sourceCountryRate != '') {
+              price.rate = Number(price.usd.avg) * Number(this.sourceCountryRate);
+            }
+            price.inr = Number(price.usd.avg) * Number(this.inrRate);
+            this.sourcePriceTotal += Number(price.usd.avg);
           }
           const itemIcon = this.iconsList.find((item: GoodWithIcon) => Number(item.good_id) == price.good_id)?.icon;
           targetCountryPrice.inr = Number(targetCountryPrice.usd?.avg) * Number(this.inrRate);
@@ -94,14 +95,17 @@ export class ComparisionComponent implements OnInit {
             }
           }
           this.targetPriceTotal += Number(targetCountryPrice?.usd.avg);
+          this.targetPriceTotal > this.sourcePriceTotal ? this.getDiffrencePercentage(this.targetPriceTotal, this.sourcePriceTotal) : this.getDiffrencePercentage(this.sourcePriceTotal, this.targetPriceTotal);
         }
       });
     });
     this.sortCategorywisePrices();
   }
   getDiffrencePercentage(original_value: number, new_value: number) {
+    console.log(original_value, new_value);
     const difference = original_value - new_value;
-    return (difference / original_value) * 100
+    const avg = (original_value + new_value) / 2
+    this.totalDiffPercentage = ((difference / avg) * 100).toString();
   }
 
   // addMore(price: Price) {

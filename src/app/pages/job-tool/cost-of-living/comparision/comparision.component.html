@@ -5,8 +5,7 @@
                 Cost of Living In <span
                     *ngIf="sourceCountryPrices.city_name!=null">&nbsp;{{sourceCountryPrices.city_name}},</span>
                 {{sourceCountryPrices.country_name}} is
-                {{ targetPriceTotal > sourcePriceTotal ?(getDiffrencePercentage(targetPriceTotal, sourcePriceTotal) |
-                number: '1.2-2') :(getDiffrencePercentage(sourcePriceTotal, targetPriceTotal) | number: '1.2-2')}}%
+                {{ totalDiffPercentage |number: '1.2-2'}}%
                 {{targetPriceTotal>sourcePriceTotal?'lower':'greater'}} than in <span
                     *ngIf="targetCountryPrices.city_name!=null">&nbsp;{{targetCountryPrices.city_name}},</span>
                 {{targetCountryPrices.country_name}}.
