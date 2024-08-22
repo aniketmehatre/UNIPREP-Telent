@@ -45,7 +45,7 @@ export class CostOfLivingComponent implements OnInit {
   compare() {
     var sourceCityDetails = this.cities.find(city => city.city_id === this.form.value.sourceCity);
     var targetCityDetails = this.cities.find(city => city.city_id === this.form.value.targetCity);
-     
+
     console.log(sourceCityDetails);
     console.log(targetCityDetails);
     this.costOfLivingService.calculatePrices(sourceCityDetails).subscribe(response => {
@@ -77,15 +77,34 @@ export class CostOfLivingComponent implements OnInit {
 
   customFilterFunction(typeOfField: string) {
     if (typeOfField == 'source') {
+      if(this.form.get('sourceFilter')?.value===""){
+        this.sourceCities = this.cities;
+        return;
+      }
       this.sourceCities = this.cities.filter(city =>
         city?.city_name?.toLowerCase().includes(this.form.get('sourceFilter')?.value) || city.country_name.toLowerCase().includes(this.form.get('sourceFilter')?.value)
       );
+      const sourceCountries = this.sourceCities.filter(city => city.city_name == '');
+      sourceCountries.forEach(city=>{
+        this.sourceCities.pop();
+      });
+      this.sourceCities.unshift(...sourceCountries);
+      return;
+    }
+    if(this.form.get('targetFilter')?.value===""){
+      this.targetCities = this.cities;
       return;
     }
     this.targetCities = this.cities.filter(city =>
       city?.city_name.toLowerCase().includes(this.form.get('targetFilter')?.value) || city.country_name.toLowerCase().includes(this.form.get('targetFilter')?.value)
     );
+    const targetCountries = this.targetCities.filter(city => city.city_name == '');
+    targetCountries.forEach(city=>{
+      this.targetCities.pop();
+    });
+    this.targetCities.unshift(...targetCountries);
   }
+
   cityChange(typeOfField: string, cityDetails: any) {
     if (typeOfField == 'source') {
       this.sourceCountry = cityDetails.country_name;
