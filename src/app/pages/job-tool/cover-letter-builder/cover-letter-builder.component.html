@@ -314,14 +314,16 @@
 						<div class="col-md-12">
 							<label class="form-label labelFont">Cover Letter Section</label>
 							<div class="form-group">
-								<div class="mb-3" style="text-align: right;">
+								<div style="text-align: right; margin-bottom: 4px;">
+									<button  pButton type="button" class="deleteDivButton" (click)="chatGPTIntegration()"
+									style="background-color: #9bc329;">Generate &nbsp;<i
+										class="fa-solid fa-line-columns trashIcon"
+										style="background-color: #9bc329;"></i></button>	
+								</div>
+								<div class="mb-3">
 									<!-- <button pButton type="button" (click)="chatGPTIntegration()"
 										class="text-white p-ripple p-button-rounded p-button-info-prev p-button p-component p-2"><i
-											class="fa fa-arrow-left exhausted-plan-icon-prev"></i> Generate</button> -->
-											<button  pButton type="button" class="deleteDivButton" (click)="chatGPTIntegration()"
-                                            style="background-color: #9bc329;">Generate &nbsp;<i
-                                                class="fa-solid fa-line-columns trashIcon"
-                                                style="background-color: #9bc329;"></i></button>		
+											class="fa fa-arrow-left exhausted-plan-icon-prev"></i> Generate</button> -->	
 									<p-editor class="mt-2" formControlName="user_summary" placeholder="Generate Your Content"></p-editor>
 									<div *ngIf="submittedsummery && f['user_summary'].errors" class="text-danger text-xs">
 										<div style="margin-left:10px;" *ngIf="f['user_summary'].errors">Required
