@@ -12,11 +12,11 @@
                 </div>
                 <div class="col-md-3 col-lg-4">
                     <p-dropdown [options]="cities"
-                                optionLabel="city_name"
+                                optionLabel="name"
                                 formControlName="countryCode"
                                 placeholder="Location"
                                 [filter]="true"
-                                filterBy="city_name,country_name"
+                                filterBy="name"
                                 [showClear]="true"
                                 [appendTo]="'body'"
                                 [style]="{'minWidth': '100%'}"
@@ -26,13 +26,13 @@
                         <ng-template pTemplate="selectedItem" let-selectedOption>
                             <div class="d-flex align-items-center gap-2">
                                 <img [src]="selectedOption.flag" alt="Flag"/>
-                                <div>{{ selectedOption.city_name }}, {{ selectedOption.country_name }}</div>
+                                <div>{{ selectedOption.name }}{{ selectedOption.city_name ? ', '+selectedOption.country_name : ''}}</div>
                             </div>
                         </ng-template>
                         <ng-template let-country pTemplate="item">
                             <div class="d-flex align-items-center gap-2">
                                 <img [src]="country.flag" alt="Flag"/>
-                                <div>{{ country.city_name }}, {{ country.country_name }}</div>
+                                <div>{{ country.name }}{{ country.city_name ? ', '+country.country_name : ''}}</div>
                             </div>
                         </ng-template>
                     </p-dropdown>
@@ -66,21 +66,21 @@
                             <span class="mandatory">*</span></label>
                         <div class="form-group">
                             <div class="mb-3">
-                                <p-dropdown [options]="cities" styleClass="w-100" optionLabel="city_name"
-                                            formControlName="countryCode" filterBy="city_name,country_name"
+                                <p-dropdown [options]="cities" styleClass="w-100" optionLabel="name"
+                                            formControlName="countryCode" filterBy="name"
                                             placeholder="Source Country" [filter]="true"
                                             [showClear]="true" [appendTo]="'body'" style="width: 100% !important;"
                                             class="">
                                     <ng-template pTemplate="selectedItem" let-selectedOption>
                                         <div class="d-flex align-items-center gap-2">
-                                            <img [src]="selectedOption.flag"/>
-                                            <div>{{ selectedOption.city_name }}, {{ selectedOption.country_name }}</div>
+                                            <img [src]="selectedOption.flag" alt="Flag"/>
+                                            <div>{{ selectedOption.name }}{{ selectedOption.city_name ? ', '+selectedOption.country_name : ''}}</div>
                                         </div>
                                     </ng-template>
                                     <ng-template let-country pTemplate="item">
                                         <div class="d-flex align-items-center gap-2">
-                                            <img [src]="country.flag" [alt]="country.country_name"/>
-                                            <div>{{ country.city_name }}, {{ country.country_name }}</div>
+                                            <img [src]="country.flag" alt="Flag"/>
+                                            <div>{{ country.name }}{{ country.city_name ? ', '+country.country_name : ''}}</div>
                                         </div>
                                     </ng-template>
                                 </p-dropdown>

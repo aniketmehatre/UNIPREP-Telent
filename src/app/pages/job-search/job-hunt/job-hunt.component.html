@@ -7,7 +7,7 @@
         <form [formGroup]="fG" (ngSubmit)="onSubmit()">
             <div class="form-group">
                 <div class="row justify-content-center align-items-center text-center mt-2">
-                    <div class="col-12 col-md-6 col-lg-5 mb-2 mb-md-0">
+                    <div class="col-md-6 col-lg-5 mb-2 mb-md-0">
                         <span class="p-input-icon-left w-100">
                             <i class="pi pi-search"></i>
                             <input type="text" formControlName="what_and"
@@ -15,13 +15,13 @@
                                    pInputText placeholder="  Search by Job Title, Skill, Company"/>
                         </span>
                     </div>
-                    <div class="col-12 col-md-4 col-lg-3 mb-2 mb-md-0">
+                    <div class="col-md-4 col-lg-3 mb-2 mb-md-0">
                         <p-dropdown [options]="cities"
-                                    optionLabel="city_name"
+                                    optionLabel="name"
                                     formControlName="countryCode"
                                     placeholder="Location"
                                     [filter]="true"
-                                    filterBy="city_name,country_name"
+                                    filterBy="name"
                                     [showClear]="true"
                                     [appendTo]="'body'"
                                     [style]="{'minWidth': '100%'}"
@@ -29,18 +29,18 @@
                             <ng-template pTemplate="selectedItem" let-selectedOption>
                                 <div class="d-flex align-items-center gap-2">
                                     <img [src]="selectedOption.flag" alt="Flag"/>
-                                    <div>{{ selectedOption.city_name }}, {{ selectedOption.country_name }}</div>
+                                    <div>{{ selectedOption.name }}{{ selectedOption.city_name ? ', '+selectedOption.country_name : ''}}</div>
                                 </div>
                             </ng-template>
                             <ng-template let-country pTemplate="item">
                                 <div class="d-flex align-items-center gap-2">
                                     <img [src]="country.flag" alt="Flag"/>
-                                    <div>{{ country.city_name }}, {{ country.country_name }}</div>
+                                    <div>{{ country.name }}{{ country.city_name ? ', '+country.country_name : ''}}</div>
                                 </div>
                             </ng-template>
                         </p-dropdown>
                     </div>
-                    <div class="col-12 col-md-8 col-lg-4 text-start mt-2 mt-lg-0">
+                    <div class="col-md-8 col-lg-4 text-start mt-2 mt-lg-0">
                        <div class="row">
                            <div class="col text-center">
                                <button class="btn btn-primary text-small btn-rounded p-2 w-100" type="submit">
