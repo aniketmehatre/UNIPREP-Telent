@@ -15,10 +15,7 @@
                 </div>
             </div>
             <div class="row justify-content-center">
-                <div class="col-md-4 mt-5">
-                    <button class="createResumeButton" (click)="next()">Create your Resume
-                        &nbsp;&nbsp;&nbsp;<i class="fa-solid fa-arrow-right tickIcon"></i></button>
-                </div>
+                <button class="createResumeButton" (click)="next()">Create your Resume &nbsp;&nbsp;&nbsp;<i class="fa-solid fa-arrow-right tickIcon"></i></button>
             </div>
         </div>
     </div>
@@ -110,9 +107,6 @@
 					class="fa-solid fa-arrow-right tickIcon"></i></button>
 		</div>
 	</div> -->
-<!-- <div class="ma-fix"> -->
-<!-- </div> -->
-<!-- </div> -->
 
 <div class="container-fluid h-100" *ngIf="activePageIndex == 3" style="overflow-y: auto;">
     <div class="row justify-content-center">
@@ -124,20 +118,7 @@
                     <button class="downloadButton" (click)="downloadResume()">Download &nbsp;&nbsp;&nbsp;<i
                             class="fa-solid fa-download tickIcon"></i></button>
                 </div>
-                <!-- <div class="cvBuilderSampleImg" style="width: auto;">
-                    <img *ngIf="selectedResumeLevel == 'Traditional'"
-                        src="https://api.uniprep.ai/uniprepapi/storage/app/public/job-search/Traditional.webp" />
-                    <img *ngIf="selectedResumeLevel == 'Modern'"
-                        src="https://api.uniprep.ai/uniprepapi/storage/app/public/job-search/Modern.webp" />
-                    <img *ngIf="selectedResumeLevel == 'Creative'"
-                        src="https://api.uniprep.ai/uniprepapi/storage/app/public/job-search/Creative.webp" />
-                    <img *ngIf="selectedResumeLevel == 'Functional'"
-                        src="https://api.uniprep.ai/uniprepapi/storage/app/public/job-search/functional.webp" />
-                    <img *ngIf="selectedResumeLevel == 'Academic'"
-                        src="https://api.uniprep.ai/uniprepapi/storage/app/public/job-search/academic.webp" />
-                </div> -->
             </div>
-            <!-- <div style="width: 20%;"></div> -->
             <div class="col-md-12 d-flex justify-content-center" style="height: 80%;">
                 <div class="col-md-6">
                     <div class="previewcontainer">
@@ -147,10 +128,9 @@
                     </div>
                 </div>
             </div>
-            <!-- <div style="width: 20%;"></div> -->
             <!-- style="visibility:hidden;" -->
             <div class="d-flex justify-content-between" style="height: 5%;">
-                <button pButton type="button" (click)="previous()" style="visibility:hidden;"
+                <button pButton type="button" (click)="previous()"
                     class="text-white p-ripple p-button-rounded p-button-info-prev p-button p-component p-2"
                     ><i class="fa fa-arrow-left exhausted-plan-icon-prev"></i>
                     Previous</button>
@@ -236,6 +216,14 @@
                                     </div>
                                 </div>
                                 <div class="col-md-6">
+                                    <label class="form-label labelFont">country code</label>
+                                    <div class="form-group">
+                                        <div class="mb-3">
+                                            <p-dropdown [options]="countryCodeList" styleClass="w-100" formControlName="country_code" optionLabel="name" optionValue="code"></p-dropdown>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
                                     <label class="form-label labelFont">Phone Number</label>
                                     <div class="form-group">
                                         <div class="mb-3">
@@ -267,7 +255,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-12">
+                                <div class="col-md-6">
                                     <label class="form-label labelFont">Website (Optional)</label>
                                     <div class="form-group">
                                         <div class="mb-3">
@@ -1322,13 +1310,11 @@
 </ng-template> -->
 
 <ng-template #sharedContent>
-    <div class="h-100" id="cv-preview-container"[ngClass]="{ previewBodyForm: !fullScreenVisible, previewBodyFormFull: fullScreenVisible }"
-        *ngIf="selectedResumeLevel=='Modern'">
+    <div class="h-100" id="cv-preview-container"[ngClass]="{ previewBodyForm: !fullScreenVisible, previewBodyFormFull: fullScreenVisible }" *ngIf="selectedResumeLevel=='Modern'">
         <div style=" margin-bottom: 10px;">
             <div style="width: 65%;">
                 <h1 class="userName upperCase">{{ userNameSplit.firstWord }}
-                    <span [ngStyle]="{'color': selectedThemeColor }" style="color:#172a99;">{{ userNameSplit.secondWord
-                        }}</span>
+                    <span [ngStyle]="{'color': selectedThemeColor }" style="color:#172a99;">{{ userNameSplit.secondWord }}</span>
                 </h1>
                 <p class="profession upperCase">{{ f["user_job_title"].value }}</p>
             </div>
@@ -1346,7 +1332,7 @@
                     </div>
                     <div class="contactItem fw-600" *ngIf='f["user_phone"].value'>
                         <img class="resumeIcons" src="../../../uniprep-assets/resume-icons/Phone.svg">
-                        <p>{{ f["user_phone"].value }}</p>
+                        <p>{{ f["country_code"].value }} {{ f["user_phone"].value }}</p>
                     </div>
                     <div class="contactItem fw-600" *ngIf='f["user_email"].value'>
                         <img class="resumeIcons" src="../../../uniprep-assets/resume-icons/Email.svg">
@@ -1520,7 +1506,7 @@
                                 <div class="resumeIcons" style="margin: 0px;">
                                     <img src="../../../uniprep-assets/resume-icons/Phone.svg">
                                 </div>
-                                <p>{{ f["user_phone"].value }}</p>
+                                <p>{{ f["country_code"].value }} {{ f["user_phone"].value }}</p>
                             </div>
                             <div class="contactItem fw-600" *ngIf='f["user_email"].value'>
                                 <div class="resumeIcons" style="margin: 0px;">
@@ -1783,7 +1769,7 @@
                             </div>
                             <div class="d-flex align-items-center mb-2" *ngIf='f["user_phone"].value'>
                                 <img class="resumeIcons" src="../../../uniprep-assets/resume-icons/Phone.svg">
-                                <p>{{ f["user_phone"].value }}</p>
+                                <p>{{ f["country_code"].value }} {{ f["user_phone"].value }}</p>
                             </div>
                             <div class="d-flex align-items-center mb-2" *ngIf='f["user_email"].value'>
                                 <img class="resumeIcons" src="../../../uniprep-assets/resume-icons/Email.svg">
@@ -1875,7 +1861,7 @@
                             </div>
                             <div class="d-flex align-items-center mb-2" *ngIf='f["user_phone"].value'>
                                 <img class="resumeIcons" src="../../../uniprep-assets/resume-icons/Phone.svg">
-                                <p>{{ f["user_phone"].value }}</p>
+                                <p>{{ f["country_code"].value }} {{ f["user_phone"].value }}</p>
                             </div>
                             <div class="d-flex align-items-center mb-2" *ngIf='f["user_email"].value'>
                                 <img class="resumeIcons" src="../../../uniprep-assets/resume-icons/Email.svg">
@@ -2048,7 +2034,7 @@
                                 <div class="resumeIcons" style="margin: 0px;">
                                     <img src="../../../uniprep-assets/resume-icons/Phone.svg">
                                 </div>
-                                <p>{{ f["user_phone"].value }}</p>
+                                <p>{{ f["country_code"].value }} {{ f["user_phone"].value }}</p>
                             </div>
                             <div class="contactItem fw-600">
                                 <div class="resumeIcons" style="margin: 0px;">
