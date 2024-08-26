@@ -99,6 +99,7 @@ export class CvBuilderComponent implements OnInit {
       user_job_title: ['Your Job Title', Validators.required],
       user_email: ['Email Address', [Validators.required, Validators.email]],
       user_location: ['Your Location', Validators.required],
+      country_code: ['+91'],
       user_phone: ['Phone Number',[Validators.required, Validators.pattern('^\\+?[1-9]\\d{1,14}$')]],
       user_linkedin:['LinkedIn Name', Validators.required],
       user_website: ['website Link'],
@@ -117,7 +118,7 @@ export class CvBuilderComponent implements OnInit {
       projectDetailsArray: this.fb.array([]),
       languagesKnownArray: this.fb.array([]),
       skillsArray: this.fb.array([]),
-      hobbiesArray: this.fb.array([]),
+      // hobbiesArray: this.fb.array([]),
       extraCurricularArray: this.fb.array([]),
       certificatesArray: this.fb.array([]),
       referenceArray: this.fb.array([]),
@@ -252,20 +253,19 @@ export class CvBuilderComponent implements OnInit {
   }
 
   fieldNextButton() {
-
     this.moduleActiveIndex++;
     if(this.moduleActiveIndex > 5){
+      this.moduleActiveIndex--;
       this.activePageIndex++;
       return;
     }
-    console.log();
     const fieldNameArray: string[] = [];
     switch (this.moduleActiveIndex) {
       case 1:
         if (this.getWorkExpArray.length === 0) {
           fieldNameArray.push('work_experience');
         }
-        break;
+      break;
 
       case 2:
         if (this.getEduDetailsArray.length === 0) {
@@ -274,7 +274,7 @@ export class CvBuilderComponent implements OnInit {
         if (this.resumeFormInfoData.value.selected_exp_level == 1 && this.getProjectDetailsArray.length === 0) {
           fieldNameArray.push('project_details');
         }
-        break;
+      break;
 
       case 3:
         if (this.getCertificatesArray.length === 0) {
@@ -283,15 +283,15 @@ export class CvBuilderComponent implements OnInit {
         if (this.getSkillsArray.length === 0) {
           fieldNameArray.push('skills');
         }
-        break;
+      break;
 
       case 4:
         if (this.getExtraCurricularArray.length === 0) {
           fieldNameArray.push('extra_curricular');
         }
-        if (this.getHobbiesArray.length === 0) {
-          fieldNameArray.push('Hobby');
-        }
+        // if (this.getHobbiesArray.length === 0) {
+        //   fieldNameArray.push('Hobby');
+        // }
         if (this.getLanguagesKnownArray.length === 0) {
           fieldNameArray.push('language_known');
         }
@@ -302,10 +302,10 @@ export class CvBuilderComponent implements OnInit {
           fieldNameArray.push('reference');
         }
         this.clickedDownloadButton = false;
-        break;
+      break;
 
       default:
-        break;
+      break;
     }
     if (fieldNameArray.length > 0) {
       fieldNameArray.forEach((element: string) => {
@@ -344,10 +344,11 @@ export class CvBuilderComponent implements OnInit {
         formControlFields.push(this.resumeFormInfoData.get('certificatesArray') as FormArray);
         formControlFields.push(this.resumeFormInfoData.get('skillsArray') as FormArray);
       } else if (this.moduleActiveIndex === 4) {
-        controlNames = ['language', 'lang_proficiency', 'extra_curricular_activites', 'hobbies'];
+        // controlNames = ['language', 'lang_proficiency', 'extra_curricular_activites', 'hobbies'];
+        controlNames = ['language', 'lang_proficiency', 'extra_curricular_activites'];
         formControlFields.push(this.resumeFormInfoData.get('languagesKnownArray') as FormArray);
         formControlFields.push(this.resumeFormInfoData.get('extraCurricularArray') as FormArray);
-        formControlFields.push(this.resumeFormInfoData.get('hobbiesArray') as FormArray);
+        // formControlFields.push(this.resumeFormInfoData.get('hobbiesArray') as FormArray);
       } else if (this.moduleActiveIndex === 5) {
         controlNames = ['ref_name', 'ref_position', 'ref_organization', 'ref_email', 'ref_contact'];
         formControlFields.push(this.resumeFormInfoData.get('referenceArray') as FormArray);
@@ -395,22 +396,22 @@ export class CvBuilderComponent implements OnInit {
   //   }
   // }
 
-  shakeButton(event: Event) {
-    if (!this.selectedResumeLevel) {
-      const button = event.target as HTMLElement;
-      button.classList.add('shake');
-      setTimeout(() => {
-        button.classList.remove('shake');
-      }, 300);
+  // shakeButton(event: Event) {
+  //   if (!this.selectedResumeLevel) {
+  //     const button = event.target as HTMLElement;
+  //     button.classList.add('shake');
+  //     setTimeout(() => {
+  //       button.classList.remove('shake');
+  //     }, 300);
 
-      this.toaster.add({ severity: "error", summary: "Error", detail: "Please Select any one Resume model..!" })
-    } else {
-      this.activePageIndex++;
-      // this.enableModule = true;
-      this.activePageIndex = this.activePageIndex == 5 ? 1 : this.activePageIndex;
-      this.hideHeader();
-    }
-  }
+  //     this.toaster.add({ severity: "error", summary: "Error", detail: "Please Select any one Resume model..!" })
+  //   } else {
+  //     this.activePageIndex++;
+  //     // this.enableModule = true;
+  //     this.activePageIndex = this.activePageIndex == 5 ? 1 : this.activePageIndex;
+  //     this.hideHeader();
+  //   }
+  // }
 
   selectResumeTemplate(resumeTemplate: string) {
     this.selectedResumeLevel = resumeTemplate;
@@ -437,7 +438,7 @@ export class CvBuilderComponent implements OnInit {
   }
 
   next() {
-    console.log(this.activePageIndex, "active page index");
+    // console.log(this.activePageIndex, "active page index");
     this.activePageIndex++;
     if (this.activePageIndex == 4) {
       if (this.clickedDownloadButton) { //if the user not donwload the resume,in the presently created resume is not visible in the resume history page.
@@ -482,9 +483,9 @@ export class CvBuilderComponent implements OnInit {
   get getLanguagesKnownArray(): FormArray {
     return this.resumeFormInfoData.get('languagesKnownArray') as FormArray;
   }
-  get getHobbiesArray(): FormArray {
-    return this.resumeFormInfoData.get('hobbiesArray') as FormArray;
-  }
+  // get getHobbiesArray(): FormArray {
+  //   return this.resumeFormInfoData.get('hobbiesArray') as FormArray;
+  // }
 
   get getSkillsArray(): FormArray {
     return this.resumeFormInfoData.get('skillsArray') as FormArray;
@@ -541,9 +542,9 @@ export class CvBuilderComponent implements OnInit {
       //   work_start_year: ['2013', Validators.required],
       //   work_end_year: ['2015', Validators.required],
       //   work_designation: ['Full stack developer', Validators.required],
-      //   work_type: ['Ful-Time', Validators.required],
+      //   work_type: ['Full-Time', Validators.required],
       //   work_location: ['Mysore', Validators.required],
-      //   work_job_description: ['Spearheaded the UI/UX redesign of UNIPREP, UNIAPPLY, SOPEXPERT, and the UNIABROAD website, resulting in a cohesive and user-friendly experience across all platforms.Implemented innovative design solutions for the frontend of the products, enhancing user engagement and satisfaction.Designed and optimized the CRM admin panel, improving internal workflows and user interactions with the system.Collaborated closely with development teams to ensure seamless integration of design elements and adherence to design guidelines across all products.', Validators.required],
+      //   work_job_description: ['- Develop and maintain front-end architecture, ensuring responsive design and user-friendly interfaces - Implement back-end functionality, including database integration and server-side logic - Write efficient and scalable code in multiple programming languages for both client and server-side applications - Collaborate with cross-functional teams to gather requirements, design solutions, and provide technical support - Stay up-to-date with industry trends and best practices to continually improve development processes and deliver high-quality products', Validators.required],
       // }));
       // this.errorMessages.push('');
     } else if (fieldName == "project_details") {
@@ -565,7 +566,7 @@ export class CvBuilderComponent implements OnInit {
       //   lang_proficiency: ['',Validators.required],
       // }));
       this.getLanguagesKnownArray.push(this.fb.group({
-        language: ['Language Name', Validators.required],
+        language: ['Language', Validators.required],
         lang_proficiency: ['Native', Validators.required],
       }));
     } else if (fieldName == "skills") {
@@ -577,14 +578,16 @@ export class CvBuilderComponent implements OnInit {
         skills: ['Skill Name', Validators.required],
         skills_proficiency: ['Advance', Validators.required],
       }));
-    } else if (fieldName == "Hobby") {
-      this.getHobbiesArray.push(this.fb.group({
-        hobbies: ['Hobby', Validators.required],
-      }));
+    } 
+    // else if (fieldName == "Hobby") {
+      // this.getHobbiesArray.push(this.fb.group({
+      //   hobbies: ['Hobby', Validators.required],
+      // }));
       // this.getHobbiesArray.push(this.fb.group({
       //   hobbies: ['',Validators.required],
       // }));
-    } else if (fieldName == "extra_curricular") {
+    // } 
+    else if (fieldName == "extra_curricular") {
       this.getExtraCurricularArray.push(this.fb.group({
         extra_curricular_activites: ['Extra Curricular Activity', Validators.required]
       }));
@@ -635,9 +638,11 @@ export class CvBuilderComponent implements OnInit {
       this.getLanguagesKnownArray.removeAt(index);
     } else if (fieldName == "skills") {
       this.getSkillsArray.removeAt(index);
-    } else if (fieldName == "Hobby") {
-      this.getHobbiesArray.removeAt(index);
-    } else if (fieldName == "extra_curricular") {
+    } 
+    // else if (fieldName == "Hobby") {
+    //   this.getHobbiesArray.removeAt(index);
+    // }
+     else if (fieldName == "extra_curricular") {
       this.getExtraCurricularArray.removeAt(index);
     } else if (fieldName == "certificate") {
       this.getCertificatesArray.removeAt(index);
@@ -843,8 +848,9 @@ export class CvBuilderComponent implements OnInit {
           const workExpArray = this.getWorkExpArray;
           if (workExpArray.length > 0) {
             const firstWorkExpGroup = workExpArray.at(iteration) as FormGroup;
+            const modifiedResponse = GPTResponse.replace(/(\n)/g, '<br/>\n');
             firstWorkExpGroup.patchValue({
-              work_job_description: GPTResponse
+              work_job_description: modifiedResponse
             });
           } else {
             console.error('No work experience entries found.');
@@ -887,27 +893,27 @@ export class CvBuilderComponent implements OnInit {
     this.resumeFormInfoData.updateValueAndValidity();
   }
 
-  onEditorModelChange(value: string, index: number) {
-    if (this.isUpdating) {
-      return;
-    }
-    const words = value.trim().split(/\s+/);
-    const control = this.getWorkExpArray.at(index).get('work_job_description');
-    this.isUpdating = true;
-    // this.errorMessages[index] = '';
+  // onEditorModelChange(value: string, index: number) {
+  //   if (this.isUpdating) {
+  //     return;
+  //   }
+  //   const words = value.trim().split(/\s+/);
+  //   const control = this.getWorkExpArray.at(index).get('work_job_description');
+  //   this.isUpdating = true;
+  //   // this.errorMessages[index] = '';
 
-    if (words.length > 50) {
-      let joinedText = words.slice(0, 50).join(' ');
-      control?.setValue(joinedText, { emitEvent: false });
-      // this.errorMessages[index] = 'Job Description exceeds the maximum word limit.';
-      control?.setErrors({ maxWordsExceeded: true });
-    } else {
-      control?.setErrors(null);
-    }
+  //   if (words.length > 50) {
+  //     let joinedText = words.slice(0, 50).join(' ');
+  //     control?.setValue(joinedText, { emitEvent: false });
+  //     // this.errorMessages[index] = 'Job Description exceeds the maximum word limit.';
+  //     control?.setErrors({ maxWordsExceeded: true });
+  //   } else {
+  //     control?.setErrors(null);
+  //   }
 
-    control?.updateValueAndValidity();
-    this.isUpdating = false;
-  }
+  //   control?.updateValueAndValidity();
+  //   this.isUpdating = false;
+  // }
 
   confirm(event: Event, resumeLink: string, resumeId: number) {
     this.confirmService.confirm({
