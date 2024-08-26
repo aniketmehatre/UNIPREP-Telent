@@ -19,7 +19,15 @@ export class JobToolComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private location: Location,
     private resumeService: CourseListService
-  ) { }
+  ) {
+    this.currentRoute = this.router.url;
+    this.router.events.subscribe(event => {
+      if (event instanceof NavigationEnd) {
+        this.currentRoute = event.url;
+        this.changeTitle()
+      }
+    });
+  }
 
   ngOnInit(): void {
     this.currentRoute = this.router.url;
@@ -61,7 +69,9 @@ export class JobToolComponent implements OnInit {
 
   hideHeaderForPreviewPage(){
     this.resumeService.data$.subscribe(data => {
-      this.hideTitleForPreviewPage = data;
+      if (!this.currentRoute.includes("salary-converter")) {
+        this.hideTitleForPreviewPage = data;
+      }
     });
   }
 
