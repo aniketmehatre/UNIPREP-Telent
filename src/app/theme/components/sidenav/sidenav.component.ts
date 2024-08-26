@@ -238,7 +238,7 @@ export class SidenavComponent {
   ];
   studentMenus = ['Company List', 'Career Planner', 'Learning Hub', 'Entrepreneur', 'Investor List', 'Startup Kit', 'Pitch Deck'];
   careerMenus = ['Entrepreneur', 'Investor List', 'Startup Kit', 'Pitch Deck'];
-  whitlabelmenu=['Subscription']
+  whitlabelmenu=['Subscription','About UNIPREP']
   collegeStudentMenus = ['Subscription'];
   conditionSubscribed!: boolean;
   currentTitle: any;
