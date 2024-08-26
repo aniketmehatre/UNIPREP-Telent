@@ -18,27 +18,6 @@
                                             />
                                     </div>
                                 </div>
-
-
-                                <!--                                <p class="flex-align-center">-->
-                                <!--                                    &nbsp;&nbsp;<i class="fas fa-map-marker-alt icon-gray"></i>-->
-                                <!--                                    {{job.location || 'No Location'}}-->
-                                <!--                                </p>-->
-<!--                                <p class="flex-align-center">-->
-<!--                                    &nbsp;&nbsp;<i class="fas fa-briefcase icon-gray"></i>-->
-<!--                                    {{ job.work_type || 'No Work Type' }}-->
-<!--                                </p>-->
-<!--                                <p class="flex-align-center">-->
-<!--                                    &nbsp;&nbsp;<i class="fas fa-user-clock icon-gray"></i>-->
-<!--                                    {{ job.experience || 'No Experience' }}-->
-<!--                                </p>-->
-<!--                                <p class="flex-align-center">-->
-<!--                                    &nbsp;&nbsp;<i class="fas fa-dollar-sign icon-gray"></i>-->
-<!--                                    {{ job.price || 'No Salary' }}-->
-<!--                                </p>-->
-<!--                                <p class="flex-align-end">-->
-<!--                                    &lt;!&ndash; {{ job.created_at | timeAgo }}&ndash;&gt;-->
-<!--                                </p>-->
                                 <div class="row p-0 m-0 mt-2 justify-content-center flex-align-center">
                                     <div class="col-6 p-0 m-0">
                                         <p-dropdown [(ngModel)]="job.type" [options]="statuses" placeholder="Status"
@@ -159,33 +138,6 @@
                         </div>
                     </div>
                 </div>
-<!--                <div class="col-md-6">-->
-<!--                    <label class="form-label" style="font-size: small; font-weight: 500">Experience</label>-->
-<!--                    <div class="form-group">-->
-<!--                        <div class="mb-3">-->
-<!--                            <input type="text" formControlName="experience" class="sharp-edges" pInputText-->
-<!--                                   placeholder="Enter Experience"/>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--                <div class="col-md-6">-->
-<!--                    <label class="form-label" style="font-size: small; font-weight: 500">Work Mode</label>-->
-<!--                    <div class="form-group">-->
-<!--                        <div class="mb-3">-->
-<!--                            <input type="text" formControlName="work_mode" class="sharp-edges" pInputText-->
-<!--                                   placeholder="Enter Work Mode"/>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--                <div class="col-md-6">-->
-<!--                    <label class="form-label" style="font-size: small; font-weight: 500">Salary Range</label>-->
-<!--                    <div class="form-group">-->
-<!--                        <div class="mb-3">-->
-<!--                            <input type="text" formControlName="salary_range" class="sharp-edges" pInputText-->
-<!--                                   placeholder="Enter Salary Range"/>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                </div>-->
                 <div class="col-md-6">
                     <label class="form-label" style="font-size: small; font-weight: 500">Status</label>
                     <div class="form-group w-100">
@@ -222,9 +174,6 @@
         <i class="fas fa-trash fa-3x" style="color: red;"></i>
         <h4 class="mt-2">Are you sure want to delete </h4>
         <h4>the job?</h4>
-        <!--        <button pButton type="button"-->
-        <!--                class="mt-2 text-white p-ripple p-button-rounded btn-primary p-button p-component p-3"-->
-        <!--                (click)="onClickDeleteDialog()">Delete</button>-->
         <button class="btn btn-primary text-small btn-rounded p-3 mt-2" type="button"
                 (click)="onClickDelete()">
             Delete

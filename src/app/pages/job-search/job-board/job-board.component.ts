@@ -1,6 +1,5 @@
 import {Component, OnInit} from '@angular/core';
 import {JobSearchService} from "../job-search.service";
-import {Router} from "@angular/router";
 import {DataService} from "../../../data.service";
 import {FormControl, FormGroup} from "@angular/forms";
 import {Location} from "@angular/common";
@@ -69,7 +68,6 @@ export class JobBoardComponent implements OnInit {
     }
 
     onStatusChange(job: any, event: any) {
-        //job.type = event.value;
         const jobDetails = {
             jobtracker_id: job.id,
             type: event.value

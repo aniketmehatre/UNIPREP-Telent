@@ -48,6 +48,7 @@ export class CvBuilderComponent implements OnInit {
   clickedDownloadButton: boolean = false;
   isUpdating: boolean = false;
   // errorMessages: string[] = [];
+  countryCodeList: any = [];
   items!: MenuItem[];
   resumeSlider: any = [
     {
@@ -106,6 +107,7 @@ export class CvBuilderComponent implements OnInit {
       // user_job_title: ['full stack developer', [Validators.required]],
       // user_email: ['vivek@uniabroad.co.in', [Validators.required]],
       // user_location: ['mysore,karnataka', [Validators.required]],
+      // country_code: ['+91'],
       // user_phone: ['9524999563', [Validators.required]],
       // user_linkedin: ['vivek kaliyaperumal'],
       // user_website: ['www.ownwebsite.com'],
@@ -147,6 +149,13 @@ export class CvBuilderComponent implements OnInit {
       { label: 'Your References' },
     ];
     // this.stableFileCreation();
+    this.getCountryCodeList();
+  }
+
+  getCountryCodeList(){
+    this.resumeService.getCountryCodes().subscribe(res =>{
+      this.countryCodeList = res;
+    });
   }
 
   // stableFileCreation(){
@@ -243,11 +252,13 @@ export class CvBuilderComponent implements OnInit {
   }
 
   fieldNextButton() {
+
     this.moduleActiveIndex++;
     if(this.moduleActiveIndex > 5){
       this.activePageIndex++;
       return;
     }
+    console.log();
     const fieldNameArray: string[] = [];
     switch (this.moduleActiveIndex) {
       case 1:
@@ -290,6 +301,7 @@ export class CvBuilderComponent implements OnInit {
         if (this.getReferenceArray.length === 0) {
           fieldNameArray.push('reference');
         }
+        this.clickedDownloadButton = false;
         break;
 
       default:
@@ -425,6 +437,7 @@ export class CvBuilderComponent implements OnInit {
   }
 
   next() {
+    console.log(this.activePageIndex, "active page index");
     this.activePageIndex++;
     if (this.activePageIndex == 4) {
       if (this.clickedDownloadButton) { //if the user not donwload the resume,in the presently created resume is not visible in the resume history page.
@@ -897,8 +910,6 @@ export class CvBuilderComponent implements OnInit {
   }
 
   confirm(event: Event, resumeLink: string, resumeId: number) {
-    console.log(resumeLink, "resume link");
-    console.log(resumeId, "resume id");
     this.confirmService.confirm({
         target: event.target as EventTarget, // Use type assertion here
         message: 'Are you sure that you want to proceed?',
@@ -909,7 +920,6 @@ export class CvBuilderComponent implements OnInit {
             resumeId: resumeId,
           };
           this.resumeService.deleteResumes(data).subscribe(res => {
-            console.log(res);
             this.previousResumes();
             this.toaster.add({ severity: res.status, summary: res.status, detail: res.message });
           });
