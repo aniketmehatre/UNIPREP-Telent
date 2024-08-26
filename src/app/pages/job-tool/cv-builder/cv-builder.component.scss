@@ -1,16 +1,16 @@
 
 .slick-slide:not(.slick-center).slick-active .cvBuilderSampleImg img {
-    height: 275px; 
+    height: 330px; 
     transform: scale(1);
 }
 
 .slick-slide.slick-active:nth-child(n+3):not(.slick-center) .cvBuilderSampleImg img {
-    height: 230px;
+    height: 280px;
     transform: scale(0.9);
 }
 
 .slick-slide:not(.slick-center):not(.slick-active) .cvBuilderSampleImg img {
-    height: 200px;
+    height: 250px;
     transform: scale(0.8);
 }
 
@@ -32,7 +32,7 @@
 
   
 .slick-center .cvBuilderSampleImg img {
-	height: 275px;  
+	height: 330px;  
 	transform: scale(1);  
 	transition: transform 0.3s ease, height 0.3s ease;
 }
@@ -83,15 +83,15 @@
 }
 .center-button {
 	position: absolute;
-	top: 75%;
-	padding: 5px 50px;
+	top: 80%;
+	padding: 10px 75px;
 	background-color: var(--uniprep-primary);
 	color: white;
 	border: none;
 	white-space: nowrap;
-	border-radius: 15px;
+	border-radius: 10px;
 	font-size: large;
-	margin: 0px 18px;
+	margin: 0px 15px;
 	display: none; 
 }
 

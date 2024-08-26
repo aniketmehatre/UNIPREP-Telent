@@ -20,6 +20,7 @@ export class CvBuilderComponent implements OnInit {
   workTypeValue: any = [{ id: "Full-Time", value: "Full-Time" }, { id: "Part-Time", value: "Part-Time" }, { id: "Internship", value: "Internship" }, { id: "Freelancer", value: "Freelancer" }];
   languageProficiency: any = [{ id: "Beginner", value: "Beginner" }, { id: "Fluent", value: "Fluent" }, { id: "Proficient", value: "Proficient" }, { id: "Native", value: "Native" }];
   skillProficiency: any = [{ id: "Basic", value: "Basic" }, { id: "Intermediate", value: "Intermediate" }, { id: "Advance", value: "Advance" }];
+  languageLists: any = [{value: "Kannada"},{value: "German"},{value: "Hindi"},{value: "Spanish"},{value: "French"},{value: "Italian"},{value: "Arabic"},{value: "Polish"},{value: "Swedish"},{value: "Dutch"},{value: "Danish"},{value: "Greek"},{value: "Portugese"},{value: "Chinese"},{value: "Korean"},{value: "Japanese"},{value: "Tamil"},{value: "Telugu"},{value: "Urdu"},{value: "Malyalam"},{value: "Russian"},{value: "Turkish"},{value: "Bengali"},{value: "Punjabi"},{value: "Marathi"},{value:"English"}];
   enableModule: boolean = true;
   activePageIndex: number = 0;
   moduleActiveIndex: number = 0;
@@ -50,6 +51,7 @@ export class CvBuilderComponent implements OnInit {
   // errorMessages: string[] = [];
   countryCodeList: any = [];
   items!: MenuItem[];
+  skillsLists: any = [];
   resumeSlider: any = [
     {
       id: 1,
@@ -94,7 +96,7 @@ export class CvBuilderComponent implements OnInit {
   constructor(private toaster: MessageService, private fb: FormBuilder, private resumeService: CourseListService, private http: HttpClient, private router: Router, private confirmService: ConfirmationService) {
 
     this.resumeFormInfoData = this.fb.group({
-      selected_exp_level: ['1'],
+      selected_exp_level: ['', Validators.required],
       user_name: ['Your Full Name', Validators.required],
       user_job_title: ['Your Job Title', Validators.required],
       user_email: ['Email Address', [Validators.required, Validators.email]],
@@ -102,8 +104,9 @@ export class CvBuilderComponent implements OnInit {
       country_code: ['+91'],
       user_phone: ['Phone Number',[Validators.required, Validators.pattern('^\\+?[1-9]\\d{1,14}$')]],
       user_linkedin:['LinkedIn Name', Validators.required],
-      user_website: ['website Link'],
+      user_website: [''],
       user_summary: ['About Yourself', Validators.required],
+      // selected_exp_level: ['2', [Validators.required]],
       // user_name: ['vivek kaliyaperumal', [Validators.required]],
       // user_job_title: ['full stack developer', [Validators.required]],
       // user_email: ['vivek@uniabroad.co.in', [Validators.required]],
@@ -151,8 +154,14 @@ export class CvBuilderComponent implements OnInit {
     ];
     // this.stableFileCreation();
     this.getCountryCodeList();
+    this.skillsList();
+    
   }
-
+  skillsList(){
+    this.resumeService.getSkills().subscribe(res => {
+      this.skillsLists = res;
+    });
+  }
   getCountryCodeList(){
     this.resumeService.getCountryCodes().subscribe(res =>{
       this.countryCodeList = res;
@@ -199,7 +208,7 @@ export class CvBuilderComponent implements OnInit {
       this.wrkExpLimit = 5;
     } else {
       this.eduDetailsLimit = 3;
-      this.wrkExpLimit = 3;
+      this.wrkExpLimit = 1;
     }
     this.updateValidatorsForAllProjects();
   }
@@ -254,7 +263,7 @@ export class CvBuilderComponent implements OnInit {
 
   fieldNextButton() {
     this.moduleActiveIndex++;
-    if(this.moduleActiveIndex > 5){
+    if(this.moduleActiveIndex > 4){
       this.moduleActiveIndex--;
       this.activePageIndex++;
       return;
@@ -295,14 +304,15 @@ export class CvBuilderComponent implements OnInit {
         if (this.getLanguagesKnownArray.length === 0) {
           fieldNameArray.push('language_known');
         }
+        this.clickedDownloadButton = false;
         break;
 
-      case 5:
-        if (this.getReferenceArray.length === 0) {
-          fieldNameArray.push('reference');
-        }
-        this.clickedDownloadButton = false;
-      break;
+      // case 5:
+      //   if (this.getReferenceArray.length === 0) {
+      //     fieldNameArray.push('reference');
+      //   }
+      //   this.clickedDownloadButton = false;
+      // break;
 
       default:
       break;
@@ -321,14 +331,14 @@ export class CvBuilderComponent implements OnInit {
   getVisibleFormControls(): AbstractControl[] {
     const controls: AbstractControl[] = [];
     if (this.moduleActiveIndex === 0) {
-      const controlNames = ['user_name', 'user_email', 'user_job_title', 'user_location', 'user_phone', 'user_summary'];
+      const controlNames = ['selected_exp_level','user_name', 'user_email', 'user_job_title', 'user_location', 'user_phone', 'user_summary'];
       controlNames.forEach(controlName => {
         const control = this.resumeFormInfoData.get(controlName);
         if (control) {
           controls.push(control);
         }
       });
-    } else if (this.moduleActiveIndex === 1 || this.moduleActiveIndex === 2 || this.moduleActiveIndex === 3 || this.moduleActiveIndex === 4 || this.moduleActiveIndex === 5) {
+    } else if (this.moduleActiveIndex === 1 || this.moduleActiveIndex === 2 || this.moduleActiveIndex === 3 || this.moduleActiveIndex === 4) {
       let controlNames: string[] = [];
       let formControlFields: FormArray[] = [];
 
@@ -349,10 +359,11 @@ export class CvBuilderComponent implements OnInit {
         formControlFields.push(this.resumeFormInfoData.get('languagesKnownArray') as FormArray);
         formControlFields.push(this.resumeFormInfoData.get('extraCurricularArray') as FormArray);
         // formControlFields.push(this.resumeFormInfoData.get('hobbiesArray') as FormArray);
-      } else if (this.moduleActiveIndex === 5) {
-        controlNames = ['ref_name', 'ref_position', 'ref_organization', 'ref_email', 'ref_contact'];
-        formControlFields.push(this.resumeFormInfoData.get('referenceArray') as FormArray);
-      }
+      } 
+      // else if (this.moduleActiveIndex === 5) {
+      //   controlNames = ['ref_name', 'ref_position', 'ref_organization', 'ref_email', 'ref_contact'];
+      //   formControlFields.push(this.resumeFormInfoData.get('referenceArray') as FormArray);
+      // }
 
       formControlFields.forEach(formArray => {
         formArray.controls.forEach((eduGroup: AbstractControl) => {
@@ -499,9 +510,9 @@ export class CvBuilderComponent implements OnInit {
     return this.resumeFormInfoData.get('certificatesArray') as FormArray;
   }
 
-  get getReferenceArray(): FormArray {
-    return this.resumeFormInfoData.get('referenceArray') as FormArray;
-  }
+  // get getReferenceArray(): FormArray {
+  //   return this.resumeFormInfoData.get('referenceArray') as FormArray;
+  // }
 
   clickAddMoreButton(fieldName: string) {
     if (fieldName == "education_detail") {
@@ -532,7 +543,7 @@ export class CvBuilderComponent implements OnInit {
         work_start_year: ['Start Year',Validators.required],
         work_end_year: ['End Year',Validators.required],
         work_designation: ['Work Designation',Validators.required],
-        work_type: ['',Validators.required],
+        work_type: ['Full-Time',Validators.required],
         work_location: ['Work Location',Validators.required],
         work_job_description: ['Description About Your job and roles and responsibilities',Validators.required],
       }));
@@ -575,7 +586,7 @@ export class CvBuilderComponent implements OnInit {
       //   skills_proficiency: ['',Validators.required]
       // }));
       this.getSkillsArray.push(this.fb.group({
-        skills: ['Skill Name', Validators.required],
+        skills: ['Skills', Validators.required],
         skills_proficiency: ['Advance', Validators.required],
       }));
     } 
@@ -589,7 +600,7 @@ export class CvBuilderComponent implements OnInit {
     // } 
     else if (fieldName == "extra_curricular") {
       this.getExtraCurricularArray.push(this.fb.group({
-        extra_curricular_activites: ['Extra Curricular Activity', Validators.required]
+        extra_curricular_activites: ['Achievement ', Validators.required]
       }));
       // this.getExtraCurricularArray.push(this.fb.group({
       //   extra_curricular_activites: ['',Validators.required]
@@ -607,14 +618,15 @@ export class CvBuilderComponent implements OnInit {
       //   certificate_id: [''],
       //   certicate_link: [''],
       // }));
-    } else if (fieldName == "reference") {
-      this.getReferenceArray.push(this.fb.group({
-        ref_name: ['Reference Name', Validators.required],
-        ref_position: ['Reference Position', Validators.required],
-        ref_organization: ['Organization Name', Validators.required],
-        ref_email: ['Reference Email', Validators.required],
-        ref_contact: ['Contact Number', Validators.required],
-      }));
+    } 
+    // else if (fieldName == "reference") {
+    //   this.getReferenceArray.push(this.fb.group({
+    //     ref_name: ['Reference Name', Validators.required],
+    //     ref_position: ['Reference Position', Validators.required],
+    //     ref_organization: ['Organization Name', Validators.required],
+    //     ref_email: ['Reference Email', Validators.required],
+    //     ref_contact: ['Contact Number', Validators.required],
+    //   }));
       // this.getReferenceArray.push(this.fb.group({
       //   ref_name: ['',Validators.required],
       //   ref_position: ['',Validators.required],
@@ -622,7 +634,7 @@ export class CvBuilderComponent implements OnInit {
       //   ref_email: ['',Validators.required],
       //   ref_contact: ['',Validators.required],
       // }));
-    }
+    // }
   }
 
   clickDeleteButton(fieldName: string, index: number) {
@@ -646,9 +658,10 @@ export class CvBuilderComponent implements OnInit {
       this.getExtraCurricularArray.removeAt(index);
     } else if (fieldName == "certificate") {
       this.getCertificatesArray.removeAt(index);
-    } else if (fieldName == "reference") {
-      this.getReferenceArray.removeAt(index);
-    }
+    } 
+    // else if (fieldName == "reference") {
+    //   this.getReferenceArray.removeAt(index);
+    // }
 
   }
 
@@ -815,7 +828,7 @@ export class CvBuilderComponent implements OnInit {
     } else if (fieldName == 'work_job_description') {
       const work_designation = this.getWorkExpArray.value[iteration].work_designation;
       // prompt = `Provide five roles and responsibilities for a ${work_designation} role without using headings.`;
-      prompt = `Provide five bullet points detailing the roles and responsibilities for a ${work_designation} role, without any headings.`;
+      prompt = `Provide four bullet points detailing the roles and responsibilities for a ${work_designation} role, without any headings.`;
     }
     // else if(fieldName == 'project_description'){
     //   const project_name = this.getProjectDetailsArray.value[iteration].project_name;
@@ -839,7 +852,7 @@ export class CvBuilderComponent implements OnInit {
     this.http.post<any>('https://api.openai.com/v1/chat/completions', body, { headers: headers }).subscribe(response => {
       if (response.choices && response.choices.length > 0) {
         const GPTResponse = response.choices[0].message.content.trim();
-        console.log(GPTResponse);
+        // console.log(GPTResponse);
         if (fieldName == 'user_summary') {
           this.resumeFormInfoData.patchValue({
             user_summary: GPTResponse
@@ -848,9 +861,15 @@ export class CvBuilderComponent implements OnInit {
           const workExpArray = this.getWorkExpArray;
           if (workExpArray.length > 0) {
             const firstWorkExpGroup = workExpArray.at(iteration) as FormGroup;
-            const modifiedResponse = GPTResponse.replace(/(\n)/g, '<br/>\n');
+            const modifiedResponse = GPTResponse
+                  .split('\n')  // Split the response by newlines
+                  .filter((line:any) => line.trim() !== '')  // Remove empty lines
+                  .map((line:any) => `<li>${line}</li>`)  // Wrap each line in <li> tags
+                  .join('');  // Join the list items into a single string
+                const htmlResponse = `<ul>${modifiedResponse}</ul>`; 
+                // console.log(htmlResponse);
             firstWorkExpGroup.patchValue({
-              work_job_description: modifiedResponse
+              work_job_description: htmlResponse
             });
           } else {
             console.error('No work experience entries found.');
@@ -917,7 +936,7 @@ export class CvBuilderComponent implements OnInit {
 
   confirm(event: Event, resumeLink: string, resumeId: number) {
     this.confirmService.confirm({
-        target: event.target as EventTarget, // Use type assertion here
+        target: event.target as EventTarget,
         message: 'Are you sure that you want to proceed?',
         icon: 'pi pi-exclamation-triangle',
         accept: () => {
