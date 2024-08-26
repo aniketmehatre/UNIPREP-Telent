@@ -80,12 +80,16 @@
 .formGroup{
   padding: 10px
 }
+:host ::ng-deep .p-overlay {
+  z-index: 4000 !important;
+}
 :host ::ng-deep.p-dropdown {
   width: 100% !important;
-  z-index: 1050;
 }
 :host ::ng-deep .p-dialog .p-dialog-content {
   overflow: visible !important; /* Allow overflow for dropdown */
+}:host ::ng-deep .p-overlay p-component {
+   z-index: 4050 !important;
 }
 .backIcon {
   height: 40px;

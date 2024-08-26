@@ -132,24 +132,13 @@ export class JobListingComponent implements OnInit {
                 const matchedCountry = this.countryCodes.find((country: any) => country.name === city.country_name);
                 return {
                     ...city,
+                    name: !city.city_name ? city.country_name : city.city_name,
                     country_code: matchedCountry ? matchedCountry.code : null,
                     flag: matchedCountry ? matchedCountry.flag : city.flag // Use the flag from countryCodes if matched, otherwise keep original
                 };
             });
-            // this.cities=res;
-            // // res.forEach(city => {
-            // //   this.cities.push({ ...city, label: city.city_name + ', ' + city.country_name })
-            // // });
+            
         });
-        //this.searchJobsAdzuna()
-        //   this.jobService.searchJobsCoreSignal(this.query, this.location, this.page, this.resultPerPage).subscribe(
-        //       (response: any) => {
-        //         this.jobs = response.results;
-        //       },
-        //       (error: any) => {
-        //         console.error('Error fetching job data:', error);
-        //       }
-        //   );
     }
 
     resetSearch() {

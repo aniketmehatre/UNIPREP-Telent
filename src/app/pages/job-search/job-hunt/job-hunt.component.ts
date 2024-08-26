@@ -54,14 +54,11 @@ export class JobHuntComponent implements OnInit {
         const matchedCountry = this.countryCodes.find((country: any) => country.name === city.country_name);
         return {
           ...city,
+          name: !city.city_name ? city.country_name : city.city_name,
           country_code: matchedCountry ? matchedCountry.code : null,
           flag: matchedCountry ? matchedCountry.flag : city.flag // Use the flag from countryCodes if matched, otherwise keep original
         };
       });
-      // this.cities=res;
-      // // res.forEach(city => {
-      // //   this.cities.push({ ...city, label: city.city_name + ', ' + city.country_name })
-      // // });
     });
 
   }
