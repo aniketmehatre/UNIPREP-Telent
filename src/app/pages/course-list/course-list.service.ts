@@ -94,4 +94,11 @@ export class CourseListService {
       headers: headers,
     });
   }
+
+  getSkills(){
+    const headers = new HttpHeaders().set("Accept", "application/json");
+    return this.http.get<any>(environment.ApiUrl + "/getSkillsList" ,{
+      headers: headers,
+    });
+  }
 }

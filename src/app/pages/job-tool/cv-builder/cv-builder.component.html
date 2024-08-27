@@ -78,9 +78,11 @@
                     <ng-container *ngIf="moduleActiveIndex == 0">
                         <div class="col-md-12 mb-3">
                             <h4 class="p-mb-2 PageTitle">Your Experience Level</h4>
-                            <p-dropdown [options]="experienceLevel" (onChange)="changeExperience($event)"
-                                styleClass="w-100" formControlName="selected_exp_level" optionLabel="level"
-                                optionValue="id"></p-dropdown>
+                            <p-dropdown [options]="experienceLevel" (onChange)="changeExperience($event)" placeholder="Select Experience Level" styleClass="w-100" 
+                                formControlName="selected_exp_level" optionLabel="level" optionValue="id"></p-dropdown>
+                            <div *ngIf="submitted && f['selected_exp_level'].errors" class="text-danger text-xs">
+                                <div style="margin-left:10px;" *ngIf="f['selected_exp_level'].errors">Experience Level Required</div>
+                            </div>
                         </div>
                         <div class="col-md-12 mb-3">
                             <h4 class="p-mb-2 PageTitle">Enter Your Personal Information</h4>
@@ -89,8 +91,7 @@
                                     <label class="form-label labelFont">Your Name</label>
                                     <div class="form-group">
                                         <div class="mb-3">
-                                            <input class="w-100" type="text" placeholder="Full Name"
-                                                formControlName="user_name" pInputText />
+                                            <input class="w-100" type="text" placeholder="Full Name" formControlName="user_name" pInputText />
                                             <div *ngIf="submitted && f['user_name'].errors" class="text-danger text-xs">
                                                 <div style="margin-left:10px;" *ngIf="f['user_name'].errors">User Name
                                                     Required</div>
@@ -635,7 +636,7 @@
                                                 <label class="form-label labelFont">Certificate Issued</label>
                                                 <div class="form-group">
                                                     <div class="mb-3">
-                                                        <input class="w-100" type="text" placeholder="Issue Date"
+                                                        <input class="w-100" type="text" placeholder="Issued Organization"
                                                             formControlName="certificate_issued" pInputText />
                                                         <div *ngIf="certificate.get('certificate_issued')?.invalid && certificate.get('certificate_issued')?.touched && submitted"
                                                             class="text-danger text-xs">
@@ -687,8 +688,10 @@
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <div class="mb-3">
-                                                    <input class="w-100" type="text" placeholder="Add Your Skills"
-                                                        formControlName="skills" pInputText />
+                                                    <!-- <input class="w-100" type="text" placeholder="Add Your Skills"
+                                                        formControlName="skills" pInputText /> -->
+                                                        <p-dropdown [options]="skillsLists" placeholder="Select Skill" styleClass="w-100" [filter]="true" [filterBy]="'skills'"
+                                                            formControlName="skills" optionLabel="skills" optionValue="skills"></p-dropdown>
                                                     <div *ngIf="skill.get('skills')?.invalid && skill.get('skills')?.touched && submitted"
                                                         class="text-danger text-xs">
                                                         <div style="margin-left:10px;">Skill Name required.</div>
@@ -744,8 +747,10 @@
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <div class="mb-3">
-                                                    <input class="w-100" type="text" placeholder="Language"
-                                                        formControlName="language" pInputText />
+                                                    <!-- <input class="w-100" type="text" placeholder="Language"
+                                                        formControlName="language" pInputText /> -->
+                                                    <p-dropdown [options]="languageLists" placeholder="Select Language" styleClass="w-100" [filter]="true" [filterBy]="'value'"
+                                                            formControlName="language" optionLabel="value" optionValue="value"></p-dropdown>
                                                     <div *ngIf="language.get('language')?.invalid && language.get('language')?.touched && submitted"
                                                         class="text-danger text-xs">
                                                         <div style="margin-left:10px;">Language Name required.</div>
@@ -790,7 +795,7 @@
                             </div>
                         </div>
                         <div class="col-md-12">
-                            <h4 class="p-mb-1 PageTitle">Extra Curricular Activities (Optional)</h4>
+                            <h4 class="p-mb-1 PageTitle">Achievements (Optional)</h4>
                             <div *ngFor="let extra of getExtraCurricularArray.controls; let i = index"
                                 formArrayName="extraCurricularArray">
                                 <div [formGroupName]="i">
@@ -802,7 +807,7 @@
                                                         formControlName="extra_curricular_activites" pInputText />
                                                     <div *ngIf="extra.get('extra_curricular_activites')?.invalid && extra.get('extra_curricular_activites')?.touched && submitted"
                                                         class="text-danger text-xs">
-                                                        <div style="margin-left:10px;">Extra Activities required.</div>
+                                                        <div style="margin-left:10px;">Achievements required.</div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -855,7 +860,7 @@
                             </div>
                         </div> -->
                     </ng-container>
-                    <ng-container *ngIf="moduleActiveIndex == 5">
+                    <!-- <ng-container *ngIf="moduleActiveIndex == 5">
                         <div class="col-md-12">
                             <h4 class="p-mb-1 PageTitle">References (Optional)</h4>
                             <div class="card mb-2" *ngFor="let reference of getReferenceArray.controls; let i = index"
@@ -952,7 +957,7 @@
                                         class="fa-solid fa-plus tickIcon"></i></button>
                             </div>
                         </div>
-                    </ng-container>
+                    </ng-container> -->
                     <div class="d-flex space-between" style="justify-content: space-between">
                         <button pButton type="button" (click)="fieldPreviousButton()"
                             [ngStyle]="{ 'visibility': moduleActiveIndex === 0 ? 'hidden' : 'visible' }"
@@ -1258,7 +1263,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="content" *ngIf="getReferenceArray.length != 0">
+                <!-- <div class="content" *ngIf="getReferenceArray.length != 0">
                     <p class="headingStyle text-color-white" [ngStyle]="{'background-color': selectedThemeColor}">
                         reference</p>
                     <div class="referenceItem">
@@ -1269,7 +1274,7 @@
                             <p><b>phone:</b> {{ refer.value.ref_contact }}</p>
                         </div>
                     </div>
-                </div>
+                </div> -->
             </div>
         </div>
     </div>
@@ -1389,12 +1394,10 @@
                     <div class="content" *ngIf="getCertificatesArray.length !=0">
                         <p class="headingStyle">certifications</p>
                         <div class="certificationItem" *ngFor="let certificate of getCertificatesArray.controls">
-                            <p><b>{{ certificate.value.certificate_name }}</b> {{ certificate.value.certificate_issued ?
-                                " - " + certificate.value.certificate_issued : "" }}</p>
+                            <p><a [href]="certificate.value.certicate_link" target="_Blank" style="text-decoration: none;"><b>{{ certificate.value.certificate_name }}</b>
+                            </a> {{ certificate.value.certificate_issued ? " - " + certificate.value.certificate_issued : "" }}</p>
                             <p>{{ certificate.value.certificate_id ? "ID:" + certificate.value.certificate_id : "" }}
                             </p>
-                            <a [href]="certificate.value.certicate_link" target="_Blank">{{
-                                certificate.value.certicate_link }}</a>
                         </div>
                     </div>
                     <div class="content" *ngIf="getLanguagesKnownArray.length !=0">
@@ -1415,7 +1418,7 @@
                     </div>
                     <ng-container *ngIf='getSkillsArray.length !=0'>
                         <div class="content">
-                            <p class="headingStyle">technical skills</p>
+                            <p class="headingStyle">skills</p>
                             <div class="technicalSkillItem" *ngFor="let skill of getSkillsArray.controls">
                                 <p class="upperCase">{{ skill.value.skills }}</p>
                                 <ng-container [ngSwitch]="skill.value.skills_proficiency">
@@ -1436,7 +1439,7 @@
                         </div>
                     </div> -->
                     <div class="content" *ngIf="getExtraCurricularArray.length != 0">
-                        <p class="headingStyle">Extra Curricular Activities</p>
+                        <p class="headingStyle">Achievements</p>
                         <div class="technicalSkillItem" *ngFor="let extra of getExtraCurricularArray.controls">
                             <p class="upperCase">{{ extra.value.extra_curricular_activites }}</p>
                         </div>
@@ -1521,7 +1524,7 @@
                             </div>
                         </div>
                     </ng-container>
-                    <ng-container *ngIf="getReferenceArray.length !=0">
+                    <!-- <ng-container *ngIf="getReferenceArray.length !=0">
                         <p class="headingStyle" style="margin:0px;">references</p>
                         <hr>
                         <div class="content" style="line-height: 1">
@@ -1534,7 +1537,7 @@
                                 </div>
                             </div>
                         </div>
-                    </ng-container>
+                    </ng-container> -->
                 </div>
                 <div class="col-md-5" [ngStyle]="{'background-color': selectedThemeColor }">
                     <ng-container
@@ -1599,7 +1602,7 @@
                         </div>
                     </ng-container>
                     <ng-container *ngIf="getExtraCurricularArray.length != 0">
-                        <p class="headingStyle">Extra Curricular Activities</p>
+                        <p class="headingStyle">Achievements</p>
                         <hr>
                         <div class="technicalSkillItem fw-600" *ngFor="let extra of getExtraCurricularArray.controls">
                             <p class="upperCase">{{ extra.value.extra_curricular_activites }}</p>
@@ -1609,14 +1612,9 @@
                         <p class="headingStyle"><span>certifications</span></p>
                         <div class="row">
                             <div *ngFor="let certificate of getCertificatesArray.controls" class="mb-1">
-                                <p><b>{{ certificate.value.certificate_name }}</b> - {{
-                                    certificate.value.certificate_issued ? " - " + certificate.value.certificate_issued
-                                    : "" }}</p>
-                                <p>{{ certificate.value.certificate_id ? "ID:" + certificate.value.certificate_id : ""
-                                    }}</p>
-                                <a [href]="certificate.value.certicate_link" target="_Blank">
-                                    <p style="font-size:smaller">{{ certificate.value.certicate_link }}</p>
-                                </a>
+                                <p><a [href]="certificate.value.certicate_link" target="_Blank" style="text-decoration: none;"><b>{{ certificate.value.certificate_name }}</b></a> {{
+                                    certificate.value.certificate_issued ? " - " + certificate.value.certificate_issued : "" }}</p>
+                                <p>{{ certificate.value.certificate_id ? "ID:" + certificate.value.certificate_id : ""}}</p>
                             </div>
                         </div>
                     </ng-container>
@@ -1691,19 +1689,15 @@
                         </div>
                     </ng-container>
                     <ng-container *ngIf="getCertificatesArray.length !=0">
-                        <p class="headingStyle zeroMarginPadding" [ngStyle]="{'color': selectedThemeColor }">
-                            certifications</p>
+                        <p class="headingStyle zeroMarginPadding" [ngStyle]="{'color': selectedThemeColor }">certifications</p>
                         <hr class="hr-custom"
                             [ngStyle]="{'color': selectedThemeColor, 'background-color':  selectedThemeColor}">
                         <div class="content" style="line-height:1">
                             <div class="mb-2" *ngFor="let certificate of getCertificatesArray.controls">
-                                <p><b>{{ certificate.value.certificate_name }}</b>{{
-                                    certificate.value.certificate_issued ? " - " + certificate.value.certificate_issued
-                                    : "" }}</p>
+                                <p><a [href]="certificate.value.certicate_link" target="_Blank" style="text-decoration: none;"><b>{{ certificate.value.certificate_name }}</b></a>{{
+                                    certificate.value.certificate_issued ? " - " + certificate.value.certificate_issued : "" }}</p>
                                 <p>{{ certificate.value.certificate_id ? "ID:" + certificate.value.certificate_id : ""
                                     }} </p>
-                                <a [href]="certificate.value.certicate_link" target="_Blank">{{
-                                    certificate.value.certicate_link }}</a>
                             </div>
                         </div>
                     </ng-container>
@@ -1725,7 +1719,7 @@
                         </div>
                     </ng-container>
                     <ng-container *ngIf="getExtraCurricularArray.length != 0">
-                        <p class="headingStyle zeroMarginPadding" style="font-size: 10px;" [ngStyle]="{'color': selectedThemeColor }">Extra Curricular activities</p>
+                        <p class="headingStyle zeroMarginPadding" [ngStyle]="{'color': selectedThemeColor }">Achievements</p>
                         <hr class="hr-custom"
                             [ngStyle]="{'color': selectedThemeColor, 'background-color':  selectedThemeColor}">
                         <div class="content">
@@ -1782,7 +1776,7 @@
                             </div>
                         </div>
                     </ng-container>
-                    <ng-container *ngIf="getReferenceArray.length !=0">
+                    <!-- <ng-container *ngIf="getReferenceArray.length !=0">
                         <p class="headingStyle" style="margin:0px;" [ngStyle]="{'color': selectedThemeColor }">
                             references</p>
                         <hr class="hr-custom"
@@ -1797,7 +1791,7 @@
                                 </div>
                             </div>
                         </div>
-                    </ng-container>
+                    </ng-container> -->
                 </div>
             </div>
         </div>
@@ -1900,18 +1894,16 @@
                         <div class="row">
                             <div *ngFor="let certificate of getCertificatesArray.controls" style="width: 50%;"
                                 class="mb-1">
-                                <p><b>{{ certificate.value.certificate_name }}</b> - {{
-                                    certificate.value.certificate_issued ? " - " + certificate.value.certificate_issued
-                                    : "" }}</p>
-                                <p>{{ certificate.value.certificate_id ? "ID:" + certificate.value.certificate_id : ""
-                                    }}</p>
-                                <a [href]="certificate.value.certicate_link" target="_Blank">
+                                <p><a [href]="certificate.value.certicate_link" target="_Blank" style="text-decoration: none;"><b>{{ certificate.value.certificate_name }}</b></a> - {{
+                                    certificate.value.certificate_issued ? " - " + certificate.value.certificate_issued : "" }}</p>
+                                <p>{{ certificate.value.certificate_id ? "ID:" + certificate.value.certificate_id : ""}}</p>
+                                <!-- <a [href]="certificate.value.certicate_link" target="_Blank">
                                     <p style="font-size:smaller">{{ certificate.value.certicate_link }}</p>
-                                </a>
+                                </a> -->
                             </div>
                         </div>
                     </ng-container>
-                    <ng-container *ngIf="getReferenceArray.length !=0">
+                    <!-- <ng-container *ngIf="getReferenceArray.length !=0">
                         <p class="headingStyle"><span>references</span></p>
                         <div class="row">
                             <div *ngFor="let refer of getReferenceArray.controls" style="width: 50%;" class="mb-1">
@@ -1921,7 +1913,7 @@
                                 <p><b>Phone:</b> {{ refer.value.ref_contact }}</p>
                             </div>
                         </div>
-                    </ng-container>
+                    </ng-container> -->
                 </div>
 
                 <div class="col-4">
@@ -1970,7 +1962,7 @@
                         </div>
                     </ng-container>
                     <ng-container *ngIf='getExtraCurricularArray.length != 0'>
-                        <p class="headingStyle" style="padding-top: 10px">Extra Curricular activities</p>
+                        <p class="headingStyle" style="padding-top: 10px">Achievements</p>
                         <div class="fw-600">
                             <ul class="pl-3">
                                 <li style="margin: 0px;" *ngFor="let extra of getExtraCurricularArray.controls">{{
