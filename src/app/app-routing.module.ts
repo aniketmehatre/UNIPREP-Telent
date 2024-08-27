@@ -9,6 +9,7 @@ import { CertificatesComponent } from "./pages/certificates/certificates.compone
 import { EnterpriseSubscriptionComponent } from "./components/enterprise-subscription/enterprise-subscription.component";
 import { BlogdetailComponent } from "./pages/blogdetail/blogdetail.component";
 import { BloglistComponent } from "./pages/bloglist/bloglist.component";
+import { DomainwhitlabelGuard } from "./domainwhitlabel.guard";
 
 
 const routes: Routes = [
@@ -19,7 +20,8 @@ const routes: Routes = [
   },
   {
     path: 'home',
-    component: LandingComponent
+    component: LandingComponent,
+    canActivate: [DomainwhitlabelGuard] 
   },
   {
     path: 'enterprisepayment/:id',
