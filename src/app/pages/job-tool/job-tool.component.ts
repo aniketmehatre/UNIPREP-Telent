@@ -11,7 +11,7 @@ import { CourseListService } from '../course-list/course-list.service';
 export class JobToolComponent implements OnInit {
   currentRoute: string = '';
   title: string = 'Career Tools';
-  items:string[]=[" ₹ INR", "$ Dollers"];
+  items: string[] = [" ₹ INR", "$ Dollers"];
   hideTitleForPreviewPage: boolean = false;
 
   constructor(
@@ -19,7 +19,15 @@ export class JobToolComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private location: Location,
     private resumeService: CourseListService
-  ) { }
+  ) {
+    this.currentRoute = this.router.url;
+    this.router.events.subscribe(event => {
+      if (event instanceof NavigationEnd) {
+        this.currentRoute = event.url;
+        this.changeTitle()
+      }
+    });
+  }
 
   ngOnInit(): void {
     this.currentRoute = this.router.url;
@@ -35,6 +43,7 @@ export class JobToolComponent implements OnInit {
       });
   }
   changeTitle() {
+
     if (this.currentRoute.includes("career-tool")) {
       this.title = "Career Tools";
     } else if (this.currentRoute.includes("cost-of-living")) {
@@ -45,10 +54,22 @@ export class JobToolComponent implements OnInit {
       this.title = "Global Salary Converter";
     } else if (this.currentRoute.includes("company-list")) {
       this.title = "company-list";
-    } else if(this.currentRoute.includes("coverletter-builder")){
+    } else if (this.currentRoute.includes("coverletter-builder")) {
       this.title = "Coverletter-Builder";
-    } else if(this.currentRoute.includes("career-planner")){
+    } else if (this.currentRoute.includes("career-planner")) {
       this.title = "career-planner";
+    } else if (this.currentRoute.includes("pyshcometric")) {
+      this.title = "Pyshcometric Test";
+      this.hideTitleForPreviewPage = false;
+
+    } else if (this.currentRoute.includes("personality")) {
+      this.title = "Personality Test";
+      this.hideTitleForPreviewPage = false;
+
+    } else {
+      this.title = "Employer Test";
+      this.hideTitleForPreviewPage = false;
+
     }
   }
   goBack() {
@@ -59,9 +80,11 @@ export class JobToolComponent implements OnInit {
     }
   }
 
-  hideHeaderForPreviewPage(){
+  hideHeaderForPreviewPage() {
     this.resumeService.data$.subscribe(data => {
-      this.hideTitleForPreviewPage = data;
+      if (!this.currentRoute.includes("salary-converter")) {
+        this.hideTitleForPreviewPage = data;
+      }
     });
   }
 

@@ -1,0 +1,19 @@
+<div class="card readingcard">
+    <div class="card-body text-center pt-0">
+        <div class="row">
+            <div class="col-md-3 col-12 mt-3" *ngFor="let category of categories">
+                <div class="card resourcecard  text-black h-100"
+                    [routerLink]="['/pages/job-tool/quiz/pyshcometric/list',category.id]">
+                    <div class="card-body d-flex justify-content-center">
+                        <div class="h-100" id="resourceLink">
+                            <div class="d-flex flex-column align-items-center">
+                                <div class="resourceimg"><img [src]="category.icon" alt="" /></div>
+                                <h5>{{ category.category_name}}</h5>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
