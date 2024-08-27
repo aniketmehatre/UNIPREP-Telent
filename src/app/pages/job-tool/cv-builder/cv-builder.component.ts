@@ -41,6 +41,7 @@ export class CvBuilderComponent implements OnInit {
   submittedFormData: any = [];
   selectedExpLevel: number = 0;
   selectedThemeColor: string = "#172a99";
+  selectedFontColor: string = "#000000";
   selectedColorCode: number = 1;
   template1: any;
   userNameSplit: { firstWord: string, secondWord: string } = { firstWord: '', secondWord: '' };
@@ -69,14 +70,14 @@ export class CvBuilderComponent implements OnInit {
       imageLink: "../../../uniprep-assets/resume-images/academic.webp",
     },
     {
-      id: 4,
-      templateName: "Creative",
-      imageLink: "../../../uniprep-assets/resume-images/Creative.webp",
-    },
-    {
       id: 5,
       templateName: "Functional",
       imageLink: "../../../uniprep-assets/resume-images/functional.webp",
+    },
+    {
+      id: 4,
+      templateName: "Creative",
+      imageLink: "../../../uniprep-assets/resume-images/Creative.webp",
     },
   ];
 
@@ -89,33 +90,33 @@ export class CvBuilderComponent implements OnInit {
     "centerPadding": "0",
     "variableWidth": true,
     "focusOnSelect": true,
-    "initialSlide": 3,
+    "initialSlide": 4,
   };
 
 
   constructor(private toaster: MessageService, private fb: FormBuilder, private resumeService: CourseListService, private http: HttpClient, private router: Router, private confirmService: ConfirmationService) {
 
     this.resumeFormInfoData = this.fb.group({
-      selected_exp_level: ['', Validators.required],
-      user_name: ['Your Full Name', Validators.required],
-      user_job_title: ['Your Job Title', Validators.required],
-      user_email: ['Email Address', [Validators.required, Validators.email]],
-      user_location: ['Your Location', Validators.required],
-      country_code: ['+91'],
-      user_phone: ['Phone Number',[Validators.required, Validators.pattern('^\\+?[1-9]\\d{1,14}$')]],
-      user_linkedin:['LinkedIn Name', Validators.required],
-      user_website: [''],
-      user_summary: ['About Yourself', Validators.required],
-      // selected_exp_level: ['2', [Validators.required]],
-      // user_name: ['vivek kaliyaperumal', [Validators.required]],
-      // user_job_title: ['full stack developer', [Validators.required]],
-      // user_email: ['vivek@uniabroad.co.in', [Validators.required]],
-      // user_location: ['mysore,karnataka', [Validators.required]],
+      // selected_exp_level: ['', Validators.required],
+      // user_name: ['Your Full Name', Validators.required],
+      // user_job_title: ['Your Job Title', Validators.required],
+      // user_email: ['Email Address', [Validators.required, Validators.email]],
+      // user_location: ['Your Location', Validators.required],
       // country_code: ['+91'],
-      // user_phone: ['9524999563', [Validators.required]],
-      // user_linkedin: ['vivek kaliyaperumal'],
-      // user_website: ['www.ownwebsite.com'],
-      // user_summary: ['Dedicated full stack developer with proficiency in front-end and back-end technologies, effective problem-solving skills, and a passion for creating innovative web applications.', [Validators.required]],
+      // user_phone: ['Phone Number',[Validators.required, Validators.pattern('^\\+?[1-9]\\d{1,14}$')]],
+      // user_linkedin:['LinkedIn Name', Validators.required],
+      // user_website: [''],
+      // user_summary: ['About Yourself', Validators.required],
+      selected_exp_level: [2, [Validators.required]],
+      user_name: ['vivek kaliyaperumal', [Validators.required]],
+      user_job_title: ['full stack developer', [Validators.required]],
+      user_email: ['vivek@uniabroad.co.in', [Validators.required]],
+      user_location: ['mysore,karnataka', [Validators.required]],
+      country_code: ['+91'],
+      user_phone: ['9524999563', [Validators.required]],
+      user_linkedin: ['vivek kaliyaperumal'],
+      user_website: ['www.ownwebsite.com'],
+      user_summary: ['Dedicated full stack developer with proficiency in front-end and back-end technologies, effective problem-solving skills, and a passion for creating innovative web applications.', [Validators.required]],
       EduDetailsArray: this.fb.array([]),
       workExpArray: this.fb.array([]),
       projectDetailsArray: this.fb.array([]),
@@ -168,6 +169,26 @@ export class CvBuilderComponent implements OnInit {
     });
   }
 
+  SortBasedOnProficiency(fieldName: string){
+    if(fieldName == "skills"){
+
+      const sortedArray = this.getSkillsArray.controls.sort((a, b) => {
+        const proficiencyOrder = [ "Advance", "Intermediate","Basic"];
+        return proficiencyOrder.indexOf(a.get('skills_proficiency')?.value) - proficiencyOrder.indexOf(b.get('skills_proficiency')?.value);
+      });
+      this.resumeFormInfoData.setControl('skillsArray', this.fb.array(sortedArray));
+
+    }else{
+      
+      const sortedArray = this.getLanguagesKnownArray.controls.sort((a, b) => {
+        const proficiencyOrder = [ "Native", "Proficient", "Fluent", "Beginner"];
+        return proficiencyOrder.indexOf(a.get('lang_proficiency')?.value) - proficiencyOrder.indexOf(b.get('lang_proficiency')?.value);
+      });
+      this.resumeFormInfoData.setControl('languagesKnownArray', this.fb.array(sortedArray));
+      
+    }
+  }
+
   // stableFileCreation(){
   //   this.stableFileName = Math.floor(100000000 + Math.random() * 900000);
   // }
@@ -195,6 +216,11 @@ export class CvBuilderComponent implements OnInit {
   selectColor(selectedColor: string, selectedColorCode: number) {
     this.selectedThemeColor = selectedColor;
     this.selectedColorCode = selectedColorCode;
+    if(this.selectedColorCode == 5){
+      this.selectedFontColor = "#000000";
+    }else{
+      this.selectedFontColor = "#FFFFFF";
+    }
   }
 
   get f() {
@@ -256,7 +282,6 @@ export class CvBuilderComponent implements OnInit {
       this.toaster.add({ severity: "error", summary: "Error", detail: "Please fill all the required fields." });
       visibleFormControls.forEach(control => control.markAsTouched());
     } else {
-      // this.next();
       this.fieldNextButton();
     }
   }
@@ -383,12 +408,15 @@ export class CvBuilderComponent implements OnInit {
     this.selectedResumeLevel = resumeLevel;
     if (resumeLevel == 'Modern') {
       this.selectedThemeColor = '#172a99';
+      this.selectedFontColor = '#FFFFFF';
       this.selectedColorCode = 1;
     } else if (resumeLevel == 'Creative') {
       this.selectedThemeColor = '#E2C742';
+      this.selectedFontColor = '#000000';
       this.selectedColorCode = 5;
     } else if (resumeLevel == 'Functional') {
       this.selectedThemeColor = '#469199';
+      this.selectedFontColor = "#FFFFFF";
       this.selectedColorCode = 2;
     }
   }
@@ -428,9 +456,11 @@ export class CvBuilderComponent implements OnInit {
     this.selectedResumeLevel = resumeTemplate;
     if (resumeTemplate == 'Modern') {
       this.selectedThemeColor = '#172a99';
+      this.selectedFontColor = '#FFFFFF';
       this.selectedColorCode = 1;
     } else if (resumeTemplate == 'Creative') {
       this.selectedThemeColor = '#E2C742';
+      this.selectedFontColor = '#000000';
       this.selectedColorCode = 5;
     } else if (resumeTemplate == 'Functional') {
       this.selectedThemeColor = '#469199';
@@ -449,7 +479,6 @@ export class CvBuilderComponent implements OnInit {
   }
 
   next() {
-    // console.log(this.activePageIndex, "active page index");
     this.activePageIndex++;
     if (this.activePageIndex == 4) {
       if (this.clickedDownloadButton) { //if the user not donwload the resume,in the presently created resume is not visible in the resume history page.
@@ -516,61 +545,61 @@ export class CvBuilderComponent implements OnInit {
 
   clickAddMoreButton(fieldName: string) {
     if (fieldName == "education_detail") {
-      this.getEduDetailsArray.push(this.fb.group({
-        edu_college_name: ['College Name',Validators.required],
-        edu_still_pursuing:[''],
-        edu_start_year: ['Start Year', Validators.required],
-        edu_end_year: ['End Year', Validators.required],
-        edu_degree: ['Degree Name', Validators.required],
-        edu_location: ['Location', Validators.required],
-        edu_percentage: ['', Validators.required],
-        edu_cgpa_percentage: [''],
-      }));
       // this.getEduDetailsArray.push(this.fb.group({
-      //   edu_college_name: ['Srinivasan Engg College', Validators.required],
-      //   edu_still_pursuing: [''],
-      //   edu_start_year: ['2015', Validators.required],
-      //   edu_end_year: ['2019', Validators.required],
-      //   edu_degree: ['Bachelor of Engineering in C.S', Validators.required],
-      //   edu_location: ['Perambalur', Validators.required],
-      //   edu_percentage: ['65', Validators.required],
-      //   edu_cgpa_percentage: ['%', Validators.required],
+      //   edu_college_name: ['College Name',Validators.required],
+      //   edu_still_pursuing:[''],
+      //   edu_start_year: ['Start Year', Validators.required],
+      //   edu_end_year: ['End Year', Validators.required],
+      //   edu_degree: ['Degree Name', Validators.required],
+      //   edu_location: ['Location', Validators.required],
+      //   edu_percentage: ['', Validators.required],
+      //   edu_cgpa_percentage: [''],
       // }));
-    } else if (fieldName == "work_experience") {
-      this.getWorkExpArray.push(this.fb.group({
-        work_org_name: ['Organization Name',Validators.required],
-        work_currently_working:[''],
-        work_start_year: ['Start Year',Validators.required],
-        work_end_year: ['End Year',Validators.required],
-        work_designation: ['Work Designation',Validators.required],
-        work_type: ['Full-Time',Validators.required],
-        work_location: ['Work Location',Validators.required],
-        work_job_description: ['Description About Your job and roles and responsibilities',Validators.required],
+      this.getEduDetailsArray.push(this.fb.group({
+        edu_college_name: ['Srinivasan Engg College', Validators.required],
+        edu_still_pursuing: [''],
+        edu_start_year: ['2015', Validators.required],
+        edu_end_year: ['2019', Validators.required],
+        edu_degree: ['Bachelor of Engineering in C.S', Validators.required],
+        edu_location: ['Perambalur', Validators.required],
+        edu_percentage: ['65', Validators.required],
+        edu_cgpa_percentage: ['%', Validators.required],
       }));
+    } else if (fieldName == "work_experience") {
       // this.getWorkExpArray.push(this.fb.group({
-      //   work_org_name: ['Uniabroad Private Ltd', Validators.required],
-      //   work_currently_working: [''],
-      //   work_start_year: ['2013', Validators.required],
-      //   work_end_year: ['2015', Validators.required],
-      //   work_designation: ['Full stack developer', Validators.required],
-      //   work_type: ['Full-Time', Validators.required],
-      //   work_location: ['Mysore', Validators.required],
-      //   work_job_description: ['- Develop and maintain front-end architecture, ensuring responsive design and user-friendly interfaces - Implement back-end functionality, including database integration and server-side logic - Write efficient and scalable code in multiple programming languages for both client and server-side applications - Collaborate with cross-functional teams to gather requirements, design solutions, and provide technical support - Stay up-to-date with industry trends and best practices to continually improve development processes and deliver high-quality products', Validators.required],
+      //   work_org_name: ['Organization Name',Validators.required],
+      //   work_currently_working:[''],
+      //   work_start_year: ['Start Year',Validators.required],
+      //   work_end_year: ['End Year',Validators.required],
+      //   work_designation: ['Work Designation',Validators.required],
+      //   work_type: ['Full-Time',Validators.required],
+      //   work_location: ['Work Location',Validators.required],
+      //   work_job_description: ['Description About Your job and roles and responsibilities',Validators.required],
       // }));
+      this.getWorkExpArray.push(this.fb.group({
+        work_org_name: ['Uniabroad Private Ltd', Validators.required],
+        work_currently_working: [''],
+        work_start_year: ['2013', Validators.required],
+        work_end_year: ['2015', Validators.required],
+        work_designation: ['Full stack developer', Validators.required],
+        work_type: ['Full-Time', Validators.required],
+        work_location: ['Mysore', Validators.required],
+        work_job_description: ['- Develop and maintain front-end architecture, ensuring responsive design and user-friendly interfaces - Implement back-end functionality, including database integration and server-side logic - Write efficient and scalable code in multiple programming languages for both client and server-side applications - Collaborate with cross-functional teams to gather requirements, design solutions, and provide technical support - Stay up-to-date with industry trends and best practices to continually improve development processes and deliver high-quality products', Validators.required],
+      }));
       // this.errorMessages.push('');
     } else if (fieldName == "project_details") {
-      this.getProjectDetailsArray.push(this.fb.group({
-        project_name: ['Project Name',Validators.required],
-        project_start_name: ['Start Year',Validators.required],
-        project_end_name: ['End Time',Validators.required],
-        project_description: ['Describe About Your Project',Validators.required],
-      }));
       // this.getProjectDetailsArray.push(this.fb.group({
-      //   project_name: ['Anonymity', Validators.required],
-      //   project_start_name: ['2015', Validators.required],
-      //   project_end_name: ['2019', Validators.required],
-      //   project_description: ['Together with developers, collect and assess user requirements.Using storyboards, process flows, and sitemaps, illustrate design concepts.Create visual user interface components such as menus, tabs, and widgets.Create UI mockups and prototypes that clearly show how websites work and appear.Determine and address UX issues (e.g., responsiveness).', Validators.required],
+      //   project_name: ['Project Name',Validators.required],
+      //   project_start_name: ['Start Year',Validators.required],
+      //   project_end_name: ['End Time',Validators.required],
+      //   project_description: ['Describe About Your Project',Validators.required],
       // }));
+      this.getProjectDetailsArray.push(this.fb.group({
+        project_name: ['Anonymity', Validators.required],
+        project_start_name: ['2015', Validators.required],
+        project_end_name: ['2019', Validators.required],
+        project_description: ['Together with developers, collect and assess user requirements.Using storyboards, process flows, and sitemaps, illustrate design concepts.Create visual user interface components such as menus, tabs, and widgets.Create UI mockups and prototypes that clearly show how websites work and appear.Determine and address UX issues (e.g., responsiveness).', Validators.required],
+      }));
     } else if (fieldName == "language_known") {
       // this.getLanguagesKnownArray.push(this.fb.group({
       //   language: ['',Validators.required],
@@ -807,6 +836,8 @@ export class CvBuilderComponent implements OnInit {
       ...formData,
       selectedResumeLevel: this.selectedResumeLevel,
       file_name: this.stableFileName,
+      selected_color: this.selectedThemeColor,
+      selected_font_color: this.selectedFontColor,
     };
     this.resumeService.downloadResume(data).subscribe(res => {
       window.open(res, '_blank');
@@ -852,7 +883,6 @@ export class CvBuilderComponent implements OnInit {
     this.http.post<any>('https://api.openai.com/v1/chat/completions', body, { headers: headers }).subscribe(response => {
       if (response.choices && response.choices.length > 0) {
         const GPTResponse = response.choices[0].message.content.trim();
-        // console.log(GPTResponse);
         if (fieldName == 'user_summary') {
           this.resumeFormInfoData.patchValue({
             user_summary: GPTResponse
@@ -867,7 +897,6 @@ export class CvBuilderComponent implements OnInit {
                   .map((line:any) => `<li>${line}</li>`)  // Wrap each line in <li> tags
                   .join('');  // Join the list items into a single string
                 const htmlResponse = `<ul>${modifiedResponse}</ul>`; 
-                // console.log(htmlResponse);
             firstWorkExpGroup.patchValue({
               work_job_description: htmlResponse
             });
