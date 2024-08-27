@@ -147,7 +147,7 @@
                                     <label class="form-label labelFont">country code</label>
                                     <div class="form-group">
                                         <div class="mb-3">
-                                            <p-dropdown [options]="countryCodeList" styleClass="w-100" formControlName="country_code" optionLabel="name" optionValue="code"></p-dropdown>
+                                            <p-dropdown [options]="countryCodeList" styleClass="w-100" [filter]="true" [filterBy]="'name'"  formControlName="country_code" optionLabel="name" optionValue="code"></p-dropdown>
                                         </div>
                                     </div>
                                 </div>
@@ -679,19 +679,15 @@
                             </div>
                         </div>
                         <div class="col-md-12">
-                            <h4 class="p-mb-1 PageTitle">Your Technical Skills</h4>
+                            <h4 class="p-mb-1 PageTitle">Your Skills</h4>
                             <div *ngFor="let skill of getSkillsArray.controls; let i = index"
                                 formArrayName="skillsArray">
                                 <div [formGroupName]="i">
                                     <div class="row">
-                                        <!-- [ngClass]="getSkillsArray.length === 1 ? 'col-md-9' : 'col-md-6'" -->
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <div class="mb-3">
-                                                    <!-- <input class="w-100" type="text" placeholder="Add Your Skills"
-                                                        formControlName="skills" pInputText /> -->
-                                                        <p-dropdown [options]="skillsLists" placeholder="Select Skill" styleClass="w-100" [filter]="true" [filterBy]="'skills'"
-                                                            formControlName="skills" optionLabel="skills" optionValue="skills"></p-dropdown>
+                                                    <p-dropdown [options]="skillsLists" placeholder="Select Skill" styleClass="w-100" [filter]="true" [appendTo]="'body'" [filterBy]="'skills'" formControlName="skills" optionLabel="skills" optionValue="skills"></p-dropdown>
                                                     <div *ngIf="skill.get('skills')?.invalid && skill.get('skills')?.touched && submitted"
                                                         class="text-danger text-xs">
                                                         <div style="margin-left:10px;">Skill Name required.</div>
@@ -699,14 +695,12 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <!-- [ngClass]="getSkillsArray.length === 1 ? 'col-md-3' : 'col-md-6'" -->
                                         <div class="col-md-6">
                                             <div class="row">
-                                                <!-- [ngClass]="getSkillsArray.length === 1 ? 'col-md-12' : 'col-md-7'" -->
                                                 <div class="col-md-7">
                                                     <div class="form-group">
                                                         <div class="mb-3">
-                                                            <p-dropdown [options]="skillProficiency" styleClass="w-100"
+                                                            <p-dropdown [options]="skillProficiency" styleClass="w-100" (onChange)="SortBasedOnProficiency('skills')"
                                                                 placeholder="Proficiency Level"
                                                                 formControlName="skills_proficiency" optionLabel="value"
                                                                 optionValue="id"></p-dropdown>
@@ -743,13 +737,10 @@
                                 formArrayName="languagesKnownArray">
                                 <div [formGroupName]="i">
                                     <div class="row">
-                                        <!-- [ngClass]="getLanguagesKnownArray.length === 1 ? 'col-md-9' : 'col-md-6'" -->
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <div class="mb-3">
-                                                    <!-- <input class="w-100" type="text" placeholder="Language"
-                                                        formControlName="language" pInputText /> -->
-                                                    <p-dropdown [options]="languageLists" placeholder="Select Language" styleClass="w-100" [filter]="true" [filterBy]="'value'"
+                                                    <p-dropdown [options]="languageLists" placeholder="Select Language"  styleClass="w-100" [filter]="true" [filterBy]="'value'"
                                                             formControlName="language" optionLabel="value" optionValue="value"></p-dropdown>
                                                     <div *ngIf="language.get('language')?.invalid && language.get('language')?.touched && submitted"
                                                         class="text-danger text-xs">
@@ -765,7 +756,7 @@
                                                 <div class="col-md-7">
                                                     <div class="form-group">
                                                         <div class="mb-3">
-                                                            <p-dropdown [options]="languageProficiency"
+                                                            <p-dropdown [options]="languageProficiency" (onChange)="SortBasedOnProficiency('language')"
                                                                 placeholder="Proficiency Level" styleClass="w-100"
                                                                 formControlName="lang_proficiency" optionLabel="value"
                                                                 optionValue="id"></p-dropdown>
@@ -1125,7 +1116,7 @@
             <div style="width: 35%; margin-right: 5%;">
                 <div class="content"
                     *ngIf='f["user_location"].value || f["user_phone"].value || f["user_email"].value || f["user_website"].value || f["user_linkedin"].value'>
-                    <p class="headingStyle text-color-white" [ngStyle]="{'background-color': selectedThemeColor}">
+                    <p class="headingStyle" [ngStyle]="{'background-color': selectedThemeColor, 'color': selectedFontColor}">
                         contact me</p>
                     <div class="contactItem fw-600" *ngIf='f["user_location"].value'>
                         <img class="resumeIcons" src="../../../uniprep-assets/resume-icons/Location.svg">
@@ -1150,7 +1141,7 @@
                 </div>
 
                 <div class="content" *ngIf="getLanguagesKnownArray.length !=0">
-                    <p class="headingStyle text-color-white" [ngStyle]="{'background-color': selectedThemeColor}">
+                    <p class="headingStyle" [ngStyle]="{'background-color': selectedThemeColor,'color': selectedFontColor}">
                         language</p>
                     <div class="languageItem fw-600" *ngFor="let lang of getLanguagesKnownArray.controls">
                         <p>{{ lang.value.language }} </p>
@@ -1163,11 +1154,11 @@
                                 src="../../../uniprep-assets/resume-icons/STARS-004.svg">
                             <img *ngSwitchCase="'Native'" class="resumeIcons"
                                 src="../../../uniprep-assets/resume-icons/STARS-005.svg">
-                        </ng-container>
+                        </ng-container> 
                     </div>
                 </div>
                 <div class="content" *ngIf="getCertificatesArray.length != 0">
-                    <p class="headingStyle text-color-white" [ngStyle]="{'background-color': selectedThemeColor}">certifications</p>
+                    <p class="headingStyle" [ngStyle]="{'background-color': selectedThemeColor, 'color': selectedFontColor}">certifications</p>
                     <div class="certificationItem" *ngFor="let certificate of getCertificatesArray.controls">
                         <p><b>{{ certificate.value.certificate_name }}</b> {{ certificate.value.certificate_issued ? " - " + certificate.value.certificate_issued : "" }}</p>
                         <p>{{ certificate.value.certificate_id ? "ID:" + certificate.value.certificate_id : "" }} </p>
@@ -1176,8 +1167,7 @@
                 </div>
 
                 <div class="content" *ngIf="getSkillsArray.length !=0">
-                    <p class="headingStyle text-color-white" [ngStyle]="{'background-color': selectedThemeColor}">
-                        technical skills</p>
+                    <p class="headingStyle" [ngStyle]="{'background-color': selectedThemeColor, 'color': selectedFontColor}">skills</p>
                     <div class="technicalSkillItem" *ngFor="let skill of getSkillsArray.controls">
                         <p class="upperCase">{{ skill.value.skills }}</p>
                         <ng-container [ngSwitch]="skill.value.skills_proficiency">
@@ -1191,15 +1181,14 @@
                     </div>
                 </div>
                 <!-- <div class="content" *ngIf="getHobbiesArray.length != 0">
-                    <p class="headingStyle text-color-white" [ngStyle]="{'background-color': selectedThemeColor}">
+                    <p class="headingStyle" [ngStyle]="{'background-color': selectedThemeColor}">
                         Hobbies</p>
                     <div class="technicalSkillItem" *ngFor="let hobby of getHobbiesArray.controls">
                         <p class="upperCase">{{ hobby.value.hobbies }}</p>
                     </div>
                 </div> -->
                 <div class="content" *ngIf="getExtraCurricularArray.length != 0">
-                    <p class="headingStyle text-color-white" [ngStyle]="{'background-color': selectedThemeColor}">Extra
-                        Curricular Activities</p>
+                    <p class="headingStyle" [ngStyle]="{'background-color': selectedThemeColor, 'color': selectedFontColor}">Achievements</p>
                     <div class="technicalSkillItem" *ngFor="let extra of getExtraCurricularArray.controls">
                         <p class="upperCase">{{ extra.value.extra_curricular_activites }}</p>
                     </div>
@@ -1208,12 +1197,12 @@
 
             <div style="width: 65%;">
                 <div class="aboutMe" *ngIf='f["user_summary"].value'>
-                    <p class="headingStyle text-color-white" [ngStyle]="{'background-color': selectedThemeColor}">about
+                    <p class="headingStyle" [ngStyle]="{'background-color': selectedThemeColor, 'color': selectedFontColor}">about
                         me</p>
                     <p class="small-text" [innerHTML]="f['user_summary'].value"></p>
                 </div>
                 <div class="content" *ngIf="getWorkExpArray.length != 0">
-                    <p class="headingStyle text-color-white" [ngStyle]="{'background-color': selectedThemeColor}">
+                    <p class="headingStyle" [ngStyle]="{'background-color': selectedThemeColor, 'color': selectedFontColor}">
                         experience</p>
                     <div class="experienceItem" *ngFor="let exp of getWorkExpArray.controls">
                         <div style="width: 30%;">
@@ -1231,7 +1220,7 @@
                     </div>
                 </div>
                 <div class="content" *ngIf="getEduDetailsArray.length != 0">
-                    <p class="headingStyle text-color-white" [ngStyle]="{'background-color': selectedThemeColor}">
+                    <p class="headingStyle" [ngStyle]="{'background-color': selectedThemeColor, 'color': selectedFontColor}">
                         education</p>
                     <div class="educationItem" *ngFor="let edu of getEduDetailsArray.controls">
                         <div style="width: 50%;">
@@ -1249,7 +1238,7 @@
                     </div>
                 </div>
                 <div class="content" *ngIf="getProjectDetailsArray.length != 0 && f['selected_exp_level'].value == 1">
-                    <p class="headingStyle text-color-white" [ngStyle]="{'background-color': selectedThemeColor}">
+                    <p class="headingStyle" [ngStyle]="{'background-color': selectedThemeColor, 'color': selectedFontColor}">
                         projects</p>
                     <div class="projectItem" *ngFor="let project of getProjectDetailsArray.controls">
                         <div style="width: 20%;">
@@ -1264,7 +1253,7 @@
                     </div>
                 </div>
                 <!-- <div class="content" *ngIf="getReferenceArray.length != 0">
-                    <p class="headingStyle text-color-white" [ngStyle]="{'background-color': selectedThemeColor}">
+                    <p class="headingStyle" [ngStyle]="{'background-color': selectedThemeColor}">
                         reference</p>
                     <div class="referenceItem">
                         <div style="width: 50%;" *ngFor="let refer of getReferenceArray.controls">
@@ -1539,7 +1528,7 @@
                         </div>
                     </ng-container> -->
                 </div>
-                <div class="col-md-5" [ngStyle]="{'background-color': selectedThemeColor }">
+                <div class="col-md-5" [ngStyle]="{'background-color': selectedThemeColor, 'color': selectedFontColor }">
                     <ng-container
                         *ngIf='f["user_location"].value || f["user_phone"].value || f["user_email"].value || f["user_website"].value || f["user_linkedin"].value'>
                         <p class="headingStyle" style="margin:0px;">contact me</p>
@@ -1637,9 +1626,9 @@
         <div class="container">
             <div class="row" [ngStyle]="{'background-color': selectedThemeColor }" style="padding: 5px 10px 15px 10px;">
                 <div class="col-12">
-                    <h1 class="userName upperCase" style="color: white;margin: 0px;">{{ f["user_name"].value }}</h1>
-                    <p class="profession upperCase" style="color: white;">{{ f["user_job_title"].value }}</p>
-                    <p style="line-height: 1;color: white;" [innerHTML]="f['user_summary'].value"></p>
+                    <h1 class="userName upperCase" [ngStyle]="{'color': selectedFontColor }" style="margin: 0px;">{{ f["user_name"].value }}</h1>
+                    <p class="profession upperCase" [ngStyle]="{'color': selectedFontColor }">{{ f["user_job_title"].value }}</p>
+                    <p style="line-height: 1;" [ngStyle]="{'color': selectedFontColor }" [innerHTML]="f['user_summary'].value"></p>
                 </div>
             </div>
             <div class="row">
@@ -1918,7 +1907,7 @@
 
                 <div class="col-4">
                     <ng-container *ngIf="getSkillsArray.length !=0">
-                        <p class="headingStyle zeroMarginPadding">technical skills</p>
+                        <p class="headingStyle zeroMarginPadding">skills</p>
                         <hr class="hr-custom">
                         <div class="content fw-600 technicalSkillItem" *ngFor="let skill of getSkillsArray.controls">
                             <p class="upperCase mr-2">{{ skill.value.skills }}</p>

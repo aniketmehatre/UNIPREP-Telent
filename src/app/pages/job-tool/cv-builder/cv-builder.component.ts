@@ -41,6 +41,7 @@ export class CvBuilderComponent implements OnInit {
   submittedFormData: any = [];
   selectedExpLevel: number = 0;
   selectedThemeColor: string = "#172a99";
+  selectedFontColor: string = "#000000";
   selectedColorCode: number = 1;
   template1: any;
   userNameSplit: { firstWord: string, secondWord: string } = { firstWord: '', secondWord: '' };
@@ -69,14 +70,14 @@ export class CvBuilderComponent implements OnInit {
       imageLink: "../../../uniprep-assets/resume-images/academic.webp",
     },
     {
-      id: 4,
-      templateName: "Creative",
-      imageLink: "../../../uniprep-assets/resume-images/Creative.webp",
-    },
-    {
       id: 5,
       templateName: "Functional",
       imageLink: "../../../uniprep-assets/resume-images/functional.webp",
+    },
+    {
+      id: 4,
+      templateName: "Creative",
+      imageLink: "../../../uniprep-assets/resume-images/Creative.webp",
     },
   ];
 
@@ -89,7 +90,7 @@ export class CvBuilderComponent implements OnInit {
     "centerPadding": "0",
     "variableWidth": true,
     "focusOnSelect": true,
-    "initialSlide": 3,
+    "initialSlide": 4,
   };
 
 
@@ -106,7 +107,7 @@ export class CvBuilderComponent implements OnInit {
       user_linkedin:['LinkedIn Name', Validators.required],
       user_website: [''],
       user_summary: ['About Yourself', Validators.required],
-      // selected_exp_level: ['2', [Validators.required]],
+      // selected_exp_level: [2, [Validators.required]],
       // user_name: ['vivek kaliyaperumal', [Validators.required]],
       // user_job_title: ['full stack developer', [Validators.required]],
       // user_email: ['vivek@uniabroad.co.in', [Validators.required]],
@@ -168,6 +169,26 @@ export class CvBuilderComponent implements OnInit {
     });
   }
 
+  SortBasedOnProficiency(fieldName: string){
+    if(fieldName == "skills"){
+
+      const sortedArray = this.getSkillsArray.controls.sort((a, b) => {
+        const proficiencyOrder = [ "Advance", "Intermediate","Basic"];
+        return proficiencyOrder.indexOf(a.get('skills_proficiency')?.value) - proficiencyOrder.indexOf(b.get('skills_proficiency')?.value);
+      });
+      this.resumeFormInfoData.setControl('skillsArray', this.fb.array(sortedArray));
+
+    }else{
+      
+      const sortedArray = this.getLanguagesKnownArray.controls.sort((a, b) => {
+        const proficiencyOrder = [ "Native", "Proficient", "Fluent", "Beginner"];
+        return proficiencyOrder.indexOf(a.get('lang_proficiency')?.value) - proficiencyOrder.indexOf(b.get('lang_proficiency')?.value);
+      });
+      this.resumeFormInfoData.setControl('languagesKnownArray', this.fb.array(sortedArray));
+      
+    }
+  }
+
   // stableFileCreation(){
   //   this.stableFileName = Math.floor(100000000 + Math.random() * 900000);
   // }
@@ -195,6 +216,11 @@ export class CvBuilderComponent implements OnInit {
   selectColor(selectedColor: string, selectedColorCode: number) {
     this.selectedThemeColor = selectedColor;
     this.selectedColorCode = selectedColorCode;
+    if(this.selectedColorCode == 5){
+      this.selectedFontColor = "#000000";
+    }else{
+      this.selectedFontColor = "#FFFFFF";
+    }
   }
 
   get f() {
@@ -256,7 +282,6 @@ export class CvBuilderComponent implements OnInit {
       this.toaster.add({ severity: "error", summary: "Error", detail: "Please fill all the required fields." });
       visibleFormControls.forEach(control => control.markAsTouched());
     } else {
-      // this.next();
       this.fieldNextButton();
     }
   }
@@ -383,12 +408,15 @@ export class CvBuilderComponent implements OnInit {
     this.selectedResumeLevel = resumeLevel;
     if (resumeLevel == 'Modern') {
       this.selectedThemeColor = '#172a99';
+      this.selectedFontColor = '#FFFFFF';
       this.selectedColorCode = 1;
     } else if (resumeLevel == 'Creative') {
       this.selectedThemeColor = '#E2C742';
+      this.selectedFontColor = '#000000';
       this.selectedColorCode = 5;
     } else if (resumeLevel == 'Functional') {
       this.selectedThemeColor = '#469199';
+      this.selectedFontColor = "#FFFFFF";
       this.selectedColorCode = 2;
     }
   }
@@ -428,9 +456,11 @@ export class CvBuilderComponent implements OnInit {
     this.selectedResumeLevel = resumeTemplate;
     if (resumeTemplate == 'Modern') {
       this.selectedThemeColor = '#172a99';
+      this.selectedFontColor = '#FFFFFF';
       this.selectedColorCode = 1;
     } else if (resumeTemplate == 'Creative') {
       this.selectedThemeColor = '#E2C742';
+      this.selectedFontColor = '#000000';
       this.selectedColorCode = 5;
     } else if (resumeTemplate == 'Functional') {
       this.selectedThemeColor = '#469199';
@@ -449,7 +479,6 @@ export class CvBuilderComponent implements OnInit {
   }
 
   next() {
-    // console.log(this.activePageIndex, "active page index");
     this.activePageIndex++;
     if (this.activePageIndex == 4) {
       if (this.clickedDownloadButton) { //if the user not donwload the resume,in the presently created resume is not visible in the resume history page.
@@ -807,6 +836,8 @@ export class CvBuilderComponent implements OnInit {
       ...formData,
       selectedResumeLevel: this.selectedResumeLevel,
       file_name: this.stableFileName,
+      selected_color: this.selectedThemeColor,
+      selected_font_color: this.selectedFontColor,
     };
     this.resumeService.downloadResume(data).subscribe(res => {
       window.open(res, '_blank');
@@ -852,7 +883,6 @@ export class CvBuilderComponent implements OnInit {
     this.http.post<any>('https://api.openai.com/v1/chat/completions', body, { headers: headers }).subscribe(response => {
       if (response.choices && response.choices.length > 0) {
         const GPTResponse = response.choices[0].message.content.trim();
-        // console.log(GPTResponse);
         if (fieldName == 'user_summary') {
           this.resumeFormInfoData.patchValue({
             user_summary: GPTResponse
@@ -867,7 +897,6 @@ export class CvBuilderComponent implements OnInit {
                   .map((line:any) => `<li>${line}</li>`)  // Wrap each line in <li> tags
                   .join('');  // Join the list items into a single string
                 const htmlResponse = `<ul>${modifiedResponse}</ul>`; 
-                // console.log(htmlResponse);
             firstWorkExpGroup.patchValue({
               work_job_description: htmlResponse
             });
