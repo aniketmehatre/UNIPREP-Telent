@@ -49,7 +49,7 @@ export class PagesComponent implements OnInit, OnDestroy {
                 public meta: Meta, private titleService: Title, private route: ActivatedRoute,private locationService: LocationService,
                 private dashboardService: DashboardService,private service:AuthService, private deviceService: DeviceDetectorService,private sanitizer:DomSanitizer) {
        // dev
-        Contlo.init('d7a84b3a1d83fa9f7e33f7396d57ac88', 'https://dev-student.uniprep.ai');
+       //  Contlo.init('d7a84b3a1d83fa9f7e33f7396d57ac88', 'https://dev-student.uniprep.ai');
 
         //prod
         //Contlo.init('a98318a62995cdf7c078c3fcaf912e65', 'https://uniprep.ai');
