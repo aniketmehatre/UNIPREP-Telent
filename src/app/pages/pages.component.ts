@@ -35,7 +35,7 @@ export class PagesComponent implements OnInit, OnDestroy {
     howItWorksVideoModal: boolean = false;
     howItWorksVideoLink: any | null = null;
     imageUrlWhitelabel: string | null = null;
-
+    footerIsShow:boolean=true;
     ogTitle = '';
     ogDescription = 'UNIPREP is a one-stop platform for students, graduates & entrepreneurs, seeking information on Career, Life and Study abroad. Sign-up Now - Free!';
     ogImage = '../../uniprep-assets/images/uniprep-light.svg';
@@ -111,7 +111,14 @@ export class PagesComponent implements OnInit, OnDestroy {
         localStorage.setItem("allowmobile",'1');
       }
     enterpriseSubscriptionLink: any
+    imagewhitlabeldomainname:any
     ngOnInit(): void {
+        this.imagewhitlabeldomainname=window.location.hostname;
+        if (this.imagewhitlabeldomainname === "dev-student.uniprep.ai" || this.imagewhitlabeldomainname === "uniprep.ai" || this.imagewhitlabeldomainname === "localhost") {
+            this.footerIsShow=false;
+        }else{
+          this.footerIsShow=true;
+        }
         this.locationService.getImage().subscribe(imageUrl => {
             this.imageUrlWhitelabel = imageUrl;
             console.log(this.imageUrlWhitelabel);
