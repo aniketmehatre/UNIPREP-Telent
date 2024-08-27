@@ -18,7 +18,7 @@ export class QuizComponent implements OnInit {
 
   quizData: any[] = [];
   currentCountryId: any
-  quizmoduleredirectcountryid:any=0;
+  quizmoduleredirectcountryid: any = 0;
   currentModuleId: any;
   universityidforquiz: any = null;
   currentModuleSlug: any;
@@ -57,14 +57,14 @@ export class QuizComponent implements OnInit {
   timerSubscription: Subscription | null = null;
   restrict: boolean = false;
   selectedQuizArrayForTimer: any[] = [];
-  totalquiztime:any=0;
+  totalquiztime: any = 0;
   restrict1: boolean = false;
   planExpired: boolean = false;
-  constructor(private moduleListService: ModuleServiceService,private authService: AuthService, private router: Router, private dataService: DataService,
+  constructor(private moduleListService: ModuleServiceService, private authService: AuthService, private router: Router, private dataService: DataService,
     private locationService: LocationService, private ngxService: NgxUiLoaderService, private toast: MessageService,) { }
 
   ngOnInit(): void {
-    this.quizmoduleredirectcountryid=Number(localStorage.getItem('modalcountryid'));
+    this.quizmoduleredirectcountryid = Number(localStorage.getItem('modalcountryid'));
     this.init();
     this.checkplanExpire();
   }
@@ -78,7 +78,7 @@ export class QuizComponent implements OnInit {
     this.positionNumber = 1;
     this.isInstructionVisible = true;
     this.currentModuleSlug = this.router.url.split('/').slice(-2, -1).pop();
-    this.currentCountryId =this.quizmoduleredirectcountryid==0? Number(localStorage.getItem('countryId')):Number(localStorage.getItem('modalcountryid'));
+    this.currentCountryId = this.quizmoduleredirectcountryid == 0 ? Number(localStorage.getItem('countryId')) : Number(localStorage.getItem('modalcountryid'));
     this.dataService.countryNameSource.subscribe((data) => {
       this.countryName = data;
     });
@@ -141,6 +141,27 @@ export class QuizComponent implements OnInit {
         this.currentApiSlug = 'SubmoduleListForStudents';
         this.selectedModule = 'skill-mastery'
         break;
+      case 'pyshcometric':
+        this.universityidforquiz = null;
+        this.currentModuleId = 11;
+        this.currentModuleName = 'Pyshcometric Test';
+        this.currentApiSlug = 'SubmoduleListForStudents';
+        this.selectedModule = 'pyshcometric-test'
+        break;
+      case 'personality':
+        this.universityidforquiz = null;
+        this.currentModuleId = 12;
+        this.currentModuleName = 'Personality Test';
+        this.currentApiSlug = 'SubmoduleListForStudents';
+        this.selectedModule = 'personality-test'
+        break;
+      case 'employer':
+        this.universityidforquiz = null;
+        this.currentModuleId = 13;
+        this.currentModuleName = 'Employer Test';
+        this.currentApiSlug = 'SubmoduleListForStudents';
+        this.selectedModule = 'employer-test'
+        break;
       default:
         this.currentModuleId = 6;
         this.universityidforquiz = null;
@@ -193,7 +214,7 @@ export class QuizComponent implements OnInit {
       let subscription_exists_status = res.subscription_details;
       if (data.plan === "expired" || data.plan === 'subscription_expired' ||
         subscription_exists_status?.subscription_plan === "free_trail") {
-        this.planExpired = true;   
+        this.planExpired = true;
       } else {
         this.planExpired = false;
       }
@@ -201,13 +222,13 @@ export class QuizComponent implements OnInit {
   }
 
   loadModuleAndSubModule() {
-    this.currentCountryId = this.quizmoduleredirectcountryid==0? Number(localStorage.getItem('countryId')):Number(localStorage.getItem('modalcountryid'))
+    this.currentCountryId = this.quizmoduleredirectcountryid == 0 ? Number(localStorage.getItem('countryId')) : Number(localStorage.getItem('modalcountryid'))
     //this.isSkeletonVisible = true;
     //this.subModules$ = this.moduleListService.subModuleList$();
     console.log(this.currentCountryId);
     console.log(this.quizmoduleredirectcountryid);
     let data = {
-      countryId: this.currentModuleId==10?0:this.currentCountryId,
+      countryId: this.currentModuleId == 10 ? 0 : this.currentCountryId,
       moduleId: this.currentModuleId,
       api_module_name: this.currentApiSlug
     }
@@ -274,6 +295,10 @@ export class QuizComponent implements OnInit {
     //   icon: 'fa-solid fa-circle-exclamation',
     // });
     this.stopTimer();
+    if (this.currentModuleId > 10) {
+      this.router.navigate([`/pages/job-tool/career-tool`]);
+      return;
+    }
     this.router.navigate([`/pages/modules/${this.currentModuleSlug}`]);
   }
 
@@ -353,7 +378,7 @@ export class QuizComponent implements OnInit {
     });
     this.stopTimer();
     var data = {
-      country_id: this.currentModuleId==10?0:this.currentCountryId,
+      country_id: this.currentModuleId == 10 ? 0 : this.currentCountryId,
       module_id: this.currentModuleId,
       submodule_id: this.universityidforquiz,
       quizquestion: this.quizData
@@ -404,7 +429,7 @@ export class QuizComponent implements OnInit {
     this.isReviewVisible = true;
     this.stopTimer();
     var data = {
-      countryId:this.currentModuleId==10?0:this.currentCountryId,
+      countryId: this.currentModuleId == 10 ? 0 : this.currentCountryId,
       moduleId: this.currentModuleId,
       submoduleId: this.universityidforquiz
     }
@@ -424,7 +449,7 @@ export class QuizComponent implements OnInit {
   checkquizquestioncount() {
     this.quizData = [];
     var data = {
-      countryId: this.currentModuleId==10?0:this.currentCountryId,
+      countryId: this.currentModuleId == 10 ? 0 : this.currentCountryId,
       moduleId: this.currentModuleId,
       submoduleid: this.universityidforquiz
     }
@@ -445,7 +470,7 @@ export class QuizComponent implements OnInit {
   checkquizquestionmodule() {
     var data = {
       moduleid: this.currentModuleId,
-      countryid:this.currentModuleId==10? 0:this.currentCountryId,
+      countryid: this.currentModuleId == 10 ? 0 : this.currentCountryId,
       submoduleid: this.universityidforquiz
     }
     this.moduleListService.checkModuleQuizCompletion(data).subscribe((res) => {
@@ -454,13 +479,17 @@ export class QuizComponent implements OnInit {
   }
   openCertificate() {
     this.stopTimer();
-    if(this.planExpired){
-      this.restrict1=true;
+    if (this.planExpired) {
+      this.restrict1 = true;
       return;
     }
     window.open(this.certificatesurl, '_blank');
   }
   takeAnotherquiz() {
+    if (this.currentModuleId > 10) {
+      this.router.navigate([`/pages/job-tool/career-tool`]);
+      return;
+    }
     this.router.navigate([`/pages/modules/quizmodule`]);
   }
   openReferAnswer(link: any) {
@@ -468,17 +497,17 @@ export class QuizComponent implements OnInit {
   }
   startTimer(): void {
     this.timer = 0;
-    this.totalquiztime=this.quizcount*60;
+    this.totalquiztime = this.quizcount * 60;
     if (this.timerSubscription) {
       this.timerSubscription.unsubscribe();
     }
     this.timerSubscription = interval(1000).pipe(
-      takeWhile(() => this.timer < (this.quizcount*60))
+      takeWhile(() => this.timer < (this.quizcount * 60))
     ).subscribe(() => {
       this.timer++;
       // console.log(`Timer: ${this.timer} seconds`);
-      if (this.timer === this.quizcount*60) {
-        this.restrict=true;    
+      if (this.timer === this.quizcount * 60) {
+        this.restrict = true;
       }
     });
   }
@@ -494,6 +523,10 @@ export class QuizComponent implements OnInit {
     this.startTimer();
   }
   timeIsOver() {
+    if (this.currentModuleId > 10) {
+      this.router.navigate([`/pages/job-tool/career-tool`]);
+      return;
+    }
     this.router.navigate(['/pages/modules/quizmodule'])
   }
   stopTimer(): void {

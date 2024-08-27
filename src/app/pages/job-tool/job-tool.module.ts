@@ -28,6 +28,10 @@ import {StepsModule} from 'primeng/steps';
 import { PdfViewerModule } from 'ng2-pdf-viewer';
 import { ConfirmPopupModule } from 'primeng/confirmpopup';
 import {ConfirmationService} from 'primeng/api';
+import { PyshometricTestComponent } from './pyshometric-test/pyshometric-test.component';
+import { PersonalityTestComponent } from './personality-test/personality-test.component';
+import { EmployerTestComponent } from './employer-test/employer-test.component';
+import { QuizTestListComponent } from './quiz-test-list/quiz-test-list.component';
 
 @NgModule({
   declarations: [
@@ -37,8 +41,12 @@ import {ConfirmationService} from 'primeng/api';
     CoverLetterBuilderComponent,
     CostOfLivingComponent,
     ComparisionComponent,
-    SalaryConverterComponent
-  ],
+    SalaryConverterComponent,
+    PyshometricTestComponent,
+    PersonalityTestComponent,
+    EmployerTestComponent,
+    QuizTestListComponent,
+    ],
   imports: [
     CommonModule,
     InputTextModule,

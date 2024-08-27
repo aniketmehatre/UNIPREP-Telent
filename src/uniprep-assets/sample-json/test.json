@@ -1,0 +1,29 @@
+{
+    "data": [
+        {
+            "id":1,
+            "level": "Basic",
+            "name": "Test1"
+        },
+        {
+            "id":2,
+            "level": "Basic",
+            "name": "Test2"
+        },
+        {
+            "id":3,
+            "level": "Basic",
+            "name": "Test3"
+        },
+        {
+            "id":4,
+            "level": "Basic",
+            "name": "Test3"
+        },
+        {
+            "id":5,
+            "level": "Intermediate",
+            "name": "Test5"
+        }
+    ]
+}
