@@ -63,33 +63,33 @@ export class CareerToolComponent implements OnInit {
       refLink: "",
       mode:"company-list"
     },
-    {
-      id:7,
-      moduleName: "Pyshcometric Test",
-      Description: "Access company details to research potential employers.",
-      tooltip: "Craft personalized and compelling cover letters for job applications.",
-      imageLink: "https://api.uniprep.ai/uniprepapi/storage/app/public/resume_icons/companylist.svg",
-      refLink: "",
-      mode:"pyshcometric-test"
-    },
-    {
-      id:8,
-      moduleName: "Personality Test",
-      Description: "Access company details to research potential employers.",
-      tooltip: "Craft personalized and compelling cover letters for job applications.",
-      imageLink: "https://api.uniprep.ai/uniprepapi/storage/app/public/resume_icons/companylist.svg",
-      refLink: "",
-      mode:"personality-test"
-    },
-    {
-      id:9,
-      moduleName: "Employer Test",
-      Description: "Access company details to research potential employers.",
-      tooltip: "Craft personalized and compelling cover letters for job applications.",
-      imageLink: "https://api.uniprep.ai/uniprepapi/storage/app/public/resume_icons/companylist.svg",
-      refLink: "",
-      mode:"employer-test"
-    }
+    // {
+    //   id:7,
+    //   moduleName: "Pyshcometric Test",
+    //   Description: "Access company details to research potential employers.",
+    //   tooltip: "Craft personalized and compelling cover letters for job applications.",
+    //   imageLink: "https://api.uniprep.ai/uniprepapi/storage/app/public/resume_icons/companylist.svg",
+    //   refLink: "",
+    //   mode:"pyshcometric-test"
+    // },
+    // {
+    //   id:8,
+    //   moduleName: "Personality Test",
+    //   Description: "Access company details to research potential employers.",
+    //   tooltip: "Craft personalized and compelling cover letters for job applications.",
+    //   imageLink: "https://api.uniprep.ai/uniprepapi/storage/app/public/resume_icons/companylist.svg",
+    //   refLink: "",
+    //   mode:"personality-test"
+    // },
+    // {
+    //   id:9,
+    //   moduleName: "Employer Test",
+    //   Description: "Access company details to research potential employers.",
+    //   tooltip: "Craft personalized and compelling cover letters for job applications.",
+    //   imageLink: "https://api.uniprep.ai/uniprepapi/storage/app/public/resume_icons/companylist.svg",
+    //   refLink: "",
+    //   mode:"employer-test"
+    // }
   ]
   constructor(private router: Router) { }
 
@@ -113,14 +113,14 @@ export class CareerToolComponent implements OnInit {
     }else if(mode == "company-list"){
       this.router.navigate(['/pages/job-tool/company-list']);
     }
-    else if(mode == "pyshcometric-test"){
-      this.router.navigate(['/pages/job-tool/pyshcometric-test']);
-    }
-    else if(mode == "personality-test"){
-      this.router.navigate(['/pages/job-tool/personality-test']);
-    }else{
-      this.router.navigate(['/pages/job-tool/employer-test']);
-    }
+    // else if(mode == "pyshcometric-test"){
+    //   this.router.navigate(['/pages/job-tool/pyshcometric-test']);
+    // }
+    // else if(mode == "personality-test"){
+    //   this.router.navigate(['/pages/job-tool/personality-test']);
+    // }else{
+    //   this.router.navigate(['/pages/job-tool/employer-test']);
+    // }
   }
   // openSalaryConverter(){
   //   this.router.navigate(['/pages/job-tool/salary-converter']);
