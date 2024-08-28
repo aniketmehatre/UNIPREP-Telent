@@ -12,6 +12,7 @@ import { PersonalityTestComponent } from './personality-test/personality-test.co
 import { PyshometricTestComponent } from './pyshometric-test/pyshometric-test.component';
 import { EmployerTestComponent } from './employer-test/employer-test.component';
 import { QuizTestListComponent } from './quiz-test-list/quiz-test-list.component';
+import { EmployerSubcategoryComponent } from './employer-subcategory/employer-subcategory.component';
 
 const routes: Routes = [
   {
@@ -27,6 +28,7 @@ const routes: Routes = [
       { path: 'personality-test', component: PersonalityTestComponent },
       { path: 'pyshcometric-test', component: PyshometricTestComponent},
       { path: 'employer-test', component: EmployerTestComponent},
+      { path: 'employer-sub-test/:id', component: EmployerSubcategoryComponent},
       { path: 'quiz/:name/list/:id', component: QuizTestListComponent}
     ]
   }
