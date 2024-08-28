@@ -3,7 +3,7 @@
                 <div class="column" *ngFor="let status of statuses; let i = index">
                     <h6><strong>{{ status.label }}({{ getJobsByStatus(status.value).length }})</strong></h6>
                     <ng-container *ngFor="let job of getJobsByStatus(status.value)">
-                        <div class="card-container bg-light p-3">
+                        <div class="card-container bg-light p-3" (click)="onClickCard(job)">
                             <div class="card-content">
                                 <div class="row p-0 m-0">
                                     <div class="col-10 p-0 m-0">
@@ -144,7 +144,7 @@
                         <div class="mb-3">
                             <p-dropdown [options]="statuses" class="w-100" filterBy="label" [showClear]="true"
                                         optionLabel="label" formControlName="status"
-                                        placeholder="Status" style="width: 100%;"></p-dropdown>
+                                        placeholder="Status" ></p-dropdown>
                         </div>
                     </div>
                 </div>

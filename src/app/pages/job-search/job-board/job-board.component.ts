@@ -49,6 +49,7 @@ export class JobBoardComponent implements OnInit {
             type: new FormControl(''),
             country_flag: new FormControl(''),
             status: new FormControl(''),
+            application_link: new FormControl('')
         });
     }
 
@@ -96,7 +97,7 @@ export class JobBoardComponent implements OnInit {
             company_name: this.addManual.value.company_name,
             company_url: '',
             job_title: this.addManual.value.job_title,
-            job_url: '',
+            job_url: this.addManual.value.application_link,
             list_date: new Date(),
             location: this.addManual.value.location,
             price: '',
@@ -145,5 +146,11 @@ export class JobBoardComponent implements OnInit {
 
     goBack(){
         this.isDetailsCardVisible = false
+    }
+
+    onClickCard(data: any){
+        if(data.job_url){
+            window.open(data.job_url, '_blank');
+        }
     }
 }

@@ -34,7 +34,7 @@
 }
 
 .column {
-  width: 24%;
+  width: 25% !important;
   position: relative;
   padding-left: 10px;
 }
@@ -83,9 +83,9 @@
 :host ::ng-deep .p-overlay {
   z-index: 4000 !important;
 }
-:host ::ng-deep.p-dropdown {
-  width: 100% !important;
-}
+//:host ::ng-deep.p-dropdown {
+//  width: 100% !important;
+//}
 :host ::ng-deep .p-dialog .p-dialog-content {
   overflow: visible !important; /* Allow overflow for dropdown */
 }:host ::ng-deep .p-overlay p-component {
