@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { environment } from "@env/environment";
 import { Observable } from 'rxjs';
 import { BehaviorSubject } from 'rxjs';
+const saveAs = require('file-saver');
 @Injectable({
   providedIn: 'root'
 })
@@ -99,6 +100,12 @@ export class CourseListService {
     const headers = new HttpHeaders().set("Accept", "application/json");
     return this.http.get<any>(environment.ApiUrl + "/getSkillsList" ,{
       headers: headers,
+    });
+  }
+
+  downloadPdf(pdfUrl: string, fileName: string): void {
+    this.http.get(pdfUrl, { responseType: 'blob' }).subscribe((blob: Blob) => {
+          saveAs(blob, fileName);
     });
   }
 }
