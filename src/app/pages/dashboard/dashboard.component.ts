@@ -7,6 +7,7 @@ import {Router} from "@angular/router";
 import {DataService} from 'src/app/data.service';
 import {combineLatest} from "rxjs";
 import {Carousel, CarouselModule} from "primeng/carousel";
+import { LocationService } from 'src/app/location.service';
 
 @Component({
     selector: 'uni-dashboard',
@@ -32,6 +33,10 @@ export class DashboardComponent implements OnInit, OnChanges {
     enableReading!: boolean;
     restrict: boolean = false;
     planExpired: boolean = false;
+    ehitlabelIsShow:boolean=true;
+    imagewhitlabeldomainname:any
+    orgnamewhitlabel:any;
+    orglogowhitelabel:any;
     @ViewChild('carousel') carousel!: Carousel;
     university: any[] = [
         {
@@ -58,7 +63,7 @@ export class DashboardComponent implements OnInit, OnChanges {
     userData: any
     myProfilePercentage: any
     constructor(private dashboardService: DashboardService,private service: AuthService,
-        private router: Router, private dataService: DataService,private authService: AuthService,
+        private router: Router, private dataService: DataService,private authService: AuthService,private locationService: LocationService,
     ) {
         this.responsiveOptions = [
             {
@@ -85,6 +90,18 @@ export class DashboardComponent implements OnInit, OnChanges {
     ];
 
     ngOnInit(): void {
+        this.locationService.getImage().subscribe(imageUrl => {
+            this.orglogowhitelabel = imageUrl;
+          });
+          this.locationService.getOrgName().subscribe(orgname => {
+            this.orgnamewhitlabel = orgname;
+          });
+        this.imagewhitlabeldomainname=window.location.hostname;
+        if (this.imagewhitlabeldomainname === "dev-student.uniprep.ai" || this.imagewhitlabeldomainname === "uniprep.ai" || this.imagewhitlabeldomainname === "localhost") {
+          this.ehitlabelIsShow=true;
+        }else{
+          this.ehitlabelIsShow=false;
+        }
         this.checkplanExpire()
         this.selectedCountryId = Number(localStorage.getItem('countryId'));
         this.enableReadingData();

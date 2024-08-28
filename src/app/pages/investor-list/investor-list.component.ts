@@ -40,8 +40,8 @@ export class InvestorListComponent implements OnInit {
   exportDataIds:any[] = [];
   exportCreditCount: number = 0;
   favCount:number=0;
-
-
+  ehitlabelIsShow:boolean=true;
+  imagewhitlabeldomainname:any
   constructor(
     private _location: Location, 
     private fb: FormBuilder, 
@@ -63,6 +63,12 @@ export class InvestorListComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.imagewhitlabeldomainname=window.location.hostname;
+    if (this.imagewhitlabeldomainname === "dev-student.uniprep.ai" || this.imagewhitlabeldomainname === "uniprep.ai" || this.imagewhitlabeldomainname === "localhost") {
+      this.ehitlabelIsShow=true;
+    }else{
+      this.ehitlabelIsShow=false;
+    }
     this.loadMultiSelectData();
     this.checkplanExpire();
     this.GetPersonalProfileData();

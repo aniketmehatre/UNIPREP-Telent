@@ -56,7 +56,10 @@ export class ListSubModulesComponent implements OnInit {
   howItWorksVideoLink: string = "";
   quizmoduleselectcountryidsetzero:any=0;
   selectSubmoduleName:string = "";
-
+  ehitlabelIsShow:boolean=true;
+  imagewhitlabeldomainname:any
+  orgnamewhitlabel:any;
+  orglogowhitelabel:any;
   constructor(private moduleListService: ModuleServiceService, private router: Router, private dataService: DataService, private authService: AuthService,
     private locationService: LocationService, private route: ActivatedRoute, private ngxService: NgxUiLoaderService,
     private confirmationService: ConfirmationService, private pageFacade: PageFacadeService) {
@@ -93,6 +96,18 @@ export class ListSubModulesComponent implements OnInit {
   allSearchedResult: any[] = []
   loopRange = Array.from({ length: 30 }).fill(0).map((_, index) => index);
   ngOnInit() {
+    this.locationService.getImage().subscribe(imageUrl => {
+      this.orglogowhitelabel = imageUrl;
+    });
+    this.locationService.getOrgName().subscribe(orgname => {
+      this.orgnamewhitlabel = orgname;
+    });
+  this.imagewhitlabeldomainname=window.location.hostname;
+  if (this.imagewhitlabeldomainname === "dev-student.uniprep.ai" || this.imagewhitlabeldomainname === "uniprep.ai" || this.imagewhitlabeldomainname === "localhost") {
+    this.ehitlabelIsShow=true;
+  }else{
+    this.ehitlabelIsShow=false;
+  }
     localStorage.setItem("modalcountryid",this.quizmoduleselectcountryidsetzero);
     this.init();
     this.moduleListService.getSubmodulesAndSpecialization().subscribe((res: any) => {

@@ -26,6 +26,7 @@ import { AuthService } from "src/app/Auth/auth.service";
 import { NgxUiLoaderService } from "ngx-ui-loader";
 import { environment } from "@env/environment";
 import { PageFacadeService } from "../../page-facade.service";
+import { LocationService } from "src/app/location.service";
 
 @Component({
   selector: "uni-question-list",
@@ -94,7 +95,10 @@ export class QuestionListComponent implements OnInit {
   howItWorksVideoLink: string = "";
   quizmoduleselectcountryidsetzero:any=0;
   @ViewChild('op', { static: false, read: ElementRef }) elRef: any;
-
+  ehitlabelIsShow:boolean=true;
+  imagewhitlabeldomainname:any
+  orgnamewhitlabel:any;
+  orglogowhitelabel:any;
   constructor(
     private moduleListService: ModuleServiceService,
     private mService: ModuleServiceService,
@@ -112,6 +116,7 @@ export class QuestionListComponent implements OnInit {
     private titleService: Title,
     private cdRef: ChangeDetectorRef,
     private pageFacade: PageFacadeService,
+    private locationService: LocationService,
   ) {
     Carousel.prototype.changePageOnTouch = (e, diff) => { }
     Carousel.prototype.onTouchMove = () => { };
@@ -127,6 +132,18 @@ export class QuestionListComponent implements OnInit {
   }
   loopRange = Array.from({ length: 30 }).fill(0).map((_, index) => index);
   ngOnInit(): void {
+    this.locationService.getImage().subscribe(imageUrl => {
+      this.orglogowhitelabel = imageUrl;
+    });
+    this.locationService.getOrgName().subscribe(orgname => {
+      this.orgnamewhitlabel = orgname;
+    });
+  this.imagewhitlabeldomainname=window.location.hostname;
+  if (this.imagewhitlabeldomainname === "dev-student.uniprep.ai" || this.imagewhitlabeldomainname === "uniprep.ai" || this.imagewhitlabeldomainname === "localhost") {
+    this.ehitlabelIsShow=true;
+  }else{
+    this.ehitlabelIsShow=false;
+  }
     localStorage.setItem("modalcountryid",this.quizmoduleselectcountryidsetzero);
     this.countryId = Number(localStorage.getItem('countryId'));
     this.sharedCountry = Number(localStorage.getItem('countryId'));

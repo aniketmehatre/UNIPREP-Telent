@@ -36,6 +36,8 @@ export class PitchDeskComponent implements OnInit {
   favCount:number=0;
   PersonalInfo!: any;
   viewFavourites: boolean = false;
+  ehitlabelIsShow:boolean=true;
+  imagewhitlabeldomainname:any
   constructor(private pitchDesk:PitchDeskService,  private userManagementService: UserManagementService, private fb: FormBuilder,private router: Router,private authService: AuthService, private toast: MessageService, private dataService: DataService, private pageFacade: PageFacadeService) { 
     this.filterForm = this.fb.group({
       pitchdeck_name: [''],
@@ -46,6 +48,12 @@ export class PitchDeskComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.imagewhitlabeldomainname=window.location.hostname;
+    if (this.imagewhitlabeldomainname === "dev-student.uniprep.ai" || this.imagewhitlabeldomainname === "uniprep.ai" || this.imagewhitlabeldomainname === "localhost") {
+      this.ehitlabelIsShow=true;
+    }else{
+      this.ehitlabelIsShow=false;
+    }
     this.getPitchDeskList();
     this.checkplanExpire();
     this.selectBoxValues();

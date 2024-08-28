@@ -13,6 +13,8 @@ import { BehaviorSubject, Observable, of, tap } from 'rxjs';
 export class LocationService {
     private imageSubject = new BehaviorSubject<string | null>(null);
     public image$: Observable<string | null> = this.imageSubject.asObservable();
+    private organizationname = new BehaviorSubject<string | null>(null);
+    public orgname$: Observable<string | null> = this.imageSubject.asObservable();
     constructor(private http: HttpClient, private sessionService: SessionService,
                 private deviceService: DeviceDetectorService, private storage: LocalStorageService) {
     }
@@ -186,11 +188,15 @@ export class LocationService {
           return this.http.post<any>(environment.ApiUrl + "/getorganizationlogobydomain", data, { headers }).pipe(
             tap((response) => {
               this.imageSubject.next(response.organization_logo_url);
+              this.organizationname.next(response.organization_name);
             })
           );
         }
       }
       getImage(): Observable<string | null> {
         return this.image$;
-      }   
+      }
+      getOrgName(): Observable<string | null> {
+        return this.orgname$
+      }  
 }
