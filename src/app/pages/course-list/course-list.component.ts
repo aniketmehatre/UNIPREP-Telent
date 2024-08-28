@@ -44,7 +44,8 @@ export class CourseListComponent implements OnInit {
   stayBackList:any = [];
   favCount:number=0;
   PersonalInfo!: any;
-
+  ehitlabelIsShow:boolean=true;
+  imagewhitlabeldomainname:any
   constructor(private pageFacade: PageFacadeService,  private userManagementService: UserManagementService, private courseList: CourseListService, private fb: FormBuilder, private toastr: MessageService, private router: Router, private authService: AuthService) {
     this.filterForm = this.fb.group({
       study_level: [''],
@@ -60,6 +61,12 @@ export class CourseListComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.imagewhitlabeldomainname=window.location.hostname;
+    if (this.imagewhitlabeldomainname === "dev-student.uniprep.ai" || this.imagewhitlabeldomainname === "uniprep.ai" || this.imagewhitlabeldomainname === "localhost") {
+      this.ehitlabelIsShow=true;
+    }else{
+      this.ehitlabelIsShow=false;
+    }
     this.checkplanExpire();
     this.getCourseLists();
     this.getSelectBoxValues();

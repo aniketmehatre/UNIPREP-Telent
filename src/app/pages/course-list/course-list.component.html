@@ -30,7 +30,7 @@
 					<span class="d-flex justify-content-end mt-3 gap-2">
 						<button class="btn btn-primary text-small course-guidelines" (click)="closeGuidelines()"
 							type="button">Course Guidelines</button>
-						<button class="btn btn-primary text-small buy-credits-button" (click)="buyCredits()"
+						<button *ngIf="ehitlabelIsShow" class="btn btn-primary text-small buy-credits-button" (click)="buyCredits()"
 							type="button">Buy Credits</button>
 						<button class="btn btn-primary text-small exportButton" (click)="exportData()"
 							type="button">Export <span class="exportCount">{{buyCreditsCount}}</span></button>

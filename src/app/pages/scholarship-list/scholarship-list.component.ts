@@ -49,7 +49,8 @@ export class ScholarshipListComponent implements OnInit {
   exportDataIds:any = [];
   selectedScholarship: number = 0;
   favCount:number=0;
-
+  ehitlabelIsShow:boolean=true;
+  imagewhitlabeldomainname:any
   constructor(
     private fb: FormBuilder,
     private scholarshipListService: ScholarshipListService,
@@ -74,7 +75,12 @@ export class ScholarshipListComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
+    this.imagewhitlabeldomainname=window.location.hostname;
+    if (this.imagewhitlabeldomainname === "dev-student.uniprep.ai" || this.imagewhitlabeldomainname === "uniprep.ai" || this.imagewhitlabeldomainname === "localhost") {
+      this.ehitlabelIsShow=true;
+    }else{
+      this.ehitlabelIsShow=false;
+    }
     this.getScholarshipCountry();
     this.gethomeCountryList();
     this.getStudyLevel();

@@ -50,10 +50,26 @@ export class QuizmenuComponent implements OnInit {
   skillMasteryCirtificates: any[] = [];
   countrydropdownlist: any[] = [];
   skillsmasteryId: any = null;
+  ehitlabelIsShow:boolean=true;
+  imagewhitlabeldomainname:any
+  orgnamewhitlabel:any;
+  orglogowhitelabel:any;
   constructor(private moduleListService: ModuleServiceService, private router: Router, private dataService: DataService,
     private locationService: LocationService, private authService: AuthService, private pageFacade: PageFacadeService) { }
 
   ngOnInit(): void {
+    this.locationService.getImage().subscribe(imageUrl => {
+      this.orglogowhitelabel = imageUrl;
+    });
+    this.locationService.getOrgName().subscribe(orgname => {
+      this.orgnamewhitlabel = orgname;
+    });
+  this.imagewhitlabeldomainname=window.location.hostname;
+  if (this.imagewhitlabeldomainname === "dev-student.uniprep.ai" || this.imagewhitlabeldomainname === "uniprep.ai" || this.imagewhitlabeldomainname === "localhost") {
+    this.ehitlabelIsShow=true;
+  }else{
+    this.ehitlabelIsShow=false;
+  }
     this.dataService.countryNameSource.subscribe((data) => {
       this.countryName = data;
       this.countryId = Number(localStorage.getItem('countryId'));
