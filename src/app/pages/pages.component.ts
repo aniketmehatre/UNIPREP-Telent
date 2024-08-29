@@ -39,7 +39,8 @@ export class PagesComponent implements OnInit, OnDestroy {
     ogTitle = '';
     ogDescription = 'UNIPREP is a one-stop platform for students, graduates & entrepreneurs, seeking information on Career, Life and Study abroad. Sign-up Now - Free!';
     ogImage = '../../uniprep-assets/images/uniprep-light.svg';
-
+    ehitlabelIsShow:boolean=true;
+    orgnamewhitlabel:any;
     @Output() expandicon = !this.sidebarClass
         ? "pi-align-right"
         : "pi-align-justify";
@@ -113,6 +114,15 @@ export class PagesComponent implements OnInit, OnDestroy {
     enterpriseSubscriptionLink: any
     imagewhitlabeldomainname:any
     ngOnInit(): void {
+          this.locationService.getOrgName().subscribe(orgname => {
+            this.orgnamewhitlabel = orgname;
+          });
+        this.imagewhitlabeldomainname=window.location.hostname;
+        if (this.imagewhitlabeldomainname === "dev-student.uniprep.ai" || this.imagewhitlabeldomainname === "uniprep.ai" || this.imagewhitlabeldomainname === "localhost") {
+          this.ehitlabelIsShow=true;
+        }else{
+          this.ehitlabelIsShow=false;
+        }
         this.imagewhitlabeldomainname=window.location.hostname;
         if (this.imagewhitlabeldomainname === "dev-student.uniprep.ai" || this.imagewhitlabeldomainname === "uniprep.ai" || this.imagewhitlabeldomainname === "localhost") {
             this.footerIsShow=true;

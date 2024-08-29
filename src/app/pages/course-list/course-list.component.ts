@@ -219,8 +219,11 @@ export class CourseListComponent implements OnInit {
           return;
         }
       }else{
+        if (this.buyCreditsCount < this.exportDataIds.length) {
         this.toastr.add({severity: "error",summary: "error",detail: "To download additional data beyond your free credits, please upgrade your plan.",});
+        return;
       }
+    }
       let data = {
         module_id: 4,
         export_id: this.exportDataIds

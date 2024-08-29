@@ -244,11 +244,14 @@ export class SidenavComponent {
   currentTitle: any;
   visibleExhasted!: boolean;
   imagewhitlabeldomainname:any
+  ehitlabelIsShow:boolean=true;
+  orgnamewhitlabel:any;
   constructor(
     private router: Router,
     private activatedRoute: ActivatedRoute,
     private dataService: DataService,
     private authService: AuthService,
+    private locationService: LocationService,
   ) {
     this.dataService.countryNameSource.subscribe((countryName) => {
       this.menus.filter((data) => {
@@ -275,6 +278,9 @@ export class SidenavComponent {
   }
   enterpriseSubscriptionLink: any
   ngOnInit(): void {
+    this.locationService.getOrgName().subscribe(orgname => {
+      this.orgnamewhitlabel = orgname;
+    });
     this.markCurrentMenu();
     this.authService.getNewUserTimeLeft().subscribe((res) => {
       let data = res.time_left;
@@ -296,8 +302,10 @@ export class SidenavComponent {
     });
     this.imagewhitlabeldomainname=window.location.hostname;
     if (this.imagewhitlabeldomainname === "dev-student.uniprep.ai" || this.imagewhitlabeldomainname === "uniprep.ai" || this.imagewhitlabeldomainname === "localhost") {
+      this.ehitlabelIsShow=true;
     }else{
       this.menus = this.menus.filter(item => !this.whitlabelmenu.includes(item.title));
+      this.ehitlabelIsShow=false;
     }
     this.authService.getMe().subscribe(
       res => {

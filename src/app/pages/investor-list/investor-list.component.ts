@@ -319,8 +319,11 @@ export class InvestorListComponent implements OnInit {
           return;
         }
       }else{
+        if(this.exportCreditCount < this.exportDataIds.length){
         this.toast.add({severity: "error",summary: "error",detail: "To download additional data beyond your free credits, please upgrade your plan.",});
+        return;
       }
+    }
       let data={
         module_id: 1,
         export_id: this.exportDataIds
