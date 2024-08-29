@@ -211,9 +211,7 @@
 							<label class="form-label filterField">Filter by Country</label>
 							<div class="form-group">
 								<div class="mb-3">
-									<p-dropdown styleClass="w-100" [filter]="true" [filterBy]="'country'" (onChange)="countrySelect()"
-										optionLabel="country" optionValue="id" [options]="countryList"
-										placeholder="Search in Country" formControlName="country" [appendTo]="'body'"></p-dropdown>
+									<p-multiSelect styleClass="w-100" placeholder="Search in Country" (onChange)="countrySelect()" [options]="countryList" display="chip" optionLabel="country" optionValue="id" formControlName="country" [appendTo]="'body'"></p-multiSelect>
 								</div>
 							</div>
 						</div>
@@ -221,9 +219,7 @@
 							<label class="form-label filterField">Filter by Location</label>
 							<div class="form-group">
 								<div class="mb-3">
-									<p-dropdown styleClass="w-100" [filter]="true" [filterBy]="'location_name'" (onChange)="locationSelect()"
-										[options]="locationList" placeholder="Search in Location" optionLabel="location_name"
-										formControlName="campus" optionValue="id" [appendTo]="'body'"></p-dropdown>
+									<p-multiSelect styleClass="w-100" placeholder="Search in Location" (onChange)="locationSelect()" [options]="locationList" display="chip" optionLabel="location_name" optionValue="id" formControlName="campus" [appendTo]="'body'"></p-multiSelect>
 								</div>
 							</div>
 						</div>
@@ -231,8 +227,9 @@
 							<label class="form-label filterField">Filter by University</label>
 							<div class="form-group">
 								<div class="mb-3">
-									<p-dropdown styleClass="w-100" [filter]="true" [filterBy]="'university_name'" [options]="universityNameList" placeholder="Search in University"
-										optionLabel="university_name" formControlName="college_name" optionValue="id" [appendTo]="'body'"></p-dropdown>
+									<p-multiSelect styleClass="w-100" placeholder="Search in University" [options]="universityNameList" display="chip" optionLabel="university_name" optionValue="id" formControlName="college_name" [appendTo]="'body'"></p-multiSelect>
+									<!-- <p-dropdown styleClass="w-100" [filter]="true" [filterBy]="'university_name'" [options]="universityNameList" placeholder="Search in University"
+										optionLabel="university_name" formControlName="college_name" optionValue="id" [appendTo]="'body'"></p-dropdown> -->
 								</div>
 							</div>
 						</div>
@@ -261,10 +258,7 @@
 							<label class="form-label filterField">Filter by Duration</label>
 							<div class="form-group">
 								<div class="mb-3">
-									<!-- <input class="w-100 px-5 py-2" style="height: 45px" type="text"
-										formControlName="duration" placeholder="Search in Duration" pInputText /> -->
-										<p-dropdown styleClass="w-100" [options]="durationList" placeholder="Search in Duration" optionLabel="duration"
-										formControlName="study_level" optionValue="duration" [appendTo]="'body'" ></p-dropdown>
+									<p-multiSelect styleClass="w-100" placeholder="Search in Duration" [options]="durationList" display="chip" optionLabel="duration" optionValue="duration" formControlName="duration" [appendTo]="'body'"></p-multiSelect>
 								</div>
 							</div>
 						</div>
@@ -272,8 +266,7 @@
 							<label class="form-label filterField">Filter by Intake</label>
 							<div class="form-group">
 								<div class="mb-3">
-									<p-multiSelect styleClass="w-100" placeholder="Search in Intake"
-										[options]="monthList" display="chip" optionLabel="name" optionValue="id"
+									<p-multiSelect styleClass="w-100" placeholder="Search in Intake" [options]="monthList" display="chip" optionLabel="name" optionValue="id"
 										formControlName="intake_months" [appendTo]="'body'"></p-multiSelect>
 									<!-- <p-dropdown styleClass="w-100" [options]="monthList" placeholder="Search in Intake" optionLabel="name" formControlName="intake_months" optionValue="id"></p-dropdown> -->
 								</div>
@@ -286,9 +279,7 @@
 									<!-- <input class="w-100 px-5 py-2" style="height: 45px" type="text"
 										formControlName="stay_back" placeholder="Search in Stay Back" pInputText /> -->
 
-										<p-dropdown styleClass="w-100" [options]="stayBackList"
-										placeholder="Search in Stay Back" optionLabel="key"
-										formControlName="stay_back" optionValue="key" [appendTo]="'body'"></p-dropdown>
+										<p-multiSelect styleClass="w-100" placeholder="Search in Stay Back" [options]="stayBackList" display="chip" optionLabel="key" optionValue="key" formControlName="stay_back" [appendTo]="'body'"></p-multiSelect>
 								</div>
 							</div>
 						</div>

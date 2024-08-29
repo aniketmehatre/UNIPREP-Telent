@@ -38,22 +38,20 @@
 							<li class="header">Pricing Table</li>
 							<li class="mt-25 fw-medium"><small>Features list</small></li>
 							<li class="fw-semibold">
-								500,000+ Q&A - 13 Countries <span role="button"
+								500,000+ Q&A - 28 Countries <span role="button"
 									pTooltip="Pre Admission,Post Admission, Universities, Career Hub,Life at Destination,Travel & Tourism"
 									tooltipPosition="bottom"><i class="fa-regular fa-circle-question"></i></span>
 							</li>
 							<li class="fw-semibold">International Events</li>
-							<li class="fw-semibold">Quiz & Certification</li>
-							<li class="fw-semibold">Language Hub</li>
-							<li class="fw-semibold">100+ Resources</li>
-							<li class="fw-semibold">5000+ Scholarship Data</li>
-							<li class="fw-semibold">2M+ Companies Data</li>
-							<li class="fw-semibold">Career Planner</li>
-							<li class="fw-semibold">Learning Hub</li>
+							<li class="fw-semibold">100,000+ Courses Data</li>
+							<li class="fw-semibold">5000+ Global Scholarship Data</li>
+							<li class="fw-semibold">Language Hub & Certification</li>
+							<li class="fw-semibold">Skill Mastery & Certification</li>
+							<li class="fw-semibold">Job Portal</li>
+							<li class="fw-semibold">Career Tools <small>(CV, Cover Letter Builder & more)</small></li>
 							<li class="fw-semibold">1000+ Start-up Kit Documents</li>
 							<li class="fw-semibold">100,000+ Investor's Data</li>
-							<li class="fw-semibold">1000+ Pitch Deck Samples</li>
-							<li></li>
+							<li class="fw-semibold">1000+ Business Pitches</li>
 						</ul>
 					</div>
 
@@ -66,8 +64,7 @@
 							<li class="mt-18"><i class="pi pi-check"></i></li>
 							<li><i class="pi pi-check"></i></li>
 							<li><i class="pi pi-check"></i></li>
-							<li><i class="pi pi-times"></i></li>
-							<li><i class="pi pi-times"></i></li>
+							<li><i class="pi pi-check"></i></li>
 							<li><i class="pi pi-times"></i></li>
 							<li><i class="pi pi-times"></i></li>
 							<li><i class="pi pi-times"></i></li>
@@ -108,10 +105,7 @@
 							<li><i class="pi pi-check"></i></li>
 							<li><i class="pi pi-check"></i></li>
 							<li><i class="pi pi-check"></i></li>
-							<li><i class="pi pi-check"></i></li>
-							<li><i class="pi pi-check"></i></li>
-							<li><i class="pi"
-									[ngClass]="{ 'pi-check': subscription.subscription_plan === 'Career' || subscription.subscription_plan === 'Entrepreneur', 'pi-times': subscription.subscription_plan != 'Career' && subscription.subscription_plan != 'Entrepreneur' }"></i>
+							<li><i class="pi" [ngClass]="{ 'pi-check': subscription.subscription_plan === 'Career' || subscription.subscription_plan === 'Entrepreneur', 'pi-times': subscription.subscription_plan != 'Career' && subscription.subscription_plan != 'Entrepreneur' }"></i>
 							</li>
 							<li><i class="pi"
 									[ngClass]="{ 'pi-check': subscription.subscription_plan === 'Career' || subscription.subscription_plan === 'Entrepreneur', 'pi-times': subscription.subscription_plan != 'Career' && subscription.subscription_plan != 'Entrepreneur' }"></i>
@@ -120,7 +114,10 @@
 									[ngClass]="{ 'pi-check': subscription.subscription_plan === 'Career' || subscription.subscription_plan === 'Entrepreneur', 'pi-times': subscription.subscription_plan != 'Career' && subscription.subscription_plan != 'Entrepreneur' }"></i>
 							</li>
 							<li><i class="pi"
-									[ngClass]="{ 'pi-check': subscription.subscription_plan === 'Entrepreneur', 'pi-times': subscription.subscription_plan != 'Entrepreneur' }"></i>
+									[ngClass]="{ 'pi-check': subscription.subscription_plan === 'Career' || subscription.subscription_plan === 'Entrepreneur', 'pi-times': subscription.subscription_plan != 'Career' && subscription.subscription_plan != 'Entrepreneur' }"></i>
+							</li>
+							<li><i class="pi"
+								[ngClass]="{ 'pi-check': subscription.subscription_plan === 'Entrepreneur', 'pi-times': subscription.subscription_plan != 'Entrepreneur' }"></i>
 							</li>
 							<li><i class="pi"
 									[ngClass]="{ 'pi-check': subscription.subscription_plan === 'Entrepreneur', 'pi-times': subscription.subscription_plan != 'Entrepreneur' }"></i>

@@ -80,9 +80,7 @@ export class CourseListComponent implements OnInit {
   bookmarkQuestion(courseId: any, isFav: any) {
     isFav = isFav != '1' ? true : false;
     this.favCount=isFav == true ? this.favCount+1 : this.favCount-1;
-    // console.log(312);
     this.courseList.bookmarkCourseData(courseId, this.PersonalInfo.user_id, isFav).subscribe((response) => {
-      // console.log(31);
       let courseListData = this.courseListData.find((item : any) => item.id == courseId);
       isFav == true ? courseListData.favourite = 1 : courseListData.favourite = null;
       this.toastr.add({
@@ -98,7 +96,6 @@ export class CourseListComponent implements OnInit {
 
   getSelectBoxValues() {
     this.courseList.loadDropdownValues().subscribe(res => {
-      // console.log(res);
       this.countryList = res.country;
       this.allLocations = res.locations;
       this.allUniversityList = res.university_name;
@@ -111,23 +108,34 @@ export class CourseListComponent implements OnInit {
 
   countrySelect(){
     let selectedCountry = this.filterForm.value.country;
-    this.locationList = this.allLocations.filter((item:any) =>{
-      return selectedCountry === item.country_id;
-    });
+    if(selectedCountry.length != 0){
 
-    this.universityNameList = this.allUniversityList.filter((item:any) =>{
-      return selectedCountry === item.country_id;
-    });
-    // console.log(this.universityNameList);
+      this.locationList = this.allLocations.filter((item:any) =>{
+        return selectedCountry.includes(item.country_id);
+      });
+
+      this.universityNameList = this.allUniversityList.filter((item:any) =>{
+        return selectedCountry.includes(item.country_id);
+      });
+    }else{
+      this.locationList = this.allLocations;
+      this.universityNameList = this.allUniversityList;
+    }
   }
 
   locationSelect(){
     let selectedLocation = this.filterForm.value.campus;
-    console.log(selectedLocation);
-    this.universityNameList = this.allUniversityList.filter((item:any) =>{
-      return selectedLocation === item.location_id;
-    });
-    // console.log(this.universityNameList);
+    if(selectedLocation.length != 0){
+      this.universityNameList = this.allUniversityList.filter((item:any) =>{
+        return selectedLocation.includes(item.location_id);
+      });
+    }else{
+      let selectedCountry = this.filterForm.value.country;
+      this.universityNameList = this.allUniversityList.filter((item:any) =>{
+        return selectedCountry.includes(item.country_id);
+      });
+    }
+    
   }
 
   getCourseLists() {
