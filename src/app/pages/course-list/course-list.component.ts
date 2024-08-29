@@ -6,6 +6,7 @@ import { MessageService } from 'primeng/api';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/Auth/auth.service';
 import { UserManagementService } from "../user-management/user-management.service";
+import { LocationService } from 'src/app/location.service';
 
 @Component({
   selector: 'uni-course-list',
@@ -45,8 +46,10 @@ export class CourseListComponent implements OnInit {
   favCount:number=0;
   PersonalInfo!: any;
   ehitlabelIsShow:boolean=true;
-  imagewhitlabeldomainname:any
-  constructor(private pageFacade: PageFacadeService,  private userManagementService: UserManagementService, private courseList: CourseListService, private fb: FormBuilder, private toastr: MessageService, private router: Router, private authService: AuthService) {
+  imagewhitlabeldomainname:any;
+  orgnamewhitlabel:any;
+  orglogowhitelabel:any;
+  constructor(private pageFacade: PageFacadeService,private locationService: LocationService,  private userManagementService: UserManagementService, private courseList: CourseListService, private fb: FormBuilder, private toastr: MessageService, private router: Router, private authService: AuthService) {
     this.filterForm = this.fb.group({
       study_level: [''],
       college_name: [''],
@@ -61,6 +64,12 @@ export class CourseListComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.locationService.getImage().subscribe(imageUrl => {
+      this.orglogowhitelabel = imageUrl;
+    });
+    this.locationService.getOrgName().subscribe(orgname => {
+      this.orgnamewhitlabel = orgname;
+    });
     this.imagewhitlabeldomainname=window.location.hostname;
     if (this.imagewhitlabeldomainname === "dev-student.uniprep.ai" || this.imagewhitlabeldomainname === "uniprep.ai" || this.imagewhitlabeldomainname === "localhost") {
       this.ehitlabelIsShow=true;
@@ -200,12 +209,17 @@ export class CourseListComponent implements OnInit {
         this.toastr.add({ severity: "error", summary: "error", detail: "Select Some data for export!.", });
         return;
       }
-      if (this.buyCreditsCount < this.exportDataIds.length) {
-        this.toastr.add({ severity: "error", summary: "error", detail: "insufficient credits.Please Buy Some Credits.", });
-        setTimeout(() => {
-          this.router.navigate(["/pages/export-credit"]);
-        }, 300);
-        return;
+
+      if (this.imagewhitlabeldomainname === "dev-student.uniprep.ai" || this.imagewhitlabeldomainname === "uniprep.ai" || this.imagewhitlabeldomainname === "localhost") {
+        if (this.buyCreditsCount < this.exportDataIds.length) {
+          this.toastr.add({ severity: "error", summary: "error", detail: "insufficient credits.Please Buy Some Credits.", });
+          setTimeout(() => {
+            this.router.navigate(["/pages/export-credit"]);
+          }, 300);
+          return;
+        }
+      }else{
+        this.toastr.add({severity: "error",summary: "error",detail: "To download additional data beyond your free credits, please upgrade your plan.",});
       }
       let data = {
         module_id: 4,

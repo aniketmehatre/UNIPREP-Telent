@@ -7,6 +7,7 @@ import { MessageService } from 'primeng/api';
 import { DataService } from 'src/app/data.service';
 import { PageFacadeService } from '../page-facade.service';
 import { UserManagementService } from "../user-management/user-management.service";
+import { LocationService } from 'src/app/location.service';
 
 @Component({
   selector: 'uni-pitch-desk',
@@ -38,7 +39,9 @@ export class PitchDeskComponent implements OnInit {
   viewFavourites: boolean = false;
   ehitlabelIsShow:boolean=true;
   imagewhitlabeldomainname:any
-  constructor(private pitchDesk:PitchDeskService,  private userManagementService: UserManagementService, private fb: FormBuilder,private router: Router,private authService: AuthService, private toast: MessageService, private dataService: DataService, private pageFacade: PageFacadeService) { 
+  orgnamewhitlabel:any;
+  orglogowhitelabel:any;
+  constructor(private pitchDesk:PitchDeskService,  private userManagementService: UserManagementService, private fb: FormBuilder,private router: Router,private authService: AuthService, private toast: MessageService, private dataService: DataService, private pageFacade: PageFacadeService,private locationService: LocationService,) { 
     this.filterForm = this.fb.group({
       pitchdeck_name: [''],
       country: [''],
@@ -48,6 +51,12 @@ export class PitchDeskComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.locationService.getImage().subscribe(imageUrl => {
+      this.orglogowhitelabel = imageUrl;
+    });
+    this.locationService.getOrgName().subscribe(orgname => {
+      this.orgnamewhitlabel = orgname;
+    });
     this.imagewhitlabeldomainname=window.location.hostname;
     if (this.imagewhitlabeldomainname === "dev-student.uniprep.ai" || this.imagewhitlabeldomainname === "uniprep.ai" || this.imagewhitlabeldomainname === "localhost") {
       this.ehitlabelIsShow=true;
@@ -289,10 +298,14 @@ export class PitchDeskComponent implements OnInit {
         this.toast.add({severity: "error",summary: "error",detail: "Select Some data for export!.",});
         return;
       }
-      if(this.exportCreditCount < this.exportDataIds.length){
-        this.toast.add({severity: "error",summary: "error",detail: "insufficient credits.Please Buy Some Credits.",});
-        this.router.navigate(["/pages/export-credit"]);
-        return;
+      if (this.imagewhitlabeldomainname === "dev-student.uniprep.ai" || this.imagewhitlabeldomainname === "uniprep.ai" || this.imagewhitlabeldomainname === "localhost") {
+        if(this.exportCreditCount < this.exportDataIds.length){
+          this.toast.add({severity: "error",summary: "error",detail: "insufficient credits.Please Buy Some Credits.",});
+          this.router.navigate(["/pages/export-credit"]);
+          return;
+        }
+      }else{
+        this.toast.add({severity: "error",summary: "error",detail: "To download additional data beyond your free credits, please upgrade your plan.",});
       }
       let data={
         module_id: 6,

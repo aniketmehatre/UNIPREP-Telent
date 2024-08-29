@@ -8,6 +8,7 @@ import { UserManagementService } from '../user-management/user-management.servic
 import { MessageService } from 'primeng/api';
 import { DataService } from 'src/app/data.service';
 import { PageFacadeService } from '../page-facade.service';
+import { LocationService } from 'src/app/location.service';
 
 @Component({
   selector: 'uni-investor-list',
@@ -41,7 +42,9 @@ export class InvestorListComponent implements OnInit {
   exportCreditCount: number = 0;
   favCount:number=0;
   ehitlabelIsShow:boolean=true;
-  imagewhitlabeldomainname:any
+  imagewhitlabeldomainname:any;
+  orgnamewhitlabel:any;
+  orglogowhitelabel:any;
   constructor(
     private _location: Location, 
     private fb: FormBuilder, 
@@ -52,6 +55,7 @@ export class InvestorListComponent implements OnInit {
     private toast: MessageService,
     private dataService: DataService,
     private pageFacade:PageFacadeService,
+    private locationService: LocationService,
     ) {
     this.filterForm = this.fb.group({
       org_name: [''],
@@ -63,6 +67,12 @@ export class InvestorListComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.locationService.getImage().subscribe(imageUrl => {
+      this.orglogowhitelabel = imageUrl;
+    });
+    this.locationService.getOrgName().subscribe(orgname => {
+      this.orgnamewhitlabel = orgname;
+    });
     this.imagewhitlabeldomainname=window.location.hostname;
     if (this.imagewhitlabeldomainname === "dev-student.uniprep.ai" || this.imagewhitlabeldomainname === "uniprep.ai" || this.imagewhitlabeldomainname === "localhost") {
       this.ehitlabelIsShow=true;
@@ -301,10 +311,15 @@ export class InvestorListComponent implements OnInit {
         this.toast.add({severity: "error",summary: "error",detail: "Select Some data for export!.",});
         return;
       }
-      if(this.exportCreditCount < this.exportDataIds.length){
-        this.toast.add({severity: "error",summary: "error",detail: "insufficient credits.Please Buy Some Credits.",});
-        this.router.navigate(["/pages/export-credit"]);
-        return;
+
+      if (this.imagewhitlabeldomainname === "dev-student.uniprep.ai" || this.imagewhitlabeldomainname === "uniprep.ai" || this.imagewhitlabeldomainname === "localhost") {
+        if(this.exportCreditCount < this.exportDataIds.length){
+          this.toast.add({severity: "error",summary: "error",detail: "insufficient credits.Please Buy Some Credits.",});
+          this.router.navigate(["/pages/export-credit"]);
+          return;
+        }
+      }else{
+        this.toast.add({severity: "error",summary: "error",detail: "To download additional data beyond your free credits, please upgrade your plan.",});
       }
       let data={
         module_id: 1,

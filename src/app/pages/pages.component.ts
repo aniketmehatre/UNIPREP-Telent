@@ -115,9 +115,9 @@ export class PagesComponent implements OnInit, OnDestroy {
     ngOnInit(): void {
         this.imagewhitlabeldomainname=window.location.hostname;
         if (this.imagewhitlabeldomainname === "dev-student.uniprep.ai" || this.imagewhitlabeldomainname === "uniprep.ai" || this.imagewhitlabeldomainname === "localhost") {
-            this.footerIsShow=false;
+            this.footerIsShow=true;
         }else{
-          this.footerIsShow=true;
+          this.footerIsShow=false;
         }
         this.locationService.getImage().subscribe(imageUrl => {
             this.imageUrlWhitelabel = imageUrl;
