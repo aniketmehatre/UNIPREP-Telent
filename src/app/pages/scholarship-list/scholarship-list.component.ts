@@ -50,7 +50,9 @@ export class ScholarshipListComponent implements OnInit {
   selectedScholarship: number = 0;
   favCount:number=0;
   ehitlabelIsShow:boolean=true;
-  imagewhitlabeldomainname:any
+  imagewhitlabeldomainname:any;
+  orglogowhitelabel:any;
+  orgnamewhitlabel:any;
   constructor(
     private fb: FormBuilder,
     private scholarshipListService: ScholarshipListService,
@@ -75,6 +77,12 @@ export class ScholarshipListComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.locationService.getImage().subscribe(imageUrl => {
+      this.orglogowhitelabel = imageUrl;
+    });
+    this.locationService.getOrgName().subscribe(orgname => {
+      this.orgnamewhitlabel = orgname;
+    });
     this.imagewhitlabeldomainname=window.location.hostname;
     if (this.imagewhitlabeldomainname === "dev-student.uniprep.ai" || this.imagewhitlabeldomainname === "uniprep.ai" || this.imagewhitlabeldomainname === "localhost") {
       this.ehitlabelIsShow=true;
@@ -454,9 +462,17 @@ export class ScholarshipListComponent implements OnInit {
         return;
       }
       if(this.exportCreditCount < this.exportDataIds.length){
-        this.toast.add({severity: "error",summary: "error",detail: "insufficient credits.Please Buy Some Credits.",});
-        this.router.navigate(["/pages/export-credit"]);
+        if(this.exportCreditCount < this.exportDataIds.length){
+          this.toast.add({severity: "error",summary: "error",detail: "insufficient credits.Please Buy Some Credits.",});
+          this.router.navigate(["/pages/export-credit"]);
+          return;
+        }
+      }else{
+        if(this.exportCreditCount < this.exportDataIds.length){
+        this.toast.add({severity: "error",summary: "error",detail: "To download additional data beyond your free credits, please upgrade your plan.",});
+        this.restrict = true;
         return;
+      }
       }
       let data={
         module_id: 3,
@@ -470,8 +486,12 @@ export class ScholarshipListComponent implements OnInit {
         this.loadScholarShipData(0);
       })
     }else if(this.exportCreditCount == 0){
-      this.toast.add({severity: "error",summary: "error",detail: "Please Buy Some Credits.",});
-      this.router.navigate(["/pages/export-credit"]);
+      if (this.imagewhitlabeldomainname === "dev-student.uniprep.ai" || this.imagewhitlabeldomainname === "uniprep.ai" || this.imagewhitlabeldomainname === "localhost") {
+        this.toast.add({severity: "error",summary: "error",detail: "Please Buy Some Credits.",});
+        this.router.navigate(["/pages/export-credit"]);
+      }else{
+        this.restrict = true;
+      }
     }
     
   }

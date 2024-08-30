@@ -321,6 +321,7 @@ export class InvestorListComponent implements OnInit {
       }else{
         if(this.exportCreditCount < this.exportDataIds.length){
         this.toast.add({severity: "error",summary: "error",detail: "To download additional data beyond your free credits, please upgrade your plan.",});
+        this.restrict = true;
         return;
       }
     }
@@ -335,8 +336,12 @@ export class InvestorListComponent implements OnInit {
         this.loadInvestorData(0);
       })
     }else if(this.exportCreditCount == 0){
-      this.toast.add({severity: "error",summary: "error",detail: "Please Buy Some Credits.",});
-      this.router.navigate(["/pages/export-credit"]);
+      if (this.imagewhitlabeldomainname === "dev-student.uniprep.ai" || this.imagewhitlabeldomainname === "uniprep.ai" || this.imagewhitlabeldomainname === "localhost") {
+        this.toast.add({severity: "error",summary: "error",detail: "Please Buy Some Credits.",});
+        this.router.navigate(["/pages/export-credit"]);
+      }else{
+        this.restrict = true;
+      }
     }
     
   }

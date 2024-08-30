@@ -194,10 +194,14 @@ export class CourseListComponent implements OnInit {
     }
 
     if (this.buyCreditsCount == 0) {
-      this.toastr.add({ severity: "error", summary: "error", detail: "Please Buy Some Credits.", });
-      setTimeout(() => {
-        this.router.navigate(["/pages/export-credit"]);
-      }, 300);
+      if (this.imagewhitlabeldomainname === "dev-student.uniprep.ai" || this.imagewhitlabeldomainname === "uniprep.ai" || this.imagewhitlabeldomainname === "localhost") {
+        this.toastr.add({ severity: "error", summary: "error", detail: "Please Buy Some Credits.", });
+        setTimeout(() => {
+          this.router.navigate(["/pages/export-credit"]);
+        }, 300);
+      }else{
+        this.restrict = true;
+      }
     } else {
       this.exportDataIds = [];
       this.courseListData.forEach((item: any) => {
@@ -221,6 +225,7 @@ export class CourseListComponent implements OnInit {
       }else{
         if (this.buyCreditsCount < this.exportDataIds.length) {
         this.toastr.add({severity: "error",summary: "error",detail: "To download additional data beyond your free credits, please upgrade your plan.",});
+        this.restrict = true;
         return;
       }
     }
