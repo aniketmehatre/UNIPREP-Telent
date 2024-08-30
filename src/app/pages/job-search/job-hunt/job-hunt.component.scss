@@ -41,3 +41,13 @@ img {
   border: 1px solid var(--uniprep-secondary);
   padding-left: 2.5rem; /* Ensures the text doesn't overlap with the icon */
 }
+:host ::ng-deep .p-dropdown {
+  width: 100%;
+}
+
+:host ::ng-deep .p-dropdown-label {
+  width: 200px; /* Set your desired fixed width */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

@@ -36,8 +36,11 @@ export class JobSearchService {
         if (query.result_per_page) {
             params = params.set('results_per_page', query.result_per_page);
         }
+        if (query.where) {
+            params = params.set('where', query.where);
+        }
         if (query.category) {
-            params = params.set('category', query.category);
+            params = params.set('category', '');
         }
         if (query.full_time) {
             params = params.set('full_time', query.full_time);
