@@ -116,7 +116,7 @@ export class CvBuilderComponent implements OnInit {
       // user_phone: ['9524999563', [Validators.required]],
       // user_linkedin: ['vivek kaliyaperumal'],
       // user_website: ['www.ownwebsite.com'],
-      // user_summary: ['Dedicated full stack developer with proficiency in front-end and back-end technologies, effective problem-solving skills, and a passion for creating innovative web applications.', [Validators.required]],
+      // user_summary: ['Results-driven full stack developer with expertise in front-end and back-end technologies. Proven track record of delivering high-quality applications for diverse clients.', [Validators.required]],
       EduDetailsArray: this.fb.array([]),
       workExpArray: this.fb.array([]),
       projectDetailsArray: this.fb.array([]),
@@ -151,7 +151,6 @@ export class CvBuilderComponent implements OnInit {
       { label: 'Your Education' },
       { label: 'Skills & Certifications' },
       { label: 'Additional Information' },
-      { label: 'Your References' },
     ];
     this.getCountryCodeList();
     this.skillsList();
@@ -488,69 +487,69 @@ export class CvBuilderComponent implements OnInit {
 
   clickAddMoreButton(fieldName: string) {
     if (fieldName == "education_detail") {
-      this.getEduDetailsArray.push(this.fb.group({
-        edu_college_name: ['College Name',Validators.required],
-        edu_still_pursuing:[''],
-        edu_start_year: ['Start Year', Validators.required],
-        edu_end_year: ['End Year', Validators.required],
-        edu_degree: ['Degree Name', Validators.required],
-        edu_location: ['Location', Validators.required],
-        edu_percentage: ['', Validators.required],
-        edu_cgpa_percentage: [''],
-      }));
       // this.getEduDetailsArray.push(this.fb.group({
-      //   edu_college_name: ['Srinivasan Engg College', Validators.required],
-      //   edu_still_pursuing: [''],
-      //   edu_start_year: ['2015', Validators.required],
-      //   edu_end_year: ['2019', Validators.required],
-      //   edu_degree: ['Bachelor of Engineering in C.S', Validators.required],
-      //   edu_location: ['Perambalur', Validators.required],
-      //   edu_percentage: ['65', Validators.required],
-      //   edu_cgpa_percentage: ['%', Validators.required],
+      //   edu_college_name: ['College Name',Validators.required],
+      //   edu_still_pursuing:[''],
+      //   edu_start_year: ['Start Year', Validators.required],
+      //   edu_end_year: ['End Year', Validators.required],
+      //   edu_degree: ['Degree Name', Validators.required],
+      //   edu_location: ['Location', Validators.required],
+      //   edu_percentage: ['', Validators.required],
+      //   edu_cgpa_percentage: [''],
       // }));
-    } else if (fieldName == "work_experience") {
-      this.getWorkExpArray.push(this.fb.group({
-        work_org_name: ['Organization Name',Validators.required],
-        work_currently_working:[''],
-        work_start_year: ['Start Year',Validators.required],
-        work_end_year: ['End Year',Validators.required],
-        work_designation: ['Work Designation',Validators.required],
-        work_type: ['Full-Time',Validators.required],
-        work_location: ['Work Location',Validators.required],
-        work_job_description: ['Description About Your job and roles and responsibilities',Validators.required],
+      this.getEduDetailsArray.push(this.fb.group({
+        edu_college_name: ['Srinivasan Engg College', Validators.required],
+        edu_still_pursuing: [''],
+        edu_start_year: ['2015', Validators.required],
+        edu_end_year: ['2019', Validators.required],
+        edu_degree: ['Bachelor of Engineering in C.S', Validators.required],
+        edu_location: ['Perambalur', Validators.required],
+        edu_percentage: ['65', Validators.required],
+        edu_cgpa_percentage: ['%', Validators.required],
       }));
+    } else if (fieldName == "work_experience") {
       // this.getWorkExpArray.push(this.fb.group({
-      //   work_org_name: ['Uniabroad Private Ltd', Validators.required],
-      //   work_currently_working: [''],
-      //   work_start_year: ['2013', Validators.required],
-      //   work_end_year: ['2015', Validators.required],
-      //   work_designation: ['Full stack developer', Validators.required],
-      //   work_type: ['Full Time', Validators.required],
-      //   work_location: ['Mysore', Validators.required],
-      //   work_job_description: ['- Develop and maintain front-end architecture, ensuring responsive design and user-friendly interfaces - Implement back-end functionality, including database integration and server-side logic - Write efficient and scalable code in multiple programming languages for both client and server-side applications - Collaborate with cross-functional teams to gather requirements, design solutions, and provide technical support - Stay up-to-date with industry trends and best practices to continually improve development processes and deliver high-quality products', Validators.required],
+      //   work_org_name: ['Organization Name',Validators.required],
+      //   work_currently_working:[''],
+      //   work_start_year: ['Start Year',Validators.required],
+      //   work_end_year: ['End Year',Validators.required],
+      //   work_designation: ['Work Designation',Validators.required],
+      //   work_type: ['Full-Time',Validators.required],
+      //   work_location: ['Work Location',Validators.required],
+      //   work_job_description: ['Description About Your job and roles and responsibilities',Validators.required],
       // }));
+      this.getWorkExpArray.push(this.fb.group({
+        work_org_name: ['Uniabroad Private Ltd', Validators.required],
+        work_currently_working: [''],
+        work_start_year: ['2013', Validators.required],
+        work_end_year: ['2015', Validators.required],
+        work_designation: ['Full stack developer', Validators.required],
+        work_type: ['Full Time', Validators.required],
+        work_location: ['Mysore', Validators.required],
+        work_job_description: ['- Develop and maintain front-end architecture, ensuring responsive design and user-friendly interfaces - Implement back-end functionality, including database integration and server-side logic - Write efficient and scalable code in multiple programming languages for both client and server-side applications - Collaborate with cross-functional teams to gather requirements, design solutions, and provide technical support - Stay up-to-date with industry trends and best practices to continually improve development processes and deliver high-quality products', Validators.required],
+      }));
       // this.errorMessages.push('');
     } else if (fieldName == "project_details") {
-      this.getProjectDetailsArray.push(this.fb.group({
-        project_name: ['Project Name',Validators.required],
-        project_start_name: ['Start Year',Validators.required],
-        project_end_name: ['End Time',Validators.required],
-        project_description: ['Describe About Your Project',Validators.required],
-      }));
       // this.getProjectDetailsArray.push(this.fb.group({
-      //   project_name: ['Anonymity', Validators.required],
-      //   project_start_name: ['2015', Validators.required],
-      //   project_end_name: ['2019', Validators.required],
-      //   project_description: ['Together with developers, collect and assess user requirements.Using storyboards, process flows, and sitemaps, illustrate design concepts.Create visual user interface components such as menus, tabs, and widgets.Create UI mockups and prototypes that clearly show how websites work and appear.Determine and address UX issues (e.g., responsiveness).', Validators.required],
+      //   project_name: ['Project Name',Validators.required],
+      //   project_start_name: ['Start Year',Validators.required],
+      //   project_end_name: ['End Time',Validators.required],
+      //   project_description: ['Describe About Your Project',Validators.required],
       // }));
+      this.getProjectDetailsArray.push(this.fb.group({
+        project_name: ['Anonymity', Validators.required],
+        project_start_name: ['2015', Validators.required],
+        project_end_name: ['2019', Validators.required],
+        project_description: ['Together with developers, collect and assess user requirements.Using storyboards, process flows, and sitemaps, illustrate design concepts.Create visual user interface components such as menus, tabs, and widgets.Create UI mockups and prototypes that clearly show how websites work and appear.Determine and address UX issues (e.g., responsiveness).', Validators.required],
+      }));
     } else if (fieldName == "language_known") {
       this.getLanguagesKnownArray.push(this.fb.group({
-        language: ['', Validators.required],
+        language: ['English', Validators.required],
         lang_proficiency: ['Beginner', Validators.required],
       }));
     } else if (fieldName == "skills") {
       this.getSkillsArray.push(this.fb.group({
-        skills: ['', Validators.required],
+        skills: ['Teamwork', Validators.required],
         skills_proficiency: ['Basic', Validators.required],
       }));
     } else if (fieldName == "extra_curricular") {
@@ -558,11 +557,17 @@ export class CvBuilderComponent implements OnInit {
         extra_curricular_activites: ['Achievement ', Validators.required]
       }));
     } else if (fieldName == "certificate") {
+      // this.getCertificatesArray.push(this.fb.group({
+      //   certificate_name: ['Certificate Name', Validators.required],
+      //   certificate_issued: ['Issued by', Validators.required],
+      //   certificate_id: ['certificate Id'],
+      //   certicate_link: ['certificate link'],
+      // }));
       this.getCertificatesArray.push(this.fb.group({
-        certificate_name: ['Certificate Name', Validators.required],
-        certificate_issued: ['Issued by', Validators.required],
-        certificate_id: ['certificate Id'],
-        certicate_link: ['certificate link'],
+        certificate_name: ['', Validators.required],
+        certificate_issued: ['', Validators.required],
+        certificate_id: [''],
+        certicate_link: [''],
       }));
     } 
   }
