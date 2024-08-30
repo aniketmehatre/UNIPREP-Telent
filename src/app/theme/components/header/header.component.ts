@@ -92,7 +92,11 @@ export class HeaderComponent implements OnInit, OnDestroy {
   timeLeftInfo: any;
   freeTrialErrorMsg: string = '';
   demoTrial: boolean = false;
+  demoDays: any;
   reportlearnlanguagetype:number=0;
+  countryList: any;
+  locationList: any;
+
   constructor(
     private router: Router,
     private locationService: LocationService,
@@ -109,7 +113,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
       this.getModuleList();
     });
     this.dataService.castValue.subscribe((data) => {
-      console.log("newuser", data)
       if (data === true) {
         this.checkNewUSerLogin();
       } else {
@@ -190,7 +193,11 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
   formvisbility = false;
   mobileForm: any = FormGroup;
+  preferredCountry: any
   ngOnInit() {
+    fetch('https://ipapi.co/json/').then(response => response.json()).then(data => {
+      this.preferredCountry = data.country_code.toLocaleLowerCase()
+    });
     this.dataService.countryId.subscribe((data: any) => {
       if (!data) {
         let cntId = localStorage.getItem('countryId');
@@ -210,6 +217,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     });
     this.mobileForm = this.formBuilder.group({
       phone: ["", Validators.required],
+      home_country: ["", Validators.required]
     });
     if (
       localStorage.getItem("phone") == "" ||
@@ -345,13 +353,17 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
     this.subs.sink = this.service.getMe().subscribe((data) => {
       if (data) {
-        console.log("userdetails", data)
         //localStorage.setItem('countryId', data.userdetails[0].interested_country_id);
         this.userName = data.userdetails[0].name.toString();
         this.firstChar = this.userName.charAt(0);
-        if (data.userdetails[0].login_status == "Demo") {
+        
+        if(data.userdetails[0].login_status.includes('Demo') == true) {
           this.demoTrial = true;
+          this.demoDays =  data.userdetails[0].login_status.replace('Demo-', '') ;
         }
+        /*if (data.userdetails[0].login_status == "Demo") {
+          this.demoTrial = true;
+        } */
       }
     });
 
@@ -361,6 +373,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
     // this.darkModeSwitch.addEventListener("change", () => {
     //   this.themeService.toggleTheme();
     // });
+    this.getCountryList();
+    this.getHomeCountryList();
   }
 
   ngOnDestroy() {
@@ -416,6 +430,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   logout() {
     this.authService.signOut();
+    this.locationService.sessionEndApiCall().subscribe((data: any) => {
+
+    })
     this.subs.sink = this.service.logout().subscribe((data) => {
       this.toast.add({
         severity: "info",
@@ -504,14 +521,19 @@ export class HeaderComponent implements OnInit, OnDestroy {
       });
     });
   }
-
+  enterpriseSubscriptionLink: any
   onClickSubscribe() {
     this.visible = false;
+    if(this.enterpriseSubscriptionLink  != ''){
+      window.open(this.enterpriseSubscriptionLink, '_target');
+      return;
+    }
     this.router.navigate(["/pages/subscriptions"]);
   }
 
   subScribedUserCount(): void {
     this.service.getNewUserTimeLeft().subscribe((res) => {
+      this.enterpriseSubscriptionLink = res.enterprise_subscription_link;
       let data = res.time_left;
       if (data.plan === "not_started") {
         this.visible = false;
@@ -574,6 +596,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   checkNewUser(): void {
     this.service.getNewUserTimeLeft().subscribe((res) => {
+      this.enterpriseSubscriptionLink = res.enterprise_subscription_link;
       this.dashboardService.updatedata(res.time_left);
       let data = res.time_left;
       if (data.plan === "on_progress") {
@@ -707,8 +730,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
     let data: any = {};
     if (this.mobileForm.valid) {
       data.phone = this.mobileForm.value.phone.number;
+      data.home_country = this.mobileForm.value.home_country;
       data.country_code = this.mobileForm.value.phone.dialCode;
     }
+
     if (this.demoTrial == true) {
       data.demo_user = 1;
     }
@@ -748,6 +773,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     let data: any = {};
     if (this.mobileForm.valid) {
       data.phone = this.mobileForm.value.phone.number;
+      data.home_country = this.mobileForm.value.home_country;
       data.country_code = this.mobileForm.value.phone.dialCode;
     }
     if (this.demoTrial == true) {
@@ -770,6 +796,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
       setTimeout(() => {
         this.checkNewUser();
         this.dashboardService.isinitialstart = true;
+        if(this.enterpriseSubscriptionLink  != ""){
+          window.open(this.enterpriseSubscriptionLink, '_target');
+          return;
+      }
         this.router.navigate(["/pages/subscriptions"]);
       }, 1000);
     },
@@ -820,5 +850,42 @@ export class HeaderComponent implements OnInit, OnDestroy {
           detail: "Password Updated Successfully.",
         });
       });
+  }
+
+  changeLocation(event: any) {
+    this.GetLocationList()
+  }
+
+  GetLocationList() {
+    this.locationList = [{ id: 0, district: 'Others' }];
+    this.mobileForm?.get('location_id')?.setValue(0);
+    if (this.mobileForm.get('home_country')?.value == 122) {
+      this.locationService.getLocation().subscribe(
+          (res: any) => {
+            this.locationList = res;
+          },
+          (error: any) => {
+            this.toast.add({
+              severity: "warning",
+              summary: "Warning",
+              detail: error.error.message,
+            });
+          }
+      );
+    }
+    else {
+      this.locationList = [{ id: 0, district: 'Others' }];
+      this.mobileForm?.get('location_id')?.setValue(0);
+    }
+  }
+
+  getHomeCountryList() {
+    this.locationService.getHomeCountry(2).subscribe(
+        (res: any) => {
+          this.countryList = res;
+        },
+        (error: any) => {
+        }
+    );
   }
 }

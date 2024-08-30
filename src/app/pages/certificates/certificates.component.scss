@@ -7,3 +7,47 @@
 	}
 	
 }
+#socialSharingList {
+	display: none;
+    position: absolute;
+    top: 3rem;
+    right: 0;
+  }
+  
+  ::ng-deep .p-card-body {
+	padding: 0px;
+  }
+  
+  ::ng-deep .p-card-content {
+	padding: 0px !important;
+  }
+  
+  #socialSharingList ul {
+	padding: 0px !important;
+	margin-bottom: 0;
+  }
+  
+  #socialSharingList ul li {
+	display: flex;
+	align-items: center;
+	margin-bottom: 8px;
+	font-size: 1.2rem;
+  }
+  
+  #socialSharingList ul li i {
+	margin-right: 10px;
+  }
+  
+  #socialSharingList.show {
+	display: block;
+  }
+
+  .sharebtn
+  {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height:35px;
+	width: 35px;
+	border:none;
+  }

@@ -7,10 +7,12 @@ import {
   TemplateRef,
 } from "@angular/core";
 import { ActivatedRoute, NavigationEnd, Router } from "@angular/router";
+import { error } from "console";
 import { filter } from "rxjs";
 import { map } from "rxjs/operators";
 import { AuthService } from "src/app/Auth/auth.service";
 import { DataService } from "src/app/data.service";
+import { LocationService } from "src/app/location.service";
 
 export interface SideMenu {
   title: string;
@@ -31,18 +33,17 @@ export class SidenavComponent {
   @ContentChild("appTitle") appTitle!: TemplateRef<any>;
   @Output() active = new EventEmitter<SideMenu>();
   @Input() isOverlap = false;
-
   @Input() menus: SideMenu[] = [
     {
       title: "Dashboard",
       url: "/pages/dashboard",
       image: "fa-solid fa-objects-column",
     },
-     {
-       title: "About UNIPREP",
-       url: "/pages/userguide",
-       image: "fa-solid fa-book",
-     },
+    {
+      title: "About UNIPREP",
+      url: "/pages/userguide",
+      image: "fa-solid fa-book",
+    },
     {
       title: "Subscription",
       url: "/pages/subscriptions",
@@ -79,9 +80,19 @@ export class SidenavComponent {
       image: "fa-solid fa-building-columns",
     },
     {
-      title: 'Scholarship List',
+      title: "UNIFINDER",
+      url: "/pages/course-list",
+      image: "fa-solid fa-landmark-magnifying-glass",
+    },
+    {
+      title: 'UNISCHOLAR',
       url: '/pages/scholarship-list',
       image: 'fa-solid fa-diploma',
+    },
+    {
+      title: "Career Hub",
+      url: "/pages/modules/career-hub",
+      image: "fa-solid fa-briefcase",
     },
     {
       title: "Life",
@@ -104,8 +115,8 @@ export class SidenavComponent {
       image: '',
     },
     {
-      title: "Career Hub",
-      url: "/pages/modules/career-hub",
+      title: "Job Portal",
+      url: "/pages/job-portal/job-search",
       image: "fa-solid fa-briefcase",
     },
     {
@@ -119,20 +130,25 @@ export class SidenavComponent {
       image: "fa-solid fa-road-circle-check",
     },
     {
-      title: "Career Planner",
-      url: "/pages/career-planner",
-      image: "fa-solid fa-arrow-progress",
+      title: "Skill Mastery",
+      url: "/pages/modules/skill-mastery",
+      image: "fa-solid fa-swatchbook",
     },
     {
-      title: "Resources",
-      url: "/pages/resource",
-      image: "fa-solid fa-link",
+      title: "Career Tools",
+      url: "/pages/job-tool/career-tool",
+      image: "fa-solid fa-file-user",
     },
-    {
-      title: "Company List",
-      url: "/pages/company-list",
-      image: "fa-solid fa-buildings",
-    },
+    // {
+    //   title: "Career Planner",
+    //   url: "/pages/career-planner",
+    //   image: "fa-solid fa-arrow-progress",
+    // },
+    // {
+    //   title: "Company List",
+    //   url: "/pages/company-list",
+    //   image: "fa-solid fa-buildings",
+    // },
     {
       title: "Entrepreneur",
       url: "",
@@ -159,6 +175,11 @@ export class SidenavComponent {
       image: "",
     },
     {
+      title: "Resources",
+      url: "/pages/resource",
+      image: "fa-solid fa-link",
+    },
+    {
       title: "Events",
       url: "/pages/events",
       image: "fa-solid fa-calendar-days",
@@ -172,6 +193,11 @@ export class SidenavComponent {
       title: "Certificates",
       url: "/pages/mycertificate",
       image: "fa-solid fa-file-certificate",
+    },
+    {
+      title: "Success Stories",
+      url: "/pages/success-stories",
+      image: "fa-solid fa-thumbs-up",
     },
     {
       title: "Support",
@@ -210,14 +236,22 @@ export class SidenavComponent {
     //   image: 'pi pi-briefcase',
     // }
   ];
+  studentMenus = ['Company List', 'Career Planner', 'Learning Hub', 'Entrepreneur', 'Investor List', 'Startup Kit', 'Pitch Deck'];
+  careerMenus = ['Entrepreneur', 'Investor List', 'Startup Kit', 'Pitch Deck'];
+  whitlabelmenu=['Subscription','About UNIPREP','24x7 Support','Success Stories']
+  collegeStudentMenus = ['Subscription'];
   conditionSubscribed!: boolean;
   currentTitle: any;
   visibleExhasted!: boolean;
+  imagewhitlabeldomainname:any
+  ehitlabelIsShow:boolean=true;
+  orgnamewhitlabel:any;
   constructor(
     private router: Router,
     private activatedRoute: ActivatedRoute,
     private dataService: DataService,
-    private authService: AuthService
+    private authService: AuthService,
+    private locationService: LocationService,
   ) {
     this.dataService.countryNameSource.subscribe((countryName) => {
       this.menus.filter((data) => {
@@ -242,17 +276,51 @@ export class SidenavComponent {
         },
       });
   }
-
+  enterpriseSubscriptionLink: any
   ngOnInit(): void {
+    this.locationService.getOrgName().subscribe(orgname => {
+      this.orgnamewhitlabel = orgname;
+    });
     this.markCurrentMenu();
     this.authService.getNewUserTimeLeft().subscribe((res) => {
       let data = res.time_left;
+
       if (data.plan === "expired" || data.plan === "subscription_expired") {
         this.conditionSubscribed = false;
       } else {
         this.conditionSubscribed = true;
       }
+
+      if (res.subscription_details.subscription_plan == 'free_trail' && res.enterprise_subscription_link!= "") {
+        this.enterpriseSubscriptionLink = res.enterprise_subscription_link;
+        if(res.enterprise_subscription_plan == 'Student'){
+          this.menus = this.menus.filter(item => !this.studentMenus.includes(item.title));
+        }else if(res.enterprise_subscription_plan == 'Career'){
+          this.menus = this.menus.filter(item => !this.careerMenus.includes(item.title));
+        }
+      }
     });
+    this.imagewhitlabeldomainname=window.location.hostname;
+    if (this.imagewhitlabeldomainname === "dev-student.uniprep.ai" || this.imagewhitlabeldomainname === "uniprep.ai" || this.imagewhitlabeldomainname === "localhost") {
+      this.ehitlabelIsShow=true;
+    }else{
+      this.menus = this.menus.filter(item => !this.whitlabelmenu.includes(item.title));
+      this.ehitlabelIsShow=false;
+    }
+    this.authService.getMe().subscribe(
+      res => {
+
+        if (res.userdetails[0].student_type_id == 2) {
+          if (res.userdetails[0].subscription_plan == 'Student') {
+            this.menus = this.menus.filter(item => !this.studentMenus.includes(item.title));
+          }
+          if (res.userdetails[0].subscription_plan == 'Career') {
+            this.menus = this.menus.filter(item => !this.careerMenus.includes(item.title));
+          }
+          this.menus = this.menus.filter(item => !this.collegeStudentMenus.includes(item.title));
+        }
+      });
+
     //this.changeSubscriptionUrl();
   }
 
@@ -321,9 +389,13 @@ export class SidenavComponent {
 
   onClickSubscribedUser(): void {
     this.visibleExhasted = false;
+    if(this.enterpriseSubscriptionLink !== ''){
+      window.open(this.enterpriseSubscriptionLink, '_target');
+      return;
+    }
     this.router.navigate(["/pages/subscriptions"]);
   }
- 
+
   onexpand(item: SideMenu) {
     if (item.header) {
       return;
@@ -339,6 +411,12 @@ export class SidenavComponent {
         item.expanded = false;
       }
     } else {
+      if(item.title == "Subscription"){
+        if(this.enterpriseSubscriptionLink  != undefined){
+          window.open(this.enterpriseSubscriptionLink, '_target');
+          return;
+        }
+      }
       this.router.navigateByUrl(item.url || "/");
     }
   }

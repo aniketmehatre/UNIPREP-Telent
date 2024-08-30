@@ -2,11 +2,21 @@
     <div class="card-body text-center pt-0">
         <div class="row">
             <div class="col-md-2"></div>
-            <div class="col-md-8 text-center">
+            <!-- <div class="col-md-8 text-center">
                 <h5 class="select-title mb-3" tooltipPosition="top"
                     pTooltip="Questions related to the application process are answered">{{ 'Language Hub' | uppercase }}
                     <i class="questiontooltip fa-solid fa-circle-question"></i></h5>
-            </div>
+            </div> -->
+            <div class="col-md-8 text-center">
+				<div class="select-title text-nowrap d-flex justify-content-between align-items-center">
+					<div>
+						<h5 class="mb-0" tooltipPosition="top" pTooltip="Questions related to the application process are answered">{{ 'Language Hub' | uppercase }} <i class="questiontooltip fa-solid fa-circle-question"></i></h5>
+					</div>
+					<div>
+						<button class="how-it-works-button" (click)="openVideoPopup('https://www.youtube.com/embed/01xivveciUI?si=Cdi3e7ycApMa8sWO')"> &nbsp;How it works? &nbsp;&nbsp;<i class="fa-solid fa-play"></i></button>
+					</div>
+				</div>
+			</div>
 
             <div class="col-md-2 mt-2 text-end desktop justify-content-end d-none d-md-flex">
                 <!--                <button role="button" style="background-color: black" (click)="startQuiz()" class="btn w-75 m-0 px-2 py-2 homecardbtn homecardbtnquiz" [disabled]="quizpercentage >= 80">-->
@@ -54,13 +64,16 @@
                             </div>
                             <div class="text-start text-md-center">
                                 <h6 class="subjecttitle d-md-none d-block pt-2">{{ sub.language }}</h6>
-                                <p class="mb-0 sub-data">100 million speaker</p>
+                                <p class="mb-0 sub-data">{{ sub.speaker }}</p>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
+    <div class="card" style="background-color: #fff; border-radius: 0px 0px 15px 15px !important">
+        <p-paginator [rows]="perpage" [totalRecords]="totalQuestionCount" (onPageChange)="paginatePost($event)" [rowsPerPageOptions]="[25, 50, 100, 200]" dropdownAppendTo="body"></p-paginator>
     </div>
 </div>
 <!--<p-dialog class="quizmodal" header="Header" footer="Footer" [draggable]="false" [modal]="true" [(visible)]="isStartQuiz" [style]="{ width: '70vw' }" [closable]="false">-->

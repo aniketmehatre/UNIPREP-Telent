@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders, HttpParams } from "@angular/common/http";
+import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { environment } from "@env/environment";
 
 @Injectable({
@@ -30,4 +30,10 @@ export class ExportCreditService {
     });
   }
 
+  getCurrencyAndSymbol(data: any){
+    const headers = new HttpHeaders().set("Accept", "application/json");
+    return this.http.post<any>(environment.ApiUrl + "/GetCurrencyNameAndSymbol" ,data,{
+      headers: headers,
+    });
+  }
 }

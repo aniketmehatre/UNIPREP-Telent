@@ -6,6 +6,11 @@ import {LanguageHubDataService} from "../language-hub-data.service";
 import {MenuItem, MessageService} from 'primeng/api';
 import {ActivatedRoute, Router} from '@angular/router';
 import {DeviceDetectorService} from "ngx-device-detector";
+import {AuthService} from "../../../Auth/auth.service";
+import {PageFacadeService} from '../../page-facade.service';
+import {ModuleServiceService} from "../../module-store/module-service.service";
+import {Observable} from "rxjs";
+import {ReadQuestion} from "../../../@Models/read-question.model";
 
 @Component({
     selector: 'uni-question-list',
@@ -552,14 +557,29 @@ export class QuestionListComponent implements OnInit {
     selectedLanguageCode: any
     breadCrumb: MenuItem[] = []
     selectedCategoryId: any
+    selectedSubmoduleName: any = "";
     langType: any
     page: number = 1
     perpage: number = 25
+    planExpired: boolean = false;
+    restrict: boolean = false;
+    readQue$!: Observable<ReadQuestion[]>;
+    loopRange = Array.from({length: 30}).fill(0).map((_, index) => index);
+    langName: string = ''
+    speech: any
+    voices: SpeechSynthesisVoice[] = [];
+    speechSynthesis = window.speechSynthesis;
+    currentUtterance: SpeechSynthesisUtterance | null = null;
+    isPlaying = false;
+    isPaused = false;
+    currentText: string | null = null;
+    currentId: string | null = null;
 
     constructor(private languageHubService: LanguageHubService, private lhs: LanguageHubDataService,
                 private location: Location, private route: ActivatedRoute, private toast: MessageService,
-                private deviceService: DeviceDetectorService,
-                private router: Router) {
+                private deviceService: DeviceDetectorService, private authService: AuthService,
+                private router: Router, private pageFacade: PageFacadeService,
+                private moduleListService: ModuleServiceService,) {
         this.lhs.data$.subscribe((data) => {
             this.selectedLanguageId = data
         })
@@ -578,17 +598,16 @@ export class QuestionListComponent implements OnInit {
         this.route.params.subscribe(params => {
             this.selectedCategoryId = params['id']
         });
-
+        this.lhs.dataSubmoduleName$.subscribe((data) => {
+            this.selectedSubmoduleName = data
+        })
 
     }
 
-    loopRange = Array.from({length: 30}).fill(0).map((_, index) => index);
-    langName: string = ''
-    speech: any
-
     ngOnInit(): void {
+        this.checkPlanExpiry()
         this.heading = this.selectedLanguageName
-         this.speech = new Speech()
+        this.speech = new Speech()
         if (this.speech.hasBrowserSupport()) { // returns a boolean
             console.log("speech synthesis supported")
         } else {
@@ -603,7 +622,7 @@ export class QuestionListComponent implements OnInit {
             'splitSentences': true,
             'listeners': {
                 'onvoiceschanged': (voices: any) => {
-                    // console.log("Event voiceschanged", voices)
+                    // console.log("Event voiceschanged", voices
                 }
             }
         }).then((data: any) => {
@@ -672,6 +691,15 @@ export class QuestionListComponent implements OnInit {
     }
 
     viewOneQuestion(data: any) {
+        localStorage.setItem('languageHubData', JSON.stringify(data));
+        this.router.navigateByUrl(`/pages/language-hub/translate-view`);
+        return;
+        this.checkPlanExpiry();
+        if (this.planExpired) {
+            this.restrict = true;
+            return;
+        }
+        this.readQuestion(data);
         this.isQuestionAnswerVisible = true
         this.oneQuestionContent = data;
     }
@@ -680,41 +708,87 @@ export class QuestionListComponent implements OnInit {
 
     }
 
-    voices: SpeechSynthesisVoice[] = [];
-
-    voiceOverEnglish(voiceData: any) {
-        let lName = 'Google US English';
-        let lCode = 'en-US'
-        if (this.deviceService.browser == 'Safari') {
-            lName = 'Samantha'
-        } else if (this.deviceService.browser == 'Chrome') {
-            if (this.deviceService.isMobile()){
-                lCode = 'en_US'
-                lName = 'English United States'
-            }else{
-                lName = 'Google US English'
+    voiceOverEnglish(id: string, text: string) {
+        if (this.currentId === id) {
+            if (this.isPlaying && !this.isPaused) {
+                this.pauseVoiceOver();
+            } else if (this.isPaused) {
+                this.resumeVoiceOver();
+            } else {
+                this.playVoiceOver(id, text);
             }
-        }else if (this.deviceService.browser == 'MS-Edge-Chromium' || this.deviceService.browser == 'Opera') {
-            lName = 'Microsoft Zira - English (United States)'
+        } else {
+            this.stopVoiceOver();
+            this.playVoiceOver(id, text);
         }
-        this.speech.setLanguage(lCode)
-        this.speech.setVoice(lName)
+        this.currentText = text;
+        this.currentId = id;
+    }
 
-        this.speech.speak({
-            text: voiceData,
-        }).then((data: any) => {
-            console.log('Speech is ready, voices are available', data);
-        }).catch((e: any) => {
-            console.error("An error occurred :", e)
-        })
+    playVoiceOver(id: string, text: string) {
+        this.stopVoiceOver();
+        this.currentUtterance = new SpeechSynthesisUtterance(text);
+        this.currentUtterance.onend = () => {
+            this.isPlaying = false;
+            this.isPaused = false;
+            this.currentText = null;
+            this.currentId = null;
+        };
+        this.speechSynthesis.speak(this.currentUtterance);
+        this.isPlaying = true;
+        this.isPaused = false;
+    }
+
+    pauseVoiceOver() {
+        this.speechSynthesis.pause();
+        this.isPaused = true;
+    }
+
+    resumeVoiceOver() {
+        this.speechSynthesis.resume();
+        this.isPaused = false;
+    }
+
+    stopVoiceOver() {
+        if (this.speechSynthesis.speaking || this.speechSynthesis.paused) {
+            this.speechSynthesis.cancel();
+            this.isPlaying = false;
+            this.isPaused = false;
+            this.currentUtterance = null;
+        }
     }
 
 
-    voiceOverNative(voiceData: any, fullData: any) {
+    // voiceOverEnglish(voiceData: any) {
+    //     let lName = 'Google US English';
+    //     let lCode = 'en-US'
+    //     if (this.deviceService.browser == 'Safari') {
+    //         lName = 'Samantha'
+    //     } else if (this.deviceService.browser == 'Chrome') {
+    //         if (this.deviceService.isMobile()){
+    //             lCode = 'en_US'
+    //             lName = 'English United States'
+    //         }else{
+    //             lName = 'Google US English'
+    //         }
+    //     }else if (this.deviceService.browser == 'MS-Edge-Chromium' || this.deviceService.browser == 'Opera') {
+    //         lName = 'Microsoft Zira - English (United States)'
+    //     }
+    //     this.speech.setLanguage(lCode)
+    //     this.speech.setVoice(lName)
+    //
+    //     this.speech.speak({
+    //         text: voiceData,
+    //     }).then((data: any) => {
+    //         console.log('Speech is ready, voices are available', data);
+    //     }).catch((e: any) => {
+    //         console.error("An error occurred :", e)
+    //     })
+    // }
 
+
+    voiceOverNative(voiceData: any, fullData: any) {
         var voiceName = '';
-        console.log(this.selectedLanguageCode)
-        console.log(this.langName)
         const speech = new Speech()
         speech.init({
             'volume': 1,
@@ -760,5 +834,39 @@ export class QuestionListComponent implements OnInit {
         this.init();
     }
 
+    checkPlanExpiry(): void {
+        this.authService.getNewUserTimeLeft().subscribe((res) => {
+            let data = res.time_left;
+            let subscription_exists_status = res.subscription_details;
+            if (data.plan === "expired" || data.plan === 'subscription_expired') {
+                this.planExpired = true;
+            } else {
+                this.planExpired = false;
+            }
+        })
+    }
 
+    upgradePlan(): void {
+        this.router.navigate(["/pages/subscriptions"]);
+    }
+
+    clearRestriction() {
+        this.restrict = false;
+    }
+
+    openVideoPopup(videoLink: string) {
+        this.pageFacade.openHowitWorksVideoPopup(videoLink);
+    }
+
+    readQuestion(data: any) {
+        let req = {
+            countryId: 0,
+            questionId: data.id,
+            moduleId: 9,
+            submoduleId: data.submodule_id
+        }
+        this.moduleListService.readQuestion(req);
+        this.readQue$ = this.moduleListService.readQuestionMessage$();
+        this.init();
+    }
 }

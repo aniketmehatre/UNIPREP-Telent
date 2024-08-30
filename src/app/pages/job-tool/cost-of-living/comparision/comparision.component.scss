@@ -1,0 +1,114 @@
+.costofliving {
+    background-color: var(--uniprep-primary);
+    border-radius: 10px;
+    color: white;
+    font-size: 16px;
+}
+
+.outline-card,
+.pi-times {
+    border: 2px solid var(--uniprep-primary);
+    border-radius: 10px;
+    padding: 10px;
+}
+.pr-10{
+    padding-right: 10px;
+}
+@media (min-width: 768px) {
+
+    .headerCard {
+        height: 65px;
+
+        .card {
+            height: 100%;
+        }
+    }
+    .costofliving {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+}
+
+@media (max-width: 767px) {
+    .gap-two {
+        gap: 0.5rem;
+    }
+    .flagIconDiv{
+        display:none;
+    }
+}
+
+
+.count {
+    height: 30px;
+    width: 30px;
+    border: 1px solid var(--uniprep-primary);
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+img {
+    height: 50px;
+    width: 50px;
+    margin-right: 10px;
+}
+
+.smallText {
+    font-size: 10px;
+}
+
+.p-minus,
+.p-plus {
+    font-size: 12px !important;
+}
+
+.fs-12 {
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.pi-chart-bar {
+    font-size: 30px;
+}
+
+.flag {
+    height: 20px;
+    width: 20px;
+}
+
+.barImage {
+    height: 60px !important;
+    width: 50px !important;
+}
+ 
+.graphs{
+    display: flex;
+    width:35px;
+    justify-content: space-between;
+    margin-bottom:10px;
+    .graph-container {
+        height: 60px;
+        width: 15px;
+        display: flex;
+        flex-direction: column;
+        justify-content: end;
+        margin-bottom:15px;
+        span{
+            width:15px;
+        }
+    }
+}
+.itemflag{
+    width:35px !important;
+    height:35px !important;
+    border-radius: 20px !important;
+    object-fit: cover;
+}
+.flagIconDiv{
+    position:absolute;
+    top:-40px;
+}

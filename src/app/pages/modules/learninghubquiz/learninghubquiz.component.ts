@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from "@angular/router";
-import { Observable } from "rxjs";
+import { Observable, Subscription, interval, takeWhile } from "rxjs";
 import { ModuleListSub } from "../../../@Models/module.model";
 import { ConfirmationService, MenuItem, MessageService } from "primeng/api";
 import { ModuleServiceService } from "../../module-store/module-service.service";
@@ -50,11 +50,35 @@ export class LearninghubquizComponent implements OnInit {
   totalpercentagequiztime:number=0
   percentageValue: string = '';
   isQuizSubmit: boolean = false;
-  constructor(private moduleListService: ModuleServiceService, private router: Router, private dataService: DataService,
+  timer: number = 0;
+  timerSubscription: Subscription | null = null;
+  restrict: boolean = false;
+  restrict1: boolean = false;
+planExpired: boolean = false;
+  selectedQuizArrayForTimer: any[] = [];
+  totalquiztime:any=0;
+  ehitlabelIsShow:boolean=true;
+  imagewhitlabeldomainname:any
+  orgnamewhitlabel:any;
+  orglogowhitelabel:any;
+  constructor(private moduleListService: ModuleServiceService,private authService: AuthService, private router: Router, private dataService: DataService,
     private locationService: LocationService, private ngxService: NgxUiLoaderService, private toast: MessageService,) { }
 
   ngOnInit(): void {
+    this.locationService.getImage().subscribe(imageUrl => {
+      this.orglogowhitelabel = imageUrl;
+    });
+    this.locationService.getOrgName().subscribe(orgname => {
+      this.orgnamewhitlabel = orgname;
+    });
+  this.imagewhitlabeldomainname=window.location.hostname;
+  if (this.imagewhitlabeldomainname === "dev-student.uniprep.ai" || this.imagewhitlabeldomainname === "uniprep.ai" || this.imagewhitlabeldomainname === "localhost") {
+    this.ehitlabelIsShow=true;
+  }else{
+    this.ehitlabelIsShow=false;
+  }
     this.init();
+    this.checkplanExpire();
   }
 
   init() {
@@ -109,6 +133,24 @@ export class LearninghubquizComponent implements OnInit {
     this.checkquizquestioncount()
   }
 
+  upgradePlan(): void {
+    this.router.navigate(["/pages/subscriptions"]);
+  }
+  clearRestriction() {
+    this.restrict1 = false;
+  }
+  checkplanExpire(): void {
+    this.authService.getNewUserTimeLeft().subscribe((res) => {
+      let data = res.time_left;
+      let subscription_exists_status = res.subscription_details;
+      if (data.plan === "expired" || data.plan === 'subscription_expired' ||
+        subscription_exists_status?.subscription_plan === "free_trail") {
+        this.planExpired = true;   
+      } else {
+        this.planExpired = false;
+      }
+    })
+  }
 
   loadModuleAndSubModule() {
     //this.isSkeletonVisible = true;
@@ -141,6 +183,7 @@ export class LearninghubquizComponent implements OnInit {
     });
     this.breadCrumb = [{ label: cName }, { label: this.quizData[0]!.module_name },
     { label: this.quizData[0]!.sub_module_name }];
+    this.startTimer();
   }
 
   setPage(page: any) {
@@ -212,7 +255,6 @@ export class LearninghubquizComponent implements OnInit {
     if (this.selectedQuiz > this.quizData.length - 1) {
       return;
     }
-
     let singleQuizData = this.quizData[this.selectedQuiz - 1];
     this.quizData = this.quizData.map((data: any) => {
       let dat = { ...data }
@@ -228,12 +270,17 @@ export class LearninghubquizComponent implements OnInit {
       }
       return dat;
     });
+    // time checking for same question or different quesion
+    // const exists = this.selectedQuizArrayForTimer.some(item => item.id === singleQuizData.id);
+    // if (!exists) {
+    //   this.selectedQuizArrayForTimer.push(singleQuizData);
+    //   this.resetTimer();
+    // }
     let sing = this.quizData[this.selectedQuiz];
     if (!sing.user_answered_value) {
       this.answerOptionClicked = true;
     }
     this.selectedQuiz = this.selectedQuiz + 1;
-
     let cName = "";
     this.dataService.countryNameSource.subscribe(countryName => {
       cName = countryName;
@@ -249,10 +296,12 @@ export class LearninghubquizComponent implements OnInit {
       const { submodule_id, source_faqquestion, otp1, otp2, otp3, otp4, module_id, country_id, user_answered, user_answered_value, ...rest } = data;
       return rest;
     });
+    this.stopTimer();
     var data = {
       country_id: this.currentCountryId,
       module_id: this.currentModuleId,
       submodule_id: localStorage.getItem("learninghubsubmoduleid"),
+      category_id:localStorage.getItem("learningsubjectidforquiz"),
       quizquestion: this.quizData
     }
     this.moduleListService.submitQuizLearningHubQuiz(data).subscribe((res) => {
@@ -348,6 +397,10 @@ export class LearninghubquizComponent implements OnInit {
     })
   }
   openCertificate(){
+    if(this.planExpired){
+      this.restrict1=true;
+      return;
+    }
     window.open(this.certificatesurl, '_blank');
   }
   takeAnotherquiz(){
@@ -355,5 +408,40 @@ export class LearninghubquizComponent implements OnInit {
   }
   openReferAnswer(link:any){
     window.open(link, '_blank');
+  }
+  startTimer(): void {
+    this.timer = 0;
+    this.totalquiztime=this.quizcount*60;
+    if (this.timerSubscription) {
+      this.timerSubscription.unsubscribe();
+    }
+    this.timerSubscription = interval(1000).pipe(
+      takeWhile(() => this.timer < (this.quizcount*60))
+    ).subscribe(() => {
+      this.timer++;
+      // console.log(`Timer: ${this.timer} seconds`);
+      if (this.timer === this.quizcount*60) {
+        this.restrict=true;    
+      }
+    });
+  }
+  formatTime(seconds: number): string {
+    const minutes: number = Math.floor(seconds / 60);
+    const remainingSeconds: number = seconds % 60;
+    return `${this.padZero(minutes)}:${this.padZero(remainingSeconds)}`;
+  }
+  padZero(num: number): string {
+    return num < 10 ? '0' + num : num.toString();
+  }
+  resetTimer(): void {
+    this.startTimer();
+  }
+  timeIsOver(){
+    this.router.navigate(['/pages/modules/quizmodule'])
+  }
+  stopTimer(): void {
+    if (this.timerSubscription) {
+      this.timerSubscription.unsubscribe();
+    }
   }
 }

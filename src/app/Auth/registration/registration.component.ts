@@ -49,6 +49,7 @@ export class RegistrationComponent implements OnInit {
   isEmailOTPValidated: boolean = false;
   isRemainingFieldVisible: boolean = false;
   password: any;
+  preferredCountry: any;
   show = false;
   showConfirm = false;
   confirmPassword: any;
@@ -67,7 +68,7 @@ export class RegistrationComponent implements OnInit {
   CountryISO = CountryISO;
   preferredCountries: CountryISO[] = [CountryISO.India];
   isMobileOTPEdit: boolean = false;
-
+  imageUrlWhitelabel: string | null = null;
   showHidePassword() {
     if (this.password === "password") {
       this.password = "text";
@@ -110,6 +111,9 @@ export class RegistrationComponent implements OnInit {
   dateTime = new Date();
   private subs = new SubSink();
   ngOnInit() {
+    this.locationService.getImage().subscribe(imageUrl => {
+      this.imageUrlWhitelabel = imageUrl;
+    });
     this.authService.authState.subscribe((user) => {
       this.service.googlesignUp(user).subscribe(
         (data) => {
@@ -136,11 +140,11 @@ export class RegistrationComponent implements OnInit {
     //var socialUser = user;
     //this.loggedIn = (user != null);
 
-    // this.isMobileOTPSend = false;
-    // this.isMobileOTPValidated = false;
-    // this.isEmailOTPSend = false;
-    // this.isEmailOTPValidated = false;
-    // this.isRemainingFieldVisible = false;
+    // this.isMobileOTPSend = true;
+    // this.isMobileOTPValidated = true;
+    // this.isEmailOTPSend = true;
+    // this.isEmailOTPValidated = true;
+    // this.isRemainingFieldVisible = true;
 
     this.dateTime.setDate(this.dateTime.getDate());
 
@@ -345,6 +349,9 @@ export class RegistrationComponent implements OnInit {
   }
 
   getUserLocation(){
+    fetch('https://ipapi.co/json/').then(response => response.json()).then(data => {
+      this.preferredCountry = data.country_code.toLocaleLowerCase()
+    });
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
       (position) => {

@@ -8,9 +8,9 @@ import { environment } from '@env/environment';
 export class TutorialsService {
 
   constructor(private http: HttpClient) { }
-  getResources() {
+  getResources(val:any) {
     const headers = new HttpHeaders().set("Accept", "application/json");
-    return this.http.post<any>(environment.ApiUrl + "/FilterTutorial", {
+    return this.http.post<any>(environment.ApiUrl + "/FilterTutorial",val, {
         headers: headers,
     });
   }

@@ -8,6 +8,7 @@ import { DataService } from "../../../data.service";
 import { LocationService } from "../../../location.service";
 import { AuthService } from 'src/app/Auth/auth.service';
 import { NgxUiLoaderService } from "ngx-ui-loader";
+import { PageFacadeService } from '../../page-facade.service';
 
 @Component({
   selector: 'uni-list-sub-modules',
@@ -52,9 +53,16 @@ export class ListSubModulesComponent implements OnInit {
   isSkeletonVisible: boolean = true;
   countryId: any;
   canShowQuestionList: boolean = false;
+  howItWorksVideoLink: string = "";
+  quizmoduleselectcountryidsetzero:any=0;
+  selectSubmoduleName:string = "";
+  ehitlabelIsShow:boolean=true;
+  imagewhitlabeldomainname:any
+  orgnamewhitlabel:any;
+  orglogowhitelabel:any;
   constructor(private moduleListService: ModuleServiceService, private router: Router, private dataService: DataService, private authService: AuthService,
     private locationService: LocationService, private route: ActivatedRoute, private ngxService: NgxUiLoaderService,
-    private confirmationService: ConfirmationService) {
+    private confirmationService: ConfirmationService, private pageFacade: PageFacadeService) {
     this.countryId = Number(localStorage.getItem('countryId'));
     this.dataService.countryIdSource.subscribe((data) => {
       if (this.countryId != data) {
@@ -84,11 +92,28 @@ export class ListSubModulesComponent implements OnInit {
       }
     ];
   }
+
+  allSearchedResult: any[] = []
   loopRange = Array.from({ length: 30 }).fill(0).map((_, index) => index);
   ngOnInit() {
-    this.init();
+    this.locationService.getImage().subscribe(imageUrl => {
+      this.orglogowhitelabel = imageUrl;
+    });
+    this.locationService.getOrgName().subscribe(orgname => {
+      this.orgnamewhitlabel = orgname;
+    });
+  this.imagewhitlabeldomainname=window.location.hostname;
+  if (this.imagewhitlabeldomainname === "dev-student.uniprep.ai" || this.imagewhitlabeldomainname === "uniprep.ai" || this.imagewhitlabeldomainname === "localhost") {
+    this.ehitlabelIsShow=true;
+  }else{
+    this.ehitlabelIsShow=false;
   }
-
+    localStorage.setItem("modalcountryid",this.quizmoduleselectcountryidsetzero);
+    this.init();
+    this.moduleListService.getSubmodulesAndSpecialization().subscribe((res: any) => {
+      this.allSearchedResult = res
+    })
+  }
   init() {
     this.currentCountryId = Number(localStorage.getItem('countryId'));
     this.currentModuleSlug = this.router.url.split('/').pop();
@@ -105,6 +130,7 @@ export class ListSubModulesComponent implements OnInit {
           this.upgradePlanMsg = 'Upgrade your plan now to gain instant access.';
         this.aboutModule = 'Explore a vast database of Q&A about:',
           this.moduleDetails = 'Scholarships, document checklist, Education loan, letter of Recommendation and many more!'
+        this.howItWorksVideoLink = "https://www.youtube.com/embed/Kae2KQnmWko?si=vjUQ7eyurP2Mbg-n";
         break;
       case 'travel-and-tourism':
         this.currentModuleId = 7;
@@ -115,6 +141,7 @@ export class ListSubModulesComponent implements OnInit {
           this.upgradePlanMsg = 'Upgrade your plan now to gain instant access.';
         this.aboutModule = 'Explore a vast database of Q&A about:',
           this.moduleDetails = 'Visa, departure, healthcare, tuition fees and many more!'
+        this.howItWorksVideoLink = "https://www.youtube.com/embed/s35R5o7cOOU?si=DvR3LyQ1C8uRaAN3";
         break;
       case 'post-admission':
         this.currentModuleId = 3;
@@ -125,6 +152,7 @@ export class ListSubModulesComponent implements OnInit {
           this.upgradePlanMsg = 'Upgrade your plan now to gain instant access.';
         this.aboutModule = 'Post-admission offers information about:',
           this.moduleDetails = ' Arrival, student discounts, banking, full time jobs, post study work and many more!'
+        this.howItWorksVideoLink = "https://www.youtube.com/embed/Q9-cUbwFNZI?si=LIdazrVO_qAQKiFk";
         break;
       case 'career-hub':
         this.currentModuleId = 4;
@@ -135,22 +163,36 @@ export class ListSubModulesComponent implements OnInit {
           this.upgradePlanMsg = 'Upgrade your plan now to gain instant access.';
         this.aboutModule = 'Explore a vast database of Q&A about:',
           this.moduleDetails = ' Arrival, student discounts, banking, full time jobs, post study work and many more!'
+        this.howItWorksVideoLink = "https://www.youtube.com/embed/7ogHhrekZjE?si=NADxga9qB4_RkCtw";
         break;
       case 'university':
         this.currentModuleId = 5;
         this.currentModuleName = 'University';
         this.currentApiSlug = 'SubmoduleListForStudents';
         this.selectedModule = 'university'
+        this.howItWorksVideoLink = "https://www.youtube.com/embed/Bsg1CTnVmYc?si=cWYQIexHAoeXvsyR";
+        break;
+      case 'skill-mastery':
+        this.currentModuleId = 10;
+        this.currentModuleName = 'Skill Mastery';
+        this.currentApiSlug = 'SubmoduleListForStudents';
+        this.infoMessage = 'Upgrade to access the Skill Mastery',
+          this.unlockMessage = ' ',
+          this.upgradePlanMsg = 'Upgrade your plan now to gain instant access.';
+        this.aboutModule = 'Explore a vast database of Q&A about:',
+          this.moduleDetails = ' Arrival, student discounts, banking, full time jobs, post study work and many more!'
+        this.howItWorksVideoLink = "https://www.youtube.com/embed/dHhq2xrBn5s?si=2dMsQcwwOY17dDHi";
         break;
       case 'learning-hub':
         this.currentModuleId = 8;
         this.currentModuleName = 'Learning Hub';
         this.currentApiSlug = 'SubmoduleListForStudents';
         this.infoMessage = 'Upgrade to access the Learning Hub',
-          this.unlockMessage = ' ',
+          this.unlockMessage = 'Unlock the power of success with our exclusive Pre-admission!',
           this.upgradePlanMsg = 'Upgrade your plan now to gain instant access.';
         this.aboutModule = 'Explore a vast database of Q&A about:',
-          this.moduleDetails = ' Arrival, student discounts, banking, full time jobs, post study work and many more!'
+          this.moduleDetails = 'Scholarships, document checklist, Education loan, letter of Recommendation and many more!'
+        this.howItWorksVideoLink = "https://www.youtube.com/embed/n9ECpsB6IoI?si=4coiypva6WZfr3NL";
         break;
       default:
         this.currentModuleId = 6;
@@ -162,6 +204,7 @@ export class ListSubModulesComponent implements OnInit {
         this.aboutModule = 'Explore a vast database of Q&A about:',
           this.moduleDetails = 'Festivals, events, currency, budget, housing and many more!',
           this.selectedModule = 'life-at-country'
+        this.howItWorksVideoLink = "https://www.youtube.com/embed/O35ypi2WJVI?si=CSxuFC1Zma9gk8SG";
         break;
 
     }
@@ -179,6 +222,7 @@ export class ListSubModulesComponent implements OnInit {
   }
 
   loadModuleAndSubModule() {
+
     this.currentCountryId = Number(localStorage.getItem('countryId'));
     //this.isSkeletonVisible = true;
     //this.subModules$ = this.moduleListService.subModuleList$();
@@ -187,9 +231,13 @@ export class ListSubModulesComponent implements OnInit {
     }
     if (this.currentModuleId == 8) {
       data.category_flag = 1;
-    }else{
-      data.country_id=this.currentCountryId;
-      data.api_module_name=this.currentApiSlug;
+    }
+    else if (this.currentModuleId == 10) {
+      data.country_id = 0;
+    }
+    else {
+      data.country_id = this.currentCountryId;
+      data.api_module_name = this.currentApiSlug;
     }
     //this.moduleListService.loadSubModules(data);
     this.locationService.GetQuestionsCount(data).subscribe(data => {
@@ -360,6 +408,10 @@ export class ListSubModulesComponent implements OnInit {
   }
 
   startQuiz() {
+    if(this.planExpired){
+      this.restrict=true;
+      return;
+    }
     this.router.navigate([`/pages/modules/${this.currentModuleSlug}/quiz`]);
     // let cName = "";
     // this.dataService.countryNameSource.subscribe(countryName => {
@@ -384,7 +436,10 @@ export class ListSubModulesComponent implements OnInit {
 
   }
 
-  onSubModuleClick(id: any) {
+  onSubModuleClick(id: any, submodule: any) {
+    console.log(id, "submodule-id");
+    console.log(submodule, "submodule");
+    this.selectSubmoduleName = submodule.submodule_name;
     // if(this.planExpired){
     //   this.restrict=true;
     //   return;
@@ -392,7 +447,7 @@ export class ListSubModulesComponent implements OnInit {
     if (this.currentModuleId == 8 && !this.canShowQuestionList) {
       let data: any = {
         moduleId: this.currentModuleId,
-        category_id :this.subModuleList.find(list=>list.submodule_id==id)?.category_id
+        category_id: this.subModuleList.find(list => list.submodule_id == id)?.category_id
       }
       this.isSkeletonVisible = true;
       this.locationService.GetQuestionsCount(data).subscribe(data => {
@@ -458,10 +513,10 @@ export class ListSubModulesComponent implements OnInit {
   upgradePlan(): void {
     this.router.navigate(["/pages/subscriptions"]);
   }
-  goBack(){
+  goBack() {
     this.isSkeletonVisible = true;
     this.loadModuleAndSubModule();
-    this.canShowQuestionList=false;
+    this.canShowQuestionList = false;
   }
   clearRestriction() {
     this.restrict = false;
@@ -475,5 +530,38 @@ export class ListSubModulesComponent implements OnInit {
     this.moduleListService.checkModuleQuizCompletion(data).subscribe((res) => {
       this.quizpercentage = res.progress
     })
+  }
+
+  openVideoPopup(videoLink: string) {
+    this.pageFacade.openHowitWorksVideoPopup(videoLink);
+  }
+
+  searchLearning: any
+  filteredData: any[] = []
+  performSearch(){
+    if (this.searchLearning) {
+      this.filteredData = this.allSearchedResult
+          .filter((item: any) =>
+              item.submodule_name.toLowerCase().includes(this.searchLearning.toLowerCase()) ||
+              item.category_name.toLowerCase().includes(this.searchLearning.toLowerCase())
+          )
+          .map(item => ({
+            title: item.category_name,
+            subtitle: item.submodule_name,
+            category_id: item.category_id,
+            submodule_id: item.submodule_id
+          }));
+    } else {
+      this.filteredData = [];
+    }
+  }
+
+  takeMeToQuestion(data: any){
+    this.router.navigate([`/pages/modules/learning-hub/question-list/${data.submodule_id}`]);
+  }
+
+  clearSearch() {
+    this.searchLearning = '';
+    this.filteredData = [];
   }
 }

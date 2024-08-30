@@ -5,6 +5,10 @@ import { AuthService } from 'src/app/Auth/auth.service';
 import { Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
 import { DataService } from 'src/app/data.service';
+import { PageFacadeService } from '../page-facade.service';
+import { UserManagementService } from "../user-management/user-management.service";
+import { LocationService } from 'src/app/location.service';
+
 @Component({
   selector: 'uni-pitch-desk',
   templateUrl: './pitch-desk.component.html',
@@ -29,8 +33,15 @@ export class PitchDeskComponent implements OnInit {
   selectedCheckboxCount: number = 0;
   exportCreditCount: number = 0;
   exportDataIds:any = [];
-  isPdfLoaded: boolean = false
-  constructor(private pitchDesk:PitchDeskService, private fb: FormBuilder,private router: Router,private authService: AuthService, private toast: MessageService, private dataService: DataService) { 
+  isPdfLoaded: boolean = false;
+  favCount:number=0;
+  PersonalInfo!: any;
+  viewFavourites: boolean = false;
+  ehitlabelIsShow:boolean=true;
+  imagewhitlabeldomainname:any
+  orgnamewhitlabel:any;
+  orglogowhitelabel:any;
+  constructor(private pitchDesk:PitchDeskService,  private userManagementService: UserManagementService, private fb: FormBuilder,private router: Router,private authService: AuthService, private toast: MessageService, private dataService: DataService, private pageFacade: PageFacadeService,private locationService: LocationService,) { 
     this.filterForm = this.fb.group({
       pitchdeck_name: [''],
       country: [''],
@@ -40,11 +51,53 @@ export class PitchDeskComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.locationService.getImage().subscribe(imageUrl => {
+      this.orglogowhitelabel = imageUrl;
+    });
+    this.locationService.getOrgName().subscribe(orgname => {
+      this.orgnamewhitlabel = orgname;
+    });
+    this.imagewhitlabeldomainname=window.location.hostname;
+    if (this.imagewhitlabeldomainname === "dev-student.uniprep.ai" || this.imagewhitlabeldomainname === "uniprep.ai" || this.imagewhitlabeldomainname === "localhost") {
+      this.ehitlabelIsShow=true;
+    }else{
+      this.ehitlabelIsShow=false;
+    }
     this.getPitchDeskList();
     this.checkplanExpire();
     this.selectBoxValues();
+    this.GetPersonalProfileData();
   }
 
+  GetPersonalProfileData() {
+    this.userManagementService.GetUserPersonalInfo().subscribe(data => {
+      this.PersonalInfo = data;
+    });
+  }
+
+  bookmarkQuestion(courseId: any, isFav: any) {
+    isFav = isFav != '1' ? true : false;
+    this.favCount=isFav == true ? this.favCount+1 : this.favCount-1;
+    console.log( this.PersonalInfo.user_id);
+    this.pitchDesk.bookmarkCourseData(courseId, this.PersonalInfo.user_id, isFav).subscribe((response) => {
+      console.log(31);
+      let pitchListData = this.pitchDeskList.find((item : any) => item.id == courseId);
+      isFav == true ? pitchListData.favourite = 1 : pitchListData.favourite = null;
+      this.toast.add({
+        severity: "success",
+        summary: "Success",
+        detail: response.message,
+      });
+    });
+  }
+  viewFav() {
+    //if (this.planExpired) {
+   //   this.restrict = true;
+   //   return;
+   // }
+    this.viewFavourites = !this.viewFavourites;
+    this.getPitchDeskList();
+  }
   getPitchDeskList(){
     let data = {
       pitchdeck_name: this.filterForm.value.pitchdeck_name ? this.filterForm.value.pitchdeck_name : '',
@@ -54,6 +107,7 @@ export class PitchDeskComponent implements OnInit {
       page: this.page,
       perpage: this.pageSize,
       planname:this.currentPlan?this.currentPlan:"",
+      favourites: this.viewFavourites ? this.viewFavourites : "",
     }
     this.pitchDesk.getPitchDeskData(data).subscribe((responce)=>{
       this.totalPitchDeckCount = responce.total_count;
@@ -244,11 +298,18 @@ export class PitchDeskComponent implements OnInit {
         this.toast.add({severity: "error",summary: "error",detail: "Select Some data for export!.",});
         return;
       }
-      if(this.exportCreditCount < this.exportDataIds.length){
-        this.toast.add({severity: "error",summary: "error",detail: "insufficient credits.Please Buy Some Credits.",});
-        this.router.navigate(["/pages/export-credit"]);
+      if (this.imagewhitlabeldomainname === "dev-student.uniprep.ai" || this.imagewhitlabeldomainname === "uniprep.ai" || this.imagewhitlabeldomainname === "localhost") {
+        if(this.exportCreditCount < this.exportDataIds.length){
+          this.toast.add({severity: "error",summary: "error",detail: "insufficient credits.Please Buy Some Credits.",});
+          this.router.navigate(["/pages/export-credit"]);
+          return;
+        }
+      }else{
+        if(this.exportCreditCount < this.exportDataIds.length){
+        this.toast.add({severity: "error",summary: "error",detail: "To download additional data beyond your free credits, please upgrade your plan.",});
         return;
       }
+    }
       let data={
         module_id: 6,
         export_id: this.exportDataIds
@@ -275,5 +336,9 @@ export class PitchDeskComponent implements OnInit {
       report_mode: "other_module"
     };
     this.dataService.openReportWindow(data);
+  }
+
+  openVideoPopup(videoLink: string) {
+    this.pageFacade.openHowitWorksVideoPopup(videoLink);
   }
 }

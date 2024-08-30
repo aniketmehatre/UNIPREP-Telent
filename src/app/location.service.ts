@@ -1,20 +1,32 @@
-import { Injectable } from '@angular/core';
-import { environment } from '../environments/environment';
-import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
-import { LocationData } from './@Models/location.model'
+import {Injectable} from '@angular/core';
+import {environment} from '../environments/environment';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {LocationData} from './@Models/location.model'
+import {SessionService} from "./session.service";
+import {DeviceDetectorService} from "ngx-device-detector";
+import {LocalStorageService} from "ngx-localstorage";
+import { BehaviorSubject, Observable, of, tap } from 'rxjs';
 
 @Injectable({
     providedIn: "root",
 })
 export class LocationService {
-    constructor(private http: HttpClient) {
+    private imageSubject = new BehaviorSubject<string | null>(null);
+    public image$: Observable<string | null> = this.imageSubject.asObservable();
+    private organizationname = new BehaviorSubject<string | null>(null);
+    public orgname$: Observable<string | null> = this.imageSubject.asObservable();
+    constructor(private http: HttpClient, private sessionService: SessionService,
+                private deviceService: DeviceDetectorService, private storage: LocalStorageService) {
     }
+
+
     getLocation() {
         const headers = new HttpHeaders().set("Accept", "application/json");
         return this.http.get<LocationData>(environment.ApiUrl + "/location", {
             headers: headers,
         });
     }
+
     getProgramLevel() {
         const headers = new HttpHeaders().set("Accept", "application/json");
         return this.http.get<any>(environment.ApiUrl + "/programlevel", {
@@ -22,16 +34,9 @@ export class LocationService {
         });
     }
 
-    getTimeInfoForCard() {
-        const headers = new HttpHeaders().set("Accept", "application/json");
-        return this.http.get<any>(environment.ApiUrl + "/getfreetrailtime", {
-            headers: headers,
-        });
-    }
-
     getUniPerpModuleList() {
         const headers = new HttpHeaders().set("Accept", "application/json");
-        return this.http.post<any>(environment.ApiUrl + "/modulecountry", { countryId: Number(localStorage.getItem('countryId')) }, {
+        return this.http.post<any>(environment.ApiUrl + "/modulecountry", {countryId: Number(localStorage.getItem('countryId'))}, {
             headers: headers,
         });
     }
@@ -45,12 +50,14 @@ export class LocationService {
             headers: headers,
         });
     }
+
     GetQuestionsCount(data: any) {
         const headers = new HttpHeaders().set("Accept", "application/json");
         return this.http.post<any>(environment.ApiUrl + "/SubmoduleListForStudents", data, {
             headers: headers,
         });
     }
+
     getSubModuleByModule(data: any) {
         const headers = new HttpHeaders().set("Accept", "application/json");
         return this.http.post<any>(environment.ApiUrl + "/getsubmodulesbymodule", data, {
@@ -79,6 +86,7 @@ export class LocationService {
             headers: headers,
         });
     }
+
     reportFaqQuestionaftersubmit(data: any) {
         const headers = new HttpHeaders().set("Accept", "application/json");
         return this.http.post<any>(environment.ApiUrl + "/SendMailGlobalReport", data, {
@@ -93,7 +101,7 @@ export class LocationService {
         });
     }
 
-    getModuleReportOptionLists(data: any){
+    getModuleReportOptionLists(data: any) {
         const headers = new HttpHeaders().set("Accept", "application/json");
         return this.http.post<any>(environment.ApiUrl + "/getreportoptionforall", data, {
             headers: headers,
@@ -106,16 +114,89 @@ export class LocationService {
             headers: headers,
         });
     }
+
+    getBlogs(data: any) {
+        const headers = new HttpHeaders().set("Accept", "application/json");
+        return this.http.post<any>(environment.ApiUrl + "/blogs", data, {
+            headers: headers,
+        });
+    }
+
+    getFeatBlogs() {
+        const headers = new HttpHeaders().set("Accept", "application/json");
+        return this.http.get<any>(environment.ApiUrl + "/featuredBlog", {
+            headers: headers,
+        });
+    }
+
+    oneBlog(data: any) {
+        const headers = new HttpHeaders().set("Accept", "application/json");
+        return this.http.post<any>(environment.ApiUrl + "/showblog", data, {
+            headers: headers,
+        });
+    }
+
     getHomeCountry(homeCountryId: number) {
         const headers = new HttpHeaders().set("Accept", "application/json");
         return this.http.get<any>(environment.ApiUrl + `/country?getHomeCountry=${homeCountryId}`, {
             headers: headers,
         });
     }
-    getUniversity(countryId: number) {
-        let params = new HttpParams();
-        params = params.append("country_id", countryId);
+
+    sendSessionData(userInfo: any, status: any) {
+        let userId = userInfo.userId;
+        let location = userInfo.location;
+        let country = userInfo.country;
+
+        const deviceInfo = this.deviceService.getDeviceInfo();
+        const deviceType = this.deviceService.isMobile() ? 'Mobile' : this.deviceService.isTablet() ? 'Tablet' : 'Desktop';
+        const browser = deviceInfo.browser;
+        const os = deviceInfo.os;
+        const sessionData = {
+            userId: userId,
+            location: location,
+            country: country,
+            deviceType: deviceType,
+            browser: browser,
+            os: os,
+            token: this.storage.get<string>('token')
+        };
+        console.log('add track', sessionData)
         const headers = new HttpHeaders().set("Accept", "application/json");
-        return this.http.get<any>(environment.ApiUrl + "/getuniversity", { headers: headers, params: params });
+        return this.http.post<any>(environment.ApiUrl + "/addtracking", sessionData, {
+            headers: headers,
+        });
     }
+    sessionEndApiCall() {
+        const sessionData = {
+            token: this.storage.get<string>('token')
+        };
+        console.log('update track')
+        const headers = new HttpHeaders().set("Accept", "application/json");
+        return this.http.post<any>(environment.ApiUrl + "/updatetracking", sessionData, {
+            headers: headers,
+        });
+    }
+    // getwhitlabel website image
+    getWhitlabelData(data: any): Observable<any> {
+        if (data.domainname === "dev-student.uniprep.ai" || data.domainname === "uniprep.ai" || data.domainname === "localhost") {
+          // Emit a default image URL and return an observable of `null` or an empty observable
+          this.imageSubject.next("../../../uniprep-assets/images/uniprep-light.svg");
+          return of(null); // Returning an empty observable or `null`
+        } else {
+          const headers = new HttpHeaders().set("Accept", "application/json");
+          return this.http.post<any>(environment.ApiUrl + "/getorganizationlogobydomain", data, { headers }).pipe(
+            tap((response) => {
+              this.imageSubject.next(response.organization_logo_url);
+              this.organizationname.next(response.organization_name);
+            })
+          );
+        }
+      }
+      getImage(): Observable<string | null> {
+        return this.image$;
+      }
+      getOrgName(): Observable<string | null> {
+        return this.orgname$
+      }  
 }

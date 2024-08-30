@@ -1,0 +1,18 @@
+.headerButtons{
+    color: var(--uniprep-primary);
+    font-weight: 700;
+    border: 1px solid var(--uniprep-primary);
+    border-radius: 5px;
+    padding: 0.8rem 1.5rem !important;
+}
+
+.active{
+    background-color: var(--uniprep-primary);
+    color: white;
+}
+.custom-button-container {
+    display: flex;
+    justify-content: flex-end; /* Aligns the button to the right */
+    align-items: flex-end;     /* Aligns the button to the bottom */
+    padding-end: 10px;
+}

@@ -68,6 +68,8 @@ export class HeaderSearchComponent implements OnInit, OnDestroy {
   visibleExhastedData!: boolean;
   showVideoPopup: boolean = false;
   selectedVideoLink: any | null = null;
+  ehitlabelIsShow:boolean=true;
+  orgnamewhitlabel:any;
   constructor(private dashboardService: DashboardService, private dataService: DataService, private moduleStoreService: ModuleStoreService,
     private toastr: MessageService, private moduleListService: ModuleServiceService,    private sanitizer: DomSanitizer,
     private locationService: LocationService, private route: Router, private elementRef: ElementRef,
@@ -107,7 +109,17 @@ export class HeaderSearchComponent implements OnInit, OnDestroy {
   loadMore(): void {
     this.page++;
   }
+  imagewhitlabeldomainname:any
   ngOnInit(): void {
+    this.locationService.getOrgName().subscribe(orgname => {
+      this.orgnamewhitlabel = orgname;
+    });
+    this.imagewhitlabeldomainname=window.location.hostname;
+    if (this.imagewhitlabeldomainname === "dev-student.uniprep.ai" || this.imagewhitlabeldomainname === "uniprep.ai" || this.imagewhitlabeldomainname === "localhost") {
+      this.ehitlabelIsShow=true;
+    }else{
+      this.ehitlabelIsShow=false;
+    }
     this.responsiveOptions = [
       {
         breakpoint: '1199px',
@@ -172,8 +184,11 @@ export class HeaderSearchComponent implements OnInit, OnDestroy {
         let searchedResult = this.searchInputValue;
         searchedResult = searchedResult.split(" ");
         searchedResult.forEach((element: any) => {
-          const small = new RegExp(element, "i");
-          data.question = data.question.replace(small, '<span class="fw-bold sec-color" style="color:#F0780C">' + element + '</span>');
+          //if (element !== 'an'){
+            const small = new RegExp(`\\b${element}\\b`, "g");
+            const tagData = '<span class="fw-bold sec-color" style="color:#F0780C">' + element + '</span>'
+            data.question = data.question.replace(small, tagData);
+          //}
         });
         // for (let x in searchedResult) {
         //   ans = ans.replace(new RegExp(x, 'g'), '<span class="fw-bold">' + x + '</span>');
@@ -183,9 +198,11 @@ export class HeaderSearchComponent implements OnInit, OnDestroy {
       this.toastr.add({ severity: 'error', summary: 'Error', detail: err });
     });
   }
-
+  oneQuestionContent: any
   gerSelectedQuestion(selectedQuestionData: any) {
+    this.isQuestionAnswerVisible = true;
     this.selectedGlobalData = selectedQuestionData
+    this.oneQuestionContent = selectedQuestionData
     this.selectedQuestionData = selectedQuestionData;
     this.selectedQuestionId = selectedQuestionData.id;
     this.readQuestion(selectedQuestionData);
@@ -201,7 +218,7 @@ export class HeaderSearchComponent implements OnInit, OnDestroy {
         this.videoLinks = res.videolink;
       }
     });
-    this.getModuleName(selectedQuestionData);
+
     if (this.selectedQuestion < 1) {
       this.isAnswerDialogVisiblePrev = false;
     } else {
@@ -212,6 +229,23 @@ export class HeaderSearchComponent implements OnInit, OnDestroy {
     } else {
       this.isAnswerDialogVisibleNext = true;
     }
+    this.moduleName = this.selectedQuestionData.module_name;
+    this.subModuleName = this.selectedQuestionData.submodule_name;
+    this.breadCrumb = [{ label:  this.countryName}, { label: this.moduleName,command: (event) => this.gBC(this.selectedQuestionData) },
+      { label: this.subModuleName, command: (event) => this.gBC1(this.selectedQuestionData) }];
+  }
+
+
+  gBC(data: any){
+    let slug = this.convertToSlug(data.module_name);
+    this.isQuestionAnswerVisible = false;
+    this.route.navigate([`/pages/modules/${slug}`]);
+  }
+
+  gBC1(data: any){
+    let slug = this.convertToSlug(data.module_name);
+    this.isQuestionAnswerVisible = false;
+    this.route.navigate([`/pages/modules/${slug}/question-list/${this.selectedGlobalData.submodule_id}`]);
   }
 
   clearText(): void {
@@ -229,39 +263,39 @@ export class HeaderSearchComponent implements OnInit, OnDestroy {
     this.readQue$ = this.moduleListService.readQuestionMessage$();
   }
 
-  getModuleName(selectedQuestionModule: any): void {
-    this.selectedQuestion = this.searchResult.findIndex((x: any) => x.id === selectedQuestionModule.id);
-    let moduleData: any;
-    this.subs.sink = this.locationService.getUniPerpModuleList().subscribe(data => {
-      this.moduleList = data.modules;
-      data.modules.forEach((value: any) => {
-        if (selectedQuestionModule.module_id == value.id) {
-          moduleData = value;
-          this.moduleName = value.module_name;
-        }
-      });
-      this.getSubModuleByModule(moduleData, selectedQuestionModule);
-    });
-  }
+  // getModuleName(selectedQuestionModule: any): void {
+  //   this.selectedQuestion = this.searchResult.findIndex((x: any) => x.id === selectedQuestionModule.id);
+  //   let moduleData: any;
+  //   this.subs.sink = this.locationService.getUniPerpModuleList().subscribe(data => {
+  //     this.moduleList = data.modules;
+  //     data.modules.forEach((value: any) => {
+  //       if (selectedQuestionModule.module_id == value.id) {
+  //         moduleData = value;
+  //         this.moduleName = value.module_name;
+  //       }
+  //     });
+  //     this.getSubModuleByModule(moduleData, selectedQuestionModule);
+  //   });
+  // }
 
-  getSubModuleByModule(module: any, selectedQuestionModule: any): void {
-    let data = {
-      moduleid: module.id
-    }
-    this.locationService.getSubModuleByModule(data).subscribe(res => {
-      if (res.status == 404) {
-
-      }
-      this.subModuleList = res.submodules;
-      res.submodules.forEach((value: any) => {
-        if (selectedQuestionModule.submodule_id == value.id) {
-          this.subModuleName = value.submodule_name;
-        }
-      })
-      this.breadCrumb = [{ label:  this.countryName}, { label: this.moduleName },
-      { label: this.subModuleName }];
-    })
-  }
+  // getSubModuleByModule(module: any, selectedQuestionModule: any): void {
+  //   let data = {
+  //     moduleid: module.id
+  //   }
+  //   this.locationService.getSubModuleByModule(data).subscribe(res => {
+  //     if (res.status == 404) {
+  //
+  //     }
+  //     this.subModuleList = res.submodules;
+  //     res.submodules.forEach((value: any) => {
+  //       console.log(selectedQuestionModule)
+  //       if (selectedQuestionModule.submodule_id == value.id) {
+  //         this.subModuleName = value.submodule_name;
+  //       }
+  //     })
+  //     this.breadCrumb = [{ label:  this.countryName}, { label: this.moduleName }, { label: this.subModuleName }];
+  //   })
+  // }
 
   breadCrumbClick(event: any, defaultEvent: any){
     if (defaultEvent.item.label == this.countryName){
@@ -283,53 +317,48 @@ export class HeaderSearchComponent implements OnInit, OnDestroy {
     this.route.navigate([`/pages/chat`]);
   }
 
-  clickPrevious(carousel: any, event: any): void {
+  clickPrevious(): void {
     this.isAnswerDialogVisiblePrev = true;
     this.isAnswerDialogVisibleNext = true;
+    let currentData = this.oneQuestionContent
+
+    let index = this.findIndexById(this.searchResult, this.oneQuestionContent.id);
+    this.oneQuestionContent = this.searchResult[index - 1]
+
     if (this.selectedQuestion <= 1) {
       this.isAnswerDialogVisiblePrev = false;
     }
     if (this.selectedQuestion <= 0) {
       return;
     }
-    this.selectedQuestionId = this.selectedQuestion;
-    this.selectedGlobalData = this.searchResult[this.selectedQuestion - 1];
-    this.selectedQuestion = this.selectedQuestion - 1;
-    let data = this.searchResult[this.selectedQuestion]
-    this.searchResult.filter((res: any) => {
-      if (res.id == data.id) {
-        this.refLink = res.reflink;
-        this.videoLinks = res.videolink;
-      }
-    });
-    this.getModuleName(data);
-    carousel.navBackward(event, this.selectedQuestion);
-    this.readQuestion(data);
+    this.moduleName = currentData.module_name;
+    this.subModuleName = currentData.submodule_name;
+    this.breadCrumb = [{ label:  this.countryName}, { label: this.moduleName,command: (event) => this.gBC(this.selectedQuestionData) },
+      { label: this.subModuleName, command: (event) => this.gBC1(this.selectedQuestionData) }];    this.readQuestion(currentData);
+    return;
   }
 
-  clickNext(carousel: any, event: any) {
+  findIndexById(items: any, id: number): number {
+    return items.findIndex((item: any) => item.id === id);
+  }
+
+  clickNext() {
     this.isAnswerDialogVisiblePrev = true;
     this.isAnswerDialogVisibleNext = true;
+    let index = this.findIndexById(this.searchResult, this.oneQuestionContent.id);
+    let currentData = this.oneQuestionContent
+    this.oneQuestionContent = this.searchResult[index + 1]
     if (this.selectedQuestion >= this.searchResult.length - 2) {
       this.isAnswerDialogVisibleNext = false;
     }
     if (this.selectedQuestion >= this.searchResult.length - 1) {
       return;
     }
-
-    this.selectedQuestionId = this.selectedQuestion;
-    this.selectedGlobalData = this.searchResult[this.selectedQuestion + 1];
-    this.selectedQuestion = this.selectedQuestion + 1;
-    let data = this.searchResult[this.selectedQuestion];
-    this.searchResult.filter((res: any) => {
-      if (res.id == data.id) {
-        this.refLink = res.reflink;
-        this.videoLinks = res.videolink;
-      }
-    });
-    this.getModuleName(data);
-    carousel.navForward(event, this.selectedQuestion);
-    this.readQuestion(data);
+    this.moduleName = currentData.module_name;
+    this.subModuleName = currentData.submodule_name;
+    this.breadCrumb = [{ label:  this.countryName}, { label: this.moduleName,command: (event) => this.gBC(this.selectedQuestionData) },
+      { label: this.subModuleName, command: (event) => this.gBC1(this.selectedQuestionData) }];
+    this.readQuestion(currentData);
   }
 
   // goToHome() {
@@ -354,15 +383,20 @@ export class HeaderSearchComponent implements OnInit, OnDestroy {
       this.route.navigate([`/pages/modules/${modName}`]);
     }
   }
-
+  enterpriseSubscriptionLink: any
   enableReadingData(): void {
     this.service.getNewUserTimeLeft().subscribe(res => {
       this.timeLeft = res.time_left;
+      this.enterpriseSubscriptionLink = res.enterprise_subscription_link;
     });
   }
 
   onClickSubscribedUser(): void {
     this.visibleExhastedData = false;
+    if(this.enterpriseSubscriptionLink != ""){
+      window.open(this.enterpriseSubscriptionLink, '_target');
+      return;
+    }
     this.route.navigate(["/pages/subscriptions"]);
   }
 

@@ -20,7 +20,10 @@ export class TutorialsComponent implements OnInit {
 
 
   ngOnInit(): void {
-    this.resourceService.getResources().subscribe((response:any)=>{
+    var data={
+      usertype:1
+    }
+    this.resourceService.getResources(data).subscribe((response:any)=>{
       var tutorials= response.Tutorial;
       tutorials.forEach((element:any) => {
          var tutorial = {

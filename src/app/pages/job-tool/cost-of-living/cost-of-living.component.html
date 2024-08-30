@@ -1,0 +1,77 @@
+<div class="d-flex justify-content-center" [ngClass]="{'centerDiv':!canShowComparision}">
+    <div class="dropdown-container">
+        <div class="uniprep-primary h4  text-center fw-semibold">
+            Compare the cost of living between countries around the world
+        </div>
+        <br>
+        <form [formGroup]="form" (ngSubmit)="compare()" class="g-10">
+            <p-dropdown [options]="sourceCities" optionValue="city_id" formControlName="sourceCity"
+                placeholder="Source Country" [filter]="true" [virtualScroll]="true" [virtualScrollItemSize]="50"
+                [showClear]="true" [appendTo]="'body'" class="costofliving-dropdown">
+                <ng-template pTemplate="filter" let-options="options">
+                    <div class="d-flex gap-2">
+                        <div class="p-inputgroup" (click)="$event.stopPropagation()">
+                            <span class="p-inputgroup-addon"><i class="pi pi-search"></i></span>
+                            <input type="text" pInputText placeholder="Filter" formControlName="sourceFilter"
+                                (keyup)="customFilterFunction('source')" />
+                        </div>
+                        <button pButton icon="pi pi-times" class="btn btn-primary" (click)="resetFunction('source')"
+                            severity="secondary"></button>
+                    </div>
+                </ng-template>
+                <ng-template pTemplate="selectedItem" let-selectedOption>
+                    <div class="d-flex align-items-center gap-2">
+                        <img [src]="selectedOption.flag" />
+                        <div><span *ngIf="selectedOption.city_name!=''">{{selectedOption.city_name}}, </span>{{
+                            selectedOption.country_name }}</div>
+                    </div>
+                </ng-template>
+                <ng-template let-country pTemplate="item">
+                    <div class="d-flex align-items-center gap-2" (click)="cityChange('source',country)">
+                        <img [src]="country.flag" />
+                        <div><span *ngIf="country.city_name!=''">{{country.city_name}}, </span>{{ country.country_name
+                            }}</div>
+                    </div>
+                </ng-template>
+
+            </p-dropdown>
+            <p-dropdown [options]="targetCities" optionValue="city_id" formControlName="targetCity"
+                placeholder="Target Country" [filter]="true" [virtualScroll]="true" [virtualScrollItemSize]="50"
+                [showClear]="true" [appendTo]="'body'" class="costofliving-dropdown" >
+                <ng-template pTemplate="filter" let-options="options">
+                    <div class="d-flex gap-2">
+                        <div class="p-inputgroup" (click)="$event.stopPropagation()">
+                            <span class="p-inputgroup-addon"><i class="pi pi-search"></i></span>
+                            <input type="text" pInputText placeholder="Filter" formControlName="targetFilter"
+                                (keyup)="customFilterFunction('target')" />
+                        </div>
+                        <button pButton icon="pi pi-times" class="btn btn-primary" (click)="resetFunction('target')"
+                            severity="secondary"></button>
+                    </div>
+                </ng-template>
+                <ng-template pTemplate="selectedItem" let-selectedOption>
+                    <div class="d-flex align-items-center gap-2">
+                        <img [src]="selectedOption.flag" />
+                        <div><span *ngIf="selectedOption.city_name!=''">{{selectedOption.city_name}}, </span>{{
+                            selectedOption.country_name }}</div>
+                    </div>
+                </ng-template>
+                <ng-template let-country pTemplate="item" >
+                    <div class="d-flex align-items-center gap-2" (click)="cityChange('target',country)">
+                        <img [src]="country.flag" />
+                        <div><span *ngIf="country.city_name!=''">{{country.city_name}}, </span>{{ country.country_name
+                            }}</div>
+                    </div>
+                </ng-template>
+            </p-dropdown>
+            <button class="btn btn-primary h6 ps-3 pe-3 pt-2 pb-2 br-20" type="submit"
+                [disabled]="form.value.sourceCity===null || form.value.targetCity===null">Compare
+                <i class="pi pi-sync"></i> </button>
+        </form>
+    </div>
+</div>
+<br>
+<div *ngIf="canShowComparision">
+    <uni-comparision [sourceCountryPrices]="sourceCountryPrices"
+        [targetCountryPrices]="targetCountryPrices"></uni-comparision>
+</div>

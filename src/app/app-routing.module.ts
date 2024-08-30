@@ -7,6 +7,11 @@ import { AppComponent } from "./app.component";
 import { PrivacyComponent } from "./pages/privacy/privacy.component";
 import { CertificatesComponent } from "./pages/certificates/certificates.component";
 import { EnterpriseSubscriptionComponent } from "./components/enterprise-subscription/enterprise-subscription.component";
+import { BlogdetailComponent } from "./pages/blogdetail/blogdetail.component";
+import { BloglistComponent } from "./pages/bloglist/bloglist.component";
+import { DomainwhitlabelGuard } from "./domainwhitlabel.guard";
+
+
 const routes: Routes = [
   {
     path: '',
@@ -15,11 +20,20 @@ const routes: Routes = [
   },
   {
     path: 'home',
-    component: LandingComponent
+    component: LandingComponent,
+    canActivate: [DomainwhitlabelGuard] 
   },
   {
     path: 'enterprisepayment/:id',
     component: EnterpriseSubscriptionComponent
+  },
+  {
+    path: 'blogs/:slug',
+    component: BlogdetailComponent
+  },
+  {
+    path: 'blogs',
+    component: BloglistComponent
   },
   {
     path: 'privacy',

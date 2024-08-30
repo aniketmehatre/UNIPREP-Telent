@@ -98,6 +98,9 @@
 							<span class="text-small fw-normal px-4"><i class="fa-solid fa-bug"></i> Report</span>
 						</button>
 					</div>
+                    <div label="" role="button" class="headercountry me-2 d-md-block">
+                        <img src="../../../uniprep-assets/icons/india.png" alt="flag" height="auto" width="auto" />
+                    </div>
 					<div label="" role="button" class="headercountry me-2 d-md-block">
 						<img #openCountryPopup src="{{ headerFlag }}" alt="flag" height="auto" width="auto" (click)="openFlagModal(totalCountryList, $event)" />
 						<!-- <img src="{{ headerFlag }}" alt="United Kingdom" height="auto" width="auto" (click)="openFlagModal(totalCountryList, $event)"/> -->
@@ -182,6 +185,9 @@
 							<span class="text-small fw-normal px-4"><i class="fa-solid fa-bug"></i> Report</span>
 						</button>
 					</div>
+                    <div label="" role="button" class="headercountry me-2 d-none d-md-block" title="Selected Country">
+                        <img src="../../../uniprep-assets/icons/india.png" alt="flag" height="auto" width="auto" />
+                    </div>
 					<div label="" role="button" class="headercountry me-2 d-none d-md-block" title="Selected Country">
 						<img #openCountryPopup src="{{ headerFlag }}" alt="flag" height="auto" width="auto" (click)="openFlagModal(totalCountryList, $event)" />
 					</div>
@@ -260,6 +266,7 @@
 		</div>
 	</ng-template>
 </p-overlayPanel>
+
 <p-overlayPanel #totalCountryList [style]="{'width':'100%','max-width':'fit-content'}">
 	<ng-template pTemplate="content">
 	  <div *ngIf="isLondon" class="mega-menu">
@@ -503,8 +510,25 @@
 								<form [formGroup]="mobileForm">
 									<div class="w-100 phonenumberblock" *ngIf="formvisbility">
 										<p style="font-size: x-small">Enter your number to continue the experience</p>
-										<ngx-intl-tel-input class="intel-input w-100" [cssClass]="'custom'" [preferredCountries]="[CountryISO.India]" [enableAutoCountrySelect]="true" [enablePlaceholder]="true" [searchCountryFlag]="true" [maxLength]="15" [searchCountryField]="[SearchCountryField.Iso2, SearchCountryField.Name]" [phoneValidation]="true" [selectedCountryISO]="CountryISO.India" customPlaceholder="Enter Contact Number" formControlName="phone"> </ngx-intl-tel-input>
+										<ngx-intl-tel-input class="intel-input w-100" [cssClass]="'custom'"
+                                                            [preferredCountries]="['in', 'gb']"
+                                                            [enableAutoCountrySelect]="true" [enablePlaceholder]="true"
+                                                            [searchCountryFlag]="true" [maxLength]="15"
+                                                            [searchCountryField]="[SearchCountryField.Iso2, SearchCountryField.Name]"
+                                                            [phoneValidation]="true" [selectedCountryISO]="preferredCountry"
+                                                            customPlaceholder="Enter Contact Number" formControlName="phone"> </ngx-intl-tel-input>
 									</div>
+                                    <div class="w-100 phonenumberblock mt-2" *ngIf="formvisbility">
+                                        <p style="font-size: x-small">Select Your Home Country</p>
+                                        <div class="p-inputgroup">
+                                            <p-dropdown class="w-100" formControlName="home_country"
+                                                        appendTo="body" [options]="countryList" [filter]="true"
+                                                        placeholder="Country Dropdown"
+                                                        (onChange)="changeLocation($event)" filterBy="country"
+                                                        optionLabel="country" optionValue="id"
+                                                        [autoDisplayFirst]="false"></p-dropdown>
+                                        </div>
+                                    </div>
 									<div *ngIf="freeTrialErrorMsg" class="text-danger">
 										{{freeTrialErrorMsg}}
 									</div>
@@ -552,7 +576,7 @@
 											<h2 style="color: #f0780e; margin-bottom: 0">You have unlocked</h2>
 										</strong>
 										<strong class="firsttimelogin">
-											<h2 style="color: #f0780e; margin-top: 0">3 Days Free Demo.</h2>
+											<h2 style="color: #f0780e; margin-top: 0">{{demoDays}} Days Free Demo.</h2>
 										</strong>
 									</span>
 								</div>

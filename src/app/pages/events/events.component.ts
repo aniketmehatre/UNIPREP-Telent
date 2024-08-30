@@ -5,6 +5,8 @@ import { DatePipe } from '@angular/common';
 import { MessageService } from 'primeng/api';
 import { AuthService } from 'src/app/Auth/auth.service';
 import { Router } from '@angular/router';
+import { PageFacadeService } from '../page-facade.service';
+
 interface country {
   id: number,
   country: string,
@@ -47,7 +49,7 @@ export class EventsComponent implements OnInit {
   selectedCountryId: any;
   planExpired!: boolean;
   restrict: boolean = false;
-  constructor(private fb: FormBuilder, private service: EventsService, private datePipe: DatePipe, private toast: MessageService, private authService: AuthService, private router: Router) {
+  constructor(private fb: FormBuilder, private service: EventsService, private datePipe: DatePipe, private toast: MessageService, private authService: AuthService, private router: Router, private pageFacade: PageFacadeService) {
     this.filterform = this.fb.group({
       from: [''],
       to: [''],
@@ -331,5 +333,9 @@ export class EventsComponent implements OnInit {
     this.getPostEvent(data)
     this.getEventUpComming(data)
     this.newfile = "none";
+  }
+
+  openVideoPopup(videoLink: string) {
+    this.pageFacade.openHowitWorksVideoPopup(videoLink);
   }
 }

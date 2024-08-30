@@ -1,0 +1,43 @@
+.spanButtons{
+    border: 1px solid grey;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+
+.searchButton{
+    background-color: #EBEDF2;
+    color: #001631 !important;
+    border-radius: 20px !important;
+    border: none;
+    padding: 10px;
+}
+
+.searchIcon {
+	padding: 6px;
+	border-radius: 25px;
+	background-color: #3f4c83;
+	color: white;
+	margin-left: 5px;
+}
+
+::ng-deep .p-inputtext{
+      width:100%;
+}
+img {
+  height: 25px !important;
+  width: 25px !important;
+  margin-right: 10px;
+}
+.headColor{
+ color: #3f4c83
+}
+.costofliving-dropdown .p-dropdown {
+  min-width: 100% !important;
+}
+.rounded-input {
+  border-radius: 25px; /* Adjust this value for more or less rounding */
+  width: 100% !important;
+  border: 1px solid var(--uniprep-secondary);
+  padding-left: 2.5rem; /* Ensures the text doesn't overlap with the icon */
+}

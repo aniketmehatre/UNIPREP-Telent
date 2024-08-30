@@ -32,15 +32,17 @@ planExpired: boolean = false;
         socialShare.style.display = "none";
       }
       //this.getSubmoduleName(this.countryId);
-      this.getCertificates();
-      this.getCertificateoOtherCountry();
-      this.checkplanExpire();
+
     });
+    this.getCertificates();
+    this.getCertificateoOtherCountry();
+    this.checkplanExpire();
   }
   getCertificateoOtherCountry(){
     this.othercirtificatecountrylist="";
     var data={
       countryid:Number(localStorage.getItem('countryId'))
+      // countryid:null
     }
     this.service.getCertificateInOtherCountry(data).subscribe((res)=>{
       this.othercirtificatecountrylist=res.countries
@@ -52,31 +54,31 @@ planExpired: boolean = false;
     this.certificatesList=[];
     this.learninghubcertificatelist=[];
     var data={
-      countryid:Number(localStorage.getItem('countryId'))
+      // countryid:null
     }
     this.service.getUserCompletedCertificate(data).subscribe((res)=>{
       this.certificatesList=res.certificates
       this.totalmodulecirtficatelist=[...this.certificatesList,...this.learninghubcertificatelist,...this.laguageCertificate];
       console.log(this.totalmodulecirtficatelist);
     })
-    var data1={
-      countryid:0,
-      moduleid :8
-    }
-    this.service.getUserCompletedCertificate(data1).subscribe((res)=>{
-      this.learninghubcertificatelist=res.certificates;
-      this.totalmodulecirtficatelist=[...this.certificatesList,...this.learninghubcertificatelist,...this.laguageCertificate];
-      console.log(this.totalmodulecirtficatelist);
-    })
-    var data2={
-      countryid:0,
-      moduleid :9
-    }
-    this.service.getUserCompletedCertificate(data2).subscribe((res)=>{
-      this.laguageCertificate=res.certificates;
-      this.totalmodulecirtficatelist=[...this.certificatesList,...this.learninghubcertificatelist,...this.laguageCertificate];
-      console.log(this.totalmodulecirtficatelist);
-    })
+    // var data1={
+    //   countryid:0,
+    //   moduleid :8
+    // }
+    // this.service.getUserCompletedCertificate(data1).subscribe((res)=>{
+    //   this.learninghubcertificatelist=res.certificates;
+    //   this.totalmodulecirtficatelist=[...this.certificatesList,...this.learninghubcertificatelist,...this.laguageCertificate];
+    //   console.log(this.totalmodulecirtficatelist);
+    // })
+    // var data2={
+    //   countryid:0,
+    //   moduleid :9
+    // }
+    // this.service.getUserCompletedCertificate(data2).subscribe((res)=>{
+    //   this.laguageCertificate=res.certificates;
+    //   this.totalmodulecirtficatelist=[...this.certificatesList,...this.learninghubcertificatelist,...this.laguageCertificate];
+    //   console.log(this.totalmodulecirtficatelist);
+    // })
   }
   downloadCertificate(link:any){
     if(this.planExpired){
@@ -95,7 +97,8 @@ planExpired: boolean = false;
     this.authService.getNewUserTimeLeft().subscribe((res) => {
       let data = res.time_left;
       let subscription_exists_status = res.subscription_details;
-      if (data.plan === "expired" || data.plan === 'subscription_expired') {
+      if (data.plan === "expired" || data.plan === 'subscription_expired' ||
+        subscription_exists_status?.subscription_plan === "free_trail") {
         this.planExpired = true;   
       } else {
         this.planExpired = false;
@@ -144,13 +147,6 @@ planExpired: boolean = false;
   }
   copyLink(link:any){
     const textarea = document.createElement('textarea');
-
-    // this.meta.updateTag(
-    //   { property: 'og:title', content:  this.selectedQuestionName.question},
-    // );
-    // this.meta.updateTag(
-    //   { name: 'title', content:  this.selectedQuestionName.question},
-    // );
     textarea.textContent = link
     document.body.append(textarea);
     textarea.select();

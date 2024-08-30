@@ -7,6 +7,7 @@ import { AuthService } from "src/app/Auth/auth.service";
 import { Router } from "@angular/router";
 import { UserManagementService } from "../user-management/user-management.service";
 import { DataService } from "src/app/data.service";
+import { PageFacadeService } from "../page-facade.service";
 
 @Component({
   selector: "uni-scholarship-list",
@@ -43,12 +44,13 @@ export class ScholarshipListComponent implements OnInit {
   // selectedIndex: any;
   // toSend: boolean = false;
   selectAllCheckboxes: boolean = false;
-  selectedCheckboxCount: number = 0;
+  // selectedCheckboxCount: number = 0;
   exportCreditCount: number = 0;
   exportDataIds:any = [];
   selectedScholarship: number = 0;
   favCount:number=0;
-
+  ehitlabelIsShow:boolean=true;
+  imagewhitlabeldomainname:any
   constructor(
     private fb: FormBuilder,
     private scholarshipListService: ScholarshipListService,
@@ -57,7 +59,8 @@ export class ScholarshipListComponent implements OnInit {
     private authService: AuthService,
     private router: Router,
     private userManagementService: UserManagementService,
-    private dataService: DataService
+    private dataService: DataService,
+    private pageFacade: PageFacadeService
   ) {
     this.filterForm = this.fb.group({
       country: [null],
@@ -72,7 +75,12 @@ export class ScholarshipListComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
+    this.imagewhitlabeldomainname=window.location.hostname;
+    if (this.imagewhitlabeldomainname === "dev-student.uniprep.ai" || this.imagewhitlabeldomainname === "uniprep.ai" || this.imagewhitlabeldomainname === "localhost") {
+      this.ehitlabelIsShow=true;
+    }else{
+      this.ehitlabelIsShow=false;
+    }
     this.getScholarshipCountry();
     this.gethomeCountryList();
     this.getStudyLevel();
@@ -115,6 +123,14 @@ export class ScholarshipListComponent implements OnInit {
     this.filterForm.reset();
     // this.getRegionList();
     this.getFilterUniversityList("");
+    //this.data = {}
+    delete this.data.country;
+    delete this.data.home_country;
+    delete this.data.type;
+    delete this.data.study_level;
+    delete this.data.university;
+    delete this.data.cover_id;
+
   }
   getScholarshipCountry() {
     this.scholarshipListService
@@ -408,13 +424,12 @@ export class ScholarshipListComponent implements OnInit {
   }
 
   selectAllCheckbox(){
-    this.selectedCheckboxCount = 0;
+    this.selectedScholarship = 0;
     this.selectAllCheckboxes = !this.selectAllCheckboxes;
-    console.log(this.scholarshipData);
     if(this.selectAllCheckboxes){
       this.scholarshipData.forEach(item=>{
         item.isChecked = 1;
-        this.selectedCheckboxCount +=1;
+        this.selectedScholarship +=1;
       });
     }else{
       this.scholarshipData.forEach(item=>{
@@ -450,7 +465,7 @@ export class ScholarshipListComponent implements OnInit {
       this.scholarshipListService.exportSelectedData(data).subscribe((response)=>{
         window.open(response.link, '_blank');
         this.selectAllCheckboxes = false;
-        this.selectedCheckboxCount = 0;
+        // this.selectedCheckboxCount = 0;
         this.selectedScholarship = 0;
         this.loadScholarShipData(0);
       })
@@ -475,4 +490,8 @@ export class ScholarshipListComponent implements OnInit {
     }
   }
 
+  openHowItWorksVideoPopup(videoLink: string) {
+    this.pageFacade.openHowitWorksVideoPopup(videoLink);
+  }
+  
 }

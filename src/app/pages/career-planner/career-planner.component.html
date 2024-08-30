@@ -2,11 +2,22 @@
 	<div class="card-body d-flex flex-column justify-content-between pt-0">
 		<div class="row justify-content-center">
 			<div class="col-md-3 text-start"></div>
-			<div class="col-md-6 text-center">
+			<!-- <div class="col-md-6 text-center">
 				<h5 class="select-title w-100 mb-1" tooltipPosition="top" pTooltip="Career Planner">CAREER PLANNER<i class="questiontooltip fa-solid fa-circle-question"></i></h5>
+			</div> -->
+			<div class="col-md-6 text-center">
+				<div class="select-title text-nowrap d-flex justify-content-between align-items-center">
+					<div>
+						<h5 class="w-100 mb-0" tooltipPosition="top" pTooltip="Career Planner">CAREER PLANNER<i class="questiontooltip fa-solid fa-circle-question"></i></h5>
+					</div>
+					<div>
+						<button class="how-it-works-button" (click)="openVideoPopup('https://www.youtube.com/embed/jG3wFxF8zZI?si=2I3dijKIH-aEisoS')">How it works? <i class="fa-solid fa-play"></i></button>
+					</div>
+				</div>
 			</div>
+			
 			<div class="col-md-3">
-				<div class="d-flex gap-1 my-2 align-items-center justify-content-end">
+				<div class="d-flex gap-1 my-2 align-items-center justify-content-end" *ngIf="enableModule">
 					<label for="exportButton" class="text-small">Currency in</label>
 					<div class="d-flex align-items-center p-1 gap-1" style="background-color: #EBEDF2;border-radius: 10rem;">
 						<button class="btn btn-primary text-small"  [ngClass]="{'inactiveButton': currencyButtonName == 'inr'}" (click)="toggleClass('Dollar')" style="border-radius: 20px !important;" type="button">$ Dollar</button>
@@ -84,15 +95,16 @@
 											</div>
 											<h5 class="text-center d-md-block d-none pt-2">{{ subItems.country_name }}</h5>
 											<p class="fw-bold text-small">Average Salary</p>
-											<p class="fw-medium mb-2" [ngClass]="{'d-none': currencyButtonName == 'inr'}" [ngStyle]="{'font-size.px': subItems.salary.length > 19 ? 12 : 15}"  style="white-space: nowrap;">{{ subItems.salary }}</p>
-											<p class="fw-medium mb-2" [ngClass]="{'d-none': currencyButtonName == 'Dollar'}" [ngStyle]="{'font-size.px': subItems.salary.length > 19 ? 12 : 15}"  style="white-space: nowrap;">{{ subItems.inr_salary }}</p>
+											<p class="fw-medium mb-2" [ngClass]="{'d-none': currencyButtonName == 'inr'}" [ngStyle]="{'font-size.px': subItems.salary.length > 19 ? 12 : 15, 'filter': planExpired ? 'blur(4px)' : 'blur(0px)'}"  style="white-space: nowrap;">{{ subItems.salary }}</p>
+											<p class="fw-medium mb-2" [ngClass]="{'d-none': currencyButtonName == 'Dollar'}" [ngStyle]="{'font-size.px': subItems.salary.length > 19 ? 12 : 15, 'filter': planExpired ? 'blur(4px)' : 'blur(0px)'}"  style="white-space: nowrap;">{{ subItems.inr_salary }}</p>
 										</div>
 										<div>
 											<p class="fw-bold"  style="font-size:0.7rem;">Top 4 Job Sites</p>
 											<div class="d-flex justify-content-center gap-2 my-1">
 												<ng-container *ngFor="let jobs of subItems.job_site_data">
 													<div class="joblogos">
-														<a target="_blank" title="{{ !jobs.job_site_url.startsWith('http://') && !jobs.job_site_url.startsWith('https://') ? 'http://' + jobs.job_site_url : jobs.job_site_url }}" href="{{ !jobs.job_site_url.startsWith('http://') && !jobs.job_site_url.startsWith('https://') ? 'http://' + jobs.job_site_url : jobs.job_site_url }}">
+														<a target="_blank" title="{{ !jobs.job_site_url.startsWith('http://') && !jobs.job_site_url.startsWith('https://') ? 'http://' + jobs.job_site_url : jobs.job_site_url }}" [href]="getHref(jobs.job_site_url)" 
+														(click)="handleClick($event)">
 															<img alt="{{ jobs.country }}" class="img-responsive" src="{{ subItems.storage_path }}JobSite/{{ jobs.job_site_logo }}" />
 														</a>
 													</div>
@@ -120,3 +132,11 @@
 		<router-outlet></router-outlet>
 	</div>
 </div>
+<p-dialog [(visible)]="restrict" [modal]="true" [style]="{ width: '30vw' }" [draggable]="false" [resizable]="false" class="restrictionDialog" [breakpoints]="{ '960px': '30vw', '959px': '60vw', '425px': '90vw' }">
+	<div class="text-center mt-5 mb-4">
+		<img src="../../../uniprep-assets/images/smartloack.png" class="image" width="60" />
+		<h3 class="offer">Upgrade Required</h3>
+		<p>To access this exclusive module,please upgrade your plan now</p>
+		<button pButton type="button" class="text-white p-ripple p-button-rounded p-button-warning p-button p-component p-2" routerLink="/pages/subscriptions">Upgrade Plan<i class="fa fa-arrow-right exhausted-plan-icon"></i></button>
+	</div>
+</p-dialog>

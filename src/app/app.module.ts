@@ -31,11 +31,12 @@ import {OverlayPanelModule} from "primeng/overlaypanel";
 import {DialogModule} from "primeng/dialog";
 import {CardModule} from "primeng/card";
 import {TooltipModule} from "primeng/tooltip";
-import { BlockCopyPasteDirective } from './block-copy-paste.directive';
 import { ScrollToBottomDirective } from './scroll-to-bottom.directive';
 import {ConfirmDialogModule} from "primeng/confirmdialog";
 import {PipesModule} from "@pipes/pipes.module";
 import { LandingComponent } from './pages/landing/landing.component';
+import { BlogdetailComponent } from './pages/blogdetail/blogdetail.component';
+import { BloglistComponent } from './pages/bloglist/bloglist.component';
 import {
     SocialLoginModule,
     SocialAuthServiceConfig, GoogleLoginProvider,
@@ -51,6 +52,7 @@ import {MetaModule} from "@ngx-meta/core";
 import { EnterpriseSubscriptionService } from './components/enterprise-subscription/enterprise-subscription.service';
 import { EnterpriseSubscriptionComponent } from './components/enterprise-subscription/enterprise-subscription.component';
 import {DeviceDetectorService} from "ngx-device-detector";
+import {PaginatorModule} from 'primeng/paginator';
  
 
 const reducers = {
@@ -73,7 +75,7 @@ export function tokenGetter() {
 
 @NgModule({
   declarations: [
-    AppComponent,LandingComponent, ModalComponent, BlockCopyPasteDirective, ScrollToBottomDirective, PrivacyComponent,EnterpriseSubscriptionComponent
+    AppComponent,LandingComponent, ModalComponent, ScrollToBottomDirective, PrivacyComponent,EnterpriseSubscriptionComponent,BlogdetailComponent,BloglistComponent
   ],
     schemas: [ CUSTOM_ELEMENTS_SCHEMA],
     imports: [
@@ -109,6 +111,7 @@ export function tokenGetter() {
         PipesModule,
         ConfirmDialogModule,
         ToastModule,
+        PaginatorModule,
        SocialLoginModule,
         // FacebookModule.forRoot(),
         NgxLinkedinModule.forRoot({

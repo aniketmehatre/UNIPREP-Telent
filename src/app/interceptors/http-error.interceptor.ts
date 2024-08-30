@@ -37,7 +37,8 @@ export class HttpErrorInterceptor implements HttpInterceptor {
       !request.url.includes("SubmoduleListForStudents") &&
       !request.url.includes("StudentsSubmoduleQuestions") &&
       !request.url.includes("StudentFullQuestionData") &&
-      !request.url.includes("getlatestfaqquestions")
+      !request.url.includes("getlatestfaqquestions") &&
+        !request.url.includes("googleapis")
     ) {
       if(!currentUrl.includes('modules')){
         this.ngxService.start();
@@ -75,7 +76,6 @@ export class HttpErrorInterceptor implements HttpInterceptor {
           this.router.navigateByUrl("/login");
         }
         if (err?.status === 422) {
-          console.log(msg)
           if (msg.includes("Unprocessable")) {
             this.toastr.add({
               severity: "error",

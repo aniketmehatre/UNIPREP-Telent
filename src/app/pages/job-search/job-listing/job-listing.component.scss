@@ -1,0 +1,95 @@
+.spanButtons{
+  border: 1px solid grey;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+
+.searchButton{
+  background-color: #EBEDF2;
+  color: #001631 !important;
+  border-radius: 20px !important;
+  border: none;
+  padding: 10px;
+}
+
+.searchIcon {
+  padding: 6px;
+  border-radius: 25px;
+  background-color: #3f4c83;
+  color: white;
+  margin-left: 5px;
+}
+
+::ng-deep .p-inputtext{
+  border-radius: 20px;
+  border-color: grey;
+  width:100%;
+}
+.sharp-edges {
+  border-radius: 0;
+}
+
+.form-label{
+  color: #3f4c83
+}
+.flex {
+  display: flex;
+  align-items: center;
+  gap: 8px; /* Adjust the gap as needed */
+}
+
+.flag {
+  width: 18px;
+}
+
+.job-card {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: 15px;
+}
+
+.content {
+  flex-grow: 1;
+}
+
+.button-container {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  padding-top: 10px; /* Optional: Adds some space between content and buttons */
+}
+.backIcon {
+  height: 40px;
+  width: 40px;
+  border-radius: 20px;
+  background-color: var(--uniprep-primary);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700px;
+  .pi-angle-left{
+      font-size: 16px;
+  }
+  margin:10px 10px;
+}
+img {
+  height: 25px !important;
+  width: 25px !important;
+  margin-right: 10px;
+}
+.rounded-input {
+  border-radius: 25px; /* Adjust this value for more or less rounding */
+  width: 100% !important;
+  border: 1px solid var(--uniprep-secondary);
+  padding-left: 2.5rem; /* Ensures the text doesn't overlap with the icon */
+}
+
+.rounded-image {
+  border-radius: 50%; /* Makes the image circular */
+  width: 20px; /* Adjust the width as needed */
+  height: 20px; /* Adjust the height as needed */
+  object-fit: cover; /* Ensures the image fits within the circle */
+}

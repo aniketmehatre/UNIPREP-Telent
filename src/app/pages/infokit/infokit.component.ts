@@ -20,6 +20,7 @@ import { PaginatorModule } from "primeng/paginator";
 import { TooltipModule } from "primeng/tooltip";
 import { DialogModule } from "primeng/dialog";
 import {ButtonModule} from "primeng/button";
+import { PageFacadeService } from "../page-facade.service";
 
 @Component({
   selector: "uni-infokit",
@@ -50,7 +51,8 @@ export class InfoKitComponent implements OnInit {
     private service: InformationService,
     private toastr: MessageService,
     private route: Router,
-    private authService: AuthService
+    private authService: AuthService,
+    private pageFacade: PageFacadeService
   ) {
     this.authService.getNewUserTimeLeft().subscribe((res) => {
       let data = res.time_left;
@@ -168,5 +170,8 @@ export class InfoKitComponent implements OnInit {
         // this.restrict = false;
       }
     })
+  }
+  openVideoPopup(videoLink: string) {
+    this.pageFacade.openHowitWorksVideoPopup(videoLink);
   }
 }

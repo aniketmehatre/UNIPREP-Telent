@@ -7,21 +7,33 @@
 					<input class="w-100 px-5 py-2" type="text" placeholder="Search in Company List .." pInputText [(ngModel)]="valueNearYouFilter" (input)="performSearch($event)" (click)="searchClick()" id="searchInput" />
 				</div>
 				<span class="d-flex justify-content-start p-2" style="white-space: nowrap">
-					<input type="checkbox" class="me-0" style="transform: scale(1.5)" [(ngModel)]="selectAllCheckboxes" (click)="selectAllCheckbox()" id="selectAllcheckbox" />
-					<label class="p-2" for="selectAllcheckbox">Select All</label>
+					<input type="checkbox" class="me-0" style="transform: scale(1.5);cursor: pointer;" [(ngModel)]="selectAllCheckboxes" (click)="selectAllCheckbox()" id="selectAllcheckbox" />
+					<label class="p-2" for="selectAllcheckbox" style="cursor: pointer;">Select All</label>
 					<span class="p-2">Selected : {{ selectedCompanies }}</span>
 					<button class="btn btn-primary text-small" (click)="viewFavourites()" type="button">
 						{{ viewFavouritesLabel }}<span class="favCount" *ngIf="viewFavouritesLabel != 'View All'">{{ favCount }}</span>
 					</button>
 				</span>
 			</div>
-			<div class="col-md-6 text-center order-md-2 order-1">
+			<!-- <div class="col-md-6 text-center order-md-2 order-1">
 				<h5 class="select-title mb-1" tooltipPosition="top" pTooltip="">COMPANY LIST</h5>
+			</div> -->
+			<!-- select-title css also needs to change the width -->
+			<!-- after create the video just uncomment the below code. and send the youtube embeded video link -->
+			<div class="col-md-6 text-center order-md-2 order-1">
+				<div class="select-title text-nowrap d-flex justify-content-between align-items-center">
+					<div>
+						<h5 class="w-100 mb-0" tooltipPosition="top" pTooltip="Company List">COMPANY LIST<i class="questiontooltip fa-solid fa-circle-question"></i></h5>
+					</div>
+					<div>
+						<button class="how-it-works-button" (click)="openVideoPopup('https://www.youtube.com/embed/mSFIW6JGAIU?si=GitCG7uGvK1YaIeP')">&nbsp;How it works?&nbsp;&nbsp; <i class="fa-solid fa-play"></i></button>
+					</div>
+				</div>
 			</div>
 			<div class="col-md-3 text-end order-md-3 order-3" style="white-space: nowrap">
 				<span class="d-flex justify-content-end mt-3 gap-2">
 					<button class="btn btn-primary text-small company-guidlines" (click)="companyGuidlines()" type="button">Company Guidlines</button>
-					<button class="btn btn-primary text-small company-guidlines" (click)="buyCredits()" type="button">Buy Credits</button>
+					<button *ngIf="ehitlabelIsShow" class="btn btn-primary text-small company-guidlines" (click)="buyCredits()" type="button">Buy Credits</button>
 					<button class="btn btn-primary text-small exportButton" (click)="exportData()" type="button">
 						Export <span class="exportCount">{{ exportCreditCount }}</span>
 					</button>
@@ -178,10 +190,15 @@
 	</div>
 </p-dialog>
 <p-dialog [(visible)]="restrict" [modal]="true" [style]="{ width: '30vw' }" [draggable]="false" [resizable]="false" class="restrictionDialog" [breakpoints]="{ '960px': '30vw', '959px': '60vw', '425px': '90vw' }" (onHide)="clearRestriction()">
-	<div class="text-center mt-5 mb-4">
+	<div *ngIf="ehitlabelIsShow" class="text-center mt-5 mb-4">
 		<img src="../../../uniprep-assets/images/smartloack.png" class="image" width="60" />
 		<h3 class="offer">Upgrade Required</h3>
 		<p>To access this exclusive module,please upgrade your plan now</p>
 		<button pButton type="button" class="text-white p-ripple p-button-rounded p-button-warning p-button p-component p-2" (click)="upgradePlan()">Upgrade Plan<i class="fa fa-arrow-right exhausted-plan-icon"></i></button>
 	</div>
+	<div *ngIf="!ehitlabelIsShow" class="text-center mt-5 mb-4">
+        <img src="../../../uniprep-assets/images/smartloack.png" class="image" width="60"/>
+        <h3 class="offer">Upgrade Required</h3>
+        <p>Please contact {{orgnamewhitlabel}} Company for access</p>
+    </div>
 </p-dialog>

@@ -76,39 +76,77 @@ export class ExportCreditComponent implements OnInit {
     );
   }
 
+  // findCurrencyCode(countryName: string) {
+    //in the rest countries api accept only the first letter needs to upper case then only we can get the responce.so modify the country name like "United states"
+    // var modCountry = countryName[0].toUpperCase() + countryName.slice(1).toLowerCase(); 
+    // console.log(countryName);
+    // this.http.get(`https://restcountries.com/v3.1/name/${modCountry}`).subscribe(
+    //   (data: any) => {
+    //     if (data?.length > 0) {
+    //       const currencies = data[0].currencies;
+    //       const currencyCode = Object.keys(currencies)[0]; //i get currency code because i need to check the currency converter array money is exist or not.
+    //       this.currentCurrencyCode = currencyCode;
+    //       this.currentCurrencySymbol = data[0].currencies[currencyCode].symbol;
+
+    //       //https://api.freecurrencyapi.com/v1/latest?apikey=fca_live_A2LNVUsC2t219iTqN3GO1AhLa1OYhVXqySiMJLFL&currencies=EUR%2CUSD%2CGBP&base_currency=INR if you want specific currencies give like this
+
+    //      //https://api.freecurrencyapi.com/v1/latest?apikey=fca_live_A2LNVUsC2t219iTqN3GO1AhLa1OYhVXqySiMJLFL&currencies=&base_currency=INR this api 5K requests only so using free api
+
+    //       this.http.get(`https://open.er-api.com/v6/latest/INR`).subscribe((res: any) =>{
+    //         let currentPrice = res.rates;
+    //         if(res && currentPrice && currencyCode in currentPrice){
+    //           const number = currentPrice[currencyCode];
+    //           this.perRupeePrice = Number(number.toFixed(5));
+    //           this.loadModuleList();
+    //         }else{
+    //           console.log("currency Country not exist");
+    //         }
+    //       }) 
+    //     }
+    //     else {
+    //       console.error('Error:', "currency not found");
+    //     }
+    //   },
+    //   error => {
+    //     console.error('Error:', error);
+    //     this.currentCurrencyCode = 'Error';
+    //   }
+    // );
+  // }
+
   findCurrencyCode(countryName: string) {
     this.http.get(`https://restcountries.com/v3.1/name/${countryName}`).subscribe(
       (data: any) => {
         if (data?.length > 0) {
-          const currencies = data[0].currencies;
-          const currencyCode = Object.keys(currencies)[0]; //i get currency code because i need to check the currency converter array money is exist or not.
-          this.currentCurrencyCode = currencyCode;
-          this.currentCurrencySymbol = data[0].currencies[currencyCode].symbol;
-
-          //https://api.freecurrencyapi.com/v1/latest?apikey=fca_live_A2LNVUsC2t219iTqN3GO1AhLa1OYhVXqySiMJLFL&currencies=EUR%2CUSD%2CGBP&base_currency=INR if you want specific currencies give like this
-
-         //https://api.freecurrencyapi.com/v1/latest?apikey=fca_live_A2LNVUsC2t219iTqN3GO1AhLa1OYhVXqySiMJLFL&currencies=&base_currency=INR this api 5K requests only so using free api
-
-          this.http.get(`https://open.er-api.com/v6/latest/INR`).subscribe((res: any) =>{
-            let currentPrice = res.rates;
-            if(res && currentPrice && currencyCode in currentPrice){
-              const number = currentPrice[currencyCode];
-              this.perRupeePrice = Number(number.toFixed(5));
-              this.loadModuleList();
-            }else{
-              console.log("currency Country not exist");
-            }
-          }) 
+          this.continent = data[data?.length - 1].continents[0];
         }
-        else {
-          console.error('Error:', "currency not found");
-        }
-      },
-      error => {
+      },error => {
         console.error('Error:', error);
-        this.currentCurrencyCode = 'Error';
+        this.continent = 'Error';
       }
     );
+
+    let data = {
+      country: this.currentCountry,
+      continent: this.continent,
+    };
+
+    this.exportcreditservice.getCurrencyAndSymbol(data).subscribe((response) =>{
+      this.currentCurrencyCode = response.currency;
+      this.currentCurrencySymbol = response.currency_symbol;
+
+      this.http.get(`https://open.er-api.com/v6/latest/INR`).subscribe((res: any) =>{
+        let currentPrice = res.rates;
+          if(res && currentPrice && this.currentCurrencyCode in currentPrice){
+            const number = currentPrice[this.currentCurrencyCode];
+            this.perRupeePrice = Number(number.toFixed(5));
+            this.loadModuleList();
+          }else{
+            console.log("currency Country not exist");
+          }
+      });
+    
+    });
   }
 
   loadModuleList(): void{

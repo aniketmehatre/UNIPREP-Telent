@@ -12,15 +12,67 @@
                                             <div class="col-md-12 col-lg-12 text-center"  *ngIf="!isPaymentCompleted">
                                                 <img role="button" class="small-image text-left mb-2"
                                                     src="../../../uniprep-assets/images/uniprep-light.svg" />
-                                                <h1>Enterprise Subscription</h1>
-                                                <h5>College : {{collegeName}}</h5>
+                                                    <h1>Enterprise Subscription</h1><br><br>
+                                                    <h5> 
+                                                        <table style="margin:0 auto">
+                                                            <tr>
+                                                                <td style="width:50%; text-align: left;">&nbsp; Name </td>
+                                                                <td style="text-align: left;font-weight: normal ;border-left-style: hidden; ">{{name}} </td>
+                                                            </tr>
+                                                        <tr>
+                                                            <td style="width:50%; text-align: left;">&nbsp; College </td>
+                                                            <td style="text-align: left; font-weight: normal ;border-left-style: hidden;">{{collegeName}} </td>
+                                                        </tr>
+                                                      
+                                                        <tr>
+                                                            <td style="width:50%; text-align: left;">&nbsp; Price </td>
+                                                            <td style="text-align: left;font-weight: normal ;border-left-style: hidden;">INR {{price}} </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td style="width:50%; text-align: left;">&nbsp; Order ID </td>
+                                                            <td style="text-align: left;font-weight: normal ;border-left-style: hidden;">{{orderLink}} </td>
+                                                        </tr>
+                                                    </table>
+                                                </h5><br> 
+                                                   
+                                                <!--<h5>College : {{collegeName}} <br> 
+                                                Name : {{name}} <br> 
+                                                 Price : {{price}}</h5><br>  -->
                                                 <button (click)="pay()"
                                                     class="pt-3 pb-3 btn btn-primary btn-login text-uppercase fw-semibold m-0 text-dark" [disabled]="collegeName == ''">Pay
                                                     Now</button>
+                                                    <br>  <p *ngIf="isPaymentProgress" style="color:red;  "><br>Please don’t close this tab until the payment is completed.</p>
                                             </div>
-                                            <div class="col-md-12 col-lg-12 text-center" *ngIf="isPaymentCompleted">
+                                          <div class="col-md-12 col-lg-12 text-center" *ngIf="isPaymentCompleted" style="margin-top:-60px">
                                                 <i class="fa fa-check-circle"></i>
                                                 <h3>Payment Completed</h3>
+                                                <br>
+                                                <h5> 
+                                                    <table style="margin:0 auto">
+                                                        <tr>
+                                                            <td style="width:50%; text-align: left;">&nbsp; Name </td>
+                                                            <td style="text-align: left;font-weight: normal ;border-left-style: hidden; ">{{name}} </td>
+                                                        </tr>
+                                                    <tr>
+                                                        <td style="width:50%; text-align: left;">&nbsp; College </td>
+                                                        <td style="text-align: left; font-weight: normal ;border-left-style: hidden;">{{collegeName}} </td>
+                                                    </tr>
+                                                  
+                                                    <tr>
+                                                        <td style="width:50%; text-align: left;">&nbsp; Price </td>
+                                                        <td style="text-align: left;font-weight: normal ;border-left-style: hidden;">INR {{price}} </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td style="width:50%; text-align: left;">&nbsp; Order ID </td>
+                                                        <td style="text-align: left;font-weight: normal ;border-left-style: hidden;">{{orderLink}} </td>
+                                                    </tr>
+                                                </table>
+                                            </h5>
+                                                <br><br><br><br><br><br>
+                                               <!--   <div class="countdown-container">
+                                                    <p>This tab will be closed in <span class="countdown-timer">{{ timeLeft }} seconds</span>.</p>
+                                                </div> -->
+                                                
                                             </div> 
                                             <p-toast></p-toast>
                                         </div>
@@ -29,8 +81,8 @@
                             </div>
                         </div>
                     </div>
-                </div>
-            </div>
+                    </div>
+                    </div>
         </div>
     </div>
 </section>

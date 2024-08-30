@@ -228,11 +228,95 @@ selctedQuizTiny {
 	background-size: cover;
 }
 
-.select-title {
-	margin-bottom: 20px;
-}
-
 .soon-university {
 	margin-top: 20px;
 	color: #ff9113;
+}
+.search-container {
+	width: 300px;
+	margin: 0 auto;
+	text-align: left;
+	position: relative; /* Ensure the container is positioned relative */
+}
+
+.input-container {
+	position: relative;
+	width: 100%;
+}
+
+input[type="text"] {
+	width: 100%;
+	padding: 8px 30px 8px 8px;
+	margin-bottom: 10px;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+}
+
+.clear-button {
+	position: absolute;
+	right: 10px;
+	top: 50%;
+	transform: translateY(-50%);
+	background: none;
+	border: none;
+	cursor: pointer;
+	font-size: 16px;
+	color: #999;
+}
+
+.dropdown-container {
+	position: absolute;
+	top: 100%;
+	left: -45%;
+	width: 450px;
+	max-height: 300px;
+	overflow-y: auto;
+	border-radius: 8px;
+	background-color: white;
+	border: 2px solid #f0780c;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+	z-index: 1000;
+	scrollbar-width: none; /* For Firefox */
+	-ms-overflow-style: none;  /* For Internet Explorer and Edge */
+}
+
+.dropdown-container::-webkit-scrollbar {
+	display: none; /* For Chrome, Safari, and Opera */
+}
+
+.dropdown-item {
+	padding: 10px;
+	border-bottom: 1px solid #ddd;
+}
+
+.dropdown-item h3 {
+	margin: 0;
+	font-size: 16px;
+}
+
+.dropdown-item p {
+	margin: 5px 0 0;
+	color: #666;
+}
+
+.dropdown-item:last-child {
+	border-bottom: none;
+}
+
+.dropdown-item h3 {
+	margin: 0;
+	font-size: 16px;
+}
+
+.dropdown-item p {
+	margin: 5px 0 0;
+	color: #666;
+}
+
+.dropdown-item:last-child {
+	border-bottom: none;
+}
+
+.p-input-icon-left>i, .p-input-icon-right>i {
+	top: 43% !important;
 }

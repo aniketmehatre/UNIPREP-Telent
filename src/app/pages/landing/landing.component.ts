@@ -19,6 +19,7 @@ export class LandingComponent implements OnInit {
   displaycontactform!: boolean;
   currentImage: string = '/uniprep-assets/images/feature1.webp';
   contactForm: any;
+  blogs: any;
  
 
 
@@ -75,6 +76,13 @@ export class LandingComponent implements OnInit {
     // this.service.getTimeInfoForCard().subscribe((data) => {
     //   this.timeLeftInfoCard = localStorage.setItem('time_card_info', data.card_message);
     // });
+
+    this.service.getFeatBlogs().subscribe((response) => {
+        this.blogs = response;
+      }); 
+
+
+
     this.timeLeftInfoCard = "24 Hours"
     // Any additional initialization can go here
     this.currentImage = '/uniprep-assets/images/f1.png';

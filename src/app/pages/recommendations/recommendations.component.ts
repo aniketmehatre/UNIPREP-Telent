@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { SubStoreService } from '../subscription/store/service';
 import { Router } from "@angular/router";
 import { SubscriptionService } from '../subscription/subscription.service';
+import { PageFacadeService } from '../page-facade.service';
 
 interface Provider {
   modules: [],
@@ -44,7 +45,8 @@ export class RecommendationsComponent implements OnInit {
   constructor(
     private subStoreService: SubStoreService,
     private router: Router,
-    private subscriptionService: SubscriptionService
+    private subscriptionService: SubscriptionService,
+    private pageFacade:PageFacadeService,
   ) { }
 
   ngOnInit(): void {
@@ -66,7 +68,6 @@ export class RecommendationsComponent implements OnInit {
 
       if (res.success) {
         this.recommended = res;
-        console.log(res);
       }
     })
   }
@@ -143,5 +144,9 @@ export class RecommendationsComponent implements OnInit {
 
   moduleRedirect(moduleLink: string) {
     this.router.navigate([`/pages/${moduleLink}`]);
+  }
+
+  openVideoPopup(videoLink: string) {
+    this.pageFacade.openHowitWorksVideoPopup(videoLink);
   }
 }

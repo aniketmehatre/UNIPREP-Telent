@@ -4,19 +4,31 @@
 			<div class="col-md-1 col-1 text-start">
 				<p-button (click)="goBack()" icon="pi pi-arrow-left" styleClass="p-button-rounded p-button-text text-dark"></p-button>
 			</div>
-			<div class="col-md-9 col-9 text-center">
+			<!-- <div class="col-md-9 col-9 text-center">
 				<h5 class="select-title mb-1" tooltipPosition="top" pTooltip="{{ tooltip }}">
 					<span class="desktop">{{ currentModuleName }} -</span> {{ moduleName }}<i class="questiontooltip fa-solid fa-circle-question"></i>
 				</h5>
+			</div> -->
+			<div class="col-md-9 col-9 text-center">
+				<div class="select-title text-nowrap d-flex justify-content-between align-items-center" style="width: 100%;">
+					<div>
+						<h5 class="select-title mb-1" tooltipPosition="top" pTooltip="{{ tooltip }}">
+							<span class="desktop">{{ currentModuleName }} -</span> {{ moduleName }}<i class="questiontooltip fa-solid fa-circle-question"></i>
+						</h5>
+					</div>
+					<div>
+						<button class="how-it-works-button" (click)="openHowItWorksVideoPopup( howItWorksVideoLink )"> &nbsp;How it works? &nbsp;&nbsp;<i class="fa-solid fa-play"></i></button>
+					</div>
+				</div>
 			</div>
-			<div class="col-md-2 mt-2 text-end desktop justify-content-end d-none d-md-flex" *ngIf="currentModuleId == 8">
-				<button role="button" style="background-color: black; cursor: pointer" (click)="startQuiz()" class="btn w-75 m-0 px-2 py-2 homecardbtn homecardbtnquiz" [disabled]="quizpercentage >= 80">
+			<div class="col-md-2 mt-2 text-end desktop justify-content-end d-none d-md-flex" *ngIf="currentModuleId == 8||currentModuleId == 10">
+				<button role="button" style="background-color: black; cursor: pointer" (click)="startQuiz()" class="btn w-75 m-0 px-2 py-2 homecardbtn homecardbtnquiz" [disabled]="quizpercentage >= 90">
 					<i class="fa-regular h3 fa-lightbulb-on mb-1"></i>
 					<p class="mb-1">Start Quiz</p>
 					<p class="mb-1">{{ quizpercentage | number : "1.0-0" + "%" }}</p>
 					<div class="row">
 						<div style="cursor: pointer" class="col-12">
-							<span style="cursor: pointer" class="ellipse-button fw-regular container-fluid">{{ quizpercentage >= 80 ? "Completed" : "Start" }}</span>
+							<span style="cursor: pointer" class="ellipse-button fw-regular container-fluid">{{ quizpercentage >= 90 ? "Completed" : "Start" }}</span>
 						</div>
 					</div>
 				</button>
@@ -25,7 +37,7 @@
 		</div>
 		<div *ngIf="isSkeletonVisible">
 			<div class="row">
-				<div *ngFor="let index of loopRange" class="col-xxl-2 col-xl-3 col-lg-3 col-md-4 col-sm-6 col-xs-12 col-12">
+				<div *ngFor="let index of loopRange" class="col-xxl-3 col-xl-3 col-lg-3 col-md-4 col-sm-6 col-xs-12 col-12">
 					<div class="card my-2">
 						<div class="card-body">
 							<div class="row align-items-center">
@@ -44,7 +56,7 @@
 			</div>
 		</div>
 		<div class="row" *ngIf="!isSkeletonVisible">
-			<div *ngFor="let sub of questionListData; let i = index" class="col-xxl-2 col-xl-3 col-lg-3 col-md-4 col-sm-6 col-xs-12 col-12 my-2">
+			<div *ngFor="let sub of questionListData; let i = index" class="readingcardgrid my-2">
 				<div class="row w-100 h-100 m-0 justify-content-center">
 					<div (click)="viewOneQuestion(sub)" class="card questioncard {{ sub.read == 1 ? 'questionread' : '' }}">
 						<div class="card-body d-flex flex-sm-column flex-row justify-content-sm-between align-items-center px-0 py-2 gap-2 gap-md-0">
@@ -131,7 +143,7 @@
 					<span class="text-small blockquote text-start mb-0">
 						Last updated at: {{ oneQuestionContent?.updated_at | date }}
 						<span *ngIf="currentModuleId != 8">
-							<span *ngIf="oneQuestionContent?.verified === 1" class="badge" style="background-color: #4ffb05">Verified</span>
+							<span *ngIf="oneQuestionContent?.verified === 1" class="badge" style="background-color: #2b8902">Verified</span>
 							<span *ngIf="oneQuestionContent?.pre_verified === 1 && oneQuestionContent?.verified !== 1" style="background-color: darkorchid" class="badge">Pre Verified</span>
 							<span *ngIf="oneQuestionContent?.pre_verified !== 1 && oneQuestionContent?.verified !== 1" style="background-color: #3f4c83" class="badge">Non Pre-Verified</span>
 						</span>
@@ -151,7 +163,9 @@
 				</div>
 				<h3 class="unselectable d-md-block d-none">{{ oneQuestionContent?.question }}</h3>
 				<h5 class="unselectable d-md-none d-block">{{ oneQuestionContent?.question }}</h5>
-				<div class="fw-medium worksans unselectable" style="white-space: pre-wrap" [innerHTML]="oneQuestionContent?.answer"></div>
+				<div class="fw-medium"
+                     style="white-space: inherit; max-height: 80%; min-height: 80%"
+                     [innerHTML]="oneQuestionContent?.answer"></div>
 			</div>
 		</div>
 	</div>
@@ -262,12 +276,17 @@
 	</div>
 </p-dialog> -->
 <p-dialog [(visible)]="restrict" [modal]="true" [style]="{ width: '30vw' }" [draggable]="false" [resizable]="false" class="restrictionDialog" [breakpoints]="{ '960px': '30vw', '959px': '60vw', '425px': '90vw' }" (onHide)="clearRestriction()">
-	<div class="text-center mt-5 mb-4">
+	<div  *ngIf="ehitlabelIsShow" class="text-center mt-5 mb-4">
 		<img src="../../../uniprep-assets/images/smartloack.png" class="image" width="60" />
 		<h3 class="offer">Upgrade Required</h3>
 		<p>To access this exclusive module,please upgrade your plan now</p>
 		<button pButton type="button" class="text-white p-ripple p-button-rounded p-button-warning p-button p-component p-2" (click)="upgradePlan()">Upgrade Plan<i class="fa fa-arrow-right exhausted-plan-icon"></i></button>
 	</div>
+	<div *ngIf="!ehitlabelIsShow" class="text-center mt-5 mb-4">
+        <img src="../../../uniprep-assets/images/smartloack.png" class="image" width="60"/>
+        <h3 class="offer">Upgrade Required</h3>
+        <p>Please contact {{orgnamewhitlabel}} Company for access</p>
+    </div>
 </p-dialog>
 <!-- vedio pop up -->
 <div class="modal" tabindex="-1" role="dialog" [ngClass]="{ 'd-block': showVideoPopup }">
