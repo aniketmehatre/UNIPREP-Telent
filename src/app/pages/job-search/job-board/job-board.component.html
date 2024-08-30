@@ -3,9 +3,9 @@
                 <div class="column" *ngFor="let status of statuses; let i = index">
                     <h6><strong>{{ status.label }}({{ getJobsByStatus(status.value).length }})</strong></h6>
                     <ng-container *ngFor="let job of getJobsByStatus(status.value)">
-                        <div class="card-container bg-light p-3" (click)="onClickCard(job)">
+                        <div class="card-container bg-light p-3">
                             <div class="card-content">
-                                <div class="row p-0 m-0">
+                                <div class="row p-0 m-0" (click)="onClickCard(job)">
                                     <div class="col-10 p-0 m-0">
                                         <p class="company">
                                             <strong> {{ job.job_title || 'No Title' }}</strong>
