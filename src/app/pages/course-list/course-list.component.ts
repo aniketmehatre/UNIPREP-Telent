@@ -51,6 +51,7 @@ export class CourseListComponent implements OnInit {
   orglogowhitelabel:any;
   constructor(private pageFacade: PageFacadeService,private locationService: LocationService,  private userManagementService: UserManagementService, private courseList: CourseListService, private fb: FormBuilder, private toastr: MessageService, private router: Router, private authService: AuthService) {
     this.filterForm = this.fb.group({
+      course_keyword: [''],
       study_level: [''],
       college_name: [''],
       country: [''],
@@ -150,6 +151,7 @@ export class CourseListComponent implements OnInit {
   getCourseLists() {
     let formValues = this.filterForm.value;
     let data = {
+      course_keyword: formValues.course_keyword ? formValues.course_keyword : "",
       study_level: formValues.study_level ? formValues.study_level : "",
       college_name: formValues.college_name ? formValues.college_name : "",
       country: formValues.country ? formValues.country : "",
@@ -173,7 +175,7 @@ export class CourseListComponent implements OnInit {
 
   submitFilter() {
     let formValues = this.filterForm.value;
-    if (!formValues.course_name && !formValues.college_name && !formValues.country && !formValues.campus && !formValues.subject && !formValues.duration && !formValues.intake_months && !formValues.stay_back && !formValues.world_rank) {
+    if (!formValues.course_name && !formValues.college_name && !formValues.country && !formValues.campus && !formValues.subject && !formValues.duration && !formValues.intake_months && !formValues.stay_back && !formValues.world_rank && !formValues.course_keyword) {
       this.toastr.add({ severity: 'error', summary: 'Error', detail: 'Please make sure you have some filter!' });
       return;
     }
