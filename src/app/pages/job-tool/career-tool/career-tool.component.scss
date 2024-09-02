@@ -17,3 +17,25 @@
     }
   }
 }
+.resourceimg {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.resourceimg img {
+  max-width: 100%;
+  height: auto;
+}
+
+.card-body {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  text-align: center;
+}
+
+.card {
+  position: relative;
+}

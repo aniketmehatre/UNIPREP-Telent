@@ -48,6 +48,7 @@ export class JobToolComponent implements OnInit {
       this.title = "Career Tools";
     } else if (this.currentRoute.includes("cost-of-living")) {
       this.title = "Cost of living";
+      this.hideTitleForPreviewPage = false;
     } else if (this.currentRoute.includes("cv-builder")) {
       this.title = "CV Builder";
     } else if (this.currentRoute.includes("salary-converter")) {
@@ -91,6 +92,6 @@ export class JobToolComponent implements OnInit {
 
   isCostOfLivingRoute(): boolean {
     // console.log(this.currentRoute.includes('cost-of-living')) 
-    return this.currentRoute.includes('cost-of-living');
+    return this.currentRoute.includes('cost-of-living') || this.currentRoute.includes('salary-converter');
   }
 }

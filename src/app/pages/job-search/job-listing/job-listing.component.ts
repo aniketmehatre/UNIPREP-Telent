@@ -225,6 +225,7 @@ export class JobListingComponent implements OnInit {
                 page: this.page,
                 result_per_page: this.resultPerPage,
                 what_and: this.fG.value.what_and,
+                where: this.fG.value.countryCode.city_name,
                 full_time: this.filterForm.value.job_type?.code == 'full_time' ? '1' : '',
                 part_time: this.filterForm.value.job_type?.code == 'part_time' ? '1' : '',
                 contract: this.filterForm.value.job_type?.code == 'contract' ? '1' : '',
