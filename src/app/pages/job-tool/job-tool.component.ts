@@ -43,7 +43,6 @@ export class JobToolComponent implements OnInit {
       });
   }
   changeTitle() {
-
     if (this.currentRoute.includes("career-tool")) {
       this.title = "Career Tools";
     } else if (this.currentRoute.includes("cost-of-living")) {
@@ -60,8 +59,8 @@ export class JobToolComponent implements OnInit {
     } else if (this.currentRoute.includes("career-planner")) {
       this.title = "career-planner";
     }
-    else if (this.currentRoute.includes("pyshcometric")) {
-      this.title = "Pyshcometric Test";
+    else if (this.currentRoute.includes("pshychometric")) {
+      this.title = "Pshychometric Test";
       this.hideTitleForPreviewPage = false;
 
     } else if (this.currentRoute.includes("personality")) {
@@ -71,7 +70,6 @@ export class JobToolComponent implements OnInit {
     } else {
       this.title = "Employer Test";
       this.hideTitleForPreviewPage = false;
-
     }
   }
   goBack() {

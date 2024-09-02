@@ -28,11 +28,9 @@ import {StepsModule} from 'primeng/steps';
 import { PdfViewerModule } from 'ng2-pdf-viewer';
 import { ConfirmPopupModule } from 'primeng/confirmpopup';
 import {ConfirmationService} from 'primeng/api';
-import { PyshometricTestComponent } from './pyshometric-test/pyshometric-test.component';
-import { PersonalityTestComponent } from './personality-test/personality-test.component';
-import { EmployerTestComponent } from './employer-test/employer-test.component';
 import { QuizTestListComponent } from './quiz-test-list/quiz-test-list.component';
 import { EmployerSubcategoryComponent } from './employer-subcategory/employer-subcategory.component';
+import { CareerCategoryListComponent } from './career-category-list/career-category-list.component';
 
 @NgModule({
   declarations: [
@@ -43,11 +41,9 @@ import { EmployerSubcategoryComponent } from './employer-subcategory/employer-su
     CostOfLivingComponent,
     ComparisionComponent,
     SalaryConverterComponent,
-    PyshometricTestComponent,
-    PersonalityTestComponent,
-    EmployerTestComponent,
     QuizTestListComponent,
     EmployerSubcategoryComponent,
+    CareerCategoryListComponent,
     ],
   imports: [
     CommonModule,

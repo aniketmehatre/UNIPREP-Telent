@@ -53,6 +53,9 @@ const routes: Routes = [  {
   {
     path: 'skill-mastery', component: ListSubModulesComponent,
   },
+  {
+    path: ':module_name/careertoolquiz', component: LearninghubquizComponent,
+  },
 ]
 
 

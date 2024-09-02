@@ -8,11 +8,9 @@ import { CostOfLivingComponent } from './cost-of-living/cost-of-living.component
 import {SalaryConverterComponent} from "./salary-converter/salary-converter.component";
 import { CareerPlannerComponent } from '../career-planner/career-planner.component';
 import { CompanyListComponent } from '../company-list/company-list.component';
-import { PersonalityTestComponent } from './personality-test/personality-test.component';
-import { PyshometricTestComponent } from './pyshometric-test/pyshometric-test.component';
-import { EmployerTestComponent } from './employer-test/employer-test.component';
 import { QuizTestListComponent } from './quiz-test-list/quiz-test-list.component';
 import { EmployerSubcategoryComponent } from './employer-subcategory/employer-subcategory.component';
+import { CareerCategoryListComponent } from './career-category-list/career-category-list.component';
 
 const routes: Routes = [
   {
@@ -25,9 +23,7 @@ const routes: Routes = [
       { path: 'salary-converter', component: SalaryConverterComponent },
       { path: 'career-planner', component: CareerPlannerComponent},
       { path: 'company-list', component: CompanyListComponent},
-      { path: 'personality-test', component: PersonalityTestComponent },
-      { path: 'pyshcometric-test', component: PyshometricTestComponent},
-      { path: 'employer-test', component: EmployerTestComponent},
+      { path: 'list/:name/:id', component: CareerCategoryListComponent },
       { path: 'employer-sub-test/:id', component: EmployerSubcategoryComponent},
       { path: 'quiz/:name/list/:id', component: QuizTestListComponent}
     ]

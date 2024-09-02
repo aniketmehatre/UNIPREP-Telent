@@ -1,15 +1,19 @@
 <div class="row mb-0">
     <div *ngFor="let quiz of quizlist" class="col-lg-2 col-md-3 col-sm-4 col-xs-12 col-12">
         <div class="row w-100 m-0 justify-content-center h-100">
-            <div [routerLink]="['/pages/modules',currentModule,'quiz']" class="card subjectcard" role="button">
+            <div [routerLink]="['/pages/modules',currentModule,'careertoolquiz']" (click)="showQuizQuestions(quiz.id)"
+                class="card subjectcard" role="button">
                 <div *ngIf="quiz?.level" class="d-flex justify-content-end mt-2">
-                    <div [ngClass]="quiz.level === 'Basic' ? 'basicLevelTag' : 'intLevelTag'">
-                        {{quiz.level=='Basic'?'Basic':'Intermediate'}}
-                    </div>
+                    <span [ngSwitch]="quiz?.level"
+                        [ngClass]="{'basicLevelTag': quiz.level === 1,'intLevelTag': quiz.level === 2,'advLevelTag': quiz.level === 3}">
+                        <ng-container *ngSwitchCase=1>Basic</ng-container>
+                        <ng-container *ngSwitchCase=2>Intermediate</ng-container>
+                        <ng-container *ngSwitchDefault>Advanced</ng-container>
+                    </span>
                 </div>
                 <div class="card-body">
                     <div class="d-flex flex-md-column align-items-center">
-                        <h6 class="text-center subjecttitle d-md-block d-none pt-2">{{ quiz.name }}</h6>
+                        <h6 class="text-center subjecttitle d-md-block d-none pt-2">{{ quiz.submodule_name }}</h6>
                         <button class="how-it-works-button">&nbsp;&nbsp;&nbsp;&nbsp;Start Quiz &nbsp;&nbsp;<i
                                 class="fa-solid fa-alarm-clock"></i>&nbsp;&nbsp;&nbsp;&nbsp;</button>
                     </div>
@@ -17,4 +21,7 @@
             </div>
         </div>
     </div>
+    
 </div>
+<p-paginator (onPageChange)="pageChange($event)" [rows]="rows" [totalRecords]="count"
+        [rowsPerPageOptions]="[10, 20, 30]"></p-paginator> 

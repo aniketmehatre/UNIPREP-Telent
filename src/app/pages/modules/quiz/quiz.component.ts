@@ -60,10 +60,10 @@ export class QuizComponent implements OnInit {
   totalquiztime: any = 0;
   restrict1: boolean = false;
   planExpired: boolean = false;
-  ehitlabelIsShow:boolean=true;
-  imagewhitlabeldomainname:any
-  orgnamewhitlabel:any;
-  orglogowhitelabel:any;
+  ehitlabelIsShow: boolean = true;
+  imagewhitlabeldomainname: any
+  orgnamewhitlabel: any;
+  orglogowhitelabel: any;
   constructor(private moduleListService: ModuleServiceService, private authService: AuthService, private router: Router, private dataService: DataService,
     private locationService: LocationService, private ngxService: NgxUiLoaderService, private toast: MessageService,) { }
 
@@ -74,12 +74,12 @@ export class QuizComponent implements OnInit {
     this.locationService.getOrgName().subscribe(orgname => {
       this.orgnamewhitlabel = orgname;
     });
-  this.imagewhitlabeldomainname=window.location.hostname;
-  if (this.imagewhitlabeldomainname === "dev-student.uniprep.ai" || this.imagewhitlabeldomainname === "uniprep.ai" || this.imagewhitlabeldomainname === "localhost") {
-    this.ehitlabelIsShow=true;
-  }else{
-    this.ehitlabelIsShow=false;
-  }
+    this.imagewhitlabeldomainname = window.location.hostname;
+    if (this.imagewhitlabeldomainname === "dev-student.uniprep.ai" || this.imagewhitlabeldomainname === "uniprep.ai" || this.imagewhitlabeldomainname === "localhost") {
+      this.ehitlabelIsShow = true;
+    } else {
+      this.ehitlabelIsShow = false;
+    }
     this.quizmoduleredirectcountryid = Number(localStorage.getItem('modalcountryid'));
     this.init();
     this.checkplanExpire();
@@ -156,27 +156,6 @@ export class QuizComponent implements OnInit {
         this.currentModuleName = 'Skill Mastery';
         this.currentApiSlug = 'SubmoduleListForStudents';
         this.selectedModule = 'skill-mastery'
-        break;
-      case 'pyshcometric':
-        this.universityidforquiz = null;
-        this.currentModuleId = 11;
-        this.currentModuleName = 'Pyshcometric Test';
-        this.currentApiSlug = 'SubmoduleListForStudents';
-        this.selectedModule = 'pyshcometric-test'
-        break;
-      case 'personality':
-        this.universityidforquiz = null;
-        this.currentModuleId = 12;
-        this.currentModuleName = 'Personality Test';
-        this.currentApiSlug = 'SubmoduleListForStudents';
-        this.selectedModule = 'personality-test'
-        break;
-      case 'employer':
-        this.universityidforquiz = null;
-        this.currentModuleId = 13;
-        this.currentModuleName = 'Employer Test';
-        this.currentApiSlug = 'SubmoduleListForStudents';
-        this.selectedModule = 'employer-test'
         break;
       default:
         this.currentModuleId = 6;
@@ -311,10 +290,6 @@ export class QuizComponent implements OnInit {
     //   icon: 'fa-solid fa-circle-exclamation',
     // });
     this.stopTimer();
-    if (this.currentModuleId > 10) {
-      this.router.navigate([`/pages/job-tool/career-tool`]);
-      return;
-    }
     this.router.navigate([`/pages/modules/${this.currentModuleSlug}`]);
   }
 
@@ -502,10 +477,6 @@ export class QuizComponent implements OnInit {
     window.open(this.certificatesurl, '_blank');
   }
   takeAnotherquiz() {
-    if (this.currentModuleId > 10) {
-      this.router.navigate([`/pages/job-tool/career-tool`]);
-      return;
-    }
     this.router.navigate([`/pages/modules/quizmodule`]);
   }
   openReferAnswer(link: any) {
@@ -539,10 +510,6 @@ export class QuizComponent implements OnInit {
     this.startTimer();
   }
   timeIsOver() {
-    if (this.currentModuleId > 10) {
-      this.router.navigate([`/pages/job-tool/career-tool`]);
-      return;
-    }
     this.router.navigate(['/pages/modules/quizmodule'])
   }
   stopTimer(): void {
