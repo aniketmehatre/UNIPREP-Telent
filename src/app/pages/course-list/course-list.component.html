@@ -45,7 +45,7 @@
 										<p class="text-center" [ngClass]="{ 'd-none': invalidClass === false }" style="color: red">Please Choose Any one option</p>
 									</ng-container>
 									<ng-container *ngIf="recommendation.id == 4">
-										<p-multiSelect styleClass="w-100" placeholder="Select Intake Month" [options]="modifiedMonthList" display="chip" optionLabel="name" optionValue="id" [(ngModel)]="selectedData[recommendation.id]" [appendTo]="'body'"></p-multiSelect>
+										<p-multiSelect styleClass="w-100" placeholder="Select Intake Month" [options]="monthList" display="chip" optionLabel="name" optionValue="id" [(ngModel)]="selectedData[recommendation.id]" [appendTo]="'body'"></p-multiSelect>
 									</ng-container>
 									<ng-container *ngIf="recommendation.id == 5">
 										<div class="cube-container">
