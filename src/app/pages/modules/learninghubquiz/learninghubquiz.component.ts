@@ -419,7 +419,6 @@ export class LearninghubquizComponent implements OnInit {
       submoduleid: localStorage.getItem("learninghubsubmoduleid")
     }
     this.moduleListService.checkModuleQuizCompletion(data).subscribe((res) => {
-      console.log(res);
       this.quizpercentage = res.progress
     })
   }
@@ -478,5 +477,9 @@ export class LearninghubquizComponent implements OnInit {
     if (this.timerSubscription) {
       this.timerSubscription.unsubscribe();
     }
+  }
+  result() {
+    this.isReviewVisible = false;
+    this.isQuizSubmit = true;
   }
 }
