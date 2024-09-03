@@ -238,7 +238,8 @@ export class SidenavComponent {
   ];
   studentMenus = ['Company List', 'Career Planner', 'Learning Hub', 'Entrepreneur', 'Investor List', 'Startup Kit', 'Pitch Deck'];
   careerMenus = ['Entrepreneur', 'Investor List', 'Startup Kit', 'Pitch Deck'];
-  whitlabelmenu=['Subscription','About UNIPREP','24x7 Support','Success Stories']
+  whitlabelmenu=['Subscription','About UNIPREP','24x7 Support','Success Stories','Recommendations'];
+  whitlabelmenuFreeTrails=['Subscription','About UNIPREP','24x7 Support','Success Stories'];
   collegeStudentMenus = ['Subscription'];
   conditionSubscribed!: boolean;
   currentTitle: any;
@@ -290,7 +291,18 @@ export class SidenavComponent {
       } else {
         this.conditionSubscribed = true;
       }
-
+      this.imagewhitlabeldomainname=window.location.hostname;
+      if (this.imagewhitlabeldomainname === "dev-student.uniprep.ai" || this.imagewhitlabeldomainname === "uniprep.ai" || this.imagewhitlabeldomainname === "localhost") {
+        this.ehitlabelIsShow=true;
+      }else{
+        if (res.subscription_details.subscription_plan === 'free_trail' && res.time_left.plan === 'on_progress') {
+          this.menus = this.menus.filter(item => !this.whitlabelmenuFreeTrails.includes(item.title));
+          this.ehitlabelIsShow=false;
+        }else{
+          this.menus = this.menus.filter(item => !this.whitlabelmenu.includes(item.title));
+          this.ehitlabelIsShow=false; 
+        }
+      }
       if (res.subscription_details.subscription_plan == 'free_trail' && res.enterprise_subscription_link!= "") {
         this.enterpriseSubscriptionLink = res.enterprise_subscription_link;
         if(res.enterprise_subscription_plan == 'Student'){
@@ -300,13 +312,6 @@ export class SidenavComponent {
         }
       }
     });
-    this.imagewhitlabeldomainname=window.location.hostname;
-    if (this.imagewhitlabeldomainname === "dev-student.uniprep.ai" || this.imagewhitlabeldomainname === "uniprep.ai" || this.imagewhitlabeldomainname === "localhost") {
-      this.ehitlabelIsShow=true;
-    }else{
-      this.menus = this.menus.filter(item => !this.whitlabelmenu.includes(item.title));
-      this.ehitlabelIsShow=false;
-    }
     this.authService.getMe().subscribe(
       res => {
 

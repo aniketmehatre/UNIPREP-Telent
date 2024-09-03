@@ -69,6 +69,8 @@ export class RegistrationComponent implements OnInit {
   preferredCountries: CountryISO[] = [CountryISO.India];
   isMobileOTPEdit: boolean = false;
   imageUrlWhitelabel: string | null = null;
+  // domainnamecondition:any;
+  // domainname:any;
   showHidePassword() {
     if (this.password === "password") {
       this.password = "text";
@@ -111,6 +113,10 @@ export class RegistrationComponent implements OnInit {
   dateTime = new Date();
   private subs = new SubSink();
   ngOnInit() {
+    // this.domainnamecondition=window.location.hostname
+    // if ( this.domainnamecondition === "dev-student.uniprep.ai" ||  this.domainnamecondition === "uniprep.ai" ||  this.domainnamecondition === "localhost") {
+    //   this.domainname="main"
+    // }
     this.locationService.getImage().subscribe(imageUrl => {
       this.imageUrlWhitelabel = imageUrl;
     });
