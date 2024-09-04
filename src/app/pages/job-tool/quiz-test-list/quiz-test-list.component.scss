@@ -1,13 +1,23 @@
-.basicLevelTag{
+.basicLevelTag {
     padding: 0px 10px !important;
     background-color: green !important;
     color: white !important;
     border-radius: 20px !important;
+    font-size: 12px;
 }
-.intLevelTag{
-    background-color: var(--uniprep-secondary);
+
+.intLevelTag {
+    background-color: orange;
     color: white !important;
     border-radius: 20px !important;
     padding: 0px 10px !important;
+    font-size: 12px;
+}
 
+.advLevelTag {
+    background-color: red;
+    color: white !important;
+    border-radius: 20px !important;
+    padding: 0px 10px !important;
+    font-size: 12px;
 }

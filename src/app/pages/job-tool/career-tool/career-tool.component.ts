@@ -70,7 +70,7 @@ export class CareerToolComponent implements OnInit {
       tooltip: "Craft personalized and compelling cover letters for job applications.",
       imageLink: "https://api.uniprep.ai/uniprepapi/storage/app/public/resume_icons/companylist.svg",
       refLink: "",
-      mode:"pyshcometric-test"
+      mode:"pshychometric-test"
     },
     {
       id:8,
@@ -113,13 +113,13 @@ export class CareerToolComponent implements OnInit {
     }else if(mode == "company-list"){
       this.router.navigate(['/pages/job-tool/company-list']);
     }
-    else if(mode == "pyshcometric-test"){
-      this.router.navigate(['/pages/job-tool/pyshcometric-test']);
+    else if(mode == "pshychometric-test"){
+      this.router.navigate(['/pages/job-tool/list/pshychometric-test/11']);
     }
     else if(mode == "personality-test"){
-      this.router.navigate(['/pages/job-tool/personality-test']);
+      this.router.navigate(['/pages/job-tool/list/personality-test/12']);
     }else{
-      this.router.navigate(['/pages/job-tool/employer-test']);
+      this.router.navigate(['/pages/job-tool/list/employer-test/13']);
     }
   }
   // openSalaryConverter(){
