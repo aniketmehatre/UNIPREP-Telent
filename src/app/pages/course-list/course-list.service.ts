@@ -108,4 +108,25 @@ export class CourseListService {
           saveAs(blob, fileName);
     });
   }
+
+  storeCourseRecommendation(data: any){
+    const headers = new HttpHeaders().set("Accept", "application/json");
+    return this.http.post<any>(environment.ApiUrl + "/storeRecommendation", data ,{
+      headers: headers,
+    });
+  }
+
+  resetCourseRecommendation(){
+    const headers = new HttpHeaders().set("Accept", "application/json");
+    return this.http.post<any>(environment.ApiUrl + "/resetRecommendation" ,{
+      headers: headers,
+    });
+  }
+
+  getCourseRecommendation(){
+    const headers = new HttpHeaders().set("Accept", "application/json");
+    return this.http.post<any>(environment.ApiUrl + "/getRecommendation" ,{
+      headers: headers,
+    });
+  }
 }

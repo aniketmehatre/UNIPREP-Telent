@@ -49,6 +49,39 @@ export class CourseListComponent implements OnInit {
   imagewhitlabeldomainname:any;
   orgnamewhitlabel:any;
   orglogowhitelabel:any;
+  enableModule:boolean = false;
+  activePageIndex:number = 0;
+  recommendations:any = [
+    {
+      id:1,
+      question: "Select the country you are interested in for studying abroad",
+    },
+    {
+      id:2,
+      question: "Select your subjects of interests",
+    },
+    {
+      id:3,
+      question: "Select your Study Level",
+    },
+    {
+      id: 4,
+      question: "Select your Preferred Intake Month",
+    },
+    {
+      id: 5,
+      question: "Select your Preferred university world rank"
+    },
+  ];
+  invalidClass: boolean = false;
+  selectedData: { [key: string]: any } = {};
+  studyLevelCubes:any = [
+    { id: "UG", label: 'Undergraduate' },
+    { id: "PG", label: 'Postgraduate' },
+    { id: null, label: 'Any' }
+  ];
+  worldRankCubes:any = [{ id: 100, value: "Top 100" }, { id: 200, value: "Top 200" }, { id: 500, value: "Top 500" }, { id: null, value: "Any" }];
+
   constructor(private pageFacade: PageFacadeService,private locationService: LocationService,  private userManagementService: UserManagementService, private courseList: CourseListService, private fb: FormBuilder, private toastr: MessageService, private router: Router, private authService: AuthService) {
     this.filterForm = this.fb.group({
       course_keyword: [''],
@@ -78,8 +111,8 @@ export class CourseListComponent implements OnInit {
       this.ehitlabelIsShow=false;
     }
     this.checkplanExpire();
-    this.getCourseLists();
-    this.getSelectBoxValues();
+    // this.getCourseLists();
+    this.getRecommendationList();
     this.GetPersonalProfileData();
   }
   GetPersonalProfileData() {
@@ -104,6 +137,18 @@ export class CourseListComponent implements OnInit {
     this.pageFacade.openHowitWorksVideoPopup(videoLink);
   }
 
+  getRecommendationList(){
+    this.courseList.getCourseRecommendation().subscribe(res => {
+      if(res.status){
+        this.enableModule = true;
+        this.recommendationBasedCourses(res.data);
+      }else{
+        this.enableModule = false;
+      }
+      this.getSelectBoxValues();
+    });
+  }
+
   getSelectBoxValues() {
     this.courseList.loadDropdownValues().subscribe(res => {
       this.countryList = res.country;
@@ -113,6 +158,26 @@ export class CourseListComponent implements OnInit {
       this.universityNameList = this.allUniversityList;
       this.subjectNameList = res.subject;
       this.durationList = res.duration;
+      this.monthList = this.monthList;
+      if(!this.enableModule){
+        let anyCountryArray:any = {
+          id: null,
+          country: "any country"
+        };
+        this.countryList.unshift(anyCountryArray);
+
+        let anySubjectArray:any = {
+          id: null,
+          category_name: "any Subject"
+        };
+        this.subjectNameList.unshift(anySubjectArray);
+
+        let anyMonthArray:any= {
+          id: null,
+          name: "any Month"
+        };
+        this.monthList.unshift(anyMonthArray);
+      }
     });
   }
 
@@ -342,4 +407,58 @@ export class CourseListComponent implements OnInit {
       }
     });
   }
+
+  previous(productId: number): void {
+    this.invalidClass = false;
+    if (this.activePageIndex > 0) {
+      this.activePageIndex--;
+    }
+  }
+
+  next(productId: number): void {
+    this.invalidClass = false;
+    if (productId in this.selectedData) {
+      if (this.activePageIndex < this.recommendations.length - 1) {
+        this.activePageIndex++;
+      }
+    } else {
+      this.invalidClass = true;
+    }
+  }
+
+  selectCube(key:number, id:number) {
+    this.selectedData[key] = id;
+  }
+
+  getRecommendation(){
+    let keyMapping:any = {"1": "country","2": "subject","3": "study_level","4": "intake_months","5": "world_rank"};
+
+    let newData = Object.fromEntries(
+      Object.entries(this.selectedData).map(([key, value]) => [keyMapping[key] || key, value])
+    );
+    this.enableModule = true;
+    this.recommendationBasedCourses(newData);
+    this.getSelectBoxValues();
+    this.courseList.storeCourseRecommendation(newData).subscribe()
+  }
+  
+  recommendationBasedCourses(data: any){
+    this.filterForm.patchValue(data);
+    this.courseList.getListOfCourses(data).subscribe(response => {
+      this.courseListData = response.data;
+      this.totalCourseCount = response.total_count;
+      this.buyCreditsCount = response.credit_count;
+    });
+  }
+
+  resetRecommendation(){
+    this.courseList.resetCourseRecommendation().subscribe(res =>{
+      this.enableModule = false;
+      this.activePageIndex = 0;
+      this.getSelectBoxValues();
+      this.filterForm.reset();
+      this.selectedData = {};
+    });
+  }
+  
 }
