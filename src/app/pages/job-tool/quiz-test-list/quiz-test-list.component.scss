@@ -1,23 +1,45 @@
 .basicLevelTag {
-    padding: 0px 10px !important;
-    background-color: green !important;
-    color: white !important;
-    border-radius: 20px !important;
-    font-size: 12px;
+	padding: 0px 10px !important;
+	background-color: #9BC32A !important;
+	color: white !important;
+	border-radius: 20px !important;
+	font-size: 12px;
 }
 
 .intLevelTag {
-    background-color: orange;
-    color: white !important;
-    border-radius: 20px !important;
-    padding: 0px 10px !important;
-    font-size: 12px;
+	background-color: #FF7600;
+	color: white !important;
+	border-radius: 20px !important;
+	padding: 0px 10px !important;
+	font-size: 12px;
 }
 
 .advLevelTag {
-    background-color: red;
-    color: white !important;
-    border-radius: 20px !important;
-    padding: 0px 10px !important;
-    font-size: 12px;
+	background-color: #D80027;
+	color: white !important;
+	border-radius: 20px !important;
+	padding: 0px 10px !important;
+	font-size: 12px;
+}
+
+.resourcecard {
+	border: 2px solid #f0780c;
+	width: 100%;
+	margin: 0px;
+
+	&:focus {
+		background-color: var(--uniprep-primaryop10);
+		border: 2px solid var(--uniprep-primary);
+	}
+
+	&:hover {
+		background-color: var(--uniprep-primaryop10);
+		border: 2px solid var(--uniprep-primary);
+	}
+}
+.completed{
+	background-color: #9BC32A !important;
+	color: white !important;
+	border-radius: 20px !important;
+	border: #9BC32A 2px solid;
 }
