@@ -6,7 +6,6 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
 import html2canvas from 'html2canvas';
 import { MenuItem } from 'primeng/api';
-import Swiper from 'swiper';
 
 @Component({
   selector: 'uni-cv-builder',
@@ -73,13 +72,13 @@ export class CvBuilderComponent implements OnInit {
     },
     {
       id: 4,
-      templateName: "Creative",
-      imageLink: "../../../uniprep-assets/resume-images/Creative.webp",
+      templateName: "Functional",
+      imageLink: "../../../uniprep-assets/resume-images/functional.webp",
     },
     {
       id: 5,
-      templateName: "Functional",
-      imageLink: "../../../uniprep-assets/resume-images/functional.webp",
+      templateName: "Creative",
+      imageLink: "../../../uniprep-assets/resume-images/Creative.webp",
     },
     {
       id: 6,
@@ -98,52 +97,40 @@ export class CvBuilderComponent implements OnInit {
     },
     {
       id: 9,
-      templateName: "Creative",
-      imageLink: "../../../uniprep-assets/resume-images/Creative.webp",
-    },
-    {
-      id: 10,
       templateName: "Functional",
       imageLink: "../../../uniprep-assets/resume-images/functional.webp",
     },
+    {
+      id: 10,
+      templateName: "Creative",
+      imageLink: "../../../uniprep-assets/resume-images/Creative.webp",
+    },
+    
   ];
-
-  slideConfig = {
-    "slidesToShow": 3,
-    "slidesToScroll": 1,
-    "infinite": true,
-    "dots": false,
-    "centerMode": true,
-    "centerPadding": "0",
-    "variableWidth": true,
-    "focusOnSelect": true,
-    "initialSlide": 4,
-  };
-
 
   constructor(private toaster: MessageService, private fb: FormBuilder, private resumeService: CourseListService, private http: HttpClient, private router: Router, private confirmService: ConfirmationService, private renderer: Renderer2, private el: ElementRef) {
 
     this.resumeFormInfoData = this.fb.group({
-      selected_exp_level: ['', Validators.required],
-      user_name: ['', Validators.required],
-      user_job_title: ['', Validators.required],
-      user_email: ['', [Validators.required, Validators.email]],
-      user_location: ['', Validators.required],
-      country_code: ['+91'],
-      user_phone: ['',[Validators.required, Validators.pattern('^\\+?[1-9]\\d{1,14}$')]],
-      user_linkedin:['', Validators.required],
-      user_website: [''],
-      user_summary: ['', Validators.required],
-      // selected_exp_level: ['', [Validators.required]],
-      // user_name: ['vivek kaliyaperumal', [Validators.required]],
-      // user_job_title: ['full stack developer', [Validators.required]],
-      // user_email: ['vivek@uniabroad.co.in', [Validators.required]],
-      // user_location: ['mysore,karnataka', [Validators.required]],
+      // selected_exp_level: ['', Validators.required],
+      // user_name: ['', Validators.required],
+      // user_job_title: ['', Validators.required],
+      // user_email: ['', [Validators.required, Validators.email]],
+      // user_location: ['', Validators.required],
       // country_code: ['+91'],
-      // user_phone: ['9524999563', [Validators.required]],
-      // user_linkedin: ['vivek kaliyaperumal'],
-      // user_website: ['www.ownwebsite.com'],
-      // user_summary: ['Results-driven full stack developer with expertise in front-end and back-end technologies. Proven track record of delivering high-quality applications for diverse clients.', [Validators.required]],
+      // user_phone: ['',[Validators.required, Validators.pattern('^\\+?[1-9]\\d{1,14}$')]],
+      // user_linkedin:['', Validators.required],
+      // user_website: [''],
+      // user_summary: ['', Validators.required],
+      selected_exp_level: ['', [Validators.required]],
+      user_name: ['vivek kaliyaperumal', [Validators.required]],
+      user_job_title: ['full stack developer', [Validators.required]],
+      user_email: ['vivek@uniabroad.co.in', [Validators.required]],
+      user_location: ['mysore,karnataka', [Validators.required]],
+      country_code: ['+91'],
+      user_phone: ['9524999563', [Validators.required]],
+      user_linkedin: ['vivek kaliyaperumal'],
+      user_website: ['www.ownwebsite.com'],
+      user_summary: ['Results-driven full stack developer with expertise in front-end and back-end technologies. Proven track record of delivering high-quality applications for diverse clients.', [Validators.required]],
       EduDetailsArray: this.fb.array([]),
       workExpArray: this.fb.array([]),
       projectDetailsArray: this.fb.array([]),
@@ -181,32 +168,6 @@ export class CvBuilderComponent implements OnInit {
     ];
     this.getCountryCodeList();
     this.skillsList();
-    // this.initializeSwiper();
-  }
-
-  initializeSwiper(): void {
-    const swiper = new Swiper('.swiper', {
-      // Optional parameters
-      direction: 'vertical',
-      loop: true,
-
-      // If we need pagination
-      pagination: {
-        el: '.swiper-pagination',
-        clickable: true,
-      },
-
-      // Navigation arrows
-      navigation: {
-        nextEl: '.swiper-button-next',
-        prevEl: '.swiper-button-prev',
-      },
-
-      // And if we need scrollbar
-      scrollbar: {
-        el: '.swiper-scrollbar',
-      },
-    });
   }
 
   skillsList(){
@@ -506,20 +467,19 @@ export class CvBuilderComponent implements OnInit {
   }
 
   private triggerPrevButtonClick(): void {
-    // Ensure Swiper is initialized and buttons are available
     setTimeout(() => {
       if (this.swiperContainer) {
-        const prevButton = this.swiperContainer.nativeElement.querySelector('.swiper-button-prev');
+        const prevButton = this.swiperContainer.nativeElement.shadowRoot.querySelector('.swiper-button-prev');
         if (prevButton) {
           this.renderer.selectRootElement(prevButton).click();
-          console.log('Previous button clicked');
+          prevButton.innerHTML = `<svg width="11" height="20" viewBox="0 0 11 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M0.38296 20.0762C0.111788 19.805 0.111788 19.3654 0.38296 19.0942L9.19758 10.2796L0.38296 1.46497C0.111788 1.19379 0.111788 0.754138 0.38296 0.482966C0.654131 0.211794 1.09379 0.211794 1.36496 0.482966L10.4341 9.55214C10.8359 9.9539 10.8359 10.6053 10.4341 11.007L1.36496 20.0762C1.09379 20.3474 0.654131 20.3474 0.38296 20.0762Z" fill="currentColor" transform-origin="center" transform="rotate(180)"></path></svg>`;
         } else {
           console.warn('Previous button not found');
         }
       } else {
         console.warn('Swiper container not found');
       }
-    }, 500); // Adjust the timeout duration if needed
+    }, 400); 
   }
 
   previousResumes(){
@@ -560,61 +520,61 @@ export class CvBuilderComponent implements OnInit {
 
   clickAddMoreButton(fieldName: string) {
     if (fieldName == "education_detail") {
-      this.getEduDetailsArray.push(this.fb.group({
-        edu_college_name: ['',Validators.required],
-        edu_still_pursuing:[''],
-        edu_start_year: ['', Validators.required],
-        edu_end_year: ['', Validators.required],
-        edu_degree: ['', Validators.required],
-        edu_location: ['', Validators.required],
-        edu_percentage: ['', Validators.required],
-        edu_cgpa_percentage: [''],
-      }));
       // this.getEduDetailsArray.push(this.fb.group({
-      //   edu_college_name: ['Srinivasan Engg College', Validators.required],
-      //   edu_still_pursuing: [''],
-      //   edu_start_year: ['2015', Validators.required],
-      //   edu_end_year: ['2019', Validators.required],
-      //   edu_degree: ['Bachelor of Engineering in C.S', Validators.required],
-      //   edu_location: ['Perambalur', Validators.required],
-      //   edu_percentage: ['65', Validators.required],
-      //   edu_cgpa_percentage: ['%', Validators.required],
+      //   edu_college_name: ['',Validators.required],
+      //   edu_still_pursuing:[''],
+      //   edu_start_year: ['', Validators.required],
+      //   edu_end_year: ['', Validators.required],
+      //   edu_degree: ['', Validators.required],
+      //   edu_location: ['', Validators.required],
+      //   edu_percentage: ['', Validators.required],
+      //   edu_cgpa_percentage: [''],
       // }));
-    } else if (fieldName == "work_experience") {
-      this.getWorkExpArray.push(this.fb.group({
-        work_org_name: ['',Validators.required],
-        work_currently_working:[''],
-        work_start_year: ['',Validators.required],
-        work_end_year: ['',Validators.required],
-        work_designation: ['',Validators.required],
-        work_type: ['',Validators.required],
-        work_location: ['',Validators.required],
-        work_job_description: ['',Validators.required],
+      this.getEduDetailsArray.push(this.fb.group({
+        edu_college_name: ['Srinivasan Engg College', Validators.required],
+        edu_still_pursuing: [''],
+        edu_start_year: ['2015', Validators.required],
+        edu_end_year: ['2019', Validators.required],
+        edu_degree: ['Bachelor of Engineering in C.S', Validators.required],
+        edu_location: ['Perambalur', Validators.required],
+        edu_percentage: ['65', Validators.required],
+        edu_cgpa_percentage: ['%', Validators.required],
       }));
+    } else if (fieldName == "work_experience") {
       // this.getWorkExpArray.push(this.fb.group({
-      //   work_org_name: ['Uniabroad Private Ltd', Validators.required],
-      //   work_currently_working: [''],
-      //   work_start_year: ['2013', Validators.required],
-      //   work_end_year: ['2015', Validators.required],
-      //   work_designation: ['Full stack developer', Validators.required],
-      //   work_type: ['Full Time', Validators.required],
-      //   work_location: ['Mysore', Validators.required],
-      //   work_job_description: ['- Develop and maintain front-end architecture, ensuring responsive design and user-friendly interfaces - Implement back-end functionality, including database integration and server-side logic - Write efficient and scalable code in multiple programming languages for both client and server-side applications - Collaborate with cross-functional teams to gather requirements, design solutions, and provide technical support - Stay up-to-date with industry trends and best practices to continually improve development processes and deliver high-quality products', Validators.required],
+      //   work_org_name: ['',Validators.required],
+      //   work_currently_working:[''],
+      //   work_start_year: ['',Validators.required],
+      //   work_end_year: ['',Validators.required],
+      //   work_designation: ['',Validators.required],
+      //   work_type: ['',Validators.required],
+      //   work_location: ['',Validators.required],
+      //   work_job_description: ['',Validators.required],
       // }));
+      this.getWorkExpArray.push(this.fb.group({
+        work_org_name: ['Uniabroad Private Ltd', Validators.required],
+        work_currently_working: [''],
+        work_start_year: ['2013', Validators.required],
+        work_end_year: ['2015', Validators.required],
+        work_designation: ['Full stack developer', Validators.required],
+        work_type: ['Full Time', Validators.required],
+        work_location: ['Mysore', Validators.required],
+        work_job_description: ['- Develop and maintain front-end architecture, ensuring responsive design and user-friendly interfaces - Implement back-end functionality, including database integration and server-side logic - Write efficient and scalable code in multiple programming languages for both client and server-side applications - Collaborate with cross-functional teams to gather requirements, design solutions, and provide technical support - Stay up-to-date with industry trends and best practices to continually improve development processes and deliver high-quality products', Validators.required],
+      }));
       // this.errorMessages.push('');
     } else if (fieldName == "project_details") {
-      this.getProjectDetailsArray.push(this.fb.group({
-        project_name: ['',Validators.required],
-        project_start_name: ['',Validators.required],
-        project_end_name: ['',Validators.required],
-        project_description: ['',Validators.required],
-      }));
       // this.getProjectDetailsArray.push(this.fb.group({
-      //   project_name: ['Anonymity', Validators.required],
-      //   project_start_name: ['2015', Validators.required],
-      //   project_end_name: ['2019', Validators.required],
-      //   project_description: ['Together with developers, collect and assess user requirements.Using storyboards, process flows, and sitemaps, illustrate design concepts.Create visual user interface components such as menus, tabs, and widgets.Create UI mockups and prototypes that clearly show how websites work and appear.Determine and address UX issues (e.g., responsiveness).', Validators.required],
+      //   project_name: ['',Validators.required],
+      //   project_start_name: ['',Validators.required],
+      //   project_end_name: ['',Validators.required],
+      //   project_description: ['',Validators.required],
       // }));
+      this.getProjectDetailsArray.push(this.fb.group({
+        project_name: ['Anonymity', Validators.required],
+        project_start_name: ['2015', Validators.required],
+        project_end_name: ['2019', Validators.required],
+        project_description: ['Together with developers, collect and assess user requirements.Using storyboards, process flows, and sitemaps, illustrate design concepts.Create visual user interface components such as menus, tabs, and widgets.Create UI mockups and prototypes that clearly show how websites work and appear.Determine and address UX issues (e.g., responsiveness).', Validators.required],
+      }));
     } else if (fieldName == "language_known") {
       this.getLanguagesKnownArray.push(this.fb.group({
         language: ['', Validators.required],

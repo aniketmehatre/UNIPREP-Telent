@@ -408,7 +408,7 @@ export class CourseListComponent implements OnInit {
     });
   }
 
-  previous(productId: number): void {
+  previous(): void {
     this.invalidClass = false;
     if (this.activePageIndex > 0) {
       this.activePageIndex--;
