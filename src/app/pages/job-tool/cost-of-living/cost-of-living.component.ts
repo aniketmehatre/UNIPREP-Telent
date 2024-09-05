@@ -64,6 +64,10 @@ export class CostOfLivingComponent implements OnInit {
   }
 
   compare() {
+    if (this.planExpired) {
+      this.restrict = true;
+      return;
+    }
     var sourceCityDetails = this.cities.find(city => city.city_id === this.form.value.sourceCity);
     var targetCityDetails = this.cities.find(city => city.city_id === this.form.value.targetCity);
 
