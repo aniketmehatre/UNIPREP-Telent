@@ -717,6 +717,10 @@ export class CvBuilderComponent implements OnInit {
   }
 
   downloadResume() {
+    if (this.planExpired) {
+      this.restrict = true;
+      return;
+    }
     this.clickedDownloadButton = true;
     let formData = this.resumeFormInfoData.value;
     let data = {
