@@ -20,7 +20,7 @@
         </div>
     </div>
 </div>
-<div class="container-fluid" *ngIf="activePageIndex == 1">
+<!-- <div class="container-fluid" *ngIf="activePageIndex == 1">
     <h3 class="text-center uniprep-primary">Select your CV style to get started</h3>
     <ngx-slick-carousel class="carousel" #slickModal="slick-carousel" [config]="slideConfig">
         <div ngxSlickItem *ngFor="let slide of resumeSlider" class="slide">
@@ -33,7 +33,21 @@
             </div>
         </div>
     </ngx-slick-carousel>
-</div>
+</div> -->
+
+<div class="container-fluid" *ngIf="activePageIndex == 1">
+    <h3 class="text-center uniprep-primary">Select your CV style to get started</h3>
+    <swiper-container #swiperContainer dir="rtl" class="mySwiper" navigation="true" centered-slides="true" space-between="10" slides-per-view="5" loop="true">
+        <swiper-slide class="swiper-slide-regular" *ngFor="let slide of resumeSlider">
+            <div class="cvBuilderSampleImg" [ngClass]="{ 'selectedResumeLevel': selectedResumeLevel == slide.templateName }">
+                <h5 class="text-center uniprep-primary">{{ slide.templateName }}</h5>
+                <img [src]="slide.imageLink" alt="{{ slide.templateName }}" />
+                <button class="center-button" (click)="selectResumeTemplate(slide.templateName)">Select</button>
+            </div>
+        </swiper-slide>
+      </swiper-container>
+  </div>
+  
 
 <div class="container-fluid h-100" *ngIf="activePageIndex == 3" style="overflow-y: auto;">
     <div class="row justify-content-center">
