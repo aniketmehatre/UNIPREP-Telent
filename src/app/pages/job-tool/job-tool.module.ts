@@ -31,6 +31,8 @@ import {ConfirmationService} from 'primeng/api';
 import { QuizTestListComponent } from './quiz-test-list/quiz-test-list.component';
 import { EmployerSubcategoryComponent } from './employer-subcategory/employer-subcategory.component';
 import { CareerCategoryListComponent } from './career-category-list/career-category-list.component';
+import {DialogModule} from "primeng/dialog";
+import {SharedModule} from "../../shared/shared.module";
 
 @NgModule({
   declarations: [
@@ -45,30 +47,32 @@ import { CareerCategoryListComponent } from './career-category-list/career-categ
     EmployerSubcategoryComponent,
     CareerCategoryListComponent,
     ],
-  imports: [
-    CommonModule,
-    InputTextModule,
-    CarouselModule,
-    ButtonModule,
-    ReactiveFormsModule,
-    InputTextareaModule,
-    JobToolRoutingModule,
-    ChipsModule,
-    FormsModule,
-    DropdownModule,
-    AngularFittextModule,
-    EditorModule,
-    SidebarModule,
-    CardModule,
-    SplitButtonModule,
-    ReactiveFormsModule,
-    PipesModule,
-    PaginatorModule,
-    SlickCarouselModule,
-    StepsModule,
-    PdfViewerModule,
-    ConfirmPopupModule,
-  ],
+    imports: [
+        CommonModule,
+        InputTextModule,
+        CarouselModule,
+        ButtonModule,
+        ReactiveFormsModule,
+        InputTextareaModule,
+        JobToolRoutingModule,
+        ChipsModule,
+        FormsModule,
+        DropdownModule,
+        AngularFittextModule,
+        EditorModule,
+        SidebarModule,
+        CardModule,
+        SplitButtonModule,
+        ReactiveFormsModule,
+        PipesModule,
+        PaginatorModule,
+        SlickCarouselModule,
+        StepsModule,
+        PdfViewerModule,
+        ConfirmPopupModule,
+        DialogModule,
+        SharedModule,
+    ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [ConfirmationService], 
 })

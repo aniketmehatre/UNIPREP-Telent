@@ -1,6 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import {SalaryConverterService} from "./salary-converter.service";
 import {Location} from "@angular/common";
+import {Router} from "@angular/router";
+import {LocationService} from "../../../location.service";
+import {PlanService} from "../../../shared/plan.service";
+import {AuthService} from "../../../Auth/auth.service";
 
 @Component({
   selector: 'uni-salary-converter',
@@ -24,7 +28,12 @@ export class SalaryConverterComponent implements OnInit {
   statementText: any
   inHomeCurrency: any
   isPPPCardVisible: boolean = false
-
+  planExpired: boolean = false
+  restrict: boolean = false
+  ehitlabelIsShow: boolean = false;
+  imagewhitlabeldomainname: any
+  orgnamewhitlabel: any;
+  orglogowhitelabel: any;
   get fromValue() {
     return this.taxData[0];
   }
@@ -32,16 +41,49 @@ export class SalaryConverterComponent implements OnInit {
     return this.taxData[1];
   }
 
-  constructor(private salaryConverterService: SalaryConverterService, private _location: Location) {}
+  constructor(private salaryConverterService: SalaryConverterService, private _location: Location,
+              private authService: AuthService, private router: Router, private locationService: LocationService,
+              private cdr: ChangeDetectorRef) {
+  }
 
   ngOnInit(): void {
+    this.locationService.getImage().subscribe(imageUrl => {
+      this.orglogowhitelabel = imageUrl;
+    });
+    this.locationService.getOrgName().subscribe(orgname => {
+      this.orgnamewhitlabel = orgname;
+    });
+    this.imagewhitlabeldomainname = window.location.hostname;
+    if (this.imagewhitlabeldomainname === "dev-student.uniprep.ai" || this.imagewhitlabeldomainname === "uniprep.ai" || this.imagewhitlabeldomainname === "localhost") {
+      this.ehitlabelIsShow = false;
+    } else {
+      this.ehitlabelIsShow = true;
+    }
+    this.checkPlanIsExpired()
     this.salaryConverterService.getCountries().subscribe(data => {
       this.countries = data;
     })
 
   }
 
+  isShowPlanExpiredDialog: boolean = false
   convert(): void {
+    // this.planService.checkPlanIsExpired().subscribe((isExpired) => {
+    //   if (isExpired) {
+    //     this.planExpired = isExpired;
+    //     this.restrict = isExpired;
+    //     this.isShowPlanExpiredDialog = true
+    //     this.cdr.detectChanges();
+    //     return;
+    //   } else {
+    //
+    //   }
+    // });
+    if (this.planExpired) {
+      this.restrict = true;
+      return;
+    }
+    this.isShowPlanExpiredDialog = false
     if (this.fromCountry && this.toCountry && this.salary) {
       const fromPpp = this.selectedCountryCode;
       const toPpp = this.selectedToCountryCode;
@@ -55,14 +97,6 @@ export class SalaryConverterComponent implements OnInit {
         this.inHomeCurrency = resp.inHomeCurrency
         this.isPPPCardVisible = true
       });
-
-      // this.salaryConverterService.convertSalaryFrom(fromPpp).subscribe((fromResponse: any) => {
-      //   this.salaryConverterService.convertSalaryTo(toPpp).subscribe((toResponse: any) => {
-      //     this.xValue = toResponse.price_in_usd/fromResponse.price_in_usd
-      //     this.salaryValueConverted = toResponse.price_in_usd/fromResponse.price_in_usd * this.salary
-      //     this.isPPPCardVisible = true
-      //   })
-      // })
     }
   }
 
@@ -86,7 +120,23 @@ export class SalaryConverterComponent implements OnInit {
     this._location.back();
   }
 
-  closeCard(){
-    this.isPPPCardVisible = false
+  checkPlanIsExpired(): void {
+    this.authService.getNewUserTimeLeft().subscribe((res) => {
+      let data = res.time_left;
+      if (data.plan === "expired" || data.plan === 'subscription_expired') {
+        this.planExpired = true;
+      } else {
+        this.planExpired = false;
+      }
+    })
   }
+
+  upgradePlan(): void {
+    this.router.navigate(["/pages/subscriptions"]);
+  }
+
+  clearRestriction() {
+    this.restrict = false;
+  }
+
 }

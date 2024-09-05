@@ -4,6 +4,9 @@ import { FormBuilder, FormGroup, FormArray, Form, Validators } from "@angular/fo
 import { CourseListService } from '../../course-list/course-list.service';
 import { HttpHeaders, HttpClient } from '@angular/common/http';
 import html2canvas from 'html2canvas';
+import {LocationService} from "../../../location.service";
+import {AuthService} from "../../../Auth/auth.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'uni-cover-letter-builder',
@@ -39,6 +42,12 @@ export class CoverLetterBuilderComponent implements OnInit {
   selectedThemeColor: string = "#172a99";
   selectedColorCode: number = 1;
   template1: any;
+  planExpired: boolean = false
+  restrict: boolean = false
+  ehitlabelIsShow: boolean = false;
+  imagewhitlabeldomainname: any
+  orgnamewhitlabel: any;
+  orglogowhitelabel: any;
   userNameSplit: { firstWord: string, secondWord: string } = { firstWord: '', secondWord: '' };
   @ViewChild('capture', { static: false }) captureElement!: ElementRef;
   previewImage: string = "";
@@ -82,7 +91,9 @@ export class CoverLetterBuilderComponent implements OnInit {
     "initialSlide": 1
   };
 
-  constructor(private toaster: MessageService, private fb: FormBuilder, private resumeService: CourseListService, private http: HttpClient) {
+  constructor(private toaster: MessageService, private fb: FormBuilder, private resumeService: CourseListService,
+              private locationService: LocationService, private http: HttpClient, private authService: AuthService,
+              private router: Router){
 
     this.resumeFormInfoData = this.fb.group({
       user_name: ['', [Validators.required]],
@@ -103,6 +114,19 @@ export class CoverLetterBuilderComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.checkPlanIsExpired()
+    this.locationService.getImage().subscribe(imageUrl => {
+      this.orglogowhitelabel = imageUrl;
+    });
+    this.locationService.getOrgName().subscribe(orgname => {
+      this.orgnamewhitlabel = orgname;
+    });
+    this.imagewhitlabeldomainname = window.location.hostname;
+    if (this.imagewhitlabeldomainname === "dev-student.uniprep.ai" || this.imagewhitlabeldomainname === "uniprep.ai" || this.imagewhitlabeldomainname === "localhost") {
+      this.ehitlabelIsShow = false;
+    } else {
+      this.ehitlabelIsShow = true;
+    }
     let currentuserName = this.resumeFormInfoData.value.user_name;
     this.splitUserName(currentuserName); // it calls when the page refresh
     this.resumeFormInfoData.get('user_name')?.valueChanges.subscribe(value => {
@@ -242,6 +266,10 @@ export class CoverLetterBuilderComponent implements OnInit {
 
 
   downloadResume() {
+    if (this.planExpired) {
+      this.restrict = true;
+      return;
+    }
     let formData = this.resumeFormInfoData.value;
     let data = {
       ...formData,
@@ -318,5 +346,24 @@ export class CoverLetterBuilderComponent implements OnInit {
   selectResumeTemplate(templateName: string) {
     this.selectedResumeLevel = templateName;
     this.imgOnclick(templateName)
+  }
+
+  checkPlanIsExpired(): void {
+    this.authService.getNewUserTimeLeft().subscribe((res) => {
+      let data = res.time_left;
+      if (data.plan === "expired" || data.plan === 'subscription_expired') {
+        this.planExpired = true;
+      } else {
+        this.planExpired = false;
+      }
+    })
+  }
+
+  upgradePlan(): void {
+    this.router.navigate(["/pages/subscriptions"]);
+  }
+
+  clearRestriction() {
+    this.restrict = false;
   }
 }

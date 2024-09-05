@@ -1,11 +1,11 @@
-import { Component, OnInit } from '@angular/core';
-import { MessageService, ConfirmationService } from 'primeng/api';
-import { FormBuilder, FormGroup, FormArray, Validators, AbstractControl } from "@angular/forms";
-import { CourseListService } from '../../course-list/course-list.service';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Router } from '@angular/router';
-import html2canvas from 'html2canvas';
-import { MenuItem } from 'primeng/api';
+import {Component, OnInit} from '@angular/core';
+import {ConfirmationService, MenuItem, MessageService} from 'primeng/api';
+import {AbstractControl, FormArray, FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {CourseListService} from '../../course-list/course-list.service';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {Router} from '@angular/router';
+import {LocationService} from "../../../location.service";
+import {AuthService} from "../../../Auth/auth.service";
 
 @Component({
   selector: 'uni-cv-builder',
@@ -53,6 +53,12 @@ export class CvBuilderComponent implements OnInit {
   countryCodeList: any = [];
   items!: MenuItem[];
   skillsLists: any = [];
+  planExpired: boolean = false
+  restrict: boolean = false
+  ehitlabelIsShow: boolean = false;
+  imagewhitlabeldomainname: any
+  orgnamewhitlabel: any;
+  orglogowhitelabel: any;
   resumeSlider: any = [
     {
       id: 1,
@@ -94,7 +100,9 @@ export class CvBuilderComponent implements OnInit {
   };
 
 
-  constructor(private toaster: MessageService, private fb: FormBuilder, private resumeService: CourseListService, private http: HttpClient, private router: Router, private confirmService: ConfirmationService) {
+  constructor(private toaster: MessageService, private fb: FormBuilder, private resumeService: CourseListService,
+              private http: HttpClient, private router: Router, private confirmService: ConfirmationService,
+              private locationService: LocationService, private authService: AuthService) {
 
     this.resumeFormInfoData = this.fb.group({
       selected_exp_level: ['', Validators.required],
@@ -132,6 +140,19 @@ export class CvBuilderComponent implements OnInit {
 
   ngOnInit(): void {
     // this.triggerAddMoreButton();
+    this.locationService.getImage().subscribe(imageUrl => {
+      this.orglogowhitelabel = imageUrl;
+    });
+    this.locationService.getOrgName().subscribe(orgname => {
+      this.orgnamewhitlabel = orgname;
+    });
+    this.imagewhitlabeldomainname = window.location.hostname;
+    if (this.imagewhitlabeldomainname === "dev-student.uniprep.ai" || this.imagewhitlabeldomainname === "uniprep.ai" || this.imagewhitlabeldomainname === "localhost") {
+      this.ehitlabelIsShow = false;
+    } else {
+      this.ehitlabelIsShow = true;
+    }
+    this.checkPlanIsExpired()
     this.previousResumes();
     this.hideHeader();
     let currentuserName = this.resumeFormInfoData.value.user_name;
@@ -626,6 +647,10 @@ export class CvBuilderComponent implements OnInit {
   }
 
   downloadResume() {
+    if (this.planExpired) {
+      this.restrict = true;
+      return;
+    }
     this.clickedDownloadButton = true;
     let formData = this.resumeFormInfoData.value;
     let data = {
@@ -766,6 +791,25 @@ export class CvBuilderComponent implements OnInit {
           this.toaster.add({ severity: "error", summary: "Error", detail: "you declined." });
         }
     });
+  }
+
+  checkPlanIsExpired(): void {
+    this.authService.getNewUserTimeLeft().subscribe((res) => {
+      let data = res.time_left;
+      if (data.plan === "expired" || data.plan === 'subscription_expired') {
+        this.planExpired = true;
+      } else {
+        this.planExpired = false;
+      }
+    })
+  }
+
+  upgradePlan(): void {
+    this.router.navigate(["/pages/subscriptions"]);
+  }
+
+  clearRestriction() {
+    this.restrict = false;
   }
 
 }
