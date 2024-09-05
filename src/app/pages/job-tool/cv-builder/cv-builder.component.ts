@@ -1,12 +1,14 @@
-import {ConfirmationService, MenuItem, MessageService} from 'primeng/api';
-import {AbstractControl, FormArray, FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {CourseListService} from '../../course-list/course-list.service';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {Router} from '@angular/router';
-import {LocationService} from "../../../location.service";
-import {AuthService} from "../../../Auth/auth.service";
 import { Component, OnInit, Renderer2, ElementRef, ViewChild  } from '@angular/core';
+import { MessageService, ConfirmationService } from 'primeng/api';
+import { FormBuilder, FormGroup, FormArray, Validators, AbstractControl } from "@angular/forms";
+import { CourseListService } from '../../course-list/course-list.service';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Router } from '@angular/router';
 import html2canvas from 'html2canvas';
+import { MenuItem } from 'primeng/api';
+import Swiper from 'swiper';
+import {AuthService} from "../../../Auth/auth.service";
+import {LocationService} from "../../../location.service";
 
 @Component({
   selector: 'uni-cv-builder',
@@ -55,12 +57,6 @@ export class CvBuilderComponent implements OnInit {
   countryCodeList: any = [];
   items!: MenuItem[];
   skillsLists: any = [];
-  planExpired: boolean = false
-  restrict: boolean = false
-  ehitlabelIsShow: boolean = false;
-  imagewhitlabeldomainname: any
-  orgnamewhitlabel: any;
-  orglogowhitelabel: any;
   resumeSlider: any = [
     {
       id: 1,
@@ -125,18 +121,28 @@ export class CvBuilderComponent implements OnInit {
     "focusOnSelect": true,
     "initialSlide": 4,
   };
-
+  planExpired: boolean = false
+  restrict: boolean = false
+  ehitlabelIsShow: boolean = false;
+  imagewhitlabeldomainname: any
+  orgnamewhitlabel: any;
+  orglogowhitelabel: any;
 
   constructor(private toaster: MessageService, private fb: FormBuilder, private resumeService: CourseListService,
               private http: HttpClient, private router: Router, private confirmService: ConfirmationService,
-              private locationService: LocationService, private authService: AuthService) {
+              private renderer: Renderer2, private el: ElementRef,  private authService: AuthService,
+              private locationService: LocationService) {
+
     this.resumeFormInfoData = this.fb.group({
       selected_exp_level: ['', Validators.required],
       user_name: ['', Validators.required],
+      user_job_title: ['', Validators.required],
       user_email: ['', [Validators.required, Validators.email]],
       user_location: ['', Validators.required],
       country_code: ['+91'],
+      user_phone: ['',[Validators.required, Validators.pattern('^\\+?[1-9]\\d{1,14}$')]],
       user_linkedin:['', Validators.required],
+      user_website: [''],
       user_summary: ['', Validators.required],
       // selected_exp_level: ['', [Validators.required]],
       // user_name: ['vivek kaliyaperumal', [Validators.required]],
@@ -163,6 +169,7 @@ export class CvBuilderComponent implements OnInit {
 
   ngOnInit(): void {
     // this.triggerAddMoreButton();
+    this.checkPlanIsExpired()
     this.locationService.getImage().subscribe(imageUrl => {
       this.orglogowhitelabel = imageUrl;
     });
@@ -170,12 +177,6 @@ export class CvBuilderComponent implements OnInit {
       this.orgnamewhitlabel = orgname;
     });
     this.imagewhitlabeldomainname = window.location.hostname;
-    if (this.imagewhitlabeldomainname === "dev-student.uniprep.ai" || this.imagewhitlabeldomainname === "uniprep.ai" || this.imagewhitlabeldomainname === "localhost") {
-      this.ehitlabelIsShow = false;
-    } else {
-      this.ehitlabelIsShow = true;
-    }
-    this.checkPlanIsExpired()
     this.previousResumes();
     this.hideHeader();
     let currentuserName = this.resumeFormInfoData.value.user_name;
@@ -247,13 +248,13 @@ export class CvBuilderComponent implements OnInit {
       this.resumeFormInfoData.setControl('skillsArray', this.fb.array(sortedArray));
 
     }else{
-      
+
       const sortedArray = this.getLanguagesKnownArray.controls.sort((a, b) => {
         const proficiencyOrder = [ "Native", "Proficient", "Fluent", "Beginner"];
         return proficiencyOrder.indexOf(a.get('lang_proficiency')?.value) - proficiencyOrder.indexOf(b.get('lang_proficiency')?.value);
       });
       this.resumeFormInfoData.setControl('languagesKnownArray', this.fb.array(sortedArray));
-      
+
     }
   }
 
@@ -355,7 +356,7 @@ export class CvBuilderComponent implements OnInit {
         if (this.getWorkExpArray.length === 0) {
           fieldNameArray.push('work_experience');
         }
-      break;
+        break;
 
       case 2:
         if (this.getEduDetailsArray.length === 0) {
@@ -364,7 +365,7 @@ export class CvBuilderComponent implements OnInit {
         if (this.resumeFormInfoData.value.selected_exp_level == 1 && this.getProjectDetailsArray.length === 0) {
           fieldNameArray.push('project_details');
         }
-      break;
+        break;
 
       case 3:
         if (this.getCertificatesArray.length === 0) {
@@ -373,7 +374,7 @@ export class CvBuilderComponent implements OnInit {
         if (this.getExtraCurricularArray.length === 0) {
           fieldNameArray.push('extra_curricular');
         }
-      break;
+        break;
 
       case 4:
         if (this.getSkillsArray.length === 0) {
@@ -386,7 +387,7 @@ export class CvBuilderComponent implements OnInit {
         break;
 
       default:
-      break;
+        break;
     }
     if (fieldNameArray.length > 0) {
       fieldNameArray.forEach((element: string) => {
@@ -428,7 +429,7 @@ export class CvBuilderComponent implements OnInit {
         controlNames = ['language', 'lang_proficiency', 'skills', 'skills_proficiency'];
         formControlFields.push(this.resumeFormInfoData.get('languagesKnownArray') as FormArray);
         formControlFields.push(this.resumeFormInfoData.get('skillsArray') as FormArray);
-      } 
+      }
 
       formControlFields.forEach(formArray => {
         formArray.controls.forEach((eduGroup: AbstractControl) => {
@@ -659,7 +660,7 @@ export class CvBuilderComponent implements OnInit {
         certificate_id: [''],
         certicate_link: [''],
       }));
-    } 
+    }
   }
 
   clickDeleteButton(fieldName: string, index: number) {
@@ -675,12 +676,12 @@ export class CvBuilderComponent implements OnInit {
       this.getLanguagesKnownArray.removeAt(index);
     } else if (fieldName == "skills") {
       this.getSkillsArray.removeAt(index);
-    } 
-     else if (fieldName == "extra_curricular") {
+    }
+    else if (fieldName == "extra_curricular") {
       this.getExtraCurricularArray.removeAt(index);
     } else if (fieldName == "certificate") {
       this.getCertificatesArray.removeAt(index);
-    } 
+    }
 
   }
 
@@ -716,10 +717,6 @@ export class CvBuilderComponent implements OnInit {
   }
 
   downloadResume() {
-    if (this.planExpired) {
-      this.restrict = true;
-      return;
-    }
     this.clickedDownloadButton = true;
     let formData = this.resumeFormInfoData.value;
     let data = {
@@ -843,25 +840,31 @@ export class CvBuilderComponent implements OnInit {
 
   confirm(event: Event, resumeLink: string, resumeId: number) {
     this.confirmService.confirm({
-        target: event.target as EventTarget,
-        message: 'Are you sure that you want to proceed?',
-        icon: 'pi pi-exclamation-triangle',
-        accept: () => {
-          const data = {
-            resumeLink: resumeLink,
-            resumeId: resumeId,
-          };
-          this.resumeService.deleteResumes(data).subscribe(res => {
-            this.previousResumes();
-            this.toaster.add({ severity: res.status, summary: res.status, detail: res.message });
-          });
-        },
-        reject: () => {
-          this.toaster.add({ severity: "error", summary: "Error", detail: "you declined." });
-        }
+      target: event.target as EventTarget,
+      message: 'Are you sure that you want to proceed?',
+      icon: 'pi pi-exclamation-triangle',
+      accept: () => {
+        const data = {
+          resumeLink: resumeLink,
+          resumeId: resumeId,
+        };
+        this.resumeService.deleteResumes(data).subscribe(res => {
+          this.previousResumes();
+          this.toaster.add({ severity: res.status, summary: res.status, detail: res.message });
+        });
+      },
+      reject: () => {
+        this.toaster.add({ severity: "error", summary: "Error", detail: "you declined." });
+      }
     });
   }
 
+  clearFieldOnFocus(controlName: string, formGroup: FormGroup) {
+    const control = formGroup.get(controlName);
+    if (control && control.value) {
+      control.setValue('');
+    }
+  }
   checkPlanIsExpired(): void {
     this.authService.getNewUserTimeLeft().subscribe((res) => {
       let data = res.time_left;
@@ -880,12 +883,4 @@ export class CvBuilderComponent implements OnInit {
   clearRestriction() {
     this.restrict = false;
   }
-
-  clearFieldOnFocus(controlName: string, formGroup: FormGroup) {
-    const control = formGroup.get(controlName);
-    if (control && control.value) {
-      control.setValue('');
-    }
-  }
-  
 }
