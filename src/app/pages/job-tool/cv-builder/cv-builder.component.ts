@@ -75,13 +75,13 @@ export class CvBuilderComponent implements OnInit {
     },
     {
       id: 4,
-      templateName: "Creative",
-      imageLink: "../../../uniprep-assets/resume-images/Creative.webp",
+      templateName: "Functional",
+      imageLink: "../../../uniprep-assets/resume-images/functional.webp",
     },
     {
       id: 5,
-      templateName: "Functional",
-      imageLink: "../../../uniprep-assets/resume-images/functional.webp",
+      templateName: "Creative",
+      imageLink: "../../../uniprep-assets/resume-images/Creative.webp",
     },
     {
       id: 6,
@@ -100,14 +100,15 @@ export class CvBuilderComponent implements OnInit {
     },
     {
       id: 9,
-      templateName: "Creative",
-      imageLink: "../../../uniprep-assets/resume-images/Creative.webp",
-    },
-    {
-      id: 10,
       templateName: "Functional",
       imageLink: "../../../uniprep-assets/resume-images/functional.webp",
     },
+    {
+      id: 10,
+      templateName: "Creative",
+      imageLink: "../../../uniprep-assets/resume-images/Creative.webp",
+    },
+    
   ];
 
   slideConfig = {
@@ -199,32 +200,6 @@ export class CvBuilderComponent implements OnInit {
     ];
     this.getCountryCodeList();
     this.skillsList();
-    // this.initializeSwiper();
-  }
-
-  initializeSwiper(): void {
-    const swiper = new Swiper('.swiper', {
-      // Optional parameters
-      direction: 'vertical',
-      loop: true,
-
-      // If we need pagination
-      pagination: {
-        el: '.swiper-pagination',
-        clickable: true,
-      },
-
-      // Navigation arrows
-      navigation: {
-        nextEl: '.swiper-button-next',
-        prevEl: '.swiper-button-prev',
-      },
-
-      // And if we need scrollbar
-      scrollbar: {
-        el: '.swiper-scrollbar',
-      },
-    });
   }
 
   skillsList(){
@@ -524,20 +499,19 @@ export class CvBuilderComponent implements OnInit {
   }
 
   private triggerPrevButtonClick(): void {
-    // Ensure Swiper is initialized and buttons are available
     setTimeout(() => {
       if (this.swiperContainer) {
-        const prevButton = this.swiperContainer.nativeElement.querySelector('.swiper-button-prev');
+        const prevButton = this.swiperContainer.nativeElement.shadowRoot.querySelector('.swiper-button-prev');
         if (prevButton) {
           this.renderer.selectRootElement(prevButton).click();
-          console.log('Previous button clicked');
+          prevButton.innerHTML = `<svg width="11" height="20" viewBox="0 0 11 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M0.38296 20.0762C0.111788 19.805 0.111788 19.3654 0.38296 19.0942L9.19758 10.2796L0.38296 1.46497C0.111788 1.19379 0.111788 0.754138 0.38296 0.482966C0.654131 0.211794 1.09379 0.211794 1.36496 0.482966L10.4341 9.55214C10.8359 9.9539 10.8359 10.6053 10.4341 11.007L1.36496 20.0762C1.09379 20.3474 0.654131 20.3474 0.38296 20.0762Z" fill="currentColor" transform-origin="center" transform="rotate(180)"></path></svg>`;
         } else {
           console.warn('Previous button not found');
         }
       } else {
         console.warn('Swiper container not found');
       }
-    }, 500); // Adjust the timeout duration if needed
+    }, 400); 
   }
 
   previousResumes(){

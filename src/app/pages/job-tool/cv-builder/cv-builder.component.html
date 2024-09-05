@@ -20,24 +20,10 @@
         </div>
     </div>
 </div>
-<!-- <div class="container-fluid" *ngIf="activePageIndex == 1">
-    <h3 class="text-center uniprep-primary">Select your CV style to get started</h3>
-    <ngx-slick-carousel class="carousel" #slickModal="slick-carousel" [config]="slideConfig">
-        <div ngxSlickItem *ngFor="let slide of resumeSlider" class="slide">
-            <div class="d-flex flex-column slider-carousel">
-                <div class="cvBuilderSampleImg" [ngClass]="{ 'selectedResumeLevel': selectedResumeLevel == slide.templateName }">
-                    <h5 class="text-center uniprep-primary">{{ slide.templateName }}</h5>
-                    <img [src]="slide.imageLink" alt="{{ slide.templateName }}" />
-                    <button class="center-button" (click)="selectResumeTemplate(slide.templateName)">Select</button>
-                </div>
-            </div>
-        </div>
-    </ngx-slick-carousel>
-</div> -->
 
 <div class="container-fluid" *ngIf="activePageIndex == 1">
     <h3 class="text-center uniprep-primary">Select your CV style to get started</h3>
-    <swiper-container #swiperContainer dir="rtl" class="mySwiper" navigation="true" centered-slides="true" space-between="10" slides-per-view="5" loop="true">
+    <swiper-container #swiperContainer dir="rtl" class="mySwiper" navigation="true" centered-slides="true" space-between="30" slides-per-view="5" loop="true">
         <swiper-slide class="swiper-slide-regular" *ngFor="let slide of resumeSlider">
             <div class="cvBuilderSampleImg" [ngClass]="{ 'selectedResumeLevel': selectedResumeLevel == slide.templateName }">
                 <h5 class="text-center uniprep-primary">{{ slide.templateName }}</h5>
@@ -217,8 +203,8 @@
                                     <div class="form-group">
                                         <div class="mb-3">
                                             <textarea pInputTextarea formControlName="user_summary" class="mt-2"
-                                                      placeholder="About yourself" [rows]="3" [cols]="80"
-                                                      (ngModelChange)="onTextModelChange($event)"></textarea>
+                                                placeholder="About yourself" [rows]="5" [cols]="80"
+                                                (ngModelChange)="onTextModelChange($event)"></textarea>
 
                                             <div *ngIf="submitted && f['user_summary'].errors?.['required']"
                                                  class="text-danger text-xs">
@@ -1044,7 +1030,7 @@
                     </div>
                     <div class="contactItem fw-600">
                         <img class="resumeIcons" src="../../../uniprep-assets/resume-icons/Linkedin.svg">
-                        <p><a href="{{ f['user_linkedin'].value }}">{{ f['user_linkedin'].value }}/</a></p>
+                        <p><a href="{{ f['user_linkedin'].value }}">{{ f['user_linkedin'].value }}</a></p>
                     </div>
                     <div class="contactItem fw-600" *ngIf="f['user_website'].value">
                         <img class="resumeIcons" src="../../../uniprep-assets/resume-icons/Web.svg">
