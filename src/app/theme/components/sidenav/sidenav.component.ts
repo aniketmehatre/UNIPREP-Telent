@@ -291,7 +291,7 @@ export class SidenavComponent {
       } else {
         this.conditionSubscribed = true;
       }
-      this.imagewhitlabeldomainname="prep.uniabroad.io";
+      this.imagewhitlabeldomainname=window.location.hostname;
       if (this.imagewhitlabeldomainname === "dev-student.uniprep.ai" || this.imagewhitlabeldomainname === "uniprep.ai" || this.imagewhitlabeldomainname === "localhost") {
         this.ehitlabelIsShow=true;
       }else{
