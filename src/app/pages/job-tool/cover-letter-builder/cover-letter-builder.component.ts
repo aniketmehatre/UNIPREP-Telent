@@ -93,7 +93,7 @@ export class CoverLetterBuilderComponent implements OnInit {
 
   constructor(private toaster: MessageService, private fb: FormBuilder, private resumeService: CourseListService,
               private locationService: LocationService, private http: HttpClient, private authService: AuthService,
-              private router: Router){
+              private router: Router,){
 
     this.resumeFormInfoData = this.fb.group({
       user_name: ['', [Validators.required]],
@@ -115,6 +115,7 @@ export class CoverLetterBuilderComponent implements OnInit {
 
   ngOnInit(): void {
     this.checkPlanIsExpired()
+    this.hideHeader();
     this.locationService.getImage().subscribe(imageUrl => {
       this.orglogowhitelabel = imageUrl;
     });
@@ -133,7 +134,14 @@ export class CoverLetterBuilderComponent implements OnInit {
       this.splitUserName(value); // it calls when the user enters the user name
     })
   }
-
+  hideHeader() {
+    const url = this.router.url;
+    if (this.activePageIndex == 2 && url.endsWith('/coverletter-builder')) {
+      this.resumeService.setData(true);
+    } else {
+      this.resumeService.setData(false);
+    }
+  }
   splitUserName(currentUserName: string) {
     const words = currentUserName.trim().split(/\s+/);
     this.userNameSplit.firstWord = words[0] || '';
@@ -177,7 +185,6 @@ export class CoverLetterBuilderComponent implements OnInit {
   }
   generateImage() {
     const cvPreviewContainer = document.getElementById('cv-preview-container');
-    console.log(cvPreviewContainer, "cvPreviewContainer");
     if (cvPreviewContainer) {
       html2canvas(cvPreviewContainer, { useCORS: true })
         .then((canvas) => {
@@ -189,11 +196,6 @@ export class CoverLetterBuilderComponent implements OnInit {
           console.error('Failed to generate image', error);
         });
     }
-  }
-  imgOnclick(resumeLevel: any) {
-    this.isButtonDisabledSelectTemplate = true;
-    this.selectedResumeLevel = resumeLevel;
-    console.log(this.selectedResumeLevel);
   }
 
 
@@ -210,6 +212,7 @@ export class CoverLetterBuilderComponent implements OnInit {
       this.activePageIndex++;
       // this.enableModule = true;
       this.activePageIndex = this.activePageIndex == 5 ? 1 : this.activePageIndex;
+      this.ngAfterViewInit();
     }
   }
 
@@ -218,6 +221,7 @@ export class CoverLetterBuilderComponent implements OnInit {
     // if (this.activePageIndex > 0) {
     //   this.activePageIndex--;
     // }
+    this.ngAfterViewInit();
   }
 
   next() {
@@ -225,6 +229,7 @@ export class CoverLetterBuilderComponent implements OnInit {
     // if (this.activePageIndex < this.pages.length - 1) {
     //   this.activePageIndex++;
     // }
+    this.ngAfterViewInit();
   }
 
   get getEduDetailsArray(): FormArray {
@@ -276,7 +281,6 @@ export class CoverLetterBuilderComponent implements OnInit {
       cover_name: this.selectedResumeLevel,
       selectedThemeColor:this.selectedThemeColor
     };
-    console.log(data);
     this.resumeService.downloadCoverletter(data).subscribe(res => {
       window.open(res, '_blank');
     })
@@ -299,7 +303,6 @@ export class CoverLetterBuilderComponent implements OnInit {
       !eduLocationControl?.valid || !jobPositionControl?.valid || !managerNameControl?.valid ||
       !getKnowAboutAsControl?.valid) {
     this.submitted = true; // Set the form as submitted if any field is invalid
-    console.log('Form is invalid');
     return;
   }
     this.resumeFormInfoData.patchValue({
@@ -343,10 +346,6 @@ export class CoverLetterBuilderComponent implements OnInit {
 
   //   })
   // }
-  selectResumeTemplate(templateName: string) {
-    this.selectedResumeLevel = templateName;
-    this.imgOnclick(templateName)
-  }
 
   checkPlanIsExpired(): void {
     this.authService.getNewUserTimeLeft().subscribe((res) => {
@@ -365,5 +364,30 @@ export class CoverLetterBuilderComponent implements OnInit {
 
   clearRestriction() {
     this.restrict = false;
+  }
+  selectResumeTemplate(templateName: string) {
+    this.selectedResumeLevel = templateName;
+    this.imgOnclick(templateName)
+  }
+  imgOnclick(resumeLevel: any) {
+    this.isButtonDisabledSelectTemplate = true;
+    this.selectedResumeLevel = resumeLevel;
+  }
+  onAfterChange(event: any): void {
+    // The event contains the index of the current slide
+    this.selectedResumeLevel=""
+    const currentIndex = event.currentSlide;
+    const currentSlide = this.resumeSlider[currentIndex];
+    this.selectResumeTemplate(currentSlide.templateName);
+    // Perform any action with the current slide's templateName
+    // this.selectedResumeLevel = currentSlide.templateName;
+  }
+
+  // Handle the init event
+  ngAfterViewInit(): void {
+    // Assuming the carousel starts at index 0 or you know the initial index
+    const initialIndex = 1; // You may need to adjust this if necessary
+    const initialSlide = this.resumeSlider[initialIndex];
+    this.selectResumeTemplate(initialSlide.templateName);
   }
 }

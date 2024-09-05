@@ -1,14 +1,15 @@
 <div class="container-fluid" *ngIf="activePageIndex == 1">
 	<h3 class="text-center uniprep-primary">Select your Coverletter style to get started</h3>
-	<ngx-slick-carousel class="carousel" #slickModal="slick-carousel" [config]="slideConfig">
+	<ngx-slick-carousel class="carousel" #slickModal="slick-carousel" [config]="slideConfig"  
+	(afterChange)="onAfterChange($event)">
 		<div ngxSlickItem *ngFor="let slide of resumeSlider" class="slide">
 			<div class="d-flex flex-column">
 				<h5 class="text-center uniprep-primary">{{ slide.templateName }}</h5>
-				<div class="cvBuilderSampleImg"
+				<div class="cvBuilderSampleImg" 
 					[ngClass]="{ 'selectedResumeLevel': selectedResumeLevel === slide.templateName }">
 					<img [src]="slide.imageLink" alt="{{ slide.templateName }}" />
-					<button class="center-button" (click)="selectResumeTemplate(slide.templateName)">
-						{{ selectedResumeLevel === slide.templateName ? 'Selected' : 'Select' }}
+					<button class="center-button" *ngIf="selectedResumeLevel === slide.templateName ? true : false">
+						Selected
 					</button>
 				</div>
 			</div>

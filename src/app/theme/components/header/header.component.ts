@@ -96,7 +96,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   reportlearnlanguagetype:number=0;
   countryList: any;
   locationList: any;
-
+  whiteLabelIsNotShow:boolean=true;
   constructor(
     private router: Router,
     private locationService: LocationService,
@@ -193,8 +193,15 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
   formvisbility = false;
   mobileForm: any = FormGroup;
-  preferredCountry: any
+  preferredCountry: any;
+  imagewhitlabeldomainname:any;
   ngOnInit() {
+    this.imagewhitlabeldomainname=window.location.hostname;
+    if (this.imagewhitlabeldomainname === "dev-student.uniprep.ai" || this.imagewhitlabeldomainname === "uniprep.ai" || this.imagewhitlabeldomainname === "localhost") {
+      this.whiteLabelIsNotShow=true;
+    }else{
+      this.whiteLabelIsNotShow=false;
+    }
     fetch('https://ipapi.co/json/').then(response => response.json()).then(data => {
       this.preferredCountry = data.country_code.toLocaleLowerCase()
     });

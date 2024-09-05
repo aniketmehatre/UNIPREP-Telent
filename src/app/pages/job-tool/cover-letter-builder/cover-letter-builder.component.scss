@@ -58,17 +58,18 @@
 	}
 }
 .center-button {
-	position: absolute;
-	top: 75%;
-	padding: 5px 50px;
-	background-color: var(--uniprep-primary);
-	color: white;
-	border: none;
-	white-space: nowrap;
-	border-radius: 15px;
-	font-size: large;
-	margin: 0px 18px;
-	display: none; 
+    position: absolute;
+    top: 86%;
+    padding: 6px 50px;
+    background-color: var(--uniprep-primary);
+    color: white;
+    border: none;
+    white-space: nowrap;
+    border-radius: 9px;
+    font-size: large;
+    margin: 0px 0px;
+    display: none;
+    width: -webkit-fill-available;
 }
 
 .HistoryDownloadIcon {
@@ -1003,3 +1004,4 @@ body {
 		font-size:1.4vh !important ;
 	  }	
  }
+ 
