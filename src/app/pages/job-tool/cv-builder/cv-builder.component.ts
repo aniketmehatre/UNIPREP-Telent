@@ -124,7 +124,7 @@ export class CvBuilderComponent implements OnInit {
   };
   planExpired: boolean = false
   restrict: boolean = false
-  ehitlabelIsShow: boolean = false;
+  ehitlabelIsShow: boolean = true;
   imagewhitlabeldomainname: any
   orgnamewhitlabel: any;
   orglogowhitelabel: any;

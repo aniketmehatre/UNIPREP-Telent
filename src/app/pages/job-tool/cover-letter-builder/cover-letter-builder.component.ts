@@ -44,7 +44,7 @@ export class CoverLetterBuilderComponent implements OnInit {
   template1: any;
   planExpired: boolean = false
   restrict: boolean = false
-  ehitlabelIsShow: boolean = false;
+  ehitlabelIsShow: boolean = true;
   imagewhitlabeldomainname: any
   orgnamewhitlabel: any;
   orglogowhitelabel: any;
