@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from "@angular/router";
-import { Observable } from "rxjs";
+import {ActivatedRoute, NavigationEnd, Router} from "@angular/router";
+import {filter, Observable} from "rxjs";
 import { ModuleListSub } from "../../../@Models/module.model";
 import { ConfirmationService, MenuItem } from "primeng/api";
 import { ModuleServiceService } from "../../module-store/module-service.service";
@@ -9,6 +9,7 @@ import { LocationService } from "../../../location.service";
 import { AuthService } from 'src/app/Auth/auth.service';
 import { NgxUiLoaderService } from "ngx-ui-loader";
 import { PageFacadeService } from '../../page-facade.service';
+import {Meta, Title} from "@angular/platform-browser";
 
 @Component({
   selector: 'uni-list-sub-modules',
@@ -62,7 +63,10 @@ export class ListSubModulesComponent implements OnInit {
   orglogowhitelabel:any;
   constructor(private moduleListService: ModuleServiceService, private router: Router, private dataService: DataService, private authService: AuthService,
     private locationService: LocationService, private route: ActivatedRoute, private ngxService: NgxUiLoaderService,
-    private confirmationService: ConfirmationService, private pageFacade: PageFacadeService) {
+    private confirmationService: ConfirmationService, private pageFacade: PageFacadeService,
+              private meta: Meta,
+              private titleService: Title,
+              private activatedRoute: ActivatedRoute,) {
     this.countryId = Number(localStorage.getItem('countryId'));
     this.dataService.countryIdSource.subscribe((data) => {
       if (this.countryId != data) {
@@ -92,10 +96,29 @@ export class ListSubModulesComponent implements OnInit {
       }
     ];
   }
+  updateMetaTags() {
+    // Get the route parameters
+
+    // Update title and meta description
+    this.titleService.setTitle(`Uniprep | Question modules`);
+    this.meta.updateTag({ name: 'description', content: `Uniprep Question list modules. more that 100000 questions` });
+    this.meta.updateTag({ name: 'og:type', content: `website` });
+    this.meta.updateTag({ name: 'og:image', content: `https://dev-student.uniprep.ai/uniprep-assets/images/f1.png` });
+    this.meta.updateTag({ name: 'og:logo', content: `https://dev-student.uniprep.ai/uniprep-assets/images/f1.png` });
+  }
+
 
   allSearchedResult: any[] = []
   loopRange = Array.from({ length: 30 }).fill(0).map((_, index) => index);
   ngOnInit() {
+    this.router.events.pipe(
+        filter(event => event instanceof NavigationEnd)
+    ).subscribe(() => {
+      this.updateMetaTags();
+    });
+
+    // Initial update
+    this.updateMetaTags();
     this.locationService.getImage().subscribe(imageUrl => {
       this.orglogowhitelabel = imageUrl;
     });
