@@ -218,7 +218,7 @@
                 </p>
                 <p *ngIf="totalPercentage<=89" class="text-center mb-2 fw-medium">Completion of this module
                     requires<br>a minimum score of 90%</p>
-                <button *ngIf="totalPercentage>=90" style="background-color: #98B73F !important;"
+                <button *ngIf="totalPercentage>=90&&currentModuleId<10" style="background-color: #98B73F !important;"
                     (click)="openCertificate()" class="btn btn-back btn-rounded px-2 py-2">
                     <div class="d-flex align-items-center">
                         <span class="fw-normal h6 mb-0">View Certificate</span>
@@ -364,8 +364,7 @@
             <div class="col-md-6 text-start">
                 <!-- <p class="mb-0 fw-semibold">Reference</p>
                 <p-breadcrumb [model]="breadCrumb" class="max-w-100 quizreference"></p-breadcrumb> -->
-                <button *ngIf="currentModuleId>10" (click)="result()"
-                    class="btn btn-back btn-rounded px-2 py-2">
+                <button *ngIf="currentModuleId>10" (click)="result()" class="btn btn-back btn-rounded px-2 py-2">
                     <div class="d-flex align-items-center">
                         <span class="fw-normal h6 mb-0 ps-3 pe-2">Result</span>
                         <div class="btn-icon"><i class="fa-solid fa-arrow-left"></i></div>
