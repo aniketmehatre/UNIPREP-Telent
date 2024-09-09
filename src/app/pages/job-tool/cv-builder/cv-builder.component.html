@@ -10,7 +10,7 @@
                         <p-confirmPopup></p-confirmPopup>
                         <i class="fa-solid fa-download HistoryDownloadIcon" (click)="downloadOldResume(resumes.pdf_name)"></i>
                         <p>Version {{ i+1 }}</p>
-                        <small>{{ resumes.created_at }}</small>
+                        <small>{{ resumes.created_time }}</small>
                     </div>
                 </div>
             </div>
@@ -21,7 +21,7 @@
     </div>
 </div>
 
-<div class="container-fluid" *ngIf="activePageIndex == 1">
+<div class="container-fluid swiper-wrapper-custom" *ngIf="activePageIndex == 1">
     <h3 class="text-center uniprep-primary">Select your CV style to get started</h3>
     <swiper-container #swiperContainer dir="rtl" class="mySwiper" navigation="true" centered-slides="true" space-between="30" slides-per-view="5" loop="true">
         <swiper-slide class="swiper-slide-regular" *ngFor="let slide of resumeSlider">
@@ -173,7 +173,7 @@
                                     <label class="form-label labelFont">LinkedIn Name</label>
                                     <div class="form-group">
                                         <div class="mb-3">
-                                            <input class="w-100" type="text" placeholder="LinkedIn profile link"
+                                            <input class="w-100" type="text" placeholder="LinkedIn profile name"
                                                    formControlName="user_linkedin" pInputText />
                                             <div *ngIf="submitted && f['user_linkedin'].errors"
                                                  class="text-danger text-xs">
@@ -857,9 +857,9 @@
                             </div>
                         </div> -->
                     </ng-container>
+                    <!-- [ngStyle]="{ 'visibility': moduleActiveIndex === 0 ? 'hidden' : 'visible' }" -->
                     <div class="d-flex space-between" style="justify-content: space-between">
                         <button pButton type="button" (click)="fieldPreviousButton()"
-                                [ngStyle]="{ 'visibility': moduleActiveIndex === 0 ? 'hidden' : 'visible' }"
                                 class="text-white p-ripple p-button-rounded p-button-info-prev p-button p-component p-2"><i
                                 class="fa fa-arrow-left exhausted-plan-icon-prev"></i> Previous</button>
                         <button pButton type="button" (click)="resumeFormSubmit()" *ngIf="moduleActiveIndex != 4"
@@ -1521,7 +1521,7 @@
                             </div>
                         </div>
                     </div>
-                    <div style="height: 150px;" *ngIf="!hidingHeaders.includes('skills')">
+                    <div style="height: 180px;" *ngIf="!hidingHeaders.includes('skills')">
                         <p class="headingStyle zeroMarginPadding" [ngStyle]="{'color': selectedThemeColor }">technical
                             skills</p>
                         <hr class="hr-custom" [ngStyle]="{'color': selectedThemeColor, 'background-color':  selectedThemeColor}">
@@ -1673,7 +1673,7 @@
             </ng-container>
             <div class="row">
                 <div class="col-8">
-                    <div  [style.height]="f['selected_exp_level'].value == 1 ? '150px' : '300px'" *ngIf="!hidingHeaders.includes('work_experience')">
+                    <div  [style.height]="f['selected_exp_level'].value == 1 ? '150px' : '360px'" *ngIf="!hidingHeaders.includes('work_experience')">
                         <p class="headingStyle" ><span>experience</span></p>
                         <div class="content expContent fw-600">
                             <!-- <div class="vl"></div> -->
