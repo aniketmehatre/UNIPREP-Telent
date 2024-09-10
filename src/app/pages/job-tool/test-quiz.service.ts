@@ -14,7 +14,7 @@ export class TestQuizService {
 
   getCategoryList(req: GetCategoriesPayload): Observable<CategoryResponse> {
     const headers = new HttpHeaders().set("Accept", "application/json");
-    return this.http.get<CategoryResponse>(`${environment.ApiUrl}/getcareertoolcategorylist?module_id=${req.moduleId}?page=${req.page}?perpage=${req.perpage}`, {
+    return this.http.get<CategoryResponse>(`${environment.ApiUrl}/getcareertoolcategorylist?module_id=${req.moduleId}?page=${req.page}&perpage=${req.perpage}`, {
       headers: headers
     });
   }
