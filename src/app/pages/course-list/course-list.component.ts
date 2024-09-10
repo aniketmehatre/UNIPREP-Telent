@@ -154,7 +154,7 @@ export class CourseListComponent implements OnInit {
       this.getSelectBoxValues();
       setTimeout(() => {
         this.countrySelect();
-      }, 1000);
+      }, 2000);
     });
   }
 
@@ -191,11 +191,9 @@ export class CourseListComponent implements OnInit {
       this.locationList = this.allLocations.filter((item:any) =>{
         return selectedCountry.includes(item.country_id);
       });
-      console.log(this.locationList);
       this.universityNameList = this.allUniversityList.filter((item:any) =>{
         return selectedCountry.includes(item.country_id);
       });
-      console.log(this.universityNameList);
     }else{
       this.locationList = this.allLocations;
       this.universityNameList = this.allUniversityList;
@@ -447,11 +445,13 @@ export class CourseListComponent implements OnInit {
         return [mappedKey, value];
       })
     );
-    console.log(newData);
     this.enableModule = true;
     this.recommendationBasedCourses(newData);
     this.getSelectBoxValues();
     this.courseList.storeCourseRecommendation(newData).subscribe();
+    setTimeout(() => {
+      this.countrySelect();
+    }, 2000);
   }
   
   recommendationBasedCourses(data: any){
@@ -461,9 +461,6 @@ export class CourseListComponent implements OnInit {
       this.totalCourseCount = response.total_count;
       this.buyCreditsCount = response.credit_count;
     });
-    setTimeout(() => {
-      this.countrySelect();
-    }, 1000);
   }
 
   resetRecommendation(){
