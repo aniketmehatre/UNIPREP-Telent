@@ -357,9 +357,6 @@ export class SubscriptionComponent implements OnInit {
 
   elementsOptions: StripeElementsOptions = {
     locale: "en",
-    appearance: {
-      theme: 'flat'
-    }
   };
   cardvisibility=false;
   paywithstripe(data:any) {
