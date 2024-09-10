@@ -25,17 +25,19 @@
                                     [showClear]="true"
                                     [appendTo]="'body'"
                                     [style]="{'minWidth': '100%'}"
-                                    class="w-100 text-start">
+                                    class="w-100 text-start custom-dropdown">
                             <ng-template pTemplate="selectedItem" let-selectedOption>
-                                <div class="d-flex align-items-center gap-2">
+                                <div class="d-flex align-items-center gap-2 custom-selected-item">
                                     <img [src]="selectedOption.flag" alt="Flag"/>
-                                    <div>{{ selectedOption.name }}{{ selectedOption.city_name ? ', '+selectedOption.country_name : ''}}</div>
+                                    <div class="scrolling-text">
+                                        {{ selectedOption.name }}{{ selectedOption.city_name ? ', '+selectedOption.country_name : ''}}
+                                    </div>
                                 </div>
                             </ng-template>
                             <ng-template let-country pTemplate="item">
-                                <div class="d-flex align-items-center gap-2">
+                                <div class="d-flex align-items-center gap-2 custom-dropdown-item">
                                     <img [src]="country.flag" alt="Flag"/>
-                                    <div>{{ country.name }}{{ country.city_name ? ', '+country.country_name : ''}}</div>
+                                    <div class="truncate-text">{{ country.name }}{{ country.city_name ? ', '+country.country_name : ''}}</div>
                                 </div>
                             </ng-template>
                         </p-dropdown>
