@@ -24,6 +24,7 @@ import {
   SubscriptionTopup,
 } from "../../@Models/subscription";
 import { Observable } from "rxjs";
+import { PaymentIntent } from "@stripe/stripe-js";
 
 @Injectable({
   providedIn: "root",
@@ -256,5 +257,11 @@ export class SubscriptionService {
       token:''
     };
     return this.http.post<any>(environment.ApiUrl + "/tokenexpireremainingtime",data,{ headers: headers });
+  }
+  createPaymentIntent(data: any): Observable<PaymentIntent> {
+    return this.http.post<PaymentIntent>(
+      `${environment.ApiUrl}/placeorderstripe`,
+       data 
+    );
   }
 }
