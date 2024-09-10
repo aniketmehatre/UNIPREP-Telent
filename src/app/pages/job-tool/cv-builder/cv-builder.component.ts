@@ -109,17 +109,6 @@ export class CvBuilderComponent implements OnInit {
     
   ];
 
-  slideConfig = {
-    "slidesToShow": 3,
-    "slidesToScroll": 1,
-    "infinite": true,
-    "dots": false,
-    "centerMode": true,
-    "centerPadding": "0",
-    "variableWidth": true,
-    "focusOnSelect": true,
-    "initialSlide": 4,
-  };
   planExpired: boolean = false
   restrict: boolean = false
   ehitlabelIsShow: boolean = true;
@@ -224,13 +213,12 @@ export class CvBuilderComponent implements OnInit {
       this.resumeFormInfoData.setControl('skillsArray', this.fb.array(sortedArray));
 
     }else{
-
+      
       const sortedArray = this.getLanguagesKnownArray.controls.sort((a, b) => {
         const proficiencyOrder = [ "Native", "Proficient", "Fluent", "Beginner"];
         return proficiencyOrder.indexOf(a.get('lang_proficiency')?.value) - proficiencyOrder.indexOf(b.get('lang_proficiency')?.value);
       });
       this.resumeFormInfoData.setControl('languagesKnownArray', this.fb.array(sortedArray));
-
     }
   }
 
@@ -372,7 +360,12 @@ export class CvBuilderComponent implements OnInit {
   }
 
   fieldPreviousButton() {
-    this.moduleActiveIndex--;
+    if(this.moduleActiveIndex == 0){
+      this.activePageIndex = 1;
+      this.triggerPrevButtonClick();
+    }else{
+      this.moduleActiveIndex--;
+    }
   }
 
   getVisibleFormControls(): AbstractControl[] {
@@ -502,6 +495,12 @@ export class CvBuilderComponent implements OnInit {
   private triggerPrevButtonClick(): void {
     setTimeout(() => {
       if (this.swiperContainer) {
+        const swiperElement = this.swiperContainer.nativeElement.shadowRoot.querySelector('.swiper');
+        console.log(swiperElement);
+        if (swiperElement) {
+          this.renderer.setStyle(swiperElement, 'overflow', 'visible');
+          this.renderer.setStyle(swiperElement, 'margin-top', '70px');
+        }
         const prevButton = this.swiperContainer.nativeElement.shadowRoot.querySelector('.swiper-button-prev');
         if (prevButton) {
           this.renderer.selectRootElement(prevButton).click();
