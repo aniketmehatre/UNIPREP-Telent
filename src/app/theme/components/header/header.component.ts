@@ -201,7 +201,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.locationService.getOrgName().subscribe(orgname => {
       this.orgnamewhitlabel = orgname;
     });
-    this.imagewhitlabeldomainname="prep";
+    this.imagewhitlabeldomainname=window.location.hostname;
     if (this.imagewhitlabeldomainname === "dev-student.uniprep.ai" || this.imagewhitlabeldomainname === "uniprep.ai" || this.imagewhitlabeldomainname === "localhost") {
       this.whiteLabelIsNotShow=true;
     }else{
