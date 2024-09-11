@@ -1,25 +1,53 @@
 <ng-container [ngSwitch]="stage">
-    <ng-container *ngSwitchCase="1">
-        <uni-subscription-data (upgrade)="start()" [history]="(orderHistory$ | async) || []" [billing]="user"
-            [subscriptions]="subscriptionDetail$ | async" (subscriptionPlan)="pay($event)" 
-                [showHistoryBtn]="showHistoryBtn" (showHistory)="showHistory($event)"></uni-subscription-data>
-    </ng-container>
-    <ng-container *ngSwitchCase="2">
-        <uni-subscription-list  [whichOneVisible]="isSubOrQuestion" (selected)="onSelectSubscription($event)"
-            (selectedCredit)="onSelectQuestionCredit($event)" [country]="countryList"
-            [plans]="(subscriptions$ | async) || []"></uni-subscription-list>
-    </ng-container>
-    <ng-container *ngSwitchCase="3">
-        <uni-subscription-billing (pay)="pay($event)" (payQuestionCredit)="payQuestionCredit()" (change)="changePlan()" 
-        (changeQuestionCreditPlan)="changeQuestionCreditPlan()" [loading]="(orderLoading$ | async) || false"
-            [plan]="selectedSubscription" [planQuestionCredit]="selectedQuestionCredit"></uni-subscription-billing>
-    </ng-container>
-    <ng-container *ngSwitchCase="4">
-        <uni-subscription-success [plan]="success"></uni-subscription-success>
-    </ng-container>
-    <ng-container *ngSwitchCase="5">
-        <uni-subscription-history [userSubscription]="userSubscription" [subscribedHistoryList]="subscribedHistoryData"
-            (showPlan)="showPlan($event)" [showPlanBtn]="showPlanBtn" [subscribedCountryList]="subscribedCountryList" [accountBillingList]="accountBillingData"
-        ></uni-subscription-history>
-    </ng-container>
+  <ng-container *ngSwitchCase="1">
+    <uni-subscription-data
+      (upgrade)="start()"
+      [history]="(orderHistory$ | async) || []"
+      [billing]="user"
+      [subscriptions]="subscriptionDetail$ | async"
+      (subscriptionPlan)="pay($event)"
+      [showHistoryBtn]="showHistoryBtn"
+      (showHistory)="showHistory($event)"
+    ></uni-subscription-data>
+  </ng-container>
+  <ng-container *ngSwitchCase="2">
+    <uni-subscription-list
+      [whichOneVisible]="isSubOrQuestion"
+      (selected)="onSelectSubscription($event)"
+      (selectedCredit)="onSelectQuestionCredit($event)"
+      [country]="countryList"
+      [plans]="(subscriptions$ | async) || []"
+    ></uni-subscription-list>
+  </ng-container>
+  <ng-container *ngSwitchCase="3">
+    <uni-subscription-billing
+      (pay)="pay($event)"
+      (payQuestionCredit)="payQuestionCredit()"
+      (change)="changePlan()"
+      (changeQuestionCreditPlan)="changeQuestionCreditPlan()"
+      [loading]="(orderLoading$ | async) || false"
+      [plan]="selectedSubscription"
+      [planQuestionCredit]="selectedQuestionCredit"
+    ></uni-subscription-billing>
+  </ng-container>
+  <ng-container *ngSwitchCase="4">
+    <uni-subscription-success [plan]="success"></uni-subscription-success>
+  </ng-container>
+  <ng-container *ngSwitchCase="5">
+    <uni-subscription-history
+      [userSubscription]="userSubscription"
+      [subscribedHistoryList]="subscribedHistoryData"
+      (showPlan)="showPlan($event)"
+      [showPlanBtn]="showPlanBtn"
+      [subscribedCountryList]="subscribedCountryList"
+      [accountBillingList]="accountBillingData"
+    ></uni-subscription-history>
+  </ng-container>
+   <p-dialog [modal]="true" [(visible)]="cardvisibility" [style]="{ width: '40rem',height:'15rem',padding:'2rem' }">
+    <ngx-stripe-card
+      [options]="cardOptions"
+      [elementsOptions]="elementsOptions"
+    ></ngx-stripe-card>
+    <button (click)="paywithstripe({'subscriptionId': 5,'countryId': 2,'finalPrice': '2999','couponApplied': 0, 'coupon': '', 'coupon_id': 0,'subscription_plan_id': 39 })">pay</button>
+  </p-dialog>
 </ng-container>
