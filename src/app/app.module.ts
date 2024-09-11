@@ -51,7 +51,7 @@ import {DeviceDetectorService} from "ngx-device-detector";
 import {PaginatorModule} from 'primeng/paginator';
 import {RestrictionDialogComponent} from './shared/restriction-dialog/restriction-dialog.component';
 import {SharedModule} from "./shared/shared.module";
-
+import { NgxStripeModule } from 'ngx-stripe';
 
 const reducers = {
   pageSelector: pagesReducer
@@ -116,7 +116,7 @@ export function tokenGetter() {
             clientId: environment.linkedinId
         }),
         MetaModule.forRoot(),
-        SharedModule
+        SharedModule,
     ],
   providers: [
       DeviceDetectorService,
