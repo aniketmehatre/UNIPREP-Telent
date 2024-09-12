@@ -40,12 +40,16 @@
 										</ng-container>
 										<ng-container *ngIf="recommendation.id == 3">
 											<div class="cube-container">
-												<div *ngFor="let cube of anyScholarshipTypeList" class="cube" (click)="selectCube(3,cube.id)" [ngClass]="{'selected': selectedData[3] === cube.id}">
+												<div *ngFor="let cube of anyScholarshipTypeList" class="cube"  (click)="selectCube(3, cube.id)" 
+													[ngClass]="{'selected': selectedData[3]?.includes(cube.id)}">
 												  <label>{{ cube.type }}</label>
-												  <i class="fa-solid fa-circle-check tickPlacement" *ngIf="selectedData[3] === cube.id" ></i>
+												  <i class="fa-solid fa-circle-check tickPlacement" 
+													 *ngIf="selectedData[3]?.includes(cube.id)">
+												  </i>
 												</div>
-											</div>
-											<p class="text-center" [ngClass]="{ 'd-none': invalidClass === false }" style="color: red">Please Choose Any one option</p>
+											  </div>
+											  <p class="text-center" [ngClass]="{ 'd-none': invalidClass === false }" 
+											  style="color: red">Please Choose Any one option<p>											  
 										</ng-container>
 										<ng-container *ngIf="recommendation.id == 4">
 											<div class="cube-container">
@@ -248,7 +252,6 @@
 						<label class="form-label" style="font-size: medium; font-weight: 500">Filter by Scholarship Country</label>
 						<div class="form-group">
 							<div class="mb-3">
-								<!-- <p-dropdown formControlName="country" optionValue="id" optionLabel="country" styleClass="w-100" [options]="countryList" [filter]="true" filterBy="country" (onChange)="countryChange($event)" placeholder="Select  Country" class="filterInput" [appendTo]="'body'"></p-dropdown> -->
 								<p-multiSelect [options]="countryList" styleClass="w-100" formControlName="country" optionValue="id" placeholder="Select  Country" optionLabel="country" class="filterInput" [appendTo]="'body'"> </p-multiSelect>
 							</div>
 						</div>
@@ -257,7 +260,7 @@
 						<label class="form-label" style="font-size: medium; font-weight: 500">Filter by Home Country</label>
 						<div class="form-group">
 							<div class="mb-3">
-								<p-dropdown formControlName="home_country" optionValue="id" optionLabel="country" styleClass="w-100" [options]="homeCountryList" [filter]="true" filterBy="country" placeholder="Select  Home Country" class="filterInput" [appendTo]="'body'"></p-dropdown>
+								<p-multiSelect [options]="homeCountryList" styleClass="w-100" formControlName="home_country" optionValue="id" placeholder="Select  Home Country" optionLabel="country" class="filterInput" [appendTo]="'body'"> </p-multiSelect>
 							</div>
 						</div>
 					</div>
@@ -265,7 +268,7 @@
 						<label class="form-label" style="font-size: medium; font-weight: 500">Filter by Scholarship Type</label>
 						<div class="form-group">
 							<div class="mb-3">
-								<p-dropdown formControlName="type" optionValue="id" optionLabel="type" styleClass="w-100" [options]="scholarshipTypeList" [filter]="true" filterBy="type" placeholder="Select  Scholarship Type" class="filterInput" [appendTo]="'body'"></p-dropdown>
+								<p-multiSelect [options]="scholarshipTypeList" styleClass="w-100" formControlName="type" optionValue="id" placeholder="Select  Scholarship Type" optionLabel="type" class="filterInput" [appendTo]="'body'"> </p-multiSelect>
 							</div>
 						</div>
 					</div>
@@ -290,7 +293,7 @@
 						<label class="form-label" style="font-size: medium; font-weight: 500">Filter by Coverage Value</label>
 						<div class="form-group">
 							<div class="mb-3">
-								<p-dropdown formControlName="cover_id" optionValue="id" optionLabel="cover_name" styleClass="w-100" [options]="coverList" [filter]="true" filterBy="cover_name" placeholder="Select  Coverage Value" class="filterInput" [appendTo]="'body'"></p-dropdown>
+								<p-multiSelect [options]="coverList" styleClass="w-100" formControlName="cover_id" optionValue="id" placeholder="Select  Coverage Value" optionLabel="cover_name" class="filterInput" [appendTo]="'body'"> </p-multiSelect>
 							</div>
 						</div>
 					</div>

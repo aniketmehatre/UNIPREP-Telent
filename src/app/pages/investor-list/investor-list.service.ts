@@ -53,4 +53,25 @@ export class InvestorListService {
       headers: headers,
     });
   }
+
+  storeRecommendation(data: any){
+    const headers = new HttpHeaders().set("Accept", "application/json");
+    return this.http.post<any>(environment.ApiUrl + "/storeInvestorRec", data, {
+      headers: headers,
+    });
+  }
+
+  resetRecommendation(){
+    const headers = new HttpHeaders().set("Accept", "application/json");
+    return this.http.post<any>(environment.ApiUrl + "/resetInvestorRec", {
+      headers: headers,
+    });
+  }
+
+  getStoredRecommendation(){
+    const headers = new HttpHeaders().set("Accept", "application/json");
+    return this.http.post<any>(environment.ApiUrl + "/getInvestorRec", {
+      headers: headers,
+    });
+  }
 }

@@ -169,8 +169,9 @@ export class ScholarshipListComponent implements OnInit {
   }
   getScholarshipCountry() {
     this.scholarshipListService.getScholarshipCountry(1).subscribe((response) => {
-      this.countryList = response;
-      this.anyCountryList = this.countryList;
+      let allCountries = response;
+      this.countryList = allCountries;
+      this.anyCountryList = [...allCountries]; // this is shallow copy of all countries.if am not taking shallow copy when i add any array its showing it reflect for both arrays.
     });
   }
 
@@ -198,13 +199,13 @@ export class ScholarshipListComponent implements OnInit {
   getScholarshipType() {
     this.scholarshipListService.getScholarshipType().subscribe((response) => {
       this.scholarshipTypeList = response;
-      this.anyScholarshipTypeList = response; 
+      this.anyScholarshipTypeList = [...response]; 
     });
   }
   getCovers() {
     this.scholarshipListService.getCoverList().subscribe((response) => {
       this.coverList = [...response];
-      this.anyCoverList = this.coverList;
+      this.anyCoverList = [...response];
     });
   }
 
@@ -557,7 +558,7 @@ export class ScholarshipListComponent implements OnInit {
     setTimeout(() => {
       let anyCountryArray: any = {id: null,country: "any country"};
       this.anyCountryList.unshift(anyCountryArray);
-      
+
       let anyScholarList:any = { id: null, type: "any"};
       this.anyScholarshipTypeList.unshift(anyScholarList); 
 
@@ -573,11 +574,14 @@ export class ScholarshipListComponent implements OnInit {
 
   getRecommendation() {
     let keyMapping: any = {"1": "country","2": "study_level","3": "type","4": "cover_id"};
+    
     let newData = Object.fromEntries(Object.entries(this.selectedData).map(([key, value]) => {
       let mappedKey = keyMapping[key] || key;
+      if (Array.isArray(value)) {
+        value = value.filter(item => item !== null);
+      }
       return [mappedKey, value];
     }));
-
     this.scholarshipListService.storeRecommendation(newData).subscribe();
     this.enableModule = true;
     this.setRecommendationToForm(newData);
@@ -602,8 +606,20 @@ export class ScholarshipListComponent implements OnInit {
   }
 
   selectCube(key: number, id: number) {
-    this.selectedData[key] = id;
-  }
+    if (key === 3) {
+      if (!Array.isArray(this.selectedData[key])) {
+        this.selectedData[key] = [];
+      }
+      const index = this.selectedData[key].indexOf(id);
+      if (index > -1) {
+        this.selectedData[key].splice(index, 1);
+      } else {
+        this.selectedData[key].push(id);
+      }
+    } else {
+      this.selectedData[key] = id;
+    }
+  }  
 
   resetRecommendation(){
     this.scholarshipListService.resetRecommendation().subscribe(res => {
