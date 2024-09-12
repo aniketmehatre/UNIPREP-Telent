@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from "@angular/router";
+import { ActivatedRoute, Params, Router } from "@angular/router";
 import { Observable, Subscription, interval, takeWhile } from "rxjs";
 import { ModuleListSub } from "../../../@Models/module.model";
 import { ConfirmationService, MenuItem, MessageService } from "primeng/api";
@@ -8,6 +8,8 @@ import { DataService } from "../../../data.service";
 import { LocationService } from "../../../location.service";
 import { AuthService } from 'src/app/Auth/auth.service';
 import { NgxUiLoaderService } from "ngx-ui-loader";
+import { Location } from '@angular/common';
+
 @Component({
   selector: 'uni-learninghubquiz',
   templateUrl: './learninghubquiz.component.html',
@@ -62,7 +64,7 @@ export class LearninghubquizComponent implements OnInit {
   orgnamewhitlabel: any;
   orglogowhitelabel: any;
   constructor(private moduleListService: ModuleServiceService, private authService: AuthService, private router: Router, private dataService: DataService,
-    private locationService: LocationService, private ngxService: NgxUiLoaderService, private toast: MessageService,) { }
+    private location: Location, private locationService: LocationService, private ngxService: NgxUiLoaderService, private toast: MessageService, private activatedRoute: ActivatedRoute) { }
 
   ngOnInit(): void {
     this.locationService.getImage().subscribe(imageUrl => {
@@ -151,7 +153,14 @@ export class LearninghubquizComponent implements OnInit {
     // } */
     localStorage.setItem("currentmodulenameforrecently", this.currentModuleName);
     this.loadModuleAndSubModule();
-    this.checkquizquestioncount()
+    this.checkquizquestioncount();
+    this.activatedRoute.queryParams.subscribe((params: Params) => {
+      let showReview = params['showReview'];
+      if (showReview === 'true') {
+        this.openReviewPopup();
+        this.isInstructionVisible=false;
+      }
+    });
   }
 
   upgradePlan(): void {
@@ -244,7 +253,11 @@ export class LearninghubquizComponent implements OnInit {
     // });
     this.stopTimer();
     if (this.currentModuleId > 10) {
-      this.router.navigate([`/pages/job-tool/career-tool`]);
+      if (window.history.length > 1) {
+        this.location.back()
+      } else {
+        this.router.navigate(['/pages/job-tool/career-tool'])
+      }
       return;
     }
     this.router.navigate([`/pages/modules/${this.currentModuleSlug}`]);
@@ -431,8 +444,11 @@ export class LearninghubquizComponent implements OnInit {
   }
   takeAnotherquiz() {
     if (this.currentModuleId > 10) {
-      this.router.navigate([`/pages/job-tool/career-tool`]);
-      return;
+      if (window.history.length > 1) {
+        this.location.back()
+      } else {
+        this.router.navigate(['/pages/job-tool/career-tool'])
+      }
     }
     this.router.navigate([`/pages/modules/quizmodule`]);
   }
@@ -440,20 +456,33 @@ export class LearninghubquizComponent implements OnInit {
     window.open(link, '_blank');
   }
   startTimer(): void {
-    this.timer = 0;
     this.totalquiztime = this.quizcount * 60;
     if (this.timerSubscription) {
       this.timerSubscription.unsubscribe();
     }
-    this.timerSubscription = interval(1000).pipe(
-      takeWhile(() => this.timer < (this.quizcount * 60))
-    ).subscribe(() => {
-      this.timer++;
-      // console.log(`Timer: ${this.timer} seconds`);
-      if (this.timer === this.quizcount * 60) {
-        this.restrict = true;
-      }
-    });
+    if (this.currentModuleId < 10) {
+      this.timer = 0;
+      this.timerSubscription = interval(1000).pipe(
+        takeWhile(() => this.timer < (this.quizcount * 60))
+      ).subscribe(() => {
+        this.timer++;
+        // console.log(`Timer: ${this.timer} seconds`);
+        if (this.timer === this.quizcount * 60) {
+          this.restrict = true;
+        }
+      });
+    } else {
+      this.timer = this.totalquiztime;
+      this.timerSubscription = interval(1000).pipe(
+        takeWhile(() => this.timer > 0)
+      ).subscribe(() => {
+        this.timer--;
+        // console.log(`Timer: ${this.timer} seconds`);
+        if (this.timer === 0) {
+          this.restrict = true;
+        }
+      });
+    }
   }
   formatTime(seconds: number): string {
     const minutes: number = Math.floor(seconds / 60);
@@ -468,8 +497,11 @@ export class LearninghubquizComponent implements OnInit {
   }
   timeIsOver() {
     if (this.currentModuleId > 10) {
-      this.router.navigate([`/pages/job-tool/career-tool`]);
-      return;
+      if (window.history.length > 1) {
+        this.location.back()
+      } else {
+        this.router.navigate(['/pages/job-tool/career-tool'])
+      }
     }
     this.router.navigate(['/pages/modules/quizmodule'])
   }

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { TestQuizService } from '../test-quiz.service';
 import { ActivatedRoute, Params } from '@angular/router';
-import { GetQuizPayload } from 'src/app/@Models/career-tool-category.model';
+import { GetQuizPayload, Quiz } from 'src/app/@Models/career-tool-category.model';
 
 @Component({
   selector: 'uni-quiz-test-list',
@@ -15,7 +15,7 @@ export class QuizTestListComponent implements OnInit {
   moduleId: string = '';
   first: number = 1;
   page: number = 1;
-  rows: number = 10;
+  rows: number = 12;
   count: number = 0;
 
   constructor(

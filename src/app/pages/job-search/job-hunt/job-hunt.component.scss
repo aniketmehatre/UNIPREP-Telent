@@ -51,3 +51,37 @@ img {
   overflow: hidden;
   text-overflow: ellipsis;
 }
+
+.custom-dropdown .custom-selected-item, .custom-dropdown .custom-dropdown-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%; /* Adjust based on the container's width */
+}
+
+.truncate-text {
+  display: inline-block;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%; /* Ensure the text doesn't exceed container's width */
+}
+.scrolling-text {
+  display: inline-block;
+  white-space: nowrap;
+  overflow: hidden;
+  position: relative;
+  animation: scrollText 8s linear infinite;
+}
+
+@keyframes scrollText {
+  0% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}

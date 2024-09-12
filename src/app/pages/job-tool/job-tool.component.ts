@@ -31,8 +31,11 @@ export class JobToolComponent implements OnInit {
 
   ngOnInit(): void {
     this.currentRoute = this.router.url;
+    console.log(this.currentRoute);
     this.changeTitle();
-    this.hideHeaderForPreviewPage();
+    if (!this.currentRoute.includes("pshychometric") && !this.currentRoute.includes("personality") && !this.currentRoute.includes("employer") && !this.currentRoute.includes("cost-of-living")) {
+      this.hideHeaderForPreviewPage();
+    }
     this.router
       .events.pipe(
         filter(event => event instanceof NavigationEnd),
@@ -47,7 +50,6 @@ export class JobToolComponent implements OnInit {
       this.title = "Career Tools";
     } else if (this.currentRoute.includes("cost-of-living")) {
       this.title = "Cost of living";
-      this.hideTitleForPreviewPage = false;
     } else if (this.currentRoute.includes("cv-builder")) {
       this.title = "CV Builder";
     } else if (this.currentRoute.includes("salary-converter")) {
@@ -61,15 +63,10 @@ export class JobToolComponent implements OnInit {
     }
     else if (this.currentRoute.includes("pshychometric")) {
       this.title = "Pshychometric Test";
-      this.hideTitleForPreviewPage = false;
-
     } else if (this.currentRoute.includes("personality")) {
       this.title = "Personality Test";
-      this.hideTitleForPreviewPage = false;
-
     } else {
       this.title = "Employer Test";
-      this.hideTitleForPreviewPage = false;
     }
   }
   goBack() {
@@ -90,6 +87,6 @@ export class JobToolComponent implements OnInit {
 
   isCostOfLivingRoute(): boolean {
     // console.log(this.currentRoute.includes('cost-of-living')) 
-    return this.currentRoute.includes('cost-of-living') || this.currentRoute.includes('salary-converter');
+    return this.currentRoute.includes('cost-of-living') || this.currentRoute.includes('salary-converter')|| this.currentRoute.includes('pshychometric')|| this.currentRoute.includes('employer')|| this.currentRoute.includes('personality');
   }
 }

@@ -33,6 +33,7 @@ import { SplitButtonModule } from 'primeng/splitbutton';
 import { TooltipModule } from 'primeng/tooltip';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ConfirmationService, MessageService } from 'primeng/api';
+import { NgxStripeModule } from 'ngx-stripe';
 @NgModule({
     declarations: [
         SubscriptionComponent,
@@ -66,7 +67,8 @@ import { ConfirmationService, MessageService } from 'primeng/api';
         TabViewModule,
         SplitButtonModule,
         TooltipModule ,
-        ConfirmDialogModule
+        ConfirmDialogModule,    
+        NgxStripeModule.forRoot('pk_test_51PWDWRG6xm4w4TISmCYsvtRDu0B3Q5MPws17z5tt8sTQd9amOrqEPc8ipSxsBJKRfSg7Cu3iHrFFz8qyol8tduui00fUPhbwuR'),
     ],
      providers: [ConfirmationService,MessageService ],
 })
