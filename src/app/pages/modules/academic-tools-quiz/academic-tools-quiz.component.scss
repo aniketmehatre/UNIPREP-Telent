@@ -1,0 +1,86 @@
+.questions-left {
+    display: inline;
+    white-space: nowrap;
+}
+
+.quizprogress {
+    margin-right: auto;
+    .p-progressbar {
+        height: 10px;
+        margin-top: 5px;
+    }
+}
+
+.btn-back,
+.btn-quit {
+    white-space: nowrap;
+}
+
+.text-bold {
+    font-weight: bold;
+}
+
+ 
+
+:host ::ng-deep p-carousel {
+    .p-carousel-indicators {
+        display: none !important;
+    }
+    .p-carousel-next,
+    .p-carousel-prev {
+        display: none !important;
+    }
+}
+.quiznotanswered {
+    border: 1px solid #e3e3e3;
+    border-radius: 8px;
+    width: 100%;
+    padding: 8px;
+    text-align: start;
+    color: #001631;
+}
+
+.optionanswered {
+    border: 1px solid var(--uniprep-primary);
+    border-radius: 8px;
+    color: #001631;
+}
+
+.optionreviewcorrect {
+    border: 1px solid var(--uniprep-primary);
+    background: green;
+    border-radius: 8px;
+    color: #fff;
+}
+
+.answercorct {
+    border: 1px solid var(--uniprep-primary);
+    background: green;
+    border-radius: 8px;
+    color: #fff;
+}
+
+.optionreviewwrong {
+    border: 1px solid #df3e3e;
+    background: #df3e3e;
+    border-radius: 8px;
+    color: #fff;
+}
+
+@media (max-width: 575.98px) {
+    .subjectcard {
+        .submoduleicon {
+            height: 60px;
+            width: 60px;
+            margin-right: 1rem;
+        }
+    }
+}
+
+.offer {
+    color: #df7905;
+}
+
+.select-title {
+    margin-bottom: 20px;
+}

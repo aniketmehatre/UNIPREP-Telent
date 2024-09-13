@@ -70,6 +70,7 @@ import { CareerPlannerComponent } from './career-planner/career-planner.componen
 import { CertificatesComponent } from './certificates/certificates.component';
 import { CourseListComponent } from "./course-list/course-list.component";
 import { NgxStripeModule } from "ngx-stripe";
+import { FounderstoolComponent } from './founderstool/founderstool.component';
 // import { JobToolComponent } from './job-tool/job-tool.component';
 @NgModule({
     declarations: [
@@ -103,6 +104,7 @@ import { NgxStripeModule } from "ngx-stripe";
         CareerPlannerComponent,
         CertificatesComponent,
         CourseListComponent,
+        FounderstoolComponent,
         // JobToolComponent,
         
     ],
