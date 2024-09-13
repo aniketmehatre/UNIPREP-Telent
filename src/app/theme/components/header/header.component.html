@@ -596,3 +596,38 @@
 		</div>
 	</div>
 </div>
+<!-- whitlabel subscription pop-up -->
+<div [ngStyle]="{ display: visibleExhastedUser ? 'block' : 'none' }" class="modal modal-bg subscriptionExhausted" role="dialog" tabindex="-1">
+	<div class="modal-dialog modal-dialog-scrollable modal-dialog-centered" role="document">
+		<div class="modal-content card bg-light">
+			<div class="text-right-close">
+				<a (click)="closeQuiz()" class="close" role="button">
+					<span aria-hidden="true"><i class="fa fa-times" aria-hidden="true"></i></span>
+				</a>
+			</div>
+			<div class="modal-body card-body">
+				<div class="container">
+					<div class="row mb-2">
+						<div class="col-md-12 px-4">
+							<div class="d-flex flex-column">
+								<div class="icon-container mb-3 mt-3">
+									<img src="../../../uniprep-assets/images/TrialExpire.png" alt="clock" width="100" />
+								</div>
+								<!-- <div class="mt-4 mb-1">
+									<span>
+										<strong class="firsttimelogin">
+											<h5 style="color: rgb(63 76 131)">Oops! Your Subscription has exhausted</h5>
+										</strong>
+									</span>
+								</div> -->
+								<div class="icon-container mt-1 d-flex justify-content-center mb-1">
+									<h6 style="color: rgb(63 76 131)">Please contact {{orgnamewhitlabel}} Company for access</h6>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
