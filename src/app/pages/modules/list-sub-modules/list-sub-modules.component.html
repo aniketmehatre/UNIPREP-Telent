@@ -1,42 +1,4 @@
 <div class="card readingcard">
-	<!-- <div class="company-list-expired {{currentModuleName}} {{selectedModule}}"
-        *ngIf="planExpired  && currentModuleId != 5">
-        <div class="row">
-            <div class="col-md-2 text-start"></div>
-            <div class="col-md-8 text-center">
-                <h5 class="select-title mb-1" tooltipPosition="top"
-                    pTooltip="Questions related to the application process are answered">
-                    {{currentModuleName | uppercase}} <i class="questiontooltip fa-solid fa-circle-question"></i>
-                </h5>
-            </div>
-            <div class="col-md-2"></div>
-        </div>
-        <div class="text-center mt-5 mb-4">
-            <img src="../../../uniprep-assets/images/smartloack.png" class="image" width="80">
-            <h3>{{infoMessage}}</h3>
-            <p><br>{{upgradePlanMsg}}
-            </p>
-            <p class="offer">{{aboutModule}}<br> {{moduleDetails}}</p>
-            <button pButton type="button"
-                class=" text-white p-ripple p-button-rounded p-button-warning p-button p-component"
-                (click)="upgradePlan()">Upgrade Plan<i class="fa fa-arrow-right exhausted-plan-icon"></i></button>
-        </div>
-    </div> -->
-	<!--    <div *ngIf="currentModuleId === 5 ">-->
-	<!--        <div class="row">-->
-	<!--            <div class="col-md-2 text-start"></div>-->
-	<!--            <div class="col-md-8 text-center">-->
-	<!--                <h5 class="select-title mb-1" tooltipPosition="top"-->
-	<!--                    pTooltip="Questions related to the application process are answered">-->
-	<!--                    {{currentModuleName | uppercase}} <i class="questiontooltip fa-solid fa-circle-question"></i>-->
-	<!--                </h5>-->
-	<!--                <div class="soon-university">-->
-	<!--                    <h2>Coming Soon..</h2>-->
-	<!--                </div>-->
-	<!--            </div>-->
-	<!--            <div class="col-md-2"></div>-->
-	<!--        </div>-->
-	<!--    </div>-->
 	<div class="card-body text-center pt-0">
 		<div class="row">
 			<div class="col-md-3 d-flex">
@@ -58,7 +20,7 @@
 					</div>
 				</div>
 			</div>
-			<div class="col-md-3 mt-2 text-end desktop justify-content-end d-none d-md-flex" *ngIf="currentModuleId != 5 && currentModuleId != 8 && currentModuleId !=10">
+			<div class="col-md-3 mt-2 text-end desktop justify-content-end d-none d-md-flex" *ngIf="currentModuleId != 5 && currentModuleId != 8 && currentModuleId !=10 && currentModuleId !=11">
 				<button role="button" style="background-color: black; cursor: pointer;" (click)="startQuiz()" class="btn w-75 m-0 px-2 py-2 homecardbtn homecardbtnquiz" [disabled]="quizpercentage >= 90">
 					<i class="fa-regular h3 fa-lightbulb-on mb-1"></i>
 					<p class="mb-1">Start Quiz</p>

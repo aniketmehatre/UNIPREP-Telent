@@ -34,6 +34,9 @@ const routes: Routes = [  {
     path: 'learning-hub', component: ListSubModulesComponent,
   },
   {
+    path: 'k12', component: ListSubModulesComponent,
+  },
+  {
     path: ':module_name/question-list/:id', component: QuestionListComponent,
   },
   {path: '', redirectTo: 'pre-admission', pathMatch: 'full'},

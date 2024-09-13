@@ -211,10 +211,21 @@ export class ListSubModulesComponent implements OnInit {
         this.currentModuleName = 'Learning Hub';
         this.currentApiSlug = 'SubmoduleListForStudents';
         this.infoMessage = 'Upgrade to access the Learning Hub',
-          this.unlockMessage = 'Unlock the power of success with our exclusive Pre-admission!',
+          this.unlockMessage = 'Unlock the power of success with our exclusive Learning Hub!',
           this.upgradePlanMsg = 'Upgrade your plan now to gain instant access.';
         this.aboutModule = 'Explore a vast database of Q&A about:',
           this.moduleDetails = 'Scholarships, document checklist, Education loan, letter of Recommendation and many more!'
+        this.howItWorksVideoLink = "https://www.youtube.com/embed/n9ECpsB6IoI?si=4coiypva6WZfr3NL";
+        break;
+      case 'k12':
+        this.currentModuleId = 14;
+        this.currentModuleName = 'K12';
+        this.currentApiSlug = 'SubmoduleListForStudents';
+        this.infoMessage = 'Upgrade to access the K12',
+            this.unlockMessage = 'Unlock the power of success with our exclusive k12!',
+            this.upgradePlanMsg = 'Upgrade your plan now to gain instant access.';
+        this.aboutModule = 'Explore a vast database of Q&A about:',
+            this.moduleDetails = 'Scholarships, document checklist, Education loan, letter of Recommendation and many more!'
         this.howItWorksVideoLink = "https://www.youtube.com/embed/n9ECpsB6IoI?si=4coiypva6WZfr3NL";
         break;
       default:
@@ -467,6 +478,19 @@ export class ListSubModulesComponent implements OnInit {
     //   this.restrict=true;
     //   return;
     // }
+    if (this.currentModuleId == 14){
+      let data: any = {
+        moduleId: this.currentModuleId,
+        category_id: this.subModuleList.find(list => list.submodule_id == id)?.category_id
+      }
+      this.isSkeletonVisible = true;
+      this.locationService.GetQuestionsCount(data).subscribe(data => {
+        this.isSkeletonVisible = false;
+        this.subModuleList = data;
+      });
+      this.canShowQuestionList = true;
+      return;
+    }
     if (this.currentModuleId == 8 && !this.canShowQuestionList) {
       let data: any = {
         moduleId: this.currentModuleId,

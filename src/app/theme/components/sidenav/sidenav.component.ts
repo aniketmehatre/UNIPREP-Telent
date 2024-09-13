@@ -60,6 +60,11 @@ export class SidenavComponent {
       image: "",
     },
     {
+      title: "k12",
+      url: "/pages/modules/k12",
+      image: "fa-solid fa-people-group",
+    },
+    {
       title: "Pre Admission",
       url: "/pages/modules/pre-admission",
       image: "fa-solid fa-file-import",
