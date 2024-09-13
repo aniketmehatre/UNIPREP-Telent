@@ -305,7 +305,7 @@
                                                     <div class="form-group">
                                                         <div class="mb-3">
                                                             <input class="w-100" type="text"
-                                                                   placeholder="your Designation"
+                                                                   placeholder="Your Designation"
                                                                    formControlName="work_designation" pInputText />
                                                             <div *ngIf="wrkExp.get('work_designation')?.invalid && wrkExp.get('work_designation')?.touched && submitted"
                                                                  class="text-danger text-xs">
@@ -356,9 +356,9 @@
                                                     <!-- (ngModelChange)="onEditorModelChange($event, i)" -->
                                                     <div class="form-group">
                                                         <div class="mb-3">
-                                                            <p-editor formControlName="work_job_description"
-                                                                      placeholder="About Job Description"
-                                                            ></p-editor>
+                                                            <p-editor formControlName="work_job_description" placeholder="About Job Description" [modules]="editorModules">
+                                                            </p-editor>
+
                                                             <div *ngIf="wrkExp.get('work_job_description')?.invalid && wrkExp.get('work_job_description')?.touched && submitted"
                                                                  class="text-danger text-xs">
                                                                 <div style="margin-left:10px;"
@@ -463,7 +463,7 @@
                                                     <label class="form-label labelFont">Degree</label>
                                                     <div class="form-group">
                                                         <div class="mb-3">
-                                                            <input class="w-100" type="text" placeholder="your Degree"
+                                                            <input class="w-100" type="text" placeholder="Your Degree"
                                                                    formControlName="edu_degree" pInputText />
                                                             <div *ngIf="eduDetail.get('edu_degree')?.invalid && eduDetail.get('edu_degree')?.touched && submitted"
                                                                  class="text-danger text-xs">
@@ -591,8 +591,9 @@
                                                     </div>
                                                     <div class="form-group">
                                                         <div class="mb-3">
-                                                            <p-editor formControlName="project_description"
-                                                                      placeholder="Project Description"></p-editor>
+                                                            <p-editor formControlName="project_description" placeholder="About Job Description" [modules]="editorModules"></p-editor>
+                                                            <!-- <p-editor formControlName="project_description"
+                                                                      placeholder="Project Description"></p-editor> -->
                                                             <div *ngIf="project.get('project_description')?.invalid && project.get('project_description')?.touched && submitted"
                                                                  class="text-danger text-xs">
                                                                 <div style="margin-left:10px;">Project Description
@@ -1319,7 +1320,7 @@
                             <p class="small-text" [innerHTML]="f['user_summary'].value"></p>
                         </div> 
                     </div>
-                    <div [style.height]="f['selected_exp_level'].value == 1 ? '150px' : '400px'" *ngIf="!hidingHeaders.includes('work_experience')">
+                    <div [style.height]="f['selected_exp_level'].value == 1 ? '300px' : '400px'" *ngIf="!hidingHeaders.includes('work_experience')">
                         <p class="headingStyle" style="margin:0px;"><span>experience</span></p>
                         <hr>
                         <div class="content">
@@ -1549,7 +1550,7 @@
                 </div>
 
                 <div class="col-md-8">
-                    <div [style.height]="f['selected_exp_level'].value == 1 ? '150px' : '400px'" *ngIf="!hidingHeaders.includes('work_experience')">
+                    <div [style.height]="f['selected_exp_level'].value == 1 ? '300px' : '400px'" *ngIf="!hidingHeaders.includes('work_experience')">
                         <p class="headingStyle zeroMarginPadding" [ngStyle]="{'color': selectedThemeColor }">experience
                         </p>
                         <hr class="hr-custom" [ngStyle]="{'color': selectedThemeColor, 'background-color':  selectedThemeColor}">
@@ -1673,7 +1674,7 @@
             </ng-container>
             <div class="row">
                 <div class="col-8">
-                    <div  [style.height]="f['selected_exp_level'].value == 1 ? '150px' : '360px'" *ngIf="!hidingHeaders.includes('work_experience')">
+                    <div  [style.height]="f['selected_exp_level'].value == 1 ? '300px' : '360px'" *ngIf="!hidingHeaders.includes('work_experience')">
                         <p class="headingStyle" ><span>experience</span></p>
                         <div class="content expContent fw-600">
                             <!-- <div class="vl"></div> -->

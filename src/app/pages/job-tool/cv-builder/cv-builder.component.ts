@@ -108,7 +108,7 @@ export class CvBuilderComponent implements OnInit {
     },
     
   ];
-
+  editorModules: any;
   planExpired: boolean = false
   restrict: boolean = false
   ehitlabelIsShow: boolean = true;
@@ -143,7 +143,7 @@ export class CvBuilderComponent implements OnInit {
       // user_phone: ['9524999563', [Validators.required]],
       // user_linkedin: ['vivek kaliyaperumal'],
       // // user_linkedin_link: ['https://www.linkedin.com/in/vivek-kaliyaperumal-066943289/'],
-      // user_website: ['www.ownwebsite.com'],
+      // user_website: [''],
       // user_summary: ['Results-driven full stack developer with expertise in front-end and back-end technologies. Proven track record of delivering high-quality applications for diverse clients.', [Validators.required]],
       EduDetailsArray: this.fb.array([]),
       workExpArray: this.fb.array([]),
@@ -159,6 +159,13 @@ export class CvBuilderComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.editorModules = {
+      toolbar: [
+        ['bold', 'italic', 'underline'], 
+        [{ 'list': 'ordered' }, { 'list': 'bullet' }],
+        ['clean'] // Clear formatting button
+      ]
+    };
     // this.triggerAddMoreButton();
     this.checkPlanIsExpired()
     this.locationService.getImage().subscribe(imageUrl => {
@@ -259,7 +266,7 @@ export class CvBuilderComponent implements OnInit {
   changeExperience(event: any) {
     if (event.value == 1) {
       this.eduDetailsLimit = 3;
-      this.wrkExpLimit = 1;
+      this.wrkExpLimit = 2;
     } else {
       this.eduDetailsLimit = 2;
       this.wrkExpLimit = 3;

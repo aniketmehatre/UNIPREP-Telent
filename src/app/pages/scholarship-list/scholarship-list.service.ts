@@ -72,4 +72,25 @@ export class ScholarshipListService {
       headers: headers,
     });
   }
+
+  storeRecommendation(data: any){
+    const headers = new HttpHeaders().set("Accept", "application/json");
+    return this.http.post<any>(environment.ApiUrl + "/storeScholarRec", data, {
+      headers: headers,
+    });
+  }
+
+  getRecommendations(){
+    const headers = new HttpHeaders().set("Accept", "application/json");
+    return this.http.post<any>(environment.ApiUrl + "/getScholarRec", {
+      headers: headers,
+    });
+  }
+  
+  resetRecommendation(){
+    const headers = new HttpHeaders().set("Accept", "application/json");
+    return this.http.post<any>(environment.ApiUrl + "/resetScholarRec", {
+      headers: headers,
+    });
+  }
 }
