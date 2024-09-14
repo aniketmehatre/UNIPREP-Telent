@@ -68,7 +68,14 @@
                                             <p class="mb-3 circle text-center">{{i+1}}</p>
                                         </div> -->
 								<div class="col-2 d-flex align-items-center justify-content-center text-end" *ngIf="sub.popular == 1">
-									<i class="pi pi-star-fill text-danger" pTooltip="Most Popular Question" tooltipPosition="right" style="font-size: 1.5rem"></i>
+                                    <div *ngIf="sub.national == 'no'; else elseBlock">
+                                        <i class="pi pi-star-fill text-danger" pTooltip="Most Popular Question" tooltipPosition="right" style="font-size: 1.5rem"></i>
+                                    </div>
+
+                                    <ng-template #elseBlock>
+                                        <i class="pi pi-star-fill text-primary" pTooltip="Most Popular National Question" tooltipPosition="right" style="font-size: 1.5rem"></i>
+                                    </ng-template>
+
 								</div>
 							</div>
 							<button
