@@ -1,7 +1,7 @@
 export interface GetCategoriesPayload {
     moduleId: string;
-    page: number;
-    perpage: number;
+    page?: number;
+    perpage?: number;
 }
 export interface CategoryResponse {
     data: CategoriesList[];
@@ -18,8 +18,6 @@ export interface CategoriesList {
 export interface GetSubcategoryPayload {
     categoryId: string;
     moduleId: string;
-    page: number;
-    perpage: number;
 }
 export interface SubCategoryResponse {
     data: SubCategoriesList[];
@@ -34,8 +32,6 @@ export interface SubCategoriesList {
 }
 export interface GetQuizPayload {
     categoryId: string;
-    page: number;
-    perpage: number;
 }
 export interface QuizResponse {
     data: Quiz[];

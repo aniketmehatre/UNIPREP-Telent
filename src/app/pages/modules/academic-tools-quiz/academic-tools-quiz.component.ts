@@ -61,6 +61,7 @@ export class AcademicToolsQuizComponent implements OnInit {
   ehitlabelIsShow: boolean = true;
   imagewhitlabeldomainname: any
   orgnamewhitlabel: any;
+  quizId: string = '';
   constructor(private moduleListService: ModuleServiceService, private authService: AuthService, private router: Router, private dataService: DataService,
     private location: Location, private locationService: LocationService, private ngxService: NgxUiLoaderService, private toast: MessageService, private activatedRoute: ActivatedRoute) { }
 
@@ -68,13 +69,17 @@ export class AcademicToolsQuizComponent implements OnInit {
     this.locationService.getOrgName().subscribe(orgname => {
       this.orgnamewhitlabel = orgname;
     });
+    this.activatedRoute.params.subscribe(res => {
+      this.currentModuleId = res['id'];
+      this.quizId = res['submoduleId'];
+      this.init();
+    });
     this.imagewhitlabeldomainname = window.location.hostname;
     if (this.imagewhitlabeldomainname === "dev-student.uniprep.ai" || this.imagewhitlabeldomainname === "uniprep.ai" || this.imagewhitlabeldomainname === "localhost") {
       this.ehitlabelIsShow = true;
     } else {
       this.ehitlabelIsShow = false;
     }
-    this.init();
     this.checkplanExpire();
   }
 
@@ -262,7 +267,7 @@ export class AcademicToolsQuizComponent implements OnInit {
       }
       return dat;
     });
- 
+
     let sing = this.quizData[this.selectedQuiz];
     if (!sing.user_answered_value) {
       this.answerOptionClicked = true;
@@ -355,7 +360,7 @@ export class AcademicToolsQuizComponent implements OnInit {
     this.quizData = [];
     var data = {
       moduleId: this.currentModuleId,
-      submoduleId: localStorage.getItem("learninghubsubmoduleid")
+      submoduleId: this.quizId
     }
     this.moduleListService.learninghubquiz(data).subscribe((res) => {
       this.quizcount = res.count > 0 ? res.count : 0;

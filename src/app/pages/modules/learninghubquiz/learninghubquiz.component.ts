@@ -98,10 +98,10 @@ export class LearninghubquizComponent implements OnInit {
       this.countryName = data;
     });
     switch (this.currentModuleSlug) {
-      case 'pshychometric':
+      case 'psychometric':
         this.universityidforquiz = null;
         this.currentModuleId = 11;
-        this.currentModuleName = 'Pshychometric Test';
+        this.currentModuleName = 'Psychometric Test';
         this.currentApiSlug = 'SubmoduleListForStudents';
         this.selectedModule = 'pshychometric-test'
         break;
