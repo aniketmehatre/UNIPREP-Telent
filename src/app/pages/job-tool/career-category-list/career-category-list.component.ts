@@ -13,7 +13,7 @@ export class CareerCategoryListComponent implements OnInit {
   module_id: string = '11';
   first: number = 1;
   page: number = 1;
-  rows: number = 10;
+  rows: number = 50;
   moduleName: string = "pshychometric";
   count: number = 0;
 
@@ -34,8 +34,11 @@ export class CareerCategoryListComponent implements OnInit {
   getCategoryList() {
     const params: GetCategoriesPayload = {
       moduleId: this.module_id,
-      page: this.page,
-      perpage: this.rows
+
+    }
+    if (this.module_id === '13') {
+      params.page = this.page,
+        params.perpage = this.rows
     }
     this.testQuizService.getCategoryList(params).subscribe((res: CategoryResponse) => {
       this.categories = res.data;
@@ -46,7 +49,7 @@ export class CareerCategoryListComponent implements OnInit {
     let moduleUrl = "";
     switch (this.module_id) {
       case '11':
-        moduleUrl = "pshychometric";
+        moduleUrl = "psychometric";
         break;
       case '12':
         moduleUrl = "personality";
@@ -63,8 +66,10 @@ export class CareerCategoryListComponent implements OnInit {
   }
   pageChange(event: any) {
     this.first = event.page;
-    this.page = event.page + 1;
-    this.rows = event.rows;
+    if (this.module_id === '13') {
+      this.page = event.page + 1;
+      this.rows = event.rows;
+    }
     this.getCategoryList();
   }
 }

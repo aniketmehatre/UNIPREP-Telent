@@ -108,7 +108,7 @@ export class CvBuilderComponent implements OnInit {
     },
     
   ];
-
+  editorModules: any;
   planExpired: boolean = false
   restrict: boolean = false
   ehitlabelIsShow: boolean = true;
@@ -143,7 +143,7 @@ export class CvBuilderComponent implements OnInit {
       // user_phone: ['9524999563', [Validators.required]],
       // user_linkedin: ['vivek kaliyaperumal'],
       // // user_linkedin_link: ['https://www.linkedin.com/in/vivek-kaliyaperumal-066943289/'],
-      // user_website: ['www.ownwebsite.com'],
+      // user_website: [''],
       // user_summary: ['Results-driven full stack developer with expertise in front-end and back-end technologies. Proven track record of delivering high-quality applications for diverse clients.', [Validators.required]],
       EduDetailsArray: this.fb.array([]),
       workExpArray: this.fb.array([]),
@@ -159,6 +159,13 @@ export class CvBuilderComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.editorModules = {
+      toolbar: [
+        ['bold', 'italic', 'underline'], 
+        [{ 'list': 'ordered' }, { 'list': 'bullet' }],
+        ['clean'] // Clear formatting button
+      ]
+    };
     // this.triggerAddMoreButton();
     this.checkPlanIsExpired()
     this.locationService.getImage().subscribe(imageUrl => {
@@ -190,6 +197,89 @@ export class CvBuilderComponent implements OnInit {
     ];
     this.getCountryCodeList();
     this.skillsList();
+    this.getUserPrefilledData();
+  }
+
+  getUserPrefilledData(){
+    this.resumeService.getCVPrefilledData().subscribe(res => {
+      if(res.status){
+        const storedValues = JSON.parse(res.data.data);
+        this.resumeFormInfoData.patchValue(storedValues);
+
+        const workExpData = storedValues.workExpArray;
+        if(workExpData.length != 0){
+          workExpData.forEach((activity:any) => {
+            this.getWorkExpArray.push(this.fb.group({
+              work_org_name: [activity.work_org_name,Validators.required],
+              work_currently_working:[activity.work_currently_working],
+              work_start_year: [activity.work_start_year,Validators.required],
+              work_end_year: [activity.work_end_year,Validators.required],
+              work_designation: [activity.work_designation,Validators.required],
+              work_type: [activity.work_type,Validators.required],
+              work_location: [activity.work_location,Validators.required],
+              work_job_description: [activity.work_job_description,Validators.required],
+            }));
+          });
+        }
+
+        const educationData = storedValues.EduDetailsArray;
+        if(educationData.length != 0){
+          educationData.forEach((element: any) => {
+            this.getEduDetailsArray.push(this.fb.group({
+              edu_college_name: [element.edu_college_name,Validators.required],
+              edu_still_pursuing:[element.edu_still_pursuing],
+              edu_start_year: [element.edu_start_year, Validators.required],
+              edu_end_year: [element.edu_end_year, Validators.required],
+              edu_degree: [element.edu_degree, Validators.required],
+              edu_location: [element.edu_location, Validators.required],
+              edu_percentage: [element.edu_percentage, Validators.required],
+              edu_cgpa_percentage: [element.edu_cgpa_percentage],
+            }));
+          });
+        }
+
+        const certificateData = storedValues.certificatesArray;
+        if(certificateData.length != 0){
+          certificateData.forEach((element: any) => {
+            this.getCertificatesArray.push(this.fb.group({
+              certificate_name: [element.certificate_name, Validators.required],
+              certificate_issued: [element.certificate_issued, Validators.required],
+              certificate_id: [element.certificate_id],
+              certicate_link: [element.certicate_link],
+            }));
+          });
+        }
+
+        const achievementData = storedValues.extraCurricularArray;
+        if(achievementData.length != 0){
+          achievementData.forEach((element: any) => {
+            this.getExtraCurricularArray.push(this.fb.group({
+              extra_curricular_activites: [element.extra_curricular_activites, Validators.required]
+            }));
+          });
+        }
+
+        const skillsData = storedValues.skillsArray;
+        if(skillsData.length != 0){
+          skillsData.forEach((element: any) => {
+            this.getSkillsArray.push(this.fb.group({
+              skills: [element.skills, Validators.required],
+              skills_proficiency: [element.skills_proficiency, Validators.required],
+            }));
+          });
+        }
+
+        const languageData = storedValues.languagesKnownArray;
+        if(languageData.length != 0){
+          languageData.forEach((element: any) => {
+            this.getLanguagesKnownArray.push(this.fb.group({
+              language: [element.language, Validators.required],
+              lang_proficiency: [element.lang_proficiency, Validators.required],
+            }));
+          });
+        }
+      }
+    });
   }
 
   skillsList(){
@@ -259,7 +349,7 @@ export class CvBuilderComponent implements OnInit {
   changeExperience(event: any) {
     if (event.value == 1) {
       this.eduDetailsLimit = 3;
-      this.wrkExpLimit = 1;
+      this.wrkExpLimit = 2;
     } else {
       this.eduDetailsLimit = 2;
       this.wrkExpLimit = 3;

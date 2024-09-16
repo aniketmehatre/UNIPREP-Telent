@@ -129,4 +129,11 @@ export class CourseListService {
       headers: headers,
     });
   }
+
+  getCVPrefilledData(){
+    const headers = new HttpHeaders().set("Accept", "application/json");
+    return this.http.post<any>(environment.ApiUrl + "/cvPrefilledData" ,{
+      headers: headers,
+    });
+  }
 }

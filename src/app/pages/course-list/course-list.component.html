@@ -15,59 +15,62 @@
 				</div>
 			</div>
 		</div>
-		<p-carousel [value]="recommendations" [numVisible]="1" [numScroll]="1" [circular]="false" [showNavigators]="false" [showIndicators]="false" [page]="activePageIndex" styleClass="h-100">
-			<ng-template let-recommendation let-i="index" pTemplate="item">
-				<div class="d-flex flex-column justify-content-between">
-					<div class="product-item">
-						<div class="product-item-content">
-							<div class="p-mb-3"></div>
-							<div class="text-center">
-								<p class="question-number p-2">Question Number {{ recommendation.id }}</p>
-								<h4 class="p-mb-1 question p-2">{{ recommendation.question }}</h4>
-							</div>
-							<div class="check-list">
-								<div class="align-items-center">
-									<ng-container *ngIf="recommendation.id == 1">
-										<p-multiSelect styleClass="w-100" placeholder="Select Course Country" [options]="countryList" display="chip" optionLabel="country" optionValue="id" [(ngModel)]="selectedData[recommendation.id]" [appendTo]="'body'"></p-multiSelect>
-										<p class="text-center" [ngClass]="{ 'd-none': invalidClass === false }" style="color: red">Please Choose Any one option</p>
-									</ng-container>
-									<ng-container *ngIf="recommendation.id == 2">
-										<p-multiSelect styleClass="w-100" placeholder="Select Course Subject" [options]="subjectNameList" display="chip" optionLabel="category_name" optionValue="id" [(ngModel)]="selectedData[recommendation.id]" [appendTo]="'body'"></p-multiSelect>
-										<p class="text-center" [ngClass]="{ 'd-none': invalidClass === false }" style="color: red">Please Choose Any one option</p>
-									</ng-container>
-									<ng-container *ngIf="recommendation.id == 3">
-										<div class="cube-container">
-											<div *ngFor="let cube of studyLevelCubes" class="cube" (click)="selectCube(3,cube.id)" [ngClass]="{'selected': selectedData[3] === cube.id}">
-											  <label>{{ cube.label }}</label>
-											  <i class="fa-solid fa-circle-check tickPlacement" *ngIf="selectedData[3] === cube.id" ></i>
+		<div class="carousel-container">
+			<p-carousel [value]="recommendations" [numVisible]="1" [numScroll]="1" [circular]="false" [showNavigators]="false" [showIndicators]="false" [page]="activePageIndex" styleClass="h-100">
+				<ng-template let-recommendation let-i="index" pTemplate="item">
+					<div class="d-flex flex-column justify-content-between" style="height: 63vh;">
+						<div class="product-item">
+							<div class="product-item-content">
+								<div class="p-mb-3"></div>
+								<div class="text-center">
+									<p class="question-number p-2">Question Number {{ recommendation.id }}</p>
+									<h4 class="p-mb-1 question p-2">{{ recommendation.question }}</h4>
+								</div>
+								<div class="check-list">
+									<div class="align-items-center">
+										<ng-container *ngIf="recommendation.id == 1">
+											<p-multiSelect styleClass="w-100" placeholder="Select Course Country" [options]="countryList" display="chip" optionLabel="country" optionValue="id" [(ngModel)]="selectedData[recommendation.id]" [appendTo]="'body'"></p-multiSelect>
+											<p class="text-center" [ngClass]="{ 'd-none': invalidClass === false }" style="color: red">Please Choose Any one option</p>
+										</ng-container>
+										<ng-container *ngIf="recommendation.id == 2">
+											<p-multiSelect styleClass="w-100" placeholder="Select Course Subject" [options]="subjectNameList" display="chip" optionLabel="category_name" optionValue="id" [(ngModel)]="selectedData[recommendation.id]" [appendTo]="'body'"></p-multiSelect>
+											<p class="text-center" [ngClass]="{ 'd-none': invalidClass === false }" style="color: red">Please Choose Any one option</p>
+										</ng-container>
+										<ng-container *ngIf="recommendation.id == 3">
+											<div class="cube-container">
+												<div *ngFor="let cube of studyLevelCubes" class="cube" (click)="selectCube(3,cube.id)" [ngClass]="{'selected': selectedData[3] === cube.id}">
+												  <label>{{ cube.label }}</label>
+												  <i class="fa-solid fa-circle-check tickPlacement" *ngIf="selectedData[3] === cube.id" ></i>
+												</div>
 											</div>
-										</div>
-										<p class="text-center" [ngClass]="{ 'd-none': invalidClass === false }" style="color: red">Please Choose Any one option</p>
-									</ng-container>
-									<ng-container *ngIf="recommendation.id == 4">
-										<p-multiSelect styleClass="w-100" placeholder="Select Intake Month" [options]="monthList" display="chip" optionLabel="name" optionValue="id" [(ngModel)]="selectedData[recommendation.id]" [appendTo]="'body'"></p-multiSelect>
-									</ng-container>
-									<ng-container *ngIf="recommendation.id == 5">
-										<div class="cube-container">
-											<div *ngFor="let cube of worldRankCubes" class="cube" (click)="selectCube(5,cube.id)" [ngClass]="{'selected': selectedData[5] === cube.id}">
-											  <label>{{ cube.value }}</label>
-											  <i class="fa-solid fa-circle-check tickPlacement" *ngIf="selectedData[5] === cube.id" ></i>
+											<p class="text-center" [ngClass]="{ 'd-none': invalidClass === false }" style="color: red">Please Choose Any one option</p>
+										</ng-container>
+										<ng-container *ngIf="recommendation.id == 4">
+											<p-multiSelect styleClass="w-100" placeholder="Select Intake Month" [options]="recMonthList" display="chip" optionLabel="name" optionValue="id" [(ngModel)]="selectedData[recommendation.id]" [appendTo]="'body'"></p-multiSelect>
+										</ng-container>
+										<ng-container *ngIf="recommendation.id == 5">
+											<div class="cube-container">
+												<div *ngFor="let cube of worldRankCubes" class="cube" (click)="selectCube(5,cube.id)" [ngClass]="{'selected': selectedData[5] === cube.id}">
+												  <label>{{ cube.value }}</label>
+												  <i class="fa-solid fa-circle-check tickPlacement" *ngIf="selectedData[5] === cube.id" ></i>
+												</div>
 											</div>
-										</div>
-										<p class="text-center" [ngClass]="{ 'd-none': invalidClass === false }" style="color: red">Please Choose Any one option</p>
-									</ng-container>
+											<p class="text-center" [ngClass]="{ 'd-none': invalidClass === false }" style="color: red">Please Choose Any one option</p>
+										</ng-container>
+									</div>
 								</div>
 							</div>
 						</div>
+						<div class="d-flex justify-content-between p-3">
+							<button pButton type="button" class="text-white p-ripple p-button-rounded p-button-info-prev p-button p-component p-2" [style.visibility]="recommendation.id == 1 ? 'hidden' : 'visible'" (click)="previous()" ><i class="fa fa-arrow-left exhausted-plan-icon-prev"></i> Previous</button>
+							<button pButton type="button" (click)="next(recommendation.id)" *ngIf="recommendation.id != 5" class="text-white p-ripple p-button-rounded p-button-info-next p-button p-component p-2">Next <i class="fa fa-arrow-right exhausted-plan-icon-next" ></i></button>
+							<button pButton type="button" (click)="getRecommendation()" *ngIf="recommendation.id == 5" class="text-white p-ripple p-button-rounded p-button-info-succes p-button p-component p-2" >Get Recommendations<i class="fa fa-check-circle exhausted-plan-icon-success"></i></button>
+						</div>
 					</div>
-					<div class="d-flex justify-content-between p-3">
-						<button pButton type="button" class="text-white p-ripple p-button-rounded p-button-info-prev p-button p-component p-2" [style.visibility]="recommendation.id == 1 ? 'hidden' : 'visible'" (click)="previous()" ><i class="fa fa-arrow-left exhausted-plan-icon-prev"></i> Previous</button>
-						<button pButton type="button" (click)="next(recommendation.id)" *ngIf="recommendation.id != 5" class="text-white p-ripple p-button-rounded p-button-info-next p-button p-component p-2">Next <i class="fa fa-arrow-right exhausted-plan-icon-next" ></i></button>
-						<button pButton type="button" (click)="getRecommendation()" *ngIf="recommendation.id == 5" class="text-white p-ripple p-button-rounded p-button-info-succes p-button p-component p-2" >Get Recommendations<i class="fa fa-check-circle exhausted-plan-icon-success"></i></button>
-					</div>
-				</div>
-			</ng-template>
-		</p-carousel>
+				</ng-template>
+			</p-carousel>
+		</div>
+
 	</ng-container>
 	<ng-container *ngIf="enableModule">
 		<div [style.display]="guidelinesDiv ? 'block' : 'none'">

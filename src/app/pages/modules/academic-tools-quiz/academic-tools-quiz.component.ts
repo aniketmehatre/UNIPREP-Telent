@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router } from "@angular/router";
 import { Observable, Subscription, interval, takeWhile } from "rxjs";
-import { ModuleListSub } from "../../../@Models/module.model";
-import { ConfirmationService, MenuItem, MessageService } from "primeng/api";
+import { MenuItem, MessageService } from "primeng/api";
 import { ModuleServiceService } from "../../module-store/module-service.service";
 import { DataService } from "../../../data.service";
 import { LocationService } from "../../../location.service";
@@ -11,11 +10,11 @@ import { NgxUiLoaderService } from "ngx-ui-loader";
 import { Location } from '@angular/common';
 
 @Component({
-  selector: 'uni-learninghubquiz',
-  templateUrl: './learninghubquiz.component.html',
-  styleUrls: ['./learninghubquiz.component.scss']
+  selector: 'uni-academic-tools-quiz',
+  templateUrl: './academic-tools-quiz.component.html',
+  styleUrls: ['./academic-tools-quiz.component.scss']
 })
-export class LearninghubquizComponent implements OnInit {
+export class AcademicToolsQuizComponent implements OnInit {
   quizData: any[] = [];
   currentCountryId: any
   currentModuleId: any;
@@ -62,16 +61,18 @@ export class LearninghubquizComponent implements OnInit {
   ehitlabelIsShow: boolean = true;
   imagewhitlabeldomainname: any
   orgnamewhitlabel: any;
-  orglogowhitelabel: any;
+  quizId: string = '';
   constructor(private moduleListService: ModuleServiceService, private authService: AuthService, private router: Router, private dataService: DataService,
     private location: Location, private locationService: LocationService, private ngxService: NgxUiLoaderService, private toast: MessageService, private activatedRoute: ActivatedRoute) { }
 
   ngOnInit(): void {
-    this.locationService.getImage().subscribe(imageUrl => {
-      this.orglogowhitelabel = imageUrl;
-    });
     this.locationService.getOrgName().subscribe(orgname => {
       this.orgnamewhitlabel = orgname;
+    });
+    this.activatedRoute.params.subscribe(res => {
+      this.currentModuleId = res['id'];
+      this.quizId = res['submoduleId'];
+      this.init();
     });
     this.imagewhitlabeldomainname = window.location.hostname;
     if (this.imagewhitlabeldomainname === "dev-student.uniprep.ai" || this.imagewhitlabeldomainname === "uniprep.ai" || this.imagewhitlabeldomainname === "localhost") {
@@ -79,7 +80,6 @@ export class LearninghubquizComponent implements OnInit {
     } else {
       this.ehitlabelIsShow = false;
     }
-    this.init();
     this.checkplanExpire();
   }
 
@@ -97,39 +97,17 @@ export class LearninghubquizComponent implements OnInit {
     this.dataService.countryNameSource.subscribe((data) => {
       this.countryName = data;
     });
-    switch (this.currentModuleSlug) {
-      case 'psychometric':
-        this.universityidforquiz = null;
-        this.currentModuleId = 11;
-        this.currentModuleName = 'Psychometric Test';
-        this.currentApiSlug = 'SubmoduleListForStudents';
-        this.selectedModule = 'pshychometric-test'
-        break;
-      case 'personality':
-        this.universityidforquiz = null;
-        this.currentModuleId = 12;
-        this.currentModuleName = 'Personality Test';
-        this.currentApiSlug = 'SubmoduleListForStudents';
-        this.selectedModule = 'personality-test'
-        break;
-      case 'employer':
-        this.universityidforquiz = null;
-        this.currentModuleId = 13;
-        this.currentModuleName = 'Employer Test';
-        this.currentApiSlug = 'SubmoduleListForStudents';
-        this.selectedModule = 'employer-test'
-        break;
-      default:
-        this.currentModuleId = 8;
-        this.currentModuleName = 'Learning Hub';
-        this.currentApiSlug = 'SubmoduleListForStudents';
-        this.infoMessage = 'Upgrade to access the Learning Hub',
-          this.unlockMessage = ' ',
-          this.upgradePlanMsg = 'Upgrade your plan now to gain instant access.';
-        this.aboutModule = 'Explore a vast database of Q&A about:',
-          this.moduleDetails = ' Arrival, student discounts, banking, full time jobs, post study work and many more!'
-        break;
-    }
+
+    this.currentModuleId = 8;
+    this.currentModuleName = 'Learning Hub';
+    this.currentApiSlug = 'SubmoduleListForStudents';
+    this.infoMessage = 'Upgrade to access the Learning Hub',
+      this.unlockMessage = ' ',
+      this.upgradePlanMsg = 'Upgrade your plan now to gain instant access.';
+    this.aboutModule = 'Explore a vast database of Q&A about:',
+      this.moduleDetails = ' Arrival, student discounts, banking, full time jobs, post study work and many more!'
+
+
     this.responsiveOptions = [
       {
         breakpoint: '1199px',
@@ -147,20 +125,11 @@ export class LearninghubquizComponent implements OnInit {
         numScroll: 1,
       }
     ];
-    /*FU
-    // if (this.currentModuleId == 5) {
-    //   return;
-    // } */
+
     localStorage.setItem("currentmodulenameforrecently", this.currentModuleName);
     this.loadModuleAndSubModule();
     this.checkquizquestioncount();
-    this.activatedRoute.queryParams.subscribe((params: Params) => {
-      let showReview = params['showReview'];
-      if (showReview === 'true') {
-        this.openReviewPopup();
-        this.isInstructionVisible=false;
-      }
-    });
+
   }
 
   upgradePlan(): void {
@@ -183,21 +152,15 @@ export class LearninghubquizComponent implements OnInit {
   }
 
   loadModuleAndSubModule() {
-    //this.isSkeletonVisible = true;
-    //this.subModules$ = this.moduleListService.subModuleList$();
     let data = {
       countryId: this.currentCountryId,
       moduleId: this.currentModuleId,
       api_module_name: this.currentApiSlug
     }
-    //this.moduleListService.loadSubModules(data);
     this.locationService.GetQuestionsCount(data).subscribe(data => {
       this.isSkeletonVisible = false;
       this.subModuleList = data;
     })
-    // this.subModules$.subscribe(event => {
-    //   this.subModuleList = event;
-    // });
     this.locationService.getUniPerpModuleList().subscribe((data: any) => {
       this.moduleList = data.modules;
       this.ngxService.stop();
@@ -246,11 +209,6 @@ export class LearninghubquizComponent implements OnInit {
   }
 
   closeQuiz() {
-    // this.confirmationService.confirm({
-    //   message: 'Are you sure you want to Quit, All your current progress will be lost.',
-    //   header: 'Confirmation',
-    //   icon: 'fa-solid fa-circle-exclamation',
-    // });
     this.stopTimer();
     if (this.currentModuleId > 10) {
       if (window.history.length > 1) {
@@ -309,12 +267,7 @@ export class LearninghubquizComponent implements OnInit {
       }
       return dat;
     });
-    // time checking for same question or different quesion
-    // const exists = this.selectedQuizArrayForTimer.some(item => item.id === singleQuizData.id);
-    // if (!exists) {
-    //   this.selectedQuizArrayForTimer.push(singleQuizData);
-    //   this.resetTimer();
-    // }
+
     let sing = this.quizData[this.selectedQuiz];
     if (!sing.user_answered_value) {
       this.answerOptionClicked = true;
@@ -364,7 +317,6 @@ export class LearninghubquizComponent implements OnInit {
       this.isQuizSubmit = true;
       this.checkquizquestionmodule()
     })
-    // this.totalPercentage = (this.answeredCorrect / this.quizData.length) * 100;
   }
 
   retryQuiz() {
@@ -407,9 +359,8 @@ export class LearninghubquizComponent implements OnInit {
   checkquizquestioncount() {
     this.quizData = [];
     var data = {
-      // countryId: this.currentCountryId,
       moduleId: this.currentModuleId,
-      submoduleId: localStorage.getItem("learninghubsubmoduleid")
+      submoduleId: this.quizId
     }
     this.moduleListService.learninghubquiz(data).subscribe((res) => {
       this.quizcount = res.count > 0 ? res.count : 0;
@@ -443,14 +394,9 @@ export class LearninghubquizComponent implements OnInit {
     window.open(this.certificatesurl, '_blank');
   }
   takeAnotherquiz() {
-    if (this.currentModuleId > 10) {
-      if (window.history.length > 1) {
-        this.location.back()
-      } else {
-        this.router.navigate(['/pages/job-tool/career-tool'])
-      }
+    if (window.history.length > 1) {
+      this.location.back()
     }
-    this.router.navigate([`/pages/modules/quizmodule`]);
   }
   openReferAnswer(link: any) {
     window.open(link, '_blank');
@@ -460,29 +406,16 @@ export class LearninghubquizComponent implements OnInit {
     if (this.timerSubscription) {
       this.timerSubscription.unsubscribe();
     }
-    if (this.currentModuleId < 10) {
-      this.timer = 0;
-      this.timerSubscription = interval(1000).pipe(
-        takeWhile(() => this.timer < (this.quizcount * 60))
-      ).subscribe(() => {
-        this.timer++;
-        // console.log(`Timer: ${this.timer} seconds`);
-        if (this.timer === this.quizcount * 60) {
-          this.restrict = true;
-        }
-      });
-    } else {
-      this.timer = this.totalquiztime;
-      this.timerSubscription = interval(1000).pipe(
-        takeWhile(() => this.timer > 0)
-      ).subscribe(() => {
-        this.timer--;
-        // console.log(`Timer: ${this.timer} seconds`);
-        if (this.timer === 0) {
-          this.restrict = true;
-        }
-      });
-    }
+    this.timer = this.totalquiztime;
+    this.timerSubscription = interval(1000).pipe(
+      takeWhile(() => this.timer > 0)
+    ).subscribe(() => {
+      this.timer--;
+      if (this.timer === 0) {
+        this.restrict = true;
+      }
+    });
+
   }
   formatTime(seconds: number): string {
     const minutes: number = Math.floor(seconds / 60);
@@ -496,14 +429,9 @@ export class LearninghubquizComponent implements OnInit {
     this.startTimer();
   }
   timeIsOver() {
-    if (this.currentModuleId > 10) {
-      if (window.history.length > 1) {
-        this.location.back()
-      } else {
-        this.router.navigate(['/pages/job-tool/career-tool'])
-      }
+    if (window.history.length > 1) {
+      this.location.back()
     }
-    this.router.navigate(['/pages/modules/quizmodule'])
   }
   stopTimer(): void {
     if (this.timerSubscription) {
@@ -514,4 +442,5 @@ export class LearninghubquizComponent implements OnInit {
     this.isReviewVisible = false;
     this.isQuizSubmit = true;
   }
+
 }

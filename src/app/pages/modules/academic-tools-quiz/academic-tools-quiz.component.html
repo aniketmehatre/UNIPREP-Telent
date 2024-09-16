@@ -1,4 +1,4 @@
-<div class="card readingcard" style="background-color: white; height: 100%;" *ngIf="isInstructionVisible">
+<div class="card readingcard" style="background-color: white; height:100%;" *ngIf="isInstructionVisible">
     <div class="card-body text-center pt-0">
         <div class="row">
             <div class="col-md-2">
@@ -12,13 +12,14 @@
         <div class="row mt-4">
             <div class="col-md-12 text-start">
                 <ul class="font-secondarycolor fw-medium lh-lg instructionlist">
-                    <li>The overall quiz time is {{quizcount}} minutes.</li>
-                    <li>You can not skip any question / All question are mandatory to answer.</li>
-                    <li>You can not access the other screens while taking the quiz.</li>
+                    <li>There are 20 MCQs in the quiz</li>
+                    <li>You cannot skip any question / All question are mandatory to answer.</li>
+                    <li>You cannot access the other screens while taking the quiz.</li>
                     <li>You cannot save and submit later.</li>
                     <li>Restart - will display new set of questions.</li>
                     <li>You will get a certificate for completing all the quiz modules.</li>
                     <li>Buffer? To qualify for the quiz you need to get 90% correct.</li>
+                    <li>There is no time limit.</li>
                 </ul>
             </div>
         </div>
@@ -32,7 +33,7 @@
         </div>
         <div class="col-md-6 text-end">
             <button (click)="runQuiz()" class="btn btn-start btn-rounded m-0 px-2 py-2"
-                [disabled]="this.quizData.length == 0">
+                [disabled]="quizData.length == 0">
                 <div class="d-flex align-items-center">
                     <span class="fw-normal h6 mb-0 ps-3 pe-2">Start</span>
                     <div class="btn-icon"><i class="fa-solid fa-arrow-right"></i></div>
@@ -192,8 +193,7 @@
             </div>
             <div class="col-md-2 col-2 text-end">
                 <button [disabled]="quizpercentage >= 90" (click)="retryQuiz()"
-                    class="btn btn-quit btn-rounded me-2 px-2 py-2"
-                    *ngIf="currentModuleId>10&& totalPercentage>=90||currentModuleId<10">
+                    class="btn btn-quit btn-rounded me-2 px-2 py-2">
                     <div class="d-flex align-items-center">
                         <span class="fw-normal h6 mb-0">Retry</span>
                         <div class="btn-icon"><i class="fa-solid fa-arrow-rotate-right"></i></div>
@@ -219,7 +219,7 @@
                 </p>
                 <p *ngIf="totalPercentage<=89" class="text-center mb-2 fw-medium">Completion of this module
                     requires<br>a minimum score of 90%</p>
-                <button *ngIf="totalPercentage>=90&&currentModuleId<10" style="background-color: #98B73F !important;"
+                <button *ngIf="totalPercentage>=90" style="background-color: #98B73F !important;"
                     (click)="openCertificate()" class="btn btn-back btn-rounded px-2 py-2">
                     <div class="d-flex align-items-center">
                         <span class="fw-normal h6 mb-0">View Certificate</span>
@@ -227,16 +227,8 @@
                                 aria-hidden="true"></i></div>
                     </div>
                 </button>&nbsp;
-                <button (click)="retryQuiz()" class="btn btn-quit btn-rounded me-2 px-2 py-2"
-                    *ngIf="currentModuleId>10 && totalPercentage<90">
+                <button (click)="takeAnotherquiz()" class="btn btn-back btn-rounded px-2 py-2">
                     <div class="d-flex align-items-center">
-                        <span class="fw-normal h6 mb-0">Retake</span>
-                        <div class="btn-icon"><i class="fa-solid fa-arrow-rotate-right"></i></div>
-                    </div>
-                </button>
-                <button (click)="takeAnotherquiz()" class="btn btn-back btn-rounded px-2 py-2"
-                    *ngIf="currentModuleId>10&& totalPercentage>=90||currentModuleId<10">
-                    <div class=" d-flex align-items-center">
                         <span class="fw-normal h6 mb-0">Take Another Quiz</span>
                         <div class="btn-icon"><i class="fa fa-home" aria-hidden="true"></i></div>
                     </div>
@@ -350,16 +342,14 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-6 text-start" style="float: left;" *ngIf="currentModuleId<10">
-                            <!-- <p class="mb-0 fw-semibold">Reference</p>
-                            <p-breadcrumb [model]="breadCrumb" class="max-w-100 quizreference"></p-breadcrumb> -->
+                        <div class="col-md-6 text-start" style="float: left;">
                             <label style="font-size: 18px;" for=""><b>Source</b></label>&nbsp;&nbsp;
                             <button (click)="openReferAnswer(val.faqquestion_link)"
                                 class="btn btn-back btn-rounded px-2 py-2">
                                 <p class="mb-0 px-2">Refer Answer <i class="fa-solid fa-paperclip"></i></p>
                             </button>&nbsp;
                         </div>
-                        <div *ngIf="currentModuleId>10" class="col-md-6 text-start">
+                        <div  class="col-md-6 text-start">
                             <label style="font-size: 18px;" for=""><b>Summary</b></label>&nbsp;&nbsp;
                             <p class="mb-0 px-2">{{val.faqquestion_link}}</p>
                         </div>
@@ -371,9 +361,7 @@
     <div class="card-footer p-2 mt-2" style="background-color: #fff;">
         <div class="row justify-content-center">
             <div class="col-md-6 text-start">
-                <!-- <p class="mb-0 fw-semibold">Reference</p>
-                <p-breadcrumb [model]="breadCrumb" class="max-w-100 quizreference"></p-breadcrumb> -->
-                <button *ngIf="currentModuleId>10" (click)="result()" class="btn btn-back btn-rounded px-2 py-2">
+                <button   (click)="result()" class="btn btn-back btn-rounded px-2 py-2">
                     <div class="d-flex align-items-center">
                         <span class="fw-normal h6 mb-0 ps-3 pe-2">Result</span>
                         <div class="btn-icon"><i class="fa-solid fa-arrow-left"></i></div>
@@ -402,7 +390,6 @@
 <p-dialog [(visible)]="restrict" [modal]="true" [closable]="false" [style]="{ width: '30vw' }" [draggable]="false"
     [resizable]="false" class="restrictionDialog" [breakpoints]="{ '960px': '30vw', '959px': '60vw', '425px': '90vw' }">
     <div class="text-center mt-5 mb-4">
-        <!-- <img src="../../../uniprep-assets/images/smartloack.png" class="image" width="60" /> -->
         <h3 class="offer">Time's Up!</h3>
         <p>You have run out of time for this quiz. Unfortunately,this means the quiz is marked as failed.try the quiz
             again."</p>
@@ -411,7 +398,6 @@
             (click)="timeIsOver()"><i class="fa fa-arrow-right exhausted-plan-icon"></i></button>
     </div>
 </p-dialog>
-
 <p-dialog [(visible)]="restrict1" [modal]="true" [style]="{ width: '30vw' }" [draggable]="false" [resizable]="false"
     class="restrictionDialog" [breakpoints]="{ '960px': '30vw', '959px': '60vw', '425px': '90vw' }"
     (onHide)="clearRestriction()">

@@ -70,6 +70,11 @@ export class SidenavComponent {
     //   image: "fa-solid fa-file-export",
     // },
     {
+      title: "Academic Tools",
+      url: "/pages/modules/academic-tools",
+      image: "fa-solid fa-ticket",
+    },
+    {
       title: "Post Admission",
       url: "/pages/modules/post-admission",
       image: "fa-solid fa-ticket",
