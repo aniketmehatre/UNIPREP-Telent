@@ -1,0 +1,108 @@
+import { Component, ElementRef, HostListener, OnInit, ViewChild } from '@angular/core';
+import { DomSanitizer } from '@angular/platform-browser';
+import { FounderstoolService } from '../founderstool.service';
+
+@Component({
+  selector: 'uni-foundersacademy',
+  templateUrl: './foundersacademy.component.html',
+  styleUrls: ['./foundersacademy.component.scss']
+})
+export class FoundersacademyComponent implements OnInit {
+  @ViewChild('videoFrame') videoFrame: ElementRef | undefined;
+  academy:any=[];
+  academyllist:any=[];
+  showVideoPopup: boolean = false;
+  selectedVideoLink: any | null = null;
+  categorylist:any[]=[];
+  categoryextra:any;
+  selectedCategoryId: number | null = null; 
+  constructor(private resourceService: FounderstoolService,private sanitizer: DomSanitizer) { }
+  ngOnInit(): void {
+    this.filterCat(null)
+    this.resourceService.getFounderCategory().subscribe((response:any)=>{
+      this.categoryextra = [{ id: null, name: "All" }];
+      this.categorylist=[...this.categoryextra,...response.data]
+    });
+  }
+  openNextPageLink:any;
+  openVideoPopup(link: any): void {
+    this.openNextPageLink=link
+    // Check if it's a YouTube video link
+    if (this.isYoutubeVideoLink(link)) {
+      // If it's a YouTube video link, extract the video ID and construct the embeddable URL
+      const videoId = this.extractYoutubeVideoId(link);
+      const embedUrl = `https://www.youtube.com/embed/${videoId}`;
+      this.selectedVideoLink = this.sanitizer.bypassSecurityTrustResourceUrl(embedUrl);
+    } else {
+      // If it's not a YouTube video link, use the URL directly
+      this.selectedVideoLink = this.sanitizer.bypassSecurityTrustResourceUrl(link);
+    }
+  
+    // Set the flag to show the modal
+    this.showVideoPopup = true;
+  }  
+
+  private isYoutubeVideoLink(link: string): boolean {
+    // Check if the link is a YouTube video link based on a simple pattern
+    return link.includes('youtube.com') || link.includes('youtu.be');
+  }
+
+  private extractYoutubeVideoId(url: string): string {
+    const videoIdRegex = /(?:youtube\.com\/(?:[^\/\n\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|\S*?[?&]v=)|youtu\.be\/)([^"'&?\n\s]+)/;
+    const match = url.match(videoIdRegex);
+    return match ? match[1] : '';
+  }
+
+  @HostListener('document:keydown', ['$event'])
+  onKeyDown(event: KeyboardEvent): void {
+    // Check if the pressed key is the Escape key (code 27)
+    if (event.code === 'Escape') {
+      this.closeVideoPopup();
+    }
+  }
+  closeVideoPopup(): void {
+    if (this.videoFrame && this.videoFrame.nativeElement) {
+      const player = this.videoFrame.nativeElement as HTMLIFrameElement;
+      player.src = '';
+    }
+     this.selectedVideoLink = null;
+     this.showVideoPopup = false;
+  }
+
+  stopPropagation(event: Event): void {
+    event.stopPropagation();
+  }
+  openNextVideo(){
+    window.open(this.openNextPageLink)
+  }
+  filterCat(id:any){
+    var data={
+      category:id
+    }
+    this.resourceService.getAcademy(data).subscribe((response:any)=>{
+      this.academyllist=[];
+      var academy= response.founders;
+      academy.forEach((element:any) => {
+         var academy = {
+          title: element.title,
+          link: element.link,
+          coverimage:element.coverimage,
+          description:element.description
+         }
+         this.academyllist.push(academy);
+         this.selectedCategoryId = id;
+      });
+    });
+  }
+  isSelected(id: number): boolean {
+    return this.selectedCategoryId === id;  // Check if this category is selected
+  }
+}
+// @Pipe({ name: 'safe' })
+// export class SafePipe implements PipeTransform {
+//   constructor(private sanitizer: DomSanitizer) { }
+
+//   transform(url: string): SafeResourceUrl {
+//     return this.sanitizer.bypassSecurityTrustResourceUrl(url);
+//   }
+// }

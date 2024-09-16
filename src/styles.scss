@@ -321,6 +321,13 @@ uni-modules {
 		display: flex;
 		flex-direction: column;
 	}
+	uni-founderstool {
+		flex: 1;
+		overflow-y: auto;
+		/* Enable vertical scrolling for overflowing content */
+		display: flex;
+		flex-direction: column;
+	}
 
 	uni-quiz {
 		flex: 1;
@@ -346,7 +353,7 @@ uni-modules {
 		flex-direction: column;
 	}
 }
-
+uni-founderstool,
 uni-tutorials,
 uni-guidelines,
 uni-refundpolicy,
