@@ -779,7 +779,7 @@ body {
 }
 
 .experienceHeight{
-	height: 400px;
+	height: 450px;
 }
 
 .educationHeight{
@@ -792,5 +792,8 @@ body {
 
 :host ::ng-deep  .p-editor-toolbar {
 	display: none;
-  }
-  
+}
+
+.uniprepColor{
+	color: var(--uniprep-primary);
+}
