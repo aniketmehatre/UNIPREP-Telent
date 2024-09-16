@@ -204,7 +204,6 @@ export class CvBuilderComponent implements OnInit {
     this.resumeService.getCVPrefilledData().subscribe(res => {
       if(res.status){
         const storedValues = JSON.parse(res.data.data);
-        console.log(storedValues);
         this.resumeFormInfoData.patchValue(storedValues);
         this.moduleActiveIndex = storedValues.active_index;
         this.changeExperience();
@@ -585,6 +584,7 @@ export class CvBuilderComponent implements OnInit {
   previous() {
     this.activePageIndex--;
     this.hideHeader();
+    this.triggerPrevButtonClick();
   }
 
   next() {

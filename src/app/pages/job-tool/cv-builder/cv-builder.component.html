@@ -68,8 +68,13 @@
     </div>
 </div>
 <div class="container-fluid h-100" *ngIf="activePageIndex == 2">
-    <div style="height: 10%;">
-        <p-steps [model]="items" [readonly]="false" [activeIndex]="moduleActiveIndex"></p-steps>
+    <div style="height: 10%;display: flex;">
+        <div class="col-md-1 backIcon">
+            <span class="pi pi-angle-left" (click)="previous()"></span>
+        </div>
+        <div class="col-md-11">
+            <p-steps [model]="items" [readonly]="false" [activeIndex]="moduleActiveIndex"></p-steps>
+        </div>
     </div>
     <div style="height: 90%;">
         <div class="row h-100">
