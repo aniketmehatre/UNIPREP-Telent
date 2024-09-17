@@ -53,8 +53,15 @@ export class LocationService {
 
     GetQuestionsCount(data: any) {
         const headers = new HttpHeaders().set("Accept", "application/json");
-        return this.http.post<any>(environment.ApiUrl + "/SubmoduleListForStudents", data, {
-            headers: headers,
+            return this.http.post<any>(environment.ApiUrl + "/SubmoduleListForStudents", data, {
+                headers: headers,
+            });
+    }
+
+    getK12MainCategory(data: any) {
+        const headers = new HttpHeaders().set("Accept", "application/json");
+        return this.http.get<any>(`${environment.ApiUrl}/getcareertoolcategorylist?module_id=${data.module_id}`, {
+            headers: headers
         });
     }
 

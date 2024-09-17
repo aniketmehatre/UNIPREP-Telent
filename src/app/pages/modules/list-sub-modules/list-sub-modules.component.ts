@@ -143,6 +143,7 @@ export class ListSubModulesComponent implements OnInit {
     this.dataService.countryNameSource.subscribe((data) => {
       this.countryName = data;
     });
+
     switch (this.currentModuleSlug) {
       case 'pre-admission':
         this.currentModuleId = 1;
@@ -217,7 +218,7 @@ export class ListSubModulesComponent implements OnInit {
           this.moduleDetails = 'Scholarships, document checklist, Education loan, letter of Recommendation and many more!'
         this.howItWorksVideoLink = "https://www.youtube.com/embed/n9ECpsB6IoI?si=4coiypva6WZfr3NL";
         break;
-      case 'k12':
+      case 'k12-category':
         this.currentModuleId = 14;
         this.currentModuleName = 'K12';
         this.currentApiSlug = 'SubmoduleListForStudents';
@@ -256,7 +257,7 @@ export class ListSubModulesComponent implements OnInit {
   }
 
   loadModuleAndSubModule() {
-
+    console.log(localStorage.getItem('selectedClass'))
     this.currentCountryId = Number(localStorage.getItem('countryId'));
     //this.isSkeletonVisible = true;
     //this.subModules$ = this.moduleListService.subModuleList$();
@@ -268,8 +269,11 @@ export class ListSubModulesComponent implements OnInit {
     }
     else if (this.currentModuleId == 10) {
       data.country_id = 0;
-    }
-    else {
+    }else if(this.currentModuleId == 14){
+      data.category_flag = 1
+      data.country_id = 0
+      data.parent_category_id = Number(localStorage.getItem('selectedClass'))
+    }else {
       data.country_id = this.currentCountryId;
       data.api_module_name = this.currentApiSlug;
     }
@@ -473,6 +477,9 @@ export class ListSubModulesComponent implements OnInit {
   onSubModuleClick(id: any, submodule: any) {
     console.log(id, "submodule-id");
     console.log(submodule, "submodule");
+    if (submodule.module_id == 14){
+
+    }
     this.selectSubmoduleName = submodule.submodule_name;
     // if(this.planExpired){
     //   this.restrict=true;
@@ -481,7 +488,8 @@ export class ListSubModulesComponent implements OnInit {
     if (this.currentModuleId == 14){
       let data: any = {
         moduleId: this.currentModuleId,
-        category_id: this.subModuleList.find(list => list.submodule_id == id)?.category_id
+        category_id: submodule.category_id,
+        country_id: 0,
       }
       this.isSkeletonVisible = true;
       this.locationService.GetQuestionsCount(data).subscribe(data => {

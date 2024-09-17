@@ -10,6 +10,7 @@ import { LanguagetypequizComponent } from './languagetypequiz/languagetypequiz.c
 import { AcademicToolsComponent } from './academic-tools/academic-tools.component';
 import { AcademicToolsStreamComponent } from './academic-tools-stream/academic-tools-stream.component';
 import { AcademicToolsQuizComponent } from './academic-tools-quiz/academic-tools-quiz.component';
+import {K12ClassComponent} from "./k12-class/k12-class.component";
 
 
 const routes: Routes = [{
@@ -37,7 +38,10 @@ const routes: Routes = [{
     path: 'learning-hub', component: ListSubModulesComponent,
   },
   {
-    path: 'k12', component: ListSubModulesComponent,
+    path: 'k12', component: K12ClassComponent,
+  },
+  {
+    path: 'k12-category', component: ListSubModulesComponent,
   },
   {
     path: ':module_name/question-list/:id', component: QuestionListComponent,
