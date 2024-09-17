@@ -68,8 +68,13 @@
     </div>
 </div>
 <div class="container-fluid h-100" *ngIf="activePageIndex == 2">
-    <div style="height: 10%;">
-        <p-steps [model]="items" [readonly]="false" [activeIndex]="moduleActiveIndex"></p-steps>
+    <div style="height: 10%;display: flex;">
+        <div class="col-md-1 backIcon">
+            <span class="pi pi-angle-left" (click)="previous()"></span>
+        </div>
+        <div class="col-md-11">
+            <p-steps [model]="items" [readonly]="false" [activeIndex]="moduleActiveIndex"></p-steps>
+        </div>
     </div>
     <div style="height: 90%;">
         <div class="row h-100">
@@ -78,7 +83,7 @@
                     <ng-container *ngIf="moduleActiveIndex == 0">
                         <div class="col-md-12 mb-3">
                             <h4 class="p-mb-2 PageTitle">Your Experience Level</h4>
-                            <p-dropdown [options]="experienceLevel" (onChange)="changeExperience($event)" placeholder="Select Experience Level" styleClass="w-100"
+                            <p-dropdown [options]="experienceLevel" (onChange)="changeExperience()" placeholder="Select Experience Level" styleClass="w-100"
                                         formControlName="selected_exp_level" optionLabel="level" optionValue="id"></p-dropdown>
                             <div *ngIf="submitted && f['selected_exp_level'].errors" class="text-danger text-xs">
                                 <div style="margin-left:10px;" *ngIf="f['selected_exp_level'].errors">Experience Level Required</div>
@@ -232,7 +237,7 @@
                     </ng-container>
                     <ng-container *ngIf="moduleActiveIndex == 1">
                         <div class="col-md-12">
-                            <h4 class="p-mb-1 PageTitle">Enter Your {{ f['selected_exp_level'].value == 1 ? 'Internship' : 'Work' }} Experience</h4>
+                            <h4 class="p-mb-1 PageTitle">Enter Your Work {{ f['selected_exp_level'].value == 1 ? '/ Internship' : '' }} Experience</h4>
                             <div class="col-md-12">
                                 <div class="card mb-2" *ngFor="let wrkExp of getWorkExpArray.controls; let i = index"
                                      formArrayName="workExpArray">
@@ -528,7 +533,7 @@
                             </div>
                         </div>
                         <div class="col-md-12">
-                            <ng-container *ngIf="f['selected_exp_level'].value == 1">
+                            <ng-container *ngIf="f['selected_exp_level'].value == 1 && !hidingHeaders.includes('project_details')">
                                 <h4 class="p-mb-1 PageTitle">Enter Your Project Details</h4>
                                 <div class="card mb-2"
                                      *ngFor="let project of getProjectDetailsArray.controls; let i = index"
@@ -689,7 +694,10 @@
                             </div>
                         </div>
                         <div class="col-md-12">
-                            <h4 class="p-mb-1 PageTitle">Achievements (Optional)</h4>
+                            <div class="d-flex">
+                                <h4 class="p-mb-1 PageTitle">Achievements (Optional)</h4>
+                                <i class="fa-solid fa-circle-question m-2 uniprepColor"  pTooltip="Please add a minimum of 5 achievements on your CV for it to look appropriate" tooltipPosition="top" ></i>
+                            </div>
                             <div *ngFor="let extra of getExtraCurricularArray.controls; let i = index"
                                  formArrayName="extraCurricularArray">
                                 <div [formGroupName]="i">
@@ -724,9 +732,11 @@
                     </ng-container>
                     <ng-container *ngIf="moduleActiveIndex == 4">
                         <div class="col-md-12">
-                            <h4 class="p-mb-1 PageTitle">Your Skills</h4>
-                            <div *ngFor="let skill of getSkillsArray.controls; let i = index"
-                                 formArrayName="skillsArray">
+                            <div class="d-flex">
+                                <h4 class="p-mb-1 PageTitle">Your Skills</h4>
+                                <i class="fa-solid fa-circle-question m-2 uniprepColor"  pTooltip="Please add a minimum of 5 skills on your CV for it to look appropriate" tooltipPosition="top" ></i>
+                            </div>
+                            <div *ngFor="let skill of getSkillsArray.controls; let i = index" formArrayName="skillsArray">
                                 <div [formGroupName]="i">
                                     <div class="row">
                                         <div class="col-md-6">
@@ -1042,7 +1052,7 @@
                         <img class="resumeIcons" src="../../../uniprep-assets/resume-icons/Linkedin.svg">
                         <p><a>{{ f['user_linkedin'].value }}</a></p>
                     </div>
-                    <div class="contactItem fw-600" *ngIf="f['user_website'].value">
+                    <div class="contactItem fw-600" *ngIf="f['user_website'].value && f['user_website'].value != null">
                         <img class="resumeIcons" src="../../../uniprep-assets/resume-icons/Web.svg">
                         <p>{{ f['user_website'].value }}</p>
                     </div>
@@ -1099,7 +1109,8 @@
                     <p class="headingStyle" [ngStyle]="{'background-color': selectedThemeColor, 'color': selectedFontColor}" >about me</p>
                     <p class="small-text" [innerHTML]="f['user_summary'].value"></p>
                 </div>
-                <div class="content"  [ngClass]="f['selected_exp_level'].value == 1 ? 'fresherHeight' : 'experienceHeight'" *ngIf="!hidingHeaders.includes('work_experience')">
+                <!-- [ngClass]="f['selected_exp_level'].value == 1 ? 'fresherHeight' : 'experienceHeight'" -->
+                <div class="content experienceHeight" *ngIf="!hidingHeaders.includes('work_experience')">
                     <p class="headingStyle" [ngStyle]="{'background-color': selectedThemeColor, 'color': selectedFontColor}"> experience</p>
                     <div class="experienceItem" *ngFor="let exp of getWorkExpArray.controls">
                         <div style="width: 30%;">
@@ -1189,7 +1200,7 @@
                                 </div>
                                 <p>{{ f["user_linkedin"].value }}</p>
                             </div>
-                            <div class="contactItem fw-600" *ngIf="f['user_website'].value">
+                            <div class="contactItem fw-600" *ngIf="f['user_website'].value && f['user_website'].value != null">
                                 <div class="resumeIcons" style="margin: 0px;">
                                     <img src="../../../uniprep-assets/resume-icons/Web.svg">
                                 </div>
@@ -1205,7 +1216,8 @@
                         <p class="headingStyle"><span>about me</span></p>
                         <p [innerHTML]="f['user_summary'].value"></p>
                     </div>
-                    <div class="content" [ngClass]="f['selected_exp_level'].value == 1 ? 'fresherHeight' : 'experienceHeight'" *ngIf="!hidingHeaders.includes('work_experience')">
+                    <!-- [ngClass]="f['selected_exp_level'].value == 1 ? 'fresherHeight' : 'experienceHeight'" -->
+                    <div class="content experienceHeight" *ngIf="!hidingHeaders.includes('work_experience')">
                         <p class="headingStyle"><span>experience</span></p>
                         <div class="experienceItem" *ngFor="let exp of getWorkExpArray.controls">
                             <div style="width: 30%;">
@@ -1320,7 +1332,8 @@
                             <p class="small-text" [innerHTML]="f['user_summary'].value"></p>
                         </div> 
                     </div>
-                    <div [style.height]="f['selected_exp_level'].value == 1 ? '300px' : '400px'" *ngIf="!hidingHeaders.includes('work_experience')">
+                    <!-- [style.height]="f['selected_exp_level'].value == 1 ? '300px' : '400px'" -->
+                    <div style="height: 450px;" *ngIf="!hidingHeaders.includes('work_experience')">
                         <p class="headingStyle" style="margin:0px;"><span>experience</span></p>
                         <hr>
                         <div class="content">
@@ -1390,7 +1403,7 @@
                                 <img class="resumeIcons" src="../../../uniprep-assets/resume-icons/Email.svg">
                                 <p>{{ f["user_email"].value }}</p>
                             </div>
-                            <div class="d-flex align-items-center mb-2" *ngIf="f['user_website'].value != ''">
+                            <div class="d-flex align-items-center mb-2" *ngIf="f['user_website'].value && f['user_website'].value != null">
                                 <img class="resumeIcons" src="../../../uniprep-assets/resume-icons/Web.svg">
                                 <p>{{ f["user_website"].value }}</p>
                             </div>
@@ -1482,7 +1495,7 @@
                                 <img class="resumeIcons" src="../../../uniprep-assets/resume-icons/Email.svg">
                                 <p>{{ f["user_email"].value }}</p>
                             </div>
-                            <div class="d-flex align-items-center mb-2" *ngIf='f["user_website"].value'>
+                            <div class="d-flex align-items-center mb-2" *ngIf="f['user_website'].value && f['user_website'].value != null">
                                 <img class="resumeIcons" src="../../../uniprep-assets/resume-icons/Web.svg">
                                 <p>{{ f["user_website"].value }}</p>
                             </div>
@@ -1550,7 +1563,8 @@
                 </div>
 
                 <div class="col-md-8">
-                    <div [style.height]="f['selected_exp_level'].value == 1 ? '300px' : '400px'" *ngIf="!hidingHeaders.includes('work_experience')">
+                    <!-- [style.height]="f['selected_exp_level'].value == 1 ? '300px' : '400px'" -->
+                    <div style="height: 450px;" *ngIf="!hidingHeaders.includes('work_experience')">
                         <p class="headingStyle zeroMarginPadding" [ngStyle]="{'color': selectedThemeColor }">experience
                         </p>
                         <hr class="hr-custom" [ngStyle]="{'color': selectedThemeColor, 'background-color':  selectedThemeColor}">
@@ -1652,7 +1666,7 @@
                                 </div>
                                 <p>{{ f["user_linkedin"].value }}</p>
                             </div>
-                            <div class="contactItem fw-600" *ngIf="f['user_website'].value">
+                            <div class="contactItem fw-600" *ngIf="f['user_website'].value && f['user_website'].value != null">
                                 <div class="resumeIcons" style="margin: 0px;">
                                     <img src="../../../uniprep-assets/resume-icons/Web.svg">
                                 </div>
@@ -1674,7 +1688,7 @@
             </ng-container>
             <div class="row">
                 <div class="col-8">
-                    <div  [style.height]="f['selected_exp_level'].value == 1 ? '300px' : '360px'" *ngIf="!hidingHeaders.includes('work_experience')">
+                    <div  style="height: 400px;" *ngIf="!hidingHeaders.includes('work_experience')">
                         <p class="headingStyle" ><span>experience</span></p>
                         <div class="content expContent fw-600">
                             <!-- <div class="vl"></div> -->
