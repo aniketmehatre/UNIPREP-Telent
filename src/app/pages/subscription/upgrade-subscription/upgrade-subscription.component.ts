@@ -758,9 +758,9 @@ export class UpgradeSubscriptionComponent implements OnInit {
           this.stripeService.confirmCardPayment(pi.client_secret, {
             payment_method: {
               card: this.card.element,
-              billing_details: {
-                name: "Tamil",
-              },
+              // billing_details: {
+                // name: "Tamil",
+              // },
             },
           })
         )
