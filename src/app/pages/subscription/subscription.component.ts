@@ -149,7 +149,6 @@ export class SubscriptionComponent implements OnInit {
     this.cardvisibility=true;
   }
   pay(value: any) {
-    
     this.subscriptionDetails = value;
     this.showPayLoading = true;
     if (value.subscriptionId) {
@@ -164,7 +163,12 @@ export class SubscriptionComponent implements OnInit {
             });
             return;
           }
-          this.payWithRazor(data.orderid);
+          if (value.type == "razorpay") {
+            this.payWithRazor(data.orderid);
+          }
+          else{
+            this.payusingstripe(value);
+          }
         });
     } else {
       this.subscriptionService

@@ -392,7 +392,7 @@ export class UpgradeSubscriptionComponent implements OnInit {
     }
   }
 
-  checkout(event: Event) {
+  checkout(event: Event,type:any) {
     this.confirmModal = false;
     if (this.existingSubscription[0]?.monthlyPlan > this.monthlyPlan) {
       this.confirmSubscription(
@@ -408,10 +408,10 @@ export class UpgradeSubscriptionComponent implements OnInit {
           " plan will expire upon upgrading"
       );
     } else {
-      this.subscribe();
+      this.subscribe(type);
     }
   }
-  subscribe() {
+  subscribe(type: any) {
     this.subscriptionService.getExtendedToken().subscribe(
       (response) => {
         if (response.token) {
@@ -432,7 +432,7 @@ export class UpgradeSubscriptionComponent implements OnInit {
             subscription_plan_id:
               this.selectedSubscriptionDetails?.subscription_plan_id,
           };
-          this.pay(data);
+          this.pay(data,type);
         }
         // else {
         //   if (this.selectedTopupCountryDetails) {
@@ -464,7 +464,7 @@ export class UpgradeSubscriptionComponent implements OnInit {
           if (this.checkoutTotal == "") {
             data.finalPrice = this.subscriptionTotal;
           }
-          this.pay(data);
+          this.pay(data,type);
         }
         // else {
         //   if (this.selectedTopupCountryDetails) {
@@ -493,7 +493,7 @@ export class UpgradeSubscriptionComponent implements OnInit {
       rejectIcon: "none",
       rejectButtonStyleClass: "p-button-text",
       accept: () => {
-        this.subscribe();
+        //this.subscribe();
       },
       reject: () => {
         this.messageService.add({
@@ -512,7 +512,7 @@ export class UpgradeSubscriptionComponent implements OnInit {
     this.cardvisibility = true;
     return;
   }
-  pay(value: any) {
+  pay(value: any, type: any) {
     if (value.subscriptionId) {
       this.subscriptionService
         .placeSubscriptionOrder(value)
@@ -525,8 +525,12 @@ export class UpgradeSubscriptionComponent implements OnInit {
             });
             return;
           }
-
-          this.payWithRazor(data.orderid);
+          if (type == "razorpay") {
+            this.payWithRazor(data.orderid);
+          }
+          else{
+            this.payusingstripe(value);
+          }
         });
     }
     // else {
