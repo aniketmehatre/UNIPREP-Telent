@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Location } from '@angular/common';
+import { GetAcademicListPayload } from 'src/app/@Models/academic-tools.model';
+import { AcademicService } from '../academic.service';
 
 
 @Component({
@@ -9,36 +11,37 @@ import { Location } from '@angular/common';
   styleUrls: ['./academic-tools-stream.component.scss']
 })
 export class AcademicToolsStreamComponent implements OnInit {
-  modulesList: any[] = [
-    { id: 1, name: 'stream select for accounting', imageLink: 'https://bcdn.mindler.com/bloglive/wp-content/uploads/2016/07/06132451/10th-01.png' },
-    { id: 2, name: 'stream select for accounting', imageLink: 'https://bcdn.mindler.com/bloglive/wp-content/uploads/2016/07/06132451/10th-01.png' },
-    { id: 3, name: 'stream select for accounting', imageLink: 'https://bcdn.mindler.com/bloglive/wp-content/uploads/2016/07/06132451/10th-01.png' },
-    { id: 4, name: 'stream select for accounting', imageLink: 'https://bcdn.mindler.com/bloglive/wp-content/uploads/2016/07/06132451/10th-01.png' },
-    { id: 5, name: 'stream select for accounting', imageLink: 'https://bcdn.mindler.com/bloglive/wp-content/uploads/2016/07/06132451/10th-01.png' },
-    { id: 6, name: 'stream select for accounting', imageLink: 'https://bcdn.mindler.com/bloglive/wp-content/uploads/2016/07/06132451/10th-01.png' },
-    { id: 7, name: 'stream select for accounting', imageLink: 'https://bcdn.mindler.com/bloglive/wp-content/uploads/2016/07/06132451/10th-01.png' },
-    { id: 8, name: 'stream select for accounting', imageLink: 'https://bcdn.mindler.com/bloglive/wp-content/uploads/2016/07/06132451/10th-01.png' },
-    { id: 9, name: 'stream select for accounting', imageLink: 'https://bcdn.mindler.com/bloglive/wp-content/uploads/2016/07/06132451/10th-01.png' },
-    { id: 10, name: 'stream select for accounting', imageLink: 'https://bcdn.mindler.com/bloglive/wp-content/uploads/2016/07/06132451/10th-01.png' },
-    { id: 11, name: 'stream select for accounting', imageLink: 'https://bcdn.mindler.com/bloglive/wp-content/uploads/2016/07/06132451/10th-01.png' } 
-  ];
-  academicType: string = '';
+  modulesList: any[] = []
+  moduleId: string = '';
+  isSkeletonVisible: boolean = false;
+  loopRange = Array.from({ length: 30 }).fill(0).map((_, index) => index);
   constructor(
     private activatedRoute: ActivatedRoute,
     private location: Location,
     private router: Router,
+    private academicService: AcademicService
   ) { }
 
   ngOnInit(): void {
     this.activatedRoute.params.subscribe(response => {
-      this.academicType = response['id'];
+      this.moduleId = response['id'];
+      this.getList();
     });
   }
+
+  getList() {
+    const params: GetAcademicListPayload = {
+      module_id: this.moduleId,
+    }
+    this.academicService.getQuizList(params).subscribe(res => {
+      this.modulesList = res.data;
+    });
+  };
   goBack() {
     if (window.history.length > 1) {
-      this.location.back()
+      this.location.back();
     } else {
-      this.router.navigate(['/pages/modules/academic-tools'])
+      this.router.navigate(['/pages/modules/academic-tools']);
     }
   }
 
