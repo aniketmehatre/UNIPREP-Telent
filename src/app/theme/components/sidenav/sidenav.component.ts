@@ -166,6 +166,11 @@ export class SidenavComponent {
       image: "fa-solid fa-memo-circle-info",
     },
     {
+      title: "Founders Tool",
+      url: "/pages/founderstool/founderstoollist",
+      image: "fa-solid fa-memo-circle-info",
+    },
+    {
       title: "Investor List",
       url: "/pages/investor-list",
       image: "fa-solid fa-chart-waterfall",
