@@ -205,6 +205,8 @@ export class CvBuilderComponent implements OnInit {
       if(res.status){
         const storedValues = JSON.parse(res.data.data);
         this.resumeFormInfoData.patchValue(storedValues);
+        this.moduleActiveIndex = storedValues.active_index;
+        this.changeExperience();
 
         const workExpData = storedValues.workExpArray;
         if(workExpData.length != 0){
@@ -220,6 +222,9 @@ export class CvBuilderComponent implements OnInit {
               work_job_description: [activity.work_job_description,Validators.required],
             }));
           });
+          this.hidingHeaders.push('project_details');
+        }else{
+          this.hidingHeaders.push('work_experience');
         }
 
         const educationData = storedValues.EduDetailsArray;
@@ -236,6 +241,8 @@ export class CvBuilderComponent implements OnInit {
               edu_cgpa_percentage: [element.edu_cgpa_percentage],
             }));
           });
+        }else{
+          this.hidingHeaders.push('education_detail');
         }
 
         const certificateData = storedValues.certificatesArray;
@@ -248,6 +255,8 @@ export class CvBuilderComponent implements OnInit {
               certicate_link: [element.certicate_link],
             }));
           });
+        }else{
+          this.hidingHeaders.push('certificate');
         }
 
         const achievementData = storedValues.extraCurricularArray;
@@ -257,6 +266,8 @@ export class CvBuilderComponent implements OnInit {
               extra_curricular_activites: [element.extra_curricular_activites, Validators.required]
             }));
           });
+        }else{
+          this.hidingHeaders.push('extra_curricular');
         }
 
         const skillsData = storedValues.skillsArray;
@@ -267,6 +278,8 @@ export class CvBuilderComponent implements OnInit {
               skills_proficiency: [element.skills_proficiency, Validators.required],
             }));
           });
+        }else{
+          this.hidingHeaders.push('skills');
         }
 
         const languageData = storedValues.languagesKnownArray;
@@ -277,6 +290,8 @@ export class CvBuilderComponent implements OnInit {
               lang_proficiency: [element.lang_proficiency, Validators.required],
             }));
           });
+        }else{
+          this.hidingHeaders.push('language_known');
         }
       }
     });
@@ -287,6 +302,7 @@ export class CvBuilderComponent implements OnInit {
       this.skillsLists = res;
     });
   }
+
   getCountryCodeList(){
     this.resumeService.getCountryCodes().subscribe(res =>{
       this.countryCodeList = res;
@@ -346,13 +362,14 @@ export class CvBuilderComponent implements OnInit {
     return this.resumeFormInfoData.controls;
   }
 
-  changeExperience(event: any) {
-    if (event.value == 1) {
+  changeExperience() {
+    const expLevel = this.resumeFormInfoData.value.selected_exp_level;
+    if (expLevel == 1) {
       this.eduDetailsLimit = 3;
-      this.wrkExpLimit = 2;
+      // this.wrkExpLimit = 2;
     } else {
       this.eduDetailsLimit = 2;
-      this.wrkExpLimit = 3;
+      // this.wrkExpLimit = 3;
     }
     this.updateValidatorsForAllProjects();
   }
@@ -397,6 +414,7 @@ export class CvBuilderComponent implements OnInit {
   }
 
   fieldNextButton() {
+    this.storeUserFilledData();
     this.moduleActiveIndex++;
     if(this.moduleActiveIndex > 4){
       this.moduleActiveIndex--;
@@ -447,6 +465,16 @@ export class CvBuilderComponent implements OnInit {
         this.clickAddMoreButton(element);
       });
     }
+  }
+
+  storeUserFilledData(){
+    let formData = this.resumeFormInfoData.value;
+    let data = {
+      ...formData,
+      selectedResumeLevel: this.selectedResumeLevel,
+      active_index: this.moduleActiveIndex,      
+    };
+    this.resumeService.storeUserFilledData(data).subscribe();
   }
 
   fieldPreviousButton() {
@@ -556,6 +584,7 @@ export class CvBuilderComponent implements OnInit {
   previous() {
     this.activePageIndex--;
     this.hideHeader();
+    this.triggerPrevButtonClick();
   }
 
   next() {
@@ -577,7 +606,6 @@ export class CvBuilderComponent implements OnInit {
       this.selectedResumeLevel = "";
       this.submitted = false;
       // this.stableFileCreation();
-      window.location.reload();
     }
     this.hideHeader();
   }
@@ -651,7 +679,7 @@ export class CvBuilderComponent implements OnInit {
         edu_degree: ['', Validators.required],
         edu_location: ['', Validators.required],
         edu_percentage: ['', Validators.required],
-        edu_cgpa_percentage: [''],
+        edu_cgpa_percentage: ['%', Validators.required],
       }));
       // this.getEduDetailsArray.push(this.fb.group({
       //   edu_college_name: ['Srinivasan Engg College', Validators.required],
@@ -687,6 +715,7 @@ export class CvBuilderComponent implements OnInit {
       //   work_job_description: ['- Develop and maintain front-end architecture, ensuring responsive design and user-friendly interfaces - Implement back-end functionality, including database integration and server-side logic - Write efficient and scalable code in multiple programming languages for both client and server-side applications - Collaborate with cross-functional teams to gather requirements, design solutions, and provide technical support - Stay up-to-date with industry trends and best practices to continually improve development processes and deliver high-quality products', Validators.required],
       // }));
       this.removeHideHeaderElement('work_experience');
+      this.hidingHeaders.push('project_details');
       // this.errorMessages.push('');
     } else if (fieldName == "project_details") {
       this.getProjectDetailsArray.push(this.fb.group({
@@ -738,10 +767,13 @@ export class CvBuilderComponent implements OnInit {
 
   removeHideHeaderElement(fieldName: string){
     if(this.hidingHeaders.includes(fieldName)){
-      const index = this.hidingHeaders.indexOf(fieldName);
-      if (index > -1) {
-        this.hidingHeaders.splice(index, 1);
-      }
+      // const index = this.hidingHeaders.indexOf(fieldName);
+      // console.log(index);
+      // if (index > -1) {
+      //   this.hidingHeaders.splice(index, 1);
+      // }
+      this.hidingHeaders = this.hidingHeaders.filter(item => item !== fieldName);
+      console.log(this.hidingHeaders);
     }
   }
 
@@ -756,6 +788,9 @@ export class CvBuilderComponent implements OnInit {
       this.getWorkExpArray.removeAt(index);
       if (this.getWorkExpArray.length === 0) {
         this.hidingHeaders.push('work_experience');
+        this.removeHideHeaderElement('project_details');
+      }else{
+        this.hidingHeaders.push('project_details');
       }
       // this.errorMessages.splice(index, 1);
     } else if (fieldName == "project_details") {
@@ -784,7 +819,6 @@ export class CvBuilderComponent implements OnInit {
         this.hidingHeaders.push('certificate');
       }
     }
-    console.log(this.hidingHeaders);
   }
 
   stillPursuing(fieldName: string, index: number, event: Event) {
@@ -833,11 +867,13 @@ export class CvBuilderComponent implements OnInit {
       selected_font_color: this.selectedFontColor,
     };
     this.resumeService.downloadResume(data).subscribe(res => {
-      // window.open(res, '_blank');
       const parts = res.split('/');
       const lastPart = parts[parts.length - 1];
       this.resumeService.downloadPdf(res, lastPart);
       this.toaster.add({ severity: "success", summary: "Success", detail: "File Download Successfully." });
+      setTimeout(() => {
+        window.location.reload();
+      }, 1000);
     })
   }
 
@@ -880,7 +916,6 @@ export class CvBuilderComponent implements OnInit {
     this.http.post<any>('https://api.openai.com/v1/chat/completions', body, { headers: headers }).subscribe(response => {
       if (response.choices && response.choices.length > 0) {
         const GPTResponse = response.choices[0].message.content.trim();
-        console.log(GPTResponse);
         if (fieldName == 'user_summary') {
           this.resumeFormInfoData.patchValue({
             user_summary: GPTResponse
