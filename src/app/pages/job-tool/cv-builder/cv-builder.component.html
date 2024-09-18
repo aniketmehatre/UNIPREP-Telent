@@ -23,7 +23,7 @@
 
 <div class="container-fluid swiper-wrapper-custom" *ngIf="activePageIndex == 1">
     <h3 class="text-center uniprep-primary">Select your CV style to get started</h3>
-    <swiper-container #swiperContainer dir="rtl" class="mySwiper" navigation="true" centered-slides="true" space-between="30" slides-per-view="5" loop="true">
+    <swiper-container #swiperContainer dir="rtl" draggable="false" class="mySwiper" navigation="true" mousewheel="false" grabCursor="false" centered-slides="true" space-between="30" slides-per-view="5" loop="true">
         <swiper-slide class="swiper-slide-regular" *ngFor="let slide of resumeSlider">
             <div class="cvBuilderSampleImg" [ngClass]="{ 'selectedResumeLevel': selectedResumeLevel == slide.templateName }">
                 <h5 class="text-center uniprep-primary">{{ slide.templateName }}</h5>
