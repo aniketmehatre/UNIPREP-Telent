@@ -34,6 +34,8 @@ import { CareerCategoryListComponent } from './career-category-list/career-categ
 import {DialogModule} from "primeng/dialog";
 import {SharedModule} from "../../shared/shared.module";
 import { TooltipModule } from 'primeng/tooltip';
+import { SkeletonModule } from 'primeng/skeleton';
+
 @NgModule({
   declarations: [
     JobToolComponent,
@@ -73,6 +75,7 @@ import { TooltipModule } from 'primeng/tooltip';
         DialogModule,
         SharedModule,
         TooltipModule,
+        SkeletonModule,
     ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [ConfirmationService], 
