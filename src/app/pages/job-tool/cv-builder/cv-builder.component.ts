@@ -9,7 +9,6 @@ import { MenuItem } from 'primeng/api';
 import Swiper from 'swiper';
 import {AuthService} from "../../../Auth/auth.service";
 import {LocationService} from "../../../location.service";
-import { PDFDocumentProxy } from 'ng2-pdf-viewer';
 
 @Component({
   selector: 'uni-cv-builder',
@@ -17,7 +16,6 @@ import { PDFDocumentProxy } from 'ng2-pdf-viewer';
   styleUrls: ['./cv-builder.component.scss'],
 })
 export class CvBuilderComponent implements OnInit  {
-  // @ViewChild('swiperContainer') swiperContainer!: ElementRef;
   selectedResumeLevel: string = "";
   experienceLevel: any = [{ id: 1, level: "Fresher" }, { id: 2, level: "Experience" }];
   // experienceLevel: any = [{ id: 1, level: "Fresher" }, { id: 2, level: "1-2 Years" }, { id: 3, level: "3-5 Years" }, { id: 4, level: "5+ Years" },];
@@ -167,7 +165,7 @@ export class CvBuilderComponent implements OnInit  {
         direction: 'horizontal',
         loop: true,
         slidesPerView: 5,
-        spaceBetween: 35,
+        spaceBetween: 50,
         centeredSlides: true,
         allowTouchMove: false,
       });
@@ -188,11 +186,10 @@ export class CvBuilderComponent implements OnInit  {
     }, 200);
     
   }
-  callBackFn(pdf: PDFDocumentProxy) {
+  callBackFn() {
    setTimeout(() => {
     this.loadingResumes = false;
-   }, 2000);
-   
+   }, 3000);
   }
 
   ngOnInit(): void {
@@ -517,7 +514,6 @@ export class CvBuilderComponent implements OnInit  {
   fieldPreviousButton() {
     if(this.moduleActiveIndex == 0){
       this.activePageIndex = 1;
-      this.triggerPrevButtonClick();
     }else{
       this.moduleActiveIndex--;
     }
@@ -615,18 +611,18 @@ export class CvBuilderComponent implements OnInit  {
       this.selectedColorCode = 2;
     }
     this.activePageIndex++;
+    this.moduleActiveIndex = this.moduleActiveIndex < 0 ? 0 : this.moduleActiveIndex;
     this.hideHeader();
   }
 
   previous() {
     this.activePageIndex--;
     this.hideHeader();
-    this.triggerPrevButtonClick();
   }
 
   next() {
     if(this.activePageIndex == 0){
-      this.triggerPrevButtonClick();
+      this.IntializeSwiper();
     }
     this.activePageIndex++;
     if (this.activePageIndex == 4) {
@@ -642,76 +638,18 @@ export class CvBuilderComponent implements OnInit  {
       this.clickedDownloadButton =  false;
       this.selectedResumeLevel = "";
       this.submitted = false;
-      // this.stableFileCreation();
     }
     this.hideHeader();
   }
 
-  private triggerPrevButtonClick(): void {
-
+  private IntializeSwiper(): void {
     this.ngAfterViewInit();
-    // setTimeout(() => {
-    //   if (this.swiperContainer) {
-    //     const swiperElement = this.swiperContainer.nativeElement.shadowRoot.querySelector('.swiper');
-    //     console.log(swiperElement);
-    //     if (swiperElement) {
-    //       this.renderer.setStyle(swiperElement, 'overflow', 'visible');
-    //       this.renderer.setStyle(swiperElement, 'margin-top', '70px');
-    //     }
-    //     const prevButton = this.swiperContainer.nativeElement.shadowRoot.querySelector('.swiper-button-prev');
-    //     if (prevButton) {
-    //       this.renderer.selectRootElement(prevButton).click();
-    //       prevButton.innerHTML = `<svg width="11" height="20" viewBox="0 0 11 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M0.38296 20.0762C0.111788 19.805 0.111788 19.3654 0.38296 19.0942L9.19758 10.2796L0.38296 1.46497C0.111788 1.19379 0.111788 0.754138 0.38296 0.482966C0.654131 0.211794 1.09379 0.211794 1.36496 0.482966L10.4341 9.55214C10.8359 9.9539 10.8359 10.6053 10.4341 11.007L1.36496 20.0762C1.09379 20.3474 0.654131 20.3474 0.38296 20.0762Z" fill="currentColor" transform-origin="center" transform="rotate(180)"></path></svg>`;
-    //     } else {
-    //       console.warn('Previous button not found');
-    //     }
-    //   } else {
-    //     console.warn('Swiper container not found');
-    //   }
-    // }, 2000); 
-
-    // const swiper2 = new Swiper(".swiper-countries", {
-    //   slidesPerView: 5,
-    //   spaceBetween: 10,
-    //   slidesPerGroup: 2,
-    //   watchOverflow: !0,
-    //   preventClicks: !0,
-    //   preventClicksPropagation: !0,
-    //   loop: !0,
-    //   breakpoints: {
-    //       320: {
-    //           slidesPerView: 4,
-    //           spaceBetween: 20
-    //       },
-    //       480: {
-    //           slidesPerView: 4,
-    //           spaceBetween: 20
-    //       },
-    //       640: {
-    //           slidesPerView: 6,
-    //           spaceBetween: 20
-    //       },
-    //       768: {
-    //           slidesPerView: 6,
-    //           spaceBetween: 20
-    //       },
-    //       1024: {
-    //           slidesPerView: 8,
-    //           spaceBetween: 30
-    //       },
-    //       1366: {
-    //           slidesPerView: 10,
-    //           spaceBetween: 50
-    //       }
-    //   }
-    // });
   }
 
   previousResumes(){
     this.resumeService.getAlreadyCreatedResumes().subscribe(res => {
       this.resumeHistory = res;
       if(res.length == 0){
-        this.triggerPrevButtonClick();
         this.activePageIndex = 1;
       }
     });

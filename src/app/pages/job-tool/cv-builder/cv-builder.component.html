@@ -4,15 +4,13 @@
             <div>
                 <h3 class="text-center uniprep-primary">Your Resumes</h3>
                 <div class="cvSampleImg d-flex flex-wrap">
-                    <div class="flex-column overflow-hidden" *ngFor="let resumes of resumeHistory; let i = index">
-                        <p-skeleton *ngIf="loadingResumes" width="100%" height="2rem"></p-skeleton>
-                            <pdf-viewer  [src]="resumes.pdf_name" [autoresize]="false" [render-text]="true" [show-all]="false" [original-size]="false" (after-load-complete)="callBackFn($event)"></pdf-viewer>
-                            <i class="fa-solid fa-trash HistoryDeleteIcon" (click)="confirm($event,resumes.pdf_name, resumes.id)"></i>
-                            <p-confirmPopup></p-confirmPopup>
-                            <i class="fa-solid fa-download HistoryDownloadIcon" (click)="downloadOldResume(resumes.pdf_name)"></i>
-                            <p>Version {{ i+1 }}</p>
-                            <small>{{ resumes.created_time }}</small>
-                        
+                    <div class="flex-column overflow-hidden" [ngClass]="{'skeleton-loader ' : loadingResumes}" *ngFor="let resumes of resumeHistory; let i = index">
+                        <pdf-viewer [ngStyle]="{ visibility : loadingResumes ? 'hidden' : 'visible' }" [src]="resumes.pdf_name" [autoresize]="true" [render-text]="true" [show-all]="false" [original-size]="false" (after-load-complete)="callBackFn()"></pdf-viewer>
+                        <i class="fa-solid fa-trash HistoryDeleteIcon" [ngStyle]="{ visibility : loadingResumes ? 'hidden' : 'visible' }" (click)="confirm($event,resumes.pdf_name, resumes.id)"></i>
+                        <p-confirmPopup></p-confirmPopup>
+                        <i class="fa-solid fa-download HistoryDownloadIcon" [ngStyle]="{ visibility : loadingResumes ? 'hidden' : 'visible' }" (click)="downloadOldResume(resumes.pdf_name)"></i>
+                        <p [ngStyle]="{ visibility : loadingResumes ? 'hidden' : 'visible' }" >Version {{ i+1 }}</p>
+                        <small [ngStyle]="{ visibility : loadingResumes ? 'hidden' : 'visible' }" >{{ resumes.created_time }}</small>
                     </div>
                 </div>
             </div>

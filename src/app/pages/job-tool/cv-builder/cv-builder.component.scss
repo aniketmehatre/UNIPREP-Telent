@@ -15,7 +15,7 @@
 }
 .swiper-slide
 {
-	transform: scale(0.9);
+	transform: scale(0.8);
 	transition: 250ms;
 }
 
@@ -517,6 +517,24 @@
 	margin: 15px;
 }
 
+.skeleton-loader {
+	background: #dcdcdc; 
+	animation: pulse 1.5s infinite ease-in-out;
+	border-radius: 9px; 
+	margin: 10px;
+  }
+  
+  @keyframes pulse {
+	0% {
+	  background-color: #dcdcdc; 
+	}
+	50% {
+	  background-color: #b0b0b0;
+	}
+	100% {
+	  background-color: #dcdcdc; 
+	}
+  }
 .cvSampleImg{
 	cursor: pointer;
 	margin: auto;
