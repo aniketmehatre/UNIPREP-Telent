@@ -19,6 +19,8 @@ export class CvBuilderComponent implements OnInit  {
   selectedResumeLevel: string = "";
   experienceLevel: any = [{ id: 1, level: "Fresher" }, { id: 2, level: "Experience" }];
   // experienceLevel: any = [{ id: 1, level: "Fresher" }, { id: 2, level: "1-2 Years" }, { id: 3, level: "3-5 Years" }, { id: 4, level: "5+ Years" },];
+  monthList: any = [{ id: "Jan", name: "January" }, { id: "Feb", name: "February" }, { id: "Mar", name: "March" }, { id: "Apr", name: "Apr" }, { id: "May", name: "May" }, { id: "Jun", name: "June" }, { id: "Jul", name: "July" }, { id: "Aug", name: "August" }, { id: "Sep", name: "September" }, { id: "Oct", name: "October" }, { id: "Nov", name: "November" }, { id: "Dec", name: "December" }];
+
   cgpaPercentage: any = [{ id: "CGPA", value: "CGPA" }, { id: "%", value: "Percentage" }];
   workTypeValue: any = [{ id: "Full Time", value: "Full-Time" }, { id: "Part Time", value: "Part-Time" }, { id: "Internship", value: "Internship" }, { id: "Freelancer", value: "Freelancer" }];
   languageProficiency: any = [{ id: "Beginner", value: "Beginner" }, { id: "Fluent", value: "Fluent" }, { id: "Proficient", value: "Proficient" }, { id: "Native", value: "Native" }];
@@ -245,11 +247,14 @@ export class CvBuilderComponent implements OnInit  {
         const workExpData = storedValues.workExpArray;
         if(workExpData.length != 0){
           workExpData.forEach((activity:any) => {
+            const workEndMonthControl = activity.work_currently_working == true ? [activity.work_end_month]  : [activity.work_end_month, Validators.required];
             this.getWorkExpArray.push(this.fb.group({
               work_org_name: [activity.work_org_name,Validators.required],
               work_currently_working:[activity.work_currently_working],
               work_start_year: [activity.work_start_year,Validators.required],
+              work_start_month: [activity.work_start_month,Validators.required],
               work_end_year: [activity.work_end_year,Validators.required],
+              work_end_month: workEndMonthControl,
               work_designation: [activity.work_designation,Validators.required],
               work_type: [activity.work_type,Validators.required],
               work_location: [activity.work_location,Validators.required],
@@ -535,7 +540,7 @@ export class CvBuilderComponent implements OnInit  {
       let formControlFields: FormArray[] = [];
 
       if (this.moduleActiveIndex === 1) {
-        controlNames = ['work_org_name', 'work_currently_working', 'work_start_year', 'work_end_year', 'work_designation', 'work_type', 'work_location', 'work_job_description'];
+        controlNames = ['work_org_name', 'work_currently_working', 'work_start_year','work_start_month', 'work_end_year', 'work_end_month', 'work_designation', 'work_type', 'work_location', 'work_job_description'];
         formControlFields.push(this.resumeFormInfoData.get('workExpArray') as FormArray);
       } else if (this.moduleActiveIndex === 2) {
         controlNames = ['edu_college_name', 'edu_start_year', 'edu_end_year', 'edu_degree', 'edu_location', 'edu_percentage', 'project_name', 'project_start_name', 'project_end_name', 'project_description'];
@@ -581,20 +586,6 @@ export class CvBuilderComponent implements OnInit  {
       this.selectedColorCode = 2;
     }
   }
-
-  // generateImage() {
-  //   this.previewImage = "";
-  //   const cvPreviewContainer = document.getElementById('cv-preview-container');
-  //   if (cvPreviewContainer) {
-  //     html2canvas(cvPreviewContainer, { useCORS: true })
-  //       .then((canvas) => {
-  //         this.previewImage = canvas.toDataURL('image/png');
-  //       })
-  //       .catch((error) => {
-  //         console.error('Failed to generate image', error);
-  //       });
-  //   }
-  // }
 
   selectResumeTemplate(resumeTemplate: string) {
     this.selectedResumeLevel = resumeTemplate;
@@ -720,7 +711,9 @@ export class CvBuilderComponent implements OnInit  {
         work_org_name: ['',Validators.required],
         work_currently_working:[''],
         work_start_year: ['',Validators.required],
+        work_start_month: ['',Validators.required],
         work_end_year: ['',Validators.required],
+        work_end_month: ['',Validators.required],
         work_designation: ['',Validators.required],
         work_type: ['',Validators.required],
         work_location: ['',Validators.required],
@@ -850,13 +843,22 @@ export class CvBuilderComponent implements OnInit  {
       const workExpGroup = workExpArray.at(index) as FormGroup;
       if (isChecked) {
         workExpGroup.patchValue({
-          work_end_year: 'Present'
+          work_end_year: 'Present',
+          work_end_month:''
         });
       } else {
         workExpGroup.patchValue({
-          work_end_year: ''
+          work_end_year: '',
+          work_end_month:''
         });
       }
+      const isCurrentlyWorking = workExpGroup.get('work_currently_working')?.value;
+        if (isCurrentlyWorking) {
+          workExpGroup.get('work_end_month')?.clearValidators();
+        } else {
+          workExpGroup.get('work_end_month')?.setValidators([Validators.required]);
+        }
+        workExpGroup.get('work_end_month')?.updateValueAndValidity();
     } else {
       const getEduDetailsArray = this.getEduDetailsArray;
       const getEduDetailsGroup = getEduDetailsArray.at(index) as FormGroup;
@@ -870,7 +872,6 @@ export class CvBuilderComponent implements OnInit  {
         });
       }
     }
-
   }
 
   downloadResume() {

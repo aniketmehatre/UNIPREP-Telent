@@ -312,6 +312,24 @@
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6">
+                                                    <div class="d-flex">
+                                                        <label class="form-label labelFont">Designation</label>
+                                                        <i class="fa-solid fa-circle-question m-2 uniprepColor"  pTooltip="Specify your job title or role within the organization" tooltipPosition="top" ></i>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <div class="mb-3">
+                                                            <input class="w-100" type="text"
+                                                                   placeholder="Your Designation"
+                                                                   formControlName="work_designation" pInputText />
+                                                            <div *ngIf="wrkExp.get('work_designation')?.invalid && wrkExp.get('work_designation')?.touched && submitted"
+                                                                 class="text-danger text-xs">
+                                                                <div style="margin-left:10px;">Designation required.
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-12">
                                                     <div class="d-flex justify-content-between align-items-center">
                                                         <div class="d-flex">
                                                             <label class="form-label labelFont" style="font-size: small;">Experience Year </label>
@@ -330,49 +348,51 @@
                                                     </div>
                                                     <div class="row">
                                                         <div class="col-md-6">
-                                                            <div class="form-group">
-                                                                <div class="mb-3">
-                                                                    <input class="w-100" type="number"
-                                                                           placeholder="Start Year"
-                                                                           formControlName="work_start_year" pInputText />
-                                                                    <div *ngIf="wrkExp.get('work_start_year')?.invalid && wrkExp.get('work_start_year')?.touched && submitted"
-                                                                         class="text-danger text-xs">
-                                                                        <div style="margin-left:10px;">Start Year
-                                                                            required.</div>
+                                                            <div class="form-group d-flex">
+                                                                <div class="col-md-6 m-1">
+                                                                    <div class="mb-3">
+                                                                        <input class="w-100" type="number" placeholder="Start Year" formControlName="work_start_year" pInputText />
+                                                                        <div *ngIf="wrkExp.get('work_start_year')?.invalid && wrkExp.get('work_start_year')?.touched && submitted"
+                                                                             class="text-danger text-xs">
+                                                                            <div style="margin-left:10px;">Start Year
+                                                                                required.</div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-6">
+                                                                    <div class="mb-3">
+                                                                        <p-dropdown [options]="monthList" placeholder="Month" styleClass="w-100"
+                                                                        formControlName="work_start_month" optionLabel="name" optionValue="id"></p-dropdown>
+                                                                        <div *ngIf="wrkExp.get('work_start_month')?.invalid && wrkExp.get('work_start_month')?.touched && submitted"
+                                                                            class="text-danger text-xs">
+                                                                            <div style="margin-left:10px;">Start Month required.</div>
+                                                                        </div>
                                                                     </div>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                         <div class="col-md-6">
-                                                            <div class="form-group">
-                                                                <div class="mb-3">
-                                                                    <input class="w-100" type="number"
-                                                                           placeholder="End Year"
-                                                                           [attr.disabled]="getWorkExpArray.controls[i]?.get('work_currently_working')?.value ? true : null"
-                                                                           formControlName="work_end_year" pInputText />
-                                                                    <div *ngIf="wrkExp.get('work_end_year')?.invalid && wrkExp.get('work_end_year')?.touched && submitted"
-                                                                         class="text-danger text-xs">
-                                                                        <div style="margin-left:10px;">End Year
-                                                                            required.</div>
+                                                            <div class="form-group d-flex">
+                                                                <div class="col-md-6 m-1">
+                                                                    <div class="mb-3">
+                                                                        <input class="w-100" type="number"
+                                                                            placeholder="End Year"
+                                                                            [attr.disabled]="getWorkExpArray.controls[i]?.get('work_currently_working')?.value ? true : null"
+                                                                            formControlName="work_end_year" pInputText />
+                                                                        <div *ngIf="wrkExp.get('work_end_year')?.invalid && wrkExp.get('work_end_year')?.touched && submitted"
+                                                                            class="text-danger text-xs">
+                                                                            <div style="margin-left:10px;">End Year required.</div>
+                                                                        </div>
                                                                     </div>
                                                                 </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-12">
-                                                    <div class="d-flex">
-                                                        <label class="form-label labelFont">Designation</label>
-                                                        <i class="fa-solid fa-circle-question m-2 uniprepColor"  pTooltip="Specify your job title or role within the organization" tooltipPosition="top" ></i>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <div class="mb-3">
-                                                            <input class="w-100" type="text"
-                                                                   placeholder="Your Designation"
-                                                                   formControlName="work_designation" pInputText />
-                                                            <div *ngIf="wrkExp.get('work_designation')?.invalid && wrkExp.get('work_designation')?.touched && submitted"
-                                                                 class="text-danger text-xs">
-                                                                <div style="margin-left:10px;">Designation required.
+                                                                <div class="col-md-6">
+                                                                    <div class="mb-3">
+                                                                        <p-dropdown [options]="monthList" placeholder="Month" styleClass="w-100" [disabled]="getWorkExpArray.controls[i]?.get('work_currently_working')?.value" formControlName="work_end_month" optionLabel="name" optionValue="id"></p-dropdown>
+                                                                        <div *ngIf="wrkExp.get('work_end_month')?.invalid && wrkExp.get('work_end_month')?.touched && submitted"
+                                                                            class="text-danger text-xs">
+                                                                            <div style="margin-left:10px;">End Month required.</div>
+                                                                        </div>
+                                                                    </div>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -1209,8 +1229,8 @@
                     <p class="headingStyle" [ngStyle]="{'background-color': selectedThemeColor, 'color': selectedFontColor}"> experience</p>
                     <div class="experienceItem" *ngFor="let exp of getWorkExpArray.controls">
                         <div style="width: 30%;">
-                            <p class="fw-700">{{ exp.value.work_start_year }} {{ exp.value.work_end_year ? " - " +
-                                exp.value.work_end_year : "" }}</p>
+                            <p class="fw-700">{{ exp.value.work_start_year }} {{ exp.value.work_start_month }}  {{ exp.value.work_end_year ? " - " +
+                                exp.value.work_end_year+' '+exp.value.work_end_month: "" }}</p>
                             <p class="fw-700">{{ exp.value.work_org_name }}</p>
                             <p class="fw-700">{{ exp.value.work_location }} </p>
                         </div>
@@ -1409,8 +1429,7 @@
         </div>
     </div>
     <div class="h-100" id="cv-preview-container"
-         [ngClass]="{ previewBodyForm: !fullScreenVisible, previewBodyFormFull: fullScreenVisible }"
-         *ngIf="selectedResumeLevel=='Creative'">
+         [ngClass]="{ previewBodyForm: !fullScreenVisible, previewBodyFormFull: fullScreenVisible }" *ngIf="selectedResumeLevel=='Creative'">
         <div class="container-fluid">
             <div class="row">
                 <div class="col-12 text-left" style="background-color: black; padding: 20px 10px;">
