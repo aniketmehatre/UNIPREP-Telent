@@ -27,6 +27,7 @@ import { CareerPlannerComponent } from './career-planner/career-planner.componen
 import { CourseListComponent } from './course-list/course-list.component';
 import { JobToolComponent } from './job-tool/job-tool.component';
 import {SalaryConverterComponent} from "./job-tool/salary-converter/salary-converter.component";
+import { InterviewJobrolesComponent } from './interview-jobroles/interview-jobroles.component';
 
 const routes: Routes = [
     {
@@ -190,7 +191,12 @@ const routes: Routes = [
             {
                 path: 'job-tool',
                 loadChildren: () => import('./job-tool/job-tool.module').then(m => m.JobToolModule)
-            }
+            },
+            {
+                path: 'jobroles',
+
+                component: InterviewJobrolesComponent
+            },
         ]
     }
 ];

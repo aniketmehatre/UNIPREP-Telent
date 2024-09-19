@@ -69,6 +69,8 @@ import {PdfViewerModule} from "ng2-pdf-viewer";
 import { CareerPlannerComponent } from './career-planner/career-planner.component';
 import { CertificatesComponent } from './certificates/certificates.component';
 import { CourseListComponent } from "./course-list/course-list.component";
+import { InterviewJobrolesComponent } from './interview-jobroles/interview-jobroles.component';
+import {AnimateModule} from 'primeng/animate';
 // import { JobToolComponent } from './job-tool/job-tool.component';
 @NgModule({
     declarations: [
@@ -102,6 +104,7 @@ import { CourseListComponent } from "./course-list/course-list.component";
         CareerPlannerComponent,
         CertificatesComponent,
         CourseListComponent,
+        InterviewJobrolesComponent,
         // JobToolComponent,
         
     ],
@@ -143,7 +146,8 @@ import { CourseListComponent } from "./course-list/course-list.component";
         StepsModule,
         RadioButtonModule,
         NgxExtendedPdfViewerModule,
-        PdfViewerModule
+        PdfViewerModule,
+        AnimateModule
     ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
