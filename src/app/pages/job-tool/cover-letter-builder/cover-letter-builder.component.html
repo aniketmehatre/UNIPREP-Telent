@@ -1,14 +1,15 @@
 <div class="container-fluid" *ngIf="activePageIndex == 1">
 	<h3 class="text-center uniprep-primary">Select your Coverletter style to get started</h3>
-	<ngx-slick-carousel class="carousel" #slickModal="slick-carousel" [config]="slideConfig">
+	<ngx-slick-carousel class="carousel" #slickModal="slick-carousel" [config]="slideConfig"  
+	(afterChange)="onAfterChange($event)">
 		<div ngxSlickItem *ngFor="let slide of resumeSlider" class="slide">
 			<div class="d-flex flex-column">
 				<h5 class="text-center uniprep-primary">{{ slide.templateName }}</h5>
-				<div class="cvBuilderSampleImg"
+				<div class="cvBuilderSampleImg" 
 					[ngClass]="{ 'selectedResumeLevel': selectedResumeLevel === slide.templateName }">
 					<img [src]="slide.imageLink" alt="{{ slide.templateName }}" />
-					<button class="center-button" (click)="selectResumeTemplate(slide.templateName)">
-						{{ selectedResumeLevel === slide.templateName ? 'Selected' : 'Select' }}
+					<button class="center-button" *ngIf="selectedResumeLevel === slide.templateName ? true : false">
+						Selected
 					</button>
 				</div>
 			</div>
@@ -75,6 +76,7 @@
 	</div>
 </div>
 <div class="" *ngIf="activePageIndex == 3">
+
 	<div class="row justify-content-center">
 		<div class="flex-column">
 			<div style="justify-content: center;">
@@ -152,6 +154,11 @@
 	</div>
 </div> -->
 <div class="container-fluid h-100" *ngIf="activePageIndex == 2">
+	<div style="padding: 10px 0px;">
+		<!-- <p-steps [model]="items"></p-steps> -->
+	</div>
+
+
 	<div class="row" style="height: 93%;">
 		<div class="col-md-6 h-100 overflow-y-auto">
 			<form role="form" class="row" [formGroup]="resumeFormInfoData" #form="ngForm">
@@ -162,7 +169,7 @@
 							<label class="form-label labelFont">Your Name</label>
 							<div class="form-group">
 								<div class="mb-3">
-									<input class="w-100" type="text" placeholder="Your Full Name" formControlName="user_name"
+									<input class="w-100" type="text" placeholder="Full Name" formControlName="user_name"
 										pInputText />
 									<div *ngIf="submitted && f['user_name'].errors" class="text-danger text-xs">
 										<div style="margin-left:10px;" *ngIf="f['user_name'].errors">Required
@@ -175,7 +182,7 @@
 							<label class="form-label labelFont">Job Title</label>
 							<div class="form-group">
 								<div class="mb-3">
-									<input class="w-100" type="text" placeholder="Your Job Title"
+									<input class="w-100" type="text" placeholder="Your Title"
 										formControlName="user_job_title" pInputText />
 										<div *ngIf="submitted && f['user_job_title'].errors" class="text-danger text-xs">
 											<div style="margin-left:10px;" *ngIf="f['user_job_title'].errors">Required
@@ -201,7 +208,7 @@
 							<label class="form-label labelFont">Current Address</label>
 							<div class="form-group">
 								<div class="mb-3">
-									<input class="w-100" type="text" placeholder="Your Location"
+									<input class="w-100" type="text" placeholder="Location"
 										formControlName="user_location" pInputText />
 										<div *ngIf="submitted && f['user_location'].errors" class="text-danger text-xs">
 											<div style="margin-left:10px;" *ngIf="f['user_location'].errors">Required
@@ -227,7 +234,7 @@
 							<label class="form-label labelFont">LinkedIn Link</label>
 							<div class="form-group">
 								<div class="mb-3">
-									<input class="w-100" type="text" placeholder="LinkedIn profile link"
+									<input class="w-100" type="text" placeholder="LinkedIn Profile Link"
 										formControlName="user_linkedin" pInputText />
 								</div>
 							</div>
@@ -493,17 +500,18 @@
 			<div class="horizontal-lineacmodern2" [ngStyle]="{'background-color': selectedThemeColor}"></div>
 		</div>
 
-		<div class="mt-2 customfontstyles fontsizeset" style=" padding:5px; font-family:'Times New Roman', Times, serif; margin-left: 2px;">
+		<div class="mt-2 customfontstyles fontsizeset" style=" padding:5px; margin-left: 2px;font-size: 1.5rem;">
 			<span>
-				<h1 class="userName upperCase">{{ f["user_name"].value }}</h1>
+				<h1 style="font-size: 2rem;" class="userName upperCase">{{ f["user_name"].value }}</h1>
+				<h1 style="font-size: 2rem;" class="userName upperCase">{{ f["user_job_title"].value }}</h1>
 			</span>
 
-			<p class="profession upperCase">&nbsp;{{ f["user_job_title"].value }}</p> <br><br>
-			<p><span>Dear {{f["managername"].value }},</span></p><br>
-			<p><span [innerHTML]="f['user_summary'].value"></span></p>
+			<!-- <p style="font-size: 1.5rem !important" class="profession upperCase">&nbsp;{{ f["user_job_title"].value }}</p> <br><br> -->
+			<p><span style="font-size: 1rem;">Dear {{f["managername"].value }},</span></p><br>
+			<p><span style="font-size: 1rem !important;" [innerHTML]="f['user_summary'].value"></span></p>
 			<br>
-			<p><span>Warm regards,&nbsp;</span></p>
-			<p>{{ f["user_name"].value }}</p>
+			<p><span style="font-size: 1rem;">Warm regards,&nbsp;</span></p>
+			<p style="font-size: 1rem;">{{ f["user_name"].value }}</p>
 
 		</div>
 
@@ -523,17 +531,17 @@
 			<div class="horizontal-lineacadamic" [ngStyle]="{'background-color': selectedThemeColor}"></div>
 		</div>
 
-		<div class="mt-2 customfontstyles fontsizeset" style=" padding:5px; font-family:'Times New Roman', Times, serif; margin-left: 2px;">
+		<div class="mt-2 customfontstyles fontsizeset" style="font-size: 2rem; padding:5px; font-family:'Times New Roman', Times, serif; margin-left: 2px;">
 			<span>
-				<h1 class="userName upperCase">{{ f["user_name"].value }}</h1>
+				<h1 style="font-size: 2rem;" class="userName upperCase">{{ f["user_name"].value }}</h1>
 			</span>
 
-			<p class="profession upperCase">&nbsp;{{ f["user_job_title"].value }}</p> <br><br>
-			<p><span>Dear {{f["managername"].value }},</span></p><br>
-			<p><span [innerHTML]="f['user_summary'].value"></span></p>
+			<p  style="font-size: 1.5rem;" class="profession upperCase">&nbsp;{{ f["user_job_title"].value }}</p> <br><br>
+			<p><span style="font-size: 1rem;">Dear {{f["managername"].value }},</span></p><br>
+			<p><span style="font-size: 1rem;" [innerHTML]="f['user_summary'].value"></span></p>
 			<br>
-			<p><span>Warm regards,&nbsp;</span></p>
-			<p>{{ f["user_name"].value }}</p>
+			<p style="font-size: 1rem;"><span>Warm regards,&nbsp;</span></p>
+			<p style="font-size: 1rem;">{{ f["user_name"].value }}</p>
 
 		</div>
 		<div style="  bottom:0px;position:relative; width: 100%;   ">
@@ -553,20 +561,19 @@
 		<div class="vertical-line_right_bottomcreative"></div>
 		<div class="horizontal-line-top" [ngStyle]="{'background-color': selectedThemeColor}"></div>
 		<div class="horizontal-line-bottom"></div>
-		<div class="customfontstyles fontsizeset" style=" padding:7px; margin: 0px; margin-top: 15px; margin-left: 2px;">
+		<div class="customfontstyles fontsizeset" style="font-size: 2rem; padding:7px; margin: 0px; margin-top: 15px; margin-left: 2px;">
 			<h1 class="userName upperCase">{{
 				f["user_name"].value }}</h1>
-			<p class="profession upperCase">{{ f["user_job_title"].value }}</p>
+			<p style="font-size: 1rem;" class="profession upperCase">{{ f["user_job_title"].value }}</p>
 			<br>
-			<p><span>Dear {{f["managername"].value }},</span></p><br>
+			<p><span style="font-size: 1rem;">Dear {{f["managername"].value }},</span></p><br>
 			<br>
-			<p><span [innerHTML]="f['user_summary'].value"></span></p>
+			<p><span style="font-size: 1rem;" [innerHTML]="f['user_summary'].value"></span></p>
 			<br>
-			<p><span>Warm regards,&nbsp;</span></p>
-			<p style="margin-top:8px;">{{ f["user_name"].value }}</p>
+			<p><span style="font-size: 1rem;">Warm regards,&nbsp;</span></p>
+			<p style="margin-top:8px;font-size: 1rem;">{{ f["user_name"].value }}</p>
 		</div>
 	</div>
-
 	<div class="h-100" id="cv-preview-container"
 		[ngClass]="{ previewBodyForm: !fullScreenVisible, previewBodyFormFull: fullScreenVisible }"
 		*ngIf="selectedResumeLevel=='Functional'">
@@ -574,25 +581,25 @@
 			<div class="row"
 				style="padding: 5px 10px 15px 10px; border-radius: 8px 8px 0px 0px;" [ngStyle]="{'background-color': selectedThemeColor}">
 				<div class="col-12 text-left mt-5">
-					<h1 class="userName upperCase" style="color: white;margin: 0px;">{{
+					<h1  style="font-size: 2rem;" class="userName upperCase" style="color: white;margin: 0px;">{{
 						f["user_name"].value }}</h1>
-					<p class="profession upperCase" style="color: white;">{{ f["user_job_title"].value }}</p>
+					<p style="font-size: 1rem;" class="profession upperCase" style="color: white;">{{ f["user_job_title"].value }}</p>
 				</div>
 			</div>
 		</div>
 		<div class="mt-3 customfontstyles fontsizeset" style=" padding:5px; margin: auto; margin-left: 2px;">
 			<br>
-			<p><span>Dear {{f["managername"].value }},</span></p><br>
+			<p><span style="font-size: 1rem;">Dear {{f["managername"].value }},</span></p><br>
 			<br>
-			<p><span [innerHTML]="f['user_summary'].value"></span></p>
-			<br>
-			<p><span>Warm regards,&nbsp;</span></p>
-			<p style="margin-top:8px;">{{ f["user_name"].value }}</p>
+			<p><span style="font-size: 1rem;" [innerHTML]="f['user_summary'].value"></span></p>
+			<br> 
+			<p><span style="font-size: 1rem;">Warm regards,&nbsp;</span></p>
+			<p style="margin-top:8px;font-size: 1rem;">{{ f["user_name"].value }}</p>
 
 		</div>
 
 		<div class="containerfuctional1"  [ngStyle]="{'background-color': selectedThemeColor}">
-			<div style="height:15px;position: absolute; height: 5px">
+			<div style="height:15px;position: absolute; height: 5px;font-size: 1rem;">
 			</div>
 		</div>
 	</div>
@@ -608,15 +615,15 @@
 		<div class="customfontstyles fontsizeset"
 			style="padding:5px; font-family:'Times New Roman', Times, serif; margin-top: 15px; margin-left: 2px;">
 			<span>
-				<h1 class="userName upperCase">{{ f["user_name"].value }}</h1>
+				<h1 style="font-size: 2rem;" class="userName upperCase">{{ f["user_name"].value }}</h1>
 			</span>
 
-			<p class="profession upperCase">&nbsp;{{ f["user_job_title"].value }}</p> <br><br>
-			<p><span>Dear {{f["managername"].value }},</span></p><br>
-			<p><span [innerHTML]="f['user_summary'].value"></span></p>
+			<p style="font-size: 1.5rem;" class="profession upperCase">&nbsp;{{ f["user_job_title"].value }}</p> <br><br>
+			<p><span style="font-size: 1rem;">Dear {{f["managername"].value }},</span></p><br>
+			<p><span style="font-size: 1rem;" [innerHTML]="f['user_summary'].value"></span></p>
 			<br>
-			<p><span>Warm regards,&nbsp;</span></p>
-			<p>{{ f["user_name"].value }}</p>
+			<p><span style="font-size: 1rem;">Warm regards,&nbsp;</span></p>
+			<p style="font-size: 1rem;">{{ f["user_name"].value }}</p>
 
 		</div>
 		<div style="bottom:0px;position:relative; width: 100%;   ">
@@ -630,3 +637,16 @@
 	</div>
 
 </ng-template>
+<p-dialog [(visible)]="restrict" [modal]="true" [style]="{ width: '30vw' }" [draggable]="false" [resizable]="false" class="restrictionDialog" [breakpoints]="{ '960px': '30vw', '959px': '60vw', '425px': '90vw' }" (onHide)="clearRestriction()">
+    <div  *ngIf="!ehitlabelIsShow" class="text-center mt-5 mb-4">
+        <img src="../../../uniprep-assets/images/smartloack.png" class="image" width="60" />
+        <h3 class="offer">Upgrade Required</h3>
+        <p>To access this exclusive module,please upgrade your plan now</p>
+        <button pButton type="button" class="text-white p-ripple p-button-rounded p-button-warning p-button p-component p-2" (click)="upgradePlan()">Upgrade Plan<i class="fa fa-arrow-right exhausted-plan-icon"></i></button>
+    </div>
+    <div *ngIf="ehitlabelIsShow" class="text-center mt-5 mb-4">
+        <img src="../../../uniprep-assets/images/smartloack.png" class="image" width="60"/>
+        <h3 class="offer">Upgrade Required</h3>
+        <p>Please contact {{orgnamewhitlabel}} Company for access</p>
+    </div>
+</p-dialog>

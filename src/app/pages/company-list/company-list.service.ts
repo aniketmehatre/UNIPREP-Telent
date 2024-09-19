@@ -54,4 +54,25 @@ export class CompanyListService {
       headers: headers,
     });
   }
+
+  storeRecommendation(data: any){
+    const headers = new HttpHeaders().set("Accept", "application/json");
+    return this.http.post<any>(environment.ApiUrl + "/storeCompanyRec", data, {
+      headers: headers,
+    });
+  }
+
+  resetRecommendation(){
+    const headers = new HttpHeaders().set("Accept", "application/json");
+    return this.http.post<any>(environment.ApiUrl + "/resetCompanyRec", {
+      headers: headers,
+    });
+  }
+
+  getStoredRecommendation(){
+    const headers = new HttpHeaders().set("Accept", "application/json");
+    return this.http.post<any>(environment.ApiUrl + "/getCompanyRec", {
+      headers: headers,
+    });
+  }
 }

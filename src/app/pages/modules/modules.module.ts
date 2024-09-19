@@ -25,6 +25,9 @@ import { AccordionModule } from 'primeng/accordion';
 import { LearninghubquizComponent } from './learninghubquiz/learninghubquiz.component';
 import { LanguagetypequizComponent } from './languagetypequiz/languagetypequiz.component';
 import {InputTextModule} from "primeng/inputtext";
+import { AcademicToolsComponent } from './academic-tools/academic-tools.component';
+import { AcademicToolsStreamComponent } from './academic-tools-stream/academic-tools-stream.component';
+import { AcademicToolsQuizComponent } from './academic-tools-quiz/academic-tools-quiz.component';
 
 
 @NgModule({
@@ -36,6 +39,9 @@ import {InputTextModule} from "primeng/inputtext";
     QuizmenuComponent,
     LearninghubquizComponent,
     LanguagetypequizComponent,
+    AcademicToolsComponent,
+    AcademicToolsStreamComponent,
+    AcademicToolsQuizComponent,
   ],
     imports: [
         CommonModule,

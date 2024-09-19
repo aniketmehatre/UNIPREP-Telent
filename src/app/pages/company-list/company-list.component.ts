@@ -19,7 +19,8 @@ export class CompanyListComponent implements OnInit {
   companyListData: any[] = []
   industryInterested: any;
   countryList: any;
-  headQuartersList: any
+  headQuartersList: any;
+  anyHeadquartersList: any;
   page = 1;
   pageSize = 50;
   valueNearYouFilter: string = '';
@@ -42,6 +43,26 @@ export class CompanyListComponent implements OnInit {
   imagewhitlabeldomainname:any;
   orgnamewhitlabel:any;
   orglogowhitelabel:any;
+  enableModule: boolean = false;
+  activePageIndex: number = 0;
+  recommendations: any = [
+    {
+      id: 1,
+      question: "Select your preferred Industry",
+    },
+    {
+      id: 2,
+      question: "Select your country of interest for company search",
+    },
+    {
+      id: 3,
+      question: "Select the location of the headquarters",
+    },
+  ];
+
+  invalidClass: boolean = false;
+  selectedData: { [key: string]: any } = {};
+
   constructor(
     private _location: Location,
     private fb: FormBuilder,
@@ -80,6 +101,7 @@ export class CompanyListComponent implements OnInit {
     this.loadMultiSelectData();
     this.checkplanExpire();
     this.GetPersonalProfileData();
+    this.checkRecommendation();
   }
 
   goBack() {
@@ -223,6 +245,9 @@ export class CompanyListComponent implements OnInit {
   loadHeadQuartersData(event: any) {
     this.companyListService.getHeadQuartersList(event.value).subscribe((response) => {
       this.headQuartersList = response;
+      this.anyHeadquartersList = [...response];
+      let anyCountryArray: any = {id: null, head_quarters_name: "any"};
+      this.anyHeadquartersList.unshift(anyCountryArray);
     });
   }
   GetPersonalProfileData() {
@@ -327,6 +352,7 @@ export class CompanyListComponent implements OnInit {
       }else{
         if(this.exportCreditCount < this.exportDataIds.length){
         this.toast.add({severity: "error",summary: "error",detail: "To download additional data beyond your free credits, please upgrade your plan.",});
+        this.restrict = true;
         return;
       }
     }
@@ -341,8 +367,12 @@ export class CompanyListComponent implements OnInit {
         this.loadCompanyData(0);
       })
     }else if(this.exportCreditCount == 0){
-      this.toast.add({severity: "error",summary: "error",detail: "Please Buy Some Credits.",});
-      this.router.navigate(["/pages/export-credit"]);
+      if (this.imagewhitlabeldomainname === "dev-student.uniprep.ai" || this.imagewhitlabeldomainname === "uniprep.ai" || this.imagewhitlabeldomainname === "localhost") {
+        this.toast.add({severity: "error",summary: "error",detail: "Please Buy Some Credits.",});
+        this.router.navigate(["/pages/export-credit"]);
+      }else{
+        this.restrict = true;
+      }
     }
     
   }
@@ -361,6 +391,62 @@ export class CompanyListComponent implements OnInit {
 
   openVideoPopup(videoLink: string) {
     this.pageFacade.openHowitWorksVideoPopup(videoLink);
+  }
+
+  previous(): void {
+    this.invalidClass = false;
+    if (this.activePageIndex > 0) {
+      this.activePageIndex--;
+    }
+  }
+
+  next(productId: number): void {
+    this.invalidClass = false;
+    if (productId in this.selectedData) {
+      if (this.activePageIndex < this.recommendations.length - 1) {
+        this.activePageIndex++;
+      }
+    } else {
+      this.invalidClass = true;
+    }
+  }
+  getRecommendation() {
+    this.enableModule = true;
+    let keyMapping: any = {"1": "industry_interested","2": "country","3": "head_quarters"};
+    
+    let newData = Object.fromEntries(Object.entries(this.selectedData).map(([key, value]) => {
+      let mappedKey = keyMapping[key] || key;
+      if (Array.isArray(value)) {
+        value = value.filter(item => item !== null);
+      }
+      return [mappedKey, value];
+    }));
+    this.companyListService.storeRecommendation(newData).subscribe();
+    this.setRecommendationToForm(newData);
+  }
+
+  setRecommendationToForm(data: any){
+    this.filterForm.patchValue(data);
+    this.loadCompanyData(0);
+
+  }
+  resetRecommendation(){
+    this.companyListService.resetRecommendation().subscribe(res =>{
+      this.activePageIndex = 0;
+      this.enableModule = false;
+      this.selectedData = {};
+    });
+  }
+
+  checkRecommendation(){
+    this.companyListService.getStoredRecommendation().subscribe(res =>{
+      if(res.status){
+        this.enableModule = true;
+        this.setRecommendationToForm(res.data);
+      }else{
+        this.enableModule = false;
+      }
+    });
   }
 }
 

@@ -11,7 +11,7 @@
 						<h5 class="w-100 mb-0" tooltipPosition="top" pTooltip="Quiz">QUIZ<i class="questiontooltip fa-solid fa-circle-question"></i></h5>
 					</div>
 					<div>
-						<button class="how-it-works-button" (click)="openVideoPopup('https://www.youtube.com/embed/l00Z_Nk6GLI?si=j1IwWBZjrXEAYjxH')"> &nbsp;How it works? &nbsp;&nbsp;<i class="fa-solid fa-play"></i></button>
+						<button class="how-it-works-button" (click)="openVideoPopup('https://www.youtube.com/embed/l00Z_Nk6GLI?si=j1IwWBZjrXEAYjxH')">&nbsp;How it works? &nbsp;&nbsp;<i class="fa-solid fa-play"></i></button>
 					</div>
 				</div>
 			</div>
@@ -20,258 +20,173 @@
 				<!-- new upadted design -->
 				<div class="responsiveconatainer">
 					<!-- Pre Admission -->
-					<div class="card responsivecard p-2">
-						<div class="card-content">
-							<img height="60" width="60" src="../../../uniprep-assets/images/icons/preadmission.png"
-								alt="Pre Admission">
+					<div class="card responsivecard">
+						<div class="card-body text-center">
+							<img height="60" width="60" src="../../../uniprep-assets/images/icons/preadmission.png" alt="Pre Admission" />
 							<h4>Pre Admission</h4>
-							<div class="row" style="width: -webkit-fill-available !important;">
-								<div class="col-8">
-									<p-dropdown dropdownAppendTo="body" style="background-color: #EBEDF2 !important;"
-										class="mt-2" (onChange)="preAdmissionCountryListId($event.value)"
-										[(ngModel)]="preaddimissioncontrydropdownid" placeholder="Select the country"
-										[options]="countrydropdownlist" optionValue="id" optionLabel="country"
-										styleClass="w-100" [filter]="true">
-										<ng-template let-countryOption pTemplate="selectedItem"
-											style="border-radius: 20px !important">
-											<div class="d-flex align-items-center">
-												<img src="{{ countryOption.flag }}" alt="{{ countryOption.country }}"
-													class="mr-2" style="width: 24px; height: 24px; padding-left: 5px" />
-												<span style="padding-left: 10px">{{ countryOption.country }}</span>
-											</div>
-										</ng-template>
-										<ng-template let-countryOption pTemplate="item">
-											<div class="d-flex align-items-center">
-												<img src="{{ countryOption.flag }}" alt="{{ countryOption.country }}"
-													class="mr-2" style="width: 24px; height: 24px" />
-												<span>{{ countryOption.country }}</span>
-											</div>
-										</ng-template>
-									</p-dropdown>
-								</div>
-								<div class="col-4">
-									<button style="padding: 3px; font-size: small;" [disabled]="preadmissionpercentage>=90"
-										(click)="startModulule(1)" type="button"
-										class="w-100 h-100 btn btn-primary btn-rounded text-white">
-										<span class="me-1">{{ preadmissionpercentage >= 90 ? "Completed" : "Start Quiz"
-											}}</span>
-										<span *ngIf="preadmissionpercentage <= 89">
-											<i class="fas fa-arrow-right"></i>
-										</span>
-									</button>
-								</div>
+							<div class="d-flex gap-2 w-100">
+								<p-dropdown dropdownAppendTo="body" (onChange)="preAdmissionCountryListId($event.value)" [(ngModel)]="preaddimissioncontrydropdownid" placeholder="Select the country" [options]="countrydropdownlist" optionValue="id" optionLabel="country" styleClass="w-100 flex-fill" [filter]="true">
+									<ng-template let-countryOption pTemplate="selectedItem">
+										<div class="d-flex gap-1 align-items-center countrydropdown">
+											<img class="countryicon" src="{{ countryOption.flag }}" alt="{{ countryOption.country }}" />
+											<span class="countrytext">{{ countryOption.country }}</span>
+										</div>
+									</ng-template>
+									<ng-template let-countryOption pTemplate="item">
+										<div class="d-flex gap-1 align-items-center countrydropdown">
+											<img class="countryicon" src="{{ countryOption.flag }}" alt="{{ countryOption.country }}" />
+											<span class="countrytext">{{ countryOption.country }}</span>
+										</div>
+									</ng-template>
+								</p-dropdown>
+								<button [disabled]="preadmissionpercentage >= 90" (click)="startModulule(1)" type="button" class="quizbtn">
+									<span>{{ preadmissionpercentage >= 90 ? "Completed" : "Start Quiz" }}</span>
+									<span *ngIf="preadmissionpercentage <= 89">
+										<i class="fas fa-arrow-right"></i>
+									</span>
+								</button>
 							</div>
 						</div>
 					</div>
 
 					<!-- Post Admission -->
-					<div class="card responsivecard p-2">
-						<div class="card-content">
-							<img height="60" width="60" src="../../../uniprep-assets/images/icons/postadmission.png"
-								alt="Post Admission">
+					<div class="card responsivecard">
+						<div class="card-body text-center">
+							<img height="60" width="60" src="../../../uniprep-assets/images/icons/postadmission.png" alt="Post Admission" />
 							<h4>Post Admission</h4>
-							<div class="row" style="width: -webkit-fill-available !important;">
-								<div class="col-8">
-									<p-dropdown dropdownAppendTo="body" class="mt-2"
-										(onChange)="postAdmissionCountryListId($event.value)"
-										[(ngModel)]="postadmiisioncontrydropdownid" placeholder="Select the country"
-										[options]="countrydropdownlist" optionValue="id" optionLabel="country"
-										styleClass="w-100" [filter]="true">
-										<ng-template let-countryOption pTemplate="selectedItem"
-											style="border-radius: 20px !important">
-											<div class="d-flex align-items-center">
-												<img src="{{ countryOption.flag }}" alt="{{ countryOption.country }}"
-													class="mr-2" style="width: 24px; height: 24px; padding-left: 5px" />
-												<span style="padding-left: 10px">{{ countryOption.country }}</span>
-											</div>
-										</ng-template>
-										<ng-template let-countryOption pTemplate="item">
-											<div class="d-flex align-items-center">
-												<img src="{{ countryOption.flag }}" alt="{{ countryOption.country }}"
-													class="mr-2" style="width: 24px; height: 24px" />
-												<span>{{ countryOption.country }}</span>
-											</div>
-										</ng-template>
-									</p-dropdown>
-								</div>
-								<div class="col-4">
-									<button style="padding: 3px; font-size: small;" [disabled]="postadmissionpercentage>=90"
-										(click)="startModulule(3)" type="button"
-										class="w-100 h-100 btn btn-primary btn-rounded text-white">
-										<span class="me-1">{{ postadmissionpercentage>=90 ? "Completed" : "Start Quiz"
-											}}</span>
-										<span *ngIf="postadmissionpercentage<=89">
-											<i class="fas fa-arrow-right"></i>
-										</span>
-									</button>
-								</div>
+							<div class="d-flex gap-2 w-100">
+								<p-dropdown dropdownAppendTo="body" (onChange)="postAdmissionCountryListId($event.value)" [(ngModel)]="postadmiisioncontrydropdownid" placeholder="Select the country" [options]="countrydropdownlist" optionValue="id" optionLabel="country" styleClass="w-100 flex-fill" [filter]="true">
+									<ng-template let-countryOption pTemplate="selectedItem">
+										<div class="d-flex gap-1 align-items-center countrydropdown">
+											<img class="countryicon" src="{{ countryOption.flag }}" alt="{{ countryOption.country }}" />
+											<span class="countrytext">{{ countryOption.country }}</span>
+										</div>
+									</ng-template>
+									<ng-template let-countryOption pTemplate="item">
+										<div class="d-flex gap-1 align-items-center countrydropdown">
+											<img class="countryicon" src="{{ countryOption.flag }}" alt="{{ countryOption.country }}" />
+											<span class="countrytext">{{ countryOption.country }}</span>
+										</div>
+									</ng-template>
+								</p-dropdown>
+								<button [disabled]="postadmissionpercentage >= 90" (click)="startModulule(3)" type="button" class="quizbtn">
+									<span>{{ postadmissionpercentage >= 90 ? "Completed" : "Start Quiz" }}</span>
+									<span *ngIf="postadmissionpercentage <= 89">
+										<i class="fas fa-arrow-right"></i>
+									</span>
+								</button>
 							</div>
 						</div>
 					</div>
 
 					<!-- Life at Country -->
-					<div class="card responsivecard p-2">
-						<div class="card-content">
-							<img height="60" width="60" src="../../../uniprep-assets/images/icons/lifeat.png"
-								alt="Life at Country">
+					<div class="card responsivecard">
+						<div class="card-body text-center">
+							<img height="60" width="60" src="../../../uniprep-assets/images/icons/lifeat.png" alt="Life at Country" />
 							<h4>Life at Country</h4>
-							<div class="row" style="width: -webkit-fill-available !important;">
-								<div class="col-8">
-									<p-dropdown dropdownAppendTo="body" class="mt-2"
-										(onChange)="lifeAtCountryListId($event.value)"
-										[(ngModel)]="lifeatcontrydropdownid" placeholder="Select the country"
-										[options]="countrydropdownlist" optionValue="id" optionLabel="country"
-										styleClass="w-100" [filter]="true">
-										<ng-template let-countryOption pTemplate="selectedItem"
-											style="border-radius: 20px !important">
-											<div class="d-flex align-items-center">
-												<img src="{{ countryOption.flag }}" alt="{{ countryOption.country }}"
-													class="mr-2" style="width: 24px; height: 24px; padding-left: 5px" />
-												<span style="padding-left: 10px">{{ countryOption.country }}</span>
-											</div>
-										</ng-template>
-										<ng-template let-countryOption pTemplate="item">
-											<div class="d-flex align-items-center">
-												<img src="{{ countryOption.flag }}" alt="{{ countryOption.country }}"
-													class="mr-2" style="width: 24px; height: 24px" />
-												<span>{{ countryOption.country }}</span>
-											</div>
-										</ng-template>
-									</p-dropdown>
-								</div>
-								<div class="col-4">
-									<button style="padding: 3px; font-size: small;" [disabled]="lifeatcountrypercentage>=90"
-										(click)="startModulule(6)" type="button"
-										class="w-100 h-100 btn btn-primary btn-rounded text-white">
-										<span class="me-1">{{ lifeatcountrypercentage>=90 ? "Completed" : "Start Quiz"
-											}}</span>
-										<span *ngIf="lifeatcountrypercentage<=89">
-											<i class="fas fa-arrow-right"></i>
-										</span>
-									</button>
-								</div>
+							<div class="d-flex gap-2 w-100">
+								<p-dropdown dropdownAppendTo="body" (onChange)="lifeAtCountryListId($event.value)" [(ngModel)]="lifeatcontrydropdownid" placeholder="Select the country" [options]="countrydropdownlist" optionValue="id" optionLabel="country" styleClass="w-100 flex-fill" [filter]="true">
+									<ng-template let-countryOption pTemplate="selectedItem">
+										<div class="d-flex gap-1 align-items-center countrydropdown">
+											<img class="countryicon" src="{{ countryOption.flag }}" alt="{{ countryOption.country }}" />
+											<span class="countrytext">{{ countryOption.country }}</span>
+										</div>
+									</ng-template>
+									<ng-template let-countryOption pTemplate="item">
+										<div class="d-flex gap-1 align-items-center countrydropdown">
+											<img class="countryicon" src="{{ countryOption.flag }}" alt="{{ countryOption.country }}" />
+											<span class="countrytext">{{ countryOption.country }}</span>
+										</div>
+									</ng-template>
+								</p-dropdown>
+								<button [disabled]="lifeatcountrypercentage >= 90" (click)="startModulule(6)" type="button" class="quizbtn">
+									<span>{{ lifeatcountrypercentage >= 90 ? "Completed" : "Start Quiz" }}</span>
+									<span *ngIf="lifeatcountrypercentage <= 89">
+										<i class="fas fa-arrow-right"></i>
+									</span>
+								</button>
 							</div>
 						</div>
 					</div>
 
 					<!-- Career Hub -->
-					<div class="card responsivecard p-2">
-						<div class="card-content">
-							<img height="60" width="60" src="../../../uniprep-assets/images/icons/careerhub.png"
-								alt="Career Hub">
+					<div class="card responsivecard">
+						<div class="card-body text-center">
+							<img height="60" width="60" src="../../../uniprep-assets/images/icons/careerhub.png" alt="Career Hub" />
 							<h4>Career Hub</h4>
-							<div class="row" style="width: -webkit-fill-available !important;">
-								<div class="col-8">
-									<p-dropdown dropdownAppendTo="body" class="mt-2"
-										(onChange)="careerHubCountryListId($event.value)"
-										[(ngModel)]="careerhubcontrydropdownid" placeholder="Select the country"
-										[options]="countrydropdownlist" optionValue="id" optionLabel="country"
-										styleClass="w-100" [filter]="true">
-										<ng-template let-countryOption pTemplate="selectedItem"
-											style="border-radius: 20px !important">
-											<div class="d-flex align-items-center">
-												<img src="{{ countryOption.flag }}" alt="{{ countryOption.country }}"
-													class="mr-2" style="width: 24px; height: 24px; padding-left: 5px" />
-												<span style="padding-left: 10px">{{ countryOption.country }}</span>
-											</div>
-										</ng-template>
-										<ng-template let-countryOption pTemplate="item">
-											<div class="d-flex align-items-center">
-												<img src="{{ countryOption.flag }}" alt="{{ countryOption.country }}"
-													class="mr-2" style="width: 24px; height: 24px" />
-												<span>{{ countryOption.country }}</span>
-											</div>
-										</ng-template>
-									</p-dropdown>
-								</div>
-								<div class="col-4">
-									<button style="padding: 3px; font-size: small;" [disabled]="careerhubpercentage>=90"
-										(click)="startModulule(6)" type="button"
-										class="w-100 h-100 btn btn-primary btn-rounded text-white">
-										<span class="me-1">{{ careerhubpercentage>=90 ? "Completed" : "Start Quiz"
-											}}</span>
-										<span *ngIf="careerhubpercentage<=89">
-											<i class="fas fa-arrow-right"></i>
-										</span>
-									</button>
-								</div>
+							<div class="d-flex gap-2 w-100">
+								<p-dropdown dropdownAppendTo="body" (onChange)="careerHubCountryListId($event.value)" [(ngModel)]="careerhubcontrydropdownid" placeholder="Select the country" [options]="countrydropdownlist" optionValue="id" optionLabel="country" styleClass="w-100 flex-fill" [filter]="true">
+									<ng-template let-countryOption pTemplate="selectedItem">
+										<div class="d-flex gap-1 align-items-center countrydropdown">
+											<img class="countryicon" src="{{ countryOption.flag }}" alt="{{ countryOption.country }}" />
+											<span class="countrytext">{{ countryOption.country }}</span>
+										</div>
+									</ng-template>
+									<ng-template let-countryOption pTemplate="item">
+										<div class="d-flex gap-1 align-items-center countrydropdown">
+											<img class="countryicon" src="{{ countryOption.flag }}" alt="{{ countryOption.country }}" />
+											<span class="countrytext">{{ countryOption.country }}</span>
+										</div>
+									</ng-template>
+								</p-dropdown>
+								<button [disabled]="careerhubpercentage >= 90" (click)="startModulule(6)" type="button" class="quizbtn">
+									<span>{{ careerhubpercentage >= 90 ? "Completed" : "Start Quiz" }}</span>
+									<span *ngIf="careerhubpercentage <= 89">
+										<i class="fas fa-arrow-right"></i>
+									</span>
+								</button>
 							</div>
 						</div>
 					</div>
 
 					<!-- skill Mastery -->
-						<div class="card responsivecard p-2">
-							<div class="card-content">
-								<img height="60" width="60" src="../../../uniprep-assets/images/icons/preadmission.png"
-									alt="Pre Admission">
-								<h4>Skill Mastery Quiz</h4>
-								<div class="row" style="width: -webkit-fill-available !important;">
-									<div class="col-8">
-										<p-dropdown dropdownAppendTo="body" class="mt-2"
-											(onChange)="skillMasteryButtonVisible($event)" [(ngModel)]="skillsmasteryId"
-											placeholder="Select" [options]="skillsmasteryList" optionValue="id"
-											optionLabel="submodule_name" styleClass="w-100" [filter]="true"></p-dropdown>
-									</div>
-									<div class="col-4">
-										<button style="padding: 3px; font-size: small;" [disabled]="skillunivertybutton"
-											(click)="startModululeSkillmastery()" type="button"
-											class="w-100 h-100 btn btn-primary btn-rounded text-white">
-											<span class="me-1">{{ skillmasteryquizpercentage >= 90 ? "Completed" : "Start Quiz"
-												}}</span>
-											<span *ngIf="skillmasteryquizpercentage <= 89">
-												<i class="fas fa-arrow-right"></i>
-											</span>
-										</button>
-									</div>
-								</div>
+					<div class="card responsivecard">
+						<div class="card-body text-center">
+							<img height="60" width="60" src="../../../uniprep-assets/images/icons/preadmission.png" alt="Pre Admission" />
+							<h4>Skill Mastery Quiz</h4>
+							<div class="d-flex gap-2 w-100">
+								<p-dropdown dropdownAppendTo="body" (onChange)="skillMasteryButtonVisible($event)" [(ngModel)]="skillsmasteryId" placeholder="Select" [options]="skillsmasteryList" optionValue="id" optionLabel="submodule_name" styleClass="w-100" [filter]="true"></p-dropdown>
+								<button [disabled]="skillunivertybutton" (click)="startModululeSkillmastery()" type="button" class="quizbtn">
+									<span>{{ skillmasteryquizpercentage >= 90 ? "Completed" : "Start Quiz" }}</span>
+									<span *ngIf="skillmasteryquizpercentage <= 89">
+										<i class="fas fa-arrow-right"></i>
+									</span>
+								</button>
 							</div>
 						</div>
+					</div>
 				</div>
 				<!-- socond line -->
 				<div class="responsiveconatainer1">
 					<!-- unversity -->
-					<div class="card responsivecard p-2">
-						<div class="card-content">
-							<img height="60" width="60" src="../../../uniprep-assets/images/icons/Universities.png"
-								alt="Pre Admission">
+					<div class="card responsivecard">
+						<div class="card-body text-center">
+							<img height="60" width="60" src="../../../uniprep-assets/images/icons/Universities.png" alt="Pre Admission" />
 							<h4>Universty</h4>
-							<div class="row" style="width: -webkit-fill-available !important;">
+							<div class="row" style="width: -webkit-fill-available !important">
 								<div class="col-12 mt-1">
-									<p-dropdown dropdownAppendTo="body" style="background-color: #EBEDF2 !important;"
-										class="mt-2" [(ngModel)]="unversitycontrydropdownid"
-										placeholder="Select the country" [options]="countrydropdownlist"
-										optionValue="id" optionLabel="country" styleClass="w-100" [filter]="true">
-										<ng-template let-countryOption pTemplate="selectedItem"
-											style="border-radius: 20px !important">
+									<p-dropdown dropdownAppendTo="body" style="background-color: #ebedf2 !important" class="mt-2" [(ngModel)]="unversitycontrydropdownid" placeholder="Select the country" [options]="countrydropdownlist" optionValue="id" optionLabel="country" styleClass="w-100" [filter]="true">
+										<ng-template let-countryOption pTemplate="selectedItem" style="border-radius: 20px !important">
 											<div class="d-flex align-items-center">
-												<img src="{{ countryOption.flag }}" alt="{{ countryOption.country }}"
-													class="mr-2" style="width: 24px; height: 24px; padding-left: 5px" />
+												<img src="{{ countryOption.flag }}" alt="{{ countryOption.country }}" class="mr-2" style="width: 24px; height: 24px; padding-left: 5px" />
 												<span style="padding-left: 10px">{{ countryOption.country }}</span>
 											</div>
 										</ng-template>
 										<ng-template let-countryOption pTemplate="item">
 											<div class="d-flex align-items-center">
-												<img src="{{ countryOption.flag }}" alt="{{ countryOption.country }}"
-													class="mr-2" style="width: 24px; height: 24px" />
+												<img src="{{ countryOption.flag }}" alt="{{ countryOption.country }}" class="mr-2" style="width: 24px; height: 24px" />
 												<span>{{ countryOption.country }}</span>
 											</div>
 										</ng-template>
 									</p-dropdown>
 								</div>
 								<div class="col-12 mt-2">
-									<p-dropdown dropdownAppendTo="body" class="mt-2"
-										(onChange)="universityButtonVisible()" [(ngModel)]="universityId"
-										placeholder="Select your university" [options]="filterUniversityList"
-										optionValue="id" optionLabel="submodule_name" styleClass="w-100"
-										[filter]="true"></p-dropdown>
+									<p-dropdown dropdownAppendTo="body" class="mt-2" (onChange)="universityButtonVisible()" [(ngModel)]="universityId" placeholder="Select your university" [options]="filterUniversityList" optionValue="id" optionLabel="submodule_name" styleClass="w-100" [filter]="true"></p-dropdown>
 								</div>
 							</div>
-							<div class="" style="text-align: center;">
-								<button style="padding: 8px; font-size: small;" [disabled]="universityquizbutton"
-									(click)="startQuizUniversity()" type="button"
-									class="w-100 h-100 btn btn-primary btn-rounded text-white">
-									<span class="me-1">{{ universityquizpercentagecompletion >= 90 ? "Completed" :
-										"Start Quiz" }}</span>
+							<div class="" style="text-align: center">
+								<button style="padding: 8px; font-size: small" [disabled]="universityquizbutton" (click)="startQuizUniversity()" type="button" class="w-100 h-100 btn btn-primary btn-rounded text-white">
+									<span class="me-1">{{ universityquizpercentagecompletion >= 90 ? "Completed" : "Start Quiz" }}</span>
 									<span *ngIf="universityquizpercentagecompletion <= 89">
 										<i class="fas fa-arrow-right"></i>
 									</span>
@@ -281,31 +196,21 @@
 					</div>
 
 					<!-- learning hub -->
-					<div class="card responsivecard p-4">
-						<div class="card-content">
-							<img height="60" width="60" src="../../../uniprep-assets/images/icons/Learning Hub Quiz.png"
-								alt="Pre Admission">
+					<div class="card responsivecard">
+						<div class="card-body text-center">
+							<img height="60" width="60" src="../../../uniprep-assets/images/icons/Learning Hub Quiz.png" alt="Pre Admission" />
 							<h4>Learning Hub Quiz</h4>
-							<div class="row" style="width: -webkit-fill-available !important;">
+							<div class="row" style="width: -webkit-fill-available !important">
 								<div class="col-12 mt-1">
-									<p-dropdown dropdownAppendTo="body" class="mt-2" (onChange)="specializationList()"
-										[(ngModel)]="subjectid" placeholder="Select a subject"
-										[options]="subjectlistdropdown" optionValue="category_id" optionLabel="category"
-										styleClass="w-100" [filter]="true"></p-dropdown>
+									<p-dropdown dropdownAppendTo="body" class="mt-2" (onChange)="specializationList()" [(ngModel)]="subjectid" placeholder="Select a subject" [options]="subjectlistdropdown" optionValue="category_id" optionLabel="category" styleClass="w-100" [filter]="true"></p-dropdown>
 								</div>
 								<div class="col-12 mt-2">
-									<p-dropdown dropdownAppendTo="body" class="mt-2" (onChange)="specializationdata()"
-										[(ngModel)]="specializationid" placeholder="Select a specialization"
-										[options]="specializationlist" optionValue="submodule_id"
-										optionLabel="submodule_name" styleClass="w-100" [filter]="true"></p-dropdown>
+									<p-dropdown dropdownAppendTo="body" class="mt-2" (onChange)="specializationdata()" [(ngModel)]="specializationid" placeholder="Select a specialization" [options]="specializationlist" optionValue="submodule_id" optionLabel="submodule_name" styleClass="w-100" [filter]="true"></p-dropdown>
 								</div>
 							</div>
-							<div class="" style="text-align: center;">
-								<button style="padding: 8px; font-size: small;" [disabled]="learningHubQuiz"
-									(click)="StartLearningHubQuiz()" type="button"
-									class="w-100 h-100 btn btn-primary btn-rounded text-white">
-									<span class="me-1">{{ quizpercentage >= 90 ? "Completed" :
-										"Start Quiz" }}</span>
+							<div class="" style="text-align: center">
+								<button style="padding: 8px; font-size: small" [disabled]="learningHubQuiz" (click)="StartLearningHubQuiz()" type="button" class="w-100 h-100 btn btn-primary btn-rounded text-white">
+									<span class="me-1">{{ quizpercentage >= 90 ? "Completed" : "Start Quiz" }}</span>
 									<span *ngIf="quizpercentage <= 89">
 										<i class="fas fa-arrow-right"></i>
 									</span>
@@ -315,38 +220,28 @@
 					</div>
 
 					<!-- Language hub -->
-					<!-- <div class="card responsivecard p-4">
-						<div class="card-content">
-							<img height="60" width="60" src="../../../uniprep-assets/images/icons/Language Hub.png"
-								alt="Pre Admission">
+					<div class="card responsivecard">
+						<div class="card-body text-center">
+							<img height="60" width="60" src="../../../uniprep-assets/images/icons/Language Hub.png" alt="Pre Admission" />
 							<h4>Language Hub Quiz</h4>
-							<div class="row" style="width: -webkit-fill-available !important;">
+							<div class="row" style="width: -webkit-fill-available !important">
 								<div class="col-12 mt-1">
-									<p-dropdown dropdownAppendTo="body" class="mt-2" (onChange)="languageListId()"
-										[(ngModel)]="laguageid" placeholder="Select the language"
-										[options]="languagedropdownlist" optionValue="id" optionLabel="language"
-										styleClass="w-100" [filter]="true"></p-dropdown>
+									<p-dropdown dropdownAppendTo="body" class="mt-2" (onChange)="languageListId()" [(ngModel)]="laguageid" placeholder="Select the language" [options]="languagedropdownlist" optionValue="id" optionLabel="language" styleClass="w-100" [filter]="true"></p-dropdown>
 								</div>
 								<div class="col-12 mt-2">
-									<p-dropdown dropdownAppendTo="body" class="mt-2" (onChange)="languagrTypeId()"
-										[(ngModel)]="laguagetypeid" placeholder="Select proficiency level"
-										[options]="languagedropdownlisttype" optionValue="id" optionLabel="type"
-										styleClass="w-100" [filter]="true"></p-dropdown>
+									<p-dropdown dropdownAppendTo="body" class="mt-2" (onChange)="languagrTypeId()" [(ngModel)]="laguagetypeid" placeholder="Select proficiency level" [options]="languagedropdownlisttype" optionValue="id" optionLabel="type" styleClass="w-100" [filter]="true"></p-dropdown>
 								</div>
 							</div>
-							<div class="" style="text-align: center;">
-								<button style="padding: 8px; font-size: small;" [disabled]="languageHubQuiz"
-									(click)="StartLanguageHubQuiz()" type="button"
-									class="w-100 h-100 btn btn-primary btn-rounded text-white">
-									<span class="me-1">{{ quizlanguguageprogress >= 90 ? "Completed" :
-										"Start Quiz" }}</span>
+							<div class="" style="text-align: center">
+								<button style="padding: 8px; font-size: small" [disabled]="languageHubQuiz" (click)="StartLanguageHubQuiz()" type="button" class="w-100 h-100 btn btn-primary btn-rounded text-white">
+									<span class="me-1">{{ quizlanguguageprogress >= 90 ? "Completed" : "Start Quiz" }}</span>
 									<span *ngIf="quizlanguguageprogress <= 89">
 										<i class="fas fa-arrow-right"></i>
 									</span>
 								</button>
 							</div>
 						</div>
-					</div> -->
+					</div>
 				</div>
 				<!-- third line -->
 			</div>
@@ -354,20 +249,16 @@
 	</div>
 </div>
 
-<p-dialog [(visible)]="restrict" [modal]="true" [style]="{ width: '30vw' }" [draggable]="false" [resizable]="false"
-	class="restrictionDialog" [breakpoints]="{ '960px': '30vw', '959px': '60vw', '425px': '90vw' }"
-	(onHide)="clearRestriction()">
-	<div  *ngIf="ehitlabelIsShow" class="text-center mt-5 mb-4">
+<p-dialog [(visible)]="restrict" [modal]="true" [style]="{ width: '30vw' }" [draggable]="false" [resizable]="false" class="restrictionDialog" [breakpoints]="{ '960px': '30vw', '959px': '60vw', '425px': '90vw' }" (onHide)="clearRestriction()">
+	<div *ngIf="ehitlabelIsShow" class="text-center mt-5 mb-4">
 		<img src="../../../uniprep-assets/images/smartloack.png" class="image" width="60" />
 		<h3 class="offer">Upgrade Required</h3>
 		<p>To access this exclusive module,please upgrade your plan now</p>
-		<button pButton type="button"
-			class="text-white p-ripple p-button-rounded p-button-warning p-button p-component p-2"
-			(click)="upgradePlan()">Upgrade Plan<i class="fa fa-arrow-right exhausted-plan-icon"></i></button>
+		<button pButton type="button" class="text-white p-ripple p-button-rounded p-button-warning p-button p-component p-2" (click)="upgradePlan()">Upgrade Plan<i class="fa fa-arrow-right exhausted-plan-icon"></i></button>
 	</div>
 	<div *ngIf="!ehitlabelIsShow" class="text-center mt-5 mb-4">
-        <img src="{{orglogowhitelabel}}" class="image" width="60"/>
-        <h3 class="offer">Upgrade Required</h3>
-        <p>Please contact {{orgnamewhitlabel}} Company for access</p>
-    </div>
+		<img src="{{ orglogowhitelabel }}" class="image" width="60" />
+		<h3 class="offer">Upgrade Required</h3>
+		<p>Please contact {{ orgnamewhitlabel }} Company for access</p>
+	</div>
 </p-dialog>

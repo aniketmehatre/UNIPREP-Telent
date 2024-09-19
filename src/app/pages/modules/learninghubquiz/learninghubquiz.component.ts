@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from "@angular/router";
+import { ActivatedRoute, Params, Router } from "@angular/router";
 import { Observable, Subscription, interval, takeWhile } from "rxjs";
 import { ModuleListSub } from "../../../@Models/module.model";
 import { ConfirmationService, MenuItem, MessageService } from "primeng/api";
@@ -8,6 +8,8 @@ import { DataService } from "../../../data.service";
 import { LocationService } from "../../../location.service";
 import { AuthService } from 'src/app/Auth/auth.service';
 import { NgxUiLoaderService } from "ngx-ui-loader";
+import { Location } from '@angular/common';
+
 @Component({
   selector: 'uni-learninghubquiz',
   templateUrl: './learninghubquiz.component.html',
@@ -17,7 +19,7 @@ export class LearninghubquizComponent implements OnInit {
   quizData: any[] = [];
   currentCountryId: any
   currentModuleId: any;
-  universityidforquiz:any=null;
+  universityidforquiz: any = null;
   currentModuleSlug: any;
   quizList$!: Observable<any>;
   moduleList: any[] = [];
@@ -44,25 +46,25 @@ export class LearninghubquizComponent implements OnInit {
   responsiveOptions: any[] = [];
   answeredCorrect: number = 0;
   totalPercentage: number = 0;
-  totalanswerquistionaftersubmited:number=0;
-  totalanswercorret:number=0
-  claculatingSelectQuizPesrcentage:number=0
-  totalpercentagequiztime:number=0
+  totalanswerquistionaftersubmited: number = 0;
+  totalanswercorret: number = 0
+  claculatingSelectQuizPesrcentage: number = 0
+  totalpercentagequiztime: number = 0
   percentageValue: string = '';
   isQuizSubmit: boolean = false;
   timer: number = 0;
   timerSubscription: Subscription | null = null;
   restrict: boolean = false;
   restrict1: boolean = false;
-planExpired: boolean = false;
+  planExpired: boolean = false;
   selectedQuizArrayForTimer: any[] = [];
-  totalquiztime:any=0;
-  ehitlabelIsShow:boolean=true;
-  imagewhitlabeldomainname:any
-  orgnamewhitlabel:any;
-  orglogowhitelabel:any;
-  constructor(private moduleListService: ModuleServiceService,private authService: AuthService, private router: Router, private dataService: DataService,
-    private locationService: LocationService, private ngxService: NgxUiLoaderService, private toast: MessageService,) { }
+  totalquiztime: any = 0;
+  ehitlabelIsShow: boolean = true;
+  imagewhitlabeldomainname: any
+  orgnamewhitlabel: any;
+  orglogowhitelabel: any;
+  constructor(private moduleListService: ModuleServiceService, private authService: AuthService, private router: Router, private dataService: DataService,
+    private location: Location, private locationService: LocationService, private ngxService: NgxUiLoaderService, private toast: MessageService, private activatedRoute: ActivatedRoute) { }
 
   ngOnInit(): void {
     this.locationService.getImage().subscribe(imageUrl => {
@@ -71,12 +73,12 @@ planExpired: boolean = false;
     this.locationService.getOrgName().subscribe(orgname => {
       this.orgnamewhitlabel = orgname;
     });
-  this.imagewhitlabeldomainname=window.location.hostname;
-  if (this.imagewhitlabeldomainname === "dev-student.uniprep.ai" || this.imagewhitlabeldomainname === "uniprep.ai" || this.imagewhitlabeldomainname === "localhost") {
-    this.ehitlabelIsShow=true;
-  }else{
-    this.ehitlabelIsShow=false;
-  }
+    this.imagewhitlabeldomainname = window.location.hostname;
+    if (this.imagewhitlabeldomainname === "dev-student.uniprep.ai" || this.imagewhitlabeldomainname === "uniprep.ai" || this.imagewhitlabeldomainname === "localhost") {
+      this.ehitlabelIsShow = true;
+    } else {
+      this.ehitlabelIsShow = false;
+    }
     this.init();
     this.checkplanExpire();
   }
@@ -96,16 +98,37 @@ planExpired: boolean = false;
       this.countryName = data;
     });
     switch (this.currentModuleSlug) {
-      case 'learning-hub':
-          this.currentModuleId = 8;
-          this.currentModuleName = 'Learning Hub';
-          this.currentApiSlug = 'SubmoduleListForStudents';
-          this.infoMessage = 'Upgrade to access the Learning Hub',
-            this.unlockMessage = ' ',
-            this.upgradePlanMsg = 'Upgrade your plan now to gain instant access.';
-          this.aboutModule = 'Explore a vast database of Q&A about:',
-            this.moduleDetails = ' Arrival, student discounts, banking, full time jobs, post study work and many more!'
-          break;
+      case 'psychometric':
+        this.universityidforquiz = null;
+        this.currentModuleId = 11;
+        this.currentModuleName = 'Psychometric Test';
+        this.currentApiSlug = 'SubmoduleListForStudents';
+        this.selectedModule = 'pshychometric-test'
+        break;
+      case 'personality':
+        this.universityidforquiz = null;
+        this.currentModuleId = 12;
+        this.currentModuleName = 'Personality Test';
+        this.currentApiSlug = 'SubmoduleListForStudents';
+        this.selectedModule = 'personality-test'
+        break;
+      case 'employer':
+        this.universityidforquiz = null;
+        this.currentModuleId = 13;
+        this.currentModuleName = 'Employer Test';
+        this.currentApiSlug = 'SubmoduleListForStudents';
+        this.selectedModule = 'employer-test'
+        break;
+      default:
+        this.currentModuleId = 8;
+        this.currentModuleName = 'Learning Hub';
+        this.currentApiSlug = 'SubmoduleListForStudents';
+        this.infoMessage = 'Upgrade to access the Learning Hub',
+          this.unlockMessage = ' ',
+          this.upgradePlanMsg = 'Upgrade your plan now to gain instant access.';
+        this.aboutModule = 'Explore a vast database of Q&A about:',
+          this.moduleDetails = ' Arrival, student discounts, banking, full time jobs, post study work and many more!'
+        break;
     }
     this.responsiveOptions = [
       {
@@ -130,7 +153,14 @@ planExpired: boolean = false;
     // } */
     localStorage.setItem("currentmodulenameforrecently", this.currentModuleName);
     this.loadModuleAndSubModule();
-    this.checkquizquestioncount()
+    this.checkquizquestioncount();
+    this.activatedRoute.queryParams.subscribe((params: Params) => {
+      let showReview = params['showReview'];
+      if (showReview === 'true') {
+        this.openReviewPopup();
+        this.isInstructionVisible=false;
+      }
+    });
   }
 
   upgradePlan(): void {
@@ -145,7 +175,7 @@ planExpired: boolean = false;
       let subscription_exists_status = res.subscription_details;
       if (data.plan === "expired" || data.plan === 'subscription_expired' ||
         subscription_exists_status?.subscription_plan === "free_trail") {
-        this.planExpired = true;   
+        this.planExpired = true;
       } else {
         this.planExpired = false;
       }
@@ -211,8 +241,8 @@ planExpired: boolean = false;
       return dat;
     });
     this.quizData = mappedQuiz;
-    this.claculatingSelectQuizPesrcentage=mappedQuiz.filter(obj => obj.useranswer).length;
-    this.totalpercentagequiztime=(this.claculatingSelectQuizPesrcentage/ this.quizcount) * 100;
+    this.claculatingSelectQuizPesrcentage = mappedQuiz.filter(obj => obj.useranswer).length;
+    this.totalpercentagequiztime = (this.claculatingSelectQuizPesrcentage / this.quizcount) * 100;
   }
 
   closeQuiz() {
@@ -221,6 +251,15 @@ planExpired: boolean = false;
     //   header: 'Confirmation',
     //   icon: 'fa-solid fa-circle-exclamation',
     // });
+    this.stopTimer();
+    if (this.currentModuleId > 10) {
+      if (window.history.length > 1) {
+        this.location.back()
+      } else {
+        this.router.navigate(['/pages/job-tool/career-tool'])
+      }
+      return;
+    }
     this.router.navigate([`/pages/modules/${this.currentModuleSlug}`]);
   }
 
@@ -290,7 +329,7 @@ planExpired: boolean = false;
     { label: singleQuizData.sub_module_name }];
     carouselQuiz.navForward(event, this.selectedQuiz);
   }
-  certificatesurl:any=""
+  certificatesurl: any = ""
   clickSubmitQuiz() {
     this.quizData = this.quizData.map((data: any) => {
       const { submodule_id, source_faqquestion, otp1, otp2, otp3, otp4, module_id, country_id, user_answered, user_answered_value, ...rest } = data;
@@ -301,14 +340,14 @@ planExpired: boolean = false;
       country_id: this.currentCountryId,
       module_id: this.currentModuleId,
       submodule_id: localStorage.getItem("learninghubsubmoduleid"),
-      category_id:localStorage.getItem("learningsubjectidforquiz"),
+      category_id: localStorage.getItem("learningsubjectidforquiz"),
       quizquestion: this.quizData
     }
     this.moduleListService.submitQuizLearningHubQuiz(data).subscribe((res) => {
       this.totalPercentage = res.percentageCompleted
-      this.certificatesurl=res.certificate
-      this.totalanswerquistionaftersubmited=res.totalquestions
-      this.totalanswercorret=res.answered
+      this.certificatesurl = res.certificate
+      this.totalanswerquistionaftersubmited = res.totalquestions
+      this.totalanswercorret = res.answered
       if (this.totalPercentage < 40) {
         this.percentageValue = 'Average';
       } else if (this.totalPercentage >= 40 && this.totalPercentage <= 80) {
@@ -332,9 +371,9 @@ planExpired: boolean = false;
     this.isReviewVisible = false;
     this.isQuizSubmit = false;
     this.totalPercentage = 0;
-    this.totalanswerquistionaftersubmited=0
-    this.totalanswercorret=0;
-    this.totalpercentagequiztime=0;
+    this.totalanswerquistionaftersubmited = 0
+    this.totalanswercorret = 0;
+    this.totalpercentagequiztime = 0;
     this.percentageValue = '';
     this.quizData = [];
     this.selectedQuiz = 1;
@@ -344,11 +383,11 @@ planExpired: boolean = false;
   }
   openReviewPopup() {
     this.quizData = [];
-    this.selectedQuiz=1
+    this.selectedQuiz = 1
     this.isQuizSubmit = false;
     this.isReviewVisible = true;
     var data = {
-      countryId : this.currentCountryId,
+      countryId: this.currentCountryId,
       moduleId: this.currentModuleId,
       submoduleId: localStorage.getItem("learninghubsubmoduleid")
     }
@@ -364,16 +403,16 @@ planExpired: boolean = false;
       });
     })
   }
-  quizcount: number=0
+  quizcount: number = 0
   checkquizquestioncount() {
     this.quizData = [];
     var data = {
       // countryId: this.currentCountryId,
       moduleId: this.currentModuleId,
-      submoduleId : localStorage.getItem("learninghubsubmoduleid")
+      submoduleId: localStorage.getItem("learninghubsubmoduleid")
     }
     this.moduleListService.learninghubquiz(data).subscribe((res) => {
-      this.quizcount = res.count>0? res.count:0;
+      this.quizcount = res.count > 0 ? res.count : 0;
       this.quizData = res.quizquestion.map((val: any) => {
         let number = 1;
         let dd = { ...val };
@@ -385,45 +424,65 @@ planExpired: boolean = false;
       });
     })
   }
-  quizpercentage:any=0
-  checkquizquestionmodule(){
-    var data={
-      moduleid:this.currentModuleId,
+  quizpercentage: any = 0
+  checkquizquestionmodule() {
+    var data = {
+      moduleid: this.currentModuleId,
       countryid: this.currentCountryId,
-      submoduleid:localStorage.getItem("learninghubsubmoduleid")
+      submoduleid: localStorage.getItem("learninghubsubmoduleid")
     }
     this.moduleListService.checkModuleQuizCompletion(data).subscribe((res) => {
-      this.quizpercentage=res.progress
+      this.quizpercentage = res.progress
     })
   }
-  openCertificate(){
-    if(this.planExpired){
-      this.restrict1=true;
+  openCertificate() {
+    if (this.planExpired) {
+      this.restrict1 = true;
       return;
     }
     window.open(this.certificatesurl, '_blank');
   }
-  takeAnotherquiz(){
+  takeAnotherquiz() {
+    if (this.currentModuleId > 10) {
+      if (window.history.length > 1) {
+        this.location.back()
+      } else {
+        this.router.navigate(['/pages/job-tool/career-tool'])
+      }
+    }
     this.router.navigate([`/pages/modules/quizmodule`]);
   }
-  openReferAnswer(link:any){
+  openReferAnswer(link: any) {
     window.open(link, '_blank');
   }
   startTimer(): void {
-    this.timer = 0;
-    this.totalquiztime=this.quizcount*60;
+    this.totalquiztime = this.quizcount * 60;
     if (this.timerSubscription) {
       this.timerSubscription.unsubscribe();
     }
-    this.timerSubscription = interval(1000).pipe(
-      takeWhile(() => this.timer < (this.quizcount*60))
-    ).subscribe(() => {
-      this.timer++;
-      // console.log(`Timer: ${this.timer} seconds`);
-      if (this.timer === this.quizcount*60) {
-        this.restrict=true;    
-      }
-    });
+    if (this.currentModuleId < 10) {
+      this.timer = 0;
+      this.timerSubscription = interval(1000).pipe(
+        takeWhile(() => this.timer < (this.quizcount * 60))
+      ).subscribe(() => {
+        this.timer++;
+        // console.log(`Timer: ${this.timer} seconds`);
+        if (this.timer === this.quizcount * 60) {
+          this.restrict = true;
+        }
+      });
+    } else {
+      this.timer = this.totalquiztime;
+      this.timerSubscription = interval(1000).pipe(
+        takeWhile(() => this.timer > 0)
+      ).subscribe(() => {
+        this.timer--;
+        // console.log(`Timer: ${this.timer} seconds`);
+        if (this.timer === 0) {
+          this.restrict = true;
+        }
+      });
+    }
   }
   formatTime(seconds: number): string {
     const minutes: number = Math.floor(seconds / 60);
@@ -436,12 +495,23 @@ planExpired: boolean = false;
   resetTimer(): void {
     this.startTimer();
   }
-  timeIsOver(){
+  timeIsOver() {
+    if (this.currentModuleId > 10) {
+      if (window.history.length > 1) {
+        this.location.back()
+      } else {
+        this.router.navigate(['/pages/job-tool/career-tool'])
+      }
+    }
     this.router.navigate(['/pages/modules/quizmodule'])
   }
   stopTimer(): void {
     if (this.timerSubscription) {
       this.timerSubscription.unsubscribe();
     }
+  }
+  result() {
+    this.isReviewVisible = false;
+    this.isQuizSubmit = true;
   }
 }

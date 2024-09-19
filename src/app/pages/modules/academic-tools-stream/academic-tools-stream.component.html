@@ -1,0 +1,65 @@
+<div class="card readingcard">
+    <div class="card-body text-center pt-0">
+        <div class="row">
+            <div class="col-md-3 text-start">
+                <div class="backIcon">
+                    <span class="pi pi-angle-left" (click)="goBack()"></span>
+                </div>
+            </div>
+            <div class="col-md-6 text-center">
+                <div class="select-title text-nowrap d-flex justify-content-between align-items-center">
+                    <div>
+                        <h5 class="w-100 mb-0" tooltipPosition="top"
+                            pTooltip="{{moduleId==='1'?'Pre-University Stream Selector':'Bachelor\'s Stream Selector'}}">
+                            {{moduleId==='1'?'Pre-University Stream Selector':'Bachelor\'s Stream Selector'}}<i
+                                class="questiontooltip fa-solid fa-circle-question"></i></h5>
+                    </div>
+                    <div>
+                        <button class="how-it-works-button"> &nbsp;How it works? &nbsp;&nbsp;<i
+                                class="fa-solid fa-play"></i></button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+            </div>
+        </div>
+        <div *ngIf="isSkeletonVisible">
+            <div class="row">
+                <div *ngFor="let index of loopRange" class="col-lg-2 col-md-3 col-sm-4 col-xs-12 col-12">
+                    <div class="card my-2">
+                        <div class="card-body">
+                            <div class="row justify-content-center align-items-center">
+                                <div class="col-3 col-md-12 d-flex justify-content-center">
+                                    <p-skeleton width="5rem" height="5rem" styleClass="mb-2"></p-skeleton>
+                                </div>
+                                <div class="col-9 col-md-12">
+                                    <p-skeleton width="100%" styleClass="mb-2"></p-skeleton>
+                                    <p-skeleton width="100%"></p-skeleton>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row mb-0" *ngIf="!isSkeletonVisible">
+            <div *ngFor="let modules of modulesList" class="col-lg-2 col-md-3 col-sm-4 col-xs-12 col-12">
+                <div class="row w-100 m-0 justify-content-center h-100">
+                    <div class="card resourcecard text-black h-100" [routerLink]="['quiz',modules.id]">
+                        <div class="card-body text-center d-flex flex-column">
+                            <div class="resourceimg mx-auto mb-3">
+                                <img [src]="modules?.icon" alt="" />
+                            </div>
+                            <div class="d-flex flex-column gap-2 justify-content-between flex-grow-1">
+                                <div>
+                                    <h5>{{ modules?.submodule_name}}</h5>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

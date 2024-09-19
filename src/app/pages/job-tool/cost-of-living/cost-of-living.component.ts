@@ -4,6 +4,9 @@ import { CostOfLivingService } from './cost-of-living.service';
 import { City, CostOfLiving, Price } from 'src/app/@Models/cost-of-living';
 import { DropdownFilterOptions } from 'primeng/dropdown';
 import { debounceTime } from 'rxjs';
+import {LocationService} from "../../../location.service";
+import {Router} from "@angular/router";
+import {AuthService} from "../../../Auth/auth.service";
 
 @Component({
   selector: 'uni-cost-of-living',
@@ -16,15 +19,20 @@ export class CostOfLivingComponent implements OnInit {
   sourceCities: City[] = [];
   targetCities: City[] = [];
   form!: FormGroup;
-
+  planExpired: boolean = false
+  restrict: boolean = false
+  ehitlabelIsShow: boolean = true;
+  imagewhitlabeldomainname: any
+  orgnamewhitlabel: any;
+  orglogowhitelabel: any;
   canShowComparision: boolean = false;
   sourceCountryPrices!: CostOfLiving;
   targetCountryPrices!: CostOfLiving;
   sourceCountry: string = '';
   targetCountry: string = '';
   constructor(
-    private fb: FormBuilder,
-    private costOfLivingService: CostOfLivingService
+    private fb: FormBuilder, private locationService: LocationService,
+    private costOfLivingService: CostOfLivingService, private router: Router, private authService: AuthService
   ) {
     this.form = this.fb.group({
       sourceCity: [null],
@@ -35,6 +43,19 @@ export class CostOfLivingComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.checkPlanIsExpired()
+    this.locationService.getImage().subscribe(imageUrl => {
+      this.orglogowhitelabel = imageUrl;
+    });
+    this.locationService.getOrgName().subscribe(orgname => {
+      this.orgnamewhitlabel = orgname;
+    });
+    this.imagewhitlabeldomainname = window.location.hostname;
+    if (this.imagewhitlabeldomainname === "dev-student.uniprep.ai" || this.imagewhitlabeldomainname === "uniprep.ai" || this.imagewhitlabeldomainname === "localhost") {
+      this.ehitlabelIsShow = false;
+    } else {
+      this.ehitlabelIsShow = true;
+    }
     this.costOfLivingService.getCities().subscribe((res: City[]) => {
       this.cities = res;
       this.sourceCities = this.cities;
@@ -43,6 +64,10 @@ export class CostOfLivingComponent implements OnInit {
   }
 
   compare() {
+    if (this.planExpired) {
+      this.restrict = true;
+      return;
+    }
     var sourceCityDetails = this.cities.find(city => city.city_id === this.form.value.sourceCity);
     var targetCityDetails = this.cities.find(city => city.city_id === this.form.value.targetCity);
 
@@ -112,6 +137,23 @@ export class CostOfLivingComponent implements OnInit {
     }
     this.targetCountry = cityDetails.country_name
   }
+  checkPlanIsExpired(): void {
+    this.authService.getNewUserTimeLeft().subscribe((res) => {
+      let data = res.time_left;
+      if (data.plan === "expired" || data.plan === 'subscription_expired') {
+        this.planExpired = true;
+      } else {
+        this.planExpired = false;
+      }
+    })
+  }
 
+  upgradePlan(): void {
+    this.router.navigate(["/pages/subscriptions"]);
+  }
+
+  clearRestriction() {
+    this.restrict = false;
+  }
 
 }

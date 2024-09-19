@@ -49,6 +49,7 @@ export class CourseListService {
       headers: headers,
     });
   }
+
   downloadCoverletter(data: any){
     const headers = new HttpHeaders().set("Accept", "application/json");
     return this.http.post<any>(environment.ApiUrl + "/generatecoverletter", data ,{
@@ -106,6 +107,41 @@ export class CourseListService {
   downloadPdf(pdfUrl: string, fileName: string): void {
     this.http.get(pdfUrl, { responseType: 'blob' }).subscribe((blob: Blob) => {
           saveAs(blob, fileName);
+    });
+  }
+
+  storeCourseRecommendation(data: any){
+    const headers = new HttpHeaders().set("Accept", "application/json");
+    return this.http.post<any>(environment.ApiUrl + "/storeRecommendation", data ,{
+      headers: headers,
+    });
+  }
+
+  resetCourseRecommendation(){
+    const headers = new HttpHeaders().set("Accept", "application/json");
+    return this.http.post<any>(environment.ApiUrl + "/resetRecommendation" ,{
+      headers: headers,
+    });
+  }
+
+  getCourseRecommendation(){
+    const headers = new HttpHeaders().set("Accept", "application/json");
+    return this.http.post<any>(environment.ApiUrl + "/getRecommendation" ,{
+      headers: headers,
+    });
+  }
+
+  getCVPrefilledData(){
+    const headers = new HttpHeaders().set("Accept", "application/json");
+    return this.http.post<any>(environment.ApiUrl + "/cvPrefilledData" ,{
+      headers: headers,
+    });
+  }
+
+  storeUserFilledData(data: any){
+    const headers = new HttpHeaders().set("Accept", "application/json");
+    return this.http.post<any>(environment.ApiUrl + "/storeFiledData", data ,{
+      headers: headers,
     });
   }
 }

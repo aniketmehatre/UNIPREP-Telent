@@ -96,7 +96,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
   reportlearnlanguagetype:number=0;
   countryList: any;
   locationList: any;
-
+  whiteLabelIsNotShow:boolean=true;
+  visibleExhastedUser!: boolean;
   constructor(
     private router: Router,
     private locationService: LocationService,
@@ -193,8 +194,19 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
   formvisbility = false;
   mobileForm: any = FormGroup;
-  preferredCountry: any
+  preferredCountry: any;
+  imagewhitlabeldomainname:any;
+  orgnamewhitlabel:any;
   ngOnInit() {
+    this.locationService.getOrgName().subscribe(orgname => {
+      this.orgnamewhitlabel = orgname;
+    });
+    this.imagewhitlabeldomainname=window.location.hostname;
+    if (this.imagewhitlabeldomainname === "dev-student.uniprep.ai" || this.imagewhitlabeldomainname === "uniprep.ai" || this.imagewhitlabeldomainname === "localhost") {
+      this.whiteLabelIsNotShow=true;
+    }else{
+      this.whiteLabelIsNotShow=false;
+    }
     fetch('https://ipapi.co/json/').then(response => response.json()).then(data => {
       this.preferredCountry = data.country_code.toLocaleLowerCase()
     });
@@ -770,49 +782,57 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   }
   onClickSubscribedUser(): void {
-    let data: any = {};
-    if (this.mobileForm.valid) {
-      data.phone = this.mobileForm.value.phone.number;
-      data.home_country = this.mobileForm.value.home_country;
-      data.country_code = this.mobileForm.value.phone.dialCode;
-    }
-    if (this.demoTrial == true) {
-      data.demo_user = 1;
-    }
-    this.dashboardService.getContineTrial(data).subscribe((res) => {
+    this.imagewhitlabeldomainname=window.location.hostname;
+    if (this.imagewhitlabeldomainname === "dev-student.uniprep.ai" || this.imagewhitlabeldomainname === "uniprep.ai" || this.imagewhitlabeldomainname === "localhost") {
+      this.visibleExhastedUser = false;
+      let data: any = {};
+      if (this.mobileForm.valid) {
+        data.phone = this.mobileForm.value.phone.number;
+        data.home_country = this.mobileForm.value.home_country;
+        data.country_code = this.mobileForm.value.phone.dialCode;
+      }
       if (this.demoTrial == true) {
-        this.toast.add({
-          severity: "success",
-          summary: "Success",
-          detail: "Demo Trail Started",
-        });
+        data.demo_user = 1;
       }
-      this.freeTrial = false;
-      this.demoTrial = false;
-      this.visibleExhasted = false;
-      this.service._userContineTrial = false;
-      this.service.contineStatus(false);
-      this.dataService.sendValue(false);
-      setTimeout(() => {
-        this.checkNewUser();
-        this.dashboardService.isinitialstart = true;
-        if(this.enterpriseSubscriptionLink  != ""){
-          window.open(this.enterpriseSubscriptionLink, '_target');
-          return;
-      }
-        this.router.navigate(["/pages/subscriptions"]);
-      }, 1000);
-    },
-      error => {
+      this.dashboardService.getContineTrial(data).subscribe((res) => {
         if (this.demoTrial == true) {
           this.toast.add({
-            severity: "error",
-            summary: "Error",
-            detail: "Demo Trail Not Started",
+            severity: "success",
+            summary: "Success",
+            detail: "Demo Trail Started",
           });
         }
-        this.freeTrialErrorMsg = error?.message;
-      });
+        this.freeTrial = false;
+        this.demoTrial = false;
+        this.visibleExhasted = false;
+        this.service._userContineTrial = false;
+        this.service.contineStatus(false);
+        this.dataService.sendValue(false);
+        setTimeout(() => {
+          this.checkNewUser();
+          this.dashboardService.isinitialstart = true;
+          if(this.enterpriseSubscriptionLink  != ""){
+            window.open(this.enterpriseSubscriptionLink, '_target');
+            return;
+        }
+          this.router.navigate(["/pages/subscriptions"]);
+        }, 1000);
+      },
+        error => {
+          if (this.demoTrial == true) {
+            this.toast.add({
+              severity: "error",
+              summary: "Error",
+              detail: "Demo Trail Not Started",
+            });
+          }
+          this.freeTrialErrorMsg = error?.message;
+        });
+    }else{
+      this.visibleExhastedUser = true;
+      this.demoTrial=false;
+    }
+   
   }
 
   checkNewUSerLogin(): void {
@@ -888,4 +908,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
         }
     );
   }
+  closeQuiz(): void {
+    this.visibleExhastedUser = false;
+    this.demoTrial=true;
+}
 }

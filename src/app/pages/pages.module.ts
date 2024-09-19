@@ -69,6 +69,10 @@ import {PdfViewerModule} from "ng2-pdf-viewer";
 import { CareerPlannerComponent } from './career-planner/career-planner.component';
 import { CertificatesComponent } from './certificates/certificates.component';
 import { CourseListComponent } from "./course-list/course-list.component";
+import { NgxStripeModule } from "ngx-stripe";
+import { FounderstoolComponent } from './founderstool/founderstool.component';
+import { FoundersacademyComponent } from './founderstool/foundersacademy/foundersacademy.component';
+import { FounderstoollistComponent } from './founderstool/founderstoollist/founderstoollist.component';
 // import { JobToolComponent } from './job-tool/job-tool.component';
 @NgModule({
     declarations: [
@@ -143,7 +147,7 @@ import { CourseListComponent } from "./course-list/course-list.component";
         StepsModule,
         RadioButtonModule,
         NgxExtendedPdfViewerModule,
-        PdfViewerModule
+        PdfViewerModule,
     ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })

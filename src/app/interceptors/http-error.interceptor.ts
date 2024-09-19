@@ -38,7 +38,8 @@ export class HttpErrorInterceptor implements HttpInterceptor {
       !request.url.includes("StudentsSubmoduleQuestions") &&
       !request.url.includes("StudentFullQuestionData") &&
       !request.url.includes("getlatestfaqquestions") &&
-        !request.url.includes("googleapis")
+        !request.url.includes("googleapis") &&
+        !request.url.includes("getsubscriptiontimeleft")
     ) {
       if(!currentUrl.includes('modules')){
         this.ngxService.start();

@@ -132,7 +132,7 @@
       "population": "26711",
       "capital": "Mariehamn",
       "continentName": "Europe",
-      "flag": "no_flag"
+      "flag": "https://flagcdn.com/ax.svg"
   },
   {
       "countryCode": "AZ",
@@ -348,7 +348,7 @@
       "population": "628",
       "capital": "West Island",
       "continentName": "Asia",
-      "flag": "no_flag"
+      "flag": "https://flagcdn.com/cc.svg"
   },
   {
       "countryCode": "CD",
@@ -375,7 +375,7 @@
       "population": "3039126",
       "capital": "Brazzaville",
       "continentName": "Africa",
-      "flag": "no_flag"
+      "flag": "https://flagcdn.com/cg.svg"
   },
   {
       "countryCode": "CH",
@@ -465,7 +465,7 @@
       "population": "508659",
       "capital": "Praia",
       "continentName": "Africa",
-      "flag": "no_flag"
+      "flag": "https://flagcdn.com/cv.svg"
   },
   {
       "countryCode": "CW",
@@ -501,7 +501,7 @@
       "population": "10476000",
       "capital": "Prague",
       "continentName": "Europe",
-      "flag": "no_flag"
+      "flag": "https://flagcdn.com/cz.svg"
   },
   {
       "countryCode": "DE",
@@ -1131,13 +1131,12 @@
       "population": "6368162",
       "capital": "Vientiane",
       "continentName": "Asia",
-      "flag": "no_flag"
+      "flag": "https://flagcdn.com/la.svg"
   },
   {
       "countryCode": "LB",
       "countryName": "Lebanon",
       "currencyCode": "LBP",
-      "population": "4125247",
       "capital": "Beirut",
       "continentName": "Asia",
       "flag": "https://flagcdn.com/lb.svg"
@@ -1266,7 +1265,7 @@
       "population": "35925",
       "capital": "Marigot",
       "continentName": "North America",
-      "flag": "no_flag"
+      "flag": "https://flagcdn.com/sx.svg"
   },
   {
       "countryCode": "MG",
@@ -1311,7 +1310,7 @@
       "population": "53414374",
       "capital": "Naypyitaw",
       "continentName": "Asia",
-      "flag": "no_flag"
+      "flag": "https://flagcdn.com/mm.svg"
   },
   {
       "countryCode": "MN",
@@ -1626,7 +1625,7 @@
       "population": "46",
       "capital": "Adamstown",
       "continentName": "Oceania",
-      "flag": "no_flag"
+      "flag": "https://flagcdn.com/pn.svg"
   },
   {
       "countryCode": "PR",
@@ -1986,7 +1985,7 @@
       "population": "1154625",
       "capital": "Dili",
       "continentName": "Oceania",
-      "flag": "no_flag"
+      "flag": "https://flagcdn.com/tl.svg"
   },
   {
       "countryCode": "TM",
@@ -2085,7 +2084,7 @@
       "population": "0",
       "capital": null,
       "continentName": "Oceania",
-      "flag": "no_flag"
+      "flag": "https://flagcdn.com/um.svg"
   },
   {
       "countryCode": "US",
@@ -2148,7 +2147,7 @@
       "population": "21730",
       "capital": "Road Town",
       "continentName": "North America",
-      "flag": null
+      "flag": "https://flagcdn.com/vg.svg"
   },
   {
       "countryCode": "VI",
@@ -2157,7 +2156,7 @@
       "population": "108708",
       "capital": "Charlotte Amalie",
       "continentName": "North America",
-      "flag": "no_flag"
+      "flag": "https://flagcdn.com/vi.svg"
   },
   {
       "countryCode": "VN",

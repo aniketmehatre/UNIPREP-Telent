@@ -10,7 +10,7 @@
                         <p-confirmPopup></p-confirmPopup>
                         <i class="fa-solid fa-download HistoryDownloadIcon" (click)="downloadOldResume(resumes.pdf_name)"></i>
                         <p>Version {{ i+1 }}</p>
-                        <small>{{ resumes.created_at }}</small>
+                        <small>{{ resumes.created_time }}</small>
                     </div>
                 </div>
             </div>
@@ -20,20 +20,20 @@
         </div>
     </div>
 </div>
-<div class="container-fluid" *ngIf="activePageIndex == 1">
+
+<div class="container-fluid swiper-wrapper-custom" *ngIf="activePageIndex == 1">
     <h3 class="text-center uniprep-primary">Select your CV style to get started</h3>
-    <ngx-slick-carousel class="carousel" #slickModal="slick-carousel" [config]="slideConfig">
-        <div ngxSlickItem *ngFor="let slide of resumeSlider" class="slide">
-            <div class="d-flex flex-column slider-carousel">
-                <div class="cvBuilderSampleImg" [ngClass]="{ 'selectedResumeLevel': selectedResumeLevel == slide.templateName }">
-                    <h5 class="text-center uniprep-primary">{{ slide.templateName }}</h5>
-                    <img [src]="slide.imageLink" alt="{{ slide.templateName }}" />
-                    <button class="center-button" (click)="selectResumeTemplate(slide.templateName)">Select</button>
-                </div>
+    <swiper-container #swiperContainer dir="rtl" class="mySwiper" navigation="true" centered-slides="true" space-between="30" slides-per-view="5" loop="true">
+        <swiper-slide class="swiper-slide-regular" *ngFor="let slide of resumeSlider">
+            <div class="cvBuilderSampleImg" [ngClass]="{ 'selectedResumeLevel': selectedResumeLevel == slide.templateName }">
+                <h5 class="text-center uniprep-primary">{{ slide.templateName }}</h5>
+                <img [src]="slide.imageLink" alt="{{ slide.templateName }}" />
+                <button class="center-button" (click)="selectResumeTemplate(slide.templateName)">Select</button>
             </div>
-        </div>
-    </ngx-slick-carousel>
+        </swiper-slide>
+    </swiper-container>
 </div>
+
 
 <div class="container-fluid h-100" *ngIf="activePageIndex == 3" style="overflow-y: auto;">
     <div class="row justify-content-center">
@@ -58,8 +58,8 @@
             <!-- style="visibility:hidden;" -->
             <div class="d-flex justify-content-between" style="height: 5%;">
                 <button pButton type="button" (click)="previous()"
-                    class="text-white p-ripple p-button-rounded p-button-info-prev p-button p-component p-2"
-                    ><i class="fa fa-arrow-left exhausted-plan-icon-prev"></i>
+                        class="text-white p-ripple p-button-rounded p-button-info-prev p-button p-component p-2"
+                ><i class="fa fa-arrow-left exhausted-plan-icon-prev"></i>
                     Previous</button>
                 <button class="downloadButton" style="margin: 0px;" (click)="next()">CV Builder &nbsp;&nbsp;&nbsp;<i
                         class="fa-sharp fa-regular fa-house tickIcon"></i></button>
@@ -68,8 +68,13 @@
     </div>
 </div>
 <div class="container-fluid h-100" *ngIf="activePageIndex == 2">
-    <div style="height: 10%;">
-        <p-steps [model]="items" [readonly]="false" [activeIndex]="moduleActiveIndex"></p-steps>
+    <div style="height: 10%;display: flex;">
+        <div class="col-md-1 backIcon">
+            <span class="pi pi-angle-left" (click)="previous()"></span>
+        </div>
+        <div class="col-md-11">
+            <p-steps [model]="items" [readonly]="false" [activeIndex]="moduleActiveIndex"></p-steps>
+        </div>
     </div>
     <div style="height: 90%;">
         <div class="row h-100">
@@ -78,8 +83,8 @@
                     <ng-container *ngIf="moduleActiveIndex == 0">
                         <div class="col-md-12 mb-3">
                             <h4 class="p-mb-2 PageTitle">Your Experience Level</h4>
-                            <p-dropdown [options]="experienceLevel" (onChange)="changeExperience($event)" placeholder="Select Experience Level" styleClass="w-100" 
-                                formControlName="selected_exp_level" optionLabel="level" optionValue="id"></p-dropdown>
+                            <p-dropdown [options]="experienceLevel" (onChange)="changeExperience()" placeholder="Select Experience Level" styleClass="w-100"
+                                        formControlName="selected_exp_level" optionLabel="level" optionValue="id"></p-dropdown>
                             <div *ngIf="submitted && f['selected_exp_level'].errors" class="text-danger text-xs">
                                 <div style="margin-left:10px;" *ngIf="f['selected_exp_level'].errors">Experience Level Required</div>
                             </div>
@@ -103,10 +108,10 @@
                                     <label class="form-label labelFont">Job Title</label>
                                     <div class="form-group">
                                         <div class="mb-3">
-                                            <input class="w-100" type="text" placeholder="your Job Title"
-                                                formControlName="user_job_title" pInputText />
+                                            <input class="w-100" type="text" placeholder="Your Job Title"
+                                                   formControlName="user_job_title" pInputText />
                                             <div *ngIf="submitted && f['user_job_title'].errors"
-                                                class="text-danger text-xs">
+                                                 class="text-danger text-xs">
                                                 <div style="margin-left:10px;" *ngIf="f['user_job_title'].errors">Job
                                                     Title Required</div>
                                             </div>
@@ -118,13 +123,13 @@
                                     <div class="form-group">
                                         <div class="mb-3">
                                             <input class="w-100" type="text" placeholder="Email Address"
-                                                formControlName="user_email" pInputText />
+                                                   formControlName="user_email" pInputText />
                                             <div *ngIf="submitted && f['user_email'].errors"
-                                                class="text-danger text-xs">
+                                                 class="text-danger text-xs">
                                                 <div style="margin-left:10px;"
-                                                    *ngIf="f['user_email'].errors?.['required']">Email Required</div>
+                                                     *ngIf="f['user_email'].errors?.['required']">Email Required</div>
                                                 <div style="margin-left:10px;"
-                                                    *ngIf="f['user_email'].errors?.['email']">Enter Valid email</div>
+                                                     *ngIf="f['user_email'].errors?.['email']">Enter Valid email</div>
                                             </div>
                                         </div>
                                     </div>
@@ -133,10 +138,10 @@
                                     <label class="form-label labelFont">Current Location</label>
                                     <div class="form-group">
                                         <div class="mb-3">
-                                            <input class="w-100" type="text" placeholder="Your Location"
-                                                formControlName="user_location" pInputText />
+                                            <input class="w-100" type="text" placeholder="Location, State"
+                                                   formControlName="user_location" pInputText />
                                             <div *ngIf="submitted && f['user_location'].errors"
-                                                class="text-danger text-xs">
+                                                 class="text-danger text-xs">
                                                 <div style="margin-left:10px;" *ngIf="f['user_location'].errors">Current
                                                     Location Required</div>
                                             </div>
@@ -147,7 +152,7 @@
                                     <label class="form-label labelFont">country code</label>
                                     <div class="form-group">
                                         <div class="mb-3">
-                                            <p-dropdown [options]="countryCodeList" styleClass="w-100" [filter]="true" [filterBy]="'name'"  formControlName="country_code" optionLabel="name" optionValue="code"></p-dropdown>
+                                            <p-dropdown [options]="countryCodeList" styleClass="w-100" [filter]="true" [filterBy]="'name'" placeholder="Select Country Code"  formControlName="country_code" optionLabel="name" optionValue="code"></p-dropdown>
                                         </div>
                                     </div>
                                 </div>
@@ -156,39 +161,48 @@
                                     <div class="form-group">
                                         <div class="mb-3">
                                             <input class="w-100" type="text" placeholder="Phone Number"
-                                                formControlName="user_phone" pInputText />
+                                                   formControlName="user_phone" pInputText />
                                             <div *ngIf="f['user_phone'].invalid && (f['user_phone'].dirty || f['user_phone'].touched)"
-                                                class="text-danger text-xs">
+                                                 class="text-danger text-xs">
                                                 <div style="margin-left:10px;"
-                                                    *ngIf="f['user_phone'].errors?.['required']">Phone number Required
+                                                     *ngIf="f['user_phone'].errors?.['required']">Phone number Required
                                                 </div>
                                                 <div style="margin-left:10px;"
-                                                    *ngIf="f['user_phone'].errors?.['pattern']">Enter Valid Phone number
+                                                     *ngIf="f['user_phone'].errors?.['pattern']">Enter Valid Phone number
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
-                                    <label class="form-label labelFont">LinkedIn Link</label>
+                                    <label class="form-label labelFont">LinkedIn Name</label>
                                     <div class="form-group">
                                         <div class="mb-3">
-                                            <input class="w-100" type="text" placeholder="LinkedIn profile link"
-                                                formControlName="user_linkedin" pInputText />
+                                            <input class="w-100" type="text" placeholder="LinkedIn profile name"
+                                                   formControlName="user_linkedin" pInputText />
                                             <div *ngIf="submitted && f['user_linkedin'].errors"
-                                                class="text-danger text-xs">
+                                                 class="text-danger text-xs">
                                                 <div style="margin-left:10px;" *ngIf="f['user_linkedin'].errors">Linked
-                                                    In Required</div>
+                                                    In Name Required</div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
+                                <!-- <div class="col-md-6">
+                                    <label class="form-label labelFont">LinkedIn Link</label>
+                                    <div class="form-group">
+                                        <div class="mb-3">
+                                            <input class="w-100" type="text" placeholder="LinkedIn profile link"
+                                                   formControlName="user_linkedin_link" pInputText />
+                                        </div>
+                                    </div>
+                                </div> -->
                                 <div class="col-md-6">
                                     <label class="form-label labelFont">Website (Optional)</label>
                                     <div class="form-group">
                                         <div class="mb-3">
                                             <input class="w-100" type="text" placeholder="Website or portfolio Link"
-                                                formControlName="user_website" pInputText />
+                                                   formControlName="user_website" pInputText />
                                         </div>
                                     </div>
                                 </div>
@@ -196,18 +210,18 @@
                                     <div class="d-flex justify-content-between align-items-center">
                                         <label class="form-label labelFont">Summary</label>
                                         <button class="deleteDivButton" (click)="chatGPTIntegration('user_summary', 0)"
-                                            style="background-color: #9bc329;">Generate &nbsp;<i
+                                                style="background-color: #9bc329;">Generate &nbsp;<i
                                                 class="fa-solid fa-line-columns trashIcon"
                                                 style="background-color: #9bc329;"></i></button>
                                     </div>
                                     <div class="form-group">
                                         <div class="mb-3">
                                             <textarea pInputTextarea formControlName="user_summary" class="mt-2"
-                                                placeholder="About yourself" [rows]="3" [cols]="80"
+                                                placeholder="About yourself" [rows]="5" [cols]="80"
                                                 (ngModelChange)="onTextModelChange($event)"></textarea>
 
                                             <div *ngIf="submitted && f['user_summary'].errors?.['required']"
-                                                class="text-danger text-xs">
+                                                 class="text-danger text-xs">
                                                 <div style="margin-left:10px;">User Summary Required</div>
                                             </div>
                                             <!-- <div *ngIf="f['user_summary'].errors?.['maxWordsExceeded']"
@@ -223,10 +237,10 @@
                     </ng-container>
                     <ng-container *ngIf="moduleActiveIndex == 1">
                         <div class="col-md-12">
-                            <h4 class="p-mb-1 PageTitle">Enter Your {{ f['selected_exp_level'].value == 1 ? 'Internship' : 'Work' }} Experience</h4>
+                            <h4 class="p-mb-1 PageTitle">Enter Your Work {{ f['selected_exp_level'].value == 1 ? '/ Internship' : '' }} Experience</h4>
                             <div class="col-md-12">
                                 <div class="card mb-2" *ngFor="let wrkExp of getWorkExpArray.controls; let i = index"
-                                    formArrayName="workExpArray">
+                                     formArrayName="workExpArray">
                                     <div class="card-body">
                                         <div [formGroupName]="i">
                                             <div class="row">
@@ -235,10 +249,10 @@
                                                     <div class="form-group">
                                                         <div class="mb-3">
                                                             <input class="w-100" type="text"
-                                                                placeholder="Organization Name"
-                                                                formControlName="work_org_name" pInputText />
+                                                                   placeholder="Organization Name"
+                                                                   formControlName="work_org_name" pInputText />
                                                             <div *ngIf="wrkExp.get('work_org_name')?.invalid && wrkExp.get('work_org_name')?.touched && submitted"
-                                                                class="text-danger text-xs">
+                                                                 class="text-danger text-xs">
                                                                 <div style="margin-left:10px;">Organization Name required.</div>
                                                             </div>
                                                         </div>
@@ -247,27 +261,27 @@
                                                 <div class="col-md-6">
                                                     <div class="d-flex justify-content-between align-items-center">
                                                         <label class="form-label labelFont"
-                                                            style="font-size: small;">Experience Year </label>
+                                                               style="font-size: small;">Experience Year </label>
                                                         <div class="d-flex justify-content-between align-items-center">
                                                             <input type="checkbox"
-                                                                formControlName="work_currently_working" class="me-0"
-                                                                (change)="stillPursuing('work_currently_working',i, $event)"
-                                                                style="transform: scale(0.4);cursor: pointer;"
-                                                                id="currentWorking_{{i}}" />
+                                                                   formControlName="work_currently_working" class="me-0"
+                                                                   (change)="stillPursuing('work_currently_working',i, $event)"
+                                                                   style="transform: scale(0.4);cursor: pointer;"
+                                                                   id="currentWorking_{{i}}" />
                                                             <label
-                                                                style="font-size: 10px;color: var(--uniprep-primary);font-weight: 600;cursor: pointer;"
-                                                                for="currentWorking_{{i}}">Currently Working</label>
+                                                                    style="font-size: 10px;color: var(--uniprep-primary);font-weight: 600;cursor: pointer;"
+                                                                    for="currentWorking_{{i}}">Currently Working</label>
                                                         </div>
                                                     </div>
                                                     <div class="row">
                                                         <div class="col-md-6">
                                                             <div class="form-group">
                                                                 <div class="mb-3">
-                                                                    <input class="w-100" type="text"
-                                                                        placeholder="Start Year"
-                                                                        formControlName="work_start_year" pInputText />
+                                                                    <input class="w-100" type="number"
+                                                                           placeholder="Start Year"
+                                                                           formControlName="work_start_year" pInputText />
                                                                     <div *ngIf="wrkExp.get('work_start_year')?.invalid && wrkExp.get('work_start_year')?.touched && submitted"
-                                                                        class="text-danger text-xs">
+                                                                         class="text-danger text-xs">
                                                                         <div style="margin-left:10px;">Start Year
                                                                             required.</div>
                                                                     </div>
@@ -277,12 +291,12 @@
                                                         <div class="col-md-6">
                                                             <div class="form-group">
                                                                 <div class="mb-3">
-                                                                    <input class="w-100" type="text"
-                                                                        placeholder="End Year"
-                                                                        [attr.disabled]="getWorkExpArray.controls[i]?.get('work_currently_working')?.value ? true : null"
-                                                                        formControlName="work_end_year" pInputText />
+                                                                    <input class="w-100" type="number"
+                                                                           placeholder="End Year"
+                                                                           [attr.disabled]="getWorkExpArray.controls[i]?.get('work_currently_working')?.value ? true : null"
+                                                                           formControlName="work_end_year" pInputText />
                                                                     <div *ngIf="wrkExp.get('work_end_year')?.invalid && wrkExp.get('work_end_year')?.touched && submitted"
-                                                                        class="text-danger text-xs">
+                                                                         class="text-danger text-xs">
                                                                         <div style="margin-left:10px;">End Year
                                                                             required.</div>
                                                                     </div>
@@ -296,10 +310,10 @@
                                                     <div class="form-group">
                                                         <div class="mb-3">
                                                             <input class="w-100" type="text"
-                                                                placeholder="your Designation"
-                                                                formControlName="work_designation" pInputText />
+                                                                   placeholder="Your Designation"
+                                                                   formControlName="work_designation" pInputText />
                                                             <div *ngIf="wrkExp.get('work_designation')?.invalid && wrkExp.get('work_designation')?.touched && submitted"
-                                                                class="text-danger text-xs">
+                                                                 class="text-danger text-xs">
                                                                 <div style="margin-left:10px;">Designation required.
                                                                 </div>
                                                             </div>
@@ -311,11 +325,11 @@
                                                     <div class="form-group">
                                                         <div class="mb-3">
                                                             <p-dropdown [options]="workTypeValue"
-                                                                placeholder="select Work Type" styleClass="w-100"
-                                                                formControlName="work_type" optionLabel="value"
-                                                                optionValue="id"></p-dropdown>
+                                                                        placeholder="select Work Type" styleClass="w-100"
+                                                                        formControlName="work_type" optionLabel="value"
+                                                                        optionValue="id"></p-dropdown>
                                                             <div *ngIf="wrkExp.get('work_type')?.invalid && wrkExp.get('work_type')?.touched && submitted"
-                                                                class="text-danger text-xs">
+                                                                 class="text-danger text-xs">
                                                                 <div style="margin-left:10px;">Work Type required.</div>
                                                             </div>
                                                         </div>
@@ -326,9 +340,9 @@
                                                     <div class="form-group">
                                                         <div class="mb-3">
                                                             <input class="w-100" type="text" placeholder="Work Location"
-                                                                formControlName="work_location" pInputText />
+                                                                   formControlName="work_location" pInputText />
                                                             <div *ngIf="wrkExp.get('work_location')?.invalid && wrkExp.get('work_location')?.touched && submitted"
-                                                                class="text-danger text-xs">
+                                                                 class="text-danger text-xs">
                                                                 <div style="margin-left:10px;">Work Location required.
                                                                 </div>
                                                             </div>
@@ -339,21 +353,21 @@
                                                     <div class="d-flex justify-content-between align-items-center">
                                                         <label class="form-label labelFont">Job Description</label>
                                                         <button class="deleteDivButton"
-                                                            (click)="chatGPTIntegration('work_job_description', i)"
-                                                            style="background-color: #9bc329;">Generate &nbsp;<i
+                                                                (click)="chatGPTIntegration('work_job_description', i)"
+                                                                style="background-color: #9bc329;">Generate &nbsp;<i
                                                                 class="fa-solid fa-line-columns trashIcon"
                                                                 style="background-color: #9bc329;"></i></button>
                                                     </div>
                                                     <!-- (ngModelChange)="onEditorModelChange($event, i)" -->
                                                     <div class="form-group">
                                                         <div class="mb-3">
-                                                            <p-editor formControlName="work_job_description"
-                                                                placeholder="About Job Description"
-                                                                ></p-editor>
+                                                            <p-editor formControlName="work_job_description" placeholder="About Job Description" [modules]="editorModules">
+                                                            </p-editor>
+
                                                             <div *ngIf="wrkExp.get('work_job_description')?.invalid && wrkExp.get('work_job_description')?.touched && submitted"
-                                                                class="text-danger text-xs">
+                                                                 class="text-danger text-xs">
                                                                 <div style="margin-left:10px;"
-                                                                    *ngIf="wrkExp.get('work_job_description')?.errors?.['required']">
+                                                                     *ngIf="wrkExp.get('work_job_description')?.errors?.['required']">
                                                                     Job Description required.</div>
                                                             </div>
                                                             <!-- <div *ngIf="errorMessages[i]" class="text-danger text-xs"
@@ -375,7 +389,7 @@
                             </div>
                             <div class="d-flex justify-content-center align-items-center m-3">
                                 <button class="addMoreButton" *ngIf="getWorkExpArray.length < wrkExpLimit"
-                                    (click)="clickAddMoreButton('work_experience')">Add More &nbsp;<i
+                                        (click)="clickAddMoreButton('work_experience')">Add More &nbsp;<i
                                         class="fa-solid fa-plus tickIcon"></i></button>
                             </div>
                         </div>
@@ -385,8 +399,8 @@
                             <h4 class="p-mb-1 PageTitle">Enter Your Educational Details</h4>
                             <div class="col-md-12">
                                 <div class="card mb-2"
-                                    *ngFor="let eduDetail of getEduDetailsArray.controls; let i = index"
-                                    formArrayName="EduDetailsArray">
+                                     *ngFor="let eduDetail of getEduDetailsArray.controls; let i = index"
+                                     formArrayName="EduDetailsArray">
                                     <div class="card-body">
                                         <div [formGroupName]="i">
                                             <div class="row">
@@ -395,9 +409,9 @@
                                                     <div class="form-group">
                                                         <div class="mb-3">
                                                             <input class="w-100" type="text" placeholder="College Name"
-                                                                formControlName="edu_college_name" pInputText />
+                                                                   formControlName="edu_college_name" pInputText />
                                                             <div *ngIf="eduDetail.get('edu_college_name')?.invalid && eduDetail.get('edu_college_name')?.touched && submitted"
-                                                                class="text-danger text-xs">
+                                                                 class="text-danger text-xs">
                                                                 <div style="margin-left:10px;">College name is required.
                                                                 </div>
                                                             </div>
@@ -407,26 +421,26 @@
                                                 <div class="col-md-6">
                                                     <div class="d-flex justify-content-between align-items-center">
                                                         <label class="form-label labelFont"
-                                                            style="font-size: small;">Education Year </label>
+                                                               style="font-size: small;">Education Year </label>
                                                         <div class="d-flex justify-content-between align-items-center">
                                                             <input type="checkbox" formControlName="edu_still_pursuing"
-                                                                id="stillPursuing_{{i}}" class="me-0"
-                                                                (change)="stillPursuing('edu_still_pursuing',i, $event)"
-                                                                style="transform: scale(0.4);cursor: pointer;" />
+                                                                   id="stillPursuing_{{i}}" class="me-0"
+                                                                   (change)="stillPursuing('edu_still_pursuing',i, $event)"
+                                                                   style="transform: scale(0.4);cursor: pointer;" />
                                                             <label
-                                                                style="font-size: 10px;color: var(--uniprep-primary);font-weight: 600;cursor: pointer;"
-                                                                for="stillPursuing_{{i}}">Still Pursuing</label>
+                                                                    style="font-size: 10px;color: var(--uniprep-primary);font-weight: 600;cursor: pointer;"
+                                                                    for="stillPursuing_{{i}}">Still Pursuing</label>
                                                         </div>
                                                     </div>
                                                     <div class="row">
                                                         <div class="col-md-6">
                                                             <div class="form-group">
                                                                 <div class="mb-3">
-                                                                    <input class="w-100" type="text"
-                                                                        placeholder="Start Year"
-                                                                        formControlName="edu_start_year" pInputText />
+                                                                    <input class="w-100" type="number"
+                                                                           placeholder="Start Year"
+                                                                           formControlName="edu_start_year" pInputText />
                                                                     <div *ngIf="eduDetail.get('edu_start_year')?.invalid && eduDetail.get('edu_start_year')?.touched && submitted"
-                                                                        class="text-danger text-xs">
+                                                                         class="text-danger text-xs">
                                                                         <div style="margin-left:10px;">Start Year
                                                                             required.</div>
                                                                     </div>
@@ -436,12 +450,12 @@
                                                         <div class="col-md-6">
                                                             <div class="form-group">
                                                                 <div class="mb-3">
-                                                                    <input class="w-100" type="text"
-                                                                        [attr.disabled]="getEduDetailsArray.controls[i]?.get('edu_still_pursuing')?.value ? true : null"
-                                                                        placeholder="End Year"
-                                                                        formControlName="edu_end_year" pInputText />
+                                                                    <input class="w-100" type="number"
+                                                                           [attr.disabled]="getEduDetailsArray.controls[i]?.get('edu_still_pursuing')?.value ? true : null"
+                                                                           placeholder="End Year"
+                                                                           formControlName="edu_end_year" pInputText />
                                                                     <div *ngIf="eduDetail.get('edu_end_year')?.invalid && eduDetail.get('edu_end_year')?.touched && submitted"
-                                                                        class="text-danger text-xs">
+                                                                         class="text-danger text-xs">
                                                                         <div style="margin-left:10px;">End Year
                                                                             required.</div>
                                                                     </div>
@@ -454,10 +468,10 @@
                                                     <label class="form-label labelFont">Degree</label>
                                                     <div class="form-group">
                                                         <div class="mb-3">
-                                                            <input class="w-100" type="text" placeholder="your Degree"
-                                                                formControlName="edu_degree" pInputText />
+                                                            <input class="w-100" type="text" placeholder="Your Degree"
+                                                                   formControlName="edu_degree" pInputText />
                                                             <div *ngIf="eduDetail.get('edu_degree')?.invalid && eduDetail.get('edu_degree')?.touched && submitted"
-                                                                class="text-danger text-xs">
+                                                                 class="text-danger text-xs">
                                                                 <div style="margin-left:10px;">Degree required.</div>
                                                             </div>
                                                         </div>
@@ -468,24 +482,24 @@
                                                     <div class="form-group">
                                                         <div class="mb-3">
                                                             <input class="w-100" type="text"
-                                                                placeholder="Education Location"
-                                                                formControlName="edu_location" pInputText />
+                                                                   placeholder="Education Location"
+                                                                   formControlName="edu_location" pInputText />
                                                             <div *ngIf="eduDetail.get('edu_location')?.invalid && eduDetail.get('edu_location')?.touched && submitted"
-                                                                class="text-danger text-xs">
+                                                                 class="text-danger text-xs">
                                                                 <div style="margin-left:10px;">Location required.</div>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-9">
-                                                    <label class="form-label labelFont">Percentage</label>
+                                                    <label class="form-label labelFont">Academic Score</label>
                                                     <div class="form-group">
                                                         <div class="mb-3">
-                                                            <input class="w-100" type="text"
-                                                                placeholder="Achieved Score"
-                                                                formControlName="edu_percentage" pInputText />
+                                                            <input class="w-100" type="number"
+                                                                   placeholder="Achieved Score"
+                                                                   formControlName="edu_percentage" pInputText />
                                                             <div *ngIf="eduDetail.get('edu_percentage')?.invalid && eduDetail.get('edu_percentage')?.touched && submitted"
-                                                                class="text-danger text-xs">
+                                                                 class="text-danger text-xs">
                                                                 <div style="margin-left:10px;">Percentage required.
                                                                 </div>
                                                             </div>
@@ -497,8 +511,8 @@
                                                     <div class="form-group">
                                                         <div class="mb-3">
                                                             <p-dropdown [options]="cgpaPercentage" styleClass="w-100"
-                                                                formControlName="edu_cgpa_percentage"
-                                                                optionLabel="value" optionValue="id"></p-dropdown>
+                                                                        formControlName="edu_cgpa_percentage"
+                                                                        optionLabel="value" optionValue="id"></p-dropdown>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -514,16 +528,16 @@
                             </div>
                             <div class="d-flex justify-content-center align-items-center m-3">
                                 <button class="addMoreButton" *ngIf="getEduDetailsArray.length < eduDetailsLimit"
-                                    (click)="clickAddMoreButton('education_detail')">Add More &nbsp;<i
+                                        (click)="clickAddMoreButton('education_detail')">Add More &nbsp;<i
                                         class="fa-solid fa-plus tickIcon"></i></button>
                             </div>
                         </div>
                         <div class="col-md-12">
-                            <ng-container *ngIf="f['selected_exp_level'].value == 1">
+                            <ng-container *ngIf="f['selected_exp_level'].value == 1 && !hidingHeaders.includes('project_details')">
                                 <h4 class="p-mb-1 PageTitle">Enter Your Project Details</h4>
                                 <div class="card mb-2"
-                                    *ngFor="let project of getProjectDetailsArray.controls; let i = index"
-                                    formArrayName="projectDetailsArray">
+                                     *ngFor="let project of getProjectDetailsArray.controls; let i = index"
+                                     formArrayName="projectDetailsArray">
                                     <div class="card-body">
                                         <div [formGroupName]="i">
                                             <div class="row">
@@ -532,9 +546,9 @@
                                                     <div class="form-group">
                                                         <div class="mb-3">
                                                             <input class="w-100" type="text" placeholder="Project Name"
-                                                                formControlName="project_name" pInputText />
+                                                                   formControlName="project_name" pInputText />
                                                             <div *ngIf="project.get('project_name')?.invalid && project.get('project_name')?.touched && submitted"
-                                                                class="text-danger text-xs">
+                                                                 class="text-danger text-xs">
                                                                 <div style="margin-left:10px;">Project Name required.
                                                                 </div>
                                                             </div>
@@ -548,11 +562,11 @@
                                                             <div class="form-group">
                                                                 <div class="mb-3">
                                                                     <input class="w-100" type="text"
-                                                                        placeholder="Start Year"
-                                                                        formControlName="project_start_name"
-                                                                        pInputText />
+                                                                           placeholder="Start Year"
+                                                                           formControlName="project_start_name"
+                                                                           pInputText />
                                                                     <div *ngIf="project.get('project_start_name')?.invalid && project.get('project_start_name')?.touched && submitted"
-                                                                        class="text-danger text-xs">
+                                                                         class="text-danger text-xs">
                                                                         <div style="margin-left:10px;">Start date
                                                                             required.</div>
                                                                     </div>
@@ -563,10 +577,10 @@
                                                             <div class="form-group">
                                                                 <div class="mb-3">
                                                                     <input class="w-100" type="text"
-                                                                        placeholder="End Year"
-                                                                        formControlName="project_end_name" pInputText />
+                                                                           placeholder="End Year"
+                                                                           formControlName="project_end_name" pInputText />
                                                                     <div *ngIf="project.get('project_end_name')?.invalid && project.get('project_end_name')?.touched && submitted"
-                                                                        class="text-danger text-xs">
+                                                                         class="text-danger text-xs">
                                                                         <div style="margin-left:10px;">End date
                                                                             required.</div>
                                                                     </div>
@@ -582,10 +596,11 @@
                                                     </div>
                                                     <div class="form-group">
                                                         <div class="mb-3">
-                                                            <p-editor formControlName="project_description"
-                                                                placeholder="Project Description"></p-editor>
+                                                            <p-editor formControlName="project_description" placeholder="About Job Description" [modules]="editorModules"></p-editor>
+                                                            <!-- <p-editor formControlName="project_description"
+                                                                      placeholder="Project Description"></p-editor> -->
                                                             <div *ngIf="project.get('project_description')?.invalid && project.get('project_description')?.touched && submitted"
-                                                                class="text-danger text-xs">
+                                                                 class="text-danger text-xs">
                                                                 <div style="margin-left:10px;">Project Description
                                                                     required.</div>
                                                             </div>
@@ -603,7 +618,7 @@
                                 </div>
                                 <div class="d-flex justify-content-center align-items-center m-3">
                                     <button *ngIf="getProjectDetailsArray.length < projectLimit"
-                                        (click)="clickAddMoreButton('project_details')" class="addMoreButton">Add More
+                                            (click)="clickAddMoreButton('project_details')" class="addMoreButton">Add More
                                         &nbsp;<i class="fa-solid fa-plus tickIcon"></i></button>
                                 </div>
                             </ng-container>
@@ -613,8 +628,8 @@
                         <div class="col-md-12">
                             <h4 class="p-mb-1 PageTitle">Certifications (Optional)</h4>
                             <div class="card mb-2"
-                                *ngFor="let certificate of getCertificatesArray.controls; let i = index"
-                                formArrayName="certificatesArray">
+                                 *ngFor="let certificate of getCertificatesArray.controls; let i = index"
+                                 formArrayName="certificatesArray">
                                 <div class="card-body">
                                     <div [formGroupName]="i">
                                         <div class="row">
@@ -623,9 +638,9 @@
                                                 <div class="form-group">
                                                     <div class="mb-3">
                                                         <input class="w-100" type="text" placeholder="Name"
-                                                            formControlName="certificate_name" pInputText />
+                                                               formControlName="certificate_name" pInputText />
                                                         <div *ngIf="certificate.get('certificate_name')?.invalid && certificate.get('certificate_name')?.touched && submitted"
-                                                            class="text-danger text-xs">
+                                                             class="text-danger text-xs">
                                                             <div style="margin-left:10px;">certificate Name required.
                                                             </div>
                                                         </div>
@@ -637,9 +652,9 @@
                                                 <div class="form-group">
                                                     <div class="mb-3">
                                                         <input class="w-100" type="text" placeholder="Issued Organization"
-                                                            formControlName="certificate_issued" pInputText />
+                                                               formControlName="certificate_issued" pInputText />
                                                         <div *ngIf="certificate.get('certificate_issued')?.invalid && certificate.get('certificate_issued')?.touched && submitted"
-                                                            class="text-danger text-xs">
+                                                             class="text-danger text-xs">
                                                             <div style="margin-left:10px;">certificate issued required.
                                                             </div>
                                                         </div>
@@ -674,23 +689,26 @@
                             </div>
                             <div class="d-flex justify-content-center align-items-center m-3">
                                 <button class="addMoreButton" *ngIf="getCertificatesArray.length < certificateLimit"
-                                    (click)="clickAddMoreButton('certificate')">Add More &nbsp;<i
+                                        (click)="clickAddMoreButton('certificate')">Add More &nbsp;<i
                                         class="fa-solid fa-plus tickIcon"></i></button>
                             </div>
                         </div>
                         <div class="col-md-12">
-                            <h4 class="p-mb-1 PageTitle">Achievements (Optional)</h4>
+                            <div class="d-flex">
+                                <h4 class="p-mb-1 PageTitle">Achievements (Optional)</h4>
+                                <i class="fa-solid fa-circle-question m-2 uniprepColor"  pTooltip="Please add a minimum of 5 achievements on your CV for it to look appropriate" tooltipPosition="top" ></i>
+                            </div>
                             <div *ngFor="let extra of getExtraCurricularArray.controls; let i = index"
-                                formArrayName="extraCurricularArray">
+                                 formArrayName="extraCurricularArray">
                                 <div [formGroupName]="i">
                                     <div class="row">
                                         <div class="col-md-9">
                                             <div class="form-group">
                                                 <div class="mb-3">
-                                                    <input class="w-100" type="text" placeholder="Extra Activities"
-                                                        formControlName="extra_curricular_activites" pInputText />
+                                                    <input class="w-100" type="text" placeholder="Achievements"
+                                                           formControlName="extra_curricular_activites" pInputText />
                                                     <div *ngIf="extra.get('extra_curricular_activites')?.invalid && extra.get('extra_curricular_activites')?.touched && submitted"
-                                                        class="text-danger text-xs">
+                                                         class="text-danger text-xs">
                                                         <div style="margin-left:10px;">Achievements required.</div>
                                                     </div>
                                                 </div>
@@ -698,7 +716,7 @@
                                         </div>
                                         <div class="col-md-3">
                                             <button class="deleteDivButton"
-                                                (click)="clickDeleteButton('extra_curricular', i)">Delete &nbsp;<i
+                                                    (click)="clickDeleteButton('extra_curricular', i)">Delete &nbsp;<i
                                                     class="fa-solid fa-trash trashIcon"></i>
                                             </button>
                                         </div>
@@ -707,16 +725,18 @@
                             </div>
                             <div class="d-flex justify-content-center align-items-center m-3">
                                 <button class="addMoreButton" *ngIf="getExtraCurricularArray.length < extraCurriLimit"
-                                    (click)="clickAddMoreButton('extra_curricular')">Add More &nbsp;<i
+                                        (click)="clickAddMoreButton('extra_curricular')">Add More &nbsp;<i
                                         class="fa-solid fa-plus tickIcon"></i></button>
                             </div>
                         </div>
                     </ng-container>
                     <ng-container *ngIf="moduleActiveIndex == 4">
                         <div class="col-md-12">
-                            <h4 class="p-mb-1 PageTitle">Your Skills</h4>
-                            <div *ngFor="let skill of getSkillsArray.controls; let i = index"
-                                formArrayName="skillsArray">
+                            <div class="d-flex">
+                                <h4 class="p-mb-1 PageTitle">Your Skills</h4>
+                                <i class="fa-solid fa-circle-question m-2 uniprepColor"  pTooltip="Please add a minimum of 5 skills on your CV for it to look appropriate" tooltipPosition="top" ></i>
+                            </div>
+                            <div *ngFor="let skill of getSkillsArray.controls; let i = index" formArrayName="skillsArray">
                                 <div [formGroupName]="i">
                                     <div class="row">
                                         <div class="col-md-6">
@@ -724,7 +744,7 @@
                                                 <div class="mb-3">
                                                     <p-dropdown [options]="skillsLists" placeholder="Select Skill" styleClass="w-100" [filter]="true" [appendTo]="'body'" [filterBy]="'skills'" formControlName="skills" optionLabel="skills" optionValue="skills"></p-dropdown>
                                                     <div *ngIf="skill.get('skills')?.invalid && skill.get('skills')?.touched && submitted"
-                                                        class="text-danger text-xs">
+                                                         class="text-danger text-xs">
                                                         <div style="margin-left:10px;">Skill Name required.</div>
                                                     </div>
                                                 </div>
@@ -736,11 +756,11 @@
                                                     <div class="form-group">
                                                         <div class="mb-3">
                                                             <p-dropdown [options]="skillProficiency" styleClass="w-100" (onChange)="SortBasedOnProficiency('skills')"
-                                                                placeholder="Proficiency Level"
-                                                                formControlName="skills_proficiency" optionLabel="value"
-                                                                optionValue="id"></p-dropdown>
+                                                                        placeholder="Proficiency Level"
+                                                                        formControlName="skills_proficiency" optionLabel="value"
+                                                                        optionValue="id"></p-dropdown>
                                                             <div *ngIf="skill.get('skills_proficiency')?.invalid && skill.get('skills_proficiency')?.touched && submitted"
-                                                                class="text-danger text-xs">
+                                                                 class="text-danger text-xs">
                                                                 <div style="margin-left:10px;">Proficiency Level
                                                                     required.</div>
                                                             </div>
@@ -749,7 +769,7 @@
                                                 </div>
                                                 <div class="col-md-5">
                                                     <button (click)="clickDeleteButton('skills', i)"
-                                                        class="deleteDivButton">Delete &nbsp;<i
+                                                            class="deleteDivButton">Delete &nbsp;<i
                                                             class="fa-solid fa-trash trashIcon"></i>
                                                     </button>
                                                 </div>
@@ -760,23 +780,23 @@
                             </div>
                             <div class="d-flex justify-content-center align-items-center m-3">
                                 <button class="addMoreButton" *ngIf="getSkillsArray.length < techSkillLimit"
-                                    (click)="clickAddMoreButton('skills')">Add More &nbsp;<i
+                                        (click)="clickAddMoreButton('skills')">Add More &nbsp;<i
                                         class="fa-solid fa-plus tickIcon"></i></button>
                             </div>
                         </div>
                         <div class="col-md-12">
                             <h4 class="p-mb-1 PageTitle">Languages Known</h4>
                             <div *ngFor="let language of getLanguagesKnownArray.controls; let i = index"
-                                formArrayName="languagesKnownArray">
+                                 formArrayName="languagesKnownArray">
                                 <div [formGroupName]="i">
                                     <div class="row">
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <div class="mb-3">
                                                     <p-dropdown [options]="languageLists" placeholder="Select Language"  styleClass="w-100" [filter]="true" [filterBy]="'value'"
-                                                            formControlName="language" optionLabel="value" optionValue="value"></p-dropdown>
+                                                                formControlName="language" optionLabel="value" optionValue="value"></p-dropdown>
                                                     <div *ngIf="language.get('language')?.invalid && language.get('language')?.touched && submitted"
-                                                        class="text-danger text-xs">
+                                                         class="text-danger text-xs">
                                                         <div style="margin-left:10px;">Language Name required.</div>
                                                     </div>
                                                 </div>
@@ -788,11 +808,11 @@
                                                     <div class="form-group">
                                                         <div class="mb-3">
                                                             <p-dropdown [options]="languageProficiency" (onChange)="SortBasedOnProficiency('language')"
-                                                                placeholder="Proficiency Level" styleClass="w-100"
-                                                                formControlName="lang_proficiency" optionLabel="value"
-                                                                optionValue="id"></p-dropdown>
+                                                                        placeholder="Proficiency Level" styleClass="w-100"
+                                                                        formControlName="lang_proficiency" optionLabel="value"
+                                                                        optionValue="id"></p-dropdown>
                                                             <div *ngIf="language.get('lang_proficiency')?.invalid && language.get('lang_proficiency')?.touched && submitted"
-                                                                class="text-danger text-xs">
+                                                                 class="text-danger text-xs">
                                                                 <div style="margin-left:10px;">Language Proficiency
                                                                     required.</div>
                                                             </div>
@@ -811,7 +831,7 @@
                             </div>
                             <div class="d-flex justify-content-center align-items-center m-3">
                                 <button class="addMoreButton" *ngIf="getLanguagesKnownArray.length < languageLimit"
-                                    (click)="clickAddMoreButton('language_known')">Add More &nbsp;<i
+                                        (click)="clickAddMoreButton('language_known')">Add More &nbsp;<i
                                         class="fa-solid fa-plus tickIcon"></i></button>
                             </div>
                         </div>
@@ -848,114 +868,16 @@
                             </div>
                         </div> -->
                     </ng-container>
-                    <!-- <ng-container *ngIf="moduleActiveIndex == 5">
-                        <div class="col-md-12">
-                            <h4 class="p-mb-1 PageTitle">References (Optional)</h4>
-                            <div class="card mb-2" *ngFor="let reference of getReferenceArray.controls; let i = index"
-                                formArrayName="referenceArray">
-                                <div class="card-body">
-                                    <div [formGroupName]="i">
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                <label class="form-label labelFont">Reference Name</label>
-                                                <div class="form-group">
-                                                    <div class="mb-3">
-                                                        <input class="w-100" type="text" placeholder="Name"
-                                                            formControlName="ref_name" pInputText />
-                                                        <div *ngIf="reference.get('ref_name')?.invalid && reference.get('ref_name')?.touched && submitted"
-                                                            class="text-danger text-xs">
-                                                            <div style="margin-left:10px;">Reference Name required.
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="col-md-6">
-                                                        <label class="form-label labelFont">Reference Position</label>
-                                                        <div class="form-group">
-                                                            <div class="mb-3">
-                                                                <input class="w-100" type="text" placeholder="Position"
-                                                                    formControlName="ref_position" pInputText />
-                                                                <div *ngIf="reference.get('ref_position')?.invalid && reference.get('ref_position')?.touched && submitted"
-                                                                    class="text-danger text-xs">
-                                                                    <div style="margin-left:10px;">Reference Position
-                                                                        required.</div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-6">
-                                                        <label class="form-label labelFont">Reference
-                                                            Organization</label>
-                                                        <div class="form-group">
-                                                            <div class="mb-3">
-                                                                <input class="w-100" type="text"
-                                                                    placeholder="Organization Name"
-                                                                    formControlName="ref_organization" pInputText />
-                                                                <div *ngIf="reference.get('ref_organization')?.invalid && reference.get('ref_organization')?.touched && submitted"
-                                                                    class="text-danger text-xs">
-                                                                    <div style="margin-left:10px;">Organization Name
-                                                                        required.</div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="col-md-6">
-                                                        <label class="form-label labelFont">Reference Contact
-                                                            Email</label>
-                                                        <div class="form-group">
-                                                            <div class="mb-3">
-                                                                <input class="w-100" type="text" placeholder="Email ID"
-                                                                    formControlName="ref_email" pInputText />
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-6">
-                                                        <label class="form-label labelFont">Reference Contact
-                                                            Number</label>
-                                                        <div class="form-group">
-                                                            <div class="mb-3">
-                                                                <input class="w-100" type="text"
-                                                                    placeholder="Contact Number"
-                                                                    formControlName="ref_contact" pInputText />
-                                                                <div *ngIf="reference.get('ref_contact')?.invalid && reference.get('ref_contact')?.touched && submitted"
-                                                                    class="text-danger text-xs">
-                                                                    <div style="margin-left:10px;">Contact Name
-                                                                        required.</div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="d-flex justify-content-end align-items-center">
-                                        <button class="deleteDivButton"
-                                            (click)="clickDeleteButton('reference', i)">Delete
-                                            &nbsp;<i class="fa-solid fa-trash trashIcon"></i></button>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="d-flex justify-content-center align-items-center m-3">
-                                <button class="addMoreButton" *ngIf="getReferenceArray.length < referenceLimit"
-                                    (click)="clickAddMoreButton('reference')">Add More &nbsp;<i
-                                        class="fa-solid fa-plus tickIcon"></i></button>
-                            </div>
-                        </div>
-                    </ng-container> -->
+                    <!-- [ngStyle]="{ 'visibility': moduleActiveIndex === 0 ? 'hidden' : 'visible' }" -->
                     <div class="d-flex space-between" style="justify-content: space-between">
                         <button pButton type="button" (click)="fieldPreviousButton()"
-                            [ngStyle]="{ 'visibility': moduleActiveIndex === 0 ? 'hidden' : 'visible' }"
-                            class="text-white p-ripple p-button-rounded p-button-info-prev p-button p-component p-2"><i
+                                class="text-white p-ripple p-button-rounded p-button-info-prev p-button p-component p-2"><i
                                 class="fa fa-arrow-left exhausted-plan-icon-prev"></i> Previous</button>
-                        <button pButton type="button" (click)="resumeFormSubmit()" *ngIf="moduleActiveIndex != 5"
-                            class="text-white p-ripple p-button-rounded p-button-info-next p-button p-component p-2">Next<i
+                        <button pButton type="button" (click)="resumeFormSubmit()" *ngIf="moduleActiveIndex != 4"
+                                class="text-white p-ripple p-button-rounded p-button-info-next p-button p-component p-2">Next<i
                                 class="fa fa-arrow-right exhausted-plan-icon-next"></i></button>
-                        <button pButton type="button" (click)="resumeFormSubmit()" *ngIf="moduleActiveIndex == 5" class="text-white p-ripple p-button-rounded p-button-info-next p-button p-component p-2">Generate
-                        <i class="fa-duotone fa-solid fa-check exhausted-plan-icon-next"></i></button>
+                        <button pButton type="button" (click)="resumeFormSubmit()" *ngIf="moduleActiveIndex == 4" class="text-white p-ripple p-button-rounded p-button-info-next p-button p-component p-2">Generate
+                            <i class="fa-duotone fa-solid fa-check exhausted-plan-icon-next"></i></button>
                     </div>
                 </form>
             </div>
@@ -970,20 +892,20 @@
                                             class="fa fa-caret-down"></i></span>
                                     <div class="template-dropdown-content">
                                         <a class="cursorPointer"
-                                            [ngClass]="{'activeTemplate': selectedResumeLevel === 'Traditional'}"
-                                            (click)="imgOnclick('Traditional')">Traditional</a>
+                                           [ngClass]="{'activeTemplate': selectedResumeLevel === 'Traditional'}"
+                                           (click)="imgOnclick('Traditional')">Traditional</a>
                                         <a class="cursorPointer"
-                                            [ngClass]="{'activeTemplate': selectedResumeLevel === 'Creative'}"
-                                            (click)="imgOnclick('Creative')">Creative</a>
+                                           [ngClass]="{'activeTemplate': selectedResumeLevel === 'Creative'}"
+                                           (click)="imgOnclick('Creative')">Creative</a>
                                         <a class="cursorPointer"
-                                            [ngClass]="{'activeTemplate': selectedResumeLevel === 'Modern'}"
-                                            (click)="imgOnclick('Modern')">Modern</a>
+                                           [ngClass]="{'activeTemplate': selectedResumeLevel === 'Modern'}"
+                                           (click)="imgOnclick('Modern')">Modern</a>
                                         <a class="cursorPointer"
-                                            [ngClass]="{'activeTemplate': selectedResumeLevel === 'Functional'}"
-                                            (click)="imgOnclick('Functional')">Functional</a>
+                                           [ngClass]="{'activeTemplate': selectedResumeLevel === 'Functional'}"
+                                           (click)="imgOnclick('Functional')">Functional</a>
                                         <a class="cursorPointer"
-                                            [ngClass]="{'activeTemplate': selectedResumeLevel === 'Academic'}"
-                                            (click)="imgOnclick('Academic')">Academic</a>
+                                           [ngClass]="{'activeTemplate': selectedResumeLevel === 'Academic'}"
+                                           (click)="imgOnclick('Academic')">Academic</a>
                                     </div>
                                 </div>
                             </span>
@@ -1015,20 +937,20 @@
                             <span class="templateName">{{ selectedResumeLevel }} <i class="fa fa-caret-down"></i></span>
                             <div class="template-dropdown-content">
                                 <a class="cursorPointer"
-                                    [ngClass]="{'activeTemplate': selectedResumeLevel === 'Traditional'}"
-                                    (click)="imgOnclick('Traditional')">Traditional</a>
+                                   [ngClass]="{'activeTemplate': selectedResumeLevel === 'Traditional'}"
+                                   (click)="imgOnclick('Traditional')">Traditional</a>
                                 <a class="cursorPointer"
-                                    [ngClass]="{'activeTemplate': selectedResumeLevel === 'Creative'}"
-                                    (click)="imgOnclick('Creative')">Creative</a>
+                                   [ngClass]="{'activeTemplate': selectedResumeLevel === 'Creative'}"
+                                   (click)="imgOnclick('Creative')">Creative</a>
                                 <a class="cursorPointer"
-                                    [ngClass]="{'activeTemplate': selectedResumeLevel === 'Modern'}"
-                                    (click)="imgOnclick('Modern')">Modern</a>
+                                   [ngClass]="{'activeTemplate': selectedResumeLevel === 'Modern'}"
+                                   (click)="imgOnclick('Modern')">Modern</a>
                                 <a class="cursorPointer"
-                                    [ngClass]="{'activeTemplate': selectedResumeLevel === 'Functional'}"
-                                    (click)="imgOnclick('Functional')">Functional</a>
+                                   [ngClass]="{'activeTemplate': selectedResumeLevel === 'Functional'}"
+                                   (click)="imgOnclick('Functional')">Functional</a>
                                 <a class="cursorPointer"
-                                    [ngClass]="{'activeTemplate': selectedResumeLevel === 'Academic'}"
-                                    (click)="imgOnclick('Academic')">Academic</a>
+                                   [ngClass]="{'activeTemplate': selectedResumeLevel === 'Academic'}"
+                                   (click)="imgOnclick('Academic')">Academic</a>
                             </div>
                         </div>
                     </span>
@@ -1059,7 +981,7 @@
         <div class="colorDiv d-flex colorButton align-items-center gap-2">
             <p>Color</p>
             <div style="background-color: black;" [ngStyle]="{ 'background-color': selectedThemeColor }"
-                class="selectedColor"></div>
+                 class="selectedColor"></div>
         </div>
         <div class="dropdown-content">
             <div class="d-flex justify-content-center">
@@ -1111,50 +1033,48 @@
         </div>
         <div style="display: flex;">
             <div style="width: 35%; margin-right: 5%;">
-                <div class="content"
-                    *ngIf='f["user_location"].value || f["user_phone"].value || f["user_email"].value || f["user_website"].value || f["user_linkedin"].value'>
+                <div class="content">
                     <p class="headingStyle" [ngStyle]="{'background-color': selectedThemeColor, 'color': selectedFontColor}">
                         contact me</p>
-                    <div class="contactItem fw-600" *ngIf='f["user_location"].value'>
+                    <div class="contactItem fw-600">
                         <img class="resumeIcons" src="../../../uniprep-assets/resume-icons/Location.svg">
                         <p>{{ f["user_location"].value }}</p>
                     </div>
-                    <div class="contactItem fw-600" *ngIf='f["user_phone"].value'>
+                    <div class="contactItem fw-600">
                         <img class="resumeIcons" src="../../../uniprep-assets/resume-icons/Phone.svg">
                         <p>{{ f["country_code"].value }} {{ f["user_phone"].value }}</p>
                     </div>
-                    <div class="contactItem fw-600" *ngIf='f["user_email"].value'>
+                    <div class="contactItem fw-600">
                         <img class="resumeIcons" src="../../../uniprep-assets/resume-icons/Email.svg">
                         <p>{{ f["user_email"].value }}</p>
                     </div>
-                    <div class="contactItem fw-600" *ngIf='f["user_linkedin"].value'>
+                    <div class="contactItem fw-600">
                         <img class="resumeIcons" src="../../../uniprep-assets/resume-icons/Linkedin.svg">
-                        <p><a href="{{ f['user_linkedin'].value }}">{{ f['user_linkedin'].value }}/</a></p>
+                        <p><a>{{ f['user_linkedin'].value }}</a></p>
                     </div>
-                    <div class="contactItem fw-600" *ngIf="f['user_website'].value">
+                    <div class="contactItem fw-600" *ngIf="f['user_website'].value && f['user_website'].value != null">
                         <img class="resumeIcons" src="../../../uniprep-assets/resume-icons/Web.svg">
                         <p>{{ f['user_website'].value }}</p>
                     </div>
                 </div>
 
-                <div class="content" *ngIf="getLanguagesKnownArray.length !=0">
-                    <p class="headingStyle" [ngStyle]="{'background-color': selectedThemeColor,'color': selectedFontColor}">
-                        language</p>
+                <div class="content langugageHeight" *ngIf="!hidingHeaders.includes('language_known')">
+                    <p class="headingStyle" [ngStyle]="{'background-color': selectedThemeColor,'color': selectedFontColor}">language</p>
                     <div class="languageItem fw-600" *ngFor="let lang of getLanguagesKnownArray.controls">
                         <p>{{ lang.value.language }} </p>
                         <ng-container [ngSwitch]="lang.value.lang_proficiency">
                             <img *ngSwitchCase="'Beginner'" class="resumeIcons"
-                                src="../../../uniprep-assets/resume-icons/STARS-002.svg">
+                                 src="../../../uniprep-assets/resume-icons/STARS-002.svg">
                             <img *ngSwitchCase="'Fluent'" class="resumeIcons"
-                                src="../../../uniprep-assets/resume-icons/STARS-003.svg">
+                                 src="../../../uniprep-assets/resume-icons/STARS-003.svg">
                             <img *ngSwitchCase="'Proficient'" class="resumeIcons"
-                                src="../../../uniprep-assets/resume-icons/STARS-004.svg">
+                                 src="../../../uniprep-assets/resume-icons/STARS-004.svg">
                             <img *ngSwitchCase="'Native'" class="resumeIcons"
-                                src="../../../uniprep-assets/resume-icons/STARS-005.svg">
-                        </ng-container> 
+                                 src="../../../uniprep-assets/resume-icons/STARS-005.svg">
+                        </ng-container>
                     </div>
                 </div>
-                <div class="content" *ngIf="getCertificatesArray.length != 0">
+                <div class="content certificationHeight" *ngIf="!hidingHeaders.includes('certificate')">
                     <p class="headingStyle" [ngStyle]="{'background-color': selectedThemeColor, 'color': selectedFontColor}">certifications</p>
                     <div class="certificationItem" *ngFor="let certificate of getCertificatesArray.controls">
                         <p><b>{{ certificate.value.certificate_name }}</b> {{ certificate.value.certificate_issued ? " - " + certificate.value.certificate_issued : "" }}</p>
@@ -1163,44 +1083,35 @@
                     </div>
                 </div>
 
-                <div class="content" *ngIf="getSkillsArray.length !=0">
+                <div class="content skillsHeight" *ngIf="!hidingHeaders.includes('skills')">
                     <p class="headingStyle" [ngStyle]="{'background-color': selectedThemeColor, 'color': selectedFontColor}">skills</p>
                     <div class="technicalSkillItem" *ngFor="let skill of getSkillsArray.controls">
-                        <p class="upperCase">{{ skill.value.skills }}</p>
+                        <p>{{ skill.value.skills }}</p>
                         <ng-container [ngSwitch]="skill.value.skills_proficiency">
                             <img *ngSwitchCase="'Basic'" class="resumeIcons"
-                                src="../../../uniprep-assets/resume-icons/STARS-002.svg">
+                                 src="../../../uniprep-assets/resume-icons/STARS-002.svg">
                             <img *ngSwitchCase="'Intermediate'" class="resumeIcons"
-                                src="../../../uniprep-assets/resume-icons/STARS-003.svg">
+                                 src="../../../uniprep-assets/resume-icons/STARS-003.svg">
                             <img *ngSwitchCase="'Advance'" class="resumeIcons"
-                                src="../../../uniprep-assets/resume-icons/STARS-005.svg">
+                                 src="../../../uniprep-assets/resume-icons/STARS-005.svg">
                         </ng-container>
                     </div>
                 </div>
-                <!-- <div class="content" *ngIf="getHobbiesArray.length != 0">
-                    <p class="headingStyle" [ngStyle]="{'background-color': selectedThemeColor}">
-                        Hobbies</p>
-                    <div class="technicalSkillItem" *ngFor="let hobby of getHobbiesArray.controls">
-                        <p class="upperCase">{{ hobby.value.hobbies }}</p>
-                    </div>
-                </div> -->
-                <div class="content" *ngIf="getExtraCurricularArray.length != 0">
+                <div class="content extraCurricularHeight" *ngIf="!hidingHeaders.includes('extra_curricular')">
                     <p class="headingStyle" [ngStyle]="{'background-color': selectedThemeColor, 'color': selectedFontColor}">Achievements</p>
                     <div class="technicalSkillItem" *ngFor="let extra of getExtraCurricularArray.controls">
-                        <p class="upperCase">{{ extra.value.extra_curricular_activites }}</p>
+                        <p>{{ extra.value.extra_curricular_activites }}</p>
                     </div>
                 </div>
             </div>
-
             <div style="width: 65%;">
-                <div class="aboutMe" *ngIf='f["user_summary"].value'>
-                    <p class="headingStyle" [ngStyle]="{'background-color': selectedThemeColor, 'color': selectedFontColor}">about
-                        me</p>
+                <div class="aboutMe aboutMeHeight">
+                    <p class="headingStyle" [ngStyle]="{'background-color': selectedThemeColor, 'color': selectedFontColor}" >about me</p>
                     <p class="small-text" [innerHTML]="f['user_summary'].value"></p>
                 </div>
-                <div class="content" *ngIf="getWorkExpArray.length != 0">
-                    <p class="headingStyle" [ngStyle]="{'background-color': selectedThemeColor, 'color': selectedFontColor}">
-                        experience</p>
+                <!-- [ngClass]="f['selected_exp_level'].value == 1 ? 'fresherHeight' : 'experienceHeight'" -->
+                <div class="content experienceHeight" *ngIf="!hidingHeaders.includes('work_experience')">
+                    <p class="headingStyle" [ngStyle]="{'background-color': selectedThemeColor, 'color': selectedFontColor}"> experience</p>
                     <div class="experienceItem" *ngFor="let exp of getWorkExpArray.controls">
                         <div style="width: 30%;">
                             <p class="fw-700">{{ exp.value.work_start_year }} {{ exp.value.work_end_year ? " - " +
@@ -1216,9 +1127,8 @@
                         </div>
                     </div>
                 </div>
-                <div class="content" *ngIf="getEduDetailsArray.length != 0">
-                    <p class="headingStyle" [ngStyle]="{'background-color': selectedThemeColor, 'color': selectedFontColor}">
-                        education</p>
+                <div class="content educationHeight" *ngIf="!hidingHeaders.includes('education_detail')">
+                    <p class="headingStyle" [ngStyle]="{'background-color': selectedThemeColor, 'color': selectedFontColor}"> education</p>
                     <div class="educationItem" *ngFor="let edu of getEduDetailsArray.controls">
                         <div style="width: 50%;">
                             <p>{{ edu.value.edu_start_year }} {{ edu.value.edu_end_year ? " - " + edu.value.edu_end_year
@@ -1234,7 +1144,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="content" *ngIf="getProjectDetailsArray.length != 0 && f['selected_exp_level'].value == 1">
+                <div class="content projectHeight" *ngIf="f['selected_exp_level'].value == 1 && !hidingHeaders.includes('project_details')" >
                     <p class="headingStyle" [ngStyle]="{'background-color': selectedThemeColor, 'color': selectedFontColor}">
                         projects</p>
                     <div class="projectItem" *ngFor="let project of getProjectDetailsArray.controls">
@@ -1249,24 +1159,12 @@
                         </div>
                     </div>
                 </div>
-                <!-- <div class="content" *ngIf="getReferenceArray.length != 0">
-                    <p class="headingStyle" [ngStyle]="{'background-color': selectedThemeColor}">
-                        reference</p>
-                    <div class="referenceItem">
-                        <div style="width: 50%;" *ngFor="let refer of getReferenceArray.controls">
-                            <p><b>{{ refer.value.ref_name }}</b></p>
-                            <p><b>{{ refer.value.ref_position }}, {{ refer.value.ref_organization }}</b></p>
-                            <p>{{ refer.value.ref_email }}</p>
-                            <p><b>phone:</b> {{ refer.value.ref_contact }}</p>
-                        </div>
-                    </div>
-                </div> -->
             </div>
         </div>
     </div>
     <div class="h-100" id="cv-preview-container"
-        [ngClass]="{ previewBodyForm: !fullScreenVisible, previewBodyFormFull: fullScreenVisible }"
-        *ngIf="selectedResumeLevel=='Academic'">
+         [ngClass]="{ previewBodyForm: !fullScreenVisible, previewBodyFormFull: fullScreenVisible }"
+         *ngIf="selectedResumeLevel=='Academic'">
         <div class="container mt-2">
             <div class="row">
                 <div class="col-12">
@@ -1276,34 +1174,33 @@
             </div>
             <div class="row mb-1">
                 <div class="col-12">
-                    <ng-container
-                        *ngIf='f["user_location"].value || f["user_phone"].value || f["user_email"].value || f["user_website"].value || f["user_linkedin"].value'>
+                    <ng-container>
                         <div class="d-flex justify-content-around align-items-center">
-                            <div class="contactItem fw-600" *ngIf='f["user_location"].value'>
+                            <div class="contactItem fw-600">
                                 <div class="resumeIcons" style="margin: 0px;">
                                     <img src="../../../uniprep-assets/resume-icons/Location.svg">
                                 </div>
                                 <p>{{ f["user_location"].value }}</p>
                             </div>
-                            <div class="contactItem fw-600" *ngIf='f["user_phone"].value'>
+                            <div class="contactItem fw-600">
                                 <div class="resumeIcons" style="margin: 0px;">
                                     <img src="../../../uniprep-assets/resume-icons/Phone.svg">
                                 </div>
                                 <p>{{ f["country_code"].value }} {{ f["user_phone"].value }}</p>
                             </div>
-                            <div class="contactItem fw-600" *ngIf='f["user_email"].value'>
+                            <div class="contactItem fw-600">
                                 <div class="resumeIcons" style="margin: 0px;">
                                     <img src="../../../uniprep-assets/resume-icons/Email.svg">
                                 </div>
                                 <p>{{ f["user_email"].value }}</p>
                             </div>
-                            <div class="contactItem fw-600" *ngIf='f["user_linkedin"].value'>
+                            <div class="contactItem fw-600">
                                 <div class="resumeIcons" style="margin: 0px;">
                                     <img src="../../../uniprep-assets/resume-icons/Linkedin.svg">
                                 </div>
                                 <p>{{ f["user_linkedin"].value }}</p>
                             </div>
-                            <div class="contactItem fw-600" *ngIf="f['user_website'].value">
+                            <div class="contactItem fw-600" *ngIf="f['user_website'].value && f['user_website'].value != null">
                                 <div class="resumeIcons" style="margin: 0px;">
                                     <img src="../../../uniprep-assets/resume-icons/Web.svg">
                                 </div>
@@ -1315,59 +1212,49 @@
             </div>
             <div class="row">
                 <div class="col-lg-7">
-                    <ng-container *ngIf='f["user_summary"].value'>
-                        <div class="content">
-                            <p class="headingStyle"><span>about me</span></p>
-                            <p [innerHTML]="f['user_summary'].value"></p>
-                        </div>
-                    </ng-container>
-                    <ng-container *ngIf='getWorkExpArray.length !=0'>
-                        <div class="content">
-                            <p class="headingStyle"><span>experience</span></p>
-                            <div class="experienceItem" *ngFor="let exp of getWorkExpArray.controls">
-                                <div style="width: 30%;">
-                                    <p class="fw-700">{{ exp.value.work_start_year }} {{ exp.value.work_end_year ? " - "
-                                        +
-                                        exp.value.work_end_year : "" }}</p>
-                                    <p class="fw-700">{{ exp.value.work_org_name }}</p>
-                                    <p class="fw-700">{{ exp.value.work_location }} </p>
-                                </div>
-                                <div style="width: 70%;">
-                                    <p class="upperCase fw-600">{{ exp.value.work_designation }} {{ exp.value.work_type
-                                        ? " - " +
-                                        exp.value.work_type : "" }}</p>
-                                    <p class="small-text" [innerHTML]="exp.value.work_job_description"></p>
-                                </div>
+                    <div class="content aboutMeHeight">
+                        <p class="headingStyle"><span>about me</span></p>
+                        <p [innerHTML]="f['user_summary'].value"></p>
+                    </div>
+                    <!-- [ngClass]="f['selected_exp_level'].value == 1 ? 'fresherHeight' : 'experienceHeight'" -->
+                    <div class="content experienceHeight" *ngIf="!hidingHeaders.includes('work_experience')">
+                        <p class="headingStyle"><span>experience</span></p>
+                        <div class="experienceItem" *ngFor="let exp of getWorkExpArray.controls">
+                            <div style="width: 30%;">
+                                <p class="fw-700">{{ exp.value.work_start_year }} {{ exp.value.work_end_year ? " - " + exp.value.work_end_year : "" }}</p>
+                                <p class="fw-700">{{ exp.value.work_org_name }}</p>
+                                <p class="fw-700">{{ exp.value.work_location }} </p>
+                            </div>
+                            <div style="width: 70%;">
+                                <p class="upperCase fw-600">{{ exp.value.work_designation }} {{ exp.value.work_type ? " - " + exp.value.work_type : "" }}</p>
+                                <p class="small-text" [innerHTML]="exp.value.work_job_description"></p>
                             </div>
                         </div>
-                    </ng-container>
-                    <ng-container *ngIf='getEduDetailsArray.length !=0'>
-                        <div class="content">
-                            <p class="headingStyle">education</p>
-                            <hr>
-                            <div class="educationItem" *ngFor="let edu of getEduDetailsArray.controls">
-                                <div style="width: 50%;">
-                                    <p>{{ edu.value.edu_start_year }} {{ edu.value.edu_end_year ? " - " +
-                                        edu.value.edu_end_year : "" }}</p>
-                                    <p class="upperCase fw-500">{{ edu.value.edu_degree }} </p>
-                                </div>
-                                <div style="width: 30%;">
-                                    <p>{{ edu.value.edu_college_name }}</p>
-                                    <p>{{ edu.value.edu_percentage }} {{ edu.value.edu_cgpa_percentage }}</p>
-                                </div>
-                                <div style="width: 20%;">
-                                    <p>{{ edu.value.edu_location }}</p>
-                                </div>
+                    </div>
+                    <div class="content educationHeight" *ngIf="!hidingHeaders.includes('education_detail')">
+                        <p class="headingStyle">education</p>
+                        <div class="educationItem" *ngFor="let edu of getEduDetailsArray.controls">
+                            <div style="width: 50%;">
+                                <p>{{ edu.value.edu_start_year }} {{ edu.value.edu_end_year ? " - " +
+                                    edu.value.edu_end_year : "" }}</p>
+                                <p class="upperCase fw-500">{{ edu.value.edu_degree }} </p>
+                            </div>
+                            <div style="width: 30%;">
+                                <p>{{ edu.value.edu_college_name }}</p>
+                                <p>{{ edu.value.edu_percentage }} {{ edu.value.edu_cgpa_percentage }}</p>
+                            </div>
+                            <div style="width: 20%;">
+                                <p>{{ edu.value.edu_location }}</p>
                             </div>
                         </div>
-                    </ng-container>
-                    <div class="content" *ngIf="getProjectDetailsArray.length != 0 && f['selected_exp_level'].value == 1">
+                    </div>
+                    <div class="content projectHeight" *ngIf="f['selected_exp_level'].value == 1 && !hidingHeaders.includes('project_details')">
                         <p class="headingStyle">projects</p>
                         <div class="projectItem" *ngFor="let project of getProjectDetailsArray.controls">
                             <div style="width: 20%;">
                                 <p class="fw-700">{{ project.value.project_start_name }} {{
-                                    project.value.project_end_name ? " - "
-                                    + project.value.project_end_name : "" }}</p>
+                                        project.value.project_end_name ? " - "
+                                            + project.value.project_end_name : "" }}</p>
                             </div>
                             <div style="width: 80%;">
                                 <p class="upperCase fw-600">{{ project.value.project_name }}</p>
@@ -1377,57 +1264,49 @@
                     </div>
                 </div>
                 <div class="col-lg-5">
-                    <div class="content" *ngIf="getCertificatesArray.length !=0">
+                    <div class="content certificationHeight" *ngIf="!hidingHeaders.includes('certificate')">
                         <p class="headingStyle">certifications</p>
                         <div class="certificationItem" *ngFor="let certificate of getCertificatesArray.controls">
-                            <p><a [href]="certificate.value.certicate_link" target="_Blank" style="text-decoration: none;"><b>{{ certificate.value.certificate_name }}</b>
-                            </a> {{ certificate.value.certificate_issued ? " - " + certificate.value.certificate_issued : "" }}</p>
+                            <p><b>{{ certificate.value.certificate_name }}</b>
+                             {{ certificate.value.certificate_issued ? " - " + certificate.value.certificate_issued : "" }}</p>
                             <p>{{ certificate.value.certificate_id ? "ID:" + certificate.value.certificate_id : "" }}
                             </p>
                         </div>
                     </div>
-                    <div class="content" *ngIf="getLanguagesKnownArray.length !=0">
+                    <div class="content langugageHeight" *ngIf="!hidingHeaders.includes('language_known')">
                         <p class="headingStyle"><span>languages Known</span></p>
                         <div class="languageItem fw-600" *ngFor="let lang of getLanguagesKnownArray.controls">
                             <p>{{ lang.value.language }} </p>
                             <ng-container [ngSwitch]="lang.value.lang_proficiency">
                                 <img *ngSwitchCase="'Beginner'" class="resumeIcons"
-                                    src="../../../uniprep-assets/resume-icons/STARS-002.svg">
+                                     src="../../../uniprep-assets/resume-icons/STARS-002.svg">
                                 <img *ngSwitchCase="'Fluent'" class="resumeIcons"
-                                    src="../../../uniprep-assets/resume-icons/STARS-003.svg">
+                                     src="../../../uniprep-assets/resume-icons/STARS-003.svg">
                                 <img *ngSwitchCase="'Proficient'" class="resumeIcons"
-                                    src="../../../uniprep-assets/resume-icons/STARS-004.svg">
+                                     src="../../../uniprep-assets/resume-icons/STARS-004.svg">
                                 <img *ngSwitchCase="'Native'" class="resumeIcons"
-                                    src="../../../uniprep-assets/resume-icons/STARS-005.svg">
+                                     src="../../../uniprep-assets/resume-icons/STARS-005.svg">
                             </ng-container>
                         </div>
                     </div>
-                    <ng-container *ngIf='getSkillsArray.length !=0'>
-                        <div class="content">
-                            <p class="headingStyle">skills</p>
-                            <div class="technicalSkillItem" *ngFor="let skill of getSkillsArray.controls">
-                                <p class="upperCase">{{ skill.value.skills }}</p>
-                                <ng-container [ngSwitch]="skill.value.skills_proficiency">
-                                    <img *ngSwitchCase="'Basic'" class="resumeIcons"
+                    <div class="content skillsHeight" *ngIf="!hidingHeaders.includes('skills')">
+                        <p class="headingStyle">skills</p>
+                        <div class="technicalSkillItem" *ngFor="let skill of getSkillsArray.controls">
+                            <p>{{ skill.value.skills }}</p>
+                            <ng-container [ngSwitch]="skill.value.skills_proficiency">
+                                <img *ngSwitchCase="'Basic'" class="resumeIcons"
                                         src="../../../uniprep-assets/resume-icons/STARS-002.svg">
-                                    <img *ngSwitchCase="'Intermediate'" class="resumeIcons"
+                                <img *ngSwitchCase="'Intermediate'" class="resumeIcons"
                                         src="../../../uniprep-assets/resume-icons/STARS-003.svg">
-                                    <img *ngSwitchCase="'Advance'" class="resumeIcons"
+                                <img *ngSwitchCase="'Advance'" class="resumeIcons"
                                         src="../../../uniprep-assets/resume-icons/STARS-005.svg">
-                                </ng-container>
-                            </div>
+                            </ng-container>
                         </div>
-                    </ng-container>
-                    <!-- <div class="content" *ngIf="getHobbiesArray.length != 0">
-                        <p class="headingStyle">Hobbies</p>
-                        <div class="technicalSkillItem" *ngFor="let hobby of getHobbiesArray.controls">
-                            <p class="upperCase">{{ hobby.value.hobbies }}</p>
-                        </div>
-                    </div> -->
-                    <div class="content" *ngIf="getExtraCurricularArray.length != 0">
+                    </div>
+                    <div class="content extraCurricularHeight" *ngIf="!hidingHeaders.includes('extra_curricular')"> 
                         <p class="headingStyle">Achievements</p>
                         <div class="technicalSkillItem" *ngFor="let extra of getExtraCurricularArray.controls">
-                            <p class="upperCase">{{ extra.value.extra_curricular_activites }}</p>
+                            <p>{{ extra.value.extra_curricular_activites }}</p>
                         </div>
                     </div>
                 </div>
@@ -1435,47 +1314,43 @@
         </div>
     </div>
     <div class="h-100" id="cv-preview-container"
-        [ngClass]="{ previewBodyForm: !fullScreenVisible, previewBodyFormFull: fullScreenVisible }"
-        *ngIf="selectedResumeLevel=='Creative'">
+         [ngClass]="{ previewBodyForm: !fullScreenVisible, previewBodyFormFull: fullScreenVisible }"
+         *ngIf="selectedResumeLevel=='Creative'">
         <div class="container-fluid">
             <div class="row">
                 <div class="col-12 text-left" style="background-color: black; padding: 20px 10px;">
-                    <h1 class="userName upperCase" [ngStyle]="{'color': selectedThemeColor }" style="margin: 0px;">{{
-                        f["user_name"].value }}</h1>
+                    <h1 class="userName upperCase" [ngStyle]="{'color': selectedThemeColor }" style="margin: 0px;">{{ f["user_name"].value }}</h1>
                     <p class="profession upperCase" style="color: white;">{{ f["user_job_title"].value }}</p>
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-7">
-                    <ng-container *ngIf="f['user_summary'].value">
+                    <div style="height: 75px;">
                         <p class="headingStyle" style="margin:0px;"><span>about me</span></p>
                         <hr>
                         <div class="content">
                             <p class="small-text" [innerHTML]="f['user_summary'].value"></p>
-                        </div>
-                    </ng-container>
-                    <ng-container *ngIf="getWorkExpArray.length !=0">
+                        </div> 
+                    </div>
+                    <!-- [style.height]="f['selected_exp_level'].value == 1 ? '300px' : '400px'" -->
+                    <div style="height: 450px;" *ngIf="!hidingHeaders.includes('work_experience')">
                         <p class="headingStyle" style="margin:0px;"><span>experience</span></p>
                         <hr>
                         <div class="content">
                             <div class="experienceItem" *ngFor="let exp of getWorkExpArray.controls">
                                 <div style="width: 30%;">
-                                    <p class="fw-700">{{ exp.value.work_start_year }} {{ exp.value.work_end_year ? " - "
-                                        +
-                                        exp.value.work_end_year : "" }}</p>
+                                    <p class="fw-700">{{ exp.value.work_start_year }} {{ exp.value.work_end_year ? " - " + exp.value.work_end_year : "" }}</p>
                                     <p class="fw-700">{{ exp.value.work_org_name }}</p>
                                     <p class="fw-700">{{ exp.value.work_location }}</p>
                                 </div>
                                 <div style="width: 70%;">
-                                    <p class="upperCase fw-600">{{ exp.value.work_designation }} {{ exp.value.work_type
-                                        ? " - " +
-                                        exp.value.work_type : "" }}</p>
+                                    <p class="upperCase fw-600">{{ exp.value.work_designation }} {{ exp.value.work_type ? " - " + exp.value.work_type : "" }}</p>
                                     <p class="small-text" [innerHTML]="exp.value.work_job_description"></p>
                                 </div>
                             </div>
                         </div>
-                    </ng-container>
-                    <ng-container *ngIf="getEduDetailsArray.length !=0">
+                    </div>
+                    <div style="height: 150px;" *ngIf="!hidingHeaders.includes('education_detail')">
                         <p class="headingStyle" style="margin:0px;"><span>education</span></p>
                         <hr>
                         <div class="content fw-600 educationItem" *ngFor="let edu of getEduDetailsArray.controls">
@@ -1492,16 +1367,16 @@
                                 <p>{{ edu.value.edu_location }}</p>
                             </div>
                         </div>
-                    </ng-container>
-                    <ng-container *ngIf="getProjectDetailsArray.length != 0 && f['selected_exp_level'].value == 1">
+                    </div>
+                    <div style="height: 150px;" *ngIf="f['selected_exp_level'].value == 1 && !hidingHeaders.includes('project_details')">
                         <p class="headingStyle" style="margin:0px;"><span>project details</span></p>
                         <hr>
                         <div class="content fw-600" *ngFor="let project of getProjectDetailsArray.controls">
                             <div class="projectItem">
                                 <div style="width: 20%;">
                                     <p class="fw-700">{{ project.value.project_start_name }} {{
-                                        project.value.project_end_name ? " - "
-                                        + project.value.project_end_name : "" }}</p>
+                                            project.value.project_end_name ? " - "
+                                                + project.value.project_end_name : "" }}</p>
                                 </div>
                                 <div style="width: 80%;">
                                     <p class="upperCase fw-600">{{ project.value.project_name }}</p>
@@ -1509,117 +1384,93 @@
                                 </div>
                             </div>
                         </div>
-                    </ng-container>
-                    <!-- <ng-container *ngIf="getReferenceArray.length !=0">
-                        <p class="headingStyle" style="margin:0px;">references</p>
-                        <hr>
-                        <div class="content" style="line-height: 1">
-                            <div class="referenceItem">
-                                <div style="width: 50%;" *ngFor="let refer of getReferenceArray.controls">
-                                    <p><b>{{ refer.value.ref_name }}</b></p>
-                                    <p><b>{{ refer.value.ref_position }}, {{ refer.value.ref_organization }}</b></p>
-                                    <p>{{ refer.value.ref_email }}</p>
-                                    <p><b>phone:</b> {{ refer.value.ref_contact }}</p>
-                                </div>
-                            </div>
-                        </div>
-                    </ng-container> -->
+                    </div>
                 </div>
                 <div class="col-md-5" [ngStyle]="{'background-color': selectedThemeColor, 'color': selectedFontColor }">
-                    <ng-container
-                        *ngIf='f["user_location"].value || f["user_phone"].value || f["user_email"].value || f["user_website"].value || f["user_linkedin"].value'>
+                    <ng-container>
                         <p class="headingStyle" style="margin:0px;">contact me</p>
                         <hr>
                         <div class="content fw-600">
-                            <div class="d-flex align-items-center mb-2" *ngIf='f["user_location"].value'>
+                            <div class="d-flex align-items-center mb-2">
                                 <img class="resumeIcons" src="../../../uniprep-assets/resume-icons/Location.svg">
                                 <p>{{ f["user_location"].value }}</p>
                             </div>
-                            <div class="d-flex align-items-center mb-2" *ngIf='f["user_phone"].value'>
+                            <div class="d-flex align-items-center mb-2" >
                                 <img class="resumeIcons" src="../../../uniprep-assets/resume-icons/Phone.svg">
                                 <p>{{ f["country_code"].value }} {{ f["user_phone"].value }}</p>
                             </div>
-                            <div class="d-flex align-items-center mb-2" *ngIf='f["user_email"].value'>
+                            <div class="d-flex align-items-center mb-2">
                                 <img class="resumeIcons" src="../../../uniprep-assets/resume-icons/Email.svg">
                                 <p>{{ f["user_email"].value }}</p>
                             </div>
-                            <div class="d-flex align-items-center mb-2" *ngIf='f["user_website"].value'>
+                            <div class="d-flex align-items-center mb-2" *ngIf="f['user_website'].value && f['user_website'].value != null">
                                 <img class="resumeIcons" src="../../../uniprep-assets/resume-icons/Web.svg">
                                 <p>{{ f["user_website"].value }}</p>
                             </div>
-                            <div class="d-flex align-items-center mb-2" *ngIf='f["user_linkedin"].value'>
+                            <div class="d-flex align-items-center mb-2">
                                 <img class="resumeIcons" src="../../../uniprep-assets/resume-icons/Linkedin.svg">
                                 <p>{{ f["user_linkedin"].value }}</p>
                             </div>
                         </div>
                     </ng-container>
-                    <ng-container *ngIf="getSkillsArray.length != 0">
+                    <div style="height: 150px;" *ngIf="!hidingHeaders.includes('skills')">
                         <p class="headingStyle" style="margin:0px;">Skills</p>
                         <hr>
                         <div class="content fw-600">
                             <div class="technicalSkillItem" *ngFor="let skill of getSkillsArray.controls">
-                                <p class="upperCase">{{ skill.value.skills }}</p>
+                                <p>{{ skill.value.skills }}</p>
                                 <ng-container [ngSwitch]="skill.value.skills_proficiency">
                                     <img *ngSwitchCase="'Basic'" class="resumeIcons"
-                                        src="../../../uniprep-assets/resume-icons/STARS-002.svg">
+                                         src="../../../uniprep-assets/resume-icons/STARS-002.svg">
                                     <img *ngSwitchCase="'Intermediate'" class="resumeIcons"
-                                        src="../../../uniprep-assets/resume-icons/STARS-003.svg">
+                                         src="../../../uniprep-assets/resume-icons/STARS-003.svg">
                                     <img *ngSwitchCase="'Advance'" class="resumeIcons"
-                                        src="../../../uniprep-assets/resume-icons/STARS-005.svg">
+                                         src="../../../uniprep-assets/resume-icons/STARS-005.svg">
                                 </ng-container>
                             </div>
                         </div>
-                    </ng-container>
-                    <ng-container *ngIf="getLanguagesKnownArray.length != 0">
+                    </div>
+                    <div style="height: 125px;" *ngIf="!hidingHeaders.includes('language_known')">
                         <p class="headingStyle" style="margin:0px;">languages known</p>
                         <hr>
                         <div class="languageItem fw-600" *ngFor="let lang of getLanguagesKnownArray.controls">
                             <p>{{ lang.value.language }} </p>
                             <ng-container [ngSwitch]="lang.value.lang_proficiency">
                                 <img *ngSwitchCase="'Beginner'" class="resumeIcons"
-                                    src="../../../uniprep-assets/resume-icons/STARS-002.svg">
+                                     src="../../../uniprep-assets/resume-icons/STARS-002.svg">
                                 <img *ngSwitchCase="'Fluent'" class="resumeIcons"
-                                    src="../../../uniprep-assets/resume-icons/STARS-003.svg">
+                                     src="../../../uniprep-assets/resume-icons/STARS-003.svg">
                                 <img *ngSwitchCase="'Proficient'" class="resumeIcons"
-                                    src="../../../uniprep-assets/resume-icons/STARS-004.svg">
+                                     src="../../../uniprep-assets/resume-icons/STARS-004.svg">
                                 <img *ngSwitchCase="'Native'" class="resumeIcons"
-                                    src="../../../uniprep-assets/resume-icons/STARS-005.svg">
+                                     src="../../../uniprep-assets/resume-icons/STARS-005.svg">
                             </ng-container>
                         </div>
-                    </ng-container>
-                    <ng-container *ngIf="getExtraCurricularArray.length != 0">
+                    </div>
+                    <div style="height: 150px;" *ngIf="!hidingHeaders.includes('extra_curricular')">
                         <p class="headingStyle">Achievements</p>
                         <hr>
                         <div class="technicalSkillItem fw-600" *ngFor="let extra of getExtraCurricularArray.controls">
-                            <p class="upperCase">{{ extra.value.extra_curricular_activites }}</p>
+                            <p>{{ extra.value.extra_curricular_activites }}</p>
                         </div>
-                    </ng-container>
-                    <ng-container *ngIf="getCertificatesArray.length !=0">
+                    </div>
+                    <div style="height: 120px;" *ngIf="!hidingHeaders.includes('certificate')">
                         <p class="headingStyle"><span>certifications</span></p>
+                        <hr >
                         <div class="row">
                             <div *ngFor="let certificate of getCertificatesArray.controls" class="mb-1">
-                                <p><a [href]="certificate.value.certicate_link" target="_Blank" style="text-decoration: none;"><b>{{ certificate.value.certificate_name }}</b></a> {{
-                                    certificate.value.certificate_issued ? " - " + certificate.value.certificate_issued : "" }}</p>
+                                <p><b>{{ certificate.value.certificate_name }}</b> {{
+                                        certificate.value.certificate_issued ? " - " + certificate.value.certificate_issued : "" }}</p>
                                 <p>{{ certificate.value.certificate_id ? "ID:" + certificate.value.certificate_id : ""}}</p>
                             </div>
                         </div>
-                    </ng-container>
-                    <!-- <ng-container *ngIf="getHobbiesArray.length != 0">
-                        <p class="headingStyle" style="margin:0px;">Hobbies</p>
-                        <hr>
-                        <div class="content fw-600">
-                            <div class="technicalSkillItem" *ngFor="let hobby of getHobbiesArray.controls">
-                                <p class="upperCase">{{ hobby.value.hobbies }}</p>
-                            </div>
-                        </div>
-                    </ng-container> -->
+                    </div>
                 </div>
             </div>
         </div>
     </div>
     <div class="h-100" id="cv-preview-container"
-        [ngClass]="{ previewBodyForm: !fullScreenVisible, previewBodyFormFull: fullScreenVisible }"
-        *ngIf="selectedResumeLevel=='Functional'">
+         [ngClass]="{ previewBodyForm: !fullScreenVisible, previewBodyFormFull: fullScreenVisible }" *ngIf="selectedResumeLevel=='Functional'">
         <div class="container">
             <div class="row" [ngStyle]="{'background-color': selectedThemeColor }" style="padding: 5px 10px 15px 10px;">
                 <div class="col-12">
@@ -1630,161 +1481,156 @@
             </div>
             <div class="row">
                 <div class="col-md-4">
-                    <ng-container
-                        *ngIf='f["user_location"].value || f["user_phone"].value || f["user_email"].value || f["user_website"].value || f["user_linkedin"].value'>
+                    <ng-container>
                         <div class="content fw-600">
-                            <div class="d-flex align-items-center mb-2" *ngIf='f["user_location"].value'>
+                            <div class="d-flex align-items-center mb-2" >
                                 <img class="resumeIcons" src="../../../uniprep-assets/resume-icons/Location.svg">
                                 <p>{{ f["user_location"].value }}</p>
                             </div>
-                            <div class="d-flex align-items-center mb-2" *ngIf='f["user_phone"].value'>
+                            <div class="d-flex align-items-center mb-2" >
                                 <img class="resumeIcons" src="../../../uniprep-assets/resume-icons/Phone.svg">
                                 <p>{{ f["country_code"].value }} {{ f["user_phone"].value }}</p>
                             </div>
-                            <div class="d-flex align-items-center mb-2" *ngIf='f["user_email"].value'>
+                            <div class="d-flex align-items-center mb-2" >
                                 <img class="resumeIcons" src="../../../uniprep-assets/resume-icons/Email.svg">
                                 <p>{{ f["user_email"].value }}</p>
                             </div>
-                            <div class="d-flex align-items-center mb-2" *ngIf='f["user_website"].value'>
+                            <div class="d-flex align-items-center mb-2" *ngIf="f['user_website'].value && f['user_website'].value != null">
                                 <img class="resumeIcons" src="../../../uniprep-assets/resume-icons/Web.svg">
                                 <p>{{ f["user_website"].value }}</p>
                             </div>
-                            <div class="d-flex align-items-center mb-2" *ngIf='f["user_linkedin"].value'>
+                            <div class="d-flex align-items-center mb-2">
                                 <img class="resumeIcons" src="../../../uniprep-assets/resume-icons/Linkedin.svg">
                                 <p>{{ f["user_linkedin"].value }}</p>
                             </div>
                         </div>
                     </ng-container>
-                    <ng-container *ngIf="getLanguagesKnownArray.length !=0">
+                    <div style="height: 125px;" *ngIf="!hidingHeaders.includes('language_known')">
                         <p class="headingStyle zeroMarginPadding" [ngStyle]="{'color': selectedThemeColor }">languages
                         </p>
-                        <hr class="hr-custom"
-                            [ngStyle]="{'color': selectedThemeColor, 'background-color':  selectedThemeColor}">
-                        <div class="languageItem fw-600" *ngFor="let lang of getLanguagesKnownArray.controls">
+                        <hr class="hr-custom" [ngStyle]="{'color': selectedThemeColor, 'background-color':  selectedThemeColor}" >
+                        <div class="languageItem fw-600 " *ngFor="let lang of getLanguagesKnownArray.controls">
                             <p>{{ lang.value.language }} </p>
                             <ng-container [ngSwitch]="lang.value.lang_proficiency">
                                 <img *ngSwitchCase="'Beginner'" class="resumeIcons"
-                                    src="../../../uniprep-assets/resume-icons/STARS-002.svg">
+                                     src="../../../uniprep-assets/resume-icons/STARS-002.svg">
                                 <img *ngSwitchCase="'Fluent'" class="resumeIcons"
-                                    src="../../../uniprep-assets/resume-icons/STARS-003.svg">
+                                     src="../../../uniprep-assets/resume-icons/STARS-003.svg">
                                 <img *ngSwitchCase="'Proficient'" class="resumeIcons"
-                                    src="../../../uniprep-assets/resume-icons/STARS-004.svg">
+                                     src="../../../uniprep-assets/resume-icons/STARS-004.svg">
                                 <img *ngSwitchCase="'Native'" class="resumeIcons"
-                                    src="../../../uniprep-assets/resume-icons/STARS-005.svg">
+                                     src="../../../uniprep-assets/resume-icons/STARS-005.svg">
                             </ng-container>
                         </div>
-                    </ng-container>
-                    <ng-container *ngIf="getCertificatesArray.length !=0">
+                    </div>
+                    <div style="height: 120px;" *ngIf="!hidingHeaders.includes('certificate')">
                         <p class="headingStyle zeroMarginPadding" [ngStyle]="{'color': selectedThemeColor }">certifications</p>
-                        <hr class="hr-custom"
-                            [ngStyle]="{'color': selectedThemeColor, 'background-color':  selectedThemeColor}">
+                        <hr class="hr-custom" [ngStyle]="{'color': selectedThemeColor, 'background-color':  selectedThemeColor}" >
                         <div class="content" style="line-height:1">
                             <div class="mb-2" *ngFor="let certificate of getCertificatesArray.controls">
-                                <p><a [href]="certificate.value.certicate_link" target="_Blank" style="text-decoration: none;"><b>{{ certificate.value.certificate_name }}</b></a>{{
-                                    certificate.value.certificate_issued ? " - " + certificate.value.certificate_issued : "" }}</p>
+                                <p><b>{{ certificate.value.certificate_name }}</b>{{
+                                        certificate.value.certificate_issued ? " - " + certificate.value.certificate_issued : "" }}</p>
                                 <p>{{ certificate.value.certificate_id ? "ID:" + certificate.value.certificate_id : ""
                                     }} </p>
                             </div>
                         </div>
-                    </ng-container>
-                    <ng-container *ngIf="getSkillsArray.length !=0">
+                    </div>
+                    <div style="height: 180px;" *ngIf="!hidingHeaders.includes('skills')">
                         <p class="headingStyle zeroMarginPadding" [ngStyle]="{'color': selectedThemeColor }">technical
                             skills</p>
-                        <hr class="hr-custom"
-                            [ngStyle]="{'color': selectedThemeColor, 'background-color':  selectedThemeColor}">
+                        <hr class="hr-custom" [ngStyle]="{'color': selectedThemeColor, 'background-color':  selectedThemeColor}">
                         <div class="content fw-600 technicalSkillItem" *ngFor="let skill of getSkillsArray.controls">
                             <p class="upperCase mr-2">{{ skill.value.skills }}</p>
                             <ng-container [ngSwitch]="skill.value.skills_proficiency">
                                 <img *ngSwitchCase="'Basic'" class="resumeIcons"
-                                    src="../../../uniprep-assets/resume-icons/STARS-002.svg">
+                                     src="../../../uniprep-assets/resume-icons/STARS-002.svg">
                                 <img *ngSwitchCase="'Intermediate'" class="resumeIcons"
-                                    src="../../../uniprep-assets/resume-icons/STARS-003.svg">
+                                     src="../../../uniprep-assets/resume-icons/STARS-003.svg">
                                 <img *ngSwitchCase="'Advance'" class="resumeIcons"
-                                    src="../../../uniprep-assets/resume-icons/STARS-005.svg">
+                                     src="../../../uniprep-assets/resume-icons/STARS-005.svg">
                             </ng-container>
                         </div>
-                    </ng-container>
-                    <ng-container *ngIf="getExtraCurricularArray.length != 0">
+                    </div>
+                    <div style="height: 150px;" *ngIf="!hidingHeaders.includes('extra_curricular')">
                         <p class="headingStyle zeroMarginPadding" [ngStyle]="{'color': selectedThemeColor }">Achievements</p>
-                        <hr class="hr-custom"
-                            [ngStyle]="{'color': selectedThemeColor, 'background-color':  selectedThemeColor}">
+                        <hr class="hr-custom" [ngStyle]="{'color': selectedThemeColor, 'background-color':  selectedThemeColor}" >
                         <div class="content">
                             <div class="technicalSkillItem" *ngFor="let extra of getExtraCurricularArray.controls">
-                                <p class="upperCase">{{ extra.value.extra_curricular_activites }}</p>
+                                <p>{{ extra.value.extra_curricular_activites }}</p>
                             </div>
                         </div>
-                    </ng-container>
+                    </div>
                 </div>
 
                 <div class="col-md-8">
-                    <ng-container *ngIf='getWorkExpArray.length != 0'>
+                    <!-- [style.height]="f['selected_exp_level'].value == 1 ? '300px' : '400px'" -->
+                    <div style="height: 450px;" *ngIf="!hidingHeaders.includes('work_experience')">
                         <p class="headingStyle zeroMarginPadding" [ngStyle]="{'color': selectedThemeColor }">experience
                         </p>
-                        <hr class="hr-custom"
-                            [ngStyle]="{'color': selectedThemeColor, 'background-color':  selectedThemeColor}">
+                        <hr class="hr-custom" [ngStyle]="{'color': selectedThemeColor, 'background-color':  selectedThemeColor}">
                         <div class="content">
-                            <div class="mb-1" *ngFor="let exp of getWorkExpArray.controls">
-                                <!-- <p class="headingStyle text-color-liteBlue zeroMarginPadding" >{{exp.value.work_still_pursing}}</p> -->
-                                <p class="fw-600">{{ exp.value.work_designation }} {{ exp.value.work_type ? " - " +
-                                    exp.value.work_type : "" }}</p>
-                                <p class="fw-500 small-text">{{ exp.value.work_org_name }} | {{ exp.value.work_location
-                                    }} | {{ exp.value.work_start_year }} {{ exp.value.work_end_year ? " - " +
-                                    exp.value.work_end_year : "" }}</p>
-                                <p class="small-text" [innerHTML]="exp.value.work_job_description"></p>
-                            </div>
-                        </div>
-                    </ng-container>
-                    <ng-container *ngIf='getEduDetailsArray.length != 0'>
-                        <p class="headingStyle zeroMarginPadding" [ngStyle]="{'color': selectedThemeColor }">education
-                        </p>
-                        <hr class="hr-custom"
-                            [ngStyle]="{'color': selectedThemeColor, 'background-color':  selectedThemeColor}">
-                        <div class="content">
-                            <div class="mb-1" *ngFor="let edu of getEduDetailsArray.controls">
-                                <p class="fw-600">{{ edu.value.edu_degree }}</p>
-                                <p class="fw-500 small-text">{{ edu.value.edu_college_name }} | {{
-                                    edu.value.edu_location }} | {{ edu.value.edu_start_year }} {{ edu.value.edu_end_year
-                                    ? " - " + edu.value.edu_end_year : "" }}</p>
-                            </div>
-                        </div>
-                    </ng-container>
-                    <ng-container *ngIf="getProjectDetailsArray.length != 0 && f['selected_exp_level'].value == 1">
-                        <p class="headingStyle zeroMarginPadding" [ngStyle]="{'color': selectedThemeColor }">projects
-                        </p>
-                        <hr class="hr-custom"
-                            [ngStyle]="{'color': selectedThemeColor, 'background-color':  selectedThemeColor}">
-                        <div class="content">
-                            <div class="mb-1" *ngFor="let project of getProjectDetailsArray.controls">
-                                <p class="fw-600">{{ project.value.project_name }} - {{ project.value.project_start_name
-                                    }} {{ project.value.project_end_name ? " - " + project.value.project_end_name : ""
-                                    }}</p>
-                                <p class="fw-500 small-text" [innerHTML]="project.value.project_description"></p>
-                            </div>
-                        </div>
-                    </ng-container>
-                    <!-- <ng-container *ngIf="getReferenceArray.length !=0">
-                        <p class="headingStyle" style="margin:0px;" [ngStyle]="{'color': selectedThemeColor }">
-                            references</p>
-                        <hr class="hr-custom"
-                            [ngStyle]="{'color': selectedThemeColor, 'background-color':  selectedThemeColor}">
-                        <div class="content" style="line-height: 1">
-                            <div class="referenceItem">
-                                <div style="width: 50%;" *ngFor="let refer of getReferenceArray.controls">
-                                    <p><b>{{ refer.value.ref_name }}</b></p>
-                                    <p><b>{{ refer.value.ref_position }}, {{ refer.value.ref_organization }}</b></p>
-                                    <p>{{ refer.value.ref_email }}</p>
-                                    <p><b>phone:</b> {{ refer.value.ref_contact }}</p>
+                            <div class="mb-1 experienceItem" *ngFor="let exp of getWorkExpArray.controls">
+                                <div style="width: 30%;">
+                                    <p class="fw-700">{{ exp.value.work_start_year }} {{ exp.value.work_end_year ? " - " +
+                                        exp.value.work_end_year : "" }}</p>
+                                    <p class="fw-700">{{ exp.value.work_org_name }}</p>
+                                    <p class="fw-700">{{ exp.value.work_location }} </p>
+                                </div>
+                                <div style="width: 70%;">
+                                    <p class="upperCase fw-600">{{ exp.value.work_designation }} {{ exp.value.work_type ? " - "
+                                        +
+                                        exp.value.work_type : "" }}</p>
+                                    <p class="small-text" [innerHTML]="exp.value.work_job_description"></p>
                                 </div>
                             </div>
                         </div>
-                    </ng-container> -->
+                    </div>
+                    <div style="height: 150px;" *ngIf="!hidingHeaders.includes('education_detail')">
+                        <p class="headingStyle zeroMarginPadding" [ngStyle]="{'color': selectedThemeColor }">education
+                        </p>
+                        <hr class="hr-custom" [ngStyle]="{'color': selectedThemeColor, 'background-color':  selectedThemeColor}">
+                        <div class="content">
+                            <div class="educationItem" *ngFor="let edu of getEduDetailsArray.controls">
+                                <div style="width: 50%;">
+                                    <p>{{ edu.value.edu_start_year }} {{ edu.value.edu_end_year ? " - " + edu.value.edu_end_year
+                                        : "" }}</p>
+                                    <p class="upperCase fw-500">{{ edu.value.edu_degree }} </p>
+                                </div>
+                                <div style="width: 30%;">
+                                    <p>{{ edu.value.edu_college_name }}</p>
+                                    <p>{{ edu.value.edu_percentage }} {{ edu.value.edu_cgpa_percentage }}</p>
+                                </div>
+                                <div style="width: 20%;">
+                                    <p>{{ edu.value.edu_location }}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <ng-container >
+                        <div style="height: 150px;" *ngIf="f['selected_exp_level'].value == 1 && !hidingHeaders.includes('project_details')">
+                            <p class="headingStyle zeroMarginPadding" [ngStyle]="{'color': selectedThemeColor }">projects
+                            </p>
+                            <hr class="hr-custom" [ngStyle]="{'color': selectedThemeColor, 'background-color':  selectedThemeColor}">
+                            <div class="projectItem" *ngFor="let project of getProjectDetailsArray.controls">
+                                <div style="width: 20%;">
+                                    <p class="fw-700">{{ project.value.project_start_name }} {{ project.value.project_end_name ?
+                                        " - "
+                                        + project.value.project_end_name : "" }}</p>
+                                </div>
+                                <div style="width: 80%;">
+                                    <p class="upperCase fw-600">{{ project.value.project_name }}</p>
+                                    <p class="small-text" [innerHTML]="project.value.project_description"></p>
+                                </div>
+                            </div>
+                        </div>
+                    </ng-container>
                 </div>
             </div>
         </div>
     </div>
     <div class="h-100" id="cv-preview-container"
-        [ngClass]="{ previewBodyForm: !fullScreenVisible, previewBodyFormFull: fullScreenVisible }"
-        *ngIf="selectedResumeLevel=='Traditional'">
+         [ngClass]="{ previewBodyForm: !fullScreenVisible, previewBodyFormFull: fullScreenVisible }"
+         *ngIf="selectedResumeLevel=='Traditional'">
         <div class="container-fluid tg">
             <div class="row">
                 <div class="col-12">
@@ -1792,8 +1638,7 @@
                     <p class="profession upperCase">{{ f['user_job_title'].value }}</p>
                 </div>
             </div>
-            <ng-container
-                *ngIf='f["user_location"].value || f["user_phone"].value || f["user_email"].value || f["user_website"].value || f["user_linkedin"].value'>
+            <ng-container>
                 <div class="row mb-1">
                     <div class="col-12">
                         <div class="d-flex justify-content-around align-items-center">
@@ -1821,7 +1666,7 @@
                                 </div>
                                 <p>{{ f["user_linkedin"].value }}</p>
                             </div>
-                            <div class="contactItem fw-600" *ngIf="f['user_website'].value">
+                            <div class="contactItem fw-600" *ngIf="f['user_website'].value && f['user_website'].value != null">
                                 <div class="resumeIcons" style="margin: 0px;">
                                     <img src="../../../uniprep-assets/resume-icons/Web.svg">
                                 </div>
@@ -1831,9 +1676,9 @@
                     </div>
                 </div>
             </ng-container>
-            <ng-container *ngIf="f['user_summary'].value">
+            <ng-container>
                 <div class="row">
-                    <div class="col-12">
+                    <div class="col-12 aboutMeHeight">
                         <p class="headingStyle" style="padding-top: 10px"><span>about me</span></p>
                         <div class="content fw-600">
                             <p class="small-text">{{ f['user_summary'].value }}</p>
@@ -1843,8 +1688,8 @@
             </ng-container>
             <div class="row">
                 <div class="col-8">
-                    <ng-container *ngIf='getWorkExpArray.length != 0'>
-                        <p class="headingStyle"><span>experience</span></p>
+                    <div  style="height: 400px;" *ngIf="!hidingHeaders.includes('work_experience')">
+                        <p class="headingStyle" ><span>experience</span></p>
                         <div class="content expContent fw-600">
                             <!-- <div class="vl"></div> -->
                             <div class="row mb-2" *ngFor="let exp of getWorkExpArray.controls">
@@ -1858,14 +1703,14 @@
                                 </div>
                             </div>
                         </div>
-                    </ng-container>
-                    <ng-container *ngIf="getEduDetailsArray.length !=0">
-                        <p class="headingStyle" style="margin:0px;"><span>education</span></p>
+                    </div>
+                    <div style="height: 150px;" *ngIf="!hidingHeaders.includes('education_detail')">
+                        <p class="headingStyle"  style="margin:0px;"><span>education</span></p>
                         <hr>
                         <div class="content fw-600 educationItem" *ngFor="let edu of getEduDetailsArray.controls">
                             <div style="width: 40%;">
                                 <p><b>{{ edu.value.edu_start_year }} {{ edu.value.edu_end_year ? " - " +
-                                        edu.value.edu_end_year : "" }}</b></p>
+                                    edu.value.edu_end_year : "" }}</b></p>
                                 <p class="upperCase fw-500">{{ edu.value.edu_degree }}</p>
                                 <p style="text-transform: capitalize"><b>{{ edu.value.edu_location }} </b></p>
                             </div>
@@ -1874,99 +1719,92 @@
                                 <p>{{ edu.value.edu_percentage }} {{ edu.value.edu_cgpa_percentage }}</p>
                             </div>
                         </div>
-                    </ng-container>
-                    <ng-container *ngIf="getCertificatesArray.length !=0">
-                        <p class="headingStyle"><span>certifications</span></p>
+                    </div>
+                    <div style="height: 120px;"  *ngIf="!hidingHeaders.includes('certificate')">
+                        <p class="headingStyle" ><span>certifications</span></p>
                         <div class="row">
                             <div *ngFor="let certificate of getCertificatesArray.controls" style="width: 50%;"
-                                class="mb-1">
-                                <p><a [href]="certificate.value.certicate_link" target="_Blank" style="text-decoration: none;"><b>{{ certificate.value.certificate_name }}</b></a> - {{
-                                    certificate.value.certificate_issued ? " - " + certificate.value.certificate_issued : "" }}</p>
+                                 class="mb-1">
+                                <p><b>{{ certificate.value.certificate_name }}</b> - {{
+                                        certificate.value.certificate_issued ? " - " + certificate.value.certificate_issued : "" }}</p>
                                 <p>{{ certificate.value.certificate_id ? "ID:" + certificate.value.certificate_id : ""}}</p>
                                 <!-- <a [href]="certificate.value.certicate_link" target="_Blank">
                                     <p style="font-size:smaller">{{ certificate.value.certicate_link }}</p>
                                 </a> -->
                             </div>
                         </div>
-                    </ng-container>
-                    <!-- <ng-container *ngIf="getReferenceArray.length !=0">
-                        <p class="headingStyle"><span>references</span></p>
-                        <div class="row">
-                            <div *ngFor="let refer of getReferenceArray.controls" style="width: 50%;" class="mb-1">
-                                <p><b>{{ refer.value.ref_name }}</b></p>
-                                <p><b>{{ refer.value.ref_position }}, {{ refer.value.ref_organization }}</b></p>
-                                <p>{{ refer.value.ref_email }}</p>
-                                <p><b>Phone:</b> {{ refer.value.ref_contact }}</p>
-                            </div>
-                        </div>
-                    </ng-container> -->
+                    </div>
                 </div>
 
                 <div class="col-4">
-                    <ng-container *ngIf="getSkillsArray.length !=0">
+                    <div style="height: 150px;"  *ngIf="!hidingHeaders.includes('skills')">
                         <p class="headingStyle zeroMarginPadding">skills</p>
                         <hr class="hr-custom">
                         <div class="content fw-600 technicalSkillItem" *ngFor="let skill of getSkillsArray.controls">
                             <p class="upperCase mr-2">{{ skill.value.skills }}</p>
                             <ng-container [ngSwitch]="skill.value.skills_proficiency">
                                 <img *ngSwitchCase="'Basic'" class="resumeIcons"
-                                    src="../../../uniprep-assets/resume-icons/STARS-002.svg">
+                                     src="../../../uniprep-assets/resume-icons/STARS-002.svg">
                                 <img *ngSwitchCase="'Intermediate'" class="resumeIcons"
-                                    src="../../../uniprep-assets/resume-icons/STARS-003.svg">
+                                     src="../../../uniprep-assets/resume-icons/STARS-003.svg">
                                 <img *ngSwitchCase="'Advance'" class="resumeIcons"
-                                    src="../../../uniprep-assets/resume-icons/STARS-005.svg">
+                                     src="../../../uniprep-assets/resume-icons/STARS-005.svg">
                             </ng-container>
                         </div>
-                    </ng-container>
-                    <ng-container *ngIf="getLanguagesKnownArray.length !=0">
+                    </div>
+                    <div style="height: 125px;"  *ngIf="!hidingHeaders.includes('language_known')">
                         <p class="headingStyle  zeroMarginPadding">languages</p>
-                        <hr class="hr-custom">
+                        <hr class="hr-custom" >
                         <div class="languageItem fw-600" *ngFor="let lang of getLanguagesKnownArray.controls">
                             <p>{{ lang.value.language }} </p>
                             <ng-container [ngSwitch]="lang.value.lang_proficiency">
                                 <img *ngSwitchCase="'Beginner'" class="resumeIcons"
-                                    src="../../../uniprep-assets/resume-icons/STARS-002.svg">
+                                     src="../../../uniprep-assets/resume-icons/STARS-002.svg">
                                 <img *ngSwitchCase="'Fluent'" class="resumeIcons"
-                                    src="../../../uniprep-assets/resume-icons/STARS-003.svg">
+                                     src="../../../uniprep-assets/resume-icons/STARS-003.svg">
                                 <img *ngSwitchCase="'Proficient'" class="resumeIcons"
-                                    src="../../../uniprep-assets/resume-icons/STARS-004.svg">
+                                     src="../../../uniprep-assets/resume-icons/STARS-004.svg">
                                 <img *ngSwitchCase="'Native'" class="resumeIcons"
-                                    src="../../../uniprep-assets/resume-icons/STARS-005.svg">
+                                     src="../../../uniprep-assets/resume-icons/STARS-005.svg">
                             </ng-container>
                         </div>
-                    </ng-container>
-                    <ng-container *ngIf="getProjectDetailsArray.length != 0 && f['selected_exp_level'].value == 1">
+                    </div>
+                    <div style="height: 150px;" *ngIf="f['selected_exp_level'].value == 1 && !hidingHeaders.includes('project_details')">
                         <p class="headingStyle"><span>project details</span></p>
                         <div class="content">
                             <div class="mb-2" *ngFor="let project of getProjectDetailsArray.controls">
                                 <p class="fw-700 upperCase">{{ project.value.project_start_name }}{{
-                                    project.value.project_end_name ? " - " + project.value.project_end_name : "" }}</p>
+                                        project.value.project_end_name ? " - " + project.value.project_end_name : "" }}</p>
                                 <p class="fw-500 upperCase">{{ project.value.project_name }} </p>
                                 <p class="work-description small-text" [innerHTML]="project.value.project_description">
                                 </p>
                             </div>
                         </div>
-                    </ng-container>
-                    <ng-container *ngIf='getExtraCurricularArray.length != 0'>
+                    </div>
+                    <div style="height: 150px;"  *ngIf="!hidingHeaders.includes('extra_curricular')">
                         <p class="headingStyle" style="padding-top: 10px">Achievements</p>
                         <div class="fw-600">
                             <ul class="pl-3">
                                 <li style="margin: 0px;" *ngFor="let extra of getExtraCurricularArray.controls">{{
-                                    extra.value.extra_curricular_activites }}</li>
+                                        extra.value.extra_curricular_activites }}</li>
                             </ul>
                         </div>
-                    </ng-container>
-                    <!-- <ng-container *ngIf="getHobbiesArray.length != 0">
-                        <p class="headingStyle">hobbies</p>
-                        <div class="fw-600">
-                            <ul class="pl-3">
-                                <li style="list-style: none" *ngFor="let hobby of getHobbiesArray.controls">{{
-                                    hobby.value.hobbies }}</li>
-                            </ul>
-                        </div>
-                    </ng-container> -->
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </ng-template>
+<p-dialog [(visible)]="restrict" [modal]="true" [style]="{ width: '30vw' }" [draggable]="false" [resizable]="false" class="restrictionDialog" [breakpoints]="{ '960px': '30vw', '959px': '60vw', '425px': '90vw' }" (onHide)="clearRestriction()">
+    <div  *ngIf="!ehitlabelIsShow" class="text-center mt-5 mb-4">
+        <img src="../../../uniprep-assets/images/smartloack.png" class="image" width="60" />
+        <h3 class="offer">Upgrade Required</h3>
+        <p>To access this exclusive module,please upgrade your plan now</p>
+        <button pButton type="button" class="text-white p-ripple p-button-rounded p-button-warning p-button p-component p-2" (click)="upgradePlan()">Upgrade Plan<i class="fa fa-arrow-right exhausted-plan-icon"></i></button>
+    </div>
+    <div *ngIf="ehitlabelIsShow" class="text-center mt-5 mb-4">
+        <img src="../../../uniprep-assets/images/smartloack.png" class="image" width="60"/>
+        <h3 class="offer">Upgrade Required</h3>
+        <p>Please contact {{orgnamewhitlabel}} Company for access</p>
+    </div>
+</p-dialog>

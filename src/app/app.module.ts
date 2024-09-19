@@ -1,27 +1,27 @@
-import {NgModule, CUSTOM_ELEMENTS_SCHEMA, APP_INITIALIZER} from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
-import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { StoreModule } from '@ngrx/store';
-import { pagesReducer } from './pages/store/pages.reducer';
-import { StoreDevtoolsModule } from '@ngrx/store-devtools';
-import { environment } from '@env/environment';
-import { AuthModule } from './Auth/auth.module';
-import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { DatePipe } from '@angular/common';
-import { AuthService } from './Auth/auth.service';
-import { EffectsModule } from '@ngrx/effects';
+import {CUSTOM_ELEMENTS_SCHEMA, NgModule} from '@angular/core';
+import {BrowserModule} from '@angular/platform-browser';
+import {AppRoutingModule} from './app-routing.module';
+import {AppComponent} from './app.component';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {StoreModule} from '@ngrx/store';
+import {pagesReducer} from './pages/store/pages.reducer';
+import {StoreDevtoolsModule} from '@ngrx/store-devtools';
+import {environment} from '@env/environment';
+import {AuthModule} from './Auth/auth.module';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
+import {DatePipe} from '@angular/common';
+import {AuthService} from './Auth/auth.service';
+import {EffectsModule} from '@ngrx/effects';
 import {HttpErrorInterceptor} from "./interceptors/http-error.interceptor";
 import {NGX_LOCAL_STORAGE_CONFIG, NgxLocalstorageConfiguration} from "ngx-localstorage";
 import {ToastModule} from "primeng/toast";
 import {JwtModule} from "@auth0/angular-jwt";
-import { NgxUiLoaderModule } from "ngx-ui-loader";
-import { CountdownModule } from 'ngx-countdown';
-import { ModalComponent } from './components/modal/modal.component';
-import { ModalService } from './components/modal/modal.service';
+import {NgxUiLoaderModule} from "ngx-ui-loader";
+import {CountdownModule} from 'ngx-countdown';
+import {ModalComponent} from './components/modal/modal.component';
+import {ModalService} from './components/modal/modal.service';
 import {AvatarModule} from 'primeng/avatar';
-import { DropdownModule } from 'primeng/dropdown';
+import {DropdownModule} from 'primeng/dropdown';
 import {ButtonModule} from 'primeng/button';
 
 import {InputTextModule} from "primeng/inputtext";
@@ -31,29 +31,27 @@ import {OverlayPanelModule} from "primeng/overlaypanel";
 import {DialogModule} from "primeng/dialog";
 import {CardModule} from "primeng/card";
 import {TooltipModule} from "primeng/tooltip";
-import { ScrollToBottomDirective } from './scroll-to-bottom.directive';
+import {ScrollToBottomDirective} from './scroll-to-bottom.directive';
 import {ConfirmDialogModule} from "primeng/confirmdialog";
 import {PipesModule} from "@pipes/pipes.module";
-import { LandingComponent } from './pages/landing/landing.component';
-import { BlogdetailComponent } from './pages/blogdetail/blogdetail.component';
-import { BloglistComponent } from './pages/bloglist/bloglist.component';
-import {
-    SocialLoginModule,
-    SocialAuthServiceConfig, GoogleLoginProvider,
-} from '@abacritt/angularx-social-login';
-import { MaintenanceComponent } from './Auth/maintenance/maintenance.component';
+import {LandingComponent} from './pages/landing/landing.component';
+import {BlogdetailComponent} from './pages/blogdetail/blogdetail.component';
+import {BloglistComponent} from './pages/bloglist/bloglist.component';
+import {GoogleLoginProvider, SocialAuthServiceConfig, SocialLoginModule,} from '@abacritt/angularx-social-login';
 // import {FacebookInitService} from "./Auth/facebook-init.service";
 // import {FacebookModule} from "ngx-facebook";
 // import {NgxLinkedinModule} from "ngx-linkedin";
-import { PrivacyComponent } from './pages/privacy/privacy.component';
+import {PrivacyComponent} from './pages/privacy/privacy.component';
 import {FacebookLoginProvider} from "angularx-social-login";
 import {NgxLinkedinModule} from "ngx-linkedin";
 import {MetaModule} from "@ngx-meta/core";
-import { EnterpriseSubscriptionService } from './components/enterprise-subscription/enterprise-subscription.service';
-import { EnterpriseSubscriptionComponent } from './components/enterprise-subscription/enterprise-subscription.component';
+import {EnterpriseSubscriptionService} from './components/enterprise-subscription/enterprise-subscription.service';
+import {EnterpriseSubscriptionComponent} from './components/enterprise-subscription/enterprise-subscription.component';
 import {DeviceDetectorService} from "ngx-device-detector";
 import {PaginatorModule} from 'primeng/paginator';
- 
+import {RestrictionDialogComponent} from './shared/restriction-dialog/restriction-dialog.component';
+import {SharedModule} from "./shared/shared.module";
+import { NgxStripeModule } from 'ngx-stripe';
 
 const reducers = {
   pageSelector: pagesReducer
@@ -75,8 +73,8 @@ export function tokenGetter() {
 
 @NgModule({
   declarations: [
-    AppComponent,LandingComponent, ModalComponent, ScrollToBottomDirective, PrivacyComponent,EnterpriseSubscriptionComponent,BlogdetailComponent,BloglistComponent
-  ],
+      AppComponent, LandingComponent, ModalComponent, ScrollToBottomDirective, PrivacyComponent,
+      EnterpriseSubscriptionComponent, BlogdetailComponent, BloglistComponent],
     schemas: [ CUSTOM_ELEMENTS_SCHEMA],
     imports: [
         BrowserModule,
@@ -118,6 +116,7 @@ export function tokenGetter() {
             clientId: environment.linkedinId
         }),
         MetaModule.forRoot(),
+        SharedModule,
     ],
   providers: [
       DeviceDetectorService,

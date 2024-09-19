@@ -28,12 +28,12 @@ import {StepsModule} from 'primeng/steps';
 import { PdfViewerModule } from 'ng2-pdf-viewer';
 import { ConfirmPopupModule } from 'primeng/confirmpopup';
 import {ConfirmationService} from 'primeng/api';
-import { PyshometricTestComponent } from './pyshometric-test/pyshometric-test.component';
-import { PersonalityTestComponent } from './personality-test/personality-test.component';
-import { EmployerTestComponent } from './employer-test/employer-test.component';
 import { QuizTestListComponent } from './quiz-test-list/quiz-test-list.component';
 import { EmployerSubcategoryComponent } from './employer-subcategory/employer-subcategory.component';
-
+import { CareerCategoryListComponent } from './career-category-list/career-category-list.component';
+import {DialogModule} from "primeng/dialog";
+import {SharedModule} from "../../shared/shared.module";
+import { TooltipModule } from 'primeng/tooltip';
 @NgModule({
   declarations: [
     JobToolComponent,
@@ -43,36 +43,37 @@ import { EmployerSubcategoryComponent } from './employer-subcategory/employer-su
     CostOfLivingComponent,
     ComparisionComponent,
     SalaryConverterComponent,
-    PyshometricTestComponent,
-    PersonalityTestComponent,
-    EmployerTestComponent,
     QuizTestListComponent,
     EmployerSubcategoryComponent,
+    CareerCategoryListComponent,
     ],
-  imports: [
-    CommonModule,
-    InputTextModule,
-    CarouselModule,
-    ButtonModule,
-    ReactiveFormsModule,
-    InputTextareaModule,
-    JobToolRoutingModule,
-    ChipsModule,
-    FormsModule,
-    DropdownModule,
-    AngularFittextModule,
-    EditorModule,
-    SidebarModule,
-    CardModule,
-    SplitButtonModule,
-    ReactiveFormsModule,
-    PipesModule,
-    PaginatorModule,
-    SlickCarouselModule,
-    StepsModule,
-    PdfViewerModule,
-    ConfirmPopupModule,
-  ],
+    imports: [
+        CommonModule,
+        InputTextModule,
+        CarouselModule,
+        ButtonModule,
+        ReactiveFormsModule,
+        InputTextareaModule,
+        JobToolRoutingModule,
+        ChipsModule,
+        FormsModule,
+        DropdownModule,
+        AngularFittextModule,
+        EditorModule,
+        SidebarModule,
+        CardModule,
+        SplitButtonModule,
+        ReactiveFormsModule,
+        PipesModule,
+        PaginatorModule,
+        SlickCarouselModule,
+        StepsModule,
+        PdfViewerModule,
+        ConfirmPopupModule,
+        DialogModule,
+        SharedModule,
+        TooltipModule,
+    ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [ConfirmationService], 
 })

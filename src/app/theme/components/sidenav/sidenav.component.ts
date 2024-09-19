@@ -40,7 +40,7 @@ export class SidenavComponent {
       image: "fa-solid fa-objects-column",
     },
     {
-      title: "About UNIPREP",
+      title: "User Guide",
       url: "/pages/userguide",
       image: "fa-solid fa-book",
     },
@@ -70,6 +70,11 @@ export class SidenavComponent {
     //   image: "fa-solid fa-file-export",
     // },
     {
+      title: "Academic Tools",
+      url: "/pages/modules/academic-tools",
+      image: "fa-solid fa-ticket",
+    },
+    {
       title: "Post Admission",
       url: "/pages/modules/post-admission",
       image: "fa-solid fa-ticket",
@@ -93,6 +98,11 @@ export class SidenavComponent {
       title: "Career Hub",
       url: "/pages/modules/career-hub",
       image: "fa-solid fa-briefcase",
+    },
+    {
+      title: "Language Hub",
+      url: "/pages/language-hub",
+      image: "fa-solid fa-books",
     },
     {
       title: "Life",
@@ -119,11 +129,7 @@ export class SidenavComponent {
       url: "/pages/job-portal/job-search",
       image: "fa-solid fa-briefcase",
     },
-    {
-      title: "Language Hub",
-      url: "/pages/language-hub",
-      image: "fa-solid fa-books",
-    },
+
     {
       title: "Learning Hub",
       url: "/pages/modules/learning-hub",
@@ -155,14 +161,19 @@ export class SidenavComponent {
       image: "",
     },
     {
-      title: "Investor List",
-      url: "/pages/investor-list",
-      image: "fa-solid fa-chart-waterfall",
-    },
-    {
       title: "Startup Kit",
       url: "/pages/startup",
       image: "fa-solid fa-memo-circle-info",
+    },
+    {
+      title: "Founders Tool",
+      url: "/pages/founderstool/founderstoollist",
+      image: "fa-solid fa-memo-circle-info",
+    },
+    {
+      title: "Investor List",
+      url: "/pages/investor-list",
+      image: "fa-solid fa-chart-waterfall",
     },
     {
       title: "Pitch Deck",
@@ -238,7 +249,8 @@ export class SidenavComponent {
   ];
   studentMenus = ['Company List', 'Career Planner', 'Learning Hub', 'Entrepreneur', 'Investor List', 'Startup Kit', 'Pitch Deck'];
   careerMenus = ['Entrepreneur', 'Investor List', 'Startup Kit', 'Pitch Deck'];
-  whitlabelmenu=['Subscription','About UNIPREP','24x7 Support','Success Stories']
+  whitlabelmenu=['Subscription','About UNIPREP','24x7 Support','Success Stories','Recommendations'];
+  whitlabelmenuFreeTrails=['Subscription','About UNIPREP','24x7 Support','Success Stories'];
   collegeStudentMenus = ['Subscription'];
   conditionSubscribed!: boolean;
   currentTitle: any;
@@ -290,7 +302,18 @@ export class SidenavComponent {
       } else {
         this.conditionSubscribed = true;
       }
-
+      this.imagewhitlabeldomainname=window.location.hostname;
+      if (this.imagewhitlabeldomainname === "dev-student.uniprep.ai" || this.imagewhitlabeldomainname === "uniprep.ai" || this.imagewhitlabeldomainname === "localhost") {
+        this.ehitlabelIsShow=true;
+      }else{
+        if (res.subscription_details.subscription_plan === 'free_trail' && res.time_left.plan === 'on_progress') {
+          this.menus = this.menus.filter(item => !this.whitlabelmenuFreeTrails.includes(item.title));
+          this.ehitlabelIsShow=false;
+        }else{
+          this.menus = this.menus.filter(item => !this.whitlabelmenu.includes(item.title));
+          this.ehitlabelIsShow=false; 
+        }
+      }
       if (res.subscription_details.subscription_plan == 'free_trail' && res.enterprise_subscription_link!= "") {
         this.enterpriseSubscriptionLink = res.enterprise_subscription_link;
         if(res.enterprise_subscription_plan == 'Student'){
@@ -300,13 +323,6 @@ export class SidenavComponent {
         }
       }
     });
-    this.imagewhitlabeldomainname=window.location.hostname;
-    if (this.imagewhitlabeldomainname === "dev-student.uniprep.ai" || this.imagewhitlabeldomainname === "uniprep.ai" || this.imagewhitlabeldomainname === "localhost") {
-      this.ehitlabelIsShow=true;
-    }else{
-      this.menus = this.menus.filter(item => !this.whitlabelmenu.includes(item.title));
-      this.ehitlabelIsShow=false;
-    }
     this.authService.getMe().subscribe(
       res => {
 

@@ -20,6 +20,7 @@ export class ScholarshipListComponent implements OnInit {
   investorOrgType: any;
   investorType: any;
   countryList: any;
+  anyCountryList: any;
   headQuartersList: any;
   page = 1;
   pageSize = 25;
@@ -34,23 +35,27 @@ export class ScholarshipListComponent implements OnInit {
   filterUniversityList: any[] = [];
   planExpired!: boolean;
   scholarshipTypeList: any[] = [];
+  anyScholarshipTypeList: any[] = [];
   coverList: any[] = [];
+  anyCoverList: any[] = [];
   restrict: boolean = false;
   currentPlan: string = "";
   PersonalInfo!: any;
   viewFavouritesLabel: string = "View Favourites";
   allScholarshipList: any[] = [];
-  allScholarshipCount:number=0;
+  allScholarshipCount: number = 0;
   // selectedIndex: any;
   // toSend: boolean = false;
   selectAllCheckboxes: boolean = false;
   // selectedCheckboxCount: number = 0;
   exportCreditCount: number = 0;
-  exportDataIds:any = [];
+  exportDataIds: any = [];
   selectedScholarship: number = 0;
-  favCount:number=0;
-  ehitlabelIsShow:boolean=true;
-  imagewhitlabeldomainname:any
+  favCount: number = 0;
+  ehitlabelIsShow: boolean = true;
+  imagewhitlabeldomainname: any;
+  orglogowhitelabel: any;
+  orgnamewhitlabel: any;
   constructor(
     private fb: FormBuilder,
     private scholarshipListService: ScholarshipListService,
@@ -73,14 +78,44 @@ export class ScholarshipListComponent implements OnInit {
       cover_id: [null],
     });
   }
+  enableModule: boolean = false;
+  activePageIndex: number = 0;
+  recommendations: any = [
+    {
+      id: 1,
+      question: "Select your scholarship country",
+    },
+    {
+      id: 2,
+      question: "Select your Study Level",
+    },
+    {
+      id: 3,
+      question: "Select your Scholarship Type",
+    },
+    {
+      id: 4,
+      question: "Choose  your Scholarship Coverage",
+    },
+  ];
+  invalidClass: boolean = false;
+  selectedData: { [key: string]: any } = {};
+  studyLevelCubes: any = [{ id: "UG", label: 'Undergraduate' }, { id: "PG", label: 'Postgraduate' }, { id: null, label: 'Any' }];
 
   ngOnInit(): void {
+    this.locationService.getImage().subscribe(imageUrl => {
+      this.orglogowhitelabel = imageUrl;
+    });
+    this.locationService.getOrgName().subscribe(orgname => {
+      this.orgnamewhitlabel = orgname;
+    });
     this.imagewhitlabeldomainname=window.location.hostname;
     if (this.imagewhitlabeldomainname === "dev-student.uniprep.ai" || this.imagewhitlabeldomainname === "uniprep.ai" || this.imagewhitlabeldomainname === "localhost") {
       this.ehitlabelIsShow=true;
     }else{
       this.ehitlabelIsShow=false;
     }
+    this.checkUserRecommendation();
     this.getScholarshipCountry();
     this.gethomeCountryList();
     this.getStudyLevel();
@@ -133,11 +168,11 @@ export class ScholarshipListComponent implements OnInit {
 
   }
   getScholarshipCountry() {
-    this.scholarshipListService
-      .getScholarshipCountry(1)
-      .subscribe((response) => {
-        this.countryList = response;
-      });
+    this.scholarshipListService.getScholarshipCountry(1).subscribe((response) => {
+      let allCountries = response;
+      this.countryList = allCountries;
+      this.anyCountryList = [...allCountries]; // this is shallow copy of all countries.if am not taking shallow copy when i add any array its showing it reflect for both arrays.
+    });
   }
 
   gethomeCountryList() {
@@ -164,19 +199,21 @@ export class ScholarshipListComponent implements OnInit {
   getScholarshipType() {
     this.scholarshipListService.getScholarshipType().subscribe((response) => {
       this.scholarshipTypeList = response;
+      this.anyScholarshipTypeList = [...response]; 
     });
   }
   getCovers() {
     this.scholarshipListService.getCoverList().subscribe((response) => {
       this.coverList = [...response];
+      this.anyCoverList = [...response];
     });
   }
 
   loadScholarShipData(isFavourite: number) {
     if (isFavourite == 1) {
-      this.data={}
+      this.data = {}
       this.data['favourite'] = 1;
-    }else{
+    } else {
       this.data['favourite'] = 0;
     }
     this.data.planname = this.currentPlan ? this.currentPlan : "";
@@ -185,7 +222,7 @@ export class ScholarshipListComponent implements OnInit {
       .getScholarshipList(this.data)
       .subscribe((response) => {
         this.scholarshipData = response.scholarship;
-        this.favCount=response.favourite_count;
+        this.favCount = response.favourite_count;
         if (isFavourite != 1) {
           this.allScholarshipList = response.scholarship;
           this.allScholarshipCount = response.count;
@@ -212,16 +249,16 @@ export class ScholarshipListComponent implements OnInit {
       //   summary: "Error",
       //   detail: "Please make sure you have some filter!",
       // });
-   this.regionList = [];
-     this.filterForm.reset();
-     this.data = {
-       page: this.page,
-       perpage: this.pageSize,
-     }
-     this.loadScholarShipData(0);
-     this.getRegionList();
-     this.getFilterUniversityList("");
-     this.isFilterVisible = false;
+      this.regionList = [];
+      this.filterForm.reset();
+      this.data = {
+        page: this.page,
+        perpage: this.pageSize,
+      }
+      this.loadScholarShipData(0);
+      this.getRegionList();
+      this.getFilterUniversityList("");
+      this.isFilterVisible = false;
       return;
     }
     this.data.page = 1;
@@ -349,8 +386,8 @@ export class ScholarshipListComponent implements OnInit {
   }
   bookmarkQuestion(scholarshipId: any, isFav: any) {
     isFav = isFav != '1' ? true : false;
-    this.favCount=isFav == true ? this.favCount+1 : this.favCount-1;
-    
+    this.favCount = isFav == true ? this.favCount + 1 : this.favCount - 1;
+
     this.scholarshipListService.bookmarkScholarshipData(scholarshipId, this.PersonalInfo.user_id, isFav).subscribe((response) => {
       let scholarshipListData = this.scholarshipData.find(item => item.id == scholarshipId);
       isFav == true ? scholarshipListData.favourite = 1 : scholarshipListData.favourite = null;
@@ -367,18 +404,18 @@ export class ScholarshipListComponent implements OnInit {
       this.loadScholarShipData(1);
     }
     else {
-     let scholarshipList=this.allScholarshipList.map(scholarship=>{
-      let foundScholarship = this.scholarshipData.find(s => s.id == scholarship.id);
-      if (foundScholarship) {
-        scholarship.favourite = foundScholarship.favourite;
-      }
-      return scholarship;
-     });
-     let favouriteScholarships = scholarshipList.filter(scholarship => scholarship.favourite === 1);
-    let nonFavouriteScholarships = scholarshipList.filter(scholarship => scholarship.favourite !== 1);
-     this.scholarshipData=favouriteScholarships.concat(nonFavouriteScholarships);
-     this.totalScholarShipCount=this.allScholarshipCount;
-  }
+      let scholarshipList = this.allScholarshipList.map(scholarship => {
+        let foundScholarship = this.scholarshipData.find(s => s.id == scholarship.id);
+        if (foundScholarship) {
+          scholarship.favourite = foundScholarship.favourite;
+        }
+        return scholarship;
+      });
+      let favouriteScholarships = scholarshipList.filter(scholarship => scholarship.favourite === 1);
+      let nonFavouriteScholarships = scholarshipList.filter(scholarship => scholarship.favourite !== 1);
+      this.scholarshipData = favouriteScholarships.concat(nonFavouriteScholarships);
+      this.totalScholarShipCount = this.allScholarshipCount;
+    }
   }
   checkBoxopen() {
 
@@ -386,17 +423,17 @@ export class ScholarshipListComponent implements OnInit {
   // sholarshipquestionid: number[] = [];
   // selectedlistcount:number=0
   // questionSelectedCheckBox(event: any, index: number, ticketques: any) {
-    // if (event.target.checked) {
-    //   this.sholarshipquestionid.push(ticketques.id);
-    //   console.log(this.sholarshipquestionid);
-    // } else {
-    //   const indexToRemove = this.sholarshipquestionid.indexOf(ticketques.id);
-    //   if (indexToRemove !== -1) {
-    //     this.sholarshipquestionid.splice(indexToRemove, 1);
-    //     console.log(this.sholarshipquestionid);
-    //   }
-    // }
-    // this.selectedlistcount=this.sholarshipquestionid.length;
+  // if (event.target.checked) {
+  //   this.sholarshipquestionid.push(ticketques.id);
+  //   console.log(this.sholarshipquestionid);
+  // } else {
+  //   const indexToRemove = this.sholarshipquestionid.indexOf(ticketques.id);
+  //   if (indexToRemove !== -1) {
+  //     this.sholarshipquestionid.splice(indexToRemove, 1);
+  //     console.log(this.sholarshipquestionid);
+  //   }
+  // }
+  // this.selectedlistcount=this.sholarshipquestionid.length;
 
   //   this.selectedIndex = event.target.checked ? index : undefined;
   //   this.toSend = event.target.checked;
@@ -407,15 +444,15 @@ export class ScholarshipListComponent implements OnInit {
   openReport() {
     let data = {
       isVisible: true,
-      reporttype:4,
-      moduleId:4,
+      reporttype: 4,
+      moduleId: 4,
       report_mode: "other_module"
     };
     this.dataService.openReportWindow(data);
-    
+
   }
 
-  buyCredits(): void{
+  buyCredits(): void {
     if (this.planExpired) {
       this.restrict = true;
       return;
@@ -423,68 +460,80 @@ export class ScholarshipListComponent implements OnInit {
     this.router.navigate(["/pages/export-credit"]);
   }
 
-  selectAllCheckbox(){
+  selectAllCheckbox() {
     this.selectedScholarship = 0;
     this.selectAllCheckboxes = !this.selectAllCheckboxes;
-    if(this.selectAllCheckboxes){
-      this.scholarshipData.forEach(item=>{
+    if (this.selectAllCheckboxes) {
+      this.scholarshipData.forEach(item => {
         item.isChecked = 1;
-        this.selectedScholarship +=1;
+        this.selectedScholarship += 1;
       });
-    }else{
-      this.scholarshipData.forEach(item=>{
+    } else {
+      this.scholarshipData.forEach(item => {
         item.isChecked = 0;
       });
     }
   }
 
-  exportData(){
+  exportData() {
     if (this.planExpired) {
       this.restrict = true;
       return;
-    }else if(this.exportCreditCount != 0){
+    } else if (this.exportCreditCount != 0) {
       this.exportDataIds = [];
-      this.scholarshipData.forEach(item=>{
-        if(item.isChecked == 1){
+      this.scholarshipData.forEach(item => {
+        if (item.isChecked == 1) {
           this.exportDataIds.push(item.id);
         }
       })
-      if(this.exportDataIds.length == 0){
-        this.toast.add({severity: "error",summary: "error",detail: "Select Some data for export!.",});
+      if (this.exportDataIds.length == 0) {
+        this.toast.add({ severity: "error", summary: "error", detail: "Select Some data for export!.", });
         return;
       }
-      if(this.exportCreditCount < this.exportDataIds.length){
-        this.toast.add({severity: "error",summary: "error",detail: "insufficient credits.Please Buy Some Credits.",});
-        this.router.navigate(["/pages/export-credit"]);
-        return;
+      if (this.exportCreditCount < this.exportDataIds.length) {
+        if (this.exportCreditCount < this.exportDataIds.length) {
+          this.toast.add({ severity: "error", summary: "error", detail: "insufficient credits.Please Buy Some Credits.", });
+          this.router.navigate(["/pages/export-credit"]);
+          return;
+        }
+      } else {
+        if (this.exportCreditCount < this.exportDataIds.length) {
+          this.toast.add({ severity: "error", summary: "error", detail: "To download additional data beyond your free credits, please upgrade your plan.", });
+          this.restrict = true;
+          return;
+        }
       }
-      let data={
+      let data = {
         module_id: 3,
         export_id: this.exportDataIds
       };
-      this.scholarshipListService.exportSelectedData(data).subscribe((response)=>{
+      this.scholarshipListService.exportSelectedData(data).subscribe((response) => {
         window.open(response.link, '_blank');
         this.selectAllCheckboxes = false;
         // this.selectedCheckboxCount = 0;
         this.selectedScholarship = 0;
         this.loadScholarShipData(0);
       })
-    }else if(this.exportCreditCount == 0){
-      this.toast.add({severity: "error",summary: "error",detail: "Please Buy Some Credits.",});
-      this.router.navigate(["/pages/export-credit"]);
+    } else if (this.exportCreditCount == 0) {
+      if (this.imagewhitlabeldomainname === "dev-student.uniprep.ai" || this.imagewhitlabeldomainname === "uniprep.ai" || this.imagewhitlabeldomainname === "localhost") {
+        this.toast.add({ severity: "error", summary: "error", detail: "Please Buy Some Credits.", });
+        this.router.navigate(["/pages/export-credit"]);
+      } else {
+        this.restrict = true;
+      }
     }
-    
+
   }
 
-  onCheckboxChange(event: any){
+  onCheckboxChange(event: any) {
     const isChecked = (event.target as HTMLInputElement).checked;
     this.selectedScholarship = isChecked ? this.selectedScholarship + 1 : this.selectedScholarship - 1;
-    if(isChecked == false){
-      if(this.selectedScholarship){
+    if (isChecked == false) {
+      if (this.selectedScholarship) {
         this.selectAllCheckboxes = false;
       }
-    }else{
-      if(this.scholarshipData.length == this.selectedScholarship){
+    } else {
+      if (this.scholarshipData.length == this.selectedScholarship) {
         this.selectAllCheckboxes = true;
       }
     }
@@ -493,5 +542,92 @@ export class ScholarshipListComponent implements OnInit {
   openHowItWorksVideoPopup(videoLink: string) {
     this.pageFacade.openHowitWorksVideoPopup(videoLink);
   }
-  
+
+  checkUserRecommendation(){
+    this.scholarshipListService.getRecommendations().subscribe(res => {
+      if(res.status){
+        this.enableModule = true;
+        this.setRecommendationToForm(res.data);
+      }else{
+        this.enableModule = false;
+        this.addAnyValueToOptions();
+      }
+    });
+  }
+  addAnyValueToOptions(){
+    setTimeout(() => {
+      let anyCountryArray: any = {id: null,country: "any country"};
+      this.anyCountryList.unshift(anyCountryArray);
+
+      let anyScholarList:any = { id: null, type: "any"};
+      this.anyScholarshipTypeList.unshift(anyScholarList); 
+
+      let anyCoverList:any = {id: null,cover_name: "any" };
+      this.anyCoverList.unshift(anyCoverList);
+    }, 1000);
+  }
+
+  setRecommendationToForm(data: any){
+    this.filterForm.patchValue(data);
+    this.applyFilter();
+  }
+
+  getRecommendation() {
+    let keyMapping: any = {"1": "country","2": "study_level","3": "type","4": "cover_id"};
+    
+    let newData = Object.fromEntries(Object.entries(this.selectedData).map(([key, value]) => {
+      let mappedKey = keyMapping[key] || key;
+      if (Array.isArray(value)) {
+        value = value.filter(item => item !== null);
+      }
+      return [mappedKey, value];
+    }));
+    this.scholarshipListService.storeRecommendation(newData).subscribe();
+    this.enableModule = true;
+    this.setRecommendationToForm(newData);
+  }
+
+  previous(): void {
+    this.invalidClass = false;
+    if (this.activePageIndex > 0) {
+      this.activePageIndex--;
+    }
+  }
+
+  next(productId: number): void {
+    this.invalidClass = false;
+    if (productId in this.selectedData) {
+      if (this.activePageIndex < this.recommendations.length - 1) {
+        this.activePageIndex++;
+      }
+    } else {
+      this.invalidClass = true;
+    }
+  }
+
+  selectCube(key: number, id: number) {
+    if (key === 3) {
+      if (!Array.isArray(this.selectedData[key])) {
+        this.selectedData[key] = [];
+      }
+      const index = this.selectedData[key].indexOf(id);
+      if (index > -1) {
+        this.selectedData[key].splice(index, 1);
+      } else {
+        this.selectedData[key].push(id);
+      }
+    } else {
+      this.selectedData[key] = id;
+    }
+  }  
+
+  resetRecommendation(){
+    this.scholarshipListService.resetRecommendation().subscribe(res => {
+      this.enableModule = false;
+      this.filterForm.reset();
+      this.selectedData = {};
+      this.activePageIndex = 0;
+      this.addAnyValueToOptions();
+    });
+  }
 }

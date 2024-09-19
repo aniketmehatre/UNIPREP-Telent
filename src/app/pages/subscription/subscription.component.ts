@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, ViewChild } from "@angular/core";
 import { AuthService } from "src/app/Auth/auth.service";
 import { SubscriptionService } from "./subscription.service";
 import { WindowRefService } from "./window-ref.service";
@@ -10,12 +10,24 @@ import {
   SubscriptionPlan,
   SubscriptionSuccess,
 } from "../../@Models/subscription";
-import { Observable } from "rxjs";
+import { Observable, switchMap } from "rxjs";
 import { selectBillingInfo$ } from "./store/selectors";
 import { select } from "@ngrx/store";
 import { DataService } from "src/app/data.service";
 import { environment } from "@env/environment";
 import { DashboardService } from "../dashboard/dashboard.service";
+import {
+  StripeCardComponent,
+  StripePaymentElementComponent,
+  StripeService,
+} from "ngx-stripe";
+import {
+  PaymentIntent,
+  Stripe,
+  StripeCardElementOptions,
+  StripeElementsOptions,
+  StripePaymentElementOptions,
+} from "@stripe/stripe-js";
 
 @Component({
   selector: "uni-subscription",
@@ -53,21 +65,22 @@ export class SubscriptionComponent implements OnInit {
     private authservice: AuthService,
     private toastr: MessageService,
     private dataService: DataService,
-    private dashboardService:DashboardService
+    private dashboardService: DashboardService,
+    private stripeService: StripeService
   ) {}
   ngOnInit(): void {
-    if(this.dashboardService.isinitialstart){
-        window.location.reload();
+    if (this.dashboardService.isinitialstart) {
+      window.location.reload();
     }
     this.authservice.getNewUserTimeLeft().subscribe((res) => {
-        this.dashboardService.updatedata(res.time_left);
-        let data = res.time_left;
-        if (data.plan === "expired" || data.plan === "subscription_expired") {
-          this.showPlanBtn = true;
-        } else {
-          this.showPlanBtn = false;
-        }
-      });
+      this.dashboardService.updatedata(res.time_left);
+      let data = res.time_left;
+      if (data.plan === "expired" || data.plan === "subscription_expired") {
+        this.showPlanBtn = true;
+      } else {
+        this.showPlanBtn = false;
+      }
+    });
     if (!this.authservice?.user?.subscription) {
       this.stage = 1;
       return;
@@ -131,17 +144,19 @@ export class SubscriptionComponent implements OnInit {
     this.stage = 2;
   }
   pay(value: any) {
+    this.paywithstripe(value);
+    return;
     this.subscriptionDetails = value;
     this.showPayLoading = true;
     if (value.subscriptionId) {
       this.subscriptionService
         .placeSubscriptionOrder(value)
         .subscribe((data) => {
-          if(data.success==false){
+          if (data.success == false) {
             this.toastr.add({
               severity: "error",
               summary: "Error",
-              detail:data.message,
+              detail: data.message,
             });
             return;
           }
@@ -267,10 +282,12 @@ export class SubscriptionComponent implements OnInit {
         this.accountBillingData = response.accountbillings;
 
         this.accountBillingData.map(function (currentelement, index, arrayobj) {
-         let  noofFreeAddOn=arrayobj.filter(item=>item.product=="Free Add On");
+          let noofFreeAddOn = arrayobj.filter(
+            (item) => item.product == "Free Add On"
+          );
           if (
             currentelement.product == "Free Add On" &&
-            noofFreeAddOn.length>1
+            noofFreeAddOn.length > 1
           ) {
             arrayobj.splice(index, 1);
           }
@@ -322,5 +339,50 @@ export class SubscriptionComponent implements OnInit {
 
   showHistory($event: any) {
     this.stage = 5;
+  }
+  @ViewChild(StripeCardComponent) card: StripeCardComponent;
+
+  cardOptions: StripeCardElementOptions = {
+    iconStyle: 'solid',
+    style: {
+      base: {
+       color: '#000000',
+       },
+      invalid: {
+       
+        color: 'red'
+      }
+    }
+  };
+
+  elementsOptions: StripeElementsOptions = {
+    locale: "en",
+  };
+  cardvisibility=false;
+  paywithstripe(data:any) {
+    this.cardvisibility=true;
+    this.subscriptionService
+      .createPaymentIntent(data)
+      .pipe(
+        switchMap((pi: any) =>
+          this.stripeService.confirmCardPayment(pi.client_secret, {
+            payment_method: {
+              card: this.card.element,
+              billing_details: {
+                name: "Tamil",
+              },
+            },
+          })
+        )
+      )
+      .subscribe((result: any) => {
+        if (result.error) {
+          console.log(result.error.message);
+        } else {
+          if (result.paymentIntent.status === "succeeded") {
+           console.log(result.paymentIntent.status)
+          }
+        }
+      });
   }
 }

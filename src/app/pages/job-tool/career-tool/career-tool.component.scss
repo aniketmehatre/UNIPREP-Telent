@@ -1,19 +1,46 @@
-.resourcecard
-{
-  border:1px solid var(--uniprep-primary);
-  &:hover
-  {
+.resourcecard {
+  border: 1px solid var(--uniprep-primary);
+
+  &:hover {
     background-color: var(--uniprep-primaryop10);
     cursor: pointer;
   }
-    .resourceimg
-  {
-    width:60px;
-    height:60px;
-    img
-    {
-      width:inherit;
+
+  .resourceimg {
+    width: 60px;
+    height: 60px;
+
+    img {
+      width: inherit;
       border-radius: 5px;
     }
   }
+}
+
+
+
+.resourceimg {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.resourceimg img {
+  max-width: 100%;
+  height: auto;
+}
+
+.card-body {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  text-align: center;
+}
+
+.card {
+  position: relative;
+}
+.col-md-2-4 {
+  width: 20%; /* For 5 columns, each takes 20% of the available width */
 }
