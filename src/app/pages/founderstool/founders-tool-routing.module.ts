@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { FounderstoolComponent } from './founderstool.component';
 import { FoundersacademyComponent } from './foundersacademy/foundersacademy.component';
 import { FounderstoollistComponent } from './founderstoollist/founderstoollist.component';
+import { InvestorpitchtrainingComponent } from './investorpitchtraining/investorpitchtraining.component';
 
 const routes: Routes = [
   {
@@ -14,6 +15,9 @@ const routes: Routes = [
         {
             path:'founderstoollist',component:FounderstoollistComponent
         },
+        {
+          path:'investorpitchtraining',component:InvestorpitchtrainingComponent
+      },
     ]
   }
 ];
