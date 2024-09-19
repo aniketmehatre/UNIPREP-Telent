@@ -1,4 +1,4 @@
-import { Component, OnInit, Renderer2, ElementRef, ViewChild  } from '@angular/core';
+import { Component, OnInit, Renderer2, ElementRef, ViewChild, AfterViewInit  } from '@angular/core';
 import { MessageService, ConfirmationService } from 'primeng/api';
 import { FormBuilder, FormGroup, FormArray, Validators, AbstractControl } from "@angular/forms";
 import { CourseListService } from '../../course-list/course-list.service';
@@ -15,8 +15,7 @@ import {LocationService} from "../../../location.service";
   templateUrl: './cv-builder.component.html',
   styleUrls: ['./cv-builder.component.scss'],
 })
-export class CvBuilderComponent implements OnInit {
-  @ViewChild('swiperContainer') swiperContainer!: ElementRef;
+export class CvBuilderComponent implements OnInit  {
   selectedResumeLevel: string = "";
   experienceLevel: any = [{ id: 1, level: "Fresher" }, { id: 2, level: "Experience" }];
   // experienceLevel: any = [{ id: 1, level: "Fresher" }, { id: 2, level: "1-2 Years" }, { id: 3, level: "3-5 Years" }, { id: 4, level: "5+ Years" },];
@@ -116,7 +115,9 @@ export class CvBuilderComponent implements OnInit {
   orgnamewhitlabel: any;
   orglogowhitelabel: any;
   hidingHeaders: string[] = ['header_names'];
- 
+  swiper!: Swiper;
+  loadingResumes: boolean = true;
+
   constructor(private toaster: MessageService, private fb: FormBuilder, private resumeService: CourseListService,
               private http: HttpClient, private router: Router, private confirmService: ConfirmationService,
               private renderer: Renderer2, private el: ElementRef,  private authService: AuthService,
@@ -156,6 +157,39 @@ export class CvBuilderComponent implements OnInit {
       referenceArray: this.fb.array([]),
     });
 
+  }
+
+  ngAfterViewInit(): void {
+    setTimeout(() => {
+      this.swiper = new Swiper('.swiper', {
+        direction: 'horizontal',
+        loop: true,
+        slidesPerView: 5,
+        spaceBetween: 50,
+        centeredSlides: true,
+        allowTouchMove: false,
+      });
+    }, 500);
+    setTimeout(() => {
+      const nextButton = document.querySelector('.swiper-next');
+      const prevButton = document.querySelector('.swiper-prev');
+      if (nextButton) {
+        nextButton.addEventListener('click', () => {
+          this.swiper.slideNext();
+        });
+      }
+      if (prevButton) {
+        prevButton.addEventListener('click', () => {
+          this.swiper.slidePrev(); 
+        });
+      }
+    }, 200);
+    
+  }
+  callBackFn() {
+   setTimeout(() => {
+    this.loadingResumes = false;
+   }, 3000);
   }
 
   ngOnInit(): void {
@@ -480,7 +514,6 @@ export class CvBuilderComponent implements OnInit {
   fieldPreviousButton() {
     if(this.moduleActiveIndex == 0){
       this.activePageIndex = 1;
-      this.triggerPrevButtonClick();
     }else{
       this.moduleActiveIndex--;
     }
@@ -578,18 +611,18 @@ export class CvBuilderComponent implements OnInit {
       this.selectedColorCode = 2;
     }
     this.activePageIndex++;
+    this.moduleActiveIndex = this.moduleActiveIndex < 0 ? 0 : this.moduleActiveIndex;
     this.hideHeader();
   }
 
   previous() {
     this.activePageIndex--;
     this.hideHeader();
-    this.triggerPrevButtonClick();
   }
 
   next() {
     if(this.activePageIndex == 0){
-      this.triggerPrevButtonClick();
+      this.IntializeSwiper();
     }
     this.activePageIndex++;
     if (this.activePageIndex == 4) {
@@ -605,42 +638,29 @@ export class CvBuilderComponent implements OnInit {
       this.clickedDownloadButton =  false;
       this.selectedResumeLevel = "";
       this.submitted = false;
-      // this.stableFileCreation();
     }
     this.hideHeader();
   }
 
-  private triggerPrevButtonClick(): void {
-    setTimeout(() => {
-      if (this.swiperContainer) {
-        const swiperElement = this.swiperContainer.nativeElement.shadowRoot.querySelector('.swiper');
-        console.log(swiperElement);
-        if (swiperElement) {
-          this.renderer.setStyle(swiperElement, 'overflow', 'visible');
-          this.renderer.setStyle(swiperElement, 'margin-top', '70px');
-        }
-        const prevButton = this.swiperContainer.nativeElement.shadowRoot.querySelector('.swiper-button-prev');
-        if (prevButton) {
-          this.renderer.selectRootElement(prevButton).click();
-          prevButton.innerHTML = `<svg width="11" height="20" viewBox="0 0 11 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M0.38296 20.0762C0.111788 19.805 0.111788 19.3654 0.38296 19.0942L9.19758 10.2796L0.38296 1.46497C0.111788 1.19379 0.111788 0.754138 0.38296 0.482966C0.654131 0.211794 1.09379 0.211794 1.36496 0.482966L10.4341 9.55214C10.8359 9.9539 10.8359 10.6053 10.4341 11.007L1.36496 20.0762C1.09379 20.3474 0.654131 20.3474 0.38296 20.0762Z" fill="currentColor" transform-origin="center" transform="rotate(180)"></path></svg>`;
-        } else {
-          console.warn('Previous button not found');
-        }
-      } else {
-        console.warn('Swiper container not found');
-      }
-    }, 400); 
+  private IntializeSwiper(): void {
+    this.ngAfterViewInit();
   }
 
   previousResumes(){
     this.resumeService.getAlreadyCreatedResumes().subscribe(res => {
       this.resumeHistory = res;
       if(res.length == 0){
-        this.triggerPrevButtonClick();
         this.activePageIndex = 1;
       }
     });
   }
+  
+  onPdfLoaded(event: CustomEvent): void {
+    // Set the loading state of this specific PDF to false
+    this.loadingResumes= false;
+    console.log(event);
+  }
+
   get getEduDetailsArray(): FormArray {
     return this.resumeFormInfoData.get('EduDetailsArray') as FormArray;
   }
@@ -773,7 +793,6 @@ export class CvBuilderComponent implements OnInit {
       //   this.hidingHeaders.splice(index, 1);
       // }
       this.hidingHeaders = this.hidingHeaders.filter(item => item !== fieldName);
-      console.log(this.hidingHeaders);
     }
   }
 

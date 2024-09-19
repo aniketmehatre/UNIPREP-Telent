@@ -143,9 +143,12 @@ export class SubscriptionComponent implements OnInit {
     this.isSubOrQuestion = 2;
     this.stage = 2;
   }
+  payusingstripe(value: any){
+    this.stripdata=value;
+    this.selectedcost=this.stripdata.finalPrice
+    this.cardvisibility=true;
+  }
   pay(value: any) {
-    this.paywithstripe(value);
-    return;
     this.subscriptionDetails = value;
     this.showPayLoading = true;
     if (value.subscriptionId) {
@@ -160,7 +163,12 @@ export class SubscriptionComponent implements OnInit {
             });
             return;
           }
-          this.payWithRazor(data.orderid);
+          if (value.type == "razorpay") {
+            this.payWithRazor(data.orderid);
+          }
+          else{
+            this.payusingstripe(value);
+          }
         });
     } else {
       this.subscriptionService
@@ -359,10 +367,14 @@ export class SubscriptionComponent implements OnInit {
     locale: "en",
   };
   cardvisibility=false;
-  paywithstripe(data:any) {
-    this.cardvisibility=true;
+  stripdata:any
+  selectedcost=0;
+  paywithstripe() {
+    if(!this.stripdata){
+      return;
+    }
     this.subscriptionService
-      .createPaymentIntent(data)
+      .createPaymentIntent(this.stripdata)
       .pipe(
         switchMap((pi: any) =>
           this.stripeService.confirmCardPayment(pi.client_secret, {
