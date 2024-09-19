@@ -4,13 +4,17 @@
             <div>
                 <h3 class="text-center uniprep-primary">Your Resumes</h3>
                 <div class="cvSampleImg d-flex flex-wrap">
-                    <div class="flex-column overflow-hidden" [ngClass]="{'skeleton-loader ' : loadingResumes}" *ngFor="let resumes of resumeHistory; let i = index">
-                        <pdf-viewer [ngStyle]="{ visibility : loadingResumes ? 'hidden' : 'visible' }" [src]="resumes.pdf_name" [autoresize]="true" [render-text]="true" [show-all]="false" [original-size]="false" (after-load-complete)="callBackFn()"></pdf-viewer>
-                        <i class="fa-solid fa-trash HistoryDeleteIcon" [ngStyle]="{ visibility : loadingResumes ? 'hidden' : 'visible' }" (click)="confirm($event,resumes.pdf_name, resumes.id)"></i>
-                        <p-confirmPopup></p-confirmPopup>
-                        <i class="fa-solid fa-download HistoryDownloadIcon" [ngStyle]="{ visibility : loadingResumes ? 'hidden' : 'visible' }" (click)="downloadOldResume(resumes.pdf_name)"></i>
-                        <p [ngStyle]="{ visibility : loadingResumes ? 'hidden' : 'visible' }" >Version {{ i+1 }}</p>
-                        <small [ngStyle]="{ visibility : loadingResumes ? 'hidden' : 'visible' }" >{{ resumes.created_time }}</small>
+                    <div class="flex-column overflow-hidden" *ngFor="let resumes of resumeHistory; let i = index">
+                            <div [ngClass]="{ 'skeleton-loader' : loadingResumes}">
+                                <pdf-viewer  [ngStyle]="{ visibility : loadingResumes ? 'hidden' : 'visible' }" [src]="resumes.pdf_name" [autoresize]="true" [render-text]="true" [show-all]="false" [original-size]="false" (after-load-complete)="callBackFn()"></pdf-viewer>
+                                <i class="fa-solid fa-trash HistoryDeleteIcon" [ngStyle]="{ visibility : loadingResumes ? 'hidden' : 'visible' }" (click)="confirm($event,resumes.pdf_name, resumes.id)"></i>
+                                <p-confirmPopup></p-confirmPopup>
+                                <i class="fa-solid fa-download HistoryDownloadIcon" [ngStyle]="{ visibility : loadingResumes ? 'hidden' : 'visible' }" (click)="downloadOldResume(resumes.pdf_name)"></i>
+                            </div>
+                            <div [ngClass]="{ 'skeleton-loader' : loadingResumes}">
+                                <p [ngStyle]="{ visibility : loadingResumes ? 'hidden' : 'visible' }" >Version {{ i+1 }}</p>
+                                <small [ngStyle]="{ visibility : loadingResumes ? 'hidden' : 'visible' }" >{{ resumes.created_time }}</small>
+                            </div>
                     </div>
                 </div>
             </div>
@@ -107,7 +111,10 @@
                 <form role="form" class="row" [formGroup]="resumeFormInfoData" #form="ngForm">
                     <ng-container *ngIf="moduleActiveIndex == 0">
                         <div class="col-md-12 mb-3">
-                            <h4 class="p-mb-2 PageTitle">Your Experience Level</h4>
+                            <div class="d-flex">
+                                <h4 class="p-mb-1 PageTitle">Your Experience Level</h4>
+                                <i class="fa-solid fa-circle-question m-2 uniprepColor"  pTooltip="Select your level of experience (Fresher or Experienced) to proceed further" tooltipPosition="top" ></i>
+                            </div>
                             <p-dropdown [options]="experienceLevel" (onChange)="changeExperience()" placeholder="Select Experience Level" styleClass="w-100"
                                         formControlName="selected_exp_level" optionLabel="level" optionValue="id"></p-dropdown>
                             <div *ngIf="submitted && f['selected_exp_level'].errors" class="text-danger text-xs">
@@ -118,7 +125,10 @@
                             <h4 class="p-mb-2 PageTitle">Enter Your Personal Information</h4>
                             <div class="row">
                                 <div class="col-md-6">
-                                    <label class="form-label labelFont">Your Name</label>
+                                    <div class="d-flex">
+                                        <label class="form-label labelFont">Your Name</label>
+                                        <i class="fa-solid fa-circle-question m-2 uniprepColor"  pTooltip="Enter your full name as you would like it to appear on your CV" tooltipPosition="top" ></i>
+                                    </div>
                                     <div class="form-group">
                                         <div class="mb-3">
                                             <input class="w-100" type="text" placeholder="Full Name" formControlName="user_name" pInputText />
@@ -144,7 +154,10 @@
                                     </div>
                                 </div>
                                 <div class="col-md-6">
-                                    <label class="form-label labelFont">Your Email</label>
+                                    <div class="d-flex">
+                                        <label class="form-label labelFont">Your Email</label>
+                                        <i class="fa-solid fa-circle-question m-2 uniprepColor"  pTooltip="Provide a professional email address for recruiters to contact you" tooltipPosition="top" ></i>
+                                    </div>
                                     <div class="form-group">
                                         <div class="mb-3">
                                             <input class="w-100" type="text" placeholder="Email Address"
@@ -174,7 +187,10 @@
                                     </div>
                                 </div>
                                 <div class="col-md-6">
-                                    <label class="form-label labelFont">country code</label>
+                                    <div class="d-flex">
+                                        <label class="form-label labelFont">country code</label>
+                                        <i class="fa-solid fa-circle-question m-2 uniprepColor"  pTooltip="Select the international dialing code for your phone number" tooltipPosition="top" ></i>
+                                    </div>
                                     <div class="form-group">
                                         <div class="mb-3">
                                             <p-dropdown [options]="countryCodeList" styleClass="w-100" [filter]="true" [filterBy]="'name'" placeholder="Select Country Code"  formControlName="country_code" optionLabel="name" optionValue="code"></p-dropdown>
@@ -200,29 +216,32 @@
                                     </div>
                                 </div>
                                 <div class="col-md-6">
-                                    <label class="form-label labelFont">LinkedIn Name</label>
+                                    <div class="d-flex">
+                                        <label class="form-label labelFont">LinkedIn Name</label>
+                                        <i class="fa-solid fa-circle-question m-2 uniprepColor"  pTooltip="Just enter the name as it appears on your LinkedIn profile" tooltipPosition="top" ></i>
+                                    </div>
                                     <div class="form-group">
                                         <div class="mb-3">
-                                            <input class="w-100" type="text" placeholder="LinkedIn profile name"
-                                                   formControlName="user_linkedin" pInputText />
-                                            <div *ngIf="submitted && f['user_linkedin'].errors"
-                                                 class="text-danger text-xs">
-                                                <div style="margin-left:10px;" *ngIf="f['user_linkedin'].errors">Linked
-                                                    In Name Required</div>
+                                            <input class="w-100" type="text" placeholder="LinkedIn profile name" formControlName="user_linkedin" pInputText />
+                                            <div *ngIf="submitted && f['user_linkedin'].errors" class="text-danger text-xs">
+                                                <div style="margin-left:10px;" *ngIf="f['user_linkedin'].errors">Linked In Name Required</div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                <!-- <div class="col-md-6">
-                                    <label class="form-label labelFont">LinkedIn Link</label>
+                                <div class="col-md-6">
+                                    <div class="d-flex">
+                                        <label class="form-label labelFont">LinkedIn Link</label>
+                                        <i class="fa-solid fa-circle-question m-2 uniprepColor"  pTooltip="Provide the URL to your LinkedIn profile" tooltipPosition="top" ></i>
+                                    </div>
                                     <div class="form-group">
                                         <div class="mb-3">
                                             <input class="w-100" type="text" placeholder="LinkedIn profile link"
                                                    formControlName="user_linkedin_link" pInputText />
                                         </div>
                                     </div>
-                                </div> -->
-                                <div class="col-md-6">
+                                </div>
+                                <div class="col-md-12">
                                     <label class="form-label labelFont">Website (Optional)</label>
                                     <div class="form-group">
                                         <div class="mb-3">
@@ -233,7 +252,10 @@
                                 </div>
                                 <div class="col-md-12">
                                     <div class="d-flex justify-content-between align-items-center">
-                                        <label class="form-label labelFont">Summary</label>
+                                        <div class="d-flex">
+                                            <label class="form-label labelFont">Summary</label>
+                                            <i class="fa-solid fa-circle-question m-2 uniprepColor"  pTooltip="Write or generate a brief statement about yourself" tooltipPosition="top" ></i>
+                                        </div>
                                         <button class="deleteDivButton" (click)="chatGPTIntegration('user_summary', 0)"
                                                 style="background-color: #9bc329;">Generate &nbsp;<i
                                                 class="fa-solid fa-line-columns trashIcon"
@@ -262,7 +284,10 @@
                     </ng-container>
                     <ng-container *ngIf="moduleActiveIndex == 1">
                         <div class="col-md-12">
-                            <h4 class="p-mb-1 PageTitle">Enter Your Work {{ f['selected_exp_level'].value == 1 ? '/ Internship' : '' }} Experience</h4>
+                            <div class="d-flex">
+                                <h4 class="p-mb-1 PageTitle">Enter Your Work {{ f['selected_exp_level'].value == 1 ? '/ Internship' : '' }} Experience</h4>
+                                <i class="fa-solid fa-circle-question m-2 uniprepColor"  pTooltip="Add details of your previous jobs and internships " tooltipPosition="top" ></i>
+                            </div>
                             <div class="col-md-12">
                                 <div class="card mb-2" *ngFor="let wrkExp of getWorkExpArray.controls; let i = index"
                                      formArrayName="workExpArray">
@@ -270,7 +295,10 @@
                                         <div [formGroupName]="i">
                                             <div class="row">
                                                 <div class="col-md-6">
-                                                    <label class="form-label labelFont">Organization Name</label>
+                                                    <div class="d-flex">
+                                                        <label class="form-label labelFont">Organization Name</label>
+                                                        <i class="fa-solid fa-circle-question m-2 uniprepColor"  pTooltip="Enter the name of the company or organization where you worked" tooltipPosition="top" ></i>
+                                                    </div>
                                                     <div class="form-group">
                                                         <div class="mb-3">
                                                             <input class="w-100" type="text"
@@ -285,8 +313,10 @@
                                                 </div>
                                                 <div class="col-md-6">
                                                     <div class="d-flex justify-content-between align-items-center">
-                                                        <label class="form-label labelFont"
-                                                               style="font-size: small;">Experience Year </label>
+                                                        <div class="d-flex">
+                                                            <label class="form-label labelFont" style="font-size: small;">Experience Year </label>
+                                                            <i class="fa-solid fa-circle-question m-2 uniprepColor"  pTooltip="Enter the number of years you worked at this position" tooltipPosition="top" ></i>
+                                                        </div>
                                                         <div class="d-flex justify-content-between align-items-center">
                                                             <input type="checkbox"
                                                                    formControlName="work_currently_working" class="me-0"
@@ -331,7 +361,10 @@
                                                     </div>
                                                 </div>
                                                 <div class="col-md-12">
-                                                    <label class="form-label labelFont">Designation</label>
+                                                    <div class="d-flex">
+                                                        <label class="form-label labelFont">Designation</label>
+                                                        <i class="fa-solid fa-circle-question m-2 uniprepColor"  pTooltip="Specify your job title or role within the organization" tooltipPosition="top" ></i>
+                                                    </div>
                                                     <div class="form-group">
                                                         <div class="mb-3">
                                                             <input class="w-100" type="text"
@@ -346,7 +379,10 @@
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6">
-                                                    <label class="form-label labelFont">Work Type</label>
+                                                    <div class="d-flex">
+                                                        <label class="form-label labelFont">Work Type</label>
+                                                        <i class="fa-solid fa-circle-question m-2 uniprepColor"  pTooltip="Select whether the job was full-time, part-time, or contractual" tooltipPosition="top" ></i>
+                                                    </div>
                                                     <div class="form-group">
                                                         <div class="mb-3">
                                                             <p-dropdown [options]="workTypeValue"
@@ -361,7 +397,10 @@
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6">
-                                                    <label class="form-label labelFont">Location</label>
+                                                    <div class="d-flex">
+                                                        <label class="form-label labelFont">Location</label>
+                                                        <i class="fa-solid fa-circle-question m-2 uniprepColor"  pTooltip="Specify the city and country where this job was located" tooltipPosition="top" ></i>
+                                                    </div>
                                                     <div class="form-group">
                                                         <div class="mb-3">
                                                             <input class="w-100" type="text" placeholder="Work Location"
@@ -376,10 +415,12 @@
                                                 </div>
                                                 <div class="col-md-12">
                                                     <div class="d-flex justify-content-between align-items-center">
-                                                        <label class="form-label labelFont">Job Description</label>
-                                                        <button class="deleteDivButton"
-                                                                (click)="chatGPTIntegration('work_job_description', i)"
-                                                                style="background-color: #9bc329;">Generate &nbsp;<i
+                                                        <div class="d-flex">
+                                                            <label class="form-label labelFont">Job Description</label>
+                                                            <i class="fa-solid fa-circle-question m-2 uniprepColor"  pTooltip="Briefly describe your key responsibilities and achievements in this role" tooltipPosition="top" ></i>
+                                                        </div>
+                                                        <button class="deleteDivButton mb-2"
+                                                                (click)="chatGPTIntegration('work_job_description', i)" style="background-color: #9bc329;">Generate &nbsp;<i
                                                                 class="fa-solid fa-line-columns trashIcon"
                                                                 style="background-color: #9bc329;"></i></button>
                                                     </div>
@@ -430,7 +471,10 @@
                                         <div [formGroupName]="i">
                                             <div class="row">
                                                 <div class="col-md-6">
-                                                    <label class="form-label labelFont">College/School Name</label>
+                                                    <div class="d-flex">
+                                                        <label class="form-label labelFont">College/School Name</label>
+                                                        <i class="fa-solid fa-circle-question m-2 uniprepColor"  pTooltip="Enter the name of your educational institution" tooltipPosition="top" ></i>
+                                                    </div>
                                                     <div class="form-group">
                                                         <div class="mb-3">
                                                             <input class="w-100" type="text" placeholder="College Name"
@@ -445,8 +489,10 @@
                                                 </div>
                                                 <div class="col-md-6">
                                                     <div class="d-flex justify-content-between align-items-center">
-                                                        <label class="form-label labelFont"
-                                                               style="font-size: small;">Education Year </label>
+                                                        <div class="d-flex">
+                                                            <label class="form-label labelFont" style="font-size: small;">Education Year </label>
+                                                            <i class="fa-solid fa-circle-question m-2 uniprepColor"  pTooltip="Enter the year you started and completed your degree" tooltipPosition="top" ></i>
+                                                        </div>
                                                         <div class="d-flex justify-content-between align-items-center">
                                                             <input type="checkbox" formControlName="edu_still_pursuing"
                                                                    id="stillPursuing_{{i}}" class="me-0"
@@ -490,7 +536,10 @@
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6">
-                                                    <label class="form-label labelFont">Degree</label>
+                                                    <div class="d-flex">
+                                                        <label class="form-label labelFont">Degree</label>
+                                                        <i class="fa-solid fa-circle-question m-2 uniprepColor"  pTooltip="Mention the degree or qualification you obtained" tooltipPosition="top" ></i>
+                                                    </div>
                                                     <div class="form-group">
                                                         <div class="mb-3">
                                                             <input class="w-100" type="text" placeholder="Your Degree"
@@ -503,7 +552,10 @@
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6">
-                                                    <label class="form-label labelFont">Location</label>
+                                                    <div class="d-flex">
+                                                        <label class="form-label labelFont">Location</label>
+                                                        <i class="fa-solid fa-circle-question m-2 uniprepColor"  pTooltip="Specify the location of the educational institution" tooltipPosition="top" ></i>
+                                                    </div>
                                                     <div class="form-group">
                                                         <div class="mb-3">
                                                             <input class="w-100" type="text"
@@ -517,7 +569,10 @@
                                                     </div>
                                                 </div>
                                                 <div class="col-md-9">
-                                                    <label class="form-label labelFont">Academic Score</label>
+                                                    <div class="d-flex">
+                                                        <label class="form-label labelFont">Academic Score</label>
+                                                        <i class="fa-solid fa-circle-question m-2 uniprepColor"  pTooltip="Provide your GPA or percentage score, if applicable" tooltipPosition="top" ></i>
+                                                    </div>
                                                     <div class="form-group">
                                                         <div class="mb-3">
                                                             <input class="w-100" type="number"
@@ -659,7 +714,10 @@
                                     <div [formGroupName]="i">
                                         <div class="row">
                                             <div class="col-md-6">
-                                                <label class="form-label labelFont">Certificate Name</label>
+                                                <div class="d-flex">
+                                                    <label class="form-label labelFont">Certificate Name</label>
+                                                    <i class="fa-solid fa-circle-question m-2 uniprepColor"  pTooltip="Enter the name of the certification you received" tooltipPosition="top" ></i>
+                                                </div>
                                                 <div class="form-group">
                                                     <div class="mb-3">
                                                         <input class="w-100" type="text" placeholder="Name"
@@ -673,7 +731,10 @@
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
-                                                <label class="form-label labelFont">Certificate Issued</label>
+                                                <div class="d-flex">
+                                                    <label class="form-label labelFont">Certificate Issued</label>
+                                                    <i class="fa-solid fa-circle-question m-2 uniprepColor"  pTooltip="Mention the organization or authority that issued the certification" tooltipPosition="top" ></i>
+                                                </div>
                                                 <div class="form-group">
                                                     <div class="mb-3">
                                                         <input class="w-100" type="text" placeholder="Issued Organization"
@@ -689,7 +750,10 @@
                                         </div>
                                         <div class="row">
                                             <div class="col-md-6">
-                                                <label class="form-label labelFont">Certificate ID (Optional)</label>
+                                                <div class="d-flex">
+                                                    <label class="form-label labelFont">Certificate ID (Optional)</label>
+                                                    <i class="fa-solid fa-circle-question m-2 uniprepColor"  pTooltip="Enter the unique ID or code associated with the certificate, if applicable" tooltipPosition="top" ></i>
+                                                </div>
                                                 <div class="form-group">
                                                     <div class="mb-3">
                                                         <input class="w-100" type="text" placeholder="Certificate ID" formControlName="certificate_id" pInputText />
@@ -697,7 +761,10 @@
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
-                                                <label class="form-label labelFont">Certificate Link (Optional)</label>
+                                                <div class="d-flex">
+                                                    <label class="form-label labelFont">Certificate Link (Optional)</label>
+                                                    <i class="fa-solid fa-circle-question m-2 uniprepColor"  pTooltip="Provide a URL where employers can verify your certification" tooltipPosition="top" ></i>
+                                                </div>
                                                 <div class="form-group">
                                                     <div class="mb-3">
                                                         <input class="w-100" type="text" placeholder="certificate Link" formControlName="certicate_link" pInputText />
@@ -721,7 +788,7 @@
                         <div class="col-md-12">
                             <div class="d-flex">
                                 <h4 class="p-mb-1 PageTitle">Achievements (Optional)</h4>
-                                <i class="fa-solid fa-circle-question m-2 uniprepColor"  pTooltip="Please add a minimum of 5 achievements on your CV for it to look appropriate" tooltipPosition="top" ></i>
+                                <i class="fa-solid fa-circle-question m-2 uniprepColor"  pTooltip="List any notable awards, honors, or accomplishments" tooltipPosition="top" ></i>
                             </div>
                             <div *ngFor="let extra of getExtraCurricularArray.controls; let i = index"
                                  formArrayName="extraCurricularArray">
@@ -759,7 +826,7 @@
                         <div class="col-md-12">
                             <div class="d-flex">
                                 <h4 class="p-mb-1 PageTitle">Your Skills</h4>
-                                <i class="fa-solid fa-circle-question m-2 uniprepColor"  pTooltip="Please add a minimum of 5 skills on your CV for it to look appropriate" tooltipPosition="top" ></i>
+                                <i class="fa-solid fa-circle-question m-2 uniprepColor"  pTooltip="Mention at least five key skills relevant to your profession" tooltipPosition="top" ></i>
                             </div>
                             <div *ngFor="let skill of getSkillsArray.controls; let i = index" formArrayName="skillsArray">
                                 <div [formGroupName]="i">
@@ -810,7 +877,10 @@
                             </div>
                         </div>
                         <div class="col-md-12">
-                            <h4 class="p-mb-1 PageTitle">Languages Known</h4>
+                            <div class="d-flex">
+                                <h4 class="p-mb-1 PageTitle">Languages Known</h4>
+                                <i class="fa-solid fa-circle-question m-2 uniprepColor"  pTooltip="List the languages you are proficient in" tooltipPosition="top" ></i>
+                            </div>
                             <div *ngFor="let language of getLanguagesKnownArray.controls; let i = index"
                                  formArrayName="languagesKnownArray">
                                 <div [formGroupName]="i">

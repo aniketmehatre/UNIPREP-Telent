@@ -91,14 +91,13 @@
 }
 
 .HistoryDownloadIcon {
-	// transform: translateY(350%) translateX(-150%);
 	padding: 5px;
 	background-color: var(--uniprep-primary);
 	color: white;
 	border-radius: 25px;
-	position: relative;
-	left: 25%;
-	bottom: 15%;
+	position: absolute;
+	transform: translateY(9%) translateX(250%);
+	top: 57%;
 }
 
 .HistoryDeleteIcon {
@@ -106,9 +105,9 @@
 	background-color: #d80027;
 	color: white;
 	border-radius: 25px;
-	position: relative;
-	left: 35%;
-	bottom: 75%;
+	position: absolute;
+	bottom: 70%;
+	transform: translateY(9%) translateX(250%);
 }
 
 .tickIcon {
@@ -535,6 +534,16 @@
 	  background-color: #dcdcdc; 
 	}
   }
+
+  .pdfviewer-card-border{
+	border-radius: 10px !important;
+    text-transform: inherit !important;
+    background-color: #ededed;
+    border: 1px solid #dfe4f8;
+	padding: 10px;
+	margin: 10px;
+  }
+
 .cvSampleImg{
 	cursor: pointer;
 	margin: auto;
