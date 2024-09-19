@@ -1,23 +1,23 @@
 import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute, NavigationEnd, Router} from "@angular/router";
 import {filter, Observable} from "rxjs";
-import {ModuleListSub} from "../../../@Models/module.model";
 import {ConfirmationService, MenuItem} from "primeng/api";
 import {ModuleServiceService} from "../../module-store/module-service.service";
+import {ActivatedRoute, NavigationEnd, Router} from "@angular/router";
 import {DataService} from "../../../data.service";
+import {AuthService} from "../../../Auth/auth.service";
 import {LocationService} from "../../../location.service";
-import {AuthService} from 'src/app/Auth/auth.service';
 import {NgxUiLoaderService} from "ngx-ui-loader";
-import {PageFacadeService} from '../../page-facade.service';
+import {PageFacadeService} from "../../page-facade.service";
 import {Meta, Title} from "@angular/platform-browser";
+import {ModuleListSub} from "../../../@Models/module.model";
 
 @Component({
-    selector: 'uni-list-sub-modules',
-    templateUrl: './list-sub-modules.component.html',
-    styleUrls: ['./list-sub-modules.component.scss'],
+    selector: 'uni-k12-class',
+    templateUrl: './k12-class.component.html',
+    styleUrls: ['./k12-class.component.scss'],
     providers: [ConfirmationService]
 })
-export class ListSubModulesComponent implements OnInit {
+export class K12ClassComponent implements OnInit {
     subModules$!: Observable<ModuleListSub[]>;
     quizList$!: Observable<any>;
     selectedSubModule: any;
@@ -55,13 +55,12 @@ export class ListSubModulesComponent implements OnInit {
     countryId: any;
     canShowQuestionList: boolean = false;
     howItWorksVideoLink: string = "";
-    quizmoduleselectcountryidsetzero: any = 0;
-    selectSubmoduleName: string = "";
-    ehitlabelIsShow: boolean = true;
-    imagewhitlabeldomainname: any
-    orgnamewhitlabel: any;
-    orglogowhitelabel: any;
-
+    quizmoduleselectcountryidsetzero:any=0;
+    selectSubmoduleName:string = "";
+    ehitlabelIsShow:boolean=true;
+    imagewhitlabeldomainname:any
+    orgnamewhitlabel:any;
+    orglogowhitelabel:any;
     constructor(private moduleListService: ModuleServiceService, private router: Router, private dataService: DataService, private authService: AuthService,
                 private locationService: LocationService, private route: ActivatedRoute, private ngxService: NgxUiLoaderService,
                 private confirmationService: ConfirmationService, private pageFacade: PageFacadeService,
@@ -97,25 +96,20 @@ export class ListSubModulesComponent implements OnInit {
             }
         ];
     }
-
     updateMetaTags() {
         // Get the route parameters
 
         // Update title and meta description
         this.titleService.setTitle(`Uniprep | Question modules`);
-        this.meta.updateTag({
-            name: 'description',
-            content: `Uniprep Question list modules. more that 100000 questions`
-        });
-        this.meta.updateTag({name: 'og:type', content: `website`});
-        this.meta.updateTag({name: 'og:image', content: `https://dev-student.uniprep.ai/uniprep-assets/images/f1.png`});
-        this.meta.updateTag({name: 'og:logo', content: `https://dev-student.uniprep.ai/uniprep-assets/images/f1.png`});
+        this.meta.updateTag({ name: 'description', content: `Uniprep Question list modules. more that 100000 questions` });
+        this.meta.updateTag({ name: 'og:type', content: `website` });
+        this.meta.updateTag({ name: 'og:image', content: `https://dev-student.uniprep.ai/uniprep-assets/images/f1.png` });
+        this.meta.updateTag({ name: 'og:logo', content: `https://dev-student.uniprep.ai/uniprep-assets/images/f1.png` });
     }
 
 
     allSearchedResult: any[] = []
-    loopRange = Array.from({length: 30}).fill(0).map((_, index) => index);
-
+    loopRange = Array.from({ length: 30 }).fill(0).map((_, index) => index);
     ngOnInit() {
         this.router.events.pipe(
             filter(event => event instanceof NavigationEnd)
@@ -131,26 +125,24 @@ export class ListSubModulesComponent implements OnInit {
         this.locationService.getOrgName().subscribe(orgname => {
             this.orgnamewhitlabel = orgname;
         });
-        this.imagewhitlabeldomainname = window.location.hostname;
+        this.imagewhitlabeldomainname=window.location.hostname;
         if (this.imagewhitlabeldomainname === "dev-student.uniprep.ai" || this.imagewhitlabeldomainname === "uniprep.ai" || this.imagewhitlabeldomainname === "localhost") {
-            this.ehitlabelIsShow = true;
-        } else {
-            this.ehitlabelIsShow = false;
+            this.ehitlabelIsShow=true;
+        }else{
+            this.ehitlabelIsShow=false;
         }
-        localStorage.setItem("modalcountryid", this.quizmoduleselectcountryidsetzero);
+        localStorage.setItem("modalcountryid",this.quizmoduleselectcountryidsetzero);
         this.init();
         this.moduleListService.getSubmodulesAndSpecialization().subscribe((res: any) => {
             this.allSearchedResult = res
         })
     }
-
     init() {
         this.currentCountryId = Number(localStorage.getItem('countryId'));
         this.currentModuleSlug = this.router.url.split('/').pop();
         this.dataService.countryNameSource.subscribe((data) => {
             this.countryName = data;
         });
-
         switch (this.currentModuleSlug) {
             case 'pre-admission':
                 this.currentModuleId = 1;
@@ -225,10 +217,10 @@ export class ListSubModulesComponent implements OnInit {
                     this.moduleDetails = 'Scholarships, document checklist, Education loan, letter of Recommendation and many more!'
                 this.howItWorksVideoLink = "https://www.youtube.com/embed/n9ECpsB6IoI?si=4coiypva6WZfr3NL";
                 break;
-            case 'k12-category':
+            case 'k12':
                 this.currentModuleId = 14;
                 this.currentModuleName = 'K12';
-                this.currentApiSlug = 'SubmoduleListForStudents';
+                this.currentApiSlug = 'getcareertoolcategorylist';
                 this.infoMessage = 'Upgrade to access the K12',
                     this.unlockMessage = 'Unlock the power of success with our exclusive k12!',
                     this.upgradePlanMsg = 'Upgrade your plan now to gain instant access.';
@@ -264,7 +256,7 @@ export class ListSubModulesComponent implements OnInit {
     }
 
     loadModuleAndSubModule() {
-        console.log('working', localStorage.getItem('selectedClass'))
+
         this.currentCountryId = Number(localStorage.getItem('countryId'));
         //this.isSkeletonVisible = true;
         //this.subModules$ = this.moduleListService.subModuleList$();
@@ -273,26 +265,31 @@ export class ListSubModulesComponent implements OnInit {
         }
         if (this.currentModuleId == 8) {
             data.category_flag = 1;
-        } else if (this.currentModuleId == 10) {
+        }
+        else if (this.currentModuleId == 10) {
             data.country_id = 0;
-        } else if (this.currentModuleId == 14) {
-            data.category_flag = 1
-            data.country_id = 0
-            data.parent_category_id = Number(localStorage.getItem('selectedClass'))
-        } else {
+        }else if(this.currentModuleId == 14){
+            data.module_id = this.currentModuleId
+            data.api_module_name = this.currentApiSlug;
+        }else {
             data.country_id = this.currentCountryId;
             data.api_module_name = this.currentApiSlug;
         }
-        //this.moduleListService.loadSubModules(data);
-        this.locationService.GetQuestionsCount(data).subscribe(data => {
 
+        this.locationService.getK12MainCategory(data).subscribe(data => {
             this.isSkeletonVisible = false;
-            this.subModuleList = data;
-            if (this.currentModuleId == 8) {
-                this.subModuleList.map(list => list.submodule_name = list.category);
-            }
-
+            this.subModuleList = data.data;
         });
+        //this.moduleListService.loadSubModules(data);
+        // this.locationService.GetQuestionsCount(data).subscribe(data => {
+        //
+        //     this.isSkeletonVisible = false;
+        //     this.subModuleList = data;
+        //     if (this.currentModuleId == 8) {
+        //         this.subModuleList.map(list => list.submodule_name = list.category);
+        //     }
+        //
+        // });
         // this.subModules$.subscribe(event => {
         //   this.subModuleList = event;
         // });
@@ -311,14 +308,16 @@ export class ListSubModulesComponent implements OnInit {
         }
         this.moduleListService.quizList(data);
         this.quizList$ = this.moduleListService.quizList$();
+        console.log(this.quizList$);
 
         this.quizList$.subscribe((data) => {
+            console.log(data);
             if (data) {
                 this.quizData = data.map((val: any) => {
                     let moduleData = this.moduleList.filter(ind => ind.id == val.module_id)[0]!.module_name;
                     let subModuleName = this.subModuleList.filter(ind => ind.id == val.submodule_id)[0]!.submodule_name;
                     let number = 1;
-                    let dd = {...val};
+                    let dd = { ...val };
                     dd.module_name = moduleData
                     dd.sub_module_name = subModuleName
                     dd.otp1 = dd.option1 + dd.id + number++;
@@ -343,8 +342,8 @@ export class ListSubModulesComponent implements OnInit {
         this.dataService.countryNameSource.subscribe(countryName => {
             cName = countryName;
         });
-        this.breadCrumb = [{label: cName}, {label: this.quizData[0]!.module_name},
-            {label: this.quizData[0]!.sub_module_name}];
+        this.breadCrumb = [{ label: cName }, { label: this.quizData[0]!.module_name },
+            { label: this.quizData[0]!.sub_module_name }];
     }
 
     clickPreviousQuiz(carouselQuiz: any, event: any) {
@@ -353,7 +352,7 @@ export class ListSubModulesComponent implements OnInit {
         }
         let singleQuizData = this.quizData[this.selectedQuiz - 2];
         this.quizData.map((data: any) => {
-            let dd = {...data};
+            let dd = { ...data };
 
             if (dd.id == singleQuizData.id) {
                 this.selectedOptNumber = dd.user_answered;
@@ -369,8 +368,8 @@ export class ListSubModulesComponent implements OnInit {
         this.dataService.countryNameSource.subscribe(countryName => {
             cName = countryName;
         });
-        this.breadCrumb = [{label: cName}, {label: singleQuizData.module_name},
-            {label: singleQuizData.sub_module_name}];
+        this.breadCrumb = [{ label: cName }, { label: singleQuizData.module_name },
+            { label: singleQuizData.sub_module_name }];
         carouselQuiz.navBackward(event, this.selectedQuiz);
     }
 
@@ -381,7 +380,7 @@ export class ListSubModulesComponent implements OnInit {
 
         let singleQuizData = this.quizData[this.selectedQuiz - 1];
         this.quizData = this.quizData.map((data: any) => {
-            let dat = {...data}
+            let dat = { ...data }
             if (dat.id == singleQuizData.id) {
                 if (!dat.user_answered_value) {
                     dat.user_answered = this.selectedOptNumber;
@@ -405,13 +404,11 @@ export class ListSubModulesComponent implements OnInit {
             cName = countryName;
         });
 
-        this.breadCrumb = [{label: cName}, {label: singleQuizData.module_name},
-            {label: singleQuizData.sub_module_name}];
+        this.breadCrumb = [{ label: cName }, { label: singleQuizData.module_name },
+            { label: singleQuizData.sub_module_name }];
         carouselQuiz.navForward(event, this.selectedQuiz);
     }
-
     restrict = false;
-
     clickSubmitQuiz() {
         this.quizData.forEach((data) => {
             if (data.answer == data.user_answered) {
@@ -452,8 +449,8 @@ export class ListSubModulesComponent implements OnInit {
     }
 
     startQuiz() {
-        if (this.planExpired) {
-            this.restrict = true;
+        if(this.planExpired){
+            this.restrict=true;
             return;
         }
         this.router.navigate([`/pages/modules/${this.currentModuleSlug}/quiz`]);
@@ -481,50 +478,47 @@ export class ListSubModulesComponent implements OnInit {
     }
 
     onSubModuleClick(id: any, submodule: any) {
-        this.selectSubmoduleName = submodule.submodule_name;
-        // if(this.planExpired){
-        //   this.restrict=true;
-        //   return;
+        // console.log(id, "submodule-id");
+        // console.log(submodule, "submodule");
+        // this.selectSubmoduleName = submodule.submodule_name;
+        // // if(this.planExpired){
+        // //   this.restrict=true;
+        // //   return;
+        // // }
+        // if (this.currentModuleId == 14){
+        //     let data: any = {
+        //         moduleId: this.currentModuleId,
+        //         category_id: this.subModuleList.find(list => list.submodule_id == id)?.category_id
+        //     }
+        //     this.isSkeletonVisible = true;
+        //     this.locationService.GetQuestionsCount(data).subscribe(data => {
+        //         this.isSkeletonVisible = false;
+        //         this.subModuleList = data;
+        //     });
+        //     this.canShowQuestionList = true;
+        //     return;
         // }
-        if (this.currentModuleId == 14) {
-            if (submodule.submodule_name) {
-                this.currentModuleSlug = "k12-category"
-                this.router.navigate([`/pages/modules/${this.currentModuleSlug}/question-list/${submodule.submodule_id}`]);
-                return;
-            }
-            let data: any = {
-                moduleId: this.currentModuleId,
-                category_id: submodule.category_id,
-                country_id: 0,
-            }
-            this.isSkeletonVisible = true;
-            this.locationService.GetQuestionsCount(data).subscribe(data => {
-                this.isSkeletonVisible = false;
-                this.subModuleList = data;
-            });
-            this.canShowQuestionList = true;
-            return;
-        }
-        if (this.currentModuleId == 8 && !this.canShowQuestionList) {
-            let data: any = {
-                moduleId: this.currentModuleId,
-                category_id: this.subModuleList.find(list => list.submodule_id == id)?.category_id
-            }
-            this.isSkeletonVisible = true;
-            this.locationService.GetQuestionsCount(data).subscribe(data => {
-                this.isSkeletonVisible = false;
-                this.subModuleList = data;
-            });
-            this.canShowQuestionList = true;
-            return;
-        }
-        this.subModuleList.forEach((element: any) => {
-            if (element.id === id) {
-                this.selectedSubModule = element.country;
-            }
-        });
-        this.selectedSubModule = id;
-        this.router.navigate([`/pages/modules/${this.currentModuleSlug}/question-list/${this.selectedSubModule}`]);
+        // if (this.currentModuleId == 8 && !this.canShowQuestionList) {
+        //     let data: any = {
+        //         moduleId: this.currentModuleId,
+        //         category_id: this.subModuleList.find(list => list.submodule_id == id)?.category_id
+        //     }
+        //     this.isSkeletonVisible = true;
+        //     this.locationService.GetQuestionsCount(data).subscribe(data => {
+        //         this.isSkeletonVisible = false;
+        //         this.subModuleList = data;
+        //     });
+        //     this.canShowQuestionList = true;
+        //     return;
+        // }
+        // this.subModuleList.forEach((element: any) => {
+        //     if (element.id === id) {
+        //         this.selectedSubModule = element.country;
+        //     }
+        // });
+        // this.selectedSubModule = id;
+        localStorage.setItem('selectedClass', id)
+        this.router.navigate([`/pages/modules/k12-category` ]);
     }
 
     selectAnswer(selectedOption: any, singleData: any, optNumber: number) {
@@ -532,7 +526,7 @@ export class ListSubModulesComponent implements OnInit {
         this.selectedOptNumber = optNumber;
         this.selectedOptValue = selectedOption;
         let mappedQuiz = this.quizData.map((data: any) => {
-            let dat = {...data}
+            let dat = { ...data }
             if (dat.id == singleData.id) {
 
                 dat.user_answered = optNumber;
@@ -560,7 +554,6 @@ export class ListSubModulesComponent implements OnInit {
             }
         })
     }
-
     retryQuiz() {
         this.isReviewVisible = false;
         this.isQuizSubmit = false;
@@ -572,23 +565,18 @@ export class ListSubModulesComponent implements OnInit {
         this.positionNumber = 1;
         this.isInstructionVisible = true;
     }
-
     upgradePlan(): void {
         this.router.navigate(["/pages/subscriptions"]);
     }
-
     goBack() {
         this.isSkeletonVisible = true;
         this.loadModuleAndSubModule();
         this.canShowQuestionList = false;
     }
-
     clearRestriction() {
         this.restrict = false;
     }
-
     quizpercentage: any = 0
-
     checkquizquestionmodule() {
         var data = {
             moduleid: this.currentModuleId,
@@ -605,8 +593,7 @@ export class ListSubModulesComponent implements OnInit {
 
     searchLearning: any
     filteredData: any[] = []
-
-    performSearch() {
+    performSearch(){
         if (this.searchLearning) {
             this.filteredData = this.allSearchedResult
                 .filter((item: any) =>
@@ -624,7 +611,7 @@ export class ListSubModulesComponent implements OnInit {
         }
     }
 
-    takeMeToQuestion(data: any) {
+    takeMeToQuestion(data: any){
         this.router.navigate([`/pages/modules/learning-hub/question-list/${data.submodule_id}`]);
     }
 
