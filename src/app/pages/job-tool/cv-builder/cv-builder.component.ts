@@ -56,9 +56,9 @@ export class CvBuilderComponent implements OnInit  {
   skillsLists: any = [];
   resumeSlider: any = [
     {
-      id: 1,
-      templateName: "Traditional",
-      imageLink: "../../../uniprep-assets/resume-images/Traditional.webp",
+      id: 5,
+      templateName: "Creative",
+      imageLink: "../../../uniprep-assets/resume-images/Creative.webp",
     },
     {
       id: 2,
@@ -76,14 +76,14 @@ export class CvBuilderComponent implements OnInit  {
       imageLink: "../../../uniprep-assets/resume-images/functional.webp",
     },
     {
-      id: 5,
-      templateName: "Creative",
-      imageLink: "../../../uniprep-assets/resume-images/Creative.webp",
-    },
-    {
-      id: 6,
+      id: 1,
       templateName: "Traditional",
       imageLink: "../../../uniprep-assets/resume-images/Traditional.webp",
+    },
+    {
+      id: 10,
+      templateName: "Creative",
+      imageLink: "../../../uniprep-assets/resume-images/Creative.webp",
     },
     {
       id: 7,
@@ -101,9 +101,9 @@ export class CvBuilderComponent implements OnInit  {
       imageLink: "../../../uniprep-assets/resume-images/functional.webp",
     },
     {
-      id: 10,
-      templateName: "Creative",
-      imageLink: "../../../uniprep-assets/resume-images/Creative.webp",
+      id: 6,
+      templateName: "Traditional",
+      imageLink: "../../../uniprep-assets/resume-images/Traditional.webp",
     },
     
   ];
@@ -189,7 +189,7 @@ export class CvBuilderComponent implements OnInit  {
   callBackFn() {
    setTimeout(() => {
     this.loadingResumes = false;
-   }, 3000);
+   }, 3500);
   }
 
   ngOnInit(): void {
@@ -514,6 +514,7 @@ export class CvBuilderComponent implements OnInit  {
   fieldPreviousButton() {
     if(this.moduleActiveIndex == 0){
       this.activePageIndex = 1;
+      this.ngAfterViewInit();
     }else{
       this.moduleActiveIndex--;
     }
@@ -622,7 +623,7 @@ export class CvBuilderComponent implements OnInit  {
 
   next() {
     if(this.activePageIndex == 0){
-      this.IntializeSwiper();
+      this.ngAfterViewInit();
     }
     this.activePageIndex++;
     if (this.activePageIndex == 4) {
@@ -642,15 +643,16 @@ export class CvBuilderComponent implements OnInit  {
     this.hideHeader();
   }
 
-  private IntializeSwiper(): void {
-    this.ngAfterViewInit();
-  }
+  // private IntializeSwiper(): void {
+  //   this.ngAfterViewInit();
+  // }
 
   previousResumes(){
     this.resumeService.getAlreadyCreatedResumes().subscribe(res => {
       this.resumeHistory = res;
       if(res.length == 0){
         this.activePageIndex = 1;
+        this.ngAfterViewInit();
       }
     });
   }
