@@ -21,7 +21,7 @@
 					</div>
 				</div>
 			</div>
-			<div class="col-md-2 mt-2 text-end desktop justify-content-end d-none d-md-flex" *ngIf="currentModuleId == 8||currentModuleId == 10">
+			<div class="col-md-2 mt-2 text-end desktop justify-content-end d-none d-md-flex" *ngIf="currentModuleId == 8||currentModuleId == 10 || currentModuleId == 14">
 				<button role="button" style="background-color: black; cursor: pointer" (click)="startQuiz()" class="btn w-75 m-0 px-2 py-2 homecardbtn homecardbtnquiz" [disabled]="quizpercentage >= 90">
 					<i class="fa-regular h3 fa-lightbulb-on mb-1"></i>
 					<p class="mb-1">Start Quiz</p>
@@ -83,14 +83,14 @@
                                         {{ sub.read == 1 ? 'readButton' : '' }}"
 								pButton
 								type="button">
-								Read &nbsp;<span class="desktop-enable">Answer</span>
+								Read &nbsp;<span class="desktop-enable">{{sub.read == 1 ? 'Completed' : 'Answer'}}</span>
 							</button>
 							<button
 								class="btn d-md-none d-flex flex-shrink-0 btn-primary m-0 primary-btn
                                         {{ sub.read == 1 ? 'readButton' : '' }}"
 								pButton
 								type="button">
-								Read &nbsp;<span class="desktop-enable">Answer</span>
+								Read &nbsp;<span class="desktop-enable">{{sub.read == 1 ? 'Completed' : 'Answer'}}</span>
 							</button>
 						</div>
 					</div>

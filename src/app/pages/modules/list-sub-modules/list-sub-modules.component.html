@@ -20,7 +20,7 @@
 					</div>
 				</div>
 			</div>
-			<div class="col-md-3 mt-2 text-end desktop justify-content-end d-none d-md-flex" *ngIf="currentModuleId != 5 && currentModuleId != 8 && currentModuleId !=10 && currentModuleId !=11">
+			<div class="col-md-3 mt-2 text-end desktop justify-content-end d-none d-md-flex" *ngIf="currentModuleId != 5 && currentModuleId != 8 && currentModuleId !=10 && currentModuleId !=11 && currentModuleId !=14">
 				<button role="button" style="background-color: black; cursor: pointer;" (click)="startQuiz()" class="btn w-75 m-0 px-2 py-2 homecardbtn homecardbtnquiz" [disabled]="quizpercentage >= 90">
 					<i class="fa-regular h3 fa-lightbulb-on mb-1"></i>
 					<p class="mb-1">Start Quiz</p>
@@ -73,12 +73,12 @@
 						<div class="card-body d-flex flex-md-column flex-row justify-content-md-between align-items-center px-0 py-2">
 							<div>
 								<div class="submoduleicon">
-									<img alt="{{ sub.category != '' ? sub.submodule_name : sub.category }}" class="selectimage" src="{{ sub.icon }}" />
+									<img alt="{{ sub.category == null ? sub.submodule_name : sub.category }}" class="selectimage" src="{{ sub.icon }}" />
 								</div>
-								<h6 class="text-center subjecttitle d-md-block d-none pt-2">{{ sub.submodule_name }}</h6>
+								<h6 class="text-center subjecttitle d-md-block d-none pt-2">{{ sub.category == null ? sub.submodule_name : sub.category}}</h6>
 							</div>
 							<div class="text-start text-md-center">
-								<h6 class="subjecttitle d-md-none d-block pt-2">{{ sub.submodule_name }}</h6>
+								<h6 class="subjecttitle d-md-none d-block pt-2">{{ sub.category == null ? sub.submodule_name : sub.category }}</h6>
 								<p class="mb-0 sub-data" *ngIf="this.currentModuleId != 8">{{ sub.questioncount }} Question Answered</p>
 							</div>
 						</div>

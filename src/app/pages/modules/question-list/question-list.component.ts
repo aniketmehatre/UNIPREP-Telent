@@ -198,6 +198,12 @@ export class QuestionListComponent implements OnInit {
             this.howItWorksVideoLink = "https://www.youtube.com/embed/dHhq2xrBn5s?si=2dMsQcwwOY17dDHi";
             this.tooltip = "";
             break;
+          case 'k12-category':
+            this.currentModuleId = 14;
+            this.currentModuleName = 'K12';
+            this.currentApiSlug = 'StudentsSubmoduleQuestions';
+            this.tooltip = "";
+            break;
           default:
             this.currentModuleId = 6;
             this.currentModuleName = "Life At " + countryName;
@@ -281,6 +287,12 @@ export class QuestionListComponent implements OnInit {
         this.howItWorksVideoLink = "https://www.youtube.com/embed/dHhq2xrBn5s?si=2dMsQcwwOY17dDHi";
         this.currentModuleSlug = "skill-mastery"
         break;
+      case 'k12-category':
+        this.currentModuleId = 14;
+        this.currentModuleName = 'K12';
+        this.currentApiSlug = 'StudentsSubmoduleQuestions';
+        this.tooltip = "";
+        break;
       default:
         this.currentModuleId = 6;
         this.currentModuleName = "Life At " + countryName;
@@ -330,7 +342,7 @@ export class QuestionListComponent implements OnInit {
       perpage: this.perpage,
     };
 
-    if (this.currentModuleId == 8 || this.currentModuleId == 10) {
+    if (this.currentModuleId == 8 || this.currentModuleId == 10  || this.currentModuleId == 14) {
       data.countryId = 0;
     }
     this.loadQuestionList(data);
@@ -863,12 +875,17 @@ export class QuestionListComponent implements OnInit {
     socialShare.style.display = "none";
   }
   startQuiz() {
+
     if(this.planExpired){
       this.restrict=true;
       return;
     }
     localStorage.setItem("learninghubsubmoduleid", this.subModuleId);
     localStorage.setItem("skillmasteryquizsubmoduleid",this.subModuleId);
+    if(this.currentModuleId==14){
+      this.router.navigate([`/pages/modules/k12-category/k12-quiz`]);
+      return;
+    }
     if(this.currentModuleId==10){
       this.router.navigate([`/pages/modules/${this.currentModuleSlug}/quiz`]);
     }else{
