@@ -30,6 +30,7 @@ export class CoverLetterBuilderComponent implements OnInit {
   submittedsummery:boolean=false;
   //cloning limit
   eduDetailsLimit: number = 3;
+  moduleActiveIndex: number = 1;
   wrkExpLimit: number = 3;
   projectLimit: number = 3;
   languageLimit: number = 5;
@@ -142,6 +143,20 @@ export class CoverLetterBuilderComponent implements OnInit {
       this.splitUserName(value); // it calls when the user enters the user name
     })
   }
+  nextStage(){
+    if(this.moduleActiveIndex < 3){
+      this.moduleActiveIndex++;
+      // this.activePageIndex++;
+      return;
+    }
+  }
+  prevStage(){
+    if(this.moduleActiveIndex > 1){
+      this.moduleActiveIndex--;
+      // this.activePageIndex++;
+      return;
+    }
+  }
   hideHeader() {
     const url = this.router.url;
     if (this.activePageIndex == 2 && url.endsWith('/coverletter-builder')) {
@@ -182,11 +197,15 @@ export class CoverLetterBuilderComponent implements OnInit {
   }
 
   resumeFormSubmit() {
-    if(!this.resumeFormInfoData.valid){
-      this.submitted=true;
-      this.submittedsummery=true;
-      return;
-    }
+    // if(!this.resumeFormInfoData.valid){
+    //   this.submitted=true;
+    //   this.submittedsummery=true;
+    //   return;
+    
+    // }
+    this.submitted=true;
+    this.submittedsummery=true;
+    alert("ran");
       this.generateImage();
       this.activePageIndex = 3;
  
