@@ -16,10 +16,10 @@ export class FoundersacademyComponent implements OnInit {
   categorylist:any[]=[];
   categoryextra:any;
   selectedCategoryId: number | null = null; 
-  constructor(private resourceService: FounderstoolService,private sanitizer: DomSanitizer) { }
+  constructor(private service: FounderstoolService,private sanitizer: DomSanitizer) { }
   ngOnInit(): void {
     this.filterCat(null)
-    this.resourceService.getFounderCategory().subscribe((response:any)=>{
+    this.service.getFounderCategory().subscribe((response:any)=>{
       this.categoryextra = [{ id: null, name: "All" }];
       this.categorylist=[...this.categoryextra,...response.data]
     });
@@ -79,7 +79,7 @@ export class FoundersacademyComponent implements OnInit {
     var data={
       category:id
     }
-    this.resourceService.getAcademy(data).subscribe((response:any)=>{
+    this.service.getAcademy(data).subscribe((response:any)=>{
       this.academyllist=[];
       var academy= response.founders;
       academy.forEach((element:any) => {

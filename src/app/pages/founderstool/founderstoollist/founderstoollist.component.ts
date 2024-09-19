@@ -20,4 +20,8 @@ export class FounderstoollistComponent implements OnInit {
   openAcademy(){
     this.router.navigate(['/pages/founderstool/foundersacademy']);
   }
+  openInvestorTraining(){
+    this.router.navigate(['/pages/founderstool/investorpitchtraining']);
+
+  }
 }
