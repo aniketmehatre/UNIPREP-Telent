@@ -22,6 +22,8 @@ export class FounderstoollistComponent implements OnInit {
   }
   openInvestorTraining(){
     this.router.navigate(['/pages/founderstool/investorpitchtraining']);
-
+  }
+  openStartUpGlossary(){
+    this.router.navigate(['/pages/founderstool/startupglossary']);
   }
 }
