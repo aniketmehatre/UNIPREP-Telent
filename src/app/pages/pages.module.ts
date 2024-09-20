@@ -74,6 +74,7 @@ import { FounderstoolComponent } from './founderstool/founderstool.component';
 import { FoundersacademyComponent } from './founderstool/foundersacademy/foundersacademy.component';
 import { FounderstoollistComponent } from './founderstool/founderstoollist/founderstoollist.component';
 import { InvestorpitchtrainingComponent } from './founderstool/investorpitchtraining/investorpitchtraining.component';
+import { StartupglossaryComponent } from './founderstool/startupglossary/startupglossary.component';
 // import { JobToolComponent } from './job-tool/job-tool.component';
 @NgModule({
     declarations: [

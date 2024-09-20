@@ -16,6 +16,7 @@ import { FoundersacademyComponent } from '../foundersacademy/foundersacademy.com
 import {ConfirmationService} from 'primeng/api';
 import { FounderstoollistComponent } from '../founderstoollist/founderstoollist.component';
 import { InvestorpitchtrainingComponent } from '../investorpitchtraining/investorpitchtraining.component';
+import { StartupglossaryComponent } from '../startupglossary/startupglossary.component';
 
 
 @NgModule({
@@ -23,7 +24,8 @@ import { InvestorpitchtrainingComponent } from '../investorpitchtraining/investo
     FounderstoolComponent,
     FoundersacademyComponent,
     FounderstoollistComponent,
-    InvestorpitchtrainingComponent
+    InvestorpitchtrainingComponent,
+    StartupglossaryComponent
   ],
   imports: [
     CommonModule,
