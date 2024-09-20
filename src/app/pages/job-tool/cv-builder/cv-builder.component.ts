@@ -116,10 +116,10 @@ export class CvBuilderComponent implements OnInit  {
   imagewhitlabeldomainname: any
   orgnamewhitlabel: any;
   orglogowhitelabel: any;
-  hidingHeaders: string[] = ['header_names'];
+  hidingHeaders: string[] = ['project_details'];
   swiper!: Swiper;
   loadingResumes: boolean = true;
-
+  filledFields: string[] = [];
   constructor(private toaster: MessageService, private fb: FormBuilder, private resumeService: CourseListService,
               private http: HttpClient, private router: Router, private confirmService: ConfirmationService,
               private renderer: Renderer2, private el: ElementRef,  private authService: AuthService,
@@ -243,7 +243,6 @@ export class CvBuilderComponent implements OnInit  {
         this.resumeFormInfoData.patchValue(storedValues);
         this.moduleActiveIndex = storedValues.active_index;
         this.changeExperience();
-
         const workExpData = storedValues.workExpArray;
         if(workExpData.length != 0){
           workExpData.forEach((activity:any) => {
@@ -262,8 +261,7 @@ export class CvBuilderComponent implements OnInit  {
             }));
           });
           this.hidingHeaders.push('project_details');
-        }else{
-          this.hidingHeaders.push('work_experience');
+          this.filledFields.push('project_details','work_experience');
         }
 
         const educationData = storedValues.EduDetailsArray;
@@ -280,10 +278,9 @@ export class CvBuilderComponent implements OnInit  {
               edu_cgpa_percentage: [element.edu_cgpa_percentage],
             }));
           });
-        }else{
-          this.hidingHeaders.push('education_detail');
+          this.filledFields.push('education_detail');
         }
-
+        
         const certificateData = storedValues.certificatesArray;
         if(certificateData.length != 0){
           certificateData.forEach((element: any) => {
@@ -294,9 +291,11 @@ export class CvBuilderComponent implements OnInit  {
               certicate_link: [element.certicate_link],
             }));
           });
-        }else{
-          this.hidingHeaders.push('certificate');
+          this.filledFields.push('certificate');
         }
+        // else if(storedValues.active_index > 2){
+        //   this.hidingHeaders.push('certificate');
+        // }
 
         const achievementData = storedValues.extraCurricularArray;
         if(achievementData.length != 0){
@@ -305,9 +304,11 @@ export class CvBuilderComponent implements OnInit  {
               extra_curricular_activites: [element.extra_curricular_activites, Validators.required]
             }));
           });
-        }else{
-          this.hidingHeaders.push('extra_curricular');
+          this.filledFields.push('extra_curricular');
         }
+        // else if(storedValues.active_index > 2){
+        //   this.hidingHeaders.push('extra_curricular');
+        // }
 
         const skillsData = storedValues.skillsArray;
         if(skillsData.length != 0){
@@ -317,9 +318,11 @@ export class CvBuilderComponent implements OnInit  {
               skills_proficiency: [element.skills_proficiency, Validators.required],
             }));
           });
-        }else{
-          this.hidingHeaders.push('skills');
+          this.filledFields.push('skills');
         }
+        // else if(storedValues.active_index > 2){
+        //   this.hidingHeaders.push('skills');
+        // }
 
         const languageData = storedValues.languagesKnownArray;
         if(languageData.length != 0){
@@ -329,9 +332,11 @@ export class CvBuilderComponent implements OnInit  {
               lang_proficiency: [element.lang_proficiency, Validators.required],
             }));
           });
-        }else{
-          this.hidingHeaders.push('language_known');
+          this.filledFields.push('language_known');
         }
+        // else if(storedValues.active_index > 2){
+        //   this.hidingHeaders.push('language_known');
+        // } 
       }
     });
   }
@@ -458,9 +463,12 @@ export class CvBuilderComponent implements OnInit  {
     if(this.moduleActiveIndex > 4){
       this.moduleActiveIndex--;
       this.activePageIndex++;
+      this.filledFields.push('skills','language_known');
       return;
     }
     const fieldNameArray: string[] = [];
+    
+
     switch (this.moduleActiveIndex) {
       case 1:
         if (this.getWorkExpArray.length === 0 && !this.hidingHeaders.includes('work_experience')) {
@@ -469,6 +477,7 @@ export class CvBuilderComponent implements OnInit  {
         break;
 
       case 2:
+        this.filledFields.push('work_experience');
         if (this.getEduDetailsArray.length === 0 && !this.hidingHeaders.includes('education_detail')) {
           fieldNameArray.push('education_detail');
         }
@@ -478,6 +487,7 @@ export class CvBuilderComponent implements OnInit  {
         break;
 
       case 3:
+        this.filledFields.push('education_detail','project_details');
         if (this.getCertificatesArray.length === 0  && !this.hidingHeaders.includes('certificate')) {
           fieldNameArray.push('certificate');
         }
@@ -487,6 +497,7 @@ export class CvBuilderComponent implements OnInit  {
         break;
 
       case 4:
+        this.filledFields.push('certificate','extra_curricular');
         if (this.getSkillsArray.length === 0 && !this.hidingHeaders.includes('skills')) {
           fieldNameArray.push('skills');
         }
@@ -634,10 +645,6 @@ export class CvBuilderComponent implements OnInit  {
     this.hideHeader();
   }
 
-  // private IntializeSwiper(): void {
-  //   this.ngAfterViewInit();
-  // }
-
   previousResumes(){
     this.resumeService.getAlreadyCreatedResumes().subscribe(res => {
       this.resumeHistory = res;
@@ -646,12 +653,6 @@ export class CvBuilderComponent implements OnInit  {
         this.ngAfterViewInit();
       }
     });
-  }
-  
-  onPdfLoaded(event: CustomEvent): void {
-    // Set the loading state of this specific PDF to false
-    this.loadingResumes= false;
-    console.log(event);
   }
 
   get getEduDetailsArray(): FormArray {
@@ -803,6 +804,7 @@ export class CvBuilderComponent implements OnInit  {
       if (this.getWorkExpArray.length === 0) {
         this.hidingHeaders.push('work_experience');
         this.removeHideHeaderElement('project_details');
+        // this.hidingHeaders.push('project_details');
       }else{
         this.hidingHeaders.push('project_details');
       }

@@ -113,7 +113,7 @@
                         <div class="col-md-12 mb-3">
                             <div class="d-flex">
                                 <h4 class="p-mb-1 PageTitle">Your Experience Level</h4>
-                                <i class="fa-solid fa-circle-question m-2 uniprepColor"  pTooltip="Select your level of experience (Fresher or Experienced) to proceed further" tooltipPosition="top" ></i>
+                                <i class="fa-solid fa-circle-question m-2 uniprepColor"  pTooltip="Please select your level of experience to proceed further" tooltipPosition="top" ></i>
                             </div>
                             <p-dropdown [options]="experienceLevel" (onChange)="changeExperience()" placeholder="Select Experience Level" styleClass="w-100"
                                         formControlName="selected_exp_level" optionLabel="level" optionValue="id"></p-dropdown>
@@ -127,7 +127,7 @@
                                 <div class="col-md-6">
                                     <div class="d-flex">
                                         <label class="form-label labelFont">Your Name</label>
-                                        <i class="fa-solid fa-circle-question m-2 uniprepColor"  pTooltip="Enter your full name as you would like it to appear on your CV" tooltipPosition="top" ></i>
+                                        <i class="fa-solid fa-circle-question m-2 uniprepColor"  pTooltip="We recommend you enter your full name" tooltipPosition="top" ></i>
                                     </div>
                                     <div class="form-group">
                                         <div class="mb-3">
@@ -140,7 +140,10 @@
                                     </div>
                                 </div>
                                 <div class="col-md-6">
-                                    <label class="form-label labelFont">Job Title</label>
+                                    <div class="d-flex">
+                                        <label class="form-label labelFont">Job Title</label>
+                                        <i class="fa-solid fa-circle-question m-2 uniprepColor"  pTooltip="Please enter your current job title or designation" tooltipPosition="top" ></i>
+                                    </div>
                                     <div class="form-group">
                                         <div class="mb-3">
                                             <input class="w-100" type="text" placeholder="Your Job Title"
@@ -156,7 +159,7 @@
                                 <div class="col-md-6">
                                     <div class="d-flex">
                                         <label class="form-label labelFont">Your Email</label>
-                                        <i class="fa-solid fa-circle-question m-2 uniprepColor"  pTooltip="Provide a professional email address for recruiters to contact you" tooltipPosition="top" ></i>
+                                        <i class="fa-solid fa-circle-question m-2 uniprepColor"  pTooltip="We recommend you provide your active email address" tooltipPosition="top" ></i>
                                     </div>
                                     <div class="form-group">
                                         <div class="mb-3">
@@ -173,15 +176,16 @@
                                     </div>
                                 </div>
                                 <div class="col-md-6">
-                                    <label class="form-label labelFont">Current Location</label>
+                                    <div class="d-flex">
+                                        <label class="form-label labelFont">Current Location</label>
+                                        <i class="fa-solid fa-circle-question m-2 uniprepColor"  pTooltip="Please enter your current location" tooltipPosition="top" ></i>
+                                    </div>
                                     <div class="form-group">
                                         <div class="mb-3">
                                             <input class="w-100" type="text" placeholder="Location, State"
                                                    formControlName="user_location" pInputText />
-                                            <div *ngIf="submitted && f['user_location'].errors"
-                                                 class="text-danger text-xs">
-                                                <div style="margin-left:10px;" *ngIf="f['user_location'].errors">Current
-                                                    Location Required</div>
+                                            <div *ngIf="submitted && f['user_location'].errors" class="text-danger text-xs">
+                                                <div style="margin-left:10px;" *ngIf="f['user_location'].errors">Current Location Required</div>
                                             </div>
                                         </div>
                                     </div>
@@ -198,7 +202,10 @@
                                     </div>
                                 </div>
                                 <div class="col-md-6">
-                                    <label class="form-label labelFont">Phone Number</label>
+                                    <div class="d-flex">
+                                        <label class="form-label labelFont">Phone Number</label>
+                                        <i class="fa-solid fa-circle-question m-2 uniprepColor"  pTooltip="Please provide your active phone number" tooltipPosition="top" ></i>
+                                    </div>
                                     <div class="form-group">
                                         <div class="mb-3">
                                             <input class="w-100" type="text" placeholder="Phone Number"
@@ -218,7 +225,7 @@
                                 <div class="col-md-6">
                                     <div class="d-flex">
                                         <label class="form-label labelFont">LinkedIn Name</label>
-                                        <i class="fa-solid fa-circle-question m-2 uniprepColor"  pTooltip="Just enter the name as it appears on your LinkedIn profile" tooltipPosition="top" ></i>
+                                        <i class="fa-solid fa-circle-question m-2 uniprepColor"  pTooltip="Please enter your profile name as it appears on your LinkedIn" tooltipPosition="top" ></i>
                                     </div>
                                     <div class="form-group">
                                         <div class="mb-3">
@@ -232,7 +239,7 @@
                                 <div class="col-md-6">
                                     <div class="d-flex">
                                         <label class="form-label labelFont">LinkedIn Link</label>
-                                        <i class="fa-solid fa-circle-question m-2 uniprepColor"  pTooltip="Provide the URL to your LinkedIn profile" tooltipPosition="top" ></i>
+                                        <i class="fa-solid fa-circle-question m-2 uniprepColor"  pTooltip="Please provide the URL to your LinkedIn profile" tooltipPosition="top" ></i>
                                     </div>
                                     <div class="form-group">
                                         <div class="mb-3">
@@ -242,7 +249,10 @@
                                     </div>
                                 </div>
                                 <div class="col-md-12">
-                                    <label class="form-label labelFont">Website (Optional)</label>
+                                    <div class="d-flex">
+                                        <label class="form-label labelFont">Website (Optional)</label>
+                                        <i class="fa-solid fa-circle-question m-2 uniprepColor"  pTooltip="We recommend you provide your professional website or portfolio link if any" tooltipPosition="top" ></i>
+                                    </div>
                                     <div class="form-group">
                                         <div class="mb-3">
                                             <input class="w-100" type="text" placeholder="Website or portfolio Link"
@@ -254,7 +264,7 @@
                                     <div class="d-flex justify-content-between align-items-center">
                                         <div class="d-flex">
                                             <label class="form-label labelFont">Summary</label>
-                                            <i class="fa-solid fa-circle-question m-2 uniprepColor"  pTooltip="Write or generate a brief statement about yourself" tooltipPosition="top" ></i>
+                                            <i class="fa-solid fa-circle-question m-2 uniprepColor"  pTooltip="We recommend you provide or generate a concise summary about yourself" tooltipPosition="top" ></i>
                                         </div>
                                         <button class="deleteDivButton" (click)="chatGPTIntegration('user_summary', 0)"
                                                 style="background-color: #9bc329;">Generate &nbsp;<i
@@ -286,7 +296,7 @@
                         <div class="col-md-12">
                             <div class="d-flex">
                                 <h4 class="p-mb-1 PageTitle">Enter Your Work {{ f['selected_exp_level'].value == 1 ? '/ Internship' : '' }} Experience</h4>
-                                <i class="fa-solid fa-circle-question m-2 uniprepColor"  pTooltip="Add details of your previous jobs and internships " tooltipPosition="top" ></i>
+                                <i class="fa-solid fa-circle-question m-2 uniprepColor"  pTooltip="Please add details of your previous jobs" tooltipPosition="top" ></i>
                             </div>
                             <div class="col-md-12">
                                 <div class="card mb-2" *ngFor="let wrkExp of getWorkExpArray.controls; let i = index"
@@ -297,7 +307,7 @@
                                                 <div class="col-md-6">
                                                     <div class="d-flex">
                                                         <label class="form-label labelFont">Organization Name</label>
-                                                        <i class="fa-solid fa-circle-question m-2 uniprepColor"  pTooltip="Enter the name of the company or organization where you worked" tooltipPosition="top" ></i>
+                                                        <i class="fa-solid fa-circle-question m-2 uniprepColor"  pTooltip="Please enter the name of the company or organization where you worked" tooltipPosition="top" ></i>
                                                     </div>
                                                     <div class="form-group">
                                                         <div class="mb-3">
@@ -314,7 +324,7 @@
                                                 <div class="col-md-6">
                                                     <div class="d-flex">
                                                         <label class="form-label labelFont">Designation</label>
-                                                        <i class="fa-solid fa-circle-question m-2 uniprepColor"  pTooltip="Specify your job title or role within the organization" tooltipPosition="top" ></i>
+                                                        <i class="fa-solid fa-circle-question m-2 uniprepColor"  pTooltip="Please specify your job title or role within the organization" tooltipPosition="top" ></i>
                                                     </div>
                                                     <div class="form-group">
                                                         <div class="mb-3">
@@ -333,7 +343,7 @@
                                                     <div class="d-flex justify-content-between align-items-center">
                                                         <div class="d-flex">
                                                             <label class="form-label labelFont" style="font-size: small;">Experience Year </label>
-                                                            <i class="fa-solid fa-circle-question m-2 uniprepColor"  pTooltip="Enter the number of years you worked at this position" tooltipPosition="top" ></i>
+                                                            <i class="fa-solid fa-circle-question m-2 uniprepColor"  pTooltip="Please enter the number of years you worked at this position" tooltipPosition="top" ></i>
                                                         </div>
                                                         <div class="d-flex justify-content-between align-items-center">
                                                             <input type="checkbox"
@@ -401,7 +411,7 @@
                                                 <div class="col-md-6">
                                                     <div class="d-flex">
                                                         <label class="form-label labelFont">Work Type</label>
-                                                        <i class="fa-solid fa-circle-question m-2 uniprepColor"  pTooltip="Select whether the job was full-time, part-time, or contractual" tooltipPosition="top" ></i>
+                                                        <i class="fa-solid fa-circle-question m-2 uniprepColor"  pTooltip="Please select your employment type" tooltipPosition="top" ></i>
                                                     </div>
                                                     <div class="form-group">
                                                         <div class="mb-3">
@@ -437,7 +447,7 @@
                                                     <div class="d-flex justify-content-between align-items-center">
                                                         <div class="d-flex">
                                                             <label class="form-label labelFont">Job Description</label>
-                                                            <i class="fa-solid fa-circle-question m-2 uniprepColor"  pTooltip="Briefly describe your key responsibilities and achievements in this role" tooltipPosition="top" ></i>
+                                                            <i class="fa-solid fa-circle-question m-2 uniprepColor"  pTooltip="We recommend you describe minimum 5 key responsibilities and achievements" tooltipPosition="top" ></i>
                                                         </div>
                                                         <button class="deleteDivButton mb-2"
                                                                 (click)="chatGPTIntegration('work_job_description', i)" style="background-color: #9bc329;">Generate &nbsp;<i
@@ -493,7 +503,7 @@
                                                 <div class="col-md-6">
                                                     <div class="d-flex">
                                                         <label class="form-label labelFont">College/School Name</label>
-                                                        <i class="fa-solid fa-circle-question m-2 uniprepColor"  pTooltip="Enter the name of your educational institution" tooltipPosition="top" ></i>
+                                                        <i class="fa-solid fa-circle-question m-2 uniprepColor"  pTooltip="Please enter the name of your educational institution" tooltipPosition="top" ></i>
                                                     </div>
                                                     <div class="form-group">
                                                         <div class="mb-3">
@@ -511,7 +521,7 @@
                                                     <div class="d-flex justify-content-between align-items-center">
                                                         <div class="d-flex">
                                                             <label class="form-label labelFont" style="font-size: small;">Education Year </label>
-                                                            <i class="fa-solid fa-circle-question m-2 uniprepColor"  pTooltip="Enter the year you started and completed your degree" tooltipPosition="top" ></i>
+                                                            <i class="fa-solid fa-circle-question m-2 uniprepColor"  pTooltip="Please enter the year you started and completed your degree" tooltipPosition="top" ></i>
                                                         </div>
                                                         <div class="d-flex justify-content-between align-items-center">
                                                             <input type="checkbox" formControlName="edu_still_pursuing"
@@ -558,7 +568,7 @@
                                                 <div class="col-md-6">
                                                     <div class="d-flex">
                                                         <label class="form-label labelFont">Degree</label>
-                                                        <i class="fa-solid fa-circle-question m-2 uniprepColor"  pTooltip="Mention the degree or qualification you obtained" tooltipPosition="top" ></i>
+                                                        <i class="fa-solid fa-circle-question m-2 uniprepColor"  pTooltip="Please mention the degree or qualification you obtained" tooltipPosition="top" ></i>
                                                     </div>
                                                     <div class="form-group">
                                                         <div class="mb-3">
@@ -591,7 +601,7 @@
                                                 <div class="col-md-9">
                                                     <div class="d-flex">
                                                         <label class="form-label labelFont">Academic Score</label>
-                                                        <i class="fa-solid fa-circle-question m-2 uniprepColor"  pTooltip="Provide your GPA or percentage score, if applicable" tooltipPosition="top" ></i>
+                                                        <i class="fa-solid fa-circle-question m-2 uniprepColor"  pTooltip="Please provide your GPA or percentage score" tooltipPosition="top" ></i>
                                                     </div>
                                                     <div class="form-group">
                                                         <div class="mb-3">
@@ -736,7 +746,7 @@
                                             <div class="col-md-6">
                                                 <div class="d-flex">
                                                     <label class="form-label labelFont">Certificate Name</label>
-                                                    <i class="fa-solid fa-circle-question m-2 uniprepColor"  pTooltip="Enter the name of the certification you received" tooltipPosition="top" ></i>
+                                                    <i class="fa-solid fa-circle-question m-2 uniprepColor"  pTooltip="Please enter the name of the certification you received" tooltipPosition="top" ></i>
                                                 </div>
                                                 <div class="form-group">
                                                     <div class="mb-3">
@@ -753,7 +763,7 @@
                                             <div class="col-md-6">
                                                 <div class="d-flex">
                                                     <label class="form-label labelFont">Certificate Issued</label>
-                                                    <i class="fa-solid fa-circle-question m-2 uniprepColor"  pTooltip="Mention the organization or authority that issued the certification" tooltipPosition="top" ></i>
+                                                    <i class="fa-solid fa-circle-question m-2 uniprepColor"  pTooltip="Please mention the organization or authority that issued the certification" tooltipPosition="top" ></i>
                                                 </div>
                                                 <div class="form-group">
                                                     <div class="mb-3">
@@ -772,7 +782,7 @@
                                             <div class="col-md-6">
                                                 <div class="d-flex">
                                                     <label class="form-label labelFont">Certificate ID (Optional)</label>
-                                                    <i class="fa-solid fa-circle-question m-2 uniprepColor"  pTooltip="Enter the unique ID or code associated with the certificate, if applicable" tooltipPosition="top" ></i>
+                                                    <i class="fa-solid fa-circle-question m-2 uniprepColor"  pTooltip="Please enter the unique ID or code associated with the certificate" tooltipPosition="top" ></i>
                                                 </div>
                                                 <div class="form-group">
                                                     <div class="mb-3">
@@ -783,7 +793,7 @@
                                             <div class="col-md-6">
                                                 <div class="d-flex">
                                                     <label class="form-label labelFont">Certificate Link (Optional)</label>
-                                                    <i class="fa-solid fa-circle-question m-2 uniprepColor"  pTooltip="Provide a URL where employers can verify your certification" tooltipPosition="top" ></i>
+                                                    <i class="fa-solid fa-circle-question m-2 uniprepColor"  pTooltip="Please provide a URL where employers can verify your certification" tooltipPosition="top" ></i>
                                                 </div>
                                                 <div class="form-group">
                                                     <div class="mb-3">
@@ -808,7 +818,7 @@
                         <div class="col-md-12">
                             <div class="d-flex">
                                 <h4 class="p-mb-1 PageTitle">Achievements (Optional)</h4>
-                                <i class="fa-solid fa-circle-question m-2 uniprepColor"  pTooltip="List any notable awards, honors, or accomplishments" tooltipPosition="top" ></i>
+                                <i class="fa-solid fa-circle-question m-2 uniprepColor"  pTooltip="Please list any notable awards, honors, or accomplishments" tooltipPosition="top" ></i>
                             </div>
                             <div *ngFor="let extra of getExtraCurricularArray.controls; let i = index"
                                  formArrayName="extraCurricularArray">
@@ -846,7 +856,7 @@
                         <div class="col-md-12">
                             <div class="d-flex">
                                 <h4 class="p-mb-1 PageTitle">Your Skills</h4>
-                                <i class="fa-solid fa-circle-question m-2 uniprepColor"  pTooltip="Mention at least five key skills relevant to your profession" tooltipPosition="top" ></i>
+                                <i class="fa-solid fa-circle-question m-2 uniprepColor"  pTooltip="We recommend you enter at least five relevant skills" tooltipPosition="top" ></i>
                             </div>
                             <div *ngFor="let skill of getSkillsArray.controls; let i = index" formArrayName="skillsArray">
                                 <div [formGroupName]="i">
@@ -899,7 +909,7 @@
                         <div class="col-md-12">
                             <div class="d-flex">
                                 <h4 class="p-mb-1 PageTitle">Languages Known</h4>
-                                <i class="fa-solid fa-circle-question m-2 uniprepColor"  pTooltip="List the languages you are proficient in" tooltipPosition="top" ></i>
+                                <i class="fa-solid fa-circle-question m-2 uniprepColor"  pTooltip="Please list the languages you are proficient in" tooltipPosition="top" ></i>
                             </div>
                             <div *ngFor="let language of getLanguagesKnownArray.controls; let i = index"
                                  formArrayName="languagesKnownArray">
@@ -1439,6 +1449,7 @@
             </div>
             <div class="row">
                 <div class="col-md-7">
+                    <!-- [ngStyle]="{ height: selectedresume == 1 ? '75px' : null }" -->
                     <div style="height: 75px;">
                         <p class="headingStyle" style="margin:0px;"><span>about me</span></p>
                         <hr>
@@ -1447,7 +1458,7 @@
                         </div> 
                     </div>
                     <!-- [style.height]="f['selected_exp_level'].value == 1 ? '300px' : '400px'" -->
-                    <div style="height: 450px;" *ngIf="!hidingHeaders.includes('work_experience')">
+                    <div [ngStyle]="{ height: !filledFields.includes('work_experience') ? '450px' : null }" *ngIf="!hidingHeaders.includes('work_experience')">
                         <p class="headingStyle" style="margin:0px;"><span>experience</span></p>
                         <hr>
                         <div class="content">
@@ -1464,7 +1475,7 @@
                             </div>
                         </div>
                     </div>
-                    <div style="height: 150px;" *ngIf="!hidingHeaders.includes('education_detail')">
+                    <div [ngStyle]="{ height: !filledFields.includes('education_detail') ? '150px' : null }" *ngIf="!hidingHeaders.includes('education_detail')">
                         <p class="headingStyle" style="margin:0px;"><span>education</span></p>
                         <hr>
                         <div class="content fw-600 educationItem" *ngFor="let edu of getEduDetailsArray.controls">
@@ -1482,7 +1493,7 @@
                             </div>
                         </div>
                     </div>
-                    <div style="height: 150px;" *ngIf="f['selected_exp_level'].value == 1 && !hidingHeaders.includes('project_details')">
+                    <div [ngStyle]="{ height: !filledFields.includes('project_details') ? '150px' : null }" *ngIf="f['selected_exp_level'].value == 1 && !hidingHeaders.includes('project_details')">
                         <p class="headingStyle" style="margin:0px;"><span>project details</span></p>
                         <hr>
                         <div class="content fw-600" *ngFor="let project of getProjectDetailsArray.controls">
@@ -1527,7 +1538,7 @@
                             </div>
                         </div>
                     </ng-container>
-                    <div style="height: 150px;" *ngIf="!hidingHeaders.includes('skills')">
+                    <div [ngStyle]="{ height: !filledFields.includes('skills') ? '150px' : null }" *ngIf="!hidingHeaders.includes('skills')">
                         <p class="headingStyle" style="margin:0px;">Skills</p>
                         <hr>
                         <div class="content fw-600">
@@ -1544,7 +1555,7 @@
                             </div>
                         </div>
                     </div>
-                    <div style="height: 125px;" *ngIf="!hidingHeaders.includes('language_known')">
+                    <div [ngStyle]="{ height: !filledFields.includes('language_known') ? '145px' : null }" *ngIf="!hidingHeaders.includes('language_known')">
                         <p class="headingStyle" style="margin:0px;">languages known</p>
                         <hr>
                         <div class="languageItem fw-600" *ngFor="let lang of getLanguagesKnownArray.controls">
@@ -1561,14 +1572,14 @@
                             </ng-container>
                         </div>
                     </div>
-                    <div style="height: 150px;" *ngIf="!hidingHeaders.includes('extra_curricular')">
+                    <div [ngStyle]="{ height: !filledFields.includes('extra_curricular') ? '150px' : null }">
                         <p class="headingStyle">Achievements</p>
                         <hr>
                         <div class="technicalSkillItem fw-600" *ngFor="let extra of getExtraCurricularArray.controls">
                             <p>{{ extra.value.extra_curricular_activites }}</p>
                         </div>
                     </div>
-                    <div style="height: 120px;" *ngIf="!hidingHeaders.includes('certificate')">
+                    <div [ngStyle]="{ height: !filledFields.includes('certificate') ? '120px' : null }"  *ngIf="!hidingHeaders.includes('certificate')">
                         <p class="headingStyle"><span>certifications</span></p>
                         <hr >
                         <div class="row">
