@@ -402,3 +402,12 @@ $background-color_4: #fff;
     box-shadow: inherit;
   }
 }
+.flex {
+  display: flex;
+  align-items: center;
+  gap: 8px; /* Adjust the gap as needed */
+}
+
+.flag {
+  width: 18px;
+}

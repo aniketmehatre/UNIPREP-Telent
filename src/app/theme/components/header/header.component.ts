@@ -75,6 +75,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
   show1 = false;
   password1: string = "password";
   headerFlag: any = "";
+  headerHomeFlag: any = "";
+  homeCountryId: any;
+  selectedHomeCountry: any = null;
   timeLeftSecs: any;
   timerInterval: any;
   userLoginTimeLeftCount!: boolean;
@@ -368,7 +371,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
         //localStorage.setItem('countryId', data.userdetails[0].interested_country_id);
         this.userName = data.userdetails[0].name.toString();
         this.firstChar = this.userName.charAt(0);
-        
+        this.homeCountryId = Number(data.userdetails[0].home_country_id)
+        this.selectedHomeCountry = Number(data.userdetails[0].home_country_id)
+        this.getHomeCountryList();
         if(data.userdetails[0].login_status.includes('Demo') == true) {
           this.demoTrial = true;
           this.demoDays =  data.userdetails[0].login_status.replace('Demo-', '') ;
@@ -386,7 +391,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     //   this.themeService.toggleTheme();
     // });
     this.getCountryList();
-    this.getHomeCountryList();
+    // this.getHomeCountryList();
   }
 
   ngOnDestroy() {
@@ -485,6 +490,13 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.isLondon = true;
     this.isCountryPopupOpen = event;
     totalCountryList.toggle(event);
+    // this.dataService.countryIdSource
+  }
+
+  openHomeCountryFlagModal(totalHomeCountryList: any, event: any): void {
+    this.isLondon = true;
+    this.isCountryPopupOpen = event;
+    totalHomeCountryList.toggle(event);
     // this.dataService.countryIdSource
   }
 
@@ -903,13 +915,22 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.locationService.getHomeCountry(2).subscribe(
         (res: any) => {
           this.countryList = res;
+          const selectedCountry = res.find((data: any) => data.id === this.homeCountryId);
+          this.headerHomeFlag = selectedCountry.flag;
+          this.selectedHomeCountry = selectedCountry;
         },
         (error: any) => {
         }
     );
   }
+
+  onHomeCountryChange(event: any){
+
+  }
   closeQuiz(): void {
     this.visibleExhastedUser = false;
     this.demoTrial=true;
 }
+
+  protected readonly count = count;
 }
