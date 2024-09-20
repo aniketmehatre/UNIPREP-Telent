@@ -75,6 +75,9 @@ import { FoundersacademyComponent } from './founderstool/foundersacademy/founder
 import { FounderstoollistComponent } from './founderstool/founderstoollist/founderstoollist.component';
 import { InvestorpitchtrainingComponent } from './founderstool/investorpitchtraining/investorpitchtraining.component';
 import { StartupglossaryComponent } from './founderstool/startupglossary/startupglossary.component';
+import { InterviewJobrolesComponent } from './interview-jobroles/interview-jobroles.component';
+import {AnimateModule} from 'primeng/animate';
+import { InterviewQuestionsComponent } from './interview-questions/interview-questions.component';
 // import { JobToolComponent } from './job-tool/job-tool.component';
 @NgModule({
     declarations: [
@@ -108,6 +111,8 @@ import { StartupglossaryComponent } from './founderstool/startupglossary/startup
         CareerPlannerComponent,
         CertificatesComponent,
         CourseListComponent,
+        InterviewJobrolesComponent,
+        InterviewQuestionsComponent,
         // JobToolComponent,
         
     ],
@@ -150,6 +155,7 @@ import { StartupglossaryComponent } from './founderstool/startupglossary/startup
         RadioButtonModule,
         NgxExtendedPdfViewerModule,
         PdfViewerModule,
+        AnimateModule
     ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
