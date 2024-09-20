@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { InterviewJobrolesService } from './interview-jobroles.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'uni-interview-jobroles',
@@ -10,7 +11,7 @@ export class InterviewJobrolesComponent implements OnInit {
 role: any;
 searchDiv: boolean = false;
 jobRoles: any;
-  constructor(private  jrservice: InterviewJobrolesService) { }
+  constructor(private  jrservice: InterviewJobrolesService , private router: Router) { }
 
   ngOnInit(): void {
   }
@@ -32,7 +33,8 @@ jobRoles: any;
     }
   }
 
-  interviewQuestions(){
-    alert('load')
+  interviewQuestions(slug:string){
+    // alert(slug)
+    this.router.navigate(['/pages/interviewprep/questions/'+slug]);
   }
 }

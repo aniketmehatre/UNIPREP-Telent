@@ -10,7 +10,10 @@
                         <button class="btn btn-primary btn-rounded">Search</button>
                     </div>
                     <div class="rounded-3"  style="margin-top: 1rem; border: 1px solid var(--uniprep-secondary);padding: 10px;" *ngIf="searchDiv">
-                            <option style="cursor: pointer;" (click)="interviewQuestions()"  *ngFor="let item of jobRoles" value="1">{{ item.jobrole }}</option>
+                        <ng-container  *ngFor="let item of jobRoles" >
+                            <option style="cursor: pointer;" (click)="interviewQuestions(item.slug)"  value="{{item.slug}}">{{ item.jobrole }}</option>
+                        </ng-container>
+
                         <!-- <option value="1">Data Intern</option>
                         <option value="1">Dubak Intern</option> -->
                     </div>

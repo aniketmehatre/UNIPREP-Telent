@@ -1,0 +1,43 @@
+<div  class="card readingcard">
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-3" *ngFor="let item of questions">
+                <div class="card" style="border:1px solid var(--uniprep-secondary)">
+                    <div class="card-body">
+                        <p style="margin-bottom: 1rem;">{{ item.ques }}</p>
+                        <div class="d-flex justify-content-center align-items-center">
+                            <button class="btn btn-primary rounded-pill" (click)="seeAnswer(item.ques , item.ans)">Read Answer</button>
+                        </div>
+                    </div>
+                </div>
+                <!-- <p-dialog header="Title" [(visible)]="showAnswer">
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                        Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                        Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
+                        cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                    <ng-template pTemplate="footer">
+                        <p-button icon="pi pi-check" label="Ok" styleClass="p-button-text"></p-button>
+                    </ng-template>
+
+                </p-dialog> -->
+                <p-dialog #dialogContent [(visible)]="showAnswer" [draggable]="false" [modal]="true" class="questionmodal"   [breakpoints]="{'960px': '75vw', '640px': '100vw'}" [style]="{width: '50vw'}">
+                    <!-- <ng-template pTemplate="header"  > -->
+                        <div class="row justify-content-center w-100" >             
+                            <div class="col-md-8">         
+                                <h5 class="select-title text-center mb-0">Module Name</h5>          
+                            </div>
+                        </div>
+                        <div class="row justify-content-center" style="--bs-gutter-x:0rem !important">
+                            <div class="col-md-12 mx-4 my-2">
+                                <div style="background-color: var(--uniprep-primaryop10); margin: 1rem; border-radius: 1rem;padding: 1rem;border: 1px solid var(--uniprep-primary);">
+                                    <h3 class="mt-2" style="color: var(--uniprep-primary)">{{this.seeQues}}</h3>
+                                    <h5 class="mt-2">{{this.seeAns}}</h5>
+                                </div>
+                            </div>
+                        </div>
+                    <!-- </ng-template> -->
+                </p-dialog>
+            </div>
+        </div>
+    </div>
+</div>
