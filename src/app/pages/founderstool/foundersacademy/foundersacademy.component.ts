@@ -1,6 +1,7 @@
 import { Component, ElementRef, HostListener, OnInit, ViewChild } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { FounderstoolService } from '../founderstool.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'uni-foundersacademy',
@@ -16,7 +17,7 @@ export class FoundersacademyComponent implements OnInit {
   categorylist:any[]=[];
   categoryextra:any;
   selectedCategoryId: number | null = null; 
-  constructor(private service: FounderstoolService,private sanitizer: DomSanitizer) { }
+  constructor(private service: FounderstoolService,private sanitizer: DomSanitizer,private router:Router) { }
   ngOnInit(): void {
     this.filterCat(null)
     this.service.getFounderCategory().subscribe((response:any)=>{
@@ -97,12 +98,7 @@ export class FoundersacademyComponent implements OnInit {
   isSelected(id: number): boolean {
     return this.selectedCategoryId === id;  // Check if this category is selected
   }
+  goBack(){
+    this.router.navigate(['/pages/founderstool/founderstoollist']);
+  }
 }
-// @Pipe({ name: 'safe' })
-// export class SafePipe implements PipeTransform {
-//   constructor(private sanitizer: DomSanitizer) { }
-
-//   transform(url: string): SafeResourceUrl {
-//     return this.sanitizer.bypassSecurityTrustResourceUrl(url);
-//   }
-// }

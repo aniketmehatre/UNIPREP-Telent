@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { FounderstoolService } from '../founderstool.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'uni-investorpitchtraining',
@@ -10,7 +11,7 @@ import { FounderstoolService } from '../founderstool.service';
 export class InvestorpitchtrainingComponent implements OnInit {
   investorlists:any[]=[];
   currentIndex = 0;
-  constructor(private service: FounderstoolService,private sanitizer: DomSanitizer) { }
+  constructor(private service: FounderstoolService,private sanitizer: DomSanitizer,private router:Router) { }
 
   ngOnInit(): void {
     this.service.getAInvestorTraining().subscribe((response) => {
@@ -33,5 +34,8 @@ export class InvestorpitchtrainingComponent implements OnInit {
       this.currentIndex = 0; // Uncomment to loop back
       // this.updateCard();
     }
+  }
+  goBack(){
+    this.router.navigate(['/pages/founderstool/founderstoollist']);
   }
 }
