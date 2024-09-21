@@ -29,6 +29,7 @@ export class CvBuilderComponent implements OnInit  {
   enableModule: boolean = true;
   activePageIndex: number = 0;
   moduleActiveIndex: number = 0;
+  maxPageNumber: number = 0;
   resumeFormInfoData: FormGroup;
   fullScreenVisible: boolean = false;
   previewImage: string = "";
@@ -212,7 +213,7 @@ export class CvBuilderComponent implements OnInit  {
     });
     this.imagewhitlabeldomainname = window.location.hostname;
     this.previousResumes();
-    this.hideHeader();
+    this.hideHeader(false);
     let currentuserName = this.resumeFormInfoData.value.user_name;
     this.splitUserName(currentuserName); // it calls when the page refresh
     this.resumeFormInfoData.get('user_name')?.valueChanges.subscribe(value => {
@@ -239,14 +240,17 @@ export class CvBuilderComponent implements OnInit  {
   getUserPrefilledData(){
     this.resumeService.getCVPrefilledData().subscribe(res => {
       if(res.status){
-        const storedValues = JSON.parse(res.data.data);
+        const responseData = res.data;
+        const storedValues = JSON.parse(responseData.data);
         this.resumeFormInfoData.patchValue(storedValues);
-        this.moduleActiveIndex = storedValues.active_index;
+        this.moduleActiveIndex = responseData.page_number;
+        this.hidingHeaders = JSON.parse(responseData.hiding_headers);
         this.changeExperience();
         const workExpData = storedValues.workExpArray;
         if(workExpData.length != 0){
           workExpData.forEach((activity:any) => {
-            const workEndMonthControl = activity.work_currently_working == true ? [activity.work_end_month]  : [activity.work_end_month, Validators.required];
+            let workEndMonth = activity.work_end_month == null ? '' : activity.work_end_month;
+            const workEndMonthControl = activity.work_currently_working == true ? [workEndMonth]  : [workEndMonth, Validators.required];
             this.getWorkExpArray.push(this.fb.group({
               work_org_name: [activity.work_org_name,Validators.required],
               work_currently_working:[activity.work_currently_working],
@@ -293,9 +297,6 @@ export class CvBuilderComponent implements OnInit  {
           });
           this.filledFields.push('certificate');
         }
-        // else if(storedValues.active_index > 2){
-        //   this.hidingHeaders.push('certificate');
-        // }
 
         const achievementData = storedValues.extraCurricularArray;
         if(achievementData.length != 0){
@@ -306,9 +307,6 @@ export class CvBuilderComponent implements OnInit  {
           });
           this.filledFields.push('extra_curricular');
         }
-        // else if(storedValues.active_index > 2){
-        //   this.hidingHeaders.push('extra_curricular');
-        // }
 
         const skillsData = storedValues.skillsArray;
         if(skillsData.length != 0){
@@ -320,9 +318,6 @@ export class CvBuilderComponent implements OnInit  {
           });
           this.filledFields.push('skills');
         }
-        // else if(storedValues.active_index > 2){
-        //   this.hidingHeaders.push('skills');
-        // }
 
         const languageData = storedValues.languagesKnownArray;
         if(languageData.length != 0){
@@ -334,9 +329,6 @@ export class CvBuilderComponent implements OnInit  {
           });
           this.filledFields.push('language_known');
         }
-        // else if(storedValues.active_index > 2){
-        //   this.hidingHeaders.push('language_known');
-        // } 
       }
     });
   }
@@ -372,13 +364,13 @@ export class CvBuilderComponent implements OnInit  {
     }
   }
 
-  hideHeader() {
-    const url = this.router.url;
-    if (this.activePageIndex == 2 && url.endsWith('/cv-builder')) {
-      this.resumeService.setData(true);
-    } else {
-      this.resumeService.setData(false);
-    }
+  hideHeader(value: boolean) {
+    // const url = this.router.url;
+    // if (this.activePageIndex == 2 && url.endsWith('/cv-builder')) {
+      this.resumeService.setData(value);
+    // } else {
+    //   this.resumeService.setData(false);
+    // }
   }
 
   splitUserName(currentUserName: string) {
@@ -520,9 +512,10 @@ export class CvBuilderComponent implements OnInit  {
   storeUserFilledData(){
     let formData = this.resumeFormInfoData.value;
     let data = {
-      ...formData,
+      userdata: { ...formData },
       selectedResumeLevel: this.selectedResumeLevel,
-      active_index: this.moduleActiveIndex,      
+      active_index: this.moduleActiveIndex,
+      hiding_headers: this.hidingHeaders,
     };
     this.resumeService.storeUserFilledData(data).subscribe();
   }
@@ -615,12 +608,15 @@ export class CvBuilderComponent implements OnInit  {
     }
     this.activePageIndex++;
     this.moduleActiveIndex = this.moduleActiveIndex < 0 ? 0 : this.moduleActiveIndex;
-    this.hideHeader();
+    this.hideHeader(true);
   }
 
   previous() {
     this.activePageIndex--;
-    this.hideHeader();
+    this.hideHeader(false);
+    if(this.activePageIndex == 0 || this.activePageIndex == 1){
+      this.ngAfterViewInit();
+    }
   }
 
   next() {
@@ -642,7 +638,6 @@ export class CvBuilderComponent implements OnInit  {
       this.selectedResumeLevel = "";
       this.submitted = false;
     }
-    this.hideHeader();
   }
 
   previousResumes(){
@@ -835,6 +830,7 @@ export class CvBuilderComponent implements OnInit  {
         this.hidingHeaders.push('certificate');
       }
     }
+    console.log(this.hidingHeaders, "hiding headers");
   }
 
   stillPursuing(fieldName: string, index: number, event: Event) {
@@ -895,9 +891,12 @@ export class CvBuilderComponent implements OnInit  {
       const lastPart = parts[parts.length - 1];
       this.resumeService.downloadPdf(res, lastPart);
       this.toaster.add({ severity: "success", summary: "Success", detail: "File Download Successfully." });
-      setTimeout(() => {
-        window.location.reload();
-      }, 1000);
+      // setTimeout(() => {
+      //   window.location.reload();
+      // }, 1000);
+      this.activePageIndex = 1;
+      this.ngAfterViewInit();
+      this.selectedResumeLevel = "";
     })
   }
 

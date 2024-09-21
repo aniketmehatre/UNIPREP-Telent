@@ -92,8 +92,8 @@
 </div>
 <div class="container-fluid h-100" *ngIf="activePageIndex == 2">
     <div style="height: 10%;display: flex;">
-        <div class="col-md-1 backIcon">
-            <span class="pi pi-angle-left" (click)="previous()"></span>
+        <div class="col-md-1 backIcon" (click)="previous()">
+            <span class="pi pi-angle-left"></span>
         </div>
         <div class="col-md-11">
             <p-steps [model]="items" [readonly]="false" [activeIndex]="moduleActiveIndex"></p-steps>
@@ -1148,7 +1148,7 @@
 					</div>
 				</div>
 
-				<div class="content langugageHeight" *ngIf="!hidingHeaders.includes('language_known')">
+				<div [ngClass]="{'langugageHeight': !filledFields.includes('language_known')}" class="content" *ngIf="!hidingHeaders.includes('language_known')">
 					<p class="headingStyle" [ngStyle]="{ 'background-color': selectedThemeColor, color: selectedFontColor }">language</p>
 					<div class="languageItem fw-600" *ngFor="let lang of getLanguagesKnownArray.controls">
 						<p>{{ lang.value.language }}</p>
@@ -1160,7 +1160,7 @@
 						</ng-container>
 					</div>
 				</div>
-				<div class="content certificationHeight" *ngIf="!hidingHeaders.includes('certificate')">
+				<div class="content" [ngClass]="{'certificationHeight': !filledFields.includes('certificate')}"  *ngIf="!hidingHeaders.includes('certificate')">
 					<p class="headingStyle" [ngStyle]="{ 'background-color': selectedThemeColor, color: selectedFontColor }">certifications</p>
 					<div class="certificationItem" *ngFor="let certificate of getCertificatesArray.controls">
 						<p>
@@ -1171,7 +1171,7 @@
 					</div>
 				</div>
 
-                <div class="content skillsHeight" *ngIf="!hidingHeaders.includes('skills')">
+                <div class="content" [ngClass]="{'skillsHeight': !filledFields.includes('skills')}" *ngIf="!hidingHeaders.includes('skills')">
                     <p class="headingStyle" [ngStyle]="{'background-color': selectedThemeColor, 'color': selectedFontColor}">skills</p>
                     <div class="technicalSkillItem" *ngFor="let skill of getSkillsArray.controls">
                         <p>{{ skill.value.skills }}</p>
@@ -1185,7 +1185,7 @@
                         </ng-container>
                     </div>
                 </div>
-                <div class="content extraCurricularHeight" *ngIf="!hidingHeaders.includes('extra_curricular')">
+                <div class="content" [ngClass]="{'extraCurricularHeight': !filledFields.includes('extra_curricular')}" *ngIf="!hidingHeaders.includes('extra_curricular')">
                     <p class="headingStyle" [ngStyle]="{'background-color': selectedThemeColor, 'color': selectedFontColor}">Achievements</p>
                     <div class="technicalSkillItem" *ngFor="let extra of getExtraCurricularArray.controls">
                         <p>{{ extra.value.extra_curricular_activites }}</p>
@@ -1198,24 +1198,30 @@
                     <p class="small-text" [innerHTML]="f['user_summary'].value"></p>
                 </div>
                 <!-- [ngClass]="f['selected_exp_level'].value == 1 ? 'fresherHeight' : 'experienceHeight'" -->
-                <div class="content experienceHeight" *ngIf="!hidingHeaders.includes('work_experience')">
+                <div class="content" [ngClass]="{'experienceHeight': !filledFields.includes('work_experience')}" *ngIf="!hidingHeaders.includes('work_experience')">
                     <p class="headingStyle" [ngStyle]="{'background-color': selectedThemeColor, 'color': selectedFontColor}"> experience</p>
                     <div class="experienceItem" *ngFor="let exp of getWorkExpArray.controls">
-                        <div style="width: 30%;">
-                            <p class="fw-700">{{ exp.value.work_start_year }} {{ exp.value.work_start_month }}  {{ exp.value.work_end_year ? " - " +
-                                exp.value.work_end_year+' '+exp.value.work_end_month: "" }}</p>
-                            <p class="fw-700">{{ exp.value.work_org_name }}</p>
-                            <p class="fw-700">{{ exp.value.work_location }} </p>
+                        <div class="d-flex">
+                            <div style="width: 40%;">
+                                <p class="fw-700">{{ exp.value.work_start_year }} {{ exp.value.work_start_month }}  {{ exp.value.work_end_year ? " - " +
+                                    exp.value.work_end_year+' '+exp.value.work_end_month: "" }}</p>
+                            </div>
+                            <div style="width: 60%;">
+                                <p class="upperCase fw-600">{{ exp.value.work_designation }} {{ exp.value.work_type ? " - " + exp.value.work_type : "" }}</p>
+                            </div>
                         </div>
-                        <div style="width: 70%;">
-                            <p class="upperCase fw-600">{{ exp.value.work_designation }} {{ exp.value.work_type ? " - "
-                                +
-                                exp.value.work_type : "" }}</p>
-                            <p class="small-text" [innerHTML]="exp.value.work_job_description"></p>
+                        <div class="d-flex">
+                            <div style="width: 30%;">
+                                <p class="fw-700">{{ exp.value.work_org_name }}</p>
+                                <p class="fw-700">{{ exp.value.work_location }} </p>
+                            </div>
+                            <div style="width: 70%;">
+                                <p class="small-text" [innerHTML]="exp.value.work_job_description"></p>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div class="content educationHeight" *ngIf="!hidingHeaders.includes('education_detail')">
+                <div class="content" [ngClass]="{'langugageHeight': !filledFields.includes('language_known')}" *ngIf="!hidingHeaders.includes('education_detail')">
                     <p class="headingStyle" [ngStyle]="{'background-color': selectedThemeColor, 'color': selectedFontColor}"> education</p>
                     <div class="educationItem" *ngFor="let edu of getEduDetailsArray.controls">
                         <div style="width: 50%;">
@@ -1232,7 +1238,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="content projectHeight" *ngIf="f['selected_exp_level'].value == 1 && !hidingHeaders.includes('project_details')" >
+                <div class="content" [ngClass]="{'projectHeight': !filledFields.includes('project_details')}" *ngIf="f['selected_exp_level'].value == 1 && !hidingHeaders.includes('project_details')" >
                     <p class="headingStyle" [ngStyle]="{'background-color': selectedThemeColor, 'color': selectedFontColor}">
                         projects</p>
                     <div class="projectItem" *ngFor="let project of getProjectDetailsArray.controls">
@@ -1251,8 +1257,7 @@
         </div>
     </div>
     <div class="h-100" id="cv-preview-container"
-         [ngClass]="{ previewBodyForm: !fullScreenVisible, previewBodyFormFull: fullScreenVisible }"
-         *ngIf="selectedResumeLevel=='Academic'">
+         [ngClass]="{ previewBodyForm: !fullScreenVisible, previewBodyFormFull: fullScreenVisible }" *ngIf="selectedResumeLevel=='Academic'">
         <div class="container mt-2">
             <div class="row">
                 <div class="col-12">
@@ -1305,21 +1310,30 @@
                         <p [innerHTML]="f['user_summary'].value"></p>
                     </div>
                     <!-- [ngClass]="f['selected_exp_level'].value == 1 ? 'fresherHeight' : 'experienceHeight'" -->
-                    <div class="content experienceHeight" *ngIf="!hidingHeaders.includes('work_experience')">
+                    <div class="content" [ngClass]="{'experienceHeight': !filledFields.includes('work_experience')}" *ngIf="!hidingHeaders.includes('work_experience')">
                         <p class="headingStyle"><span>experience</span></p>
                         <div class="experienceItem" *ngFor="let exp of getWorkExpArray.controls">
-                            <div style="width: 30%;">
-                                <p class="fw-700">{{ exp.value.work_start_year }} {{ exp.value.work_end_year ? " - " + exp.value.work_end_year : "" }}</p>
-                                <p class="fw-700">{{ exp.value.work_org_name }}</p>
-                                <p class="fw-700">{{ exp.value.work_location }} </p>
+                            <div class="d-flex">
+                                <div style="width: 40%;">
+                                    <p class="fw-700">{{ exp.value.work_start_year }} {{ exp.value.work_start_month }}  {{ exp.value.work_end_year ? " - " +
+                                        exp.value.work_end_year+' '+exp.value.work_end_month: "" }}</p>
+                                </div>
+                                <div style="width: 60%;">
+                                    <p class="upperCase fw-600">{{ exp.value.work_designation }} {{ exp.value.work_type ? " - " + exp.value.work_type : "" }}</p>
+                                </div>
                             </div>
-                            <div style="width: 70%;">
-                                <p class="upperCase fw-600">{{ exp.value.work_designation }} {{ exp.value.work_type ? " - " + exp.value.work_type : "" }}</p>
-                                <p class="small-text" [innerHTML]="exp.value.work_job_description"></p>
+                            <div class="d-flex">
+                                <div style="width: 30%;">
+                                    <p class="fw-700">{{ exp.value.work_org_name }}</p>
+                                    <p class="fw-700">{{ exp.value.work_location }} </p>
+                                </div>
+                                <div style="width: 70%;">
+                                    <p class="small-text" [innerHTML]="exp.value.work_job_description"></p>
+                                </div>
                             </div>
                         </div>
                     </div>
-                    <div class="content educationHeight" *ngIf="!hidingHeaders.includes('education_detail')">
+                    <div class="content" [ngClass]="{'educationHeight': !filledFields.includes('education_detail')}" *ngIf="!hidingHeaders.includes('education_detail')">
                         <p class="headingStyle">education</p>
                         <div class="educationItem" *ngFor="let edu of getEduDetailsArray.controls">
                             <div style="width: 50%;">
@@ -1336,7 +1350,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="content projectHeight" *ngIf="f['selected_exp_level'].value == 1 && !hidingHeaders.includes('project_details')">
+                    <div class="content" [ngClass]="{'projectHeight': !filledFields.includes('project_details')}" *ngIf="f['selected_exp_level'].value == 1 && !hidingHeaders.includes('project_details')">
                         <p class="headingStyle">projects</p>
                         <div class="projectItem" *ngFor="let project of getProjectDetailsArray.controls">
                             <div style="width: 20%;">
@@ -1352,7 +1366,7 @@
                     </div>
                 </div>
                 <div class="col-lg-5">
-                    <div class="content certificationHeight" *ngIf="!hidingHeaders.includes('certificate')">
+                    <div class="content" [ngClass]="{'certificationHeight': !filledFields.includes('certificate')}" *ngIf="!hidingHeaders.includes('certificate')">
                         <p class="headingStyle">certifications</p>
                         <div class="certificationItem" *ngFor="let certificate of getCertificatesArray.controls">
                             <p><b>{{ certificate.value.certificate_name }}</b>
@@ -1361,7 +1375,7 @@
                             </p>
                         </div>
                     </div>
-                    <div class="content langugageHeight" *ngIf="!hidingHeaders.includes('language_known')">
+                    <div class="content" [ngClass]="{'langugageHeight': !filledFields.includes('language_known')}" *ngIf="!hidingHeaders.includes('language_known')">
                         <p class="headingStyle"><span>languages Known</span></p>
                         <div class="languageItem fw-600" *ngFor="let lang of getLanguagesKnownArray.controls">
                             <p>{{ lang.value.language }} </p>
@@ -1377,7 +1391,7 @@
                             </ng-container>
                         </div>
                     </div>
-                    <div class="content skillsHeight" *ngIf="!hidingHeaders.includes('skills')">
+                    <div class="content" [ngClass]="{'skillsHeight': !filledFields.includes('skills')}" *ngIf="!hidingHeaders.includes('skills')">
                         <p class="headingStyle">skills</p>
                         <div class="technicalSkillItem" *ngFor="let skill of getSkillsArray.controls">
                             <p>{{ skill.value.skills }}</p>
@@ -1391,7 +1405,7 @@
                             </ng-container>
                         </div>
                     </div>
-                    <div class="content extraCurricularHeight" *ngIf="!hidingHeaders.includes('extra_curricular')"> 
+                    <div class="content"  [ngClass]="{'extraCurricularHeight': !filledFields.includes('extra_curricular')}" *ngIf="!hidingHeaders.includes('extra_curricular')"> 
                         <p class="headingStyle">Achievements</p>
                         <div class="technicalSkillItem" *ngFor="let extra of getExtraCurricularArray.controls">
                             <p>{{ extra.value.extra_curricular_activites }}</p>
@@ -1426,14 +1440,23 @@
                         <hr>
                         <div class="content">
                             <div class="experienceItem" *ngFor="let exp of getWorkExpArray.controls">
-                                <div style="width: 30%;">
-                                    <p class="fw-700">{{ exp.value.work_start_year }} {{ exp.value.work_end_year ? " - " + exp.value.work_end_year : "" }}</p>
-                                    <p class="fw-700">{{ exp.value.work_org_name }}</p>
-                                    <p class="fw-700">{{ exp.value.work_location }}</p>
+                                <div class="d-flex">
+                                    <div style="width: 40%;">
+                                        <p class="fw-700">{{ exp.value.work_start_year }} {{ exp.value.work_start_month }}  {{ exp.value.work_end_year ? " - " +
+                                            exp.value.work_end_year+' '+exp.value.work_end_month: "" }}</p>
+                                    </div>
+                                    <div style="width: 60%;">
+                                        <p class="upperCase fw-600">{{ exp.value.work_designation }} {{ exp.value.work_type ? " - " + exp.value.work_type : "" }}</p>
+                                    </div>
                                 </div>
-                                <div style="width: 70%;">
-                                    <p class="upperCase fw-600">{{ exp.value.work_designation }} {{ exp.value.work_type ? " - " + exp.value.work_type : "" }}</p>
-                                    <p class="small-text" [innerHTML]="exp.value.work_job_description"></p>
+                                <div class="d-flex">
+                                    <div style="width: 30%;">
+                                        <p class="fw-700">{{ exp.value.work_org_name }}</p>
+                                        <p class="fw-700">{{ exp.value.work_location }} </p>
+                                    </div>
+                                    <div style="width: 70%;">
+                                        <p class="small-text" [innerHTML]="exp.value.work_job_description"></p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -1535,7 +1558,7 @@
                             </ng-container>
                         </div>
                     </div>
-                    <div [ngStyle]="{ height: !filledFields.includes('extra_curricular') ? '150px' : null }">
+                    <div [ngStyle]="{ height: !filledFields.includes('extra_curricular') ? '150px' : null }" *ngIf="!hidingHeaders.includes('extra_curricular')">
                         <p class="headingStyle">Achievements</p>
                         <hr>
                         <div class="technicalSkillItem fw-600" *ngFor="let extra of getExtraCurricularArray.controls">
@@ -1593,7 +1616,7 @@
                             </div>
                         </div>
                     </ng-container>
-                    <div style="height: 125px;" *ngIf="!hidingHeaders.includes('language_known')">
+                    <div [ngStyle]="{ height: !filledFields.includes('language_known') ? '125px' : null }" *ngIf="!hidingHeaders.includes('language_known')">
                         <p class="headingStyle zeroMarginPadding" [ngStyle]="{'color': selectedThemeColor }">languages
                         </p>
                         <hr class="hr-custom" [ngStyle]="{'color': selectedThemeColor, 'background-color':  selectedThemeColor}" >
@@ -1611,7 +1634,7 @@
                             </ng-container>
                         </div>
                     </div>
-                    <div style="height: 120px;" *ngIf="!hidingHeaders.includes('certificate')">
+                    <div [ngStyle]="{ height: !filledFields.includes('certificate') ? '120px' : null }" *ngIf="!hidingHeaders.includes('certificate')">
                         <p class="headingStyle zeroMarginPadding" [ngStyle]="{'color': selectedThemeColor }">certifications</p>
                         <hr class="hr-custom" [ngStyle]="{'color': selectedThemeColor, 'background-color':  selectedThemeColor}" >
                         <div class="content" style="line-height:1">
@@ -1623,7 +1646,7 @@
                             </div>
                         </div>
                     </div>
-                    <div style="height: 180px;" *ngIf="!hidingHeaders.includes('skills')">
+                    <div [ngStyle]="{ height: !filledFields.includes('skills') ? '180px' : null }" *ngIf="!hidingHeaders.includes('skills')">
                         <p class="headingStyle zeroMarginPadding" [ngStyle]="{'color': selectedThemeColor }">technical
                             skills</p>
                         <hr class="hr-custom" [ngStyle]="{'color': selectedThemeColor, 'background-color':  selectedThemeColor}">
@@ -1639,7 +1662,7 @@
                             </ng-container>
                         </div>
                     </div>
-                    <div style="height: 150px;" *ngIf="!hidingHeaders.includes('extra_curricular')">
+                    <div [ngStyle]="{ height: !filledFields.includes('extra_curricular') ? '150px' : null }" *ngIf="!hidingHeaders.includes('extra_curricular')">
                         <p class="headingStyle zeroMarginPadding" [ngStyle]="{'color': selectedThemeColor }">Achievements</p>
                         <hr class="hr-custom" [ngStyle]="{'color': selectedThemeColor, 'background-color':  selectedThemeColor}" >
                         <div class="content">
@@ -1652,24 +1675,33 @@
 
 				<div class="col-md-8">
 					<!-- [style.height]="f['selected_exp_level'].value == 1 ? '300px' : '400px'" -->
-					<div style="height: 450px" *ngIf="!hidingHeaders.includes('work_experience')">
+					<div [ngStyle]="{ height: !filledFields.includes('work_experience') ? '450px' : null }" *ngIf="!hidingHeaders.includes('work_experience')">
 						<p class="headingStyle zeroMarginPadding" [ngStyle]="{ color: selectedThemeColor }">experience</p>
 						<hr class="hr-custom" [ngStyle]="{ color: selectedThemeColor, 'background-color': selectedThemeColor }" />
 						<div class="content">
-							<div class="mb-1 experienceItem" *ngFor="let exp of getWorkExpArray.controls">
-								<div style="width: 30%">
-									<p class="fw-700">{{ exp.value.work_start_year }} {{ exp.value.work_end_year ? " - " + exp.value.work_end_year : "" }}</p>
-									<p class="fw-700">{{ exp.value.work_org_name }}</p>
-									<p class="fw-700">{{ exp.value.work_location }}</p>
-								</div>
-								<div style="width: 70%">
-									<p class="upperCase fw-600">{{ exp.value.work_designation }} {{ exp.value.work_type ? " - " + exp.value.work_type : "" }}</p>
-									<p class="small-text" [innerHTML]="exp.value.work_job_description"></p>
-								</div>
-							</div>
+							<div class="experienceItem" *ngFor="let exp of getWorkExpArray.controls">
+                                <div class="d-flex">
+                                    <div style="width: 40%;">
+                                        <p class="fw-700">{{ exp.value.work_start_year }} {{ exp.value.work_start_month }}  {{ exp.value.work_end_year ? " - " +
+                                            exp.value.work_end_year+' '+exp.value.work_end_month: "" }}</p>
+                                    </div>
+                                    <div style="width: 60%;">
+                                        <p class="upperCase fw-600">{{ exp.value.work_designation }} {{ exp.value.work_type ? " - " + exp.value.work_type : "" }}</p>
+                                    </div>
+                                </div>
+                                <div class="d-flex">
+                                    <div style="width: 30%;">
+                                        <p class="fw-700">{{ exp.value.work_org_name }}</p>
+                                        <p class="fw-700">{{ exp.value.work_location }} </p>
+                                    </div>
+                                    <div style="width: 70%;">
+                                        <p class="small-text" [innerHTML]="exp.value.work_job_description"></p>
+                                    </div>
+                                </div>
+                            </div>
 						</div>
 					</div>
-					<div style="height: 150px" *ngIf="!hidingHeaders.includes('education_detail')">
+					<div [ngStyle]="{ height: !filledFields.includes('education_detail') ? '150px' : null }" *ngIf="!hidingHeaders.includes('education_detail')">
 						<p class="headingStyle zeroMarginPadding" [ngStyle]="{ color: selectedThemeColor }">education</p>
 						<hr class="hr-custom" [ngStyle]="{ color: selectedThemeColor, 'background-color': selectedThemeColor }" />
 						<div class="content">
@@ -1689,7 +1721,7 @@
 						</div>
 					</div>
 					<ng-container>
-						<div style="height: 150px" *ngIf="f['selected_exp_level'].value == 1 && !hidingHeaders.includes('project_details')">
+						<div [ngStyle]="{ height: !filledFields.includes('project_details') ? '150px' : null }" *ngIf="f['selected_exp_level'].value == 1 && !hidingHeaders.includes('project_details')">
 							<p class="headingStyle zeroMarginPadding" [ngStyle]="{ color: selectedThemeColor }">projects</p>
 							<hr class="hr-custom" [ngStyle]="{ color: selectedThemeColor, 'background-color': selectedThemeColor }" />
 							<div class="projectItem" *ngFor="let project of getProjectDetailsArray.controls">
@@ -1765,29 +1797,33 @@
 			</ng-container>
 			<div class="row">
 				<div class="col-8">
-					<div style="height: 400px" *ngIf="!hidingHeaders.includes('work_experience')">
+					<div [ngStyle]="{ height: !filledFields.includes('work_experience') ? '400px' : null }" *ngIf="!hidingHeaders.includes('work_experience')">
 						<p class="headingStyle"><span>experience</span></p>
 						<div class="content expContent fw-600">
 							<!-- <div class="vl"></div> -->
-							<div class="row mb-2" *ngFor="let exp of getWorkExpArray.controls">
-								<div class="col-4">
-									<p>
-										<b>{{ exp.value.work_org_name }}</b>
-									</p>
-									<p>
-										<b>{{ exp.value.work_location }}</b>
-									</p>
-								</div>
-								<div class="col-8">
-									<p class="upperCase fw-600">
-										<b>{{ exp.value.work_designation }}</b>
-									</p>
-									<p class="small-text" [innerHTML]="exp.value.work_job_description"></p>
-								</div>
-							</div>
+							<div class="experienceItem" *ngFor="let exp of getWorkExpArray.controls">
+                                <div class="d-flex">
+                                    <div style="width: 40%;">
+                                        <p class="fw-700">{{ exp.value.work_start_year }} {{ exp.value.work_start_month }}  {{ exp.value.work_end_year ? " - " +
+                                            exp.value.work_end_year+' '+exp.value.work_end_month: "" }}</p>
+                                    </div>
+                                    <div style="width: 60%;">
+                                        <p class="upperCase fw-600">{{ exp.value.work_designation }} {{ exp.value.work_type ? " - " + exp.value.work_type : "" }}</p>
+                                    </div>
+                                </div>
+                                <div class="d-flex">
+                                    <div style="width: 30%;">
+                                        <p class="fw-700">{{ exp.value.work_org_name }}</p>
+                                        <p class="fw-700">{{ exp.value.work_location }} </p>
+                                    </div>
+                                    <div style="width: 70%;">
+                                        <p class="small-text" [innerHTML]="exp.value.work_job_description"></p>
+                                    </div>
+                                </div>
+                            </div>
 						</div>
 					</div>
-					<div style="height: 150px" *ngIf="!hidingHeaders.includes('education_detail')">
+					<div [ngStyle]="{ height: !filledFields.includes('education_detail') ? '150px' : null }" *ngIf="!hidingHeaders.includes('education_detail')">
 						<p class="headingStyle" style="margin: 0px"><span>education</span></p>
 						<hr />
 						<div class="content fw-600 educationItem" *ngFor="let edu of getEduDetailsArray.controls">
@@ -1808,7 +1844,7 @@
 							</div>
 						</div>
 					</div>
-					<div style="height: 120px" *ngIf="!hidingHeaders.includes('certificate')">
+					<div [ngStyle]="{ height: !filledFields.includes('certificate') ? '120px' : null }" style="height: 120px" *ngIf="!hidingHeaders.includes('certificate')">
 						<p class="headingStyle"><span>certifications</span></p>
 						<div class="row">
 							<div *ngFor="let certificate of getCertificatesArray.controls" style="width: 50%" class="mb-1">
@@ -1825,7 +1861,7 @@
 				</div>
 
 				<div class="col-4">
-					<div style="height: 150px" *ngIf="!hidingHeaders.includes('skills')">
+					<div [ngStyle]="{ height: !filledFields.includes('skills') ? '150px' : null }" *ngIf="!hidingHeaders.includes('skills')">
 						<p class="headingStyle zeroMarginPadding">skills</p>
 						<hr class="hr-custom" />
 						<div class="content fw-600 technicalSkillItem" *ngFor="let skill of getSkillsArray.controls">
@@ -1837,7 +1873,7 @@
 							</ng-container>
 						</div>
 					</div>
-					<div style="height: 125px" *ngIf="!hidingHeaders.includes('language_known')">
+					<div [ngStyle]="{ height: !filledFields.includes('language_known') ? '125px' : null }"  *ngIf="!hidingHeaders.includes('language_known')">
 						<p class="headingStyle zeroMarginPadding">languages</p>
 						<hr class="hr-custom" />
 						<div class="languageItem fw-600" *ngFor="let lang of getLanguagesKnownArray.controls">
@@ -1850,7 +1886,7 @@
 							</ng-container>
 						</div>
 					</div>
-					<div style="height: 150px" *ngIf="f['selected_exp_level'].value == 1 && !hidingHeaders.includes('project_details')">
+					<div [ngStyle]="{ height: !filledFields.includes('project_details') ? '150px' : null }" *ngIf="f['selected_exp_level'].value == 1 && !hidingHeaders.includes('project_details')">
 						<p class="headingStyle"><span>project details</span></p>
 						<div class="content">
 							<div class="mb-2" *ngFor="let project of getProjectDetailsArray.controls">
@@ -1860,7 +1896,7 @@
 							</div>
 						</div>
 					</div>
-					<div style="height: 150px" *ngIf="!hidingHeaders.includes('extra_curricular')">
+					<div [ngStyle]="{ height: !filledFields.includes('extra_curricular') ? '150px' : null }" *ngIf="!hidingHeaders.includes('extra_curricular')">
 						<p class="headingStyle" style="padding-top: 10px">Achievements</p>
 						<div class="fw-600">
 							<ul class="pl-3">

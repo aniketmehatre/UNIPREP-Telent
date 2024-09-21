@@ -704,6 +704,7 @@ body {
 .experienceItem {
 	display: flex;
 	margin: 5px;
+	flex-direction: column;
 }
 
 .educationItem {
