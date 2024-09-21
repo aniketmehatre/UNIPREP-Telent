@@ -15,13 +15,17 @@ import { TooltipModule } from 'primeng/tooltip';
 import { FoundersacademyComponent } from '../foundersacademy/foundersacademy.component';
 import {ConfirmationService} from 'primeng/api';
 import { FounderstoollistComponent } from '../founderstoollist/founderstoollist.component';
+import { InvestorpitchtrainingComponent } from '../investorpitchtraining/investorpitchtraining.component';
+import { StartupglossaryComponent } from '../startupglossary/startupglossary.component';
 
 
 @NgModule({
   declarations: [
     FounderstoolComponent,
     FoundersacademyComponent,
-    FounderstoollistComponent
+    FounderstoollistComponent,
+    InvestorpitchtrainingComponent,
+    StartupglossaryComponent
   ],
   imports: [
     CommonModule,

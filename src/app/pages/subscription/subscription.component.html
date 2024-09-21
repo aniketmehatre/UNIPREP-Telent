@@ -43,11 +43,22 @@
       [accountBillingList]="accountBillingData"
     ></uni-subscription-history>
   </ng-container>
-   <p-dialog [modal]="true" [(visible)]="cardvisibility" [style]="{ width: '40rem',height:'15rem',padding:'2rem' }">
+  <p-dialog
+  [modal]="true"
+  [(visible)]="cardvisibility"
+  [style]="{ width: '40rem', height: '15rem' }"
+>
+  <div style="padding: 2rem !important">
     <ngx-stripe-card
       [options]="cardOptions"
       [elementsOptions]="elementsOptions"
     ></ngx-stripe-card>
-    <button (click)="paywithstripe({'subscriptionId': 5,'countryId': 2,'finalPrice': '2999','couponApplied': 0, 'coupon': '', 'coupon_id': 0,'subscription_plan_id': 39 })">pay</button>
-  </p-dialog>
+    <button
+      class="mt-5 pt-3 pb-3 btn btn-basic w-100 m-0 btn btn-primary"
+      (click)="paywithstripe()"
+    >
+      Continue {{selectedcost}}
+    </button>
+  </div>
+</p-dialog>
 </ng-container>

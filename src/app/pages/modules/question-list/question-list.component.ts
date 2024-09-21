@@ -7,7 +7,7 @@ import {
   ElementRef,
   HostListener, Renderer2, PipeTransform, Pipe,
 } from "@angular/core";
-import { Observable } from "rxjs";
+import {filter, Observable, Subscription} from "rxjs";
 import { ModuleListSub } from "../../../@Models/module.model";
 import { ReadQuestion } from "../../../@Models/read-question.model";
 import {
@@ -18,7 +18,7 @@ import { MenuItem, MessageService } from "primeng/api";
 import { ModuleServiceService } from "../../module-store/module-service.service";
 import { ModuleStoreService } from "../../module-store/module-store.service";
 import { DataService } from "../../../data.service";
-import { ActivatedRoute, Router } from "@angular/router";
+import {ActivatedRoute, NavigationEnd, Router} from "@angular/router";
 import { Location } from "@angular/common";
 import { DomSanitizer, SafeResourceUrl, Meta, Title } from "@angular/platform-browser";
 import { Carousel } from "primeng/carousel";
@@ -120,16 +120,8 @@ export class QuestionListComponent implements OnInit {
   ) {
     Carousel.prototype.changePageOnTouch = (e, diff) => { }
     Carousel.prototype.onTouchMove = () => { };
-    // this.renderer.listen('window', 'click', (e: Event) => {
-    //   if (e.target !== this.elRef!.nativeElement) {
-    //     let socialShare:any=document.getElementById("socialSharingList");
-    //     if (socialShare) {
-    //       socialShare.style.display = "none";
-    //     }
-    //     //this.showSocialSharingList();
-    //   }
-    // });
   }
+
   loopRange = Array.from({ length: 30 }).fill(0).map((_, index) => index);
   ngOnInit(): void {
     this.locationService.getImage().subscribe(imageUrl => {
@@ -206,6 +198,12 @@ export class QuestionListComponent implements OnInit {
             this.howItWorksVideoLink = "https://www.youtube.com/embed/dHhq2xrBn5s?si=2dMsQcwwOY17dDHi";
             this.tooltip = "";
             break;
+          case 'k12-category':
+            this.currentModuleId = 14;
+            this.currentModuleName = 'K12';
+            this.currentApiSlug = 'StudentsSubmoduleQuestions';
+            this.tooltip = "";
+            break;
           default:
             this.currentModuleId = 6;
             this.currentModuleName = "Life At " + countryName;
@@ -236,32 +234,6 @@ export class QuestionListComponent implements OnInit {
       let url = this.subModuleId.split("&&");
       localStorage.setItem('questionId', url[1]);
       this.subModuleId = url[0];
-      // this.titleService.setTitle(this.selectedQuestionName.question)
-      // console.log('comes 123123')
-      //
-      // this.meta.updateTag({ name: 'og:title', content: this.selectedQuestionName.question });
-      // this.meta.updateTag({ property: 'og:url', content: 'https://dev-student.uniprep.ai/pages/modules/pre-admission/question-list/2' });
-      // this.meta.updateTag({ property: 'og:type', content: 'summary' });
-      // this.meta.updateTag({ property: 'og:description', content: 'summary summary summary summary summary summary' });
-      // this.meta.updateTag({ name: 'image', property: 'og:image', content: 'https://api.uniprep.ai/uniprepapi/storage/app/public/submoduleicons/Language.png' });
-      // this.cdRef.markForCheck();
-
-
-      // this.meta.updateTag({ property: 'og:url', content: 'https://dev-student.uniprep.ai/pages/modules/pre-admission/question-list/2' });
-      // this.meta.updateTag({ property: 'og:type', content: 'summary' });
-      // this.meta.updateTag({ property: 'og:title', content: 'asdf adsf asdfadsfasdf asdf' });
-      // this.meta.updateTag({ property: 'og:description', content: 'summary summary summary summary summary summary' });
-      // this.meta.updateTag({ name: 'image', property: 'og:image', content: 'https://api.uniprep.ai/uniprepapi/storage/app/public/submoduleicons/Language.png' });
-      //
-      //
-      // this.meta.updateTag({ name: 'twitter:card', content: 'summary' });
-      // this.meta.updateTag({ name: 'twitter:site', content: '@YourTwitterHandle' });
-      // this.meta.updateTag({ property: 'twitter:domain', content: 'dev-student.uniprep.ai' });
-      // this.meta.updateTag({ property: 'twitter:url', content: 'https://dev-student.uniprep.ai/pages/modules/pre-admission/question-list/2' });
-      // this.meta.updateTag({ name: 'twitter:title', content: 'Your Page Title' });
-      // this.meta.updateTag({ name: 'twitter:description', content: 'Your Page Description' });
-      // this.meta.updateTag({ name: 'twitter:image', content: 'https://api.uniprep.ai/uniprepapi/storage/app/public/submoduleicons/Language.png' });
-
     }
     this.currentSubModuleSlug = this.route.snapshot.paramMap.get("module_name");
     this.dataService.countryName.subscribe((data) => {
@@ -315,6 +287,12 @@ export class QuestionListComponent implements OnInit {
         this.howItWorksVideoLink = "https://www.youtube.com/embed/dHhq2xrBn5s?si=2dMsQcwwOY17dDHi";
         this.currentModuleSlug = "skill-mastery"
         break;
+      case 'k12-category':
+        this.currentModuleId = 14;
+        this.currentModuleName = 'K12';
+        this.currentApiSlug = 'StudentsSubmoduleQuestions';
+        this.tooltip = "";
+        break;
       default:
         this.currentModuleId = 6;
         this.currentModuleName = "Life At " + countryName;
@@ -364,7 +342,7 @@ export class QuestionListComponent implements OnInit {
       perpage: this.perpage,
     };
 
-    if (this.currentModuleId == 8 || this.currentModuleId == 10) {
+    if (this.currentModuleId == 8 || this.currentModuleId == 10  || this.currentModuleId == 14) {
       data.countryId = 0;
     }
     this.loadQuestionList(data);
@@ -392,7 +370,7 @@ export class QuestionListComponent implements OnInit {
       // this.isSkeletonVisible = false
       // this.totalQuestionCount = data?.questioncount;
       //this.ngxService.stop();
-      this.meta.updateTag({ property: 'og:image', content: res.country_flag });
+      //this.meta.updateTag({ property: 'og:image', content: res.country_flag });
       this.mService.studentsSubmoduleQuestions(data).subscribe((data: any) => {
         this.questionListData = data?.questions;
         this.isSkeletonVisible = false;
@@ -897,12 +875,17 @@ export class QuestionListComponent implements OnInit {
     socialShare.style.display = "none";
   }
   startQuiz() {
+
     if(this.planExpired){
       this.restrict=true;
       return;
     }
     localStorage.setItem("learninghubsubmoduleid", this.subModuleId);
     localStorage.setItem("skillmasteryquizsubmoduleid",this.subModuleId);
+    if(this.currentModuleId==14){
+      this.router.navigate([`/pages/modules/k12-category/k12-quiz`]);
+      return;
+    }
     if(this.currentModuleId==10){
       this.router.navigate([`/pages/modules/${this.currentModuleSlug}/quiz`]);
     }else{

@@ -1,0 +1,23 @@
+<div class="card readingcard flex">
+    <div class="card-body flex align-items-center h-100">
+            <div class="row h-100 align-items-center">
+                <div class="col-md-6 offset-md-3">
+                    <div class="searchInput d-flex justify-content-between align-items-center  gap-4">
+                        <span class="p-input-icon-left flex-grow-1 d-lg-flex btn-rounded"  >
+                            <i class="pi pi-search"></i>
+                            <input type="text btn-rounded" class="flex-grow-1 rounded" style="border-radius: 2rem !important; border: 1px solid var(--uniprep-secondary) !important;" (keyup)="searchRole()"  pInputText placeholder="Search" [(ngModel)]="role" />
+                        </span>
+                        <button class="btn btn-primary btn-rounded">Search</button>
+                    </div>
+                    <div class="rounded-3"  style="margin-top: 1rem; border: 1px solid var(--uniprep-secondary);padding: 10px;" *ngIf="searchDiv">
+                        <ng-container  *ngFor="let item of jobRoles" >
+                            <option style="cursor: pointer;" (click)="interviewQuestions(item.slug)"  value="{{item.slug}}">{{ item.jobrole }}</option>
+                        </ng-container>
+
+                        <!-- <option value="1">Data Intern</option>
+                        <option value="1">Dubak Intern</option> -->
+                    </div>
+                </div>
+            </div>
+    </div>  
+</div>

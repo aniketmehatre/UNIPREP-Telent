@@ -20,4 +20,18 @@ export class FounderstoolService {
         headers: headers,
     });
   }
+  // investor training
+  getAInvestorTraining() {
+    const headers = new HttpHeaders().set("Accept", "application/json");
+    return this.http.post<any>(environment.ApiUrl + "/listinvestorpitch", {
+        headers: headers,
+    });
+  }
+  // startup glossary
+  getStartUpGlossary(val:any) {
+    const headers = new HttpHeaders().set("Accept", "application/json");
+    return this.http.post<any>(environment.ApiUrl + "/liststartupglossary",val, {
+        headers: headers,
+    });
+  }
 }
