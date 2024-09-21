@@ -28,6 +28,8 @@ import { CourseListComponent } from './course-list/course-list.component';
 import { JobToolComponent } from './job-tool/job-tool.component';
 import {SalaryConverterComponent} from "./job-tool/salary-converter/salary-converter.component";
 import { FounderstoolComponent } from './founderstool/founderstool.component';
+import { InterviewJobrolesComponent } from './interview-jobroles/interview-jobroles.component';
+import { InterviewQuestionsComponent } from './interview-questions/interview-questions.component';
 
 const routes: Routes = [
     {
@@ -184,6 +186,7 @@ const routes: Routes = [
                 path: 'course-list',
                 component: CourseListComponent
             },
+            
             {
                 path: 'job-portal',
                 loadChildren: () => import('./job-search/job-search.module').then(m => m.JobSearchModule)
@@ -195,6 +198,14 @@ const routes: Routes = [
             {
                 path: 'founderstool',
                 loadChildren: () => import('./founderstool/founderstool/founderstool.module').then(m => m.FounderstoolModule)
+            },
+            {
+                path: 'jobroles',
+                component: InterviewJobrolesComponent
+            },
+            {
+                path: 'interviewprep/questions/:slug',
+                component: InterviewQuestionsComponent
             },
         ]
     }

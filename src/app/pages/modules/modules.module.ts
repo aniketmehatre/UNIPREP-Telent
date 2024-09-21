@@ -30,6 +30,7 @@ import { AcademicToolsStreamComponent } from './academic-tools-stream/academic-t
 import { AcademicToolsQuizComponent } from './academic-tools-quiz/academic-tools-quiz.component';
 import { K12ClassComponent } from './k12-class/k12-class.component';
 import { K12QuizComponent } from './k12-quiz/k12-quiz.component';
+import {ReactiveFormsModule} from "@angular/forms";
 
 
 @NgModule({
@@ -65,7 +66,8 @@ import { K12QuizComponent } from './k12-quiz/k12-quiz.component';
         NgxUiLoaderModule,
         SkeletonModule,
         AccordionModule,
-        InputTextModule
+        InputTextModule,
+        ReactiveFormsModule
     ]
 })
 export class ModulesModule { }

@@ -25,6 +25,7 @@ export class ListSubModulesComponent implements OnInit {
     totalPercentage: number = 0;
     percentageValue: string = '';
     subModuleList: any[] = [];
+    subModuleMainList: any[] = [];
     isStartQuiz: boolean = false;
     isQuizSubmit: boolean = false;
     isReviewVisible: boolean = false;
@@ -38,6 +39,7 @@ export class ListSubModulesComponent implements OnInit {
     breadCrumb: MenuItem[] = [];
     answerOptionClicked: boolean = true
     isInstructionVisible: boolean = false
+    selectedClassId: any;
     currentModuleSlug: any;
     currentModuleName: any;
     currentModuleId: any
@@ -263,8 +265,10 @@ export class ListSubModulesComponent implements OnInit {
         this.checkquizquestionmodule();
     }
 
+
+
     loadModuleAndSubModule() {
-        console.log('working', localStorage.getItem('selectedClass'))
+        this.selectedClassId = Number(localStorage.getItem('selectedClass'))
         this.currentCountryId = Number(localStorage.getItem('countryId'));
         //this.isSkeletonVisible = true;
         //this.subModules$ = this.moduleListService.subModuleList$();
@@ -283,6 +287,15 @@ export class ListSubModulesComponent implements OnInit {
             data.country_id = this.currentCountryId;
             data.api_module_name = this.currentApiSlug;
         }
+        let req = {
+            module_id: this.currentModuleId,
+            api_module_name: 'getcareertoolcategorylist'
+        }
+
+        this.locationService.getK12MainCategory(req).subscribe(data => {
+            this.isSkeletonVisible = false;
+            this.subModuleMainList = data.data;
+        });
         //this.moduleListService.loadSubModules(data);
         this.locationService.GetQuestionsCount(data).subscribe(data => {
 
@@ -631,5 +644,23 @@ export class ListSubModulesComponent implements OnInit {
     clearSearch() {
         this.searchLearning = '';
         this.filteredData = [];
+    }
+
+    onStatusChange(event: any){
+        localStorage.setItem('selectedClass', event.value)
+        let data = {
+            moduleId: this.currentModuleId,
+            category_flag: 1,
+            country_id: 0,
+            parent_category_id: Number(localStorage.getItem('selectedClass'))
+        }
+        this.locationService.GetQuestionsCount(data).subscribe(data => {
+            this.isSkeletonVisible = false;
+            this.subModuleList = data;
+            if (this.currentModuleId == 8) {
+                this.subModuleList.map(list => list.submodule_name = list.category);
+            }
+
+        });
     }
 }
