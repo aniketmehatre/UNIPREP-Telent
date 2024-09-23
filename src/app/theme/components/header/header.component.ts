@@ -219,6 +219,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
         this.dataService.changeCountryId(cntId!.toString());
       }
     })
+    this.dataService.homeCountryFlagSource.subscribe(data => {
+      this.headerHomeFlag = data;
+    });
     this.dataService.countryNameSource.subscribe((data: any) => {
     })
     this.dataService.countryFlagSource.subscribe((data: any) => {
@@ -918,6 +921,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
           const selectedCountry = res.find((data: any) => data.id === this.homeCountryId);
           this.headerHomeFlag = selectedCountry.flag;
           this.selectedHomeCountry = selectedCountry;
+          this.dataService.changeHomeCountryFlag(this.headerHomeFlag)
         },
         (error: any) => {
         }

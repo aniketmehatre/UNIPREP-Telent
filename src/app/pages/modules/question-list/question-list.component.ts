@@ -99,6 +99,7 @@ export class QuestionListComponent implements OnInit {
   imagewhitlabeldomainname:any
   orgnamewhitlabel:any;
   orglogowhitelabel:any;
+  homeCountryLogo: any
   constructor(
     private moduleListService: ModuleServiceService,
     private mService: ModuleServiceService,
@@ -120,6 +121,7 @@ export class QuestionListComponent implements OnInit {
   ) {
     Carousel.prototype.changePageOnTouch = (e, diff) => { }
     Carousel.prototype.onTouchMove = () => { };
+
   }
 
   loopRange = Array.from({ length: 30 }).fill(0).map((_, index) => index);
@@ -146,6 +148,9 @@ export class QuestionListComponent implements OnInit {
       }
       this.loadInit();
       //this.getSubmoduleName(this.countryId);
+    });
+    this.dataService.homeCountryFlagSource.subscribe(data => {
+      this.homeCountryLogo = data;
     });
     this.dataService.countryFlagSource.subscribe(data => {
       this.countryFlag = data;
