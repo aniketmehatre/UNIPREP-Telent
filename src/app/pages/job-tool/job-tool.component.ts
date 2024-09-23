@@ -31,9 +31,10 @@ export class JobToolComponent implements OnInit {
   ngOnInit(): void {
     this.currentRoute = this.router.url;
     this.changeTitle();
-    if (!this.currentRoute.includes("career-tool")&&!this.currentRoute.includes("psychometric") && !this.currentRoute.includes("personality") && !this.currentRoute.includes("employer") && !this.currentRoute.includes("cost-of-living")) {
+    // if (!this.currentRoute.includes("career-tool")&&!this.currentRoute.includes("psychometric") && !this.currentRoute.includes("personality") && !this.currentRoute.includes("employer") && !this.currentRoute.includes("cost-of-living")) {
+      // console.log("job tool components");
       this.hideHeaderForPreviewPage();
-    }
+    // }
     this.router
       .events.pipe(
         filter(event => event instanceof NavigationEnd),

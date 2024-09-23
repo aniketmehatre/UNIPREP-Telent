@@ -95,9 +95,10 @@
 	background-color: var(--uniprep-primary);
 	color: white;
 	border-radius: 25px;
-	position: absolute;
-	transform: translateY(9%) translateX(250%);
-	top: 57%;
+	// position: absolute;
+	// transform: translateY(9%) translateX(250%);
+	// top: 57%;
+	transform: translateY(-250%) translateX(250%);
 }
 
 .HistoryDeleteIcon {
@@ -105,9 +106,9 @@
 	background-color: #d80027;
 	color: white;
 	border-radius: 25px;
-	position: absolute;
-	bottom: 70%;
-	transform: translateY(9%) translateX(250%);
+	// position: absolute;
+	// bottom: 70%;
+	transform: translateY(-1235%) translateX(382%);
 }
 
 .tickIcon {
@@ -583,12 +584,10 @@ body {
 }
 
 .headingStyle {
-
 	font-size: 14px;
 	font-weight: 700;
 	text-transform: uppercase;
-	padding: 0px 0px 5px 9px;
-	margin-bottom: 5px;
+	margin: 5px 0px 0px 0px !important;
 }
 
 .text-color-white{
@@ -706,6 +705,7 @@ body {
 .experienceItem {
 	display: flex;
 	margin: 5px;
+	flex-direction: column;
 }
 
 .educationItem {
