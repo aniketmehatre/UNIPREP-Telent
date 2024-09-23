@@ -196,6 +196,7 @@ export class CvBuilderComponent implements OnInit  {
   }
 
   ngOnInit(): void {
+    this.hideHeader();
     this.editorModules = {
       toolbar: [
         ['bold', 'italic', 'underline'], 
@@ -213,7 +214,6 @@ export class CvBuilderComponent implements OnInit  {
     });
     this.imagewhitlabeldomainname = window.location.hostname;
     this.previousResumes();
-    this.hideHeader(false);
     let currentuserName = this.resumeFormInfoData.value.user_name;
     this.splitUserName(currentuserName); // it calls when the page refresh
     this.resumeFormInfoData.get('user_name')?.valueChanges.subscribe(value => {
@@ -345,6 +345,24 @@ export class CvBuilderComponent implements OnInit  {
     });
   }
 
+  onSkillChange() {
+    const skills = this.getSkillsArray.controls.map(skill => skill.get('skills')?.value);
+  
+    skills.forEach((skill, index) => {
+      const duplicateCount = skills.filter(s => s === skill).length;
+      const skillControl = this.getSkillsArray.at(index).get('skills');
+      
+      if (duplicateCount > 1 && skill) {
+        // If more than one occurrence is found, mark it as a duplicate
+        skillControl?.setErrors({ duplicate: true });
+      } else {
+        // If no duplicate, clear the error
+        skillControl?.setErrors(null);
+      }
+    });
+  }
+  
+
   SortBasedOnProficiency(fieldName: string){
     if(fieldName == "skills"){
 
@@ -364,13 +382,12 @@ export class CvBuilderComponent implements OnInit  {
     }
   }
 
-  hideHeader(value: boolean) {
-    // const url = this.router.url;
-    // if (this.activePageIndex == 2 && url.endsWith('/cv-builder')) {
-      this.resumeService.setData(value);
-    // } else {
-    //   this.resumeService.setData(false);
-    // }
+  hideHeader() {
+    if (this.activePageIndex == 2) {
+      this.resumeService.setData(true);
+    } else {
+      this.resumeService.setData(false);
+    }
   }
 
   splitUserName(currentUserName: string) {
@@ -523,6 +540,7 @@ export class CvBuilderComponent implements OnInit  {
   fieldPreviousButton() {
     if(this.moduleActiveIndex == 0){
       this.activePageIndex = 1;
+      this.hideHeader();
       this.ngAfterViewInit();
     }else{
       this.moduleActiveIndex--;
@@ -608,12 +626,12 @@ export class CvBuilderComponent implements OnInit  {
     }
     this.activePageIndex++;
     this.moduleActiveIndex = this.moduleActiveIndex < 0 ? 0 : this.moduleActiveIndex;
-    this.hideHeader(true);
+    this.hideHeader();
   }
 
   previous() {
     this.activePageIndex--;
-    this.hideHeader(false);
+    this.hideHeader();
     if(this.activePageIndex == 0 || this.activePageIndex == 1){
       this.ngAfterViewInit();
     }
@@ -778,11 +796,6 @@ export class CvBuilderComponent implements OnInit  {
 
   removeHideHeaderElement(fieldName: string){
     if(this.hidingHeaders.includes(fieldName)){
-      // const index = this.hidingHeaders.indexOf(fieldName);
-      // console.log(index);
-      // if (index > -1) {
-      //   this.hidingHeaders.splice(index, 1);
-      // }
       this.hidingHeaders = this.hidingHeaders.filter(item => item !== fieldName);
     }
   }
@@ -891,12 +904,10 @@ export class CvBuilderComponent implements OnInit  {
       const lastPart = parts[parts.length - 1];
       this.resumeService.downloadPdf(res, lastPart);
       this.toaster.add({ severity: "success", summary: "Success", detail: "File Download Successfully." });
-      // setTimeout(() => {
-      //   window.location.reload();
-      // }, 1000);
       this.activePageIndex = 1;
       this.ngAfterViewInit();
       this.selectedResumeLevel = "";
+      this.hideHeader();
     })
   }
 

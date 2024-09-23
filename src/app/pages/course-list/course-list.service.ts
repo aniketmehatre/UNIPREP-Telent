@@ -69,10 +69,10 @@ export class CourseListService {
     });
   }
 
-  private dataSubject = new BehaviorSubject<boolean>(true);
+  private dataSubject = new BehaviorSubject<boolean>(false);
   data$ = this.dataSubject.asObservable();
 
-  setData(data: boolean) {
+  setData(data: any) {
     this.dataSubject.next(data);
   }
 
