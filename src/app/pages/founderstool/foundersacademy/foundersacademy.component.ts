@@ -78,7 +78,9 @@ export class FoundersacademyComponent implements OnInit {
   }
   filterCat(id:any){
     var data={
-      category:id
+      category:id,
+      perpage : 10000,
+      page : 1,
     }
     this.service.getAcademy(data).subscribe((response:any)=>{
       this.academyllist=[];
