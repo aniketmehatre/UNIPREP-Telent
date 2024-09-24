@@ -50,7 +50,7 @@ export class FounderstoolService {
 }
 submitQuiz(data: any) {
   const headers = new HttpHeaders().set("Accept", "application/json");
-  return this.http.post<any>(environment.ApiUrl + "/submoduleId", data, {
+  return this.http.post<any>(environment.ApiUrl + "/submitquizanswers", data, {
       headers: headers,
   });
 }
@@ -63,6 +63,12 @@ ReviewQuiz(data: any) {
 quizCount(data: any) {
   const headers = new HttpHeaders().set("Accept", "application/json");
   return this.http.post<any>(environment.ApiUrl + "/quizquestions", data, {
+      headers: headers,
+  });
+}
+checkModuleQuizCompletion(data: any) {
+  const headers = new HttpHeaders().set("Accept", "application/json");
+  return this.http.post<any>(environment.ApiUrl + "/checkmodulequizcompletion", data, {
       headers: headers,
   });
 }

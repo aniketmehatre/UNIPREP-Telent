@@ -214,12 +214,12 @@
                         Better Luck Next Time<br />{{totalanswercorret}}/{{totalanswerquistionaftersubmited}}</h3>
                 <p *ngIf="totalPercentage>=90" class="text-center mb-2 fw-medium">You have completed the quiz on <br>{{currentModuleName}} module</p>
                 <p *ngIf="totalPercentage<=89" class="text-center mb-2 fw-medium">Completion of this module requires<br>a minimum score of 90%</p>
-                <button *ngIf="totalPercentage>=90" style="background-color: #98B73F !important;" (click)="openCertificate()" class="btn btn-back btn-rounded px-2 py-2">
+                <!-- <button *ngIf="totalPercentage>=90" style="background-color: #98B73F !important;" (click)="openCertificate()" class="btn btn-back btn-rounded px-2 py-2">
                     <div class="d-flex align-items-center">
                         <span class="fw-normal h6 mb-0">View Certificate</span>
                         <div class="btn-icon" style="background-color: #7e963e;"><i class="fa fa-file" aria-hidden="true"></i></div>
                     </div>
-                </button>&nbsp;
+                </button>&nbsp; -->
                 <button  (click)="takeAnotherquiz()" class="btn btn-back btn-rounded px-2 py-2">
                     <div class="d-flex align-items-center">
                         <span class="fw-normal h6 mb-0">Take Another Quiz</span>

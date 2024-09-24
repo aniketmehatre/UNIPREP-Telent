@@ -100,7 +100,7 @@ export class EntreprenuerquizComponent implements OnInit {
       this.countryName = data;
     });
     switch (this.currentModuleSlug) {
-      case 'Entreprenuer Sector Proficiency Test':
+      case 'entreprenuersectorproficiencytest':
         this.currentModuleId = 18;
         this.submoduleidquiz= localStorage.getItem("entrpreneursubid")
         this.universityidforquiz = null;
@@ -111,8 +111,7 @@ export class EntreprenuerquizComponent implements OnInit {
           this.upgradePlanMsg = 'Upgrade your plan now to gain instant access.';
         this.aboutModule = 'Explore a vast database of Q&A about:',
           this.moduleDetails = 'Scholarships, document checklist, Education loan, letter of Recommendation and many more!'
-        break;
-        
+        break; 
       default:
         this.currentModuleId = 17;
         this.universityidforquiz = null;
@@ -151,7 +150,7 @@ export class EntreprenuerquizComponent implements OnInit {
     // } */
     localStorage.setItem("currentmodulenameforrecently", this.currentModuleName);
     this.loadModuleAndSubModule();
-    // this.checkquizquestioncount()
+    this.checkquizquestioncount()
   }
 
   upgradePlan(): void {
@@ -402,16 +401,16 @@ export class EntreprenuerquizComponent implements OnInit {
     })
   }
   quizpercentage: any = 0
-  // checkquizquestionmodule() {
-  //   var data = {
-  //     moduleid: this.currentModuleId,
-  //     countryid: this.currentModuleId == 10 ? 0 : this.currentCountryId,
-  //     submoduleid: this.universityidforquiz
-  //   }
-  //   this.moduleListService.checkModuleQuizCompletion(data).subscribe((res) => {
-  //     this.quizpercentage = res.progress
-  //   })
-  // }
+  checkquizquestionmodule() {
+    var data = {
+      moduleid: this.currentModuleId,
+      countryid: this.currentModuleId == 10 ? 0 : this.currentCountryId,
+      submoduleid: this.universityidforquiz
+    }
+    this.service.checkModuleQuizCompletion(data).subscribe((res) => {
+      this.quizpercentage = res.progress
+    })
+  }
   openCertificate() {
     this.stopTimer();
     if (this.planExpired) {

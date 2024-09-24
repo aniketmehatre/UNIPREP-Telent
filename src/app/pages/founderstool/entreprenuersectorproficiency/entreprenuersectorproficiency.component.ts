@@ -58,7 +58,7 @@ export class EntreprenuersectorproficiencyComponent implements OnInit {
     //   return;
     // }
     localStorage.setItem('entrpreneursubid',id)
-    this.currentModuleSlug = "Entreprenuer Sector Proficiency Test"
+    this.currentModuleSlug = "entreprenuersectorproficiencytest"
     this.router.navigate([`/pages/founderstool/${this.currentModuleSlug}/entrpreneurquiz`]);
   }
   goBack(){
