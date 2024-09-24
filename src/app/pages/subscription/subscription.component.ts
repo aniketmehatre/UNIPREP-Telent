@@ -143,10 +143,16 @@ export class SubscriptionComponent implements OnInit {
     this.isSubOrQuestion = 2;
     this.stage = 2;
   }
-  payusingstripe(value: any){
-    this.stripdata=value;
-    this.selectedcost=this.stripdata.finalPrice
-    this.cardvisibility=true;
+  payusingstripe(value: any) {
+    this.stripdata = value;
+    this.selectedcost = this.stripdata.finalPrice;
+    this.subscriptionService
+      .createPaymentIntent(this.stripdata)
+      .subscribe((pi) => {
+        this.elementsOptions.clientSecret = pi.client_secret as string;
+        this.stripdata.clientSecret = pi.client_secret as string;
+        this.cardvisibility = true;
+      });
   }
   pay(value: any) {
     this.subscriptionDetails = value;
@@ -165,8 +171,7 @@ export class SubscriptionComponent implements OnInit {
           }
           if (value.type == "razorpay") {
             this.payWithRazor(data.orderid);
-          }
-          else{
+          } else {
             this.payusingstripe(value);
           }
         });
@@ -348,51 +353,48 @@ export class SubscriptionComponent implements OnInit {
   showHistory($event: any) {
     this.stage = 5;
   }
-  @ViewChild(StripeCardComponent) card: StripeCardComponent;
+  @ViewChild(StripePaymentElementComponent) card: StripePaymentElementComponent;
 
   cardOptions: StripeCardElementOptions = {
-    iconStyle: 'solid',
+    iconStyle: "solid",
     style: {
       base: {
-       color: '#000000',
-       },
+        color: "#000000",
+      },
       invalid: {
-       
-        color: 'red'
-      }
-    }
+        color: "red",
+      },
+    },
   };
 
   elementsOptions: StripeElementsOptions = {
     locale: "en",
   };
-  cardvisibility=false;
-  stripdata:any
-  selectedcost=0;
+  cardvisibility = false;
+  stripdata: any;
+  selectedcost = 0;
   paywithstripe() {
-    if(!this.stripdata){
+    if (!this.stripdata) {
       return;
     }
-    this.subscriptionService
-      .createPaymentIntent(this.stripdata)
-      .pipe(
-        switchMap((pi: any) =>
-          this.stripeService.confirmCardPayment(pi.client_secret, {
-            payment_method: {
-              card: this.card.element,
-              billing_details: {
-                name: "Tamil",
-              },
+    this.stripeService
+      .confirmPayment({
+        elements: this.card.elements,
+        confirmParams: {
+          payment_method_data: {
+            billing_details: {
+              name: localStorage.getItem("Name"),
             },
-          })
-        )
-      )
+          },
+        },
+        redirect: 'if_required',
+      })
       .subscribe((result: any) => {
         if (result.error) {
           console.log(result.error.message);
         } else {
           if (result.paymentIntent.status === "succeeded") {
-           console.log(result.paymentIntent.status)
+            console.log(result.paymentIntent.status);
           }
         }
       });

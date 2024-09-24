@@ -721,18 +721,21 @@
 <p-dialog
   [modal]="true"
   [(visible)]="cardvisibility"
-  [style]="{ width: '40rem', height: '15rem' }"
+  [style]="{ width: '40rem', height: 'auto' }"
 >
   <div style="padding: 2rem !important">
-    <ngx-stripe-card
-      [options]="cardOptions"
-      [elementsOptions]="elementsOptions"
-    ></ngx-stripe-card>
+    <div *ngIf="elementsOptions.clientSecret">
+      <ngx-stripe-elements
+        [elementsOptions]="elementsOptions"
+      >
+        <ngx-stripe-payment></ngx-stripe-payment>
+      </ngx-stripe-elements>
+    </div>
     <button
       class="mt-5 pt-3 pb-3 btn btn-basic w-100 m-0 btn btn-primary"
       (click)="paywithstripe()"
     >
-      Continue {{ selectedcost }}
+    <i class="pi pi-lock mx-2"></i>Pay {{ selectedcost |currency:'USD'}}
     </button>
   </div>
 </p-dialog>

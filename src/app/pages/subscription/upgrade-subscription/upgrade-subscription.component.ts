@@ -26,8 +26,9 @@ import { HttpClient } from "@angular/common/http";
 import {
   StripeCardElementOptions,
   StripeElementsOptions,
+  StripePaymentElementOptions,
 } from "@stripe/stripe-js";
-import { StripeCardComponent, StripeService } from "ngx-stripe";
+import { injectStripe, StripeCardComponent, StripePaymentElementComponent, StripeService } from "ngx-stripe";
 import { switchMap } from "rxjs";
 
 @Component({
@@ -90,7 +91,6 @@ export class UpgradeSubscriptionComponent implements OnInit {
     private stripeService: StripeService
   ) {}
   timeLeftInfoCard: any;
-
   ngOnInit(): void {
     this.getLocation();
     this.timeLeftInfoCard = localStorage.getItem("time_card_info");
@@ -392,7 +392,7 @@ export class UpgradeSubscriptionComponent implements OnInit {
     }
   }
 
-  checkout(event: Event,type:any) {
+  checkout(event: Event, type: any) {
     this.confirmModal = false;
     if (this.existingSubscription[0]?.monthlyPlan > this.monthlyPlan) {
       this.confirmSubscription(
@@ -432,7 +432,7 @@ export class UpgradeSubscriptionComponent implements OnInit {
             subscription_plan_id:
               this.selectedSubscriptionDetails?.subscription_plan_id,
           };
-          this.pay(data,type);
+          this.pay(data, type);
         }
         // else {
         //   if (this.selectedTopupCountryDetails) {
@@ -464,7 +464,7 @@ export class UpgradeSubscriptionComponent implements OnInit {
           if (this.checkoutTotal == "") {
             data.finalPrice = this.subscriptionTotal;
           }
-          this.pay(data,type);
+          this.pay(data, type);
         }
         // else {
         //   if (this.selectedTopupCountryDetails) {
@@ -509,7 +509,13 @@ export class UpgradeSubscriptionComponent implements OnInit {
     // this.showPayLoading = true;
     this.stripdata = value;
     this.selectedcost = this.stripdata.finalPrice;
-    this.cardvisibility = true;
+    this.subscriptionService
+      .createPaymentIntent(this.stripdata)
+      .subscribe((pi) => {
+        this.elementsOptions.clientSecret = pi.client_secret as string;
+        this.stripdata.clientSecret = pi.client_secret as string;
+        this.cardvisibility = true;
+      });
     return;
   }
   pay(value: any, type: any) {
@@ -527,8 +533,7 @@ export class UpgradeSubscriptionComponent implements OnInit {
           }
           if (type == "razorpay") {
             this.payWithRazor(data.orderid);
-          }
-          else{
+          } else {
             this.payusingstripe(value);
           }
         });
@@ -727,10 +732,11 @@ export class UpgradeSubscriptionComponent implements OnInit {
 
   protected readonly localStorage = localStorage;
 
-  @ViewChild(StripeCardComponent) card: StripeCardComponent;
+  @ViewChild(StripePaymentElementComponent) card: StripePaymentElementComponent;
 
   cardOptions: StripeCardElementOptions = {
     iconStyle: "solid",
+    hideIcon: false,
     style: {
       base: {
         color: "#000000",
@@ -740,9 +746,15 @@ export class UpgradeSubscriptionComponent implements OnInit {
       },
     },
   };
-
   elementsOptions: StripeElementsOptions = {
     locale: "en",
+    appearance: {
+      theme: "stripe",
+      labels: "floating",
+      variables: {
+        colorPrimary: "#673ab7",
+      },
+    },
   };
   cardvisibility = false;
   stripdata: any;
@@ -751,20 +763,18 @@ export class UpgradeSubscriptionComponent implements OnInit {
     if (!this.stripdata) {
       return;
     }
-    this.subscriptionService
-      .createPaymentIntent(this.stripdata)
-      .pipe(
-        switchMap((pi: any) =>
-          this.stripeService.confirmCardPayment(pi.client_secret, {
-            payment_method: {
-              card: this.card.element,
-              // billing_details: {
-                // name: "Tamil",
-              // },
+    this.stripeService
+      .confirmPayment({
+        elements: this.card.elements,
+        confirmParams: {
+          payment_method_data: {
+            billing_details: {
+              name: this.localStorage.getItem("Name"),
             },
-          })
-        )
-      )
+          },
+        },
+        redirect: 'if_required',
+      })
       .subscribe((result: any) => {
         if (result.error) {
           console.log(result.error.message);
@@ -775,7 +785,7 @@ export class UpgradeSubscriptionComponent implements OnInit {
           });
         } else {
           if (result.paymentIntent.status === "succeeded") {
-            console.log(result.paymentIntent.status);
+            this.cardvisibility=false;
             this.toast.add({
               severity: "success",
               summary: "Success",
