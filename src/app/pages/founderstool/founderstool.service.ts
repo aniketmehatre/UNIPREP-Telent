@@ -34,4 +34,42 @@ export class FounderstoolService {
         headers: headers,
     });
   }
+  // entrprenuerskill
+  getEntreprenuerTest(val:any) {
+    const headers = new HttpHeaders().set("Accept", "application/json");
+    return this.http.post<any>(environment.ApiUrl + "/getentrepreneurtestlist",val, {
+        headers: headers,
+    });
+  }
+  // quiz 
+  GetQuestionsCount(data: any) {
+    const headers = new HttpHeaders().set("Accept", "application/json");
+        return this.http.post<any>(environment.ApiUrl + "/getrandomquizlh", data, {
+            headers: headers,
+        });
+}
+submitQuiz(data: any) {
+  const headers = new HttpHeaders().set("Accept", "application/json");
+  return this.http.post<any>(environment.ApiUrl + "/submitquizanswers", data, {
+      headers: headers,
+  });
+}
+ReviewQuiz(data: any) {
+  const headers = new HttpHeaders().set("Accept", "application/json");
+  return this.http.post<any>(environment.ApiUrl + "/reviewquiz", data, {
+      headers: headers,
+  });
+}
+quizCount(data: any) {
+  const headers = new HttpHeaders().set("Accept", "application/json");
+  return this.http.post<any>(environment.ApiUrl + "/quizquestions", data, {
+      headers: headers,
+  });
+}
+checkModuleQuizCompletion(data: any) {
+  const headers = new HttpHeaders().set("Accept", "application/json");
+  return this.http.post<any>(environment.ApiUrl + "/checkmodulequizcompletion", data, {
+      headers: headers,
+  });
+}
 }

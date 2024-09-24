@@ -5,6 +5,9 @@ import { FoundersacademyComponent } from './foundersacademy/foundersacademy.comp
 import { FounderstoollistComponent } from './founderstoollist/founderstoollist.component';
 import { InvestorpitchtrainingComponent } from './investorpitchtraining/investorpitchtraining.component';
 import { StartupglossaryComponent } from './startupglossary/startupglossary.component';
+import { EntreprenuerskillmoduleComponent } from './entreprenuerskillmodule/entreprenuerskillmodule.component';
+import { EntreprenuersectorproficiencyComponent } from './entreprenuersectorproficiency/entreprenuersectorproficiency.component';
+import { EntreprenuerquizComponent } from './entreprenuerquiz/entreprenuerquiz.component';
 
 const routes: Routes = [
   {
@@ -21,6 +24,15 @@ const routes: Routes = [
       },
       {
         path: 'startupglossary', component: StartupglossaryComponent
+      },
+      {
+        path: 'entrepreneurskillmodule', component: EntreprenuerskillmoduleComponent
+      },     
+       {
+        path: 'entreprenuerproficiencymodule', component: EntreprenuersectorproficiencyComponent
+      },     
+       {
+        path: ':module_name/entrpreneurquiz', component: EntreprenuerquizComponent
       },
     ]
   }

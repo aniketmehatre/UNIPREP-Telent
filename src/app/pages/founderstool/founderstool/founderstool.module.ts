@@ -17,6 +17,9 @@ import {ConfirmationService} from 'primeng/api';
 import { FounderstoollistComponent } from '../founderstoollist/founderstoollist.component';
 import { InvestorpitchtrainingComponent } from '../investorpitchtraining/investorpitchtraining.component';
 import { StartupglossaryComponent } from '../startupglossary/startupglossary.component';
+import { EntreprenuerskillmoduleComponent } from '../entreprenuerskillmodule/entreprenuerskillmodule.component';
+import { EntreprenuersectorproficiencyComponent } from '../entreprenuersectorproficiency/entreprenuersectorproficiency.component';
+import { EntreprenuerquizComponent } from '../entreprenuerquiz/entreprenuerquiz.component';
 
 
 @NgModule({
@@ -25,7 +28,10 @@ import { StartupglossaryComponent } from '../startupglossary/startupglossary.com
     FoundersacademyComponent,
     FounderstoollistComponent,
     InvestorpitchtrainingComponent,
-    StartupglossaryComponent
+    StartupglossaryComponent,
+    EntreprenuerskillmoduleComponent,
+    EntreprenuersectorproficiencyComponent,
+    EntreprenuerquizComponent,
   ],
   imports: [
     CommonModule,
