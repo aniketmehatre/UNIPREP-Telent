@@ -311,7 +311,6 @@ export class K12ClassComponent implements OnInit {
         console.log(this.quizList$);
 
         this.quizList$.subscribe((data) => {
-            console.log(data);
             if (data) {
                 this.quizData = data.map((val: any) => {
                     let moduleData = this.moduleList.filter(ind => ind.id == val.module_id)[0]!.module_name;

@@ -7,23 +7,22 @@ import {
   OnInit,
   Output,
   ViewChild,
-  ViewContainerRef,
   ViewEncapsulation,
 } from "@angular/core";
-import { MenuItem, MessageService } from "primeng/api";
-import { ModalService } from "src/app/components/modal/modal.service";
-import { AuthService } from "../../../Auth/auth.service";
-import { SubSink } from "subsink";
-import { ActivatedRoute, Router } from "@angular/router";
-import { LocationService } from "../../../location.service";
-import { DataService } from "src/app/data.service";
-import { FormBuilder, FormGroup, Validators } from "@angular/forms";
-import { matchValidator } from "../../../@Supports/matchvalidator";
-import { ThemeService } from "../../../theme.service";
-import { DashboardService } from "src/app/pages/dashboard/dashboard.service";
-import { Observable, count } from "rxjs";
-import { CountryISO, SearchCountryField } from "ngx-intl-tel-input";
-import { SocialAuthService } from "@abacritt/angularx-social-login";
+import {MenuItem, MessageService} from "primeng/api";
+import {AuthService} from "../../../Auth/auth.service";
+import {SubSink} from "subsink";
+import {ActivatedRoute, Router} from "@angular/router";
+import {LocationService} from "../../../location.service";
+import {DataService} from "src/app/data.service";
+import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {matchValidator} from "../../../@Supports/matchvalidator";
+import {ThemeService} from "../../../theme.service";
+import {DashboardService} from "src/app/pages/dashboard/dashboard.service";
+import {count, Observable} from "rxjs";
+import {CountryISO, SearchCountryField} from "ngx-intl-tel-input";
+import {SocialAuthService} from "@abacritt/angularx-social-login";
+
 // import { SocialAuthService } from "@abacritt/angularx-social-login";
 
 @Component({
@@ -112,10 +111,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
     private dataService: DataService,
     private dashboardService: DashboardService // private authService: SocialAuthService
   ) {
-    this.subs.sink = this.dataService.countryId.subscribe((data) => {
-      this.selectedCountryId = Number(data);
-      this.getModuleList();
-    });
+    // this.subs.sink = this.dataService.countryId.subscribe((data) => {
+    //
+    // });
     this.dataService.castValue.subscribe((data) => {
       if (data === true) {
         this.checkNewUSerLogin();
@@ -137,19 +135,28 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   loadCountryList() {
-    this.dashboardService.countryList().subscribe((countryList) => {
+    this.locationService.getCountry().subscribe((countryList) => {
       this.countryLists = countryList;
-      this.countryLists.forEach((element: any) => {
-        if (element.id == Number(localStorage.getItem("countryId"))) {
-          this.dataService.changeCountryName(element.country);
-          this.dataService.changeCountryFlag(element.flag);
-          this.dataService.changeCountryId(element.id);
-        }
-      });
+      // this.countryLists.forEach((element: any) => {
+      //   if (element.id == this.selectedCountryId) {
+      //     localStorage.setItem("countryId", element.id);
+      //     this.dataService.changeCountryName(element.country);
+      //     this.dataService.changeCountryFlag(element.flag);
+      //     this.dataService.changeCountryId(element.id);
+      //   }
+      // });
+      // this.countryLists.forEach((element: any) => {
+      //   if (element.id == this.selectedCountryId) {
+      //     this.selectedCountryId = element.id;
+      //     this.dataService.changeCountryId(element.id);
+      //     this.dataService.changeCountryFlag(element.flag)
+      //     this.dataService.changeCountryName(element.country);
+      //   }
+      // });
     });
   }
-  isMenuOpen = true;
 
+  isMenuOpen = true;
   toggleMenu() {
     const sidenav: Element | null = document.getElementById("sidenav");
     if (sidenav) {
@@ -215,6 +222,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
     });
     this.dataService.countryId.subscribe((data: any) => {
       if (!data) {
+        this.selectedCountryId = Number(data);
+        this.getModuleList();
         let cntId = localStorage.getItem('countryId');
         this.dataService.changeCountryId(cntId!.toString());
       }
@@ -244,10 +253,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
     ) {
       this.formvisbility = true;
     }
-    // this.getModuleList();
-    // this.getCountryList();
-    // this.onChangeModuleList(1);
-    // this.onChangeSubModuleList(1);
     if (this.service._checkExistsSubscription === 0) {
       this.checkNewUser();
     } else {
@@ -256,18 +261,18 @@ export class HeaderComponent implements OnInit, OnDestroy {
       this.subs.sink = this.dataService.showTimeOutSource.subscribe((data) => {
         this.visible = data;
       });
-      this.dashboardService.countryList().subscribe((countryList) => {
-        this.countryLists = countryList;
-        this.countryLists.forEach((element: any) => {
-          if (element.id == this.selectedCountryId) {
-            this.selectedCountryId = element.id;
-            localStorage.setItem("countryId", element.id);
-            this.dataService.changeCountryId(element.id);
-            this.dataService.changeCountryFlag(element.flag)
-            this.dataService.changeCountryName(element.country);
-          }
-        });
-      });
+      // this.locationService.getCountry().subscribe((countryList) => {
+      //   this.countryLists = countryList;
+      //   this.countryLists.forEach((element: any) => {
+      //     if (element.id == this.selectedCountryId) {
+      //       this.selectedCountryId = element.id;
+      //       localStorage.setItem("countryId", element.id);
+      //       this.dataService.changeCountryId(element.id);
+      //       this.dataService.changeCountryFlag(element.flag)
+      //       this.dataService.changeCountryName(element.country);
+      //     }
+      //   });
+      // });
     }
     this.genMod = [
       {
@@ -393,11 +398,12 @@ export class HeaderComponent implements OnInit, OnDestroy {
     // this.darkModeSwitch.addEventListener("change", () => {
     //   this.themeService.toggleTheme();
     // });
-    this.getCountryList();
+    // this.getCountryList();
     // this.getHomeCountryList();
   }
 
   ngOnDestroy() {
+    console.log('destroy')
     this.subs.unsubscribe();
   }
 
@@ -493,14 +499,12 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.isLondon = true;
     this.isCountryPopupOpen = event;
     totalCountryList.toggle(event);
-    // this.dataService.countryIdSource
   }
 
   openHomeCountryFlagModal(totalHomeCountryList: any, event: any): void {
     this.isLondon = true;
     this.isCountryPopupOpen = event;
     totalHomeCountryList.toggle(event);
-    // this.dataService.countryIdSource
   }
 
   selectCountryInHeader(countryData: any, totalCountryList: any) {
@@ -512,7 +516,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   getCountryList(): void {
-    this.dashboardService.countryList().subscribe((countryList) => {
+    this.locationService.getCountry().subscribe((countryList) => {
       this.countryLists = countryList;
     });
   }

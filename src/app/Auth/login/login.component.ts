@@ -71,7 +71,6 @@ export class LoginComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.locationService.getImage().subscribe(imageUrl => {
       this.imageUrlWhitelabel = imageUrl;
-      console.log(this.imageUrlWhitelabel);  
     });
     this.domainnamecondition=window.location.hostname
     if ( this.domainnamecondition === "dev-student.uniprep.ai" ||  this.domainnamecondition === "uniprep.ai" ||  this.domainnamecondition === "localhost") {
@@ -137,7 +136,7 @@ export class LoginComponent implements OnInit, OnDestroy {
               country: this.locationData.country_name,
             }
             this.locationService.sendSessionData(req, "login").subscribe(response => {
-              console.log('addtrack', response);
+              //console.log('addtrack', response);
             });
             this.toast.add({ severity: 'success', summary: 'Success', detail: message });
           }
@@ -155,7 +154,7 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   countryLists: any;
   loadCountryList(data: any){
-    this.dashboardService.countryList().subscribe(countryList => {
+    this.locationService.getCountry().subscribe(countryList => {
       this.countryLists = countryList;
       this.countryLists.forEach((element: any) => {
         let cont = Number(data.userdetails[0].selected_country)

@@ -114,12 +114,15 @@ export class LocationService {
             headers: headers,
         });
     }
-
-    getCountry() {
+    private countryList: any[] = [];
+    getCountry(): Observable<any>  {
         const headers = new HttpHeaders().set("Accept", "application/json");
-        return this.http.get<any>(environment.ApiUrl + "/country", {
-            headers: headers,
-        });
+        if (this.countryList.length > 0) {
+            return of(this.countryList);
+        }
+        return this.http.get<any[]>(environment.ApiUrl + "/country").pipe(
+            tap(data => this.countryList = data) // Cache the response
+        );
     }
 
     getBlogs(data: any) {
@@ -168,7 +171,6 @@ export class LocationService {
             os: os,
             token: this.storage.get<string>('token')
         };
-        console.log('add track', sessionData)
         const headers = new HttpHeaders().set("Accept", "application/json");
         return this.http.post<any>(environment.ApiUrl + "/addtracking", sessionData, {
             headers: headers,
