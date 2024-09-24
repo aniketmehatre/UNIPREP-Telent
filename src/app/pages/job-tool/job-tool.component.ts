@@ -3,6 +3,7 @@ import { NavigationEnd, Router } from '@angular/router';
 import { filter } from 'rxjs';
 import { Location } from '@angular/common';
 import { CourseListService } from '../course-list/course-list.service';
+import { CvBuilderService } from './cv-builder/cv-builder.service';
 @Component({
   selector: 'uni-job-tool',
   templateUrl: './job-tool.component.html',
@@ -17,7 +18,8 @@ export class JobToolComponent implements OnInit {
   constructor(
     private router: Router,
     private location: Location,
-    private resumeService: CourseListService
+    private resumeService: CourseListService,
+    private cvBuilderService: CvBuilderService,
   ) {
     this.currentRoute = this.router.url;
     this.router.events.subscribe(event => {
@@ -80,6 +82,10 @@ export class JobToolComponent implements OnInit {
   }
 
   hideHeaderForPreviewPage() {
+    this.cvBuilderService.data$.subscribe(data => {
+      this.hideTitleForPreviewPage = data;
+    });
+
     this.resumeService.data$.subscribe(data => {
       if (!this.currentRoute.includes("salary-converter")) {
         this.hideTitleForPreviewPage = data;
