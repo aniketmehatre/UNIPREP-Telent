@@ -6,7 +6,7 @@
 				<div class="cvSampleImg d-flex flex-wrap">
 					<div class="flex-column overflow-hidden" *ngFor="let resumes of resumeHistory; let i = index">
 						<div [ngClass]="{ 'skeleton-loader': loadingResumes }">
-							<pdf-viewer [ngStyle]="{ visibility: loadingResumes ? 'hidden' : 'visible' }" [src]="resumes.pdf_name" [autoresize]="true" [render-text]="true" [show-all]="false" [original-size]="false" (after-load-complete)="callBackFn()"></pdf-viewer>
+							<pdf-viewer [ngStyle]="{ visibility: loadingResumes ? 'hidden' : 'visible' }" [src]="resumes.pdf_name" [autoresize]="true" [render-text]="true" [show-all]="false" [original-size]="false" (after-load-complete)="pdfViewLoader()"></pdf-viewer>
 							<i class="fa-solid fa-trash HistoryDeleteIcon" [ngStyle]="{ visibility: loadingResumes ? 'hidden' : 'visible' }" (click)="confirm($event, resumes.pdf_name, resumes.id)"></i>
 							<p-confirmPopup></p-confirmPopup>
 							<i class="fa-solid fa-download HistoryDownloadIcon" [ngStyle]="{ visibility: loadingResumes ? 'hidden' : 'visible' }" (click)="downloadOldResume(resumes.pdf_name)"></i>
@@ -253,9 +253,8 @@
                                     <div class="form-group">
                                         <div class="mb-3">
                                             <textarea pInputTextarea formControlName="user_summary" class="mt-2"
-                                                placeholder="About yourself" [rows]="5" [cols]="80"
-                                                (ngModelChange)="onTextModelChange($event)"></textarea>
-
+                                                placeholder="About yourself" [rows]="5" [cols]="80"></textarea>
+                                            <!-- (ngModelChange)="onTextModelChange($event)"  -->
                                             <div *ngIf="submitted && f['user_summary'].errors?.['required']"
                                                  class="text-danger text-xs">
                                                 <div style="margin-left:10px;">User Summary Required</div>
@@ -841,13 +840,10 @@
                                             <div class="form-group">
                                                 <div class="mb-3">
                                                     <p-dropdown [options]="skillsLists" placeholder="Select Skill" styleClass="w-100" [filter]="true" [appendTo]="'body'" [filterBy]="'skills'" formControlName="skills" optionLabel="skills" optionValue="skills" (onChange)="onSkillChange()"></p-dropdown>
-                                                    <div *ngIf="skill.get('skills')?.hasError('duplicate') && skill.get('skills')?.touched && submitted"
-                                                        class="text-danger text-xs">
-                                                        <div style="margin-left:10px;">This skill has already been selected.</div>
-                                                    </div>
-                                                    <div *ngIf="skill.get('skills')?.invalid && skill.get('skills')?.touched && submitted"
-                                                         class="text-danger text-xs">
-                                                        <div style="margin-left:10px;">Skill Name required.</div>
+
+                                                    <div *ngIf="skill.get('skills')?.touched" class="text-danger text-xs">
+                                                        <div *ngIf="skill.get('skills')?.hasError('duplicate')" style="margin-left:10px;">This skill has already been selected.</div>
+                                                        <div *ngIf="!skill.get('skills')?.hasError('duplicate') && skill.get('skills')?.hasError('required')" style="margin-left:10px;">Skill Name required.</div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -861,7 +857,7 @@
                                                                         placeholder="Proficiency Level"
                                                                         formControlName="skills_proficiency" optionLabel="value"
                                                                         optionValue="id"></p-dropdown>
-                                                            <div *ngIf="skill.get('skills_proficiency')?.invalid && skill.get('skills_proficiency')?.touched && submitted"
+                                                            <div *ngIf="skill.get('skills_proficiency')?.invalid && skill.get('skills_proficiency')?.touched"
                                                                  class="text-danger text-xs">
                                                                 <div style="margin-left:10px;">Proficiency Level
                                                                     required.</div>
@@ -899,10 +895,10 @@
                                             <div class="form-group">
                                                 <div class="mb-3">
                                                     <p-dropdown [options]="languageLists" placeholder="Select Language"  styleClass="w-100" [filter]="true" [filterBy]="'value'"
-                                                                formControlName="language" optionLabel="value" optionValue="value"></p-dropdown>
-                                                    <div *ngIf="language.get('language')?.invalid && language.get('language')?.touched && submitted"
-                                                         class="text-danger text-xs">
-                                                        <div style="margin-left:10px;">Language Name required.</div>
+                                                                formControlName="language" optionLabel="value" optionValue="value" (onChange)="onLanguageChange()"></p-dropdown>
+                                                    <div *ngIf="language.get('language')?.touched " class="text-danger text-xs">
+                                                        <div *ngIf="language.get('language')?.hasError('duplicate')" style="margin-left:10px;">This language has already been selected.</div>
+                                                        <div *ngIf="!language.get('language')?.hasError('duplicate') && language.get('language')?.hasError('required')" style="margin-left:10px;">Language Name required.</div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -1126,11 +1122,16 @@
 						<p>{{ f["user_email"].value }}</p>
 					</div>
 					<div class="contactItem fw-600">
-						<img class="resumeIcons" src="../../../uniprep-assets/resume-icons/Linkedin.svg" />
-						<p>
-							<a [href]="f['user_linkedin_link'].value" target="_blank">{{ f["user_linkedin"].value }}</a>
-						</p>
-					</div>
+                        <img class="resumeIcons" src="../../../uniprep-assets/resume-icons/Linkedin.svg" />
+                        <p>
+                            <a *ngIf="f['user_linkedin_link'].value; else noLink" [href]="f['user_linkedin_link'].value" target="_blank">
+                                {{ f['user_linkedin'].value }}
+                            </a>
+                            <ng-template #noLink>
+                                {{ f['user_linkedin'].value }}
+                            </ng-template>
+                        </p>
+                    </div>
 					<div class="contactItem fw-600" *ngIf="f['user_website'].value && f['user_website'].value != null">
 						<img class="resumeIcons" src="../../../uniprep-assets/resume-icons/Web.svg" />
 						<p>{{ f["user_website"].value }}</p>
@@ -1277,10 +1278,15 @@
                                 <p>{{ f["user_email"].value }}</p>
                             </div>
                             <div class="contactItem fw-600">
-                                <div class="resumeIcons" style="margin: 0px;">
-                                    <img src="../../../uniprep-assets/resume-icons/Linkedin.svg">
-                                </div>
-                                <p>{{ f["user_linkedin"].value }}</p>
+                                <img class="resumeIcons" src="../../../uniprep-assets/resume-icons/Linkedin.svg" />
+                                <p>
+                                    <a *ngIf="f['user_linkedin_link'].value; else noLink" [href]="f['user_linkedin_link'].value" target="_blank">
+                                        {{ f['user_linkedin'].value }}
+                                    </a>
+                                    <ng-template #noLink>
+                                        {{ f['user_linkedin'].value }}
+                                    </ng-template>
+                                </p>
                             </div>
                             <div class="contactItem fw-600" *ngIf="f['user_website'].value && f['user_website'].value != null">
                                 <div class="resumeIcons" style="margin: 0px;">
@@ -1508,8 +1514,15 @@
                                 <p>{{ f["user_website"].value }}</p>
                             </div>
                             <div class="d-flex align-items-center mb-2">
-                                <img class="resumeIcons" src="../../../uniprep-assets/resume-icons/Linkedin.svg">
-                                <p>{{ f["user_linkedin"].value }}</p>
+                                <img class="resumeIcons" src="../../../uniprep-assets/resume-icons/Linkedin.svg" />
+                                <p>
+                                    <a *ngIf="f['user_linkedin_link'].value; else noLink" [href]="f['user_linkedin_link'].value" target="_blank">
+                                        {{ f['user_linkedin'].value }}
+                                    </a>
+                                    <ng-template #noLink>
+                                        {{ f['user_linkedin'].value }}
+                                    </ng-template>
+                                </p>
                             </div>
                         </div>
                     </ng-container>
@@ -1600,8 +1613,15 @@
                                 <p>{{ f["user_website"].value }}</p>
                             </div>
                             <div class="d-flex align-items-center mb-2">
-                                <img class="resumeIcons" src="../../../uniprep-assets/resume-icons/Linkedin.svg">
-                                <p>{{ f["user_linkedin"].value }}</p>
+                                <img class="resumeIcons" src="../../../uniprep-assets/resume-icons/Linkedin.svg" />
+                                <p>
+                                    <a *ngIf="f['user_linkedin_link'].value; else noLink" [href]="f['user_linkedin_link'].value" target="_blank">
+                                        {{ f['user_linkedin'].value }}
+                                    </a>
+                                    <ng-template #noLink>
+                                        {{ f['user_linkedin'].value }}
+                                    </ng-template>
+                                </p>
                             </div>
                         </div>
                     </ng-container>
@@ -1762,7 +1782,12 @@
 								<div class="resumeIcons" style="margin: 0px">
 									<img src="../../../uniprep-assets/resume-icons/Linkedin.svg" />
 								</div>
-								<p>{{ f["user_linkedin"].value }}</p>
+								<a *ngIf="f['user_linkedin_link'].value; else noLink" [href]="f['user_linkedin_link'].value" target="_blank">
+                                    {{ f['user_linkedin'].value }}
+                                </a>
+                                <ng-template #noLink>
+                                    {{ f['user_linkedin'].value }}
+                                </ng-template>
 							</div>
 							<div class="contactItem fw-600" *ngIf="f['user_website'].value && f['user_website'].value != null">
 								<div class="resumeIcons" style="margin: 0px">

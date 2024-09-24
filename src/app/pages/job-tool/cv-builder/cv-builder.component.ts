@@ -1,7 +1,7 @@
 import { Component, OnInit, Renderer2, ElementRef, ViewChild, AfterViewInit  } from '@angular/core';
 import { MessageService, ConfirmationService } from 'primeng/api';
 import { FormBuilder, FormGroup, FormArray, Validators, AbstractControl } from "@angular/forms";
-import { CourseListService } from '../../course-list/course-list.service';
+// import { CourseListService } from '../../course-list/course-list.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
 import html2canvas from 'html2canvas';
@@ -9,6 +9,7 @@ import { MenuItem } from 'primeng/api';
 import Swiper from 'swiper';
 import {AuthService} from "../../../Auth/auth.service";
 import {LocationService} from "../../../location.service";
+import { CvBuilderService } from './cv-builder.service';
 
 @Component({
   selector: 'uni-cv-builder',
@@ -121,7 +122,7 @@ export class CvBuilderComponent implements OnInit  {
   swiper!: Swiper;
   loadingResumes: boolean = true;
   filledFields: string[] = [];
-  constructor(private toaster: MessageService, private fb: FormBuilder, private resumeService: CourseListService,
+  constructor(private toaster: MessageService, private fb: FormBuilder, private resumeService: CvBuilderService,
               private http: HttpClient, private router: Router, private confirmService: ConfirmationService,
               private renderer: Renderer2, private el: ElementRef,  private authService: AuthService,
               private locationService: LocationService) {
@@ -189,7 +190,7 @@ export class CvBuilderComponent implements OnInit  {
     }, 200);
     
   }
-  callBackFn() {
+  pdfViewLoader() {
    setTimeout(() => {
     this.loadingResumes = false;
    }, 3500);
@@ -346,6 +347,14 @@ export class CvBuilderComponent implements OnInit  {
   }
 
   onSkillChange() {
+    this.checkSkillsDuplilcation();
+  }
+  
+  onLanguageChange(){
+    this.checkLanguageDuplication();
+  }
+
+  checkSkillsDuplilcation(){
     const skills = this.getSkillsArray.controls.map(skill => skill.get('skills')?.value);
   
     skills.forEach((skill, index) => {
@@ -353,33 +362,58 @@ export class CvBuilderComponent implements OnInit  {
       const skillControl = this.getSkillsArray.at(index).get('skills');
       
       if (duplicateCount > 1 && skill) {
-        // If more than one occurrence is found, mark it as a duplicate
         skillControl?.setErrors({ duplicate: true });
       } else {
-        // If no duplicate, clear the error
         skillControl?.setErrors(null);
       }
     });
   }
-  
 
-  SortBasedOnProficiency(fieldName: string){
-    if(fieldName == "skills"){
-
-      const sortedArray = this.getSkillsArray.controls.sort((a, b) => {
-        const proficiencyOrder = [ "Advance", "Intermediate","Basic"];
-        return proficiencyOrder.indexOf(a.get('skills_proficiency')?.value) - proficiencyOrder.indexOf(b.get('skills_proficiency')?.value);
-      });
-      this.resumeFormInfoData.setControl('skillsArray', this.fb.array(sortedArray));
-
-    }else{
+  checkLanguageDuplication(){
+    const language = this.getLanguagesKnownArray.controls.map(language => language.get('language')?.value);
+    language.forEach((lang, index) => {
+      const duplicateCount = language.filter(s => s === lang).length;
+      const langControl = this.getLanguagesKnownArray.at(index).get('language');
       
-      const sortedArray = this.getLanguagesKnownArray.controls.sort((a, b) => {
-        const proficiencyOrder = [ "Native", "Proficient", "Fluent", "Beginner"];
-        return proficiencyOrder.indexOf(a.get('lang_proficiency')?.value) - proficiencyOrder.indexOf(b.get('lang_proficiency')?.value);
-      });
-      this.resumeFormInfoData.setControl('languagesKnownArray', this.fb.array(sortedArray));
+      if (duplicateCount > 1 && lang) {
+        langControl?.setErrors({ duplicate: true });
+      } else {
+        langControl?.setErrors(null);
+      }
+    });
+    
+  }
+
+  SortBasedOnProficiency(fieldName: string) {
+    if (fieldName === "skills") {
+        const proficiencyOrder = ["Advance", "Intermediate", "Basic"];
+        const sortedControls = this.getSkillsArray.controls.sort((a, b) => {
+            return proficiencyOrder.indexOf(a.get('skills_proficiency')?.value) - proficiencyOrder.indexOf(b.get('skills_proficiency')?.value);
+        });
+
+        // Reorder the existing FormArray without resetting it
+        this.reorderFormArray(this.getSkillsArray, sortedControls);
+
+        // Check for duplicates after sorting
+        this.checkSkillsDuplilcation();
+    } else {
+        const proficiencyOrder = ["Native", "Proficient", "Fluent", "Beginner"];
+        const sortedControls = this.getLanguagesKnownArray.controls.sort((a, b) => {
+            return proficiencyOrder.indexOf(a.get('lang_proficiency')?.value) - proficiencyOrder.indexOf(b.get('lang_proficiency')?.value);
+        });
+
+        // Reorder the existing FormArray without resetting it
+        this.reorderFormArray(this.getLanguagesKnownArray, sortedControls);
+
+        // Check for duplicates after sorting
+        this.checkLanguageDuplication();
     }
+  }
+
+  reorderFormArray(formArray: FormArray, sortedControls: AbstractControl[]) {
+    sortedControls.forEach((control, index) => {
+      formArray.setControl(index, control);
+    });
   }
 
   hideHeader() {
@@ -542,6 +576,7 @@ export class CvBuilderComponent implements OnInit  {
       this.activePageIndex = 1;
       this.hideHeader();
       this.ngAfterViewInit();
+      this.selectedResumeLevel = '';
     }else{
       this.moduleActiveIndex--;
     }
@@ -633,6 +668,7 @@ export class CvBuilderComponent implements OnInit  {
     this.activePageIndex--;
     this.hideHeader();
     if(this.activePageIndex == 0 || this.activePageIndex == 1){
+      this.selectedResumeLevel = '';
       this.ngAfterViewInit();
     }
   }
@@ -706,7 +742,7 @@ export class CvBuilderComponent implements OnInit  {
         edu_degree: ['', Validators.required],
         edu_location: ['', Validators.required],
         edu_percentage: ['', Validators.required],
-        edu_cgpa_percentage: ['%', Validators.required],
+        edu_cgpa_percentage: ['', Validators.required],
       }));
       // this.getEduDetailsArray.push(this.fb.group({
       //   edu_college_name: ['Srinivasan Engg College', Validators.required],
@@ -765,12 +801,14 @@ export class CvBuilderComponent implements OnInit  {
         language: ['', Validators.required],
         lang_proficiency: ['', Validators.required],
       }));
+      this.checkLanguageDuplication();
       this.removeHideHeaderElement('language_known');
     } else if (fieldName == "skills") {
       this.getSkillsArray.push(this.fb.group({
         skills: ['', Validators.required],
         skills_proficiency: ['', Validators.required],
       }));
+      this.checkSkillsDuplilcation();
       this.removeHideHeaderElement('skills');
     } else if (fieldName == "extra_curricular") {
       this.getExtraCurricularArray.push(this.fb.group({
@@ -824,11 +862,13 @@ export class CvBuilderComponent implements OnInit  {
       }
     } else if (fieldName == "language_known") {
       this.getLanguagesKnownArray.removeAt(index);
+      this.checkLanguageDuplication();
       if (this.getLanguagesKnownArray.length === 0) {
         this.hidingHeaders.push('language_known');
       }
     } else if (fieldName == "skills") {
       this.getSkillsArray.removeAt(index);
+      this.checkSkillsDuplilcation();
       if (this.getSkillsArray.length === 0) {
         this.hidingHeaders.push('skills');
       }
@@ -843,7 +883,6 @@ export class CvBuilderComponent implements OnInit  {
         this.hidingHeaders.push('certificate');
       }
     }
-    console.log(this.hidingHeaders, "hiding headers");
   }
 
   stillPursuing(fieldName: string, index: number, event: Event) {
@@ -977,19 +1016,19 @@ export class CvBuilderComponent implements OnInit  {
     window.open(resumeLink, '_blank')
   }
 
-  onTextModelChange(value: string) {
-    const words = value.trim().split(/\s+/);
-    if (words.length > 50) {
-      let joinedText = words.slice(0, 50).join(' ');
-      this.resumeFormInfoData.patchValue({
-        user_summary: joinedText
-      });
-      this.resumeFormInfoData.get('user_summary')?.setErrors({ maxWordsExceeded: true });
-    } else {
-      this.resumeFormInfoData.get('user_summary')?.setErrors(null);
-    }
-    this.resumeFormInfoData.updateValueAndValidity();
-  }
+  // onTextModelChange(value: string) {
+  //   const words = value.trim().split(/\s+/);
+  //   if (words.length > 50) {
+  //     let joinedText = words.slice(0, 50).join(' ');
+  //     this.resumeFormInfoData.patchValue({
+  //       user_summary: joinedText
+  //     });
+  //     this.resumeFormInfoData.get('user_summary')?.setErrors({ maxWordsExceeded: true });
+  //   } else {
+  //     this.resumeFormInfoData.get('user_summary')?.setErrors(null);
+  //   }
+  //   this.resumeFormInfoData.updateValueAndValidity();
+  // }
 
   // onEditorModelChange(value: string, index: number) {
   //   if (this.isUpdating) {
