@@ -1,23 +1,23 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from "@angular/router";
-import { Observable, Subscription, interval, takeWhile } from "rxjs";
-import { ModuleListSub } from "../../../@Models/module.model";
-import { ConfirmationService, MenuItem, MessageService } from "primeng/api";
-import { ModuleServiceService } from "../../module-store/module-service.service";
-import { DataService } from "../../../data.service";
-import { LocationService } from "../../../location.service";
+import { NgxUiLoaderService } from 'ngx-ui-loader';
+import { MenuItem, MessageService } from 'primeng/api';
+import { interval, Observable, Subscription, takeWhile } from 'rxjs';
 import { AuthService } from 'src/app/Auth/auth.service';
-import { NgxUiLoaderService } from "ngx-ui-loader";
+import { LocationService } from 'src/app/location.service';
+import { ModuleServiceService } from '../../module-store/module-service.service';
+import { Router } from '@angular/router';
+import { DataService } from 'src/app/data.service';
+import { FounderstoolService } from '../founderstool.service';
 
 @Component({
-  selector: 'uni-quiz',
-  templateUrl: './quiz.component.html',
-  styleUrls: ['./quiz.component.scss']
+  selector: 'uni-entreprenuerquiz',
+  templateUrl: './entreprenuerquiz.component.html',
+  styleUrls: ['./entreprenuerquiz.component.scss']
 })
-export class QuizComponent implements OnInit {
+export class EntreprenuerquizComponent implements OnInit {
   quizData: any[] = [];
   currentCountryId: any
-  quizmoduleredirectcountryid: any = 0;
+  // quizmoduleredirectcountryid: any = 0;
   currentModuleId: any;
   universityidforquiz: any = null;
   currentModuleSlug: any;
@@ -63,8 +63,10 @@ export class QuizComponent implements OnInit {
   imagewhitlabeldomainname: any
   orgnamewhitlabel: any;
   orglogowhitelabel: any;
+  submoduleidquiz:any
   constructor(private moduleListService: ModuleServiceService, private authService: AuthService, private router: Router, private dataService: DataService,
-    private locationService: LocationService, private ngxService: NgxUiLoaderService, private toast: MessageService,) { }
+    private locationService: LocationService, private ngxService: NgxUiLoaderService, private toast: MessageService,
+    private service: FounderstoolService) { }
 
   ngOnInit(): void {
     this.locationService.getImage().subscribe(imageUrl => {
@@ -79,7 +81,7 @@ export class QuizComponent implements OnInit {
     } else {
       this.ehitlabelIsShow = false;
     }
-    this.quizmoduleredirectcountryid = Number(localStorage.getItem('modalcountryid'));
+    // this.quizmoduleredirectcountryid = Number(localStorage.getItem('modalcountryid'));
     this.init();
     this.checkplanExpire();
   }
@@ -93,15 +95,16 @@ export class QuizComponent implements OnInit {
     this.positionNumber = 1;
     this.isInstructionVisible = true;
     this.currentModuleSlug = this.router.url.split('/').slice(-2, -1).pop();
-    this.currentCountryId = this.quizmoduleredirectcountryid == 0 ? Number(localStorage.getItem('countryId')) : Number(localStorage.getItem('modalcountryid'));
+    this.currentCountryId = 0;
     this.dataService.countryNameSource.subscribe((data) => {
       this.countryName = data;
     });
     switch (this.currentModuleSlug) {
-      case 'pre-admission':
-        this.currentModuleId = 1;
+      case 'Entreprenuer Sector Proficiency Test':
+        this.currentModuleId = 18;
+        this.submoduleidquiz= localStorage.getItem("entrpreneursubid")
         this.universityidforquiz = null;
-        this.currentModuleName = 'Pre-Admission';
+        this.currentModuleName = 'Entrepreneur Sector Proficiency Test';
         this.currentApiSlug = 'SubmoduleListForStudents';
         this.infoMessage = 'Upgrade to access the Pre-admission section',
           this.unlockMessage = 'Unlock the power of success with our exclusive Pre-admission!',
@@ -109,57 +112,12 @@ export class QuizComponent implements OnInit {
         this.aboutModule = 'Explore a vast database of Q&A about:',
           this.moduleDetails = 'Scholarships, document checklist, Education loan, letter of Recommendation and many more!'
         break;
-      case 'travel-and-tourism':
-        this.currentModuleId = 7;
-        this.universityidforquiz = null;
-        this.currentModuleName = 'Travel-and-Tourism';
-        this.currentApiSlug = 'SubmoduleListForStudents';
-        this.infoMessage = 'Upgrade to access the travel-and-tourism',
-          this.unlockMessage = 'Unlock the power of success with our exclusive travel-and-tourism!',
-          this.upgradePlanMsg = 'Upgrade your plan now to gain instant access.';
-        this.aboutModule = 'Explore a vast database of Q&A about:',
-          this.moduleDetails = 'Visa, departure, healthcare, tuition fees and many more!'
-        break;
-      case 'post-admission':
-        this.currentModuleId = 3;
-        this.universityidforquiz = null;
-        this.currentModuleName = 'Post-Admission';
-        this.currentApiSlug = 'SubmoduleListForStudents';
-        this.infoMessage = 'Upgrade to access the post-admission',
-          this.unlockMessage = 'Unlock the power of success with our exclusive post-admission!',
-          this.upgradePlanMsg = 'Upgrade your plan now to gain instant access.';
-        this.aboutModule = 'Post-admission offers information about:',
-          this.moduleDetails = ' Arrival, student discounts, banking, full time jobs, post study work and many more!'
-        break;
-      case 'career-hub':
-        this.currentModuleId = 4;
-        this.universityidforquiz = null;
-        this.currentModuleName = 'Career Hub';
-        this.currentApiSlug = 'SubmoduleListForStudents';
-        this.infoMessage = 'Upgrade to access the Career Hub',
-          this.unlockMessage = '',
-          this.upgradePlanMsg = 'Upgrade your plan now to gain instant access.';
-        this.aboutModule = 'Explore a vast database of Q&A about:',
-          this.moduleDetails = ' Arrival, student discounts, banking, full time jobs, post study work and many more!'
-        break;
-      case 'university':
-        this.universityidforquiz = localStorage.getItem('universityidforquiz')
-        this.currentModuleId = 5;
-        this.currentModuleName = 'University';
-        this.currentApiSlug = 'SubmoduleListForStudents';
-        this.selectedModule = 'university'
-        break;
-      case 'skill-mastery':
-        this.universityidforquiz = localStorage.getItem('skillmasteryquizsubmoduleid');
-        this.currentModuleId = 10;
-        this.currentModuleName = 'Skill Mastery';
-        this.currentApiSlug = 'SubmoduleListForStudents';
-        this.selectedModule = 'skill-mastery'
-        break;
+        
       default:
-        this.currentModuleId = 6;
+        this.currentModuleId = 17;
         this.universityidforquiz = null;
-        this.currentModuleName = 'Life At ' + this.countryName;
+        this.submoduleidquiz= localStorage.getItem("entrpreneursubid")
+        this.currentModuleName = 'Entreprenuer Skill Test';
         this.currentApiSlug = 'SubmoduleListForStudents';
         this.infoMessage = 'Upgrade to access information about life in your chosen destination',
           this.unlockMessage = 'Unlock the power of success with our exclusive destination',
@@ -193,7 +151,7 @@ export class QuizComponent implements OnInit {
     // } */
     localStorage.setItem("currentmodulenameforrecently", this.currentModuleName);
     this.loadModuleAndSubModule();
-    this.checkquizquestioncount()
+    // this.checkquizquestioncount()
   }
 
   upgradePlan(): void {
@@ -216,28 +174,15 @@ export class QuizComponent implements OnInit {
   }
 
   loadModuleAndSubModule() {
-    this.currentCountryId = this.quizmoduleredirectcountryid == 0 ? Number(localStorage.getItem('countryId')) : Number(localStorage.getItem('modalcountryid'))
-    //this.isSkeletonVisible = true;
-    //this.subModules$ = this.moduleListService.subModuleList$();
-    console.log(this.currentCountryId);
-    console.log(this.quizmoduleredirectcountryid);
     let data = {
-      countryId: this.currentModuleId == 10 ? 0 : this.currentCountryId,
-      moduleId: this.currentModuleId,
-      api_module_name: this.currentApiSlug
+      // countryId:this.currentCountryId,
+      submoduleId: this.submoduleidquiz,
+      moduleId: this.currentModuleId
     }
-    //this.moduleListService.loadSubModules(data);
-    this.locationService.GetQuestionsCount(data).subscribe(data => {
+    this.service.GetQuestionsCount(data).subscribe(data => {
       this.isSkeletonVisible = false;
       this.subModuleList = data;
     })
-    // this.subModules$.subscribe(event => {
-    //   this.subModuleList = event;
-    // });
-    this.locationService.getUniPerpModuleList().subscribe((data: any) => {
-      this.moduleList = data.modules;
-      this.ngxService.stop();
-    });
   }
 
   runQuiz() {
@@ -289,7 +234,7 @@ export class QuizComponent implements OnInit {
     //   icon: 'fa-solid fa-circle-exclamation',
     // });
     this.stopTimer();
-    this.router.navigate([`/pages/modules/${this.currentModuleSlug}`]);
+    this.router.navigate(['/pages/founderstool/founderstoollist']);
   }
 
   clickPreviousQuiz(carouselQuiz: any, event: any) {
@@ -368,12 +313,12 @@ export class QuizComponent implements OnInit {
     });
     this.stopTimer();
     var data = {
-      country_id: this.currentModuleId == 10 ? 0 : this.currentCountryId,
+      country_id:0,
       module_id: this.currentModuleId,
-      submodule_id: this.universityidforquiz,
+      submodule_id: this.submoduleidquiz,
       quizquestion: this.quizData
     }
-    this.moduleListService.submitQuiz(data).subscribe((res) => {
+    this.service.submitQuiz(data).subscribe((res) => {
       this.totalPercentage = res.percentageCompleted
       this.certificatesurl = res.certificate
       this.totalanswerquistionaftersubmited = res.totalquestions
@@ -392,7 +337,7 @@ export class QuizComponent implements OnInit {
       });
       this.isStartQuiz = false;
       this.isQuizSubmit = true;
-      this.checkquizquestionmodule()
+      // this.checkquizquestionmodule()
     })
     // this.totalPercentage = (this.answeredCorrect / this.quizData.length) * 100;
   }
@@ -409,7 +354,7 @@ export class QuizComponent implements OnInit {
     this.positionNumber = 1;
     this.totalpercentagequiztime = 0;
     this.isInstructionVisible = true;
-    this.checkquizquestioncount()
+    // this.checkquizquestioncount()
     this.stopTimer();
   }
   openReviewPopup() {
@@ -419,11 +364,11 @@ export class QuizComponent implements OnInit {
     this.isReviewVisible = true;
     this.stopTimer();
     var data = {
-      countryId: this.currentModuleId == 10 ? 0 : this.currentCountryId,
+      countryId: 0,
       moduleId: this.currentModuleId,
-      submoduleId: this.universityidforquiz
+      submoduleId: this.submoduleidquiz
     }
-    this.moduleListService.ReviewQuiz(data).subscribe((res) => {
+    this.service.ReviewQuiz(data).subscribe((res) => {
       this.quizData = res.userquiz.map((val: any) => {
         let number = 1;
         let dd = { ...val };
@@ -439,11 +384,11 @@ export class QuizComponent implements OnInit {
   checkquizquestioncount() {
     this.quizData = [];
     var data = {
-      countryId: this.currentModuleId == 10 ? 0 : this.currentCountryId,
+      countryId: 0,
       moduleId: this.currentModuleId,
-      submoduleid: this.universityidforquiz
+      submoduleid: this.submoduleidquiz
     }
-    this.moduleListService.quizCount(data).subscribe((res) => {
+    this.service.quizCount(data).subscribe((res) => {
       this.quizcount = res.count > 0 ? res.count : 0;
       this.quizData = res.quizquestion.map((val: any) => {
         let number = 1;
@@ -457,16 +402,16 @@ export class QuizComponent implements OnInit {
     })
   }
   quizpercentage: any = 0
-  checkquizquestionmodule() {
-    var data = {
-      moduleid: this.currentModuleId,
-      countryid: this.currentModuleId == 10 ? 0 : this.currentCountryId,
-      submoduleid: this.universityidforquiz
-    }
-    this.moduleListService.checkModuleQuizCompletion(data).subscribe((res) => {
-      this.quizpercentage = res.progress
-    })
-  }
+  // checkquizquestionmodule() {
+  //   var data = {
+  //     moduleid: this.currentModuleId,
+  //     countryid: this.currentModuleId == 10 ? 0 : this.currentCountryId,
+  //     submoduleid: this.universityidforquiz
+  //   }
+  //   this.moduleListService.checkModuleQuizCompletion(data).subscribe((res) => {
+  //     this.quizpercentage = res.progress
+  //   })
+  // }
   openCertificate() {
     this.stopTimer();
     if (this.planExpired) {
@@ -476,7 +421,7 @@ export class QuizComponent implements OnInit {
     window.open(this.certificatesurl, '_blank');
   }
   takeAnotherquiz() {
-    this.router.navigate([`/pages/modules/quizmodule`]);
+    this.router.navigate(['/pages/founderstool/founderstoollist']);
   }
   openReferAnswer(link: any) {
     window.open(link, '_blank');
@@ -509,7 +454,7 @@ export class QuizComponent implements OnInit {
     this.startTimer();
   }
   timeIsOver() {
-    this.router.navigate(['/pages/modules/quizmodule'])
+    this.router.navigate(['/pages/founderstool/founderstoollist']);
   }
   stopTimer(): void {
     if (this.timerSubscription) {

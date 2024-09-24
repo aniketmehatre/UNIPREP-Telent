@@ -26,4 +26,10 @@ export class FounderstoollistComponent implements OnInit {
   openStartUpGlossary(){
     this.router.navigate(['/pages/founderstool/startupglossary']);
   }
+  openEntreprenuerSkill(){
+    this.router.navigate(['/pages/founderstool/entrepreneurskillmodule']);
+  }
+  openEntreprenuerSector(){
+    this.router.navigate(['/pages/founderstool/entreprenuerproficiencymodule']);
+  }
 }
