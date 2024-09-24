@@ -98,7 +98,7 @@ export class ModuleServiceService {
 
   studentFullQuestionData(data: any) {
     const headers = new HttpHeaders().set("Accept", "application/json");
-    return this.http.post<any>(environment.ApiUrl + "/studentssubmodulequestions", data, {
+    return this.http.post<any>(environment.ApiUrl + "/StudentsSubmoduleQuestions", data, {
       headers: headers,
     });
   }
