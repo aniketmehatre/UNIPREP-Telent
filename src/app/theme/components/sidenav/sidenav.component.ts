@@ -40,7 +40,7 @@ export class SidenavComponent {
       image: "fa-solid fa-objects-column",
     },
     {
-      title: "About UNIPREP",
+      title: "User Guide",
       url: "/pages/userguide",
       image: "fa-solid fa-book",
     },
@@ -60,6 +60,11 @@ export class SidenavComponent {
       image: "",
     },
     {
+      title: "k12",
+      url: "/pages/modules/k12",
+      image: "fa-solid fa-people-group",
+    },
+    {
       title: "Pre Admission",
       url: "/pages/modules/pre-admission",
       image: "fa-solid fa-file-import",
@@ -69,6 +74,11 @@ export class SidenavComponent {
     //   url: "/pages/modules/post-application",
     //   image: "fa-solid fa-file-export",
     // },
+    {
+      title: "Academic Tools",
+      url: "/pages/modules/academic-tools",
+      image: "fa-solid fa-ticket",
+    },
     {
       title: "Post Admission",
       url: "/pages/modules/post-admission",
@@ -95,6 +105,11 @@ export class SidenavComponent {
       image: "fa-solid fa-briefcase",
     },
     {
+      title: "Language Hub",
+      url: "/pages/language-hub",
+      image: "fa-solid fa-books",
+    },
+    {
       title: "Life",
       url: "",
       image: "",
@@ -119,11 +134,7 @@ export class SidenavComponent {
       url: "/pages/job-portal/job-search",
       image: "fa-solid fa-briefcase",
     },
-    {
-      title: "Language Hub",
-      url: "/pages/language-hub",
-      image: "fa-solid fa-books",
-    },
+
     {
       title: "Learning Hub",
       url: "/pages/modules/learning-hub",
@@ -155,14 +166,19 @@ export class SidenavComponent {
       image: "",
     },
     {
-      title: "Investor List",
-      url: "/pages/investor-list",
-      image: "fa-solid fa-chart-waterfall",
-    },
-    {
       title: "Startup Kit",
       url: "/pages/startup",
       image: "fa-solid fa-memo-circle-info",
+    },
+    {
+      title: "Founders Tool",
+      url: "/pages/founderstool/founderstoollist",
+      image: "fa-solid fa-memo-circle-info",
+    },
+    {
+      title: "Investor List",
+      url: "/pages/investor-list",
+      image: "fa-solid fa-chart-waterfall",
     },
     {
       title: "Pitch Deck",

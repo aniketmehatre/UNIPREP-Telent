@@ -49,6 +49,7 @@ export class CourseListService {
       headers: headers,
     });
   }
+
   downloadCoverletter(data: any){
     const headers = new HttpHeaders().set("Accept", "application/json");
     return this.http.post<any>(environment.ApiUrl + "/generatecoverletter", data ,{
@@ -68,10 +69,10 @@ export class CourseListService {
     });
   }
 
-  private dataSubject = new BehaviorSubject<boolean>(true);
+  private dataSubject = new BehaviorSubject<boolean>(false);
   data$ = this.dataSubject.asObservable();
 
-  setData(data: boolean) {
+  setData(data: any) {
     this.dataSubject.next(data);
   }
 
@@ -126,6 +127,20 @@ export class CourseListService {
   getCourseRecommendation(){
     const headers = new HttpHeaders().set("Accept", "application/json");
     return this.http.post<any>(environment.ApiUrl + "/getRecommendation" ,{
+      headers: headers,
+    });
+  }
+
+  getCVPrefilledData(){
+    const headers = new HttpHeaders().set("Accept", "application/json");
+    return this.http.post<any>(environment.ApiUrl + "/cvPrefilledData" ,{
+      headers: headers,
+    });
+  }
+
+  storeUserFilledData(data: any){
+    const headers = new HttpHeaders().set("Accept", "application/json");
+    return this.http.post<any>(environment.ApiUrl + "/storeFiledData", data ,{
       headers: headers,
     });
   }

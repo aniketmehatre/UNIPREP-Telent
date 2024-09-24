@@ -32,6 +32,7 @@ export class CourseListComponent implements OnInit {
   allUniversityList: any = [];
   durationList: any = [];
   monthList: any = [{ id: "January", name: "January" }, { id: "February", name: "February" }, { id: "March", name: "March" }, { id: "April", name: "April" }, { id: "May ", name: "May" }, { id: "June", name: "June" }, { id: "July", name: "July" }, { id: "August", name: "August" }, { id: "September", name: "September" }, { id: "October", name: "October" }, { id: "November", name: "November" }, { id: "December", name: "December" }];
+  recMonthList: any = this.monthList;
   studyLevel: any = [{ id: "UG", value: "UG" }, { id: "PG", value: "PG" }];
   worldRank: any = [{ id: "100", value: "Top 100" }, { id: "200", value: "Top 200" }, { id: "500", value: "Top 500" }, { id: null, value: "All Range" }];
   campusList: any = [];
@@ -114,6 +115,11 @@ export class CourseListComponent implements OnInit {
     // this.getCourseLists();
     this.getRecommendationList();
     this.GetPersonalProfileData();
+    let anyMonthArray:any= {
+      id: null,
+      name: "any Month"
+    };
+    this.recMonthList.unshift(anyMonthArray);
   }
   GetPersonalProfileData() {
     this.userManagementService.GetUserPersonalInfo().subscribe(data => {
@@ -146,6 +152,9 @@ export class CourseListComponent implements OnInit {
         this.enableModule = false;
       }
       this.getSelectBoxValues();
+      setTimeout(() => {
+        this.countrySelect();
+      }, 2000);
     });
   }
 
@@ -171,12 +180,6 @@ export class CourseListComponent implements OnInit {
           category_name: "any Subject"
         };
         this.subjectNameList.unshift(anySubjectArray);
-
-        let anyMonthArray:any= {
-          id: null,
-          name: "any Month"
-        };
-        this.monthList.unshift(anyMonthArray);
       }
     });
   }
@@ -188,7 +191,6 @@ export class CourseListComponent implements OnInit {
       this.locationList = this.allLocations.filter((item:any) =>{
         return selectedCountry.includes(item.country_id);
       });
-
       this.universityNameList = this.allUniversityList.filter((item:any) =>{
         return selectedCountry.includes(item.country_id);
       });
@@ -431,15 +433,25 @@ export class CourseListComponent implements OnInit {
   }
 
   getRecommendation(){
-    let keyMapping:any = {"1": "country","2": "subject","3": "study_level","4": "intake_months","5": "world_rank"};
-
-    let newData = Object.fromEntries(
-      Object.entries(this.selectedData).map(([key, value]) => [keyMapping[key] || key, value])
+    let keyMapping: any = {"1": "country","2": "subject","3": "study_level","4": "intake_months","5": "world_rank"};
+  
+    let newData = Object.fromEntries(Object.entries(this.selectedData).map(([key, value]) => {
+        let mappedKey = keyMapping[key] || key;
+        if (Array.isArray(value)) {
+          value = value.filter(item => item !== null);
+        }else{
+          value = value == null ? '' : value
+        }
+        return [mappedKey, value];
+      })
     );
     this.enableModule = true;
     this.recommendationBasedCourses(newData);
     this.getSelectBoxValues();
-    this.courseList.storeCourseRecommendation(newData).subscribe()
+    this.courseList.storeCourseRecommendation(newData).subscribe();
+    setTimeout(() => {
+      this.countrySelect();
+    }, 2000);
   }
   
   recommendationBasedCourses(data: any){

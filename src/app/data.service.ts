@@ -22,6 +22,11 @@ export class DataService {
     public countryFlagSource = new BehaviorSubject('');
     countryFlag = this.countryFlagSource.asObservable();
 
+
+
+    public homeCountryFlagSource = new BehaviorSubject('');
+    homeCountryFlag = this.homeCountryFlagSource.asObservable();
+
     public timeoutStatusSource = new BehaviorSubject(0);
     timeoutStatus = this.timeoutStatusSource.asObservable();
 
@@ -73,7 +78,19 @@ export class DataService {
     }
 
     changeCountryFlag(countryFlag: string) {
-        this.countryFlagSource.next(countryFlag);
+        if(countryFlag){
+            this.countryFlagSource.next(countryFlag);
+        }else{
+            this.countryFlagSource.next('/uniprep-assets/image-available.jpg')
+        }
+    }
+
+    changeHomeCountryFlag(countryFlag: string) {
+        if(countryFlag){
+            this.homeCountryFlagSource.next(countryFlag);
+        }else{
+            this.homeCountryFlagSource.next('/uniprep-assets/image-available.jpg')
+        }
     }
 
     changeCountryId(countryId: string) {

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
+import { NavigationEnd, Router } from '@angular/router';
 import { filter } from 'rxjs';
 import { Location } from '@angular/common';
 import { CourseListService } from '../course-list/course-list.service';
@@ -16,7 +16,6 @@ export class JobToolComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private activatedRoute: ActivatedRoute,
     private location: Location,
     private resumeService: CourseListService
   ) {
@@ -32,11 +31,13 @@ export class JobToolComponent implements OnInit {
   ngOnInit(): void {
     this.currentRoute = this.router.url;
     this.changeTitle();
-    this.hideHeaderForPreviewPage();
+    // if (!this.currentRoute.includes("career-tool")&&!this.currentRoute.includes("psychometric") && !this.currentRoute.includes("personality") && !this.currentRoute.includes("employer") && !this.currentRoute.includes("cost-of-living")) {
+      // console.log("job tool components");
+      this.hideHeaderForPreviewPage();
+    // }
     this.router
       .events.pipe(
         filter(event => event instanceof NavigationEnd),
-
       ).subscribe((ttl: any) => {
         this.currentRoute = ttl.url;
         this.changeTitle()
@@ -45,9 +46,9 @@ export class JobToolComponent implements OnInit {
   changeTitle() {
     if (this.currentRoute.includes("career-tool")) {
       this.title = "Career Tools";
+      this.hideTitleForPreviewPage = false;
     } else if (this.currentRoute.includes("cost-of-living")) {
       this.title = "Cost of living";
-      this.hideTitleForPreviewPage = false;
     } else if (this.currentRoute.includes("cv-builder")) {
       this.title = "CV Builder";
     } else if (this.currentRoute.includes("salary-converter")) {
@@ -59,14 +60,12 @@ export class JobToolComponent implements OnInit {
     } else if (this.currentRoute.includes("career-planner")) {
       this.title = "career-planner";
     }
-    else if (this.currentRoute.includes("pshychometric")) {
-      this.title = "Pshychometric Test";
+    else if (this.currentRoute.includes("psychometric")) {
+      this.title = "Psychometric Test";
       this.hideTitleForPreviewPage = false;
-
     } else if (this.currentRoute.includes("personality")) {
       this.title = "Personality Test";
       this.hideTitleForPreviewPage = false;
-
     } else {
       this.title = "Employer Test";
       this.hideTitleForPreviewPage = false;
@@ -90,6 +89,6 @@ export class JobToolComponent implements OnInit {
 
   isCostOfLivingRoute(): boolean {
     // console.log(this.currentRoute.includes('cost-of-living')) 
-    return this.currentRoute.includes('cost-of-living') || this.currentRoute.includes('salary-converter');
+    return this.currentRoute.includes('cost-of-living') || this.currentRoute.includes('salary-converter') || this.currentRoute.includes('psychometric') || this.currentRoute.includes('employer') || this.currentRoute.includes('personality');
   }
 }

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { TestQuizService } from '../test-quiz.service';
 import { ActivatedRoute, Params } from '@angular/router';
-import { GetQuizPayload } from 'src/app/@Models/career-tool-category.model';
+import { GetQuizPayload, Quiz } from 'src/app/@Models/career-tool-category.model';
 
 @Component({
   selector: 'uni-quiz-test-list',
@@ -10,12 +10,9 @@ import { GetQuizPayload } from 'src/app/@Models/career-tool-category.model';
 })
 export class QuizTestListComponent implements OnInit {
   quizlist: any = [];
-  currentModule: string = 'Pyshcometric';
+  currentModule: string = 'Psychometric';
   subModuleId: string = '';
   moduleId: string = '';
-  first: number = 1;
-  page: number = 1;
-  rows: number = 10;
   count: number = 0;
 
   constructor(
@@ -33,8 +30,6 @@ export class QuizTestListComponent implements OnInit {
   quizlistData() {
     const params: GetQuizPayload = {
       categoryId: this.subModuleId,
-      page: this.page,
-      perpage: this.rows
     }
     this.testQuizService.getQuizList(params).subscribe(res => {
       this.quizlist = res.data;
@@ -44,10 +39,5 @@ export class QuizTestListComponent implements OnInit {
   showQuizQuestions(subModuleId: number) {
     localStorage.setItem('learninghubsubmoduleid', subModuleId.toString());
   }
-  pageChange(event: any) {
-    this.first = event.page;
-    this.page = event.page + 1;
-    this.rows = event.rows;
-    this.quizlistData();
-  }
+
 }

@@ -75,6 +75,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
   show1 = false;
   password1: string = "password";
   headerFlag: any = "";
+  headerHomeFlag: any = "";
+  homeCountryId: any;
+  selectedHomeCountry: any = null;
   timeLeftSecs: any;
   timerInterval: any;
   userLoginTimeLeftCount!: boolean;
@@ -97,6 +100,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   countryList: any;
   locationList: any;
   whiteLabelIsNotShow:boolean=true;
+  visibleExhastedUser!: boolean;
   constructor(
     private router: Router,
     private locationService: LocationService,
@@ -195,7 +199,11 @@ export class HeaderComponent implements OnInit, OnDestroy {
   mobileForm: any = FormGroup;
   preferredCountry: any;
   imagewhitlabeldomainname:any;
+  orgnamewhitlabel:any;
   ngOnInit() {
+    this.locationService.getOrgName().subscribe(orgname => {
+      this.orgnamewhitlabel = orgname;
+    });
     this.imagewhitlabeldomainname=window.location.hostname;
     if (this.imagewhitlabeldomainname === "dev-student.uniprep.ai" || this.imagewhitlabeldomainname === "uniprep.ai" || this.imagewhitlabeldomainname === "localhost") {
       this.whiteLabelIsNotShow=true;
@@ -211,6 +219,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
         this.dataService.changeCountryId(cntId!.toString());
       }
     })
+    this.dataService.homeCountryFlagSource.subscribe(data => {
+      this.headerHomeFlag = data;
+    });
     this.dataService.countryNameSource.subscribe((data: any) => {
     })
     this.dataService.countryFlagSource.subscribe((data: any) => {
@@ -363,7 +374,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
         //localStorage.setItem('countryId', data.userdetails[0].interested_country_id);
         this.userName = data.userdetails[0].name.toString();
         this.firstChar = this.userName.charAt(0);
-        
+        this.homeCountryId = Number(data.userdetails[0].home_country_id)
+        this.selectedHomeCountry = Number(data.userdetails[0].home_country_id)
+        this.getHomeCountryList();
         if(data.userdetails[0].login_status.includes('Demo') == true) {
           this.demoTrial = true;
           this.demoDays =  data.userdetails[0].login_status.replace('Demo-', '') ;
@@ -381,7 +394,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     //   this.themeService.toggleTheme();
     // });
     this.getCountryList();
-    this.getHomeCountryList();
+    // this.getHomeCountryList();
   }
 
   ngOnDestroy() {
@@ -480,6 +493,13 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.isLondon = true;
     this.isCountryPopupOpen = event;
     totalCountryList.toggle(event);
+    // this.dataService.countryIdSource
+  }
+
+  openHomeCountryFlagModal(totalHomeCountryList: any, event: any): void {
+    this.isLondon = true;
+    this.isCountryPopupOpen = event;
+    totalHomeCountryList.toggle(event);
     // this.dataService.countryIdSource
   }
 
@@ -777,49 +797,57 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   }
   onClickSubscribedUser(): void {
-    let data: any = {};
-    if (this.mobileForm.valid) {
-      data.phone = this.mobileForm.value.phone.number;
-      data.home_country = this.mobileForm.value.home_country;
-      data.country_code = this.mobileForm.value.phone.dialCode;
-    }
-    if (this.demoTrial == true) {
-      data.demo_user = 1;
-    }
-    this.dashboardService.getContineTrial(data).subscribe((res) => {
+    this.imagewhitlabeldomainname=window.location.hostname;
+    if (this.imagewhitlabeldomainname === "dev-student.uniprep.ai" || this.imagewhitlabeldomainname === "uniprep.ai" || this.imagewhitlabeldomainname === "localhost") {
+      this.visibleExhastedUser = false;
+      let data: any = {};
+      if (this.mobileForm.valid) {
+        data.phone = this.mobileForm.value.phone.number;
+        data.home_country = this.mobileForm.value.home_country;
+        data.country_code = this.mobileForm.value.phone.dialCode;
+      }
       if (this.demoTrial == true) {
-        this.toast.add({
-          severity: "success",
-          summary: "Success",
-          detail: "Demo Trail Started",
-        });
+        data.demo_user = 1;
       }
-      this.freeTrial = false;
-      this.demoTrial = false;
-      this.visibleExhasted = false;
-      this.service._userContineTrial = false;
-      this.service.contineStatus(false);
-      this.dataService.sendValue(false);
-      setTimeout(() => {
-        this.checkNewUser();
-        this.dashboardService.isinitialstart = true;
-        if(this.enterpriseSubscriptionLink  != ""){
-          window.open(this.enterpriseSubscriptionLink, '_target');
-          return;
-      }
-        this.router.navigate(["/pages/subscriptions"]);
-      }, 1000);
-    },
-      error => {
+      this.dashboardService.getContineTrial(data).subscribe((res) => {
         if (this.demoTrial == true) {
           this.toast.add({
-            severity: "error",
-            summary: "Error",
-            detail: "Demo Trail Not Started",
+            severity: "success",
+            summary: "Success",
+            detail: "Demo Trail Started",
           });
         }
-        this.freeTrialErrorMsg = error?.message;
-      });
+        this.freeTrial = false;
+        this.demoTrial = false;
+        this.visibleExhasted = false;
+        this.service._userContineTrial = false;
+        this.service.contineStatus(false);
+        this.dataService.sendValue(false);
+        setTimeout(() => {
+          this.checkNewUser();
+          this.dashboardService.isinitialstart = true;
+          if(this.enterpriseSubscriptionLink  != ""){
+            window.open(this.enterpriseSubscriptionLink, '_target');
+            return;
+        }
+          this.router.navigate(["/pages/subscriptions"]);
+        }, 1000);
+      },
+        error => {
+          if (this.demoTrial == true) {
+            this.toast.add({
+              severity: "error",
+              summary: "Error",
+              detail: "Demo Trail Not Started",
+            });
+          }
+          this.freeTrialErrorMsg = error?.message;
+        });
+    }else{
+      this.visibleExhastedUser = true;
+      this.demoTrial=false;
+    }
+   
   }
 
   checkNewUSerLogin(): void {
@@ -890,9 +918,23 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.locationService.getHomeCountry(2).subscribe(
         (res: any) => {
           this.countryList = res;
+          const selectedCountry = res.find((data: any) => data.id === this.homeCountryId);
+          this.headerHomeFlag = selectedCountry.flag;
+          this.selectedHomeCountry = selectedCountry;
+          this.dataService.changeHomeCountryFlag(this.headerHomeFlag)
         },
         (error: any) => {
         }
     );
   }
+
+  onHomeCountryChange(event: any){
+
+  }
+  closeQuiz(): void {
+    this.visibleExhastedUser = false;
+    this.demoTrial=true;
+}
+
+  protected readonly count = count;
 }

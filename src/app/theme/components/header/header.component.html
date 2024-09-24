@@ -99,7 +99,8 @@
 						</button>
 					</div>
                     <div label="" role="button" class="headercountry me-2 d-md-block">
-                        <img src="../../../uniprep-assets/icons/india.png" alt="flag" height="auto" width="auto" />
+<!--                        <img src="../../../uniprep-assets/icons/india.png" alt="flag" height="auto" width="auto" />-->
+                        <img #openCountryPopup src="{{ headerHomeFlag }}" alt="flag" height="auto" width="auto" />
                     </div>
 					<div label="" role="button" class="headercountry me-2 d-md-block">
 						<img #openCountryPopup src="{{ headerFlag }}" alt="flag" height="auto" width="auto" (click)="openFlagModal(totalCountryList, $event)" />
@@ -288,6 +289,41 @@
 	  </div>
 	</ng-template>
   </p-overlayPanel>
+
+<p-overlayPanel #totalHomeCountryList [style]="{'width':'300px'}">
+    <ng-template pTemplate="content">
+        <div *ngIf="isLondon" class="mega-menu">
+            <div class="row justify-content-center">
+                <h5 class="text-center mb-2">Home Country</h5>
+<!--                <p-dropdown [options]="countryList" [(ngModel)]="homeCountryId"-->
+<!--                        [style]="{'width': '250px'}"-->
+<!--                        optionValue="id"-->
+<!--                        optionLabel="country"></p-dropdown>-->
+                <p-dropdown id="selectedHomeCountry" styleClass="w-100" style="width: 100% !important;"
+                            [(ngModel)]="selectedHomeCountry" [options]="countryList" [filter]="true"
+                            filterBy="country"
+                            [showClear]="true" optionLabel="country"
+                            (onChange)="onHomeCountryChange($event)"
+                            placeholder="Source Country">
+                    <ng-template pTemplate="selectedItem">
+                        <div class="flex align-items-center gap-2" *ngIf="selectedHomeCountry">
+                            <img [src]="selectedHomeCountry.flag" [class]="'flag flag-' + selectedHomeCountry.code"
+                                 style="width: 18px"/>
+                            <div>{{ selectedHomeCountry.country }}</div>
+                        </div>
+                    </ng-template>
+                    <ng-template let-country pTemplate="item">
+                        <div class="flex align-items-center gap-2">
+                            <img [src]="country.flag" [class]="'flag flag-' + country.code"
+                                 style="width: 18px"/>
+                            <div>{{ country.country }}</div>
+                        </div>
+                    </ng-template>
+                </p-dropdown>
+            </div>
+        </div>
+    </ng-template>
+</p-overlayPanel>
   
   
 
@@ -588,6 +624,41 @@
 											<span class="text-small fw-normal px-2" (click)="continueTrial()">Continue Demo Trial</span>
 										</button>
 									</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- whitlabel subscription pop-up -->
+<div [ngStyle]="{ display: visibleExhastedUser ? 'block' : 'none' }" class="modal modal-bg subscriptionExhausted" role="dialog" tabindex="-1">
+	<div class="modal-dialog modal-dialog-scrollable modal-dialog-centered" role="document">
+		<div class="modal-content card bg-light">
+			<div class="text-right-close">
+				<a (click)="closeQuiz()" class="close" role="button">
+					<span aria-hidden="true"><i class="fa fa-times" aria-hidden="true"></i></span>
+				</a>
+			</div>
+			<div class="modal-body card-body">
+				<div class="container">
+					<div class="row mb-2">
+						<div class="col-md-12 px-4">
+							<div class="d-flex flex-column">
+								<div class="icon-container mb-3 mt-3">
+									<img src="../../../uniprep-assets/images/TrialExpire.png" alt="clock" width="100" />
+								</div>
+								<!-- <div class="mt-4 mb-1">
+									<span>
+										<strong class="firsttimelogin">
+											<h5 style="color: rgb(63 76 131)">Oops! Your Subscription has exhausted</h5>
+										</strong>
+									</span>
+								</div> -->
+								<div class="icon-container mt-1 d-flex justify-content-center mb-1">
+									<h6 style="color: rgb(63 76 131)">Please contact {{orgnamewhitlabel}} Company for access</h6>
+								</div>
 							</div>
 						</div>
 					</div>

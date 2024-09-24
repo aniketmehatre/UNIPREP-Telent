@@ -1,5 +1,5 @@
 import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
-import { MessageService } from 'primeng/api';
+import { MenuItem, MessageService } from 'primeng/api';
 import { FormBuilder, FormGroup, FormArray, Form, Validators } from "@angular/forms";
 import { CourseListService } from '../../course-list/course-list.service';
 import { HttpHeaders, HttpClient } from '@angular/common/http';
@@ -14,6 +14,7 @@ import {Router} from "@angular/router";
   styleUrls: ['./cover-letter-builder.component.scss']
 })
 export class CoverLetterBuilderComponent implements OnInit {
+  items!: MenuItem[];
   selectedResumeLevel: string = "";
   experienceLevel: any = [{ id: 1, level: "Fresher" }, { id: 2, level: "1-2 Years" }, { id: 3, level: "3-5 Years" }, { id: 4, level: "5+ Years" },];
   cgpaPercentage: any = [{ id: "CGPA", value: "CGPA" }, { id: "%", value: "Percentage" }];
@@ -29,6 +30,7 @@ export class CoverLetterBuilderComponent implements OnInit {
   submittedsummery:boolean=false;
   //cloning limit
   eduDetailsLimit: number = 3;
+  moduleActiveIndex: number = 1;
   wrkExpLimit: number = 3;
   projectLimit: number = 3;
   languageLimit: number = 5;
@@ -96,24 +98,31 @@ export class CoverLetterBuilderComponent implements OnInit {
               private router: Router,){
 
     this.resumeFormInfoData = this.fb.group({
-      user_name: ['', [Validators.required]],
-      user_job_title: ['', [Validators.required]],
-      user_email: ['', [Validators.required]],
-      user_location: ['', [Validators.required]],
+      user_name: ['Firstname Lastname', [Validators.required]],
+      user_job_title: ['Job Title', [Validators.required]],
+      user_email: ['contact@gmail.com', [Validators.required]],
+      user_location: ['London', [Validators.required]],
       user_phone: ['', [Validators.required]],
       user_linkedin: [''],
       user_website: [''],
-      user_summary: ['', [Validators.required]],
+      user_summary: ['Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.', [Validators.required]],
       edu_college_name: ['',[Validators.required]],
       edu_location: ['',[Validators.required]],
       jobposition: ['',[Validators.required]],
-      managername: ['',[Validators.required]],
+      managername: ['Firstname Lastname',[Validators.required]],
       getknowaboutas: ['',[Validators.required]],
     });
 
   }
 
   ngOnInit(): void {
+
+    this.items = [
+      {label: 'Personal Information'},
+      {label: 'Organisation Details'},
+      {label: 'Letter Area'}
+    ];
+
     this.checkPlanIsExpired()
     this.hideHeader();
     this.locationService.getImage().subscribe(imageUrl => {
@@ -133,6 +142,20 @@ export class CoverLetterBuilderComponent implements OnInit {
     this.resumeFormInfoData.get('user_name')?.valueChanges.subscribe(value => {
       this.splitUserName(value); // it calls when the user enters the user name
     })
+  }
+  nextStage(){
+    if(this.moduleActiveIndex < 3){
+      this.moduleActiveIndex++;
+      // this.activePageIndex++;
+      return;
+    }
+  }
+  prevStage(){
+    if(this.moduleActiveIndex > 1){
+      this.moduleActiveIndex--;
+      // this.activePageIndex++;
+      return;
+    }
   }
   hideHeader() {
     const url = this.router.url;
@@ -174,11 +197,15 @@ export class CoverLetterBuilderComponent implements OnInit {
   }
 
   resumeFormSubmit() {
-    if(!this.resumeFormInfoData.valid){
-      this.submitted=true;
-      this.submittedsummery=true;
-      return;
-    }
+    // if(!this.resumeFormInfoData.valid){
+    //   this.submitted=true;
+    //   this.submittedsummery=true;
+    //   return;
+    
+    // }
+    this.submitted=true;
+    this.submittedsummery=true;
+    alert("ran");
       this.generateImage();
       this.activePageIndex = 3;
  

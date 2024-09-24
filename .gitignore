@@ -6,3 +6,4 @@ package-lock.json
 /.idea
 /.angular
 /src/environments/
+package-lock.json

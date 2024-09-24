@@ -1,8 +1,7 @@
 <div class="row mb-0">
     <div *ngFor="let quiz of quizlist" class="col-md-2 col-xs-12 mt-2">
         <div class="row w-100 m-0 justify-content-center h-100 ">
-            <div [routerLink]="['/pages/modules',currentModule,'careertoolquiz']" (click)="showQuizQuestions(quiz.id)"
-                class="card resourcecard" role="button">
+            <div class="card resourcecard" role="button">
                 <div *ngIf="quiz?.level" class="d-flex justify-content-end mt-2">
                     <span [ngSwitch]="quiz?.level"
                         [ngClass]="{'basicLevelTag': quiz.level === 1,'intLevelTag': quiz.level === 2,'advLevelTag': quiz.level === 3}">
@@ -15,15 +14,24 @@
                     <div class="text-center">
                         <h5 class="pt-2 pb-3">{{ quiz.submodule_name }}</h5>
                         <button
-                            [ngClass]="quiz.progress==0?'how-it-works-button':'completed'">&nbsp;&nbsp;&nbsp;&nbsp;{{quiz.progress==0?'Start
-                            Quiz':'Completed'}} &nbsp;&nbsp;<span *ngIf="quiz.progress==0"><i
+                            [ngClass]="quiz.progress === 0 ? 'how-it-works-button' : quiz.progress > 0 && quiz.progress < 90? 'retry' : 'completed'"
+                            class="mb-10" [disabled]="quiz.progress>89"
+                            [routerLink]="['/pages/modules',currentModule,'careertoolquiz']"
+                            (click)="showQuizQuestions(quiz.id)">&nbsp;&nbsp;&nbsp;&nbsp;
+                            {{ quiz.progress === 0 ? 'Start Quiz' : quiz.progress > 0 && quiz.progress < 90 ? 'Retry'
+                                : 'Completed' }}&nbsp;&nbsp;<span *ngIf="quiz.progress==0"><i
                                     class="fa-solid fa-alarm-clock"></i></span>&nbsp;&nbsp;&nbsp;&nbsp;</button>
+                        <button class="how-it-works-button" *ngIf="quiz.progress>89"
+                            [routerLink]="['/pages/modules',currentModule,'careertoolquiz']"
+                            [queryParams]="{showReview: 'true'}"
+                            (click)="showQuizQuestions(quiz.id)">&nbsp;&nbsp;&nbsp;&nbsp;Review
+                            &nbsp;&nbsp;<span><i
+                                    class="fa-solid fa-list-check"></i></span>&nbsp;&nbsp;&nbsp;&nbsp;</button>
                     </div>
+
                 </div>
             </div>
         </div>
     </div>
 
 </div>
-<p-paginator (onPageChange)="pageChange($event)" [rows]="rows" [totalRecords]="count"
-    [rowsPerPageOptions]="[10, 20, 30]"></p-paginator>

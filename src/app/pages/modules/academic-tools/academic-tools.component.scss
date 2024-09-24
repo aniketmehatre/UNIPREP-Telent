@@ -1,0 +1,29 @@
+.list-card {
+    border: 1px solid black;
+}
+
+.resourcecard {
+    border: 1px solid var(--uniprep-primary);
+    height: 55vh;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 50%;
+
+    &:hover {
+        background-color: var(--uniprep-primaryop10);
+        cursor: pointer;
+    }
+
+    img {
+        height: 100px;
+        width: 100px;
+    }
+}
+
+.streamtype {
+    font-size: 14px;
+    font-weight: bold;
+    width: 150px;
+}

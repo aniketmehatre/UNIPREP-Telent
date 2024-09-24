@@ -21,7 +21,8 @@ export class InvestorListComponent implements OnInit {
   investorOrgType: any;
   investorType: any;
   countryList: any;
-  headQuartersList: any
+  headQuartersList: any;
+  anyHeadquartersList: any;
   page = 1;
   pageSize = 50;
   valueNearYouFilter: string = '';
@@ -45,6 +46,27 @@ export class InvestorListComponent implements OnInit {
   imagewhitlabeldomainname:any;
   orgnamewhitlabel:any;
   orglogowhitelabel:any;
+  enableModule: boolean = false;
+  activePageIndex: number = 0;
+  recommendations: any = [
+    {
+      id: 1,
+      question: "Select the type of investor",
+    },
+    {
+      id: 2,
+      question: "Select the investor's country",
+    },
+    {
+      id: 3,
+      question: "Select the location of the headquarters",
+    },
+  ];
+
+  invalidClass: boolean = false;
+  selectedData: { [key: string]: any } = {};
+
+
   constructor(
     private _location: Location, 
     private fb: FormBuilder, 
@@ -82,7 +104,7 @@ export class InvestorListComponent implements OnInit {
     this.loadMultiSelectData();
     this.checkplanExpire();
     this.GetPersonalProfileData();
-
+    this.getStoredRecommendation();
   }
 
   goBack() {
@@ -253,6 +275,9 @@ export class InvestorListComponent implements OnInit {
   loadHeadQuartersData(event: any) {
     this.investorList.getHeadQuartersList(event.value).subscribe((response) => {
       this.headQuartersList = response;
+      this.anyHeadquartersList = [...response];
+      let anyCountryArray: any = {id: null, head_quarters_name: "any"};
+      this.anyHeadquartersList.unshift(anyCountryArray);
     });
   }
   clearRestriction() {
@@ -358,5 +383,75 @@ export class InvestorListComponent implements OnInit {
 
   openVideoPopup(videoLink: string) {
     this.pageFacade.openHowitWorksVideoPopup(videoLink);
+  }
+
+  previous(): void {
+    this.invalidClass = false;
+    if (this.activePageIndex > 0) {
+      this.activePageIndex--;
+    }
+  }
+
+  next(productId: number): void {
+    this.invalidClass = false;
+    if (productId in this.selectedData) {
+      if (this.activePageIndex < this.recommendations.length - 1) {
+        this.activePageIndex++;
+      }
+    } else {
+      this.invalidClass = true;
+    }
+  }
+  getRecommendation() {
+    this.enableModule = true;
+    let keyMapping: any = {"1": "investor_type","2": "country","3": "head_quarters"};
+    
+    let newData = Object.fromEntries(Object.entries(this.selectedData).map(([key, value]) => {
+      let mappedKey = keyMapping[key] || key;
+      if (Array.isArray(value)) {
+        value = value.filter(item => item !== null);
+      }
+      return [mappedKey, value];
+    }));
+    this.investorList.storeRecommendation(newData).subscribe();
+    this.setRecommendationToForm(newData);
+  }
+
+  setRecommendationToForm(data: any){
+    this.filterForm.patchValue(data);
+    this.loadInvestorData(0);
+  }
+
+  selectCube(key: number, id: number) {
+    
+    if (!Array.isArray(this.selectedData[key])) {
+      this.selectedData[key] = [];
+    }
+    const index = this.selectedData[key].indexOf(id);
+    if (index > -1) {
+      this.selectedData[key].splice(index, 1);
+    } else {
+      this.selectedData[key].push(id);
+    }
+  } 
+
+  getStoredRecommendation(){
+    this.investorList.getStoredRecommendation().subscribe(res =>{
+      console.log(res);
+      if(res.status){
+        this.enableModule = true;
+        this.setRecommendationToForm(res.data);
+      }else{
+        this.enableModule = false;
+      }
+    });
+  }
+
+  resetRecommendation(){
+    this.investorList.resetRecommendation().subscribe(res =>{
+      this.activePageIndex = 0;
+      this.enableModule = false;
+      this.selectedData = {};
+    });
   }
 }

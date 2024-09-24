@@ -116,21 +116,13 @@
     color: #83A81A !important;
 }
 
-.exhausted-plan-icon-prev {
-    padding: 10px;
-    border-radius: 25px;
-    background-color: #0E3361;
-    color: white;
-    margin-left: 5px;
-}
-
-.exhausted-plan-icon-next {
+.exhausted-plan-icon-prev, .exhausted-plan-icon-next {
     padding: 10px;
     border-radius: 25px;
     background-color: #4552A3;
     color: white;
     margin-left: 5px;
-}
+} 
 
 .question-number {
     font-size: 18px;
@@ -234,4 +226,8 @@
     .fa-circle::before {
         color: #BE2B2B !important;
     }
+}
+.carousel-container{
+    display: flex;
+    flex-direction: column;
 }
