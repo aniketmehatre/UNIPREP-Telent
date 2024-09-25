@@ -27,13 +27,13 @@
 </div>
 <div class="card p-2" style="background-color: white; border-radius: 0px 0px 15px 15px; overflow: hidden;"
     *ngIf="isInstructionVisible">
-    <div class="row justify-content-center">
-        <div class="col-md-6 d-flex align-items-center text-start">
+    <div class="row justify-content-center align-content-center">
+        <div class="col-md-6 mt-2 d-flex align-items-center text-start">
             <h4 class="font-primarycolor">ALL THE BEST!</h4>
         </div>
         <div class="col-md-6 text-end">
             <button (click)="runQuiz()" class="btn btn-start btn-rounded m-0 px-2 py-2"
-                [disabled]="quizData.length == 0">
+                [disabled]="quizData?.length == 0">
                 <div class="d-flex align-items-center">
                     <span class="fw-normal h6 mb-0 ps-3 pe-2">Start</span>
                     <div class="btn-icon"><i class="fa-solid fa-arrow-right"></i></div>
@@ -46,15 +46,15 @@
 <div class="card readingcard h-80" style="background-color: white;" *ngIf="isStartQuiz">
     <div class="card-body text-center pt-0">
         <div class="row justify-content-center align-items-center">
-            <div class="col-md-2 col-2 text-end">
+            <div class="col-md-2 col-2 ">
                 <h5 class="text-bold">{{ selectedQuiz }}/{{ quizcount }} Question Left</h5>
             </div>
             <div class="col-md-8 col-8 text-center">
                 <h5 class="select-title mb-1">
-                    {{ currentModuleName }} Quiz
+                    {{titleModule[categoryId - 1]}}
                 </h5>
             </div>
-            <div class="col-md-2 col-2 text-end">
+            <div class="col-md-2 col-2 text-end mt-2">
                 <button (click)="closeQuiz()" class="btn btn-quit btn-rounded m-0 px-2 py-2">
                     <div class="d-flex align-items-center">
                         <span class="fw-normal h6 mb-0 ps-3 pe-2">Quit</span>
@@ -160,14 +160,15 @@
                         <div class="btn-icon"><i class="fa-solid fa-arrow-left"></i></div>
                     </div>
                 </button>
-                <button *ngIf="this.quizData.length > this.selectedQuiz" (click)="clickNextQuiz(carouselQuiz, $event)"
-                    [disabled]="answerOptionClicked" class="btn btn-start btn-rounded m-0 px-2 py-2">
+                <button *ngIf="(this.quizData?.length || 0) > this.selectedQuiz"
+                    (click)="clickNextQuiz(carouselQuiz, $event)" [disabled]="answerOptionClicked"
+                    class="btn btn-start btn-rounded m-0 px-2 py-2">
                     <div class="d-flex align-items-center">
                         <span class="fw-normal h6 mb-0 ps-3 pe-2">Next</span>
                         <div class="btn-icon"><i class="fa-solid fa-arrow-right"></i></div>
                     </div>
                 </button>&nbsp;
-                <button [disabled]="answerOptionClicked" *ngIf="this.quizData.length <= this.selectedQuiz"
+                <button [disabled]="answerOptionClicked" *ngIf="(this.quizData?.length || 0) <= this.selectedQuiz"
                     (click)="clickSubmitQuiz()" class="btn btn-start btn-rounded m-0 px-2 py-2">
                     <div class="d-flex align-items-center">
                         <span class="fw-normal h6 mb-0 ps-3 pe-2">Submit</span>
@@ -235,7 +236,7 @@
                 </button>&nbsp;
                 <button (click)="openReviewPopup()" class="btn btn-back btn-rounded px-2 py-2">
                     <div class="d-flex align-items-center">
-                        <span class="fw-normal h6 mb-0">Review</span>
+                        <span class="fw-normal h6 mb-0">Preview</span>
                         <div class="btn-icon"><i class="fa-solid fa-list-check"></i></div>
                     </div>
                 </button>
@@ -349,7 +350,7 @@
                                 <p class="mb-0 px-2">Refer Answer <i class="fa-solid fa-paperclip"></i></p>
                             </button>&nbsp;
                         </div>
-                        <div  class="col-md-6 text-start">
+                        <div class="col-md-6 text-start">
                             <label style="font-size: 18px;" for=""><b>Summary</b></label>&nbsp;&nbsp;
                             <p class="mb-0 px-2">{{val.faqquestion_link}}</p>
                         </div>
@@ -361,7 +362,7 @@
     <div class="card-footer p-2 mt-2" style="background-color: #fff;">
         <div class="row justify-content-center">
             <div class="col-md-6 text-start">
-                <button   (click)="result()" class="btn btn-back btn-rounded px-2 py-2">
+                <button (click)="result()" class="btn btn-back btn-rounded px-2 py-2">
                     <div class="d-flex align-items-center">
                         <span class="fw-normal h6 mb-0 ps-3 pe-2">Result</span>
                         <div class="btn-icon"><i class="fa-solid fa-arrow-left"></i></div>

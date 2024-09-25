@@ -66,8 +66,8 @@ const routes: Routes = [{
       path: 'academic-tools/:id', component: AcademicToolsStreamComponent,
     },
     {
-      path: 'academic-tools/:id/quiz/:submoduleId', component: AcademicToolsQuizComponent,
-    }
+      path: 'academic-tools/:id/quiz/:submoduleId/:categoryId', component: AcademicToolsQuizComponent,
+    },
   ]
 
 

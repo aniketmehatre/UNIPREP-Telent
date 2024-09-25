@@ -18,6 +18,7 @@ export class AcademicToolsQuizComponent implements OnInit {
   quizData: any[] = [];
   currentCountryId: any
   currentModuleId: any;
+  categoryId: any;
   universityidforquiz: any = null;
   currentModuleSlug: any;
   quizList$!: Observable<any>;
@@ -27,6 +28,7 @@ export class AcademicToolsQuizComponent implements OnInit {
   currentModuleName: any;
   infoMessage!: string;
   unlockMessage!: string;
+  titleModule: any;
   aboutModule!: string;
   moduleDetails!: string;
   upgradePlanMsg!: string;
@@ -66,12 +68,14 @@ export class AcademicToolsQuizComponent implements OnInit {
     private location: Location, private locationService: LocationService, private ngxService: NgxUiLoaderService, private toast: MessageService, private activatedRoute: ActivatedRoute) { }
 
   ngOnInit(): void {
+    this.titleModule = ['Stream', 'Recomendation', 'Quiz'];
     this.locationService.getOrgName().subscribe(orgname => {
       this.orgnamewhitlabel = orgname;
     });
     this.activatedRoute.params.subscribe(res => {
       this.currentModuleId = res['id'];
       this.quizId = res['submoduleId'];
+      this.categoryId = Number(res['categoryId']);
       this.init();
     });
     this.imagewhitlabeldomainname = window.location.hostname;
@@ -97,17 +101,6 @@ export class AcademicToolsQuizComponent implements OnInit {
     this.dataService.countryNameSource.subscribe((data) => {
       this.countryName = data;
     });
-
-    this.currentModuleId = 8;
-    this.currentModuleName = 'Learning Hub';
-    this.currentApiSlug = 'SubmoduleListForStudents';
-    this.infoMessage = 'Upgrade to access the Learning Hub',
-      this.unlockMessage = ' ',
-      this.upgradePlanMsg = 'Upgrade your plan now to gain instant access.';
-    this.aboutModule = 'Explore a vast database of Q&A about:',
-      this.moduleDetails = ' Arrival, student discounts, banking, full time jobs, post study work and many more!'
-
-
     this.responsiveOptions = [
       {
         breakpoint: '1199px',
@@ -160,6 +153,7 @@ export class AcademicToolsQuizComponent implements OnInit {
     this.locationService.GetQuestionsCount(data).subscribe(data => {
       this.isSkeletonVisible = false;
       this.subModuleList = data;
+      this.quizData = data.question;
     })
     this.locationService.getUniPerpModuleList().subscribe((data: any) => {
       this.moduleList = data.modules;
@@ -174,8 +168,8 @@ export class AcademicToolsQuizComponent implements OnInit {
     this.dataService.countryNameSource.subscribe(countryName => {
       cName = countryName;
     });
-    this.breadCrumb = [{ label: cName }, { label: this.quizData[0]!.module_name },
-    { label: this.quizData[0]!.sub_module_name }];
+    this.breadCrumb = [{ label: cName }, { label: this.quizData[0]?.module_name },
+    { label: this.quizData[0]?.sub_module_name }];
     this.startTimer();
   }
 
@@ -187,8 +181,8 @@ export class AcademicToolsQuizComponent implements OnInit {
       pageNum = page.page
     }
     this.positionNumber = pageNum + 1;
-
   }
+
   selectAnswer(selectedOption: any, singleData: any, optNumber: number) {
     this.answerOptionClicked = false;
     this.selectedOptNumber = optNumber;
@@ -290,13 +284,11 @@ export class AcademicToolsQuizComponent implements OnInit {
     });
     this.stopTimer();
     var data = {
-      country_id: this.currentCountryId,
       module_id: this.currentModuleId,
-      submodule_id: localStorage.getItem("learninghubsubmoduleid"),
-      category_id: localStorage.getItem("learningsubjectidforquiz"),
+      submodule_id: Number(this.quizId),
       quizquestion: this.quizData
     }
-    this.moduleListService.submitQuizLearningHubQuiz(data).subscribe((res) => {
+    this.moduleListService.submitAcademicQuiz(data).subscribe((res) => {
       this.totalPercentage = res.percentageCompleted
       this.certificatesurl = res.certificate
       this.totalanswerquistionaftersubmited = res.totalquestions
@@ -339,11 +331,10 @@ export class AcademicToolsQuizComponent implements OnInit {
     this.isQuizSubmit = false;
     this.isReviewVisible = true;
     var data = {
-      countryId: this.currentCountryId,
       moduleId: this.currentModuleId,
-      submoduleId: localStorage.getItem("learninghubsubmoduleid")
+      submoduleId: this.quizId
     }
-    this.moduleListService.ReviewQuizLearningHub(data).subscribe((res) => {
+    this.moduleListService.reviewAcademicQuiz(data).subscribe((res) => {
       this.quizData = res.userquiz.map((val: any) => {
         let number = 1;
         let dd = { ...val };
@@ -359,12 +350,13 @@ export class AcademicToolsQuizComponent implements OnInit {
   checkquizquestioncount() {
     this.quizData = [];
     var data = {
-      moduleId: this.currentModuleId,
-      submoduleId: this.quizId
+      module_id: this.currentModuleId,
+      submodule_id: this.quizId,
+      category_type_id: this.categoryId
     }
-    this.moduleListService.learninghubquiz(data).subscribe((res) => {
+    this.moduleListService.getQuizQuestionList(data).subscribe((res) => {
       this.quizcount = res.count > 0 ? res.count : 0;
-      this.quizData = res.quizquestion.map((val: any) => {
+      this.quizData = res.question.map((val: any) => {
         let number = 1;
         let dd = { ...val };
         dd.otp1 = dd.option1 + dd.id + number++;

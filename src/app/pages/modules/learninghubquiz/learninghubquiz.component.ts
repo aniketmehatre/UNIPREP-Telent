@@ -158,7 +158,7 @@ export class LearninghubquizComponent implements OnInit {
       let showReview = params['showReview'];
       if (showReview === 'true') {
         this.openReviewPopup();
-        this.isInstructionVisible=false;
+        this.isInstructionVisible = false;
       }
     });
   }
