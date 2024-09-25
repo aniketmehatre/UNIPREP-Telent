@@ -220,15 +220,16 @@ export class QuestionListComponent implements OnInit {
         if (!localStorage.getItem('questionId')) {
           this.router.navigateByUrl(`/pages/modules/${this.currentSubModuleSlug}`);
         }
-        this.loadInit();
+        //this.loadInit();
       }
       localStorage.setItem('countryId', data);
-      this.questionListData = [];
-      this.isSkeletonVisible = true
-      this.loadInit();
+     // this.questionListData = [];
+      //this.isSkeletonVisible = true
+      //this.loadInit();
     });
     this.tooltip = "Questions related to the application process are answered";
   }
+
   loadInit() {
     this.questionListData = [];
     this.countryId = Number(localStorage.getItem("countryId"));
@@ -362,15 +363,15 @@ export class QuestionListComponent implements OnInit {
       this.quizpercentage = res.progress
     })
   }
+
   loadQuestionList(data: any) {
     let questionData = { id: localStorage.getItem('questionId') || '' };
     if (questionData?.id) {
       data.share_link_question_id = questionData?.id;
     }
 
-    this.mService.studentFullQuestionData(data).subscribe((res: any) => {
-      this.allDataSet = res;
-      this.moduleName = res.submodule_name;
+    //this.mService.studentFullQuestionData(data).subscribe((res: any) => {
+
       // this.questionListData = data?.questions;
       // this.isSkeletonVisible = false
       // this.totalQuestionCount = data?.questioncount;
@@ -380,13 +381,15 @@ export class QuestionListComponent implements OnInit {
         this.questionListData = data?.questions;
         this.isSkeletonVisible = false;
         this.totalQuestionCount = data?.questioncount;
+        this.allDataSet = data;
+        this.moduleName = data.submodule_name;
         //this.ngxService.stop();
         if (questionData.id) {
           this.viewOneQuestion(questionData);
           localStorage.removeItem('questionId');
         }
       });
-    });
+   // });
   }
   checkplanExpire(): void {
     this.authService.getNewUserTimeLeft().subscribe((res) => {
