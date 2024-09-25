@@ -1,12 +1,12 @@
 <div class="d-flex justify-content-center" [ngClass]="{'centerDiv':!canShowComparision}">
     <div class="dropdown-container">
         <div class="uniprep-primary h4  text-center fw-semibold">
-            Compare the cost of living between countries around the world
+            Compare the cost of living between  two locations around the world
         </div>
         <br>
         <form [formGroup]="form" (ngSubmit)="compare()" class="g-10">
             <p-dropdown [options]="sourceCities" optionValue="city_id" formControlName="sourceCity"
-                placeholder="Source Country" [filter]="true" [virtualScroll]="true" [virtualScrollItemSize]="50"
+                placeholder="Source Location or Country" [filter]="true" [virtualScroll]="true" [virtualScrollItemSize]="50"
                 [showClear]="true" [appendTo]="'body'" class="costofliving-dropdown">
                 <ng-template pTemplate="filter" let-options="options">
                     <div class="d-flex gap-2">
@@ -36,7 +36,7 @@
 
             </p-dropdown>
             <p-dropdown [options]="targetCities" optionValue="city_id" formControlName="targetCity"
-                placeholder="Target Country" [filter]="true" [virtualScroll]="true" [virtualScrollItemSize]="50"
+                placeholder="Target Location or Country" [filter]="true" [virtualScroll]="true" [virtualScrollItemSize]="50"
                 [showClear]="true" [appendTo]="'body'" class="costofliving-dropdown" >
                 <ng-template pTemplate="filter" let-options="options">
                     <div class="d-flex gap-2">
