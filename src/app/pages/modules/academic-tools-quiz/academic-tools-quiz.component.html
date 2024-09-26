@@ -193,13 +193,23 @@
                 </h5>
             </div>
             <div class="col-md-2 col-2 text-end">
-                <button [disabled]="quizpercentage >= 90" (click)="retryQuiz()"
-                    class="btn btn-quit btn-rounded me-2 px-2 py-2">
-                    <div class="d-flex align-items-center">
-                        <span class="fw-normal h6 mb-0">Retry</span>
-                        <div class="btn-icon"><i class="fa-solid fa-arrow-rotate-right"></i></div>
-                    </div>
-                </button>
+                <ng-container *ngIf="!isSubmitStreamAnswers">
+                    <button [disabled]="quizpercentage >= 90" (click)="retryQuiz()"
+                        class="btn btn-quit btn-rounded me-2 px-2 py-2">
+                        <div class="d-flex align-items-center">
+                            <span class="fw-normal h6 mb-0">Retry</span>
+                            <div class="btn-icon"><i class="fa-solid fa-arrow-rotate-right"></i></div>
+                        </div>
+                    </button>
+                </ng-container>
+                <ng-container *ngIf="isSubmitStreamAnswers">
+                    <button (click)="takeAnotherquiz()" class="btn btn-back btn-rounded px-2 py-2">
+                        <div class="d-flex align-items-center">
+                            <span class="fw-normal h6 mb-0">Take Another Quiz</span>
+                            <div class="btn-icon"><i class="fa fa-home" aria-hidden="true"></i></div>
+                        </div>
+                    </button>
+                </ng-container>
             </div>
             <div>
             </div>
@@ -264,14 +274,19 @@
             </div>
         </ng-container>
         <ng-container *ngIf="isSubmitStreamAnswers" class="streamQuiz">
-            <div class="container-fluid mt-4" style="max-width: 900px; height: 100vh; overflow-y: auto;">
-                <div class="pdf-viewer shadow-lg p-4 mb-5 bg-white rounded"
+            <div class="container mt-4" style="max-width: 800px; height: 100vh; overflow-y: auto;">
+                <div class="pdf-viewer shadow-lg mb-5 bg-white rounded"
                     style="height: calc(100vh - 150px); overflow-y: auto;">
-                    <div class="card-body">
+                    <div class="text-center">
+                        <img src="uniprep-assets/images/stream-report-header.png" alt="Header Image"
+                            style="max-width: 100%;">
+                    </div>
+                    <div class="card-body" style="padding: 40px;">
                         <div class="text-center">
-                            <div class="card-title text-uppercase h2 mb-4" style="font-weight: bold; color: #FF6600;">
-                                <span style="border-bottom: 3px solid #FF6600;">
-                                    &nbsp;STREAM SELECTOR REPORT&nbsp;
+                            <div class="card-title text-uppercase h2 mb-4 px-8"
+                                style="font-weight: bold; color: #FF6600;">
+                                <span style="border-bottom: 2px solid black;">
+                                    &nbsp;&nbsp;STREAM SELECTOR REPORT&nbsp;&nbsp;
                                 </span>
                             </div>
                         </div>
@@ -281,8 +296,8 @@
                         </p>
                         <hr />
 
-                        <div class="text-left h4"
-                            style="font-weight: bold; color: #FF6600; width: 280px; border-bottom: 3px solid #FF6600;">
+                        <div class="text-left h3"
+                            style="font-weight: bold; color: #FF6600; width: 350px; border-bottom: 2px solid black;">
                             Stream Preference Order
                         </div>
                         <p>According to your test results, here is the order of your stream preferences:</p>
@@ -290,7 +305,8 @@
                         <div class="row">
                             <div class="chart-container mb-4 mt-2">
                                 <canvas baseChart [data]="streamReportData.graph_value"
-                                    [labels]="streamReportData.graph_data" [chartType]="'pie'" [options]="chartOptions">
+                                    [labels]="streamReportData.graph_data" [chartType]="'pie'" [colors]="pieChartColors"
+                                    [options]="chartOptions" width="300" [height]="300">
                                 </canvas>
                             </div>
                         </div>
@@ -298,25 +314,29 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <div *ngFor="let detail of streamReportData?.result?.graph_details" class="mb-3">
-                                    <h5 class="text-primary text-left" style="font-weight: bold;">{{ detail.heading }}:
+                                    <h5 class="text-blue-dark text-left" style="font-weight: bold;">{{ detail.heading
+                                        }}:
                                     </h5>
                                     <p>{{ detail.Paragraph }}</p>
                                 </div>
                             </div>
                         </div>
                     </div>
+                    <div class="text-center">
+                        <img src="uniprep-assets/images/stream-report-footer.png" alt="Footer Image"
+                            style="max-width: 100%;">
+                    </div>
                 </div>
 
-                <!-- Footer Section (Button to Download PDF) -->
                 <div class="footer text-center mt-4" style="position: relative;">
                     <button class="btn btn-lg" style="background-color: #FF6600; color: white;"
                         (click)="downloadReport()">
-                        Download Report
+                        Download Report&nbsp;
+                        <i class="fa-solid fa-download"></i>
                     </button>
                 </div>
             </div>
         </ng-container>
-
     </div>
 </div>
 <div *ngIf="isSubmitQuizAnswer" class="card"

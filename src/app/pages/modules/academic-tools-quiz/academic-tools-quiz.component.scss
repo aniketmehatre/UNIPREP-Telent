@@ -116,8 +116,6 @@
 }
 
 .streamQuiz {
-
-    /* Styling for the PDF Viewer */
     color: rgb(255, 111, 0);
 
     .pdf-viewer {
@@ -126,31 +124,17 @@
         padding: 20px;
         margin-bottom: 20px;
         height: 90%;
-        /* Fill most of the container */
     }
 
-    /* Ensure the chart labels align well */
-    .chart-labels ul {
-        padding-left: 0;
+    .card-body {
+        text-align: start;
     }
-
-    .chart-labels li {
-        margin-bottom: 10px;
-    }
-
-    .card-title {
-        font-weight: bold;
-        color: #FF6600;
-        border-bottom: 3px solid #FF6600 !important;
-    }
-
 
     .badge {
         padding: 10px;
         border-radius: 5px;
     }
 
-    /* For responsive layout */
     @media (max-width: 768px) {
         .chart-labels {
             margin-top: 20px;
@@ -158,7 +142,6 @@
         }
     }
 
-    /* For the button in the footer */
     .footer .btn {
         width: 200px;
         font-size: 18px;

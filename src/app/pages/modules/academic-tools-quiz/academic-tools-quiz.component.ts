@@ -70,8 +70,15 @@ export class AcademicToolsQuizComponent implements OnInit {
   imagewhitlabeldomainname: any
   orgnamewhitlabel: any;
   quizId: string = '';
+  pieChartColors = [
+    {
+      backgroundColor: ['#EA801E', '#3F4C83', '#546496', '#6D80AF'],
+    }
+  ];
+
   chartOptions: ChartOptions = {
     responsive: true,
+    maintainAspectRatio: false,
     legend: {
       position: 'right',
     }
