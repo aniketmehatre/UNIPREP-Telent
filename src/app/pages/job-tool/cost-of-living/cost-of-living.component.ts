@@ -44,6 +44,7 @@ export class CostOfLivingComponent implements OnInit {
 
   ngOnInit() {
     this.checkPlanIsExpired()
+    this.getCurrencyConvertions('United States,India', '');
     this.locationService.getImage().subscribe(imageUrl => {
       this.orglogowhitelabel = imageUrl;
     });
@@ -87,7 +88,23 @@ export class CostOfLivingComponent implements OnInit {
       });
     });
   }
-
+  getCurrencyConvertions(comparingCountries: string, countryType: string) {
+    this.costOfLivingService.currencyConvert({ countries: comparingCountries }).subscribe(res => {
+      if (countryType === 'sourceCountry') {      
+        if (this.sourceCountryPrices.country_name == 'India') {
+          this.costOfLivingService.inrRate = res.rate;
+        }
+      } else if (countryType === 'targetCountry') {
+        if (this.targetCountryPrices.country_name == 'India') {
+          this.costOfLivingService.inrRate = res.rate;
+        }
+      } else {
+        this.costOfLivingService.inrRate = res.rate;
+      }
+      },
+      error => {
+      });
+  }
 
   resetFunction(typeOfField: string) {
     if (typeOfField == 'source') {
