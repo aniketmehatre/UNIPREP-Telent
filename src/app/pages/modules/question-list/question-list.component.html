@@ -176,7 +176,7 @@
 				<h5 class="unselectable d-md-none d-block">{{ oneQuestionContent?.question }}</h5>
 				<div class="fw-medium"
                      style="white-space: inherit; max-height: 80%; min-height: 80%"
-                     [innerHTML]="oneQuestionContent?.answer"></div>
+                     [innerHTML]="oneQuestionContent?.answer.replace('<br><br>' , '<br>')"></div>
 			</div>
 		</div>
 	</div>
