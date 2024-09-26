@@ -76,6 +76,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   headerFlag: any = "";
   headerHomeFlag: any = "";
   homeCountryId: any;
+  homeCountryName: string = "";
   selectedHomeCountry: any = null;
   timeLeftSecs: any;
   timerInterval: any;
@@ -925,6 +926,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
           const selectedCountry = res.find((data: any) => data.id === this.homeCountryId);
           this.headerHomeFlag = selectedCountry.flag;
           this.selectedHomeCountry = selectedCountry;
+          this.homeCountryName = selectedCountry.country;
           this.dataService.changeHomeCountryFlag(this.headerHomeFlag)
         },
         (error: any) => {
