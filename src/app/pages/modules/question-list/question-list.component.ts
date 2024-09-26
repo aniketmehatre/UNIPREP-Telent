@@ -452,6 +452,7 @@ export class QuestionListComponent implements OnInit {
     }
     this.mService.questionList$().subscribe((data: any) => {
       this.data = data.questions;
+      // console.log(data);
     });
     this.selectedQuestionData = selectedData;
     this.selectedModule = selectedData.module_id;
@@ -691,18 +692,23 @@ export class QuestionListComponent implements OnInit {
 
   selectedQuestionName: any;
   viewOneQuestion(question: any) {
-    let questionData = this.allDataSet[question.id];
-    this.selectedQuestionName = question
+    
+  
+  
+    // this.oneQuestionContent.answer = question.answer;
+    let questionData = question;
+    // let questionData = this.allDataSet[question.id];
+    // this.selectedQuestionName = question
     if (questionData == undefined) {
       questionData = [];
     }
-    if (question && question?.question) {
-      questionData['question'] = question?.question;
-    }
-    else {
-      let ques = this.questionListData.find((data: any) => data.id == question.id)
-      questionData['question'] = ques?.question;
-    }
+    // if (question && question?.question) {
+    //   questionData = question;
+    // }
+    // else {
+    //   let ques = this.questionListData.find((data: any) => data.id == question.id)
+    //   questionData['question'] = ques?.question;
+    // }
     if (this.planExpired) {
       this.restrict = true;
       return;
