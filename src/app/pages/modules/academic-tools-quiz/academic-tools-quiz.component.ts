@@ -8,6 +8,8 @@ import { LocationService } from "../../../location.service";
 import { AuthService } from 'src/app/Auth/auth.service';
 import { NgxUiLoaderService } from "ngx-ui-loader";
 import { Location } from '@angular/common';
+import { SubmitRecommendation, SubmitStreamResponse } from 'src/app/@Models/academic-tools.model';
+import { ChartOptions } from 'chart.js';
 
 @Component({
   selector: 'uni-academic-tools-quiz',
@@ -25,7 +27,6 @@ export class AcademicToolsQuizComponent implements OnInit {
   moduleList: any[] = [];
   currentApiSlug: any;
   countryName!: string;
-  currentModuleName: any;
   infoMessage!: string;
   unlockMessage!: string;
   titleModule: any;
@@ -33,6 +34,7 @@ export class AcademicToolsQuizComponent implements OnInit {
   moduleDetails!: string;
   upgradePlanMsg!: string;
   selectedModule!: string;
+  submitRecommendationResponse!: SubmitRecommendation;
   isSkeletonVisible: boolean = true;
   subModuleList: any[] = [];
   selectedQuiz: number = 1;
@@ -40,8 +42,12 @@ export class AcademicToolsQuizComponent implements OnInit {
   isStartQuiz: boolean = false;
   isInstructionVisible: boolean = false;
   isReviewVisible: boolean = false;
+  isSubmitRecommendationAnswer: boolean = false;
+  isSubmitStreamAnswers: boolean = false;
+  isSubmitQuizAnswer: boolean = false;
   breadCrumb: MenuItem[] = [];
   answerOptionClicked: boolean = true;
+  streamReportData!: SubmitStreamResponse;
   selectedOptNumber: number = 1;
   selectedOptValue: string = '';
   responsiveOptions: any[] = [];
@@ -64,11 +70,17 @@ export class AcademicToolsQuizComponent implements OnInit {
   imagewhitlabeldomainname: any
   orgnamewhitlabel: any;
   quizId: string = '';
+  chartOptions: ChartOptions = {
+    responsive: true,
+    legend: {
+      position: 'right',
+    }
+  };
   constructor(private moduleListService: ModuleServiceService, private authService: AuthService, private router: Router, private dataService: DataService,
     private location: Location, private locationService: LocationService, private ngxService: NgxUiLoaderService, private toast: MessageService, private activatedRoute: ActivatedRoute) { }
 
   ngOnInit(): void {
-    this.titleModule = ['Stream', 'Recomendation', 'Quiz'];
+    this.titleModule = ['Stream', 'Recommendation', 'Quiz'];
     this.locationService.getOrgName().subscribe(orgname => {
       this.orgnamewhitlabel = orgname;
     });
@@ -118,11 +130,8 @@ export class AcademicToolsQuizComponent implements OnInit {
         numScroll: 1,
       }
     ];
-
-    localStorage.setItem("currentmodulenameforrecently", this.currentModuleName);
-    this.loadModuleAndSubModule();
+    // this.loadModuleAndSubModule();
     this.checkquizquestioncount();
-
   }
 
   upgradePlan(): void {
@@ -144,32 +153,24 @@ export class AcademicToolsQuizComponent implements OnInit {
     })
   }
 
-  loadModuleAndSubModule() {
-    let data = {
-      countryId: this.currentCountryId,
-      moduleId: this.currentModuleId,
-      api_module_name: this.currentApiSlug
-    }
-    this.locationService.GetQuestionsCount(data).subscribe(data => {
-      this.isSkeletonVisible = false;
-      this.subModuleList = data;
-      this.quizData = data.question;
-    })
-    this.locationService.getUniPerpModuleList().subscribe((data: any) => {
-      this.moduleList = data.modules;
-      this.ngxService.stop();
-    });
-  }
+  // loadModuleAndSubModule() {
+  //   let data = {
+  //     countryId: this.currentCountryId,
+  //     moduleId: this.currentModuleId,
+  //     api_module_name: this.currentApiSlug
+  //   }
+  //   this.locationService.GetQuestionsCount(data).subscribe(data => {
+  //     this.isSkeletonVisible = false;
+  //   })
+  //   this.locationService.getUniPerpModuleList().subscribe((data: any) => {
+  //     this.moduleList = data.modules;
+  //     this.ngxService.stop();
+  //   });
+  // }
 
   runQuiz() {
     this.isInstructionVisible = false;
     this.isStartQuiz = true;
-    let cName = "";
-    this.dataService.countryNameSource.subscribe(countryName => {
-      cName = countryName;
-    });
-    this.breadCrumb = [{ label: cName }, { label: this.quizData[0]?.module_name },
-    { label: this.quizData[0]?.sub_module_name }];
     this.startTimer();
   }
 
@@ -204,15 +205,11 @@ export class AcademicToolsQuizComponent implements OnInit {
 
   closeQuiz() {
     this.stopTimer();
-    if (this.currentModuleId > 10) {
+    if (this.currentModuleId == 15 || this.currentModuleId == 16) {
       if (window.history.length > 1) {
-        this.location.back()
-      } else {
-        this.router.navigate(['/pages/job-tool/career-tool'])
+        this.router.navigate([`/pages/modules/academic-tools/${this.currentModuleId}`]);
       }
-      return;
     }
-    this.router.navigate([`/pages/modules/${this.currentModuleSlug}`]);
   }
 
   clickPreviousQuiz(carouselQuiz: any, event: any) {
@@ -237,9 +234,9 @@ export class AcademicToolsQuizComponent implements OnInit {
     this.dataService.countryNameSource.subscribe(countryName => {
       cName = countryName;
     });
-    this.breadCrumb = [{ label: cName }, { label: singleQuizData.module_name },
-    { label: singleQuizData.sub_module_name }];
-    carouselQuiz.navBackward(event, this.selectedQuiz);
+    // this.breadCrumb = [{ label: cName }, { label: singleQuizData.module_name },
+    // { label: singleQuizData.sub_module_name }];
+    // carouselQuiz.navBackward(event, this.selectedQuiz);
   }
 
   clickNextQuiz(carouselQuiz: any, event: any) {
@@ -267,16 +264,17 @@ export class AcademicToolsQuizComponent implements OnInit {
       this.answerOptionClicked = true;
     }
     this.selectedQuiz = this.selectedQuiz + 1;
-    let cName = "";
-    this.dataService.countryNameSource.subscribe(countryName => {
-      cName = countryName;
-    });
+    // let cName = "";
+    // this.dataService.countryNameSource.subscribe(countryName => {
+    //   cName = countryName;
+    // });
 
-    this.breadCrumb = [{ label: cName }, { label: singleQuizData.module_name },
-    { label: singleQuizData.sub_module_name }];
-    carouselQuiz.navForward(event, this.selectedQuiz);
+    // this.breadCrumb = [{ label: cName }, { label: singleQuizData.module_name },
+    // { label: singleQuizData.sub_module_name }];
+    // carouselQuiz.navForward(event, this.selectedQuiz);
   }
   certificatesurl: any = ""
+
   clickSubmitQuiz() {
     this.quizData = this.quizData.map((data: any) => {
       const { submodule_id, source_faqquestion, otp1, otp2, otp3, otp4, module_id, country_id, user_answered, user_answered_value, ...rest } = data;
@@ -288,6 +286,22 @@ export class AcademicToolsQuizComponent implements OnInit {
       submodule_id: Number(this.quizId),
       quizquestion: this.quizData
     }
+    switch (this.categoryId) {
+      case 1:
+        this.submitAcadamicStreamAnswers(data);
+        break;
+      case 2:
+        this.submitAcadamicRecommendationAnswers(data);
+        break;
+      case 3:
+        this.submitAcadamicQuizAnswers(data);
+        break;
+      default:
+        break;
+    }
+  }
+
+  submitAcadamicQuizAnswers(data: any) {
     this.moduleListService.submitAcademicQuiz(data).subscribe((res) => {
       this.totalPercentage = res.percentageCompleted
       this.certificatesurl = res.certificate
@@ -307,8 +321,44 @@ export class AcademicToolsQuizComponent implements OnInit {
       });
       this.isStartQuiz = false;
       this.isQuizSubmit = true;
+      this.isSubmitStreamAnswers = false;
+      this.isSubmitQuizAnswer = true;
       this.checkquizquestionmodule()
-    })
+    });
+  }
+
+  submitAcadamicRecommendationAnswers(data: any) {
+    this.moduleListService.submitAcademicRecommendationQuiz(data).subscribe((res) => {
+      this.submitRecommendationResponse = res;
+      this.toast.add({
+        severity: "success",
+        summary: "success",
+        detail: res.message,
+      });
+      this.isStartQuiz = false;
+      this.isSubmitRecommendationAnswer = true;
+      this.isSubmitQuizAnswer = false;
+      this.isSubmitStreamAnswers = false;
+      this.isQuizSubmit = true;
+      this.checkquizquestionmodule()
+    });
+  }
+
+  submitAcadamicStreamAnswers(data: any) {
+    this.moduleListService.submitAcademicStreamQuiz(data).subscribe((res) => {
+      this.streamReportData = res;
+      this.toast.add({
+        severity: "success",
+        summary: "success",
+        detail: res.message,
+      });
+      this.isStartQuiz = false;
+      this.isQuizSubmit = true;
+      this.isSubmitStreamAnswers = true;
+      this.isSubmitRecommendationAnswer = false;
+      this.isSubmitQuizAnswer = false;
+      this.checkquizquestionmodule()
+    });
   }
 
   retryQuiz() {
@@ -433,6 +483,10 @@ export class AcademicToolsQuizComponent implements OnInit {
   result() {
     this.isReviewVisible = false;
     this.isQuizSubmit = true;
+  }
+
+  downloadReport() {
+    window.open(this.streamReportData.report_url, '_blank');
   }
 
 }

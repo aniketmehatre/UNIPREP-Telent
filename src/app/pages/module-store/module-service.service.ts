@@ -7,6 +7,7 @@ import { readQuestion$, selectQuestionList$, selectQuizList$, selectSubModule$ }
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Meta } from '@angular/platform-browser';
+import { SubmitRecommendation, SubmitStreamResponse } from 'src/app/@Models/academic-tools.model';
 
 @Injectable({
   providedIn: 'root'
@@ -81,13 +82,13 @@ export class ModuleServiceService {
       headers: headers,
     });
   }
+
   getPreModuleQuestionList(data: any) {
     const headers = new HttpHeaders().set("Accept", "application/json");
     return this.http.post<any>(environment.ApiUrl + "/StudentsSubmoduleQuestions", data, {
       headers: headers,
     });
   }
-
 
   studentsSubmoduleQuestions(data: any) {
     const headers = new HttpHeaders().set("Accept", "application/json");
@@ -102,6 +103,7 @@ export class ModuleServiceService {
       headers: headers,
     });
   }
+
   checkModuleQuizCompletion(data: any) {
     const headers = new HttpHeaders().set("Accept", "application/json");
     return this.http.post<any>(environment.ApiUrl + "/checkmodulequizcompletion", data, {
@@ -210,9 +212,24 @@ export class ModuleServiceService {
       headers: headers,
     });
   }
+
   submitAcademicQuiz(data: any) {
     const headers = new HttpHeaders().set("Accept", "application/json");
     return this.http.post<any>(environment.ApiUrl + "/saveacademicquizanswers", data, {
+      headers: headers,
+    });
+  }
+
+  submitAcademicStreamQuiz(data: any) {
+    const headers = new HttpHeaders().set("Accept", "application/json");
+    return this.http.post<SubmitStreamResponse>(environment.ApiUrl + "/savestreamquizanswers", data, {
+      headers: headers,
+    });
+  }
+
+  submitAcademicRecommendationQuiz(data: any) {
+    const headers = new HttpHeaders().set("Accept", "application/json");
+    return this.http.post<SubmitRecommendation>(environment.ApiUrl + "/saverecommendationquizanswers", data, {
       headers: headers,
     });
   }

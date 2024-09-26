@@ -2,7 +2,7 @@
     <div class="card-body text-center pt-0">
         <div class="row">
             <div class="col-md-2">
-                <h5 class="mb-3 mt-3" style="font-size: 18px;">{{ quizcount }}/{{ quizcount }} Questions
+                <h5 class="mb-3 mt-3" style="font-size: 18px;">0 /{{ quizcount }} Questions
                     Left</h5>
             </div>
             <div class="col-md-8 text-center">
@@ -189,7 +189,7 @@
             </div>
             <div class="col-md-8 text-center">
                 <h5 class="select-title">
-                    {{ currentModuleName }} Quiz
+                    {{ titleModule[categoryId - 1] }}
                 </h5>
             </div>
             <div class="col-md-2 col-2 text-end">
@@ -202,49 +202,124 @@
                 </button>
             </div>
             <div>
+            </div>
+        </div>
+        <ng-container *ngIf="isSubmitQuizAnswer">
+            <div class="row">
+                <div class="col-md-12 text-center">
+                    <img *ngIf="totalPercentage>=90" class="pb-2" src="/uniprep-assets/images/icons/quizcomplete.webp"
+                        alt="retry" />
+                    <img *ngIf="totalPercentage<=89" class="pb-2" src="/uniprep-assets/images/icons/quizfailed.png"
+                        alt="retry" />
+                    <h3 class="text-center mb-2" *ngIf="totalPercentage>=90">
+                        Congratulations<br />{{totalanswercorret}}/{{totalanswerquistionaftersubmited}}</h3>
+                    <h3 class="text-center mb-2" *ngIf="totalPercentage<=89">
+                        Better Luck Next Time<br />{{totalanswercorret}}/{{totalanswerquistionaftersubmited}}</h3>
+                    <p *ngIf="totalPercentage>=90" class="text-center mb-2 fw-medium">You have completed the quiz on
+                        <br>{{titleModule[categoryId - 1]}} module
+                    </p>
+                    <p *ngIf="totalPercentage<=89" class="text-center mb-2 fw-medium">Completion of this module
+                        requires<br>a minimum score of 90%</p>
+                    <button *ngIf="totalPercentage>=90" style="background-color: #98B73F !important;"
+                        (click)="openCertificate()" class="btn btn-back btn-rounded px-2 py-2">
+                        <div class="d-flex align-items-center">
+                            <span class="fw-normal h6 mb-0">View Certificate</span>
+                            <div class="btn-icon" style="background-color: #7e963e;"><i class="fa fa-file"
+                                    aria-hidden="true"></i></div>
+                        </div>
+                    </button>&nbsp;
+                    <button (click)="takeAnotherquiz()" class="btn btn-back btn-rounded px-2 py-2">
+                        <div class="d-flex align-items-center">
+                            <span class="fw-normal h6 mb-0">Take Another Quiz</span>
+                            <div class="btn-icon"><i class="fa fa-home" aria-hidden="true"></i></div>
+                        </div>
+                    </button>&nbsp;
+                    <button (click)="openReviewPopup()" class="btn btn-back btn-rounded px-2 py-2">
+                        <div class="d-flex align-items-center">
+                            <span class="fw-normal h6 mb-0">Preview</span>
+                            <div class="btn-icon"><i class="fa-solid fa-list-check"></i></div>
+                        </div>
+                    </button>
+                </div>
+            </div>
+        </ng-container>
+        <ng-container *ngIf="isSubmitRecommendationAnswer" class="recommendation">
+            <div class="row">
+                <div class="container text-center">
+                    <div class="mb-4">
+                        <img [src]="submitRecommendationResponse?.flag" class="img-fluid" alt="Failure Icon"
+                            width="120">
+                    </div>
+                    <div class="mx-auto" style="max-width: 50%;">
+                        <h3 class="fw-bold mb-3 ">{{submitRecommendationResponse?.result?.title_1}}</h3>
+                        <p class="text-muted mb-5">
+                            {{submitRecommendationResponse?.result?.Paragraph_1}}
+                        </p>
+                        <h4 class="fw-bold mb-3">{{submitRecommendationResponse?.result?.title_2}}</h4>
+                        <p class="text-muted">
+                            {{submitRecommendationResponse?.result?.Paragraph_2}}
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </ng-container>
+        <ng-container *ngIf="isSubmitStreamAnswers" class="streamQuiz">
+            <div class="container-fluid mt-4" style="max-width: 900px; height: 100vh; overflow-y: auto;">
+                <div class="pdf-viewer shadow-lg p-4 mb-5 bg-white rounded"
+                    style="height: calc(100vh - 150px); overflow-y: auto;">
+                    <div class="card-body">
+                        <div class="text-center">
+                            <div class="card-title text-uppercase h2 mb-4" style="font-weight: bold; color: #FF6600;">
+                                <span style="border-bottom: 3px solid #FF6600;">
+                                    STREAM SELECTOR REPORT
+                                </span>
+                            </div>
+                        </div>
+                        <p class="text-left"><strong>Dear {{ streamReportData?.result?.student_name }},</strong></p>
+                        <p class="card-text">
+                            {{ streamReportData?.result?.objective }}
+                        </p>
+                        <hr />
 
+                        <div class="text-left h4"
+                            style="font-weight: bold; color: #FF6600; width: 280px; border-bottom: 3px solid #FF6600;">
+                            Stream Preference Order
+                        </div>
+                        <p>According to your test results, here is the order of your stream preferences:</p>
+
+                        <div class="row">
+                            <div class="chart-container mb-4 mt-2">
+                                <canvas baseChart [data]="streamReportData.graph_value"
+                                    [labels]="streamReportData.graph_data" [chartType]="'pie'" [options]="chartOptions">
+                                </canvas>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div *ngFor="let detail of streamReportData?.result?.graph_details" class="mb-3">
+                                    <h5 class="text-primary text-left" style="font-weight: bold;">{{ detail.heading }}:
+                                    </h5>
+                                    <p>{{ detail.Paragraph }}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Footer Section (Button to Download PDF) -->
+                <div class="footer text-center mt-4" style="position: relative;">
+                    <button class="btn btn-lg" style="background-color: #FF6600; color: white;"
+                        (click)="downloadReport()">
+                        Download Report
+                    </button>
+                </div>
             </div>
-        </div>
-        <div class="row">
-            <div class="col-md-12 text-center">
-                <img *ngIf="totalPercentage>=90" class="pb-2" src="/uniprep-assets/images/icons/quizcomplete.webp"
-                    alt="retry" />
-                <img *ngIf="totalPercentage<=89" class="pb-2" src="/uniprep-assets/images/icons/quizfailed.png"
-                    alt="retry" />
-                <h3 class="text-center mb-2" *ngIf="totalPercentage>=90">
-                    Congratulations<br />{{totalanswercorret}}/{{totalanswerquistionaftersubmited}}</h3>
-                <h3 class="text-center mb-2" *ngIf="totalPercentage<=89">
-                    Better Luck Next Time<br />{{totalanswercorret}}/{{totalanswerquistionaftersubmited}}</h3>
-                <p *ngIf="totalPercentage>=90" class="text-center mb-2 fw-medium">You have completed the quiz on
-                    <br>{{currentModuleName}} module
-                </p>
-                <p *ngIf="totalPercentage<=89" class="text-center mb-2 fw-medium">Completion of this module
-                    requires<br>a minimum score of 90%</p>
-                <button *ngIf="totalPercentage>=90" style="background-color: #98B73F !important;"
-                    (click)="openCertificate()" class="btn btn-back btn-rounded px-2 py-2">
-                    <div class="d-flex align-items-center">
-                        <span class="fw-normal h6 mb-0">View Certificate</span>
-                        <div class="btn-icon" style="background-color: #7e963e;"><i class="fa fa-file"
-                                aria-hidden="true"></i></div>
-                    </div>
-                </button>&nbsp;
-                <button (click)="takeAnotherquiz()" class="btn btn-back btn-rounded px-2 py-2">
-                    <div class="d-flex align-items-center">
-                        <span class="fw-normal h6 mb-0">Take Another Quiz</span>
-                        <div class="btn-icon"><i class="fa fa-home" aria-hidden="true"></i></div>
-                    </div>
-                </button>&nbsp;
-                <button (click)="openReviewPopup()" class="btn btn-back btn-rounded px-2 py-2">
-                    <div class="d-flex align-items-center">
-                        <span class="fw-normal h6 mb-0">Preview</span>
-                        <div class="btn-icon"><i class="fa-solid fa-list-check"></i></div>
-                    </div>
-                </button>
-            </div>
-        </div>
+        </ng-container>
+
     </div>
 </div>
-<div *ngIf="isQuizSubmit" class="card"
+<div *ngIf="isSubmitQuizAnswer" class="card"
     style="background-color: #fff;padding: 20px;border-radius: 0px 0px 15px 15px !important;">
     <div class="row align-items-center">
         <div class="col-md-10">
