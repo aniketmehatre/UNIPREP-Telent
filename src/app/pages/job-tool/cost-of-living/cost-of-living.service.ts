@@ -8,7 +8,7 @@ import { environment } from "@env/environment";
 })
 export class CostOfLivingService {
     constructor(private http: HttpClient) { }
-
+    inrRate:any;
     calculatePrices(cityDetails: any) {
         const headers = new HttpHeaders().set("X-RapidApi-Key", "09dff7af89msh193627b79d4f967p12d174jsn905ad1176841");
         if (cityDetails.city_name=="") {
