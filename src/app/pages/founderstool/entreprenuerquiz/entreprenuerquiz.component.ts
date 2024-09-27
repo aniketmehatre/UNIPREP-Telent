@@ -383,11 +383,11 @@ export class EntreprenuerquizComponent implements OnInit {
   checkquizquestioncount() {
     this.quizData = [];
     var data = {
-      countryId: 0,
+      // countryId: 0,
+      submoduleId: this.submoduleidquiz,
       moduleId: this.currentModuleId,
-      submoduleid: this.submoduleidquiz
     }
-    this.service.quizCount(data).subscribe((res) => {
+    this.service.GetQuestionsCount(data).subscribe((res) => {
       this.quizcount = res.count > 0 ? res.count : 0;
       this.quizData = res.quizquestion.map((val: any) => {
         let number = 1;
