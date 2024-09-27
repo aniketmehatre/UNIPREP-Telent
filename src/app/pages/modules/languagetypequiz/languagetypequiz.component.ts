@@ -411,8 +411,10 @@ export class LanguagetypequizComponent implements OnInit {
   }
   openReferAnswer(link: any) {
     const lastDigits = link.match(/(\d+)$/)[0];
-    const linkUrl = `/pages/language-hub/translate-view/${lastDigits}`
-    window.open(linkUrl, '_blank');
+    const url = this.router.serializeUrl(
+      this.router.createUrlTree([`/pages/language-hub/translate-view/${lastDigits}`])
+    );
+    window.open(url, '_blank');
   }
   startTimer(): void {
     this.timer = 0;
