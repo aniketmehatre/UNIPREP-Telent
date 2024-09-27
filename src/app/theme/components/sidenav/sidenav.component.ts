@@ -65,6 +65,11 @@ export class SidenavComponent {
       image: "fa-solid fa-people-group",
     },
     {
+      title: "Academic Tools",
+      url: "/pages/modules/academic-tools",
+      image: "fa-solid fa-ticket",
+    },
+    {
       title: "Pre Admission",
       url: "/pages/modules/pre-admission",
       image: "fa-solid fa-file-import",
@@ -74,11 +79,6 @@ export class SidenavComponent {
     //   url: "/pages/modules/post-application",
     //   image: "fa-solid fa-file-export",
     // },
-    {
-      title: "Academic Tools",
-      url: "/pages/modules/academic-tools",
-      image: "fa-solid fa-ticket",
-    },
     {
       title: "Post Admission",
       url: "/pages/modules/post-admission",

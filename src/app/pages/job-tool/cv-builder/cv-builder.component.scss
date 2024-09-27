@@ -839,3 +839,21 @@ body {
     }
     margin:10px 20px;
 }
+
+.custom-dropdown .custom-selected-item, .custom-dropdown .custom-dropdown-item {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	max-width: 100%; /* Adjust based on the container's width */
+}
+
+.dropdown-image{
+	img {
+		height: 25px !important;
+		width: 25px !important;
+		margin-right: 10px;
+	}
+}

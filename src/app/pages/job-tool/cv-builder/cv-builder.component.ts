@@ -10,7 +10,8 @@ import Swiper from 'swiper';
 import {AuthService} from "../../../Auth/auth.service";
 import {LocationService} from "../../../location.service";
 import { CvBuilderService } from './cv-builder.service';
-
+import { JobSearchService } from '../../job-search/job-search.service';
+import { City } from 'src/app/@Models/cost-of-living';
 @Component({
   selector: 'uni-cv-builder',
   templateUrl: './cv-builder.component.html',
@@ -122,10 +123,12 @@ export class CvBuilderComponent implements OnInit  {
   swiper!: Swiper;
   loadingResumes: boolean = true;
   filledFields: string[] = [];
+  cities: City[] = [];
+
   constructor(private toaster: MessageService, private fb: FormBuilder, private resumeService: CvBuilderService,
               private http: HttpClient, private router: Router, private confirmService: ConfirmationService,
               private renderer: Renderer2, private el: ElementRef,  private authService: AuthService,
-              private locationService: LocationService) {
+              private locationService: LocationService, private cityService: JobSearchService) {
 
     this.resumeFormInfoData = this.fb.group({
       selected_exp_level: ['', Validators.required],
@@ -198,6 +201,7 @@ export class CvBuilderComponent implements OnInit  {
 
   ngOnInit(): void {
     this.hideHeader();
+    this.getLocationsList();
     this.editorModules = {
       toolbar: [
         ['bold', 'italic', 'underline'], 
@@ -236,6 +240,12 @@ export class CvBuilderComponent implements OnInit  {
     this.getCountryCodeList();
     this.skillsList();
     this.getUserPrefilledData();
+  }
+
+  getLocationsList(){
+    this.resumeService.getLocationList().subscribe((res: any) => {
+      this.cities = res;
+    });
   }
 
   getUserPrefilledData(){
