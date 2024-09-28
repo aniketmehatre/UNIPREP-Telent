@@ -39,8 +39,8 @@ export class CvBuilderComponent implements OnInit  {
   eduDetailsLimit: number = 3;
   wrkExpLimit: number = 3;
   projectLimit: number = 3;
-  languageLimit: number = 5;
-  techSkillLimit: number = 5;
+  languageLimit: number = 2;
+  techSkillLimit: number = 3;
   extraCurriLimit: number = 5;
   certificateLimit: number = 3;
   submitted: boolean = false;
@@ -59,6 +59,7 @@ export class CvBuilderComponent implements OnInit  {
   countryCodeList: any = [];
   items!: MenuItem[];
   skillsLists: any = [];
+  yearsList: any = [];
   resumeSlider: any = [
     {
       id: 5,
@@ -124,7 +125,8 @@ export class CvBuilderComponent implements OnInit  {
   loadingResumes: boolean = true;
   filledFields: string[] = [];
   cities: City[] = [];
-
+  occupationList: any = [];
+  filteredJobs: any = [];
   constructor(private toaster: MessageService, private fb: FormBuilder, private resumeService: CvBuilderService,
               private http: HttpClient, private router: Router, private confirmService: ConfirmationService,
               private renderer: Renderer2, private el: ElementRef,  private authService: AuthService,
@@ -240,12 +242,40 @@ export class CvBuilderComponent implements OnInit  {
     this.getCountryCodeList();
     this.skillsList();
     this.getUserPrefilledData();
+    const currentYear = new Date().getFullYear();
+    for (let i = currentYear; i >= 1980; i--) {
+      this.yearsList.push({ year: i });
+    }
+    this.getOccupationList();
   }
 
   getLocationsList(){
     this.resumeService.getLocationList().subscribe((res: any) => {
       this.cities = res;
     });
+  }
+
+  getOccupationList(){
+    this.resumeService.getJobList().subscribe(res =>{
+      this.occupationList = res;
+    })
+  }
+
+  onInput(event: any) {
+    const query = event.target.value.toLowerCase();
+    if(query.length > 4){
+      this.filteredJobs = this.occupationList.filter((job: any) => job.jobrole.toLowerCase().includes(query));
+    }else if(query.length < 2){
+      this.filteredJobs = []; 
+    }
+  }
+
+  // Function to select a job title
+  selectJob(job: any) {
+    this.resumeFormInfoData.patchValue({
+      user_job_title: job.jobrole,
+    });
+    this.filteredJobs = []; 
   }
 
   getUserPrefilledData(){

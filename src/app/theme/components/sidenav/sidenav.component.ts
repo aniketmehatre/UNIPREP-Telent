@@ -60,7 +60,7 @@ export class SidenavComponent {
       image: "",
     },
     {
-      title: "k12",
+      title: "k12 Academy",
       url: "/pages/modules/k12",
       image: "fa-solid fa-people-group",
     },

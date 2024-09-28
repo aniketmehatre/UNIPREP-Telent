@@ -80,4 +80,11 @@ export class CvBuilderService {
       headers: headers,
     });
   }
+
+  getJobList(){
+    const headers = new HttpHeaders().set("Accept", "application/json");
+    return this.http.get<any>(environment.ApiUrl + "/getJobRolesList" ,{
+      headers: headers,
+    });
+  }
 }
