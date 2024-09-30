@@ -131,8 +131,6 @@ export class PagesComponent implements OnInit, OnDestroy {
         }
         this.locationService.getImage().subscribe(imageUrl => {
             this.imageUrlWhitelabel = imageUrl;
-            console.log(this.imageUrlWhitelabel);
-            
           });
         this.service.getTimeInfoForCard().subscribe((data) => {
             localStorage.setItem('time_card_info', data.card_message);
@@ -164,7 +162,6 @@ export class PagesComponent implements OnInit, OnDestroy {
         });
         this.MultiLoginPopup = 'none'; //If you want to show the popup change the value as "block"
         this.pageFacade.videoPopupTrigger$.subscribe((data) => {
-            console.log(data);
             if(data){
                 this.openVideoPopup(data);
             }

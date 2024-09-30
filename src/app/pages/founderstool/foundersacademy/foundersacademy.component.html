@@ -1,9 +1,13 @@
-<div class="card readingcard">
-	<div class="card-body pt-0 h-100">
+<div class="card readingcard" style="height:  60rem !important;">
+	<div class="card-body pt-0 ">
 		<div class="row justify-content-center">
-			<div class="col-md-2 text-start"></div>
+			<div class="col-md-2 text-start">
+				<div class="backIcon" (click)="goBack()">
+					<span class="pi pi-angle-left" (click)="goBack()"></span>
+				</div>
+			</div>
 			<div class="col-md-8 text-center">
-				<h5 class="select-title mb-1" tooltipPosition="top" pTooltip="This section provides a comprehensive walkthrough on the UNIPREP platform.">TUTORIALS<i class="questiontooltip fa-solid fa-circle-question"></i></h5>
+				<h5 class="select-title mb-1" tooltipPosition="top" pTooltip="This section provides a comprehensive walkthrough on the UNIPREP platform.">Founders Academy<i class="questiontooltip fa-solid fa-circle-question"></i></h5>
 			</div>
 			<div class="col-md-2"></div>
 		</div>
@@ -19,7 +23,7 @@
 							<img src="{{ acade.coverimage }}" />
 							<div class="tutorialcontent">
 								<h5 class="mb-0 text-white">{{ acade.title }}</h5>
-								<p class="mb-0 text-white small" title="{{ acade.description }}">{{ acade.description.length > 35 ? acade.description.slice(0, 35) + "..." : acade.description }}</p>
+								<p class="mb-0 text-white small" title="{{ acade.description }}">{{acade.description }}</p>
 							</div>
 						</div>
 					</div>
