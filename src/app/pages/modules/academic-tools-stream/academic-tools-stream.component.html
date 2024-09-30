@@ -43,7 +43,7 @@
             </div>
         </div>
         <div class="row mb-0" *ngIf="!isSkeletonVisible">
-            <div *ngFor="let modules of modulesList" class="col-lg-2 col-md-3 col-sm-4 col-xs-12 col-12">
+            <div *ngFor="let modules of modulesList" class="col-lg-2 col-md-3 col-sm-4 col-xs-12 col-12 mb-2">
                 <div class="row w-100 m-0 justify-content-center h-100">
                     <div class="card resourcecard text-black h-100"
                         [routerLink]="['quiz',modules.id, modules.academic_category_type_id]">
