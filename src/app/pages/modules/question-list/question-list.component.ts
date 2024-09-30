@@ -150,7 +150,9 @@ export class QuestionListComponent implements OnInit {
       //this.getSubmoduleName(this.countryId);
     });
     this.dataService.homeCountryFlagSource.subscribe(data => {
-      this.homeCountryLogo = data;
+      this.homeCountryLogo = data; console.log( this.homeCountryLogo,"data" );
+      
+           
     });
     this.dataService.countryFlagSource.subscribe(data => {
       this.countryFlag = data;
