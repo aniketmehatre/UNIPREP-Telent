@@ -126,12 +126,16 @@
                                     </div>
                                     <div class="form-group">
                                         <div class="mb-3">
-                                            <input class="w-100" type="text" placeholder="Your Job Title"
-                                                   formControlName="user_job_title" pInputText />
-                                            <div *ngIf="submitted && f['user_job_title'].errors"
-                                                 class="text-danger text-xs">
-                                                <div style="margin-left:10px;" *ngIf="f['user_job_title'].errors">Job
-                                                    Title Required</div>
+                                            <div class="input-wrapper">
+                                                <input type="text" formControlName="user_job_title" (input)="onInput($event)" placeholder="Search job title" class="form-control job-input" />
+                                                <ul *ngIf="filteredJobs.length > 0"  class="dropdown-list">
+                                                    <li *ngFor="let job of filteredJobs" (click)="selectJob(job)">{{ job.jobrole }}</li>
+                                                </ul>
+                                                <div *ngIf="submitted && f['user_job_title'].errors"
+                                                    class="text-danger text-xs">
+                                                    <div style="margin-left:10px;" *ngIf="f['user_job_title'].errors">Job
+                                                        Title Required</div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -162,8 +166,22 @@
                                     </div>
                                     <div class="form-group">
                                         <div class="mb-3">
-                                            <input class="w-100" type="text" placeholder="Location, State"
-                                                   formControlName="user_location" pInputText />
+                                            <p-dropdown [options]="cities" optionValue="country_name" optionLabel="country_name" formControlName="user_location" placeholder="Location, State" [filter]="true" filterBy="country_name" [showClear]="true" [appendTo]="'body'" [style]="{'minWidth': '100%'}" class="w-100 text-start custom-dropdown">
+                                                <ng-template pTemplate="selectedItem" let-selectedOption>
+                                                    <div class="d-flex align-items-center gap-2 custom-selected-item dropdown-image">
+                                                        <img [src]="selectedOption.flag" alt="Flag"/>
+                                                        <div class="scrolling-text">
+                                                            {{ selectedOption.country_name }}{{ selectedOption.city_name ? ', '+selectedOption.country_name : ''}}
+                                                        </div>
+                                                    </div>
+                                                </ng-template>
+                                                <ng-template let-country pTemplate="item">
+                                                    <div class="d-flex align-items-center gap-2 custom-dropdown-item dropdown-image">
+                                                        <img [src]="country.flag" alt="Flag"/>
+                                                        <div class="truncate-text">{{ country.country_name }}</div>
+                                                    </div>
+                                                </ng-template>
+                                            </p-dropdown>
                                             <div *ngIf="submitted && f['user_location'].errors" class="text-danger text-xs">
                                                 <div style="margin-left:10px;" *ngIf="f['user_location'].errors">Current Location Required</div>
                                             </div>
@@ -339,11 +357,11 @@
                                                             <div class="form-group d-flex">
                                                                 <div class="col-md-6 m-1">
                                                                     <div class="mb-3">
-                                                                        <input class="w-100" type="number" placeholder="Start Year" formControlName="work_start_year" pInputText />
+                                                                        <p-dropdown [options]="yearsList" optionValue="year" placeholder="Start Year"  filterBy="year" [filter]="true" formControlName="work_start_year" optionLabel="year"></p-dropdown>
+                                                                        <!-- <input class="w-100" type="number" placeholder="Start Year" formControlName="work_start_year" pInputText /> -->
                                                                         <div *ngIf="wrkExp.get('work_start_year')?.invalid && wrkExp.get('work_start_year')?.touched && submitted"
                                                                              class="text-danger text-xs">
-                                                                            <div style="margin-left:10px;">Start Year
-                                                                                required.</div>
+                                                                            <div style="margin-left:10px;">Start Year required.</div>
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -363,10 +381,11 @@
                                                             <div class="form-group d-flex">
                                                                 <div class="col-md-6 m-1">
                                                                     <div class="mb-3">
-                                                                        <input class="w-100" type="number"
+                                                                        <p-dropdown [options]="yearsList" optionValue="year" placeholder="End Year" [disabled]="getWorkExpArray.controls[i]?.get('work_currently_working')?.value" formControlName="work_end_year" filterBy="year" [filter]="true" optionLabel="year"></p-dropdown>
+                                                                        <!-- <input class="w-100" type="number"
                                                                             placeholder="End Year"
                                                                             [attr.disabled]="getWorkExpArray.controls[i]?.get('work_currently_working')?.value ? true : null"
-                                                                            formControlName="work_end_year" pInputText />
+                                                                            formControlName="work_end_year" pInputText /> -->
                                                                         <div *ngIf="wrkExp.get('work_end_year')?.invalid && wrkExp.get('work_end_year')?.touched && submitted"
                                                                             class="text-danger text-xs">
                                                                             <div style="margin-left:10px;">End Year required.</div>
@@ -512,9 +531,10 @@
                                                         <div class="col-md-6">
                                                             <div class="form-group">
                                                                 <div class="mb-3">
-                                                                    <input class="w-100" type="number"
+                                                                    <p-dropdown [options]="yearsList" optionValue="year" placeholder="Start Year"  filterBy="year" [filter]="true" formControlName="edu_start_year" optionLabel="year"></p-dropdown>
+                                                                    <!-- <input class="w-100" type="number"
                                                                            placeholder="Start Year"
-                                                                           formControlName="edu_start_year" pInputText />
+                                                                           formControlName="edu_start_year" pInputText /> -->
                                                                     <div *ngIf="eduDetail.get('edu_start_year')?.invalid && eduDetail.get('edu_start_year')?.touched && submitted"
                                                                          class="text-danger text-xs">
                                                                         <div style="margin-left:10px;">Start Year
@@ -526,14 +546,14 @@
                                                         <div class="col-md-6">
                                                             <div class="form-group">
                                                                 <div class="mb-3">
-                                                                    <input class="w-100" type="number"
+                                                                    <p-dropdown [options]="yearsList" optionValue="year" placeholder="End Year"  filterBy="year" [filter]="true" formControlName="edu_end_year" optionLabel="year" [disabled]="getEduDetailsArray.controls[i]?.get('edu_still_pursuing')?.value"></p-dropdown>
+                                                                    <!-- <input class="w-100" type="number"
                                                                            [attr.disabled]="getEduDetailsArray.controls[i]?.get('edu_still_pursuing')?.value ? true : null"
                                                                            placeholder="End Year"
-                                                                           formControlName="edu_end_year" pInputText />
+                                                                           formControlName="edu_end_year" pInputText /> -->
                                                                     <div *ngIf="eduDetail.get('edu_end_year')?.invalid && eduDetail.get('edu_end_year')?.touched && submitted"
                                                                          class="text-danger text-xs">
-                                                                        <div style="margin-left:10px;">End Year
-                                                                            required.</div>
+                                                                        <div style="margin-left:10px;">End Year required.</div>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -866,8 +886,7 @@
                                                     </div>
                                                 </div>
                                                 <div class="col-md-5">
-                                                    <button (click)="clickDeleteButton('skills', i)"
-                                                            class="deleteDivButton">Delete &nbsp;<i
+                                                    <button *ngIf="getSkillsArray.length > techSkillLimit" (click)="clickDeleteButton('skills', i)" class="deleteDivButton">Delete &nbsp;<i
                                                             class="fa-solid fa-trash trashIcon"></i>
                                                     </button>
                                                 </div>
@@ -877,7 +896,7 @@
                                 </div>
                             </div>
                             <div class="d-flex justify-content-center align-items-center m-3">
-                                <button class="addMoreButton" *ngIf="getSkillsArray.length < techSkillLimit"
+                                <button class="addMoreButton" *ngIf="getSkillsArray.length < 5"
                                         (click)="clickAddMoreButton('skills')">Add More &nbsp;<i
                                         class="fa-solid fa-plus tickIcon"></i></button>
                             </div>
@@ -921,7 +940,7 @@
                                                     </div>
                                                 </div>
                                                 <div class="col-md-5">
-                                                    <button class="deleteDivButton" (click)="clickDeleteButton('language_known', i)">Delete &nbsp;
+                                                    <button class="deleteDivButton" *ngIf="getLanguagesKnownArray.length > languageLimit" (click)="clickDeleteButton('language_known', i)">Delete &nbsp;
                                                         <i class="fa-solid fa-trash trashIcon"></i>
                                                     </button>
                                                 </div>
@@ -931,7 +950,7 @@
                                 </div>
                             </div>
                             <div class="d-flex justify-content-center align-items-center m-3">
-                                <button class="addMoreButton" *ngIf="getLanguagesKnownArray.length < languageLimit"
+                                <button class="addMoreButton" *ngIf="getLanguagesKnownArray.length < 5"
                                         (click)="clickAddMoreButton('language_known')">Add More &nbsp;<i
                                         class="fa-solid fa-plus tickIcon"></i></button>
                             </div>

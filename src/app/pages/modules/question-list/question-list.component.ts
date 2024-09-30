@@ -295,7 +295,7 @@ export class QuestionListComponent implements OnInit {
         break;
       case 'k12-category':
         this.currentModuleId = 14;
-        this.currentModuleName = 'K12';
+        this.currentModuleName = 'K12 Academy';
         this.currentApiSlug = 'StudentsSubmoduleQuestions';
         this.tooltip = "";
         break;
