@@ -238,6 +238,16 @@ selctedQuizTiny {
 	text-align: left;
 	position: relative; /* Ensure the container is positioned relative */
 }
+.p-input-icon-left>i, .p-input-icon-right>i {
+    position: absolute;
+    top: 50%;
+    margin-top: -2.2rem;
+}
+.noalignment {
+    position: absolute;  
+    top: 50%;         
+    margin-top: -1.3rem;    
+}
 
 .input-container {
 	position: relative;
