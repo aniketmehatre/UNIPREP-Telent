@@ -40,11 +40,12 @@
                 </button>
             </div>
             <div class="col-md-3 mt-2 text-end desktop justify-content-end d-none d-md-flex"
-                 *ngIf="currentModuleId == 8">
+                 *ngIf="currentModuleId == 8 ">
                 <div class="p-input-icon-left w-100 mt-5 search-container">
                     <i class="pi pi-search"></i>
-                    <input class="w-100 px-5 py-2" type="text" placeholder="Look for you specialization" pInputText
+                    <input *ngIf="currentModuleId == 8" class="w-100 px-5 py-2" type="text" placeholder="Look for you specialization" pInputText
                            [(ngModel)]="searchLearning" (input)="performSearch()"/>
+                          
                     <div *ngIf="filteredData.length" class="dropdown-container">
                         <div *ngFor="let result of filteredData" class="dropdown-item">
                             <div (click)="takeMeToQuestion(result)">
@@ -55,6 +56,22 @@
                     </div>
                 </div>
             </div>
+            <div class="col-md-3 mt-2 text-end desktop justify-content-end d-none d-md-flex"
+            *ngIf="currentModuleId ==  5">
+           <div class="p-input-icon-left w-100 mt-5 search-container">
+               <i class="pi pi-search"></i>             
+                      <input *ngIf="currentModuleId == 5" class="w-100 px-5 py-2" type="text" placeholder="Search Files" pInputText
+                      [(ngModel)]="searchUniversity" (input)="performSearch()"/>
+               <div *ngIf="filteredData.length" class="dropdown-container" >
+                   <div *ngFor="let result of filteredData" class="dropdown-item" (click)="selectSearchResult(result)">
+                      
+                           <h3>{{ result.title }}</h3>
+                           <p>{{ result.subtitle }}</p>
+                      
+                   </div>
+               </div>
+           </div>
+       </div>
         </div>
         <div class="row justify-content-center"  *ngIf="currentModuleId == 14 && selectSubmoduleName == ''">
             <div class="col-md-3 mt-2 text-start desktop justify-content-start">

@@ -117,6 +117,7 @@ export class ListSubModulesComponent implements OnInit {
 
     allSearchedResult: any[] = []
     loopRange = Array.from({length: 30}).fill(0).map((_, index) => index);
+    originalSubModuleList: any[] = [];
 
     ngOnInit() {
         this.router.events.pipe(
@@ -143,7 +144,10 @@ export class ListSubModulesComponent implements OnInit {
         this.init();
         this.moduleListService.getSubmodulesAndSpecialization().subscribe((res: any) => {
             this.allSearchedResult = res
-        })
+            console.log(this.allSearchedResult,"***");
+            
+        });
+        this.originalSubModuleList = [...this.subModuleList]; 
     }
 
     init() {
@@ -301,7 +305,10 @@ export class ListSubModulesComponent implements OnInit {
 
             this.isSkeletonVisible = false;
             this.subModuleList = data;
-            if (this.currentModuleId == 8) {
+            console.log( this.subModuleList," subModuleList");
+            
+            if 
+            (this.currentModuleId == 8) {
                 this.subModuleList.map(list => list.submodule_name = list.category);
             }
 
@@ -616,8 +623,9 @@ export class ListSubModulesComponent implements OnInit {
         this.pageFacade.openHowitWorksVideoPopup(videoLink);
     }
 
-    searchLearning: any
-    filteredData: any[] = []
+    searchLearning: any;
+    searchUniversity:any;
+    filteredData: any[] = [];
 
     performSearch() {
         if (this.searchLearning) {
@@ -632,17 +640,53 @@ export class ListSubModulesComponent implements OnInit {
                     category_id: item.category_id,
                     submodule_id: item.submodule_id
                 }));
+        }
+        else if (this.searchUniversity) {
+            //const searchData = [...this.allSearchedResult];
+            const searchData = [... this.subModuleList];
+            
+          console.log(searchData);
+          
+          this.filteredData = searchData
+          .filter((item: any) =>
+              item.submodule_name?.toLowerCase().includes(this.searchUniversity.toLowerCase()) 
+          )
+          .map(item => ({
+              title: item.submodule_name,
+              subtitle: `Question Count: ${item.questioncount}`,
+              category_id: item.category_id || '',
+                           submodule_id: item.submodule_id
+          }));
         } else {
             this.filteredData = [];
         }
     }
+    // selectSearchResult(selectedItem: any) {        
+    //     this.subModuleList = this.filteredData.filter((item: any) => 
+    //         item.submodule_name === selectedItem.title || item.category_id === selectedItem.category_id
+    //     );           
+    //     this.searchUniversity = '';
+    //     this.filteredData = [];
+    // }
+    selectSearchResult(selectedItem: any) {       
+        const selectedModule = this.subModuleList.find(item => 
+            item.submodule_id === selectedItem.submodule_id || item.submodule_name === selectedItem.title
+        );    
+              if (selectedModule) {
+            this.subModuleList = [selectedModule];
+        }                
+        this.searchUniversity = '';
+        this.filteredData = [];
+    }
 
-    takeMeToQuestion(data: any) {
+    takeMeToQuestion(data: any) {      
+       
         this.router.navigate([`/pages/modules/learning-hub/question-list/${data.submodule_id}`]);
     }
 
     clearSearch() {
         this.searchLearning = '';
+        this.searchUniversity = '';
         this.filteredData = [];
     }
 
