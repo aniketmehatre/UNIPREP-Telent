@@ -71,6 +71,10 @@ export class CourseListComponent implements OnInit {
     },
     {
       id: 5,
+      question: "Choose your prerequisite requirements."
+    },
+    {
+      id: 6,
       question: "Select your Preferred university world rank"
     },
   ];
@@ -82,6 +86,7 @@ export class CourseListComponent implements OnInit {
     { id: null, label: 'Any' }
   ];
   worldRankCubes:any = [{ id: 100, value: "Top 100" }, { id: 200, value: "Top 200" }, { id: 500, value: "Top 500" }, { id: null, value: "Any" }];
+  preRequisite: any = [{id:1, value: "English Test Waiver"}, {id: 2, value: "Duolingo Accepted"}, {id: 3, value: "IELTS Mandatory"},{id: null, value: "Any"}];
 
   constructor(private pageFacade: PageFacadeService,private locationService: LocationService,  private userManagementService: UserManagementService, private courseList: CourseListService, private fb: FormBuilder, private toastr: MessageService, private router: Router, private authService: AuthService) {
     this.filterForm = this.fb.group({
@@ -93,6 +98,7 @@ export class CourseListComponent implements OnInit {
       subject: [''],
       duration: [''],
       intake_months: [''],
+      pre_requisite: [''],
       stay_back: [''],
       world_rank: [''],
     });
@@ -225,6 +231,7 @@ export class CourseListComponent implements OnInit {
       campus: formValues.campus ? formValues.campus : "",
       subject: formValues.subject ? formValues.subject : "",
       duration: formValues.duration ? formValues.duration : "",
+      pre_requisite: formValues.pre_requisite ? formValues.pre_requisite : "",
       intake_months: formValues.intake_months ? formValues.intake_months : "",
       stay_back: formValues.stay_back ? formValues.stay_back : "",
       world_rank: formValues.world_rank ? formValues.world_rank : "",
@@ -301,11 +308,11 @@ export class CourseListComponent implements OnInit {
         }
       }else{
         if (this.buyCreditsCount < this.exportDataIds.length) {
-        this.toastr.add({severity: "error",summary: "error",detail: "To download additional data beyond your free credits, please upgrade your plan.",});
-        this.restrict = true;
-        return;
+          this.toastr.add({severity: "error",summary: "error",detail: "To download additional data beyond your free credits, please upgrade your plan.",});
+          this.restrict = true;
+          return;
+        }
       }
-    }
       let data = {
         module_id: 4,
         export_id: this.exportDataIds
@@ -433,7 +440,7 @@ export class CourseListComponent implements OnInit {
   }
 
   getRecommendation(){
-    let keyMapping: any = {"1": "country","2": "subject","3": "study_level","4": "intake_months","5": "world_rank"};
+    let keyMapping: any = {"1": "country","2": "subject","3": "study_level","4": "intake_months","5": "pre_requisite","6": "world_rank"};
   
     let newData = Object.fromEntries(Object.entries(this.selectedData).map(([key, value]) => {
         let mappedKey = keyMapping[key] || key;
@@ -455,6 +462,7 @@ export class CourseListComponent implements OnInit {
   }
   
   recommendationBasedCourses(data: any){
+    console.log(data,"recommendation datas");
     this.filterForm.patchValue(data);
     this.courseList.getListOfCourses(data).subscribe(response => {
       this.courseListData = response.data;

@@ -21,7 +21,7 @@
 					</div>
 				</div>
 			</div>
-			<div class="col-md-2 mt-2 text-end desktop justify-content-end d-none d-md-flex" *ngIf="currentModuleId == 8||currentModuleId == 10">
+			<div class="col-md-2 mt-2 text-end desktop justify-content-end d-none d-md-flex" *ngIf="currentModuleId == 8||currentModuleId == 10 || currentModuleId != 14">
 				<button role="button" style="background-color: black; cursor: pointer" (click)="startQuiz()" class="btn w-75 m-0 px-2 py-2 homecardbtn homecardbtnquiz" [disabled]="quizpercentage >= 90">
 					<i class="fa-regular h3 fa-lightbulb-on mb-1"></i>
 					<p class="mb-1">Start Quiz</p>
@@ -58,39 +58,42 @@
 		<div class="row" *ngIf="!isSkeletonVisible">
 			<div *ngFor="let sub of questionListData; let i = index" class="readingcardgrid my-2">
 				<div class="row w-100 h-100 m-0 justify-content-center">
-					<div (click)="viewOneQuestion(sub)" class="card questioncard {{ sub.read == 1 ? 'questionread' : '' }}">
+					<div (click)="viewOneQuestion(sub)" class="card questioncard {{ sub.read == 1 ? '' : '' }}">
 						<div class="card-body d-flex flex-sm-column flex-row justify-content-sm-between align-items-center px-0 py-2 gap-2 gap-md-0">
-							<div class="row justify-content-center w-100">
+							<div class="row justify-content-center w-100 ">
 								<div class="col">
 									<p class="text-start fw-medium questiontext mb-0 mb-md-2">{{ sub.question }}</p>
 								</div>
 								<!--<div class="col-md-4 text-center">
                                             <p class="mb-3 circle text-center">{{i+1}}</p>
                                         </div> -->
-								<div class="col-2 d-flex align-items-center justify-content-center text-end" *ngIf="sub.popular == 1">
-                                    <div *ngIf="sub.national == 'no'; else elseBlock">
-                                        <i class="pi pi-star-fill text-danger" pTooltip="Most Popular Question" tooltipPosition="right" style="font-size: 1.5rem"></i>
-                                    </div>
+								<div class="col-2  align-items-center justify-content-center text-end" *ngIf="sub.popular == 1">
+                                   <div class="row">
+                                       <div *ngIf="sub.national == 'no'; else elseBlock">
+                                           <i class="pi pi-star-fill text-danger" pTooltip="Most Popular Question" tooltipPosition="right" style="font-size: 1.5rem"></i>
+                                       </div>
 
-                                    <ng-template #elseBlock>
-                                        <i class="pi pi-star-fill text-primary" pTooltip="Most Popular National Question" tooltipPosition="right" style="font-size: 1.5rem"></i>
-                                    </ng-template>
-
+                                       <ng-template #elseBlock>
+                                           <img [src]="homeCountryLogo" alt="home_country_logo" class="w-10 shadow-2 no-border-radius" />
+                                           <i class="pi pi-star-fill text-danger" pTooltip="Most Popular Question" tooltipPosition="right" style="font-size: 1.5rem"></i>                                        
+                                       </ng-template>
+                                   </div>
 								</div>
+								   <!--<i class="pi pi-star-fill text-primary" pTooltip="Most Popular National Question" tooltipPosition="right" style="font-size: 1.5rem"></i>-->
 							</div>
 							<button
 								class="btn d-md-block d-none w-100 flex-shrink-0 btn-primary m-0 primary-btn
-                                        {{ sub.read == 1 ? 'readButton' : '' }}"
+                                        {{ sub.read == 1 ? 'questionread' : '' }}"
 								pButton
 								type="button">
-								Read &nbsp;<span class="desktop-enable">Answer</span>
+								Read &nbsp;<span class="desktop-enable">{{sub.read == 1 ? 'Completed' : 'Answer'}}</span>
 							</button>
 							<button
 								class="btn d-md-none d-flex flex-shrink-0 btn-primary m-0 primary-btn
-                                        {{ sub.read == 1 ? 'readButton' : '' }}"
+                                        {{ sub.read == 1 ? 'questionread' : '' }}"
 								pButton
 								type="button">
-								Read &nbsp;<span class="desktop-enable">Answer</span>
+								Read &nbsp;<span class="desktop-enable">{{sub.read == 1 ? 'Completed' : 'Answer'}}</span>
 							</button>
 						</div>
 					</div>
@@ -172,7 +175,7 @@
 				<h5 class="unselectable d-md-none d-block">{{ oneQuestionContent?.question }}</h5>
 				<div class="fw-medium"
                      style="white-space: inherit; max-height: 80%; min-height: 80%"
-                     [innerHTML]="oneQuestionContent?.answer"></div>
+                     [innerHTML]="oneQuestionContent?.answer.replace('<br><br>' , '<br>')"></div>
 			</div>
 		</div>
 	</div>

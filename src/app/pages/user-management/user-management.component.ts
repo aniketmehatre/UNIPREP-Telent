@@ -404,6 +404,11 @@ export class UserManagementComponent implements OnInit {
     }
 
     changeLocation(event: any) {
+        const selectedCountry = this.countryList.find((country: any) => country.id === event.value);
+        if (selectedCountry) {
+            console.log(selectedCountry.flag)
+            this.dataService.changeHomeCountryFlag(selectedCountry.flag)
+        }
         this.GetLocationList()
     }
 }

@@ -1,7 +1,7 @@
-import { Component, OnInit, Renderer2, ElementRef, ViewChild  } from '@angular/core';
+import { Component, OnInit, Renderer2, ElementRef, ViewChild, AfterViewInit  } from '@angular/core';
 import { MessageService, ConfirmationService } from 'primeng/api';
 import { FormBuilder, FormGroup, FormArray, Validators, AbstractControl } from "@angular/forms";
-import { CourseListService } from '../../course-list/course-list.service';
+// import { CourseListService } from '../../course-list/course-list.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
 import html2canvas from 'html2canvas';
@@ -9,17 +9,20 @@ import { MenuItem } from 'primeng/api';
 import Swiper from 'swiper';
 import {AuthService} from "../../../Auth/auth.service";
 import {LocationService} from "../../../location.service";
-
+import { CvBuilderService } from './cv-builder.service';
+import { JobSearchService } from '../../job-search/job-search.service';
+import { City } from 'src/app/@Models/cost-of-living';
 @Component({
   selector: 'uni-cv-builder',
   templateUrl: './cv-builder.component.html',
   styleUrls: ['./cv-builder.component.scss'],
 })
-export class CvBuilderComponent implements OnInit {
-  @ViewChild('swiperContainer') swiperContainer!: ElementRef;
+export class CvBuilderComponent implements OnInit  {
   selectedResumeLevel: string = "";
   experienceLevel: any = [{ id: 1, level: "Fresher" }, { id: 2, level: "Experience" }];
   // experienceLevel: any = [{ id: 1, level: "Fresher" }, { id: 2, level: "1-2 Years" }, { id: 3, level: "3-5 Years" }, { id: 4, level: "5+ Years" },];
+  monthList: any = [{ id: "Jan", name: "January" }, { id: "Feb", name: "February" }, { id: "Mar", name: "March" }, { id: "Apr", name: "Apr" }, { id: "May", name: "May" }, { id: "Jun", name: "June" }, { id: "Jul", name: "July" }, { id: "Aug", name: "August" }, { id: "Sep", name: "September" }, { id: "Oct", name: "October" }, { id: "Nov", name: "November" }, { id: "Dec", name: "December" }];
+
   cgpaPercentage: any = [{ id: "CGPA", value: "CGPA" }, { id: "%", value: "Percentage" }];
   workTypeValue: any = [{ id: "Full Time", value: "Full-Time" }, { id: "Part Time", value: "Part-Time" }, { id: "Internship", value: "Internship" }, { id: "Freelancer", value: "Freelancer" }];
   languageProficiency: any = [{ id: "Beginner", value: "Beginner" }, { id: "Fluent", value: "Fluent" }, { id: "Proficient", value: "Proficient" }, { id: "Native", value: "Native" }];
@@ -28,6 +31,7 @@ export class CvBuilderComponent implements OnInit {
   enableModule: boolean = true;
   activePageIndex: number = 0;
   moduleActiveIndex: number = 0;
+  maxPageNumber: number = 0;
   resumeFormInfoData: FormGroup;
   fullScreenVisible: boolean = false;
   previewImage: string = "";
@@ -35,8 +39,8 @@ export class CvBuilderComponent implements OnInit {
   eduDetailsLimit: number = 3;
   wrkExpLimit: number = 3;
   projectLimit: number = 3;
-  languageLimit: number = 5;
-  techSkillLimit: number = 5;
+  languageLimit: number = 2;
+  techSkillLimit: number = 3;
   extraCurriLimit: number = 5;
   certificateLimit: number = 3;
   submitted: boolean = false;
@@ -55,11 +59,12 @@ export class CvBuilderComponent implements OnInit {
   countryCodeList: any = [];
   items!: MenuItem[];
   skillsLists: any = [];
+  yearsList: any = [];
   resumeSlider: any = [
     {
-      id: 1,
-      templateName: "Traditional",
-      imageLink: "../../../uniprep-assets/resume-images/Traditional.webp",
+      id: 5,
+      templateName: "Creative",
+      imageLink: "../../../uniprep-assets/resume-images/Creative.webp",
     },
     {
       id: 2,
@@ -77,14 +82,14 @@ export class CvBuilderComponent implements OnInit {
       imageLink: "../../../uniprep-assets/resume-images/functional.webp",
     },
     {
-      id: 5,
-      templateName: "Creative",
-      imageLink: "../../../uniprep-assets/resume-images/Creative.webp",
-    },
-    {
-      id: 6,
+      id: 1,
       templateName: "Traditional",
       imageLink: "../../../uniprep-assets/resume-images/Traditional.webp",
+    },
+    {
+      id: 10,
+      templateName: "Creative",
+      imageLink: "../../../uniprep-assets/resume-images/Creative.webp",
     },
     {
       id: 7,
@@ -102,9 +107,9 @@ export class CvBuilderComponent implements OnInit {
       imageLink: "../../../uniprep-assets/resume-images/functional.webp",
     },
     {
-      id: 10,
-      templateName: "Creative",
-      imageLink: "../../../uniprep-assets/resume-images/Creative.webp",
+      id: 6,
+      templateName: "Traditional",
+      imageLink: "../../../uniprep-assets/resume-images/Traditional.webp",
     },
     
   ];
@@ -115,12 +120,17 @@ export class CvBuilderComponent implements OnInit {
   imagewhitlabeldomainname: any
   orgnamewhitlabel: any;
   orglogowhitelabel: any;
-  hidingHeaders: string[] = ['header_names'];
- 
-  constructor(private toaster: MessageService, private fb: FormBuilder, private resumeService: CourseListService,
+  hidingHeaders: string[] = ['project_details'];
+  swiper!: Swiper;
+  loadingResumes: boolean = true;
+  filledFields: string[] = [];
+  cities: City[] = [];
+  occupationList: any = [];
+  filteredJobs: any = [];
+  constructor(private toaster: MessageService, private fb: FormBuilder, private resumeService: CvBuilderService,
               private http: HttpClient, private router: Router, private confirmService: ConfirmationService,
               private renderer: Renderer2, private el: ElementRef,  private authService: AuthService,
-              private locationService: LocationService) {
+              private locationService: LocationService, private cityService: JobSearchService) {
 
     this.resumeFormInfoData = this.fb.group({
       selected_exp_level: ['', Validators.required],
@@ -158,7 +168,42 @@ export class CvBuilderComponent implements OnInit {
 
   }
 
+  ngAfterViewInit(): void {
+    setTimeout(() => {
+      this.swiper = new Swiper('.swiper', {
+        direction: 'horizontal',
+        loop: true,
+        slidesPerView: 5,
+        spaceBetween: 50,
+        centeredSlides: true,
+        allowTouchMove: false,
+      });
+    }, 500);
+    setTimeout(() => {
+      const nextButton = document.querySelector('.swiper-next');
+      const prevButton = document.querySelector('.swiper-prev');
+      if (nextButton) {
+        nextButton.addEventListener('click', () => {
+          this.swiper.slideNext();
+        });
+      }
+      if (prevButton) {
+        prevButton.addEventListener('click', () => {
+          this.swiper.slidePrev(); 
+        });
+      }
+    }, 200);
+    
+  }
+  pdfViewLoader() {
+   setTimeout(() => {
+    this.loadingResumes = false;
+   }, 3500);
+  }
+
   ngOnInit(): void {
+    this.hideHeader();
+    this.getLocationsList();
     this.editorModules = {
       toolbar: [
         ['bold', 'italic', 'underline'], 
@@ -176,7 +221,6 @@ export class CvBuilderComponent implements OnInit {
     });
     this.imagewhitlabeldomainname = window.location.hostname;
     this.previousResumes();
-    this.hideHeader();
     let currentuserName = this.resumeFormInfoData.value.user_name;
     this.splitUserName(currentuserName); // it calls when the page refresh
     this.resumeFormInfoData.get('user_name')?.valueChanges.subscribe(value => {
@@ -198,28 +242,71 @@ export class CvBuilderComponent implements OnInit {
     this.getCountryCodeList();
     this.skillsList();
     this.getUserPrefilledData();
+    const currentYear = new Date().getFullYear();
+    for (let i = currentYear; i >= 1980; i--) {
+      this.yearsList.push({ year: i });
+    }
+    this.getOccupationList();
+  }
+
+  getLocationsList(){
+    this.resumeService.getLocationList().subscribe((res: any) => {
+      this.cities = res;
+    });
+  }
+
+  getOccupationList(){
+    this.resumeService.getJobList().subscribe(res =>{
+      this.occupationList = res;
+    })
+  }
+
+  onInput(event: any) {
+    const query = event.target.value.toLowerCase();
+    if(query.length > 4){
+      this.filteredJobs = this.occupationList.filter((job: any) => job.jobrole.toLowerCase().includes(query));
+    }else if(query.length < 2){
+      this.filteredJobs = []; 
+    }
+  }
+
+  // Function to select a job title
+  selectJob(job: any) {
+    this.resumeFormInfoData.patchValue({
+      user_job_title: job.jobrole,
+    });
+    this.filteredJobs = []; 
   }
 
   getUserPrefilledData(){
     this.resumeService.getCVPrefilledData().subscribe(res => {
       if(res.status){
-        const storedValues = JSON.parse(res.data.data);
+        const responseData = res.data;
+        const storedValues = JSON.parse(responseData.data);
         this.resumeFormInfoData.patchValue(storedValues);
-
+        this.moduleActiveIndex = responseData.page_number;
+        this.hidingHeaders = JSON.parse(responseData.hiding_headers);
+        this.changeExperience();
         const workExpData = storedValues.workExpArray;
         if(workExpData.length != 0){
           workExpData.forEach((activity:any) => {
+            let workEndMonth = activity.work_end_month == null ? '' : activity.work_end_month;
+            const workEndMonthControl = activity.work_currently_working == true ? [workEndMonth]  : [workEndMonth, Validators.required];
             this.getWorkExpArray.push(this.fb.group({
               work_org_name: [activity.work_org_name,Validators.required],
               work_currently_working:[activity.work_currently_working],
               work_start_year: [activity.work_start_year,Validators.required],
+              work_start_month: [activity.work_start_month,Validators.required],
               work_end_year: [activity.work_end_year,Validators.required],
+              work_end_month: workEndMonthControl,
               work_designation: [activity.work_designation,Validators.required],
               work_type: [activity.work_type,Validators.required],
               work_location: [activity.work_location,Validators.required],
               work_job_description: [activity.work_job_description,Validators.required],
             }));
           });
+          this.hidingHeaders.push('project_details');
+          this.filledFields.push('project_details','work_experience');
         }
 
         const educationData = storedValues.EduDetailsArray;
@@ -236,8 +323,9 @@ export class CvBuilderComponent implements OnInit {
               edu_cgpa_percentage: [element.edu_cgpa_percentage],
             }));
           });
+          this.filledFields.push('education_detail');
         }
-
+        
         const certificateData = storedValues.certificatesArray;
         if(certificateData.length != 0){
           certificateData.forEach((element: any) => {
@@ -248,6 +336,7 @@ export class CvBuilderComponent implements OnInit {
               certicate_link: [element.certicate_link],
             }));
           });
+          this.filledFields.push('certificate');
         }
 
         const achievementData = storedValues.extraCurricularArray;
@@ -257,6 +346,7 @@ export class CvBuilderComponent implements OnInit {
               extra_curricular_activites: [element.extra_curricular_activites, Validators.required]
             }));
           });
+          this.filledFields.push('extra_curricular');
         }
 
         const skillsData = storedValues.skillsArray;
@@ -267,6 +357,7 @@ export class CvBuilderComponent implements OnInit {
               skills_proficiency: [element.skills_proficiency, Validators.required],
             }));
           });
+          this.filledFields.push('skills');
         }
 
         const languageData = storedValues.languagesKnownArray;
@@ -277,6 +368,7 @@ export class CvBuilderComponent implements OnInit {
               lang_proficiency: [element.lang_proficiency, Validators.required],
             }));
           });
+          this.filledFields.push('language_known');
         }
       }
     });
@@ -287,34 +379,85 @@ export class CvBuilderComponent implements OnInit {
       this.skillsLists = res;
     });
   }
+
   getCountryCodeList(){
     this.resumeService.getCountryCodes().subscribe(res =>{
       this.countryCodeList = res;
     });
   }
 
-  SortBasedOnProficiency(fieldName: string){
-    if(fieldName == "skills"){
+  onSkillChange() {
+    this.checkSkillsDuplilcation();
+  }
+  
+  onLanguageChange(){
+    this.checkLanguageDuplication();
+  }
 
-      const sortedArray = this.getSkillsArray.controls.sort((a, b) => {
-        const proficiencyOrder = [ "Advance", "Intermediate","Basic"];
-        return proficiencyOrder.indexOf(a.get('skills_proficiency')?.value) - proficiencyOrder.indexOf(b.get('skills_proficiency')?.value);
-      });
-      this.resumeFormInfoData.setControl('skillsArray', this.fb.array(sortedArray));
-
-    }else{
+  checkSkillsDuplilcation(){
+    const skills = this.getSkillsArray.controls.map(skill => skill.get('skills')?.value);
+  
+    skills.forEach((skill, index) => {
+      const duplicateCount = skills.filter(s => s === skill).length;
+      const skillControl = this.getSkillsArray.at(index).get('skills');
       
-      const sortedArray = this.getLanguagesKnownArray.controls.sort((a, b) => {
-        const proficiencyOrder = [ "Native", "Proficient", "Fluent", "Beginner"];
-        return proficiencyOrder.indexOf(a.get('lang_proficiency')?.value) - proficiencyOrder.indexOf(b.get('lang_proficiency')?.value);
-      });
-      this.resumeFormInfoData.setControl('languagesKnownArray', this.fb.array(sortedArray));
+      if (duplicateCount > 1 && skill) {
+        skillControl?.setErrors({ duplicate: true });
+      } else {
+        skillControl?.setErrors(null);
+      }
+    });
+  }
+
+  checkLanguageDuplication(){
+    const language = this.getLanguagesKnownArray.controls.map(language => language.get('language')?.value);
+    language.forEach((lang, index) => {
+      const duplicateCount = language.filter(s => s === lang).length;
+      const langControl = this.getLanguagesKnownArray.at(index).get('language');
+      
+      if (duplicateCount > 1 && lang) {
+        langControl?.setErrors({ duplicate: true });
+      } else {
+        langControl?.setErrors(null);
+      }
+    });
+    
+  }
+
+  SortBasedOnProficiency(fieldName: string) {
+    if (fieldName === "skills") {
+        const proficiencyOrder = ["Advance", "Intermediate", "Basic"];
+        const sortedControls = this.getSkillsArray.controls.sort((a, b) => {
+            return proficiencyOrder.indexOf(a.get('skills_proficiency')?.value) - proficiencyOrder.indexOf(b.get('skills_proficiency')?.value);
+        });
+
+        // Reorder the existing FormArray without resetting it
+        this.reorderFormArray(this.getSkillsArray, sortedControls);
+
+        // Check for duplicates after sorting
+        this.checkSkillsDuplilcation();
+    } else {
+        const proficiencyOrder = ["Native", "Proficient", "Fluent", "Beginner"];
+        const sortedControls = this.getLanguagesKnownArray.controls.sort((a, b) => {
+            return proficiencyOrder.indexOf(a.get('lang_proficiency')?.value) - proficiencyOrder.indexOf(b.get('lang_proficiency')?.value);
+        });
+
+        // Reorder the existing FormArray without resetting it
+        this.reorderFormArray(this.getLanguagesKnownArray, sortedControls);
+
+        // Check for duplicates after sorting
+        this.checkLanguageDuplication();
     }
   }
 
+  reorderFormArray(formArray: FormArray, sortedControls: AbstractControl[]) {
+    sortedControls.forEach((control, index) => {
+      formArray.setControl(index, control);
+    });
+  }
+
   hideHeader() {
-    const url = this.router.url;
-    if (this.activePageIndex == 2 && url.endsWith('/cv-builder')) {
+    if (this.activePageIndex == 2) {
       this.resumeService.setData(true);
     } else {
       this.resumeService.setData(false);
@@ -346,13 +489,14 @@ export class CvBuilderComponent implements OnInit {
     return this.resumeFormInfoData.controls;
   }
 
-  changeExperience(event: any) {
-    if (event.value == 1) {
+  changeExperience() {
+    const expLevel = this.resumeFormInfoData.value.selected_exp_level;
+    if (expLevel == 1) {
       this.eduDetailsLimit = 3;
-      this.wrkExpLimit = 2;
+      // this.wrkExpLimit = 2;
     } else {
       this.eduDetailsLimit = 2;
-      this.wrkExpLimit = 3;
+      // this.wrkExpLimit = 3;
     }
     this.updateValidatorsForAllProjects();
   }
@@ -397,13 +541,17 @@ export class CvBuilderComponent implements OnInit {
   }
 
   fieldNextButton() {
+    this.storeUserFilledData();
     this.moduleActiveIndex++;
     if(this.moduleActiveIndex > 4){
       this.moduleActiveIndex--;
       this.activePageIndex++;
+      this.filledFields.push('skills','language_known');
       return;
     }
     const fieldNameArray: string[] = [];
+    
+
     switch (this.moduleActiveIndex) {
       case 1:
         if (this.getWorkExpArray.length === 0 && !this.hidingHeaders.includes('work_experience')) {
@@ -412,6 +560,7 @@ export class CvBuilderComponent implements OnInit {
         break;
 
       case 2:
+        this.filledFields.push('work_experience');
         if (this.getEduDetailsArray.length === 0 && !this.hidingHeaders.includes('education_detail')) {
           fieldNameArray.push('education_detail');
         }
@@ -421,6 +570,7 @@ export class CvBuilderComponent implements OnInit {
         break;
 
       case 3:
+        this.filledFields.push('education_detail','project_details');
         if (this.getCertificatesArray.length === 0  && !this.hidingHeaders.includes('certificate')) {
           fieldNameArray.push('certificate');
         }
@@ -430,6 +580,7 @@ export class CvBuilderComponent implements OnInit {
         break;
 
       case 4:
+        this.filledFields.push('certificate','extra_curricular');
         if (this.getSkillsArray.length === 0 && !this.hidingHeaders.includes('skills')) {
           fieldNameArray.push('skills');
         }
@@ -449,10 +600,23 @@ export class CvBuilderComponent implements OnInit {
     }
   }
 
+  storeUserFilledData(){
+    let formData = this.resumeFormInfoData.value;
+    let data = {
+      userdata: { ...formData },
+      selectedResumeLevel: this.selectedResumeLevel,
+      active_index: this.moduleActiveIndex,
+      hiding_headers: this.hidingHeaders,
+    };
+    this.resumeService.storeUserFilledData(data).subscribe();
+  }
+
   fieldPreviousButton() {
     if(this.moduleActiveIndex == 0){
       this.activePageIndex = 1;
-      this.triggerPrevButtonClick();
+      this.hideHeader();
+      this.ngAfterViewInit();
+      this.selectedResumeLevel = '';
     }else{
       this.moduleActiveIndex--;
     }
@@ -473,7 +637,7 @@ export class CvBuilderComponent implements OnInit {
       let formControlFields: FormArray[] = [];
 
       if (this.moduleActiveIndex === 1) {
-        controlNames = ['work_org_name', 'work_currently_working', 'work_start_year', 'work_end_year', 'work_designation', 'work_type', 'work_location', 'work_job_description'];
+        controlNames = ['work_org_name', 'work_currently_working', 'work_start_year','work_start_month', 'work_end_year', 'work_end_month', 'work_designation', 'work_type', 'work_location', 'work_job_description'];
         formControlFields.push(this.resumeFormInfoData.get('workExpArray') as FormArray);
       } else if (this.moduleActiveIndex === 2) {
         controlNames = ['edu_college_name', 'edu_start_year', 'edu_end_year', 'edu_degree', 'edu_location', 'edu_percentage', 'project_name', 'project_start_name', 'project_end_name', 'project_description'];
@@ -520,20 +684,6 @@ export class CvBuilderComponent implements OnInit {
     }
   }
 
-  // generateImage() {
-  //   this.previewImage = "";
-  //   const cvPreviewContainer = document.getElementById('cv-preview-container');
-  //   if (cvPreviewContainer) {
-  //     html2canvas(cvPreviewContainer, { useCORS: true })
-  //       .then((canvas) => {
-  //         this.previewImage = canvas.toDataURL('image/png');
-  //       })
-  //       .catch((error) => {
-  //         console.error('Failed to generate image', error);
-  //       });
-  //   }
-  // }
-
   selectResumeTemplate(resumeTemplate: string) {
     this.selectedResumeLevel = resumeTemplate;
     if (resumeTemplate == 'Modern') {
@@ -550,17 +700,22 @@ export class CvBuilderComponent implements OnInit {
       this.selectedColorCode = 2;
     }
     this.activePageIndex++;
+    this.moduleActiveIndex = this.moduleActiveIndex < 0 ? 0 : this.moduleActiveIndex;
     this.hideHeader();
   }
 
   previous() {
     this.activePageIndex--;
     this.hideHeader();
+    if(this.activePageIndex == 0 || this.activePageIndex == 1){
+      this.selectedResumeLevel = '';
+      this.ngAfterViewInit();
+    }
   }
 
   next() {
     if(this.activePageIndex == 0){
-      this.triggerPrevButtonClick();
+      this.ngAfterViewInit();
     }
     this.activePageIndex++;
     if (this.activePageIndex == 4) {
@@ -576,43 +731,19 @@ export class CvBuilderComponent implements OnInit {
       this.clickedDownloadButton =  false;
       this.selectedResumeLevel = "";
       this.submitted = false;
-      // this.stableFileCreation();
-      window.location.reload();
     }
-    this.hideHeader();
-  }
-
-  private triggerPrevButtonClick(): void {
-    setTimeout(() => {
-      if (this.swiperContainer) {
-        const swiperElement = this.swiperContainer.nativeElement.shadowRoot.querySelector('.swiper');
-        console.log(swiperElement);
-        if (swiperElement) {
-          this.renderer.setStyle(swiperElement, 'overflow', 'visible');
-          this.renderer.setStyle(swiperElement, 'margin-top', '70px');
-        }
-        const prevButton = this.swiperContainer.nativeElement.shadowRoot.querySelector('.swiper-button-prev');
-        if (prevButton) {
-          this.renderer.selectRootElement(prevButton).click();
-          prevButton.innerHTML = `<svg width="11" height="20" viewBox="0 0 11 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M0.38296 20.0762C0.111788 19.805 0.111788 19.3654 0.38296 19.0942L9.19758 10.2796L0.38296 1.46497C0.111788 1.19379 0.111788 0.754138 0.38296 0.482966C0.654131 0.211794 1.09379 0.211794 1.36496 0.482966L10.4341 9.55214C10.8359 9.9539 10.8359 10.6053 10.4341 11.007L1.36496 20.0762C1.09379 20.3474 0.654131 20.3474 0.38296 20.0762Z" fill="currentColor" transform-origin="center" transform="rotate(180)"></path></svg>`;
-        } else {
-          console.warn('Previous button not found');
-        }
-      } else {
-        console.warn('Swiper container not found');
-      }
-    }, 400); 
   }
 
   previousResumes(){
     this.resumeService.getAlreadyCreatedResumes().subscribe(res => {
       this.resumeHistory = res;
       if(res.length == 0){
-        this.triggerPrevButtonClick();
         this.activePageIndex = 1;
+        this.ngAfterViewInit();
       }
     });
   }
+
   get getEduDetailsArray(): FormArray {
     return this.resumeFormInfoData.get('EduDetailsArray') as FormArray;
   }
@@ -651,7 +782,7 @@ export class CvBuilderComponent implements OnInit {
         edu_degree: ['', Validators.required],
         edu_location: ['', Validators.required],
         edu_percentage: ['', Validators.required],
-        edu_cgpa_percentage: [''],
+        edu_cgpa_percentage: ['', Validators.required],
       }));
       // this.getEduDetailsArray.push(this.fb.group({
       //   edu_college_name: ['Srinivasan Engg College', Validators.required],
@@ -670,7 +801,9 @@ export class CvBuilderComponent implements OnInit {
         work_org_name: ['',Validators.required],
         work_currently_working:[''],
         work_start_year: ['',Validators.required],
+        work_start_month: ['',Validators.required],
         work_end_year: ['',Validators.required],
+        work_end_month: ['',Validators.required],
         work_designation: ['',Validators.required],
         work_type: ['',Validators.required],
         work_location: ['',Validators.required],
@@ -687,6 +820,7 @@ export class CvBuilderComponent implements OnInit {
       //   work_job_description: ['- Develop and maintain front-end architecture, ensuring responsive design and user-friendly interfaces - Implement back-end functionality, including database integration and server-side logic - Write efficient and scalable code in multiple programming languages for both client and server-side applications - Collaborate with cross-functional teams to gather requirements, design solutions, and provide technical support - Stay up-to-date with industry trends and best practices to continually improve development processes and deliver high-quality products', Validators.required],
       // }));
       this.removeHideHeaderElement('work_experience');
+      this.hidingHeaders.push('project_details');
       // this.errorMessages.push('');
     } else if (fieldName == "project_details") {
       this.getProjectDetailsArray.push(this.fb.group({
@@ -707,12 +841,14 @@ export class CvBuilderComponent implements OnInit {
         language: ['', Validators.required],
         lang_proficiency: ['', Validators.required],
       }));
+      this.checkLanguageDuplication();
       this.removeHideHeaderElement('language_known');
     } else if (fieldName == "skills") {
       this.getSkillsArray.push(this.fb.group({
         skills: ['', Validators.required],
         skills_proficiency: ['', Validators.required],
       }));
+      this.checkSkillsDuplilcation();
       this.removeHideHeaderElement('skills');
     } else if (fieldName == "extra_curricular") {
       this.getExtraCurricularArray.push(this.fb.group({
@@ -738,10 +874,7 @@ export class CvBuilderComponent implements OnInit {
 
   removeHideHeaderElement(fieldName: string){
     if(this.hidingHeaders.includes(fieldName)){
-      const index = this.hidingHeaders.indexOf(fieldName);
-      if (index > -1) {
-        this.hidingHeaders.splice(index, 1);
-      }
+      this.hidingHeaders = this.hidingHeaders.filter(item => item !== fieldName);
     }
   }
 
@@ -756,6 +889,10 @@ export class CvBuilderComponent implements OnInit {
       this.getWorkExpArray.removeAt(index);
       if (this.getWorkExpArray.length === 0) {
         this.hidingHeaders.push('work_experience');
+        this.removeHideHeaderElement('project_details');
+        // this.hidingHeaders.push('project_details');
+      }else{
+        this.hidingHeaders.push('project_details');
       }
       // this.errorMessages.splice(index, 1);
     } else if (fieldName == "project_details") {
@@ -765,11 +902,13 @@ export class CvBuilderComponent implements OnInit {
       }
     } else if (fieldName == "language_known") {
       this.getLanguagesKnownArray.removeAt(index);
+      this.checkLanguageDuplication();
       if (this.getLanguagesKnownArray.length === 0) {
         this.hidingHeaders.push('language_known');
       }
     } else if (fieldName == "skills") {
       this.getSkillsArray.removeAt(index);
+      this.checkSkillsDuplilcation();
       if (this.getSkillsArray.length === 0) {
         this.hidingHeaders.push('skills');
       }
@@ -784,7 +923,6 @@ export class CvBuilderComponent implements OnInit {
         this.hidingHeaders.push('certificate');
       }
     }
-    console.log(this.hidingHeaders);
   }
 
   stillPursuing(fieldName: string, index: number, event: Event) {
@@ -795,13 +933,22 @@ export class CvBuilderComponent implements OnInit {
       const workExpGroup = workExpArray.at(index) as FormGroup;
       if (isChecked) {
         workExpGroup.patchValue({
-          work_end_year: 'Present'
+          work_end_year: 'Present',
+          work_end_month:''
         });
       } else {
         workExpGroup.patchValue({
-          work_end_year: ''
+          work_end_year: '',
+          work_end_month:''
         });
       }
+      const isCurrentlyWorking = workExpGroup.get('work_currently_working')?.value;
+        if (isCurrentlyWorking) {
+          workExpGroup.get('work_end_month')?.clearValidators();
+        } else {
+          workExpGroup.get('work_end_month')?.setValidators([Validators.required]);
+        }
+        workExpGroup.get('work_end_month')?.updateValueAndValidity();
     } else {
       const getEduDetailsArray = this.getEduDetailsArray;
       const getEduDetailsGroup = getEduDetailsArray.at(index) as FormGroup;
@@ -815,7 +962,6 @@ export class CvBuilderComponent implements OnInit {
         });
       }
     }
-
   }
 
   downloadResume() {
@@ -833,11 +979,14 @@ export class CvBuilderComponent implements OnInit {
       selected_font_color: this.selectedFontColor,
     };
     this.resumeService.downloadResume(data).subscribe(res => {
-      // window.open(res, '_blank');
       const parts = res.split('/');
       const lastPart = parts[parts.length - 1];
       this.resumeService.downloadPdf(res, lastPart);
       this.toaster.add({ severity: "success", summary: "Success", detail: "File Download Successfully." });
+      this.activePageIndex = 1;
+      this.ngAfterViewInit();
+      this.selectedResumeLevel = "";
+      this.hideHeader();
     })
   }
 
@@ -880,7 +1029,6 @@ export class CvBuilderComponent implements OnInit {
     this.http.post<any>('https://api.openai.com/v1/chat/completions', body, { headers: headers }).subscribe(response => {
       if (response.choices && response.choices.length > 0) {
         const GPTResponse = response.choices[0].message.content.trim();
-        console.log(GPTResponse);
         if (fieldName == 'user_summary') {
           this.resumeFormInfoData.patchValue({
             user_summary: GPTResponse
@@ -908,19 +1056,19 @@ export class CvBuilderComponent implements OnInit {
     window.open(resumeLink, '_blank')
   }
 
-  onTextModelChange(value: string) {
-    const words = value.trim().split(/\s+/);
-    if (words.length > 50) {
-      let joinedText = words.slice(0, 50).join(' ');
-      this.resumeFormInfoData.patchValue({
-        user_summary: joinedText
-      });
-      this.resumeFormInfoData.get('user_summary')?.setErrors({ maxWordsExceeded: true });
-    } else {
-      this.resumeFormInfoData.get('user_summary')?.setErrors(null);
-    }
-    this.resumeFormInfoData.updateValueAndValidity();
-  }
+  // onTextModelChange(value: string) {
+  //   const words = value.trim().split(/\s+/);
+  //   if (words.length > 50) {
+  //     let joinedText = words.slice(0, 50).join(' ');
+  //     this.resumeFormInfoData.patchValue({
+  //       user_summary: joinedText
+  //     });
+  //     this.resumeFormInfoData.get('user_summary')?.setErrors({ maxWordsExceeded: true });
+  //   } else {
+  //     this.resumeFormInfoData.get('user_summary')?.setErrors(null);
+  //   }
+  //   this.resumeFormInfoData.updateValueAndValidity();
+  // }
 
   // onEditorModelChange(value: string, index: number) {
   //   if (this.isUpdating) {

@@ -3,6 +3,7 @@ import { NavigationEnd, Router } from '@angular/router';
 import { filter } from 'rxjs';
 import { Location } from '@angular/common';
 import { CourseListService } from '../course-list/course-list.service';
+import { CvBuilderService } from './cv-builder/cv-builder.service';
 @Component({
   selector: 'uni-job-tool',
   templateUrl: './job-tool.component.html',
@@ -17,7 +18,8 @@ export class JobToolComponent implements OnInit {
   constructor(
     private router: Router,
     private location: Location,
-    private resumeService: CourseListService
+    private resumeService: CourseListService,
+    private cvBuilderService: CvBuilderService,
   ) {
     this.currentRoute = this.router.url;
     this.router.events.subscribe(event => {
@@ -31,9 +33,10 @@ export class JobToolComponent implements OnInit {
   ngOnInit(): void {
     this.currentRoute = this.router.url;
     this.changeTitle();
-    if (!this.currentRoute.includes("career-tool")&&!this.currentRoute.includes("psychometric") && !this.currentRoute.includes("personality") && !this.currentRoute.includes("employer") && !this.currentRoute.includes("cost-of-living")) {
+    // if (!this.currentRoute.includes("career-tool")&&!this.currentRoute.includes("psychometric") && !this.currentRoute.includes("personality") && !this.currentRoute.includes("employer") && !this.currentRoute.includes("cost-of-living")) {
+      // console.log("job tool components");
       this.hideHeaderForPreviewPage();
-    }
+    // }
     this.router
       .events.pipe(
         filter(event => event instanceof NavigationEnd),
@@ -79,6 +82,10 @@ export class JobToolComponent implements OnInit {
   }
 
   hideHeaderForPreviewPage() {
+    this.cvBuilderService.data$.subscribe(data => {
+      this.hideTitleForPreviewPage = data;
+    });
+
     this.resumeService.data$.subscribe(data => {
       if (!this.currentRoute.includes("salary-converter")) {
         this.hideTitleForPreviewPage = data;

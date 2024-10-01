@@ -322,6 +322,13 @@ uni-modules {
 		display: flex;
 		flex-direction: column;
 	}
+	uni-founderstool {
+		flex: 1;
+		overflow-y: auto;
+		/* Enable vertical scrolling for overflowing content */
+		display: flex;
+		flex-direction: column;
+	}
 
 	uni-quiz {
 		flex: 1;
@@ -356,7 +363,7 @@ uni-modules {
 		flex-direction: column;
 	}
 }
-
+uni-founderstool,
 uni-tutorials,
 uni-guidelines,
 uni-refundpolicy,
@@ -378,6 +385,8 @@ uni-recommendations,
 uni-course-list,
 uni-pitch-desk,
 uni-export-credit,
+uni-interview-jobroles,
+uni-interview-questions,
 uni-mycertificate,
 uni-language-hub,
 uni-languagetypequiz,
@@ -389,6 +398,9 @@ uni-learninghubquiz,
 uni-salary-converter,
 uni-job-search,
 uni-job-tool,
+uni-k12-class,
+uni-founderstoollist,
+uni-foundersacademy,
 uni-faq {
 	display: flex;
 	flex: 1;

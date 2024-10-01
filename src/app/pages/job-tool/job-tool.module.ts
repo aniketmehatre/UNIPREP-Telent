@@ -33,6 +33,9 @@ import { EmployerSubcategoryComponent } from './employer-subcategory/employer-su
 import { CareerCategoryListComponent } from './career-category-list/career-category-list.component';
 import {DialogModule} from "primeng/dialog";
 import {SharedModule} from "../../shared/shared.module";
+import { TooltipModule } from 'primeng/tooltip';
+import { SkeletonModule } from 'primeng/skeleton';
+import {AutoCompleteModule} from 'primeng/autocomplete';
 
 @NgModule({
   declarations: [
@@ -72,6 +75,9 @@ import {SharedModule} from "../../shared/shared.module";
         ConfirmPopupModule,
         DialogModule,
         SharedModule,
+        TooltipModule,
+        SkeletonModule,
+        AutoCompleteModule,
     ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [ConfirmationService], 

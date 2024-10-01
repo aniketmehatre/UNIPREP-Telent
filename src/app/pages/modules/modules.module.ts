@@ -28,6 +28,11 @@ import { InputTextModule } from "primeng/inputtext";
 import { AcademicToolsComponent } from './academic-tools/academic-tools.component';
 import { AcademicToolsStreamComponent } from './academic-tools-stream/academic-tools-stream.component';
 import { AcademicToolsQuizComponent } from './academic-tools-quiz/academic-tools-quiz.component';
+import { K12ClassComponent } from './k12-class/k12-class.component';
+import { K12QuizComponent } from './k12-quiz/k12-quiz.component';
+import { ReactiveFormsModule } from "@angular/forms";
+
+
 import { ChartsModule } from 'ng2-charts';
 @NgModule({
   declarations: [
@@ -41,7 +46,30 @@ import { ChartsModule } from 'ng2-charts';
     AcademicToolsComponent,
     AcademicToolsStreamComponent,
     AcademicToolsQuizComponent,
+    K12ClassComponent,
+    K12QuizComponent,
   ],
+  imports: [
+    CommonModule,
+    ModulesRoutingModule,
+    BreadcrumbModule,
+    CarouselModule,
+    ConfirmDialogModule,
+    DialogModule,
+    ProgressBarModule,
+    SharedModule,
+    TooltipModule,
+    PipesModule,
+    TagModule,
+    PaginatorModule,
+    ButtonModule,
+    CardModule,
+    NgxUiLoaderModule,
+    SkeletonModule,
+    AccordionModule,
+    InputTextModule,
+    ReactiveFormsModule
+  ]
   imports: [
     CommonModule,
     ModulesRoutingModule,

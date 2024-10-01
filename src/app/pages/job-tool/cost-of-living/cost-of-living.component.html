@@ -1,12 +1,12 @@
 <div class="d-flex justify-content-center" [ngClass]="{'centerDiv':!canShowComparision}">
     <div class="dropdown-container">
         <div class="uniprep-primary h4  text-center fw-semibold">
-            Compare the cost of living between countries around the world
+            Compare the cost of living between  two locations around the world
         </div>
         <br>
         <form [formGroup]="form" (ngSubmit)="compare()" class="g-10">
             <p-dropdown [options]="sourceCities" optionValue="city_id" formControlName="sourceCity"
-                placeholder="Source Country" [filter]="true" [virtualScroll]="true" [virtualScrollItemSize]="50"
+                placeholder="Source Location or Country" [filter]="true" [virtualScroll]="true" [virtualScrollItemSize]="50"
                 [showClear]="true" [appendTo]="'body'" class="costofliving-dropdown">
                 <ng-template pTemplate="filter" let-options="options">
                     <div class="d-flex gap-2">
@@ -36,7 +36,7 @@
 
             </p-dropdown>
             <p-dropdown [options]="targetCities" optionValue="city_id" formControlName="targetCity"
-                placeholder="Target Country" [filter]="true" [virtualScroll]="true" [virtualScrollItemSize]="50"
+                placeholder="Target Location or Country" [filter]="true" [virtualScroll]="true" [virtualScrollItemSize]="50"
                 [showClear]="true" [appendTo]="'body'" class="costofliving-dropdown" >
                 <ng-template pTemplate="filter" let-options="options">
                     <div class="d-flex gap-2">
@@ -64,7 +64,7 @@
                     </div>
                 </ng-template>
             </p-dropdown>
-            <button class="btn btn-primary h6 ps-3 pe-3 pt-2 pb-2 br-20" type="submit"
+            <button class="btn btn-primary h6 ps-4 pe-4 pt-2 pb-2 br-20" type="submit"
                 [disabled]="form.value.sourceCity===null || form.value.targetCity===null">Compare
                 <i class="pi pi-sync"></i> </button>
         </form>
@@ -73,7 +73,8 @@
 <br>
 <div *ngIf="canShowComparision">
     <uni-comparision [sourceCountryPrices]="sourceCountryPrices"
-        [targetCountryPrices]="targetCountryPrices"></uni-comparision>
+        [targetCountryPrices]="targetCountryPrices" [sourcecountryName]="sourcecountryName"
+        [targetcountryName]="targetcountryName"></uni-comparision>
 </div>
 <p-dialog [(visible)]="restrict" [modal]="true" [style]="{ width: '30vw' }" [draggable]="false" [resizable]="false" class="restrictionDialog" [breakpoints]="{ '960px': '30vw', '959px': '60vw', '425px': '90vw' }" (onHide)="clearRestriction()">
     <div  *ngIf="!ehitlabelIsShow" class="text-center mt-5 mb-4">

@@ -60,6 +60,16 @@ export class SidenavComponent {
       image: "",
     },
     {
+      title: "k12 Academy",
+      url: "/pages/modules/k12",
+      image: "fa-solid fa-people-group",
+    },
+    {
+      title: "Academic Tools",
+      url: "/pages/modules/academic-tools",
+      image: "fa-solid fa-ticket",
+    },
+    {
       title: "Pre Admission",
       url: "/pages/modules/pre-admission",
       image: "fa-solid fa-file-import",
@@ -69,11 +79,6 @@ export class SidenavComponent {
     //   url: "/pages/modules/post-application",
     //   image: "fa-solid fa-file-export",
     // },
-    {
-      title: "Academic Tools",
-      url: "/pages/modules/academic-tools",
-      image: "fa-solid fa-ticket",
-    },
     {
       title: "Post Admission",
       url: "/pages/modules/post-admission",
@@ -163,6 +168,11 @@ export class SidenavComponent {
     {
       title: "Startup Kit",
       url: "/pages/startup",
+      image: "fa-solid fa-memo-circle-info",
+    },
+    {
+      title: "Founders Tool",
+      url: "/pages/founderstool/founderstoollist",
       image: "fa-solid fa-memo-circle-info",
     },
     {

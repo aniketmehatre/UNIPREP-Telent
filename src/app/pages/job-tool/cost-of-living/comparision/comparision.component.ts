@@ -1,64 +1,101 @@
-import { Component, Input, OnInit, SimpleChanges } from '@angular/core';
-import { CategoryWiseComparison, CostOfLiving, GoodWithIcon, Price } from 'src/app/@Models/cost-of-living';
-import { CostOfLivingService } from '../cost-of-living.service';
-import { MessageService } from 'primeng/api';
+import { Component, Input, OnInit, SimpleChanges } from "@angular/core";
+import {
+  CategoryWiseComparison,
+  CostOfLiving,
+  GoodWithIcon,
+  Price,
+} from "src/app/@Models/cost-of-living";
+import { CostOfLivingService } from "../cost-of-living.service";
+import { MessageService } from "primeng/api";
 
 @Component({
-  selector: 'uni-comparision',
-  templateUrl: './comparision.component.html',
-  styleUrls: ['./comparision.component.scss']
+  selector: "uni-comparision",
+  templateUrl: "./comparision.component.html",
+  styleUrls: ["./comparision.component.scss"],
 })
 export class ComparisionComponent implements OnInit {
   @Input() sourceCountryPrices!: CostOfLiving;
   @Input() targetCountryPrices!: CostOfLiving;
+  @Input() targetcountryName: string;
+  @Input() sourcecountryName: string;
   categorywisePrices: CategoryWiseComparison[] = [];
   sourcePriceTotal: number = 0;
   targetPriceTotal: number = 0;
   sourcePrices!: CostOfLiving;
   targetPrices!: CostOfLiving;
-  sourceCountryRate: string = '';
-  targetCountryRate: string = '';
-  inrRate: string = '';
-  categoryOrderList: string[] = ["Markets", "Restaurants", "Transportation", "Clothing And Shoes", "Rent Per Month", "Utilities Per Month", "Buy Apartment", "Salaries And Financing", "Childcare", "Sports And Leisure",]
+  sourceCountryRate: string = "";
+  targetCountryRate: string = "";
+  categoryOrderList: string[] = [
+    "Markets",
+    "Restaurants",
+    "Transportation",
+    "Clothing And Shoes",
+    "Rent Per Month",
+    "Utilities Per Month",
+    "Buy Apartment",
+    "Salaries And Financing",
+    "Childcare",
+    "Sports And Leisure",
+  ];
   iconsList: GoodWithIcon[] = [];
   sourceFlag: string = "";
   targetFlag: string = "";
-  totalDiffPercentage: string = '';
+  totalDiffPercentage: string = "";
   constructor(
     private costOfLivingService: CostOfLivingService,
     private toaster: MessageService
-  ) { }
+  ) {}
 
   ngOnInit() {
     this.getItemIcons();
   }
   ngOnChanges(changes: SimpleChanges) {
     if (changes) {
-      let sourceCountry = this.sourceCountryPrices.country_name;
-      let targetCountry = this.targetCountryPrices.country_name;
-
-      if (changes['sourceCountryPrices'] && changes['sourceCountryPrices'].currentValue) {
-        if (changes['sourceCountryPrices'].previousValue?.country_name !== changes['sourceCountryPrices'].currentValue.country_name) {
-          this.sourceCountryRate = '';
-          this.getCurrencyConvertions(`United States,${sourceCountry}`, 'sourceCountry');
+      let sourceCountry = this.sourcecountryName;
+      let targetCountry = this.targetcountryName;
+      
+      if (
+        sourceCountry !== "India" &&
+        targetCountry !== "India" &&
+        this.costOfLivingService.inrRate == ""
+      ) {
+        this.getCurrencyConvertions("United States,India", "");
+      }
+      if (
+        changes["sourceCountryPrices"] &&
+        changes["sourceCountryPrices"].currentValue
+      ) {
+        if (
+          changes["sourceCountryPrices"].previousValue?.country_name !==
+          changes["sourceCountryPrices"].currentValue.country_name
+        ) {
+          this.sourceCountryRate = "";
+          this.getCurrencyConvertions(
+            `United States,${sourceCountry}`,
+            "sourceCountry"
+          );
         }
       }
 
-      if (changes['targetCountryPrices'] && changes['targetCountryPrices'].currentValue) {
-        if (changes['targetCountryPrices'].previousValue?.country_name !== changes['targetCountryPrices'].currentValue.country_name) {
-          this.targetCountryRate = '';
-          this.getCurrencyConvertions(`United States,${targetCountry}`, 'targetCountry');
+      if (
+        changes["targetCountryPrices"] &&
+        changes["targetCountryPrices"].currentValue
+      ) {
+        if (
+          changes["targetCountryPrices"].previousValue?.country_name !==
+          changes["targetCountryPrices"].currentValue.country_name
+        ) {
+          this.targetCountryRate = "";
+          this.getCurrencyConvertions(
+            `United States,${targetCountry}`,
+            "targetCountry"
+          );
         }
       }
 
       // this.sourcePrices = JSON.parse(JSON.stringify(this.sourceCountryPrices));
       // this.targetPrices = JSON.parse(JSON.stringify(this.targetCountryPrices));
-      if (sourceCountry !== 'India' && targetCountry !== 'India' && this.inrRate == '') {
-        this.getCurrencyConvertions('United States,India', '');
-      }
-
     }
-
   }
 
   calculatecategorywisePrices() {
@@ -67,35 +104,73 @@ export class ComparisionComponent implements OnInit {
     this.categorywisePrices = [];
     this.sourceCountryPrices.prices.forEach((price: Price) => {
       this.targetCountryPrices.prices.forEach((targetCountryPrice: Price) => {
-        if (price.good_id == targetCountryPrice.good_id && targetCountryPrice.usd?.avg) {
-          if (this.targetCountryRate != '') {
-            targetCountryPrice.rate = Number(targetCountryPrice.usd?.avg) * Number(this.targetCountryRate);
+        if (
+          price.good_id == targetCountryPrice.good_id &&
+          targetCountryPrice.usd?.avg
+        ) {
+          if (this.targetCountryRate != "") {
+            targetCountryPrice.rate =
+              Number(targetCountryPrice.usd?.avg) *
+              Number(this.targetCountryRate);
           }
           if (price.usd && price.usd.avg) {
-            if (this.sourceCountryRate != '') {
-              price.rate = Number(price.usd.avg) * Number(this.sourceCountryRate);
+            if (this.sourceCountryRate != "") {
+              price.rate =
+                Number(price.usd.avg) * Number(this.sourceCountryRate);
             }
-            price.inr = Number(price.usd.avg) * Number(this.inrRate);
+            price.inr =
+              Number(price.usd.avg) * Number(this.costOfLivingService.inrRate);
             this.sourcePriceTotal += Number(price.usd.avg);
           }
-          const itemIcon = this.iconsList.find((item: GoodWithIcon) => Number(item.good_id) == price.good_id)?.icon;
-          targetCountryPrice.inr = Number(targetCountryPrice.usd?.avg) * Number(this.inrRate);
-          const variationPrice = this.categorywisePrices.find(variationPrice => variationPrice.category_id == price.category_id);
+          const itemIcon = this.iconsList.find(
+            (item: GoodWithIcon) => Number(item.good_id) == price.good_id
+          )?.icon;
+          targetCountryPrice.inr =
+            Number(targetCountryPrice.usd?.avg) *
+            Number(this.costOfLivingService.inrRate);
+          const variationPrice = this.categorywisePrices.find(
+            (variationPrice) => variationPrice.category_id == price.category_id
+          );
           if (variationPrice) {
             if (itemIcon) {
-              variationPrice.prices.push({ from: price, to: targetCountryPrice, icon: itemIcon });
+              variationPrice.prices.push({
+                from: price,
+                to: targetCountryPrice,
+                icon: itemIcon,
+              });
             } else {
-              variationPrice.prices.push({ from: price, to: targetCountryPrice });
+              variationPrice.prices.push({
+                from: price,
+                to: targetCountryPrice,
+              });
             }
           } else {
             if (itemIcon) {
-              this.categorywisePrices.push({ category_id: price.category_id, category_name: price.category_name, prices: [{ from: price, to: targetCountryPrice, icon: itemIcon }] });
+              this.categorywisePrices.push({
+                category_id: price.category_id,
+                category_name: price.category_name,
+                prices: [
+                  { from: price, to: targetCountryPrice, icon: itemIcon },
+                ],
+              });
             } else {
-              this.categorywisePrices.push({ category_id: price.category_id, category_name: price.category_name, prices: [{ from: price, to: targetCountryPrice }] });
+              this.categorywisePrices.push({
+                category_id: price.category_id,
+                category_name: price.category_name,
+                prices: [{ from: price, to: targetCountryPrice }],
+              });
             }
           }
           this.targetPriceTotal += Number(targetCountryPrice?.usd.avg);
-          this.targetPriceTotal > this.sourcePriceTotal ? this.getDiffrencePercentage(this.targetPriceTotal, this.sourcePriceTotal) : this.getDiffrencePercentage(this.sourcePriceTotal, this.targetPriceTotal);
+          this.targetPriceTotal > this.sourcePriceTotal
+            ? this.getDiffrencePercentage(
+                this.targetPriceTotal,
+                this.sourcePriceTotal
+              )
+            : this.getDiffrencePercentage(
+                this.sourcePriceTotal,
+                this.targetPriceTotal
+              );
         }
       });
     });
@@ -104,7 +179,7 @@ export class ComparisionComponent implements OnInit {
   getDiffrencePercentage(original_value: number, new_value: number) {
     console.log(original_value, new_value);
     const difference = original_value - new_value;
-    const avg = (original_value + new_value) / 2
+    const avg = (original_value + new_value) / 2;
     this.totalDiffPercentage = ((difference / avg) * 100).toString();
   }
 
@@ -165,57 +240,65 @@ export class ComparisionComponent implements OnInit {
   compareValues(sourcePrice: string, targetPrice: string) {
     const difference = Number(sourcePrice) - Number(targetPrice);
     if (difference < 0) {
-      return 'smaller';
+      return "smaller";
     } else if (difference > 0) {
-      return 'greater';
-
+      return "greater";
     } else {
-      return 'equal';
+      return "equal";
     }
   }
   getCurrencyConvertions(comparingCountries: string, countryType: string) {
-    this.costOfLivingService.currencyConvert({ countries: comparingCountries }).subscribe(res => {
-      if (countryType === 'sourceCountry') {
-        this.sourceCountryRate = res.rate;
-        this.sourceFlag = res.targetcountry_flag;
-        console.log(this.sourceFlag);
-        if (this.sourceCountryPrices.country_name == 'India') {
-          this.inrRate = res.rate;
+    console.log(">.", comparingCountries);
+
+    this.costOfLivingService
+      .currencyConvert({ countries: comparingCountries })
+      .subscribe(
+        (res) => {
+          if (countryType === "sourceCountry") {
+            this.sourceCountryRate = res.rate;
+            this.sourceFlag = res.targetcountry_flag;
+            console.log(this.sourceFlag);
+            if (this.sourceCountryPrices.country_name == "India") {
+              this.costOfLivingService.inrRate = res.rate;
+            }
+          } else if (countryType === "targetCountry") {
+            this.targetCountryRate = res.rate;
+            this.targetFlag = res.targetcountry_flag;
+            console.log(this.targetFlag);
+            if (this.targetCountryPrices.country_name == "India") {
+              this.costOfLivingService.inrRate = res.rate;
+            }
+          } else {
+            this.costOfLivingService.inrRate = res.rate;
+          }
+          this.calculatecategorywisePrices();
+        },
+        (error) => {
+          this.calculatecategorywisePrices();
         }
-      } else if (countryType === 'targetCountry') {
-        this.targetCountryRate = res.rate;
-        this.targetFlag = res.targetcountry_flag;
-        console.log(this.targetFlag);
-        if (this.targetCountryPrices.country_name == 'India') {
-          this.inrRate = res.rate;
-        }
-      } else {
-        this.inrRate = res.rate;
-      }
-      this.calculatecategorywisePrices();
-    },
-      error => {
-        this.calculatecategorywisePrices();
-      });
+      );
   }
   calculatePercentage(sourceRate: string, targetRate: string, type: string) {
     var percentage = 0;
     const totalValue = Number(sourceRate) + Number(targetRate);
-    if (type !== 'target') {
-      percentage = (Number(sourceRate) / totalValue) * 100
+    if (type !== "target") {
+      percentage = (Number(sourceRate) / totalValue) * 100;
       return percentage;
     }
-    percentage = (Number(targetRate) / totalValue) * 100
+    percentage = (Number(targetRate) / totalValue) * 100;
     return Math.round(percentage);
   }
   sortCategorywisePrices() {
     this.categorywisePrices.sort((a, b) => {
-      return this.categoryOrderList.indexOf(a.category_name) - this.categoryOrderList.indexOf(b.category_name);
+      return (
+        this.categoryOrderList.indexOf(a.category_name) -
+        this.categoryOrderList.indexOf(b.category_name)
+      );
     });
   }
   getItemIcons() {
-    this.costOfLivingService.getItemIconsList().subscribe(res => {
+    this.costOfLivingService.getItemIconsList().subscribe((res) => {
       this.iconsList = res;
-    })
+    });
   }
 }

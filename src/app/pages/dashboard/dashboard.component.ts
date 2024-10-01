@@ -1,13 +1,12 @@
-
-import {Component, ElementRef, Input, OnChanges, OnInit, Renderer2, SimpleChanges, ViewChild} from '@angular/core';
+import {Component, Input, OnChanges, OnInit, SimpleChanges, ViewChild} from '@angular/core';
 import {DashboardService} from "./dashboard.service";
 import {AuthService} from "../../Auth/auth.service";
 import {SubSink} from "subsink";
 import {Router} from "@angular/router";
 import {DataService} from 'src/app/data.service';
 import {combineLatest} from "rxjs";
-import {Carousel, CarouselModule} from "primeng/carousel";
-import { LocationService } from 'src/app/location.service';
+import {Carousel} from "primeng/carousel";
+import {LocationService} from 'src/app/location.service';
 
 @Component({
     selector: 'uni-dashboard',
@@ -17,8 +16,6 @@ import { LocationService } from 'src/app/location.service';
 export class DashboardComponent implements OnInit, OnChanges {
     private subs = new SubSink();
     userName: any;
-    readProgressionPercentage: any;
-    readQuizProgressionPercentage: any;
     responsiveOptions: any;
     selectedCountryName: any;
     readingProgressings: any;
@@ -57,11 +54,8 @@ export class DashboardComponent implements OnInit, OnChanges {
     ];
     selectedCountryId: number = 1;
     headerFlag!: string;
-    isLondon!: boolean;
-    isCountryPopupOpen: any;
     currentModuleSlug: any;
     userData: any
-    myProfilePercentage: any
     constructor(private dashboardService: DashboardService,private service: AuthService,
         private router: Router, private dataService: DataService,private authService: AuthService,private locationService: LocationService,
     ) {
@@ -117,23 +111,7 @@ export class DashboardComponent implements OnInit, OnChanges {
             }
         });
         this.dataService.countryId.subscribe((data) => {
-            this.dashboardService.countryList().subscribe(countryList => {
-                this.carousel.page = 0;
-                this.countryLists = countryList;
-                this.countryLists.forEach((element: any) => {
-                    if (element.id == data) {
-                        this.selectedCountryName = element.country;
-                        this.selectedCountryId = element.id;
-                        this.headerFlag = element.flag;
-                    }
-                });
-                this.countryLists.forEach((item: any, i: any) => {
-                    if(item.id === this.selectedCountryId){
-                        this.countryLists.splice(i, 1);
-                        this.countryLists.unshift(item);
-                    }
-                });
-            });
+            this.loadCountryList(data)
         });
 
         this.subs.sink = this.service.getMe().subscribe((data) => {
@@ -160,44 +138,29 @@ export class DashboardComponent implements OnInit, OnChanges {
         let data = {
             countryId: this.selectedCountryId,
         }
- 
-        this.dashboardService.countryList().subscribe(countryList => {
-            this.countryLists = countryList;
-            this.countryLists.forEach((element: any) => {
-                if (element.id == this.selectedCountryId) {
-                    this.selectedCountryName = element.country;
-                    this.selectedCountryId = element.id;
-                    this.dataService.changeCountryName(element.country);
-                    this.dataService.changeCountryFlag(element.flag);
-                }
-            });
-            this.countryLists.forEach((item: any, i: any) => {
-                if(item.id === this.selectedCountryId){
-                  this.countryLists.splice(i, 1);
-                  this.countryLists.unshift(item);
-                }
-              });            
-        });
 
-        // const section = this.elRef.nativeElement.querySelector('#horizontalScrollSection');
-        // this.renderer.listen(section, 'wheel', (event: WheelEvent) => {
-        //     event.preventDefault();
-        //     section.scrollLeft += event.deltaY;
-        // });
-        //this.openViewMoreOrg();
         this.isViewMoreOrgVisible = false;
         this.loadApiData();
         this.checkquizquestionmodule()
     }
-
-    countNullValues(obj: { [key: string]: any }): number {
-        let nullCnt = 0;
-        for (const key in obj) {
-            if (obj.hasOwnProperty(key) && obj[key] === null) {
-                nullCnt++;
-            }
-        }
-        return nullCnt;
+    loadCountryList(data: any) {
+        this.dashboardService.countryList().subscribe(countryList => {
+            this.carousel.page = 0;
+            this.countryLists = countryList;
+            this.countryLists.forEach((element: any) => {
+                if (element.id == data) {
+                    this.selectedCountryName = element.country;
+                    this.selectedCountryId = element.id;
+                    this.headerFlag = element.flag;
+                }
+            });
+            this.countryLists.forEach((item: any, i: any) => {
+                if(item.id === this.selectedCountryId){
+                    this.countryLists.splice(i, 1);
+                    this.countryLists.unshift(item);
+                }
+            });
+        });
     }
 
     enableReadingData(): void {
@@ -212,22 +175,12 @@ export class DashboardComponent implements OnInit, OnChanges {
         });
     }
 
-    selectCountryInHeader(countryData: any) {
-        this.dataService.changeCountryId(countryData.id)
-        this.dataService.changeCountryName(countryData.country)
-        this.dataService.changeCountryFlag(countryData.flag)
-        localStorage.setItem('countryId', countryData.id);
-        this.selectedCountryName = countryData.country;
-        this.headerFlag = countryData.flag;
-        this.ngOnInit();
-    }
     certificatecountstudent:number=0;
     loadApiData(): void {
         const data = {
             countryId: this.selectedCountryId,
         }
-        //this.dashboardService.getModuleQuizProgression(data))
-        //            this.dashboardService.getQuizProgression({ countryId: this.selectedCountryId }),
+
         combineLatest(
             this.dashboardService.getReadProgression({ countryId: this.selectedCountryId }),
             )
@@ -241,20 +194,7 @@ export class DashboardComponent implements OnInit, OnChanges {
                     this.progressReading = Math.round(readProgression.readpercentage)
                     this.certificatecountstudent=readProgression.certificatecount
                 }
-                // if (quizProgression) {
-                //     if (!quizProgression.success) {
-                //         return;
-                //     }
-                //     this.readQuizProgressionPercentage = Math.round(quizProgression.quizpercentage);
-                // }
-                // if (getModuleQuizProgression) {
-                //     this.quizProgressings = getModuleQuizProgression.module;
-                // }
             })
-    }
-
-    shareWithSocial(): void {
-        this.isShareWithSocialMedia = true
     }
 
     closeReading(): void {
@@ -283,24 +223,21 @@ export class DashboardComponent implements OnInit, OnChanges {
             this.restrict=true;
             return;
           }
-        // this.continueQuiz = "block";
-        // this.checkQuestionQuiz()
+
         this.router.navigate([`pages/modules/quizmodule`]);
     }
 
 
     selectCountry(selectedId: any): void {
-        // if (selectedId != 2) {
-        //     this.toast.add({
-        //         severity: 'info',
-        //         summary: 'Information',
-        //         detail: "Currently United Kingdom only available"
-        //     });
-        //     return;
-        // }
         this.countryLists.forEach((element: any) => {
             if (element.id === selectedId.id) {
                 this.selectedCountryName = element.country;
+            }
+        });
+        this.countryLists.forEach((item: any, i: any) => {
+            if (item.id === selectedId.id) {
+                this.countryLists.splice(i, 1);
+                this.countryLists.unshift(item);
             }
         });
 
@@ -311,12 +248,7 @@ export class DashboardComponent implements OnInit, OnChanges {
         this.dataService.changeCountryId(selectedId.id);
         this.dataService.changeCountryFlag(selectedId.flag)
         this.dataService.changeCountryName(selectedId.country)
-        // this.countryListData(this.selectedCountryId);
 
-        // this.modalQuizProgressing(selectedId);
-        // this.modalReadingProgressing(selectedId);
-        // this.loadReadProgression(selectedId);
-        // this.loadQuizProgression(selectedId);
     }
 
     onClickReadProgression(data: any): void {
@@ -414,14 +346,7 @@ export class DashboardComponent implements OnInit, OnChanges {
         this.quizpercentage=res.progress
       })
     }
-    checkQuestionQuiz(){
-        var data={
-            countryid: this.selectedCountryId
-          }
-          this.dashboardService.checkModuleQuizProgressbar(data).subscribe((res) => {
-            this.quizProgressings=res.modules.filter((module:any) => module.id !== 7);
-          })
-    }
+
     startQuiz(moduleid:any) {
         if(moduleid==1){
           this.currentModuleSlug="pre-admission"

@@ -15,7 +15,6 @@ import { NgxUiLoaderService } from "ngx-ui-loader";
   styleUrls: ['./quiz.component.scss']
 })
 export class QuizComponent implements OnInit {
-
   quizData: any[] = [];
   currentCountryId: any
   quizmoduleredirectcountryid: any = 0;

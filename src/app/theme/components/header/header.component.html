@@ -98,8 +98,9 @@
 							<span class="text-small fw-normal px-4"><i class="fa-solid fa-bug"></i> Report</span>
 						</button>
 					</div>
-                    <div label="" role="button" class="headercountry me-2 d-md-block">
-                        <img src="../../../uniprep-assets/icons/india.png" alt="flag" height="auto" width="auto" />
+                    <div label="" role="button" class="headerHomeCountry me-2 d-md-block" [title]="homeCountryName">
+					<!--<img src="../../../uniprep-assets/icons/india.png" alt="flag" height="auto" width="auto" />-->
+                        <img #openCountryPopup src="{{ headerHomeFlag }}" alt="flag" height="auto" width="auto" />
                     </div>
 					<div label="" role="button" class="headercountry me-2 d-md-block">
 						<img #openCountryPopup src="{{ headerFlag }}" alt="flag" height="auto" width="auto" (click)="openFlagModal(totalCountryList, $event)" />
@@ -288,6 +289,41 @@
 	  </div>
 	</ng-template>
   </p-overlayPanel>
+
+<p-overlayPanel #totalHomeCountryList [style]="{'width':'300px'}">
+    <ng-template pTemplate="content">
+        <div *ngIf="isLondon" class="mega-menu">
+            <div class="row justify-content-center">
+                <h5 class="text-center mb-2">Home Country</h5>
+<!--                <p-dropdown [options]="countryList" [(ngModel)]="homeCountryId"-->
+<!--                        [style]="{'width': '250px'}"-->
+<!--                        optionValue="id"-->
+<!--                        optionLabel="country"></p-dropdown>-->
+                <p-dropdown id="selectedHomeCountry" styleClass="w-100" style="width: 100% !important;"
+                            [(ngModel)]="selectedHomeCountry" [options]="countryList" [filter]="true"
+                            filterBy="country"
+                            [showClear]="true" optionLabel="country"
+                            (onChange)="onHomeCountryChange($event)"
+                            placeholder="Source Country">
+                    <ng-template pTemplate="selectedItem">
+                        <div class="flex align-items-center gap-2" *ngIf="selectedHomeCountry">
+                            <img [src]="selectedHomeCountry.flag" [class]="'flag flag-' + selectedHomeCountry.code"
+                                 style="width: 18px"/>
+                            <div>{{ selectedHomeCountry.country }}</div>
+                        </div>
+                    </ng-template>
+                    <ng-template let-country pTemplate="item">
+                        <div class="flex align-items-center gap-2">
+                            <img [src]="country.flag" [class]="'flag flag-' + country.code"
+                                 style="width: 18px"/>
+                            <div>{{ country.country }}</div>
+                        </div>
+                    </ng-template>
+                </p-dropdown>
+            </div>
+        </div>
+    </ng-template>
+</p-overlayPanel>
   
   
 

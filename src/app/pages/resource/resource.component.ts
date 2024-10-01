@@ -5,6 +5,7 @@ import { MessageService } from 'primeng/api';
 import { AuthService } from 'src/app/Auth/auth.service';
 import { Router } from '@angular/router';
 import { PageFacadeService } from '../page-facade.service';
+import {LocationService} from "../../location.service";
 
 interface country {
   id: number,
@@ -26,7 +27,8 @@ export class ResourceComponent implements OnInit {
   planExpired!: boolean;
   restrict: boolean = false;
 
-  constructor(private fb: FormBuilder, private resourceService: ResourceService, private toast: MessageService, private authService: AuthService,private pageFacade:PageFacadeService,
+  constructor(private fb: FormBuilder, private resourceService: ResourceService, private toast: MessageService,
+              private locationService: LocationService,private authService: AuthService,private pageFacade:PageFacadeService,
     private router: Router) {
     this.filterform = this.fb.group({
       coutryname: ['']
@@ -38,7 +40,7 @@ export class ResourceComponent implements OnInit {
   selectedCountryId: any;
 
   ngOnInit(): void {
-    this.resourceService.GetCountryList().subscribe((response) => {
+    this.locationService.getCountry().subscribe((response) => {
       this.countries = response;
     });
     let data = {

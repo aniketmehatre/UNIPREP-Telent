@@ -65,7 +65,7 @@
                             <div class="ml-5">{{price.from.item_name}}</div>
                         </div>
                         <div class="col-md-5 col-lg-4  d-flex align-items-center justify-content-between">
-                            <div>
+                            <div class="me-2">
                                 <!-- <div class="smallText"><span
                                         *ngIf="sourceCountryPrices.country_name==targetCountryPrices.country_name">{{sourceCountryPrices.city_name}},
                                     </span>{{sourceCountryPrices.country_name}}</div> -->
@@ -86,7 +86,7 @@
                                     *ngIf="price.from.currency_code!='INR'||price.to.currency_code!='INR'">INR
                                     {{price.from.inr | number: '1.2-2'}}</div>
                             </div>
-                            <div>
+                            <div >
                                 <!-- <div class="smallText"><span
                                         *ngIf="sourceCountryPrices.country_name==targetCountryPrices.country_name">{{targetCountryPrices.city_name}},
                                     </span>{{targetCountryPrices.country_name}}</div> -->
@@ -108,7 +108,7 @@
                                     *ngIf="price.from.currency_code!='INR'||price.to.currency_code!='INR'">INR
                                     {{price.to.inr | number: '1.2-2'}}</div>
                             </div>
-                            <div class="graphs">
+                            <div  class="graphs">
                                 <div class="graph-container">
                                     <div
                                         [ngStyle]="{'height.%': calculatePercentage(price.from.usd.avg,price.to.usd.avg,'source'),'background-color':'green'}">
@@ -139,6 +139,4 @@
             <br>
         </div>
     </div>
-
-
 </div>

@@ -95,6 +95,19 @@ nav {
     border-radius: 100%;
   }
 }
+
+.headerHomeCountry {
+  height: 40px;
+  width: 40px;
+	img {
+    height: 100%;
+    width: 100%;
+    border-radius: 100%;
+    border: 2px solid var(--uniprep-primaryop10);
+    object-fit: fill;
+	}
+}
+
 form {
   input {
     display: inline-block;
@@ -401,4 +414,13 @@ $background-color_4: #fff;
     outline: 0;
     box-shadow: inherit;
   }
+}
+.flex {
+  display: flex;
+  align-items: center;
+  gap: 8px; /* Adjust the gap as needed */
+}
+
+.flag {
+  width: 18px;
 }

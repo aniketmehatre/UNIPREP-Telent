@@ -43,12 +43,13 @@ export class CourseListService {
     });
   }
 
-  downloadResume(data: any){
-    const headers = new HttpHeaders().set("Accept", "application/json");
-    return this.http.post<any>(environment.ApiUrl + "/downloadResume", data ,{
-      headers: headers,
-    });
-  }
+  // downloadResume(data: any){
+  //   const headers = new HttpHeaders().set("Accept", "application/json");
+  //   return this.http.post<any>(environment.ApiUrl + "/downloadResume", data ,{
+  //     headers: headers,
+  //   });
+  // }
+
   downloadCoverletter(data: any){
     const headers = new HttpHeaders().set("Accept", "application/json");
     return this.http.post<any>(environment.ApiUrl + "/generatecoverletter", data ,{
@@ -68,45 +69,11 @@ export class CourseListService {
     });
   }
 
-  private dataSubject = new BehaviorSubject<boolean>(true);
+  private dataSubject = new BehaviorSubject<boolean>(false);
   data$ = this.dataSubject.asObservable();
 
-  setData(data: boolean) {
+  setData(data: any) {
     this.dataSubject.next(data);
-  }
-
-  getAlreadyCreatedResumes(){
-    const headers = new HttpHeaders().set("Accept", "application/json");
-    return this.http.post<any>(environment.ApiUrl + "/resumeHistories",{
-      headers: headers,
-    });
-  }
-
-  deleteResumes(data: any){
-    const headers = new HttpHeaders().set("Accept", "application/json");
-    return this.http.post<any>(environment.ApiUrl + "/deleteUserResumes", data ,{
-      headers: headers,
-    });
-  }
-
-  getCountryCodes(){
-    const headers = new HttpHeaders().set("Accept", "application/json");
-    return this.http.get<any>(environment.ApiUrl + "/CountryCode" ,{
-      headers: headers,
-    });
-  }
-
-  getSkills(){
-    const headers = new HttpHeaders().set("Accept", "application/json");
-    return this.http.get<any>(environment.ApiUrl + "/getSkillsList" ,{
-      headers: headers,
-    });
-  }
-
-  downloadPdf(pdfUrl: string, fileName: string): void {
-    this.http.get(pdfUrl, { responseType: 'blob' }).subscribe((blob: Blob) => {
-          saveAs(blob, fileName);
-    });
   }
 
   storeCourseRecommendation(data: any){
@@ -130,10 +97,4 @@ export class CourseListService {
     });
   }
 
-  getCVPrefilledData(){
-    const headers = new HttpHeaders().set("Accept", "application/json");
-    return this.http.post<any>(environment.ApiUrl + "/cvPrefilledData" ,{
-      headers: headers,
-    });
-  }
 }

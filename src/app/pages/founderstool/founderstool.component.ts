@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { PageFacadeService } from '../page-facade.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'uni-founderstool',
@@ -7,9 +9,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class FounderstoolComponent implements OnInit {
 
-  constructor() { }
+  constructor(  private pageFacade: PageFacadeService, private router:Router) { }
 
   ngOnInit(): void {
   }
-
 }
