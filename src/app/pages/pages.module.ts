@@ -70,11 +70,6 @@ import { CareerPlannerComponent } from './career-planner/career-planner.componen
 import { CertificatesComponent } from './certificates/certificates.component';
 import { CourseListComponent } from "./course-list/course-list.component";
 import { NgxStripeModule } from "ngx-stripe";
-import { FounderstoolComponent } from './founderstool/founderstool.component';
-import { FoundersacademyComponent } from './founderstool/foundersacademy/foundersacademy.component';
-import { FounderstoollistComponent } from './founderstool/founderstoollist/founderstoollist.component';
-import { InvestorpitchtrainingComponent } from './founderstool/investorpitchtraining/investorpitchtraining.component';
-import { StartupglossaryComponent } from './founderstool/startupglossary/startupglossary.component';
 import { InterviewJobrolesComponent } from './interview-jobroles/interview-jobroles.component';
 import {AnimateModule} from 'primeng/animate';
 import { InterviewQuestionsComponent } from './interview-questions/interview-questions.component';
