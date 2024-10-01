@@ -68,27 +68,6 @@ import { ChartsModule } from 'ng2-charts';
     SkeletonModule,
     AccordionModule,
     InputTextModule,
-    ReactiveFormsModule
-  ]
-  imports: [
-    CommonModule,
-    ModulesRoutingModule,
-    BreadcrumbModule,
-    CarouselModule,
-    ConfirmDialogModule,
-    DialogModule,
-    ProgressBarModule,
-    SharedModule,
-    TooltipModule,
-    PipesModule,
-    TagModule,
-    PaginatorModule,
-    ButtonModule,
-    CardModule,
-    NgxUiLoaderModule,
-    SkeletonModule,
-    AccordionModule,
-    InputTextModule,
     ChartsModule
   ]
 })
