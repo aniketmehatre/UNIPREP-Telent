@@ -15,7 +15,7 @@
                 </span>
                 <div class="p-input-icon-left w-100 mt-2 search-container" *ngIf=" currentModuleId != 8">
                     <i class="pi pi-search"  *ngIf="  currentModuleId !=  5 && currentModuleId !=  10"></i>
-                    <!-- <i class="pi pi-search noalignment"  *ngIf="  currentModuleId =  5"></i> -->
+                    <i class="pi pi-search noalignment"  *ngIf="currentModuleId == 5 || currentModuleId == 10"></i>
                     <input *ngIf="  currentModuleId ==  5 || 1 || 7 || 3 || 4  " class="w-100 px-5 py-2" type="text"
                         placeholder="Search Files" pInputText [(ngModel)]="searchUniversity"
                         (input)="performSearch()" />
