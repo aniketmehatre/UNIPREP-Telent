@@ -304,9 +304,7 @@ export class ListSubModulesComponent implements OnInit {
         this.locationService.GetQuestionsCount(data).subscribe(data => {
 
             this.isSkeletonVisible = false;
-            this.subModuleList = data;
-            console.log( this.subModuleList," subModuleList");
-            
+            this.subModuleList = data;                       
             if 
             (this.currentModuleId == 8) {
                 this.subModuleList.map(list => list.submodule_name = list.category);
@@ -643,11 +641,8 @@ export class ListSubModulesComponent implements OnInit {
         }
         else if (this.searchUniversity) {
             //const searchData = [...this.allSearchedResult];
-            const searchData = [... this.subModuleList];
-            
-          console.log(searchData);
-          
-          this.filteredData = searchData
+            const searchData = [... this.subModuleList];           
+                             this.filteredData = searchData
           .filter((item: any) =>
               item.submodule_name?.toLowerCase().includes(this.searchUniversity.toLowerCase()) 
           )
@@ -655,19 +650,12 @@ export class ListSubModulesComponent implements OnInit {
               title: item.submodule_name,
               subtitle: `Question Count: ${item.questioncount}`,
               category_id: item.category_id || '',
-                           submodule_id: item.submodule_id
+              submodule_id: item.submodule_id
           }));
         } else {
             this.filteredData = [];
         }
-    }
-    // selectSearchResult(selectedItem: any) {        
-    //     this.subModuleList = this.filteredData.filter((item: any) => 
-    //         item.submodule_name === selectedItem.title || item.category_id === selectedItem.category_id
-    //     );           
-    //     this.searchUniversity = '';
-    //     this.filteredData = [];
-    // }
+    }   
     selectSearchResult(selectedItem: any) {       
         const selectedModule = this.subModuleList.find(item => 
             item.submodule_id === selectedItem.submodule_id || item.submodule_name === selectedItem.title
