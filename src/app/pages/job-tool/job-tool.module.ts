@@ -35,7 +35,6 @@ import {DialogModule} from "primeng/dialog";
 import {SharedModule} from "../../shared/shared.module";
 import { TooltipModule } from 'primeng/tooltip';
 import { SkeletonModule } from 'primeng/skeleton';
-import {AutoCompleteModule} from 'primeng/autocomplete';
 
 @NgModule({
   declarations: [
@@ -77,7 +76,6 @@ import {AutoCompleteModule} from 'primeng/autocomplete';
         SharedModule,
         TooltipModule,
         SkeletonModule,
-        AutoCompleteModule,
     ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [ConfirmationService], 
