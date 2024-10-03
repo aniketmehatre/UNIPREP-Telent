@@ -32,4 +32,7 @@ export class FounderstoollistComponent implements OnInit {
   openEntreprenuerSector(){
     this.router.navigate(['/pages/founderstool/entreprenuerproficiencymodule']);
   }
+  openInvestorList(){
+    this.router.navigate(['/pages/investor-list']);  
+  }
 }
