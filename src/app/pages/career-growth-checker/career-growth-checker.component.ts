@@ -21,6 +21,13 @@ export class CareerGrowthCheckerComponent implements OnInit {
   hasfilteredoptions: boolean = false; 
   filteredOptions: JobRole[] = []; 
   searchTerm: string = ''; 
+  fromCountry: any;
+  countries: any[] = [];
+  selectedCountryName: any;
+  selectedCountryCode: any;
+  isPPPCardVisible: boolean = false;
+  taxData: any;
+  selectedCurrencyCode: string = 'INR';
 
   ngOnInit(): void {
     var data = {
@@ -31,6 +38,9 @@ export class CareerGrowthCheckerComponent implements OnInit {
       this.allOptions = res; 
       this.filteredOptions = res;
     });
+    this.careerGrowthService.getCountries().subscribe(data => {
+      this.countries = data;
+    })
   }
 
   selectOption(option:any) {
@@ -55,7 +65,15 @@ export class CareerGrowthCheckerComponent implements OnInit {
   onInputChange(event: Event) {
     const inputElement = event.target as HTMLInputElement; // Cast to HTMLInputElement
     this.filterOptions(inputElement.value);
-}
+  }
+
+  onCountryChange(event: any){
+    this.selectedCountryCode = event.value.countryCode
+    this.selectedCurrencyCode = event.value.currencyCode
+    this.selectedCountryName = event.value.countryName
+    this.isPPPCardVisible = false
+    this.taxData = []
+  }
 
 
 

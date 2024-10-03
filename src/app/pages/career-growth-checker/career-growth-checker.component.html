@@ -1,21 +1,50 @@
 <div class="row w-100 h-100 m-0 justify-content-center align-items-center">
     <div class="col-6">
-        <h3 style="color:var(--uniprep-primary);" class="text-center">Apply to millions of job oppurtunities across top companies, industries and locations</h3>
-        <div class="dropdown-container">
-            <div class="form-group">
-                <div class="mb-3 position-relative">
+        <h3 style="color: var(--uniprep-primary);" class="text-center">
+            Apply to millions of job opportunities across top companies, industries and locations
+        </h3>
+        <div class="dropdown-container" style="margin-top: 20px;">
+            <div class="form-group d-flex align-items-center mb-3" style="margin-left: 60px;">
+                <div class="position-relative" style="flex: 0 0 40%; margin-right: 10px;">
                     <i class="fas fa-search search-icon"></i>
                     <input type="text" 
                            id="jobSearch" 
                            class="elliptical-search-bar" 
                            (input)="onInputChange($event)"
-                           [(ngModel)]="searchTerm" >
+                           [(ngModel)]="searchTerm">
                     <ul *ngIf="hasfilteredoptions" class="dropdown-list">
-                        <li *ngFor="let option of filteredOptions" (click)="selectOption(option)"  [id]="option.id">
-                                {{ option.jobrole }}
+                        <li *ngFor="let option of filteredOptions" (click)="selectOption(option)" [id]="option.id">
+                            {{ option.jobrole }}
                         </li>
-                     </ul>
+                    </ul>
                 </div>
+                <div style="flex: 0 0 30%; margin-right: 10px;">
+                    <p-dropdown id="fromCountry" styleClass="w-100" style="width: 100% !important;"
+                                [(ngModel)]="fromCountry" [options]="countries" [filter]="true"
+                                filterBy="countryName"
+                                [showClear]="true" optionLabel="countryName"
+                                (onChange)="onCountryChange($event)"
+                                placeholder="Country">
+                        <ng-template pTemplate="selectedItem">
+                            <div class="flex align-items-center gap-2" *ngIf="fromCountry">
+                                <img [src]="fromCountry.flag" [class]="'flag flag-' + fromCountry.code"
+                                     style="width: 18px"/>
+                                <div>{{ fromCountry.countryName }}</div>
+                            </div>
+                        </ng-template>
+                        <ng-template let-country pTemplate="item">
+                            <div class="flex align-items-center gap-2">
+                                <img [src]="country.flag" [class]="'flag flag-' + country.code"
+                                     style="width: 18px"/>
+                                <div>{{ country.countryName }}</div>
+                            </div>
+                        </ng-template>
+                    </p-dropdown>
+                </div>
+                <button pButton type="button" 
+                        class="text-white p-ripple p-button-rounded p-button-info-search p-button p-component p-2">
+                    Search <i class="fas fa-search search-icon-result exhausted-plan-icon-next"></i>
+                </button>
             </div>
         </div>
     </div>
