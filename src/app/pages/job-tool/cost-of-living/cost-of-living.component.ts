@@ -28,6 +28,8 @@ export class CostOfLivingComponent implements OnInit {
   canShowComparision: boolean = false;
   sourceCountryPrices!: CostOfLiving;
   targetCountryPrices!: CostOfLiving;
+  targetcountryName: string='';
+  sourcecountryName: string='';
   sourceCountry: string = '';
   targetCountry: string = '';
   constructor(
@@ -71,17 +73,16 @@ export class CostOfLivingComponent implements OnInit {
     }
     var sourceCityDetails = this.cities.find(city => city.city_id === this.form.value.sourceCity);
     var targetCityDetails = this.cities.find(city => city.city_id === this.form.value.targetCity);
-
-    console.log(sourceCityDetails);
-    console.log(targetCityDetails);
+    this.sourcecountryName=sourceCityDetails?sourceCityDetails.country_name:'';
+    this.targetcountryName=targetCityDetails?targetCityDetails.country_name:'';
     this.costOfLivingService.calculatePrices(sourceCityDetails).subscribe(response => {
       this.sourceCountryPrices = response;
-      this.sourceCountryPrices.prices.forEach((price: Price) => {
+      this.sourceCountryPrices?.prices?.forEach((price: Price) => {
         price.itemCount = 1;
       })
       this.costOfLivingService.calculatePrices(targetCityDetails).subscribe(response => {
         this.targetCountryPrices = response;
-        this.targetCountryPrices.prices.forEach((price: Price) => {
+        this.targetCountryPrices?.prices?.forEach((price: Price) => {
           price.itemCount = 1;
         });
         this.canShowComparision = true;
