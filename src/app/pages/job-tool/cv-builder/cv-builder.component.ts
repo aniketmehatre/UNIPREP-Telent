@@ -1,4 +1,4 @@
-import { Component, OnInit, Renderer2, ElementRef, ViewChild, AfterViewInit  } from '@angular/core';
+import { Component, OnInit, Renderer2, ElementRef,HostListener , AfterViewInit  } from '@angular/core';
 import { MessageService, ConfirmationService } from 'primeng/api';
 import { FormBuilder, FormGroup, FormArray, Validators, AbstractControl } from "@angular/forms";
 // import { CourseListService } from '../../course-list/course-list.service';
@@ -113,6 +113,7 @@ export class CvBuilderComponent implements OnInit  {
     },
     
   ];
+  
   editorModules: any;
   planExpired: boolean = false
   restrict: boolean = false
@@ -127,6 +128,10 @@ export class CvBuilderComponent implements OnInit  {
   cities: City[] = [];
   occupationList: any = [];
   filteredJobs: any = [];
+  filteredDesignations: { [key: number]: any[] } = {};
+  filteredLocations: any = [];
+  filteredExpeAndEduLocations: { [key: number]: any[] } = {};
+
   constructor(private toaster: MessageService, private fb: FormBuilder, private resumeService: CvBuilderService,
               private http: HttpClient, private router: Router, private confirmService: ConfirmationService,
               private renderer: Renderer2, private el: ElementRef,  private authService: AuthService,
@@ -166,6 +171,15 @@ export class CvBuilderComponent implements OnInit  {
       referenceArray: this.fb.array([]),
     });
 
+  }
+
+  onFocusOut() {
+    setTimeout(() => {
+      this.filteredJobs = [];
+      this.filteredDesignations = [];
+      this.filteredLocations = [];
+      this.filteredExpeAndEduLocations = [];
+    }, 200);  // Delay clearing the dropdown by 200 milliseconds
   }
 
   ngAfterViewInit(): void {
@@ -261,22 +275,90 @@ export class CvBuilderComponent implements OnInit  {
     })
   }
 
-  onInput(event: any) {
+  searchJob(event: any) {
     const query = event.target.value.toLowerCase();
-    if(query.length > 4){
-      this.filteredJobs = this.occupationList.filter((job: any) => job.jobrole.toLowerCase().includes(query));
+    if(query.length > 3){
+      this.filteredJobs = this.getFilteredJobs(query);
     }else if(query.length < 2){
       this.filteredJobs = []; 
     }
   }
 
-  // Function to select a job title
-  selectJob(job: any) {
-    this.resumeFormInfoData.patchValue({
-      user_job_title: job.jobrole,
-    });
-    this.filteredJobs = []; 
+  searchDesignation(event: any, index: number){
+    const query = event.target.value.toLowerCase();
+    if(query.length > 3){
+      this.filteredDesignations[index] = this.getFilteredJobs(query);
+    }else if(query.length < 2){
+      this.filteredDesignations[index] = [];
+    }
   }
+
+  selectJob(job: any, fieldName: string, index?: any) {
+    if(fieldName == "jobTitle"){
+      this.resumeFormInfoData.patchValue({
+        user_job_title: job.jobrole,
+      });
+      this.filteredJobs = []; 
+    }else if(fieldName == "experience" ){
+      const formArray = this.getWorkExpArray as FormArray;
+      formArray.at(index).patchValue({
+        work_designation: job.jobrole
+      });
+      this.filteredDesignations[index] = [];
+    }
+  }
+
+  getFilteredJobs(query: string) {
+    const mockJobs = this.occupationList;
+
+    return mockJobs.filter((job: any) => job.jobrole.toLowerCase().includes(query.toLowerCase()));
+  }
+
+  getFilteredLocations(query: string) {
+    const mockLocations = this.cities;
+
+    return mockLocations.filter((city: any) => city.country_name.toLowerCase().includes(query.toLowerCase()));
+  }
+
+  searchLocation(event: any){
+    const query = event.target.value.toLowerCase();
+    if(query.length > 3){
+      this.filteredLocations = this.getFilteredLocations(query);
+    }else if(query.length < 2){
+      this.filteredLocations = []; 
+    }
+  }
+
+  searchExpandEduLocation(event: any, index: number){
+    const query = event.target.value.toLowerCase();
+    if(query.length > 3){
+      this.filteredExpeAndEduLocations[index] = this.getFilteredLocations(query);
+    }else if(query.length < 2){
+      this.filteredExpeAndEduLocations[index] = [];
+    }
+  }
+
+  selectLocation(city: any, fieldName: string, index?: any) {
+    if(fieldName == "userLocation"){
+      this.resumeFormInfoData.patchValue({
+        user_location: city.country_name,
+      });
+      this.filteredLocations = []; 
+    }else if(fieldName == "userExpLocation"){
+      const formArray = this.getWorkExpArray as FormArray;
+      formArray.at(index).patchValue({
+        work_location: city.country_name
+      });
+      this.filteredExpeAndEduLocations[index] = [];
+    }else if(fieldName == "userEduLocation"){
+      const formArray = this.getEduDetailsArray as FormArray;
+      formArray.at(index).patchValue({
+        edu_location: city.country_name
+      });
+      this.filteredExpeAndEduLocations[index] = [];
+    }
+  }
+
 
   getUserPrefilledData(){
     this.resumeService.getCVPrefilledData().subscribe(res => {
@@ -286,7 +368,7 @@ export class CvBuilderComponent implements OnInit  {
         this.resumeFormInfoData.patchValue(storedValues);
         this.moduleActiveIndex = responseData.page_number;
         this.hidingHeaders = JSON.parse(responseData.hiding_headers);
-        this.changeExperience();
+        // this.changeExperience();
         const workExpData = storedValues.workExpArray;
         if(workExpData.length != 0){
           workExpData.forEach((activity:any) => {
@@ -489,17 +571,17 @@ export class CvBuilderComponent implements OnInit  {
     return this.resumeFormInfoData.controls;
   }
 
-  changeExperience() {
-    const expLevel = this.resumeFormInfoData.value.selected_exp_level;
-    if (expLevel == 1) {
-      this.eduDetailsLimit = 3;
-      // this.wrkExpLimit = 2;
-    } else {
-      this.eduDetailsLimit = 2;
-      // this.wrkExpLimit = 3;
-    }
-    this.updateValidatorsForAllProjects();
-  }
+  // changeExperience() {
+  //   const expLevel = this.resumeFormInfoData.value.selected_exp_level;
+  //   if (expLevel == 1) {
+  //     this.eduDetailsLimit = 3;
+  //     // this.wrkExpLimit = 2;
+  //   } else {
+  //     this.eduDetailsLimit = 3;
+  //     // this.wrkExpLimit = 3;
+  //   }
+  //   this.updateValidatorsForAllProjects();
+  // }
 
   updateValidatorsForAllProjects() {
     this.getProjectDetailsArray.controls.forEach(control => {
