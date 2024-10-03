@@ -1,17 +1,17 @@
-import {NgModule} from '@angular/core';
-import {RouterModule, Routes} from '@angular/router';
-import {ModulesComponent} from "./modules.component";
-import {ListSubModulesComponent} from "./list-sub-modules/list-sub-modules.component";
-import {QuestionListComponent} from "./question-list/question-list.component";
-import {QuizComponent} from './quiz/quiz.component';
-import {QuizmenuComponent} from '../quizmenu/quizmenu.component';
-import {LearninghubquizComponent} from './learninghubquiz/learninghubquiz.component';
-import {LanguagetypequizComponent} from './languagetypequiz/languagetypequiz.component';
-import {AcademicToolsComponent} from './academic-tools/academic-tools.component';
-import {AcademicToolsStreamComponent} from './academic-tools-stream/academic-tools-stream.component';
-import {AcademicToolsQuizComponent} from './academic-tools-quiz/academic-tools-quiz.component';
-import {K12ClassComponent} from "./k12-class/k12-class.component";
-import {K12QuizComponent} from "./k12-quiz/k12-quiz.component";
+import { NgModule } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
+import { ModulesComponent } from "./modules.component";
+import { ListSubModulesComponent } from "./list-sub-modules/list-sub-modules.component";
+import { QuestionListComponent } from "./question-list/question-list.component";
+import { QuizComponent } from './quiz/quiz.component';
+import { QuizmenuComponent } from '../quizmenu/quizmenu.component';
+import { LearninghubquizComponent } from './learninghubquiz/learninghubquiz.component';
+import { LanguagetypequizComponent } from './languagetypequiz/languagetypequiz.component';
+import { AcademicToolsComponent } from './academic-tools/academic-tools.component';
+import { AcademicToolsStreamComponent } from './academic-tools-stream/academic-tools-stream.component';
+import { AcademicToolsQuizComponent } from './academic-tools-quiz/academic-tools-quiz.component';
+import { K12ClassComponent } from "./k12-class/k12-class.component";
+import { K12QuizComponent } from "./k12-quiz/k12-quiz.component";
 
 
 const routes: Routes = [{
@@ -47,7 +47,7 @@ const routes: Routes = [{
         {
             path: ':module_name/question-list/:id', component: QuestionListComponent,
         },
-        {path: '', redirectTo: 'pre-admission', pathMatch: 'full'},
+        { path: '', redirectTo: 'pre-admission', pathMatch: 'full' },
         {
             path: ':module_name/quiz', component: QuizComponent,
         },
@@ -80,9 +80,29 @@ const routes: Routes = [{
             path: 'academic-tools/:id/quiz/:submoduleId', component: AcademicToolsQuizComponent,
         }
     ]
-
-
-}];
+},
+{
+    path: ':module_name/learninghubquiz', component: LearninghubquizComponent,
+},
+{
+    path: ':module_name/languagehubquiz', component: LanguagetypequizComponent,
+},
+{
+    path: 'skill-mastery', component: ListSubModulesComponent,
+},
+{
+    path: ':module_name/careertoolquiz', component: LearninghubquizComponent,
+},
+{
+    path: 'academic-tools', component: AcademicToolsComponent,
+},
+{
+    path: 'academic-tools/:id', component: AcademicToolsStreamComponent,
+},
+{
+    path: 'academic-tools/:id/quiz/:submoduleId/:categoryId', component: AcademicToolsQuizComponent,
+},
+]
 
 @NgModule({
     imports: [RouterModule.forChild(routes)],

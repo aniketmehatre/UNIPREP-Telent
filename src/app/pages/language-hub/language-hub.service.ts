@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import {HttpClient, HttpHeaders} from "@angular/common/http";
-import {environment} from "@env/environment";
+import { HttpClient, HttpHeaders } from "@angular/common/http";
+import { environment } from "@env/environment";
 
 @Injectable({
   providedIn: 'root'
@@ -22,28 +22,37 @@ export class LanguageHubService {
       languageid: data
     }
     const headers = new HttpHeaders().set("Accept", "application/json");
-    return this.http.post<any>(environment.ApiUrl + "/getlanguagetype",  req, {
+    return this.http.post<any>(environment.ApiUrl + "/getlanguagetype", req, {
       headers: headers,
     });
   }
 
   getCategoryList(req: any) {
     const headers = new HttpHeaders().set("Accept", "application/json");
-    return this.http.post<any>(environment.ApiUrl + "/getlanguagesubmodule",  req, {
+    return this.http.post<any>(environment.ApiUrl + "/getlanguagesubmodule", req, {
       headers: headers,
     });
   }
 
   getQuestionList(req: any) {
     const headers = new HttpHeaders().set("Accept", "application/json");
-    return this.http.post<any>(environment.ApiUrl + "/getlanguagequestions",  req, {
+    return this.http.post<any>(environment.ApiUrl + "/getlanguagequestions", req, {
       headers: headers,
     });
   }
+
+  getQuestion(req: any) {
+    const headers = new HttpHeaders().set("Accept", "application/json");
+    return this.http.post<any>(environment.ApiUrl + "/getlanguagequestions", req, {
+      headers: headers,
+    });
+  }
+
+
   checklanguageQuizCompletion(data: any) {
     const headers = new HttpHeaders().set("Accept", "application/json");
     return this.http.post<any>(environment.ApiUrl + "/languagehubquizcompletion", data, {
-        headers: headers,
+      headers: headers,
     });
   }
 }

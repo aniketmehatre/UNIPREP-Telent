@@ -55,14 +55,14 @@ export class LanguagetypequizComponent implements OnInit {
   timerSubscription: Subscription | null = null;
   restrict: boolean = false;
   selectedQuizArrayForTimer: any[] = [];
-  totalquiztime:any=0;
+  totalquiztime: any = 0;
   restrict1: boolean = false;
   planExpired: boolean = false;
-  ehitlabelIsShow:boolean=true;
-  imagewhitlabeldomainname:any
-  orgnamewhitlabel:any;
-  orglogowhitelabel:any;
-  constructor(private moduleListService: ModuleServiceService,private authService: AuthService, private router: Router, private dataService: DataService,
+  ehitlabelIsShow: boolean = true;
+  imagewhitlabeldomainname: any
+  orgnamewhitlabel: any;
+  orglogowhitelabel: any;
+  constructor(private moduleListService: ModuleServiceService, private authService: AuthService, private router: Router, private dataService: DataService,
     private locationService: LocationService, private ngxService: NgxUiLoaderService, private toast: MessageService,) { }
 
   ngOnInit(): void {
@@ -72,12 +72,12 @@ export class LanguagetypequizComponent implements OnInit {
     this.locationService.getOrgName().subscribe(orgname => {
       this.orgnamewhitlabel = orgname;
     });
-  this.imagewhitlabeldomainname=window.location.hostname;
-  if (this.imagewhitlabeldomainname === "dev-student.uniprep.ai" || this.imagewhitlabeldomainname === "uniprep.ai" || this.imagewhitlabeldomainname === "localhost") {
-    this.ehitlabelIsShow=true;
-  }else{
-    this.ehitlabelIsShow=false;
-  }
+    this.imagewhitlabeldomainname = window.location.hostname;
+    if (this.imagewhitlabeldomainname === "dev-student.uniprep.ai" || this.imagewhitlabeldomainname === "uniprep.ai" || this.imagewhitlabeldomainname === "localhost") {
+      this.ehitlabelIsShow = true;
+    } else {
+      this.ehitlabelIsShow = false;
+    }
     this.init();
     this.checkplanExpire();
   }
@@ -147,7 +147,7 @@ export class LanguagetypequizComponent implements OnInit {
       let subscription_exists_status = res.subscription_details;
       if (data.plan === "expired" || data.plan === 'subscription_expired' ||
         subscription_exists_status?.subscription_plan === "free_trail") {
-        this.planExpired = true;   
+        this.planExpired = true;
       } else {
         this.planExpired = false;
       }
@@ -297,7 +297,7 @@ export class LanguagetypequizComponent implements OnInit {
   certificatesurl: any = ""
   clickSubmitQuiz() {
     this.quizData = this.quizData.map((data: any) => {
-      const {languagetype,language_id, submodule_id, source_faqquestion, otp1, otp2, otp3, otp4, module_id, country_id, user_answered, user_answered_value, ...rest } = data;
+      const { languagetype, language_id, submodule_id, source_faqquestion, otp1, otp2, otp3, otp4, module_id, country_id, user_answered, user_answered_value, ...rest } = data;
       return rest;
     });
     this.stopTimer();
@@ -400,8 +400,8 @@ export class LanguagetypequizComponent implements OnInit {
     })
   }
   openCertificate() {
-    if(this.planExpired){
-      this.restrict1=true;
+    if (this.planExpired) {
+      this.restrict1 = true;
       return;
     }
     window.open(this.certificatesurl, '_blank');
@@ -410,21 +410,25 @@ export class LanguagetypequizComponent implements OnInit {
     this.router.navigate([`/pages/modules/quizmodule`]);
   }
   openReferAnswer(link: any) {
-    window.open(link, '_blank');
+    const lastDigits = link.match(/(\d+)$/)[0];
+    const url = this.router.serializeUrl(
+      this.router.createUrlTree([`/pages/language-hub/translate-view/${lastDigits}`])
+    );
+    window.open(url, '_blank');
   }
   startTimer(): void {
     this.timer = 0;
-    this.totalquiztime=this.quizcount*60;
+    this.totalquiztime = this.quizcount * 60;
     if (this.timerSubscription) {
       this.timerSubscription.unsubscribe();
     }
     this.timerSubscription = interval(1000).pipe(
-      takeWhile(() => this.timer < (this.quizcount*60))
+      takeWhile(() => this.timer < (this.quizcount * 60))
     ).subscribe(() => {
       this.timer++;
       // console.log(`Timer: ${this.timer} seconds`);
-      if (this.timer === this.quizcount*60) {
-        this.restrict=true;    
+      if (this.timer === this.quizcount * 60) {
+        this.restrict = true;
       }
     });
   }

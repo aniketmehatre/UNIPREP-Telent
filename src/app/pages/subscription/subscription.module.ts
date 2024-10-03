@@ -34,6 +34,7 @@ import { TooltipModule } from 'primeng/tooltip';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { NgxStripeModule } from 'ngx-stripe';
+import { environment } from '@env/environment';
 @NgModule({
     declarations: [
         SubscriptionComponent,
@@ -67,8 +68,8 @@ import { NgxStripeModule } from 'ngx-stripe';
         TabViewModule,
         SplitButtonModule,
         TooltipModule ,
-        ConfirmDialogModule,    
-        NgxStripeModule.forRoot('pk_test_51PWDWRG6xm4w4TISmCYsvtRDu0B3Q5MPws17z5tt8sTQd9amOrqEPc8ipSxsBJKRfSg7Cu3iHrFFz8qyol8tduui00fUPhbwuR'),
+        ConfirmDialogModule, 
+        NgxStripeModule.forRoot(environment.domain == "api.uniprep.ai"?'pk_live_51PWDWRG6xm4w4TISdp0xLRz9knGWVNsqo4JAI2nwxrxgdlktGOh8TKbwGiuoOiwypFmNl2tSTny7SZXJgBrSqkMw00VMPqYkI4':'pk_test_51PWDWRG6xm4w4TISmCYsvtRDu0B3Q5MPws17z5tt8sTQd9amOrqEPc8ipSxsBJKRfSg7Cu3iHrFFz8qyol8tduui00fUPhbwuR'),
     ],
      providers: [ConfirmationService,MessageService ],
 })
