@@ -4,10 +4,9 @@ import { CostOfLivingService } from './cost-of-living.service';
 import { City, CostOfLiving, Price } from 'src/app/@Models/cost-of-living';
 import { DropdownFilterOptions } from 'primeng/dropdown';
 import { debounceTime } from 'rxjs';
-import { LocationService } from "../../../location.service";
-import { Router } from "@angular/router";
-import { AuthService } from "../../../Auth/auth.service";
-import { MessageService } from 'primeng/api';
+import {LocationService} from "../../../location.service";
+import {Router} from "@angular/router";
+import {AuthService} from "../../../Auth/auth.service";
 
 @Component({
   selector: 'uni-cost-of-living',
@@ -29,14 +28,13 @@ export class CostOfLivingComponent implements OnInit {
   canShowComparision: boolean = false;
   sourceCountryPrices!: CostOfLiving;
   targetCountryPrices!: CostOfLiving;
-  targetcountryName: string = '';
-  sourcecountryName: string = '';
+  targetcountryName: string='';
+  sourcecountryName: string='';
   sourceCountry: string = '';
   targetCountry: string = '';
   constructor(
     private fb: FormBuilder, private locationService: LocationService,
-    private costOfLivingService: CostOfLivingService, private router: Router, private authService: AuthService,
-    private toastr: MessageService
+    private costOfLivingService: CostOfLivingService, private router: Router, private authService: AuthService
   ) {
     this.form = this.fb.group({
       sourceCity: [null],
@@ -75,20 +73,14 @@ export class CostOfLivingComponent implements OnInit {
     }
     var sourceCityDetails = this.cities.find(city => city.city_id === this.form.value.sourceCity);
     var targetCityDetails = this.cities.find(city => city.city_id === this.form.value.targetCity);
-    this.sourcecountryName = sourceCityDetails ? sourceCityDetails.country_name : '';
-    this.targetcountryName = targetCityDetails ? targetCityDetails.country_name : '';
+    this.sourcecountryName=sourceCityDetails?sourceCityDetails.country_name:'';
+    this.targetcountryName=targetCityDetails?targetCityDetails.country_name:'';
     this.costOfLivingService.calculatePrices(sourceCityDetails).subscribe(response => {
-      if (response.error !== null) {
-        this.toastr.add({ severity: 'error', summary: 'Alert', detail: 'Something went wrong please contact the team or reload the page agian', life: 10000 });
-      }
       this.sourceCountryPrices = response;
       this.sourceCountryPrices?.prices?.forEach((price: Price) => {
         price.itemCount = 1;
       })
       this.costOfLivingService.calculatePrices(targetCityDetails).subscribe(response => {
-        if (response.error !== null) {
-          this.toastr.add({ severity: 'error', summary: 'Alert', detail: 'Something went wrong please contact the team or reload the page agian', life: 10000 });
-        }
         this.targetCountryPrices = response;
         this.targetCountryPrices?.prices?.forEach((price: Price) => {
           price.itemCount = 1;
@@ -99,7 +91,7 @@ export class CostOfLivingComponent implements OnInit {
   }
   getCurrencyConvertions(comparingCountries: string, countryType: string) {
     this.costOfLivingService.currencyConvert({ countries: comparingCountries }).subscribe(res => {
-      if (countryType === 'sourceCountry') {
+      if (countryType === 'sourceCountry') {      
         if (this.sourceCountryPrices.country_name == 'India') {
           this.costOfLivingService.inrRate = res.rate;
         }
@@ -110,7 +102,7 @@ export class CostOfLivingComponent implements OnInit {
       } else {
         this.costOfLivingService.inrRate = res.rate;
       }
-    },
+      },
       error => {
       });
   }
@@ -128,7 +120,7 @@ export class CostOfLivingComponent implements OnInit {
 
   customFilterFunction(typeOfField: string) {
     if (typeOfField == 'source') {
-      if (this.form.get('sourceFilter')?.value === "") {
+      if(this.form.get('sourceFilter')?.value===""){
         this.sourceCities = this.cities;
         return;
       }
@@ -136,22 +128,21 @@ export class CostOfLivingComponent implements OnInit {
         city?.city_name?.toLowerCase().includes(this.form.get('sourceFilter')?.value) || city.country_name.toLowerCase().includes(this.form.get('sourceFilter')?.value)
       );
       const sourceCountries = this.sourceCities.filter(city => city.city_name == '');
-      sourceCountries.forEach(city => {
+      sourceCountries.forEach(city=>{
         this.sourceCities.pop();
       });
       this.sourceCities.unshift(...sourceCountries);
       return;
     }
-    if (this.form.get('targetFilter')?.value === "") {
+    if(this.form.get('targetFilter')?.value===""){
       this.targetCities = this.cities;
       return;
     }
     this.targetCities = this.cities.filter(city =>
-      city?.city_name?.toLowerCase().includes(this.form.get('targetFilter')?.value) || city.country_name.toLowerCase().includes(this.form.get('targetFilter')?.value)
+      city?.city_name.toLowerCase().includes(this.form.get('targetFilter')?.value) || city.country_name.toLowerCase().includes(this.form.get('targetFilter')?.value)
     );
-    console.log(this.targetCities);
     const targetCountries = this.targetCities.filter(city => city.city_name == '');
-    targetCountries.forEach(city => {
+    targetCountries.forEach(city=>{
       this.targetCities.pop();
     });
     this.targetCities.unshift(...targetCountries);

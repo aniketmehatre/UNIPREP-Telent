@@ -33,10 +33,10 @@ export class AcademicToolsStreamComponent implements OnInit {
     const params: GetAcademicListPayload = {
       module_id: this.moduleId,
     }
-    this.academicService.getAcadamicSubModuleList(params).subscribe(res => {
+    this.academicService.getQuizList(params).subscribe(res => {
       this.modulesList = res.data;
     });
-  }
+  };
   goBack() {
     if (window.history.length > 1) {
       this.location.back();

@@ -18,11 +18,4 @@ export class AcademicService {
         });
     }
 
-    getAcadamicSubModuleList(req: GetAcademicListPayload): Observable<QuizResponse> {
-        const headers = new HttpHeaders().set("Accept", "application/json");
-        return this.http.get<QuizResponse>(environment.ApiUrl + `/getacademicsubmoduleList?module_id=${req.module_id}`, {
-            headers: headers,
-        });
-    }
-
 }

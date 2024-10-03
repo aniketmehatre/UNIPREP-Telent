@@ -175,11 +175,11 @@ export class SidenavComponent {
       url: "/pages/founderstool/founderstoollist",
       image: "fa-solid fa-memo-circle-info",
     },
-    // {
-    //   title: "Investor List",
-    //   url: "/pages/investor-list",
-    //   image: "fa-solid fa-chart-waterfall",
-    // },
+    {
+      title: "Investor List",
+      url: "/pages/investor-list",
+      image: "fa-solid fa-chart-waterfall",
+    },
     {
       title: "Pitch Deck",
       url: "/pages/pitch-deck",

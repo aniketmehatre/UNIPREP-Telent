@@ -1,4 +1,4 @@
-<div class="card readingcard h-100" style=" background-color: white !important">
+<div class="card readingcard" style="overflow-y: auto; background-color: white !important">
 	<div class="card-body pt-0">
 		<div class="row justify-content-center">
 			<div class="col-md-2 text-start">
@@ -33,6 +33,7 @@
 		</div>
 	</div>
 </div>
+
 <p-dialog [(visible)]="restrict" [modal]="true" [style]="{ width: '30vw' }" [draggable]="false" [resizable]="false" class="restrictionDialog" [breakpoints]="{ '960px': '30vw', '959px': '60vw', '425px': '90vw' }" (onHide)="clearRestriction()">
 	<div *ngIf="ehitlabelIsShow" class="text-center mt-5 mb-4">
 		<img src="../../../uniprep-assets/images/smartloack.png" class="image" width="60" />

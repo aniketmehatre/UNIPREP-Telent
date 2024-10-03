@@ -1,11 +1,11 @@
-import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
-import { LevelsComponent } from "./levels/levels.component";
-import { CategoryListComponent } from "./category-list/category-list.component";
-import { QuestionListComponent } from "./question-list/question-list.component";
-import { LanguageListComponent } from "./language-list/language-list.component";
-import { LanguageHubComponent } from "./language-hub.component";
-import { TranslateViewComponent } from "./translate-view/translate-view.component";
+import {NgModule} from '@angular/core';
+import {RouterModule, Routes} from '@angular/router';
+import {LevelsComponent} from "./levels/levels.component";
+import {CategoryListComponent} from "./category-list/category-list.component";
+import {QuestionListComponent} from "./question-list/question-list.component";
+import {LanguageListComponent} from "./language-list/language-list.component";
+import {LanguageHubComponent} from "./language-hub.component";
+import {TranslateViewComponent} from "./translate-view/translate-view.component";
 
 const routes: Routes = [
     {
@@ -25,9 +25,6 @@ const routes: Routes = [
             },
             {
                 path: 'translate-view', component: TranslateViewComponent,
-            },
-            {
-                path: 'translate-view/:id', component: TranslateViewComponent,
             },
             {
                 path: '', redirectTo: 'languages', pathMatch: 'full'
