@@ -353,7 +353,7 @@ export class EntreprenuerquizComponent implements OnInit {
     this.positionNumber = 1;
     this.totalpercentagequiztime = 0;
     this.isInstructionVisible = true;
-    // this.checkquizquestioncount()
+    this.checkquizquestioncount()
     this.stopTimer();
   }
   openReviewPopup() {
