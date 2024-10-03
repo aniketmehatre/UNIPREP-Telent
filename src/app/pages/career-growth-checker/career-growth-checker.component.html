@@ -1,0 +1,22 @@
+<div class="row w-100 h-100 m-0 justify-content-center align-items-center">
+    <div class="col-6">
+        <h3 style="color:var(--uniprep-primary);" class="text-center">Apply to millions of job oppurtunities across top companies, industries and locations</h3>
+        <div class="dropdown-container">
+            <div class="form-group">
+                <div class="mb-3 position-relative">
+                    <i class="fas fa-search search-icon"></i>
+                    <input type="text" 
+                           id="jobSearch" 
+                           class="elliptical-search-bar" 
+                           (input)="onInputChange($event)"
+                           [(ngModel)]="searchTerm" >
+                    <ul *ngIf="hasfilteredoptions" class="dropdown-list">
+                        <li *ngFor="let option of filteredOptions" (click)="selectOption(option)"  [id]="option.id">
+                                {{ option.jobrole }}
+                        </li>
+                     </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,41 @@
+.elliptical-search-bar {
+    border: 2px solid orange;
+    border-radius: 30px;
+    padding: 0.5em 1em; 
+    padding-left: 2.5em; 
+    width: 40%; 
+    box-shadow: none; 
+    outline: none; 
+    font-size: 16px; 
+}
+
+.dropdown-list {
+    list-style-type: none;
+    padding: 0; 
+    margin: 0;
+    position: absolute; 
+    width: 40%;
+    min-width: 40%; 
+    z-index: 1000; 
+    background-color: white; 
+    border: 1px solid #ccc; 
+    border-radius: 4px; 
+}
+
+.dropdown-list li {
+    padding: 0.5em 1em; 
+    cursor: pointer; 
+}
+
+.dropdown-list li:hover {
+    background-color: #f0f0f0;
+}
+
+.search-icon {
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%); 
+    font-size: 20px; 
+    color: black; 
+}

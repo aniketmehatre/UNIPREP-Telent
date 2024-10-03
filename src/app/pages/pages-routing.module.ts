@@ -24,6 +24,7 @@ import { PitchDeskComponent } from './pitch-desk/pitch-desk.component';
 import { ExportCreditComponent } from './export-credit/export-credit.component';
 import { MycertificateComponent } from './mycertificate/mycertificate.component';
 import { CareerPlannerComponent } from './career-planner/career-planner.component';
+import { CareerGrowthCheckerComponent } from './career-growth-checker/career-growth-checker.component';
 import { CourseListComponent } from './course-list/course-list.component';
 import { JobToolComponent } from './job-tool/job-tool.component';
 import {SalaryConverterComponent} from "./job-tool/salary-converter/salary-converter.component";
@@ -206,6 +207,10 @@ const routes: Routes = [
             {
                 path: 'interviewprep/questions/:slug',
                 component: InterviewQuestionsComponent
+            },
+            {
+                path: 'career-growth-checker',
+                component: CareerGrowthCheckerComponent
             },
         ]
     }

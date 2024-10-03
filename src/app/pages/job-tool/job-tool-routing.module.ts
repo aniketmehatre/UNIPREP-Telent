@@ -11,6 +11,7 @@ import { CompanyListComponent } from '../company-list/company-list.component';
 import { QuizTestListComponent } from './quiz-test-list/quiz-test-list.component';
 import { EmployerSubcategoryComponent } from './employer-subcategory/employer-subcategory.component';
 import { CareerCategoryListComponent } from './career-category-list/career-category-list.component';
+import { CareerGrowthCheckerComponent } from '../career-growth-checker/career-growth-checker.component';
 
 const routes: Routes = [
   {
@@ -25,7 +26,8 @@ const routes: Routes = [
       { path: 'company-list', component: CompanyListComponent},
       { path: 'list/:name/:id', component: CareerCategoryListComponent },
       { path: 'employer-sub-test/:id', component: EmployerSubcategoryComponent},
-      { path: 'quiz/:name/list/:id', component: QuizTestListComponent}
+      { path: 'quiz/:name/list/:id', component: QuizTestListComponent},
+      { path: 'career-growth-checker', component: CareerGrowthCheckerComponent}
     ]
   }
 ];
