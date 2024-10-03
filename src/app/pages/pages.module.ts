@@ -73,6 +73,7 @@ import { NgxStripeModule } from "ngx-stripe";
 import { InterviewJobrolesComponent } from './interview-jobroles/interview-jobroles.component';
 import {AnimateModule} from 'primeng/animate';
 import { InterviewQuestionsComponent } from './interview-questions/interview-questions.component';
+import { AdvisorComponent } from './advisor/advisor.component';
 // import { JobToolComponent } from './job-tool/job-tool.component';
 @NgModule({
     declarations: [
@@ -108,6 +109,7 @@ import { InterviewQuestionsComponent } from './interview-questions/interview-que
         CourseListComponent,
         InterviewJobrolesComponent,
         InterviewQuestionsComponent,
+        AdvisorComponent,
         // JobToolComponent,
         
     ],
