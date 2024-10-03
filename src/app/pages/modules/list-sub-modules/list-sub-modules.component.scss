@@ -238,17 +238,17 @@ selctedQuizTiny {
 	text-align: left;
 	position: relative; /* Ensure the container is positioned relative */
 }
-.p-input-icon-left>i, .p-input-icon-right>i, .p-input-icon-right>i:not(.filterDialog) .p-input-icon-left>i:not(.filterDialog) {
-    position: absolute;
-    top: 50%;
-    margin-top: -2.2rem;
-}
+// .p-input-icon-left>i, .p-input-icon-right>i, .p-input-icon-right>i:not(.filterDialog) .p-input-icon-left>i:not(.filterDialog),.alignment {
+//     position: absolute;
+//     top: 50%;
+//     margin-top: -0.1.2rem;
+// }
 // .noalignment {
 //     position: absolute;  
 //     top: 50%;         
 //     margin-top: -0.01rem;    
 // }
-.p-input-icon-left>i, .p-input-icon-right>i, .noalignment[_ngcontent-bmi-c248] {
+.p-input-icon-left>i, .p-input-icon-right>i, .noalignment{
     position: absolute;
     top: 50%;
     margin-top: -0.66rem;

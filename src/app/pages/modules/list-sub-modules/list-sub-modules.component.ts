@@ -144,8 +144,7 @@ export class ListSubModulesComponent implements OnInit {
         this.init();
         this.moduleListService.getSubmodulesAndSpecialization().subscribe((res: any) => {
             this.allSearchedResult = res
-            console.log(this.allSearchedResult,"***");
-            
+                        
         });
         this.originalSubModuleList = [...this.subModuleList]; 
     }
