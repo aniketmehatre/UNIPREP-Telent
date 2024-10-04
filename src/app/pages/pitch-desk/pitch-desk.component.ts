@@ -149,20 +149,58 @@ export class PitchDeskComponent implements OnInit {
     this.getPitchDeskList();
   }
 
+  // performSearch() {
+  //   this.page = 1;
+  //   if (this.valueNearYouFilter == "") {
+  //     this.getPitchDeskList();
+  //     return;
+  //   }
+  //   var investorSearchData: any = [];
+  //   this.pitchDeskList.filter(item => {
+  //     if (item.pitchdeck_name?.toLowerCase().includes(this.valueNearYouFilter.toLowerCase())) {
+  //       investorSearchData.push(item);
+  //     };
+  //   });
+  //   this.pitchDeskList = [...investorSearchData];
+  // }
   performSearch() {
-    if (this.valueNearYouFilter == "") {
-      this.getPitchDeskList();
-      return;
+    if (this.valueNearYouFilter === "") {
+        this.getPitchDeskList();  
+        return;
     }
-    var investorSearchData: any = [];
+else{
+  var investorSearchData: any = [];
     this.pitchDeskList.filter(item => {
       if (item.pitchdeck_name?.toLowerCase().includes(this.valueNearYouFilter.toLowerCase())) {
         investorSearchData.push(item);
       };
     });
     this.pitchDeskList = [...investorSearchData];
-  }
+    const filteredData = this.pitchDeskList.filter((item: any) => {
+       
+        return item.pitchdeck_name.toLowerCase().includes(this.valueNearYouFilter.toLowerCase()) ||
+               item.country.toLowerCase().includes(this.valueNearYouFilter.toLowerCase());
+    });
 
+    
+    this.pitchDeskList = filteredData;
+
+   
+    this.totalPitchDeckCount = filteredData.length;
+
+   
+    if (this.totalPitchDeckCount <= this.pageSize) {
+        this.page = 1;  // Reset page to 1
+    }
+
+   
+    const totalPages = Math.ceil(this.totalPitchDeckCount / this.pageSize);
+    if (this.page > totalPages) {
+        this.page = totalPages;
+    }
+  }
+}
+ 
   closeGuidelines(){
     this.showDiv = !this.showDiv;
   }
