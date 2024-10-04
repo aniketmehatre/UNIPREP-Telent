@@ -2,7 +2,7 @@
 	<div class="card-body pt-0">
 		<div class="row justify-content-center">
 			<div class="col-md-2 text-start">
-				<div class="backIcon" (click)="goBack()">
+				<div class="backIcon" (click)="goBack()" role="button">
 					<span class="pi pi-angle-left" (click)="goBack()"></span>
 				</div>
 			</div>
@@ -17,19 +17,18 @@
 				</div>
 			</div>
 			<div class="col-md-2"></div>
-			<div class="container-fluid">
-				<!-- new upadted design -->
-				<div class="row">
-                    <div class="col-2 mt-2" *ngFor="let list of etreprenuertestlists">
-                        <div class="card h-100" style="border: 3px solid orange !important;">
-                            <div class="card-body text-center">
-                                <h5>{{list.submodule_name}}</h5>
-                            </div>
-							<div class="p-2" style="text-align: center;">
-								<button class="how-it-works-button" (click)="openQuiz(list.id)">Start Quiz</button>
-							</div>
-                        </div>
-                    </div>
+		</div>
+
+		<div class="container-fluid">
+			<!-- new upadted design -->
+			<div class="row">
+				<div class="col-2 mt-2" *ngFor="let list of etreprenuertestlists">
+					<div class="card h-100" style="border: 3px solid orange !important">
+						<div class="card-body text-center">
+							<h5>{{ list.submodule_name }}</h5>
+							<button class="how-it-works-button" (click)="openQuiz(list.id)">Start Quiz</button>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>

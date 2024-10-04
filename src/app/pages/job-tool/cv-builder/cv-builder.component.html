@@ -95,8 +95,7 @@
                                 <h4 class="p-mb-1 PageTitle">Your Experience Level</h4>
                                 <i class="fa-solid fa-circle-question m-2 uniprepColor"  pTooltip="Please select your level of experience to proceed further" tooltipPosition="top" ></i>
                             </div>
-                            <!-- (onChange)="changeExperience()" -->
-                            <p-dropdown [options]="experienceLevel"  placeholder="Select Experience Level" styleClass="w-100"
+                            <p-dropdown [options]="experienceLevel" (onChange)="changeExperience()" placeholder="Select Experience Level" styleClass="w-100"
                                         formControlName="selected_exp_level" optionLabel="level" optionValue="id"></p-dropdown>
                             <div *ngIf="submitted && f['selected_exp_level'].errors" class="text-danger text-xs">
                                 <div style="margin-left:10px;" *ngIf="f['selected_exp_level'].errors">Experience Level Required</div>
@@ -128,9 +127,9 @@
                                     <div class="form-group">
                                         <div class="mb-3">
                                             <div class="input-wrapper">
-                                                <input type="text" formControlName="user_job_title" (input)="searchJob($event)" (focusout)="onFocusOut()" placeholder="Search job title" class="form-control job-input" />
+                                                <input type="text" formControlName="user_job_title" (input)="onInput($event)" placeholder="Search job title" class="form-control job-input" />
                                                 <ul *ngIf="filteredJobs.length > 0"  class="dropdown-list">
-                                                    <li *ngFor="let job of filteredJobs" (click)="selectJob(job,'jobTitle')">{{ job.jobrole }}</li>
+                                                    <li *ngFor="let job of filteredJobs" (click)="selectJob(job)">{{ job.jobrole }}</li>
                                                 </ul>
                                                 <div *ngIf="submitted && f['user_job_title'].errors"
                                                     class="text-danger text-xs">
@@ -167,17 +166,6 @@
                                     </div>
                                     <div class="form-group">
                                         <div class="mb-3">
-                                            <div class="input-wrapper">
-                                                <input type="text" formControlName="user_location" (input)="searchLocation($event)" (focusout)="onFocusOut()" placeholder="Location, Country" class="form-control job-input" />
-                                                <ul *ngIf="filteredLocations.length > 0"  class="dropdown-list">
-                                                    <li *ngFor="let city of filteredLocations" (click)="selectLocation(city,'userLocation')">{{ city.country_name }}</li>
-                                                </ul>
-                                                <div *ngIf="submitted && f['user_location'].errors" class="text-danger text-xs">
-                                                    <div style="margin-left:10px;" *ngIf="f['user_location'].errors">Current Location Required</div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- <div class="mb-3">
                                             <p-dropdown [options]="cities" optionValue="country_name" optionLabel="country_name" formControlName="user_location" placeholder="Location, State" [filter]="true" filterBy="country_name" [showClear]="true" [appendTo]="'body'" [style]="{'minWidth': '100%'}" class="w-100 text-start custom-dropdown">
                                                 <ng-template pTemplate="selectedItem" let-selectedOption>
                                                     <div class="d-flex align-items-center gap-2 custom-selected-item dropdown-image">
@@ -197,7 +185,7 @@
                                             <div *ngIf="submitted && f['user_location'].errors" class="text-danger text-xs">
                                                 <div style="margin-left:10px;" *ngIf="f['user_location'].errors">Current Location Required</div>
                                             </div>
-                                        </div> -->
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
@@ -336,18 +324,12 @@
                                                     </div>
                                                     <div class="form-group">
                                                         <div class="mb-3">
-                                                            <div class="input-wrapper">
-                                                                <input type="text" formControlName="work_designation"  (focusout)="onFocusOut()"
-                                                                       (input)="searchDesignation($event, i)" placeholder="Your Designation" 
-                                                                    class="form-control job-input" />
-                                                                <ul class="dropdown-list">
-                                                                    <li *ngFor="let job of filteredDesignations[i]" (click)="selectJob(job,'experience', i)">
-                                                                        {{ job.jobrole }}
-                                                                    </li>
-                                                                </ul>
-                                                                <div *ngIf="wrkExp.get('work_designation')?.invalid && wrkExp.get('work_designation')?.touched && submitted"
+                                                            <input class="w-100" type="text"
+                                                                   placeholder="Your Designation"
+                                                                   formControlName="work_designation" pInputText />
+                                                            <div *ngIf="wrkExp.get('work_designation')?.invalid && wrkExp.get('work_designation')?.touched && submitted"
                                                                  class="text-danger text-xs">
-                                                                    <div style="margin-left:10px;">Designation required.</div>
+                                                                <div style="margin-left:10px;">Designation required.
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -448,14 +430,11 @@
                                                     </div>
                                                     <div class="form-group">
                                                         <div class="mb-3">
-                                                            <div class="input-wrapper">
-                                                                <input type="text" formControlName="work_location" (input)="searchExpandEduLocation($event, i)" (focusout)="onFocusOut()" placeholder="Search job title" class="form-control job-input" />
-                                                                <ul class="dropdown-list">
-                                                                    <li *ngFor="let city of filteredExpeAndEduLocations[i]" (click)="selectLocation(city,'userExpLocation', i)">{{ city.country_name }}</li>
-                                                                </ul>
-                                                                <div *ngIf="wrkExp.get('work_location')?.invalid && wrkExp.get('work_location')?.touched && submitted"
-                                                                         class="text-danger text-xs">
-                                                                    <div style="margin-left:10px;">Work Location required.</div>
+                                                            <input class="w-100" type="text" placeholder="Work Location"
+                                                                   formControlName="work_location" pInputText />
+                                                            <div *ngIf="wrkExp.get('work_location')?.invalid && wrkExp.get('work_location')?.touched && submitted"
+                                                                 class="text-danger text-xs">
+                                                                <div style="margin-left:10px;">Work Location required.
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -604,15 +583,12 @@
                                                     </div>
                                                     <div class="form-group">
                                                         <div class="mb-3">
-                                                            <div class="input-wrapper">
-                                                                <input type="text" formControlName="edu_location" (input)="searchExpandEduLocation($event, i)" (focusout)="onFocusOut()" placeholder="Education Location" class="form-control job-input" />
-                                                                <ul class="dropdown-list">
-                                                                    <li *ngFor="let city of filteredExpeAndEduLocations[i]" (click)="selectLocation(city,'userEduLocation', i)">{{ city.country_name }}</li>
-                                                                </ul>
-                                                                <div *ngIf="eduDetail.get('edu_location')?.invalid && eduDetail.get('edu_location')?.touched && submitted"
+                                                            <input class="w-100" type="text"
+                                                                   placeholder="Education Location"
+                                                                   formControlName="edu_location" pInputText />
+                                                            <div *ngIf="eduDetail.get('edu_location')?.invalid && eduDetail.get('edu_location')?.touched && submitted"
                                                                  class="text-danger text-xs">
-                                                                    <div style="margin-left:10px;">Location required.</div>
-                                                                </div>
+                                                                <div style="margin-left:10px;">Location required.</div>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -1080,7 +1056,7 @@
 			</div>
 			<div class="card-body overflow-y-auto" style="background-color: #3f4c83">
 				<div class="row justify-content-center">
-					<div class="col-md-5">
+					<div class="col-md-6">
 						<div class="previewcontainer">
 							<div class="previewbody">
 								<ng-container *ngTemplateOutlet="sharedContent"></ng-container>
@@ -1196,8 +1172,9 @@
 				<div class="content" [ngClass]="{'certificationHeight': !filledFields.includes('certificate')}"  *ngIf="!hidingHeaders.includes('certificate')">
 					<p class="headingStyle" [ngStyle]="{ 'background-color': selectedThemeColor, color: selectedFontColor }">certifications</p>
 					<div class="certificationItem" *ngFor="let certificate of getCertificatesArray.controls">
-						<p><b>{{ certificate.value.certificate_name }}</b></p>
-                        <p>{{ certificate.value.certificate_issued }}</p>
+						<p>
+							<b>{{ certificate.value.certificate_name }}</b> {{ certificate.value.certificate_issued ? " - " + certificate.value.certificate_issued : "" }}
+						</p>
 						<p>{{ certificate.value.certificate_id ? "ID:" + certificate.value.certificate_id : "" }}</p>
 						<a [href]="certificate.value.certificate_link" target="_blank">{{ certificate.value.certificate_link }}</a>
 					</div>
@@ -1244,7 +1221,7 @@
                         </div>
                         <div class="d-flex">
                             <div style="width: 30%;">
-                                <p class="fw-700 upperCase">{{ exp.value.work_org_name }}</p>
+                                <p class="fw-700">{{ exp.value.work_org_name }}</p>
                                 <p class="fw-700">{{ exp.value.work_location }} </p>
                             </div>
                             <div style="width: 70%;">
@@ -1256,17 +1233,6 @@
                 <div class="content" [ngClass]="{'langugageHeight': !filledFields.includes('language_known')}" *ngIf="!hidingHeaders.includes('education_detail')">
                     <p class="headingStyle" [ngStyle]="{'background-color': selectedThemeColor, 'color': selectedFontColor}"> education</p>
                     <div class="educationItem" *ngFor="let edu of getEduDetailsArray.controls">
-                        <div style="width: 30%;">
-                            <p>{{ edu.value.edu_start_year }} {{ edu.value.edu_end_year ? " - " + edu.value.edu_end_year : "" }}</p>
-                        </div>
-                        <div style="width: 70%;">
-                            <p class="upperCase fw-500">{{ edu.value.edu_degree }} </p>
-                            <p>{{ edu.value.edu_college_name }}</p>
-                            <p>{{ edu.value.edu_location }}</p>
-                            <p>{{ edu.value.edu_percentage }} {{ edu.value.edu_cgpa_percentage }}</p>
-                        </div>
-                    </div>
-                    <!-- <div class="educationItem" *ngFor="let edu of getEduDetailsArray.controls">
                         <div style="width: 50%;">
                             <p>{{ edu.value.edu_start_year }} {{ edu.value.edu_end_year ? " - " + edu.value.edu_end_year
                                 : "" }}</p>
@@ -1279,7 +1245,7 @@
                         <div style="width: 20%;">
                             <p>{{ edu.value.edu_location }}</p>
                         </div>
-                    </div> -->
+                    </div>
                 </div>
                 <div class="content" [ngClass]="{'projectHeight': !filledFields.includes('project_details')}" *ngIf="f['selected_exp_level'].value == 1 && !hidingHeaders.includes('project_details')" >
                     <p class="headingStyle" [ngStyle]="{'background-color': selectedThemeColor, 'color': selectedFontColor}">
@@ -1372,7 +1338,7 @@
                             </div>
                             <div class="d-flex">
                                 <div style="width: 30%;">
-                                    <p class="fw-700 upperCase">{{ exp.value.work_org_name }}</p>
+                                    <p class="fw-700">{{ exp.value.work_org_name }}</p>
                                     <p class="fw-700">{{ exp.value.work_location }} </p>
                                 </div>
                                 <div style="width: 70%;">
@@ -1384,17 +1350,6 @@
                     <div class="content" [ngClass]="{'educationHeight': !filledFields.includes('education_detail')}" *ngIf="!hidingHeaders.includes('education_detail')">
                         <p class="headingStyle">education</p>
                         <div class="educationItem" *ngFor="let edu of getEduDetailsArray.controls">
-                            <div style="width: 30%;">
-                                <p class="fw-700">{{ edu.value.edu_start_year }} {{ edu.value.edu_end_year ? " - " + edu.value.edu_end_year : "" }}</p>
-                            </div>
-                            <div style="width: 70%;">
-                                <p class="upperCase fw-700">{{ edu.value.edu_degree }} </p>
-                                <p>{{ edu.value.edu_college_name }}</p>
-                                <p>{{ edu.value.edu_location }}</p>
-                                <p>{{ edu.value.edu_percentage }} {{ edu.value.edu_cgpa_percentage }}</p>
-                            </div>
-                        </div>
-                        <!-- <div class="educationItem" *ngFor="let edu of getEduDetailsArray.controls">
                             <div style="width: 50%;">
                                 <p>{{ edu.value.edu_start_year }} {{ edu.value.edu_end_year ? " - " +
                                     edu.value.edu_end_year : "" }}</p>
@@ -1407,7 +1362,7 @@
                             <div style="width: 20%;">
                                 <p>{{ edu.value.edu_location }}</p>
                             </div>
-                        </div> -->
+                        </div>
                     </div>
                     <div class="content" [ngClass]="{'projectHeight': !filledFields.includes('project_details')}" *ngIf="f['selected_exp_level'].value == 1 && !hidingHeaders.includes('project_details')">
                         <p class="headingStyle">projects</p>
@@ -1428,8 +1383,8 @@
                     <div class="content" [ngClass]="{'certificationHeight': !filledFields.includes('certificate')}" *ngIf="!hidingHeaders.includes('certificate')">
                         <p class="headingStyle">certifications</p>
                         <div class="certificationItem" *ngFor="let certificate of getCertificatesArray.controls">
-                            <p><b>{{ certificate.value.certificate_name }}</b></p>
-                            <p>{{ certificate.value.certificate_issued }}</p>
+                            <p><b>{{ certificate.value.certificate_name }}</b>
+                             {{ certificate.value.certificate_issued ? " - " + certificate.value.certificate_issued : "" }}</p>
                             <p>{{ certificate.value.certificate_id ? "ID:" + certificate.value.certificate_id : "" }}
                             </p>
                         </div>
@@ -1510,7 +1465,7 @@
                                 </div>
                                 <div class="d-flex">
                                     <div style="width: 30%;">
-                                        <p class="fw-700 upperCase">{{ exp.value.work_org_name }}</p>
+                                        <p class="fw-700">{{ exp.value.work_org_name }}</p>
                                         <p class="fw-700">{{ exp.value.work_location }} </p>
                                     </div>
                                     <div style="width: 70%;">
@@ -1523,18 +1478,7 @@
                     <div [ngStyle]="{ height: !filledFields.includes('education_detail') ? '150px' : null }" *ngIf="!hidingHeaders.includes('education_detail')">
                         <p class="headingStyle" style="margin:0px;"><span>education</span></p>
                         <hr>
-                        <div class="content educationItem" *ngFor="let edu of getEduDetailsArray.controls">
-                            <div  class="fw-700"  style="width: 30%;">
-                                <p>{{ edu.value.edu_start_year }} {{ edu.value.edu_end_year ? " - " + edu.value.edu_end_year : "" }}</p>
-                            </div>
-                            <div style="width: 70%;">
-                                <p class="upperCase fw-700">{{ edu.value.edu_degree }} </p>
-                                <p>{{ edu.value.edu_college_name }}</p>
-                                <p>{{ edu.value.edu_location }}</p>
-                                <p>{{ edu.value.edu_percentage }} {{ edu.value.edu_cgpa_percentage }}</p>
-                            </div>
-                        </div>
-                        <!-- <div class="content fw-600 educationItem" *ngFor="let edu of getEduDetailsArray.controls">
+                        <div class="content fw-600 educationItem" *ngFor="let edu of getEduDetailsArray.controls">
                             <div style="width: 50%;">
                                 <p>{{ edu.value.edu_start_year }} {{ edu.value.edu_end_year ? " - " +
                                     edu.value.edu_end_year : "" }}</p>
@@ -1547,7 +1491,7 @@
                             <div style="width: 20%;">
                                 <p>{{ edu.value.edu_location }}</p>
                             </div>
-                        </div> -->
+                        </div>
                     </div>
                     <div [ngStyle]="{ height: !filledFields.includes('project_details') ? '150px' : null }" *ngIf="f['selected_exp_level'].value == 1 && !hidingHeaders.includes('project_details')">
                         <p class="headingStyle" style="margin:0px;"><span>project details</span></p>
@@ -1647,8 +1591,8 @@
                         <hr >
                         <div class="row">
                             <div *ngFor="let certificate of getCertificatesArray.controls" class="mb-1">
-                                <p><b>{{ certificate.value.certificate_name }}</b></p>
-                                <p>{{ certificate.value.certificate_issued }}</p>
+                                <p><b>{{ certificate.value.certificate_name }}</b> {{
+                                        certificate.value.certificate_issued ? " - " + certificate.value.certificate_issued : "" }}</p>
                                 <p>{{ certificate.value.certificate_id ? "ID:" + certificate.value.certificate_id : ""}}</p>
                             </div>
                         </div>
@@ -1721,11 +1665,12 @@
                     <div [ngStyle]="{ height: !filledFields.includes('certificate') ? '120px' : null }" *ngIf="!hidingHeaders.includes('certificate')">
                         <p class="headingStyle zeroMarginPadding" [ngStyle]="{'color': selectedThemeColor }">certifications</p>
                         <hr class="hr-custom" [ngStyle]="{'color': selectedThemeColor, 'background-color':  selectedThemeColor}" >
-                        <div class="content">
+                        <div class="content" style="line-height:1">
                             <div class="mb-2" *ngFor="let certificate of getCertificatesArray.controls">
-                                <p><b>{{ certificate.value.certificate_name }}</b></p>
-                                <p>{{ certificate.value.certificate_issued }}</p>
-                                <p>{{ certificate.value.certificate_id ? "ID:" + certificate.value.certificate_id : "" }} </p>
+                                <p><b>{{ certificate.value.certificate_name }}</b>{{
+                                        certificate.value.certificate_issued ? " - " + certificate.value.certificate_issued : "" }}</p>
+                                <p>{{ certificate.value.certificate_id ? "ID:" + certificate.value.certificate_id : ""
+                                    }} </p>
                             </div>
                         </div>
                     </div>
@@ -1755,6 +1700,7 @@
                         </div>
                     </div>
                 </div>
+
 				<div class="col-md-8">
 					<!-- [style.height]="f['selected_exp_level'].value == 1 ? '300px' : '400px'" -->
 					<div [ngStyle]="{ height: !filledFields.includes('work_experience') ? '450px' : null }" *ngIf="!hidingHeaders.includes('work_experience')">
@@ -1773,7 +1719,7 @@
                                 </div>
                                 <div class="d-flex">
                                     <div style="width: 30%;">
-                                        <p class="fw-700 upperCase">{{ exp.value.work_org_name }}</p>
+                                        <p class="fw-700">{{ exp.value.work_org_name }}</p>
                                         <p class="fw-700">{{ exp.value.work_location }} </p>
                                     </div>
                                     <div style="width: 70%;">
@@ -1787,18 +1733,7 @@
 						<p class="headingStyle zeroMarginPadding" [ngStyle]="{ color: selectedThemeColor }">education</p>
 						<hr class="hr-custom" [ngStyle]="{ color: selectedThemeColor, 'background-color': selectedThemeColor }" />
 						<div class="content">
-                            <div class="educationItem" *ngFor="let edu of getEduDetailsArray.controls">
-                                <div  class="fw-700"  style="width: 30%;">
-                                    <p>{{ edu.value.edu_start_year }} {{ edu.value.edu_end_year ? " - " + edu.value.edu_end_year : "" }}</p>
-                                </div>
-                                <div style="width: 70%;">
-                                    <p class="upperCase fw-700">{{ edu.value.edu_degree }} </p>
-                                    <p>{{ edu.value.edu_college_name }}</p>
-                                    <p>{{ edu.value.edu_location }}</p>
-                                    <p>{{ edu.value.edu_percentage }} {{ edu.value.edu_cgpa_percentage }}</p>
-                                </div>
-                            </div>
-							<!-- <div class="educationItem" *ngFor="let edu of getEduDetailsArray.controls">
+							<div class="educationItem" *ngFor="let edu of getEduDetailsArray.controls">
 								<div style="width: 50%">
 									<p>{{ edu.value.edu_start_year }} {{ edu.value.edu_end_year ? " - " + edu.value.edu_end_year : "" }}</p>
 									<p class="upperCase fw-500">{{ edu.value.edu_degree }}</p>
@@ -1810,7 +1745,7 @@
 								<div style="width: 20%">
 									<p>{{ edu.value.edu_location }}</p>
 								</div>
-							</div> -->
+							</div>
 						</div>
 					</div>
 					<ng-container>
@@ -1911,7 +1846,7 @@
                                 </div>
                                 <div class="d-flex">
                                     <div style="width: 30%;">
-                                        <p class="fw-700 upperCase">{{ exp.value.work_org_name }}</p>
+                                        <p class="fw-700">{{ exp.value.work_org_name }}</p>
                                         <p class="fw-700">{{ exp.value.work_location }} </p>
                                     </div>
                                     <div style="width: 70%;">
@@ -1924,18 +1859,7 @@
 					<div [ngStyle]="{ height: !filledFields.includes('education_detail') ? '150px' : null }" *ngIf="!hidingHeaders.includes('education_detail')">
 						<p class="headingStyle" style="margin: 0px"><span>education</span></p>
 						<hr />
-                        <div class="content educationItem" *ngFor="let edu of getEduDetailsArray.controls">
-                            <div  class="fw-700"  style="width: 30%;">
-                                <p>{{ edu.value.edu_start_year }} {{ edu.value.edu_end_year ? " - " + edu.value.edu_end_year : "" }}</p>
-                            </div>
-                            <div style="width: 70%;">
-                                <p class="upperCase fw-700">{{ edu.value.edu_degree }} </p>
-                                <p>{{ edu.value.edu_college_name }}</p>
-                                <p>{{ edu.value.edu_location }}</p>
-                                <p>{{ edu.value.edu_percentage }} {{ edu.value.edu_cgpa_percentage }}</p>
-                            </div>
-                        </div>
-						<!-- <div class="content fw-600 educationItem" *ngFor="let edu of getEduDetailsArray.controls">
+						<div class="content fw-600 educationItem" *ngFor="let edu of getEduDetailsArray.controls">
 							<div style="width: 40%">
 								<p>
 									<b>{{ edu.value.edu_start_year }} {{ edu.value.edu_end_year ? " - " + edu.value.edu_end_year : "" }}</b>
@@ -1951,9 +1875,24 @@
 								</p>
 								<p>{{ edu.value.edu_percentage }} {{ edu.value.edu_cgpa_percentage }}</p>
 							</div>
-						</div> -->
+						</div>
+					</div>
+					<div [ngStyle]="{ height: !filledFields.includes('certificate') ? '120px' : null }" style="height: 120px" *ngIf="!hidingHeaders.includes('certificate')">
+						<p class="headingStyle"><span>certifications</span></p>
+						<div class="row">
+							<div *ngFor="let certificate of getCertificatesArray.controls" style="width: 50%" class="mb-1">
+								<p>
+									<b>{{ certificate.value.certificate_name }}</b> - {{ certificate.value.certificate_issued ? " - " + certificate.value.certificate_issued : "" }}
+								</p>
+								<p>{{ certificate.value.certificate_id ? "ID:" + certificate.value.certificate_id : "" }}</p>
+								<!-- <a [href]="certificate.value.certicate_link" target="_Blank">
+                                    <p style="font-size:smaller">{{ certificate.value.certicate_link }}</p>
+                                </a> -->
+							</div>
+						</div>
 					</div>
 				</div>
+
 				<div class="col-4">
 					<div [ngStyle]="{ height: !filledFields.includes('skills') ? '150px' : null }" *ngIf="!hidingHeaders.includes('skills')">
 						<p class="headingStyle zeroMarginPadding">skills</p>
@@ -1994,20 +1933,8 @@
 						<p class="headingStyle" style="padding-top: 10px">Achievements</p>
 						<div class="fw-600">
 							<ul class="pl-3">
-								<div class="technicalSkillItem" *ngFor="let extra of getExtraCurricularArray.controls">
-                                    <p>{{ extra.value.extra_curricular_activites }}</p>
-                                </div>
+								<li style="margin: 0px" *ngFor="let extra of getExtraCurricularArray.controls">{{ extra.value.extra_curricular_activites }}</li>
 							</ul>
-						</div>
-					</div>
-                    <div [ngStyle]="{ height: !filledFields.includes('certificate') ? '120px' : null }" style="height: 120px" *ngIf="!hidingHeaders.includes('certificate')">
-						<p class="headingStyle"><span>certifications</span></p>
-						<div class="row m-1">
-							<div *ngFor="let certificate of getCertificatesArray.controls" class="mb-1">
-								<p> <b>{{ certificate.value.certificate_name }}</b> </p>
-                                <p>{{ certificate.value.certificate_issued }}</p>
-								<p>{{ certificate.value.certificate_id ? "ID:" + certificate.value.certificate_id : "" }}</p>
-							</div>
 						</div>
 					</div>
 				</div>
