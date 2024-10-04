@@ -1,4 +1,4 @@
-<div class="row w-100 h-100 m-0 justify-content-center align-items-center">
+<div class="row w-100 h-100 m-0 justify-content-center align-items-center" *ngIf="showSearch">
     <div class="col-6">
         <h3 style="color: var(--uniprep-primary);" class="text-center">
             Apply to millions of job opportunities across top companies, industries and locations
@@ -42,10 +42,24 @@
                     </p-dropdown>
                 </div>
                 <button pButton type="button" 
-                        class="text-white p-ripple p-button-rounded p-button-info-search p-button p-component p-2">
+                        class="text-white p-ripple p-button-rounded p-button-info-search p-button p-component p-2" (click)="search()">
                     Search <i class="fas fa-search search-icon-result exhausted-plan-icon-next"></i>
                 </button>
             </div>
         </div>
     </div>
 </div>
+
+<div class="row w-100 h-100 m-0 justify-content-center align-items-start" *ngIf="showResult">
+    <div class="col-6" class="text-center">
+        <h3 style="color: var(--uniprep-primary);">
+            Current Role : {{searchTerm}}
+        </h3>
+        <div class="role-details-box">
+            <div *ngFor="let detail of roleDetails;  let i = index" class="role-detail" [ngClass]="'detail-' + (i + 1)">
+                <span>{{ i + 1 }}. {{ detail }}</span>
+            </div>
+        </div>
+    </div>
+</div>
+

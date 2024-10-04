@@ -211,7 +211,7 @@ const routes: Routes = [
             {
                 path: 'career-growth-checker',
                 component: CareerGrowthCheckerComponent
-            },
+            }
         ]
     }
 ];

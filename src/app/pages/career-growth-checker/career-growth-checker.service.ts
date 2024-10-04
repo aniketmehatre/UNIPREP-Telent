@@ -19,6 +19,13 @@ export class CareerGrowthService {
     });
   }
 
+  GetProgressionDetails(data:any){
+    const headers = new HttpHeaders().set("Accept", "application/json");
+    return this.http.post<any>(environment.ApiUrl + "/getjobprogression",data,{
+      headers: headers,
+    });
+  }
+
   getCountries(): Observable<any[]> {
     return this.http.get<any[]>(this.jsonUrl);
   }
