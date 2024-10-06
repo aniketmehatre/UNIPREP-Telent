@@ -55,6 +55,8 @@ export class CareerGrowthCheckerComponent implements OnInit {
   checkForm: FormGroup;
   selectedJobId: string | null = null; 
   currentrole: string | null = null;
+  invalidClass: boolean = false;
+  invalidClassCountry: boolean = false;
 
 currencySymbols: { [key: string]: string } = {
   'United States': '$',
@@ -107,13 +109,25 @@ currencySymbols: { [key: string]: string } = {
   }
 
   search() {
+    const jobSearchValue = this.checkForm.value.jobSearch;
+
+    const isValidJobRole = this.filteredOptions.some(option => option.jobrole === jobSearchValue);
+
+    if (!isValidJobRole) {
+      this.invalidClass = true;
+      return;
+    }else {
+      this.invalidClass = false;
+    }
+
     const countryId = this.checkForm.get('country')?.value;
     this.currentrole = this.checkForm.get('jobSearch')?.value;
-    if (this.selectedJobId && countryId) {
+    if (countryId) {
       var data = {
         roleId : this.selectedJobId,
         country: countryId
       };
+      this.invalidClassCountry = false;
       this.careerGrowthService.GetProgressionDetails(data).subscribe((res)=>{
         if(res.progressionNames != null) {
           this.showSearch= false;
@@ -136,7 +150,8 @@ currencySymbols: { [key: string]: string } = {
       });
       
     } else {
-      
+      this.invalidClassCountry = true;
+      return;
     }
 
   }

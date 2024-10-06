@@ -39,7 +39,7 @@
 
 .search-icon {
     position: absolute;
-    left: 20px;
+    left: 8px;
     top: 50%;
     transform: translateY(-50%); 
     font-size: 20px; 
@@ -218,6 +218,14 @@
     padding: 10px;
 }
 
+.error-message {
+    color: red; 
+    position: absolute; 
+    margin-top: 5px;
+    left: 0;
+    right: 0; 
+    height: 20px;
+}
 
 
 

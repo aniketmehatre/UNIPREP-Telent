@@ -18,8 +18,11 @@
                                 {{ option.jobrole }}
                             </li>
                         </ul>
+                        <div *ngIf="invalidClass" class="error-message" style="color: red; margin-top: 5px;">
+                            Please Choose Any one option
+                        </div>
                     </div>
-                    <div style="flex: 1; margin-right: 10px;">
+                    <div style="flex: 1; margin-right: 10px; position: relative;"> 
                         <p-dropdown 
                             [options]="countries" 
                             styleClass="w-100" 
@@ -28,6 +31,9 @@
                             optionLabel="country" 
                             placeholder="Select Country">
                         </p-dropdown>
+                        <div *ngIf="invalidClassCountry" class="error-message" style="color: red; position: absolute; top: 100%; left: 0;">
+                            Please Choose Any one option
+                        </div>
                     </div>
                     <button pButton type="submit" 
                             class="text-white p-ripple p-button-rounded p-button-info-search p-button p-component p-2">
