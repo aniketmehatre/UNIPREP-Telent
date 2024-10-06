@@ -1,10 +1,33 @@
 import { Component, OnInit } from '@angular/core';
 import { CareerGrowthService } from './career-growth-checker.service';
 import { Router } from '@angular/router';
+import { FormBuilder, FormGroup } from "@angular/forms";
 
 interface JobRole {
   id: number;
   jobrole: string;
+}
+
+interface JobDetail {
+  id: number;
+  job_role_id: number;
+  country: number;
+  roles_resp: string; 
+  skills: string;
+  experience: string;
+  country_salary_min: string;
+  country_salary_max: string;
+  ind_salary_min: string;
+  ind_salary_max: string;
+  ind_salary: string;
+  status: number;
+  created_at: string;
+  updated_at: string | null;
+  jobrole: string;
+  slug: string;
+  forCG: number;
+  rolesArray?: string[];
+  skillsArray?: string[];
 }
 
 @Component({
@@ -15,25 +38,35 @@ interface JobRole {
 
 export class CareerGrowthCheckerComponent implements OnInit {
 
-  constructor(private careerGrowthService:CareerGrowthService,private router: Router) { }
+  constructor(private careerGrowthService:CareerGrowthService,private router: Router,private fb: FormBuilder,) { }
 
   options: JobRole[] = [];
+  jobDetails: JobDetail[][] = []; 
   allOptions: JobRole[] = []; 
   hasfilteredoptions: boolean = false; 
   filteredOptions: JobRole[] = []; 
   searchTerm: string = ''; 
   fromCountry: any;
   countries: any[] = [];
-  selectedCountryName: any;
-  selectedCountryCode: any;
-  isPPPCardVisible: boolean = false;
-  taxData: any;
-  selectedCurrencyCode: string = 'INR';
   showSearch:boolean = true;
   showResult: boolean = false;
   roleDetails:any = [];
+  selectedCountryId: string | null = null; 
+  checkForm: FormGroup;
+  selectedJobId: string | null = null; 
+  currentrole: string | null = null;
+
+currencySymbols: { [key: string]: string } = {
+  'United States': '$',
+  'India': '₹',
+};
+
 
   ngOnInit(): void {
+    this.checkForm = this.fb.group({
+      jobSearch: [''],
+      country: [''] 
+  });
     this.showSearch= true;
     this.showResult = false;
     var data = {
@@ -45,15 +78,15 @@ export class CareerGrowthCheckerComponent implements OnInit {
       this.filteredOptions = res;
     });
     this.careerGrowthService.getCountries().subscribe(data => {
-      this.countries = data;
+      this.countries = data.countries_list;
     });
   }
 
-  selectOption(option:any) {
-    this.searchTerm = option.jobrole; 
-    this.filteredOptions = [];
-    this.hasfilteredoptions = false;
-  }
+  selectOption(option: any) {
+    this.checkForm.get('jobSearch')?.setValue(option.jobrole); 
+    this.selectedJobId = option.id; 
+    this.hasfilteredoptions = false; 
+}
 
   filterOptions(searchTerm: string) {
     const term = searchTerm.trim().toLowerCase();
@@ -73,28 +106,28 @@ export class CareerGrowthCheckerComponent implements OnInit {
     this.filterOptions(inputElement.value);
   }
 
-  onCountryChange(event: any){
-    this.selectedCountryCode = event.value.countryCode
-    this.selectedCurrencyCode = event.value.currencyCode
-    this.selectedCountryName = event.value.countryName
-    this.isPPPCardVisible = false
-    this.taxData = []
-  }
-
   search() {
-    const jobTypeId = this.getJobTypeId(this.searchTerm);
-    const countryName= this.fromCountry ? this.fromCountry.countryName : null;
-
-    if (jobTypeId && countryName) {
+    const countryId = this.checkForm.get('country')?.value;
+    this.currentrole = this.checkForm.get('jobSearch')?.value;
+    if (this.selectedJobId && countryId) {
       var data = {
-        roleId : jobTypeId,
-        country: countryName
+        roleId : this.selectedJobId,
+        country: countryId
       };
       this.careerGrowthService.GetProgressionDetails(data).subscribe((res)=>{
         if(res.progressionNames != null) {
           this.showSearch= false;
           this.showResult = true;
           this.roleDetails = res.progressionNames;
+          this.jobDetails = res.details;
+          for (const group of this.jobDetails) {
+            for (const detail of group) {
+            const parsedRolesResp = detail.roles_resp.split(',').map(item => item.trim());
+            detail.rolesArray = parsedRolesResp; 
+            const parsedSkills = detail.skills.split(',').map(item => item.trim());
+            detail.skillsArray = parsedSkills; 
+            }
+        }
         }else {
           this.showSearch= true;
           this.showResult = false;
@@ -105,7 +138,6 @@ export class CareerGrowthCheckerComponent implements OnInit {
     } else {
       
     }
-
 
   }
 

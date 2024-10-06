@@ -1,3 +1,8 @@
+.row {
+    overflow: auto; 
+    max-height: 100vh; 
+}
+
 .elliptical-search-bar {
     border: 2px solid orange;
     border-radius: 30px;
@@ -72,21 +77,22 @@
 }
 
 .role-details-box {
-    padding: 0; 
+    padding: 50px;
     background-color: #f9f9f9; 
     margin-top: 20px; 
     display: flex; 
-    align-items: center;
+    flex-direction: row;
 }
 
 .role-detail {
-    display: flex; /* Use flexbox for layout */
-    align-items: center; /* Center items vertically */
-    justify-content: center; /* Center items horizontally */
-    padding: 45px; 
-    color: white; /* Text color */
-    margin: 0; /* No margin for full extension */
-    flex: 1; /* Allow each detail to grow and fill space equally */
+    display: flex; 
+    align-items: center;
+    justify-content: center; 
+    padding: 56px; 
+    color: white;
+    margin: 0; 
+    flex: 1; 
+    position: relative;
 }
 
 .detail-1 {
@@ -104,6 +110,107 @@
 .detail-4 {
     background-color: #3f4c83;
 }
+
+
+.role-detail:not(:last-child)::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    right: -20px; 
+    transform: translateY(-50%);
+    border-left: 20px solid; 
+    border-top: 70px solid transparent; 
+    border-bottom: 70px solid transparent; 
+    height: 100%; 
+    z-index: 1;
+}
+
+.role-detail.detail-1::after {
+    border-left-color: #8a95dd; /* Color of detail-1 */
+}
+
+.role-detail.detail-2::after {
+    border-left-color: #6975bb; /* Color of detail-2 */
+}
+
+.role-detail.detail-3::after {
+    border-left-color: #4552a3; /* Color of detail-3 */
+}
+
+.role-detail.detail-4::after {
+    border-left-color: #3f4c83; /* Color of detail-4 */
+}
+
+@media (max-width: 1200px) {
+    .form-group {
+        flex-direction: column; /* Stack items vertically */
+        margin-left: 0; /* Reset margin if necessary */
+    }
+
+    .position-relative {
+        margin-bottom: 15px; /* Add space between inputs */
+    }
+
+    button {
+        width: 100%; /* Make the button full width on smaller screens */
+    }
+}
+
+@media (max-width: 1040px) {
+    .role-detail {
+        display: flex; 
+        align-items: center;
+        justify-content: center; 
+        padding: 10px; 
+        color: white;
+        margin: 0; 
+        flex: 1; 
+        position: relative;
+    }
+
+    .role-detail:not(:last-child)::after {
+        content: '';
+        position: absolute;
+        top: 50%;
+        right: -20px; 
+        transform: translateY(-50%);
+        border-left: 20px solid; 
+        border-top: 20px solid transparent; 
+        border-bottom: 20px solid transparent; 
+        height: 100%; 
+        z-index: 1;
+    }
+
+    .role-detail.detail-1::after {
+        border-left-color: #8a95dd; /* Color of detail-1 */
+    }
+
+    .role-detail.detail-2::after {
+        border-left-color: #6975bb; /* Color of detail-2 */
+    }
+
+    .role-detail.detail-3::after {
+        border-left-color: #4552a3; /* Color of detail-3 */
+    }
+
+    .role-detail.detail-4::after {
+        border-left-color: #3f4c83; /* Color of detail-4 */
+    }  
+
+}
+
+.arrow-container {
+    text-align: center; 
+    margin: 10px 0; 
+}
+
+.arrow-icon {
+    font-size: 24px; 
+    color: #3f4c83; 
+    display: block; 
+}
+
+
 
 
 

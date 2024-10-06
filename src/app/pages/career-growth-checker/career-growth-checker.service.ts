@@ -26,7 +26,10 @@ export class CareerGrowthService {
     });
   }
 
-  getCountries(): Observable<any[]> {
-    return this.http.get<any[]>(this.jsonUrl);
+  getCountries(){
+    const headers = new HttpHeaders().set("Accept", "application/json");
+    return this.http.get<any>(environment.ApiUrl + "/CompanySelectValues",{
+      headers: headers,
+    });
   }
 }
