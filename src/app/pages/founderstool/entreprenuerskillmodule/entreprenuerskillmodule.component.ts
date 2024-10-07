@@ -57,6 +57,7 @@ export class EntreprenuerskillmoduleComponent implements OnInit {
       this.restrict=true;
       return;
     }
+    localStorage.setItem('conditionrevieworquiz','0')
     localStorage.setItem('entrpreneursubid',id)
     this.currentModuleSlug = "Entreprenuer Skill Test"
     this.router.navigate([`/pages/founderstool/${this.currentModuleSlug}/entrpreneurquiz`]);
@@ -80,5 +81,11 @@ export class EntreprenuerskillmoduleComponent implements OnInit {
   }
   clearRestriction() {
     this.restrict = false;
+  }
+  review(id:any){
+    localStorage.setItem('conditionrevieworquiz','1')
+    localStorage.setItem('entrpreneursubid',id)
+    this.currentModuleSlug = "entreprenuersectorproficiencytest"
+    this.router.navigate([`/pages/founderstool/${this.currentModuleSlug}/entrpreneurquiz`]);  
   }
 }
