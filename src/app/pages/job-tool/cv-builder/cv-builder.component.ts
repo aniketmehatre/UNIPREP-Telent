@@ -500,7 +500,7 @@ export class CvBuilderComponent implements OnInit  {
     }
     this.updateValidatorsForAllProjects();
   }
-
+    
   updateValidatorsForAllProjects() {
     this.getProjectDetailsArray.controls.forEach(control => {
       const projectFormGroup = control as FormGroup;
