@@ -25,6 +25,7 @@ export class InvestorListComponent implements OnInit {
   anyHeadquartersList: any;
   page = 1;
   pageSize = 50;
+  totalInvestorCount = 0;
   valueNearYouFilter: string = '';
   totalInvestorsCount: any;
   isFilterVisible: string = 'none';
@@ -111,19 +112,57 @@ export class InvestorListComponent implements OnInit {
     this._location.back();
   }
 
-  performSearch(events: any) {
-    if (this.valueNearYouFilter == "") {
+  // performSearch(events: any) {
+  //   if (this.valueNearYouFilter == "") {
+  //     this.loadInvestorData(0);
+  //     return;
+  //   }
+  //   var investorSearchData: any = [];
+  //   this.investorData.filter(item => {
+  //     if (item.org_name?.toLowerCase().includes(this.valueNearYouFilter.toLowerCase())) {
+  //       investorSearchData.push(item);
+  //     };
+  //   });
+  //   this.investorData = [...investorSearchData];
+  // }
+
+  performSearch() {
+    if (this.valueNearYouFilter === "") {
       this.loadInvestorData(0);
-      return;
+        return;
     }
-    var investorSearchData: any = [];
+else{
+  var investorSearchData: any = [];
     this.investorData.filter(item => {
       if (item.org_name?.toLowerCase().includes(this.valueNearYouFilter.toLowerCase())) {
         investorSearchData.push(item);
       };
     });
     this.investorData = [...investorSearchData];
+    const filteredData = this.investorData.filter((item: any) => {
+       
+        return item.org_name.toLowerCase().includes(this.valueNearYouFilter.toLowerCase()) ||
+               item.country.toLowerCase().includes(this.valueNearYouFilter.toLowerCase());
+    });
+
+    
+    this.investorData = filteredData;
+
+   
+    this.totalInvestorsCount = filteredData.length;
+
+   
+    if (this.totalInvestorsCount <= this.pageSize) {
+        this.page = 1;  // Reset page to 1
+    }
+
+   
+    const totalPages = Math.ceil(this.totalInvestorsCount / this.pageSize);
+    if (this.page > totalPages) {
+        this.page = totalPages;
+    }
   }
+}
 
   loadMultiSelectData() {
     this.investorList.getMultiSelectData().subscribe((response) => {
