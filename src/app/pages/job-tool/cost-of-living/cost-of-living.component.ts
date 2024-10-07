@@ -125,7 +125,7 @@ export class CostOfLivingComponent implements OnInit {
         return;
       }
       this.sourceCities = this.cities.filter(city =>
-        city?.city_name?.toLowerCase().includes(this.form.get('sourceFilter')?.value) || city.country_name.toLowerCase().includes(this.form.get('sourceFilter')?.value)
+        city?.city_name?.toLowerCase().includes(this.form.get('sourceFilter')?.value?.toLowerCase()) || city.country_name.toLowerCase().includes(this.form.get('sourceFilter')?.value?.toLowerCase())
       );
       const sourceCountries = this.sourceCities.filter(city => city.city_name == '');
       sourceCountries.forEach(city=>{
@@ -139,7 +139,7 @@ export class CostOfLivingComponent implements OnInit {
       return;
     }
     this.targetCities = this.cities.filter(city =>
-      city?.city_name.toLowerCase().includes(this.form.get('targetFilter')?.value) || city.country_name.toLowerCase().includes(this.form.get('targetFilter')?.value)
+      city?.city_name?.toLowerCase().includes(this.form.get('targetFilter')?.value?.toLowerCase()) || city.country_name.toLowerCase().includes(this.form.get('targetFilter')?.value?.toLowerCase())
     );
     const targetCountries = this.targetCities.filter(city => city.city_name == '');
     targetCountries.forEach(city=>{

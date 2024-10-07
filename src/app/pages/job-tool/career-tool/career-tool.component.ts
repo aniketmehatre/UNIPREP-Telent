@@ -91,6 +91,15 @@ export class CareerToolComponent implements OnInit {
       imageLink: environment.production === false ? "https://api.uniprep.ai/uniprepapi/storage/app//public/icon/modules/employertest.svg" : "https://uniprep.ai/uniprepapi/storage/app/public/icon/modules/employertest.svg",
       refLink: "",
       mode: "employer-test"
+    },
+    {
+      id: 10,
+      moduleName: "Career Growth Checker",
+      Description: "Get insight into your next 5 career growth oppurtunity.",
+      tooltip: "Get personalized and compelling career oppurtunities.",
+      imageLink: environment.production === false ? "https://api.uniprep.ai/uniprepapi/storage/app//public/icon/modules/growth.svg" : "https://uniprep.ai/uniprepapi/storage/app/public/icon/modules/growth.svg",
+      refLink: "",
+      mode: "career-growth-checker"
     }
   ]
   constructor(private router: Router) { }
@@ -114,12 +123,12 @@ export class CareerToolComponent implements OnInit {
       this.router.navigate(['/pages/job-tool/salary-converter']);
     } else if (mode == "company-list") {
       this.router.navigate(['/pages/job-tool/company-list']);
-    }
-    else if (mode == "psychometric-test") {
+    } else if (mode == "psychometric-test") {
       this.router.navigate(['/pages/job-tool/list/psychometric-test/11']);
-    }
-    else if (mode == "personality-test") {
+    } else if (mode == "personality-test") {
       this.router.navigate(['/pages/job-tool/list/personality-test/12']);
+    } else if (mode == "career-growth-checker") {
+      this.router.navigate(['/pages/job-tool/career-growth-checker']);
     } else {
       this.router.navigate(['/pages/job-tool/list/employer-test/13']);
     }

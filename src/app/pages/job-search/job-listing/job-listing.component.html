@@ -1,38 +1,38 @@
-<div class="row mt-2" *ngIf="!isDetailedPageClicked">
-    <form [formGroup]="fG" (ngSubmit)="onSubmit()">
+<div *ngIf="!isDetailedPageClicked" class="row mt-2 d-none">
+    <form (ngSubmit)="onSubmit()" [formGroup]="fG">
         <div class="form-group">
             <div class="row justify-content-center align-items-center mt-2">
                 <div class="col-md-6 col-lg-4">
                             <span class="p-input-icon-left w-100">
                                 <i class="pi pi-search"></i>
-                                <input type="text" formControlName="what_and"
-                                       class="form-control w-100 rounded-input" style="width: 100% !important;"
-                                       pInputText placeholder="  Search by Job Title, Skill, Company"/>
+                                <input class="form-control w-100 rounded-input" formControlName="what_and"
+                                       pInputText placeholder="  Search by Job Title, Skill, Company"
+                                       style="width: 100% !important;" type="text"/>
                             </span>
                 </div>
                 <div class="col-md-3 col-lg-4">
-                    <p-dropdown [options]="cities"
-                                optionLabel="name"
-                                formControlName="countryCode"
-                                placeholder="Location"
+                    <p-dropdown [appendTo]="'body'"
                                 [filter]="true"
-                                filterBy="name"
+                                [options]="cities"
                                 [showClear]="true"
-                                [appendTo]="'body'"
                                 [style]="{'minWidth': '100%'}"
-                                class="w-100 text-start">
+                                class="w-100 text-start"
+                                filterBy="name"
+                                formControlName="countryCode"
+                                optionLabel="name"
+                                placeholder="Location">
 
                         <!-- Template for Selected Item -->
-                        <ng-template pTemplate="selectedItem" let-selectedOption>
+                        <ng-template let-selectedOption pTemplate="selectedItem">
                             <div class="d-flex align-items-center gap-2">
                                 <img [src]="selectedOption.flag" alt="Flag"/>
-                                <div>{{ selectedOption.name }}{{ selectedOption.city_name ? ', '+selectedOption.country_name : ''}}</div>
+                                <div>{{ selectedOption.name }}{{ selectedOption.city_name ? ', ' + selectedOption.country_name : '' }}</div>
                             </div>
                         </ng-template>
                         <ng-template let-country pTemplate="item">
                             <div class="d-flex align-items-center gap-2">
                                 <img [src]="country.flag" alt="Flag"/>
-                                <div>{{ country.name }}{{ country.city_name ? ', '+country.country_name : ''}}</div>
+                                <div>{{ country.name }}{{ country.city_name ? ', ' + country.country_name : '' }}</div>
                             </div>
                         </ng-template>
                     </p-dropdown>
@@ -41,8 +41,8 @@
                     <button class="btn btn-primary text-small btn-rounded" type="submit">
                         Search <span class="searchIcon"><i class="fa-regular fa-magnifying-glass"></i></span>
                     </button>
-                    <button class="btn btn-danger text-small btn-rounded text-white ms-2" type="button"
-                            (click)="resetSearch()">
+                    <button (click)="resetSearch()" class="btn btn-danger text-small btn-rounded text-white ms-2"
+                            type="button">
                         Reset
                     </button>
                 </div>
@@ -51,8 +51,8 @@
     </form>
 </div>
 <div class="row mt-4">
-    <div class="col-3 card p-4">
-        <form [formGroup]="filterForm" (ngSubmit)="onFilterSubmit()">
+    <div class="col-md-3 col-lg-3 col-sm-12 card p-4">
+        <form (ngSubmit)="onFilterSubmit()" [formGroup]="filterForm">
             <div class="form-group">
                 <div class="row">
                     <div class="col-6 text-start">
@@ -62,25 +62,36 @@
                         <span (click)="onClickClear()">Clear</span>
                     </div>
                     <div class="col-md-12">
+                        <label class="form-label" style="font-size: small; font-weight: 500">Search by Job, Skill,
+                            Company</label>
+                        <span class="p-input-icon-left w-100">
+                                <i class="pi pi-search"></i>
+                                <input class="form-control w-100" formControlName="what_and"
+                                       pInputText placeholder="Job Title, Skill, Company"
+                                       style="width: 100% !important;" type="text"/>
+                            </span>
+                    </div>
+                    <div class="col-md-12 mt-2">
                         <label class="form-label" style="font-size: small; font-weight: 500">Country
                             <span class="mandatory">*</span></label>
                         <div class="form-group">
                             <div class="mb-3">
-                                <p-dropdown [options]="cities" styleClass="w-100" optionLabel="name"
-                                            formControlName="countryCode" filterBy="name"
-                                            placeholder="Source Country" [filter]="true"
-                                            [showClear]="true" [appendTo]="'body'" style="width: 100% !important;"
-                                            class="">
-                                    <ng-template pTemplate="selectedItem" let-selectedOption>
+                                <p-dropdown [appendTo]="'body'" [filter]="true" [options]="cities"
+                                            [showClear]="true" class=""
+                                            filterBy="name" formControlName="countryCode"
+                                            optionLabel="name" placeholder="Source Country"
+                                            style="width: 100% !important;"
+                                            styleClass="w-100">
+                                    <ng-template let-selectedOption pTemplate="selectedItem">
                                         <div class="d-flex align-items-center gap-2">
                                             <img [src]="selectedOption.flag" alt="Flag"/>
-                                            <div>{{ selectedOption.name }}{{ selectedOption.city_name ? ', '+selectedOption.country_name : ''}}</div>
+                                            <div>{{ selectedOption.name }}{{ selectedOption.city_name ? ', ' + selectedOption.country_name : '' }}</div>
                                         </div>
                                     </ng-template>
                                     <ng-template let-country pTemplate="item">
                                         <div class="d-flex align-items-center gap-2">
                                             <img [src]="country.flag" alt="Flag"/>
-                                            <div>{{ country.name }}{{ country.city_name ? ', '+country.country_name : ''}}</div>
+                                            <div>{{ country.name }}{{ country.city_name ? ', ' + country.country_name : '' }}</div>
                                         </div>
                                     </ng-template>
                                 </p-dropdown>
@@ -93,10 +104,11 @@
                             <div class="mb-3">
                                 <span class="p-input-icon-left w-100">
                                     <i class="pi pi-search"></i>
-                                    <p-dropdown id="category" styleClass="w-100" style="width: 100% !important;"
-                                                formControlName="category" [options]="categoryList" [filter]="true"
-                                                filterBy="label" [showClear]="true" optionLabel="label"
-                                                placeholder="Category"></p-dropdown>
+                                    <p-dropdown [filter]="true" [options]="categoryList" [showClear]="true"
+                                                filterBy="label" formControlName="category" id="category"
+                                                optionLabel="label" placeholder="Category"
+                                                style="width: 100% !important;"
+                                                styleClass="w-100"></p-dropdown>
                                 </span>
                             </div>
                         </div>
@@ -116,10 +128,11 @@
                             <div class="mb-3">
                                 <span class="p-input-icon-left w-100">
                                     <i class="pi pi-search"></i>
-                                    <p-dropdown id="job_type" styleClass="w-100" style="width: 100% !important;"
-                                                formControlName="job_type" [options]="jobTypeList" [filter]="true"
-                                                filterBy="name" [showClear]="true" optionLabel="name"
-                                                placeholder="Job Type"></p-dropdown>
+                                    <p-dropdown [filter]="true" [options]="jobTypeList" [showClear]="true"
+                                                filterBy="name" formControlName="job_type" id="job_type"
+                                                optionLabel="name" placeholder="Job Type"
+                                                style="width: 100% !important;"
+                                                styleClass="w-100"></p-dropdown>
                                 </span>
                             </div>
                         </div>
@@ -184,7 +197,7 @@
             </div>
         </form>
     </div>
-    <div class="col-9" *ngIf="!isDetailedPageClicked">
+    <div *ngIf="!isDetailedPageClicked" class="col-9">
         <div class="row">
             <div class="row">
                 <div class="col-6">
@@ -205,58 +218,59 @@
                                             <div class="col-10">
                                                 <div class="row">
                                                     <h5 class="uniprep-primary text-wrap mb-0">{{ job.title }}</h5>
-                                                    <small style="color: lightslategrey">{{ job.company.display_name }} ·
+                                                    <small style="color: lightslategrey">{{ job.company.display_name }}
+                                                        ·
                                                         {{ job.location.display_name }}</small>
                                                 </div>
                                             </div>
                                             <div class="col-2">
                                                 <div class="text-end">
-                                                    <img [src]="selectedFlag"  alt="Uniprep" class="rounded-image"/>
+                                                    <img [src]="selectedFlag" alt="Uniprep" class="rounded-image"/>
                                                 </div>
 
                                             </div>
                                         </div>
-<!--                                        <div class="flex-column lh-lg mb-2">-->
-<!--                                            <div class="row">-->
-<!--                                                <div class="col" *ngIf="job.contract_type">-->
-<!--                                                    <small><i class="fa-regular fa-briefcase"></i>&nbsp;-->
-<!--                                                        {{-->
-<!--                                                            job.contract_type ? job.contract_type : job.contract_time-->
-<!--                                                        }}</small>-->
-<!--                                                </div>-->
-<!--                                                <div class="col">-->
-<!--                                                    <small></small>-->
-<!--                                                </div>-->
-<!--                                            </div>-->
-<!--                                            <div class="row" *ngIf="job.salary_max || job.salary_min">-->
-<!--                                                <div class="col">-->
-<!--                                                    <small> Salary: {{ job.salary_min }} - {{ job.salary_max }}</small>-->
-<!--                                                </div>-->
-<!--                                            </div>-->
-<!--                                            <div class="row">-->
-<!--                                                <div class="col">-->
-<!--                                                    &lt;!&ndash; Optional content &ndash;&gt;-->
-<!--                                                </div>-->
-<!--                                            </div>-->
-<!--                                            <div class="row">-->
-<!--                                                <div class="col">-->
-<!--                                                </div>-->
-<!--                                                <div class="col text-end">-->
-<!--&lt;!&ndash;                                                    <small>&nbsp;&ndash;&gt;-->
-<!--&lt;!&ndash;                                                        {{ job.created | timeAgo }}</small>&ndash;&gt;-->
-<!--                                                </div>-->
-<!--                                            </div>-->
-<!--                                        </div>-->
+                                        <!--                                        <div class="flex-column lh-lg mb-2">-->
+                                        <!--                                            <div class="row">-->
+                                        <!--                                                <div class="col" *ngIf="job.contract_type">-->
+                                        <!--                                                    <small><i class="fa-regular fa-briefcase"></i>&nbsp;-->
+                                        <!--                                                        {{-->
+                                        <!--                                                            job.contract_type ? job.contract_type : job.contract_time-->
+                                        <!--                                                        }}</small>-->
+                                        <!--                                                </div>-->
+                                        <!--                                                <div class="col">-->
+                                        <!--                                                    <small></small>-->
+                                        <!--                                                </div>-->
+                                        <!--                                            </div>-->
+                                        <!--                                            <div class="row" *ngIf="job.salary_max || job.salary_min">-->
+                                        <!--                                                <div class="col">-->
+                                        <!--                                                    <small> Salary: {{ job.salary_min }} - {{ job.salary_max }}</small>-->
+                                        <!--                                                </div>-->
+                                        <!--                                            </div>-->
+                                        <!--                                            <div class="row">-->
+                                        <!--                                                <div class="col">-->
+                                        <!--                                                    &lt;!&ndash; Optional content &ndash;&gt;-->
+                                        <!--                                                </div>-->
+                                        <!--                                            </div>-->
+                                        <!--                                            <div class="row">-->
+                                        <!--                                                <div class="col">-->
+                                        <!--                                                </div>-->
+                                        <!--                                                <div class="col text-end">-->
+                                        <!--&lt;!&ndash;                                                    <small>&nbsp;&ndash;&gt;-->
+                                        <!--&lt;!&ndash;                                                        {{ job.created | timeAgo }}</small>&ndash;&gt;-->
+                                        <!--                                                </div>-->
+                                        <!--                                            </div>-->
+                                        <!--                                        </div>-->
                                     </div>
                                     <div class="button-container mt-auto justify-content-start gap-3">
-                                        <button class="text-small btn btn-primary btn-rounded px-3"
-                                                (click)="onClickDetails(job)">Details
+                                        <button (click)="onClickDetails(job)"
+                                                class="text-small btn btn-primary btn-rounded px-3">Details
                                         </button>
-                                        <button class="text-small btn btn-dark btn-rounded px-3"
-                                                (click)="onClickApply(job, 'shortlist')">Shortlist
+                                        <button (click)="onClickApply(job, 'shortlist')"
+                                                class="text-small btn btn-dark btn-rounded px-3">Shortlist
                                         </button>
-                                        <button class="text-small btn btn-secondary btn-rounded px-3"
-                                                (click)="onClickApply(job,'apply')">Apply
+                                        <button (click)="onClickApply(job,'apply')"
+                                                class="text-small btn btn-secondary btn-rounded px-3">Apply
                                         </button>
                                     </div>
                                 </div>
@@ -267,7 +281,7 @@
             </div>
         </div>
     </div>
-    <div class="col-9" *ngIf="isDetailedPageClicked">
+    <div *ngIf="isDetailedPageClicked" class="col-9">
         <div class="row p-2">
             <div class="card scholarshiplistcard h-100">
                 <div class="card-body">
@@ -275,7 +289,7 @@
                         <div class="row mt-2 bg-light  p-0 m-0">
                             <div class="col-md-12 text-start p-0 m-0">
                                 <div class="backIcon">
-                                    <span class="pi pi-angle-left" (click)="goBack()"></span>
+                                    <span (click)="goBack()" class="pi pi-angle-left"></span>
                                 </div>
 
                             </div>
@@ -290,11 +304,11 @@
                             </div>
                             <div class="col-3">
                                 <div class="d-flex align-items-end justify-content-end gap-2">
-                                    <button class="text-small btn btn-dark btn-rounded px-5"
-                                            (click)="onClickApply(singleData, 'shortlist')">Shortlist
+                                    <button (click)="onClickApply(singleData, 'shortlist')"
+                                            class="text-small btn btn-dark btn-rounded px-5">Shortlist
                                     </button>
-                                    <button class="text-small btn btn-danger btn-rounded px-5"
-                                            (click)="onClickApply(singleData,'apply')">Apply
+                                    <button (click)="onClickApply(singleData,'apply')"
+                                            class="text-small btn btn-danger btn-rounded px-5">Apply
                                     </button>
                                 </div>
                             </div>
@@ -302,7 +316,7 @@
                                 <h5><small>{{ singleData.contract_type }}</small></h5>
                             </div>
                             <div class="col-6 text-end">
-<!--                                <h5><small>{{ singleData.created | timeAgo }}</small></h5>-->
+                                <!--                                <h5><small>{{ singleData.created | timeAgo }}</small></h5>-->
                             </div>
                         </div>
                         <!-- <div class="d-flex align-items-center justify-content-between gap-1">
@@ -331,9 +345,10 @@
         </div>
     </div>
 </div>
-<div class="col-12" *ngIf="!isDetailedPageClicked">
+<div *ngIf="!isDetailedPageClicked" class="col-12">
     <div class="mt-5">
-        <p-paginator *ngIf="count > 0" [rows]="resultPerPage" [totalRecords]="count" [rowsPerPageOptions]="[10,20,50]"
-                     (onPageChange)="paginate($event)" dropdownAppendTo="body"></p-paginator>
+        <p-paginator (onPageChange)="paginate($event)" *ngIf="count > 0" [rowsPerPageOptions]="[10,20,50]"
+                     [rows]="resultPerPage"
+                     [totalRecords]="count" dropdownAppendTo="body"></p-paginator>
     </div>
 </div>
