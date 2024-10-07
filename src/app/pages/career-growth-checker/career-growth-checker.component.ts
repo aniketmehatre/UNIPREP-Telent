@@ -15,11 +15,8 @@ interface JobDetail {
   roles_resp: string; 
   skills: string;
   experience: string;
-  country_salary_min: string;
-  country_salary_max: string;
-  ind_salary_min: string;
-  ind_salary_max: string;
-  ind_salary: string;
+  salary: string;
+  india_salary: string;
   status: number;
   created_at: string;
   updated_at: string | null;
@@ -28,6 +25,18 @@ interface JobDetail {
   forCG: number;
   rolesArray?: string[];
   skillsArray?: string[];
+}
+
+interface Country {
+  id: number;
+  country: string;
+  alt_name: string | null;
+  country_code: string;
+  country_flag: string;
+  scholarship_visibility: number;
+  status: number;
+  created_at: string;
+  updated_at: string;
 }
 
 @Component({
@@ -41,13 +50,13 @@ export class CareerGrowthCheckerComponent implements OnInit {
   constructor(private careerGrowthService:CareerGrowthService,private router: Router,private fb: FormBuilder,) { }
 
   options: JobRole[] = [];
-  jobDetails: JobDetail[][] = []; 
+  jobDetails: JobDetail[] = []; 
   allOptions: JobRole[] = []; 
+  countries: Country[] = [];
   hasfilteredoptions: boolean = false; 
   filteredOptions: JobRole[] = []; 
   searchTerm: string = ''; 
   fromCountry: any;
-  countries: any[] = [];
   showSearch:boolean = true;
   showResult: boolean = false;
   roleDetails:any = [];
@@ -57,11 +66,6 @@ export class CareerGrowthCheckerComponent implements OnInit {
   currentrole: string | null = null;
   invalidClass: boolean = false;
   invalidClassCountry: boolean = false;
-
-currencySymbols: { [key: string]: string } = {
-  'United States': '$',
-  'India': '₹',
-};
 
 
   ngOnInit(): void {
@@ -80,7 +84,12 @@ currencySymbols: { [key: string]: string } = {
       this.filteredOptions = res;
     });
     this.careerGrowthService.getCountries().subscribe(data => {
-      this.countries = data.countries_list;
+      const desiredCountries = ['India', 'United States', 'United Kingdom', 'China', 'Norway', 'Germany', 'France', 'Singapore', 'Switzerland', 'United Arab Emirates', 'Spain', 'Ireland', 'Australia', 'New Zealand', 'Canada', 'Netherlands', 'Austria', 'Belgium', 'Czech Republic', 'Denmark', 'Estonia', 'Finland', 'Hungary', 'Italy', 'Latvia', 'Lithuania', 'Malta', 'Poland', 'Portugal', 'Sweden', 'Japan'];
+      const countriesList: Country[] = data.countries_list;
+
+      this.countries = countriesList.filter(country => 
+        desiredCountries.includes(country.country)
+      );
     });
   }
 
@@ -135,13 +144,12 @@ currencySymbols: { [key: string]: string } = {
           this.roleDetails = res.progressionNames;
           this.jobDetails = res.details;
           for (const group of this.jobDetails) {
-            for (const detail of group) {
-            const parsedRolesResp = detail.roles_resp.split(',').map(item => item.trim());
+            const detail: JobDetail = group;
+            const parsedRolesResp = group.roles_resp.split(',').map(item => item.trim());
             detail.rolesArray = parsedRolesResp; 
             const parsedSkills = detail.skills.split(',').map(item => item.trim());
             detail.skillsArray = parsedSkills; 
-            }
-        }
+          }
         }else {
           this.showSearch= true;
           this.showResult = false;

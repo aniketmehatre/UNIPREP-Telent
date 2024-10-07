@@ -58,12 +58,11 @@
             </div>
         </div>    
         <div class="job-details-container">
-            <div *ngFor="let group of jobDetails; let i = index" class="job-detail">
+            <div *ngFor="let detail of jobDetails; let i = index" class="job-detail">
                 <div style="color: #f0780e; margin-top: 20px; font-weight: bold; font-size: 18px;">
                     Career Progression {{ i + 1 }}
                 </div>
                 <div style="background-color: #f0f0f0; padding: 15px; margin-top: 10px; border-radius: 15px;">
-                    <div *ngFor="let detail of group">
                         <span style="color: #3f4c83; font-weight: bold; display: block; margin-bottom: 10px; text-align: left; font-size: 18px;">
                             {{ detail.jobrole }}
                         </span>
@@ -89,7 +88,7 @@
                                         </ng-container>
                                     </ul>
                                 </span>
-                            </div>
+                            </div> 
                             <div class="col">
                                 <strong style="color: #4552a3;">Required Years of Experience</strong><br />
                                 <span style="display: block; margin-bottom: 5px;">
@@ -98,22 +97,21 @@
                                     </ng-container>
                                 </span>
                             </div>
-                            <div class="col">
+                             <div class="col">
                                 <strong style="color: #4552a3;">Average Salary in {{ detail.country }}</strong><br />
                                 <span style="display: block; margin-bottom: 5px;">
                                     <ng-container>
-                                        {{ currencySymbols[detail.country] }} {{ detail.country_salary_min }} - {{ currencySymbols[detail.country] }} {{ detail.country_salary_max }} per year
+                                        {{ detail.salary }} per year
                                     </ng-container>
                                 </span>
                                 <strong style="color: #4552a3;">Average Salary in India</strong><br />
                                 <span style="display: block; margin-bottom: 5px;">
                                     <ng-container>
-                                        {{ currencySymbols['India'] }} {{ detail.ind_salary_min }} - {{ currencySymbols['India'] }} {{ detail.ind_salary_max }} per year
+                                       {{ detail.india_salary }} per year
                                     </ng-container>
                                 </span>
                             </div>
-                        </div>
-                    </div>
+                        </div> 
                 </div>
                 <div *ngIf="i < jobDetails.length - 1" class="arrow-container">
                     <i class="fas fa-arrow-down arrow-icon"></i>

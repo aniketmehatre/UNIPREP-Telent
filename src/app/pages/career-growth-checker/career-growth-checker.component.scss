@@ -126,33 +126,33 @@
 }
 
 .role-detail.detail-1::after {
-    border-left-color: #8a95dd; /* Color of detail-1 */
+    border-left-color: #8a95dd; 
 }
 
 .role-detail.detail-2::after {
-    border-left-color: #6975bb; /* Color of detail-2 */
+    border-left-color: #6975bb;
 }
 
 .role-detail.detail-3::after {
-    border-left-color: #4552a3; /* Color of detail-3 */
+    border-left-color: #4552a3;
 }
 
 .role-detail.detail-4::after {
-    border-left-color: #3f4c83; /* Color of detail-4 */
+    border-left-color: #3f4c83; 
 }
 
 @media (max-width: 1200px) {
     .form-group {
-        flex-direction: column; /* Stack items vertically */
-        margin-left: 0; /* Reset margin if necessary */
+        flex-direction: column;
+        margin-left: 0; 
     }
 
     .position-relative {
-        margin-bottom: 15px; /* Add space between inputs */
+        margin-bottom: 15px;
     }
 
     button {
-        width: 100%; /* Make the button full width on smaller screens */
+        width: 100%; 
     }
 }
 
@@ -182,19 +182,19 @@
     }
 
     .role-detail.detail-1::after {
-        border-left-color: #8a95dd; /* Color of detail-1 */
+        border-left-color: #8a95dd; 
     }
 
     .role-detail.detail-2::after {
-        border-left-color: #6975bb; /* Color of detail-2 */
+        border-left-color: #6975bb; 
     }
 
     .role-detail.detail-3::after {
-        border-left-color: #4552a3; /* Color of detail-3 */
+        border-left-color: #4552a3; 
     }
 
     .role-detail.detail-4::after {
-        border-left-color: #3f4c83; /* Color of detail-4 */
+        border-left-color: #3f4c83;
     }  
 
 }
