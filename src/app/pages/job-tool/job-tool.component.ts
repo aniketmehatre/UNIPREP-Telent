@@ -68,7 +68,11 @@ export class JobToolComponent implements OnInit {
     } else if (this.currentRoute.includes("personality")) {
       this.title = "Personality Test";
       this.hideTitleForPreviewPage = false;
-    } else {
+    } else if (this.currentRoute.includes("career-growth-checker")) {
+      this.title = "Career Growth Checker";
+      this.hideTitleForPreviewPage = false;
+    } 
+    else {
       this.title = "Employer Test";
       this.hideTitleForPreviewPage = false;
     }
