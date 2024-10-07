@@ -50,10 +50,10 @@ export class QuizmenuComponent implements OnInit {
   skillMasteryCirtificates: any[] = [];
   countrydropdownlist: any[] = [];
   skillsmasteryId: any = null;
-  ehitlabelIsShow:boolean=true;
-  imagewhitlabeldomainname:any
-  orgnamewhitlabel:any;
-  orglogowhitelabel:any;
+  ehitlabelIsShow: boolean = true;
+  imagewhitlabeldomainname: any
+  orgnamewhitlabel: any;
+  orglogowhitelabel: any;
   constructor(private moduleListService: ModuleServiceService, private router: Router, private dataService: DataService,
     private locationService: LocationService, private authService: AuthService, private pageFacade: PageFacadeService) { }
 
@@ -64,12 +64,12 @@ export class QuizmenuComponent implements OnInit {
     this.locationService.getOrgName().subscribe(orgname => {
       this.orgnamewhitlabel = orgname;
     });
-  this.imagewhitlabeldomainname=window.location.hostname;
-  if (this.imagewhitlabeldomainname === "dev-student.uniprep.ai" || this.imagewhitlabeldomainname === "uniprep.ai" || this.imagewhitlabeldomainname === "localhost") {
-    this.ehitlabelIsShow=true;
-  }else{
-    this.ehitlabelIsShow=false;
-  }
+    this.imagewhitlabeldomainname = window.location.hostname;
+    if (this.imagewhitlabeldomainname === "dev-student.uniprep.ai" || this.imagewhitlabeldomainname === "uniprep.ai" || this.imagewhitlabeldomainname === "localhost") {
+      this.ehitlabelIsShow = true;
+    } else {
+      this.ehitlabelIsShow = false;
+    }
     this.dataService.countryNameSource.subscribe((data) => {
       this.countryName = data;
       this.countryId = Number(localStorage.getItem('countryId'));
@@ -136,8 +136,8 @@ export class QuizmenuComponent implements OnInit {
   // }
 
   startModululeSkillmastery() {
-    if(this.planExpired){
-      this.restrict=true;
+    if (this.planExpired) {
+      this.restrict = true;
       return;
     }
     this.currentModuleSlug = "skill-mastery"
@@ -162,8 +162,8 @@ export class QuizmenuComponent implements OnInit {
   //   })
   // }
   startQuizUniversity() {
-    if(this.planExpired){
-      this.restrict=true;
+    if (this.planExpired) {
+      this.restrict = true;
       return;
     }
     localStorage.setItem("modalcountryid", this.unversitycontrydropdownid)
@@ -205,8 +205,8 @@ export class QuizmenuComponent implements OnInit {
     this.startQuiz(eve)
   }
   startQuiz(moduleid: any) {
-    if(this.planExpired){
-      this.restrict=true;
+    if (this.planExpired) {
+      this.restrict = true;
       return;
     }
     if (moduleid == 1) {
@@ -265,8 +265,8 @@ export class QuizmenuComponent implements OnInit {
     }
   }
   StartLearningHubQuiz() {
-    if(this.planExpired){
-      this.restrict=true;
+    if (this.planExpired) {
+      this.restrict = true;
       return;
     }
     this.currentModuleSlug = "learning-hub"
@@ -316,8 +316,8 @@ export class QuizmenuComponent implements OnInit {
     }
   }
   StartLanguageHubQuiz() {
-    if(this.planExpired){
-      this.restrict=true;
+    if (this.planExpired) {
+      this.restrict = true;
       return;
     }
     this.currentModuleSlug = "language-hub"
