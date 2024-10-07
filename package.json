@@ -70,7 +70,9 @@
     "tslib": "^2.4.1",
     "web-push": "^3.6.7",
     "word-diff": "^1.0.1",
-    "zone.js": "~0.11.4"
+    "zone.js": "~0.11.4",
+    "chart.js": "^2.9.3",
+    "ng2-charts": "^2.3.0"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "^14.2.5",
