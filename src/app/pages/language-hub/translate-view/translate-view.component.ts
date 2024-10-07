@@ -1,8 +1,11 @@
-import {Component, OnInit} from '@angular/core';
-import {LanguageHubDataService} from "../language-hub-data.service";
+import { Component, OnInit } from '@angular/core';
+import { LanguageHubDataService } from "../language-hub-data.service";
 import { Location } from "@angular/common";
-import {TranslateViewService} from "./translate-view.service";
-import {transliterate as tr} from 'transliteration'
+import { TranslateViewService } from "./translate-view.service";
+import { transliterate as tr } from 'transliteration'
+import { ActivatedRoute } from '@angular/router';
+import { LanguageHubService } from '../language-hub.service';
+import { MessageService } from 'primeng/api';
 @Component({
     selector: 'uni-translate-view',
     templateUrl: './translate-view.component.html',
@@ -13,10 +16,16 @@ export class TranslateViewComponent implements OnInit {
     selectedLanguage: any
     selectedSubmoduleName: any = "";
     selectedLanguageName: any = "";
+    questionId: string | null = '';
 
-
-    constructor(private translateViewService: TranslateViewService, private lhs: LanguageHubDataService,
-                private _location: Location) {
+    constructor(
+        private translateViewService: TranslateViewService,
+        private lhs: LanguageHubDataService,
+        private _location: Location,
+        private route: ActivatedRoute,
+        private languageHubService: LanguageHubService,
+        private toast: MessageService
+    ) {
         this.lhs.dataLanguageCode$.subscribe((data) => {
             this.selectedLanguage = data
         });
@@ -29,17 +38,23 @@ export class TranslateViewComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        const value = localStorage.getItem('languageHubData');
-        if (value !== null) {
-            try {
-                this.text1 = JSON.parse(value).english
-                this.text3 = JSON.parse(value).englishanswer
-                this.translateText(this.text1, this.text3)
-            } catch (e) {
-                console.error("Failed to parse JSON:", e);
+        this.questionId = this.route.snapshot.paramMap.get("id");
+        if (this.questionId) {
+            this.getQuestionsList(this.questionId);
+        }
+        else {
+            const value = localStorage.getItem('languageHubData');
+            if (value !== null) {
+                try {
+                    this.text1 = JSON.parse(value).english
+                    this.text3 = JSON.parse(value).englishanswer
+                    this.translateText(this.text1, this.text3)
+                } catch (e) {
+                    console.error("Failed to parse JSON:", e);
+                }
+            } else {
+                console.log("No data found for 'languageHubData' in localStorage.");
             }
-        } else {
-            console.log("No data found for 'languageHubData' in localStorage.");
         }
     }
 
@@ -125,5 +140,23 @@ export class TranslateViewComponent implements OnInit {
 
     translate(text1: any, text2: any) {
         this.translateText(text1, text2)
+    }
+    getQuestionsList(id: string) {
+        this.languageHubService.getQuestion({ question_id: id }).subscribe((_res:any) => {
+            const value = _res.questions[0];
+            if (value !== null) {
+                try {
+                    this.text1 = value.english
+                    this.text3 = value.englishanswer
+                    this.translateText(this.text1, this.text3)
+                } catch (e) {
+                    console.error("Failed to parse JSON:", e);
+                }
+            }
+        }, (error) => {
+            this._location.back();
+            this.toast.add({ severity: 'info', summary: 'Info', detail: 'No Data Found' });
+            console.error('Error:', error);
+        });
     }
 }
