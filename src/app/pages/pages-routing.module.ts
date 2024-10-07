@@ -211,7 +211,11 @@ const routes: Routes = [
             {
                 path: 'career-growth-checker',
                 component: CareerGrowthCheckerComponent
-            }
+            },
+            {
+                path: 'unilearn',
+                loadChildren: () => import('./unilearn/unilearn.module').then(m => m.UniLearnModule)
+            },
         ]
     }
 ];
