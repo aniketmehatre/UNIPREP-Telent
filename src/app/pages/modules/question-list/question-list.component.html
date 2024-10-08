@@ -1,7 +1,7 @@
 <div class="card readingcard">
-	<div class="card-body text-center pt-0 h-100">
+	<div class="card-header py-0 border-0 bg-transparent">
 		<div class="row justify-content-center">
-			<div class="col-md-1 col-1 text-start">
+			<div class="col-md-3 col-3 text-start">
 				<p-button (click)="goBack()" icon="pi pi-arrow-left" styleClass="p-button-rounded p-button-text text-dark"></p-button>
 			</div>
 			<!-- <div class="col-md-9 col-9 text-center">
@@ -9,7 +9,7 @@
 					<span class="desktop">{{ currentModuleName }} -</span> {{ moduleName }}<i class="questiontooltip fa-solid fa-circle-question"></i>
 				</h5>
 			</div> -->
-			<div class="col-md-9 col-9 text-center">
+			<div class="col-md-6 col-6 text-center">
 				<div class="select-title text-nowrap d-flex justify-content-between align-items-center" style="width: 100%;">
 					<div>
 						<h5 class="select-title mb-1" tooltipPosition="top" pTooltip="{{ tooltip }}">
@@ -21,8 +21,8 @@
 					</div>
 				</div>
 			</div>
-			<div class="col-md-2 mt-2 text-end desktop justify-content-end d-none d-md-flex" *ngIf="currentModuleId == 8||currentModuleId == 10 || currentModuleId != 14">
-				<button role="button" style="background-color: black; cursor: pointer" (click)="startQuiz()" class="btn w-75 m-0 px-2 py-2 homecardbtn homecardbtnquiz" [disabled]="quizpercentage >= 90">
+			<div class="col-md-3 mt-2 text-end desktop justify-content-end d-none d-md-flex" >
+				<button role="button" style="background-color: black; cursor: pointer" *ngIf="currentModuleId == 8||currentModuleId == 10 || currentModuleId != 14" (click)="startQuiz()" class="btn w-75 m-0 px-2 py-2 homecardbtn homecardbtnquiz" [disabled]="quizpercentage >= 90">
 					<i class="fa-regular h3 fa-lightbulb-on mb-1"></i>
 					<p class="mb-1">Start Quiz</p>
 					<p class="mb-1">{{ quizpercentage | number : "1.0-0" + "%" }}</p>
@@ -35,6 +35,9 @@
 			</div>
 			<!-- <div class="col-md-1 col-1">&nbsp;</div> -->
 		</div>
+	</div>
+	<div class="card-body text-center flex-fill overflow-y-auto">
+		
 		<div *ngIf="isSkeletonVisible">
 			<div class="row">
 				<div *ngFor="let index of loopRange" class="col-xxl-3 col-xl-3 col-lg-3 col-md-4 col-sm-6 col-xs-12 col-12">
@@ -101,9 +104,9 @@
 			</div>
 		</div>
 	</div>
-</div>
-<div class="card" style="background-color: #fff; border-radius: 0px 0px 15px 15px !important">
-	<p-paginator [rows]="10" [totalRecords]="totalQuestionCount" (onPageChange)="paginatepost($event)" [rowsPerPageOptions]="[25, 50, 100, 200]" dropdownAppendTo="body"></p-paginator>
+	<div class="card-footer py-0 border-0 bg-transparent">
+		<p-paginator [rows]="10" [totalRecords]="totalQuestionCount" (onPageChange)="paginatepost($event)" [rowsPerPageOptions]="[25, 50, 100, 200]" dropdownAppendTo="body"></p-paginator>
+	</div>
 </div>
 <p-dialog #dialogContent [(visible)]="isQuestionAnswerVisible" [draggable]="false" [modal]="true" class="questionmodal" header="Header" [maximizable]="true" (onShow)="onShowModal($event)">
 	<ng-template pTemplate="header">
