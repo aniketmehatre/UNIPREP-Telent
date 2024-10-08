@@ -75,6 +75,13 @@ export class EntreprenuerquizComponent implements OnInit {
     this.locationService.getOrgName().subscribe(orgname => {
       this.orgnamewhitlabel = orgname;
     });
+    if(localStorage.getItem('conditionrevieworquiz')=='1'){
+      this.openReviewPopup();
+    }else{
+    // this.quizmoduleredirectcountryid = Number(localStorage.getItem('modalcountryid'));
+    this.init();
+    this.checkplanExpire();
+    }
     this.imagewhitlabeldomainname = window.location.hostname;
     if (this.imagewhitlabeldomainname === "dev-student.uniprep.ai" || this.imagewhitlabeldomainname === "uniprep.ai" || this.imagewhitlabeldomainname === "localhost") {
       this.ehitlabelIsShow = true;
@@ -82,8 +89,8 @@ export class EntreprenuerquizComponent implements OnInit {
       this.ehitlabelIsShow = false;
     }
     // this.quizmoduleredirectcountryid = Number(localStorage.getItem('modalcountryid'));
-    this.init();
-    this.checkplanExpire();
+    // this.init();
+    // this.checkplanExpire();
   }
   init() {
     let cName = "";
