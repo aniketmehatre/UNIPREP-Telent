@@ -77,32 +77,12 @@ const routes: Routes = [{
             path: 'academic-tools/:id', component: AcademicToolsStreamComponent,
         },
         {
-            path: 'academic-tools/:id/quiz/:submoduleId', component: AcademicToolsQuizComponent,
+            path: 'academic-tools/:id/quiz/:submoduleId/:categoryId', component: AcademicToolsQuizComponent,
         }
     ]
-},
-{
-    path: ':module_name/learninghubquiz', component: LearninghubquizComponent,
-},
-{
-    path: ':module_name/languagehubquiz', component: LanguagetypequizComponent,
-},
-{
-    path: 'skill-mastery', component: ListSubModulesComponent,
-},
-{
-    path: ':module_name/careertoolquiz', component: LearninghubquizComponent,
-},
-{
-    path: 'academic-tools', component: AcademicToolsComponent,
-},
-{
-    path: 'academic-tools/:id', component: AcademicToolsStreamComponent,
-},
-{
-    path: 'academic-tools/:id/quiz/:submoduleId/:categoryId', component: AcademicToolsQuizComponent,
-},
-]
+
+
+}];
 
 @NgModule({
     imports: [RouterModule.forChild(routes)],

@@ -18,9 +18,14 @@ export class TranslateViewComponent implements OnInit {
     selectedLanguageName: any = "";
     questionId: string | null = '';
 
-    constructor(private translateViewService: TranslateViewService, private lhs: LanguageHubDataService,
-        private _location: Location, private route: ActivatedRoute, private languageHubService: LanguageHubService,
-        private toast: MessageService) {
+    constructor(
+        private translateViewService: TranslateViewService,
+        private lhs: LanguageHubDataService,
+        private _location: Location,
+        private route: ActivatedRoute,
+        private languageHubService: LanguageHubService,
+        private toast: MessageService
+    ) {
         this.lhs.dataLanguageCode$.subscribe((data) => {
             this.selectedLanguage = data
         });
@@ -133,8 +138,11 @@ export class TranslateViewComponent implements OnInit {
         }
     }
 
+    translate(text1: any, text2: any) {
+        this.translateText(text1, text2)
+    }
     getQuestionsList(id: string) {
-        this.languageHubService.getQuestion({ question_id: id }).subscribe((_res) => {
+        this.languageHubService.getQuestion({ question_id: id }).subscribe((_res:any) => {
             const value = _res.questions[0];
             if (value !== null) {
                 try {
@@ -150,9 +158,5 @@ export class TranslateViewComponent implements OnInit {
             this.toast.add({ severity: 'info', summary: 'Info', detail: 'No Data Found' });
             console.error('Error:', error);
         });
-    }
-
-    translate(text1: any, text2: any) {
-        this.translateText(text1, text2)
     }
 }

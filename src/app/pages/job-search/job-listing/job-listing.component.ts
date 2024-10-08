@@ -81,6 +81,7 @@ export class JobListingComponent implements OnInit {
             what_and: new FormControl(''),
         });
         this.filterForm = new FormGroup({
+            what_and: new FormControl(''),
             countryCode: new FormControl('', Validators.required),
             category: new FormControl(''),
             job_type: new FormControl(''),
@@ -95,6 +96,7 @@ export class JobListingComponent implements OnInit {
                     what_and: data.what_and,
                 })
                 this.filterForm.setValue({
+                    what_and: data.what_and,
                     countryCode: data.countryCode,
                     category: '',
                     job_type: '',
@@ -113,6 +115,7 @@ export class JobListingComponent implements OnInit {
             })
             this.whatAnd = filterData.what_and
             this.filterForm.setValue({
+                what_and: filterData.what_and,
                 countryCode: filterData.countryCode,
                 category: '',
                 job_type: '',
@@ -165,6 +168,7 @@ export class JobListingComponent implements OnInit {
 
     onSubmit() {
         this.filterForm.setValue({
+            what_and: this.fG.value.what_and,
             countryCode: this.fG.value.countryCode,
             category: '',
             job_type: '',
@@ -220,12 +224,13 @@ export class JobListingComponent implements OnInit {
 
     onFilterSubmit() {
         if (this.filterForm.valid) {
+            this.saveFilterData(this.filterForm.value)
             let req = {
                 location: this.filterForm.value.countryCode,
                 page: this.page,
                 result_per_page: this.resultPerPage,
-                what_and: this.fG.value.what_and,
-                where: this.fG.value.countryCode.city_name,
+                what_and: this.filterForm.value.what_and,
+                where: this.filterForm.value.countryCode.city_name,
                 full_time: this.filterForm.value.job_type?.code == 'full_time' ? '1' : '',
                 part_time: this.filterForm.value.job_type?.code == 'part_time' ? '1' : '',
                 contract: this.filterForm.value.job_type?.code == 'contract' ? '1' : '',

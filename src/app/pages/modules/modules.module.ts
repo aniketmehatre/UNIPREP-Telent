@@ -31,9 +31,9 @@ import { AcademicToolsQuizComponent } from './academic-tools-quiz/academic-tools
 import { K12ClassComponent } from './k12-class/k12-class.component';
 import { K12QuizComponent } from './k12-quiz/k12-quiz.component';
 import { ReactiveFormsModule } from "@angular/forms";
-
-
 import { ChartsModule } from 'ng2-charts';
+import { DropdownModule } from 'primeng/dropdown';
+
 @NgModule({
   declarations: [
     ModulesComponent,
@@ -68,6 +68,9 @@ import { ChartsModule } from 'ng2-charts';
     SkeletonModule,
     AccordionModule,
     InputTextModule,
+    ReactiveFormsModule,
+    DialogModule,
+    DropdownModule,
     ChartsModule
   ]
 })

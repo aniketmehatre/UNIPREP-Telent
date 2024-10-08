@@ -45,115 +45,119 @@ import { InputTextareaModule } from "primeng/inputtextarea";
 import { TooltipModule } from "primeng/tooltip";
 import { PrivacypolicyComponent } from "./footersection/privacypolicy/privacypolicy.component";
 import { PaginatorModule } from "primeng/paginator";
-import {ScrollTrackerDirective} from "./header-search/scroll-tracker.directive";
-import { RefundpolicyComponent } from './footersection/refundpolicy/refundpolicy.component';
-import { CancellationpolicyComponent } from './footersection/cancellationpolicy/cancellationpolicy.component';
+import { ScrollTrackerDirective } from "./header-search/scroll-tracker.directive";
+import { RefundpolicyComponent } from "./footersection/refundpolicy/refundpolicy.component";
+import { CancellationpolicyComponent } from "./footersection/cancellationpolicy/cancellationpolicy.component";
 import { SupportComponent } from "./support/support.component";
-import { InvestorListComponent } from './investor-list/investor-list.component';
-import { CompanyListComponent } from './company-list/company-list.component';
+import { InvestorListComponent } from "./investor-list/investor-list.component";
+import { CompanyListComponent } from "./company-list/company-list.component";
 import { ScholarshipListComponent } from "./scholarship-list/scholarship-list.component";
-import { UserGuideComponent } from './user-guide/user-guide.component';
+import { UserGuideComponent } from "./user-guide/user-guide.component";
 import { DividerModule } from "primeng/divider";
-import { CompanyListGuidlinesComponent } from './company-list-guidlines/company-list-guidlines.component';
-import { ScholarshipListGuidlinesComponent } from './scholarship-list-guidlines/scholarship-list-guidlines.component';
-import { InvestorListGuidlinesComponent } from './investor-list-guidlines/investor-list-guidlines.component';
-import { RecommendationsComponent } from './recommendations/recommendations.component';
-import { StepsModule } from 'primeng/steps';
+import { CompanyListGuidlinesComponent } from "./company-list-guidlines/company-list-guidlines.component";
+import { ScholarshipListGuidlinesComponent } from "./scholarship-list-guidlines/scholarship-list-guidlines.component";
+import { InvestorListGuidlinesComponent } from "./investor-list-guidlines/investor-list-guidlines.component";
+import { RecommendationsComponent } from "./recommendations/recommendations.component";
+import { StepsModule } from "primeng/steps";
 import { CheckboxModule } from "primeng/checkbox";
-import { RadioButtonModule } from 'primeng/radiobutton';
-import { PitchDeskComponent } from './pitch-desk/pitch-desk.component';
-import {NgxExtendedPdfViewerModule} from "ngx-extended-pdf-viewer";
-import { ExportCreditComponent } from './export-credit/export-credit.component';
-import { MycertificateComponent } from './mycertificate/mycertificate.component';
-import {PdfViewerModule} from "ng2-pdf-viewer";
-import { CareerPlannerComponent } from './career-planner/career-planner.component';
-import { CertificatesComponent } from './certificates/certificates.component';
+import { RadioButtonModule } from "primeng/radiobutton";
+import { PitchDeskComponent } from "./pitch-desk/pitch-desk.component";
+import { NgxExtendedPdfViewerModule } from "ngx-extended-pdf-viewer";
+import { ExportCreditComponent } from "./export-credit/export-credit.component";
+import { MycertificateComponent } from "./mycertificate/mycertificate.component";
+import { PdfViewerModule } from "ng2-pdf-viewer";
+import { CareerPlannerComponent } from "./career-planner/career-planner.component";
+import { CertificatesComponent } from "./certificates/certificates.component";
 import { CourseListComponent } from "./course-list/course-list.component";
 import { NgxStripeModule } from "ngx-stripe";
-import { InterviewJobrolesComponent } from './interview-jobroles/interview-jobroles.component';
-import {AnimateModule} from 'primeng/animate';
-import { InterviewQuestionsComponent } from './interview-questions/interview-questions.component';
-import { CareerGrowthCheckerComponent } from './career-growth-checker/career-growth-checker.component';
+import { FounderstoolComponent } from "./founderstool/founderstool.component";
+import { FoundersacademyComponent } from "./founderstool/foundersacademy/foundersacademy.component";
+import { FounderstoollistComponent } from "./founderstool/founderstoollist/founderstoollist.component";
+import { InvestorpitchtrainingComponent } from "./founderstool/investorpitchtraining/investorpitchtraining.component";
+import { StartupglossaryComponent } from "./founderstool/startupglossary/startupglossary.component";
+import { InterviewJobrolesComponent } from "./interview-jobroles/interview-jobroles.component";
+import { AnimateModule } from "primeng/animate";
+import { InterviewQuestionsComponent } from "./interview-questions/interview-questions.component";
+import { CareerGrowthCheckerComponent } from "./career-growth-checker/career-growth-checker.component";
 // import { JobToolComponent } from './job-tool/job-tool.component';
 @NgModule({
-    declarations: [
-        PagesComponent,
-        ButtonComponent,
-        CardsComponent,
-        HelpSupportComponent,
-        UserManagementComponent,
-        EditprofileComponent,
-        FooterStatusBoxComponent,
-        HeaderSearchComponent,
-        QuestionCreditComponent,
-        ChatComponent,
-        GuidelineComponent,
-        PrivacypolicyComponent,
-        ScrollTrackerDirective,
-        RefundpolicyComponent,
-        SupportComponent,
-        CancellationpolicyComponent,
-        InvestorListComponent,
-        CompanyListComponent,
-        ScholarshipListComponent,
-        UserGuideComponent,
-        CompanyListGuidlinesComponent,
-        ScholarshipListGuidlinesComponent,
-        InvestorListGuidlinesComponent,
-        RecommendationsComponent,
-        PitchDeskComponent,
-        ExportCreditComponent,
-        MycertificateComponent,
-        CareerPlannerComponent,
-        CertificatesComponent,
-        CourseListComponent,
-        InterviewJobrolesComponent,
-        InterviewQuestionsComponent,
-        CareerGrowthCheckerComponent,
-        // JobToolComponent,
-        
-    ],
+  declarations: [
+    PagesComponent,
+    ButtonComponent,
+    CardsComponent,
+    HelpSupportComponent,
+    UserManagementComponent,
+    EditprofileComponent,
+    FooterStatusBoxComponent,
+    HeaderSearchComponent,
+    QuestionCreditComponent,
+    ChatComponent,
+    GuidelineComponent,
+    PrivacypolicyComponent,
+    ScrollTrackerDirective,
+    RefundpolicyComponent,
+    SupportComponent,
+    CancellationpolicyComponent,
+    InvestorListComponent,
+    CompanyListComponent,
+    ScholarshipListComponent,
+    UserGuideComponent,
+    CompanyListGuidlinesComponent,
+    ScholarshipListGuidlinesComponent,
+    InvestorListGuidlinesComponent,
+    RecommendationsComponent,
+    PitchDeskComponent,
+    ExportCreditComponent,
+    MycertificateComponent,
+    CareerPlannerComponent,
+    CertificatesComponent,
+    CourseListComponent,
+    InterviewJobrolesComponent,
+    InterviewQuestionsComponent,
+    CareerGrowthCheckerComponent,
+    // JobToolComponent,
+  ],
   exports: [FooterStatusBoxComponent, HeaderSearchComponent],
-    imports: [
-        CommonModule,
-        PagesRoutingModule,
-        ThemeModule,
-        StoreModule.forFeature(pagesFeatureKey, pagesReducer),
-        StoreModule.forFeature(appFeatureKey, ModuleStoreReducer),
-        EffectsModule.forFeature([ModuleStoreEffects]),
-        TableModule,
-        ButtonModule,
-        InputTextModule,
-        RippleModule,
-        ReactiveFormsModule,
-        DropdownModule,
-        CalendarModule,
-        TabViewModule,
-        MultiSelectModule,
-        CarouselModule,
-        DialogModule,
-        PaginatorModule,
-        BreadcrumbModule,
-        FormsModule,
-        InputSwitchModule,
-        ProgressBarModule,
-        ConfirmDialogModule,
-        CardModule,
-        EditorModule,
-        ConfirmPopupModule,
-        ConfirmDialogModule,
-        AccordionModule,
-        OverlayPanelModule,
-        InputTextareaModule,
-        TooltipModule,
-        DividerModule,
-        CheckboxModule,
-        StepsModule,
-        RadioButtonModule,
-        NgxExtendedPdfViewerModule,
-        PdfViewerModule,
-        AnimateModule
-    ],
+  imports: [
+    CommonModule,
+    PagesRoutingModule,
+    ThemeModule,
+    StoreModule.forFeature(pagesFeatureKey, pagesReducer),
+    StoreModule.forFeature(appFeatureKey, ModuleStoreReducer),
+    EffectsModule.forFeature([ModuleStoreEffects]),
+    TableModule,
+    ButtonModule,
+    InputTextModule,
+    RippleModule,
+    ReactiveFormsModule,
+    DropdownModule,
+    CalendarModule,
+    TabViewModule,
+    MultiSelectModule,
+    CarouselModule,
+    DialogModule,
+    PaginatorModule,
+    BreadcrumbModule,
+    FormsModule,
+    InputSwitchModule,
+    ProgressBarModule,
+    ConfirmDialogModule,
+    CardModule,
+    EditorModule,
+    ConfirmPopupModule,
+    ConfirmDialogModule,
+    AccordionModule,
+    OverlayPanelModule,
+    InputTextareaModule,
+    TooltipModule,
+    DividerModule,
+    CheckboxModule,
+    StepsModule,
+    RadioButtonModule,
+    NgxExtendedPdfViewerModule,
+    PdfViewerModule,
+    AnimateModule,
+  ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class PagesModule {}

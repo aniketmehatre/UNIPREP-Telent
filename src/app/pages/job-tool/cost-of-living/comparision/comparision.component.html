@@ -36,8 +36,8 @@
                     <div class="col-md-7 col-lg-8">
                         <h5>{{pricesList.category_name}}</h5>
                     </div>
-                    
-                     
+
+
                 </div>
 
             </div>
@@ -70,7 +70,7 @@
                                         *ngIf="sourceCountryPrices.country_name==targetCountryPrices.country_name">{{sourceCountryPrices.city_name}},
                                     </span>{{sourceCountryPrices.country_name}}</div> -->
                                 <div *ngIf="i<2" class="flagIconDiv">
-                                    <img [src]="sourceFlag" class="itemflag" />
+                                    <img [src]="sourceFlag" class="itemflag" loading="lazy" />
                                 </div>
                                 <div class="smallText" *ngIf="sourceCountryPrices.city_name">
                                     {{sourceCountryPrices.city_name}}
@@ -86,12 +86,12 @@
                                     *ngIf="price.from.currency_code!='INR'||price.to.currency_code!='INR'">INR
                                     {{price.from.inr | number: '1.2-2'}}</div>
                             </div>
-                            <div >
+                            <div>
                                 <!-- <div class="smallText"><span
                                         *ngIf="sourceCountryPrices.country_name==targetCountryPrices.country_name">{{targetCountryPrices.city_name}},
                                     </span>{{targetCountryPrices.country_name}}</div> -->
                                 <div *ngIf="i<2" class="flagIconDiv">
-                                    <img [src]="targetFlag" class="itemflag" />
+                                    <img [src]="targetFlag" class="itemflag" loading="lazy" />
                                 </div>
                                 <div class="smallText" *ngIf="targetCountryPrices.city_name">
                                     {{targetCountryPrices.city_name}}
@@ -108,7 +108,7 @@
                                     *ngIf="price.from.currency_code!='INR'||price.to.currency_code!='INR'">INR
                                     {{price.to.inr | number: '1.2-2'}}</div>
                             </div>
-                            <div  class="graphs">
+                            <div class="graphs">
                                 <div class="graph-container">
                                     <div
                                         [ngStyle]="{'height.%': calculatePercentage(price.from.usd.avg,price.to.usd.avg,'source'),'background-color':'green'}">

@@ -238,6 +238,21 @@ selctedQuizTiny {
 	text-align: left;
 	position: relative; /* Ensure the container is positioned relative */
 }
+// .p-input-icon-left>i, .p-input-icon-right>i, .p-input-icon-right>i:not(.filterDialog) .p-input-icon-left>i:not(.filterDialog),.alignment {
+//     position: absolute;
+//     top: 50%;
+//     margin-top: -0.1.2rem;
+// }
+// .noalignment {
+//     position: absolute;  
+//     top: 50%;         
+//     margin-top: -0.01rem;    
+// }
+.p-input-icon-left>i, .p-input-icon-right>i, .noalignment{
+    position: absolute;
+    top: 50%;
+    margin-top: -0.66rem;
+}
 
 .input-container {
 	position: relative;
@@ -267,8 +282,8 @@ input[type="text"] {
 .dropdown-container {
 	position: absolute;
 	top: 100%;
-	left: -45%;
-	width: 450px;
+	left: -3%;
+	width: 380px;
 	max-height: 300px;
 	overflow-y: auto;
 	border-radius: 8px;

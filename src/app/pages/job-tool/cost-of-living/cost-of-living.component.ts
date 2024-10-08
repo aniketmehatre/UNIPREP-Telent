@@ -2,12 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { CostOfLivingService } from './cost-of-living.service';
 import { City, CostOfLiving, Price } from 'src/app/@Models/cost-of-living';
-import { DropdownFilterOptions } from 'primeng/dropdown';
-import { debounceTime } from 'rxjs';
-import { LocationService } from "../../../location.service";
 import { Router } from "@angular/router";
 import { AuthService } from "../../../Auth/auth.service";
 import { MessageService } from 'primeng/api';
+import { LocationService } from 'src/app/location.service';
 
 @Component({
   selector: 'uni-cost-of-living',
@@ -48,11 +46,11 @@ export class CostOfLivingComponent implements OnInit {
 
   ngOnInit() {
     this.checkPlanIsExpired()
-    this.getCurrencyConvertions('United States,India', '');
-    this.locationService.getImage().subscribe(imageUrl => {
+    this.getCurrencyConvertions('United States,India');
+    this.locationService.getImage().subscribe((imageUrl: any) => {
       this.orglogowhitelabel = imageUrl;
     });
-    this.locationService.getOrgName().subscribe(orgname => {
+    this.locationService.getOrgName().subscribe((orgname: any) => {
       this.orgnamewhitlabel = orgname;
     });
     this.imagewhitlabeldomainname = window.location.hostname;
@@ -79,7 +77,7 @@ export class CostOfLivingComponent implements OnInit {
     this.targetcountryName = targetCityDetails ? targetCityDetails.country_name : '';
     this.costOfLivingService.calculatePrices(sourceCityDetails).subscribe(response => {
       if (response.error !== null) {
-        this.toastr.add({ severity: 'error', summary: 'Alert', detail: 'Something went wrong please contact the team or reload the page agian', life: 10000 });
+        this.toastr.add({ severity: 'error', summary: 'Alert', detail: 'Something went wrong please contact the team or reload the page again', life: 10000 });
       }
       this.sourceCountryPrices = response;
       this.sourceCountryPrices?.prices?.forEach((price: Price) => {
@@ -87,7 +85,7 @@ export class CostOfLivingComponent implements OnInit {
       })
       this.costOfLivingService.calculatePrices(targetCityDetails).subscribe(response => {
         if (response.error !== null) {
-          this.toastr.add({ severity: 'error', summary: 'Alert', detail: 'Something went wrong please contact the team or reload the page agian', life: 10000 });
+          this.toastr.add({ severity: 'error', summary: 'Alert', detail: 'Something went wrong please contact the team or reload the page again', life: 10000 });
         }
         this.targetCountryPrices = response;
         this.targetCountryPrices?.prices?.forEach((price: Price) => {
@@ -97,19 +95,9 @@ export class CostOfLivingComponent implements OnInit {
       });
     });
   }
-  getCurrencyConvertions(comparingCountries: string, countryType: string) {
+  getCurrencyConvertions(comparingCountries: string) {
     this.costOfLivingService.currencyConvert({ countries: comparingCountries }).subscribe(res => {
-      if (countryType === 'sourceCountry') {
-        if (this.sourceCountryPrices.country_name == 'India') {
-          this.costOfLivingService.inrRate = res.rate;
-        }
-      } else if (countryType === 'targetCountry') {
-        if (this.targetCountryPrices.country_name == 'India') {
-          this.costOfLivingService.inrRate = res.rate;
-        }
-      } else {
-        this.costOfLivingService.inrRate = res.rate;
-      }
+      this.costOfLivingService.inrRate = res.rate;
     },
       error => {
       });
@@ -133,7 +121,7 @@ export class CostOfLivingComponent implements OnInit {
         return;
       }
       this.sourceCities = this.cities.filter(city =>
-        city?.city_name?.toLowerCase().includes(this.form.get('sourceFilter')?.value) || city.country_name.toLowerCase().includes(this.form.get('sourceFilter')?.value)
+        city?.city_name?.toLowerCase().includes(this.form.get('sourceFilter')?.value?.toLowerCase()) || city.country_name.toLowerCase().includes(this.form.get('sourceFilter')?.value?.toLowerCase())
       );
       const sourceCountries = this.sourceCities.filter(city => city.city_name == '');
       sourceCountries.forEach(city => {
@@ -147,7 +135,7 @@ export class CostOfLivingComponent implements OnInit {
       return;
     }
     this.targetCities = this.cities.filter(city =>
-      city?.city_name?.toLowerCase().includes(this.form.get('targetFilter')?.value) || city.country_name.toLowerCase().includes(this.form.get('targetFilter')?.value)
+      city?.city_name?.toLowerCase().includes(this.form.get('targetFilter')?.value?.toLowerCase()) || city.country_name.toLowerCase().includes(this.form.get('targetFilter')?.value?.toLowerCase())
     );
     console.log(this.targetCities);
     const targetCountries = this.targetCities.filter(city => city.city_name == '');

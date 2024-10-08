@@ -105,6 +105,11 @@ export class SidenavComponent {
       image: "fa-solid fa-briefcase",
     },
     {
+      title: "UNILEARN",
+      url: "/pages/unilearn/modules",
+      image: "fa-solid fa-ballot",
+    },
+    {
       title: "Language Hub",
       url: "/pages/language-hub",
       image: "fa-solid fa-books",
@@ -134,7 +139,6 @@ export class SidenavComponent {
       url: "/pages/job-portal/job-search",
       image: "fa-solid fa-briefcase",
     },
-
     {
       title: "Learning Hub",
       url: "/pages/modules/learning-hub",
@@ -175,11 +179,11 @@ export class SidenavComponent {
       url: "/pages/founderstool/founderstoollist",
       image: "fa-solid fa-memo-circle-info",
     },
-    // {
-    //   title: "Investor List",
-    //   url: "/pages/investor-list",
-    //   image: "fa-solid fa-chart-waterfall",
-    // },
+    {
+      title: "Investor List",
+      url: "/pages/investor-list",
+      image: "fa-solid fa-chart-waterfall",
+    },
     {
       title: "Pitch Deck",
       url: "/pages/pitch-deck",

@@ -111,9 +111,9 @@ export class CvBuilderComponent implements OnInit  {
       templateName: "Traditional",
       imageLink: "../../../uniprep-assets/resume-images/Traditional.webp",
     },
-    
+
   ];
-  
+
   editorModules: any;
   planExpired: boolean = false
   restrict: boolean = false
@@ -203,16 +203,16 @@ export class CvBuilderComponent implements OnInit  {
       }
       if (prevButton) {
         prevButton.addEventListener('click', () => {
-          this.swiper.slidePrev(); 
+          this.swiper.slidePrev();
         });
       }
     }, 200);
-    
+
   }
   pdfViewLoader() {
-   setTimeout(() => {
-    this.loadingResumes = false;
-   }, 3500);
+    setTimeout(() => {
+      this.loadingResumes = false;
+    }, 3500);
   }
 
   ngOnInit(): void {
@@ -220,7 +220,7 @@ export class CvBuilderComponent implements OnInit  {
     this.getLocationsList();
     this.editorModules = {
       toolbar: [
-        ['bold', 'italic', 'underline'], 
+        ['bold', 'italic', 'underline'],
         [{ 'list': 'ordered' }, { 'list': 'bullet' }],
         ['clean'] // Clear formatting button
       ]
@@ -280,7 +280,7 @@ export class CvBuilderComponent implements OnInit  {
     if(query.length > 3){
       this.filteredJobs = this.getFilteredJobs(query);
     }else if(query.length < 2){
-      this.filteredJobs = []; 
+      this.filteredJobs = [];
     }
   }
 
@@ -298,7 +298,7 @@ export class CvBuilderComponent implements OnInit  {
       this.resumeFormInfoData.patchValue({
         user_job_title: job.jobrole,
       });
-      this.filteredJobs = []; 
+      this.filteredJobs = [];
     }else if(fieldName == "experience" ){
       const formArray = this.getWorkExpArray as FormArray;
       formArray.at(index).patchValue({
@@ -325,7 +325,7 @@ export class CvBuilderComponent implements OnInit  {
     if(query.length > 3){
       this.filteredLocations = this.getFilteredLocations(query);
     }else if(query.length < 2){
-      this.filteredLocations = []; 
+      this.filteredLocations = [];
     }
   }
 
@@ -343,7 +343,7 @@ export class CvBuilderComponent implements OnInit  {
       this.resumeFormInfoData.patchValue({
         user_location: city.country_name,
       });
-      this.filteredLocations = []; 
+      this.filteredLocations = [];
     }else if(fieldName == "userExpLocation"){
       const formArray = this.getWorkExpArray as FormArray;
       formArray.at(index).patchValue({
@@ -407,7 +407,7 @@ export class CvBuilderComponent implements OnInit  {
           });
           this.filledFields.push('education_detail');
         }
-        
+
         const certificateData = storedValues.certificatesArray;
         if(certificateData.length != 0){
           certificateData.forEach((element: any) => {
@@ -471,18 +471,18 @@ export class CvBuilderComponent implements OnInit  {
   onSkillChange() {
     this.checkSkillsDuplilcation();
   }
-  
+
   onLanguageChange(){
     this.checkLanguageDuplication();
   }
 
   checkSkillsDuplilcation(){
     const skills = this.getSkillsArray.controls.map(skill => skill.get('skills')?.value);
-  
+
     skills.forEach((skill, index) => {
       const duplicateCount = skills.filter(s => s === skill).length;
       const skillControl = this.getSkillsArray.at(index).get('skills');
-      
+
       if (duplicateCount > 1 && skill) {
         skillControl?.setErrors({ duplicate: true });
       } else {
@@ -496,39 +496,39 @@ export class CvBuilderComponent implements OnInit  {
     language.forEach((lang, index) => {
       const duplicateCount = language.filter(s => s === lang).length;
       const langControl = this.getLanguagesKnownArray.at(index).get('language');
-      
+
       if (duplicateCount > 1 && lang) {
         langControl?.setErrors({ duplicate: true });
       } else {
         langControl?.setErrors(null);
       }
     });
-    
+
   }
 
   SortBasedOnProficiency(fieldName: string) {
     if (fieldName === "skills") {
-        const proficiencyOrder = ["Advance", "Intermediate", "Basic"];
-        const sortedControls = this.getSkillsArray.controls.sort((a, b) => {
-            return proficiencyOrder.indexOf(a.get('skills_proficiency')?.value) - proficiencyOrder.indexOf(b.get('skills_proficiency')?.value);
-        });
+      const proficiencyOrder = ["Advance", "Intermediate", "Basic"];
+      const sortedControls = this.getSkillsArray.controls.sort((a, b) => {
+        return proficiencyOrder.indexOf(a.get('skills_proficiency')?.value) - proficiencyOrder.indexOf(b.get('skills_proficiency')?.value);
+      });
 
-        // Reorder the existing FormArray without resetting it
-        this.reorderFormArray(this.getSkillsArray, sortedControls);
+      // Reorder the existing FormArray without resetting it
+      this.reorderFormArray(this.getSkillsArray, sortedControls);
 
-        // Check for duplicates after sorting
-        this.checkSkillsDuplilcation();
+      // Check for duplicates after sorting
+      this.checkSkillsDuplilcation();
     } else {
-        const proficiencyOrder = ["Native", "Proficient", "Fluent", "Beginner"];
-        const sortedControls = this.getLanguagesKnownArray.controls.sort((a, b) => {
-            return proficiencyOrder.indexOf(a.get('lang_proficiency')?.value) - proficiencyOrder.indexOf(b.get('lang_proficiency')?.value);
-        });
+      const proficiencyOrder = ["Native", "Proficient", "Fluent", "Beginner"];
+      const sortedControls = this.getLanguagesKnownArray.controls.sort((a, b) => {
+        return proficiencyOrder.indexOf(a.get('lang_proficiency')?.value) - proficiencyOrder.indexOf(b.get('lang_proficiency')?.value);
+      });
 
-        // Reorder the existing FormArray without resetting it
-        this.reorderFormArray(this.getLanguagesKnownArray, sortedControls);
+      // Reorder the existing FormArray without resetting it
+      this.reorderFormArray(this.getLanguagesKnownArray, sortedControls);
 
-        // Check for duplicates after sorting
-        this.checkLanguageDuplication();
+      // Check for duplicates after sorting
+      this.checkLanguageDuplication();
     }
   }
 
@@ -632,7 +632,7 @@ export class CvBuilderComponent implements OnInit  {
       return;
     }
     const fieldNameArray: string[] = [];
-    
+
 
     switch (this.moduleActiveIndex) {
       case 1:
@@ -1025,12 +1025,12 @@ export class CvBuilderComponent implements OnInit  {
         });
       }
       const isCurrentlyWorking = workExpGroup.get('work_currently_working')?.value;
-        if (isCurrentlyWorking) {
-          workExpGroup.get('work_end_month')?.clearValidators();
-        } else {
-          workExpGroup.get('work_end_month')?.setValidators([Validators.required]);
-        }
-        workExpGroup.get('work_end_month')?.updateValueAndValidity();
+      if (isCurrentlyWorking) {
+        workExpGroup.get('work_end_month')?.clearValidators();
+      } else {
+        workExpGroup.get('work_end_month')?.setValidators([Validators.required]);
+      }
+      workExpGroup.get('work_end_month')?.updateValueAndValidity();
     } else {
       const getEduDetailsArray = this.getEduDetailsArray;
       const getEduDetailsGroup = getEduDetailsArray.at(index) as FormGroup;

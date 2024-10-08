@@ -82,13 +82,13 @@ export class ModuleServiceService {
       headers: headers,
     });
   }
-
   getPreModuleQuestionList(data: any) {
     const headers = new HttpHeaders().set("Accept", "application/json");
     return this.http.post<any>(environment.ApiUrl + "/StudentsSubmoduleQuestions", data, {
       headers: headers,
     });
   }
+
 
   studentsSubmoduleQuestions(data: any) {
     const headers = new HttpHeaders().set("Accept", "application/json");
@@ -103,7 +103,6 @@ export class ModuleServiceService {
       headers: headers,
     });
   }
-
   checkModuleQuizCompletion(data: any) {
     const headers = new HttpHeaders().set("Accept", "application/json");
     return this.http.post<any>(environment.ApiUrl + "/checkmodulequizcompletion", data, {
@@ -174,12 +173,6 @@ export class ModuleServiceService {
       headers: headers,
     });
   }
-  getQuizQuestionList(data: any) {
-    const headers = new HttpHeaders().set("Accept", "application/json");
-    return this.http.post<any>(environment.ApiUrl + "/getacademicquiz", data, {
-      headers: headers,
-    });
-  }
   submitQuizLearningHubQuiz(data: any) {
     const headers = new HttpHeaders().set("Accept", "application/json");
     return this.http.post<any>(environment.ApiUrl + "/submitquizanswers", data, {
@@ -212,7 +205,29 @@ export class ModuleServiceService {
       headers: headers,
     });
   }
-
+  ReviewQuizLanguageHub(data: any) {
+    const headers = new HttpHeaders().set("Accept", "application/json");
+    return this.http.post<any>(environment.ApiUrl + "/reviewlanguagehubquiz", data, {
+      headers: headers,
+    });
+  }
+  checklanguageQuizCompletion(data: any) {
+    const headers = new HttpHeaders().set("Accept", "application/json");
+    return this.http.post<any>(environment.ApiUrl + "/languagehubquizcompletion", data, {
+      headers: headers,
+    });
+  }
+  getSkillMasteryLists(data: any) {
+    let params = new HttpParams();
+    const headers = new HttpHeaders().set("Accept", "application/json");
+    return this.http.post<any>(environment.ApiUrl + "/getuniversitybycountry", data, { headers: headers });
+  }
+  getQuizQuestionList(data: any) {
+    const headers = new HttpHeaders().set("Accept", "application/json");
+    return this.http.post<any>(environment.ApiUrl + "/getacademicquiz", data, {
+      headers: headers,
+    });
+  }
   submitAcademicQuiz(data: any) {
     const headers = new HttpHeaders().set("Accept", "application/json");
     return this.http.post<any>(environment.ApiUrl + "/saveacademicquizanswers", data, {
@@ -239,23 +254,5 @@ export class ModuleServiceService {
     return this.http.post<any>(environment.ApiUrl + "/reviewacademicquiz", data, {
       headers: headers,
     });
-  }
-
-  ReviewQuizLanguageHub(data: any) {
-    const headers = new HttpHeaders().set("Accept", "application/json");
-    return this.http.post<any>(environment.ApiUrl + "/reviewlanguagehubquiz", data, {
-      headers: headers,
-    });
-  }
-  checklanguageQuizCompletion(data: any) {
-    const headers = new HttpHeaders().set("Accept", "application/json");
-    return this.http.post<any>(environment.ApiUrl + "/languagehubquizcompletion", data, {
-      headers: headers,
-    });
-  }
-  getSkillMasteryLists(data: any) {
-    let params = new HttpParams();
-    const headers = new HttpHeaders().set("Accept", "application/json");
-    return this.http.post<any>(environment.ApiUrl + "/getuniversitybycountry", data, { headers: headers });
   }
 }

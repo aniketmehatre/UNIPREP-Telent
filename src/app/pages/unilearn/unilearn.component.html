@@ -1,0 +1,8 @@
+<ng-container [ngSwitch]="stage">
+  <ng-container *ngSwitchCase="1">
+    <uni-learnmodules [selected_module]="selected_module" [parentid]="parentid" [moduleid]="moduleid" (moduleChange)="moduleChange($event)"></uni-learnmodules>
+  </ng-container>
+  <ng-container *ngSwitchCase="2">
+    <uni-learnsubmodules [selected_module]="selected_module" [parentid]="parentid" [moduleid]="moduleid" (moduleChange)="moduleChange($event)"></uni-learnsubmodules>
+  </ng-container>
+</ng-container>

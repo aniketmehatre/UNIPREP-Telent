@@ -63,7 +63,7 @@ export class LanguagetypequizComponent implements OnInit {
   orgnamewhitlabel: any;
   orglogowhitelabel: any;
   constructor(private moduleListService: ModuleServiceService, private authService: AuthService, private router: Router, private dataService: DataService,
-    private locationService: LocationService, private ngxService: NgxUiLoaderService, private toast: MessageService,) { }
+    private locationService: LocationService, private ngxService: NgxUiLoaderService, private toast: MessageService) { }
 
   ngOnInit(): void {
     this.locationService.getImage().subscribe(imageUrl => {
