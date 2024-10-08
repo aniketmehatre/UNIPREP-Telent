@@ -2,11 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { CostOfLivingService } from './cost-of-living.service';
 import { City, CostOfLiving, Price } from 'src/app/@Models/cost-of-living';
-import { DropdownFilterOptions } from 'primeng/dropdown';
-import { debounceTime } from 'rxjs';
-import {LocationService} from "../../../location.service";
-import {Router} from "@angular/router";
-import {AuthService} from "../../../Auth/auth.service";
+import { Router } from "@angular/router";
+import { AuthService } from "../../../Auth/auth.service";
+import { MessageService } from 'primeng/api';
+import { LocationService } from 'src/app/location.service';
 
 @Component({
   selector: 'uni-cost-of-living',
@@ -28,13 +27,14 @@ export class CostOfLivingComponent implements OnInit {
   canShowComparision: boolean = false;
   sourceCountryPrices!: CostOfLiving;
   targetCountryPrices!: CostOfLiving;
-  targetcountryName: string='';
-  sourcecountryName: string='';
+  targetcountryName: string = '';
+  sourcecountryName: string = '';
   sourceCountry: string = '';
   targetCountry: string = '';
   constructor(
     private fb: FormBuilder, private locationService: LocationService,
-    private costOfLivingService: CostOfLivingService, private router: Router, private authService: AuthService
+    private costOfLivingService: CostOfLivingService, private router: Router, private authService: AuthService,
+    private toastr: MessageService
   ) {
     this.form = this.fb.group({
       sourceCity: [null],
@@ -46,11 +46,11 @@ export class CostOfLivingComponent implements OnInit {
 
   ngOnInit() {
     this.checkPlanIsExpired()
-    this.getCurrencyConvertions('United States,India', '');
-    this.locationService.getImage().subscribe(imageUrl => {
+    this.getCurrencyConvertions('United States,India');
+    this.locationService.getImage().subscribe((imageUrl: any) => {
       this.orglogowhitelabel = imageUrl;
     });
-    this.locationService.getOrgName().subscribe(orgname => {
+    this.locationService.getOrgName().subscribe((orgname: any) => {
       this.orgnamewhitlabel = orgname;
     });
     this.imagewhitlabeldomainname = window.location.hostname;
@@ -73,14 +73,20 @@ export class CostOfLivingComponent implements OnInit {
     }
     var sourceCityDetails = this.cities.find(city => city.city_id === this.form.value.sourceCity);
     var targetCityDetails = this.cities.find(city => city.city_id === this.form.value.targetCity);
-    this.sourcecountryName=sourceCityDetails?sourceCityDetails.country_name:'';
-    this.targetcountryName=targetCityDetails?targetCityDetails.country_name:'';
+    this.sourcecountryName = sourceCityDetails ? sourceCityDetails.country_name : '';
+    this.targetcountryName = targetCityDetails ? targetCityDetails.country_name : '';
     this.costOfLivingService.calculatePrices(sourceCityDetails).subscribe(response => {
+      if (response.error !== null) {
+        this.toastr.add({ severity: 'error', summary: 'Alert', detail: 'Something went wrong please contact the team or reload the page again', life: 10000 });
+      }
       this.sourceCountryPrices = response;
       this.sourceCountryPrices?.prices?.forEach((price: Price) => {
         price.itemCount = 1;
       })
       this.costOfLivingService.calculatePrices(targetCityDetails).subscribe(response => {
+        if (response.error !== null) {
+          this.toastr.add({ severity: 'error', summary: 'Alert', detail: 'Something went wrong please contact the team or reload the page again', life: 10000 });
+        }
         this.targetCountryPrices = response;
         this.targetCountryPrices?.prices?.forEach((price: Price) => {
           price.itemCount = 1;
@@ -89,20 +95,10 @@ export class CostOfLivingComponent implements OnInit {
       });
     });
   }
-  getCurrencyConvertions(comparingCountries: string, countryType: string) {
+  getCurrencyConvertions(comparingCountries: string) {
     this.costOfLivingService.currencyConvert({ countries: comparingCountries }).subscribe(res => {
-      if (countryType === 'sourceCountry') {      
-        if (this.sourceCountryPrices.country_name == 'India') {
-          this.costOfLivingService.inrRate = res.rate;
-        }
-      } else if (countryType === 'targetCountry') {
-        if (this.targetCountryPrices.country_name == 'India') {
-          this.costOfLivingService.inrRate = res.rate;
-        }
-      } else {
-        this.costOfLivingService.inrRate = res.rate;
-      }
-      },
+      this.costOfLivingService.inrRate = res.rate;
+    },
       error => {
       });
   }
@@ -120,7 +116,7 @@ export class CostOfLivingComponent implements OnInit {
 
   customFilterFunction(typeOfField: string) {
     if (typeOfField == 'source') {
-      if(this.form.get('sourceFilter')?.value===""){
+      if (this.form.get('sourceFilter')?.value === "") {
         this.sourceCities = this.cities;
         return;
       }
@@ -128,21 +124,22 @@ export class CostOfLivingComponent implements OnInit {
         city?.city_name?.toLowerCase().includes(this.form.get('sourceFilter')?.value?.toLowerCase()) || city.country_name.toLowerCase().includes(this.form.get('sourceFilter')?.value?.toLowerCase())
       );
       const sourceCountries = this.sourceCities.filter(city => city.city_name == '');
-      sourceCountries.forEach(city=>{
+      sourceCountries.forEach(city => {
         this.sourceCities.pop();
       });
       this.sourceCities.unshift(...sourceCountries);
       return;
     }
-    if(this.form.get('targetFilter')?.value===""){
+    if (this.form.get('targetFilter')?.value === "") {
       this.targetCities = this.cities;
       return;
     }
     this.targetCities = this.cities.filter(city =>
       city?.city_name?.toLowerCase().includes(this.form.get('targetFilter')?.value?.toLowerCase()) || city.country_name.toLowerCase().includes(this.form.get('targetFilter')?.value?.toLowerCase())
     );
+    console.log(this.targetCities);
     const targetCountries = this.targetCities.filter(city => city.city_name == '');
-    targetCountries.forEach(city=>{
+    targetCountries.forEach(city => {
       this.targetCities.pop();
     });
     this.targetCities.unshift(...targetCountries);

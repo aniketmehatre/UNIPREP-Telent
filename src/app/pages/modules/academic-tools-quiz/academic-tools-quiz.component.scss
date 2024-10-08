@@ -5,6 +5,7 @@
 
 .quizprogress {
     margin-right: auto;
+
     .p-progressbar {
         height: 10px;
         margin-top: 5px;
@@ -20,17 +21,19 @@
     font-weight: bold;
 }
 
- 
+
 
 :host ::ng-deep p-carousel {
     .p-carousel-indicators {
         display: none !important;
     }
+
     .p-carousel-next,
     .p-carousel-prev {
         display: none !important;
     }
 }
+
 .quiznotanswered {
     border: 1px solid #e3e3e3;
     border-radius: 8px;
@@ -83,4 +86,69 @@
 
 .select-title {
     margin-bottom: 20px;
+}
+
+
+.text-muted {
+    color: #6c757d;
+}
+
+.recommendation {
+
+    h3,
+    h4 {
+        color: #000;
+    }
+
+    p {
+        font-size: 1rem;
+        line-height: 1.6;
+    }
+
+    .container {
+        max-width: 800px;
+    }
+
+    img {
+        width: 120px;
+    }
+
+}
+
+.streamQuiz {
+    .pdf-viewer {
+        border: 1px solid #e0e0e0;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        padding: 20px;
+        margin-bottom: 20px;
+        height: 90%;
+    }
+
+    .card-body {
+        text-align: start;
+    }
+
+    .badge {
+        padding: 10px;
+        border-radius: 5px;
+    }
+
+    @media (max-width: 768px) {
+        .chart-labels {
+            margin-top: 20px;
+            text-align: center;
+        }
+    }
+
+    .footer .btn {
+        width: 200px;
+        font-size: 18px;
+        font-weight: bold;
+    }
+
+
+}
+
+.text-left {
+    text-align: left;
 }

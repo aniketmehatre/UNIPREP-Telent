@@ -30,10 +30,15 @@
 						</div>
 						<div class="p-2" style="text-align: center;">
 							<span *ngIf="list.progress < 90">
-								<button class="how-it-works-button" (click)="openQuiz(list.id)">Start Quiz</button>
+								<button class="how-it-works-button" [ngClass]="{'retry-button': list.progress > 0}" (click)="openQuiz(list.id)">{{list.progress==0?'Start Quiz':'Retry'}}</button>
 							</span>
 							<span *ngIf="list.progress >= 90">
-								<button class="how-it-works-button">Completed</button>
+								<div>
+									<button  class="how-it-works-button" style="background-color:green;">Completed</button>
+								</div>
+								<div>
+									<button class="how-it-works-button" (click)="review(list.id)"> Review &nbsp; <i class="fa-solid fa-list-check"></i></button>
+								</div>
 							</span>
 						</div>
 					</div>

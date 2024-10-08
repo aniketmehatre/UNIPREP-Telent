@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, SimpleChanges } from "@angular/core";
+import { ChangeDetectorRef, Component, Input, OnInit, SimpleChanges } from "@angular/core";
 import {
   CategoryWiseComparison,
   CostOfLiving,
@@ -6,7 +6,6 @@ import {
   Price,
 } from "src/app/@Models/cost-of-living";
 import { CostOfLivingService } from "../cost-of-living.service";
-import { MessageService } from "primeng/api";
 
 @Component({
   selector: "uni-comparision",
@@ -38,13 +37,15 @@ export class ComparisionComponent implements OnInit {
     "Sports And Leisure",
   ];
   iconsList: GoodWithIcon[] = [];
+  sourceFlagBeforeLoad: string = "";
+  targetFlagBeforeLoad: string = "";
   sourceFlag: string = "";
   targetFlag: string = "";
   totalDiffPercentage: string = "";
   constructor(
     private costOfLivingService: CostOfLivingService,
-    private toaster: MessageService
-  ) {}
+    private cd: ChangeDetectorRef
+  ) { }
 
   ngOnInit() {
     this.getItemIcons();
@@ -53,7 +54,7 @@ export class ComparisionComponent implements OnInit {
     if (changes) {
       let sourceCountry = this.sourcecountryName;
       let targetCountry = this.targetcountryName;
-      
+
       if (
         sourceCountry !== "India" &&
         targetCountry !== "India" &&
@@ -86,10 +87,12 @@ export class ComparisionComponent implements OnInit {
           changes["targetCountryPrices"].currentValue.country_name
         ) {
           this.targetCountryRate = "";
-          this.getCurrencyConvertions(
-            `United States,${targetCountry}`,
-            "targetCountry"
-          );
+          setTimeout(() => {
+            this.getCurrencyConvertions(
+              `United States,${targetCountry}`,
+              "targetCountry"
+            );
+          }, 1500);
         }
       }
 
@@ -102,6 +105,11 @@ export class ComparisionComponent implements OnInit {
     this.sourcePriceTotal = 0;
     this.targetPriceTotal = 0;
     this.categorywisePrices = [];
+    if (this.sourceFlagBeforeLoad && this.targetFlagBeforeLoad) {
+      this.sourceFlag = this.sourceFlagBeforeLoad;
+      this.targetFlag = this.targetFlagBeforeLoad;
+      this.cd.detectChanges();
+    }
     this.sourceCountryPrices.prices.forEach((price: Price) => {
       this.targetCountryPrices.prices.forEach((targetCountryPrice: Price) => {
         if (
@@ -164,13 +172,13 @@ export class ComparisionComponent implements OnInit {
           this.targetPriceTotal += Number(targetCountryPrice?.usd.avg);
           this.targetPriceTotal > this.sourcePriceTotal
             ? this.getDiffrencePercentage(
-                this.targetPriceTotal,
-                this.sourcePriceTotal
-              )
+              this.targetPriceTotal,
+              this.sourcePriceTotal
+            )
             : this.getDiffrencePercentage(
-                this.sourcePriceTotal,
-                this.targetPriceTotal
-              );
+              this.sourcePriceTotal,
+              this.targetPriceTotal
+            );
         }
       });
     });
@@ -248,7 +256,6 @@ export class ComparisionComponent implements OnInit {
     }
   }
   getCurrencyConvertions(comparingCountries: string, countryType: string) {
-    console.log(">.", comparingCountries);
 
     this.costOfLivingService
       .currencyConvert({ countries: comparingCountries })
@@ -256,20 +263,23 @@ export class ComparisionComponent implements OnInit {
         (res) => {
           if (countryType === "sourceCountry") {
             this.sourceCountryRate = res.rate;
-            this.sourceFlag = res.targetcountry_flag;
-            console.log(this.sourceFlag);
+            this.sourceFlagBeforeLoad = '';
+            //  this.sourceFlag = res.targetcountry_flag;
+            this.sourceFlagBeforeLoad = res.targetcountry_flag;
             if (this.sourceCountryPrices.country_name == "India") {
               this.costOfLivingService.inrRate = res.rate;
             }
           } else if (countryType === "targetCountry") {
             this.targetCountryRate = res.rate;
+            this.targetFlagBeforeLoad = '';
+            this.targetFlagBeforeLoad = res.targetcountry_flag;
             this.targetFlag = res.targetcountry_flag;
-            console.log(this.targetFlag);
             if (this.targetCountryPrices.country_name == "India") {
               this.costOfLivingService.inrRate = res.rate;
             }
           } else {
             this.costOfLivingService.inrRate = res.rate;
+            console.log("Inr", this.costOfLivingService.inrRate);
           }
           this.calculatecategorywisePrices();
         },

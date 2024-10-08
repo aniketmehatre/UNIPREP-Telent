@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
-import {Store} from "@ngrx/store";
+import { Store } from "@ngrx/store";
 import { environment } from '@env/environment';
-import {emptyQuestionList, loadQuestionList, loadQuizList, loadSubModules, readQuestion} from './module-store.actions';
-import {ModuleStoreState} from "./module-store.reducer";
-import {readQuestion$, selectQuestionList$, selectQuizList$, selectSubModule$} from './module-store.selectors';
+import { emptyQuestionList, loadQuestionList, loadQuizList, loadSubModules, readQuestion } from './module-store.actions';
+import { ModuleStoreState } from "./module-store.reducer";
+import { readQuestion$, selectQuestionList$, selectQuizList$, selectSubModule$ } from './module-store.selectors';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Meta } from '@angular/platform-browser';
+import { SubmitRecommendation, SubmitStreamResponse } from 'src/app/@Models/academic-tools.model';
 
 @Injectable({
   providedIn: 'root'
@@ -14,13 +15,13 @@ import { Meta } from '@angular/platform-browser';
 export class ModuleServiceService {
   constructor(
     private store: Store<ModuleStoreState>,
-    private http:HttpClient,
+    private http: HttpClient,
     // private meta:Meta
-    ) {
+  ) {
   }
 
   loadSubModules(data: any) {
-    this.store.dispatch(loadSubModules({countryId: data.countryId, moduleId: data.moduleId, api_module_name: data.api_module_name}));
+    this.store.dispatch(loadSubModules({ countryId: data.countryId, moduleId: data.moduleId, api_module_name: data.api_module_name }));
   }
 
   subModuleList$() {
@@ -32,8 +33,8 @@ export class ModuleServiceService {
       countryId: data.countryId,
       moduleId: data.moduleId,
       submoduleId: data.submoduleId,
-      page:data.page,
-      perpage:data.perpage,
+      page: data.page,
+      perpage: data.perpage,
     }));
   }
 
@@ -68,10 +69,10 @@ export class ModuleServiceService {
     return this.store.select(readQuestion$);
   }
 
-  getReviewOrgLogo(data:any):Observable<any> {
+  getReviewOrgLogo(data: any): Observable<any> {
     const headers = new HttpHeaders().set("Accept", "application/json");
-    return this.http.post<any>(environment.ApiUrl+'/GetReviewedByOrgLogo', data,{
-        headers: headers,
+    return this.http.post<any>(environment.ApiUrl + '/GetReviewedByOrgLogo', data, {
+      headers: headers,
     });
   }
 
@@ -105,9 +106,9 @@ export class ModuleServiceService {
   checkModuleQuizCompletion(data: any) {
     const headers = new HttpHeaders().set("Accept", "application/json");
     return this.http.post<any>(environment.ApiUrl + "/checkmodulequizcompletion", data, {
-        headers: headers,
+      headers: headers,
     });
-}
+  }
 
   getSubmodulesAndSpecialization() {
     const headers = new HttpHeaders().set("Accept", "application/json");
@@ -115,110 +116,143 @@ export class ModuleServiceService {
       headers: headers,
     });
   }
-quizCount(data: any) {
+  quizCount(data: any) {
     const headers = new HttpHeaders().set("Accept", "application/json");
     return this.http.post<any>(environment.ApiUrl + "/quizquestions", data, {
-        headers: headers,
+      headers: headers,
     });
-}
-submitQuiz(data: any) {
+  }
+  submitQuiz(data: any) {
     const headers = new HttpHeaders().set("Accept", "application/json");
     return this.http.post<any>(environment.ApiUrl + "/submitquizanswers", data, {
-        headers: headers,
+      headers: headers,
     });
-}
-ReviewQuiz(data: any) {
+  }
+  ReviewQuiz(data: any) {
     const headers = new HttpHeaders().set("Accept", "application/json");
     return this.http.post<any>(environment.ApiUrl + "/reviewquiz", data, {
-        headers: headers,
+      headers: headers,
     });
-}
-getQuizCompletion(data: any) {
+  }
+  getQuizCompletion(data: any) {
     const headers = new HttpHeaders().set("Accept", "application/json");
     return this.http.post<any>(environment.ApiUrl + "/getquizcompletion", data, {
-        headers: headers,
+      headers: headers,
     });
-}
-getUniversity(data:any) {
-  // let params = new HttpParams();
-  // params = params.append("country_id", countryId);
-  const headers = new HttpHeaders().set("Accept", "application/json");
-  return this.http.post<any>(environment.ApiUrl + "/getuniversitybycountry", data ,{ headers: headers,});
-}
-getUserCompletedCertificate(val: any) {
-  const headers = new HttpHeaders().set("Accept", "application/json");
-  return this.http.post<any>(environment.ApiUrl + "/getusercompletedcertificates",val, {
+  }
+  getUniversity(data: any) {
+    // let params = new HttpParams();
+    // params = params.append("country_id", countryId);
+    const headers = new HttpHeaders().set("Accept", "application/json");
+    return this.http.post<any>(environment.ApiUrl + "/getuniversitybycountry", data, { headers: headers, });
+  }
+  getUserCompletedCertificate(val: any) {
+    const headers = new HttpHeaders().set("Accept", "application/json");
+    return this.http.post<any>(environment.ApiUrl + "/getusercompletedcertificates", val, {
       headers: headers,
-  });
-}
-countryList() {
-  const headers = new HttpHeaders().set("Accept", "application/json");
-  return this.http.get(environment.ApiUrl + "/country", { headers: headers });
-}
-getSubjectList() {
-  const headers = new HttpHeaders().set("Accept", "application/json");
-  return this.http.get<any>(environment.ApiUrl + `/getlearninghublists?category_flag=1`,{ headers: headers,});
-}
-getSpecializationLists(data:any) {
-  let params = new HttpParams();
-  // params = params.append("category_flag", data.category_flag);
-  params = params.append("category_id", data.category_id);
-  const headers = new HttpHeaders().set("Accept", "application/json");
-  return this.http.get<any>(environment.ApiUrl + `/getlearninghublists?`,{ headers: headers,params:params});
-}
-learninghubquiz(data: any) {
-  const headers = new HttpHeaders().set("Accept", "application/json");
-  return this.http.post<any>(environment.ApiUrl + "/getrandomquizlh", data, {
+    });
+  }
+  countryList() {
+    const headers = new HttpHeaders().set("Accept", "application/json");
+    return this.http.get(environment.ApiUrl + "/country", { headers: headers });
+  }
+  getSubjectList() {
+    const headers = new HttpHeaders().set("Accept", "application/json");
+    return this.http.get<any>(environment.ApiUrl + `/getlearninghublists?category_flag=1`, { headers: headers, });
+  }
+  getSpecializationLists(data: any) {
+    let params = new HttpParams();
+    // params = params.append("category_flag", data.category_flag);
+    params = params.append("category_id", data.category_id);
+    const headers = new HttpHeaders().set("Accept", "application/json");
+    return this.http.get<any>(environment.ApiUrl + `/getlearninghublists?`, { headers: headers, params: params });
+  }
+  learninghubquiz(data: any) {
+    const headers = new HttpHeaders().set("Accept", "application/json");
+    return this.http.post<any>(environment.ApiUrl + "/getrandomquizlh", data, {
       headers: headers,
-  });
-}
-submitQuizLearningHubQuiz(data: any) {
-  const headers = new HttpHeaders().set("Accept", "application/json");
-  return this.http.post<any>(environment.ApiUrl + "/submitquizanswers", data, {
+    });
+  }
+  submitQuizLearningHubQuiz(data: any) {
+    const headers = new HttpHeaders().set("Accept", "application/json");
+    return this.http.post<any>(environment.ApiUrl + "/submitquizanswers", data, {
       headers: headers,
-  });
-}
-ReviewQuizLearningHub(data: any) {
-  const headers = new HttpHeaders().set("Accept", "application/json");
-  return this.http.post<any>(environment.ApiUrl + "/reviewquiz", data, {
+    });
+  }
+  ReviewQuizLearningHub(data: any) {
+    const headers = new HttpHeaders().set("Accept", "application/json");
+    return this.http.post<any>(environment.ApiUrl + "/reviewquiz", data, {
       headers: headers,
-  });
-}
-getLanguageist() {
-  const headers = new HttpHeaders().set("Accept", "application/json");
-  return this.http.post<any>(environment.ApiUrl + "/getlanguages",{ headers: headers,});
-}
-getLanguageistType(data:any) {
-  const headers = new HttpHeaders().set("Accept", "application/json");
-  return this.http.post<any>(environment.ApiUrl + "/getlanguagetype",data,{ headers: headers,});
-}
-languageghubquiz(data: any) {
-  const headers = new HttpHeaders().set("Accept", "application/json");
-  return this.http.post<any>(environment.ApiUrl + "/getlanguagehubquiz", data, {
+    });
+  }
+  getLanguageist() {
+    const headers = new HttpHeaders().set("Accept", "application/json");
+    return this.http.post<any>(environment.ApiUrl + "/getlanguages", { headers: headers, });
+  }
+  getLanguageistType(data: any) {
+    const headers = new HttpHeaders().set("Accept", "application/json");
+    return this.http.post<any>(environment.ApiUrl + "/getlanguagetype", data, { headers: headers, });
+  }
+  languageghubquiz(data: any) {
+    const headers = new HttpHeaders().set("Accept", "application/json");
+    return this.http.post<any>(environment.ApiUrl + "/getlanguagehubquiz", data, {
       headers: headers,
-  });
-}
-submitLanguageghubquiz(data: any) {
-  const headers = new HttpHeaders().set("Accept", "application/json");
-  return this.http.post<any>(environment.ApiUrl + "/submitlanguagequiz", data, {
+    });
+  }
+  submitLanguageghubquiz(data: any) {
+    const headers = new HttpHeaders().set("Accept", "application/json");
+    return this.http.post<any>(environment.ApiUrl + "/submitlanguagequiz", data, {
       headers: headers,
-  });
-}
-ReviewQuizLanguageHub(data: any) {
-  const headers = new HttpHeaders().set("Accept", "application/json");
-  return this.http.post<any>(environment.ApiUrl + "/reviewlanguagehubquiz", data, {
+    });
+  }
+  ReviewQuizLanguageHub(data: any) {
+    const headers = new HttpHeaders().set("Accept", "application/json");
+    return this.http.post<any>(environment.ApiUrl + "/reviewlanguagehubquiz", data, {
       headers: headers,
-  });
-}
-checklanguageQuizCompletion(data: any) {
-  const headers = new HttpHeaders().set("Accept", "application/json");
-  return this.http.post<any>(environment.ApiUrl + "/languagehubquizcompletion", data, {
+    });
+  }
+  checklanguageQuizCompletion(data: any) {
+    const headers = new HttpHeaders().set("Accept", "application/json");
+    return this.http.post<any>(environment.ApiUrl + "/languagehubquizcompletion", data, {
       headers: headers,
-  });
-}
-getSkillMasteryLists(data:any) {
-  let params = new HttpParams();
-  const headers = new HttpHeaders().set("Accept", "application/json");
-  return this.http.post<any>(environment.ApiUrl + "/getuniversitybycountry",data,{ headers: headers});
-}
+    });
+  }
+  getSkillMasteryLists(data: any) {
+    let params = new HttpParams();
+    const headers = new HttpHeaders().set("Accept", "application/json");
+    return this.http.post<any>(environment.ApiUrl + "/getuniversitybycountry", data, { headers: headers });
+  }
+  getQuizQuestionList(data: any) {
+    const headers = new HttpHeaders().set("Accept", "application/json");
+    return this.http.post<any>(environment.ApiUrl + "/getacademicquiz", data, {
+      headers: headers,
+    });
+  }
+  submitAcademicQuiz(data: any) {
+    const headers = new HttpHeaders().set("Accept", "application/json");
+    return this.http.post<any>(environment.ApiUrl + "/saveacademicquizanswers", data, {
+      headers: headers,
+    });
+  }
+
+  submitAcademicStreamQuiz(data: any) {
+    const headers = new HttpHeaders().set("Accept", "application/json");
+    return this.http.post<SubmitStreamResponse>(environment.ApiUrl + "/savestreamquizanswers", data, {
+      headers: headers,
+    });
+  }
+
+  submitAcademicRecommendationQuiz(data: any) {
+    const headers = new HttpHeaders().set("Accept", "application/json");
+    return this.http.post<SubmitRecommendation>(environment.ApiUrl + "/saverecommendationquizanswers", data, {
+      headers: headers,
+    });
+  }
+
+  reviewAcademicQuiz(data: any) {
+    const headers = new HttpHeaders().set("Accept", "application/json");
+    return this.http.post<any>(environment.ApiUrl + "/reviewacademicquiz", data, {
+      headers: headers,
+    });
+  }
 }

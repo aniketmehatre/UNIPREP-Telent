@@ -1,4 +1,4 @@
-import { Component, OnInit, Renderer2, ElementRef, ViewChild, AfterViewInit  } from '@angular/core';
+import { Component, OnInit, Renderer2, ElementRef,HostListener , AfterViewInit  } from '@angular/core';
 import { MessageService, ConfirmationService } from 'primeng/api';
 import { FormBuilder, FormGroup, FormArray, Validators, AbstractControl } from "@angular/forms";
 // import { CourseListService } from '../../course-list/course-list.service';
@@ -111,8 +111,9 @@ export class CvBuilderComponent implements OnInit  {
       templateName: "Traditional",
       imageLink: "../../../uniprep-assets/resume-images/Traditional.webp",
     },
-    
+
   ];
+
   editorModules: any;
   planExpired: boolean = false
   restrict: boolean = false
@@ -127,6 +128,10 @@ export class CvBuilderComponent implements OnInit  {
   cities: City[] = [];
   occupationList: any = [];
   filteredJobs: any = [];
+  filteredDesignations: { [key: number]: any[] } = {};
+  filteredLocations: any = [];
+  filteredExpeAndEduLocations: { [key: number]: any[] } = {};
+
   constructor(private toaster: MessageService, private fb: FormBuilder, private resumeService: CvBuilderService,
               private http: HttpClient, private router: Router, private confirmService: ConfirmationService,
               private renderer: Renderer2, private el: ElementRef,  private authService: AuthService,
@@ -168,6 +173,15 @@ export class CvBuilderComponent implements OnInit  {
 
   }
 
+  onFocusOut() {
+    setTimeout(() => {
+      this.filteredJobs = [];
+      this.filteredDesignations = [];
+      this.filteredLocations = [];
+      this.filteredExpeAndEduLocations = [];
+    }, 200);  // Delay clearing the dropdown by 200 milliseconds
+  }
+
   ngAfterViewInit(): void {
     setTimeout(() => {
       this.swiper = new Swiper('.swiper', {
@@ -189,16 +203,16 @@ export class CvBuilderComponent implements OnInit  {
       }
       if (prevButton) {
         prevButton.addEventListener('click', () => {
-          this.swiper.slidePrev(); 
+          this.swiper.slidePrev();
         });
       }
     }, 200);
-    
+
   }
   pdfViewLoader() {
-   setTimeout(() => {
-    this.loadingResumes = false;
-   }, 3500);
+    setTimeout(() => {
+      this.loadingResumes = false;
+    }, 3500);
   }
 
   ngOnInit(): void {
@@ -206,7 +220,7 @@ export class CvBuilderComponent implements OnInit  {
     this.getLocationsList();
     this.editorModules = {
       toolbar: [
-        ['bold', 'italic', 'underline'], 
+        ['bold', 'italic', 'underline'],
         [{ 'list': 'ordered' }, { 'list': 'bullet' }],
         ['clean'] // Clear formatting button
       ]
@@ -261,22 +275,90 @@ export class CvBuilderComponent implements OnInit  {
     })
   }
 
-  onInput(event: any) {
+  searchJob(event: any) {
     const query = event.target.value.toLowerCase();
-    if(query.length > 4){
-      this.filteredJobs = this.occupationList.filter((job: any) => job.jobrole.toLowerCase().includes(query));
+    if(query.length > 3){
+      this.filteredJobs = this.getFilteredJobs(query);
     }else if(query.length < 2){
-      this.filteredJobs = []; 
+      this.filteredJobs = [];
     }
   }
 
-  // Function to select a job title
-  selectJob(job: any) {
-    this.resumeFormInfoData.patchValue({
-      user_job_title: job.jobrole,
-    });
-    this.filteredJobs = []; 
+  searchDesignation(event: any, index: number){
+    const query = event.target.value.toLowerCase();
+    if(query.length > 3){
+      this.filteredDesignations[index] = this.getFilteredJobs(query);
+    }else if(query.length < 2){
+      this.filteredDesignations[index] = [];
+    }
   }
+
+  selectJob(job: any, fieldName: string, index?: any) {
+    if(fieldName == "jobTitle"){
+      this.resumeFormInfoData.patchValue({
+        user_job_title: job.jobrole,
+      });
+      this.filteredJobs = [];
+    }else if(fieldName == "experience" ){
+      const formArray = this.getWorkExpArray as FormArray;
+      formArray.at(index).patchValue({
+        work_designation: job.jobrole
+      });
+      this.filteredDesignations[index] = [];
+    }
+  }
+
+  getFilteredJobs(query: string) {
+    const mockJobs = this.occupationList;
+
+    return mockJobs.filter((job: any) => job.jobrole.toLowerCase().includes(query.toLowerCase()));
+  }
+
+  getFilteredLocations(query: string) {
+    const mockLocations = this.cities;
+
+    return mockLocations.filter((city: any) => city.country_name.toLowerCase().includes(query.toLowerCase()));
+  }
+
+  searchLocation(event: any){
+    const query = event.target.value.toLowerCase();
+    if(query.length > 3){
+      this.filteredLocations = this.getFilteredLocations(query);
+    }else if(query.length < 2){
+      this.filteredLocations = [];
+    }
+  }
+
+  searchExpandEduLocation(event: any, index: number){
+    const query = event.target.value.toLowerCase();
+    if(query.length > 3){
+      this.filteredExpeAndEduLocations[index] = this.getFilteredLocations(query);
+    }else if(query.length < 2){
+      this.filteredExpeAndEduLocations[index] = [];
+    }
+  }
+
+  selectLocation(city: any, fieldName: string, index?: any) {
+    if(fieldName == "userLocation"){
+      this.resumeFormInfoData.patchValue({
+        user_location: city.country_name,
+      });
+      this.filteredLocations = [];
+    }else if(fieldName == "userExpLocation"){
+      const formArray = this.getWorkExpArray as FormArray;
+      formArray.at(index).patchValue({
+        work_location: city.country_name
+      });
+      this.filteredExpeAndEduLocations[index] = [];
+    }else if(fieldName == "userEduLocation"){
+      const formArray = this.getEduDetailsArray as FormArray;
+      formArray.at(index).patchValue({
+        edu_location: city.country_name
+      });
+      this.filteredExpeAndEduLocations[index] = [];
+    }
+  }
+
 
   getUserPrefilledData(){
     this.resumeService.getCVPrefilledData().subscribe(res => {
@@ -286,7 +368,7 @@ export class CvBuilderComponent implements OnInit  {
         this.resumeFormInfoData.patchValue(storedValues);
         this.moduleActiveIndex = responseData.page_number;
         this.hidingHeaders = JSON.parse(responseData.hiding_headers);
-        this.changeExperience();
+        // this.changeExperience();
         const workExpData = storedValues.workExpArray;
         if(workExpData.length != 0){
           workExpData.forEach((activity:any) => {
@@ -325,7 +407,7 @@ export class CvBuilderComponent implements OnInit  {
           });
           this.filledFields.push('education_detail');
         }
-        
+
         const certificateData = storedValues.certificatesArray;
         if(certificateData.length != 0){
           certificateData.forEach((element: any) => {
@@ -389,18 +471,18 @@ export class CvBuilderComponent implements OnInit  {
   onSkillChange() {
     this.checkSkillsDuplilcation();
   }
-  
+
   onLanguageChange(){
     this.checkLanguageDuplication();
   }
 
   checkSkillsDuplilcation(){
     const skills = this.getSkillsArray.controls.map(skill => skill.get('skills')?.value);
-  
+
     skills.forEach((skill, index) => {
       const duplicateCount = skills.filter(s => s === skill).length;
       const skillControl = this.getSkillsArray.at(index).get('skills');
-      
+
       if (duplicateCount > 1 && skill) {
         skillControl?.setErrors({ duplicate: true });
       } else {
@@ -414,39 +496,39 @@ export class CvBuilderComponent implements OnInit  {
     language.forEach((lang, index) => {
       const duplicateCount = language.filter(s => s === lang).length;
       const langControl = this.getLanguagesKnownArray.at(index).get('language');
-      
+
       if (duplicateCount > 1 && lang) {
         langControl?.setErrors({ duplicate: true });
       } else {
         langControl?.setErrors(null);
       }
     });
-    
+
   }
 
   SortBasedOnProficiency(fieldName: string) {
     if (fieldName === "skills") {
-        const proficiencyOrder = ["Advance", "Intermediate", "Basic"];
-        const sortedControls = this.getSkillsArray.controls.sort((a, b) => {
-            return proficiencyOrder.indexOf(a.get('skills_proficiency')?.value) - proficiencyOrder.indexOf(b.get('skills_proficiency')?.value);
-        });
+      const proficiencyOrder = ["Advance", "Intermediate", "Basic"];
+      const sortedControls = this.getSkillsArray.controls.sort((a, b) => {
+        return proficiencyOrder.indexOf(a.get('skills_proficiency')?.value) - proficiencyOrder.indexOf(b.get('skills_proficiency')?.value);
+      });
 
-        // Reorder the existing FormArray without resetting it
-        this.reorderFormArray(this.getSkillsArray, sortedControls);
+      // Reorder the existing FormArray without resetting it
+      this.reorderFormArray(this.getSkillsArray, sortedControls);
 
-        // Check for duplicates after sorting
-        this.checkSkillsDuplilcation();
+      // Check for duplicates after sorting
+      this.checkSkillsDuplilcation();
     } else {
-        const proficiencyOrder = ["Native", "Proficient", "Fluent", "Beginner"];
-        const sortedControls = this.getLanguagesKnownArray.controls.sort((a, b) => {
-            return proficiencyOrder.indexOf(a.get('lang_proficiency')?.value) - proficiencyOrder.indexOf(b.get('lang_proficiency')?.value);
-        });
+      const proficiencyOrder = ["Native", "Proficient", "Fluent", "Beginner"];
+      const sortedControls = this.getLanguagesKnownArray.controls.sort((a, b) => {
+        return proficiencyOrder.indexOf(a.get('lang_proficiency')?.value) - proficiencyOrder.indexOf(b.get('lang_proficiency')?.value);
+      });
 
-        // Reorder the existing FormArray without resetting it
-        this.reorderFormArray(this.getLanguagesKnownArray, sortedControls);
+      // Reorder the existing FormArray without resetting it
+      this.reorderFormArray(this.getLanguagesKnownArray, sortedControls);
 
-        // Check for duplicates after sorting
-        this.checkLanguageDuplication();
+      // Check for duplicates after sorting
+      this.checkLanguageDuplication();
     }
   }
 
@@ -489,17 +571,17 @@ export class CvBuilderComponent implements OnInit  {
     return this.resumeFormInfoData.controls;
   }
 
-  changeExperience() {
-    const expLevel = this.resumeFormInfoData.value.selected_exp_level;
-    if (expLevel == 1) {
-      this.eduDetailsLimit = 3;
-      // this.wrkExpLimit = 2;
-    } else {
-      this.eduDetailsLimit = 2;
-      // this.wrkExpLimit = 3;
-    }
-    this.updateValidatorsForAllProjects();
-  }
+  // changeExperience() {
+  //   const expLevel = this.resumeFormInfoData.value.selected_exp_level;
+  //   if (expLevel == 1) {
+  //     this.eduDetailsLimit = 3;
+  //     // this.wrkExpLimit = 2;
+  //   } else {
+  //     this.eduDetailsLimit = 3;
+  //     // this.wrkExpLimit = 3;
+  //   }
+  //   this.updateValidatorsForAllProjects();
+  // }
 
   updateValidatorsForAllProjects() {
     this.getProjectDetailsArray.controls.forEach(control => {
@@ -550,7 +632,7 @@ export class CvBuilderComponent implements OnInit  {
       return;
     }
     const fieldNameArray: string[] = [];
-    
+
 
     switch (this.moduleActiveIndex) {
       case 1:
@@ -943,12 +1025,12 @@ export class CvBuilderComponent implements OnInit  {
         });
       }
       const isCurrentlyWorking = workExpGroup.get('work_currently_working')?.value;
-        if (isCurrentlyWorking) {
-          workExpGroup.get('work_end_month')?.clearValidators();
-        } else {
-          workExpGroup.get('work_end_month')?.setValidators([Validators.required]);
-        }
-        workExpGroup.get('work_end_month')?.updateValueAndValidity();
+      if (isCurrentlyWorking) {
+        workExpGroup.get('work_end_month')?.clearValidators();
+      } else {
+        workExpGroup.get('work_end_month')?.setValidators([Validators.required]);
+      }
+      workExpGroup.get('work_end_month')?.updateValueAndValidity();
     } else {
       const getEduDetailsArray = this.getEduDetailsArray;
       const getEduDetailsGroup = getEduDetailsArray.at(index) as FormGroup;
