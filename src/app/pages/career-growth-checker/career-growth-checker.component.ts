@@ -11,6 +11,7 @@ interface JobRole {
 interface JobDetail {
   id: number;
   job_role_id: number;
+  pointer_job_role: string;
   country: number;
   roles_resp: string; 
   skills: string;
