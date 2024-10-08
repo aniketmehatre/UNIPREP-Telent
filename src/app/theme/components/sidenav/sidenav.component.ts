@@ -105,6 +105,11 @@ export class SidenavComponent {
       image: "fa-solid fa-briefcase",
     },
     {
+      title: "UNILEARN",
+      url: "/pages/unilearn/modules",
+      image: "fa-solid fa-ballot",
+    },
+    {
       title: "Language Hub",
       url: "/pages/language-hub",
       image: "fa-solid fa-books",
@@ -134,7 +139,6 @@ export class SidenavComponent {
       url: "/pages/job-portal/job-search",
       image: "fa-solid fa-briefcase",
     },
-
     {
       title: "Learning Hub",
       url: "/pages/modules/learning-hub",
