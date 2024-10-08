@@ -46,7 +46,7 @@ export class CostOfLivingComponent implements OnInit {
 
   ngOnInit() {
     this.checkPlanIsExpired()
-    this.getCurrencyConvertions('United States,India', '');
+    this.getCurrencyConvertions('United States,India');
     this.locationService.getImage().subscribe((imageUrl: any) => {
       this.orglogowhitelabel = imageUrl;
     });
@@ -77,7 +77,7 @@ export class CostOfLivingComponent implements OnInit {
     this.targetcountryName = targetCityDetails ? targetCityDetails.country_name : '';
     this.costOfLivingService.calculatePrices(sourceCityDetails).subscribe(response => {
       if (response.error !== null) {
-        this.toastr.add({ severity: 'error', summary: 'Alert', detail: 'Something went wrong please contact the team or reload the page agian', life: 10000 });
+        this.toastr.add({ severity: 'error', summary: 'Alert', detail: 'Something went wrong please contact the team or reload the page again', life: 10000 });
       }
       this.sourceCountryPrices = response;
       this.sourceCountryPrices?.prices?.forEach((price: Price) => {
@@ -85,7 +85,7 @@ export class CostOfLivingComponent implements OnInit {
       })
       this.costOfLivingService.calculatePrices(targetCityDetails).subscribe(response => {
         if (response.error !== null) {
-          this.toastr.add({ severity: 'error', summary: 'Alert', detail: 'Something went wrong please contact the team or reload the page agian', life: 10000 });
+          this.toastr.add({ severity: 'error', summary: 'Alert', detail: 'Something went wrong please contact the team or reload the page again', life: 10000 });
         }
         this.targetCountryPrices = response;
         this.targetCountryPrices?.prices?.forEach((price: Price) => {
@@ -95,19 +95,9 @@ export class CostOfLivingComponent implements OnInit {
       });
     });
   }
-  getCurrencyConvertions(comparingCountries: string, countryType: string) {
+  getCurrencyConvertions(comparingCountries: string) {
     this.costOfLivingService.currencyConvert({ countries: comparingCountries }).subscribe(res => {
-      if (countryType === 'sourceCountry') {
-        if (this.sourceCountryPrices.country_name == 'India') {
-          this.costOfLivingService.inrRate = res.rate;
-        }
-      } else if (countryType === 'targetCountry') {
-        if (this.targetCountryPrices.country_name == 'India') {
-          this.costOfLivingService.inrRate = res.rate;
-        }
-      } else {
-        this.costOfLivingService.inrRate = res.rate;
-      }
+      this.costOfLivingService.inrRate = res.rate;
     },
       error => {
       });
