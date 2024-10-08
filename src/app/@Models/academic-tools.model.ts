@@ -35,3 +35,8 @@ export interface GraphDetail {
     heading: string
     Paragraph: string
 }
+export interface ProgressPayload {
+    categoryId: number
+    moduleId: string
+    submoduleId: string
+}

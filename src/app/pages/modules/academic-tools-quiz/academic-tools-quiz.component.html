@@ -274,68 +274,22 @@
             </div>
         </ng-container>
         <ng-container *ngIf="isSubmitStreamAnswers" class="streamQuiz">
-            <div class="container mt-4" style="max-width: 800px; height: 100vh; overflow-y: auto;">
-                <div class="pdf-viewer shadow-lg mb-5 bg-white rounded"
-                    style="height: calc(100vh - 150px); overflow-y: auto;">
-                    <div class="text-center">
-                        <img src="uniprep-assets/images/stream-report-header.png" alt="Header Image"
-                            style="max-width: 100%;">
+            <div class="row justify-content-center h-100">
+                <div class="col-md-12">
+                    <div class="d-flex w-100 h-100 justify-content-center">
+                        <pdf-viewer class="h-100 overflow-x-hidden pdf-viewer shadow-lg mb-5 bg-white rounded"
+                            style="width:'70%';"
+                            src="https://api.uniprep.ai/uniprepapi/storage/app/public/SampleUploadDocuments/academic/Stream selector report.pdf"></pdf-viewer>
                     </div>
-                    <div class="card-body" style="padding: 40px;">
-                        <div class="text-center">
-                            <div class="card-title text-uppercase h2 mb-4 px-8"
-                                style="font-weight: bold; color: #FF6600;">
-                                <span style="border-bottom: 2px solid black;">
-                                    &nbsp;&nbsp;STREAM SELECTOR REPORT&nbsp;&nbsp;
-                                </span>
-                            </div>
-                        </div>
-                        <p class="text-left"><strong>Dear {{ streamReportData?.result?.student_name }},</strong></p>
-                        <p class="card-text">
-                            {{ streamReportData?.result?.objective }}
-                        </p>
-                        <hr />
-
-                        <div class="text-left h3"
-                            style="font-weight: bold; color: #FF6600; width: 350px; border-bottom: 2px solid black;">
-                            Stream Preference Order
-                        </div>
-                        <p>According to your test results, here is the order of your stream preferences:</p>
-
-                        <div class="row">
-                            <div class="chart-container mb-4 mt-2">
-                                <canvas baseChart [data]="streamReportData.graph_value"
-                                    [labels]="streamReportData.graph_data" [chartType]="'pie'" [colors]="pieChartColors"
-                                    [options]="chartOptions" width="300" [height]="300">
-                                </canvas>
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div *ngFor="let detail of streamReportData?.result?.graph_details" class="mb-3">
-                                    <h5 class="text-blue-dark text-left" style="font-weight: bold;">{{ detail.heading
-                                        }}:
-                                    </h5>
-                                    <p>{{ detail.Paragraph }}</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="text-center">
-                        <img src="uniprep-assets/images/stream-report-footer.png" alt="Footer Image"
-                            style="max-width: 100%;">
-                    </div>
-                </div>
-
-                <div class="footer text-center mt-4" style="position: relative;">
-                    <button class="btn btn-lg" style="background-color: #FF6600; color: white;"
-                        (click)="downloadReport()">
-                        Download Report&nbsp;
-                        <i class="fa-solid fa-download"></i>
-                    </button>
                 </div>
             </div>
+            <div class="footer text-center mt-4" style="position: relative;">
+                <button class="btn btn-lg" style="background-color: #FF6600; color: white;" (click)="downloadReport()">
+                    Download Report&nbsp;
+                    <i class="fa-solid fa-download"></i>
+                </button>
+            </div>
+            <br>
         </ng-container>
     </div>
 </div>
