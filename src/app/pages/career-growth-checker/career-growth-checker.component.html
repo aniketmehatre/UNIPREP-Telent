@@ -13,11 +13,13 @@
                             class="elliptical-search-bar" 
                             formControlName="jobSearch"
                             (input)="onInputChange($event)">
-                        <ul *ngIf="hasfilteredoptions" class="dropdown-list">
-                            <li *ngFor="let option of filteredOptions" (click)="selectOption(option)" [id]="option.id">
-                                {{ option.jobrole }}
-                            </li>
-                        </ul>
+                            <div class="dropdown-list-container" *ngIf="hasfilteredoptions">
+                                <ul class="dropdown-list">
+                                    <li *ngFor="let option of filteredOptions" (click)="selectOption(option)" [id]="option.id">
+                                        {{ option.jobrole }}
+                                    </li>
+                                </ul>
+                            </div>
                         <div *ngIf="invalidClass" class="error-message" style="color: red; margin-top: 5px;">
                             Please Choose Any one option
                         </div>
@@ -73,10 +75,12 @@
                         <div class="row" style="margin-top: 15px; text-align: left;">
                             <div class="col">
                                 <strong style="color: #4552a3;">Roles & Responsibilities</strong><br />
-                                <span style="display: block; margin-bottom: 5px;">
-                                    <ng-container *ngFor="let role of detail.rolesArray">
-                                        {{ role }}<br />
-                                    </ng-container>
+                                <span style="display: block; margin-bottom: 5px;">                                    
+                                    <ul style="list-style-type: disc; padding-left: 20px;">
+                                        <ng-container *ngFor="let role of detail.rolesArray">
+                                            <li>{{ role }}</li>
+                                        </ng-container>
+                                    </ul>
                                 </span>
                             </div>
                             <div class="col">
