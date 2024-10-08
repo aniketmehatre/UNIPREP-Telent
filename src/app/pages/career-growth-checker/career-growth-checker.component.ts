@@ -170,6 +170,20 @@ export class CareerGrowthCheckerComponent implements OnInit {
     return jobType ? jobType.id : null;
   }
 
+  scrollToCareerProgression(index: number) {
+    const element = document.getElementById(`career-progress-${index}`);
+
+    if (!element) {
+        console.warn(`Element with ID career-progress-${index} not found.`);
+        return;
+    }
+
+    const headerOffset = document.querySelector('.fixed-header')?.clientHeight || 0;
+
+    element.scrollIntoView({ behavior: 'smooth', block: 'end' });
+
+}
+
 
 
 }
