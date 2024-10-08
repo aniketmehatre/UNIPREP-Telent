@@ -89,8 +89,8 @@ export class EntreprenuerquizComponent implements OnInit {
       this.ehitlabelIsShow = false;
     }
     // this.quizmoduleredirectcountryid = Number(localStorage.getItem('modalcountryid'));
-    this.init();
-    this.checkplanExpire();
+    // this.init();
+    // this.checkplanExpire();
   }
   init() {
     let cName = "";
