@@ -38,6 +38,7 @@ export class LearnModulesComponent implements OnInit {
   onModuleClick(moduledata: learnModules) {
     this.parentid = 0;
     this.moduleid = moduledata.id;
+    localStorage.setItem("module_id",String(moduledata.id))
     this.selected_module = moduledata.module_name;
     this.moduleChange.emit({parent_id: this.parentid, module_id: this.moduleid,selected_module:this.selected_module,stage:2});
   }

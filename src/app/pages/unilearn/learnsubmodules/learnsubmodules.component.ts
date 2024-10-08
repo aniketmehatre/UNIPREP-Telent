@@ -1,6 +1,10 @@
 import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
 import { PageFacadeService } from "../../page-facade.service";
-import { learnModules, learnsubModules } from "../unilearn.model";
+import {
+  learnModules,
+  learnsubModules,
+  submoduledata,
+} from "../unilearn.model";
 import { UniLearnService } from "../unilearn.service";
 import { Router } from "@angular/router";
 
@@ -34,30 +38,33 @@ export class LearnsubModulesComponent implements OnInit {
       .getUniLearnsubModules(this.paramData)
       .subscribe((res: learnsubModules) => {
         this.isSkeletonVisible = false;
-        this.submoduleList = res;
+        this.submoduleList = res.data;
+        localStorage.setItem("parent_id", String(res.previous_id));
       });
   }
   openVideoPopup(videoLink: string) {
     this.pageFacade.openHowitWorksVideoPopup(videoLink);
   }
   pdfURL: any;
-  pdfvisibility=false;
-  onModuleClick(moduledata: learnsubModules) {
+  pdfvisibility = false;
+  onModuleClick(moduledata: submoduledata) {
     this.paramData.parent_id = moduledata.id;
     this.paramData.module_id = moduledata.module_id;
-    this.parentid = moduledata.id;
-    this.moduleid = moduledata.id;
     this.selected_module = moduledata.submodule_name;
+    this.parentid = moduledata.parent_folder_id;
+    this.moduleid = moduledata.module_id;
     switch (moduledata.file_type) {
       case 1:
         this.getModules();
         break;
       case 2:
-        this.pdfvisibility=true;
-        this.pdfURL=moduledata.attachment_filename;
+        this.pdfvisibility = true;
+        this.pdfURL = moduledata.attachment_filename;
         break;
       case 3:
-        this.pageFacade.openHowitWorksVideoPopup(moduledata.attachment_filename);
+        this.pageFacade.openHowitWorksVideoPopup(
+          moduledata.attachment_filename
+        );
         break;
       default:
         this.getModules();
@@ -65,19 +72,37 @@ export class LearnsubModulesComponent implements OnInit {
     }
   }
   backtoMain() {
-    if(this.pdfvisibility){
-      this.pdfvisibility=false;
+    if (this.pdfvisibility) {
+      this.pdfvisibility = false;
       return;
     }
-    if (this.parentid == 0 && this.moduleid == 1) {
+    if (this.submoduleList.length == 0) {
       this.moduleChange.emit({
-        parent_id: this.parentid,
-        module_id: this.moduleid,
+        parent_id: 0,
+        module_id: 1,
         selected_module: this.selected_module,
         stage: 1,
       });
+      return;
+    }
+    if (
+      this.submoduleList[0]?.parent_folder_id == 0 &&
+      this.submoduleList[0]?.module_id == 1
+    ) {
+      this.moduleChange.emit({
+        parent_id: 0,
+        module_id: 1,
+        selected_module: this.selected_module,
+        stage: 1,
+      });
+      return;
     } else {
+      this.paramData.parent_id = Number(localStorage.getItem("parent_id"));
+      this.paramData.module_id = Number(localStorage.getItem("module_id"));
       this.getModules();
     }
+  }
+  download() {
+    window.open(this.pdfURL, "_blank");
   }
 }
