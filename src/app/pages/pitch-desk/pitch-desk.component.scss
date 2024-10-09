@@ -19,17 +19,22 @@
   padding: 15px !important;
 }
 
-.p-paginator{
-  justify-content: left !important;
-  //padding-left: 400px;
-}
-
-
-// ::ng-deep .p-paginator {
-//   padding-left: 80px;
-  
+// .p-paginator{
+//   justify-content: left !important;
+ 
 // }
 
+
+::ng-deep .p-paginator {
+  padding-left: 400px;
+  /* display: flex; */
+  // align-items: center;
+  // justify-content: center;
+  // flex-wrap: wrap;
+}
+// ::ng-deep :not(.p-paginator ){
+//   display: flex;
+// }
 ::ng-deep .p-datatable a
 {
   text-decoration: none;
