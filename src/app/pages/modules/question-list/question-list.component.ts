@@ -124,7 +124,7 @@ export class QuestionListComponent implements OnInit {
 
   }
 
-  loopRange = Array.from({ length: 30 }).fill(0).map((_, index) => index);
+  loopRange = Array.from({ length: 24 }).fill(0).map((_, index) => index);
   ngOnInit(): void {
     this.locationService.getImage().subscribe(imageUrl => {
       this.orglogowhitelabel = imageUrl;

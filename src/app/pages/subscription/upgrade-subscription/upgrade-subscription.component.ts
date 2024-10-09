@@ -97,16 +97,16 @@ export class UpgradeSubscriptionComponent implements OnInit {
     this.discountAmountEnable = false;
     this.user = this.authService.user;
     this.studentType = this.user?.student_type_id || 0;
-    this.ngxService.start();
+    this.ngxService.startBackground();
     this.authService.getCountry().subscribe(
       (data) => {
-        this.ngxService.stop();
+        this.ngxService.stopBackground();
         this.countryList = data;
 
         // this.getSubscriptionTopupList();
       },
       (error) => {
-        this.ngxService.stop();
+        this.ngxService.stopBackground();
       }
     );
   }

@@ -40,6 +40,12 @@ input:-webkit-autofill:active {
 	top: 50% !important;
 }
 
+.bottom-right
+{
+	bottom: 60px !important;
+    right: 60px !important;
+}
+
 .ngx-foreground-spinner {
 	top: 50% !important;
 }
@@ -230,6 +236,13 @@ small {
 .font-secondarycolor {
 	color: #001631;
 }
+
+.line-clamp {
+	display: -webkit-box;
+	-webkit-line-clamp: 3;
+	-webkit-box-orient: vertical;  
+	overflow: hidden;
+  }
 
 .startbg {
 	min-height: 100vh;

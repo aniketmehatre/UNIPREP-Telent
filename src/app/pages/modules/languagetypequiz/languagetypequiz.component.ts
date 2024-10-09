@@ -172,7 +172,7 @@ export class LanguagetypequizComponent implements OnInit {
     // });
     this.locationService.getUniPerpModuleList().subscribe((data: any) => {
       this.moduleList = data.modules;
-      this.ngxService.stop();
+      this.ngxService.stopBackground();
     });
   }
 

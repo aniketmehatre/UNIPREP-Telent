@@ -116,7 +116,7 @@ export class ListSubModulesComponent implements OnInit {
 
 
     allSearchedResult: any[] = []
-    loopRange = Array.from({length: 30}).fill(0).map((_, index) => index);
+    loopRange = Array.from({length: 24}).fill(0).map((_, index) => index);
     originalSubModuleList: any[] = [];
 
     ngOnInit() {
@@ -315,7 +315,7 @@ export class ListSubModulesComponent implements OnInit {
         // });
         this.locationService.getUniPerpModuleList().subscribe((data: any) => {
             this.moduleList = data.modules;
-            this.ngxService.stop();
+            this.ngxService.stopBackground();
         });
     }
 
