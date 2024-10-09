@@ -109,7 +109,7 @@ export class K12ClassComponent implements OnInit {
 
 
     allSearchedResult: any[] = []
-    loopRange = Array.from({ length: 30 }).fill(0).map((_, index) => index);
+    loopRange = Array.from({ length: 1 }).fill(0).map((_, index) => index);
     ngOnInit() {
         this.router.events.pipe(
             filter(event => event instanceof NavigationEnd)
@@ -295,7 +295,7 @@ export class K12ClassComponent implements OnInit {
         // });
         this.locationService.getUniPerpModuleList().subscribe((data: any) => {
             this.moduleList = data.modules;
-            this.ngxService.stop();
+            this.ngxService.stopBackground();
         });
     }
 

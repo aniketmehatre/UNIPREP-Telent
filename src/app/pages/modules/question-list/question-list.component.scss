@@ -3,7 +3,7 @@
 }
 
 .questioncard {
-	border: 2px solid var(--uniprep-primary);
+	border: 1px solid var(--uniprep-primary);
 }
 
 .scrollable-container {
@@ -159,3 +159,18 @@
 		max-width: 100%;
 	}
 }
+
+.backIcon {
+	height: 40px;
+	width: 40px;
+	border-radius: 20px;
+	background-color: var(--uniprep-primary);
+	color: white;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	margin:10px 0;
+	.pi-angle-left{
+		font-size: 16px;
+	}
+  }
