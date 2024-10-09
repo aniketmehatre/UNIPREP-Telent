@@ -10,6 +10,8 @@ import { NgxUiLoaderService } from "ngx-ui-loader";
 import { Location } from '@angular/common';
 import { SubmitRecommendation, SubmitStreamResponse } from 'src/app/@Models/academic-tools.model';
 import { ChartOptions } from 'chart.js';
+import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
+import { AcademicService } from '../academic.service';
 
 @Component({
   selector: 'uni-academic-tools-quiz',
@@ -83,8 +85,11 @@ export class AcademicToolsQuizComponent implements OnInit {
       position: 'right',
     }
   };
+  isIos: boolean = false;
+
   constructor(private moduleListService: ModuleServiceService, private authService: AuthService, private router: Router, private dataService: DataService,
-    private location: Location, private locationService: LocationService, private ngxService: NgxUiLoaderService, private toast: MessageService, private activatedRoute: ActivatedRoute) { }
+    private location: Location, private locationService: LocationService, private ngxService: NgxUiLoaderService, private toast: MessageService, private activatedRoute: ActivatedRoute,
+    private sanitizer: DomSanitizer, private academicService: AcademicService) { }
 
   ngOnInit(): void {
     this.titleModule = ['Stream', 'Recommendation', 'Quiz'];
@@ -104,6 +109,7 @@ export class AcademicToolsQuizComponent implements OnInit {
       this.ehitlabelIsShow = false;
     }
     this.checkplanExpire();
+    this.checkProgress();
   }
 
   init() {
@@ -492,8 +498,35 @@ export class AcademicToolsQuizComponent implements OnInit {
     this.isQuizSubmit = true;
   }
 
+
+
   downloadReport() {
-    window.open(this.streamReportData.report_url, '_blank');
+    const pdfUrl = this.streamReportData?.report_url;
+    const fileName = 'Stream_selector_report.pdf';
+
+    fetch(pdfUrl)
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        return response.blob();
+      })
+      .then(blob => {
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = fileName;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        window.URL.revokeObjectURL(url);
+      })
+      .catch(error => console.error('Error downloading the file:', error));
+  }
+  checkProgress(): void {
+    this.academicService.getProgress({categoryId:this.categoryId,moduleId:this.currentModuleId,submoduleId:this.quizId}).subscribe((res) => {
+      console.log(res);
+    })
   }
 
 }

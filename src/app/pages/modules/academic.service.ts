@@ -2,7 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '@env/environment';
 import { Observable } from 'rxjs';
-import { GetAcademicListPayload } from 'src/app/@Models/academic-tools.model';
+import { GetAcademicListPayload, ProgressPayload } from 'src/app/@Models/academic-tools.model';
 import { GetQuizPayload, QuizResponse } from 'src/app/@Models/career-tool-category.model';
 
 @Injectable({
@@ -23,4 +23,25 @@ export class AcademicService {
             headers: headers,
         });
     }
+    getProgress(req: ProgressPayload): Observable<any> {
+        const data = {
+            module_id: req.moduleId,
+            submodule_id: req.submoduleId
+        };
+        const headers = new HttpHeaders().set("Accept", "application/json");
+        if (req.categoryId === 1) {
+            return this.http.post<any>(environment.ApiUrl + `/checkstreamprogresstable`, data, {
+                headers: headers,
+            });
+        } if (req.categoryId === 2) {
+            return this.http.post<any>(environment.ApiUrl + `/checkrecommendationprogress`, data, {
+                headers: headers,
+            });
+        }
+        return this.http.post<any>(environment.ApiUrl + `/checkquizprogress`, data, {
+            headers: headers,
+        });
+
+    }
+
 }

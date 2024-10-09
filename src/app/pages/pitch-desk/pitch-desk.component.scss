@@ -21,8 +21,14 @@
 
 .p-paginator{
   justify-content: left !important;
+  //padding-left: 400px;
 }
 
+
+// ::ng-deep .p-paginator {
+//   padding-left: 80px;
+  
+// }
 
 ::ng-deep .p-datatable a
 {

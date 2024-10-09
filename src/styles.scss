@@ -322,6 +322,7 @@ uni-modules {
 		display: flex;
 		flex-direction: column;
 	}
+
 	uni-founderstool {
 		flex: 1;
 		overflow-y: auto;
@@ -363,6 +364,7 @@ uni-modules {
 		flex-direction: column;
 	}
 }
+
 uni-founderstool,
 uni-tutorials,
 uni-guidelines,
@@ -1630,3 +1632,4 @@ p-dialog.restrictionDialog .p-dialog .p-dialog-header .p-dialog-header-icon {
 		min-width: 300px !important;
 	}
 }
+
