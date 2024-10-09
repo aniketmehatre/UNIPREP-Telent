@@ -11,7 +11,7 @@ import {LocalStorageService} from "ngx-localstorage";
   template: `
     <router-outlet></router-outlet>
     <p-toast position="top-right"></p-toast>
-    <ngx-ui-loader overlayColor="rgba(0,0,0,0.8)" logoUrl="uniprep-assets/images/icon-loader.svg" [fgsSize]="75" fgsType="circle" fgsColor="#f0780e" [hasProgressBar]="false"></ngx-ui-loader>`
+    <ngx-ui-loader overlayColor="rgba(0,0,0,0.8)" logoUrl="uniprep-assets/images/icon-loader.svg" [bgsSize]="40" bgsType="three-bounce" [bgsOpacity]="1" bgsColor="#f0780e" [hasProgressBar]="false"></ngx-ui-loader>`
 })
 export class AppComponent {
   constructor(private storage: LocalStorageService,private whitelabelservice:LocationService) {}

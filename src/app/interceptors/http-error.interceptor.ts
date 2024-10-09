@@ -41,13 +41,13 @@ export class HttpErrorInterceptor implements HttpInterceptor {
         !request.url.includes("getsubscriptiontimeleft")
     ) {
       if(!currentUrl.includes('modules')){
-        this.ngxService.start();
+        this.ngxService.startBackground();
       }
     }
     return next.handle(request).pipe(
       tap((res: any) => {
         if (res.status) {
-          this.ngxService.stop();
+          this.ngxService.stopBackground();
         }
       }),
       catchError((err: any) => {
@@ -62,7 +62,7 @@ export class HttpErrorInterceptor implements HttpInterceptor {
           err?.message ||
           "Something wrong please try again!";
         // this.toastr.add({severity: 'error', summary: 'Error', detail: msg});
-        this.ngxService.stop();
+        this.ngxService.stopBackground();
         if (err?.status === 401) {
           window.sessionStorage.clear();
           localStorage.clear();
