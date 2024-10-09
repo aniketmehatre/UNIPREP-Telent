@@ -27,13 +27,13 @@
 }
 
 .subjectcard {
-	border: 3px solid #f0780c;
+	border: 1px solid #f0780c;
 	width: 100%;
 	margin: 10px 0px;
 
 	.submoduleicon {
-		height: 100px;
-		width: 100px;
+		height: 75px;
+		width: 75px;
 		margin: auto;
 		display: flex;
 		justify-content: center;
@@ -47,12 +47,12 @@
 
 	&:focus {
 		background-color: var(--uniprep-primaryop10);
-		border: 3px solid var(--uniprep-primary);
+		border: 1px solid var(--uniprep-primary);
 	}
 
 	&:hover {
 		background-color: var(--uniprep-primaryop10);
-		border: 3px solid var(--uniprep-primary);
+		border: 1px solid var(--uniprep-primary);
 	}
 
 	// .subjecttitle {
