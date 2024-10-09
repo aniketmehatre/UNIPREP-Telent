@@ -164,6 +164,7 @@
 			</div>
 	
 			<!-- <p-paginator *ngIf="totalInvestorsCount != 0" [rows]="pageSize" [totalRecords]="totalInvestorsCount" (onPageChange)="pageChange($event)" [rowsPerPageOptions]="[50, 100, 300, 500, 1000]"></p-paginator> -->
+			<div class="row d-flex align-items-center justify-content-between">
 			<p-paginator 
 			*ngIf="totalInvestorsCount != 0" 
 			[rows]="pageSize" 
@@ -172,7 +173,7 @@
 			(onPageChange)="pageChange($event)" 
 			[rowsPerPageOptions]="[50, 100, 300, 500, 1000]" 
 			[disabled]="totalInvestorsCount <= pageSize">
-		</p-paginator>
+		</p-paginator></div>
 			<div class="text-align-right d-flex justify-content-end" >
 				<button pButton type="button" class="text-black b-none p-ripple p-button-rounded p-danger-button p-button p-component p-2 bg-white" (click)="resetRecommendation()">
 					Reset Recommendations<span class="fa-stack">
