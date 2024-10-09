@@ -53,10 +53,10 @@ export class EntreprenuersectorproficiencyComponent implements OnInit {
     });
   }
   openQuiz(id:any){
-    // if(this.planExpired){
-    //   this.restrict=true;
-    //   return;
-    // }
+    if(this.planExpired){
+      this.restrict=true;
+      return;
+    }
     localStorage.setItem('conditionrevieworquiz','0')
     localStorage.setItem('entrpreneursubid',id)
     this.currentModuleSlug = "entreprenuersectorproficiencytest"
