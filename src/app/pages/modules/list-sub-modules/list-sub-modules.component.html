@@ -1,6 +1,6 @@
 <div class="card readingcard">
-    <div class="card-header py-0 border-0 bg-transparent">
-        <div class="row">
+	<div class="card-header py-0 border-0 bg-transparent">
+		<div class="row">
 			<!-- <div class="col-md-3 d-flex">
                 <span *ngIf="this.currentModuleId == 8 && this.canShowQuestionList">
                     <p-button (click)="goBack()" icon="pi pi-arrow-left"
@@ -21,7 +21,7 @@
                             placeholder="Search Files" pInputText [(ngModel)]="searchUniversity"
                             (input)="performSearch()" /> -->
 					<div *ngIf="filteredData.length" class="dropdown-container">
-						<div *ngFor="let result of filteredData" class="dropdown-item" (click)="selectSearchResult(result)">
+						<div *ngFor="let result of filteredData" role="button" class="dropdown-item" (click)="selectSearchResult(result)">
 							<h3>{{ result.title }}</h3>
 							<p>{{ result.subtitle }}</p>
 						</div>
@@ -94,9 +94,8 @@
 
             </div> -->
 		</div>
-    </div>
+	</div>
 	<div class="card-body text-center">
-		
 		<div class="row justify-content-center" *ngIf="currentModuleId == 14 && selectSubmoduleName == ''">
 			<div class="col-md-3 text-start desktop justify-content-start">
 				<p-dropdown placeholder="Change Class" [style]="{ width: '350px' }" [ngModel]="selectedClassId" [options]="subModuleMainList" optionValue="id" optionLabel="category" [filter]="true" (onChange)="onStatusChange($event)"> </p-dropdown>
