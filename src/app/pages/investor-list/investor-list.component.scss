@@ -220,14 +220,18 @@
   .mobile{
     display: block;
   }
-  .p-paginator{
-    justify-content: left !important;
-  }
-
+  // .p-paginator{
+  //   justify-content: left !important;
+  // }
+ 
   :host .investor-list-table-header {
     white-space: nowrap !important;
   }
 }
+::ng-deep .p-paginator {
+  padding-left: 80px;
+}
+
 .primary-header{
   background: #3F4C83 !important;
 }
