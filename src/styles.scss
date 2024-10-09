@@ -237,6 +237,13 @@ small {
 	color: #001631;
 }
 
+.line-clamp {
+	display: -webkit-box;
+	-webkit-line-clamp: 3;
+	-webkit-box-orient: vertical;  
+	overflow: hidden;
+  }
+
 .startbg {
 	min-height: 100vh;
 	background-image: url(uniprep-assets/images/startbg.webp);
