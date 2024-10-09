@@ -364,6 +364,7 @@ export class EntreprenuerquizComponent implements OnInit {
     this.stopTimer();
   }
   openReviewPopup() {
+    this.checkquizquestionmodule()
     this.quizData = [];
     this.selectedQuiz = 1
     this.isQuizSubmit = false;
@@ -411,8 +412,8 @@ export class EntreprenuerquizComponent implements OnInit {
   checkquizquestionmodule() {
     var data = {
       moduleid: this.currentModuleId,
-      countryid: this.currentModuleId == 10 ? 0 : this.currentCountryId,
-      submoduleid: this.universityidforquiz
+      countryid:0,
+      submoduleid: this.submoduleidquiz
     }
     this.service.checkModuleQuizCompletion(data).subscribe((res) => {
       this.quizpercentage = res.progress
