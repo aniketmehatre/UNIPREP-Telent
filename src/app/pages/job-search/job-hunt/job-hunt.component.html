@@ -7,13 +7,15 @@
         <form [formGroup]="fG" (ngSubmit)="onSubmit()">
             <div class="form-group">
                 <div class="row justify-content-center align-items-center text-center mt-2">
-                    <div class="col-md-6 col-lg-5 mb-2 mb-md-0">
+                    <div class="col-md-6 col-lg-5 mb-2 mb-md-0 input-wrapper">
                         <span class="p-input-icon-left w-100">
                             <i class="pi pi-search"></i>
-                            <input type="text" formControlName="what_and"
-                                   class="form-control w-100 rounded-input"
-                                   pInputText placeholder="  Search by Job Title, Skill, Company"/>
+                            <input type="text" formControlName="what_and" (input)="searchJob($event)" class="form-control w-100 rounded-input"
+                                   pInputText placeholder=" Search by Job Title, Skill, Company"/>
                         </span>
+                        <ul *ngIf="filterJobTitle.length > 0"  class="dropdown-list">
+                            <li *ngFor="let job of filterJobTitle" (click)="setJobtitle(job.jobrole)">{{ job.jobrole }}</li>
+                        </ul>
                     </div>
                     <div class="col-md-4 col-lg-3 mb-2 mb-md-0">
                         <p-dropdown [options]="cities"

@@ -678,7 +678,7 @@ export class QuestionListComponent implements OnInit {
     this.pageno = event.page + 1;
     this.perpage = event.rows;
     let data = {
-      countryId: this.currentModuleId == 8 || this.currentModuleId == 10 ? 0 : Number(localStorage.getItem("countryId")),
+      countryId: this.currentModuleId == 8 || this.currentModuleId == 10 || this.currentModuleId == 14 ? 0 : Number(localStorage.getItem("countryId")),
       moduleId: this.currentModuleId,
       submoduleId: Number(this.subModuleId),
       page: this.pageno,
