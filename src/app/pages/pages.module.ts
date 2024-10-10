@@ -79,6 +79,7 @@ import { InterviewJobrolesComponent } from "./interview-jobroles/interview-jobro
 import { AnimateModule } from "primeng/animate";
 import { InterviewQuestionsComponent } from "./interview-questions/interview-questions.component";
 import { CareerGrowthCheckerComponent } from "./career-growth-checker/career-growth-checker.component";
+import { AdvisorComponent } from './advisor/advisor.component';
 // import { JobToolComponent } from './job-tool/job-tool.component';
 @NgModule({
   declarations: [
@@ -115,6 +116,7 @@ import { CareerGrowthCheckerComponent } from "./career-growth-checker/career-gro
     InterviewJobrolesComponent,
     InterviewQuestionsComponent,
     CareerGrowthCheckerComponent,
+    AdvisorComponent,
     // JobToolComponent,
   ],
   exports: [FooterStatusBoxComponent, HeaderSearchComponent],

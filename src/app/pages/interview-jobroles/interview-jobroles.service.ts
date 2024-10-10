@@ -9,9 +9,9 @@ export class InterviewJobrolesService {
 
   constructor(private http: HttpClient) { }
 
-  getJobRoles(data: any) {
+  getJobRoles() {
     const headers = new HttpHeaders().set("Accept", "application/json");
-    return this.http.post<any>(environment.ApiUrl + "/serachJobrole", data ,{
+    return this.http.post<any>(environment.ApiUrl + "/serachJobrole",{
       headers: headers,
     });
   }

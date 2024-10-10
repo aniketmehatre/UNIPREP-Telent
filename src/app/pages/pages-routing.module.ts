@@ -31,6 +31,7 @@ import {SalaryConverterComponent} from "./job-tool/salary-converter/salary-conve
 import { FounderstoolComponent } from './founderstool/founderstool.component';
 import { InterviewJobrolesComponent } from './interview-jobroles/interview-jobroles.component';
 import { InterviewQuestionsComponent } from './interview-questions/interview-questions.component';
+import {AdvisorComponent} from "./advisor/advisor.component";
 
 const routes: Routes = [
     {
@@ -215,6 +216,10 @@ const routes: Routes = [
             {
                 path: 'unilearn',
                 loadChildren: () => import('./unilearn/unilearn.module').then(m => m.UniLearnModule)
+            },
+            {
+                path: 'advisor',
+                component: AdvisorComponent
             },
         ]
     }
