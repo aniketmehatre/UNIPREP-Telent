@@ -8,10 +8,11 @@ import { LocationService } from "../../../location.service";
 import { AuthService } from 'src/app/Auth/auth.service';
 import { NgxUiLoaderService } from "ngx-ui-loader";
 import { Location } from '@angular/common';
-import { SubmitRecommendation, SubmitStreamResponse } from 'src/app/@Models/academic-tools.model';
+import { GetAcademicListPayload, SubmitRecommendation, SubmitStreamResponse } from 'src/app/@Models/academic-tools.model';
 import { ChartOptions } from 'chart.js';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { AcademicService } from '../academic.service';
+import { QuizResponse } from 'src/app/@Models/career-tool-category.model';
 
 @Component({
   selector: 'uni-academic-tools-quiz',
@@ -86,6 +87,7 @@ export class AcademicToolsQuizComponent implements OnInit {
     }
   };
   pdfUrl: string = '';
+  moduelName: string = '';
 
   constructor(private moduleListService: ModuleServiceService, private authService: AuthService, private router: Router, private dataService: DataService,
     private location: Location, private locationService: LocationService, private ngxService: NgxUiLoaderService, private toast: MessageService, private activatedRoute: ActivatedRoute,
@@ -101,6 +103,7 @@ export class AcademicToolsQuizComponent implements OnInit {
       this.quizId = res['submoduleId'];
       this.categoryId = Number(res['categoryId']);
       this.checkProgress();
+      this.getList();
     });
     this.imagewhitlabeldomainname = window.location.hostname;
     if (this.imagewhitlabeldomainname === "dev-student.uniprep.ai" || this.imagewhitlabeldomainname === "uniprep.ai" || this.imagewhitlabeldomainname === "localhost") {
@@ -559,5 +562,12 @@ export class AcademicToolsQuizComponent implements OnInit {
       this.init();
     })
   }
-
+  getList() {
+    const params: GetAcademicListPayload = {
+      module_id: this.currentModuleId,
+    }
+    this.academicService.getAcadamicSubModuleList(params).subscribe((res: QuizResponse) => {
+      this.moduelName = res.data.find(item => item.id === Number(this.quizId))?.submodule_name as string;
+    });
+  }
 }
