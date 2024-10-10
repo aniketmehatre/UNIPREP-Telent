@@ -85,7 +85,7 @@ export class CareerGrowthCheckerComponent implements OnInit {
       this.filteredOptions = res;
     });
     this.careerGrowthService.getCountries().subscribe(data => {
-      const desiredCountries = ['India', 'United States', 'United Kingdom', 'China', 'Norway', 'Germany', 'France', 'Singapore', 'Switzerland', 'United Arab Emirates', 'Spain', 'Ireland', 'Australia', 'New Zealand', 'Canada', 'Netherlands', 'Austria', 'Belgium', 'Czech Republic', 'Denmark', 'Estonia', 'Finland', 'Hungary', 'Italy', 'Latvia', 'Lithuania', 'Malta', 'Poland', 'Portugal', 'Sweden', 'Japan'];
+      const desiredCountries = ['United States', 'United Kingdom', 'China', 'Norway', 'Germany', 'France', 'Singapore', 'Switzerland', 'United Arab Emirates', 'Spain', 'Ireland', 'Australia', 'New Zealand', 'Canada', 'Netherlands', 'Austria', 'Belgium', 'Czech Republic', 'Denmark', 'Estonia', 'Finland', 'Hungary', 'Italy', 'Latvia', 'Lithuania', 'Malta', 'Poland', 'Portugal', 'Sweden', 'Japan'];
       const countriesList: Country[] = data.countries_list;
 
       this.countries = countriesList.filter(country => 
