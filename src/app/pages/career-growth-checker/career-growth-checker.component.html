@@ -31,7 +31,9 @@
                             formControlName="country" 
                             optionValue="id" 
                             optionLabel="country" 
-                            placeholder="Select Country">
+                            placeholder="Select Country"
+                            [filter]="true" 
+                            [showClear]="true">
                         </p-dropdown>
                         <div *ngIf="invalidClassCountry" class="error-message" style="color: red; position: absolute; top: 100%; left: 0;">
                             Please Choose Any one option
