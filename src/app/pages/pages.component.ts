@@ -220,11 +220,15 @@ export class PagesComponent implements OnInit, OnDestroy {
         this.visibleExhastedUser = false;
     }
 
-    selectedLink:string = "https://www.youtube.com/watch?v=3-5YyylOgKw";
+    // selectedLink:string = "https://www.youtube.com/watch?v=3-5YyylOgKw";
     openVideoInYoutube(){
-        if (this.selectedLink) {
-            window.open(this.selectedLink);
-        }
+        // if (this.selectedLink) {
+        //     window.open(this.selectedLink);
+        // }
+        const embedUrl = this.howItWorksVideoLink.changingThisBreaksApplicationSecurity;
+        const videoId = embedUrl.split("/embed/")[1]; // Extract video ID
+        const youtubeUrl = `https://www.youtube.com/watch?v=${videoId}`;
+        window.open(youtubeUrl, '_blank');
     }
 
     closeVideoPopup(){

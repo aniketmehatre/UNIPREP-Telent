@@ -545,7 +545,7 @@
 								</div>
 								<form [formGroup]="mobileForm">
 									<div class="w-100 phonenumberblock" *ngIf="formvisbility">
-										<p style="font-size: x-small">Enter your number to continue the experience</p>
+										<p class="m-1">Enter your number to continue the experience</p>
 										<ngx-intl-tel-input class="intel-input w-100" [cssClass]="'custom'"
                                                             [preferredCountries]="['in', 'gb']"
                                                             [enableAutoCountrySelect]="true" [enablePlaceholder]="true"
@@ -555,17 +555,20 @@
                                                             customPlaceholder="Enter Contact Number" formControlName="phone"> </ngx-intl-tel-input>
 									</div>
                                     <div class="w-100 phonenumberblock mt-2" *ngIf="formvisbility">
-                                        <p style="font-size: x-small">Select Your Home Country</p>
-                                        <div class="p-inputgroup">
+                                        <p class="m-1">Select Your Home Country</p>
                                             <p-dropdown class="w-100" formControlName="home_country"
                                                         appendTo="body" [options]="countryList" [filter]="true"
-                                                        placeholder="Country Dropdown"
+                                                        placeholder="Country"
                                                         (onChange)="changeLocation($event)" filterBy="country"
                                                         optionLabel="country" optionValue="id"
-                                                        [autoDisplayFirst]="false"></p-dropdown>
-                                        </div>
+                                                        [autoDisplayFirst]="false" styleClass="custom-dropdown"></p-dropdown>
                                     </div>
-									<div *ngIf="freeTrialErrorMsg" class="text-danger">
+									<div class="w-100 phonenumberblock mt-2" *ngIf="formvisbility">
+                                        <p class="m-1">Select Your Study Level</p>
+                                            <p-dropdown class="w-100" formControlName="study_level" appendTo="body" [options]="programLevelList" placeholder="Study Level"
+												optionLabel="programlevel" optionValue="id" [autoDisplayFirst]="false" styleClass="custom-dropdown"></p-dropdown>
+                                    </div>
+									<div *ngIf="freeTrialErrorMsg" class="text-danger text-center">
 										{{freeTrialErrorMsg}}
 									</div>
 									<div class="icon-container mt-2 d-flex justify-content-center mb-2">
