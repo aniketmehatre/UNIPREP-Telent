@@ -1,8 +1,5 @@
 import {Component, HostListener} from '@angular/core';
-import {SessionService} from "./session.service";
 import {LocationService} from "./location.service";
-import {Subject} from "rxjs";
-import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {environment} from "@env/environment";
 import {LocalStorageService} from "ngx-localstorage";
 
@@ -26,7 +23,15 @@ export class AppComponent {
 
   @HostListener('window:beforeunload', ['$event'])
   unloadHandler(event: BeforeUnloadEvent) {
-    if(window.location.hostname !== "localhost") {
+    if (window.location.href.includes('login')) {
+      return
+    }
+    if (window.location.href.includes('register')) {
+      return
+    }
+    if (window.location.href.includes('forgot-password')) {
+      return;
+    }
       const token = this.storage.get<string>('token');
       const sessionData = {
         token: token
@@ -49,10 +54,18 @@ export class AppComponent {
       } else {
         console.log('Tab refreshed or navigated away');
       }
-
+    if (window.location.href.includes('login')) {
+      return
+    }
+    if (window.location.href.includes('register')) {
+      return
+    }
+    if (window.location.href.includes('forgot-password')) {
+      return;
+    }
       event.preventDefault();
       event.returnValue = '';
-    }
+
   }
   // @HostListener('window:beforeunload', ['$event'])
   // beforeunloadHandler(event: any) {

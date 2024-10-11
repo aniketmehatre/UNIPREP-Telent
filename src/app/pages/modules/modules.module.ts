@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { ModulesRoutingModule } from './modules-routing.module';
@@ -74,6 +74,7 @@ import { PdfViewerModule } from 'ng2-pdf-viewer';
     DialogModule,
     DropdownModule,
     ChartsModule
-  ]
+  ],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class ModulesModule { }

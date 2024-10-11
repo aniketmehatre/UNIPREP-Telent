@@ -115,12 +115,11 @@
 			</div>
 		</div>
 		<!-- <p-paginator *ngIf="totalPitchDeckCount != 0" [rows]="pageSize" [totalRecords]="totalPitchDeckCount" (onPageChange)="pageChange($event)" [rowsPerPageOptions]="[50, 100, 300, 500, 1000]"></p-paginator> -->
-		<!-- <div class="row d-flex align-items-center justify-content-between">-->
+		<div class="row d-flex align-items-center justify-content-between">
 		<p-paginator *ngIf="totalPitchDeckCount != 0" [rows]="pageSize" [totalRecords]="totalPitchDeckCount"
 			[first]="(page - 1) * pageSize" (onPageChange)="pageChange($event)"
 			[rowsPerPageOptions]="[50, 100, 300, 500, 1000]" [disabled]="totalPitchDeckCount <= pageSize">
-		</p-paginator>
-	<!-- </div>  -->
+		</p-paginator></div>
 		<p-dialog header="Filter Pitch Deck" [(visible)]="isFilterVisible" [modal]="true" [style]="{ width: '60rem' }"
 			[breakpoints]="{ '1199px': '75vw', '575px': '90vw' }" [ngStyle]="{ display: isFilterVisible }">
 			<div class="m-5">

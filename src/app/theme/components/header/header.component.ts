@@ -101,6 +101,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
   locationList: any;
   whiteLabelIsNotShow:boolean=true;
   visibleExhastedUser!: boolean;
+  programLevelList:any = [];
+
   constructor(
     private router: Router,
     private locationService: LocationService,
@@ -245,7 +247,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
     });
     this.mobileForm = this.formBuilder.group({
       phone: ["", Validators.required],
-      home_country: ["", Validators.required]
+      home_country: ["", Validators.required],
+      study_level: ["", Validators.required],
     });
     if (
       localStorage.getItem("phone") == "" ||
@@ -392,6 +395,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
         } */
       }
     });
+    
+    this.getProgramlevelList();
 
     // this.darkModeSwitch = document.getElementById("darkmodeswitch") as HTMLInputElement;
     // this.darkModeSwitch.checked = this.themeService.isDarkMode();
@@ -401,6 +406,12 @@ export class HeaderComponent implements OnInit, OnDestroy {
     // });
     // this.getCountryList();
     // this.getHomeCountryList();
+  }
+
+  getProgramlevelList(){
+    this.locationService.getProgramLevel().subscribe(res =>{
+      this.programLevelList = res;
+    });
   }
 
   ngOnDestroy() {
@@ -764,8 +775,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
       data.phone = this.mobileForm.value.phone.number;
       data.home_country = this.mobileForm.value.home_country;
       data.country_code = this.mobileForm.value.phone.dialCode;
+      data.study_level = this.mobileForm.value.study_level;
     }
-
     if (this.demoTrial == true) {
       data.demo_user = 1;
     }

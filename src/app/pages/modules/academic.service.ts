@@ -2,7 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '@env/environment';
 import { Observable } from 'rxjs';
-import { GetAcademicListPayload, ProgressPayload } from 'src/app/@Models/academic-tools.model';
+import { GetAcademicListPayload, ProgressPayload, SubmitRecommendation, SubmitStreamResponse } from 'src/app/@Models/academic-tools.model';
 import { GetQuizPayload, QuizResponse } from 'src/app/@Models/career-tool-category.model';
 
 @Injectable({
@@ -30,11 +30,11 @@ export class AcademicService {
         };
         const headers = new HttpHeaders().set("Accept", "application/json");
         if (req.categoryId === 1) {
-            return this.http.post<any>(environment.ApiUrl + `/checkstreamprogresstable`, data, {
+            return this.http.post<SubmitStreamResponse>(environment.ApiUrl + `/checkstreamprogresstable`, data, {
                 headers: headers,
             });
         } if (req.categoryId === 2) {
-            return this.http.post<any>(environment.ApiUrl + `/checkrecommendationprogress`, data, {
+            return this.http.post<SubmitRecommendation>(environment.ApiUrl + `/checkrecommendationprogress`, data, {
                 headers: headers,
             });
         }

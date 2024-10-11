@@ -8,10 +8,11 @@ import { LocationService } from "../../../location.service";
 import { AuthService } from 'src/app/Auth/auth.service';
 import { NgxUiLoaderService } from "ngx-ui-loader";
 import { Location } from '@angular/common';
-import { SubmitRecommendation, SubmitStreamResponse } from 'src/app/@Models/academic-tools.model';
+import { GetAcademicListPayload, SubmitRecommendation, SubmitStreamResponse } from 'src/app/@Models/academic-tools.model';
 import { ChartOptions } from 'chart.js';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { AcademicService } from '../academic.service';
+import { QuizResponse } from 'src/app/@Models/career-tool-category.model';
 
 @Component({
   selector: 'uni-academic-tools-quiz',
@@ -85,7 +86,8 @@ export class AcademicToolsQuizComponent implements OnInit {
       position: 'right',
     }
   };
-  isIos: boolean = false;
+  pdfUrl: string = '';
+  moduelName: string = '';
 
   constructor(private moduleListService: ModuleServiceService, private authService: AuthService, private router: Router, private dataService: DataService,
     private location: Location, private locationService: LocationService, private ngxService: NgxUiLoaderService, private toast: MessageService, private activatedRoute: ActivatedRoute,
@@ -100,7 +102,8 @@ export class AcademicToolsQuizComponent implements OnInit {
       this.currentModuleId = res['id'];
       this.quizId = res['submoduleId'];
       this.categoryId = Number(res['categoryId']);
-      this.init();
+      this.checkProgress();
+      this.getList();
     });
     this.imagewhitlabeldomainname = window.location.hostname;
     if (this.imagewhitlabeldomainname === "dev-student.uniprep.ai" || this.imagewhitlabeldomainname === "uniprep.ai" || this.imagewhitlabeldomainname === "localhost") {
@@ -109,7 +112,7 @@ export class AcademicToolsQuizComponent implements OnInit {
       this.ehitlabelIsShow = false;
     }
     this.checkplanExpire();
-    this.checkProgress();
+
   }
 
   init() {
@@ -120,7 +123,6 @@ export class AcademicToolsQuizComponent implements OnInit {
     this.quizData = [];
     this.selectedQuiz = 1;
     this.positionNumber = 1;
-    this.isInstructionVisible = true;
     this.currentModuleSlug = this.router.url.split('/').slice(-2, -1).pop();
     this.currentCountryId = 0;
     this.dataService.countryNameSource.subscribe((data) => {
@@ -360,6 +362,7 @@ export class AcademicToolsQuizComponent implements OnInit {
   submitAcadamicStreamAnswers(data: any) {
     this.moduleListService.submitAcademicStreamQuiz(data).subscribe((res) => {
       this.streamReportData = res;
+      this.pdfUrl = res?.report_url;
       this.toast.add({
         severity: "success",
         summary: "success",
@@ -419,15 +422,19 @@ export class AcademicToolsQuizComponent implements OnInit {
     }
     this.moduleListService.getQuizQuestionList(data).subscribe((res) => {
       this.quizcount = res.count > 0 ? res.count : 0;
-      this.quizData = res.question.map((val: any) => {
-        let number = 1;
-        let dd = { ...val };
-        dd.otp1 = dd.option1 + dd.id + number++;
-        dd.otp2 = dd.option2 + dd.id + number++;
-        dd.otp3 = dd.option3 + dd.id + number++;
-        dd.otp4 = dd.option4 + dd.id + number++;
-        return dd;
-      });
+      if (res?.question !== 'No data found') {
+        this.quizData = res.question.map((val: any) => {
+          let number = 1;
+          let dd = { ...val };
+          dd.otp1 = dd.option1 + dd.id + number++;
+          dd.otp2 = dd.option2 + dd.id + number++;
+          dd.otp3 = dd.option3 + dd.id + number++;
+          dd.otp4 = dd.option4 + dd.id + number++;
+          return dd;
+        });
+      } else {
+        this.quizData = [];
+      }
     })
   }
   quizpercentage: any = 0
@@ -501,7 +508,7 @@ export class AcademicToolsQuizComponent implements OnInit {
 
 
   downloadReport() {
-    const pdfUrl = this.streamReportData?.report_url;
+    const pdfUrl = this.pdfUrl;
     const fileName = 'Stream_selector_report.pdf';
 
     fetch(pdfUrl)
@@ -524,9 +531,43 @@ export class AcademicToolsQuizComponent implements OnInit {
       .catch(error => console.error('Error downloading the file:', error));
   }
   checkProgress(): void {
-    this.academicService.getProgress({categoryId:this.categoryId,moduleId:this.currentModuleId,submoduleId:this.quizId}).subscribe((res) => {
-      console.log(res);
+    this.academicService.getProgress({ categoryId: this.categoryId, moduleId: this.currentModuleId, submoduleId: this.quizId }).subscribe((res: any) => {
+      if (res?.status === 'true') {
+        this.isQuizSubmit = true;
+        if (this.categoryId === 1) {
+          this.isSubmitStreamAnswers = true;
+          this.pdfUrl = res?.report_url;
+        }
+        else if (this.categoryId === 2) {
+          this.isSubmitRecommendationAnswer = true;
+          this.submitRecommendationResponse = res;
+        }
+        else {
+          this.isSubmitQuizAnswer = true;
+          this.totalPercentage = res?.percentageCompleted;
+          this.certificatesurl = res?.certificate;
+          this.totalanswerquistionaftersubmited = res?.totalquestions;
+          this.totalanswercorret = res?.answered;
+          if (this.totalPercentage < 40) {
+            this.percentageValue = 'Average';
+          } else if (this.totalPercentage >= 40 && this.totalPercentage <= 80) {
+            this.percentageValue = 'Good';
+          } else {
+            this.percentageValue = 'Excellent';
+          }
+        }
+      } else {
+        this.isInstructionVisible = true;
+      }
+      this.init();
     })
   }
-
+  getList() {
+    const params: GetAcademicListPayload = {
+      module_id: this.currentModuleId,
+    }
+    this.academicService.getAcadamicSubModuleList(params).subscribe((res: QuizResponse) => {
+      this.moduelName = res.data.find(item => item.id === Number(this.quizId))?.submodule_name as string;
+    });
+  }
 }

@@ -15,6 +15,8 @@ export class JobHuntComponent implements OnInit {
   fG: FormGroup;
   countryCodes: any
   cities: City[] = [];
+  jobTitle: any = [];
+  filterJobTitle: any[] = [];
 
   constructor(private router: Router, private dataService: DataService, private toastr: MessageService,
               private jobService: JobSearchService) {
@@ -60,7 +62,14 @@ export class JobHuntComponent implements OnInit {
         };
       });
     });
+    this.getJobRoles();
+  }
 
+  getJobRoles(){
+    this.jobService.getJobRoles().subscribe(res =>{
+      console.log(res,"job tracker");
+      this.jobTitle = res;
+    })
   }
 
   resetSearch() {
@@ -87,4 +96,25 @@ export class JobHuntComponent implements OnInit {
     localStorage.setItem('filterFormData', '');
   }
 
+  searchJob(event: Event) :void{
+    const input = event.target as HTMLInputElement;
+    console.log('Input value:', input.value);
+    const query = input.value;
+    if(query && query.length > 3){
+      const mockJobs = this.jobTitle;
+      this.filterJobTitle =  mockJobs.filter((job: any) => job.jobrole.toLowerCase().includes(query));
+    }else if(query.length < 1){
+      this.filterJobTitle = [];
+    }
+
+    console.log(this.filterJobTitle);
+  }
+
+  setJobtitle(jobRole: string){
+    console.log(jobRole,"selected job role");
+    this.fG.patchValue({
+      what_and: jobRole
+    });
+    this.filterJobTitle = [];
+  }
 }

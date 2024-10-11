@@ -51,7 +51,7 @@
             </div>
             <div class="col-md-8 col-8 text-center">
                 <h5 class="select-title mb-1">
-                    {{titleModule[categoryId - 1]}}
+                    {{ moduelName }}
                 </h5>
             </div>
             <div class="col-md-2 col-2 text-end mt-2">
@@ -134,6 +134,34 @@
                                             </h6>
                                         </label>
                                     </div>
+                                    <ng-container *ngIf="currentModuleId==='16'&&categoryId===1">
+                                        <div class="py-1">
+                                            <input type="radio" value="{{ val.option5 }}" id="{{ val.otp5 }}"
+                                                class="btn-check" name="options" autocomplete="off" />
+                                            <label (click)="selectAnswer(val.option5, val, 5)"
+                                                class="{{ 5 === val.user_answered ? 'optionanswered' : 'optionnotanswered' }} text-start quiznotanswered w-100 m-0"
+                                                for="{{ val.otp5 }}">
+                                                <h6 class="py-2 px-2 mb-0">
+                                                    <i
+                                                        class="{{ 5 === val.user_answered ? 'fa-sharp fa-solid fa-circle-check' : 'fa-regular fa-circle' }} pe-2"></i>
+                                                    {{ val.option5 }}
+                                                </h6>
+                                            </label>
+                                        </div>
+                                        <div class="py-1">
+                                            <input type="radio" value="{{ val.option6 }}" id="{{ val.otp6 }}"
+                                                class="btn-check" name="options" autocomplete="off" />
+                                            <label (click)="selectAnswer(val.option6, val, 6)"
+                                                class="{{ 6 === val.user_answered ? 'optionanswered' : 'optionnotanswered' }} text-start quiznotanswered w-100 m-0"
+                                                for="{{ val.otp6 }}">
+                                                <h6 class="py-2 px-2 mb-0">
+                                                    <i
+                                                        class="{{ 6 === val.user_answered ? 'fa-sharp fa-solid fa-circle-check' : 'fa-regular fa-circle' }} pe-2"></i>
+                                                    {{ val.option6 }}
+                                                </h6>
+                                            </label>
+                                        </div>
+                                    </ng-container>
                                 </div>
                             </div>
                         </ng-template>
@@ -189,7 +217,7 @@
             </div>
             <div class="col-md-8 text-center">
                 <h5 class="select-title">
-                    {{ titleModule[categoryId - 1] }}
+                    {{ moduelName }}
                 </h5>
             </div>
             <div class="col-md-2 col-2 text-end">
@@ -278,8 +306,7 @@
                 <div class="col-md-12">
                     <div class="d-flex w-100 h-100 justify-content-center">
                         <pdf-viewer class="h-100 overflow-x-hidden pdf-viewer shadow-lg mb-5 bg-white rounded"
-                            style="width:'70%';"
-                            src="https://api.uniprep.ai/uniprepapi/storage/app/public/SampleUploadDocuments/academic/Stream selector report.pdf"></pdf-viewer>
+                            style="width:'70%';" [src]="pdfUrl"></pdf-viewer>
                     </div>
                 </div>
             </div>

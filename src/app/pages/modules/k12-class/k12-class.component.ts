@@ -219,7 +219,7 @@ export class K12ClassComponent implements OnInit {
                 break;
             case 'k12':
                 this.currentModuleId = 14;
-                this.currentModuleName = 'K12';
+                this.currentModuleName = 'K12 Academy';
                 this.currentApiSlug = 'getcareertoolcategorylist';
                 this.infoMessage = 'Upgrade to access the K12',
                     this.unlockMessage = 'Unlock the power of success with our exclusive k12!',

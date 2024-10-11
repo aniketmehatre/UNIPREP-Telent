@@ -11,25 +11,26 @@ export class InterviewJobrolesComponent implements OnInit {
 role: any;
 searchDiv: boolean = false;
 jobRoles: any;
+filteredJobRoles: any[] = [];  
   constructor(private  jrservice: InterviewJobrolesService , private router: Router) { }
 
   ngOnInit(): void {
+    this.getJobRoles();
   }
- 
-  searchRole(){
-    this.jobRoles = null;
-    // alert('trigger');
-    if(this.role.length > 1){
-      // alert("2");
-      this.searchDiv =  true;
-      var data  =  {
-        role: this.role
-      }
-      this.jrservice.getJobRoles(data).subscribe(response => {
-        this.jobRoles = response;
-      });
-    }else{
-      this.searchDiv =  false;
+
+  getJobRoles(){
+    this.jrservice.getJobRoles().subscribe(response => {
+      this.jobRoles = response;
+    });
+  }
+
+  searchRole(event: any){
+    const query = event.target.value.toLowerCase();
+    if(query && query.length > 3){
+      const mockJobs = this.jobRoles;
+      this.filteredJobRoles =  mockJobs.filter((job: any) => job.jobrole.toLowerCase().includes(query));
+    }else if(query.length < 1){
+      this.filteredJobRoles = [];
     }
   }
 

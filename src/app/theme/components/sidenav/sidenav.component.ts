@@ -195,6 +195,11 @@ export class SidenavComponent {
       image: "",
     },
     {
+      title: "Advisor",
+      url: "/pages/advisor",
+      image: "fa-solid fa-file-user",
+    },
+    {
       title: "Resources",
       url: "/pages/resource",
       image: "fa-solid fa-link",

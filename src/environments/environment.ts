@@ -2,7 +2,7 @@ import {provideStoreDevtools} from "@ngrx/store-devtools";
 
 const devdomain = 'api.uniprep.ai';
 const staging='staging.uniprep.ai'
-const proddomain='`uniprep.ai`'
+const proddomain='uniprep.ai'
 const devurl= `https://${devdomain}/uniprepapi/public/api`;
 const stagingurl=`https://${staging}/uniprepapi/public/api`;
 const produrl=`https://${proddomain}/uniprepapi/public/api`;

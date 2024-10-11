@@ -1,5 +1,5 @@
-<div class="card readingcard" >
-	<div class="card-body pt-0" style="height:  35rem !important;">
+<div class="card1">
+	<div class="card-body">
 		<div class="row justify-content-center">
 			<div class="col-md-2 text-start">
                 <div class="backIcon" (click)="goBack()" role="button">
@@ -11,11 +11,17 @@
 			</div>
 			<div class="col-md-2"></div>
 		</div>
+		<div class="row">
+			<div class="col-12 mt-3" style="display: flex;">
+				<p *ngFor="let cat of category_dropdown" [ngClass]="{'selected-category': isSelected(cat.id)}" (click)="filterCat(cat.id)" style="margin-left: 15px;"><span style="cursor: pointer;">{{cat.name}}</span></p>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="card readingcard" style="border-radius: 0px 0px 10px 10px !important;">
+	<div class="card-body">
 		<div class="container-fluid">
 			<div class="row">
-                <div class="col-12 mt-3" style="display: flex;">
-                    <p *ngFor="let cat of category_dropdown" [ngClass]="{'selected-category': isSelected(cat.id)}" (click)="filterCat(cat.id)" style="margin-left: 15px;"><span style="cursor: pointer;">{{cat.name}}</span></p>
-                </div>
                     <div class="col-12 mt-3" *ngFor="let alphabet of (groupedTerms | keyvalue)">
                         <h1 *ngIf="alphabet.key" style="color: orangered;">{{ alphabet.key }}</h1>
                         <div *ngFor="let term of alphabet.value">

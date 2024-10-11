@@ -192,7 +192,7 @@
                 </h5>
             </div>
             <div class="col-md-2 col-2 text-end">
-                <button [disabled]="quizpercentage >= 90" (click)="retryQuiz()"
+                <button *ngIf="totalPercentage <= 89" (click)="retryQuiz()"
                     class="btn btn-quit btn-rounded me-2 px-2 py-2">
                     <div class="d-flex align-items-center">
                         <span class="fw-normal h6 mb-0">Retry</span>
@@ -265,7 +265,7 @@
                 </h5>
             </div>
             <div class="col-md-2 col-2 text-end">
-                <button [disabled]="quizpercentage >= 90" (click)="retryQuiz()"
+                <button *ngIf="quizpercentage <= 89" (click)="retryQuiz()"
                     class="btn btn-quit btn-rounded me-2 px-2 py-2">
                     <div class="d-flex align-items-center">
                         <span class="fw-normal h6 mb-0 ps-3 pe-2">Retry</span>

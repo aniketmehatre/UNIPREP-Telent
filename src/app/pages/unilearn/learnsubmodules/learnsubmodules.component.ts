@@ -86,8 +86,7 @@ export class LearnsubModulesComponent implements OnInit {
       return;
     }
     if (
-      this.submoduleList[0]?.parent_folder_id == 0 &&
-      this.submoduleList[0]?.module_id == 1
+      this.submoduleList[0]?.parent_folder_id == 0 
     ) {
       this.moduleChange.emit({
         parent_id: 0,
