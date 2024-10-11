@@ -69,17 +69,12 @@
 								<!--<div class="col-md-4 text-center">
                                             <p class="mb-3 circle text-center">{{i+1}}</p>
                                         </div> -->
-								<div class="col-2 align-items-center justify-content-center text-center" *ngIf="sub.popular == 1">
-									<div *ngIf="sub.national == 'no'; else elseBlock">
-										<i class="fa-solid fa-star text-danger fa-xl" pTooltip="Most Popular Question" tooltipPosition="right"></i>
-									</div>
-									<ng-template #elseBlock>
-										<div class="mb-2">
-											<i class="fa-solid fa-star text-danger fa-xl" pTooltip="Most Popular Question" tooltipPosition="right"></i>
-										</div>
-										<div class="homecountry"><img [src]="homeCountryLogo" alt="home_country_logo" class="w-10 shadow-2 no-border-radius" /></div>
-									</ng-template>
-								</div>
+								<div class="col-2 align-items-center justify-content-center text-center" *ngIf="sub.popular == 1 && sub.national == 'yes'">
+                                    <div class="homecountry"><img [src]="homeCountryLogo" alt="home_country_logo" class="w-10 shadow-2 no-border-radius" /></div>
+                                </div>
+                                <div class="col-2 align-items-center justify-content-center text-center" *ngIf="sub.popular == 1 && sub.national == 'no'">
+                                        <i class="fa-solid fa-star text-danger fa-xl" pTooltip="Most Popular Question" tooltipPosition="right"></i>
+                                </div>
 								<!--<i class="pi pi-star-fill text-primary" pTooltip="Most Popular National Question" tooltipPosition="right" style="font-size: 1.5rem"></i>-->
 							</div>
 							<button
