@@ -88,6 +88,8 @@ export class AcademicToolsQuizComponent implements OnInit {
   };
   pdfUrl: string = '';
   moduelName: string = '';
+  showLoading: boolean = false;
+  canShowRetry: boolean = false;
 
   constructor(private moduleListService: ModuleServiceService, private authService: AuthService, private router: Router, private dataService: DataService,
     private location: Location, private locationService: LocationService, private ngxService: NgxUiLoaderService, private toast: MessageService, private activatedRoute: ActivatedRoute,
@@ -301,6 +303,7 @@ export class AcademicToolsQuizComponent implements OnInit {
       submodule_id: Number(this.quizId),
       quizquestion: this.quizData
     }
+    this.showLoading = true;
     switch (this.categoryId) {
       case 1:
         this.submitAcadamicStreamAnswers(data);
@@ -339,6 +342,9 @@ export class AcademicToolsQuizComponent implements OnInit {
       this.isSubmitStreamAnswers = false;
       this.isSubmitQuizAnswer = true;
       this.checkquizquestionmodule()
+    }, (error: Error) => {
+      this.showLoading = false;
+      console.log(error);
     });
   }
 
@@ -356,7 +362,11 @@ export class AcademicToolsQuizComponent implements OnInit {
       this.isSubmitStreamAnswers = false;
       this.isQuizSubmit = true;
       this.checkquizquestionmodule()
-    });
+    },
+      (error: Error) => {
+        this.showLoading = false;
+        console.log(error);
+      });
   }
 
   submitAcadamicStreamAnswers(data: any) {
@@ -374,6 +384,9 @@ export class AcademicToolsQuizComponent implements OnInit {
       this.isSubmitRecommendationAnswer = false;
       this.isSubmitQuizAnswer = false;
       this.checkquizquestionmodule()
+    }, (error: Error) => {
+      this.showLoading = false;
+      console.log(error);
     });
   }
 
@@ -445,8 +458,13 @@ export class AcademicToolsQuizComponent implements OnInit {
       submoduleid: localStorage.getItem("learninghubsubmoduleid")
     }
     this.moduleListService.checkModuleQuizCompletion(data).subscribe((res) => {
-      this.quizpercentage = res.progress
-    })
+      this.quizpercentage = res.progress;
+      this.showLoading = false;
+    },
+      (error: Error) => {
+        this.showLoading = false;
+        console.log(error);
+      });
   }
   openCertificate() {
     if (this.planExpired) {
@@ -536,7 +554,14 @@ export class AcademicToolsQuizComponent implements OnInit {
         this.isQuizSubmit = true;
         if (this.categoryId === 1) {
           this.isSubmitStreamAnswers = true;
-          this.pdfUrl = res?.report_url;
+          let reportLength = 0;
+          res?.report_names.forEach((name: string) => {
+            reportLength += 1;
+          });
+          if(res?.retry_count<3){
+            this.canShowRetry=true
+          }
+          this.pdfUrl = res?.report_url + res?.report_names[reportLength - 1];
         }
         else if (this.categoryId === 2) {
           this.isSubmitRecommendationAnswer = true;

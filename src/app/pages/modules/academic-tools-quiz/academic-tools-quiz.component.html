@@ -81,7 +81,7 @@
                                 <div class="col-12 mt-3 mb-4">
                                     <p class="text-start mb-0 fw-medium text-small font-primarycolor">Question Number {{
                                         selectedQuiz }}</p>
-                                    <h4 class="font-secondarycolor text-start pt-2 pb-2 text-capitalize">{{ val.question
+                                    <h4 class="font-secondarycolor text-start pt-2 pb-2">{{ val.question
                                         }}</h4>
                                     <div class="py-1">
                                         <input type="radio" value="{{ val.option1 }}" id="{{ val.otp1 }}"
@@ -221,7 +221,7 @@
                 </h5>
             </div>
             <div class="col-md-2 col-2 text-end">
-                <ng-container *ngIf="!isSubmitStreamAnswers">
+                <ng-container *ngIf="canShowRetry">
                     <button [disabled]="quizpercentage >= 90" (click)="retryQuiz()"
                         class="btn btn-quit btn-rounded me-2 px-2 py-2">
                         <div class="d-flex align-items-center">
@@ -230,14 +230,14 @@
                         </div>
                     </button>
                 </ng-container>
-                <ng-container *ngIf="isSubmitStreamAnswers">
+                <!-- <ng-container *ngIf="isSubmitStreamAnswers">
                     <button (click)="takeAnotherquiz()" class="btn btn-back btn-rounded px-2 py-2">
                         <div class="d-flex align-items-center">
                             <span class="fw-normal h6 mb-0">Take Another Quiz</span>
                             <div class="btn-icon"><i class="fa fa-home" aria-hidden="true"></i></div>
                         </div>
                     </button>
-                </ng-container>
+                </ng-container> -->
             </div>
             <div>
             </div>
@@ -304,9 +304,10 @@
         <ng-container *ngIf="isSubmitStreamAnswers" class="streamQuiz">
             <div class="row justify-content-center h-100">
                 <div class="col-md-12">
-                    <div class="d-flex w-100 h-100 justify-content-center">
-                        <pdf-viewer class="h-100 overflow-x-hidden pdf-viewer shadow-lg mb-5 bg-white rounded"
-                            style="width:'70%';" [src]="pdfUrl"></pdf-viewer>
+                    <div class="d-flex w-100 h-100 justify-content-center ">
+                        <div class="pdf-container justify-content-center">
+                            <pdf-viewer class="pdf-viewer shadow-lg mb-5 bg-white rounded" [src]="pdfUrl"></pdf-viewer>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -364,7 +365,7 @@
                             <div class="col-12 mt-3 mb-4">
                                 <p class="text-start mb-0 fw-medium text-small font-primarycolor">Question Number {{
                                     selectedQuiz }}</p>
-                                <h4 class="font-secondarycolor text-start pt-2 pb-2 text-capitalize">{{ val.question
+                                <h4 class="font-secondarycolor text-start pt-2 pb-2">{{ val.question
                                     }}</h4>
                                 <div class="py-1">
                                     <input type="radio" value="{{ val.option1 }}" id="{{ val.otp1 }}" class="btn-check"
@@ -419,7 +420,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-6 text-start" style="float: left;">
+                        <!-- <div class="col-md-6 text-start" style="float: left;">
                             <label style="font-size: 18px;" for=""><b>Source</b></label>&nbsp;&nbsp;
                             <button (click)="openReferAnswer(val.faqquestion_link)"
                                 class="btn btn-back btn-rounded px-2 py-2">
@@ -429,7 +430,7 @@
                         <div class="col-md-6 text-start">
                             <label style="font-size: 18px;" for=""><b>Summary</b></label>&nbsp;&nbsp;
                             <p class="mb-0 px-2">{{val.faqquestion_link}}</p>
-                        </div>
+                        </div> -->
                     </ng-template>
                 </p-carousel>
             </div>
@@ -492,3 +493,7 @@
         <p>Please contact {{orgnamewhitlabel}} Company for access</p>
     </div>
 </p-dialog>
+<div class="la-square-jelly-box la-2x overlay" *ngIf="showLoading">
+    <div></div>
+    <div></div>
+</div>
