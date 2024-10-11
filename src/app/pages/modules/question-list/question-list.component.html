@@ -23,8 +23,8 @@
 					</div>
 				</div>
 			</div>
-			<div class="col-md-3 mt-2 text-end desktop justify-content-end d-none d-md-flex" *ngIf="currentModuleId == 8 || currentModuleId == 10 || currentModuleId != 14">
-				<button role="button" (click)="startQuiz()"  class="m-0 btn btn-primary btn-rounded" [disabled]="quizpercentage >= 90">
+			<div class="col-md-3 mt-2 text-end desktop justify-content-end d-none d-md-flex">
+				<button role="button" (click)="startQuiz()"  class="m-0 btn btn-primary btn-rounded" [disabled]="quizpercentage >= 90"  *ngIf="currentModuleId == 8 || currentModuleId == 10 || currentModuleId != 14">
 					
 					<p class="mb-0"><i class="fa-regular fa-lightbulb-on"></i> Start Quiz <span class="mb-0">{{ quizpercentage | number : "1.0-0" + "%" }}</span></p>
 					
