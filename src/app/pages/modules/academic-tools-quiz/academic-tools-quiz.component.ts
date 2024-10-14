@@ -88,6 +88,8 @@ export class AcademicToolsQuizComponent implements OnInit {
   };
   pdfUrl: string = '';
   moduelName: string = '';
+  showLoading: boolean = false;
+  canShowRetry: boolean = false;
 
   constructor(private moduleListService: ModuleServiceService, private authService: AuthService, private router: Router, private dataService: DataService,
     private location: Location, private locationService: LocationService, private ngxService: NgxUiLoaderService, private toast: MessageService, private activatedRoute: ActivatedRoute,
@@ -301,6 +303,7 @@ export class AcademicToolsQuizComponent implements OnInit {
       submodule_id: Number(this.quizId),
       quizquestion: this.quizData
     }
+    this.showLoading = true;
     switch (this.categoryId) {
       case 1:
         this.submitAcadamicStreamAnswers(data);
@@ -339,12 +342,16 @@ export class AcademicToolsQuizComponent implements OnInit {
       this.isSubmitStreamAnswers = false;
       this.isSubmitQuizAnswer = true;
       this.checkquizquestionmodule()
+    }, (error: Error) => {
+      this.showLoading = false;
+      console.log(error);
     });
   }
 
   submitAcadamicRecommendationAnswers(data: any) {
     this.moduleListService.submitAcademicRecommendationQuiz(data).subscribe((res) => {
-      this.submitRecommendationResponse = res;
+      // this.submitRecommendationResponse = res;
+      console.log(res);
       this.toast.add({
         severity: "success",
         summary: "success",
@@ -355,14 +362,18 @@ export class AcademicToolsQuizComponent implements OnInit {
       this.isSubmitQuizAnswer = false;
       this.isSubmitStreamAnswers = false;
       this.isQuizSubmit = true;
-      this.checkquizquestionmodule()
-    });
+      // this.checkquizquestionmodule()
+      this.checkProgress();
+    },
+      (error: Error) => {
+        this.showLoading = false;
+        console.log(error);
+      });
   }
 
   submitAcadamicStreamAnswers(data: any) {
     this.moduleListService.submitAcademicStreamQuiz(data).subscribe((res) => {
-      this.streamReportData = res;
-      this.pdfUrl = res?.report_url;
+      // this.streamReportData = res;
       this.toast.add({
         severity: "success",
         summary: "success",
@@ -373,7 +384,12 @@ export class AcademicToolsQuizComponent implements OnInit {
       this.isSubmitStreamAnswers = true;
       this.isSubmitRecommendationAnswer = false;
       this.isSubmitQuizAnswer = false;
-      this.checkquizquestionmodule()
+      // this.checkquizquestionmodule();
+      this.checkProgress(); //using to get the report urls from the array
+
+    }, (error: Error) => {
+      this.showLoading = false;
+      console.log(error);
     });
   }
 
@@ -445,8 +461,13 @@ export class AcademicToolsQuizComponent implements OnInit {
       submoduleid: localStorage.getItem("learninghubsubmoduleid")
     }
     this.moduleListService.checkModuleQuizCompletion(data).subscribe((res) => {
-      this.quizpercentage = res.progress
-    })
+      this.quizpercentage = res.progress;
+      this.showLoading = false;
+    },
+      (error: Error) => {
+        this.showLoading = false;
+        console.log(error);
+      });
   }
   openCertificate() {
     if (this.planExpired) {
@@ -507,8 +528,8 @@ export class AcademicToolsQuizComponent implements OnInit {
 
 
 
-  downloadReport() {
-    const pdfUrl = this.pdfUrl;
+  downloadReport(index: number) {
+    const pdfUrl = this.streamReportData?.report_url + this.streamReportData?.report_names[index + 1];
     const fileName = 'Stream_selector_report.pdf';
 
     fetch(pdfUrl)
@@ -532,17 +553,31 @@ export class AcademicToolsQuizComponent implements OnInit {
   }
   checkProgress(): void {
     this.academicService.getProgress({ categoryId: this.categoryId, moduleId: this.currentModuleId, submoduleId: this.quizId }).subscribe((res: any) => {
+      this.showLoading = false;
+      this.canShowRetry = false;
       if (res?.status === 'true') {
         this.isQuizSubmit = true;
         if (this.categoryId === 1) {
           this.isSubmitStreamAnswers = true;
-          this.pdfUrl = res?.report_url;
+          let reportLength = 0;
+          res?.report_names.forEach((name: string) => {
+            reportLength += 1;
+          });
+          if (res?.retry_count < 3) {
+            this.canShowRetry = true;
+          }
+          this.streamReportData = res;
+          this.pdfUrl = res?.report_url + res?.report_names[reportLength - 1];
         }
         else if (this.categoryId === 2) {
           this.isSubmitRecommendationAnswer = true;
           this.submitRecommendationResponse = res;
+          if (res?.retry_count < 3) {
+            this.canShowRetry = true;
+          }
         }
         else {
+          this.canShowRetry = true;
           this.isSubmitQuizAnswer = true;
           this.totalPercentage = res?.percentageCompleted;
           this.certificatesurl = res?.certificate;
