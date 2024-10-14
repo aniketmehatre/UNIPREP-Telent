@@ -52,13 +52,14 @@ export class EntreprenuersectorproficiencyComponent implements OnInit {
       this.categoryCount = response.count;
     });
   }
-  openQuiz(id:any){
+  openQuiz(id:any,name:string){
     if(this.planExpired){
       this.restrict=true;
       return;
     }
-    localStorage.setItem('conditionrevieworquiz','0')
-    localStorage.setItem('entrpreneursubid',id)
+    localStorage.setItem('conditionrevieworquiz','0');
+    localStorage.setItem('entrpreneursubid',id);
+    localStorage.setItem('submodulename',name);
     this.currentModuleSlug = "entreprenuersectorproficiencytest"
     this.router.navigate([`/pages/founderstool/${this.currentModuleSlug}/entrpreneurquiz`]);
   }
