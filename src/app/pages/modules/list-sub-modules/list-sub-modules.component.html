@@ -46,15 +46,15 @@
 				</div>
 			</div>
 			<div class="col-md-3 mt-2 text-end desktop justify-content-end d-none d-md-flex" *ngIf="currentModuleId != 5 && currentModuleId != 8 && currentModuleId != 10 && currentModuleId != 11 && currentModuleId != 14">
-				<button role="button" style="background-color: black; cursor: pointer" (click)="startQuiz()" class="btn w-75 m-0 px-2 py-2 homecardbtn homecardbtnquiz" [disabled]="quizpercentage >= 90">
-					<i class="fa-regular h3 fa-lightbulb-on mb-1"></i>
-					<p class="mb-1">Start Quiz</p>
-					<p class="mb-1">{{ quizpercentage | number : "1.0-0" + "%" }}</p>
-					<div class="row">
+				<button role="button" (click)="startQuiz()" class="m-0 btn btn-primary btn-rounded" [disabled]="quizpercentage >= 90">
+					
+					<p class="mb-0"><i class="fa-regular fa-lightbulb-on"></i> Start Quiz <span class="mb-0">{{ quizpercentage | number : "1.0-0" + "%" }}</span></p>
+					
+					<!-- <div class="row">
 						<div style="cursor: pointer" class="col-12">
 							<span style="cursor: pointer" class="ellipse-button fw-regular container-fluid">{{ quizpercentage >= 90 ? "Completed" : "Start" }}</span>
 						</div>
-					</div>
+					</div> -->
 				</button>
 			</div>
 			<div class="col-md-3 mt-2 text-end desktop justify-content-end d-none d-md-flex" *ngIf="currentModuleId == 8">
@@ -115,11 +115,11 @@
 				</div>
 			</div>
 		<div class="row mb-0" *ngIf="!isSkeletonVisible">
-			<div class="row justify-content-center" *ngIf="currentModuleId == 14 && selectSubmoduleName == ''">
+			<!-- <div class="row justify-content-center" *ngIf="currentModuleId == 14 && selectSubmoduleName == ''">
 				<div class="col-md-3 text-start desktop justify-content-start">
 					<p-dropdown placeholder="Change Class" [style]="{ width: '350px' }" [ngModel]="selectedClassId" [options]="subModuleMainList" optionValue="id" optionLabel="category" [filter]="true" (onChange)="onStatusChange($event)"> </p-dropdown>
 				</div>
-			</div>
+			</div> -->
 			<div *ngFor="let sub of subModuleList" class="col-lg-2 col-md-3 col-sm-4 col-xs-12 col-12">
 				<div class="row w-100 m-0 justify-content-center h-100">
 					<div (click)="onSubModuleClick(sub.submodule_id, sub)" class="card subjectcard" role="button">
