@@ -677,21 +677,21 @@ export class ListSubModulesComponent implements OnInit {
         this.filteredData = [];
     }
 
-    onStatusChange(event: any){
-        localStorage.setItem('selectedClass', event.value)
-        let data = {
-            moduleId: this.currentModuleId,
-            category_flag: 1,
-            country_id: 0,
-            parent_category_id: Number(localStorage.getItem('selectedClass'))
-        }
-        this.locationService.GetQuestionsCount(data).subscribe(data => {
-            this.isSkeletonVisible = false;
-            this.subModuleList = data;
-            if (this.currentModuleId == 8) {
-                this.subModuleList.map(list => list.submodule_name = list.category);
-            }
+    // onStatusChange(event: any){
+    //     localStorage.setItem('selectedClass', event.value)
+    //     let data = {
+    //         moduleId: this.currentModuleId,
+    //         category_flag: 1,
+    //         country_id: 0,
+    //         parent_category_id: Number(localStorage.getItem('selectedClass'))
+    //     }
+    //     this.locationService.GetQuestionsCount(data).subscribe(data => {
+    //         this.isSkeletonVisible = false;
+    //         this.subModuleList = data;
+    //         if (this.currentModuleId == 8) {
+    //             this.subModuleList.map(list => list.submodule_name = list.category);
+    //         }
 
-        });
-    }
+    //     });
+    // }
 }
