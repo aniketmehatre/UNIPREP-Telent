@@ -61,6 +61,8 @@ export class CvBuilderComponent implements OnInit  {
   skillsLists: any = [];
   yearsList: any = [];
   isButtonDisabled: boolean = false;
+  genreateButtonDisabled: boolean[] = [];
+
   resumeSlider: any = [
     {
       id: 5,
@@ -1089,7 +1091,9 @@ export class CvBuilderComponent implements OnInit  {
         const selectedExp = this.experienceLevel[formData.selected_exp_level - 1];
         prompt = `Provide a professional summary for a resume, up to 30 words, tailored to a ${formData.user_job_title} role with ${selectedExp.level} of experience.`;
       }
+      this.isButtonDisabled = true;
     } else if (fieldName == 'work_job_description') {
+      this.genreateButtonDisabled[iteration] = true;
       const work_designation = this.getWorkExpArray.value[iteration].work_designation;
       // prompt = `Provide five roles and responsibilities for a ${work_designation} role without using headings.`;
       prompt = `Provide four bullet points with ul and li HTML tags detailing the roles and responsibilities for a ${work_designation} role, without any headings.`;
@@ -1116,7 +1120,6 @@ export class CvBuilderComponent implements OnInit  {
           this.resumeFormInfoData.patchValue({
             user_summary: GPTResponse
           });
-          this.isButtonDisabled = true;
         } else if (fieldName == 'work_job_description') {
           const workExpArray = this.getWorkExpArray;
           if (workExpArray.length > 0) {

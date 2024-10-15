@@ -473,7 +473,9 @@
                                                             <i class="fa-solid fa-circle-question m-2 uniprepColor"  pTooltip="We recommend you describe minimum 5 key responsibilities and achievements" tooltipPosition="top" ></i>
                                                         </div>
                                                         <button class="deleteDivButton mb-2"
-                                                                (click)="chatGPTIntegration('work_job_description', i)" style="background-color: #9bc329;">Generate &nbsp;<i
+                                                                (click)="chatGPTIntegration('work_job_description', i)" 
+                                                                [disabled]="genreateButtonDisabled[i]" 
+                                                                style="background-color: #9bc329;">Generate &nbsp;<i
                                                                 class="fa-solid fa-line-columns trashIcon"
                                                                 style="background-color: #9bc329;"></i></button>
                                                     </div>
