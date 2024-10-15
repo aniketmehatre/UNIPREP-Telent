@@ -1,5 +1,5 @@
-<div class="card1">
-	<div class="card-body">
+<div class="card readingcard">
+	<div class="card-header py-0 border-0 bg-transparent">
 		<div class="row justify-content-center">
 			<div class="col-md-2 text-start">
                 <div class="backIcon" (click)="goBack()" role="button">
@@ -17,16 +17,16 @@
 			</div>
 		</div>
 	</div>
-</div>
-<div class="card readingcard" style="border-radius: 0px 0px 10px 10px !important;">
-	<div class="card-body">
+	<div class="card-body text-start flex-fill overflow-y-auto">
 		<div class="container-fluid">
 			<div class="row">
                     <div class="col-12 mt-3" *ngFor="let alphabet of (groupedTerms | keyvalue)">
                         <h1 *ngIf="alphabet.key" style="color: orangered;">{{ alphabet.key }}</h1>
+						<hr>
                         <div *ngFor="let term of alphabet.value">
                             <h3 style="color: #3F4C83;">{{ term.glossaryterm }}</h3>
                             <h6>{{ term.summary }}</h6>
+							<hr>
                         </div>
                     </div>
 			</div>
