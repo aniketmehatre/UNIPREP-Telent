@@ -65,10 +65,10 @@
                 </div>
             </div>
             <div class="col-md-6 mt-4 text-start">
-                <p>Your translated content</p>
+                <p>Your translated content </p>
                 <div class="textarea-container">
-                    <textarea [(ngModel)]="text2" class="text-large" placeholder="" [disabled]="true"></textarea>
-                    <label > {{transliterate2}}</label>
+                    <textarea [innerHTML]="text2" class="text-large" placeholder="" [disabled]="true"></textarea>
+                    <label  [innerHTML]="transliterate2"></label>
                     <button (click)="togglePlayPause(2, text2)" class="button1">
                         <i [ngClass]="{'fa': true, 'fa-volume-up': isPlaying2, 'fa-play': !isPlaying2}"></i>
                     </button>
@@ -92,8 +92,8 @@
             <div class="col-md-6 mt-4 text-start">
                 <p>Your translated content</p>
                 <div class="textarea-container">
-                    <textarea [(ngModel)]="text4" class="text-large" placeholder="" [disabled]="true"></textarea>
-                    <label>{{transliterate4}}</label>
+                    <textarea [innerHTML]="text4" class="text-large" placeholder="" [disabled]="true"></textarea>
+                    <label [innerHTML]="transliterate4"></label>
                     <button (click)="togglePlayPause(4, text4)" class="button1">
                         <i [ngClass]="{'fa': true, 'fa-volume-up': isPlaying4, 'fa-play': !isPlaying4}"></i>
                     </button>
