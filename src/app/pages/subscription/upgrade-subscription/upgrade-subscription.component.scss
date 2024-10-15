@@ -358,8 +358,7 @@
     border-radius: 0px 8px 8px 0 !important;
   }
   input {
-    padding-left: 0;
-    margin-left: 10px;
+    padding-left: 10px;
   }
 }
 .h-100 {
@@ -401,19 +400,10 @@
   border: 1px solid var(--uniprep-primary);
   border-radius: 25px;
 }
-.plan_type {
-  font-size: 20px;
-  color: #1d2628;
-}
 
 .m-1 {
   border: 1px solid #ebedf2;
   border-radius: 5px;
-
-  .plan_type {
-    font-size: 20px;
-    color: #1d2628;
-  }
 
   .pi-check {
     color: #9f9f9f;
@@ -502,10 +492,6 @@
     border: 1px solid #ebedf2;
     border-radius: 5px;
 
-    .plan_type {
-      font-size: 20px;
-      color: #1d2628;
-    }
 
     .pi-check {
       color: #9f9f9f;
@@ -593,12 +579,6 @@
 .btn-grey:hover {
   color: #fff !important;
   background: var(--uniprep-primary);
-}
-
-.plan_type {
-  font-size: 20px;
-  font-weight: 500;
-  color: #1d2628;
 }
 
 .pi-check {
@@ -754,5 +734,5 @@
   border: 1px solid #635bff !important;
 }
 .razorpayborder {
-  border: 1px solid #3395FF !important;
+  border: 1px solid #3395ff !important;
 }
