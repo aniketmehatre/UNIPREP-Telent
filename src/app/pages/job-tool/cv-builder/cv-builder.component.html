@@ -275,10 +275,10 @@
                                             <label class="form-label labelFont">Summary</label>
                                             <i class="fa-solid fa-circle-question m-2 uniprepColor"  pTooltip="We recommend you provide or generate a concise summary about yourself" tooltipPosition="top" ></i>
                                         </div>
-                                        <button class="deleteDivButton" (click)="chatGPTIntegration('user_summary', 0)"
-                                                style="background-color: #9bc329;">Generate &nbsp;<i
-                                                class="fa-solid fa-line-columns trashIcon"
-                                                style="background-color: #9bc329;"></i></button>
+                                        <button class="deleteDivButton" (click)="chatGPTIntegration('user_summary', 0)"  [disabled]="isButtonDisabled"
+                                                style="background-color: #9bc329;">Generate &nbsp;<i class="fa-solid fa-line-columns trashIcon"
+                                                style="background-color: #9bc329;"></i>
+                                        </button>
                                     </div>
                                     <div class="form-group">
                                         <div class="mb-3">
@@ -375,7 +375,7 @@
                                                             <div class="form-group d-flex">
                                                                 <div class="col-md-6 m-1">
                                                                     <div class="mb-3">
-                                                                        <p-dropdown [options]="yearsList" optionValue="year" placeholder="Start Year"  filterBy="year" [filter]="true" formControlName="work_start_year" optionLabel="year"></p-dropdown>
+                                                                        <p-dropdown [options]="yearsList" optionValue="year" placeholder="Start Year" (onChange)="workYearChange(i)" filterBy="year" [filter]="true" formControlName="work_start_year" optionLabel="year"></p-dropdown>
                                                                         <!-- <input class="w-100" type="number" placeholder="Start Year" formControlName="work_start_year" pInputText /> -->
                                                                         <div *ngIf="wrkExp.get('work_start_year')?.invalid && wrkExp.get('work_start_year')?.touched && submitted"
                                                                              class="text-danger text-xs">
@@ -385,7 +385,7 @@
                                                                 </div>
                                                                 <div class="col-md-6">
                                                                     <div class="mb-3">
-                                                                        <p-dropdown [options]="monthList" placeholder="Month" styleClass="w-100"
+                                                                        <p-dropdown [options]="monthList" placeholder="Month" styleClass="w-100" (onChange)="workYearChange(i)"
                                                                                     formControlName="work_start_month" optionLabel="name" optionValue="id"></p-dropdown>
                                                                         <div *ngIf="wrkExp.get('work_start_month')?.invalid && wrkExp.get('work_start_month')?.touched && submitted"
                                                                              class="text-danger text-xs">
@@ -399,7 +399,7 @@
                                                             <div class="form-group d-flex">
                                                                 <div class="col-md-6 m-1">
                                                                     <div class="mb-3">
-                                                                        <p-dropdown [options]="yearsList" optionValue="year" placeholder="End Year" [disabled]="getWorkExpArray.controls[i]?.get('work_currently_working')?.value" formControlName="work_end_year" filterBy="year" [filter]="true" optionLabel="year"></p-dropdown>
+                                                                        <p-dropdown [options]="yearsList" (onChange)="workYearChange(i)" optionValue="year" placeholder="End Year" [disabled]="getWorkExpArray.controls[i]?.get('work_currently_working')?.value" formControlName="work_end_year" filterBy="year" [filter]="true" optionLabel="year"></p-dropdown>
                                                                         <!-- <input class="w-100" type="number"
                                                                             placeholder="End Year"
                                                                             [attr.disabled]="getWorkExpArray.controls[i]?.get('work_currently_working')?.value ? true : null"
@@ -412,12 +412,17 @@
                                                                 </div>
                                                                 <div class="col-md-6">
                                                                     <div class="mb-3">
-                                                                        <p-dropdown [options]="monthList" placeholder="Month" styleClass="w-100" [disabled]="getWorkExpArray.controls[i]?.get('work_currently_working')?.value" formControlName="work_end_month" optionLabel="name" optionValue="id"></p-dropdown>
+                                                                        <p-dropdown [options]="monthList" (onChange)="workYearChange(i)" placeholder="Month" styleClass="w-100" [disabled]="getWorkExpArray.controls[i]?.get('work_currently_working')?.value" formControlName="work_end_month" optionLabel="name" optionValue="id"></p-dropdown>
                                                                         <div *ngIf="wrkExp.get('work_end_month')?.invalid && wrkExp.get('work_end_month')?.touched && submitted"
                                                                              class="text-danger text-xs">
                                                                             <div style="margin-left:10px;">End Month required.</div>
                                                                         </div>
                                                                     </div>
+                                                                </div>
+                                                            </div>
+                                                            <div *ngIf="wrkExp.get('work_end_year')?.touched || wrkExp.get('work_end_month')?.touched" class="text-danger text-xs">
+                                                                <div *ngIf="wrkExp.get('work_end_year')?.hasError('invalidEndDate') || wrkExp.get('work_end_month')?.hasError('invalidEndDate')" style="margin-left:10px;">
+                                                                    End date cannot be earlier than start date.
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -552,14 +557,13 @@
                                                         <div class="col-md-6">
                                                             <div class="form-group">
                                                                 <div class="mb-3">
-                                                                    <p-dropdown [options]="yearsList" optionValue="year" placeholder="Start Year"  filterBy="year" [filter]="true" formControlName="edu_start_year" optionLabel="year"></p-dropdown>
+                                                                    <p-dropdown [options]="yearsList" optionValue="year" placeholder="Start Year" (onChange)="eduYearChange(i)"  filterBy="year" [filter]="true" formControlName="edu_start_year" optionLabel="year"></p-dropdown>
                                                                     <!-- <input class="w-100" type="number"
                                                                            placeholder="Start Year"
                                                                            formControlName="edu_start_year" pInputText /> -->
                                                                     <div *ngIf="eduDetail.get('edu_start_year')?.invalid && eduDetail.get('edu_start_year')?.touched && submitted"
                                                                          class="text-danger text-xs">
-                                                                        <div style="margin-left:10px;">Start Year
-                                                                            required.</div>
+                                                                        <div style="margin-left:10px;">Start Year required.</div>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -567,16 +571,17 @@
                                                         <div class="col-md-6">
                                                             <div class="form-group">
                                                                 <div class="mb-3">
-                                                                    <p-dropdown [options]="yearsList" optionValue="year" placeholder="End Year"  filterBy="year" [filter]="true" formControlName="edu_end_year" optionLabel="year" [disabled]="getEduDetailsArray.controls[i]?.get('edu_still_pursuing')?.value"></p-dropdown>
-                                                                    <!-- <input class="w-100" type="number"
-                                                                           [attr.disabled]="getEduDetailsArray.controls[i]?.get('edu_still_pursuing')?.value ? true : null"
-                                                                           placeholder="End Year"
-                                                                           formControlName="edu_end_year" pInputText /> -->
+                                                                    <p-dropdown [options]="yearsList" (onChange)="eduYearChange(i)" optionValue="year" placeholder="End Year"  filterBy="year" [filter]="true" formControlName="edu_end_year" optionLabel="year" [disabled]="getEduDetailsArray.controls[i]?.get('edu_still_pursuing')?.value"></p-dropdown>
                                                                     <div *ngIf="eduDetail.get('edu_end_year')?.invalid && eduDetail.get('edu_end_year')?.touched && submitted"
                                                                          class="text-danger text-xs">
                                                                         <div style="margin-left:10px;">End Year required.</div>
                                                                     </div>
                                                                 </div>
+                                                            </div>
+                                                        </div>
+                                                        <div *ngIf="eduDetail.get('edu_end_year')?.touched" class="text-danger text-xs">
+                                                            <div *ngIf="eduDetail.get('edu_end_year')?.hasError('invalidEndDate')" style="margin-left:10px;">
+                                                                End date cannot be earlier than start date.
                                                             </div>
                                                         </div>
                                                     </div>
