@@ -137,7 +137,7 @@ export class CareerToolComponent implements OnInit {
     } else if (mode == "personality-test") {
       this.router.navigate(['/pages/job-tool/list/personality-test/12']);
     } else if (mode == "job-role") {
-      this.router.navigate(['/pages/job-tool/jobroles']);
+      this.router.navigate(['/pages/jobroles']);
     } else if (mode == "career-growth-checker") {
       this.router.navigate(['/pages/job-tool/career-growth-checker']);
     }else {
