@@ -1,28 +1,22 @@
-<div class="card readingcard" style="height: 60rem !important;">
-	<div class="card-body pt-0">
-		<div class="row justify-content-center">
-			<div class="col-md-2 text-start">
-				<div class="backIcon" (click)="goBack()" role="button">
-					<span class="pi pi-angle-left" (click)="goBack()"></span>
-				</div>
-			</div>
-			<div class="col-md-8 text-center">
-				<h5 class="select-title mb-1" tooltipPosition="top"
-					pTooltip="This section provides a comprehensive walkthrough on the UNIPREP platform.">Investor Pitch Training
-					<i class="questiontooltip fa-solid fa-circle-question"></i></h5>
-			</div>
-			<div class="col-md-2"></div>
-		</div>
-		<div class="container-fluid mt-5 mb-5" style="margin-top: 15% !important;
-       margin-bottom: 15% !important;">
-			<div class="card"
-				style="background-color: #F5F5F5; width: 50%; margin: auto; text-align: center;padding: 30px;padding-bottom: 20px;">
-				<h3 style="color: #3F4C83;">{{ investorlists[currentIndex].question }}</h3>
-				<h6 style="color: #3F4C83;" class="mt-2">{{ investorlists[currentIndex].answer }}</h6>
-				<div class="mt-4"><button type="button" style="width: -webkit-fill-available"
-						class="btn btn-primary btn-rounded p-3 ps-5 pe-5" (click)="nextQuestion()">Please ask me another
-						question</button> </div>
-			</div>
-		</div>
-	</div>
+<div class="card readingcard" style="height: 60rem !important">
+  <div class="card-body pt-0">
+    <div class="row justify-content-center">
+      <div class="col-md-2 text-start">
+        <div class="backIcon" (click)="goBack()" role="button">
+          <span class="pi pi-angle-left" (click)="goBack()"></span>
+        </div>
+      </div>
+      <div class="col-md-8 text-center">
+        <h5 class="select-title mb-1" tooltipPosition="top" pTooltip="This section provides a comprehensive walkthrough on the UNIPREP platform.">Investor Pitch Training <i class="questiontooltip fa-solid fa-circle-question"></i></h5>
+      </div>
+      <div class="col-md-2"></div>
+    </div>
+    <div class="container-fluid mt-5 mb-5" style="margin-top: 15% !important; margin-bottom: 15% !important">
+      <div class="card" style="background-color: #f5f5f5; width: 50%; margin: auto; text-align: center; padding: 30px; padding-bottom: 20px">
+        <h3 style="color: #3f4c83">{{ investorlists[currentIndex].question }}</h3>
+        <h6 style="color: #3f4c83" class="mt-2">{{ investorlists[currentIndex].answer }}</h6>
+        <div class="mt-4"><button type="button" style="width: -webkit-fill-available" class="btn btn-primary btn-rounded p-3 ps-5 pe-5" (click)="nextQuestion()">Please ask me another question</button></div>
+      </div>
+    </div>
+  </div>
 </div>
