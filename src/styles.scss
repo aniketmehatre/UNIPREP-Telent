@@ -40,10 +40,9 @@ input:-webkit-autofill:active {
 	top: 50% !important;
 }
 
-.bottom-right
-{
+.bottom-right {
 	bottom: 60px !important;
-    right: 60px !important;
+	right: 60px !important;
 }
 
 .ngx-foreground-spinner {
@@ -240,9 +239,9 @@ small {
 .line-clamp {
 	display: -webkit-box;
 	-webkit-line-clamp: 3;
-	-webkit-box-orient: vertical;  
+	-webkit-box-orient: vertical;
 	overflow: hidden;
-  }
+}
 
 .startbg {
 	min-height: 100vh;
@@ -596,7 +595,7 @@ uni-subscription {
 }
 
 .card {
-	border-radius: 10px !important;
+	border-radius: 15px !important;
 	text-transform: inherit !important;
 	background-color: #fafafa;
 	border: 1px solid #dfe4f8;
@@ -1644,6 +1643,47 @@ p-dialog.restrictionDialog .p-dialog .p-dialog-header .p-dialog-header-icon {
 @media (min-width: 575.98px) {
 	.costofliving-dropdown .p-dropdown {
 		min-width: 300px !important;
+		width: 70% !important;
+		height: 85% !important;
 	}
 }
 
+@media (max-width:450px) {
+	.pdf-container {
+		border: 1px solid #e0e0e0;
+		border-radius: 5px;
+		width: 100% !important;
+		height: 100% !important;
+		box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+		display: flex;
+		justify-content: center;
+		padding: 10px 0px;
+
+		.pdf-viewer {
+			width: 98% !important;
+			height: 100% !important;
+		}
+	}
+}
+
+@media (min-width:451px) {
+	.pdf-container {
+		border: 1px solid #e0e0e0;
+		height: 85% !important;
+		width: 74% !important;
+		box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+		display: flex;
+		justify-content: center;
+		padding: 10px 0px;
+		border-radius: 5px;
+
+
+		.pdf-viewer {
+			width: 98% !important;
+			height: 100% !important;
+		}
+	}
+}
+/* Apply custom scrollbar styles to the .pdf-viewer class */
+/* Custom scrollbar for WebKit browsers (Chrome, Safari, Edge) */
+ 

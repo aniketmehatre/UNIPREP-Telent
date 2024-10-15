@@ -17,12 +17,14 @@ export interface Result {
 }
 
 export interface SubmitStreamResponse {
-    status: string
-    message: string
-    result: GraphResult
-    graph_data: string[]
-    graph_value: number[]
-    report_url: string
+    status: string;
+    message: string;
+    result: GraphResult;
+    graph_data: string[];
+    graph_value: number[];
+    report_url: string;
+    report_names:string[];
+    retry_count:number;
 }
 
 export interface GraphResult {
