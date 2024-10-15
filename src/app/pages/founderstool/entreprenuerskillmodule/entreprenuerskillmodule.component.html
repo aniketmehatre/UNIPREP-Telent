@@ -1,5 +1,5 @@
 <div class="card readingcard" style="overflow-y: auto; background-color: white !important">
-  <div class="card-body pt-0">
+  <div class="card-header bg-transparent pt-0 border-0">
     <div class="row justify-content-center">
       <div class="col-md-2 text-start">
         <div class="backIcon" (click)="goBack()" role="button">
@@ -18,11 +18,13 @@
       </div>
       <div class="col-md-2"></div>
     </div>
+  </div>
+  <div class="card-body pt-0">
     <div class="container-fluid">
       <!-- new upadted design -->
       <div class="row">
         <div class="col-2 mt-2" *ngFor="let list of etreprenuertestlists">
-          <div class="card h-100" style="border: 3px solid orange !important">
+          <div class="card subjectcard h-100">
             <div class="card-body text-center d-flex flex-column justify-content-between">
               <h5 class="fw-bold mb-3">{{ list.submodule_name }}</h5>
               <div>
