@@ -44,3 +44,16 @@
 .col-md-2-4 {
   width: 20%; /* For 5 columns, each takes 20% of the available width */
 }
+.resourcecard {
+  height: 100%; /* Make sure the card takes full height */
+}
+
+.card-body {
+  overflow-y: auto; /* Allow scrolling within the card if content overflows */
+}
+
+@media (max-width: 576px) {
+  .card-body {
+    padding: 1rem; /* Adjust padding for better fit on smaller screens */
+  }
+}

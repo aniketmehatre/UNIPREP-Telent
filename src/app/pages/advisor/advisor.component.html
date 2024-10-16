@@ -1,111 +1,157 @@
-<div class="card readingcard ">
-    <div class="card-body d-flex justify-content-between flex-column" *ngIf="isQuestionNotAsked" >
-        <!-- <div class="row align-items-center justify-content-center">
+<div class="card readingcard">
+	<div class="card-body d-flex justify-content-center flex-column" *ngIf="isQuestionNotAsked">
+		<!-- <div class="row align-items-center justify-content-center">
 
         </div> -->
+		<div class="row justify-content-center">
+			<div class="col-lg-10 col-md-8">
+				<div class="row">
+					<div class="d-flex justify-content-center pb-5">
+						<img style="width: 100px" src="../../../uniprep-assets/images/icon-light.svg" />
+					</div>
+					<!-- <img style="width:150px" src="../../../uniprep-assets/images/icon-light.svg"> -->
+                    <p-carousel [value]="questions" [numVisible]="5" [numScroll]="1" [circular]="true" [showIndicators]="false">
+                        <ng-template let-question pTemplate="item">
+                            <div class="card h-100 mx-2" style="border: 1px solid var(--uniprep-secondary)">
+                                <div class="card-body">
+                                    <i class="fa-regular fa-gears"></i>
+                                    <p style="cursor: pointer" (click)="triggerSample(question.question)">{{question.question}}</p>
+                                </div>
+                            </div>
+                        </ng-template>
+                            
+                    </p-carousel>
+				</div>
+			</div>
+		</div>
+		<!-- <div class="">
+			<div class="p-inputgroup">
+				<div class="p-inputgroup">
+					<input type="text" [(ngModel)]="userQuestion" pInputText placeholder="" />
+					<button type="button" (click)="getAns()" class="btn btn-primary" pButton pRipple label="Search"></button>
+				</div>
+			</div>
+		</div> -->
+	</div>
+	<div class="card-body flex-fill overflow-y-auto" *ngIf="isQuestionAsked">
+		<div class="row justify-content-center overflow-hidden" *ngIf="showSkeleton">
+			<div class="col-md-8">
+				<div class="row align-items-center">
+					<div>
+						<div class="flex mb-3">
+							<p-skeleton shape="circle" size="4rem" styleClass="mr-2"></p-skeleton>
+							<div>
+								<p-skeleton width="10rem" styleClass="mb-2"></p-skeleton>
+								<p-skeleton width="5rem" styleClass="mb-2"></p-skeleton>
+							</div>
+						</div>
+						<p-skeleton width="100%" height="1rem"></p-skeleton>
+					</div>
+					<hr class="my-3" />
+					<div>
+						<div class="flex mb-3">
+							<p-skeleton shape="circle" size="4rem" styleClass="mr-2"></p-skeleton>
+							<div>
+								<p-skeleton width="10rem" styleClass="mb-2"></p-skeleton>
+								<p-skeleton width="5rem" styleClass="mb-2"></p-skeleton>
+							</div>
+						</div>
+						<div class="d-flex flex-column gap-1">
+							<p-skeleton width="100%" height="1rem"></p-skeleton>
+							<p-skeleton width="100%" height="1rem"></p-skeleton>
+							<p-skeleton width="100%" height="1rem"></p-skeleton>
+							<p-skeleton width="100%" height="1rem"></p-skeleton>
+							<p-skeleton width="100%" height="1rem"></p-skeleton>
+							<p-skeleton width="100%" height="1rem"></p-skeleton>
+							<p-skeleton width="100%" height="1rem"></p-skeleton>
+							<p-skeleton width="100%" height="1rem"></p-skeleton>
+							<p-skeleton width="100%" height="1rem"></p-skeleton>
+							<p-skeleton width="100%" height="1rem"></p-skeleton>
+							<p-skeleton width="100%" height="1rem"></p-skeleton>
+							<p-skeleton width="100%" height="1rem"></p-skeleton>
+							<p-skeleton width="100%" height="1rem"></p-skeleton>
+							<p-skeleton width="100%" height="1rem"></p-skeleton>
+							<p-skeleton width="100%" height="1rem"></p-skeleton>
+						</div>
+					</div>
+					<hr class="my-3" />
+					<div>
+						<div class="flex mb-3">
+							<p-skeleton shape="circle" size="4rem" styleClass="mr-2"></p-skeleton>
+							<div>
+								<p-skeleton width="10rem" styleClass="mb-2"></p-skeleton>
+								<p-skeleton width="5rem" styleClass="mb-2"></p-skeleton>
+							</div>
+						</div>
+						<div class="d-flex flex-column gap-1">
+							<p-skeleton width="100%" height="1rem"></p-skeleton>
+							<p-skeleton width="100%" height="1rem"></p-skeleton>
+							<p-skeleton width="100%" height="1rem"></p-skeleton>
+							<p-skeleton width="100%" height="1rem"></p-skeleton>
+							<p-skeleton width="100%" height="1rem"></p-skeleton>
+							<p-skeleton width="100%" height="1rem"></p-skeleton>
+							<p-skeleton width="100%" height="1rem"></p-skeleton>
+							<p-skeleton width="100%" height="1rem"></p-skeleton>
+							<p-skeleton width="100%" height="1rem"></p-skeleton>
+							<p-skeleton width="100%" height="1rem"></p-skeleton>
+							<p-skeleton width="100%" height="1rem"></p-skeleton>
+							<p-skeleton width="100%" height="1rem"></p-skeleton>
+							<p-skeleton width="100%" height="1rem"></p-skeleton>
+							<p-skeleton width="100%" height="1rem"></p-skeleton>
+							<p-skeleton width="100%" height="1rem"></p-skeleton>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row justify-content-center" *ngFor="let chat of chatdata">
+			<div class="col-md-8">
+				<div class="advisor-question" *ngIf="chat.input == 1">
+					<div class="d-flex align-items-center">
+						<p style="margin-right: 10px; background-color: var(--uniprep-primaryop30); padding: 1rem; text-transform: uppercase; font-weight: bold; border-radius: 100%">{{ chat.name.slice(0, 2) }}</p>
+						<div class="d-flex flex-column">
+							<p>{{ chat.name }}</p>
+							<p>{{ chat.created }}</p>
+						</div>
+					</div>
+					<p style="margin-top: 10px">{{ chat.message }}</p>
+					<hr />
+				</div>
+
+				<div class="advisor-answer" *ngIf="chat.input != 1">
+					<div class="d-flex flex-column">
+						<div class="d-flex align-items-center">
+							<!-- <p style="margin-right: 10px;background-color: var(--uniprep-primaryop30);padding: 1rem;text-transform: uppercase;font-weight: bold;border-radius: 100%;">U</p> -->
+							<!-- <img src="/src/uniprep-assets/images/icon-light.svg"> -->
+							<img style="width: 50px" src="../../../uniprep-assets/images/icon-light.svg" />
+							<div class="d-flex flex-column">
+								<p>UNIPREP</p>
+								<p>{{ chat.created }}</p>
+							</div>
+						</div>
+						<div style="margin-top: 10px; font-size: 1rem !important" class="force-font" [innerHTML]="chat.message">
+							<!-- {{chat.message}} -->
+						</div>
+					</div>
+					<hr />
+				</div>
+			</div>
+		</div>
+		<div class="row justify-content-center mt-5">
+			<div class="col-md-4 d-flex align-items-center flex-column">
+				<p class="text-danger mb-2">Not happy with the answer ?</p>
+				<button class="btn btn-primary btn-rounded px-5" (click)="askExpert()">Ask an Expert!</button>
+			</div>
+		</div>
+	</div>
+    <div class="card-footer border-0 bg-transparent">
         <div class="row justify-content-center">
-
-            <div class="col-md-8">
-                <div class="row">
-                    <div class="d-flex justify-content-center" style="padding-bottom: 50px;padding-bottom: 50px;">
-                        <img style="width:100px" src="../../../uniprep-assets/images/icon-light.svg">
-                    </div>
-                    <!-- <img style="width:150px" src="../../../uniprep-assets/images/icon-light.svg"> -->
-                    <div class="col-md-3" >
-                        <div class="card h-100" style="border:1px solid var(--uniprep-secondary)">
-                            <div class="card-body">
-                                <i class="fa-regular fa-gears"></i>
-                                <p style="cursor: pointer;" (click)="triggerSample('Top 10 fully funded scholarships for international students in the UK.')">Top 10 fully funded scholarships for international students in the UK.</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="card h-100" style="border:1px solid var(--uniprep-secondary)">
-                            <div class="card-body">
-                                <i class="fa-regular fa-gears"></i>
-                                <p style="cursor: pointer;" (click)="triggerSample('Step-by-step guide to starting a business in France')">Step-by-step guide to starting a business in France
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="card h-100" style="border:1px solid var(--uniprep-secondary)">
-                            <div class="card-body">
-                                <i class="fa-regular fa-gears"></i>
-                                <p style="cursor: pointer;" (click)="triggerSample('High-paying job opportunities for finance graduates in the US.')">High-paying job opportunities for finance graduates in the US.</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="card h-100" style="border:1px solid var(--uniprep-secondary)">
-                            <div class="card-body">
-                                <i class="fa-regular fa-gears"></i>
-                                <p style="cursor: pointer;" (click)="triggerSample('Oxford University admission criteria for international students')">Oxford University admission criteria for international students
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>                
-            </div>
-        </div>
-        <div class="">
-            <div class="p-inputgroup">
-                <div class="p-inputgroup">
-                    <input type="text" [(ngModel)]="userQuestion" pInputText placeholder="" >   
-                    <button type="button" (click)="getAns()" class="btn btn-primary" pButton pRipple label="Search"></button>   
-                </div>  
-            </div>
-        </div>
-    </div>
-    <div class="card-body" *ngIf="isQuestionAsked">
-        <div class="row justify-content-center" *ngFor="let chat of chatdata">
-            <div class="col-md-8">
-                <div class="advisor-question" *ngIf="chat.input == 1">
-                    <div class="d-flex align-items-center">
-                        <p style="margin-right: 10px;background-color: var(--uniprep-primaryop30);padding: 1rem;text-transform: uppercase;font-weight: bold;border-radius: 100%;">{{chat.name.slice(0,2)}}</p>
-                        <div class="d-flex flex-column">
-                            <p>{{chat.name}}</p>
-                            <p>{{chat.created}}</p>
-                        </div>
-                    </div>
-                    <p style="margin-top: 10px;">{{chat.message}}</p>
-                    <hr>
-                </div>
-
-                <div class="advisor-answer" *ngIf="chat.input != 1">
-                    <div class="d-flex flex-column">
-                        <div class="d-flex align-items-center">
-                            <!-- <p style="margin-right: 10px;background-color: var(--uniprep-primaryop30);padding: 1rem;text-transform: uppercase;font-weight: bold;border-radius: 100%;">U</p> -->
-                             <!-- <img src="/src/uniprep-assets/images/icon-light.svg"> -->
-                             <img style="width:50px" src="../../../uniprep-assets/images/icon-light.svg">
-                            <div class="d-flex flex-column">
-                                <p>UNIPREP</p>
-                                <p>{{chat.created}}</p>
-                            </div>
-                        </div>
-
-                        <div style="margin-top: 10px;font-size: 1rem !important;" class="force-font" [innerHTML]="chat.message">                            
-                           <!-- {{chat.message}} -->
-                        </div>
-                    </div>
-                    <hr>
-                </div>
-
-            </div>
-        </div>
-        <div class="row justify-content-center" style="margin-top: 50px;">
-            <div class="col-md-4 d-flex align-items-center flex-column">
-                <p style="color: red;">Not happy with the answer ?</p>
-                <button class="btn btn-primary" (click)="askExpert()">Ask an Expert!</button>
-            </div>
-        </div>
-        <div class="row justify-content-center">
-            <div class="col-md-8" style="margin-top:50px">
-                <div class="p-inputgroup">
-                    <input type="text" [(ngModel)]="userQuestion" pInputText placeholder="" >   
-                    <button type="button" (click)="getAns()" class="btn btn-primary" pButton pRipple label="Search"></button>   
-                </div>
-            </div>
-        </div>
+			<div class="col-md-12">
+				<div class="p-inputgroup advisorinput">
+					<input type="text" [(ngModel)]="userQuestion" pInputText placeholder="" />
+					<button type="button" (click)="getAns()" class="btn btn-success btn-rounded" pButton pRipple><i class="fa-solid fa-stars"></i> Ask AI Advisor</button>
+				</div>
+			</div>
+		</div>
     </div>
 </div>

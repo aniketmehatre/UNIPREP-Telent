@@ -2,10 +2,9 @@
 	<div class="card-header p-0 bg-transparent border-0" *ngIf="!hideTitleForPreviewPage">
 		<div class="row justify-content-center align-items-center">
 			<div class="col-md-3 text-start">
-				<div class="backIcon">
+				<div class="backIcon" *ngIf="!hideTitleForPreviewPage">
 					<span class="pi pi-angle-left" (click)="goBack()"></span>
 				</div>
-
 			</div>
 			<div class="col-md-6 text-center">
 				<div class="select-title text-nowrap d-flex justify-content-between align-items-center">
@@ -22,7 +21,7 @@
 			<div class="col-md-3 text-end"></div>
 		</div>
 	</div>
-	<div class="card-body" [ngClass]="{'overflow-hidden': !isCostOfLivingRoute()}"> 
+	<div class="card-body flex-fill overflow-y-auto"> 
 		<router-outlet></router-outlet>
 	</div>
 </div>

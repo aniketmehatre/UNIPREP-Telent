@@ -69,6 +69,7 @@ import { PdfViewerModule } from "ng2-pdf-viewer";
 import { CareerPlannerComponent } from "./career-planner/career-planner.component";
 import { CertificatesComponent } from "./certificates/certificates.component";
 import { CourseListComponent } from "./course-list/course-list.component";
+import {SkeletonModule} from 'primeng/skeleton';
 import { NgxStripeModule } from "ngx-stripe";
 import { FounderstoolComponent } from "./founderstool/founderstool.component";
 import { FoundersacademyComponent } from "./founderstool/foundersacademy/foundersacademy.component";
@@ -159,6 +160,7 @@ import { AdvisorComponent } from './advisor/advisor.component';
     NgxExtendedPdfViewerModule,
     PdfViewerModule,
     AnimateModule,
+    SkeletonModule,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })

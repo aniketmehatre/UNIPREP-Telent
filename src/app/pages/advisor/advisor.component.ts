@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AdvisorService } from './advisor.service';
+import {NgxUiLoaderService} from "ngx-ui-loader";
 
 @Component({
   selector: 'uni-advisor',
@@ -9,20 +10,35 @@ import { AdvisorService } from './advisor.service';
 export class AdvisorComponent implements OnInit {
 isQuestionAsked: boolean = false;
 isQuestionNotAsked: boolean = true;
+questions: any;
 userQuestion: any;
   question: any;
   answer: any;
   chatdata: any;
+  showSkeleton: boolean = false;
 
-  constructor(private service:AdvisorService) { }
+  constructor(private service:AdvisorService,private ngxService: NgxUiLoaderService,) { }
 
   ngOnInit(): void {
+    this.questions =[
+      {question:"Must visit places in Milan."},
+      {question:"Top 10 fully funded scholarships for international students in the UK."},
+      {question:"Step-by-step guide to starting a business in France"},
+      {question:"High-paying job opportunities for finance graduates in the US."},
+      {question:"Oxford University admission criteria for international students"},
+      {question:"Number of Public holidays for full-time staff in the UK"},
+      {question:"Document checklist required for Spain travel visa application"},
+      {question:"Top 10 in-demand jobs in the healthcare industry"},
+      {question:"Top 20 government funding opportunities for startups in the UK"},
+    ]
   }
 
   getAns(){
+    
     this.isQuestionAsked = true;
     this.isQuestionNotAsked = false;
     // alert(this.userQuestion);
+    this.ngxService.startBackground();
     var data = {
       question : this.userQuestion
     }
@@ -30,20 +46,26 @@ userQuestion: any;
       this.chatdata = response;
       // this.question = response.question;
       // this.answer = response.answer;
+      this.ngxService.stopBackground();
     });
   }
 
   triggerSample(sample:any){
     this.isQuestionAsked = true;
+    this.showSkeleton= true;
     this.isQuestionNotAsked = false;
+    this.ngxService.startBackground();
     // alert(this.userQuestion);
     var data = {
       question : sample
     }
     this.service.getAnswer(data).subscribe(response => {
+      this.showSkeleton= false;
       this.chatdata = response;
+
       // this.question = response.question;
       // this.answer = response.answer;
+      this.ngxService.stopBackground();
     });
   }
 
