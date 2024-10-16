@@ -392,9 +392,20 @@ export class SubscriptionComponent implements OnInit {
       .subscribe((result: any) => {
         if (result.error) {
           console.log(result.error.message);
+          this.toastr.add({
+            severity: "error",
+            summary: "Error",
+            detail: "Transaction cancelled",
+          });
         } else {
           if (result.paymentIntent.status === "succeeded") {
             console.log(result.paymentIntent.status);
+            this.cardvisibility=false;
+            this.toastr.add({
+              severity: "success",
+              summary: "Success",
+              detail: "Purchase Completed",
+            });
           }
         }
       });
