@@ -15,11 +15,19 @@ export class AcademicToolsStreamComponent implements OnInit {
   moduleId: string = '';
   isSkeletonVisible: boolean = false;
   loopRange = Array.from({ length: 30 }).fill(0).map((_, index) => index);
+  folderdata: any = {};
+  routedata: any = [];
+  totalcount = 0;
+  parentfolderlists: any = [];
+  parentfilelists: any = [];
+  titletext = "STARTUP KIT";
+
   constructor(
     private activatedRoute: ActivatedRoute,
     private location: Location,
     private router: Router,
-    private academicService: AcademicService
+    private academicService: AcademicService,
+    private route: Router,
   ) { }
 
   ngOnInit(): void {
@@ -42,6 +50,32 @@ export class AcademicToolsStreamComponent implements OnInit {
       this.location.back();
     } else {
       this.router.navigate(['/pages/modules/academic-tools']);
+    }
+  }
+  getchildinfo(data: any) {
+    if (data.isFolder == "2") {
+      return;
+    }
+    this.folderdata.parent_id = data.id;
+    if (data.parent_id == "0") {
+      this.titletext = data.name;
+    }
+    this.routedata.push({
+      id: data.id,
+      name: data.name,
+      data: data,
+      path: "country",
+    });
+  }
+  actionedrouteData: any = [];
+  redirectTo(path: any) {
+    if (path == "academic-tools") {
+      this.folderdata.parent_id = "0";
+      this.routedata = [];
+      this.route.navigate(["pages/modules/" + path]);
+    }
+    if (path === 'dashboard') {
+      this.route.navigate(["pages/" + path]);
     }
   }
 
