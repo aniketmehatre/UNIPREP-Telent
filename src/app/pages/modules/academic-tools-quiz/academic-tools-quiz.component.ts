@@ -533,7 +533,7 @@ export class AcademicToolsQuizComponent implements OnInit {
 
 
   downloadReport(index: number) {
-    const pdfUrl = this.streamReportData?.report_url + this.streamReportData?.report_names[index + 1];
+    const pdfUrl = this.streamReportData?.report_url + this.streamReportData?.report_names[index];
     const fileName = 'Stream_selector_report.pdf';
 
     fetch(pdfUrl)
