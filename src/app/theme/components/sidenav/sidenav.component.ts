@@ -67,7 +67,7 @@ export class SidenavComponent {
     {
       title: "Academic Tools",
       url: "/pages/modules/academic-tools",
-      image: "fa-solid fa-ticket",
+      image: "fa-solid fa-scribble",
     },
     {
       title: "Pre Admission",
@@ -177,7 +177,7 @@ export class SidenavComponent {
     {
       title: "Founders Tool",
       url: "/pages/founderstool/founderstoollist",
-      image: "fa-solid fa-memo-circle-info",
+      image: "fa-solid fa-chart-network",
     },
     // {
     //   title: "Investor List",
