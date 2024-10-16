@@ -32,9 +32,9 @@
 		<div class="container-fluid">
 			<div class="row">
 				<div class="col-12 mt-3" *ngFor="let alphabet of (groupedTerms | keyvalue)">
-					<h1 *ngIf="alphabet.key" style="color: orangered;" class="alphabet">{{ alphabet.key }}</h1>
+					<h1 *ngIf="alphabet.key" class="uniprep-secondary">{{ alphabet.key }}</h1>
 					<hr>
-					<div *ngFor="let term of alphabet.value" class="terms">
+					<div *ngFor="let term of alphabet.value">
 						<h3 style="color: #3F4C83;">{{ term.glossaryterm }}</h3>
 						<h6>{{ term.summary }}</h6>
 						<hr>
