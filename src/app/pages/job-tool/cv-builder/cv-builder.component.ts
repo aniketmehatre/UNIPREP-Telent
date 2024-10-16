@@ -60,6 +60,7 @@ export class CvBuilderComponent implements OnInit  {
   items!: MenuItem[];
   skillsLists: any = [];
   yearsList: any = [];
+  isButtonDisabled: boolean = false;
   resumeSlider: any = [
     {
       id: 5,
@@ -1065,8 +1066,8 @@ export class CvBuilderComponent implements OnInit  {
       const lastPart = parts[parts.length - 1];
       this.resumeService.downloadPdf(res, lastPart);
       this.toaster.add({ severity: "success", summary: "Success", detail: "File Download Successfully." });
-      this.activePageIndex = 1;
-      this.ngAfterViewInit();
+      this.activePageIndex = 0;
+      // this.ngAfterViewInit();
       this.selectedResumeLevel = "";
       this.hideHeader();
     })
@@ -1115,6 +1116,7 @@ export class CvBuilderComponent implements OnInit  {
           this.resumeFormInfoData.patchValue({
             user_summary: GPTResponse
           });
+          this.isButtonDisabled = true;
         } else if (fieldName == 'work_job_description') {
           const workExpArray = this.getWorkExpArray;
           if (workExpArray.length > 0) {
@@ -1174,6 +1176,7 @@ export class CvBuilderComponent implements OnInit  {
   //   this.isUpdating = false;
   // }
 
+  //delete confirm message which already created resumes
   confirm(event: Event, resumeLink: string, resumeId: number) {
     this.confirmService.confirm({
       target: event.target as EventTarget,
@@ -1201,6 +1204,7 @@ export class CvBuilderComponent implements OnInit  {
       control.setValue('');
     }
   }
+
   checkPlanIsExpired(): void {
     this.authService.getNewUserTimeLeft().subscribe((res) => {
       let data = res.time_left;
@@ -1219,4 +1223,54 @@ export class CvBuilderComponent implements OnInit  {
   clearRestriction() {
     this.restrict = false;
   }
+
+  //Validation for start year and end year for Work experience field
+  workYearChange(index: number) { 
+    const formArray = this.getWorkExpArray as FormArray;
+    const formGroupAtIndex = formArray.at(index) as FormGroup;
+    
+    if (formGroupAtIndex) {
+      let startYear = formGroupAtIndex.get('work_start_year')?.value;
+      let endYear = formGroupAtIndex.get('work_end_year')?.value;
+      let startMonth = formGroupAtIndex.get('work_start_month')?.value;
+      let endMonth = formGroupAtIndex.get('work_end_month')?.value;
+
+      let startMonthNum = this.getMonthNumber(startMonth);
+      let endMonthNum = this.getMonthNumber(endMonth);
+
+      if (endYear < startYear || (endYear === startYear && endMonthNum < startMonthNum)) {
+        formGroupAtIndex.get('work_end_year')?.setErrors({ invalidEndDate: true });  
+        formGroupAtIndex.get('work_end_month')?.setErrors({ invalidEndDate: true }); 
+      } else {
+        formGroupAtIndex.get('work_end_year')?.setErrors(null);  
+        formGroupAtIndex.get('work_end_month')?.setErrors(null); 
+      }
+    }else {
+      console.error(`Form group at index ${index} does not exist.`);
+    }
+  }
+
+  //Validation for start year and end year for education field
+  eduYearChange(index: number){ 
+    const formArray = this.getEduDetailsArray as FormArray;
+    const formGroupAtIndex = formArray.at(index) as FormGroup;
+    if (formGroupAtIndex) {
+      let startYear = formGroupAtIndex.get('edu_start_year')?.value;
+      let endYear = formGroupAtIndex.get('edu_end_year')?.value;
+      
+      if (endYear < startYear) {
+        formGroupAtIndex.get('edu_end_year')?.setErrors({ invalidEndDate: true });  
+      } else {
+        formGroupAtIndex.get('edu_end_year')?.setErrors(null);  
+      }
+    }else {
+      console.error(`Form group at index ${index} does not exist.`);
+    }
+  }
+
+  getMonthNumber(monthId: string): number {
+    let month = this.monthList.find((m: any) => m.id === monthId);
+    return this.monthList.indexOf(month) + 1; // January should be 1, February 2, etc.
+  }
+  
 }

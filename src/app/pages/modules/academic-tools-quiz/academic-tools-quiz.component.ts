@@ -351,7 +351,6 @@ export class AcademicToolsQuizComponent implements OnInit {
   submitAcadamicRecommendationAnswers(data: any) {
     this.moduleListService.submitAcademicRecommendationQuiz(data).subscribe((res) => {
       // this.submitRecommendationResponse = res;
-      console.log(res);
       this.toast.add({
         severity: "success",
         summary: "success",
@@ -407,16 +406,21 @@ export class AcademicToolsQuizComponent implements OnInit {
     this.isInstructionVisible = true;
     this.checkquizquestioncount()
   }
-  openReviewPopup() {
+  openReviewPopup(index?: number) {
     this.quizData = [];
     this.selectedQuiz = 1
     this.isQuizSubmit = false;
     this.isReviewVisible = true;
-    var data = {
+    var data: any = {
       moduleId: this.currentModuleId,
       submoduleId: this.quizId
     }
+    if (index) {
+      data.retry = index;
+    }
+    console.log(data);
     this.moduleListService.reviewAcademicQuiz(data).subscribe((res) => {
+      console.log(res);
       this.quizData = res.userquiz.map((val: any) => {
         let number = 1;
         let dd = { ...val };

@@ -63,7 +63,8 @@ export class EntreprenuerquizComponent implements OnInit {
   imagewhitlabeldomainname: any
   orgnamewhitlabel: any;
   orglogowhitelabel: any;
-  submoduleidquiz:any
+  submoduleidquiz:any;
+  subModuleName:string='';
   constructor(private moduleListService: ModuleServiceService, private authService: AuthService, private router: Router, private dataService: DataService,
     private locationService: LocationService, private ngxService: NgxUiLoaderService, private toast: MessageService,
     private service: FounderstoolService) { }
@@ -106,6 +107,7 @@ export class EntreprenuerquizComponent implements OnInit {
     this.dataService.countryNameSource.subscribe((data) => {
       this.countryName = data;
     });
+    this.subModuleName= localStorage.getItem("submodulename") as string;
     switch (this.currentModuleSlug) {
       case 'entreprenuersectorproficiencytest':
         this.currentModuleId = 18;

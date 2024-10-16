@@ -427,6 +427,7 @@ uni-entreprenuerquiz,
 uni-faq,
 uni-learn,
 uni-learnmodules,
+uni-advisor,
 uni-learnsubmodules {
 	display: flex;
 	flex: 1;
@@ -1673,7 +1674,7 @@ p-dialog.restrictionDialog .p-dialog .p-dialog-header .p-dialog-header-icon {
 	.pdf-container {
 		border: 1px solid #e0e0e0;
 		height: 85% !important;
-		width: 74% !important;
+		width: 70% !important;
 		box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 		display: flex;
 		justify-content: center;
@@ -1684,9 +1685,10 @@ p-dialog.restrictionDialog .p-dialog .p-dialog-header .p-dialog-header-icon {
 		.pdf-viewer {
 			width: 98% !important;
 			height: 100% !important;
+
+			.ng2-pdf-viewer-container {
+				scrollbar-width: none !important;
+			}
 		}
 	}
 }
-/* Apply custom scrollbar styles to the .pdf-viewer class */
-/* Custom scrollbar for WebKit browsers (Chrome, Safari, Edge) */
- 
