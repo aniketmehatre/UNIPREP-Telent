@@ -298,25 +298,40 @@
                             {{submitRecommendationResponse?.result?.Paragraph_2}}
                         </p>
                     </div>
+                    <br>
+                    <div class="footer text-center" style="position: relative;">
+                        <button class="btn btn-lg"
+                            *ngFor="let _ of [].constructor(submitRecommendationResponse?.retry_count); let i = index"
+                            style="background-color: #FF6600; color: white; margin-right: 10px;"
+                            (click)="openReviewPopup(i+1)">
+                            Review {{ i + 1 }} &nbsp;
+                        </button>
+                    </div>
                 </div>
             </div>
         </ng-container>
         <ng-container *ngIf="isSubmitStreamAnswers" class="streamQuiz">
             <div class="row justify-content-center h-100">
                 <div class="col-md-12">
-                    <div class="d-flex w-100 h-100 justify-content-center ">
+                    <div class="d-flex w-100 h-100 justify-content-center">
                         <div class="pdf-container justify-content-center">
                             <pdf-viewer class="pdf-viewer shadow-lg mb-5 bg-white rounded" [src]="pdfUrl"></pdf-viewer>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="footer text-center mt-4" style="position: relative;">
-
+            <div class="footer text-center" style="position: relative;">
                 <button class="btn btn-lg" *ngFor="let report of streamReportData?.report_names;index as i"
                     style="background-color: #FF6600; color: white;margin-right:10px;" (click)="downloadReport(i)">
                     Download Report {{i+1}}&nbsp;
                     <i class="fa-solid fa-download"></i>
+                </button>
+            </div>
+            <br>
+            <div class="footer text-center" style="position: relative;">
+                <button class="btn btn-lg" *ngFor="let _ of [].constructor(streamReportData?.retry_count);index as i"
+                    style="background-color: #FF6600; color: white;margin-right:10px;" (click)="openReviewPopup(i+1)">
+                    Review {{i+1}} &nbsp;
                 </button>
             </div>
             <br>
@@ -347,7 +362,7 @@
                     Your Quiz Review
                 </h5>
             </div>
-            <div class="col-md-2 col-2 text-end">
+            <div class="col-md-2 col-2 text-end" *ngIf="canShowRetry">
                 <button [disabled]="quizpercentage >= 90" (click)="retryQuiz()"
                     class="btn btn-quit btn-rounded me-2 px-2 py-2">
                     <div class="d-flex align-items-center">
@@ -420,6 +435,34 @@
                                         </h6>
                                     </label>
                                 </div>
+                                <ng-container *ngIf="currentModuleId==='16'&&categoryId===1">
+                                    <div class="py-1">
+                                        <input type="radio" value="{{ val.option5 }}" id="{{ val.otp5 }}" class="btn-check"
+                                            name="options" autocomplete="off" />
+                                        <label
+                                            class="{{(val.answer === val.useranswer && val.answer === 5 && val.useranswer === 5)?'answercorct':(5 === val.answer) ? 'optionreviewcorrect' : ((5 === val.useranswer) ? 'optionreviewwrong' : '')  }} text-start quiznotanswered w-100 m-0"
+                                            for="{{ val.otp5 }}">
+                                            <h6 class="py-2 px-2 mb-0">
+                                                <i
+                                                    class="{{ ((5 === val.answer)||(5 === val.useranswer) ||(val.answer === val.useranswer && val.answer === 5 && val.useranswer === 5)) ? 'fa-sharp fa-solid fa-circle-check' : 'fa-regular fa-circle' }} pe-2"></i>
+                                                {{ val.option5 }}
+                                            </h6>
+                                        </label>
+                                    </div>
+                                    <div class="py-1">
+                                        <input type="radio" value="{{ val.option6 }}" id="{{ val.otp6 }}" class="btn-check"
+                                            name="options" autocomplete="off" />
+                                        <label
+                                            class="{{(val.answer === val.useranswer && val.answer === 6 && val.useranswer === 6)?'answercorct':(6 === val.answer) ? 'optionreviewcorrect' : ((6 === val.useranswer) ? 'optionreviewwrong' : '')  }} text-start quiznotanswered w-100 m-0"
+                                            for="{{ val.otp6 }}">
+                                            <h6 class="py-2 px-2 mb-0">
+                                                <i
+                                                    class="{{ ((6 === val.answer)||(6 === val.useranswer) ||(val.answer === val.useranswer && val.answer === 6 && val.useranswer === 6)) ? 'fa-sharp fa-solid fa-circle-check' : 'fa-regular fa-circle' }} pe-2"></i>
+                                                {{ val.option6 }}
+                                            </h6>
+                                        </label>
+                                    </div>
+                                </ng-container>
                             </div>
                         </div>
                         <!-- <div class="col-md-6 text-start" style="float: left;">

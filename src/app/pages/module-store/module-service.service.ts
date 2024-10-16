@@ -250,6 +250,7 @@ export class ModuleServiceService {
   }
 
   reviewAcademicQuiz(data: any) {
+     
     const headers = new HttpHeaders().set("Accept", "application/json");
     return this.http.post<any>(environment.ApiUrl + "/reviewacademicquiz", data, {
       headers: headers,

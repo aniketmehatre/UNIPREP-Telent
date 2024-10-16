@@ -2,18 +2,29 @@
 	<div class="card-body">
 		<div class="row justify-content-center">
 			<div class="col-md-2 text-start">
-                <div class="backIcon" (click)="goBack()" role="button">
+				<div class="backIcon" (click)="goBack()" role="button">
 					<span class="pi pi-angle-left" (click)="goBack()"></span>
 				</div>
-            </div>
+			</div>
 			<div class="col-md-8 text-center">
-				<h5 class="select-title mb-1" tooltipPosition="top" pTooltip="This section provides a comprehensive walkthrough on the UNIPREP platform.">Startup Glossary<i class="questiontooltip fa-solid fa-circle-question"></i></h5>
+				<h5 class="select-title mb-1" tooltipPosition="top"
+					pTooltip="This section provides a comprehensive walkthrough on the UNIPREP platform.">Startup
+					Glossary<i class="questiontooltip fa-solid fa-circle-question"></i></h5>
 			</div>
 			<div class="col-md-2"></div>
 		</div>
-		<div class="row">
-			<div class="col-12 mt-3" style="display: flex;">
-				<p *ngFor="let cat of category_dropdown" [ngClass]="{'selected-category': isSelected(cat.id)}" (click)="filterCat(cat.id)" style="margin-left: 15px;"><span style="cursor: pointer;">{{cat.name}}</span></p>
+		<div class="row" style="display: flex; align-items: center;">
+			<div class="col-8 mt-3" style="display: flex;">
+				<p *ngFor="let cat of category_dropdown" [ngClass]="{'selected-category': isSelected(cat.id)}"
+					(click)="filterCat(cat.id)" style="margin-left: 20px;"><span
+						style="cursor: pointer;">{{cat.name}}</span></p>
+			</div>
+			<div class="col-4">
+				<div class="p-input-icon-left w-100 mt-3">
+					<i class="pi pi-search"></i>
+					<input class="w-100 px-5 py-2 mb-1" type="text" placeholder="Search for a term" pInputText
+						[(ngModel)]="valueNearYouFilter" (input)="performSearch()" />
+				</div>
 			</div>
 		</div>
 	</div>
@@ -22,13 +33,17 @@
 	<div class="card-body">
 		<div class="container-fluid">
 			<div class="row">
-                    <div class="col-12 mt-3" *ngFor="let alphabet of (groupedTerms | keyvalue)">
-                        <h1 *ngIf="alphabet.key" style="color: orangered;">{{ alphabet.key }}</h1>
-                        <div *ngFor="let term of alphabet.value">
-                            <h3 style="color: #3F4C83;">{{ term.glossaryterm }}</h3>
-                            <h6>{{ term.summary }}</h6>
-                        </div>
-                    </div>
+				<div class="col-12 mt-3" *ngFor="let alphabet of (groupedTerms | keyvalue)">
+					<h1 *ngIf="alphabet.key" style="color: orangered;" class="alphabet">{{ alphabet.key }}</h1>
+					<div *ngFor="let term of alphabet.value" class="terms">
+						<h3 style="color: #3F4C83;">{{ term.glossaryterm }}</h3>
+						<h6>{{ term.summary }}</h6>
+					</div>
+				</div>
+				<div *ngIf="startupglossarylists && startupglossarylists.length > 0&&isObjectEmpty(groupedTerms)"
+					class="d-flex justify-content-center centerDiv">
+					<h3>No results found</h3>
+				</div>
 			</div>
 		</div>
 	</div>

@@ -51,7 +51,7 @@
             </div>
             <div class="col-md-8 col-8 text-center">
                 <h5 class="select-title mb-1">
-                    {{ currentModuleName }} Quiz
+                    {{ currentModuleName }} Quiz - {{subModuleName}}
                 </h5>
             </div>
             <div class="col-md-2 col-2 text-end">
@@ -215,7 +215,8 @@
                 <h3 class="text-center mb-2" *ngIf="totalPercentage<=89">
                     Better Luck Next Time<br />{{totalanswercorret}}/{{totalanswerquistionaftersubmited}}</h3>
                 <p *ngIf="totalPercentage>=90" class="text-center mb-2 fw-medium">You have completed the quiz on
-                    <br>{{currentModuleName}} module</p>
+                    <br>{{currentModuleName}} module
+                </p>
                 <p *ngIf="totalPercentage<=89" class="text-center mb-2 fw-medium">Completion of this module
                     requires<br>a minimum score of 90%</p>
                 <!-- <button *ngIf="totalPercentage>=90" style="background-color: #98B73F !important;" (click)="openCertificate()" class="btn btn-back btn-rounded px-2 py-2">

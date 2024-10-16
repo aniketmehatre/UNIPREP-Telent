@@ -7,6 +7,7 @@ export interface SubmitRecommendation {
     message: string
     result: Result
     flag: string
+    retry_count:number
 }
 
 export interface Result {

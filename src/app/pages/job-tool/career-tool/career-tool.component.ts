@@ -94,6 +94,15 @@ export class CareerToolComponent implements OnInit {
     },
     {
       id: 10,
+      moduleName: "Job Interview Preparation",
+      Description: "Prepare effectively with role-focused guidance aand company-centric tips",
+      tooltip: "Prepare effectively with role-focused guidance aand company-centric tips",
+      imageLink: environment.production === false ? "https://api.uniprep.ai/uniprepapi/storage/app//public/icon/modules/job-interview.svg" : "https://uniprep.ai/uniprepapi/storage/app/public/icon/modules/job-interview.svg",
+      refLink: "",
+      mode: "job-role"
+    },
+    {
+      id: 10,
       moduleName: "Career Growth Checker",
       Description: "Get insight into your next 5 career growth oppurtunity.",
       tooltip: "Get personalized and compelling career oppurtunities.",
@@ -127,9 +136,11 @@ export class CareerToolComponent implements OnInit {
       this.router.navigate(['/pages/job-tool/list/psychometric-test/11']);
     } else if (mode == "personality-test") {
       this.router.navigate(['/pages/job-tool/list/personality-test/12']);
+    } else if (mode == "job-role") {
+      this.router.navigate(['/pages/jobroles']);
     } else if (mode == "career-growth-checker") {
       this.router.navigate(['/pages/job-tool/career-growth-checker']);
-    } else {
+    }else {
       this.router.navigate(['/pages/job-tool/list/employer-test/13']);
     }
   }
