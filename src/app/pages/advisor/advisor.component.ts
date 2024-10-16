@@ -10,6 +10,7 @@ import {NgxUiLoaderService} from "ngx-ui-loader";
 export class AdvisorComponent implements OnInit {
 isQuestionAsked: boolean = false;
 isQuestionNotAsked: boolean = true;
+questions: any;
 userQuestion: any;
   question: any;
   answer: any;
@@ -19,7 +20,17 @@ userQuestion: any;
   constructor(private service:AdvisorService,private ngxService: NgxUiLoaderService,) { }
 
   ngOnInit(): void {
-    
+    this.questions =[
+      {question:"Must visit places in Milan."},
+      {question:"Top 10 fully funded scholarships for international students in the UK."},
+      {question:"Step-by-step guide to starting a business in France"},
+      {question:"High-paying job opportunities for finance graduates in the US."},
+      {question:"Oxford University admission criteria for international students"},
+      {question:"Number of Public holidays for full-time staff in the UK"},
+      {question:"Document checklist required for Spain travel visa application"},
+      {question:"Top 10 in-demand jobs in the healthcare industry"},
+      {question:"Top 20 government funding opportunities for startups in the UK"},
+    ]
   }
 
   getAns(){
