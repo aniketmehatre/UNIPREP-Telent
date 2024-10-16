@@ -89,15 +89,15 @@ export class JobListingComponent implements OnInit {
         this.dataService.currentData.subscribe(data => {
             if (typeof data === 'object' && !Array.isArray(data) && data !== null && Object.keys(data).length === 0) {
             } else {
-                this.selectedCountryCode = data.countryCode.country_code
-                this.selectedFlag = data.countryCode.flag
+                this.selectedCountryCode = data.country_name_code
+                this.selectedFlag = data.flag
                 this.fG.setValue({
-                    countryCode: data.countryCode,
+                    countryCode: data.country_name,
                     what_and: data.what_and,
                 })
                 this.filterForm.setValue({
                     what_and: data.what_and,
-                    countryCode: data.countryCode,
+                    countryCode: data.country_name,
                     category: '',
                     job_type: '',
                 });
@@ -107,8 +107,8 @@ export class JobListingComponent implements OnInit {
         });
         const filterData = this.getFilterData()
         if (filterData) {
-            this.selectedCountryCode = filterData.countryCode.country_code
-            this.selectedFlag = filterData.countryCode.flag
+            this.selectedCountryCode = filterData.country_name_code
+            this.selectedFlag = filterData.flag
             this.fG.setValue({
                 countryCode: filterData.countryCode,
                 what_and: filterData.what_and,
@@ -174,20 +174,27 @@ export class JobListingComponent implements OnInit {
             job_type: '',
         })
         this.whatAnd = this.fG.value.what_and
-            this.selectedFlag = this.fG.value.countryCode.flag
-        this.saveFilterData(this.fG.value)
-        this.fromCountry = this.countryCodes.find((country: any) => country.code.toLowerCase() == this.fG.value.countryCode.code);
-        if (this.fG.value.countryCode.code) {
-            this.selectedCountryCodeFilter = this.fG.value.countryCode.code
+        // this.selectedFlag = this.fG.value.countryCode.flag
+        let formData = {
+            country_name: this.fG.value.countryCode,
+            country_name_code: this.selectedCountryCode,
+            countryCode: this.fG.value.countryCode,
+            flag: this.selectedFlag,
+            what_and: this.fG.value.what_and,
+          }
+        this.saveFilterData(formData);
+        // this.fromCountry = this.countryCodes.find((country: any) => country.code.toLowerCase() == this.fG.value.countryCode.code);
+        // if (this.fG.value.countryCode.code) {
+        //     this.selectedCountryCodeFilter = this.fG.value.countryCode.code
             this.fetchCategoryData()
-        }
+        // }
         if (this.fG.valid) {
             let req = {
-                location: this.fG.value.countryCode.country_code,
+                location: this.selectedCountryCode,
                 page: this.page,
                 result_per_page: this.resultPerPage,
                 what_and: this.fG.value.what_and,
-                where: this.fG.value.countryCode.city_name,
+                where: this.fG.value.countryCode,
             }
             this.jobService.searchJobs(req).subscribe(
                 (data: any) => {
@@ -230,7 +237,7 @@ export class JobListingComponent implements OnInit {
                 page: this.page,
                 result_per_page: this.resultPerPage,
                 what_and: this.filterForm.value.what_and,
-                where: this.filterForm.value.countryCode.city_name,
+                where: this.filterForm.value.country_name,
                 full_time: this.filterForm.value.job_type?.code == 'full_time' ? '1' : '',
                 part_time: this.filterForm.value.job_type?.code == 'part_time' ? '1' : '',
                 contract: this.filterForm.value.job_type?.code == 'contract' ? '1' : '',
