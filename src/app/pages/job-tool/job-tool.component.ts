@@ -14,7 +14,7 @@ export class JobToolComponent implements OnInit {
   title: string = 'Career Tools';
   items: string[] = [" ₹ INR", "$ Dollers"];
   hideTitleForPreviewPage: boolean = false;
-
+  tooltip: any
   constructor(
     private router: Router,
     private location: Location,
@@ -48,32 +48,42 @@ export class JobToolComponent implements OnInit {
   changeTitle() {
     if (this.currentRoute.includes("career-tool")) {
       this.title = "Career Tools";
+      this.tooltip = "Enhance your employability with tools to create resumes, cover letters, and prepare for interviews."
       this.hideTitleForPreviewPage = false;
     } else if (this.currentRoute.includes("cost-of-living")) {
       this.title = "Cost of living";
+      this.tooltip = "Compare the cost of living across different cities and countries to plan your financial needs."
     } else if (this.currentRoute.includes("cv-builder")) {
       this.title = "CV Builder";
     } else if (this.currentRoute.includes("salary-converter")) {
       this.title = "Global Salary Converter";
+      this.tooltip = "Convert and compare salaries globally to understand the value of potential job offers."
     } else if (this.currentRoute.includes("company-list")) {
       this.title = "company-list";
+      this.tooltip = "Access a curated list of companies by industry and location to target your job search effectively."
     } else if (this.currentRoute.includes("coverletter-builder")) {
       this.title = "Coverletter-Builder";
+      this.tooltip = ""
     } else if (this.currentRoute.includes("career-planner")) {
       this.title = "career-planner";
+      this.tooltip = ""
     }
     else if (this.currentRoute.includes("psychometric")) {
       this.title = "Psychometric Test";
+      this.tooltip = "Evaluate your aptitudes and personality traits with tests to find careers that best suit your profile."
       this.hideTitleForPreviewPage = false;
     } else if (this.currentRoute.includes("personality")) {
       this.title = "Personality Test";
+      this.tooltip = "Discover more about your personality and how it aligns with various career paths."
       this.hideTitleForPreviewPage = false;
     } else if (this.currentRoute.includes("career-growth-checker")) {
       this.title = "Career Growth Checker";
+      this.tooltip = "Track your professional development and set goals with our career progression tool."
       this.hideTitleForPreviewPage = false;
     } 
     else {
       this.title = "Employer Test";
+      this.tooltip = "Prepare for potential employer assessments with practice tests and study guides."
       this.hideTitleForPreviewPage = false;
     }
   }

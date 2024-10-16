@@ -148,6 +148,7 @@ export class ListSubModulesComponent implements OnInit {
         });
         this.originalSubModuleList = [...this.subModuleList]; 
     }
+    description: any
 
     init() {
         this.currentCountryId = Number(localStorage.getItem('countryId'));
@@ -167,6 +168,7 @@ export class ListSubModulesComponent implements OnInit {
                 this.aboutModule = 'Explore a vast database of Q&A about:',
                     this.moduleDetails = 'Scholarships, document checklist, Education loan, letter of Recommendation and many more!'
                 this.howItWorksVideoLink = "https://www.youtube.com/embed/Kae2KQnmWko?si=vjUQ7eyurP2Mbg-n";
+                this.description = "Prepare effectively for college with information on entrance requirements, application tips, and more."
                 break;
             case 'travel-and-tourism':
                 this.currentModuleId = 7;
@@ -178,6 +180,7 @@ export class ListSubModulesComponent implements OnInit {
                 this.aboutModule = 'Explore a vast database of Q&A about:',
                     this.moduleDetails = 'Visa, departure, healthcare, tuition fees and many more!'
                 this.howItWorksVideoLink = "https://www.youtube.com/embed/s35R5o7cOOU?si=DvR3LyQ1C8uRaAN3";
+                this.description = ""
                 break;
             case 'post-admission':
                 this.currentModuleId = 3;
@@ -189,6 +192,7 @@ export class ListSubModulesComponent implements OnInit {
                 this.aboutModule = 'Post-admission offers information about:',
                     this.moduleDetails = ' Arrival, student discounts, banking, full time jobs, post study work and many more!'
                 this.howItWorksVideoLink = "https://www.youtube.com/embed/Q9-cUbwFNZI?si=LIdazrVO_qAQKiFk";
+                this.description = "Find guidance on navigating your new academic environment after securing admission."
                 break;
             case 'career-hub':
                 this.currentModuleId = 4;
@@ -200,6 +204,7 @@ export class ListSubModulesComponent implements OnInit {
                 this.aboutModule = 'Explore a vast database of Q&A about:',
                     this.moduleDetails = ' Arrival, student discounts, banking, full time jobs, post study work and many more!'
                 this.howItWorksVideoLink = "https://www.youtube.com/embed/7ogHhrekZjE?si=NADxga9qB4_RkCtw";
+                this.description =  "Discover career opportunities and get resources to help you plan your professional path."
                 break;
             case 'university':
                 this.currentModuleId = 5;
@@ -207,6 +212,7 @@ export class ListSubModulesComponent implements OnInit {
                 this.currentApiSlug = 'SubmoduleListForStudents';
                 this.selectedModule = 'university'
                 this.howItWorksVideoLink = "https://www.youtube.com/embed/Bsg1CTnVmYc?si=cWYQIexHAoeXvsyR";
+                this.description = "Explore detailed profiles of universities worldwide, including programs, campus life, and application processes."
                 break;
             case 'skill-mastery':
                 this.currentModuleId = 10;
@@ -218,6 +224,7 @@ export class ListSubModulesComponent implements OnInit {
                 this.aboutModule = 'Explore a vast database of Q&A about:',
                     this.moduleDetails = ' Arrival, student discounts, banking, full time jobs, post study work and many more!'
                 this.howItWorksVideoLink = "https://www.youtube.com/embed/dHhq2xrBn5s?si=2dMsQcwwOY17dDHi";
+                this.description = ""
                 break;
             case 'learning-hub':
                 this.currentModuleId = 8;
@@ -229,6 +236,7 @@ export class ListSubModulesComponent implements OnInit {
                 this.aboutModule = 'Explore a vast database of Q&A about:',
                     this.moduleDetails = 'Scholarships, document checklist, Education loan, letter of Recommendation and many more!'
                 this.howItWorksVideoLink = "https://www.youtube.com/embed/n9ECpsB6IoI?si=4coiypva6WZfr3NL";
+                this.description = ""
                 break;
             case 'k12-category':
                 this.currentModuleId = 14;
@@ -240,6 +248,7 @@ export class ListSubModulesComponent implements OnInit {
                 this.aboutModule = 'Explore a vast database of Q&A about:',
                     this.moduleDetails = 'Scholarships, document checklist, Education loan, letter of Recommendation and many more!'
                 this.howItWorksVideoLink = "https://www.youtube.com/embed/n9ECpsB6IoI?si=4coiypva6WZfr3NL";
+                this.description = "Explore curriculum-focused content and resources for students in Grades 9 through 12."
                 break;
             default:
                 this.currentModuleId = 6;
@@ -252,6 +261,7 @@ export class ListSubModulesComponent implements OnInit {
                     this.moduleDetails = 'Festivals, events, currency, budget, housing and many more!',
                     this.selectedModule = 'life-at-country'
                 this.howItWorksVideoLink = "https://www.youtube.com/embed/O35ypi2WJVI?si=CSxuFC1Zma9gk8SG";
+                this.description = ""
                 break;
 
         }
