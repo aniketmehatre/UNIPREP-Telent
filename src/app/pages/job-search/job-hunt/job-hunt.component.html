@@ -11,7 +11,7 @@
                         <span class="p-input-icon-left w-100">
                             <i class="pi pi-search"></i>
                             <input type="text" formControlName="what_and" (input)="searchJob($event)" class="form-control w-100 rounded-input"
-                                   pInputText placeholder=" Search by Job Title, Skill, Company"/>
+                                   pInputText placeholder=" Search by Job Title"/>
                         </span>
                         <ul *ngIf="filterJobTitle.length > 0"  class="dropdown-list">
                             <li *ngFor="let job of filterJobTitle" (click)="setJobtitle(job.jobrole)">{{ job.jobrole }}</li>
@@ -24,7 +24,7 @@
                                    pInputText placeholder="Location"/>
                         </span>
                         <ul *ngIf="filteredCity.length > 0"  class="dropdown-list">
-                            <li *ngFor="let city of filteredCity" (click)="setJobtitle(city.location_name)"><img [src]="city.flag" alt="">{{ city.location_name }}</li>
+                            <li *ngFor="let city of filteredCity" (click)="setLocation(city)"><img [src]="city.flag" alt="">{{ city.location_name }}</li>
                         </ul>
                     </div>
                     <!-- <div class="col-md-4 col-lg-3 mb-2 mb-md-0">

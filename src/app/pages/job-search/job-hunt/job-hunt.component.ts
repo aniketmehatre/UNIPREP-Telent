@@ -19,6 +19,7 @@ export class JobHuntComponent implements OnInit {
   filterJobTitle: any[] = [];
   filteredCity: any = [];
   filteredLocations: any = [];
+  formFields: any = [];
 
   constructor(private router: Router, private dataService: DataService, private toastr: MessageService,
               private jobService: JobSearchService) {
@@ -80,7 +81,9 @@ export class JobHuntComponent implements OnInit {
         if (element.city_name && element.country_name) {
           LocationsList[index] = {};
           LocationsList[index]['location_name'] = element.city_name + ", " + element.country_name;
+          LocationsList[index]['city_name'] = element.city_name;
           LocationsList[index]['flag'] = element.flag;
+          LocationsList[index]['country_name_code'] = element.country_name_code;
         }
       });
       this.cities = LocationsList;
@@ -101,8 +104,8 @@ export class JobHuntComponent implements OnInit {
 
   onSubmit() {
     if (this.fG.valid) {
-      this.dataService.changeData(this.fG.value)
-      this.saveFilterData(this.fG.value)
+      this.dataService.changeData(this.formFields)
+      this.saveFilterData(this.formFields)
       this.router.navigateByUrl(`/pages/job-portal/job-listing`);
     }else{
       this.toastr.add({severity:'error', summary: 'Error', detail: "Fill required Filed"});
@@ -147,10 +150,20 @@ export class JobHuntComponent implements OnInit {
     this.filterJobTitle = [];
   }
 
-  setLocation(city: string){
+  setLocation(city: any){
+    let formData = {
+      country_name: city.city_name,
+      country_name_code: city.country_name_code,
+      countryCode: city.location_name,
+      flag: city.flag,
+      what_and: this.fG.value.what_and,
+    }
+
+    this.formFields = formData;
     this.fG.patchValue({
-      countryCode: city
+      countryCode: city.location_name
     });
+    
     this.filteredCity = [];
   }
 }
