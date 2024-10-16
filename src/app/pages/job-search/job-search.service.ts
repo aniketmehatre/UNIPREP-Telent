@@ -55,7 +55,7 @@ export class JobSearchService {
             params = params.set('permanent', query.permanent);
         }
 
-            return this.http.get(`${this.apiUrl}/${query.location.country_code}/search/${query.page}`, {params});
+        return this.http.get(`${this.apiUrl}/${query.location}/search/${query.page}`, {params});
     }
 
     fetchCategory(query: any): Observable<any> {

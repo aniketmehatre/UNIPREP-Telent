@@ -33,6 +33,9 @@ export class JobListingComponent implements OnInit {
     countryCodes: any
     categoryList: any
     selectedCountry: any
+    filteredCity: any = [];
+    jobTitle: any = [];
+    filterJobTitle: any[] = [];
     jobTypeList: any[] = [{
         code: 'full_time', name: 'Full time'
     }, {
@@ -92,12 +95,12 @@ export class JobListingComponent implements OnInit {
                 this.selectedCountryCode = data.country_name_code
                 this.selectedFlag = data.flag
                 this.fG.setValue({
-                    countryCode: data.country_name,
+                    countryCode: data.countryCode,
                     what_and: data.what_and,
                 })
                 this.filterForm.setValue({
                     what_and: data.what_and,
-                    countryCode: data.country_name,
+                    countryCode: data.countryCode,
                     category: '',
                     job_type: '',
                 });
@@ -106,6 +109,7 @@ export class JobListingComponent implements OnInit {
             }
         });
         const filterData = this.getFilterData()
+        console.log(filterData, "filtered data");
         if (filterData) {
             this.selectedCountryCode = filterData.country_name_code
             this.selectedFlag = filterData.flag
@@ -128,20 +132,89 @@ export class JobListingComponent implements OnInit {
     limit: number = 10;
 
     ngOnInit(): void {
+        this.getJobRoles();
         this.jobService.getCities().subscribe((res: City[]) => {
-            this.cities = res.filter(city => {
-                return this.countryCodes.some((country: any) => country.name === city.country_name);
-            }).map(city => {
-                const matchedCountry = this.countryCodes.find((country: any) => country.name === city.country_name);
-                return {
-                    ...city,
-                    name: !city.city_name ? city.country_name : city.city_name,
-                    country_code: matchedCountry ? matchedCountry.code : null,
-                    flag: matchedCountry ? matchedCountry.flag : city.flag // Use the flag from countryCodes if matched, otherwise keep original
-                };
+            // this.cities = res.filter(city => {
+            //     return this.countryCodes.some((country: any) => country.name === city.country_name);
+            // }).map(city => {
+            //     const matchedCountry = this.countryCodes.find((country: any) => country.name === city.country_name);
+            //     return {
+            //         ...city,
+            //         name: !city.city_name ? city.country_name : city.city_name,
+            //         country_code: matchedCountry ? matchedCountry.code : null,
+            //         flag: matchedCountry ? matchedCountry.flag : city.flag // Use the flag from countryCodes if matched, otherwise keep original
+            //     };
+            // });
+
+            this.cities = res;
+            let LocationsList: any[] = []; 
+            this.cities.forEach((element: any, index: number) => {
+                LocationsList[index] = {};
+                // LocationsList[index]['city_name'] = element.city_name;
+                LocationsList[index]['flag'] = element.flag;
+                LocationsList[index]['country_name_code'] = element.country_name_code;
+                if (element.city_name && element.country_name) {
+                    LocationsList[index]['location_name'] = element.city_name + ", " + element.country_name;
+                }else{
+                    LocationsList[index]['location_name'] = element.country_name;
+                }
             });
+            this.cities = LocationsList;
             
         });
+    }
+
+    getJobRoles(){
+        this.jobService.getJobRoles().subscribe(res =>{
+          this.jobTitle = res;
+        });
+    }
+
+    searchLocation(event: Event) :void{
+        const input = event.target as HTMLInputElement;
+        const query = input.value.toLowerCase();
+        if(query && query.length > 3){
+          const mockJobs = this.cities;
+          this.filteredCity =  mockJobs.filter((city: any) => city.location_name.toLowerCase().includes(query));
+        }else if(query.length < 1){
+          this.filteredCity = [];
+        }
+    }
+
+    setLocation(city: any) :void{
+        // this.selectedFlag = city.flag;
+        this.selectedCountryCode = city.country_name_code;
+        this.filterForm.patchValue({
+            countryCode: city.location_name
+        });
+        
+        this.fG.patchValue({
+            countryCode: city.location_name
+        });
+
+        this.filteredCity = [];
+    }
+
+    searchJob(event: Event) :void{
+        const input = event.target as HTMLInputElement;
+        const query = input.value.toLowerCase();
+        if(query && query.length > 3){
+          const mockJobs = this.jobTitle;
+          this.filterJobTitle =  mockJobs.filter((job: any) => job.jobrole.toLowerCase().includes(query));
+        }else if(query.length < 1){
+          this.filterJobTitle = [];
+        }
+    }
+    
+    setJobtitle(jobRole: string){
+        this.filterForm.patchValue({
+            what_and: jobRole
+        });
+
+        this.fG.patchValue({
+            what_and: jobRole
+        });
+        this.filterJobTitle = [];
     }
 
     resetSearch() {
@@ -176,12 +249,13 @@ export class JobListingComponent implements OnInit {
         this.whatAnd = this.fG.value.what_and
         // this.selectedFlag = this.fG.value.countryCode.flag
         let formData = {
-            country_name: this.fG.value.countryCode,
+            // country_name: this.fG.value.countryCode,
             country_name_code: this.selectedCountryCode,
             countryCode: this.fG.value.countryCode,
             flag: this.selectedFlag,
             what_and: this.fG.value.what_and,
-          }
+        }
+        console.log(formData);
         this.saveFilterData(formData);
         // this.fromCountry = this.countryCodes.find((country: any) => country.code.toLowerCase() == this.fG.value.countryCode.code);
         // if (this.fG.value.countryCode.code) {
@@ -230,20 +304,28 @@ export class JobListingComponent implements OnInit {
     }
 
     onFilterSubmit() {
+        console.log(this.filterForm.value, "filter form value");
         if (this.filterForm.valid) {
-            this.saveFilterData(this.filterForm.value)
             let req = {
-                location: this.filterForm.value.countryCode,
+                location: this.selectedCountryCode,
                 page: this.page,
                 result_per_page: this.resultPerPage,
                 what_and: this.filterForm.value.what_and,
-                where: this.filterForm.value.country_name,
+                where: this.filterForm.value.countryCode,
                 full_time: this.filterForm.value.job_type?.code == 'full_time' ? '1' : '',
                 part_time: this.filterForm.value.job_type?.code == 'part_time' ? '1' : '',
                 contract: this.filterForm.value.job_type?.code == 'contract' ? '1' : '',
                 permanent: this.filterForm.value.job_type?.code == 'permanent' ? '1' : '',
             }
-            this.selectedFlag = this.filterForm.value.countryCode.flag
+            let formData = {
+                country_name_code: this.selectedCountryCode,
+                countryCode: this.filterForm.value.countryCode,
+                flag: this.selectedFlag,
+                what_and: this.filterForm.value.what_and,
+            }
+            this.saveFilterData(formData)
+            console.log(req, "request data");
+            this.selectedFlag = this.selectedFlag
             this.jobService.filter(req).subscribe(
                 (data: any) => {
                     this.jobs = data.results
