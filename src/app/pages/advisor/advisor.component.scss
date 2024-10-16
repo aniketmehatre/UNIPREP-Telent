@@ -1,3 +1,16 @@
 .force-font > h1{
     font-size: 1rem !important;
 }
+
+.advisorinput
+{
+    border: 1px solid var(--uniprep-lightgray);
+    border-radius:100px;
+    padding: 2px;
+    input
+    {
+        border: none !important;
+        background: transparent !important;
+        border-radius:100px;
+    }
+}
