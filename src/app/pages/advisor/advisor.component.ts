@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AdvisorService } from './advisor.service';
+import {NgxUiLoaderService} from "ngx-ui-loader";
 
 @Component({
   selector: 'uni-advisor',
@@ -13,16 +14,20 @@ userQuestion: any;
   question: any;
   answer: any;
   chatdata: any;
+  showSkeleton: boolean = false;
 
-  constructor(private service:AdvisorService) { }
+  constructor(private service:AdvisorService,private ngxService: NgxUiLoaderService,) { }
 
   ngOnInit(): void {
+    
   }
 
   getAns(){
+    
     this.isQuestionAsked = true;
     this.isQuestionNotAsked = false;
     // alert(this.userQuestion);
+    this.ngxService.startBackground();
     var data = {
       question : this.userQuestion
     }
@@ -30,20 +35,26 @@ userQuestion: any;
       this.chatdata = response;
       // this.question = response.question;
       // this.answer = response.answer;
+      this.ngxService.stopBackground();
     });
   }
 
   triggerSample(sample:any){
     this.isQuestionAsked = true;
+    this.showSkeleton= true;
     this.isQuestionNotAsked = false;
+    this.ngxService.startBackground();
     // alert(this.userQuestion);
     var data = {
       question : sample
     }
     this.service.getAnswer(data).subscribe(response => {
+      this.showSkeleton= false;
       this.chatdata = response;
+
       // this.question = response.question;
       // this.answer = response.answer;
+      this.ngxService.stopBackground();
     });
   }
 
