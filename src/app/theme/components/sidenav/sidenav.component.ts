@@ -65,7 +65,7 @@ export class SidenavComponent {
       image: "fa-solid fa-people-group",
     },
     {
-      title: "Academic Tools",
+      title: "k12 Academic Tools",
       url: "/pages/modules/academic-tools",
       image: "fa-solid fa-scribble",
     },

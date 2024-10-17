@@ -15,12 +15,8 @@ export class AcademicToolsStreamComponent implements OnInit {
   moduleId: string = '';
   isSkeletonVisible: boolean = false;
   loopRange = Array.from({ length: 30 }).fill(0).map((_, index) => index);
-  folderdata: any = {};
-  routedata: any = [];
-  totalcount = 0;
-  parentfolderlists: any = [];
-  parentfilelists: any = [];
-  titletext = "STARTUP KIT";
+  currentModuleName: string = '';
+  tooltip: string = '';
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -33,6 +29,33 @@ export class AcademicToolsStreamComponent implements OnInit {
   ngOnInit(): void {
     this.activatedRoute.params.subscribe(response => {
       this.moduleId = response['id'];
+      switch (this.moduleId) {
+        case '15': {
+          this.currentModuleName = 'Grade 8';
+          this.tooltip = 'Enhance your future academic journey with tailored tools for Grade 8.';
+          break;
+        }
+        case '16': {
+          this.currentModuleName = 'Grade 11'
+          this.tooltip = 'Discover resources to strategically advance your learning in Grade 11.';
+          break;
+        }
+        case '17': {
+          this.currentModuleName = 'Grade 12'
+          this.tooltip = 'Utilize essential tools to prepare effectively for your next steps after Grade 12.';
+          break;
+        }
+        case '19': {
+          this.currentModuleName = 'Grade 9'
+          this.tooltip = 'Access key resources to shape your educational path in Grade 9.';
+          break;
+        }
+        case '20': {
+          this.currentModuleName = 'Grade 10'
+          this.tooltip = 'Explore tools that pave the way for your academic progress in Grade 10.';
+          break;
+        }
+      }
       this.getList();
     });
   }
@@ -52,26 +75,10 @@ export class AcademicToolsStreamComponent implements OnInit {
       this.router.navigate(['/pages/modules/academic-tools']);
     }
   }
-  getchildinfo(data: any) {
-    if (data.isFolder == "2") {
-      return;
-    }
-    this.folderdata.parent_id = data.id;
-    if (data.parent_id == "0") {
-      this.titletext = data.name;
-    }
-    this.routedata.push({
-      id: data.id,
-      name: data.name,
-      data: data,
-      path: "country",
-    });
-  }
+
   actionedrouteData: any = [];
   redirectTo(path: any) {
     if (path == "academic-tools") {
-      this.folderdata.parent_id = "0";
-      this.routedata = [];
       this.route.navigate(["pages/modules/" + path]);
     }
     if (path === 'dashboard') {
