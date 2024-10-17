@@ -24,7 +24,7 @@
 									<h4 class="p-mb-1 question p-2">{{ recommendation.question }}</h4>
 								</div>
 								<div class="check-list">
-									<div class="align-items-center">
+									<div class="align-items-center justify-content-center">
 										<ng-container *ngIf="recommendation.id == 1">
 											<p-multiSelect styleClass="w-100" placeholder="Industry Type" [options]="industryInterested" display="chip" optionLabel="industry_name" optionValue="id" [(ngModel)]="selectedData[recommendation.id]" [appendTo]="'body'"></p-multiSelect>
 											<p class="text-center" [ngClass]="{ 'd-none': invalidClass === false }" style="color: red">Please Choose Any one option</p>

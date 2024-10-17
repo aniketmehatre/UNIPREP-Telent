@@ -369,7 +369,7 @@ export class CvBuilderComponent implements OnInit  {
         const responseData = res.data;
         const storedValues = JSON.parse(responseData.data);
         this.resumeFormInfoData.patchValue(storedValues);
-        this.moduleActiveIndex = responseData.page_number;
+        // this.moduleActiveIndex = responseData.page_number;
         this.hidingHeaders = JSON.parse(responseData.hiding_headers);
         // this.changeExperience();
         const workExpData = storedValues.workExpArray;
@@ -690,7 +690,7 @@ export class CvBuilderComponent implements OnInit  {
     let data = {
       userdata: { ...formData },
       selectedResumeLevel: this.selectedResumeLevel,
-      active_index: this.moduleActiveIndex,
+      // active_index: this.moduleActiveIndex,
       hiding_headers: this.hidingHeaders,
     };
     this.resumeService.storeUserFilledData(data).subscribe();
