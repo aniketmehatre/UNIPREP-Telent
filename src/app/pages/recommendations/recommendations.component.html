@@ -12,7 +12,6 @@
 					</div>
 				</div>
 			</div>
-
 			<div class="col-md-2"></div>
 		</div>
 	</div>
@@ -83,7 +82,7 @@
 							<div class="col-md-2" *ngFor="let modulesList of recommendList.details">
 								<div class="card recommendationitemcard mb-3" role="button" (click)="moduleRedirect(modulesList.module_link)">
 									<div class="card-body">
-										<img src="{{ modulesList.image_link }}" class="img-fluid mb-2" alt="Module Image" />
+										<img src="{{ modulesList.image_link }}" class="img-fluid mb-3" alt="Module Image" />
 										<h5 class="mb-0">{{ modulesList.name }}</h5>
 									</div>
 								</div>
@@ -99,8 +98,7 @@
 		<div class="row mb-2">
 			<div class="col-md-12 text-end">
 				<button pButton type="button" class="btn btn-quit btn-rounded" (click)="resetRecommendation()">
-					Reset Recommendations<span class="btn-icon"><i class="fa-solid fa-undo"></i>
-					</span>
+					Reset Recommendations<span class="btn-icon"><i class="fa-solid fa-undo"></i> </span>
 				</button>
 			</div>
 		</div>
