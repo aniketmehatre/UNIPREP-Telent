@@ -27,6 +27,9 @@
           <div class="card subjectcard h-100">
             <div class="card-body text-center d-flex flex-column justify-content-between">
               <h5 class="fw-bold mb-3">{{ list.submodule_name }}</h5>
+              <div style="text-align: center;">
+                <img height="40" width="40" src="{{list.icon}}" alt="">
+              </div>
               <div>
                 <div *ngIf="list.progress < 90">
                   <button class="btn btn-secondary btn-rounded px-5" [ngClass]="{ 'retry-button': list.progress > 0 }" (click)="openQuiz(list?.id,list?.submodule_name)">{{ list.progress == 0 ? "Start Quiz" : "Retry" }} &nbsp; <i class="fa-solid fa-stopwatch"></i></button>
