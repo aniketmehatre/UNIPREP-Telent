@@ -2,7 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '@env/environment';
 import { Observable } from 'rxjs';
-import { GetAcademicListPayload, ProgressPayload, SubmitRecommendation, SubmitStreamResponse } from 'src/app/@Models/academic-tools.model';
+import { AcademicToolCategoryResponse, GetAcademicListPayload, ProgressPayload, SubmitRecommendation, SubmitStreamResponse } from 'src/app/@Models/academic-tools.model';
 import { GetQuizPayload, QuizResponse } from 'src/app/@Models/career-tool-category.model';
 
 @Injectable({
@@ -19,7 +19,7 @@ export class AcademicService {
     }
     getAcadamicSubModuleList(req: GetAcademicListPayload): Observable<QuizResponse> {
         const headers = new HttpHeaders().set("Accept", "application/json");
-        return this.http.get<QuizResponse>(environment.ApiUrl + `/getacademicsubmoduleList?module_id=${req.module_id}`, {
+        return this.http.get<QuizResponse>(environment.ApiUrl + `/getacademicsubmoduleList?module_id=${req.module_id}&category_id=${req.category_id}`, {
             headers: headers,
         });
     }
@@ -42,6 +42,9 @@ export class AcademicService {
             headers: headers,
         });
 
+    }
+    getAcademicToolList(req: { module_id: string }): Observable<AcademicToolCategoryResponse> {
+        return this.http.get<AcademicToolCategoryResponse>(environment.ApiUrl + `/getcareertoolcategorylist?module_id=${req.module_id}`)
     }
 
 }

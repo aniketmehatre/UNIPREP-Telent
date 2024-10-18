@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Location } from '@angular/common';
 import { GetAcademicListPayload } from 'src/app/@Models/academic-tools.model';
 import { AcademicService } from '../academic.service';
+import { CategoryResponse } from 'src/app/@Models/career-tool-category.model';
 
 
 @Component({
@@ -12,11 +13,12 @@ import { AcademicService } from '../academic.service';
 })
 export class AcademicToolsStreamComponent implements OnInit {
   modulesList: any[] = []
-  moduleId: string = '';
+  moduleId: string = '15';
   isSkeletonVisible: boolean = false;
   loopRange = Array.from({ length: 30 }).fill(0).map((_, index) => index);
   currentModuleName: string = '';
   tooltip: string = '';
+  submoduleId: string = '';
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -28,41 +30,16 @@ export class AcademicToolsStreamComponent implements OnInit {
 
   ngOnInit(): void {
     this.activatedRoute.params.subscribe(response => {
-      this.moduleId = response['id'];
-      switch (this.moduleId) {
-        case '15': {
-          this.currentModuleName = 'Grade 8';
-          this.tooltip = 'Enhance your future academic journey with tailored tools for Grade 8.';
-          break;
-        }
-        case '16': {
-          this.currentModuleName = 'Grade 11'
-          this.tooltip = 'Discover resources to strategically advance your learning in Grade 11.';
-          break;
-        }
-        case '17': {
-          this.currentModuleName = 'Grade 12'
-          this.tooltip = 'Utilize essential tools to prepare effectively for your next steps after Grade 12.';
-          break;
-        }
-        case '19': {
-          this.currentModuleName = 'Grade 9'
-          this.tooltip = 'Access key resources to shape your educational path in Grade 9.';
-          break;
-        }
-        case '20': {
-          this.currentModuleName = 'Grade 10'
-          this.tooltip = 'Explore tools that pave the way for your academic progress in Grade 10.';
-          break;
-        }
-      }
+      this.submoduleId = response['id'];
       this.getList();
+      this.getAcademicToolList();
     });
   }
 
   getList() {
     const params: GetAcademicListPayload = {
       module_id: this.moduleId,
+      category_id: this.submoduleId
     }
     this.academicService.getAcadamicSubModuleList(params).subscribe(res => {
       this.modulesList = res.data;
@@ -84,6 +61,14 @@ export class AcademicToolsStreamComponent implements OnInit {
     if (path === 'dashboard') {
       this.route.navigate(["pages/" + path]);
     }
+  }
+  getAcademicToolList() {
+    let req: { module_id: string } = {
+      module_id: this.moduleId,
+    }
+    this.academicService.getAcademicToolList(req).subscribe((response: CategoryResponse) => {
+      this.currentModuleName = response.data?.find(category=>category.id===Number(this.submoduleId))?.category as string;
+    });
   }
 
 }

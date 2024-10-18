@@ -1,5 +1,6 @@
 export interface GetAcademicListPayload {
     module_id: string;
+    category_id:string;
 }
 
 export interface SubmitRecommendation {
@@ -7,7 +8,7 @@ export interface SubmitRecommendation {
     message: string
     result: Result
     flag: string
-    retry_count:number
+    retry_count: number
 }
 
 export interface Result {
@@ -24,8 +25,8 @@ export interface SubmitStreamResponse {
     graph_data: string[];
     graph_value: number[];
     report_url: string;
-    report_names:string[];
-    retry_count:number;
+    report_names: string[];
+    retry_count: number;
 }
 
 export interface GraphResult {
@@ -43,4 +44,15 @@ export interface ProgressPayload {
     moduleId: string
     submoduleId: string
 }
- 
+
+export interface AcademicToolCategoryResponse {
+    data: AcademicToolCategory[];
+    count: number;
+}
+
+export interface AcademicToolCategory {
+    category: string;
+    icon: string;
+    id: number;
+    url_slug: string;
+}

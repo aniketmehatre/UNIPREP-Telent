@@ -22,7 +22,7 @@ import { QuizResponse } from 'src/app/@Models/career-tool-category.model';
 export class AcademicToolsQuizComponent implements OnInit {
   quizData: any[] = [];
   currentCountryId: any
-  currentModuleId: any;
+  currentModuleId:string='15';
   categoryId: any;
   universityidforquiz: any = null;
   currentModuleSlug: any;
@@ -90,6 +90,7 @@ export class AcademicToolsQuizComponent implements OnInit {
   moduelName: string = '';
   showLoading: boolean = false;
   canShowRetry: boolean = false;
+  submoduleId:string='';
 
   constructor(private moduleListService: ModuleServiceService, private authService: AuthService, private router: Router, private dataService: DataService,
     private location: Location, private locationService: LocationService, private ngxService: NgxUiLoaderService, private toast: MessageService, private activatedRoute: ActivatedRoute,
@@ -101,7 +102,7 @@ export class AcademicToolsQuizComponent implements OnInit {
       this.orgnamewhitlabel = orgname;
     });
     this.activatedRoute.params.subscribe(res => {
-      this.currentModuleId = res['id'];
+      this.submoduleId = res['id'];
       this.quizId = res['submoduleId'];
       this.categoryId = Number(res['categoryId']);
       this.checkProgress();
@@ -170,21 +171,7 @@ export class AcademicToolsQuizComponent implements OnInit {
     })
   }
 
-  // loadModuleAndSubModule() {
-  //   let data = {
-  //     countryId: this.currentCountryId,
-  //     moduleId: this.currentModuleId,
-  //     api_module_name: this.currentApiSlug
-  //   }
-  //   this.locationService.GetQuestionsCount(data).subscribe(data => {
-  //     this.isSkeletonVisible = false;
-  //   })
-  //   this.locationService.getUniPerpModuleList().subscribe((data: any) => {
-  //     this.moduleList = data.modules;
-  //     this.ngxService.stop();
-  //   });
-  // }
-
+ 
   runQuiz() {
     this.isInstructionVisible = false;
     this.isStartQuiz = true;
@@ -222,9 +209,9 @@ export class AcademicToolsQuizComponent implements OnInit {
 
   closeQuiz() {
     this.stopTimer();
-    if (this.currentModuleId == 15 || this.currentModuleId == 16) {
+    if (this.submoduleId) {
       if (window.history.length > 1) {
-        this.router.navigate([`/pages/modules/academic-tools/${this.currentModuleId}`]);
+        this.router.navigate([`/pages/modules/academic-tools/${this.submoduleId}`]);
       }
     }
   }
@@ -462,7 +449,7 @@ export class AcademicToolsQuizComponent implements OnInit {
     var data = {
       moduleid: this.currentModuleId,
       countryid: this.currentCountryId,
-      submoduleid: localStorage.getItem("learninghubsubmoduleid")
+      submoduleid: this.quizId
     }
     this.moduleListService.checkModuleQuizCompletion(data).subscribe((res) => {
       this.quizpercentage = res.progress;
@@ -604,6 +591,7 @@ export class AcademicToolsQuizComponent implements OnInit {
   getList() {
     const params: GetAcademicListPayload = {
       module_id: this.currentModuleId,
+      category_id:this.categoryId
     }
     this.academicService.getAcadamicSubModuleList(params).subscribe((res: QuizResponse) => {
       this.moduelName = res.data.find(item => item.id === Number(this.quizId))?.submodule_name as string;
