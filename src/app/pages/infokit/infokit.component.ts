@@ -46,6 +46,9 @@ import { PageFacadeService } from "../page-facade.service";
 export class InfoKitComponent implements OnInit {
   planExpired!: boolean;
   restrict: boolean = false;
+  searchText: any;
+  originalFolderLists: any[] = [];
+  originalFileLists: any[];
   constructor(
     private fb: FormBuilder,
     private service: InformationService,
@@ -85,6 +88,7 @@ export class InfoKitComponent implements OnInit {
     this.getFolderData();
   }
   getFolderData() {
+    this.searchText = '';
     this.service
       .GetFolderList(this.folderdata)
       .subscribe((res) => {
@@ -96,7 +100,22 @@ export class InfoKitComponent implements OnInit {
         this.parentfilelists = responseData.filter(
           (fdata: any) => fdata.isFolder == 2
         );
+        this.originalFolderLists = [...this.parentfolderlists];
+        this.originalFileLists = [...this.parentfilelists];
       });
+  }
+  filterLists() {
+    if (this.searchText.trim().length > 0) {
+      this.parentfolderlists = this.originalFolderLists.filter((folder) =>
+        folder.name.toLowerCase().includes(this.searchText.toLowerCase())
+      );
+      this.parentfilelists = this.originalFileLists.filter((file) =>
+        file.name.toLowerCase().includes(this.searchText.toLowerCase())
+      );
+    } else {
+      this.parentfolderlists = [...this.originalFolderLists];
+      this.parentfilelists = [...this.originalFileLists];
+    }
   }
   pageChange(event: any) {
     if (this.planExpired) {

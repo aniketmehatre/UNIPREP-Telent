@@ -9,7 +9,7 @@
 							<h5 class="w-100 mb-0" tooltipPosition="top" pTooltip="UNIFINDER">UNIFINDER<i class="questiontooltip fa-solid fa-circle-question"></i></h5>
 						</div>
 						<div>
-							<button class="how-it-works-button" (click)="openVideoPopup('https://www.youtube.com/embed/broH-JjV-B4?si=xqN69X_Wu9J0mdpu')">How it works? <i class="fa-solid fa-play"></i></button>
+							<button class="how-it-works-button" (click)="openVideoPopup('https://www.youtube.com/embed/DrdNzOvE-ns?si=Fnq8eQlz1emr24Z7')">How it works? <i class="fa-solid fa-play"></i></button>
 						</div>
 					</div>
 				</div>
@@ -240,7 +240,7 @@
 						</div>
 					</div>
 				</div>
-			</ng-container>
+			</div>
 		</div>
 		<div class="flex-column h-100" [style.display]="!guidelinesDiv ? 'flex' : 'none'">
 			<div class="card-body pt-0">
@@ -281,8 +281,7 @@
 				</div>
 			</div>
 		</div>
-	</div>
-	
+	</ng-container>
 </div>
 <p-dialog header="Filter Courses" [(visible)]="isFilterVisible" [modal]="true" [style]="{ width: '60rem' }" [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }" [ngStyle]="{ display: isFilterVisible }" class="filterDialog">
 	<div class="m-5">
