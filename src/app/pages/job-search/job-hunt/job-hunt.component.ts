@@ -18,7 +18,6 @@ export class JobHuntComponent implements OnInit {
   jobTitle: any = [];
   filterJobTitle: any[] = [];
   filteredCity: any = [];
-  filteredLocations: any = [];
   formFields: any = [];
 
   constructor(private router: Router, private dataService: DataService, private toastr: MessageService,
@@ -76,15 +75,17 @@ export class JobHuntComponent implements OnInit {
 
     this.jobService.getCities().subscribe((res: City[]) => {
       this.cities = res;
-      let LocationsList: any[] = [];  // Initialize LocationsList as an array
+      let LocationsList: any[] = []; 
       this.cities.forEach((element: any, index: number) => {
-        if (element.city_name && element.country_name) {
           LocationsList[index] = {};
-          LocationsList[index]['location_name'] = element.city_name + ", " + element.country_name;
-          LocationsList[index]['city_name'] = element.city_name;
+          // LocationsList[index]['city_name'] = element.city_name;
           LocationsList[index]['flag'] = element.flag;
           LocationsList[index]['country_name_code'] = element.country_name_code;
-        }
+          if (element.city_name && element.country_name) {
+              LocationsList[index]['location_name'] = element.city_name + ", " + element.country_name;
+          }else{
+              LocationsList[index]['location_name'] = element.country_name;
+          }
       });
       this.cities = LocationsList;
     });
@@ -123,7 +124,7 @@ export class JobHuntComponent implements OnInit {
 
   searchLocation(event: Event) :void{
     const input = event.target as HTMLInputElement;
-    const query = input.value;
+    const query = input.value.toLowerCase();
     if(query && query.length > 3){
       const mockJobs = this.cities;
       this.filteredCity =  mockJobs.filter((city: any) => city.location_name.toLowerCase().includes(query));
@@ -134,7 +135,7 @@ export class JobHuntComponent implements OnInit {
 
   searchJob(event: Event) :void{
     const input = event.target as HTMLInputElement;
-    const query = input.value;
+    const query = input.value.toLowerCase();
     if(query && query.length > 3){
       const mockJobs = this.jobTitle;
       this.filterJobTitle =  mockJobs.filter((job: any) => job.jobrole.toLowerCase().includes(query));
@@ -152,7 +153,7 @@ export class JobHuntComponent implements OnInit {
 
   setLocation(city: any){
     let formData = {
-      country_name: city.city_name,
+      // country_name: city.city_name,
       country_name_code: city.country_name_code,
       countryCode: city.location_name,
       flag: city.flag,

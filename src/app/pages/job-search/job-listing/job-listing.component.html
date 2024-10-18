@@ -62,21 +62,30 @@
                         <span (click)="onClickClear()">Clear</span>
                     </div>
                     <div class="col-md-12">
-                        <label class="form-label" style="font-size: small; font-weight: 500">Search by Job, Skill,
-                            Company</label>
+                        <label class="form-label" style="font-size: small; font-weight: 500">Search by Job Title</label>
                         <span class="p-input-icon-left w-100">
-                                <i class="pi pi-search"></i>
-                                <input class="form-control w-100" formControlName="what_and"
-                                       pInputText placeholder="Job Title, Skill, Company"
-                                       style="width: 100% !important;" type="text"/>
-                            </span>
+                            <i class="pi pi-search"></i>
+                            <input class="form-control w-100" formControlName="what_and" (input)="searchJob($event)" pInputText placeholder="Job Title" 
+                            style="width: 100% !important;" type="text"/>
+                        </span>
+                        <ul *ngIf="filterJobTitle.length > 0"  class="dropdown-list">
+                            <li *ngFor="let job of filterJobTitle" (click)="setJobtitle(job.jobrole)">{{ job.jobrole }}</li>
+                        </ul>
                     </div>
                     <div class="col-md-12 mt-2">
                         <label class="form-label" style="font-size: small; font-weight: 500">Country
                             <span class="mandatory">*</span></label>
                         <div class="form-group">
                             <div class="mb-3">
-                                <p-dropdown [appendTo]="'body'" [filter]="true" [options]="cities"
+                                <span class="p-input-icon-left w-100">
+                                    <i class="pi pi-search"></i>
+                                    <input type="text" formControlName="countryCode" (input)="searchLocation($event)" class="form-control w-100"
+                                           pInputText placeholder="Location"/>
+                                </span>
+                                <ul *ngIf="filteredCity.length > 0"  class="dropdown-list">
+                                    <li *ngFor="let city of filteredCity" (click)="setLocation(city)"><img [src]="city.flag" alt="">{{ city.location_name }}</li>
+                                </ul>
+                                <!-- <p-dropdown [appendTo]="'body'" [filter]="true" [options]="cities"
                                             [showClear]="true" class=""
                                             filterBy="name" formControlName="countryCode"
                                             optionLabel="name" placeholder="Source Country"
@@ -94,7 +103,7 @@
                                             <div>{{ country.name }}{{ country.city_name ? ', ' + country.country_name : '' }}</div>
                                         </div>
                                     </ng-template>
-                                </p-dropdown>
+                                </p-dropdown> -->
                             </div>
                         </div>
                     </div>
