@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AdvisorService } from './advisor.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'uni-advisor',
@@ -13,10 +14,14 @@ userQuestion: any;
   question: any;
   answer: any;
   chatdata: any;
+  pquestion: any | null ;
 
-  constructor(private service:AdvisorService) { }
+  constructor(private service:AdvisorService , private route: ActivatedRoute) { }
 
   ngOnInit(): void {
+    if(this.route.snapshot.paramMap.get('question') != null){
+    this.userQuestion = this.route.snapshot.paramMap.get('question');
+    }
   }
 
   getAns(){
