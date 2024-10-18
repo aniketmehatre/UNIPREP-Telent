@@ -1,129 +1,105 @@
-<div class="row w-100 h-100 m-0 justify-content-center align-items-center" *ngIf="showSearch">
-    <div class="col-6">
-        <h3 style="color: var(--uniprep-primary);" class="text-center">
-            Apply to millions of job opportunities across top companies, industries and locations
-        </h3>
-        <div class="dropdown-container" style="margin-top: 20px;">
-            <form [formGroup]="checkForm" (ngSubmit)="search()">
-                <div class="form-group d-flex align-items-center mb-3" style="margin-left: 0;">
-                    <div class="position-relative" style="flex: 1; margin-right: 10px;">
-                        <i class="fas fa-search search-icon"></i>
-                        <input type="text" 
-                            id="jobSearch" 
-                            class="elliptical-search-bar" 
-                            formControlName="jobSearch"
-                            (input)="onInputChange($event)">
-                            <div class="dropdown-list-container" *ngIf="hasfilteredoptions">
-                                <ul class="dropdown-list">
-                                    <li *ngFor="let option of filteredOptions" (click)="selectOption(option)" [id]="option.id">
-                                        {{ option.jobrole }}
-                                    </li>
-                                </ul>
-                            </div>
-                        <div *ngIf="invalidClass" class="error-message" style="color: red; margin-top: 5px;">
-                            Please Choose Any one option
-                        </div>
-                    </div>
-                    <div style="flex: 1; margin-right: 10px; position: relative;"> 
-                        <p-dropdown 
-                            [options]="countries" 
-                            styleClass="w-100" 
-                            formControlName="country" 
-                            optionValue="id" 
-                            optionLabel="country" 
-                            placeholder="Select Country"
-                            [filter]="true" 
-                            [showClear]="true">
-                        </p-dropdown>
-                        <div *ngIf="invalidClassCountry" class="error-message" style="color: red; position: absolute; top: 100%; left: 0;">
-                            Please Choose Any one option
-                        </div>
-                    </div>
-                    <button pButton type="submit" 
-                            class="text-white p-ripple p-button-rounded p-button-info-search p-button p-component p-2">
-                        Search <i class="fas fa-search search-icon-result exhausted-plan-icon-next"></i>
-                    </button>
-                </div>
-            </form>
-        </div>
-    </div>
+<div class="row h-100 justify-content-center align-items-center" *ngIf="showSearch">
+	<div class="col-md-8">
+		<h3 class="text-center uniprep-primary">Apply to millions of job opportunities across top companies, industries and locations</h3>
+		<form [formGroup]="checkForm" (ngSubmit)="search()">
+			<div class="form-group row align-items-center">
+				<div class="col-md-7 position-relative">
+					<div class="position-relative">
+						<span class="search-icon"><i class="fas fa-search search-icon"></i></span>
+						<input type="text" id="jobSearch" class="ps-5 w-100 rounded-pill border-secondary" formControlName="jobSearch" (input)="onInputChange($event)" />
+					</div>
+					<div class="dropdown-list-container" *ngIf="hasfilteredoptions">
+						<ul class="dropdown-list">
+							<li *ngFor="let option of filteredOptions" role="button" (click)="selectOption(option)" [id]="option.id">
+								{{ option.jobrole }}
+							</li>
+						</ul>
+					</div>
+					<div *ngIf="invalidClass" class="error-message text-danger mt-2">Please Choose Any one option</div>
+				</div>
+				<div class="col-md-3">
+					<p-dropdown [options]="countries" styleClass="w-100" formControlName="country" optionValue="id" optionLabel="country" placeholder="Select Country" [filter]="true" [showClear]="true"> </p-dropdown>
+					<div *ngIf="invalidClassCountry" class="error-message text-danger mt-2">Please Choose Any one option</div>
+				</div>
+				<div class="col-md-2 text-center">
+					<button pButton type="submit" class="btn btn-primary btn-rounded p-2">
+						<span class="mx-2">Search</span><span class="btn-icon"><i class="fas fa-search"></i></span>
+					</button>
+				</div>
+			</div>
+		</form>
+	</div>
 </div>
 
-<div class="row w-100 h-100 m-0 justify-content-center align-items-start" *ngIf="showResult">
-    <div class="col-6" class="text-center">
-        <div class="fixed-header">
-            <h3 style="color: var(--uniprep-primary);">
-                Current Role : {{currentrole}}
-            </h3>
-            <div class="role-details-box">
-                <div *ngFor="let detail of roleDetails;  let i = index" class="role-detail" [ngClass]="'detail-' + (i + 1)" (click)="scrollToCareerProgression(i)">
-                    <span>{{ i + 1 }}. {{ detail }}</span>
-                </div>
-            </div>
-        </div>    
-        <div class="job-details-container">
-            <div *ngFor="let detail of jobDetails; let i = index" class="job-detail" [id]="'career-progress-' + i">
-                <div style="color: #f0780e; margin-top: 20px; font-weight: bold; font-size: 18px;">
-                    Career Progression {{ i + 1 }}
-                </div>
-                <div style="background-color: #f0f0f0; padding: 15px; margin-top: 10px; border-radius: 15px;">
-                        <span style="color: #3f4c83; font-weight: bold; display: block; margin-bottom: 10px; text-align: left; font-size: 18px;">
-                            {{ detail.pointer_job_role }}
-                        </span>
-                        <span style="color: #a0a0a0; font-size: 16px; display: block; margin-bottom: 10px; text-align: left;">
-                            {{ detail.country }}
-                        </span>
-
-                        <div class="row" style="margin-top: 15px; text-align: left;">
-                            <div class="col">
-                                <strong style="color: #4552a3;">Roles & Responsibilities</strong><br />
-                                <span style="display: block; margin-bottom: 5px;">                                    
-                                    <ul style="list-style-type: disc; padding-left: 20px;">
-                                        <ng-container *ngFor="let role of detail.rolesArray">
-                                            <li>{{ role }}</li>
-                                        </ng-container>
-                                    </ul>
-                                </span>
-                            </div>
-                            <div class="col">
-                                <strong style="color: #4552a3;">Skills</strong><br />
-                                <span style="display: block; margin-bottom: 5px;">
-                                    <ul style="list-style-type: disc; padding-left: 20px;">
-                                        <ng-container *ngFor="let skill of detail.skillsArray">
-                                            <li>{{ skill }}</li>
-                                        </ng-container>
-                                    </ul>
-                                </span>
-                            </div> 
-                            <div class="col">
-                                <strong style="color: #4552a3;">Required Years of Experience</strong><br />
-                                <span style="display: block; margin-bottom: 5px;">
-                                    <ng-container>
-                                        {{ detail.experience }}
-                                    </ng-container>
-                                </span>
-                            </div>
-                             <div class="col">
-                                <strong style="color: #4552a3;">Average Salary in {{ detail.country }}</strong><br />
-                                <span style="display: block; margin-bottom: 5px;">
-                                    <ng-container>
-                                        {{ detail.salary }} per year
-                                    </ng-container>
-                                </span>
-                                <strong style="color: #4552a3;">Average Salary in India</strong><br />
-                                <span style="display: block; margin-bottom: 5px;">
-                                    <ng-container>
-                                       {{ detail.india_salary }} per year
-                                    </ng-container>
-                                </span>
-                            </div>
-                        </div> 
-                </div>
-                <div *ngIf="i < jobDetails.length - 1" class="arrow-container">
-                    <i class="fas fa-arrow-down arrow-icon"></i>
-                </div>
-            </div>
-        </div>
-    </div>
+<div class="h-100 overflow-y-auto justify-content-center align-items-start" *ngIf="showResult">
+	<div class="fixed-header pb-2">
+		<h3 class="uniprep-primary text-center">Current Role : {{ currentrole }}</h3>
+		<div class="role-details-box">
+			<div *ngFor="let detail of roleDetails; let i = index" class="role-detail" [ngClass]="'detail-' + (i + 1)" (click)="scrollToCareerProgression(i)">
+				<span>{{ i + 1 }}. {{ detail }}</span>
+			</div>
+		</div>
+	</div>
+	<div class="col-6" class="text-center">
+		<div class="job-details-container">
+			<div *ngFor="let detail of jobDetails; let i = index" class="job-detail" [id]="'career-progress-' + i">
+				<div class="d-flex gap-2 justify-content-center">
+					<div *ngIf="i != 0" class="arrow-container">
+						<i class="fas fa-arrow-down arrow-icon"></i>
+					</div>
+					<h4 class="mt-2 uniprep-secondary fw-bold">Career Progression {{ i + 1 }}</h4>
+				</div>
+				<div class="card careergrowthcard">
+					<div class="card-body text-start">
+						<h4 class="uniprep-primary fw-bold mb-0">{{ detail.pointer_job_role }}</h4>
+						<p class="uniprep-darkgray fw-regular mb-3">{{ detail.country }}</p>
+						<div class="row">
+							<div class="col">
+								<h5 class="uniprep-primary">Roles & Responsibilities</h5>
+								<div class="text-small">
+									<ul class="ps-4 mb-0">
+										<ng-container *ngFor="let role of detail.rolesArray">
+											<li>{{ role }}</li>
+										</ng-container>
+									</ul>
+								</div>
+							</div>
+							<div class="col">
+								<h5 class="uniprep-primary">Skills</h5>
+								<div class="text-small">
+									<ul class="ps-4 mb-0">
+										<ng-container *ngFor="let skill of detail.skillsArray">
+											<li>{{ skill }}</li>
+										</ng-container>
+									</ul>
+								</div>
+							</div>
+							<div class="col">
+								<h5 class="uniprep-primary">Required Years of Experience</h5>
+								<div class="text-small">
+									<ng-container>
+										{{ detail.experience }}
+									</ng-container>
+								</div>
+							</div>
+							<div class="col">
+								<div class="mb-4">
+									<h5 class="uniprep-primary">Average Salary in {{ detail.country }}</h5>
+									<div class="text-small">
+										<ng-container> {{ detail.salary }} per year </ng-container>
+									</div>
+								</div>
+								<div>
+									<h5 class="uniprep-primary">Average Salary in India</h5>
+									<div class="text-small">
+										<ng-container> {{ detail.india_salary }} per year </ng-container>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>
-

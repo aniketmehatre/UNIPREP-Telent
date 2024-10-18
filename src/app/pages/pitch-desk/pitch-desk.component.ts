@@ -41,6 +41,7 @@ export class PitchDeskComponent implements OnInit {
   imagewhitlabeldomainname:any
   orgnamewhitlabel:any;
   orglogowhitelabel:any;
+  pdname:any;
   constructor(private pitchDesk:PitchDeskService,  private userManagementService: UserManagementService, private fb: FormBuilder,private router: Router,private authService: AuthService, private toast: MessageService, private dataService: DataService, private pageFacade: PageFacadeService,private locationService: LocationService,) { 
     this.filterForm = this.fb.group({
       pitchdeck_name: [''],
@@ -206,10 +207,10 @@ else{
   }
   pdfURL: any
   isPdfDownloadOption: any
-  showPdf(url: any){
+  showPdf(url: any, pdname: string){
     this.pdfURL = url;
     this.isPdfLoaded = true;
-
+    this.pdname = pdname;
     if (!this.planExpired && this.exportCreditCount != 0) {
       this.isPdfDownloadOption = true;
     }else{
