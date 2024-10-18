@@ -12,6 +12,9 @@ import { AcademicToolsStreamComponent } from './academic-tools-stream/academic-t
 import { AcademicToolsQuizComponent } from './academic-tools-quiz/academic-tools-quiz.component';
 import { K12ClassComponent } from "./k12-class/k12-class.component";
 import { K12QuizComponent } from "./k12-quiz/k12-quiz.component";
+import {K12BoardComponent} from "./k12-board/k12-board.component";
+import {K12SubjectComponent} from "./k12-subject/k12-subject.component";
+import {K12ChapterComponent} from "./k12-chapter/k12-chapter.component";
 
 
 const routes: Routes = [{
@@ -39,10 +42,16 @@ const routes: Routes = [{
             path: 'learning-hub', component: ListSubModulesComponent,
         },
         {
-            path: 'k12', component: K12ClassComponent,
+            path: 'k12', component: K12BoardComponent,
         },
         {
-            path: 'k12-category', component: ListSubModulesComponent,
+            path: 'k12-class/:board_id', component: K12ClassComponent,
+        },
+        {
+            path: 'k12-subject/:class_id', component: K12SubjectComponent,
+        },
+        {
+            path: 'k12-chapter/:subject_id', component: K12ChapterComponent,
         },
         {
             path: ':module_name/question-list/:id', component: QuestionListComponent,
