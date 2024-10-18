@@ -30,15 +30,23 @@
               <div style="text-align: center;">
                 <img height="40" width="40" src="{{list.icon}}" alt="">
               </div>
-              <div>
-                <div *ngIf="list.progress < 90">
-                  <button class="btn btn-secondary btn-rounded px-5" [ngClass]="{'retry-button': list.progress > 0}" (click)="openQuiz(list.id,list.submodule_name)">{{ list.progress == 0 ? "Start Quiz" : "Retry" }} &nbsp; <i class="fa-solid fa-stopwatch"></i></button>
+              <div class="mt-3">
+                <div *ngIf="list.progress < 90" class="d-flex justify-content-center">
+                  <button 
+                    class="btn btn-secondary btn-rounded px-4 w-100 w-md-auto"
+                    [ngClass]="{ 'retry-button': list.progress > 0 }"
+                    (click)="openQuiz(list?.id, list?.submodule_name)">
+                    {{ list.progress == 0 ? "Start Quiz" : "Retry" }} &nbsp; 
+                    <i class="fa-solid fa-stopwatch"></i>
+                  </button>
                 </div>
-                <div *ngIf="list.progress >= 90">
-                  <div class="d-flex justify-content-center gap-2">
-                    <button class="btn btn-success btn-rounded">Completed</button>
-                    <button class="btn btn-secondary btn-rounded" (click)="review(list.id)">Review &nbsp; <i class="fa-solid fa-list-check"></i></button>
-                  </div>
+                <div *ngIf="list.progress >= 90" class="d-flex flex-column flex-md-row justify-content-center gap-2">
+                  <button class="btn btn-success btn-rounded w-100 w-md-auto">Completed</button>
+                  <button 
+                    class="btn btn-secondary btn-rounded w-100 w-md-auto"
+                    (click)="review(list.id)">
+                    Review &nbsp; <i class="fa-solid fa-list-check"></i>
+                  </button>
                 </div>
               </div>
             </div>
