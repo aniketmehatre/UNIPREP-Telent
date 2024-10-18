@@ -218,7 +218,7 @@ const routes: Routes = [
                 loadChildren: () => import('./unilearn/unilearn.module').then(m => m.UniLearnModule)
             },
             {
-                path: 'AI Global Advisor',
+                path: 'advisor',
                 component: AdvisorComponent
             },
         ]
