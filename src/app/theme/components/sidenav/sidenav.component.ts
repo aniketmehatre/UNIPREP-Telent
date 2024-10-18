@@ -195,7 +195,7 @@ export class SidenavComponent {
       image: "",
     },
     {
-      title: "Advisor",
+      title: "AI Global Advisor",
       url: "/pages/advisor",
       image: "fa-solid fa-file-user",
     },

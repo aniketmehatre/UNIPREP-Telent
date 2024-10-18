@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AdvisorService } from './advisor.service';
 import {NgxUiLoaderService} from "ngx-ui-loader";
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'uni-advisor',
@@ -17,9 +18,14 @@ userQuestion: any;
   chatdata: any;
   showSkeleton: boolean = false;
 
-  constructor(private service:AdvisorService,private ngxService: NgxUiLoaderService,) { }
+  constructor(private service:AdvisorService,private ngxService: NgxUiLoaderService,
+    private route: ActivatedRoute
+  ) { }
 
   ngOnInit(): void {
+    if(this.route.snapshot.paramMap.get('question') != null){
+      this.userQuestion = this.route.snapshot.paramMap.get('question');
+      }
     this.questions =[
       {question:"Must visit places in Milan."},
       {question:"Top 10 fully funded scholarships for international students in the UK."},
@@ -32,6 +38,7 @@ userQuestion: any;
       {question:"Top 20 government funding opportunities for startups in the UK"},
     ]
   }
+  pquestion: any | null ;
 
   getAns(){
     

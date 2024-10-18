@@ -203,11 +203,11 @@
         </div>
       </div>
 
-      <div class="align-items-center d-flex desktop">
-        <button class="btn w-100 btn-primary theme-dark-blue mx-0 px-5 py-3" (click)="onClickAsk()"><i class="fa-solid h5 mb-0 fa-comment"></i>&nbsp; Click here to ask&nbsp;Personalised Questions</button>
-      </div>
-    </div>
-  </ng-template>
+			<div class="align-items-center d-flex desktop">
+				<button class="btn w-100 btn-primary theme-dark-blue mx-0 px-5 py-2" (click)="onClickAsk(oneQuestionContent?.question)"><i class="fa-solid h5 fa-file-contract"></i>&nbsp; Click here to ask&nbsp;Personalised Questions</button>
+			</div>
+		</div>
+	</ng-template>
 </p-dialog>
 
 <!-- <p-dialog [(visible)]="isRecommendedVideoVisible" class="questionvideopopup" [modal]="true" [style]="{ width: '80vw' }">
