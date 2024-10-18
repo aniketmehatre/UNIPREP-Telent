@@ -95,7 +95,7 @@ export class JobSearchService {
 
     getCities() {
         const headers = new HttpHeaders().set("Accept", "application/json");
-        return this.http.post<City[]>(environment.ApiUrl + "/getcitywithflag", {headers: headers});
+        return this.http.post<City[]>(environment.ApiUrl + "/getcitywithflag", {module: "job_portal"} ,{headers: headers});
     }
 
     getJobRoles() {
