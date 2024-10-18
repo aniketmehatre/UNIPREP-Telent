@@ -160,6 +160,10 @@
 		}
 	}
 }
+
+:host ::ng-deep .p-carousel-item {
+	width: 100% !important;
+}
 :host ::ng-deep .p-carousel .p-carousel-indicators {
 	position: absolute;
 	bottom: 0;

@@ -30,11 +30,11 @@
 								<div class="col-md-4">
 									<div class="recommendationinput d-flex flex-column justify-content-center gap-3">
 										<ng-container *ngIf="recommendation.id == 1">
-											<p-multiSelect styleClass="w-100" placeholder="Select Course Country" [options]="countryList" display="chip" optionLabel="country" optionValue="id" [(ngModel)]="selectedData[recommendation.id]" [appendTo]="'body'"></p-multiSelect>
+											<p-multiSelect styleClass="w-100" [maxSelectedLabels]="5" [selectedItemsLabel]="'{0} items selected'" placeholder="Select Course Country" [options]="countryList" display="chip" optionLabel="country" optionValue="id" [(ngModel)]="selectedData[recommendation.id]" [appendTo]="'body'"></p-multiSelect>
 											<p class="text-center" [ngClass]="{ 'd-none': invalidClass === false }" style="color: red">Please Choose Any one option</p>
 										</ng-container>
 										<ng-container *ngIf="recommendation.id == 2">
-											<p-multiSelect styleClass="w-100" placeholder="Select Course Subject" [options]="subjectNameList" display="chip" optionLabel="category_name" optionValue="id" [(ngModel)]="selectedData[recommendation.id]" [appendTo]="'body'"></p-multiSelect>
+											<p-multiSelect styleClass="w-100" [maxSelectedLabels]="5" placeholder="Select Course Subject" [options]="subjectNameList" display="chip" optionLabel="category_name" optionValue="id" [(ngModel)]="selectedData[recommendation.id]" [appendTo]="'body'"></p-multiSelect>
 											<p class="text-center" [ngClass]="{ 'd-none': invalidClass === false }" style="color: red">Please Choose Any one option</p>
 										</ng-container>
 										<ng-container *ngIf="recommendation.id == 3">
@@ -47,10 +47,10 @@
 											<p class="text-center" [ngClass]="{ 'd-none': invalidClass === false }" style="color: red">Please Choose Any one option</p>
 										</ng-container>
 										<ng-container *ngIf="recommendation.id == 4">
-											<p-multiSelect styleClass="w-100" placeholder="Select Intake Month" [options]="recMonthList" display="chip" optionLabel="name" optionValue="id" [(ngModel)]="selectedData[recommendation.id]" [appendTo]="'body'"></p-multiSelect>
+											<p-multiSelect styleClass="w-100" [maxSelectedLabels]="5" placeholder="Select Intake Month" [options]="recMonthList" display="chip" optionLabel="name" optionValue="id" [(ngModel)]="selectedData[recommendation.id]" [appendTo]="'body'"></p-multiSelect>
 										</ng-container>
 										<ng-container *ngIf="recommendation.id == 5">
-											<p-multiSelect styleClass="w-100" placeholder="Select Pre Requisite" [options]="preRequisite" display="chip" optionLabel="value" optionValue="id" [(ngModel)]="selectedData[recommendation.id]" [appendTo]="'body'"></p-multiSelect>
+											<p-multiSelect styleClass="w-100" [maxSelectedLabels]="5" placeholder="Select Pre Requisite" [options]="preRequisite" display="chip" optionLabel="value" optionValue="id" [(ngModel)]="selectedData[recommendation.id]" [appendTo]="'body'"></p-multiSelect>
 											<p class="text-center" [ngClass]="{ 'd-none': invalidClass === false }" style="color: red">Please Choose Any one option</p>
 										</ng-container>
 										<ng-container *ngIf="recommendation.id == 6">
