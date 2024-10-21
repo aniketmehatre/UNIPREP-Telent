@@ -443,6 +443,7 @@ uni-learn,
 uni-learnmodules,
 uni-advisor,
 uni-career-growth-checker,
+uni-cost-of-living,
 uni-learnsubmodules {
 	display: flex;
 	flex: 1;
@@ -452,7 +453,11 @@ uni-learnsubmodules {
 	overflow: hidden;
 	border-radius: 10px;
 }
-
+uni-cost-of-living
+{
+	align-items: center;
+	justify-content: center;
+}
 uni-job-hunt {
 	width: 100%;
 }
