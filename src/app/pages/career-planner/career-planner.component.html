@@ -46,14 +46,24 @@
 									</ng-container>
 
 									<ng-container *ngIf="product.id == 2 || product.id == 5 || product.id == 8">
-										<div class="flex align-items-center" style="padding-left: 360px;">
-											<p-dropdown [options]="arrayMap[product.arrayName]" [filter]="true" [(ngModel)]="selectedData[product.id]" optionLabel="subject_name" styleClass="w-100" optionValue="id" [showClear]="true" [placeholder]="product.placeholder"></p-dropdown>
+										<div class="flex align-items-center" styleClass="w-100">
+											<div class="col-md-4"></div>
+											<div class="col-md-4">
+												<p-dropdown [options]="arrayMap[product.arrayName]" [filter]="true" [(ngModel)]="selectedData[product.id]" optionLabel="subject_name" styleClass="w-100" optionValue="id" [showClear]="true" [placeholder]="product.placeholder"></p-dropdown>
+											</div>
+											<div class="col-md-4"></div>
+											
 										</div>
 									</ng-container>
 
 									<ng-container *ngIf="product.id == 3 || product.id == 6 || product.id == 9">
-										<div class="flex align-items-center" style="padding-left: 360px;">
+										<div class="flex align-items-center" styleClass="w-100">
+											<div class="col-md-4"></div>
+											<div class="col-md-4">
 											<p-multiSelect [options]="arrayMap[product.arrayName]" [filter]="true" styleClass="w-100" [(ngModel)]="selectedData[product.id]" optionValue="id" [showClear]="true" optionLabel="specialisation_name" [placeholder]="product.placeholder" selectedItemsLabel="{} items selected"></p-multiSelect>
+											</div>
+											<div class="col-md-4"></div>
+
 										</div>
 									</ng-container>
 
