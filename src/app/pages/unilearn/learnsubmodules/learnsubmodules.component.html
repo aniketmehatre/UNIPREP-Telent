@@ -83,10 +83,10 @@
             >
               <div>
                 <div class="submoduleicon">
-                  <img
+                  <img *ngIf="module?.icon"
                     alt="{{ module.submodule_name }}"
                     class="selectimage"
-                    src="{{ module.icon }}"
+                    src="{{ module?.icon }}"
                   />
                 </div>
                 <h6 class="text-center subjecttitle d-md-block d-none pt-2">
