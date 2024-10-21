@@ -5,6 +5,8 @@ export interface learnModules {
 }
 export interface learnsubModules {
   data: submoduledata[];
+  userAnsweredQuestions: number;
+  totalQuestions: number;
   previous_id: number;
 }
 export interface submoduledata {
@@ -15,4 +17,45 @@ export interface submoduledata {
   file_type: number;
   icon: string;
   attachment_filename: string;
+  submodule_type: number;
+  isTestmodule: number;
+  time_limit: number;
+  score_type: number;
+  min_score: number;
+  max_score: number;
+  grades: string;
+  totalQuestions: number;
+  userAnsweredQuestions: number;
+}
+export interface Quizmodule {
+  shuffledQuestion: shuffledQuestion[];
+  primary_question:primary_question[];
+  totalquestion: number;
+}
+export interface shuffledQuestion {
+  id: number;
+  module_id: number;
+  test_type_module_id: number;
+  test_module_id: number;
+  question: string;
+  status: string;
+  type_id: number;
+  type: string;
+  created_at: string;
+  updated_at: string;
+}
+export interface primary_question{
+    id: number;
+    module_id: number;
+    code: string;
+    type: number;
+    title:string;
+    description: string;
+    audio_path: string;
+    image_path: string;
+    status: number;
+    created_at: string;
+    updated_at: string;
+    audio_file: string;
+    image_file: string;
 }
