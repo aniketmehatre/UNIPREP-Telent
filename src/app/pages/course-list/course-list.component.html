@@ -1,4 +1,4 @@
-<div class="card readingcard bg-white">
+<div class="card readingcard">
 	<ng-container *ngIf="!enableModule">
 		<div class="card-header py-0 border-0 bg-transparent">
 			<div class="row justify-content-center">
@@ -89,9 +89,8 @@
 				<div class="row justify-content-center">
 					<div class="col-md-3 text-start">
 						<span class="d-flex justify-content-start p-2" style="white-space: nowrap">
-							<input type="checkbox" class="me-0" style="transform: scale(1.5);cursor: pointer;"
-								[(ngModel)]="selectAllCheckboxes" (click)="selectAllCheckbox()" id="selectAllcheckbox" />
-							<label class="p-2" for="selectAllcheckbox" style="cursor: pointer;">Select All</label>
+							<input type="checkbox" class="me-0" style="transform: scale(1.5); cursor: pointer" [(ngModel)]="selectAllCheckboxes" (click)="selectAllCheckbox()" id="selectAllcheckbox" />
+							<label class="p-2" for="selectAllcheckbox" style="cursor: pointer">Select All</label>
 							<span class="p-2">Selected : {{ selectedCourses }}</span>
 						</span>
 					</div>
@@ -101,35 +100,28 @@
 					<div class="col-md-6 text-center">
 						<div class="select-title text-nowrap d-flex justify-content-between align-items-center">
 							<div>
-								<h5 class="w-100 mb-0" tooltipPosition="top" pTooltip="UNIFINDER">UNIFINDER<i
-										class="questiontooltip fa-solid fa-circle-question"></i></h5>
+								<h5 class="w-100 mb-0" tooltipPosition="top" pTooltip="UNIFINDER">UNIFINDER<i class="questiontooltip fa-solid fa-circle-question"></i></h5>
 							</div>
 							<div>
-								<button class="how-it-works-button"
-									(click)="openVideoPopup('https://www.youtube.com/embed/broH-JjV-B4?si=xqN69X_Wu9J0mdpu')">How
-									it works? <i class="fa-solid fa-play"></i></button>
+								<button class="how-it-works-button" (click)="openVideoPopup('https://www.youtube.com/embed/broH-JjV-B4?si=xqN69X_Wu9J0mdpu')">How it works? <i class="fa-solid fa-play"></i></button>
 							</div>
 						</div>
 					</div>
 					<div class="col-md-3 text-end" style="white-space: nowrap">
 						<span class="d-flex justify-content-end mt-3 gap-2">
-							<button class="btn btn-primary text-small course-guidelines" (click)="closeGuidelines()"
-								type="button">Course Guidelines</button>
-							<button *ngIf="ehitlabelIsShow" class="btn btn-primary text-small buy-credits-button" (click)="buyCredits()"
-								type="button">Buy Credits</button>
-							<button class="btn btn-primary text-small exportButton" (click)="exportData()"
-								type="button">Export <span class="exportCount">{{buyCreditsCount}}</span></button>
+							<button class="btn btn-primary text-small course-guidelines" (click)="closeGuidelines()" type="button">Course Guidelines</button>
+							<button *ngIf="ehitlabelIsShow" class="btn btn-primary text-small buy-credits-button" (click)="buyCredits()" type="button">Buy Credits</button>
+							<button class="btn btn-primary text-small exportButton" (click)="exportData()" type="button">
+								Export <span class="exportCount">{{ buyCreditsCount }}</span>
+							</button>
 						</span>
 						<div class="d-flex w-100 align-items-center justify-content-end mt-3 gap-2">
-							<button class="btn btn-primary text-small ps-3 pe-3 pt-2 pb-2 br-8 p-1"
-								style="border-radius: 20px !important;" (click)="viewFav()" type="button">{{viewFavourites ?
-								"Remove " : "View "}} Favourites</button>
-							<button class="btn btn-primary text-small ps-3 pe-3 pt-2 pb-2 br-8 p-1"
-								style="border-radius: 20px !important;" (click)="filterBy()" type="button">Filter
-								by</button>
+							<button class="btn btn-primary text-small ps-3 pe-3 pt-2 pb-2 br-8 p-1" style="border-radius: 20px !important" (click)="viewFav()" type="button">{{ viewFavourites ? "Remove " : "View " }} Favourites</button>
+							<button class="btn btn-primary text-small ps-3 pe-3 pt-2 pb-2 br-8 p-1" style="border-radius: 20px !important" (click)="filterBy()" type="button">Filter by</button>
 							<div class="pe-2">
-								<span class="text-muted text-small"><strong>Total Courses: {{ totalCourseCount }}
-									</strong></span>
+								<span class="text-muted text-small"
+									><strong>Total Courses: {{ totalCourseCount }} </strong></span
+								>
 							</div>
 						</div>
 					</div>
@@ -168,7 +160,7 @@
 												</div>
 											</div>
 										</div>
-		
+
 										<div class="row text-start">
 											<div class="col-12 mb-1" title="Subject">
 												<p class="text-wrap">
@@ -235,7 +227,7 @@
 						</div>
 						<div class="col-md-3 text-end">
 							<button pButton type="button" class="btn btn-quit btn-rounded" (click)="resetRecommendation()">
-								Reset Recommendations<span class="btn-icon"><i class="fa-solid fa-undo"></i> </span>
+								Reset Recommendations<span class="btn-icon"><i class="fa-solid fa-arrow-rotate-right"></i> </span>
 							</button>
 						</div>
 					</div>
