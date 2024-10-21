@@ -609,8 +609,8 @@ export class QuestionListComponent implements OnInit {
     this.isRecommendedLinksVisible = true;
   }
 
-  onClickAsk() {
-    this.router.navigateByUrl(`/pages/chat`);
+  onClickAsk(question:any) {
+    this.router.navigateByUrl(`/pages/advisor/`+question);
     //this.dataService.changeChatOpenStatus("open chat window");
   }
 

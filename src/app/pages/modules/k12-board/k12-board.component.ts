@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {filter, Observable} from "rxjs";
+import {filter} from "rxjs";
 import {ConfirmationService, MenuItem} from "primeng/api";
 import {ModuleServiceService} from "../../module-store/module-service.service";
 import {ActivatedRoute, NavigationEnd, Router} from "@angular/router";
@@ -12,12 +12,12 @@ import {Meta, Title} from "@angular/platform-browser";
 import { Location } from "@angular/common";
 
 @Component({
-    selector: 'uni-k12-class',
-    templateUrl: './k12-class.component.html',
-    styleUrls: ['./k12-class.component.scss'],
+    selector: 'uni-k12-board',
+    templateUrl: './k12-board.component.html',
+    styleUrls: ['./k12-board.component.scss'],
     providers: [ConfirmationService]
 })
-export class K12ClassComponent implements OnInit {
+export class K12BoardComponent implements OnInit {
     answeredCorrect: number = 0;
     totalPercentage: number = 0;
     percentageValue: string = '';
@@ -25,6 +25,7 @@ export class K12ClassComponent implements OnInit {
     isStartQuiz: boolean = false;
     isQuizSubmit: boolean = false;
     isReviewVisible: boolean = false;
+    responsiveOptions: any[] = [];
     quizData: any[] = [];
     moduleList: any[] = [];
     selectedQuiz: number = 1;
@@ -49,22 +50,26 @@ export class K12ClassComponent implements OnInit {
     countryId: any;
     canShowQuestionList: boolean = false;
     howItWorksVideoLink: string = "";
-    quizmoduleselectcountryidsetzero:any=0;
-    selectSubmoduleName:string = "";
-    ehitlabelIsShow:boolean=true;
-    imagewhitlabeldomainname:any
-    orgnamewhitlabel:any;
-    orglogowhitelabel:any;
-    boardId: any;
-    constructor(private moduleListService: ModuleServiceService, private router: Router, private dataService: DataService, private authService: AuthService,
-                private locationService: LocationService, private route: ActivatedRoute, private ngxService: NgxUiLoaderService,
-                private confirmationService: ConfirmationService, private pageFacade: PageFacadeService,
-                private meta: Meta, private _location: Location,
-                private titleService: Title,
-                private activatedRoute: ActivatedRoute,) {
-        this.countryId = Number(localStorage.getItem('countryId'));
-        this.boardId = this.route.snapshot.paramMap.get("board_id");
+    quizmoduleselectcountryidsetzero: any = 0;
+    selectSubmoduleName: string = "";
+    ehitlabelIsShow: boolean = true;
+    imagewhitlabeldomainname: any
+    orgnamewhitlabel: any;
+    orglogowhitelabel: any;
+    allSearchedResult: any[] = []
+    loopRange = Array.from({length: 1}).fill(0).map((_, index) => index);
+    restrict = false;
+    quizpercentage: any = 0
 
+
+    constructor(private moduleListService: ModuleServiceService, private router: Router, private dataService: DataService,
+                private authService: AuthService, private _location: Location,
+                private locationService: LocationService, private route: ActivatedRoute,
+                private ngxService: NgxUiLoaderService,
+                private confirmationService: ConfirmationService, private pageFacade: PageFacadeService,
+                private meta: Meta,
+                private titleService: Title,) {
+        this.countryId = Number(localStorage.getItem('countryId'));
         this.dataService.countryIdSource.subscribe((data) => {
             if (this.countryId != data) {
                 this.ngOnInit();
@@ -75,17 +80,18 @@ export class K12ClassComponent implements OnInit {
             });
         });
     }
+
     updateMetaTags() {
         this.titleService.setTitle(`Uniprep | Question modules`);
-        this.meta.updateTag({ name: 'description', content: `Uniprep Question list modules. more that 100000 questions` });
-        this.meta.updateTag({ name: 'og:type', content: `website` });
-        this.meta.updateTag({ name: 'og:image', content: `https://dev-student.uniprep.ai/uniprep-assets/images/f1.png` });
-        this.meta.updateTag({ name: 'og:logo', content: `https://dev-student.uniprep.ai/uniprep-assets/images/f1.png` });
+        this.meta.updateTag({
+            name: 'description',
+            content: `Uniprep Question list modules. more that 100000 questions`
+        });
+        this.meta.updateTag({name: 'og:type', content: `website`});
+        this.meta.updateTag({name: 'og:image', content: `https://dev-student.uniprep.ai/uniprep-assets/images/f1.png`});
+        this.meta.updateTag({name: 'og:logo', content: `https://dev-student.uniprep.ai/uniprep-assets/images/f1.png`});
     }
 
-
-    allSearchedResult: any[] = []
-    loopRange = Array.from({ length: 24 }).fill(0).map((_, index) => index);
     ngOnInit() {
         this.router.events.pipe(
             filter(event => event instanceof NavigationEnd)
@@ -101,24 +107,26 @@ export class K12ClassComponent implements OnInit {
         this.locationService.getOrgName().subscribe(orgname => {
             this.orgnamewhitlabel = orgname;
         });
-        this.imagewhitlabeldomainname=window.location.hostname;
+        this.imagewhitlabeldomainname = window.location.hostname;
         if (this.imagewhitlabeldomainname === "dev-student.uniprep.ai" || this.imagewhitlabeldomainname === "uniprep.ai" || this.imagewhitlabeldomainname === "localhost") {
-            this.ehitlabelIsShow=true;
-        }else{
-            this.ehitlabelIsShow=false;
+            this.ehitlabelIsShow = true;
+        } else {
+            this.ehitlabelIsShow = false;
         }
-        localStorage.setItem("modalcountryid",this.quizmoduleselectcountryidsetzero);
+        localStorage.setItem("modalcountryid", this.quizmoduleselectcountryidsetzero);
         this.init();
         this.moduleListService.getSubmodulesAndSpecialization().subscribe((res: any) => {
             this.allSearchedResult = res
         })
     }
+
     init() {
         this.currentCountryId = Number(localStorage.getItem('countryId'));
         this.currentModuleSlug = this.router.url.split('/').pop();
         this.dataService.countryNameSource.subscribe((data) => {
             this.countryName = data;
         });
+
         this.currentModuleId = 14;
         this.currentModuleName = 'K12 Academy';
         this.currentApiSlug = 'getcareertoolcategorylist';
@@ -128,27 +136,22 @@ export class K12ClassComponent implements OnInit {
         this.aboutModule = 'Explore a vast database of Q&A about:',
             this.moduleDetails = 'Scholarships, document checklist, Education loan, letter of Recommendation and many more!'
         this.howItWorksVideoLink = "https://www.youtube.com/embed/n9ECpsB6IoI?si=4coiypva6WZfr3NL";
-
-        /*FU
-        // if (this.currentModuleId == 5) {
-        //   return;
-        // } */
         localStorage.setItem("currentmodulenameforrecently", this.currentModuleName);
         this.loadModuleAndSubModule();
         this.checkplanExpire();
+        this.checkquizquestionmodule();
     }
 
     loadModuleAndSubModule() {
         this.currentCountryId = Number(localStorage.getItem('countryId'));
         let data: any = {
             moduleId: this.currentModuleId,
-            parent_category_id: Number(this.boardId),
-            parent_category_order: 1,
-            country_id: 0
         }
-        this.locationService.GetQuestionsCount(data).subscribe(data => {
+        data.module_id = this.currentModuleId
+        data.api_module_name = this.currentApiSlug;
+        this.locationService.getK12MainCategory(data).subscribe(data => {
             this.isSkeletonVisible = false;
-            this.subModuleList = data;
+            this.subModuleList = data.data;
         });
         this.locationService.getUniPerpModuleList().subscribe((data: any) => {
             this.moduleList = data.modules;
@@ -156,11 +159,10 @@ export class K12ClassComponent implements OnInit {
         });
     }
 
-    restrict = false;
 
     onSubModuleClick(id: any, submodule: any) {
         localStorage.setItem('selectedClass', id)
-        this.router.navigate([`/pages/modules/k12-subject/${submodule.category_id}` ]);
+        this.router.navigate([`/pages/modules/k12-class/${id}`]);
     }
 
     checkplanExpire(): void {
@@ -175,16 +177,28 @@ export class K12ClassComponent implements OnInit {
         })
     }
 
+
     upgradePlan(): void {
         this.router.navigate(["/pages/subscriptions"]);
     }
+
     goBack() {
-        this._location.back();
+        this._location.back()
     }
+
     clearRestriction() {
         this.restrict = false;
     }
-    quizpercentage: any = 0
+
+    checkquizquestionmodule() {
+        var data = {
+            moduleid: this.currentModuleId,
+            countryid: this.currentCountryId
+        }
+        this.moduleListService.checkModuleQuizCompletion(data).subscribe((res) => {
+            this.quizpercentage = res.progress
+        })
+    }
 
     openVideoPopup(videoLink: string) {
         this.pageFacade.openHowitWorksVideoPopup(videoLink);

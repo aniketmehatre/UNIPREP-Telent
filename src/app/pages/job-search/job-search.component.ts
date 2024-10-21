@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {DataService} from "../../data.service";
-
+import { Location } from "@angular/common";
 @Component({
     selector: 'uni-job-search',
     templateUrl: './job-search.component.html',
@@ -12,7 +12,7 @@ export class JobSearchComponent implements OnInit {
 
     currentEndpoint: string = '';
 
-    constructor(private router: Router,
+    constructor(private router: Router, private _location: Location,
                 private route: ActivatedRoute, private dataService: DataService) {
         this.route.params.subscribe(params => {
             const url = this.router.url;
@@ -62,5 +62,9 @@ export class JobSearchComponent implements OnInit {
             return JSON.parse(storedData);
         }
         return null;
+    }
+
+    goBack(){
+        this._location.back()
     }
 }

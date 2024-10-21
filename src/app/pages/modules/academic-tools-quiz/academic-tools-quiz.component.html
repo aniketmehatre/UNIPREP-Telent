@@ -435,34 +435,33 @@
                                         </h6>
                                     </label>
                                 </div>
-                                <ng-container *ngIf="currentModuleId==='16'&&categoryId===1">
-                                    <div class="py-1">
-                                        <input type="radio" value="{{ val.option5 }}" id="{{ val.otp5 }}" class="btn-check"
-                                            name="options" autocomplete="off" />
-                                        <label
-                                            class="{{(val.answer === val.useranswer && val.answer === 5 && val.useranswer === 5)?'answercorct':(5 === val.answer) ? 'optionreviewcorrect' : ((5 === val.useranswer) ? 'optionreviewwrong' : '')  }} text-start quiznotanswered w-100 m-0"
-                                            for="{{ val.otp5 }}">
-                                            <h6 class="py-2 px-2 mb-0">
-                                                <i
-                                                    class="{{ ((5 === val.answer)||(5 === val.useranswer) ||(val.answer === val.useranswer && val.answer === 5 && val.useranswer === 5)) ? 'fa-sharp fa-solid fa-circle-check' : 'fa-regular fa-circle' }} pe-2"></i>
-                                                {{ val.option5 }}
-                                            </h6>
-                                        </label>
-                                    </div>
-                                    <div class="py-1">
-                                        <input type="radio" value="{{ val.option6 }}" id="{{ val.otp6 }}" class="btn-check"
-                                            name="options" autocomplete="off" />
-                                        <label
-                                            class="{{(val.answer === val.useranswer && val.answer === 6 && val.useranswer === 6)?'answercorct':(6 === val.answer) ? 'optionreviewcorrect' : ((6 === val.useranswer) ? 'optionreviewwrong' : '')  }} text-start quiznotanswered w-100 m-0"
-                                            for="{{ val.otp6 }}">
-                                            <h6 class="py-2 px-2 mb-0">
-                                                <i
-                                                    class="{{ ((6 === val.answer)||(6 === val.useranswer) ||(val.answer === val.useranswer && val.answer === 6 && val.useranswer === 6)) ? 'fa-sharp fa-solid fa-circle-check' : 'fa-regular fa-circle' }} pe-2"></i>
-                                                {{ val.option6 }}
-                                            </h6>
-                                        </label>
-                                    </div>
-                                </ng-container>
+
+                                <div class="py-1" *ngIf="val?.option5">
+                                    <input type="radio" value="{{ val.option5 }}" id="{{ val.otp5 }}" class="btn-check"
+                                        name="options" autocomplete="off" />
+                                    <label
+                                        class="{{(val.answer === val.useranswer && val.answer === 5 && val.useranswer === 5)?'answercorct':(5 === val.answer) ? 'optionreviewcorrect' : ((5 === val.useranswer) ? 'optionreviewwrong' : '')  }} text-start quiznotanswered w-100 m-0"
+                                        for="{{ val.otp5 }}">
+                                        <h6 class="py-2 px-2 mb-0">
+                                            <i
+                                                class="{{ ((5 === val.answer)||(5 === val.useranswer) ||(val.answer === val.useranswer && val.answer === 5 && val.useranswer === 5)) ? 'fa-sharp fa-solid fa-circle-check' : 'fa-regular fa-circle' }} pe-2"></i>
+                                            {{ val.option5 }}
+                                        </h6>
+                                    </label>
+                                </div>
+                                <div class="py-1" *ngIf="val?.option6">
+                                    <input type="radio" value="{{ val.option6 }}" id="{{ val.otp6 }}" class="btn-check"
+                                        name="options" autocomplete="off" />
+                                    <label
+                                        class="{{(val.answer === val.useranswer && val.answer === 6 && val.useranswer === 6)?'answercorct':(6 === val.answer) ? 'optionreviewcorrect' : ((6 === val.useranswer) ? 'optionreviewwrong' : '')  }} text-start quiznotanswered w-100 m-0"
+                                        for="{{ val.otp6 }}">
+                                        <h6 class="py-2 px-2 mb-0">
+                                            <i
+                                                class="{{ ((6 === val.answer)||(6 === val.useranswer) ||(val.answer === val.useranswer && val.answer === 6 && val.useranswer === 6)) ? 'fa-sharp fa-solid fa-circle-check' : 'fa-regular fa-circle' }} pe-2"></i>
+                                            {{ val.option6 }}
+                                        </h6>
+                                    </label>
+                                </div>
                             </div>
                         </div>
                         <!-- <div class="col-md-6 text-start" style="float: left;">

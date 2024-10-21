@@ -17,13 +17,16 @@
 	--uniprep-tertiary: #ffffff;
 	--uniprep-lightgray: #808080;
 	--uniprep-darkgray: #636363;
+	--uniprep-lightgreen: #b7e044;
 	--uniprep-green: #9bc329;
+	--uniprep-darkgreen: #85ad18;
 	scrollbar-face-color: rgb(63, 76, 131);
 	/* Firefox 63 compatibility */
 	scrollbar-track-color: rgba(63, 76, 131, 0.145);
 	/* Firefox 63 compatibility */
 	scrollbar-color: rgb(63, 76, 131) rgba(63, 76, 131, 0.145);
 	scrollbar-width: auto;
+	--viewer-container-height: 0px !important;
 }
 
 input:-webkit-autofill,
@@ -120,6 +123,16 @@ body {
 	border-radius: 0px !important;
 	-webkit-box-shadow: none !important;
 	background-color: var(--uniprep-primary) !important;
+}
+
+.border-primary
+{
+	border: 1px solid var(--uniprep-primary) !important;
+}
+
+.border-secondary
+{
+	border: 1px solid var(--uniprep-secondary) !important;
 }
 
 p {
@@ -429,6 +442,7 @@ uni-faq,
 uni-learn,
 uni-learnmodules,
 uni-advisor,
+uni-career-growth-checker,
 uni-learnsubmodules {
 	display: flex;
 	flex: 1;
@@ -624,14 +638,24 @@ uni-subscription {
 
 	&:hover {
 		color: #fff !important;
-		background: var(--uniprep-primary);
+		background: var(--uniprep-primaryhighlight) !important;
 	}
 
 	&:focus {
 		color: #fff !important;
-		background: var(--uniprep-primary);
+		background: var(--uniprep-primarydark) !important;
 		box-shadow: 0 0 0 0.25rem var(--uniprep-primaryop10) !important;
-		border-color: var(--uniprep-primary);
+		border-color: var(--uniprep-primarydark) !important;
+	}
+	.btn-icon
+	{
+		border-radius:100px;
+		background-color: var(--uniprep-primarydark);
+		width: 30px;
+		height: 30px;
+		display: flex;
+		justify-content: center;
+		align-items: center;
 	}
 }
 
@@ -662,6 +686,16 @@ uni-subscription {
 		background: var(--uniprep-secondary);
 		border-color: var(--uniprep-secondary) !important;
 		box-shadow: 0 0 0 0.25rem var(--uniprep-secondaryop10);
+	}
+	.btn-icon
+	{
+		border-radius:100px;
+		background-color: var(--uniprep-secondaryhighlight);
+		width: 30px;
+		height: 30px;
+		display: flex;
+		justify-content: center;
+		align-items: center;
 	}
 }
 
@@ -702,15 +736,25 @@ uni-subscription {
 
 	&:hover {
 		color: #fff !important;
-		background: var(--uniprep-green) !important;
-		border: 1px solid var(--uniprep-green) !important;
+		background: var(--uniprep-lightgreen) !important;
+		border: 1px solid var(--uniprep-lightgreen) !important;
 	}
 
 	&:focus {
 		color: #fff !important;
-		background: var(--uniprep-green);
-		box-shadow: 0 0 0 0.25rem var(--uniprep-primaryop10) !important;
-		border-color: var(--uniprep-green);
+		background: var(--uniprep-lightgreen);
+		box-shadow: 0 0 0 0.25rem var(--uniprep-lightgreen) !important;
+		border-color: var(--uniprep-lightgreen);
+	}
+	.btn-icon
+	{
+		border-radius:100px;
+		background-color: var(--uniprep-darkgreen);
+		width: 30px;
+		height: 30px;
+		display: flex;
+		justify-content: center;
+		align-items: center;
 	}
 }
 
@@ -1722,29 +1766,4 @@ p-dialog.restrictionDialog .p-dialog .p-dialog-header .p-dialog-header-icon {
 
 .input-wrapper {
 	position: relative;
-}
-
-.dropdown-list {
-	list-style-type: none;
-	margin: 0;
-	padding: 0;
-	max-height: 180px;
-	overflow-y: auto;
-	border: 1px solid #ccc;
-	position: absolute;
-	width: 92%;
-	background-color: white;
-	display: block;
-	z-index: 1001;
-  	text-align: left;
-  	border-radius: 5%;
-}
-
-.dropdown-list li {
-	padding: 8px;
-	cursor: pointer;
-}
-
-.dropdown-list li:hover {
-	background-color: #f0f0f0;
 }

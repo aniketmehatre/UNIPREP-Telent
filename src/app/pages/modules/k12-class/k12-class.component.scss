@@ -28,3 +28,17 @@
 	}
 
 }
+.backIcon {
+	height: 40px;
+	width: 40px;
+	border-radius: 20px;
+	background-color: var(--uniprep-primary);
+	color: white;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	margin: 10px 0;
+	.pi-angle-left {
+		font-size: 16px;
+	}
+}

@@ -1,5 +1,6 @@
 <div class="row" style="overflow-y: auto; max-height: 100%;">
-    <div class="col-lg-2 col-md-4 col-12 mt-3" *ngFor="let modules of modulesList" (click)="chooseOneOption(modules.mode)">
+    <div class="col-lg-2 col-md-4 col-12 mt-3" *ngFor="let modules of modulesList"
+        (click)="chooseOneOption(modules.mode)">
         <div class="card resourcecard text-black h-100">
             <div class="card-body text-center d-flex flex-column">
                 <!-- Image at the top center -->
@@ -9,9 +10,8 @@
                 <!-- Content below the image -->
                 <div class="d-flex flex-column gap-2 justify-content-between flex-grow-1">
                     <div>
-                        <h5 title="Cover Letter Builder">{{ modules.moduleName }}</h5>
-                        <p style="overflow-wrap: anywhere" class="small mb-0" tooltipPosition="top"
-                           pTooltip="{{ modules.tooltip }}" tooltipStyleClass="tooltip">
+                        <h5>{{ modules.moduleName }}</h5>
+                        <p style="overflow-wrap: anywhere" class="small mb-0">
                             {{ modules.Description }}
                         </p>
                     </div>

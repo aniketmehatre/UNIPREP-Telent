@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Location } from '@angular/common';
 import { GetAcademicListPayload } from 'src/app/@Models/academic-tools.model';
 import { AcademicService } from '../academic.service';
+import { CategoryResponse } from 'src/app/@Models/career-tool-category.model';
 
 
 @Component({
@@ -12,15 +13,12 @@ import { AcademicService } from '../academic.service';
 })
 export class AcademicToolsStreamComponent implements OnInit {
   modulesList: any[] = []
-  moduleId: string = '';
+  moduleId: string = '15';
   isSkeletonVisible: boolean = false;
   loopRange = Array.from({ length: 30 }).fill(0).map((_, index) => index);
-  folderdata: any = {};
-  routedata: any = [];
-  totalcount = 0;
-  parentfolderlists: any = [];
-  parentfilelists: any = [];
-  titletext = "STARTUP KIT";
+  currentModuleName: string = '';
+  tooltip: string = '';
+  submoduleId: string = '';
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -32,14 +30,16 @@ export class AcademicToolsStreamComponent implements OnInit {
 
   ngOnInit(): void {
     this.activatedRoute.params.subscribe(response => {
-      this.moduleId = response['id'];
+      this.submoduleId = response['id'];
       this.getList();
+      this.getAcademicToolList();
     });
   }
 
   getList() {
     const params: GetAcademicListPayload = {
       module_id: this.moduleId,
+      category_id: this.submoduleId
     }
     this.academicService.getAcadamicSubModuleList(params).subscribe(res => {
       this.modulesList = res.data;
@@ -52,31 +52,23 @@ export class AcademicToolsStreamComponent implements OnInit {
       this.router.navigate(['/pages/modules/academic-tools']);
     }
   }
-  getchildinfo(data: any) {
-    if (data.isFolder == "2") {
-      return;
-    }
-    this.folderdata.parent_id = data.id;
-    if (data.parent_id == "0") {
-      this.titletext = data.name;
-    }
-    this.routedata.push({
-      id: data.id,
-      name: data.name,
-      data: data,
-      path: "country",
-    });
-  }
+
   actionedrouteData: any = [];
   redirectTo(path: any) {
     if (path == "academic-tools") {
-      this.folderdata.parent_id = "0";
-      this.routedata = [];
       this.route.navigate(["pages/modules/" + path]);
     }
     if (path === 'dashboard') {
       this.route.navigate(["pages/" + path]);
     }
+  }
+  getAcademicToolList() {
+    let req: { module_id: string } = {
+      module_id: this.moduleId,
+    }
+    this.academicService.getAcademicToolList(req).subscribe((response: CategoryResponse) => {
+      this.currentModuleName = response.data?.find(category=>category.id===Number(this.submoduleId))?.category as string;
+    });
   }
 
 }

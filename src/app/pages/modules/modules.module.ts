@@ -34,6 +34,9 @@ import { ReactiveFormsModule } from "@angular/forms";
 import { ChartsModule } from 'ng2-charts';
 import { DropdownModule } from 'primeng/dropdown';
 import { PdfViewerModule } from 'ng2-pdf-viewer';
+import { K12BoardComponent } from './k12-board/k12-board.component';
+import { K12SubjectComponent } from './k12-subject/k12-subject.component';
+import { K12ChapterComponent } from './k12-chapter/k12-chapter.component';
 
 @NgModule({
   declarations: [
@@ -49,6 +52,9 @@ import { PdfViewerModule } from 'ng2-pdf-viewer';
     AcademicToolsQuizComponent,
     K12ClassComponent,
     K12QuizComponent,
+    K12BoardComponent,
+    K12SubjectComponent,
+    K12ChapterComponent,
   ],
   imports: [
     PdfViewerModule,
