@@ -1,4 +1,4 @@
-<div class="container-fluid">
+<div class="container-fluid d-flex flex-fill flex-column justify-content-center">
 	<div class="row justify-content-center">
 		<div class="col-md-12 text-center">
 			<h4 class="fw-bold uniprep-primary">Compare the cost of living between two locations around the world</h4>
@@ -6,7 +6,7 @@
 		<div class="col-md-8">
 			<form [formGroup]="form" (ngSubmit)="compare()" class="row">
 				<div class="col-md-6">
-					<p-dropdown [options]="sourceCities" optionValue="city_id" formControlName="sourceCity" placeholder="Source Location or Country" [filter]="true" [virtualScroll]="true" [virtualScrollItemSize]="50" [showClear]="true" [appendTo]="'body'" styleClass="w-100">
+					<p-dropdown [options]="sourceCities" optionValue="city_id" formControlName="sourceCity" placeholder="Source Location or Country" [filter]="true" [virtualScroll]="true" [virtualScrollItemSize]="50" [showClear]="true" [appendTo]="'body'" styleClass="w-100 border-secondary">
 						<ng-template pTemplate="filter" let-options="options">
 							<div class="d-flex gap-2">
 								<div class="p-inputgroup" (click)="$event.stopPropagation()">
@@ -18,7 +18,7 @@
 						</ng-template>
 						<ng-template pTemplate="selectedItem" let-selectedOption>
 							<div class="d-flex align-items-center gap-2">
-								<img [src]="selectedOption.flag" />
+								<div class="dropdownimg"><img [src]="selectedOption.flag" class="img-fluid" /></div>
 								<div>
 									<span *ngIf="selectedOption.city_name !== null">{{ selectedOption.city_name }}, </span>{{ selectedOption.country_name }}
 								</div>
@@ -26,7 +26,7 @@
 						</ng-template>
 						<ng-template let-country pTemplate="item">
 							<div class="d-flex align-items-center gap-2" (click)="cityChange('source', country)">
-								<img [src]="country.flag" />
+								<div class="dropdownimg"><img [src]="country.flag" class="img-fluid"  /></div>
 								<div>
 									<span *ngIf="country.city_name !== null">{{ country.city_name }}, </span>{{ country.country_name }}
 								</div>
@@ -35,7 +35,7 @@
 					</p-dropdown>
 				</div>
 				<div class="col-md-4">
-					<p-dropdown [options]="targetCities" optionValue="city_id" formControlName="targetCity" placeholder="Target Location or Country" [filter]="true" [virtualScroll]="true" [virtualScrollItemSize]="50" [showClear]="true" [appendTo]="'body'" styleClass="w-100">
+					<p-dropdown [options]="targetCities" optionValue="city_id" formControlName="targetCity" placeholder="Target Location or Country" [filter]="true" [virtualScroll]="true" [virtualScrollItemSize]="50" [showClear]="true" [appendTo]="'body'" styleClass="w-100 border-primary">
 						<ng-template pTemplate="filter" let-options="options">
 							<div class="d-flex gap-2">
 								<div class="p-inputgroup" (click)="$event.stopPropagation()">
@@ -47,7 +47,7 @@
 						</ng-template>
 						<ng-template pTemplate="selectedItem" let-selectedOption>
 							<div class="d-flex align-items-center gap-2">
-								<img [src]="selectedOption.flag" />
+								<div class="dropdownimg"><img [src]="selectedOption.flag" class="img-fluid"/></div>
 								<div>
 									<span *ngIf="selectedOption.city_name !== null">{{ selectedOption.city_name }}, </span>{{ selectedOption.country_name }}
 								</div>
@@ -55,7 +55,7 @@
 						</ng-template>
 						<ng-template let-country pTemplate="item">
 							<div class="d-flex align-items-center gap-2" (click)="cityChange('target', country)">
-								<img [src]="country.flag" />
+								<div class="dropdownimg"><img [src]="country.flag" class="img-fluid"/></div>
 								<div>
 									<span *ngIf="country.city_name !== null">{{ country.city_name }}, </span>{{ country.country_name }}
 								</div>
@@ -64,13 +64,13 @@
 					</p-dropdown>
 				</div>
 				<div class="col">
-					<button class="btn btn-primary h6 ps-4 pe-4 pt-2 pb-2 br-20 text-nowrap" type="submit" [disabled]="form.value.sourceCity === null || form.value.targetCity === null">Compare <i class="pi pi-sync"></i></button>
+					<button class="btn btn-primary btn-rounded d-flex gap-2 align-items-center" type="submit" [disabled]="form.value.sourceCity === null || form.value.targetCity === null"><span>Compare</span> <span class="btn-icon"><i class="pi pi-sync"></i></span></button>
 				</div>
 			</form>
 		</div>
 	</div>
 </div>
-<div *ngIf="canShowComparision">
+<div class="mt-4" *ngIf="canShowComparision">
 	<uni-comparision [sourceCountryPrices]="sourceCountryPrices" [targetCountryPrices]="targetCountryPrices" [sourcecountryName]="sourcecountryName" [targetcountryName]="targetcountryName"></uni-comparision>
 </div>
 <p-dialog [(visible)]="restrict" [modal]="true" [style]="{ width: '30vw' }" [draggable]="false" [resizable]="false" class="restrictionDialog" [breakpoints]="{ '960px': '30vw', '959px': '60vw', '425px': '90vw' }" (onHide)="clearRestriction()">

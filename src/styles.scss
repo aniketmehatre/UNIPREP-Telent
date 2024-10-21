@@ -135,6 +135,17 @@ body {
 	border: 1px solid var(--uniprep-secondary) !important;
 }
 
+
+.bg-primary
+{
+	background: var(--uniprep-primary) !important;
+}
+
+.bg-secondary
+{
+	background: var(--uniprep-secondary) !important;
+}
+
 p {
 	margin-bottom: 0rem;
 	-webkit-touch-callout: none;
@@ -455,8 +466,7 @@ uni-learnsubmodules {
 }
 uni-cost-of-living
 {
-	align-items: center;
-	justify-content: center;
+overflow-y: auto;
 }
 uni-job-hunt {
 	width: 100%;

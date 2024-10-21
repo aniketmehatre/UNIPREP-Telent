@@ -1,18 +1,14 @@
-<div class="row gap-two headerCard">
-    <div class="col-12">
-        <div class="card">
-            <div class="card-body costofliving">
-                Cost of Living In <span
-                    *ngIf="sourceCountryPrices.city_name!=null">&nbsp;{{sourceCountryPrices.city_name}},</span>
-                {{sourceCountryPrices.country_name}} is
-                {{ totalDiffPercentage |number: '1.2-2'}}%
-                {{targetPriceTotal>sourcePriceTotal?'lower':'greater'}} than in <span
-                    *ngIf="targetCountryPrices.city_name!=null">&nbsp;{{targetCountryPrices.city_name}},</span>
-                {{targetCountryPrices.country_name}}.
-            </div>
-        </div>
+<div class="row">
+  <div class="col-12">
+    <div class="card mb-4 bg-primary">
+      <div class="card-body py-4">
+        <h5 class="mb-0 text-white text-center">
+          Cost of Living In <span *ngIf="sourceCountryPrices.city_name != null">&nbsp;{{ sourceCountryPrices.city_name }},</span> {{ sourceCountryPrices.country_name }} is {{ totalDiffPercentage | number : "1.2-2" }}% {{ targetPriceTotal > sourcePriceTotal ? "lower" : "greater" }} than in <span *ngIf="targetCountryPrices.city_name != null">&nbsp;{{ targetCountryPrices.city_name }},</span> {{ targetCountryPrices.country_name }}.
+        </h5>
+      </div>
     </div>
-    <!-- <div class="col-md-4 col-sm-12">
+  </div>
+  <!-- <div class="col-md-4 col-sm-12">
         <div class="card">
             <div class="card-body outline-card">
                 <div class="d-flex justify-content-between">
@@ -27,99 +23,70 @@
         </div>
     </div> -->
 </div>
-<br>
 <div>
-    <div class="row" *ngFor="let pricesList of categorywisePrices">
-        <div class="row">
-            <div class="col-md-6">
-                <div class="row d-flex align-items-center">
-                    <div class="col-md-7 col-lg-8">
-                        <h5>{{pricesList.category_name}}</h5>
-                    </div>
-
-
-                </div>
-
-            </div>
-
-            <div class="col-md-6">
-                <!-- <div
-                    class="offset-md-7 offset-lg-8 col-md-4 col-lg-3 gap-2 pl-1 pr-3 d-flex align-items-center justify-content-around">
-                    <img [src]="sourceFlag" class="itemflag" />
-                    <img [src]="targetFlag" class="itemflag" />
-                </div>
-                <div class="col-md-1 col-lg-1">
-                </div> -->
-            </div>
-        </div>
-        <div class="col-md-6 col-sm-12" *ngFor="let price of pricesList.prices;index as i">
-            <div class="card prices">
-                <div class="card-body p-3">
-                    <div class="row gap-two">
-                        <!-- <div class="d-flex align-items-center justify-content-between col-md-2"><i class="pi pi-minus"
+  <div class="row mb-4" *ngFor="let pricesList of categorywisePrices">
+    <div class="col-md-12">
+      <h5 class="uniprep-primary">{{ pricesList.category_name }}</h5>
+    </div>
+    <div class="col-md-6 col-sm-12" *ngFor="let price of pricesList.prices; index as i">
+      <div class="card mb-2">
+        <div class="card-body py-2">
+          <div class="row">
+            <!-- <div class="d-flex align-items-center justify-content-between col-md-2"><i class="pi pi-minus"
                                 (click)="remove(price.from)"></i>
                             <div class="count">{{price.from.itemCount}}</div><i class="pi pi-plus"
                                 (click)="addMore(price.from)"></i>
                         </div> -->
-                        <div class="col-md-7 col-lg-8 d-flex align-items-center"><img [src]="price.icon" alt="">
-                            <div class="ml-5">{{price.from.item_name}}</div>
-                        </div>
-                        <div class="col-md-5 col-lg-4  d-flex align-items-center justify-content-between">
-                            <div class="me-2">
-                                <!-- <div class="smallText"><span
+            <div class="col-md-7 d-flex gap-3 align-items-center">
+              <div class="colicon"><img [src]="price.icon" alt="{{ price.from.item_name }}" class="img-fluid" /></div>
+              <div class="fw-semibold">{{ price.from.item_name }}</div>
+            </div>
+            <div class="col-md-5 d-flex align-items-center justify-content-between gap-4">
+              <div class="text-center position-relative fw-medium">
+                <!-- <div class="text-small"><span
                                         *ngIf="sourceCountryPrices.country_name==targetCountryPrices.country_name">{{sourceCountryPrices.city_name}},
                                     </span>{{sourceCountryPrices.country_name}}</div> -->
-                                <div *ngIf="i<2" class="flagIconDiv">
-                                    <img [src]="sourceFlag" class="itemflag" loading="lazy" />
-                                </div>
-                                <div class="smallText" *ngIf="sourceCountryPrices.city_name">
-                                    {{sourceCountryPrices.city_name}}
-                                </div>
-                                <div class="smallText" *ngIf="!sourceCountryPrices.city_name">
-                                    {{sourceCountryPrices.country_name}}
-                                </div>
-                                <div class="smallText"><span *ngIf="price.from.rate">{{price.from.currency_code}}
-                                        {{price.from.rate | number:'1.2-2'}}</span> <span *ngIf="!price.from.rate">USD
-                                        {{price.from.usd.avg | number:'1.2-2'}}</span>
-                                </div>
-                                <div class="smallText"
-                                    *ngIf="price.from.currency_code!='INR'||price.to.currency_code!='INR'">INR
-                                    {{price.from.inr | number: '1.2-2'}}</div>
-                            </div>
-                            <div>
-                                <!-- <div class="smallText"><span
+                <div *ngIf="i < 2" class="flagIconDiv">
+                  <div class="flagicon"><img [src]="sourceFlag" loading="lazy" /></div>
+                </div>
+                <div class="text-small" *ngIf="sourceCountryPrices.city_name">
+                  {{ sourceCountryPrices.city_name }}
+                </div>
+                <div class="text-small" *ngIf="!sourceCountryPrices.city_name">
+                  {{ sourceCountryPrices.country_name }}
+                </div>
+                <div class="text-small">
+                  <span *ngIf="price.from.rate">{{ price.from.currency_code }} {{ price.from.rate | number : "1.2-2" }}</span> <span *ngIf="!price.from.rate">USD {{ price.from.usd.avg | number : "1.2-2" }}</span>
+                </div>
+                <div class="text-small" *ngIf="price.from.currency_code != 'INR' || price.to.currency_code != 'INR'">INR {{ price.from.inr | number : "1.2-2" }}</div>
+              </div>
+              <div class="text-center position-relative fw-medium">
+                <!-- <div class="text-small"><span
                                         *ngIf="sourceCountryPrices.country_name==targetCountryPrices.country_name">{{targetCountryPrices.city_name}},
                                     </span>{{targetCountryPrices.country_name}}</div> -->
-                                <div *ngIf="i<2" class="flagIconDiv">
-                                    <img [src]="targetFlag" class="itemflag" loading="lazy" />
-                                </div>
-                                <div class="smallText" *ngIf="targetCountryPrices.city_name">
-                                    {{targetCountryPrices.city_name}}
-                                </div>
-                                <div class="smallText" *ngIf="!targetCountryPrices.city_name">
-                                    {{targetCountryPrices.country_name}}
-                                </div>
-                                <div class="smallText"><span *ngIf="price.to.rate">{{price.to.currency_code}}
-                                        {{price.to.rate | number:'1.2-2'}}</span> <span *ngIf="!price.to.rate">USD
-                                        {{price.to.usd.avg |
-                                        number:'1.2-2'}}</span>
-                                </div>
-                                <div class="smallText"
-                                    *ngIf="price.from.currency_code!='INR'||price.to.currency_code!='INR'">INR
-                                    {{price.to.inr | number: '1.2-2'}}</div>
-                            </div>
-                            <div class="graphs">
-                                <div class="graph-container">
-                                    <div
-                                        [ngStyle]="{'height.%': calculatePercentage(price.from.usd.avg,price.to.usd.avg,'source'),'background-color':'green'}">
-                                    </div>
-                                </div>
-                                <div class="graph-container">
-                                    <span
-                                        [ngStyle]="{'height.%': calculatePercentage(price.from.usd.avg,price.to.usd.avg,'target'),'background-color':'red'}"></span>
-                                </div>
-                            </div>
-                            <!-- <div [ngSwitch]="compareValues(price.from.usd.avg,price.to.usd.avg)">
+                <div *ngIf="i < 2" class="flagIconDiv">
+                  <div class="flagicon"><img [src]="targetFlag" loading="lazy" /></div>
+                </div>
+                <div class="text-small" *ngIf="targetCountryPrices.city_name">
+                  {{ targetCountryPrices.city_name }}
+                </div>
+                <div class="text-small" *ngIf="!targetCountryPrices.city_name">
+                  {{ targetCountryPrices.country_name }}
+                </div>
+                <div class="text-small">
+                  <span *ngIf="price.to.rate">{{ price.to.currency_code }} {{ price.to.rate | number : "1.2-2" }}</span> <span *ngIf="!price.to.rate">USD {{ price.to.usd.avg | number : "1.2-2" }}</span>
+                </div>
+                <div class="text-small" *ngIf="price.from.currency_code != 'INR' || price.to.currency_code != 'INR'">INR {{ price.to.inr | number : "1.2-2" }}</div>
+              </div>
+              <div class="graphs">
+                <div class="graph-container">
+                  <div class="graph-border" [ngStyle]="{ 'height.%': calculatePercentage(price.from.usd.avg, price.to.usd.avg, 'source'), 'background-color': '#9BC329' }"></div>
+                </div>
+                <div class="graph-container">
+                  <span  class="graph-border" [ngStyle]="{ 'height.%': calculatePercentage(price.from.usd.avg, price.to.usd.avg, 'target'), 'background-color': '#EF4848' }"></span>
+                </div>
+              </div>
+              <!-- <div [ngSwitch]="compareValues(price.from.usd.avg,price.to.usd.avg)">
                                 <span *ngSwitchCase="'greater'">
                                     <img src="/uniprep-assets/images/greaterThanBars.png" alt="" class="barImage">
                                 </span>
@@ -130,13 +97,10 @@
                                     <img src="/uniprep-assets/images/equalBars.png" alt="" class="barImage">
                                 </span>
                             </div> -->
-
-                        </div>
-                    </div>
-
-                </div>
             </div>
-            <br>
+          </div>
         </div>
+      </div>
     </div>
+  </div>
 </div>
