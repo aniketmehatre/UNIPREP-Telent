@@ -228,9 +228,9 @@
 					</div>
 				</div>
 				<div class="card-footer border-0 bg-transparent">
-					<div class="row">
-						<div class="col-md-3">&nbsp;</div>
-						<div class="col-md-6">
+					<div class="row d-flex justify-content-center align-items-center">
+						<div class="col-md-1">&nbsp;</div>
+						<div class="col-md-8">
 							<p-paginator *ngIf="totalCourseCount != 0" [rows]="perPage" [totalRecords]="totalCourseCount" (onPageChange)="pageChange($event)" [rowsPerPageOptions]="[50, 100, 300, 500, 1000]"></p-paginator>
 						</div>
 						<div class="col-md-3 text-end">

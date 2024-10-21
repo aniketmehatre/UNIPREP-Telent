@@ -290,11 +290,12 @@ export class JobListingComponent implements OnInit {
     paginate(event: any) {
         this.page = event.page + 1;
         this.resultPerPage = event.rows;
-        if (this.fG.value) {
-            this.onSubmit()
-        } else {
-            this.onFilterSubmit()
-        }
+        this.onFilterSubmit()
+        // if (this.fG.value) {
+        //     this.onSubmit()
+        // } else {
+        //     this.onFilterSubmit()
+        // }
     }
 
     onClickClear() {
@@ -323,6 +324,7 @@ export class JobListingComponent implements OnInit {
                 flag: filterCountryflag.flag,
                 what_and: this.filterForm.value.what_and,
             }
+            this.whatAnd = this.filterForm.value.what_and;
             this.saveFilterData(formData)
             this.jobService.filter(req).subscribe(
                 (data: any) => {
