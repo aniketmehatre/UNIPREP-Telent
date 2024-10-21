@@ -25,17 +25,28 @@
       <div class="row">
         <div class="col-2 mt-2" *ngFor="let list of etreprenuertestlists">
           <div class="card subjectcard h-100">
+            <div class="mt-2" style="text-align: center;">
+              <img height="42" width="42" src="{{list.icon}}" alt="">
+            </div>
             <div class="card-body text-center d-flex flex-column justify-content-between">
-              <h5 class="fw-bold mb-3">{{ list.submodule_name }}</h5>
+              <h6 class="fw-bold mb-3">{{ list.submodule_name }}</h6>
               <div>
-                <div *ngIf="list.progress < 90">
-                  <button class="btn btn-secondary btn-rounded px-5" [ngClass]="{'retry-button': list.progress > 0}" (click)="openQuiz(list.id,list.submodule_name)">{{ list.progress == 0 ? "Start Quiz" : "Retry" }} &nbsp; <i class="fa-solid fa-stopwatch"></i></button>
+                <div *ngIf="list.progress < 90" class="d-flex justify-content-center">
+                  <button style="font-size: small;" 
+                    class="btn btn-secondary btn-rounded px-4 w-100 w-md-auto"
+                    [ngClass]="{ 'retry-button': list.progress > 0 }"
+                    (click)="openQuiz(list?.id, list?.submodule_name)">
+                    {{ list.progress == 0 ? "Start Quiz" : "Retry" }} &nbsp; 
+                    <i class="fa-solid fa-stopwatch"></i>
+                  </button>
                 </div>
-                <div *ngIf="list.progress >= 90">
-                  <div class="d-flex justify-content-center gap-2">
-                    <button class="btn btn-success btn-rounded">Completed</button>
-                    <button class="btn btn-secondary btn-rounded" (click)="review(list.id)">Review &nbsp; <i class="fa-solid fa-list-check"></i></button>
-                  </div>
+                <div *ngIf="list.progress >= 90" class="d-flex flex-column flex-md-row justify-content-center gap-2">
+                  <button style="font-size: small;" class="btn btn-success btn-rounded w-100 w-md-auto">Completed</button>
+                  <button  style="font-size: small;"
+                    class="btn btn-secondary btn-rounded w-100 w-md-auto"
+                    (click)="review(list.id)">
+                    Review &nbsp; <i class="fa-solid fa-list-check"></i>
+                  </button>
                 </div>
               </div>
             </div>

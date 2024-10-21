@@ -79,6 +79,7 @@ export class JobListingComponent implements OnInit {
             {"name": "United States", "code": "us", "flag": "https://flagcdn.com/us.svg"},
             {"name": "South Africa", "code": "za", "flag": "https://flagcdn.com/za.svg"}
         ];
+
         this.fG = new FormGroup({
             countryCode: new FormControl('', Validators.required),
             what_and: new FormControl(''),
@@ -109,7 +110,6 @@ export class JobListingComponent implements OnInit {
             }
         });
         const filterData = this.getFilterData()
-        console.log(filterData, "filtered data");
         if (filterData) {
             this.selectedCountryCode = filterData.country_name_code
             this.selectedFlag = filterData.flag
@@ -249,13 +249,11 @@ export class JobListingComponent implements OnInit {
         this.whatAnd = this.fG.value.what_and
         // this.selectedFlag = this.fG.value.countryCode.flag
         let formData = {
-            // country_name: this.fG.value.countryCode,
             country_name_code: this.selectedCountryCode,
             countryCode: this.fG.value.countryCode,
             flag: this.selectedFlag,
             what_and: this.fG.value.what_and,
         }
-        console.log(formData);
         this.saveFilterData(formData);
         // this.fromCountry = this.countryCodes.find((country: any) => country.code.toLowerCase() == this.fG.value.countryCode.code);
         // if (this.fG.value.countryCode.code) {
@@ -304,7 +302,6 @@ export class JobListingComponent implements OnInit {
     }
 
     onFilterSubmit() {
-        console.log(this.filterForm.value, "filter form value");
         if (this.filterForm.valid) {
             let req = {
                 location: this.selectedCountryCode,
@@ -317,19 +314,21 @@ export class JobListingComponent implements OnInit {
                 contract: this.filterForm.value.job_type?.code == 'contract' ? '1' : '',
                 permanent: this.filterForm.value.job_type?.code == 'permanent' ? '1' : '',
             }
+
+            //I can't change the selected flag while changing the country. so i filtered manually.If i change the selected flag it changed before I click the filter button.
+            let filterCountryflag = this.countryCodes.find((country: any) => country.code.toLowerCase() == this.selectedCountryCode); 
             let formData = {
                 country_name_code: this.selectedCountryCode,
                 countryCode: this.filterForm.value.countryCode,
-                flag: this.selectedFlag,
+                flag: filterCountryflag.flag,
                 what_and: this.filterForm.value.what_and,
             }
             this.saveFilterData(formData)
-            console.log(req, "request data");
-            this.selectedFlag = this.selectedFlag
             this.jobService.filter(req).subscribe(
                 (data: any) => {
                     this.jobs = data.results
                     this.count = data.count
+                    this.selectedFlag = filterCountryflag.flag;
                 },
                 (error) => {
                     console.error('Error fetching job listings:', error);

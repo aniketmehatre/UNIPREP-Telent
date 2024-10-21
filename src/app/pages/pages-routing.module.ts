@@ -219,7 +219,11 @@ const routes: Routes = [
             },
             {
                 path: 'advisor',
-                component: AdvisorComponent
+                component: AdvisorComponent,
+            },
+            {
+                path: 'advisor/:question',
+                component: AdvisorComponent,
             },
         ]
     }

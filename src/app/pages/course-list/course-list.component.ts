@@ -123,7 +123,7 @@ export class CourseListComponent implements OnInit {
     this.GetPersonalProfileData();
     let anyMonthArray:any= {
       id: null,
-      name: "any Month"
+      name: "Any Month"
     };
     this.recMonthList.unshift(anyMonthArray);
   }
@@ -177,13 +177,13 @@ export class CourseListComponent implements OnInit {
       if(!this.enableModule){
         let anyCountryArray:any = {
           id: null,
-          country: "any country"
+          country: "Any Country"
         };
         this.countryList.unshift(anyCountryArray);
 
         let anySubjectArray:any = {
           id: null,
-          category_name: "any Subject"
+          category_name: "Any Subject"
         };
         this.subjectNameList.unshift(anySubjectArray);
       }

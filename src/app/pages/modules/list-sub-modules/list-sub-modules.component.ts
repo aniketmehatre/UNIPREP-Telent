@@ -180,7 +180,7 @@ export class ListSubModulesComponent implements OnInit {
                 this.aboutModule = 'Explore a vast database of Q&A about:',
                     this.moduleDetails = 'Visa, departure, healthcare, tuition fees and many more!'
                 this.howItWorksVideoLink = "https://www.youtube.com/embed/s35R5o7cOOU?si=DvR3LyQ1C8uRaAN3";
-                this.description = ""
+                this.description = "Discover travel destinations, tips, and essential travel information."
                 break;
             case 'post-admission':
                 this.currentModuleId = 3;
@@ -224,7 +224,7 @@ export class ListSubModulesComponent implements OnInit {
                 this.aboutModule = 'Explore a vast database of Q&A about:',
                     this.moduleDetails = ' Arrival, student discounts, banking, full time jobs, post study work and many more!'
                 this.howItWorksVideoLink = "https://www.youtube.com/embed/dHhq2xrBn5s?si=2dMsQcwwOY17dDHi";
-                this.description = ""
+                this.description = "Enhance your expertise in soft skills through targeted courses and assessments."
                 break;
             case 'learning-hub':
                 this.currentModuleId = 8;
@@ -236,7 +236,7 @@ export class ListSubModulesComponent implements OnInit {
                 this.aboutModule = 'Explore a vast database of Q&A about:',
                     this.moduleDetails = 'Scholarships, document checklist, Education loan, letter of Recommendation and many more!'
                 this.howItWorksVideoLink = "https://www.youtube.com/embed/n9ECpsB6IoI?si=4coiypva6WZfr3NL";
-                this.description = ""
+                this.description = "Upskill with over 1000 specializations across various industries"
                 break;
             case 'k12-category':
                 this.currentModuleId = 14;
@@ -261,7 +261,7 @@ export class ListSubModulesComponent implements OnInit {
                     this.moduleDetails = 'Festivals, events, currency, budget, housing and many more!',
                     this.selectedModule = 'life-at-country'
                 this.howItWorksVideoLink = "https://www.youtube.com/embed/O35ypi2WJVI?si=CSxuFC1Zma9gk8SG";
-                this.description = ""
+                this.description = `Explore insights and tips about daily life and cultural nuances in ${this.countryName}`
                 break;
 
         }

@@ -156,3 +156,9 @@
 	//   font-size: 16px;
 	// }
 }
+@media (max-width: 576px) {
+	.subjectcard .btn {
+	  font-size: 0.9rem; /* Slightly smaller text on very small screens */
+	  padding: 8px 10px; /* Adjust padding for a more compact look */
+	}
+  }

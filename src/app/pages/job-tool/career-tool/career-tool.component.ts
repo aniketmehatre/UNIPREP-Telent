@@ -15,7 +15,7 @@ export class CareerToolComponent implements OnInit {
       id: 1,
       moduleName: "CV Builder",
       Description: "Craft a standout CV that highlights your skills and experience, ready for any job application.",
-      tooltip: "Craft personalized and compelling cover letters for job applications.",
+      tooltip: "Craft a standout CV that highlights your skills and experience, ready for any job application.",
       imageLink: "https://api.uniprep.ai/uniprepapi/storage/app/public/resources-coverimage/cv.svg",
       refLink: "https://novoresume.com/",
       mode: "cv-builder"
@@ -24,7 +24,7 @@ export class CareerToolComponent implements OnInit {
       id: 2,
       moduleName: "Cover Letter Builder",
       Description: "Generate a cover letter that strengthens your job application.",
-      tooltip: "Craft personalized and compelling cover letters for job applications.",
+      tooltip: "Generate a cover letter that strengthens your job application.",
       imageLink: "https://api.uniprep.ai/uniprepapi/storage/app/public/resources-coverimage/CoverLetter.svg",
       refLink: "https://resumaker.ai/cover-letter/",
       mode: "coverletter-builder"
@@ -33,7 +33,7 @@ export class CareerToolComponent implements OnInit {
       id: 3,
       moduleName: "Career Planner",
       Description: "Plan your career path by exploring job opportunities worldwide",
-      tooltip: "Craft personalized and compelling cover letters for job applications.",
+      tooltip: "Plan your career path by exploring job opportunities worldwide.",
       imageLink: "https://api.uniprep.ai/uniprepapi/storage/app/public/resume_icons/careerplanner.svg",
       refLink: "",
       mode: "career-planner"
@@ -42,7 +42,7 @@ export class CareerToolComponent implements OnInit {
       id: 4,
       moduleName: "Cost Of Living Comparision",
       Description: "Compare living expenses across countries to make informed decisions.",
-      tooltip: "Craft personalized and compelling cover letters for job applications.",
+      tooltip: "Compare the cost of living across different cities and countries to plan your financial needs.",
       imageLink: "https://api.uniprep.ai/uniprepapi/storage/app/public/resume_icons/cost-of-living.svg",
       refLink: "",
       mode: "cost-of-living"
@@ -51,7 +51,7 @@ export class CareerToolComponent implements OnInit {
       id: 5,
       moduleName: "Global Salary Converter",
       Description: "Calculate your salary across different countries.",
-      tooltip: "Craft personalized and compelling cover letters for job applications.",
+      tooltip: "Convert and compare salaries globally to understand the value of potential job offers.",
       imageLink: "https://api.uniprep.ai/uniprepapi/storage/app/public/resume_icons/salaryconverter.svg",
       refLink: "",
       mode: "salary-converter"
@@ -59,8 +59,8 @@ export class CareerToolComponent implements OnInit {
     {
       id: 6,
       moduleName: "Company List",
-      Description: "Access company details to research potential employers.",
-      tooltip: "Craft personalized and compelling cover letters for job applications.",
+      Description: "Access a comprehensive database with detailed information of over 100,000 companies.",
+      tooltip: "Access a curated list of companies by industry and location to target your job search effectively.",
       imageLink: "https://api.uniprep.ai/uniprepapi/storage/app/public/resume_icons/companylist.svg",
       refLink: "",
       mode: "company-list"
@@ -68,8 +68,8 @@ export class CareerToolComponent implements OnInit {
     {
       id: 7,
       moduleName: "Psychometric Test",
-      Description: "Access company details to research potential employers.",
-      tooltip: "Craft personalized and compelling cover letters for job applications.",
+      Description: "Measure cognitive abilities and personality traits using standardized psychometric testing.",
+      tooltip: "Evaluate your aptitudes and personality traits with tests to find careers that best suit your profile.",
       imageLink: environment.production === false ? "https://api.uniprep.ai/uniprepapi/storage/app//public/icon/modules/psychometrictest.svg" : "https://uniprep.ai/uniprepapi/storage/app/public/icon/modules/psychometrictest.svg",
       refLink: "",
       mode: "psychometric-test"
@@ -77,8 +77,8 @@ export class CareerToolComponent implements OnInit {
     {
       id: 8,
       moduleName: "Personality Test",
-      Description: "Access company details to research potential employers.",
-      tooltip: "Craft personalized and compelling cover letters for job applications.",
+      Description: "Utilize personality assessments to analyze and understand individual traits and behaviors.",
+      tooltip: "Discover more about your personality and how it aligns with various career paths.",
       imageLink: environment.production === false ? "https://api.uniprep.ai/uniprepapi/storage/app//public/icon/modules/personalitytest.svg" : "https://uniprep.ai/uniprepapi/storage/app/public/icon/modules/personalitytest.svg",
       refLink: "",
       mode: "personality-test"
@@ -86,8 +86,8 @@ export class CareerToolComponent implements OnInit {
     {
       id: 9,
       moduleName: "Employer Test",
-      Description: "Access company details to research potential employers.",
-      tooltip: "Craft personalized and compelling cover letters for job applications.",
+      Description: "Prepare for employment with specific company-focused tests designed to assess job readiness and fit.",
+      tooltip: "Prepare for potential employer assessments with practice tests and study guides.",
       imageLink: environment.production === false ? "https://api.uniprep.ai/uniprepapi/storage/app//public/icon/modules/employertest.svg" : "https://uniprep.ai/uniprepapi/storage/app/public/icon/modules/employertest.svg",
       refLink: "",
       mode: "employer-test"
@@ -95,8 +95,8 @@ export class CareerToolComponent implements OnInit {
     {
       id: 10,
       moduleName: "Job Interview Preparation",
-      Description: "Prepare effectively with role-focused guidance aand company-centric tips",
-      tooltip: "Prepare effectively with role-focused guidance aand company-centric tips",
+      Description: "Prepare effectively with role-focused guidance and company-centric tips",
+      tooltip: "Prepare effectively with role-focused guidance and company-centric tips",
       imageLink: environment.production === false ? "https://api.uniprep.ai/uniprepapi/storage/app//public/icon/modules/job-interview.svg" : "https://uniprep.ai/uniprepapi/storage/app/public/icon/modules/job-interview.svg",
       refLink: "",
       mode: "job-role"
@@ -105,7 +105,7 @@ export class CareerToolComponent implements OnInit {
       id: 10,
       moduleName: "Career Growth Checker",
       Description: "Get insight into your next 5 career growth oppurtunity.",
-      tooltip: "Get personalized and compelling career oppurtunities.",
+      tooltip: "Track your professional development and set goals with our career progression tool.",
       imageLink: environment.production === false ? "https://api.uniprep.ai/uniprepapi/storage/app//public/icon/modules/growth.svg" : "https://uniprep.ai/uniprepapi/storage/app/public/icon/modules/growth.svg",
       refLink: "",
       mode: "career-growth-checker"
@@ -140,7 +140,7 @@ export class CareerToolComponent implements OnInit {
       this.router.navigate(['/pages/jobroles']);
     } else if (mode == "career-growth-checker") {
       this.router.navigate(['/pages/job-tool/career-growth-checker']);
-    }else {
+    } else {
       this.router.navigate(['/pages/job-tool/list/employer-test/13']);
     }
   }

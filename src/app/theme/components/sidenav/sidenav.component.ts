@@ -65,7 +65,7 @@ export class SidenavComponent {
       image: "fa-solid fa-people-group",
     },
     {
-      title: "Academic Tools",
+      title: "k12 Academic Tools",
       url: "/pages/modules/academic-tools",
       image: "fa-solid fa-scribble",
     },
@@ -195,7 +195,7 @@ export class SidenavComponent {
       image: "",
     },
     {
-      title: "Advisor",
+      title: "AI Global Advisor",
       url: "/pages/advisor",
       image: "fa-solid fa-file-user",
     },

@@ -479,3 +479,19 @@
 .cube.selected {
   border-color: 2px solid var(--uniprep-primary);
 }
+
+::ng-deep .p-multiselect .p-multiselect-label {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%; 
+}
+
+::ng-deep .p-multiselect {
+  width: 100%;
+  max-width: 950px;
+}
+
+::ng-deep .p-multiselect-panel {
+  width: 100% !important;
+}
