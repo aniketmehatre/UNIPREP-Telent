@@ -1,8 +1,13 @@
-.startupkitcard
-{
-  border:1px solid var(--uniprep-primary);
-  &:hover
-  {
+.startupkitcard {
+  border: 1px solid var(--uniprep-primary);
+  &:hover {
     background: var(--uniprep-primaryop10);
   }
+}
+
+.searchinput {
+  background: transparent;
+  border: 1px solid #dfe4f8;
+  height: 100%;
+  border-radius: 12px;
 }
