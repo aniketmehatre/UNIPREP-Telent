@@ -66,6 +66,9 @@ export class LearnsubModulesComponent implements OnInit {
           moduledata.attachment_filename
         );
         break;
+      case 4:
+        alert("Hiiiiiiiiiiiiiiiii")
+        break;
       default:
         this.getModules();
         break;
@@ -85,9 +88,7 @@ export class LearnsubModulesComponent implements OnInit {
       });
       return;
     }
-    if (
-      this.submoduleList[0]?.parent_folder_id == 0 
-    ) {
+    if (this.submoduleList[0]?.parent_folder_id == 0) {
       this.moduleChange.emit({
         parent_id: 0,
         module_id: 1,

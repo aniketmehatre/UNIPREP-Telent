@@ -103,3 +103,27 @@ img {
 //   overflow: hidden;
 //   text-overflow: ellipsis;
 // }
+.dropdown-list {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  max-height: 180px;
+  overflow-y: auto;
+  border: 1px solid #ccc;
+  position: absolute;
+  width: 92%;
+  background-color: white;
+  display: block;
+  z-index: 1001;
+  text-align: left;
+  border-radius: 5%;
+}
+
+.dropdown-list li {
+  padding: 8px;
+  cursor: pointer;
+}
+
+.dropdown-list li:hover {
+  background-color: #f0f0f0;
+}
