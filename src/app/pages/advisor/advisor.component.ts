@@ -43,6 +43,7 @@ userQuestion: any;
   getAns(){
     
     this.isQuestionAsked = true;
+    this.showSkeleton= true;
     this.isQuestionNotAsked = false;
     // alert(this.userQuestion);
     this.ngxService.startBackground();
@@ -50,30 +51,33 @@ userQuestion: any;
       question : this.userQuestion
     }
     this.service.getAnswer(data).subscribe(response => {
+      this.showSkeleton= false;
       this.chatdata = response;
       // this.question = response.question;
       // this.answer = response.answer;
       this.ngxService.stopBackground();
+      this.userQuestion = '';
     });
   }
 
   triggerSample(sample:any){
-    this.isQuestionAsked = true;
-    this.showSkeleton= true;
-    this.isQuestionNotAsked = false;
-    this.ngxService.startBackground();
+    this.userQuestion = sample;
+    // this.isQuestionAsked = true;
+    // this.showSkeleton= true;
+    // this.isQuestionNotAsked = false;
+    // this.ngxService.startBackground();
     // alert(this.userQuestion);
-    var data = {
-      question : sample
-    }
-    this.service.getAnswer(data).subscribe(response => {
-      this.showSkeleton= false;
-      this.chatdata = response;
+    // var data = {
+    //   question : sample
+    // }
+    // this.service.getAnswer(data).subscribe(response => {
+    //   this.showSkeleton= false;
+    //   this.chatdata = response;
 
-      // this.question = response.question;
-      // this.answer = response.answer;
-      this.ngxService.stopBackground();
-    });
+    //   // this.question = response.question;
+    //   // this.answer = response.answer;
+    //   this.ngxService.stopBackground();
+    // });
   }
 
   askExpert(){
