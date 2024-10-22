@@ -1,393 +1,386 @@
-<div class="card readingcard bg-white">
-	<ng-container *ngIf="!enableModule">
-		<div class="card-header py-0 border-0 bg-transparent">
-			<div class="row justify-content-center">
-				<div class="col-md-2 text-start"></div>
-				<div class="col-md-8 text-center">
-					<div class="select-title text-nowrap d-flex justify-content-between align-items-center">
-						<div>
-							<h5 class="w-100 mb-0" tooltipPosition="top" pTooltip="UNIFINDER">UNIFINDER<i class="questiontooltip fa-solid fa-circle-question"></i></h5>
-						</div>
-						<div>
-							<button class="how-it-works-button" (click)="openVideoPopup('https://www.youtube.com/embed/DrdNzOvE-ns?si=Fnq8eQlz1emr24Z7')">How it works? <i class="fa-solid fa-play"></i></button>
-						</div>
-					</div>
-				</div>
-				<div class="col-md-2"></div>
-			</div>
-		</div>
-		<div class="card-body">
-			<div class="container-fluid h-100">
-				<p-carousel [value]="recommendations" [numVisible]="1" [numScroll]="1" [circular]="false" [showNavigators]="false" [showIndicators]="false" [page]="activePageIndex" styleClass="h-100">
-					<ng-template let-recommendation let-i="index" pTemplate="item">
-						<div class="h-100 d-flex flex-column justify-content-between">
-							<div>&nbsp;</div>
-							<div class="row justify-content-center text-center">
-								<div class="col-md-12 mb-4">
-									<h5 class="uniprep-primary fw-semibold mb-0">Question Number {{ recommendation.id }}</h5>
-									<h2 class="fw-bold mb-0">{{ recommendation.question }}</h2>
-								</div>
-								<div class="col-md-4">
-									<div class="recommendationinput d-flex flex-column justify-content-center gap-3">
-										<ng-container *ngIf="recommendation.id == 1">
-											<p-multiSelect styleClass="w-100" [maxSelectedLabels]="5" [selectedItemsLabel]="'{0} items selected'" placeholder="Select Course Country" [options]="countryList" display="chip" optionLabel="country" optionValue="id" [(ngModel)]="selectedData[recommendation.id]" [appendTo]="'body'"></p-multiSelect>
-											<p class="text-center" [ngClass]="{ 'd-none': invalidClass === false }" style="color: red">Please Choose Any one option</p>
-										</ng-container>
-										<ng-container *ngIf="recommendation.id == 2">
-											<p-multiSelect styleClass="w-100" [maxSelectedLabels]="5" placeholder="Select Course Subject" [options]="subjectNameList" display="chip" optionLabel="category_name" optionValue="id" [(ngModel)]="selectedData[recommendation.id]" [appendTo]="'body'"></p-multiSelect>
-											<p class="text-center" [ngClass]="{ 'd-none': invalidClass === false }" style="color: red">Please Choose Any one option</p>
-										</ng-container>
-										<ng-container *ngIf="recommendation.id == 3">
-											<div class="cube-container gap-3">
-												<div *ngFor="let cube of studyLevelCubes" class="cube" (click)="selectCube(3, cube.id)" [ngClass]="{ selected: selectedData[3] === cube.id }">
-													<label>{{ cube.label }}</label>
-													<i class="fa-solid fa-circle-check tickPlacement" *ngIf="selectedData[3] === cube.id"></i>
-												</div>
-											</div>
-											<p class="text-center" [ngClass]="{ 'd-none': invalidClass === false }" style="color: red">Please Choose Any one option</p>
-										</ng-container>
-										<ng-container *ngIf="recommendation.id == 4">
-											<p-multiSelect styleClass="w-100" [maxSelectedLabels]="5" placeholder="Select Intake Month" [options]="recMonthList" display="chip" optionLabel="name" optionValue="id" [(ngModel)]="selectedData[recommendation.id]" [appendTo]="'body'"></p-multiSelect>
-										</ng-container>
-										<ng-container *ngIf="recommendation.id == 5">
-											<p-multiSelect styleClass="w-100" [maxSelectedLabels]="5" placeholder="Select Pre Requisite" [options]="preRequisite" display="chip" optionLabel="value" optionValue="id" [(ngModel)]="selectedData[recommendation.id]" [appendTo]="'body'"></p-multiSelect>
-											<p class="text-center" [ngClass]="{ 'd-none': invalidClass === false }" style="color: red">Please Choose Any one option</p>
-										</ng-container>
-										<ng-container *ngIf="recommendation.id == 6">
-											<div class="cube-container gap-3">
-												<div *ngFor="let cube of worldRankCubes" role="button" class="cube" (click)="selectCube(6, cube.id)" [ngClass]="{ selected: selectedData[6] === cube.id }">
-													<label>{{ cube.value }}</label>
-													<i class="fa-solid fa-circle-check tickPlacement" *ngIf="selectedData[6] === cube.id"></i>
-												</div>
-											</div>
-											<p class="text-center" [ngClass]="{ 'd-none': invalidClass === false }" style="color: red">Please Choose Any one option</p>
-										</ng-container>
-									</div>
-								</div>
-							</div>
+<div class="card readingcard">
+  <ng-container *ngIf="!enableModule">
+    <div class="card-header py-0 border-0 bg-transparent">
+      <div class="row justify-content-center">
+        <div class="col-md-2 text-start"></div>
+        <div class="col-md-8 text-center">
+          <div class="select-title text-nowrap d-flex justify-content-between align-items-center">
+            <div>
+              <h5 class="w-100 mb-0" tooltipPosition="top" pTooltip="UNIFINDER">UNIFINDER<i class="questiontooltip fa-solid fa-circle-question"></i></h5>
+            </div>
+            <div>
+              <button class="how-it-works-button" (click)="openVideoPopup('https://www.youtube.com/embed/DrdNzOvE-ns?si=Fnq8eQlz1emr24Z7')">How it works? <i class="fa-solid fa-play"></i></button>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-2"></div>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="container-fluid h-100">
+        <p-carousel [value]="recommendations" [numVisible]="1" [numScroll]="1" [circular]="false" [showNavigators]="false" [showIndicators]="false" [page]="activePageIndex" styleClass="h-100">
+          <ng-template let-recommendation let-i="index" pTemplate="item">
+            <div class="h-100 d-flex flex-column justify-content-between">
+              <div>&nbsp;</div>
+              <div class="row justify-content-center text-center">
+                <div class="col-md-12 mb-4">
+                  <h5 class="uniprep-primary fw-semibold mb-0">Question Number {{ recommendation.id }}</h5>
+                  <h2 class="fw-bold mb-0">{{ recommendation.question }}</h2>
+                </div>
+                <div class="col-md-4">
+                  <div class="recommendationinput d-flex flex-column justify-content-center gap-3">
+                    <ng-container *ngIf="recommendation.id == 1">
+                      <p-multiSelect styleClass="w-100" [maxSelectedLabels]="5" [selectedItemsLabel]="'{0} items selected'" placeholder="Select Course Country" [options]="countryList" display="chip" optionLabel="country" optionValue="id" [(ngModel)]="selectedData[recommendation.id]" [appendTo]="'body'"></p-multiSelect>
+                      <p class="text-center" [ngClass]="{ 'd-none': invalidClass === false }" style="color: red">Please Choose Any one option</p>
+                    </ng-container>
+                    <ng-container *ngIf="recommendation.id == 2">
+                      <p-multiSelect styleClass="w-100" [maxSelectedLabels]="5" placeholder="Select Course Subject" [options]="subjectNameList" display="chip" optionLabel="category_name" optionValue="id" [(ngModel)]="selectedData[recommendation.id]" [appendTo]="'body'"></p-multiSelect>
+                      <p class="text-center" [ngClass]="{ 'd-none': invalidClass === false }" style="color: red">Please Choose Any one option</p>
+                    </ng-container>
+                    <ng-container *ngIf="recommendation.id == 3">
+                      <div class="cube-container gap-3">
+                        <div *ngFor="let cube of studyLevelCubes" class="cube" (click)="selectCube(3, cube.id)" [ngClass]="{ selected: selectedData[3] === cube.id }">
+                          <label>{{ cube.label }}</label>
+                          <i class="fa-solid fa-circle-check tickPlacement" *ngIf="selectedData[3] === cube.id"></i>
+                        </div>
+                      </div>
+                      <p class="text-center" [ngClass]="{ 'd-none': invalidClass === false }" style="color: red">Please Choose Any one option</p>
+                    </ng-container>
+                    <ng-container *ngIf="recommendation.id == 4">
+                      <p-multiSelect styleClass="w-100" [maxSelectedLabels]="5" placeholder="Select Intake Month" [options]="recMonthList" display="chip" optionLabel="name" optionValue="id" [(ngModel)]="selectedData[recommendation.id]" [appendTo]="'body'"></p-multiSelect>
+                    </ng-container>
+                    <ng-container *ngIf="recommendation.id == 5">
+                      <p-multiSelect styleClass="w-100" [maxSelectedLabels]="5" placeholder="Select Pre Requisite" [options]="preRequisite" display="chip" optionLabel="value" optionValue="id" [(ngModel)]="selectedData[recommendation.id]" [appendTo]="'body'"></p-multiSelect>
+                      <p class="text-center" [ngClass]="{ 'd-none': invalidClass === false }" style="color: red">Please Choose Any one option</p>
+                    </ng-container>
+                    <ng-container *ngIf="recommendation.id == 6">
+                      <div class="cube-container gap-3">
+                        <div *ngFor="let cube of worldRankCubes" role="button" class="cube" (click)="selectCube(6, cube.id)" [ngClass]="{ selected: selectedData[6] === cube.id }">
+                          <label>{{ cube.value }}</label>
+                          <i class="fa-solid fa-circle-check tickPlacement" *ngIf="selectedData[6] === cube.id"></i>
+                        </div>
+                      </div>
+                      <p class="text-center" [ngClass]="{ 'd-none': invalidClass === false }" style="color: red">Please Choose Any one option</p>
+                    </ng-container>
+                  </div>
+                </div>
+              </div>
 
-							<div class="d-flex justify-content-between mt-2">
-								<button pButton type="button" class="btn btn-primary btn-rounded p-1 pe-4" [style.visibility]="recommendation.id == 1 ? 'hidden' : 'visible'" (click)="previous()">
-									<span class="btn-icon px-2 py-2"><i class="fa fa-arrow-left"></i></span> <span class="ms-2">Previous</span>
-								</button>
-								<button pButton type="button" (click)="next(recommendation.id)" *ngIf="recommendation.id != 6" class="btn btn-primary btn-rounded p-1 ps-4">
-									<span class="me-2">Next</span><span class="btn-icon px-2 py-2"><i class="fa fa-arrow-right"></i></span>
-								</button>
-								<button pButton type="button" (click)="getRecommendation()" *ngIf="recommendation.id == 6" class="btn btn-success btn-rounded p-1 ps-4">
-									<span class="me-2">Get Recommendations</span><span class="btn-icon px-2 py-2"><i class="fa fa-check-circle"></i></span>
-								</button>
-							</div>
-						</div>
-					</ng-template>
-				</p-carousel>
-			</div>
-		</div>
-	</ng-container>
-	<ng-container *ngIf="enableModule">
-		<div [style.display]="guidelinesDiv ? 'block' : 'none'">
-			<div class="card-body d-flex flex-column justify-content-between pt-0">
-				<div class="row justify-content-center">
-					<div class="col-md-3 text-start">
-						<span class="d-flex justify-content-start p-2" style="white-space: nowrap">
-							<input type="checkbox" class="me-0" style="transform: scale(1.5);cursor: pointer;"
-								[(ngModel)]="selectAllCheckboxes" (click)="selectAllCheckbox()" id="selectAllcheckbox" />
-							<label class="p-2" for="selectAllcheckbox" style="cursor: pointer;">Select All</label>
-							<span class="p-2">Selected : {{ selectedCourses }}</span>
-						</span>
-					</div>
-					<!-- <div class="col-md-6 text-center">
+              <div class="d-flex justify-content-between mt-2">
+                <button pButton type="button" class="btn btn-primary btn-rounded p-1 pe-4" [style.visibility]="recommendation.id == 1 ? 'hidden' : 'visible'" (click)="previous()">
+                  <span class="btn-icon px-2 py-2"><i class="fa fa-arrow-left"></i></span> <span class="ms-2">Previous</span>
+                </button>
+                <button pButton type="button" (click)="next(recommendation.id)" *ngIf="recommendation.id != 6" class="btn btn-primary btn-rounded p-1 ps-4">
+                  <span class="me-2">Next</span><span class="btn-icon px-2 py-2"><i class="fa fa-arrow-right"></i></span>
+                </button>
+                <button pButton type="button" (click)="getRecommendation()" *ngIf="recommendation.id == 6" class="btn btn-success btn-rounded p-1 ps-4">
+                  <span class="me-2">Get Recommendations</span><span class="btn-icon px-2 py-2"><i class="fa fa-check-circle"></i></span>
+                </button>
+              </div>
+            </div>
+          </ng-template>
+        </p-carousel>
+      </div>
+    </div>
+  </ng-container>
+  <ng-container *ngIf="enableModule">
+    <div class="flex-column h-100" [style.display]="guidelinesDiv ? 'flex' : 'none'">
+      <div class="card-header py-0 border-0 bg-transparent">
+        <div class="row justify-content-center">
+          <div class="col-md-3 text-start">
+            <span class="d-flex justify-content-start p-2" style="white-space: nowrap">
+              <input type="checkbox" class="me-0" style="transform: scale(1.5); cursor: pointer" [(ngModel)]="selectAllCheckboxes" (click)="selectAllCheckbox()" id="selectAllcheckbox" />
+              <label class="p-2" for="selectAllcheckbox" style="cursor: pointer">Select All</label>
+              <span class="p-2">Selected : {{ selectedCourses }}</span>
+            </span>
+          </div>
+          <!-- <div class="col-md-6 text-center">
 						<h5 class="select-title w-100 mb-1" tooltipPosition="top" pTooltip="Course List">COURSE LIST<i class="questiontooltip fa-solid fa-circle-question"></i></h5>
 					</div> -->
-					<div class="col-md-6 text-center">
-						<div class="select-title text-nowrap d-flex justify-content-between align-items-center">
-							<div>
-								<h5 class="w-100 mb-0" tooltipPosition="top" pTooltip="UNIFINDER">UNIFINDER<i
-										class="questiontooltip fa-solid fa-circle-question"></i></h5>
-							</div>
-							<div>
-								<button class="how-it-works-button"
-									(click)="openVideoPopup('https://www.youtube.com/embed/broH-JjV-B4?si=xqN69X_Wu9J0mdpu')">How
-									it works? <i class="fa-solid fa-play"></i></button>
-							</div>
-						</div>
-					</div>
-					<div class="col-md-3 text-end" style="white-space: nowrap">
-						<span class="d-flex justify-content-end mt-3 gap-2">
-							<button class="btn btn-primary text-small course-guidelines" (click)="closeGuidelines()"
-								type="button">Course Guidelines</button>
-							<button *ngIf="ehitlabelIsShow" class="btn btn-primary text-small buy-credits-button" (click)="buyCredits()"
-								type="button">Buy Credits</button>
-							<button class="btn btn-primary text-small exportButton" (click)="exportData()"
-								type="button">Export <span class="exportCount">{{buyCreditsCount}}</span></button>
-						</span>
-						<div class="d-flex w-100 align-items-center justify-content-end mt-3 gap-2">
-							<button class="btn btn-primary text-small ps-3 pe-3 pt-2 pb-2 br-8 p-1"
-								style="border-radius: 20px !important;" (click)="viewFav()" type="button">{{viewFavourites ?
-								"Remove " : "View "}} Favourites</button>
-							<button class="btn btn-primary text-small ps-3 pe-3 pt-2 pb-2 br-8 p-1"
-								style="border-radius: 20px !important;" (click)="filterBy()" type="button">Filter
-								by</button>
-							<div class="pe-2">
-								<span class="text-muted text-small"><strong>Total Courses: {{ totalCourseCount }}
-									</strong></span>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="card-body text-center flex-fill overflow-y-auto">
-					<div class="row d-flex justify-content-center text-nowrap">
-						<div class="col-lg-3 col-md-4 col-sm-6 col-xs-6 col-12 col-12 mt-3" *ngFor="let course of courseListData">
-							<div class="card h-100 dataCard">
-								<div class="card-body">
-									<div class="flex-column d-flex justify-content-between h-100">
-										<div class="d-flex flex-fill flex-column justify-content-between">
-											<div class="d-flex flex-fill justify-content-start align-items-center gap-2 mb-2">
-												<input type="checkbox" (change)="onCheckboxChange($event)" class="mt-1 inputselectbox" [(ngModel)]="course.isChecked" />
-												<div class="courseNameTag flex-fill h-100 d-flex align-items-center" title="Course Name">
-													<p class="mb-0 p-2">
-														<a [href]="course.course_url" (click)="handleClick($event)" target="_blank" class="text-decoration-none text-white">{{ course.course_name }}</a> &nbsp;<i class="fa-solid fa-link"></i>
-													</p>
-												</div>
-											</div>
-											<div class="d-flex justify-content-start gap-3 mb-2">
-												<!-- <div class="courseImage"
+          <div class="col-md-6 text-center">
+            <div class="select-title text-nowrap d-flex justify-content-between align-items-center">
+              <div>
+                <h5 class="w-100 mb-0" tooltipPosition="top" pTooltip="UNIFINDER">UNIFINDER<i class="questiontooltip fa-solid fa-circle-question"></i></h5>
+              </div>
+              <div>
+                <button class="how-it-works-button" (click)="openVideoPopup('https://www.youtube.com/embed/broH-JjV-B4?si=xqN69X_Wu9J0mdpu')">How it works? <i class="fa-solid fa-play"></i></button>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3 text-end" style="white-space: nowrap">
+            <span class="d-flex justify-content-end mt-3 gap-2">
+              <button class="btn btn-primary text-small course-guidelines" (click)="closeGuidelines()" type="button">Course Guidelines</button>
+              <button *ngIf="ehitlabelIsShow" class="btn btn-primary text-small buy-credits-button" (click)="buyCredits()" type="button">Buy Credits</button>
+              <button class="btn btn-primary text-small exportButton" (click)="exportData()" type="button">
+                Export <span class="exportCount">{{ buyCreditsCount }}</span>
+              </button>
+            </span>
+            <div class="d-flex w-100 align-items-center justify-content-end mt-3 gap-2">
+              <button class="btn btn-primary text-small ps-3 pe-3 pt-2 pb-2 br-8 p-1" style="border-radius: 20px !important" (click)="viewFav()" type="button">{{ viewFavourites ? "Remove " : "View " }} Favourites</button>
+              <button class="btn btn-primary text-small ps-3 pe-3 pt-2 pb-2 br-8 p-1" style="border-radius: 20px !important" (click)="filterBy()" type="button">Filter by</button>
+              <div class="pe-2">
+                <span class="text-muted text-small"
+                  ><strong>Total Courses: {{ totalCourseCount }} </strong></span
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card-body text-center flex-fill overflow-y-auto">
+        <div class="row d-flex justify-content-center text-nowrap">
+          <div class="col-lg-3 col-md-4 col-sm-6 col-xs-6 col-12 col-12 mt-3" *ngFor="let course of courseListData">
+            <div class="card h-100 dataCard">
+              <div class="card-body">
+                <div class="flex-column d-flex justify-content-between h-100">
+                  <div class="d-flex flex-fill flex-column justify-content-between">
+                    <div class="d-flex flex-fill justify-content-start align-items-center gap-2 mb-2">
+                      <input type="checkbox" (change)="onCheckboxChange($event)" class="mt-1 inputselectbox" [(ngModel)]="course.isChecked" />
+                      <div class="courseNameTag flex-fill h-100 d-flex align-items-center" title="Course Name">
+                        <p class="mb-0 p-2">
+                          <a [href]="course.course_url" (click)="handleClick($event)" target="_blank" class="text-decoration-none text-white">{{ course.course_name }}</a> &nbsp;<i class="fa-solid fa-link"></i>
+                        </p>
+                      </div>
+                    </div>
+                    <div class="d-flex justify-content-start gap-3 mb-2">
+                      <!-- <div class="courseImage"
 													[ngStyle]="{'background-image': 'url(' + course.icon + ')'}">
 													</div> -->
-												<img [src]="course.icon" class="courseImage" alt="course.icon" />
-												<div class="courseUniversity flex-fill">
-													<a [href]="course.university_url" (click)="handleClick($event)" target="_blank" class="text-decoration-none uniprep-primary">
-														<h5 class="uniprep-primary text-wrap universityName" title="University Name">{{ course.university_name }} <i class="fa-solid fa-arrow-up-right-from-square text-small"></i></h5>
-													</a>
-													<!-- <div class="btn btn-dark w-100 btn-rounded">{{ course.favourite == 1 ?
+                      <img [src]="course.icon" class="courseImage" alt="course.icon" />
+                      <div class="courseUniversity flex-fill">
+                        <a [href]="course.university_url" (click)="handleClick($event)" target="_blank" class="text-decoration-none uniprep-primary">
+                          <h5 class="uniprep-primary text-wrap universityName" title="University Name">{{ course.university_name }} <i class="fa-solid fa-arrow-up-right-from-square text-small"></i></h5>
+                        </a>
+                        <!-- <div class="btn btn-dark w-100 btn-rounded">{{ course.favourite == 1 ?
 															"Shortlisted" : "Shortlist"}} Course</div> -->
-													<!-- <div class="btn btn-dark w-100 btn-rounded" style="font-size: small;"> Apply</div> -->
-													<div class="d-flex justify-content-between align-items-center">
-														<div class="btn btn-dark applyButton btn-rounded">Apply</div>
-														<i [class]="course.favourite == 1 ? 'fa-solid fa-bookmark' : 'fa-regular fa-bookmark'" style="color: #e90707" (click)="bookmarkQuestion(course.id, course.favourite)" class="favIcon"></i>
-													</div>
-												</div>
-											</div>
-										</div>
-		
-										<div class="row text-start">
-											<div class="col-12 mb-1" title="Subject">
-												<p class="text-wrap">
-													<i class="fa-solid fa-graduation-cap"></i> &nbsp;<small>{{ course.subject_name }}</small>
-												</p>
-											</div>
-											<div class="col-6 mb-1" title="Estd Year">
-												<p>
-													<i class="fa-regular fa-clock"></i> &nbsp;<small>{{ course.estd_year }}</small>
-												</p>
-											</div>
-											<div class="col-6 mb-1" title="Campus Country">
-												<p>
-													<i class="fa-solid fa-globe"></i> &nbsp;<small>{{ course.country }}</small>
-												</p>
-											</div>
-											<div class="col-6 mb-1" title="Campus Location">
-												<p>
-													<i class="fa-solid fa-location-crosshairs"></i> &nbsp;<small>{{ course.location }}</small>
-												</p>
-											</div>
-											<div class="col-6 mb-1" title="Duration">
-												<p>
-													<i class="fa-solid fa-clock"></i> &nbsp;<small>{{ course.duration }}</small>
-												</p>
-											</div>
-											<div class="col-6 mb-1" title="Intake Month">
-												<p>
-													<i class="fa-solid fa-calendar"></i> &nbsp;<small>{{ course.intake_month }}</small>
-												</p>
-											</div>
-											<div class="col-6 mb-1" title="Stay Back">
-												<p>
-													<i class="fa-regular fa-hourglass"></i> &nbsp;<small>{{ course.stay_back }}</small>
-												</p>
-											</div>
-											<div class="col-6 mb-1" title="World Rank">
-												<p>
-													<i class="fa-solid fa-chart-simple"></i> &nbsp;<small>{{ course.world_rank }}</small>
-												</p>
-											</div>
-											<div class="col-6 mb-1" title="Study Level">
-												<p>
-													<i class="fa-solid fa-stairs"></i> &nbsp;<small>{{ course.study_level }}</small>
-												</p>
-											</div>
-											<div class="col-12 mb-1" title="Pre Requisite">
-												<p class="text-wrap">
-													<i class="fa-solid fa-lightbulb-exclamation-on"></i> &nbsp;<small>{{ course.pre_requisites_name }}</small>
-												</p>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="card-footer border-0 bg-transparent">
-					<div class="row">
-						<div class="col-md-3">&nbsp;</div>
-						<div class="col-md-6">
-							<p-paginator *ngIf="totalCourseCount != 0" [rows]="perPage" [totalRecords]="totalCourseCount" (onPageChange)="pageChange($event)" [rowsPerPageOptions]="[50, 100, 300, 500, 1000]"></p-paginator>
-						</div>
-						<div class="col-md-3 text-end">
-							<button pButton type="button" class="btn btn-quit btn-rounded" (click)="resetRecommendation()">
-								Reset Recommendations<span class="btn-icon"><i class="fa-solid fa-undo"></i> </span>
-							</button>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		<div class="flex-column h-100" [style.display]="!guidelinesDiv ? 'flex' : 'none'">
-			<div class="card-body pt-0">
-				<div class="row justify-content-center">
-					<div class="col-md-2 text-start"></div>
-					<div class="col-md-8 text-center">
-						<h5 class="select-title mb-1 text-uppercase" tooltipPosition="top" pTooltip="course guidelines">course guidelines<i class="questiontooltip fa-solid fa-circle-question"></i></h5>
-					</div>
-					<div class="col-md-2 text-end">
-						<button class="btn-rounded btn btn-primary" aria-label="Dismiss alert" type="button" data-close (click)="closeGuidelines()">
-							<span aria-hidden="true">X</span>
-						</button>
-					</div>
-				</div>
-				<div class="card guidelinecard mb-3 mt-2">
-					<div class="card-body">
-						<h5>Do's</h5>
-						<ol class="lh-lg ps-3">
-							<li><strong>Thoroughly Review Course Details:</strong> Carefully review the information provided including university names, URLs, countries, locations, courses, study levels, and fields of study.</li>
-							<li><strong>Research University Reputation:</strong> Conduct additional research on universities listed to ensure they align with your academic and career goals.</li>
-							<li><strong>Visit Course URLs:</strong> Visit provided URLs to gather more information about courses, admission requirements, faculty, and facilities.</li>
-							<li><strong> Consider Study Level and Field of Study: </strong> Choose courses matching your desired study level (e.g., undergraduate, graduate) and field of study for academic interests.</li>
-							<li><strong>Contact Universities for Clarifications:</strong> Reach out to universities directly for clarification or additional information about courses or admission procedures.</li>
-						</ol>
-					</div>
-				</div>
-				<div class="card guidelinecard">
-					<div class="card-body">
-						<h5>Dont's</h5>
-						<ol class="lh-lg ps-3">
-							<li><strong>Mislead or Misuse Data: </strong> Do not mislead or misuse any data obtained from university course lists on UNIPREP, such as using it for inaccurate representations or for purposes unrelated to academic inquiry.</li>
-							<li><strong>Sell Data:</strong> Avoid selling or commercially exploiting any data obtained from the course lists, as this may violate terms of service and ethical guidelines.</li>
-							<li><strong> Apply Without Verification:</strong> Refrain from applying to courses based on incomplete or inaccurate information without verifying details directly from universities.</li>
-							<li><strong>Disregard Ethical Use:</strong> Use all information from course lists ethically and responsibly, respecting privacy and confidentiality agreements.</li>
-							<li><strong> Engage in Unethical Practices: </strong> Do not engage in unethical practices such as plagiarism or misrepresentation of qualifications when using information from course lists.</li>
-						</ol>
-					</div>
-				</div>
-			</div>
-		</div>
-	</ng-container>
+                        <!-- <div class="btn btn-dark w-100 btn-rounded" style="font-size: small;"> Apply</div> -->
+                        <div class="d-flex justify-content-between align-items-center">
+                          <div class="btn btn-dark applyButton btn-rounded">Apply</div>
+                          <i [class]="course.favourite == 1 ? 'fa-solid fa-bookmark' : 'fa-regular fa-bookmark'" style="color: #e90707" (click)="bookmarkQuestion(course.id, course.favourite)" class="favIcon"></i>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row text-start">
+                    <div class="col-12 mb-1" title="Subject">
+                      <p class="text-wrap">
+                        <i class="fa-solid fa-graduation-cap"></i> &nbsp;<small>{{ course.subject_name }}</small>
+                      </p>
+                    </div>
+                    <div class="col-6 mb-1" title="Estd Year">
+                      <p>
+                        <i class="fa-regular fa-clock"></i> &nbsp;<small>{{ course.estd_year }}</small>
+                      </p>
+                    </div>
+                    <div class="col-6 mb-1" title="Campus Country">
+                      <p>
+                        <i class="fa-solid fa-globe"></i> &nbsp;<small>{{ course.country }}</small>
+                      </p>
+                    </div>
+                    <div class="col-6 mb-1" title="Campus Location">
+                      <p>
+                        <i class="fa-solid fa-location-crosshairs"></i> &nbsp;<small>{{ course.location }}</small>
+                      </p>
+                    </div>
+                    <div class="col-6 mb-1" title="Duration">
+                      <p>
+                        <i class="fa-solid fa-clock"></i> &nbsp;<small>{{ course.duration }}</small>
+                      </p>
+                    </div>
+                    <div class="col-6 mb-1" title="Intake Month">
+                      <p>
+                        <i class="fa-solid fa-calendar"></i> &nbsp;<small>{{ course.intake_month }}</small>
+                      </p>
+                    </div>
+                    <div class="col-6 mb-1" title="Stay Back">
+                      <p>
+                        <i class="fa-regular fa-hourglass"></i> &nbsp;<small>{{ course.stay_back }}</small>
+                      </p>
+                    </div>
+                    <div class="col-6 mb-1" title="World Rank">
+                      <p>
+                        <i class="fa-solid fa-chart-simple"></i> &nbsp;<small>{{ course.world_rank }}</small>
+                      </p>
+                    </div>
+                    <div class="col-6 mb-1" title="Study Level">
+                      <p>
+                        <i class="fa-solid fa-stairs"></i> &nbsp;<small>{{ course.study_level }}</small>
+                      </p>
+                    </div>
+                    <div class="col-12 mb-1" title="Pre Requisite">
+                      <p class="text-wrap">
+                        <i class="fa-solid fa-lightbulb-exclamation-on"></i> &nbsp;<small>{{ course.pre_requisites_name }}</small>
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card-footer border-0 bg-transparent">
+        <div class="row">
+          <div class="col-md-3">&nbsp;</div>
+          <div class="col-md-6">
+            <p-paginator *ngIf="totalCourseCount != 0" [rows]="perPage" [totalRecords]="totalCourseCount" (onPageChange)="pageChange($event)" [rowsPerPageOptions]="[50, 100, 300, 500, 1000]"></p-paginator>
+          </div>
+          <div class="col-md-3 text-end">
+            <button pButton type="button" class="btn btn-quit btn-rounded" (click)="resetRecommendation()">
+              Reset Recommendations<span class="btn-icon"><i class="fa-solid fa-arrow-rotate-right"></i> </span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="flex-column h-100" [style.display]="!guidelinesDiv ? 'flex' : 'none'">
+      <div class="card-body pt-0">
+        <div class="row justify-content-center">
+          <div class="col-md-2 text-start"></div>
+          <div class="col-md-8 text-center">
+            <h5 class="select-title mb-1 text-uppercase" tooltipPosition="top" pTooltip="course guidelines">course guidelines<i class="questiontooltip fa-solid fa-circle-question"></i></h5>
+          </div>
+          <div class="col-md-2 text-end">
+            <button class="btn-rounded btn btn-primary" aria-label="Dismiss alert" type="button" data-close (click)="closeGuidelines()">
+              <span aria-hidden="true">X</span>
+            </button>
+          </div>
+        </div>
+        <div class="card guidelinecard mb-3 mt-2">
+          <div class="card-body">
+            <h5>Do's</h5>
+            <ol class="lh-lg ps-3">
+              <li><strong>Thoroughly Review Course Details:</strong> Carefully review the information provided including university names, URLs, countries, locations, courses, study levels, and fields of study.</li>
+              <li><strong>Research University Reputation:</strong> Conduct additional research on universities listed to ensure they align with your academic and career goals.</li>
+              <li><strong>Visit Course URLs:</strong> Visit provided URLs to gather more information about courses, admission requirements, faculty, and facilities.</li>
+              <li><strong> Consider Study Level and Field of Study: </strong> Choose courses matching your desired study level (e.g., undergraduate, graduate) and field of study for academic interests.</li>
+              <li><strong>Contact Universities for Clarifications:</strong> Reach out to universities directly for clarification or additional information about courses or admission procedures.</li>
+            </ol>
+          </div>
+        </div>
+        <div class="card guidelinecard">
+          <div class="card-body">
+            <h5>Dont's</h5>
+            <ol class="lh-lg ps-3">
+              <li><strong>Mislead or Misuse Data: </strong> Do not mislead or misuse any data obtained from university course lists on UNIPREP, such as using it for inaccurate representations or for purposes unrelated to academic inquiry.</li>
+              <li><strong>Sell Data:</strong> Avoid selling or commercially exploiting any data obtained from the course lists, as this may violate terms of service and ethical guidelines.</li>
+              <li><strong> Apply Without Verification:</strong> Refrain from applying to courses based on incomplete or inaccurate information without verifying details directly from universities.</li>
+              <li><strong>Disregard Ethical Use:</strong> Use all information from course lists ethically and responsibly, respecting privacy and confidentiality agreements.</li>
+              <li><strong> Engage in Unethical Practices: </strong> Do not engage in unethical practices such as plagiarism or misrepresentation of qualifications when using information from course lists.</li>
+            </ol>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-container>
 </div>
 <p-dialog header="Filter Courses" [(visible)]="isFilterVisible" [modal]="true" [style]="{ width: '60rem' }" [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }" [ngStyle]="{ display: isFilterVisible }" class="filterDialog">
-	<div class="m-5">
-		<form role="form" [formGroup]="filterForm" (ngSubmit)="submitFilter()">
-			<div class="row">
-				<div class="col-md-12">
-					<div class="row">
-						<div class="col-md-8">
-							<label class="form-label filterField">Search</label>
-							<div class="form-group">
-								<div class="mb-3">
-									<input class="w-100" type="text" placeholder="Search by Keyword" formControlName="course_keyword" pInputText />
-								</div>
-							</div>
-						</div>
-						<div class="col-md-4">
-							<label class="form-label filterField">Filter by Pre Requisite</label>
-							<div class="form-group">
-								<div class="mb-3">
-									<p-multiSelect styleClass="w-100" placeholder="Select Pre Requisite" [options]="preRequisite" display="chip" optionLabel="value" optionValue="id" formControlName="pre_requisite" [appendTo]="'body'"></p-multiSelect>
-								</div>
-							</div>
-						</div>
-						<div class="col-md-4">
-							<label class="form-label filterField">Filter by Country</label>
-							<div class="form-group">
-								<div class="mb-3">
-									<p-multiSelect styleClass="w-100" placeholder="Search in Country" (onChange)="countrySelect()" [options]="countryList" display="chip" optionLabel="country" optionValue="id" formControlName="country" [appendTo]="'body'"></p-multiSelect>
-								</div>
-							</div>
-						</div>
-						<div class="col-md-4">
-							<label class="form-label filterField">Filter by Location</label>
-							<div class="form-group">
-								<div class="mb-3">
-									<p-multiSelect styleClass="w-100" placeholder="Search in Location" (onChange)="locationSelect()" [options]="locationList" display="chip" optionLabel="location_name" optionValue="id" formControlName="campus" [appendTo]="'body'"></p-multiSelect>
-								</div>
-							</div>
-						</div>
-						<div class="col-md-4">
-							<label class="form-label filterField">Filter by University</label>
-							<div class="form-group">
-								<div class="mb-3">
-									<p-multiSelect styleClass="w-100" placeholder="Search in University" [options]="universityNameList" display="chip" optionLabel="university_name" optionValue="id" formControlName="college_name" [appendTo]="'body'"></p-multiSelect>
-									<!-- <p-dropdown styleClass="w-100" [filter]="true" [filterBy]="'university_name'" [options]="universityNameList" placeholder="Search in University"
+  <div class="m-5">
+    <form role="form" [formGroup]="filterForm" (ngSubmit)="submitFilter()">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="row">
+            <div class="col-md-8">
+              <label class="form-label filterField">Search</label>
+              <div class="form-group">
+                <div class="mb-3">
+                  <input class="w-100" type="text" placeholder="Search by Keyword" formControlName="course_keyword" pInputText />
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <label class="form-label filterField">Filter by Pre Requisite</label>
+              <div class="form-group">
+                <div class="mb-3">
+                  <p-multiSelect styleClass="w-100" placeholder="Select Pre Requisite" [options]="preRequisite" display="chip" optionLabel="value" optionValue="id" formControlName="pre_requisite" [appendTo]="'body'"></p-multiSelect>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <label class="form-label filterField">Filter by Country</label>
+              <div class="form-group">
+                <div class="mb-3">
+                  <p-multiSelect styleClass="w-100" placeholder="Search in Country" (onChange)="countrySelect()" [options]="countryList" display="chip" optionLabel="country" optionValue="id" formControlName="country" [appendTo]="'body'"></p-multiSelect>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <label class="form-label filterField">Filter by Location</label>
+              <div class="form-group">
+                <div class="mb-3">
+                  <p-multiSelect styleClass="w-100" placeholder="Search in Location" (onChange)="locationSelect()" [options]="locationList" display="chip" optionLabel="location_name" optionValue="id" formControlName="campus" [appendTo]="'body'"></p-multiSelect>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <label class="form-label filterField">Filter by University</label>
+              <div class="form-group">
+                <div class="mb-3">
+                  <p-multiSelect styleClass="w-100" placeholder="Search in University" [options]="universityNameList" display="chip" optionLabel="university_name" optionValue="id" formControlName="college_name" [appendTo]="'body'"></p-multiSelect>
+                  <!-- <p-dropdown styleClass="w-100" [filter]="true" [filterBy]="'university_name'" [options]="universityNameList" placeholder="Search in University"
 										optionLabel="university_name" formControlName="college_name" optionValue="id" [appendTo]="'body'"></p-dropdown> -->
-								</div>
-							</div>
-						</div>
-						<div class="col-md-4">
-							<label class="form-label filterField">Filter by Subject</label>
-							<div class="form-group">
-								<div class="mb-3">
-									<p-multiSelect styleClass="w-100" placeholder="Search in Subject" [options]="subjectNameList" display="chip" optionLabel="category_name" optionValue="id" formControlName="subject" [appendTo]="'body'"></p-multiSelect>
-									<!-- <p-dropdown styleClass="w-100" [filter]="true" [filterBy]="'category_name'" [options]="subjectNameList" [appendTo]="'body'" placeholder="Search in Subject" optionLabel="category_name" formControlName="subject" optionValue="id"></p-dropdown> -->
-									<!-- <input class="w-100 px-5 py-2" style="height: 45px" type="text"
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <label class="form-label filterField">Filter by Subject</label>
+              <div class="form-group">
+                <div class="mb-3">
+                  <p-multiSelect styleClass="w-100" placeholder="Search in Subject" [options]="subjectNameList" display="chip" optionLabel="category_name" optionValue="id" formControlName="subject" [appendTo]="'body'"></p-multiSelect>
+                  <!-- <p-dropdown styleClass="w-100" [filter]="true" [filterBy]="'category_name'" [options]="subjectNameList" [appendTo]="'body'" placeholder="Search in Subject" optionLabel="category_name" formControlName="subject" optionValue="id"></p-dropdown> -->
+                  <!-- <input class="w-100 px-5 py-2" style="height: 45px" type="text"
 										formControlName="subject" placeholder="Search in Subject" pInputText /> -->
-								</div>
-							</div>
-						</div>
-						<div class="col-md-4">
-							<label class="form-label filterField">Filter by Study Level</label>
-							<div class="form-group">
-								<div class="mb-3">
-									<p-dropdown styleClass="w-100" [options]="studyLevel" placeholder="Search in Study Level" optionLabel="value" formControlName="study_level" optionValue="id"></p-dropdown>
-								</div>
-							</div>
-						</div>
-						<div class="col-md-4">
-							<label class="form-label filterField">Filter by Duration</label>
-							<div class="form-group">
-								<div class="mb-3">
-									<p-multiSelect styleClass="w-100" placeholder="Search in Duration" [options]="durationList" display="chip" optionLabel="duration" optionValue="duration" formControlName="duration" [appendTo]="'body'"></p-multiSelect>
-								</div>
-							</div>
-						</div>
-						<div class="col-md-4">
-							<label class="form-label filterField">Filter by Intake</label>
-							<div class="form-group">
-								<div class="mb-3">
-									<p-multiSelect styleClass="w-100" placeholder="Search in Intake" [options]="monthList" display="chip" optionLabel="name" optionValue="id" formControlName="intake_months" [appendTo]="'body'"></p-multiSelect>
-									<!-- <p-dropdown styleClass="w-100" [options]="monthList" placeholder="Search in Intake" optionLabel="name" formControlName="intake_months" optionValue="id"></p-dropdown> -->
-								</div>
-							</div>
-						</div>
-						<div class="col-md-4">
-							<label class="form-label filterField">Filter by Stay Back</label>
-							<div class="form-group">
-								<div class="mb-3">
-									<!-- <input class="w-100 px-5 py-2" style="height: 45px" type="text"
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <label class="form-label filterField">Filter by Study Level</label>
+              <div class="form-group">
+                <div class="mb-3">
+                  <p-dropdown styleClass="w-100" [options]="studyLevel" placeholder="Search in Study Level" optionLabel="value" formControlName="study_level" optionValue="id"></p-dropdown>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <label class="form-label filterField">Filter by Duration</label>
+              <div class="form-group">
+                <div class="mb-3">
+                  <p-multiSelect styleClass="w-100" placeholder="Search in Duration" [options]="durationList" display="chip" optionLabel="duration" optionValue="duration" formControlName="duration" [appendTo]="'body'"></p-multiSelect>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <label class="form-label filterField">Filter by Intake</label>
+              <div class="form-group">
+                <div class="mb-3">
+                  <p-multiSelect styleClass="w-100" placeholder="Search in Intake" [options]="monthList" display="chip" optionLabel="name" optionValue="id" formControlName="intake_months" [appendTo]="'body'"></p-multiSelect>
+                  <!-- <p-dropdown styleClass="w-100" [options]="monthList" placeholder="Search in Intake" optionLabel="name" formControlName="intake_months" optionValue="id"></p-dropdown> -->
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <label class="form-label filterField">Filter by Stay Back</label>
+              <div class="form-group">
+                <div class="mb-3">
+                  <!-- <input class="w-100 px-5 py-2" style="height: 45px" type="text"
 										formControlName="stay_back" placeholder="Search in Stay Back" pInputText /> -->
 
-									<p-multiSelect styleClass="w-100" placeholder="Search in Stay Back" [options]="stayBackList" display="chip" optionLabel="key" optionValue="key" formControlName="stay_back" [appendTo]="'body'"></p-multiSelect>
-								</div>
-							</div>
-						</div>
-						<div class="col-md-4">
-							<label class="form-label filterField">Filter by World Rank</label>
-							<div class="form-group">
-								<div class="mb-3">
-									<!-- <input class="w-100 px-5 py-2" style="height: 45px" type="text" formControlName="world_rank" placeholder="Search in World Rank" pInputText /> -->
-									<p-dropdown styleClass="w-100" [options]="worldRank" placeholder="Search in World Rank" optionLabel="value" formControlName="world_rank" optionValue="id" [appendTo]="'body'"></p-dropdown>
-								</div>
-							</div>
-						</div>
-						<!-- <div class="col-md-4">
+                  <p-multiSelect styleClass="w-100" placeholder="Search in Stay Back" [options]="stayBackList" display="chip" optionLabel="key" optionValue="key" formControlName="stay_back" [appendTo]="'body'"></p-multiSelect>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <label class="form-label filterField">Filter by World Rank</label>
+              <div class="form-group">
+                <div class="mb-3">
+                  <!-- <input class="w-100 px-5 py-2" style="height: 45px" type="text" formControlName="world_rank" placeholder="Search in World Rank" pInputText /> -->
+                  <p-dropdown styleClass="w-100" [options]="worldRank" placeholder="Search in World Rank" optionLabel="value" formControlName="world_rank" optionValue="id" [appendTo]="'body'"></p-dropdown>
+                </div>
+              </div>
+            </div>
+            <!-- <div class="col-md-4">
 							<label class="form-label filterField">Filter by Tution Fees Range</label>
 							<div class="form-group">
 								<div class="mb-3">
@@ -395,26 +388,26 @@
 								</div>
 							</div>
 						</div> -->
-					</div>
-				</div>
-			</div>
-			<div>
-				<button type="submit" class="btn btn-dark w-100" style="background-color: var(--uniprep-primary); border: none">Apply Filter</button>
-				<button class="btn btn-dark w-100" (click)="clearFilter()" style="background-color: white; border-radius: 8px; color: var(--uniprep-primary); border: none" type="button">Reset Filter</button>
-			</div>
-		</form>
-	</div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <button type="submit" class="btn btn-dark w-100" style="background-color: var(--uniprep-primary); border: none">Apply Filter</button>
+        <button class="btn btn-dark w-100" (click)="clearFilter()" style="background-color: white; border-radius: 8px; color: var(--uniprep-primary); border: none" type="button">Reset Filter</button>
+      </div>
+    </form>
+  </div>
 </p-dialog>
 <p-dialog [(visible)]="restrict" [modal]="true" [style]="{ width: '30vw' }" [draggable]="false" [resizable]="false" class="restrictionDialog" [breakpoints]="{ '960px': '30vw', '959px': '60vw', '425px': '90vw' }">
-	<div *ngIf="ehitlabelIsShow" class="text-center mt-5 mb-4">
-		<img src="../../../uniprep-assets/images/smartloack.png" class="image" width="60" />
-		<h3 class="offer">Upgrade Required</h3>
-		<p>To access this exclusive module,please upgrade your plan now</p>
-		<button pButton type="button" class="text-white p-ripple p-button-rounded p-button-warning p-button p-component p-2" routerLink="/pages/subscriptions">Upgrade Plan<i class="fa fa-arrow-right exhausted-plan-icon"></i></button>
-	</div>
-	<div *ngIf="!ehitlabelIsShow" class="text-center mt-5 mb-4">
-		<img src="../../../uniprep-assets/images/smartloack.png" class="image" width="60" />
-		<h3 class="offer">Upgrade Required</h3>
-		<p>Please contact {{ orgnamewhitlabel }} Company for access</p>
-	</div>
+  <div *ngIf="ehitlabelIsShow" class="text-center mt-5 mb-4">
+    <img src="../../../uniprep-assets/images/smartloack.png" class="image" width="60" />
+    <h3 class="offer">Upgrade Required</h3>
+    <p>To access this exclusive module,please upgrade your plan now</p>
+    <button pButton type="button" class="text-white p-ripple p-button-rounded p-button-warning p-button p-component p-2" routerLink="/pages/subscriptions">Upgrade Plan<i class="fa fa-arrow-right exhausted-plan-icon"></i></button>
+  </div>
+  <div *ngIf="!ehitlabelIsShow" class="text-center mt-5 mb-4">
+    <img src="../../../uniprep-assets/images/smartloack.png" class="image" width="60" />
+    <h3 class="offer">Upgrade Required</h3>
+    <p>Please contact {{ orgnamewhitlabel }} Company for access</p>
+  </div>
 </p-dialog>

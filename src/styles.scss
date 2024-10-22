@@ -135,6 +135,17 @@ body {
 	border: 1px solid var(--uniprep-secondary) !important;
 }
 
+
+.bg-primary
+{
+	background: var(--uniprep-primary) !important;
+}
+
+.bg-secondary
+{
+	background: var(--uniprep-secondary) !important;
+}
+
 p {
 	margin-bottom: 0rem;
 	-webkit-touch-callout: none;
@@ -443,6 +454,7 @@ uni-learn,
 uni-learnmodules,
 uni-advisor,
 uni-career-growth-checker,
+uni-cost-of-living,
 uni-learnsubmodules {
 	display: flex;
 	flex: 1;
@@ -452,7 +464,10 @@ uni-learnsubmodules {
 	overflow: hidden;
 	border-radius: 10px;
 }
-
+uni-cost-of-living
+{
+overflow-y: auto;
+}
 uni-job-hunt {
 	width: 100%;
 }
@@ -614,7 +629,7 @@ uni-subscription {
 }
 
 .card {
-	border-radius: 15px !important;
+	border-radius: 12px !important;
 	text-transform: inherit !important;
 	background-color: #fafafa;
 	border: 1px solid #dfe4f8;

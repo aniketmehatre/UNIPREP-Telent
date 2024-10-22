@@ -454,7 +454,7 @@
                                                     <div class="form-group">
                                                         <div class="mb-3">
                                                             <div class="input-wrapper">
-                                                                <input type="text" formControlName="work_location" (input)="searchExpandEduLocation($event, i)" (focusout)="onFocusOut()" placeholder="Search job title" class="form-control job-input" />
+                                                                <input type="text" formControlName="work_location" (input)="searchExpandEduLocation($event, i)" (focusout)="onFocusOut()" placeholder="Location, Country" class="form-control job-input" />
                                                                 <ul class="dropdown-list">
                                                                     <li *ngFor="let city of filteredExpeAndEduLocations[i]" (click)="selectLocation(city,'userExpLocation', i)">{{ city.country_name }}</li>
                                                                 </ul>
