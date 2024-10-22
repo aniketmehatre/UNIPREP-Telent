@@ -15,6 +15,7 @@ import { PaginatorModule } from 'primeng/paginator';
 import { TimeAgoPipe } from './time-ago.pipe';
 import {CardModule} from "primeng/card";
 import {DialogModule} from "primeng/dialog";
+import { TooltipModule } from 'primeng/tooltip';
 
 @NgModule({
   declarations: [
@@ -36,6 +37,7 @@ import {DialogModule} from "primeng/dialog";
         PaginatorModule,
         CardModule,
         DialogModule,
+        TooltipModule,
     ]
 })
 export class JobSearchModule { }
