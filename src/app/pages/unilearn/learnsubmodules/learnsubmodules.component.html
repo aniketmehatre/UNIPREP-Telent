@@ -72,7 +72,9 @@
         *ngFor="let module of submoduleList"
         class="col-lg-2 col-md-3 col-sm-4 col-xs-12 col-12"
       >
-        <div class="row w-100 m-0 justify-content-center h-100">
+        <div
+          class="row w-100 m-0 justify-content-center h-100"
+        >
           <div
             (click)="onModuleClick(module)"
             class="card subjectcard"
@@ -83,7 +85,8 @@
             >
               <div>
                 <div class="submoduleicon">
-                  <img *ngIf="module?.icon"
+                  <img
+                    *ngIf="module?.icon"
                     alt="{{ module.submodule_name }}"
                     class="selectimage"
                     src="{{ module?.icon }}"
@@ -123,12 +126,17 @@
       </div>
     </div>
   </div>
-  <div class="card-footer bg-white" style="z-index: 9999;" *ngIf="pdfvisibility">
+  <div class="card-footer bg-white" style="z-index: 9999" *ngIf="pdfvisibility">
     <div class="col-md-12 col-12 text-center">
       <button
         class="text-white p-ripple p-button-warning p-button p-component p-2"
-      (click)="download()">
-        Download <i class="fa-solid fa-download ms-2 p-2" style="background-color: #d26400;"></i>
+        (click)="download()"
+      >
+        Download
+        <i
+          class="fa-solid fa-download ms-2 p-2"
+          style="background-color: #d26400"
+        ></i>
       </button>
     </div>
   </div>
