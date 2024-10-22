@@ -1,90 +1,64 @@
+.backIcon {
+  height: 40px;
+  width: 40px;
+  border-radius: 20px;
+  background-color: var(--uniprep-primary);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 10px 0;
+}
 
-.questionread {
-  filter: grayscale(1);
+.subjectcard {
+	border: 1px solid #f0780c;
+	width: 100%;
+	margin: 10px 0px;
+
+	.submoduleicon {
+		height: 75px;
+		width: 75px;
+		margin: auto;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		.selectimage {
+			width: 100%;
+			height: 100%;
+			object-fit: contain;
+		}
+	}
+
+	&:focus {
+		background-color: var(--uniprep-primaryop10);
+		border: 1px solid var(--uniprep-primary);
+	}
+
+	&:hover {
+		background-color: var(--uniprep-primaryop10);
+		border: 1px solid var(--uniprep-primary);
+	}
+
+	// .subjecttitle {
+	//   height: 50px;
+	//   font-size: 16px;
+	// }
 }
 
 .questioncard {
-  border: 2px solid var(--uniprep-primary);
-}
-
-.text-primary {
-  color: rgb(63, 76, 131) !important;
-}
-
-.scrollable-container {
-  display: flex;
-  overflow-x: hidden;
-  align-items: center;
-}
-
-.answercard {
-  background-color: var(--uniprep-primaryop10);
-  border: 2px solid var(--uniprep-primary);
-  overflow-y: auto;
-}
-.socialShareBtn {
-  height: 40px;
-  width: 40px;
-  border-radius: 50px !important;
-  margin: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-#socialSharingList {
-  display: none;
-  position: absolute;
-  right: 0rem;
-  top: 3rem;
-  ::ng-deep.p-card-body {
-    padding: 0px;
-    .p-card-content {
-      padding: 0px;
-    }
-  }
-  ul {
-    padding: 10px !important;
-    margin-bottom: 0;
-    li {
-      display: flex;
-      align-items: center;
-      margin-bottom: 5px;
-    }
-    i {
-      margin-right: 10px;
-    }
-  }
-}
-.modal {
-  z-index: 9999;
-  .modalbuttons {
-    position: absolute;
-    top: -1rem;
-    right: -1rem;
-  }
-}
-
-.embed-responsive {
-  position: relative;
-  display: block;
-  width: 100%;
-  padding: 0;
-  overflow: hidden;
-}
-
-.embed-responsive::before {
-  display: block;
-  content: "";
-  padding-top: 56.25%; /* 16:9 Aspect Ratio */
-}
-
-.embed-responsive iframe {
-  position: absolute;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  right: 0;
-  width: 100%;
-  height: 100%;
-  border: 0;
+	border: 1px solid var(--uniprep-primary);
+	padding: 0;
+	.homecountry {
+		width: 25px;
+		height: 25px;
+		border-radius: 100px;
+		padding: 0;
+		img {
+			height: 100%;
+			width: 100%;
+			border-radius: 100%;
+			border: 1px solid transparent;
+			object-fit: cover;
+		}
+	}
 }
