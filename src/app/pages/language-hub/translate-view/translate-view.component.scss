@@ -1,13 +1,13 @@
 .backIcon {
-  height: 40px;
-  width: 40px;
-  border-radius: 20px;
-  background-color: var(--uniprep-primary);
-  color: white;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: 10px 0;
+	height: 40px;
+	width: 40px;
+	border-radius: 20px;
+	background-color: var(--uniprep-primary);
+	color: white;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	margin: 10px 0;
 }
 
 .subjectcard {
@@ -45,15 +45,25 @@
 	// }
 }
 
-.bottombutton
-{
-  position: absolute;
-  bottom: 1rem;
-  right: 1rem;
+.bottombutton {
+	position: absolute;
+	bottom: 1rem;
+	right: 1rem;
 }
-.topbutton
-{
-  position: absolute;
-  top: 1rem;
-  left: 1rem;
+.leftbottombutton {
+	position: absolute;
+	bottom: 1.5rem;
+	left: 1rem;
+}
+.topbutton {
+	position: absolute;
+	top: 1rem;
+	left: 1rem;
+}
+
+.bottomtext {
+	position: absolute;
+	width: 100%;
+	left: 3rem;
+	bottom: 1.5rem;
 }
