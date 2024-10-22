@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { environment } from "@env/environment";
-import { learnModules, learnsubModules } from "./unilearn.model";
+import { learnModules, learnsubModules, Quizmodule } from "./unilearn.model";
 
 @Injectable({
   providedIn: "root",
@@ -17,6 +17,12 @@ export class UniLearnService {
   getUniLearnsubModules(paramData:any) {
     const headers = new HttpHeaders().set("Accept", "application/json");
     return this.http.post<learnsubModules>(environment.ApiUrl + "/getUnilearnSubmodules",paramData, {
+      headers: headers,
+    });
+  }
+  getQuestions(paramData:any) {
+    const headers = new HttpHeaders().set("Accept", "application/json");
+    return this.http.post<Quizmodule>(environment.ApiUrl + "/gettestquestions",paramData, {
       headers: headers,
     });
   }

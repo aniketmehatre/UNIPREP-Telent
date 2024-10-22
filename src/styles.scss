@@ -15,7 +15,8 @@
 	--uniprep-primaryhighlight: rgb(69, 82, 163);
 	--uniprep-secondaryhighlight: #f6895a;
 	--uniprep-tertiary: #ffffff;
-	--uniprep-lightgray: #808080;
+	--uniprep-lightgray: #b3b3b3;
+	--uniprep-gray: #F1F1F1;
 	--uniprep-darkgray: #636363;
 	--uniprep-lightgreen: #b7e044;
 	--uniprep-green: #9bc329;
@@ -133,6 +134,27 @@ body {
 .border-secondary
 {
 	border: 1px solid var(--uniprep-secondary) !important;
+}
+
+
+.bg-primary
+{
+	background: var(--uniprep-primary) !important;
+}
+
+.bg-secondary
+{
+	background: var(--uniprep-secondary) !important;
+}
+
+.bg-lightgray
+{
+	background: var(--uniprep-lightgray) !important;
+}
+
+.bg-darkgray
+{
+	background: var(--uniprep-darkgray) !important;
 }
 
 p {
@@ -437,13 +459,17 @@ uni-entreprenuerskillmodule,
 uni-entreprenuersectorproficiency,
 uni-startupglossary,
 uni-investorpitchtraining,
+uni-translate-view,
 uni-entreprenuerquiz,
 uni-faq,
 uni-learn,
 uni-learnmodules,
 uni-advisor,
 uni-career-growth-checker,
-uni-learnsubmodules {
+uni-cost-of-living,
+uni-learnsubmodules,
+uni-testmodule,
+uni-quizwindow {
 	display: flex;
 	flex: 1;
 	height: 100%;
@@ -452,7 +478,10 @@ uni-learnsubmodules {
 	overflow: hidden;
 	border-radius: 10px;
 }
-
+uni-cost-of-living
+{
+overflow-y: auto;
+}
 uni-job-hunt {
 	width: 100%;
 }
@@ -614,7 +643,7 @@ uni-subscription {
 }
 
 .card {
-	border-radius: 15px !important;
+	border-radius: 12px !important;
 	text-transform: inherit !important;
 	background-color: #fafafa;
 	border: 1px solid #dfe4f8;

@@ -867,7 +867,7 @@ export class CvBuilderComponent implements OnInit  {
         edu_degree: ['', Validators.required],
         edu_location: ['', Validators.required],
         edu_percentage: ['', Validators.required],
-        edu_cgpa_percentage: ['', Validators.required],
+        edu_cgpa_percentage: ['CGPA', Validators.required],
       }));
       // this.getEduDetailsArray.push(this.fb.group({
       //   edu_college_name: ['Srinivasan Engg College', Validators.required],

@@ -8,7 +8,7 @@
     color: white;
     border-radius: 2rem;
   }
-  
+
   .submoduleicon {
     height: 100px;
     width: 100px;
@@ -43,6 +43,37 @@
 .center {
   height: 63vh !important;
 }
-.headColor{
- color: #3f4c83
+.headColor {
+  color: #3f4c83;
+}
+.text-smaller {
+  font-size: x-small;
+}
+.basictimespan {
+  background: #9bc329;
+  color: white;
+  border-radius: 2rem;
+}
+.intermediatetimespan {
+  background: #f0780c;
+  color: white;
+  border-radius: 2rem;
+}
+.advancetimespan {
+  background: #d80027;
+  color: white;
+  border-radius: 2rem;
+}
+.btn-primary .btn-customicon {
+  border-radius: 100px;
+  background-color: var(--uniprep-primarydark);
+  width: 25px;
+  height: 25px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.quizinfo{
+  font-size: 16px;
+  font-weight: 500;
 }

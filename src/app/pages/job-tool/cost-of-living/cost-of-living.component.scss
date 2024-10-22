@@ -63,3 +63,17 @@
      border: 1px solid #f0780c;
      border-radius: 10px !important;
  }
+.dropdownimg {
+  width: 24px;
+  height: 24px;
+  display:flex;
+  justify-content: center;
+  align-items: center;
+  img {
+    height: 100%;
+    width: 100%;
+    border-radius: 100%;
+    border: 2px solid var(--uniprep-primaryop10);
+    object-fit: cover;
+  }
+}
