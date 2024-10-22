@@ -31,6 +31,11 @@ export class CostOfLivingComponent implements OnInit {
   sourcecountryName: string = '';
   sourceCountry: string = '';
   targetCountry: string = '';
+  costofLiving: { sourceRate: string, sourceCountry: string, targetRate: string, targetCountry: string }[] = [
+    { sourceRate: '1,14,288', sourceCountry: 'United Arab Emirates', targetRate: '97,100.12', targetCountry: 'United Kingdom' },
+    { sourceRate: '1,14,288', sourceCountry: 'United Arab Emirates', targetRate: '97,100.12', targetCountry: 'United Kingdom' },
+    { sourceRate: '1,14,288', sourceCountry: 'United Arab Emirates', targetRate: '97,100.12', targetCountry: 'United Kingdom' }
+  ]
   constructor(
     private fb: FormBuilder, private locationService: LocationService,
     private costOfLivingService: CostOfLivingService, private router: Router, private authService: AuthService,

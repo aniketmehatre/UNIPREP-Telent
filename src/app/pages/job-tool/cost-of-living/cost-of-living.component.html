@@ -1,6 +1,6 @@
 <div class="d-flex justify-content-center" [ngClass]="{'centerDiv':!canShowComparision}">
     <div class="dropdown-container">
-        <div class="uniprep-primary h4  text-center fw-semibold">
+        <div class="uniprep-primary h4  text-center fw-bold">
             Compare the cost of living between two locations around the world
         </div>
         <br>
@@ -72,9 +72,26 @@
                 [disabled]="form.value.sourceCity===null || form.value.targetCity===null">Compare
                 <i class="pi pi-sync"></i> </button>
         </form>
+        <br>
     </div>
 </div>
-<br>
+<ng-container *ngIf="!canShowComparision">
+    <div class="uniprep-primary h2  text-center fw-bold">
+        Did you know ?
+    </div>
+    <br>
+    <div class="d-flex justify-content-between gap-3 mx-2">
+        <div class="card costofliving-card" *ngFor="let cost of costofLiving">
+            <div class="card-body">
+                Earning <span class="fw-semibold">INR {{cost?.sourceRate}}</span> in <span
+                    class="fw-semibold">{{cost?.sourceCountry}}</span> is equivalent to earning <span
+                    class="fw-semibold">INR {{cost?.targetRate}}</span> in the <span
+                    class="fw-semibold">{{cost?.targetCountry}}</span>.
+            </div>
+        </div>
+    </div>
+
+</ng-container>
 <div *ngIf="canShowComparision">
     <uni-comparision [sourceCountryPrices]="sourceCountryPrices" [targetCountryPrices]="targetCountryPrices"
         [sourcecountryName]="sourcecountryName" [targetcountryName]="targetcountryName"></uni-comparision>
