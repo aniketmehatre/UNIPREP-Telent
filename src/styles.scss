@@ -15,7 +15,8 @@
 	--uniprep-primaryhighlight: rgb(69, 82, 163);
 	--uniprep-secondaryhighlight: #f6895a;
 	--uniprep-tertiary: #ffffff;
-	--uniprep-lightgray: #808080;
+	--uniprep-lightgray: #b3b3b3;
+	--uniprep-gray: #F1F1F1;
 	--uniprep-darkgray: #636363;
 	--uniprep-lightgreen: #b7e044;
 	--uniprep-green: #9bc329;
@@ -144,6 +145,16 @@ body {
 .bg-secondary
 {
 	background: var(--uniprep-secondary) !important;
+}
+
+.bg-lightgray
+{
+	background: var(--uniprep-lightgray) !important;
+}
+
+.bg-darkgray
+{
+	background: var(--uniprep-darkgray) !important;
 }
 
 p {
@@ -448,6 +459,7 @@ uni-entreprenuerskillmodule,
 uni-entreprenuersectorproficiency,
 uni-startupglossary,
 uni-investorpitchtraining,
+uni-translate-view,
 uni-entreprenuerquiz,
 uni-faq,
 uni-learn,
