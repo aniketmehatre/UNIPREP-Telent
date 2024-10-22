@@ -85,90 +85,91 @@
       <p-steps [model]="items" [readonly]="false" [activeIndex]="moduleActiveIndex"></p-steps>
     </div>
   </div>
-  <div class="row flex-fill overflow-y-auto">
-    <div class="col-md-6 h-100 overflow-y-auto">
-      <form role="form" class="row" [formGroup]="resumeFormInfoData" #form="ngForm">
-        <ng-container *ngIf="moduleActiveIndex == 0">
-          <div class="col-md-12 mb-3">
-            <div class="d-flex">
-              <h4 class="p-mb-1 PageTitle">Your Experience Level</h4>
-              <i class="fa-solid fa-circle-question m-2 uniprepColor" pTooltip="Please select your level of experience to proceed further" tooltipPosition="top"></i>
-            </div>
-            <!-- (onChange)="changeExperience()" -->
-            <p-dropdown [options]="experienceLevel" placeholder="Select Experience Level" styleClass="w-100" formControlName="selected_exp_level" optionLabel="level" optionValue="id"></p-dropdown>
-            <div *ngIf="submitted && f['selected_exp_level'].errors" class="text-danger text-xs">
-              <div style="margin-left: 10px" *ngIf="f['selected_exp_level'].errors">Experience Level Required</div>
-            </div>
-          </div>
-          <div class="col-md-12 mb-3">
-            <h4 class="p-mb-2 PageTitle">Enter Your Personal Information</h4>
-            <div class="row">
-              <div class="col-md-6">
-                <div class="d-flex">
-                  <label class="form-label labelFont">Your Name</label>
-                  <i class="fa-solid fa-circle-question m-2 uniprepColor" pTooltip="We recommend you enter your full name" tooltipPosition="top"></i>
-                </div>
-                <div class="form-group">
-                  <div class="mb-3">
-                    <input class="w-100" type="text" placeholder="Full Name" formControlName="user_name" pInputText />
-                    <div *ngIf="submitted && f['user_name'].errors" class="text-danger text-xs">
-                      <div style="margin-left: 10px" *ngIf="f['user_name'].errors">User Name Required</div>
-                    </div>
-                  </div>
-                </div>
+  <div class="row flex-fill overflow-hidden">
+    <div class="col-md-6 h-100 d-flex flex-column overflow-hidden gap-2">
+      <div class="flex-fill overflow-y-auto">
+        <form role="form" class="row" [formGroup]="resumeFormInfoData" #form="ngForm">
+          <ng-container *ngIf="moduleActiveIndex == 0">
+            <div class="col-md-12 mb-3">
+              <div class="d-flex">
+                <h4 class="p-mb-1 PageTitle">Your Experience Level</h4>
+                <i class="fa-solid fa-circle-question m-2 uniprepColor" pTooltip="Please select your level of experience to proceed further" tooltipPosition="top"></i>
               </div>
-              <div class="col-md-6">
-                <div class="d-flex">
-                  <label class="form-label labelFont">Job Title</label>
-                  <i class="fa-solid fa-circle-question m-2 uniprepColor" pTooltip="Please enter your current job title or designation" tooltipPosition="top"></i>
-                </div>
-                <div class="form-group">
-                  <div class="mb-3">
-                    <div class="input-wrapper">
-                      <input type="text" formControlName="user_job_title" (input)="searchJob($event)" (focusout)="onFocusOut()" placeholder="Search job title" class="form-control job-input" />
-                      <ul *ngIf="filteredJobs.length > 0" class="dropdown-list">
-                        <li *ngFor="let job of filteredJobs" (click)="selectJob(job, 'jobTitle')">{{ job.jobrole }}</li>
-                      </ul>
-                      <div *ngIf="submitted && f['user_job_title'].errors" class="text-danger text-xs">
-                        <div style="margin-left: 10px" *ngIf="f['user_job_title'].errors">Job Title Required</div>
+              <!-- (onChange)="changeExperience()" -->
+              <p-dropdown [options]="experienceLevel" placeholder="Select Experience Level" styleClass="w-100" formControlName="selected_exp_level" optionLabel="level" optionValue="id"></p-dropdown>
+              <div *ngIf="submitted && f['selected_exp_level'].errors" class="text-danger text-xs">
+                <div style="margin-left: 10px" *ngIf="f['selected_exp_level'].errors">Experience Level Required</div>
+              </div>
+            </div>
+            <div class="col-md-12 mb-3">
+              <h4 class="p-mb-2 PageTitle">Enter Your Personal Information</h4>
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="d-flex">
+                    <label class="form-label labelFont">Your Name</label>
+                    <i class="fa-solid fa-circle-question m-2 uniprepColor" pTooltip="We recommend you enter your full name" tooltipPosition="top"></i>
+                  </div>
+                  <div class="form-group">
+                    <div class="mb-3">
+                      <input class="w-100" type="text" placeholder="Full Name" formControlName="user_name" pInputText />
+                      <div *ngIf="submitted && f['user_name'].errors" class="text-danger text-xs">
+                        <div style="margin-left: 10px" *ngIf="f['user_name'].errors">User Name Required</div>
                       </div>
                     </div>
                   </div>
                 </div>
-              </div>
-              <div class="col-md-6">
-                <div class="d-flex">
-                  <label class="form-label labelFont">Your Email</label>
-                  <i class="fa-solid fa-circle-question m-2 uniprepColor" pTooltip="We recommend you provide your active email address" tooltipPosition="top"></i>
-                </div>
-                <div class="form-group">
-                  <div class="mb-3">
-                    <input class="w-100" type="text" placeholder="Email Address" formControlName="user_email" pInputText />
-                    <div *ngIf="submitted && f['user_email'].errors" class="text-danger text-xs">
-                      <div style="margin-left: 10px" *ngIf="f['user_email'].errors?.['required']">Email Required</div>
-                      <div style="margin-left: 10px" *ngIf="f['user_email'].errors?.['email']">Enter Valid email</div>
-                    </div>
+                <div class="col-md-6">
+                  <div class="d-flex">
+                    <label class="form-label labelFont">Job Title</label>
+                    <i class="fa-solid fa-circle-question m-2 uniprepColor" pTooltip="Please enter your current job title or designation" tooltipPosition="top"></i>
                   </div>
-                </div>
-              </div>
-              <div class="col-md-6">
-                <div class="d-flex">
-                  <label class="form-label labelFont">Current Location</label>
-                  <i class="fa-solid fa-circle-question m-2 uniprepColor" pTooltip="Please enter your current location" tooltipPosition="top"></i>
-                </div>
-                <div class="form-group">
-                  <div class="mb-3">
-                    <div class="input-wrapper">
-                      <input type="text" formControlName="user_location" (input)="searchLocation($event)" (focusout)="onFocusOut()" placeholder="Location, Country" class="form-control job-input bg-transparent" />
-                      <ul *ngIf="filteredLocations.length > 0" class="dropdown-list">
-                        <li *ngFor="let city of filteredLocations" (click)="selectLocation(city, 'userLocation')">{{ city.country_name }}</li>
-                      </ul>
-                      <div *ngIf="submitted && f['user_location'].errors" class="text-danger text-xs">
-                        <div style="margin-left: 10px" *ngIf="f['user_location'].errors">Current Location Required</div>
+                  <div class="form-group">
+                    <div class="mb-3">
+                      <div class="input-wrapper">
+                        <input type="text" formControlName="user_job_title" (input)="searchJob($event)" (focusout)="onFocusOut()" placeholder="Search job title" class="form-control job-input" />
+                        <ul *ngIf="filteredJobs.length > 0" class="dropdown-list">
+                          <li *ngFor="let job of filteredJobs" (click)="selectJob(job, 'jobTitle')">{{ job.jobrole }}</li>
+                        </ul>
+                        <div *ngIf="submitted && f['user_job_title'].errors" class="text-danger text-xs">
+                          <div style="margin-left: 10px" *ngIf="f['user_job_title'].errors">Job Title Required</div>
+                        </div>
                       </div>
                     </div>
                   </div>
-                  <!-- <div class="mb-3">
+                </div>
+                <div class="col-md-6">
+                  <div class="d-flex">
+                    <label class="form-label labelFont">Your Email</label>
+                    <i class="fa-solid fa-circle-question m-2 uniprepColor" pTooltip="We recommend you provide your active email address" tooltipPosition="top"></i>
+                  </div>
+                  <div class="form-group">
+                    <div class="mb-3">
+                      <input class="w-100" type="text" placeholder="Email Address" formControlName="user_email" pInputText />
+                      <div *ngIf="submitted && f['user_email'].errors" class="text-danger text-xs">
+                        <div style="margin-left: 10px" *ngIf="f['user_email'].errors?.['required']">Email Required</div>
+                        <div style="margin-left: 10px" *ngIf="f['user_email'].errors?.['email']">Enter Valid email</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="d-flex">
+                    <label class="form-label labelFont">Current Location</label>
+                    <i class="fa-solid fa-circle-question m-2 uniprepColor" pTooltip="Please enter your current location" tooltipPosition="top"></i>
+                  </div>
+                  <div class="form-group">
+                    <div class="mb-3">
+                      <div class="input-wrapper">
+                        <input type="text" formControlName="user_location" (input)="searchLocation($event)" (focusout)="onFocusOut()" placeholder="Location, Country" class="form-control job-input bg-transparent" />
+                        <ul *ngIf="filteredLocations.length > 0" class="dropdown-list">
+                          <li *ngFor="let city of filteredLocations" (click)="selectLocation(city, 'userLocation')">{{ city.country_name }}</li>
+                        </ul>
+                        <div *ngIf="submitted && f['user_location'].errors" class="text-danger text-xs">
+                          <div style="margin-left: 10px" *ngIf="f['user_location'].errors">Current Location Required</div>
+                        </div>
+                      </div>
+                    </div>
+                    <!-- <div class="mb-3">
                                             <p-dropdown [options]="cities" optionValue="country_name" optionLabel="country_name" formControlName="user_location" placeholder="Location, State" [filter]="true" filterBy="country_name" [showClear]="true" [appendTo]="'body'" [style]="{'minWidth': '100%'}" class="w-100 text-start custom-dropdown">
                                                 <ng-template pTemplate="selectedItem" let-selectedOption>
                                                     <div class="d-flex align-items-center gap-2 custom-selected-item dropdown-image">
@@ -189,668 +190,668 @@
                                                 <div style="margin-left:10px;" *ngIf="f['user_location'].errors">Current Location Required</div>
                                             </div>
                                         </div> -->
-                </div>
-              </div>
-              <div class="col-md-6">
-                <div class="d-flex">
-                  <label class="form-label labelFont">country code</label>
-                  <i class="fa-solid fa-circle-question m-2 uniprepColor" pTooltip="Select the international dialing code for your phone number" tooltipPosition="top"></i>
-                </div>
-                <div class="form-group">
-                  <div class="mb-3">
-                    <p-dropdown [options]="countryCodeList" styleClass="w-100" [filter]="true" [filterBy]="'name'" placeholder="Select Country Code" formControlName="country_code" optionLabel="name" optionValue="code"></p-dropdown>
                   </div>
                 </div>
-              </div>
-              <div class="col-md-6">
-                <div class="d-flex">
-                  <label class="form-label labelFont">Phone Number</label>
-                  <i class="fa-solid fa-circle-question m-2 uniprepColor" pTooltip="Please provide your active phone number" tooltipPosition="top"></i>
-                </div>
-                <div class="form-group">
-                  <div class="mb-3">
-                    <input class="w-100" type="text" placeholder="Phone Number" formControlName="user_phone" pInputText />
-                    <div *ngIf="f['user_phone'].invalid && (f['user_phone'].dirty || f['user_phone'].touched)" class="text-danger text-xs">
-                      <div style="margin-left: 10px" *ngIf="f['user_phone'].errors?.['required']">Phone number Required</div>
-                      <div style="margin-left: 10px" *ngIf="f['user_phone'].errors?.['pattern']">Enter Valid Phone number</div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="col-md-6">
-                <div class="d-flex">
-                  <label class="form-label labelFont">LinkedIn Name</label>
-                  <i class="fa-solid fa-circle-question m-2 uniprepColor" pTooltip="Please enter your profile name as it appears on your LinkedIn" tooltipPosition="top"></i>
-                </div>
-                <div class="form-group">
-                  <div class="mb-3">
-                    <input class="w-100" type="text" placeholder="LinkedIn profile name" formControlName="user_linkedin" pInputText />
-                    <div *ngIf="submitted && f['user_linkedin'].errors" class="text-danger text-xs">
-                      <div style="margin-left: 10px" *ngIf="f['user_linkedin'].errors">Linked In Name Required</div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="col-md-6">
-                <div class="d-flex">
-                  <label class="form-label labelFont">LinkedIn Link</label>
-                  <i class="fa-solid fa-circle-question m-2 uniprepColor" pTooltip="Please provide the URL to your LinkedIn profile" tooltipPosition="top"></i>
-                </div>
-                <div class="form-group">
-                  <div class="mb-3">
-                    <input class="w-100" type="text" placeholder="LinkedIn profile link" formControlName="user_linkedin_link" pInputText />
-                  </div>
-                </div>
-              </div>
-              <div class="col-md-12">
-                <div class="d-flex">
-                  <label class="form-label labelFont">Website (Optional)</label>
-                  <i class="fa-solid fa-circle-question m-2 uniprepColor" pTooltip="We recommend you provide your professional website or portfolio link if any" tooltipPosition="top"></i>
-                </div>
-                <div class="form-group">
-                  <div class="mb-3">
-                    <input class="w-100" type="text" placeholder="Website or portfolio Link" formControlName="user_website" pInputText />
-                  </div>
-                </div>
-              </div>
-              <div class="col-md-12">
-                <div class="d-flex justify-content-between align-items-center">
+                <div class="col-md-6">
                   <div class="d-flex">
-                    <label class="form-label labelFont">Summary</label>
-                    <i class="fa-solid fa-circle-question m-2 uniprepColor" pTooltip="We recommend you provide or generate a concise summary about yourself" tooltipPosition="top"></i>
+                    <label class="form-label labelFont">country code</label>
+                    <i class="fa-solid fa-circle-question m-2 uniprepColor" pTooltip="Select the international dialing code for your phone number" tooltipPosition="top"></i>
                   </div>
-                  <button class="deleteDivButton" (click)="chatGPTIntegration('user_summary', 0)" [disabled]="isButtonDisabled" style="background-color: #9bc329">Generate &nbsp;<i class="fa-solid fa-line-columns trashIcon" style="background-color: #9bc329"></i></button>
-                </div>
-                <div class="form-group">
-                  <div class="mb-3">
-                    <textarea pInputTextarea formControlName="user_summary" class="mt-2 w-100" placeholder="About yourself" [rows]="5"></textarea>
-                    <!-- (ngModelChange)="onTextModelChange($event)"  -->
-                    <div *ngIf="submitted && f['user_summary'].errors?.['required']" class="text-danger text-xs">
-                      <div style="margin-left: 10px">User Summary Required</div>
+                  <div class="form-group">
+                    <div class="mb-3">
+                      <p-dropdown [options]="countryCodeList" styleClass="w-100" [filter]="true" [filterBy]="'name'" placeholder="Select Country Code" formControlName="country_code" optionLabel="name" optionValue="code"></p-dropdown>
                     </div>
-                    <!-- <div *ngIf="f['user_summary'].errors?.['maxWordsExceeded']"
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="d-flex">
+                    <label class="form-label labelFont">Phone Number</label>
+                    <i class="fa-solid fa-circle-question m-2 uniprepColor" pTooltip="Please provide your active phone number" tooltipPosition="top"></i>
+                  </div>
+                  <div class="form-group">
+                    <div class="mb-3">
+                      <input class="w-100" type="text" placeholder="Phone Number" formControlName="user_phone" pInputText />
+                      <div *ngIf="f['user_phone'].invalid && (f['user_phone'].dirty || f['user_phone'].touched)" class="text-danger text-xs">
+                        <div style="margin-left: 10px" *ngIf="f['user_phone'].errors?.['required']">Phone number Required</div>
+                        <div style="margin-left: 10px" *ngIf="f['user_phone'].errors?.['pattern']">Enter Valid Phone number</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="d-flex">
+                    <label class="form-label labelFont">LinkedIn Name</label>
+                    <i class="fa-solid fa-circle-question m-2 uniprepColor" pTooltip="Please enter your profile name as it appears on your LinkedIn" tooltipPosition="top"></i>
+                  </div>
+                  <div class="form-group">
+                    <div class="mb-3">
+                      <input class="w-100" type="text" placeholder="LinkedIn profile name" formControlName="user_linkedin" pInputText />
+                      <div *ngIf="submitted && f['user_linkedin'].errors" class="text-danger text-xs">
+                        <div style="margin-left: 10px" *ngIf="f['user_linkedin'].errors">Linked In Name Required</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="d-flex">
+                    <label class="form-label labelFont">LinkedIn Link</label>
+                    <i class="fa-solid fa-circle-question m-2 uniprepColor" pTooltip="Please provide the URL to your LinkedIn profile" tooltipPosition="top"></i>
+                  </div>
+                  <div class="form-group">
+                    <div class="mb-3">
+                      <input class="w-100" type="text" placeholder="LinkedIn profile link" formControlName="user_linkedin_link" pInputText />
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-12">
+                  <div class="d-flex">
+                    <label class="form-label labelFont">Website (Optional)</label>
+                    <i class="fa-solid fa-circle-question m-2 uniprepColor" pTooltip="We recommend you provide your professional website or portfolio link if any" tooltipPosition="top"></i>
+                  </div>
+                  <div class="form-group">
+                    <div class="mb-3">
+                      <input class="w-100" type="text" placeholder="Website or portfolio Link" formControlName="user_website" pInputText />
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-12">
+                  <div class="d-flex justify-content-between align-items-center">
+                    <div class="d-flex">
+                      <label class="form-label labelFont">Summary</label>
+                      <i class="fa-solid fa-circle-question m-2 uniprepColor" pTooltip="We recommend you provide or generate a concise summary about yourself" tooltipPosition="top"></i>
+                    </div>
+                    <button class="deleteDivButton" (click)="chatGPTIntegration('user_summary', 0)" [disabled]="isButtonDisabled" style="background-color: #9bc329">Generate &nbsp;<i class="fa-solid fa-line-columns trashIcon" style="background-color: #9bc329"></i></button>
+                  </div>
+                  <div class="form-group">
+                    <div class="mb-3">
+                      <textarea pInputTextarea formControlName="user_summary" class="mt-2 w-100" placeholder="About yourself" [rows]="5"></textarea>
+                      <!-- (ngModelChange)="onTextModelChange($event)"  -->
+                      <div *ngIf="submitted && f['user_summary'].errors?.['required']" class="text-danger text-xs">
+                        <div style="margin-left: 10px">User Summary Required</div>
+                      </div>
+                      <!-- <div *ngIf="f['user_summary'].errors?.['maxWordsExceeded']"
                                                 class="text-danger text-xs">
                                                 <div style="margin-left:10px;">User Summary exceeds the maximum word
                                                     limit.</div>
                                             </div> -->
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
-          </div>
-        </ng-container>
-        <ng-container *ngIf="moduleActiveIndex == 1">
-          <div class="col-md-12">
-            <div class="d-flex">
-              <h4 class="p-mb-1 PageTitle">Enter Your Work {{ f["selected_exp_level"].value == 1 ? "/ Internship" : "" }} Experience</h4>
-              <i class="fa-solid fa-circle-question m-2 uniprepColor" pTooltip="Please add details of your previous jobs" tooltipPosition="top"></i>
-            </div>
+          </ng-container>
+          <ng-container *ngIf="moduleActiveIndex == 1">
             <div class="col-md-12">
-              <div class="card mb-2" *ngFor="let wrkExp of getWorkExpArray.controls; let i = index" formArrayName="workExpArray">
-                <div class="card-body">
-                  <div [formGroupName]="i">
-                    <div class="row">
-                      <div class="col-md-6">
-                        <div class="d-flex">
-                          <label class="form-label labelFont">Organization Name</label>
-                          <i class="fa-solid fa-circle-question m-2 uniprepColor" pTooltip="Please enter the name of the company or organization where you worked" tooltipPosition="top"></i>
-                        </div>
-                        <div class="form-group">
-                          <div class="mb-3">
-                            <input class="w-100" type="text" placeholder="Organization Name" formControlName="work_org_name" pInputText />
-                            <div *ngIf="wrkExp.get('work_org_name')?.invalid && wrkExp.get('work_org_name')?.touched && submitted" class="text-danger text-xs">
-                              <div style="margin-left: 10px">Organization Name required.</div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="col-md-6">
-                        <div class="d-flex">
-                          <label class="form-label labelFont">Designation</label>
-                          <i class="fa-solid fa-circle-question m-2 uniprepColor" pTooltip="Please specify your job title or role within the organization" tooltipPosition="top"></i>
-                        </div>
-                        <div class="form-group">
-                          <div class="mb-3">
-                            <div class="input-wrapper">
-                              <input type="text" formControlName="work_designation" (focusout)="onFocusOut()" (input)="searchDesignation($event, i)" placeholder="Your Designation" class="form-control job-input" />
-                              <ul class="dropdown-list">
-                                <li *ngFor="let job of filteredDesignations[i]" (click)="selectJob(job, 'experience', i)">
-                                  {{ job.jobrole }}
-                                </li>
-                              </ul>
-                              <div *ngIf="wrkExp.get('work_designation')?.invalid && wrkExp.get('work_designation')?.touched && submitted" class="text-danger text-xs">
-                                <div style="margin-left: 10px">Designation required.</div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="col-md-12">
-                        <div class="d-flex justify-content-between align-items-center">
+              <div class="d-flex">
+                <h4 class="p-mb-1 PageTitle">Enter Your Work {{ f["selected_exp_level"].value == 1 ? "/ Internship" : "" }} Experience</h4>
+                <i class="fa-solid fa-circle-question m-2 uniprepColor" pTooltip="Please add details of your previous jobs" tooltipPosition="top"></i>
+              </div>
+              <div class="col-md-12">
+                <div class="card mb-2" *ngFor="let wrkExp of getWorkExpArray.controls; let i = index" formArrayName="workExpArray">
+                  <div class="card-body">
+                    <div [formGroupName]="i">
+                      <div class="row">
+                        <div class="col-md-6">
                           <div class="d-flex">
-                            <label class="form-label labelFont">Experience Year </label>
-                            <i class="fa-solid fa-circle-question m-2 uniprepColor" pTooltip="Please enter the number of years you worked at this position" tooltipPosition="top"></i>
+                            <label class="form-label labelFont">Organization Name</label>
+                            <i class="fa-solid fa-circle-question m-2 uniprepColor" pTooltip="Please enter the name of the company or organization where you worked" tooltipPosition="top"></i>
                           </div>
-                          <div class="d-flex justify-content-between align-items-center">
-                            <input type="checkbox" formControlName="work_currently_working" class="me-0" (change)="stillPursuing('work_currently_working', i, $event)" style="transform: scale(0.4); cursor: pointer" id="currentWorking_{{ i }}" />
-                            <label style="font-size: 10px; color: var(--uniprep-primary); font-weight: 600; cursor: pointer" for="currentWorking_{{ i }}">Currently Working</label>
+                          <div class="form-group">
+                            <div class="mb-3">
+                              <input class="w-100" type="text" placeholder="Organization Name" formControlName="work_org_name" pInputText />
+                              <div *ngIf="wrkExp.get('work_org_name')?.invalid && wrkExp.get('work_org_name')?.touched && submitted" class="text-danger text-xs">
+                                <div style="margin-left: 10px">Organization Name required.</div>
+                              </div>
+                            </div>
                           </div>
                         </div>
-                        <div class="row">
-                          <div class="col-md-6">
-                            <div class="row">
-                              <div class="col-md-6">
-                                <div class="mb-3">
-                                  <p-dropdown styleClass="w-100" [options]="yearsList" optionValue="year" placeholder="Start Year" (onChange)="workYearChange(i)" filterBy="year" [filter]="true" formControlName="work_start_year" optionLabel="year"></p-dropdown>
-                                  <!-- <input class="w-100" type="number" placeholder="Start Year" formControlName="work_start_year" pInputText /> -->
-                                  <div *ngIf="wrkExp.get('work_start_year')?.invalid && wrkExp.get('work_start_year')?.touched && submitted" class="text-danger text-xs">
-                                    <div style="margin-left: 10px">Start Year required.</div>
-                                  </div>
-                                </div>
-                              </div>
-                              <div class="col-md-6">
-                                <div class="mb-3">
-                                  <p-dropdown [options]="monthList" placeholder="Month" styleClass="w-100" (onChange)="workYearChange(i)" formControlName="work_start_month" optionLabel="name" optionValue="id"></p-dropdown>
-                                  <div *ngIf="wrkExp.get('work_start_month')?.invalid && wrkExp.get('work_start_month')?.touched && submitted" class="text-danger text-xs">
-                                    <div style="margin-left: 10px">Start Month required.</div>
-                                  </div>
+                        <div class="col-md-6">
+                          <div class="d-flex">
+                            <label class="form-label labelFont">Designation</label>
+                            <i class="fa-solid fa-circle-question m-2 uniprepColor" pTooltip="Please specify your job title or role within the organization" tooltipPosition="top"></i>
+                          </div>
+                          <div class="form-group">
+                            <div class="mb-3">
+                              <div class="input-wrapper">
+                                <input type="text" formControlName="work_designation" (focusout)="onFocusOut()" (input)="searchDesignation($event, i)" placeholder="Your Designation" class="form-control job-input" />
+                                <ul class="dropdown-list">
+                                  <li *ngFor="let job of filteredDesignations[i]" (click)="selectJob(job, 'experience', i)">
+                                    {{ job.jobrole }}
+                                  </li>
+                                </ul>
+                                <div *ngIf="wrkExp.get('work_designation')?.invalid && wrkExp.get('work_designation')?.touched && submitted" class="text-danger text-xs">
+                                  <div style="margin-left: 10px">Designation required.</div>
                                 </div>
                               </div>
                             </div>
                           </div>
-                          <div class="col-md-6">
-                            <div class="row">
-                              <div class="col-md-6">
-                                <div class="mb-3">
-                                  <p-dropdown styleClass="w-100" [options]="yearsList" (onChange)="workYearChange(i)" optionValue="year" placeholder="End Year" [disabled]="getWorkExpArray.controls[i]?.get('work_currently_working')?.value" formControlName="work_end_year" filterBy="year" [filter]="true" optionLabel="year"></p-dropdown>
-                                  <!-- <input class="w-100" type="number"
+                        </div>
+                        <div class="col-md-12">
+                          <div class="d-flex justify-content-between align-items-center">
+                            <div class="d-flex">
+                              <label class="form-label labelFont">Experience Year </label>
+                              <i class="fa-solid fa-circle-question m-2 uniprepColor" pTooltip="Please enter the number of years you worked at this position" tooltipPosition="top"></i>
+                            </div>
+                            <div class="d-flex justify-content-between align-items-center">
+                              <input type="checkbox" formControlName="work_currently_working" class="me-0" (change)="stillPursuing('work_currently_working', i, $event)" style="transform: scale(0.4); cursor: pointer" id="currentWorking_{{ i }}" />
+                              <label style="font-size: 10px; color: var(--uniprep-primary); font-weight: 600; cursor: pointer" for="currentWorking_{{ i }}">Currently Working</label>
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col-md-6">
+                              <div class="row">
+                                <div class="col-md-6">
+                                  <div class="mb-3">
+                                    <p-dropdown styleClass="w-100" [options]="yearsList" optionValue="year" placeholder="Start Year" (onChange)="workYearChange(i)" filterBy="year" [filter]="true" formControlName="work_start_year" optionLabel="year"></p-dropdown>
+                                    <!-- <input class="w-100" type="number" placeholder="Start Year" formControlName="work_start_year" pInputText /> -->
+                                    <div *ngIf="wrkExp.get('work_start_year')?.invalid && wrkExp.get('work_start_year')?.touched && submitted" class="text-danger text-xs">
+                                      <div style="margin-left: 10px">Start Year required.</div>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="col-md-6">
+                                  <div class="mb-3">
+                                    <p-dropdown [options]="monthList" placeholder="Month" styleClass="w-100" (onChange)="workYearChange(i)" formControlName="work_start_month" optionLabel="name" optionValue="id"></p-dropdown>
+                                    <div *ngIf="wrkExp.get('work_start_month')?.invalid && wrkExp.get('work_start_month')?.touched && submitted" class="text-danger text-xs">
+                                      <div style="margin-left: 10px">Start Month required.</div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="col-md-6">
+                              <div class="row">
+                                <div class="col-md-6">
+                                  <div class="mb-3">
+                                    <p-dropdown styleClass="w-100" [options]="yearsList" (onChange)="workYearChange(i)" optionValue="year" placeholder="End Year" [disabled]="getWorkExpArray.controls[i]?.get('work_currently_working')?.value" formControlName="work_end_year" filterBy="year" [filter]="true" optionLabel="year"></p-dropdown>
+                                    <!-- <input class="w-100" type="number"
                                                                             placeholder="End Year"
                                                                             [attr.disabled]="getWorkExpArray.controls[i]?.get('work_currently_working')?.value ? true : null"
                                                                             formControlName="work_end_year" pInputText /> -->
-                                  <div *ngIf="wrkExp.get('work_end_year')?.invalid && wrkExp.get('work_end_year')?.touched && submitted" class="text-danger text-xs">
-                                    <div style="margin-left: 10px">End Year required.</div>
+                                    <div *ngIf="wrkExp.get('work_end_year')?.invalid && wrkExp.get('work_end_year')?.touched && submitted" class="text-danger text-xs">
+                                      <div style="margin-left: 10px">End Year required.</div>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="col-md-6">
+                                  <div class="mb-3">
+                                    <p-dropdown [options]="monthList" (onChange)="workYearChange(i)" placeholder="Month" styleClass="w-100" [disabled]="getWorkExpArray.controls[i]?.get('work_currently_working')?.value" formControlName="work_end_month" optionLabel="name" optionValue="id"></p-dropdown>
+                                    <div *ngIf="wrkExp.get('work_end_month')?.invalid && wrkExp.get('work_end_month')?.touched && submitted" class="text-danger text-xs">
+                                      <div style="margin-left: 10px">End Month required.</div>
+                                    </div>
                                   </div>
                                 </div>
                               </div>
-                              <div class="col-md-6">
-                                <div class="mb-3">
-                                  <p-dropdown [options]="monthList" (onChange)="workYearChange(i)" placeholder="Month" styleClass="w-100" [disabled]="getWorkExpArray.controls[i]?.get('work_currently_working')?.value" formControlName="work_end_month" optionLabel="name" optionValue="id"></p-dropdown>
-                                  <div *ngIf="wrkExp.get('work_end_month')?.invalid && wrkExp.get('work_end_month')?.touched && submitted" class="text-danger text-xs">
-                                    <div style="margin-left: 10px">End Month required.</div>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                            <div *ngIf="wrkExp.get('work_end_year')?.touched || wrkExp.get('work_end_month')?.touched" class="text-danger text-xs">
-                              <div *ngIf="wrkExp.get('work_end_year')?.hasError('invalidEndDate') || wrkExp.get('work_end_month')?.hasError('invalidEndDate')" style="margin-left: 10px">End date cannot be earlier than start date.</div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="col-md-6">
-                        <div class="d-flex">
-                          <label class="form-label labelFont">Work Type</label>
-                          <i class="fa-solid fa-circle-question m-2 uniprepColor" pTooltip="Please select your employment type" tooltipPosition="top"></i>
-                        </div>
-                        <div class="form-group">
-                          <div class="mb-3">
-                            <p-dropdown [options]="workTypeValue" placeholder="Select Work Type" styleClass="w-100" formControlName="work_type" optionLabel="value" optionValue="id"></p-dropdown>
-                            <div *ngIf="wrkExp.get('work_type')?.invalid && wrkExp.get('work_type')?.touched && submitted" class="text-danger text-xs">
-                              <div style="margin-left: 10px">Work Type required.</div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="col-md-6">
-                        <div class="d-flex">
-                          <label class="form-label labelFont">Location</label>
-                          <i class="fa-solid fa-circle-question m-2 uniprepColor" pTooltip="Specify the city and country where this job was located" tooltipPosition="top"></i>
-                        </div>
-                        <div class="form-group">
-                          <div class="mb-3">
-                            <div class="input-wrapper">
-                              <input type="text" formControlName="work_location" (input)="searchExpandEduLocation($event, i)" (focusout)="onFocusOut()" placeholder="Search job title" class="form-control job-input" />
-                              <ul class="dropdown-list">
-                                <li *ngFor="let city of filteredExpeAndEduLocations[i]" (click)="selectLocation(city, 'userExpLocation', i)">{{ city.country_name }}</li>
-                              </ul>
-                              <div *ngIf="wrkExp.get('work_location')?.invalid && wrkExp.get('work_location')?.touched && submitted" class="text-danger text-xs">
-                                <div style="margin-left: 10px">Work Location required.</div>
+                              <div *ngIf="wrkExp.get('work_end_year')?.touched || wrkExp.get('work_end_month')?.touched" class="text-danger text-xs">
+                                <div *ngIf="wrkExp.get('work_end_year')?.hasError('invalidEndDate') || wrkExp.get('work_end_month')?.hasError('invalidEndDate')" style="margin-left: 10px">End date cannot be earlier than start date.</div>
                               </div>
                             </div>
                           </div>
                         </div>
-                      </div>
-                      <div class="col-md-12">
-                        <div class="d-flex justify-content-between align-items-center">
+                        <div class="col-md-6">
                           <div class="d-flex">
-                            <label class="form-label labelFont">Job Description</label>
-                            <i class="fa-solid fa-circle-question m-2 uniprepColor" pTooltip="We recommend you describe minimum 5 key responsibilities and achievements" tooltipPosition="top"></i>
+                            <label class="form-label labelFont">Work Type</label>
+                            <i class="fa-solid fa-circle-question m-2 uniprepColor" pTooltip="Please select your employment type" tooltipPosition="top"></i>
                           </div>
-                          <button class="deleteDivButton mb-2" (click)="chatGPTIntegration('work_job_description', i)" [disabled]="genreateButtonDisabled[i]" style="background-color: #9bc329">Generate &nbsp;<i class="fa-solid fa-line-columns trashIcon" style="background-color: #9bc329"></i></button>
-                        </div>
-                        <!-- (ngModelChange)="onEditorModelChange($event, i)" -->
-                        <div class="form-group">
-                          <div class="mb-3">
-                            <p-editor formControlName="work_job_description" placeholder="About Job Description" [modules]="editorModules"> </p-editor>
-
-                            <div *ngIf="wrkExp.get('work_job_description')?.invalid && wrkExp.get('work_job_description')?.touched && submitted" class="text-danger text-xs">
-                              <div style="margin-left: 10px" *ngIf="wrkExp.get('work_job_description')?.errors?.['required']">Job Description required.</div>
+                          <div class="form-group">
+                            <div class="mb-3">
+                              <p-dropdown [options]="workTypeValue" placeholder="Select Work Type" styleClass="w-100" formControlName="work_type" optionLabel="value" optionValue="id"></p-dropdown>
+                              <div *ngIf="wrkExp.get('work_type')?.invalid && wrkExp.get('work_type')?.touched && submitted" class="text-danger text-xs">
+                                <div style="margin-left: 10px">Work Type required.</div>
+                              </div>
                             </div>
-                            <!-- <div *ngIf="errorMessages[i]" class="text-danger text-xs"
+                          </div>
+                        </div>
+                        <div class="col-md-6">
+                          <div class="d-flex">
+                            <label class="form-label labelFont">Location</label>
+                            <i class="fa-solid fa-circle-question m-2 uniprepColor" pTooltip="Specify the city and country where this job was located" tooltipPosition="top"></i>
+                          </div>
+                          <div class="form-group">
+                            <div class="mb-3">
+                              <div class="input-wrapper">
+                                <input type="text" formControlName="work_location" (input)="searchExpandEduLocation($event, i)" (focusout)="onFocusOut()" placeholder="Search job title" class="form-control job-input" />
+                                <ul class="dropdown-list">
+                                  <li *ngFor="let city of filteredExpeAndEduLocations[i]" (click)="selectLocation(city, 'userExpLocation', i)">{{ city.country_name }}</li>
+                                </ul>
+                                <div *ngIf="wrkExp.get('work_location')?.invalid && wrkExp.get('work_location')?.touched && submitted" class="text-danger text-xs">
+                                  <div style="margin-left: 10px">Work Location required.</div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-md-12">
+                          <div class="d-flex justify-content-between align-items-center">
+                            <div class="d-flex">
+                              <label class="form-label labelFont">Job Description</label>
+                              <i class="fa-solid fa-circle-question m-2 uniprepColor" pTooltip="We recommend you describe minimum 5 key responsibilities and achievements" tooltipPosition="top"></i>
+                            </div>
+                            <button class="deleteDivButton mb-2" (click)="chatGPTIntegration('work_job_description', i)" [disabled]="genreateButtonDisabled[i]" style="background-color: #9bc329">Generate &nbsp;<i class="fa-solid fa-line-columns trashIcon" style="background-color: #9bc329"></i></button>
+                          </div>
+                          <!-- (ngModelChange)="onEditorModelChange($event, i)" -->
+                          <div class="form-group">
+                            <div class="mb-3">
+                              <p-editor formControlName="work_job_description" placeholder="About Job Description" [modules]="editorModules"> </p-editor>
+
+                              <div *ngIf="wrkExp.get('work_job_description')?.invalid && wrkExp.get('work_job_description')?.touched && submitted" class="text-danger text-xs">
+                                <div style="margin-left: 10px" *ngIf="wrkExp.get('work_job_description')?.errors?.['required']">Job Description required.</div>
+                              </div>
+                              <!-- <div *ngIf="errorMessages[i]" class="text-danger text-xs"
                                                                 style="margin-left:10px;">
                                                                 {{ errorMessages[i] }}
                                                             </div> -->
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <!-- *ngIf="getWorkExpArray.length != 1"  -->
-                  <div class="d-flex justify-content-end align-items-center">
-                    <button (click)="clickDeleteButton('work_experience', i)" class="deleteDivButton">Delete &nbsp;<i class="fa-solid fa-trash trashIcon"></i></button>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="d-flex justify-content-center align-items-center m-3">
-              <button class="addMoreButton" *ngIf="getWorkExpArray.length < wrkExpLimit" (click)="clickAddMoreButton('work_experience')">Add More &nbsp;<i class="fa-solid fa-plus tickIcon"></i></button>
-            </div>
-          </div>
-        </ng-container>
-        <ng-container *ngIf="moduleActiveIndex == 2">
-          <div class="col-md-12">
-            <h4 class="p-mb-1 PageTitle">Enter Your Educational Details</h4>
-            <div class="col-md-12">
-              <div class="card mb-2" *ngFor="let eduDetail of getEduDetailsArray.controls; let i = index" formArrayName="EduDetailsArray">
-                <div class="card-body">
-                  <div [formGroupName]="i">
-                    <div class="row">
-                      <div class="col-md-6">
-                        <div class="d-flex mb-3">
-                          <label class="form-label labelFont">College/School Name</label>
-                          <i class="fa-solid fa-circle-question m-2 uniprepColor" pTooltip="Please enter the name of your educational institution" tooltipPosition="top"></i>
-                        </div>
-                        <div class="form-group">
-                          <div class="mb-3">
-                            <input class="w-100" type="text" placeholder="College Name" formControlName="edu_college_name" pInputText />
-                            <div *ngIf="eduDetail.get('edu_college_name')?.invalid && eduDetail.get('edu_college_name')?.touched && submitted" class="text-danger text-xs">
-                              <div style="margin-left: 10px">College name is required.</div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="col-md-6">
-                        <div class="d-flex justify-content-between align-items-center">
-                          <div class="d-flex">
-                            <label class="form-label labelFont">Education Year </label>
-                            <i class="fa-solid fa-circle-question m-2 uniprepColor" pTooltip="Please enter the year you started and completed your degree" tooltipPosition="top"></i>
-                          </div>
-                          <div class="d-flex justify-content-between align-items-center">
-                            <input type="checkbox" formControlName="edu_still_pursuing" id="stillPursuing_{{ i }}" class="me-0" (change)="stillPursuing('edu_still_pursuing', i, $event)" style="transform: scale(0.4); cursor: pointer" />
-                            <label style="font-size: 10px; color: var(--uniprep-primary); font-weight: 600; cursor: pointer" for="stillPursuing_{{ i }}">Still Pursuing</label>
-                          </div>
-                        </div>
-                        <div class="row">
-                          <div class="col-md-6">
-                            <div class="form-group">
-                              <div class="mb-3">
-                                <p-dropdown styleClass="w-100" [options]="yearsList" optionValue="year" placeholder="Start Year" (onChange)="eduYearChange(i)" filterBy="year" [filter]="true" formControlName="edu_start_year" optionLabel="year"></p-dropdown>
-                                <!-- <input class="w-100" type="number"
-                                                                           placeholder="Start Year"
-                                                                           formControlName="edu_start_year" pInputText /> -->
-                                <div *ngIf="eduDetail.get('edu_start_year')?.invalid && eduDetail.get('edu_start_year')?.touched && submitted" class="text-danger text-xs">
-                                  <div style="margin-left: 10px">Start Year required.</div>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                          <div class="col-md-6">
-                            <div class="form-group">
-                              <div class="mb-3">
-                                <p-dropdown  styleClass="w-100" [options]="yearsList" (onChange)="eduYearChange(i)" optionValue="year" placeholder="End Year" filterBy="year" [filter]="true" formControlName="edu_end_year" optionLabel="year" [disabled]="getEduDetailsArray.controls[i]?.get('edu_still_pursuing')?.value"></p-dropdown>
-                                <div *ngIf="eduDetail.get('edu_end_year')?.invalid && eduDetail.get('edu_end_year')?.touched && submitted" class="text-danger text-xs">
-                                  <div style="margin-left: 10px">End Year required.</div>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                          <div *ngIf="eduDetail.get('edu_end_year')?.touched" class="text-danger text-xs">
-                            <div *ngIf="eduDetail.get('edu_end_year')?.hasError('invalidEndDate')" style="margin-left: 10px">End date cannot be earlier than start date.</div>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="col-md-6">
-                        <div class="d-flex">
-                          <label class="form-label labelFont">Degree</label>
-                          <i class="fa-solid fa-circle-question m-2 uniprepColor" pTooltip="Please mention the degree or qualification you obtained" tooltipPosition="top"></i>
-                        </div>
-                        <div class="form-group">
-                          <div class="mb-3">
-                            <input class="w-100" type="text" placeholder="Your Degree" formControlName="edu_degree" pInputText />
-                            <div *ngIf="eduDetail.get('edu_degree')?.invalid && eduDetail.get('edu_degree')?.touched && submitted" class="text-danger text-xs">
-                              <div style="margin-left: 10px">Degree required.</div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="col-md-6">
-                        <div class="d-flex">
-                          <label class="form-label labelFont">Location</label>
-                          <i class="fa-solid fa-circle-question m-2 uniprepColor" pTooltip="Specify the location of the educational institution" tooltipPosition="top"></i>
-                        </div>
-                        <div class="form-group">
-                          <div class="mb-3">
-                            <div class="input-wrapper">
-                              <input type="text" formControlName="edu_location" (input)="searchExpandEduLocation($event, i)" (focusout)="onFocusOut()" placeholder="Education Location" class="form-control job-input" />
-                              <ul class="dropdown-list">
-                                <li *ngFor="let city of filteredExpeAndEduLocations[i]" (click)="selectLocation(city, 'userEduLocation', i)">{{ city.country_name }}</li>
-                              </ul>
-                              <div *ngIf="eduDetail.get('edu_location')?.invalid && eduDetail.get('edu_location')?.touched && submitted" class="text-danger text-xs">
-                                <div style="margin-left: 10px">Location required.</div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="col-md-9">
-                        <div class="d-flex">
-                          <label class="form-label labelFont">Academic Score</label>
-                          <i class="fa-solid fa-circle-question m-2 uniprepColor" pTooltip="Please provide your GPA or percentage score" tooltipPosition="top"></i>
-                        </div>
-                        <div class="form-group">
-                          <div class="mb-3">
-                            <input class="w-100" type="number" placeholder="Achieved Score" formControlName="edu_percentage" pInputText />
-                            <div *ngIf="eduDetail.get('edu_percentage')?.invalid && eduDetail.get('edu_percentage')?.touched && submitted" class="text-danger text-xs">
-                              <div style="margin-left: 10px">Percentage required.</div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="col-md-3">
-                        <label class="form-label labelFont">&nbsp;</label>
-                        <div class="form-group">
-                          <div class="mb-3">
-                            <p-dropdown [options]="cgpaPercentage" styleClass="w-100" formControlName="edu_cgpa_percentage" optionLabel="value" optionValue="id"></p-dropdown>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <!-- *ngIf="getEduDetailsArray.length != 1" -->
-                  <div class="d-flex justify-content-end align-items-center">
-                    <button class="deleteDivButton" (click)="clickDeleteButton('education_detail', i)">Delete &nbsp;<i class="fa-solid fa-trash trashIcon"></i></button>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="d-flex justify-content-center align-items-center m-3">
-              <button class="addMoreButton" *ngIf="getEduDetailsArray.length < eduDetailsLimit" (click)="clickAddMoreButton('education_detail')">Add More &nbsp;<i class="fa-solid fa-plus tickIcon"></i></button>
-            </div>
-          </div>
-          <div class="col-md-12">
-            <ng-container *ngIf="f['selected_exp_level'].value == 1 && !hidingHeaders.includes('project_details')">
-              <h4 class="p-mb-1 PageTitle">Enter Your Project Details</h4>
-              <div class="card mb-2" *ngFor="let project of getProjectDetailsArray.controls; let i = index" formArrayName="projectDetailsArray">
-                <div class="card-body">
-                  <div [formGroupName]="i">
-                    <div class="row">
-                      <div class="col-md-6">
-                        <label class="form-label labelFont">Project Name</label>
-                        <div class="form-group">
-                          <div class="mb-3">
-                            <input class="w-100" type="text" placeholder="Project Name" formControlName="project_name" pInputText />
-                            <div *ngIf="project.get('project_name')?.invalid && project.get('project_name')?.touched && submitted" class="text-danger text-xs">
-                              <div style="margin-left: 10px">Project Name required.</div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="col-md-6">
-                        <label class="form-label labelFont">project Time </label>
-                        <div class="row">
-                          <div class="col-md-6">
-                            <div class="form-group">
-                              <div class="mb-3">
-                                <input class="w-100" type="text" placeholder="Start Year" formControlName="project_start_name" pInputText />
-                                <div *ngIf="project.get('project_start_name')?.invalid && project.get('project_start_name')?.touched && submitted" class="text-danger text-xs">
-                                  <div style="margin-left: 10px">Start date required.</div>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                          <div class="col-md-6">
-                            <div class="form-group">
-                              <div class="mb-3">
-                                <input class="w-100" type="text" placeholder="End Year" formControlName="project_end_name" pInputText />
-                                <div *ngIf="project.get('project_end_name')?.invalid && project.get('project_end_name')?.touched && submitted" class="text-danger text-xs">
-                                  <div style="margin-left: 10px">End date required.</div>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="col-md-12">
-                        <div class="d-flex justify-content-between align-items-center">
-                          <label class="form-label labelFont">Project Description</label>
-                          <!-- <button class="deleteDivButton" (click) = "chatGPTIntegration('project_description', i)" style="background-color: #9bc329;">Generate &nbsp;<i class="fa-solid fa-line-columns trashIcon"  style="background-color: #9bc329;"></i></button> -->
-                        </div>
-                        <div class="form-group">
-                          <div class="mb-3">
-                            <p-editor formControlName="project_description" placeholder="About Job Description" [modules]="editorModules"></p-editor>
-                            <!-- <p-editor formControlName="project_description"
-                                                                      placeholder="Project Description"></p-editor> -->
-                            <div *ngIf="project.get('project_description')?.invalid && project.get('project_description')?.touched && submitted" class="text-danger text-xs">
-                              <div style="margin-left: 10px">Project Description required.</div>
                             </div>
                           </div>
                         </div>
                       </div>
                     </div>
-                  </div>
-                  <!-- *ngIf="getProjectDetailsArray.length != 1" -->
-                  <div class="d-flex justify-content-end align-items-center">
-                    <button class="deleteDivButton" (click)="clickDeleteButton('project_details', i)">Delete &nbsp;<i class="fa-solid fa-trash trashIcon"></i></button>
+                    <!-- *ngIf="getWorkExpArray.length != 1"  -->
+                    <div class="d-flex justify-content-end align-items-center">
+                      <button (click)="clickDeleteButton('work_experience', i)" class="deleteDivButton">Delete &nbsp;<i class="fa-solid fa-trash trashIcon"></i></button>
+                    </div>
                   </div>
                 </div>
               </div>
               <div class="d-flex justify-content-center align-items-center m-3">
-                <button *ngIf="getProjectDetailsArray.length < projectLimit" (click)="clickAddMoreButton('project_details')" class="addMoreButton">Add More &nbsp;<i class="fa-solid fa-plus tickIcon"></i></button>
+                <button class="addMoreButton" *ngIf="getWorkExpArray.length < wrkExpLimit" (click)="clickAddMoreButton('work_experience')">Add More &nbsp;<i class="fa-solid fa-plus tickIcon"></i></button>
               </div>
-            </ng-container>
-          </div>
-        </ng-container>
-        <ng-container *ngIf="moduleActiveIndex == 3">
-          <div class="col-md-12">
-            <h4 class="p-mb-1 PageTitle">Certifications (Optional)</h4>
-            <div class="card mb-2" *ngFor="let certificate of getCertificatesArray.controls; let i = index" formArrayName="certificatesArray">
-              <div class="card-body">
+            </div>
+          </ng-container>
+          <ng-container *ngIf="moduleActiveIndex == 2">
+            <div class="col-md-12">
+              <h4 class="p-mb-1 PageTitle">Enter Your Educational Details</h4>
+              <div class="col-md-12">
+                <div class="card mb-2" *ngFor="let eduDetail of getEduDetailsArray.controls; let i = index" formArrayName="EduDetailsArray">
+                  <div class="card-body">
+                    <div [formGroupName]="i">
+                      <div class="row">
+                        <div class="col-md-6">
+                          <div class="d-flex mb-3">
+                            <label class="form-label labelFont">College/School Name</label>
+                            <i class="fa-solid fa-circle-question m-2 uniprepColor" pTooltip="Please enter the name of your educational institution" tooltipPosition="top"></i>
+                          </div>
+                          <div class="form-group">
+                            <div class="mb-3">
+                              <input class="w-100" type="text" placeholder="College Name" formControlName="edu_college_name" pInputText />
+                              <div *ngIf="eduDetail.get('edu_college_name')?.invalid && eduDetail.get('edu_college_name')?.touched && submitted" class="text-danger text-xs">
+                                <div style="margin-left: 10px">College name is required.</div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-md-6">
+                          <div class="d-flex justify-content-between align-items-center">
+                            <div class="d-flex">
+                              <label class="form-label labelFont">Education Year </label>
+                              <i class="fa-solid fa-circle-question m-2 uniprepColor" pTooltip="Please enter the year you started and completed your degree" tooltipPosition="top"></i>
+                            </div>
+                            <div class="d-flex justify-content-between align-items-center">
+                              <input type="checkbox" formControlName="edu_still_pursuing" id="stillPursuing_{{ i }}" class="me-0" (change)="stillPursuing('edu_still_pursuing', i, $event)" style="transform: scale(0.4); cursor: pointer" />
+                              <label style="font-size: 10px; color: var(--uniprep-primary); font-weight: 600; cursor: pointer" for="stillPursuing_{{ i }}">Still Pursuing</label>
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col-md-6">
+                              <div class="form-group">
+                                <div class="mb-3">
+                                  <p-dropdown styleClass="w-100" [options]="yearsList" optionValue="year" placeholder="Start Year" (onChange)="eduYearChange(i)" filterBy="year" [filter]="true" formControlName="edu_start_year" optionLabel="year"></p-dropdown>
+                                  <!-- <input class="w-100" type="number"
+                                                                           placeholder="Start Year"
+                                                                           formControlName="edu_start_year" pInputText /> -->
+                                  <div *ngIf="eduDetail.get('edu_start_year')?.invalid && eduDetail.get('edu_start_year')?.touched && submitted" class="text-danger text-xs">
+                                    <div style="margin-left: 10px">Start Year required.</div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="col-md-6">
+                              <div class="form-group">
+                                <div class="mb-3">
+                                  <p-dropdown styleClass="w-100" [options]="yearsList" (onChange)="eduYearChange(i)" optionValue="year" placeholder="End Year" filterBy="year" [filter]="true" formControlName="edu_end_year" optionLabel="year" [disabled]="getEduDetailsArray.controls[i]?.get('edu_still_pursuing')?.value"></p-dropdown>
+                                  <div *ngIf="eduDetail.get('edu_end_year')?.invalid && eduDetail.get('edu_end_year')?.touched && submitted" class="text-danger text-xs">
+                                    <div style="margin-left: 10px">End Year required.</div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <div *ngIf="eduDetail.get('edu_end_year')?.touched" class="text-danger text-xs">
+                              <div *ngIf="eduDetail.get('edu_end_year')?.hasError('invalidEndDate')" style="margin-left: 10px">End date cannot be earlier than start date.</div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-md-6">
+                          <div class="d-flex">
+                            <label class="form-label labelFont">Degree</label>
+                            <i class="fa-solid fa-circle-question m-2 uniprepColor" pTooltip="Please mention the degree or qualification you obtained" tooltipPosition="top"></i>
+                          </div>
+                          <div class="form-group">
+                            <div class="mb-3">
+                              <input class="w-100" type="text" placeholder="Your Degree" formControlName="edu_degree" pInputText />
+                              <div *ngIf="eduDetail.get('edu_degree')?.invalid && eduDetail.get('edu_degree')?.touched && submitted" class="text-danger text-xs">
+                                <div style="margin-left: 10px">Degree required.</div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-md-6">
+                          <div class="d-flex">
+                            <label class="form-label labelFont">Location</label>
+                            <i class="fa-solid fa-circle-question m-2 uniprepColor" pTooltip="Specify the location of the educational institution" tooltipPosition="top"></i>
+                          </div>
+                          <div class="form-group">
+                            <div class="mb-3">
+                              <div class="input-wrapper">
+                                <input type="text" formControlName="edu_location" (input)="searchExpandEduLocation($event, i)" (focusout)="onFocusOut()" placeholder="Education Location" class="form-control job-input" />
+                                <ul class="dropdown-list">
+                                  <li *ngFor="let city of filteredExpeAndEduLocations[i]" (click)="selectLocation(city, 'userEduLocation', i)">{{ city.country_name }}</li>
+                                </ul>
+                                <div *ngIf="eduDetail.get('edu_location')?.invalid && eduDetail.get('edu_location')?.touched && submitted" class="text-danger text-xs">
+                                  <div style="margin-left: 10px">Location required.</div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-md-9">
+                          <div class="d-flex">
+                            <label class="form-label labelFont">Academic Score</label>
+                            <i class="fa-solid fa-circle-question m-2 uniprepColor" pTooltip="Please provide your GPA or percentage score" tooltipPosition="top"></i>
+                          </div>
+                          <div class="form-group">
+                            <div class="mb-3">
+                              <input class="w-100" type="number" placeholder="Achieved Score" formControlName="edu_percentage" pInputText />
+                              <div *ngIf="eduDetail.get('edu_percentage')?.invalid && eduDetail.get('edu_percentage')?.touched && submitted" class="text-danger text-xs">
+                                <div style="margin-left: 10px">Percentage required.</div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-md-3">
+                          <label class="form-label labelFont">&nbsp;</label>
+                          <div class="form-group">
+                            <div class="mb-3">
+                              <p-dropdown [options]="cgpaPercentage" styleClass="w-100" formControlName="edu_cgpa_percentage" optionLabel="value" optionValue="id"></p-dropdown>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <!-- *ngIf="getEduDetailsArray.length != 1" -->
+                    <div class="d-flex justify-content-end align-items-center">
+                      <button class="deleteDivButton" (click)="clickDeleteButton('education_detail', i)">Delete &nbsp;<i class="fa-solid fa-trash trashIcon"></i></button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="d-flex justify-content-center align-items-center m-3">
+                <button class="addMoreButton" *ngIf="getEduDetailsArray.length < eduDetailsLimit" (click)="clickAddMoreButton('education_detail')">Add More &nbsp;<i class="fa-solid fa-plus tickIcon"></i></button>
+              </div>
+            </div>
+            <div class="col-md-12">
+              <ng-container *ngIf="f['selected_exp_level'].value == 1 && !hidingHeaders.includes('project_details')">
+                <h4 class="p-mb-1 PageTitle">Enter Your Project Details</h4>
+                <div class="card mb-2" *ngFor="let project of getProjectDetailsArray.controls; let i = index" formArrayName="projectDetailsArray">
+                  <div class="card-body">
+                    <div [formGroupName]="i">
+                      <div class="row">
+                        <div class="col-md-6">
+                          <label class="form-label labelFont">Project Name</label>
+                          <div class="form-group">
+                            <div class="mb-3">
+                              <input class="w-100" type="text" placeholder="Project Name" formControlName="project_name" pInputText />
+                              <div *ngIf="project.get('project_name')?.invalid && project.get('project_name')?.touched && submitted" class="text-danger text-xs">
+                                <div style="margin-left: 10px">Project Name required.</div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-md-6">
+                          <label class="form-label labelFont">project Time </label>
+                          <div class="row">
+                            <div class="col-md-6">
+                              <div class="form-group">
+                                <div class="mb-3">
+                                  <input class="w-100" type="text" placeholder="Start Year" formControlName="project_start_name" pInputText />
+                                  <div *ngIf="project.get('project_start_name')?.invalid && project.get('project_start_name')?.touched && submitted" class="text-danger text-xs">
+                                    <div style="margin-left: 10px">Start date required.</div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="col-md-6">
+                              <div class="form-group">
+                                <div class="mb-3">
+                                  <input class="w-100" type="text" placeholder="End Year" formControlName="project_end_name" pInputText />
+                                  <div *ngIf="project.get('project_end_name')?.invalid && project.get('project_end_name')?.touched && submitted" class="text-danger text-xs">
+                                    <div style="margin-left: 10px">End date required.</div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-md-12">
+                          <div class="d-flex justify-content-between align-items-center">
+                            <label class="form-label labelFont">Project Description</label>
+                            <!-- <button class="deleteDivButton" (click) = "chatGPTIntegration('project_description', i)" style="background-color: #9bc329;">Generate &nbsp;<i class="fa-solid fa-line-columns trashIcon"  style="background-color: #9bc329;"></i></button> -->
+                          </div>
+                          <div class="form-group">
+                            <div class="mb-3">
+                              <p-editor formControlName="project_description" placeholder="About Job Description" [modules]="editorModules"></p-editor>
+                              <!-- <p-editor formControlName="project_description"
+                                                                      placeholder="Project Description"></p-editor> -->
+                              <div *ngIf="project.get('project_description')?.invalid && project.get('project_description')?.touched && submitted" class="text-danger text-xs">
+                                <div style="margin-left: 10px">Project Description required.</div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <!-- *ngIf="getProjectDetailsArray.length != 1" -->
+                    <div class="d-flex justify-content-end align-items-center">
+                      <button class="deleteDivButton" (click)="clickDeleteButton('project_details', i)">Delete &nbsp;<i class="fa-solid fa-trash trashIcon"></i></button>
+                    </div>
+                  </div>
+                </div>
+                <div class="d-flex justify-content-center align-items-center m-3">
+                  <button *ngIf="getProjectDetailsArray.length < projectLimit" (click)="clickAddMoreButton('project_details')" class="addMoreButton">Add More &nbsp;<i class="fa-solid fa-plus tickIcon"></i></button>
+                </div>
+              </ng-container>
+            </div>
+          </ng-container>
+          <ng-container *ngIf="moduleActiveIndex == 3">
+            <div class="col-md-12">
+              <h4 class="p-mb-1 PageTitle">Certifications (Optional)</h4>
+              <div class="card mb-2" *ngFor="let certificate of getCertificatesArray.controls; let i = index" formArrayName="certificatesArray">
+                <div class="card-body">
+                  <div [formGroupName]="i">
+                    <div class="row">
+                      <div class="col-md-6">
+                        <div class="d-flex">
+                          <label class="form-label labelFont">Certificate Name</label>
+                          <i class="fa-solid fa-circle-question m-2 uniprepColor" pTooltip="Please enter the name of the certification you received" tooltipPosition="top"></i>
+                        </div>
+                        <div class="form-group">
+                          <div class="mb-3">
+                            <input class="w-100" type="text" placeholder="Name" formControlName="certificate_name" pInputText />
+                            <div *ngIf="certificate.get('certificate_name')?.invalid && certificate.get('certificate_name')?.touched && submitted" class="text-danger text-xs">
+                              <div style="margin-left: 10px">certificate Name required.</div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="d-flex">
+                          <label class="form-label labelFont">Certificate Issued</label>
+                          <i class="fa-solid fa-circle-question m-2 uniprepColor" pTooltip="Please mention the organization or authority that issued the certification" tooltipPosition="top"></i>
+                        </div>
+                        <div class="form-group">
+                          <div class="mb-3">
+                            <input class="w-100" type="text" placeholder="Issued Organization" formControlName="certificate_issued" pInputText />
+                            <div *ngIf="certificate.get('certificate_issued')?.invalid && certificate.get('certificate_issued')?.touched && submitted" class="text-danger text-xs">
+                              <div style="margin-left: 10px">certificate issued required.</div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-6">
+                        <div class="d-flex">
+                          <label class="form-label labelFont">Certificate ID (Optional)</label>
+                          <i class="fa-solid fa-circle-question m-2 uniprepColor" pTooltip="Please enter the unique ID or code associated with the certificate" tooltipPosition="top"></i>
+                        </div>
+                        <div class="form-group">
+                          <div class="mb-3">
+                            <input class="w-100" type="text" placeholder="Certificate ID" formControlName="certificate_id" pInputText />
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="d-flex">
+                          <label class="form-label labelFont">Certificate Link (Optional)</label>
+                          <i class="fa-solid fa-circle-question m-2 uniprepColor" pTooltip="Please provide a URL where employers can verify your certification" tooltipPosition="top"></i>
+                        </div>
+                        <div class="form-group">
+                          <div class="mb-3">
+                            <input class="w-100" type="text" placeholder="certificate Link" formControlName="certicate_link" pInputText />
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="d-flex justify-content-end align-items-center">
+                    <button class="deleteDivButton" (click)="clickDeleteButton('certificate', i)">Delete &nbsp;<i class="fa-solid fa-trash trashIcon"></i></button>
+                  </div>
+                </div>
+              </div>
+              <div class="d-flex justify-content-center align-items-center m-3">
+                <button class="addMoreButton" *ngIf="getCertificatesArray.length < certificateLimit" (click)="clickAddMoreButton('certificate')">Add More &nbsp;<i class="fa-solid fa-plus tickIcon"></i></button>
+              </div>
+            </div>
+            <div class="col-md-12">
+              <div class="d-flex">
+                <h4 class="p-mb-1 PageTitle">Achievements (Optional)</h4>
+                <i class="fa-solid fa-circle-question m-2 uniprepColor" pTooltip="Please list any notable awards, honors, or accomplishments" tooltipPosition="top"></i>
+              </div>
+              <div *ngFor="let extra of getExtraCurricularArray.controls; let i = index" formArrayName="extraCurricularArray">
+                <div [formGroupName]="i">
+                  <div class="row">
+                    <div class="col-md-10">
+                      <div class="form-group">
+                        <div class="mb-3">
+                          <input class="w-100" type="text" placeholder="Achievements" formControlName="extra_curricular_activites" pInputText />
+                          <div *ngIf="extra.get('extra_curricular_activites')?.invalid && extra.get('extra_curricular_activites')?.touched && submitted" class="text-danger text-xs">
+                            <div style="margin-left: 10px">Achievements required.</div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-2 text-end">
+                      <button class="deleteDivButton w-100" (click)="clickDeleteButton('extra_curricular', i)">Delete &nbsp;<i class="fa-solid fa-trash trashIcon"></i></button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="d-flex justify-content-center align-items-center m-3">
+                <button class="addMoreButton" *ngIf="getExtraCurricularArray.length < extraCurriLimit" (click)="clickAddMoreButton('extra_curricular')">Add More &nbsp;<i class="fa-solid fa-plus tickIcon"></i></button>
+              </div>
+            </div>
+          </ng-container>
+          <ng-container *ngIf="moduleActiveIndex == 4">
+            <div class="col-md-12">
+              <div class="d-flex">
+                <h4 class="p-mb-1 PageTitle">Your Skills</h4>
+                <i class="fa-solid fa-circle-question m-2 uniprepColor" pTooltip="We recommend you enter at least five relevant skills" tooltipPosition="top"></i>
+              </div>
+              <div *ngFor="let skill of getSkillsArray.controls; let i = index" formArrayName="skillsArray">
                 <div [formGroupName]="i">
                   <div class="row">
                     <div class="col-md-6">
-                      <div class="d-flex">
-                        <label class="form-label labelFont">Certificate Name</label>
-                        <i class="fa-solid fa-circle-question m-2 uniprepColor" pTooltip="Please enter the name of the certification you received" tooltipPosition="top"></i>
-                      </div>
                       <div class="form-group">
                         <div class="mb-3">
-                          <input class="w-100" type="text" placeholder="Name" formControlName="certificate_name" pInputText />
-                          <div *ngIf="certificate.get('certificate_name')?.invalid && certificate.get('certificate_name')?.touched && submitted" class="text-danger text-xs">
-                            <div style="margin-left: 10px">certificate Name required.</div>
+                          <p-dropdown [options]="skillsLists" placeholder="Select Skill" styleClass="w-100" [filter]="true" [appendTo]="'body'" [filterBy]="'skills'" formControlName="skills" optionLabel="skills" optionValue="skills" (onChange)="onSkillChange()"></p-dropdown>
+
+                          <div *ngIf="skill.get('skills')?.touched" class="text-danger text-xs">
+                            <div *ngIf="skill.get('skills')?.hasError('duplicate')" style="margin-left: 10px">This skill has already been selected.</div>
+                            <div *ngIf="!skill.get('skills')?.hasError('duplicate') && skill.get('skills')?.hasError('required')" style="margin-left: 10px">Skill Name required.</div>
                           </div>
                         </div>
                       </div>
                     </div>
                     <div class="col-md-6">
-                      <div class="d-flex">
-                        <label class="form-label labelFont">Certificate Issued</label>
-                        <i class="fa-solid fa-circle-question m-2 uniprepColor" pTooltip="Please mention the organization or authority that issued the certification" tooltipPosition="top"></i>
-                      </div>
-                      <div class="form-group">
-                        <div class="mb-3">
-                          <input class="w-100" type="text" placeholder="Issued Organization" formControlName="certificate_issued" pInputText />
-                          <div *ngIf="certificate.get('certificate_issued')?.invalid && certificate.get('certificate_issued')?.touched && submitted" class="text-danger text-xs">
-                            <div style="margin-left: 10px">certificate issued required.</div>
+                      <div class="row">
+                        <div class="col">
+                          <div class="form-group">
+                            <div class="mb-3">
+                              <p-dropdown [options]="skillProficiency" styleClass="w-100" (onChange)="SortBasedOnProficiency('skills')" placeholder="Proficiency Level" formControlName="skills_proficiency" optionLabel="value" optionValue="id"></p-dropdown>
+                              <div *ngIf="skill.get('skills_proficiency')?.invalid && skill.get('skills_proficiency')?.touched" class="text-danger text-xs">
+                                <div style="margin-left: 10px">Proficiency Level required.</div>
+                              </div>
+                            </div>
                           </div>
+                        </div>
+                        <div class="col-md-4" *ngIf="getSkillsArray.length > techSkillLimit">
+                          <button (click)="clickDeleteButton('skills', i)" class="deleteDivButton">Delete &nbsp;<i class="fa-solid fa-trash trashIcon"></i></button>
                         </div>
                       </div>
                     </div>
                   </div>
+                </div>
+              </div>
+              <div class="d-flex justify-content-center align-items-center m-3">
+                <button class="addMoreButton" *ngIf="getSkillsArray.length < 5" (click)="clickAddMoreButton('skills')">Add More &nbsp;<i class="fa-solid fa-plus tickIcon"></i></button>
+              </div>
+            </div>
+            <div class="col-md-12">
+              <div class="d-flex">
+                <h4 class="p-mb-1 PageTitle">Languages Known</h4>
+                <i class="fa-solid fa-circle-question m-2 uniprepColor" pTooltip="Please list the languages you are proficient in" tooltipPosition="top"></i>
+              </div>
+              <div *ngFor="let language of getLanguagesKnownArray.controls; let i = index" formArrayName="languagesKnownArray">
+                <div [formGroupName]="i">
                   <div class="row">
                     <div class="col-md-6">
-                      <div class="d-flex">
-                        <label class="form-label labelFont">Certificate ID (Optional)</label>
-                        <i class="fa-solid fa-circle-question m-2 uniprepColor" pTooltip="Please enter the unique ID or code associated with the certificate" tooltipPosition="top"></i>
-                      </div>
                       <div class="form-group">
                         <div class="mb-3">
-                          <input class="w-100" type="text" placeholder="Certificate ID" formControlName="certificate_id" pInputText />
+                          <p-dropdown [options]="languageLists" placeholder="Select Language" styleClass="w-100" [filter]="true" [filterBy]="'value'" formControlName="language" optionLabel="value" optionValue="value" (onChange)="onLanguageChange()"></p-dropdown>
+                          <div *ngIf="language.get('language')?.touched" class="text-danger text-xs">
+                            <div *ngIf="language.get('language')?.hasError('duplicate')" style="margin-left: 10px">This language has already been selected.</div>
+                            <div *ngIf="!language.get('language')?.hasError('duplicate') && language.get('language')?.hasError('required')" style="margin-left: 10px">Language Name required.</div>
+                          </div>
                         </div>
                       </div>
                     </div>
                     <div class="col-md-6">
-                      <div class="d-flex">
-                        <label class="form-label labelFont">Certificate Link (Optional)</label>
-                        <i class="fa-solid fa-circle-question m-2 uniprepColor" pTooltip="Please provide a URL where employers can verify your certification" tooltipPosition="top"></i>
-                      </div>
-                      <div class="form-group">
-                        <div class="mb-3">
-                          <input class="w-100" type="text" placeholder="certificate Link" formControlName="certicate_link" pInputText />
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="d-flex justify-content-end align-items-center">
-                  <button class="deleteDivButton" (click)="clickDeleteButton('certificate', i)">Delete &nbsp;<i class="fa-solid fa-trash trashIcon"></i></button>
-                </div>
-              </div>
-            </div>
-            <div class="d-flex justify-content-center align-items-center m-3">
-              <button class="addMoreButton" *ngIf="getCertificatesArray.length < certificateLimit" (click)="clickAddMoreButton('certificate')">Add More &nbsp;<i class="fa-solid fa-plus tickIcon"></i></button>
-            </div>
-          </div>
-          <div class="col-md-12">
-            <div class="d-flex">
-              <h4 class="p-mb-1 PageTitle">Achievements (Optional)</h4>
-              <i class="fa-solid fa-circle-question m-2 uniprepColor" pTooltip="Please list any notable awards, honors, or accomplishments" tooltipPosition="top"></i>
-            </div>
-            <div *ngFor="let extra of getExtraCurricularArray.controls; let i = index" formArrayName="extraCurricularArray">
-              <div [formGroupName]="i">
-                <div class="row">
-                  <div class="col-md-10">
-                    <div class="form-group">
-                      <div class="mb-3">
-                        <input class="w-100" type="text" placeholder="Achievements" formControlName="extra_curricular_activites" pInputText />
-                        <div *ngIf="extra.get('extra_curricular_activites')?.invalid && extra.get('extra_curricular_activites')?.touched && submitted" class="text-danger text-xs">
-                          <div style="margin-left: 10px">Achievements required.</div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-md-2 text-end">
-                    <button class="deleteDivButton w-100" (click)="clickDeleteButton('extra_curricular', i)">Delete &nbsp;<i class="fa-solid fa-trash trashIcon"></i></button>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="d-flex justify-content-center align-items-center m-3">
-              <button class="addMoreButton" *ngIf="getExtraCurricularArray.length < extraCurriLimit" (click)="clickAddMoreButton('extra_curricular')">Add More &nbsp;<i class="fa-solid fa-plus tickIcon"></i></button>
-            </div>
-          </div>
-        </ng-container>
-        <ng-container *ngIf="moduleActiveIndex == 4">
-          <div class="col-md-12">
-            <div class="d-flex">
-              <h4 class="p-mb-1 PageTitle">Your Skills</h4>
-              <i class="fa-solid fa-circle-question m-2 uniprepColor" pTooltip="We recommend you enter at least five relevant skills" tooltipPosition="top"></i>
-            </div>
-            <div *ngFor="let skill of getSkillsArray.controls; let i = index" formArrayName="skillsArray">
-              <div [formGroupName]="i">
-                <div class="row">
-                  <div class="col-md-6">
-                    <div class="form-group">
-                      <div class="mb-3">
-                        <p-dropdown [options]="skillsLists" placeholder="Select Skill" styleClass="w-100" [filter]="true" [appendTo]="'body'" [filterBy]="'skills'" formControlName="skills" optionLabel="skills" optionValue="skills" (onChange)="onSkillChange()"></p-dropdown>
-
-                        <div *ngIf="skill.get('skills')?.touched" class="text-danger text-xs">
-                          <div *ngIf="skill.get('skills')?.hasError('duplicate')" style="margin-left: 10px">This skill has already been selected.</div>
-                          <div *ngIf="!skill.get('skills')?.hasError('duplicate') && skill.get('skills')?.hasError('required')" style="margin-left: 10px">Skill Name required.</div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-md-6">
-                    <div class="row">
-                      <div class="col">
-                        <div class="form-group">
-                          <div class="mb-3">
-                            <p-dropdown [options]="skillProficiency" styleClass="w-100" (onChange)="SortBasedOnProficiency('skills')" placeholder="Proficiency Level" formControlName="skills_proficiency" optionLabel="value" optionValue="id"></p-dropdown>
-                            <div *ngIf="skill.get('skills_proficiency')?.invalid && skill.get('skills_proficiency')?.touched" class="text-danger text-xs">
-                              <div style="margin-left: 10px">Proficiency Level required.</div>
+                      <div class="row">
+                        <div class="col">
+                          <div class="form-group">
+                            <div class="mb-3">
+                              <p-dropdown [options]="languageProficiency" (onChange)="SortBasedOnProficiency('language')" placeholder="Proficiency Level" styleClass="w-100" formControlName="lang_proficiency" optionLabel="value" optionValue="id"></p-dropdown>
+                              <div *ngIf="language.get('lang_proficiency')?.invalid && language.get('lang_proficiency')?.touched && submitted" class="text-danger text-xs">
+                                <div style="margin-left: 10px">Language Proficiency required.</div>
+                              </div>
                             </div>
                           </div>
                         </div>
-                      </div>
-                      <div class="col-md-4" *ngIf="getSkillsArray.length > techSkillLimit">
-                        <button (click)="clickDeleteButton('skills', i)" class="deleteDivButton">Delete &nbsp;<i class="fa-solid fa-trash trashIcon"></i></button>
+                        <div class="col-md-4" *ngIf="getLanguagesKnownArray.length > languageLimit">
+                          <button class="deleteDivButton" (click)="clickDeleteButton('language_known', i)">
+                            Delete &nbsp;
+                            <i class="fa-solid fa-trash trashIcon"></i>
+                          </button>
+                        </div>
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
-            </div>
-            <div class="d-flex justify-content-center align-items-center m-3">
-              <button class="addMoreButton" *ngIf="getSkillsArray.length < 5" (click)="clickAddMoreButton('skills')">Add More &nbsp;<i class="fa-solid fa-plus tickIcon"></i></button>
-            </div>
-          </div>
-          <div class="col-md-12">
-            <div class="d-flex">
-              <h4 class="p-mb-1 PageTitle">Languages Known</h4>
-              <i class="fa-solid fa-circle-question m-2 uniprepColor" pTooltip="Please list the languages you are proficient in" tooltipPosition="top"></i>
-            </div>
-            <div *ngFor="let language of getLanguagesKnownArray.controls; let i = index" formArrayName="languagesKnownArray">
-              <div [formGroupName]="i">
-                <div class="row">
-                  <div class="col-md-6">
-                    <div class="form-group">
-                      <div class="mb-3">
-                        <p-dropdown [options]="languageLists" placeholder="Select Language" styleClass="w-100" [filter]="true" [filterBy]="'value'" formControlName="language" optionLabel="value" optionValue="value" (onChange)="onLanguageChange()"></p-dropdown>
-                        <div *ngIf="language.get('language')?.touched" class="text-danger text-xs">
-                          <div *ngIf="language.get('language')?.hasError('duplicate')" style="margin-left: 10px">This language has already been selected.</div>
-                          <div *ngIf="!language.get('language')?.hasError('duplicate') && language.get('language')?.hasError('required')" style="margin-left: 10px">Language Name required.</div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-md-6">
-                    <div class="row">
-                      <div class="col">
-                        <div class="form-group">
-                          <div class="mb-3">
-                            <p-dropdown [options]="languageProficiency" (onChange)="SortBasedOnProficiency('language')" placeholder="Proficiency Level" styleClass="w-100" formControlName="lang_proficiency" optionLabel="value" optionValue="id"></p-dropdown>
-                            <div *ngIf="language.get('lang_proficiency')?.invalid && language.get('lang_proficiency')?.touched && submitted" class="text-danger text-xs">
-                              <div style="margin-left: 10px">Language Proficiency required.</div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="col-md-4" *ngIf="getLanguagesKnownArray.length > languageLimit">
-                        <button class="deleteDivButton"  (click)="clickDeleteButton('language_known', i)">
-                          Delete &nbsp;
-                          <i class="fa-solid fa-trash trashIcon"></i>
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+              <div class="d-flex justify-content-center align-items-center m-3">
+                <button class="addMoreButton" *ngIf="getLanguagesKnownArray.length < 5" (click)="clickAddMoreButton('language_known')">Add More &nbsp;<i class="fa-solid fa-plus tickIcon"></i></button>
               </div>
             </div>
-            <div class="d-flex justify-content-center align-items-center m-3">
-              <button class="addMoreButton" *ngIf="getLanguagesKnownArray.length < 5" (click)="clickAddMoreButton('language_known')">Add More &nbsp;<i class="fa-solid fa-plus tickIcon"></i></button>
-            </div>
-          </div>
-          <!-- <div class="col-md-12">
+            <!-- <div class="col-md-12">
                             <h4 class="p-mb-1 PageTitle">Your Hobbies (Optional)</h4>
                             <div *ngFor="let hobby of getHobbiesArray.controls; let i = index"
                                 formArrayName="hobbiesArray">
@@ -882,14 +883,21 @@
                                         class="fa-solid fa-plus tickIcon"></i></button>
                             </div>
                         </div> -->
-        </ng-container>
-        <!-- [ngStyle]="{ 'visibility': moduleActiveIndex === 0 ? 'hidden' : 'visible' }" -->
-        <div class="d-flex space-between" style="justify-content: space-between">
-          <button pButton type="button" (click)="fieldPreviousButton()" class="text-white p-ripple p-button-rounded p-button-info-prev p-button p-component p-2"><i class="fa fa-arrow-left exhausted-plan-icon-prev"></i> Previous</button>
-          <button pButton type="button" (click)="resumeFormSubmit()" *ngIf="moduleActiveIndex != 4" class="text-white p-ripple p-button-rounded p-button-info-next p-button p-component p-2">Next<i class="fa fa-arrow-right exhausted-plan-icon-next"></i></button>
-          <button pButton type="button" (click)="resumeFormSubmit()" *ngIf="moduleActiveIndex == 4" class="text-white p-ripple p-button-rounded p-button-info-next p-button p-component p-2">Generate <i class="fa-duotone fa-solid fa-check exhausted-plan-icon-next"></i></button>
-        </div>
-      </form>
+          </ng-container>
+          <!-- [ngStyle]="{ 'visibility': moduleActiveIndex === 0 ? 'hidden' : 'visible' }" -->
+        </form>
+      </div>
+      <div class="d-flex justify-content-between">
+        <button pButton type="button" (click)="fieldPreviousButton()" class="btn btn-primary btn-rounded p-1 pe-4">
+          <span class="btn-icon px-2 py-2"><i class="fa-solid fa-arrow-left"></i></span> <span class="ms-2">Previous</span>
+        </button>
+        <button pButton type="button" (click)="resumeFormSubmit()" *ngIf="moduleActiveIndex != 4" class="btn btn-primary btn-rounded p-1 ps-4">
+          <span class="me-2">Next</span><span class="btn-icon px-2 py-2"><i class="fa-solid fa-arrow-right"></i></span>
+        </button>
+        <button pButton type="button" (click)="resumeFormSubmit()" *ngIf="moduleActiveIndex == 4" class="btn btn-success btn-rounded p-1 ps-4">
+          <span class="me-2">Generate</span><span class="btn-icon px-2 py-2"><i class="fa-solid fa-check"></i></span>
+        </button>
+      </div>
     </div>
     <div class="col-md-6 h-100">
       <div class="card h-100">
