@@ -1330,14 +1330,14 @@
     </div>
   </div>
   <div class="h-100" id="cv-preview-container" [ngClass]="{ previewBodyForm: !fullScreenVisible, previewBodyFormFull: fullScreenVisible }" *ngIf="selectedResumeLevel == 'Creative'">
-    <div class="container-fluid">
+    <div class="container-fluid h-100 overflow-y-auto d-flex flex-column">
       <div class="row">
         <div class="col-12 text-left" style="background-color: black; padding: 20px 10px">
           <h1 class="userName upperCase" [ngStyle]="{ color: selectedThemeColor }" style="margin: 0px">{{ f["user_name"].value }}</h1>
           <p class="profession upperCase" style="color: white">{{ f["user_job_title"].value }}</p>
         </div>
       </div>
-      <div class="row">
+      <div class="row flex-fill">
         <div class="col-md-7">
           <!-- [ngStyle]="{ height: selectedresume == 1 ? '75px' : null }" -->
           <div style="height: 75px">
