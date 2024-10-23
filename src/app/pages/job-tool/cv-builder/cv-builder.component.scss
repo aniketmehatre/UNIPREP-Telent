@@ -267,6 +267,13 @@
 		padding-left: 0px;
     font-size: 1em;
 	}
+  ul
+  {
+    padding-left: 2em !important;
+  }
+  .small-text {
+    font-size: 0.9em;
+  }
 }
 .previewBodyFormFull {
 	overflow: hidden;
@@ -308,6 +315,13 @@
 		padding-left: 0px;
     font-size: 1em;
 	}
+  ul
+  {
+    padding-left: 2em !important;
+  }
+  .small-text {
+    font-size: 0.9em;
+  }
 }
 
 .cvPreview {
@@ -718,9 +732,6 @@ body {
 	white-space: nowrap;
 }
 
-.small-text {
-	font-size: xx-small !important;
-}
 .zeroMarginPadding {
 	margin: 0px !important;
 	padding: 0px !important;

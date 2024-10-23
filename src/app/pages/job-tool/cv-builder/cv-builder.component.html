@@ -1029,7 +1029,7 @@
 <ng-template #sharedContent>
 	<div class="h-100" id="cv-preview-container" [ngClass]="{ previewBodyForm: !fullScreenVisible, previewBodyFormFull: fullScreenVisible }" *ngIf="selectedResumeLevel == 'Modern'">
 		<div class="container-fluid d-flex flex-column h-100">
-			<div class="row pt-3 pb-2">
+			<div class="row pt-3 pb-4">
 				<div class="col-12">
 					<h1 class="mb-0 d-flex gap-2">
 						{{ userNameSplit.firstWord }}
@@ -1078,92 +1078,108 @@
 						</div>
 						<div class="col-12 mb-4" [ngClass]="{ langugageHeight: !filledFields.includes('language_known') }" *ngIf="!hidingHeaders.includes('language_known')">
 							<h5 class="fw-semibold px-2 py-2 text-capitalize" [ngStyle]="{ 'background-color': selectedThemeColor, color: selectedFontColor }">language</h5>
-              <div class="d-flex gap-0 flex-column">
-                <div class="languageItem fw-semibold" *ngFor="let lang of getLanguagesKnownArray.controls">
-                  <p>{{ lang.value.language }}</p>
-                  <ng-container [ngSwitch]="lang.value.lang_proficiency">
-                    <img *ngSwitchCase="'Beginner'" src="../../../uniprep-assets/resume-icons/STARS-002.svg" />
-                    <img *ngSwitchCase="'Fluent'" src="../../../uniprep-assets/resume-icons/STARS-003.svg" />
-                    <img *ngSwitchCase="'Proficient'" src="../../../uniprep-assets/resume-icons/STARS-004.svg" />
-                    <img *ngSwitchCase="'Native'" src="../../../uniprep-assets/resume-icons/STARS-005.svg" />
-                  </ng-container>
-                </div>
-              </div>
+							<div class="d-flex gap-0 flex-column">
+								<div class="languageItem fw-semibold" *ngFor="let lang of getLanguagesKnownArray.controls">
+									<p>{{ lang.value.language }}</p>
+									<ng-container [ngSwitch]="lang.value.lang_proficiency">
+										<img *ngSwitchCase="'Beginner'" src="../../../uniprep-assets/resume-icons/STARS-002.svg" />
+										<img *ngSwitchCase="'Fluent'" src="../../../uniprep-assets/resume-icons/STARS-003.svg" />
+										<img *ngSwitchCase="'Proficient'" src="../../../uniprep-assets/resume-icons/STARS-004.svg" />
+										<img *ngSwitchCase="'Native'" src="../../../uniprep-assets/resume-icons/STARS-005.svg" />
+									</ng-container>
+								</div>
+							</div>
 						</div>
-            <div class="col-12 mb-4"[ngClass]="{ certificationHeight: !filledFields.includes('certificate') }" *ngIf="!hidingHeaders.includes('certificate')">
-              <h5 class="fw-semibold px-2 py-2 text-capitalize" [ngStyle]="{ 'background-color': selectedThemeColor, color: selectedFontColor }">certifications</h5>
-              <div class="d-flex gap-0 flex-column">
-                <div class="certificationItem" *ngFor="let certificate of getCertificatesArray.controls">
-                <p class="fw-bold">{{ certificate.value.certificate_name }}</p>
-                <p>{{ certificate.value.certificate_issued }}</p>
-                <p>{{ certificate.value.certificate_id ? "ID:" + certificate.value.certificate_id : "" }}</p>
-                <!-- <a [href]="certificate.value.certificate_link" target="_blank">{{ certificate.value.certificate_link }}</a> -->
-              </div>
-              </div>
-              
-            </div>
-					</div>
-
-					<div class="content" [ngClass]="{ skillsHeight: !filledFields.includes('skills') }" *ngIf="!hidingHeaders.includes('skills')">
-						<h5 class="fw-semibold px-2 py-2 text-capitalize" [ngStyle]="{ 'background-color': selectedThemeColor, color: selectedFontColor }">skills</h5>
-						<div class="technicalSkillItem" *ngFor="let skill of getSkillsArray.controls">
-							<p>{{ skill.value.skills }}</p>
-							<ng-container [ngSwitch]="skill.value.skills_proficiency">
-								<img *ngSwitchCase="'Basic'" src="../../../uniprep-assets/resume-icons/STARS-002.svg" />
-								<img *ngSwitchCase="'Intermediate'" src="../../../uniprep-assets/resume-icons/STARS-003.svg" />
-								<img *ngSwitchCase="'Advance'" src="../../../uniprep-assets/resume-icons/STARS-005.svg" />
-							</ng-container>
+						<div class="col-12 mb-4" [ngClass]="{ certificationHeight: !filledFields.includes('certificate') }" *ngIf="!hidingHeaders.includes('certificate')">
+							<h5 class="fw-semibold px-2 py-2 text-capitalize" [ngStyle]="{ 'background-color': selectedThemeColor, color: selectedFontColor }">certifications</h5>
+							<div class="d-flex gap-0 flex-column">
+								<div class="certificationItem" *ngFor="let certificate of getCertificatesArray.controls">
+									<p class="fw-bold">{{ certificate.value.certificate_name }}</p>
+									<p>{{ certificate.value.certificate_issued }}</p>
+									<p>{{ certificate.value.certificate_id ? "ID:" + certificate.value.certificate_id : "" }}</p>
+									<!-- <a [href]="certificate.value.certificate_link" target="_blank">{{ certificate.value.certificate_link }}</a> -->
+								</div>
+							</div>
 						</div>
-					</div>
-					<div class="content" [ngClass]="{ extraCurricularHeight: !filledFields.includes('extra_curricular') }" *ngIf="!hidingHeaders.includes('extra_curricular')">
-						<p class="fw-semibold px-2 py-2 text-capitalize" [ngStyle]="{ 'background-color': selectedThemeColor, color: selectedFontColor }">Achievements</p>
-						<div class="technicalSkillItem" *ngFor="let extra of getExtraCurricularArray.controls">
-							<p>{{ extra.value.extra_curricular_activites }}</p>
+						<div class="col-12 mb-4" [ngClass]="{ skillsHeight: !filledFields.includes('skills') }" *ngIf="!hidingHeaders.includes('skills')">
+							<h5 class="fw-semibold px-2 py-2 text-capitalize" [ngStyle]="{ 'background-color': selectedThemeColor, color: selectedFontColor }">skills</h5>
+							<div class="d-flex gap-0 flex-column">
+								<div class="technicalSkillItem fw-semibold" *ngFor="let skill of getSkillsArray.controls">
+									<p>{{ skill.value.skills }}</p>
+									<ng-container [ngSwitch]="skill.value.skills_proficiency">
+										<img *ngSwitchCase="'Basic'" src="../../../uniprep-assets/resume-icons/STARS-002.svg" />
+										<img *ngSwitchCase="'Intermediate'" src="../../../uniprep-assets/resume-icons/STARS-003.svg" />
+										<img *ngSwitchCase="'Advance'" src="../../../uniprep-assets/resume-icons/STARS-005.svg" />
+									</ng-container>
+								</div>
+							</div>
+						</div>
+						<div class="col-12 mb-4" [ngClass]="{ extraCurricularHeight: !filledFields.includes('extra_curricular') }" *ngIf="!hidingHeaders.includes('extra_curricular')">
+							<p class="fw-semibold px-2 py-2 text-capitalize" [ngStyle]="{ 'background-color': selectedThemeColor, color: selectedFontColor }">Achievements</p>
+							<div class="technicalSkillItem fw-semibold" *ngFor="let extra of getExtraCurricularArray.controls">
+								<p>{{ extra.value.extra_curricular_activites }}</p>
+							</div>
 						</div>
 					</div>
 				</div>
+
 				<div class="col-7">
-					<div class="aboutMe aboutMeHeight">
-						<h5 class="fw-semibold px-2 py-2 text-capitalize" [ngStyle]="{ 'background-color': selectedThemeColor, color: selectedFontColor }">about me</h5>
-						<p class="small-text" [innerHTML]="f['user_summary'].value"></p>
+					<div class="row">
+						<div class="col-12 mb-4">
+							<h5 class="fw-semibold px-2 py-2 text-capitalize" [ngStyle]="{ 'background-color': selectedThemeColor, color: selectedFontColor }">about me</h5>
+							<p [innerHTML]="f['user_summary'].value"></p>
+						</div>
+
+						<div class="col-12 mb-2" [ngClass]="{ experienceHeight: !filledFields.includes('work_experience') }" *ngIf="!hidingHeaders.includes('work_experience')">
+							<h5 class="fw-semibold px-2 py-2 text-capitalize" [ngStyle]="{ 'background-color': selectedThemeColor, color: selectedFontColor }">experience</h5>
+							<div class="experienceItem" *ngFor="let exp of getWorkExpArray.controls">
+								<div class="row">
+									<div class="col-4">
+										<p class="fw-bold text-uppercase">{{ exp.value.work_org_name }}</p>
+										<p class="fw-semibold">{{ exp.value.work_location }}</p>
+										<p>{{ exp.value.work_start_year }} {{ exp.value.work_start_month }} {{ exp.value.work_end_year ? " - " + exp.value.work_end_year + " " + exp.value.work_end_month : "" }}</p>
+									</div>
+									<div class="col-8">
+										<p class="text-uppercase fw-semibold">{{ exp.value.work_designation }} {{ exp.value.work_type ? " - " + exp.value.work_type : "" }}</p>
+										<p class="small-text" [innerHTML]="exp.value.work_job_description"></p>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-12 mb-4" [ngClass]="{ langugageHeight: !filledFields.includes('language_known') }" *ngIf="!hidingHeaders.includes('education_detail')">
+							<h5 class="fw-semibold px-2 py-2 text-capitalize" [ngStyle]="{ 'background-color': selectedThemeColor, color: selectedFontColor }">education</h5>
+							<div class="educationItem" *ngFor="let edu of getEduDetailsArray.controls">
+								<div class="row">
+									<div class="col-3">
+										<p>{{ edu.value.edu_start_year }} {{ edu.value.edu_end_year ? " - " + edu.value.edu_end_year : "" }}</p>
+									</div>
+									<div class="col-9">
+										<p class="text-uppercase fw-medium">{{ edu.value.edu_degree }}</p>
+										<p>{{ edu.value.edu_college_name }}</p>
+										<p>{{ edu.value.edu_location }}</p>
+										<p>{{ edu.value.edu_percentage }} {{ edu.value.edu_cgpa_percentage }}</p>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-12 mb-4" [ngClass]="{ projectHeight: !filledFields.includes('project_details') }" *ngIf="f['selected_exp_level'].value == 1 && !hidingHeaders.includes('project_details')">
+							<p class="fw-semibold px-2 py-2 text-capitalize" [ngStyle]="{ 'background-color': selectedThemeColor, color: selectedFontColor }">projects</p>
+							<div class="projectItem" *ngFor="let project of getProjectDetailsArray.controls">
+								<div class="row">
+									<div class="col-3">
+										<p class="fw-bold">{{ project.value.project_start_name }} {{ project.value.project_end_name ? " - " + project.value.project_end_name : "" }}</p>
+									</div>
+									<div class="col-9">
+										<p class="text-uppercase fw-semibold">{{ project.value.project_name }}</p>
+										<p class="small-text" [innerHTML]="project.value.project_description"></p>
+									</div>
+								</div>
+							</div>
+						</div>
 					</div>
 					<!-- [ngClass]="f['selected_exp_level'].value == 1 ? 'fresherHeight' : 'experienceHeight'" -->
-					<div class="content" [ngClass]="{ experienceHeight: !filledFields.includes('work_experience') }" *ngIf="!hidingHeaders.includes('work_experience')">
-						<h5 class="fw-semibold px-2 py-2 text-capitalize" [ngStyle]="{ 'background-color': selectedThemeColor, color: selectedFontColor }">experience</h5>
-						<div class="experienceItem" *ngFor="let exp of getWorkExpArray.controls">
-							<div class="d-flex">
-								<div style="width: 40%">
-									<p class="fw-bold">{{ exp.value.work_start_year }} {{ exp.value.work_start_month }} {{ exp.value.work_end_year ? " - " + exp.value.work_end_year + " " + exp.value.work_end_month : "" }}</p>
-								</div>
-								<div style="width: 60%">
-									<p class="text-uppercase fw-semibold">{{ exp.value.work_designation }} {{ exp.value.work_type ? " - " + exp.value.work_type : "" }}</p>
-								</div>
-							</div>
-							<div class="d-flex">
-								<div style="width: 30%">
-									<p class="fw-bold text-uppercase">{{ exp.value.work_org_name }}</p>
-									<p class="fw-bold">{{ exp.value.work_location }}</p>
-								</div>
-								<div style="width: 70%">
-									<p class="small-text" [innerHTML]="exp.value.work_job_description"></p>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="content" [ngClass]="{ langugageHeight: !filledFields.includes('language_known') }" *ngIf="!hidingHeaders.includes('education_detail')">
-						<h5 class="fw-semibold px-2 py-2 text-capitalize" [ngStyle]="{ 'background-color': selectedThemeColor, color: selectedFontColor }">education</h5>
-						<div class="educationItem" *ngFor="let edu of getEduDetailsArray.controls">
-							<div style="width: 30%">
-								<p>{{ edu.value.edu_start_year }} {{ edu.value.edu_end_year ? " - " + edu.value.edu_end_year : "" }}</p>
-							</div>
-							<div style="width: 70%">
-								<p class="text-uppercase fw-medium">{{ edu.value.edu_degree }}</p>
-								<p>{{ edu.value.edu_college_name }}</p>
-								<p>{{ edu.value.edu_location }}</p>
-								<p>{{ edu.value.edu_percentage }} {{ edu.value.edu_cgpa_percentage }}</p>
-							</div>
-						</div>
-						<!-- <div class="educationItem" *ngFor="let edu of getEduDetailsArray.controls">
+
+					<!-- <div class="educationItem" *ngFor="let edu of getEduDetailsArray.controls">
                           <div style="width: 50%;">
                               <p>{{ edu.value.edu_start_year }} {{ edu.value.edu_end_year ? " - " + edu.value.edu_end_year
                                   : "" }}</p>
@@ -1177,51 +1193,30 @@
                               <p>{{ edu.value.edu_location }}</p>
                           </div>
                       </div> -->
-					</div>
-					<div class="content" [ngClass]="{ projectHeight: !filledFields.includes('project_details') }" *ngIf="f['selected_exp_level'].value == 1 && !hidingHeaders.includes('project_details')">
-						<p class="fw-semibold px-2 py-2 text-capitalize" [ngStyle]="{ 'background-color': selectedThemeColor, color: selectedFontColor }">projects</p>
-						<div class="projectItem" *ngFor="let project of getProjectDetailsArray.controls">
-							<div style="width: 20%">
-								<p class="fw-bold">{{ project.value.project_start_name }} {{ project.value.project_end_name ? " - " + project.value.project_end_name : "" }}</p>
-							</div>
-							<div style="width: 80%">
-								<p class="text-uppercase fw-semibold">{{ project.value.project_name }}</p>
-								<p class="small-text" [innerHTML]="project.value.project_description"></p>
-							</div>
-						</div>
-					</div>
 				</div>
 			</div>
 		</div>
 	</div>
 	<div class="h-100" id="cv-preview-container" [ngClass]="{ previewBodyForm: !fullScreenVisible, previewBodyFormFull: fullScreenVisible }" *ngIf="selectedResumeLevel == 'Academic'">
-		<div class="container mt-2">
-			<div class="row">
-				<div class="col-12">
-					<h1 class="userName text-uppercase">{{ f["user_name"].value }}</h1>
-					<p class="profession text-uppercase">{{ f["user_job_title"].value }}</p>
+		<div class="container-fluid d-flex flex-column h-100">
+			<div class="row pt-3 mb-3">
+				<div class="col-12 mb-2">
+					<h1 class="mb-0 d-flex gap-2">{{ f["user_name"].value }}</h1>
+					<h5 class="mb-0 fw-semibold">{{ f["user_job_title"].value }}</h5>
 				</div>
-			</div>
-			<div class="row mb-1">
 				<div class="col-12">
 					<ng-container>
-						<div class="d-flex justify-content-around align-items-center">
+						<div class="d-flex justify-content-between align-items-center">
 							<div class="d-flex gap-2 fw-semibold align-items-center">
-								<div style="margin: 0px">
-									<span><i class="fa-solid fa-location-dot"></i></span>
-								</div>
+								<span><i class="fa-solid fa-location-dot"></i></span>
 								<p>{{ f["user_location"].value }}</p>
 							</div>
 							<div class="d-flex gap-2 fw-semibold align-items-center">
-								<div style="margin: 0px">
-									<span><i class="fa-solid fa-phone"></i></span>
-								</div>
+								<span><i class="fa-solid fa-phone"></i></span>
 								<p>{{ f["country_code"].value }} {{ f["user_phone"].value }}</p>
 							</div>
 							<div class="d-flex gap-2 fw-semibold align-items-center">
-								<div style="margin: 0px">
-									<span><i class="fa-solid fa-envelope"></i></span>
-								</div>
+								<span><i class="fa-solid fa-envelope"></i></span>
 								<p>{{ f["user_email"].value }}</p>
 							</div>
 							<div class="d-flex gap-2 fw-semibold align-items-center">
@@ -1236,24 +1231,22 @@
 								</p>
 							</div>
 							<div class="d-flex gap-2 fw-semibold" *ngIf="f['user_website'].value && f['user_website'].value != null">
-								<div style="margin: 0px">
-									<span><i class="fa-solid fa-globe"></i></span>
-								</div>
+								<span><i class="fa-solid fa-globe"></i></span>
 								<p>{{ f["user_website"].value }}</p>
 							</div>
 						</div>
 					</ng-container>
 				</div>
 			</div>
-			<div class="row">
+			<div class="row flex-fill">
 				<div class="col-lg-7">
 					<div class="content aboutMeHeight">
-						<p class="fw-semibold px-2 py-2 text-capitalize"><span>about me</span></p>
+						<h5 class="fw-semibold text-capitalize"><span>about me</span></h5>
 						<p [innerHTML]="f['user_summary'].value"></p>
 					</div>
 					<!-- [ngClass]="f['selected_exp_level'].value == 1 ? 'fresherHeight' : 'experienceHeight'" -->
 					<div class="content" [ngClass]="{ experienceHeight: !filledFields.includes('work_experience') }" *ngIf="!hidingHeaders.includes('work_experience')">
-						<p class="fw-semibold px-2 py-2 text-capitalize"><span>experience</span></p>
+						<h5 class="fw-semibold text-capitalize"><span>experience</span></h5>
 						<div class="experienceItem" *ngFor="let exp of getWorkExpArray.controls">
 							<div class="d-flex">
 								<div style="width: 40%">
@@ -1363,7 +1356,7 @@
 		<div class="container-fluid h-100 overflow-y-auto d-flex flex-column">
 			<div class="row">
 				<div class="col-12 text-left" style="background-color: black; padding: 20px 10px">
-					<h1 class="userName text-uppercase" [ngStyle]="{ color: selectedThemeColor }" style="margin: 0px">{{ f["user_name"].value }}</h1>
+					<h1 class="mb-0 d-flex gap-2" [ngStyle]="{ color: selectedThemeColor }" style="margin: 0px">{{ f["user_name"].value }}</h1>
 					<p class="profession text-uppercase" style="color: white">{{ f["user_job_title"].value }}</p>
 				</div>
 			</div>
@@ -1537,7 +1530,7 @@
 		<div class="container">
 			<div class="row" [ngStyle]="{ 'background-color': selectedThemeColor }" style="padding: 5px 10px 15px 10px">
 				<div class="col-12">
-					<h1 class="userName text-uppercase" [ngStyle]="{ color: selectedFontColor }" style="margin: 0px">{{ f["user_name"].value }}</h1>
+					<h1 class="mb-0 d-flex gap-2" [ngStyle]="{ color: selectedFontColor }" style="margin: 0px">{{ f["user_name"].value }}</h1>
 					<p class="profession text-uppercase" [ngStyle]="{ color: selectedFontColor }">{{ f["user_job_title"].value }}</p>
 					<p style="line-height: 1" [ngStyle]="{ color: selectedFontColor }" [innerHTML]="f['user_summary'].value"></p>
 				</div>
@@ -1703,7 +1696,7 @@
 		<div class="container-fluid tg">
 			<div class="row">
 				<div class="col-12">
-					<h1 class="userName text-uppercase">{{ f["user_name"].value }}</h1>
+					<h1 class="mb-0 d-flex gap-2">{{ f["user_name"].value }}</h1>
 					<p class="profession text-uppercase">{{ f["user_job_title"].value }}</p>
 				</div>
 			</div>
