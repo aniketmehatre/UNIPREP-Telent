@@ -29,7 +29,7 @@ export class CvBuilderComponent implements OnInit  {
   skillProficiency: any = [{ id: "Basic", value: "Basic" }, { id: "Intermediate", value: "Intermediate" }, { id: "Advance", value: "Advance" }];
   languageLists: any = [{value: "Kannada"},{value: "German"},{value: "Hindi"},{value: "Spanish"},{value: "French"},{value: "Italian"},{value: "Arabic"},{value: "Polish"},{value: "Swedish"},{value: "Dutch"},{value: "Danish"},{value: "Greek"},{value: "Portugese"},{value: "Chinese"},{value: "Korean"},{value: "Japanese"},{value: "Tamil"},{value: "Telugu"},{value: "Urdu"},{value: "Malyalam"},{value: "Russian"},{value: "Turkish"},{value: "Bengali"},{value: "Punjabi"},{value: "Marathi"},{value:"English"}];
   enableModule: boolean = true;
-  activePageIndex: number = 2;
+  activePageIndex: number = 0;
   moduleActiveIndex: number = 0;
   maxPageNumber: number = 0;
   resumeFormInfoData: FormGroup;
