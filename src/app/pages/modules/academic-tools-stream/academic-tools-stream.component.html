@@ -74,10 +74,11 @@
                             <div>{{modules?.recommended}}</div>
                         </div>
                         <button class="d-flex justify-content-center"
-                            [ngClass]="modules?.retry === 0 ? 'startbtn' :  modules?.retry > 0 && modules?.retry < 3?'how-it-works-button':'retakeExceeded'">
-                            {{ modules?.retry === 0 ? 'Start Test' : modules?.retry > 0 && modules?.retry < 3
+                            [ngClass]="modules?.retry === 0 ? 'startbtn' :  (modules?.retry > 0 && modules?.retry < 3)||(modules?.academic_category_type_id===3 && modules?.retry > 3)?'how-it-works-button':'retakeExceeded'">
+                            {{ modules?.retry === 0 ? 'Start Test' :(modules?.retry > 0 && modules?.retry <
+                                3)||(modules?.academic_category_type_id===3 && modules?.retry> 3)
                                 ? 'Retake Test' : 'Retake exceeded' }} </button>
-                                <br>
+                        <br>
                     </div>
                 </div>
             </div>

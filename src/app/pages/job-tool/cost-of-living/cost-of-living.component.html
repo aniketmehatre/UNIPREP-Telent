@@ -70,8 +70,26 @@
 		</div>
 	</div>
 </div>
+<ng-container *ngIf="!canShowComparision">
+    <div class="uniprep-primary h2  text-center fw-bold">
+        Did you know ?
+    </div>
+    <br>
+    <div class="d-flex justify-content-between gap-3 mx-2">
+        <div class="card costofliving-card" *ngFor="let cost of costofLiving">
+            <div class="card-body">
+                Earning <span class="fw-semibold">INR {{cost?.sourceRate}}</span> in <span
+                    class="fw-semibold">{{cost?.sourceCountry}}</span> is equivalent to earning <span
+                    class="fw-semibold">INR {{cost?.targetRate}}</span> in the <span
+                    class="fw-semibold">{{cost?.targetCountry}}</span>.
+            </div>
+        </div>
+    </div>
+
+</ng-container>
 <div class="mt-4" *ngIf="canShowComparision">
-	<uni-comparision [sourceCountryPrices]="sourceCountryPrices" [targetCountryPrices]="targetCountryPrices" [sourcecountryName]="sourcecountryName" [targetcountryName]="targetcountryName"></uni-comparision>
+    <uni-comparision [sourceCountryPrices]="sourceCountryPrices" [targetCountryPrices]="targetCountryPrices"
+        [sourcecountryName]="sourcecountryName" [targetcountryName]="targetcountryName"></uni-comparision>
 </div>
 <p-dialog [(visible)]="restrict" [modal]="true" [style]="{ width: '30vw' }" [draggable]="false" [resizable]="false" class="restrictionDialog" [breakpoints]="{ '960px': '30vw', '959px': '60vw', '425px': '90vw' }" (onHide)="clearRestriction()">
 	<div *ngIf="!ehitlabelIsShow" class="text-center mt-5 mb-4">

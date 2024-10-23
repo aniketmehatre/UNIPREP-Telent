@@ -60,12 +60,12 @@ export class SidenavComponent {
       image: "",
     },
     {
-      title: "k12 Academy",
+      title: "K12 Academy",
       url: "/pages/modules/k12",
       image: "fa-solid fa-people-group",
     },
     {
-      title: "k12 Academic Tools",
+      title: "K12 Academic Tools",
       url: "/pages/modules/academic-tools",
       image: "fa-solid fa-scribble",
     },

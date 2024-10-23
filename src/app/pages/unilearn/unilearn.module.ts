@@ -18,12 +18,16 @@ import { LearnsubModulesComponent } from "./learnsubmodules/learnsubmodules.comp
 import { PdfViewerModule } from "ng2-pdf-viewer";
 import { AnimateModule } from "primeng/animate";
 import { NgxExtendedPdfViewerModule } from "ngx-extended-pdf-viewer";
+import { TestModulesComponent } from "./testmodule/testmodule.component";
+import { QuizwindowComponent } from "./quizwindow/quizwindow.component";
 
 @NgModule({
     declarations: [
         UniLearnComponent,      
         LearnModulesComponent,
         LearnsubModulesComponent,
+        TestModulesComponent,
+        QuizwindowComponent
     ],
       imports: [
           CommonModule,

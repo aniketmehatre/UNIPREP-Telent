@@ -22,12 +22,12 @@
     <div class="card-body">
         <div class="list-card-container">
             <div class="resourcecard" [routerLink]="[academicTool?.id]" *ngFor="let academicTool of academicTools">
-                <img [src]="academicTool?.icon"
-                    alt="" />
+                <img [src]="academicTool?.icon" alt="" />
                 <h3>{{academicTool?.category}}</h3>
-                <p>Enhance your future academic journey with tailored tools for Grade 8.</p>
+                <p>Enhance your future academic journey with tailored tools for {{academicTool?.category}}.</p>
             </div>
-            <div class="resourcecard" routerLink="/pages/job-tool/cost-of-living">
+            <div class="resourcecard" routerLink="/pages/job-tool/cost-of-living"
+                *ngIf="(academicTools?.length ?? 0) > 0">
                 <img [src]="'https://api.uniprep.ai/uniprepapi/storage/app/public/resume_icons/cost-of-living.svg'"
                     alt="" />
                 <h3>Cost Of Living Comparision</h3>
