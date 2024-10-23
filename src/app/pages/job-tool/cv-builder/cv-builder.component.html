@@ -326,7 +326,7 @@
                             <div class="mb-3">
                               <div class="input-wrapper">
                                 <input type="text" formControlName="work_designation" (focusout)="onFocusOut()" (input)="searchDesignation($event, i)" placeholder="Your Designation" class="form-control job-input" />
-                                <ul class="dropdown-list">
+                                <ul *ngIf="filteredDesignations && filteredDesignations[i] && filteredDesignations[i].length > 0" class="dropdown-list">
                                   <li *ngFor="let job of filteredDesignations[i]" (click)="selectJob(job, 'experience', i)">
                                     {{ job.jobrole }}
                                   </li>
@@ -423,7 +423,7 @@
                             <div class="mb-3">
                               <div class="input-wrapper">
                                 <input type="text" formControlName="work_location" (input)="searchExpandEduLocation($event, i)" (focusout)="onFocusOut()" placeholder="Search job title" class="form-control job-input" />
-                                <ul class="dropdown-list">
+                                <ul *ngIf="filteredExpeAndEduLocations && filteredExpeAndEduLocations[i] && filteredExpeAndEduLocations[i].length > 0" class="dropdown-list">
                                   <li *ngFor="let city of filteredExpeAndEduLocations[i]" (click)="selectLocation(city, 'userExpLocation', i)">{{ city.country_name }}</li>
                                 </ul>
                                 <div *ngIf="wrkExp.get('work_location')?.invalid && wrkExp.get('work_location')?.touched && submitted" class="text-danger text-xs">
@@ -555,7 +555,7 @@
                             <div class="mb-3">
                               <div class="input-wrapper">
                                 <input type="text" formControlName="edu_location" (input)="searchExpandEduLocation($event, i)" (focusout)="onFocusOut()" placeholder="Education Location" class="form-control job-input" />
-                                <ul class="dropdown-list">
+                                <ul *ngIf="filteredExpeAndEduLocations && filteredExpeAndEduLocations[i] && filteredExpeAndEduLocations[i].length > 0" class="dropdown-list">
                                   <li *ngFor="let city of filteredExpeAndEduLocations[i]" (click)="selectLocation(city, 'userEduLocation', i)">{{ city.country_name }}</li>
                                 </ul>
                                 <div *ngIf="eduDetail.get('edu_location')?.invalid && eduDetail.get('edu_location')?.touched && submitted" class="text-danger text-xs">
