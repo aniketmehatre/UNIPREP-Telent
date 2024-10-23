@@ -83,6 +83,8 @@ import { CareerGrowthCheckerComponent } from "./career-growth-checker/career-gro
 import { AdvisorComponent } from './advisor/advisor.component';
 import { NationalExamCategoriesComponent } from './national-exam-categories/national-exam-categories.component';
 import { NationalExamTestsComponent } from './national-exam-tests/national-exam-tests.component';
+import { NationalExamStartComponent } from './national-exam-start/national-exam-start.component';
+import { NationalExamQuestionsComponent } from './national-exam-questions/national-exam-questions.component';
 // import { JobToolComponent } from './job-tool/job-tool.component';
 @NgModule({
   declarations: [
@@ -122,6 +124,8 @@ import { NationalExamTestsComponent } from './national-exam-tests/national-exam-
     AdvisorComponent,
     NationalExamCategoriesComponent,
     NationalExamTestsComponent,
+    NationalExamStartComponent,
+    NationalExamQuestionsComponent,
     // JobToolComponent,
   ],
   exports: [FooterStatusBoxComponent, HeaderSearchComponent],

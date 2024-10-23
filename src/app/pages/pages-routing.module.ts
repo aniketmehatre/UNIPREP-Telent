@@ -34,6 +34,8 @@ import { InterviewQuestionsComponent } from './interview-questions/interview-que
 import {AdvisorComponent} from "./advisor/advisor.component";
 import { NationalExamCategoriesComponent } from './national-exam-categories/national-exam-categories.component';
 import { NationalExamTestsComponent } from './national-exam-tests/national-exam-tests.component';
+import { NationalExamStartComponent } from './national-exam-start/national-exam-start.component';
+import { NationalExamQuestionsComponent } from './national-exam-questions/national-exam-questions.component';
 
 const routes: Routes = [
     {
@@ -234,6 +236,14 @@ const routes: Routes = [
             {
                 path: 'national-exams/:slug',
                 component: NationalExamTestsComponent,
+            },
+            {
+                path: 'national-exams/:slug/start',
+                component: NationalExamStartComponent,
+            },
+            {
+                path: 'national-exams/questions/:testid',
+                component: NationalExamQuestionsComponent,
             },
         ]
     }

@@ -21,6 +21,7 @@ export class NationalExamCategoriesComponent implements OnInit {
   }
 
   openTest(id:number){
-    this.router.navigate(['/national-exam/id']);
+    // alert(id);
+    this.router.navigate(['/pages/national-exams/'+id]);
   }
 }

@@ -16,9 +16,9 @@ export class NationalExamService {
     });
   }
 
-  getTests() {
+  getTests(category:any) {
     const headers = new HttpHeaders().set("Accept", "application/json");
-    return this.http.post<any>(environment.ApiUrl + "/nationalexamtests",{
+    return this.http.post<any>(environment.ApiUrl + "/nationalexamtests", category, {
       headers: headers,
     });
   }
