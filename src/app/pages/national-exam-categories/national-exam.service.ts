@@ -23,4 +23,11 @@ export class NationalExamService {
     });
   }
 
+  getQuestions(category:any) {
+    const headers = new HttpHeaders().set("Accept", "application/json");
+    return this.http.post<any>(environment.ApiUrl + "/nationalexamquestions", category, {
+      headers: headers,
+    });
+  }
+
 }
