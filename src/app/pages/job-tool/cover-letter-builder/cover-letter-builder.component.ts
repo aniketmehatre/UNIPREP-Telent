@@ -1,12 +1,13 @@
 import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { MenuItem, MessageService } from 'primeng/api';
-import { FormBuilder, FormGroup, FormArray, Form, Validators } from "@angular/forms";
+import { FormBuilder, FormGroup, FormArray, Form, Validators, AbstractControl } from "@angular/forms";
 import { CourseListService } from '../../course-list/course-list.service';
 import { HttpHeaders, HttpClient } from '@angular/common/http';
 import html2canvas from 'html2canvas';
 import {LocationService} from "../../../location.service";
 import {AuthService} from "../../../Auth/auth.service";
 import {Router} from "@angular/router";
+import Swiper from 'swiper';
 
 @Component({
   selector: 'uni-cover-letter-builder',
@@ -27,10 +28,10 @@ export class CoverLetterBuilderComponent implements OnInit {
   fullScreenVisible: boolean = false;
   isButtonDisabledSelectTemplate: boolean = false;
   submitted: boolean = false;
-  submittedsummery:boolean=false;
+  // submittedsummery:boolean=false;
   //cloning limit
   eduDetailsLimit: number = 3;
-  moduleActiveIndex: number = 1;
+  moduleActiveIndex: number = 0;
   wrkExpLimit: number = 3;
   projectLimit: number = 3;
   languageLimit: number = 5;
@@ -79,8 +80,34 @@ export class CoverLetterBuilderComponent implements OnInit {
       templateName: "Functional",
       imageLink: "../../../../uniprep-assets/coverletter-images/Functional Cover Letter.webp",
     },
+    {
+      id: 6,
+      templateName: "Traditional",
+      imageLink: "./../../../uniprep-assets/coverletter-images/Traditional Cover Letter.webp",
+    },
+    {
+      id: 7,
+      templateName: "Modern",
+      imageLink: "../../../../uniprep-assets/coverletter-images/Modren Cover Letter.webp",
+    },
+    {
+      id: 8,
+      templateName: "Academic",
+      imageLink: "../../../../uniprep-assets/coverletter-images/Academic Cover Letter.webp",
+    },
+    {
+      id: 9,
+      templateName: "Creative",
+      imageLink: "../../../../uniprep-assets/coverletter-images/Creative Cover Letter.webp",
+    },
+    {
+      id: 10,
+      templateName: "Functional",
+      imageLink: "../../../../uniprep-assets/coverletter-images/Functional Cover Letter.webp",
+    },
+  ];
 
-  ]
+  swiper!: Swiper;
   slideConfig = {
     "slidesToShow": 3,
     "slidesToScroll": 1,
@@ -98,25 +125,30 @@ export class CoverLetterBuilderComponent implements OnInit {
               private router: Router,){
 
     this.resumeFormInfoData = this.fb.group({
-      user_name: ['Firstname Lastname', [Validators.required]],
-      user_job_title: ['Job Title', [Validators.required]],
-      user_email: ['contact@gmail.com', [Validators.required]],
-      user_location: ['London', [Validators.required]],
-      user_phone: ['', [Validators.required]],
-      user_linkedin: [''],
-      user_website: [''],
+      user_name: ['User Name', [Validators.required]],
+      user_job_title: ['User Job Title', [Validators.required]],
+      user_email: ['xyz.uniabroad@gmail.com', [Validators.required, Validators.email]],
+      user_location: ['Mysuru, India', [Validators.required]],
+      user_phone: ['9524000756',[Validators.required, Validators.pattern('^\\+?[1-9]\\d{1,14}$')]],
+      user_website: ['www.xyz.com'],
+      degree_college_name: ['xyz engineering college'],
+      edu_degree: ['BE - CSE'],
+      exp_designation: ['xyz Developer'],
+      years_of_exp: ['3 years'],
+      achievements_one: ['employee of the year'],
+      achievements_two: ['employee of the month'],
       user_summary: ['Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.', [Validators.required]],
-      edu_college_name: ['',[Validators.required]],
-      edu_location: ['',[Validators.required]],
-      jobposition: ['',[Validators.required]],
-      managername: ['Firstname Lastname',[Validators.required]],
-      getknowaboutas: ['',[Validators.required]],
+      org_name: ['xyz organization',[Validators.required]],
+      org_location: ['Chennai, India',[Validators.required]],
+      jobposition: ['Managing Director',[Validators.required]],
+      managername: ['Manager Name',[Validators.required]],
+      getknowaboutas: ['News Paper',[Validators.required]],
     });
 
   }
 
   ngOnInit(): void {
-
+    this.ngAfterViewInit();
     this.items = [
       {label: 'Personal Information'},
       {label: 'Organisation Details'},
@@ -137,29 +169,111 @@ export class CoverLetterBuilderComponent implements OnInit {
     } else {
       this.ehitlabelIsShow = true;
     }
-    let currentuserName = this.resumeFormInfoData.value.user_name;
-    this.splitUserName(currentuserName); // it calls when the page refresh
-    this.resumeFormInfoData.get('user_name')?.valueChanges.subscribe(value => {
-      this.splitUserName(value); // it calls when the user enters the user name
-    })
+    // let currentuserName = this.resumeFormInfoData.value.user_name;
+    // this.splitUserName(currentuserName); // it calls when the page refresh
+    // this.resumeFormInfoData.get('user_name')?.valueChanges.subscribe(value => {
+    //   this.splitUserName(value); // it calls when the user enters the user name
+    // })
   }
+
+  ngAfterViewInit(): void {
+    setTimeout(() => {
+      this.swiper = new Swiper('.swiper', {
+        direction: 'horizontal',
+        loop: true,
+        centeredSlides: true,
+        allowTouchMove: false,
+        breakpoints: {
+          640: {
+            slidesPerView: 2,
+            spaceBetween: 20,
+          },
+          768: {
+            slidesPerView: 3,
+            spaceBetween: 40,
+          },
+          1024: {
+            slidesPerView: 4,
+            spaceBetween: 50,
+          },
+          1366: {
+            slidesPerView: 5,
+            spaceBetween: 50,
+          },
+        },
+      });
+    }, 500);
+    setTimeout(() => {
+      const nextButton = document.querySelector('.swiper-next');
+      const prevButton = document.querySelector('.swiper-prev');
+      if (nextButton) {
+        nextButton.addEventListener('click', () => {
+          this.swiper.slideNext();
+        });
+      }
+      if (prevButton) {
+        prevButton.addEventListener('click', () => {
+          this.swiper.slidePrev();
+        });
+      }
+    }, 200);
+
+  }
+
+  resumeFormSubmit() {
+    // this.submittedsummery=true;
+    // alert("ran");
+    // this.generateImage();
+    // this.activePageIndex = 3;
+    const visibleFormControls = this.getVisibleFormControls();
+    if (!visibleFormControls.every(control => control.valid)) {
+      this.submitted = true;
+      this.toaster.add({ severity: "error", summary: "Error", detail: "Please fill all the required fields." });
+      visibleFormControls.forEach(control => control.markAsTouched());
+    } else {
+      this.submitted = false;
+      this.nextStage();
+    }
+  }
+
+  getVisibleFormControls(): AbstractControl[] { // form validation
+    const controls: AbstractControl[] = [];
+    let controlNames: any = [];
+    if (this.moduleActiveIndex === 0) {
+      controlNames = ['user_name','user_job_title', 'user_email', 'user_location', 'user_phone'];
+    }else if(this.moduleActiveIndex === 1){
+      controlNames = ['org_name','managername', 'org_location', 'jobposition', 'getknowaboutas'];
+    }else if(this.moduleActiveIndex === 2){
+      controlNames = ['user_summary'];
+    }
+    // console.log(controlNames, "control names");
+    controlNames.forEach((controlName: any) => {
+      const control = this.resumeFormInfoData.get(controlName);
+      if (control) {
+        controls.push(control);
+      }
+    });
+    return controls;
+  }
+
   nextStage(){
-    if(this.moduleActiveIndex < 3){
+    if(this.moduleActiveIndex < 2){
       this.moduleActiveIndex++;
       // this.activePageIndex++;
       return;
     }
   }
+
   prevStage(){
-    if(this.moduleActiveIndex > 1){
+    if(this.moduleActiveIndex > 0){
       this.moduleActiveIndex--;
       // this.activePageIndex++;
       return;
     }
   }
   hideHeader() {
-    const url = this.router.url;
-    if (this.activePageIndex == 2 && url.endsWith('/coverletter-builder')) {
+    // const url = this.router.url;
+    if (this.activePageIndex == 2) {
       this.resumeService.setData(true);
     } else {
       this.resumeService.setData(false);
@@ -196,27 +310,13 @@ export class CoverLetterBuilderComponent implements OnInit {
     }
   }
 
-  resumeFormSubmit() {
-    // if(!this.resumeFormInfoData.valid){
-    //   this.submitted=true;
-    //   this.submittedsummery=true;
-    //   return;
-    
-    // }
-    this.submitted=true;
-    this.submittedsummery=true;
-    alert("ran");
-      this.generateImage();
-      this.activePageIndex = 3;
- 
-  }
   generateImage() {
     const cvPreviewContainer = document.getElementById('cv-preview-container');
     if (cvPreviewContainer) {
       html2canvas(cvPreviewContainer, { useCORS: true })
         .then((canvas) => {
           this.previewImage = canvas.toDataURL('image/png');
-          console.log(this.previewImage);
+          // console.log(this.previewImage);
 
         })
         .catch((error) => {
@@ -252,7 +352,7 @@ export class CoverLetterBuilderComponent implements OnInit {
   }
 
   next() {
-    this.activePageIndex = 1;
+    this.activePageIndex++;
     // if (this.activePageIndex < this.pages.length - 1) {
     //   this.activePageIndex++;
     // }
@@ -319,8 +419,8 @@ export class CoverLetterBuilderComponent implements OnInit {
     const userEmailControl = this.resumeFormInfoData.get('user_email');
     const userLocationControl = this.resumeFormInfoData.get('user_location');
     const userPhoneControl = this.resumeFormInfoData.get('user_phone');
-    const eduCollegeNameControl = this.resumeFormInfoData.get('edu_college_name');
-    const eduLocationControl = this.resumeFormInfoData.get('edu_location');
+    const eduCollegeNameControl = this.resumeFormInfoData.get('org_name');
+    const eduLocationControl = this.resumeFormInfoData.get('org_location');
     const jobPositionControl = this.resumeFormInfoData.get('jobposition');
     const managerNameControl = this.resumeFormInfoData.get('managername');
     const getKnowAboutAsControl = this.resumeFormInfoData.get('getknowaboutas');
@@ -337,7 +437,7 @@ export class CoverLetterBuilderComponent implements OnInit {
     });
     const apiKey = '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';
     let formData = this.resumeFormInfoData.value;
-    let prompt: string = `Provide the body of the  cover letter for  ${this.resumeFormInfoData.value.user_name} who is a ${this.resumeFormInfoData.value.user_job_title} applying to ${this.resumeFormInfoData.value.edu_college_name} for the position of ${this.resumeFormInfoData.value.jobposition}`;
+    let prompt: string = `Provide the body of the  cover letter for  ${this.resumeFormInfoData.value.user_name} who is a ${this.resumeFormInfoData.value.user_job_title} applying to ${this.resumeFormInfoData.value.org_name} for the position of ${this.resumeFormInfoData.value.jobposition}`;
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${apiKey}`
@@ -393,6 +493,8 @@ export class CoverLetterBuilderComponent implements OnInit {
     this.restrict = false;
   }
   selectResumeTemplate(templateName: string) {
+    this.activePageIndex++;
+    this.hideHeader();
     this.selectedResumeLevel = templateName;
     this.imgOnclick(templateName)
   }
@@ -400,21 +502,21 @@ export class CoverLetterBuilderComponent implements OnInit {
     this.isButtonDisabledSelectTemplate = true;
     this.selectedResumeLevel = resumeLevel;
   }
-  onAfterChange(event: any): void {
-    // The event contains the index of the current slide
-    this.selectedResumeLevel=""
-    const currentIndex = event.currentSlide;
-    const currentSlide = this.resumeSlider[currentIndex];
-    this.selectResumeTemplate(currentSlide.templateName);
-    // Perform any action with the current slide's templateName
-    // this.selectedResumeLevel = currentSlide.templateName;
-  }
+  // onAfterChange(event: any): void {
+  //   // The event contains the index of the current slide
+  //   this.selectedResumeLevel=""
+  //   const currentIndex = event.currentSlide;
+  //   const currentSlide = this.resumeSlider[currentIndex];
+  //   this.selectResumeTemplate(currentSlide.templateName);
+  //   // Perform any action with the current slide's templateName
+  //   // this.selectedResumeLevel = currentSlide.templateName;
+  // }
 
   // Handle the init event
-  ngAfterViewInit(): void {
-    // Assuming the carousel starts at index 0 or you know the initial index
-    const initialIndex = 1; // You may need to adjust this if necessary
-    const initialSlide = this.resumeSlider[initialIndex];
-    this.selectResumeTemplate(initialSlide.templateName);
-  }
+  // ngAfterViewInit(): void {
+  //   // Assuming the carousel starts at index 0 or you know the initial index
+  //   const initialIndex = 1; // You may need to adjust this if necessary
+  //   const initialSlide = this.resumeSlider[initialIndex];
+  //   this.selectResumeTemplate(initialSlide.templateName);
+  // }
 }

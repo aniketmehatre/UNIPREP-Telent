@@ -1,4 +1,4 @@
-<div class="container-fluid" *ngIf="activePageIndex == 1">
+<!-- <div class="container-fluid" *ngIf="activePageIndex == 1">
 	<h3 class="text-center uniprep-primary">Select your Coverletter style to get started</h3>
 	<ngx-slick-carousel class="carousel" #slickModal="slick-carousel" [config]="slideConfig"  
 	(afterChange)="onAfterChange($event)">
@@ -20,6 +20,43 @@
 		<div class="col-md-12 mt-5" style="text-align: center;">
 			<button class="createResumeButton" (click)="shakeButton($event)">Create your Coverletter
 				&nbsp;&nbsp;&nbsp;<i class="fa-solid fa-arrow-right tickIcon"></i></button>
+		</div>
+	</div>
+</div> -->
+<div class="container-fluid h-100 d-flex flex-column justify-content-center" *ngIf="activePageIndex == 1">
+	<div class="row">
+		<div class="col-md-12">
+			<h3 class="text-center uniprep-primary">Select your Coverletter style to get started</h3>
+		</div>
+		<div class="col-md-12">
+			<div class="swiper-wrapper-custom">
+				<div class="d-flex">
+					<div class="d-flex align-items-center justify-content-center">
+						<button type="button" class="swiper-prev" aria-label="Previous-Slide"><i
+								class="fa-solid fa-angle-left"></i></button>
+					</div>
+					<div class="overflow-hidden py-5">
+						<div class="swiper">
+							<div class="swiper-wrapper">
+								<div class="swiper-slide text-center d-flex justify-content-center"
+									*ngFor="let slide of resumeSlider">
+									<div class="cvBuilderSampleImg position-relative"
+										[ngClass]="{ selectedResumeLevel: selectedResumeLevel == slide.templateName }">
+										<h5 class="text-center uniprep-primary">{{ slide.templateName }}</h5>
+										<img [src]="slide.imageLink" alt="{{ slide.templateName }}" />
+										<button class="center-button btn btn-primary"
+											(click)="selectResumeTemplate(slide.templateName)">Select</button>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="d-flex align-items-center justify-content-center">
+						<button type="button" class="swiper-next" aria-label="Next-Slide"><i
+								class="fa-solid fa-angle-right"></i></button>
+					</div>
+				</div>
+			</div>
 		</div>
 	</div>
 </div>
@@ -61,20 +98,30 @@
 
 
 	<div class="row" style="height: 93%;">
+		<div class="row align-items-center mb-2">
+			<div class="col-md-1">
+			  <div class="backIcon" role="button" (click)="previous()">
+				<span class="pi pi-angle-left"></span>
+			  </div>
+			</div>
+			<div class="col-md-10">
+			  <p-steps [model]="items" [readonly]="false" [activeIndex]="moduleActiveIndex"></p-steps>
+			</div>
+			<div class="col-md-1">&nbsp;</div>
+		</div>
 		<div class="col-md-6 h-100 overflow-y-auto">
 			<form role="form" class="row" [formGroup]="resumeFormInfoData" #form="ngForm">
 				<div class="col-md-12 mb-3">
-					<ng-container *ngIf="moduleActiveIndex == 1">		
-						<h4 class="p-mb-2 PageTitle">Enter Your Personal Information</h4>				
+					<ng-container *ngIf="moduleActiveIndex == 0">
+						<h4 class="p-mb-2 PageTitle">Enter Your Personal Information</h4>
 						<div class="row">
 							<div class="col-md-6">
 								<label class="form-label labelFont">Your Name</label>
 								<div class="form-group">
 									<div class="mb-3">
-										<input class="w-100" type="text" placeholder="Full Name" formControlName="user_name"
-											pInputText />
+										<input class="w-100" type="text" placeholder="Full Name" formControlName="user_name" pInputText />
 										<div *ngIf="submitted && f['user_name'].errors" class="text-danger text-xs">
-											<div style="margin-left:10px;" *ngIf="f['user_name'].errors">Required
+											<div style="margin-left:10px;" *ngIf="f['user_name'].errors">Full Name Required
 											</div>
 										</div>
 									</div>
@@ -84,12 +131,12 @@
 								<label class="form-label labelFont">Job Title</label>
 								<div class="form-group">
 									<div class="mb-3">
-										<input class="w-100" type="text" placeholder="Your Title"
-											formControlName="user_job_title" pInputText />
-											<div *ngIf="submitted && f['user_job_title'].errors" class="text-danger text-xs">
-												<div style="margin-left:10px;" *ngIf="f['user_job_title'].errors">Required
-												</div>
+										<input class="w-100" type="text" placeholder="Your Job Title" formControlName="user_job_title" pInputText />
+										<div *ngIf="submitted && f['user_job_title'].errors"
+											class="text-danger text-xs">
+											<div style="margin-left:10px;" *ngIf="f['user_job_title'].errors">Your Job Title Required
 											</div>
+										</div>
 									</div>
 								</div>
 							</div>
@@ -97,12 +144,11 @@
 								<label class="form-label labelFont">Your Email</label>
 								<div class="form-group">
 									<div class="mb-3">
-										<input class="w-100" type="text" placeholder="Email Address"
-											formControlName="user_email" pInputText />
-											<div *ngIf="submitted && f['user_email'].errors" class="text-danger text-xs">
-												<div style="margin-left:10px;" *ngIf="f['user_email'].errors">Required
-												</div>
-											</div>
+										<input class="w-100" type="text" placeholder="Email Address" formControlName="user_email" pInputText />
+										<div *ngIf="submitted && f['user_email'].errors" class="text-danger text-xs">
+											<div style="margin-left: 10px" *ngIf="f['user_email'].errors?.['required']">Email Required</div>
+											<div style="margin-left: 10px" *ngIf="f['user_email'].errors?.['email']">Enter Valid email Address</div>
+										</div>
 									</div>
 								</div>
 							</div>
@@ -112,10 +158,10 @@
 									<div class="mb-3">
 										<input class="w-100" type="text" placeholder="Location"
 											formControlName="user_location" pInputText />
-											<div *ngIf="submitted && f['user_location'].errors" class="text-danger text-xs">
-												<div style="margin-left:10px;" *ngIf="f['user_location'].errors">Required
-												</div>
+										<div *ngIf="submitted && f['user_location'].errors" class="text-danger text-xs">
+											<div style="margin-left:10px;" *ngIf="f['user_location'].errors">Location Required
 											</div>
+										</div>
 									</div>
 								</div>
 							</div>
@@ -123,21 +169,11 @@
 								<label class="form-label labelFont">Phone Number</label>
 								<div class="form-group">
 									<div class="mb-3">
-										<input class="w-100" type="text" placeholder="Phone Number"
-											formControlName="user_phone" pInputText />
-											<div *ngIf="submitted && f['user_phone'].errors" class="text-danger text-xs">
-												<div style="margin-left:10px;" *ngIf="f['user_phone'].errors">Required
-												</div>
-											</div>
-									</div>
-								</div>
-							</div>
-							<div class="col-md-6">
-								<label class="form-label labelFont">LinkedIn Link</label>
-								<div class="form-group">
-									<div class="mb-3">
-										<input class="w-100" type="text" placeholder="LinkedIn Profile Link"
-											formControlName="user_linkedin" pInputText />
+										<input class="w-100" type="text" placeholder="Phone Number" formControlName="user_phone" pInputText />
+										<div *ngIf="f['user_phone'].invalid && (f['user_phone'].dirty || f['user_phone'].touched)" class="text-danger text-xs">
+											<div style="margin-left: 10px" *ngIf="f['user_phone'].errors?.['required']">Phone number Required</div>
+											<div style="margin-left: 10px" *ngIf="f['user_phone'].errors?.['pattern']">Enter Valid Phone number</div>
+										</div>
 									</div>
 								</div>
 							</div>
@@ -151,20 +187,70 @@
 								</div>
 							</div>
 						</div>
+						<h4 class="p-mb-2 PageTitle">Enter Your Latest Degree (Optional)</h4>
+						<div class="row">
+							<div class="col-md-6">
+								<label class="form-label labelFont">College/School Name</label>
+								<div class="form-group">
+									<div class="mb-3">
+										<input class="w-100" type="text" placeholder="College/School Name" formControlName="degree_college_name" pInputText />
+									</div>
+								</div>
+							</div>
+							<div class="col-md-6">
+								<label class="form-label labelFont">Degree</label>
+								<div class="form-group">
+									<div class="mb-3">
+										<input class="w-100" type="text" placeholder="Your Degree" formControlName="edu_degree" pInputText />
+									</div>
+								</div>
+							</div>
+						</div>
+						<h4 class="p-mb-2 PageTitle">Relevant Experience (Optional)</h4>
+						<div class="row">
+							<div class="col-md-6">
+								<label class="form-label labelFont">Designation</label>
+								<div class="form-group">
+									<div class="mb-3">
+										<input class="w-100" type="text" placeholder="Your Previous Designation" formControlName="exp_designation" pInputText />
+									</div>
+								</div>
+							</div>
+							<div class="col-md-6">
+								<label class="form-label labelFont">Years of Experience</label>
+								<div class="form-group">
+									<div class="mb-3">
+										<input class="w-100" type="text" placeholder="Your Experience" formControlName="years_of_exp" pInputText />
+									</div>
+								</div>
+							</div>
+						</div>
+						<h4 class="p-mb-2 PageTitle">Achievements (Optional)</h4>
+						<div class="row">
+							<div class="col-md-12">
+								<div class="form-group">
+									<div class="mb-3">
+										<input class="w-100 m-1" type="text" placeholder="Your Achievements" formControlName="achievements_one" pInputText />
+										<input class="w-100 m-1" type="text" placeholder="Your Achievements" formControlName="achievements_two" pInputText />
+									</div>
+								</div>
+							</div>
+						</div>
 					</ng-container>
-					<ng-container *ngIf="moduleActiveIndex == 2">
+					<ng-container *ngIf="moduleActiveIndex == 1">
 						<h4 class="p-mb-1 PageTitle">Enter Organization Details</h4>
 						<div class="row">
 							<div class="col-md-6">
 								<label class="form-label labelFont">Organization Name</label>
 								<div class="form-group">
 									<div class="mb-3">
-										<input class="w-100" type="text" placeholder="College Name"
-											formControlName="edu_college_name" pInputText />
-											<div *ngIf="submitted && f['edu_college_name'].errors" class="text-danger text-xs">
-												<div style="margin-left:10px;" *ngIf="f['edu_college_name'].errors">Required
-												</div>
+										<input class="w-100" type="text" placeholder="Organization Name"
+											formControlName="org_name" pInputText />
+										<div *ngIf="submitted && f['org_name'].errors"
+											class="text-danger text-xs">
+											<div style="margin-left:10px;" *ngIf="f['org_name'].errors">Organization Name Required
 											</div>
+										</div>
 									</div>
 								</div>
 							</div>
@@ -175,25 +261,26 @@
 										<div class="mb-3">
 											<input class="w-100" type="text" placeholder="Manger Name"
 												formControlName="managername" pInputText />
-												<div *ngIf="submitted && f['managername'].errors" class="text-danger text-xs">
-													<div style="margin-left:10px;" *ngIf="f['managername'].errors">Required
-													</div>
+											<div *ngIf="submitted && f['managername'].errors"
+												class="text-danger text-xs">
+												<div style="margin-left:10px;" *ngIf="f['managername'].errors">Manger Name Required
 												</div>
+											</div>
 										</div>
 									</div>
-	
+
 								</div>
 							</div>
 							<div class="col-md-6">
 								<label class="form-label labelFont">Location</label>
 								<div class="form-group">
 									<div class="mb-3">
-										<input class="w-100" type="text" placeholder="Education Location"
-											formControlName="edu_location" pInputText />
-											<div *ngIf="submitted && f['edu_location'].errors" class="text-danger text-xs">
-												<div style="margin-left:10px;" *ngIf="f['edu_location'].errors">Required
-												</div>
+										<input class="w-100" type="text" placeholder="Organization Location"
+											formControlName="org_location" pInputText />
+										<div *ngIf="submitted && f['org_location'].errors" class="text-danger text-xs">
+											<div style="margin-left:10px;" *ngIf="f['org_location'].errors">Organization Location Required
 											</div>
+										</div>
 									</div>
 								</div>
 							</div>
@@ -203,46 +290,49 @@
 									<div class="mb-3">
 										<input class="w-100" type="text" placeholder="Your Job Position"
 											formControlName="jobposition" pInputText />
-											<div *ngIf="submitted && f['jobposition'].errors" class="text-danger text-xs">
-												<div style="margin-left:10px;" *ngIf="f['jobposition'].errors">Required
-												</div>
+										<div *ngIf="submitted && f['jobposition'].errors" class="text-danger text-xs">
+											<div style="margin-left:10px;" *ngIf="f['jobposition'].errors">Your Job Position Required
 											</div>
+										</div>
 									</div>
 								</div>
 							</div>
-	
+
 							<div class="col-md-12">
 								<label class="form-label labelFont">How did you get to know about us</label>
 								<div class="form-group">
 									<div class="mb-3">
 										<input class="w-100" type="text" placeholder="About as"
 											formControlName="getknowaboutas" pInputText />
-											<div *ngIf="submitted && f['getknowaboutas'].errors" class="text-danger text-xs">
-												<div style="margin-left:10px;" *ngIf="f['getknowaboutas'].errors">Required
-												</div>
+										<div *ngIf="submitted && f['getknowaboutas'].errors"
+											class="text-danger text-xs">
+											<div style="margin-left:10px;" *ngIf="f['getknowaboutas'].errors">About as Required
 											</div>
+										</div>
 									</div>
 								</div>
 							</div>
 						</div>
 					</ng-container>
-					<ng-container *ngIf="moduleActiveIndex == 3">
+					<ng-container *ngIf="moduleActiveIndex == 2">
 						<div class="row">
 							<div class="col-md-12">
 								<label class="form-label labelFont">Cover Letter Section</label>
 								<div class="form-group">
 									<div style="text-align: right; margin-bottom: 4px;">
-										<button  pButton type="button" class="deleteDivButton" (click)="chatGPTIntegration()"
-										style="background-color: #9bc329;">Generate &nbsp;<i
-											class="fa-solid fa-line-columns trashIcon"
-											style="background-color: #9bc329;"></i></button>	
+										<button pButton type="button" class="deleteDivButton"
+											(click)="chatGPTIntegration()" style="background-color: #9bc329;">Generate
+											&nbsp;<i class="fa-solid fa-line-columns trashIcon"
+												style="background-color: #9bc329;"></i></button>
 									</div>
 									<div class="mb-3">
 										<!-- <button pButton type="button" (click)="chatGPTIntegration()"
 											class="text-white p-ripple p-button-rounded p-button-info-prev p-button p-component p-2"><i
-												class="fa fa-arrow-left exhausted-plan-icon-prev"></i> Generate</button> -->	
-										<p-editor class="mt-2" formControlName="user_summary" placeholder="Generate Your Content"></p-editor>
-										<div *ngIf="submittedsummery && f['user_summary'].errors" class="text-danger text-xs">
+												class="fa fa-arrow-left exhausted-plan-icon-prev"></i> Generate</button> -->
+										<p-editor class="mt-2" formControlName="user_summary"
+											placeholder="Generate Your Content"></p-editor>
+										<div *ngIf="submitted && f['user_summary'].errors"
+											class="text-danger text-xs">
 											<div style="margin-left:10px;" *ngIf="f['user_summary'].errors">Required
 											</div>
 										</div>
@@ -257,16 +347,16 @@
 			<div class="d-flex space-between" style="justify-content: space-between">
 				<button pButton type="button" (click)="prevStage()"
 					class="text-white p-ripple p-button-rounded p-button-info-prev p-button p-component p-2"><i
-						class="fa fa-arrow-left exhausted-plan-icon-prev"></i> 
-						Previous
+						class="fa fa-arrow-left exhausted-plan-icon-prev"></i>
+					Previous
 				</button>
-				<button pButton type="button" (click)="nextStage()" *ngIf="moduleActiveIndex != 3"
+				<button pButton type="button" (click)="resumeFormSubmit()" *ngIf="moduleActiveIndex != 2"
 					class="text-white p-ripple p-button-rounded p-button-info-next p-button p-component p-2">Next<i
 						class="fa fa-arrow-right exhausted-plan-icon-next"></i>
 				</button>
-				<button pButton type="button" (click)="resumeFormSubmit()" *ngIf="moduleActiveIndex == 3"
-				class="text-white p-ripple p-button-rounded p-button-info-next p-button p-component p-2">Submit<i
-					class="fa fa-arrow-right exhausted-plan-icon-next"></i>
+				<button pButton type="button" (click)="resumeFormSubmit()" *ngIf="moduleActiveIndex == 2"
+					class="text-white p-ripple p-button-rounded p-button-info-next p-button p-component p-2">Submit<i
+						class="fa fa-arrow-right exhausted-plan-icon-next"></i>
 				</button>
 			</div>
 		</div>
@@ -451,12 +541,14 @@
 			<div class="horizontal-lineacadamic" [ngStyle]="{'background-color': selectedThemeColor}"></div>
 		</div>
 
-		<div class="mt-2 customfontstyles fontsizeset" style="font-size: 2rem; padding:5px; font-family:'Times New Roman', Times, serif; margin-left: 2px;">
+		<div class="mt-2 customfontstyles fontsizeset"
+			style="font-size: 2rem; padding:5px; font-family:'Times New Roman', Times, serif; margin-left: 2px;">
 			<span>
 				<h1 style="font-size: 2rem;" class="userName upperCase">{{ f["user_name"].value }}</h1>
 			</span>
 
-			<p  style="font-size: 1.5rem;" class="profession upperCase">&nbsp;{{ f["user_job_title"].value }}</p> <br><br>
+			<p style="font-size: 1.5rem;" class="profession upperCase">&nbsp;{{ f["user_job_title"].value }}</p>
+			<br><br>
 			<p><span style="font-size: 1rem;">Dear {{f["managername"].value }},</span></p><br>
 			<p><span style="font-size: 1rem;" [innerHTML]="f['user_summary'].value"></span></p>
 			<br>
@@ -481,7 +573,8 @@
 		<div class="vertical-line_right_bottomcreative"></div>
 		<div class="horizontal-line-top" [ngStyle]="{'background-color': selectedThemeColor}"></div>
 		<div class="horizontal-line-bottom"></div>
-		<div class="customfontstyles fontsizeset" style="font-size: 2rem; padding:7px; margin: 0px; margin-top: 15px; margin-left: 2px;">
+		<div class="customfontstyles fontsizeset"
+			style="font-size: 2rem; padding:7px; margin: 0px; margin-top: 15px; margin-left: 2px;">
 			<h1 class="userName upperCase">{{
 				f["user_name"].value }}</h1>
 			<p style="font-size: 1rem;" class="profession upperCase">{{ f["user_job_title"].value }}</p>
@@ -498,12 +591,13 @@
 		[ngClass]="{ previewBodyForm: !fullScreenVisible, previewBodyFormFull: fullScreenVisible }"
 		*ngIf="selectedResumeLevel=='Functional'">
 		<div class="containerfuctional">
-			<div class="row"
-				style="padding: 5px 10px 15px 10px; border-radius: 8px 8px 0px 0px;" [ngStyle]="{'background-color': selectedThemeColor}">
+			<div class="row" style="padding: 5px 10px 15px 10px; border-radius: 8px 8px 0px 0px;"
+				[ngStyle]="{'background-color': selectedThemeColor}">
 				<div class="col-12 text-left mt-5">
-					<h1  style="font-size: 2rem;" class="userName upperCase" style="color: white;margin: 0px;">{{
+					<h1 style="font-size: 2rem;" class="userName upperCase" style="color: white;margin: 0px;">{{
 						f["user_name"].value }}</h1>
-					<p style="font-size: 1rem;" class="profession upperCase" style="color: white;">{{ f["user_job_title"].value }}</p>
+					<p style="font-size: 1rem;" class="profession upperCase" style="color: white;">{{
+						f["user_job_title"].value }}</p>
 				</div>
 			</div>
 		</div>
@@ -512,13 +606,13 @@
 			<p><span style="font-size: 1rem;">Dear {{f["managername"].value }},</span></p><br>
 			<br>
 			<p><span style="font-size: 1rem;" [innerHTML]="f['user_summary'].value"></span></p>
-			<br> 
+			<br>
 			<p><span style="font-size: 1rem;">Warm regards,&nbsp;</span></p>
 			<p style="margin-top:8px;font-size: 1rem;">{{ f["user_name"].value }}</p>
 
 		</div>
 
-		<div class="containerfuctional1"  [ngStyle]="{'background-color': selectedThemeColor}">
+		<div class="containerfuctional1" [ngStyle]="{'background-color': selectedThemeColor}">
 			<div style="height:15px;position: absolute; height: 5px;font-size: 1rem;">
 			</div>
 		</div>
@@ -538,7 +632,8 @@
 				<h1 style="font-size: 2rem;" class="userName upperCase">{{ f["user_name"].value }}</h1>
 			</span>
 
-			<p style="font-size: 1.5rem;" class="profession upperCase">&nbsp;{{ f["user_job_title"].value }}</p> <br><br>
+			<p style="font-size: 1.5rem;" class="profession upperCase">&nbsp;{{ f["user_job_title"].value }}</p>
+			<br><br>
 			<p><span style="font-size: 1rem;">Dear {{f["managername"].value }},</span></p><br>
 			<p><span style="font-size: 1rem;" [innerHTML]="f['user_summary'].value"></span></p>
 			<br>
@@ -557,16 +652,20 @@
 	</div>
 
 </ng-template>
-<p-dialog [(visible)]="restrict" [modal]="true" [style]="{ width: '30vw' }" [draggable]="false" [resizable]="false" class="restrictionDialog" [breakpoints]="{ '960px': '30vw', '959px': '60vw', '425px': '90vw' }" (onHide)="clearRestriction()">
-    <div  *ngIf="!ehitlabelIsShow" class="text-center mt-5 mb-4">
-        <img src="../../../uniprep-assets/images/smartloack.png" class="image" width="60" />
-        <h3 class="offer">Upgrade Required</h3>
-        <p>To access this exclusive module,please upgrade your plan now</p>
-        <button pButton type="button" class="text-white p-ripple p-button-rounded p-button-warning p-button p-component p-2" (click)="upgradePlan()">Upgrade Plan<i class="fa fa-arrow-right exhausted-plan-icon"></i></button>
-    </div>
-    <div *ngIf="ehitlabelIsShow" class="text-center mt-5 mb-4">
-        <img src="../../../uniprep-assets/images/smartloack.png" class="image" width="60"/>
-        <h3 class="offer">Upgrade Required</h3>
-        <p>Please contact {{orgnamewhitlabel}} Company for access</p>
-    </div>
+<p-dialog [(visible)]="restrict" [modal]="true" [style]="{ width: '30vw' }" [draggable]="false" [resizable]="false"
+	class="restrictionDialog" [breakpoints]="{ '960px': '30vw', '959px': '60vw', '425px': '90vw' }"
+	(onHide)="clearRestriction()">
+	<div *ngIf="!ehitlabelIsShow" class="text-center mt-5 mb-4">
+		<img src="../../../uniprep-assets/images/smartloack.png" class="image" width="60" />
+		<h3 class="offer">Upgrade Required</h3>
+		<p>To access this exclusive module,please upgrade your plan now</p>
+		<button pButton type="button"
+			class="text-white p-ripple p-button-rounded p-button-warning p-button p-component p-2"
+			(click)="upgradePlan()">Upgrade Plan<i class="fa fa-arrow-right exhausted-plan-icon"></i></button>
+	</div>
+	<div *ngIf="ehitlabelIsShow" class="text-center mt-5 mb-4">
+		<img src="../../../uniprep-assets/images/smartloack.png" class="image" width="60" />
+		<h3 class="offer">Upgrade Required</h3>
+		<p>Please contact {{orgnamewhitlabel}} Company for access</p>
+	</div>
 </p-dialog>
