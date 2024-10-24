@@ -53,6 +53,7 @@ import {RestrictionDialogComponent} from './shared/restriction-dialog/restrictio
 import {SharedModule} from "./shared/shared.module";
 import { NgxStripeModule } from 'ngx-stripe';
 
+
 const reducers = {
   pageSelector: pagesReducer
 }

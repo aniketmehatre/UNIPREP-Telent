@@ -9,19 +9,19 @@ import {
   ViewChild,
   ViewEncapsulation,
 } from "@angular/core";
-import { MenuItem, MessageService } from "primeng/api";
-import { AuthService } from "../../../Auth/auth.service";
-import { SubSink } from "subsink";
-import { ActivatedRoute, Router } from "@angular/router";
-import { LocationService } from "../../../location.service";
-import { DataService } from "src/app/data.service";
-import { FormBuilder, FormGroup, Validators } from "@angular/forms";
-import { matchValidator } from "../../../@Supports/matchvalidator";
-import { ThemeService } from "../../../theme.service";
-import { DashboardService } from "src/app/pages/dashboard/dashboard.service";
-import { count, Observable } from "rxjs";
-import { CountryISO, SearchCountryField } from "ngx-intl-tel-input";
-import { SocialAuthService } from "@abacritt/angularx-social-login";
+import {MenuItem, MessageService} from "primeng/api";
+import {AuthService} from "../../../Auth/auth.service";
+import {SubSink} from "subsink";
+import {ActivatedRoute, Router} from "@angular/router";
+import {LocationService} from "../../../location.service";
+import {DataService} from "src/app/data.service";
+import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {matchValidator} from "../../../@Supports/matchvalidator";
+import {ThemeService} from "../../../theme.service";
+import {DashboardService} from "src/app/pages/dashboard/dashboard.service";
+import {count, Observable} from "rxjs";
+import {CountryISO, SearchCountryField} from "ngx-intl-tel-input";
+import {SocialAuthService} from "@abacritt/angularx-social-login";
 import { environment } from "@env/environment";
 
 // import { SocialAuthService } from "@abacritt/angularx-social-login";
@@ -102,7 +102,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   locationList: any;
   whiteLabelIsNotShow: boolean = true;
   visibleExhastedUser!: boolean;
-  programLevelList: any = [];
+  programLevelList:any = [];
   currentEducation!: boolean;
   currentEducationForm: any = FormGroup;
   ApiUrl: string = environment.domain;
@@ -396,7 +396,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
         this.selectedHomeCountry = Number(data.userdetails[0].home_country_id)
         this.getHomeCountryList();
         const loginStatus = data.userdetails[0].login_status;
-        if (typeof loginStatus === 'string' && loginStatus.includes('Demo') == true) {
+        if(typeof loginStatus === 'string' && loginStatus.includes('Demo') == true) {
           this.demoTrial = true;
           this.demoDays = data.userdetails[0].login_status.replace('Demo-', '');
         }
@@ -404,7 +404,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
           this.demoTrial = true;
         } */
         let programLevelId = data.userdetails[0].programlevel_id;
-        if (programLevelId == null || programLevelId == "null" || programLevelId == "") {
+        if(programLevelId == null || programLevelId == "null" || programLevelId == ""){
           this.currentEducation = true;
           this.educationImage = `https://${this.ApiUrl}/uniprepapi/storage/app/public/uploads/education.svg`;
         }
@@ -428,11 +428,11 @@ export class HeaderComponent implements OnInit, OnDestroy {
       this.programLevelList = res;
     });
   }
-
-  UpdateEducationLevel() {
+  
+  UpdateEducationLevel(){
     let eduLevel = this.currentEducationForm.value.current_education;
-    this.service.updateEducationLevel(eduLevel).subscribe(res => {
-      this.currentEducation = false;
+    this.service.updateEducationLevel(eduLevel).subscribe(res =>{
+      this.currentEducation =  false;
       this.toast.add({
         severity: "success",
         summary: "success",
