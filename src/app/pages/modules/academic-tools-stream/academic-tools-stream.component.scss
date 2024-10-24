@@ -44,3 +44,65 @@
 	justify-content: center;
 	margin: 10px 0;
 }
+
+.resourcecard {
+    border: 2px solid #f0780c;
+    width: 100%;
+    margin: 0px;
+
+    .resourceimg {
+        height: 100px;
+        width: 100px;
+        margin: auto;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+    }
+
+    &:focus {
+        background-color: var(--uniprep-primaryop10);
+        border: 2px solid var(--uniprep-primary);
+    }
+
+    &:hover {
+        background-color: var(--uniprep-primaryop10);
+        border: 2px solid var(--uniprep-primary);
+    }
+}
+
+.startbtn {
+    background-color: var(--uniprep-primary);
+    color: white;
+    padding: 5px;
+    border-radius: 25px;
+    border: none;
+}
+
+.recomandedclass {
+    background-color: white;
+    color: var(--uniprep-secondary);
+    padding: 5px;
+    border-radius: 25px;
+    border: 2p solid white;
+    font-size: 12px;
+
+    span {
+        font-weight: bold;
+    }
+}
+.retakeExceeded{
+    background-color: #D80027;
+    color: white;
+    padding: 5px;
+    border-radius: 25px;
+    border: none;
+}
+.pointer-events-none{
+    pointer-events: none;
+}

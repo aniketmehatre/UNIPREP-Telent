@@ -1,0 +1,15 @@
+<div class="readingcard card">
+    <div class="card-body">
+        <div class="row mx-2">
+            <div class="col-md-2  mt-4 " role="button" *ngFor="let cat of categories" (click)="openTest(cat.id);">
+                <div class="card h-100">
+                    <div class="card-body d-flex  flex-column justify-content-center align-items-center">
+                        <img width="80px" src="{{cat.icons}}">
+                        <h5 class="font-semibold text-center mt-4"> {{cat.name}}</h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
