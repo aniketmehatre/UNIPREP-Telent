@@ -16,3 +16,8 @@ export interface ModuleListSub{
 export interface ExportData {
     link: string
 }
+export interface educationLevel {
+    id: number
+    type: string
+    subscription_content_type: string
+  }

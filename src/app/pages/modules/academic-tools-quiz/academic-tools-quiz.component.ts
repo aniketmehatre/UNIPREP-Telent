@@ -308,7 +308,7 @@ export class AcademicToolsQuizComponent implements OnInit {
       this.isStartQuiz = false;
       this.isSubmitStreamAnswers = false;
       this.isSubmitRecommendationAnswer = false;
-      this.checkProgress();
+      this.checkProgress(true);
     }, (error: Error) => {
       this.showLoading = false;
       console.log(error);
@@ -325,7 +325,7 @@ export class AcademicToolsQuizComponent implements OnInit {
       this.isStartQuiz = false;
       this.isSubmitQuizAnswer = false;
       this.isSubmitStreamAnswers = false;
-      this.checkProgress();
+      this.checkProgress(true);
     },
       (error: Error) => {
         this.showLoading = false;
@@ -343,7 +343,7 @@ export class AcademicToolsQuizComponent implements OnInit {
       this.isStartQuiz = false;
       this.isSubmitRecommendationAnswer = false;
       this.isSubmitQuizAnswer = false;
-      this.checkProgress();
+      this.checkProgress(true);
     }, (error: Error) => {
       this.showLoading = false;
       console.log(error);
@@ -487,34 +487,67 @@ export class AcademicToolsQuizComponent implements OnInit {
       })
       .catch(error => console.error('Error downloading the file:', error));
   }
-  checkProgress(): void {
+  checkProgress(submitTrue?: boolean): void {
     this.academicService.getProgress({ categoryId: this.categoryId, moduleId: this.currentModuleId, submoduleId: this.quizId }).subscribe((res: any) => {
       this.showLoading = false;
       this.canShowRetry = false;
       if (res?.status === 'true') {
-        this.isQuizSubmit = true;
         if (this.categoryId === 1) {
-          this.isSubmitStreamAnswers = true;
           let reportLength = 0;
           res?.report_names.forEach((name: string) => {
             reportLength += 1;
           });
-          if (res?.retry_count < 3) {
-            this.canShowRetry = true;
+          if (submitTrue) {
+            //  checking submitTrue to verify its from quizsubmit or not if it from quiz submit it has to go to the submit page 
+            this.isQuizSubmit = true;
+            this.isSubmitStreamAnswers = true;
+          } else {
+            if (res?.retry_count < 3) {
+              this.canShowRetry = true;
+              this.startQuiz();
+            } else {
+              this.isQuizSubmit = true;
+              this.isSubmitStreamAnswers = true;
+            }
           }
           this.streamReportData = res;
           this.pdfUrl = res?.report_url + res?.report_names[reportLength - 1];
         }
         else if (this.categoryId === 2) {
-          this.isSubmitRecommendationAnswer = true;
           this.submitRecommendationResponse = res;
-          if (res?.retry_count < 3) {
-            this.canShowRetry = true;
+          if (submitTrue) {
+            //  checking submitTrue to verify its from quizsubmit or not if it from quiz submit it has to go to the submit page 
+            this.isQuizSubmit = true;
+            this.isSubmitRecommendationAnswer = true;
+          } else {
+            if (res?.retry_count < 3) {
+              this.canShowRetry = true;
+              this.startQuiz();
+            }
+            else {
+              this.isQuizSubmit = true;
+              this.isSubmitRecommendationAnswer = true;
+            }
           }
         }
         else {
-          this.canShowRetry = true;
-          this.isSubmitQuizAnswer = true;
+          if (submitTrue) {
+            //  checking submitTrue to verify its from quizsubmit or not if it from quiz submit it has to go to the submit page 
+            this.isQuizSubmit = true;
+            this.isSubmitQuizAnswer = true;
+            if (res?.retry < 3) {
+              this.canShowRetry = true;
+            }
+          } else {
+            if (res?.retry < 3) {
+              this.canShowRetry = true;
+              this.startQuiz();
+            }
+            else {
+              this.isQuizSubmit = true;
+              this.isSubmitQuizAnswer = true;
+            }
+          }
           this.totalPercentage = res?.percentageCompleted;
           this.totalanswerquistionaftersubmited = res?.totalquestions;
           this.totalanswercorret = res?.answered;
@@ -533,5 +566,58 @@ export class AcademicToolsQuizComponent implements OnInit {
     this.academicService.getAcadamicSubModuleList(params).subscribe((res: QuizResponse) => {
       this.moduelName = res.data.find(item => item.id === Number(this.quizId))?.submodule_name as string;
     });
+  }
+  startQuiz(){
+    let cName = "";
+    this.dataService.countryNameSource.subscribe(countryName => {
+      cName = countryName;
+    });
+    this.selectedQuiz = 1;
+    this.positionNumber = 1;
+    this.currentModuleSlug = this.router.url.split('/').slice(-2, -1).pop();
+    this.currentCountryId = 0;
+    this.dataService.countryNameSource.subscribe((data) => {
+      this.countryName = data;
+    });
+    this.responsiveOptions = [
+      {
+        breakpoint: '1199px',
+        numVisible: 1,
+        numScroll: 1
+      },
+      {
+        breakpoint: '991px',
+        numVisible: 2,
+        numScroll: 1
+      },
+      {
+        breakpoint: '767px',
+        numVisible: 1,
+        numScroll: 1,
+      }
+    ];
+    this.quizData = [];
+    var data = {
+      module_id: this.currentModuleId,
+      submodule_id: this.quizId,
+      category_type_id: this.categoryId
+    }
+    this.moduleListService.getQuizQuestionList(data).subscribe((res) => {
+      this.quizcount = res.count > 0 ? res.count : 0;
+      if (res?.question !== 'No data found') {
+        this.quizData = res.question.map((val: any) => {
+          let number = 1;
+          let dd = { ...val };
+          dd.otp1 = dd.option1 + dd.id + number++;
+          dd.otp2 = dd.option2 + dd.id + number++;
+          dd.otp3 = dd.option3 + dd.id + number++;
+          dd.otp4 = dd.option4 + dd.id + number++;
+          return dd;
+        });
+      } else {
+        this.quizData = [];
+      }
+      this.runQuiz();
+    })
   }
 }
