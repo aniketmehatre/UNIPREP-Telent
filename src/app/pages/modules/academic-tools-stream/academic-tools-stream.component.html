@@ -1,51 +1,71 @@
 <div class="card readingcard">
-    <div class="card-body text-center pt-0">
+    <div class="card-header py-0 bg-transparent border-0">
+		<div class="row justify-content-center">
+			<div class="col-md-3 text-start"><div class="backIcon" role="button">
+                <span class="fa-solid fa-chevron-left" (click)="goBack()"></span>
+            </div></div>
+			<div class="col-md-6 text-center">
+				<div class="select-title text-nowrap d-flex justify-content-between align-items-center">
+					<div>
+						<h5 class="w-100 mb-0" tooltipPosition="top" pTooltip="{{ tooltip }}">
+							{{ currentModuleName }}
+						</h5>
+					</div>
+					<div>
+						<button class="how-it-works-button">&nbsp;How it works? &nbsp;&nbsp;<i class="fa-solid fa-play"></i></button>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-3 text-end"></div>
+		</div>
         <div class="row">
-            <div class="col-md-3 text-start">
-                <div class="backIcon">
-                    <span class="pi pi-angle-left" (click)="goBack()"></span>
-                </div>
-            </div>
-            <div class="col-md-6 text-center">
-                <div class="select-title text-nowrap d-flex justify-content-between align-items-center">
-                    <div>
-                        <h5 class="w-100 mb-0" tooltipPosition="top" pTooltip="{{tooltip}}">
-                            {{currentModuleName}}</h5>
-                    </div>
-                    <div>
-                        <button class="how-it-works-button"> &nbsp;How it works? &nbsp;&nbsp;<i
-                                class="fa-solid fa-play"></i></button>
+            <div class="d-flex justify-content-center mt-2 mb-2">
+                <div class="card">
+                    <div class="card-body d-flex gap-2 text-small">
+                        <span (click)="redirectTo('dashboard')" role="button"><i class="fa-regular fa-home"></i></span>
+                        <span><i class="fa-solid fa-chevron-right"></i></span>
+                        <span class="uniprep-primary fw-semibold" (click)="redirectTo('academic-tools')" role="button">Academic Tools</span>
+                        <span><i class="fa-solid fa-chevron-right"></i></span>
+                        <span class="uniprep-primary fw-semibold" role="button">{{ currentModuleName }}</span>
                     </div>
                 </div>
-                <div class="d-flex justify-content-center mt-2 mb-5">
-                    <div class="card">
-                        <div class="card-body d-flex gap-2 text-small">
-                            <span (click)="redirectTo('dashboard')" role="button"><i
-                                    class="fa-regular fa-home"></i></span>
-                            <span><i class="fa-solid fa-chevron-right"></i></span>
-                            <span class="uniprep-primary fw-semibold" (click)="redirectTo('academic-tools')"
-                                role="button">Academic Tools</span>
-                            <span><i class="fa-solid fa-chevron-right"></i></span>
-                            <span class="uniprep-primary fw-semibold" role="button">{{currentModuleName}}</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3">
             </div>
         </div>
-        <div *ngIf="isSkeletonVisible">
-            <div class="row">
-                <div *ngFor="let index of loopRange" class="col-lg-2 col-md-3 col-sm-4 col-xs-12 col-12">
-                    <div class="card my-2">
-                        <div class="card-body">
-                            <div class="row justify-content-center align-items-center">
-                                <div class="col-3 col-md-12 d-flex justify-content-center">
-                                    <p-skeleton width="5rem" height="5rem" styleClass="mb-2"></p-skeleton>
-                                </div>
-                                <div class="col-9 col-md-12">
-                                    <p-skeleton width="100%" styleClass="mb-2"></p-skeleton>
-                                    <p-skeleton width="100%"></p-skeleton>
+	</div>
+	<div class="card-body text-center flex-fill overflow-y-auto">
+		<div *ngIf="isSkeletonVisible">
+			<div class="row">
+				<div *ngFor="let index of loopRange" class="col-lg-2 col-md-3 col-sm-4 col-xs-12 col-12">
+					<div class="card my-2">
+						<div class="card-body">
+							<div class="row justify-content-center align-items-center">
+								<div class="col-3 col-md-12 d-flex justify-content-center">
+									<p-skeleton width="5rem" height="5rem" styleClass="mb-2"></p-skeleton>
+								</div>
+								<div class="col-9 col-md-12">
+									<p-skeleton width="100%" styleClass="mb-2"></p-skeleton>
+									<p-skeleton width="100%"></p-skeleton>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row mb-0" *ngIf="!isSkeletonVisible">
+            <div *ngFor="let modules of modulesList" class="col-lg-2 col-md-3 col-sm-4 col-xs-12 col-12">
+				<div class="row w-100 m-0 justify-content-center h-100">
+					<div [routerLink]="['quiz', modules.id, modules.academic_category_type_id]" class="card subjectcard" role="button">
+						<div class="card-body d-flex flex-md-column flex-row justify-content-md-between align-items-center">
+							<div>
+								<div class="submoduleicon">
+									<img class="selectimage" [src]="modules?.icon" />
+								</div>
+								<h5 class="text-center mt-3 fw-bold d-md-block d-none mb-0">{{ modules?.submodule_name }}</h5>
+							</div>
+							<div class="my-2 w-100" *ngIf="modules?.retry === 1 && modules?.academic_category_type_id === 1 && modules?.category_name === 'Stream'">
+                                <div class="btn bg-white btn-rounded w-100 text-small uniprep-secondary">
+                                    <span>Recommended : <span>{{ modules?.recommended }}</span></span>
                                 </div>
                             </div>
                         </div>
@@ -74,10 +94,10 @@
                             <span>Recommended :</span>
                             <div>{{modules?.recommended}}</div>
                         </div>
-                        <button class="d-flex justify-content-center"
-                            [ngClass]="modules?.retry === 0 ? 'startbtn' :  (modules?.retry > 0 && modules?.retry < 3)?'how-it-works-button':'retakeExceeded'">
-                            {{ modules?.retry === 0 ? 'Start Test' :(modules?.retry > 0 && modules?.retry < 3)
-                                ? 'Retake Test' : 'Retake exceeded' }} </button>
+                     
+                        <button class="d-flex justify-content-center btn btn-rounded w-100" [ngClass]="modules?.retry === 0 ? 'btn-secondary' : (modules?.retry > 0 && modules?.retry < 3) || (modules?.academic_category_type_id === 3 && modules?.retry > 3) ? 'btn-primary' : 'btn-primary'">
+                            {{ modules?.retry === 0 ? "Start Test" : (modules?.retry > 0 && modules?.retry < 3) || (modules?.academic_category_type_id === 3 && modules?.retry > 3) ? "Retake Test" : "Retake exceeded" }}
+                        </button>
                                 <br>
                     </div>
                 </div>
