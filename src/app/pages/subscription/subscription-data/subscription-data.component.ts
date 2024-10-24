@@ -68,6 +68,7 @@ export class SubscriptionDataComponent implements OnInit {
   continent: string = "";
   currency: string = "";
   monthlyPlan: number = 6;
+  education_level: string = '';
 
   constructor(
     private authService: AuthService,
@@ -76,14 +77,17 @@ export class SubscriptionDataComponent implements OnInit {
     private toast: MessageService,
     private ngxService: NgxUiLoaderService,
     private http: HttpClient
-  ) {}
+  ) { }
   timeLeftInfoCard: any;
 
   ngOnInit(): void {
     this.getLocation();
     this.timeLeftInfoCard = localStorage.getItem("time_card_info");
     this.discountAmountEnable = false;
-    this.user = this.authService.user;
+    this.authService.getMe().subscribe((data) => {
+      this.user = this.authService.user;
+      this.education_level = this.user?.education_level?.replace(/[\s\u00A0]/g, '').trim() || 'Higher Education';
+    });
     this.studentType = this.user?.student_type_id || 0;
     this.ngxService.startBackground();
     this.authService.getCountry().subscribe(
