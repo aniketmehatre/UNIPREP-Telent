@@ -27,7 +27,7 @@
 }
 
 .subjectcard {
-	border: 1px solid #f0780c;
+	border: 1px solid var(--uniprep-secondary);
 	width: 100%;
 	margin: 10px 0px;
 
@@ -176,7 +176,7 @@ selctedQuizTiny {
 .float-right {
 	float: right;
 	.warning {
-		background-color: #f0780c !important;
+		background-color: var(--uniprep-secondary) !important;
 		border-radius: 25px !important;
 		color: white;
 		font-weight: 300;

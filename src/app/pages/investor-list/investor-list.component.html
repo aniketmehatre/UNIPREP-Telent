@@ -76,11 +76,11 @@
 						<input class="w-100 px-5 py-2" type="text" placeholder="Search in Investor List" pInputText [(ngModel)]="valueNearYouFilter" (input)="performSearch()" />
 					</div>
 					<span class="d-flex justify-content-start p-2" style="white-space: nowrap">
-						<input type="checkbox" class="me-0" style="transform: scale(1.5); cursor: pointer" [(ngModel)]="selectAllCheckboxes" (click)="selectAllCheckbox()" id="selectAllcheckbox" />
-						<label class="p-2" for="selectAllcheckbox" style="cursor: pointer">Select All</label>
-						<span class="p-2">Selected : {{ selectedInvestors }}</span>
-						<button class="btn btn-primary text-small" (click)="viewFavourites()" type="button">
-							{{ viewFavouritesLabel }}<span class="favCount" *ngIf="viewFavouritesLabel != 'View All'">{{ favCount }}</span>
+						<input type="checkbox" class="me-0" [(ngModel)]="selectAllCheckboxes" (click)="selectAllCheckbox()" id="selectAllcheckbox" />
+						<label class="p-2 fw-semibold" for="selectAllcheckbox" style="cursor: pointer">Select All</label>
+						<span class="p-2 fw-semibold">Selected : {{ selectedInvestors }}</span>
+						<button class="btn btn-primary btn-rounded text-small" (click)="viewFavourites()" type="button">
+							{{ viewFavouritesLabel }}<span class="ms-2" *ngIf="viewFavouritesLabel != 'View All'">({{ favCount }})</span>
 						</button>
 					</span>
 				</div>
@@ -100,39 +100,38 @@
 				</div>
 				<div class="col-md-3 text-end">
 					<span class="d-flex justify-content-end mt-3 gap-2" style="white-space: nowrap">
-						<button class="btn btn-primary text-small investor-guidlines" (click)="investorGuidlines()" type="button">Investor Guidelines</button>
-						<button *ngIf="ehitlabelIsShow" class="btn btn-primary text-small investor-guidlines" (click)="buyCredits()" type="button">Buy Credits</button>
+						<button class="btn btn-primary btn-rounded text-small" (click)="investorGuidlines()" type="button">Investor Guidelines</button>
+						<button *ngIf="ehitlabelIsShow" class="btn btn-secondary btn-rounded text-small" (click)="buyCredits()" type="button">Buy Credits</button>
 						<button class="btn btn-primary text-small exportButton" (click)="exportData()" type="button">
 							Export <span class="exportCount">{{ exportCreditCount }}</span>
 						</button>
 					</span>
 					<div class="d-flex w-100 align-items-center justify-content-end p-2 gap-2" style="white-space: nowrap">
-						<button class="btn btn-primary text-small ps-3 pe-3 pt-2 pb-2 br-8 p-1" style="background-color: #ff9113 !important" (click)="openReport()" type="button">Report</button>
+						<button class="btn btn-secondary btn-rounded text-small" (click)="openReport()" type="button">Report</button>
+						<button class="btn btn-primary btn-rounded text-small" (click)="filterBy()" type="button">Filter by</button>
 						<div class="pe-2">
 							<span class="text-muted text-small"
 								><strong>Total Investors : {{ totalInvestorsCount }}</strong></span
 							>
 						</div>
-						<button class="btn btn-primary text-small ps-3 pe-3 pt-2 pb-2 br-8" (click)="filterBy()" type="button">Filter by</button>
 					</div>
 				</div>
 			</div>
 		</div>
 		<div class="card-body text-center flex-fill overflow-y-auto" *ngIf="!restrict">
 			<div class="row">
-				<div *ngFor="let investorListData of investorData" class="col-md-3 col-12 mt-3">
-					<div class="card investorcard h-100">
+				<div *ngFor="let investorListData of investorData" class="col-md-3 col-12 mb-3">
+					<div class="card subjectcard h-100">
 						<div class="card-body d-flex flex-column justify-content-between">
-							<div class="d-flex justify-content-between align-items-start">
+							<div class="d-flex justify-content-between align-items-start mb-3">
 								<div class="d-flex gap-2 align-items-start">
-									<input type="checkbox" (change)="onCheckboxChange($event)" class="mt-1" style="transform: scale(1.5)" [(ngModel)]="investorListData.isChecked" />
-									<h5 class="uniprep-primary" title="Investor Name">{{ investorListData.org_name }}</h5>
+									<input type="checkbox" (change)="onCheckboxChange($event)" [(ngModel)]="investorListData.isChecked" />
+									<h5 class="uniprep-primary text-start mb-0" title="Investor Name">{{ investorListData.org_name }}</h5>
 								</div>
-
-								<i [class]="investorListData.favourite == 1 ? 'fa-solid fa-bookmark' : 'fa-regular fa-bookmark'" style="color: #e90707" (click)="bookmarkQuestion(investorListData.id, investorListData.favourite)"></i>
+								<i class="text-danger" role="button" [class]="investorListData.favourite == 1 ? 'fa-solid fa-bookmark' : 'fa-regular fa-bookmark'" (click)="bookmarkQuestion(investorListData.id, investorListData.favourite)"></i>
 							</div>
 							<div>
-								<div class="d-flex mt-2 gap-5 align-items-center">
+								<div class="d-flex gap-5 align-items-center">
 									<div class="d-flex gap-2 align-items-center" title="Inverstor Country">
 										<i class="fa-solid fa-location-dot locationicon" aria-hidden="true"></i>
 										<p class="text-small mb-0">{{ investorListData.country }}</p>
@@ -191,57 +190,52 @@
 </div>
 
 <p-dialog header="Filter Investors" [(visible)]="isFilterVisible" [modal]="true" [style]="{ width: '60rem' }" [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }" [ngStyle]="{ display: isFilterVisible }">
-	<div class="m-5">
-		<form role="form" [formGroup]="filterForm" (ngSubmit)="loadInvestorData(0)">
+		<form class="p-3" role="form" [formGroup]="filterForm" (ngSubmit)="loadInvestorData(0)">
 			<div class="row">
-				<div class="col-md-12">
-					<div class="row">
-						<div class="col-md-6">
-							<label class="form-label" style="font-size: medium; font-weight: 500">Filter by Investor Name</label>
-							<div class="form-group">
-								<div class="mb-3">
-									<input class="w-100" type="text" placeholder="Search Investor Name" formControlName="org_name" pInputText />
-								</div>
+				<div class="col-md-6">
+					<label class="form-label" style="font-size: medium; font-weight: 500">Filter by Investor Name</label>
+					<div class="form-group">
+						<div class="mb-3">
+							<input class="w-100" type="text" placeholder="Search Investor Name" formControlName="org_name" pInputText />
+						</div>
+					</div>
+				</div>
+				<div class="col-md-6">
+					<label class="form-label" style="font-size: medium; font-weight: 500">Filter by Investor Type</label>
+					<div class="form-group">
+						<div class="mb-3">
+							<p-multiSelect [options]="investorType" styleClass="w-100" formControlName="investor_type" optionValue="id" defaultLabel="Select Investor Type" optionLabel="investor_type_name" #InvestorTypeMultiSelect [appendTo]="'body'">
+								<ng-template pTemplate="selectedItems">
+									{{ InvestorTypeMultiSelect.defaultLabel }}
+								</ng-template>
+							</p-multiSelect>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-6">
+					<label class="form-label" style="font-size: medium; font-weight: 500">Filter by Country</label>
+					<div class="form-group">
+						<div class="mb-3">
+							<p-multiSelect [options]="countryList" styleClass="w-100" formControlName="country" optionValue="id" (onChange)="loadHeadQuartersData($event)" defaultLabel="Select Countries" optionLabel="country" #multiSelect [appendTo]="'body'">
+								<ng-template pTemplate="selectedItems">
+									{{ multiSelect.defaultLabel }}
+								</ng-template>
+							</p-multiSelect>
+							<div *ngIf="filterForm.hasError('org_name')" class="text-danger">
+								{{ filterForm.getError("org_name") }}
 							</div>
 						</div>
-						<div class="col-md-6">
-							<label class="form-label" style="font-size: medium; font-weight: 500">Filter by Investor Type</label>
-							<div class="form-group">
-								<div class="mb-3">
-									<p-multiSelect [options]="investorType" styleClass="w-100" formControlName="investor_type" optionValue="id" defaultLabel="Select Investor Type" optionLabel="investor_type_name" #InvestorTypeMultiSelect [appendTo]="'body'">
-										<ng-template pTemplate="selectedItems">
-											{{ InvestorTypeMultiSelect.defaultLabel }}
-										</ng-template>
-									</p-multiSelect>
-								</div>
-							</div>
-						</div>
-						<div class="col-md-6">
-							<label class="form-label" style="font-size: medium; font-weight: 500">Filter by Country</label>
-							<div class="form-group">
-								<div class="mb-3">
-									<p-multiSelect [options]="countryList" styleClass="w-100" formControlName="country" optionValue="id" (onChange)="loadHeadQuartersData($event)" defaultLabel="Select Countries" optionLabel="country" #multiSelect [appendTo]="'body'">
-										<ng-template pTemplate="selectedItems">
-											{{ multiSelect.defaultLabel }}
-										</ng-template>
-									</p-multiSelect>
-									<div *ngIf="filterForm.hasError('org_name')" class="text-danger">
-										{{ filterForm.getError("org_name") }}
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="col-md-6">
-							<label class="form-label" style="font-size: medium; font-weight: 500">Filter by Headquarters</label>
-							<div class="form-group">
-								<div class="mb-3">
-									<p-multiSelect [options]="headQuartersList" styleClass="w-100" formControlName="head_quarters" defaultLabel="Select Head Quarters" optionValue="id" optionLabel="head_quarters_name" #InvestorHeadQuartersMultiSelect [appendTo]="'body'">
-										<ng-template pTemplate="selectedItems">
-											{{ InvestorHeadQuartersMultiSelect.defaultLabel }}
-										</ng-template>
-									</p-multiSelect>
-								</div>
-							</div>
+					</div>
+				</div>
+				<div class="col-md-6">
+					<label class="form-label" style="font-size: medium; font-weight: 500">Filter by Headquarters</label>
+					<div class="form-group">
+						<div class="mb-3">
+							<p-multiSelect [options]="headQuartersList" styleClass="w-100" formControlName="head_quarters" defaultLabel="Select Head Quarters" optionValue="id" optionLabel="head_quarters_name" #InvestorHeadQuartersMultiSelect [appendTo]="'body'">
+								<ng-template pTemplate="selectedItems">
+									{{ InvestorHeadQuartersMultiSelect.defaultLabel }}
+								</ng-template>
+							</p-multiSelect>
 						</div>
 					</div>
 				</div>
@@ -251,7 +245,6 @@
 				<button class="btn btn-dark w-100" (click)="clearFilter()" style="background-color: white; border-radius: 8px; color: var(--uniprep-primary); border: none" type="button">Reset Filter</button>
 			</div>
 		</form>
-	</div>
 </p-dialog>
 
 <p-dialog [(visible)]="restrict" [style]="{ width: '30vw' }" [draggable]="false" [resizable]="false" class="restrictionDialog" [breakpoints]="{ '960px': '30vw', '959px': '60vw', '425px': '90vw' }" (onHide)="clearRestriction()">
