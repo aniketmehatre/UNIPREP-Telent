@@ -68,40 +68,13 @@
                                     <span>Recommended : <span>{{ modules?.recommended }}</span></span>
                                 </div>
                             </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="row mb-0" *ngIf="!isSkeletonVisible">
-            <div *ngFor="let modules of modulesList" class="col-lg-2 col-md-3 col-sm-4 col-xs-12 col-12 mb-2">
-                <div class="row w-100 m-0 justify-content-center h-100">
-                    <div class="card resourcecard text-black h-100"
-                        [ngClass]="{'pointer-events-none':modules?.retry >= 3&& modules?.academic_category_type_id===3}"
-                        [routerLink]="['quiz',modules.id, modules.academic_category_type_id]">
-                        <div class="card-body text-center d-flex flex-column">
-                            <div class="resourceimg mx-auto mb-3">
-                                <img [src]="modules?.icon" alt="" />
-                            </div>
-                        </div>
-                        <div class="d-flex flex-column gap-2 justify-content-between flex-grow-1">
-                            <div>
-                                <h5>{{ modules?.submodule_name}}</h5>
-                            </div>
-                        </div>
-                        <div class="recomandedclass"
-                            *ngIf="modules?.retry === 1&& modules?.academic_category_type_id===1&&modules?.category_name==='Stream'">
-                            <span>Recommended :</span>
-                            <div>{{modules?.recommended}}</div>
-                        </div>
-                     
-                        <button class="d-flex justify-content-center btn btn-rounded w-100" [ngClass]="modules?.retry === 0 ? 'btn-secondary' : (modules?.retry > 0 && modules?.retry < 3) || (modules?.academic_category_type_id === 3 && modules?.retry > 3) ? 'btn-primary' : 'btn-primary'">
-                            {{ modules?.retry === 0 ? "Start Test" : (modules?.retry > 0 && modules?.retry < 3) || (modules?.academic_category_type_id === 3 && modules?.retry > 3) ? "Retake Test" : "Retake exceeded" }}
-                        </button>
-                                <br>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+                            <button class="d-flex justify-content-center btn btn-rounded w-100" [ngClass]="modules?.retry === 0 ? 'btn-secondary' : (modules?.retry > 0 && modules?.retry < 3) || (modules?.academic_category_type_id === 3 && modules?.retry > 3) ? 'btn-primary' : 'btn-primary'">
+                                {{ modules?.retry === 0 ? "Start Test" : (modules?.retry > 0 && modules?.retry < 3) || (modules?.academic_category_type_id === 3 && modules?.retry > 3) ? "Retake Test" : "Retake exceeded" }}
+                            </button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>
