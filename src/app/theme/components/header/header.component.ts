@@ -22,7 +22,7 @@ import { DashboardService } from "src/app/pages/dashboard/dashboard.service";
 import { count, Observable } from "rxjs";
 import { CountryISO, SearchCountryField } from "ngx-intl-tel-input";
 import { SocialAuthService } from "@abacritt/angularx-social-login";
-import { educationLevel } from "src/app/@Models/module.model";
+import { environment } from "@env/environment";
 
 // import { SocialAuthService } from "@abacritt/angularx-social-login";
 
@@ -103,7 +103,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
   whiteLabelIsNotShow: boolean = true;
   visibleExhastedUser!: boolean;
   programLevelList: any = [];
-
+  currentEducation!: boolean;
+  currentEducationForm: any = FormGroup;
+  ApiUrl: string = environment.domain;
+  educationImage: string = "";
   constructor(
     private router: Router,
     private locationService: LocationService,
@@ -251,7 +254,11 @@ export class HeaderComponent implements OnInit, OnDestroy {
       home_country: ["", Validators.required],
       study_level: ["", Validators.required],
     });
-    localStorage.setItem("phone", '');
+
+    this.currentEducationForm = this.formBuilder.group({
+      current_education: ["", Validators.required]
+    });
+
     if (
       localStorage.getItem("phone") == "" ||
       localStorage.getItem("phone") == null ||
@@ -388,13 +395,19 @@ export class HeaderComponent implements OnInit, OnDestroy {
         this.homeCountryId = Number(data.userdetails[0].home_country_id)
         this.selectedHomeCountry = Number(data.userdetails[0].home_country_id)
         this.getHomeCountryList();
-        if (data.userdetails[0].login_status.includes('Demo') == true) {
+        const loginStatus = data.userdetails[0].login_status;
+        if (typeof loginStatus === 'string' && loginStatus.includes('Demo') == true) {
           this.demoTrial = true;
           this.demoDays = data.userdetails[0].login_status.replace('Demo-', '');
         }
         /*if (data.userdetails[0].login_status == "Demo") {
           this.demoTrial = true;
         } */
+        let programLevelId = data.userdetails[0].programlevel_id;
+        if (programLevelId == null || programLevelId == "null" || programLevelId == "") {
+          this.currentEducation = true;
+          this.educationImage = `https://${this.ApiUrl}/uniprepapi/storage/app/public/uploads/education.svg`;
+        }
       }
     });
 
@@ -411,10 +424,21 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   getProgramlevelList() {
-    this.locationService.getEducationLevel().subscribe((res: educationLevel[]) => {
+    this.locationService.getProgramLevel().subscribe(res => {
       this.programLevelList = res;
-      console.log(this.programLevelList);
     });
+  }
+
+  UpdateEducationLevel() {
+    let eduLevel = this.currentEducationForm.value.current_education;
+    this.service.updateEducationLevel(eduLevel).subscribe(res => {
+      this.currentEducation = false;
+      this.toast.add({
+        severity: "success",
+        summary: "success",
+        detail: res.message,
+      });
+    })
   }
 
   ngOnDestroy() {
