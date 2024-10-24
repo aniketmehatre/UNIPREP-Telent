@@ -165,10 +165,6 @@ selctedQuizTiny {
 	font-size: 10px;
 }
 
-.desktop {
-	display: flex;
-}
-
 .primary-btn {
 	border-radius: 25px !important;
 }
@@ -323,4 +319,16 @@ input[type="text"] {
 
 .dropdown-item:last-child {
 	border-bottom: none;
+}
+
+.backIcon {
+	height: 40px;
+	width: 40px;
+	border-radius: 20px;
+	background-color: var(--uniprep-primary);
+	color: white;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	margin: 10px 0;
 }
