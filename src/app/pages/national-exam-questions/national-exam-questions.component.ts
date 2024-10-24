@@ -43,7 +43,7 @@ export class NationalExamQuestionsComponent implements OnInit {
 
   nextQues(){
     if(this.selectedValue == undefined){
-      alert("select an answer idiot")
+      alert("select an answer ")
     }else{
       alert(this.page);
       if(this.page != 9){

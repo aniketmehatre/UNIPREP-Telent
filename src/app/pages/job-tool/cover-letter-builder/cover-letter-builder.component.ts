@@ -205,7 +205,7 @@ export class CoverLetterBuilderComponent implements OnInit {
     // }
     this.submitted=true;
     this.submittedsummery=true;
-    alert("ran");
+    // alert("ran");
       this.generateImage();
       this.activePageIndex = 3;
  
@@ -346,7 +346,7 @@ export class CoverLetterBuilderComponent implements OnInit {
     const body = {
       model: "gpt-3.5-turbo",
       messages: [
-        { role: "system", content: "You are an assistant who writes professional cover letters. without from and to, i need only body for my cover letter." },
+        { role: "system", content: "write only body of cover letter in html format with a <br> tag between paragraphs and have at least three paragraphs without header and footer" },
         { role: "user", content: prompt }
       ],
       max_tokens: 1500,
