@@ -19,35 +19,44 @@ import { PdfViewerModule } from "ng2-pdf-viewer";
 import { AnimateModule } from "primeng/animate";
 import { NgxExtendedPdfViewerModule } from "ngx-extended-pdf-viewer";
 import { TestModulesComponent } from "./testmodule/testmodule.component";
+import { QuizinfowindowComponent } from "./quizinfowindow/quizinfowindow.component";
 import { QuizwindowComponent } from "./quizwindow/quizwindow.component";
-
+import { NgxAudioPlayerModule } from "ngx-audio-player";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { CheckboxModule } from "primeng/checkbox";
+import { RadioButtonModule } from "primeng/radiobutton";
 @NgModule({
-    declarations: [
-        UniLearnComponent,      
-        LearnModulesComponent,
-        LearnsubModulesComponent,
-        TestModulesComponent,
-        QuizwindowComponent
-    ],
-      imports: [
-          CommonModule,
-          UniLearnRoutingModule,
-          BreadcrumbModule,
-          ButtonModule,
-          CarouselModule,
-          DialogModule,
-          ProgressBarModule,
-          SharedModule,
-          SkeletonModule,
-          TooltipModule,
-          SkeletonModule,
-          CardModule,
-          PaginatorModule,
-          ChipsModule,
-          NgxExtendedPdfViewerModule,
-          PdfViewerModule,
-      ],
-      schemas: [CUSTOM_ELEMENTS_SCHEMA],
-  })
-  export class UniLearnModule { }
-  
+  declarations: [
+    UniLearnComponent,
+    LearnModulesComponent,
+    LearnsubModulesComponent,
+    TestModulesComponent,
+    QuizinfowindowComponent,
+    QuizwindowComponent,
+  ],
+  imports: [
+    CommonModule,
+    UniLearnRoutingModule,
+    BreadcrumbModule,
+    ButtonModule,
+    CarouselModule,
+    DialogModule,
+    ProgressBarModule,
+    SharedModule,
+    SkeletonModule,
+    TooltipModule,
+    SkeletonModule,
+    CardModule,
+    PaginatorModule,
+    ChipsModule,
+    NgxExtendedPdfViewerModule,
+    PdfViewerModule,
+    NgxAudioPlayerModule,
+    FormsModule,
+    ReactiveFormsModule,
+    CheckboxModule,
+    RadioButtonModule
+  ],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
+})
+export class UniLearnModule {}

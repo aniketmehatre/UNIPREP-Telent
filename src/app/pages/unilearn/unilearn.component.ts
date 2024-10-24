@@ -9,7 +9,8 @@ export class UniLearnComponent implements OnInit {
   constructor() {}
   stage = 1;
   @Input() parentid:number;
-  @Input() moduleid:number;
+  @Input() moduleid:number;  
+  @Input() totalquestion: number;
   @Input() selected_module: string;
   ngOnInit(): void {
   }
@@ -17,6 +18,7 @@ export class UniLearnComponent implements OnInit {
     this.parentid=data.parent_id;
     this.moduleid=data.module_id;
     this.selected_module=data.selected_module
+    this.totalquestion=data.totalquestion
     this.stage = data.stage;
   }
 }

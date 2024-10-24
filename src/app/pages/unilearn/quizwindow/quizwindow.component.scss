@@ -66,14 +66,114 @@
 }
 .btn-primary .btn-customicon {
   border-radius: 100px;
-  background-color: var(--uniprep-primarydark);
+  background-color: var(--uniprep-primarylight);
   width: 25px;
   height: 25px;
   display: flex;
   justify-content: center;
   align-items: center;
 }
-.quizinfo{
+.btn-previous {
+  background-color: var(--uniprep-primarydark) !important;
+}
+.btn-primary .btn-custompreviousicon {
+  border-radius: 100px;
+  background-color: var(--uniprep-primarydarklight);
+  width: 25px;
+  height: 25px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.btn-customdanger {
+  background-color: #df3e3e !important;
+  border: #df3e3e !important;
+}
+.btn-primary .btn-customdangericon {
+  border-radius: 100px;
+  background-color: #bc1818;
+  width: 25px;
+  height: 25px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.outline-primary {
+  border-color: var(--uniprep-primary) !important;
+  color: var(--uniprep-primary) !important;
+  &:hover {
+    background-color: transparent !important;
+  }
+}
+.customactive {
+  background-color: var(--uniprep-primary) !important;
+  color: white !important;
+}
+.quizinfo {
   font-size: 16px;
   font-weight: 500;
+}
+::ng-deep ngx-audio-player {
+  width: 100%;
+  .ng-star-inserted {
+    font-weight: 600;
+  }
+  .mat-slider-thumb {
+    background-color: var(--uniprep-secondary);
+  }
+  .mat-slider-track-wrapper {
+    height: 5px !important;
+    border-radius: 10px !important;
+  }
+  .mat-slider-wrapper {
+    background-color: #d9d9d9;
+    border-radius: 10px !important;
+    height: 5px !important;
+    top: 21px !important;
+    left: 8px !important;
+    right: 8px !important;
+  }
+  .mat-slider-track-fill {
+    background-color: var(--uniprep-primary);
+    height: 5px !important;
+  }
+  mat-icon {
+    vertical-align: text-bottom !important;
+    position: relative;
+    top: 5px !important;
+  }
+  mat-slider {
+    vertical-align: text-bottom !important;
+  }
+  .mat-button {
+    background: none !important;
+    border: none !important;
+    svg {
+      height: 18px !important;
+      width: 18px !important;
+    }
+  }
+  .mat-icon {
+    height: 30px !important;
+    width: 25px !important;
+  }
+  .ngx-volume {
+    height: 45px !important;
+    margin: 0 !important;
+    position: relative;
+    top: 4px;
+  }
+  .play-pause {
+    position: relative !important;
+    top: 7px !important;
+    display: none;
+  }
+  
+}.quizform {
+    input {
+      font-size: 12px !important;
+    }
+    label {
+      font-size: 12px !important;
+    }
 }

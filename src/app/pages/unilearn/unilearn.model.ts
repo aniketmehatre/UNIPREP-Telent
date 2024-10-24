@@ -29,7 +29,7 @@ export interface submoduledata {
 }
 export interface Quizmodule {
   shuffledQuestion: shuffledQuestion[];
-  primary_question:primary_question[];
+  primary_question: primary_question[];
   totalquestion: number;
 }
 export interface shuffledQuestion {
@@ -43,19 +43,27 @@ export interface shuffledQuestion {
   type: string;
   created_at: string;
   updated_at: string;
+  options:[];
 }
-export interface primary_question{
-    id: number;
-    module_id: number;
-    code: string;
-    type: number;
-    title:string;
-    description: string;
-    audio_path: string;
-    image_path: string;
-    status: number;
-    created_at: string;
-    updated_at: string;
-    audio_file: string;
-    image_file: string;
+export interface primary_question {
+  id: number;
+  module_id: number;
+  code: string;
+  type: number;
+  title: string;
+  description: string;
+  audio_path: string;
+  image_path: string;
+  status: number;
+  created_at: string;
+  updated_at: string;
+  audio_file: string;
+  image_file: string;
+  audio: number;
+  image: number;
+  paragraph: number;
+}
+export interface SelectedOption {
+  question: number;
+  options: number[];
 }

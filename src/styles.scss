@@ -7,6 +7,8 @@
 :root {
 	--uniprep-primary: rgb(63, 76, 131);
 	--uniprep-primarydark: #001631;
+	--uniprep-primarydarklight: #0e3361;
+	--uniprep-primarylight: #4552a3;
 	--uniprep-primaryop10: rgba(63, 76, 131, 0.145);
 	--uniprep-primaryop30: rgba(63, 76, 131, 0.3);
 	--uniprep-secondary: #f0780e;
@@ -445,6 +447,7 @@ uni-advisor,
 uni-career-growth-checker,
 uni-learnsubmodules,
 uni-testmodule,
+uni-quizinfowindow,
 uni-quizwindow {
 	display: flex;
 	flex: 1;

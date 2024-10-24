@@ -1,0 +1,76 @@
+<ng-container *ngIf="!quizwindowvisibility">
+  <div class="card readingcard">
+    <div class="card-body text-center pt-0">
+      <div class="row">
+        <div class="col-md-2 mt-3 text-start ms-2">
+          <h5 class="bold">
+            {{ totalquestion }}/{{ totalquestion }} Questions Left
+          </h5>
+        </div>
+        <div class="col-md-8 text-center">
+          <div
+            class="select-title text-nowrap d-flex justify-content-between align-items-center"
+          >
+            <div>
+              <h5
+                class="mb-0"
+                tooltipPosition="top"
+                pTooltip="Prepare for standardized tests and improve academic skills with practice tests and learning modules."
+              >
+                {{ selected_module | uppercase }}
+                <i class="questiontooltip fa-solid fa-circle-question"></i>
+              </h5>
+            </div>
+            <div>
+              <button
+                class="how-it-works-button"
+                (click)="
+                  openVideoPopup(
+                    'https://www.youtube.com/embed/01xivveciUI?si=Cdi3e7ycApMa8sWO'
+                  )
+                "
+              >
+                &nbsp;How it works? &nbsp;&nbsp;<i class="fa-solid fa-play"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+  
+        <div class="col-12 mt-3 text-start justify-content-start d-md-flex">
+          <ul style="list-style: disc" class="quizinfo">
+            <li class="p-3">There are 20 MCQs in the quiz.</li>
+            <li class="p-3">You cannot skip any question / All questions are mandatory to answer.</li>
+            <li class="p-3">You cannot access other screens while taking the quiz.</li>
+            <li class="p-3">You cannot save and submit later.</li>
+            <li class="p-3">Restart - will display new set of questions.</li>
+            <li class="p-3">You will get a certificate for completing all the quiz modules.</li>
+            <li class="p-3">Buffer? To qualify for the quiz you need to get __% correct.</li>
+            <li class="p-3">There is no time limit.</li>
+  
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="card-footer bg-white">
+      <div class="d-flex justify-content-between">
+        <div><h4 class="headColor">ALL THE BEST !</h4></div>
+        <div>
+          <button
+            pButton
+            type="button"
+            class="btn btn-primary btn-rounded p-1 ps-4"
+            (click)="enablequizWindow()"
+          >
+            <span class="me-3">Start</span
+            ><span class="btn-customicon px-1 py-1"
+              ><i class="fa fa-arrow-right"></i
+            ></span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-container>
+<ng-container *ngIf="quizwindowvisibility">
+  <uni-quizwindow (visibilityChange)="visibilityChange($event)" [quizwindowvisibility]="quizwindowvisibility" [totalquestion]="totalquestion" [selected_module]="selected_module" [parentid]="parentid" [moduleid]="moduleid"></uni-quizwindow>
+</ng-container>
