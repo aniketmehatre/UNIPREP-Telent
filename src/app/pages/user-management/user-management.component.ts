@@ -125,7 +125,7 @@ export class UserManagementComponent implements OnInit {
         this.GetPersonalProfileData();
         setTimeout(() => {
             this.hideToolTip = false;
-        }, 10000); 
+        }, 10000);
     }
     GetPersonalProfileData() {
         this.userManagementService.GetUserPersonalInfo().subscribe(data => {
@@ -318,6 +318,8 @@ export class UserManagementComponent implements OnInit {
         delete this.registrationForm.value.phone;
         this.userManagementService.updateUserData(data).subscribe(data => {
             this.ShowPersonalInfo = false;
+            this.authService?.getMe().subscribe(item => {
+            });
             this.GetPersonalProfileData();
             this.toast.add({ severity: 'success', summary: 'Success', detail: "Successfully Updated" });
 

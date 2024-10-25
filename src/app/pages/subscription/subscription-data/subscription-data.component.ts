@@ -83,11 +83,10 @@ export class SubscriptionDataComponent implements OnInit {
   ngOnInit(): void {
     this.getLocation();
     this.timeLeftInfoCard = localStorage.getItem("time_card_info");
-    this.discountAmountEnable = false;
-    this.authService.getMe().subscribe((data) => {
-      this.user = this.authService.user;
-      this.education_level = this.user?.education_level?.replace(/[\s\u00A0]/g, '').trim() || 'Higher Education';
-    });
+    this.discountAmountEnable = false; 
+
+    this.user = this.authService.user;
+    this.education_level = this.user?.education_level?.replace(/[\s\u00A0]/g, '').trim() || 'HigherEducation';
     this.studentType = this.user?.student_type_id || 0;
     this.ngxService.startBackground();
     this.authService.getCountry().subscribe(
