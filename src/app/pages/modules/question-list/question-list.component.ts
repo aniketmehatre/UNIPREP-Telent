@@ -903,9 +903,9 @@ export class QuestionListComponent implements OnInit {
       return;
     }
     if(this.currentModuleId==10){
-      this.router.navigate([`/pages/modules/${this.currentModuleSlug}/quiz`]);
-    }else{
       this.router.navigate([`/pages/modules/${this.currentModuleSlug}/learninghubquiz`]);
+    }else{
+      this.router.navigate([`/pages/modules/${this.currentModuleSlug}/quiz`]);
     }
   }
   openHowItWorksVideoPopup(videoLink: string) {
