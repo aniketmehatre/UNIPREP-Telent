@@ -30,6 +30,8 @@
 								<div class="d-flex gap-3 align-items-center h-100">
 									<div class="resourceimg"><img src="{{ list.module_image }}" alt="" /></div>
 									<div class="text-start">
+										<h6 *ngIf="list.module_id==1 || list.module_id==7 || list.module_id==3 || list.module_id==4
+												|| list.module_id==6">{{list.country_name}}</h6>
 										<h5 title="{{ list.module_name }}">{{ list.module_name }}</h5>
 										<h6>{{ list.submodule_name }}</h6>
 										<span>ID: {{ list.certificateID }}</span>
