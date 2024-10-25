@@ -197,7 +197,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.dataService.showTimerInHeader(null);
   }
   openchat() {
-    this.router.navigate(["/pages/chat"]);
+    this.router.navigate(["/pages/advisor"]);
   }
   updateMenuClass() {
     const sidenav: Element | null = document.getElementById("sidenav");
