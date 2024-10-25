@@ -131,3 +131,47 @@
 <!--        </div>-->
 <!--    </div>-->
 <!--</div>-->
+<div class="readingcard card">
+    <div class="card-header d-flex justify-content-between mt-4" style="background-color: #fafafa;border-bottom: 0px solid #fafafa;">
+        <h5>{{page + 1}}/10 Question Left</h5>
+        <a class="btn btn-danger">Quit</a>
+    </div>
+    <div class="card-body">
+        <p-carousel [value]="questions" [responsiveOptions]="responsiveOptions" [showIndicators]="false" [showNavigators]="false" [page]="page">
+            <ng-template let-question pTemplate="item">
+                <small class="font-semibold" style="color: #394d83;font-weight: 600;">Question Number {{page+1}}</small>
+                <h3>{{ question.question }}</h3>
+                <div class="d-flex p-3 my-1" style="border:1px solid #e3e3e3;border-radius: 10px;">
+                    <p-radioButton name="groupname" value="A" [(ngModel)]="selectedValue" inputId="opt1"></p-radioButton>
+                    <label for="opt1" class="ps-2">{{question.option_one}}</label>
+                </div>
+                <div class="d-flex p-3 my-1" style="border:1px solid #e3e3e3;border-radius: 10px;">
+                    <p-radioButton name="groupname" value="B" [(ngModel)]="selectedValue" inputId="opt2"></p-radioButton>
+                    <label for="opt2" class="ps-2">{{question.option_two}}</label>
+                </div>
+                <div class="d-flex p-3 my-1" style="border:1px solid #e3e3e3;border-radius: 10px;">
+                    <p-radioButton name="groupname" value="C" [(ngModel)]="selectedValue" inputId="opt3"></p-radioButton>
+                    <label for="opt3" class="ps-2">{{question.option_three}}</label>
+                </div>
+                <div class="d-flex p-3 my-1" style="border:1px solid #e3e3e3;border-radius: 10px;">
+                    <p-radioButton name="groupname" value="D" [(ngModel)]="selectedValue" inputId="opt4"></p-radioButton>
+                    <label for="opt4" class="ps-2">{{question.option_four}}</label>
+                </div>
+            </ng-template>
+        </p-carousel>
+    </div>
+    <div class="card-footer d-flex justify-content-between mb-2 align-items-end" style="background-color: #fafafa;border-top: 0px solid #fafafa;">
+        <!-- <div>
+           sss
+        </div> -->
+        <div style="width: 80%;">
+            <small class="fw-semibold">Progress: {{page*10}}% Completed</small>
+            <p-progressBar [value]="progressvalue"  [style]="{'height': '6px'}"></p-progressBar>
+        </div>
+
+        <div>
+            <button class="btn btn-primary">Previous</button>
+            <button class="btn btn-primary ms-2" (click)="nextQues()">Next</button>
+        </div>
+    </div>
+</div> 

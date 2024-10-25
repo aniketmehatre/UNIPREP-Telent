@@ -6,6 +6,7 @@ import {SessionService} from "./session.service";
 import {DeviceDetectorService} from "ngx-device-detector";
 import {LocalStorageService} from "ngx-localstorage";
 import { BehaviorSubject, Observable, of, tap } from 'rxjs';
+import { educationLevel } from './@Models/module.model';
 
 @Injectable({
     providedIn: "root",
@@ -208,4 +209,11 @@ export class LocationService {
       getOrgName(): Observable<string | null> {
         return this.orgname$
       }  
+
+      getEducationLevel() {
+        const headers = new HttpHeaders().set("Accept", "application/json");
+        return this.http.get<educationLevel[]>(environment.ApiUrl + "/geteducationtype", {
+            headers: headers,
+        });
+    }
 }
