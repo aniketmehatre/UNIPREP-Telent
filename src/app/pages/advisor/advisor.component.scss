@@ -1,28 +1,5 @@
-.force-font > * {
-    font-size : 1rem !important 
-  }
-
-.force-font >  h1{
-    font-size: 1rem !important;
-}
-
-.force-font >  h2{
-    font-size: 1rem !important;
-}
-
-.force-font >  h3{
-    font-size: 1rem !important;
-}
-.force-font >  h4{
-    font-size: 1rem !important;
-}
-.force-font >  h5{
-    font-size: 1rem !important;
-}
-.force-font >  h6{
-    font-size: 1rem !important;
-}
-.force-font >  p{
+.force-font p,h1,h2,h3,h4,h5
+{
     font-size: 1rem !important;
 }
 

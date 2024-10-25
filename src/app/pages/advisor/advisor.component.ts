@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { AdvisorService } from './advisor.service';
 import {NgxUiLoaderService} from "ngx-ui-loader";
 import { ActivatedRoute } from '@angular/router';
@@ -6,7 +6,8 @@ import { ActivatedRoute } from '@angular/router';
 @Component({
   selector: 'uni-advisor',
   templateUrl: './advisor.component.html',
-  styleUrls: ['./advisor.component.scss']
+  styleUrls: ['./advisor.component.scss'],
+  encapsulation: ViewEncapsulation.None
 })
 export class AdvisorComponent implements OnInit {
 isQuestionAsked: boolean = false;
