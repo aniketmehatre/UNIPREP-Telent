@@ -283,6 +283,11 @@ small {
 	overflow: hidden;
 }
 
+.line-break
+{
+	line-break: anywhere;
+}
+
 .startbg {
 	min-height: 100vh;
 	background-image: url(uniprep-assets/images/startbg.webp);
@@ -690,6 +695,41 @@ uni-subscription {
 	}
 }
 
+.btn-outline-primary {
+	color: var(--uniprep-primary) !important;
+	background: white;
+	border-radius: 10px !important;
+	border: 1px solid var(--uniprep-primary);
+
+	&:disabled {
+		background-color: #343a40;
+		background: linear-gradient(0deg, rgb(0, 0, 0) 0%, rgb(77, 77, 77) 100%);
+		border-color: #343a40;
+	}
+
+	&:hover {
+		color: var(--uniprep-primary) !important;
+		background: var(--uniprep-gray) !important;
+	}
+
+	&:focus {
+		color: var(--uniprep-primary) !important;
+		background: var(--uniprep-gray) !important;
+		box-shadow: 0 0 0 0.25rem var(--uniprep-primaryop10) !important;
+		border-color: var(--uniprep-primarydark) !important;
+	}
+	.btn-icon
+	{
+		border-radius:100px;
+		background-color: var(--uniprep-primarydark);
+		width: 30px;
+		height: 30px;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+	}
+}
+
 .btn-secondary {
 	color: #fff !important;
 	background: var(--uniprep-secondary);
@@ -905,6 +945,41 @@ uni-subscription {
 		box-shadow: 0 0 0 0.25rem #708fb580;
 	}
 }
+
+.btn-gray {
+	color: var(--uniprep-primarydark) !important;
+	background: var(--uniprep-gray);
+	border-radius: 10px !important;
+
+	&:disabled {
+		background-color: #343a40;
+		background: linear-gradient(0deg, rgb(0, 0, 0) 0%, rgb(77, 77, 77) 100%);
+		border-color: #343a40;
+	}
+
+	&:hover {
+		color: var(--uniprep-primarydark) !important;
+		background: var(--uniprep-lightgray) !important;
+	}
+
+	&:focus {
+		color: var(--uniprep-primarydark) !important;
+		background: var(--uniprep-darkgray) !important;
+		box-shadow: 0 0 0 0.25rem var(--uniprep-primaryop10) !important;
+		border-color: var(--uniprep-darkgray) !important;
+	}
+	.btn-icon
+	{
+		border-radius:100px;
+		background-color: var(--uniprep-lightgray);
+		width: 30px;
+		height: 30px;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+	}
+}
+
 
 .backIcon {
 	height: 40px;
