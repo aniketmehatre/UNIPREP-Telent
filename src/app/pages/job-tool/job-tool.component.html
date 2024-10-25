@@ -1,9 +1,9 @@
 <div class="card readingcard" *ngIf="title != 'company-list' && title != 'career-planner' && title != 'career-growth-checker'; else elseBlock">
-	<div class="card-header p-0 bg-transparent border-0" *ngIf="!hideTitleForPreviewPage">
+	<div class="card-header py-0 bg-transparent border-0" *ngIf="!hideTitleForPreviewPage">
 		<div class="row justify-content-center">
 			<div class="col-md-3 text-start">
-				<div class="backIcon" role="button" *ngIf="!hideTitleForPreviewPage">
-					<span class="fa-solid fa-chevron-left" (click)="goBack()"></span>
+				<div class="backIcon" role="button" (click)="goBack()" *ngIf="!hideTitleForPreviewPage">
+					<span class="fa-solid fa-chevron-left"></span>
 				</div>
 			</div>
 			<div class="col-md-6 text-center">

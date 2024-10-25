@@ -9,7 +9,7 @@
             </div> -->
 			<div class="col-md-3 mt-0 text-start  justify-content-start d-none d-md-flex" *ngIf="currentModuleId == 5 || 1 || 7 || 3 || 4">
 				<span *ngIf="this.currentModuleId == 8 && this.canShowQuestionList">
-					<div class="backIcon" role="button">
+					<div class="backIcon" (click)="goBack()" role="button">
 						<span class="fa-solid fa-chevron-left" (click)="goBack()"></span>
 					</div>
 				</span>
