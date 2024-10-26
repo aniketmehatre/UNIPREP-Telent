@@ -1,5 +1,17 @@
 <div  class="card readingcard">
-    <div class="card-body">
+    <div class="card-body" style="padding-top: 0px;">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="backIcon" role="button" (click)="goBack();"><span style="padding: 10px;
+                    background-color: #394d83;
+                    border-radius: 50%;
+                    color: white;
+                    margin-top: 10px;" class="pi pi-angle-left"></span></div>
+            </div>
+            <div class="col-md-4">
+                <h5 class="select-title mb-3 text-center">{{this.modulename}}</h5>
+            </div>
+        </div>
         <div class="row">
             <div class="col-md-3 mt-4" *ngFor="let item of questions">
                 <div class="card h-100" style="border:1px solid var(--uniprep-secondary)">
@@ -26,7 +38,7 @@
                 <!-- <ng-template pTemplate="header"  > -->
                     <div class="row justify-content-center w-100" >             
                         <div class="col-md-8">         
-                            <h5 class="select-title text-center mb-0">Module Name</h5>          
+                            <h5 class="select-title text-center mb-0">{{this.modulename}}</h5>          
                         </div>
                     </div>
                     <div class="row justify-content-center" style="--bs-gutter-x:0rem !important">

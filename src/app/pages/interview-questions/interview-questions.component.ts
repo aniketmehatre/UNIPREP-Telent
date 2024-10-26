@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { environment } from '@env/environment';
 import { InterviewJobrolesService } from '../interview-jobroles/interview-jobroles.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'uni-interview-questions',
@@ -15,17 +16,23 @@ export class InterviewQuestionsComponent implements OnInit {
   showAnswer: boolean = false;
   seeQues: string | undefined;
   seeAns: string | undefined;
+  modulename: any;
 
-  constructor(private http: HttpClient , private route: ActivatedRoute , private  jrservice: InterviewJobrolesService) { }
+  constructor(private http: HttpClient , private route: ActivatedRoute , private  jrservice: InterviewJobrolesService ,  private router: Router) { }
 
   ngOnInit(){
     this.jobrole = this.route.snapshot.paramMap.get('slug');
+    this.modulename = this.jobrole?.replace("-"," ");
     var data = {
       jobrole:this.jobrole
     }
     this.jrservice.getIntervireQuestions(data).subscribe(response => {
       this.questions = response;
     });
+  }
+
+  goBack(){
+    this.router.navigate(['/pages/jobroles']);
   }
 
   seeAnswer(ques: string, ans: string){
