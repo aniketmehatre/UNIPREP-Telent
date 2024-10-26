@@ -102,60 +102,12 @@
 // 		max-width: 100%; /* Single column on small screens */
 // 	}
 // }
-.backIcon {
-    height: 40px;
-    width: 40px;
-    border-radius: 20px;
-    background-color: var(--uniprep-primary);
-    color: white;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: 700px;
-    .pi-angle-left{
-        font-size: 16px;
-    }
-    margin:10px 20px;
-}
 .retry-button{
 	background-color: red;
 	color: #fff;
 }
 
-.subjectcard {
-	border: 1px solid #f0780c;
-	width: 100%;
-	margin: 10px 0px;
 
-	.submoduleicon {
-		height: 75px;
-		width: 75px;
-		margin: auto;
-		display: flex;
-		justify-content: center;
-		align-items: center;
-		.selectimage {
-			width: 100%;
-			height: 100%;
-			object-fit: contain;
-		}
-	}
-
-	&:focus {
-		background-color: var(--uniprep-primaryop10);
-		border: 1px solid var(--uniprep-primary);
-	}
-
-	&:hover {
-		background-color: var(--uniprep-primaryop10);
-		border: 1px solid var(--uniprep-primary);
-	}
-
-	// .subjecttitle {
-	//   height: 50px;
-	//   font-size: 16px;
-	// }
-}
 @media (max-width: 576px) {
 	.subjectcard .btn {
 	  font-size: 0.9rem; /* Slightly smaller text on very small screens */

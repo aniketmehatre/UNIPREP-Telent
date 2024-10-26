@@ -10,17 +10,16 @@
 						<img style="width: 100px" src="../../../uniprep-assets/images/icon-light.svg" />
 					</div>
 					<!-- <img style="width:150px" src="../../../uniprep-assets/images/icon-light.svg"> -->
-                    <p-carousel [value]="questions" [numVisible]="5" [numScroll]="1" [circular]="true" [showIndicators]="false">
-                        <ng-template let-question pTemplate="item">
-                            <div class="card h-100 mx-2" style="border: 1px solid var(--uniprep-secondary)">
-                                <div class="card-body">
-                                    <i class="fa-regular fa-gears"></i>
-                                    <p style="cursor: pointer" (click)="triggerSample(question.question)">{{question.question}}</p>
-                                </div>
-                            </div>
-                        </ng-template>
-                            
-                    </p-carousel>
+					<p-carousel [value]="questions" [numVisible]="5" [numScroll]="1" [circular]="true" [showIndicators]="false">
+						<ng-template let-question pTemplate="item">
+							<div class="card h-100 mx-2" style="border: 1px solid var(--uniprep-secondary)">
+								<div class="card-body">
+									<i class="fa-regular fa-gears"></i>
+									<p style="cursor: pointer" (click)="triggerSample(question.question)">{{ question.question }}</p>
+								</div>
+							</div>
+						</ng-template>
+					</p-carousel>
 				</div>
 			</div>
 		</div>
@@ -129,7 +128,10 @@
 								<p>{{ chat.created }}</p>
 							</div>
 						</div>
-						<div style="margin-top: 10px; font-size: 1rem !important" class="force-font" [innerHTML]="chat.message">
+						<div>
+							<div class="force-font">
+								<div class="mt-2" [innerHTML]="chat.message"></div>
+							</div>
 							<!-- {{chat.message}} -->
 						</div>
 					</div>
@@ -144,8 +146,8 @@
 			</div>
 		</div>
 	</div>
-    <div class="card-footer border-0 bg-transparent">
-        <div class="row justify-content-center">
+	<div class="card-footer border-0 bg-transparent">
+		<div class="row justify-content-center">
 			<div class="col-md-12">
 				<div class="p-inputgroup advisorinput">
 					<input type="text" [(ngModel)]="userQuestion" pInputText placeholder="" />
@@ -153,5 +155,5 @@
 				</div>
 			</div>
 		</div>
-    </div>
+	</div>
 </div>

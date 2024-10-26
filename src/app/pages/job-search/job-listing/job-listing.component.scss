@@ -59,21 +59,7 @@
   gap: 10px;
   padding-top: 10px; /* Optional: Adds some space between content and buttons */
 }
-.backIcon {
-  height: 40px;
-  width: 40px;
-  border-radius: 20px;
-  background-color: var(--uniprep-primary);
-  color: white;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: 700px;
-  .pi-angle-left{
-      font-size: 16px;
-  }
-  margin:10px 10px;
-}
+
 img {
   height: 25px !important;
   width: 25px !important;
@@ -97,9 +83,33 @@ img {
   width: 100%;
 }
 
-:host ::ng-deep .p-dropdown-label {
-  width: 200px; /* Set your desired fixed width */
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+// :host ::ng-deep .p-dropdown-label {
+//   width: 200px; /* Set your desired fixed width */
+//   white-space: nowrap;
+//   overflow: hidden;
+//   text-overflow: ellipsis;
+// }
+.dropdown-list {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  max-height: 180px;
+  overflow-y: auto;
+  border: 1px solid #ccc;
+  position: absolute;
+  width: 92%;
+  background-color: white;
+  display: block;
+  z-index: 1001;
+  text-align: left;
+  border-radius: 5%;
+}
+
+.dropdown-list li {
+  padding: 8px;
+  cursor: pointer;
+}
+
+.dropdown-list li:hover {
+  background-color: #f0f0f0;
 }

@@ -26,9 +26,20 @@ filteredJobRoles: any[] = [];
 
   searchRole(event: any){
     const query = event.target.value.toLowerCase();
+    const removeSpecialCharacters = (str: string) => {
+      return str
+        .replace(/-/g, ' ')               // Replace hyphens with spaces
+        .replace(/[^a-zA-Z0-9\s]/g, '')   // Removes everything except letters, numbers, and spaces
+        .replace(/\s+/g, ' ')             // Replace multiple spaces with a single space
+        .trim();                          // Remove leading and trailing spaces
+    };
+    
     if(query && query.length > 3){
       const mockJobs = this.jobRoles;
-      this.filteredJobRoles =  mockJobs.filter((job: any) => job.jobrole.toLowerCase().includes(query));
+      const queryWords = removeSpecialCharacters(query);
+      this.filteredJobRoles = mockJobs.filter((job: any) => 
+        removeSpecialCharacters(job.jobrole.toLowerCase()).includes(queryWords)
+      );
     }else if(query.length < 1){
       this.filteredJobRoles = [];
     }

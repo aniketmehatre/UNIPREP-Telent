@@ -1,4 +1,4 @@
-import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
+import {ChangeDetectorRef, Component, OnInit, ViewEncapsulation} from '@angular/core';
 import {SalaryConverterService} from "./salary-converter.service";
 import {Location} from "@angular/common";
 import {Router} from "@angular/router";
@@ -9,7 +9,8 @@ import {AuthService} from "../../../Auth/auth.service";
 @Component({
   selector: 'uni-salary-converter',
   templateUrl: './salary-converter.component.html',
-  styleUrls: ['./salary-converter.component.scss']
+  styleUrls: ['./salary-converter.component.scss'],
+  encapsulation: ViewEncapsulation.None
 })
 export class SalaryConverterComponent implements OnInit {
 

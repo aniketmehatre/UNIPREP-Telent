@@ -190,10 +190,26 @@ export class CvBuilderComponent implements OnInit  {
       this.swiper = new Swiper('.swiper', {
         direction: 'horizontal',
         loop: true,
-        slidesPerView: 5,
-        spaceBetween: 50,
         centeredSlides: true,
         allowTouchMove: false,
+        breakpoints: {
+          640: {
+            slidesPerView: 2,
+            spaceBetween: 20,
+          },
+          768: {
+            slidesPerView: 3,
+            spaceBetween: 40,
+          },
+          1024: {
+            slidesPerView: 4,
+            spaceBetween: 50,
+          },
+          1366: {
+            slidesPerView: 5,
+            spaceBetween: 50,
+          },
+        },
       });
     }, 500);
     setTimeout(() => {
@@ -867,7 +883,7 @@ export class CvBuilderComponent implements OnInit  {
         edu_degree: ['', Validators.required],
         edu_location: ['', Validators.required],
         edu_percentage: ['', Validators.required],
-        edu_cgpa_percentage: ['', Validators.required],
+        edu_cgpa_percentage: ['CGPA', Validators.required],
       }));
       // this.getEduDetailsArray.push(this.fb.group({
       //   edu_college_name: ['Srinivasan Engg College', Validators.required],

@@ -81,6 +81,10 @@ import { AnimateModule } from "primeng/animate";
 import { InterviewQuestionsComponent } from "./interview-questions/interview-questions.component";
 import { CareerGrowthCheckerComponent } from "./career-growth-checker/career-growth-checker.component";
 import { AdvisorComponent } from './advisor/advisor.component';
+import { NationalExamCategoriesComponent } from './national-exam-categories/national-exam-categories.component';
+import { NationalExamTestsComponent } from './national-exam-tests/national-exam-tests.component';
+import { NationalExamStartComponent } from './national-exam-start/national-exam-start.component';
+import { NationalExamQuestionsComponent } from './national-exam-questions/national-exam-questions.component';
 // import { JobToolComponent } from './job-tool/job-tool.component';
 @NgModule({
   declarations: [
@@ -118,6 +122,10 @@ import { AdvisorComponent } from './advisor/advisor.component';
     InterviewQuestionsComponent,
     CareerGrowthCheckerComponent,
     AdvisorComponent,
+    NationalExamCategoriesComponent,
+    NationalExamTestsComponent,
+    NationalExamStartComponent,
+    NationalExamQuestionsComponent,
     // JobToolComponent,
   ],
   exports: [FooterStatusBoxComponent, HeaderSearchComponent],

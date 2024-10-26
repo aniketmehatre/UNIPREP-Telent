@@ -1,20 +1,3 @@
-.backIcon {
-    height: 40px;
-    width: 40px;
-    border-radius: 20px;
-    background-color: var(--uniprep-primary);
-    color: white;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: 700px;
-
-    .pi-angle-left {
-        font-size: 16px;
-    }
-
-    margin:10px 20px;
-}
 
 .resourcecard {
     border: 2px solid #f0780c;
@@ -73,4 +56,7 @@
     padding: 5px;
     border-radius: 25px;
     border: none;
+}
+.pointer-events-none{
+    pointer-events: none;
 }

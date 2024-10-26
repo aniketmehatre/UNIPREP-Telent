@@ -1,0 +1,14 @@
+<div class="readingcard card">
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-2 mt-4" *ngFor="let test of tests">
+                <div class="card">
+                    <div class="card-body d-flex justify-content-center flex-column align-items-center">
+                        <h5>{{test.test_name}}</h5>
+                        <button class="btn btn-secondary">Start Quiz</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

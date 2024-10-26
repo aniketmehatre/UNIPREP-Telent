@@ -4,7 +4,7 @@
   overflow-y:auto;
 }
 .subjectcard {
-  border: 1px solid #f0780c;
+  border: 1px solid var(--uniprep-secondary);
   width: 100%;
   margin: 10px 0px;
 
@@ -32,18 +32,4 @@
     border: 1px solid var(--uniprep-primary);
   }
 
-}
-.backIcon {
-  height: 40px;
-  width: 40px;
-  border-radius: 20px;
-  background-color: var(--uniprep-primary);
-  color: white;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: 10px 0;
-  .pi-angle-left {
-    font-size: 16px;
-  }
 }

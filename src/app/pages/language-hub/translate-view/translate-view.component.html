@@ -1,108 +1,93 @@
 <div class="card readingcard">
-    <div class="card-body text-center pt-0 h-100">
-        <div class="row justify-content-center">
-            <div class="col-md-2 col-2 text-start">
-                <p-button (click)="goBack()" icon="pi pi-arrow-left"
-                          styleClass="p-button-rounded p-button-text text-dark"></p-button>
-            </div>
+	<div class="card-header py-0 border-0 bg-transparent">
+		<div class="row justify-content-center">
+			<div class="col-md-2 col-2 text-start">
+				<div class="backIcon" (click)="goBack()" role="button">
+					<span class="fa-solid fa-chevron-left"></span>
+				</div>
+			</div>
 
-            <div class="col-md-8 col-8 text-center">
-                <div class="select-title text-nowrap d-flex justify-content-between align-items-center">
-                    <div>
-                        <h5 class="mb-0" pTooltip="Questions related to the application process are answered"
-                            tooltipPosition="top">{{ 'Language Hub' | uppercase }}
-                            - {{ selectedSubmoduleName }}<i class="questiontooltip fa-solid fa-circle-question"></i>
-                        </h5>
-                    </div>
-                    <div>
-                        <button
-                                class="how-it-works-button">
-                            &nbsp;How it works? &nbsp;&nbsp;<i class="fa-solid fa-play"></i></button>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-2 col-2">&nbsp;</div>
-        </div>
-        <div class="row mt-4">
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="input-group custom-input w-100">
-                    <span class="input-group-text icon">
-                      <i class="fa-solid fa-language"></i>
-                    </span>
-                        <input
-                                type="text"
-                                class="form-control"
-                                value="English"
-                                disabled
-                        />
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="input-group custom-input w-100">
-                    <span class="input-group-text icon">
-                      <i class="fa-solid fa-language"></i>
-                    </span>
-                        <input
-                                type="text"
-                                class="form-control"
-                                value="{{selectedLanguageName}}"
-                                disabled
-                        />
+			<div class="col-md-8 col-8 text-center">
+				<div class="select-title text-nowrap d-flex justify-content-between align-items-center">
+					<div>
+						<h5 class="mb-0" pTooltip="Questions related to the application process are answered" tooltipPosition="top">{{ "Language Hub" | uppercase }} - {{ selectedSubmoduleName }}<i class="questiontooltip fa-solid fa-circle-question"></i></h5>
+					</div>
+					<div>
+						<button class="how-it-works-button">&nbsp;How it works? &nbsp;&nbsp;<i class="fa-solid fa-play"></i></button>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-2 col-2">&nbsp;</div>
+		</div>
+	</div>
+	<div class="card-body text-center pt-0 h-100">
+		<div class="row mt-4">
+            <div class="col-md-6">
+                <div class="card border-secondary bg-gray">
+                    <div class="card-body d-flex gap-2 align-items-center ">
+                        <div><i class="fa-solid fa-language"></i></div>
+                        <div class="flex-fill">
+                            <input type="text" class="w-100 border-0 bg-transparent" value="English" disabled />
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="col-md-6 mt-4 text-start">
-                <p>Enter the text to be translated</p>
-                <div class="textarea-container">
-                    <textarea [(ngModel)]="text1" class="text-large" placeholder="Type here..."></textarea>
-                    <button (click)="togglePlayPause(1, text1)" class="button1">
-                        <i [ngClass]="{'fa': true, 'fa-volume-up': isPlaying1, 'fa-play': !isPlaying1}"></i>
-                    </button>
-                    <button (click)="translate(text1, '')" class="button2">
-                        Translate <i class="fa-solid fa-language"></i>
-                    </button>
+            <div class="col-md-6">
+                <div class="card border-secondary bg-gray">
+                    <div class="card-body d-flex gap-2 align-items-center ">
+                        <div><i class="fa-solid fa-language"></i></div>
+                        <div class="flex-fill">
+                            <input type="text" class="w-100 border-0 bg-transparent" value="{{ selectedLanguageName }}" disabled />
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div class="col-md-6 mt-4 text-start">
-                <p>Your translated content </p>
-                <div class="textarea-container">
-                    <textarea [innerHTML]="text2" class="text-large" placeholder="" [disabled]="true"></textarea>
-                    <label  [innerHTML]="transliterate2"></label>
-                    <button (click)="togglePlayPause(2, text2)" class="button1">
-                        <i [ngClass]="{'fa': true, 'fa-volume-up': isPlaying2, 'fa-play': !isPlaying2}"></i>
-                    </button>
-                    <button (click)="togglePlayPause(5, text2)" class="button3">
-                        <i [ngClass]="{'fa': true, 'fa-volume-up': isPlaying5, 'fa-play': !isPlaying5}"></i>
-                    </button>
-                </div>
-            </div>
-            <div class="col-md-6 mt-4 text-start">
-                <p>Enter the text to be translated</p>
-                <div class="textarea-container">
-                    <textarea [(ngModel)]="text3" class="text-large" placeholder="Type here..."></textarea>
-                    <button (click)="togglePlayPause(3, text3)" class="button1">
-                        <i [ngClass]="{'fa': true, 'fa-volume-up': isPlaying3, 'fa-play': !isPlaying3}"></i>
-                    </button>
-                    <button (click)="translate('', text3)" class="button2">
-                        Translate <i class="fa-solid fa-language"></i>
-                    </button>
-                </div>
-            </div>
-            <div class="col-md-6 mt-4 text-start">
-                <p>Your translated content</p>
-                <div class="textarea-container">
-                    <textarea [innerHTML]="text4" class="text-large" placeholder="" [disabled]="true"></textarea>
-                    <label [innerHTML]="transliterate4"></label>
-                    <button (click)="togglePlayPause(4, text4)" class="button1">
-                        <i [ngClass]="{'fa': true, 'fa-volume-up': isPlaying4, 'fa-play': !isPlaying4}"></i>
-                    </button>
-                    <button (click)="togglePlayPause(6, text4)" class="button3">
-                        <i [ngClass]="{'fa': true, 'fa-volume-up': isPlaying6, 'fa-play': !isPlaying6}"></i>
-                    </button>
-                </div>
-            </div>
-        </div>
-
-    </div>
+			<div class="col-md-6 mt-4 text-start">
+				<p class="text-small fw-semibold mb-2">Enter the text to be translated</p>
+				<div class="textarea-container position-relative">
+					<textarea [(ngModel)]="text1" rows="8" class="text-large w-100 border-primary rounded-3 px-5 py-3 fw-semibold" placeholder="Type here..."></textarea>
+					<button (click)="togglePlayPause(1, text1)" class="topbutton btn p-0">
+						<i [ngClass]="{ fa: true, 'fa-volume-up': isPlaying1, 'fa-play': !isPlaying1 }"></i>
+					</button>
+					<button (click)="translate(text1, '')" class="btn btn-primary bottombutton px-3 py-3">Translate <i class="fa-solid fa-language"></i></button>
+				</div>
+			</div>
+			<div class="col-md-6 mt-4 text-start">
+				<p  class="text-small fw-semibold mb-2">Your translated content</p>
+				<div class="textarea-container position-relative">
+					<textarea [innerHTML]="text2" rows="8" class="text-large w-100 border-primary rounded-3 px-5 py-3 fw-semibold h5" placeholder="" [disabled]="true"></textarea>
+					<label class="bottomtext fw-semibold" [innerHTML]="transliterate2"></label>
+					<button (click)="togglePlayPause(2, text2)" class="topbutton btn p-0">
+						<i [ngClass]="{ fa: true, 'fa-volume-up': isPlaying2, 'fa-play': !isPlaying2 }"></i>
+					</button>
+					<button (click)="togglePlayPause(5, text2)" class="leftbottombutton btn p-0">
+						<i [ngClass]="{ fa: true, 'fa-volume-up': isPlaying5, 'fa-play': !isPlaying5 }"></i>
+					</button>
+				</div>
+			</div>
+			<div class="col-md-6 mt-4 text-start">
+				<p class="text-small fw-semibold mb-2">Enter the text to be translated</p>
+				<div class="textarea-container position-relative">
+					<textarea [(ngModel)]="text3"  rows="8" class="text-large w-100 border-primary rounded-3 px-5 py-3 fw-semibold" placeholder="Type here..."></textarea>
+					<button (click)="togglePlayPause(3, text3)" class="topbutton btn p-0">
+						<i [ngClass]="{ fa: true, 'fa-volume-up': isPlaying3, 'fa-play': !isPlaying3 }"></i>
+					</button>
+					<button (click)="translate('', text3)" class="btn btn-primary bottombutton px-3 py-3">Translate <i class="fa-solid fa-language"></i></button>
+				</div>
+			</div>
+			<div class="col-md-6 mt-4 text-start">
+				<p class="text-small fw-semibold mb-2">Your translated content</p>
+				<div class="textarea-container position-relative">
+					<textarea [innerHTML]="text4"  rows="8" class="text-large w-100 border-primary rounded-3 px-5 py-3 fw-semibold h5" placeholder="" [disabled]="true"></textarea>
+					<label class="bottomtext fw-semibold" [innerHTML]="transliterate4"></label>
+					<button (click)="togglePlayPause(4, text4)"  class="topbutton btn p-0">
+						<i [ngClass]="{ fa: true, 'fa-volume-up': isPlaying4, 'fa-play': !isPlaying4 }"></i>
+					</button>
+					<button (click)="togglePlayPause(6, text4)" class="leftbottombutton btn p-0">
+						<i [ngClass]="{ fa: true, 'fa-volume-up': isPlaying6, 'fa-play': !isPlaying6 }"></i>
+					</button>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>

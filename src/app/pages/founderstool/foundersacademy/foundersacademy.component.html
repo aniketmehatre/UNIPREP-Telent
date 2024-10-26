@@ -1,41 +1,50 @@
-<div class="card1">
-	<div class="card-body pt-0 ">
+<div class="card readingcard">
+	<div class="card-header py-0 border-0 bg-transparent">
 		<div class="row justify-content-center">
 			<div class="col-md-2 text-start">
 				<div class="backIcon" (click)="goBack()" role="button">
-					<span class="pi pi-angle-left" (click)="goBack()"></span>
+					<span class="fa-solid fa-chevron-left"></span>
 				</div>
 			</div>
 			<div class="col-md-8 text-center">
-				<h5 class="select-title mb-1" tooltipPosition="top" pTooltip="This section provides a comprehensive walkthrough on the UNIPREP platform.">Founders Academy<i class="questiontooltip fa-solid fa-circle-question"></i></h5>
+				<div class="select-title text-nowrap d-flex justify-content-between align-items-center">
+					<div>
+						<h5 class="mb-0" tooltipPosition="top" pTooltip="This section provides a comprehensive walkthrough on the UNIPREP platform.">Founders Academy<i class="questiontooltip fa-solid fa-circle-question"></i></h5>
+					</div>
+					<div>
+						<button class="how-it-works-button">&nbsp;How it works? &nbsp;&nbsp;<i class="fa-solid fa-play"></i></button>
+					</div>
+				</div>
+				
 			</div>
 			<div class="col-md-2"></div>
 		</div>
 		<div class="row">
-			<div class="col-12 mt-3 mb-3" style="display: flex;">
-				<p role="button" *ngFor="let cat of categorylist" [ngClass]="{'selected-category': isSelected(cat.id)}" (click)="filterCat(cat.id)" style="margin-left: 15px;">{{cat.name}}</p>
+			<div class="d-flex gap-4 justify-content-center mb-2">
+				<p role="button" *ngFor="let cat of categorylist" [ngClass]="{'selected-category': isSelected(cat.id)}" (click)="filterCat(cat.id)">{{cat.name}}</p>
+			</div>
+		</div>
+	</div>
+	<div class="card-body text-center flex-fill overflow-y-auto">
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-md-3 mb-3 col-12" *ngFor="let acade of academyllist">
+						<div class="card h-100 position-relative tutcard" role="button" (click)="openVideoPopup(acade.link)" style="aspect-ratio: 16/9;">
+							<div class="tutgradient"></div>
+							<div class="d-flex justify-content-center align-items-center h-100">
+								<img src="{{ acade.coverimage }}" style="max-width: 100%; height: auto;" />
+							</div>
+							<div class="tutorialcontent">
+								<h5 class="mb-0 text-white">{{ acade.title }}</h5>
+								<!-- <p class="mb-0 text-white small" title="{{ acade.description }}">{{acade.description }}</p> -->
+							</div>
+						</div>
+				</div>
 			</div>
 		</div>
 	</div>
 </div>
-<div class="card readingcard" style="border-radius: 0px 0px 10px 10px !important;">
-	<div class="container-fluid">
-		<div class="row">
-			<div class="col-md-3 mb-3 col-12" *ngFor="let acade of academyllist">
-					<div class="card h-100 position-relative tutcard" role="button" (click)="openVideoPopup(acade.link)" style="aspect-ratio: 16/9;">
-						<div class="tutgradient"></div>
-						<div class="d-flex justify-content-center align-items-center h-100">
-							<img src="{{ acade.coverimage }}" style="max-width: 100%; height: auto;" />
-						</div>
-						<div class="tutorialcontent">
-							<h5 class="mb-0 text-white">{{ acade.title }}</h5>
-							<!-- <p class="mb-0 text-white small" title="{{ acade.description }}">{{acade.description }}</p> -->
-						</div>
-					</div>
-			</div>
-		</div>
-	</div>
-</div>
+
 <!-- Bootstrap Modal Markup -->
 <div class="modal" tabindex="-1" role="dialog" [ngClass]="{ 'd-block': showVideoPopup }" (click)="closeVideoPopup()">
 	<div class="modal-dialog modal-xl modal-dialog-centered" role="document">

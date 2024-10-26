@@ -22,6 +22,7 @@ import {DashboardService} from "src/app/pages/dashboard/dashboard.service";
 import {count, Observable} from "rxjs";
 import {CountryISO, SearchCountryField} from "ngx-intl-tel-input";
 import {SocialAuthService} from "@abacritt/angularx-social-login";
+import { environment } from "@env/environment";
 
 // import { SocialAuthService } from "@abacritt/angularx-social-login";
 
@@ -96,13 +97,16 @@ export class HeaderComponent implements OnInit, OnDestroy {
   freeTrialErrorMsg: string = '';
   demoTrial: boolean = false;
   demoDays: any;
-  reportlearnlanguagetype:number=0;
+  reportlearnlanguagetype: number = 0;
   countryList: any;
   locationList: any;
-  whiteLabelIsNotShow:boolean=true;
+  whiteLabelIsNotShow: boolean = true;
   visibleExhastedUser!: boolean;
   programLevelList:any = [];
-
+  currentEducation!: boolean;
+  currentEducationForm: any = FormGroup;
+  ApiUrl: string = environment.domain;
+  educationImage: string = "";
   constructor(
     private router: Router,
     private locationService: LocationService,
@@ -193,7 +197,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.dataService.showTimerInHeader(null);
   }
   openchat() {
-    this.router.navigate(["/pages/chat"]);
+    this.router.navigate(["/pages/advisor"]);
   }
   updateMenuClass() {
     const sidenav: Element | null = document.getElementById("sidenav");
@@ -208,17 +212,17 @@ export class HeaderComponent implements OnInit, OnDestroy {
   formvisbility = false;
   mobileForm: any = FormGroup;
   preferredCountry: any;
-  imagewhitlabeldomainname:any;
-  orgnamewhitlabel:any;
+  imagewhitlabeldomainname: any;
+  orgnamewhitlabel: any;
   ngOnInit() {
     this.locationService.getOrgName().subscribe(orgname => {
       this.orgnamewhitlabel = orgname;
     });
-    this.imagewhitlabeldomainname=window.location.hostname;
+    this.imagewhitlabeldomainname = window.location.hostname;
     if (this.imagewhitlabeldomainname === "dev-student.uniprep.ai" || this.imagewhitlabeldomainname === "uniprep.ai" || this.imagewhitlabeldomainname === "localhost") {
-      this.whiteLabelIsNotShow=true;
-    }else{
-      this.whiteLabelIsNotShow=false;
+      this.whiteLabelIsNotShow = true;
+    } else {
+      this.whiteLabelIsNotShow = false;
     }
     fetch('https://ipapi.co/json/').then(response => response.json()).then(data => {
       this.preferredCountry = data.country_code.toLocaleLowerCase()
@@ -250,6 +254,11 @@ export class HeaderComponent implements OnInit, OnDestroy {
       home_country: ["", Validators.required],
       study_level: ["", Validators.required],
     });
+
+    this.currentEducationForm = this.formBuilder.group({
+      current_education: ["", Validators.required]
+    });
+
     if (
       localStorage.getItem("phone") == "" ||
       localStorage.getItem("phone") == null ||
@@ -352,14 +361,14 @@ export class HeaderComponent implements OnInit, OnDestroy {
         this.openReportModalFromMoudle(this.op, event);
         this.reportType = 3;
         //pass type_of_report  parameter for learning hub 
-        if(data.reporttype==8){
+        if (data.reporttype == 8) {
           this.reportlearnlanguagetype = 8;
-        }else{
+        } else {
           this.reportlearnlanguagetype = 0;
         }
         if (data.report_mode && data.report_mode == "other_module") {
           this.subs.sink = this.locationService.getModuleReportOptionLists(data).subscribe((response) => {
-            
+
             this.reportOptionList = [
               { id: null, reportoption_name: "Select" },
               ...response.reportOptions,
@@ -386,16 +395,22 @@ export class HeaderComponent implements OnInit, OnDestroy {
         this.homeCountryId = Number(data.userdetails[0].home_country_id)
         this.selectedHomeCountry = Number(data.userdetails[0].home_country_id)
         this.getHomeCountryList();
-        if(data.userdetails[0].login_status.includes('Demo') == true) {
+        const loginStatus = data.userdetails[0].login_status;
+        if(typeof loginStatus === 'string' && loginStatus.includes('Demo') == true) {
           this.demoTrial = true;
-          this.demoDays =  data.userdetails[0].login_status.replace('Demo-', '') ;
+          this.demoDays = data.userdetails[0].login_status.replace('Demo-', '');
         }
         /*if (data.userdetails[0].login_status == "Demo") {
           this.demoTrial = true;
         } */
+        let programLevelId = data.userdetails[0].programlevel_id;
+        if(programLevelId == null || programLevelId == "null" || programLevelId == ""){
+          this.currentEducation = true;
+          this.educationImage = `https://${this.ApiUrl}/uniprepapi/storage/app/public/uploads/education.svg`;
+        }
       }
     });
-    
+
     this.getProgramlevelList();
 
     // this.darkModeSwitch = document.getElementById("darkmodeswitch") as HTMLInputElement;
@@ -408,10 +423,22 @@ export class HeaderComponent implements OnInit, OnDestroy {
     // this.getHomeCountryList();
   }
 
-  getProgramlevelList(){
-    this.locationService.getProgramLevel().subscribe(res =>{
+  getProgramlevelList() {
+    this.locationService.getProgramLevel().subscribe(res => {
       this.programLevelList = res;
     });
+  }
+  
+  UpdateEducationLevel(){
+    let eduLevel = this.currentEducationForm.value.current_education;
+    this.service.updateEducationLevel(eduLevel).subscribe(res =>{
+      this.currentEducation =  false;
+      this.toast.add({
+        severity: "success",
+        summary: "success",
+        detail: res.message,
+      });
+    })
   }
 
   ngOnDestroy() {
@@ -503,7 +530,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
         this.reportOptionList = [
           { id: null, reportoption_name: "Select" },
           ...reportTypeData,
-        ];   
+        ];
       });
   }
   isCountryPopupOpen: any;
@@ -567,7 +594,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   enterpriseSubscriptionLink: any
   onClickSubscribe() {
     this.visible = false;
-    if(this.enterpriseSubscriptionLink  != ''){
+    if (this.enterpriseSubscriptionLink != '') {
       window.open(this.enterpriseSubscriptionLink, '_target');
       return;
     }
@@ -728,7 +755,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
       reportOption: this.reportSubmitForm.value.reportOption,
       comment: this.reportSubmitForm.value.comment,
       countryId: this.selectedCountryId,
-      type_of_report: (this.reportType == 4 || this.reportType == 5 || this.reportType == 6 || this.reportType == 7) ? this.reportType : this.reportlearnlanguagetype==8 ? this.reportlearnlanguagetype: undefined
+      type_of_report: (this.reportType == 4 || this.reportType == 5 || this.reportType == 6 || this.reportType == 7) ? this.reportType : this.reportlearnlanguagetype == 8 ? this.reportlearnlanguagetype : undefined
     };
     if (data.moduleId == 8) {
       data.countryId = 0;
@@ -813,7 +840,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   }
   onClickSubscribedUser(): void {
-    this.imagewhitlabeldomainname=window.location.hostname;
+    this.imagewhitlabeldomainname = window.location.hostname;
     if (this.imagewhitlabeldomainname === "dev-student.uniprep.ai" || this.imagewhitlabeldomainname === "uniprep.ai" || this.imagewhitlabeldomainname === "localhost") {
       this.visibleExhastedUser = false;
       let data: any = {};
@@ -842,10 +869,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
         setTimeout(() => {
           this.checkNewUser();
           this.dashboardService.isinitialstart = true;
-          if(this.enterpriseSubscriptionLink  != ""){
+          if (this.enterpriseSubscriptionLink != "") {
             window.open(this.enterpriseSubscriptionLink, '_target');
             return;
-        }
+          }
           this.router.navigate(["/pages/subscriptions"]);
         }, 1000);
       },
@@ -859,11 +886,11 @@ export class HeaderComponent implements OnInit, OnDestroy {
           }
           this.freeTrialErrorMsg = error?.message;
         });
-    }else{
+    } else {
       this.visibleExhastedUser = true;
-      this.demoTrial=false;
+      this.demoTrial = false;
     }
-   
+
   }
 
   checkNewUSerLogin(): void {
@@ -912,16 +939,16 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.mobileForm?.get('location_id')?.setValue(0);
     if (this.mobileForm.get('home_country')?.value == 122) {
       this.locationService.getLocation().subscribe(
-          (res: any) => {
-            this.locationList = res;
-          },
-          (error: any) => {
-            this.toast.add({
-              severity: "warning",
-              summary: "Warning",
-              detail: error.error.message,
-            });
-          }
+        (res: any) => {
+          this.locationList = res;
+        },
+        (error: any) => {
+          this.toast.add({
+            severity: "warning",
+            summary: "Warning",
+            detail: error.error.message,
+          });
+        }
       );
     }
     else {
@@ -932,26 +959,26 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   getHomeCountryList() {
     this.locationService.getHomeCountry(2).subscribe(
-        (res: any) => {
-          this.countryList = res;
-          const selectedCountry = res.find((data: any) => data.id === this.homeCountryId);
-          this.headerHomeFlag = selectedCountry.flag;
-          this.selectedHomeCountry = selectedCountry;
-          this.homeCountryName = selectedCountry.country;
-          this.dataService.changeHomeCountryFlag(this.headerHomeFlag)
-        },
-        (error: any) => {
-        }
+      (res: any) => {
+        this.countryList = res;
+        const selectedCountry = res.find((data: any) => data.id === this.homeCountryId);
+        this.headerHomeFlag = selectedCountry.flag;
+        this.selectedHomeCountry = selectedCountry;
+        this.homeCountryName = selectedCountry.country;
+        this.dataService.changeHomeCountryFlag(this.headerHomeFlag)
+      },
+      (error: any) => {
+      }
     );
   }
 
-  onHomeCountryChange(event: any){
+  onHomeCountryChange(event: any) {
 
   }
   closeQuiz(): void {
     this.visibleExhastedUser = false;
-    this.demoTrial=true;
-}
+    this.demoTrial = true;
+  }
 
   protected readonly count = count;
 }

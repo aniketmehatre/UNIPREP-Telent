@@ -91,21 +91,7 @@
 }:host ::ng-deep .p-overlay p-component {
    z-index: 4050 !important;
 }
-.backIcon {
-  height: 40px;
-  width: 40px;
-  border-radius: 20px;
-  background-color: var(--uniprep-primary);
-  color: white;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: 700px;
-  .pi-angle-left{
-    font-size: 16px;
-  }
-  margin:10px 10px;
-}
+
 .rounded-image {
   border-radius: 50%; /* Makes the image circular */
   width: 20px; /* Adjust the width as needed */

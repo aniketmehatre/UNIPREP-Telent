@@ -226,4 +226,11 @@ export class AuthService {
             headers: headers,
         });
     }
+
+    updateEducationLevel(data: number){
+        const headers = new HttpHeaders().set("Accept", "application/json");
+        return this.http.post<any>(environment.ApiUrl + "/UpdateEduLvl", {current_educaiton : data},{
+            headers: headers,
+        });
+    }
 }

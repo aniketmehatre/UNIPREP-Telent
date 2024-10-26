@@ -297,8 +297,8 @@
                     <div class="justify-content-start">
                         <div class="row mt-2 bg-light  p-0 m-0">
                             <div class="col-md-12 text-start p-0 m-0">
-                                <div class="backIcon">
-                                    <span (click)="goBack()" class="pi pi-angle-left"></span>
+                                <div class="backIcon" (click)="goBack()">
+                                    <span class="fa-solid fa-chevron-left"></span>
                                 </div>
 
                             </div>
@@ -354,10 +354,8 @@
         </div>
     </div>
 </div>
-<div *ngIf="!isDetailedPageClicked" class="col-12">
-    <div class="mt-5">
-        <p-paginator (onPageChange)="paginate($event)" *ngIf="count > 0" [rowsPerPageOptions]="[10,20,50]"
-                     [rows]="resultPerPage"
-                     [totalRecords]="count" dropdownAppendTo="body"></p-paginator>
+<div class="card-footer border-0 bg-transparent" *ngIf="!isDetailedPageClicked">
+    <div class="d-flex justify-content-center align-items-center">
+        <p-paginator  [rows]="resultPerPage" [totalRecords]="count" *ngIf="count > 0" (onPageChange)="paginate($event)" [rowsPerPageOptions]="[10,20,50]"></p-paginator>
     </div>
 </div>
