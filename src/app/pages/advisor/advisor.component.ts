@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import {AfterViewChecked, Component, ElementRef, OnInit, ViewChild, ViewEncapsulation} from '@angular/core';
 import { AdvisorService } from './advisor.service';
 import {NgxUiLoaderService} from "ngx-ui-loader";
 import { ActivatedRoute } from '@angular/router';
@@ -10,7 +10,9 @@ import { ActivatedRoute } from '@angular/router';
   encapsulation: ViewEncapsulation.None
 })
 export class AdvisorComponent implements OnInit {
-isQuestionAsked: boolean = false;
+  @ViewChild('chatContainer') private chatContainer: ElementRef;
+
+  isQuestionAsked: boolean = false;
 isQuestionNotAsked: boolean = true;
 questions: any;
 userQuestion: any;
@@ -19,6 +21,13 @@ userQuestion: any;
   chatdata: any;
   showSkeleton: boolean = false;
 
+  private scrollToBottom(): void {
+      try {
+        this.chatContainer.nativeElement.scrollTop = this.chatContainer.nativeElement.scrollHeight;
+      } catch (err) {
+        console.error('Scroll Error:', err);
+    }
+  }
   constructor(private service:AdvisorService,private ngxService: NgxUiLoaderService,
     private route: ActivatedRoute
   ) { }
@@ -42,7 +51,7 @@ userQuestion: any;
   pquestion: any | null ;
 
   getAns(){
-    
+
     this.isQuestionAsked = true;
     this.showSkeleton= true;
     this.isQuestionNotAsked = false;
@@ -58,6 +67,7 @@ userQuestion: any;
       // this.answer = response.answer;
       this.ngxService.stopBackground();
       this.userQuestion = '';
+      this.scrollToBottom();
     });
   }
 
