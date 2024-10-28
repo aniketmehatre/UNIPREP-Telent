@@ -18,7 +18,7 @@ import { LocationService } from 'src/app/location.service';
 export class InvestorListComponent implements OnInit {
   investorData: any[] = []
   investorIndustryInterested: any;
-  investorOrgType: any;
+  // investorOrgType: any;
   investorType: any;
   countryList: any;
   headQuartersList: any;
@@ -166,10 +166,14 @@ else{
 
   loadMultiSelectData() {
     this.investorList.getMultiSelectData().subscribe((response) => {
-
       this.investorIndustryInterested = response.investor_industry_interested;
-      this.investorOrgType = response.investor_org_type;
+      // this.investorOrgType = response.investor_org_type;
       this.investorType = response.investor_type;
+      let anyInvestor:any = {
+        id: "any",
+        investor_type_name: "Any"
+      };
+      this.investorType.unshift(anyInvestor);
       this.countryList = response.countries_list;
     });
   }
@@ -315,7 +319,7 @@ else{
     this.investorList.getHeadQuartersList(event.value).subscribe((response) => {
       this.headQuartersList = response;
       this.anyHeadquartersList = [...response];
-      let anyCountryArray: any = {id: null, head_quarters_name: "any"};
+      let anyCountryArray: any = {id: "any", head_quarters_name: "Any HeadQuarters"};
       this.anyHeadquartersList.unshift(anyCountryArray);
     });
   }
@@ -444,12 +448,11 @@ else{
   getRecommendation() {
     this.enableModule = true;
     let keyMapping: any = {"1": "investor_type","2": "country","3": "head_quarters"};
-    
     let newData = Object.fromEntries(Object.entries(this.selectedData).map(([key, value]) => {
       let mappedKey = keyMapping[key] || key;
-      if (Array.isArray(value)) {
-        value = value.filter(item => item !== null);
-      }
+      // if (Array.isArray(value)) {
+      //   value = value.filter(item => item !== null);
+      // }
       return [mappedKey, value];
     }));
     this.investorList.storeRecommendation(newData).subscribe();

@@ -22,7 +22,7 @@
       </div>
       <div class="container-fluid">
         <div class="row py-2 col-md-12">
-          <div class="col-md-9">
+          <div class="col-md-8">
             <div class="card">
               <div class="card-body d-flex gap-2 text-small">
                 <span (click)="redirectTo('dashboard', -1)" role="button"><i class="fa-regular fa-home"></i></span>
@@ -34,9 +34,38 @@
               </div>
             </div>
           </div>
-          <div class="col-md-3">
-            <input type="text" class="w-100 searchinput" placeholder="Search Files" [(ngModel)]="searchText" (input)="filterLists()" pInputText />
-          </div>
+          <div class="col-md-4">
+            <input
+              type="text"
+              class="w-100 searchinput"
+              placeholder="Search Files"
+              [(ngModel)]="searchText"
+              (input)="filterLists()"
+              pInputText
+            />
+            <ul *ngIf="filteredFiles.length > 0" class="dropdown-list">
+              <li *ngFor="let files of filteredFiles">
+                <div *ngIf="files.isFolder == 2; else nonFolderTemplate">
+                  <!-- <a (click)="openFile(files.img_path)"> -->
+                    <div class="file-item" (click)="openFile(files.img_path)">
+                      <img src="../../../uniprep-assets/images/pdf.svg" alt="icon_path" class="file-icon" />
+                      <span class="file-name">{{ files.name }}</span>
+                    </div>
+                  <!-- </a> -->
+                </div>
+                
+                <!-- Template for non-folder items -->
+                <ng-template #nonFolderTemplate>
+                  <!-- <a (click)="getchildinfo(files)"> -->
+                    <div class="file-item" (click)="getchildinfo(files)">
+                      <img [src]="files.img_path" alt="icon_path" class="file-icon" />
+                      <span class="file-name">{{ files.name }}</span>
+                    </div>
+                  <!-- </a> -->
+                </ng-template>
+              </li>
+            </ul>            
+          </div>          
         </div>
         <div class="row">
           <p class="fw-semibold mb-0 uniprep-primary" *ngIf="parentfolderlists.length > 0">Folders</p>

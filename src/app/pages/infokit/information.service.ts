@@ -47,4 +47,7 @@ export class InformationService {
   DeleteFile(val: any) {
     return this.http.post<any>(environment.ApiUrl + "/DeleteInfo", val);
   }
+  getAllFolderAndFiles(){
+    return this.http.get<any>(environment.ApiUrl + "/InfoGlobalFilter");
+  }
 }

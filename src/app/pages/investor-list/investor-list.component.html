@@ -27,7 +27,7 @@
 									<h5 class="uniprep-primary fw-semibold mb-0">Question Number {{ recommendation.id }}</h5>
 									<h2 class="fw-bold mb-0">{{ recommendation.question }}</h2>
 								</div>
-								<div class="col-md-6">
+								<div class="col-md-9">
 									<ng-container *ngIf="recommendation.id == 1">
 										<div class="cube-container gap-3">
 											<div *ngFor="let cube of investorType" class="cube" (click)="selectCube(1, cube.id)" [ngClass]="{ selected: selectedData[1]?.includes(cube.id) }">
@@ -100,7 +100,7 @@
 				</div>
 				<div class="col-md-3 text-end">
 					<span class="d-flex justify-content-end mt-3 gap-2" style="white-space: nowrap">
-						<button class="btn btn-primary btn-rounded text-small" (click)="investorGuidlines()" type="button">Investor Guidelines</button>
+						<button class="btn btn-primary btn-rounded text-small" (click)="investorGuidlines()" type="button">Guidelines</button>
 						<button *ngIf="ehitlabelIsShow" class="btn btn-secondary btn-rounded text-small" (click)="buyCredits()" type="button">Buy Credits</button>
 						<button class="btn btn-primary text-small exportButton" (click)="exportData()" type="button">
 							Export <span class="exportCount">{{ exportCreditCount }}</span>
