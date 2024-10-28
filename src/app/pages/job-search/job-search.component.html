@@ -24,7 +24,7 @@
       <div class="col-md-3 text-start"></div>
       <div class="col-md-6 text-center">
         <div class="d-flex justify-content-center gap-2">
-          <button class="headerButtons" [ngClass]="{ active: currentEndpoint == 'job-search' }" type="button" (click)="headerMenuClick('job-search')">Job Search</button>
+          <button class="headerButtons" [ngClass]="{ active: currentEndpoint == 'job-search' || currentEndpoint == 'job-listing' }"  type="button" (click)="headerMenuClick('job-search')">Job Search</button>
           <button class="headerButtons" [ngClass]="{ active: currentEndpoint == 'job-tracker' }" type="button" (click)="headerMenuClick('job-tracker')">Job Tracker</button>
           <!-- <button class="headerButtons" [ngClass]="{ active: currentEndpoint == 'cv-builder' }" type="button" (click)="headerMenuClick('cv-builder')">CV Builder</button>
                     <button class="headerButtons" [ngClass]="{ active: currentEndpoint == 'coverletter-builder' }" type="button" (click)="headerMenuClick('coverletter-builder')">Cover Letter Builder</button> -->
@@ -36,7 +36,7 @@
   </div>
   <div class="card-body text-center flex-fill overflow-y-auto">
     <div class="row h-100 justify-content-center">
-      <div class="col-md-12"><router-outlet></router-outlet></div>
+      <div class="col-md-12 h-100 overflow-y-auto"><router-outlet></router-outlet></div>
     </div>
   </div>
 </div>
