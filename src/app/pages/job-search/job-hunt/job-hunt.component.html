@@ -1,33 +1,28 @@
-<div class="row justify-content-center align-items-center text-center">
-    <div class="col-12">
-        <h3 class="headColor">Apply to millions of job opportunities across top companies, industries, and
-            locations</h3>
-    </div>
-    <div class="col-12 col-md-10 col-lg-10">
-        <form [formGroup]="fG" (ngSubmit)="onSubmit()">
-            <div class="form-group">
-                <div class="row justify-content-center align-items-center text-center mt-2">
-                    <div class="col-md-6 col-lg-5 mb-2 mb-md-0 input-wrapper">
-                        <span class="p-input-icon-left w-100">
-                            <i class="pi pi-search"></i>
-                            <input type="text" formControlName="what_and" (input)="searchJob($event)" class="form-control w-100 rounded-input"
-                                   pInputText placeholder=" Search by Job Title"/>
-                        </span>
-                        <ul *ngIf="filterJobTitle.length > 0"  class="dropdown-list">
-                            <li *ngFor="let job of filterJobTitle" (click)="setJobtitle(job.jobrole)">{{ job.jobrole }}</li>
-                        </ul>
-                    </div>
-                    <div class="col-md-4 col-lg-4 mb-2 mb-md-0 input-wrapper">
-                        <span class="p-input-icon-left w-100">
-                            <i class="pi pi-search"></i>
-                            <input type="text" formControlName="countryCode" (input)="searchLocation($event)" class="form-control w-100 rounded-input"
-                                   pInputText placeholder="Location"/>
-                        </span>
-                        <ul *ngIf="filteredCity.length > 0"  class="dropdown-list">
-                            <li *ngFor="let city of filteredCity" (click)="setLocation(city)"><img [src]="city.flag" alt="">{{ city.location_name }}</li>
-                        </ul>
-                    </div>
-                    <!-- <div class="col-md-4 col-lg-3 mb-2 mb-md-0">
+<div class="row h-100 justify-content-center align-items-center text-center">
+  <div class="col-12 col-md-10 col-lg-10">
+    <h3 class="uniprep-primary text-center">Apply to millions of job opportunities across top companies, industries, and locations</h3>
+    <form [formGroup]="fG" (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <div class="row justify-content-center align-items-center text-center mt-2">
+          <div class="col-md-6 col-lg-5 mb-2 mb-md-0 input-wrapper">
+            <span class="p-input-icon-left w-100">
+              <i class="pi pi-search"></i>
+              <input type="text" formControlName="what_and" (input)="searchJob($event)" class="form-control w-100 rounded-input" pInputText placeholder=" Search by Job Title" />
+            </span>
+            <ul *ngIf="filterJobTitle.length > 0" class="dropdown-list">
+              <li *ngFor="let job of filterJobTitle" (click)="setJobtitle(job.jobrole)">{{ job.jobrole }}</li>
+            </ul>
+          </div>
+          <div class="col-md-4 col-lg-4 mb-2 mb-md-0 input-wrapper">
+            <span class="p-input-icon-left w-100">
+              <i class="pi pi-search"></i>
+              <input type="text" formControlName="countryCode" (input)="searchLocation($event)" class="form-control w-100 rounded-input" pInputText placeholder="Location" />
+            </span>
+            <ul *ngIf="filteredCity.length > 0" class="dropdown-list">
+              <li *ngFor="let city of filteredCity" (click)="setLocation(city)"><img [src]="city.flag" alt="" />{{ city.location_name }}</li>
+            </ul>
+          </div>
+          <!-- <div class="col-md-4 col-lg-3 mb-2 mb-md-0">
                         <span class="p-input-icon-left w-100">
                             <i class="pi pi-search"></i>
                             <input type="text" formControlName="countryCode" (input)="searchLocation($event)" class="form-control w-100"
@@ -36,7 +31,7 @@
                         <ul *ngIf="filteredCity.length > 0"  class="dropdown-list">
                             <li *ngFor="let city of filteredCity" >{{ city.location_name }}</li>
                         </ul> -->
-                        <!-- <p-dropdown [options]="cities"
+          <!-- <p-dropdown [options]="cities"
                                     optionLabel="name"
                                     formControlName="countryCode"
                                     placeholder="Location"
@@ -61,24 +56,21 @@
                                 </div>
                             </ng-template>
                         </p-dropdown> -->
-                    <!-- </div> -->
-                    <div class="col-md-8 col-lg-3 text-start mt-2 mt-lg-0">
-                       <div class="row">
-                           <div class="col text-center">
-                               <button class="btn btn-primary text-small btn-rounded p-2 w-100" type="submit">
-                                   Search <span class="searchIcon"><i class="fa-regular fa-magnifying-glass"></i></span>
-                               </button>
-                           </div>
-                           <div class="col text-center">
-                               <button class="btn btn-danger text-small btn-rounded text-white mt-2 mt-md-0 ms-md-2 p-2 w-100 w-md-auto" type="button"
-                                       (click)="resetSearch()">
-                                   Reset
-                               </button>
-                           </div>
-                       </div>
-                    </div>
-                </div>
+          <!-- </div> -->
+          <div class="col-md-8 col-lg-3 text-start mt-2 mt-lg-0">
+            <div class="row">
+              <div class="col text-center">
+                <button class="btn btn-primary text-small btn-rounded p-2 w-100" type="submit">
+                  Search <span class="searchIcon"><i class="fa-regular fa-magnifying-glass"></i></span>
+                </button>
+              </div>
+              <div class="col text-center">
+                <button class="btn btn-danger text-small btn-rounded text-white mt-2 mt-md-0 ms-md-2 p-2 w-100 w-md-auto" type="button" (click)="resetSearch()">Reset</button>
+              </div>
             </div>
-        </form>
-    </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
 </div>
