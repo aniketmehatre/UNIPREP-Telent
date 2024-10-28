@@ -1,5 +1,5 @@
 .subjectcard {
-  border: 1px solid #f0780c;
+  border: 1px solid var(--uniprep-secondary);
   width: 100%;
   margin: 10px 0px;
 
@@ -32,15 +32,4 @@
 {
   height:90vh;
   overflow-y:auto;
-}
-.backIcon {
-  height: 40px;
-  width: 40px;
-  border-radius: 20px;
-  background-color: var(--uniprep-primary);
-  color: white;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: 10px 0;
 }

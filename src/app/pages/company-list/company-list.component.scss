@@ -380,3 +380,30 @@ border: none;
       width: 46% !important;
   }
 }
+
+:host ::ng-deep .p-carousel .p-carousel-indicators .p-carousel-indicator button {
+  width: 10px;
+  height: 10px;
+  transition: background-color 0.2s, color 0.2s, box-shadow 0.2s;
+  border-radius: 20px;
+  }
+  
+  :host ::ng-deep .p-carousel-content {
+  height: 100% !important;
+  .p-carousel-container {
+    height: 100%;
+    .p-carousel-items-container {
+      height: 100%;
+    }
+  }
+  }
+  
+  :host ::ng-deep .p-carousel-item {
+  width: 100% !important;
+  }
+  :host ::ng-deep .p-carousel .p-carousel-indicators {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  }

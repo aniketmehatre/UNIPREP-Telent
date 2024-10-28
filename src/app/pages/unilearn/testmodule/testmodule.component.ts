@@ -17,6 +17,7 @@ export class TestModulesComponent implements OnInit {
   @Input() parentid: number;
   @Input() moduleid: number;
   @Input() selected_module: string;
+  @Input() totalquestion: number;
   @Output() moduleChange = new EventEmitter();
   isSkeletonVisible: boolean = true;
   submoduleList: any;
@@ -67,6 +68,7 @@ export class TestModulesComponent implements OnInit {
           parent_id: moduledata.id,
           module_id: moduledata.module_id,
           selected_module: moduledata.submodule_name,
+          totalquestion:moduledata.totalQuestions,
           stage: 4,
         });
         break;

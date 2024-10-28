@@ -26,4 +26,10 @@ export class UniLearnService {
       headers: headers,
     });
   }
+  submittestAnswers(formData:any) {
+    const headers = new HttpHeaders().set("Accept", "application/json");
+    return this.http.post<Quizmodule>(environment.ApiUrl + "/saveusertestanswer",formData, {
+      headers: headers,
+    });
+  }
 }

@@ -1,14 +1,14 @@
 <ng-container [ngSwitch]="stage">
   <ng-container *ngSwitchCase="1">
-    <uni-learnmodules [selected_module]="selected_module" [parentid]="parentid" [moduleid]="moduleid" (moduleChange)="moduleChange($event)"></uni-learnmodules>
+    <uni-learnmodules [totalquestion]="totalquestion" [selected_module]="selected_module" [parentid]="parentid" [moduleid]="moduleid" (moduleChange)="moduleChange($event)"></uni-learnmodules>
   </ng-container>
   <ng-container *ngSwitchCase="2">
-    <uni-learnsubmodules [selected_module]="selected_module" [parentid]="parentid" [moduleid]="moduleid" (moduleChange)="moduleChange($event)"></uni-learnsubmodules>
+    <uni-learnsubmodules [totalquestion]="totalquestion" [selected_module]="selected_module" [parentid]="parentid" [moduleid]="moduleid" (moduleChange)="moduleChange($event)"></uni-learnsubmodules>
   </ng-container>
   <ng-container *ngSwitchCase="3">
-    <uni-testmodule [selected_module]="selected_module" [parentid]="parentid" [moduleid]="moduleid" (moduleChange)="moduleChange($event)"></uni-testmodule>
+    <uni-testmodule [totalquestion]="totalquestion" [selected_module]="selected_module" [parentid]="parentid" [moduleid]="moduleid" (moduleChange)="moduleChange($event)"></uni-testmodule>
   </ng-container>
   <ng-container *ngSwitchCase="4">
-    <uni-quizwindow [selected_module]="selected_module" [parentid]="parentid" [moduleid]="moduleid" (moduleChange)="moduleChange($event)"></uni-quizwindow>
+    <uni-quizinfowindow [totalquestion]="totalquestion" [selected_module]="selected_module" [parentid]="parentid" [moduleid]="moduleid" (moduleChange)="moduleChange($event)"></uni-quizinfowindow>
   </ng-container>
 </ng-container>

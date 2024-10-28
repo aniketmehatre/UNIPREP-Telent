@@ -1,5 +1,5 @@
 .subjectcard {
-  border: 1px solid var(--uniprep-secondary);
+  border: 1px solid #f0780c;
   width: 100%;
   margin: 10px 0px;
 
@@ -55,7 +55,7 @@
   border-radius: 2rem;
 }
 .intermediatetimespan {
-  background: var(--uniprep-secondary);
+  background: #f0780c;
   color: white;
   border-radius: 2rem;
 }
@@ -63,4 +63,17 @@
   background: #d80027;
   color: white;
   border-radius: 2rem;
+}
+.btn-primary .btn-customicon {
+  border-radius: 100px;
+  background-color: var(--uniprep-primarylight);
+  width: 25px;
+  height: 25px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.quizinfo{
+  font-size: 16px;
+  font-weight: 500;
 }

@@ -83,7 +83,7 @@ export class ScholarshipListComponent implements OnInit {
   recommendations: any = [
     {
       id: 1,
-      question: "Select your scholarship country",
+      question: "Select your Scholarship Country",
     },
     {
       id: 2,
@@ -556,13 +556,13 @@ export class ScholarshipListComponent implements OnInit {
   }
   addAnyValueToOptions(){
     setTimeout(() => {
-      let anyCountryArray: any = {id: null,country: "any country"};
+      let anyCountryArray: any = {id: null,country: "Any Country"};
       this.anyCountryList.unshift(anyCountryArray);
 
-      let anyScholarList:any = { id: null, type: "any"};
+      let anyScholarList:any = { id: null, type: "Any"};
       this.anyScholarshipTypeList.unshift(anyScholarList); 
 
-      let anyCoverList:any = {id: null,cover_name: "any" };
+      let anyCoverList:any = {id: null,cover_name: "Any" };
       this.anyCoverList.unshift(anyCoverList);
     }, 1000);
   }
