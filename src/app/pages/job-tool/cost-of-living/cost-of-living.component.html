@@ -3,9 +3,9 @@
 		<div class="col-md-12 text-center">
 			<h4 class="fw-bold uniprep-primary">Compare the cost of living between two locations around the world</h4>
 		</div>
-		<div class="col-md-8">
-			<form [formGroup]="form" (ngSubmit)="compare()" class="row">
-				<div class="col-md-6">
+		<div class="col-md-10">
+			<form [formGroup]="form" (ngSubmit)="compare()" class="row justify-content-center">
+				<div class="col-md-5">
 					<p-dropdown [options]="sourceCities" optionValue="city_id" formControlName="sourceCity" placeholder="Source Location or Country" [filter]="true" [virtualScroll]="true" [virtualScrollItemSize]="50" [showClear]="true" [appendTo]="'body'" styleClass="w-100 border-secondary">
 						<ng-template pTemplate="filter" let-options="options">
 							<div class="d-flex gap-2">
@@ -34,7 +34,7 @@
 						</ng-template>
 					</p-dropdown>
 				</div>
-				<div class="col-md-4">
+				<div class="col-md-5">
 					<p-dropdown [options]="targetCities" optionValue="city_id" formControlName="targetCity" placeholder="Target Location or Country" [filter]="true" [virtualScroll]="true" [virtualScrollItemSize]="50" [showClear]="true" [appendTo]="'body'" styleClass="w-100 border-primary">
 						<ng-template pTemplate="filter" let-options="options">
 							<div class="d-flex gap-2">

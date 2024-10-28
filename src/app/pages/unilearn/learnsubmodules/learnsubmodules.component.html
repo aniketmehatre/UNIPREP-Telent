@@ -1,61 +1,44 @@
 <div class="card readingcard">
-  <div class="card-body text-center pt-0">
+  <div class="card-header py-0 border-0 bg-transparent">
     <div class="row">
-      <div class="col-md-2 mt-2 text-start">
-        <p-button
-          (click)="backtoMain()"
-          icon="fa-solid fa-chevron-left"
-          styleClass="p-button-rounded p-button-text text-dark"
-        ></p-button>
+      <div class="col-md-3 text-start">
+        <div class="backIcon" role="button" (click)="backtoMain()">
+          <span class="fa-solid fa-chevron-left"></span>
+        </div>
       </div>
-      <div class="col-md-8 text-center">
-        <div
-          class="select-title text-nowrap d-flex justify-content-between align-items-center"
-        >
+      <div class="col-md-6 text-center">
+        <div class="select-title text-nowrap d-flex justify-content-between align-items-center">
           <div>
-            <h5
-              class="mb-0"
-              tooltipPosition="top"
-              pTooltip="Prepare for standardized tests and improve academic skills with practice tests and learning modules."
-            >
+            <h5 class="mb-0" tooltipPosition="top" pTooltip="Prepare for standardized tests and improve academic skills with practice tests and learning modules.">
               {{ selected_module | uppercase }}
               <i class="questiontooltip fa-solid fa-circle-question"></i>
             </h5>
           </div>
           <div>
-            <button
-              class="how-it-works-button"
-              (click)="
-                openVideoPopup(
-                  'https://www.youtube.com/embed/01xivveciUI?si=Cdi3e7ycApMa8sWO'
-                )
-              "
-            >
-              &nbsp;How it works? &nbsp;&nbsp;<i class="fa-solid fa-play"></i>
-            </button>
+            <button class="how-it-works-button" (click)="openVideoPopup('https://www.youtube.com/embed/01xivveciUI?si=Cdi3e7ycApMa8sWO')">&nbsp;How it works? &nbsp;&nbsp;<i class="fa-solid fa-play"></i></button>
           </div>
         </div>
       </div>
 
-      <div
-        class="col-md-2 mt-2 text-end desktop justify-content-end d-none d-md-flex"
-      ></div>
+      <div class="col-md-3 text-end">
+        <div class="mt-2" *ngIf="pdfvisibility">
+            <button class="text-white p-ripple p-button-warning p-button p-component p-2" (click)="download()">
+              Download
+              <i class="fa-solid fa-download ms-2 p-2" style="background-color: #d26400"></i>
+            </button>
+        </div>
+      </div>
     </div>
+  </div>
+  <div class="card-body text-center flex-fill overflow-y-auto">
     <div *ngIf="isSkeletonVisible">
       <div class="row">
-        <div
-          *ngFor="let index of loopRange"
-          class="col-lg-2 col-md-3 col-sm-4 col-xs-12 col-12"
-        >
+        <div *ngFor="let index of loopRange" class="col-lg-2 col-md-3 col-sm-4 col-xs-12 col-12">
           <div class="card my-2">
             <div class="card-body">
               <div class="row justify-content-center align-items-center">
                 <div class="col-3 col-md-12 d-flex justify-content-center">
-                  <p-skeleton
-                    width="5rem"
-                    height="5rem"
-                    styleClass="mb-2"
-                  ></p-skeleton>
+                  <p-skeleton width="5rem" height="5rem" styleClass="mb-2"></p-skeleton>
                 </div>
                 <div class="col-9 col-md-12">
                   <p-skeleton width="100%" styleClass="mb-2"></p-skeleton>
@@ -68,29 +51,13 @@
       </div>
     </div>
     <div class="row mb-0" *ngIf="!isSkeletonVisible && !pdfvisibility">
-      <div
-        *ngFor="let module of submoduleList"
-        class="col-lg-2 col-md-3 col-sm-4 col-xs-12 col-12"
-      >
-        <div
-          class="row w-100 m-0 justify-content-center h-100"
-        >
-          <div
-            (click)="onModuleClick(module)"
-            class="card subjectcard"
-            role="button"
-          >
-            <div
-              class="card-body d-flex flex-md-column flex-row justify-content-md-between align-items-center px-0 py-2"
-            >
+      <div *ngFor="let module of submoduleList" class="col-lg-2 col-md-3 col-sm-4 col-xs-12 col-12">
+        <div class="row w-100 m-0 justify-content-center h-100">
+          <div (click)="onModuleClick(module)" class="card subjectcard" role="button">
+            <div class="card-body d-flex flex-md-column flex-row justify-content-md-between align-items-center px-0 py-2">
               <div>
                 <div class="submoduleicon">
-                  <img
-                    *ngIf="module?.icon"
-                    alt="{{ module.submodule_name }}"
-                    class="selectimage"
-                    src="{{ module?.icon }}"
-                  />
+                  <img *ngIf="module?.icon" alt="{{ module.submodule_name }}" class="selectimage" src="{{ module?.icon }}" />
                 </div>
                 <h6 class="text-center subjecttitle d-md-block d-none pt-2">
                   {{ module.submodule_name }}
@@ -106,38 +73,10 @@
         </div>
       </div>
     </div>
-    <div class="row justify-content-center h-100 mt-2" *ngIf="pdfvisibility">
-      <div class="col-md-8 col-12 h-100">
-        <pdf-viewer
-          class="w-100 h-100 overflow-x-hidden"
-          [src]="pdfURL"
-          [rotation]="0"
-          [original-size]="false"
-          [show-all]="true"
-          [fit-to-page]="true"
-          [zoom]="1"
-          [zoom-scale]="'page-width'"
-          [stick-to-page]="true"
-          [render-text]="true"
-          [external-link-target]="'blank'"
-          [autoresize]="true"
-          [show-borders]="false"
-        ></pdf-viewer>
+    <div class="row justify-content-center h-100" *ngIf="pdfvisibility">
+      <div class="col-md-8 col-12">
+        <pdf-viewer class="w-100 h-100" [src]="pdfURL" [rotation]="0" [original-size]="false" [show-all]="true" [fit-to-page]="true" [zoom]="1" [zoom-scale]="'page-width'" [stick-to-page]="true" [render-text]="false" [external-link-target]="'blank'" [autoresize]="false" [show-borders]="false"></pdf-viewer>
       </div>
-    </div>
-  </div>
-  <div class="card-footer bg-white" style="z-index: 9999" *ngIf="pdfvisibility">
-    <div class="col-md-12 col-12 text-center">
-      <button
-        class="text-white p-ripple p-button-warning p-button p-component p-2"
-        (click)="download()"
-      >
-        Download
-        <i
-          class="fa-solid fa-download ms-2 p-2"
-          style="background-color: #d26400"
-        ></i>
-      </button>
     </div>
   </div>
 </div>
