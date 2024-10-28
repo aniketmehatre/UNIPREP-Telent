@@ -32,7 +32,7 @@
 			</div>
 		</div> -->
 	</div>
-	<div class="card-body flex-fill overflow-y-auto" *ngIf="isQuestionAsked">
+	<div #chatContainer class="card-body flex-fill overflow-y-auto" *ngIf="isQuestionAsked">
 		<div class="row justify-content-center overflow-hidden" *ngIf="showSkeleton">
 			<div class="col-md-8">
 				<div class="row align-items-center">
@@ -104,7 +104,7 @@
 			</div>
 		</div>
 		<div class="row justify-content-center" *ngFor="let chat of chatdata">
-			<div class="col-md-8">
+			<div class="col-md-8" #chatContainer>
 				<div class="advisor-question" *ngIf="chat.input == 1">
 					<div class="d-flex align-items-center">
 						<p style="margin-right: 10px; background-color: var(--uniprep-primaryop30); padding: 1rem; text-transform: uppercase; font-weight: bold; border-radius: 100%">{{ chat.name.slice(0, 2) }}</p>
@@ -124,7 +124,7 @@
 							<!-- <img src="/src/uniprep-assets/images/icon-light.svg"> -->
 							<img style="width: 50px" src="../../../uniprep-assets/images/icon-light.svg" />
 							<div class="d-flex flex-column">
-								<p>UNIPREP</p>
+								<p>AI</p>
 								<p>{{ chat.created }}</p>
 							</div>
 						</div>

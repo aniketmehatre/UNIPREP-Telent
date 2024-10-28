@@ -493,10 +493,6 @@ uni-cost-of-living,uni-salary-converter
 {
 overflow-y: auto;
 }
-uni-job-hunt {
-	width: 100%;
-}
-
 @media screen and (max-width: 480px) {
 	uni-faq {
 		overflow-y: scroll !important;
@@ -543,6 +539,10 @@ uni-landing {
 }
 
 uni-cv-builder {
+	overflow-y: auto;
+}
+
+uni-job-hunt {
 	overflow-y: auto;
 }
 
@@ -1000,8 +1000,6 @@ uni-subscription {
 .subjectcard {
 	border: 1px solid var(--uniprep-secondary);
 	width: 100%;
-	margin: 10px 0px;
-
 	.submoduleicon {
 		height: 75px;
 		width: 75px;
@@ -1031,6 +1029,67 @@ uni-subscription {
 	//   font-size: 16px;
 	// }
 }
+
+.readingcardgrid {
+	flex: 0 0 20%;
+	max-width: 20%;
+}
+
+@media (max-width: 1499.98px) {
+	.readingcardgrid {
+		flex: 0 0 20%;
+		max-width: 20%;
+	}
+}
+
+@media (max-width: 1399.98px) {
+	.readingcardgrid {
+		flex: 0 0 20%;
+		max-width: 20%;
+	}
+}
+
+@media (max-width: 1299.98px) {
+	.readingcardgrid {
+		flex: 0 0 25%;
+		max-width: 25%;
+	}
+}
+
+@media (max-width: 1199.98px) {
+	.readingcardgrid {
+		flex: 0 0 33%;
+		max-width: 33%;
+	}
+}
+
+@media (max-width: 991.98px) {
+	.readingcardgrid {
+		flex: 0 0 33%;
+		max-width: 33%;
+	}
+}
+
+@media (max-width: 767.98px) {
+	.readingcardgrid {
+		flex: 0 0 50%;
+		max-width: 50%;
+	}
+}
+
+@media (max-width: 575.98px) {
+	.readingcardgrid {
+		flex: 0 0 100%;
+		max-width: 100%;
+	}
+}
+@media screen and (max-width: 480px) {
+	.readingcardgrid {
+		flex: 0 0 100%;
+		max-width: 100%;
+	}
+}
+
 
 .modal {
 	background: #00000080;
@@ -1540,7 +1599,7 @@ p-dialog.restrictionDialog .p-dialog .p-dialog-header .p-dialog-header-icon {
 
 	html,
 	body {
-		font-size: 14px;
+		font-size: 13px;
 	}
 
 	// #sidenav {
@@ -1552,7 +1611,7 @@ p-dialog.restrictionDialog .p-dialog .p-dialog-header .p-dialog-header-icon {
 
 	html,
 	body {
-		font-size: 14px;
+		font-size: 12px;
 	}
 
 	// #sidenav {
@@ -1571,14 +1630,14 @@ p-dialog.restrictionDialog .p-dialog .p-dialog-header .p-dialog-header-icon {
 
 	html,
 	body {
-		font-size: 14px;
+		font-size: 12px;
 	}
 
 	// #sidenav {
 	// 	width: 200px;
 	// }
 	#sidenav {
-		width: 20% !important;
+		width: 18% !important;
 	}
 
 	.reportwidthfix {
@@ -1590,7 +1649,7 @@ p-dialog.restrictionDialog .p-dialog .p-dialog-header .p-dialog-header-icon {
 
 	html,
 	body {
-		font-size: 14px;
+		font-size: 12px;
 	}
 
 	#sidenav {
@@ -1610,7 +1669,7 @@ p-dialog.restrictionDialog .p-dialog .p-dialog-header .p-dialog-header-icon {
 
 	html,
 	body {
-		font-size: 14px;
+		font-size: 12px;
 	}
 
 	.reportwidthfix {
@@ -1649,7 +1708,7 @@ p-dialog.restrictionDialog .p-dialog .p-dialog-header .p-dialog-header-icon {
 
 	html,
 	body {
-		font-size: 14px;
+		font-size: 12px;
 	}
 
 	.reportwidthfix {

@@ -37,6 +37,7 @@ import { PdfViewerModule } from 'ng2-pdf-viewer';
 import { K12BoardComponent } from './k12-board/k12-board.component';
 import { K12SubjectComponent } from './k12-subject/k12-subject.component';
 import { K12ChapterComponent } from './k12-chapter/k12-chapter.component';
+import { K12StateComponent } from './k12-state/k12-state.component';
 
 @NgModule({
   declarations: [
@@ -55,6 +56,7 @@ import { K12ChapterComponent } from './k12-chapter/k12-chapter.component';
     K12BoardComponent,
     K12SubjectComponent,
     K12ChapterComponent,
+    K12StateComponent,
   ],
   imports: [
     PdfViewerModule,

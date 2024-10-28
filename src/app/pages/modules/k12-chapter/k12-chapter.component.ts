@@ -59,6 +59,10 @@ export class K12ChapterComponent implements OnInit {
     loopRange = Array.from({length: 24}).fill(0).map((_, index) => index);
     restrict = false;
     quizpercentage: any = 0
+    subName: any
+    boardName: any
+    stateName: any
+    className: any
 
     constructor(private moduleListService: ModuleServiceService, private router: Router, private dataService: DataService,
                 private authService: AuthService, private _location: Location,
@@ -67,6 +71,10 @@ export class K12ChapterComponent implements OnInit {
                 private meta: Meta,
                 private titleService: Title,) {
         this.countryId = Number(localStorage.getItem('countryId'));
+        this.boardName = localStorage.getItem('board-name');
+        this.stateName = localStorage.getItem('state-name');
+        this.className = localStorage.getItem('class-name');
+        this.subName = localStorage.getItem('subject-name');
         this.subjectId = this.route.snapshot.paramMap.get("subject_id");
 
         this.dataService.countryIdSource.subscribe((data) => {

@@ -18,17 +18,10 @@ import { Location } from "@angular/common";
     providers: [ConfirmationService]
 })
 export class K12ClassComponent implements OnInit {
-    answeredCorrect: number = 0;
-    totalPercentage: number = 0;
-    percentageValue: string = '';
     subModuleList: any[] = [];
-    isStartQuiz: boolean = false;
-    isQuizSubmit: boolean = false;
-    isReviewVisible: boolean = false;
     quizData: any[] = [];
     moduleList: any[] = [];
     selectedQuiz: number = 1;
-    positionNumber: number = 0;
     breadCrumb: MenuItem[] = [];
     answerOptionClicked: boolean = true
     isInstructionVisible: boolean = false
@@ -42,12 +35,10 @@ export class K12ClassComponent implements OnInit {
     aboutModule!: string;
     moduleDetails!: string;
     upgradePlanMsg!: string;
-    selectedModule!: string;
     planExpired!: boolean;
     countryName!: string;
     isSkeletonVisible: boolean = true;
     countryId: any;
-    canShowQuestionList: boolean = false;
     howItWorksVideoLink: string = "";
     quizmoduleselectcountryidsetzero:any=0;
     selectSubmoduleName:string = "";
@@ -56,6 +47,8 @@ export class K12ClassComponent implements OnInit {
     orgnamewhitlabel:any;
     orglogowhitelabel:any;
     boardId: any;
+    boardName: any;
+    stateName: any;
     constructor(private moduleListService: ModuleServiceService, private router: Router, private dataService: DataService, private authService: AuthService,
                 private locationService: LocationService, private route: ActivatedRoute, private ngxService: NgxUiLoaderService,
                 private confirmationService: ConfirmationService, private pageFacade: PageFacadeService,
@@ -63,6 +56,8 @@ export class K12ClassComponent implements OnInit {
                 private titleService: Title,
                 private activatedRoute: ActivatedRoute,) {
         this.countryId = Number(localStorage.getItem('countryId'));
+        this.boardName = localStorage.getItem('board-name');
+        this.stateName = localStorage.getItem('state-name');
         this.boardId = this.route.snapshot.paramMap.get("board_id");
 
         this.dataService.countryIdSource.subscribe((data) => {
@@ -160,6 +155,7 @@ export class K12ClassComponent implements OnInit {
 
     onSubModuleClick(id: any, submodule: any) {
         localStorage.setItem('selectedClass', id)
+        localStorage.setItem('class-name', submodule.category)
         this.router.navigate([`/pages/modules/k12-subject/${submodule.category_id}` ]);
     }
 

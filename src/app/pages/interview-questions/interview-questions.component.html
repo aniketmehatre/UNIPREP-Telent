@@ -1,28 +1,36 @@
-<div  class="card readingcard">
-    <div class="card-body" style="padding-top: 0px;">
-        <div class="row">
-            <div class="col-md-4">
-                <div class="backIcon" role="button" (click)="goBack();"><span style="padding: 10px;
-                    background-color: #394d83;
-                    border-radius: 50%;
-                    color: white;
-                    margin-top: 10px;" class="pi pi-angle-left"></span></div>
-            </div>
-            <div class="col-md-4">
-                <h5 class="select-title mb-3 text-center">{{this.modulename}}</h5>
-            </div>
+<div class="card readingcard">
+  <div class="card-header py-0 border-0 bg-transparent">
+    <div class="row justify-content-center">
+      <div class="col-md-2 text-start">
+        <div class="backIcon" (click)="goBack()" role="button">
+          <span class="fa-solid fa-chevron-left" (click)="goBack()"></span>
         </div>
-        <div class="row">
-            <div class="col-md-3 mt-4" *ngFor="let item of questions">
-                <div class="card h-100" style="border:1px solid var(--uniprep-secondary)">
-                    <div class="card-body d-flex justify-content-between flex-column">
-                        <p style="margin-bottom: 1rem;">{{ item.ques }}</p>
-                        <div class="d-flex justify-content-center align-items-center">
-                            <button class="btn btn-primary rounded-pill" (click)="seeAnswer(item.ques , item.ans)">Read Answer</button>
-                        </div>
-                    </div>
-                </div>
-                <!-- <p-dialog header="Title" [(visible)]="showAnswer">
+      </div>
+      <div class="col-md-8 text-center">
+        <div class="select-title text-nowrap d-flex justify-content-between align-items-center">
+          <div>
+            <h5 class="mb-0 text-uppercase" tooltipPosition="top" pTooltip="Sharpen your interview readiness with essential question practice and strategic answer guidance.">{{ this.modulename }}<i class="questiontooltip fa-solid fa-circle-question"></i></h5>
+          </div>
+          <div>
+            <!-- <button class="how-it-works-button">&nbsp;How it works?&nbsp;&nbsp;<i class="fa-solid fa-play"></i></button> -->
+          </div>
+        </div>
+      </div>
+      <div class="col-md-2"></div>
+    </div>
+  </div>
+  <div class="card-body flex-fill overflow-y-auto">
+    <div class="row">
+      <div class="readingcardgrid mb-3" *ngFor="let item of questions">
+        <div class="card subjectcard h-100">
+          <div class="card-body d-flex justify-content-between flex-column">
+            <p class="text-start fw-medium mb-2">{{ item.ques }}</p>
+            <div class="d-flex justify-content-center align-items-center">
+              <button class="btn btn-primary btn-rounded w-100" (click)="seeAnswer(item.ques, item.ans)">Read Answer</button>
+            </div>
+          </div>
+        </div>
+        <!-- <p-dialog header="Title" [(visible)]="showAnswer">
                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
                         Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
                         Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
@@ -32,25 +40,29 @@
                     </ng-template>
 
                 </p-dialog> -->
-
+      </div>
+      <p-dialog #dialogContent [(visible)]="showAnswer" [draggable]="false" [modal]="true" class="questionmodal" [breakpoints]="{ '960px': '75vw', '640px': '100vw' }" [style]="{ width: '50vw' }">
+        <!-- <ng-template pTemplate="header"  > -->
+        <div class="container-fluid">
+          <div class="row justify-content-center">
+            <div class="col-md-8">
+              <h5 class="select-title text-center mb-0">{{ this.modulename }}</h5>
             </div>
-            <p-dialog #dialogContent [(visible)]="showAnswer" [draggable]="false" [modal]="true" class="questionmodal"   [breakpoints]="{'960px': '75vw', '640px': '100vw'}" [style]="{width: '50vw'}">
-                <!-- <ng-template pTemplate="header"  > -->
-                    <div class="row justify-content-center w-100" >             
-                        <div class="col-md-8">         
-                            <h5 class="select-title text-center mb-0">{{this.modulename}}</h5>          
-                        </div>
-                    </div>
-                    <div class="row justify-content-center" style="--bs-gutter-x:0rem !important">
-                        <div class="col-md-12 mx-4 my-2">
-                            <div style="background-color: var(--uniprep-primaryop10); margin: 1rem; border-radius: 1rem;padding: 1rem;border: 1px solid var(--uniprep-primary);">
-                                <h3 class="mt-2" style="color: var(--uniprep-primary)">{{this.seeQues}}</h3>
-                                <h5 class="mt-2" [innerHTML]="this.seeAns"></h5>
-                            </div>
-                        </div>
-                    </div>
-                <!-- </ng-template> -->
-            </p-dialog>
+          </div>
+          <div class="row justify-content-center p-3 pb-4">
+            <div class="col-md-12">
+              <div class="card answercard">
+                <div class="card-body">
+                  <h3 class="uniprep-primary mb-4">{{ this.seeQues }}</h3>
+                  <h5 [innerHTML]="this.seeAns"></h5>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
+
+        <!-- </ng-template> -->
+      </p-dialog>
     </div>
+  </div>
 </div>

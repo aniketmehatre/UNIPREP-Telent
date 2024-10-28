@@ -1,91 +1,83 @@
 <div class="card readingcard">
-	<ng-container *ngIf="!enableModule">
-		<div class="card-header py-0 border-0 bg-transparent">
-			<div class="row justify-content-center">
-				<div class="col-md-2 text-start"></div>
-				<div class="col-md-8 text-center">
-					<div class="select-title text-nowrap d-flex justify-content-between align-items-center">
-						<div>
-							<h5 class="w-100 mb-0" tooltipPosition="top" pTooltip="Investor List">INVESTOR LIST<i class="questiontooltip fa-solid fa-circle-question"></i></h5>
-						</div>
-						<div>
-							<button class="how-it-works-button" (click)="openVideoPopup('https://www.youtube.com/embed/dVAzK2cBCyA?si=ApmnymiuiK0wOgwv')">&nbsp;How it works? &nbsp;&nbsp;<i class="fa-solid fa-play"></i></button>
-						</div>
-					</div>
-				</div>
-				<div class="col-md-2"></div>
-			</div>
-		</div>
-		<div class="card-body">
-			<div class="container-fluid h-100">
-				<p-carousel [value]="recommendations" [numVisible]="1" [numScroll]="1" [circular]="false" [showNavigators]="false" [showIndicators]="false" [page]="activePageIndex" styleClass="h-100">
-					<ng-template let-recommendation let-i="index" pTemplate="item">
-						<div class="h-100 d-flex flex-column justify-content-between">
-							<div>&nbsp;</div>
-							<div class="row justify-content-center text-center">
-								<div class="col-md-12 mb-4">
-									<h5 class="uniprep-primary fw-semibold mb-0">Question Number {{ recommendation.id }}</h5>
-									<h2 class="fw-bold mb-0">{{ recommendation.question }}</h2>
-								</div>
-								<div class="col-md-9">
-									<ng-container *ngIf="recommendation.id == 1">
-										<div class="cube-container gap-3">
-											<div *ngFor="let cube of investorType" class="cube" (click)="selectCube(1, cube.id)" [ngClass]="{ selected: selectedData[1]?.includes(cube.id) }">
-												<label>{{ cube.investor_type_name }}</label>
-												<i class="fa-solid fa-circle-check tickPlacement" *ngIf="selectedData[1]?.includes(cube.id)"></i>
-											</div>
-										</div>
-										<p class="text-center" [ngClass]="{ 'd-none': invalidClass === false }" style="color: red">Please Choose Any one option</p>
-										<p></p
-									></ng-container>
+  <ng-container *ngIf="!enableModule">
+    <div class="card-header py-0 border-0 bg-transparent">
+      <div class="row justify-content-center">
+        <div class="col-md-2 text-start"></div>
+        <div class="col-md-8 text-center">
+          <div class="select-title text-nowrap d-flex justify-content-between align-items-center">
+            <div>
+              <h5 class="w-100 mb-0" tooltipPosition="top" pTooltip="Investor List">INVESTOR LIST<i class="questiontooltip fa-solid fa-circle-question"></i></h5>
+            </div>
+            <div>
+              <button class="how-it-works-button" (click)="openVideoPopup('https://www.youtube.com/embed/dVAzK2cBCyA?si=ApmnymiuiK0wOgwv')">&nbsp;How it works? &nbsp;&nbsp;<i class="fa-solid fa-play"></i></button>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-2"></div>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="container-fluid h-100">
+        <p-carousel [value]="recommendations" [numVisible]="1" [numScroll]="1" [circular]="false" [showNavigators]="false" [showIndicators]="false" [page]="activePageIndex" styleClass="h-100">
+          <ng-template let-recommendation let-i="index" pTemplate="item">
+            <div class="h-100 d-flex flex-column justify-content-between">
+              <div>&nbsp;</div>
+              <div class="row justify-content-center text-center">
+                <div class="col-md-12 mb-4">
+                  <h5 class="uniprep-primary fw-semibold mb-0">Question Number {{ recommendation.id }}</h5>
+                  <h2 class="fw-bold mb-0">{{ recommendation.question }}</h2>
+                </div>
+                <div class="col-md-9">
+                  <ng-container *ngIf="recommendation.id == 1">
+                    <div class="cube-container gap-3">
+                      <div *ngFor="let cube of investorType" class="cube" (click)="selectCube(1, cube.id)" [ngClass]="{ selected: selectedData[1]?.includes(cube.id) }">
+                        <label>{{ cube.investor_type_name }}</label>
+                        <i class="fa-solid fa-circle-check tickPlacement" *ngIf="selectedData[1]?.includes(cube.id)"></i>
+                      </div>
+                    </div>
+                    <p class="text-center" [ngClass]="{ 'd-none': invalidClass === false }" style="color: red">Please Choose Any one option</p>
+                    <p></p
+                  ></ng-container>
 
-									<ng-container *ngIf="recommendation.id == 2">
-										<p-multiSelect styleClass="w-100" placeholder="Investor Country" [options]="countryList" (onChange)="loadHeadQuartersData($event)" display="chip" optionLabel="country" optionValue="id" [(ngModel)]="selectedData[recommendation.id]" [appendTo]="'body'"></p-multiSelect>
-										<p class="text-center" [ngClass]="{ 'd-none': invalidClass === false }" style="color: red">Please Choose Any one option</p>
-									</ng-container>
-									<ng-container *ngIf="recommendation.id == 3">
-										<p-multiSelect styleClass="w-100" placeholder="Headquarters Location" [options]="anyHeadquartersList" display="chip" optionLabel="head_quarters_name" optionValue="id" [(ngModel)]="selectedData[recommendation.id]" [appendTo]="'body'"></p-multiSelect>
-										<p class="text-center" [ngClass]="{ 'd-none': invalidClass === false }" style="color: red">Please Choose Any one option</p>
-									</ng-container>
-								</div>
-							</div>
-							<div class="d-flex justify-content-between mt-2">
-								<button pButton type="button" class="btn btn-primary btn-rounded p-1 pe-4" [style.visibility]="recommendation.id == 1 ? 'hidden' : 'visible'" (click)="previous()">
-									<span class="btn-icon px-2 py-2"><i class="fa fa-arrow-left"></i></span> <span class="ms-2">Previous</span>
-								</button>
-								<button pButton type="button" (click)="next(recommendation.id)" *ngIf="recommendation.id != 3" class="btn btn-primary btn-rounded p-1 ps-4">
-									<span class="me-2">Next</span><span class="btn-icon px-2 py-2"><i class="fa fa-arrow-right"></i></span>
-								</button>
-								<button pButton type="button" (click)="getRecommendation()" *ngIf="recommendation.id == 3" class="btn btn-success btn-rounded p-1 ps-4">
-									<span class="me-2">Get Recommendations</span><span class="btn-icon px-2 py-2"><i class="fa fa-check-circle"></i></span>
-								</button>
-							</div>
-						</div>
-					</ng-template>
-				</p-carousel>
-			</div>
-		</div>
-	</ng-container>
+                  <ng-container *ngIf="recommendation.id == 2">
+                    <p-multiSelect styleClass="w-100" placeholder="Investor Country" [options]="countryList" (onChange)="loadHeadQuartersData($event)" display="chip" optionLabel="country" optionValue="id" [(ngModel)]="selectedData[recommendation.id]" [appendTo]="'body'"></p-multiSelect>
+                    <p class="text-center" [ngClass]="{ 'd-none': invalidClass === false }" style="color: red">Please Choose Any one option</p>
+                  </ng-container>
+                  <ng-container *ngIf="recommendation.id == 3">
+                    <p-multiSelect styleClass="w-100" placeholder="Headquarters Location" [options]="anyHeadquartersList" display="chip" optionLabel="head_quarters_name" optionValue="id" [(ngModel)]="selectedData[recommendation.id]" [appendTo]="'body'"></p-multiSelect>
+                    <p class="text-center" [ngClass]="{ 'd-none': invalidClass === false }" style="color: red">Please Choose Any one option</p>
+                  </ng-container>
+                </div>
+              </div>
+              <div class="d-flex justify-content-between mt-2">
+                <button pButton type="button" class="btn btn-primary btn-rounded p-1 pe-4" [style.visibility]="recommendation.id == 1 ? 'hidden' : 'visible'" (click)="previous()">
+                  <span class="btn-icon px-2 py-2"><i class="fa fa-arrow-left"></i></span> <span class="ms-2">Previous</span>
+                </button>
+                <button pButton type="button" (click)="next(recommendation.id)" *ngIf="recommendation.id != 3" class="btn btn-primary btn-rounded p-1 ps-4">
+                  <span class="me-2">Next</span><span class="btn-icon px-2 py-2"><i class="fa fa-arrow-right"></i></span>
+                </button>
+                <button pButton type="button" (click)="getRecommendation()" *ngIf="recommendation.id == 3" class="btn btn-success btn-rounded p-1 ps-4">
+                  <span class="me-2">Get Recommendations</span><span class="btn-icon px-2 py-2"><i class="fa fa-check-circle"></i></span>
+                </button>
+              </div>
+            </div>
+          </ng-template>
+        </p-carousel>
+      </div>
+    </div>
+  </ng-container>
 
-	<ng-container *ngIf="enableModule">
-		<div class="card-header py-0 border-0 bg-transparent" *ngIf="!restrict">
-			<div class="row justify-content-center">
-				<div class="col-md-3 text-start">
-					<div class="p-input-icon-left w-100 mt-3">
-						<i class="pi pi-search"></i>
-						<input class="w-100 px-5 py-2" type="text" placeholder="Search in Investor List" pInputText [(ngModel)]="valueNearYouFilter" (input)="performSearch()" />
-					</div>
-					<span class="d-flex justify-content-start p-2" style="white-space: nowrap">
-						<input type="checkbox" class="me-0" [(ngModel)]="selectAllCheckboxes" (click)="selectAllCheckbox()" id="selectAllcheckbox" />
-						<label class="p-2 fw-semibold" for="selectAllcheckbox" style="cursor: pointer">Select All</label>
-						<span class="p-2 fw-semibold">Selected : {{ selectedInvestors }}</span>
-						<button class="btn btn-primary btn-rounded text-small" (click)="viewFavourites()" type="button">
-							{{ viewFavouritesLabel }}<span class="ms-2" *ngIf="viewFavouritesLabel != 'View All'">({{ favCount }})</span>
-						</button>
-					</span>
-				</div>
-				<!-- after create the video just uncomment the below code. and send the youtube embeded video link -->
-				<!-- <div class="col-md-6 text-center">
+  <ng-container *ngIf="enableModule">
+    <div class="card-header py-0 border-0 bg-transparent" *ngIf="!restrict">
+      <div class="row justify-content-center">
+        <div class="col-xxl-3 col-xl-3 col-lg-4 col-md-4 col-sm-4 col-xs-12 col-12 text-start">
+          <div class="p-input-icon-left w-100 mt-3">
+            <i class="pi pi-search"></i>
+            <input class="w-100 px-5 py-2" type="text" placeholder="Search in Investor List" pInputText [(ngModel)]="valueNearYouFilter" (input)="performSearch()" />
+          </div>
+        </div>
+        <!-- after create the video just uncomment the below code. and send the youtube embeded video link -->
+        <!-- <div class="col-md-6 text-center">
 						<h5 class="select-title mb-1" tooltipPosition="top" pTooltip="Investor List">INVESTOR LIST</h5>
 					</div> -->
 				<div class="col-md-6 text-center">
@@ -100,7 +92,7 @@
 				</div>
 				<div class="col-md-3 text-end">
 					<span class="d-flex justify-content-end mt-3 gap-2" style="white-space: nowrap">
-						<button class="btn btn-primary btn-rounded text-small" (click)="investorGuidlines()" type="button">Guidelines</button>
+						<button class="btn btn-primary btn-rounded text-small" (click)="investorGuidlines()" type="button">Investor Guidelines</button>
 						<button *ngIf="ehitlabelIsShow" class="btn btn-secondary btn-rounded text-small" (click)="buyCredits()" type="button">Buy Credits</button>
 						<button class="btn btn-primary text-small exportButton" (click)="exportData()" type="button">
 							Export <span class="exportCount">{{ exportCreditCount }}</span>
@@ -172,91 +164,91 @@
 			</div>
 		</div>
 
-		<!-- <p-paginator *ngIf="totalInvestorsCount != 0" [rows]="pageSize" [totalRecords]="totalInvestorsCount" (onPageChange)="pageChange($event)" [rowsPerPageOptions]="[50, 100, 300, 500, 1000]"></p-paginator> -->
-		<div class="card-footer border-0 bg-transparent">
-			<div class="row d-flex justify-content-center align-items-center">
-				<div class="col-md-2">&nbsp;</div>
-				<div class="col-md-8">
-					<p-paginator *ngIf="totalInvestorsCount != 0" [rows]="pageSize" [totalRecords]="totalInvestorsCount" [first]="(page - 1) * pageSize" (onPageChange)="pageChange($event)" [rowsPerPageOptions]="[50, 100, 300, 500, 1000]" [disabled]="totalInvestorsCount <= pageSize"> </p-paginator>
-				</div>
-				<div class="col-md-2 text-end">
-					<button pButton type="button" class="btn btn-quit btn-rounded" (click)="resetRecommendation()">
-						Reset Recommendations<span class="btn-icon"><i class="fa-solid fa-arrow-rotate-right"></i> </span>
-					</button>
-				</div>
-			</div>
-		</div>
-	</ng-container>
+    <!-- <p-paginator *ngIf="totalInvestorsCount != 0" [rows]="pageSize" [totalRecords]="totalInvestorsCount" (onPageChange)="pageChange($event)" [rowsPerPageOptions]="[50, 100, 300, 500, 1000]"></p-paginator> -->
+    <div class="card-footer border-0 bg-transparent">
+      <div class="row d-flex justify-content-center align-items-center">
+        <div class="col-md-2">&nbsp;</div>
+        <div class="col-md-8">
+          <p-paginator *ngIf="totalInvestorsCount != 0" [rows]="pageSize" [totalRecords]="totalInvestorsCount" [first]="(page - 1) * pageSize" (onPageChange)="pageChange($event)" [rowsPerPageOptions]="[50, 100, 300, 500, 1000]" [disabled]="totalInvestorsCount <= pageSize"> </p-paginator>
+        </div>
+        <div class="col-md-2 text-end">
+          <button pButton type="button" class="btn btn-quit btn-rounded" (click)="resetRecommendation()">
+            Reset Recommendations<span class="btn-icon"><i class="fa-solid fa-arrow-rotate-right"></i> </span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </ng-container>
 </div>
 
 <p-dialog header="Filter Investors" [(visible)]="isFilterVisible" [modal]="true" [style]="{ width: '60rem' }" [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }" [ngStyle]="{ display: isFilterVisible }">
-		<form class="p-3" role="form" [formGroup]="filterForm" (ngSubmit)="loadInvestorData(0)">
-			<div class="row">
-				<div class="col-md-6">
-					<label class="form-label" style="font-size: medium; font-weight: 500">Filter by Investor Name</label>
-					<div class="form-group">
-						<div class="mb-3">
-							<input class="w-100" type="text" placeholder="Search Investor Name" formControlName="org_name" pInputText />
-						</div>
-					</div>
-				</div>
-				<div class="col-md-6">
-					<label class="form-label" style="font-size: medium; font-weight: 500">Filter by Investor Type</label>
-					<div class="form-group">
-						<div class="mb-3">
-							<p-multiSelect [options]="investorType" styleClass="w-100" formControlName="investor_type" optionValue="id" defaultLabel="Select Investor Type" optionLabel="investor_type_name" #InvestorTypeMultiSelect [appendTo]="'body'">
-								<ng-template pTemplate="selectedItems">
-									{{ InvestorTypeMultiSelect.defaultLabel }}
-								</ng-template>
-							</p-multiSelect>
-						</div>
-					</div>
-				</div>
-				<div class="col-md-6">
-					<label class="form-label" style="font-size: medium; font-weight: 500">Filter by Country</label>
-					<div class="form-group">
-						<div class="mb-3">
-							<p-multiSelect [options]="countryList" styleClass="w-100" formControlName="country" optionValue="id" (onChange)="loadHeadQuartersData($event)" defaultLabel="Select Countries" optionLabel="country" #multiSelect [appendTo]="'body'">
-								<ng-template pTemplate="selectedItems">
-									{{ multiSelect.defaultLabel }}
-								</ng-template>
-							</p-multiSelect>
-							<div *ngIf="filterForm.hasError('org_name')" class="text-danger">
-								{{ filterForm.getError("org_name") }}
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="col-md-6">
-					<label class="form-label" style="font-size: medium; font-weight: 500">Filter by Headquarters</label>
-					<div class="form-group">
-						<div class="mb-3">
-							<p-multiSelect [options]="headQuartersList" styleClass="w-100" formControlName="head_quarters" defaultLabel="Select Head Quarters" optionValue="id" optionLabel="head_quarters_name" #InvestorHeadQuartersMultiSelect [appendTo]="'body'">
-								<ng-template pTemplate="selectedItems">
-									{{ InvestorHeadQuartersMultiSelect.defaultLabel }}
-								</ng-template>
-							</p-multiSelect>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div>
-				<button type="submit" class="btn btn-dark w-100" style="background-color: var(--uniprep-primary); border: none">Apply Filter</button>
-				<button class="btn btn-dark w-100" (click)="clearFilter()" style="background-color: white; border-radius: 8px; color: var(--uniprep-primary); border: none" type="button">Reset Filter</button>
-			</div>
-		</form>
+  <form class="p-3" role="form" [formGroup]="filterForm" (ngSubmit)="loadInvestorData(0)">
+    <div class="row">
+      <div class="col-md-6">
+        <label class="form-label" style="font-size: medium; font-weight: 500">Filter by Investor Name</label>
+        <div class="form-group">
+          <div class="mb-3">
+            <input class="w-100" type="text" placeholder="Search Investor Name" formControlName="org_name" pInputText />
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <label class="form-label" style="font-size: medium; font-weight: 500">Filter by Investor Type</label>
+        <div class="form-group">
+          <div class="mb-3">
+            <p-multiSelect [options]="investorType" styleClass="w-100" formControlName="investor_type" optionValue="id" defaultLabel="Select Investor Type" optionLabel="investor_type_name" #InvestorTypeMultiSelect [appendTo]="'body'">
+              <ng-template pTemplate="selectedItems">
+                {{ InvestorTypeMultiSelect.defaultLabel }}
+              </ng-template>
+            </p-multiSelect>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <label class="form-label" style="font-size: medium; font-weight: 500">Filter by Country</label>
+        <div class="form-group">
+          <div class="mb-3">
+            <p-multiSelect [options]="countryList" styleClass="w-100" formControlName="country" optionValue="id" (onChange)="loadHeadQuartersData($event)" defaultLabel="Select Countries" optionLabel="country" #multiSelect [appendTo]="'body'">
+              <ng-template pTemplate="selectedItems">
+                {{ multiSelect.defaultLabel }}
+              </ng-template>
+            </p-multiSelect>
+            <div *ngIf="filterForm.hasError('org_name')" class="text-danger">
+              {{ filterForm.getError("org_name") }}
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <label class="form-label" style="font-size: medium; font-weight: 500">Filter by Headquarters</label>
+        <div class="form-group">
+          <div class="mb-3">
+            <p-multiSelect [options]="headQuartersList" styleClass="w-100" formControlName="head_quarters" defaultLabel="Select Head Quarters" optionValue="id" optionLabel="head_quarters_name" #InvestorHeadQuartersMultiSelect [appendTo]="'body'">
+              <ng-template pTemplate="selectedItems">
+                {{ InvestorHeadQuartersMultiSelect.defaultLabel }}
+              </ng-template>
+            </p-multiSelect>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <button type="submit" class="btn btn-dark w-100" style="background-color: var(--uniprep-primary); border: none">Apply Filter</button>
+      <button class="btn btn-dark w-100" (click)="clearFilter()" style="background-color: white; border-radius: 8px; color: var(--uniprep-primary); border: none" type="button">Reset Filter</button>
+    </div>
+  </form>
 </p-dialog>
 
 <p-dialog [(visible)]="restrict" [style]="{ width: '30vw' }" [draggable]="false" [resizable]="false" class="restrictionDialog" [breakpoints]="{ '960px': '30vw', '959px': '60vw', '425px': '90vw' }" (onHide)="clearRestriction()">
-	<div *ngIf="ehitlabelIsShow" class="text-center mt-5 mb-4">
-		<img src="../../../uniprep-assets/images/smartloack.png" class="image" width="60" />
-		<h3 class="offer">Upgrade Required</h3>
-		<p>To access this exclusive module,please upgrade your plan now</p>
-		<button pButton type="button" class="text-white p-ripple p-button-rounded p-button-warning p-button p-component p-2" (click)="upgradePlan()">Upgrade Plan<i class="fa fa-arrow-right exhausted-plan-icon"></i></button>
-	</div>
-	<div *ngIf="!ehitlabelIsShow" class="text-center mt-5 mb-4">
-		<img src="../../../uniprep-assets/images/smartloack.png" class="image" width="60" />
-		<h3 class="offer">Upgrade Required</h3>
-		<p>Please contact {{ orgnamewhitlabel }} Company for access</p>
-	</div>
+  <div *ngIf="ehitlabelIsShow" class="text-center mt-5 mb-4">
+    <img src="../../../uniprep-assets/images/smartloack.png" class="image" width="60" />
+    <h3 class="offer">Upgrade Required</h3>
+    <p>To access this exclusive module,please upgrade your plan now</p>
+    <button pButton type="button" class="text-white p-ripple p-button-rounded p-button-warning p-button p-component p-2" (click)="upgradePlan()">Upgrade Plan<i class="fa fa-arrow-right exhausted-plan-icon"></i></button>
+  </div>
+  <div *ngIf="!ehitlabelIsShow" class="text-center mt-5 mb-4">
+    <img src="../../../uniprep-assets/images/smartloack.png" class="image" width="60" />
+    <h3 class="offer">Upgrade Required</h3>
+    <p>Please contact {{ orgnamewhitlabel }} Company for access</p>
+  </div>
 </p-dialog>

@@ -98,113 +98,111 @@
             </ul>
           </div>
 
-          <ng-container *ngFor="let subscription of subscriptionList">
-            <div class="columns col-lg-2 col-md-2 p-0 "
-              [ngClass]="{'br-1':education_level==='K10'&& subscription.subscription_plan === 'Student'||education_level!=='K10'}">
-              <ul class="price text-center list-unstyled "
-                *ngIf="education_level==='K10'&& subscription.subscription_plan === 'Student'||education_level!=='K10'">
-                <!-- add this to hide career and entrepreneur for k10 -->
-                <li style="background-color: #3f4c83; color: white" *ngIf="subscription.popular == 1">Most Popular Plan
-                </li>
-                <li class="header" [ngClass]="{
+          <div class="columns col-lg-2 col-md-2 p-0" *ngFor="let subscription of subscriptionList"
+            [ngClass]="{'br-1':subscription}">
+            <ul class="price text-center list-unstyled ">
+              <!-- add this to hide career and entrepreneur for k10 -->
+              <li style="background-color: #3f4c83; color: white" *ngIf="subscription.popular == 1">Most Popular Plan
+              </li>
+              <li class="header" [ngClass]="{
                     header: subscription.popular === 1,
                     'mt-15': !(subscription.popular === 1)
                   }">
-                  <h4 class="plan_type mb-0">{{ subscription.subscription_plan }}</h4>
-                  <h2 class="amount orange">
-                    {{ subscription.givenprice | number : ".0" }}
-                    {{ subscription.currency }}
-                  </h2>
-                  <div class="d-flex" style="justify-content: space-evenly">
-                    <p style="font-size: 12px; font-weight: 500" class="mb-0 mt-2">
-                      <s>{{ subscription.currency }} {{ subscription.actualprice | number : ".2-2" }}</s>
-                    </p>
-                    <div class="btn discountbutton-o btnCurser">Save {{ subscription.discountpercentage }}%</div>
-                  </div>
-                </li>
+                <h4 class="plan_type mb-0">{{ subscription.subscription_plan }}</h4>
+                <h2 class="amount orange">
+                  {{ subscription.givenprice | number : ".0" }}
+                  {{ subscription.currency }}
+                </h2>
+                <div class="d-flex" style="justify-content: space-evenly">
+                  <p style="font-size: 12px; font-weight: 500" class="mb-0 mt-2">
+                    <s>{{ subscription.currency }} {{ subscription.actualprice | number : ".2-2" }}</s>
+                  </p>
+                  <div class="btn discountbutton-o btnCurser">Save {{ subscription.discountpercentage }}%</div>
+                </div>
+              </li>
+              <li><i class="pi pi-check"></i></li>
+              <li><i class="pi pi-check"></i></li>
+              <ng-container *ngIf="education_level==='K10'||education_level==='K12'">
                 <li><i class="pi pi-check"></i></li>
+              </ng-container>
+              <ng-container *ngIf="education_level==='K10'||education_level==='K12'">
                 <li><i class="pi pi-check"></i></li>
-                <ng-container *ngIf="education_level==='K10'||education_level==='K12'">
-                  <li><i class="pi pi-check"></i></li>
-                </ng-container>
-                <ng-container *ngIf="education_level==='K10'||education_level==='K12'">
-                  <li><i class="pi pi-check"></i></li>
-                </ng-container>
-                <li><i class="pi pi-check"></i></li>
-                <li><i class="pi pi-check"></i></li>
-                <li><i class="pi pi-check"></i></li>
-                <li><i class="pi pi-check"></i></li>
-                <li><i class="pi pi-check"></i></li>
-                <ng-container *ngIf="education_level==='HigherEducation'||education_level==='K12'">
-                  <li>
-                    <i class="pi" [ngClass]="{
+              </ng-container>
+              <li><i class="pi pi-check"></i></li>
+              <li><i class="pi pi-check"></i></li>
+              <li><i class="pi pi-check"></i></li>
+              <li><i class="pi pi-check"></i></li>
+              <li><i class="pi pi-check"></i></li>
+              <ng-container *ngIf="education_level==='HigherEducation'||education_level==='K12'">
+                <li>
+                  <i class="pi" [ngClass]="{
                         'pi-check': subscription.subscription_plan === 'Career' || subscription.subscription_plan === 'Entrepreneur',
                         'pi-times': subscription.subscription_plan != 'Career' && subscription.subscription_plan != 'Entrepreneur'
                       }"></i>
-                  </li>
-                </ng-container>
-                <ng-container *ngIf="education_level==='HigherEducation'||education_level==='K12'">
-                  <li>
-                    <i class="pi" [ngClass]="{
-                      'pi-check': subscription.subscription_plan === 'Career' || subscription.subscription_plan === 'Entrepreneur',
-                      'pi-times': subscription.subscription_plan != 'Career' && subscription.subscription_plan != 'Entrepreneur'
-                    }"></i>
-                  </li>
-                </ng-container>
-                <ng-container *ngIf="education_level==='HigherEducation'||education_level==='K12'">
-                  <li>
-                    <i class="pi" [ngClass]="{
-                      'pi-check': subscription.subscription_plan === 'Career' || subscription.subscription_plan === 'Entrepreneur',
-                      'pi-times': subscription.subscription_plan != 'Career' && subscription.subscription_plan != 'Entrepreneur'
-                    }"></i>
-                  </li>
-                </ng-container>
-                <ng-container *ngIf="education_level==='HigherEducation'||education_level==='K12'">
-                  <li>
-                    <i class="pi" [ngClass]="{
-                      'pi-check': subscription.subscription_plan === 'Career' || subscription.subscription_plan === 'Entrepreneur',
-                      'pi-times': subscription.subscription_plan != 'Career' && subscription.subscription_plan != 'Entrepreneur'
-                    }"></i>
-                  </li>
-                </ng-container>
-                <ng-container *ngIf="education_level==='HigherEducation'||education_level==='K12'">
-                  <li>
-                    <i class="pi" [ngClass]="{
-                      'pi-check': subscription.subscription_plan === 'Entrepreneur',
-                      'pi-times': subscription.subscription_plan != 'Entrepreneur'
-                    }"></i>
-                  </li>
-                </ng-container>
-                <ng-container *ngIf="education_level==='HigherEducation'||education_level==='K12'">
-                  <li>
-                    <i class="pi" [ngClass]="{
-                      'pi-check': subscription.subscription_plan === 'Entrepreneur',
-                      'pi-times': subscription.subscription_plan != 'Entrepreneur'
-                    }"></i>
-                  </li>
-                </ng-container>
-                <ng-container *ngIf="education_level==='HigherEducation'||education_level==='K12'">
-                  <li>
-                    <i class="pi" [ngClass]="{
-                      'pi-check': subscription.subscription_plan === 'Entrepreneur',
-                      'pi-times': subscription.subscription_plan != 'Entrepreneur'
-                    }"></i>
-                  </li>
-                </ng-container>
-                <li class="pb-0">
-                  <h5 class="fw-semibold mb-0">{{ subscription.validity }} Months Validity</h5>
                 </li>
-                <li class="mt-0">
-                  <div class="getstartedbtn pb-0">
-                    <button class="pt-3 pb-3 btn btn-primary w-100 m-0 text-white" *ngIf="subscription.selected"
-                      (click)="selectedSubscriptionPlan(subscription)">Selected</button>
-                    <button class="pt-3 pb-3 btn btn-basic w-100 m-0" *ngIf="!subscription.selected"
-                      (click)="selectedSubscriptionPlan(subscription)">Select Plan</button>
-                  </div>
+              </ng-container>
+              <ng-container *ngIf="education_level==='HigherEducation'||education_level==='K12'">
+                <li>
+                  <i class="pi" [ngClass]="{
+                      'pi-check': subscription.subscription_plan === 'Career' || subscription.subscription_plan === 'Entrepreneur',
+                      'pi-times': subscription.subscription_plan != 'Career' && subscription.subscription_plan != 'Entrepreneur'
+                    }"></i>
                 </li>
-              </ul>
-            </div>
-          </ng-container>
+              </ng-container>
+              <ng-container *ngIf="education_level==='HigherEducation'||education_level==='K12'">
+                <li>
+                  <i class="pi" [ngClass]="{
+                      'pi-check': subscription.subscription_plan === 'Career' || subscription.subscription_plan === 'Entrepreneur',
+                      'pi-times': subscription.subscription_plan != 'Career' && subscription.subscription_plan != 'Entrepreneur'
+                    }"></i>
+                </li>
+              </ng-container>
+              <ng-container *ngIf="education_level==='HigherEducation'||education_level==='K12'">
+                <li>
+                  <i class="pi" [ngClass]="{
+                      'pi-check': subscription.subscription_plan === 'Career' || subscription.subscription_plan === 'Entrepreneur',
+                      'pi-times': subscription.subscription_plan != 'Career' && subscription.subscription_plan != 'Entrepreneur'
+                    }"></i>
+                </li>
+              </ng-container>
+              <ng-container *ngIf="education_level==='HigherEducation'||education_level==='K12'">
+                <li>
+                  <i class="pi" [ngClass]="{
+                      'pi-check': subscription.subscription_plan === 'Entrepreneur',
+                      'pi-times': subscription.subscription_plan != 'Entrepreneur'
+                    }"></i>
+                </li>
+              </ng-container>
+              <ng-container *ngIf="education_level==='HigherEducation'||education_level==='K12'">
+                <li>
+                  <i class="pi" [ngClass]="{
+                      'pi-check': subscription.subscription_plan === 'Entrepreneur',
+                      'pi-times': subscription.subscription_plan != 'Entrepreneur'
+                    }"></i>
+                </li>
+              </ng-container>
+              <ng-container *ngIf="education_level==='HigherEducation'||education_level==='K12'">
+                <li>
+                  <i class="pi" [ngClass]="{
+                      'pi-check': subscription.subscription_plan === 'Entrepreneur',
+                      'pi-times': subscription.subscription_plan != 'Entrepreneur'
+                    }"></i>
+                </li>
+              </ng-container>
+              <li class="pb-0">
+                <h5 class="fw-semibold mb-0">{{ subscription.validity }} Months Validity</h5>
+              </li>
+              <li class="mt-0">
+                <div class="getstartedbtn pb-0">
+                  <button class="pt-3 pb-3 btn btn-primary w-100 m-0 text-white" *ngIf="subscription.selected"
+                    (click)="selectedSubscriptionPlan(subscription)">Selected</button>
+                  <button class="pt-3 pb-3 btn btn-basic w-100 m-0" *ngIf="!subscription.selected"
+                    (click)="selectedSubscriptionPlan(subscription)">Select Plan</button>
+                </div>
+              </li>
+            </ul>
+          </div>
+
         </div>
       </div>
       <div class="d-md-none d-block">
@@ -224,7 +222,9 @@
                   <div class="card-body p-4">
                     <div class="permission-list">
                       <p class="what-you-get">What you get</p>
-                      <p class="mt-2"><i class="pi pi-check"></i>1 Million + Q&A - 28 Countries</p>
+                      <p class="mt-2"
+                        pTooltip="Pre Admission,Post Admission, Universities, Career Hub,Life at Destination,Travel & Tourism"
+                        tooltipPosition="bottom"><i class="pi pi-check"></i>1 Million + Q&A - 28 Countries</p>
                       <p><i class="pi pi-check"></i>UNILEARN</p>
                       <p *ngIf="education_level==='K10'||education_level==='K12'"><i class="pi pi-check"></i>K12 Academy
                       </p>
@@ -262,8 +262,7 @@
             </div>
           </p-tabPanel>
           <ng-container *ngFor="let subscription of subscriptionList">
-            <p-tabPanel header="{{ subscription.subscription_plan }}"
-              *ngIf="education_level==='K10'&& subscription.subscription_plan === 'Student'||education_level!=='K10'">
+            <p-tabPanel header="{{ subscription.subscription_plan }}">
               <div class=" card-body">
                 <div class="container-fluid">
                   <div class="row gap-5 d-flex">

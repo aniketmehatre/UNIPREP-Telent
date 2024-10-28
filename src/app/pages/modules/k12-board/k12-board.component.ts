@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {filter} from "rxjs";
+import {filter, subscribeOn} from "rxjs";
 import {ConfirmationService, MenuItem} from "primeng/api";
 import {ModuleServiceService} from "../../module-store/module-service.service";
 import {ActivatedRoute, NavigationEnd, Router} from "@angular/router";
@@ -161,8 +161,14 @@ export class K12BoardComponent implements OnInit {
 
 
     onSubModuleClick(id: any, submodule: any) {
-        localStorage.setItem('selectedClass', id)
-        this.router.navigate([`/pages/modules/k12-class/${id}`]);
+        localStorage.setItem('board-name', submodule.category);
+        if (submodule.category == 'State' || submodule.category == 'state' || submodule.category == 'STATE'){
+            this.router.navigate([`/pages/modules/k12-state/${id}`]);
+        }else{
+            localStorage.setItem('selectedClass', id)
+            localStorage.setItem('state-name', '')
+            this.router.navigate([`/pages/modules/k12-class/${id}`]);
+        }
     }
 
     checkplanExpire(): void {

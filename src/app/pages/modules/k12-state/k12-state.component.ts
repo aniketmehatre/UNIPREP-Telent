@@ -8,28 +8,22 @@ import {LocationService} from "../../../location.service";
 import {NgxUiLoaderService} from "ngx-ui-loader";
 import {PageFacadeService} from "../../page-facade.service";
 import {Meta, Title} from "@angular/platform-browser";
+import {Location} from "@angular/common";
 import {filter} from "rxjs";
-import { Location } from "@angular/common";
-import {state} from "@angular/animations";
 
 @Component({
-  selector: 'uni-k12-subject',
-  templateUrl: './k12-subject.component.html',
-  styleUrls: ['./k12-subject.component.scss'],
+  selector: 'uni-k12-state',
+  templateUrl: './k12-state.component.html',
+  styleUrls: ['./k12-state.component.scss'],
   providers: [ConfirmationService]
-})
-export class K12SubjectComponent implements OnInit {
 
-  answeredCorrect: number = 0;
-  totalPercentage: number = 0;
-  percentageValue: string = '';
+})
+export class K12StateComponent implements OnInit {
+
   subModuleList: any[] = [];
-  isStartQuiz: boolean = false;
-  isReviewVisible: boolean = false;
   quizData: any[] = [];
   moduleList: any[] = [];
   selectedQuiz: number = 1;
-  positionNumber: number = 0;
   breadCrumb: MenuItem[] = [];
   answerOptionClicked: boolean = true
   isInstructionVisible: boolean = false
@@ -43,12 +37,10 @@ export class K12SubjectComponent implements OnInit {
   aboutModule!: string;
   moduleDetails!: string;
   upgradePlanMsg!: string;
-  selectedModule!: string;
   planExpired!: boolean;
   countryName!: string;
   isSkeletonVisible: boolean = true;
   countryId: any;
-  canShowQuestionList: boolean = false;
   howItWorksVideoLink: string = "";
   quizmoduleselectcountryidsetzero:any=0;
   selectSubmoduleName:string = "";
@@ -56,21 +48,18 @@ export class K12SubjectComponent implements OnInit {
   imagewhitlabeldomainname:any
   orgnamewhitlabel:any;
   orglogowhitelabel:any;
-  classId: any;
+  boardId: any;
   boardName: any;
-  className: any;
-  stateName: any;
-  constructor(private moduleListService: ModuleServiceService, private router: Router, private dataService: DataService,
-              private authService: AuthService, private _location: Location,
+  constructor(private moduleListService: ModuleServiceService, private router: Router, private dataService: DataService, private authService: AuthService,
               private locationService: LocationService, private route: ActivatedRoute, private ngxService: NgxUiLoaderService,
-               private pageFacade: PageFacadeService,
-              private meta: Meta,
-              private titleService: Title,) {
+              private confirmationService: ConfirmationService, private pageFacade: PageFacadeService,
+              private meta: Meta, private _location: Location,
+              private titleService: Title,
+              private activatedRoute: ActivatedRoute,) {
     this.countryId = Number(localStorage.getItem('countryId'));
+    this.boardId = this.route.snapshot.paramMap.get("board_id");
     this.boardName = localStorage.getItem('board-name');
-    this.stateName = localStorage.getItem('state-name');
-    this.className = localStorage.getItem('class-name');
-    this.classId = this.route.snapshot.paramMap.get("class_id");
+
 
     this.dataService.countryIdSource.subscribe((data) => {
       if (this.countryId != data) {
@@ -143,15 +132,14 @@ export class K12SubjectComponent implements OnInit {
     localStorage.setItem("currentmodulenameforrecently", this.currentModuleName);
     this.loadModuleAndSubModule();
     this.checkplanExpire();
-    this.checkquizquestionmodule();
   }
 
   loadModuleAndSubModule() {
     this.currentCountryId = Number(localStorage.getItem('countryId'));
     let data: any = {
       moduleId: this.currentModuleId,
-      parent_category_id: Number(this.classId),
-      parent_category_order: 2,
+      parent_category_id: Number(this.boardId),
+      parent_category_order: 1,
       country_id: 0
     }
     this.locationService.GetQuestionsCount(data).subscribe(data => {
@@ -167,8 +155,9 @@ export class K12SubjectComponent implements OnInit {
   restrict = false;
 
   onSubModuleClick(id: any, submodule: any) {
-    localStorage.setItem('subject-name', submodule.category)
-    this.router.navigate([`/pages/modules/k12-chapter/${submodule.category_id}` ]);
+    localStorage.setItem('state-name', submodule.category)
+    localStorage.setItem('selectedClass', id)
+    this.router.navigate([`/pages/modules/k12-class/${submodule.category_id}` ]);
   }
 
   checkplanExpire(): void {
@@ -187,25 +176,14 @@ export class K12SubjectComponent implements OnInit {
     this.router.navigate(["/pages/subscriptions"]);
   }
   goBack() {
-    this._location.back()
+    this._location.back();
   }
   clearRestriction() {
     this.restrict = false;
   }
   quizpercentage: any = 0
-  checkquizquestionmodule() {
-    var data = {
-      moduleid: this.currentModuleId,
-      countryid: this.currentCountryId
-    }
-    this.moduleListService.checkModuleQuizCompletion(data).subscribe((res) => {
-      this.quizpercentage = res.progress
-    })
-  }
 
   openVideoPopup(videoLink: string) {
     this.pageFacade.openHowitWorksVideoPopup(videoLink);
   }
-
-  protected readonly state = state;
 }
