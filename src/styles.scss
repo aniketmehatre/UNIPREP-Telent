@@ -493,10 +493,6 @@ uni-cost-of-living,uni-salary-converter
 {
 overflow-y: auto;
 }
-uni-job-hunt {
-	width: 100%;
-}
-
 @media screen and (max-width: 480px) {
 	uni-faq {
 		overflow-y: scroll !important;
@@ -543,6 +539,10 @@ uni-landing {
 }
 
 uni-cv-builder {
+	overflow-y: auto;
+}
+
+uni-job-hunt {
 	overflow-y: auto;
 }
 
