@@ -75,6 +75,7 @@ export class UpgradeSubscriptionComponent implements OnInit {
   currency: string = "";
   monthlyPlan: number = 3;
   activeTabIndex: number = 0;
+  education_level: string = '';
 
   constructor(
     private authService: AuthService,
@@ -89,13 +90,14 @@ export class UpgradeSubscriptionComponent implements OnInit {
     private confirmationService: ConfirmationService,
     private messageService: MessageService,
     private stripeService: StripeService
-  ) {}
+  ) { }
   timeLeftInfoCard: any;
   ngOnInit(): void {
     this.getLocation();
     this.timeLeftInfoCard = localStorage.getItem("time_card_info");
     this.discountAmountEnable = false;
     this.user = this.authService.user;
+    this.education_level = this.user?.education_level?.replace(/[\s\u00A0]/g, '').trim() || 'HigherEducation';
     this.studentType = this.user?.student_type_id || 0;
     this.ngxService.startBackground();
     this.authService.getCountry().subscribe(
@@ -255,10 +257,10 @@ export class UpgradeSubscriptionComponent implements OnInit {
         this.existingSubscription = response.subscription;
         this.existingSubscription.map(
           (plan) =>
-            (plan.subscriptionDays = plan.remainingdays
-              .split("-")[0]
-              .trim()
-              .replace(/\D/g, ""))
+          (plan.subscriptionDays = plan.remainingdays
+            .split("-")[0]
+            .trim()
+            .replace(/\D/g, ""))
         );
         if (this.existingSubscription[0].subscriptionDays == 90) {
           this.monthlyPlan = 3;
@@ -398,14 +400,14 @@ export class UpgradeSubscriptionComponent implements OnInit {
       this.confirmSubscription(
         event,
         "Are you sure you want to upgrade to the new " +
-          this.monthlyPlan +
-          " month " +
-          this.selectedSubscriptionDetails.subscription_plan +
-          " plan? Please note that your current " +
-          this.existingSubscription[0].monthlyPlan +
-          " month " +
-          this.existingSubscription[0].plan +
-          " plan will expire upon upgrading"
+        this.monthlyPlan +
+        " month " +
+        this.selectedSubscriptionDetails.subscription_plan +
+        " plan? Please note that your current " +
+        this.existingSubscription[0].monthlyPlan +
+        " month " +
+        this.existingSubscription[0].plan +
+        " plan will expire upon upgrading"
       );
     } else {
       this.subscribe(type);
@@ -785,7 +787,7 @@ export class UpgradeSubscriptionComponent implements OnInit {
           });
         } else {
           if (result.paymentIntent.status === "succeeded") {
-            this.cardvisibility=false;
+            this.cardvisibility = false;
             this.toast.add({
               severity: "success",
               summary: "Success",

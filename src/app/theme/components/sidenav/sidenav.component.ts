@@ -261,18 +261,24 @@ export class SidenavComponent {
     //   image: 'pi pi-briefcase',
     // }
   ];
-
+  sampleMenus: SideMenu[] = [];
+  k10RestrictedMenus: string[] = [
+    'Career Tools', 'Job Portal', 'Learning Hub', 'Skill Mastery', 'Startup Kit', 'Founders Tool', 'Pitch Deck', 'Career', 'Entrepreneur'
+  ]
+  HigherEduRestritedMenus: string[] = [
+    'K12 Academy', 'K12 Academic Tools'
+  ]
   studentMenus = ['Company List', 'Career Planner', 'Learning Hub', 'Entrepreneur', 'Investor List', 'Startup Kit', 'Pitch Deck'];
   careerMenus = ['Entrepreneur', 'Investor List', 'Startup Kit', 'Pitch Deck'];
-  whitlabelmenu=['Subscription','About UNIPREP','24x7 Support','Success Stories','Recommendations'];
-  whitlabelmenuFreeTrails=['Subscription','About UNIPREP','24x7 Support','Success Stories'];
+  whitlabelmenu = ['Subscription', 'About UNIPREP', '24x7 Support', 'Success Stories', 'Recommendations'];
+  whitlabelmenuFreeTrails = ['Subscription', 'About UNIPREP', '24x7 Support', 'Success Stories'];
   collegeStudentMenus = ['Subscription'];
   conditionSubscribed!: boolean;
   currentTitle: any;
   visibleExhasted!: boolean;
-  imagewhitlabeldomainname:any
-  ehitlabelIsShow:boolean=true;
-  orgnamewhitlabel:any;
+  imagewhitlabeldomainname: any
+  ehitlabelIsShow: boolean = true;
+  orgnamewhitlabel: any;
   constructor(
     private router: Router,
     private activatedRoute: ActivatedRoute,
@@ -305,6 +311,18 @@ export class SidenavComponent {
   }
   enterpriseSubscriptionLink: any
   ngOnInit(): void {
+    this.sampleMenus = this.menus;
+    this.authService.userData.subscribe(data => {
+      const educationLevel = data?.education_level?.replace(/[\s\u00A0]/g, '').trim() || 'HigherEducation';
+      if (educationLevel === 'K10') {
+        this.menus = this.sampleMenus.filter(menu => !(this.k10RestrictedMenus?.includes(menu?.title)));
+      }
+      else if (educationLevel === 'HigherEducation') {
+        this.menus = this.sampleMenus.filter(menu => !(this.HigherEduRestritedMenus?.includes(menu?.title)));
+      } else {
+        this.menus = this.sampleMenus;
+      }
+    });
     this.locationService.getOrgName().subscribe(orgname => {
       this.orgnamewhitlabel = orgname;
     });
@@ -317,23 +335,23 @@ export class SidenavComponent {
       } else {
         this.conditionSubscribed = true;
       }
-      this.imagewhitlabeldomainname=window.location.hostname;
+      this.imagewhitlabeldomainname = window.location.hostname;
       if (this.imagewhitlabeldomainname === "dev-student.uniprep.ai" || this.imagewhitlabeldomainname === "uniprep.ai" || this.imagewhitlabeldomainname === "localhost") {
-        this.ehitlabelIsShow=true;
-      }else{
+        this.ehitlabelIsShow = true;
+      } else {
         if (res.subscription_details.subscription_plan === 'free_trail' && res.time_left.plan === 'on_progress') {
           this.menus = this.menus.filter(item => !this.whitlabelmenuFreeTrails.includes(item.title));
-          this.ehitlabelIsShow=false;
-        }else{
+          this.ehitlabelIsShow = false;
+        } else {
           this.menus = this.menus.filter(item => !this.whitlabelmenu.includes(item.title));
-          this.ehitlabelIsShow=false; 
+          this.ehitlabelIsShow = false;
         }
       }
-      if (res.subscription_details.subscription_plan == 'free_trail' && res.enterprise_subscription_link!= "") {
+      if (res.subscription_details.subscription_plan == 'free_trail' && res.enterprise_subscription_link != "") {
         this.enterpriseSubscriptionLink = res.enterprise_subscription_link;
-        if(res.enterprise_subscription_plan == 'Student'){
+        if (res.enterprise_subscription_plan == 'Student') {
           this.menus = this.menus.filter(item => !this.studentMenus.includes(item.title));
-        }else if(res.enterprise_subscription_plan == 'Career'){
+        } else if (res.enterprise_subscription_plan == 'Career') {
           this.menus = this.menus.filter(item => !this.careerMenus.includes(item.title));
         }
       }
@@ -420,7 +438,7 @@ export class SidenavComponent {
 
   onClickSubscribedUser(): void {
     this.visibleExhasted = false;
-    if(this.enterpriseSubscriptionLink !== ''){
+    if (this.enterpriseSubscriptionLink !== '') {
       window.open(this.enterpriseSubscriptionLink, '_target');
       return;
     }
@@ -442,8 +460,8 @@ export class SidenavComponent {
         item.expanded = false;
       }
     } else {
-      if(item.title == "Subscription"){
-        if(this.enterpriseSubscriptionLink  != undefined){
+      if (item.title == "Subscription") {
+        if (this.enterpriseSubscriptionLink != undefined) {
           window.open(this.enterpriseSubscriptionLink, '_target');
           return;
         }
