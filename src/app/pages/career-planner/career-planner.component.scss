@@ -1,15 +1,15 @@
-.careerdivider
-{
+.careerdivider {
 	position: absolute;
-    right: -14px;
-    height: 100%;
-    border: 1px;
-    width: 2px !important;
-    padding: 0;
+	right: -14px;
+	height: 100%;
+	border: 1px;
+	width: 2px !important;
+	padding: 0;
 	opacity: 0.5;
-	background-color:#3F4C83;
+	background-color: #3F4C83;
 	margin-top: 0;
 }
+
 :host ::ng-deep .p-carousel .p-carousel-indicators .p-carousel-indicator button {
 	width: 10px;
 	height: 10px;
@@ -19,8 +19,10 @@
 
 :host ::ng-deep .p-carousel-content {
 	height: 100% !important;
+
 	.p-carousel-container {
 		height: 100%;
+
 		.p-carousel-items-container {
 			height: 100%;
 		}
@@ -30,6 +32,7 @@
 :host ::ng-deep .p-carousel-item {
 	width: 100% !important;
 }
+
 :host ::ng-deep .p-carousel .p-carousel-indicators {
 	position: absolute;
 	bottom: 0;
@@ -37,35 +40,48 @@
 	transform: translateX(-50%);
 }
 
-.bg-primary
-{
+.bg-primary {
 	background: var(--uniprep-primary) !important;
 }
 
-.careerimage
-{
-	width:50px;
-	height:50px;
-	img
-	{
+.careerimage {
+	width: 50px;
+	height: 50px;
 
-	}
 }
 
-.joblogos
-{
-	width:20px;
-	height:20px;
+.joblogos {
+	width: 20px;
+	height: 20px;
 }
 
-.subjectcard
-{
+.subjectcard {
 	border: 1px solid var(--uniprep-primary);
 }
 
-.inactiveButton
-{
+.inactiveButton {
 	background: transparent !important;
 	border: none !important;
 	color: var(--uniprep-primary) !important;
+}
+
+// .container {
+//     max-width: 100%; /* Constrain the width to allow scrolling */
+//     overflow-x: auto; /* Enable horizontal scrolling */
+//     white-space: nowrap; /* Prevents text from wrapping */
+//     cursor: pointer; /* Pointer cursor on hover */
+//     z-index: 9999 !important; /* Bring container to front */
+//     position: relative; /* Required for z-index to work */
+//     scrollbar-width: none; /* Hide scrollbar for Firefox */
+// }
+
+// .container::-webkit-scrollbar {
+//     display: none; /* Hides scrollbar in Webkit-based browsers */
+// }
+.container{
+	white-space: nowrap;
+	text-wrap: wrap;
+	text-wrap-style: balance;
+	display: flex;
+	justify-content: center;
 }

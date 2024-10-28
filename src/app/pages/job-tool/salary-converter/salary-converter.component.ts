@@ -35,6 +35,11 @@ export class SalaryConverterComponent implements OnInit {
   imagewhitlabeldomainname: any
   orgnamewhitlabel: any;
   orglogowhitelabel: any;
+  salarySample: { sourceRate: string, sourceCountry: string, targetRate: string, targetCountry: string }[] = [
+    { sourceRate: '1,14,288', sourceCountry: 'United Arab Emirates', targetRate: '97,100.12', targetCountry: 'United Kingdom' },
+    { sourceRate: '1,14,288', sourceCountry: 'United Arab Emirates', targetRate: '97,100.12', targetCountry: 'United Kingdom' },
+    { sourceRate: '1,14,288', sourceCountry: 'United Arab Emirates', targetRate: '97,100.12', targetCountry: 'United Kingdom' }
+  ]
   get fromValue() {
     return this.taxData[0];
   }

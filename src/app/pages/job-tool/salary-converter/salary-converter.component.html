@@ -24,12 +24,15 @@
 <!--        </div>-->
 <div class="container-fluid d-flex flex-fill flex-column justify-content-center">
   <div class="row justify-content-center" [ngClass]="{ 'd-flex flex-grow-1': isPPPCardVisible }">
-    <div class="col-6">
-      <h3 class="text-center uniprep-primary">Compare your earnings across different countries with professional tax rates.</h3>
+    <div class="col-md-6 col-12">
+      <h3 class="text-center uniprep-primary">Compare your earnings across different countries with professional tax
+        rates.</h3>
       <div class="dropdown-container">
         <div class="form-group">
           <div class="mb-3">
-            <p-dropdown id="fromCountry" styleClass="w-100 border-secondary" [(ngModel)]="fromCountry" [options]="countries" [filter]="true" filterBy="countryName" [showClear]="true" optionLabel="countryName" (onChange)="onCountryChange($event)" placeholder="Source Country" appendTo="body">
+            <p-dropdown id="fromCountry" styleClass="w-100 border-secondary" [(ngModel)]="fromCountry"
+              [options]="countries" [filter]="true" filterBy="countryName" [showClear]="true" optionLabel="countryName"
+              (onChange)="onCountryChange($event)" placeholder="Source Country" appendTo="body">
               <ng-template pTemplate="selectedItem">
                 <div class="d-flex align-items-center gap-2" *ngIf="fromCountry">
                   <div class="dropdownimg"><img [src]="fromCountry.flag" class="img-fluid" /></div>
@@ -52,7 +55,9 @@
 
         <div class="form-group">
           <div class="mb-3">
-            <p-inputNumber id="salary" [(ngModel)]="salary" prefix="{{ selectedCurrencyCode }}&nbsp;" placeholder="Amount in source country's local currency" class="w-100 border-primary rounded-3"></p-inputNumber>
+            <p-inputNumber id="salary" [(ngModel)]="salary" prefix="{{ selectedCurrencyCode }}&nbsp;"
+              placeholder="Amount in source country's local currency"
+              class="w-100 border-primary rounded-3"></p-inputNumber>
           </div>
         </div>
 
@@ -61,7 +66,9 @@
             <!-- <p-dropdown id="toCountry" styleClass="w-100" [(ngModel)]="toCountry" [options]="countries"
                                 optionLabel="countryName" [filter]="true" filterBy="countryName" [showClear]="true"
                                 (onChange)="onCountryToChange($event)" placeholder="Target Country"></p-dropdown> -->
-            <p-dropdown id="toCountry" styleClass="w-100 border-primary" [(ngModel)]="toCountry" [options]="countries" [filter]="true" filterBy="countryName" [showClear]="true" optionLabel="countryName" (onChange)="onCountryToChange($event)" placeholder="Target Country" appendTo="body">
+            <p-dropdown id="toCountry" styleClass="w-100 border-primary" [(ngModel)]="toCountry" [options]="countries"
+              [filter]="true" filterBy="countryName" [showClear]="true" optionLabel="countryName"
+              (onChange)="onCountryToChange($event)" placeholder="Target Country" appendTo="body">
               <ng-template pTemplate="selectedItem">
                 <div class="d-flex align-items-center gap-2" *ngIf="toCountry">
                   <div class="dropdownimg"><img [src]="toCountry.flag" class="img-fluid" /></div>
@@ -90,7 +97,7 @@
     </div>
     <div class="col-12 d-flex flex-column flex-grow-1 overflow-hidden mt-3" *ngIf="isPPPCardVisible">
       <div class="row flex-fill">
-        <div class="col-3">
+        <div class="col-md-3 col-12 my-2">
           <div class="card border-primary h-100">
             <div class="card-body">
               <div class="container-fluid p-0">
@@ -101,14 +108,13 @@
                   <div class="col-md-12 overflow-y-auto">
                     <table class="custom-table w-100 text-start">
                       <thead>
-                        <tr>
+                        <tr class="py-2">
                           <th class="px-1">Income</th>
                           <th class="px-1 text-center">Tax Rate</th>
                           <th class="px-1">
-                            <div class="d-flex justify-content-center gap-2">
+                            <div class="d-flex justify-content-center gap-1">
                               <div>Tax Type</div>
-                              <div
-                                class="round-info-icon"
+                              <div class="round-info-icon"
                                 pTooltip="In a non-cumulative tax system, each portion of income is taxed independently at the rate applicable to that specific portion without progressive accumulation.
                                 In a cumulative tax system, the taxpayer's income is divided into brackets, and each portion of income is taxed at the rate applicable to that bracket. The total tax liability is the sum of the taxes calculated for each bracket."
                                 tooltipPosition="top">
@@ -132,7 +138,7 @@
             </div>
           </div>
         </div>
-        <div class="col-6">
+        <div class="col-md-6 col-12 my-2">
           <div class="card border-secondary w-100 h-100" style="position: relative">
             <!--                            <button type="button" class="btn-close text-white" aria-label="Close"-->
             <!--                                    style="color:white !important; position: absolute; top: 10px; right: 10px;"-->
@@ -152,7 +158,7 @@
           </div>
         </div>
 
-        <div class="col-3">
+        <div class="col-md-3 col-12 my-2">
           <div class="card border-primary h-100">
             <div class="card-body">
               <div class="container-fluid p-0">
@@ -163,17 +169,15 @@
                   <div class="col-md-12 overflow-y-auto">
                     <table class="custom-table w-100 text-start">
                       <thead>
-                        <tr>
+                        <tr class="py-2">
                           <th class="px-1">Income</th>
                           <th class="px-1 text-center">Tax Rate</th>
                           <th class="px-1">
                             <div class="d-flex justify-content-center gap-2">
                               <div>Tax Type</div>
-                              <div
-                                class="round-info-icon"
+                              <div class="round-info-icon"
                                 pTooltip="In a non-cumulative tax system, each portion of income is taxed independently at the rate applicable to that specific portion without progressive accumulation.
-                                    In a cumulative tax system, the taxpayer's income is divided into brackets, and each portion of income is taxed at the rate applicable to that bracket. The total tax liability is the sum of the taxes calculated for each bracket."
-                                tooltipPosition="top">
+                                    In a cumulative tax system, the taxpayer's income is divided into brackets, and each portion of income is taxed at the rate applicable to that bracket. The total tax liability is the sum of the taxes calculated for each bracket.">
                                 <i class="fa-solid fa-circle-info"></i>
                               </div>
                             </div>
@@ -196,16 +200,36 @@
         </div>
       </div>
     </div>
+    <ng-container *ngIf="!isPPPCardVisible">
+      <div class="uniprep-primary h2  text-center fw-bold mt-5 mb-3">
+        Did you know ?
+      </div>
+      <br>
+      <div class="d-flex justify-content-between gap-3 mx-2">
+        <div class="card costofliving-card" *ngFor="let cost of salarySample">
+          <div class="card-body">
+            Earning <span class="fw-semibold">INR {{cost?.sourceRate}}</span> in <span
+              class="fw-semibold">{{cost?.sourceCountry}}</span> is equivalent to earning <span class="fw-semibold">INR
+              {{cost?.targetRate}}</span> in the <span class="fw-semibold">{{cost?.targetCountry}}</span>.
+          </div>
+        </div>
+      </div>
+
+    </ng-container>
   </div>
 </div>
+
 <!--    </div>-->
 <!--</div>-->
-<p-dialog [(visible)]="restrict" [modal]="true" [style]="{ width: '30vw' }" [draggable]="false" [resizable]="false" class="restrictionDialog" [breakpoints]="{ '960px': '30vw', '959px': '60vw', '425px': '90vw' }" (onHide)="clearRestriction()">
+<p-dialog [(visible)]="restrict" [modal]="true" [style]="{ width: '30vw' }" [draggable]="false" [resizable]="false"
+  class="restrictionDialog" [breakpoints]="{ '960px': '30vw', '959px': '60vw', '425px': '90vw' }"
+  (onHide)="clearRestriction()">
   <div *ngIf="!ehitlabelIsShow" class="text-center mt-5 mb-4">
     <img src="../../../uniprep-assets/images/smartloack.png" class="image" width="60" />
     <h3 class="offer">Upgrade Required</h3>
     <p>To access this exclusive module,please upgrade your plan now</p>
-    <button pButton type="button" class="text-white p-ripple p-button-rounded p-button-warning p-button p-component p-2" (click)="upgradePlan()">Upgrade Plan<i class="fa fa-arrow-right exhausted-plan-icon"></i></button>
+    <button pButton type="button" class="text-white p-ripple p-button-rounded p-button-warning p-button p-component p-2"
+      (click)="upgradePlan()">Upgrade Plan<i class="fa fa-arrow-right exhausted-plan-icon"></i></button>
   </div>
   <div *ngIf="ehitlabelIsShow" class="text-center mt-5 mb-4">
     <img src="../../../uniprep-assets/images/smartloack.png" class="image" width="60" />
