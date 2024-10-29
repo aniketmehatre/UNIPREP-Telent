@@ -484,7 +484,12 @@ export class CourseListComponent implements OnInit {
 
   applyToUniversity(countryId:any,universityId: any,intakeMonth:any,programLevel:any,courseName:any,courseLink:any) {
     this.courseList.registerUniapply().subscribe(response => {
-      const url = `${environment.uniApplyUrl}&countryId=${countryId}&universityId=${universityId}&intakeMonth=${intakeMonth}&programLevel=${programLevel}&courseName=${courseName}&courseLink=${courseLink}`;
+      if(response.email != null) {
+        var url = `${environment.uniApplyUrl}&countryId=${countryId}&universityId=${universityId}&intakeMonth=${intakeMonth}&programLevel=${programLevel}&courseName=${courseName}&courseLink=${courseLink}&email=${response.email}&password=${response.password}`;
+      }else {
+        url = `${environment.uniApplyUrl}&countryId=${countryId}&universityId=${universityId}&intakeMonth=${intakeMonth}&programLevel=${programLevel}&courseName=${courseName}&courseLink=${courseLink}`;
+      }
+
       window.open(url, '_blank');
     });
   }
