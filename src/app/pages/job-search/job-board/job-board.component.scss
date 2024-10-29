@@ -108,3 +108,9 @@
   overflow: hidden;
   text-overflow: ellipsis;
 }
+
+:host ::ng-deep .p-dialog 
+{
+  border-radius: 15px;
+  overflow: hidden;
+}

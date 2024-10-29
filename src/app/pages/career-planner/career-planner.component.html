@@ -139,14 +139,8 @@
 												<h5 class="text-center d-md-block d-none pt-2">{{ subItems.country_name
 													}}</h5>
 												<p class="fw-bold text-small">Average Salary</p>
-												<p class="fw-medium mb-2 container"
-													[ngClass]="{ 'd-none': currencyButtonName == 'inr' }"
-													[ngStyle]="{ 'font-size.px': subItems.salary.length > 19 ? 12 : 15, filter: planExpired ? 'blur(4px)' : 'blur(0px)' }">
-													{{ subItems.salary }}</p>
-												<p class="fw-medium mb-2 container"
-													[ngClass]="{ 'd-none': currencyButtonName == 'Dollar' }"
-													[ngStyle]="{ 'font-size.px': subItems.salary.length > 19 ? 12 : 15, filter: planExpired ? 'blur(4px)' : 'blur(0px)' }">
-													{{ subItems.inr_salary }}</p>
+												<p class="fw-medium mb-2 text-wrap" [ngClass]="{ 'd-none': currencyButtonName == 'inr' }" [ngStyle]="{ 'font-size.px': subItems.salary.length > 19 ? 12 : 15, filter: planExpired ? 'blur(4px)' : 'blur(0px)' }">{{ subItems.salary }}</p>
+												<p class="fw-medium mb-2 text-wrap" [ngClass]="{ 'd-none': currencyButtonName == 'Dollar' }" [ngStyle]="{ 'font-size.px': subItems.salary.length > 19 ? 12 : 15, filter: planExpired ? 'blur(4px)' : 'blur(0px)' }">{{ subItems.inr_salary }}</p>
 											</div>
 											<div>
 												<p class="fw-bold text-small">Top 4 Job Sites</p>
