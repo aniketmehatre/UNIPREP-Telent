@@ -107,7 +107,7 @@ export class CoverLetterBuilderComponent implements OnInit {
       imageLink: "../../../../uniprep-assets/coverletter-images/Functional Cover Letter.webp",
     },
   ];
-
+  editorModules: any;
   swiper!: Swiper;
   slideConfig = {
     "slidesToShow": 3,
@@ -150,6 +150,13 @@ export class CoverLetterBuilderComponent implements OnInit {
 
   ngOnInit(): void {
     this.ngAfterViewInit();
+    this.editorModules = {
+      toolbar: [
+        ['bold', 'italic', 'underline'],
+        [{ 'list': 'ordered' }, { 'list': 'bullet' }],
+        ['clean'] // Clear formatting button
+      ]
+    };
     this.items = [
       {label: 'Personal Information'},
       {label: 'Organisation Details'},
