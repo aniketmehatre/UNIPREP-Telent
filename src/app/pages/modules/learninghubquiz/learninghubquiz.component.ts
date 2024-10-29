@@ -119,6 +119,13 @@ export class LearninghubquizComponent implements OnInit {
         this.currentApiSlug = 'SubmoduleListForStudents';
         this.selectedModule = 'employer-test'
         break;
+      case 'skill-mastery':
+        this.universityidforquiz = localStorage.getItem('skillmasteryquizsubmoduleid');
+        this.currentModuleId = 10;
+        this.currentModuleName = 'Skill Mastery';
+        this.currentApiSlug = 'SubmoduleListForStudents';
+        this.selectedModule = 'skill-mastery'
+        break;
       default:
         this.currentModuleId = 8;
         this.currentModuleName = 'Learning Hub';
@@ -158,7 +165,7 @@ export class LearninghubquizComponent implements OnInit {
       let showReview = params['showReview'];
       if (showReview === 'true') {
         this.openReviewPopup();
-        this.isInstructionVisible=false;
+        this.isInstructionVisible = false;
       }
     });
   }

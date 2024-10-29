@@ -8,6 +8,7 @@ import { ModuleServiceService } from '../../module-store/module-service.service'
 import { Router } from '@angular/router';
 import { DataService } from 'src/app/data.service';
 import { FounderstoolService } from '../founderstool.service';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'uni-entreprenuerquiz',
@@ -67,7 +68,7 @@ export class EntreprenuerquizComponent implements OnInit {
   subModuleName:string='';
   constructor(private moduleListService: ModuleServiceService, private authService: AuthService, private router: Router, private dataService: DataService,
     private locationService: LocationService, private ngxService: NgxUiLoaderService, private toast: MessageService,
-    private service: FounderstoolService) { }
+    private service: FounderstoolService,private location:Location) { }
 
   ngOnInit(): void {
     this.locationService.getImage().subscribe(imageUrl => {
@@ -468,6 +469,13 @@ export class EntreprenuerquizComponent implements OnInit {
   stopTimer(): void {
     if (this.timerSubscription) {
       this.timerSubscription.unsubscribe();
+    }
+  }
+  goBack() {
+    if (window.history.length > 1) {
+      this.location.back();
+    } else {
+      this.router.navigate(['/pages/founderstool/entreprenuerproficiencymodule']);
     }
   }
 }
