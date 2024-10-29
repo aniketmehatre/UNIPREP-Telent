@@ -217,6 +217,28 @@
 
     </ng-container>
   </div>
+  <div>
+    <div class="uniprep-primary h2  text-center fw-bold pt-4 mt-4">
+      Did you know ?
+    </div>
+    <br>
+    <p-carousel [value]="salaries" [numVisible]="3"  [autoplayInterval]="5000" [circular]="true" [showNavigators]="false" [showIndicators]="false" [responsiveOptions]="responsiveOptions">
+      <ng-template let-salary pTemplate="item">
+        <div class="card costofliving-card m-2">
+          <div class="card-body">
+            <p>{{salary.satement}}</p>
+          </div>
+      </div>
+      </ng-template>
+    </p-carousel>
+    <!-- <div class="d-flex justify-content-between gap-3 mx-2">
+        <div class="card costofliving-card" *ngFor="let salary of salaries">
+            <div class="card-body">
+              <p>{{salary.satement}}</p>
+            </div>
+        </div>
+    </div> -->
+  </div>
 </div>
 
 <!--    </div>-->

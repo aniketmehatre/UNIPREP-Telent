@@ -49,4 +49,8 @@ filteredJobRoles: any[] = [];
     // alert(slug)
     this.router.navigate(['/pages/interviewprep/questions/'+slug]);
   }
+
+  goBack(){
+    this.router.navigate(['/pages/job-tool/career-tool']);
+  }
 }
