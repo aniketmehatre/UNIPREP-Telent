@@ -110,29 +110,29 @@
 							<!-- (onChange)="changeExperience()" -->
 							<p-dropdown [options]="experienceLevel" placeholder="Select Experience Level" styleClass="w-100" formControlName="selected_exp_level" optionLabel="level" optionValue="id"></p-dropdown>
 							<div *ngIf="submitted && f['selected_exp_level'].errors" class="text-danger text-xs">
-								<div style="margin-left: 10px" *ngIf="f['selected_exp_level'].errors">Experience Level Required</div>
+								<div *ngIf="f['selected_exp_level'].errors">Experience Level Required</div>
 							</div>
 						</div>
 						<div class="col-md-12 mb-3">
 							<h4 class="uniprep-primary">Enter Your Personal Information</h4>
 							<div class="row">
 								<div class="col-md-6">
-									<div class="d-flex">
-										<label class="form-label labelFont">Your Name</label>
+									<div class="d-flex align-items-center">
+										<label class="uniprep-primarydark fw-bold h6 mb-0">Your Name</label>
 										<i class="fa-solid fa-circle-question m-2 uniprep-primary" pTooltip="We recommend you enter your full name" tooltipPosition="top"></i>
 									</div>
 									<div class="form-group">
 										<div class="mb-3">
 											<input class="w-100" type="text" placeholder="Full Name" formControlName="user_name" pInputText />
 											<div *ngIf="submitted && f['user_name'].errors" class="text-danger text-xs">
-												<div style="margin-left: 10px" *ngIf="f['user_name'].errors">User Name Required</div>
+												<div *ngIf="f['user_name'].errors">User Name Required</div>
 											</div>
 										</div>
 									</div>
 								</div>
 								<div class="col-md-6">
-									<div class="d-flex">
-										<label class="form-label labelFont">Job Title</label>
+									<div class="d-flex align-items-center">
+										<label class="uniprep-primarydark fw-bold h6 mb-0">Job Title</label>
 										<i class="fa-solid fa-circle-question m-2 uniprep-primary" pTooltip="Please enter your current job title or designation" tooltipPosition="top"></i>
 									</div>
 									<div class="form-group">
@@ -143,30 +143,30 @@
 													<li *ngFor="let job of filteredJobs" (click)="selectJob(job, 'jobTitle')">{{ job.jobrole }}</li>
 												</ul>
 												<div *ngIf="submitted && f['user_job_title'].errors" class="text-danger text-xs">
-													<div style="margin-left: 10px" *ngIf="f['user_job_title'].errors">Job Title Required</div>
+													<div *ngIf="f['user_job_title'].errors">Job Title Required</div>
 												</div>
 											</div>
 										</div>
 									</div>
 								</div>
 								<div class="col-md-6">
-									<div class="d-flex">
-										<label class="form-label labelFont">Your Email</label>
+									<div class="d-flex align-items-center">
+										<label class="uniprep-primarydark fw-bold h6 mb-0">Your Email</label>
 										<i class="fa-solid fa-circle-question m-2 uniprep-primary" pTooltip="We recommend you provide your active email address" tooltipPosition="top"></i>
 									</div>
 									<div class="form-group">
 										<div class="mb-3">
 											<input class="w-100" type="text" placeholder="Email Address" formControlName="user_email" pInputText />
 											<div *ngIf="submitted && f['user_email'].errors" class="text-danger text-xs">
-												<div style="margin-left: 10px" *ngIf="f['user_email'].errors?.['required']">Email Required</div>
-												<div style="margin-left: 10px" *ngIf="f['user_email'].errors?.['email']">Enter Valid email</div>
+												<div *ngIf="f['user_email'].errors?.['required']">Email Required</div>
+												<div *ngIf="f['user_email'].errors?.['email']">Enter Valid email</div>
 											</div>
 										</div>
 									</div>
 								</div>
 								<div class="col-md-6">
-									<div class="d-flex">
-										<label class="form-label labelFont">Current Location</label>
+									<div class="d-flex align-items-center">
+										<label class="uniprep-primarydark fw-bold h6 mb-0">Current Location</label>
 										<i class="fa-solid fa-circle-question m-2 uniprep-primary" pTooltip="Please enter your current location" tooltipPosition="top"></i>
 									</div>
 									<div class="form-group">
@@ -177,7 +177,7 @@
 													<li *ngFor="let city of filteredLocations" (click)="selectLocation(city, 'userLocation')">{{ city.country_name }}</li>
 												</ul>
 												<div *ngIf="submitted && f['user_location'].errors" class="text-danger text-xs">
-													<div style="margin-left: 10px" *ngIf="f['user_location'].errors">Current Location Required</div>
+													<div *ngIf="f['user_location'].errors">Current Location Required</div>
 												</div>
 											</div>
 										</div>
@@ -205,8 +205,8 @@
 									</div>
 								</div>
 								<div class="col-md-6">
-									<div class="d-flex">
-										<label class="form-label labelFont">Country Code</label>
+									<div class="d-flex align-items-center">
+										<label class="uniprep-primarydark fw-bold h6 mb-0">Country Code</label>
 										<i class="fa-solid fa-circle-question m-2 uniprep-primary" pTooltip="Select the international dialing code for your phone number" tooltipPosition="top"></i>
 									</div>
 									<div class="form-group">
@@ -216,37 +216,37 @@
 									</div>
 								</div>
 								<div class="col-md-6">
-									<div class="d-flex">
-										<label class="form-label labelFont">Phone Number</label>
+									<div class="d-flex align-items-center">
+										<label class="uniprep-primarydark fw-bold h6 mb-0">Phone Number</label>
 										<i class="fa-solid fa-circle-question m-2 uniprep-primary" pTooltip="Please provide your active phone number" tooltipPosition="top"></i>
 									</div>
 									<div class="form-group">
 										<div class="mb-3">
 											<input class="w-100" type="text" placeholder="Phone Number" formControlName="user_phone" pInputText />
 											<div *ngIf="f['user_phone'].invalid && (f['user_phone'].dirty || f['user_phone'].touched)" class="text-danger text-xs">
-												<div style="margin-left: 10px" *ngIf="f['user_phone'].errors?.['required']">Phone number Required</div>
-												<div style="margin-left: 10px" *ngIf="f['user_phone'].errors?.['pattern']">Enter Valid Phone number</div>
+												<div *ngIf="f['user_phone'].errors?.['required']">Phone number Required</div>
+												<div *ngIf="f['user_phone'].errors?.['pattern']">Enter Valid Phone number</div>
 											</div>
 										</div>
 									</div>
 								</div>
 								<div class="col-md-6">
-									<div class="d-flex">
-										<label class="form-label labelFont">LinkedIn Name</label>
+									<div class="d-flex align-items-center">
+										<label class="uniprep-primarydark fw-bold h6 mb-0">LinkedIn Name</label>
 										<i class="fa-solid fa-circle-question m-2 uniprep-primary" pTooltip="Please enter your profile name as it appears on your LinkedIn" tooltipPosition="top"></i>
 									</div>
 									<div class="form-group">
 										<div class="mb-3">
 											<input class="w-100" type="text" placeholder="LinkedIn profile name" formControlName="user_linkedin" pInputText />
 											<div *ngIf="submitted && f['user_linkedin'].errors" class="text-danger text-xs">
-												<div style="margin-left: 10px" *ngIf="f['user_linkedin'].errors">Linked In Name Required</div>
+												<div *ngIf="f['user_linkedin'].errors">Linked In Name Required</div>
 											</div>
 										</div>
 									</div>
 								</div>
 								<div class="col-md-6">
-									<div class="d-flex">
-										<label class="form-label labelFont">LinkedIn Link</label>
+									<div class="d-flex align-items-center">
+										<label class="uniprep-primarydark fw-bold h6 mb-0">LinkedIn Link</label>
 										<i class="fa-solid fa-circle-question m-2 uniprep-primary" pTooltip="Please provide the URL to your LinkedIn profile" tooltipPosition="top"></i>
 									</div>
 									<div class="form-group">
@@ -256,8 +256,8 @@
 									</div>
 								</div>
 								<div class="col-md-12">
-									<div class="d-flex">
-										<label class="form-label labelFont">Website (Optional)</label>
+									<div class="d-flex align-items-center">
+										<label class="uniprep-primarydark fw-bold h6 mb-0">Website (Optional)</label>
 										<i class="fa-solid fa-circle-question m-2 uniprep-primary" pTooltip="We recommend you provide your professional website or portfolio link if any" tooltipPosition="top"></i>
 									</div>
 									<div class="form-group">
@@ -268,8 +268,8 @@
 								</div>
 								<div class="col-md-12">
 									<div class="d-flex justify-content-between align-items-center">
-										<div class="d-flex">
-											<label class="form-label labelFont">Summary</label>
+										<div class="d-flex align-items-center">
+											<label class="uniprep-primarydark fw-bold h6 mb-0">Summary</label>
 											<i class="fa-solid fa-circle-question m-2 uniprep-primary" pTooltip="We recommend you provide or generate a concise summary about yourself" tooltipPosition="top"></i>
 										</div>
 										<button class="deleteDivButton" (click)="chatGPTIntegration('user_summary', 0)" [disabled]="isButtonDisabled" style="background-color: #9bc329">Generate &nbsp;<i class="fa-solid fa-line-columns trashIcon" style="background-color: #9bc329"></i></button>
@@ -279,7 +279,7 @@
 											<textarea pInputTextarea formControlName="user_summary" class="mt-2 w-100" placeholder="About yourself" [rows]="3"></textarea>
 											<!-- (ngModelChange)="onTextModelChange($event)"  -->
 											<div *ngIf="submitted && f['user_summary'].errors?.['required']" class="text-danger text-xs">
-												<div style="margin-left: 10px">User Summary Required</div>
+												<div>User Summary Required</div>
 											</div>
 											<!-- <div *ngIf="f['user_summary'].errors?.['maxWordsExceeded']"
                                                 class="text-danger text-xs">
@@ -304,22 +304,22 @@
 										<div [formGroupName]="i">
 											<div class="row">
 												<div class="col-md-6">
-													<div class="d-flex">
-														<label class="form-label labelFont">Organization Name</label>
+													<div class="d-flex align-items-center">
+														<label class="uniprep-primarydark fw-bold h6 mb-0">Organization Name</label>
 														<i class="fa-solid fa-circle-question m-2 uniprep-primary" pTooltip="Please enter the name of the company or organization where you worked" tooltipPosition="top"></i>
 													</div>
 													<div class="form-group">
 														<div class="mb-3">
 															<input class="w-100" type="text" placeholder="Organization Name" formControlName="work_org_name" pInputText />
 															<div *ngIf="wrkExp.get('work_org_name')?.invalid && wrkExp.get('work_org_name')?.touched && submitted" class="text-danger text-xs">
-																<div style="margin-left: 10px">Organization Name required.</div>
+																<div>Organization Name required.</div>
 															</div>
 														</div>
 													</div>
 												</div>
 												<div class="col-md-6">
-													<div class="d-flex">
-														<label class="form-label labelFont">Designation</label>
+													<div class="d-flex align-items-center">
+														<label class="uniprep-primarydark fw-bold h6 mb-0">Designation</label>
 														<i class="fa-solid fa-circle-question m-2 uniprep-primary" pTooltip="Please specify your job title or role within the organization" tooltipPosition="top"></i>
 													</div>
 													<div class="form-group">
@@ -332,7 +332,7 @@
 																	</li>
 																</ul>
 																<div *ngIf="wrkExp.get('work_designation')?.invalid && wrkExp.get('work_designation')?.touched && submitted" class="text-danger text-xs">
-																	<div style="margin-left: 10px">Designation required.</div>
+																	<div>Designation required.</div>
 																</div>
 															</div>
 														</div>
@@ -340,12 +340,12 @@
 												</div>
 												<div class="col-md-12">
 													<div class="d-flex justify-content-between align-items-center">
-														<div class="d-flex">
-															<label class="form-label labelFont">Experience Year </label>
+														<div class="d-flex align-items-center">
+															<label class="uniprep-primarydark fw-bold h6 mb-0">Experience Year </label>
 															<i class="fa-solid fa-circle-question m-2 uniprep-primary" pTooltip="Please enter the number of years you worked at this position" tooltipPosition="top"></i>
 														</div>
 														<div class="d-flex justify-content-between align-items-center">
-															<input type="checkbox" formControlName="work_currently_working" class="me-0" (change)="stillPursuing('work_currently_working', i, $event)" style="transform: scale(0.4); cursor: pointer" id="currentWorking_{{ i }}" />
+															<input type="checkbox" formControlName="work_currently_working" class="me-0" (change)="stillPursuing('work_currently_working', i, $event)" style="zoom: 0.5; cursor: pointer" id="currentWorking_{{ i }}" />
 															<label style="font-size: 10px; color: var(--uniprep-primary); font-weight: 600; cursor: pointer" for="currentWorking_{{ i }}">Currently Working</label>
 														</div>
 													</div>
@@ -357,7 +357,7 @@
 																		<p-dropdown styleClass="w-100" [options]="yearsList" optionValue="year" placeholder="Start Year" (onChange)="workYearChange(i)" filterBy="year" [filter]="true" formControlName="work_start_year" optionLabel="year"></p-dropdown>
 																		<!-- <input class="w-100" type="number" placeholder="Start Year" formControlName="work_start_year" pInputText /> -->
 																		<div *ngIf="wrkExp.get('work_start_year')?.invalid && wrkExp.get('work_start_year')?.touched && submitted" class="text-danger text-xs">
-																			<div style="margin-left: 10px">Start Year required.</div>
+																			<div>Start Year required.</div>
 																		</div>
 																	</div>
 																</div>
@@ -365,7 +365,7 @@
 																	<div class="mb-3">
 																		<p-dropdown [options]="monthList" placeholder="Month" styleClass="w-100" (onChange)="workYearChange(i)" formControlName="work_start_month" optionLabel="name" optionValue="id"></p-dropdown>
 																		<div *ngIf="wrkExp.get('work_start_month')?.invalid && wrkExp.get('work_start_month')?.touched && submitted" class="text-danger text-xs">
-																			<div style="margin-left: 10px">Start Month required.</div>
+																			<div>Start Month required.</div>
 																		</div>
 																	</div>
 																</div>
@@ -381,7 +381,7 @@
                                                                             [attr.disabled]="getWorkExpArray.controls[i]?.get('work_currently_working')?.value ? true : null"
                                                                             formControlName="work_end_year" pInputText /> -->
 																		<div *ngIf="wrkExp.get('work_end_year')?.invalid && wrkExp.get('work_end_year')?.touched && submitted" class="text-danger text-xs">
-																			<div style="margin-left: 10px">End Year required.</div>
+																			<div>End Year required.</div>
 																		</div>
 																	</div>
 																</div>
@@ -389,7 +389,7 @@
 																	<div class="mb-3">
 																		<p-dropdown [options]="monthList" (onChange)="workYearChange(i)" placeholder="Month" styleClass="w-100" [disabled]="getWorkExpArray.controls[i]?.get('work_currently_working')?.value" formControlName="work_end_month" optionLabel="name" optionValue="id"></p-dropdown>
 																		<div *ngIf="wrkExp.get('work_end_month')?.invalid && wrkExp.get('work_end_month')?.touched && submitted" class="text-danger text-xs">
-																			<div style="margin-left: 10px">End Month required.</div>
+																			<div>End Month required.</div>
 																		</div>
 																	</div>
 																</div>
@@ -401,22 +401,22 @@
 													</div>
 												</div>
 												<div class="col-md-6">
-													<div class="d-flex">
-														<label class="form-label labelFont">Work Type</label>
+													<div class="d-flex align-items-center">
+														<label class="uniprep-primarydark fw-bold h6 mb-0">Work Type</label>
 														<i class="fa-solid fa-circle-question m-2 uniprep-primary" pTooltip="Please select your employment type" tooltipPosition="top"></i>
 													</div>
 													<div class="form-group">
 														<div class="mb-3">
 															<p-dropdown [options]="workTypeValue" placeholder="Select Work Type" styleClass="w-100" formControlName="work_type" optionLabel="value" optionValue="id"></p-dropdown>
 															<div *ngIf="wrkExp.get('work_type')?.invalid && wrkExp.get('work_type')?.touched && submitted" class="text-danger text-xs">
-																<div style="margin-left: 10px">Work Type required.</div>
+																<div>Work Type required.</div>
 															</div>
 														</div>
 													</div>
 												</div>
 												<div class="col-md-6">
-													<div class="d-flex">
-														<label class="form-label labelFont">Location</label>
+													<div class="d-flex align-items-center">
+														<label class="uniprep-primarydark fw-bold h6 mb-0">Location</label>
 														<i class="fa-solid fa-circle-question m-2 uniprep-primary" pTooltip="Specify the city and country where this job was located" tooltipPosition="top"></i>
 													</div>
 													<div class="form-group">
@@ -427,7 +427,7 @@
 																	<li *ngFor="let city of filteredExpeAndEduLocations[i]" (click)="selectLocation(city, 'userExpLocation', i)">{{ city.country_name }}</li>
 																</ul>
 																<div *ngIf="wrkExp.get('work_location')?.invalid && wrkExp.get('work_location')?.touched && submitted" class="text-danger text-xs">
-																	<div style="margin-left: 10px">Work Location required.</div>
+																	<div>Work Location required.</div>
 																</div>
 															</div>
 														</div>
@@ -435,8 +435,8 @@
 												</div>
 												<div class="col-md-12">
 													<div class="d-flex justify-content-between align-items-center">
-														<div class="d-flex">
-															<label class="form-label labelFont">Job Description</label>
+														<div class="d-flex align-items-center">
+															<label class="uniprep-primarydark fw-bold h6 mb-0">Job Description</label>
 															<i class="fa-solid fa-circle-question m-2 uniprep-primary" pTooltip="We recommend you describe minimum 5 key responsibilities and achievements" tooltipPosition="top"></i>
 														</div>
 														<button class="deleteDivButton mb-2" (click)="chatGPTIntegration('work_job_description', i)" [disabled]="genreateButtonDisabled[i]" style="background-color: #9bc329">Generate &nbsp;<i class="fa-solid fa-line-columns trashIcon" style="background-color: #9bc329"></i></button>
@@ -447,7 +447,7 @@
 															<p-editor formControlName="work_job_description" placeholder="About Job Description" [modules]="editorModules"> </p-editor>
 
 															<div *ngIf="wrkExp.get('work_job_description')?.invalid && wrkExp.get('work_job_description')?.touched && submitted" class="text-danger text-xs">
-																<div style="margin-left: 10px" *ngIf="wrkExp.get('work_job_description')?.errors?.['required']">Job Description required.</div>
+																<div *ngIf="wrkExp.get('work_job_description')?.errors?.['required']">Job Description required.</div>
 															</div>
 															<!-- <div *ngIf="errorMessages[i]" class="text-danger text-xs"
                                                                 style="margin-left:10px;">
@@ -479,27 +479,27 @@
 										<div [formGroupName]="i">
 											<div class="row">
 												<div class="col-md-6">
-													<div class="d-flex mb-3">
-														<label class="form-label labelFont">College/School Name</label>
+													<div class="d-flex align-items-center">
+														<label class="uniprep-primarydark fw-bold h6 mb-0">College/School Name</label>
 														<i class="fa-solid fa-circle-question m-2 uniprep-primary" pTooltip="Please enter the name of your educational institution" tooltipPosition="top"></i>
 													</div>
 													<div class="form-group">
 														<div class="mb-3">
 															<input class="w-100" type="text" placeholder="College Name" formControlName="edu_college_name" pInputText />
 															<div *ngIf="eduDetail.get('edu_college_name')?.invalid && eduDetail.get('edu_college_name')?.touched && submitted" class="text-danger text-xs">
-																<div style="margin-left: 10px">College name is required.</div>
+																<div>College name is required.</div>
 															</div>
 														</div>
 													</div>
 												</div>
 												<div class="col-md-6">
 													<div class="d-flex justify-content-between align-items-center">
-														<div class="d-flex">
-															<label class="form-label labelFont">Education Year </label>
+														<div class="d-flex align-items-center">
+															<label class="uniprep-primarydark fw-bold h6 mb-0">Education Year </label>
 															<i class="fa-solid fa-circle-question m-2 uniprep-primary" pTooltip="Please enter the year you started and completed your degree" tooltipPosition="top"></i>
 														</div>
 														<div class="d-flex justify-content-between align-items-center">
-															<input type="checkbox" formControlName="edu_still_pursuing" id="stillPursuing_{{ i }}" class="me-0" (change)="stillPursuing('edu_still_pursuing', i, $event)" style="transform: scale(0.4); cursor: pointer" />
+															<input type="checkbox" formControlName="edu_still_pursuing" id="stillPursuing_{{ i }}" class="me-0" (change)="stillPursuing('edu_still_pursuing', i, $event)" style="zoom: 0.5; cursor: pointer" />
 															<label style="font-size: 10px; color: var(--uniprep-primary); font-weight: 600; cursor: pointer" for="stillPursuing_{{ i }}">Still Pursuing</label>
 														</div>
 													</div>
@@ -512,7 +512,7 @@
                                                                            placeholder="Start Year"
                                                                            formControlName="edu_start_year" pInputText /> -->
 																	<div *ngIf="eduDetail.get('edu_start_year')?.invalid && eduDetail.get('edu_start_year')?.touched && submitted" class="text-danger text-xs">
-																		<div style="margin-left: 10px">Start Year required.</div>
+																		<div>Start Year required.</div>
 																	</div>
 																</div>
 															</div>
@@ -522,7 +522,7 @@
 																<div class="mb-3">
 																	<p-dropdown styleClass="w-100" [options]="yearsList" (onChange)="eduYearChange(i)" optionValue="year" placeholder="End Year" filterBy="year" [filter]="true" formControlName="edu_end_year" optionLabel="year" [disabled]="getEduDetailsArray.controls[i]?.get('edu_still_pursuing')?.value"></p-dropdown>
 																	<div *ngIf="eduDetail.get('edu_end_year')?.invalid && eduDetail.get('edu_end_year')?.touched && submitted" class="text-danger text-xs">
-																		<div style="margin-left: 10px">End Year required.</div>
+																		<div>End Year required.</div>
 																	</div>
 																</div>
 															</div>
@@ -533,22 +533,22 @@
 													</div>
 												</div>
 												<div class="col-md-6">
-													<div class="d-flex">
-														<label class="form-label labelFont">Degree</label>
+													<div class="d-flex align-items-center">
+														<label class="uniprep-primarydark fw-bold h6 mb-0">Degree</label>
 														<i class="fa-solid fa-circle-question m-2 uniprep-primary" pTooltip="Please mention the degree or qualification you obtained" tooltipPosition="top"></i>
 													</div>
 													<div class="form-group">
 														<div class="mb-3">
 															<input class="w-100" type="text" placeholder="Your Degree" formControlName="edu_degree" pInputText />
 															<div *ngIf="eduDetail.get('edu_degree')?.invalid && eduDetail.get('edu_degree')?.touched && submitted" class="text-danger text-xs">
-																<div style="margin-left: 10px">Degree required.</div>
+																<div>Degree required.</div>
 															</div>
 														</div>
 													</div>
 												</div>
 												<div class="col-md-6">
-													<div class="d-flex">
-														<label class="form-label labelFont">Location</label>
+													<div class="d-flex align-items-center">
+														<label class="uniprep-primarydark fw-bold h6 mb-0">Location</label>
 														<i class="fa-solid fa-circle-question m-2 uniprep-primary" pTooltip="Specify the location of the educational institution" tooltipPosition="top"></i>
 													</div>
 													<div class="form-group">
@@ -559,28 +559,28 @@
 																	<li *ngFor="let city of filteredExpeAndEduLocations[i]" (click)="selectLocation(city, 'userEduLocation', i)">{{ city.country_name }}</li>
 																</ul>
 																<div *ngIf="eduDetail.get('edu_location')?.invalid && eduDetail.get('edu_location')?.touched && submitted" class="text-danger text-xs">
-																	<div style="margin-left: 10px">Location required.</div>
+																	<div>Location required.</div>
 																</div>
 															</div>
 														</div>
 													</div>
 												</div>
 												<div class="col-md-9">
-													<div class="d-flex">
-														<label class="form-label labelFont">Academic Score</label>
+													<div class="d-flex align-items-center">
+														<label class="uniprep-primarydark fw-bold h6 mb-0">Academic Score</label>
 														<i class="fa-solid fa-circle-question m-2 uniprep-primary" pTooltip="Please provide your GPA or percentage score" tooltipPosition="top"></i>
 													</div>
 													<div class="form-group">
 														<div class="mb-3">
 															<input class="w-100" type="number" placeholder="Achieved Score" formControlName="edu_percentage" pInputText />
 															<div *ngIf="eduDetail.get('edu_percentage')?.invalid && eduDetail.get('edu_percentage')?.touched && submitted" class="text-danger text-xs">
-																<div style="margin-left: 10px">Percentage required.</div>
+																<div>Percentage required.</div>
 															</div>
 														</div>
 													</div>
 												</div>
 												<div class="col-md-3">
-													<label class="form-label labelFont">&nbsp;</label>
+													<label class="uniprep-primarydark fw-bold h6 mb-0">&nbsp;</label>
 													<div class="form-group">
 														<div class="mb-3">
 															<p-dropdown [options]="cgpaPercentage" styleClass="w-100" formControlName="edu_cgpa_percentage" optionLabel="value" optionValue="id"></p-dropdown>
@@ -608,25 +608,25 @@
 										<div [formGroupName]="i">
 											<div class="row">
 												<div class="col-md-6">
-													<label class="form-label labelFont">Project Name</label>
+													<label class="uniprep-primarydark fw-bold h6 mb-0">Project Name</label>
 													<div class="form-group">
 														<div class="mb-3">
 															<input class="w-100" type="text" placeholder="Project Name" formControlName="project_name" pInputText />
 															<div *ngIf="project.get('project_name')?.invalid && project.get('project_name')?.touched && submitted" class="text-danger text-xs">
-																<div style="margin-left: 10px">Project Name required.</div>
+																<div>Project Name required.</div>
 															</div>
 														</div>
 													</div>
 												</div>
 												<div class="col-md-6">
-													<label class="form-label labelFont">project Time </label>
+													<label class="uniprep-primarydark fw-bold h6 mb-0">project Time </label>
 													<div class="row">
 														<div class="col-md-6">
 															<div class="form-group">
 																<div class="mb-3">
 																	<input class="w-100" type="text" placeholder="Start Year" formControlName="project_start_name" pInputText />
 																	<div *ngIf="project.get('project_start_name')?.invalid && project.get('project_start_name')?.touched && submitted" class="text-danger text-xs">
-																		<div style="margin-left: 10px">Start date required.</div>
+																		<div>Start date required.</div>
 																	</div>
 																</div>
 															</div>
@@ -636,7 +636,7 @@
 																<div class="mb-3">
 																	<input class="w-100" type="text" placeholder="End Year" formControlName="project_end_name" pInputText />
 																	<div *ngIf="project.get('project_end_name')?.invalid && project.get('project_end_name')?.touched && submitted" class="text-danger text-xs">
-																		<div style="margin-left: 10px">End date required.</div>
+																		<div>End date required.</div>
 																	</div>
 																</div>
 															</div>
@@ -645,7 +645,7 @@
 												</div>
 												<div class="col-md-12">
 													<div class="d-flex justify-content-between align-items-center">
-														<label class="form-label labelFont">Project Description</label>
+														<label class="uniprep-primarydark fw-bold h6 mb-0">Project Description</label>
 														<!-- <button class="deleteDivButton" (click) = "chatGPTIntegration('project_description', i)" style="background-color: #9bc329;">Generate &nbsp;<i class="fa-solid fa-line-columns trashIcon"  style="background-color: #9bc329;"></i></button> -->
 													</div>
 													<div class="form-group">
@@ -654,7 +654,7 @@
 															<!-- <p-editor formControlName="project_description"
                                                                       placeholder="Project Description"></p-editor> -->
 															<div *ngIf="project.get('project_description')?.invalid && project.get('project_description')?.touched && submitted" class="text-danger text-xs">
-																<div style="margin-left: 10px">Project Description required.</div>
+																<div>Project Description required.</div>
 															</div>
 														</div>
 													</div>
@@ -681,29 +681,29 @@
 									<div [formGroupName]="i">
 										<div class="row">
 											<div class="col-md-6">
-												<div class="d-flex">
-													<label class="form-label labelFont">Certificate Name</label>
+												<div class="d-flex align-items-center">
+													<label class="uniprep-primarydark fw-bold h6 mb-0">Certificate Name</label>
 													<i class="fa-solid fa-circle-question m-2 uniprep-primary" pTooltip="Please enter the name of the certification you received" tooltipPosition="top"></i>
 												</div>
 												<div class="form-group">
 													<div class="mb-3">
 														<input class="w-100" type="text" placeholder="Name" formControlName="certificate_name" pInputText />
 														<div *ngIf="certificate.get('certificate_name')?.invalid && certificate.get('certificate_name')?.touched && submitted" class="text-danger text-xs">
-															<div style="margin-left: 10px">certificate Name required.</div>
+															<div>certificate Name required.</div>
 														</div>
 													</div>
 												</div>
 											</div>
 											<div class="col-md-6">
-												<div class="d-flex">
-													<label class="form-label labelFont">Certificate Issued</label>
+												<div class="d-flex align-items-center">
+													<label class="uniprep-primarydark fw-bold h6 mb-0">Certificate Issued</label>
 													<i class="fa-solid fa-circle-question m-2 uniprep-primary" pTooltip="Please mention the organization or authority that issued the certification" tooltipPosition="top"></i>
 												</div>
 												<div class="form-group">
 													<div class="mb-3">
 														<input class="w-100" type="text" placeholder="Issued Organization" formControlName="certificate_issued" pInputText />
 														<div *ngIf="certificate.get('certificate_issued')?.invalid && certificate.get('certificate_issued')?.touched && submitted" class="text-danger text-xs">
-															<div style="margin-left: 10px">certificate issued required.</div>
+															<div>certificate issued required.</div>
 														</div>
 													</div>
 												</div>
@@ -711,8 +711,8 @@
 										</div>
 										<div class="row">
 											<div class="col-md-6">
-												<div class="d-flex">
-													<label class="form-label labelFont">Certificate ID (Optional)</label>
+												<div class="d-flex align-items-center">
+													<label class="uniprep-primarydark fw-bold h6 mb-0">Certificate ID (Optional)</label>
 													<i class="fa-solid fa-circle-question m-2 uniprep-primary" pTooltip="Please enter the unique ID or code associated with the certificate" tooltipPosition="top"></i>
 												</div>
 												<div class="form-group">
@@ -722,8 +722,8 @@
 												</div>
 											</div>
 											<div class="col-md-6">
-												<div class="d-flex">
-													<label class="form-label labelFont">Certificate Link (Optional)</label>
+												<div class="d-flex align-items-center">
+													<label class="uniprep-primarydark fw-bold h6 mb-0">Certificate Link (Optional)</label>
 													<i class="fa-solid fa-circle-question m-2 uniprep-primary" pTooltip="Please provide a URL where employers can verify your certification" tooltipPosition="top"></i>
 												</div>
 												<div class="form-group">
@@ -756,7 +756,7 @@
 												<div class="mb-3">
 													<input class="w-100" type="text" placeholder="Achievements" formControlName="extra_curricular_activites" pInputText />
 													<div *ngIf="extra.get('extra_curricular_activites')?.invalid && extra.get('extra_curricular_activites')?.touched && submitted" class="text-danger text-xs">
-														<div style="margin-left: 10px">Achievements required.</div>
+														<div>Achievements required.</div>
 													</div>
 												</div>
 											</div>
@@ -800,7 +800,7 @@
 														<div class="mb-3">
 															<p-dropdown [options]="skillProficiency" styleClass="w-100" (onChange)="SortBasedOnProficiency('skills')" placeholder="Proficiency Level" formControlName="skills_proficiency" optionLabel="value" optionValue="id"></p-dropdown>
 															<div *ngIf="skill.get('skills_proficiency')?.invalid && skill.get('skills_proficiency')?.touched" class="text-danger text-xs">
-																<div style="margin-left: 10px">Proficiency Level required.</div>
+																<div>Proficiency Level required.</div>
 															</div>
 														</div>
 													</div>
@@ -843,7 +843,7 @@
 														<div class="mb-3">
 															<p-dropdown [options]="languageProficiency" (onChange)="SortBasedOnProficiency('language')" placeholder="Proficiency Level" styleClass="w-100" formControlName="lang_proficiency" optionLabel="value" optionValue="id"></p-dropdown>
 															<div *ngIf="language.get('lang_proficiency')?.invalid && language.get('lang_proficiency')?.touched && submitted" class="text-danger text-xs">
-																<div style="margin-left: 10px">Language Proficiency required.</div>
+																<div>Language Proficiency required.</div>
 															</div>
 														</div>
 													</div>
