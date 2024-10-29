@@ -1055,3 +1055,75 @@ body {
 	  }	
  }
  
+ .dropdown-list {
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+	max-height: 150px;
+	overflow-y: auto;
+	border: 1px solid #ccc;
+	position: absolute;
+	width: 100%;
+	background-color: white;
+	display: block;
+	z-index: 1001;
+}
+
+.dropdown-list li {
+	padding: 8px;
+	cursor: pointer;
+}
+
+.dropdown-list li:hover {
+	background-color: #f0f0f0;
+}
+
+:host ::ng-deep .p-steps {
+	ul {
+		gap: 2rem;
+		justify-content: center;
+	}
+	.p-highlight {
+		.p-steps-title {
+			font-weight: 700 !important;
+		}
+		.p-steps-number {
+			background: black !important;
+			color: white !important;
+		}
+	}
+	.p-steps-item {
+		flex: 0;
+		.p-menuitem-link {
+			background: transparent;
+			flex-direction: row;
+			justify-content: center;
+			align-items: center;
+			gap: 1rem;
+			.p-steps-title {
+				margin: 0;
+				color: var(--uniprep-primary);
+				font-weight: 600;
+			}
+			.p-steps-number {
+				background: #e5e5e5;
+				border: none;
+				color: var(--uniprep-primary);
+				font-weight: 700;
+			}
+		}
+	}
+	.p-steps-item:before {
+		display: none;
+	}
+}
+
+:host ::ng-deep .p-inputtext {
+	background-color: transparent;
+	border-radius: 8px;
+}
+
+:host ::ng-deep .p-dropdown {
+	background-color: transparent;
+	border-radius: 8px;
+}
