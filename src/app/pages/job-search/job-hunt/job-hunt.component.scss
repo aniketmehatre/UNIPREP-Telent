@@ -1,109 +1,15 @@
-.spanButtons{
-    border: 1px solid grey;
-    padding: 10px;
-    border-radius: 5px;
-}
-
-
-.searchButton{
-    background-color: #EBEDF2;
-    color: #001631 !important;
-    border-radius: 20px !important;
-    border: none;
-    padding: 10px;
-}
-
-.searchIcon {
-	padding: 6px;
-	border-radius: 25px;
-	background-color: #3f4c83;
-	color: white;
-	margin-left: 5px;
-}
-
-::ng-deep .p-inputtext{
-      width:100%;
-}
-img {
-  height: 25px !important;
-  width: 25px !important;
-  margin-right: 10px;
-}
-.headColor{
- color: #3f4c83
-}
-.costofliving-dropdown .p-dropdown {
-  min-width: 100% !important;
-}
-.rounded-input {
-  border-radius: 25px; /* Adjust this value for more or less rounding */
-  width: 100% !important;
-  border: 1px solid var(--uniprep-secondary);
-  padding-left: 2.5rem; /* Ensures the text doesn't overlap with the icon */
-}
-:host ::ng-deep .p-dropdown {
-  width: 100%;
-}
-
-:host ::ng-deep .p-dropdown-label {
-  width: 200px; /* Set your desired fixed width */
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.custom-dropdown .custom-selected-item, .custom-dropdown .custom-dropdown-item {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  max-width: 100%; /* Adjust based on the container's width */
-}
-
-.truncate-text {
-  display: inline-block;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  max-width: 100%; /* Ensure the text doesn't exceed container's width */
-}
-.scrolling-text {
-  display: inline-block;
-  white-space: nowrap;
-  overflow: hidden;
-  position: relative;
-  animation: scrollText 8s linear infinite;
-}
-
-@keyframes scrollText {
-  0% {
-    transform: translateX(100%);
-  }
-  100% {
-    transform: translateX(-100%);
-  }
-}
-
-.input-wrapper {
-  position: relative;
-}
-
 .dropdown-list {
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-  max-height: 180px;
   overflow-y: auto;
-  border: 1px solid #ccc;
   position: absolute;
-  width: 92%;
-  background-color: white;
-  display: block;
-  z-index: 1001;
+  border: 1px solid var(--uniprep-secondary);
+  list-style: none;
+  padding: 0.25rem;
+  border-radius: 20px;
+  width: 96%;
   text-align: left;
-  border-radius: 5%;
+  margin: 0;
+  top: 3.5rem;
+  max-height: 25vh;
 }
 
 .dropdown-list li {
@@ -113,4 +19,43 @@ img {
 
 .dropdown-list li:hover {
   background-color: #f0f0f0;
+}
+
+.dropdown-listc {
+  overflow-y: auto;
+  position: absolute;
+  border: 1px solid var(--uniprep-primary);
+  list-style: none;
+  padding: 0.25rem;
+  border-radius: 20px;
+  width: 96%;
+  text-align: left;
+  margin: 0;
+  top: 3.5rem;
+  max-height: 25vh;
+}
+
+.dropdown-list li {
+  padding: 8px;
+  cursor: pointer;
+}
+
+.dropdown-list li:hover {
+  background-color: #f0f0f0;
+}
+
+
+.dropdownimg {
+  width: 24px;
+  height: 24px;
+  display:flex;
+  justify-content: center;
+  align-items: center;
+  img {
+    height: 100%;
+    width: 100%;
+    border-radius: 100%;
+    border: 2px solid var(--uniprep-primaryop10);
+    object-fit: cover;
+  }
 }

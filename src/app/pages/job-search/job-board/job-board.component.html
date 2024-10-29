@@ -1,33 +1,29 @@
 <div class="row h-100 justify-content-center align-items-center text-center" *ngIf="!isDetailsCardVisible">
   <div class="container-fluid h-100">
-    <div class="row">
-      <div class="col" *ngFor="let status of statuses; let i = index">
-        <h6>
-          <strong>{{ status.label }}({{ getJobsByStatus(status.value).length }})</strong>
-        </h6>
+    <div class="row h-100">
+      <div class="col-xxl-3 col-xl-3 col-lg-6 col-md-6 col-sm-6 col-12 h-100 overflow-y-auto" *ngFor="let status of statuses; let i = index">
+        <h5 class="text-start uniprep-primary fw-bold mb-3">{{ status.label }}({{ getJobsByStatus(status.value).length }})</h5>
         <ng-container *ngFor="let job of getJobsByStatus(status.value)">
-          <div class="card-container bg-light p-3">
-            <div class="card-content">
-              <div class="row p-0 m-0" (click)="onClickCard(job)">
-                <div class="col-10 p-0 m-0">
-                  <p class="company">
-                    <strong> {{ job.job_title || "No Title" }}</strong>
-                  </p>
-                  <p class="company">{{ job.company_name || "No Company" }} · {{ job.location || "No Location" }}</p>
+          <div class="card mb-3">
+            <div class="card-body">
+              <div class="d-flex justify-content-between mb-3">
+                <div>
+                  <h5 class="uniprep-primary text-wrap mb-0 text-start" (click)="onClickCard(job)">{{ job.job_title || "No Title" }}</h5>
+                  <p class="text-start text-small" style="color: lightslategrey">{{ job.company_name || "No Company" }} · {{ job.location || "No Location" }}</p>
                 </div>
-                <div class="col-2 p-0 m-0 text-end" *ngIf="job.country_flag">
+                <div class="text-end" *ngIf="job.country_flag">
                   <img [src]="job.country_flag" alt="logo" class="rounded-image" />
                 </div>
               </div>
-              <div class="row p-0 m-0 mt-2 justify-content-center flex-align-center">
-                <div class="col-6 p-0 m-0">
+              <div class="row align-items-center">
+                <div class="col-md-7 text-start">
                   <p-dropdown [(ngModel)]="job.type" [options]="statuses" placeholder="Status" (onChange)="onStatusChange(job, $event)"></p-dropdown>
                 </div>
-                <div class="col-3 p-0 m-0 text-center item-align-center justify-content-center">
-                  <button class="text-small btn btn-primary btn-rounded px-3" (click)="onClickDetails(job)">Details</button>
+                <div class="col-md-3">
+                  <button class="btn btn-primary btn-rounded w-100" (click)="onClickDetails(job)">Details</button>
                 </div>
-                <div class="col-3 p-0 m-0 text-center item-align-center">
-                  <button type="button" class="btn btn-danger" (click)="onClickDeleteDialog(job)">
+                <div class="col-md-2">
+                  <button type="button" class="btn btn-danger w-100 btn-rounded" (click)="onClickDeleteDialog(job)">
                     <i class="fas fa-trash-alt"></i>
                   </button>
                 </div>
@@ -39,58 +35,29 @@
     </div>
   </div>
 </div>
-<div class="row" *ngIf="isDetailsCardVisible">
-  <div class="card h-100">
-    <div class="card-body">
-      <div class="justify-content-start">
-        <div class="row mt-2 bg-light p-0 m-0">
-          <div class="col-md-6 text-start p-0 m-0">
-            <div class="backIcon">
+<div class="row h-100" *ngIf="isDetailsCardVisible">
+  <div class="d-flex flex-column h-100 w-100 gap-2">
+    <div class="card">
+      <div class="card-body">
+        <div class="d-flex justify-content-between align-items-start">
+          <div class="d-flex gap-3">
+            <div class="backIcon" (click)="goBack()">
               <span class="fa-solid fa-chevron-left"></span>
             </div>
-          </div>
-          <div class="col-md-6 text-end p-0 m-0">
-            <!--                        <div class="backIcon">-->
-            <!--                            <span class="fa-solid fa-chevron-left"></span>-->
-            <!--                        </div>-->
-          </div>
-          <div class="col-9">
-            <h5 class="uniprep-primary text-wrap mb-0">{{ singleData.job_title }}</h5>
-            <h6>{{ singleData.company_name }} · {{ singleData.location }}</h6>
-            <div class="flex-column lh-lg mb-2"></div>
-          </div>
-          <div class="col-3"></div>
-          <div class="col-12" *ngIf="singleData.work_type">
-            <h5>
-              <small>Work Mode: {{ singleData.work_type }}</small>
-            </h5>
-          </div>
-          <div class="col-12" *ngIf="singleData.type">
-            <p>
-              <small>status: {{ singleData.type }}</small>
-            </p>
-          </div>
-          <div class="col-6"></div>
-          <div class="col-6 text-end">
-            <!--                        <h5><small>{{ singleData.list_date | timeAgo }}</small></h5>-->
+            <div class="text-start">
+              <h5 class="uniprep-primary text-wrap mb-0">{{ singleData.job_title }}</h5>
+              <h6>{{ singleData.company_name }} · {{ singleData.location }}</h6>
+              <p *ngIf="singleData.work_type">Work Mode: {{ singleData.work_type }}</p>
+              <p *ngIf="singleData.type">status: {{ singleData.type }}</p>
+            </div>
           </div>
         </div>
-        <!-- <div class="d-flex align-items-center justify-content-between gap-1">
-                                        <button class="text-small btn btn-primary btn-rounded px-5">Details</button>
-                                        <button
-                                            class="text-small btn btn-secondary btn-rounded px-5">Shortlist</button>
-                                        <button class="text-small btn btn-primary btn-rounded px-5">Apply</button>
-                                    </div> -->
       </div>
     </div>
-  </div>
-  <div class="card h-100 mt-2">
-    <div class="card-body">
-      <div class="row mt-2 bg-light">
-        <div class="col-12 fw-bold">Job Description</div>
-        <div class="col-12">
-          <small> {{ singleData.description }}</small>
-        </div>
+    <div class="card h-100">
+      <div class="card-body text-start">
+        <h5>Job Description</h5>
+        <p>{{ singleData.description }}</p>
       </div>
     </div>
   </div>
