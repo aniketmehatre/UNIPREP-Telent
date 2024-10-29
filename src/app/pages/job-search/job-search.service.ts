@@ -19,7 +19,7 @@ export class JobSearchService {
         let params = new HttpParams()
             .set('app_id', this.appId)
             .set('app_key', this.appKey)
-            .set('what_and', query.what_and)
+            .set('what_phrase', query.what_and)
             .set('where', query.where)
             .set('results_per_page', query.result_per_page)
         return this.http.get(`${this.apiUrl}/${query.location}/search/${query.page}`, {params});
@@ -31,7 +31,7 @@ export class JobSearchService {
             .set('app_key', this.appKey);
 
         if (query.what_and) {
-            params = params.set('what_and', query.what_and);
+            params = params.set('what_phrase', query.what_and);
         }
         if (query.result_per_page) {
             params = params.set('results_per_page', query.result_per_page);

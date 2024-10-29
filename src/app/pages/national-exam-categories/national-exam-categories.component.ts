@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NationalExamService } from './national-exam.service';
 import { Router } from '@angular/router';
+import { Location } from "@angular/common"
 
 @Component({
   selector: 'uni-national-exam-categories',
@@ -10,7 +11,7 @@ import { Router } from '@angular/router';
 export class NationalExamCategoriesComponent implements OnInit {
   categories: any;
 
-  constructor(private service: NationalExamService , private router: Router) { }
+  constructor(private service: NationalExamService , private router: Router, private location: Location) { }
 
   ngOnInit(){
 
@@ -19,6 +20,10 @@ export class NationalExamCategoriesComponent implements OnInit {
       });
 
   }
+
+  goToHome(event: any) {
+		this.location.back()
+	}
 
   openTest(id:number){
     // alert(id);

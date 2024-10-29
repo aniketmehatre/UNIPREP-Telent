@@ -14,5 +14,6 @@ export const environment = {
   linkedinId: '86b55xx7n8zomc',
   googleCloud: {
     apiKey: 'AIzaSyCxrgn6ZZL3IsY_3xrSqQJi_3yT_OKr-n0'
-  }
+  },
+  uniApplyUrl: 'http://uniapply.ai/auth/login?redirect=/pages/applications'
 };
