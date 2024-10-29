@@ -35,6 +35,14 @@ export class SalaryConverterComponent implements OnInit {
   imagewhitlabeldomainname: any
   orgnamewhitlabel: any;
   orglogowhitelabel: any;
+  salaries: { satement: string}[] = [
+    { satement: 'Earning INR 50,000 in the India is equivalent to earning INR 1,78,571.43 in the United Arab Emirates.' },
+    { satement: 'Earning INR 70,000 in the India is equivalent to earning INR 2,12,500 in the United Kingdom.' },
+    { satement: 'Earning INR 50,000 the India is equivalent to earning INR 16,071.43 in the Canada.' },
+    { satement: 'Earning INR 70,000 in the India is equivalent to earning INR 1,90,000 in the France.' },
+    { satement: 'Earning INR 1,00,000 in the India is equivalent to earning INR 3,57,142.86 in the United States.' },
+  ]
+  responsiveOptions: { breakpoint: string; numVisible: number; numScroll: number; }[];
   get fromValue() {
     return this.taxData[0];
   }
@@ -45,6 +53,23 @@ export class SalaryConverterComponent implements OnInit {
   constructor(private salaryConverterService: SalaryConverterService, private _location: Location,
               private authService: AuthService, private router: Router, private locationService: LocationService,
               private cdr: ChangeDetectorRef) {
+                this.responsiveOptions = [
+                  {
+                      breakpoint: '1024px',
+                      numVisible: 3,
+                      numScroll: 3
+                  },
+                  {
+                      breakpoint: '768px',
+                      numVisible: 2,
+                      numScroll: 2
+                  },
+                  {
+                      breakpoint: '560px',
+                      numVisible: 1,
+                      numScroll: 1
+                  }
+              ];
   }
 
   ngOnInit(): void {
