@@ -124,7 +124,7 @@
 							<!-- <img src="/src/uniprep-assets/images/icon-light.svg"> -->
 							<img style="width: 50px" src="../../../uniprep-assets/images/icon-light.svg" />
 							<div class="d-flex flex-column">
-								<p>AI</p>
+								<p>UNIPREP AI Advisor</p>
 								<p>{{ chat.created }}</p>
 							</div>
 						</div>
@@ -151,7 +151,7 @@
 			<div class="col-md-12">
 				<div class="p-inputgroup advisorinput">
 					<input type="text" [(ngModel)]="userQuestion" pInputText placeholder="" />
-					<button type="button" (click)="getAns()" class="btn btn-success btn-rounded" pButton pRipple><i class="fa-solid fa-stars"></i> Ask AI Advisor</button>
+					<button type="button" (click)="getAns()" class="btn btn-success btn-rounded" pButton pRipple><i class="fa-solid fa-stars"></i> {{responseType}}</button>
 				</div>
 			</div>
 		</div>

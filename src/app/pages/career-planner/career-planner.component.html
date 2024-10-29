@@ -8,10 +8,14 @@
 			<div class="col-md-6 text-center">
 				<div class="select-title text-nowrap d-flex justify-content-between align-items-center">
 					<div>
-						<h5 class="w-100 mb-0" tooltipPosition="top" pTooltip="Plan your career path by exploring job opportunities worldwide">CAREER PLANNER<i class="questiontooltip fa-solid fa-circle-question"></i></h5>
+						<h5 class="w-100 mb-0" tooltipPosition="top"
+							pTooltip="Plan your career path by exploring job opportunities worldwide">CAREER PLANNER<i
+								class="questiontooltip fa-solid fa-circle-question"></i></h5>
 					</div>
 					<div>
-						<button class="how-it-works-button" (click)="openVideoPopup('https://www.youtube.com/embed/jG3wFxF8zZI?si=2I3dijKIH-aEisoS')">How it works? <i class="fa-solid fa-play"></i></button>
+						<button class="how-it-works-button"
+							(click)="openVideoPopup('https://www.youtube.com/embed/jG3wFxF8zZI?si=2I3dijKIH-aEisoS')">How
+							it works? <i class="fa-solid fa-play"></i></button>
 					</div>
 				</div>
 			</div>
@@ -19,8 +23,12 @@
 				<div class="d-flex gap-1 my-2 align-items-center justify-content-end" *ngIf="enableModule">
 					<label for="exportButton" class="text-small fw-semibold">Currency in</label>
 					<div class="d-flex align-items-center p-1 gap-1 btn-rounded" style="background-color: #ebedf2;">
-						<button class="btn btn-primary btn-rounded text-small" [ngClass]="{ inactiveButton: currencyButtonName == 'inr' }" (click)="toggleClass('Dollar')" type="button">$ Dollar</button>
-						<button class="btn btn-primary text-small btn-rounded" [ngClass]="{ inactiveButton: currencyButtonName == 'Dollar' }" (click)="toggleClass('inr')" type="button">₹ INR</button>
+						<button class="btn btn-primary btn-rounded text-small"
+							[ngClass]="{ inactiveButton: currencyButtonName == 'inr' }" (click)="toggleClass('Dollar')"
+							type="button">$ Dollar</button>
+						<button class="btn btn-primary text-small btn-rounded"
+							[ngClass]="{ inactiveButton: currencyButtonName == 'Dollar' }" (click)="toggleClass('inr')"
+							type="button">₹ INR</button>
 					</div>
 				</div>
 			</div>
@@ -28,7 +36,8 @@
 	</div>
 	<div class="card-body text-center flex-fill overflow-y-auto">
 		<div class="container-fluid h-100" *ngIf="!enableModule">
-			<p-carousel [value]="products" [numVisible]="1" [numScroll]="1" [circular]="false" [showNavigators]="false" [showIndicators]="false" [page]="activePageIndex" *ngIf="!enableModule" styleClass="h-100">
+			<p-carousel [value]="products" [numVisible]="1" [numScroll]="1" [circular]="false" [showNavigators]="false"
+				[showIndicators]="false" [page]="activePageIndex" *ngIf="!enableModule" styleClass="h-100">
 				<ng-template let-product let-i="index" pTemplate="item">
 					<div class="d-flex flex-column h-100 justify-content-between">
 						<div>&nbsp;</div>
@@ -38,39 +47,59 @@
 								<h2 class="fw-bold mb-0">{{ product.question }}</h2>
 							</div>
 							<div class="col-md-4">
-								<div class="recommendationinput text-start d-flex flex-column justify-content-center gap-2">
+								<div
+									class="recommendationinput text-start d-flex flex-column justify-content-center gap-2">
 									<ng-container *ngIf="product.id == 1 || product.id == 4 || product.id == 7">
 										<div *ngFor="let item of arrayMap[product.arrayName]">
 											<div class="card">
 												<div class="card-body">
-													<p-radioButton id="yes_{{ product.id }}" [ngClass]="{ 'ng-invalid ng-dirty': invalidClass === true }" name="selection_{{ product.id }}" [value]="item.id" (onClick)="onClickRadioButton(product.id)" [(ngModel)]="selectedData[product.id]"> </p-radioButton>
-													<label id="yes_{{ product.id }}">&nbsp;&nbsp;{{ item.value }}</label>
+													<p-radioButton id="yes_{{ product.id }}"
+														[ngClass]="{ 'ng-invalid ng-dirty': invalidClass === true }"
+														name="selection_{{ product.id }}" [value]="item.id"
+														(onClick)="onClickRadioButton(product.id)"
+														[(ngModel)]="selectedData[product.id]"> </p-radioButton>
+													<label id="yes_{{ product.id }}">&nbsp;&nbsp;{{ item.value
+														}}</label>
 												</div>
 											</div>
 										</div>
 									</ng-container>
 
 									<ng-container *ngIf="product.id == 2 || product.id == 5 || product.id == 8">
-										<p-dropdown [options]="arrayMap[product.arrayName]" [filter]="true" [(ngModel)]="selectedData[product.id]" optionLabel="subject_name" styleClass="w-100" optionValue="id" [showClear]="true" [placeholder]="product.placeholder"></p-dropdown>
+										<p-dropdown [options]="arrayMap[product.arrayName]" [filter]="true"
+											[(ngModel)]="selectedData[product.id]" optionLabel="subject_name"
+											styleClass="w-100" optionValue="id" [showClear]="true"
+											[placeholder]="product.placeholder"></p-dropdown>
 									</ng-container>
 
 									<ng-container *ngIf="product.id == 3 || product.id == 6 || product.id == 9">
-										<p-multiSelect [options]="arrayMap[product.arrayName]" [filter]="true" styleClass="w-100" [(ngModel)]="selectedData[product.id]" optionValue="id" [showClear]="true" optionLabel="specialisation_name" [placeholder]="product.placeholder" selectedItemsLabel="{} items selected"></p-multiSelect>
+										<p-multiSelect [options]="arrayMap[product.arrayName]" [filter]="true"
+											styleClass="w-100" [(ngModel)]="selectedData[product.id]" optionValue="id"
+											[showClear]="true" optionLabel="specialisation_name"
+											[placeholder]="product.placeholder"
+											selectedItemsLabel="{} items selected"></p-multiSelect>
 									</ng-container>
 
-									<p class="text-center" [ngClass]="{ 'd-none': invalidClass === false }" style="color: red">Please Choose Any one option</p>
+									<p class="text-center" [ngClass]="{ 'd-none': invalidClass === false }"
+										style="color: red">Please Choose Any one option</p>
 								</div>
 							</div>
 						</div>
 						<div class="d-flex justify-content-between">
-							<button pButton type="button" [style.visibility]="product.id == 1 ? 'hidden' : 'visible'" class="btn btn-primary btn-rounded p-1 pe-4" (click)="previous(product.id)">
-								<span class="btn-icon px-2 py-2"><i class="fa fa-arrow-left"></i></span><span class="ms-2">Previous</span>
+							<button pButton type="button" [style.visibility]="product.id == 1 ? 'hidden' : 'visible'"
+								class="btn btn-primary btn-rounded p-1 pe-4" (click)="previous(product.id)">
+								<span class="btn-icon px-2 py-2"><i class="fa fa-arrow-left"></i></span><span
+									class="ms-2">Previous</span>
 							</button>
-							<button pButton type="button" *ngIf="product.id != 9 && !nxtOrRecommendBtn" class="btn btn-primary btn-rounded p-1 ps-4" (click)="next(product.id)">
-								<span class="me-2">Next</span><span class="btn-icon px-2 py-2"><i class="fa fa-arrow-right"></i></span>
+							<button pButton type="button" *ngIf="product.id != 9 && !nxtOrRecommendBtn"
+								class="btn btn-primary btn-rounded p-1 ps-4" (click)="next(product.id)">
+								<span class="me-2">Next</span><span class="btn-icon px-2 py-2"><i
+										class="fa fa-arrow-right"></i></span>
 							</button>
-							<button pButton type="button" *ngIf="product.id == 9 || nxtOrRecommendBtn" class="btn btn-success btn-rounded p-1 ps-4" (click)="getRecommendation(product.id)">
-								<span class="me-2">Get Recommendations</span><span class="btn-icon px-2 py-2"><i class="fa fa-check-circle"></i></span>
+							<button pButton type="button" *ngIf="product.id == 9 || nxtOrRecommendBtn"
+								class="btn btn-success btn-rounded p-1 ps-4" (click)="getRecommendation(product.id)">
+								<span class="me-2">Get Recommendations</span><span class="btn-icon px-2 py-2"><i
+										class="fa fa-check-circle"></i></span>
 							</button>
 						</div>
 					</div>
@@ -80,7 +109,8 @@
 		<div class="container-fluid" *ngIf="enableModule">
 			<div class="card bg-primary mb-3">
 				<div class="card-body">
-					<h5 class="text-white mb-0">We recommended {{ totalRowCount }} job roles based on your specialization, along with average salaries in the top 5 countries.</h5>
+					<h5 class="text-white mb-0">We recommended {{ totalRowCount }} job roles based on your
+						specialization, along with average salaries in the top 5 countries.</h5>
 				</div>
 			</div>
 			<div class="card">
@@ -94,16 +124,20 @@
 								<h5 class="text-center fw-bold uniprep-primary">Top 5 countries for {{ item.key }}</h5>
 							</div>
 						</div>
-						<div class="row justify-content-center mb-3">
-							<div *ngFor="let subItems of item.value" class="col-xxl-2 col-xl-3 col-lg-4 col-md-4 col-sm-6 col-xs-12 col-12 mb-3">
+						<div class="row   mb-3">
+							<div *ngFor="let subItems of item.value"
+								class="col-xxl-2 col-xl-3 col-lg-4 col-md-4 col-sm-6 col-xs-12 col-12 mb-3">
 								<div class="row w-100 m-0 justify-content-center h-100">
 									<div class="card subjectcard">
-										<div class="card-body d-flex flex-column justify-content-between text-center py-2 px-0">
+										<div
+											class="card-body d-flex flex-column justify-content-between text-center py-2 px-0">
 											<div>
 												<div class="careerimage m-auto mb-2">
-													<img alt="{{ subItems.country_name }}" class="img-fluid" src="{{ subItems.storage_path }}country-flags/{{ subItems.flag }}" />
+													<img alt="{{ subItems.country_name }}" class="img-fluid"
+														src="{{ subItems.storage_path }}country-flags/{{ subItems.flag }}" />
 												</div>
-												<h5 class="text-center d-md-block d-none pt-2">{{ subItems.country_name }}</h5>
+												<h5 class="text-center d-md-block d-none pt-2">{{ subItems.country_name
+													}}</h5>
 												<p class="fw-bold text-small">Average Salary</p>
 												<p class="fw-medium mb-2 text-wrap" [ngClass]="{ 'd-none': currencyButtonName == 'inr' }" [ngStyle]="{ 'font-size.px': subItems.salary.length > 19 ? 12 : 15, filter: planExpired ? 'blur(4px)' : 'blur(0px)' }">{{ subItems.salary }}</p>
 												<p class="fw-medium mb-2 text-wrap" [ngClass]="{ 'd-none': currencyButtonName == 'Dollar' }" [ngStyle]="{ 'font-size.px': subItems.salary.length > 19 ? 12 : 15, filter: planExpired ? 'blur(4px)' : 'blur(0px)' }">{{ subItems.inr_salary }}</p>
@@ -113,8 +147,12 @@
 												<div class="d-flex justify-content-center gap-2 my-1">
 													<ng-container *ngFor="let jobs of subItems.job_site_data">
 														<div class="joblogos">
-															<a target="_blank" title="{{ !jobs.job_site_url.startsWith('http://') && !jobs.job_site_url.startsWith('https://') ? 'http://' + jobs.job_site_url : jobs.job_site_url }}" [href]="getHref(jobs.job_site_url)" (click)="handleClick($event)">
-																<img alt="{{ jobs.country }}" class="img-fluid" src="{{ subItems.storage_path }}JobSite/{{ jobs.job_site_logo }}" />
+															<a target="_blank"
+																title="{{ !jobs.job_site_url.startsWith('http://') && !jobs.job_site_url.startsWith('https://') ? 'http://' + jobs.job_site_url : jobs.job_site_url }}"
+																[href]="getHref(jobs.job_site_url)"
+																(click)="handleClick($event)">
+																<img alt="{{ jobs.country }}" class="img-fluid"
+																	src="{{ subItems.storage_path }}JobSite/{{ jobs.job_site_logo }}" />
 															</a>
 														</div>
 													</ng-container>
@@ -136,7 +174,8 @@
 		<div class="row">
 			<div class="col-md-3">&nbsp;</div>
 			<div class="col-md-6">
-				<p-paginator [rows]="perPage" [totalRecords]="totalRowCount" [rowsPerPageOptions]="[30, 40, 50]" (onPageChange)="paginate($event)" dropdownAppendTo="body"></p-paginator>
+				<p-paginator [rows]="perPage" [totalRecords]="totalRowCount" [rowsPerPageOptions]="[30, 40, 50]"
+					(onPageChange)="paginate($event)" dropdownAppendTo="body"></p-paginator>
 			</div>
 			<div class="col-md-3 text-end">
 				<button pButton type="button" class="btn btn-quit btn-rounded" (click)="resetRecommendation()">
@@ -146,11 +185,14 @@
 		</div>
 	</div>
 </div>
-<p-dialog [(visible)]="restrict" [modal]="true" [style]="{ width: '30vw' }" [draggable]="false" [resizable]="false" class="restrictionDialog" [breakpoints]="{ '960px': '30vw', '959px': '60vw', '425px': '90vw' }">
+<p-dialog [(visible)]="restrict" [modal]="true" [style]="{ width: '30vw' }" [draggable]="false" [resizable]="false"
+	class="restrictionDialog" [breakpoints]="{ '960px': '30vw', '959px': '60vw', '425px': '90vw' }">
 	<div class="text-center mt-5 mb-4">
 		<img src="../../../uniprep-assets/images/smartloack.png" class="image" width="60" />
 		<h3 class="offer">Upgrade Required</h3>
 		<p>To access this exclusive module,please upgrade your plan now</p>
-		<button pButton type="button" class="text-white p-ripple p-button-rounded p-button-warning p-button p-component p-2" routerLink="/pages/subscriptions">Upgrade Plan<i class="fa fa-arrow-right exhausted-plan-icon"></i></button>
+		<button pButton type="button"
+			class="text-white p-ripple p-button-rounded p-button-warning p-button p-component p-2"
+			routerLink="/pages/subscriptions">Upgrade Plan<i class="fa fa-arrow-right exhausted-plan-icon"></i></button>
 	</div>
 </p-dialog>

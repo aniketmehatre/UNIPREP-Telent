@@ -7,6 +7,7 @@ import { Router } from '@angular/router';
 import { AuthService } from 'src/app/Auth/auth.service';
 import { UserManagementService } from "../user-management/user-management.service";
 import { LocationService } from 'src/app/location.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'uni-course-list',
@@ -478,6 +479,13 @@ export class CourseListComponent implements OnInit {
       this.getSelectBoxValues();
       this.filterForm.reset();
       this.selectedData = {};
+    });
+  }
+
+  applyToUniversity(countryId:any,universityId: any,intakeMonth:any,programLevel:any,courseName:any,courseLink:any) {
+    this.courseList.registerUniapply().subscribe(response => {
+      const url = `${environment.uniApplyUrl}&countryId=${countryId}&universityId=${universityId}&intakeMonth=${intakeMonth}&programLevel=${programLevel}&courseName=${courseName}&courseLink=${courseLink}`;
+      window.open(url, '_blank');
     });
   }
   

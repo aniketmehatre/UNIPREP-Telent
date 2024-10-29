@@ -20,6 +20,7 @@ userQuestion: any;
   answer: any;
   chatdata: any;
   showSkeleton: boolean = false;
+  responseType: string;
 
   private scrollToBottom(): void {
       try {
@@ -47,6 +48,7 @@ userQuestion: any;
       {question:"Top 10 in-demand jobs in the healthcare industry"},
       {question:"Top 20 government funding opportunities for startups in the UK"},
     ]
+    this.responseType = "Ask AI Advisor"
   }
   pquestion: any | null ;
 
@@ -92,7 +94,8 @@ userQuestion: any;
   }
 
   askExpert(){
-    alert("Our team will get back to you shortly");
+    //alert("Our team will get back to you shortly");
+    this.responseType = " Ask Expert"
   }
 
 }

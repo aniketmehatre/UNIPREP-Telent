@@ -97,4 +97,11 @@ export class CourseListService {
     });
   }
 
+  registerUniapply() {
+    const headers = new HttpHeaders().set("Accept", "application/json");
+    return this.http.post<any>(environment.ApiUrl + "/registeruniapply" ,{
+      headers: headers,
+    });
+  }
+
 }

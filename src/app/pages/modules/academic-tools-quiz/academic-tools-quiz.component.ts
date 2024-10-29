@@ -567,7 +567,7 @@ export class AcademicToolsQuizComponent implements OnInit {
       this.moduelName = res.data.find(item => item.id === Number(this.quizId))?.submodule_name as string;
     });
   }
-  startQuiz(){
+  startQuiz() {
     let cName = "";
     this.dataService.countryNameSource.subscribe(countryName => {
       cName = countryName;
@@ -619,5 +619,12 @@ export class AcademicToolsQuizComponent implements OnInit {
       }
       this.runQuiz();
     })
+  }
+  goBack() {
+    if (window.history.length > 1) {
+      this.location.back();
+    } else {
+      this.router.navigate(['/pages/modules/academic-tools']);
+    }
   }
 }
