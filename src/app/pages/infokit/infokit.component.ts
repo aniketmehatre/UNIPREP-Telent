@@ -47,8 +47,10 @@ export class InfoKitComponent implements OnInit {
   planExpired!: boolean;
   restrict: boolean = false;
   searchText: any;
-  originalFolderLists: any[] = [];
-  originalFileLists: any[];
+  // originalFolderLists: any[] = [];
+  // originalFileLists: any[];
+  allFoldersAndFiles: any[] = [];
+  filteredFiles: any[] = [];
   constructor(
     private fb: FormBuilder,
     private service: InformationService,
@@ -86,6 +88,12 @@ export class InfoKitComponent implements OnInit {
       perpage: 10,
     };
     this.getFolderData();
+    this.getFileteredData();
+  }
+  getFileteredData(){
+    this.service.getAllFolderAndFiles().subscribe(res =>{
+      this.allFoldersAndFiles = res;
+    });
   }
   getFolderData() {
     this.searchText = '';
@@ -100,22 +108,37 @@ export class InfoKitComponent implements OnInit {
         this.parentfilelists = responseData.filter(
           (fdata: any) => fdata.isFolder == 2
         );
-        this.originalFolderLists = [...this.parentfolderlists];
-        this.originalFileLists = [...this.parentfilelists];
+        // this.originalFolderLists = [...this.parentfolderlists];
+        // this.originalFileLists = [...this.parentfilelists];
       });
   }
   filterLists() {
-    if (this.searchText.trim().length > 0) {
-      this.parentfolderlists = this.originalFolderLists.filter((folder) =>
-        folder.name.toLowerCase().includes(this.searchText.toLowerCase())
-      );
-      this.parentfilelists = this.originalFileLists.filter((file) =>
-        file.name.toLowerCase().includes(this.searchText.toLowerCase())
-      );
-    } else {
-      this.parentfolderlists = [...this.originalFolderLists];
-      this.parentfilelists = [...this.originalFileLists];
+    if(this.searchText.length > 1){
+      this.filteredFiles = this.allFoldersAndFiles.filter((file:any) => {
+        if(file.isFolder == 1){
+          file.icon_path = file.img_path
+        }else{
+          file.icon_path = "../../../uniprep-assets/images/pdf.svg";
+        }
+        return file.name.toLowerCase().includes(this.searchText.toLowerCase())
+      });
+    }else{
+      this.filteredFiles = [];
     }
+    
+    console.log(this.filteredFiles, "file output");
+    // console.log(this.filteredFiles, "filter files");
+    // if (this.searchText.trim().length > 0) {
+    //   this.parentfolderlists = this.originalFolderLists.filter((folder) =>
+    //     folder.name.toLowerCase().includes(this.searchText.toLowerCase())
+    //   );
+    //   this.parentfilelists = this.originalFileLists.filter((file) =>
+    //     file.name.toLowerCase().includes(this.searchText.toLowerCase())
+    //   );
+    // } else {
+    //   this.parentfolderlists = [...this.originalFolderLists];
+    //   this.parentfilelists = [...this.originalFileLists];
+    // }
   }
   pageChange(event: any) {
     if (this.planExpired) {
@@ -141,6 +164,8 @@ export class InfoKitComponent implements OnInit {
       path: "country",
     });
     this.getFolderData();
+    this.filteredFiles = [];
+    this.searchText = "";
   }
   actionedrouteData: any = [];
   redirectTo(path: any, arrayindex: number) {
@@ -169,6 +194,8 @@ export class InfoKitComponent implements OnInit {
       return;
     }
     window.open(url, "_blank");
+    this.filteredFiles = [];
+    this.searchText = "";
   }
 
   upgradePlan(): void {

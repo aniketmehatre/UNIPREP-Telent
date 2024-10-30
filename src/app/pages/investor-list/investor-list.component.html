@@ -27,7 +27,7 @@
                   <h5 class="uniprep-primary fw-semibold mb-0">Question Number {{ recommendation.id }}</h5>
                   <h2 class="fw-bold mb-0">{{ recommendation.question }}</h2>
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-9">
                   <ng-container *ngIf="recommendation.id == 1">
                     <div class="cube-container gap-3">
                       <div *ngFor="let cube of investorType" class="cube" (click)="selectCube(1, cube.id)" [ngClass]="{ selected: selectedData[1]?.includes(cube.id) }">
@@ -80,103 +80,89 @@
         <!-- <div class="col-md-6 text-center">
 						<h5 class="select-title mb-1" tooltipPosition="top" pTooltip="Investor List">INVESTOR LIST</h5>
 					</div> -->
-        <div class="col-xxl-6 col-xl-6 col-lg-4 col-md-4 col-sm-4 col-xs-12 col-12 text-center">
-          <div class="select-title text-nowrap d-flex justify-content-between align-items-center">
-            <div>
-              <h5 class="w-100 mb-0" tooltipPosition="top" pTooltip="Investor List">INVESTOR LIST<i class="questiontooltip fa-solid fa-circle-question"></i></h5>
-            </div>
-            <div>
-              <button class="how-it-works-button" (click)="openVideoPopup('https://www.youtube.com/embed/dVAzK2cBCyA?si=ApmnymiuiK0wOgwv')">&nbsp;How it works? &nbsp;&nbsp;<i class="fa-solid fa-play"></i></button>
-            </div>
-          </div>
-        </div>
-        <div class="col-xxl-3 col-xl-3 col-lg-4 col-md-4 col-sm-4 col-xs-12 col-12 text-end">
-          <span class="d-flex justify-content-end mt-3 gap-2">
-            <button class="btn btn-primary btn-rounded text-small" (click)="investorGuidlines()" type="button">Investor Guidelines</button>
-            <button *ngIf="ehitlabelIsShow" class="btn btn-secondary btn-rounded text-small" (click)="buyCredits()" type="button">Buy Credits</button>
-            <button class="btn btn-primary text-small exportButton" (click)="exportData()" type="button">
-              Export <span class="exportCount">{{ exportCreditCount }}</span>
-            </button>
-          </span>
-        </div>
-        <div class="col-md-12">
-          <div class="d-flex justify-content-between">
-            <div>
-              <span class="d-flex justify-content-start p-2" style="white-space: nowrap">
-                <input type="checkbox" class="me-0" [(ngModel)]="selectAllCheckboxes" (click)="selectAllCheckbox()" id="selectAllcheckbox" />
-                <label class="p-2 fw-semibold" for="selectAllcheckbox" style="cursor: pointer">Select All</label>
-                <span class="p-2 fw-semibold">Selected : {{ selectedInvestors }}</span>
-                <button class="btn btn-primary btn-rounded text-small" (click)="viewFavourites()" type="button">
-                  {{ viewFavouritesLabel }}<span class="ms-2" *ngIf="viewFavouritesLabel != 'View All'">({{ favCount }})</span>
-                </button>
-              </span>
-            </div>
-            <div class="d-flex align-items-center justify-content-end p-2 gap-2">
-              <button class="btn btn-secondary btn-rounded text-small" (click)="openReport()" type="button">Report</button>
-              <button class="btn btn-primary btn-rounded text-small" (click)="filterBy()" type="button">Filter by</button>
-              <div class="pe-2">
-                <span class="text-muted text-small"
-                  ><strong>Total Investors : {{ totalInvestorsCount }}</strong></span
-                >
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="card-body text-center flex-fill overflow-y-auto" *ngIf="!restrict">
-      <div class="row">
-        <div *ngFor="let investorListData of investorData" class="col-md-3 col-12 mb-3">
-          <div class="card subjectcard h-100">
-            <div class="card-body d-flex flex-column justify-content-between">
-              <div class="d-flex justify-content-between align-items-start mb-3">
-                <div class="d-flex gap-2 align-items-start">
-                  <input type="checkbox" (change)="onCheckboxChange($event)" [(ngModel)]="investorListData.isChecked" />
-                  <h5 class="uniprep-primary text-start mb-0" title="Investor Name">{{ investorListData.org_name }}</h5>
-                </div>
-                <i class="text-danger" role="button" [class]="investorListData.favourite == 1 ? 'fa-solid fa-bookmark' : 'fa-regular fa-bookmark'" (click)="bookmarkQuestion(investorListData.id, investorListData.favourite)"></i>
-              </div>
-              <div>
-                <div class="d-flex gap-5 align-items-center">
-                  <div class="d-flex gap-2 align-items-center" title="Inverstor Country">
-                    <i class="fa-solid fa-location-dot locationicon" aria-hidden="true"></i>
-                    <p class="text-small mb-0">{{ investorListData.country }}</p>
-                  </div>
-                  <div class="d-flex gap-2 align-items-center" title="Investor Headquarters">
-                    <i class="fa-solid fa-building countryicon" aria-hidden="true"></i>
-                    <p class="text-small mb-0">{{ investorListData.head_quarters }}</p>
-                  </div>
-                </div>
-                <div class="d-flex mt-2 gap-5 align-items-center justify-content-between">
-                  <div class="d-flex gap-2 align-items-center" title="Investor Type">
-                    <i class="fa-solid fa-list investoricon" aria-hidden="true"></i>
-                    <p class="text-small text-break mb-0">{{ investorListData.investor_type }}</p>
-                  </div>
-                  <div class="gap-3 d-flex justify-content-end">
-                    <div *ngIf="investorListData.website && investorListData.website.trim() !== ''">
-                      <a target="_blank" href="{{ !investorListData.website.startsWith('http://') && !investorListData.website.startsWith('https://') ? 'http://' + investorListData.website : investorListData.website }}"><i class="fa-solid fa-globe pr-2"></i></a>
-                    </div>
-                    <div *ngIf="investorListData.email && investorListData.email.trim() !== ''">
-                      <a target="_blank" href="mailto:{{ investorListData.email }}"><i class="fa-solid fa-envelope mailicon pr-2"></i></a>
-                    </div>
-                    <div *ngIf="investorListData.linked_in && investorListData.linked_in.trim() !== ''">
-                      <a target="_blank" href="{{ investorListData.linked_in }}"><i class="fa-brands fa-linkedin uniprep-primary"></i></a>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div *ngIf="totalInvestorsCount == 0" class="text-center margin-auto">
-        <h3>No Results Found</h3>
-        <p>
-          The applied filter did not provide any results,<br />
-          please try again by changing the parameters.
-        </p>
-      </div>
-    </div>
+				<div class="col-md-6 text-center">
+					<div class="select-title text-nowrap d-flex justify-content-between align-items-center">
+						<div>
+							<h5 class="w-100 mb-0" tooltipPosition="top" pTooltip="Investor List">INVESTOR LIST<i class="questiontooltip fa-solid fa-circle-question"></i></h5>
+						</div>
+						<div>
+							<button class="how-it-works-button" (click)="openVideoPopup('https://www.youtube.com/embed/dVAzK2cBCyA?si=ApmnymiuiK0wOgwv')">&nbsp;How it works? &nbsp;&nbsp;<i class="fa-solid fa-play"></i></button>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-3 text-end">
+					<span class="d-flex justify-content-end mt-3 gap-2" style="white-space: nowrap">
+						<button class="btn btn-primary btn-rounded text-small" (click)="investorGuidlines()" type="button">Investor Guidelines</button>
+						<button *ngIf="ehitlabelIsShow" class="btn btn-secondary btn-rounded text-small" (click)="buyCredits()" type="button">Buy Credits</button>
+						<button class="btn btn-primary text-small exportButton" (click)="exportData()" type="button">
+							Export <span class="exportCount">{{ exportCreditCount }}</span>
+						</button>
+					</span>
+					<div class="d-flex w-100 align-items-center justify-content-end p-2 gap-2" style="white-space: nowrap">
+						<button class="btn btn-secondary btn-rounded text-small" (click)="openReport()" type="button">Report</button>
+						<button class="btn btn-primary btn-rounded text-small" (click)="filterBy()" type="button">Filter by</button>
+						<div class="pe-2">
+							<span class="text-muted text-small"
+								><strong>Total Investors : {{ totalInvestorsCount }}</strong></span
+							>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="card-body text-center flex-fill overflow-y-auto" *ngIf="!restrict">
+			<div class="row">
+				<div *ngFor="let investorListData of investorData" class="col-md-3 col-12 mb-3">
+					<div class="card subjectcard h-100">
+						<div class="card-body d-flex flex-column justify-content-between">
+							<div class="d-flex justify-content-between align-items-start mb-3">
+								<div class="d-flex gap-2 align-items-start">
+									<input type="checkbox" (change)="onCheckboxChange($event)" [(ngModel)]="investorListData.isChecked" />
+									<h5 class="uniprep-primary text-start mb-0" title="Investor Name">{{ investorListData.org_name }}</h5>
+								</div>
+								<i class="text-danger" role="button" [class]="investorListData.favourite == 1 ? 'fa-solid fa-bookmark' : 'fa-regular fa-bookmark'" (click)="bookmarkQuestion(investorListData.id, investorListData.favourite)"></i>
+							</div>
+							<div>
+								<div class="d-flex gap-5 align-items-center">
+									<div class="d-flex gap-2 align-items-center" title="Inverstor Country">
+										<i class="fa-solid fa-location-dot locationicon" aria-hidden="true"></i>
+										<p class="text-small mb-0">{{ investorListData.country }}</p>
+									</div>
+									<div class="d-flex gap-2 align-items-center" title="Investor Headquarters">
+										<i class="fa-solid fa-building countryicon" aria-hidden="true"></i>
+										<p class="text-small mb-0">{{ investorListData.head_quarters }}</p>
+									</div>
+								</div>
+								<div class="d-flex mt-2 gap-5 align-items-center justify-content-between">
+									<div class="d-flex gap-2 align-items-center" title="Investor Type">
+										<i class="fa-solid fa-list investoricon" aria-hidden="true"></i>
+										<p class="text-small text-break mb-0">{{ investorListData.investor_type }}</p>
+									</div>
+									<div class="gap-3 d-flex justify-content-end">
+										<div *ngIf="investorListData.website && investorListData.website.trim() !== ''">
+											<a target="_blank" href="{{ !investorListData.website.startsWith('http://') && !investorListData.website.startsWith('https://') ? 'http://' + investorListData.website : investorListData.website }}"><i class="fa-solid fa-globe pr-2"></i></a>
+										</div>
+										<div *ngIf="investorListData.email && investorListData.email.trim() !== ''">
+											<a target="_blank" href="mailto:{{ investorListData.email }}"><i class="fa-solid fa-envelope mailicon pr-2"></i></a>
+										</div>
+										<div *ngIf="investorListData.linked_in && investorListData.linked_in.trim() !== ''">
+											<a target="_blank" href="{{ investorListData.linked_in }}"><i class="fa-brands fa-linkedin uniprep-primary"></i></a>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div *ngIf="totalInvestorsCount == 0" class="text-center margin-auto">
+				<h3>No Results Found</h3>
+				<p>
+					The applied filter did not provide any results,<br />
+					please try again by changing the parameters.
+				</p>
+			</div>
+		</div>
 
     <!-- <p-paginator *ngIf="totalInvestorsCount != 0" [rows]="pageSize" [totalRecords]="totalInvestorsCount" (onPageChange)="pageChange($event)" [rowsPerPageOptions]="[50, 100, 300, 500, 1000]"></p-paginator> -->
     <div class="card-footer border-0 bg-transparent">
