@@ -8,6 +8,8 @@ import { DataService } from "../../../data.service";
 import { LocationService } from "../../../location.service";
 import { AuthService } from 'src/app/Auth/auth.service';
 import { NgxUiLoaderService } from "ngx-ui-loader";
+import { Location } from '@angular/common';
+
 
 @Component({
   selector: 'uni-quiz',
@@ -64,7 +66,7 @@ export class QuizComponent implements OnInit {
   orgnamewhitlabel: any;
   orglogowhitelabel: any;
   constructor(private moduleListService: ModuleServiceService, private authService: AuthService, private router: Router, private dataService: DataService,
-    private locationService: LocationService, private ngxService: NgxUiLoaderService, private toast: MessageService,) { }
+    private locationService: LocationService, private ngxService: NgxUiLoaderService, private toast: MessageService,private location: Location) { }
 
   ngOnInit(): void {
     this.locationService.getImage().subscribe(imageUrl => {
@@ -514,6 +516,13 @@ export class QuizComponent implements OnInit {
   stopTimer(): void {
     if (this.timerSubscription) {
       this.timerSubscription.unsubscribe();
+    }
+  }
+  goBack() {
+    if (window.history.length > 1) {
+      this.location.back();
+    } else {
+      this.router.navigate(['/pages/modules/quizmodule']);
     }
   }
 }
