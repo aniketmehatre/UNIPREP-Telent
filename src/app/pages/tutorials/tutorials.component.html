@@ -1,43 +1,45 @@
 <div class="card readingcard">
-	<div class="card-body pt-0">
-		<div class="row justify-content-center">
-			<div class="col-md-2 text-start"></div>
-			<div class="col-md-8 text-center">
-				<h5 class="select-title mb-1" tooltipPosition="top" pTooltip="Learn new skills and concepts through step-by-step tutorials in a variety of subjects.">TUTORIALS<i class="questiontooltip fa-solid fa-circle-question"></i></h5>
-			</div>
-			<div class="col-md-2"></div>
-		</div>
-		<div class="container-fluid">
-			<div class="row">
-				<div class="col-md-3 col-12" *ngFor="let tutorial of tutoriallist">
-					<div class="text-decoration-none text-white" role="button" (click)="openVideoPopup(tutorial.link)">
-						<div class="card my-2 position-relative tutcard">
-							<div class="tutgradient"></div>
-							<img src="{{ tutorial.coverimage }}" />
-							<div class="tutorialcontent">
-								<h5 class="mb-0 text-white">{{ tutorial.title }}</h5>
-								<p class="mb-0 text-white small" title="{{ tutorial.description }}">{{ tutorial.description.length > 35 ? tutorial.description.slice(0, 35) + "..." : tutorial.description }}</p>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
+  <div class="card-header py-0 border-0 bg-transparent">
+    <div class="row justify-content-center">
+      <div class="col-md-2 text-start"></div>
+      <div class="col-md-8 text-start">
+        <h5 class="select-title mb-1" tooltipPosition="top" pTooltip="Learn new skills and concepts through step-by-step tutorials in a variety of subjects.">TUTORIALS<i class="questiontooltip fa-solid fa-circle-question"></i></h5>
+      </div>
+      <div class="col-md-2"></div>
+    </div>
+  </div>
+  <div class="card-body flex-fill overflow-y-auto">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-3 col-12" *ngFor="let tutorial of tutoriallist">
+          <div class="text-decoration-none text-white" role="button" (click)="openVideoPopup(tutorial.link)">
+            <div class="card my-2 position-relative tutcard">
+              <div class="tutgradient"></div>
+              <img src="{{ tutorial.coverimage }}" />
+              <div class="tutorialcontent">
+                <h5 class="mb-0 text-white">{{ tutorial.title }}</h5>
+                <p class="mb-0 text-white small" title="{{ tutorial.description }}">{{ tutorial.description.length > 35 ? tutorial.description.slice(0, 35) + "..." : tutorial.description }}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 <!-- Bootstrap Modal Markup -->
 <div class="modal" tabindex="-1" role="dialog" [ngClass]="{ 'd-block': showVideoPopup }" (click)="closeVideoPopup()">
-	<div class="modal-dialog modal-xl modal-dialog-centered" role="document">
-		<div class="modal-content">
-			<div class="modal-body position-relative pt-4">
-				<div class="modalbuttons">
-					<div class="d-flex gap-2">
-						<button title="New Window" type="button" class="btn btn-primary btn-rounded" (click)="openNextVideo()"><i class="fa-solid fa-arrow-up-right-from-square"></i></button>
-						<button type="button" title="Close Popup" class="btn btn-primary btn-rounded" (click)="closeVideoPopup()"><i class="fa-solid fa-xmark"></i></button>
-					</div>
-				</div>
-				<div class="embed-responsive"><iframe #videoFrame [src]="selectedVideoLink" width="100%" frameborder="0" allowfullscreen></iframe></div>
-			</div>
-		</div>
-	</div>
+  <div class="modal-dialog modal-xl modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-body position-relative pt-4">
+        <div class="modalbuttons">
+          <div class="d-flex gap-2">
+            <button title="New Window" type="button" class="btn btn-primary btn-rounded" (click)="openNextVideo()"><i class="fa-solid fa-arrow-up-right-from-square"></i></button>
+            <button type="button" title="Close Popup" class="btn btn-primary btn-rounded" (click)="closeVideoPopup()"><i class="fa-solid fa-xmark"></i></button>
+          </div>
+        </div>
+        <div class="embed-responsive"><iframe #videoFrame [src]="selectedVideoLink" width="100%" frameborder="0" allowfullscreen></iframe></div>
+      </div>
+    </div>
+  </div>
 </div>
