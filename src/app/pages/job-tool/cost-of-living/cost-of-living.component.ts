@@ -31,11 +31,15 @@ export class CostOfLivingComponent implements OnInit {
   sourcecountryName: string = '';
   sourceCountry: string = '';
   targetCountry: string = '';
-  costofLiving: { sourceRate: string, sourceCountry: string, targetRate: string, targetCountry: string }[] = [
-    { sourceRate: '1,14,288', sourceCountry: 'United Arab Emirates', targetRate: '97,100.12', targetCountry: 'United Kingdom' },
-    { sourceRate: '1,14,288', sourceCountry: 'United Arab Emirates', targetRate: '97,100.12', targetCountry: 'United Kingdom' },
-    { sourceRate: '1,14,288', sourceCountry: 'United Arab Emirates', targetRate: '97,100.12', targetCountry: 'United Kingdom' }
-  ]
+  costofLivingStatements: { statement: string }[] = [
+    { statement: 'The Cost of Living In United Arab Emirates is 124.56% greater than in India.' },
+    { statement: 'The Cost of Living In United States is 131.62% greater than in India.' },
+    { statement: 'The Cost of Living In France is 154.50% greater than in India.' },
+    { statement: 'The Cost of Living In United Kingdom is 129.89% greater than in India.' },
+    { statement: 'The Cost of Living In Australia is 95.44% greater than in India.' },
+  ];
+  responsiveOptions: { breakpoint: string; numVisible: number; numScroll: number; }[];
+
   constructor(
     private fb: FormBuilder, private locationService: LocationService,
     private costOfLivingService: CostOfLivingService, private router: Router, private authService: AuthService,

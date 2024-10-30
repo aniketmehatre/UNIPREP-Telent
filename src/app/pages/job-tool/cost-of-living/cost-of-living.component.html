@@ -6,97 +6,116 @@
 		<div class="col-md-10">
 			<form [formGroup]="form" (ngSubmit)="compare()" class="row justify-content-center">
 				<div class="col-md-5">
-					<p-dropdown [options]="sourceCities" optionValue="city_id" formControlName="sourceCity" placeholder="Source Location or Country" [filter]="true" [virtualScroll]="true" [virtualScrollItemSize]="50" [showClear]="true" [appendTo]="'body'" styleClass="w-100 border-secondary">
+					<p-dropdown [options]="sourceCities" optionValue="city_id" formControlName="sourceCity"
+						placeholder="Source Location or Country" [filter]="true" [virtualScroll]="true"
+						[virtualScrollItemSize]="50" [showClear]="true" [appendTo]="'body'"
+						styleClass="w-100 border-secondary">
 						<ng-template pTemplate="filter" let-options="options">
 							<div class="d-flex gap-2">
 								<div class="p-inputgroup" (click)="$event.stopPropagation()">
 									<span class="p-inputgroup-addon"><i class="pi pi-search"></i></span>
-									<input type="text" pInputText placeholder="Filter" formControlName="sourceFilter" (keyup)="customFilterFunction('source')" />
+									<input type="text" pInputText placeholder="Filter" formControlName="sourceFilter"
+										(keyup)="customFilterFunction('source')" />
 								</div>
-								<button pButton icon="pi pi-times" class="btn btn-primary" (click)="resetFunction('source')" severity="secondary"></button>
+								<button pButton icon="pi pi-times" class="btn btn-primary"
+									(click)="resetFunction('source')" severity="secondary"></button>
 							</div>
 						</ng-template>
 						<ng-template pTemplate="selectedItem" let-selectedOption>
 							<div class="d-flex align-items-center gap-2">
 								<div class="dropdownimg"><img [src]="selectedOption.flag" class="img-fluid" /></div>
 								<div>
-									<span *ngIf="selectedOption.city_name !== null">{{ selectedOption.city_name }}, </span>{{ selectedOption.country_name }}
+									<span *ngIf="selectedOption.city_name !== null">{{ selectedOption.city_name }},
+									</span>{{ selectedOption.country_name }}
 								</div>
 							</div>
 						</ng-template>
 						<ng-template let-country pTemplate="item">
 							<div class="d-flex align-items-center gap-2" (click)="cityChange('source', country)">
-								<div class="dropdownimg"><img [src]="country.flag" class="img-fluid"  /></div>
+								<div class="dropdownimg"><img [src]="country.flag" class="img-fluid" /></div>
 								<div>
-									<span *ngIf="country.city_name !== null">{{ country.city_name }}, </span>{{ country.country_name }}
+									<span *ngIf="country.city_name !== null">{{ country.city_name }}, </span>{{
+									country.country_name }}
 								</div>
 							</div>
 						</ng-template>
 					</p-dropdown>
 				</div>
 				<div class="col-md-5">
-					<p-dropdown [options]="targetCities" optionValue="city_id" formControlName="targetCity" placeholder="Target Location or Country" [filter]="true" [virtualScroll]="true" [virtualScrollItemSize]="50" [showClear]="true" [appendTo]="'body'" styleClass="w-100 border-primary">
+					<p-dropdown [options]="targetCities" optionValue="city_id" formControlName="targetCity"
+						placeholder="Target Location or Country" [filter]="true" [virtualScroll]="true"
+						[virtualScrollItemSize]="50" [showClear]="true" [appendTo]="'body'"
+						styleClass="w-100 border-primary">
 						<ng-template pTemplate="filter" let-options="options">
 							<div class="d-flex gap-2">
 								<div class="p-inputgroup" (click)="$event.stopPropagation()">
 									<span class="p-inputgroup-addon"><i class="pi pi-search"></i></span>
-									<input type="text" pInputText placeholder="Filter" formControlName="targetFilter" (keyup)="customFilterFunction('target')" />
+									<input type="text" pInputText placeholder="Filter" formControlName="targetFilter"
+										(keyup)="customFilterFunction('target')" />
 								</div>
-								<button pButton icon="pi pi-times" class="btn btn-primary" (click)="resetFunction('target')" severity="secondary"></button>
+								<button pButton icon="pi pi-times" class="btn btn-primary"
+									(click)="resetFunction('target')" severity="secondary"></button>
 							</div>
 						</ng-template>
 						<ng-template pTemplate="selectedItem" let-selectedOption>
 							<div class="d-flex align-items-center gap-2">
-								<div class="dropdownimg"><img [src]="selectedOption.flag" class="img-fluid"/></div>
+								<div class="dropdownimg"><img [src]="selectedOption.flag" class="img-fluid" /></div>
 								<div>
-									<span *ngIf="selectedOption.city_name !== null">{{ selectedOption.city_name }}, </span>{{ selectedOption.country_name }}
+									<span *ngIf="selectedOption.city_name !== null">{{ selectedOption.city_name }},
+									</span>{{ selectedOption.country_name }}
 								</div>
 							</div>
 						</ng-template>
 						<ng-template let-country pTemplate="item">
 							<div class="d-flex align-items-center gap-2" (click)="cityChange('target', country)">
-								<div class="dropdownimg"><img [src]="country.flag" class="img-fluid"/></div>
+								<div class="dropdownimg"><img [src]="country.flag" class="img-fluid" /></div>
 								<div>
-									<span *ngIf="country.city_name !== null">{{ country.city_name }}, </span>{{ country.country_name }}
+									<span *ngIf="country.city_name !== null">{{ country.city_name }}, </span>{{
+									country.country_name }}
 								</div>
 							</div>
 						</ng-template>
 					</p-dropdown>
 				</div>
 				<div class="col">
-					<button class="btn btn-primary btn-rounded d-flex gap-2 align-items-center" type="submit" [disabled]="form.value.sourceCity === null || form.value.targetCity === null"><span>Compare</span> <span class="btn-icon"><i class="pi pi-sync"></i></span></button>
+					<button class="btn btn-primary btn-rounded d-flex gap-2 align-items-center" type="submit"
+						[disabled]="form.value.sourceCity === null || form.value.targetCity === null"><span>Compare</span>
+						<span class="btn-icon"><i class="pi pi-sync"></i></span></button>
 				</div>
 			</form>
 		</div>
 	</div>
 </div>
 <ng-container *ngIf="!canShowComparision">
-    <div class="uniprep-primary h2  text-center fw-bold">
-        Did you know ?
-    </div>
-    <br>
-    <div class="d-flex justify-content-between gap-3 mx-2">
-        <div class="card costofliving-card" *ngFor="let cost of costofLiving">
-            <div class="card-body">
-                Earning <span class="fw-semibold">INR {{cost?.sourceRate}}</span> in <span
-                    class="fw-semibold">{{cost?.sourceCountry}}</span> is equivalent to earning <span
-                    class="fw-semibold">INR {{cost?.targetRate}}</span> in the <span
-                    class="fw-semibold">{{cost?.targetCountry}}</span>.
-            </div>
-        </div>
-    </div>
-
+	<div class="uniprep-primary h2  text-center fw-bold">
+		Did you know ?
+	</div>
+	<br>
+	<p-carousel [value]="costofLivingStatements" [numVisible]="3" [autoplayInterval]="5000" [circular]="true" [showNavigators]="false"
+		[showIndicators]="false" [responsiveOptions]="responsiveOptions">
+		<ng-template let-cost pTemplate="item">
+			<div class="card h-100 costofliving-card m-2">
+				<div class="card-body">
+					<p class="fw-semibold">{{ cost.statement }}</p>
+				</div>
+			</div>
+		</ng-template>
+	</p-carousel>
 </ng-container>
 <div class="mt-4" *ngIf="canShowComparision">
-    <uni-comparision [sourceCountryPrices]="sourceCountryPrices" [targetCountryPrices]="targetCountryPrices"
-        [sourcecountryName]="sourcecountryName" [targetcountryName]="targetcountryName"></uni-comparision>
+	<uni-comparision [sourceCountryPrices]="sourceCountryPrices" [targetCountryPrices]="targetCountryPrices"
+		[sourcecountryName]="sourcecountryName" [targetcountryName]="targetcountryName"></uni-comparision>
 </div>
-<p-dialog [(visible)]="restrict" [modal]="true" [style]="{ width: '30vw' }" [draggable]="false" [resizable]="false" class="restrictionDialog" [breakpoints]="{ '960px': '30vw', '959px': '60vw', '425px': '90vw' }" (onHide)="clearRestriction()">
+<p-dialog [(visible)]="restrict" [modal]="true" [style]="{ width: '30vw' }" [draggable]="false" [resizable]="false"
+	class="restrictionDialog" [breakpoints]="{ '960px': '30vw', '959px': '60vw', '425px': '90vw' }"
+	(onHide)="clearRestriction()">
 	<div *ngIf="!ehitlabelIsShow" class="text-center mt-5 mb-4">
 		<img src="../../../uniprep-assets/images/smartloack.png" class="image" width="60" />
 		<h3 class="offer">Upgrade Required</h3>
 		<p>To access this exclusive module,please upgrade your plan now</p>
-		<button pButton type="button" class="text-white p-ripple p-button-rounded p-button-warning p-button p-component p-2" (click)="upgradePlan()">Upgrade Plan<i class="fa fa-arrow-right exhausted-plan-icon"></i></button>
+		<button pButton type="button"
+			class="text-white p-ripple p-button-rounded p-button-warning p-button p-component p-2"
+			(click)="upgradePlan()">Upgrade Plan<i class="fa fa-arrow-right exhausted-plan-icon"></i></button>
 	</div>
 	<div *ngIf="ehitlabelIsShow" class="text-center mt-5 mb-4">
 		<img src="../../../uniprep-assets/images/smartloack.png" class="image" width="60" />

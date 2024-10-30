@@ -135,6 +135,7 @@ export class SubscriptionDataComponent implements OnInit {
       country: this.currentCountry,
       continent: this.continent,
       monthly_plan: this.monthlyPlan,
+      study_level:this.user?.education_level
     };
 
     this.subscriptionService.getSubscriptions(data).subscribe((response) => {

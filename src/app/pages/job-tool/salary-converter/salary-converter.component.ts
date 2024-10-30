@@ -35,11 +35,6 @@ export class SalaryConverterComponent implements OnInit {
   imagewhitlabeldomainname: any
   orgnamewhitlabel: any;
   orglogowhitelabel: any;
-  salarySample: { sourceRate: string, sourceCountry: string, targetRate: string, targetCountry: string }[] = [
-    { sourceRate: '1,14,288', sourceCountry: 'United Arab Emirates', targetRate: '97,100.12', targetCountry: 'United Kingdom' },
-    { sourceRate: '1,14,288', sourceCountry: 'United Arab Emirates', targetRate: '97,100.12', targetCountry: 'United Kingdom' },
-    { sourceRate: '1,14,288', sourceCountry: 'United Arab Emirates', targetRate: '97,100.12', targetCountry: 'United Kingdom' }
-  ]
   salaries: { satement: string}[] = [
     { satement: 'Earning INR 50,000 in the India is equivalent to earning INR 1,78,571.43 in the United Arab Emirates.' },
     { satement: 'Earning INR 70,000 in the India is equivalent to earning INR 2,12,500 in the United Kingdom.' },

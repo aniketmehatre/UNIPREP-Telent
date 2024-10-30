@@ -124,13 +124,14 @@ export class UpgradeSubscriptionComponent implements OnInit {
   }
 
   getSubscriptionList(canChangeSubscription: string) {
-    let data = {
+    let data: any = {
       page: 1,
       perpage: 1000,
       studenttype: this.studentType,
       country: this.currentCountry,
       continent: this.continent,
       monthly_plan: this.monthlyPlan,
+      study_level: this.user?.education_level
     };
 
     this.subscriptionService.getSubscriptions(data).subscribe((response) => {
@@ -284,6 +285,7 @@ export class UpgradeSubscriptionComponent implements OnInit {
           country: this.currentCountry,
           continent: this.continent,
           monthly_plan: this.monthlyPlan,
+          study_level: this.user?.education_level
         };
         this.subscriptionService
           .getSubscriptions(data)
@@ -506,10 +508,10 @@ export class UpgradeSubscriptionComponent implements OnInit {
       },
     });
   }
-  payusingstripe(value: any) {
-    this.subscriptionDetails = value;
+  payusingstripe() {
+
     // this.showPayLoading = true;
-    this.stripdata = value;
+    this.stripdata = this.subscriptionDetails ;
     this.selectedcost = this.stripdata.finalPrice;
     this.subscriptionService
       .createPaymentIntent(this.stripdata)
@@ -533,10 +535,11 @@ export class UpgradeSubscriptionComponent implements OnInit {
             });
             return;
           }
+          this.subscriptionDetails = value;
           if (type == "razorpay") {
             this.payWithRazor(data.orderid);
           } else {
-            this.payusingstripe(value);
+            this.payusingstripe();
           }
         });
     }
@@ -576,50 +579,52 @@ export class UpgradeSubscriptionComponent implements OnInit {
         color: "#3f4c83",
       },
     };
+    
     options.handler = (response: any, error: any) => {
       options.response = response;
       var paymentdata = {
         orderid: response?.razorpay_order_id,
         paymentid: response?.razorpay_payment_id,
       };
-      setTimeout(() => {
-        this.authservice.updateSubscriptionName(
-          this.selectedSubscriptionDetails?.subscription || ""
+
+      this.authservice.updateSubscriptionName(
+        this.selectedSubscriptionDetails?.subscription || ""
+      );
+
+      if (this.subscriptionDetails?.subscriptionId) {
+        this.subscriptionService.PaymentComplete(paymentdata).subscribe(
+          (res: any) => {
+            this.success = res;
+            this.subscriptionService.doneLoading();
+            this.gotoHistory();
+          },
+          (error: any) => {
+            this.subscriptionService.doneLoading();
+            this.gotoHistory();
+          }
         );
-        if (this.subscriptionDetails?.subscriptionId) {
-          this.subscriptionService.PaymentComplete(paymentdata).subscribe(
-            (res: any) => {
-              this.success = res;
-              this.subscriptionService.doneLoading();
-              this.gotoHistory();
-            },
-            (error: any) => {
-              this.subscriptionService.doneLoading();
-              this.gotoHistory();
-            }
-          );
-        }
-        // else {
-        //     let data = {
-        //         order_id: response?.razorpay_order_id,
-        //         payment_reference_id: response?.razorpay_payment_id,
-        //     }
-        //     this.subscriptionService.topupPaymentComplete(data).subscribe(
-        //         (res: any) => {
-        //             this.success = res;
-        //             this.subscriptionService.doneLoading();
-        //             this.loadSubData();
-        //             window.location.reload();
-        //         },
-        //         (error: any) => {
-        //             // this.toastr.warning(error.error.message);
-        //             this.subscriptionService.doneLoading();
-        //             this.loadSubData();
-        //             window.location.reload();
-        //         }
-        //     );
-        // }
-      }, 0);
+      }
+      // else {
+      //     let data = {
+      //         order_id: response?.razorpay_order_id,
+      //         payment_reference_id: response?.razorpay_payment_id,
+      //     }
+      //     this.subscriptionService.topupPaymentComplete(data).subscribe(
+      //         (res: any) => {
+      //             this.success = res;
+      //             this.subscriptionService.doneLoading();
+      //             this.loadSubData();
+      //             window.location.reload();
+      //         },
+      //         (error: any) => {
+      //             // this.toastr.warning(error.error.message);
+      //             this.subscriptionService.doneLoading();
+      //             this.loadSubData();
+      //             window.location.reload();
+      //         }
+      //     );
+      // }
+
     };
     options.modal.ondismiss = () => {
       this.toast.add({
