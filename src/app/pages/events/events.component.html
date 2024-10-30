@@ -17,7 +17,7 @@
       </div>
       <div class="col-md-2"></div>
     </div>
-    <div class="row justify-content-center align-items-center">
+    <div class="row justify-content-center align-items-center mt-2">
       <div class="col-md-3 col-5 text-md-start">
         <div class="d-flex gap-2 align-items-center">
           <span (click)="filterPopUp()"><button class="btn btn-primary text-small px-3 py-2" type="button">Filter by</button></span>
@@ -32,7 +32,7 @@
         </div>
       </div>
       <div class="col-md-3 col-12">
-        <div class="p-input-icon-left w-100 mt-3">
+        <div class="p-input-icon-left w-100">
           <i class="pi pi-search"></i>
           <input class="w-100 px-5 py-2" type="text" placeholder="Search Events Near You..." pInputText [(ngModel)]="valueNearYouFilter" (input)="performSearch($event)" (click)="searchClick()" id="searchInput" />
         </div>

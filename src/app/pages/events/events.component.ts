@@ -77,13 +77,13 @@ export class EventsComponent implements OnInit {
 
   // Button styles
   button1Style = {
-    'background-color': '#FFFFFF',
+    'background-color': '#FFFFFF','border':'1px solid var(--uniprep-primary)',
     color: '#000000',
 
   };
 
   button2Style = {
-    'background-color': '#FFFFFF',
+    'background-color': '#FFFFFF','border':'1px solid var(--uniprep-primary)',
     color: '#000000'
   };
 
@@ -92,11 +92,12 @@ export class EventsComponent implements OnInit {
     // Reset styles for both buttons
     this.button1Style = {
       'background-color': '#FFFFFF',
+      'border':'1px solid var(--uniprep-primary)',
       color: '#000000'
     };
 
     this.button2Style = {
-      'background-color': '#FFFFFF',
+      'background-color': '#FFFFFF','border':'1px solid var(--uniprep-primary)',
       color: '#000000'
     };
 
@@ -106,7 +107,7 @@ export class EventsComponent implements OnInit {
       this.upcomingevent = true;
       this.postevent = false;
       this.button1Style = {
-        'background-color': 'var(--uniprep-primary)',
+        'background-color': 'var(--uniprep-primary)','border':'1px solid var(--uniprep-primary)',
         color: '#FFFFFF'
       };
     } else if (buttonNumber === 2) {
@@ -114,7 +115,7 @@ export class EventsComponent implements OnInit {
       this.postevent = true;
       this.upcomingevent = false;
       this.button2Style = {
-        'background-color': 'var(--uniprep-primary)',
+        'background-color': 'var(--uniprep-primary)','border':'1px solid var(--uniprep-primary)',
         color: '#FFFFFF'
       };
     }
