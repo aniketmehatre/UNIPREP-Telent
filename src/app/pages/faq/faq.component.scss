@@ -1,90 +1,50 @@
-.menulist {
-  list-style: none;
-
+.faqlist {
+  .active {
+    font-weight: bold !important;
+  }
   li {
-    padding: 10px;
-    cursor: pointer;
-
-    &.active {
-      color: var(--uniprep-primary);
-      font-weight: 600;
-      background: var(--uniprep-primaryop10);
-      padding: 10px;
-      border-radius: 5px;
-    }
-
-    &:last-child {
-      margin-bottom: 0px;
+    &:hover {
+      background-color: var(--uniprep-primaryop10);
     }
   }
-
-  position: sticky;
-  top: 1rem;
-  padding-left:0;
 }
 
-.mobile {
-  display: none;
+:host ::ng-deep .p-accordion {
+  .p-accordion-content
+  {
+    background: none;
+    border: none;
+    padding-top: 0;
+    padding-bottom:0.5rem;
+  }
+  .p-accordion-tab {
+    .p-accordion-header {
+      .p-accordion-header-link {
+        border: none;
+        font-weight: 500;
+        font-size: 1.2em;
+        flex-direction: row-reverse;
+        justify-content: space-between;
+        box-shadow:none;
+      }
+      .p-accordion-header-link:after
+      {
+        display: none !important;
+      }
+    }
+  }
+  .p-accordion-tab-active {
+    .p-accordion-header {
+      .p-accordion-header-link {
+        border: none;
+        font-weight: bold !important;
+        font-size: 1.2em;
+        box-shadow:none;
+      }
+      .p-accordion-header-link:after
+      {
+        display: none !important;
+      }
+    }
+  }
 }
-
-@media screen and (max-width: 480px) {
- .mobile{
-  display: block;
- }
- .ml-35{
-  margin-left: 35px;
- }
- .menulist {
-   display: -webkit-box !important;
-   overflow-x: auto;
-   border-radius: 25px;
-   border: 1px solid #3F4C83;
-   padding: 4px;
-   z-index: 1;
-   background-color: white;
-   top:2px;
-
-   li {
-     padding: 10px;
-     cursor: pointer;
-     border-radius: 25px;
-     border: 1px solid #3F4C83;
-    //  padding-left: 2px;
-    //  padding-right: 2px;
-
-     &.active {
-       color: white;
-       font-weight: 600;
-       background: #3F4C83;
-       padding: 10px;
-       border-radius: 25px;
-     }
-
-     &:last-child {
-       margin-bottom: 0px;
-     }
-   }
- }
-
- .desktop {
-   display: none;
- }
-
- ::-webkit-scrollbar {
-   height: 6px !important;
- }
- }
-
- ::ng-deep .p-accordion-header-link:after {
-   content: "+";
-   position: absolute;
-   right: 15px;
-   background: #3F4C83;
-   padding: 5px 10px;
-   border-radius: 25px;
-   color: #000000;
- }
-
-//  .faqListData{
-//   overflow-y: scroll !important;
-//  }
