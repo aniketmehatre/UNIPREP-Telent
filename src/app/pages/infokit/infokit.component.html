@@ -47,9 +47,12 @@
               <li *ngFor="let files of filteredFiles">
                 <div *ngIf="files.isFolder == 2; else nonFolderTemplate">
                   <!-- <a (click)="openFile(files.img_path)"> -->
-                    <div class="file-item" (click)="openFile(files.img_path)">
+                    <div class="file-item d-flex" (click)="openFile(files.img_path)">
                       <img src="../../../uniprep-assets/images/pdf.svg" alt="icon_path" class="file-icon" />
-                      <span class="file-name">{{ files.name }}</span>
+                      <div class="flex-column d-flex">
+                        <span class="file-name">{{ files.name }}</span>
+                        <span class="path-name">Startup Kit/{{ files.path }}</span>
+                      </div>
                     </div>
                   <!-- </a> -->
                 </div>
@@ -57,9 +60,12 @@
                 <!-- Template for non-folder items -->
                 <ng-template #nonFolderTemplate>
                   <!-- <a (click)="getchildinfo(files)"> -->
-                    <div class="file-item" (click)="getchildinfo(files)">
+                    <div class="file-item d-flex" (click)="getchildinfo(files)">
                       <img [src]="files.img_path" alt="icon_path" class="file-icon" />
-                      <span class="file-name">{{ files.name }}</span>
+                      <div class="flex-column d-flex">
+                        <span class="file-name">{{ files.name }}</span>
+                        <span class="path-name">Startup Kit/{{ files.path }}</span>
+                      </div>
                     </div>
                   <!-- </a> -->
                 </ng-template>

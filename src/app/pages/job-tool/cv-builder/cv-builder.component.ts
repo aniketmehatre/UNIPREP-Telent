@@ -1080,14 +1080,19 @@ export class CvBuilderComponent implements OnInit  {
       selected_font_color: this.selectedFontColor,
     };
     this.resumeService.downloadResume(data).subscribe(res => {
+      this.previousResumes();
       const parts = res.split('/');
       const lastPart = parts[parts.length - 1];
       this.resumeService.downloadPdf(res, lastPart);
       this.toaster.add({ severity: "success", summary: "Success", detail: "File Download Successfully." });
       this.activePageIndex = 0;
+      this.moduleActiveIndex = 0;
       // this.ngAfterViewInit();
       this.selectedResumeLevel = "";
       this.hideHeader();
+      // setTimeout(() => {
+        this.previousResumes();
+      // }, 500);
     })
   }
 

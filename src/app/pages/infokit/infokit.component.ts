@@ -93,6 +93,7 @@ export class InfoKitComponent implements OnInit {
   getFileteredData(){
     this.service.getAllFolderAndFiles().subscribe(res =>{
       this.allFoldersAndFiles = res;
+      // console.log(this.allFoldersAndFiles, "all folder and files");
     });
   }
   getFolderData() {
@@ -126,7 +127,7 @@ export class InfoKitComponent implements OnInit {
       this.filteredFiles = [];
     }
     
-    console.log(this.filteredFiles, "file output");
+    // console.log(this.filteredFiles, "file output");
     // console.log(this.filteredFiles, "filter files");
     // if (this.searchText.trim().length > 0) {
     //   this.parentfolderlists = this.originalFolderLists.filter((folder) =>
@@ -150,6 +151,7 @@ export class InfoKitComponent implements OnInit {
     this.getFolderData();
   }
   getchildinfo(data: any) {
+    // console.log(data, "data");
     if (data.isFolder == "2") {
       return;
     }
