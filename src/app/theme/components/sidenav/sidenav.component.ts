@@ -311,16 +311,16 @@ export class SidenavComponent {
   }
   enterpriseSubscriptionLink: any
   ngOnInit(): void {
-    this.sampleMenus = this.menus;
+    //this.sampleMenus = this.menus;
     this.authService.userData.subscribe(data => {
       const educationLevel = data?.education_level?.replace(/[\s\u00A0]/g, '').trim() || 'HigherEducation';
       if (educationLevel === 'K10') {
-        this.menus = this.sampleMenus.filter(menu => !(this.k10RestrictedMenus?.includes(menu?.title)));
+        this.menus = this.menus.filter(menu => !(this.k10RestrictedMenus?.includes(menu?.title)));
       }
       else if (educationLevel === 'HigherEducation') {
-        this.menus = this.sampleMenus.filter(menu => !(this.HigherEduRestritedMenus?.includes(menu?.title)));
+        this.menus = this.menus.filter(menu => !(this.HigherEduRestritedMenus?.includes(menu?.title)));
       } else {
-        this.menus = this.sampleMenus;
+        this.menus = this.menus;
       }
     });
     this.locationService.getOrgName().subscribe(orgname => {
