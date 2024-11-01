@@ -217,10 +217,10 @@ export class QuizmenuComponent implements OnInit {
       localStorage.setItem("modalcountryid", this.postadmiisioncontrydropdownid)
     } else if (moduleid == 4) {
       this.currentModuleSlug = "career-hub"
-      localStorage.setItem("modalcountryid", this.lifeatcontrydropdownid)
+      localStorage.setItem("modalcountryid",this.careerhubcontrydropdownid)
     } else if (moduleid == 6) {
       this.currentModuleSlug = "life-at-country"
-      localStorage.setItem("modalcountryid", this.careerhubcontrydropdownid)
+      localStorage.setItem("modalcountryid", this.lifeatcontrydropdownid )
     }
     this.router.navigate([`/pages/modules/${this.currentModuleSlug}/quiz`]);
   }
