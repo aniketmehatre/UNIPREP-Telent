@@ -24,8 +24,8 @@
   </div>
   <div class="card-body flex-fill overflow-y-auto">
     <div class="row h-100 justify-content-center">
-      <div class="col-md-6 h-100 overflow-y-auto" *ngIf="istypeParagraph">
-        <ng-container >
+      <div class="col-md-6 h-100 overflow-y-auto" [ngClass]="{'d-block': istypeParagraph || istypeImage, 'd-none': !(istypeParagraph || istypeImage)}">
+        <ng-container *ngIf="istypeParagraph">
           <div class="text-start">
             <h4 class="mb-2 fe-bold uniprep-primarydark">{{ paragraphTittle }}</h4>
             <div class="text-start h5 mb-0" style="white-space: pre-wrap;">
@@ -33,10 +33,8 @@
             </div>
           </div>
         </ng-container>
-      </div>
-      <div class="col-md-6 h-100 overflow-y-auto" *ngIf="istypeImage">
         <ng-container>
-          <div class="col-12">
+          <div class="col-12" *ngIf="istypeImage">
             <div class="text-center">
               <h4>{{ imageTittle }}</h4>
             </div>
