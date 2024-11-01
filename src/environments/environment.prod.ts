@@ -15,5 +15,6 @@ export const environment = {
   googleCloud: {
     apiKey: 'AIzaSyCxrgn6ZZL3IsY_3xrSqQJi_3yT_OKr-n0'
   },
-  uniApplyUrl: 'http://uniapply.ai/auth/login?redirect=/pages/applications'
+  uniApplyUrl: 'https://uniapply.ai/auth/login?redirect=/pages/applications',
+  uniapplyAPI: 'https://apply.uniabroad.io/uniapplyStudents/public/api'
 };
