@@ -8,6 +8,7 @@ import { DataService } from "../../../data.service";
 import { LocationService } from "../../../location.service";
 import { AuthService } from 'src/app/Auth/auth.service';
 import { NgxUiLoaderService } from "ngx-ui-loader";
+import { Location } from '@angular/common';
 @Component({
   selector: 'uni-languagetypequiz',
   templateUrl: './languagetypequiz.component.html',
@@ -62,7 +63,7 @@ export class LanguagetypequizComponent implements OnInit {
   imagewhitlabeldomainname: any
   orgnamewhitlabel: any;
   orglogowhitelabel: any;
-  constructor(private moduleListService: ModuleServiceService, private authService: AuthService, private router: Router, private dataService: DataService,
+  constructor(private moduleListService: ModuleServiceService, private authService: AuthService, private router: Router, private dataService: DataService,private location: Location,
     private locationService: LocationService, private ngxService: NgxUiLoaderService, private toast: MessageService) { }
 
   ngOnInit(): void {
@@ -449,6 +450,13 @@ export class LanguagetypequizComponent implements OnInit {
   stopTimer(): void {
     if (this.timerSubscription) {
       this.timerSubscription.unsubscribe();
+    }
+  }
+  goBack() {
+    if (window.history.length > 1) {
+      this.location.back();
+    } else {
+      this.router.navigate(['/pages/modules/quizmodule']);
     }
   }
 }

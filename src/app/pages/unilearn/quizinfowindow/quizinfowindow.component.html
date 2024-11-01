@@ -1,70 +1,54 @@
 <ng-container *ngIf="!quizwindowvisibility">
   <div class="card readingcard">
-    <div class="card-body text-center pt-0">
+    <div class="card-header py-0 border-0 bg-transparent">
       <div class="row">
-        <div class="col-md-2 mt-3 text-start ms-2">
-          <h5 class="bold">
-            {{ totalquestion }}/{{ totalquestion }} Questions Left
-          </h5>
+        <div class="col-md-3 gap-3 d-flex align-items-center">
+          <div class="backIcon" role="button" (click)="goBack()">
+            <span class="fa-solid fa-chevron-left"></span>
+          </div>
+          <h5 class="bold">{{ totalquestion }}/{{ totalquestion }} Questions Left</h5>
         </div>
-        <div class="col-md-8 text-center">
-          <div
-            class="select-title text-nowrap d-flex justify-content-between align-items-center"
-          >
+        <div class="col-md-6 text-center">
+          <div class="select-title text-nowrap d-flex justify-content-between align-items-center">
             <div>
-              <h5
-                class="mb-0"
-                tooltipPosition="top"
-                pTooltip="Prepare for standardized tests and improve academic skills with practice tests and learning modules."
-              >
+              <h5 class="mb-0" tooltipPosition="top" pTooltip="Prepare for standardized tests and improve academic skills with practice tests and learning modules.">
                 {{ selected_module | uppercase }}
                 <i class="questiontooltip fa-solid fa-circle-question"></i>
               </h5>
             </div>
             <div>
-              <button
-                class="how-it-works-button"
-                (click)="
-                  openVideoPopup(
-                    'https://www.youtube.com/embed/01xivveciUI?si=Cdi3e7ycApMa8sWO'
-                  )
-                "
-              >
-                &nbsp;How it works? &nbsp;&nbsp;<i class="fa-solid fa-play"></i>
-              </button>
+              <button class="how-it-works-button" (click)="openVideoPopup('https://www.youtube.com/embed/01xivveciUI?si=Cdi3e7ycApMa8sWO')">&nbsp;How it works? &nbsp;&nbsp;<i class="fa-solid fa-play"></i></button>
             </div>
           </div>
         </div>
-  
-        <div class="col-12 mt-3 text-start justify-content-start d-md-flex">
-          <ul style="list-style: disc" class="quizinfo">
-            <li class="p-3">There are 20 MCQs in the quiz.</li>
-            <li class="p-3">You cannot skip any question / All questions are mandatory to answer.</li>
-            <li class="p-3">You cannot access other screens while taking the quiz.</li>
-            <li class="p-3">You cannot save and submit later.</li>
-            <li class="p-3">Restart - will display new set of questions.</li>
-            <li class="p-3">You will get a certificate for completing all the quiz modules.</li>
-            <li class="p-3">Buffer? To qualify for the quiz you need to get __% correct.</li>
-            <li class="p-3">There is no time limit.</li>
-  
+        <div class="col-md-3"></div>
+      </div>
+    </div>
+    <div class="card-body flex-fill overflow-y-auto">
+      <div class="row mt-4">
+        <div class="col-md-12 text-start">
+          <ul class="font-secondarycolor fw-medium lh-lg instructionlist">
+            <li>You can not skip any question / All question are mandatory to answer.</li>
+            <li>You can not access the other screens while taking the quiz.</li>
+            <li>You cannot save and submit later.</li>
+            <li>Restart - will display new set of questions.</li>
+            <li>You will get a certificate for completing all the quiz modules.</li>
+            <li>Buffer? To qualify for the quiz you need to get 90% correct.</li>
           </ul>
         </div>
       </div>
     </div>
-    <div class="card-footer bg-white">
-      <div class="d-flex justify-content-between">
-        <div><h4 class="headColor">ALL THE BEST !</h4></div>
-        <div>
-          <button
-            pButton
-            type="button"
-            class="btn btn-primary btn-rounded p-1 ps-4"
-            (click)="enablequizWindow()"
-          >
-            <span class="me-3">Start</span
-            ><span class="btn-customicon px-1 py-1"
-              ><i class="fa fa-arrow-right"></i
-            ></span>
+    <div class="card-footer bg-transparent">
+      <div class="row justify-content-center">
+        <div class="col-md-6 d-flex align-items-center text-start">
+          <h4 class="font-primarycolor">ALL THE BEST!</h4>
+        </div>
+        <div class="col-md-6 text-end">
+          <button (click)="enablequizWindow()" class="btn btn-start btn-rounded m-0 px-2 py-2">
+            <div class="d-flex align-items-center">
+              <span class="fw-normal h6 mb-0 ps-3 pe-2">Start</span>
+              <div class="btn-icon"><i class="fa-solid fa-arrow-right"></i></div>
+            </div>
           </button>
         </div>
       </div>

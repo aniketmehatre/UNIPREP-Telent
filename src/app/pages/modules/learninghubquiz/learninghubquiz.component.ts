@@ -521,4 +521,11 @@ export class LearninghubquizComponent implements OnInit {
     this.isReviewVisible = false;
     this.isQuizSubmit = true;
   }
+  goBack() {
+    if (window.history.length > 1) {
+      this.location.back();
+    } else {
+      this.router.navigate(['/pages/modules/quizmodule']);
+    }
+  }
 }

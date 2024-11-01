@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
 import { PageFacadeService } from "../../page-facade.service";
+import { Location } from '@angular/common';
 import {
   learnModules,
   learnsubModules,
@@ -24,7 +25,8 @@ export class QuizinfowindowComponent implements OnInit {
   constructor(
     private pageFacade: PageFacadeService,
     private router: Router,
-    private learnService: UniLearnService
+    private learnService: UniLearnService,
+    private location: Location,
   ) {}
   paramData: any;
   ngOnInit(): void {
@@ -43,5 +45,12 @@ export class QuizinfowindowComponent implements OnInit {
       selected_module: this.selected_module,
       stage: 3,
     });
+  }
+  goBack() {
+    if (window.history.length > 1) {
+      this.location.back();
+    } else {
+      this.router.navigate(['/pages/modules/quizmodule']);
+    }
   }
 }

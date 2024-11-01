@@ -49,7 +49,7 @@
   <div class="card-header py-0 border-0 bg-transparent">
     <div class="row justify-content-center">
       <div class="col-md-2 col-2 text-start d-flex align-items-center">
-        <h5 class="text-bold">{{ selectedQuiz }}/{{ quizcount }} Question Left</h5>
+        <h5 class="fw-bold">{{ selectedQuiz }}/{{ quizcount }} Question Left</h5>
       </div>
       <div class="col-md-8 col-8 text-center">
         <h5 class="select-title mb-1">{{ currentModuleName }} Quiz</h5>
@@ -169,14 +169,13 @@
         <h5 class="select-title">{{ currentModuleName }} Quiz</h5>
       </div>
       <div class="col-md-2 col-2 text-end">
-        <button [disabled]="quizpercentage >= 90" (click)="retryQuiz()" class="btn btn-quit btn-rounded me-2 px-2 py-2">
+        <button [disabled]="quizpercentage >= 90" (click)="retryQuiz()" class="btn btn-quit btn-rounded mt-2 px-2 py-2">
           <div class="d-flex align-items-center">
             <span class="fw-normal h6 mb-0">Retry</span>
             <div class="btn-icon"><i class="fa-solid fa-arrow-rotate-right"></i></div>
           </div>
         </button>
       </div>
-      <div></div>
     </div>
   </div>
   <div class="card-body flex-fill overflow-y-auto">
@@ -326,7 +325,7 @@
 <p-dialog [(visible)]="restrict" [modal]="true" [closable]="false" [style]="{ width: '30vw' }" [draggable]="false" [resizable]="false" class="restrictionDialog" [breakpoints]="{ '960px': '30vw', '959px': '60vw', '425px': '90vw' }">
   <div class="text-center mt-5 mb-4">
     <!-- <img src="../../../uniprep-assets/images/smartloack.png" class="image" width="60" /> -->
-    <h3 class="offer">Time's Up!</h3>
+    <h3 class="uniprep-secondary">Time's Up!</h3>
     <p class="mb-2">You have run out of time for this quiz. Unfortunately,this means the quiz is marked as failed.try the quiz again."</p>
     <button pButton type="button" class="btn btn-secondary btn-rounded text-center" (click)="timeIsOver()"><i class="fa fa-arrow-right"></i></button>
   </div>
@@ -334,13 +333,13 @@
 <p-dialog [(visible)]="restrict1" [modal]="true" [style]="{ width: '30vw' }" [draggable]="false" [resizable]="false" class="restrictionDialog" [breakpoints]="{ '960px': '30vw', '959px': '60vw', '425px': '90vw' }" (onHide)="clearRestriction()">
   <div *ngIf="ehitlabelIsShow" class="text-center mt-5 mb-4">
     <img src="../../../uniprep-assets/images/smartloack.png" class="image" width="60" />
-    <h3 class="offer">Upgrade Required</h3>
+    <h3 class="uniprep-secondary">Upgrade Required</h3>
     <p>To access this exclusive module,please upgrade your plan now</p>
     <button pButton type="button" class="text-white p-ripple p-button-rounded p-button-warning p-button p-component p-2" (click)="upgradePlan()">Upgrade Plan<i class="fa fa-arrow-right exhausted-plan-icon"></i></button>
   </div>
   <div *ngIf="!ehitlabelIsShow" class="text-center mt-5 mb-4">
     <img src="../../../uniprep-assets/images/smartloack.png" class="image" width="60" />
-    <h3 class="offer">Upgrade Required</h3>
+    <h3 class="uniprep-secondary">Upgrade Required</h3>
     <p>Please contact {{ orgnamewhitlabel }} Company for access</p>
   </div>
 </p-dialog>
