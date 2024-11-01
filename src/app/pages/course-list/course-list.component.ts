@@ -483,15 +483,28 @@ export class CourseListComponent implements OnInit {
   }
 
   applyToUniversity(countryId:any,universityId: any,intakeMonth:any,programLevel:any,courseName:any,courseLink:any) {
-    this.courseList.registerUniapply().subscribe(response => {
-      if(response.email != null) {
-        var url = `${environment.uniApplyUrl}&countryId=${countryId}&universityId=${universityId}&intakeMonth=${intakeMonth}&programLevel=${programLevel}&courseName=${courseName}&courseLink=${courseLink}&email=${response.email}&password=${response.password}`;
-      }else {
-        url = `${environment.uniApplyUrl}&countryId=${countryId}&universityId=${universityId}&intakeMonth=${intakeMonth}&programLevel=${programLevel}&courseName=${courseName}&courseLink=${courseLink}`;
+    this.courseList.getUserDetails().subscribe(response => {
+      var userdetails = response.userdetails[0];
+      var data = {
+        email : userdetails.email,
+        interested_country_id: userdetails.interested_country_id,	
+        name: userdetails.name,
+        location_id: userdetails.location_id,
+        phone: userdetails.phone,
+        programlevel_id: userdetails.programlevel_id,
+        gender: userdetails.gender
       }
 
-      window.open(url, '_blank');
+      this.courseList.registerUniapply(data).subscribe(response => {
+        if(response.email != null) {
+          var url = `${environment.uniApplyUrl}&countryId=${countryId}&universityId=${universityId}&intakeMonth=${intakeMonth}&programLevel=${programLevel}&courseName=${courseName}&courseLink=${courseLink}&email=${response.email}&password=${response.password}`;
+        }else {
+          url = `${environment.uniApplyUrl}&countryId=${countryId}&universityId=${universityId}&intakeMonth=${intakeMonth}&programLevel=${programLevel}&courseName=${courseName}&courseLink=${courseLink}`;
+        }
+        window.open(url, '_blank');
+      });
     });
+
   }
   
 }

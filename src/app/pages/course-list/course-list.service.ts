@@ -97,9 +97,16 @@ export class CourseListService {
     });
   }
 
-  registerUniapply() {
+  registerUniapply(data:any) {
     const headers = new HttpHeaders().set("Accept", "application/json");
-    return this.http.post<any>(environment.ApiUrl + "/registeruniapply" ,{
+    return this.http.post<any>(environment.uniapplyAPI + "/registeruniapply", data,{
+      headers: headers,
+    });
+  }
+
+  getUserDetails() {
+    const headers = new HttpHeaders().set("Accept", "application/json");
+      return this.http.get<any>(environment.ApiUrl + "/getuserdetails" ,{
       headers: headers,
     });
   }
