@@ -126,20 +126,6 @@ export class InfoKitComponent implements OnInit {
     }else{
       this.filteredFiles = [];
     }
-    
-    // console.log(this.filteredFiles, "file output");
-    // console.log(this.filteredFiles, "filter files");
-    // if (this.searchText.trim().length > 0) {
-    //   this.parentfolderlists = this.originalFolderLists.filter((folder) =>
-    //     folder.name.toLowerCase().includes(this.searchText.toLowerCase())
-    //   );
-    //   this.parentfilelists = this.originalFileLists.filter((file) =>
-    //     file.name.toLowerCase().includes(this.searchText.toLowerCase())
-    //   );
-    // } else {
-    //   this.parentfolderlists = [...this.originalFolderLists];
-    //   this.parentfilelists = [...this.originalFileLists];
-    // }
   }
   pageChange(event: any) {
     if (this.planExpired) {
@@ -150,8 +136,7 @@ export class InfoKitComponent implements OnInit {
     this.folderdata.perpage = event.rows;
     this.getFolderData();
   }
-  getchildinfo(data: any) {
-    // console.log(data, "data");
+  getchildinfo(data: any){
     if (data.isFolder == "2") {
       return;
     }
@@ -165,6 +150,33 @@ export class InfoKitComponent implements OnInit {
       data: data,
       path: "country",
     });
+    this.getFolderData();
+  }
+  clikSearchFolder(data: any) {
+    if (data.isFolder == "2") {
+      return;
+    }
+    this.folderdata.parent_id = data.id;
+    if (data.parent_id == "0") {
+      this.titletext = data.name;
+    }
+    this.routedata = [];
+    if(data.full_array){
+      data.full_array.forEach((element: any) => {
+        this.routedata.push({
+          id: element.id,
+          name: element.name,
+          data: element,
+          path: "country",
+        });
+      });
+      this.routedata.push({
+        id: data.id,
+        name: data.name,
+        data: data,
+        path: "country",
+      });
+    }
     this.getFolderData();
     this.filteredFiles = [];
     this.searchText = "";

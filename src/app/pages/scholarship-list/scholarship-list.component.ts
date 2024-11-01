@@ -556,8 +556,8 @@ export class ScholarshipListComponent implements OnInit {
   }
   addAnyValueToOptions(){
     setTimeout(() => {
-      let anyCountryArray: any = {id: null,country: "Any Country"};
-      this.anyCountryList.unshift(anyCountryArray);
+      // let anyCountryArray: any = {id: null,country: "Any Country"};
+      // this.anyCountryList.unshift(anyCountryArray);
 
       let anyScholarList:any = { id: null, type: "Any"};
       this.anyScholarshipTypeList.unshift(anyScholarList); 

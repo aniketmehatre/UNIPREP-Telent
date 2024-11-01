@@ -44,7 +44,7 @@
                     <p class="text-center" [ngClass]="{ 'd-none': invalidClass === false }" style="color: red">Please Choose Any one option</p>
                   </ng-container>
                   <ng-container *ngIf="recommendation.id == 3">
-                    <p-multiSelect styleClass="w-100" placeholder="Headquarters Location" [options]="anyHeadquartersList" display="chip" optionLabel="head_quarters_name" optionValue="id" [(ngModel)]="selectedData[recommendation.id]" [appendTo]="'body'"></p-multiSelect>
+                    <p-multiSelect styleClass="w-100" placeholder="Headquarters Location" [options]="headQuartersList" display="chip" optionLabel="head_quarters_name" optionValue="id" [(ngModel)]="selectedData[recommendation.id]" [appendTo]="'body'"></p-multiSelect>
                     <p class="text-center" [ngClass]="{ 'd-none': invalidClass === false }" style="color: red">Please Choose Any one option</p>
                   </ng-container>
                 </div>
@@ -70,16 +70,17 @@
   <ng-container *ngIf="enableModule">
     <div class="card-header py-0 border-0 bg-transparent" *ngIf="!restrict">
       <div class="row justify-content-center">
-        <div class="col-xxl-3 col-xl-3 col-lg-4 col-md-4 col-sm-4 col-xs-12 col-12 text-start">
+        <!-- <div class="col-xxl-3 col-xl-3 col-lg-4 col-md-4 col-sm-4 col-xs-12 col-12 text-start">
           <div class="p-input-icon-left w-100 mt-3">
             <i class="pi pi-search"></i>
             <input class="w-100 px-5 py-2" type="text" placeholder="Search in Investor List" pInputText [(ngModel)]="valueNearYouFilter" (input)="performSearch()" />
           </div>
-        </div>
+        </div> -->
         <!-- after create the video just uncomment the below code. and send the youtube embeded video link -->
         <!-- <div class="col-md-6 text-center">
 						<h5 class="select-title mb-1" tooltipPosition="top" pTooltip="Investor List">INVESTOR LIST</h5>
 					</div> -->
+        <div class="col-2"></div>
 				<div class="col-md-6 text-center">
 					<div class="select-title text-nowrap d-flex justify-content-between align-items-center">
 						<div>
@@ -90,7 +91,7 @@
 						</div>
 					</div>
 				</div>
-				<div class="col-md-3 text-end">
+				<div class="col-md-4 text-end">
 					<span class="d-flex justify-content-end mt-3 gap-2" style="white-space: nowrap">
 						<button class="btn btn-primary btn-rounded text-small" (click)="investorGuidlines()" type="button">Investor Guidelines</button>
 						<button *ngIf="ehitlabelIsShow" class="btn btn-secondary btn-rounded text-small" (click)="buyCredits()" type="button">Buy Credits</button>
