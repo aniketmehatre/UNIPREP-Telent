@@ -105,29 +105,26 @@ selctedQuizTiny {
 	}
 }
 .quiznotanswered {
-	border: 1px solid #e3e3e3;
-	border-radius: 8px;
-	width: 100%;
-	padding: 8px;
-	text-align: start;
-	color: #001631;
+	border: 2px solid var(--uniprep-lightgray);
+    padding: 1rem 1rem;
+    border-radius: 10px;
 }
 
 .optionanswered {
-	border: 1px solid var(--uniprep-primary);
-	border-radius: 8px;
-	color: #001631;
+	border: 2px solid var(--uniprep-primary);
+    border-radius: 10px;
+    color: var(--uniprepprimarydark);
 }
 
 .optionreviewcorrect {
-	border: 1px solid var(--uniprep-primary);
-	background: green;
+	border: 1px solid var(--uniprep-darkgreen);
+	background: var(--uniprep-green);
 	border-radius: 8px;
 	color: #fff;
 }
 .answercorct{
-	border: 1px solid var(--uniprep-primary);
-	background: green;
+	border: 1px solid var(--uniprep-darkgreen);
+	background: var(--uniprep-green);
 	border-radius: 8px;
 	color: #fff;
 }
@@ -136,41 +133,6 @@ selctedQuizTiny {
 	background: #df3e3e;
 	border-radius: 8px;
 	color: #fff;
-}
-@media (max-width: 1199.98px) {
-	.subjectcard {
-		.submoduleicon {
-			height: 70px;
-			width: 70px;
-		}
-	}
-}
-@media (max-width: 991.98px) {
-	.subjectcard {
-		.submoduleicon {
-			height: 70px;
-			width: 70px;
-			margin-right: 1rem;
-		}
-	}
-}
-@media (max-width: 767.98px) {
-	.subjectcard {
-		.submoduleicon {
-			height: 65px;
-			width: 65px;
-			margin-right: 1rem;
-		}
-	}
-}
-@media (max-width: 575.98px) {
-	.subjectcard {
-		.submoduleicon {
-			height: 60px;
-			width: 60px;
-			margin-right: 1rem;
-		}
-	}
 }
 .homecardbtnquiz {
 	background-color: black;
@@ -189,10 +151,6 @@ selctedQuizTiny {
 	font-size: 10px;
 }
 
-.desktop {
-	display: flex;
-}
-
 .primary-btn {
 	border-radius: 25px !important;
 }
@@ -209,18 +167,6 @@ selctedQuizTiny {
 		color: white;
 		font-weight: 300;
 		font-size: 10px;
-	}
-}
-
-.mobile {
-	display: none;
-}
-@media screen and (max-width: 480px) {
-	.desktop {
-		display: none;
-	}
-	.mobile {
-		display: block;
 	}
 }
 
@@ -260,4 +206,12 @@ selctedQuizTiny {
 .soon-university {
 	margin-top: 20px;
 	color: #ff9113;
+}
+
+:host ::ng-deep .p-dialog 
+{
+    .p-dialog-content
+    {
+        border-radius:15px;
+    }
 }
