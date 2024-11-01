@@ -221,7 +221,7 @@
           </div>
         </div>
         <div class="d-flex justify-content-center align-items-center">
-          <p-paginator [rows]="resultPerPage" [totalRecords]="count" *ngIf="count > 0" (onPageChange)="paginate($event)" [rowsPerPageOptions]="[10, 20, 50]"></p-paginator>
+          <p-paginator [rows]="resultPerPage" [totalRecords]="count" *ngIf="count > 0" (onPageChange)="paginate($event)" [rowsPerPageOptions]="[50, 100, 250, 500]"></p-paginator>
         </div>
       </div>
     </div>

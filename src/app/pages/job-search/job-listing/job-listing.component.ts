@@ -29,7 +29,7 @@ export class JobListingComponent implements OnInit {
     whatAnd: any
     singleData: any
     page = 1
-    resultPerPage = 20
+    resultPerPage = 50
     countryCodes: any
     categoryList: any
     selectedCountry: any
