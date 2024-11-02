@@ -87,7 +87,7 @@ export class CourseListComponent implements OnInit {
     { id: null, label: 'Any' }
   ];
   worldRankCubes:any = [{ id: 100, value: "Top 100" }, { id: 200, value: "Top 200" }, { id: 500, value: "Top 500" }, { id: null, value: "Any" }];
-  preRequisite: any = [{id:1, value: "English Test Waiver"}, {id: 2, value: "Duolingo Accepted"}, {id: 3, value: "IELTS Mandatory"},{id: null, value: "Any"}];
+  preRequisite: any = [{id:1, value: "English Test Waiver"}, {id: 2, value: "Duolingo Accepted"}, {id: 3, value: "IELTS Mandatory"}];
 
   constructor(private pageFacade: PageFacadeService,private locationService: LocationService,  private userManagementService: UserManagementService, private courseList: CourseListService, private fb: FormBuilder, private toastr: MessageService, private router: Router, private authService: AuthService) {
     this.filterForm = this.fb.group({
@@ -122,11 +122,11 @@ export class CourseListComponent implements OnInit {
     // this.getCourseLists();
     this.getRecommendationList();
     this.GetPersonalProfileData();
-    let anyMonthArray:any= {
-      id: null,
-      name: "Any Month"
-    };
-    this.recMonthList.unshift(anyMonthArray);
+    // let anyMonthArray:any= {
+    //   id: null,
+    //   name: "Any Month"
+    // };
+    // this.recMonthList.unshift(anyMonthArray);
   }
   GetPersonalProfileData() {
     this.userManagementService.GetUserPersonalInfo().subscribe(data => {
@@ -175,19 +175,19 @@ export class CourseListComponent implements OnInit {
       this.subjectNameList = res.subject;
       this.durationList = res.duration;
       this.monthList = this.monthList;
-      if(!this.enableModule){
-        let anyCountryArray:any = {
-          id: null,
-          country: "Any Country"
-        };
-        this.countryList.unshift(anyCountryArray);
+      // if(!this.enableModule){
+      //   let anyCountryArray:any = {
+      //     id: null,
+      //     country: "Any Country"
+      //   };
+      //   this.countryList.unshift(anyCountryArray);
 
-        let anySubjectArray:any = {
-          id: null,
-          category_name: "Any Subject"
-        };
-        this.subjectNameList.unshift(anySubjectArray);
-      }
+      //   let anySubjectArray:any = {
+      //     id: null,
+      //     category_name: "Any Subject"
+      //   };
+      //   this.subjectNameList.unshift(anySubjectArray);
+      // }
     });
   }
 

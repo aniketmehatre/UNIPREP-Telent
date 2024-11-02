@@ -230,7 +230,7 @@ export class CompanyListComponent implements OnInit {
       } else {
         this.planExpired = false;
       }
-      this.loadCompanyData(0);
+      // this.loadCompanyData(0);
     })
   }
 
@@ -245,9 +245,9 @@ export class CompanyListComponent implements OnInit {
   loadHeadQuartersData(event: any) {
     this.companyListService.getHeadQuartersList(event.value).subscribe((response) => {
       this.headQuartersList = response;
-      this.anyHeadquartersList = [...response];
-      let anyCountryArray: any = {id: null, head_quarters_name: "any"};
-      this.anyHeadquartersList.unshift(anyCountryArray);
+      // this.anyHeadquartersList = [...response];
+      // let anyCountryArray: any = {id: null, head_quarters_name: "any"};
+      // this.anyHeadquartersList.unshift(anyCountryArray);
     });
   }
   GetPersonalProfileData() {

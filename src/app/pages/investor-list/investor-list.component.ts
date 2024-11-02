@@ -22,7 +22,7 @@ export class InvestorListComponent implements OnInit {
   investorType: any;
   countryList: any;
   headQuartersList: any;
-  anyHeadquartersList: any;
+  // anyHeadquartersList: any;
   page = 1;
   pageSize = 50;
   totalInvestorCount = 0;
@@ -171,7 +171,7 @@ else{
       this.investorType = response.investor_type;
       let anyInvestor:any = {
         id: "any",
-        investor_type_name: "Any"
+        investor_type_name: "Select All"
       };
       this.investorType.unshift(anyInvestor);
       this.countryList = response.countries_list;
@@ -307,7 +307,7 @@ else{
         this.planExpired = false;
         //this.restrict = false;
       }
-      this.loadInvestorData(0);
+      // this.loadInvestorData(0);  
     })
   }
 
@@ -318,9 +318,9 @@ else{
   loadHeadQuartersData(event: any) {
     this.investorList.getHeadQuartersList(event.value).subscribe((response) => {
       this.headQuartersList = response;
-      this.anyHeadquartersList = [...response];
-      let anyCountryArray: any = {id: "any", head_quarters_name: "Any HeadQuarters"};
-      this.anyHeadquartersList.unshift(anyCountryArray);
+      // this.anyHeadquartersList = [...response];
+      // let anyCountryArray: any = {id: "any", head_quarters_name: "Any HeadQuarters"};
+      // this.anyHeadquartersList.unshift(anyCountryArray);
     });
   }
   clearRestriction() {
@@ -464,22 +464,46 @@ else{
     this.loadInvestorData(0);
   }
 
-  selectCube(key: number, id: number) {
-    
-    if (!Array.isArray(this.selectedData[key])) {
-      this.selectedData[key] = [];
+  // selectCube(key: number, id: number) {
+  //   if(this.selectedData[key] == "any"){
+
+  //   }
+  //   if (!Array.isArray(this.selectedData[key])) {
+  //     this.selectedData[key] = [];
+  //   }
+  //   const index = this.selectedData[key].indexOf(id);
+  //   if (index > -1) {
+  //     this.selectedData[key].splice(index, 1);
+  //   } else {
+  //     this.selectedData[key].push(id);
+  //   }
+  // } 
+
+  selectCube(key: number, id: number | string) {
+    if (id === "any") {
+      if (this.selectedData[key]?.includes(id)) {
+        this.selectedData[key] = [];
+      } else {
+        this.selectedData[key] = this.investorType.map((cube: any) => cube.id);
+      }
+    }else {
+      if (!Array.isArray(this.selectedData[key])) {
+        this.selectedData[key] = [];
+      }
+
+      const index = this.selectedData[key].indexOf(id);
+      if (index > -1) {
+        this.selectedData[key].splice(index, 1);
+      } else {
+        this.selectedData[key].push(id);
+      }
     }
-    const index = this.selectedData[key].indexOf(id);
-    if (index > -1) {
-      this.selectedData[key].splice(index, 1);
-    } else {
-      this.selectedData[key].push(id);
-    }
-  } 
+    console.log(this.selectedData, "selected cube");
+  }
 
   getStoredRecommendation(){
     this.investorList.getStoredRecommendation().subscribe(res =>{
-      console.log(res);
+      // console.log(res);
       if(res.status){
         this.enableModule = true;
         this.setRecommendationToForm(res.data);
