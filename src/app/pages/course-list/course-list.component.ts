@@ -497,7 +497,9 @@ export class CourseListComponent implements OnInit {
 
       this.courseList.registerUniapply(data).subscribe(response => {
         if(response.email != null) {
-          var url = `${environment.uniApplyUrl}&countryId=${countryId}&universityId=${universityId}&intakeMonth=${intakeMonth}&programLevel=${programLevel}&courseName=${courseName}&courseLink=${courseLink}&email=${response.email}&password=${response.password}`;
+          const email = encodeURIComponent(response.email);
+          const password = encodeURIComponent(response.password);
+          var url = `${environment.uniApplyUrl}&countryId=${countryId}&universityId=${universityId}&intakeMonth=${intakeMonth}&programLevel=${programLevel}&courseName=${courseName}&courseLink=${courseLink}&email=${email}&password=${password}`;
         }else {
           url = `${environment.uniApplyUrl}&countryId=${countryId}&universityId=${universityId}&intakeMonth=${intakeMonth}&programLevel=${programLevel}&courseName=${courseName}&courseLink=${courseLink}`;
         }
