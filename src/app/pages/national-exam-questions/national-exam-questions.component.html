@@ -1,180 +1,43 @@
-<!--<div class="card readingcard h-80" style="background-color: white;" >-->
-<!--    <div class="card-body text-center pt-0">-->
-<!--        <div class="row justify-content-center align-items-center">-->
-<!--            <div class="col-md-2 col-2 text-end">-->
-<!--                <h5 class="text-bold">1/20 Question Left</h5>-->
-<!--            </div>-->
-<!--            <div class="col-md-8 col-8 text-center">-->
-<!--                <h5 class="select-title mb-1">-->
-<!--                    Module Name Quiz-->
-<!--                </h5>-->
-<!--            </div>-->
-<!--            <div class="col-md-2 col-2 text-end">-->
-<!--                <button (click)="closeQuiz()" class="btn btn-quit btn-rounded m-0 px-2 py-2">-->
-<!--                    <div class="d-flex align-items-center">-->
-<!--                        <span class="fw-normal h6 mb-0 ps-3 pe-2">Quit</span>-->
-<!--                        <div class="btn-icon"><i class="fa-solid fa-power-off"></i></div>-->
-<!--                    </div>-->
-<!--                </button>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--        <div class="container-fluid bg-white mt-2">-->
-<!--            <div class="row">-->
-<!--                <div class="text-end text-small font-primarycolor mt-3" style="font-size: 18px; text-align: end;">  -->
-<!--                    <span style="border: 1px solid black; color: black; padding: 5px 18px; border-radius: 10px;">-->
-<!--                    &lt;!&ndash; <b>{{ formatTime(timer) }} | {{formatTime(totalquiztime)}}</b> &ndash;&gt;-->
-<!--                  </span> </div>-->
-<!--            </div>-->
-<!--            <div class="row justify-content-center">-->
-<!--                <div class="col-md-12">-->
-<!--                    <p-carousel #carouselQuiz (onPage)="setPage($event)" [circular]="true" [numScroll]="1"-->
-<!--                        [numVisible]="1" [page]="selectedQuiz - 1" [responsiveOptions]="responsiveOptions"-->
-<!--                        [value]="quizData" class="text-center">-->
-<!--                        <ng-template [ngForOf]="quizData" let-i="index" let-val ngFor pTemplate="item">-->
-<!--                            <div class="row text-center">-->
-<!--                                <div class="col-12 mt-3 mb-4">-->
-<!--                                    <p class="text-start mb-0 fw-medium text-small font-primarycolor">Question Number {{-->
-<!--                                        selectedQuiz }}</p>-->
-<!--                                    <h4 class="font-secondarycolor text-start pt-2 pb-2 text-capitalize">{{ val.question-->
-<!--                                        }}</h4>-->
-<!--                                    <div class="py-1">-->
-<!--                                        <input type="radio" value="{{ val.option1 }}" id="{{ val.otp1 }}"-->
-<!--                                            class="btn-check" name="options" autocomplete="off" />-->
-<!--                                        <label (click)="selectAnswer(val.option1, val, 1)"-->
-<!--                                            class="{{ 1 === val.user_answered ? 'optionanswered' : 'optionnotanswered' }} text-start quiznotanswered w-100 m-0"-->
-<!--                                            for="{{ val.otp1 }}">-->
-<!--                                            <h6 class="py-2 px-2 mb-0">-->
-<!--                                                <i-->
-<!--                                                    class="{{ 1 === val.user_answered ? 'fa-sharp fa-solid fa-circle-check' : 'fa-regular fa-circle' }} pe-2"></i>-->
-<!--                                                {{ val.option1 }}-->
-<!--                                            </h6>-->
-<!--                                        </label>-->
-<!--                                    </div>-->
-<!--                                    <div class="py-1">-->
-<!--                                        <input type="radio" value="{{ val.option2 }}" id="{{ val.otp2 }}"-->
-<!--                                            class="btn-check" name="options" autocomplete="off" />-->
-<!--                                        <label (click)="selectAnswer(val.option2, val, 2)" class="{{ 2 === val.user_answered ? 'optionanswered' : 'optionnotansweredy' }}-->
-<!--                                                        text-start quiznotanswered w-100 m-0" for="{{ val.otp2 }}">-->
-<!--                                            <h6 class="py-2 px-2 mb-0">-->
-<!--                                                <i-->
-<!--                                                    class="{{ 2 === val.user_answered ? 'fa-sharp fa-solid fa-circle-check' : 'fa-regular fa-circle' }} pe-2"></i>-->
-<!--                                                {{ val.option2 }}-->
-<!--                                            </h6>-->
-<!--                                        </label>-->
-<!--                                    </div>-->
-<!--                                    <div class="py-1">-->
-<!--                                        <input type="radio" value="{{ val.option3 }}" id="{{ val.otp3 }}"-->
-<!--                                            class="btn-check" name="options" autocomplete="off" />-->
-<!--                                        <label (click)="selectAnswer(val.option3, val, 3)"-->
-<!--                                            class="{{ 3 === val.user_answered ? 'optionanswered' : 'optionnotanswered' }} text-start quiznotanswered w-100 m-0"-->
-<!--                                            for="{{ val.otp3 }}">-->
-<!--                                            <h6 class="py-2 px-2 mb-0">-->
-<!--                                                <i-->
-<!--                                                    class="{{ 3 === val.user_answered ? 'fa-sharp fa-solid fa-circle-check' : 'fa-regular fa-circle' }} pe-2"></i>-->
-<!--                                                {{ val.option3 }}-->
-<!--                                            </h6>-->
-<!--                                        </label>-->
-<!--                                    </div>-->
-<!--                                    <div class="py-1">-->
-<!--                                        <input type="radio" value="{{ val.option4 }}" id="{{ val.otp4 }}"-->
-<!--                                            class="btn-check" name="options" autocomplete="off" />-->
-<!--                                        <label (click)="selectAnswer(val.option4, val, 4)"-->
-<!--                                            class="{{ 4 === val.user_answered ? 'optionanswered' : 'optionnotanswered' }} text-start quiznotanswered w-100 m-0"-->
-<!--                                            for="{{ val.otp4 }}">-->
-<!--                                            <h6 class="py-2 px-2 mb-0">-->
-<!--                                                <i-->
-<!--                                                    class="{{ 4 === val.user_answered ? 'fa-sharp fa-solid fa-circle-check' : 'fa-regular fa-circle' }} pe-2"></i>-->
-<!--                                                {{ val.option4 }}-->
-<!--                                            </h6>-->
-<!--                                        </label>-->
-<!--                                    </div>-->
-<!--                                </div>-->
-<!--                            </div>-->
-<!--                        </ng-template>-->
-<!--                    </p-carousel>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--    </div>-->
-<!--    </div>-->
-<!--    <div class="card-footer" style="background-color: white;">-->
-<!--        <div class="row justify-content-center">-->
-<!--            <div class="col-md-8 text-start">-->
-<!--                <div class="w-100 px-3 quizprogress">-->
-<!--                    <span class="font-secondarycolor fw-semibold">Progress: {{totalpercentagequiztime | number : '1.0-0'}}%-->
-<!--                        Completed</span>-->
-<!--                    <p-progressBar [value]="totalpercentagequiztime"></p-progressBar>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--            <div class="col-md-4 text-end">-->
-<!--                <button (click)="clickPreviousQuiz(carouselQuiz, $event)" *ngIf="selectedQuiz != 1"-->
-<!--                    class="btn btn-back btn-rounded me-3 px-2 py-2">-->
-<!--                    <div class="d-flex align-items-center">-->
-<!--                        <span class="fw-normal h6 mb-0 ps-3 pe-2">Previous</span>-->
-<!--                        <div class="btn-icon"><i class="fa-solid fa-arrow-left"></i></div>-->
-<!--                    </div>-->
-<!--                </button>-->
-<!--                <button *ngIf="this.quizData.length > this.selectedQuiz" (click)="clickNextQuiz(carouselQuiz, $event)"-->
-<!--                    [disabled]="answerOptionClicked" class="btn btn-start btn-rounded m-0 px-2 py-2">-->
-<!--                    <div class="d-flex align-items-center">-->
-<!--                        <span class="fw-normal h6 mb-0 ps-3 pe-2">Next</span>-->
-<!--                        <div class="btn-icon"><i class="fa-solid fa-arrow-right"></i></div>-->
-<!--                    </div>-->
-<!--                </button>&nbsp;-->
-<!--                <button [disabled]="answerOptionClicked" *ngIf="this.quizData.length <= this.selectedQuiz" (click)="clickSubmitQuiz()"-->
-<!--                    class="btn btn-start btn-rounded m-0 px-2 py-2">-->
-<!--                    <div class="d-flex align-items-center">-->
-<!--                        <span class="fw-normal h6 mb-0 ps-3 pe-2">Submit</span>-->
-<!--                        <div class="btn-icon"><i class="fa-solid fa-check"></i></div>-->
-<!--                    </div>-->
-<!--                </button>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--    </div>-->
-<!--</div>-->
+
 <div class="readingcard card">
-  <p-carousel [value]="questions" [responsiveOptions]="responsiveOptions" [showIndicators]="false" [showNavigators]="false" [page]="page" class="readingcard">
-    <ng-template let-question pTemplate="item">
-      <div class="card h-100">
+
+      <div class="card h-100 justify-content-between">
         <div class="card-header d-flex justify-content-between mt-4" style="background-color: #fafafa; border-bottom: 0px solid #fafafa">
-          <h5>{{ page + 1 }}/10 Question Left</h5>
+          <h5>{{10 - this.page}}/10 Question Left</h5>
           <a class="btn btn-danger">Quit</a>
         </div>
-        <div class="card-body">
-          <small class="font-semibold" style="color: #394d83; font-weight: 600">Question Number {{ page + 1 }}</small>
-          <h3>{{ question.question }}</h3>
+        <div class="card-body flex-grow-1">
+          <small class="font-semibold" style="color: #394d83; font-weight: 600">Question Number {{ this.page + 1 }}</small>
+          <h3>{{this.activeQuestion}}</h3>
           <div class="d-flex p-3 my-1" style="border: 1px solid #e3e3e3; border-radius: 10px">
             <p-radioButton name="groupname" value="A" [(ngModel)]="selectedValue" inputId="opt1"></p-radioButton>
-            <label for="opt1" class="ps-2">{{ question.option_one }}</label>
+            <label for="opt1" class="ps-2">{{this.activeOptOne}}</label>
           </div>
           <div class="d-flex p-3 my-1" style="border: 1px solid #e3e3e3; border-radius: 10px">
             <p-radioButton name="groupname" value="B" [(ngModel)]="selectedValue" inputId="opt2"></p-radioButton>
-            <label for="opt2" class="ps-2">{{ question.option_two }}</label>
+            <label for="opt2" class="ps-2">{{this.activeOptTwo}}</label>
           </div>
           <div class="d-flex p-3 my-1" style="border: 1px solid #e3e3e3; border-radius: 10px">
             <p-radioButton name="groupname" value="C" [(ngModel)]="selectedValue" inputId="opt3"></p-radioButton>
-            <label for="opt3" class="ps-2">{{ question.option_three }}</label>
+            <label for="opt3" class="ps-2">{{this.activeOptThree}}</label>
           </div>
           <div class="d-flex p-3 my-1" style="border: 1px solid #e3e3e3; border-radius: 10px">
             <p-radioButton name="groupname" value="D" [(ngModel)]="selectedValue" inputId="opt4"></p-radioButton>
-            <label for="opt4" class="ps-2">{{ question.option_four }}</label>
+            <label for="opt4" class="ps-2">{{this.activeOptFour}}</label>
           </div>
-          <input type="hidden" value="{{ question.id }}" />
+          <p style="color:red" class="fw-semibold" *ngIf="showError">Please select an answer</p>
         </div>
         <div class="card-footer d-flex justify-content-between mb-2 align-items-end" style="background-color: #fafafa; border-top: 0px solid #fafafa">
-          <!-- <div>
-           sss
-        </div> -->
           <div style="width: 80%">
-            <small class="fw-semibold">Progress: {{ page * 10 }}% Completed</small>
-            <p-progressBar [value]="progressvalue" [style]="{ height: '6px' }"></p-progressBar>
+            <small class="fw-semibold">Progress: {{ this.page * 10 }}% Completed</small>
+            <p-progressBar [value]="progressvalue" [style]="{ height: '6px'}"></p-progressBar>
           </div>
 
           <div>
-            <button class="btn btn-primary" (click)="prevQues(question.id)">Previous</button>
-            <button class="btn btn-primary ms-2" (click)="nextQues(question.id)">Next</button>
+            <button class="btn btn-primary" (click)="prevQues()">Previous</button>
+            <button class="btn btn-primary ms-2" (click)="nextQues()">Next</button>
           </div>
         </div>
       </div>
-    </ng-template>
-  </p-carousel>
+
 </div>
