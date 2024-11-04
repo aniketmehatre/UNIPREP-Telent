@@ -6,6 +6,8 @@ interface result {
   answer_opt : string;
 }
 
+
+
 let results: result[] = [];
 
 
@@ -19,81 +21,99 @@ export class NationalExamQuestionsComponent implements OnInit {
   responsiveOptions: { breakpoint: string; numVisible: number; numScroll: number; }[];
   selectedValue: any ;
   progressvalue:number = 0;
-  page:number = 0 ;
+
   question_id: any;
   results: any;
+  showError:boolean = false;
+
+  page:any = 0 ;
+  activeQuestion:string;
+  activeQuestionId:number
+  activeOptOne:string;
+  activeOptTwo:string;
+  activeOptThree:string;
+  activeOptFour:string;
+  activeTestId:string;
+
   constructor(private service: NationalExamService ) { }
 
-  ngOnInit(): void {
-    // alert(this.selectedValue);
-    this.responsiveOptions = [
-      {
-          breakpoint: '1024px',
-          numVisible: 3,
-          numScroll: 3
-      },
-      {
-          breakpoint: '768px',
-          numVisible: 2,
-          numScroll: 2
-      },
-      {
-          breakpoint: '560px',
-          numVisible: 1,
-          numScroll: 1
-      }
-  ];
+  ngOnInit() {
     var data = {
       test_id: 1
     }
     this.service.getQuestions(data).subscribe(response => {
       this.questions = response;
       console.log(this.questions);
+      this.activeQuestion = this.questions[this.page].question;
+      this.activeQuestionId = this.questions[this.page].id;
+      this.activeTestId = this.questions[this.page].test_id;
+      this.activeOptOne = this.questions[this.page].option_one;
+      this.activeOptTwo = this.questions[this.page].option_two;
+      this.activeOptThree = this.questions[this.page].option_three;
+      this.activeOptFour = this.questions[this.page].option_four;
+      // alert(this.activeQuestionId);
     });
   }
 
-  nextQues(question_id : any){
-    if(this.selectedValue == undefined){
-      alert("select an answer ")
-    }else{
-      // alert(this.page);
-      if(this.page != 9){
-      this.page = this.page+1;
 
+  nextQues(){
+    if(this.selectedValue == undefined){
+      this.showError = true;
+    }else{
+      this.showError = false;
       const newResult: result =  {
-        question_id : question_id,
+        question_id : this.activeQuestionId,
         answer_opt : this.selectedValue
       }
-      this.selectedValue = null;
-      this.progressvalue = this.page*10;
-
       results.push(newResult);
-      console.log(results);
+      if(this.page != 9){
+        this.page = this.page + 1;
+        this.activeQuestion = this.questions[this.page].question;
+        this.activeQuestionId = this.questions[this.page].id;
+        this.activeTestId = this.questions[this.page].test_id;
+        this.activeOptOne = this.questions[this.page].option_one;
+        this.activeOptTwo = this.questions[this.page].option_two;
+        this.activeOptThree = this.questions[this.page].option_three;
+        this.activeOptFour = this.questions[this.page].option_four;
+        this.selectedValue = null;
+        this.progressvalue = this.page*10;
 
+          console.log(results);
       }else{
-        alert("exam over");
+        // this.page = this.page + 1;
+        // const newResult: result =  {
+        //   question_id : this.activeQuestionId,
+        //   answer_opt : this.selectedValue
+        // }
+        // this.selectedValue = null;
+        // this.progressvalue = this.page*10;
+        // results.push(newResult);
+
+        var info = {
+          questions_id: results,
+          test_id: this.activeTestId,
+        }
+        console.log(info);
+        this.service.submitResult(info).subscribe(response => {
+          console.log(response);
+        });
       }
     }
   }
 
-  prevQues(question_id : any){
-    // alert("clicked");
-
-    // if(this.selectedValue == undefined){
-    //   alert("select an answer ")
-    // }else{
-      // alert(this.page);
-      if(this.page != 0){
-      this.page = this.page-1;
-      this.selectedValue = null;
-      this.progressvalue = this.page*10;
-
-      results = results.filter((result) => result.question_id !== question_id-1);
+  prevQues(){
+    if(this.page != 0){
+      this.page = this.page - 1;
+      this.activeQuestion = this.questions[this.page].question;
+      this.activeQuestionId = this.questions[this.page].id;
+      this.activeTestId = this.questions[this.page].test_id;
+      this.activeOptOne = this.questions[this.page].option_one;
+      this.activeOptTwo = this.questions[this.page].option_two;
+      this.activeOptThree = this.questions[this.page].option_three;
+      this.activeOptFour = this.questions[this.page].option_four;
+      results = results.filter((result) => result.question_id !== this.activeQuestionId-1);
       console.log(results);
-      }else{
-        alert("exam over");
-      }
-    // }
+    }
   }
 
 
