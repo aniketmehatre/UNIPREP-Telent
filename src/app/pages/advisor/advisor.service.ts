@@ -15,4 +15,12 @@ export class AdvisorService {
       headers: headers,
     });
   }
+
+  
+  getTeamAnswer(data: any) {
+    const headers = new HttpHeaders().set("Accept", "application/json");
+    return this.http.post<any>(environment.ApiUrl + "/askTeam", data ,{
+      headers: headers,
+    });
+  }
 }

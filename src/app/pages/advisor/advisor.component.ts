@@ -21,6 +21,8 @@ userQuestion: any;
   chatdata: any;
   showSkeleton: boolean = false;
   responseType: string;
+  askExpertResponse: number = 0;
+  requestButton: string;
 
   private scrollToBottom(): void {
       try {
@@ -49,11 +51,12 @@ userQuestion: any;
       {question:"Top 20 government funding opportunities for startups in the UK"},
     ]
     this.responseType = "Ask AI Advisor"
+    this.requestButton = "Ask an Expert!"
   }
   pquestion: any | null ;
 
   getAns(){
-
+    if(this.askExpertResponse == 0){
     this.isQuestionAsked = true;
     this.showSkeleton= true;
     this.isQuestionNotAsked = false;
@@ -71,6 +74,25 @@ userQuestion: any;
       this.userQuestion = '';
       this.scrollToBottom();
     });
+  }else{
+    this.isQuestionAsked = true;
+    this.showSkeleton= true;
+    this.isQuestionNotAsked = false;
+    // alert(this.userQuestion);
+    this.ngxService.startBackground();
+    var data = {
+      question : this.userQuestion
+    }
+    this.service.getTeamAnswer(data).subscribe(response => {
+      this.showSkeleton= false;
+      this.chatdata = response;
+      // this.question = response.question;
+      // this.answer = response.answer;
+      this.ngxService.stopBackground();
+      this.userQuestion = '';
+      this.scrollToBottom();
+    });
+  }
   }
 
   triggerSample(sample:any){
@@ -95,7 +117,15 @@ userQuestion: any;
 
   askExpert(){
     //alert("Our team will get back to you shortly");
-    this.responseType = " Ask Expert"
+    if(this.askExpertResponse == 0){
+    this.responseType = " Ask Expert";
+     this.requestButton = "Ask AI Advisor";
+    this.askExpertResponse = 1;
+    }else{
+      this.responseType = " Ask AI Advisor";
+      this.requestButton = "Ask Expert";
+     this.askExpertResponse = 0;
+    }
   }
 
 }
