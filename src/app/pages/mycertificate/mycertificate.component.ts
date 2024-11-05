@@ -154,4 +154,10 @@ planExpired: boolean = false;
     textarea.remove();
     this.toast.add({ severity: 'success', summary: 'Success', detail: 'Certificate link Copied' });
   }
+  redirectCertificateTraker(){
+    console.log("hi");
+    
+    const url = this.router.serializeUrl(this.router.createUrlTree(['/certificates']));
+    window.open(url, '_blank');
+  }
 }

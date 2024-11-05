@@ -65,6 +65,7 @@ export class QuizComponent implements OnInit {
   imagewhitlabeldomainname: any
   orgnamewhitlabel: any;
   orglogowhitelabel: any;
+  timeover:number=0;
   constructor(private moduleListService: ModuleServiceService, private authService: AuthService, private router: Router, private dataService: DataService,
     private locationService: LocationService, private ngxService: NgxUiLoaderService, private toast: MessageService,private location: Location) { }
 
@@ -484,17 +485,18 @@ export class QuizComponent implements OnInit {
     window.open(link, '_blank');
   }
   startTimer(): void {
-    this.timer = 0;
+    this.timeover=0;
+    this.timer = this.quizcount * 60;
     this.totalquiztime = this.quizcount * 60;
     if (this.timerSubscription) {
       this.timerSubscription.unsubscribe();
     }
     this.timerSubscription = interval(1000).pipe(
-      takeWhile(() => this.timer < (this.quizcount * 60))
+      takeWhile(() => this.timer > this.timeover)
     ).subscribe(() => {
-      this.timer++;
+      this.timer--;
       // console.log(`Timer: ${this.timer} seconds`);
-      if (this.timer === this.quizcount * 60) {
+      if (this.timer === this.timeover) {
         this.restrict = true;
       }
     });
