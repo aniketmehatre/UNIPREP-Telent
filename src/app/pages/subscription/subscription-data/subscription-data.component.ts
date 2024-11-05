@@ -134,7 +134,7 @@ export class SubscriptionDataComponent implements OnInit {
       studenttype: this.studentType,
       country: this.currentCountry,
       continent: this.continent,
-      monthly_plan: this.monthlyPlan,
+      monthly_plan: this.studentType==2?12:this.monthlyPlan,
       study_level:this.user?.education_level
     };
 
