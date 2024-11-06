@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { FounderstoolService } from '../founderstool.service';
 import { Router } from '@angular/router';
+import { PageFacadeService } from '../../page-facade.service';
 
 @Component({
   selector: 'uni-investorpitchtraining',
@@ -11,7 +12,7 @@ import { Router } from '@angular/router';
 export class InvestorpitchtrainingComponent implements OnInit {
   investorlists:any[]=[];
   currentIndex = 0;
-  constructor(private service: FounderstoolService,private sanitizer: DomSanitizer,private router:Router) { }
+  constructor(private service: FounderstoolService,private sanitizer: DomSanitizer,private router:Router,private pageFacade: PageFacadeService) { }
 
   ngOnInit(): void {
     this.service.getAInvestorTraining().subscribe((response) => {
@@ -37,5 +38,9 @@ export class InvestorpitchtrainingComponent implements OnInit {
   }
   goBack(){
     this.router.navigate(['/pages/founderstool/founderstoollist']);
+  }
+
+  openVideoPopup(videoLink: string) {
+    this.pageFacade.openHowitWorksVideoPopup(videoLink);
   }
 }

@@ -2,6 +2,8 @@ import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {DataService} from "../../data.service";
 import { Location } from "@angular/common";
+import { PageFacadeService } from '../page-facade.service';
+
 @Component({
     selector: 'uni-job-search',
     templateUrl: './job-search.component.html',
@@ -13,7 +15,7 @@ export class JobSearchComponent implements OnInit {
     currentEndpoint: string = '';
 
     constructor(private router: Router, private _location: Location,
-                private route: ActivatedRoute, private dataService: DataService) {
+                private route: ActivatedRoute, private dataService: DataService,private pageFacade: PageFacadeService,) {
         this.route.params.subscribe(params => {
             const url = this.router.url;
             const urlSegments = url.split('/');
@@ -67,4 +69,9 @@ export class JobSearchComponent implements OnInit {
     goBack(){
         this._location.back()
     }
+
+    
+  openVideoPopup(videoLink: string) {
+    this.pageFacade.openHowitWorksVideoPopup(videoLink);
+  }
 }

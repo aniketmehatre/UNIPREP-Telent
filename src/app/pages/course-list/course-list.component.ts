@@ -32,9 +32,9 @@ export class CourseListComponent implements OnInit {
   universityNameList: any = [];
   allUniversityList: any = [];
   durationList: any = [];
-  monthList: any = [{ id: "January", name: "January" }, { id: "February", name: "February" }, { id: "March", name: "March" }, { id: "April", name: "April" }, { id: "May ", name: "May" }, { id: "June", name: "June" }, { id: "July", name: "July" }, { id: "August", name: "August" }, { id: "September", name: "September" }, { id: "October", name: "October" }, { id: "November", name: "November" }, { id: "December", name: "December" }];
+  monthList: any = [{ id: "Jan", name: "January" }, { id: "Feb", name: "February" }, { id: "Mar", name: "March" }, { id: "Apr", name: "April" }, { id: "May ", name: "May" }, { id: "Jun", name: "June" }, { id: "Jul", name: "July" }, { id: "Aug", name: "August" }, { id: "Sep", name: "September" }, { id: "Oct", name: "October" }, { id: "Nov", name: "November" }, { id: "Dec", name: "December" }];
   recMonthList: any = this.monthList;
-  studyLevel: any = [{ id: "UG", value: "UG" }, { id: "PG", value: "PG" }];
+  studyLevel: any = [{ id: "Bachelors", label: 'Bachelors' },{ id: "Masters", label: 'Masters' },{ id: "Diploma", label: 'Diploma' },{ id: "PG Diploma", label: 'PG Diploma' }];
   worldRank: any = [{ id: "100", value: "Top 100" }, { id: "200", value: "Top 200" }, { id: "500", value: "Top 500" }, { id: null, value: "All Range" }];
   campusList: any = [];
   guidelinesDiv: boolean = true;
@@ -82,8 +82,10 @@ export class CourseListComponent implements OnInit {
   invalidClass: boolean = false;
   selectedData: { [key: string]: any } = {};
   studyLevelCubes:any = [
-    { id: "UG", label: 'Undergraduate' },
-    { id: "PG", label: 'Postgraduate' },
+    { id: "Bachelors", label: 'Bachelors' },
+    { id: "Masters", label: 'Masters' },
+    { id: "Diploma", label: 'Diploma' },
+    { id: "PG Diploma", label: 'PG Diploma' },
     { id: null, label: 'Any' }
   ];
   worldRankCubes:any = [{ id: 100, value: "Top 100" }, { id: 200, value: "Top 200" }, { id: 500, value: "Top 500" }, { id: null, value: "Any" }];

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { FounderstoolService } from '../founderstool.service';
 import { Router } from '@angular/router';
-
+import { PageFacadeService } from '../../page-facade.service';
 @Component({
   selector: 'uni-startupglossary',
   templateUrl: './startupglossary.component.html',
@@ -14,7 +14,7 @@ export class StartupglossaryComponent implements OnInit {
   startupglossarylists: any[] = [];
   groupedTerms: { [key: string]: any[] } = {};
   valueNearYouFilter: string = '';
-  constructor(private service: FounderstoolService, private sanitizer: DomSanitizer, private router: Router) { }
+  constructor(private service: FounderstoolService, private sanitizer: DomSanitizer, private router: Router,private pageFacade: PageFacadeService) { }
   ngOnInit(): void {
     this.category_dropdown = [
       { id: null, name: "All" },
@@ -47,6 +47,11 @@ export class StartupglossaryComponent implements OnInit {
     ];
     this.getStartUpGlossary(null);
   }
+
+  openVideoPopup(videoLink: string) {
+    this.pageFacade.openHowitWorksVideoPopup(videoLink);
+  }
+
   isSelected(id: number): boolean {
     return this.selectedCategoryId === id;  // Check if this category is selected
   }
