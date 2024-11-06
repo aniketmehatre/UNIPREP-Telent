@@ -986,15 +986,14 @@ uni-subscription {
 
 
 .backIcon {
-	height: 40px;
-	width: 40px;
-	border-radius: 20px;
+	height: 100%;
+    width: 50px;
+	border-radius: 8px;
 	background-color: var(--uniprep-primary);
 	color: white;
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	margin: 10px 0;
 }
 
 .subjectcard {
@@ -1359,13 +1358,11 @@ uni-subscription {
 
 .select-title {
 	background: #1c1b17;
-	font-weight: 500;
-	margin: auto;
-	color: #fff;
-	padding: 8px 15px 8px 15px;
-	border-radius: 0px 0px 10px 10px;
-	position: relative;
-
+    color: #fff;
+    padding: 8px 8px 8px 15px;
+    border-radius: 10px;
+    position: relative;
+	flex: 1;
 	.questiontooltip {
 		color: var(--uniprep-secondary);
 		vertical-align: top;

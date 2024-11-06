@@ -1,9 +1,8 @@
 <div class="card readingcard">
   <ng-container *ngIf="!enableModule">
-    <div class="card-header py-0 border-0 bg-transparent">
+    <div class="card-header border-0 bg-transparent">
       <div class="row justify-content-center">
-        <div class="col-md-2 text-start"></div>
-        <div class="col-md-8 text-center">
+        <div class="col-md-12 text-center">
           <div class="select-title text-nowrap d-flex justify-content-between align-items-center">
             <div>
               <h5 class="w-100 mb-0" tooltipPosition="top" pTooltip="Search and apply to courses worldwide with our comprehensive global course finder">UNIFINDER<i class="questiontooltip fa-solid fa-circle-question"></i></h5>
@@ -13,7 +12,6 @@
             </div>
           </div>
         </div>
-        <div class="col-md-2"></div>
       </div>
     </div>
 
@@ -86,13 +84,12 @@
   </ng-container>
   <ng-container *ngIf="enableModule">
     <div class="flex-column h-100" [style.display]="guidelinesDiv ? 'flex' : 'none'">
-      <div class="card-header py-0 border-0 bg-transparent">
+      <div class="card-header border-0 bg-transparent">
         <div class="row justify-content-center">
-          <div class="col-xxl-3 col-xl-3 col-lg-4 col-md-4 col-sm-4 col-xs-12 col-12 text-start order-md-1 order-2"></div>
           <!-- <div class="col-md-6 text-center">
 						<h5 class="select-title w-100 mb-1" tooltipPosition="top" pTooltip="Course List">COURSE LIST<i class="questiontooltip fa-solid fa-circle-question"></i></h5>
 					</div> -->
-          <div class="col-xxl-6 col-xl-6 col-lg-4 col-md-4 col-sm-4 col-xs-12 col-12 text-center order-md-2 order-1">
+          <div class="col-12 d-flex gap-2">
             <div class="select-title text-nowrap d-flex justify-content-between align-items-center">
               <div>
                 <h5 class="w-100 mb-0" tooltipPosition="top" pTooltip="Search and apply to courses worldwide with our comprehensive global course finder">UNIFINDER<i class="questiontooltip fa-solid fa-circle-question"></i></h5>
@@ -101,15 +98,15 @@
                 <button class="how-it-works-button" (click)="openVideoPopup('https://www.youtube.com/embed/broH-JjV-B4?si=xqN69X_Wu9J0mdpu')">How it works? <i class="fa-solid fa-play"></i></button>
               </div>
             </div>
-          </div>
-          <div class="col-xxl-3 col-xl-3 col-lg-4 col-md-4 col-sm-4 col-xs-12 col-12 text-end order-md-3 order-3">
-            <span class="d-flex justify-content-end mt-3 gap-2">
-              <button class="btn btn-primary text-small course-guidelines" (click)="closeGuidelines()" type="button">Course Guidelines</button>
-              <button *ngIf="ehitlabelIsShow" class="btn btn-primary text-small buy-credits-button" (click)="buyCredits()" type="button">Buy Credits</button>
-              <button class="btn btn-primary text-small exportButton" (click)="exportData()" type="button">
-                Export <span class="exportCount">{{ buyCreditsCount }}</span>
-              </button>
-            </span>
+            <div>
+              <span class="d-flex justify-content-end gap-2">
+                <button class="btn btn-primary flex-shrink-0 text-small course-guidelines" (click)="closeGuidelines()" type="button">Course Guidelines</button>
+                <button *ngIf="ehitlabelIsShow" class="btn btn-primary flex-shrink-0 text-small buy-credits-button" (click)="buyCredits()" type="button">Buy Credits</button>
+                <button class="btn btn-primary text-small flex-shrink-0 exportButton" (click)="exportData()" type="button">
+                  Export <span class="exportCount">{{ buyCreditsCount }}</span>
+                </button>
+              </span>
+            </div>
           </div>
         </div>
         <div class="row justify-content-center">
