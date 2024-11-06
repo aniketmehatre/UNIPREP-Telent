@@ -1,5 +1,5 @@
 <div class="card readingcard" *ngIf="!isPdfLoaded" [style.display]="showDiv ? 'flex' : 'none'">
-	<div class="card-header py-0 border-0 bg-transparent">
+	<div class="card-header border-0 bg-transparent">
 		<div class="row justify-content-center" *ngIf="!restrict">
 			<div class="col-md-3 text-start">
 				<div class="p-input-icon-left w-100 mt-3">
@@ -176,7 +176,7 @@
 </div>
 
 <div class="card overflow-y-auto h-100 flex-column" [style.display]="!showDiv ? 'flex' : 'none'">
-	<div class="card-header py-0 border-0 bg-transparent">
+	<div class="card-header border-0 bg-transparent">
 		<div class="row justify-content-center">
 			<div class="col-md-2 text-start"></div>
 			<div class="col-md-8 text-center">
@@ -231,7 +231,7 @@
 	</div>
 </p-dialog>
 	<div class="card readingcard" *ngIf="isPdfLoaded">
-		<div class="card-header py-0 border-0 bg-transparent">
+		<div class="card-header border-0 bg-transparent">
 			<div class="row justify-content-center">
 				<div class="col-md-3 col-1 text-start">
 					<p-button (click)="goBack()" icon="fa-solid fa-chevron-left" styleClass="p-button-rounded p-button-text text-dark"></p-button>
