@@ -1362,7 +1362,7 @@ uni-subscription {
     padding: 8px 8px 8px 15px;
     border-radius: 10px;
     position: relative;
-	width: 100%;
+	flex: 1;
 	.questiontooltip {
 		color: var(--uniprep-secondary);
 		vertical-align: top;
