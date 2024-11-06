@@ -5,6 +5,7 @@ import { AuthService } from 'src/app/Auth/auth.service';
 import { DataService } from 'src/app/data.service';
 import { Meta } from '@angular/platform-browser';
 import { MessageService } from 'primeng/api';
+import { PageFacadeService } from '../page-facade.service';
 @Component({
   selector: 'uni-mycertificate',
   templateUrl: './mycertificate.component.html',
@@ -20,7 +21,7 @@ countryname:any;
 restrict: boolean = false;
 planExpired: boolean = false;
   constructor(private service:MycertificateserviceService,private router: Router,private authService: AuthService,private dataService: DataService,
-    private meta: Meta,private toast: MessageService,private route: ActivatedRoute,) { }
+    private meta: Meta,private toast: MessageService,private route: ActivatedRoute,private pageFacade: PageFacadeService,) { }
 
   ngOnInit(): void {
     this.dataService.countryNameSource.subscribe((data) => {
@@ -159,5 +160,9 @@ planExpired: boolean = false;
     
     const url = this.router.serializeUrl(this.router.createUrlTree(['/certificates']));
     window.open(url, '_blank');
+  }
+
+  openVideoPopup(videoLink: string) {
+    this.pageFacade.openHowitWorksVideoPopup(videoLink);
   }
 }

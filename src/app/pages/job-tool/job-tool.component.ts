@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
+import { PageFacadeService } from '../page-facade.service';
 import { filter } from 'rxjs';
 import { Location } from '@angular/common';
 import { CourseListService } from '../course-list/course-list.service';
@@ -14,12 +15,15 @@ export class JobToolComponent implements OnInit {
   title: string = 'Career Tools';
   items: string[] = [" ₹ INR", "$ Dollers"];
   hideTitleForPreviewPage: boolean = false;
-  tooltip: any
+  tooltip: any;
+  howItWorksVideo: string = "";
+
   constructor(
     private router: Router,
     private location: Location,
     private resumeService: CourseListService,
     private cvBuilderService: CvBuilderService,
+    private pageFacade: PageFacadeService,
   ) {
     this.currentRoute = this.router.url;
     this.router.events.subscribe(event => {
@@ -50,43 +54,59 @@ export class JobToolComponent implements OnInit {
       this.title = "Career Tools";
       this.tooltip = "Enhance your employability with tools to create resumes, cover letters, and prepare for interviews."
       this.hideTitleForPreviewPage = false;
+      // this.howItWorksVideo = 'https://www.youtube.com/embed/MLRlnXF4Zwg?si=y6g4u7JM4LQeuSS5';
     } else if (this.currentRoute.includes("cost-of-living")) {
       this.title = "Cost of living";
       this.tooltip = "Compare the cost of living across different cities and countries to plan your financial needs."
+      this.howItWorksVideo = 'https://www.youtube.com/embed/P9YZmCEeR4M?si=hR6GnvMgyKyyLuMr';
     } else if (this.currentRoute.includes("cv-builder")) {
       this.title = "CV Builder";
+      this.howItWorksVideo = 'https://www.youtube.com/embed/MLRlnXF4Zwg?si=y6g4u7JM4LQeuSS5';
     } else if (this.currentRoute.includes("salary-converter")) {
       this.title = "Global Salary Converter";
       this.tooltip = "Convert and compare salaries globally to understand the value of potential job offers."
+      this.howItWorksVideo = 'https://www.youtube.com/embed/yAhU2DwyXYs?si=0Uhk2fFNwWw6d013';
     } else if (this.currentRoute.includes("company-list")) {
       this.title = "company-list";
       this.tooltip = "Access a curated list of companies by industry and location to target your job search effectively."
+      this.howItWorksVideo = 'https://www.youtube.com/embed/uihpCF4rvB4?si=h8CASyoCT5RaP6Ko';
     } else if (this.currentRoute.includes("coverletter-builder")) {
       this.title = "Coverletter-Builder";
       this.tooltip = ""
+      this.howItWorksVideo = 'https://www.youtube.com/embed/Sv1gVFIgFZ0?si=hHmclRvvE2ZXcEm7';
     } else if (this.currentRoute.includes("career-planner")) {
       this.title = "career-planner";
       this.tooltip = ""
+      this.howItWorksVideo = 'https://www.youtube.com/embed/ymhI18TJepU?si=w5-rDPvblQzpQ_hw';
     }
     else if (this.currentRoute.includes("psychometric")) {
       this.title = "Psychometric Test";
       this.tooltip = "Evaluate your aptitudes and personality traits with tests to find careers that best suit your profile."
       this.hideTitleForPreviewPage = false;
+      this.howItWorksVideo = 'https://www.youtube.com/embed/d53Ro1mmJ7Q?si=vVrt_KI4eHBI3_kw';
     } else if (this.currentRoute.includes("personality")) {
       this.title = "Personality Test";
       this.tooltip = "Discover more about your personality and how it aligns with various career paths."
       this.hideTitleForPreviewPage = false;
+      this.howItWorksVideo = 'https://www.youtube.com/embed/SIbgqYiwKqg?si=lTCVsuBM_izNnXIo';
     } else if (this.currentRoute.includes("career-growth-checker")) {
       this.title = "Career Growth Checker";
       this.tooltip = "Track your professional development and set goals with our career progression tool."
       this.hideTitleForPreviewPage = false;
+      this.howItWorksVideo = 'https://www.youtube.com/embed/hwH7xDhaE4c?si=gZG11AMS2BxCYAY1';
     } 
     else {
       this.title = "Employer Test";
       this.tooltip = "Prepare for potential employer assessments with practice tests and study guides."
       this.hideTitleForPreviewPage = false;
+      this.howItWorksVideo = 'https://www.youtube.com/embed/DM2uchyaIYM?si=-pZCduznfOYgNdH5';
     }
   }
+
+  openVideoPopup(videoLink: string) {
+    this.pageFacade.openHowitWorksVideoPopup(videoLink);
+  }
+
   goBack() {
     if (window.history.length > 1) {
       this.location.back()
