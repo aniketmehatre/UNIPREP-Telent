@@ -462,34 +462,23 @@ export class LearninghubquizComponent implements OnInit {
   openReferAnswer(link: any) {
     window.open(link, '_blank');
   }
+  timeover:number=0;
   startTimer(): void {
+    this.timeover=0;
+    this.timer = this.quizcount * 60;
     this.totalquiztime = this.quizcount * 60;
     if (this.timerSubscription) {
       this.timerSubscription.unsubscribe();
     }
-    if (this.currentModuleId < 10) {
-      this.timer = 0;
-      this.timerSubscription = interval(1000).pipe(
-        takeWhile(() => this.timer < (this.quizcount * 60))
-      ).subscribe(() => {
-        this.timer++;
-        // console.log(`Timer: ${this.timer} seconds`);
-        if (this.timer === this.quizcount * 60) {
-          this.restrict = true;
-        }
-      });
-    } else {
-      this.timer = this.totalquiztime;
-      this.timerSubscription = interval(1000).pipe(
-        takeWhile(() => this.timer > 0)
-      ).subscribe(() => {
-        this.timer--;
-        // console.log(`Timer: ${this.timer} seconds`);
-        if (this.timer === 0) {
-          this.restrict = true;
-        }
-      });
-    }
+    this.timerSubscription = interval(1000).pipe(
+      takeWhile(() => this.timer > this.timeover)
+    ).subscribe(() => {
+      this.timer--;
+      // console.log(`Timer: ${this.timer} seconds`);
+      if (this.timer === this.timeover) {
+        this.restrict = true;
+      }
+    });
   }
   formatTime(seconds: number): string {
     const minutes: number = Math.floor(seconds / 60);

@@ -436,18 +436,20 @@ export class EntreprenuerquizComponent implements OnInit {
   openReferAnswer(link: any) {
     window.open(link, '_blank');
   }
+  timeover:number=0;
   startTimer(): void {
-    this.timer = 0;
+    this.timeover=0;
+    this.timer = this.quizcount * 60;
     this.totalquiztime = this.quizcount * 60;
     if (this.timerSubscription) {
       this.timerSubscription.unsubscribe();
     }
     this.timerSubscription = interval(1000).pipe(
-      takeWhile(() => this.timer < (this.quizcount * 60))
+      takeWhile(() => this.timer > this.timeover)
     ).subscribe(() => {
-      this.timer++;
+      this.timer--;
       // console.log(`Timer: ${this.timer} seconds`);
-      if (this.timer === this.quizcount * 60) {
+      if (this.timer === this.timeover) {
         this.restrict = true;
       }
     });
