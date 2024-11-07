@@ -1,225 +1,149 @@
 <div class="card readingcard">
-  <div class="card-body text-center pt-0">
-    <div class="row">
-      <div class="col-md-2 mt-2 text-start">
-        <p-button
-          (click)="backtoMain()"
-          icon="fa-solid fa-chevron-left"
-          styleClass="p-button-rounded p-button-text text-dark"
-        ></p-button>
-      </div>
-      <div class="col-md-8 text-center">
-        <div
-          class="select-title text-nowrap d-flex justify-content-between align-items-center"
-        >
-          <div>
-            <h5
-              class="mb-0"
-              tooltipPosition="top"
-              pTooltip="Prepare for standardized tests and improve academic skills with practice tests and learning modules."
-            >
-              {{ selected_module | uppercase }}
-              <i class="questiontooltip fa-solid fa-circle-question"></i>
-            </h5>
-          </div>
-          <div>
-            <button
-              class="how-it-works-button"
-              (click)="
-                openVideoPopup(
-                  'https://www.youtube.com/embed/01xivveciUI?si=Cdi3e7ycApMa8sWO'
-                )
-              "
-            >
-              &nbsp;How it works? &nbsp;&nbsp;<i class="fa-solid fa-play"></i>
-            </button>
-          </div>
-        </div>
-      </div>
-
-      <div
-        class="col-md-2 mt-2 text-end desktop justify-content-end d-none d-md-flex"
-      ></div>
-    </div>
-    <div *ngIf="isSkeletonVisible">
-      <div class="row">
-        <div
-          *ngFor="let index of loopRange"
-          class="col-lg-2 col-md-3 col-sm-4 col-xs-12 col-12"
-        >
-          <div class="card my-2">
-            <div class="card-body">
-              <div class="row justify-content-center align-items-center">
-                <div class="col-3 col-md-12 d-flex justify-content-center">
-                  <p-skeleton
-                    width="5rem"
-                    height="5rem"
-                    styleClass="mb-2"
-                  ></p-skeleton>
-                </div>
-                <div class="col-9 col-md-12">
-                  <p-skeleton width="100%" styleClass="mb-2"></p-skeleton>
-                  <p-skeleton width="100%"></p-skeleton>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div
-      class="d-flex justify-content-center align-items-center vh-60 center ng-star-inserted"
-      *ngIf="!contentalignment"
-    >
-      <div class="row w-100 align-items-center justify-content-center">
-        <div
-          *ngFor="let module of submoduleList"
-          class="col-lg-2 col-md-3 col-sm-4 col-xs-12 col-12"
-        >
-          <div class="d-flex justify-content-center align-items-center h-100">
-            <div
-              (click)="onModuleClick(module)"
-              class="card subjectcard"
-              role="button"
-            >
-              <div
-                class="card-body d-flex flex-md-column flex-row justify-content-md-between align-items-center px-0 py-2"
-              >
-                <div>
-                  <h6 class="text-center subjecttitle d-md-block d-none pt-2">
-                    {{ module.submodule_name }}
-                  </h6>
-                </div>
-                <div class="text-start text-md-center">
-                  <h6 class="subjecttitle d-md-none d-block pt-2">
-                    {{ module.submodule_name }}
-                  </h6>
-                </div>
-                <div>
-                  <h6
-                    class="text-center d-md-block d-none p-2 text-small timespan"
-                  >
-                    {{ module?.time_limit + " " + "minutes" }}
-                  </h6>
-                </div>
-                <div class="text-start text-md-center">
-                  <h6 class="d-md-none d-block p-2 text-small timespan">
-                    {{ module?.time_limit + " " + "minutes" }}
-                  </h6>
-                </div>
-                <div>
-                  <h6 class="text-center d-md-block d-none pt-2">
-                    Score: {{ module?.userAnsweredQuestions }}/{{
-                      module?.totalQuestions
-                    }}
-                  </h6>
-                </div>
-                <div class="text-start text-md-center">
-                  <h6 class="d-md-none d-block pt-2">
-                    Score: {{ module?.userAnsweredQuestions }}/{{
-                      module?.totalQuestions
-                    }}
-                  </h6>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div
-      class="d-flex justify-content-center align-items-center vh-60 pb-2 ng-star-inserted"
-      *ngIf="contentalignment"
-    >
-      <div class="row w-100 align-items-center">
-        <div
-          *ngFor="let module of submoduleList"
-          class="col-lg-2 col-md-3 col-sm-4 col-xs-12 col-12"
-        >
-          <div class="d-flex justify-content-center align-items-center h-100">
-            <div
-              (click)="onModuleClick(module)"
-              class="card subjectcard"
-              role="button"
-            >
-              <div
-                class="card-body d-flex flex-md-column flex-row justify-content-md-between align-items-center px-0 py-2"
-              >
-                <div class="align-self-end pe-2">
-                  <h6
-                    class="text-center d-md-block d-none p-1 pe-3 ps-3 text-smaller"
-                    [ngClass]="{
-                      basictimespan: module.difficulty === 'Basic',
-                      advancetimespan: module.difficulty === 'Advanced',
-                      intermediatetimespan: module.difficulty === 'Intermediate'
-                    }"
-                  >
-                    {{ module?.difficulty }}
-                  </h6>
-                </div>
-                <div class="text-start text-md-center">
-                  <h6
-                    class="d-md-none d-block p-1 pe-3 ps-3 text-smaller"
-                    [ngClass]="{
-                      basictimespan: module.difficulty === 'Basic',
-                      advancetimespan: module.difficulty === 'Advance',
-                      intermediatetimespan: module.difficulty === 'Intermediate'
-                    }"
-                  >
-                    {{ module?.difficulty }}
-                  </h6>
-                </div>
-                <div>
-                  <h6 class="text-center subjecttitle d-md-block d-none pt-2">
-                    {{ module.submodule_name }}
-                  </h6>
-                </div>
-                <div class="text-start text-md-center">
-                  <h6 class="subjecttitle d-md-none d-block pt-2">
-                    {{ module.submodule_name }}
-                  </h6>
-                </div>
-                <div>
-                  <h6 class="text-center d-md-block d-none pt-2">
-                    Score: {{ module?.userAnsweredQuestions }}/{{
-                      module?.totalQuestions
-                    }}
-                  </h6>
-                </div>
-                <div class="text-start text-md-center">
-                  <h6 class="d-md-none d-block pt-2">
-                    Score: {{ module?.userAnsweredQuestions }}/{{
-                      module?.totalQuestions
-                    }}
-                  </h6>
-                </div>
-                <div class="col text-center" *ngIf="module?.answered==1">
-                  <button class="btn btn-primary text-smaller btn-rounded btn-sm p-2 pe-4 ps-4 w-100" type="button">
-                      Retry <i class="ps-2 fa-regular fa-arrow-rotate-right" (click)="onModuleClick(module)"></i>
-                  </button>
-              </div>
-              <div class="col text-center" *ngIf="module?.answered==0">
-                  <button class="btn btn-secondary text-smaller btn-rounded p-2 pe-4 ps-4 btn-sm w-100" type="button">
-                      Start Test <i class="ps-2 fa-sharp fa-solid fa-stopwatch" (click)="onModuleClick(module)"></i>
-                  </button>
-              </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="row align-items-end">
-      <h2 class="headColor">
-        Average Score: {{ avgtotalAnswers }}/ {{ avgtotalQuestions }}
-      </h2>
-    </div>
-  </div>
-  <div class="card-footer bg-white">
-    <div class="row text-center">
-      <h4 class="headColor">
-        ALL THE BEST !
-      </h4>
-    </div>
-  </div>
+	<div class="card-header border-0 bg-transparent">
+		<div class="row">
+			<div class="col-md-12 d-flex gap-2 text-center">
+				<div class="backIcon" role="button" (click)="backtoMain()">
+					<span class="fa-solid fa-chevron-left"></span>
+				</div>
+				<div class="select-title text-nowrap d-flex justify-content-between align-items-center">
+					<div>
+						<h5 class="mb-0" tooltipPosition="top" pTooltip="Prepare for standardized tests and improve academic skills with practice tests and learning modules.">
+							{{ selected_module | uppercase }}
+							<i class="questiontooltip fa-solid fa-circle-question"></i>
+						</h5>
+					</div>
+					<div>
+						<button class="how-it-works-button" (click)="openVideoPopup('https://www.youtube.com/embed/01xivveciUI?si=Cdi3e7ycApMa8sWO')">&nbsp;How it works? &nbsp;&nbsp;<i class="fa-solid fa-play"></i></button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="card-body d-flex flex-column flex-fill overflow-y-auto">
+		<div *ngIf="isSkeletonVisible">
+			<div class="row">
+				<div *ngFor="let index of loopRange" class="col-lg-2 col-md-3 col-sm-4 col-xs-12 col-12">
+					<div class="card my-2">
+						<div class="card-body">
+							<div class="row justify-content-center align-items-center">
+								<div class="col-3 col-md-12 d-flex justify-content-center">
+									<p-skeleton width="5rem" height="5rem" styleClass="mb-2"></p-skeleton>
+								</div>
+								<div class="col-9 col-md-12">
+									<p-skeleton width="100%" styleClass="mb-2"></p-skeleton>
+									<p-skeleton width="100%"></p-skeleton>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="d-flex justify-content-center align-items-center flex-fill flex-column ng-star-inserted" *ngIf="!contentalignment">
+			<div class="container-fluid">
+				<div class="row align-items-center justify-content-center">
+					<div *ngFor="let module of submoduleList" class="col-lg-2 col-md-3 col-sm-4 col-xs-12 col-12">
+						<div class="d-flex justify-content-center align-items-center h-100">
+							<div (click)="onModuleClick(module)" class="card subjectcard" role="button">
+								<div class="card-body d-flex flex-md-column flex-row justify-content-md-between align-items-center px-0 py-2">
+									<div>
+										<h6 class="text-center subjecttitle d-md-block d-none pt-2">
+											{{ module.submodule_name }}
+										</h6>
+									</div>
+									<div class="text-start text-md-center">
+										<h6 class="subjecttitle d-md-none d-block pt-2">
+											{{ module.submodule_name }}
+										</h6>
+									</div>
+									<div>
+										<h6 class="text-center d-md-block d-none p-2 text-small timespan">
+											{{ module?.time_limit + " " + "minutes" }}
+										</h6>
+									</div>
+									<div class="text-start text-md-center">
+										<h6 class="d-md-none d-block p-2 text-small timespan">
+											{{ module?.time_limit + " " + "minutes" }}
+										</h6>
+									</div>
+									<div>
+										<h6 class="text-center d-md-block d-none pt-2">Score: {{ module?.userAnsweredQuestions }}/{{ module?.totalQuestions }}</h6>
+									</div>
+									<div class="text-start text-md-center">
+										<h6 class="d-md-none d-block pt-2">Score: {{ module?.userAnsweredQuestions }}/{{ module?.totalQuestions }}</h6>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="d-flex flex-fill flex-column ng-star-inserted" *ngIf="contentalignment">
+			<div class="container-fluid">
+				<div class="row align-items-center">
+					<div *ngFor="let module of submoduleList" class="col-lg-2 col-md-3 col-sm-4 col-xs-12 col-12">
+						<div class="d-flex justify-content-center align-items-center h-100">
+							<div (click)="onModuleClick(module)" class="card subjectcard" role="button">
+								<div class="card-body d-flex flex-md-column flex-row justify-content-md-between align-items-center px-0 py-2">
+									<div class="align-self-end pe-2">
+										<h6
+											class="text-center d-md-block d-none p-1 pe-3 ps-3 text-smaller"
+											[ngClass]="{
+												basictimespan: module.difficulty === 'Basic',
+												advancetimespan: module.difficulty === 'Advanced',
+												intermediatetimespan: module.difficulty === 'Intermediate'
+											}">
+											{{ module?.difficulty }}
+										</h6>
+									</div>
+									<div class="text-start text-md-center">
+										<h6
+											class="d-md-none d-block p-1 pe-3 ps-3 text-smaller"
+											[ngClass]="{
+												basictimespan: module.difficulty === 'Basic',
+												advancetimespan: module.difficulty === 'Advance',
+												intermediatetimespan: module.difficulty === 'Intermediate'
+											}">
+											{{ module?.difficulty }}
+										</h6>
+									</div>
+									<div>
+										<h6 class="text-center subjecttitle d-md-block d-none pt-2">
+											{{ module.submodule_name }}
+										</h6>
+									</div>
+									<div class="text-start text-md-center">
+										<h6 class="subjecttitle d-md-none d-block pt-2">
+											{{ module.submodule_name }}
+										</h6>
+									</div>
+									<div>
+										<h6 class="text-center d-md-block d-none pt-2">Score: {{ module?.userAnsweredQuestions }}/{{ module?.totalQuestions }}</h6>
+									</div>
+									<div class="text-start text-md-center">
+										<h6 class="d-md-none d-block pt-2">Score: {{ module?.userAnsweredQuestions }}/{{ module?.totalQuestions }}</h6>
+									</div>
+									<div class="col text-center" *ngIf="module?.answered == 1">
+										<button class="btn btn-primary text-smaller btn-rounded btn-sm p-2 pe-4 ps-4 w-100" type="button">Retry <i class="ps-2 fa-regular fa-arrow-rotate-right" (click)="onModuleClick(module)"></i></button>
+									</div>
+									<div class="col text-center" *ngIf="module?.answered == 0">
+										<button class="btn btn-secondary text-smaller btn-rounded p-2 pe-4 ps-4 btn-sm w-100" type="button">Start Test <i class="ps-2 fa-sharp fa-solid fa-stopwatch" (click)="onModuleClick(module)"></i></button>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row text-center">
+			<h2 class="uniprep-primary">Average Score: {{ avgtotalAnswers }}/ {{ avgtotalQuestions }}</h2>
+		</div>
+	</div>
+	<div class="card-footer bg-transparent">
+		<div class="row text-center">
+			<h4 class="uniprep-primary">ALL THE BEST !</h4>
+		</div>
+	</div>
 </div>

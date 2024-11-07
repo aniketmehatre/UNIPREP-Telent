@@ -6,7 +6,7 @@
 			</div> -->
       <!-- select-title css also needs to change the width -->
       <!-- after create the video just uncomment the below code. and send the youtube embeded video link -->
-      <div class="col-md-9 text-center">
+      <div class="col-md-12 d-flex gap-2 text-center">
         <div class="select-title text-nowrap d-flex justify-content-between align-items-center">
           <div>
             <h5 class="mb-0" tooltipPosition="top" pTooltip="Create compelling pitch presentations to attract investors and partners.">PITCH DECK</h5>
@@ -15,8 +15,6 @@
             <button class="how-it-works-button" (click)="openVideoPopup('https://www.youtube.com/embed/RACw24B91ms?si=UKQO0kQllHYrOvZh')">&nbsp;How it works?&nbsp;&nbsp;<i class="fa-solid fa-play"></i></button>
           </div>
         </div>
-      </div>
-      <div class="col-md-3 text-end" style="white-space: nowrap">
         <span class="d-flex justify-content-end gap-2">
           <button class="btn btn-primary text-small pitchdeck-guidlines" (click)="closeGuidelines()" type="button">Pitch Deck Guidelines</button>
           <button *ngIf="ehitlabelIsShow" class="btn btn-primary text-small pitchdeck-guidlines" (click)="buyCredits()" type="button">Buy Credits</button>
