@@ -31,7 +31,7 @@
               <input class="px-5 py-2" type="text" placeholder="Search in Pitch Deck List" pInputText [(ngModel)]="valueNearYouFilter" (input)="performSearch()" />
             </div>
             <span class="d-flex justify-content-start p-2">
-              <input type="checkbox" class="me-0" style="transform: scale(1.5); cursor: pointer" [(ngModel)]="selectAllCheckboxes" (click)="selectAllCheckbox()" id="selectAllcheckbox" />
+              <input type="checkbox" class="me-0" style="zoom:1.5;cursor: pointer" [(ngModel)]="selectAllCheckboxes" (click)="selectAllCheckbox()" id="selectAllcheckbox" />
               <label class="p-2" for="selectAllcheckbox" style="cursor: pointer">Select All</label>
               <span class="p-2">Selected : {{ selectedCheckboxCount }}</span>
             </span>
@@ -73,7 +73,7 @@
                 </div>
                 <div class="d-flex justify-content-between align-items-center">
                   <i [class]="pitchDeskListData.favourite == 1 ? 'fa-solid fa-bookmark' : 'fa-regular fa-bookmark'" (click)="bookmarkQuestion(pitchDeskListData.id, pitchDeskListData.favourite)" style="color: #e90707" class="favIcon"></i>
-                  &nbsp;&nbsp;&nbsp;<input type="checkbox" (change)="onCheckboxChange($event)" class="me-2" style="transform: scale(1.5)" [(ngModel)]="pitchDeskListData.isChecked" />
+                  &nbsp;&nbsp;&nbsp;<input type="checkbox" (change)="onCheckboxChange($event)" class="me-2" style="zoom:1.5;" [(ngModel)]="pitchDeskListData.isChecked" />
                 </div>
               </div>
               <div class="d-flex justify-content-between mt-2 mb-1">
