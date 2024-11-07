@@ -136,8 +136,8 @@
           <div class="col-lg-3 col-md-4 col-sm-6 col-xs-6 col-12 col-12 mt-3" *ngFor="let course of courseListData">
             <div class="card h-100 dataCard">
               <div class="card-body">
-                <div class="flex-column d-flex justify-content-between h-100">
-                  <div class="d-flex flex-fill flex-column justify-content-between">
+                <div class="flex-column d-flex h-100">
+                  <div class="d-flex flex-column justify-content-between">
                     <div class="d-flex flex-fill justify-content-start align-items-center gap-2 mb-2">
                       <input type="checkbox" (change)="onCheckboxChange($event)" class="mt-1 inputselectbox" [(ngModel)]="course.isChecked" />
                       <div class="courseNameTag flex-fill h-100 d-flex align-items-center" title="Course Name">
