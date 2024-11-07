@@ -20,7 +20,7 @@
             <button class="how-it-works-button" (click)="openHowItWorksVideoPopup(howItWorksVideoLink)">&nbsp;How it works? &nbsp;&nbsp;<i class="fa-solid fa-play"></i></button>
           </div>
         </div>
-        <button role="button" (click)="startQuiz()" class="m-0 btn btn-primary flex-shrink-0  btn-rounded" [disabled]="quizpercentage >= 90" *ngIf="currentModuleId == 8 || currentModuleId == 10 || currentModuleId != 14">
+        <button pButton role="button" (click)="startQuiz()" class="m-0 btn btn-primary flex-shrink-0  btn-rounded" [disabled]="quizpercentage >= 90" *ngIf="currentModuleId == 8 || currentModuleId == 10 || currentModuleId != 14">
           <p class="mb-0">
             <i class="fa-regular fa-lightbulb-on"></i> Start Quiz <span class="mb-0">{{ quizpercentage | number : "1.0-0" + "%" }}</span>
           </p>
