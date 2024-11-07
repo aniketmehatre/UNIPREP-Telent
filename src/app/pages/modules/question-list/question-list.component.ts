@@ -254,58 +254,59 @@ export class QuestionListComponent implements OnInit {
         this.currentModuleId = 1;
         this.currentModuleName = "Pre-Admission";
         this.currentApiSlug = "getpreapplicationsubmoduleqcount";
-        this.howItWorksVideoLink = "https://www.youtube.com/embed/Kae2KQnmWko?si=vjUQ7eyurP2Mbg-n";
+        this.howItWorksVideoLink = "https://www.youtube.com/embed/aR06d8kMeio?si=-5Ivte_5ZgdcndS-";
         break;
       case "travel-and-tourism":
         this.currentModuleId = 7;
         this.currentModuleName = "Travel-and-Tourism";
         this.currentApiSlug = "getpostapplicationsubmoduleqcount";
-        this.howItWorksVideoLink = "https://www.youtube.com/embed/s35R5o7cOOU?si=DvR3LyQ1C8uRaAN3";
+        this.howItWorksVideoLink = "https://www.youtube.com/embed/PZERtrH1zh8?si=zKQ80B27zz6V9-mk";
         break;
       case "post-admission":
         this.currentModuleId = 3;
         this.currentModuleName = "Post-Admission";
         this.currentApiSlug = "getpostadmissionsubmoduleqcount";
-        this.howItWorksVideoLink = "https://www.youtube.com/embed/Q9-cUbwFNZI?si=LIdazrVO_qAQKiFk";
+        this.howItWorksVideoLink = "https://www.youtube.com/embed/g_KWlnmOEtc?si=KFpkpjdYMwkCIOV1";
         break;
       case "career-hub":
         this.currentModuleId = 4;
         this.currentModuleName = "Career Hub";
         this.currentApiSlug = "getcareerhubsubmoduleqcount";
-        this.howItWorksVideoLink = "https://www.youtube.com/embed/7ogHhrekZjE?si=NADxga9qB4_RkCtw";
+        this.howItWorksVideoLink = "https://www.youtube.com/embed/dBNASRavBk0?si=M2WtoOTl3ahORz8V";
         break;
       case "university":
         this.currentModuleId = 5;
         this.currentModuleName = "University";
         this.currentApiSlug = "getuniversitysubmoduleqcount";
-        this.howItWorksVideoLink = "https://www.youtube.com/embed/Bsg1CTnVmYc?si=cWYQIexHAoeXvsyR";
+        this.howItWorksVideoLink = "https://www.youtube.com/embed/6mukBsCTgtw?si=aFBa9JMWI2k2QuzP";
         this.tooltip = "";
         break;
       case "learning-hub":
         this.currentModuleId = 8;
         this.currentModuleName = "Learning Hub";
         this.currentApiSlug = "getlearninghubsubmoduleqcount";
-        this.howItWorksVideoLink = "https://www.youtube.com/embed/n9ECpsB6IoI?si=4coiypva6WZfr3NL";
+        this.howItWorksVideoLink = "https://www.youtube.com/embed/prvvJsgnya8?si=QSAeOB9qPMF-ya-D";
         this.currentModuleSlug = "learning-hub"
         break;
       case "skill-mastery":
         this.currentModuleId = 10;
         this.currentModuleName = "Skill Mastery";
         this.currentApiSlug = "getskillmasterysubmoduleqcount";
-        this.howItWorksVideoLink = "https://www.youtube.com/embed/dHhq2xrBn5s?si=2dMsQcwwOY17dDHi";
+        this.howItWorksVideoLink = "https://www.youtube.com/embed/mzyfeeL1b4Y?si=SYUFI6bW4xU-QZbT";
         this.currentModuleSlug = "skill-mastery"
         break;
       case 'k12-category':
         this.currentModuleId = 14;
         this.currentModuleName = 'K12 Academy';
         this.currentApiSlug = 'StudentsSubmoduleQuestions';
+        this.howItWorksVideoLink = "https://www.youtube.com/embed/Zh4pPEZ160c?si=i8vkRTgh70TuoqDn";
         this.tooltip = "";
         break;
       default:
         this.currentModuleId = 6;
         this.currentModuleName = "Life At " + countryName;
         this.currentApiSlug = "getlifeincountrysubmoduleqcount";
-        this.howItWorksVideoLink = "https://www.youtube.com/embed/O35ypi2WJVI?si=CSxuFC1Zma9gk8SG";
+        this.howItWorksVideoLink = "https://www.youtube.com/embed/7VFZp47tfLU?si=GPLVjR5vKlNno-cZ";
         this.tooltip = "";
         break;
     }
