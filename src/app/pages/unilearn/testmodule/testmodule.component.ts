@@ -19,6 +19,7 @@ export class TestModulesComponent implements OnInit {
   @Input() selected_module: string;
   @Input() totalquestion: number;
   @Output() moduleChange = new EventEmitter();
+  @Input() _contentalignment:boolean;
   isSkeletonVisible: boolean = true;
   submoduleList: any;
   constructor(
@@ -32,6 +33,7 @@ export class TestModulesComponent implements OnInit {
   paramData: any;
   ngOnInit(): void {
     this.paramData = { parent_id: this.parentid, module_id: this.moduleid };
+    this.contentalignment=this._contentalignment;
     this.getModules();
   }
   avgtotalQuestions = 0;
@@ -64,6 +66,7 @@ export class TestModulesComponent implements OnInit {
         this.getModules();
         break;
       case 5:
+        localStorage.setItem("parent_folderid", String(moduledata.parent_folder_id))
         this.moduleChange.emit({
           parent_id: moduledata.id,
           module_id: moduledata.module_id,

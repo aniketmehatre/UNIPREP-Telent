@@ -22,6 +22,7 @@ export class QuizinfowindowComponent implements OnInit {
   @Input() selected_module: string;
   quizwindowvisibility = false;
   @Output() moduleChange = new EventEmitter();
+  @Input() _contentalignment:boolean;
   constructor(
     private pageFacade: PageFacadeService,
     private router: Router,
@@ -47,10 +48,12 @@ export class QuizinfowindowComponent implements OnInit {
     });
   }
   goBack() {
-    if (window.history.length > 1) {
-      this.location.back();
-    } else {
-      this.router.navigate(['/pages/modules/quizmodule']);
-    }
+    this.moduleChange.emit({
+      parent_id: Number(localStorage.getItem("parent_folderid")),
+      module_id: this.moduleid,
+      selected_module: this.selected_module,
+      stage: 3,
+      isfromquizinfo:true,
+    });
   }
 }

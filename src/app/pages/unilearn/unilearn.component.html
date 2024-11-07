@@ -6,9 +6,9 @@
     <uni-learnsubmodules [totalquestion]="totalquestion" [selected_module]="selected_module" [parentid]="parentid" [moduleid]="moduleid" (moduleChange)="moduleChange($event)"></uni-learnsubmodules>
   </ng-container>
   <ng-container *ngSwitchCase="3">
-    <uni-testmodule [totalquestion]="totalquestion" [selected_module]="selected_module" [parentid]="parentid" [moduleid]="moduleid" (moduleChange)="moduleChange($event)"></uni-testmodule>
+    <uni-testmodule [_contentalignment]="_contentalignment" [totalquestion]="totalquestion" [selected_module]="selected_module" [parentid]="parentid" [moduleid]="moduleid" (moduleChange)="moduleChange($event)"></uni-testmodule>
   </ng-container>
   <ng-container *ngSwitchCase="4">
-    <uni-quizinfowindow [totalquestion]="totalquestion" [selected_module]="selected_module" [parentid]="parentid" [moduleid]="moduleid" (moduleChange)="moduleChange($event)"></uni-quizinfowindow>
+    <uni-quizinfowindow [_contentalignment]="_contentalignment" [totalquestion]="totalquestion" [selected_module]="selected_module" [parentid]="parentid" [moduleid]="moduleid" (moduleChange)="moduleChange($event)"></uni-quizinfowindow>
   </ng-container>
 </ng-container>

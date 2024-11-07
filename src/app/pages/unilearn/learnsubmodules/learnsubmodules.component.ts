@@ -55,6 +55,7 @@ export class LearnsubModulesComponent implements OnInit {
         module_id: moduledata.module_id,
         selected_module: moduledata.submodule_name,
         stage: 3,
+        isfromquizinfo:false,
       });
       return;
     }

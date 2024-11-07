@@ -2,11 +2,9 @@
   <div class="card-body text-center pt-0">
     <div class="row">
       <div class="col-md-2 mt-2 text-start">
-        <p-button
-          (click)="backtoMain()"
-          icon="fa-solid fa-chevron-left"
-          styleClass="p-button-rounded p-button-text text-dark"
-        ></p-button>
+        <div class="backIcon" role="button" (click)="backtoMain()">
+          <span class="fa-solid fa-chevron-left"></span>
+        </div>
       </div>
       <div class="col-md-8 text-center">
         <div
@@ -27,7 +25,7 @@
               class="how-it-works-button"
               (click)="
                 openVideoPopup(
-                  'https://www.youtube.com/embed/01xivveciUI?si=Cdi3e7ycApMa8sWO'
+                  'https://www.youtube.com/embed/4evbW8B-z_M?si=Cdi3e7ycApMa8sWO'
                 )
               "
             >
