@@ -113,63 +113,63 @@
 	font-size: 16px;
 	font-weight: 500;
 }
-// :host ::ng-deep ngx-audio-player {
-// 	.mdc-card {
-// 		display: flex;
-// 		flex-direction: row;
-// 		width: 100%;
-// 		.mdc-slider__thumb-knob {
-// 			background-color: var(--uniprep-secondary);
-// 		}
-// 		.mdc-slider-track-wrapper {
-// 			height: 5px !important;
-// 			border-radius: 10px !important;
-// 		}
-// 		.mdc-slider-wrapper {
-// 			background-color: #d9d9d9;
-// 			border-radius: 10px !important;
-// 			height: 5px !important;
-// 			top: 21px !important;
-// 			left: 8px !important;
-// 			right: 8px !important;
-// 		}
-// 		.mdc-slider-track-fill {
-// 			background-color: var(--uniprep-primary);
-// 			height: 5px !important;
-// 		}
-// 		mdc-icon {
-// 			vertical-align: text-bottom !important;
-// 			position: relative;
-// 			top: 5px !important;
-// 		}
-// 		mdc-slider {
-// 			vertical-align: text-bottom !important;
-// 		}
-// 		.mdc-button {
-// 			background: none !important;
-// 			border: none !important;
-// 			svg {
-// 				height: 18px !important;
-// 				width: 18px !important;
-// 			}
-// 		}
-// 		.mdc-icon {
-// 			height: 30px !important;
-// 			width: 25px !important;
-// 		}
-// 		.ngx-volume {
-// 			height: 45px !important;
-// 			margin: 0 !important;
-// 			position: relative;
-// 			top: 4px;
-// 		}
-// 		.play-pause {
-// 			position: relative !important;
-// 			top: 7px !important;
-// 			display: none;
-// 		}
-// 	}
-// }
+:host ::ng-deep ngx-audio-player {
+	.mat-card {
+		display: flex;
+		flex-direction: row;
+		width: 100%;
+		.mat-slider-thumb {
+			background-color: var(--uniprep-secondary);
+		}
+		.mat-slider-track-wrapper {
+			height: 5px !important;
+			border-radius: 10px !important;
+		}
+		.mat-slider-wrapper {
+			background-color: #d9d9d9;
+			border-radius: 10px !important;
+			height: 5px !important;
+			top: 21px !important;
+			left: 8px !important;
+			right: 8px !important;
+		}
+		.mat-slider-track-fill {
+			background-color: var(--uniprep-primary);
+			height: 5px !important;
+		}
+		mat-icon {
+			vertical-align: text-bottom !important;
+			position: relative;
+			top: 5px !important;
+		}
+		mat-slider {
+			vertical-align: text-bottom !important;
+		}
+		.mat-button {
+			background: none !important;
+			border: none !important;
+			svg {
+				height: 18px !important;
+				width: 18px !important;
+			}
+		}
+		.mat-icon {
+			height: 30px !important;
+			width: 25px !important;
+		}
+		.ngx-volume {
+			height: 45px !important;
+			margin: 0 !important;
+			position: relative;
+			top: 4px;
+		}
+		.play-pause {
+			position: relative !important;
+			top: 7px !important;
+			display: none;
+		}
+	}
+}
 .quizform {
 	input {
 		font-size: 12px !important;
