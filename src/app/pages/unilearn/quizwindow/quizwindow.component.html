@@ -66,6 +66,15 @@
                     <div *ngSwitchCase="'Summarize Chart/Diagram/Table'">
                       <textarea formControlName="answer" placeholder="Summarize answer here" rows="15" class="form-control w-100"></textarea>
                     </div>
+                    <div *ngSwitchCase="'Q&A'">
+                      <textarea formControlName="answer" placeholder="Enter you answer here" rows="5" class="form-control w-100"></textarea>
+                    </div>
+                    <div *ngSwitchCase="'Essay'">
+                      <textarea formControlName="answer" placeholder="Summarize answer here" rows="15" class="form-control w-100"></textarea>
+                    </div>
+                    <div *ngSwitchCase="'Write a Letter'">
+                      <textarea formControlName="answer" placeholder="Summarize answer here" rows="15" class="form-control w-100"></textarea>
+                    </div> 
                     <div *ngSwitchCase="'MCQ'">
                       <div *ngFor="let option of questionControl.get('options')?.value; let j = index">
                         <p class="mb-2 fw-medium" >

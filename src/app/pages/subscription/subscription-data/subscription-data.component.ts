@@ -137,7 +137,6 @@ export class SubscriptionDataComponent implements OnInit {
       monthly_plan: this.studentType==2?12:this.monthlyPlan,
       study_level:this.user?.education_level
     };
-
     this.subscriptionService.getSubscriptions(data).subscribe((response) => {
       const mostPopularOnes = response.subscriptions.filter(
         (item: any) => item.popular === 1
