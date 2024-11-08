@@ -498,7 +498,7 @@ else{
         this.selectedData[key].push(id);
       }
     }
-    console.log(this.selectedData, "selected cube");
+    // console.log(this.selectedData, "selected cube");
   }
 
   getStoredRecommendation(){

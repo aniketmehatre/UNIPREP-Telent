@@ -38,9 +38,9 @@
                     </ng-container>
                     <ng-container *ngIf="recommendation.id == 3">
                       <div class="cube-container gap-3">
-                        <div *ngFor="let cube of studyLevelCubes" class="cube" (click)="selectCube(3, cube.id)" [ngClass]="{ selected: selectedData[3] === cube.id }">
+                        <div *ngFor="let cube of studyLevelCubes" class="cube" (click)="selectCube(3, cube.id)" [ngClass]="{ selected: selectedData[3]?.includes(cube.id) }">
                           <label>{{ cube.label }}</label>
-                          <i class="fa-solid fa-circle-check tickPlacement" *ngIf="selectedData[3] === cube.id"></i>
+                          <i class="fa-solid fa-circle-check tickPlacement" *ngIf="selectedData[3]?.includes(cube.id)"></i>
                         </div>
                       </div>
                       <p class="text-center" [ngClass]="{ 'd-none': invalidClass === false }" style="color: red">Please Choose Any one option</p>
@@ -54,9 +54,9 @@
                     </ng-container>
                     <ng-container *ngIf="recommendation.id == 6">
                       <div class="cube-container gap-3">
-                        <div *ngFor="let cube of worldRankCubes" role="button" class="cube" (click)="selectCube(6, cube.id)" [ngClass]="{ selected: selectedData[6] === cube.id }">
+                        <div *ngFor="let cube of worldRankCubes" role="button" class="cube" (click)="selectCube(6, cube.id)" [ngClass]="{ selected: selectedData[6]?.includes(cube.id) }">
                           <label>{{ cube.value }}</label>
-                          <i class="fa-solid fa-circle-check tickPlacement" *ngIf="selectedData[6] === cube.id"></i>
+                          <i class="fa-solid fa-circle-check tickPlacement" *ngIf="selectedData[6]?.includes(cube.id)"></i>
                         </div>
                       </div>
                       <p class="text-center" [ngClass]="{ 'd-none': invalidClass === false }" style="color: red">Please Choose Any one option</p>

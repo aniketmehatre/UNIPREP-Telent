@@ -32,9 +32,9 @@
                   </ng-container>
                   <ng-container *ngIf="recommendation.id == 2">
                     <div class="cube-container gap-3">
-                      <div *ngFor="let cube of studyLevelList" class="cube" (click)="selectCube(2, cube.id)" [ngClass]="{ selected: selectedData[2] === cube.id }">
+                      <div *ngFor="let cube of anyStudyLevelList" class="cube" (click)="selectCube(2, cube.id)" [ngClass]="{ selected: selectedData[2]?.includes(cube.id) }" >
                         <label>{{ cube.level }}</label>
-                        <i class="fa-solid fa-circle-check tickPlacement" *ngIf="selectedData[2] === cube.id"></i>
+                        <i class="fa-solid fa-circle-check tickPlacement"  *ngIf="selectedData[2]?.includes(cube.id)"></i>
                       </div>
                     </div>
                     <p class="text-center" [ngClass]="{ 'd-none': invalidClass === false }" style="color: red">Please Choose Any one option</p>
@@ -52,9 +52,9 @@
 
                   <ng-container *ngIf="recommendation.id == 4">
                     <div class="cube-container gap-3">
-                      <div *ngFor="let cube of anyCoverList" class="cube" (click)="selectCube(4, cube.id)" [ngClass]="{ selected: selectedData[4] === cube.id }">
+                      <div *ngFor="let cube of anyCoverList" class="cube" (click)="selectCube(4, cube.id)" [ngClass]="{ selected: selectedData[4]?.includes(cube.id) }">
                         <label>{{ cube.cover_name }}</label>
-                        <i class="fa-solid fa-circle-check tickPlacement" *ngIf="selectedData[4] === cube.id"></i>
+                        <i class="fa-solid fa-circle-check tickPlacement" *ngIf="selectedData[4]?.includes(cube.id)" ></i>
                       </div>
                     </div>
                     <p class="text-center" [ngClass]="{ 'd-none': invalidClass === false }" style="color: red">Please Choose Any one option</p>
