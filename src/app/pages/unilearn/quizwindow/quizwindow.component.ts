@@ -113,7 +113,11 @@ export class QuizwindowComponent implements OnInit {
           if (
             question.type === "Fill in the Blank" ||
             question.type === "One Word" ||
+            question.type === "Q&A" ||
+            question.type === "Write a Letter" ||
+            question.type === "Essay" ||
             question.type === "Summarize Chart/Diagram/Table"
+            
           ) {
             this.questionsFormArray.push(
               this.fb.group({

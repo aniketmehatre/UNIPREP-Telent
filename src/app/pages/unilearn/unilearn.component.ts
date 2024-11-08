@@ -12,9 +12,16 @@ export class UniLearnComponent implements OnInit {
   @Input() moduleid:number;  
   @Input() totalquestion: number;
   @Input() selected_module: string;
+  @Input() _contentalignment:boolean;
   ngOnInit(): void {
   }
   moduleChange(data: any) {
+    if(data.isfromquizinfo){
+      this._contentalignment=true;
+    }
+    else{
+      this._contentalignment=false;
+    }
     this.parentid=data.parent_id;
     this.moduleid=data.module_id;
     this.selected_module=data.selected_module

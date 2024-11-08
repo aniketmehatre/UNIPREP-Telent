@@ -1,101 +1,110 @@
 <div class="card readingcard">
-	<div class="card-header border-0 bg-transparent">
-		<div class="row justify-content-center align-items-center">
-			<div class="col-md-2 col-2 text-start d-flex align-items-center">
-				<h5 class="fw-bold">{{ totalquestion }}/{{ totalquestion }} Questions Left</h5>
-			</div>
-			<div class="col-md-8 col-8 text-center">
-				<h5 class="select-title mb-1">{{ selected_module | uppercase }}</h5>
-			</div>
-			<div class="col-md-2 col-2 text-end">
-				<button class="btn btn-quit btn-rounded mt-2 px-2 py-2">
-					<div class="d-flex align-items-center">
-						<span class="fw-normal h6 mb-0 ps-3 pe-2">Quit</span>
-						<div class="btn-icon"><i class="fa-solid fa-power-off"></i></div>
-					</div>
-				</button>
-			</div>
-		</div>
-		<div class="row">
-			<ng-container *ngIf="istypeAudio">
-				<ngx-audio-player styleClass="audioplayer" #audioplayer [autoPlay]="autoplay" [playlist]="quizprimaryAudio" [disablePositionSlider]="disablePositionSlider" [displayRepeatControls]="displayRepeatControls" [displayVolumeControls]="displayVolumeControls" [displayVolumeSlider]="displayVolumeSlider" [displayTitle]="displayTitle" allow="autoplay"> </ngx-audio-player>
-				<!-- (trackEnded)="onEnded($event)" --></ng-container>
-		</div>
-	</div>
-	<div class="card-body flex-fill overflow-y-auto">
-		<div class="row h-100 justify-content-center">
-			<div class="col-md-6 h-100 overflow-y-auto" [ngClass]="{ 'd-block': istypeParagraph || istypeImage, 'd-none': !(istypeParagraph || istypeImage) }">
-				<ng-container *ngIf="istypeParagraph">
-					<div class="text-start">
-						<h4 class="mb-2 fe-bold uniprep-primarydark">{{ paragraphTittle }}</h4>
-						<div class="text-start h5 mb-0" style="white-space: pre-wrap">
-							{{ paragraphQuestion }}
-						</div>
-					</div>
-				</ng-container>
-				<ng-container>
-					<div class="col-12" *ngIf="istypeImage">
-						<div class="text-center">
-							<h4>{{ imageTittle }}</h4>
-						</div>
-						<div class="text-center">
-							<div><img [src]="imageQuestion" class="img-fluid" style="max-height: 400px" /></div>
-						</div>
-					</div>
-				</ng-container>
-			</div>
-			<div class="col-12 h-100 overflow-y-auto mt-3 justify-content-start d-md-flex" [ngClass]="{ 'col-md-6': istypeParagraph || istypeImage, 'col-md-12': !(istypeParagraph || istypeImage) }">
-				<form [formGroup]="quizForm">
-					<input type="hidden" formControlName="module_id" />
-					<input type="hidden" formControlName="test_type_module_id" />
-					<input type="hidden" formControlName="test_module_id" />
-					<div class="container-fluid">
-						<div formArrayName="questions" class="row justify-content-center">
-							<!--  -->
-							<div class="mb-3" [ngClass]="{ 'col-md-12': istypeParagraph || istypeImage, 'col-md-8': !(istypeParagraph || istypeImage) }" *ngFor="let questionControl of questionsFormArray.controls; let i = index" [formGroupName]="i">
-								<div class="form-group">
-									<p class="uniprep-primary fw-medium">Question {{ i + 1 }}:</p>
-									<h5 class="uniprep-primarydark fw-bold">{{ questionControl.get("question")?.value }}</h5>
-									<ng-container [ngSwitch]="questionControl.get('type')?.value">
-										<div *ngSwitchCase="'Fill in the Blank'">
-											<input pInputText type="text" formControlName="answer" placeholder="Your answer here" class="form-control" />
-										</div>
-										<div *ngSwitchCase="'One Word'">
-											<input pInputText type="text" formControlName="answer" placeholder="Your answer here" class="form-control" />
-										</div>
-										<div *ngSwitchCase="'Summarize Chart/Diagram/Table'">
-											<textarea formControlName="answer" placeholder="Summarize answer here" rows="15" class="form-control w-100"></textarea>
-										</div>
-										<div *ngSwitchCase="'MCQ'">
-											<div *ngFor="let option of questionControl.get('options')?.value; let j = index">
-												<p class="mb-2 fw-medium">
-													<input type="checkbox" formControlName="selectedOptions" class="form-check-input" (change)="onCheckboxChange($event, i, j)" />
-													{{ option }}
-												</p>
-											</div>
-										</div>
-										<div *ngSwitchCase="'True or False'">
-											<p class="mb-2 fw-medium">
-												<input type="radio" formControlName="selectedOption" [value]="'True'" class="form-check-input" />
-												True
-											</p>
-											<p class="fw-medium">
-												<input type="radio" formControlName="selectedOption" [value]="'False'" class="form-check-input" />
-												False
-											</p>
-										</div>
-									</ng-container>
-								</div>
-							</div>
-						</div>
-					</div>
-				</form>
-			</div>
-		</div>
-	</div>
-	<div class="card-footer bg-transparent">
-		<div class="row justify-content-between">
-			<!-- <div>
+  <div class="card-header py-0 border-0 bg-transparent">
+    <div class="row justify-content-center align-items-center">
+      <div class="col-md-2 col-2 text-start d-flex align-items-center">
+        <h5 class="fw-bold">{{ totalquestion }}/{{ totalquestion }} Questions Left</h5>
+      </div>
+      <div class="col-md-8 col-8 text-center">
+        <h5 class="select-title mb-1">{{ selected_module | uppercase }}</h5>
+      </div>
+      <div class="col-md-2 col-2 text-end">
+        <button class="btn btn-quit btn-rounded mt-2 px-2 py-2" (click)="btn_previousclick()">
+          <div class="d-flex align-items-center">
+            <span class="fw-normal h6 mb-0 ps-3 pe-2">Quit</span>
+            <div class="btn-icon"><i class="fa-solid fa-power-off"></i></div>
+          </div>
+        </button>
+      </div>
+    </div>
+    <div class="row">
+      <ng-container *ngIf="istypeAudio">
+        <ngx-audio-player #audioplayer [autoPlay]="autoplay" [playlist]="quizprimaryAudio" [disablePositionSlider]="disablePositionSlider" [displayRepeatControls]="displayRepeatControls" [displayVolumeControls]="displayVolumeControls" [displayVolumeSlider]="displayVolumeSlider" [displayTitle]="displayTitle" allow="autoplay"> </ngx-audio-player>
+        <!-- (trackEnded)="onEnded($event)" --></ng-container>
+    </div>
+  </div>
+  <div class="card-body flex-fill overflow-y-auto">
+    <div class="row h-100 justify-content-center">
+      <div class="col-md-6 h-100 overflow-y-auto" [ngClass]="{'d-block': istypeParagraph || istypeImage, 'd-none': !(istypeParagraph || istypeImage)}">
+        <ng-container *ngIf="istypeParagraph">
+          <div class="text-start">
+            <h4 class="mb-2 fe-bold uniprep-primarydark">{{ paragraphTittle }}</h4>
+            <div class="text-start h5 mb-0" style="white-space: pre-wrap;">
+              {{ paragraphQuestion }}
+            </div>
+          </div>
+        </ng-container>
+        <ng-container>
+          <div class="col-12" *ngIf="istypeImage">
+            <div class="text-center">
+              <h4>{{ imageTittle }}</h4>
+            </div>
+            <div class="text-center">
+              <div><img [src]="imageQuestion" class="img-fluid" style="max-height:400px" /></div>
+            </div>
+          </div>
+        </ng-container>
+      </div>
+      <div class="col-12 h-100 overflow-y-auto mt-3 justify-content-start d-md-flex" [ngClass]="{'col-md-6': istypeParagraph || istypeImage, 'col-md-12': !(istypeParagraph || istypeImage)}">
+        <form [formGroup]="quizForm">
+          <input type="hidden" formControlName="module_id" />
+          <input type="hidden" formControlName="test_type_module_id" />
+          <input type="hidden" formControlName="test_module_id" />
+          <div class="container-fluid">
+            <div formArrayName="questions" class="row justify-content-center">
+              <!--  -->
+              <div class="mb-3" [ngClass]="{'col-md-12': istypeParagraph || istypeImage, 'col-md-8': !(istypeParagraph || istypeImage)}" *ngFor="let questionControl of questionsFormArray.controls; let i = index" [formGroupName]="i">
+                <div class="form-group">
+                  <p class="uniprep-primary fw-medium">Question {{ i + 1 }}:</p>
+                  <h5 class="uniprep-primarydark fw-bold">{{ questionControl.get("question")?.value }}</h5>
+                  <ng-container [ngSwitch]="questionControl.get('type')?.value">
+                    <div *ngSwitchCase="'Fill in the Blank'">
+                      <input  pInputText type="text" formControlName="answer" placeholder="Your answer here" class="form-control" />
+                    </div>
+                    <div *ngSwitchCase="'One Word'">
+                      <input  pInputText type="text" formControlName="answer" placeholder="Your answer here" class="form-control" />
+                    </div>
+                    <div *ngSwitchCase="'Summarize Chart/Diagram/Table'">
+                      <textarea formControlName="answer" placeholder="Summarize answer here" rows="15" class="form-control w-100"></textarea>
+                    </div>
+                    <div *ngSwitchCase="'Q&A'">
+                      <textarea formControlName="answer" placeholder="Enter you answer here" rows="5" class="form-control w-100"></textarea>
+                    </div>
+                    <div *ngSwitchCase="'Essay'">
+                      <textarea formControlName="answer" placeholder="Summarize answer here" rows="15" class="form-control w-100"></textarea>
+                    </div>
+                    <div *ngSwitchCase="'Write a Letter'">
+                      <textarea formControlName="answer" placeholder="Summarize answer here" rows="15" class="form-control w-100"></textarea>
+                    </div> 
+                    <div *ngSwitchCase="'MCQ'">
+                      <div *ngFor="let option of questionControl.get('options')?.value; let j = index">
+                        <p class="mb-2 fw-medium" >
+                          <input type="checkbox" formControlName="selectedOptions" class="form-check-input" (change)="onCheckboxChange($event, i, j)" />
+                          {{ option }}
+                        </p>
+                      </div>
+                    </div>
+                    <div *ngSwitchCase="'True or False'">
+                      <p class="mb-2 fw-medium" >
+                        <input  type="radio" formControlName="selectedOption" [value]="'True'" class="form-check-input" />
+                        True
+                      </p>
+                      <p class="fw-medium">
+                        <input  type="radio" formControlName="selectedOption" [value]="'False'" class="form-check-input" />
+                        False
+                      </p>
+                    </div>
+                  </ng-container>
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <div class="card-footer bg-transparent">
+    <div class="row justify-content-between">
+      <!-- <div>
         Questions
         <ng-container
           *ngFor="
@@ -112,22 +121,22 @@
           </button></ng-container
         >
       </div> -->
-			<div class="col-md-8 text-end"></div>
+      <div class="col-md-8 text-end"></div>
 
-			<div class="col-md-4 text-end">
-				<button (click)="btn_previousclick()" class="btn btn-back btn-rounded me-3 px-2 py-2">
-					<div class="d-flex align-items-center">
-						<span class="fw-normal h6 mb-0 ps-3 pe-2">Previous</span>
-						<div class="btn-icon"><i class="fa-solid fa-arrow-left"></i></div>
-					</div>
-				</button>
-				<button (click)="submitTest()" class="btn btn-start btn-rounded m-0 px-2 py-2">
-					<div class="d-flex align-items-center">
-						<span class="fw-normal h6 mb-0 ps-3 pe-2">Submit</span>
-						<div class="btn-icon"><i class="fa-solid fa-check"></i></div>
-					</div>
-				</button>
-			</div>
-		</div>
-	</div>
+      <div class="col-md-4 text-end">
+        <button (click)="btn_previousclick()" class="btn btn-back btn-rounded me-3 px-2 py-2">
+          <div class="d-flex align-items-center">
+            <span class="fw-normal h6 mb-0 ps-3 pe-2">Previous</span>
+            <div class="btn-icon"><i class="fa-solid fa-arrow-left"></i></div>
+          </div>
+        </button>
+        <button (click)="submitTest()" class="btn btn-start btn-rounded m-0 px-2 py-2">
+          <div class="d-flex align-items-center">
+            <span class="fw-normal h6 mb-0 ps-3 pe-2">Submit</span>
+            <div class="btn-icon"><i class="fa-solid fa-check"></i></div>
+          </div>
+        </button>
+      </div>
+    </div>
+  </div>
 </div>
