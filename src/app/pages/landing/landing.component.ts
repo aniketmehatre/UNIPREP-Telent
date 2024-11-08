@@ -85,7 +85,7 @@ export class LandingComponent implements OnInit {
 
     this.timeLeftInfoCard = "24 Hours"
     // Any additional initialization can go here
-    this.currentImage = '/uniprep-assets/images/f1.png';
+    this.currentImage = '/uniprep-assets/images/uf1.webp';
 
 
     this.contactForm = this.formbuilder.group({

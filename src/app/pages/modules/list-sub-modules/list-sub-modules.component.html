@@ -44,7 +44,7 @@
 						</h5>
 					</div>
 					<div>
-						<button class="how-it-works-button" (click)="openVideoPopup(howItWorksVideoLink)">&nbsp;How it works? &nbsp;&nbsp;<i class="fa-solid fa-play"></i></button>
+						<button class="how-it-works-button" (click)="openVideoPopup(howItWorksVideoLink)">How it works?<i class="fa-solid fa-play d-md-block d-none"></i></button>
 					</div>
 				</div>
 				<div class="flex-shrink-0 align-items-center d-flex"  *ngIf="currentModuleId != 5 && currentModuleId != 8 && currentModuleId != 10 && currentModuleId != 11 && currentModuleId != 14">
@@ -61,13 +61,13 @@
 					</button>
 				</div>
 				<div class="flex-shrink-0 align-items-center d-flex"  *ngIf="currentModuleId == 8">
-					<div class="p-input-icon-left w-100 search-container">
+					<div class="p-input-icon-left h-100 w-100 search-container border-primary rounded-3">
 						<i class="pi pi-search"></i>
-						<input *ngIf="currentModuleId == 8" class="w-100 px-5 py-2" type="text" placeholder="Look for you specialization" pInputText [(ngModel)]="searchLearning" (input)="performSearch()" />
+						<input *ngIf="currentModuleId == 8" class="w-100 px-5 border-0 py-2 h-100 bg-transparent" type="text" placeholder="Look for you specialization" pInputText [(ngModel)]="searchLearning" (input)="performSearch()" />
 	
-						<div *ngIf="filteredData.length" class="dropdown-container">
+						<div *ngIf="filteredData.length" class="dropdown-container text-start">
 							<div *ngFor="let result of filteredData" class="dropdown-item">
-								<div (click)="takeMeToQuestion(result)">
+								<div (click)="takeMeToQuestion(result)" role="button">
 									<h3>{{ result.title }}</h3>
 									<p>{{ result.subtitle }}</p>
 								</div>
