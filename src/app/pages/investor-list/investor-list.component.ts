@@ -520,4 +520,7 @@ else{
       this.selectedData = {};
     });
   }
+  goBackButton(){
+    this.router.navigate(['/pages/founderstool/founderstoollist']);
+  }
 }

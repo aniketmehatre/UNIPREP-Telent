@@ -1,5 +1,5 @@
 <div class="card readingcard" *ngIf="isInstructionVisible">
-  <div class="card-header py-0 border-0 bg-transparent">
+  <div class="card-header border-0 bg-transparent">
     <div class="row">
       <div class="col-md-3 gap-3 d-flex align-items-center">
         <div class="backIcon" role="button" (click)="goBack()">
@@ -46,7 +46,7 @@
 </div>
 
 <div class="card readingcard" *ngIf="isStartQuiz">
-  <div class="card-header py-0 border-0 bg-transparent">
+  <div class="card-header border-0 bg-transparent">
     <div class="row justify-content-center align-items-center">
       <div class="col-md-2 col-2 text-start d-flex align-items-center">
         <h5 class="fw-bold">{{ selectedQuiz }}/{{ quizcount }} Question Left</h5>
@@ -159,7 +159,7 @@
   </div>
 </div>
 <div class="card readingcard" *ngIf="isQuizSubmit">
-  <div class="card-header py-0 border-0 bg-transparent">
+  <div class="card-header border-0 bg-transparent">
     <div class="row justify-content-center align-items-center">
       <div class="col-md-2">
         <h5 class="mb-3 mt-3" style="font-size: 18px">{{ quizcount }}/{{ quizcount }} Questions Completed</h5>
@@ -227,7 +227,7 @@
 </div>
 
 <div class="card readingcard" *ngIf="isReviewVisible">
-  <div class="card-header py-0 border-0 bg-transparent">
+  <div class="card-header border-0 bg-transparent">
     <div class="row justify-content-center align-items-center">
       <div class="col-md-2"></div>
       <div class="col-md-8 text-center">

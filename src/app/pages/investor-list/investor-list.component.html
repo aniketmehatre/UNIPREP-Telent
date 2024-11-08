@@ -1,19 +1,20 @@
 <div class="card readingcard">
   <ng-container *ngIf="!enableModule">
-    <div class="card-header py-0 border-0 bg-transparent">
+    <div class="card-header border-0 bg-transparent">
       <div class="row justify-content-center">
-        <div class="col-md-2 text-start"></div>
-        <div class="col-md-8 text-center">
+        <div class="col-md-12  d-flex gap-2 text-center">
+          <div class="backIcon" (click)="goBackButton()" role="button">
+            <span class="fa-solid fa-chevron-left"></span>
+          </div>
           <div class="select-title text-nowrap d-flex justify-content-between align-items-center">
             <div>
               <h5 class="w-100 mb-0" tooltipPosition="top" pTooltip="Investor List">Founders Tool - INVESTOR LIST<i class="questiontooltip fa-solid fa-circle-question"></i></h5>
             </div>
             <div>
-              <button class="how-it-works-button" (click)="openVideoPopup('https://www.youtube.com/embed/dVAzK2cBCyA?si=ApmnymiuiK0wOgwv')">&nbsp;How it works? &nbsp;&nbsp;<i class="fa-solid fa-play"></i></button>
+              <button class="how-it-works-button" (click)="openVideoPopup('https://www.youtube.com/embed/Faq1gvjeC9w?si=Ve0Bp3P0gYKX86Il')">&nbsp;How it works? &nbsp;&nbsp;<i class="fa-solid fa-play"></i></button>
             </div>
           </div>
         </div>
-        <div class="col-md-2"></div>
       </div>
     </div>
     <div class="card-body">
@@ -68,7 +69,7 @@
   </ng-container>
 
   <ng-container *ngIf="enableModule">
-    <div class="card-header py-0 border-0 bg-transparent" *ngIf="!restrict">
+    <div class="card-header border-0 bg-transparent" *ngIf="!restrict">
       <div class="row justify-content-center">
         <!-- <div class="col-xxl-3 col-xl-3 col-lg-4 col-md-4 col-sm-4 col-xs-12 col-12 text-start">
           <div class="p-input-icon-left w-100 mt-3">
@@ -80,9 +81,8 @@
         <!-- <div class="col-md-6 text-center">
 						<h5 class="select-title mb-1" tooltipPosition="top" pTooltip="Investor List">INVESTOR LIST</h5>
 					</div> -->
-        <div class="col-2"></div>
-				<div class="col-md-6 text-center">
-					<div class="select-title text-nowrap d-flex justify-content-between align-items-center">
+				<div class="col-md-12 d-flex gap-2 text-center">
+					<div class="select-title d-flex justify-content-between align-items-center">
 						<div>
 							<h5 class="w-100 mb-0" tooltipPosition="top" pTooltip="Investor List">INVESTOR LIST<i class="questiontooltip fa-solid fa-circle-question"></i></h5>
 						</div>
@@ -90,25 +90,27 @@
 							<button class="how-it-works-button" (click)="openVideoPopup('https://www.youtube.com/embed/dVAzK2cBCyA?si=ApmnymiuiK0wOgwv')">&nbsp;How it works? &nbsp;&nbsp;<i class="fa-solid fa-play"></i></button>
 						</div>
 					</div>
+          <div class="text-end">
+            <span class="d-flex justify-content-end gap-2" style="white-space: nowrap">
+              <button class="btn btn-primary btn-rounded text-small" (click)="investorGuidlines()" type="button">Investor Guidelines</button>
+              <button *ngIf="ehitlabelIsShow" class="btn btn-secondary btn-rounded text-small" (click)="buyCredits()" type="button">Buy Credits</button>
+              <button class="btn btn-primary text-small exportButton" (click)="exportData()" type="button">
+                Export <span class="exportCount">{{ exportCreditCount }}</span>
+              </button>
+            </span>
+          </div>
 				</div>
-				<div class="col-md-4 text-end">
-					<span class="d-flex justify-content-end mt-3 gap-2" style="white-space: nowrap">
-						<button class="btn btn-primary btn-rounded text-small" (click)="investorGuidlines()" type="button">Investor Guidelines</button>
-						<button *ngIf="ehitlabelIsShow" class="btn btn-secondary btn-rounded text-small" (click)="buyCredits()" type="button">Buy Credits</button>
-						<button class="btn btn-primary text-small exportButton" (click)="exportData()" type="button">
-							Export <span class="exportCount">{{ exportCreditCount }}</span>
-						</button>
-					</span>
-					<div class="d-flex w-100 align-items-center justify-content-end p-2 gap-2" style="white-space: nowrap">
-						<button class="btn btn-secondary btn-rounded text-small" (click)="openReport()" type="button">Report</button>
-						<button class="btn btn-primary btn-rounded text-small" (click)="filterBy()" type="button">Filter by</button>
-						<div class="pe-2">
-							<span class="text-muted text-small"
-								><strong>Total Investors : {{ totalInvestorsCount }}</strong></span
-							>
-						</div>
-					</div>
-				</div>
+				<div class="col-md-12">
+          <div class="d-flex w-100 align-items-center justify-content-end p-2 gap-2" style="white-space: nowrap">
+            <button class="btn btn-secondary btn-rounded text-small" (click)="openReport()" type="button">Report</button>
+            <button class="btn btn-primary btn-rounded text-small" (click)="filterBy()" type="button">Filter by</button>
+            <div class="pe-2">
+              <span class="text-muted text-small"
+                ><strong>Total Investors : {{ totalInvestorsCount }}</strong></span
+              >
+            </div>
+          </div>
+        </div>
 			</div>
 		</div>
 		<div class="card-body text-center flex-fill overflow-y-auto" *ngIf="!restrict">

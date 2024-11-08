@@ -1,20 +1,19 @@
 <div class="card readingcard">
-	<div class="card-header py-0 border-0 bg-transparent">
+	<div class="card-header border-0 bg-transparent">
 		<div class="row justify-content-center">
-			<div class="col-md-3 text-start"></div>
-			<div class="col-md-6 col-6 text-center">
-				<div class="select-title text-nowrap d-flex justify-content-between align-items-center" style="width: 100%">
+			<div class="col-md-12 d-flex gap-2 text-center">
+				<div class="select-title d-flex justify-content-between align-items-center" style="width: 100%">
 					<div>
 						<h5 class="mb-0" tooltipPosition="top" pTooltip="">
 							<span>My Certificates<i class="questiontooltip fa-solid fa-circle-question"></i></span>
 						</h5>
 					</div>
 					<div>
-						<button class="how-it-works-button">&nbsp;How it works? &nbsp;&nbsp;<i class="fa-solid fa-play"></i></button>
+						<button (click)="openVideoPopup('https://www.youtube.com/embed/-OTCl3QMdL0?si=zny9m5NZkWSBDPdp')" class="how-it-works-button">&nbsp;How it works? &nbsp;&nbsp;<i class="fa-solid fa-play"></i></button>
 					</div>
 				</div>
+				<button (click)="redirectCertificateTraker()" class="how-it-works-button p-2">Certificate Tracker</button>
 			</div>
-			<div class="col-md-3"></div>
 		</div>
 	</div>
 	<div class="card-body text-center flex-fill overflow-y-auto">
@@ -24,17 +23,15 @@
 					<div class="card resourcecard justify-content-center text-black h-100">
 						<div class="card-body h-100 position-relative">
 							<div class="mb-1" id="resourceLink">
-								<div class="float-end">
-									<img width="23" height="23" src="{{ list.country_flag }}" alt="" />
-								</div>
 								<div class="d-flex gap-3 align-items-center h-100">
 									<div class="resourceimg"><img src="{{ list.module_image }}" alt="" /></div>
 									<div class="text-start">
-										<h6 *ngIf="list.module_id==1 || list.module_id==7 || list.module_id==3 || list.module_id==4
-												|| list.module_id==6">{{list.country_name}}</h6>
-										<h5 title="{{ list.module_name }}">{{ list.module_name }}</h5>
-										<h6>{{ list.submodule_name }}</h6>
-										<span>ID: {{ list.certificateID }}</span>
+										<span style="font-size: 1.2rem;" title="{{ list.module_name }}"><b>{{ list.module_name }}</b></span><br>
+										<span><img width="23" height="23" src="{{ list.country_flag }}" alt="" /> </span>&nbsp;
+										<span style="font-size: 1.2rem;" *ngIf="list.module_id==1 || list.module_id==7 || list.module_id==3 || list.module_id==4
+										|| list.module_id==6"><b>{{list.country_name}}</b></span>
+										<span style="font-size: 1.2rem;"><b>{{ list.submodule_name }}</b></span>
+										<h6>ID: {{ list.certificateID }}</h6>
 									</div>
 								</div>
 							</div>

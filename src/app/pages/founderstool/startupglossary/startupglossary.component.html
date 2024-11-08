@@ -1,50 +1,50 @@
 <div class="card readingcard">
-	<div class="card-header py-0 border-0 bg-transparent">
-		<div class="row justify-content-center">
-			<div class="col-md-2 text-start">
-				<div class="backIcon" (click)="goBack()" role="button">
-					<span class="fa-solid fa-chevron-left"></span>
-				</div>
-			</div>
-			<div class="col-md-8 text-center">
-				<h5 class="select-title mb-1" tooltipPosition="top"
-					pTooltip="This section provides a comprehensive walkthrough on the UNIPREP platform.">Founders Tool - Startup
-					Glossary<i class="questiontooltip fa-solid fa-circle-question"></i></h5>
-			</div>
-			<div class="col-md-2"></div>
-		</div>
-		<div class="row" style="display: flex; align-items: center;">
-			<div class="col-8 mt-3" style="display: flex;">
-				<p *ngFor="let cat of category_dropdown" [ngClass]="{'selected-category': isSelected(cat.id)}"
-					(click)="filterCat(cat.id)" style="margin-left: 20px;"><span
-						style="cursor: pointer;">{{cat.name}}</span></p>
-			</div>
-			<div class="col-4">
-				<div class="p-input-icon-left w-100 mt-3">
-					<i class="pi pi-search"></i>
-					<input class="w-100 px-5 py-2 mb-1" type="text" placeholder="Search for a term" pInputText
-						[(ngModel)]="valueNearYouFilter" (input)="performSearch()" />
-				</div>
-			</div>
-		</div>
-	</div>
-	<div class="card-body text-start flex-fill overflow-y-auto">
-		<div class="container-fluid">
-			<div class="row">
-				<div class="col-12 mt-1" *ngFor="let alphabet of (groupedTerms | keyvalue)">
-					<h2 *ngIf="alphabet.key" class="uniprep-secondary">{{ alphabet.key }}</h2>
-					<hr>
-					<div *ngFor="let term of alphabet.value">
-						<h5 style="color: #3F4C83;">{{ term.glossaryterm }}</h5>
-						<h6 style="font-size: 0.9rem;">{{ term.summary }}</h6>
-						<hr>
-					</div>
-				</div>
-				<div *ngIf="startupglossarylists && startupglossarylists.length > 0&&isObjectEmpty(groupedTerms)"
-					class="d-flex justify-content-center centerDiv">
-					<h3>No results found</h3>
-				</div>
-			</div>
-		</div>
-	</div>
+  <div class="card-header border-0 bg-transparent">
+    <div class="row justify-content-center">
+      <div class="col-md-12 d-flex gap-2 text-center">
+        <div class="backIcon" (click)="goBack()" role="button">
+          <span class="fa-solid fa-chevron-left"></span>
+        </div>
+        <div class="select-title d-flex justify-content-between align-items-center">
+          <div>
+            <h5 class="w-100 mb-0" tooltipPosition="top" pTooltip="Access resources for starting your business, from ideation to execution.">Founders Tool - Startup Glossary<i class="questiontooltip fa-solid fa-circle-question"></i></h5>
+          </div>
+          <div>
+            <button (click)="openVideoPopup('https://www.youtube.com/embed/aMS2fbZFaq8?si=SmPbHVer5ValUrr0')" class="how-it-works-button">&nbsp;How it works? &nbsp;&nbsp;<i class="fa-solid fa-play"></i></button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row mt-2 align-items-center">
+      <div class="col-8 d-flex">
+        <p *ngFor="let cat of category_dropdown" [ngClass]="{ 'selected-category': isSelected(cat.id) }" (click)="filterCat(cat.id)" style="margin-left: 20px">
+          <span style="cursor: pointer">{{ cat.name }}</span>
+        </p>
+      </div>
+      <div class="col-4 text-end">
+        <div class="p-input-icon-left w-100">
+          <i class="pi pi-search"></i>
+          <input class="w-100 px-5 py-2 mb-1" type="text" placeholder="Search for a term" pInputText [(ngModel)]="valueNearYouFilter" (input)="performSearch()" />
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="card-body text-start flex-fill overflow-y-auto">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-12 mt-1" *ngFor="let alphabet of groupedTerms | keyvalue">
+          <h2 *ngIf="alphabet.key" class="uniprep-secondary">{{ alphabet.key }}</h2>
+          <hr />
+          <div *ngFor="let term of alphabet.value">
+            <h5 style="color: #3f4c83">{{ term.glossaryterm }}</h5>
+            <h6 style="font-size: 0.9rem">{{ term.summary }}</h6>
+            <hr />
+          </div>
+        </div>
+        <div *ngIf="startupglossarylists && startupglossarylists.length > 0 && isObjectEmpty(groupedTerms)" class="d-flex justify-content-center centerDiv">
+          <h3>No results found</h3>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

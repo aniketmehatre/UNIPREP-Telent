@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { FounderstoolService } from '../founderstool.service';
 import { AuthService } from 'src/app/Auth/auth.service';
 import { LocationService } from 'src/app/location.service';
+import { PageFacadeService } from '../../page-facade.service';
 
 @Component({
   selector: 'uni-entreprenuerskillmodule',
@@ -21,7 +22,7 @@ export class EntreprenuerskillmoduleComponent implements OnInit {
   ehitlabelIsShow:boolean=true;
   currentModuleSlug:any;
   constructor(private service: FounderstoolService,private sanitizer: DomSanitizer,private router:Router, private authService: AuthService,
-    private locationService: LocationService,
+    private locationService: LocationService,private pageFacade: PageFacadeService
   ) { }
   ngOnInit(): void {
     this.locationService.getImage().subscribe(imageUrl => {
@@ -88,5 +89,9 @@ export class EntreprenuerskillmoduleComponent implements OnInit {
     localStorage.setItem('entrpreneursubid',id)
     this.currentModuleSlug = "entreprenuersectorproficiencytest"
     this.router.navigate([`/pages/founderstool/${this.currentModuleSlug}/entrpreneurquiz`]);  
+  }
+
+  openVideoPopup(videoLink: string) {
+    this.pageFacade.openHowitWorksVideoPopup(videoLink);
   }
 }
