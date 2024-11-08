@@ -26,11 +26,11 @@
 								<div class="d-flex gap-3 align-items-center h-100">
 									<div class="resourceimg"><img src="{{ list.module_image }}" alt="" /></div>
 									<div class="text-start">
-										<span style="font-size: 1.2rem;" title="{{ list.module_name }}"><b>{{ list.module_name }}</b></span><br>
-										<span><img width="23" height="23" src="{{ list.country_flag }}" alt="" /> </span>&nbsp;
-										<span style="font-size: 1.2rem;" *ngIf="list.module_id==1 || list.module_id==7 || list.module_id==3 || list.module_id==4
+										<span style="font-size: 1rem;" title="{{ list.module_name }}"><b>{{ list.module_name }}</b></span><br>
+										<span *ngIf="!(list.module_id ==9 || list.module_id ==8)"><img width="20" height="20" src="{{ list.country_flag }}" alt="" /> </span>&nbsp;
+										<span style="font-size: 1rem;" *ngIf="list.module_id==1 || list.module_id==7 || list.module_id==3 || list.module_id==4
 										|| list.module_id==6"><b>{{list.country_name}}</b></span>
-										<span style="font-size: 1.2rem;"><b>{{ list.submodule_name }}</b></span>
+										<span style="font-size: 1rem;"><b>{{ list.submodule_name }} <span *ngIf="list.module_id==9 || list.module_id==8">{{ "-"+ list.category_name}}</span></b></span>
 										<h6>ID: {{ list.certificateID }}</h6>
 									</div>
 								</div>
