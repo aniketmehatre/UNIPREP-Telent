@@ -368,10 +368,10 @@
     <div class="row justify-content-center">
       <div class="col-md-10">
         <div class="row justify-content-between align-items-center">
-          <div class="col-md-5">
+          <div class="col-md-6">
             <h2 class="text-white fw-semibold text-md-start text-center mb-3 d-block d-md-none">Key Features</h2>
-            <div class="featureimage mb-md-0 mb-3">
-              <img [src]="currentImage" class="w-100" alt="Image" />
+            <div class="featureimage mb-md-0 mb-3 p-3">
+              <img [src]="currentImage" class="w-100 rounded-2" alt="Image" />
             </div>
 
             <!-- <img [src]="currentImage" id="changingImage" alt="Image" class="w-100 mb-md-0 mb-3" /> -->
@@ -382,7 +382,7 @@
             <div class="accordion accordion-flush" id="accordionFeatures">
               <div class="accordion-item featurecard">
                 <h2 class="accordion-header">
-                  <button class="accordion-button text-white" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne" (click)="changeImage('f1.png')">Global Repository of Information</button>
+                  <button class="accordion-button text-white" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne" (click)="changeImage('uf1.webp')">Global Repository of Information</button>
                 </h2>
                 <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionFeatures">
                   <div class="accordion-body">
@@ -393,7 +393,7 @@
 			  
 			  <div class="accordion-item featurecard">
                 <h2 class="accordion-header">
-                  <button class="accordion-button text-white collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFive" aria-expanded="true" aria-controls="collapseFive" (click)="changeImage('f2.png')">Academic Support</button>
+                  <button class="accordion-button text-white collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFive" aria-expanded="true" aria-controls="collapseFive" (click)="changeImage('uf2.webp')">Academic Support</button>
                 </h2>
                 <div id="collapseFive" class="accordion-collapse collapse" data-bs-parent="#accordionFeatures">
                   <div class="accordion-body">
@@ -403,7 +403,7 @@
               </div>
               <div class="accordion-item featurecard">
                 <h2 class="accordion-header">
-                  <button class="accordion-button text-white collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo" (click)="changeImage('f4.png')">International Courses & Scholarships</button>
+                  <button class="accordion-button text-white collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo" (click)="changeImage('uf3.webp')">International Courses & Scholarships</button>
                 </h2>
                 <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionFeatures">
                   <div class="accordion-body">
@@ -411,49 +411,9 @@
                   </div>
                 </div>
               </div>
-              <div class="accordion-item featurecard">
+			  <div class="accordion-item featurecard">
                 <h2 class="accordion-header">
-                  <button class="accordion-button text-white collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree" (click)="changeImage('f12.png')">Language Hub</button>
-                </h2>
-                <div id="collapseThree" class="accordion-collapse collapse" data-bs-parent="#accordionFeatures">
-                  <div class="accordion-body">
-                    <p class="mb-0 text-white fw-extralight">Offers the opportunity to learn over 25 different languages in an interactive format.</p>
-                  </div>
-                </div>
-              </div>
-              <div class="accordion-item featurecard">
-                <h2 class="accordion-header">
-                  <button class="accordion-button text-white collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour" (click)="changeImage('f13.png')">Career Tools</button>
-                </h2>
-                <div id="collapseFour" class="accordion-collapse collapse" data-bs-parent="#accordionFeatures">
-                  <div class="accordion-body">
-                    <p class="mb-0 text-white fw-extralight">Advanced resources for career planning and development, including CV Builder, Global salary converter, aptitude test preparation and more</p>
-                  </div>
-                </div>
-              </div>
-              <div class="accordion-item featurecard">
-                <h2 class="accordion-header">
-                  <button class="accordion-button text-white collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSix" aria-expanded="false" aria-controls="collapseSix" (click)="changeImage('f11.png')">Learning Hub</button>
-                </h2>
-                <div id="collapseSix" class="accordion-collapse collapse" data-bs-parent="#accordionFeatures">
-                  <div class="accordion-body">
-                    <p class="mb-0 text-white fw-extralight">Provides over 1,000 specialisations to help understand specific industry needs.</p>
-                  </div>
-                </div>
-              </div>
-              <div class="accordion-item featurecard">
-                <h2 class="accordion-header">
-                  <button class="accordion-button text-white collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTen" aria-expanded="false" aria-controls="collapseTen" (click)="changeImage('f14.png')">Job Portal</button>
-                </h2>
-                <div id="collapseTen" class="accordion-collapse collapse" data-bs-parent="#accordionFeatures">
-                  <div class="accordion-body">
-                    <p class="mb-0 text-white fw-extralight">Provides access to apply for millions of active job opportunities globally.</p>
-                  </div>
-                </div>
-              </div>
-              <div class="accordion-item featurecard">
-                <h2 class="accordion-header">
-                  <button class="accordion-button text-white collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSeven" aria-expanded="false" aria-controls="collapseSeven" (click)="changeImage('f13.png')">UNILEARN</button>
+                  <button class="accordion-button text-white collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSeven" aria-expanded="false" aria-controls="collapseSeven" (click)="changeImage('uf4.webp')">UNILEARN</button>
                 </h2>
                 <div id="collapseSeven" class="accordion-collapse collapse" data-bs-parent="#accordionFeatures">
                   <div class="accordion-body">
@@ -463,7 +423,48 @@
               </div>
               <div class="accordion-item featurecard">
                 <h2 class="accordion-header">
-                  <button class="accordion-button text-white collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseEight" aria-expanded="false" aria-controls="collapseEight" (click)="changeImage('f7.png')">Start-up Kit</button>
+                  <button class="accordion-button text-white collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree" (click)="changeImage('uf5.webp')">Language Hub</button>
+                </h2>
+                <div id="collapseThree" class="accordion-collapse collapse" data-bs-parent="#accordionFeatures">
+                  <div class="accordion-body">
+                    <p class="mb-0 text-white fw-extralight">Offers the opportunity to learn over 25 different languages in an interactive format.</p>
+                  </div>
+                </div>
+              </div>
+			  <div class="accordion-item featurecard">
+                <h2 class="accordion-header">
+                  <button class="accordion-button text-white collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSix" aria-expanded="false" aria-controls="collapseSix" (click)="changeImage('uf6.webp')">Learning Hub</button>
+                </h2>
+                <div id="collapseSix" class="accordion-collapse collapse" data-bs-parent="#accordionFeatures">
+                  <div class="accordion-body">
+                    <p class="mb-0 text-white fw-extralight">Provides over 1,000 specialisations to help understand specific industry needs.</p>
+                  </div>
+                </div>
+              </div>
+			  <div class="accordion-item featurecard">
+                <h2 class="accordion-header">
+                  <button class="accordion-button text-white collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTen" aria-expanded="false" aria-controls="collapseTen" (click)="changeImage('uf7.webp')">Job Portal</button>
+                </h2>
+                <div id="collapseTen" class="accordion-collapse collapse" data-bs-parent="#accordionFeatures">
+                  <div class="accordion-body">
+                    <p class="mb-0 text-white fw-extralight">Provides access to apply for millions of active job opportunities globally.</p>
+                  </div>
+                </div>
+              </div>
+              <div class="accordion-item featurecard">
+                <h2 class="accordion-header">
+                  <button class="accordion-button text-white collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour" (click)="changeImage('uf8.webp')">Career Tools</button>
+                </h2>
+                <div id="collapseFour" class="accordion-collapse collapse" data-bs-parent="#accordionFeatures">
+                  <div class="accordion-body">
+                    <p class="mb-0 text-white fw-extralight">Advanced resources for career planning and development, including CV Builder, Global salary converter, aptitude test preparation and more</p>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="accordion-item featurecard">
+                <h2 class="accordion-header">
+                  <button class="accordion-button text-white collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseEight" aria-expanded="false" aria-controls="collapseEight" (click)="changeImage('uf9.webp')">Start-up Kit</button>
                 </h2>
                 <div id="collapseEight" class="accordion-collapse collapse" data-bs-parent="#accordionFeatures">
                   <div class="accordion-body">
@@ -473,7 +474,7 @@
               </div>
               <div class="accordion-item featurecard">
                 <h2 class="accordion-header">
-                  <button class="accordion-button text-white collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseNine" aria-expanded="false" aria-controls="collapseNine" (click)="changeImage('f15.png')">Founders Tool</button>
+                  <button class="accordion-button text-white collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseNine" aria-expanded="false" aria-controls="collapseNine" (click)="changeImage('uf10.webp')">Founders Tool</button>
                 </h2>
                 <div id="collapseNine" class="accordion-collapse collapse" data-bs-parent="#accordionFeatures">
                   <div class="accordion-body">
