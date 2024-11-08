@@ -5,6 +5,11 @@
         <h5 class="select-title mb-1" tooltipPosition="top" pTooltip="Learn new skills and concepts through step-by-step tutorials in a variety of subjects.">TUTORIALS<i class="questiontooltip fa-solid fa-circle-question"></i></h5>
       </div>
     </div>
+    <div class="row mt-2">
+			<div class="d-flex gap-4 justify-content-center mb-2">
+				<p role="button" *ngFor="let cat of categorylist" [ngClass]="{'selected-category': isSelected(cat.id)}" (click)="filterCat(cat.id)">{{cat.name}}</p>
+			</div>
+		</div>
   </div>
   <div class="card-body flex-fill overflow-y-auto">
     <div class="container-fluid">

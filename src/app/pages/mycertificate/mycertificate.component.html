@@ -23,17 +23,15 @@
 					<div class="card resourcecard justify-content-center text-black h-100">
 						<div class="card-body h-100 position-relative">
 							<div class="mb-1" id="resourceLink">
-								<div class="float-end">
-									<img width="23" height="23" src="{{ list.country_flag }}" alt="" />
-								</div>
 								<div class="d-flex gap-3 align-items-center h-100">
 									<div class="resourceimg"><img src="{{ list.module_image }}" alt="" /></div>
 									<div class="text-start">
-										<h6 *ngIf="list.module_id==1 || list.module_id==7 || list.module_id==3 || list.module_id==4
-												|| list.module_id==6">{{list.country_name}}</h6>
-										<h5 title="{{ list.module_name }}">{{ list.module_name }}</h5>
-										<h6>{{ list.submodule_name }}</h6>
-										<span>ID: {{ list.certificateID }}</span>
+										<span style="font-size: 1.2rem;" title="{{ list.module_name }}"><b>{{ list.module_name }}</b></span><br>
+										<span><img width="23" height="23" src="{{ list.country_flag }}" alt="" /> </span>&nbsp;
+										<span style="font-size: 1.2rem;" *ngIf="list.module_id==1 || list.module_id==7 || list.module_id==3 || list.module_id==4
+										|| list.module_id==6"><b>{{list.country_name}}</b></span>
+										<span style="font-size: 1.2rem;"><b>{{ list.submodule_name }}</b></span>
+										<h6>ID: {{ list.certificateID }}</h6>
 									</div>
 								</div>
 							</div>

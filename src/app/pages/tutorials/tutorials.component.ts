@@ -16,12 +16,14 @@ export class TutorialsComponent implements OnInit {
   tutoriallist:any=[];
   showVideoPopup: boolean = false;
   selectedVideoLink: any | null = null;
+  categorylist:any=[];
+  selectedCategoryId: number | null = null; 
+  categoryextra:any;
   constructor(private resourceService: TutorialsService,private sanitizer: DomSanitizer) { }
-
-
   ngOnInit(): void {
     var data={
-      usertype:1
+      usertype:1,
+      category:null
     }
     this.resourceService.getResources(data).subscribe((response:any)=>{
       var tutorials= response.Tutorial;
@@ -34,6 +36,10 @@ export class TutorialsComponent implements OnInit {
          }
          this.tutoriallist.push(tutorial);
       });
+    });
+    this.resourceService.getCatogory().subscribe((response:any)=>{
+      this.categoryextra = [{ id: null, name: "All" }];
+      this.categorylist= [...this.categoryextra,...response.data];
     });
   }
   openNextPageLink:any;
@@ -86,6 +92,29 @@ export class TutorialsComponent implements OnInit {
   }
   openNextVideo(){
     window.open(this.openNextPageLink)
+  }
+  filterCat(id:any){
+    this.tutoriallist=[];
+    var data={
+      usertype:1,
+      category:id
+    }
+    this.resourceService.getResources(data).subscribe((response:any)=>{
+      var tutorials= response.Tutorial;
+      tutorials.forEach((element:any) => {
+         var tutorial = {
+          title: element.title,
+          link: element.link,
+          coverimage:element.coverimage,
+          description:element.description
+         }
+         this.tutoriallist.push(tutorial);
+         this.selectedCategoryId = id;
+      });
+    });
+  }
+  isSelected(id: number): boolean {
+    return this.selectedCategoryId === id;  // Check if this category is selected
   }
 }
 // @Pipe({ name: 'safe' })
