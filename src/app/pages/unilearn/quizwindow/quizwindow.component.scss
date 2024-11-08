@@ -1,179 +1,180 @@
 .subjectcard {
-  border: 1px solid var(--uniprep-secondary);
-  width: 100%;
-  margin: 10px 0px;
+	border: 1px solid var(--uniprep-secondary);
+	width: 100%;
+	margin: 10px 0px;
 
-  .timespan {
-    background: #9bc329;
-    color: white;
-    border-radius: 2rem;
-  }
+	.timespan {
+		background: #9bc329;
+		color: white;
+		border-radius: 2rem;
+	}
 
-  .submoduleicon {
-    height: 100px;
-    width: 100px;
-    margin: auto;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+	.submoduleicon {
+		height: 100px;
+		width: 100px;
+		margin: auto;
+		display: flex;
+		justify-content: center;
+		align-items: center;
 
-    .selectimage {
-      width: 100%;
-      height: 100%;
-      object-fit: contain;
-    }
-  }
-  &:focus {
-    background-color: var(--uniprep-primaryop10);
-    border: 1px solid var(--uniprep-primary);
-  }
+		.selectimage {
+			width: 100%;
+			height: 100%;
+			object-fit: contain;
+		}
+	}
+	&:focus {
+		background-color: var(--uniprep-primaryop10);
+		border: 1px solid var(--uniprep-primary);
+	}
 
-  &:hover {
-    background-color: var(--uniprep-primaryop10);
-    border: 1px solid var(--uniprep-primary);
-  }
+	&:hover {
+		background-color: var(--uniprep-primaryop10);
+		border: 1px solid var(--uniprep-primary);
+	}
 }
 .subjecttitle {
-  font-size: 18px;
-  font-weight: 800;
+	font-size: 18px;
+	font-weight: 800;
 }
 ::ng-deep .ng2-pdf-viewer-container {
-  overflow-x: hidden !important;
+	overflow-x: hidden !important;
 }
 .center {
-  height: 63vh !important;
+	height: 63vh !important;
 }
 .headColor {
-  color: #3f4c83;
+	color: #3f4c83;
 }
 .text-smaller {
-  font-size: x-small;
+	font-size: x-small;
 }
 .basictimespan {
-  background: #9bc329;
-  color: white;
-  border-radius: 2rem;
+	background: #9bc329;
+	color: white;
+	border-radius: 2rem;
 }
 .intermediatetimespan {
-  background: var(--uniprep-secondary);
-  color: white;
-  border-radius: 2rem;
+	background: var(--uniprep-secondary);
+	color: white;
+	border-radius: 2rem;
 }
 .advancetimespan {
-  background: #d80027;
-  color: white;
-  border-radius: 2rem;
+	background: #d80027;
+	color: white;
+	border-radius: 2rem;
 }
 .btn-primary .btn-customicon {
-  border-radius: 100px;
-  background-color: var(--uniprep-primarylight);
-  width: 25px;
-  height: 25px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+	border-radius: 100px;
+	background-color: var(--uniprep-primarylight);
+	width: 25px;
+	height: 25px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }
 .btn-previous {
-  background-color: var(--uniprep-primarydark) !important;
+	background-color: var(--uniprep-primarydark) !important;
 }
 .btn-primary .btn-custompreviousicon {
-  border-radius: 100px;
-  background-color: var(--uniprep-primarydarklight);
-  width: 25px;
-  height: 25px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+	border-radius: 100px;
+	background-color: var(--uniprep-primarydarklight);
+	width: 25px;
+	height: 25px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }
 .btn-customdanger {
-  background-color: #df3e3e !important;
-  border: #df3e3e !important;
+	background-color: #df3e3e !important;
+	border: #df3e3e !important;
 }
 .btn-primary .btn-customdangericon {
-  border-radius: 100px;
-  background-color: #bc1818;
-  width: 25px;
-  height: 25px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+	border-radius: 100px;
+	background-color: #bc1818;
+	width: 25px;
+	height: 25px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }
 .outline-primary {
-  border-color: var(--uniprep-primary) !important;
-  color: var(--uniprep-primary) !important;
-  &:hover {
-    background-color: transparent !important;
-  }
+	border-color: var(--uniprep-primary) !important;
+	color: var(--uniprep-primary) !important;
+	&:hover {
+		background-color: transparent !important;
+	}
 }
 .customactive {
-  background-color: var(--uniprep-primary) !important;
-  color: white !important;
+	background-color: var(--uniprep-primary) !important;
+	color: white !important;
 }
 .quizinfo {
-  font-size: 16px;
-  font-weight: 500;
+	font-size: 16px;
+	font-weight: 500;
 }
-::ng-deep ngx-audio-player {
-  width: 100%;
-  .ng-star-inserted {
-    font-weight: 600;
-  }
-  .mat-slider-thumb {
-    background-color: var(--uniprep-secondary);
-  }
-  .mat-slider-track-wrapper {
-    height: 5px !important;
-    border-radius: 10px !important;
-  }
-  .mat-slider-wrapper {
-    background-color: #d9d9d9;
-    border-radius: 10px !important;
-    height: 5px !important;
-    top: 21px !important;
-    left: 8px !important;
-    right: 8px !important;
-  }
-  .mat-slider-track-fill {
-    background-color: var(--uniprep-primary);
-    height: 5px !important;
-  }
-  mat-icon {
-    vertical-align: text-bottom !important;
-    position: relative;
-    top: 5px !important;
-  }
-  mat-slider {
-    vertical-align: text-bottom !important;
-  }
-  .mat-button {
-    background: none !important;
-    border: none !important;
-    svg {
-      height: 18px !important;
-      width: 18px !important;
-    }
-  }
-  .mat-icon {
-    height: 30px !important;
-    width: 25px !important;
-  }
-  .ngx-volume {
-    height: 45px !important;
-    margin: 0 !important;
-    position: relative;
-    top: 4px;
-  }
-  .play-pause {
-    position: relative !important;
-    top: 7px !important;
-    display: none;
-  }
-  
-}.quizform {
-    input {
-      font-size: 12px !important;
-    }
-    label {
-      font-size: 12px !important;
-    }
+:host ::ng-deep ngx-audio-player {
+	.mat-card {
+		display: flex;
+		flex-direction: row;
+		width: 100%;
+		.mat-slider-thumb {
+			background-color: var(--uniprep-secondary);
+		}
+		.mat-slider-track-wrapper {
+			height: 5px !important;
+			border-radius: 10px !important;
+		}
+		.mat-slider-wrapper {
+			background-color: #d9d9d9;
+			border-radius: 10px !important;
+			height: 5px !important;
+			top: 21px !important;
+			left: 8px !important;
+			right: 8px !important;
+		}
+		.mat-slider-track-fill {
+			background-color: var(--uniprep-primary);
+			height: 5px !important;
+		}
+		mat-icon {
+			vertical-align: text-bottom !important;
+			position: relative;
+			top: 5px !important;
+		}
+		mat-slider {
+			vertical-align: text-bottom !important;
+		}
+		.mat-button {
+			background: none !important;
+			border: none !important;
+			svg {
+				height: 18px !important;
+				width: 18px !important;
+			}
+		}
+		.mat-icon {
+			height: 30px !important;
+			width: 25px !important;
+		}
+		.ngx-volume {
+			height: 45px !important;
+			margin: 0 !important;
+			position: relative;
+			top: 4px;
+		}
+		.play-pause {
+			position: relative !important;
+			top: 7px !important;
+			display: none;
+		}
+	}
+}
+.quizform {
+	input {
+		font-size: 12px !important;
+	}
+	label {
+		font-size: 12px !important;
+	}
 }

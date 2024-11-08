@@ -6,8 +6,8 @@
 			</div> -->
       <!-- select-title css also needs to change the width -->
       <!-- after create the video just uncomment the below code. and send the youtube embeded video link -->
-      <div class="col-md-9 text-center">
-        <div class="select-title text-nowrap d-flex justify-content-between align-items-center">
+      <div class="col-md-12 d-flex gap-2 text-center">
+        <div class="select-title d-flex justify-content-between align-items-center">
           <div>
             <h5 class="mb-0" tooltipPosition="top" pTooltip="Create compelling pitch presentations to attract investors and partners.">PITCH DECK</h5>
           </div>
@@ -15,8 +15,6 @@
             <button class="how-it-works-button" (click)="openVideoPopup('https://www.youtube.com/embed/u70WnIHLx5s?si=AwnqCGqZEVwJ4ryL')">&nbsp;How it works?&nbsp;&nbsp;<i class="fa-solid fa-play"></i></button>
           </div>
         </div>
-      </div>
-      <div class="col-md-3 text-end" style="white-space: nowrap">
         <span class="d-flex justify-content-end gap-2">
           <button class="btn btn-primary text-small pitchdeck-guidlines" (click)="closeGuidelines()" type="button">Pitch Deck Guidelines</button>
           <button *ngIf="ehitlabelIsShow" class="btn btn-primary text-small pitchdeck-guidlines" (click)="buyCredits()" type="button">Buy Credits</button>
@@ -33,7 +31,7 @@
               <input class="px-5 py-2" type="text" placeholder="Search in Pitch Deck List" pInputText [(ngModel)]="valueNearYouFilter" (input)="performSearch()" />
             </div>
             <span class="d-flex justify-content-start p-2">
-              <input type="checkbox" class="me-0" style="transform: scale(1.5); cursor: pointer" [(ngModel)]="selectAllCheckboxes" (click)="selectAllCheckbox()" id="selectAllcheckbox" />
+              <input type="checkbox" class="me-0" style="zoom:1.5;cursor: pointer" [(ngModel)]="selectAllCheckboxes" (click)="selectAllCheckbox()" id="selectAllcheckbox" />
               <label class="p-2" for="selectAllcheckbox" style="cursor: pointer">Select All</label>
               <span class="p-2">Selected : {{ selectedCheckboxCount }}</span>
             </span>
@@ -75,7 +73,7 @@
                 </div>
                 <div class="d-flex justify-content-between align-items-center">
                   <i [class]="pitchDeskListData.favourite == 1 ? 'fa-solid fa-bookmark' : 'fa-regular fa-bookmark'" (click)="bookmarkQuestion(pitchDeskListData.id, pitchDeskListData.favourite)" style="color: #e90707" class="favIcon"></i>
-                  &nbsp;&nbsp;&nbsp;<input type="checkbox" (change)="onCheckboxChange($event)" class="me-2" style="transform: scale(1.5)" [(ngModel)]="pitchDeskListData.isChecked" />
+                  &nbsp;&nbsp;&nbsp;<input type="checkbox" (change)="onCheckboxChange($event)" class="me-2" style="zoom:1.5;" [(ngModel)]="pitchDeskListData.isChecked" />
                 </div>
               </div>
               <div class="d-flex justify-content-between mt-2 mb-1">
@@ -241,7 +239,7 @@
         <p-button (click)="goBack()" icon="fa-solid fa-chevron-left" styleClass="p-button-rounded p-button-text text-dark"></p-button>
       </div>
       <div class="col-md-6 text-center">
-        <div class="select-title text-nowrap d-flex justify-content-between align-items-center">
+        <div class="select-title d-flex justify-content-between align-items-center">
           <div>
             <h5 class="mb-0 text-uppercase">{{ pdname }}</h5>
           </div>
