@@ -636,10 +636,10 @@
               <p class="text-small fw-semibold mb-0">Checkout</p>
             </div>
             <div class="d-flex gap-2">
-              <button [disabled]="showCheckout" class="btn btn-basic stripeborder px-4" (click)="checkout('stripe')">
+              <button *ngIf="currentCountry!='India'" [disabled]="showCheckout" class="btn btn-basic stripeborder px-4" (click)="checkout('stripe')">
                 <img class="img-fluid" src="../../../../uniprep-assets/stripe.png" width="40px" />
               </button>
-              <button [disabled]="showCheckout" class="btn btn-basic razorpayborder" (click)="checkout('razorpay')">
+              <button *ngIf="currentCountry=='India'" [disabled]="showCheckout" class="btn btn-basic razorpayborder" (click)="checkout('razorpay')">
                 <img class="img-fluid" src="../../../../uniprep-assets/razorpay.png" width="40px" />
               </button>
             </div>
