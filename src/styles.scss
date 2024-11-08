@@ -988,6 +988,7 @@ uni-subscription {
 .backIcon {
 	height: 100%;
     width: 50px;
+	min-height:40px;
 	border-radius: 8px;
 	background-color: var(--uniprep-primary);
 	color: white;
