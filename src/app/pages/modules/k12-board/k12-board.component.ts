@@ -57,7 +57,7 @@ export class K12BoardComponent implements OnInit {
     orgnamewhitlabel: any;
     orglogowhitelabel: any;
     allSearchedResult: any[] = []
-    loopRange = Array.from({length: 1}).fill(0).map((_, index) => index);
+    loopRange = Array.from({length: 3}).fill(0).map((_, index) => index);
     restrict = false;
     quizpercentage: any = 0
 

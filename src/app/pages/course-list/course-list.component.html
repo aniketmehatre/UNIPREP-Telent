@@ -89,7 +89,7 @@
           <!-- <div class="col-md-6 text-center">
 						<h5 class="select-title w-100 mb-1" tooltipPosition="top" pTooltip="Course List">COURSE LIST<i class="questiontooltip fa-solid fa-circle-question"></i></h5>
 					</div> -->
-          <div class="col-12 d-flex gap-2">
+          <div class="col-12 d-flex gap-2 flex-md-row flex-column justify-content-center align-items-center">
             <div class="select-title d-flex justify-content-between align-items-center">
               <div>
                 <h5 class="w-100 mb-0" tooltipPosition="top" pTooltip="Search and apply to courses worldwide with our comprehensive global course finder">UNIFINDER<i class="questiontooltip fa-solid fa-circle-question"></i></h5>
@@ -99,7 +99,7 @@
               </div>
             </div>
             <div>
-              <span class="d-flex justify-content-end gap-2">
+              <span class="d-flex justify-content-md-end justify-content-center gap-2">
                 <button class="btn btn-primary flex-shrink-0 text-small course-guidelines" (click)="closeGuidelines()" type="button">Course Guidelines</button>
                 <button *ngIf="ehitlabelIsShow" class="btn btn-primary flex-shrink-0 text-small buy-credits-button" (click)="buyCredits()" type="button">Buy Credits</button>
                 <button class="btn btn-primary text-small flex-shrink-0 exportButton" (click)="exportData()" type="button">
@@ -111,20 +111,16 @@
         </div>
         <div class="row justify-content-center">
           <div class="col-md-12">
-            <div class="d-flex justify-content-between">
-              <span class="d-flex justify-content-start p-2">
+            <div class="d-flex justify-content-md-between justify-content-center">
+              <span class="d-flex p-2">
                 <input type="checkbox" class="me-0" style="zoom:1.5; cursor: pointer" [(ngModel)]="selectAllCheckboxes" (click)="selectAllCheckbox()" id="selectAllcheckbox" />
                 <label class="p-2" for="selectAllcheckbox" style="cursor: pointer">Select All</label>
                 <span class="p-2">Selected : {{ selectedCourses }}</span>
               </span>
-              <div class="d-flex align-items-center justify-content-end mt-3 gap-2">
+              <div class="d-flex align-items-center mt-3 gap-2">
                 <button class="btn btn-primary text-small ps-3 pe-3 pt-2 pb-2 br-8 p-1" style="border-radius: 20px !important" (click)="viewFav()" type="button">{{ viewFavourites ? "Remove " : "View " }} Favourites</button>
                 <button class="btn btn-primary text-small ps-3 pe-3 pt-2 pb-2 br-8 p-1" style="border-radius: 20px !important" (click)="filterBy()" type="button">Filter by</button>
-                <div class="pe-2">
-                  <span class="text-muted text-small"
-                    ><strong>Total Courses: {{ totalCourseCount }} </strong></span
-                  >
-                </div>
+                  <span class="fw-semibold text-small">Total Courses: {{ totalCourseCount }} </span>
               </div>
             </div>
           </div>
