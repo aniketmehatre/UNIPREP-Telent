@@ -31,6 +31,11 @@ export class QuizinfowindowComponent implements OnInit {
   ) {}
   paramData: any;
   ngOnInit(): void {
+    console.log(this.moduleid);
+    console.log(this.parentid);
+    console.log(this.selected_module);
+    console.log(Number(localStorage.getItem("parent_id")));
+    
   }
   openVideoPopup(videoLink: string) {
     this.pageFacade.openHowitWorksVideoPopup(videoLink);
