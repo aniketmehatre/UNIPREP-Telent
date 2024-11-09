@@ -70,6 +70,7 @@ export class CareerGrowthCheckerComponent implements OnInit {
   invalidClass: boolean = false;
   invalidClassCountry: boolean = false;
   hasFilteredOptions: boolean = false;
+  isSelecting: boolean = false;
 
 
   ngOnInit(): void {
@@ -93,23 +94,28 @@ export class CareerGrowthCheckerComponent implements OnInit {
       );
     });
  
- this.checkForm.get('jobSearch')?.valueChanges.pipe(
-  debounceTime(300),  
-  distinctUntilChanged(),  
-  switchMap((value) => this.fetchJobRoles(value))
-).subscribe(
-  (res: any) => {
-    if (res && res.data && Array.isArray(res.data)) {
-      this.filteredOptions = res.data; 
-      this.hasFilteredOptions = this.filteredOptions.length > 0;     
-    }
-  },
-  (err) => {
-    console.error('Error fetching job roles:', err);
-    this.filteredOptions = [];
-    this.hasFilteredOptions = false;
-  }
-);
+        this.checkForm.get('jobSearch')?.valueChanges.pipe(
+          debounceTime(300),
+          distinctUntilChanged(),
+          switchMap((value) => {
+            if (this.isSelecting) {
+              return [];
+            }
+            return this.fetchJobRoles(value);
+          })
+        ).subscribe(
+          (res: any) => {
+            if (res && res.data && Array.isArray(res.data)) {
+              this.filteredOptions = res.data;
+              this.hasFilteredOptions = this.filteredOptions.length > 0;
+            }
+          },
+          (err) => {
+            console.error('Error fetching job roles:', err);
+            this.filteredOptions = [];
+            this.hasFilteredOptions = false;
+          }
+        );
   }
 
     fetchJobRoles(searchTerm: string): Observable<any[]> {
@@ -127,6 +133,7 @@ export class CareerGrowthCheckerComponent implements OnInit {
     }
 
   selectOption(option: any) {
+    this.isSelecting = true;
     this.checkForm.get('jobSearch')?.setValue(option.jobrole); 
     this.selectedJobId = option.id; 
     this.hasFilteredOptions = false; 
