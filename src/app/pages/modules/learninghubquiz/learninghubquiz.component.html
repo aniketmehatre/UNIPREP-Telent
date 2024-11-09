@@ -15,7 +15,7 @@
   </div>
   <div class="card-body flex-fill overflow-y-auto">
     <div class="row mt-4">
-      <div class="col-md-12 text-start">
+      <div class="col-md-12 text-start" *ngIf="currentModuleId==11 || currentModuleId==12 || currentModuleId==13">
         <ul class="font-secondarycolor fw-medium lh-lg instructionlist">
           <li>The overall quiz time is {{ quizcount }} minutes.</li>
           <li>You can not skip any question / All question are mandatory to answer.</li>
@@ -26,6 +26,49 @@
           <li>Buffer? To qualify for the quiz you need to get 90% correct.</li>
         </ul>
       </div>
+      <!-- learning hub -->
+      <div class="col-md-12 text-start"
+      *ngIf="currentModuleId==8">
+      <p><b>Welcome to the {{currentModuleName}} Quiz! Please follow these instructions carefully to ensure a smooth
+          quiz experience:</b></p>
+      <ul class="font-secondarycolor fw-medium lh-md instructionlist mt-4">
+        <li>The total duration of the quiz is {{ quizcount }} minutes.</li>
+        <li>You must answer all questions; skipping questions is not allowed.</li>
+        <li>Access to other screens or applications is not permitted during the quiz to maintain focus and integrity.
+        </li>
+        <li>Navigate through the quiz using the "Next" and "Previous" buttons. Do not use your browser's back or
+          forward buttons as this may lead to accidentally exiting the quiz.</li>
+        <li>Review all your answers before submitting the quiz. You have the option to return to any question and
+          modify your responses if necessary</li>
+        <li>Once you begin, you cannot save your progress to submit later. Make sure you are prepared to complete the
+          quiz in one sitting.</li>
+        <li>Selecting "Restart" will refresh your quiz and present a new set of questions</li>
+        <li>Upon successful completion of the quiz, you will receive a certificate that is accredited by prominent
+          bodies.</li>
+        <li>You must achieve at least 90% correct answers to qualify and complete the quiz.</li>
+      </ul>
+    </div>
+         <!-- skill mastery -->
+         <div class="col-md-12 text-start" *ngIf="currentModuleId==10">
+          <p><b>Welcome to the {{currentModuleName}} Quiz! Please follow these instructions carefully to ensure a smooth
+              quiz experience:</b></p>
+          <ul class="font-secondarycolor fw-medium lh-md instructionlist mt-4">
+            <li>The total duration of the quiz is {{ quizcount }} minutes.</li>
+            <li>You must answer all questions; skipping questions is not allowed.</li>
+            <li>Access to other screens or applications is not permitted during the quiz to maintain focus and integrity
+            </li>
+            <li>Navigate through the quiz using the "Next" and "Previous" buttons. Do not use your browser's back or
+              forward buttons as this may lead to accidentally exiting the quiz.</li>
+            <li>Review all your answers before submitting the quiz. You have the option to return to any question and
+              modify your responses if necessary</li>
+            <li>Once you begin, you cannot save your progress to submit later. Make sure you are prepared to complete the
+              quiz in one sitting.</li>
+            <li>Selecting "Restart" will refresh your quiz and present a new set of questions</li>
+            <li>Upon successful completion of the quiz, you will receive a certificate that is accredited by prominent
+              bodies.</li>
+            <li>You must achieve at least 90% correct answers to qualify and complete the quiz.</li>
+          </ul>
+        </div>
     </div>
   </div>
   <div class="card-footer bg-transparent" *ngIf="isInstructionVisible">
