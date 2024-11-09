@@ -98,7 +98,7 @@ export class DataService {
             selected_country: countryId
         }
         this.locationService.UpdateSelectedCountry(countryInfo).subscribe(data => {
-            this.countryFlagSource.next(data.flag);
+            //this.countryFlagSource.next(data.flag);
             this.countryNameSource.next(data.name);
             this.countryIdSource.next(countryId);
         })

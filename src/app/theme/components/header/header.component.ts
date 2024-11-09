@@ -241,6 +241,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.dataService.countryNameSource.subscribe((data: any) => {
     })
     this.dataService.countryFlagSource.subscribe((data: any) => {
+      this.headerFlag  = data
     })
     this.dashboardService.data$.subscribe((data) => {
       this.min$ = data?.minutes;
@@ -323,7 +324,16 @@ export class HeaderComponent implements OnInit, OnDestroy {
         this.openModal();
       }
     });
-
+    this.dashboardService.countryList().subscribe(countryList => {
+      this.countryLists = countryList;
+      this.countryLists.forEach((element: any) => {
+        console.log('asdf')
+        if (element.id == localStorage.getItem('countryId')) {
+          console.log('2334234', element.flag)
+          this.headerFlag = element.flag;
+        }
+      })
+    });
     // this.dashboardService.countryList().subscribe(countryList => {
     //   this.countryLists = countryList;
     //   this.countryLists.forEach((element: any) => {
