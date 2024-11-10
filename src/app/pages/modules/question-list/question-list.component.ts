@@ -219,7 +219,8 @@ export class QuestionListComponent implements OnInit {
             this.tooltip = "";
             break;
         }
-        if (!localStorage.getItem('questionId')) {
+        const currentUrl = this.router.url; // Get the current URL
+        if (currentUrl.includes('pages/module')) {
           this.router.navigateByUrl(`/pages/modules/${this.currentSubModuleSlug}`);
         }
         //this.loadInit();

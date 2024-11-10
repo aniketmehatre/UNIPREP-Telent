@@ -327,9 +327,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.dashboardService.countryList().subscribe(countryList => {
       this.countryLists = countryList;
       this.countryLists.forEach((element: any) => {
-        console.log('asdf')
         if (element.id == localStorage.getItem('countryId')) {
-          console.log('2334234', element.flag)
           this.headerFlag = element.flag;
         }
       })
