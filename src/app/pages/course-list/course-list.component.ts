@@ -20,6 +20,7 @@ export class CourseListComponent implements OnInit {
   perPage: number = 50;
   courseListData: any;
   totalCourseCount: number = 0;
+  favCourseCount: number = 0;
   isFilterVisible: string = 'none';
   filterForm: FormGroup;
   selectAllCheckboxes = false;
@@ -32,10 +33,10 @@ export class CourseListComponent implements OnInit {
   universityNameList: any = [];
   allUniversityList: any = [];
   durationList: any = [];
-  monthList: any = [{ id: "Jan", name: "January" }, { id: "Feb", name: "February" }, { id: "Mar", name: "March" }, { id: "Apr", name: "April" }, { id: "May ", name: "May" }, { id: "Jun", name: "June" }, { id: "Jul", name: "July" }, { id: "Aug", name: "August" }, { id: "Sep", name: "September" }, { id: "Oct", name: "October" }, { id: "Nov", name: "November" }, { id: "Dec", name: "December" }];
+  monthList: any = [{ id: "Jan", name: "January" }, { id: "Feb", name: "February" }, { id: "Mar", name: "March" }, { id: "Apr", name: "April" }, { id: "May", name: "May" }, { id: "Jun", name: "June" }, { id: "Jul", name: "July" }, { id: "Aug", name: "August" }, { id: "Sep", name: "September" }, { id: "Oct", name: "October" }, { id: "Nov", name: "November" }, { id: "Dec", name: "December" }];
   recMonthList: any = this.monthList;
-  studyLevel: any = [{ id: "Bachelors", label: 'Bachelors' },{ id: "Masters", label: 'Masters' },{ id: "Diploma", label: 'Diploma' },{ id: "PG Diploma", label: 'PG Diploma' }];
-  worldRank: any = [{ id: "100", value: "Top 100" }, { id: "200", value: "Top 200" }, { id: "500", value: "Top 500" }, { id: null, value: "All Range" }];
+  studyLevel: any = [{ id: 3, label: 'Bachelors' },{ id: 6, label: 'Masters' },{ id: 2, label: 'Diploma' },{ id: 4, label: 'PG Diploma' }];
+  worldRank: any = [{ id: 100, value: "Top 100" }, { id: 200, value: "Top 200" }, { id: 500, value: "Top 500" }, { id: "any", value: "All Range" }];
   campusList: any = [];
   guidelinesDiv: boolean = true;
   viewFavourites: boolean = false;
@@ -82,10 +83,10 @@ export class CourseListComponent implements OnInit {
   invalidClass: boolean = false;
   selectedData: { [key: string]: any } = {};
   studyLevelCubes:any = [
-    { id: "3", label: 'Bachelors' },
-    { id: "6", label: 'Masters' },
-    { id: "2", label: 'Diploma' },
-    { id: "4", label: 'PG Diploma' },
+    { id: 3, label: 'Bachelors' },
+    { id: 6, label: 'Masters' },
+    { id: 2, label: 'Diploma' },
+    { id: 4, label: 'PG Diploma' },
     { id: "any", label: 'Select All' }
   ];
   worldRankCubes:any = [{ id: 100, value: "Top 100" }, { id: 200, value: "Top 200" }, { id: 500, value: "Top 500" }, { id: "any", value: "Select All" }];
@@ -247,6 +248,7 @@ export class CourseListComponent implements OnInit {
       this.courseListData = response.data;
       this.totalCourseCount = response.total_count;
       this.buyCreditsCount = response.credit_count;
+      this.favCourseCount = response.fav_count;
     })
   }
 
@@ -444,10 +446,19 @@ export class CourseListComponent implements OnInit {
           this.selectedData[key] = [];
       } else {
         this.selectedData[key] = (key === 3 ? this.studyLevelCubes : this.worldRankCubes).map((cube: any) => cube.id);
-        this.selectedData[key].push("any");
+        // this.selectedData[key].push("any");
       }
     } else {
-      this.selectedData[key] = [id];
+      if (!Array.isArray(this.selectedData[key])) {
+        this.selectedData[key] = [];
+      }
+
+      const index = this.selectedData[key].indexOf(id);
+      if (index > -1) {
+        this.selectedData[key].splice(index, 1);
+      } else {
+        this.selectedData[key].push(id);
+      }
     }
   }
 
@@ -458,9 +469,9 @@ export class CourseListComponent implements OnInit {
     let newData = Object.fromEntries(Object.entries(this.selectedData).map(([key, value]) => {
       let mappedKey = keyMapping[key] || key;
         // if (Array.isArray(value)) {
-        //   value = value.filter(item => item !== null);
+        //   value = value.filter(item => item !== "any");
         // }else{
-        //   value = value == null ? '' : value
+        //   value = value == "any" ? '' : value
         // }
         return [mappedKey, value];
       })
@@ -481,6 +492,7 @@ export class CourseListComponent implements OnInit {
       this.courseListData = response.data;
       this.totalCourseCount = response.total_count;
       this.buyCreditsCount = response.credit_count;
+      this.favCourseCount = response.fav_count;
     });
   }
 

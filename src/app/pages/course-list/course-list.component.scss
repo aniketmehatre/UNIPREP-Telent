@@ -5,16 +5,13 @@
 }
 
 .courseImage{
-    height: 5rem;
-    width: 6rem;
-    background-size: contain;
-    background-position: center;
-    background-repeat: no-repeat;
+    max-width: 6rem;
     border-radius: 10px;
-    background-color: white;
     border: 1px solid #f0f0f0;
-    object-fit: contain;
     padding: 0px 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .course-guidelines{

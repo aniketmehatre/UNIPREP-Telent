@@ -249,37 +249,41 @@ export class QuestionListComponent implements OnInit {
       countryName = data;
     });
     this.checkplanExpire();
-
     switch (this.currentSubModuleSlug) {
       case "pre-admission":
         this.currentModuleId = 1;
         this.currentModuleName = "Pre-Admission";
         this.currentApiSlug = "getpreapplicationsubmoduleqcount";
         this.howItWorksVideoLink = "https://www.youtube.com/embed/aR06d8kMeio?si=-5Ivte_5ZgdcndS-";
+        this.currentModuleSlug = "pre-admission"
         break;
       case "travel-and-tourism":
         this.currentModuleId = 7;
         this.currentModuleName = "Travel-and-Tourism";
         this.currentApiSlug = "getpostapplicationsubmoduleqcount";
         this.howItWorksVideoLink = "https://www.youtube.com/embed/PZERtrH1zh8?si=zKQ80B27zz6V9-mk";
+        this.currentModuleSlug = "travel-and-tourism"
         break;
       case "post-admission":
         this.currentModuleId = 3;
         this.currentModuleName = "Post-Admission";
         this.currentApiSlug = "getpostadmissionsubmoduleqcount";
         this.howItWorksVideoLink = "https://www.youtube.com/embed/g_KWlnmOEtc?si=KFpkpjdYMwkCIOV1";
+        this.currentModuleSlug = "post-admission"
         break;
       case "career-hub":
         this.currentModuleId = 4;
         this.currentModuleName = "Career Hub";
         this.currentApiSlug = "getcareerhubsubmoduleqcount";
         this.howItWorksVideoLink = "https://www.youtube.com/embed/dBNASRavBk0?si=M2WtoOTl3ahORz8V";
+        this.currentModuleSlug = "career-hub"
         break;
       case "university":
         this.currentModuleId = 5;
         this.currentModuleName = "University";
         this.currentApiSlug = "getuniversitysubmoduleqcount";
         this.howItWorksVideoLink = "https://www.youtube.com/embed/6mukBsCTgtw?si=aFBa9JMWI2k2QuzP";
+        this.currentModuleSlug = "university"
         this.tooltip = "";
         break;
       case "learning-hub":
@@ -301,6 +305,7 @@ export class QuestionListComponent implements OnInit {
         this.currentModuleName = 'K12 Academy';
         this.currentApiSlug = 'StudentsSubmoduleQuestions';
         this.howItWorksVideoLink = "https://www.youtube.com/embed/Zh4pPEZ160c?si=i8vkRTgh70TuoqDn";
+        this.currentModuleSlug = "k12-category"
         this.tooltip = "";
         break;
       default:
@@ -308,6 +313,7 @@ export class QuestionListComponent implements OnInit {
         this.currentModuleName = "Life At " + countryName;
         this.currentApiSlug = "getlifeincountrysubmoduleqcount";
         this.howItWorksVideoLink = "https://www.youtube.com/embed/7VFZp47tfLU?si=GPLVjR5vKlNno-cZ";
+        this.currentModuleSlug = "life-at-country"
         this.tooltip = "";
         break;
     }
@@ -893,7 +899,6 @@ export class QuestionListComponent implements OnInit {
     socialShare.style.display = "none";
   }
   startQuiz() {
-
     if(this.planExpired){
       this.restrict=true;
       return;
@@ -904,7 +909,7 @@ export class QuestionListComponent implements OnInit {
       this.router.navigate([`/pages/modules/k12-category/k12-quiz`]);
       return;
     }
-    if(this.currentModuleId==10){
+    if(this.currentModuleId==8){
       this.router.navigate([`/pages/modules/${this.currentModuleSlug}/learninghubquiz`]);
     }else{
       this.router.navigate([`/pages/modules/${this.currentModuleSlug}/quiz`]);
