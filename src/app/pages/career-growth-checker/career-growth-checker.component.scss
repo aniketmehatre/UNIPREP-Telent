@@ -111,7 +111,7 @@
 	border: 1px solid var(--uniprep-secondary);
 	border-radius: 10px;
 	box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-	z-index: 999;
+	z-index: 9999;
   }
   
   .dropdown-list {
@@ -155,6 +155,12 @@ div.col-md-3 {
 	overflow: visible !important; 
 	height: auto !important;  
   }
+
+  .search-page {
+	height: 100vh;    
+	overflow-y: auto;
+	overflow-x: hidden;            
+  }
   
   ::ng-deep .p-dropdown-panel {
 	position: absolute !important;
@@ -173,3 +179,5 @@ div.col-md-3 {
 	  max-height: 150px !important; 
 	}
   }
+
+  
