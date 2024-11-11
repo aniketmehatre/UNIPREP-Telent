@@ -180,7 +180,8 @@ export class QuizwindowComponent implements OnInit {
   QuestionSequence(n: number): Array<number> {
     return new Array(n);
   }
-  btn_previousclick() {
+  btn_previousclick() {  
+    // stop();
     if (this.activeQuestion == 0) {
       this.quizwindowvisibility = false;
       this.visibilityChange.emit(this.quizwindowvisibility);
@@ -226,7 +227,7 @@ export class QuizwindowComponent implements OnInit {
   submitTest() {
     const formValue = this.quizForm.value;
     let quizdata: any = [];
-    this.quizForm.value.questions?.forEach((quiz: any, index: number) => {
+    formValue?.questions?.forEach((quiz: any, index: number) => {
       let quizindex = index + 1;
       let quizobj: any = {
         id: quiz.id,
@@ -234,7 +235,7 @@ export class QuizwindowComponent implements OnInit {
         question_type: quiz.question_type,
       };
       if (quiz.answer) {
-        quizobj.useranswer = quiz.answer;
+        quizobj.useranswer = quiz.answer||'';
       } else {
         if (quiz.selectedOption) {
           quizobj.useranswer = quiz.selectedOption == "True" ? "1" : "0";
@@ -242,8 +243,8 @@ export class QuizwindowComponent implements OnInit {
           const existingQuestion = this.selectedOptions.find(
             (option) => option.question === quizindex
           );
-          quizobj.options = [...quiz.options];
-          quizobj.useranswer = existingQuestion?.options.join(",");
+          quizobj.options = [...quiz?.options||[]];
+          quizobj.useranswer = existingQuestion?.options.join(",")||'';
         }
       }
       quizdata.push(quizobj);

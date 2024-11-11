@@ -71,7 +71,9 @@ export class AuthService {
                 localStorage.setItem("phone",response.userdetails[0].phone)
                 localStorage.setItem("credit_plans",response.userdetails[0].credit_plans)
                 localStorage.setItem("questions_left",response.userdetails[0].questions_left)
-                localStorage.setItem("guidlineAccepted", response.userdetails[0].guidelineaccept)
+                localStorage.setItem("guidlineAccepted", response.userdetails[0].guidelineaccept)                
+                localStorage.setItem("email", response.userdetails[0].email)
+                localStorage.setItem("home_country_name", response.userdetails[0].home_country_name)
                 setTimeout(() => {
                     this.canDisableSignIn.next(false);
                 }, 5000);

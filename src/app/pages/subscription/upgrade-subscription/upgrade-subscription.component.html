@@ -428,17 +428,25 @@
             </div>
           </div>
           <div class="flex-grow-2">
-            <div style="text-align: center" class="mb-2">
+            <!-- <div style="text-align: center" class="mb-2">
               <p class="text-small fw-semibold mb-0">Checkout</p>
-            </div>
+            </div> -->
             <div class="d-flex gap-2">
-              <button *ngIf="currentCountry!='India'" [disabled]="showCheckout" class="btn btn-basic stripeborder px-4"
+              <!-- <button *ngIf="currentCountry!='India'" [disabled]="showCheckout" class="btn btn-basic stripeborder px-4"
                 (click)="checkout($event, 'stripe')">
                 <img class="img-fluid" src="../../../../uniprep-assets/stripe.png" width="40px" />
               </button>
               <button *ngIf="currentCountry=='India'" [disabled]="showCheckout" class="btn btn-basic razorpayborder"
                 (click)="checkout($event, 'razorpay')">
                 <img class="img-fluid" src="../../../../uniprep-assets/razorpay.png" width="60px" />
+              </button> -->
+              <button [disabled]="showCheckout" *ngIf="currentCountry!='India'" class="pt-3 pb-3 btn btn-basic w-100 btn btn-primary"
+                (click)="checkout($event, 'stripe')">
+                Checkout
+              </button>
+              <button [disabled]="showCheckout" *ngIf="currentCountry=='India'" class="pt-3 pb-3 btn btn-basic w-100 btn btn-primary"
+                (click)="checkout($event, 'razorpay')">
+                Checkout
               </button>
             </div>
             <p *ngIf="discountAmountEnable">Discount Amount: {{ discountAmount }}</p>
@@ -473,6 +481,6 @@
       </ngx-stripe-elements>
     </div>
     <button class="mt-5 pt-3 pb-3 btn btn-basic w-100 m-0 btn btn-primary" (click)="paywithstripe()"><i
-        class="pi pi-lock mx-2"></i>Pay {{ selectedcost | currency : "USD" }}</button>
+        class="pi pi-lock mx-2"></i>Pay {{ selectedcost | currency: currencyType }}</button>
   </div>
 </p-dialog>

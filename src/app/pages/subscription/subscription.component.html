@@ -60,7 +60,7 @@
       class="mt-5 pt-3 pb-3 btn btn-basic w-100 m-0 btn btn-primary"
       (click)="paywithstripe()"
     >
-     <i class="pi pi-lock mx-2"></i> Pay {{ selectedcost |currency:'USD'}}
+     <i class="pi pi-lock mx-2"></i> Pay {{ selectedcost | currency: currencyType }}
     </button>
   </div>
 </p-dialog>

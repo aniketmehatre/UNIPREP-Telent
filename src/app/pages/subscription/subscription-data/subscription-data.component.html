@@ -632,15 +632,23 @@
             </div>
           </div>
           <div class="flex-grow-2">
-            <div style="text-align: center" class="mb-2">
+            <!-- <div style="text-align: center" class="mb-2">
               <p class="text-small fw-semibold mb-0">Checkout</p>
-            </div>
+            </div> -->
             <div class="d-flex gap-2">
-              <button *ngIf="currentCountry!='India'" [disabled]="showCheckout" class="btn btn-basic stripeborder px-4" (click)="checkout('stripe')">
+              <!-- <button *ngIf="currentCountry!='India'" [disabled]="showCheckout" class="btn btn-basic stripeborder px-4" (click)="checkout('stripe')">
                 <img class="img-fluid" src="../../../../uniprep-assets/stripe.png" width="40px" />
               </button>
               <button *ngIf="currentCountry=='India'" [disabled]="showCheckout" class="btn btn-basic razorpayborder" (click)="checkout('razorpay')">
                 <img class="img-fluid" src="../../../../uniprep-assets/razorpay.png" width="40px" />
+              </button> -->
+              <button [disabled]="showCheckout" *ngIf="currentCountry!='India'" class="pt-3 pb-3 btn btn-basic w-100 btn btn-primary"
+                (click)="checkout('stripe')">
+                Checkout
+              </button>
+              <button [disabled]="showCheckout" *ngIf="currentCountry=='India'" class="pt-3 pb-3 btn btn-basic w-100 btn btn-primary"
+                (click)="checkout('razorpay')">
+                Checkout
               </button>
             </div>
             <p *ngIf="discountAmountEnable">Discount Amount: {{ discountAmount }}</p>

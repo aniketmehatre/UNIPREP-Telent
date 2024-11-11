@@ -149,32 +149,35 @@ export class SubscriptionComponent implements OnInit {
     this.subscriptionService
       .createPaymentIntent(this.stripdata)
       .subscribe((pi) => {
+        this.currencyType = pi.currency;
         this.elementsOptions.clientSecret = pi.client_secret as string;
         this.stripdata.clientSecret = pi.client_secret as string;
         this.cardvisibility = true;
       });
   }
+  currencyType: any;
   pay(value: any) {
     this.subscriptionDetails = value;
     this.showPayLoading = true;
     if (value.subscriptionId) {
-      this.subscriptionService
-        .placeSubscriptionOrder(value)
-        .subscribe((data) => {
-          if (data.success == false) {
-            this.toastr.add({
-              severity: "error",
-              summary: "Error",
-              detail: data.message,
-            });
-            return;
-          }
-          if (value.type == "razorpay") {
+      if (value.type == "razorpay") {
+        this.subscriptionService
+          .placeSubscriptionOrder(value)
+          .subscribe((data) => {
             this.payWithRazor(data.orderid);
-          } else {
-            this.payusingstripe(value);
-          }
-        });
+            this.currencyType = data.currency;
+            if (data.success == false) {
+              this.toastr.add({
+                severity: "error",
+                summary: "Error",
+                detail: data.message,
+              });
+              return;
+            }
+          });
+      } else {
+        this.payusingstripe(value);
+      }
     } else {
       this.subscriptionService
         .placeTopupSubscriptionOrder(value)
@@ -213,8 +216,8 @@ export class SubscriptionComponent implements OnInit {
 
       prefill: {
         name: this.selectedSubscription?.subscription,
-        email: this.authservice.user?.email,
-        contact: this.authservice.user?.usertype_name,
+        email: localStorage.getItem("email"),
+        contact: localStorage.getItem("phone"),
       },
       notes: {
         address:
@@ -387,7 +390,7 @@ export class SubscriptionComponent implements OnInit {
             },
           },
         },
-        redirect: 'if_required',
+        redirect: "if_required",
       })
       .subscribe((result: any) => {
         if (result.error) {
@@ -399,13 +402,14 @@ export class SubscriptionComponent implements OnInit {
           });
         } else {
           if (result.paymentIntent.status === "succeeded") {
-            console.log(result.paymentIntent.status);
-            this.cardvisibility=false;
+            this.subscriptionService.doneLoading();
+            this.cardvisibility = false;
             this.toastr.add({
               severity: "success",
               summary: "Success",
               detail: "Purchase Completed",
             });
+            window.location.reload();
           }
         }
       });

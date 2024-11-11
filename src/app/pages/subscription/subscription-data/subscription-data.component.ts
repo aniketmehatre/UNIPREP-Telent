@@ -81,10 +81,10 @@ export class SubscriptionDataComponent implements OnInit {
   timeLeftInfoCard: any;
 
   ngOnInit(): void {
-    this.getLocation();
+    //this.getLocation();
     this.timeLeftInfoCard = localStorage.getItem("time_card_info");
     this.discountAmountEnable = false; 
-
+    this.currentCountry=String(localStorage.getItem("home_country_name"));
     this.user = this.authService.user;
     this.education_level = this.user?.education_level?.replace(/[\s\u00A0]/g, '').trim() || 'HigherEducation';
     this.studentType = this.user?.student_type_id || 0;

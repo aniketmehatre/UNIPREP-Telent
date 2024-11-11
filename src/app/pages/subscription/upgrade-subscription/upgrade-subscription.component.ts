@@ -93,8 +93,10 @@ export class UpgradeSubscriptionComponent implements OnInit {
   ) { }
   timeLeftInfoCard: any;
   ngOnInit(): void {
-    this.getLocation();
+    //this.getLocation();
     this.timeLeftInfoCard = localStorage.getItem("time_card_info");
+    this.currentCountry=String(localStorage.getItem("home_country_name"));
+    this.loadExistingSubscription();
     this.discountAmountEnable = false;
     this.user = this.authService.user;
     this.education_level = this.user?.education_level?.replace(/[\s\u00A0]/g, '').trim() || 'HigherEducation';
@@ -418,7 +420,7 @@ export class UpgradeSubscriptionComponent implements OnInit {
   subscribe(type: any) {
     this.subscriptionService.getExtendedToken().subscribe(
       (response) => {
-        if (response.token) {
+        if (response?.token) {
           this.storage.set(environment.tokenKey, response.token);
         }
 
@@ -518,15 +520,19 @@ export class UpgradeSubscriptionComponent implements OnInit {
       .subscribe((pi) => {
         this.elementsOptions.clientSecret = pi.client_secret as string;
         this.stripdata.clientSecret = pi.client_secret as string;
+        this.currencyType=pi.currency;
         this.cardvisibility = true;
       });
     return;
   }
+  currencyType:any;
   pay(value: any, type: any) {
     if (value.subscriptionId) {
-      this.subscriptionService
+      if (type == "razorpay") {
+        this.subscriptionService
         .placeSubscriptionOrder(value)
         .subscribe((data) => {
+          this.currencyType=data.currency;
           if (data.success == false) {
             this.toast.add({
               severity: "error",
@@ -535,13 +541,13 @@ export class UpgradeSubscriptionComponent implements OnInit {
             });
             return;
           }
-          this.subscriptionDetails = value;
-          if (type == "razorpay") {
-            this.payWithRazor(data.orderid);
-          } else {
-            this.payusingstripe();
-          }
+          this.subscriptionDetails = value;          
+          this.payWithRazor(data.orderid);
         });
+        } else {
+          this.subscriptionDetails = value;
+          this.payusingstripe();
+        }
     }
     // else {
     //     this.subscriptionService.placeTopupSubscriptionOrder(value).subscribe((data) => {
@@ -565,8 +571,8 @@ export class UpgradeSubscriptionComponent implements OnInit {
 
       prefill: {
         name: this.selectedSubscriptionDetails?.subscription,
-        email: this.authservice.user?.email,
-        contact: this.authservice.user?.usertype_name,
+        email: localStorage.getItem("email"),
+        contact: localStorage.getItem("phone"),
       },
       notes: {
         address:
@@ -793,11 +799,13 @@ export class UpgradeSubscriptionComponent implements OnInit {
         } else {
           if (result.paymentIntent.status === "succeeded") {
             this.cardvisibility = false;
+            this.subscriptionService.doneLoading();
             this.toast.add({
               severity: "success",
               summary: "Success",
               detail: "Purchase Completed",
             });
+            this.gotoHistory();
           }
         }
       });
