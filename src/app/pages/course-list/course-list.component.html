@@ -129,7 +129,7 @@
 
       <div class="card-body text-center flex-fill overflow-y-auto">
         <div class="row d-flex justify-content-center text-nowrap">
-          <div class="col-lg-3 col-md-4 col-sm-6 col-xs-6 col-12 col-12 mt-3" *ngFor="let course of courseListData">
+          <div class="col-xxl-3 col-xl-3 col-lg-4 col-md-4 col-sm-6 col-xs-6 col-12 col-12 mt-3" *ngFor="let course of courseListData">
             <div class="card h-100 dataCard">
               <div class="card-body">
                 <div class="flex-column d-flex h-100">
@@ -149,12 +149,12 @@
                       <!-- <div class="courseImage"
 													[ngStyle]="{'background-image': 'url(' + course.icon + ')'}">
 													</div> -->
-                      <div class="d-flex flex-wrap flex-fill gap-3">
-                      <img [src]="course.icon" class="courseImage" alt="course.icon" />
+                      <div class="d-flex flex-fill gap-3">
+                      <div class="courseImage"><img [src]="course.icon" class="img-fluid" alt="course.icon" /></div>
                       <div class="courseUniversity flex-fill d-flex flex-column justify-content-center">
                         <a [href]="course.university_url" (click)="handleClick($event)" target="_blank" class="text-decoration-none uniprep-primary d-flex gap-1">
                           <div>
-                            <h5 class="uniprep-primary text-wrap universityName" title="University Name">{{ course.university_name }} </h5>
+                            <h5 class="uniprep-primary text-wrap text-start universityName" title="University Name">{{ course.university_name }} </h5>
                           </div>
                           <div><i class="fa-solid fa-arrow-up-right-from-square text-small"></i></div>
                         </a>
