@@ -155,9 +155,9 @@ export class QuizwindowComponent implements OnInit {
         res.primary_question.forEach((pquestions: primary_question) => {
           if (pquestions.audio == 1) {
             this.istypeAudio = true;
-            this.quizprimaryAudio[0].link = pquestions.audio_file;
             setTimeout(() => {
-              this.audioplayer.volume = 100;
+              this.audioplayer.volume = 1;
+              this.quizprimaryAudio[0].link = pquestions.audio_file;
               this.audioplayer.play();
             }, 3000);
           }
