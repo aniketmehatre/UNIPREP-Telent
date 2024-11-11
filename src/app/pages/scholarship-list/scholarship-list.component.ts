@@ -624,9 +624,6 @@ export class ScholarshipListComponent implements OnInit {
   // }  
 
   selectCube(key: number, id: number | string) {
-    console.log(key, "key"); 
-    console.log(id, "id"); 
-    // return;
     if (id === "any") {
       if (this.selectedData[key]?.includes(id)) {
         this.selectedData[key] = [];
@@ -641,17 +638,17 @@ export class ScholarshipListComponent implements OnInit {
        
       }
     }else {
-      this.selectedData[key] = [id];
-      // if (!Array.isArray(this.selectedData[key])) {
-      //   this.selectedData[key] = [];
-      // }
+      // this.selectedData[key] = [id];
+      if (!Array.isArray(this.selectedData[key])) {
+        this.selectedData[key] = [];
+      }
 
-      // const index = this.selectedData[key].indexOf(id);
-      // if (index > -1) {
-      //   this.selectedData[key].splice(index, 1);
-      // } else {
-      //   this.selectedData[key].push(id);
-      // }
+      const index = this.selectedData[key].indexOf(id);
+      if (index > -1) {
+        this.selectedData[key].splice(index, 1);
+      } else {
+        this.selectedData[key].push(id);
+      }
     }
     // console.log(this.selectedData, "selected cube");
   }

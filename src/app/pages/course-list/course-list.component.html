@@ -118,7 +118,7 @@
                 <span class="p-2">Selected : {{ selectedCourses }}</span>
               </span>
               <div class="d-flex align-items-center mt-3 gap-2">
-                <button class="btn btn-primary text-small ps-3 pe-3 pt-2 pb-2 br-8 p-1" style="border-radius: 20px !important" (click)="viewFav()" type="button">{{ viewFavourites ? "Remove " : "View " }} Favourites</button>
+                <button class="btn btn-primary text-small ps-3 pe-3 pt-2 pb-2 br-8 p-1" style="border-radius: 20px !important" (click)="viewFav()" type="button">{{ viewFavourites ? "Remove " : "View " }} Favourites ({{ favCourseCount }})</button>
                 <button class="btn btn-primary text-small ps-3 pe-3 pt-2 pb-2 br-8 p-1" style="border-radius: 20px !important" (click)="filterBy()" type="button">Filter by</button>
                   <span class="fw-semibold text-small">Total Courses: {{ totalCourseCount }} </span>
               </div>
@@ -344,7 +344,8 @@
               <label class="form-label filterField">Filter by Study Level</label>
               <div class="form-group">
                 <div class="mb-3">
-                  <p-dropdown styleClass="w-100" [options]="studyLevel" placeholder="Search in Study Level" optionLabel="value" formControlName="study_level" optionValue="id"></p-dropdown>
+                  <p-multiSelect styleClass="w-100" placeholder="Search in Study Level" [options]="studyLevel" display="chip" optionLabel="label" optionValue="id" formControlName="study_level" [appendTo]="'body'"></p-multiSelect>
+                  <!-- <p-dropdown styleClass="w-100" [options]="studyLevel" placeholder="Search in Study Level" optionLabel="label" formControlName="study_level" optionValue="id"></p-dropdown> -->
                 </div>
               </div>
             </div>
@@ -381,7 +382,8 @@
               <div class="form-group">
                 <div class="mb-3">
                   <!-- <input class="w-100 px-5 py-2" style="height: 45px" type="text" formControlName="world_rank" placeholder="Search in World Rank" pInputText /> -->
-                  <p-dropdown styleClass="w-100" [options]="worldRank" placeholder="Search in World Rank" optionLabel="value" formControlName="world_rank" optionValue="id" [appendTo]="'body'"></p-dropdown>
+                  <!-- <p-dropdown styleClass="w-100" [options]="worldRank" placeholder="Search in World Rank" optionLabel="value" formControlName="world_rank" optionValue="id" [appendTo]="'body'"></p-dropdown> -->
+                  <p-multiSelect styleClass="w-100" placeholder="Search in World Rank" [options]="worldRank" display="chip" optionLabel="value" optionValue="id" formControlName="world_rank" [appendTo]="'body'"></p-multiSelect>
                 </div>
               </div>
             </div>
