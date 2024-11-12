@@ -1,6 +1,6 @@
 import { Component, OnInit } from "@angular/core"
 import { NationalExamService } from "../national-exam-categories/national-exam.service"
-import { ActivatedRoute } from "@angular/router"
+import { ActivatedRoute, Router } from "@angular/router"
 import { Location } from "@angular/common"
 
 @Component({
@@ -13,7 +13,7 @@ export class NationalExamTestsComponent implements OnInit {
 	count: number = 1
 	category_id: any | null
 
-	constructor(private service: NationalExamService, private route: ActivatedRoute, private location: Location) {}
+	constructor(private service: NationalExamService, private route: ActivatedRoute, private location: Location ,private router: Router) {}
 
 	ngOnInit() {
 		this.category_id = this.route.snapshot.paramMap.get("slug")
@@ -27,5 +27,10 @@ export class NationalExamTestsComponent implements OnInit {
 
 	goToHome(event: any) {
 		this.location.back()
+	}
+
+	goToTest(testid:any){
+		// alert("this");
+		this.router.navigate(['/pages/national-exams/questions/'+testid]);
 	}
 }

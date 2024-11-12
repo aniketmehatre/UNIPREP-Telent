@@ -36,5 +36,12 @@ export class NationalExamService {
       headers: headers,
     });
   }
+  
+  GetResult(data:any){
+    const headers = new HttpHeaders().set("Accept", "application/json");
+    return this.http.post<any>(environment.ApiUrl + "/showresult", data, {
+      headers: headers,
+    });
+  }
 
 }

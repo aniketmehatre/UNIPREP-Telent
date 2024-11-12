@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AcademicService } from '../academic.service';
 import { AcademicToolCategory } from 'src/app/@Models/academic-tools.model';
 import { CategoryResponse } from 'src/app/@Models/career-tool-category.model';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -14,11 +15,15 @@ export class AcademicToolsComponent implements OnInit {
   academicTools: AcademicToolCategory[] = [];
 
   constructor(
-    private academicService: AcademicService
+    private academicService: AcademicService , private router: Router
   ) { }
 
   ngOnInit(): void {
     this.getAcademicToolList();
+  }
+
+  gotoNE(){
+    this.router.navigate(['/pages/national-exams']);
   }
   getAcademicToolList() {
     let req: { module_id: string } = {

@@ -23,9 +23,10 @@
             <!-- <img *ngIf="totalPercentage >= 90" class="pb-2" src="/uniprep-assets/images/icons/quizcomplete.webp" alt="retry" /> -->
             <img class="pb-2" src="/uniprep-assets/images/icons/quizfailed.png" alt="retry" />
             <!-- <h3 class="text-center mb-2" *ngIf="totalPercentage >= 90">Congratulations<br />1/10</h3> -->
-            <h3 class="text-center mb-2">Better Luck Next Time<br />3/10</h3>
-            <p class="text-center mb-2 fw-medium">You have completed the quiz on <br />Nationala module</p>
-            <p class="text-center mb-2 fw-medium">Completion of this module requires<br />a minimum score of 90%</p>
+            <!-- <h3 class="text-center mb-2" *ngIf="totalPercentage >= 90">Congratulations<br />1/10</h3> -->
+            <h3 class="text-center mb-2"><br />{{results.score}}</h3>
+            <p class="text-center mb-2 fw-medium">You have completed the quiz on <br />{{results.categore_name}}</p>
+            <!-- <p class="text-center mb-2 fw-medium">Completion of this module requires<br />a minimum score of 90%</p> -->
             <button class="btn btn-back btn-rounded px-2 py-2">
               <div class="d-flex align-items-center">
                 <span class="fw-normal h6 mb-0">Take Another Quiz</span>
