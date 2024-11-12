@@ -1,0 +1,44 @@
+<div class="readingcard card">
+    <div class="card-header py-0 border-0 bg-transparent">
+        <div class="row justify-content-center align-items-center">
+            <div class="col-md-3">
+                <h5 class="mb-3 mt-3" style="font-size: 18px">10/10 Questions Completed</h5>
+            </div>
+            <div class="col-md-6 text-center">
+                <h5 class="select-title">National Quiz</h5>
+            </div>
+            <div class="col-md-3 col-3 text-end">
+                <button  class="btn btn-quit btn-rounded mt-2 px-2 py-2"> 
+                    <div class="d-flex align-items-center">
+                    <span class="fw-normal h6 mb-0">Retry</span>
+                    <div class="btn-icon"><i class="fa-solid fa-arrow-rotate-right"></i></div>
+                    </div>
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="card-body flex-fill overflow-y-auto">
+        <div class="row">
+          <div class="col-md-12 text-center">
+            <!-- <img *ngIf="totalPercentage >= 90" class="pb-2" src="/uniprep-assets/images/icons/quizcomplete.webp" alt="retry" /> -->
+            <img class="pb-2" src="/uniprep-assets/images/icons/quizfailed.png" alt="retry" />
+            <!-- <h3 class="text-center mb-2" *ngIf="totalPercentage >= 90">Congratulations<br />1/10</h3> -->
+            <h3 class="text-center mb-2">Better Luck Next Time<br />3/10</h3>
+            <p class="text-center mb-2 fw-medium">You have completed the quiz on <br />Nationala module</p>
+            <p class="text-center mb-2 fw-medium">Completion of this module requires<br />a minimum score of 90%</p>
+            <button class="btn btn-back btn-rounded px-2 py-2">
+              <div class="d-flex align-items-center">
+                <span class="fw-normal h6 mb-0">Take Another Quiz</span>
+                <div class="btn-icon"><i class="fa fa-home" aria-hidden="true"></i></div>
+              </div>
+            </button>&nbsp;
+            <button class="btn btn-back btn-rounded px-2 py-2">
+              <div class="d-flex align-items-center">
+                <span class="fw-normal h6 mb-0">Review</span>
+                <div class="btn-icon"><i class="fa-solid fa-list-check"></i></div>
+              </div>
+            </button>
+        </div>
+        </div>
+    </div>
+</div>

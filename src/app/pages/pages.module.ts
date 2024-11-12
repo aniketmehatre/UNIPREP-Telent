@@ -85,6 +85,7 @@ import { NationalExamCategoriesComponent } from './national-exam-categories/nati
 import { NationalExamTestsComponent } from './national-exam-tests/national-exam-tests.component';
 import { NationalExamStartComponent } from './national-exam-start/national-exam-start.component';
 import { NationalExamQuestionsComponent } from './national-exam-questions/national-exam-questions.component';
+import { NationalExamResultComponent } from './national-exam-result/national-exam-result.component';
 // import { JobToolComponent } from './job-tool/job-tool.component';
 @NgModule({
   declarations: [
@@ -126,6 +127,7 @@ import { NationalExamQuestionsComponent } from './national-exam-questions/nation
     NationalExamTestsComponent,
     NationalExamStartComponent,
     NationalExamQuestionsComponent,
+    NationalExamResultComponent,
     // JobToolComponent,
   ],
   exports: [FooterStatusBoxComponent, HeaderSearchComponent],

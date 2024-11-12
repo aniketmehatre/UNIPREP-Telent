@@ -6,10 +6,7 @@ interface result {
   answer_opt : string;
 }
 
-
-
 let results: result[] = [];
-
 
 @Component({
   selector: 'uni-national-exam-questions',
@@ -25,7 +22,6 @@ export class NationalExamQuestionsComponent implements OnInit {
   question_id: any;
   results: any;
   showError:boolean = false;
-
   page:any = 0 ;
   activeQuestion:string;
   activeQuestionId:number
