@@ -36,6 +36,7 @@ import { NationalExamCategoriesComponent } from './national-exam-categories/nati
 import { NationalExamTestsComponent } from './national-exam-tests/national-exam-tests.component';
 import { NationalExamStartComponent } from './national-exam-start/national-exam-start.component';
 import { NationalExamQuestionsComponent } from './national-exam-questions/national-exam-questions.component';
+import { NationalExamResultComponent } from './national-exam-result/national-exam-result.component';
 
 const routes: Routes = [
     {
@@ -244,6 +245,10 @@ const routes: Routes = [
             {
                 path: 'national-exams/questions/:testid',
                 component: NationalExamQuestionsComponent,
+            },
+            {
+                path: 'national-exams/result/:resultid',
+                component: NationalExamResultComponent,
             },
         ]
     }

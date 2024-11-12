@@ -1,15 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { NationalExamService } from '../national-exam-categories/national-exam.service';
+import { ActivatedRoute, Router } from '@angular/router';
 
 interface result {
   question_id : number;
   answer_opt : string;
 }
 
-
-
 let results: result[] = [];
-
 
 @Component({
   selector: 'uni-national-exam-questions',
@@ -25,7 +23,6 @@ export class NationalExamQuestionsComponent implements OnInit {
   question_id: any;
   results: any;
   showError:boolean = false;
-
   page:any = 0 ;
   activeQuestion:string;
   activeQuestionId:number
@@ -35,11 +32,11 @@ export class NationalExamQuestionsComponent implements OnInit {
   activeOptFour:string;
   activeTestId:string;
 
-  constructor(private service: NationalExamService ) { }
+  constructor(private service: NationalExamService , private route: ActivatedRoute,private router: Router ) { }
 
   ngOnInit() {
     var data = {
-      test_id: 1
+      test_id:  this.route.snapshot.paramMap.get("testid")
     }
     this.service.getQuestions(data).subscribe(response => {
       this.questions = response;
@@ -95,7 +92,8 @@ export class NationalExamQuestionsComponent implements OnInit {
         }
         console.log(info);
         this.service.submitResult(info).subscribe(response => {
-          console.log(response);
+          this.router.navigate(['/pages/national-exams/result/'+response]);
+          // console.log(response);
         });
       }
     }
