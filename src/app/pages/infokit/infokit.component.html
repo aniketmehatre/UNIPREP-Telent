@@ -67,7 +67,7 @@
     <div class="row mt-3">
       <p class="fw-semibold mb-0 uniprep-primary text-start" *ngIf="parentfolderlists.length > 0">Folders</p>
       <div class="col-lg-3 col-md-4 col-sm-6 col-12" *ngFor="let folder of parentfolderlists" [appendTo]="'body'" [pTooltip]="folder?.name">
-        <div class="card startupkitcard my-2" role="button">
+        <div class="card startupkitcard my-2 text-start" role="button">
           <div class="card-body">
             <div class="d-flex gap-3 justify-content-start align-items-center" (click)="getchildinfo(folder)">
               <div class="d-flex align-items-center">
@@ -88,7 +88,7 @@
       <p class="fw-semibold mb-0 uniprep-primary text-start" *ngIf="parentfilelists.length > 0">Files</p>
       <div class="col-lg-3 col-md-4 col-sm-6 col-12" *ngFor="let folder of parentfilelists" [appendTo]="'body'" [pTooltip]="folder?.name">
         <a (click)="openFile(folder.img_path)">
-          <div class="card startupkitcard my-2" role="button">
+          <div class="card startupkitcard my-2 text-start" role="button">
             <div class="card-body">
               <div class="d-flex gap-3 justify-content-start align-items-center">
                 <div class="d-flex align-items-center">
