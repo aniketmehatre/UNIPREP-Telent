@@ -1,5 +1,5 @@
 import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
-import { MenuItem, MessageService } from 'primeng/api';
+import { ConfirmationService, MenuItem, MessageService } from 'primeng/api';
 import { FormBuilder, FormGroup, FormArray, Form, Validators, AbstractControl } from "@angular/forms";
 import { CourseListService } from '../../course-list/course-list.service';
 import { HttpHeaders, HttpClient } from '@angular/common/http';
@@ -122,10 +122,9 @@ export class CoverLetterBuilderComponent implements OnInit {
     "focusOnSelect": true,
     "initialSlide": 1
   };
-
   constructor(private toaster: MessageService, private fb: FormBuilder, private resumeService: CourseListService,
               private locationService: LocationService, private http: HttpClient, private authService: AuthService,
-              private router: Router,){
+              private router: Router,private confirmService: ConfirmationService){
 
     this.resumeFormInfoData = this.fb.group({
       user_name: ['Vivek Kaliyaperumal', [Validators.required]],
@@ -152,7 +151,6 @@ export class CoverLetterBuilderComponent implements OnInit {
 
   
   pdfViewLoader() {
-    console.log("comes inside");
     setTimeout(() => {
       this.loadingResumes = false;
     }, 3500);
@@ -192,10 +190,11 @@ export class CoverLetterBuilderComponent implements OnInit {
 
   coverLetterHistories() : void{
     this.resumeService.getCoverLetterHistories().subscribe(res =>{
-      if(res){
+      if(res !=""){
         this.coverHistories = res;
       }else{
         this.activePageIndex = 1;
+        this.ngAfterViewInit();
       }
     });
   }
@@ -249,24 +248,24 @@ export class CoverLetterBuilderComponent implements OnInit {
   }
 
   confirm(event: Event, resumeLink: string, resumeId: number) {
-    // this.confirmService.confirm({
-    //   target: event.target as EventTarget,
-    //   message: 'Are you sure that you want to proceed?',
-    //   icon: 'pi pi-exclamation-triangle',
-    //   accept: () => {
-    //     const data = {
-    //       resumeLink: resumeLink,
-    //       resumeId: resumeId,
-    //     };
-    //     this.resumeService.deleteResumes(data).subscribe(res => {
-    //       this.previousResumes();
-    //       this.toaster.add({ severity: res.status, summary: res.status, detail: res.message });
-    //     });
-    //   },
-    //   reject: () => {
-    //     this.toaster.add({ severity: "error", summary: "Error", detail: "you declined." });
-    //   }
-    // });
+    this.confirmService.confirm({
+      target: event.target as EventTarget,
+      message: 'Are you sure that you want to proceed?',
+      icon: 'pi pi-exclamation-triangle',
+      accept: () => {
+        const data = {
+          resumeLink: resumeLink,
+          resumeId: resumeId,
+        };
+        this.resumeService.deleteCoverLetter(data).subscribe(res => {
+          this.coverLetterHistories();
+          this.toaster.add({ severity: res.status, summary: res.status, detail: res.message });
+        });
+      },
+      reject: () => {
+        this.toaster.add({ severity: "error", summary: "Error", detail: "you declined." });
+      }
+    });
   }
 
   resumeFormSubmit() {
@@ -411,6 +410,7 @@ export class CoverLetterBuilderComponent implements OnInit {
       this.activePageIndex = 0;
       this.ngAfterViewInit();
       window.open(res, '_blank');
+      this.selectedResumeLevel = "";
     })
   }    
 
