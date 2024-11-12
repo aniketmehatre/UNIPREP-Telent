@@ -14,4 +14,10 @@ export class TutorialsService {
         headers: headers,
     });
   }
+  getCatogory() {
+    const headers = new HttpHeaders().set("Accept", "application/json");
+    return this.http.post<any>(environment.ApiUrl + "/listTutorialCategory", {
+        headers: headers,
+    });
+  }
 }

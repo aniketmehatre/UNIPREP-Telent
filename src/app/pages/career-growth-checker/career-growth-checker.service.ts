@@ -14,7 +14,7 @@ export class CareerGrowthService {
 
   JobRoles(data:any){
     const headers = new HttpHeaders().set("Accept", "application/json");
-    return this.http.post<any>(environment.ApiUrl + "/serachJobrole",data,{
+    return this.http.post<any>(environment.ApiUrl + "/searchjobtype",data,{
       headers: headers,
     });
   }

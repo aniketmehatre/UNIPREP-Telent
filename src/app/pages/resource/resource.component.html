@@ -1,25 +1,22 @@
 <div class="card readingcard">
-	<div class="card-header py-0 border-0 bg-transparent">
+	<div class="card-header border-0 bg-transparent">
 		<div class="row justify-content-center">
-			<div class="col-md-2 order-2 order-lg-1 text-start d-flex align-items-center">
-				<button class="btn btn-outline-primary px-3 py-3" type="button" (click)="filterPopUp()">Filter by</button>
-			</div>
 			<!-- <div class="col-md-10 order-1 order-lg-2 text-center">
 				<h5 class="select-title mb-1" tooltipPosition="top" pTooltip="Within this section, you have all the necessary components to craft a solid portfolio.">RESOURCES<i class="questiontooltip fa-solid fa-circle-question"></i></h5>
 			</div> -->
 			<!-- select-title css also needs to change the width -->
 			<!-- after create the video just uncomment the below code. and send the youtube embeded video link -->
-			<div class="col-md-8 order-1 order-lg-2 text-center">
-				<div class="select-title text-nowrap mb-3 d-flex justify-content-between align-items-center">
+			<div class="col-md-12 d-flex gap-2 text-center">
+				<div class="select-title d-flex justify-content-between align-items-center">
 					<div>
 						<h5 class="mb-0" tooltipPosition="top" pTooltip="Within this section, you have all the necessary components to craft a solid portfolio.">RESOURCES<i class="questiontooltip fa-solid fa-circle-question"></i></h5>
 					</div>
 					<div>
-						<button class="how-it-works-button" (click)="openVideoPopup('https://www.youtube.com/embed/1KA9phVhkgM?si=mSwMe9gquEWEtI9a')">&nbsp;How it works? &nbsp;&nbsp;<i class="fa-solid fa-play"></i></button>
+						<button class="how-it-works-button" (click)="openVideoPopup('https://www.youtube.com/embed/1KA9phVhkgM?si=mSwMe9gquEWEtI9a')">How it works?<i class="fa-solid fa-play d-md-block d-none"></i></button>
 					</div>
 				</div>
+				<button class="btn btn-outline-primary px-3 py-2" type="button" (click)="filterPopUp()">Filter by</button>
 			</div>
-			<div class="col-md-2 order-3 order-lg-3">&nbsp;</div>
 		</div>
 	</div>
 	<div class="card-body text-center flex-fill overflow-y-auto">

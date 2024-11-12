@@ -23,6 +23,9 @@ export class AppComponent {
 
   @HostListener('window:beforeunload', ['$event'])
   unloadHandler(event: BeforeUnloadEvent) {
+    if (window.location.href.includes('subscriptions') || window.location.href.includes('upgrade-subscription')) {
+      return
+    }
     if (window.location.href.includes('login')) {
       return
     }

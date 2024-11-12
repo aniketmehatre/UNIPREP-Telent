@@ -6,7 +6,7 @@
         <h4 class="sop-border sop-header">Ready To Get Started?</h4>
         <span>Choose a plan tailored to your needs</span>
       </div>
-      <div class="monthly-subscription mt-2">
+      <div class="monthly-subscription mt-2" *ngIf="studentType!=2">
         <p-tabView (onChange)="changeMonthlyPlan($event)" [activeIndex]="activeTabIndex">
           <!-- <p-tabPanel header="3 Month Plan">
 
@@ -393,7 +393,7 @@
   </div>
 </div>
 <div class="d-flex mt-3 gap-3 flex-column flex-md-row">
-  <div class="card flex-fill h-100">
+  <div class="card flex-fill h-100" *ngIf="studentType!=2">
     <div class="card-body d-flex align-items-center">
       <div class="w-100">
         <div class="d-flex justify-content-between align-items-center">
@@ -428,17 +428,25 @@
             </div>
           </div>
           <div class="flex-grow-2">
-            <div style="text-align: center" class="mb-2">
+            <!-- <div style="text-align: center" class="mb-2">
               <p class="text-small fw-semibold mb-0">Checkout</p>
-            </div>
+            </div> -->
             <div class="d-flex gap-2">
-              <button [disabled]="showCheckout" class="btn btn-basic stripeborder px-4"
+              <!-- <button *ngIf="currentCountry!='India'" [disabled]="showCheckout" class="btn btn-basic stripeborder px-4"
                 (click)="checkout($event, 'stripe')">
                 <img class="img-fluid" src="../../../../uniprep-assets/stripe.png" width="40px" />
               </button>
-              <button [disabled]="showCheckout" class="btn btn-basic razorpayborder"
+              <button *ngIf="currentCountry=='India'" [disabled]="showCheckout" class="btn btn-basic razorpayborder"
                 (click)="checkout($event, 'razorpay')">
                 <img class="img-fluid" src="../../../../uniprep-assets/razorpay.png" width="60px" />
+              </button> -->
+              <button [disabled]="showCheckout" *ngIf="currentCountry!='India'" class="pt-3 pb-3 btn btn-basic w-100 btn btn-primary"
+                (click)="checkout($event, 'stripe')">
+                Checkout
+              </button>
+              <button [disabled]="showCheckout" *ngIf="currentCountry=='India'" class="pt-3 pb-3 btn btn-basic w-100 btn btn-primary"
+                (click)="checkout($event, 'razorpay')">
+                Checkout
               </button>
             </div>
             <p *ngIf="discountAmountEnable">Discount Amount: {{ discountAmount }}</p>
@@ -473,6 +481,6 @@
       </ngx-stripe-elements>
     </div>
     <button class="mt-5 pt-3 pb-3 btn btn-basic w-100 m-0 btn btn-primary" (click)="paywithstripe()"><i
-        class="pi pi-lock mx-2"></i>Pay {{ selectedcost | currency : "USD" }}</button>
+        class="pi pi-lock mx-2"></i>Pay {{ selectedcost | currency: currencyType }}</button>
   </div>
 </p-dialog>

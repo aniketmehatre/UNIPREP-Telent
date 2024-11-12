@@ -1,22 +1,19 @@
 <div class="card readingcard">
-  <div class="card-header py-0 border-0 bg-transparent">
+  <div class="card-header border-0 bg-transparent">
     <div class="row ">
-      <div class="col-md-2 text-start">
+      <div class="col-md-12 d-flex gap-2 text-center">
         <div class="backIcon" (click)="goBack()" role="button">
           <span class="fa-solid fa-chevron-left" (click)="goBack()"></span>
         </div>
-      </div>
-      <div class="col-md-8 text-center">
-        <div class="select-title text-nowrap d-flex justify-content-between align-items-center">
+        <div class="select-title d-flex justify-content-between align-items-center">
           <div>
             <h5 class="mb-0 text-uppercase" tooltipPosition="top" pTooltip="Sharpen your interview readiness with essential question practice and strategic answer guidance.">Interview Prep<i class="questiontooltip fa-solid fa-circle-question"></i></h5>
           </div>
           <div>
-            <button class="how-it-works-button">&nbsp;How it works?&nbsp;&nbsp;<i class="fa-solid fa-play"></i></button>
+            <button class="how-it-works-button">How it works?<i class="fa-solid fa-play d-md-block d-none"></i></button>
           </div>
         </div>
       </div>
-      <div class="col-md-2"></div>
     </div>
   </div>
   <div class="card-body flex-fill overflow-y-auto">
@@ -27,7 +24,7 @@
           <div class="searchInput position-relative">
             <span class="p-input-icon-left flex-grow-1 d-lg-flex btn-rounded">
               <i class="pi pi-search"></i>
-              <input type="text btn-rounded" class="w-100 border-secondary btn-rounded" (input)="searchRole($event)" pInputText placeholder="Search" />
+              <input type="text btn-rounded" class="w-100 border-secondary btn-rounded" (input)="searchRole($event)" pInputText placeholder="Enter Job Title" />
             </span>
             <ul *ngIf="filteredJobRoles.length > 0" class="dropdown-list">
               <li *ngFor="let job of filteredJobRoles" (click)="interviewQuestions(job.slug)">{{ job.jobrole }}</li>

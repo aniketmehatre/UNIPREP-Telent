@@ -57,6 +57,12 @@ export class CourseListService {
     });
   }
 
+  getCoverLetterHistories(){
+    const headers = new HttpHeaders().set("Accept", "application/json");
+    return this.http.get<any>(environment.ApiUrl + "/getCoverLetterHistroy",{
+      headers: headers,
+    });
+  }
 
   getTemplate(): Observable<string> {
     // return this.http.get('templates/resumetemplate.html', { responseType: 'text' });
@@ -111,4 +117,10 @@ export class CourseListService {
     });
   }
 
+  deleteCoverLetter(data:any){
+    const headers = new HttpHeaders().set("Accept", "application/json");
+    return this.http.post<any>(environment.ApiUrl + "/deleteCoverLetter" , data ,{
+      headers: headers,
+    });
+  }
 }

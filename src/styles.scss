@@ -482,6 +482,7 @@ uni-national-exam-tests,
 uni-national-exam-questions,
 uni-learnsubmodules,
 uni-national-exam-result,
+uni-k12-board,
 uni-quizinfowindow {
 	display: flex;
 	flex: 1;
@@ -987,15 +988,15 @@ uni-subscription {
 
 
 .backIcon {
-	height: 40px;
-	width: 40px;
-	border-radius: 20px;
+	height: 100%;
+    width: 50px;
+	min-height:40px;
+	border-radius: 8px;
 	background-color: var(--uniprep-primary);
 	color: white;
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	margin: 10px 0;
 }
 
 .subjectcard {
@@ -1360,13 +1361,12 @@ uni-subscription {
 
 .select-title {
 	background: #1c1b17;
-	font-weight: 500;
-	margin: auto;
-	color: #fff;
-	padding: 8px 15px 8px 15px;
-	border-radius: 0px 0px 10px 10px;
-	position: relative;
-
+    color: #fff;
+    padding: 8px 8px 8px 15px;
+    border-radius: 10px;
+    position: relative;
+	flex: 1;
+	text-align: start;
 	.questiontooltip {
 		color: var(--uniprep-secondary);
 		vertical-align: top;
@@ -1381,6 +1381,10 @@ uni-subscription {
 	padding: 5px;
 	border-radius: 25px;
 	border: none;
+	text-wrap-mode: nowrap;
+	display: flex;
+    align-items: center;
+    gap: 0.5rem;
 }
 
 .form-switch .form-check-input:focus {

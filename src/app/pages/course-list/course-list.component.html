@@ -1,19 +1,17 @@
 <div class="card readingcard">
   <ng-container *ngIf="!enableModule">
-    <div class="card-header py-0 border-0 bg-transparent">
+    <div class="card-header border-0 bg-transparent">
       <div class="row justify-content-center">
-        <div class="col-md-2 text-start"></div>
-        <div class="col-md-8 text-center">
-          <div class="select-title text-nowrap d-flex justify-content-between align-items-center">
+        <div class="col-md-12 text-center">
+          <div class="select-title d-flex justify-content-between align-items-center">
             <div>
               <h5 class="w-100 mb-0" tooltipPosition="top" pTooltip="Search and apply to courses worldwide with our comprehensive global course finder">UNIFINDER<i class="questiontooltip fa-solid fa-circle-question"></i></h5>
             </div>
             <div>
-              <button class="how-it-works-button" (click)="openVideoPopup('https://www.youtube.com/embed/DrdNzOvE-ns?si=Fnq8eQlz1emr24Z7')">How it works? <i class="fa-solid fa-play"></i></button>
+              <button class="how-it-works-button" (click)="openVideoPopup('https://www.youtube.com/embed/LKBP_32UGD8?si=kze04qppwORIcazK')">How it works?<i class="fa-solid fa-play d-md-block d-none"></i></button>
             </div>
           </div>
         </div>
-        <div class="col-md-2"></div>
       </div>
     </div>
 
@@ -40,9 +38,9 @@
                     </ng-container>
                     <ng-container *ngIf="recommendation.id == 3">
                       <div class="cube-container gap-3">
-                        <div *ngFor="let cube of studyLevelCubes" class="cube" (click)="selectCube(3, cube.id)" [ngClass]="{ selected: selectedData[3] === cube.id }">
+                        <div *ngFor="let cube of studyLevelCubes" class="cube" (click)="selectCube(3, cube.id)" [ngClass]="{ selected: selectedData[3]?.includes(cube.id) }">
                           <label>{{ cube.label }}</label>
-                          <i class="fa-solid fa-circle-check tickPlacement" *ngIf="selectedData[3] === cube.id"></i>
+                          <i class="fa-solid fa-circle-check tickPlacement" *ngIf="selectedData[3]?.includes(cube.id)"></i>
                         </div>
                       </div>
                       <p class="text-center" [ngClass]="{ 'd-none': invalidClass === false }" style="color: red">Please Choose Any one option</p>
@@ -56,9 +54,9 @@
                     </ng-container>
                     <ng-container *ngIf="recommendation.id == 6">
                       <div class="cube-container gap-3">
-                        <div *ngFor="let cube of worldRankCubes" role="button" class="cube" (click)="selectCube(6, cube.id)" [ngClass]="{ selected: selectedData[6] === cube.id }">
+                        <div *ngFor="let cube of worldRankCubes" role="button" class="cube" (click)="selectCube(6, cube.id)" [ngClass]="{ selected: selectedData[6]?.includes(cube.id) }">
                           <label>{{ cube.value }}</label>
-                          <i class="fa-solid fa-circle-check tickPlacement" *ngIf="selectedData[6] === cube.id"></i>
+                          <i class="fa-solid fa-circle-check tickPlacement" *ngIf="selectedData[6]?.includes(cube.id)"></i>
                         </div>
                       </div>
                       <p class="text-center" [ngClass]="{ 'd-none': invalidClass === false }" style="color: red">Please Choose Any one option</p>
@@ -86,48 +84,43 @@
   </ng-container>
   <ng-container *ngIf="enableModule">
     <div class="flex-column h-100" [style.display]="guidelinesDiv ? 'flex' : 'none'">
-      <div class="card-header py-0 border-0 bg-transparent">
+      <div class="card-header border-0 bg-transparent">
         <div class="row justify-content-center">
-          <div class="col-xxl-3 col-xl-3 col-lg-4 col-md-4 col-sm-4 col-xs-12 col-12 text-start order-md-1 order-2"></div>
           <!-- <div class="col-md-6 text-center">
 						<h5 class="select-title w-100 mb-1" tooltipPosition="top" pTooltip="Course List">COURSE LIST<i class="questiontooltip fa-solid fa-circle-question"></i></h5>
 					</div> -->
-          <div class="col-xxl-6 col-xl-6 col-lg-4 col-md-4 col-sm-4 col-xs-12 col-12 text-center order-md-2 order-1">
-            <div class="select-title text-nowrap d-flex justify-content-between align-items-center">
+          <div class="col-12 d-flex gap-2 flex-md-row flex-column justify-content-center align-items-center">
+            <div class="select-title d-flex justify-content-between align-items-center">
               <div>
                 <h5 class="w-100 mb-0" tooltipPosition="top" pTooltip="Search and apply to courses worldwide with our comprehensive global course finder">UNIFINDER<i class="questiontooltip fa-solid fa-circle-question"></i></h5>
               </div>
               <div>
-                <button class="how-it-works-button" (click)="openVideoPopup('https://www.youtube.com/embed/broH-JjV-B4?si=xqN69X_Wu9J0mdpu')">How it works? <i class="fa-solid fa-play"></i></button>
+                <button class="how-it-works-button" (click)="openVideoPopup('https://www.youtube.com/embed/broH-JjV-B4?si=xqN69X_Wu9J0mdpu')">How it works? <i class="fa-solid fa-play d-md-block d-none"></i></button>
               </div>
             </div>
-          </div>
-          <div class="col-xxl-3 col-xl-3 col-lg-4 col-md-4 col-sm-4 col-xs-12 col-12 text-end order-md-3 order-3">
-            <span class="d-flex justify-content-end mt-3 gap-2">
-              <button class="btn btn-primary text-small course-guidelines" (click)="closeGuidelines()" type="button">Course Guidelines</button>
-              <button *ngIf="ehitlabelIsShow" class="btn btn-primary text-small buy-credits-button" (click)="buyCredits()" type="button">Buy Credits</button>
-              <button class="btn btn-primary text-small exportButton" (click)="exportData()" type="button">
-                Export <span class="exportCount">{{ buyCreditsCount }}</span>
-              </button>
-            </span>
+            <div>
+              <span class="d-flex justify-content-md-end justify-content-center gap-2">
+                <button class="btn btn-primary flex-shrink-0 text-small course-guidelines" (click)="closeGuidelines()" type="button">Course Guidelines</button>
+                <button *ngIf="ehitlabelIsShow" class="btn btn-primary flex-shrink-0 text-small buy-credits-button" (click)="buyCredits()" type="button">Buy Credits</button>
+                <button class="btn btn-primary text-small flex-shrink-0 exportButton" (click)="exportData()" type="button">
+                  Export <span class="exportCount">{{ buyCreditsCount }}</span>
+                </button>
+              </span>
+            </div>
           </div>
         </div>
         <div class="row justify-content-center">
           <div class="col-md-12">
-            <div class="d-flex justify-content-between">
-              <span class="d-flex justify-content-start p-2">
-                <input type="checkbox" class="me-0" style="transform: scale(1.5); cursor: pointer" [(ngModel)]="selectAllCheckboxes" (click)="selectAllCheckbox()" id="selectAllcheckbox" />
+            <div class="d-flex justify-content-md-between justify-content-center">
+              <span class="d-flex p-2">
+                <input type="checkbox" class="me-0" style="zoom:1.5; cursor: pointer" [(ngModel)]="selectAllCheckboxes" (click)="selectAllCheckbox()" id="selectAllcheckbox" />
                 <label class="p-2" for="selectAllcheckbox" style="cursor: pointer">Select All</label>
                 <span class="p-2">Selected : {{ selectedCourses }}</span>
               </span>
-              <div class="d-flex align-items-center justify-content-end mt-3 gap-2">
-                <button class="btn btn-primary text-small ps-3 pe-3 pt-2 pb-2 br-8 p-1" style="border-radius: 20px !important" (click)="viewFav()" type="button">{{ viewFavourites ? "Remove " : "View " }} Favourites</button>
+              <div class="d-flex align-items-center mt-3 gap-2">
+                <button class="btn btn-primary text-small ps-3 pe-3 pt-2 pb-2 br-8 p-1" style="border-radius: 20px !important" (click)="viewFav()" type="button">{{ viewFavourites ? "Remove " : "View " }} Favourites ({{ favCourseCount }})</button>
                 <button class="btn btn-primary text-small ps-3 pe-3 pt-2 pb-2 br-8 p-1" style="border-radius: 20px !important" (click)="filterBy()" type="button">Filter by</button>
-                <div class="pe-2">
-                  <span class="text-muted text-small"
-                    ><strong>Total Courses: {{ totalCourseCount }} </strong></span
-                  >
-                </div>
+                  <span class="fw-semibold text-small">Total Courses: {{ totalCourseCount }} </span>
               </div>
             </div>
           </div>
@@ -136,81 +129,87 @@
 
       <div class="card-body text-center flex-fill overflow-y-auto">
         <div class="row d-flex justify-content-center text-nowrap">
-          <div class="col-lg-3 col-md-4 col-sm-6 col-xs-6 col-12 col-12 mt-3" *ngFor="let course of courseListData">
+          <div class="col-xxl-3 col-xl-3 col-lg-4 col-md-4 col-sm-6 col-xs-6 col-12 col-12 mt-3" *ngFor="let course of courseListData">
             <div class="card h-100 dataCard">
               <div class="card-body">
-                <div class="flex-column d-flex justify-content-between h-100">
-                  <div class="d-flex flex-fill flex-column justify-content-between">
+                <div class="flex-column d-flex h-100">
+                  <div class="d-flex flex-column justify-content-between">
                     <div class="d-flex flex-fill justify-content-start align-items-center gap-2 mb-2">
                       <input type="checkbox" (change)="onCheckboxChange($event)" class="mt-1 inputselectbox" [(ngModel)]="course.isChecked" />
                       <div class="courseNameTag flex-fill h-100 d-flex align-items-center" title="Course Name">
                         <p class="mb-0 p-2">
-                          <a [href]="course.course_url" (click)="handleClick($event)" target="_blank" class="text-decoration-none text-white">{{ course.course_name }}</a> &nbsp;<i class="fa-solid fa-link"></i>
+                          <a [href]="course.course_url" (click)="handleClick($event)" target="_blank" class="text-decoration-none text-white d-flex gap-2 align-items-center text-start">
+                            {{ course.course_name }}
+                            <span><i class="fa-solid fa-link"></i></span>
+                          </a>
                         </p>
                       </div>
                     </div>
-                    <div class="d-flex justify-content-start gap-3 mb-2">
+                    <div class="d-flex justify-content-center align-items-center gap-3 mb-2">
                       <!-- <div class="courseImage"
 													[ngStyle]="{'background-image': 'url(' + course.icon + ')'}">
 													</div> -->
-                      <img [src]="course.icon" class="courseImage" alt="course.icon" />
-                      <div class="courseUniversity flex-fill">
-                        <a [href]="course.university_url" (click)="handleClick($event)" target="_blank" class="text-decoration-none uniprep-primary">
-                          <h5 class="uniprep-primary text-wrap universityName" title="University Name">{{ course.university_name }} <i class="fa-solid fa-arrow-up-right-from-square text-small"></i></h5>
+                      <div class="d-flex flex-fill gap-3">
+                      <div class="courseImage"><img [src]="course.icon" class="img-fluid" alt="course.icon" /></div>
+                      <div class="courseUniversity flex-fill d-flex flex-column justify-content-center">
+                        <a [href]="course.university_url" (click)="handleClick($event)" target="_blank" class="text-decoration-none uniprep-primary d-flex gap-1">
+                          <div>
+                            <h5 class="uniprep-primary text-wrap text-start universityName" title="University Name">{{ course.university_name }} </h5>
+                          </div>
+                          <div><i class="fa-solid fa-arrow-up-right-from-square text-small"></i></div>
                         </a>
                         <!-- <div class="btn btn-dark w-100 btn-rounded">{{ course.favourite == 1 ?
 															"Shortlisted" : "Shortlist"}} Course</div> -->
                         <!-- <div class="btn btn-dark w-100 btn-rounded" style="font-size: small;"> Apply</div> -->
-                        <div class="d-flex justify-content-between align-items-center">
-                          <div class="btn btn-dark applyButton btn-rounded" (click)="applyToUniversity(course.country_id,course.university_id,course.intake_month_numbers,course.programlevel_id,course.course_name,course.course_url)">Apply</div>
-                          <i [class]="course.favourite == 1 ? 'fa-solid fa-bookmark' : 'fa-regular fa-bookmark'" style="color: #e90707" (click)="bookmarkQuestion(course.id, course.favourite)" class="favIcon"></i>
-                        </div>
+                        <div class="btn btn-dark w-100 btn-rounded" (click)="applyToUniversity(course.country_id,course.university_id,course.intake_month_numbers,course.programlevel_id,course.course_name,course.course_url)">Apply</div>
                       </div>
+                      </div>
+                      <span><i [class]="course.favourite == 1 ? 'fa-solid fa-bookmark' : 'fa-regular fa-bookmark'" style="color: #e90707" (click)="bookmarkQuestion(course.id, course.favourite)" class="fa-lg"></i></span>
                     </div>
                   </div>
 
                   <div class="row text-start">
-                    <div class="col-12 mb-1" title="Subject">
+                    <!-- <div class="col-12 mb-1" title="Subject">
                       <p class="text-wrap">
                         <i class="fa-solid fa-graduation-cap"></i> &nbsp;<small>{{ course.subject_name }}</small>
                       </p>
-                    </div>
-                    <div class="col-6 mb-1" title="Estd Year">
+                    </div> -->
+                    <div class="col-6 mb-1 text-wrap" title="Estd Year">
                       <p>
                         <i class="fa-regular fa-clock"></i> &nbsp;<small>{{ course.estd_year }}</small>
                       </p>
                     </div>
-                    <div class="col-6 mb-1" title="Campus Country">
+                    <div class="col-6 mb-1 text-wrap" title="Campus Country">
                       <p>
                         <i class="fa-solid fa-globe"></i> &nbsp;<small>{{ course.country }}</small>
                       </p>
                     </div>
-                    <div class="col-6 mb-1" title="Campus Location">
+                    <div class="col-6 mb-1 text-wrap" title="Campus Location">
                       <p>
                         <i class="fa-solid fa-location-crosshairs"></i> &nbsp;<small>{{ course.location }}</small>
                       </p>
                     </div>
-                    <div class="col-6 mb-1" title="Duration">
+                    <div class="col-6 mb-1 text-wrap" title="Duration">
                       <p>
                         <i class="fa-solid fa-clock"></i> &nbsp;<small>{{ course.duration }}</small>
                       </p>
                     </div>
-                    <div class="col-6 mb-1" title="Intake Month">
+                    <div class="col-6 mb-1 text-wrap" title="Intake Month">
                       <p>
                         <i class="fa-solid fa-calendar"></i> &nbsp;<small>{{ course.intake_month }}</small>
                       </p>
                     </div>
-                    <div class="col-6 mb-1" title="Stay Back">
+                    <div class="col-6 mb-1 text-wrap" title="Stay Back">
                       <p>
                         <i class="fa-regular fa-hourglass"></i> &nbsp;<small>{{ course.stay_back }}</small>
                       </p>
                     </div>
-                    <div class="col-6 mb-1" title="World Rank">
+                    <div class="col-6 mb-1 text-wrap" title="World Rank">
                       <p>
                         <i class="fa-solid fa-chart-simple"></i> &nbsp;<small>{{ course.world_rank }}</small>
                       </p>
                     </div>
-                    <div class="col-6 mb-1" title="Study Level">
+                    <div class="col-6 mb-1 text-wrap" title="Study Level">
                       <p>
                         <i class="fa-solid fa-stairs"></i> &nbsp;<small>{{ course.study_level }}</small>
                       </p>
@@ -345,7 +344,8 @@
               <label class="form-label filterField">Filter by Study Level</label>
               <div class="form-group">
                 <div class="mb-3">
-                  <p-dropdown styleClass="w-100" [options]="studyLevel" placeholder="Search in Study Level" optionLabel="value" formControlName="study_level" optionValue="id"></p-dropdown>
+                  <p-multiSelect styleClass="w-100" placeholder="Search in Study Level" [options]="studyLevel" display="chip" optionLabel="label" optionValue="id" formControlName="study_level" [appendTo]="'body'"></p-multiSelect>
+                  <!-- <p-dropdown styleClass="w-100" [options]="studyLevel" placeholder="Search in Study Level" optionLabel="label" formControlName="study_level" optionValue="id"></p-dropdown> -->
                 </div>
               </div>
             </div>
@@ -382,7 +382,8 @@
               <div class="form-group">
                 <div class="mb-3">
                   <!-- <input class="w-100 px-5 py-2" style="height: 45px" type="text" formControlName="world_rank" placeholder="Search in World Rank" pInputText /> -->
-                  <p-dropdown styleClass="w-100" [options]="worldRank" placeholder="Search in World Rank" optionLabel="value" formControlName="world_rank" optionValue="id" [appendTo]="'body'"></p-dropdown>
+                  <!-- <p-dropdown styleClass="w-100" [options]="worldRank" placeholder="Search in World Rank" optionLabel="value" formControlName="world_rank" optionValue="id" [appendTo]="'body'"></p-dropdown> -->
+                  <p-multiSelect styleClass="w-100" placeholder="Search in World Rank" [options]="worldRank" display="chip" optionLabel="value" optionValue="id" formControlName="world_rank" [appendTo]="'body'"></p-multiSelect>
                 </div>
               </div>
             </div>

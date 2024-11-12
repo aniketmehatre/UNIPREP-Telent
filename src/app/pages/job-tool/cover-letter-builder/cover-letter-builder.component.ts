@@ -1,5 +1,5 @@
 import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
-import { MenuItem, MessageService } from 'primeng/api';
+import { ConfirmationService, MenuItem, MessageService } from 'primeng/api';
 import { FormBuilder, FormGroup, FormArray, Form, Validators, AbstractControl } from "@angular/forms";
 import { CourseListService } from '../../course-list/course-list.service';
 import { HttpHeaders, HttpClient } from '@angular/common/http';
@@ -24,7 +24,7 @@ export class CoverLetterBuilderComponent implements OnInit {
   languageProficiency: any = [{ id: "Beginner", value: "Beginner" }, { id: "Fluent", value: "Fluent" }, { id: "Proficient", value: "Proficient" }, { id: "Native", value: "Native" }];
   skillProficiency: any = [{ id: "Basic", value: "Basic" }, { id: "Intermediate", value: "Intermediate" }, { id: "Advance", value: "Advance" }];
   enableModule: boolean = true;
-  activePageIndex: number = 1;
+  activePageIndex: number = 0;
   resumeFormInfoData: FormGroup;
   fullScreenVisible: boolean = false;
   isButtonDisabledSelectTemplate: boolean = false;
@@ -55,6 +55,8 @@ export class CoverLetterBuilderComponent implements OnInit {
   userNameSplit: { firstWord: string, secondWord: string } = { firstWord: '', secondWord: '' };
   @ViewChild('capture', { static: false }) captureElement!: ElementRef;
   previewImage: string = "";
+  coverHistories: any = [];
+  loadingResumes: boolean = true;
   resumeSlider: any = [
     {
       id: 1,
@@ -120,10 +122,9 @@ export class CoverLetterBuilderComponent implements OnInit {
     "focusOnSelect": true,
     "initialSlide": 1
   };
-
   constructor(private toaster: MessageService, private fb: FormBuilder, private resumeService: CourseListService,
               private locationService: LocationService, private http: HttpClient, private authService: AuthService,
-              private router: Router,){
+              private router: Router,private confirmService: ConfirmationService){
 
     this.resumeFormInfoData = this.fb.group({
       user_name: ['Vivek Kaliyaperumal', [Validators.required]],
@@ -148,7 +149,15 @@ export class CoverLetterBuilderComponent implements OnInit {
 
   }
 
+  
+  pdfViewLoader() {
+    setTimeout(() => {
+      this.loadingResumes = false;
+    }, 3500);
+  }
+
   ngOnInit(): void {
+    this.coverLetterHistories();
     this.ngAfterViewInit();
     this.editorModules = {
       toolbar: [
@@ -177,6 +186,17 @@ export class CoverLetterBuilderComponent implements OnInit {
     } else {
       this.ehitlabelIsShow = true;
     }
+  }
+
+  coverLetterHistories() : void{
+    this.resumeService.getCoverLetterHistories().subscribe(res =>{
+      if(res !=""){
+        this.coverHistories = res;
+      }else{
+        this.activePageIndex = 1;
+        this.ngAfterViewInit();
+      }
+    });
   }
 
   ngAfterViewInit(): void {
@@ -221,6 +241,31 @@ export class CoverLetterBuilderComponent implements OnInit {
       }
     }, 200);
 
+  }
+
+  downloadOldResume(resumeLink: string) {
+    window.open(resumeLink, '_blank')
+  }
+
+  confirm(event: Event, resumeLink: string, resumeId: number) {
+    this.confirmService.confirm({
+      target: event.target as EventTarget,
+      message: 'Are you sure that you want to proceed?',
+      icon: 'pi pi-exclamation-triangle',
+      accept: () => {
+        const data = {
+          resumeLink: resumeLink,
+          resumeId: resumeId,
+        };
+        this.resumeService.deleteCoverLetter(data).subscribe(res => {
+          this.coverLetterHistories();
+          this.toaster.add({ severity: res.status, summary: res.status, detail: res.message });
+        });
+      },
+      reject: () => {
+        this.toaster.add({ severity: "error", summary: "Error", detail: "you declined." });
+      }
+    });
   }
 
   resumeFormSubmit() {
@@ -308,9 +353,12 @@ export class CoverLetterBuilderComponent implements OnInit {
     }
   }
 
-  // next() {
-  //   this.activePageIndex++;
-  // }
+  next() {
+    this.activePageIndex++;
+    if(this.activePageIndex == 1){
+      this.ngAfterViewInit();
+    }
+  }
 
   get getEduDetailsArray(): FormArray {
     return this.resumeFormInfoData.get('EduDetailsArray') as FormArray;
@@ -359,9 +407,10 @@ export class CoverLetterBuilderComponent implements OnInit {
       selectedThemeColor:this.selectedThemeColor
     };
     this.resumeService.downloadCoverletter(data).subscribe(res => {
-      this.activePageIndex = 1;
+      this.activePageIndex = 0;
       this.ngAfterViewInit();
       window.open(res, '_blank');
+      this.selectedResumeLevel = "";
     })
   }    
 

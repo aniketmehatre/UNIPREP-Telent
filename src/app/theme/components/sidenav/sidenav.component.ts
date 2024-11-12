@@ -272,7 +272,7 @@ export class SidenavComponent {
   careerMenus = ['Entrepreneur', 'Investor List', 'Startup Kit', 'Pitch Deck'];
   whitlabelmenu = ['Subscription', 'About UNIPREP', '24x7 Support', 'Success Stories', 'Recommendations'];
   whitlabelmenuFreeTrails = ['Subscription', 'About UNIPREP', '24x7 Support', 'Success Stories'];
-  collegeStudentMenus = ['Subscription'];
+  collegeStudentMenus = ['null'];//'Subscription'
   conditionSubscribed!: boolean;
   currentTitle: any;
   visibleExhasted!: boolean;

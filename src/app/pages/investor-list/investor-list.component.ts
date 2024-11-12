@@ -498,7 +498,7 @@ else{
         this.selectedData[key].push(id);
       }
     }
-    console.log(this.selectedData, "selected cube");
+    // console.log(this.selectedData, "selected cube");
   }
 
   getStoredRecommendation(){
@@ -519,5 +519,8 @@ else{
       this.enableModule = false;
       this.selectedData = {};
     });
+  }
+  goBackButton(){
+    this.router.navigate(['/pages/founderstool/founderstoollist']);
   }
 }

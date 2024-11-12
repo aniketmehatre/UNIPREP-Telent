@@ -249,6 +249,8 @@ input[type="text"] {
     border-radius: 10px;
 	scrollbar-width: none; /* For Firefox */
 	-ms-overflow-style: none;  /* For Internet Explorer and Edge */
+	max-height: 35vh;
+    overflow-y: auto;
 }
 
 .dropdown-container::-webkit-scrollbar {

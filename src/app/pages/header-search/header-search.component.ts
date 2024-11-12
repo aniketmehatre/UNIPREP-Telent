@@ -237,9 +237,9 @@ export class HeaderSearchComponent implements OnInit, OnDestroy {
 
 
   gBC(data: any){
-    let slug = this.convertToSlug(data.module_name);
-    this.isQuestionAnswerVisible = false;
-    this.route.navigate([`/pages/modules/${slug}`]);
+    // let slug = this.convertToSlug(data.module_name);
+    // this.isQuestionAnswerVisible = false;
+    // this.route.navigate([`/pages/modules/${slug}`]);
   }
 
   gBC1(data: any){
@@ -380,7 +380,7 @@ export class HeaderSearchComponent implements OnInit, OnDestroy {
       this.visibleExhastedData = true;
     }
     else {
-      this.route.navigate([`/pages/modules/${modName}`]);
+     // this.route.navigate([`/pages/modules/${modName}`]);
     }
   }
   enterpriseSubscriptionLink: any

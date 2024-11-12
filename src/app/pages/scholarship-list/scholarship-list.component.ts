@@ -31,6 +31,7 @@ export class ScholarshipListComponent implements OnInit {
   filterForm: FormGroup;
   homeCountryList: any[] = [];
   studyLevelList: any[] = [];
+  anyStudyLevelList: any[] = [];
   regionList: any[] = [];
   filterUniversityList: any[] = [];
   planExpired!: boolean;
@@ -193,19 +194,20 @@ export class ScholarshipListComponent implements OnInit {
   getStudyLevel() {
     this.scholarshipListService.getStudyLevel().subscribe((response) => {
       this.studyLevelList = response;
+      this.anyStudyLevelList = [...response,{ id: "any", level: "Select All" }];
     });
   }
 
   getScholarshipType() {
     this.scholarshipListService.getScholarshipType().subscribe((response) => {
       this.scholarshipTypeList = response;
-      this.anyScholarshipTypeList = [...response]; 
+      this.anyScholarshipTypeList = [...response, { id: "any", type: "Select All"}];  
     });
   }
   getCovers() {
     this.scholarshipListService.getCoverList().subscribe((response) => {
       this.coverList = [...response];
-      this.anyCoverList = [...response];
+      this.anyCoverList = [...response, {id: "any",cover_name: "Select All" }];
     });
   }
 
@@ -550,22 +552,22 @@ export class ScholarshipListComponent implements OnInit {
         this.setRecommendationToForm(res.data);
       }else{
         this.enableModule = false;
-        this.addAnyValueToOptions();
+        // this.addAnyValueToOptions();
       }
     });
   }
-  addAnyValueToOptions(){
-    setTimeout(() => {
-      // let anyCountryArray: any = {id: null,country: "Any Country"};
-      // this.anyCountryList.unshift(anyCountryArray);
+  // addAnyValueToOptions(){
+  //   setTimeout(() => {
+  //     // let anyCountryArray: any = {id: null,country: "Any Country"};
+  //     // this.anyCountryList.unshift(anyCountryArray);
 
-      let anyScholarList:any = { id: null, type: "Any"};
-      this.anyScholarshipTypeList.unshift(anyScholarList); 
+  //     let anyScholarList:any = { id: null, type: "Any"};
+  //     this.anyScholarshipTypeList.unshift(anyScholarList); 
 
-      let anyCoverList:any = {id: null,cover_name: "Any" };
-      this.anyCoverList.unshift(anyCoverList);
-    }, 1000);
-  }
+  //     let anyCoverList:any = {id: null,cover_name: "Any" };
+  //     this.anyCoverList.unshift(anyCoverList);
+  //   }, 1000);
+  // }
 
   setRecommendationToForm(data: any){
     this.filterForm.patchValue(data);
@@ -605,21 +607,51 @@ export class ScholarshipListComponent implements OnInit {
     }
   }
 
-  selectCube(key: number, id: number) {
-    if (key === 3) {
+  // selectCube(key: number, id: number) {
+  //   if (key === 3) {
+  //     if (!Array.isArray(this.selectedData[key])) {
+  //       this.selectedData[key] = [];
+  //     }
+  //     const index = this.selectedData[key].indexOf(id);
+  //     if (index > -1) {
+  //       this.selectedData[key].splice(index, 1);
+  //     } else {
+  //       this.selectedData[key].push(id);
+  //     }
+  //   } else {
+  //     this.selectedData[key] = id;
+  //   }
+  // }  
+
+  selectCube(key: number, id: number | string) {
+    if (id === "any") {
+      if (this.selectedData[key]?.includes(id)) {
+        this.selectedData[key] = [];
+      } else {
+        if(key === 2){
+          this.selectedData[key] = this.anyStudyLevelList.map((cube: any) => cube.id);
+        }else if(key === 3){
+          this.selectedData[key] = this.anyScholarshipTypeList.map((cube: any) => cube.id);
+        }else if(key === 4){
+          this.selectedData[key] = this.anyCoverList.map((cube: any) => cube.id);
+        }
+       
+      }
+    }else {
+      // this.selectedData[key] = [id];
       if (!Array.isArray(this.selectedData[key])) {
         this.selectedData[key] = [];
       }
+
       const index = this.selectedData[key].indexOf(id);
       if (index > -1) {
         this.selectedData[key].splice(index, 1);
       } else {
         this.selectedData[key].push(id);
       }
-    } else {
-      this.selectedData[key] = id;
     }
-  }  
+    // console.log(this.selectedData, "selected cube");
+  }
 
   resetRecommendation(){
     this.scholarshipListService.resetRecommendation().subscribe(res => {
@@ -627,7 +659,7 @@ export class ScholarshipListComponent implements OnInit {
       this.filterForm.reset();
       this.selectedData = {};
       this.activePageIndex = 0;
-      this.addAnyValueToOptions();
+      // this.addAnyValueToOptions();
     });
   }
 }

@@ -65,6 +65,7 @@ export class QuizComponent implements OnInit {
   imagewhitlabeldomainname: any
   orgnamewhitlabel: any;
   orglogowhitelabel: any;
+  timeover:number=0;
   constructor(private moduleListService: ModuleServiceService, private authService: AuthService, private router: Router, private dataService: DataService,
     private locationService: LocationService, private ngxService: NgxUiLoaderService, private toast: MessageService,private location: Location) { }
 
@@ -106,10 +107,10 @@ export class QuizComponent implements OnInit {
         this.currentModuleName = 'Pre-Admission';
         this.currentApiSlug = 'SubmoduleListForStudents';
         this.infoMessage = 'Upgrade to access the Pre-admission section',
-          this.unlockMessage = 'Unlock the power of success with our exclusive Pre-admission!',
-          this.upgradePlanMsg = 'Upgrade your plan now to gain instant access.';
+        this.unlockMessage = 'Unlock the power of success with our exclusive Pre-admission!',
+        this.upgradePlanMsg = 'Upgrade your plan now to gain instant access.';
         this.aboutModule = 'Explore a vast database of Q&A about:',
-          this.moduleDetails = 'Scholarships, document checklist, Education loan, letter of Recommendation and many more!'
+        this.moduleDetails = 'Scholarships, document checklist, Education loan, letter of Recommendation and many more!'
         break;
       case 'travel-and-tourism':
         this.currentModuleId = 7;
@@ -117,10 +118,10 @@ export class QuizComponent implements OnInit {
         this.currentModuleName = 'Travel-and-Tourism';
         this.currentApiSlug = 'SubmoduleListForStudents';
         this.infoMessage = 'Upgrade to access the travel-and-tourism',
-          this.unlockMessage = 'Unlock the power of success with our exclusive travel-and-tourism!',
-          this.upgradePlanMsg = 'Upgrade your plan now to gain instant access.';
+        this.unlockMessage = 'Unlock the power of success with our exclusive travel-and-tourism!',
+        this.upgradePlanMsg = 'Upgrade your plan now to gain instant access.';
         this.aboutModule = 'Explore a vast database of Q&A about:',
-          this.moduleDetails = 'Visa, departure, healthcare, tuition fees and many more!'
+        this.moduleDetails = 'Visa, departure, healthcare, tuition fees and many more!'
         break;
       case 'post-admission':
         this.currentModuleId = 3;
@@ -128,10 +129,10 @@ export class QuizComponent implements OnInit {
         this.currentModuleName = 'Post-Admission';
         this.currentApiSlug = 'SubmoduleListForStudents';
         this.infoMessage = 'Upgrade to access the post-admission',
-          this.unlockMessage = 'Unlock the power of success with our exclusive post-admission!',
-          this.upgradePlanMsg = 'Upgrade your plan now to gain instant access.';
+        this.unlockMessage = 'Unlock the power of success with our exclusive post-admission!',
+        this.upgradePlanMsg = 'Upgrade your plan now to gain instant access.';
         this.aboutModule = 'Post-admission offers information about:',
-          this.moduleDetails = ' Arrival, student discounts, banking, full time jobs, post study work and many more!'
+        this.moduleDetails = ' Arrival, student discounts, banking, full time jobs, post study work and many more!'
         break;
       case 'career-hub':
         this.currentModuleId = 4;
@@ -139,10 +140,10 @@ export class QuizComponent implements OnInit {
         this.currentModuleName = 'Career Hub';
         this.currentApiSlug = 'SubmoduleListForStudents';
         this.infoMessage = 'Upgrade to access the Career Hub',
-          this.unlockMessage = '',
-          this.upgradePlanMsg = 'Upgrade your plan now to gain instant access.';
+        this.unlockMessage = '',
+        this.upgradePlanMsg = 'Upgrade your plan now to gain instant access.';
         this.aboutModule = 'Explore a vast database of Q&A about:',
-          this.moduleDetails = ' Arrival, student discounts, banking, full time jobs, post study work and many more!'
+        this.moduleDetails = ' Arrival, student discounts, banking, full time jobs, post study work and many more!'
         break;
       case 'university':
         this.universityidforquiz = localStorage.getItem('universityidforquiz')
@@ -164,11 +165,11 @@ export class QuizComponent implements OnInit {
         this.currentModuleName = 'Life At ' + this.countryName;
         this.currentApiSlug = 'SubmoduleListForStudents';
         this.infoMessage = 'Upgrade to access information about life in your chosen destination',
-          this.unlockMessage = 'Unlock the power of success with our exclusive destination',
-          this.upgradePlanMsg = 'Upgrade your plan now to gain instant access.';
+        this.unlockMessage = 'Unlock the power of success with our exclusive destination',
+        this.upgradePlanMsg = 'Upgrade your plan now to gain instant access.';
         this.aboutModule = 'Explore a vast database of Q&A about:',
-          this.moduleDetails = 'Festivals, events, currency, budget, housing and many more!',
-          this.selectedModule = 'life-at-country'
+        this.moduleDetails = 'Festivals, events, currency, budget, housing and many more!',
+        this.selectedModule = 'life-at-country'
         break;
 
     }
@@ -221,8 +222,6 @@ export class QuizComponent implements OnInit {
     this.currentCountryId = this.quizmoduleredirectcountryid == 0 ? Number(localStorage.getItem('countryId')) : Number(localStorage.getItem('modalcountryid'))
     //this.isSkeletonVisible = true;
     //this.subModules$ = this.moduleListService.subModuleList$();
-    console.log(this.currentCountryId);
-    console.log(this.quizmoduleredirectcountryid);
     let data = {
       countryId: this.currentModuleId == 10 ? 0 : this.currentCountryId,
       moduleId: this.currentModuleId,
@@ -278,7 +277,6 @@ export class QuizComponent implements OnInit {
       }
       return dat;
     });
-    console.log(mappedQuiz);
     this.quizData = mappedQuiz;
     this.claculatingSelectQuizPesrcentage = mappedQuiz.filter(obj => obj.useranswer).length;
     this.totalpercentagequiztime = (this.claculatingSelectQuizPesrcentage / this.quizcount) * 100;
@@ -447,15 +445,17 @@ export class QuizComponent implements OnInit {
     }
     this.moduleListService.quizCount(data).subscribe((res) => {
       this.quizcount = res.count > 0 ? res.count : 0;
-      this.quizData = res.quizquestion.map((val: any) => {
-        let number = 1;
-        let dd = { ...val };
-        dd.otp1 = dd.option1 + dd.id + number++;
-        dd.otp2 = dd.option2 + dd.id + number++;
-        dd.otp3 = dd.option3 + dd.id + number++;
-        dd.otp4 = dd.option4 + dd.id + number++;
-        return dd;
-      });
+      if(res.quizquestion){
+        this.quizData = res.quizquestion.map((val: any) => {
+          let number = 1;
+          let dd = { ...val };
+          dd.otp1 = dd.option1 + dd.id + number++;
+          dd.otp2 = dd.option2 + dd.id + number++;
+          dd.otp3 = dd.option3 + dd.id + number++;
+          dd.otp4 = dd.option4 + dd.id + number++;
+          return dd;
+        });
+      }
     })
   }
   quizpercentage: any = 0
@@ -484,17 +484,18 @@ export class QuizComponent implements OnInit {
     window.open(link, '_blank');
   }
   startTimer(): void {
-    this.timer = 0;
+    this.timeover=0;
+    this.timer = this.quizcount * 60;
     this.totalquiztime = this.quizcount * 60;
     if (this.timerSubscription) {
       this.timerSubscription.unsubscribe();
     }
     this.timerSubscription = interval(1000).pipe(
-      takeWhile(() => this.timer < (this.quizcount * 60))
+      takeWhile(() => this.timer > this.timeover)
     ).subscribe(() => {
-      this.timer++;
+      this.timer--;
       // console.log(`Timer: ${this.timer} seconds`);
-      if (this.timer === this.quizcount * 60) {
+      if (this.timer === this.timeover) {
         this.restrict = true;
       }
     });

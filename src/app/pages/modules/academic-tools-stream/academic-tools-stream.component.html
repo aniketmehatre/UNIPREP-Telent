@@ -1,24 +1,21 @@
 <div class="card readingcard">
-	<div class="card-header py-0 bg-transparent border-0">
+	<div class="card-header border-0 bg-transparent">
 		<div class="row justify-content-center">
-			<div class="col-md-3 text-start">
+			<div class="col-md-12 d-flex gap-2 text-center">
 				<div class="backIcon" role="button" (click)="goBack()">
 					<span class="fa-solid fa-chevron-left"></span>
 				</div>
-			</div>
-			<div class="col-md-6 text-center">
-				<div class="select-title text-nowrap d-flex justify-content-between align-items-center">
+				<div class="select-title d-flex justify-content-between align-items-center">
 					<div>
 						<h5 class="w-100 mb-0" tooltipPosition="top" pTooltip="{{ tooltip }}">
 							{{ currentModuleName }}
 						</h5>
 					</div>
 					<div>
-						<button class="how-it-works-button">&nbsp;How it works? &nbsp;&nbsp;<i class="fa-solid fa-play"></i></button>
+						<button class="how-it-works-button">How it works?<i class="fa-solid fa-play d-md-block d-none"></i></button>
 					</div>
 				</div>
 			</div>
-			<div class="col-md-3 text-end"></div>
 		</div>
 		<div class="row">
 			<div class="d-flex justify-content-center mt-2 mb-2">

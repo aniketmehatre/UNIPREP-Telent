@@ -167,7 +167,7 @@ export class ListSubModulesComponent implements OnInit {
                     this.upgradePlanMsg = 'Upgrade your plan now to gain instant access.';
                 this.aboutModule = 'Explore a vast database of Q&A about:',
                     this.moduleDetails = 'Scholarships, document checklist, Education loan, letter of Recommendation and many more!'
-                this.howItWorksVideoLink = "https://www.youtube.com/embed/Kae2KQnmWko?si=vjUQ7eyurP2Mbg-n";
+                this.howItWorksVideoLink = "https://www.youtube.com/embed/aR06d8kMeio?si=-5Ivte_5ZgdcndS-";
                 this.description = "Prepare effectively for college with information on entrance requirements, application tips, and more."
                 break;
             case 'travel-and-tourism':
@@ -179,7 +179,7 @@ export class ListSubModulesComponent implements OnInit {
                     this.upgradePlanMsg = 'Upgrade your plan now to gain instant access.';
                 this.aboutModule = 'Explore a vast database of Q&A about:',
                     this.moduleDetails = 'Visa, departure, healthcare, tuition fees and many more!'
-                this.howItWorksVideoLink = "https://www.youtube.com/embed/s35R5o7cOOU?si=DvR3LyQ1C8uRaAN3";
+                this.howItWorksVideoLink = "https://www.youtube.com/embed/PZERtrH1zh8?si=zKQ80B27zz6V9-mk";
                 this.description = "Discover travel destinations, tips, and essential travel information."
                 break;
             case 'post-admission':
@@ -191,7 +191,7 @@ export class ListSubModulesComponent implements OnInit {
                     this.upgradePlanMsg = 'Upgrade your plan now to gain instant access.';
                 this.aboutModule = 'Post-admission offers information about:',
                     this.moduleDetails = ' Arrival, student discounts, banking, full time jobs, post study work and many more!'
-                this.howItWorksVideoLink = "https://www.youtube.com/embed/Q9-cUbwFNZI?si=LIdazrVO_qAQKiFk";
+                this.howItWorksVideoLink = "https://www.youtube.com/embed/g_KWlnmOEtc?si=KFpkpjdYMwkCIOV1";
                 this.description = "Find guidance on navigating your new academic environment after securing admission."
                 break;
             case 'career-hub':
@@ -203,7 +203,7 @@ export class ListSubModulesComponent implements OnInit {
                     this.upgradePlanMsg = 'Upgrade your plan now to gain instant access.';
                 this.aboutModule = 'Explore a vast database of Q&A about:',
                     this.moduleDetails = ' Arrival, student discounts, banking, full time jobs, post study work and many more!'
-                this.howItWorksVideoLink = "https://www.youtube.com/embed/7ogHhrekZjE?si=NADxga9qB4_RkCtw";
+                this.howItWorksVideoLink = "https://www.youtube.com/embed/dBNASRavBk0?si=M2WtoOTl3ahORz8V";
                 this.description =  "Discover career opportunities and get resources to help you plan your professional path."
                 break;
             case 'university':
@@ -211,7 +211,7 @@ export class ListSubModulesComponent implements OnInit {
                 this.currentModuleName = 'University';
                 this.currentApiSlug = 'SubmoduleListForStudents';
                 this.selectedModule = 'university'
-                this.howItWorksVideoLink = "https://www.youtube.com/embed/Bsg1CTnVmYc?si=cWYQIexHAoeXvsyR";
+                this.howItWorksVideoLink = "https://www.youtube.com/embed/6mukBsCTgtw?si=aFBa9JMWI2k2QuzP";
                 this.description = "Explore detailed profiles of universities worldwide, including programs, campus life, and application processes."
                 break;
             case 'skill-mastery':
@@ -223,7 +223,7 @@ export class ListSubModulesComponent implements OnInit {
                     this.upgradePlanMsg = 'Upgrade your plan now to gain instant access.';
                 this.aboutModule = 'Explore a vast database of Q&A about:',
                     this.moduleDetails = ' Arrival, student discounts, banking, full time jobs, post study work and many more!'
-                this.howItWorksVideoLink = "https://www.youtube.com/embed/dHhq2xrBn5s?si=2dMsQcwwOY17dDHi";
+                this.howItWorksVideoLink = "https://www.youtube.com/embed/mzyfeeL1b4Y?si=SYUFI6bW4xU-QZbT";
                 this.description = "Enhance your expertise in soft skills through targeted courses and assessments."
                 break;
             case 'learning-hub':
@@ -235,7 +235,7 @@ export class ListSubModulesComponent implements OnInit {
                     this.upgradePlanMsg = 'Upgrade your plan now to gain instant access.';
                 this.aboutModule = 'Explore a vast database of Q&A about:',
                     this.moduleDetails = 'Scholarships, document checklist, Education loan, letter of Recommendation and many more!'
-                this.howItWorksVideoLink = "https://www.youtube.com/embed/n9ECpsB6IoI?si=4coiypva6WZfr3NL";
+                this.howItWorksVideoLink = "https://www.youtube.com/embed/prvvJsgnya8?si=QSAeOB9qPMF-ya-D";
                 this.description = "Upskill with over 1000 specializations across various industries"
                 break;
             case 'k12-category':
@@ -247,7 +247,7 @@ export class ListSubModulesComponent implements OnInit {
                     this.upgradePlanMsg = 'Upgrade your plan now to gain instant access.';
                 this.aboutModule = 'Explore a vast database of Q&A about:',
                     this.moduleDetails = 'Scholarships, document checklist, Education loan, letter of Recommendation and many more!'
-                this.howItWorksVideoLink = "https://www.youtube.com/embed/n9ECpsB6IoI?si=4coiypva6WZfr3NL";
+                this.howItWorksVideoLink = "https://www.youtube.com/embed/Zh4pPEZ160c?si=i8vkRTgh70TuoqDn";
                 this.description = "Explore curriculum-focused content and resources for students in Grades 9 through 12."
                 break;
             default:
@@ -260,7 +260,7 @@ export class ListSubModulesComponent implements OnInit {
                 this.aboutModule = 'Explore a vast database of Q&A about:',
                     this.moduleDetails = 'Festivals, events, currency, budget, housing and many more!',
                     this.selectedModule = 'life-at-country'
-                this.howItWorksVideoLink = "https://www.youtube.com/embed/O35ypi2WJVI?si=CSxuFC1Zma9gk8SG";
+                this.howItWorksVideoLink = "https://www.youtube.com/embed/7VFZp47tfLU?si=GPLVjR5vKlNno-cZ";
                 this.description = `Explore insights and tips about daily life and cultural nuances in ${this.countryName}`
                 break;
 

@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { CareerGrowthService } from './career-growth-checker.service';
 import { Router } from '@angular/router';
+import { debounceTime, switchMap, distinctUntilChanged, catchError } from 'rxjs/operators';
+import { Observable, of } from 'rxjs';
 import { FormBuilder, FormGroup } from "@angular/forms";
 
 interface JobRole {
@@ -67,6 +69,8 @@ export class CareerGrowthCheckerComponent implements OnInit {
   currentrole: string | null = null;
   invalidClass: boolean = false;
   invalidClassCountry: boolean = false;
+  hasFilteredOptions: boolean = false;
+  isSelecting: boolean = false;
 
 
   ngOnInit(): void {
@@ -79,11 +83,8 @@ export class CareerGrowthCheckerComponent implements OnInit {
     var data = {
       role : ''
     };
-    this.careerGrowthService.JobRoles(data).subscribe((res)=>{
-      this.options = res; 
-      this.allOptions = res; 
-      this.filteredOptions = res;
-    });
+    
+
     this.careerGrowthService.getCountries().subscribe(data => {
       const desiredCountries = ['United States', 'United Kingdom', 'China', 'Norway', 'Germany', 'France', 'Singapore', 'Switzerland', 'United Arab Emirates', 'Spain', 'Ireland', 'Australia', 'New Zealand', 'Canada', 'Netherlands', 'Austria', 'Belgium', 'Czech Republic', 'Denmark', 'Estonia', 'Finland', 'Hungary', 'Italy', 'Latvia', 'Lithuania', 'Malta', 'Poland', 'Portugal', 'Sweden', 'Japan'];
       const countriesList: Country[] = data.countries_list;
@@ -92,31 +93,64 @@ export class CareerGrowthCheckerComponent implements OnInit {
         desiredCountries.includes(country.country)
       );
     });
+ 
+        this.checkForm.get('jobSearch')?.valueChanges.pipe(
+          debounceTime(300),
+          distinctUntilChanged(),
+          switchMap((value) => {
+            if (this.isSelecting) {
+              return [];
+            }
+            return this.fetchJobRoles(value);
+          })
+        ).subscribe(
+          (res: any) => {
+            if (res && res.data && Array.isArray(res.data)) {
+              this.filteredOptions = res.data;
+              this.hasFilteredOptions = this.filteredOptions.length > 0;
+            }
+          },
+          (err) => {
+            console.error('Error fetching job roles:', err);
+            this.filteredOptions = [];
+            this.hasFilteredOptions = false;
+          }
+        );
   }
+
+    fetchJobRoles(searchTerm: string): Observable<any[]> {
+      if (!searchTerm) {
+        this.filteredOptions = [];  
+        this.hasFilteredOptions = false;
+        return of([]); 
+      }
+      
+      return this.careerGrowthService.JobRoles({ jobrole: searchTerm }).pipe(
+        catchError(() => {
+          return of([]); 
+        })
+      );
+    }
 
   selectOption(option: any) {
+    this.isSelecting = true;
     this.checkForm.get('jobSearch')?.setValue(option.jobrole); 
     this.selectedJobId = option.id; 
-    this.hasfilteredoptions = false; 
+    this.hasFilteredOptions = false; 
 }
 
-  filterOptions(searchTerm: string) {
-    const term = searchTerm.trim().toLowerCase();
-    this.filteredOptions = this.allOptions.filter(op =>
-      op.jobrole.toLowerCase().includes(term)
-    );
-    if(this.filteredOptions.length > 0) {
-      this.hasfilteredoptions = true;
-    }
-    else {
-      this.hasfilteredoptions = false;
-    }
-  }
+  // filterOptions(searchTerm: string): void {
+  //   const term = searchTerm.trim().toLowerCase();
+  //   this.filteredOptions = this.allOptions.filter(op =>
+  //     op.jobrole.toLowerCase().includes(term)
+  //   );
+  //   this.hasFilteredOptions = this.filteredOptions.length > 0;
+  // }
 
-  onInputChange(event: Event) {
-    const inputElement = event.target as HTMLInputElement;
-    this.filterOptions(inputElement.value);
-  }
+  // onInputChange(event: Event) {
+  //   const inputElement = event.target as HTMLInputElement;
+  //   this.filterOptions(inputElement.value);
+  // }
 
   search() {
     const jobSearchValue = this.checkForm.value.jobSearch;

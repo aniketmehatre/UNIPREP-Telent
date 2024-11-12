@@ -81,10 +81,10 @@ export class SubscriptionDataComponent implements OnInit {
   timeLeftInfoCard: any;
 
   ngOnInit(): void {
-    this.getLocation();
+    //this.getLocation();
     this.timeLeftInfoCard = localStorage.getItem("time_card_info");
     this.discountAmountEnable = false; 
-
+    this.currentCountry=String(localStorage.getItem("home_country_name"));
     this.user = this.authService.user;
     this.education_level = this.user?.education_level?.replace(/[\s\u00A0]/g, '').trim() || 'HigherEducation';
     this.studentType = this.user?.student_type_id || 0;
@@ -134,10 +134,9 @@ export class SubscriptionDataComponent implements OnInit {
       studenttype: this.studentType,
       country: this.currentCountry,
       continent: this.continent,
-      monthly_plan: this.monthlyPlan,
+      monthly_plan: this.studentType==2?12:this.monthlyPlan,
       study_level:this.user?.education_level
     };
-
     this.subscriptionService.getSubscriptions(data).subscribe((response) => {
       const mostPopularOnes = response.subscriptions.filter(
         (item: any) => item.popular === 1
