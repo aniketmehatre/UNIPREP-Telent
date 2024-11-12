@@ -23,6 +23,12 @@ export class QuizinfowindowComponent implements OnInit {
   quizwindowvisibility = false;
   @Output() moduleChange = new EventEmitter();
   @Input() _contentalignment:boolean;
+  parantfolderId:number;
+  ieltsacademiclisteningquizinstructionshow:boolean=false;
+  normalquizinstruction:boolean=false;
+  ieltsacademicreadingquizinstructionshow:boolean=false;
+  ieltsacademicwritingquizinstructionshow:boolean=false;
+  ieltsacademicspeakingquizinstructionshow:boolean=false;
   constructor(
     private pageFacade: PageFacadeService,
     private router: Router,
@@ -31,7 +37,23 @@ export class QuizinfowindowComponent implements OnInit {
   ) {}
   paramData: any;
   ngOnInit(): void {
-    
+    this.parantfolderId=Number(localStorage.getItem("parent_folderid"))
+    // condition for quiz intruction all modules 
+    if(this.moduleid==1){
+      if(this.parantfolderId==1378){
+        this.ieltsacademiclisteningquizinstructionshow=true;
+      }else if(this.parantfolderId==1379){
+        this.ieltsacademicreadingquizinstructionshow=true;
+      }else if(this.parantfolderId==1380){
+        this.ieltsacademicwritingquizinstructionshow=true;
+      }else if(this.parantfolderId==1381){
+        this.ieltsacademicspeakingquizinstructionshow=true;
+      }else{
+        this.normalquizinstruction=true;
+      }
+    }else{
+      this.normalquizinstruction=true;
+    }
   }
   openVideoPopup(videoLink: string) {
     this.pageFacade.openHowitWorksVideoPopup(videoLink);
