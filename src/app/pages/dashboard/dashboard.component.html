@@ -1,9 +1,10 @@
-<div class="card countrycard d-none d-lg-block mt-2">
+<div class="card countrycard d-none d-lg-block mt-2"> 
     <div class="card-body text-center pb-0">
         <h5 class="mb-0">SELECTED COUNTRY</h5>
         <p-carousel #carousel [circular]="false" [numScroll]="7" [numVisible]="7"
                     [responsiveOptions]="responsiveOptions" [value]="countryLists">
             <ng-template let-v pTemplate="item">
+                
                 <div (click)="selectCountry(v)" role="button" class="text-center card-body {{ selectedCountryId == v.id ? 'country-border' : '' }}">
                     <img alt="country" class="countryicon mb-2"
                          src="{{ v.flag != '' ? v.flag : '../../uniprep-assets/images/mstile-150x150.png' }}"/>

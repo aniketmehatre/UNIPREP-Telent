@@ -145,7 +145,6 @@ export class DashboardComponent implements OnInit, OnChanges {
         this.checkquizquestionmodule()
     }
     loadCountryList(data: any) {
-        this.showSkeleton= true;
         this.dashboardService.countryList().subscribe(countryList => {
             this.carousel.page = 0;
             this.countryLists = countryList;
@@ -162,7 +161,6 @@ export class DashboardComponent implements OnInit, OnChanges {
                     this.countryLists.unshift(item);
                 }
             });
-            this.showSkeleton= false;
         });
     }
 
