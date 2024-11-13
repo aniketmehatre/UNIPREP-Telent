@@ -247,7 +247,7 @@
             <div class="btn-icon"><i class="fa fa-home" aria-hidden="true"></i></div>
           </div></button
         >&nbsp;
-        <button (click)="openReviewPopup()" class="btn btn-back btn-rounded px-2 py-2">
+        <button *ngIf="currentModuleId !== 8" (click)="openReviewPopup()" class="btn btn-back btn-rounded px-2 py-2">
           <div class="d-flex align-items-center">
             <span class="fw-normal h6 mb-0">Review</span>
             <div class="btn-icon"><i class="fa-solid fa-list-check"></i></div>
