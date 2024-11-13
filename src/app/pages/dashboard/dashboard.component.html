@@ -4,8 +4,7 @@
         <p-carousel #carousel [circular]="false" [numScroll]="7" [numVisible]="7"
                     [responsiveOptions]="responsiveOptions" [value]="countryLists">
             <ng-template let-v pTemplate="item">
-                <div (click)="selectCountry(v)" role="button"
-                     class="text-center card-body {{ selectedCountryId == v.id ? 'country-border' : '' }}">
+                <div (click)="selectCountry(v)" role="button" class="text-center card-body {{ selectedCountryId == v.id ? 'country-border' : '' }}">
                     <img alt="country" class="countryicon mb-2"
                          src="{{ v.flag != '' ? v.flag : '../../uniprep-assets/images/mstile-150x150.png' }}"/>
                     <p class="mb-0 text-center text-sm text-capitalize {{ selectedCountryId == v.id ? 'country-text' : 'country-text-small' }}">
@@ -119,7 +118,7 @@
                     </div>
                     <p class="mb-0 text-center">Complete your profile for personalised content.</p>
                     <button (click)="openMyProfile()"
-                            class="btn btn-dark mt-3"> {{ progress != 100 ? "Complete my profile" : "My Profile" }}
+                            class="btn btn-dark  btn-rounded mt-3"> {{ progress != 100 ? "Complete my profile" : "My Profile" }}
                     </button>
                 </div>
             </div>
@@ -150,7 +149,7 @@
                     </div>
                     <p class="mb-0 text-center">Expand your horizons through reading.</p>
                     <button (click)="openReading()"
-                            class="btn btn-primary mt-3"> {{ quizpercentage >= 90 ? "Completed" : "Start Reading" }}
+                            class="btn btn-primary  btn-rounded mt-3"> {{ quizpercentage >= 90 ? "Completed" : "Start Reading" }}
                     </button>
                 </div>
             </div>
@@ -164,7 +163,7 @@
                         <h5 class="mb-1 mt-2 uppercase">Quiz</h5>
                         <p class="mb-0">Get certified for completing the quiz with an extraordinary score.</p>
                     </div>
-                    <button (click)="openQuiz()" class="btn btn-secondary text-white font-weight-bold mt-3">Start Quiz
+                    <button (click)="openQuiz()" class="btn btn-secondary  btn-rounded text-white font-weight-bold mt-3">Start Quiz
                     </button>
                 </div>
             </div>
@@ -179,7 +178,7 @@
                         <h5 class="mb-1 mt-2 uppercase fw-bold">Certification</h5>
                         <p class="mb-0">Get all your certificates in one place to share them on social media.</p>
                     </div>
-                    <button (click)="openCertificate()" class="btn btn-dark mt-3">My Certificates</button>
+                    <button (click)="openCertificate()" class="btn btn-dark btn-rounded mt-3">My Certificates</button>
                 </div>
             </div>
         </div>
@@ -432,9 +431,9 @@
         </div>
     </div>
 </div>
-<div [ngStyle]="{ display: continueQuiz }" class="modal modal-bg" role="dialog" tabindex="-1">
+<!-- <div [ngStyle]="{ display: continueQuiz }" class="modal modal-bg" role="dialog" tabindex="-1">
     <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered" role="document">
-        <div class="modal-content card bg-light">
+        <div class="modal-content card bg-light">-->
             <!-- <div class=" justify-content-between">
                 <h3 class="mb-0 continue-reading-header" tooltipZIndex="auto" tooltipPosition="top" pTooltip="Complete the reading for all modules to get the certificate.">Continue Reading</h3>
                 <div class="popupclose">
@@ -443,10 +442,10 @@
                     </a>
                 </div>
             </div> -->
-            <div class="mt-2" style="text-align: right">
-                <a (click)="closeQuiz()" class="close" role="button">
+            <!-- <div class="mt-2" style="text-align: right">
+                <a (click)="closeQuiz()" class="close" role="button">-->
                     <!-- <span aria-hidden="true"><img src="/uniprep-assets/images/icons/close_button.svg" /></span> -->
-                    <span aria-hidden="true"><i class="fa-solid fa-circle-x fa-2xl uniprep-primary"></i></span>
+                    <!--<span aria-hidden="true"><i class="fa-solid fa-circle-x fa-2xl uniprep-primary"></i></span>
                 </a>
             </div>
             <div class="modal-body">
@@ -501,7 +500,7 @@
             </div>
         </div>
     </div>
-</div>
+</div> -->
 
 <p-dialog [(visible)]="isVideoVisible" [modal]="true" [style]="{ width: '30vw' }" header="Header">
     <ng-template pTemplate="header">

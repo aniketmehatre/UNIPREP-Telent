@@ -23,6 +23,7 @@ import {ModalService} from './components/modal/modal.service';
 import {AvatarModule} from 'primeng/avatar';
 import {DropdownModule} from 'primeng/dropdown';
 import {ButtonModule} from 'primeng/button';
+import { SkeletonModule } from 'primeng/skeleton';
 
 import {InputTextModule} from "primeng/inputtext";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
@@ -119,6 +120,7 @@ export function tokenGetter() {
         }),
         MetaModule.forRoot(),
         SharedModule,
+        SkeletonModule,
     ],
   providers: [
       DeviceDetectorService,
