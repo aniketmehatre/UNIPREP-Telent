@@ -1,43 +1,65 @@
-
 <div class="readingcard card">
-
-      <div class="card h-100 justify-content-between">
-        <div class="card-header d-flex justify-content-between mt-4" style="background-color: #fafafa; border-bottom: 0px solid #fafafa">
-          <h5>{{10 - this.page}}/10 Question Left</h5>
-          <a class="btn btn-danger">Quit</a>
-        </div>
-        <div class="card-body flex-grow-1">
-          <small class="font-semibold" style="color: #394d83; font-weight: 600">Question Number {{ this.page + 1 }}</small>
-          <h3>{{this.activeQuestion}}</h3>
-          <div class="d-flex p-3 my-1" style="border: 1px solid #e3e3e3; border-radius: 10px">
-            <p-radioButton name="groupname" value="A" [(ngModel)]="selectedValue" inputId="opt1"></p-radioButton>
-            <label for="opt1" class="ps-2">{{this.activeOptOne}}</label>
-          </div>
-          <div class="d-flex p-3 my-1" style="border: 1px solid #e3e3e3; border-radius: 10px">
-            <p-radioButton name="groupname" value="B" [(ngModel)]="selectedValue" inputId="opt2"></p-radioButton>
-            <label for="opt2" class="ps-2">{{this.activeOptTwo}}</label>
-          </div>
-          <div class="d-flex p-3 my-1" style="border: 1px solid #e3e3e3; border-radius: 10px">
-            <p-radioButton name="groupname" value="C" [(ngModel)]="selectedValue" inputId="opt3"></p-radioButton>
-            <label for="opt3" class="ps-2">{{this.activeOptThree}}</label>
-          </div>
-          <div class="d-flex p-3 my-1" style="border: 1px solid #e3e3e3; border-radius: 10px">
-            <p-radioButton name="groupname" value="D" [(ngModel)]="selectedValue" inputId="opt4"></p-radioButton>
-            <label for="opt4" class="ps-2">{{this.activeOptFour}}</label>
-          </div>
-          <p style="color:red" class="fw-semibold" *ngIf="showError">Please select an answer</p>
-        </div>
-        <div class="card-footer d-flex justify-content-between mb-2 align-items-end" style="background-color: #fafafa; border-top: 0px solid #fafafa">
-          <div style="width: 80%">
-            <small class="fw-semibold">Progress: {{ this.page * 10 }}% Completed</small>
-            <p-progressBar [value]="progressvalue" [style]="{ height: '6px'}"></p-progressBar>
-          </div>
-
-          <div>
-            <button class="btn btn-primary" (click)="prevQues()">Previous</button>
-            <button class="btn btn-primary ms-2" (click)="nextQues()">Next</button>
-          </div>
+	<div class="card-header border-0 bg-transparent">
+		<div class="row justify-content-center">
+			<div class="col-md-2 col-2 text-start d-flex align-items-center">
+				<h5 class="fw-bold">{{ 10 - this.page }}/10 Questions Left</h5>
+			</div>
+			<div class="col-md-8 col-8 text-center">
+				<h5 class="select-title mb-1">Nationalised Exam Quiz</h5>
+			</div>
+			<div class="col-md-2 col-2 text-end">
+				<button class="btn btn-quit btn-rounded px-2 py-2">
+					<div class="d-flex align-items-center">
+						<span class="fw-normal h6 mb-0 ps-3 pe-2">Quit</span>
+						<div class="btn-icon"><i class="fa-solid fa-power-off"></i></div>
+					</div>
+				</button>
+			</div>
+		</div>
+	</div>
+	<div class="card-body flex-fill overflow-y-auto">
+    <p class="text-start mb-0 fw-semibold uniprep-primary">Question Number {{ this.page + 1 }}</p>
+    <h4 class="uniprep-primarydark fw-bold text-start pt-2 pb-2 text-capitalize">{{ this.activeQuestion }}</h4>
+		<div class="d-flex p-3 my-1" style="border: 1px solid #e3e3e3; border-radius: 10px">
+			<p-radioButton name="groupname" value="A" [(ngModel)]="selectedValue" inputId="opt1"></p-radioButton>
+			<label for="opt1" class="ps-2">{{ this.activeOptOne }}</label>
+		</div>
+		<div class="d-flex p-3 my-1" style="border: 1px solid #e3e3e3; border-radius: 10px">
+			<p-radioButton name="groupname" value="B" [(ngModel)]="selectedValue" inputId="opt2"></p-radioButton>
+			<label for="opt2" class="ps-2">{{ this.activeOptTwo }}</label>
+		</div>
+		<div class="d-flex p-3 my-1" style="border: 1px solid #e3e3e3; border-radius: 10px">
+			<p-radioButton name="groupname" value="C" [(ngModel)]="selectedValue" inputId="opt3"></p-radioButton>
+			<label for="opt3" class="ps-2">{{ this.activeOptThree }}</label>
+		</div>
+		<div class="d-flex p-3 my-1" style="border: 1px solid #e3e3e3; border-radius: 10px">
+			<p-radioButton name="groupname" value="D" [(ngModel)]="selectedValue" inputId="opt4"></p-radioButton>
+			<label for="opt4" class="ps-2">{{ this.activeOptFour }}</label>
+		</div>
+		<p style="color: red" class="fw-semibold" *ngIf="showError">Please select an answer</p>
+	</div>
+  <div class="card-footer bg-transparent">
+    <div class="row justify-content-center">
+      <div class="col-md-8 text-start">
+        <div class="w-100 px-3 quizprogress">
+          <span class="font-secondarycolor fw-semibold">Progress: {{ this.page * 10 }}% Completed</span>
+          <p-progressBar [value]="progressvalue"></p-progressBar>
         </div>
       </div>
-
+      <div class="col-md-4 text-end">
+        <button (click)="prevQues()" class="btn btn-back btn-rounded me-3 px-2 py-2">
+          <div class="d-flex align-items-center">
+            <span class="fw-normal h6 mb-0 ps-3 pe-2">Previous</span>
+            <div class="btn-icon"><i class="fa-solid fa-arrow-left"></i></div>
+          </div>
+        </button>
+        <button (click)="nextQues()" class="btn btn-start btn-rounded m-0 px-2 py-2">
+          <div class="d-flex align-items-center">
+            <span class="fw-normal h6 mb-0 ps-3 pe-2">Next</span>
+            <div class="btn-icon"><i class="fa-solid fa-arrow-right"></i></div>
+          </div>
+        </button>
+      </div>
+    </div>
+  </div>
 </div>
