@@ -8,7 +8,7 @@ import {LocationService} from "../../../location.service";
 import {AuthService} from "../../../Auth/auth.service";
 import {Router} from "@angular/router";
 import Swiper from 'swiper';
-import { log } from 'console';
+import { CvBuilderService } from '../cv-builder/cv-builder.service';
 
 @Component({
   selector: 'uni-cover-letter-builder',
@@ -124,7 +124,7 @@ export class CoverLetterBuilderComponent implements OnInit {
   };
   constructor(private toaster: MessageService, private fb: FormBuilder, private resumeService: CourseListService,
               private locationService: LocationService, private http: HttpClient, private authService: AuthService,
-              private router: Router,private confirmService: ConfirmationService){
+              private router: Router,private confirmService: ConfirmationService, private cvBuilderService:CvBuilderService ){
 
     this.resumeFormInfoData = this.fb.group({
       user_name: ['Vivek Kaliyaperumal', [Validators.required]],
@@ -407,6 +407,11 @@ export class CoverLetterBuilderComponent implements OnInit {
       selectedThemeColor:this.selectedThemeColor
     };
     this.resumeService.downloadCoverletter(data).subscribe(res => {
+      this.coverLetterHistories();
+      const parts = res.split('/');
+      const lastPart = parts[parts.length - 1];
+      this.cvBuilderService.downloadPdf(res, lastPart);
+      this.toaster.add({ severity: "success", summary: "Success", detail: "File Download Successfully." });
       this.activePageIndex = 0;
       this.ngAfterViewInit();
       window.open(res, '_blank');
