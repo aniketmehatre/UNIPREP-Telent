@@ -507,7 +507,7 @@
         </div>
     </div>
 </p-dialog> -->
-<div [ngStyle]="{ display: currentEducation ? 'block' : 'none' }" class="modal modal-bg firsttimeloginpopup" role="dialog" tabindex="-1">
+<!-- <div [ngStyle]="{ display: currentEducation ? 'block' : 'none' }" class="modal modal-bg firsttimeloginpopup" role="dialog" tabindex="-1">
   <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered" role="document">
     <div class="modal-content card bg-light">
       <div class="modal-body card-body">
@@ -543,8 +543,98 @@
       </div>
     </div>
   </div>
-</div>
-<div [ngStyle]="{ display: freeTrial ? 'block' : 'none' }" class="modal modal-bg firsttimeloginpopup" role="dialog" tabindex="-1">
+</div> -->
+<p-dialog [(visible)]="currentEducation" [modal]="true" [closable]="false" styleClass="currentEduPopup">
+  <div class="container">
+    <div class="row mb-2">
+      <div class="col-md-12 px-4">
+        <div class="d-flex flex-column">
+          <div class="icon-container d-flex justify-content-center p-2">
+            <img [src]="educationImage" alt="clock" width="100" />
+          </div>
+          <div class="mt-1 mb-1">
+            <span>
+              <strong class="firsttimelogin">
+                <h3 style="color: #f0780e; margin-bottom: 0">Update Your Educational Details</h3>
+              </strong>
+            </span>
+          </div>
+          <form [formGroup]="currentEducationForm">
+            <div class="w-100 phonenumberblock mt-2">
+              <p class="m-1">Select Your Current Study Level</p>
+              <p-dropdown class="w-100" formControlName="current_education" appendTo="body" [options]="programLevelList" placeholder="Current Education" optionLabel="programlevel" optionValue="id" [autoDisplayFirst]="false" styleClass="custom-dropdown"></p-dropdown>
+            </div>
+            <div class="d-flex justify-content-center mt-4">
+              <button [disabled]="currentEducationForm.invalid" class="btn btn-primary btn-rounded me-2 ms-0 my-0" (click)="UpdateEducationLevel()" alt="chat with notification">
+                <span class="text-small fw-normal px-3">Update Details</span>
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</p-dialog>
+<p-dialog [(visible)]="freeTrial" [modal]="true" [closable]="false" styleClass="FirstLoginPopup">
+  <div class="container">
+    <div class="row mb-2">
+      <div class="col-md-12 px-4">
+        <div class="d-flex flex-column">
+          <div class="icon-container d-flex justify-content-center p-2">
+            <img src="../../../uniprep-assets/images/TrialStart.png" alt="clock" width="100" />
+          </div>
+          <div class="mt-1 mb-1">
+            <span>
+              <strong class="firsttimelogin">
+                <h5 style="color: rgb(63 76 131)">Congratulations</h5>
+              </strong>
+            </span>
+          </div>
+          <div class="mt-1">
+            <span>
+              <strong class="firsttimelogin">
+                <h2 style="color: #f0780e; margin-bottom: 0">You have unlocked</h2>
+              </strong>
+              <strong class="firsttimelogin">
+                <h2 style="color: #f0780e; margin-top: 0">{{ timeLeftInfo }} free trial.</h2>
+              </strong>
+            </span>
+          </div>
+          <form [formGroup]="mobileForm">
+            <div class="w-100 phonenumberblock" *ngIf="formvisbility">
+              <p class="m-1">Enter your number to continue the experience</p>
+              <ngx-intl-tel-input class="intel-input w-100" [cssClass]="'custom'" [preferredCountries]="['in', 'gb']" [enableAutoCountrySelect]="true" [enablePlaceholder]="true" [searchCountryFlag]="true" [maxLength]="15" [searchCountryField]="[SearchCountryField.Iso2, SearchCountryField.Name]" [phoneValidation]="true" [selectedCountryISO]="preferredCountry" customPlaceholder="Enter Contact Number" formControlName="phone"> </ngx-intl-tel-input>
+            </div>
+            <div class="w-100 phonenumberblock mt-2" *ngIf="formvisbility">
+              <p class="m-1">Select Your Home Country</p>
+              <p-dropdown class="w-100" formControlName="home_country" appendTo="body" [options]="indiaHomeCountry" [filter]="true" placeholder="Country" (onChange)="changeLocation($event)" filterBy="country" optionLabel="country" optionValue="id" [autoDisplayFirst]="false" styleClass="custom-dropdown"></p-dropdown>
+            </div>
+            <div class="w-100 phonenumberblock mt-2" *ngIf="formvisbility">
+              <p class="m-1">Select Your Current Education</p>
+              <p-dropdown class="w-100" formControlName="study_level" appendTo="body" [options]="programLevelList" placeholder="Current Education" optionLabel="programlevel" optionValue="id" [autoDisplayFirst]="false" styleClass="custom-dropdown"></p-dropdown>
+            </div>
+            <div *ngIf="freeTrialErrorMsg" class="text-danger text-center">
+              {{ freeTrialErrorMsg }}
+            </div>
+            <div class="icon-container mt-2 d-flex justify-content-center mb-2">
+              <h6 style="color: rgb(63 76 131)">Enjoy access to <strong>UNIPREP</strong> V 1.0</h6>
+            </div>
+            <div class="d-flex justify-content-center">
+              <button [disabled]="formvisbility && mobileForm.invalid" class="btn btn-primary btn-rounded me-2 ms-0 my-0" (click)="onClickSubscribedUser()" alt="chat with notification">
+                <span class="text-small fw-normal px-3">Subscribe Now</span>
+              </button>
+              <button [disabled]="formvisbility && mobileForm.invalid" class="btn btn-secondary btn-rounded me-2 ms-0 my-0" alt="reports">
+                <span class="text-small fw-normal px-2" (click)="continueTrial()">Continue Trial</span>
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</p-dialog>
+<!-- [ngStyle]="{ display: freeTrial ? 'block' : 'none' }"  -->
+<!-- <div class="modal modal-bg firsttimeloginpopup" role="dialog" tabindex="-1" style="display: block;">
   <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered" role="document">
     <div class="modal-content card bg-light">
       <div class="modal-body card-body">
@@ -607,7 +697,7 @@
       </div>
     </div>
   </div>
-</div>
+</div> -->
 <div [ngStyle]="{ display: demoTrial ? 'block' : 'none' }" class="modal modal-bg firsttimeloginpopup" role="dialog" tabindex="-1">
   <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered" role="document">
     <div class="modal-content card bg-light">

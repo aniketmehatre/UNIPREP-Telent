@@ -327,6 +327,8 @@ export class ScholarshipListComponent implements OnInit {
       this.restrict = true;
       return;
     }
+    this.selectAllCheckboxes = false;
+    this.selectedScholarship = 0;
     this.page = event.first / this.pageSize + 1;
     this.pageSize = event.rows;
     this.first = event.first;

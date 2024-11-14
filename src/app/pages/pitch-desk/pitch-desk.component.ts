@@ -132,6 +132,8 @@ export class PitchDeskComponent implements OnInit {
       this.restrict = true;
       return;
     }
+    this.selectAllCheckboxes = false;
+    this.selectedCheckboxCount = 0;
     this.page = event.page + 1;
     this.pageSize = event.rows;
     this.getPitchDeskList();

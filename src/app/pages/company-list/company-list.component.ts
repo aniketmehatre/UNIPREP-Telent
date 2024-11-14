@@ -196,6 +196,8 @@ export class CompanyListComponent implements OnInit {
       this.restrict = true;
       return;
     }
+    this.selectAllCheckboxes = false;
+    this.selectedCompanies = 0;
     this.page = event.page + 1;
     this.pageSize = event.rows;
     this.loadCompanyData(0);
