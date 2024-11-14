@@ -113,7 +113,7 @@
                   {{ subscription.givenprice | number : ".0" }}
                   {{ subscription.currency }}
                 </h2>
-                <div class="d-flex" style="justify-content: space-evenly">
+                <div  *ngIf="studentType!=2" class="d-flex" style="justify-content: space-evenly">
                   <p style="font-size: 12px; font-weight: 500" class="mb-0 mt-2">
                     <s>{{ subscription.currency }} {{ subscription.actualprice | number : ".2-2" }}</s>
                   </p>
@@ -284,11 +284,11 @@
                               {{ subscription.currency }}
                             </h3>
                           </div>
-                          <div class="mt-4">
+                          <div class="mt-4" >
                             <p>
                               <s>{{ subscription.currency }} {{ subscription.actualprice | number : ".2-2" }}</s>
                             </p>
-                            <div class="btn discountbutton-o btnCurser" *ngIf="subscription.popular == 1">Save {{
+                            <div  class="btn discountbutton-o btnCurser" *ngIf="subscription.popular == 1">Save {{
                               subscription.discountpercentage }}%</div>
                             <div class="btn discountbutton btnCurser" *ngIf="subscription.popular != 1">Save {{
                               subscription.discountpercentage }}%</div>

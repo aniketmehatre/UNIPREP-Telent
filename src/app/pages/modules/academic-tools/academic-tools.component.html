@@ -25,7 +25,11 @@
 								</div>
 								<h5 class="text-center mt-3 fw-bold d-md-block d-none mb-0">{{ academicTool?.category }}</h5>
 							</div>
-							<p class="text-small">Enhance your future academic journey with tailored tools for {{ academicTool?.category }}.</p>
+							<p class="text-small" *ngIf="academicTool?.category == 'Grade 9'">Start strong in high school with tailored tools for {{ academicTool?.category }}.</p>
+							<p class="text-small" *ngIf="academicTool?.category == 'Grade 10'">Deepen your academic skills with specialized tools for {{ academicTool?.category }}.</p>
+							<p class="text-small" *ngIf="academicTool?.category == 'Grade 11'">Prepare for college with advanced tools for {{ academicTool?.category }}.</p>
+							<p class="text-small" *ngIf="academicTool?.category == 'Grade 12'">Refine your knowledge for college readiness with tools for {{ academicTool?.category }}.</p>
+							<p class="text-small" *ngIf="!(academicTool?.category == 'Grade 9' || academicTool?.category == 'Grade 10' || academicTool?.category == 'Grade 11' || academicTool?.category == 'Grade 12')"> Enhance your future academic journey with tailored tools for {{ academicTool?.category }}. </p>
 						</div>
 					</div>
 				</div>

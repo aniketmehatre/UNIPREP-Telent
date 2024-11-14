@@ -205,7 +205,7 @@ export class SubscriptionComponent implements OnInit {
     if (environment.domain == "api.uniprep.ai") {
       razorKey = "rzp_test_Crpr7YkjPaCLEr";
     }
-    const options: any = {
+      const options: any = {
       key: razorKey,
       amount: this.subscriptionDetails?.finalPrice * 100, // amount should be in paise format to display Rs 1255 without decimal point
       currency: "INR",
@@ -213,11 +213,12 @@ export class SubscriptionComponent implements OnInit {
       description: "UNIPREP Subscription", // product description
       image: "https://uniprep.ai/uniprep-assets/images/icon-light.svg", // company logo or product image
       order_id: orderid, // order_id created by you in backend
-
+     
       prefill: {
         name: this.selectedSubscription?.subscription,
         email: localStorage.getItem("email"),
-        contact: localStorage.getItem("phone"),
+       // contact: localStorage.getItem("phone"),
+        contact: (localStorage.getItem("phone") === null || localStorage.getItem("phone") === '') ? '9876543210' : localStorage.getItem("phone"),
       },
       notes: {
         address:
