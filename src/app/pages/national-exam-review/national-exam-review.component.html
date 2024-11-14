@@ -1,0 +1,41 @@
+
+<div class="readingcard card">
+    <div class="card h-100 justify-content-between">
+      <div class="card-header d-flex justify-content-between mt-4" style="background-color: #fafafa; border-bottom: 0px solid #fafafa">
+        <h5>{{10 - this.page}}/10 Question Left</h5>
+        <a class="btn btn-danger">Quit</a>
+      </div>
+      <div class="card-body flex-grow-1">
+        <small class="font-semibold" style="color: #394d83; font-weight: 600">Question Number {{ this.page + 1 }}</small>
+        <h3>{{this.activeQuestion}}</h3>
+        <div class="d-flex p-3 my-1" style="border: 1px solid #e3e3e3; border-radius: 10px" class="{{ 'A' === this.selectedValue ? 'optionanswered' : 'optionnotanswered' }}{{ 'A' === this.answer ? ' answercorct' : ' answernotcorct' }}" >
+          <p-radioButton [disabled]="true" name="groupname" value="A" [(ngModel)]="selectedValue" inputId="opt1"></p-radioButton>
+          <label for="opt1" class="ps-2">{{this.activeOptOne}}</label>
+        </div>
+        <div class="d-flex p-3 my-1" style="border: 1px solid #e3e3e3; border-radius: 10px" class="{{ 'B' === this.selectedValue ? 'optionanswered' : 'optionnotanswered' }}{{ 'B' === this.answer ? ' answercorct' : ' answernotcorct' }}">
+          <p-radioButton [disabled]="true" name="groupname" value="B" [(ngModel)]="selectedValue" inputId="opt2"></p-radioButton>
+          <label for="opt2" class="ps-2">{{this.activeOptTwo}}</label>
+        </div>
+        <div class="d-flex p-3 my-1" style="border: 1px solid #e3e3e3; border-radius: 10px" class="{{ 'C' === this.selectedValue ? 'optionanswered' : 'optionnotanswered' }}{{ 'c' === this.answer ? ' answercorct' : ' answernotcorct' }}">
+          <p-radioButton [disabled]="true" name="groupname" value="C" [(ngModel)]="selectedValue" inputId="opt3"></p-radioButton>
+          <label for="opt3" class="ps-2">{{this.activeOptThree}}</label>
+        </div>
+        <div class="d-flex p-3 my-1" style="border: 1px solid #e3e3e3; border-radius: 10px" class="{{ 'D' === this.selectedValue ? 'optionanswered' : 'optionnotanswered' }}{{ 'D' === this.answer ? ' answercorct' : ' answernotcorct' }}">
+          <p-radioButton [disabled]="true" name="groupname" value="D" [(ngModel)]="selectedValue" inputId="opt4"></p-radioButton>
+          <label for="opt4" class="ps-2">{{this.activeOptFour}}</label>
+        </div>
+        <p style="color:blck" class="fw-semibold mt-4">Summary</p>
+        <p style="color:blck" class="fw-semibold">{{this.answerReason}}</p>
+      </div>
+      <div class="card-footer d-flex justify-content-between mb-2 align-items-end" style="background-color: #fafafa; border-top: 0px solid #fafafa">
+        <div style="width: 80%">
+          <small class="fw-semibold">Progress: {{ this.page * 10 }}% Completed</small>
+          <p-progressBar [value]="progressvalue" [style]="{ height: '6px'}"></p-progressBar>
+        </div>
+        <div>
+          <button class="btn btn-primary" (click)="prevQues()">Previous</button>
+          <button class="btn btn-primary ms-2" (click)="nextQues()">Next</button>
+        </div>
+      </div>
+    </div>
+</div>
