@@ -29,6 +29,9 @@ export class QuizinfowindowComponent implements OnInit {
   ieltsacademicreadingquizinstructionshow:boolean=false;
   ieltsacademicwritingquizinstructionshow:boolean=false;
   ieltsacademicspeakingquizinstructionshow:boolean=false;
+  greverbalreasoningisshow:boolean=false;
+  grequantativeisshow:boolean=false;
+  greanalyticalwriting:boolean=false;
   constructor(
     private pageFacade: PageFacadeService,
     private router: Router,
@@ -51,9 +54,24 @@ export class QuizinfowindowComponent implements OnInit {
       }else{
         this.normalquizinstruction=true;
       }
+    }else if(this.moduleid==5){
+      if(this.parantfolderId==1532){
+        this.greverbalreasoningisshow=true;
+      }else if(this.parantfolderId==1533){
+        this.grequantativeisshow=true;
+      }else if(this.parantfolderId==1534){
+        this.greanalyticalwriting=true;
+      }else{
+        this.normalquizinstruction=true;
+      }
     }else{
       this.normalquizinstruction=true;
     }
+    // console.log(this.moduleid);
+    // console.log(this.parentid);
+    // console.log(this.selected_module);
+    // console.log(Number(localStorage.getItem("parent_id")));
+    // console.log(Number(localStorage.getItem("parent_folderid")));
   }
   openVideoPopup(videoLink: string) {
     this.pageFacade.openHowitWorksVideoPopup(videoLink);
