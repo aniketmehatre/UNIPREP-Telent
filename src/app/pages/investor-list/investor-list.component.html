@@ -186,7 +186,7 @@
           <p-paginator *ngIf="totalInvestorsCount != 0" [rows]="pageSize" [totalRecords]="totalInvestorsCount" [first]="(page - 1) * pageSize" (onPageChange)="pageChange($event)" [rowsPerPageOptions]="[50, 100, 300, 500, 1000]" [disabled]="totalInvestorsCount <= pageSize"> </p-paginator>
         </div>
         <div class="col-md-2 text-end">
-          <button pButton type="button" class="btn btn-quit btn-rounded" (click)="resetRecommendation()">
+          <button pButton type="button" class="btn btn-quit ps-3 btn-rounded" (click)="resetRecommendation()">
             Reset Recommendations<span class="btn-icon"><i class="fa-solid fa-arrow-rotate-right"></i> </span>
           </button>
         </div>
