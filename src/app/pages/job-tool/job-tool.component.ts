@@ -16,6 +16,8 @@ export class JobToolComponent implements OnInit {
   items: string[] = [" ₹ INR", "$ Dollers"];
   hideTitleForPreviewPage: boolean = false;
   tooltip: any;
+  employerName: any;
+  mainTitle: any;
   howItWorksVideo: string = "";
 
   constructor(
@@ -27,6 +29,8 @@ export class JobToolComponent implements OnInit {
   ) {
     this.currentRoute = this.router.url;
     this.router.events.subscribe(event => {
+      this.mainTitle = localStorage.getItem('MainTitleCareerTool');
+      this.employerName = localStorage.getItem("employerName");
       if (event instanceof NavigationEnd) {
         this.currentRoute = event.url;
         this.changeTitle()
