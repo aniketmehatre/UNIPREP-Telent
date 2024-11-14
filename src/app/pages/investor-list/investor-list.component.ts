@@ -268,6 +268,8 @@ else{
       this.restrict = true;
       return;
     }
+    this.selectAllCheckboxes = false;
+    this.selectedInvestors = 0;
     this.page = event.page + 1;
     this.pageSize = event.rows;
     this.loadInvestorData(0);

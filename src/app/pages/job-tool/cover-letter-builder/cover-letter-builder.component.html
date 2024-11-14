@@ -3,7 +3,7 @@
 	<div class="row justify-content-center">
 		<div class="flex-column">
 			<div>
-				<h3 class="text-center uniprep-primary">Your Resumes</h3>
+				<h3 class="text-center uniprep-primary">Your Cover Letters</h3>
 				<div class="cvSampleImg d-flex flex-wrap">
 					<div class="flex-column overflow-hidden" *ngFor="let resumes of coverHistories; let i = index">
 						<div [ngClass]="{ 'skeleton-loader': loadingResumes }">
@@ -20,7 +20,7 @@
 				</div>
 			</div>
 			<div class="row justify-content-center">
-				<button class="createResumeButton" (click)="next()" >Create your Resume &nbsp;&nbsp;&nbsp;<i class="fa-solid fa-arrow-right tickIcon"></i></button>
+				<button class="createResumeButton" (click)="next()" >Create your Cover Letter &nbsp;&nbsp;&nbsp;<i class="fa-solid fa-arrow-right tickIcon"></i></button>
 			</div>
 		</div>
 	</div>

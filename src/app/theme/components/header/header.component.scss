@@ -438,3 +438,21 @@ $background-color_4: #fff;
 .custom-dropdown .p-dropdown-panel {
   max-height: 200px; 
 }
+
+.currentEduPopup{
+  width: 500px;
+  height: 325px;
+}
+
+.currentEduPopup .p-dialog-content, .currentEduPopup .p-dialog-titlebar {
+  border-radius: 15px !important;
+}
+
+.FirstLoginPopup{
+  width: 500px;
+  height: 565px;
+}
+
+.FirstLoginPopup .p-dialog-content, .currentEduPopup .p-dialog-titlebar {
+  border-radius: 15px !important;
+}

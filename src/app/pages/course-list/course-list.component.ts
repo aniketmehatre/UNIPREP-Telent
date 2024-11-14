@@ -267,6 +267,8 @@ export class CourseListComponent implements OnInit {
       this.restrict = true;
       return;
     }
+    this.selectAllCheckboxes = false;
+    this.selectedCourses = 0;
     this.page = event.page + 1;
     this.perPage = event.rows;
     this.getCourseLists();
