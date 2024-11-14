@@ -121,7 +121,7 @@
                   {{ subscription.givenprice | number : ".0" }}
                   {{ subscription.currency }}
                 </h2>
-                <div class="d-flex" style="justify-content: space-evenly"
+                <div class="d-flex" *ngIf="studentType!=2" style="justify-content: space-evenly"
                   [class]="!subscription.available ? 'grey' : ''">
                   <p style="font-size: 12px; font-weight: 500" class="mb-0 mt-2">
                     <s>{{ subscription.currency }} {{ subscription.actualprice | number : ".2-2" }}</s>
