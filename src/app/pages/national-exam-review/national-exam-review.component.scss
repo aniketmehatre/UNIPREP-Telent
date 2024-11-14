@@ -1,0 +1,26 @@
+.optionanswered {
+	border: 2px solid var(--uniprep-primary);
+    border-radius: 10px;
+    background: var(--uniprep-green);
+    color: var(--uniprepprimarydark);
+}
+
+.optionreviewcorrect {
+	border: 2px solid var(--uniprep-darkgreen);
+	background: var(--uniprep-green);
+	border-radius: 8px;
+	color: #fff;
+}
+.answercorct{
+	border: 2px solid var(--uniprep-darkgreen);
+	background: var(--uniprep-green);
+	border-radius: 8px;
+
+}
+
+.answernotcorct{
+	border: 2px solid var(--uniprep-red);
+	background: #df3e3e;
+    color: white;
+	border-radius: 8px;
+}
