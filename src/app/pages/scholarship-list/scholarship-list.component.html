@@ -218,7 +218,7 @@
           <p-paginator *ngIf="totalScholarShipCount != 0" [rows]="pageSize" [totalRecords]="totalScholarShipCount" (onPageChange)="pageChange($event)" [rowsPerPageOptions]="[25, 50, 100, 300, 500, 1000]"></p-paginator>
         </div>
         <div class="col-md-3 text-end">
-          <button pButton type="button" class="btn btn-quit btn-rounded" (click)="resetRecommendation()">
+          <button pButton type="button" class="btn ps-3 btn-quit btn-rounded" (click)="resetRecommendation()">
             Reset Recommendations<span class="btn-icon"><i class="fa-solid fa-arrow-rotate-right"></i> </span>
           </button>
         </div>
