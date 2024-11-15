@@ -169,10 +169,9 @@ export class ScholarshipListComponent implements OnInit {
 
   }
   getScholarshipCountry() {
-    this.scholarshipListService.getScholarshipCountry(1).subscribe((response) => {
-      let allCountries = response;
+    this.scholarshipListService.getScholarCountry().subscribe(res => {
+      let allCountries = res;
       this.countryList = allCountries;
-      this.anyCountryList = [...allCountries]; // this is shallow copy of all countries.if am not taking shallow copy when i add any array its showing it reflect for both arrays.
     });
   }
 

@@ -27,7 +27,7 @@
                 </div>
                 <div class="col-md-6">
                   <ng-container *ngIf="recommendation.id == 1">
-                    <p-multiSelect styleClass="w-100" placeholder="Select Course Country" [options]="anyCountryList" display="chip" optionLabel="country" optionValue="id" [(ngModel)]="selectedData[recommendation.id]" [appendTo]="'body'"></p-multiSelect>
+                    <p-multiSelect styleClass="w-100" placeholder="Select Course Country" [options]="countryList" display="chip" optionLabel="country" optionValue="id" [(ngModel)]="selectedData[recommendation.id]" [appendTo]="'body'"></p-multiSelect>
                     <p class="text-center" [ngClass]="{ 'd-none': invalidClass === false }" style="color: red">Please Choose Any one option</p>
                   </ng-container>
                   <ng-container *ngIf="recommendation.id == 2">
