@@ -47,6 +47,11 @@ nav {
   }
 }
 
+.reportwidthfix
+{
+  max-width:400px;
+}
+
 .countdown {
   border: 2px solid red;
   position: absolute;
@@ -372,9 +377,9 @@ form {
   float: left;
 }
 
-.p-overlaypanel{
-  width: 50%;
-}
+// .p-overlaypanel{
+//   width: 50%;
+// }
 
 @media (max-width: 768px) {
   .country-list li {
@@ -388,9 +393,9 @@ form {
   }
 }
 
-.p-overlay {
-  z-index: 99999999 !important;
-}
+// .p-overlay {
+//   z-index: 99999999 !important;
+// }
 $color_3: #222;
 $background-color_4: #fff;
 .form-control {
@@ -432,4 +437,22 @@ $background-color_4: #fff;
 
 .custom-dropdown .p-dropdown-panel {
   max-height: 200px; 
+}
+
+.currentEduPopup{
+  width: 500px;
+  height: 325px;
+}
+
+.currentEduPopup .p-dialog-content, .currentEduPopup .p-dialog-titlebar {
+  border-radius: 15px !important;
+}
+
+.FirstLoginPopup{
+  width: 500px;
+  height: 565px;
+}
+
+.FirstLoginPopup .p-dialog-content, .currentEduPopup .p-dialog-titlebar {
+  border-radius: 15px !important;
 }

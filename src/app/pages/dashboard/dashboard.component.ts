@@ -1,4 +1,4 @@
-import {Component, Input, OnChanges, OnInit, SimpleChanges, ViewChild} from '@angular/core';
+import {Component, Input, OnChanges, OnInit, SimpleChanges, ViewChild } from '@angular/core';
 import {DashboardService} from "./dashboard.service";
 import {AuthService} from "../../Auth/auth.service";
 import {SubSink} from "subsink";
@@ -29,6 +29,7 @@ export class DashboardComponent implements OnInit, OnChanges {
     partnerTrusterLogo: any;
     enableReading!: boolean;
     restrict: boolean = false;
+    showSkeleton: boolean = false;
     planExpired: boolean = false;
     ehitlabelIsShow:boolean=true;
     imagewhitlabeldomainname:any

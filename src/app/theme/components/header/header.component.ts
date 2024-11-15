@@ -98,7 +98,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
   demoTrial: boolean = false;
   demoDays: any;
   reportlearnlanguagetype: number = 0;
-  countryList: any;
+  countryList: any; //this is the original home country list for time being am doing like this.
+  indiaHomeCountry: any = [{ country: "India", id: 122}];
   locationList: any;
   whiteLabelIsNotShow: boolean = true;
   visibleExhastedUser!: boolean;
@@ -252,7 +253,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     });
     this.mobileForm = this.formBuilder.group({
       phone: ["", Validators.required],
-      home_country: ["", Validators.required],
+      home_country: [122, Validators.required],
       study_level: ["", Validators.required],
     });
 

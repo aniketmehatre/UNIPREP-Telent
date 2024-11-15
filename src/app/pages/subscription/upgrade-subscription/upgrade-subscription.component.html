@@ -121,7 +121,7 @@
                   {{ subscription.givenprice | number : ".0" }}
                   {{ subscription.currency }}
                 </h2>
-                <div class="d-flex" style="justify-content: space-evenly"
+                <div class="d-flex" *ngIf="studentType!=2" style="justify-content: space-evenly"
                   [class]="!subscription.available ? 'grey' : ''">
                   <p style="font-size: 12px; font-weight: 500" class="mb-0 mt-2">
                     <s>{{ subscription.currency }} {{ subscription.actualprice | number : ".2-2" }}</s>
@@ -464,8 +464,8 @@
         </div>
         <div class="modal-body d-flex flex-column justify-content-center">
           <p class="btn btn-rounded mx-auto" style="background: #9bc32935; border: 1px dashed #9bc329; width: 100px">
-            UNI25</p>
-          <p class="text-center">Use this coupon code to unlock a 25% discount on your subscription.</p>
+            UNI20</p>
+          <p class="text-center">Use this coupon code to unlock a 20% discount on your subscription.</p>
         </div>
       </div>
     </div>

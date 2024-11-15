@@ -97,7 +97,7 @@
               <h5 class="mb-0" tooltipPosition="top" pTooltip="UNISCHOLAR">UNISCHOLAR <i class="questiontooltip fa-solid fa-circle-question"></i></h5>
             </div>
             <div>
-              <button class="how-it-works-button" (click)="openHowItWorksVideoPopup('https://www.youtube.com/embed/1hu392igtcw?si=C82kgpEBX_PbM0aJ')">How it works?<i class="fa-solid fa-play d-md-block d-none"></i></button>
+              <button class="how-it-works-button" (click)="openHowItWorksVideoPopup('https://www.youtube.com/embed/5B7AeCCKCKw?si=uUXSoWHIsi3fxJH2')">How it works?<i class="fa-solid fa-play d-md-block d-none"></i></button>
             </div>
           </div>
           <span class="d-flex justify-content-end gap-2">
@@ -215,10 +215,10 @@
       <div class="row">
         <div class="col-md-3">&nbsp;</div>
         <div class="col-md-6">
-          <p-paginator *ngIf="totalScholarShipCount != 0" [rows]="pageSize" [totalRecords]="totalScholarShipCount" (onPageChange)="pageChange($event)" [rowsPerPageOptions]="[25, 50, 100, 300, 500, 1000]"></p-paginator>
+          <p-paginator *ngIf="totalScholarShipCount != 0" [rows]="pageSize" [totalRecords]="totalScholarShipCount" (onPageChange)="pageChange($event)" [rowsPerPageOptions]="[100, 300, 500, 1000]"></p-paginator>
         </div>
         <div class="col-md-3 text-end">
-          <button pButton type="button" class="btn btn-quit btn-rounded" (click)="resetRecommendation()">
+          <button pButton type="button" class="btn ps-3 btn-quit btn-rounded" (click)="resetRecommendation()">
             Reset Recommendations<span class="btn-icon"><i class="fa-solid fa-arrow-rotate-right"></i> </span>
           </button>
         </div>

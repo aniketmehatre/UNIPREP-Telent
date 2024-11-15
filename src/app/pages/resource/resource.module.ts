@@ -9,6 +9,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { DropdownModule } from 'primeng/dropdown';
 import { MultiSelectModule } from 'primeng/multiselect';
 import { DialogModule } from 'primeng/dialog';
+import { SkeletonModule } from 'primeng/skeleton';
 
 
 @NgModule({
@@ -24,7 +25,8 @@ import { DialogModule } from 'primeng/dialog';
         DropdownModule,
         TooltipModule,
         MultiSelectModule,
-        DialogModule
+        DialogModule,
+        SkeletonModule
     ]
 })
 export class ResourceModule {

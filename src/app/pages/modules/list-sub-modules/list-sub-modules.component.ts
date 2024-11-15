@@ -63,6 +63,7 @@ export class ListSubModulesComponent implements OnInit {
     imagewhitlabeldomainname: any
     orgnamewhitlabel: any;
     orglogowhitelabel: any;
+    learningModuleHeading: string = "";
 
     constructor(private moduleListService: ModuleServiceService, private router: Router, private dataService: DataService, private authService: AuthService,
                 private locationService: LocationService, private route: ActivatedRoute, private ngxService: NgxUiLoaderService,
@@ -513,6 +514,7 @@ export class ListSubModulesComponent implements OnInit {
         //   this.restrict=true;
         //   return;
         // }
+
         if (this.currentModuleId == 14) {
             if (submodule.submodule_name) {
                 this.currentModuleSlug = "k12-category"
@@ -537,6 +539,7 @@ export class ListSubModulesComponent implements OnInit {
                 moduleId: this.currentModuleId,
                 category_id: this.subModuleList.find(list => list.submodule_id == id)?.category_id
             }
+            localStorage.setItem('learningHubMainModuleName', submodule.category)
             this.isSkeletonVisible = true;
             this.locationService.GetQuestionsCount(data).subscribe(data => {
                 this.isSkeletonVisible = false;
@@ -545,6 +548,7 @@ export class ListSubModulesComponent implements OnInit {
             this.canShowQuestionList = true;
             return;
         }
+        this.learningModuleHeading = submodule.submodule_name
         this.subModuleList.forEach((element: any) => {
             if (element.id === id) {
                 this.selectedSubModule = element.country;

@@ -14,7 +14,6 @@ export class QuizTestListComponent implements OnInit {
   subModuleId: string = '';
   moduleId: string = '';
   count: number = 0;
-
   constructor(
     private testQuizService: TestQuizService,
     private activatedRoute: ActivatedRoute
@@ -22,6 +21,7 @@ export class QuizTestListComponent implements OnInit {
 
   ngOnInit(): void {
     this.activatedRoute.params.subscribe((params: Params) => {
+      localStorage.setItem("employerName", "");
       this.currentModule = params['name'];
       this.subModuleId = params['id'];
       this.quizlistData();

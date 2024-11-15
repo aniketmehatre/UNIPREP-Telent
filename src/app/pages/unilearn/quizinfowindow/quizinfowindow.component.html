@@ -8,22 +8,27 @@
           </div>
           <div class="select-title d-flex justify-content-between align-items-center">
             <div>
-              <h5 class="mb-0" tooltipPosition="top" pTooltip="Prepare for standardized tests and improve academic skills with practice tests and learning modules.">
+              <h5 class="mb-0" tooltipPosition="top"
+                pTooltip="Prepare for standardized tests and improve academic skills with practice tests and learning modules.">
                 {{ selected_module | uppercase }}
                 <i class="questiontooltip fa-solid fa-circle-question"></i>
               </h5>
             </div>
             <div>
-              <button class="how-it-works-button" (click)="openVideoPopup('https://www.youtube.com/embed/4evbW8B-z_M?si=alycFSacGOFGuZ9F')">How it works?<i class="fa-solid fa-play d-md-block d-none"></i></button>
+              <button class="how-it-works-button"
+                (click)="openVideoPopup('https://www.youtube.com/embed/4evbW8B-z_M?si=alycFSacGOFGuZ9F')">How it
+                works?<i class="fa-solid fa-play d-md-block d-none"></i></button>
             </div>
           </div>
         </div>
-        <div class="col-md-12 mt-2"><h5 class="bold">{{ totalquestion }}/{{ totalquestion }} Questions Left</h5></div>
+        <div class="col-md-12 mt-2">
+          <h5 class="bold">{{ totalquestion }}/{{ totalquestion }} Questions Left</h5>
+        </div>
       </div>
     </div>
     <div class="card-body flex-fill overflow-y-auto">
       <div class="row mt-4">
-        <div class="col-md-12 text-start">
+        <div class="col-md-12 text-start" *ngIf="normalquizinstruction">
           <ul class="font-secondarycolor fw-medium lh-lg instructionlist">
             <li>You can not skip any question / All question are mandatory to answer.</li>
             <li>You can not access the other screens while taking the quiz.</li>
@@ -31,6 +36,108 @@
             <li>Restart - will display new set of questions.</li>
             <li>You will get a certificate for completing all the quiz modules.</li>
             <li>Buffer? To qualify for the quiz you need to get 90% correct.</li>
+          </ul>
+        </div>
+        <div class="col-md-12 text-start" *ngIf="ieltsacademiclisteningquizinstructionshow">
+          <p><b>Welcome to the Quiz on the Listening module! Please follow these instructions carefully to ensure a
+              smooth quiz experience:</b></p>
+          <ul class="font-secondarycolor fw-medium lh-md instructionlist mt-4">
+            <li>The total duration of the quiz is 10 minutes.</li>
+            <li>The audio will be played only once and cannot be replayed.</li>
+            <li>You must answer all questions; skipping questions is not allowed.</li>
+            <li>Access to other screens or applications is not permitted during the quiz to maintain focus and
+              integrity.</li>
+            <li>Review all your answers before submitting the quiz.</li>
+            <li>Once you begin, you cannot save your progress to submit later. Make sure you are prepared to complete
+              the quiz in one sitting.</li>
+          </ul>
+        </div>
+        <div class="col-md-12 text-start" *ngIf="ieltsacademicreadingquizinstructionshow">
+          <p><b>Welcome to the Quiz on Reading Module! Please follow these instructions carefully to ensure a smooth
+              quiz experience:</b></p>
+          <ul class="font-secondarycolor fw-medium lh-md instructionlist mt-4">
+            <li>The total duration of the quiz is 15 minutes.</li>
+            <li>Read the text carefully and answer the questions based on the information provided.</li>
+            <li>You must answer all questions; skipping questions is not allowed.</li>
+            <li>Access to other screens or applications is not permitted during the quiz to maintain focus and
+              integrity.</li>
+            <li>Review all your answers before submitting the quiz. </li>
+            <li>Once you begin, you cannot save your progress to submit later. Make sure you are prepared to complete
+              the quiz in one sitting.</li>
+          </ul>
+        </div>
+        <div class="col-md-12 text-start" *ngIf="ieltsacademicwritingquizinstructionshow">
+          <p><b>Welcome to the Quiz on Writing module! Please follow these instructions carefully to ensure a smooth
+              quiz experience:</b></p>
+          <ul class="font-secondarycolor fw-medium lh-md instructionlist mt-4">
+            <li>The total duration of the quiz is 30 minutes.</li>
+            <li>You must answer all questions; skipping questions is not allowed.
+            </li>
+            <li>Access to other screens or applications is not permitted during the quiz to maintain focus and
+              integrity.
+            </li>
+            <li>Review all your answers before submitting the quiz.
+            </li>
+            <li>Once you begin, you cannot save your progress to submit later. Make sure you are prepared to complete
+              the quiz in one sitting.</li>
+          </ul>
+        </div>
+        <div class="col-md-12 text-start" *ngIf="ieltsacademicspeakingquizinstructionshow">
+          <p><b>Welcome to the Quiz on Speaking Module! Please follow these instructions carefully to ensure a smooth
+              quiz experience:</b></p>
+          <ul class="font-secondarycolor fw-medium lh-md instructionlist mt-4">
+            <li>The total duration of the quiz is 15 minutes.</li>
+            <li>The questions will be displayed on the screen, you have to record your answer by clicking on the
+              microphone button. </li>
+            <li>Speak clearly and directly in response to each question.</li>
+            <li>You must answer all questions; skipping questions is not allowed.</li>
+            <li>Access to other screens or applications is not permitted during the quiz to maintain focus and
+              integrity.</li>
+            <li>Review all your answers before submitting the quiz. </li>
+            <li>Once you begin, you cannot save your progress to submit later. Make sure you are prepared to complete
+              the quiz in one sitting.</li>
+          </ul>
+        </div>
+        <!-- Gre -->
+        <div class="col-md-12 text-start" *ngIf="greverbalreasoningisshow">
+          <p><b>Welcome to the Quiz on Verbal Reasoning! Please follow these instructions carefully to ensure a smooth
+              quiz experience:</b></p>
+          <ul class="font-secondarycolor fw-medium lh-md instructionlist mt-4">
+            <li>The total duration of the quiz is 20 minutes.</li>
+            <li>You must answer all questions; skipping questions is not allowed.</li>
+            <li>Access to other screens or applications is not permitted during the quiz to maintain focus and
+              integrity.</li>
+            <li>Review your answers before submitting the quiz. </li>
+            <li>Once you begin, you cannot save your progress to submit later. Make sure you are prepared to complete
+              the quiz in one sitting.</li>
+          </ul>
+        </div>
+        <div class="col-md-12 text-start" *ngIf="grequantativeisshow">
+          <p><b>Welcome to the Quiz on Quantitative Reasoning! Please follow these instructions carefully to ensure a smooth
+              quiz experience:</b></p>
+          <ul class="font-secondarycolor fw-medium lh-md instructionlist mt-4">
+            <li>The total duration of the quiz is 20 minutes.</li>
+            <li>Ensure you understand each problem and apply the appropriate mathematical concepts and techniques.</li>
+            <li>You must answer all questions; skipping questions is not allowed.</li>
+            <li>Access to other screens or applications is not permitted during the quiz to maintain focus and
+              integrity.</li>
+            <li>Review all your answers before submitting the quiz.</li>
+            <li>Once you begin, you cannot save your progress to submit later. Make sure you are prepared to complete
+              the quiz in one sitting.</li>
+          </ul>
+        </div>
+        <div class="col-md-12 text-start" *ngIf="greanalyticalwriting">
+          <p><b>Welcome to the Quiz on Analytical Writing! Please follow these instructions carefully to ensure a smooth
+              quiz experience:</b></p>
+          <ul class="font-secondarycolor fw-medium lh-md instructionlist mt-4">
+            <li>The total duration of the quiz is 20 minutes.</li>
+            <li>Organize your thoughts to construct a coherent and persuasive argument.</li>
+            <li>Skipping questions is not allowed.</li>
+            <li>Access to other screens or applications is not permitted during the quiz to maintain focus and
+              integrity.</li>
+            <li>Review your answers before submitting the quiz. </li>
+            <li>Once you begin, you cannot save your progress to submit later. Make sure you are prepared to complete
+              the quiz in one sitting.</li>
           </ul>
         </div>
       </div>
@@ -53,5 +160,7 @@
   </div>
 </ng-container>
 <ng-container *ngIf="quizwindowvisibility">
-  <uni-quizwindow (visibilityChange)="visibilityChange($event)" [quizwindowvisibility]="quizwindowvisibility" [totalquestion]="totalquestion" [selected_module]="selected_module" [parentid]="parentid" [moduleid]="moduleid"></uni-quizwindow>
+  <uni-quizwindow (visibilityChange)="visibilityChange($event)" [quizwindowvisibility]="quizwindowvisibility"
+    [totalquestion]="totalquestion" [selected_module]="selected_module" [parentid]="parentid"
+    [moduleid]="moduleid"></uni-quizwindow>
 </ng-container>

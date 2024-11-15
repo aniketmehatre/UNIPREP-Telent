@@ -14,19 +14,19 @@ export class CareerCategoryListComponent implements OnInit {
   first: number = 1;
   page: number = 1;
   rows: number = 50;
-  moduleName: string = "pshychometric";
   count: number = 0;
-
-
 
   constructor(
     private testQuizService: TestQuizService,
     private router: Router,
     private activatedRoute: ActivatedRoute
-  ) { }
+  ) {
+    localStorage.setItem('MainTitleCareerTool', "");
+  }
 
   ngOnInit(): void {
     this.activatedRoute.params.subscribe((params: Params) => {
+        localStorage.setItem('MainTitleCareerTool', "");
       this.module_id = params['id'];
       this.getCategoryList();
     });
@@ -45,7 +45,7 @@ export class CareerCategoryListComponent implements OnInit {
       this.count = res.count;
     });
   }
-  navigate(category_id: number) {
+  navigate(category: any, category_id: number) {
     let moduleUrl = "";
     switch (this.module_id) {
       case '11':
@@ -58,6 +58,7 @@ export class CareerCategoryListComponent implements OnInit {
         moduleUrl = "employer-sub-test";
         break;
     }
+    localStorage.setItem('MainTitleCareerTool', category.category)
     if (this.module_id != '13') {
       this.router.navigate([`/pages/job-tool/quiz/${moduleUrl}/list`, category_id]);
     } else {

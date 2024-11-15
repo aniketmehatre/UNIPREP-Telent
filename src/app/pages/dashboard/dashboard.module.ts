@@ -17,6 +17,7 @@ import { TooltipModule } from 'primeng/tooltip';
 import { DialogModule } from 'primeng/dialog';
 import { DropdownModule } from 'primeng/dropdown';
 import { OverlayPanelModule } from 'primeng/overlaypanel';
+import { SkeletonModule } from 'primeng/skeleton';
 
 @NgModule({
     declarations: [DashboardComponent],
@@ -36,7 +37,8 @@ import { OverlayPanelModule } from 'primeng/overlaypanel';
         TooltipModule,
         DialogModule,
         DropdownModule,
-        OverlayPanelModule
+        OverlayPanelModule,
+        SkeletonModule,
     ],
 })
 export class DashboardModule {
