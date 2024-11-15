@@ -39,7 +39,7 @@ export class ResourceComponent implements OnInit {
   resources: any = [];
   resourceslist: any = [];
   selectedCountryId: any;
-  loopRange = Array.from({length: 16}).fill(0).map((_, index) => index);
+  loopRange = Array.from({length: 20}).fill(0).map((_, index) => index);
 
   ngOnInit(): void {
     this.locationService.getCountry().subscribe((response) => {
