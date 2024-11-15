@@ -263,7 +263,7 @@ export class SidenavComponent {
   ];
   sampleMenus: SideMenu[] = [];
   k10RestrictedMenus: string[] = [
-    'Career Tools', 'Career Hub', 'Job Portal', 'Learning Hub', 'Skill Mastery', 'Startup Kit', 'Founders Tool', 'Pitch Deck', 'Career', 'Entrepreneur'
+    'Career Tools','Recommendations', 'Career Hub', 'Job Portal', 'Learning Hub', 'Skill Mastery', 'Startup Kit', 'Founders Tool', 'Pitch Deck', 'Career', 'Entrepreneur'
   ]
   HigherEduRestritedMenus: string[] = [
     'K12 Academy', 'K12 Academic Tools'
