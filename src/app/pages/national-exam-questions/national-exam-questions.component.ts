@@ -117,6 +117,10 @@ export class NationalExamQuestionsComponent implements OnInit {
     }
   }
 
+  goToCats(){
+    this.router.navigate(['/pages/national-exams'])
+  }
+
 
 
 }

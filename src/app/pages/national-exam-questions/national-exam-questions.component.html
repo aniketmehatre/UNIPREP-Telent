@@ -4,7 +4,7 @@
       <div class="card h-100 justify-content-between">
         <div class="card-header d-flex justify-content-between mt-4" style="background-color: #fafafa; border-bottom: 0px solid #fafafa">
           <h5>{{10 - this.page}}/10 Question Left</h5>
-          <a class="btn btn-danger">Quit</a>
+          <a class="btn btn-danger" (click)="goToCats()">Quit</a>
         </div>
         <div class="card-body flex-grow-1">
           <small class="font-semibold" style="color: #394d83; font-weight: 600">Question Number {{ this.page + 1 }}</small>
