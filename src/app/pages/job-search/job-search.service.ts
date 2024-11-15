@@ -9,8 +9,10 @@ import {City} from "../../@Models/cost-of-living";
 })
 export class JobSearchService {
     private apiUrl = 'https://api.adzuna.com/v1/api/jobs';
-    private appId = '5be5ff77'; // Replace with your App ID
-    private appKey = '8c20f3e26f4df3630e037182b7b31f42'; // Replace with your App Key
+    // private appId = '5be5ff77'; // Replace with your App ID
+    private appId = 'a8a39ac6'; // Replace with your App ID
+    // private appKey = '8c20f3e26f4df3630e037182b7b31f42'; // Replace with your App Key
+    private appKey = '967203c112a304d11d55efad698fad74'; // Replace with your App Key
 
     constructor(private http: HttpClient) {
     }
