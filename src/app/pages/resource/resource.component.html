@@ -22,7 +22,32 @@
 	<div class="card-body text-center flex-fill overflow-y-auto">
 		<div class="container-fluid">
 			<div class="row">
-				<div *ngFor="let resource of resourceslist" class="col-md-3 col-12 mt-3">
+				<div class="col-md-12 h-100 overflow-hidden" *ngIf="showSkeleton">
+					<div class="row">
+						<div *ngFor="let index of loopRange" class="col-md-3 col-sm-4 col-xs-12 col-12">
+							<div class="card mb-3">
+								<div class="card-body">
+									<div class="row justify-content-center align-items-center">
+										<div class="col-3">
+											<p-skeleton height="60px"></p-skeleton>
+										</div>
+										<div class="col-9">
+											<p-skeleton width="50%" styleClass="mb-2"></p-skeleton>
+											<p-skeleton width="100%" styleClass="mb-1"></p-skeleton>
+											<p-skeleton width="100%" styleClass="mb-2"></p-skeleton>
+											<div class="d-flex gap-2">
+												<p-skeleton shape="circle" size="2rem" styleClass="mr-2"></p-skeleton>
+												<p-skeleton shape="circle" size="2rem" styleClass="mr-2"></p-skeleton>
+												<p-skeleton shape="circle" size="2rem" styleClass="mr-2"></p-skeleton>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div *ngFor="let resource of resourceslist" class="col-md-3 col-12 mb-3">
 					<div class="card resourcecard justify-content-center text-black h-100" (click)="canSeeResources()">
 						<div class="card-body">
 							<div class="h-100" id="resourceLink" *ngIf="planExpired">
@@ -123,10 +148,9 @@
 							</div>
 						</div>
 					</div>
-          <div class="mt-2 text-end">
-            <button type="submit" class="btn btn-primary">Apply Filter</button>
-          </div>
-						
+					<div class="mt-2 text-end">
+						<button type="submit" class="btn btn-primary">Apply Filter</button>
+					</div>
 				</div>
 			</div>
 		</form>
