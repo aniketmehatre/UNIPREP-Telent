@@ -25,6 +25,14 @@ export class ScholarshipListService {
       headers: headers, params: params
     });
   }
+
+  getScholarCountry(){
+    const headers = new HttpHeaders().set("Accept", "application/json");
+    return this.http.get<any>(environment.ApiUrl + "/scholarCountry", {
+      headers: headers
+    });
+  }
+
   getScholarshipType() {
     const headers = new HttpHeaders().set("Accept", "application/json");
     return this.http.get<any>(environment.ApiUrl + "/getscholarshiptype", { headers: headers });
