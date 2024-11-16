@@ -5,6 +5,7 @@ import {environment} from "@env/environment.prod";
 import {LanguageHubDataService} from "../language-hub-data.service";
 import {Location} from "@angular/common";
 import { PageFacadeService } from '../../page-facade.service';
+import {LanguageArrayGlobalService} from "../language-array-global.service";
 
 @Component({
     selector: 'uni-levels',
@@ -19,7 +20,8 @@ export class LevelsComponent implements OnInit {
     selectedLanguageName: string =  "";
     
     constructor(private languageHubService: LanguageHubService, private lhs:LanguageHubDataService, private router: Router,
-                private location: Location, private pageFacade:PageFacadeService) {
+                private location: Location, private pageFacade:PageFacadeService,
+                private languageArrayGlobalService: LanguageArrayGlobalService) {
         this.lhs.data$.subscribe((data) => {
             this.selectedLanguageId = data
         });
@@ -38,11 +40,17 @@ export class LevelsComponent implements OnInit {
         });
     }
 
+    getFormattedValues(): string {
+        return this.languageArrayGlobalService.getItems().join(' -> ');
+    }
+
     goToHome(event: any) {
+        this.languageArrayGlobalService.removeItem(this.languageArrayGlobalService.getItems().length - 1);
         this.location.back();
     }
 
     onLanguageTypeClick(languageTypeId: any, sub: any) {
+        this.languageArrayGlobalService.addItem(sub.type)
         this.lhs.setDataLanguageTypeName(sub.type)
         this.lhs.setDataLanguageType(languageTypeId)
         this.router.navigate([`/pages/language-hub/category`]);
