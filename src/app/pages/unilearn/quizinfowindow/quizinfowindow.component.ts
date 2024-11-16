@@ -43,7 +43,6 @@ export class QuizinfowindowComponent implements OnInit {
     this.learnService.getQuizInstruction(data).subscribe((data:any)=>{
       this.quizinstruction=JSON.parse(data.instructions);
       this.quizinstructionname=data.naming
-      console.log(this.quizinstruction);
     })
     // console.log(this.moduleid);
     // console.log(this.parentid);
