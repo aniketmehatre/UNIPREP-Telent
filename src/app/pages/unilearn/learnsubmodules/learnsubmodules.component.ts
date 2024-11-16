@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
+import {ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output} from "@angular/core";
 import { PageFacadeService } from "../../page-facade.service";
 import {
   learnModules,
@@ -6,7 +6,9 @@ import {
   submoduledata,
 } from "../unilearn.model";
 import { UniLearnService } from "../unilearn.service";
-import { Router } from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
+import {ArrayHeaderService} from "../array-header.service";
+import { Location } from '@angular/common';
 
 @Component({
   selector: "uni-learnsubmodules",
@@ -22,9 +24,15 @@ export class LearnsubModulesComponent implements OnInit {
   submoduleList: any;
   constructor(
     private pageFacade: PageFacadeService,
-    private router: Router,
-    private learnService: UniLearnService
-  ) {}
+    private router: Router, private arrayHeaderService: ArrayHeaderService,
+    private learnService: UniLearnService, private route: ActivatedRoute, private cdRef: ChangeDetectorRef
+  ) {
+    // this.route.params.subscribe(() => {
+    //   console.log('asfdasdf', this.arrayHeaderService.getItems().length)
+    //
+    //   this.cdRef.detectChanges();
+    // });
+  }
   loopRange = Array.from({ length: 30 })
     .fill(0)
     .map((_, index) => index);
@@ -32,6 +40,10 @@ export class LearnsubModulesComponent implements OnInit {
   ngOnInit(): void {
     this.paramData = { parent_id: this.parentid, module_id: this.moduleid };
     this.getModules();
+
+  }
+  getFormattedValues(): string {
+    return this.arrayHeaderService.getItems().join(' -> ');
   }
   getModules() {
     this.learnService
@@ -50,6 +62,7 @@ export class LearnsubModulesComponent implements OnInit {
   pdfvisibility = false;
   onModuleClick(moduledata: submoduledata) {
     if (moduledata.isTestmodule == 1) {
+      this.arrayHeaderService.addItem(moduledata.submodule_name)
       this.moduleChange.emit({
         parent_id: moduledata.id,
         module_id: moduledata.module_id,
@@ -59,6 +72,7 @@ export class LearnsubModulesComponent implements OnInit {
       });
       return;
     }
+    this.arrayHeaderService.addItem(moduledata.submodule_name)
     this.paramData.parent_id = moduledata.id;
     this.paramData.module_id = moduledata.module_id;
     this.selected_module = moduledata.submodule_name;
@@ -85,6 +99,8 @@ export class LearnsubModulesComponent implements OnInit {
     }
   }
   backtoMain() {
+    this.arrayHeaderService.removeItem(this.arrayHeaderService.getItems().length - 1);
+    this.getFormattedValues();
     if (this.pdfvisibility) {
       this.pdfvisibility = false;
       return;
