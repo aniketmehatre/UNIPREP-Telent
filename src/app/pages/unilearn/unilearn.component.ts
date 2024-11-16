@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from "@angular/core";
+import {ArrayHeaderService} from "./array-header.service";
 
 @Component({
   selector: "uni-learn",
@@ -6,7 +7,7 @@ import { Component, Input, OnInit } from "@angular/core";
   styleUrls: ["./unilearn.component.scss"],
 })
 export class UniLearnComponent implements OnInit {
-  constructor() {}
+  constructor(private arrayHeaderService: ArrayHeaderService) {}
   stage = 1;
   @Input() parentid:number;
   @Input() moduleid:number;  
@@ -16,7 +17,8 @@ export class UniLearnComponent implements OnInit {
   ngOnInit(): void {
   }
   moduleChange(data: any) {
-    if(data.isfromquizinfo){
+    // this.arrayHeaderService.addItem(data.selected_module)
+    if (data.isfromquizinfo){
       this._contentalignment=true;
     }
     else{

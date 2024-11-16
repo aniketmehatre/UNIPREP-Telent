@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
 import { PageFacadeService } from "../../page-facade.service";
 import { learnModules } from "../unilearn.model";
 import { UniLearnService } from "../unilearn.service";
+import {ArrayHeaderService} from "../array-header.service";
 
 @Component({
   selector: "uni-learnmodules",
@@ -11,7 +12,7 @@ import { UniLearnService } from "../unilearn.service";
 export class LearnModulesComponent implements OnInit {
   constructor(
     private pageFacade: PageFacadeService,
-    private learnService: UniLearnService
+    private learnService: UniLearnService, private arrayHeaderService: ArrayHeaderService
   ) {}
   @Input() parentid:number;
   @Input() moduleid:number;
@@ -25,6 +26,7 @@ export class LearnModulesComponent implements OnInit {
 
   ngOnInit(): void {
     this.init();
+    this.arrayHeaderService.clearAll()
   }
   init() {
     this.learnService.getLearnModules().subscribe((res: learnModules) => {
@@ -36,6 +38,7 @@ export class LearnModulesComponent implements OnInit {
     this.pageFacade.openHowitWorksVideoPopup(videoLink);
   }
   onModuleClick(moduledata: learnModules) {
+    this.arrayHeaderService.addItem(moduledata.module_name)
     this.parentid = 0;
     this.moduleid = moduledata.id;
     localStorage.setItem("module_id",String(moduledata.id))

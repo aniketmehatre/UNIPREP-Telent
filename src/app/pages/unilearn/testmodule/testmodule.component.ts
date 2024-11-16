@@ -6,7 +6,8 @@ import {
   submoduledata,
 } from "../unilearn.model";
 import { UniLearnService } from "../unilearn.service";
-import { Router } from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
+import {ArrayHeaderService} from "../array-header.service";
 
 @Component({
   selector: "uni-testmodule",
@@ -24,8 +25,8 @@ export class TestModulesComponent implements OnInit {
   submoduleList: any;
   constructor(
     private pageFacade: PageFacadeService,
-    private router: Router,
-    private learnService: UniLearnService
+    private router: Router, private arrayHeaderService: ArrayHeaderService,
+    private learnService: UniLearnService,  private route: ActivatedRoute,
   ) {}
   loopRange = Array.from({ length: 30 })
     .fill(0)
@@ -35,6 +36,13 @@ export class TestModulesComponent implements OnInit {
     this.paramData = { parent_id: this.parentid, module_id: this.moduleid };
     this.contentalignment=this._contentalignment;
     this.getModules();
+    this.route.params.subscribe(() => {
+      this.arrayHeaderService.removeItem(1);
+    });
+  }
+
+  getFormattedValues(): string {
+    return this.arrayHeaderService.getItems().join(' -> ');
   }
   avgtotalQuestions = 0;
   avgtotalAnswers = 0;
@@ -54,6 +62,7 @@ export class TestModulesComponent implements OnInit {
   }
   contentalignment = false;
   onModuleClick(moduledata: submoduledata) {
+    this.arrayHeaderService.addItem(moduledata.submodule_name)
     this.paramData.parent_id = moduledata.id;
     this.paramData.module_id = moduledata.module_id;
     this.selected_module = moduledata.submodule_name;
@@ -78,6 +87,8 @@ export class TestModulesComponent implements OnInit {
     }
   }
   backtoMain() {
+    //this.arrayHeaderService.removeItem(this.arrayHeaderService.getItems().length - 1);
+    this.getFormattedValues();
     const hasFileType4 = this.submoduleList.some(
       (data: any) => data.file_type === 4
     );
