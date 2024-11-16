@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
-import {Router} from "@angular/router";
+import {ActivatedRoute, Params, Router} from "@angular/router";
 import {DataService} from 'src/app/data.service';
 import {MessageService} from "primeng/api";
 import {City} from "../../../@Models/cost-of-living";
@@ -48,6 +48,7 @@ export class JobHuntComponent implements OnInit {
       countryCode: new FormControl('', Validators.required),
       what_and: new FormControl(''),
     });
+
   }
 
   ngOnInit(): void {

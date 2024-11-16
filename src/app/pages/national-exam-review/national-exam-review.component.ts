@@ -48,6 +48,7 @@ export class NationalExamReviewComponent implements OnInit {
       this.selectedValue = this.questions[this.page].selected_option;
       this.answerReason = this.questions[this.page].ans_reason;
       this.answer = this.questions[this.page].ans_option
+      this.progressvalue = this.page*10;
       // alert(this.activeQuestionId);
     });   
   }
@@ -85,6 +86,14 @@ export class NationalExamReviewComponent implements OnInit {
       this.selectedValue = this.questions[this.page].selected_option;
       this.answerReason = this.questions[this.page].ans_reason;
     }
+  }
+
+  goToResult(){
+    this.router.navigate(['/pages/national-exams/result/'+this.questions[0].result_id]);
+  }
+
+  goToCats(){
+    this.router.navigate(['/pages/national-exams']);
   }
 
 
