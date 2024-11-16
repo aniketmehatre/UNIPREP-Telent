@@ -32,6 +32,7 @@ export class QuizinfowindowComponent implements OnInit {
   greverbalreasoningisshow:boolean=false;
   grequantativeisshow:boolean=false;
   greanalyticalwriting:boolean=false;
+  instructionlist:any[]=[];
   constructor(
     private pageFacade: PageFacadeService,
     private router: Router,
@@ -41,6 +42,12 @@ export class QuizinfowindowComponent implements OnInit {
   paramData: any;
   ngOnInit(): void {
     this.parantfolderId=Number(localStorage.getItem("parent_folderid"))
+    var data={
+      id:this.parentid
+    }
+    this.learnService.getQuizInstruction(data).subscribe((data:any)=>{
+
+    })
     // condition for quiz intruction all modules 
     if(this.moduleid==1){
       if(this.parantfolderId==1378){
