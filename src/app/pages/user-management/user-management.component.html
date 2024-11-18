@@ -144,7 +144,7 @@
                                             <input class="border-0" formControlName="name" pInputText type="text" />
                                         </div>
                                         <div *ngIf="submitted && f['name']['errors']" class="UserInfoValidation">
-                                            <div *ngIf="f['name']['errors']['required']">First Name is required</div>
+                                            <div style="color: red;" *ngIf="f['name']['errors']['required']">First Name is required</div>
                                         </div>
                                     </div>
                                     <div class="col-md-4 p-2">
@@ -162,7 +162,7 @@
                                         </div>
                                         <div *ngIf="submitted && f['home_country']['errors']"
                                             class="UserInfoValidation">
-                                            <div *ngIf="f['home_country']['errors']['required']">Country is required
+                                            <div style="color: red;" *ngIf="f['home_country']['errors']['required']">Country is required
                                             </div>
                                         </div>
                                     </div>
@@ -180,7 +180,7 @@
                                             </p-dropdown>
                                         </div>
                                         <div *ngIf="submitted && f['location_id']['errors']" class="UserInfoValidation">
-                                            <div *ngIf="f['location_id']['errors']['required']">Location is required
+                                            <div style="color: red;" *ngIf="f['location_id']['errors']['required']">Location is required
                                             </div>
                                         </div>
                                     </div>
@@ -282,7 +282,7 @@
                                                 [readonly]="this.PersonalInfo?.phone" />
                                         </div>
                                         <div *ngIf="submitted && f['phone']['errors']" class="UserInfoValidation">
-                                            <div *ngIf="f['phone']['errors']['required']">Phone Number is required</div>
+                                            <div style="color: red;" *ngIf="f['phone']['errors']['required']">Phone Number is required</div>
                                         </div>
                                     </div>
                                 </div>
