@@ -57,6 +57,7 @@ export class CoverLetterBuilderComponent implements OnInit {
   previewImage: string = "";
   coverHistories: any = [];
   loadingResumes: boolean = true;
+  currentDate: Date = new Date();
   resumeSlider: any = [
     {
       id: 1,
@@ -153,7 +154,7 @@ export class CoverLetterBuilderComponent implements OnInit {
   pdfViewLoader() {
     setTimeout(() => {
       this.loadingResumes = false;
-    }, 3500);
+    }, 2500);
   }
 
   ngOnInit(): void {
