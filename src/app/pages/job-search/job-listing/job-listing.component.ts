@@ -33,6 +33,7 @@ export class JobListingComponent implements OnInit {
     countryCodes: any
     categoryList: any
     selectedCountry: any
+    isShowNoResultFound: any
     filteredCity: any = [];
     jobTitle: any = [];
     filterJobTitle: any[] = [];
@@ -264,6 +265,7 @@ export class JobListingComponent implements OnInit {
     }
 
     onSubmit() {
+        console.log('111')
         this.filterForm.setValue({
             what_and: this.fG.value.what_and,
             countryCode: this.fG.value.countryCode,
@@ -327,6 +329,7 @@ export class JobListingComponent implements OnInit {
     }
 
     onFilterSubmit() {
+        console.log('222')
         if (this.filterForm.valid) {
             let req = {
                 location: this.selectedCountryCode,
@@ -352,9 +355,14 @@ export class JobListingComponent implements OnInit {
             this.saveFilterData(formData)
             this.jobService.filter(req).subscribe(
                 (data: any) => {
-                    this.jobs = data.results
-                    this.count = data.count
-                    this.selectedFlag = filterCountryflag.flag;
+                    if(data.results.length == 0){
+                        this.isShowNoResultFound = true;
+                    }else{
+                        this.jobs = data.results
+                        this.count = data.count
+                        this.selectedFlag = filterCountryflag.flag;
+                        this.isShowNoResultFound = false;
+                    }
                 },
                 (error) => {
                     console.error('Error fetching job listings:', error);
