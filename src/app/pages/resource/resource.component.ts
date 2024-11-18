@@ -13,7 +13,7 @@ interface country {
   flag: string,
   status: number,
   created_at: string,
-  updated_at: string
+  updated_at: string,
 };
 @Component({
   selector: 'uni-resource',
@@ -26,6 +26,7 @@ export class ResourceComponent implements OnInit {
   countries: country[] = [];
   planExpired!: boolean;
   restrict: boolean = false;
+  showSkeleton: boolean = false;
 
   constructor(private fb: FormBuilder, private resourceService: ResourceService, private toast: MessageService,
               private locationService: LocationService,private authService: AuthService,private pageFacade:PageFacadeService,
@@ -38,6 +39,7 @@ export class ResourceComponent implements OnInit {
   resources: any = [];
   resourceslist: any = [];
   selectedCountryId: any;
+  loopRange = Array.from({length: 20}).fill(0).map((_, index) => index);
 
   ngOnInit(): void {
     this.locationService.getCountry().subscribe((response) => {
@@ -67,7 +69,9 @@ export class ResourceComponent implements OnInit {
       // });
       this.resourceslist = []
       this.resourceslist = response.resources
+      this.showSkeleton= false;
     });
+    this.showSkeleton= true;
   }
   getCountryName(flag: string): string {
     const countryNames = this.resourceslist.map((resource: { countryName: string; }) => resource.countryName.split(',')).flat();

@@ -4,6 +4,7 @@ import {Router} from "@angular/router";
 import {LanguageHubService} from "../language-hub.service";
 import {LanguageHubDataService} from "../language-hub-data.service";
 import { PageFacadeService } from '../../page-facade.service';
+import {LanguageArrayGlobalService} from "../language-array-global.service";
 
 @Component({
     selector: 'uni-language-list',
@@ -21,7 +22,7 @@ export class LanguageListComponent implements OnInit {
 
 
     constructor(private languageHubService: LanguageHubService,
-                private lhs:LanguageHubDataService,
+                private lhs:LanguageHubDataService, private languageArrayGlobalService: LanguageArrayGlobalService,
                 private router: Router, private pageFacade: PageFacadeService) {
     }
 
@@ -41,9 +42,11 @@ export class LanguageListComponent implements OnInit {
             this.languageList = _res.data
             this.totalQuestionCount = _res.count
         });
+        this.languageArrayGlobalService.clearAll()
     }
 
     onLanguageClick(data: any) {
+        this.languageArrayGlobalService.addItem(data.language)
         this.lhs.setDataLanguageName(data.language)
         this.lhs.setLanguageData(data.id)
         this.lhs.setLanguageCode(data.languagecode)

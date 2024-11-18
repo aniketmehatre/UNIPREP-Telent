@@ -5,7 +5,7 @@
         <h5 class="fw-bold">{{ totalquestion }}/{{ totalquestion }} Questions Left</h5>
       </div>
       <div class="col-md-8 col-8 text-center">
-        <h5 class="select-title mb-1">{{ selected_module | uppercase }}</h5>
+        <h5 class="select-title mb-1">{{ selected_module | uppercase }} sdf</h5>
       </div>
       <div class="col-md-2 col-2 text-end">
         <button class="btn btn-quit btn-rounded mt-2 px-2 py-2" (click)="btn_previousclick()">
@@ -64,6 +64,9 @@
                       <input  pInputText type="text" formControlName="answer" placeholder="Your answer here" class="form-control" />
                     </div>
                     <div *ngSwitchCase="'Summarize Chart/Diagram/Table'">
+                      <textarea formControlName="answer" placeholder="Summarize answer here" rows="15" class="form-control w-100"></textarea>
+                    </div>
+                    <div *ngSwitchCase="'Summarize Information'">
                       <textarea formControlName="answer" placeholder="Summarize answer here" rows="15" class="form-control w-100"></textarea>
                     </div>
                     <div *ngSwitchCase="'Q&A'">

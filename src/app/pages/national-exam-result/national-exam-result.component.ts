@@ -22,5 +22,17 @@ export class NationalExamResultComponent implements OnInit {
       this.results = response;
       // alert(this.activeQuestionId);
     });
+
+  }
+
+  goToReview(){
+  //  alert(this.route.snapshot.paramMap.get("resultid"));
+    this.router.navigate(['/pages/national-exams/review/'+this.route.snapshot.paramMap.get("resultid")])
+  }
+
+  goToCats(){
+    this.router.navigate(['/pages/national-exams'])
   }
 }
+
+

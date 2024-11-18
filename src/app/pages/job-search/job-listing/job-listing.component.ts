@@ -3,7 +3,7 @@ import {JobSearchService} from "../job-search.service";
 import {SalaryConverterService} from '../../job-tool/salary-converter/salary-converter.service';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {DataService} from 'src/app/data.service';
-import {Router} from "@angular/router";
+import {ActivatedRoute, Params, Router} from "@angular/router";
 import {MessageService} from "primeng/api";
 import {City} from "../../../@Models/cost-of-living";
 import {filter} from "rxjs";
@@ -56,7 +56,8 @@ export class JobListingComponent implements OnInit {
 
 
     constructor(private jobService: JobSearchService, private sConvert: SalaryConverterService,
-                private dataService: DataService, private router: Router, private toastr: MessageService
+                private dataService: DataService, private router: Router, private toastr: MessageService,
+                private activatedRoute: ActivatedRoute
     ) {
         this.countryCodes = [
             {"name": "Austria", "code": "at", "flag": "https://flagcdn.com/at.svg"},
@@ -109,24 +110,27 @@ export class JobListingComponent implements OnInit {
                 this.fetchCategoryData()
             }
         });
-        const filterData = this.getFilterData()
-        if (filterData) {
-            this.selectedCountryCode = filterData.country_name_code
-            this.selectedFlag = filterData.flag
-            this.fG.setValue({
-                countryCode: filterData.countryCode,
-                what_and: filterData.what_and,
-            })
-            this.whatAnd = filterData.what_and
-            this.filterForm.setValue({
-                what_and: filterData.what_and,
-                countryCode: filterData.countryCode,
-                category: '',
-                job_type: '',
-            });
-            this.onSubmit()
-            this.fetchCategoryData()
-        }
+
+        this.activatedRoute.params.subscribe((params: Params) => {
+            const filterData = this.getFilterData()
+            if (filterData) {
+                this.selectedCountryCode = filterData.country_name_code
+                this.selectedFlag = filterData.flag
+                this.fG.setValue({
+                    countryCode: filterData.countryCode,
+                    what_and: filterData.what_and,
+                })
+                this.whatAnd = filterData.what_and
+                this.filterForm.setValue({
+                    what_and: filterData.what_and,
+                    countryCode: filterData.countryCode,
+                    category: '',
+                    job_type: '',
+                });
+                this.onSubmit()
+                this.fetchCategoryData()
+            }
+        });
     }
 
     limit: number = 10;
