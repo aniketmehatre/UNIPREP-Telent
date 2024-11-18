@@ -6,6 +6,7 @@ import {LanguageHubDataService} from "../language-hub-data.service";
 import {MessageService} from 'primeng/api';
 import { PageFacadeService } from '../../page-facade.service';
 import { AuthService } from 'src/app/Auth/auth.service';
+import {LanguageArrayGlobalService} from "../language-array-global.service";
 
 @Component({
     selector: 'uni-category-list',
@@ -29,6 +30,7 @@ export class CategoryListComponent implements OnInit {
 
     constructor(private languageHubService: LanguageHubService, private lhs: LanguageHubDataService,
                 private router: Router, private toast: MessageService,
+                private languageArrayGlobalService: LanguageArrayGlobalService,
                 private location: Location, private pageFacade:PageFacadeService,private authService: AuthService) {
         this.lhs.data$.subscribe((data) => {
             this.selectedLanguageId = data
@@ -54,7 +56,13 @@ export class CategoryListComponent implements OnInit {
         this.checkplanExpire();
     }
 
+    getFormattedValues(): string {
+        return this.languageArrayGlobalService.getItems().join(' -> ');
+    }
+
+
     goToHome(event: any) {
+        this.languageArrayGlobalService.removeItem(this.languageArrayGlobalService.getItems().length - 1);
         this.location.back();
     }
 
@@ -79,6 +87,7 @@ export class CategoryListComponent implements OnInit {
     }
 
     onCategoryClick(categoryId: any, submoduleName: any) {
+        this.languageArrayGlobalService.addItem(submoduleName)
         localStorage.setItem("selectedSubmoduleName", submoduleName)
         this.router.navigate([`/pages/language-hub/question-list/${categoryId}`]);
     }

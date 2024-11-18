@@ -32,6 +32,12 @@ export class UniLearnService {
       headers: headers,
     });
   }
+  getQuizInstruction(paramData:any) {
+    const headers = new HttpHeaders().set("Accept", "application/json");
+    return this.http.post<Quizmodule>(environment.ApiUrl + "/getunilearnquizdetails",paramData, {
+      headers: headers,
+    });
+  }
   getunilearnquizdetails(formData:any) {
     const headers = new HttpHeaders().set("Accept", "application/json");
     return this.http.post<Quizmodule>(environment.ApiUrl + "/getunilearnquizdetails",formData, {

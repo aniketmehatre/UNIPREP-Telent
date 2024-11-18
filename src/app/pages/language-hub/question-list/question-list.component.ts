@@ -11,6 +11,7 @@ import {PageFacadeService} from '../../page-facade.service';
 import {ModuleServiceService} from "../../module-store/module-service.service";
 import {Observable} from "rxjs";
 import {ReadQuestion} from "../../../@Models/read-question.model";
+import {LanguageArrayGlobalService} from "../language-array-global.service";
 
 @Component({
     selector: 'uni-question-list',
@@ -579,6 +580,7 @@ export class QuestionListComponent implements OnInit {
                 private location: Location, private route: ActivatedRoute, private toast: MessageService,
                 private deviceService: DeviceDetectorService, private authService: AuthService,
                 private router: Router, private pageFacade: PageFacadeService,
+                private languageArrayGlobalService: LanguageArrayGlobalService,
                 private moduleListService: ModuleServiceService,) {
         this.lhs.data$.subscribe((data) => {
             this.selectedLanguageId = data
@@ -673,11 +675,16 @@ export class QuestionListComponent implements OnInit {
             });
     }
 
+    getFormattedValues(): string {
+        return this.languageArrayGlobalService.getItems().join(' -> ');
+    }
+
     goToBack(event: any) {
         this.isQuestionAnswerVisible = false;
     }
 
     goToHome(event: any) {
+        this.languageArrayGlobalService.removeItem(this.languageArrayGlobalService.getItems().length - 1);
         this.location.back();
 
     }
