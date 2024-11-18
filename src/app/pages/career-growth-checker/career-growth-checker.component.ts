@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CareerGrowthService } from './career-growth-checker.service';
 import { Router } from '@angular/router';
-import { debounceTime, switchMap, distinctUntilChanged, catchError } from 'rxjs/operators';
+import {debounceTime, switchMap, distinctUntilChanged, catchError, map} from 'rxjs/operators';
 import { Observable, of } from 'rxjs';
 import { FormBuilder, FormGroup } from "@angular/forms";
 
@@ -93,29 +93,58 @@ export class CareerGrowthCheckerComponent implements OnInit {
         desiredCountries.includes(country.country)
       );
     });
- 
-        this.checkForm.get('jobSearch')?.valueChanges.pipe(
-          debounceTime(300),
-          distinctUntilChanged(),
-          switchMap((value) => {
-            if (this.isSelecting) {
-              return [];
-            }
-            return this.fetchJobRoles(value);
-          })
-        ).subscribe(
-          (res: any) => {
-            if (res && res.data && Array.isArray(res.data)) {
-              this.filteredOptions = res.data;
-              this.hasFilteredOptions = this.filteredOptions.length > 0;
-            }
-          },
-          (err) => {
-            console.error('Error fetching job roles:', err);
-            this.filteredOptions = [];
-            this.hasFilteredOptions = false;
+
+    this.checkForm.get('jobSearch')?.valueChanges.pipe(
+        debounceTime(300),
+        distinctUntilChanged(),
+        switchMap((value: string) => {
+          if (this.isSelecting) {
+            return [];
           }
-        );
+
+          const query = value.toLowerCase().trim();
+
+          if (query && query.length > 3) {
+            return this.fetchJobRoles(query).pipe(
+                map((res: any) => {
+                  if (res && res.data && Array.isArray(res.data)) {
+                    // Filter and sort the job roles based on priority
+                    return res.data.sort((a: any, b: any) => {
+                      const aJob = a.jobrole.toLowerCase();
+                      const bJob = b.jobrole.toLowerCase();
+
+                      if (aJob === query && bJob !== query) {
+                        return -1; // Exact match for a
+                      } else if (aJob !== query && bJob === query) {
+                        return 1; // Exact match for b
+                      } else if (aJob.startsWith(query) && !bJob.startsWith(query)) {
+                        return -1; // a starts with query
+                      } else if (!aJob.startsWith(query) && bJob.startsWith(query)) {
+                        return 1; // b starts with query
+                      } else {
+                        return 0; // Keep original order
+                      }
+                    });
+                  }
+                  return [];
+                })
+            );
+          } else {
+            return [];
+          }
+        })
+    ).subscribe(
+        (filteredResults: any[]) => {
+          this.filteredOptions = filteredResults;
+          this.hasFilteredOptions = this.filteredOptions.length > 0;
+        },
+        (err) => {
+          console.error('Error fetching job roles:', err);
+          this.filteredOptions = [];
+          this.hasFilteredOptions = false;
+        }
+    );
+
   }
 
     fetchJobRoles(searchTerm: string): Observable<any[]> {

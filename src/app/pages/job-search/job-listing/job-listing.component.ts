@@ -199,14 +199,34 @@ export class JobListingComponent implements OnInit {
         this.filteredCity = [];
     }
 
-    searchJob(event: Event) :void{
+    searchJob(event: Event): void {
         const input = event.target as HTMLInputElement;
-        const query = input.value.toLowerCase();
-        if(query && query.length > 3){
-          const mockJobs = this.jobTitle;
-          this.filterJobTitle =  mockJobs.filter((job: any) => job.jobrole.toLowerCase().includes(query));
-        }else if(query.length < 1){
-          this.filterJobTitle = [];
+        const query = input.value.toLowerCase().trim();
+        if (query && query.length > 3) {
+            const mockJobs = this.jobTitle;
+
+            // Filter jobs that include the query
+            this.filterJobTitle = mockJobs.filter((job: any) => job.jobrole.toLowerCase().includes(query));
+
+            // Sort the filtered jobs to prioritize exact matches
+            this.filterJobTitle.sort((a: any, b: any) => {
+                const aJob = a.jobrole.toLowerCase();
+                const bJob = b.jobrole.toLowerCase();
+
+                if (aJob === query && bJob !== query) {
+                    return -1; // a comes first
+                } else if (aJob !== query && bJob === query) {
+                    return 1; // b comes first
+                } else if (aJob.startsWith(query) && !bJob.startsWith(query)) {
+                    return -1; // a comes first if it starts with the query
+                } else if (!aJob.startsWith(query) && bJob.startsWith(query)) {
+                    return 1; // b comes first if it starts with the query
+                } else {
+                    return 0; // Keep original order for other cases
+                }
+            });
+        } else if (query.length < 1) {
+            this.filterJobTitle = [];
         }
     }
     
