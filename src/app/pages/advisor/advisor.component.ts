@@ -23,6 +23,7 @@ userQuestion: any;
   responseType: string;
   askExpertResponse: number = 0;
   requestButton: string;
+  smallquestion: boolean = false;
 
   private scrollToBottom(): void {
       try {
@@ -55,7 +56,16 @@ userQuestion: any;
   }
   pquestion: any | null ;
 
+  lengthCheck(){
+    console.log(this.userQuestion.length);
+    if(this.userQuestion.length < 20 ){
+      this.smallquestion = true;
+    }else{
+      this.smallquestion = false;
+    }
+  }
   getAns(){
+
     if(this.askExpertResponse == 0){
     this.isQuestionAsked = true;
     this.showSkeleton= true;
@@ -116,6 +126,10 @@ userQuestion: any;
   }
 
   askExpert(){
+    // if(this.userQuestion.length < 20 ){
+    //   this.smallquestion = true;
+    //   return
+    // }
     //alert("Our team will get back to you shortly");
     if(this.askExpertResponse == 0){
     this.responseType = " Ask Expert";

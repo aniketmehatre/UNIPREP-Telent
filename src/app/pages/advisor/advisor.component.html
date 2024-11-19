@@ -142,7 +142,7 @@
 								<!-- <h5>{{chat.input}}</h5> -->
 								 <ul>
 									<div *ngFor="let msg of chat.formatedMsg; index as i">
-										<li class="pb-2" *ngIf="i != 0">{{msg}}</li>
+										<li class="pb-2" *ngIf="i != 0 ">{{msg}}</li>
 									</div>
 									
 								 </ul>
@@ -166,9 +166,10 @@
 		<div class="row justify-content-center">
 			<div class="col-md-12">
 				<div class="p-inputgroup advisorinput">
-					<input type="text" [(ngModel)]="userQuestion" pInputText placeholder="" />
-					<button type="button" (click)="getAns()" class="btn btn-success btn-rounded" pButton pRipple><i class="fa-solid fa-stars"></i> {{responseType}}</button>
+					<input type="text" [(ngModel)]="userQuestion" (keyup)="lengthCheck()" pInputText placeholder="Please ask your question regarding abrod education , carrer or entruprenurship " />
+					<button type="button"  (click)="getAns()" class="btn btn-success btn-rounded"  pButton pRipple [disabled]="smallquestion"><i class="fa-solid fa-stars"></i> {{responseType}}</button>
 				</div>
+				<!-- <small>Sorry, I didn't quite understand that. Could you please rephrase or provide more details so I can assist you better?</small> -->
 			</div>
 		</div>
 	</div>
