@@ -58,7 +58,7 @@ export class JobToolComponent implements OnInit {
       this.title = "Career Tools";
       this.tooltip = "Enhance your employability with tools to create resumes, cover letters, and prepare for interviews."
       this.hideTitleForPreviewPage = false;
-      // this.howItWorksVideo = 'https://www.youtube.com/embed/MLRlnXF4Zwg?si=y6g4u7JM4LQeuSS5';
+      this.howItWorksVideo = 'not_required';
     } else if (this.currentRoute.includes("cost-of-living")) {
       this.title = "Cost of living";
       this.tooltip = "Compare the cost of living across different cities and countries to plan your financial needs."
