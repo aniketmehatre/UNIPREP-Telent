@@ -468,6 +468,10 @@ export class CourseListComponent implements OnInit {
 
 
   getRecommendation(){
+    if (this.planExpired) {
+      this.restrict = true;
+      return;
+    }
     let keyMapping: any = {"1": "country","2": "subject","3": "study_level","4": "intake_months","5": "pre_requisite","6": "world_rank"};
   
     let newData = Object.fromEntries(Object.entries(this.selectedData).map(([key, value]) => {
