@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { CareerPlannerService } from './career-planner.service';
 import { PageFacadeService } from '../page-facade.service';
 import { AuthService } from 'src/app/Auth/auth.service';
+import { Router } from '@angular/router';
+import { LocationService } from 'src/app/location.service';
 
 interface Specialisation {
   id: number;
@@ -131,11 +133,24 @@ export class CareerPlannerComponent implements OnInit {
     'wrkExpSpecilisation': [],
   };
 
-  constructor(private careerPlannerService: CareerPlannerService, private pageFacade: PageFacadeService, private authService: AuthService) { }
+  constructor(private careerPlannerService: CareerPlannerService, private pageFacade: PageFacadeService, private authService: AuthService,
+    private router: Router,private locationService: LocationService) { }
 
   ngOnInit(): void {
     this.checkCareerPlanExist();
     this.checkplanExpire();
+    this.locationService.getImage().subscribe(imageUrl => {
+      this.orglogowhitelabel = imageUrl;
+    });
+    this.locationService.getOrgName().subscribe(orgname => {
+      this.orgnamewhitlabel = orgname;
+    });
+    this.imagewhitlabeldomainname = window.location.hostname;
+    if (this.imagewhitlabeldomainname === "dev-student.uniprep.ai" || this.imagewhitlabeldomainname === "uniprep.ai" || this.imagewhitlabeldomainname === "localhost") {
+      this.ehitlabelIsShow = true;
+    } else {
+      this.ehitlabelIsShow = false;
+    }
   }
 
   toggleClass(buttonName: string) {
@@ -347,17 +362,26 @@ export class CareerPlannerComponent implements OnInit {
     this.pageFacade.openHowitWorksVideoPopup(videoLink);
   }
 
+  ehitlabelIsShow: boolean = true;
+  imagewhitlabeldomainname: any;
+  orgnamewhitlabel: any;
+  orglogowhitelabel: any;
   checkplanExpire(): void {
     this.authService.getNewUserTimeLeft().subscribe((res) => {
       let data = res.time_left;
       let subscription_exists_status = res.subscription_details;
-      this.currentPlan = subscription_exists_status.subscription_plan;
-      if (data.plan === "expired" || data.plan === 'subscription_expired' || subscription_exists_status.subscription_plan === 'free_trail' || subscription_exists_status.subscription_plan === 'Student') {
+      if (data.plan === "expired" || data.plan === 'subscription_expired' || subscription_exists_status.subscription_plan=="Student") {
         this.planExpired = true;
       } else {
         this.planExpired = false;
       }
-    });
+    })
   }
 
+  upgradePlan(): void {
+    this.router.navigate(["/pages/subscriptions"]);
+  }
+  clearRestriction() {
+    this.restrict = false;
+  }
 }
