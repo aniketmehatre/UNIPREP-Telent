@@ -173,7 +173,7 @@ export class CoverLetterBuilderComponent implements OnInit {
       {label: 'Letter Area'}
     ];
 
-    this.checkPlanIsExpired()
+    this.checkplanExpire()
     this.hideHeader();
     this.locationService.getImage().subscribe(imageUrl => {
       this.orglogowhitelabel = imageUrl;
@@ -183,9 +183,9 @@ export class CoverLetterBuilderComponent implements OnInit {
     });
     this.imagewhitlabeldomainname = window.location.hostname;
     if (this.imagewhitlabeldomainname === "dev-student.uniprep.ai" || this.imagewhitlabeldomainname === "uniprep.ai" || this.imagewhitlabeldomainname === "localhost") {
-      this.ehitlabelIsShow = false;
-    } else {
       this.ehitlabelIsShow = true;
+    } else {
+      this.ehitlabelIsShow = false;
     }
   }
 
@@ -521,17 +521,17 @@ export class CoverLetterBuilderComponent implements OnInit {
   //   })
   // }
 
-  checkPlanIsExpired(): void {
+  checkplanExpire(): void {
     this.authService.getNewUserTimeLeft().subscribe((res) => {
       let data = res.time_left;
-      if (data.plan === "expired" || data.plan === 'subscription_expired') {
+      let subscription_exists_status = res.subscription_details;
+      if (data.plan === "expired" || data.plan === 'subscription_expired' || subscription_exists_status.subscription_plan=="Student") {
         this.planExpired = true;
       } else {
         this.planExpired = false;
       }
     })
   }
-
   upgradePlan(): void {
     this.router.navigate(["/pages/subscriptions"]);
   }
