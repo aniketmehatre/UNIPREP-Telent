@@ -54,7 +54,7 @@ export class CostOfLivingComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.checkPlanIsExpired()
+    this.checkplanExpire()
     this.getCurrencyConvertions('United States,India');
     this.locationService.getImage().subscribe((imageUrl: any) => {
       this.orglogowhitelabel = imageUrl;
@@ -64,9 +64,9 @@ export class CostOfLivingComponent implements OnInit {
     });
     this.imagewhitlabeldomainname = window.location.hostname;
     if (this.imagewhitlabeldomainname === "dev-student.uniprep.ai" || this.imagewhitlabeldomainname === "uniprep.ai" || this.imagewhitlabeldomainname === "localhost") {
-      this.ehitlabelIsShow = false;
-    } else {
       this.ehitlabelIsShow = true;
+    } else {
+      this.ehitlabelIsShow = false;
     }
     this.costOfLivingService.getCities().subscribe((res: City[]) => {
       this.cities = res;
@@ -161,10 +161,11 @@ export class CostOfLivingComponent implements OnInit {
     }
     this.targetCountry = cityDetails.country_name
   }
-  checkPlanIsExpired(): void {
+  checkplanExpire(): void {
     this.authService.getNewUserTimeLeft().subscribe((res) => {
       let data = res.time_left;
-      if (data.plan === "expired" || data.plan === 'subscription_expired') {
+      let subscription_exists_status = res.subscription_details;
+      if (data.plan === "expired" || data.plan === 'subscription_expired' || subscription_exists_status.subscription_plan=="Student") {
         this.planExpired = true;
       } else {
         this.planExpired = false;

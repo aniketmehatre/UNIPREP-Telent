@@ -11,7 +11,7 @@
 								class="questiontooltip fa-solid fa-circle-question"></i></h5>
 					</div>
 					<div>
-<!--						<button (click)="openVideoPopup(howItWorksVideo)" class="how-it-works-button">How it works?<i class="fa-solid fa-play d-md-block d-none"></i></button>-->
+						<button (click)="openVideoPopup(howItWorksVideo)" *ngIf="howItWorksVideo != 'not_required'" class="how-it-works-button">How it works?<i class="fa-solid fa-play d-md-block d-none"></i></button>
 					</div>
 				</div>
 			</div>

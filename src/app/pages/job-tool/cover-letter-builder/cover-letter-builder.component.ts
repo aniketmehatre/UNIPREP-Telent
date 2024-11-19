@@ -62,67 +62,57 @@ export class CoverLetterBuilderComponent implements OnInit {
     {
       id: 1,
       templateName: "Traditional",
-      imageLink: "./../../../uniprep-assets/coverletter-images/Traditional Cover Letter.webp",
+      imageLink: "./../../../uniprep-assets/coverletter-images/traditional.svg",
     },
     {
       id: 2,
       templateName: "Modern",
-      imageLink: "../../../../uniprep-assets/coverletter-images/Modren Cover Letter.webp",
+      imageLink: "../../../../uniprep-assets/coverletter-images/modern.svg",
     },
     {
       id: 3,
       templateName: "Academic",
-      imageLink: "../../../../uniprep-assets/coverletter-images/Academic Cover Letter.webp",
+      imageLink: "../../../../uniprep-assets/coverletter-images/academic.svg",
     },
     {
       id: 4,
       templateName: "Creative",
-      imageLink: "../../../../uniprep-assets/coverletter-images/Creative Cover Letter.webp",
+      imageLink: "../../../../uniprep-assets/coverletter-images/creative.svg",
     },
     {
       id: 5,
       templateName: "Functional",
-      imageLink: "../../../../uniprep-assets/coverletter-images/Functional Cover Letter.webp",
+      imageLink: "../../../../uniprep-assets/coverletter-images/functional.svg",
     },
     {
       id: 6,
       templateName: "Traditional",
-      imageLink: "./../../../uniprep-assets/coverletter-images/Traditional Cover Letter.webp",
+      imageLink: "./../../../uniprep-assets/coverletter-images/traditional.svg",
     },
     {
       id: 7,
       templateName: "Modern",
-      imageLink: "../../../../uniprep-assets/coverletter-images/Modren Cover Letter.webp",
+      imageLink: "../../../../uniprep-assets/coverletter-images/modern.svg",
     },
     {
       id: 8,
       templateName: "Academic",
-      imageLink: "../../../../uniprep-assets/coverletter-images/Academic Cover Letter.webp",
+      imageLink: "../../../../uniprep-assets/coverletter-images/academic.svg",
     },
     {
       id: 9,
       templateName: "Creative",
-      imageLink: "../../../../uniprep-assets/coverletter-images/Creative Cover Letter.webp",
+      imageLink: "../../../../uniprep-assets/coverletter-images/creative.svg",
     },
     {
       id: 10,
       templateName: "Functional",
-      imageLink: "../../../../uniprep-assets/coverletter-images/Functional Cover Letter.webp",
+      imageLink: "../../../../uniprep-assets/coverletter-images/functional.svg",
     },
   ];
   editorModules: any;
   swiper!: Swiper;
-  slideConfig = {
-    "slidesToShow": 3,
-    "slidesToScroll": 1,
-    "infinite": true,
-    "dots": false,
-    "centerMode": true,
-    "centerPadding": "0",
-    "variableWidth": true,
-    "focusOnSelect": true,
-    "initialSlide": 1
-  };
+
   constructor(private toaster: MessageService, private fb: FormBuilder, private resumeService: CourseListService,
               private locationService: LocationService, private http: HttpClient, private authService: AuthService,
               private router: Router,private confirmService: ConfirmationService, private cvBuilderService:CvBuilderService ){
@@ -173,7 +163,7 @@ export class CoverLetterBuilderComponent implements OnInit {
       {label: 'Letter Area'}
     ];
 
-    this.checkPlanIsExpired()
+    this.checkplanExpire()
     this.hideHeader();
     this.locationService.getImage().subscribe(imageUrl => {
       this.orglogowhitelabel = imageUrl;
@@ -183,9 +173,9 @@ export class CoverLetterBuilderComponent implements OnInit {
     });
     this.imagewhitlabeldomainname = window.location.hostname;
     if (this.imagewhitlabeldomainname === "dev-student.uniprep.ai" || this.imagewhitlabeldomainname === "uniprep.ai" || this.imagewhitlabeldomainname === "localhost") {
-      this.ehitlabelIsShow = false;
-    } else {
       this.ehitlabelIsShow = true;
+    } else {
+      this.ehitlabelIsShow = false;
     }
   }
 
@@ -521,17 +511,17 @@ export class CoverLetterBuilderComponent implements OnInit {
   //   })
   // }
 
-  checkPlanIsExpired(): void {
+  checkplanExpire(): void {
     this.authService.getNewUserTimeLeft().subscribe((res) => {
       let data = res.time_left;
-      if (data.plan === "expired" || data.plan === 'subscription_expired') {
+      let subscription_exists_status = res.subscription_details;
+      if (data.plan === "expired" || data.plan === 'subscription_expired' || subscription_exists_status.subscription_plan=="Student") {
         this.planExpired = true;
       } else {
         this.planExpired = false;
       }
     })
   }
-
   upgradePlan(): void {
     this.router.navigate(["/pages/subscriptions"]);
   }

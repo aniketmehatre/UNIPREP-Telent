@@ -245,7 +245,7 @@ export class CvBuilderComponent implements OnInit  {
       ]
     };
     // this.triggerAddMoreButton();
-    this.checkPlanIsExpired()
+    this.checkplanExpire()
     this.locationService.getImage().subscribe(imageUrl => {
       this.orglogowhitelabel = imageUrl;
     });
@@ -280,6 +280,18 @@ export class CvBuilderComponent implements OnInit  {
       this.yearsList.push({ year: i });
     }
     this.getOccupationList();
+    this.locationService.getImage().subscribe(imageUrl => {
+      this.orglogowhitelabel = imageUrl;
+    });
+    this.locationService.getOrgName().subscribe(orgname => {
+      this.orgnamewhitlabel = orgname;
+    });
+    this.imagewhitlabeldomainname = window.location.hostname;
+    if (this.imagewhitlabeldomainname === "dev-student.uniprep.ai" || this.imagewhitlabeldomainname === "uniprep.ai" || this.imagewhitlabeldomainname === "localhost") {
+      this.ehitlabelIsShow = true;
+    } else {
+      this.ehitlabelIsShow = false;
+    }
   }
 
   getLocationsList(){
@@ -1228,11 +1240,11 @@ export class CvBuilderComponent implements OnInit  {
       control.setValue('');
     }
   }
-
-  checkPlanIsExpired(): void {
+  checkplanExpire(): void {
     this.authService.getNewUserTimeLeft().subscribe((res) => {
       let data = res.time_left;
-      if (data.plan === "expired" || data.plan === 'subscription_expired') {
+      let subscription_exists_status = res.subscription_details;
+      if (data.plan === "expired" || data.plan === 'subscription_expired' || subscription_exists_status.subscription_plan=="Student") {
         this.planExpired = true;
       } else {
         this.planExpired = false;
