@@ -7,6 +7,7 @@ import {
   switchMap,
   distinctUntilChanged,
   catchError,
+  map 
 } from "rxjs/operators";
 import { Observable, of } from "rxjs";
 import { FormBuilder, FormGroup } from "@angular/forms";
