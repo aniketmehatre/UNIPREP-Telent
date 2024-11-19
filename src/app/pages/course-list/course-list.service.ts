@@ -23,7 +23,7 @@ export class CourseListService {
       course_list_id:courseId,
       user_id :user_id,
       updateFavourite:fav
-        }
+    }
     const headers = new HttpHeaders().set("Accept", "application/json");
     return this.http.post<any>(environment.ApiUrl + "/addcourselistfavourite", params, {
       headers: headers,

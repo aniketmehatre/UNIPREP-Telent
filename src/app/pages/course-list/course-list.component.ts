@@ -46,7 +46,6 @@ export class CourseListComponent implements OnInit {
   planExpired!: boolean;
   restrict: boolean = false;
   stayBackList:any = [];
-  favCount:number=0;
   PersonalInfo!: any;
   ehitlabelIsShow:boolean=true;
   imagewhitlabeldomainname:any;
@@ -138,7 +137,7 @@ export class CourseListComponent implements OnInit {
   }
   bookmarkQuestion(courseId: any, isFav: any) {
     isFav = isFav != '1' ? true : false;
-    this.favCount=isFav == true ? this.favCount+1 : this.favCount-1;
+    this.favCourseCount =isFav == true ? this.favCourseCount+1 : this.favCourseCount-1;
     this.courseList.bookmarkCourseData(courseId, this.PersonalInfo.user_id, isFav).subscribe((response) => {
       let courseListData = this.courseListData.find((item : any) => item.id == courseId);
       isFav == true ? courseListData.favourite = 1 : courseListData.favourite = null;
@@ -245,6 +244,7 @@ export class CourseListComponent implements OnInit {
     }
 
     this.courseList.getListOfCourses(data).subscribe(response => {
+      console.log(response.fav_count, "response.fav_count");
       this.courseListData = response.data;
       this.totalCourseCount = response.total_count;
       this.buyCreditsCount = response.credit_count;
@@ -408,6 +408,8 @@ export class CourseListComponent implements OnInit {
     }
 
     this.viewFavourites = !this.viewFavourites;
+    console.log(this.viewFavourites, "viewFavourites");
+    console.log(this.favCourseCount, "fav count");
     this.getCourseLists();
   }
 
