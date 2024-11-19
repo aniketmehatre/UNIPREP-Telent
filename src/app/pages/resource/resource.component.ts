@@ -27,7 +27,10 @@ export class ResourceComponent implements OnInit {
   planExpired!: boolean;
   restrict: boolean = false;
   showSkeleton: boolean = false;
-
+  ehitlabelIsShow: boolean = true;
+  imagewhitlabeldomainname: any
+  orgnamewhitlabel: any;
+  orglogowhitelabel: any;
   constructor(private fb: FormBuilder, private resourceService: ResourceService, private toast: MessageService,
               private locationService: LocationService,private authService: AuthService,private pageFacade:PageFacadeService,
     private router: Router) {
@@ -42,6 +45,18 @@ export class ResourceComponent implements OnInit {
   loopRange = Array.from({length: 20}).fill(0).map((_, index) => index);
 
   ngOnInit(): void {
+    this.locationService.getImage().subscribe(imageUrl => {
+      this.orglogowhitelabel = imageUrl;
+    });
+    this.locationService.getOrgName().subscribe(orgname => {
+      this.orgnamewhitlabel = orgname;
+    });
+    this.imagewhitlabeldomainname = window.location.hostname;
+    if (this.imagewhitlabeldomainname === "dev-student.uniprep.ai" || this.imagewhitlabeldomainname === "uniprep.ai" || this.imagewhitlabeldomainname === "localhost") {
+      this.ehitlabelIsShow = true;
+    } else {
+      this.ehitlabelIsShow = false;
+    }
     this.locationService.getCountry().subscribe((response) => {
       this.countries = response;
     });
