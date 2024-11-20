@@ -1,4 +1,3 @@
-import { map} from 'rxjs/operators';
 import { Component, OnInit } from "@angular/core";
 import { CareerGrowthService } from "./career-growth-checker.service";
 import { Router } from "@angular/router";
