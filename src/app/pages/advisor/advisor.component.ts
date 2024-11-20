@@ -37,6 +37,11 @@ userQuestion: any;
   ) { }
 
   ngOnInit(): void {
+    // if(this.userQuestion.length < 20 ){
+    //   this.smallquestion = true;
+    // }else{
+    //   this.smallquestion = false;
+    // }
     if(this.route.snapshot.paramMap.get('question') != null){
       this.userQuestion = this.route.snapshot.paramMap.get('question');
       }
@@ -53,12 +58,14 @@ userQuestion: any;
     ]
     this.responseType = "Ask AI Advisor"
     this.requestButton = "Ask an Expert!"
+    this.smallquestion = false;
+    // this.lengthCheck();
   }
   pquestion: any | null ;
 
   lengthCheck(){
     console.log(this.userQuestion.length);
-    if(this.userQuestion.length < 20 ){
+    if(this.userQuestion.length < 20 ||  this.userQuestion.length !== 0){
       this.smallquestion = true;
     }else{
       this.smallquestion = false;
