@@ -26,7 +26,7 @@
 					<!-- <img style="width:150px" src="../../../uniprep-assets/images/icon-light.svg"> -->
 					<p-carousel [value]="questions" [numVisible]="5" [numScroll]="1" [circular]="true" [showIndicators]="false">
 						<ng-template let-question pTemplate="item">
-							<div class="card h-100 mx-2" style="border: 1px solid var(--uniprep-secondary)">
+							<div class="card h-100 mx-2 mb-1" style="border: 1px solid var(--uniprep-secondary)">
 								<div class="card-body">
 									<i class="fa-regular fa-gears"></i>
 									<p style="cursor: pointer" (click)="triggerSample(question.question)">{{ question.question }}</p>
@@ -183,7 +183,7 @@
 					<input type="text" [(ngModel)]="userQuestion" (keyup)="lengthCheck()" pInputText placeholder="Please ask your question regarding abrod education , carrer or entruprenurship " />
 					<button type="button"  (click)="getAns()" class="btn btn-success btn-rounded"  pButton pRipple [disabled]="smallquestion"><i class="fa-solid fa-stars"></i> {{responseType}}</button>
 				</div>
-				<!-- <small>Sorry, I didn't quite understand that. Could you please rephrase or provide more details so I can assist you better?</small> -->
+				<small class="fw-semibold"	*ngIf="isQuestionEmpty" style="color:red">Please enter the question</small>
 			</div>
 		</div>
 	</div>
